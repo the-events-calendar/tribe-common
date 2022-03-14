@@ -31,7 +31,7 @@ class Upsell_Notice {
 		if ( empty( self::$template ) ) {
 			$this->template = new \Tribe__Template();
 			$this->template->set_template_origin( \Tribe__Main::instance() );
-			$this->template->set_template_folder( 'src/admin-views/upsell' );
+			$this->template->set_template_folder( 'src/admin-views/notices/upsell' );
 			$this->template->set_template_context_extract( true );
 			$this->template->set_template_folder_lookup( false );
 		}
@@ -68,13 +68,13 @@ class Upsell_Notice {
 	  */
 	public function render( $args, $echo = true ) {
 		// Check if upsell should be rendered.
-		if( ! $this->should_render() ) {
+		if ( ! $this->should_render() ) {
 			return;
 		}
+		
+		tribe( 'assets' )->enqueue( [ 'tec-admin-upsell' ] );
 
-		// Default args for the container. Modifier classes that can be used: 
-		//   'tec-admin__upsell--rounded-corners'
-		//   'tec-admin__upsell--rounded-corners-text'
+		// Default args for the container.
 		$args = wp_parse_args( $args, [
 			'classes'     => [],
 			'text'        => '',
@@ -83,9 +83,7 @@ class Upsell_Notice {
 			'link'    => [],
 		] );
 
-		// Default args for the link. Modifier classes that can be used: 
-		//   'tec-admin__upsell-link--dark'
-		//   'tec-admin__upsell-link--underlined'
+		// Default args for the link.
 		$args['link'] = wp_parse_args( $args['link'], [
 			'classes' => [],
 			'text'    => '',
@@ -95,6 +93,6 @@ class Upsell_Notice {
 		] );
 
 		$template = $this->get_template();
-		return $template->template( 'default', $args, $echo );
+		return $template->template( 'main', $args, $echo );
 	}
 }

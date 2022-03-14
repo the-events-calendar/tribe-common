@@ -28,27 +28,25 @@ if ( ! empty( $link ) && ! empty( $link['classes'] ) ) {
 }
 
 ?>
-<div <?php tribe_classes( $upsell_classes ); ?>>
-	<div class="tec-admin__upsell-content">
-		<div class="tec-admin__upsell-icon">
-			<img
-				class="tec-admin__upsell-icon-image"
-				src="<?php echo esc_url( $icon_url ); ?>"
-				alt="<?php esc_attr_e( 'The Events Calendar important notice icon', 'tribe-common' ); ?>"
-			/>
-		</div>
-		<div class="tec-admin__upsell-text-wrap">
-			<span class="tec-admin__upsell-text">
-				<?php echo esc_html( $text ); ?>
-			</span>
-			<a 
-				<?php tribe_classes( $link_classes ); ?> 
-				href="<?php echo esc_url( $link['url'] ); ?>" 
-				rel="<?php echo esc_attr( $link['rel'] ); ?>"
-				target="<?php echo esc_attr( $link['target'] ); ?>"
-			>
-				<?php echo esc_html( $link['text'] ); ?>
-			</a>
+<div class="tribe-common">
+	<div <?php tribe_classes( $upsell_classes ); ?>>
+		<div class="tec-admin__upsell-content">
+			<div class="tec-admin__upsell-icon">
+				<?php $this->template( 'icon' ); ?>
+			</div>
+			<div class="tec-admin__upsell-text-wrap">
+				<span class="tec-admin__upsell-text">
+					<?php echo esc_html( $text ); ?>
+				</span>
+				<a 
+					<?php tribe_classes( $link_classes ); ?> 
+					href="<?php echo esc_url( $link['url'] ); ?>" 
+					rel="<?php echo esc_attr( $link['rel'] ); ?>"
+					target="<?php echo esc_attr( $link['target'] ); ?>"
+				>
+					<?php echo esc_html( $link['text'] ); ?>
+				</a>
+			</div>
 		</div>
 	</div>
 </div>
