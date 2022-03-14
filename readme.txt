@@ -1,5 +1,14 @@
 == Changelog ==
 
+= [4.14.15] 2022-03-01 =
+
+* Tweak - Update version of Freemius to 2.4.3.
+
+= [4.14.14] 2022-02-24 =
+
+* Feature - The PUE Checker now stores a transient with the status of the last license key check.
+* Language - 0 new strings added, 49 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.14.13] 2022-02-15 =
 
 * Tweak - Prevent scripts from loading on all Admin pages, only load on pages needed.
@@ -11,7 +20,7 @@
 * Fix - Remove incorrect reference for moment.min.js.map [TEC-4148]
 * Fix - Fixed troubleshooting page styles for standalone Event Tickets setup [ET-1382]
 * Fix - Remove singleton created from a deprecated class.
-* Language - 0 new strings added, 38 updated, 1 fuzzied, and 0 obsoleted
+* Language - 0 new strings added, 38 updated, 1 fuzzied, and 0 obsoleted\
 
 = [4.14.12] 2022-01-17 =
 
