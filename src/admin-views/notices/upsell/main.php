@@ -3,9 +3,10 @@
  * Upsell Template
  * The base template for TEC Upsell notices.
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe/upsell/upsell.php
  *
  * @since TBD
+ * 
+ * @version TBD
  *
  * @var string        $text      Text of upsell content (excluding link text).
  * @var string        $link_text Link text.
@@ -14,7 +15,6 @@
  * @var array<string> $classes   Additional classes to add to the upsell div.
  * @var array<string> $link      Array of link properties, including 'text', 'url', 'rel', 'target' and 'classes'.
  * 
- * @version TBD
  */
 
 $upsell_classes = [ 'tec-admin__upsell' ];

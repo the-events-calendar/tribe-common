@@ -1,15 +1,14 @@
 <?php
 /**
- * Upsell Template
- * The base template for TEC Upsell notices.
- *
- * Override this template in your own theme by creating a file at [your-theme]/tribe/upsell/upsell.php
+ * Upsell Icon Template
+ * The icon template for TEC Upsell notices.
  *
  * @since TBD
+ * 
+ * @version TBD
  *
  * @var string        $icon_url  URL to icon.
  * 
- * @version TBD
  */
 
 ?>
