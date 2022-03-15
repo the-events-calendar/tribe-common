@@ -3,7 +3,7 @@
 /**
  * Determines if upsells should be hidden.
  *
- * @since TBD
+ * @since 4.14.16
  *
  * @param string $slug Which upsell is this conditional for, if nothing passed it will apply to all.
  *
@@ -57,7 +57,7 @@ function tec_should_hide_upsell( string $slug = 'all' ): bool {
 	/**
 	 * Allows filtering of the Upsells for anything using Common.
 	 *
-	 * @since TBD
+	 * @since 4.14.16
 	 *
 	 * @param bool|string $hide Determines if Upsells are hidden.
 	 * @param bool|string $slug Which slug we are testing against.
@@ -67,7 +67,7 @@ function tec_should_hide_upsell( string $slug = 'all' ): bool {
 	/**
 	 * Allows filtering of the Upsells for anything using Common, for one specific slug.
 	 *
-	 * @since TBD
+	 * @since 4.14.16
 	 *
 	 * @param bool|string $hide Determines if Upsells are hidden.
 	 * @param bool|string $slug Which slug we are testing against.
