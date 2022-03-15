@@ -31,9 +31,7 @@ if ( ! empty( $link ) && ! empty( $link['classes'] ) ) {
 <div class="tribe-common">
 	<div <?php tribe_classes( $upsell_classes ); ?>>
 		<div class="tec-admin__upsell-content">
-			<div class="tec-admin__upsell-icon">
-				<?php $this->template( 'icon' ); ?>
-			</div>
+			<?php $this->template( 'icon' ); ?>
 			<div class="tec-admin__upsell-text-wrap">
 				<span class="tec-admin__upsell-text">
 					<?php echo wp_kses_post( $text ); ?>
