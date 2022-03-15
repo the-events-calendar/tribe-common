@@ -1,8 +1,10 @@
 == Changelog ==
 
-= [4.14.16] yyy-mm-dd =
+= [4.14.16] 2022-03-15 =
 
 * Fix - Modify logic of `filter_modify_to_module` so that we can safely set as module those assets that are loaded in themes without support for `html5`, `scripts`. [ET-1447]
+* Fix - Ensure our full common variables file requires the skeleton variables. [TEC-4308]
+* Fix - Correct Troubleshooting Menu Item label in Admin Bar. [TEC-4310]
 
 = [4.14.15] 2022-03-01 =
 

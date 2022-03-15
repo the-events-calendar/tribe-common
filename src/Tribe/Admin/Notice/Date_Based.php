@@ -136,7 +136,7 @@ abstract class Date_Based {
 	 */
 	public function should_display() {
 		// If upsells have been manually hidden, respect that.
-		if ( defined( 'TRIBE_HIDE_UPSELL' ) && TRIBE_HIDE_UPSELL ) {
+		if ( tec_should_hide_upsell() ) {
 			return false;
 		}
 
