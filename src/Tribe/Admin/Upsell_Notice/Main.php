@@ -72,8 +72,6 @@ class Main {
 		if ( ! $this->should_render() ) {
 			return;
 		}
-		
-		tribe( 'assets' )->enqueue( [ 'tec-admin-upsell' ] );
 
 		// Default args for the container.
 		$args = wp_parse_args( $args, [
