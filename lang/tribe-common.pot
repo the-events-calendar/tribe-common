@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.14.14\n"
+"Project-Id-Version: Tribe Common 4.14.16\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2022-02-23 17:47:45+00:00\n"
+"POT-Creation-Date: 2022-03-15 18:48:04+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-02-23 17:47\n"
+"PO-Revision-Date: 2022-03-15 18:48\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -58,7 +58,7 @@ msgctxt "Error status label for system info optin"
 msgid "Status:"
 msgstr ""
 
-#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.14.14)  #-#-#-#-#
+#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.14.16)  #-#-#-#-#
 #. Author of the plugin/theme
 #: src/Tribe/Admin/Help_Page.php:82 src/Tribe/Customizer.php:666
 #: src/Tribe/Plugins_API.php:25 src/admin-views/help-calendar.php:97
@@ -463,13 +463,9 @@ msgstr ""
 
 #: src/Tribe/Admin/Troubleshooting.php:65
 #: src/Tribe/Admin/Troubleshooting.php:66
+#: src/Tribe/Admin/Troubleshooting.php:123
 #: src/admin-views/troubleshooting/introduction.php:21
 msgid "Troubleshooting"
-msgstr ""
-
-#: src/Tribe/Admin/Troubleshooting.php:123 src/Tribe/App_Shop.php:50
-#: src/Tribe/App_Shop.php:51 src/Tribe/App_Shop.php:82
-msgid "Event Add-Ons"
 msgstr ""
 
 #: src/Tribe/Admin/Troubleshooting.php:270
@@ -584,6 +580,11 @@ msgstr ""
 
 #: src/Tribe/Ajax/Dropdown.php:336
 msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
+msgstr ""
+
+#: src/Tribe/App_Shop.php:50 src/Tribe/App_Shop.php:51
+#: src/Tribe/App_Shop.php:82
+msgid "Event Add-Ons"
 msgstr ""
 
 #: src/Tribe/App_Shop.php:175
@@ -2239,87 +2240,87 @@ msgstr ""
 msgid "Full debug (all events)"
 msgstr ""
 
-#: src/Tribe/Main.php:335
+#: src/Tribe/Main.php:336
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:336
+#: src/Tribe/Main.php:337
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:338
+#: src/Tribe/Main.php:339
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:339
+#: src/Tribe/Main.php:340
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:340
+#: src/Tribe/Main.php:341
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:341
+#: src/Tribe/Main.php:342
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:342
+#: src/Tribe/Main.php:343
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:343
+#: src/Tribe/Main.php:344
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:344
+#: src/Tribe/Main.php:345
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:345
+#: src/Tribe/Main.php:346
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:346
+#: src/Tribe/Main.php:347
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:347
+#: src/Tribe/Main.php:348
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:349
+#: src/Tribe/Main.php:350
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:350 src/Tribe/Main.php:367
+#: src/Tribe/Main.php:351 src/Tribe/Main.php:368
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:351
+#: src/Tribe/Main.php:352
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:356
+#: src/Tribe/Main.php:357
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:357
+#: src/Tribe/Main.php:358
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:368
+#: src/Tribe/Main.php:369
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:369 src/Tribe/Main.php:371
+#: src/Tribe/Main.php:370 src/Tribe/Main.php:372
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:370
+#: src/Tribe/Main.php:371
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:372
+#: src/Tribe/Main.php:373
 msgid "Clear"
 msgstr ""
 
