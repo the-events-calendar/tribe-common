@@ -59,7 +59,6 @@ class Troubleshooting {
 	 */
 	public function add_menu_page() {
 		// @todo @juanfra: Move this to the plugins and deprecate.
-		_deprecated_function( __METHOD__, 'TBD' );
 
 		if ( ! Tribe__Settings::instance()->should_setup_pages() ) {
 			return;

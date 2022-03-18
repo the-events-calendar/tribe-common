@@ -112,12 +112,6 @@ class Pages {
 	 * @return array|boolean Current page or false if not registered with this controller.
 	 */
 	public function get_current_page() {
-		// If 'current_screen' hasn't fired yet, the current page calculation
-		// will fail which causes `false` to be returned for all subsquent calls.
-		if ( ! did_action( 'current_screen' ) ) {
-			_doing_it_wrong( __FUNCTION__, esc_html__( 'Current page retrieval should be called on or after the `current_screen` hook.', 'tribe-common' ), 'TBD' );
-		}
-
 		if ( is_null( $this->current_page ) ) {
 			$this->determine_current_page();
 		}
@@ -140,11 +134,7 @@ class Pages {
 			return $this->current_page;
 		}
 
-		global $_parent_pages;
-		$parent         = array_key_exists( $slug, $_parent_pages ) ? $_parent_pages[ $slug ] : '';
-		$parent_prefix  = get_plugin_page_hookname( $slug, $parent );
-
-		$this->current_page = str_replace( $parent_prefix, '', $current_screen->id );
+		$this->current_page = $current_screen->id;
 
 		return $this->current_page;
 	}
