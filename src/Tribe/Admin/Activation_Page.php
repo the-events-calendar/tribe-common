@@ -241,11 +241,9 @@ class Tribe__Admin__Activation_Page {
 	 */
 	protected function get_message_page_url( $slug ) {
 		$settings = Tribe__Settings::instance();
-		// Get the base settings page url.
-		$url = apply_filters(
-			'tribe_settings_url',
-			add_query_arg( 'page', $settings->adminSlug, admin_url( 'edit.php' ) )
-		);
+
+		$url = ! empty( $this->args['admin_page'] ) ? $this->args['admin_page'] : $settings->get_url();
+
 		$url = esc_url_raw( add_query_arg( $slug, 1, $url ) );
 
 		return $url;
