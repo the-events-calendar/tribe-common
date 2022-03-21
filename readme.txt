@@ -2,7 +2,7 @@
 
 = [TBD] TBD =
 
-* Feature - New customizable upsell element to offer upgrades, additions and services that are available.
+* Feature - New customizable upsell element to offer upgrades, additions and services that are available. [ET-1351]
 
 = [4.14.16] 2022-03-15 =
 
