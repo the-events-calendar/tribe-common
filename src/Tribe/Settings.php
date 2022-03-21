@@ -163,7 +163,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 */
 		protected $root_plugins = [
 			'the-events-calendar/the-events-calendar.php',
-			'event-tickets/event-ticket.php',
+			'event-tickets/event-tickets.php',
 		];
 
 		/**
