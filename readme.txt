@@ -2,6 +2,7 @@
 
 = [TBD] TBD =
 
+* Fix - Updated Dropdown functionality to work with PHP8, thanks @huubl. [CE-141]
 * Feature - New customizable upsell element to offer upgrades, additions and services that are available. [ET-1351]
 
 = [4.14.16] 2022-03-15 =
@@ -62,7 +63,7 @@
 * Feature - Adding Onboarding functionality, featuring `Tours` and `Hints`.
 * Tweak - Added the `tribe_repository_{$filter_name}_pre_first_post`, `tribe_repository_{$filter_name}_pre_last_post`, and `tribe_repository_{$filter_name}_pre_get_ids_for_posts` actions. (Props to @sc0ttkclark)
 * Language - 10 new strings added, 3 updated, 1 fuzzied, and 0 obsoleted
-w
+
 = [4.16.7] 2021-11-04 =
 
 * Feature - Added Black Friday promo to the General Settings panel. [TCMN-127]
