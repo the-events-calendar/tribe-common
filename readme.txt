@@ -3,6 +3,7 @@
 = [TBD] TBD =
 
 * Fix - Updated Dropdown functionality to work with PHP8, thanks @huubl. [CE-141]
+* Feature - New customizable upsell element to offer upgrades, additions and services that are available. [ET-1351]
 
 = [4.14.16] 2022-03-15 =
 
