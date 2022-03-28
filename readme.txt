@@ -4,7 +4,12 @@
 
 * Fix - avoid fatal errors when transient notices are registered from inactive plugins
 
-= [TBD] TBD =
+= [4.14.16] 2022-03-15 =
+
+* Fix - Modify logic of `filter_modify_to_module` so that we can safely set as module those assets that are loaded in themes without support for `html5`, `scripts`. [ET-1447]
+* Fix - Ensure our full common variables file requires the skeleton variables. [TEC-4308]
+* Fix - Correct Troubleshooting Menu Item label in Admin Bar. [TEC-4310]
+* Language - 0 new strings added, 24 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.14.15] 2022-03-01 =
 
