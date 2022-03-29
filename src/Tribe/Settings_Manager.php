@@ -227,8 +227,11 @@ class Tribe__Settings_Manager {
 			return;
 		}
 
-		if ( $apply_filters == true ) {
-			$options = apply_filters( 'tribe-events-save-network-options', $options );
+		$admin_pages = tribe( 'admin.pages' );
+		$admin_page  = $admin_pages->get_current_page();
+
+		if ( true === $apply_filters ) {
+			$options = apply_filters( 'tribe-events-save-network-options', $options, $admin_page );
 		}
 
 		if ( update_site_option( Tribe__Main::OPTIONNAMENETWORK, $options ) ) {
