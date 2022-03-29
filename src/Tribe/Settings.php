@@ -393,6 +393,14 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				$this->menuName
 			);
 
+			/**
+			 * Filter the tribe settings page title.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $page_title The settings page title.
+			 * @param string $admin_page The admin page ID.
+			 */
 			return apply_filters( 'tribe_settings_page_title', $page_title, $admin_page );
 		}
 
