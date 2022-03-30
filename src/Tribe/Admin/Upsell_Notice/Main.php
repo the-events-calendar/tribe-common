@@ -3,7 +3,7 @@
 /**
  * Upsell notice class.
  *
- * @since TBD
+ * @since 4.14.17
  *
  * @package Tribe\Admin\Upsell_Notice
  */
@@ -15,7 +15,7 @@ class Main {
 	/**
 	 * Stores the instance of the template engine that we will use for rendering the page.
 	 *
-	 * @since TBD
+	 * @since 4.14.17
 	 *
 	 * @var Tribe__Template
 	 */
@@ -24,7 +24,7 @@ class Main {
 	/**
 	 * Get template object.
 	 *
-	 * @since TBD
+	 * @since 4.14.17
 	 *
 	 * @return \Tribe__Template
 	 */
@@ -43,7 +43,7 @@ class Main {
 	/**
 	 * Checks if upsell should be rendered.
 	 * 
-	 * @since TBD
+	 * @since 4.14.17
 	 *
 	 * @return boolean
 	 */
@@ -60,7 +60,7 @@ class Main {
 	 /**
 	  * Render upsell notice.
 	  * 
-	  * @since TBD
+	  * @since 4.14.17
 	  *
 	  * @param array  $args Array of arguments that will ultimately be sent to the template.
 	  * @param bool   $echo Whether or not to echo the HTML. Defaults to true.

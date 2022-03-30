@@ -4,9 +4,9 @@
  * The base template for TEC Upsell notices.
  *
  *
- * @since TBD
+ * @since 4.14.17
  * 
- * @version TBD
+ * @version 4.14.17
  *
  * @var string        $text      Text of upsell content (excluding link text).
  * @var string        $link_text Link text.

@@ -3,9 +3,9 @@
  * Upsell Icon Template
  * The icon template for TEC Upsell notices.
  *
- * @since TBD
+ * @since 4.14.17
  * 
- * @version TBD
+ * @version 4.14.17
  *
  * @var string        $icon_url  URL to icon.
  * 
