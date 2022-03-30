@@ -3,6 +3,7 @@
 = [RBE] RBE = Switch this to TBD once we're close to release.
 
 * Fix - avoid fatal errors when transient notices are registered from inactive plugins
+* Feat - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
 
 = [4.14.16] 2022-03-15 =
 
