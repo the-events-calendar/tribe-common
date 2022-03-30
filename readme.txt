@@ -1,10 +1,11 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [4.1.17] 2022-04-05 =
 
-* Fix - Updated Dropdown functionality to work with PHP8, thanks @huubl. [CE-141]
 * Feature - New customizable upsell element to offer upgrades, additions and services that are available. [ET-1351]
+* Fix - Updated Dropdown functionality to work with PHP8, thanks @huubl. [CE-141]
 * Tweak - Changed the wording to include upgrading required plugins to reduce confusion. [TCMN-132]
+* Language - 2 new strings added, 1 updated, 1 fuzzied, and 1 obsoleted
 
 = [4.14.16] 2022-03-15 =
 
