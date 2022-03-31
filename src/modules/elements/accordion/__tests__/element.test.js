@@ -1,14 +1,12 @@
 /**
  * External dependencies
  */
-import React from 'react';
-import renderer from 'react-test-renderer';
 import { noop } from 'lodash';
 
 /**
  * Internal dependencies
  */
-import { Accordion } from '@moderntribe/common/elements';
+import Accordion from '../element';
 
 let rows;
 

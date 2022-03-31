@@ -105,7 +105,10 @@ class Tribe__Admin__Notices {
 			'tribe-notice-dismiss',
 			'notice-dismiss.js',
 			[ 'jquery' ],
-			'admin_enqueue_scripts'
+			null,
+			[
+				'groups' => 'tec-admin-notices',
+			]
 		);
 	}
 
@@ -137,10 +140,10 @@ class Tribe__Admin__Notices {
 	}
 
 	/**
-	 * This will allow the user to Dimiss the Notice using JS.
+	 * This will allow the user to Dismiss the Notice using JS.
 	 *
 	 * We will dismiss the notice without checking to see if the slug was already
-	 * registered (via a call to exists()) for the reason that, during a dismiss
+	 * registered (via a call to exists()) for the reason that, during dismissal
 	 * ajax request, some valid notices may not have been registered yet.
 	 *
 	 * @since 4.3
@@ -152,7 +155,7 @@ class Tribe__Admin__Notices {
 			wp_send_json( false );
 		}
 
-		$slug = sanitize_title_with_dashes( $_GET[ self::$meta_key ] );
+		$slug = sanitize_key( $_GET[ self::$meta_key ] );
 
 		// Send a JSON answer with the status of dismissal
 		wp_send_json( $this->dismiss( $slug ) );
@@ -191,6 +194,8 @@ class Tribe__Admin__Notices {
 			if ( is_callable( $content ) ) {
 				$content = call_user_func_array( $content, [ $notice ] );
 			}
+
+			tribe_asset_enqueue_group( 'tec-admin-notices' );
 
 			// Return the rendered HTML
 			return $this->render( $slug, $content, false, $wrap );
@@ -246,6 +251,7 @@ class Tribe__Admin__Notices {
 		}
 
 		$html = sprintf( '<div class="%s" data-ref="%s">%s</div>', implode( ' ', $classes ), $notice->slug, $content );
+		tribe_asset_enqueue_group( 'tec-admin-notices' );
 
 		if ( ! $return ) {
 			echo $html;
@@ -514,7 +520,7 @@ class Tribe__Admin__Notices {
 	 */
 	public function register( $slug, $callback, $arguments = [], $active_callback = null ) {
 		// Prevent weird stuff here
-		$slug = sanitize_title_with_dashes( $slug );
+		$slug = sanitize_key( $slug );
 
 		$defaults = [
 			'callback'           => null,
@@ -619,12 +625,12 @@ class Tribe__Admin__Notices {
 	 * @return array|null
 	 */
 	public function get( $slug = null ) {
-		// Prevent weird stuff here
-		$slug = sanitize_title_with_dashes( $slug );
-
 		if ( is_null( $slug ) ) {
 			return $this->notices;
 		}
+
+		// Prevent weird stuff here
+		$slug = sanitize_key( $slug );
 
 		if ( ! empty( $this->notices[ $slug ] ) ) {
 			return $this->notices[ $slug ];

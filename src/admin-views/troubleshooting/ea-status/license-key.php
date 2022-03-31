@@ -10,6 +10,10 @@ $message   = '&nbsp;';
 $ea_active = false;
 $notes     = '&nbsp;';
 
+if ( ! tribe()->offsetExists( 'events-aggregator.main' ) ) {
+	return;
+};
+
 if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 	$icon      = 'success';
 	$message   = __( 'Your license is valid', 'tribe-common' );

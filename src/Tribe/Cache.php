@@ -380,6 +380,7 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 * @return boolean Whether the offset exists in the cache.
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetExists( $offset ) {
 		return isset( $this->non_persistent_keys[ $offset ] );
 	}
@@ -395,6 +396,7 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 * @return mixed Can return all value types.
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetGet( $offset ) {
 		return $this->get( $offset );
 	}
@@ -411,6 +413,7 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 * @return void
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetSet( $offset, $value ) {
 		$this->set( $offset, $value, self::NON_PERSISTENT );
 	}
@@ -426,8 +429,24 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 * @return void
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetUnset( $offset ) {
 		$this->delete( $offset );
+	}
+
+	/**
+	 * Removes a group of the cache, for now only `non_persistent` is supported.
+	 *
+	 * @since 4.14.13
+	 *
+	 * @return bool
+	 */
+	public function reset( $group = 'non_persistent' ) {
+		if ( 'non_persistent' !== $group ) {
+			return false;
+		}
+		$this->non_persistent_keys = [];
+		return true;
 	}
 
 	/**

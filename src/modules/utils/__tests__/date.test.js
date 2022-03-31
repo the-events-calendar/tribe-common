@@ -14,6 +14,10 @@ const {
 	labelToDate,
 } = date;
 
+jest.mock( '@moderntribe/common/utils/globals', () => ( {
+	dateSettings: () => {},
+} ) );
+
 jest.mock( '@moderntribe/common/utils/timezone', () => ( {
 	getItems: () => [
 		{
@@ -36,6 +40,7 @@ jest.mock( '@moderntribe/common/utils/timezone', () => ( {
 } ) );
 
 afterAll( () => {
+	jest.unmock( '@moderntribe/common/utils/globals' );
 	jest.unmock( '@moderntribe/common/utils/timezone' );
 } );
 

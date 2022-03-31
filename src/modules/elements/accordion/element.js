@@ -8,7 +8,7 @@ import classNames from 'classnames';
 /**
  * Internal dependencies
  */
-import Row from './row/template';
+import Row from './row';
 import './style.pcss';
 
 const Accordion = ( {

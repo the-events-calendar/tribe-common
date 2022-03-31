@@ -69,6 +69,23 @@ if ( ! function_exists( 'tribe_update_option' ) ) {
 	}
 }//end if
 
+if ( ! function_exists( 'tribe_remove_option' ) ) {
+	/**
+	 * Update Option
+	 *
+	 * Remove specific key from options array
+	 *
+	 * @category Events
+	 * @param string $optionName Name of the option to retrieve.
+	 * @param string $value      Value to save
+	 *
+	 * @return bool
+	 */
+	function tribe_remove_option( $optionName ) {
+		return Tribe__Settings_Manager::remove_option( $optionName );
+	}
+}//end if
+
 if ( ! function_exists( 'tribe_get_network_option' ) ) {
 	/**
 	 * Get Network Options
@@ -101,6 +118,19 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 	 * @return string
 	 **/
 	function tribe_resource_url( $resource, $echo = false, $root_dir = null, $origin = null ) {
+		static $_plugin_url = [];
+
+		if ( is_object( $origin ) ) {
+			$plugin_path = ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath;
+		} else {
+			$plugin_path = dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) );
+		}
+
+		if ( ! isset( $_plugin_url[ $plugin_path ] ) ) {
+			$_plugin_url[ $plugin_path ] = trailingslashit( plugins_url( basename( $plugin_path ), $plugin_path ) );
+		}
+		$plugin_base_url = $_plugin_url[ $plugin_path ];
+
 		$extension = pathinfo( $resource, PATHINFO_EXTENSION );
 		$resource_path = $root_dir;
 
@@ -108,13 +138,13 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 			$resources_path = 'src/resources/';
 			switch ( $extension ) {
 				case 'css':
-					$resource_path = $resources_path .'css/';
+					$resource_path = $resources_path . 'css/';
 					break;
 				case 'js':
-					$resource_path = $resources_path .'js/';
+					$resource_path = $resources_path . 'js/';
 					break;
 				case 'scss':
-					$resource_path = $resources_path .'scss/';
+					$resource_path = $resources_path . 'scss/';
 					break;
 				default:
 					$resource_path = $resources_path;
@@ -122,18 +152,7 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 			}
 		}
 
-		$path = $resource_path . $resource;
-
-		if ( is_object( $origin ) ) {
-			$plugin_path = trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath );
-		} else {
-			$plugin_path = trailingslashit( dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) );
-		}
-
-		$file = wp_normalize_path( $plugin_path . $path );
-
-		// Turn the Path into a URL
-		$url = plugins_url( basename( $file ), $file );
+		$url = $plugin_base_url . $resource_path . $resource;
 
 		/**
 		 * Filters the resource URL
@@ -520,7 +539,15 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 			? $cost . $currency_symbol
 			: $currency_symbol . $cost;
 
-		return $cost;
+		/**
+		 * Filter the entire formatted string returned.
+		 *
+		 * @since 4.14.9
+		 *
+		 * @param string $cost
+		 * @param int $post_id
+		 */
+		return apply_filters( 'tribe_currency_formatted', $cost, $post_id );
 	}
 }//end if
 
