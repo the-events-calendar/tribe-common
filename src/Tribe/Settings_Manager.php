@@ -347,12 +347,6 @@ class Tribe__Settings_Manager {
 
 		$network_options = (array) get_site_option( Tribe__Main::OPTIONNAMENETWORK );
 
-		if ( isset( $_POST['hideSettingsTabs'] ) && $_POST['hideSettingsTabs'] == $all_tabs_keys ) {
-			$network_options['allSettingsTabsHidden'] = '1';
-		} else {
-			$network_options['allSettingsTabsHidden'] = '0';
-		}
-
 		$this->set_network_options( $network_options );
 	}
 
