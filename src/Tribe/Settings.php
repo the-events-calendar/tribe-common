@@ -322,30 +322,15 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 
 			if ( is_network_admin() ) {
 				$this->defaultTab = apply_filters( 'tribe_settings_default_tab_network', 'network', $admin_page );
-				$current_tab = ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->defaultTab;
+				$current_tab      = ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->defaultTab;
 				$this->currentTab = apply_filters( 'tribe_settings_current_tab', $current_tab, $admin_page );
-				$this->url        = apply_filters(
-					'tribe_settings_url', add_query_arg(
-						[
-							'page' => $this->adminSlug,
-							'tab'  => $this->currentTab,
-						], network_admin_url( 'settings.php' )
-					)
-				);
+				$this->url        = $this->get_tab_url( $this->currentTab );
 			} else {
 				$tabs_keys        = array_keys( $this->tabs );
 				$default_tab      = apply_filters( 'tribe_settings_default_tab', 'general', $admin_page );
 				$this->defaultTab = in_array( $default_tab, $tabs_keys ) ? $default_tab : $tabs_keys[0];
 				$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->defaultTab );
-				$this->url        = apply_filters(
-					'tribe_settings_url', add_query_arg(
-						[
-							'page' => $this->adminSlug,
-							'tab'  => $this->currentTab,
-						],
-						admin_url( self::$parent_page )
-					)
-				);
+				$this->url        = $this->get_tab_url( $this->currentTab );
 			}
 
 			$this->fields_for_save = (array) apply_filters( 'tribe_settings_fields', [], $admin_page );
