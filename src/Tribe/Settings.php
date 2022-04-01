@@ -216,8 +216,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 */
 		public function hook() {
 			// Run actions & filters.
-			add_action( 'admin_menu', [ $this, 'addPage' ] );
-			add_action( 'network_admin_menu', [ $this, 'addNetworkPage' ] );
 			add_action( 'admin_init', [ $this, 'initTabs' ] );
 			add_action( 'tribe_settings_below_tabs', [ $this, 'displayErrors' ] );
 			add_action( 'tribe_settings_below_tabs', [ $this, 'displaySuccess' ] );
