@@ -28,7 +28,6 @@ class Tribe__Settings_Manager {
 
 		add_action( 'admin_menu', [ $this, 'add_help_admin_menu_item' ], 50 );
 		add_action( 'tribe_settings_do_tabs', [ $this, 'do_setting_tabs' ] );
-		add_action( 'tribe_settings_do_tabs', [ $this, 'do_network_settings_tab' ], 400 );
 		add_action( 'tribe_settings_validate_tab_network', [ $this, 'save_all_tabs_hidden' ] );
 		add_action( 'updated_option', [ $this, 'update_options_cache' ], 10, 3 );
 	}
@@ -71,8 +70,6 @@ class Tribe__Settings_Manager {
 	public function do_setting_tabs() {
 		// Make sure Thickbox is available regardless of which admin page we're on
 		add_thickbox();
-
-		// @todo @juanfra: Deprecate this.
 
 		$this->do_licenses_tab();
 	}
@@ -247,8 +244,7 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public static function add_network_options_page() {
-		// @todo @juanfra: deprecate this.
-		return;
+		_deprecated_function( __METHOD__, 'TBD' );
 	}
 
 	/**
@@ -257,7 +253,7 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public static function do_network_settings_tab() {
-		// @todo @juanfra: deprecate this.
+		_deprecated_function( __METHOD__, 'TBD' );
 	}
 
 	/**

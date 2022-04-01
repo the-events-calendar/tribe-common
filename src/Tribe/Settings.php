@@ -274,8 +274,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				return;
 			}
 
-			// @todo @juanfra: centralize the tabs url logic.
-
 			// Load settings tab-specific helpers and enhancements.
 			Tribe__Admin__Live_Date_Preview::instance();
 
@@ -311,14 +309,17 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 *
 		 * @return string The current settings page URL.
 		 */
-		public function get_settings_page_url() {
-			$admin_pages  = tribe( 'admin.pages' );
-			$page         = $admin_pages->get_current_page();
-			$tab          = $_GET['tab'];
-			$args         = [
+		public function get_settings_page_url( array $args = [] ) {
+			$admin_pages = tribe( 'admin.pages' );
+			$page        = $admin_pages->get_current_page();
+			$tab         = $_GET['tab'];
+			$defaults    = [
 				'page' => $page,
 				'tab'  => $tab,
 			];
+
+			// Allow the link to be "changed" on the fly.
+			$args = wp_parse_args( $args, $defaults );
 
 			$url = add_query_arg(
 				$args,
@@ -440,10 +441,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				],
 				$wp_page
 			);
-
-			if ( is_network_admin() ) {
-				return $url;
-			}
 
 			$url = apply_filters( 'tec_settings_tab_url', $url, $admin_page, $tab );
 
