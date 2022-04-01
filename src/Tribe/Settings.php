@@ -260,7 +260,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * @return void
 		 */
 		public function addNetworkPage() {
-			// @todo @juanfra: deprecate this one.
+			_deprecated_function( __METHOD__, 'TBD' );
 		}
 
 		/**
