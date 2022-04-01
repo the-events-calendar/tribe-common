@@ -251,40 +251,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * @return void
 		 */
 		public function addPage() {
-
-			// @todo @juanfra: Deprecate this, moving to plugins.
-			return;
-
-			if ( ! $this->should_setup_pages() ) {
-				return;
-			}
-
-			if ( ! is_multisite() || ( is_multisite() && '0' == Tribe__Settings_Manager::get_network_option( 'allSettingsTabsHidden', '0' ) ) ) {
-				if ( post_type_exists( 'tribe_events' ) ) {
-					self::$parent_page = 'edit.php?post_type=tribe_events';
-				} else {
-					self::$parent_page = 'admin.php?page=tribe-common';
-
-					add_menu_page(
-						esc_html__( 'Events', 'tribe-common' ),
-						esc_html__( 'Events', 'tribe-common' ),
-						AdminPages::get_capability(),
-						self::$parent_slug,
-						null,
-						'dashicons-calendar',
-						6
-					);
-				}
-
-				$this->admin_page = add_submenu_page(
-					$this->get_parent_slug(),
-					esc_html__( 'Events Settings', 'tribe-common' ),
-					esc_html__( 'Settings', 'tribe-common' ),
-					$this->requiredCap,
-					self::$parent_slug,
-					[ $this, 'generatePage' ]
-				);
-			}
+			_deprecated_function( __METHOD__, 'TBD' );
 		}
 
 		/**
