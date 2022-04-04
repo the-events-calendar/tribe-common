@@ -57,7 +57,15 @@ class Tribe__Admin__Help_Page {
 	 * @return bool
 	 */
 	public function is_current_page() {
-		return Tribe__Admin__Helpers::instance()->is_screen( 'tribe_events_page_tec-events-help' ) || Tribe__Admin__Helpers::instance()->is_screen( 'tickets_page_tec-tickets-help' );
+		global $current_screen;
+
+		// @todo: Make this filterable and add it from plugins.
+		$help_pages = [
+			'tribe_events_page_tec-events-help',
+			'tickets_page_tec-tickets-help',
+		];
+
+		return in_array( $current_screen->id, $help_pages );
 	}
 
 	/**
