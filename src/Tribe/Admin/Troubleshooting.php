@@ -172,6 +172,11 @@ class Troubleshooting {
 		// @todo: Move this to plugins.
 		global $current_screen;
 
+		$troubleshooting_pages = [
+			'tribe_events_page_tec-troubleshooting',
+			'tickets_page_tec-tickets-troubleshooting',
+		];
+
 		return in_array( $current_screen->id, $troubleshooting_pages );
 	}
 
