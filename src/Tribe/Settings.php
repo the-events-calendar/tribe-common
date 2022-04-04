@@ -224,23 +224,11 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		/**
 		 * Determines whether or not the full admin pages should be initialized.
 		 *
-		 * When running in parallel with TEC 3.12.4, TEC should be relied on to handle the admin screens
-		 * that version of TEC (and lower) is tribe-common ignorant. Therefore, tribe-common has to be
-		 * the smarter, more lenient codebase.
-		 *
 		 * @return boolean
 		 */
 		public function should_setup_pages() {
-			// @todo @juanfra: Deprecate this.
-			if ( ! class_exists( 'Tribe__Events__Main' ) ) {
-				return true;
-			}
-
-			if ( version_compare( Tribe__Events__Main::VERSION, '4.0beta', '>=' ) ) {
-				return true;
-			}
-
-			return false;
+			// @todo: Deprecate this and update where needed.
+			return true;
 		}
 
 		/**
