@@ -170,10 +170,9 @@ class Troubleshooting {
 		}
 
 		// @todo: Move this to plugins.
-		$is_page = Tribe__Admin__Helpers::instance()->is_screen( $this->admin_page )
-			|| Tribe__Admin__Helpers::instance()->is_screen( 'tickets_page_tec-tickets-troubleshooting' );
+		global $current_screen;
 
-		return $is_page;
+		return in_array( $current_screen->id, $troubleshooting_pages );
 	}
 
 	/**
