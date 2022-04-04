@@ -48,6 +48,7 @@ class Troubleshooting {
 	 */
 	public function hook() {
 		add_action( 'admin_menu', [ $this, 'add_menu_page' ], 90 );
+		add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
 		add_action( 'wp_before_admin_bar_render', [ $this, 'add_toolbar_item' ], 20 );
 	}
 
@@ -106,6 +107,24 @@ class Troubleshooting {
 	}
 
 	/**
+	 * Hooked to admin_body_class to add a class for troubleshooting page.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $classes a space separated string of classes to be added to body.
+	 *
+	 * @return string
+	 */
+	public function admin_body_class( $classes ) {
+		if ( ! $this->is_current_page() ) {
+			return $classes;
+		}
+
+		$classes .= ' tec-troubleshooting';
+		return $classes;
+	}
+
+	/**
 	 * Adds the troubleshooting menu to the the WP admin bar under events.
 	 *
 	 * @since 4.14.2
@@ -150,7 +169,11 @@ class Troubleshooting {
 			return false;
 		}
 
-		return Tribe__Admin__Helpers::instance()->is_screen( $this->admin_page );
+		// @todo: Move this to plugins.
+		$is_page = Tribe__Admin__Helpers::instance()->is_screen( $this->admin_page )
+			|| Tribe__Admin__Helpers::instance()->is_screen( 'tickets_page_tec-tickets-troubleshooting' );
+
+		return $is_page;
 	}
 
 	/**
