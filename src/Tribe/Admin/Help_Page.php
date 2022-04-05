@@ -45,7 +45,7 @@ class Tribe__Admin__Help_Page {
 			return $classes;
 		}
 
-		$classes .= ' tribe-help';
+		$classes .= ' tribe-help tec-help';
 		return $classes;
 	}
 
