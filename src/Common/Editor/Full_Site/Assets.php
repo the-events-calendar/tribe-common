@@ -9,7 +9,7 @@ use \Tribe__Main as Common;
  *
  * @since   TBD
  *
- * @package TEC\Editor\Full_Site
+ * @package TEC\Common\Editor\Full_Site
  */
 class Assets extends \tad_DI52_ServiceProvider {
 

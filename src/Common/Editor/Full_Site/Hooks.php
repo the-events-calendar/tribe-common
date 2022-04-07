@@ -7,7 +7,7 @@ namespace TEC\Common\Editor\Full_Site;
  *
  * @since   TBD
  *
- * @package TEC\Editor\Full_Site
+ * @package TEC\Common\Editor\Full_Site
  */
 class Hooks extends \tad_DI52_ServiceProvider {
 

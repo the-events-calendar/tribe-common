@@ -8,7 +8,7 @@ namespace TEC\Common\Editor\Full_Site;
  *
  * @since TBD
  *
- * @package
+ * @package TEC\Common\Editor\Full_Site
  */
 class Provider extends \tad_DI52_ServiceProvider {
 	/**
