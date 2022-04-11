@@ -6,14 +6,13 @@
  *
  *
  * @param array<string|string> $status_icons An array of icons for the EA Status table.
- * @param  $main An array of icons for the EA Status table.
+ * @param \Tribe__Main         $main         An instance of the main class of Tribe Common.
  *
  */
 
 $icon     = 'success';
 $notes    = '&nbsp;';
 $message  = esc_html_x( 'Imports Enabled in Settings', '', 'tribe-common' );
-$notes    = '&nbsp;';
 $disabled = tribe_get_option( 'tribe_aggregator_disable', false );
 
 if ( $disabled ) {

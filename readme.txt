@@ -2,7 +2,7 @@
 
 = [4.14.17] TBD =
 
-* Tweak - Added EA status row showing if it is enabled or disabled in the Event Aggregator system status [EA-123]
+* Tweak - Added EA status row showing if it is enabled or disabled in the Event Aggregator system status [TCMN-134]
 
 = [4.14.16] 2022-03-15 =
 
