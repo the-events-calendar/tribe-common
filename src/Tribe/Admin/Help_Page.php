@@ -22,7 +22,7 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-	 * Class constructor.
+	 * Set up hooks.
 	 *
 	 * @since TBD
 	 *
@@ -36,7 +36,7 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $classes a space separated string of classes to be added to body.
+	 * @param string $classes A space separated string of classes to be added to body.
 	 *
 	 * @return string
 	 */

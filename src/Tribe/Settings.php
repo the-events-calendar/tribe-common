@@ -471,7 +471,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 					remove_action( 'shutdown', [ $this, 'deleteOptions' ] );
 					add_option( 'tribe_settings_errors', $this->errors );
 					add_option( 'tribe_settings_major_error', $this->major_error );
-					//wp_redirect( $this->url );
 					wp_redirect( $this->get_settings_page_url() );
 					exit;
 				}

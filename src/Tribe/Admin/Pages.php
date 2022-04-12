@@ -73,7 +73,7 @@ class Pages {
 			'path'       => '',
 			'icon'       => '',
 			'position'   => null,
-			'callback'   => array( __CLASS__, 'render_page' ),
+			'callback'   => [ __CLASS__, 'render_page' ],
 		];
 
 		$options = wp_parse_args( $options, $defaults );
@@ -140,7 +140,7 @@ class Pages {
 	}
 
 	/**
-	 * Connect an existing page to wc-admin.
+	 * Connect an existing page to wp-admin.
 	 *
 	 * @since TBD
 	 *
@@ -211,6 +211,8 @@ class Pages {
 	/**
 	 * Define if is a `tec` admin page (registered).
 	 *
+	 * @since TBD
+	 *
 	 * @return boolean
 	 */
 	public function is_tec_page() {
@@ -220,6 +222,7 @@ class Pages {
 
 	/**
 	 * Get pages with tabs.
+	 * @since TBD
 	 *
 	 * @param array $pages The list of pages with tabs.
 	 * @return array $pages The list of pages with tabs, filtered.
@@ -240,6 +243,8 @@ class Pages {
 
 	/**
 	 * Check if the current page has tabs.
+	 *
+	 * @since TBD
 	 *
 	 * @param string $page The page slug.
 	 * @return boolean True if the page has tabs, false otherwise.
