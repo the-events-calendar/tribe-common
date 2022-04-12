@@ -63,6 +63,9 @@ class Pages {
 	 *   @type int         position     Menu item position.
 	 *   @type int         order        Navigation item order.
 	 * }
+	 *
+	 * @return string $page The resulting page's hook_suffix.
+	 *
 	 */
 	public function register_page( $options ) {
 		$defaults = [
@@ -213,11 +216,12 @@ class Pages {
 	 *
 	 * @since TBD
 	 *
+	 * @param string $page_id The ID of the page to check if is a `tec` admin page.
+	 *
 	 * @return boolean
 	 */
-	public function is_tec_page() {
-		// @todo @juanfra: Check if it's part of the array of `tec_admin_pages`.
-		return true;
+	public function is_tec_page( $page_id = '' ) {
+		return in_array( $page_id, array_keys( $this->pages ), true );
 	}
 
 	/**
