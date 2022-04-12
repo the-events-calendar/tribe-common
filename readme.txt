@@ -2,6 +2,7 @@
 
 = [TBD] TBD =
 
+* Fix - Do not autoload options used to save batched data. [EA-427]
 * Fix - Update bootstrap logic to make sure Common will correctly load completely in the context of plugin activations requests. [TEC-4338]
 
 = [4.14.16] 2022-03-15 =
