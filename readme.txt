@@ -2,6 +2,7 @@
 
 = [TBD] TBD =
 
+* Tweak - Added EA status row showing if it is enabled or disabled in the Event Aggregator system status [TCMN-134]
 * Fix - Do not autoload options used to save batched data. [EA-427]
 * Fix - Update bootstrap logic to make sure Common will correctly load completely in the context of plugin activations requests. [TEC-4338]
 
