@@ -20,7 +20,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.14.16';
+	const VERSION             = '4.14.19';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -88,6 +88,15 @@ class Tribe__Main {
 		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 1 );
 		add_action( 'tribe_common_loaded', [ $this, 'tribe_common_app_store' ], 10 );
 		add_action( 'customize_controls_print_styles', [ $this, 'load_tec_variables' ], 10 );
+
+		if ( did_action( 'plugins_loaded' ) && ! doing_action( 'plugins_loaded' ) ) {
+			/*
+			 * This might happen in the context of a plugin activation.
+			 * Complete the loading now and set the singleton instance to avoid infinite loops.
+			 */
+			self::$instance = $this;
+			$this->plugins_loaded();
+		}
 	}
 
 	/**
