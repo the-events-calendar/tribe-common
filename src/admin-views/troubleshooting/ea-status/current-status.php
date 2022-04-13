@@ -21,7 +21,7 @@ if ( $disabled ) {
 	$settings_url = Tribe__Settings::instance()->get_url( array( 'tab' => 'imports' ) );
 	$notes 		  = sprintf(
 		'<a href="%1$s">%2$s</a>',
-		$settings_url,
+		esc_url( $settings_url ),
 		_x( 'Edit Import Settings', '','tribe-common' ),
 	);
 }
