@@ -5,12 +5,11 @@
 * Fix - avoid fatal errors when transient notices are registered from inactive plugins
 * Feat - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
 
-= [4.1.17] 2022-04-05 =
+= [TBD] TBD =
 
-* Feature - New customizable upsell element to offer upgrades, additions and services that are available. [ET-1351]
-* Fix - Updated Dropdown functionality to work with PHP8, thanks @huubl. [CE-141]
-* Tweak - Changed the wording to include upgrading required plugins to reduce confusion. [TCMN-132]
-* Language - 2 new strings added, 1 updated, 1 fuzzied, and 1 obsoleted
+* Tweak - Added EA status row showing if it is enabled or disabled in the Event Aggregator system status [TCMN-134]
+* Fix - Do not autoload options used to save batched data. [EA-427]
+* Fix - Update bootstrap logic to make sure Common will correctly load completely in the context of plugin activations requests. [TEC-4338]
 
 = [4.14.16] 2022-03-15 =
 
