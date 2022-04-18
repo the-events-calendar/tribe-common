@@ -236,7 +236,7 @@ class Classic_Editor {
 		}
 
 		if ( static::get_classic_override() ) {
-			$should_load_blocks = true;
+			$should_load_blocks = ! $should_load_blocks;
 		}
 
 		if ( static::get_classic_param() ) {
@@ -262,6 +262,11 @@ class Classic_Editor {
 			$should_load_blocks = true;
 		} else if ( static::$classic_term === $profile_choice ) {
 			$should_load_blocks = false;
+		}
+
+		// The override param inverts whatever else is set via parameter/preference.
+		if ( static::get_classic_override() ) {
+			$should_load_blocks = ! $should_load_blocks;
 		}
 
 		return $should_load_blocks;
