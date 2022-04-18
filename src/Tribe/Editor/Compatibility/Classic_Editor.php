@@ -264,7 +264,7 @@ class Classic_Editor {
 			$should_load_blocks = false;
 		}
 
-		// The "forget" param still overrides all...
+		// The override param inverts whatever else is set via parameter/preference.
 		if ( static::get_classic_override() ) {
 			$should_load_blocks = ! $should_load_blocks;
 		}
