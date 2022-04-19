@@ -25,7 +25,6 @@ class Tribe__Admin__Help_Page {
 	 * Set up hooks.
 	 *
 	 * @since TBD
-	 *
 	 */
 	public function hook() {
 		add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
@@ -38,7 +37,7 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @param string $classes A space separated string of classes to be added to body.
 	 *
-	 * @return string
+	 * @return string $classes A space separated string of classes to be added to body.
 	 */
 	public function admin_body_class( $classes ) {
 		if ( ! $this->is_current_page() ) {
@@ -59,7 +58,6 @@ class Tribe__Admin__Help_Page {
 	public function is_current_page() {
 		global $current_screen;
 
-		// @todo: Make this filterable and add it from plugins.
 		$help_pages = [
 			'tribe_events_page_tec-events-help',
 			'tickets_page_tec-tickets-help',

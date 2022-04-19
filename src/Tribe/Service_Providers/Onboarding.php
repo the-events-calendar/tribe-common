@@ -43,8 +43,8 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 	protected function hooks() {
 		add_action( 'tribe_common_loaded', [ $this, 'register_assets' ] );
 
-		add_action( 'admin_enqueue_scripts', tribe_callback( $this->container->make( Onboarding_Main::class ), 'localize_tour' ) );
-		add_action( 'admin_enqueue_scripts', tribe_callback( $this->container->make( Onboarding_Main::class ), 'localize_hints' ) );
+		add_action( 'admin_enqueue_scripts', tribe_callback( Onboarding_Main::class, 'localize_tour' ) );
+		add_action( 'admin_enqueue_scripts', tribe_callback( Onboarding_Main::class, 'localize_hints' ) );
 	}
 
 	/**

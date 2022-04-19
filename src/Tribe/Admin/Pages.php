@@ -12,7 +12,7 @@ class Pages {
 	 *
 	 * @since TBD
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	private $current_page = null;
 
@@ -31,7 +31,21 @@ class Pages {
 	 *
 	 * @since TBD
 	 *
-	 * @return array
+	 * @return array $pages {
+	 *     Array containing the registered pages.
+	 *
+	 *     @type array $page_id {
+	 *         @type string      id           Id to reference the page.
+	 *         @type array       title        Page title. Used in menus and breadcrumbs.
+	 *         @type string|null parent       Parent ID. Null for new top level page.
+	 *         @type string      path         Path for this page, full path in app context; ex /analytics/report
+	 *         @type string      capability   Capability needed to access the page.
+	 *         @type string      icon         Icon. Dashicons helper class, base64-encoded SVG, or 'none'.
+	 *         @type int         position     Menu item position.
+	 *         @type int         order        Navigation item order.
+	 *         @type callable    callback     The function to be called to output the content for the page.
+	 *     }
+	 * }
 	 */
 	public function get_pages() {
 		/**
@@ -39,9 +53,25 @@ class Pages {
 		 *
 		 * @since TBD
 		 *
-		 * @param array $pages The pages.
+		 * @param array $pages {
+		 *     Array containing the registered pages to be filtered
+		 *
+		 *     @type array $page_id {
+		 *         @type string      id           Id to reference the page.
+		 *         @type array       title        Page title. Used in menus and breadcrumbs.
+		 *         @type string|null parent       Parent ID. Null for new top level page.
+		 *         @type string      path         Path for this page, full path in app context; ex /analytics/report
+		 *         @type string      capability   Capability needed to access the page.
+		 *         @type string      icon         Icon. Dashicons helper class, base64-encoded SVG, or 'none'.
+		 *         @type int         position     Menu item position.
+		 *         @type int         order        Navigation item order.
+		 *         @type callable    callback     The function to be called to output the content for the page.
+		 *     }
+		 * }
 		 */
 		$pages = apply_filters( 'tec_admin_pages', $this->pages );
+
+		var_dump( $pages );
 
 		return $pages;
 	}
@@ -62,12 +92,13 @@ class Pages {
 	 *   @type string      icon         Icon. Dashicons helper class, base64-encoded SVG, or 'none'.
 	 *   @type int         position     Menu item position.
 	 *   @type int         order        Navigation item order.
+	 *   @type callable    callback     The function to be called to output the content for the page.
 	 * }
 	 *
 	 * @return string $page The resulting page's hook_suffix.
 	 *
 	 */
-	public function register_page( $options ) {
+	public function register_page( $options = [] ) {
 		$defaults = [
 			'id'         => null,
 			'parent'     => null,
@@ -112,7 +143,7 @@ class Pages {
 	 *
 	 * @since TBD
 	 *
-	 * @return array|boolean Current page or false if not registered with this controller.
+	 * @return string|boolean Current page or false if not registered with this controller.
 	 */
 	public function get_current_page() {
 		if ( is_null( $this->current_page ) ) {
@@ -133,7 +164,7 @@ class Pages {
 		$current_screen = get_current_screen();
 
 		if ( is_null( $current_screen ) ) {
-			$this->current_page = isset( $_GET['page'] ) ? $_GET['page'] : null;
+			$this->current_page = tribe_get_request_var( 'page' );
 			return $this->current_page;
 		}
 
@@ -159,7 +190,7 @@ class Pages {
 	 *   @type int          position     Menu item position.
 	 * }
 	 */
-	public function connect_page( $options ) {
+	public function connect_page( $options = [] ) {
 		if ( ! is_array( $options['title'] ) ) {
 			$options['title'] = array( $options['title'] );
 		}
@@ -189,13 +220,17 @@ class Pages {
 	/**
 	 * Get the capability.
 	 *
+	 * @param string $capability The capability required for a TEC page to be displayed to the user.
+	 *
 	 * @since TBD
 	 *
-	 * @return string|null
+	 * @return string The capability required for a TEC page to be displayed to the user.
 	 */
 	public static function get_capability( $capability = 'manage_options' ) {
 		/**
 		 * Filters the default capability for Tribe admin pages.
+		 *
+		 * @param string $capability The capability required for a TEC page to be displayed to the user.
 		 *
 		 * @todo: We'll need to deprecate this one in favor of the one below.
 		 */
@@ -203,6 +238,8 @@ class Pages {
 
 		/**
 		 * Filters the default capability for TEC admin pages.
+		 *
+		 * @param string $capability The capability required for a TEC page to be displayed to the user.
 		 *
 		 * @since TBD
 		 */
@@ -218,7 +255,7 @@ class Pages {
 	 *
 	 * @param string $page_id The ID of the page to check if is a `tec` admin page.
 	 *
-	 * @return boolean
+	 * @return boolean True if is a `tec` admin page, false otherwise.
 	 */
 	public function is_tec_page( $page_id = '' ) {
 		return in_array( $page_id, array_keys( $this->pages ), true );

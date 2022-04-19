@@ -313,7 +313,6 @@ class Tribe__Settings_Manager {
 	 * @todo move to an admin class
 	 */
 	public function add_help_admin_menu_item() {
-		// @todo @juanfra: Move this to TEC and deprecate.
 		$hidden_settings_tabs = self::get_network_option( 'hideSettingsTabs', [] );
 		if ( in_array( 'help', $hidden_settings_tabs ) ) {
 			return;

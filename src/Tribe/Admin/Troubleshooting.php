@@ -59,8 +59,6 @@ class Troubleshooting {
 	 *
 	 */
 	public function add_menu_page() {
-		// @todo @juanfra: Move this to the plugins and deprecate.
-
 		if ( ! Tribe__Settings::instance()->should_setup_pages() ) {
 			return;
 		}
@@ -113,7 +111,7 @@ class Troubleshooting {
 	 *
 	 * @param string $classes a space separated string of classes to be added to body.
 	 *
-	 * @return string
+	 * @return string $classes a space separated string of classes to be added to body.
 	 */
 	public function admin_body_class( $classes ) {
 		if ( ! $this->is_current_page() ) {
@@ -155,7 +153,6 @@ class Troubleshooting {
 	 * @return boolean returns true if the current page is the troubleshooting page.
 	 */
 	public function is_current_page() {
-		// @todo @juanfra: Define if it's current page based on the slug.
 		if ( ! Tribe__Settings::instance()->should_setup_pages() || ! did_action( 'admin_menu' ) ) {
 			return false;
 		}
@@ -169,7 +166,6 @@ class Troubleshooting {
 			return false;
 		}
 
-		// @todo: Move this to plugins.
 		global $current_screen;
 
 		$troubleshooting_pages = [
