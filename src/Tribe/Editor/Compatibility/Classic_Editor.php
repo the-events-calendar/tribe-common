@@ -266,6 +266,10 @@ class Classic_Editor {
 		}
 
 		// The override param inverts whatever else is set via parameter/preference.
+		if ( static::get_classic_override() ) {
+			$should_load_blocks = ! $should_load_blocks;
+		}
+
 		return $should_load_blocks;
 	}
 
