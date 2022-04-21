@@ -4,7 +4,7 @@
  *
  * @since TBD
  *
- * @return bool
+ * @return bool Whether the current theme is a block theme supporting full-site editing.
  */
 if ( ! function_exists( 'tec_is_full_site_editor' ) ) {
 	function tec_is_full_site_editor(): bool {
