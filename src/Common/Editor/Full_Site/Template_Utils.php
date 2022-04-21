@@ -15,7 +15,7 @@ class Template_Utils {
 	 *
 	 * @since TBD
 	 *
-	 * @return array<array<string,mixed>> Array of parsed block objects.
+	 * @param array<array<string,mixed>> $blocks Array of parsed block objects.
 	 *
 	 * @return array<array<string,mixed>> Block references to the passed blocks and their inner blocks.
 	 */
