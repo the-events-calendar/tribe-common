@@ -15,16 +15,18 @@ class Template_Utils {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $blocks array of blocks.
+	 * @return array<array<string,mixed>> Array of parsed block objects.
 	 *
-	 * @return array block references to the passed blocks and their inner blocks.
+	 * @return array<array<string,mixed>> Block references to the passed blocks and their inner blocks.
 	 */
 	public static function flatten_blocks( &$blocks ) {
 		$all_blocks = [];
 		$queue      = [];
+
 		foreach ( $blocks as &$block ) {
 			$queue[] = &$block;
 		}
+
 		$queue_count = count( $queue );
 
 		while ( $queue_count > 0 ) {
