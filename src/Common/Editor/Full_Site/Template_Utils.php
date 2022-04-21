@@ -46,7 +46,7 @@ class Template_Utils {
 
 	/**
 	 * Parses wp_template content and injects the current theme's stylesheet as a theme attribute into
-	 * each wp_template_part
+	 * each wp_template_part.
 	 *
 	 * @since TBD
 	 *

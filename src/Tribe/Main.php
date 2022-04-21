@@ -165,11 +165,10 @@ class Tribe__Main {
 
 	/**
 	 * Initializes all libraries used/required by our singletons.
-
 	 *
 	 * @since TBD
 	 */
-	public function init_early_libraries(): void {
+	public function init_early_libraries() {
 		require_once $this->plugin_path . 'src/functions/editor.php';
 	}
 
@@ -689,7 +688,6 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Service_Providers\Onboarding::class );
 		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
 		tribe_register_provider( Tribe\Admin\Conditional_Content\Service_Provider::class );
-
 		tribe_register_provider( \TEC\Common\Editor\Full_Site\Provider::class );
 	}
 
