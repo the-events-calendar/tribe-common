@@ -280,8 +280,6 @@ class Tribe__Settings_Manager {
 		 */
 		include Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-licenses.php';
 
-		// @todo: Pass page parameter and filter which licenses we display.
-
 		/**
 		 * Allows the fields displayed in the licenses tab to be modified.
 		 *
