@@ -90,6 +90,17 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Where to store the temporary status info.
 		 *
+		 * @todo remove transient in a major feature release where we release all plugins.
+		 *
+		 * @since 4.14.14
+		 *
+		 * @var string
+		 */
+		public $pue_key_status_transient_name;
+
+		/**
+		 * Where to store the temporary status info.
+		 *
 		 * @since TBD
 		 *
 		 * @var string
@@ -180,28 +191,91 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$this->set_plugin_file( $plugin_file );
 			$this->set_options( $options );
 			$this->hooks();
-			$this->set_key_status_option_name();
+			$this->set_key_status_name();
 		}
 
 		/**
-		 * Sets the option name that holds the current key status.
+		 * Gets whether the license key is valid or not.
 		 *
 		 * @since TBD
 		 */
-		public function set_key_status_option_name() {
-			$this->pue_key_status_option_name = 'pue_key_status_' . $this->get_slug() . '_' . $this->get_site_domain();
+		public function is_key_valid() {
+			// @todo remove transient in a major feature release where we release all plugins.
+			$status = get_transient( $this->pue_key_status_transient_name );
+
+			if ( empty( $status ) ) {
+				$status = get_option( $this->pue_key_status_option_name, 'invalid' );
+			}
+
+			return 'valid' === $status;
 		}
 
 		/**
-		 * Sets the key status option based on the key validation check results.
+		 * Gets whether or not the PUE key validation check is expired.
+		 *
+		 * @since TBD
+		 */
+		public function is_key_validation_expired() {
+			// If we have a transient, then we're good. Not expired.
+			// @todo remove transient in a major feature release where we release all plugins.
+			if ( get_transient( $this->pue_key_status_transient_name ) ) {
+				return false;
+			}
+
+			$option_expiration = get_option( "{$this->pue_key_status_option_name}_timeout", null );
+			return is_null( $option_expiration ) || ( time() > $option_expiration );
+		}
+
+		/**
+		 * Set the PUE key status property names.
+		 *
+		 * @since TBD
+		 */
+		public function set_key_status_name() {
+			$this->pue_key_status_option_name = 'pue_key_status_' . $this->get_slug() . '_' . $this->get_site_domain();
+
+			// @todo remove transient in a major feature release where we release all plugins.
+			$this->pue_key_status_transient_name = md5( $this->get_slug() . $this->get_site_domain() );
+		}
+
+		/**
+		 * Creates a hash for the transient name that holds the current key status.
+		 *
+		 * @todo remove transient in a major feature release where we release all plugins.
+		 *
+		 * @since 4.14.14
+		 */
+		public function set_key_status_transient_name() {
+			_deprecated_function( __METHOD__, 'TBD', __CLASS__ . '::set_key_status_name()' );
+		}
+
+		/**
+		 * Sets the key status based on the key validation check results.
 		 *
 		 * @since TBD
 		 *
 		 * @param int $valid 0 for invalid, 1 or 2 for valid.
 		 */
-		public function set_key_status_option( $valid ) {
+		public function set_key_status( $valid ) {
 			$status = tribe_is_truthy( $valid ) ? 'valid' : 'invalid';
 			update_option( $this->pue_key_status_option_name, $status );
+			update_option( "{$this->pue_key_status_option_name}_timeout", $this->check_period * HOUR_IN_SECONDS );
+
+			// We set a transient in addition to an option for compatibility reasons.
+			// @todo remove transient in a major feature release where we release all plugins.
+			set_transient( $this->pue_key_status_transient_name, $status, $this->check_period * HOUR_IN_SECONDS );
+		}
+
+		/**
+		 * Sets the key status transient based on the key validation check results.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $valid 0 for invalid, 1 or 2 for valid.
+		 */
+		public function set_key_status_transient( $valid ) {
+			_deprecated_function( __METHOD__, 'TBD', __CLASS__ . '::set_key_status()' );
+			$this->set_key_status( $valid );
 		}
 
 		/**
@@ -1004,7 +1078,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			$response['message'] = wp_kses( $response['message'], 'data' );
 
-			$this->set_key_status_option( $response['status'] );
+			$this->set_key_status( $response['status'] );
 
 			return $response;
 		}
