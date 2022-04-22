@@ -22,7 +22,7 @@ class Pages {
 	 *
 	 * @since TBD
 	 *
-	 * @var array
+	 * @var array<string,mixed>
 	 */
 	private $pages = [];
 
