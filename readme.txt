@@ -7,6 +7,7 @@
 = [TBD] TBD =
 
 * Tweak - Added EA status row showing if it is enabled or disabled in the Event Aggregator system status [TCMN-134]
+* Fix - Ensure the Classic Editor "forget" parameter overrides all else when loading the editor w/Classic Editor active. [TEC-4287]
 * Fix - Do not autoload options used to save batched data. [EA-427]
 * Fix - Update bootstrap logic to make sure Common will correctly load completely in the context of plugin activations requests. [TEC-4338]
 
