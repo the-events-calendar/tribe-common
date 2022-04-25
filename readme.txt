@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [4.14.18] TBD =
 
 * Tweak - Added EA status row showing if it is enabled or disabled in the Event Aggregator system status [TCMN-134]
 * Fix - Ensure the Classic Editor "forget" parameter overrides all else when loading the editor w/Classic Editor active. [TEC-4287]
