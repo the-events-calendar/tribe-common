@@ -1,12 +1,12 @@
 <?php
-/**
- * Check if the current theme is a block theme.
- *
- * @since TBD
- *
- * @return bool Whether the current theme is a block theme supporting full-site editing.
- */
 if ( ! function_exists( 'tec_is_full_site_editor' ) ) {
+	/**
+	 * Check if the current theme is a block theme.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the current theme is a block theme supporting full-site editing.
+	 */
 	function tec_is_full_site_editor() {
 		if ( function_exists( 'wp_is_block_theme' ) ) {
 			return (bool) wp_is_block_theme();
