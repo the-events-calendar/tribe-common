@@ -1,7 +1,8 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [4.14.18] TBD =
 
+* Feature - First iteration of changes for Full Site Editor compatibility. [TEC-4262]
 * Tweak - Added EA status row showing if it is enabled or disabled in the Event Aggregator system status [TCMN-134]
 * Fix - Ensure the Classic Editor "forget" parameter overrides all else when loading the editor w/Classic Editor active. [TEC-4287]
 * Fix - Do not autoload options used to save batched data. [EA-427]
@@ -228,7 +229,7 @@ w
 
 * Tweak - Allow deletion of non persistent keys from Tribe__Cache handling. [ET-917]
 * Fix - Prevent items without children to be marked as groups in SelectWoo UI. [CE-106]
-* Fix - Update the MomentJS version to 2.19.3 for the `tribe-moment` asset. [BTRIA-574]
+* Fix - Update the MomentJS version to 2.19.3 for the `tribe-moment` asset. [TEC-3676]
 * Language - 0 new strings added, 3 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.12.12.1] 2020-11-19 =
