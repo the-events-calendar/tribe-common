@@ -13,7 +13,6 @@ class Template_Utils {
 	/**
 	 * Returns an array containing the references of the passed blocks and their inner blocks.
 	 *
-	 *
      * When we return we are replacing/overwriting $blocks with $all_blocks so we pass-by-reference.
      * If we don't pass-by-reference the non-event blocks get lost (ex: header and footer)
 	 *
