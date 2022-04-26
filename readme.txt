@@ -7,6 +7,7 @@
 * Fix - Ensure the Classic Editor "forget" parameter overrides all else when loading the editor w/Classic Editor active. [TEC-4287]
 * Fix - Do not autoload options used to save batched data. [EA-427]
 * Fix - Update bootstrap logic to make sure Common will correctly load completely in the context of plugin activations requests. [TEC-4338]
+* Language - 1 new strings added, 29 updated, 1 fuzzied, and 2 obsoleted.
 
 = [4.14.16] 2022-03-15 =
 
