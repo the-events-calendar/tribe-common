@@ -2,7 +2,7 @@
 
 = [4.15.0] TBD =
 
-* Feature - Introducing new admin pages structure and updating the settings framework to have Settings in multiple pages. [ET-1335]
+* Feature - Introducing new admin pages structure and updating the settings framework to have Settings on multiple pages. [ET-1335]
 
 = [4.14.16] 2022-03-15 =
 
