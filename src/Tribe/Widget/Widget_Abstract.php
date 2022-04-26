@@ -797,7 +797,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @return void
 	 */
-	public function toggle_hooks( $toggle, $location ) {
+	public function toggle_hooks( $toggle, $location = 'display' ) {
 		$slug = static::get_widget_slug();
 
 		if ( $toggle ) {
