@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [4.14.18] TBD =
+= [4.14.18] 2022-04-27 =
 
 * Feature - First iteration of changes for Full Site Editor compatibility. [TEC-4262]
 * Tweak - Added EA status row showing if it is enabled or disabled in the Event Aggregator system status [TCMN-134]
@@ -62,7 +62,7 @@
 
 = [4.14.8] 2021-11-17 =
 
-* Feature - Add link to TEC customizer section in admin menu and on Event->Settings->Display page [TBD]
+* Feature - Add link to TEC customizer section in admin menu and on Event->Settings->Display page [TEC-4126]
 * Feature - Adding Onboarding functionality, featuring `Tours` and `Hints`.
 * Tweak - Added the `tribe_repository_{$filter_name}_pre_first_post`, `tribe_repository_{$filter_name}_pre_last_post`, and `tribe_repository_{$filter_name}_pre_get_ids_for_posts` actions. (Props to @sc0ttkclark)
 * Language - 10 new strings added, 3 updated, 1 fuzzied, and 0 obsoleted
