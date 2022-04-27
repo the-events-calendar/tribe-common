@@ -5,7 +5,7 @@ namespace TEC\Common\Editor\Full_Site;
 /**
  * Class Template_Utils.
  *
- * @since   TBD
+ * @since   4.14.18
  *
  * @package TEC\Common\Editor\Full_Site
  */
@@ -16,7 +16,7 @@ class Template_Utils {
 	 * When we return we are replacing/overwriting $blocks with $all_blocks so we pass-by-reference.
 	 * If we don't pass-by-reference the non-event blocks get lost (ex: header and footer)
 	 *
-	 * @since TBD
+	 * @since 4.14.18
 	 *
 	 * @param array<array<string,mixed>> $blocks Array of parsed block objects.
 	 *
@@ -53,7 +53,7 @@ class Template_Utils {
 	 * Parses wp_template content and injects the current theme's stylesheet as a theme attribute into
 	 * each wp_template_part.
 	 *
-	 * @since TBD
+	 * @since 4.14.18
 	 *
 	 * @param string $template_content serialized wp_template content.
 	 *

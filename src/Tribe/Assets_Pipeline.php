@@ -47,7 +47,7 @@ class Tribe__Assets_Pipeline {
 	 * After select2 is loaded to the FE we add one scripts after to prevent select2 from breaking.
 	 *
 	 * @since 4.13.2
-	 * @since TBD ensure we don't run this in the admin.
+	 * @since 4.14.18 Ensure we don't run this in the admin.
 	 *
 	 * @param string $tag    The <script> tag for the enqueued script.
 	 * @param string $handle The script's registered handle.
