@@ -101,7 +101,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Where to store the temporary status info.
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @var string
 		 */
@@ -197,7 +197,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Gets whether the license key is valid or not.
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 */
 		public function is_key_valid() {
 			// @todo remove transient in a major feature release where we release all plugins.
@@ -213,7 +213,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Gets whether or not the PUE key validation check is expired.
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 */
 		public function is_key_validation_expired() {
 			// If we have a transient, then we're good. Not expired.
@@ -229,7 +229,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Set the PUE key status property names.
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 */
 		public function set_key_status_name() {
 			$this->pue_key_status_option_name = 'pue_key_status_' . $this->get_slug() . '_' . $this->get_site_domain();
@@ -246,13 +246,13 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @since 4.14.14
 		 */
 		public function set_key_status_transient_name() {
-			_deprecated_function( __METHOD__, 'TBD', __CLASS__ . '::set_key_status_name()' );
+			_deprecated_function( __METHOD__, '4.14.9', __CLASS__ . '::set_key_status_name()' );
 		}
 
 		/**
 		 * Sets the key status based on the key validation check results.
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param int $valid 0 for invalid, 1 or 2 for valid.
 		 */
@@ -269,12 +269,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Sets the key status transient based on the key validation check results.
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param int $valid 0 for invalid, 1 or 2 for valid.
 		 */
 		public function set_key_status_transient( $valid ) {
-			_deprecated_function( __METHOD__, 'TBD', __CLASS__ . '::set_key_status()' );
+			_deprecated_function( __METHOD__, '4.14.9', __CLASS__ . '::set_key_status()' );
 			$this->set_key_status( $valid );
 		}
 
