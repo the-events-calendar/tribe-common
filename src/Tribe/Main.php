@@ -166,7 +166,7 @@ class Tribe__Main {
 	/**
 	 * Initializes all libraries used/required by our singletons.
 	 *
-	 * @since TBD
+	 * @since 4.14.18
 	 */
 	public function init_early_libraries() {
 		require_once $this->plugin_path . 'src/functions/editor.php';

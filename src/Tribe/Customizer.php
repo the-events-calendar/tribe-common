@@ -1014,7 +1014,7 @@ final class Tribe__Customizer {
 	 * @since 4.14.8
 	 */
 	public function add_fse_customizer_link() {
-		_deprecated_function( __METHOD__, 'TBD', 'No replacement. Customizer menu item is preserved as long as we activate it.');
+		_deprecated_function( __METHOD__, '4.14.18', 'No replacement. Customizer menu item is preserved as long as we activate it.');
 		// Exit early if the current theme is not a FSE theme.
 		if (  ! tec_is_full_site_editor() ) {
 			return;
@@ -1040,7 +1040,7 @@ final class Tribe__Customizer {
 	 * @return array<string|mixed> $settings The modified settings array.
 	 */
 	public function add_fse_customizer_link_to_display_tab( $settings ) {
-		_deprecated_function( __METHOD__, 'TBD', 'No replacement. Customizer link is preserved as long as we activate it.');
+		_deprecated_function( __METHOD__, '4.14.18', 'No replacement. Customizer link is preserved as long as we activate it.');
 		// Exit early if the current theme is not a FSE theme.
 		if (  ! tec_is_full_site_editor() ) {
 			return $settings;
