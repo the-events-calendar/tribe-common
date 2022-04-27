@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [4.14.18] 2022-04-27 =
+= [4.14.18] 2022-04-28 =
 
 * Feature - First iteration of changes for Full Site Editor compatibility. [TEC-4262]
 * Tweak - Added EA status row showing if it is enabled or disabled in the Event Aggregator system status [TCMN-134]
