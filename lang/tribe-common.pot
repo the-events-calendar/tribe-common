@@ -2,6 +2,7 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
+<<<<<<< HEAD
 "Project-Id-Version: Tribe Common 4.14.18\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
 "POT-Creation-Date: 2022-04-26 21:05:03+00:00\n"
@@ -9,6 +10,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2022-04-26 21:05\n"
+=======
+"Project-Id-Version: Tribe Common 4.14.17\n"
+"Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
+"POT-Creation-Date: 2022-03-30 13:24:17+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2022-03-30 13:24\n"
+>>>>>>> master
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -58,7 +68,11 @@ msgctxt "Error status label for system info optin"
 msgid "Status:"
 msgstr ""
 
+<<<<<<< HEAD
 #. #-#-#-#-#  tribe-common.pot (Tribe Common 4.14.18)  #-#-#-#-#
+=======
+#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.14.17)  #-#-#-#-#
+>>>>>>> master
 #. Author of the plugin/theme
 #: src/Tribe/Admin/Help_Page.php:82 src/Tribe/Customizer.php:664
 #: src/Tribe/Plugins_API.php:25 src/admin-views/help-calendar.php:97
@@ -427,7 +441,7 @@ msgid ""
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Plugin_Download.php:122
-msgid "To begin using %2$s, please install and activate %3$s."
+msgid "To begin using %2$s, please install (or upgrade) and activate %3$s."
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Plugin_Download.php:124
@@ -3439,6 +3453,10 @@ msgstr ""
 
 #: src/admin-views/notices/tribe-bf-general.php:19
 msgid "Black Friday Sale now through %s."
+msgstr ""
+
+#: src/admin-views/notices/upsell/icon.php:19
+msgid "The Events Calendar important notice icon"
 msgstr ""
 
 #: src/admin-views/tribe-options-display.php:23

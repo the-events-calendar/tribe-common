@@ -10,6 +10,13 @@
 * Fix - Update bootstrap logic to make sure Common will correctly load completely in the context of plugin activations requests. [TEC-4338]
 * Language - 1 new strings added, 29 updated, 1 fuzzied, and 2 obsoleted.
 
+= [4.14.17] 2022-04-05 =
+
+* Feature - New customizable upsell element to offer upgrades, additions and services that are available. [ET-1351]
+* Fix - Updated Dropdown functionality to work with PHP8, thanks @huubl. [CE-141]
+* Tweak - Changed the wording to include upgrading required plugins to reduce confusion. [TCMN-132]
+* Language - 2 new strings added, 1 updated, 1 fuzzied, and 1 obsoleted
+
 = [4.14.16] 2022-03-15 =
 
 * Fix - Modify logic of `filter_modify_to_module` so that we can safely set as module those assets that are loaded in themes without support for `html5`, `scripts`. [ET-1447]
@@ -68,7 +75,7 @@
 * Feature - Adding Onboarding functionality, featuring `Tours` and `Hints`.
 * Tweak - Added the `tribe_repository_{$filter_name}_pre_first_post`, `tribe_repository_{$filter_name}_pre_last_post`, and `tribe_repository_{$filter_name}_pre_get_ids_for_posts` actions. (Props to @sc0ttkclark)
 * Language - 10 new strings added, 3 updated, 1 fuzzied, and 0 obsoleted
-w
+
 = [4.16.7] 2021-11-04 =
 
 * Feature - Added Black Friday promo to the General Settings panel. [TCMN-127]
