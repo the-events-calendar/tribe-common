@@ -427,7 +427,7 @@ msgid ""
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Plugin_Download.php:122
-msgid "To begin using %2$s, please install and activate %3$s."
+msgid "To begin using %2$s, please install (or upgrade) and activate %3$s."
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Plugin_Download.php:124
@@ -3439,6 +3439,10 @@ msgstr ""
 
 #: src/admin-views/notices/tribe-bf-general.php:19
 msgid "Black Friday Sale now through %s."
+msgstr ""
+
+#: src/admin-views/notices/upsell/icon.php:19
+msgid "The Events Calendar important notice icon"
 msgstr ""
 
 #: src/admin-views/tribe-options-display.php:23
