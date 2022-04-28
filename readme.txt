@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [4.14.18.1] 2022-04-28 =
+
+* Fix - Undo reversion.
+
 = [4.14.18] 2022-04-28 =
 
 * Feature - First iteration of changes for Full Site Editor compatibility. [TEC-4262]
