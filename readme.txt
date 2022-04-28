@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [4.15.0] TBD =
+
+* Feature - Introducing new admin pages structure and updating the settings framework to have Settings on multiple pages. [ET-1335]
+
 = [4.14.16] 2022-03-15 =
 
 * Fix - Modify logic of `filter_modify_to_module` so that we can safely set as module those assets that are loaded in themes without support for `html5`, `scripts`. [ET-1447]
