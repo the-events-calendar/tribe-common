@@ -19,16 +19,14 @@ class Tribe__Main {
 	const EVENTSERROROPT      = '_tribe_events_errors';
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
-
-	const VERSION             = '4.14.17';
-
+	const VERSION             = '4.14.18.1';
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
 
 	public static $tribe_url = 'http://tri.be/';
-	public static $tec_url = 'https://theeventscalendar.com/';
+	public static $tec_url   = 'https://theeventscalendar.com/';
 
 	public $plugin_dir;
 	public $plugin_path;
@@ -88,6 +86,15 @@ class Tribe__Main {
 		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 1 );
 		add_action( 'tribe_common_loaded', [ $this, 'tribe_common_app_store' ], 10 );
 		add_action( 'customize_controls_print_styles', [ $this, 'load_tec_variables' ], 10 );
+
+		if ( did_action( 'plugins_loaded' ) && ! doing_action( 'plugins_loaded' ) ) {
+			/*
+			 * This might happen in the context of a plugin activation.
+			 * Complete the loading now and set the singleton instance to avoid infinite loops.
+			 */
+			self::$instance = $this;
+			$this->plugins_loaded();
+		}
 	}
 
 	/**
@@ -97,6 +104,7 @@ class Tribe__Main {
 
 		$this->init_autoloading();
 
+		$this->init_early_libraries();
 		$this->bind_implementations();
 		$this->init_libraries();
 		$this->add_hooks();
@@ -153,6 +161,15 @@ class Tribe__Main {
 	 */
 	public function context_class() {
 		return $this->plugin_context_class;
+	}
+
+	/**
+	 * Initializes all libraries used/required by our singletons.
+	 *
+	 * @since 4.14.18
+	 */
+	public function init_early_libraries() {
+		require_once $this->plugin_path . 'src/functions/editor.php';
 	}
 
 	/**
