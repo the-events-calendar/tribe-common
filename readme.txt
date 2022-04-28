@@ -4,7 +4,11 @@
 
 * Tweak - Add long-term license validation storage using options in addition to transients. [ET-1498]
 
-= [4.14.18] 2022-04-27 =
+= [4.14.18.1] 2022-04-28 =
+
+* Fix - Undo reversion.
+
+= [4.14.18] 2022-04-28 =
 
 * Feature - First iteration of changes for Full Site Editor compatibility. [TEC-4262]
 * Tweak - Added EA status row showing if it is enabled or disabled in the Event Aggregator system status [TCMN-134]
@@ -14,7 +18,7 @@
 * Fix - Update bootstrap logic to make sure Common will correctly load completely in the context of plugin activations requests. [TEC-4338]
 * Language - 1 new strings added, 29 updated, 1 fuzzied, and 2 obsoleted.
 
-= [4.1.17] 2022-04-05 =
+= [4.14.17] 2022-04-05 =
 
 * Feature - New customizable upsell element to offer upgrades, additions and services that are available. [ET-1351]
 * Fix - Updated Dropdown functionality to work with PHP8, thanks @huubl. [CE-141]
