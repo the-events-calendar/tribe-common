@@ -3,6 +3,7 @@
 = [4.14.19] 2022-04-27 =
 
 * Tweak - Add long-term license validation storage using options in addition to transients. [ET-1498]
+* Language - 0 new strings added, 26 updated, 1 fuzzied, and 1 obsoleted.
 
 = [4.14.18.1] 2022-04-28 =
 
