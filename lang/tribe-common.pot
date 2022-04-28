@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.14.18\n"
+"Project-Id-Version: Tribe Common 4.14.19\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2022-04-26 21:05:03+00:00\n"
+"POT-Creation-Date: 2022-04-28 18:01:49+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-04-26 21:05\n"
+"PO-Revision-Date: 2022-04-28 18:01\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -58,7 +58,7 @@ msgctxt "Error status label for system info optin"
 msgid "Status:"
 msgstr ""
 
-#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.14.18)  #-#-#-#-#
+#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.14.19)  #-#-#-#-#
 #. Author of the plugin/theme
 #: src/Tribe/Admin/Help_Page.php:82 src/Tribe/Customizer.php:664
 #: src/Tribe/Plugins_API.php:25 src/admin-views/help-calendar.php:97
@@ -2324,104 +2324,104 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:531
+#: src/Tribe/PUE/Checker.php:605
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:534
+#: src/Tribe/PUE/Checker.php:608
 msgid ""
 "%1$sBuy a license%2$s for the Event Aggregator service to access additional "
 "import features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:546 src/Tribe/PUE/Checker.php:557
+#: src/Tribe/PUE/Checker.php:620 src/Tribe/PUE/Checker.php:631
 #: src/admin-views/troubleshooting/ea-status/license-key.php:44
 msgid "License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:566 src/Tribe/PUE/Checker.php:600
+#: src/Tribe/PUE/Checker.php:640 src/Tribe/PUE/Checker.php:674
 msgid "License Key Status:"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:575
+#: src/Tribe/PUE/Checker.php:649
 msgid "Override network license key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:576
+#: src/Tribe/PUE/Checker.php:650
 msgid ""
 "Check this box if you wish to override the network license key with your own"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:587
+#: src/Tribe/PUE/Checker.php:661
 msgid "Site License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:687
+#: src/Tribe/PUE/Checker.php:761
 msgid "License key(s) updated."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:941
+#: src/Tribe/PUE/Checker.php:1015
 msgid ""
 "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:954
+#: src/Tribe/PUE/Checker.php:1028
 msgid "unknown date"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:960
+#: src/Tribe/PUE/Checker.php:1034
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:980
+#: src/Tribe/PUE/Checker.php:1054
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:985
+#: src/Tribe/PUE/Checker.php:1059
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1014 src/Tribe/PUE/Notices.php:342
+#: src/Tribe/PUE/Checker.php:1088 src/Tribe/PUE/Notices.php:342
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1016 src/Tribe/PUE/Notices.php:344
+#: src/Tribe/PUE/Checker.php:1090 src/Tribe/PUE/Notices.php:344
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1033
+#: src/Tribe/PUE/Checker.php:1107
 msgid "Please refresh the page and try your request again."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1053
+#: src/Tribe/PUE/Checker.php:1127
 msgid ""
 "There is an update for %s. You'll need to %scheck your license%s to have "
 "access to updates, downloads, and support."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1110
+#: src/Tribe/PUE/Checker.php:1184
 msgid ""
 "There is an update for %s. %sRenew your license%s to get access to bug "
 "fixes, security updates, and new features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1140
+#: src/Tribe/PUE/Checker.php:1214
 msgid "Update now to version %s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1151
+#: src/Tribe/PUE/Checker.php:1225
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1732
+#: src/Tribe/PUE/Checker.php:1806
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1733
+#: src/Tribe/PUE/Checker.php:1807
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1734
+#: src/Tribe/PUE/Checker.php:1808
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
