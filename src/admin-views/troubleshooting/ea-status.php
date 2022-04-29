@@ -26,6 +26,8 @@ $show_third_party_accounts = ! is_network_admin();
 			if ( $ea_active ) {
 				// current usage
 				include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status/current-usage.php';
+				// current status
+				include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status/current-status.php';
 				// server connection
 				include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status/server-connection.php';
 				// scheduler status

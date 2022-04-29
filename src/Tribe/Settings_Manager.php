@@ -45,7 +45,7 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public function update_options_cache( $option, $old_value, $value ) {
-		// Bail when no our option.
+		// Bail when not our option.
 		if ( Tribe__Main::OPTIONNAME !== $option ) {
 			return;
 		}
