@@ -4,12 +4,31 @@
 
 * Fix - On the import preview screen when ctrl/spacebar click to multi-select rows make sure all the inbetween rows are counted as selected. [EA-123]
 
-= [TBD] TBD =
+= [4.14.19] 2022-04-27 =
 
+* Tweak - Add long-term license validation storage using options in addition to transients. [ET-1498]
+* Language - 0 new strings added, 26 updated, 1 fuzzied, and 1 obsoleted.
+
+= [4.14.18.1] 2022-04-28 =
+
+* Fix - Undo reversion.
+
+= [4.14.18] 2022-04-28 =
+
+* Feature - First iteration of changes for Full Site Editor compatibility. [TEC-4262]
 * Tweak - Added EA status row showing if it is enabled or disabled in the Event Aggregator system status [TCMN-134]
+* Tweak - Added actions: `tec_start_widget_`, `tec_end_widget_`.
 * Fix - Ensure the Classic Editor "forget" parameter overrides all else when loading the editor w/Classic Editor active. [TEC-4287]
 * Fix - Do not autoload options used to save batched data. [EA-427]
 * Fix - Update bootstrap logic to make sure Common will correctly load completely in the context of plugin activations requests. [TEC-4338]
+* Language - 1 new strings added, 29 updated, 1 fuzzied, and 2 obsoleted.
+
+= [4.14.17] 2022-04-05 =
+
+* Feature - New customizable upsell element to offer upgrades, additions and services that are available. [ET-1351]
+* Fix - Updated Dropdown functionality to work with PHP8, thanks @huubl. [CE-141]
+* Tweak - Changed the wording to include upgrading required plugins to reduce confusion. [TCMN-132]
+* Language - 2 new strings added, 1 updated, 1 fuzzied, and 1 obsoleted
 
 = [4.14.16] 2022-03-15 =
 
@@ -65,11 +84,11 @@
 
 = [4.14.8] 2021-11-17 =
 
-* Feature - Add link to TEC customizer section in admin menu and on Event->Settings->Display page [TBD]
+* Feature - Add link to TEC customizer section in admin menu and on Event->Settings->Display page [TEC-4126]
 * Feature - Adding Onboarding functionality, featuring `Tours` and `Hints`.
 * Tweak - Added the `tribe_repository_{$filter_name}_pre_first_post`, `tribe_repository_{$filter_name}_pre_last_post`, and `tribe_repository_{$filter_name}_pre_get_ids_for_posts` actions. (Props to @sc0ttkclark)
 * Language - 10 new strings added, 3 updated, 1 fuzzied, and 0 obsoleted
-w
+
 = [4.16.7] 2021-11-04 =
 
 * Feature - Added Black Friday promo to the General Settings panel. [TCMN-127]
@@ -213,7 +232,7 @@ w
 
 * Tweak - Add the `tribe_customizer_print_styles_action` to allow filtering the action the Customizer will use to print inline styles. [TEC-3686]
 * Tweak - Allow disabling and enabling logging functionality by calling hte `tribe( 'log' )->disable()` and `tribe( 'log' )->enable()` methods on the Log service provider.
-* Tweak - Update di52 containers to latest version for compatibility with WPStaging Pro. [BTRIA-650]
+* Tweak - Update di52 containers to latest version for compatibility with WPStaging Pro. [TCMN-136]
 * Language - 0 new strings added, 9 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.12.14] 2020-12-02 =
@@ -232,7 +251,7 @@ w
 
 * Tweak - Allow deletion of non persistent keys from Tribe__Cache handling. [ET-917]
 * Fix - Prevent items without children to be marked as groups in SelectWoo UI. [CE-106]
-* Fix - Update the MomentJS version to 2.19.3 for the `tribe-moment` asset. [BTRIA-574]
+* Fix - Update the MomentJS version to 2.19.3 for the `tribe-moment` asset. [TEC-3676]
 * Language - 0 new strings added, 3 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.12.12.1] 2020-11-19 =
@@ -369,7 +388,7 @@ w
 
 = [4.11.5] 2020-03-23 =
 
-* Tweak - Added context to the country and the state of Georgia to allow separate translation [BTRIA-63]
+* Tweak - Added context to the country and the state of Georgia to allow separate translation [TCMN-137]
 * Tweak - Allow uploads of images with a large size and images with no extension provided from the URL, as the extension from the URL was used to define the type of the file to be uploaded and when the extension was not present on the URL the file was considered invalid. [TCMN-46]
 * Tweak - Expired transient garbage collector will only run once per request and when needed [TCMN-38]
 * Language - 2 new strings added, 0 updated, 1 fuzzied, and 1 obsoleted

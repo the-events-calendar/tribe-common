@@ -2,7 +2,7 @@
 /**
  * View: Troubleshooting - EA Status Table Current Status.
  *
- * @since TBD
+ * @since 4.14.18
  *
  *
  * @param array<string|string> $status_icons An array of icons for the EA Status table.
