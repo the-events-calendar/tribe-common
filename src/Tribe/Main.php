@@ -28,7 +28,7 @@ class Tribe__Main {
 	protected $plugin_context_class;
 
 	public static $tribe_url = 'http://tri.be/';
-	public static $tec_url = 'https://theeventscalendar.com/';
+	public static $tec_url   = 'https://theeventscalendar.com/';
 
 	public $plugin_dir;
 	public $plugin_path;
@@ -88,6 +88,15 @@ class Tribe__Main {
 		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 1 );
 		add_action( 'tribe_common_loaded', [ $this, 'tribe_common_app_store' ], 10 );
 		add_action( 'customize_controls_print_styles', [ $this, 'load_tec_variables' ], 10 );
+
+		if ( did_action( 'plugins_loaded' ) && ! doing_action( 'plugins_loaded' ) ) {
+			/*
+			 * This might happen in the context of a plugin activation.
+			 * Complete the loading now and set the singleton instance to avoid infinite loops.
+			 */
+			self::$instance = $this;
+			$this->plugins_loaded();
+		}
 	}
 
 	/**
@@ -97,6 +106,7 @@ class Tribe__Main {
 
 		$this->init_autoloading();
 
+		$this->init_early_libraries();
 		$this->bind_implementations();
 		$this->init_libraries();
 		$this->add_hooks();
@@ -156,10 +166,20 @@ class Tribe__Main {
 	}
 
 	/**
+	 * Initializes all libraries used/required by our singletons.
+	 *
+	 * @since 4.14.18
+	 */
+	public function init_early_libraries() {
+		require_once $this->plugin_path . 'src/functions/editor.php';
+	}
+
+	/**
 	 * initializes all required libraries
 	 */
 	public function init_libraries() {
 		require_once $this->plugin_path . 'src/functions/utils.php';
+		require_once $this->plugin_path . 'src/functions/conditionals.php';
 		require_once $this->plugin_path . 'src/functions/url.php';
 		require_once $this->plugin_path . 'src/functions/query.php';
 		require_once $this->plugin_path . 'src/functions/multibyte.php';
@@ -188,7 +208,7 @@ class Tribe__Main {
 			[
 				[ 'tribe-accessibility-css', 'accessibility.css' ],
 				[ 'tribe-query-string', 'utils/query-string.js' ],
-				[ 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ],
+				[ 'tribe-clipboard', 'node_modules/clipboard/dist/clipboard.min.js' ],
 				[ 'datatables', 'vendor/datatables/datatables.js', [ 'jquery' ] ],
 				[ 'tribe-select2', 'vendor/tribe-selectWoo/dist/js/selectWoo.full.js', [ 'jquery' ] ],
 				[ 'tribe-select2-css', 'vendor/tribe-selectWoo/dist/css/selectWoo.css' ],
@@ -207,6 +227,8 @@ class Tribe__Main {
 				[ 'tribe-jquery-timepicker-css', 'vendor/jquery-tribe-timepicker/jquery.timepicker.css' ],
 				[ 'tribe-timepicker', 'timepicker.js', [ 'jquery', 'tribe-jquery-timepicker' ] ],
 				[ 'tribe-attrchange', 'vendor/attrchange/js/attrchange.js' ],
+				[ 'tec-ky-module', 'vendor/ky/ky.js', [], null, [ 'module' => true ] ],
+				[ 'tec-ky', 'vendor/ky/tec-ky.js', [ 'tec-ky-module' ], null, [ 'module' => true ] ],
 			]
 		);
 
@@ -215,7 +237,7 @@ class Tribe__Main {
 			[
 				[ 'tec-variables-skeleton', 'variables-skeleton.css', ],
 				[ 'tribe-common-skeleton-style', 'common-skeleton.css', [ 'tec-variables-skeleton' ] ],
-				[ 'tec-variables-full', 'variables-full.css', ],
+				[ 'tec-variables-full', 'variables-full.css', [ 'tec-variables-skeleton' ] ],
 				[ 'tribe-common-full-style', 'common-full.css', [ 'tec-variables-full', 'tribe-common-skeleton-style' ] ],
 			],
 			null
