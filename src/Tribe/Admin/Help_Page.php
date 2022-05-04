@@ -60,7 +60,9 @@ class Tribe__Admin__Help_Page {
 
 		$help_pages = [
 			'tribe_events_page_tec-events-help',
+			'tribe_events_page_tec-troubleshooting',
 			'tickets_page_tec-tickets-help',
+			'tickets_page_tec-tickets-troubleshooting',
 		];
 
 		return in_array( $current_screen->id, $help_pages );
