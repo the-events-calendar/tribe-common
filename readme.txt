@@ -1,5 +1,12 @@
 == Changelog ==
 
+=======
+
+= [RBE] RBE = Switch this to TBD once we're close to release.
+
+* Fix - avoid fatal errors when transient notices are registered from inactive plugins
+* Feat - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
+
 = [4.14.19] 2022-04-27 =
 
 * Tweak - Add long-term license validation storage using options in addition to transients. [ET-1498]
@@ -53,7 +60,7 @@
 * Fix - Remove incorrect reference for moment.min.js.map [TEC-4148]
 * Fix - Fixed troubleshooting page styles for standalone Event Tickets setup [ET-1382]
 * Fix - Remove singleton created from a deprecated class.
-* Language - 0 new strings added, 38 updated, 1 fuzzied, and 0 obsoleted\
+* Language - 0 new strings added, 38 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.14.12] 2022-01-17 =
 

@@ -107,7 +107,7 @@ class Tribe__Admin__Notices {
 			[ 'jquery' ],
 			null,
 			[
-				'groups' => 'tec-admin-notices',
+				'group' => 'tec-admin-notices',
 			]
 		);
 	}
@@ -191,14 +191,33 @@ class Tribe__Admin__Notices {
 			$content = $notice->content;
 			$wrap    = isset( $notice->wrap ) ? $notice->wrap : false;
 
+			if ( is_array( $content ) && isset( $content[0] ) && $content[0] instanceof __PHP_Incomplete_Class ) {
+				// From a class that no longer exists (e.g. the plugin is not active), clean and bail.
+				$this->remove( $slug );
+				$this->remove_transient( $slug );
+
+				return false;
+			}
+
 			if ( is_callable( $content ) ) {
 				$content = call_user_func_array( $content, [ $notice ] );
 			}
 
+			if ( empty( $content ) ) {
+				// There is nothing to render, let's avoid the empty notice frame.
+				return false;
+			}
+
 			tribe_asset_enqueue_group( 'tec-admin-notices' );
 
-			// Return the rendered HTML
-			return $this->render( $slug, $content, false, $wrap );
+			// Return the rendered HTML.
+			$html = $this->render( $slug, $content, false, $wrap );
+
+			// Remove the notice and the transient (if any) since it's been rendered.
+			$this->remove( $slug );
+			$this->remove_transient( $slug );
+
+			return $html;
 		}
 
 		return false;
