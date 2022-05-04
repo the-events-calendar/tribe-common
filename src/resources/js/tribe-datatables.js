@@ -104,7 +104,7 @@ window.tribe_data_table = null;
 
 					let $tableBody = $checkbox.closest( '.dataTable tbody' );
 					let $checkCells = $tableBody.find( ".check-column" );
-					for ( let checkCell of $checkCells ) {
+					for ( let checkCell of $checkCells ) { /* eslint-disable-line es5/no-for-of */
 						let checkboxInput = checkCell.querySelector( 'input' );
 						let thisRow = checkCell.closest( 'tr' );
 						if ( checkboxInput.checked ) {
@@ -133,7 +133,7 @@ window.tribe_data_table = null;
 			toggleMultipleRowCheckboxes: function( $checkbox, table ) {
 				const $tableBody = $checkbox.closest( '.dataTable tbody' );
 				const $checkCells = $tableBody.find( ".check-column" );
-				for ( let checkCell of $checkCells ) {
+				for ( let checkCell of $checkCells ) { /* eslint-disable-line es5/no-for-of */
 					const checkboxInput = checkCell.querySelector( 'input' );
 					const thisRow = checkCell.closest( 'tr' );
 					if ( checkboxInput.checked ) {
