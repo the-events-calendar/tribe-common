@@ -2,7 +2,7 @@
 
 = [TBD] TBD =
 
-* Fix - On the import preview screen when ctrl/spacebar click to multi-select rows make sure all the inbetween rows are counted as selected. [EA-123]
+* Fix - On the import preview screen when ctrl/shift click to multi-select rows make sure all the inbetween rows are counted as selected. [EA-123]
 
 = [4.14.19] 2022-04-27 =
 
