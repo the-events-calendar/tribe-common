@@ -183,6 +183,7 @@ class Troubleshooting {
 	 *
 	 */
 	public function do_menu_page() {
+		tribe_asset_enqueue( 'tribe-admin-help-page' );
 		$main = Tribe__Main::instance();
 		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting.php';
 	}
