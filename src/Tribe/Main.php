@@ -19,7 +19,7 @@ class Tribe__Main {
 	const EVENTSERROROPT      = '_tribe_events_errors';
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
-	const VERSION             = '4.14.19';
+	const VERSION             = '4.14.20';
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;

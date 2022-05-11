@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [4.14.20] 2022-05-11 =
+
+* Fix - Fixed missing target and rel attribute for admin view links. [ETP-792]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.14.19] 2022-04-27 =
 
 * Tweak - Add long-term license validation storage using options in addition to transients. [ET-1498]
