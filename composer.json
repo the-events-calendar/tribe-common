@@ -62,7 +62,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Tribe\\": "src/Tribe/"
+      "Tribe\\": "src/Tribe/",
+      "TEC\\Common\\": "src/Common/"
     }
   }
 }

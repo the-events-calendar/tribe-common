@@ -19,16 +19,14 @@ class Tribe__Main {
 	const EVENTSERROROPT      = '_tribe_events_errors';
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
-
 	const VERSION             = '6.0.0-RBE-Beta2.3';
-
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
 
 	public static $tribe_url = 'http://tri.be/';
-	public static $tec_url = 'https://theeventscalendar.com/';
+	public static $tec_url   = 'https://theeventscalendar.com/';
 
 	public $plugin_dir;
 	public $plugin_path;
@@ -106,6 +104,7 @@ class Tribe__Main {
 
 		$this->init_autoloading();
 
+		$this->init_early_libraries();
 		$this->bind_implementations();
 		$this->init_libraries();
 		$this->add_hooks();
@@ -162,6 +161,15 @@ class Tribe__Main {
 	 */
 	public function context_class() {
 		return $this->plugin_context_class;
+	}
+
+	/**
+	 * Initializes all libraries used/required by our singletons.
+	 *
+	 * @since 4.14.18
+	 */
+	public function init_early_libraries() {
+		require_once $this->plugin_path . 'src/functions/editor.php';
 	}
 
 	/**
