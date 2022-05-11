@@ -1880,5 +1880,32 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public function should_show_network_editable_license() {
 			return is_network_admin() && is_super_admin();
 		}
+
+		/**
+		 * Determines if the value on the DB is the correct format.
+		 *
+		 * @since TBD
+		 *
+		 * @return bool
+		 */
+		public function is_valid_key_format() {
+			$license_opt = (string) get_option( $this->get_license_option_key() );
+			if ( empty( $license_opt ) ) {
+				return false;
+			}
+
+			if ( ! preg_match( "/([0-9a-z]+)/i", $license_opt, $matches ) ) {
+				return false;
+			}
+
+			// Pull the matching string into a variable
+			$license = $matches[1];
+
+			if ( 40 !== strlen( $license ) ) {
+				return false;
+			}
+
+			return true;
+		}
 	}
 }
