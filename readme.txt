@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [4.14.20.1] 2022-05-12 =
+
+* Tweak - Modify PUE Checker class to support faster and more reliable license checking [ET-1513]
+
 = [4.14.20] 2022-05-11 =
 
 * Fix - Fixed missing target and rel attribute for admin view links. [ETP-792]
