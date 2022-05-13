@@ -533,8 +533,6 @@ body.tribe_events_page_tribe-app-shop {
 					background: #3D54FF;
 				}
 			}
-
-
 		}
 	}
 
@@ -554,18 +552,102 @@ body.tribe_events_page_tribe-app-shop {
 	display: none;
 }
 
-/**
- * Button compatibility for App Shop.
+// Stellar Discounts Tab
 
-.branch-4-9 {
-	#tribe-app-shop {
-		.addon-grid {
-			.button {
-				height: 58px;
-				box-shadow: none;
-			}
+#tribe-stellar .content-wrapper {
+	max-width: 1020px;
+}
+
+.stellar-logo {
+	margin: 0 auto 32px auto;
+	max-width: 260px;
+
+	img {
+		max-width: 100%;
+	}
+}
+
+.stellar-discounts-description {
+	text-align: center;
+	max-width: 620px;
+	margin: 0 auto 44px auto;
+
+	p {
+		font-size: 22px;
+		line-height: 1.3;
+		
+		@media (min-width: 710px) {
+			font-size: 28px;
 		}
 	}
 }
 
-*/
+.stellar-discounts-coupon-callout {
+	background-color: #334aff;
+	border-radius: 12px;
+	color: white;
+	margin-bottom: 40px;
+	padding: 16px;
+	text-align: center;
+
+	@media (min-width: 710px) {
+		background-color: transparent;
+		background-image: url(../images/shop/stellar-coupon-code-bkg.png);
+		background-position-x: left;
+		background-position-y: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		border: 1px solid #e1e1e4;
+		color: #0f1031;
+		padding: 32px;
+	}
+
+	p {
+		font-size: 22px;
+		margin: 0;
+	}
+}
+
+.stellar-brand-grid {
+	display: grid;
+	gap: 40px;
+	grid-template-columns: 1fr;
+
+	@media (min-width: 710px) {
+		grid-template-columns: repeat( 2, 1fr);
+	}
+
+	@media (min-width: 1220px) {
+		grid-template-columns: repeat( 3, 1fr);
+	}
+}
+
+.stellar-brand {
+	border: 1px solid #e1e1e4;
+	border-radius: 16px;
+	display: flex;
+	flex-direction: column;
+	padding: 28px;
+	padding-top: 12px;
+}
+
+.stellar-brand__image, 
+.stellar-brand__logo {
+	img {
+		max-width: 100%;
+	}
+}
+
+.stellar-brand__content {
+	flex-grow: 1;
+	margin-bottom: 24px;
+}
+
+.stellar-brand__description {
+	font-size: 15px;
+}
+
+#tribe-app-shop .addon-grid .stellar-brand__link {
+	margin-bottom: 0;
+	width: 100%;
+}
