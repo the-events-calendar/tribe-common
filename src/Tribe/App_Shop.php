@@ -355,11 +355,11 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 					'link' => 'https://evnt.is/givewp',
 					'linktext' => __( 'Add Donations', 'tribe-common' ),
 					'description' => __( 'GiveWP makes it easy to raise money online with donation forms, donor databases, and fundraising reporting.', 'tribe-common' ),
-				],											
+				],
 			];
 
 			return $stellar_brands;
-		}		
+		}
 
 		/**
 		 * Static Singleton Factory Method
