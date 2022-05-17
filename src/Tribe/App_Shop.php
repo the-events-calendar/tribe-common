@@ -336,7 +336,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 					'logo' => 'images/shop/stellar-kadence-logo.png',
 					'title' => __( 'Build better WordPress websites with Kadence.', 'tribe-common' ),
 					'link' => 'https://evnt.is/kadencewp',
-					'linktext' => 'Add Starter Templates',
+					'linktext' => __( 'Add Starter Templates', 'tribe-common' ),
 					'description' => __( 'Kadence lets you unlock your creativity in the WordPress Block Editor with expertly designed blocks, a robust theme, and a massive library of starter templates.', 'tribe-common' ),
 				],
 				(object) [
