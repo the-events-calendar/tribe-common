@@ -24,7 +24,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Set up hooks.
 	 *
-	 * @since TBD
+	 * @since 4.15.0
 	 */
 	public function hook() {
 		add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
@@ -33,7 +33,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Hooked to admin_body_class to add a class for help page.
 	 *
-	 * @since TBD
+	 * @since 4.15.0
 	 *
 	 * @param string $classes A space separated string of classes to be added to body.
 	 *

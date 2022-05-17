@@ -237,7 +237,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * @return void
 		 */
 		public function addPage() {
-			_deprecated_function( __METHOD__, 'TBD' );
+			_deprecated_function( __METHOD__, '4.15.0' );
 		}
 
 		/**
@@ -246,7 +246,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * @return void
 		 */
 		public function addNetworkPage() {
-			_deprecated_function( __METHOD__, 'TBD' );
+			_deprecated_function( __METHOD__, '4.15.0' );
 		}
 
 		/**
@@ -293,7 +293,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		/**
 		 * Get the current settings page URL
 		 *
-		 * @since TBD
+		 * @since 4.15.0
 		 *
 		 * @return string The current settings page URL.
 		 */
@@ -320,7 +320,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		/**
 		 * Get the settings page title.
 		 *
-		 * @since TBD
+		 * @since 4.15.0
 		 *
 		 * @param string $admin_page The admin page ID.
 		 * @return string The settings page title.
@@ -335,7 +335,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			/**
 			 * Filter the tribe settings page title.
 			 *
-			 * @since TBD
+			 * @since 4.15.0
 			 *
 			 * @param string $page_title The settings page title.
 			 * @param string $admin_page The admin page ID.
@@ -347,7 +347,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * Generate the main option page.
 		 * includes the view file.
 		 *
-		 * @since TBD Add the current page as parameter for the actions.
+		 * @since 4.15.0 Add the current page as parameter for the actions.
 		 *
 		 * @return void
 		 */
@@ -412,7 +412,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		/**
 		 * Generate the URL for a tab.
 		 *
-		 * @since TBD
+		 * @since 4.15.0
 		 *
 		 * @param string $tab The tab slug.
 		 *
@@ -530,7 +530,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		/**
 		 * Save the settings.
 		 *
-		 * @since TBD Add the current page as parameter for the actions.
+		 * @since 4.15.0 Add the current page as parameter for the actions.
 		 *
 		 * @return void
 		 */

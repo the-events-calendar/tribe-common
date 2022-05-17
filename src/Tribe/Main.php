@@ -19,6 +19,7 @@ class Tribe__Main {
 	const EVENTSERROROPT      = '_tribe_events_errors';
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
+
 	const VERSION             = '4.15.0';
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 

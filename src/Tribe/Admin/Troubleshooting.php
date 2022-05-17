@@ -107,7 +107,7 @@ class Troubleshooting {
 	/**
 	 * Hooked to admin_body_class to add a class for troubleshooting page.
 	 *
-	 * @since TBD
+	 * @since 4.15.0
 	 *
 	 * @param string $classes a space separated string of classes to be added to body.
 	 *

@@ -251,7 +251,7 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public static function add_network_options_page() {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '4.15.0' );
 	}
 
 	/**
@@ -260,7 +260,7 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public static function do_network_settings_tab() {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '4.15.0' );
 	}
 
 	/**

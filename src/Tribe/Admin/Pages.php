@@ -4,13 +4,13 @@ namespace Tribe\Admin;
 /**
  * Class Pages.
  *
- * @since TBD
+ * @since 4.15.0
  */
 class Pages {
 	/**
 	 * Current page ID (or false if not registered with this controller).
 	 *
-	 * @since TBD
+	 * @since 4.15.0
 	 *
 	 * @var string|null
 	 */
@@ -20,7 +20,7 @@ class Pages {
 	 * Registered pages
 	 * Contains information (breadcrumbs, menu info) about TEC admin pages.
 	 *
-	 * @since TBD
+	 * @since 4.15.0
 	 *
 	 * @var array<string,mixed>
 	 */
@@ -29,7 +29,7 @@ class Pages {
 	/**
 	 * Get registered pages.
 	 *
-	 * @since TBD
+	 * @since 4.15.0
 	 *
 	 * @return array $pages {
 	 *     Array containing the registered pages.
@@ -51,7 +51,7 @@ class Pages {
 		/**
 		 * Filters the list of registered TEC admin pages.
 		 *
-		 * @since TBD
+		 * @since 4.15.0
 		 *
 		 * @param array $pages {
 		 *     Array containing the registered pages to be filtered
@@ -77,7 +77,7 @@ class Pages {
 	/**
 	 * Adds a page to `tec-admin`.
 	 *
-	 * @since TBD
+	 * @since 4.15.0
 	 *
 	 * @param array $options {
 	 *   Array describing the page.
@@ -139,7 +139,7 @@ class Pages {
 	/**
 	 * Get the current page.
 	 *
-	 * @since TBD
+	 * @since 4.15.0
 	 *
 	 * @return string|boolean Current page or false if not registered with this controller.
 	 */
@@ -154,7 +154,7 @@ class Pages {
 	/**
 	 * Determine the current page.
 	 *
-	 * @since TBD
+	 * @since 4.15.0
 	 *
 	 * @return string|boolean Current page or false if not registered with this controller.
 	 */
@@ -174,7 +174,7 @@ class Pages {
 	/**
 	 * Connect an existing page to wp-admin.
 	 *
-	 * @since TBD
+	 * @since 4.15.0
 	 *
 	 * @param array $options {
 	 *   Array describing the page.
@@ -220,7 +220,7 @@ class Pages {
 	 *
 	 * @param string $capability The capability required for a TEC page to be displayed to the user.
 	 *
-	 * @since TBD
+	 * @since 4.15.0
 	 *
 	 * @return string The capability required for a TEC page to be displayed to the user.
 	 */
@@ -239,7 +239,7 @@ class Pages {
 		 *
 		 * @param string $capability The capability required for a TEC page to be displayed to the user.
 		 *
-		 * @since TBD
+		 * @since 4.15.0
 		 */
 		$capability = apply_filters( 'tec_admin_pages_capability', $capability );
 
@@ -249,7 +249,7 @@ class Pages {
 	/**
 	 * Define if is a `tec` admin page (registered).
 	 *
-	 * @since TBD
+	 * @since 4.15.0
 	 *
 	 * @param string $page_id The ID of the page to check if is a `tec` admin page.
 	 *
@@ -261,7 +261,7 @@ class Pages {
 
 	/**
 	 * Get pages with tabs.
-	 * @since TBD
+	 * @since 4.15.0
 	 *
 	 * @param array $pages The list of pages with tabs.
 	 * @return array $pages The list of pages with tabs, filtered.
@@ -272,7 +272,7 @@ class Pages {
 		*
 		* @param array $pages Pages with tabs.
 		*
-		* @since TBD
+		* @since 4.15.0
 		*/
 		return apply_filters(
 			'tec_admin_pages_with_tabs',
@@ -283,7 +283,7 @@ class Pages {
 	/**
 	 * Check if the current page has tabs.
 	 *
-	 * @since TBD
+	 * @since 4.15.0
 	 *
 	 * @param string $page The page slug.
 	 * @return boolean True if the page has tabs, false otherwise.
@@ -299,7 +299,7 @@ class Pages {
 	/**
 	 * Generic page.
 	 *
-	 * @since TBD
+	 * @since 4.15.0
 	 */
 	public static function render_page() {
 		?>

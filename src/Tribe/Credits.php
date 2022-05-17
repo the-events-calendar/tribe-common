@@ -81,7 +81,7 @@ class Tribe__Credits {
 		/**
 		 * Filters the admin footer text.
 		 *
-		 * @since TBD
+		 * @since 4.15.0
 		 *
 		 * @param $footer_text The admin footer text.
 		 */
