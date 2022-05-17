@@ -328,7 +328,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 					'logo' => 'images/shop/stellar-rcp-logo.png',
 					'title' => __( 'Built with developers in mind.', 'tribe-common' ),
 					'link' => 'https://evnt.is/rcp',
-					'linktext' => 'Add Content Restriction',
+					'linktext' => __( 'Add Content Restriction', 'tribe-common' ),
 					'description' => __( 'Restrict Content Pro is flexible, easy to extend, and chock full of action hooks and filters, making it easy to modify and tweak to your specific needs.', 'tribe-common' ),
 				],
 				(object) [
