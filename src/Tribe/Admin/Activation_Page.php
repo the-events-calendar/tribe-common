@@ -242,7 +242,7 @@ class Tribe__Admin__Activation_Page {
 	protected function get_message_page_url( $slug ) {
 		$settings = Tribe__Settings::instance();
 
-		$url = ! empty( $this->args['admin_page'] ) ? $this->args['admin_page'] : $settings->get_url();
+		$url = ! empty( $this->args['admin_url'] ) ? $this->args['admin_url'] : $settings->get_url();
 
 		$url = esc_url_raw( add_query_arg( $slug, 1, $url ) );
 
