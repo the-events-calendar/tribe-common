@@ -1,5 +1,9 @@
 == Changelog ==
 
+= TBD =
+
+* Tweak - Add Stellar Discounts tab in Event Add-Ons
+
 = [4.14.20.1] 2022-05-12 =
 
 * Tweak - Modify PUE Checker class to support faster and more reliable license checking [ET-1513]
