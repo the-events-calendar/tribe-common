@@ -71,8 +71,6 @@ class Pages {
 		 */
 		$pages = apply_filters( 'tec_admin_pages', $this->pages );
 
-		var_dump( $pages );
-
 		return $pages;
 	}
 
