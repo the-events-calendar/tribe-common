@@ -300,7 +300,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		public function get_settings_page_url( array $args = [] ) {
 			$admin_pages = tribe( 'admin.pages' );
 			$page        = $admin_pages->get_current_page();
-			$tab         = isset( $_GET['tab'] ) ? $_GET['tab'] : $this->defaultTab;
+			$tab         = tribe_get_request_var( 'tab', $this->defaultTab );
 			$defaults    = [
 				'page' => $page,
 				'tab'  => $tab,
