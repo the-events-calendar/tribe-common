@@ -206,7 +206,7 @@ use \Tribe\Admin\Troubleshooting;
 			</div>
 
 			<div class="stellar-discounts-description">
-				<p><?php esc_html_e( 'Stellar is a collective of Wordpress innovators, and home to Wordpress products done right.', 'tribe-common' ); ?></p>
+				<p><?php esc_html_e( 'Stellar is a collective of WordPress innovators, and home to WordPress products done right.', 'tribe-common' ); ?></p>
 			</div>
 
 			<div class="stellar-discounts-coupon-callout">
