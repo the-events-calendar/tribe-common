@@ -228,7 +228,7 @@ class Tribe__Settings_Manager {
 			isset( $_POST['tribeSaveSettings'] )
 			&& isset( $_POST['current-settings-tab'] )
 		) {
-			$options['hideSettingsTabs'] = $_POST['hideSettingsTabs'];
+			$options['hideSettingsTabs'] = tribe_get_request_var( 'hideSettingsTabs', [] );
 		}
 
 		$admin_pages = tribe( 'admin.pages' );
