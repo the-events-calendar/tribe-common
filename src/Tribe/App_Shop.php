@@ -320,7 +320,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 					'logo' => 'images/shop/stellar-ithemes-logo.png',
 					'title' => __( 'Foundational favorites: iThemes Security and Developer Toolkit.', 'tribe-common' ),
 					'link' => 'https://evnt.is/ithemes',
-					'linktext' => 'Add Security',
+					'linktext' => __( 'Add Security', 'tribe-common' ),
 					'description' => __( 'iThemes Security, the WordPress security plugin that’s easy to use. Built with performance in mind.', 'tribe-common' ),
 				],
 				(object) [
