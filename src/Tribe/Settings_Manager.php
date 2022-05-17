@@ -224,6 +224,13 @@ class Tribe__Settings_Manager {
 			return;
 		}
 
+		if (
+			isset( $_POST['tribeSaveSettings'] )
+			&& isset( $_POST['current-settings-tab'] )
+		) {
+			$options['hideSettingsTabs'] = $_POST['hideSettingsTabs'];
+		}
+
 		$admin_pages = tribe( 'admin.pages' );
 		$admin_page  = $admin_pages->get_current_page();
 
