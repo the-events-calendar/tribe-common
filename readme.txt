@@ -3,6 +3,7 @@
 = [4.15.0] 2022-05-17 =
 
 * Feature - Introducing new admin pages structure and updating the settings framework to have Settings on multiple pages. [ET-1335]
+* Language - 0 new strings added, 150 updated, 0 fuzzied, and 43 obsoleted
 
 = [4.14.20.1] 2022-05-12 =
 
