@@ -28,6 +28,7 @@ class Tribe__Admin__Activation_Page {
 		$this->args = wp_parse_args( $args, [
 			'slug'                  => '',
 			'admin_page'            => '',
+			'admin_url'             => '',
 			'activation_transient'  => '',
 			'version'               => '',
 			'plugin_path'           => '',
