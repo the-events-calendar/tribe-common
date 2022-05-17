@@ -353,7 +353,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 					'logo' => 'images/shop/stellar-give-logo.png',
 					'title' => __( 'The best WordPress donation plugin.', 'tribe-common' ),
 					'link' => 'https://evnt.is/givewp',
-					'linktext' => 'Add Donations',
+					'linktext' => __( 'Add Donations', 'tribe-common' ),
 					'description' => __( 'GiveWP makes it easy to raise money online with donation forms, donor databases, and fundraising reporting.', 'tribe-common' ),
 				],											
 			];
