@@ -312,7 +312,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 					'logo' => 'images/shop/stellar-learndash-logo.png',
 					'title' => __( 'The online course platform created by e-learning experts.', 'tribe-common' ),
 					'link' => 'https://evnt.is/learndash',
-					'linktext' => 'Add Courses',
+					'linktext' => __( 'Add Courses', 'tribe-common' ),
 					'description' => __( 'Trusted to power learning programs for major universities, startups, entrepreneurs, and bloggers worldwide.', 'tribe-common' ),
 				],
 				(object) [
