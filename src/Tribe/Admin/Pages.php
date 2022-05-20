@@ -159,7 +159,7 @@ class Pages {
 	 * @return string|boolean Current page or false if not registered with this controller.
 	 */
 	public function determine_current_page() {
-		$current_screen = get_current_screen();
+		$current_screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
 
 		if ( is_null( $current_screen ) ) {
 			$this->current_page = tribe_get_request_var( 'page' );
