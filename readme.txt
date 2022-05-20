@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [4.15.0.1] 2022-05-20 =
+
+* Fix - Check if function exists for `get_current_screen` to avoid a fatal if not.
+
 = [4.15.0] 2022-05-19 =
 
 * Feature - Introducing new admin pages structure and updating the settings framework to have Settings on multiple pages. [ET-1335]
