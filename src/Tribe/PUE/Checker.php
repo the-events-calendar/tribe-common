@@ -1884,7 +1884,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Determines if the value on the DB is the correct format.
 		 *
-		 * @since TBD
+		 * @since 4.15.0
 		 *
 		 * @return bool
 		 */
