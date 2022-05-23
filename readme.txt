@@ -1,5 +1,9 @@
 == Changelog ==
 
+= TBD =
+
+* Tweak - Add Stellar Discounts tab in Event Add-Ons
+
 = [4.15.0.1] 2022-05-23 =
 
 * Fix - Check if function exists for `get_current_screen` to avoid a fatal if not.
