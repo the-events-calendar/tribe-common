@@ -11,7 +11,7 @@ class Tribe__Settings_Manager {
 	public function __construct() {
 		$this->add_hooks();
 
-		// Load multisite defaults
+		// Load multisite defaults.
 		if ( is_multisite() ) {
 			$tribe_events_mu_defaults = [];
 			if ( file_exists( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' ) ) {
@@ -28,7 +28,6 @@ class Tribe__Settings_Manager {
 
 		add_action( 'admin_menu', [ $this, 'add_help_admin_menu_item' ], 50 );
 		add_action( 'tribe_settings_do_tabs', [ $this, 'do_setting_tabs' ] );
-		add_action( 'tribe_settings_do_tabs', [ $this, 'do_network_settings_tab' ], 400 );
 		add_action( 'tribe_settings_validate_tab_network', [ $this, 'save_all_tabs_hidden' ] );
 		add_action( 'updated_option', [ $this, 'update_options_cache' ], 10, 3 );
 	}
@@ -71,14 +70,6 @@ class Tribe__Settings_Manager {
 	public function do_setting_tabs() {
 		// Make sure Thickbox is available regardless of which admin page we're on
 		add_thickbox();
-
-		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-general.php';
-		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-display.php';
-
-		$showNetworkTabs = $this->get_network_option( 'showSettingsTabs', false );
-
-		new Tribe__Settings_Tab( 'general', esc_html__( 'General', 'tribe-common' ), $generalTab );
-		new Tribe__Settings_Tab( 'display', esc_html__( 'Display', 'tribe-common' ), $displayTab );
 
 		$this->do_licenses_tab();
 	}
@@ -233,8 +224,18 @@ class Tribe__Settings_Manager {
 			return;
 		}
 
-		if ( $apply_filters == true ) {
-			$options = apply_filters( 'tribe-events-save-network-options', $options );
+		if (
+			isset( $_POST['tribeSaveSettings'] )
+			&& isset( $_POST['current-settings-tab'] )
+		) {
+			$options['hideSettingsTabs'] = tribe_get_request_var( 'hideSettingsTabs', [] );
+		}
+
+		$admin_pages = tribe( 'admin.pages' );
+		$admin_page  = $admin_pages->get_current_page();
+
+		if ( true === $apply_filters ) {
+			$options = apply_filters( 'tribe-events-save-network-options', $options, $admin_page );
 		}
 
 		if ( update_site_option( Tribe__Main::OPTIONNAMENETWORK, $options ) ) {
@@ -250,18 +251,7 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public static function add_network_options_page() {
-		$tribe_settings = Tribe__Settings::instance();
-		add_submenu_page(
-			'settings.php',
-			$tribe_settings->menuName,
-			$tribe_settings->menuName,
-			'manage_network_options',
-			'tribe-common',
-			[
-				$tribe_settings,
-				'generatePage',
-			]
-		);
+		_deprecated_function( __METHOD__, '4.15.0' );
 	}
 
 	/**
@@ -270,9 +260,7 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public static function do_network_settings_tab() {
-		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-network.php';
-
-		new Tribe__Settings_Tab( 'network', esc_html__( 'Network', 'tribe-common' ), $networkTab );
+		_deprecated_function( __METHOD__, '4.15.0' );
 	}
 
 	/**
@@ -362,12 +350,6 @@ class Tribe__Settings_Manager {
 		$all_tabs_keys = array_keys( apply_filters( 'tribe_settings_all_tabs', [] ) );
 
 		$network_options = (array) get_site_option( Tribe__Main::OPTIONNAMENETWORK );
-
-		if ( isset( $_POST['hideSettingsTabs'] ) && $_POST['hideSettingsTabs'] == $all_tabs_keys ) {
-			$network_options['allSettingsTabsHidden'] = '1';
-		} else {
-			$network_options['allSettingsTabsHidden'] = '0';
-		}
 
 		$this->set_network_options( $network_options );
 	}
