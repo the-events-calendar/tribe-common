@@ -5,6 +5,14 @@
 * Fix - avoid fatal errors when transient notices are registered from inactive plugins
 * Feat - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
 
+= TBD =
+
+* Tweak - Add Stellar Discounts tab in Event Add-Ons
+
+= [4.15.0.1] 2022-05-23 =
+
+* Fix - Check if function exists for `get_current_screen` to avoid a fatal if not.
+
 = [4.15.0] 2022-05-19 =
 
 * Feature - Introducing new admin pages structure and updating the settings framework to have Settings on multiple pages. [ET-1335]
