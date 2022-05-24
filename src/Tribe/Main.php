@@ -136,7 +136,10 @@ class Tribe__Main {
 
 		$autoloader = Tribe__Autoloader::instance();
 
-		$prefixes = [ 'Tribe__' => dirname( __FILE__ ) ];
+		$prefixes = [
+				'TEC\\Common\\' => dirname( __DIR__ ) . '/Common',
+				'Tribe__'       => __DIR__,
+		];
 		$autoloader->register_prefixes( $prefixes );
 
 		foreach ( glob( $this->plugin_path . 'src/deprecated/*.php' ) as $file ) {
