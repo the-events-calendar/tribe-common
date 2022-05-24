@@ -3,7 +3,26 @@
 = [TBD] TBD =
 
 * Feature - Add Calendar Export icon as a template. [TEC-4176]
-* Fix - On the import preview screen when ctrl/shift click to multi-select rows make sure all the inbetween rows are counted as selected. [EA-123]
+* Fix - On the import preview screen when ctrl/shift click to multi-select rows make sure all the in between rows are counted as selected. [EA-123]
+* Tweak - Add Stellar Discounts tab in Event Add-Ons
+
+= [4.15.0.1] 2022-05-23 =
+
+* Fix - Check if function exists for `get_current_screen` to avoid a fatal if not.
+
+= [4.15.0] 2022-05-19 =
+
+* Feature - Introducing new admin pages structure and updating the settings framework to have Settings on multiple pages. [ET-1335]
+* Language - 0 new strings added, 150 updated, 0 fuzzied, and 43 obsoleted
+
+= [4.14.20.1] 2022-05-12 =
+
+* Tweak - Modify PUE Checker class to support faster and more reliable license checking [ET-1513]
+
+= [4.14.20] 2022-05-11 =
+
+* Fix - Fixed missing target and rel attribute for admin view links. [ETP-792]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.14.19] 2022-04-27 =
 
