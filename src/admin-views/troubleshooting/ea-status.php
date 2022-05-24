@@ -2,9 +2,16 @@
 /**
  * View: Troubleshooting - EA Status Section
  *
- * @since 4.14.2
+ * @since TBD
+ * @since TBD Only show if EA is there.
  *
+ * @version TBD
  */
+
+if ( ! class_exists( 'Tribe__Events__Aggregator' ) ) {
+	return;
+}
+
 $status_icons = [
 	'success' => 'images/help/success-icon.svg',
 	'warning' => 'images/help/warning-icon.svg',
