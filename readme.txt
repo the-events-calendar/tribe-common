@@ -1,10 +1,11 @@
 == Changelog ==
 
-= [TBD] TBD =
+= TBD =
 
-* Fix = Only show Event Aggregator status on the troubleshooting page if Event Aggregator is accessible. [ET-1517]
+* Tweak - Add Stellar Discounts tab in Event Add-Ons
+* Fix - Only show Event Aggregator status on the troubleshooting page if Event Aggregator is accessible. [ET-1517]
 
-= [4.15.0.1] 2022-05-20 =
+= [4.15.0.1] 2022-05-23 =
 
 * Fix - Check if function exists for `get_current_screen` to avoid a fatal if not.
 

@@ -12,6 +12,7 @@
     "_": true,
     "ajaxurl": true,
     "Clipboard": true,
+	"ClipboardJS": true,
     "introJs": true,
     "jQuery": true,
     "moment": true,
