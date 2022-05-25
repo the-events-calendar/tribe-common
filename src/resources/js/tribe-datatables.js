@@ -125,7 +125,7 @@ window.tribe_data_table = null;
 			 * On ctrl/spacebar click to multi-select rows, run through all the rows and run select() on any that are checked.
 			 * This happens on change event as click is too early and will not detect the entire interval of selected events.
 			 *
-			 * @since TBD
+			 * @since 4.15.1
 			 *
 			 * @param {jQuery} $checkbox The jQuery object of the checkbox.
 			 * @param {DataTable} table The DataTable object.

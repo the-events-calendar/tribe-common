@@ -9,11 +9,11 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @since TBD
+ * @since 4.15.1
  *
  * @var array<string> $classes Additional classes to add to the svg icon.
  *
- * @version TBD
+ * @version 4.15.1
  *
  */
 $svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--cal-export' ];
