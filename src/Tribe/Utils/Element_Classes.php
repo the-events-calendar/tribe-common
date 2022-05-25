@@ -208,7 +208,6 @@ class Element_Classes {
 				}
 			} elseif ( is_string( $key ) ) {
 				if ( $value instanceof \Closure || is_callable( $value ) ) {
-					// function() {}
 					$value = $value( $this->results );
 				}
 
