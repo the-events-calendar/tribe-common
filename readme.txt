@@ -3,6 +3,7 @@
 = TBD =
 
 * Tweak - Add Stellar Discounts tab in Event Add-Ons
+* Fix - Only show Event Aggregator status on the troubleshooting page if Event Aggregator is accessible. [ET-1517]
 
 = [4.15.0.1] 2022-05-23 =
 
