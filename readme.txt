@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [4.15.1] 2022-05-26 =
+= [4.15.1] 2022-05-31 =
 
 * Feature - Add Calendar Export icon as a template. [TEC-4176]
 * Fix - On the import preview screen when ctrl/shift click to multi-select rows make sure all the in between rows are counted as selected. [EA-123]
