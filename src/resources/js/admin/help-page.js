@@ -22,7 +22,7 @@ tribe.helpPage = tribe.helpPage || {};
 			return;
 		}
 
-		var clipboard = new ClipboardJS( obj.selectors.copyButton );
+		var clipboard = new ClipboardJS( obj.selectors.copyButton ); /* eslint-disable-line no-undef */
 		var button_icon = '<span class="dashicons dashicons-clipboard license-btn"></span>';
 		var button_text = tribe_system_info.clipboard_btn_text;
 
