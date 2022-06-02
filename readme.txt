@@ -1,11 +1,28 @@
 == Changelog ==
 
-=======
-
 = [RBE] RBE = Switch this to TBD once we're close to release.
 
 * Fix - avoid fatal errors when transient notices are registered from inactive plugins
 * Feat - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
+
+= [4.15.0.1] 2022-05-23 =
+
+* Fix - Check if function exists for `get_current_screen` to avoid a fatal if not.
+
+= [4.15.0] 2022-05-19 =
+
+* Feature - Introducing new admin pages structure and updating the settings framework to have Settings on multiple pages. [ET-1335]
+* Tweak - Add Stellar Discounts tab in Event Add-Ons
+* Language - 0 new strings added, 150 updated, 0 fuzzied, and 43 obsoleted
+
+= [4.14.20.1] 2022-05-12 =
+
+* Tweak - Modify PUE Checker class to support faster and more reliable license checking [ET-1513]
+
+= [4.14.20] 2022-05-11 =
+
+* Fix - Fixed missing target and rel attribute for admin view links. [ETP-792]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.14.19] 2022-04-27 =
 

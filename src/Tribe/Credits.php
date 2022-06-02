@@ -78,7 +78,14 @@ class Tribe__Credits {
 
 		remove_filter( 'tribe_tickets_post_types', [ $this, 'tmp_return_tribe_events' ], 99 );
 
-		return $footer_text;
+		/**
+		 * Filters the admin footer text.
+		 *
+		 * @since 4.15.0
+		 *
+		 * @param $footer_text The admin footer text.
+		 */
+		return apply_filters( 'tec_admin_footer_text', $footer_text );
 	}
 
 	/**

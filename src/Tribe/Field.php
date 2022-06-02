@@ -143,7 +143,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$label_attributes = $args['label_attributes'];
 			$tooltip    = wp_kses(
 				$args['tooltip'], [
-					'a'      => [  'class' => [], 'href' => [], 'title' => [], 'target' => [] ],
+					'a'      => [  'class' => [], 'href' => [], 'title' => [], 'target' => [], 'rel' => [] ],
 					'br'     => [],
 					'em'     => [ 'class' => [] ],
 					'strong' => [ 'class' => [] ],
