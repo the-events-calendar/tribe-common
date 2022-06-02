@@ -107,7 +107,7 @@ class Tribe__Admin__Notices {
 			[ 'jquery' ],
 			null,
 			[
-				'group' => 'tec-admin-notices',
+				'groups' => 'tec-admin-notices',
 			]
 		);
 	}
