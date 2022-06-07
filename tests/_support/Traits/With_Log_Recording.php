@@ -12,6 +12,7 @@ namespace Tribe\Tests\Traits;
 
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\HandlerInterface;
+use Monolog\Logger;
 use PHPUnit\Framework\Assert;
 
 trait With_Log_Recording {
@@ -69,8 +70,18 @@ trait With_Log_Recording {
 			};
 		}
 
-		if ( ! has_filter( 'tribe_log_handlers', static::$log_recorder_subscribe ) ) {
-			add_filter( 'tribe_log_handlers', static::$log_recorder_subscribe, PHP_INT_MAX, 0 );
+		if ( ! tribe()->isBound( Logger::class ) ) {
+			// The logger has not been instantiated yet, hook for later.
+			if ( ! has_filter( 'tribe_log_handlers', static::$log_recorder_subscribe ) ) {
+				add_filter( 'tribe_log_handlers', static::$log_recorder_subscribe, PHP_INT_MAX, 0 );
+			}
+		} else {
+			// The logger has already been set up, insert the test logger, if not already inserted.
+			$logger = tribe( Logger::class );
+			$current_handlers = $logger->getHandlers();
+			if ( ! in_array( static::$test_log_recorder, $current_handlers, true ) ) {
+				$logger->pushHandler( static::$test_log_recorder );
+			}
 		}
 	}
 
