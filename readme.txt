@@ -2,10 +2,8 @@
 
 = [RBE] RBE = Switch this to TBD once we're close to release.
 
+* Feature - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
 * Fix - avoid fatal errors when transient notices are registered from inactive plugins
-* Feat - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
-
-= TBD =
 
 = [4.15.1] 2022-05-31 =
 
@@ -22,6 +20,7 @@
 = [4.15.0] 2022-05-19 =
 
 * Feature - Introducing new admin pages structure and updating the settings framework to have Settings on multiple pages. [ET-1335]
+* Tweak - Add Stellar Discounts tab in Event Add-Ons
 * Language - 0 new strings added, 150 updated, 0 fuzzied, and 43 obsoleted
 
 = [4.14.20.1] 2022-05-12 =
