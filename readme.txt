@@ -1,9 +1,17 @@
 == Changelog ==
 
-= TBD =
+= [4.15.2] 2022-06-08 =
 
-* Tweak - Add Stellar Discounts tab in Event Add-Ons
 * Fix - Only show Event Aggregator status on the troubleshooting page if Event Aggregator is accessible. [ET-1517]
+
+= [4.15.1] 2022-05-31 =
+
+* Feature - Add Calendar Export icon as a template. [TEC-4176]
+* Tweak - Add Stellar Discounts tab in Event Add-Ons
+* Tweak - Element Classes now will support callbacks inside of arrays as well as non boolean values that are validated by `tribe_is_truthy`
+* Tweak - Add Stellar Discounts tab in Event Add-Ons. [TEC-4302]
+* Fix - On the import preview screen when ctrl/shift click to multi-select rows make sure all the in between rows are counted as selected. [EA-123]
+* Language - 21 new strings added, 46 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.15.0.1] 2022-05-23 =
 
