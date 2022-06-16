@@ -168,6 +168,19 @@ class Tribe__Admin__Activation_Page {
 		if ( $this->is_new_install() ) {
 			$this->redirect_to_welcome_page();
 		}
+
+		/**
+		 * Filters whether we should disable the update page redirect.
+		 *
+		 * @param bool 
+		 */
+		$bypass_update_page = apply_filters( 'tec_admin_update_page_bypass', false );
+		
+		if ( $bypass_update_page ) {
+			return;
+		}
+
+		$this->redirect_to_update_page();
 	}
 
 	/**
