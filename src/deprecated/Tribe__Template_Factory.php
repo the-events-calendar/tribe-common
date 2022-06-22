@@ -19,4 +19,13 @@ class Tribe__Template_Factory {
 		_deprecated_function( __METHOD__, '6.0.0' );
 		return [];
 	}
+
+	/**
+	 * @deprecated 6.0.0
+	 * @return string
+	 */
+	public static function getMinFile( $file, $_deprecated ) {
+		_deprecated_function( __METHOD__, '6.0.0', 'Tribe__Assets::maybe_get_min_file' );
+		return Tribe__Assets::maybe_get_min_file( $file );
+	}
 }
