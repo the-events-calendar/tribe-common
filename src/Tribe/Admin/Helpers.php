@@ -190,4 +190,81 @@ class Tribe__Admin__Helpers {
 
 		return false;
 	}
+
+	/**
+	 * Get a list of the admin screens for showing notices, etc.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string> $additional A list of additional screens to add to the list.
+	 *
+	 * @return array<string> $screens The list of screen IDs.
+	 */
+	public static function get_admin_screens_list( $additional = [] ) {
+		// @TODO: some of these are redundant or old -this list should be audited.
+		$default_screens = array_merge(
+			self::get_settings_screens_list(),
+			self::get_app_shop_screens_list()
+		);
+
+		if ( empty( $additional ) ) {
+			return $default_screens;
+		}
+
+		$screens = array_merge( $default_screens, (array) $additional );
+
+		/**
+		 * Allows filtering of the allowed screens for showing notices, etc.
+		 *
+		 * @param array<string> $screens The list of screen IDs.
+		 */
+		return apply_filters( 'tec_admin_screens_list', $screens );
+	}
+
+	/**
+	 * Get a list of the admin settings screens for showing notices, etc.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string> $screens The list of screen IDs.
+	 */
+	public static function get_settings_screens_list() {
+		$screens = [
+			'tribe_events_page_tec-events-settings',
+			// @TODO: deprecated.
+			'tribe_events_page_tribe-common',
+			// @TODO: old and only here for back compat?
+			'events_page_tribe-common',
+			'toplevel_page_tribe-common',
+		];
+
+		/**
+		 * Allows filtering of the settings and welcome screens.
+		 *
+		 * @param array<string> $screens The list of screen IDs.
+		 */
+		return apply_filters( 'tec_settings_screens_list', $screens );
+	}
+
+	/**
+	 * Get a list of the admin app shop screens for showing notices, etc.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string> $screens The list of screen IDs.
+	 */
+	public static function get_app_shop_screens_list() {
+		$screens = [
+			'tribe_events_page_tribe-app-shop',
+			// @TODO: old and only here for back compat?
+			'events_page_tribe-app-shop',
+		];
+
+		/**
+		 * Allows filtering of the app shop screens.
+		 *
+		 * @param array<string> $screens The list of screen IDs.
+		 */
+		return apply_filters( 'tec_app_shop_screens_list', $screens );
+	}
 }
