@@ -3,7 +3,7 @@
  */
 import { plugins } from '@moderntribe/common/data';
 
-export const eventHasRecurrenceRules = ( state ) => {
+export const hasRecurrenceRules = ( state ) => {
 	let hasRules = false;
 	try {
 		hasRules = window.tribe[ plugins.constants.EVENTS_PRO_PLUGIN ]
