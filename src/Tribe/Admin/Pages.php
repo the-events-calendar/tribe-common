@@ -44,6 +44,7 @@ class Pages {
 	 *         @type int         position     Menu item position.
 	 *         @type int         order        Navigation item order.
 	 *         @type callable    callback     The function to be called to output the content for the page.
+	 *         @type string      hook_suffix  The hook suffix for the page.
 	 *     }
 	 * }
 	 */
@@ -66,6 +67,7 @@ class Pages {
 		 *         @type int         position     Menu item position.
 		 *         @type int         order        Navigation item order.
 		 *         @type callable    callback     The function to be called to output the content for the page.
+		 *         @type string      hook_suffix  The hook suffix for the page.
 		 *     }
 		 * }
 		 */
@@ -131,6 +133,9 @@ class Pages {
 			);
 		}
 
+		// Let's store the hook_suffix for this page.
+		$options['hook_suffix'] = $page;
+
 		$this->connect_page( $options );
 
 		return $page;
@@ -149,6 +154,44 @@ class Pages {
 		}
 
 		return $this->current_page;
+	}
+
+	/**
+	 * Get a particular page.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $page_id The page id to get.
+	 *
+	 * @return false|array The page or false if not registered with this controller.
+	 */
+	public function get_page( $page_id ) {
+		$pages = $this->get_pages();
+
+		if ( ! isset( $pages[ $page_id ] ) ) {
+			return false;
+		}
+
+		return $pages[ $page_id ];
+	}
+
+	/**
+	 * Get a particular page's hook_suffix.
+	 *
+	 * @since TBD
+	 *
+	 * @param $page_id The page id to get the `hook_suffix` for.
+	 *
+	 * @return string|false The page's `hook_suffix` or false if not registered with this controller.
+	 */
+	public function get_page_hook_suffix( $page_id ) {
+		$page = $this->get_page( $page_id );
+
+		if ( ! $page ) {
+			return false;
+		}
+
+		return $page['hook_suffix'];
 	}
 
 	/**
