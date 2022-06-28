@@ -20,7 +20,7 @@ $status_icons = [
 
 $show_third_party_accounts = ! is_network_admin();
 ?>
-<h3 class="tribe-events-admin__troubleshooting-title tribe-events-admin__ea-status">
+<h3 id="tribe-events-admin__ea-status" class="tribe-events-admin__troubleshooting-title tribe-events-admin__ea-status">
 	<?php esc_html_e( 'Event Aggregator system status ', 'tribe-common' ); ?>
 </h3>
 
