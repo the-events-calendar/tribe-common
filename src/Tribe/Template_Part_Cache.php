@@ -13,6 +13,11 @@ class Tribe__Template_Part_Cache {
 	private $template;
 
 	/**
+	 * @var string
+	 */
+	private $key;
+
+	/**
 	 * @var int
 	 */
 	private $expiration;

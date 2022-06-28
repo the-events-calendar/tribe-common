@@ -8,8 +8,7 @@
  */
 namespace Tribe\Utils;
 
-use Compatibility_Classes;
-use \WP_Theme;
+use WP_Theme;
 
 class Theme_Compatibility {
 	/**

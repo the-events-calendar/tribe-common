@@ -375,10 +375,9 @@ class Tribe__Rewrite {
 		 *
 		 * @since 4.9.11
 		 *
-		 * @param string|null    $canonical_url The canonical URL, defaults to `null`; returning a non `null` value will
-		 *                                      make the logic bail and return the value.
-		 * @param string         $url           The input URL to resolve to a canonical one.
-		 * @param Tribe__Rewrite $this          This rewrite object.
+		 * @param string|null $canonical_url The canonical URL, defaults to `null`; returning a non `null` value will
+		 *                                   make the logic bail and return the value.
+		 * @param string      $url           The input URL to resolve to a canonical one.
 		 */
 		$canonical_url = apply_filters( 'tribe_rewrite_pre_canonical_url', null, $url );
 		if ( null !== $canonical_url ) {
@@ -590,7 +589,7 @@ class Tribe__Rewrite {
 		 *
 		 * @param string         $resolved The resolved, canonical URL.
 		 * @param string         $url      The original URL to resolve.
-		 * @param Tribe__Rewrite $this     This object.
+		 * @param Tribe__Rewrite $instance This object.
 		 */
 		$resolved = apply_filters( 'tribe_rewrite_canonical_url', $resolved, $url, $this );
 
@@ -642,12 +641,12 @@ class Tribe__Rewrite {
 		 *
 		 * @since  4.9.18
 		 *
-		 * @param array $our_rules An array of rewrite rules handled by our code, in the shape
-		 *                         `[ <rewrite_rule_regex_pattern> => <query_string> ]`.
-		 *                         E.g. `[ '(?:events)/(?:list)/?$' => 'index.php?post_type=tribe_events&eventDisplay=list' ]`.
-		 * @param array<string,string> All the current rewrite rules, before any filtering is applied; these have the
-		 *                             same `<pattern => rewrite >` format as the previous argument, which is the
-		 *                             format used by WordPress rewrite rules.
+		 * @param array                $our_rules An array of rewrite rules handled by our code, in the shape
+		 *                                        `[ <rewrite_rule_regex_pattern> => <query_string> ]`.
+		 *                                        E.g. `[ '(?:events)/(?:list)/?$' => 'index.php?post_type=tribe_events&eventDisplay=list' ]`.
+		 * @param array<string,string> $all_rules All the current rewrite rules, before any filtering is applied; these have the
+		 *                                        same `<pattern => rewrite >` format as the previous argument, which is the
+		 *                                        format used by WordPress rewrite rules.
 		 */
 		$our_rules = apply_filters( 'tribe_rewrite_handled_rewrite_rules', $our_rules, $all_rules );
 
@@ -859,10 +858,10 @@ class Tribe__Rewrite {
 		 *
 		 * @since 4.9.11
 		 *
-		 * @param array  $query_vars       The parsed query vars array.
-		 * @param array  $extra_query_vars An associative array of extra query vars that will be processed before the
-		 *                                 WordPress defined ones.
-		 * @param string $url              The URL to parse.
+		 * @param array|null  $query_vars       The parsed query vars array.
+		 * @param array       $extra_query_vars An associative array of extra query vars that will be processed before the
+		 *                                      WordPress defined ones.
+		 * @param string      $url              The URL to parse.
 		 */
 		$parsed = apply_filters( 'tribe_rewrite_pre_parse_query_vars', null, $extra_query_vars, $url );
 		if ( null !== $parsed ) {

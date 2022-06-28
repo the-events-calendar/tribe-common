@@ -27,7 +27,7 @@ class Body_Classes extends \tad_DI52_ServiceProvider {
 		 *
 		 * @since 4.12.6
 		 *
-		 * @param Tribe\Service_Providers\Dialog $dialog
+		 * @param Body_Classes $instance
 		 */
 		do_action( 'tribe_body_classes_register', $this );
 
@@ -48,7 +48,7 @@ class Body_Classes extends \tad_DI52_ServiceProvider {
 		 *
 		 * @since 4.12.6
 		 *
-		 * @param Tribe\Service_Providers\Dialog $dialog
+		 * @param Body_Classes $instance
 		 */
 		do_action( 'tribe_body_classes_hooks', $this );
 	}

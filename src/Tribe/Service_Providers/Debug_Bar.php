@@ -31,7 +31,7 @@ class Tribe__Service_Providers__Debug_Bar extends tad_DI52_ServiceProvider {
 		 *
 		 * @since 4.9.5
 		 *
-		 * @param Debug_Bar_Panel[] The default list of The Events Calendar panels added to the Debug Bar.
+		 * @param Debug_Bar_Panel[] $panels The default list of The Events Calendar panels added to the Debug Bar.
 		 */
 		$tribe_panels = apply_filters( 'tribe_debug_bar_panels', [
 			new Tribe__Debug_Bar__Panels__Context(),

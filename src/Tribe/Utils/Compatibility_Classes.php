@@ -318,7 +318,7 @@ class Compatibility_Classes {
 		 * @since 4.14.0
 		 *
 		 * @param boolean $add Whether to add the class to the queue or not.
-		 * @param array   $class The array of compatibility class names to add.
+		 * @param string  $class The array of compatibility class names to add.
 		 * @param string  $queue The queue we want to get 'admin', 'display', 'all'.
 		 */
 		return (bool) apply_filters( 'tribe_compatibility_class_should_add_to_queue', false, $class, $queue );
@@ -342,9 +342,9 @@ class Compatibility_Classes {
 		 * @since 4.14.0
 		 *
 		 * @param boolean $add              Whether to add classes or not.
+		 * @param string  $queue            The queue we want to get 'admin', 'display', 'all'.
 		 * @param array   $add_classes      The array of compatibility class names to add.
 		 * @param array   $existing_classes An array of existing compatibility class names from WP.
-		 * @param string  $queue            The queue we want to get 'admin', 'display', 'all'.
 		 *
 		 */
 		return (bool)apply_filters( 'tribe_compatibility_classes_should_add', false, $queue, $add_classes, $existing_classes );

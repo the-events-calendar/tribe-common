@@ -249,7 +249,7 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 			/**
 			 * Filters the amount of minutes to increment the minutes drop-down by
 			 *
-			 * @param int Increment amount (defaults to 5)
+			 * @param int $increment Increment amount (defaults to 5)
 			 */
 			$default_increment = apply_filters( 'tribe_minutes_increment', 5 );
 
