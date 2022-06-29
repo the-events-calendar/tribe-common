@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [4.15.3] TBD =
+= [4.15.3] 2022-07-06 =
 
 * Fix - Correct some hardcoded admin URLs. [ECP-1175]
 * Tweak - Add a target ID for the EA Troubleshooting page link. [TEC-4403]

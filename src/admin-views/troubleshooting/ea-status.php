@@ -2,10 +2,10 @@
 /**
  * View: Troubleshooting - EA Status Section
  *
- * @since TBD
- * @since TBD Only show if EA is there.
+ * @since 4.15.2
+ * @since 4.15.2 Only show if EA is there.
  *
- * @version TBD
+ * @version 4.15.2
  */
 
 if ( ! class_exists( 'Tribe__Events__Aggregator' ) ) {
