@@ -71,6 +71,11 @@ class Tribe__Admin__Activation_Page {
 	 * Listen for opportunities to show update and welcome splash pages.
 	 */
 	public function hooks() {
+		// Never show this on the front-end.
+		if ( ! is_admin() ) {
+			return;
+		}
+
 		if (
 			tribe_is_truthy( get_option( 'tribe_skip_welcome', false ) )
 			|| tribe_is_truthy( tribe_get_option( 'skip_welcome', false ) )
@@ -172,10 +177,10 @@ class Tribe__Admin__Activation_Page {
 		/**
 		 * Filters whether we should disable the update page redirect.
 		 *
-		 * @param bool 
+		 * @param bool
 		 */
 		$bypass_update_page = apply_filters( 'tec_admin_update_page_bypass', false );
-		
+
 		if ( $bypass_update_page ) {
 			return;
 		}
