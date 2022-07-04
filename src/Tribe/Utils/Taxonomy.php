@@ -139,7 +139,7 @@ class Taxonomy {
 	 *
 	 * @return array<int, array>
 	 */
-	public static function prime_term_cache( array $posts = [], array $taxonomies = [ 'post_tag', \Tribe__Events__Main::TAXONOMY ] ) {
+	public static function prime_term_cache( array $posts = [], array $taxonomies = [ 'post_tag', \Tribe__Events__Main::TAXONOMY ], $prime_term_meta = false ) {
 		$ids = wp_list_pluck( $posts, 'ID' );
 		$cache = [];
 
@@ -156,6 +156,7 @@ class Taxonomy {
 			'taxonomy'   => $taxonomies,
 		];
 		$terms = get_terms( $args );
+		$term_ids = wp_list_pluck( $terms, 'term_id' );
 
 		foreach ( $terms as $term ) {
 			$cache[ $term->object_id ][ $term->taxonomy ][] = $term->term_id;
@@ -166,6 +167,8 @@ class Taxonomy {
 				wp_cache_add( $id, $term_ids, $taxonomy . '_relationships' );
 			}
 		}
+
+		_prime_term_caches( $term_ids, $prime_term_meta );
 
 		return $cache;
 	}
