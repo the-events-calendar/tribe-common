@@ -140,7 +140,13 @@ class Taxonomy {
 	 * @return array<int, array>
 	 */
 	public static function prime_term_cache( array $posts = [], array $taxonomies = [ 'post_tag', \Tribe__Events__Main::TAXONOMY ], $prime_term_meta = false ) {
-		$ids = wp_list_pluck( $posts, 'ID' );
+		$first = reset( $posts );
+		$is_numeric = ( ! $first instanceof \WP_Post );
+		if ( $is_numeric ) {
+			$ids = $posts;
+		} else {
+			$ids = wp_list_pluck( $posts, 'ID' );
+		}
 		$cache = [];
 
 		// Build the base cache.
