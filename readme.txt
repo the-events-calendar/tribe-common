@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [4.15.3] 2022-07-06 =
+
+* Fix - Correct some hardcoded admin URLs. [ECP-1175]
+* Tweak - Add a target ID for the EA Troubleshooting page link. [TEC-4403]
+
 = [4.15.2] 2022-06-08 =
 
 * Fix - Only show Event Aggregator status on the troubleshooting page if Event Aggregator is accessible. [ET-1517]
