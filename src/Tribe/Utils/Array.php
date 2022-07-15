@@ -667,5 +667,42 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 			// Finally destringify the keys to return something that will resemble, in shape, the original arrays.
 			return static::destringify_keys( $merged );
 		}
+
+		/**
+		 * Shapes, filtering it, an array to the specified expected set of required keys.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $array The input array to shape.
+		 * @param array $shape The shape to update the array with. It should only define keys
+		 *                     or arrays of keys. Keys that have no values will be set to `null`.
+		 *                     To add the key only if set, prefix the key with `?`, e.g. `?foo`.
+		 *
+		 * @return array The input array shaped and ordered per the shape.
+		 */
+		public static function shape_filter( array $array, array $shape ): array {
+			$shaped = [];
+			foreach ( $shape as $shape_index => $shape_key ) {
+				$optional = is_array( $shape_key ) ?
+					strpos( $shape_index, '?' ) === 0
+					: strpos( $shape_key, '?' ) === 0;
+
+				if ( is_array( $shape_key ) ) {
+					$shape_index = $optional ? substr( $shape_index, 1 ) : $shape_index;
+					if ( $optional && ! isset( $array[ $shape_index ] ) ) {
+						continue;
+					}
+					$shaped[ $shape_index ] = self::shape_filter( $array[$shape_index] ?? [], $shape_key );
+				} else {
+					$shape_key = $optional ? substr( $shape_key, 1 ) : $shape_key;
+					if ( ! isset( $array[ $shape_key ] ) && $optional ) {
+						continue;
+					}
+					$shaped[ $shape_key ] = $array[ $shape_key ] ?? null;
+				}
+			}
+
+			return $shaped;
+		}
 	}
 }
