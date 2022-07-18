@@ -19,7 +19,7 @@
 			/* Translators: %1$s formatted date. */
 			echo sprintf(
 				__( '<b>40%% off</b> all WordPress solutions through %1$s.', 'tribe-common' ),
-				esc_html( $end_date->format( 'F d' ) )
+				esc_html( $end_date->format( 'F j' ) )
 			); ?>
 		</h3>
 		<p>
