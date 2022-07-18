@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [RBE] RBE = Switch this to TBD once we're close to release.
+= [5.0.0] TBD =
 
 * Feature - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
 * Fix - avoid fatal errors when transient notices are registered from inactive plugins
