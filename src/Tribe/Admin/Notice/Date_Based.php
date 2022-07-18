@@ -118,7 +118,9 @@ abstract class Date_Based {
 				&& $notice_end < $now
 				&& $now < $extension_date
 			) {
-				$this->end_date = $this->extension_date;
+				add_filter( "tribe_{$this->slug}_notice_end_date", function() {
+					return $this->get_extension_time();
+				});
 			}
 		}
 
