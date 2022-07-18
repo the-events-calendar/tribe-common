@@ -1333,7 +1333,9 @@ a.tribe-rating-link {
 	}
 
 	&.tribe-notice-stellar-sale {
-		height: 50px;
+		.tribe-marketing-notice {
+			min-height: 50px;
+		}
 
 		.tribe-marketing-notice__content {
 			align-content: center;
@@ -1346,7 +1348,7 @@ a.tribe-rating-link {
 		.tribe-marketing-notice__icon {
 			align-self: baseline;
 			height: 20px;
-			margin: auto 14px auto auto;
+			margin: auto 14px auto 0;
 			width: 13px;
 
 			.tribe-common-c-svgicon--stellar-icon {
@@ -1368,6 +1370,7 @@ a.tribe-rating-link {
 		h3 {
 			font-weight: 400;
 			margin: auto 8px auto 14px;
+			text-align: center;
 		}
 	}
 
