@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [4.15.4] 2022-07-20 =
+
+* Tweak - Implement 2022 Stellar Sale banner. [TEC-4433]
+
 = [4.15.3] 2022-07-06 =
 
 * Fix - Correct some hardcoded admin URLs. [ECP-1175]
