@@ -56,6 +56,24 @@ abstract class Date_Based {
 	public $end_time;
 
 	/**
+	 * Placeholder for extension date string.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public $extension_date;
+
+	/**
+	 * Placeholder for extension time int.
+	 *
+	 * @since 4.14.2
+	 *
+	 * @var int
+	 */
+	public $extension_time;
+
+	/**
 	 * Whether or not The Events Calendar is active.
 	 *
 	 * @since 4.14.2
@@ -86,6 +104,25 @@ abstract class Date_Based {
 		$tribe_dependency    = tribe( \Tribe__Dependency::class );
 		$this->tec_is_active = $tribe_dependency->is_plugin_active( 'Tribe__Events__Main' );
 		$this->et_is_active  = $tribe_dependency->is_plugin_active( 'Tribe__Tickets__Main' );
+
+		$now            = Dates::build_date_object( 'now', 'UTC' );
+		$notice_start   = $this->get_start_time();
+		$notice_end     = $this->get_end_time();
+		$extension_date = $this->get_extension_time();
+
+		// If we have an extension date defined.
+		if ( ! empty( $this->get_extension_time() ) ) {
+			// If the sale has started and
+			if (
+				$notice_start <= $now
+				&& $notice_end < $now
+				&& $now < $extension_date
+			) {
+				add_filter( "tribe_{$this->slug}_notice_end_date", function() {
+					return $this->get_extension_time();
+				});
+			}
+		}
 
 		$this->hook();
 	}
@@ -156,11 +193,12 @@ abstract class Date_Based {
 			return false;
 		}
 
-		$now          = Dates::build_date_object( 'now', 'UTC' );
-		$notice_start = $this->get_start_time();
-		$notice_end   = $this->get_end_time();
+		$now            = Dates::build_date_object( 'now', 'UTC' );
+		$notice_start   = $this->get_start_time();
+		$notice_end     = $this->get_end_time();
 
 		$should_display = $notice_start <= $now && $now < $notice_end;
+
 
 		/**
 		 * Allow filtering of whether the notice should display.
@@ -178,7 +216,7 @@ abstract class Date_Based {
 	 *
 	 * @since 4.14.2
 	 *
-	 * @return int $end_time The date & time the notice should start displaying, as a Unix timestamp.
+	 * @return int $start_time The date & time the notice should start displaying, as a Unix timestamp.
 	 */
 	public function get_start_time() {
 		$date = Dates::build_date_object( $this->start_date, 'UTC' );
@@ -202,7 +240,7 @@ abstract class Date_Based {
 	 *
 	 * @since 4.14.2
 	 *
-	 * @return int $end_time The date & time the notice should stop displaying, as a Unix timestamp.
+	 * @return int $end_time The date & time the notice should stop displaying, or shift to the extension datetime as a Unix timestamp.
 	 */
 	public function get_end_time() {
 		$date = Dates::build_date_object( $this->end_date, 'UTC' );
@@ -217,6 +255,32 @@ abstract class Date_Based {
 		* @param \DateTime $date Date object for the notice end.
 		*/
 		$date = apply_filters( "tribe_{$this->slug}_notice_end_date", $date, $this );
+
+		return $date;
+	}
+
+
+
+	/**
+	 * Unix time for notice extension end.
+	 *
+	 * @since 4.14.2
+	 *
+	 * @return int $end_time The date & time the notice should stop displaying, as a Unix timestamp.
+	 */
+	public function get_extension_time() {
+		$date = Dates::build_date_object( $this->extension_date, 'UTC' );
+		$date = $date->setTime( $this->extension_time, 0 );
+
+		/**
+		* Allow filtering of the extension date DateTime object,
+		* to allow for things like "the day after" ( $date->modify( '+1 day' ) ) and such.
+		*
+		* @since 4.14.2
+		*
+		* @param \DateTime $date Date object for the notice end.
+		*/
+		$date = apply_filters( "tribe_{$this->slug}_notice_extension_date", $date, $this );
 
 		return $date;
 	}
