@@ -3,6 +3,8 @@
 = [4.15.4] 2022-07-20 =
 
 * Tweak - Implement 2022 Stellar Sale banner. [TEC-4433]
+* Tweak - Added filters: `tribe_{$this->slug}_notice_extension_date`
+* Tweak - Changed views: `v2/components/icons/stellar-icon`
 * Language - 2 new strings added, 4 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.15.3] 2022-07-06 =
