@@ -58,7 +58,7 @@ abstract class Date_Based {
 	/**
 	 * Placeholder for extension date string.
 	 *
-	 * @since TBD
+	 * @since 4.15.4
 	 *
 	 * @var string
 	 */
@@ -264,7 +264,7 @@ abstract class Date_Based {
 	/**
 	 * Unix time for notice extension end.
 	 *
-	 * @since 4.14.2
+	 * @since 4.15.4
 	 *
 	 * @return int $end_time The date & time the notice should stop displaying, as a Unix timestamp.
 	 */
