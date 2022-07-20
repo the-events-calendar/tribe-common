@@ -122,6 +122,7 @@ abstract class Date_Based {
 		'events_page_tribe-common', // Settings & Welcome.
 		'toplevel_page_tribe-common', // Settings & Welcome.
 		'tribe_events_page_aggregator', // Import page
+		'edit-tribe_events', // Events admin list
 	];
 
 	public function __construct() {
