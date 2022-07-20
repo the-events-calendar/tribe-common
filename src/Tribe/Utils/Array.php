@@ -704,5 +704,29 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 
 			return $shaped;
 		}
+
+		/**
+		 * Searches an array using a callback and returns the index of the first match.
+		 *
+		 * This method fills the gap left by the non-existence of an `array_usearch` function.
+		 *
+		 * @since TBD
+		 *
+		 * @param mixed    $needle   The element to search in the array.
+		 * @param array    $haystack The array to search.
+		 * @param callable $callback A callback function with signature `fn($needle, $value, $key) :bool`
+		 *                           that will be used to find the first match of needle in haystack.
+		 *
+		 * @return string|int|false Either the index of the first match or `false` if no match was found.
+		 */
+		public static function usearch( $needle, array $haystack, callable $callback ) {
+			foreach ( $haystack as $key => $value ) {
+				if ( $callback( $needle, $value, $key ) ) {
+					return $key;
+				}
+			}
+
+			return false;
+		}
 	}
 }
