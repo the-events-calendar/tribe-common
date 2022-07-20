@@ -109,19 +109,19 @@ abstract class Date_Based {
 	 */
 	public $screens = [
 		'tribe_events_page_tribe-app-shop', // App shop.
-			'events_page_tribe-app-shop', // App shop.
-			'toplevel_page_tec-events', // New Events Welcome.
-			'tribe_events_page_tec-events-settings', // New Events Settings.
-			'tribe_events_page_tec-events-help', // New Events Help.
-			'tribe_events_page_tec-troubleshooting', // New Events Troubleshooting.
-			'tickets_page_tec-tickets-settings', // New Tickets Settings.
-			'toplevel_page_tec-tickets', // New Tickets Welcome.
-			'tickets_page_tec-tickets-help', // New Tickets Help.
-			'tickets_page_tec-tickets-troubleshooting', // New Ticket Troubleshooting.
-			'tribe_events_page_tribe-common', // Old Settings & Welcome.
-			'events_page_tribe-common', // Settings & Welcome.
-			'toplevel_page_tribe-common', // Settings & Welcome.
-			'tribe_events_page_aggregator', // Import page
+		'events_page_tribe-app-shop', // App shop.
+		'toplevel_page_tec-events', // New Events Welcome.
+		'tribe_events_page_tec-events-settings', // New Events Settings.
+		'tribe_events_page_tec-events-help', // New Events Help.
+		'tribe_events_page_tec-troubleshooting', // New Events Troubleshooting.
+		'tickets_page_tec-tickets-settings', // New Tickets Settings.
+		'toplevel_page_tec-tickets', // New Tickets Welcome.
+		'tickets_page_tec-tickets-help', // New Tickets Help.
+		'tickets_page_tec-tickets-troubleshooting', // New Ticket Troubleshooting.
+		'tribe_events_page_tribe-common', // Old Settings & Welcome.
+		'events_page_tribe-common', // Settings & Welcome.
+		'toplevel_page_tribe-common', // Settings & Welcome.
+		'tribe_events_page_aggregator', // Import page
 	];
 
 	public function __construct() {
