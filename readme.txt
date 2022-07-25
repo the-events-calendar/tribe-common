@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [4.15.4.1] 2022-07-21 =
+
+* Fix - Update Freemius to avoid PHP 8 fatals. [TEC-4330]
+
 = [4.15.4] 2022-07-20 =
 
 * Tweak - Implement 2022 Stellar Sale banner. [TEC-4433]
