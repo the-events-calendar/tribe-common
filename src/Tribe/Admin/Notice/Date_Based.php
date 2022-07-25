@@ -192,7 +192,7 @@ abstract class Date_Based {
 	/**
 	 * Function to get and filter the screens the notice is displayed on.
 	 *
-	 * @since TBD
+	 * @since 4.15.4
 	 *
 	 * @return array<string> List of allowed screens.
 	 */
