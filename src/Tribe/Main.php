@@ -286,6 +286,14 @@ class Tribe__Main {
 			]
 		);
 
+		tribe_asset(
+			$this,
+			'tribe-admin-image-field',
+			'admin-image-field.js',
+			[ 'jquery' ],
+			'admin_enqueue_scripts'
+		);
+
 		// Register the asset for Customizer controls.
 		tribe_asset(
 			$this,

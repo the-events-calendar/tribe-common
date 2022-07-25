@@ -110,6 +110,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'number',
 				'wrapped_html',
 				'email',
+				'image',
 			];
 
 			$this->valid_field_types = apply_filters( 'tribe_valid_field_types', $this->valid_field_types );
@@ -695,6 +696,44 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$field .= '/>';
 			$field .= '<p class="license-test-results"><img src="' . esc_url( admin_url( 'images/wpspin_light.gif' ) ) . '" class="ajax-loading-license" alt="Loading" style="display: none"/>';
 			$field .= '<span class="key-validity"></span>';
+			$field .= $this->do_screen_reader_label();
+			$field .= $this->do_field_div_end();
+			$field .= $this->do_field_end();
+
+			return $field;
+		}
+
+		/**
+		 * Generate an image field.
+		 *
+		 * @return string The field.
+		 */
+		public function image() {
+			$image_exists = ! empty( $this->value );
+			$upload_image_text = esc_html__( 'Upload Image', 'tribe-common' );
+			$remove_image_text = esc_html__( 'Remove Image', 'tribe-common' );
+
+			$field = $this->do_field_start();
+			$field .= $this->do_field_label();
+			$field .= $this->do_field_div_start();
+			$field .= '<input';
+			$field .= ' type="text"';
+			$field .= ' class="tribe-admin-image_field-input"';
+			$field .= $this->do_field_name();
+			$field .= $this->do_field_value();
+			$field .= $this->do_field_attributes();
+			$field .= '/>';
+			$field .= '<button type="button" class="button tribe-admin-image_field-btn-add">' . $upload_image_text . '</button>';
+			$field .= '<button type="button" class="button tribe-admin-image_field-btn-remove';
+			$field .= $image_exists ? '' : ' hidden';
+			$field .= '">' . $remove_image_text . '</button>';
+			$field .= '<div class="actions">';
+			$field .= '</div>';
+			// $field .= '<div class="tribe-admin-image_field-image-container">';
+			// if ( $image_exists ) {
+			// 	$field .= '<img src="' . $this->value . '" />';
+			// }
+			// $field .= '</div>';
 			$field .= $this->do_screen_reader_label();
 			$field .= $this->do_field_div_end();
 			$field .= $this->do_field_end();

@@ -71,6 +71,7 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 				add_filter( 'tribe_settings_all_tabs', [ $this, 'addAllTabs' ] );
 			}
 			add_filter( 'tribe_settings_tabs', [ $this, 'addTab' ], $this->priority );
+			add_filter( 'tribe_settings_get_option_value_pre_display', [ $this, 'load_field_assets' ], 10, 3 );
 		}
 
 		/**
@@ -221,6 +222,22 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 				// no fields setup for this tab yet
 				echo '<p>' . esc_html__( 'There are no fields setup for this tab yet.', 'tribe-common' ) . '</p>';
 			}
+		}
+
+		/**
+		 * Determine what assets need to be loaded based on field that is being rendered.
+		 *
+		 * @param mixed  $value  Field value.
+		 * @param string $key    Field key.
+		 * @param array  $field  Field data.
+		 * 
+		 * @return mixed;
+		 */
+		public function load_field_assets( $value, $key, $field ) {
+			if ( 'image' === $field['type'] ) {
+				wp_enqueue_media();
+			}
+			return $value;
 		}
 
 	} // end class
