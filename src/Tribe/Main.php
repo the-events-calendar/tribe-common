@@ -291,7 +291,16 @@ class Tribe__Main {
 			'tribe-admin-image-field',
 			'admin-image-field.js',
 			[ 'jquery' ],
-			'admin_enqueue_scripts'
+			null,
+			[
+				'localize' => [
+					'name' => 'tribe_admin_image_field',
+					'data' => [
+						'select_image_text' => _x( 'Select an image to use in your email headers', 'Select image text.', 'tribe-common' ),
+						'use_image_text'    => _x( 'Use this image', 'Select image text.', 'tribe-common' ),
+					]
+				]
+			]
 		);
 
 		// Register the asset for Customizer controls.

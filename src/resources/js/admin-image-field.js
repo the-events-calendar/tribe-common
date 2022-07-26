@@ -2,43 +2,57 @@
 /* eslint-disable es5/no-arrow-functions */
 jQuery( $ => {
 	let frame;
-	$(document).on('click', '.tribe-admin-image_field-btn-add', e => {
-		e.preventDefault();
-		const fieldParent = $( e.target ).closest( '.tribe-field' ),
-			delImgLink    = fieldParent.find( '.tribe-admin-image_field-btn-remove' ),
+
+	$('.tribe-field-image').each(( x, elm ) => {
+		const fieldParent = $(elm),
+			addImgLink    = fieldParent.find( '.tribe-admin-image_field-btn-add' ),
+			removeImgLink = fieldParent.find( '.tribe-admin-image_field-btn-remove' ),
 			imgContainer  = fieldParent.find( '.tribe-admin-image_field-image-container' ),
 			imgIdInput    = fieldParent.find( '.tribe-admin-image_field-input' );
 
-		if ( frame ) {
-			frame.open();
-		} else {
-			frame = wp.media({
-				title: 'Select an image to use in your email headers',
-				button: {
-					text: 'Use this image'
-				},
-				multiple: false
-			});
-			frame.open();
-		}
+		const setHiddenElements = () => {
+			const imageIsSet = imgIdInput.val() !== '';
+			addImgLink.toggleClass( 'hidden', imageIsSet );
+			removeImgLink.toggleClass( 'hidden', !imageIsSet );
+			imgContainer.toggleClass( 'hidden', !imageIsSet );
+		};
 
-		frame.off('select').on( 'select', () => {
-			var attachment = frame.state().get('selection').first().toJSON();
-			imgContainer
-				.html( '<img src="' + attachment.url + '" alt="" style="max-width:100%;" />' );
-			imgIdInput.val( attachment.url );
-			delImgLink.removeClass( 'hidden' );
-		} );
+		addImgLink.on('click', e => {
+			e.preventDefault();
+			if ( frame ) {
+				frame.open();
+			}else{
+				frame = wp.media({
+					title: tribe_admin_image_field.select_image_text,
+					button: {
+						text: tribe_admin_image_field.use_image_text
+					},
+					multiple: false
+				});
+				frame.open();
+			}
 
-	}).on('click', '.tribe-admin-image_field-btn-remove', e => {
-		e.preventDefault();
-		const fieldParent = $( e.target ).closest( '.tribe-field' ),
-			delImgLink    = fieldParent.find( '.tribe-admin-image_field-btn-remove' ),
-			imgContainer  = fieldParent.find( '.tribe-admin-image_field-image-container' ),
-			imgIdInput    = fieldParent.find( '.tribe-admin-image_field-input' );
+			frame.off('select').on( 'select', () => {
+				var attachment = frame.state().get('selection').first().toJSON();
+				if ( imgContainer.find('img').length > 0 ){
+					imgContainer.find('img').attr('src', attachment.url);
+				}else{
+					imgContainer
+					.html( '<img src="' + attachment.url + '" alt="" />' );
+				}
+				imgIdInput.val( attachment.url );
+				setHiddenElements();
+			} );
+		});
 
-		imgIdInput.val('');
-		imgContainer.html('');
-		delImgLink.addClass( 'hidden' );
+		removeImgLink.on('click', e => {
+			e.preventDefault();
+			imgIdInput.val('');
+			imgContainer.html('');
+			setHiddenElements();
+		})
+
+		setHiddenElements();
+
 	});
 } );
