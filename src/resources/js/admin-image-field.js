@@ -1,3 +1,4 @@
+/* eslint-disable es5/no-arrow-functions */
 /* eslint-disable es5/no-es6-methods */
 jQuery( $ => {
 	let frame;
