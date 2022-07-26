@@ -2,23 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-<<<<<<< HEAD
-"Project-Id-Version: Tribe Common 4.15.1\n"
+"Project-Id-Version: Tribe Common 4.15.4\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2022-05-26 11:32:28+00:00\n"
+"POT-Creation-Date: 2022-07-19 15:31:51+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-05-26 11:32\n"
-=======
-"Project-Id-Version: Tribe Common 4.15.0.1\n"
-"Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2022-06-08 16:36:31+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-06-08 16:36\n"
->>>>>>> f93b76d129a41f3c664d11b7324b2cad001f6d80
+"PO-Revision-Date: 2022-07-19 15:31\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -68,11 +58,7 @@ msgctxt "Error status label for system info optin"
 msgid "Status:"
 msgstr ""
 
-<<<<<<< HEAD
-#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.15.1)  #-#-#-#-#
-=======
-#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.15.0.1)  #-#-#-#-#
->>>>>>> f93b76d129a41f3c664d11b7324b2cad001f6d80
+#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.15.4)  #-#-#-#-#
 #. Author of the plugin/theme
 #: src/Tribe/Admin/Help_Page.php:116 src/Tribe/Customizer.php:664
 #: src/Tribe/Plugins_API.php:25 src/admin-views/help-calendar.php:97
@@ -457,21 +443,21 @@ msgid ""
 "compatible version of The Events Calendar. %2$s"
 msgstr ""
 
-#: src/Tribe/Admin/Notice/WP_Version.php:78
+#: src/Tribe/Admin/Notice/WP_Version.php:79
 msgid ""
 "You are using WordPress 5.7 which included a major jQuery update that may "
 "cause compatibility issues with past versions of The Events Calendar, Event "
 "Tickets and other plugins."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/WP_Version.php:80
+#: src/Tribe/Admin/Notice/WP_Version.php:81
 msgid ""
 "WordPress 5.7 includes a major jQuery update that may cause compatibility "
 "issues with past versions of The Events Calendar, Event Tickets and other "
 "plugins."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/WP_Version.php:82
+#: src/Tribe/Admin/Notice/WP_Version.php:83
 msgid "Read more."
 msgstr ""
 
@@ -3530,6 +3516,16 @@ msgstr ""
 
 #: src/admin-views/notices/tribe-bf-general.php:19
 msgid "Black Friday Sale now through %s."
+msgstr ""
+
+#. Translators: %1$s formatted date.
+#: src/admin-views/notices/tribe-stellar-sale.php:21
+msgid "<b>40%% off</b> all WordPress solutions through %1$s."
+msgstr ""
+
+#: src/admin-views/notices/tribe-stellar-sale.php:26
+msgctxt "Shop now link text"
+msgid "Shop now"
 msgstr ""
 
 #: src/admin-views/notices/upsell/icon.php:19
