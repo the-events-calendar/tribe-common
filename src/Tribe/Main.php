@@ -295,6 +295,15 @@ class Tribe__Main {
 			'customize_controls_print_styles'
 		);
 
+		// Register the asset for color fields.
+		tribe_asset(
+			$this,
+			'tribe-settings-color-field',
+			'admin-color-field.js',
+			[ 'wp-color-picker' ],
+			'admin_enqueue_scripts'
+		);
+
 		tribe( Tribe__Admin__Help_Page::class )->register_assets();
 	}
 
