@@ -318,7 +318,7 @@ class Tribe__Main {
 			'tribe-settings-color-field',
 			'admin-color-field.js',
 			[ 'wp-color-picker' ],
-			'admin_enqueue_scripts'
+			null
 		);
 
 		tribe( Tribe__Admin__Help_Page::class )->register_assets();

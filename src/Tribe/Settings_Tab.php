@@ -223,24 +223,5 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 			}
 		}
 
-		/**
-		 * Determine what assets need to be loaded based on field that is being rendered.
-		 *
-		 * @param mixed  $value  Field value.
-		 * @param string $key    Field key.
-		 * @param array  $field  Field data.
-		 * 
-		 * @return mixed;
-		 */
-		public function load_field_assets( $value, $key, $field ) {
-			if ( 'image' === $field['type'] ) {
-				wp_enqueue_media();
-			}
-			if ( 'color' === $field['type'] ) {
-				wp_enqueue_style( 'wp-color-picker' );
-			}
-			return $value;
-		}
-
 	} // end class
 } // endif class_exists

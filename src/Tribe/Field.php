@@ -713,6 +713,9 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 * @return string The field.
 		 */
 		public function color() {
+			
+			tribe( Settings::class )->maybe_load_color_field_assets();
+
 			$field = $this->do_field_start();
 			$field .= $this->do_field_label();
 			$field .= $this->do_field_div_start();
