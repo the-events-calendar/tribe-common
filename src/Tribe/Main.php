@@ -20,7 +20,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.15.1';
+	const VERSION             = '4.15.5';
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
@@ -283,6 +283,23 @@ class Tribe__Main {
 			[
 				'conditionals' => [ $this, 'should_load_common_admin_css' ],
 				'priority'     => 5,
+			]
+		);
+
+		tribe_asset(
+			$this,
+			'tribe-admin-image-field',
+			'admin-image-field.js',
+			[ 'jquery' ],
+			null,
+			[
+				'localize' => [
+					'name' => 'tribe_admin_image_field',
+					'data' => [
+						'select_image_text' => _x( 'Select an image to use in your email headers', 'Select image text.', 'tribe-common' ),
+						'use_image_text'    => _x( 'Use this image', 'Select image text.', 'tribe-common' ),
+					]
+				]
 			]
 		);
 

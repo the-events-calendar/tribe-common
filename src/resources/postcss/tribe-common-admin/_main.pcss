@@ -447,6 +447,21 @@ table.plugins {
 	padding: 0 20px 15px;
 	width: 68%;
 }
+	
+.tribe-admin-image_field-btn-remove {
+	color: #3c434a;
+}
+
+.tribe-admin-image_field-image-container {
+	height: 120px;
+	position: relative;
+
+	img {
+		height: auto;
+		max-height: 100%;
+		width: auto;
+	}
+}
 
 .ajax-loader {
 	float: right;
@@ -1318,17 +1333,6 @@ a.tribe-rating-link {
 	}
 }
 
-#wpcontent .notice-tribe-banner {
-	align-items: center;
-	background: #161b7d;
-	border: 0;
-	box-shadow: none;
-	display: flex;
-	justify-content: flex-start;
-	margin: 0 0 16px 0;
-	padding-right: 0;
-}
-
 .notice-tribe-banner {
 	.tribe-marketing-notice__icon {
 		width: 47px;
@@ -1357,6 +1361,48 @@ a.tribe-rating-link {
 		}
 	}
 
+	&.tribe-notice-stellar-sale {
+		.tribe-marketing-notice {
+			min-height: 50px;
+		}
+
+		.tribe-marketing-notice__content {
+			align-content: center;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin: auto;
+		}
+
+		.tribe-marketing-notice__icon {
+			align-self: baseline;
+			height: 20px;
+			margin: auto 14px auto 0;
+			width: 13px;
+
+			.tribe-common-c-svgicon--stellar-icon {
+				circle {
+					stroke: #fff;
+				}
+			}
+		}
+
+		.tec-stellar-sale-text {
+			fill: #fff;
+			height: 16px;
+			margin: unset;
+			margin-top: 0.25em;
+			stroke: #fff;
+			width: 176px;
+		}
+
+		h3 {
+			font-weight: 400;
+			margin: auto 8px auto 14px;
+			text-align: center;
+		}
+	}
+
 	h3 {
 		color: #fff;
 		display: block;
@@ -1372,7 +1418,7 @@ a.tribe-rating-link {
 	}
 
 	a {
-		border-bottom: 1px solid #fff;
+		border-bottom: 1px solid;
 		line-height: 1.25;
 		margin: 0;
 		text-decoration: none;
@@ -1455,6 +1501,32 @@ a.tribe-rating-link {
 		@media screen and (min-width: 800px) {
 			display: inline-block;
 			margin-left: 0.5rem;
+		}
+	}
+}
+
+#wpcontent .notice-tribe-banner {
+	align-items: center;
+	background-color: #161b7d;
+	border: 0;
+	box-shadow: none;
+	display: flex;
+	justify-content: flex-start;
+	margin: 0 0 16px 0;
+	padding-right: 0;
+
+	&.tribe-notice-stellar-sale {
+		background-color: #000;
+
+		a {
+			color: #d8ff00;
+			text-transform: uppercase;
+
+			&:active,
+			&:focus,
+			&:hover {
+				color: #e6b1fc;
+			}
 		}
 	}
 }
@@ -2133,17 +2205,17 @@ input[type="checkbox"].tribe-common-switch__input {
 }
 
 .tribe-events-admin-tab-nav .selected {
-	border-bottom: 3px solid #334aff;
+	border-bottom: 3px solid currentColor;
 	color: #334aff;
 	padding-bottom: 17px;
 
 	@media screen and (max-width: 768px) {
-		border-bottom: 2px solid #334aff;
+		border-bottom: 2px solid currentColor;
 		padding-bottom: 10px;
 	}
 
 	@media screen and (max-width: 480px) {
-		border-bottom: 2px solid #334aff;
+		border-bottom: 2px solid currentColor;
 		padding-bottom: 10px;
 		width: fit-content;
 	}
@@ -2839,7 +2911,7 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-section-header a {
-	border-bottom: 2px solid #334aff;
+	border-bottom: 2px solid;
 	color: #334aff;
 	font-size: 14px;
 	padding-bottom: 2px;
@@ -2851,7 +2923,7 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	&:hover {
-		border-bottom: 2px solid #1c39bb;
+		border-bottom: 2px solid;
 		color: #1c39bb;
 	}
 }
@@ -3062,7 +3134,7 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-cta__content-description a {
-	border-bottom: 2px solid #334aff;
+	border-bottom: 2px solid;
 	color: #334aff;
 	font-size: 16px;
 	font-weight: bold;
@@ -3075,7 +3147,7 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	&:hover {
-		border-bottom: 2px solid #1c39bb;
+		border-bottom: 2px solid;
 		color: #1c39bb;
 	}
 }
@@ -3109,7 +3181,7 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-step-card a {
-	border-bottom: 2px solid #334aff;
+	border-bottom: 2px solid;
 	color: #334aff;
 	padding-bottom: 2px;
 	text-decoration: none;
@@ -3120,7 +3192,7 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	&:hover {
-		border-bottom: 2px solid #1c39bb;
+		border-bottom: 2px solid;
 		color: #1c39bb;
 	}
 }
@@ -3341,7 +3413,7 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__troubleshooting-event-log-wrapper .download_log {
-	border-bottom: 2px solid #334aff;
+	border-bottom: 2px solid;
 	color: #334aff;
 	font-size: 16px;
 	padding-bottom: 2px;
@@ -3353,7 +3425,7 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	&:hover {
-		border-bottom: 2px solid #1c39bb;
+		border-bottom: 2px solid;
 		color: #1c39bb;
 	}
 }
@@ -3545,7 +3617,7 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__issues-found-card-description-actions a {
-	border-bottom: 2px solid #334aff;
+	border-bottom: 2px solid;
 	color: #334aff;
 	font-size: 16px;
 	margin-right: 20px;
@@ -3558,7 +3630,7 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	&:hover {
-		border-bottom: 2px solid #1c39bb;
+		border-bottom: 2px solid;
 		color: #1c39bb;
 	}
 }
@@ -3579,7 +3651,7 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__ea-status-table a {
-	border-bottom: 2px solid #334aff;
+	border-bottom: 2px solid;
 	color: #334aff;
 	padding-bottom: 2px;
 	text-decoration: none;
@@ -3590,7 +3662,7 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	&:hover {
-		border-bottom: 2px solid #1c39bb;
+		border-bottom: 2px solid;
 		color: #1c39bb;
 	}
 }
@@ -3686,7 +3758,7 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__troubleshooting-notice_title a {
-	border-bottom: 2px solid #fff;
+	border-bottom: 2px solid;
 	color: #fff;
 	font-size: 16px;
 	line-height: 1;
@@ -3699,7 +3771,7 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	&:hover {
-		border-bottom: 2px solid #f3eee8;
+		border-bottom: 2px solid;
 		color: #f3eee8;
 	}
 }
