@@ -22,13 +22,15 @@ class Tribe__Terms {
 				continue;
 			}
 
+			$is_string = is_string( $term );
+
 			if ( $term instanceof WP_Term ) {
 				// We already have the term object.
 				$term_info = $term->to_array();
-			} elseif ( get_term_by( 'slug', $term, $taxonomy ) ) {
+			} elseif ( $is_string && get_term_by( 'slug', $term, $taxonomy ) ) {
 				// We have a matching term slug.
 				$term_info = get_term_by( 'slug', $term, $taxonomy )->to_array();
-			} elseif ( get_term_by( 'name', $term, $taxonomy ) ) {
+			} elseif ( $is_string && get_term_by( 'name', $term, $taxonomy ) ) {
 				// We have a matching term name.
 				$term_info = get_term_by( 'name', $term, $taxonomy )->to_array();
 			} elseif ( is_numeric( $term ) ) {
