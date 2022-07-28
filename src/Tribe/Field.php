@@ -759,7 +759,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$field .= '<button type="button" class="button tribe-admin-image_field-btn-add">' . $upload_image_text . '</button>';
 			$field .= '<div class="tribe-admin-image_field-image-container hidden">';
 			if ( $image_exists ) {
-				$field .= '<img src="' . $this->value . '" />';
+				$field .= '<img src="' . $this->value . '" alt="" />';
 			}
 			$field .= '</div>';
 			$field .= '<a href="#" class="tribe-admin-image_field-btn-remove hidden">' . $remove_image_text . '</a>';

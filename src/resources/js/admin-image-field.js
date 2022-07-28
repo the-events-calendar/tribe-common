@@ -22,9 +22,12 @@ jQuery( $ => {
 			if ( frame ) {
 				frame.open();
 			}else{
+				// eslint-disable-next-line no-undef
 				frame = wp.media({
+					// eslint-disable-next-line no-undef
 					title: tribe_admin_image_field.select_image_text,
 					button: {
+						// eslint-disable-next-line no-undef
 						text: tribe_admin_image_field.use_image_text
 					},
 					multiple: false
