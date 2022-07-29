@@ -708,6 +708,8 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 
 		/**
 		 * Generate an image field.
+		 * 
+		 * @since TBD
 		 *
 		 * @return string The field.
 		 */
