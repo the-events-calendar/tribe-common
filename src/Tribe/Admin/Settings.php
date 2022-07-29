@@ -26,7 +26,7 @@ class Settings {
      * 
      * @var bool
      */
-    private $color_field_assets_loaded = false;
+    protected $color_field_assets_loaded = false;
 
     /**
      * Loaded image field assets if not already loaded.
