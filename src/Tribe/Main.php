@@ -289,7 +289,7 @@ class Tribe__Main {
 
 		tribe_asset(
 			$this,
-			'tribe-admin-image-field',
+			'tec-admin-settings-image-field',
 			'admin-image-field.js',
 			[ 'jquery' ],
 			'admin_footer',
