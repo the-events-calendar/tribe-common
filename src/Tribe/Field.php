@@ -724,18 +724,18 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$field .= $this->do_field_div_start();
 			$field .= '<input';
 			$field .= ' type="hidden"';
-			$field .= ' class="tribe-admin-image_field-input"';
+			$field .= ' class="tribe-admin__settings-image-field-input"';
 			$field .= $this->do_field_name();
 			$field .= $this->do_field_value();
 			$field .= $this->do_field_attributes();
 			$field .= '/>';
-			$field .= '<button type="button" class="button tribe-admin-image_field-btn-add">' . $upload_image_text . '</button>';
-			$field .= '<div class="tribe-admin-image_field-image-container hidden">';
+			$field .= '<button type="button" class="button tribe-admin__settings-image-field-btn-add">' . $upload_image_text . '</button>';
+			$field .= '<div class="tribe-admin__settings-image-field-image-container hidden">';
 			if ( $image_exists ) {
-				$field .= '<img src="' . $this->value . '" alt="" />';
+				$field .= '<img src="' . esc_url( $this->value ) . '" />';
 			}
 			$field .= '</div>';
-			$field .= '<a href="#" class="tribe-admin-image_field-btn-remove hidden">' . $remove_image_text . '</a>';
+			$field .= '<button class="tribe-admin__settings-image-field-btn-remove hidden">' . $remove_image_text . '</button>';
 			$field .= $this->do_screen_reader_label();
 			$field .= $this->do_field_div_end();
 			$field .= $this->do_field_end();

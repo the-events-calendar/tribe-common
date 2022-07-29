@@ -10,10 +10,19 @@ namespace Tribe\Admin;
 
 class Settings {
 
+    /**
+     * Keep track of whether or not image assets have already been loaded.
+     * 
+     * @since TBD
+     * 
+     * @var bool
+     */
     static $image_field_assets_loaded = false;
 
     /**
      * Loaded image field assets if not already loaded.
+     * 
+     * @since TBD
      *
      * @return void
      */
