@@ -5,6 +5,7 @@
  * The parent class for managing the view methods in core and addons
  *
  */
+_deprecated_file( __FILE__, '6.0.0', '' );
 
 if ( class_exists( 'Tribe__Template_Factory' ) ) {
 	return;
