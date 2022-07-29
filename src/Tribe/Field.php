@@ -721,7 +721,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$field .= $this->do_field_div_start();
 			$field .= '<input';
 			$field .= ' type="text"';
-			$field .= ' class="tribe-admin__settings-color-field-input"';
+			$field .= ' class="tec-admin__settings-color-field-input"';
 			$field .= $this->do_field_name();
 			$field .= $this->do_field_value();
 			$field .= $this->do_field_attributes();
@@ -735,6 +735,8 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 
 		/**
 		 * Generate an image field.
+		 * 
+		 * @since TBD
 		 *
 		 * @return string The field.
 		 */
@@ -746,23 +748,30 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$upload_image_text = esc_html__( 'Select Image', 'tribe-common' );
 			$remove_image_text = esc_html__( 'Remove Image', 'tribe-common' );
 
+			// Add default fieldset attributes if none exist.
+			$image_fieldset_attributes = [
+				'data-select-image-text' => esc_html__( 'Select an image to use in your email headers', 'tribe-common' ),
+				'data-use-image-text'    => esc_html__( 'Use this image', 'tribe-common' ),
+			];
+			$this->fieldset_attributes = array_merge( $image_fieldset_attributes, $this->fieldset_attributes );
+
 			$field = $this->do_field_start();
 			$field .= $this->do_field_label();
 			$field .= $this->do_field_div_start();
 			$field .= '<input';
 			$field .= ' type="hidden"';
-			$field .= ' class="tribe-admin__settings-image-field-input"';
+			$field .= ' class="tec-admin__settings-image-field-input"';
 			$field .= $this->do_field_name();
 			$field .= $this->do_field_value();
 			$field .= $this->do_field_attributes();
 			$field .= '/>';
-			$field .= '<button type="button" class="button tribe-admin__settings-image-field-btn-add">' . $upload_image_text . '</button>';
-			$field .= '<div class="tribe-admin__settings-image-field-image-container hidden">';
+			$field .= '<button type="button" class="button tec-admin__settings-image-field-btn-add">' . $upload_image_text . '</button>';
+			$field .= '<div class="tec-admin__settings-image-field-image-container hidden">';
 			if ( $image_exists ) {
 				$field .= '<img src="' . esc_url( $this->value ) . '" />';
 			}
 			$field .= '</div>';
-			$field .= '<button class="tribe-admin__settings-image-field-btn-remove hidden">' . $remove_image_text . '</button>';
+			$field .= '<button class="tec-admin__settings-image-field-btn-remove hidden">' . $remove_image_text . '</button>';
 			$field .= $this->do_screen_reader_label();
 			$field .= $this->do_field_div_end();
 			$field .= $this->do_field_end();

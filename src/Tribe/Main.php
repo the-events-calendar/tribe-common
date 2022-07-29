@@ -5,6 +5,7 @@
 
 // Don't load directly
 
+use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -288,18 +289,12 @@ class Tribe__Main {
 
 		tribe_asset(
 			$this,
-			'tribe-admin-image-field',
+			'tec-admin-settings-image-field',
 			'admin-image-field.js',
 			[ 'jquery' ],
-			null,
+			'admin_footer',
 			[
-				'localize' => [
-					'name' => 'tribe_admin_image_field',
-					'data' => [
-						'select_image_text' => _x( 'Select an image to use in your email headers', 'Select image text.', 'tribe-common' ),
-						'use_image_text'    => _x( 'Use this image', 'Select image text.', 'tribe-common' ),
-					]
-				]
+				'conditionals' => [ tribe( Settings::class ), 'should_load_image_field_assets' ]
 			]
 		);
 
@@ -315,10 +310,13 @@ class Tribe__Main {
 		// Register the asset for color fields.
 		tribe_asset(
 			$this,
-			'tribe-settings-color-field',
+			'tec-settings-color-field',
 			'admin-color-field.js',
-			[ 'wp-color-picker' ],
-			null
+			[ 'jquery', 'wp-color-picker' ],
+			'admin_footer',
+			[
+				'conditionals' => [ tribe( Settings::class ), 'should_load_color_field_assets' ]
+			]
 		);
 
 		tribe( Tribe__Admin__Help_Page::class )->register_assets();
