@@ -11,15 +11,6 @@ namespace Tribe\Admin;
 class Settings {
 
     /**
-     * Keep track of whether or not image assets have already been loaded.
-     * 
-     * @since TBD
-     * 
-     * @var bool
-     */
-    protected $image_field_assets_loaded = false;
-
-    /**
      * Loaded image field assets if not already loaded.
      * 
      * @since TBD
@@ -27,14 +18,25 @@ class Settings {
      * @return void
      */
     public function maybe_load_image_field_assets() {
-        if ( $this->image_field_assets_loaded ) {
+        if ( has_filter( 'tribe_admin_load_image_fields_assets', '__return_true' ) ) {
             return;
         }
+        add_filter( 'tribe_admin_load_image_fields_assets', '__return_true' );
+    }
 
-        tribe_asset_enqueue( 'tribe-admin-image-field' );
-        wp_enqueue_media();
-
-        $this->image_field_assets_loaded = true;
+    /**
+     * Logic to load image field assets.
+     * 
+     * @since TBD
+     *
+     * @return bool
+     */
+    public function should_load_image_field_assets() {
+        $load_assets = apply_filters( 'tribe_admin_load_image_fields_assets', false );
+        if ( $load_assets ) {
+            wp_enqueue_media();
+        }
+        return $load_assets;
     }
     
 }

@@ -5,6 +5,7 @@
 
 // Don't load directly
 
+use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -291,7 +292,10 @@ class Tribe__Main {
 			'tribe-admin-image-field',
 			'admin-image-field.js',
 			[ 'jquery' ],
-			null
+			'admin_footer',
+			[
+				'conditionals' => [ tribe( Settings::class ), 'should_load_image_field_assets' ]
+			]
 		);
 
 		// Register the asset for Customizer controls.
