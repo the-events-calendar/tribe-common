@@ -5,10 +5,10 @@ jQuery( $ => {
 
 	$('.tribe-field-image').each(( x, elm ) => {
 		const fieldParent = $(elm),
-			addImgLink    = fieldParent.find( '.tribe-admin-image_field-btn-add' ),
-			removeImgLink = fieldParent.find( '.tribe-admin-image_field-btn-remove' ),
-			imgContainer  = fieldParent.find( '.tribe-admin-image_field-image-container' ),
-			imgIdInput    = fieldParent.find( '.tribe-admin-image_field-input' );
+			addImgLink    = fieldParent.find( '.tribe-admin__settings-image-field-btn-add' ),
+			removeImgLink = fieldParent.find( '.tribe-admin__settings-image-field-btn-remove' ),
+			imgContainer  = fieldParent.find( '.tribe-admin__settings-image-field-image-container' ),
+			imgIdInput    = fieldParent.find( '.tribe-admin__settings-image-field-input' );
 
 		const setHiddenElements = () => {
 			const imageIsSet = imgIdInput.val() !== '';
@@ -41,7 +41,7 @@ jQuery( $ => {
 					imgContainer.find('img').attr('src', attachment.url);
 				}else{
 					imgContainer
-					.html( '<img src="' + attachment.url + '" alt="" />' );
+					.html( '<img src="' + attachment.url + '" />' );
 				}
 				imgIdInput.val( attachment.url );
 				setHiddenElements();
