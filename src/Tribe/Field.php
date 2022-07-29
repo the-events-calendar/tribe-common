@@ -721,7 +721,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$field .= $this->do_field_div_start();
 			$field .= '<input';
 			$field .= ' type="text"';
-			$field .= ' class="tribe-admin-color_field-input"';
+			$field .= ' class="tribe-admin__settings-color-field-input"';
 			$field .= $this->do_field_name();
 			$field .= $this->do_field_value();
 			$field .= $this->do_field_attributes();

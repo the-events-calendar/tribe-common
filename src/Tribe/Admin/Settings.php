@@ -18,7 +18,15 @@ class Settings {
      * @var bool
      */
     static $image_field_assets_loaded = false;
-    static $color_field_assets_loaded = false;
+
+    /**
+     * Keep track of whether or not color field assets have already been loaded.
+     * 
+     * @since TBD
+     * 
+     * @var bool
+     */
+    private $color_field_assets_loaded = false;
 
     /**
      * Loaded image field assets if not already loaded.
@@ -40,6 +48,8 @@ class Settings {
 
     /**
      * Load color field assets if not already loaded.
+     * 
+     * @since TBD
      *
      * @return void
      */

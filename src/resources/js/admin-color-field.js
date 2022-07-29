@@ -1,3 +1,4 @@
-jQuery(document).ready(function($){
-    $('.tribe-admin-color_field-input').wpColorPicker();
+/* eslint-disable es5/no-arrow-functions */
+jQuery(document).ready($ => {
+    $('.tribe-admin__settings-color-field-input').wpColorPicker();
 });
