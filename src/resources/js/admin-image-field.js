@@ -48,10 +48,10 @@ tribe.settings.fields.image = {};
 	 */
 	obj.selectors = {
 		imageFieldContainer: '.tribe-field-image',
-		addImgLink: '.tribe-admin__settings-image-field-btn-add',
-		removeImgLink: '.tribe-admin__settings-image-field-btn-remove',
-		imgContainer: '.tribe-admin__settings-image-field-image-container',
-		imgIdInput: '.tribe-admin__settings-image-field-input',
+		addImgLink: '.tec-admin__settings-image-field-btn-add',
+		removeImgLink: '.tec-admin__settings-image-field-btn-remove',
+		imgContainer: '.tec-admin__settings-image-field-image-container',
+		imgIdInput: '.tec-admin__settings-image-field-input',
 	};
 
 	/**
