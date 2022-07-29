@@ -109,9 +109,9 @@ tribe.settings.fields.image = {};
 			obj.frame.open();
 		}else{
 			obj.frame = wp.media({ // eslint-disable-line no-undef
-				title: tribe_admin_image_field.select_image_text, // eslint-disable-line no-undef
+				title: $fieldParent.data( 'select-image-text'),
 				button: {
-					text: tribe_admin_image_field.use_image_text // eslint-disable-line no-undef
+					text: $fieldParent.data( 'use-image-text')
 				},
 				multiple: false
 			});

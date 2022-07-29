@@ -719,6 +719,13 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$upload_image_text = esc_html__( 'Select Image', 'tribe-common' );
 			$remove_image_text = esc_html__( 'Remove Image', 'tribe-common' );
 
+			// Add default fieldset attributes if none exist.
+			$image_fieldset_attributes = [
+				'data-select-image-text' => esc_html__( 'Select an image to use in your email headers', 'tribe-common' ),
+				'data-use-image-text'    => esc_html__( 'Use this image', 'tribe-common' ),
+			];
+			$this->fieldset_attributes = array_merge( $image_fieldset_attributes, $this->fieldset_attributes );
+
 			$field = $this->do_field_start();
 			$field .= $this->do_field_label();
 			$field .= $this->do_field_div_start();
