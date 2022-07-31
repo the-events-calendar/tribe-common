@@ -47,10 +47,10 @@ class Settings {
      * @return void
      */
     public function maybe_load_color_field_assets() {
-        if ( has_filter( 'tribe_admin_load_color_field_assets', '__return_true' ) ) {
+        if ( has_filter( 'tec_admin_load_color_field_assets', '__return_true' ) ) {
             return;
         }
-        add_filter( 'tribe_admin_load_color_field_assets', '__return_true' );
+        add_filter( 'tec_admin_load_color_field_assets', '__return_true' );
     }
 
     /**
@@ -61,10 +61,14 @@ class Settings {
      * @return bool
      */
     public function should_load_color_field_assets() {
-        $load_assets = apply_filters( 'tribe_admin_load_color_field_assets', false );
-        if ( $load_assets ) {
-            wp_enqueue_style( 'wp-color-picker' );
-        }
+        /**
+         * Filters whether or not we should load the color field assets on the settings page.
+         * 
+         * @since TBD
+         * 
+         * @param bool
+         */
+        $load_assets = apply_filters( 'tec_admin_load_color_field_assets', false );
         return $load_assets;
     }
     
