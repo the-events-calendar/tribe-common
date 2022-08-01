@@ -82,8 +82,8 @@ tribe.settings.fields.image = {};
 	obj.onImageSelect = function( $fieldParent ) {
 		const attachment = obj.frame.state().get('selection').first().toJSON(),
 			$imgContainer = $fieldParent.find( obj.selectors.imgContainer );
-		if ( $imgContainer.find('img').length > 0 ) {
-			$imgContainer.find('img').attr('src', attachment.url);
+		if ( $imgContainer.find( 'img' ).length > 0 ) {
+			$imgContainer.find( 'img' ).attr( 'src', attachment.url );
 		} else {
 			$imgContainer.html( '<img src="' + attachment.url + '" />' );
 		}
@@ -109,16 +109,16 @@ tribe.settings.fields.image = {};
 			obj.frame.open();
 		} else {
 			obj.frame = wp.media({ // eslint-disable-line no-undef
-				title: $fieldParent.data( 'select-image-text'),
+				title: $fieldParent.data( 'select-image-text' ),
 				button: {
-					text: $fieldParent.data( 'use-image-text')
+					text: $fieldParent.data( 'use-image-text' )
 				},
 				multiple: false
 			});
 			obj.frame.open();
 		}
 
-		obj.frame.off('select').on( 'select', function() {
+		obj.frame.off( 'select' ).on( 'select', function() {
 			obj.onImageSelect( $fieldParent );
 		} );
 	};
@@ -136,8 +136,8 @@ tribe.settings.fields.image = {};
 		e.preventDefault();
 		const $target = $( e.target );
 		const $fieldParent = $target.closest( obj.selectors.imageFieldContainer );
-		$fieldParent.find( obj.selectors.imgIdInput ).val('');
-		$fieldParent.find( obj.selectors.imgContainer ).html('');
+		$fieldParent.find( obj.selectors.imgIdInput ).val( '' );
+		$fieldParent.find( obj.selectors.imgContainer ).html( '' );
 		obj.hideElements( $fieldParent );
 	};
 
