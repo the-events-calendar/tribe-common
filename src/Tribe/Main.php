@@ -5,6 +5,7 @@
 
 // Don't load directly
 
+use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -283,6 +284,17 @@ class Tribe__Main {
 			[
 				'conditionals' => [ $this, 'should_load_common_admin_css' ],
 				'priority'     => 5,
+			]
+		);
+
+		tribe_asset(
+			$this,
+			'tec-admin-settings-image-field',
+			'admin-image-field.js',
+			[ 'jquery' ],
+			'admin_footer',
+			[
+				'conditionals' => [ tribe( Settings::class ), 'should_load_image_field_assets' ]
 			]
 		);
 
