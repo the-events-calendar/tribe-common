@@ -723,7 +723,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 
 			// Add default fieldset attributes if none exist.
 			$image_fieldset_attributes = [
-				'data-select-image-text' => esc_html__( 'Select an image to use in your email headers', 'tribe-common' ),
+				'data-select-image-text' => esc_html__( 'Select an image', 'tribe-common' ),
 				'data-use-image-text'    => esc_html__( 'Use this image', 'tribe-common' ),
 			];
 			$this->fieldset_attributes = array_merge( $image_fieldset_attributes, $this->fieldset_attributes );

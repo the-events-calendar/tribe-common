@@ -82,9 +82,9 @@ tribe.settings.fields.image = {};
 	obj.onImageSelect = function( $fieldParent ) {
 		const attachment = obj.frame.state().get('selection').first().toJSON(),
 			$imgContainer = $fieldParent.find( obj.selectors.imgContainer );
-		if ( $imgContainer.find('img').length > 0 ){
+		if ( $imgContainer.find('img').length > 0 ) {
 			$imgContainer.find('img').attr('src', attachment.url);
-		}else{
+		} else {
 			$imgContainer.html( '<img src="' + attachment.url + '" />' );
 		}
 		$fieldParent.find( obj.selectors.imgIdInput ).val( attachment.url );
@@ -107,7 +107,7 @@ tribe.settings.fields.image = {};
 
 		if ( obj.frame ) {
 			obj.frame.open();
-		}else{
+		} else {
 			obj.frame = wp.media({ // eslint-disable-line no-undef
 				title: $fieldParent.data( 'select-image-text'),
 				button: {
