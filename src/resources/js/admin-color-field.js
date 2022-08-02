@@ -20,7 +20,7 @@ tribe.settings.fields = tribe.settings.fields || {};
 tribe.settings.fields.color = {};
 
 /**
- * Intializes the image field for settings.
+ * Initializes the color field for settings.
  * 
  * @since TBD
  * 
