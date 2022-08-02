@@ -2,9 +2,16 @@
 /**
  * View: Troubleshooting - EA Status Section
  *
- * @since 4.14.2
+ * @since 4.15.2
+ * @since 4.15.2 Only show if EA is there.
  *
+ * @version 4.15.2
  */
+
+if ( ! class_exists( 'Tribe__Events__Aggregator' ) ) {
+	return;
+}
+
 $status_icons = [
 	'success' => 'images/help/success-icon.svg',
 	'warning' => 'images/help/warning-icon.svg',
@@ -13,7 +20,7 @@ $status_icons = [
 
 $show_third_party_accounts = ! is_network_admin();
 ?>
-<h3 class="tribe-events-admin__troubleshooting-title tribe-events-admin__ea-status">
+<h3 id="tribe-events-admin__ea-status" class="tribe-events-admin__troubleshooting-title tribe-events-admin__ea-status">
 	<?php esc_html_e( 'Event Aggregator system status ', 'tribe-common' ); ?>
 </h3>
 

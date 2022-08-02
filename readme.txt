@@ -1,16 +1,37 @@
 == Changelog ==
 
-= [5.0.0] TBD =
+= [5.0.0] 2022-0X-XX =
 
 * Feature - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
 * Fix - avoid fatal errors when transient notices are registered from inactive plugins
 
+= [4.15.4.1] 2022-07-21 =
+
+* Fix - Update Freemius to avoid PHP 8 fatals. [TEC-4330]
+
+= [4.15.4] 2022-07-20 =
+
+* Tweak - Implement 2022 Stellar Sale banner. [TEC-4433]
+* Tweak - Added filters: `tribe_{$this->slug}_notice_extension_date`
+* Tweak - Changed views: `v2/components/icons/stellar-icon`
+* Language - 2 new strings added, 4 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.15.3] 2022-07-06 =
+
+* Fix - Correct some hardcoded admin URLs. [ECP-1175]
+* Tweak - Add a target ID for the EA Troubleshooting page link. [TEC-4403]
+
+= [4.15.2] 2022-06-08 =
+
+* Fix - Only show Event Aggregator status on the troubleshooting page if Event Aggregator is accessible. [ET-1517]
+
 = [4.15.1] 2022-05-31 =
 
 * Feature - Add Calendar Export icon as a template. [TEC-4176]
-* Fix - On the import preview screen when ctrl/shift click to multi-select rows make sure all the in between rows are counted as selected. [EA-123]
+* Tweak - Add Stellar Discounts tab in Event Add-Ons
 * Tweak - Element Classes now will support callbacks inside of arrays as well as non boolean values that are validated by `tribe_is_truthy`
 * Tweak - Add Stellar Discounts tab in Event Add-Ons. [TEC-4302]
+* Fix - On the import preview screen when ctrl/shift click to multi-select rows make sure all the in between rows are counted as selected. [EA-123]
 * Language - 21 new strings added, 46 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.15.0.1] 2022-05-23 =
