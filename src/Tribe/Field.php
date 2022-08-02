@@ -710,6 +710,8 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		/**
 		 * Generate a color field.
 		 *
+		 * @since TBD
+		 *
 		 * @return string The field.
 		 */
 		public function color() {

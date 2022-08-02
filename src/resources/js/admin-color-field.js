@@ -25,7 +25,7 @@ tribe.settings.fields.color = {};
  * @since TBD
  * 
  * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.settings.fields.image
+ * @param {PlainObject} obj tribe.settings.fields.color
  */
 ( function( $, obj ) {
 	'use strict';
