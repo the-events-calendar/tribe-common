@@ -37,7 +37,7 @@ class Settings {
          * 
          * @since TBD
          * 
-         * @param bool
+         * @param boolean  $return  True or false whether to load image field assets.
          */
         $load_assets = apply_filters( 'tec_admin_load_image_fields_assets', false );
         if ( $load_assets ) {
@@ -73,7 +73,7 @@ class Settings {
          * 
          * @since TBD
          * 
-         * @param bool
+         * @param boolean  $return  True or false whether to load color field assets.
          */
         $load_assets = apply_filters( 'tec_admin_load_color_field_assets', false );
         return $load_assets;
