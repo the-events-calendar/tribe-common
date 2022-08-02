@@ -4,6 +4,7 @@
 
 * Feature - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
 * Fix - avoid fatal errors when transient notices are registered from inactive plugins
+* Language - 2 new strings added, 88 updated, 1 fuzzied, and 1 obsoleted
 
 = [4.15.4.1] 2022-07-21 =
 
