@@ -113,6 +113,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'number',
 				'wrapped_html',
 				'email',
+				'color',
 				'image',
 			];
 
@@ -699,6 +700,34 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$field .= '/>';
 			$field .= '<p class="license-test-results"><img src="' . esc_url( admin_url( 'images/wpspin_light.gif' ) ) . '" class="ajax-loading-license" alt="Loading" style="display: none"/>';
 			$field .= '<span class="key-validity"></span>';
+			$field .= $this->do_screen_reader_label();
+			$field .= $this->do_field_div_end();
+			$field .= $this->do_field_end();
+
+			return $field;
+		}
+
+		/**
+		 * Generate a color field.
+		 *
+		 * @since TBD
+		 *
+		 * @return string The field.
+		 */
+		public function color() {
+			
+			tribe( Settings::class )->maybe_load_color_field_assets();
+
+			$field = $this->do_field_start();
+			$field .= $this->do_field_label();
+			$field .= $this->do_field_div_start();
+			$field .= '<input';
+			$field .= ' type="text"';
+			$field .= ' class="tec-admin__settings-color-field-input"';
+			$field .= $this->do_field_name();
+			$field .= $this->do_field_value();
+			$field .= $this->do_field_attributes();
+			$field .= '/>';
 			$field .= $this->do_screen_reader_label();
 			$field .= $this->do_field_div_end();
 			$field .= $this->do_field_end();

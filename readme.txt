@@ -3,6 +3,7 @@
 = [TBD] TBD =
 
 * Feature - Added image field for settings in the admin area. [ET-1541]
+* Feature - Added color field for settings in the admin area. [ET-1540]
 
 = [4.15.4.1] 2022-07-21 =
 
