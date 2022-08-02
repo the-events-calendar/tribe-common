@@ -1,3 +1,4 @@
+/* eslint-disable es5/no-arrow-functions */
 /* eslint-disable linebreak-style */
 /**
  * Makes sure we have all the required levels on the Tribe Object.
@@ -47,7 +48,7 @@ tribe.settings.fields.color = {};
 	 *
 	 * @return {void}
 	 */
-	obj.init = function() {
+	obj.init = () => {
 		$( obj.selectors.colorFieldInput ).wpColorPicker();
 	};
  
