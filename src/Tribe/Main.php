@@ -292,7 +292,7 @@ class Tribe__Main {
 			'tec-admin-settings-image-field',
 			'admin-image-field.js',
 			[ 'jquery' ],
-			'admin_footer',
+			'in_admin_footer',
 			[
 				'conditionals' => [ tribe( Settings::class ), 'should_load_image_field_assets' ]
 			]
