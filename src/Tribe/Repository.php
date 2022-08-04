@@ -3725,4 +3725,13 @@ abstract class Tribe__Repository
 
 		return $this;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_last_sql(): ?string {
+		return $this->last_built_query instanceof WP_Query ?
+			$this->last_built_query->request
+			: null;
+	}
 }
