@@ -4,6 +4,8 @@
 
 * Feature - Added image field for settings in the admin area. [ET-1541]
 * Feature - Added color field for settings in the admin area. [ET-1540]
+* Tweak - Prevent a possible infinite hook loop. [ECP-1203]
+* Language - 0 new strings added, 89 updated, 1 fuzzied, and 2 obsoleted. // check this!
 
 = [4.15.4.1] 2022-07-21 =
 
