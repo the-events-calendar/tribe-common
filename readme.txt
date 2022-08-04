@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [4.15.6] TBD =
+= [4.15.6] 2022-08-08 =
 
 * Tweak - Prevent a possible infinite hook loop. [ECP-1203]
 * Language - 0 new strings added, 89 updated, 1 fuzzied, and 2 obsoleted.
