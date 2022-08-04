@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [4.15.6] TBD =
+
+* Tweak - Prevent a possible infinite hook loop. [ECP-1203]
+
 = [4.15.4.1] 2022-07-21 =
 
 * Fix - Update Freemius to avoid PHP 8 fatals. [TEC-4330]
