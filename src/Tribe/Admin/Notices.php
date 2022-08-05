@@ -260,6 +260,10 @@ class Tribe__Admin__Notices {
 			$classes[] = 'is-dismissible';
 		}
 
+		if ( $notice->inline ) {
+			$classes[] = 'inline';
+		}
+
 		// Prevents Empty Notices
 		if ( empty( $content ) ) {
 			return false;
@@ -548,6 +552,7 @@ class Tribe__Admin__Notices {
 			'priority'           => 10,
 			'expire'             => false,
 			'dismiss'            => false,
+			'inline'             => false,
 			'recurring'          => false,
 			'recurring_interval' => null,
 			'type'               => 'error',
@@ -571,8 +576,14 @@ class Tribe__Admin__Notices {
 		// Clean these
 		$notice->priority  = absint( $notice->priority );
 		$notice->expire    = (bool) $notice->expire;
-		$notice->dismiss   = (bool) $notice->dismiss;
 		$notice->recurring = (bool) $notice->recurring;
+
+		if ( ! is_callable( $notice->dismiss ) ) {
+			$notice->dismiss   = (bool) $notice->dismiss;
+		}
+		if ( ! is_callable( $notice->inline ) ) {
+			$notice->inline   = (bool) $notice->inline;
+		}
 
 		// Set the Notice on the array of notices
 		$this->notices[ $slug ] = $notice;
@@ -641,7 +652,7 @@ class Tribe__Admin__Notices {
 	 *
 	 * @param string $slug
 	 *
-	 * @return array|null
+	 * @return object|array|null
 	 */
 	public function get( $slug = null ) {
 		if ( is_null( $slug ) ) {
@@ -652,7 +663,18 @@ class Tribe__Admin__Notices {
 		$slug = sanitize_key( $slug );
 
 		if ( ! empty( $this->notices[ $slug ] ) ) {
-			return $this->notices[ $slug ];
+			// I want to avoid modifying the registered value.
+			$notice = $this->notices[ $slug ];
+
+			if ( is_callable( $notice->inline ) ) {
+				$notice->inline = call_user_func( $notice->inline, $notice );
+			}
+
+			if ( is_callable( $notice->dismiss ) ) {
+				$notice->dismiss = call_user_func( $notice->dismiss, $notice );
+			}
+
+			return $notice;
 		}
 
 		return null;
