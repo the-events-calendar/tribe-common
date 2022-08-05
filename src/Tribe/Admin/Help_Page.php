@@ -22,6 +22,33 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
+	 * Set up hooks.
+	 *
+	 * @since 4.15.0
+	 */
+	public function hook() {
+		add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
+	}
+
+	/**
+	 * Hooked to admin_body_class to add a class for help page.
+	 *
+	 * @since 4.15.0
+	 *
+	 * @param string $classes A space separated string of classes to be added to body.
+	 *
+	 * @return string $classes A space separated string of classes to be added to body.
+	 */
+	public function admin_body_class( $classes ) {
+		if ( ! $this->is_current_page() ) {
+			return $classes;
+		}
+
+		$classes .= ' tribe-help tec-help';
+		return $classes;
+	}
+
+	/**
 	 * Checks if the current page is the Help one
 	 *
 	 * @since 4.5.7
@@ -29,7 +56,14 @@ class Tribe__Admin__Help_Page {
 	 * @return bool
 	 */
 	public function is_current_page() {
-		return Tribe__Admin__Helpers::instance()->is_screen( 'tribe_events_page_tribe-help' ) || Tribe__Admin__Helpers::instance()->is_screen( 'settings_page_tribe-common-help-network' );
+		global $current_screen;
+
+		$help_pages = [
+			'tribe_events_page_tec-events-help',
+			'tickets_page_tec-tickets-help',
+		];
+
+		return in_array( $current_screen->id, $help_pages );
 	}
 
 	/**

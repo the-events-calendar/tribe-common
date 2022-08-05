@@ -1,0 +1,26 @@
+actor: ActivationTester
+modules:
+    enabled:
+        - \Helper\Activation
+        - WPDb
+        - WPFilesystem
+        - WPBrowser
+        - Asserts
+    config:
+        WPDb:
+            dsn: 'mysql:host=%DB_HOST%;dbname=%DB_NAME%'
+            user: %DB_USER%
+            password: %DB_PASSWORD%
+            dump: tests/_data/empty.sql
+            populate: true
+            cleanup: false # See activation/_bootstrap for the cleanup.
+            url: '%WP_URL%'
+            tablePrefix: wp_
+            waitlock: 10
+        WPBrowser:
+            url: '%WP_URL%'
+            adminUsername: %WP_ADMIN_USERNAME%
+            adminPassword: '%WP_ADMIN_PASSWORD%'
+            adminUrl: /wp-admin
+        WPFilesystem:
+            wpRootFolder: "%WP_ROOT_FOLDER%"

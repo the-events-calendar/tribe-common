@@ -112,7 +112,7 @@ class Main {
 	public function localize_tour( $hook ) {
 		$data = $this->tour_data();
 
-		wp_localize_script( 'tribe-onboarding-js', 'TribeOnboardingTour', $data );
+		wp_localize_script( 'tec-onboarding-js', 'TribeOnboardingTour', $data );
 	}
 
 	/**
@@ -125,7 +125,7 @@ class Main {
 	public function localize_hints( $hook ) {
 		$data = $this->hints_data();
 
-		wp_localize_script( 'tribe-onboarding-js', 'TribeOnboardingHints', $data );
+		wp_localize_script( 'tec-onboarding-js', 'TribeOnboardingHints', $data );
 	}
 
 	/**

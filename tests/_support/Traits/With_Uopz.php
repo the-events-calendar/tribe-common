@@ -19,7 +19,7 @@ trait With_Uopz {
 	/**
 	 * Wrapper for uopz_set_return
 	 *
-	 * @since TBD
+	 * @since 4.15.1
 	 *
 	 * @param [type] $fn       The name of an existing function
 	 * @param [type] $value    The value the function should return.

@@ -9,14 +9,21 @@
  */
 ?>
 <div class="tribe-marketing-notice">
-	<div class="tribe-marketing-notice__icon">
-		<img src="<?php echo esc_url( $icon_url ); ?>"/>
-	</div>
 	<div class="tribe-marketing-notice__content">
-		<h3>Save 40% on all our plugins, and all StellarWP brand products.</h3>
+		<div class="tribe-marketing-notice__icon">
+			<?php include \Tribe__Main::instance()->plugin_path . 'src/views/v2/components/icons/stellar-icon.php'; ?>
+		</div>
+		<?php include \Tribe__Main::instance()->plugin_path . 'src/resources/images/marketing/stellar-sale-text.svg'; ?>
+		<h3>
+			<?php
+			/* Translators: %1$s formatted date. */
+			echo sprintf(
+				__( '<b>40%% off</b> all WordPress solutions through %1$s.', 'tribe-common' ),
+				esc_html( $end_date->format( 'F j' ) )
+			); ?>
+		</h3>
 		<p>
-			Now through August 4.
-			<span class="tribe-marketing-notice__cta"><a target="_blank" href="<?php echo esc_url( $cta_url ); ?>">Shop now</a></span>
+			<span class="tribe-marketing-notice__cta"><a target="_blank" href="<?php echo esc_url( $cta_url ); ?>"><?php echo esc_html_x( 'Shop now', 'Shop now link text', 'tribe-common' ) ?></a></span>
 		</p>
 	</div>
 </div>

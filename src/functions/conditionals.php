@@ -9,7 +9,7 @@
  *
  * @return bool
  */
-function tec_should_hide_upsell( string $slug = 'all' ): bool {
+function tec_should_hide_upsell( $slug = 'all' ) {
 	$verify = static function( $needle, $haystack ) {
 		// In all cases if true or false boolean we return that.
 		if ( is_bool( $haystack ) ) {

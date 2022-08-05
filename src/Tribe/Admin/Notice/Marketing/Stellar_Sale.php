@@ -23,26 +23,38 @@ class Stellar_Sale extends \Tribe\Admin\Notice\Date_Based {
 	/**
 	 * {@inheritDoc}
 	 */
-	public $start_date = 'July 28th, 2021';
+	public $start_date = 'July 25th, 2022';
 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * 1pm UTC is 6am PDT (-7) and 9am EDT (-4)
+	 * 7am UTC is midnight PDT (-7) and 3am EDT (-4)
 	 */
-	public $start_time = 13;
+	public $start_time = 19;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public $end_date = 'August 4th, 2021';
+	public $end_date = 'July 31st, 2022';
 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * 5am UTC is 9pm PST (-8) and 12am EST (-5)
+	 * 7am UTC is midnight PDT (-7) and 3am EDT (-4)
 	 */
-	public $end_time = 5;
+	public $end_time = 19;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public $extension_date = 'August 2nd, 2022';
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * 7am UTC is midnight PDT (-7) and 3am EDT (-4)
+	 */
+	public $extension_time = 19;
 
 	/**
 	 * {@inheritDoc}
@@ -51,8 +63,10 @@ class Stellar_Sale extends \Tribe\Admin\Notice\Date_Based {
 		\Tribe__Assets::instance()->enqueue( [ 'tribe-common-admin' ] );
 
 		// Used in the template.
-		$cta_url  = 'https://evnt.is/1aqi';
-		$icon_url = \Tribe__Main::instance()->plugin_url . 'src/resources/images/icons/sale-burst.svg';
+		$cta_url      = 'https://evnt.is/1aqi';
+		$icon_url     = \Tribe__Main::instance()->plugin_url . 'src/resources/images/marketing/circles.svg';
+		$icon_classes = [ 'tribe-common-c-svgicon--circles' ];
+		$end_date     = $this->get_end_time();
 
 		ob_start();
 
