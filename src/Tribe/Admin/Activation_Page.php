@@ -177,7 +177,9 @@ class Tribe__Admin__Activation_Page {
 		/**
 		 * Filters whether we should disable the update page redirect.
 		 *
-		 * @param bool
+		 * @since TBD
+		 *
+		 * @param $bypass bool
 		 */
 		$bypass_update_page = apply_filters( 'tec_admin_update_page_bypass', false );
 
