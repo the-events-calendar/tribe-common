@@ -323,7 +323,7 @@ class Tribe__Settings_Manager {
 			return;
 		}
 
-		$parent = class_exists( 'Tribe__Events__Main' ) ? Tribe__Settings::$parent_page : Tribe__Settings::$parent_slug;
+		$parent = class_exists( 'Tribe__Events__Main' ) && Tribe__Events__Main::POSTTYPE;
 		$title  = esc_html__( 'Help', 'tribe-common' );
 		$slug   = 'tribe-help';
 
