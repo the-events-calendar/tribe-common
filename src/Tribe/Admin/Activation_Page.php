@@ -149,6 +149,34 @@ class Tribe__Admin__Activation_Page {
 			return; // A way to skip these checks and.
 		}
 
+		if ( ! $this->showed_update_message_for_current_version() ) {
+			$page = tribe_get_request_var( 'page' );
+			if ( empty( $page ) ) {
+				return;
+			}
+
+			$match_page = str_replace( 'tribe_events_page_', '', $this->args['admin_page'] );
+
+			if ( $page !== $match_page ) {
+				return;
+			}
+
+			/**
+			 * Filters whether we should disable the update page redirect.
+			 *
+			 * @since TBD
+			 *
+			 * @param $bypass bool
+			 */
+			$bypass_update_page = apply_filters( 'tec_admin_update_page_bypass', false, $this );
+
+			if ( $bypass_update_page ) {
+				return;
+			}
+
+			$this->redirect_to_update_page();
+		}
+
 		// Bail if we aren't activating a plugin.
 		if ( ! get_transient( $this->args['activation_transient'] ) ) {
 			return;
@@ -157,10 +185,6 @@ class Tribe__Admin__Activation_Page {
 		delete_transient( $this->args['activation_transient'] );
 
 		if ( ! current_user_can( Tribe__Settings::instance()->requiredCap ) ) {
-			return;
-		}
-
-		if ( $this->showed_update_message_for_current_version() ) {
 			return;
 		}
 
@@ -173,21 +197,6 @@ class Tribe__Admin__Activation_Page {
 		if ( $this->is_new_install() ) {
 			$this->redirect_to_welcome_page();
 		}
-
-		/**
-		 * Filters whether we should disable the update page redirect.
-		 *
-		 * @since TBD
-		 *
-		 * @param $bypass bool
-		 */
-		$bypass_update_page = apply_filters( 'tec_admin_update_page_bypass', false );
-
-		if ( $bypass_update_page ) {
-			return;
-		}
-
-		$this->redirect_to_update_page();
 	}
 
 	/**
