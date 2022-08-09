@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Ensure the `help` submenu only appears under the events post type. [TEC-4443]
+
 = [4.15.4.1] 2022-07-21 =
 
 * Fix - Update Freemius to avoid PHP 8 fatals. [TEC-4330]
