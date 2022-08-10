@@ -154,7 +154,7 @@ class Tribe__Admin__Activation_Page {
 			return; // A way to skip these checks and.
 		}
 
-		if ( ! $this->showed_update_message_for_current_version() ) {
+		if ( ! $this->showed_update_message_for_current_version() && ! $this->is_new_install()  ) {
 			$page = tribe_get_request_var( 'page' );
 			if ( empty( $page ) ) {
 				return;
