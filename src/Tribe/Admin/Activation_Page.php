@@ -83,6 +83,11 @@ class Tribe__Admin__Activation_Page {
 			return;
 		}
 
+		if ( $this->is_update_page() || $this->is_welcome_page() ) {
+			add_filter( 'tribe_events_integrations_should_load_freemius', '__return_false' );
+			add_filter( 'tribe_tickets_integrations_should_load_freemius', '__return_false' );
+		}
+
 		add_action( 'admin_init', [ $this, 'maybe_redirect' ], 10, 0 );
 		add_action( 'admin_menu', [ $this, 'register_page' ], 100, 0 ); // Come in after the default page is registered.
 
@@ -149,7 +154,7 @@ class Tribe__Admin__Activation_Page {
 			return; // A way to skip these checks and.
 		}
 
-		if ( ! $this->showed_update_message_for_current_version() ) {
+		if ( ! $this->showed_update_message_for_current_version() && ! $this->is_new_install()  ) {
 			$page = tribe_get_request_var( 'page' );
 			if ( empty( $page ) ) {
 				return;
