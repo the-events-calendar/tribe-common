@@ -83,11 +83,6 @@ class Tribe__Admin__Activation_Page {
 			return;
 		}
 
-		if ( $this->is_update_page() || $this->is_welcome_page() ) {
-			add_filter( 'tribe_events_integrations_should_load_freemius', '__return_false' );
-			add_filter( 'tribe_tickets_integrations_should_load_freemius', '__return_false' );
-		}
-
 		add_action( 'admin_init', [ $this, 'maybe_redirect' ], 10, 0 );
 		add_action( 'admin_menu', [ $this, 'register_page' ], 100, 0 ); // Come in after the default page is registered.
 
@@ -207,9 +202,11 @@ class Tribe__Admin__Activation_Page {
 	/**
 	 * Have we shown the welcome/update message for the current version?
 	 *
+	 * @since TBD Turned this method public.
+	 *
 	 * @return bool
 	 */
-	protected function showed_update_message_for_current_version() {
+	public function showed_update_message_for_current_version() {
 		$message_version_displayed = Tribe__Settings_Manager::get_option( 'last-update-message-' . $this->args['slug'] );
 
 		if ( empty( $message_version_displayed ) ) {
