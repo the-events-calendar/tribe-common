@@ -159,6 +159,10 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 			$requests[] = (array) $_POST;
 		}
 
+		if ( $requests ) {
+			return $default;
+		}
+
 		$unsafe = Tribe__Utils__Array::get_in_any( $requests, $var, $default );
 		return tribe_sanitize_deep( $unsafe );
 	}
