@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [4.15.5] 2022-08-11 =
+= [4.15.5] 2022-08-15 =
 
 * Feature - Added image field for settings in the admin area. [ET-1541]
 * Feature - Added color field for settings in the admin area. [ET-1540]
