@@ -144,7 +144,22 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 * @return mixed
 	 */
 	function tribe_get_request_var( $var, $default = null ) {
-		$unsafe = Tribe__Utils__Array::get_in_any( [ $_GET, $_POST, $_REQUEST ], $var, $default );
+		$requests = [];
+
+		// Prevent a slew of warnings every time we call this.
+		if ( isset( $_REQUEST ) ) {
+			$requests[] = (array) $_REQUEST;
+		}
+
+		if ( isset( $_GET ) ) {
+			$requests[] = (array) $_GET;
+		}
+
+		if ( isset( $_POST ) ) {
+			$requests[] = (array) $_POST;
+		}
+
+		$unsafe = Tribe__Utils__Array::get_in_any( $requests, $var, $default );
 		return tribe_sanitize_deep( $unsafe );
 	}
 }
