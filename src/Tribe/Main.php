@@ -5,6 +5,7 @@
 
 // Don't load directly
 
+use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,7 +21,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.15.4.1';
+	const VERSION             = '4.15.5';
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
@@ -295,6 +296,17 @@ class Tribe__Main {
 			]
 		);
 
+		tribe_asset(
+			$this,
+			'tec-admin-settings-image-field',
+			'admin-image-field.js',
+			[ 'jquery' ],
+			'in_admin_footer',
+			[
+				'conditionals' => [ tribe( Settings::class ), 'should_load_image_field_assets' ]
+			]
+		);
+
 		// Register the asset for Customizer controls.
 		tribe_asset(
 			$this,
@@ -302,6 +314,18 @@ class Tribe__Main {
 			'customizer-controls.css',
 			[ 'tec-variables-full' ],
 			'customize_controls_print_styles'
+		);
+
+		// Register the asset for color fields.
+		tribe_asset(
+			$this,
+			'tec-settings-color-field',
+			'admin-color-field.js',
+			[ 'jquery', 'wp-color-picker' ],
+			'admin_footer',
+			[
+				'conditionals' => [ tribe( Settings::class ), 'should_load_color_field_assets' ]
+			]
 		);
 
 		tribe( Tribe__Admin__Help_Page::class )->register_assets();
