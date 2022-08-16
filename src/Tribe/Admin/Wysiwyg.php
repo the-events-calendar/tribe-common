@@ -96,6 +96,7 @@ class Wysiwyg {
 		) {
 			return $buttons;
 		}
+
 		return $this->args['buttons_2'];
 	}
 
