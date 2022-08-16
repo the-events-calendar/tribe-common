@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.15.4\n"
+"Project-Id-Version: Tribe Common 4.15.5\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2022-07-19 15:31:51+00:00\n"
+"POT-Creation-Date: 2022-08-11 05:07:49+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-07-19 15:31\n"
+"PO-Revision-Date: 2022-08-11 05:07\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -58,7 +58,7 @@ msgctxt "Error status label for system info optin"
 msgid "Status:"
 msgstr ""
 
-#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.15.4)  #-#-#-#-#
+#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.15.5)  #-#-#-#-#
 #. Author of the plugin/theme
 #: src/Tribe/Admin/Help_Page.php:116 src/Tribe/Customizer.php:664
 #: src/Tribe/Plugins_API.php:25 src/admin-views/help-calendar.php:97
@@ -1091,20 +1091,36 @@ msgid ""
 "and you should likely delete it."
 msgstr ""
 
-#: src/Tribe/Field.php:235
+#: src/Tribe/Field.php:240
 msgid "Invalid field type specified"
 msgstr ""
 
-#: src/Tribe/Field.php:545
+#: src/Tribe/Field.php:550
 msgid "No radio options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:581
+#: src/Tribe/Field.php:586
 msgid "No checkbox options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:643
+#: src/Tribe/Field.php:648
 msgid "No select options specified"
+msgstr ""
+
+#: src/Tribe/Field.php:750
+msgid "Select Image"
+msgstr ""
+
+#: src/Tribe/Field.php:751
+msgid "Remove Image"
+msgstr ""
+
+#: src/Tribe/Field.php:755
+msgid "Select an image"
+msgstr ""
+
+#: src/Tribe/Field.php:756
+msgid "Use this image"
 msgstr ""
 
 #: src/Tribe/Languages/Locations.php:79
@@ -2327,87 +2343,87 @@ msgstr ""
 msgid "Full debug (all events)"
 msgstr ""
 
-#: src/Tribe/Main.php:354
+#: src/Tribe/Main.php:378
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:355
+#: src/Tribe/Main.php:379
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:357
+#: src/Tribe/Main.php:381
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:358
+#: src/Tribe/Main.php:382
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:359
+#: src/Tribe/Main.php:383
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:360
+#: src/Tribe/Main.php:384
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:361
+#: src/Tribe/Main.php:385
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:362
+#: src/Tribe/Main.php:386
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:363
+#: src/Tribe/Main.php:387
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:364
+#: src/Tribe/Main.php:388
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:365
+#: src/Tribe/Main.php:389
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:366
+#: src/Tribe/Main.php:390
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:368
+#: src/Tribe/Main.php:392
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:369 src/Tribe/Main.php:386
+#: src/Tribe/Main.php:393 src/Tribe/Main.php:410
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:370
+#: src/Tribe/Main.php:394
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:375
+#: src/Tribe/Main.php:399
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:376
+#: src/Tribe/Main.php:400
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:387
+#: src/Tribe/Main.php:411
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:388 src/Tribe/Main.php:390
+#: src/Tribe/Main.php:412 src/Tribe/Main.php:414
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:389
+#: src/Tribe/Main.php:413
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:391
+#: src/Tribe/Main.php:415
 msgid "Clear"
 msgstr ""
 
@@ -3111,6 +3127,10 @@ msgstr ""
 
 #: src/Tribe/Validate.php:496
 msgid "%s must be an email address."
+msgstr ""
+
+#: src/Tribe/Validate.php:512
+msgid "%s must be a valid HTML color code."
 msgstr ""
 
 #: src/Tribe/View_Helpers.php:59
