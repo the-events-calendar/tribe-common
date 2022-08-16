@@ -68,7 +68,11 @@ class Wysiwyg {
 	 * @return array Filtered array of buttons.
 	 */
 	public function filter_buttons( $buttons ) {
-		if ( empty( $this->args ) || ! isset( $this->args['buttons'] ) || empty( $this->args['buttons'] ) ) {
+		if (
+			empty( $this->args )
+			|| ! isset( $this->args['buttons'] )
+			|| empty( $this->args['buttons'] )
+		) {
 			return $buttons;
 		}
 
