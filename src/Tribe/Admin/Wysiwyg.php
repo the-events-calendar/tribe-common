@@ -11,7 +11,7 @@ namespace Tribe\Admin;
 class Wysiwyg {
 
 	/**
-	 * Unique name givent to editor in case more than one being used on same page.
+	 * Unique name given to editor in case more than one is being used on the same page.
 	 * 
 	 * @since TBD
 	 *
@@ -29,7 +29,7 @@ class Wysiwyg {
 	protected $value = '';
 
 	/**
-	 * Settings to passinto the editor.
+	 * Settings to pass into the editor.
 	 *
 	 * @since TBD
 	 * 
@@ -71,6 +71,7 @@ class Wysiwyg {
 		if ( empty( $this->args ) || ! isset( $this->args['buttons'] ) || empty( $this->args['buttons'] ) ) {
 			return $buttons;
 		}
+
 		return $this->args['buttons'];
 	}
 
@@ -84,7 +85,11 @@ class Wysiwyg {
 	 * @return array Filtered array of buttons.
 	 */
 	public function maybe_filter_buttons_2( $buttons ) {
-		if ( empty( $this->args ) || ! isset( $this->args['buttons_2'] ) || empty( $this->args['buttons_2'] ) ) {
+		if (
+			empty( $this->args ) ||
+			! isset( $this->args['buttons_2'] ) ||
+			empty( $this->args['buttons_2'] )
+		) {
 			return $buttons;
 		}
 		return $this->args['buttons_2'];
