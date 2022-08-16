@@ -1,0 +1,40 @@
+.tribe-field {
+
+	.tec-admin__settings-image-field-btn-remove {
+		border: none;
+		color: #3c434a;
+		cursor: pointer;
+		padding: 0;
+		text-decoration: underline;
+	}
+
+	.tec-admin__settings-image-field-image-container {
+		height: 120px;
+		position: relative;
+
+		img {
+			height: auto;
+			max-height: 100%;
+			width: auto;
+		}
+	}
+
+	&.tribe-field-color {
+		.wp-color-result.button {
+			align-items: stretch;
+			border-radius: var(--tec-border-radius-default);
+			display: flex;
+			margin: 0 6px 6px 0;
+			min-height: 30px;
+			padding: 0 0 0 var(--tec-spacer-7);
+		}
+
+		.wp-color-result-text {
+			background: var(--tec-color-background);
+			border-left: 1px solid var(--tec-color-border-default);
+			font-size: var(--tec-font-size-0);
+			line-height: 30px;
+			padding: 0 var(--tec-spacer-2);
+		}
+	}
+}
