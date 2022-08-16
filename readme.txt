@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Enhancement - Added a way to customize the WYSIWYG editor field by passing in a `settings` parameter. [ET-1565]
+
 = [4.15.5] 2022-08-15 =
 
 * Feature - Added image field for settings in the admin area. [ET-1541]
