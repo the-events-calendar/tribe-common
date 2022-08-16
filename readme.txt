@@ -3,8 +3,16 @@
 = [5.0.0] 2022-0X-XX =
 
 * Feature - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
-* Fix - avoid fatal errors when transient notices are registered from inactive plugins
+* Fix - Avoid fatal errors when transient notices are registered from inactive plugins.
+* Tweak - Allow suppression of admin notices for specific plugins via the filters `tec_pue_expired_key_notice_plugins`, `tec_pue_invalid_key_notice_plugins`, and `tec_pue_upgrade_key_notice_plugins`.
 * Language - 2 new strings added, 88 updated, 1 fuzzied, and 1 obsoleted
+
+= [4.15.5] 2022-08-15 =
+
+* Feature - Added image field for settings in the admin area. [ET-1541]
+* Feature - Added color field for settings in the admin area. [ET-1540]
+* Tweak - Prevent a possible infinite hook loop. [ECP-1203]
+* Language - 4 new strings added, 104 updated, 3 fuzzied, and 2 obsoleted.
 
 = [4.15.4.1] 2022-07-21 =
 
