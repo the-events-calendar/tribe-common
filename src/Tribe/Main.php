@@ -34,6 +34,15 @@ class Tribe__Main {
 	public $plugin_url;
 
 	/**
+	 * The slug that will be used to identify HTTP requests common should handle.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $request_slug = 'tec_common_request';
+
+	/**
 	 * Static Singleton Holder
 	 * @var self
 	 */
@@ -171,13 +180,13 @@ class Tribe__Main {
 	 */
 	public function init_early_libraries() {
 		require_once $this->plugin_path . 'src/functions/editor.php';
+		require_once $this->plugin_path . 'src/functions/utils.php';
 	}
 
 	/**
 	 * initializes all required libraries
 	 */
 	public function init_libraries() {
-		require_once $this->plugin_path . 'src/functions/utils.php';
 		require_once $this->plugin_path . 'src/functions/conditionals.php';
 		require_once $this->plugin_path . 'src/functions/url.php';
 		require_once $this->plugin_path . 'src/functions/query.php';
@@ -691,6 +700,8 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Service_Providers\Onboarding::class );
 		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
 		tribe_register_provider( Tribe\Admin\Conditional_Content\Service_Provider::class );
+		tribe_register_provider( TEC\Common\Service_Providers\Context::class );
+		tribe_register_provider( TEC\Common\Zapier\Zapier_Provider::class );
 	}
 
 	/**
