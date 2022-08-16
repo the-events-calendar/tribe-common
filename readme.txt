@@ -1,8 +1,19 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [5.0.0] 2022-0X-XX =
 
+* Feature - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
 * Fix - Ensure the `help` submenu only appears under the events post type. [TEC-4443]
+* Fix - Avoid fatal errors when transient notices are registered from inactive plugins.
+* Tweak - Allow suppression of admin notices for specific plugins via the filters `tec_pue_expired_key_notice_plugins`, `tec_pue_invalid_key_notice_plugins`, and `tec_pue_upgrade_key_notice_plugins`.
+* Language - 2 new strings added, 88 updated, 1 fuzzied, and 1 obsoleted
+
+= [4.15.5] 2022-08-15 =
+
+* Feature - Added image field for settings in the admin area. [ET-1541]
+* Feature - Added color field for settings in the admin area. [ET-1540]
+* Tweak - Prevent a possible infinite hook loop. [ECP-1203]
+* Language - 4 new strings added, 104 updated, 3 fuzzied, and 2 obsoleted.
 
 = [4.15.4.1] 2022-07-21 =
 
@@ -40,6 +51,7 @@
 = [4.15.0] 2022-05-19 =
 
 * Feature - Introducing new admin pages structure and updating the settings framework to have Settings on multiple pages. [ET-1335]
+* Tweak - Add Stellar Discounts tab in Event Add-Ons
 * Language - 0 new strings added, 150 updated, 0 fuzzied, and 43 obsoleted
 
 = [4.14.20.1] 2022-05-12 =
@@ -104,7 +116,7 @@
 * Fix - Remove incorrect reference for moment.min.js.map [TEC-4148]
 * Fix - Fixed troubleshooting page styles for standalone Event Tickets setup [ET-1382]
 * Fix - Remove singleton created from a deprecated class.
-* Language - 0 new strings added, 38 updated, 1 fuzzied, and 0 obsoleted\
+* Language - 0 new strings added, 38 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.14.12] 2022-01-17 =
 
