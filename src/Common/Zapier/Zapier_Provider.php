@@ -172,8 +172,8 @@ class Zapier_Provider extends \tad_DI52_ServiceProvider {
 
 
 		/** @var Tribe__Documentation__Swagger__Builder_Interface $documentation */
-		//$doc_endpoint = tribe( 'tickets.rest-v1.endpoints.documentation' );
-		//$doc_endpoint->register_definition_provider( 'Zapier_New_Events', new New_Events_Definition_Provider() );
+		//$documentation = tribe( 'tec.rest-v1.endpoints.documentation' );
+		//$documentation->register_definition_provider( 'Zapier_New_Events', new New_Events_Definition_Provider() );
 	}
 
 	/**

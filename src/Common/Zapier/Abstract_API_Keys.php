@@ -1,6 +1,6 @@
 <?php
 /**
- * Class to manage zapier access accounts.
+ * Class to manage API Key pairs.
  *
  * @since   TBD
  *
@@ -9,18 +9,17 @@
 
 namespace TEC\Common\Zapier;
 
-use Tribe\Events\Virtual\Traits\With_AJAX;
+use TEC\Common\Traits\With_AJAX;
 use Tribe__Utils__Array as Arr;
-use Tribe__Events__Main as TEC;
 
 /**
- * Class Page_API
+ * Class API_Keys
  *
  * @since   TBD
  *
  * @package TEC\Common\Zapier
  */
-class Page_API {
+abstract class Abstract_API_Keys {
 
 	use With_AJAX;
 
@@ -131,6 +130,10 @@ class Page_API {
 	 * @var string
 	 */
 	public static $zapier_page_access_expiration_url = 'https://graph.zapier.com/v12.0/debug_token';
+
+	public function get_list_of_keys() {
+		return [];
+	}
 
 	/**
 	 * Get the Zapier API url to get an access token's expiration.

@@ -20,7 +20,7 @@ use TEC\Common\Traits\With_AJAX;
  *
  * @package TEC\Common\Zapier
  */
-class Api {
+class Api extends Abstract_API_Keys{
 	use With_AJAX;
 
 	/**
@@ -53,19 +53,39 @@ class Api {
 		$this->actions = $actions;
 	}
 
-	public function get_list_of_keys() {
-		return [];
+	/**
+	 * Get a random hash.
+	 *
+	 * @since  TBD
+	 *
+	 * @param string A optional prefix to the random hash.
+	 *
+	 * @return string A random hash.
+	 */
+	public function get_random_hash( $prefix = '' ) {
+		if ( function_exists( 'openssl_random_pseudo_bytes' ) ) {
+			$hash = bin2hex( openssl_random_pseudo_bytes( 20 ) );
+		}
+
+		if ( ! empty( $hash ) ) {
+			return $prefix . $hash;
+		}
+
+		// Fallback hash if openssl_random_pseudo_bytes returns empty.
+		return $prefix . sha1( wp_rand() );
 	}
 
 	/**
-	 * Get a unique Id.
+	 * Hash the specified data.
 	 *
 	 * @since TBD
 	 *
-	 * @return string A unique id to use as the local id.
+	 * @param string $data Message to be hashed.
+	 *
+	 * @return string Hashed data.
 	 */
-	public function get_unique_id() {
-		return uniqid();
+	public static function api_hash( $data ) {
+		return hash_hmac( 'sha256', $data, 'tec-common-zapier' );
 	}
 
 	/**
@@ -75,7 +95,7 @@ class Api {
 	 *
 	 * @param string $nonce The add action nonce to check.
 	 *
-	 * @return string An html message for success or failure and the html of the api key fields.
+	 * @return string An html message for success or failure and the html of the API Key fields.
 	 */
 	public function ajax_add_api_key( $nonce ) {
 		if ( ! $this->check_ajax_nonce( $this->actions::$add_aki_key_action, $nonce ) ) {
@@ -93,7 +113,7 @@ class Api {
 
 		// Add empty fields template
 		tribe( Template_Modifications::class )->get_api_key_fields(
-			$this->get_unique_id(),
+			$this->get_random_hash( 'ci_' ),
 			[
 				'name'         => '',
 				'api_key'      => '',
@@ -111,25 +131,17 @@ class Api {
 	 *
 	 * @param string $nonce The add action nonce to check.
 	 *
-	 * @return string An html message for success or failure and the html of the api key fields.
+	 * @return string An html message for success or failure and the html of the API Key fields.
 	 */
 	public function ajax_generate_api_key_pair( $nonce ) {
 		if ( ! $this->check_ajax_nonce( $this->actions::$generate_action, $nonce ) ) {
 			return false;
 		}
 
-		//@todo - detect if correct information is here
-		/**
-		 * 					local_id: localId,
-		 					name: integrationName,
-		 					user: intergrationUser,
-		 					permissions: permissions,
-		 */
 		$local_id = tribe_get_request_var( 'local_id' );
-		// If no local id found, fail the request.
 		if ( empty( $local_id ) ) {
 			$message = _x(
-				'Zapier API Key pair missing local id.',
+				'Zapier API Key pair missing the local id.',
 				'Zapier API Key pair missing local id message.',
 				'tribe-common'
 			);
@@ -138,6 +150,41 @@ class Api {
 			wp_die();
 		}
 
+		$name = tribe_get_request_var( 'name' );
+		if ( empty( $name ) ) {
+			$message = _x(
+				'Zapier API Key pair missing a name.',
+				'Zapier API Key pair missing a name message.',
+				'tribe-common'
+			);
+			tribe( Template_Modifications::class )->get_settings_message_template( $message, 'error' );
+
+			wp_die();
+		}
+
+		$user_id = tribe_get_request_var( 'user_id' );
+		if ( empty( $user_id ) ) {
+			$message = _x(
+				'Zapier API Key pair missing a user id.',
+				'Zapier API Key pair missing a user message.',
+				'tribe-common'
+			);
+			tribe( Template_Modifications::class )->get_settings_message_template( $message, 'error' );
+
+			wp_die();
+		}
+
+		$permissions = tribe_get_request_var( 'permissions' );
+		if ( empty( $permissions ) ) {
+			$message = _x(
+				'Zapier API Key pair missing permissions.',
+				'Zapier API Key pair missing permissions message.',
+				'tribe-common'
+			);
+			tribe( Template_Modifications::class )->get_settings_message_template( $message, 'error' );
+
+			wp_die();
+		}
 
 		$message = _x(
 			'Zapier API Key pair generated.',
@@ -147,18 +194,26 @@ class Api {
 		tribe( Template_Modifications::class )->get_settings_message_template( $message );
 
 		//@todo - generate the keys
-		//@todo - save the api key fields
-		//@todo - load fields template with key pair template.
+		//@todo - load fields template with key pair template
+		//@todo - save the API Key fields
+		//@todo - load saved API Key fields
+
+		$api_key = [
+			'consumer_id'     => $local_id,
+			'consumer_secret' => $this->get_random_hash( 'ck_' ),
+			'has_pair'        => true,
+			'name'            => $name,
+			'permissions'     => $permissions,
+			'user_id'         => $user_id,
+		];
 
 		// Add empty fields template
-/*		tribe( Template_Modifications::class )->get_api_key_fields(
-			$this->get_unique_id(),
-			[
-				'name'         => '',
-				'api_key'      => '',
-			],
-			$users_dropdown
-		);*/
+		tribe( Template_Modifications::class )->get_api_key_fields(
+			$local_id,
+			$api_key,
+			[],
+			'generated'
+		);
 
 		wp_die();
 	}
@@ -267,7 +322,7 @@ class Api {
 				'tribe-common'
 			),
 			'id'             => 'tec-settings-zapier-users',
-			'classes_select' => [ 'tec-settings__users-dropdown', 'tec-settings-zapier__users-dropdown' ],
+			'classes_select' => [ 'tec-settings__users-dropdown', 'tec-settings-zapier-details-api-key__users-dropdown' ],
 			'name'           => "tec_common_zapier[]['users']",
 			'selected'       => '',
 			'hosts_count'    => count( $users ),
@@ -285,5 +340,63 @@ class Api {
 		];
 
 		return $users_dropdown;
+	}
+
+	/**
+	 * Basic Authentication.
+	 *
+	 * SSL-encrypted requests are not subject to sniffing or man-in-the-middle
+	 * attacks, so the request can be authenticated by simply looking up the user
+	 * associated with the given consumer key and confirming the consumer secret
+	 * provided is valid.
+	 *
+	 * @since 2.4-beta-1
+	 *
+	 * @return int|bool Returs the authenticated user's User ID if successfull. Otherwise, returns false.
+	 */
+	private function perform_basic_authentication() {
+/*		$this->log_debug( __METHOD__ . '(): Running.' );
+
+		$this->auth_method = 'basic_auth';
+		$consumer_key      = '';
+		$consumer_secret   = '';
+
+		// If the $_GET parameters are present, use those first.
+		if ( ! empty( $_GET['consumer_key'] ) && ! empty( $_GET['consumer_secret'] ) ) {
+			$consumer_key    = $_GET['consumer_key']; // WPCS: sanitization ok.
+			$consumer_secret = $_GET['consumer_secret']; // WPCS: sanitization ok.
+		}
+
+		// If the above is not present, we will do full basic auth.
+		if ( ! $consumer_key && ! empty( $_SERVER['PHP_AUTH_USER'] ) && ! empty( $_SERVER['PHP_AUTH_PW'] ) ) {
+			$consumer_key    = $_SERVER['PHP_AUTH_USER']; // WPCS: sanitization ok.
+			$consumer_secret = $_SERVER['PHP_AUTH_PW']; // WPCS: sanitization ok.
+		}
+
+		// Stop if don't have any key.
+		if ( ! $consumer_key || ! $consumer_secret ) {
+			$this->log_error( __METHOD__ . '(): Aborting; credentials not found.' );
+
+			return false;
+		}
+
+		// Get user data.
+		$user = $this->get_user_data_by_consumer_key( $consumer_key );
+		if ( empty( $user ) ) {
+			$this->log_error( __METHOD__ . '(): Aborting; user not found.' );
+
+			return false;
+		}
+
+		// Validate user secret.
+		if ( ! hash_equals( $user->consumer_secret, $consumer_secret ) ) {
+			$this->set_error( new WP_Error( 'gform_rest_authentication_error', __( 'Consumer secret is invalid.', 'gravityforms' ), array( 'status' => 401 ) ) );
+
+			return false;
+		}
+
+		$this->log_debug( __METHOD__ . '(): Valid.' );
+
+		return $this->set_user( $user );*/
 	}
 }

@@ -158,11 +158,11 @@ tribe.events.integrationsSettingsAdmin = tribe.events.integrationsSettingsAdmin 
 	 *
 	 * @param {Event} event The click event.
 	 */
-	obj.handleGenerateKey = function( event ) {
-		event.preventDefault();
+	obj.handleGenerateKey = function( ev ) {
+		ev.preventDefault();
 
 		const $this = $( this );
-		const url = $this.data( 'ajaxSaveUrl' );
+		const url = $this.data( 'ajaxGenerateUrl' );
 		const $integrationItem = $this.closest( obj.selectors.integrationItem );
 		const localId = $integrationItem.data( 'localId' );
 		const integrationName = $integrationItem.find( obj.selectors.integrationName ).val();
@@ -177,7 +177,7 @@ tribe.events.integrationsSettingsAdmin = tribe.events.integrationsSettingsAdmin 
 				data: {
 					local_id: localId,
 					name: integrationName,
-					user: intergrationUser,
+					user_id: intergrationUser,
 					permissions: permissions,
 				},
 				success: obj.onGenerateKeySuccess,

@@ -25,7 +25,7 @@
  * @var array<string,string> $tooltip        An optional associative array containing information to display in a tooltip.
  */
 
-$wrap_classes = [ 'tec-settings-control', 'tec-settings-control--select' ];
+$wrap_classes = [ 'tec-settings-control', 'tec-settings-control__dropdown-wrap' ];
 if ( ! empty( $classes_wrap ) ) {
 	$wrap_classes = array_merge( $wrap_classes, $classes_wrap );
 }
@@ -35,7 +35,7 @@ if ( ! empty( $classes_label ) ) {
 	$label_classes = array_merge( $label_classes, $classes_label );
 }
 
-$select_classes = [ 'tribe-dropdown' ];
+$select_classes = [ 'tribe-dropdown', 'tec-settings-control__dropdown' ];
 if ( ! empty( $classes_select ) ) {
 	$select_classes = array_merge( $select_classes, $classes_select );
 }

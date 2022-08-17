@@ -15,21 +15,21 @@
  *
  * @var Api                 $api   An instance of the Zapier API handler.
  * @var Url                 $url   An instance of the URL handler.
- * @var array<string|mixed> $keys  An array of api keys to authenticate with Zapier.
- * @var array<string|mixed> $users An array of WordPress users to create an api key for.
+ * @var array<string|mixed> $keys  An array of API Keys to authenticate with Zapier.
+ * @var array<string|mixed> $users An array of WordPress users to create an API Key for.
  */
 
 if ( empty( $keys ) ) {
-	$this->template( 'zapier/api/components/fields', [
-		'local_id' => $api->get_unique_id(),
-		'api_key'     => [
+	$this->template( 'zapier/api/components/fields-new', [
+		'local_id' => $api->get_random_hash( 'ci_' ),
+		'api_key'  => [
 			'name'         => '',
 			'page_id'      => '',
 			'access_token' => '',
 			'expiration'   => '',
 		],
-		'url'      => $url,
 		'users'    => $users,
+		'url'      => $url,
 	] );
 
 	return;
@@ -37,11 +37,11 @@ if ( empty( $keys ) ) {
 ?>
 <?php foreach ( $keys as $local_id => $api_key ) : ?>
 	<?php
-	$this->template( 'zapier/components/fields', [
+	$this->template( 'zapier/components/fields-generated', [
 		'local_id' => $local_id,
-		'api_key'     => $api_key,
+		'api_key'  => $api_key,
+		'users'    => [],
 		'url'      => $url,
-		'users'    => $users,
 	] );
 	?>
 <?php endforeach; ?>

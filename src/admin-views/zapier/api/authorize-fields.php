@@ -15,8 +15,8 @@
  *
  * @var Api                 $api     An instance of the Zapier API handler.
  * @var Url                 $url     An instance of the URL handler.
- * @var array<string|mixed> $users   An array of WordPress users to create an api key for.
- * @var string              $message A message to display above the api key list on loading.
+ * @var array<string|mixed> $users   An array of WordPress users to create an API Key for.
+ * @var string              $message A message to display above the API Key list on loading.
  */
 
 $keys = $api->get_list_of_keys();

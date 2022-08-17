@@ -18,58 +18,25 @@
  * @var Url                 $url      An instance of the URL handler.
  */
 
-$connect_status = _x(
-	'Not Connected',
-	'The status of the Page\'s access token.',
-	'tribe-common'
-);
-$connect_instructions = _x(
-	'click "Continue with Zapier" to authorize it.',
-	'The message to display if a Faceook Page is not connected.',
-	'tribe-common'
-);
-
-$connected_message = sprintf(
-	'<span class="warning">%1$s</span>, %2$s',
-	esc_html( $connect_status ),
-	esc_html( $connect_instructions )
-);
-
-if ( $api_key['access_token'] ) {
-	$connect_status = _x(
-		'Connected',
-		'The status of the Page\'s access token.',
-		'tribe-common'
-		);
-	$connect_instructions = _x(
-		'token expires:',
-		'The message to display if a Faceook Page is connected.',
-		'tribe-common'
-	);
-	$clear_link_label = _x(
-		'clear token',
-		'The label of the link to clear the token.',
-		'tribe-common'
-	);
-
-	$connected_message = sprintf(
-		'<span class="success">%1$s</span>, %2$s  %3$s - <a class="tec-settings-zapier-details__clear-access" href="%4$s">%5$s</a>',
-		esc_html( $connect_status ),
-		esc_html( $connect_instructions ),
-		esc_html( $api_key['expiration'] ),
-		$url->to_clear_access_page_link(),
-		esc_html( $clear_link_label )
-	);
-}
-$expiration = $api_key['expiration'];
 ?>
 <div class="tec-settings-integrations-details__row">
-	<div class="tec-settings-zapier-details__page-expiration">
-		<div class="tec-settings-zapier-details__page-expiration-text">
-			<strong>
-				<?php echo esc_html_x( 'Status: ', 'The label of the status of the Page\'s access token.', 'tribe-common' ); ?>
-			</strong>
-			<?php echo $connected_message; ?>
-		</div>
-	</div>
+	<?php
+	$this->template( 'zapier/api/components/read-only', [
+		'classes_wrap'  => [ 'tec-settings-zapier-details-api-key__consumer-id-wrap' ],
+		'label'         => _x( 'Consumer ID', 'Label for the consumer id of the API Key for Zapier.', 'tribe-common' ),
+		'screen_reader' => _x( 'The consumer id for the Zapier API Key.', 'The screen reader text of the label for the Zapier API Key consumer id.', 'tribe-common' ),
+		'id'            => "tec_common_zapier_consumer_id_" . $local_id,
+		'name'          => "tec_common_zapier[]['consumer_id']",
+		'value'         => $api_key['consumer_id'],
+	] );
+
+	$this->template( 'zapier/api/components/read-only', [
+		'classes_wrap'  => [ 'tec-settings-zapier-details-api-key__consumer-secret-wrap' ],
+		'label'         => _x( 'Consumer Secret', 'Label for the consumer secret of the API Key for Zapier.', 'tribe-common' ),
+		'screen_reader' => _x( 'The consumer secret for the Zapier API Key.', 'The screen reader text of the label for the Zapier API Key consumer secret.', 'tribe-common' ),
+		'id'            => "tec_common_zapier_consumer_secret_" . $local_id,
+		'name'          => "tec_common_zapier[]['consumer_secret']",
+		'value'         => $api_key['consumer_secret'],
+	] );
+	?>
 </div>

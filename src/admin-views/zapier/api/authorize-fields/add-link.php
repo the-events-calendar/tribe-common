@@ -18,7 +18,7 @@
  */
 
 $add_link      = $url->to_add_api_key_link();
-$connect_label = _x( 'Add API Key', 'Label to add api key fields for Zapier.', 'tribe-common' );
+$connect_label = _x( 'Add API Key', 'Label to add API Key fields for Zapier.', 'tribe-common' );
 
 $classes = [
 	'button'                                        => true,
