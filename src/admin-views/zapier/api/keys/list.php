@@ -21,27 +21,29 @@
 
 if ( empty( $keys ) ) {
 	$this->template( 'zapier/api/components/fields-new', [
-		'local_id' => $api->get_random_hash( 'ci_' ),
-		'api_key'  => [
+		'api'         => $api,
+		'consumer_id' => $api->get_random_hash( 'ci_' ),
+		'api_key'     => [
 			'name'         => '',
 			'page_id'      => '',
 			'access_token' => '',
 			'expiration'   => '',
 		],
-		'users'    => $users,
-		'url'      => $url,
+		'users'       => $users,
+		'url'         => $url,
 	] );
 
 	return;
 }
 ?>
-<?php foreach ( $keys as $local_id => $api_key ) : ?>
+<?php foreach ( $keys as $consumer_id => $api_key ) : ?>
 	<?php
-	$this->template( 'zapier/components/fields-generated', [
-		'local_id' => $local_id,
-		'api_key'  => $api_key,
-		'users'    => [],
-		'url'      => $url,
+	$this->template( 'zapier/api/components/fields-generated', [
+		'api'         => $api,
+		'api_key'     => $api_key,
+		'consumer_id' => $consumer_id,
+		'users'       => [],
+		'url'         => $url,
 	] );
 	?>
 <?php endforeach; ?>

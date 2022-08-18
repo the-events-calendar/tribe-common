@@ -13,20 +13,21 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @var int                 $local_id The unique id used to save The API Key data.
- * @var array<string|mixed> $api_key  The API Key data.
- * @var Url                 $url      An instance of the URL handler.
+ * @var Api                 $api         An instance of the Zapier API handler.
+ * @var array<string|mixed> $api_key     The API Key data.
+ * @var int                 $consumer_id The unique id used to save The API Key data.
+ * @var URL                 $url         An instance of the URL handler.
  */
 
-$revoke_link  = $url->to_revoke_api_key_link( $local_id );
+$revoke_link  = $url->to_revoke_api_key_link( $consumer_id );
 $revoke_label = _x( 'Revoke', 'Removes a zapier page from the list of Zapier live pages.', 'tribe-common' )
 ?>
-<div class="tec-settings-zapier-details__actions tec-settings-zapier-details__revoke">
+<div class="tec-common-integrations-details-action__revoke-wrap tec-common-zapier-details-action__revoke-wrap">
 	<button
-		class="dashicons dashicons-trash tec-settings-integrations-details__revoke tec-settings-zapier-details__revoke"
+		class="dashicons dashicons-trash tec-common-integrations-details-action__revoke tec-common-zapier-details-action__revoke"
 		type="button"
 		data-ajax-revoke-url="<?php echo $revoke_link; ?>"
-		<?php echo empty( $api_key['name'] ) || empty( $api_key['has_pair'] ) ? 'disabled' : ''; ?>
+		data-confirmation="<?php echo $api->get_confirmation_to_revoke_api_key(); ?>"
 	>
 		<span class="screen-reader-text">
 			<?php echo esc_html( $revoke_label ); ?>

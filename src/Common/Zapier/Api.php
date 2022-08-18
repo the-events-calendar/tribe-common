@@ -9,9 +9,9 @@
 
 namespace TEC\Common\Zapier;
 
-use WP_User_Query;
-use Tribe__Utils__Array as Arr;
 use TEC\Common\Traits\With_AJAX;
+use Tribe__Utils__Array as Arr;
+use WP_User_Query;
 
 /**
  * Class Api
@@ -20,7 +20,7 @@ use TEC\Common\Traits\With_AJAX;
  *
  * @package TEC\Common\Zapier
  */
-class Api extends Abstract_API_Keys{
+class Api extends Abstract_API_Key_Api {
 	use With_AJAX;
 
 	/**
@@ -32,6 +32,15 @@ class Api extends Abstract_API_Keys{
 	 * {@inheritDoc}
 	 */
 	public static $api_id = 'zapier';
+
+	/**
+	 * An instance of the Template_Modifications.
+	 *
+	 * @since TBD
+	 *
+	 * @var Template_Modifications
+	 */
+	protected $template_modifications;
 
 	/**
 	 * The Actions name handler.
@@ -47,10 +56,12 @@ class Api extends Abstract_API_Keys{
 	 *
 	 * @since TBD
 	 *
-	 * @param Actions $actions An instance of the Actions name handler.
+	 * @param Actions                $actions An instance of the Actions name handler.
+	 * @param Template_Modifications $actions An instance of the Template_Modifications.
 	 */
-	public function __construct( Actions $actions ) {
-		$this->actions = $actions;
+	public function __construct( Actions $actions, Template_Modifications $template_modifications ) {
+		$this->actions                = $actions;
+		$this->template_modifications = $template_modifications;
 	}
 
 	/**
@@ -76,19 +87,6 @@ class Api extends Abstract_API_Keys{
 	}
 
 	/**
-	 * Hash the specified data.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $data Message to be hashed.
-	 *
-	 * @return string Hashed data.
-	 */
-	public static function api_hash( $data ) {
-		return hash_hmac( 'sha256', $data, 'tec-common-zapier' );
-	}
-
-	/**
 	 * Add a Zapier API Key fields using ajax.
 	 *
 	 * @since TBD
@@ -107,12 +105,13 @@ class Api extends Abstract_API_Keys{
 			'Zapier API Key new fields are added message.',
 			'tribe-common'
 		);
-		tribe( Template_Modifications::class )->get_settings_message_template( $message );
+		$this->template_modifications->get_settings_message_template( $message );
 
 		$users_dropdown = $this->get_users_dropdown();
 
 		// Add empty fields template
-		tribe( Template_Modifications::class )->get_api_key_fields(
+		$this->template_modifications->get_api_key_fields(
+			$this,
 			$this->get_random_hash( 'ci_' ),
 			[
 				'name'         => '',
@@ -138,14 +137,14 @@ class Api extends Abstract_API_Keys{
 			return false;
 		}
 
-		$local_id = tribe_get_request_var( 'local_id' );
-		if ( empty( $local_id ) ) {
+		$consumer_id = tribe_get_request_var( 'consumer_id' );
+		if ( empty( $consumer_id ) ) {
 			$message = _x(
 				'Zapier API Key pair missing the local id.',
 				'Zapier API Key pair missing local id message.',
 				'tribe-common'
 			);
-			tribe( Template_Modifications::class )->get_settings_message_template( $message, 'error' );
+			$this->template_modifications->get_settings_message_template( $message, 'error' );
 
 			wp_die();
 		}
@@ -157,7 +156,7 @@ class Api extends Abstract_API_Keys{
 				'Zapier API Key pair missing a name message.',
 				'tribe-common'
 			);
-			tribe( Template_Modifications::class )->get_settings_message_template( $message, 'error' );
+			$this->template_modifications->get_settings_message_template( $message, 'error' );
 
 			wp_die();
 		}
@@ -169,7 +168,7 @@ class Api extends Abstract_API_Keys{
 				'Zapier API Key pair missing a user message.',
 				'tribe-common'
 			);
-			tribe( Template_Modifications::class )->get_settings_message_template( $message, 'error' );
+			$this->template_modifications->get_settings_message_template( $message, 'error' );
 
 			wp_die();
 		}
@@ -181,7 +180,7 @@ class Api extends Abstract_API_Keys{
 				'Zapier API Key pair missing permissions message.',
 				'tribe-common'
 			);
-			tribe( Template_Modifications::class )->get_settings_message_template( $message, 'error' );
+			$this->template_modifications->get_settings_message_template( $message, 'error' );
 
 			wp_die();
 		}
@@ -191,15 +190,13 @@ class Api extends Abstract_API_Keys{
 			'Zapier API Key pair generated message.',
 			'tribe-common'
 		);
-		tribe( Template_Modifications::class )->get_settings_message_template( $message );
+		$this->template_modifications->get_settings_message_template( $message );
 
-		//@todo - generate the keys
-		//@todo - load fields template with key pair template
-		//@todo - save the API Key fields
-		//@todo - load saved API Key fields
+		//@todo - add message that the key pair shows only once
+		//@todo - update styling of all messaging and display of api keys
 
-		$api_key = [
-			'consumer_id'     => $local_id,
+		$api_key_data = [
+			'consumer_id'     => $consumer_id,
 			'consumer_secret' => $this->get_random_hash( 'ck_' ),
 			'has_pair'        => true,
 			'name'            => $name,
@@ -207,13 +204,86 @@ class Api extends Abstract_API_Keys{
 			'user_id'         => $user_id,
 		];
 
+		$this->set_account_by_id( $api_key_data );
+
 		// Add empty fields template
-		tribe( Template_Modifications::class )->get_api_key_fields(
-			$local_id,
-			$api_key,
+		$this->template_modifications->get_api_key_fields(
+			$this,
+			$consumer_id,
+			$api_key_data,
 			[],
 			'generated'
 		);
+
+		wp_die();
+	}
+
+	/**
+	 * Get the confirmation text for deleting an account.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The confirmation text.
+	 */
+	public static function get_confirmation_to_revoke_api_key() {
+		return sprintf(
+			_x(
+				'Are you sure you want to revoke this Zapier API Key pair? This operation cannot be undone. Existing Zapier connections tied to this API Key will no longer work.',
+				'The message to display to confirm a user would like to revoke a Zapier API Key pair.',
+				'the-events-calendars'
+			),
+		);
+	}
+
+	/**
+	 * Handles the request to revoke a Zapier API key pair.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|null $nonce The nonce that should accompany the request.
+	 *
+	 * @return bool Whether the request was handled or not.
+	 */
+	public function ajax_revoke( $nonce = null ) {
+		if ( ! $this->check_ajax_nonce( $this->actions::$revoke_action, $nonce ) ) {
+			return false;
+		}
+
+		$consumer_id = tribe_get_request_var( 'consumer_id' );
+		$account    = $this->get_account_by_id( $consumer_id );
+		// If no consumer id found, fail the request.
+		if ( empty( $consumer_id ) || empty( $account ) ) {
+			$error_message = _x(
+				'Zapier API Key pair was not revoked, the consumer id or the account were not found.',
+				'Zapier API Key pair is missing information to revoke failure message.',
+				'the-events-calendar'
+			);
+
+			$this->template_modifications->get_settings_message_template( $error_message, 'error' );
+
+			wp_die();
+		}
+
+		$success = $this->delete_account_by_id( $consumer_id );
+		if ( $success ) {
+			$message = _x(
+				'Zapier API Key pair was successfully revoked',
+				'Zapier API Key pair has been revoked success message.',
+				'the-events-calendar'
+			);
+
+			$this->template_modifications->get_settings_message_template( $message );
+
+			wp_die();
+		}
+
+		$error_message = _x(
+			'Zapier API Key pair was not revoked',
+			'Zapier API Key pair could not be revoked failure message.',
+			'the-events-calendar'
+		);
+
+		$this->template_modifications->get_settings_message_template( $error_message, 'error' );
 
 		wp_die();
 	}

@@ -38,8 +38,8 @@ tribe.events.integrationsSettingsAdmin = tribe.events.integrationsSettingsAdmin 
 		integrationItem: '.tec-settings-integrations-details__container',
 		integrationName : '.tec-settings-integrations-details__name-input',
 		integrationUser: '.tec-settings__users-dropdown',
-		integrationGenerate: '.tec-settings-integrations-details__generate',
-		integrationRevoke: '.tec-settings-integrations-details__revoke',
+		integrationGenerate: '.tec-settings-integrations-details-action__generate',
+		integrationRevoke: '.tec-common-integrations-details-action__revoke',
 	};
 
 	/**
@@ -146,8 +146,8 @@ tribe.events.integrationsSettingsAdmin = tribe.events.integrationsSettingsAdmin 
 			return;
 		}
 
-		const localId = $integrationItemWrap.data( 'localId' );
-		const existingPage = $document.find( `[data-local-id='${localId}']` );
+		const consumerId = $integrationItemWrap.data( 'consumerId' );
+		const existingPage = $document.find( `[data-consumer-id='${consumerId}']` );
 		existingPage.replaceWith( $integrationItemWrap );
 	};
 
@@ -164,7 +164,7 @@ tribe.events.integrationsSettingsAdmin = tribe.events.integrationsSettingsAdmin 
 		const $this = $( this );
 		const url = $this.data( 'ajaxGenerateUrl' );
 		const $integrationItem = $this.closest( obj.selectors.integrationItem );
-		const localId = $integrationItem.data( 'localId' );
+		const consumerId = $integrationItem.data( 'consumerId' );
 		const integrationName = $integrationItem.find( obj.selectors.integrationName ).val();
 		const intergrationUser = $integrationItem.find( `${ obj.selectors.integrationUser } option:selected` ).val(); // eslint-disable-line max-len
 		const permissions = 'read'
@@ -175,7 +175,7 @@ tribe.events.integrationsSettingsAdmin = tribe.events.integrationsSettingsAdmin 
 				contentType: 'application/json',
 				context: $( this ).closest( obj.selectors.integrationItem ),
 				data: {
-					local_id: localId,
+					consumer_id: consumerId,
 					name: integrationName,
 					user_id: intergrationUser,
 					permissions: permissions,
@@ -193,12 +193,12 @@ tribe.events.integrationsSettingsAdmin = tribe.events.integrationsSettingsAdmin 
 	 *
 	 * @param {string} html The HTML that adds a message on the settings page.
 	 */
-/*	obj.onRevokeSuccess = function( html ) {
+	obj.onRevokeSuccess = function( html ) {
 		$( obj.selectors.messageWrap ).html( html );
 
-		// Delete marked Facebook Page wrap.
+		// Delete marked integration wrap.
 		$( `${ obj.selectors.integrationItem }.to-delete` ).remove();
-	};*/
+	};
 
 	/**
 	 * Handles deleting the Facebook Page.
@@ -207,22 +207,20 @@ tribe.events.integrationsSettingsAdmin = tribe.events.integrationsSettingsAdmin 
 	 *
 	 * @param {Event} event The click event.
 	 */
-/*	obj.handleRevoke = function( event ) {
+	obj.handleRevoke = function( event ) {
 		event.preventDefault();
 
 		const $this = $( this );
-		const url = $this.data( 'ajaxDeleteUrl' );
-		const $facebookPage = $this.closest( obj.selectors.integrationItem );
-		const localId = $facebookPage.data( 'localId' );
-		const confirmed = confirm(
-			tribe_events_virtual_facebook_settings_strings.pageDeleteConfirmation
-		);
+		const url = $this.data( 'ajaxRevokeUrl' );
+		const $integrationItem = $this.closest( obj.selectors.integrationItem );
+		const consumerId = $integrationItem.data( 'consumerId' );
+		const confirmed = confirm( $( this ).data( 'confirmation' ) );
 		if ( ! confirmed ) {
 			return;
 		}
 
 		// Add a class to mark for deletion.
-		$facebookPage.addClass( 'to-delete' );
+		$integrationItem.addClass( 'to-delete' );
 
 		$.ajax(
 			url,
@@ -230,12 +228,12 @@ tribe.events.integrationsSettingsAdmin = tribe.events.integrationsSettingsAdmin 
 				contentType: 'application/json',
 				context: $( this ).closest( obj.selectors.integrationItem ),
 				data: {
-					local_id: localId,
+					consumer_id: consumerId,
 				},
 				success: obj.onRevokeSuccess,
 			}
 		);
-	};*/
+	};
 
 	/**
 	 * Bind the integration events.
@@ -250,7 +248,7 @@ tribe.events.integrationsSettingsAdmin = tribe.events.integrationsSettingsAdmin 
 				obj.handleEnableSave
 			)
 			.on( 'click', obj.selectors.integrationGenerate, obj.handleGenerateKey )
-			//.on( 'click', obj.selectors.integrationRevoke, obj.handleRevoke );
+			.on( 'click', obj.selectors.integrationRevoke, obj.handleRevoke );
 		$( obj.selectors.integrationContainer )
 			.on( 'click', obj.selectors.integrationAdd, obj.handleAddApiKey );
 	};

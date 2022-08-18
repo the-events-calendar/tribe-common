@@ -19,7 +19,7 @@
  * @var string              $message A message to display above the API Key list on loading.
  */
 
-$keys = $api->get_list_of_keys();
+$keys = $api->get_list_of_api_keys( true );
 ?>
 <fieldset id="tec-field-zapier_token" class="tec-meetings-api-fields tribe-field tribe-field-text tribe-size-medium">
 	<legend class="tribe-field-label"><?php esc_html_e( 'API Keys', 'tribe-common' ); ?></legend>

@@ -30,15 +30,6 @@ class Url {
 	public static $api_id = 'zapier';
 
 	/**
-	 * The current API handler instance.
-	 *
-	 * @since TBD
-	 *
-	 * @var Api
-	 */
-	protected $api;
-
-	/**
 	 * The current Actions handler instance.
 	 *
 	 * @since TBD
@@ -52,11 +43,9 @@ class Url {
 	 *
 	 * @since TBD
 	 *
-	 * @param Api     $api     An instance of the Zapier API handler.
 	 * @param Actions $actions An instance of the Zapier Actions handler.
 	 */
-	public function __construct( Api $api, Actions $actions ) {
-		$this->api     = $api;
+	public function __construct( Actions $actions ) {
 		$this->actions = $actions;
 	}
 

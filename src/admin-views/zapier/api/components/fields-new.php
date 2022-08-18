@@ -13,17 +13,18 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @var int                 $local_id The unique id used to save The API Key data.
- * @var array<string|mixed> $api_key  The API Key data.
- * @var array<string|mixed> $users    An array of WordPress users to create an API Key for.
- * @var URL                 $url      An instance of the URL handler.
+ * @var Api                 $api         An instance of the Zapier API handler.
+ * @var array<string|mixed> $api_key     The API Key data.
+ * @var int                 $consumer_id The unique id used to save The API Key data.
+ * @var array<string|mixed> $users       An array of WordPress users to create an API Key for.
+ * @var URL                 $url         An instance of the URL handler.
  */
 
 ?>
 
 <li
 	class="tec-settings-integrations-details__container tec-settings-zapier-api-key-details__container"
-	data-local-id="<?php echo esc_attr( $local_id ); ?>"
+	data-consumer-id="<?php echo esc_attr( $consumer_id ); ?>"
 >
 	<div class="tec-settings-integrations-details__row">
 		<?php
@@ -32,7 +33,7 @@
 			'classes_label' => [ 'tec-settings-zapier-details-api-key__name-label' ],
 			'classes_input' => [ 'tec-settings-integrations-details__input', 'tec-settings-integrations-details__name-input', 'tec-settings-zapier-details-api-key__name-input' ],
 			'label'         => _x( 'Description', 'Label for the name of the API Key for Zapier.', 'tribe-common' ),
-			'id'            => "tec_common_zapier_name_" . $local_id,
+			'id'            => "tec_common_zapier_name_" . $consumer_id,
 			'name'          => "tec_common_zapier[]['name']",
 			'placeholder'   => _x( 'Enter an API Key description', 'The placeholder for the Zapier API Key name.', 'tribe-common' ),
 			'screen_reader' => _x( 'Enter an API Key description.', 'The screen reader text of the label for the Zapier API Key name.', 'tribe-common' ),
@@ -48,7 +49,7 @@
 			'classes_wrap'  => [ 'tec-settings-zapier-details-api-key__permissions-wrap' ],
 			'label'         => _x( 'Permissions', 'Label for the permissions of the API Key for Zapier.', 'tribe-common' ),
 			'screen_reader' => _x( 'The permissions for the Zapier API Key.', 'The screen reader text of the label for the Zapier API Key permissions.', 'tribe-common' ),
-			'id'            => "tec_common_zapier_permissions_" . $local_id,
+			'id'            => "tec_common_zapier_permissions_" . $consumer_id,
 			'name'          => "tec_common_zapier[]['permissions']",
 			'value'         => 'Read',
 		] );

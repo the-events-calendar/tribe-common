@@ -141,19 +141,21 @@ class Template_Modifications {
 	 *
 	 * @since TBD
 	 *
-	 * @param int                 $local_id The unique id used to save the API Key data.
-	 * @param array<string|mixed> $api_key  The API Key data.
-	 * @param array<string|mixed> $users    An array of WordPress users to create an API Key for.
-	 * @param string              $type     A string of the type of fields to load ( new and generated ).
+	 * @param Api                 $api         An instance of an API handler.
+	 * @param string              $consumer_id The unique id used to save the API Key data.
+	 * @param array<string|mixed> $api_key     The API Key data.
+	 * @param array<string|mixed> $users       An array of WordPress users to create an API Key for.
+	 * @param string              $type        A string of the type of fields to load ( new and generated ).
 	 *
 	 * @return string The Zapier API Keys admin fields html.
 	 */
-	public function get_api_key_fields( $local_id, $api_key, $users, $type = 'new' ) {
+	public function get_api_key_fields( Api $api, $consumer_id, $api_key, $users, $type = 'new' ) {
 		return $this->admin_template->template( 'zapier/api/components/fields-' . $type, [
-			'local_id' => $local_id,
-			'api_key'  => $api_key,
-			'users'    => $users,
-			'url'      => $this->url,
+			'api'         => $api,
+			'api_key'     => $api_key,
+			'consumer_id' => $consumer_id,
+			'users'       => $users,
+			'url'         => $this->url,
 		] );
 	}
 }
