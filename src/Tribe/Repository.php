@@ -2922,7 +2922,9 @@ abstract class Tribe__Repository
 		}
 
 		foreach ( $this->updates as $key => $value ) {
-			if ( is_callable( $value ) ) {
+			if ( $value instanceof Closure ||
+			     ( is_array( $value ) && is_callable( $value ) )
+			) {
 				$value = $value( $id, $key, $this );
 			}
 

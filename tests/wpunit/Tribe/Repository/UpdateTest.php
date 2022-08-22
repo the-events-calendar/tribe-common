@@ -558,4 +558,17 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertInstanceOf( \Tribe__Promise::class, $promise );
 	}
+
+	/**
+	 * @test
+	 */
+	public function should_allow_proper_callable_input() {
+		$args = [
+			'title' => 'max',
+			'status' => 'publish'
+		];
+		$post = $this->repository()->set_args( $args )->create();
+
+		$this->assertEquals( 'max', $post->post_title );
+	}
 }
