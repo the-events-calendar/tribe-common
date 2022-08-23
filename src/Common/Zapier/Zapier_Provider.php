@@ -175,9 +175,9 @@ class Zapier_Provider extends \tad_DI52_ServiceProvider {
 		$actions = tribe( Actions::class );
 
 		return [
-			$actions::$add_aki_key_action => $this->container->callback( API::class, 'ajax_add_api_key' ),
-			$actions::$generate_action    => $this->container->callback( API::class, 'ajax_generate_api_key_pair' ),
-			$actions::$revoke_action      => $this->container->callback( API::class, 'ajax_revoke' ),
+			$actions::$add_aki_key_action => $this->container->callback( Api::class, 'ajax_add_api_key' ),
+			$actions::$generate_action    => $this->container->callback( Api::class, 'ajax_generate_api_key_pair' ),
+			$actions::$revoke_action      => $this->container->callback( Api::class, 'ajax_revoke' ),
 		];
 	}
 }

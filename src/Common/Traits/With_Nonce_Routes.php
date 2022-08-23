@@ -9,7 +9,7 @@
 
 namespace TEC\Common\Traits;
 
-use Tribe__Events__Main as TEC;
+use Tribe__Main as Common;
 
 /**
  * Trait With_Nonce_Routes
@@ -102,7 +102,7 @@ trait With_Nonce_Routes {
 		// Remove the query arguments from the `$_SERVER['REQUEST_URI']` to avoid issues.
 		if ( isset( $_SERVER[ 'REQUEST_URI' ] ) ) {
 			$_SERVER[ 'REQUEST_URI' ] = remove_query_arg( [
-				TEC::$request_slug,
+				Common::$request_slug,
 			], $_SERVER[ 'REQUEST_URI' ] );
 		}
 

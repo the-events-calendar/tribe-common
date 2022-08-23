@@ -43,6 +43,17 @@ tribe.events.integrationsSettingsAdmin = tribe.events.integrationsSettingsAdmin 
 	};
 
 	/**
+	 * Scroll to bottom of list of API Keys.
+	 *
+	 * @since TBD
+	 */
+	obj.scrollToBottom = function() {
+		$( obj.selectors.integrationList ).animate( {
+			scrollTop: $( obj.selectors.integrationList ).offset().top
+		}, 500 );
+	};
+
+	/**
 	 * Enables generating an API Key once a name is added and a user selected.
 	 *
 	 * @since TBD
@@ -86,10 +97,7 @@ tribe.events.integrationsSettingsAdmin = tribe.events.integrationsSettingsAdmin 
 
 		$dropdowns.tribe_dropdowns();
 
-		// Scroll to bottom of list of API Keys.
-		$( obj.selectors.integrationList ).animate( {
-			scrollTop: $( obj.selectors.integrationList ).offset().top
-		}, 500 );
+		obj.scrollToBottom();
 	};
 
 
@@ -134,6 +142,9 @@ tribe.events.integrationsSettingsAdmin = tribe.events.integrationsSettingsAdmin 
 		const consumerId = $integrationItemWrap.data( 'consumerId' );
 		const existingPage = $document.find( `[data-consumer-id='${consumerId}']` );
 		existingPage.replaceWith( $integrationItemWrap );
+
+		//@todo this did not work.
+		obj.scrollToBottom();
 	};
 
 	/**
