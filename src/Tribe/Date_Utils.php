@@ -573,6 +573,27 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
+		 * Determine if "now" is between two dates.
+		 *
+		 * @since TBD
+		 *
+		 * @param string|DateTime|int $start_date A `strtotime` parse-able string, a DateTime object or a timestamp.
+		 * @param string|DateTime|int $end_date   A `strtotime` parse-able string, a DateTime object or a timestamp.
+		 *
+		 * @return boolean
+		 */
+		public static function is_now( $start_date, $end_date ) {
+			$now = self::build_date_object( 'now' );
+
+			return self::range_coincides(
+				$now->format( 'U' ),
+				$now->add( new DateInterval( 'PT1S' ) )->format( 'U' ),
+				self::build_date_object( $start_date )->format( 'U' ),
+				self::build_date_object( $end_date )->format( 'U' )
+			);
+		}
+
+		/**
 		 * Given 2 datetime ranges, return whether the 2nd one occurs during the 1st one
 		 * Note: all params should be unix timestamps
 		 *

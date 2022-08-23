@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [BTD] TBD =
+
+* Tweak - Add a function to Tribe__Date_Utils to determine if "now" is between two dates. [TBD]
+
 = [5.0.0] 2022-0X-XX =
 
 * Feature - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.

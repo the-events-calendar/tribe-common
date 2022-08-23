@@ -241,6 +241,7 @@ if ( ! function_exists( 'tribe_is_truthy' ) ) {
 			'yes',
 			'true',
 		] );
+
 		// Makes sure we are dealing with lowercase for testing
 		if ( is_string( $var ) ) {
 			$var = strtolower( $var );
