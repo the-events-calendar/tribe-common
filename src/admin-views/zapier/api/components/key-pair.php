@@ -18,6 +18,16 @@
  * @var Url                 $url      An instance of the URL handler.
  */
 
+$message = 	esc_html_x(
+		'Please copy the consumer id and secret below. Once you leave the page they will no longer be available.',
+		'Consumer id and secret only show once help text for Zapier API.',
+		'tribe-common'
+	);
+
+$this->template( 'components/message', [
+	'message' => $message,
+	'type'    => 'consumer-created',
+] );
 ?>
 <div class="tec-settings-integrations-details__row">
 	<?php

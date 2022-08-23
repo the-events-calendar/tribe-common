@@ -6,6 +6,17 @@
 
 .tec-settings-integrations {
 
+	.tec-long-list {
+		background: var(--tec-color-background-transparent);
+		border: 1px solid var(--tec-color-icon-secondary);
+		border-radius: 4px;
+		box-sizing: border-box;
+		margin: 0 0 var(--tec-spacer-4);
+		max-height: 430px;
+		overflow-y: scroll;
+		padding: var(--tec-spacer-4) var(--tec-spacer-5);
+	}
+
 	label,
 	legend {
 		display: block;
@@ -49,6 +60,17 @@
 		&:hover {
 			color: var(--tec-color-accent-primary-hover);
 		}
+	}
+
+	.consumer-created {
+		background: var(--tec-color-background);
+		border: 1px solid var(--tec-color-border-default);
+		border-left-width: 4px;
+		border-left-color: var(--tec-color-accent-primary);
+		box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+		font-weight: var(--tec-font-weight-bold);
+		margin: var(--tec-spacer-2) 0 var(--tec-spacer-2) var(--tec-spacer-1);
+		padding: var(--tec-spacer-2) var(--tec-spacer-3);
 	}
 
 	.tec-settings-integrations__add-account-button .dashicons {

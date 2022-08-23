@@ -10,7 +10,7 @@ namespace TEC\Common\Zapier\REST\V1\Documentation;
 
 use Tribe__Documentation__Swagger__Provider_Interface as Swagger_Provider_Interface;
 
-class New_Events_Definition_Provider
+class Api_Key_Definition_Provider
 	implements Swagger_Provider_Interface {
 
 	/**
@@ -28,15 +28,15 @@ class New_Events_Definition_Provider
 	 * @return array An array description of a Swagger supported component.
 	 */
 	public function get_documentation() {
-		$documentation = array(
+		$documentation = [
 			'type'       => 'object',
-			'properties' => array(
-				'api_key'       => array(
+			'properties' => [
+				'consumer_id'       => [
 					'type'        => 'string',
 					'description' => __( 'The API Key to authorize Zapier.', 'tribe-common' ),
-				),
-			),
-		);
+				],
+			],
+		];
 
 		/**
 		 * Filters the Swagger documentation generated for the Zapier New Events endpoint.

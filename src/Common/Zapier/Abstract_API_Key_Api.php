@@ -76,6 +76,25 @@ abstract class Abstract_API_Key_Api {
 	protected $consumer_secret = '';
 
 	/**
+	 * The permissions the API Key pair has access to.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected $permissions = 'read';
+
+	/**
+	 * The WordPress user id of the loaded account.
+	 *
+	 * @since TBD
+	 *
+	 * @var integer
+	 */
+	protected $user_id = 0;
+
+
+	/**
 	 * Checks whether the current API is ready to use.
 	 *
 	 * @since TBD
@@ -92,11 +111,12 @@ abstract class Abstract_API_Key_Api {
 	 * @since TBD
 	 *
 	 * @param array<string|string> $account An account with the fields to access the API.
+	 * @param string $consumer_secret A consumer secret used to load an account.
 	 *
 	 * @return boolean Whether the account is loaded into the class to use for the API, default is false.
 	 */
-	public function load_account( array $account = [] ) {
-		if ( $this->is_valid_account( $account ) ) {
+	public function load_account( array $account = [], $consumer_secret = '' ) {
+		if ( $this->is_valid_account( $account, $consumer_secret ) ) {
 			$this->init_account( $account );
 
 			return true;
@@ -104,7 +124,6 @@ abstract class Abstract_API_Key_Api {
 
 		return false;
 	}
-
 
 	/**
 	 * Load a specific account by the id.
@@ -115,20 +134,19 @@ abstract class Abstract_API_Key_Api {
 	 *
 	 * @return bool|string Whether the page is loaded or an error code. False or code means the page did not load.
 	 */
-	public function load_account_by_id( $consumer_id ) {
+	public function load_account_by_id( $consumer_id, $consumer_secret ) {
+		$consumer_id = strpos( $consumer_id, 'ci_' ) === 0
+			? static::api_hash( $consumer_id )
+			: $consumer_id;
+
 		$account = $this->get_account_by_id( $consumer_id );
 
-		// Return not-found if no account.
+		// Return false if no account.
 		if ( empty( $account ) ) {
-			return 'not-found';
+			return false;
 		}
 
-		// Return disabled if the is disabled.
-		if ( empty( $account['status'] ) ) {
-			return 'disabled';
-		}
-
-		return $this->load_account( $account );
+		return $this->load_account( $account, $consumer_secret );
 	}
 
 	/**
@@ -142,22 +160,46 @@ abstract class Abstract_API_Key_Api {
 	 *
 	 * @return bool
 	 */
-	protected function is_valid_account( $account ) {
+	protected function is_valid_account( $account, $consumer_secret ) {
+		//@todo each failure should load a message that can be sent back on the api
+
+		if ( ! is_ssl() ) {
+			return false;
+		}
+
 		if ( empty( $account['consumer_id'] ) ) {
 			return false;
 		}
+
 		if ( empty( $account['consumer_secret'] ) ) {
 			return false;
 		}
+
+		$this->consumer_secret = $account['consumer_secret'];
+		$secret_match          = $this->check_secret( $consumer_secret );
+		if ( empty( $secret_match ) ) {
+			return false;
+		}
+
 		if ( empty( $account['name'] ) ) {
 			return false;
 		}
+
 		if ( empty( $account['permissions'] ) ) {
 			return false;
 		}
+
 		if ( empty( $account['user_id'] ) ) {
 			return false;
 		}
+
+		$user = get_user_by( 'id', $account['user_id'] );
+		if ( is_wp_error( $user ) ) {
+			//$error_code = $user->get_error_code();
+			return false;
+		}
+
+		$this->user = $user;
 
 		return true;
 	}
@@ -172,6 +214,8 @@ abstract class Abstract_API_Key_Api {
 	protected function init_account( $account ) {
 		$this->consumer_id         = $account['consumer_id'];
 		$this->consumer_secret     = $account['consumer_secret'];
+		$this->permissions         = $account['permissions'];
+		$this->user_id             = $account['user_id'];
 		$this->account_loaded      = true;
 		$this->loaded_account_name = $account['name'];
 	}
@@ -295,6 +339,26 @@ abstract class Abstract_API_Key_Api {
 		delete_option( $this->single_account_prefix . $consumer_id );
 
 		$this->delete_from_list_of_api_keys( $consumer_id );
+
+		return true;
+	}
+
+	/**
+	 * Authenticate.
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean
+	 */
+	protected function check_secret( $consumer_secret) {
+		$consumer_secret = strpos( $consumer_secret, 'ck_' ) === 0
+			? static::api_hash( $consumer_secret )
+			: $consumer_secret;
+
+		// Validate user secret.
+		if ( ! hash_equals( $this->consumer_secret, $consumer_secret ) ) {
+			return false;
+		}
 
 		return true;
 	}

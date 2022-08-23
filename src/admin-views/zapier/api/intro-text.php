@@ -26,7 +26,7 @@
 	echo sprintf(
 		'%1$s. <a href="%2$s" target="_blank">%3$s</a>',
 		esc_html_x(
-			'You need to generate at least one client id and client secret to enable the Zapier integrations.',
+			'Please generate at least one consumer id and secret to enable the Zapier integrations.',
 		'Settings help text for Zapier API.',
 		'tribe-common'
 		),

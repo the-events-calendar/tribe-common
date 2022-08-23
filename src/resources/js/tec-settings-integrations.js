@@ -43,27 +43,6 @@ tribe.events.integrationsSettingsAdmin = tribe.events.integrationsSettingsAdmin 
 	};
 
 	/**
-	 * Display a message.
-	 *
-	 * @since TBD
-	 *
-	 * @param {string} message The message to display.
-	 * @param {string} messageClass The class of the message: updated(default) or error.
-	 */
-/*	obj.displayMessage = function( message, messageClass = 'updated' ) { // eslint-disable-line es5/no-default-parameters,max-len
-		const messageWrap = `
-			<div
-				id="tec-settings-integrations-message"
-				class="tec-settings-integrations-message__wrap ${messageClass}"
-			>
-				${message}
-			</div>
-		`;
-
-		$( obj.selectors.messageWrap ).html( messageWrap );
-	};*/
-
-	/**
 	 * Enables generating an API Key once a name is added and a user selected.
 	 *
 	 * @since TBD
@@ -106,7 +85,13 @@ tribe.events.integrationsSettingsAdmin = tribe.events.integrationsSettingsAdmin 
 					.not( tribe_dropdowns.selector.created );
 
 		$dropdowns.tribe_dropdowns();
+
+		// Scroll to bottom of list of API Keys.
+		$( obj.selectors.integrationList ).animate( {
+			scrollTop: $( obj.selectors.integrationList ).offset().top
+		}, 500 );
 	};
+
 
 	/**
 	 * Handles adding a new API Key fields.
@@ -152,7 +137,7 @@ tribe.events.integrationsSettingsAdmin = tribe.events.integrationsSettingsAdmin 
 	};
 
 	/**
-	 * Handles saving the Page Name and ID
+	 * Handles generating consumer id and secret.
 	 *
 	 * @since TBD
 	 *
@@ -201,7 +186,7 @@ tribe.events.integrationsSettingsAdmin = tribe.events.integrationsSettingsAdmin 
 	};
 
 	/**
-	 * Handles deleting the Facebook Page.
+	 * Handles revoking an integration key.
 	 *
 	 * @since TBD
 	 *

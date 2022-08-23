@@ -9,6 +9,7 @@
 namespace TEC\Common\Zapier;
 
 use TEC\Common\Traits\With_Nonce_Routes;
+use TEC\Common\Zapier\REST\V1\Documentation\Api_Key_Definition_Provider;
 use TEC\Common\Zapier\REST\V1\Endpoints\Api_Key;
 use Tribe__Documentation__Swagger__Builder_Interface;
 use WP_REST_Server;
@@ -140,40 +141,25 @@ class Zapier_Provider extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	public function register_endpoints() {
+		//@todo this is from TEC, but this has to be Common only coding.
 		$messages         = tribe( 'tec.rest-v1.messages' );
 		$post_repository  = tribe( 'tec.rest-v1.repository' );
 		$validator        = tribe( 'tec.rest-v1.validator' );
-		$api_key_endpoint = new Api_Key( $messages, $post_repository, $validator );
+		$api              = tribe( Api::class );
+		$api_key_endpoint = new Api_Key( $messages, $post_repository, $validator, $api );
 
 		$this->namespace = '/tribe/events/v1/zapier';
 
-		/*		register_rest_route( $this->namespace, '/qr/(?P<id>\\d+)', array(
-					array(
-						'methods'             => WP_REST_Server::READABLE,
-						'args'                => $qr_endpoint->READ_args(),
-						'callback'            => array( $qr_endpoint, 'get' ),
-						'permission_callback' => '__return_true',
-					),
-				) );*/
-
-		/*		register_rest_route( $this->namespace, '/qr', array(
-					'methods'             => WP_REST_Server::READABLE,
-					'args'                => $qr_endpoint->CHECK_IN_args(),
-					'callback'            => array( $qr_endpoint, 'check_in' ),
-					'permission_callback' => '__return_true',
-				) );
-				*/
-		register_rest_route( $this->namespace, '/api-key/', array(
+		register_rest_route( $this->namespace, '/authorize/', [
 			'methods'             => WP_REST_Server::READABLE,
 			'args'                => $api_key_endpoint->READ_args(),
-			'callback'            => array( $api_key_endpoint, 'get' ),
+			'callback'            => [ $api_key_endpoint, 'get' ],
 			'permission_callback' => '__return_true',
-		) );
-
+		] );
 
 		/** @var Tribe__Documentation__Swagger__Builder_Interface $documentation */
 		//$documentation = tribe( 'tec.rest-v1.endpoints.documentation' );
-		//$documentation->register_definition_provider( 'Zapier_New_Events', new New_Events_Definition_Provider() );
+		//$documentation->register_definition_provider( 'Zapier_Api_Key', new Api_Key_Definition_Provider() );
 	}
 
 	/**

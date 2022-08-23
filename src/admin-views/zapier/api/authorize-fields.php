@@ -31,7 +31,7 @@ $keys = $api->get_list_of_api_keys( true );
 		] );
 		?>
 	</div>
-	<div class="tec-settings-integrations-items__wrap tec-zapier-api-keys-wrap <?php echo is_array( $keys ) && count( $keys ) > 4 ? 'long-list' : ''; ?> tribe-common">
+	<div class="tec-settings-integrations-items__wrap tec-zapier-api-keys-wrap <?php echo is_array( $keys ) && count( $keys ) > 4 ? 'tec-long-list' : ''; ?> tribe-common">
 		<?php
 		$this->template( 'zapier/api/keys/list', [
 			'api'   => $api,

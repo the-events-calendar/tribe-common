@@ -192,9 +192,6 @@ class Api extends Abstract_API_Key_Api {
 		);
 		$this->template_modifications->get_settings_message_template( $message );
 
-		//@todo - add message that the key pair shows only once
-		//@todo - update styling of all messaging and display of api keys
-
 		$api_key_data = [
 			'consumer_id'     => $consumer_id,
 			'consumer_secret' => $this->get_random_hash( 'ck_' ),
@@ -296,10 +293,10 @@ class Api extends Abstract_API_Key_Api {
 	 * @return array<string|mixed> An array of user objects.
 	 */
 	public function get_users() {
-		$args = array(
+		$args = [
 		    'number' => 1000,
 		    'role__in' => [ 'Administrator', 'Editor' ],
-		);
+		];
 
 		/**
 		 * Filters the argument array to query users for the API Key fields user dropdown.
@@ -410,63 +407,5 @@ class Api extends Abstract_API_Key_Api {
 		];
 
 		return $users_dropdown;
-	}
-
-	/**
-	 * Basic Authentication.
-	 *
-	 * SSL-encrypted requests are not subject to sniffing or man-in-the-middle
-	 * attacks, so the request can be authenticated by simply looking up the user
-	 * associated with the given consumer key and confirming the consumer secret
-	 * provided is valid.
-	 *
-	 * @since 2.4-beta-1
-	 *
-	 * @return int|bool Returs the authenticated user's User ID if successfull. Otherwise, returns false.
-	 */
-	private function perform_basic_authentication() {
-/*		$this->log_debug( __METHOD__ . '(): Running.' );
-
-		$this->auth_method = 'basic_auth';
-		$consumer_key      = '';
-		$consumer_secret   = '';
-
-		// If the $_GET parameters are present, use those first.
-		if ( ! empty( $_GET['consumer_key'] ) && ! empty( $_GET['consumer_secret'] ) ) {
-			$consumer_key    = $_GET['consumer_key']; // WPCS: sanitization ok.
-			$consumer_secret = $_GET['consumer_secret']; // WPCS: sanitization ok.
-		}
-
-		// If the above is not present, we will do full basic auth.
-		if ( ! $consumer_key && ! empty( $_SERVER['PHP_AUTH_USER'] ) && ! empty( $_SERVER['PHP_AUTH_PW'] ) ) {
-			$consumer_key    = $_SERVER['PHP_AUTH_USER']; // WPCS: sanitization ok.
-			$consumer_secret = $_SERVER['PHP_AUTH_PW']; // WPCS: sanitization ok.
-		}
-
-		// Stop if don't have any key.
-		if ( ! $consumer_key || ! $consumer_secret ) {
-			$this->log_error( __METHOD__ . '(): Aborting; credentials not found.' );
-
-			return false;
-		}
-
-		// Get user data.
-		$user = $this->get_user_data_by_consumer_key( $consumer_key );
-		if ( empty( $user ) ) {
-			$this->log_error( __METHOD__ . '(): Aborting; user not found.' );
-
-			return false;
-		}
-
-		// Validate user secret.
-		if ( ! hash_equals( $user->consumer_secret, $consumer_secret ) ) {
-			$this->set_error( new WP_Error( 'gform_rest_authentication_error', __( 'Consumer secret is invalid.', 'gravityforms' ), array( 'status' => 401 ) ) );
-
-			return false;
-		}
-
-		$this->log_debug( __METHOD__ . '(): Valid.' );
-
-		return $this->set_user( $user );*/
 	}
 }
