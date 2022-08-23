@@ -46,25 +46,27 @@ class Lazy_Boolean {
 	 *
 	 * @since TBD
 	 *
-	 * @return boolean The unescaped value.
+	 * @return boolean The value.
 	 */
 	public function __toBool() {
-		if ( null === $this->value ) {
-			$this->value = call_user_func( $this->value_callback );
-			// ensure we have a boolean.
-			$this->value = tribe_is_truthy( $this->value );
-			$this->resolved();
+		if ( null !== $this->value ) {
+			return $this->value;
 		}
+
+		$this->value = call_user_func( $this->value_callback );
+		// ensure we have a boolean.
+		$this->value = tribe_is_truthy( $this->value );
+		$this->resolved();
 
 		return $this->value;
 	}
 
 	/**
-	 * Returns the string value, just a proxy of the `__toBool` method.
+	 * Returns the value, just a proxy of the `__toBool` method.
 	 *
 	 * @since TBD
 	 *
-	 * @return string The string value.
+	 * @return string The value.
 	 */
 	public function value() {
 		return $this->__toBool();
