@@ -27,7 +27,7 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 			$sorted
 		);
 
-		$this->assertEquals( $sorted_array, $sorted );
+		$this->assertEquals( $sorted_array, $sorted, 'Dates should be sorted in the appropriate ascending order.' );
 	}
 	/**
 	 * @test
@@ -50,7 +50,7 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 			$sorted
 		);
 
-		$this->assertEquals( $sorted_array, $sorted );
+		$this->assertEquals( $sorted_array, $sorted, 'Dates should be sorted in the appropriate descending order.' );
 	}
 
 	/**
@@ -116,7 +116,7 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 		$start_date = '47447888';
 		$end_date   = '47448000';
 
-		$this->assertFalse( Dates::is_now( $start_date, $end_date, $now ) );
+		$this->assertFalse( Dates::is_now( $start_date, $end_date, $now ), 'If the end is now, the function should fail (return false).' );
 	}
 
 	/**
@@ -127,7 +127,7 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 		$start_date = '47448000';
 		$end_date   = '47447888';
 
-		$this->assertFalse( Dates::is_now( $start_date, $end_date, $now ) );
+		$this->assertFalse( Dates::is_now( $start_date, $end_date, $now ), 'If the end is now, the function should fail (return false).' );
 	}
 
 	/**
@@ -138,7 +138,7 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 		$start_date = '47448000';
 		$end_date   = '47448001';
 
-		$this->assertTrue( Dates::is_now( $start_date, $end_date, $now ) );
+		$this->assertTrue( Dates::is_now( $start_date, $end_date, $now ), 'If the start is now, the function should pass (return true).' );
 	}
 
 	/**
@@ -149,7 +149,7 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 		$start_date = '47448001';
 		$end_date   = '47448000';
 
-		$this->assertTrue( Dates::is_now( $start_date, $end_date, $now ) );
+		$this->assertTrue( Dates::is_now( $start_date, $end_date, $now ), 'If the start is now, the function should pass (return true).' );
 	}
 
 	/**
@@ -160,7 +160,7 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 		$start_date = '47447999';
 		$end_date   = '47448001';
 
-		$this->assertTrue( Dates::is_now( $start_date, $end_date, $now ) );
+		$this->assertTrue( Dates::is_now( $start_date, $end_date, $now ), 'If the started in the past (and is not ended), the function should pass (return true).' );
 	}
 
 	/**
@@ -171,6 +171,6 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 		$start_date = '47448001';
 		$end_date   = '47447999';
 
-		$this->assertTrue( Dates::is_now( $start_date, $end_date, $now ) );
+		$this->assertTrue( Dates::is_now( $start_date, $end_date, $now, 'If the started in the past (and is not ended), the function should pass (return true).' ) );
 	}
 }
