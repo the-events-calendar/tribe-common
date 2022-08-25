@@ -9,10 +9,8 @@
 namespace TEC\Common\Zapier;
 
 use TEC\Common\Traits\With_Nonce_Routes;
-use TEC\Common\Zapier\REST\V1\Documentation\Api_Key_Definition_Provider;
-use TEC\Common\Zapier\REST\V1\Endpoints\Api_Key;
-use Tribe__Documentation__Swagger__Builder_Interface;
-use WP_REST_Server;
+use TEC\Common\Zapier\REST\V1\Endpoints\Authorize;
+use TEC\Common\Zapier\REST\V1\Endpoints\Swagger_Documentation;
 
 /**
  * Class Event_Status_Provider
@@ -46,6 +44,10 @@ class Zapier_Provider extends \tad_DI52_ServiceProvider {
 
 		$this->add_actions();
 		$this->add_filters();
+
+		$this->container->singleton( Authorize::class );
+		//$this->container->singleton( Swagger_Documentation::class, new Swagger_Documentation( tribe( 'tickets.rest-v1.main' )->get_semantic_version( ) ) );
+		$this->container->singleton( Swagger_Documentation::class, new Swagger_Documentation( '1.0.0' ) );
 
 		/**
 		 * Allows filtering of the capability required to use the Zapier integration ajax features.
@@ -141,25 +143,7 @@ class Zapier_Provider extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	public function register_endpoints() {
-		//@todo this is from TEC, but this has to be Common only coding.
-		$messages         = tribe( 'tec.rest-v1.messages' );
-		$post_repository  = tribe( 'tec.rest-v1.repository' );
-		$validator        = tribe( 'tec.rest-v1.validator' );
-		$api              = tribe( Api::class );
-		$api_key_endpoint = new Api_Key( $messages, $post_repository, $validator, $api );
-
-		$this->namespace = '/tribe/events/v1/zapier';
-
-		register_rest_route( $this->namespace, '/authorize/', [
-			'methods'             => WP_REST_Server::READABLE,
-			'args'                => $api_key_endpoint->READ_args(),
-			'callback'            => [ $api_key_endpoint, 'get' ],
-			'permission_callback' => '__return_true',
-		] );
-
-		/** @var Tribe__Documentation__Swagger__Builder_Interface $documentation */
-		//$documentation = tribe( 'tec.rest-v1.endpoints.documentation' );
-		//$documentation->register_definition_provider( 'Zapier_Api_Key', new Api_Key_Definition_Provider() );
+		$this->container->make( Authorize::class )->register();
 	}
 
 	/**

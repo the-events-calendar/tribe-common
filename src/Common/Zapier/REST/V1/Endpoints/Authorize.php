@@ -2,56 +2,25 @@
 /**
  * The Zapier API Key Endpoint.
  *
- * @package TEC\Common\ZapierREST\V1\Endpoints;
  * @since   TBD
+ *
+ * @package TEC\Common\Zapier\REST\V1\Endpoints
  */
 
 namespace TEC\Common\Zapier\REST\V1\Endpoints;
 
-use TEC\Common\Zapier\Api;
-use Tribe__Events__REST__V1__Endpoints__Base as REST_V1_Endpoints_Base;
-use Tribe__REST__Endpoints__READ_Endpoint_Interface as READ_Endpoint_Interface;
-use Tribe__Documentation__Swagger__Provider_Interface as Swagger_Provider_Interface;
 use Tribe__REST__Messages_Interface;
-use Tribe__Events__REST__Interfaces__Post_Repository;
-use Tribe__Events__Validator__Interface;
-use Tribe__Events__Main;
 use WP_REST_Request;
 use WP_REST_Response;
+use WP_REST_Server;
 use WP_Error;
 
-class Api_Key
-	extends REST_V1_Endpoints_Base
-	implements READ_Endpoint_Interface, Swagger_Provider_Interface {
+class Authorize extends Abstract_REST_Endpoint {
 
 	/**
-	 * @var Tribe__REST__Main
+	 * @inheritDoc
 	 */
-	protected $main;
-
-	/**
-	 * @var WP_REST_Request
-	 */
-	protected $serving;
-
-	/**
-	 * @var Tribe__Events__REST__Interfaces__Post_Repository
-	 */
-	protected $post_repository;
-
-	/**
-	 * @var Tribe__Events__Validator__Interface
-	 */
-	protected $validator;
-
-	/**
-	 * An instance of the Zapier API handler.
-	 *
-	 * @since TBD
-	 *
-	 * @var Api
-	 */
-	protected $api;
+	protected $path = '/authorize';
 
 	/**
 	 * Tribe__Events__REST__V1__Endpoints__Archive_Event constructor.
@@ -59,28 +28,61 @@ class Api_Key
 	 * @since TBD
 	 *
 	 * @param Tribe__REST__Messages_Interface                  $messages
-	 * @param Tribe__Events__REST__Interfaces__Post_Repository $repository
-	 * @param Tribe__Events__Validator__Interface              $validator
 	 */
-	public function __construct(
-		Tribe__REST__Messages_Interface $messages,
-		Tribe__Events__REST__Interfaces__Post_Repository $repository,
-		Tribe__Events__Validator__Interface $validator,
-		Api $api
-	) {
-		parent::__construct( $messages );
-		$this->post_type = Tribe__Events__Main::POSTTYPE;
-		$this->api = $api;
+/*	public function __construct( Tribe__REST__Messages_Interface $messages ) {
+		//parent::__construct( $messages );
+	}*/
+
+	/**
+	 * @inheritDoc
+	 */
+	public function register() {
+		$documentation = tribe( Swagger_Documentation::class );
+
+		register_rest_route(
+			$this->get_events_route_namespace(),
+			$this->get_endpoint_path(),
+			[
+				'methods'             => WP_REST_Server::READABLE,
+				'args'                => $this->READ_args(),
+				'callback'            => [ $this, 'get' ],
+				'permission_callback' => '__return_true',
+			]
+		);
+
+		$documentation->register_documentation_provider( $this->get_endpoint_path(), $this );
+
+		return;
+		//@todo this is from TEC, but this has to be Common only coding.
+		$messages         = tribe( 'tec.rest-v1.messages' );
+		$api_key_endpoint = new Api_Key( $messages );
+
+		$this->namespace = '/tribe/events/v1/zapier';
+
+		register_rest_route(
+			$this->namespace,
+			'/authorize/',
+			[
+				'methods'             => WP_REST_Server::READABLE,
+				'args'                => $api_key_endpoint->READ_args(),
+				'callback'            => [ $api_key_endpoint, 'get' ],
+				'permission_callback' => '__return_true',
+			]
+		);
+
+		/** @var Tribe__Documentation__Swagger__Builder_Interface $documentation */
+		//$documentation = tribe( 'tec.rest-v1.endpoints.documentation' );
+		//$documentation->register_definition_provider( 'Zapier_Api_Key', new Api_Key_Definition_Provider() );
 	}
 
 	/**
-	 * Get new events from queue.
+	 * Authorize Access to the Zapier EndPoints.
 	 *
 	 * @since TBD
 	 *
-	 * @param WP_REST_Request $request
+	 * @param WP_REST_Request $request The request object.
 	 *
-	 * @return mixed|void|WP_Error|WP_REST_Response
+	 * @return
 	 */
 	public function get( WP_REST_Request $request ) {
 		$consumer_id     = $request->get_param( 'consumer_id' );
@@ -164,13 +166,13 @@ class Api_Key
 		return [
 			'consumer_id'       => [
 				'required'          => true,
-				'validate_callback' => [ $this->validator, 'is_string' ],
+				'validate_callback' => [ $this, 'sanitize_callback' ],
 				'type'              => 'string',
 				'description'       => __( 'The consumer id to authorize Zapier connection.', 'tribe-common' ),
 			],
 			'consumer_secret'       => [
 				'required'          => true,
-				'validate_callback' => [ $this->validator, 'is_string' ],
+				'validate_callback' => [ $this, 'sanitize_callback' ],
 				'type'              => 'string',
 				'description'       => __( 'The consumer secret to authorize Zapier connection.', 'tribe-common' ),
 			],

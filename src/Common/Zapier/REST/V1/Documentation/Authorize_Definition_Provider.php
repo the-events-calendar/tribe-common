@@ -10,7 +10,7 @@ namespace TEC\Common\Zapier\REST\V1\Documentation;
 
 use Tribe__Documentation__Swagger__Provider_Interface as Swagger_Provider_Interface;
 
-class Api_Key_Definition_Provider
+class Authorize_Definition_Provider
 	implements Swagger_Provider_Interface {
 
 	/**
