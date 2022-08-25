@@ -317,7 +317,7 @@ class Tribe__Settings_Manager {
 	 * @deprecated TBD
 	 */
 	public function add_help_admin_menu_item() {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, 'TBD', 'Now handled by Tribe\Events\Admin\Settings::add_admin_pages()' );
 	}
 
 	/**
