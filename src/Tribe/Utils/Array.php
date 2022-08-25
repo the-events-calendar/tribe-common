@@ -671,7 +671,7 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 		/**
 		 * Shapes, filtering it, an array to the specified expected set of required keys.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param array $array The input array to shape.
 		 * @param array $shape The shape to update the array with. It should only define keys
@@ -710,7 +710,7 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 		 *
 		 * This method fills the gap left by the non-existence of an `array_usearch` function.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param mixed    $needle   The element to search in the array.
 		 * @param array    $haystack The array to search.

@@ -50,7 +50,7 @@ class Tribe__Assets {
 	 * Depending on how certain scripts are loaded and how much cross-compatibility is required we need to be able to
 	 * create noConflict backups and restore other scripts, which normally need to be printed directly on the scripts.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param string $tag    Tag we are filtering.
 	 * @param string $handle Which is the ID/Handle of the tag we are about to print.
