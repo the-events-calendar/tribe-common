@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.0.0] 2022-0X-XX =
+= [5.0.0] 2022-08-29 =
 
 * Feature - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
 * Fix - Avoid fatal errors when transient notices are registered from inactive plugins.
