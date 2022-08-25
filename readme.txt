@@ -3,8 +3,8 @@
 = [5.0.0] 2022-0X-XX =
 
 * Feature - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
-* Fix - Ensure the `help` submenu only appears under the events post type. [TEC-4443]
 * Fix - Avoid fatal errors when transient notices are registered from inactive plugins.
+* Tweak - Deprecated the `Tribe__Settings_Manager::add_help_admin_menu_item()` method in favor of `Settings::add_admin_pages()`. [TEC-4443]
 * Tweak - Allow suppression of admin notices for specific plugins via the filters `tec_pue_expired_key_notice_plugins`, `tec_pue_invalid_key_notice_plugins`, and `tec_pue_upgrade_key_notice_plugins`.
 * Language - 2 new strings added, 88 updated, 1 fuzzied, and 1 obsoleted
 
