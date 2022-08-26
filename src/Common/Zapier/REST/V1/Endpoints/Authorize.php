@@ -28,7 +28,9 @@ class Authorize extends Abstract_REST_Endpoint {
 	protected $path = '/authorize';
 
 	/**
-	 * @inheritDoc
+	 * Register the actual endpoint on WP Rest API.
+	 *
+	 * @since TBD
 	 */
 	public function register() {
 		register_rest_route(

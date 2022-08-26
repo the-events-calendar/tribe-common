@@ -17,39 +17,58 @@ use WP_REST_Response;
 use WP_Error;
 
 class Swagger_Documentation
+	extends Abstract_REST_Endpoint
 	implements Tribe__REST__Endpoints__READ_Endpoint_Interface,
 	Tribe__Documentation__Swagger__Provider_Interface,
 	Tribe__Documentation__Swagger__Builder_Interface {
 
 	/**
+	 * Open API Version.
+	 *
+	 * @since TBD
+	 *
 	 * @var string
 	 */
 	protected $open_api_version = '3.0.0';
 
 	/**
-	 * @var string
-	 */
-	protected $tec_rest_api_version;
-
-	/**
-	 * @var Tribe__Documentation__Swagger__Provider_Interface[]
-	 */
-	protected $documentation_providers = array();
-
-	/**
-	 * @var Tribe__Documentation__Swagger__Provider_Interface[]
-	 */
-	protected $definition_providers = array();
-
-	/**
-	 * Tribe__Events__REST__V1__Endpoints__Swagger_Documentation constructor.
+	 * Zapier REST API Version.
 	 *
 	 * @since TBD
 	 *
-	 * @param string $tec_rest_api_version
+	 * @var string
 	 */
-	public function __construct( $tec_rest_api_version ) {
-		$this->tec_rest_api_version = $tec_rest_api_version;
+	protected $zapier_rest_api_version = '1.0.0';
+
+	/**
+	 * REST Documentation Definition Providers.
+	 *
+	 * @since TBD
+	 *
+	 * @var Tribe__Documentation__Swagger__Provider_Interface[]
+	 */
+	protected $documentation_providers = [];
+
+	/**
+	 * REST Definition Definition Providers.
+	 *
+	 * @since TBD
+	 *
+	 * @var Tribe__Documentation__Swagger__Provider_Interface[]
+	 */
+	protected $definition_providers = [];
+
+	/**
+	 * Register the actual endpoint on WP Rest API.
+	 *
+	 * @since TBD
+	 */
+	public function register() {
+		tribe_register_rest_route( $this->get_events_route_namespace(), '/doc', [
+			'methods'  => \WP_REST_Server::READABLE,
+			'callback' => [ $this, 'get' ],
+		] );
+		$this->register_documentation_provider( '/doc', $this );
 	}
 
 	/**
@@ -82,20 +101,24 @@ class Swagger_Documentation
 	 * @return array An array description of a Swagger supported component.
 	 */
 	public function get_documentation() {
-		/** @var Tribe__Tickets__REST__V1__Main $main */
-		//$main = tribe( 'tickets.rest-v1.main' );
+		$url = '';
+		if ( function_exists( 'tribe_events_rest_url' ) ) {
+			$url = tribe_events_rest_url();
+		} else if ( function_exists( 'tribe_tickets_rest_url' )  ) {
+			$url = tribe_tickets_rest_url();
+		}
 
-		$documentation = array(
+		$documentation = [
 			'openapi'    => $this->open_api_version,
 			'info'       => $this->get_api_info(),
-			'servers'    => array(
-				array(
-					'url' => $main->get_url(),
-				),
-			),
+			'servers'    => [
+				[
+					'url' => $url,
+				],
+			],
 			'paths'      => $this->get_paths(),
-			'components' => array( 'schemas' => $this->get_definitions() ),
-		);
+			'components' => [ 'schemas' => $this->get_definitions() ],
+		];
 
 		/**
 		 * Filters the Swagger documentation generated for the TEC REST API.
@@ -120,11 +143,11 @@ class Swagger_Documentation
 	 * @return array
 	 */
 	protected function get_api_info() {
-		return array(
+		return [
 			'title'       => __( 'TEC Zapier REST API', 'tribe-common' ),
 			'description' => __( 'TEC Zapier REST API allows direct connections to making Zapier Zaps.', 'tribe-common' ),
-			'version'     => $this->tec_rest_api_version,
-		);
+			'version'     => $this->zapier_rest_api_version,
+		];
 	}
 
 	/**
@@ -135,7 +158,7 @@ class Swagger_Documentation
 	 * @return array
 	 */
 	protected function get_paths() {
-		$paths = array();
+		$paths = [];
 		foreach ( $this->documentation_providers as $path => $endpoint ) {
 			if ( $endpoint !== $this ) {
 				/** @var Tribe__Documentation__Swagger__Provider_Interface $endpoint */
@@ -169,15 +192,15 @@ class Swagger_Documentation
 	 * @return array
 	 */
 	protected function get_own_documentation() {
-		return array(
-			'get' => array(
-				'responses' => array(
-					'200' => array(
+		return [
+			'get' => [
+				'responses' =>[
+					'200' => [
 						'description' => __( 'Returns the documentation for TEC Zapier REST API in Swagger consumable format.', 'tribe-common' ),
-					),
-				),
-			),
-		);
+					],
+				],
+			],
+		];
 	}
 
 	/**
@@ -188,7 +211,7 @@ class Swagger_Documentation
 	 * @return array
 	 */
 	protected function get_definitions() {
-		$definitions = array();
+		$definitions = [];
 		/** @var Tribe__Documentation__Swagger__Provider_Interface $provider */
 		foreach ( $this->definition_providers as $type => $provider ) {
 			$definitions[ $type ] = $provider->get_documentation();
@@ -213,8 +236,8 @@ class Swagger_Documentation
 	 *
 	 * @since TBD
 	 *
-	 * @param                                                  string $type
-	 * @param Tribe__Documentation__Swagger__Provider_Interface       $provider
+	 * @param string                                            $type
+	 * @param Tribe__Documentation__Swagger__Provider_Interface $provider
 	 */
 	public function register_definition_provider( $type, Tribe__Documentation__Swagger__Provider_Interface $provider ) {
 		$this->definition_providers[ $type ] = $provider;
@@ -240,6 +263,6 @@ class Swagger_Documentation
 	 * @return array
 	 */
 	public function READ_args() {
-		return array();
+		return [];
 	}
 }
