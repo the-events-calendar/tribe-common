@@ -9,12 +9,17 @@
 
 namespace TEC\Common\Zapier\REST\V1\Endpoints;
 
-use Tribe__REST__Messages_Interface;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
-use WP_Error;
 
+/**
+ * Class Authorize
+ *
+ * @since   TBD
+ *
+ * @package TEC\Common\Zapier\REST\V1\Endpoints
+ */
 class Authorize extends Abstract_REST_Endpoint {
 
 	/**
@@ -23,22 +28,9 @@ class Authorize extends Abstract_REST_Endpoint {
 	protected $path = '/authorize';
 
 	/**
-	 * Tribe__Events__REST__V1__Endpoints__Archive_Event constructor.
-	 *
-	 * @since TBD
-	 *
-	 * @param Tribe__REST__Messages_Interface                  $messages
-	 */
-/*	public function __construct( Tribe__REST__Messages_Interface $messages ) {
-		//parent::__construct( $messages );
-	}*/
-
-	/**
 	 * @inheritDoc
 	 */
 	public function register() {
-		$documentation = tribe( Swagger_Documentation::class );
-
 		register_rest_route(
 			$this->get_events_route_namespace(),
 			$this->get_endpoint_path(),
@@ -50,29 +42,8 @@ class Authorize extends Abstract_REST_Endpoint {
 			]
 		);
 
+		$documentation = tribe( Swagger_Documentation::class );
 		$documentation->register_documentation_provider( $this->get_endpoint_path(), $this );
-
-		return;
-		//@todo this is from TEC, but this has to be Common only coding.
-		$messages         = tribe( 'tec.rest-v1.messages' );
-		$api_key_endpoint = new Api_Key( $messages );
-
-		$this->namespace = '/tribe/events/v1/zapier';
-
-		register_rest_route(
-			$this->namespace,
-			'/authorize/',
-			[
-				'methods'             => WP_REST_Server::READABLE,
-				'args'                => $api_key_endpoint->READ_args(),
-				'callback'            => [ $api_key_endpoint, 'get' ],
-				'permission_callback' => '__return_true',
-			]
-		);
-
-		/** @var Tribe__Documentation__Swagger__Builder_Interface $documentation */
-		//$documentation = tribe( 'tec.rest-v1.endpoints.documentation' );
-		//$documentation->register_definition_provider( 'Zapier_Api_Key', new Api_Key_Definition_Provider() );
 	}
 
 	/**
@@ -89,14 +60,14 @@ class Authorize extends Abstract_REST_Endpoint {
 		$consumer_secret = $request->get_param( 'consumer_secret' );
 
 		$loaded = $this->api->load_account_by_id( $consumer_id, $consumer_secret );
-		if ( ! $loaded ) {
-			return [];
+		if ( is_wp_error( $loaded ) ) {
+			return new WP_REST_Response( $loaded, 400 );
 		}
-
 		//@todo, return jwt token with the below information
-		return [
+		$data = [
 			'consumer_id' => $consumer_id,
 		];
+		return new WP_REST_Response( $data );
 
 		$issuedAt = time();
 		$token    = [

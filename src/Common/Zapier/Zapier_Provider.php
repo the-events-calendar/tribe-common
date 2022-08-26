@@ -46,6 +46,7 @@ class Zapier_Provider extends \tad_DI52_ServiceProvider {
 		$this->add_filters();
 
 		$this->container->singleton( Authorize::class );
+		//@todo load this with semantic version
 		//$this->container->singleton( Swagger_Documentation::class, new Swagger_Documentation( tribe( 'tickets.rest-v1.main' )->get_semantic_version( ) ) );
 		$this->container->singleton( Swagger_Documentation::class, new Swagger_Documentation( '1.0.0' ) );
 

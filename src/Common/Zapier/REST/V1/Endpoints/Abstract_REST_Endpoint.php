@@ -57,7 +57,7 @@ abstract class Abstract_REST_Endpoint implements READ_Endpoint_Interface, Swagge
 	 * @param Api $api An instance of the Zapier API handler.
 	 */
 	public function __construct( Api $api ) {
-		$this->api = $api;
+		$this->api      = $api;
 	}
 
 	/**
