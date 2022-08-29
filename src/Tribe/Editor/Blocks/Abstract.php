@@ -136,6 +136,11 @@ implements Tribe__Editor__Blocks__Interface {
 			'render_callback' => [ $this, 'render' ],
 		];
 
+		// Prevents a block from being registered twice.
+		if ( ! class_exists( 'WP_Block_Type_Registry' ) || WP_Block_Type_Registry::get_instance()->is_registered( $this->name() ) ) {
+			return;
+		}
+
 		register_block_type( $this->name(), $block_args );
 	}
 
