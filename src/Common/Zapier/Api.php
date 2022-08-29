@@ -11,7 +11,10 @@ namespace TEC\Common\Zapier;
 
 use TEC\Common\Traits\With_AJAX;
 use Tribe__Utils__Array as Arr;
+use Exception;
+use Firebase\JWT\JWT;
 use WP_User_Query;
+use WP_Error;
 
 /**
  * Class Api
@@ -24,14 +27,40 @@ class Api extends Abstract_API_Key_Api {
 	use With_AJAX;
 
 	/**
-	 * {@inheritDoc}
+	 * The name of the API
+	 *
+	 * @since TBD
+	 *
+	 * @var string
 	 */
 	public static $api_name = 'Zapier';
 
 	/**
-	 * {@inheritDoc}
+	 * The id of the API
+	 *
+	 * @since TBD
+	 *
+	 * @var string
 	 */
 	public static $api_id = 'zapier';
+
+	/**
+	 * The API secret used for JWT tokens.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	private static $api_secret;
+
+	/**
+	 * The API secret key used to store it.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	private static $api_secret_key = 'tec_common_zapier_secret_key';
 
 	/**
 	 * An instance of the Template_Modifications.
@@ -62,6 +91,7 @@ class Api extends Abstract_API_Key_Api {
 	public function __construct( Actions $actions, Template_Modifications $template_modifications ) {
 		$this->actions                = $actions;
 		$this->template_modifications = $template_modifications;
+		self::$api_secret             = $this->set_api_secret();
 	}
 
 	/**
@@ -69,13 +99,14 @@ class Api extends Abstract_API_Key_Api {
 	 *
 	 * @since  TBD
 	 *
-	 * @param string A optional prefix to the random hash.
+	 * @param string $prefix A optional prefix to the random hash.
+	 * @param int    $length A optional length of the random hash.
 	 *
 	 * @return string A random hash.
 	 */
-	public function get_random_hash( $prefix = '' ) {
+	public function get_random_hash( $prefix = '', $length = 20 ) {
 		if ( function_exists( 'openssl_random_pseudo_bytes' ) ) {
-			$hash = bin2hex( openssl_random_pseudo_bytes( 20 ) );
+			$hash = bin2hex( openssl_random_pseudo_bytes( $length ) );
 		}
 
 		if ( ! empty( $hash ) ) {
@@ -83,7 +114,78 @@ class Api extends Abstract_API_Key_Api {
 		}
 
 		// Fallback hash if openssl_random_pseudo_bytes returns empty.
-		return $prefix . sha1( wp_rand() );
+		return $prefix . sha1( wp_rand( $length ) );
+	}
+
+	/**
+	 * Set the API secret key for this API class.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The secret key used for Zapier JWT tokens.
+	 */
+	private function set_api_secret() {
+		$api_secret = get_option( static::$api_secret_key );
+		if ( $api_secret ) {
+			return $api_secret;
+		}
+
+		$api_secret = $this->get_random_hash( '', 128 );
+		update_option( static::$api_secret_key, $api_secret );
+
+		return $api_secret;
+	}
+
+	/**
+	 * Get the API secret key for this API class.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The secret key used for Zapier JWT tokens.
+	 */
+	public function get_api_secret() {
+		return static::$api_secret;
+	}
+
+	/**
+	 * Decode the JWT token.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $token The JWT token to decode.
+	 *
+	 * @return array<string|string>|WP_Error An array of the API Key pair or WP_Error.
+	 */
+	public function decode_jwt( $token ) {
+		try {
+			$decoded = JWT::decode( $token, $this->get_api_secret(), [ 'HS256' ] );
+
+			if ( $decoded->iss != get_bloginfo( 'url' ) ) {
+				$error_message = _x(
+					'Zapier Token issuer does not match with this server.',
+					'Zapier JWT token issuer does not match with this server error message.',
+					'tribe-common'
+				);
+
+				return new WP_Error( 'bad_issuer', $error_message, [ 'status' => 401 ] );
+			} elseif ( ! isset( $decoded->data->consumer_id, $decoded->data->consumer_secret ) ) {
+				$error_message = _x(
+					'Zapier Token is missing data.',
+					'Zapier JWT token s missing data error message.',
+					'tribe-common'
+				);
+
+				return new WP_Error( 'bad_request', $error_message, [ 'status' => 401 ] );
+			}
+
+			return [
+				'consumer_id'     => $decoded->data->consumer_id,
+				'consumer_secret' => $decoded->data->consumer_secret,
+			];
+
+		} catch ( Exception $e ) {
+			return new WP_Error( 'invalid_token', $e->getMessage(), [ 'status' => 403 ] );
+		}
 	}
 
 	/**

@@ -12,7 +12,7 @@ namespace TEC\Common\Zapier\REST\V1\Endpoints;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
-
+use Firebase\JWT\JWT;
 /**
  * Class Authorize
  *
@@ -55,7 +55,7 @@ class Authorize extends Abstract_REST_Endpoint {
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
-	 * @return
+	 * @return WP_REST_Response The response to authorizing Zapier access for a API Key pair.
 	 */
 	public function get( WP_REST_Request $request ) {
 		$consumer_id     = $request->get_param( 'consumer_id' );
@@ -65,26 +65,23 @@ class Authorize extends Abstract_REST_Endpoint {
 		if ( is_wp_error( $loaded ) ) {
 			return new WP_REST_Response( $loaded, 400 );
 		}
-		//@todo, return jwt token with the below information
-		$data = [
-			'consumer_id' => $consumer_id,
-		];
-		return new WP_REST_Response( $data );
 
 		$issuedAt = time();
 		$token    = [
 			'iss'  => get_bloginfo( 'url' ),
 			'iat'  => $issuedAt,
 			'nbf'  => $issuedAt,
-			'exp'  => $issuedAt + 300,
 			'data' => [
-				'user_id' => $user->data->ID,
+				'consumer_id'     => $consumer_id,
+				'consumer_secret' => $consumer_secret,
 			],
 		];
 
-		return [
-			'token' => JWT::encode( $token, $secret_key ),
+		$data = [
+			'token' => JWT::encode( $token, $this->api->get_api_secret() ),
 		];
+
+		return new WP_REST_Response( $data );
 	}
 
 	/**

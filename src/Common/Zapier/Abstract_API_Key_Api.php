@@ -164,45 +164,85 @@ abstract class Abstract_API_Key_Api {
 	 */
 	protected function is_valid_account( $account, $consumer_secret ) {
 		if ( ! is_ssl() ) {
-			$error = _x( 'SSL is required to Authorize Zaper API Keys.', 'Zapier API Key authorization error for no SSL.', 'tribe-common' );
+			$error = _x(
+				'SSL is required to Authorize Zapier API Keys.',
+				'Zapier API Key authorization error for no SSL.',
+				'tribe-common'
+			);
+
 			return new WP_Error( 'rest_no_ssl', $error, [ 'status' => 400 ] );
 		}
 
 		if ( empty( $account['consumer_id'] ) ) {
-			$error = _x( 'Consumer ID is required to Authorize Zaper API Keys.', 'Zapier API Key authorization error for no consumer secret.', 'tribe-common' );
+			$error = _x(
+				'Consumer ID is required to Authorize Zapier API Keys.',
+				'Zapier API Key authorization error for no consumer secret.',
+				'tribe-common'
+			);
+
 			return new WP_Error( 'rest_no_consumer_id', $error, [ 'status' => 400 ] );
 		}
 
 		if ( empty( $account['consumer_secret'] ) ) {
-			$error = _x( 'Consumer Secret is required to Authorize Zaper API Keys.', 'Zapier API Key authorization error for no consumer secret.', 'tribe-common' );
+			$error = _x(
+				'Consumer Secret is required to Authorize Zapier API Keys.',
+				'Zapier API Key authorization error for no consumer secret.',
+				'tribe-common'
+			);
+
 			return new WP_Error( 'rest_no_consumer_secret', $error, [ 'status' => 400 ] );
 		}
 
 		$this->consumer_secret = $account['consumer_secret'];
 		$secret_match          = $this->check_secret( $consumer_secret );
 		if ( empty( $secret_match ) ) {
-			$error = _x( 'Consumer Secret does not match.', 'Zapier API Key authorization error for the consumer secrets not matching.', 'tribe-common' );
+			$error = _x(
+				'Consumer Secret does not match.',
+				'Zapier API Key authorization error for the consumer secrets not matching.',
+				'tribe-common'
+			);
+
 			return new WP_Error( 'rest_consumer_secret_no_match', $error, [ 'status' => 400 ] );
 		}
 
 		if ( empty( $account['name'] ) ) {
-			$error = _x( 'Zaper API Key is missing a name.', 'Zapier API Key authorization error for no API Key name.', 'tribe-common' );
+			$error = _x(
+				'Zapier API Key is missing a name.',
+				'Zapier API Key authorization error for no API Key name.',
+				'tribe-common'
+			);
+
 			return new WP_Error( 'rest_no_api_key_name', $error, [ 'status' => 400 ] );
 		}
 
 		if ( empty( $account['permissions'] ) ) {
-			$error = _x( 'Zaper API Key is missing permissions.', 'Zapier API Key authorization error for no API Key permissions.', 'tribe-common' );
+			$error = _x(
+				'Zapier API Key is missing permissions.',
+				'Zapier API Key authorization error for no API Key permissions.',
+				'tribe-common'
+			);
+
 			return new WP_Error( 'rest_no_api_key_permissions', $error, [ 'status' => 400 ] );
 		}
 
 		if ( empty( $account['user_id'] ) ) {
-			$error = _x( 'Zaper API Key is a user id.', 'Zapier API Key authorization error for no API Key user id.', 'tribe-common' );
+			$error = _x(
+				'Zapier API Key is a user id.',
+				'Zapier API Key authorization error for no API Key user id.',
+				'tribe-common'
+			);
+
 			return new WP_Error( 'rest_no_api_key_user_id', $error, [ 'status' => 400 ] );
 		}
 
 		$user = get_user_by( 'id', $account['user_id'] );
 		if ( is_wp_error( $user ) ) {
-			$error = _x( 'Zaper API Key could not load the WordPress user.', 'Zapier API Key authorization error for API Key user not loading.', 'tribe-common' );
+			$error = _x(
+				'Zapier API Key could not load the WordPress user.',
+				'Zapier API Key authorization error for API Key user not loading.',
+				'tribe-common'
+			);
+
 			return new WP_Error( 'rest_no_api_key_user_loading', $error, [ 'status' => 400 ] );
 		}
 
