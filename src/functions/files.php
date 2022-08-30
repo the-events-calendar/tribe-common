@@ -2,14 +2,14 @@
 /**
  * Provides functions to seek and interact with files.
  *
- * @since TBD
+ * @since 5.0.0
  */
 
 if ( ! function_exists( 'tec_is_file_from_plugins' ) ) {
 	/**
 	 * Checks if a file is from one of the specified plugins.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param string $file            The path of the file to check.
 	 * @param string ...$plugin_files A set of plugin main files to check, e.g. `the-events-calendar.php`.

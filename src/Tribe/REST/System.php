@@ -15,7 +15,7 @@ class Tribe__REST__System {
 	/**
 	 * Determines if we are coming from a REST API request.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @return bool
 	 */
