@@ -10,7 +10,7 @@ namespace TEC\Common\Zapier;
 
 use TEC\Common\Traits\With_Nonce_Routes;
 use TEC\Common\Zapier\REST\V1\Endpoints\Authorize;
-use TEC\Common\Zapier\REST\V1\Endpoints\Swagger_Documentation;
+use TEC\Common\Zapier\REST\V1\Documentation\Swagger_Documentation;
 
 /**
  * Class Event_Status_Provider
@@ -102,6 +102,15 @@ class Zapier_Provider extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
+	 * Adds the filters required by Zapier.
+	 *
+	 * @since TBD
+	 */
+	protected function add_filters() {
+		add_filter( 'tribe_addons_tab_fields', [ $this, 'filter_addons_tab_fields' ] );
+	}
+
+	/**
 	 * Register the Admin Assets for Zapier.
 	 *
 	 * @since TBD
@@ -111,12 +120,13 @@ class Zapier_Provider extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Adds the filters required by Zapier.
+	 * Registers the REST API endpoints for Zapier
 	 *
 	 * @since TBD
 	 */
-	protected function add_filters() {
-		add_filter( 'tribe_addons_tab_fields', [ $this, 'filter_addons_tab_fields' ] );
+	public function register_endpoints() {
+		$this->container->make( Swagger_Documentation::class )->register();
+		$this->container->make( Authorize::class )->register();
 	}
 
 	/**
@@ -134,16 +144,6 @@ class Zapier_Provider extends \tad_DI52_ServiceProvider {
 		}
 
 		return tribe( Settings::class )->add_fields( $fields );
-	}
-
-	/**
-	 * Registers the REST API endpoints for Zapier
-	 *
-	 * @since TBD
-	 */
-	public function register_endpoints() {
-		$this->container->make( Swagger_Documentation::class )->register();
-		$this->container->make( Authorize::class )->register();
 	}
 
 	/**

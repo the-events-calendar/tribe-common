@@ -23,7 +23,7 @@ abstract class Abstract_API_Key_Api {
 	use With_AJAX;
 
 	/**
-	 * Whether an account has been loaded for the API to use.
+	 * Whether an api_key has been loaded for the API to use.
 	 *
 	 * @since TBD
 	 *
@@ -32,7 +32,7 @@ abstract class Abstract_API_Key_Api {
 	protected $api_key_loaded = false;
 
 	/**
-	 * The name of the loaded account.
+	 * The name of the loaded api_key.
 	 *
 	 * @since TBD
 	 *
@@ -86,7 +86,7 @@ abstract class Abstract_API_Key_Api {
 	protected $permissions = 'read';
 
 	/**
-	 * The WordPress user id of the loaded account.
+	 * The WordPress user id of the loaded api_key.
 	 *
 	 * @since TBD
 	 *
@@ -100,69 +100,71 @@ abstract class Abstract_API_Key_Api {
 	 *
 	 * @since TBD
 	 *
-	 * @return bool Whether the current API has a loaded account.
+	 * @return bool Whether the current API has a loaded api_key.
 	 */
 	public function is_ready() {
 		return ! empty( $this->api_key_loaded );
 	}
 
 	/**
-	 * Load a specific account into the API.
+	 * Load a specific api_key into the API.
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string|string> $account An account with the fields to access the API.
-	 * @param string $consumer_secret A consumer secret used to load an account.
+	 * @param array<string|string> $api_key         An api_key with the fields to access the API.
+	 * @param string               $consumer_secret An optional consumer secret used to verify an API Key pair.
 	 *
 	 * @return bool|WP_Error Return true if loaded or WP_Error otherwise.
 	 */
-	public function load_account( array $account = [], $consumer_secret = '' ) {
-		$valid = $this->is_valid_account( $account, $consumer_secret );
+	public function load_api_key( array $api_key = [], $consumer_secret = '' ) {
+		$valid = $this->is_valid_api_key( $api_key, $consumer_secret );
 		if ( is_wp_error( $valid ) ) {
 			return $valid;
 		}
 
-		$this->init_account( $account );
+		$this->init_api_key( $api_key );
 
 		return true;
 	}
 
 	/**
-	 * Load a specific account by the id.
+	 * Load a specific api_key by the id.
 	 *
 	 * @since TBD
 	 *
-	 * @param string $consumer_id The account id to get and load for use with the API.
+	 * @param string $consumer_id     The consumer id to get and load an API Key pair.
+	 * @param string $consumer_secret The consumer secret used to verify an API Key pair.
 	 *
 	 * @return bool|string Whether the page is loaded or an error code. False or code means the page did not load.
 	 */
-	public function load_account_by_id( $consumer_id, $consumer_secret ) {
+	public function load_api_key_by_id( $consumer_id, $consumer_secret ) {
 		$consumer_id = strpos( $consumer_id, 'ci_' ) === 0
 			? static::api_hash( $consumer_id )
 			: $consumer_id;
 
-		$account = $this->get_account_by_id( $consumer_id );
+		$api_key = $this->get_api_key_by_id( $consumer_id );
 
-		// Return false if no account.
-		if ( empty( $account ) ) {
+		// Return false if no api_key.
+		if ( empty( $api_key ) ) {
 			return false;
 		}
 
-		return $this->load_account( $account, $consumer_secret );
+		return $this->load_api_key( $api_key, $consumer_secret );
 	}
 
 	/**
-	 * Check if an account has all the information to be valid.
+	 * Check if an api_key has all the information to be valid.
 	 *
 	 * It will attempt to refresh the access token if it has expired.
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string|string> $account An account with the fields to access the API.
+	 * @param array<string|string> $api_key An api_key with the fields to access the API.
+	 * @param string $consumer_secret The consumer secret to verify the API Key with.
 	 *
 	 * @return bool|WP_Error Return true if loaded or WP_Error otherwise.
 	 */
-	protected function is_valid_account( $account, $consumer_secret ) {
+	protected function is_valid_api_key( $api_key, $consumer_secret ) {
 		if ( ! is_ssl() ) {
 			$error = _x(
 				'SSL is required to Authorize Zapier API Keys.',
@@ -173,7 +175,7 @@ abstract class Abstract_API_Key_Api {
 			return new WP_Error( 'rest_no_ssl', $error, [ 'status' => 400 ] );
 		}
 
-		if ( empty( $account['consumer_id'] ) ) {
+		if ( empty( $api_key['consumer_id'] ) ) {
 			$error = _x(
 				'Consumer ID is required to Authorize Zapier API Keys.',
 				'Zapier API Key authorization error for no consumer secret.',
@@ -183,7 +185,7 @@ abstract class Abstract_API_Key_Api {
 			return new WP_Error( 'rest_no_consumer_id', $error, [ 'status' => 400 ] );
 		}
 
-		if ( empty( $account['consumer_secret'] ) ) {
+		if ( empty( $api_key['consumer_secret'] ) ) {
 			$error = _x(
 				'Consumer Secret is required to Authorize Zapier API Keys.',
 				'Zapier API Key authorization error for no consumer secret.',
@@ -193,7 +195,7 @@ abstract class Abstract_API_Key_Api {
 			return new WP_Error( 'rest_no_consumer_secret', $error, [ 'status' => 400 ] );
 		}
 
-		$this->consumer_secret = $account['consumer_secret'];
+		$this->consumer_secret = $api_key['consumer_secret'];
 		$secret_match          = $this->check_secret( $consumer_secret );
 		if ( empty( $secret_match ) ) {
 			$error = _x(
@@ -205,7 +207,7 @@ abstract class Abstract_API_Key_Api {
 			return new WP_Error( 'rest_consumer_secret_no_match', $error, [ 'status' => 400 ] );
 		}
 
-		if ( empty( $account['name'] ) ) {
+		if ( empty( $api_key['name'] ) ) {
 			$error = _x(
 				'Zapier API Key is missing a name.',
 				'Zapier API Key authorization error for no API Key name.',
@@ -215,7 +217,7 @@ abstract class Abstract_API_Key_Api {
 			return new WP_Error( 'rest_no_api_key_name', $error, [ 'status' => 400 ] );
 		}
 
-		if ( empty( $account['permissions'] ) ) {
+		if ( empty( $api_key['permissions'] ) ) {
 			$error = _x(
 				'Zapier API Key is missing permissions.',
 				'Zapier API Key authorization error for no API Key permissions.',
@@ -225,7 +227,7 @@ abstract class Abstract_API_Key_Api {
 			return new WP_Error( 'rest_no_api_key_permissions', $error, [ 'status' => 400 ] );
 		}
 
-		if ( empty( $account['user_id'] ) ) {
+		if ( empty( $api_key['user_id'] ) ) {
 			$error = _x(
 				'Zapier API Key is a user id.',
 				'Zapier API Key authorization error for no API Key user id.',
@@ -235,7 +237,7 @@ abstract class Abstract_API_Key_Api {
 			return new WP_Error( 'rest_no_api_key_user_id', $error, [ 'status' => 400 ] );
 		}
 
-		$user = get_user_by( 'id', $account['user_id'] );
+		$user = get_user_by( 'id', $api_key['user_id'] );
 		if ( is_wp_error( $user ) ) {
 			$error = _x(
 				'Zapier API Key could not load the WordPress user.',
@@ -256,15 +258,15 @@ abstract class Abstract_API_Key_Api {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string|string> $account An account with the fields to access the API.
+	 * @param array<string|string> $api_key An api_key with the fields to access the API.
 	 */
-	protected function init_account( $account ) {
-		$this->consumer_id         = $account['consumer_id'];
-		$this->consumer_secret     = $account['consumer_secret'];
-		$this->permissions         = $account['permissions'];
-		$this->user_id             = $account['user_id'];
+	protected function init_api_key( $api_key ) {
+		$this->consumer_id         = $api_key['consumer_id'];
+		$this->consumer_secret     = $api_key['consumer_secret'];
+		$this->permissions         = $api_key['permissions'];
+		$this->user_id             = $api_key['user_id'];
 		$this->api_key_loaded      = true;
-		$this->loaded_api_key_name = $account['name'];
+		$this->loaded_api_key_name = $api_key['name'];
 	}
 
 	/**
@@ -272,23 +274,23 @@ abstract class Abstract_API_Key_Api {
 	 *
 	 * @since TBD
 	 *
-	 * @param boolean $all_data Whether to return all account data, default is only name and status.
+	 * @param boolean $all_data Whether to return all api_key data, default is only name and status.
 	 *
 	 * @return array<string|string> $list_of_api_keys An array of all the API Keys.
 	 */
 	public function get_list_of_api_keys( $all_data = false ) {
 		$list_of_api_keys = get_option( $this->all_api_keys_key, [] );
-		foreach ( $list_of_api_keys as $consumer_id => $account ) {
-			if ( empty( $account['name'] ) ) {
+		foreach ( $list_of_api_keys as $consumer_id => $api_key ) {
+			if ( empty( $api_key['name'] ) ) {
 				continue;
 			}
-			$list_of_api_keys[ $consumer_id ]['name'] = $account['name'];
+			$list_of_api_keys[ $consumer_id ]['name'] = $api_key['name'];
 
-			// If false (default ) skip getting all the account data.
+			// If false (default ) skip getting all the api_key data.
 			if ( empty( $all_data ) ) {
 				continue;
 			}
-			$api_key_data = $this->get_account_by_id( $consumer_id );
+			$api_key_data = $this->get_api_key_by_id( $consumer_id );
 
 			$list_of_api_keys[ $consumer_id ] = $api_key_data;
 		}
@@ -297,22 +299,22 @@ abstract class Abstract_API_Key_Api {
 	}
 
 	/**
-	 * Update the list of API Keys with provided account.
+	 * Update the list of API Keys with provided api_key.
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string|string> $api_key_data The array of data for an account to add to the list.
+	 * @param array<string|string> $api_key_data The array of data for an api_key to add to the list.
 	 */
 	protected function update_list_of_api_keys( $api_key_data ) {
 		$api_keys = $this->get_list_of_api_keys();
 
 		/**
-		 * Fires after before the account list is updated for an API.
+		 * Fires after before the api_key list is updated for an API.
 		 *
 		 * @since TBD
 		 *
 		 * @param array<string,mixed>  An array of API Keys formatted for options dropdown.
-		 * @param array<string|string> $api_key_data The array of data for an account to add to the list.
+		 * @param array<string|string> $api_key_data The array of data for an api_key to add to the list.
 		 * @param string               $api_id       The id of the API in use.
 		 */
 		do_action( 'tec_common_before_update_zapier_api_keys', $api_keys, $api_key_data, static::$api_id );
@@ -325,11 +327,11 @@ abstract class Abstract_API_Key_Api {
 	}
 
 	/**
-	 * Delete from the list of API Keys the provided account.
+	 * Delete from the list of API Keys the provided api_key.
 	 *
 	 * @since TBD
 	 *
-	 * @param string $consumer_id The id of the single account to save.
+	 * @param string $consumer_id The id of the single api_key to save.
 	 */
 	protected function delete_from_list_of_api_keys( $consumer_id ) {
 		$api_keys                        = $this->get_list_of_api_keys();
@@ -343,11 +345,11 @@ abstract class Abstract_API_Key_Api {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $consumer_id The id of the single account.
+	 * @param string $consumer_id The id of the single api_key.
 	 *
-	 * @return array<string|string> $account The account data or empty array if no account.
+	 * @return array<string|string> $api_key The api_key data or empty array if no api_key.
 	 */
-	public function get_account_by_id( $consumer_id ) {
+	public function get_api_key_by_id( $consumer_id ) {
 		return get_option( $this->single_api_key_prefix . $consumer_id, [] );
 	}
 
@@ -356,9 +358,9 @@ abstract class Abstract_API_Key_Api {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string|string> $api_key_data A specific account data to save.
+	 * @param array<string|string> $api_key_data A specific api_key data to save.
 	 */
-	public function set_account_by_id( array $api_key_data ) {
+	public function set_api_key_by_id( array $api_key_data ) {
 		// hash the consumer id and secret if they start with the prefix.
 		$api_key_data['consumer_id'] = strpos( $api_key_data['consumer_id'], 'ci_' ) === 0
 			? static::api_hash( $api_key_data['consumer_id'] )
@@ -374,15 +376,15 @@ abstract class Abstract_API_Key_Api {
 	}
 
 	/**
-	 * Delete an account by ID.
+	 * Delete an api_key by ID.
 	 *
 	 * @since TBD
 	 *
-	 * @param string $consumer_id The id of the single account.
+	 * @param string $consumer_id The id of the single api_key.
 	 *
-	 * @return bool Whether the account has been deleted and the access token revoked.
+	 * @return bool Whether the api_key has been deleted and the access token revoked.
 	 */
-	public function delete_account_by_id( $consumer_id ) {
+	public function delete_api_key_by_id( $consumer_id ) {
 		delete_option( $this->single_api_key_prefix . $consumer_id );
 
 		$this->delete_from_list_of_api_keys( $consumer_id );
@@ -391,11 +393,13 @@ abstract class Abstract_API_Key_Api {
 	}
 
 	/**
-	 * Authenticate.
+	 * Check the consumer secret.
 	 *
 	 * @since TBD
 	 *
-	 * @return boolean
+	 * @param string $consumer_secret The consumer secret to verify the API Key with.
+	 *
+	 * @return boolean Whether the consumer secret matches the saved one.
 	 */
 	protected function check_secret( $consumer_secret) {
 		$consumer_secret = strpos( $consumer_secret, 'ck_' ) === 0

@@ -4,11 +4,12 @@
  *
  * @since   TBD
  *
- * @package TEC\Common\Zapier\REST\V1\Endpoints
+ * @package TEC\Common\Zapier\REST\V1\Documentation
  */
 
-namespace TEC\Common\Zapier\REST\V1\Endpoints;
+namespace TEC\Common\Zapier\REST\V1\Documentation;
 
+use TEC\Common\Zapier\REST\V1\Traits\REST_Namespace;
 use Tribe__REST__Endpoints__READ_Endpoint_Interface;
 use Tribe__Documentation__Swagger__Provider_Interface;
 use Tribe__Documentation__Swagger__Builder_Interface;
@@ -16,11 +17,19 @@ use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
 
+/**
+ * Class Swagger_Documentation
+ *
+ * @since   TBD
+ *
+ * @package TEC\Common\Zapier\REST\V1\Documentation
+ */
 class Swagger_Documentation
-	extends Abstract_REST_Endpoint
 	implements Tribe__REST__Endpoints__READ_Endpoint_Interface,
 	Tribe__Documentation__Swagger__Provider_Interface,
 	Tribe__Documentation__Swagger__Builder_Interface {
+
+	use REST_Namespace;
 
 	/**
 	 * Open API Version.

@@ -22,7 +22,7 @@ $connect_label = _x( 'Add API Key', 'Label to add API Key fields for Zapier.', '
 
 $classes = [
 	'button'                                        => true,
-	'tec-settings-integrations__add-account-button' => true,
+	'tec-settings-integrations__add-api-key-button' => true,
 	'tec-setings-zapier__add-api-key-fields-button'        => true,
 ];
 ?>

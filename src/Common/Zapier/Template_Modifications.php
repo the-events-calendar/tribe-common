@@ -120,7 +120,7 @@ class Template_Modifications {
 	}
 
 	/**
-	 * The message template to display on user account changes for an API.
+	 * The message template to display on user changes for an API.
 	 *
 	 * @since TBD
 	 *

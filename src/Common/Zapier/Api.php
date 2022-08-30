@@ -303,7 +303,7 @@ class Api extends Abstract_API_Key_Api {
 			'user_id'         => $user_id,
 		];
 
-		$this->set_account_by_id( $api_key_data );
+		$this->set_api_key_by_id( $api_key_data );
 
 		// Add empty fields template
 		$this->template_modifications->get_api_key_fields(
@@ -318,7 +318,7 @@ class Api extends Abstract_API_Key_Api {
 	}
 
 	/**
-	 * Get the confirmation text for deleting an account.
+	 * Get the confirmation text for deleting an api_key.
 	 *
 	 * @since TBD
 	 *
@@ -349,11 +349,11 @@ class Api extends Abstract_API_Key_Api {
 		}
 
 		$consumer_id = tribe_get_request_var( 'consumer_id' );
-		$account    = $this->get_account_by_id( $consumer_id );
+		$api_key     = $this->get_api_key_by_id( $consumer_id );
 		// If no consumer id found, fail the request.
-		if ( empty( $consumer_id ) || empty( $account ) ) {
+		if ( empty( $consumer_id ) || empty( $api_key ) ) {
 			$error_message = _x(
-				'Zapier API Key pair was not revoked, the consumer id or the account were not found.',
+				'Zapier API Key pair was not revoked, the consumer id or the API Key information were not found.',
 				'Zapier API Key pair is missing information to revoke failure message.',
 				'the-events-calendar'
 			);
@@ -363,7 +363,7 @@ class Api extends Abstract_API_Key_Api {
 			wp_die();
 		}
 
-		$success = $this->delete_account_by_id( $consumer_id );
+		$success = $this->delete_api_key_by_id( $consumer_id );
 		if ( $success ) {
 			$message = _x(
 				'Zapier API Key pair was successfully revoked',

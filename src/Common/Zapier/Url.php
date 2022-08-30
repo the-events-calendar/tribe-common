@@ -73,11 +73,9 @@ class Url {
 	}
 
 	/**
-	 * Returns the URL that should be used to delete an API account in the settings.
+	 * Returns the URL that should be used to delete an API Key pair in the settings.
 	 *
 	 * @since TBD
-	 *
-	 * @param string $account_id An API Account ID to change the status.
 	 *
 	 * @return string The URL to add an API Key.
 	 */
@@ -93,16 +91,16 @@ class Url {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $account_id The internal account id for the key pair.
+	 * @param string $consumer_id The consumer id for the key pair.
 	 *
 	 * @return string The URL used to generate a Zapier API Key pair.
 	 */
-	public function to_generate_api_key_pair( $account_id ) {
+	public function to_generate_api_key_pair( $consumer_id ) {
 		$api_id = static::$api_id;
 		$nonce  = wp_create_nonce( $this->actions::$generate_action );
 
 		return $this->get_admin_ajax_url_with_parameters( "tec_common_ev_{$api_id}_settings_generate_api_key_pair", $nonce, [
-			'account_id' => $account_id
+			'consumer_id' => $consumer_id
 		] );
 	}
 
@@ -111,16 +109,16 @@ class Url {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $account_id An API Key to revoke.
+	 * @param string $consumer_id An API Key to revoke.
 	 *
 	 * @return string The URL to revoke an API Key.
 	 */
-	public function to_revoke_api_key_link( $account_id ) {
+	public function to_revoke_api_key_link( $consumer_id ) {
 		$api_id = static::$api_id;
 		$nonce  = wp_create_nonce( $this->actions::$revoke_action );
 
 		return $this->get_admin_ajax_url_with_parameters( "tec_common_ev_{$api_id}_settings_revoke_api_key_pair", $nonce, [
-			'account_id' => $account_id
+			'consumer_id' => $consumer_id
 		] );
 	}
 }

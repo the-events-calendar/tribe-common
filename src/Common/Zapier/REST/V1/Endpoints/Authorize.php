@@ -13,6 +13,7 @@ use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
 use Firebase\JWT\JWT;
+
 /**
  * Class Authorize
  *
@@ -28,9 +29,7 @@ class Authorize extends Abstract_REST_Endpoint {
 	protected $path = '/authorize';
 
 	/**
-	 * Register the actual endpoint on WP Rest API.
-	 *
-	 * @since TBD
+	 * @inheritDoc
 	 */
 	public function register() {
 		register_rest_route(
@@ -44,8 +43,7 @@ class Authorize extends Abstract_REST_Endpoint {
 			]
 		);
 
-		$documentation = tribe( Swagger_Documentation::class );
-		$documentation->register_documentation_provider( $this->get_endpoint_path(), $this );
+		$this->documentation->register_documentation_provider( $this->get_endpoint_path(), $this );
 	}
 
 	/**
@@ -55,13 +53,13 @@ class Authorize extends Abstract_REST_Endpoint {
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
-	 * @return WP_REST_Response The response to authorizing Zapier access for a API Key pair.
+	 * @return WP_REST_Response The response to authorizing Zapier access for an API Key pair.
 	 */
 	public function get( WP_REST_Request $request ) {
 		$consumer_id     = $request->get_param( 'consumer_id' );
 		$consumer_secret = $request->get_param( 'consumer_secret' );
+		$loaded          = $this->load_api_key_pair( $consumer_id, $consumer_secret );
 
-		$loaded = $this->api->load_account_by_id( $consumer_id, $consumer_secret );
 		if ( is_wp_error( $loaded ) ) {
 			return new WP_REST_Response( $loaded, 400 );
 		}
@@ -85,18 +83,7 @@ class Authorize extends Abstract_REST_Endpoint {
 	}
 
 	/**
-	 * Returns an array in the format used by Swagger 2.0.
-	 *
-	 * While the structure must conform to that used by v2.0 of Swagger the structure can be that of a full document
-	 * or that of a document part.
-	 * The intelligence lies in the "gatherer" of informations rather than in the single "providers" implementing this
-	 * interface.
-	 *
-	 * @since TBD
-	 *
-	 * @link http://swagger.io/
-	 *
-	 * @return array<string|mixed> An array description of a Swagger supported component.
+	 * @inheritDoc
 	 */
 	public function get_documentation() {
 		$POST_defaults = [
@@ -126,11 +113,7 @@ class Authorize extends Abstract_REST_Endpoint {
 	}
 
 	/**
-	 * Provides the content of the `args` array to register the endpoint support for GET requests.
-	 *
-	 * @since TBD
-	 *
-	 * @return array<string|mixed> An array of read 'args'.
+	 * @inheritDoc
 	 */
 	public function READ_args() {
 		return [

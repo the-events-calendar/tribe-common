@@ -10,9 +10,13 @@
 namespace TEC\Common\Zapier\REST\V1\Endpoints;
 
 use TEC\Common\Zapier\Api;
+use TEC\Common\Zapier\REST\V1\Traits\REST_Namespace;
 use Tribe__REST__Endpoints__READ_Endpoint_Interface as READ_Endpoint_Interface;
 use Tribe__Documentation__Swagger__Provider_Interface as Swagger_Provider_Interface;
+use TEC\Common\Zapier\REST\V1\Documentation\Swagger_Documentation;
 use Tribe__Utils__Array as Arr;
+use WP_REST_Request;
+use WP_Error;
 
 /**
  * Abstract REST Endpoint Zapier
@@ -22,15 +26,7 @@ use Tribe__Utils__Array as Arr;
  * @package TEC\Common\Zapier\REST\V1\Endpoints
  */
 abstract class Abstract_REST_Endpoint implements READ_Endpoint_Interface, Swagger_Provider_Interface {
-
-	/**
-	 * The REST API endpoint path.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	protected $namespace = 'tribe';
+	use REST_Namespace;
 
 	/**
 	 * The REST API endpoint path.
@@ -51,47 +47,58 @@ abstract class Abstract_REST_Endpoint implements READ_Endpoint_Interface, Swagge
 	protected $api;
 
 	/**
+	 * An instance of the Zapier Swagger_Documentation handler.
+	 *
+	 * @since TBD
+	 *
+	 * @var Api
+	 */
+	protected $documentation;
+
+	/**
 	 * Abstract_REST_Endpoint constructor.
 	 *
 	 * @since TBD
 	 *
 	 * @param Api $api An instance of the Zapier API handler.
+	 * @param Swagger_Documentation $documentation An instance of the Zapier Swagger_Documentation handler.
 	 */
-	public function __construct( Api $api ) {
-		$this->api      = $api;
+	public function __construct( Api $api, Swagger_Documentation $documentation ) {
+		$this->api           = $api;
+		$this->documentation = $documentation;
 	}
 
 	/**
-	 * Returns the namespace of REST APIs.
+	 * Register the actual endpoint on WP Rest API.
 	 *
-	 * @return string
+	 * @since TBD
 	 */
-	public function get_namespace() {
-		return $this->namespace;
-	}
+	abstract public function register();
 
 	/**
-	 * Returns the string indicating the REST API version.
+	 * Returns an array in the format used by Swagger 2.0.
+	 *
+	 * While the structure must conform to that used by v2.0 of Swagger the structure can be that of a full document
+	 * or that of a document part.
+	 * The intelligence lies in the "gatherer" of informations rather than in the single "providers" implementing this
+	 * interface.
 	 *
 	 * @since TBD
 	 *
-	 * @return string
+	 * @link http://swagger.io/
+	 *
+	 * @return array<string|mixed> An array description of a Swagger supported component.
 	 */
-	public function get_version() {
-		return 'v1';
-	}
+	abstract public function get_documentation();
 
 	/**
-	 * Returns the events REST API namespace string that should be used to register a route.
+	 * Provides the content of the `args` array to register the endpoint support for GET requests.
 	 *
 	 * @since TBD
 	 *
-	 * @return string
+	 * @return array<string|mixed> An array of read 'args'.
 	 */
-	public function get_events_route_namespace() {
-		return $this->get_namespace() . '/zapier/' . $this->get_version();
-	}
-
+	abstract public function READ_args();
 
 	/**
 	 * Gets the Endpoint path for this route.
@@ -102,19 +109,6 @@ abstract class Abstract_REST_Endpoint implements READ_Endpoint_Interface, Swagge
 	 */
 	public function get_endpoint_path() {
 		return $this->path;
-	}
-
-	/**
-	 * Get the REST API route URL.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The REST API route URL.
-	 */
-	public function get_route_url() {
-		$namespace = $this->get_events_route_namespace();
-
-		return rest_url( '/' . $namespace . $this->get_endpoint_path(), 'https' );
 	}
 
 	/**
@@ -224,5 +218,43 @@ abstract class Abstract_REST_Endpoint implements READ_Endpoint_Interface, Swagge
 		];
 
 		return Arr::get( $rest_to_swagger_type_map, $type, $type );
+	}
+
+	/**
+	 * Load the API Key Pair using the consumer id and secret.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $consumer_id     The consumer id to get and load an API Key pair.
+	 * @param string $consumer_secret The consumer secret used to verify an API Key pair.
+	 *
+	 * @return bool|WP_Error Whether the API Key pair could load or WP_Error.
+	 */
+	protected function load_api_key_pair( $consumer_id, $consumer_secret ) {
+		$loaded = $this->api->load_api_key_by_id( $consumer_id, $consumer_secret );
+		if ( is_wp_error( $loaded ) ) {
+			return $loaded;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Verify the token for the Zapier request.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_REST_Request $request The request object.
+	 *
+	 * @return bool|WP_Error Whether the token is verified or WP_Error.
+	 */
+	protected function verify_token( $request ) {
+		$token    = $request->get_param( 'token' );
+		$key_pair = $this->api->decode_jwt( $token );
+		if ( is_wp_error( $key_pair ) ) {
+			return $key_pair;
+		}
+
+		return true;
 	}
 }

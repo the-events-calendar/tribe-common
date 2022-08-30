@@ -30,7 +30,7 @@ tribe.events.integrationsSettingsAdmin = tribe.events.integrationsSettingsAdmin 
 	 */
 	obj.selectors = {
 		integrationContainer: '.tec-settings-integrations',
-		integrationAdd: '.tec-settings-integrations__add-account-button',
+		integrationAdd: '.tec-settings-integrations__add-api-key-button',
 		messageWrap: '.tec-settings-integrations-message__wrap',
 
 		// Individual Keys.
