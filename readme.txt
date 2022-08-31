@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.0.1] TBD =
+
+* Tweak - Deprecated the `Tribe__Settings_Manager::add_help_admin_menu_item()` method in favour of `Settings::add_admin_pages()`. [TEC-4443]
+
 = [5.0.0] 2022-08-29 =
 
 * Feature - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
