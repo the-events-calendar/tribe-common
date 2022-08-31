@@ -343,7 +343,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 					'image' => 'images/shop/stellar-iconic-cta.jpg',
 					'logo' => 'images/shop/stellar-iconic-logo.png',
 					'title' => __( 'Sales-boosting WooCommerce plugins.', 'tribe-common' ),
-					'link' => 'https://iconicwp.com/?utm_source=theeventscalendar&utm_medium=in-app&utm_campaign=cross-brand-add-on-shop',
+					'link' => 'https://evnt.is/iconic',
 					'linktext' => __( 'Add Commerce Tools', 'tribe-common' ),
 					'description' => __( 'Easy-to-use WooCommerce plugins work perfectly together, with any theme. Create a fast and profitable eCommerce store without any technical knowledge.
 					', 'tribe-common' ),
