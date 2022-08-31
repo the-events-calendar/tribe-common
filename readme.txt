@@ -2,7 +2,7 @@
 
 = [5.0.1] TBD =
 
-* Tweak - patch some PHP8 compatibility and ensure we don't try to test globals that might not be set. [TEC-4453]
+* Tweak - patch some PHP8 compatibility and ensure we don't try to test globals that might not be set. (props to @theskinnyghost for the implode fix!)  [TEC-4453]
 
 = [5.0.0] 2022-0X-XX =
 
