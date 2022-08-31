@@ -6,7 +6,7 @@ import { plugins } from '@moderntribe/common/data';
 /**
  * Returns whether the Event has at least one recurrence rule or not.
  *
- * @since TBD
+ * @since 5.0.0
  *
  * @param {Object} state The current container state.
  *
@@ -26,7 +26,7 @@ export const hasRecurrenceRules = ( state ) => {
 /**
  * Returns whether tickets are allowed on Recurring events or not.
  *
- * @since TBD
+ * @since 5.0.0
  *
  * @returns {boolean} Whether tickets are allowed on Recurring events or not.
  */

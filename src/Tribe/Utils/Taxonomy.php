@@ -132,7 +132,7 @@ class Taxonomy {
 	 *
 	 * Important to note that
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @param array $posts
 	 * @param array $taxonomies

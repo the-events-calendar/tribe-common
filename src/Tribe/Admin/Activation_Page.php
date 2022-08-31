@@ -164,7 +164,7 @@ class Tribe__Admin__Activation_Page {
 			/**
 			 * Filters whether we should disable the update page redirect.
 			 *
-			 * @since TBD
+			 * @since 5.0.0
 			 *
 			 * @param $bypass bool
 			 */
@@ -202,7 +202,7 @@ class Tribe__Admin__Activation_Page {
 	/**
 	 * Have we shown the welcome/update message for the current version?
 	 *
-	 * @since TBD Turned this method public.
+	 * @since 5.0.0 Turned this method public.
 	 *
 	 * @return bool
 	 */
