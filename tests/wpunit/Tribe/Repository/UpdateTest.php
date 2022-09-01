@@ -560,11 +560,21 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertInstanceOf( \Tribe__Promise::class, $promise );
 	}
 
-	public function get_instance_title():string{
+	/**
+	 * Sample title for instance.
+	 *
+	 * @return string
+	 */
+	public function get_instance_title():string {
 		return 'hello instance';
 	}
 
-	public static function get_static_title():string{
+	/**
+	 * Sample title for static methods.
+	 *
+	 * @return string
+	 */
+	public static function get_static_title():string {
 		return 'hello static';
 	}
 
@@ -584,7 +594,10 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * It should handle callable options properly and avoid processing texts as callables when not intended.
+	 *
 	 * @test
+	 *
 	 * @dataProvider callable_title_data_provider
 	 */
 	public function should_allow_proper_callable_input( $title, string $expected ) {
