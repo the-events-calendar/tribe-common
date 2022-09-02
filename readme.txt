@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - Added new toggle field for settings in the admin area. [ET-1564]
+
 = [4.15.5] 2022-08-15 =
 
 * Feature - Added image field for settings in the admin area. [ET-1541]
