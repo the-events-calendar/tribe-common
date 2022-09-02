@@ -65,7 +65,7 @@ class Authorize extends Abstract_REST_Endpoint {
 		}
 
 		$issuedAt = time();
-		$token    = [
+		$access_token    = [
 			'iss'  => get_bloginfo( 'url' ),
 			'iat'  => $issuedAt,
 			'nbf'  => $issuedAt,
@@ -76,7 +76,7 @@ class Authorize extends Abstract_REST_Endpoint {
 		];
 
 		$data = [
-			'token' => JWT::encode( $token, $this->api->get_api_secret() ),
+			'access_token' => JWT::encode( $access_token, $this->api->get_api_secret() ),
 		];
 
 		return new WP_REST_Response( $data );

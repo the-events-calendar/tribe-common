@@ -148,30 +148,30 @@ class Api extends Abstract_API_Key_Api {
 	}
 
 	/**
-	 * Decode the JWT token.
+	 * Decode the JWT access_token.
 	 *
 	 * @since TBD
 	 *
-	 * @param string $token The JWT token to decode.
+	 * @param string $access_token The JWT access_token to decode.
 	 *
 	 * @return array<string|string>|WP_Error An array of the API Key pair or WP_Error.
 	 */
-	public function decode_jwt( $token ) {
+	public function decode_jwt( $access_token ) {
 		try {
-			$decoded = JWT::decode( $token, $this->get_api_secret(), [ 'HS256' ] );
+			$decoded = JWT::decode( $access_token, $this->get_api_secret(), [ 'HS256' ] );
 
 			if ( $decoded->iss != get_bloginfo( 'url' ) ) {
 				$error_message = _x(
-					'Zapier Token issuer does not match with this server.',
-					'Zapier JWT token issuer does not match with this server error message.',
+					'Zapier access_token issuer does not match with this server.',
+					'Zapier JWT access_token issuer does not match with this server error message.',
 					'tribe-common'
 				);
 
 				return new WP_Error( 'bad_issuer', $error_message, [ 'status' => 401 ] );
 			} elseif ( ! isset( $decoded->data->consumer_id, $decoded->data->consumer_secret ) ) {
 				$error_message = _x(
-					'Zapier Token is missing data.',
-					'Zapier JWT token s missing data error message.',
+					'Zapier access_token is missing data.',
+					'Zapier JWT access_token s missing data error message.',
 					'tribe-common'
 				);
 

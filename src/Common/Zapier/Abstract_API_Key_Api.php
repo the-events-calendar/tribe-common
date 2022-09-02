@@ -155,8 +155,6 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * Check if an api_key has all the information to be valid.
 	 *
-	 * It will attempt to refresh the access token if it has expired.
-	 *
 	 * @since TBD
 	 *
 	 * @param array<string|string> $api_key An api_key with the fields to access the API.
@@ -382,7 +380,7 @@ abstract class Abstract_API_Key_Api {
 	 *
 	 * @param string $consumer_id The id of the single api_key.
 	 *
-	 * @return bool Whether the api_key has been deleted and the access token revoked.
+	 * @return bool Whether the api_key has been deleted and the access access_token revoked.
 	 */
 	public function delete_api_key_by_id( $consumer_id ) {
 		delete_option( $this->single_api_key_prefix . $consumer_id );

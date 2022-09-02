@@ -240,21 +240,18 @@ abstract class Abstract_REST_Endpoint implements READ_Endpoint_Interface, Swagge
 	}
 
 	/**
-	 * Verify the token for the Zapier request.
+	 * Verify the access_token for the Zapier request.
 	 *
 	 * @since TBD
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
-	 * @return bool|WP_Error Whether the token is verified or WP_Error.
+	 * @return array<string|string>|WP_Error The decoded access token or WP_Error.
 	 */
 	protected function verify_token( $request ) {
-		$token    = $request->get_param( 'token' );
-		$key_pair = $this->api->decode_jwt( $token );
-		if ( is_wp_error( $key_pair ) ) {
-			return $key_pair;
-		}
+		$access_token = $request->get_param( 'access_token' );
+		$key_pair     = $this->api->decode_jwt( $access_token );
 
-		return true;
+		return $key_pair;
 	}
 }
