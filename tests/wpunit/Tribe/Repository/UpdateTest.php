@@ -588,6 +588,7 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 				},
 				'hello there'
 			],
+			'title is a Closure Object'      => [ \Closure::fromCallable( 'tribe_is_truthy' ), '' ],
 			'title is an instance callable'  => [ [ $this, 'get_instance_title' ], 'hello instance' ],
 			'title is an static callable'    => [ [ self::class, 'get_static_title' ], 'hello static' ],
 		];
