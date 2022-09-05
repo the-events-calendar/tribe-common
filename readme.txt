@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.0.1] TBD =
+
+* Fix - Avoid invoking unwanted callables with ORM post creation/updates. [ET-1560]
+
 = [5.0.0] 2022-08-29 =
 
 * Feature - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
