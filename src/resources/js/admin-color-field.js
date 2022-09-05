@@ -2,9 +2,9 @@
 /* eslint-disable linebreak-style */
 /**
  * Makes sure we have all the required levels on the Tribe Object.
- * 
- * @since TBD
- * 
+ *
+ * @since 5.0.0
+ *
  * @type {PlainObject}
  */
 tribe.settings = tribe.settings || {};
@@ -12,18 +12,18 @@ tribe.settings.fields = tribe.settings.fields || {};
 
 /**
  * Configure image field for settings in global Tribe variable.
- * 
- * @since TBD
- * 
+ *
+ * @since 5.0.0
+ *
  * @type {PlainObject}
  */
 tribe.settings.fields.color = {};
 
 /**
  * Initializes the color field for settings.
- * 
- * @since TBD
- * 
+ *
+ * @since 5.0.0
+ *
  * @param {PlainObject} $   jQuery
  * @param {PlainObject} obj tribe.settings.fields.color
  */
@@ -33,7 +33,7 @@ tribe.settings.fields.color = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @type {PlainObject}
 	 */
@@ -44,14 +44,14 @@ tribe.settings.fields.color = {};
 	/**
 	 * Handles the initialization of color fields when Document is ready.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @return {void}
 	 */
 	obj.init = () => {
 		$( obj.selectors.colorFieldInput ).wpColorPicker();
 	};
- 
+
 	$( obj.init );
 
 } )( jQuery, tribe.settings.fields.color );

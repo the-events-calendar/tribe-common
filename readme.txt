@@ -1,11 +1,11 @@
 == Changelog ==
 
-= [5.0.0] 2022-0X-XX =
+= [5.0.0] 2022-08-29 =
 
 * Feature - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
 * Fix - Avoid fatal errors when transient notices are registered from inactive plugins.
 * Tweak - Allow suppression of admin notices for specific plugins via the filters `tec_pue_expired_key_notice_plugins`, `tec_pue_invalid_key_notice_plugins`, and `tec_pue_upgrade_key_notice_plugins`.
-* Language - 2 new strings added, 88 updated, 1 fuzzied, and 1 obsoleted
+* Language - 2 new strings added, 185 updated, 1 fuzzied, and 1 obsoleted
 
 = [4.15.5] 2022-08-15 =
 
