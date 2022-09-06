@@ -39,7 +39,7 @@ jobs:
         with:
           repository: stellarwp/slic
           ref: main
-          path: slic
+          path: ./../slic
           fetch-depth: 1
       # ------------------------------------------------------------------------------
       # Prepare our composer cache directory
@@ -63,8 +63,8 @@ jobs:
       - name: Set up slic env vars
         if: steps.skip.outputs.value != 1
         run: |
-          echo "SLIC_BIN=${GITHUB_WORKSPACE}/slic/slic" >> $GITHUB_ENV
-          echo "SLIC_WP_DIR=${GITHUB_WORKSPACE}/slic/_wordpress" >> $GITHUB_ENV
+          echo "SLIC_BIN=${GITHUB_WORKSPACE}/../slic/slic" >> $GITHUB_ENV
+          echo "SLIC_WP_DIR=${GITHUB_WORKSPACE}/../slic/_wordpress" >> $GITHUB_ENV
       - name: Set run context for slic
         if: steps.skip.outputs.value != 1
         run: echo "SLIC=1" >> $GITHUB_ENV && echo "CI=1" >> $GITHUB_ENV
@@ -137,7 +137,7 @@ jobs:
           repository: the-events-calendar/the-events-calendar
           ref: ${{ env.TEC_BRANCH }}
           token: ${{ secrets.GH_BOT_TOKEN }}
-          path: the-events-calendar
+          path: ./../the-events-calendar
           submodules: recursive
       - name: Init TEC
         if: steps.skip.outputs.value != 1
@@ -145,12 +145,6 @@ jobs:
           mv ${GITHUB_WORKSPACE}/the-events-calendar ${GITHUB_WORKSPACE}/../the-events-calendar
           docker network prune -f
           ${SLIC_BIN} use the-events-calendar
-          ${SLIC_BIN} composer install --no-dev
-      - name: Set up Common
-        if: steps.skip.outputs.value != 1
-        run: |
-          docker network prune -f
-          ${SLIC_BIN} use the-events-calendar/common
           ${SLIC_BIN} composer install --no-dev
       # ------------------------------------------------------------------------------
       # Set up Common
