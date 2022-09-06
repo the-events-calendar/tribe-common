@@ -8,6 +8,7 @@ class EditorTest extends \Codeception\TestCase\WPTestCase {
 
 	function setUp() {
 		parent::setUp();
+		tribe( 'cache' )->reset();
 
 		$this->editor = $this->make_instance();
 	}
