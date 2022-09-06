@@ -38,4 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // the main plugin class
 require_once dirname( __FILE__ ) . '/src/Tribe/Main.php';
 
+require_once dirname( TRIBE_EVENTS_FILE ) . '/vendor/strauss/autoload.php';
+
 Tribe__Main::instance();

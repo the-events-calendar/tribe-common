@@ -11,7 +11,9 @@ phpunit.xml
 .env.local
 .env.*.local
 codeception.tric.yml
+codeception.slic.yml
 .env.testing.tric
+.env.testing.slic
 
 # Tests - local output files
 tests/_output
