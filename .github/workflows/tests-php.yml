@@ -39,7 +39,7 @@ jobs:
         with:
           repository: stellarwp/slic
           ref: main
-          path: ./../slic
+          path: slic
           fetch-depth: 1
       # ------------------------------------------------------------------------------
       # Prepare our composer cache directory
@@ -60,6 +60,10 @@ jobs:
       # ------------------------------------------------------------------------------
       # Initialize slic
       # ------------------------------------------------------------------------------
+      - name: Move slic directory up
+        if: steps.skip.outputs.value != 1
+        run: |
+          mv slic ./../slic
       - name: Set up slic env vars
         if: steps.skip.outputs.value != 1
         run: |
@@ -137,7 +141,7 @@ jobs:
           repository: the-events-calendar/the-events-calendar
           ref: ${{ env.TEC_BRANCH }}
           token: ${{ secrets.GH_BOT_TOKEN }}
-          path: ./../the-events-calendar
+          path: the-events-calendar
           submodules: recursive
       - name: Init TEC
         if: steps.skip.outputs.value != 1
@@ -152,8 +156,8 @@ jobs:
       - name: Move Common inside TEC
         if: steps.skip.outputs.value != 1
         run: |
+          tree -L 2 ${GITHUB_WORKSPACE}/..
           rm -rf ${GITHUB_WORKSPACE}/../the-events-calendar/common
-          tree -L 3 ${GITHUB_WORKSPACE}
           cp -r ${GITHUB_WORKSPACE}/tribe-common ${GITHUB_WORKSPACE}/../the-events-calendar/common
       # ------------------------------------------------------------------------------
       # Set up Common and run tests
