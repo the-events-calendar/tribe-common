@@ -51,6 +51,10 @@ return [
 					return false;
 				}
 
+				if ( ! $wp_query instanceof WP_Query ) {
+					return false;
+				}
+
 				return $wp_query->is_main_query();
 			},
 		],
