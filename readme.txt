@@ -1,5 +1,8 @@
 == Changelog ==
 
+= [5.0.0.1] 2022-09-07 =
+
+
 = [5.0.0] 2022-09-06 =
 
 * Feature - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
