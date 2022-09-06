@@ -156,9 +156,8 @@ jobs:
       - name: Move Common inside TEC
         if: steps.skip.outputs.value != 1
         run: |
-          tree -L 2 ${GITHUB_WORKSPACE}/..
           rm -rf ${GITHUB_WORKSPACE}/../the-events-calendar/common
-          cp -r ${GITHUB_WORKSPACE}/tribe-common ${GITHUB_WORKSPACE}/../the-events-calendar/common
+          cp -r ${GITHUB_WORKSPACE} ${GITHUB_WORKSPACE}/../the-events-calendar/common
       # ------------------------------------------------------------------------------
       # Set up Common and run tests
       # ------------------------------------------------------------------------------
