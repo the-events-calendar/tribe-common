@@ -2,23 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-<<<<<<< HEAD
-"Project-Id-Version: Tribe Common 5.0.0-rc1\n"
+"Project-Id-Version: Tribe Common 5.0.0\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2022-08-02 18:56:42+00:00\n"
+"POT-Creation-Date: 2022-08-25 17:54:31+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-08-02 18:56\n"
-=======
-"Project-Id-Version: Tribe Common 4.15.5\n"
-"Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2022-08-11 05:07:49+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-08-11 05:07\n"
->>>>>>> e6a526052263b0fab528ccbfcffd5dccb7a03d81
+"PO-Revision-Date: 2022-08-25 17:54\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -68,11 +58,7 @@ msgctxt "Error status label for system info optin"
 msgid "Status:"
 msgstr ""
 
-<<<<<<< HEAD
-#. #-#-#-#-#  tribe-common.pot (Tribe Common 5.0.0-rc1)  #-#-#-#-#
-=======
-#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.15.5)  #-#-#-#-#
->>>>>>> e6a526052263b0fab528ccbfcffd5dccb7a03d81
+#. #-#-#-#-#  tribe-common.pot (Tribe Common 5.0.0)  #-#-#-#-#
 #. Author of the plugin/theme
 #: src/Tribe/Admin/Help_Page.php:116 src/Tribe/Customizer.php:664
 #: src/Tribe/Plugins_API.php:25 src/admin-views/help-calendar.php:97
@@ -2357,171 +2343,87 @@ msgstr ""
 msgid "Full debug (all events)"
 msgstr ""
 
-<<<<<<< HEAD
-#: src/Tribe/Main.php:359
-msgid ": activate to sort column ascending"
-msgstr ""
-
-#: src/Tribe/Main.php:360
-msgid ": activate to sort column descending"
-msgstr ""
-
-#: src/Tribe/Main.php:362
-msgid "Show _MENU_ entries"
-msgstr ""
-
-#: src/Tribe/Main.php:363
-msgid "No data available in table"
-msgstr ""
-
-#: src/Tribe/Main.php:364
-msgid "Showing _START_ to _END_ of _TOTAL_ entries"
-msgstr ""
-
-#: src/Tribe/Main.php:365
-msgid "Showing 0 to 0 of 0 entries"
-msgstr ""
-
-#: src/Tribe/Main.php:366
-msgid "(filtered from _MAX_ total entries)"
-msgstr ""
-
-#: src/Tribe/Main.php:367
-msgid "No matching records found"
-msgstr ""
-
-#: src/Tribe/Main.php:368
-msgid "Search:"
-msgstr ""
-
-#: src/Tribe/Main.php:369
-msgid "All items on this page were selected. "
-msgstr ""
-
-#: src/Tribe/Main.php:370
-msgid "Select all pages"
-msgstr ""
-
-#: src/Tribe/Main.php:371
-msgid "Clear Selection."
-msgstr ""
-
-#: src/Tribe/Main.php:373
-msgid "All"
-msgstr ""
-
-#: src/Tribe/Main.php:374 src/Tribe/Main.php:391
-msgid "Next"
-msgstr ""
-
-#: src/Tribe/Main.php:375
-msgid "Previous"
-msgstr ""
-
-#: src/Tribe/Main.php:380
-msgid ": Selected %d rows"
-msgstr ""
-
-#: src/Tribe/Main.php:381
-msgid ": Selected 1 row"
-msgstr ""
-
-#: src/Tribe/Main.php:392
-msgid "Prev"
-msgstr ""
-
-#: src/Tribe/Main.php:393 src/Tribe/Main.php:395
-msgid "Today"
-msgstr ""
-
-#: src/Tribe/Main.php:394
-msgid "Done"
-msgstr ""
-
-#: src/Tribe/Main.php:396
-=======
-#: src/Tribe/Main.php:378
-msgid ": activate to sort column ascending"
-msgstr ""
-
-#: src/Tribe/Main.php:379
-msgid ": activate to sort column descending"
-msgstr ""
-
-#: src/Tribe/Main.php:381
-msgid "Show _MENU_ entries"
-msgstr ""
-
-#: src/Tribe/Main.php:382
-msgid "No data available in table"
-msgstr ""
-
 #: src/Tribe/Main.php:383
-msgid "Showing _START_ to _END_ of _TOTAL_ entries"
+msgid ": activate to sort column ascending"
 msgstr ""
 
 #: src/Tribe/Main.php:384
-msgid "Showing 0 to 0 of 0 entries"
-msgstr ""
-
-#: src/Tribe/Main.php:385
-msgid "(filtered from _MAX_ total entries)"
+msgid ": activate to sort column descending"
 msgstr ""
 
 #: src/Tribe/Main.php:386
-msgid "No matching records found"
+msgid "Show _MENU_ entries"
 msgstr ""
 
 #: src/Tribe/Main.php:387
-msgid "Search:"
+msgid "No data available in table"
 msgstr ""
 
 #: src/Tribe/Main.php:388
-msgid "All items on this page were selected. "
+msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
 #: src/Tribe/Main.php:389
-msgid "Select all pages"
+msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
 #: src/Tribe/Main.php:390
-msgid "Clear Selection."
+msgid "(filtered from _MAX_ total entries)"
+msgstr ""
+
+#: src/Tribe/Main.php:391
+msgid "No matching records found"
 msgstr ""
 
 #: src/Tribe/Main.php:392
-msgid "All"
+msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:393 src/Tribe/Main.php:410
-msgid "Next"
+#: src/Tribe/Main.php:393
+msgid "All items on this page were selected. "
 msgstr ""
 
 #: src/Tribe/Main.php:394
-msgid "Previous"
+msgid "Select all pages"
+msgstr ""
+
+#: src/Tribe/Main.php:395
+msgid "Clear Selection."
+msgstr ""
+
+#: src/Tribe/Main.php:397
+msgid "All"
+msgstr ""
+
+#: src/Tribe/Main.php:398 src/Tribe/Main.php:415
+msgid "Next"
 msgstr ""
 
 #: src/Tribe/Main.php:399
+msgid "Previous"
+msgstr ""
+
+#: src/Tribe/Main.php:404
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:400
+#: src/Tribe/Main.php:405
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:411
+#: src/Tribe/Main.php:416
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:412 src/Tribe/Main.php:414
+#: src/Tribe/Main.php:417 src/Tribe/Main.php:419
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:413
+#: src/Tribe/Main.php:418
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:415
->>>>>>> e6a526052263b0fab528ccbfcffd5dccb7a03d81
+#: src/Tribe/Main.php:420
 msgid "Clear"
 msgstr ""
 
@@ -2582,11 +2484,11 @@ msgstr ""
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1088 src/Tribe/PUE/Notices.php:342
+#: src/Tribe/PUE/Checker.php:1088 src/Tribe/PUE/Notices.php:360
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1090 src/Tribe/PUE/Notices.php:344
+#: src/Tribe/PUE/Checker.php:1090 src/Tribe/PUE/Notices.php:362
 msgid " (opens in a new window)"
 msgstr ""
 
@@ -2626,7 +2528,7 @@ msgstr ""
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Notices.php:284
+#: src/Tribe/PUE/Notices.php:293
 msgid ""
 "It looks like you're using %1$s, but the license key is invalid. Please "
 "download the latest version %2$sfrom your account%3$s."
@@ -2636,7 +2538,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/PUE/Notices.php:329
+#: src/Tribe/PUE/Notices.php:347
 msgid ""
 "There is an update available for %1$s but your license has expired. "
 "%2$sVisit the Events Calendar website to renew your license.%3$s"
@@ -2646,7 +2548,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/PUE/Notices.php:361
+#: src/Tribe/PUE/Notices.php:388
 msgid ""
 "You have a license key for %1$s but the key is out of installs. %2$sVisit "
 "the Events Calendar website%3$s to manage your installs, upgrade your "
@@ -2658,13 +2560,13 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/PUE/Notices.php:403
+#: src/Tribe/PUE/Notices.php:430
 msgid ""
 "You can always check the status of your licenses by logging in to %1$syour "
 "account on theeventscalendar.com%2$s."
 msgstr ""
 
-#: src/Tribe/PUE/Notices.php:458 src/Tribe/PUE/Notices.php:501
+#: src/Tribe/PUE/Notices.php:485 src/Tribe/PUE/Notices.php:528
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
 msgstr ""

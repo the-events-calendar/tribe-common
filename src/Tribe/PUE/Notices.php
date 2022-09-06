@@ -279,7 +279,7 @@ class Tribe__PUE__Notices {
 		/**
 		 * Filters the list of plugins that should trigger an invalid key notice in PUE.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param array $plugin_names Array of plugin names that should trigger the invalid key notice.
 		 */
@@ -334,7 +334,7 @@ class Tribe__PUE__Notices {
 		/**
 		 * Filters the list of plugins that should trigger an expired key notice in PUE.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param array $plugin_names Array of plugin names that should trigger the expired key notice.
 		 */
@@ -375,7 +375,7 @@ class Tribe__PUE__Notices {
 		/**
 		 * Filters the list of plugins that should trigger an upgrade key notice in PUE.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @param array $plugin_names Array of plugin names that should trigger the upgrade key notice.
 		 */

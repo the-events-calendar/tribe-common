@@ -1,9 +1,9 @@
 /* eslint-disable linebreak-style */
 /**
  * Makes sure we have all the required levels on the Tribe Object.
- * 
- * @since TBD
- * 
+ *
+ * @since 5.0.0
+ *
  * @type {PlainObject}
  */
 tribe.settings = tribe.settings || {};
@@ -11,18 +11,18 @@ tribe.settings.fields = tribe.settings.fields || {};
 
 /**
  * Configure image field for settings in global Tribe variable.
- * 
- * @since TBD
- * 
+ *
+ * @since 5.0.0
+ *
  * @type {PlainObject}
  */
 tribe.settings.fields.image = {};
 
 /**
  * Intializes the image field for settings.
- * 
- * @since TBD
- * 
+ *
+ * @since 5.0.0
+ *
  * @param {PlainObject} $   jQuery
  * @param {PlainObject} obj tribe.settings.fields.image
  */
@@ -32,9 +32,9 @@ tribe.settings.fields.image = {};
 
 	/**
 	 * Store the frame object globally.
-	 * 
-	 * @since TBD
-	 * 
+	 *
+	 * @since 5.0.0
+	 *
 	 * @type {PlainObject}
 	 */
 	obj.frame = false;
@@ -42,7 +42,7 @@ tribe.settings.fields.image = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @type {PlainObject}
 	 */
@@ -56,9 +56,9 @@ tribe.settings.fields.image = {};
 
 	/**
 	 * Method to hide/show elements based on the image input field.
-	 * 
-	 * @since TBD
-	 * 
+	 *
+	 * @since 5.0.0
+	 *
 	 * @param {jQuery} $fieldParent jQuery object of the field container.
 	 *
 	 * @return {void}
@@ -72,9 +72,9 @@ tribe.settings.fields.image = {};
 
 	/**
 	 * Method to handle when image is selected from WP Media feature.
-	 * 
-	 * @since TBD
-	 * 
+	 *
+	 * @since 5.0.0
+	 *
 	 * @param {jQuery} $fieldParent jQuery object of the field container.
 	 *
 	 * @return {void}
@@ -93,9 +93,9 @@ tribe.settings.fields.image = {};
 
 	/**
 	 * Method that handles 'Add Image' button click event.
-	 * 
-	 * @since TBD
-	 * 
+	 *
+	 * @since 5.0.0
+	 *
 	 * @param {Event} e Click event.
 	 *
 	 * @return {void}
@@ -125,9 +125,9 @@ tribe.settings.fields.image = {};
 
 	/**
 	 * Method that handles 'Remove Image' button click event.
-	 * 
-	 * @since TBD
-	 * 
+	 *
+	 * @since 5.0.0
+	 *
 	 * @param {Event} e Click event.
 	 *
 	 * @return {void}
@@ -144,7 +144,7 @@ tribe.settings.fields.image = {};
 	/**
 	 * Bind events for events bar
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @return {void}
 	 */
@@ -156,7 +156,7 @@ tribe.settings.fields.image = {};
 	/**
 	 * Handles the initialization of image fields when Document is ready.
 	 *
-	 * @since TBD
+	 * @since 5.0.0
 	 *
 	 * @return {void}
 	 */
