@@ -2,6 +2,7 @@
 
 = [5.0.0.1] 2022-09-07 =
 
+* Fix - Prevent `E_ERROR` from showing up when calling `tribe_context()->is( 'is_main_query' )` too early in execution.
 
 = [5.0.0] 2022-09-06 =
 
