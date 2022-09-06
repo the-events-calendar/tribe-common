@@ -159,10 +159,11 @@ jobs:
         if: steps.skip.outputs.value != 1
         run: |
           rm -rf ${GITHUB_WORKSPACE}/../the-events-calendar/common
+          cp -r ${GITHUB_WORKSPACE}/common ${GITHUB_WORKSPACE}/../the-events-calendar/common
       # ------------------------------------------------------------------------------
       # Set up Common and run tests
       # ------------------------------------------------------------------------------
-      - name: Set up Pro
+      - name: Set up Common
         if: steps.skip.outputs.value != 1
         run: |
           ${SLIC_BIN} use the-events-calendar/common
