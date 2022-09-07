@@ -23,7 +23,7 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertInstanceOf( Dependency::class, $this->make_instance() );
 	}
 
-	public function valid_calls_to_pue_provider() {
+	public function valid_class_to_pue_provider() {
 		$data = [
 			[
 				'Tribe__Events__Pro__Main',
@@ -49,7 +49,7 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * @dataProvider valid_calls_to_pue_provider
+	 * @dataProvider valid_class_to_pue_provider
 	 */
 	public function should_return_pue_checker_for_main_classes( $class_name, $expected ) {
 		$dependency = $this->make_instance();
