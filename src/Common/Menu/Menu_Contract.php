@@ -2,7 +2,7 @@
 /**
  * The interface for all menu objects.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\Menu
  */
@@ -12,7 +12,7 @@ namespace TEC\Common\Menu;
 /**
  * Interface Menu_Contract
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\Menu
  */

@@ -5,7 +5,7 @@
  * This class does nothing by itself - it is meant to be extended for specific menus,
  * changing the properties as appropriate.
  *
- * @since   4.9.18
+ * @since TBD
  *
  * @package TEC\Common\Menu
  */
@@ -55,7 +55,7 @@ abstract class Menu implements Menu_Contract {
 	 *
 	 * @var string
 	 */
-	public $menu_slug = '';
+	public static $menu_slug = '';
 
 	/**
 	 * Page content callback.
@@ -64,7 +64,7 @@ abstract class Menu implements Menu_Contract {
 	 *
 	 * @var string
 	 */
-	public $callback = 'render';
+	public $callback = '';
 
 	/**
 	 * URL (or dashicon string) for the menu icon.
@@ -112,6 +112,15 @@ abstract class Menu implements Menu_Contract {
 	public $settings_page;
 
 	/**
+	 * Whether this is a submenu or not.
+	 *
+	 * @since TBD
+	 *
+	 * @var boolean
+	 */
+	public $submenu = false;
+
+	/**
 	 * Placeholder for the settings page, if we have one.
 	 *
 	 * @since TBD
@@ -120,19 +129,35 @@ abstract class Menu implements Menu_Contract {
 	 */
 	public $settings_page_data = [];
 
+	/**
+	 * Constructor.
+	 *
+	 * @since TBD
+	 */
+	public function __construct() {
+		$this->callback = [ $this, 'render' ];
+	}
+
+	/**
+	 * Handle internal hooking.
+	 *
+	 * @since TBD
+	 */
 	public function hooks() {
 		add_action( 'admin_menu', array( $this, 'add_menu' ), 20 );
+		add_action( 'tec_menu_setup', [ $this, 'create_settings_page' ] );
 	}
 
 	/**
 	 * Sugar function for add_menu_page that allows us to utilize some of the parameters elsewhere.
+	 * Triggers setup of connected submenus and settings pages as well.
 	 *
 	 * @since TBD
 	 *
 	 * @param array<string,mixed> $args An array of arguments, can contain the following:
 	 *
-	 * Internal:
-	 * @param string $name
+	 * Internal:name
+	 * @param bool      $submenu    Is this a submenu.
 	 *
 	 * From add_menu_page():
 	 * @param string    $page_title The text to be displayed in the title tags of the page when the menu is selected.
@@ -149,51 +174,123 @@ abstract class Menu implements Menu_Contract {
 	 *                                e.g. 'dashicons-chart-pie'.
 	 *                               * Pass 'none' to leave div.wp-menu-image empty so an icon can be added via CSS.
 	 * @param int|float $position   Optional. The position in the menu order this item should appear.
+	 *
+	 * @return string|false         The resulting page's hook_suffix. False on a failure.
 	 */
-	public function add_menu( $args ) {
-		$this->option_group = add_menu_page(
-			$this->page_title,
-			$this->menu_title,
-			$this->capability,
-			$this->menu_slug,
-			$this->callback,
-			$this->icon_url,
-			$this->position,
-		);
+	public function add_menu( $args ): ?string {
+		if ( empty( $args[ 'submenu' ] ) ) {
+			$this->option_group = add_menu_page(
+				$this->page_title,
+				$this->menu_title,
+				$this->capability,
+				static::$menu_slug,
+				$this->callback,
+				$this->icon_url,
+				$this->position,
+			);
+		} else {
+			unset( $args[ 'submenu' ] );
+			$this->option_group = $this->add_submenu( $this, $args );
+		}
 
-		$foo = '';
 
 		// Something went wrong, let folks know upstream.
 		if ( ! $this->option_group ) {
 			return false;
 		}
 
-		if ( $this->settings ) {
-			$defaults = [
-				'parent_slug'   => $this->menu_slug,
-				'page_slug'     => 'settings',
-				'page_title'    => 'Settings - ' . $this->menu_title,
-				'menu_title'    => 'Settings',
-				'capability'    => $this->capability,
-				'option_group'  => $this->option_group,
-				'settings_file' => $this->settings_file,
-				'sections'      => [],
-				'tabs'          => [],
-			];
+		/**
+		 * Allows triggering actions once the menu page is set up.
+		 *
+		 * @param TEC\Common\Menu\Menu $menu The current menu object.
+		 */
+		do_action( 'tec_menu_setup', $this );
 
-			$this->settings_page_data = wp_parse_args( $this->settings_page_data, $defaults );
-		}
+		/**
+		 * Allows triggering actions once the menu page is set up.
+		 *
+		 * @param TEC\Common\Menu\Menu $menu The current menu object.
+		 */
+		do_action( 'tec_menu_setup_' . static::$menu_slug, $this );
 
-		// Only auto-create a Settings page if we're set up for it.
-		if ( $this->settings ) {
-			$this->create_settings_page();
-		}
-
+		// Follow the lead of
 		return $this->option_group;
 	}
 
-	public function create_settings_page() {
-		$this->settings_page = new Settings_Page( $this->settings_page_data );
+	/**
+	 * Builds a settings page if the data is provided for one.
+	 *
+	 * @since TBD
+	 *
+	 * @param TEC\Common\Menu\Menu $menu The current (main) menu object.
+	 * Typically, `$menu` is `$this` but sing it as a param allows for calling from outside the main menu object.
+	 */
+	public function create_settings_page( $menu ) {
+		if ( ! $menu->settings ) {
+			return;
+		}
+
+		$defaults = [
+			'parent_slug'   => $menu::$menu_slug,
+			'page_slug'     => 'settings',
+			'page_title'    => 'Settings - ' . $menu->menu_title,
+			'menu_title'    => 'Settings',
+			'capability'    => $menu->capability,
+			'option_group'  => $menu->option_group,
+			'settings_file' => $menu->settings_file,
+		];
+
+		$menu->settings_page_data = wp_parse_args( $menu->settings_page_data, $defaults );
+
+		$menu->settings_page = new Settings_Page( $menu->settings_page_data );
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @since TBD
+	 *
+	 * @param TEC\Common\Menu\Menu $menu The current (main) menu object.
+	 * @param array<string,mixed> $args An array of arguments, can contain the following:
+	 *
+	 *  From add_submenu_page():
+	 *
+	 * @param string    $parent_slug The slug name for the parent menu (or the file name of a standard WordPress admin page).
+	 * @param string    $page_title  The text to be displayed in the title tags of the page when the menu is selected.
+	 * @param string    $menu_title  The text to be used for the menu.
+	 * @param string    $capability  The capability required for this menu to be displayed to the user.
+	 * @param string    $menu_slug   The slug name to refer to this menu by. Should be unique for this menu and only
+	 *                               include lowercase alphanumeric, dashes, and underscores characters to be compatible
+	 *                               with sanitize_key().
+	 * @param callable  $callback    Optional. The function to be called to output the content for this page.
+	 * @param int|float $position    Optional. The position in the menu order this item should appear.
+	 *
+	 * @return string|false         The resulting page's hook_suffix. False on a failure.
+	 */
+	public function add_submenu( $menu, $args ): string|false {
+		$defaults = [
+			'parent_slug' => $menu::$menu_slug,
+			'page_title' => 'Submenu - ' . $menu->menu_title,
+			'menu_title' => 'Submenu',
+			'capability'  => $menu->capability,
+			'menu_slug' => '',
+			'callback' => '',
+			'position' => null,
+		];
+
+		$args = wp_parse_args( $args, $defaults );
+
+		$hook_suffix = add_submenu_page(
+			$args[ 'parent_slug' ],
+			$args[ 'page_title' ],
+			$args[ 'menu_title' ],
+			$args[ 'capability' ],
+			$args[ 'menu_slug' ],
+			$args[ 'callback' ],
+			$args[ 'position' ]
+		);
+
+		return $hook_suffix;
 	}
 
 }
