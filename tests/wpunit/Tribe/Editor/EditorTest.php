@@ -8,6 +8,7 @@ class EditorTest extends \Codeception\TestCase\WPTestCase {
 
 	function setUp() {
 		parent::setUp();
+		tribe( 'cache' )->reset();
 
 		$this->editor = $this->make_instance();
 	}
@@ -117,15 +118,21 @@ class EditorTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function test_is_events_using_blocks_filtered_true() {
-		add_filter( 'tribe_is_using_blocks', '__return_true' );
+		add_filter( 'tribe_editor_should_load_blocks', '__return_true' );
+		add_filter( 'tribe_events_blocks_editor_is_on', '__return_true' );
 		$this->assertTrue( $this->editor->is_events_using_blocks() );
+		remove_filter( 'tribe_editor_should_load_blocks', '__return_true' );
+		remove_filter( 'tribe_events_blocks_editor_is_on', '__return_true' );
 	}
 
 	/**
 	 * @test
 	 */
 	public function test_is_events_using_blocks_filtered_false() {
-		add_filter( 'tribe_is_using_blocks', '__return_false' );
+		add_filter( 'tribe_editor_should_load_blocks', '__return_false' );
+		add_filter( 'tribe_events_blocks_editor_is_on', '__return_false' );
 		$this->assertFalse( $this->editor->is_events_using_blocks() );
+		remove_filter( 'tribe_editor_should_load_blocks', '__return_false' );
+		remove_filter( 'tribe_events_blocks_editor_is_on', '__return_false' );
 	}
 }

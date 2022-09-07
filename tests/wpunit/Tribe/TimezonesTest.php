@@ -21,6 +21,8 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider localizes_date_timestamp_inputs
 	 */
 	public function test_localize_date_with_timestamps( $timestamp, $timezone_string ) {
+		tribe( 'cache' )->reset();
+
 		update_option( 'timezone_string', $timezone_string );
 
 		$format = 'Y-m-d H:i:s';
@@ -39,10 +41,14 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function test_localize_date_sanity_check() {
+		tribe( 'cache' )->reset();
+
 		$format = 'Y-m-d H:i:s';
 
 		update_option( 'timezone_string', 'UTC' );
 		$utc_date = Timezones::localize_date( $format, strtotime( 'tomorrow' ) );
+
+		tribe( 'cache' )->reset();
 
 		update_option( 'timezone_string', 'America/New_York' );
 		$offset_date = Timezones::localize_date( $format, strtotime( 'tomorrow' ) );
