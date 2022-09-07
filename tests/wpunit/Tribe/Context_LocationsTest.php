@@ -14,12 +14,15 @@ class Context_LocationsTest extends \Codeception\TestCase\WPTestCase {
 	public $global_vars = [];
 
 	public function setUp() {
-		$this->global_vars['wp_query'] = $GLOBALS['wp_query'] ?? null;
+		parent::setUo();
+		$this->global_vars['wp_query']     = $GLOBALS['wp_query'] ?? null;
 		$this->global_vars['wp_the_query'] = $GLOBALS['wp_the_query'] ?? null;
 	}
 
 	public function tearDown() {
-		$GLOBALS['wp_query'] = $this->global_vars['wp_query'];
+		parent::tearDown();
+
+		$GLOBALS['wp_query']     = $this->global_vars['wp_query'];
 		$GLOBALS['wp_the_query'] = $this->global_vars['wp_the_query'];
 	}
 
@@ -63,7 +66,7 @@ class Context_LocationsTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function is_main_query_should_return_true_when_both_global_instances_are_the_same() {
-		$GLOBALS['wp_query'] = new \WP_Query();
+		$GLOBALS['wp_query']     = new \WP_Query();
 		$GLOBALS['wp_the_query'] = $GLOBALS['wp_query'];
 
 		$context = new \Tribe__Context();
