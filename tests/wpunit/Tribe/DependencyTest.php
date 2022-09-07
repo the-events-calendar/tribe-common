@@ -162,22 +162,22 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 			],
 		];
 
-//		yield 'All deps ok' => [
-//			[
-//				'one'   => array_merge( $one, [
-//					'should_initialize' => true,
-//					'failure_message'   => 'Plugin One should activate.',
-//				] ),
-//				'two'   => array_merge( $two, [
-//					'should_initialize' => true,
-//					'failure_message'   => 'Plugin Two should activate: its version satisfies One\'s requirements.',
-//				] ),
-//				'three' => array_merge( $three, [
-//					'should_initialize' => true,
-//					'failure_message'   => 'Plugin Three should activate: its version satisfies One\'s requirements.',
-//				] ),
-//			],
-//		];
+		yield 'All deps ok' => [
+			[
+				'one'   => array_merge( $one, [
+					'should_initialize' => true,
+					'failure_message'   => 'Plugin One should activate.',
+				] ),
+				'two'   => array_merge( $two, [
+					'should_initialize' => true,
+					'failure_message'   => 'Plugin Two should activate: its version satisfies One\'s requirements.',
+				] ),
+				'three' => array_merge( $three, [
+					'should_initialize' => true,
+					'failure_message'   => 'Plugin Three should activate: its version satisfies One\'s requirements.',
+				] ),
+			],
+		];
 
 		yield 'Two version too low' => [
 			[
