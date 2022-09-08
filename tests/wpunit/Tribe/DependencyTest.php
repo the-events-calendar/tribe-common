@@ -23,7 +23,7 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertInstanceOf( Dependency::class, $this->make_instance() );
 	}
 
-	public function validClassToPueProvider() {
+	public function valid_class_to_pue_provider() {
 		$data = [
 			[
 				'Tribe__Events__Pro__Main',
@@ -49,7 +49,7 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * @dataProvider validClassToPueProvider
+	 * @dataProvider valid_class_to_pue_provider
 	 */
 	public function should_return_pue_checker_for_main_classes( $class_name, $expected ) {
 		$dependency = $this->make_instance();
@@ -278,6 +278,18 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 				$mock_plugin['dependencies']
 			);
 		}
+		$list_mock_plugins = array_map( static function ( array $plugin ): array {
+			$short_name = sanitize_title( $plugin['main_class'] );
+
+			return [
+				'short_name'   => $short_name,
+				'class'        => $plugin['main_class'],
+				'thickbox_url' => "plugin-install.php?tab=plugin-information&plugin=$short_name&TB_iframe=true",
+			];
+		}, $mock_plugins );
+		add_filter( 'tribe_plugins_get_list', static function ( array $plugins ) use ( $list_mock_plugins ): array {
+			return array_merge( $plugins, $list_mock_plugins );
+		} );
 
 		foreach ( $mock_plugins as $mock_plugin ) {
 			$check_plugin = $dependency->check_plugin( $mock_plugin['main_class'] );
