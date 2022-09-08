@@ -189,8 +189,8 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_allow_reading_a_value_from_a_request_var() {
 		$_GET['__request_key__'] = '__request_value__';
-		$_POST['__post_key__']       = '__post_value__';
-		$_GET['__get_key__']         = '__get_value__';
+		$_POST['__post_key__']   = '__post_value__';
+		$_GET['__get_key__']     = '__get_value__';
 
 		$original_context = new Context;
 		$context = $original_context->add_locations( [

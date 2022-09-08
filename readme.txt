@@ -3,6 +3,7 @@
 = [5.0.1] TBD =
 
 * Fix - Avoid invoking unwanted callables with ORM post creation/updates. [ET-1560]
+* Tweak - patch some PHP8 compatibility and ensure we don't try to test globals that might not be set. (props to @theskinnyghost for the implode fix!)  [TEC-4453]
 
 = [5.0.0.1] 2022-09-07 =
 
