@@ -2,7 +2,7 @@
 
 = [5.0.1] TBD =
 
-
+* Fix - Avoid invoking unwanted callables with ORM post creation/updates. [ET-1560]
 
 = [5.0.0.1] 2022-09-07 =
 
