@@ -159,7 +159,7 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 			$requests[] = (array) $_POST;
 		}
 
-		if ( $requests ) {
+		if ( empty( $requests ) ) {
 			return $default;
 		}
 
