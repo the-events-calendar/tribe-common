@@ -1,6 +1,14 @@
 == Changelog ==
 
-= [5.0.0] 2022-08-29 =
+= [5.0.1] TBD =
+
+* Fix - Avoid invoking unwanted callables with ORM post creation/updates. [ET-1560]
+
+= [5.0.0.1] 2022-09-07 =
+
+* Fix - Prevent `E_ERROR` from showing up when calling `tribe_context()->is( 'is_main_query' )` too early in execution. [TEC-4464]
+
+= [5.0.0] 2022-09-06 =
 
 * Feature - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
 * Fix - Avoid fatal errors when transient notices are registered from inactive plugins.
