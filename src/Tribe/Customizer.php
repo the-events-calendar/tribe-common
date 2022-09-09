@@ -1049,11 +1049,11 @@ final class Tribe__Customizer {
 		$new_settings = [
 			'tribe-customizer-section-title' => [
 				'type' => 'html',
-				'html' => '<h3>' . __( 'Customizer', 'the-events-calendar' ) . '</h3>',
+				'html' => '<h3>' . __( 'Customizer', 'tribe-common' ) . '</h3>',
 			],
 			'tribe-customizer-link-description' => [
 				'type' => 'html',
-				'html' => '<p class="contained">' . __( 'Adjust colors, fonts, and more with the WordPress Customizer.', 'the-events-calendar' ) . '</p>',
+				'html' => '<p class="contained">' . __( 'Adjust colors, fonts, and more with the WordPress Customizer.', 'tribe-common' ) . '</p>',
 			],
 			'tribe-customizer-link' => [
 				'type' => 'html',
