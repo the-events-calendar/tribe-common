@@ -45,7 +45,7 @@ class Factory {
 			case ( true ) : // submenus only.
 				foreach( $this->items as $item ) {
 					if ( ! empty( $item->is_submenu ) ) {
-						$menu_list[] = $item;
+						$menu_list[$item::$menu_slug] = $item;
 					}
 				}
 
@@ -54,11 +54,11 @@ class Factory {
 			case ( false ) : // top-level menus only.
 				foreach( $this->items as $item ) {
 					if ( empty( $item->is_submenu ) ) {
-						$menu_list[] = $item;
+						$menu_list[$item::$menu_slug] = $item;
 					}
 				}
 
-				return array_unique( $menu_list );
+				return $menu_list;
 				break;
 			default: // all top-level menus and submenus.
 				return $this->items;
@@ -193,11 +193,27 @@ class Factory {
 	}
 
 	public function register_in_wp() {
+		// Last chance to jump on board!
+
+		/**
+		 * Allows triggering actions before the menu page is registered with WP.
+		 *
+		 * @param TEC\Common\Menus\Menu $menu The current menu object.
+		 */
+		do_action( 'tec_menu_before_register', $this );
+
 		//attach_to_admin_menu()
 		$menus = $this->get_menus( false );
 		$submenus = $this->get_menus( true );
 
 		foreach ( $menus as $menu ) {
+			/**
+			 * Allows triggering actions before the menu page is registered with WP.
+			 *
+			 * @param TEC\Common\Menus\Menu $menu The current menu object.
+			 */
+			do_action( 'tec_menu_setup_' . $menu->get_slug(), $this );
+
 			$this->add_menu_to_wp( $menu );
 		}
 
@@ -210,13 +226,13 @@ class Factory {
 
 	public function add_menu_to_wp( $menu ) {
 		$hook_suffix = add_menu_page(
-			$menu->page_title,
-			$menu->menu_title,
-			$menu->capability,
+			$menu->get_page_title(),
+			$menu->get_menu_title(),
+			$menu->get_capability(),
 			$menu::$menu_slug,
 			$menu->get_callback(),
-			$menu->icon_url,
-			$menu->position,
+			$menu->get_icon_url(),
+			$menu->get_position(),
 		);
 
 		$menu->hook_suffix = $hook_suffix;
@@ -226,13 +242,13 @@ class Factory {
 
 	public function add_submenu_to_wp( $menu ) {
 		$hook_suffix = add_submenu_page(
-			$menu->parent_slug,
-			$menu->page_title,
-			$menu->menu_title,
-			$menu->capability,
-			$menu::menu_slug,
+			$menu->get_parent_slug(),
+			$menu->get_page_title(),
+			$menu->get_menu_title(),
+			$menu->get_capability(),
+			$menu::$menu_slug,
 			$menu->get_callback(),
-			$menu->position,
+			$menu->get_position(),
 		);
 
 		$menu->hook_suffix = $hook_suffix;

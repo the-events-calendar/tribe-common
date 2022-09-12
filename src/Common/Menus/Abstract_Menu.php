@@ -177,4 +177,24 @@ abstract class Abstract_Menu implements Menu_Contract {
 	public function get_callback() {
 		return $this->callback;
 	}
+
+	public function get_capability() {
+		return $this->capability;
+	}
+
+	public function get_position() {
+		return $this->position;
+	}
+
+	public function get_icon_url() {
+		return $this->icon_url;
+	}
+
+	public function get_page_title() {
+		return $this->page_title;
+	}
+
+	public function get_menu_title() {
+		return $this->menu_title;
+	}
 }
