@@ -145,6 +145,7 @@ abstract class Abstract_Menu implements Menu_Contract {
 	public function __construct() {
 		$this->build();
 
+		$this->callback = [ $this, 'render' ];
 	}
 
 	public function build() {
