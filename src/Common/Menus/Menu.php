@@ -7,17 +7,17 @@
  *
  * @since TBD
  *
- * @package TEC\Common\Menu
+ * @package TEC\Common\Menus
  */
 
-namespace TEC\Common\Menu;
+namespace TEC\Common\Menus;
 
 /**
  * Class Menu
  *
  * @since TBD
  *
- * @package TEC\Common\Menu
+ * @package TEC\Common\Menus
  */
 abstract class Menu implements Menu_Contract {
 
@@ -193,7 +193,6 @@ abstract class Menu implements Menu_Contract {
 			$this->option_group = $this->add_submenu( $this, $args );
 		}
 
-
 		// Something went wrong, let folks know upstream.
 		if ( ! $this->option_group ) {
 			return false;
@@ -202,14 +201,14 @@ abstract class Menu implements Menu_Contract {
 		/**
 		 * Allows triggering actions once the menu page is set up.
 		 *
-		 * @param TEC\Common\Menu\Menu $menu The current menu object.
+		 * @param TEC\Common\Menus\Menu $menu The current menu object.
 		 */
 		do_action( 'tec_menu_setup', $this );
 
 		/**
 		 * Allows triggering actions once the menu page is set up.
 		 *
-		 * @param TEC\Common\Menu\Menu $menu The current menu object.
+		 * @param TEC\Common\Menus\Menu $menu The current menu object.
 		 */
 		do_action( 'tec_menu_setup_' . static::$menu_slug, $this );
 
@@ -222,7 +221,7 @@ abstract class Menu implements Menu_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param TEC\Common\Menu\Menu $menu The current (main) menu object.
+	 * @param TEC\Common\Menus\Menu $menu The current (main) menu object.
 	 * Typically, `$menu` is `$this` but sing it as a param allows for calling from outside the main menu object.
 	 */
 	public function create_settings_page( $menu ) {
@@ -250,7 +249,7 @@ abstract class Menu implements Menu_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param TEC\Common\Menu\Menu $menu The current (main) menu object.
+	 * @param TEC\Common\Menus\Menu $menu The current (main) menu object.
 	 * @param array<string,mixed> $args An array of arguments, can contain the following:
 	 *
 	 *  From add_submenu_page():

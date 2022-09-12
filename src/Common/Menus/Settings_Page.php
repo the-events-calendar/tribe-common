@@ -4,18 +4,18 @@
  *
  * @since TBD
  *
- * @package TEC\Common\Menu
+ * @package TEC\Common\Menus
  */
 
 
-namespace TEC\Common\Menu;
+namespace TEC\Common\Menus;
 
 /**
  * Class Menu
  *
  * @since TBD
  *
- * @package TEC\Common\Menu
+ * @package TEC\Common\Menus
  */
 class Settings_Page {
 	public $capability;
