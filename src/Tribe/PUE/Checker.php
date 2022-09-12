@@ -281,7 +281,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Install the hooks required to run periodic update checks and inject update info
 		 * into WP data structures.
-		 * Also other hooks related to the automatic updates (such as checking agains API and what not (@from Darren)
+		 * Also other hooks related to the automatic updates (such as checking against API and what not (@from Darren)
 		 */
 		public function hooks() {
 			// Override requests for plugin information

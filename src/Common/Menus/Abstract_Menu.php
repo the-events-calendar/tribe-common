@@ -15,7 +15,7 @@
 
 namespace TEC\Common\Menus;
 
-use Factory;
+use \TEC\Common\Menus\Factory;
 
 /**
  * Class Menu
@@ -143,34 +143,16 @@ abstract class Abstract_Menu implements Menu_Contract {
 	 * Constructor
 	 */
 	public function __construct() {
-		add_action( 'admin_menu', [ $this, 'register' ] );
+		$this->build();
+
 	}
 
-	public function register() {
-		// the real deal.
-		$this->hook_suffix = $this->add_menu();
-
-		// Error handling? Catch a failed add?
-
-		return $this->hook_suffix;
-	}
-
-	public function add_menu() {
-		$this->hook_suffix = add_menu_page(
-			$this->page_title, // required
-			$this->menu_title, // required
-			$this->capability, // required
-			static::$menu_slug, // required
-			$this->callback,
-			$this->icon_url,
-			$this->position,
-		);
-
-		return $this->hook_suffix;
+	public function build() {
+		tribe( Factory::class )->add_menu( $this );
 	}
 
 	public function render() {
-		echo "abstract render";
+		echo "render";
 	}
 
 	public function is_submenu() {
@@ -189,5 +171,9 @@ abstract class Abstract_Menu implements Menu_Contract {
 
 	public function get_parent_slug() {
 		return $this->get_parent()->get_slug();
+	}
+
+	public function get_callback() {
+		return $this->callback;
 	}
 }

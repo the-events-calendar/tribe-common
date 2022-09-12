@@ -22,15 +22,6 @@ interface Menu_Contract {
 	 */
 	public function __construct();
 
-	/**
-	 * Handles rhe actual registration of the menu.
-	 *
-	 * @since TBD
-	 */
-	public function register();
-
-	public function add_menu();
-
 	public function render();
 
 	public function is_submenu();

@@ -32,6 +32,12 @@ class Factory {
 	 */
 	protected $items = [];
 
+	protected $registered_items = [];
+
+	public function register() {
+		add_action( 'admin_menu', [ $this, 'register_in_wp' ] );
+	}
+
 	public function get_menus( $submenus = null ) {
 		$menu_list = [];
 
@@ -39,7 +45,7 @@ class Factory {
 			case ( true ) : // submenus only.
 				foreach( $this->items as $item ) {
 					if ( ! empty( $item->is_submenu ) ) {
-						$menu_list = $item;
+						$menu_list[] = $item;
 					}
 				}
 
@@ -48,7 +54,7 @@ class Factory {
 			case ( false ) : // top-level menus only.
 				foreach( $this->items as $item ) {
 					if ( empty( $item->is_submenu ) ) {
-						$menu_list = $item;
+						$menu_list[] = $item;
 					}
 				}
 
@@ -106,6 +112,7 @@ class Factory {
 
 	public function add_menu( $obj ) {
 		if ( ! $this->can_register() ) {
+			$foo = '';
 			_doing_it_wrong(
 				__FUNCTION__,
 				'Function was called after it is possible to register a new menu.',
@@ -113,11 +120,16 @@ class Factory {
 			);
 		}
 
+		// Don't add duplicates.
+		if ( $this->is_registered( $obj ) ) {
+			return;
+		}
 
+		$this->items[$obj::$menu_slug] = $obj;
 	}
 
 	public function can_register() {
-		if ( did_action( 'admin_menu' ) ) {
+		if ( 0 < did_action( 'admin_menu' ) ) {
 			return false;
 		}
 
@@ -125,6 +137,8 @@ class Factory {
 	}
 
 	public function is_registered( $menu_id, $return = 'bool' ) {
+		$menu_id = $this->normalize_menu_id_to_slug( $menu_id );
+
 		if ( empty( $this->items[$menu_id] ) ) {
 			return false;
 		}
@@ -138,19 +152,91 @@ class Factory {
 		return (bool) $obj;
 	}
 
+	public function is_registered_in_wp( $menu_id, $return = 'bool' ) {
+		$menu_id = $this->normalize_menu_id_to_slug( $menu_id );
+
+		if ( empty( $this->registered_items[$menu_id] ) ) {
+			return false;
+		}
+
+		$obj = $this->items[$menu_id];
+
+		if ( $return !== 'bool' && $return !== 'boolean' ) {
+			return $obj;
+		}
+
+		return (bool) $obj;
+	}
+
+	public function normalize_menu_id_to_slug( $menu_id ) {
+		// Menu object passed.
+		if ( $menu_id instanceof Abstract_Menu ) {
+			return $menu_id->get_slug();
+		}
+
+		// Slug passed and already set in items.
+		if ( isset( $this->items[$menu_id] ) ) {
+			return $menu_id;
+		}
+
+		// Hook suffix passed and already registered.
+		if ( isset( $this->registered_items[$menu_id] ) ) {
+			return $this->registered_items[$menu_id]->get_slug();
+		}
+
+		if ( is_string( $menu_id ) && class_exists( $menu_id, false ) ) {
+			$temp_menu = new $menu_id;
+			return $temp_menu->get_slug();
+		}
+
+		return false;
+	}
+
 	public function register_in_wp() {
 		//attach_to_admin_menu()
 		$menus = $this->get_menus( false );
 		$submenus = $this->get_menus( true );
 
 		foreach ( $menus as $menu ) {
-			$menu->register();
+			$this->add_menu_to_wp( $menu );
 		}
 
 		foreach ( $submenus as $menu ) {
-			$menu->register();
+			$this->add_submenu_to_wp( $menu );
 		}
 
 		$this->can_register = false;
+	}
+
+	public function add_menu_to_wp( $menu ) {
+		$hook_suffix = add_menu_page(
+			$menu->page_title,
+			$menu->menu_title,
+			$menu->capability,
+			$menu::$menu_slug,
+			$menu->get_callback(),
+			$menu->icon_url,
+			$menu->position,
+		);
+
+		$menu->hook_suffix = $hook_suffix;
+
+		$registered_items[$hook_suffix] = $menu;
+	}
+
+	public function add_submenu_to_wp( $menu ) {
+		$hook_suffix = add_submenu_page(
+			$menu->parent_slug,
+			$menu->page_title,
+			$menu->menu_title,
+			$menu->capability,
+			$menu::menu_slug,
+			$menu->get_callback(),
+			$menu->position,
+		);
+
+		$menu->hook_suffix = $hook_suffix;
+
+		$registered_items[$hook_suffix] = $menu;
 	}
 }
