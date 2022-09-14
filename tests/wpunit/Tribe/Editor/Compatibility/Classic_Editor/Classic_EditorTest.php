@@ -66,6 +66,9 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 			return $this->classic_editor::is_classic_option_active();
 		} );
 		$this->clear_user_override();
+		remove_filter( 'tribe_events_blocks_editor_is_on', '__return_false' );
+		remove_filter( 'tribe_events_blocks_editor_is_on', '__return_true' );
+		tribe( 'cache' )->reset();
 	}
 
 	/**
@@ -77,8 +80,9 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	 * @return void
 	 */
 	public function mock_classic_editor() {
-		add_filter( 'tribe_editor_classic_is_active', function() {
-			return $this->classic_editor::is_classic_option_active();
+		add_filter( 'tribe_events_blocks_editor_is_on', '__return_false' );
+		add_filter( 'tribe_editor_should_load_blocks', function() {
+			return ! $this->classic_editor::is_classic_option_active();
 		} );
 	}
 

@@ -2,9 +2,15 @@
 
 = [5.0.1] TBD =
 
+* Fix - Avoid invoking unwanted callables with ORM post creation/updates. [ET-1560]
 * Tweak - Deprecated the `Tribe__Settings_Manager::add_help_admin_menu_item()` method in favour of `Settings::add_admin_pages()`. [TEC-4443]
+* Tweak - patch some PHP8 compatibility and ensure we don't try to test globals that might not be set. (props to @theskinnyghost for the implode fix!)  [TEC-4453]
 
-= [5.0.0] 2022-08-29 =
+= [5.0.0.1] 2022-09-07 =
+
+* Fix - Prevent `E_ERROR` from showing up when calling `tribe_context()->is( 'is_main_query' )` too early in execution. [TEC-4464]
+
+= [5.0.0] 2022-09-06 =
 
 * Feature - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
 * Fix - Avoid fatal errors when transient notices are registered from inactive plugins.
