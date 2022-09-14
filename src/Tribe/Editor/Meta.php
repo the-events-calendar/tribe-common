@@ -9,11 +9,11 @@ abstract class Tribe__Editor__Meta
 	implements Tribe__Editor__Meta_Interface {
 
 	/**
-	 * Default definition for an attribute of type text
+	 * Default definition for an attribute of type text.
 	 *
 	 * @since 4.8
 	 *
-	 * @return array
+	 * @return array<string,mixed>
 	 */
 	protected function text() {
 		return [
@@ -26,11 +26,11 @@ abstract class Tribe__Editor__Meta
 	}
 
 	/**
-	 * Add arguments to escape a text area field
+	 * Add arguments to escape a text area field.
 	 *
 	 * @since 4.8
 	 *
-	 * @return array
+	 * @return array<string,mixed>
 	 */
 	protected function textarea() {
 		return [
@@ -43,11 +43,11 @@ abstract class Tribe__Editor__Meta
 	}
 
 	/**
-	 * Add arguments to escape a field of URL type
+	 * Add arguments to escape a field of URL type.
 	 *
 	 * @since 4.8
 	 *
-	 * @return array
+	 * @return array<string,mixed>
 	 */
 	protected function url() {
 		return [
@@ -60,11 +60,11 @@ abstract class Tribe__Editor__Meta
 	}
 
 	/**
-	 * Default definition for an attribute of type text
+	 * Default definition for an attribute of type text.
 	 *
 	 * @since 4.8
 	 *
-	 * @return array
+	 * @return array<string,mixed>
 	 */
 	protected function numeric() {
 		return [
@@ -77,11 +77,11 @@ abstract class Tribe__Editor__Meta
 	}
 
 	/***
-	 * Default definition for an attribute of type boolean
+	 * Default definition for an attribute of type boolean.
 	 *
 	 * @since 4.8
 	 *
-	 * @return array
+	 * @return array<string,mixed>
 	 */
 	protected function boolean() {
 		return [
@@ -94,11 +94,11 @@ abstract class Tribe__Editor__Meta
 	}
 
 	/**
-	 * Register a numeric type of array
+	 * Register a numeric type of array.
 	 *
 	 * @since 4.8
 	 *
-	 * @return array
+	 * @return array<string,mixed>
 	 */
 	protected function numeric_array() {
 		return [
@@ -112,11 +112,11 @@ abstract class Tribe__Editor__Meta
 	}
 
 	/**
-	 * Register a text type of array
+	 * Register a text type of array.
 	 *
 	 * @since 4.8
 	 *
-	 * @return array
+	 * @return array<string,mixed>
 	 */
 	protected function text_array() {
 		return [
@@ -130,13 +130,13 @@ abstract class Tribe__Editor__Meta
 	}
 
 	/**
-	 * Sanitize an array of text
+	 * Sanitize a string or array of strings.
 	 *
 	 * @since 4.8
 	 *
-	 * @param $value
+	 * @param array<string>|string $value The string or array to sanitize.
 	 *
-	 * @return array
+	 * @return array<string>|string The sanitized value or array of values.
 	 */
 	public function sanitize_text_array( $value ) {
 		if ( is_array( $value ) ) {
@@ -147,13 +147,14 @@ abstract class Tribe__Editor__Meta
 	}
 
 	/**
-	 * Checks and sanitize a given value to a numeric array or a numeric string
+	 * Checks and sanitize a given value to a numeric array or a numeric string.
 	 *
 	 * @since 4.8
 	 *
-	 * @param  mixed $value Check agains this value
+	 * @param array<string|int>|string $value The string or array to sanitize.
 	 *
-	 * @return array|bool|int
+	 * @return array<int>|int|bool The sanitized value or array of values.
+	 *                             Boolean false if not supplied an array or numeric value.
 	 */
 	public function sanitize_numeric_array( $value ) {
 		if ( is_array( $value ) ) {
@@ -166,35 +167,35 @@ abstract class Tribe__Editor__Meta
 	}
 
 	/**
-	 * Make sure sanitization on boolean does not triggered warnings when multiple values are passed
-	 * to the function
+	 * Make sure sanitization on boolean does not trigger warnings
+	 * when multiple values are passed to the function.
 	 *
 	 * @since 4.8
 	 *
-	 * @param $value
+	 * @param bool $value The value to sanitize.
 	 *
-	 * @return bool
+	 * @return bool The sanitized value.
 	 */
 	public function sanitize_boolean( $value ) {
 		return filter_var( $value, FILTER_VALIDATE_BOOLEAN );
 	}
 
 	/**
-	 * Sanitize strings allowing the usage of white spaces before or after the separators, as
-	 * - sanitize_text_field removes any whitespace
+	 * Sanitize strings allowing the usage of white spaces before or after
+	 * the separators, as sanitize_text_field removes any whitespace.
 	 *
 	 * @since 4.8
 	 *
-	 * @param $value
+	 * @param string $value The string to sanitize.
 	 *
-	 * @return mixed
+	 * @return string The sanitized string.
 	 */
 	public function sanitize_separator( $value ) {
-		return filter_var( $value, FILTER_SANITIZE_STRING );
+		return htmlspecialchars( $value );
 	}
 
 	/**
-	 * Verify if the current user can edit or not this Post
+	 * Verify if the current user can (or cannot) edit this Post.
 	 *
 	 * @since 4.8
 	 *

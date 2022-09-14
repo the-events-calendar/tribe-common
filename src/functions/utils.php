@@ -1098,7 +1098,7 @@ if ( ! function_exists( 'tribe_get_request_vars' ) ) {
 			array_keys( $_REQUEST ),
 			array_map( static function ( $v )
 			{
-				return filter_var( $v, FILTER_SANITIZE_STRING );
+				return htmlspecialchars( $v );
 			},
 				$_REQUEST )
 		);
@@ -1126,7 +1126,7 @@ if ( ! function_exists( 'tribe_sanitize_deep' ) ) {
 			return $value;
 		}
 		if ( is_string( $value ) ) {
-			$value = filter_var( $value, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES );
+			$value = htmlspecialchars( $value, ENT_NOQUOTES );
 			return $value;
 		}
 		if ( is_int( $value ) ) {
