@@ -63,7 +63,7 @@ abstract class Abstract_Menu implements Menu_Contract {
 	 *
 	 * @var string
 	 */
-	protected static $menu_slug = '';
+	public static $menu_slug = '';
 
 	/**
 	 * Page content callback.
@@ -104,24 +104,6 @@ abstract class Abstract_Menu implements Menu_Contract {
 	protected $parent_menu = null;
 
 	/**
-	 * Path to the file for the settings data.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	protected $settings_file = '';
-
-	/**
-	 * Holds the settings page object.
-	 *
-	 * @since TBD
-	 *
-	 * @var ?obj
-	 */
-	protected $settings_page = null;
-
-	/**
 	 * Whether this is a submenu or not.
 	 *
 	 * @since TBD
@@ -131,13 +113,13 @@ abstract class Abstract_Menu implements Menu_Contract {
 	protected $is_submenu = false;
 
 	/**
-	 * Placeholder for the settings page, if we have one.
+	 * Placeholder for the hook suffix we get from registering with WP.
 	 *
 	 * @since TBD
 	 *
 	 * @var array
 	 */
-	protected $settings_page_data = [];
+	protected $hook_suffix = [];
 
 	/**
 	 * Constructor
@@ -153,7 +135,7 @@ abstract class Abstract_Menu implements Menu_Contract {
 	}
 
 	public function render() {
-		echo "render";
+		echo "It works! Now override this to render your admin page.";
 	}
 
 	public function is_submenu() {
@@ -167,11 +149,13 @@ abstract class Abstract_Menu implements Menu_Contract {
 	}
 
 	public function get_parent() {
-		return $this->parent_menu;
+		return ! empty( $this->parent_menu ) ? $this->parent_menu : false;
 	}
 
 	public function get_parent_slug() {
-		return $this->get_parent()->get_slug();
+		$parent = $this->get_parent();
+
+		return ! empty( $parent ) ? $parent->get_slug() : false;
 	}
 
 	public function get_callback() {
@@ -196,5 +180,48 @@ abstract class Abstract_Menu implements Menu_Contract {
 
 	public function get_menu_title() {
 		return $this->menu_title;
+	}
+
+	/**
+	 * Wrapper function for register_in_wp() that contains hooks
+	 *
+	 * @since TBD
+	 */
+	public function register() {
+		/**
+		 * Allows triggering actions before the menu page is registered with WP.
+		 *
+		 * @param TEC\Common\Menus\Menu $menu The current menu object.
+		 */
+		do_action( 'tec_menu_setup_' . $this->get_slug(), $this );
+
+		$this->register_in_wp();
+	}
+
+
+	public function register_in_wp() {
+		$this->hook_suffix = add_menu_page(
+			$this->get_page_title(),
+			$this->get_menu_title(),
+			$this->get_capability(),
+			$this->get_slug(),
+			$this->get_callback(),
+			$this->get_icon_url(),
+			$this->get_position(),
+		);
+
+		return $this->hook_suffix;
+	}
+
+	public function is_registered() {
+		return (bool) $this->hook_suffix;
+	}
+
+	public function get_hook_suffix() {
+		if ( empty( $this->hook_suffix ) ) {
+			return false;
+		}
+
+		return $this->hook_suffix;
 	}
 }

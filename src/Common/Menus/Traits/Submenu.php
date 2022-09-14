@@ -22,52 +22,25 @@ trait Submenu {
 
 	public function __construct() {
 		$this->is_submenu = true;
+
+        if ( empty( $this->get_parent() ) ) {
+			_doing_it_wrong(
+				__FUNCTION__,
+				'You cannot register a submenu without a parent menu.',
+				'TBD'
+			);
+        }
 	}
 
-	public function register() {
-		// the real deal.
-		if ( ! $this->get_parent_slug() ) {
-			_doing_it_wrong(
-				__FUNCTION__,
-				'Submenu cannot be created without a parent slug. Creating a top-level menu instead.',
-				'TBD'
-			);
-
-			$this->hook_suffix = parent::add_menu();
-		} else if ( ! $this->is_submenu() ) {
-			_doing_it_wrong(
-				__FUNCTION__,
-				'Submenu Trait is not needed for a top-level menu. Creating a top-level menu instead.',
-				'TBD'
-			);
-
-			$this->hook_suffix = parent::add_menu();
-		} else {
-			$this->hook_suffix = $this->add_menu();
-		}
-
-
-
-		return $this->hook_suffix;
-	}
-
-	public function add_menu() {
-		if ( empty( $this->get_parent_slug() ) ) {
-			_doing_it_wrong(
-				__FUNCTION__,
-				'Attempted to create a submenu without defining a parent menu.',
-				'TBD'
-			);
-		}
-
+	public function register_in_wp() {
 		$this->hook_suffix = add_submenu_page(
-			$this->get_parent_slug(), // required
-			$this->page_title, // required
-			$this->menu_title, // required
-			$this->capability, // required
-			$this->menu_slug, // required
-			$this->callback,
-			$this->position
+			$this->get_parent_slug(),
+			$this->get_page_title(),
+			$this->get_menu_title(),
+			$this->get_capability(),
+			$this->get_slug(),
+			$this->get_callback(),
+			$this->get_position(),
 		);
 
 		return $this->hook_suffix;

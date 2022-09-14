@@ -35,7 +35,7 @@ abstract class Date_Based {
 	 *
 	 * @var int
 	 */
-	public $start_time;
+	public $start_time = 0;
 
 	/**
 	 * Placeholder for end date string.
@@ -53,7 +53,7 @@ abstract class Date_Based {
 	 *
 	 * @var int
 	 */
-	public $end_time;
+	public $end_time = 0;
 
 	/**
 	 * Placeholder for extension date string.
@@ -71,7 +71,7 @@ abstract class Date_Based {
 	 *
 	 * @var int
 	 */
-	public $extension_time;
+	public $extension_time = 0;
 
 	/**
 	 * Whether or not The Events Calendar is active.
