@@ -74,7 +74,7 @@ abstract class Abstract_Menu implements Menu_Contract {
 	 *
 	 * @var string
 	 */
-	protected $callback = 'render';
+	public $callback = 'render';
 
 	/**
 	 * URL (or dashicon string) for the menu icon.
@@ -119,15 +119,14 @@ abstract class Abstract_Menu implements Menu_Contract {
 	 *
 	 * @var array
 	 */
-	protected $hook_suffix = [];
+	public $hook_suffix = '';
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->build();
-
 		$this->callback = [ $this, 'render' ];
+		$this->build();
 	}
 
 	public function build() {
@@ -145,17 +144,19 @@ abstract class Abstract_Menu implements Menu_Contract {
 	}
 
 	public function get_slug() {
-		return self::$menu_slug;
-	}
-
-	public function get_parent() {
-		return ! empty( $this->parent_menu ) ? $this->parent_menu : false;
+		return static::$menu_slug;
 	}
 
 	public function get_parent_slug() {
-		$parent = $this->get_parent();
+		return ! empty( $this->parent_slug ) ? $this->parent_slug : false;
+	}
 
-		return ! empty( $parent ) ? $parent->get_slug() : false;
+	public function get_parent() {
+		if ( empty( empty( $this->parent_slug ) ) ) {
+			return false;
+		}
+
+		return tribe( Factory::class )->get_menu( $this->parent_slug );
 	}
 
 	public function get_callback() {
@@ -187,7 +188,7 @@ abstract class Abstract_Menu implements Menu_Contract {
 	 *
 	 * @since TBD
 	 */
-	public function register() {
+	public function register_menu() {
 		/**
 		 * Allows triggering actions before the menu page is registered with WP.
 		 *
@@ -199,6 +200,28 @@ abstract class Abstract_Menu implements Menu_Contract {
 	}
 
 
+	/**
+	* @global array $menu
+	* @global array $admin_page_hooks
+	* @global array $_registered_pages
+	* @global array $_parent_pages
+	*
+	* @param string    $page_title The text to be displayed in the title tags of the page when the menu is selected.
+	* @param string    $menu_title The text to be used for the menu.
+	* @param string    $capability The capability required for this menu to be displayed to the user.
+	* @param string    $menu_slug  The slug name to refer to this menu by. Should be unique for this menu page and only
+	*                              include lowercase alphanumeric, dashes, and underscores characters to be compatible
+	*                              with sanitize_key().
+	* @param callable  $callback   Optional. The function to be called to output the content for this page.
+	* @param string    $icon_url   Optional. The URL to the icon to be used for this menu.
+	*                              * Pass a base64-encoded SVG using a data URI, which will be colored to match
+	*                                the color scheme. This should begin with 'data:image/svg+xml;base64,'.
+	*                              * Pass the name of a Dashicons helper class to use a font icon,
+	*                                e.g. 'dashicons-chart-pie'.
+	*                              * Pass 'none' to leave div.wp-menu-image empty so an icon can be added via CSS.
+	* @param int|float $position   Optional. The position in the menu order this item should appear.
+	* @return string The resulting page's hook_suffix.
+	*/
 	public function register_in_wp() {
 		$this->hook_suffix = add_menu_page(
 			$this->get_page_title(),

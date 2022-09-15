@@ -32,13 +32,28 @@ class Factory {
 	 */
 	protected $queue = [];
 
-	protected $registered_queue = [];
-
+	/**
+	 * Register the factory and any hooks.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
 	public function register() {
 		add_action( 'admin_menu', [ $this, 'register_in_wp' ] );
 	}
 
-	public function get_menu( $menu_id )  {
+	/**
+	 * Undocumented function
+	 *
+	 * @since TBD
+	 *
+	 * @param [type] $menu_id
+	 *
+	 * @return Menu_Contract
+	 */
+	public function get_menu( $menu_id ): Menu_Contract  {
+		$menu_id = $this->normalize_menu_id_to_slug( $menu_id );
 		if ( empty( $this->queue[ $menu_id ] ) ) {
 			return false;
 		}
@@ -146,12 +161,12 @@ class Factory {
 	 *
 	 * @since TBD
 	 *
-	 * @param [type] $menu_id
+	 * @param Menu_Contract|string $menu_id The Menu object. Alternatively its: slug, ,
 	 * @return void
 	 */
 	public function normalize_menu_id_to_slug( $menu_id ) {
 		// Menu object passed.
-		if ( $menu_id instanceof Abstract_Menu ) {
+		if ( $menu_id instanceof Menu_Contract ) {
 			return $menu_id->get_slug();
 		}
 
@@ -194,9 +209,10 @@ class Factory {
 		$menus = $this->get_menus();
 
 		foreach ( $menus as $menu ) {
-
-			$menu->register();
+			$menu->register_menu();
 		}
+
+		bdump($this->get_menus());
 
 		$this->can_register = false;
 	}
