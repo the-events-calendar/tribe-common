@@ -20,17 +20,7 @@ trait Submenu {
 	 */
    protected $parent_slug = '';
 
-	public function __construct() {
-		$this->is_submenu = true;
-
-        if ( empty( $this->get_parent() ) ) {
-			_doing_it_wrong(
-				__FUNCTION__,
-				'You cannot register a submenu without a parent menu.',
-				'TBD'
-			);
-        }
-	}
+   protected $is_submenu = true;
 
 	public function register_in_wp() {
 		$this->hook_suffix = add_submenu_page(
@@ -44,5 +34,9 @@ trait Submenu {
 		);
 
 		return $this->hook_suffix;
+	}
+
+	public function is_submenu() {
+		return $this->is_submenu;
 	}
 }

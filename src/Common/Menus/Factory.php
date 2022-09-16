@@ -64,28 +64,22 @@ class Factory {
 	public function get_menus( $submenus = null ) {
 		$menu_list = [];
 
-		switch( $submenus ) {
-			case ( true ) : // submenus only.
-				foreach( $this->queue as $item ) {
-					if ( ! empty( $item->is_submenu ) ) {
-						$menu_list[$item::$menu_slug] = $item;
-					}
+		if ( true === $submenus ) {
+			foreach( $this->queue as $item ) {
+				if ( ! empty( $item->is_submenu ) ) {
+					$menu_list[$item::$menu_slug] = $item;
 				}
+			}
 
-				return array_unique( $menu_list );
-				break;
-			case ( false ) : // top-level menus only.
-				foreach( $this->queue as $item ) {
-					if ( empty( $item->is_submenu ) ) {
-						$menu_list[$item::$menu_slug] = $item;
-					}
+			return $menu_list;
+		} else if( false === $submenus ) {
+			foreach( $this->queue as $item ) {
+				if ( empty( $item->is_submenu ) ) {
+					$menu_list[$item::$menu_slug] = $item;
 				}
+			}
 
-				return $menu_list;
-				break;
-			default: // all top-level menus and submenus.
-				return $this->queue;
-				break;
+			return $menu_list;
 		}
 
 		return $this->queue;
@@ -156,6 +150,27 @@ class Factory {
 		return ! empty( $this->queue[$menu_id] ) && $this->queue[$menu_id] instanceof Menu_Contract;
 	}
 
+	public function register_in_wp() {
+		global $menu;
+		/**
+		 * Allows triggering actions before the menus are registered with WP.
+		 *
+		 * @param TEC\Common\Menus\Menu $menu The current menu object.
+		 */
+		do_action( 'tec_menus_before_register', $this );
+
+		//attach_to_admin_menu()
+		$menus = $this->get_menus( null );
+
+		foreach ( $menus as $menu_item ) {
+			$menu_item->register_menu();
+		}
+
+		$this->can_register = false;
+
+		bdump($menu);
+	}
+
 	/**
 	 * Takes a menu object, a slug or a hook suffix and converts it to a slug for ID purposes.
 	 *
@@ -195,25 +210,5 @@ class Factory {
 
 		// Anything else.
 		return false;
-	}
-
-	public function register_in_wp() {
-		/**
-		 * Allows triggering actions before the menus are registered with WP.
-		 *
-		 * @param TEC\Common\Menus\Menu $menu The current menu object.
-		 */
-		do_action( 'tec_menus_before_register', $this );
-
-		//attach_to_admin_menu()
-		$menus = $this->get_menus();
-
-		foreach ( $menus as $menu ) {
-			$menu->register_menu();
-		}
-
-		bdump($this->get_menus());
-
-		$this->can_register = false;
 	}
 }

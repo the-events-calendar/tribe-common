@@ -1,11 +1,7 @@
 <?php
 /**
- * The base, abstract, class modeling a submenu.
- * This is more for an example - you don't need to extend this.
- * When you extend the base Abstract_Menu class just add the Submenu Trait
- *
- * This class does nothing by itself - it is meant to be extended for specific menus,
- * changing the properties as appropriate.
+ * An EXAMPLE class modeling a submenu - you should not extend this.
+ * Instead, you extend the base Abstract_Menu class and add the Submenu Trait!
  *
  * @since TBD
  *
@@ -23,7 +19,7 @@ use TEC\Common\Menus\Traits\Submenu;
  *
  * @package TEC\Common\Menus
  */
-abstract class Abstract_Submenu extends Abstract_Menu implements Menu_Contract {
+abstract class Submenu_Example extends Abstract_Menu implements Menu_Contract {
 	use Submenu;
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 /**
- * The base, abstract, class modeling a menu.
+ * The base, abstract class modeling a menu.
  *
  * This class does nothing by itself - it is meant to be extended for specific menus,
  * changing the properties as appropriate.
@@ -74,7 +74,7 @@ abstract class Abstract_Menu implements Menu_Contract {
 	 *
 	 * @var string
 	 */
-	public $callback = 'render';
+	protected $callback = 'render';
 
 	/**
 	 * URL (or dashicon string) for the menu icon.
@@ -95,24 +95,6 @@ abstract class Abstract_Menu implements Menu_Contract {
 	protected $position = '';
 
 	/**
-	 * Parent menu reference.
-	 *
-	 * @since TBD
-	 *
-	 * @var ?string|obj
-	 */
-	protected $parent_menu = null;
-
-	/**
-	 * Whether this is a submenu or not.
-	 *
-	 * @since TBD
-	 *
-	 * @var boolean
-	 */
-	protected $is_submenu = false;
-
-	/**
 	 * Placeholder for the hook suffix we get from registering with WP.
 	 *
 	 * @since TBD
@@ -127,7 +109,10 @@ abstract class Abstract_Menu implements Menu_Contract {
 	public function __construct() {
 		$this->callback = [ $this, 'render' ];
 		$this->build();
+		$this->hooks();
 	}
+
+	public function hooks() {}
 
 	public function build() {
 		tribe( Factory::class )->add_menu( $this );
@@ -138,9 +123,7 @@ abstract class Abstract_Menu implements Menu_Contract {
 	}
 
 	public function is_submenu() {
-		// Note - DO NOT autoload here!
-		$traits = (array) class_uses( $this, false );
-		return $this->is_submenu && isset( $traits['Submenu'] );
+		return false;
 	}
 
 	public function get_slug() {
@@ -246,5 +229,9 @@ abstract class Abstract_Menu implements Menu_Contract {
 		}
 
 		return $this->hook_suffix;
+	}
+
+	public function get_url() {
+		return menu_page_url( static::$menu_slug, false );
 	}
 }
