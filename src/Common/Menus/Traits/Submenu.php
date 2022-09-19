@@ -60,6 +60,8 @@ trait Submenu {
 	 * {@inheritDoc}
 	 */
 	public function is_submenu() : bool {
-		return $this->is_submenu;
+		$is_submenu = apply_filters( 'tec_menus_is_submenu', $this->is_submenu, $this );
+
+		return (bool) apply_filters( "tec_menus_{$this->get_slug()}_is_submenu", $is_submenu, $this );
 	}
 }
