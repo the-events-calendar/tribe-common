@@ -6,7 +6,8 @@
  * changing the properties as appropriate.
  *
  * If you want to create a submenu - use the Submenu Trait as well.
- * If you want to create a settings page - use the With_Settings Trait as well (probably alongside the Submenu Trait)
+ * If you want to create a menu for a Custom Post ype (CPT) use the CPT trait.
+ * Traits can be combined. So "use Submenu, CPT;" is perfectly valid (and used in TEC).
  *
  * @since TBD
  *
@@ -188,6 +189,8 @@ abstract class Abstract_Menu implements Menu_Contract {
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * Note the version here is not filterable, but it is in the Traits\Submenu override.
 	 */
 	public function is_submenu() : bool {
 		return false;
