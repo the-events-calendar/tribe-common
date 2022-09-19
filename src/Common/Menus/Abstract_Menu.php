@@ -56,8 +56,8 @@ abstract class Abstract_Menu implements Menu_Contract {
 	protected $capability = 'manage_options';
 
 	/**
-	 * URL slug for the menu.
-	 * Required.
+	 * URL slug for the menu. Must be unique.
+	 * Used internally as an ID. Required.
 	 *
 	 * @since TBD
 	 *
@@ -68,7 +68,6 @@ abstract class Abstract_Menu implements Menu_Contract {
 	/**
 	 * Page content callback.
 	 * Without this the menu will display a blank page at best.
-	 * Unless it's a post-type menu item - those get a callback method automatically.
 	 *
 	 * @since TBD
 	 *
@@ -90,7 +89,7 @@ abstract class Abstract_Menu implements Menu_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @var string
+	 * @var int
 	 */
 	protected $position = '';
 
@@ -104,72 +103,44 @@ abstract class Abstract_Menu implements Menu_Contract {
 	public $hook_suffix = '';
 
 	/**
-	 * Constructor
+	 * {@inheritDoc}
 	 */
-	public function __construct() {
-		$this->callback = [ $this, 'render' ];
-		$this->build();
+	 public function __construct() {
+		$this->init();
 		$this->hooks();
+		$this->build();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	public function init() {
+		$this->callback = [ $this, 'render' ];
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public function hooks() {}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function build() {
 		tribe( Factory::class )->add_menu( $this );
 	}
 
+	/**
+	 * Renders the admin page content for the menu item.
+	 *
+	 * @since TBD
+	 */
 	public function render() {
-		echo "It works! Now override this to render your admin page.";
-	}
-
-	public function is_submenu() {
-		return false;
-	}
-
-	public function get_slug() {
-		return static::$menu_slug;
-	}
-
-	public function get_parent_slug() {
-		return ! empty( $this->parent_slug ) ? $this->parent_slug : false;
-	}
-
-	public function get_parent() {
-		if ( empty( empty( $this->parent_slug ) ) ) {
-			return false;
-		}
-
-		return tribe( Factory::class )->get_menu( $this->parent_slug );
-	}
-
-	public function get_callback() {
-		return $this->callback;
-	}
-
-	public function get_capability() {
-		return $this->capability;
-	}
-
-	public function get_position() {
-		return $this->position;
-	}
-
-	public function get_icon_url() {
-		return $this->icon_url;
-	}
-
-	public function get_page_title() {
-		return $this->page_title;
-	}
-
-	public function get_menu_title() {
-		return $this->menu_title;
+		echo "Your {$this->get_menu_title()} menu works! Now override this function to render your admin page.";
 	}
 
 	/**
-	 * Wrapper function for register_in_wp() that contains hooks
-	 *
-	 * @since TBD
+	 * {@inheritDoc}
 	 */
 	public function register_menu() {
 		/**
@@ -182,29 +153,9 @@ abstract class Abstract_Menu implements Menu_Contract {
 		$this->register_in_wp();
 	}
 
-
 	/**
-	* @global array $menu
-	* @global array $admin_page_hooks
-	* @global array $_registered_pages
-	* @global array $_parent_pages
-	*
-	* @param string    $page_title The text to be displayed in the title tags of the page when the menu is selected.
-	* @param string    $menu_title The text to be used for the menu.
-	* @param string    $capability The capability required for this menu to be displayed to the user.
-	* @param string    $menu_slug  The slug name to refer to this menu by. Should be unique for this menu page and only
-	*                              include lowercase alphanumeric, dashes, and underscores characters to be compatible
-	*                              with sanitize_key().
-	* @param callable  $callback   Optional. The function to be called to output the content for this page.
-	* @param string    $icon_url   Optional. The URL to the icon to be used for this menu.
-	*                              * Pass a base64-encoded SVG using a data URI, which will be colored to match
-	*                                the color scheme. This should begin with 'data:image/svg+xml;base64,'.
-	*                              * Pass the name of a Dashicons helper class to use a font icon,
-	*                                e.g. 'dashicons-chart-pie'.
-	*                              * Pass 'none' to leave div.wp-menu-image empty so an icon can be added via CSS.
-	* @param int|float $position   Optional. The position in the menu order this item should appear.
-	* @return string The resulting page's hook_suffix.
-	*/
+	 * {@inheritDoc}
+	 */
 	public function register_in_wp() {
 		$this->hook_suffix = add_menu_page(
 			$this->get_page_title(),
@@ -213,25 +164,112 @@ abstract class Abstract_Menu implements Menu_Contract {
 			$this->get_slug(),
 			$this->get_callback(),
 			$this->get_icon_url(),
-			$this->get_position(),
+			$this->get_position()
 		);
+
+		do_action( 'tec_menu_registered', $this );
+
+		do_action( 'tec_menu_' . $this->get_slug() . '_registered', $this );
 
 		return $this->hook_suffix;
 	}
 
-	public function is_registered() {
+	/**
+	 * {@inheritDoc}
+	 */
+	public function is_registered() : bool {
 		return (bool) $this->hook_suffix;
 	}
 
-	public function get_hook_suffix() {
+	/**
+	 * {@inheritDoc}
+	 */
+	public function is_submenu() : bool {
+		return false;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_slug() : string {
+		return static::$menu_slug;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_parent_slug() : ?string {
+		return ! empty( $this->parent_slug ) ? $this->parent_slug : null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_parent() : ?Menu_Contract {
+		if ( empty( $this->parent_slug ) ) {
+			return null;
+		}
+
+		return tribe( Factory::class )->get_menu( $this->parent_slug );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_callback() : string|callable {
+		return $this->callback;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_capability() : string {
+		return $this->capability;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_position() : int {
+		return $this->position;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_icon_url() : string {
+		return $this->icon_url;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_page_title() : string {
+		return $this->page_title;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_menu_title() : string {
+		return $this->menu_title;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_hook_suffix() : ?string {
 		if ( empty( $this->hook_suffix ) ) {
-			return false;
+			return null;
 		}
 
 		return $this->hook_suffix;
 	}
 
-	public function get_url() {
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_url() : string {
 		return menu_page_url( static::$menu_slug, false );
 	}
 }

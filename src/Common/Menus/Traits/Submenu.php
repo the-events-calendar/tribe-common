@@ -18,10 +18,20 @@ trait Submenu {
 	 *
 	 * @var string
 	 */
-   protected $parent_slug = '';
+	protected $parent_slug = '';
 
-   protected $is_submenu = true;
+   /**
+	* Variable for asserting this is a submenu.
+	*
+	* @since TBD
+	*
+	* @var boolean
+	*/
+	protected $is_submenu = true;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function register_in_wp() {
 		$this->hook_suffix = add_submenu_page(
 			$this->get_parent_slug(),
@@ -30,13 +40,24 @@ trait Submenu {
 			$this->get_capability(),
 			$this->get_slug(),
 			$this->get_callback(),
-			$this->get_position(),
+			$this->get_position()
 		);
+
+		do_action( 'tec_menu_registered', $this );
+
+		do_action( 'tec_submenu_registered', $this );
+
+		do_action( 'tec_menu_' . $this->get_slug() . '_registered', $this );
+
+		do_action( 'tec_submenu_' . $this->get_slug() . '_registered', $this );
 
 		return $this->hook_suffix;
 	}
 
-	public function is_submenu() {
+	/**
+	 * {@inheritDoc}
+	 */
+	public function is_submenu() : bool {
 		return $this->is_submenu;
 	}
 }

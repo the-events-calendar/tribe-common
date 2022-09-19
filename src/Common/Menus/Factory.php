@@ -36,21 +36,19 @@ class Factory {
 	 * Register the factory and any hooks.
 	 *
 	 * @since TBD
-	 *
-	 * @return void
 	 */
 	public function register() {
 		add_action( 'admin_menu', [ $this, 'register_in_wp' ] );
 	}
 
 	/**
-	 * Undocumented function
+	 * Get a menu by slug.
 	 *
 	 * @since TBD
 	 *
-	 * @param [type] $menu_id
+	 * @param Menu_Contract|string $menu_id The Menu object. Alternatively its: slug, hook suffix, or namespaced class "path".
 	 *
-	 * @return Menu_Contract
+	 * @return Menu_Contract|false The Menu object. False if not found.
 	 */
 	public function get_menu( $menu_id ): Menu_Contract  {
 		$menu_id = $this->normalize_menu_id_to_slug( $menu_id );
@@ -61,13 +59,24 @@ class Factory {
 		return $this->queue[ $menu_id ];
 	}
 
-	public function get_menus( $submenus = null ) {
+	/**
+	 * Get all enqueued menus, optionally filtered.
+	 *
+	 * @since TBD
+	 *
+	 * @param ?bool $submenus If not passed, all menus will be returned.
+	 *                        If true, only submenus will be returned.
+	 *                        If false only to-level menus will be returned.
+	 *
+	 * @return array <string,mixed> An array of menu objects.
+	 */
+	public function get_menus( ?bool $submenus ): array {
 		$menu_list = [];
 
 		if ( true === $submenus ) {
 			foreach( $this->queue as $item ) {
 				if ( ! empty( $item->is_submenu ) ) {
-					$menu_list[$item::$menu_slug] = $item;
+					$menu_list[ $item->get_slug() ] = $item;
 				}
 			}
 
@@ -75,7 +84,7 @@ class Factory {
 		} else if( false === $submenus ) {
 			foreach( $this->queue as $item ) {
 				if ( empty( $item->is_submenu ) ) {
-					$menu_list[$item::$menu_slug] = $item;
+					$menu_list[ $item->get_slug() ] = $item;
 				}
 			}
 
@@ -85,6 +94,15 @@ class Factory {
 		return $this->queue;
 	}
 
+	/**
+	 * Search the queue for a submenu by slug.
+	 *
+	 * @since TBD
+	 *
+	 * @param Menu_Contract|string $menu_id The Menu object. Alternatively its: slug, hook suffix, or namespaced class "path".
+	 *
+	 * @return Menu_Contract|false The Submenu object. False if not found or found but not a submenu.
+	 */
 	public function get_submenu( $menu_id ) {
 		if ( empty( $this->queue[ $menu_id ] ) ) {
 			return false;
@@ -100,6 +118,15 @@ class Factory {
 		return $potential_submenu;
 	}
 
+	/**
+	 * Search the queue for all submenus of a specified menu.
+	 *
+	 * @since TBD
+	 *
+	 * @param Menu_Contract|string $menu_id The Menu object. Alternatively its: slug, hook suffix, or namespaced class "path".
+	 *
+	 * @return array <string,mixed> An array of menu objects - all submenus of the provided parent menu.
+	 */
 	public function get_submenus( $menu_id ) {
 		$menu_list = [];
 
@@ -119,6 +146,13 @@ class Factory {
 		return array_unique( $menu_list);
 	}
 
+	/**
+	 * Add a menu to the queue.
+	 *
+	 * @since TBD
+	 *
+	 * @param Abstract_Menu $obj The menu object.
+	 */
 	public function add_menu( $obj ) {
 		if ( ! $this->can_register() ) {
 			_doing_it_wrong(
@@ -129,33 +163,54 @@ class Factory {
 		}
 
 		// Don't add duplicates.
-		if ( isset( $this->queue[$obj::$menu_slug] ) ) {
+		if ( isset( $this->queue[ $obj::$menu_slug ] ) ) {
 			return;
 		}
 
-		$this->queue[$obj::$menu_slug] = $obj;
+		$this->queue[ $obj::$menu_slug ] = $obj;
 	}
 
+	/**
+	 * Are we able to register menus?
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean
+	 */
 	public function can_register() {
 		if ( 0 < did_action( 'admin_menu' ) ) {
-			return false;
+			$this->can_register = false;
 		}
 
 		return $this->can_register;
 	}
 
-	public function is_enqueued( $menu_id, $return = 'bool' ) {
+	/**
+	 * Check if a menu is enqueued.
+	 *
+	 * @since TBD
+	 *
+	 * @param Menu_Contract|string $menu_id The Menu object. Alternatively its: slug, hook suffix, or namespaced class "path".
+	 *
+	 * @return boolean
+	 */
+	public function is_enqueued( $menu_id ) {
 		$menu_id = $this->normalize_menu_id_to_slug( $menu_id );
 
-		return ! empty( $this->queue[$menu_id] ) && $this->queue[$menu_id] instanceof Menu_Contract;
+		return ! empty( $this->queue[ $menu_id ] ) && $this->queue[ $menu_id ] instanceof Menu_Contract;
 	}
 
+	/**
+	 * Register all enqueued menus in WordPress.
+	 *
+	 * @since TBD
+	 */
 	public function register_in_wp() {
 		global $menu;
 		/**
 		 * Allows triggering actions before the menus are registered with WP.
 		 *
-		 * @param TEC\Common\Menus\Menu $menu The current menu object.
+		 * @param TEC\Common\Menus\Menu_Contract $menu The current menu object.
 		 */
 		do_action( 'tec_menus_before_register', $this );
 
@@ -167,8 +222,6 @@ class Factory {
 		}
 
 		$this->can_register = false;
-
-		bdump($menu);
 	}
 
 	/**
@@ -176,8 +229,9 @@ class Factory {
 	 *
 	 * @since TBD
 	 *
-	 * @param Menu_Contract|string $menu_id The Menu object. Alternatively its: slug, ,
-	 * @return void
+	 * @param Menu_Contract|string $menu_id The Menu object. Alternatively its: slug, hook suffix, or namespaced class "path".
+	 *
+	 * @return string|false The menu slug (ID) or false if it could not be discerned.
 	 */
 	public function normalize_menu_id_to_slug( $menu_id ) {
 		// Menu object passed.
@@ -186,7 +240,7 @@ class Factory {
 		}
 
 		// Slug passed and already set in queue.
-		if ( isset( $this->queue[$menu_id] ) ) {
+		if ( isset( $this->queue[ $menu_id ] ) ) {
 			return $menu_id;
 		}
 		// Passed class path.
@@ -198,7 +252,7 @@ class Factory {
 		// Hook suffix passed and already registered.
 		if ( is_string( $menu_id ) ) {
 			$menu = array_filter(
-				$this->queue[$menu_id],
+				$this->queue[ $menu_id ],
 				function( $id, $menu ) use ( $menu_id ) {
 					return $menu->get_hook_suffix() === $menu_id;
 				},
