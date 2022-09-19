@@ -37,11 +37,9 @@ trait CPT {
 	protected $parent_file ='admin.php';
 
 	/**
-	 * Add any action/filter hooks for the menu.
-	 *
-	 * @since TBD
+	 * {@inheritDoc}
 	 */
-	public function hooks() {
+	protected function hooks() {
 		if ( ! has_action( 'tec_submenu_' . $this->get_slug() . '_registered' ) ) {
 			add_action(
 				'tec_submenu_' . $this->get_slug() . '_registered',

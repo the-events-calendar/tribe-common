@@ -31,16 +31,9 @@ interface Menu_Contract {
 	public function init();
 
 	/**
-	 * Add any action/filter hooks for the menu.
-	 *
-	 * @since TBD
-	 */
-	public function hooks();
-
-	/**
 	 * Build the menu.
-	 * This triggers adding the menu via the Menu Factory.
-	 * The Factory handles enqueueing menus before triggering registration with WordPress.
+	 * This triggers adding the menu via the Menus Object.
+	 * Menus handles enqueueing menus before triggering registration with WordPress.
 	 *
 	 * @since TBD
 	 */
@@ -52,13 +45,6 @@ interface Menu_Contract {
 	 * @since TBD
 	 */
 	public function register_menu();
-
-	/**
-	 * Actually handles registering the menu with WordPress.
-	 *
-	 * @since TBD
-	 */
-	public function register_in_wp();
 
 	/**
 	 * Is the menu registered in WordPress?

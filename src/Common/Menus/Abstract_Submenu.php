@@ -44,17 +44,17 @@ abstract class Submenu_Example extends Abstract_Menu implements Menu_Contract {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $capability    = 'edit_posts';
+	protected $capability = 'edit_posts';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public static $menu_slug = 'tec-submenu';
+	protected static $menu_slug = 'tec-submenu';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $position      = 15;
+	protected $position = 15;
 
 	/**
 	 * {@inheritDoc}

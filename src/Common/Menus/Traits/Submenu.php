@@ -30,9 +30,11 @@ trait Submenu {
 	protected $is_submenu = true;
 
 	/**
-	 * {@inheritDoc}
+	 * Actually handles registering the submenu with WordPress.
+	 *
+	 * @since TBD
 	 */
-	public function register_in_wp() {
+	protected function register_in_wp() {
 		$this->hook_suffix = add_submenu_page(
 			$this->get_parent_slug(),
 			$this->get_page_title(),

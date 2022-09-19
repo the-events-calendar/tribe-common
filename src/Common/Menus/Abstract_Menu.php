@@ -15,7 +15,7 @@
 
 namespace TEC\Common\Menus;
 
-use \TEC\Common\Menus\Factory;
+use \TEC\Common\Menus\Menus;
 
 /**
  * Class Menu
@@ -105,7 +105,7 @@ abstract class Abstract_Menu implements Menu_Contract {
 	/**
 	 * {@inheritDoc}
 	 */
-	 public function __construct() {
+	public function __construct() {
 		$this->init();
 		$this->hooks();
 		$this->build();
@@ -119,15 +119,18 @@ abstract class Abstract_Menu implements Menu_Contract {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Adds any required programmatic action/filter hooks for the menu.
+	 * This is for internal use only - please add your own hooks via a Service Provider.
+	 *
+	 * @since TBD
 	 */
-	public function hooks() {}
+	protected function hooks() {}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function build() {
-		tribe( Factory::class )->add_menu( $this );
+		tribe( Menus::class )->add_menu( $this );
 	}
 
 	/**
@@ -151,12 +154,18 @@ abstract class Abstract_Menu implements Menu_Contract {
 		do_action( 'tec_menu_setup_' . $this->get_slug(), $this );
 
 		$this->register_in_wp();
+
+		do_action( 'tec_menu_registered', $this );
+
+		do_action( 'tec_menu_' . $this->get_slug() . '_registered', $this );
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Actually handles registering the menu with WordPress.
+	 *
+	 * @since TBD
 	 */
-	public function register_in_wp() {
+	protected function register_in_wp() {
 		$this->hook_suffix = add_menu_page(
 			$this->get_page_title(),
 			$this->get_menu_title(),
@@ -167,11 +176,7 @@ abstract class Abstract_Menu implements Menu_Contract {
 			$this->get_position()
 		);
 
-		do_action( 'tec_menu_registered', $this );
-
-		do_action( 'tec_menu_' . $this->get_slug() . '_registered', $this );
-
-		return $this->hook_suffix;
+		return $this->get_hook_suffix();
 	}
 
 	/**
@@ -210,7 +215,7 @@ abstract class Abstract_Menu implements Menu_Contract {
 			return null;
 		}
 
-		return tribe( Factory::class )->get_menu( $this->parent_slug );
+		return tribe( Menus::class )->get_menu( $this->parent_slug );
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Menu Factory
+ * Menus
  *
  * The parent class for managing menu creation and access.
  *
@@ -13,7 +13,7 @@
 namespace TEC\Common\Menus;
 
 
-class Factory {
+class Menus {
 	/**
 	 * Can we still register menus?
 	 *
@@ -39,6 +39,30 @@ class Factory {
 	 */
 	public function register() {
 		add_action( 'admin_menu', [ $this, 'register_in_wp' ] );
+	}
+
+	/**
+	 * Add a menu to the queue.
+	 *
+	 * @since TBD
+	 *
+	 * @param Abstract_Menu $obj The menu object.
+	 */
+	public function add_menu( $obj ) {
+		if ( ! $this->can_register() ) {
+			_doing_it_wrong(
+				__FUNCTION__,
+				'Function was called after it is possible to register a new menu.',
+				'TBD'
+			);
+		}
+
+		// Don't add duplicates.
+		if ( isset( $this->queue[ $obj->get_slug() ] ) ) {
+			return;
+		}
+
+		$this->queue[ $obj->get_slug() ] = $obj;
 	}
 
 	/**
@@ -147,30 +171,6 @@ class Factory {
 	}
 
 	/**
-	 * Add a menu to the queue.
-	 *
-	 * @since TBD
-	 *
-	 * @param Abstract_Menu $obj The menu object.
-	 */
-	public function add_menu( $obj ) {
-		if ( ! $this->can_register() ) {
-			_doing_it_wrong(
-				__FUNCTION__,
-				'Function was called after it is possible to register a new menu.',
-				'TBD'
-			);
-		}
-
-		// Don't add duplicates.
-		if ( isset( $this->queue[ $obj::$menu_slug ] ) ) {
-			return;
-		}
-
-		$this->queue[ $obj::$menu_slug ] = $obj;
-	}
-
-	/**
 	 * Are we able to register menus?
 	 *
 	 * @since TBD
@@ -243,6 +243,7 @@ class Factory {
 		if ( isset( $this->queue[ $menu_id ] ) ) {
 			return $menu_id;
 		}
+
 		// Passed class path.
 		if ( is_string( $menu_id ) && class_exists( $menu_id, false ) ) {
 			$temp_menu = new $menu_id;
