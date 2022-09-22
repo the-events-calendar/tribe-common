@@ -160,16 +160,16 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 		$image_sizes  = $this->get_image_sizes();
 		$thumbnail_id = $this->thumbnail_id;
 
-		$cache_key = empty( $thumbnail_id ) ? -1 : $thumbnail_id;
+		$cache_key = empty( $thumbnail_id ) ? - 1 : $thumbnail_id;
 
 		if ( empty( $cache_thumbnail[ $cache_key ] ) ) {
 			$thumbnail_data = array_combine(
 				$image_sizes,
 				array_map(
-					static function( $size ) use ( $thumbnail_id ) {
+					static function ( $size ) use ( $thumbnail_id ) {
 						static $cache_size_data = [];
 
-						$size_data_cache_key = empty( $thumbnail_id ) ? -1 : $thumbnail_id;
+						$size_data_cache_key = empty( $thumbnail_id ) ? - 1 : $thumbnail_id;
 						$size_data_cache_key = "{$size_data_cache_key}:{$size}";
 
 						if ( ! isset( $cache_size_data[ $size_data_cache_key ] ) ) {
@@ -230,7 +230,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function offsetExists( $offset ) {
+	public function offsetExists( $offset ): bool {
 		$this->data = $this->fetch_data();
 
 		return isset( $this->data[ $offset ] );
@@ -239,6 +239,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * {@inheritDoc}
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetGet( $offset ) {
 		$this->data = $this->fetch_data();
 
@@ -250,7 +251,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function offsetSet( $offset, $value ) {
+	public function offsetSet( $offset, $value ): void {
 		$this->data = $this->fetch_data();
 
 		$this->data[ $offset ] = $value;
@@ -259,7 +260,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function offsetUnset( $offset ) {
+	public function offsetUnset( $offset ): void {
 		$this->data = $this->fetch_data();
 
 		unset( $this->data[ $offset ] );
@@ -311,7 +312,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	 *
 	 * @return bool Whether a post thumbnail is set for the post or not.
 	 */
-	public function exists() {
+	public function exists(): bool {
 		if ( null !== $this->exists ) {
 			return $this->exists;
 		}

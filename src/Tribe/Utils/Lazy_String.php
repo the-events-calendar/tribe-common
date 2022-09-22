@@ -69,7 +69,7 @@ class Lazy_String implements \Serializable, \JsonSerializable {
 	 *
 	 * @return string The unescaped string value.
 	 */
-	public function __toString() {
+	public function __toString(): string {
 		if ( null === $this->string ) {
 			$this->string = call_user_func( $this->value_callback );
 			$this->resolved();
@@ -124,17 +124,37 @@ class Lazy_String implements \Serializable, \JsonSerializable {
 	/**
 	 * {@inheritDoc}
 	 *
+	 * @since TBD
+	 */
+	#[\ReturnTypeWillChange]
+	public function __serialize() {
+		return (array) unserialize( $this->serialize( $serialized ) );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
 	 * @since 4.9.16
 	 */
 	public function unserialize( $serialized ) {
-		list( $string, $escaped ) = unserialize( $serialized );
+		[ $string, $escaped ] = unserialize( $serialized );
 		$this->string  = $string;
 		$this->escaped = $escaped;
 	}
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since TBD
 	 */
+	public function __unserialize( $serialized ): void {
+		$this->unserialize( $serialized );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[\ReturnTypeWillChange]
 	public function jsonSerialize() {
 		return $this->value();
 	}

@@ -12,6 +12,7 @@ namespace Tribe\Utils;
 
 /**
  * Trait Collection_Trait
+ *
  * @since   4.9.14
  * @package Tribe\Utils
  */
@@ -67,7 +68,7 @@ trait Collection_Trait {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function offsetExists( $offset ) {
+	public function offsetExists( $offset ): bool {
 		$items = $this->all();
 
 		return isset( $items[ $offset ] );
@@ -76,6 +77,7 @@ trait Collection_Trait {
 	/**
 	 * {@inheritDoc}
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetGet( $offset ) {
 		$items = $this->all();
 
@@ -87,7 +89,7 @@ trait Collection_Trait {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function offsetSet( $offset, $value ) {
+	public function offsetSet( $offset, $value ): void {
 		$this->items = $this->all();
 
 		$this->items[ $offset ] = $value;
@@ -96,7 +98,7 @@ trait Collection_Trait {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function offsetUnset( $offset ) {
+	public function offsetUnset( $offset ): void {
 		$this->items = $this->all();
 
 		unset( $this->items[ $offset ] );
@@ -105,14 +107,14 @@ trait Collection_Trait {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function next() {
+	public function next(): void {
 		$this->items_index ++;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function valid() {
+	public function valid(): bool {
 		$items = $this->all();
 
 		return ( isset( $items[ $this->items_index ] ) );
@@ -121,13 +123,14 @@ trait Collection_Trait {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function key() {
+	public function key(): string {
 		return $this->items_index;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
+	#[\ReturnTypeWillChange]
 	public function current() {
 		$items = array_values( $this->all() );
 
@@ -137,14 +140,14 @@ trait Collection_Trait {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function rewind() {
+	public function rewind(): void {
 		$this->items_index = 0;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function count() : int {
+	public function count(): int {
 		return count( $this->all() );
 	}
 
@@ -162,6 +165,24 @@ trait Collection_Trait {
 	}
 
 	/**
+	 * PHP Compatibility for 8.1 requires us to have a separate magic method to avoid notices.
+	 * static::serialize() will return a string and the magic method needs to return an array.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function __serialize(): array {
+		$to_serialize = $this->all();
+
+		if ( method_exists( $this, 'before_serialize' ) ) {
+			$to_serialize = $this->before_serialize( $this->all() );
+		}
+
+		return $to_serialize;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function unserialize( $serialized ) {
@@ -169,16 +190,21 @@ trait Collection_Trait {
 
 		if ( method_exists( $this, 'custom_unserialize' ) ) {
 			$this->items = $this->custom_unserialize( $to_unserialize );
+
 			return;
 		}
 
 		$this->items = unserialize( $to_unserialize );
 	}
 
+	public function __unserialize( array $data ): void {
+		$this->unserialize( $data );
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
-	public function seek( $position ) {
+	public function seek( $position ): void {
 		$this->items_index = $position;
 	}
 
