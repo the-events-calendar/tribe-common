@@ -144,7 +144,7 @@ trait Collection_Trait {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function count() {
+	public function count() : int {
 		return count( $this->all() );
 	}
 
