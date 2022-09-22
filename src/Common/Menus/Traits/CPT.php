@@ -18,6 +18,7 @@ trait CPT {
 	 * @var boolean
 	 */
 	protected $new_menu = false;
+
 	/**
 	 * The CPT post type slug.
 	 *
@@ -73,7 +74,9 @@ trait CPT {
 	 * @return string
 	 */
 	public function get_parent_file() : string {
-		return $this->parent_file;
+		$parent_file = apply_filters( 'tec_menus_parent_file', $this->parent_file, $this );
+
+		return apply_filters( "tec_menus_{$this->get_slug()}_parent_file", $parent_file, $this );
 	}
 
 	/**
@@ -84,18 +87,29 @@ trait CPT {
 	 * @return \WP_Post_Type|null The post type object for the CPT.
 	 */
 	public function get_post_type_object() : ?\WP_Post_Type {
-		return get_post_type_object( $this->get_post_type() );
+		$pto = apply_filters(
+			'tec_menus_post_type_object',
+			get_post_type_object( $this->get_post_type() ),
+			$this
+		);
+
+		return apply_filters(
+			"tec_menus_{$this->get_slug()}_post_type_object",
+			get_post_type_object( $this->get_post_type() ),
+			$pto,
+			$this
+		);
 	}
 
 	/**
-	 * Callback must be empty for CPT edit pages.
+	 * Callback MUST be empty for CPT edit pages.
 	 *
 	 * @since TBD
 	 *
 	 * @return string|callable
 	 */
-	public function get_callback() : string|callable {
-		return '';
+	public function get_callback() : string|callable|null {
+		return null;
 	}
 
 	/**
@@ -129,9 +143,7 @@ trait CPT {
 	 */
 	public function get_list_url() : string {
 		return add_query_arg(
-			[
-				'post_type' => $this->get_post_type(),
-			],
+			[ 'post_type' => $this->get_post_type() ],
 			admin_url( 'edit.php' )
 		);
 	}
@@ -150,15 +162,22 @@ trait CPT {
 		);
 	}
 
-	public function should_use_new_post_menu() {
-		// Allow setting as a param.
+	/**
+	 * Do we want to show an "Add New" menu item for our CPT?
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean
+	 */
+	public function should_use_new_post_menu() : bool {
+		// Allow setting (nonfilterable!) as a param.
 		if ( isset( $this->new_menu ) ) {
 			return $this->new_menu;
 		}
 
-		$new_menu = apply_filters( 'tec_menu_cpt_add_new_post_menu', false, $this );
+		$new_menu = apply_filters( 'tec_menu_cpt_should_use_new_post_menu', false, $this );
 
-		return apply_filters( "tec_menu_cpt_add_new_post_menu_{$this->get_post_type()}", $new_menu );
+		return apply_filters( "tec_menu_cpt_{$this->get_post_type()}_should_use_new_post_menu", $new_menu );
 	}
 
 	/**
@@ -191,9 +210,9 @@ trait CPT {
 	 *
 	 * @param string $parent_file
 	 *
-	 * @return string $parent_file
+	 * @return ?string $parent_file
 	 */
-	function filter_parent_file( $parent_file ) : string {
+	public function filter_parent_file( $parent_file ) : ?string {
 		/* Get current screen */
 		global $current_screen;
 
@@ -217,7 +236,7 @@ trait CPT {
 	 *
 	 * @return ?string $submenu_file
 	 */
-	function filter_submenu_file( $submenu_file ) : ?string {
+	public function filter_submenu_file( $submenu_file ) : ?string {
 		global $current_screen;
 
 		if ( ! in_array( $current_screen->base, [ 'edit', 'post' ] ) ) {

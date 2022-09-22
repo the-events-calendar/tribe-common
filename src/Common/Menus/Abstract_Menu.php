@@ -224,7 +224,7 @@ abstract class Abstract_Menu implements Menu_Contract {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_callback() : string|callable {
+	public function get_callback() : string|callable|null {
 		return $this->callback;
 	}
 

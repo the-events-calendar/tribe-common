@@ -70,9 +70,9 @@ interface Menu_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @return string|callable
+	 * @return string|callable|null
 	 */
-	public function get_callback() : string|callable;
+	public function get_callback() : string|callable|null;
 
 	/**
 	 * Get the menu's required capability.
