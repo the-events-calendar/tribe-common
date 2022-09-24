@@ -17,7 +17,7 @@ trait CPT {
 	 *
 	 * @var boolean
 	 */
-	protected $new_menu = false;
+	protected $add_new_menu = false;
 
 	/**
 	 * The CPT post type slug.
@@ -35,12 +35,12 @@ trait CPT {
 	 *
 	 * @var string
 	 */
-	protected $parent_file ='admin.php';
+	protected $parent_file = 'admin.php';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function hooks() {
+	protected function cpt_hooks() : void {
 		if ( ! has_action( 'tec_submenu_' . $this->get_slug() . '_registered' ) ) {
 			add_action(
 				'tec_submenu_' . $this->get_slug() . '_registered',
@@ -171,13 +171,13 @@ trait CPT {
 	 */
 	public function should_use_new_post_menu() : bool {
 		// Allow setting (nonfilterable!) as a param.
-		if ( isset( $this->new_menu ) ) {
-			return $this->new_menu;
+		if ( isset( $this->add_new_menu ) ) {
+			return $this->add_new_menu;
 		}
 
-		$new_menu = apply_filters( 'tec_menu_cpt_should_use_new_post_menu', false, $this );
+		$add_new_menu = apply_filters( 'tec_menu_cpt_should_use_new_post_menu', false, $this );
 
-		return apply_filters( "tec_menu_cpt_{$this->get_post_type()}_should_use_new_post_menu", $new_menu );
+		return apply_filters( "tec_menu_cpt_{$this->get_post_type()}_should_use_new_post_menu", $add_new_menu );
 	}
 
 	/**
@@ -255,5 +255,12 @@ trait CPT {
 		}
 
 		return $this->get_slug();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_url() : string {
+		return $this->get_list_url();
 	}
 }

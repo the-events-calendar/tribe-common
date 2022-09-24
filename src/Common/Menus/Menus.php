@@ -37,7 +37,7 @@ class Menus {
 	 *
 	 * @since TBD
 	 */
-	public function register() {
+	public function register() : void {
 		add_action( 'admin_menu', [ $this, 'register_in_wp' ] );
 	}
 
@@ -48,7 +48,7 @@ class Menus {
 	 *
 	 * @param Abstract_Menu $obj The menu object.
 	 */
-	public function add_menu( $obj ) {
+	public static function add_menu( $obj ) : void {
 		if ( ! $this->can_register() ) {
 			_doing_it_wrong(
 				__FUNCTION__,
@@ -70,11 +70,11 @@ class Menus {
 	 *
 	 * @since TBD
 	 *
-	 * @param Menu_Contract|string $menu_id The Menu object. Alternatively its: slug, hook suffix, or namespaced class "path".
+	 * @param Abstract_Menu|string $menu_id The Menu object. Alternatively its: slug, hook suffix, or namespaced class "path".
 	 *
-	 * @return Menu_Contract|false The Menu object. False if not found.
+	 * @return Abstract_Menu|false The Menu object. False if not found.
 	 */
-	public function get_menu( $menu_id ): Menu_Contract  {
+	public static function get_menu( $menu_id ) : Abstract_Menu  {
 		$menu_id = $this->normalize_menu_id_to_slug( $menu_id );
 		if ( empty( $this->queue[ $menu_id ] ) ) {
 			return false;
@@ -94,7 +94,7 @@ class Menus {
 	 *
 	 * @return array <string,mixed> An array of menu objects.
 	 */
-	public function get_menus( ?bool $submenus ): array {
+	public function get_menus( ?bool $submenus ) : array {
 		$menu_list = [];
 
 		if ( true === $submenus ) {
@@ -123,20 +123,20 @@ class Menus {
 	 *
 	 * @since TBD
 	 *
-	 * @param Menu_Contract|string $menu_id The Menu object. Alternatively its: slug, hook suffix, or namespaced class "path".
+	 * @param Abstract_Menu|string $menu_id The Menu object. Alternatively its: slug, hook suffix, or namespaced class "path".
 	 *
-	 * @return Menu_Contract|false The Submenu object. False if not found or found but not a submenu.
+	 * @return Abstract_Menu|null The Submenu object. NULL if not found or found but not a submenu.
 	 */
-	public function get_submenu( $menu_id ) {
+	public function get_submenu( $menu_id ) : ?Abstract_Menu {
 		if ( empty( $this->queue[ $menu_id ] ) ) {
-			return false;
+			return null;
 		}
 
 		$potential_submenu = $this->queue[ $menu_id ];
 
 		// Did we get a submenu?
 		if ( empty( $potential_submenu->is_submenu ) ) {
-			return false;
+			return null;
 		}
 
 		return $potential_submenu;
@@ -147,11 +147,11 @@ class Menus {
 	 *
 	 * @since TBD
 	 *
-	 * @param Menu_Contract|string $menu_id The Menu object. Alternatively its: slug, hook suffix, or namespaced class "path".
+	 * @param Abstract_Menu|string $menu_id The Menu object. Alternatively its: slug, hook suffix, or namespaced class "path".
 	 *
 	 * @return array <string,mixed> An array of menu objects - all submenus of the provided parent menu.
 	 */
-	public function get_submenus( $menu_id ) {
+	public function get_submenus( $menu_id ) : array {
 		$menu_list = [];
 
 		foreach( $this->queue as $item ) {
@@ -177,7 +177,7 @@ class Menus {
 	 *
 	 * @return boolean
 	 */
-	public function can_register() {
+	public function can_register() : bool {
 		if ( 0 < did_action( 'admin_menu' ) ) {
 			$this->can_register = false;
 		}
@@ -190,14 +190,14 @@ class Menus {
 	 *
 	 * @since TBD
 	 *
-	 * @param Menu_Contract|string $menu_id The Menu object. Alternatively its: slug, hook suffix, or namespaced class "path".
+	 * @param Abstract_Menu|string $menu_id The Menu object. Alternatively its: slug, hook suffix, or namespaced class "path".
 	 *
 	 * @return boolean
 	 */
-	public function is_enqueued( $menu_id ) {
+	public function is_enqueued( $menu_id ) : bool {
 		$menu_id = $this->normalize_menu_id_to_slug( $menu_id );
 
-		return ! empty( $this->queue[ $menu_id ] ) && $this->queue[ $menu_id ] instanceof Menu_Contract;
+		return ! empty( $this->queue[ $menu_id ] ) && $this->queue[ $menu_id ] instanceof Abstract_Menu;
 	}
 
 	/**
@@ -205,12 +205,12 @@ class Menus {
 	 *
 	 * @since TBD
 	 */
-	public function register_in_wp() {
+	public function register_in_wp() : void {
 		global $menu;
 		/**
 		 * Allows triggering actions before the menus are registered with WP.
 		 *
-		 * @param TEC\Common\Menus\Menu_Contract $menu The current menu object.
+		 * @param TEC\Common\Menus\Abstract_Menu $menu The current menu object.
 		 */
 		do_action( 'tec_menus_before_register', $this );
 
@@ -229,13 +229,13 @@ class Menus {
 	 *
 	 * @since TBD
 	 *
-	 * @param Menu_Contract|string $menu_id The Menu object. Alternatively its: slug, hook suffix, or namespaced class "path".
+	 * @param Abstract_Menu|string $menu_id The Menu object. Alternatively its: slug, hook suffix, or namespaced class "path".
 	 *
-	 * @return string|false The menu slug (ID) or false if it could not be discerned.
+	 * @return string|null The menu slug (ID) or null if it could not be discerned.
 	 */
-	public function normalize_menu_id_to_slug( $menu_id ) {
+	public function normalize_menu_id_to_slug( $menu_id ) : ?string {
 		// Menu object passed.
-		if ( $menu_id instanceof Menu_Contract ) {
+		if ( $menu_id instanceof Abstract_Menu ) {
 			return $menu_id->get_slug();
 		}
 
@@ -264,6 +264,6 @@ class Menus {
 		}
 
 		// Anything else.
-		return false;
+		return null;
 	}
 }

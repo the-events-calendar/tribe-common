@@ -20,21 +20,12 @@ trait Submenu {
 	 */
 	protected $parent_slug = '';
 
-   /**
-	* Variable for asserting this is a submenu.
-	*
-	* @since TBD
-	*
-	* @var boolean
-	*/
-	protected $is_submenu = true;
-
 	/**
 	 * Actually handles registering the submenu with WordPress.
 	 *
 	 * @since TBD
 	 */
-	protected function register_in_wp() {
+	protected function register_in_wp() : string {
 		$this->hook_suffix = add_submenu_page(
 			$this->get_parent_slug(),
 			$this->get_page_title(),
@@ -47,11 +38,7 @@ trait Submenu {
 
 		do_action( 'tec_menu_registered', $this );
 
-		do_action( 'tec_submenu_registered', $this );
-
 		do_action( 'tec_menu_' . $this->get_slug() . '_registered', $this );
-
-		do_action( 'tec_submenu_' . $this->get_slug() . '_registered', $this );
 
 		return $this->hook_suffix;
 	}
@@ -60,7 +47,7 @@ trait Submenu {
 	 * {@inheritDoc}
 	 */
 	public function is_submenu() : bool {
-		$is_submenu = apply_filters( 'tec_menus_is_submenu', $this->is_submenu, $this );
+		$is_submenu = apply_filters( 'tec_menus_is_submenu', true, $this );
 
 		return (bool) apply_filters( "tec_menus_{$this->get_slug()}_is_submenu", $is_submenu, $this );
 	}

@@ -25,7 +25,7 @@ use \TEC\Common\Menus\Menus;
  *
  * @package TEC\Common\Menus
  */
-abstract class Abstract_Menu implements Menu_Contract {
+abstract class Abstract_Menu {
 	/**
 	 * Title for the menu page.
 	 * Required.
@@ -64,7 +64,7 @@ abstract class Abstract_Menu implements Menu_Contract {
 	 *
 	 * @var string
 	 */
-	public static $menu_slug = '';
+	public $menu_slug = '';
 
 	/**
 	 * Page content callback.
@@ -103,6 +103,9 @@ abstract class Abstract_Menu implements Menu_Contract {
 	 */
 	public $hook_suffix = '';
 
+
+	protected $de_dupe = false;
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -115,7 +118,7 @@ abstract class Abstract_Menu implements Menu_Contract {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function init() {
+	public function init() : void {
 		$this->callback = [ $this, 'render' ];
 	}
 
@@ -125,13 +128,23 @@ abstract class Abstract_Menu implements Menu_Contract {
 	 *
 	 * @since TBD
 	 */
-	protected function hooks() {}
+	protected function hooks() : void {
+		add_action( 'admin_menu', [ $this, 'de_dupe' ], 100);
+
+		if ( method_exists( $this, 'cpt_hooks' ) ) {
+			$this->cpt_hooks();
+		}
+
+		if ( method_exists( $this, 'adminbar_hooks' ) ) {
+			$this->adminbar_hooks();
+		}
+	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function build() {
-		tribe( Menus::class )->add_menu( $this );
+	public function build() : void {
+		Menus::add_menu( $this );
 	}
 
 	/**
@@ -139,14 +152,14 @@ abstract class Abstract_Menu implements Menu_Contract {
 	 *
 	 * @since TBD
 	 */
-	public function render() {
+	public function render() : void {
 		echo "Your {$this->get_menu_title()} menu works! Now override this function to render your admin page.";
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function register_menu() {
+	public function register_menu() : void {
 		/**
 		 * Allows triggering actions before the menu page is registered with WP.
 		 *
@@ -166,7 +179,7 @@ abstract class Abstract_Menu implements Menu_Contract {
 	 *
 	 * @since TBD
 	 */
-	protected function register_in_wp() {
+	protected function register_in_wp() : string {
 		$this->hook_suffix = add_menu_page(
 			$this->get_page_title(),
 			$this->get_menu_title(),
@@ -178,6 +191,17 @@ abstract class Abstract_Menu implements Menu_Contract {
 		);
 
 		return $this->get_hook_suffix();
+	}
+
+	public function de_dupe() : void {
+
+
+
+		if ( ! $this->de_dupe ) {
+			return;
+		}
+
+		remove_submenu_page( $this->get_slug(), $this->get_slug() );
 	}
 
 	/**
@@ -200,7 +224,7 @@ abstract class Abstract_Menu implements Menu_Contract {
 	 * {@inheritDoc}
 	 */
 	public function get_slug() : string {
-		return static::$menu_slug;
+		return $this->menu_slug;
 	}
 
 	/**
@@ -213,12 +237,12 @@ abstract class Abstract_Menu implements Menu_Contract {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_parent() : ?Menu_Contract {
+	public function get_parent() : ?Abstract_Menu {
 		if ( empty( $this->parent_slug ) ) {
 			return null;
 		}
 
-		return tribe( Menus::class )->get_menu( $this->parent_slug );
+		return Menus::get_menu( $this->parent_slug );
 	}
 
 	/**
@@ -278,6 +302,6 @@ abstract class Abstract_Menu implements Menu_Contract {
 	 * {@inheritDoc}
 	 */
 	public function get_url() : string {
-		return menu_page_url( static::$menu_slug, false );
+		return menu_page_url( $this->get_slug(), false );
 	}
 }

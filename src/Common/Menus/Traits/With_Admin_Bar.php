@@ -12,15 +12,15 @@ namespace TEC\Common\Menus\Traits;
 trait With_Admin_Bar {
 
 	/**
-	 * slug of the adminbar parent menu.
+	 * The slug of the adminbar parent menu.
 	 *
 	 * @since TBD
 	 *
 	 * @var string
 	 */
-	public $adminbar_parent = '';
+	public $adminbar_parent = false;
 
-	public function hooks() {
+	public function adminbar_hooks() : void {
 		add_action( 'wp_before_admin_bar_render', [ $this, 'add_toolbar_item' ], 20 );
 	}
 
@@ -30,7 +30,7 @@ trait With_Admin_Bar {
 	 * @since 4.14.2
 	 *
 	 */
-	public function add_toolbar_item() {
+	public function add_toolbar_item() : void {
 		$capability = $this->get_capability();
 
 		if ( ! current_user_can( $capability ) ) {
@@ -43,7 +43,15 @@ trait With_Admin_Bar {
 			'id'     => $this->get_slug(),
 			'title'  => $this->get_menu_title(),
 			'href'   => $this->get_url(),
-			'parent' => $this->adminbar_parent,
+			'parent' => $this->get_adminbar_parent(),
 		] );
+	}
+
+	public function get_adminbar_parent() {
+		if ( ! empty( $this->adminbar_parent ) ) {
+			return $this->adminbar_parent;
+		}
+
+		return $this->get_parent_slug();
 	}
 }
