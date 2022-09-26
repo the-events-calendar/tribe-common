@@ -56,10 +56,44 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
-	public function test_date_sort_with_array_of_objects() {
-		$now          = Dates::build_date_object( '47448000' );
-		$start_date   = Dates::build_date_object( '47448001' );
-		$end_date     = Dates::build_date_object( '47448002' );
+	public function test_date_sort_with_array_of_mutable_objects() {
+		$now          = Dates::mutable( '47448000' );
+		$start_date   = Dates::mutable( '47448001' );
+		$end_date     = Dates::mutable( '47448002' );
+		$sorted_array = [ $now, $start_date, $end_date ];
+		$test_array   = [ $end_date, $now, $start_date ];
+
+		$sorted = Dates::sort( $test_array );
+
+		// Both arrays are objects.
+
+		$this->assertEquals( $sorted_array, $sorted, 'Date objects should be sorted in the appropriate ascending order.' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function test_date_sort_with_array_of_mixed_immutable_and_mutable_objects() {
+		$now          = Dates::mutable( '47448000' );
+		$start_date   = Dates::immutable( '47448001' );
+		$end_date     = Dates::mutable( '47448002' );
+		$sorted_array = [ $now, $start_date, $end_date ];
+		$test_array   = [ $end_date, $now, $start_date ];
+
+		$sorted = Dates::sort( $test_array );
+
+		// Both arrays are objects.
+
+		$this->assertEquals( $sorted_array, $sorted, 'Date objects should be sorted in the appropriate ascending order.' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function test_date_sort_with_array_of_immutable_objects() {
+		$now          = Dates::immutable( '47448000' );
+		$start_date   = Dates::immutable( '47448001' );
+		$end_date     = Dates::immutable( '47448002' );
 		$sorted_array = [ $now, $start_date, $end_date ];
 		$test_array   = [ $end_date, $now, $start_date ];
 
