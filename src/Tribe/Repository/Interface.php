@@ -324,7 +324,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Returns the SQL code for the last query built and ran by the repository, if any.
 	 *
-	 * @since TBD
+	 * @since 5.0.1
 	 *
 	 * @return string|null The SQL code for the last query built and ran by the repository, if any.
 	 */

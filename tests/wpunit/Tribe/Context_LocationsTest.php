@@ -5,7 +5,7 @@ namespace Tribe;
 /**
  * Class Context_LocationsTest
  *
- * @since   TBD
+ * @since   5.0.1
  *
  * @package Tribe
  */
