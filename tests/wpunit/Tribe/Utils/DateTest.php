@@ -10,7 +10,7 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
-	public function test_date_sort_with_array() {
+	public function test_date_sort_with_array_of_strings() {
 		$now          = '47448000';
 		$start_date   = '47448001';
 		$end_date     = '47448002';
@@ -19,7 +19,7 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 
 		$sorted = Dates::sort( $test_array );
 
-		// Ensure we're comparing apples to apples here, instead of datetime objects to strings.
+		// Ensure we're *comparing* apples to apples here, instead of datetime objects to strings.
 		$sorted = array_map(
 			function( $date ) {
 				return $date->format( 'U' );
@@ -27,8 +27,72 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 			$sorted
 		);
 
-		$this->assertEquals( $sorted_array, $sorted, 'Dates should be sorted in the appropriate ascending order.' );
+		$this->assertEquals( $sorted_array, $sorted, 'Date strings should be sorted in the appropriate ascending order.' );
 	}
+
+	/**
+	 * @test
+	 */
+	public function test_date_sort_with_array_of_ints() {
+		$now          = 47448000;
+		$start_date   = 47448001;
+		$end_date     = 47448002;
+		$sorted_array = [ $now, $start_date, $end_date ];
+		$test_array   = [ $end_date, $now, $start_date ];
+
+		$sorted = Dates::sort( $test_array );
+
+		// Ensure we're *comparing* apples to apples here, instead of datetime objects to strings.
+		$sorted = array_map(
+			function( $date ) {
+				return $date->format( 'U' );
+			},
+			$sorted
+		);
+
+		$this->assertEquals( $sorted_array, $sorted, 'Date integers should be sorted in the appropriate ascending order.' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function test_date_sort_with_array_of_objects() {
+		$now          = Dates::build_date_object( '47448000' );
+		$start_date   = Dates::build_date_object( '47448001' );
+		$end_date     = Dates::build_date_object( '47448002' );
+		$sorted_array = [ $now, $start_date, $end_date ];
+		$test_array   = [ $end_date, $now, $start_date ];
+
+		$sorted = Dates::sort( $test_array );
+
+		// Both arrays are objects.
+
+		$this->assertEquals( $sorted_array, $sorted, 'Date objects should be sorted in the appropriate ascending order.' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function test_date_sort_with_mixed_array() {
+		$now          = '47448000';
+		$start_date   = 47448001;
+		$end_date     = Dates::build_date_object( '47448002' );
+		$sorted_array = [ '47448000', '47448001', '47448002' ];
+		$test_array   = [ $end_date, $now, $start_date ];
+
+		$sorted = Dates::sort( $test_array );
+
+		// Ensure we're *comparing* apples to apples here, instead of datetime objects to strings.
+		$sorted = array_map(
+			function( $date ) {
+				return $date->format( 'U' );
+			},
+			$sorted
+		);
+
+		$this->assertEquals( $sorted_array, $sorted, 'Date integers should be sorted in the appropriate ascending order.' );
+	}
+
 	/**
 	 * @test
 	 */
@@ -42,7 +106,7 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 
 		$sorted = Dates::sort( $test_array, 'DESC' );
 
-		// Ensure we're comparing apples to apples here, instead of datetime objects to strings.
+		// Ensure we're *comparing* apples to apples here, instead of datetime objects to strings.
 		$sorted = array_map(
 			function( $date ) {
 				return $date->format( 'U' );
