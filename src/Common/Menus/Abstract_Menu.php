@@ -6,8 +6,8 @@
  * changing the properties as appropriate.
  *
  * If you want to create a submenu - use the Submenu Trait as well.
- * If you want to create a menu for a Custom Post ype (CPT) use the CPT trait.
- * Traits can be combined. So "use Submenu, CPT;" is perfectly valid (and used in TEC).
+ * If you want to create a menu for a Custom Post type (CPT) use the CPT trait.
+ * Traits can be combined. So "use Submenu, CPT, With_Admin_Bar;" is perfectly valid (and used in TEC).
  *
  * @since TBD
  *
@@ -104,7 +104,7 @@ abstract class Abstract_Menu {
 	public $hook_suffix = '';
 
 
-	protected $de_dupe = false;
+	protected $de_duplicate = false;
 
 	/**
 	 * {@inheritDoc}
@@ -129,7 +129,7 @@ abstract class Abstract_Menu {
 	 * @since TBD
 	 */
 	protected function hooks() : void {
-		add_action( 'admin_menu', [ $this, 'de_dupe' ], 100);
+		add_action( 'admin_menu', [ $this, 'de_duplicate' ], 100);
 
 		if ( method_exists( $this, 'cpt_hooks' ) ) {
 			$this->cpt_hooks();
@@ -144,7 +144,7 @@ abstract class Abstract_Menu {
 	 * {@inheritDoc}
 	 */
 	public function build() : void {
-		Menus::add_menu( $this );
+		tribe( Menus::class )->add_menu( $this );
 	}
 
 	/**
@@ -193,11 +193,15 @@ abstract class Abstract_Menu {
 		return $this->get_hook_suffix();
 	}
 
-	public function de_dupe() : void {
-
-
-
-		if ( ! $this->de_dupe ) {
+	/**
+	 * Removes the duplicated submenu item.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function de_duplicate() : void {
+		if ( ! $this->de_duplicate ) {
 			return;
 		}
 

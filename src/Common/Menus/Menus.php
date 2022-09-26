@@ -21,7 +21,7 @@ class Menus {
 	 *
 	 * @var bool
 	 */
-	protected $can_register = true;
+	protected static $can_register = true;
 
 	/**
 	 * Placeholder for a list(array) of registered menus
@@ -38,6 +38,7 @@ class Menus {
 	 * @since TBD
 	 */
 	public function register() : void {
+		tribe_singleton( self::class, self::class );
 		add_action( 'admin_menu', [ $this, 'register_in_wp' ] );
 	}
 
@@ -48,8 +49,8 @@ class Menus {
 	 *
 	 * @param Abstract_Menu $obj The menu object.
 	 */
-	public static function add_menu( $obj ) : void {
-		if ( ! $this->can_register() ) {
+	public function add_menu( $obj ) : void {
+		if ( ! self::can_register() ) {
 			_doing_it_wrong(
 				__FUNCTION__,
 				'Function was called after it is possible to register a new menu.',
@@ -177,12 +178,12 @@ class Menus {
 	 *
 	 * @return boolean
 	 */
-	public function can_register() : bool {
+	public static function can_register() : bool {
 		if ( 0 < did_action( 'admin_menu' ) ) {
-			$this->can_register = false;
+			static::$can_register = false;
 		}
 
-		return $this->can_register;
+		return static::$can_register;
 	}
 
 	/**
@@ -221,7 +222,7 @@ class Menus {
 			$menu_item->register_menu();
 		}
 
-		$this->can_register = false;
+		static::$can_register = false;
 	}
 
 	/**
