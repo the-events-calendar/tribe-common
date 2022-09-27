@@ -42,8 +42,8 @@ env:
     - WP_ADMIN_PASSWORD="password"
 
 before_install:
-  # Rollback Composer to version 1.
-  # - composer self-update --rollback
+  # Set Composer to version 2.
+  - composer self-update --2
 
   # create the databases needed for the tests
   - mysql -e "create database IF NOT EXISTS $DB_NAME;" -uroot
