@@ -47,7 +47,7 @@ class Troubleshooting {
 	 *
 	 */
 	public function hook() {
-		add_action( 'admin_menu', [ $this, 'add_menu_page' ], 90 );
+		//add_action( 'admin_menu', [ $this, 'add_menu_page' ], 90 );
 		add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
 		add_action( 'wp_before_admin_bar_render', [ $this, 'add_toolbar_item' ], 20 );
 	}
@@ -319,7 +319,7 @@ class Troubleshooting {
 			],
 			[
 				'title'        => __( 'Plugin(s) are out of date', 'tribe-common' ),
-				'description'  => __( 'It\'s important to use the most recent versions of our plugins so that you have access to the latest features, bug fixes, and security updates. Plugin functionality can be comprimised if your site is running outdated or mis-matched versions.', 'tribe-common' ),
+				'description'  => __( 'It\'s important to use the most recent versions of our plugins so that you have access to the latest features, bug fixes, and security updates. Plugin functionality can be compromised if your site is running outdated or mis-matched versions.', 'tribe-common' ),
 				'more_info'    => 'https://evnt.is/1aqy',
 				'resolve_text' => __( 'Check for updates', 'tribe-common' ),
 				'fix'          => '/wp-admin/update-core.php',

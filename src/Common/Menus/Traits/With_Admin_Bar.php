@@ -2,7 +2,7 @@
 /**
  * Adds menu item to the WP admin bar.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\Menus
  */

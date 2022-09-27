@@ -2,7 +2,7 @@
 /**
  * Provides methods and properties for CPT (sub)menus.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\Menus
  */
@@ -41,9 +41,9 @@ trait CPT {
 	 * {@inheritDoc}
 	 */
 	protected function cpt_hooks() : void {
-		if ( ! has_action( 'tec_submenu_' . $this->get_slug() . '_registered' ) ) {
+		if ( ! has_action( 'tec_menu_' . $this->get_slug() . '_registered' ) ) {
 			add_action(
-				'tec_submenu_' . $this->get_slug() . '_registered',
+				'tec_menu_' . $this->get_slug() . '_registered',
 				[ $this, 'register_new_post_menu' ]
 			);
 		}
@@ -58,9 +58,7 @@ trait CPT {
 	/**
 	 * Get the CPT post type slug.
 	 *
-	 * @since string
-	 *
-	 * @return string
+	 * @since TBD
 	 */
 	public function get_post_type() : string {
 		return $this->post_type;
@@ -70,8 +68,6 @@ trait CPT {
 	 * Get the parent file slug.
 	 *
 	 * @since TBD
-	 *
-	 * @return string
 	 */
 	public function get_parent_file() : string {
 		$parent_file = apply_filters( 'tec_menus_parent_file', $this->parent_file, $this );
@@ -105,8 +101,6 @@ trait CPT {
 	 * Callback MUST be empty for CPT edit pages.
 	 *
 	 * @since TBD
-	 *
-	 * @return string|callable
 	 */
 	public function get_callback() : string|callable|null {
 		return null;
@@ -116,8 +110,6 @@ trait CPT {
 	 * Get the URL slug for the CPT edit page.
 	 *
 	 * @since TBD
-	 *
-	 * @return string
 	 */
 	public function get_slug() : string {
 		return 'edit.php?post_type=' . $this->get_post_type();
@@ -127,8 +119,6 @@ trait CPT {
 	 * Get the URL slug for the CPT edit page.
 	 *
 	 * @since TBD
-	 *
-	 * @return string
 	 */
 	public function get_new_post_slug() : string {
 		return 'post-new.php?post_type=' . $this->get_post_type();
@@ -138,8 +128,6 @@ trait CPT {
 	 * Get the URL to the CPT list table page.
 	 *
 	 * @since TBD
-	 *
-	 * @return string
 	 */
 	public function get_list_url() : string {
 		return add_query_arg(
@@ -152,8 +140,6 @@ trait CPT {
 	 * Get the "Add New" URL for the CPT.
 	 *
 	 * @since TBD
-	 *
-	 * @return string
 	 */
 	public function get_new_url() : string {
 		return add_query_arg(
@@ -175,7 +161,7 @@ trait CPT {
 			return $this->add_new_menu;
 		}
 
-		$add_new_menu = apply_filters( 'tec_menu_cpt_should_use_new_post_menu', false, $this );
+		$add_new_menu = apply_filters( 'tec_menu_cpt_should_use_new_post_menu', $this->add_new_menu, $this );
 
 		return apply_filters( "tec_menu_cpt_{$this->get_post_type()}_should_use_new_post_menu", $add_new_menu );
 	}
@@ -209,8 +195,6 @@ trait CPT {
 	 * @since TBD
 	 *
 	 * @param string $parent_file
-	 *
-	 * @return ?string $parent_file
 	 */
 	public function filter_parent_file( $parent_file ) : ?string {
 		/* Get current screen */
@@ -233,8 +217,6 @@ trait CPT {
 	 * @since TBD
 	 *
 	 * @param string $submenu_file
-	 *
-	 * @return ?string $submenu_file
 	 */
 	public function filter_submenu_file( $submenu_file ) : ?string {
 		global $current_screen;

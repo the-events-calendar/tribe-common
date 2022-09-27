@@ -38,7 +38,6 @@ class Menus {
 	 * @since TBD
 	 */
 	public function register() : void {
-		tribe_singleton( self::class, self::class );
 		add_action( 'admin_menu', [ $this, 'register_in_wp' ] );
 	}
 
@@ -47,9 +46,9 @@ class Menus {
 	 *
 	 * @since TBD
 	 *
-	 * @param Abstract_Menu $obj The menu object.
+	 * @param Abstract_Menu $menu The menu object.
 	 */
-	public function add_menu( $obj ) : void {
+	public function add_menu( $menu ) : void {
 		if ( ! self::can_register() ) {
 			_doing_it_wrong(
 				__FUNCTION__,
@@ -59,11 +58,11 @@ class Menus {
 		}
 
 		// Don't add duplicates.
-		if ( isset( $this->queue[ $obj->get_slug() ] ) ) {
+		if ( isset( $this->queue[ $menu->get_slug() ] ) ) {
 			return;
 		}
 
-		$this->queue[ $obj->get_slug() ] = $obj;
+		$this->queue[ $menu->get_slug() ] = $menu;
 	}
 
 	/**
@@ -76,12 +75,13 @@ class Menus {
 	 * @return Abstract_Menu|false The Menu object. False if not found.
 	 */
 	public static function get_menu( $menu_id ) : Abstract_Menu  {
-		$menu_id = $this->normalize_menu_id_to_slug( $menu_id );
-		if ( empty( $this->queue[ $menu_id ] ) ) {
+		$menu_id = self::normalize_menu_id_to_slug( $menu_id );
+
+		if ( empty( self::$queue[ $menu_id ] ) ) {
 			return false;
 		}
 
-		return $this->queue[ $menu_id ];
+		return self::$queue[ $menu_id ];
 	}
 
 	/**
@@ -89,34 +89,23 @@ class Menus {
 	 *
 	 * @since TBD
 	 *
-	 * @param ?bool $submenus If not passed, all menus will be returned.
+	 * @param ?bool $submenus If null/not passed, all menus will be returned.
 	 *                        If true, only submenus will be returned.
 	 *                        If false only to-level menus will be returned.
 	 *
 	 * @return array <string,mixed> An array of menu objects.
 	 */
 	public function get_menus( ?bool $submenus ) : array {
-		$menu_list = [];
-
-		if ( true === $submenus ) {
-			foreach( $this->queue as $item ) {
-				if ( ! empty( $item->is_submenu ) ) {
-					$menu_list[ $item->get_slug() ] = $item;
-				}
-			}
-
-			return $menu_list;
-		} else if( false === $submenus ) {
-			foreach( $this->queue as $item ) {
-				if ( empty( $item->is_submenu ) ) {
-					$menu_list[ $item->get_slug() ] = $item;
-				}
-			}
-
-			return $menu_list;
+		if ( is_null( $submenus ) ) {
+			return $this->queue;
 		}
 
-		return $this->queue;
+		return array_filter(
+			$this->queue,
+			function( $item ) use ( $submenus ) : bool {
+				return $submenus == empty( $item->is_submenu );
+			}
+		);
 	}
 
 	/**
@@ -136,7 +125,7 @@ class Menus {
 		$potential_submenu = $this->queue[ $menu_id ];
 
 		// Did we get a submenu?
-		if ( empty( $potential_submenu->is_submenu ) ) {
+		if ( ! $potential_submenu->is_submenu() ) {
 			return null;
 		}
 
@@ -153,15 +142,9 @@ class Menus {
 	 * @return array <string,mixed> An array of menu objects - all submenus of the provided parent menu.
 	 */
 	public function get_submenus( $menu_id ) : array {
-		$menu_list = [];
+		$menu_list = $this->get_menus( true );
 
-		foreach( $this->queue as $item ) {
-			if ( ! empty( $item->is_submenu ) ) {
-				$menu_list = $item;
-			}
-		}
-
-		array_map(
+		return array_map(
 			function( $menu ) use ( $menu_id ) {
 				return $menu->parent === $menu_id;
 			},
@@ -175,8 +158,6 @@ class Menus {
 	 * Are we able to register menus?
 	 *
 	 * @since TBD
-	 *
-	 * @return boolean
 	 */
 	public static function can_register() : bool {
 		if ( 0 < did_action( 'admin_menu' ) ) {
@@ -192,11 +173,9 @@ class Menus {
 	 * @since TBD
 	 *
 	 * @param Abstract_Menu|string $menu_id The Menu object. Alternatively its: slug, hook suffix, or namespaced class "path".
-	 *
-	 * @return boolean
 	 */
 	public function is_enqueued( $menu_id ) : bool {
-		$menu_id = $this->normalize_menu_id_to_slug( $menu_id );
+		$menu_id = self::normalize_menu_id_to_slug( $menu_id );
 
 		return ! empty( $this->queue[ $menu_id ] ) && $this->queue[ $menu_id ] instanceof Abstract_Menu;
 	}
@@ -207,7 +186,6 @@ class Menus {
 	 * @since TBD
 	 */
 	public function register_in_wp() : void {
-		global $menu;
 		/**
 		 * Allows triggering actions before the menus are registered with WP.
 		 *
@@ -234,18 +212,18 @@ class Menus {
 	 *
 	 * @return string|null The menu slug (ID) or null if it could not be discerned.
 	 */
-	public function normalize_menu_id_to_slug( $menu_id ) : ?string {
+	public static function normalize_menu_id_to_slug( $menu_id ) : ?string {
+		// Slug passed and already set in queue.
+		if ( isset( self::$queue[ $menu_id ] ) ) {
+			return $menu_id;
+		}
+
 		// Menu object passed.
 		if ( $menu_id instanceof Abstract_Menu ) {
 			return $menu_id->get_slug();
 		}
 
-		// Slug passed and already set in queue.
-		if ( isset( $this->queue[ $menu_id ] ) ) {
-			return $menu_id;
-		}
-
-		// Passed class path.
+		// Passed a class path.
 		if ( is_string( $menu_id ) && class_exists( $menu_id, false ) ) {
 			$temp_menu = new $menu_id;
 			return $temp_menu->get_slug();
@@ -254,7 +232,7 @@ class Menus {
 		// Hook suffix passed and already registered.
 		if ( is_string( $menu_id ) ) {
 			$menu = array_filter(
-				$this->queue[ $menu_id ],
+				self::$queue[ $menu_id ],
 				function( $id, $menu ) use ( $menu_id ) {
 					return $menu->get_hook_suffix() === $menu_id;
 				},

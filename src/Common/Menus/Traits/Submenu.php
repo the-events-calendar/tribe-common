@@ -2,7 +2,7 @@
 /**
  * Provides methods and properties for submenus.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\Menus
  */
@@ -35,10 +35,6 @@ trait Submenu {
 			$this->get_callback(),
 			$this->get_position()
 		);
-
-		do_action( 'tec_menu_registered', $this );
-
-		do_action( 'tec_menu_' . $this->get_slug() . '_registered', $this );
 
 		return $this->hook_suffix;
 	}

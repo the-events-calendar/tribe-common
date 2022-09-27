@@ -17,6 +17,7 @@
 namespace TEC\Common\Menus;
 
 use \TEC\Common\Menus\Menus;
+use \WP_Screen;
 
 /**
  * Class Menu
@@ -47,8 +48,9 @@ abstract class Abstract_Menu {
 	protected $menu_title = '';
 
 	/**
-	 * Required capability for accessing the menu.
-	 * Required.
+	 * Required capability for including the page in the admin menu.
+	 * The render function will also have to check the capability before rendering.
+	 * @see render() below.
 	 *
 	 * @since TBD
 	 *
@@ -92,7 +94,7 @@ abstract class Abstract_Menu {
 	 *
 	 * @var int
 	 */
-	protected $position = '';
+	protected $position;
 
 	/**
 	 * Placeholder for the hook suffix we get from registering with WP.
@@ -131,12 +133,36 @@ abstract class Abstract_Menu {
 	protected function hooks() : void {
 		add_action( 'admin_menu', [ $this, 'de_duplicate' ], 100);
 
+		add_action( 'admin_enqueue_scripts', [ $this, 'register_assets' ] );
+
+		// For the CPT trait hooks.
 		if ( method_exists( $this, 'cpt_hooks' ) ) {
 			$this->cpt_hooks();
 		}
 
+		// For the With_Admin_Bar trait hooks.
+		if ( method_exists( $this, 'settings_hooks' ) ) {
+			$this->settings_hooks();
+		}
+
+		// For the Taxonomy trait hooks.
+		if ( method_exists( $this, 'tax_hooks' ) ) {
+			$this->tax_hooks();
+		}
+
+		// For the With_Admin_Bar trait hooks.
 		if ( method_exists( $this, 'adminbar_hooks' ) ) {
 			$this->adminbar_hooks();
+		}
+
+		// For the Tabbed trait hooks.
+		if ( method_exists( $this, 'tabbed_hooks' ) ) {
+			$this->tabbed_hooks();
+		}
+
+		// For adding menu-specific hooks.
+		if ( method_exists( $this, 'custom_hooks' ) ) {
+			$this->custom_hooks();
 		}
 	}
 
@@ -149,11 +175,21 @@ abstract class Abstract_Menu {
 
 	/**
 	 * Renders the admin page content for the menu item.
+	 * No return - just directly output HTML or echo an HTML string.
+	 * @see https://developer.wordpress.org/reference/functions/add_menu_page/#parameters
+	 *
+	 * Also - WordPress only checks user cap to display the menu item.
+	 * If you want to keep folks from accessing via direct link, you need to check the capacity before rendering.
 	 *
 	 * @since TBD
 	 */
 	public function render() : void {
+		if ( ! current_user_can( $this->get_capability() ) ) {
+			return;
+		}
+
 		echo "Your {$this->get_menu_title()} menu works! Now override this function to render your admin page.";
+		echo "\n Don't forget to check the user capability before outputting the page!";
 	}
 
 	/**
@@ -197,8 +233,6 @@ abstract class Abstract_Menu {
 	 * Removes the duplicated submenu item.
 	 *
 	 * @since TBD
-	 *
-	 * @return void
 	 */
 	public function de_duplicate() : void {
 		if ( ! $this->de_duplicate ) {
@@ -307,5 +341,61 @@ abstract class Abstract_Menu {
 	 */
 	public function get_url() : string {
 		return menu_page_url( $this->get_slug(), false );
+	}
+
+	/**
+	 * Checks if this admin page is the current page.
+	 *
+	 * @since TBD
+	 */
+	public function is_current_page() : bool {
+		global $current_screen;
+
+		if ( is_null( $this->get_hook_suffix() ) ) {
+			_doing_it_wrong(
+				__FUNCTION__,
+				'Function was called before it is possible to accurately determine what the current page is.',
+				'TBD'
+			);
+
+			return false;
+		}
+
+		// Not in the admin so we just don't care.
+		if ( ! is_admin() ) {
+			return false;
+		}
+
+		// Doing AJAX? bail.
+		if ( tribe( 'context' )->doing_ajax() ) {
+			return false;
+		}
+
+		// Avoid Notices by checking the object type of WP_Screen.
+		if ( ! $current_screen instanceof WP_Screen ) {
+			return false;
+		}
+
+		// Match our admin page.
+		if ( $current_screen->id === $this->get_hook_suffix() ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Override this function to register/enqueue assets (CSS and JS, etc)
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function register_assets() {
+		if ( ! $this->is_current_page() ) {
+			return;
+		}
+
+		// register & enqueue your assets.
 	}
 }
