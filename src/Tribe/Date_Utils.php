@@ -583,7 +583,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *
 		 * @return boolean
 		 */
-		public static function is_now( $start_date, $end_date, $now = 'now' ) {
+		public static function is_now( $start_date, $end_date, $now = 'now' ) : bool {
 			$now        = self::build_date_object( $now );
 			$start_date = self::build_date_object( $start_date );
 			$end_date   = self::build_date_object( $end_date );
@@ -594,7 +594,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			}
 
 			// Handle dates passed out of chronological order.
-			list( $start_date, $end_date ) = self::sort( [ $start_date, $end_date ] );
+			[ $start_date, $end_date ] = self::sort( [ $start_date, $end_date ] );
 
 			// If span starts after now, return false.
 			if ( $start_date > $now ) {
@@ -620,7 +620,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *
 		 * @return array<DateTime> A sorted array of DateTime objects.
 		 */
-		public static function sort( array $dates, $direction = 'ASC' ) {
+		public static function sort( array $dates, string $direction = 'ASC' ) :array {
 			// If we get passed a single array, break it out of the containing array.
 			if ( is_array( $dates[0] ) ) {
 				$dates = $dates[0];
