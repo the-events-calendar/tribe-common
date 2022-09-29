@@ -581,7 +581,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @param string|DateTime|int $end_date   A `strtotime` parsable string, a DateTime object or a timestamp.
 		 * @param string|DateTime|int $now        A `strtotime` parsable string, a DateTime object or a timestamp. Defaults to 'now'.
 		 *
-		 * @return boolean
+		 * @return boolean Whether the current datetime (or passed "now") is between the passed start and end dates.
 		 */
 		public static function is_now( $start_date, $end_date, $now = 'now' ) : bool {
 			$now        = self::build_date_object( $now );
