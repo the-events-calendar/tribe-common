@@ -61,7 +61,7 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 	 *
 	 * @since 4.14.2
 	 *
-	 * @return int $end_time The date & time the notice should start displaying, as a Unix timestamp.
+	 * @return \Tribe\Utils\Date_I18n - Date Object
 	 */
 	public function get_start_time() {
 		$date = parent::get_start_time();

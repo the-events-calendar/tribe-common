@@ -55,7 +55,7 @@ class End_Of_Year_Sale extends \Tribe\Admin\Notice\Date_Based {
 	 *
 	 * @since 4.14.9
 	 *
-	 * @return int $end_time The date & time the notice should stop displaying, as a Unix timestamp.
+	 * @return \Tribe\Utils\Date_I18n - Date Object
 	 */
 	public function get_end_time() {
 		$date = parent::get_end_time();

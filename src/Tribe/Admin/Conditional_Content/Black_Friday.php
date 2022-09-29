@@ -44,7 +44,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	 * Start the Monday before Thanksgiving.
 	 *
 	 * @since 4.14.7
-	 * @return int - Unix timestamp
+	 * @return \Tribe\Utils\Date_I18n - Date Object
 	 */
 	protected function get_start_time() {
 		$date = parent::get_start_time();
