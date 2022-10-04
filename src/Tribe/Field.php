@@ -711,12 +711,12 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		/**
 		 * Generate a color field.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 *
 		 * @return string The field.
 		 */
 		public function color() {
-			
+
 			tribe( Settings::class )->maybe_load_color_field_assets();
 
 			$field = $this->do_field_start();
@@ -738,8 +738,8 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 
 		/**
 		 * Generate an image field.
-		 * 
-		 * @since TBD
+		 *
+		 * @since 5.0.0
 		 *
 		 * @return string The field.
 		 */

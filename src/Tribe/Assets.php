@@ -40,9 +40,50 @@ class Tribe__Assets {
 		add_action( 'init', [ $this, 'register_in_wp' ], 1, 0 );
 		add_filter( 'script_loader_tag', [ $this, 'filter_tag_async_defer' ], 50, 2 );
 		add_filter( 'script_loader_tag', [ $this, 'filter_modify_to_module' ], 50, 2 );
+		add_filter( 'script_loader_tag', [ $this, 'filter_print_before_after_script' ], 100, 2 );
 
 		// Enqueue late.
 		add_filter( 'script_loader_tag', [ $this, 'filter_add_localization_data' ], 500, 2 );
+	}
+
+	/**
+	 * Depending on how certain scripts are loaded and how much cross-compatibility is required we need to be able to
+	 * create noConflict backups and restore other scripts, which normally need to be printed directly on the scripts.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param string $tag    Tag we are filtering.
+	 * @param string $handle Which is the ID/Handle of the tag we are about to print.
+	 *
+	 * @return string Script tag with the before and after strings attached to it.
+	 */
+	public function filter_print_before_after_script( $tag, $handle ) : string {
+		// Only filter for our own filters.
+		if ( ! $asset = $this->get( $handle ) ) {
+			return $tag;
+		}
+
+		// Bail when not dealing with JS assets.
+		if ( 'js' !== $asset->type ) {
+			return $tag;
+		}
+
+		// Only go forward if there is any print before or after.
+		if ( empty( $asset->print_before ) && empty( $asset->print_after ) ) {
+			return $tag;
+		}
+
+		$before = '';
+		if ( ! empty( $asset->print_before ) ) {
+			$before = (string) ( is_callable( $asset->print_before ) ? call_user_func( $asset->print_before, $asset ) : $asset->print_before );
+		}
+
+		$after = '';
+		if ( ! empty( $asset->print_after ) ) {
+			$after = (string) ( is_callable( $asset->print_after ) ? call_user_func( $asset->print_after, $asset ) : $asset->print_after );
+		}
+
+		return $before . $tag . $after;
 	}
 
 	/**
@@ -57,7 +98,7 @@ class Tribe__Assets {
 	 * @return string Script tag with the localization variable HTML attached to it.
 	 */
 	public function filter_add_localization_data( $tag, $handle ) {
-		// Only filter for own own filters.
+		// Only filter for own filters.
 		if ( ! $asset = $this->get( $handle ) ) {
 			return $tag;
 		}
@@ -123,7 +164,7 @@ class Tribe__Assets {
 	 * @return string Script tag with the defer and/or async attached.
 	 */
 	public function filter_tag_async_defer( $tag, $handle ) {
-		// Only filter for own own filters.
+		// Only filter for our own filters.
 		if ( ! $asset = $this->get( $handle ) ) {
 			return $tag;
 		}
@@ -591,6 +632,10 @@ class Tribe__Assets {
 			'async'         => false,
 			'defer'         => false,
 			'module'        => false,
+
+			// Print before and after.
+			'print_before'  => null,
+			'print_after'  => null,
 
 			'in_footer'     => true,
 			'is_registered' => false,
