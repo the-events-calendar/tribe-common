@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.0.2] TBD =
+
+* Fix - Prevents fatal around term cache primer with empty object ID or term name.
+
 = [5.0.1] 2022-09-22 =
 
 * Fix - Avoid invoking unwanted callables with ORM post creation/updates. [ET-1560]
