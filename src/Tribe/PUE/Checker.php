@@ -1049,16 +1049,22 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				}
 
 				$current_install_key = $this->get_key( $key_type );
+				$replacement_key = $query_args['key'];
 
-				if ( $current_install_key && $current_install_key === $query_args['key'] ) {
+				if ( ! empty( $plugin_info->replacement_key ) ) {
+					// The PUE service might send over a new key upon validation.
+					$replacement_key = $plugin_info->replacement_key;
+				}
+
+				if ( $current_install_key && $current_install_key === $replacement_key ) {
 					$default_success_msg = esc_html( sprintf( __( 'Valid Key! Expires on %s', 'tribe-common' ), $expiration ) );
 				} else {
-					// Set the key
-					$this->update_key( $query_args['key'], $key_type );
+					// Set the key.
+					$this->update_key( $replacement_key, $key_type );
 
 					$default_success_msg = esc_html( sprintf( __( 'Thanks for setting up a valid key. It will expire on %s', 'tribe-common' ), $expiration ) );
 
-					//Set SysInfo Key on Tec.com After Successful Validation of License
+					// Set system info key on TEC.com after successful validation of license.
 					$optin_key = get_option( 'tribe_systeminfo_optin' );
 					if ( $optin_key ) {
 						Tribe__Support::send_sysinfo_key( $optin_key, $query_args['domain'], false, true );

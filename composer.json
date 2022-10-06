@@ -65,5 +65,10 @@
       "Tribe\\": "src/Tribe/",
       "TEC\\Common\\": "src/Common/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "TEC\\Common\\Tests\\": "tests/_data/classes"
+    }
   }
 }
