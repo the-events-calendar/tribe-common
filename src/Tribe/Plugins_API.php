@@ -71,9 +71,10 @@ class Tribe__Plugins_API {
 				'description-help' => __( 'The #1 calendar for WordPress', 'tribe-common' ),
 				'features'        => [
 					__( 'Premium support', 'tribe-common' ),
-					__( 'Recurring events', 'tribe-common' ),
+					__( 'Recurring events & series', 'tribe-common' ),
 					__( 'Additional views', 'tribe-common' ),
 					__( 'Shortcodes', 'tribe-common' ),
+					__( 'Duplicate events', 'tribe-common' ),
 				],
 				'image'           => 'images/shop/pro.jpg',
 				'logo'            => 'images/logo/events-calendar-pro.svg',

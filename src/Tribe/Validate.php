@@ -502,7 +502,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		/**
 		 * Validates and sanitizes a HTML color codes, including hex, rgb, rgba, hsl and hsla.
 		 *
-		 * @since TBD
+		 * @since 5.0.0
 		 */
 		public function color() {
 			if ( preg_match( '/^(#(?:[0-9a-f]{2}){2,4}|#[0-9a-f]{3}|(?:rgba?|hsla?)\((?:\d+%?(?:deg|rad|grad|turn)?(?:,|\s)+){2,3}[\s\/]*[\d\.]+%?\))$/i', $this->value ) ) {

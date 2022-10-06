@@ -21,7 +21,8 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.15.5';
+	const VERSION             = '5.0.0.1';
+
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
@@ -136,7 +137,10 @@ class Tribe__Main {
 
 		$autoloader = Tribe__Autoloader::instance();
 
-		$prefixes = [ 'Tribe__' => dirname( __FILE__ ) ];
+		$prefixes = [
+				'TEC\\Common\\' => dirname( __DIR__ ) . '/Common',
+				'Tribe__'       => __DIR__,
+		];
 		$autoloader->register_prefixes( $prefixes );
 
 		foreach ( glob( $this->plugin_path . 'src/deprecated/*.php' ) as $file ) {
@@ -183,6 +187,7 @@ class Tribe__Main {
 		require_once $this->plugin_path . 'src/functions/url.php';
 		require_once $this->plugin_path . 'src/functions/query.php';
 		require_once $this->plugin_path . 'src/functions/multibyte.php';
+		require_once $this->plugin_path . 'src/functions/files.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/html.php';
@@ -249,7 +254,7 @@ class Tribe__Main {
 			[
 				[ 'tribe-ui', 'tribe-ui.css', [ 'tec-variables-full' ] ],
 				[ 'tribe-buttonset', 'buttonset.js', [ 'jquery', 'underscore' ] ],
-				[ 'tribe-common-admin', 'tribe-common-admin.css', [ 'tec-variables-full', 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ] ],
+				[ 'tribe-common-admin', 'tribe-common-admin.css', [ 'tec-variables-skeleton', 'tec-variables-full', 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ] ],
 				[ 'tribe-validation', 'validation.js', [ 'jquery', 'underscore', 'tribe-common', 'tribe-utils-camelcase', 'tribe-tooltipster' ] ],
 				[ 'tribe-validation-style', 'validation.css', [ 'tec-variables-full', 'tribe-tooltipster-css' ] ],
 				[ 'tribe-dependency', 'dependency.js', [ 'jquery', 'underscore', 'tribe-common' ] ],
