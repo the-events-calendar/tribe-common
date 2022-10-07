@@ -187,6 +187,24 @@ interface Tribe__Repository__Interface
 	public function by_related_to_between( $by_meta_keys, $min, $max, $keys = null, $values = null );
 
 	/**
+	 * Filters the query to return posts that are not related to posts that have a specific meta value.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|array $by_meta_keys One or more `meta_keys` relating
+	 *                                   another post TO this post type.
+	 *
+	 * @param string|array $keys         One or more meta_keys to check on the post type in relation
+	 *                                   with the query post type(s); if the `$values` parameter is
+	 *                                   not provided then this will trigger an EXISTS check.
+	 * @param string|array $values       One or more value the meta_key specified with `$keys` should
+	 *                                   match.
+	 *
+	 * @return $this
+	 */
+	public function by_not_related_to( $by_meta_keys, $keys = null, $values = null );
+
+	/**
 	 * Adds an entry to the repository filter schema.
 	 *
 	 * @since 4.9.5
