@@ -121,7 +121,7 @@ class Replacement_Key_Checker_Test extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @test
 	 */
-	public function should_set_not_previosly_set_network_key_to_validated_key_when_replacement_key_not_provided(): void {
+		public function should_set_network_key_to_validated_key_when_not_previously_set_and_replacement_not_provided(): void {
 		$validated_key = md5( microtime() );
 		// Ensure there is no license key locally or network wide.
 		delete_option( 'pue_install_key_test_plugin' );
@@ -137,11 +137,9 @@ class Replacement_Key_Checker_Test extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should set not previously set network key to validated key if replacement key empty
-	 *
 	 * @test
 	 */
-	public function should_set_not_previosly_set_network_key_to_validated_key_if_replacement_key_empty(): void {
+		public function should_set_network_key_to_validated_key_when_not_previously_set_and_replacement_key_empty(): void {
 		$validated_key = md5( microtime() );
 		// Ensure there is no license key locally or network wide.
 		delete_option( 'pue_install_key_test_plugin' );
@@ -159,11 +157,9 @@ class Replacement_Key_Checker_Test extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should set not previously set network key to replacement key if provided
-	 *
 	 * @test
 	 */
-	public function should_set_not_previously_set_network_key_to_replacement_key_if_provided(): void {
+	public function should_set_network_key_to_provided_replacement_key_when_not_previously_set(): void {
 		$validated_key = md5( microtime() );
 		// Ensure there is no license key locally or network wide.
 		delete_option( 'pue_install_key_test_plugin' );
