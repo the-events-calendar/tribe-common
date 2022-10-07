@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD
+
+* Feature - Adds a new `by_not_related_to` repository method for retrieving posts not related to other posts via a meta_value [ET-1567]
+
 = [5.0.0.1] 2022-09-07 =
 
 * Fix - Prevent `E_ERROR` from showing up when calling `tribe_context()->is( 'is_main_query' )` too early in execution. [TEC-4464]
