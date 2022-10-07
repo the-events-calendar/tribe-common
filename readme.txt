@@ -3,6 +3,7 @@
 = [5.0.2] TBD =
 
 * Fix - Prevents fatal around term cache primer with empty object ID or term name.
+* Tweak - Support replacement license keys in premium products and services.
 
 = [5.0.1] 2022-09-22 =
 
