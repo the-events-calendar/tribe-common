@@ -357,6 +357,15 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
+	public function by_not_related_to( $by_meta_keys, $keys = null, $values = null ) {
+		$this->decorated->by_not_related_to( $by_meta_keys, $keys, $values );
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function has_filter( $key, $value = null ) {
 		return $this->decorated->has_filter( $key, $value );
 	}
