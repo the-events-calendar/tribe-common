@@ -790,7 +790,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 * @return string the field
 		 */
 		public function toggle() {
-			$field  = $this->do_field_start();
+			$field = $this->do_field_start();
 			$field .= $this->do_field_label();
 			$field .= $this->do_field_div_start();
 			$field .= '<input type="checkbox"';
