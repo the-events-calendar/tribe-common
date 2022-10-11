@@ -123,4 +123,59 @@ class Taxonomy {
 
 		return $terms;
 	}
+
+
+	/**
+	 * When dealing with templates that make use of `get_post_class` the taxonomy + terms queries are very inefficient
+	 * so this method primes the caching by doing a single query that will build the cache for all Posts involved on
+	 * the template we are about to render, reducing about 2 queries for each Post that we prime the cache for.
+	 *
+	 * Important to note that
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param array $posts
+	 * @param array $taxonomies
+	 *
+	 * @return array<int, array>
+	 */
+	public static function prime_term_cache( array $posts = [], array $taxonomies = [ 'post_tag', \Tribe__Events__Main::TAXONOMY ], $prime_term_meta = false ) {
+		$first = reset( $posts );
+		$is_numeric = ( ! $first instanceof \WP_Post );
+		if ( $is_numeric ) {
+			$ids = $posts;
+		} else {
+			$ids = wp_list_pluck( $posts, 'ID' );
+		}
+		$cache = [];
+
+		// Build the base cache.
+		foreach ( $ids as $id ) {
+			foreach ( $taxonomies as $taxonomy ) {
+				$cache[ $id ][ $taxonomy ] = [];
+			}
+		}
+
+		$args  = [
+			'fields'     => 'all_with_object_id',
+			'object_ids' => $ids,
+			'taxonomy'   => $taxonomies,
+		];
+		$terms = get_terms( $args );
+		$term_ids = wp_list_pluck( $terms, 'term_id' );
+
+		foreach ( $terms as $term ) {
+			$cache[ $term->object_id ][ $term->taxonomy ][] = $term->term_id;
+		}
+
+		foreach ( $cache as $id => $object_taxonomies ) {
+			foreach ( $object_taxonomies as $taxonomy => $term_ids ) {
+				wp_cache_add( $id, $term_ids, $taxonomy . '_relationships' );
+			}
+		}
+
+		_prime_term_caches( $term_ids, $prime_term_meta );
+
+		return $cache;
+	}
 }
