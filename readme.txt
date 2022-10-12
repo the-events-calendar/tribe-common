@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Enhancement - Added a way to customize the WYSIWYG editor field by passing in a `settings` parameter. [ET-1565]
+
 = [5.0.1] 2022-09-22 =
 
 * Fix - Avoid invoking unwanted callables with ORM post creation/updates. [ET-1560]
