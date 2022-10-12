@@ -21,7 +21,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '5.0.0.1';
+	const VERSION             = '5.0.1';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -412,12 +412,12 @@ class Tribe__Main {
 				'monthNames'      => $datepicker_months,
 				'monthNamesShort' => $datepicker_months, // We deliberately use full month names here,
 				'monthNamesMin'   => array_values( Tribe__Date_Utils::get_localized_months_short() ),
- 				'nextText'        => esc_html__( 'Next', 'the-events-calendar' ),
-				'prevText'        => esc_html__( 'Prev', 'the-events-calendar' ),
-				'currentText'     => esc_html__( 'Today', 'the-events-calendar' ),
-				'closeText'       => esc_html__( 'Done', 'the-events-calendar' ),
-				'today'           => esc_html__( 'Today', 'the-events-calendar' ),
-				'clear'           => esc_html__( 'Clear', 'the-events-calendar' ),
+ 				'nextText'        => esc_html__( 'Next', 'tribe-common' ),
+				'prevText'        => esc_html__( 'Prev', 'tribe-common' ),
+				'currentText'     => esc_html__( 'Today', 'tribe-common' ),
+				'closeText'       => esc_html__( 'Done', 'tribe-common' ),
+				'today'           => esc_html__( 'Today', 'tribe-common' ),
+				'clear'           => esc_html__( 'Clear', 'tribe-common' ),
 			],
 		] );
 	}

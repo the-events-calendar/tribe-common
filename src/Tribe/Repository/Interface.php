@@ -320,4 +320,13 @@ interface Tribe__Repository__Interface
 	 * @return Tribe__Repository__Interface $this The repository instance.
 	 */
 	public function void_query( $void_query = true );
+
+	/**
+	 * Returns the SQL code for the last query built and ran by the repository, if any.
+	 *
+	 * @since 5.0.1
+	 *
+	 * @return string|null The SQL code for the last query built and ran by the repository, if any.
+	 */
+	public function get_last_sql(): ?string;
 }
