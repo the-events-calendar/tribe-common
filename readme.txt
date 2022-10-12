@@ -3,6 +3,7 @@
 = [TBD] TBD =
 
 * Feature - Added new toggle field for settings in the admin area. [ET-1564]
+* Enhancement - Added a way to customize the WYSIWYG editor field by passing in a `settings` parameter. [ET-1565]
 
 = [5.0.1] 2022-09-22 =
 
