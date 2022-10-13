@@ -1,6 +1,6 @@
 <?php
 
-$generalTabFields = [
+$general_tab_fields = [
 	'info-start'                    => [
 		'type' => 'html',
 		'html' => '<div id="modern-tribe-info">
@@ -24,23 +24,6 @@ $generalTabFields = [
 		'html'        => '<p>' . esc_html__( 'Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-common' ) . ' <a target="_blank" rel="noopener noreferrer" href="' . Tribe__Main::$tec_url . 'products/?utm_source=generaltab&utm_medium=plugin-tec&utm_campaign=in-app">' . esc_html__( 'Check out the available add-ons', 'tribe-common' ) . '</a>.</p>',
 		'conditional' => ( ! tec_should_hide_upsell() ) && class_exists( 'Tribe__Events__Main' ),
 	],
-	'donate-link-heading'           => [
-		'type'  => 'heading',
-		'label' => esc_html__( 'We hope our plugin is helping you out.', 'tribe-common' ),
-		'conditional' => class_exists( 'Tribe__Events__Main' ),
-	],
-	'donate-link-info'              => [
-		'type'        => 'html',
-		'html'        => '<p>' . esc_html__( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to The Events Calendar for all their hard work." The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-common' ) . '<br><a href="' . esc_url( plugins_url( 'resources/images/donate-link-screenshot.png', dirname( __FILE__ ) ) ) . '" class="thickbox">' . esc_html__( 'See an example of the link', 'tribe-common' ) . '</a>.</p>',
-		'conditional' => class_exists( 'Tribe__Events__Main' ),
-	],
-	'donate-link'                   => [
-		'type'            => 'checkbox_bool',
-		'label'           => esc_html__( 'Show The Events Calendar link', 'tribe-common' ),
-		'default'         => false,
-		'validation_type' => 'boolean',
-		'conditional' => class_exists( 'Tribe__Events__Main' ),
-	],
 	'info-end'                      => [
 		'type' => 'html',
 		'html' => '</div>',
@@ -51,24 +34,10 @@ $generalTabFields = [
 	],
 ];
 
-if ( is_super_admin() ) {
-	$generalTabFields['debugEvents'] = [
-		'type'            => 'checkbox_bool',
-		'label'           => esc_html__( 'Debug mode', 'tribe-common' ),
-		'tooltip' => sprintf(
-			esc_html__(
-				'Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %s and look for the "Tribe" tab in the debug output.',
-				'tribe-common'
-			),
-			'<a target="_blank" rel="noopener noreferrer" href="https://wordpress.org/extend/plugins/debug-bar/">' . esc_html__( 'Debug Bar Plugin', 'tribe-common' ) . '</a>'
-		),
-		'default'         => false,
-		'validation_type' => 'boolean',
-	];
-}
+$fields = apply_filters( 'tribe_general_settings_tab_fields', $general_tab_fields );
 
 // Closes form
-$generalTabFields['tribe-form-content-end'] = [
+$fields['tribe-form-content-end'] = [
 	'type' => 'html',
 	'html' => '</div>',
 ];
@@ -76,5 +45,5 @@ $generalTabFields['tribe-form-content-end'] = [
 
 $generalTab = [
 	'priority' => 10,
-	'fields'   => apply_filters( 'tribe_general_settings_tab_fields', $generalTabFields ),
+	'fields'   => $fields,
 ];

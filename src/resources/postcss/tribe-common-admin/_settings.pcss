@@ -1,0 +1,134 @@
+/* = Settings Screen
+============================================= */
+.tribe-settings-form {
+	max-width: 1000px;
+
+	fieldset {
+		display: flex;
+		flex-flow: row;
+		justify-content: flex-end;
+		padding: 0;
+
+		&.tribe-field-license_key legend {
+			width: auto;
+		}
+	}
+
+	legend {
+		float: left; /* hack to allow legend to be part of the flexbox */
+		font-weight: bold;
+		margin-right: var(--tec-spacer-4);
+		padding: 0;
+		width: 220px;
+	}
+
+	.tribe-field-wrap {
+		align-items: flex-start;
+		background-color: var(--tec-color-background);
+		display: flex;
+		flex-flow: row;
+		max-width: calc(100% - 240px);
+		padding: var(--tec-spacer-2);
+		width: 100%;
+
+		*:first-child {
+			margin-top: 0;
+		}
+	}
+
+	.tribe-field-radio,
+	.tribe-field-checkbox_list {
+		label {
+			display: block;
+			margin: var(--tec-spacer-0) 0 var(--tec-spacer-0) var(--tec-spacer-4);
+			text-indent: calc(-1 * var(--tec-spacer-4));
+
+			> p {
+				margin-left: 1px;
+				text-indent: 0;
+			}
+
+			input {
+				margin-right: var(--tec-spacer-0);
+			}
+		}
+	}
+
+	.tribe-settings-form-wrap .description {
+		margin-left: var(--tec-spacer-2);
+	}
+
+	.tribe-settings-form-wrap {
+
+		fieldset {
+			.description {
+				margin: 0 0 0 var(--tec-spacer-2);
+				max-width: 450px;
+				padding-left: 0;
+			}
+
+			.tribe-style-selection {
+				margin-bottom: var(--tec-spacer-3);
+			}
+		}
+
+		#tribe-field-stylesheetOption {
+
+			.description {
+				color: #999;
+				margin-left: 1px;
+			}
+		}
+
+		h3 {
+			background-color: transparent;
+			margin-bottom: -1em;
+			padding: var(--tec-spacer-0) 0;
+		}
+
+		.tribe-sysinfo-optin-msg,
+		.system-info,
+		h3 + p,
+		.contained {
+			margin: 0 0 var(--tec-spacer-2);
+			padding-left: var(--tec-spacer-2);
+		}
+	}
+}
+
+.tribe_settings {
+	.tribe-field-indent {
+		align-self: end;
+		background-color: var(--tec-color-background);
+		margin: 0;
+		max-width: calc(100% - 240px);
+		padding: var(--tec-spacer-2);
+		width: 100%;
+	}
+
+	#pu_dashboard_message {
+		display: none;
+	}
+
+	.tribe-errors-list {
+		margin-left: var(--tec-spacer-3);
+	}
+
+	.expiring-license {
+		color: var(--tec-color-icon-error);
+	}
+
+	.tribe-error {
+		border: 1px solid var(--tec-color-icon-error);
+	}
+
+	.tribe-field-description {
+		margin-bottom: 0;
+		position: relative;
+		top: calc(-1 * var(--tec-spacer-2));
+	}
+
+	#ical-link {
+		top: -14px;
+	}
+}
