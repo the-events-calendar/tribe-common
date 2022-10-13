@@ -76,11 +76,6 @@ td.tribe_message {
 	}
 }
 
-.tec-settings-section {
-	display: flex;
-	flex-flow: column nowrap;
-	margin: 35px 0;
-}
 
 /* = Upgrade Screen
 ============================================= */
@@ -129,28 +124,6 @@ table.plugins {
 	}
 }
 
-/* The Events Calendar box */
-#modern-tribe-info {
-	background-color: var(--tec-color-background);
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	margin: 20px 0;
-	padding: 8px 20px 12px;
-}
-
-#modern-tribe-info img {
-	margin: 10px 0;
-}
-
-#modern-tribe-info ul {
-	list-style: disc;
-	margin-left: 20px;
-}
-
-#modern-tribe-info ul ul {
-	list-style: circle;
-}
-
 /* sizes */
 .tribe-field-inline-dropdown {
 	margin-left: 0;
@@ -183,24 +156,37 @@ table.plugins {
 	width: 50px;
 }
 
-.tribe-field-text.tribe-size-medium input,
-.tribe-field-email.tribe-size-medium input,
-.tribe-field-license_key.tribe-size-medium input {
-	width: 225px;
-}
-
-.tribe-field-text.tribe-size-large input,
-.tribe-field-email.tribe-size-large input,
-.tribe-field-license_key.tribe-size-large input {
-	width: 450px;
+.tribe-field-number.tribe-size-small input {
+	width: 60px;
 }
 
 .tribe-field-dropdown.tribe-size-small select {
 	width: 100px;
 }
 
+.tribe-field-dropdown_chosen.tribe-size-small select {
+	width: 100px;
+}
+
+.tribe-field-text.tribe-size-medium input,
+.tribe-field-email.tribe-size-medium input,
+.tribe-field-license_key.tribe-size-medium input {
+	width: 225px;
+}
+
 .tribe-field-dropdown.tribe-size-medium select {
 	width: 300px;
+}
+
+.tribe-field-dropdown_chosen.tribe-size-medium select {
+	width: 200px;
+}
+
+.tribe-field-text.tribe-size-large input,
+.tribe-field-number.tribe-size-large input,
+.tribe-field-email.tribe-size-large input,
+.tribe-field-license_key.tribe-size-large input {
+	width: 450px;
 }
 
 .tribe-field-dropdown.tribe-size-large select {
@@ -213,14 +199,6 @@ table.plugins {
 	.description {
 		max-width: 100%;
 	}
-}
-
-.tribe-field-dropdown_chosen.tribe-size-small select {
-	width: 100px;
-}
-
-.tribe-field-dropdown_chosen.tribe-size-medium select {
-	width: 200px;
 }
 
 .tribe-field-dropdown_chosen.tribe-size-large select {

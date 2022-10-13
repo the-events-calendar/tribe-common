@@ -356,7 +356,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			$admin_page  = $admin_pages->get_current_page();
 
 			do_action( 'tribe_settings_top', $admin_page );
-			echo '<div class="tribe_settings wrap">';
+			echo '<div class="tribe-common tribe_settings wrap">';
 			echo '<h1>';
 			echo esc_html( $this->get_page_title( $admin_page ) );
 			echo '</h1>';

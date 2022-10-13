@@ -72,49 +72,49 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 
 			// setup the defaults
 			$this->defaults = [
-				'type'                => 'html',
-				'name'                => $id,
-				'fieldset_attributes' => [],
+				'allow_clear'         => false,
 				'attributes'          => [],
+				'can_be_empty'        => false,
 				'class'               => null,
-				'label'               => null,
-				'label_attributes'    => null,
-				'placeholder'         => null,
-				'tooltip'             => null,
-				'size'                => 'medium',
-				'html'                => null,
-				'error'               => false,
-				'value'               => $value,
-				'options'             => null,
+				'clear_after'         => true,
 				'conditional'         => true,
 				'display_callback'    => null,
+				'error'               => false,
+				'fieldset_attributes' => [],
+				'html'                => null,
 				'if_empty'            => null,
-				'can_be_empty'        => false,
-				'clear_after'         => true,
+				'label_attributes'    => null,
+				'label'               => null,
+				'name'                => $id,
+				'options'             => null,
+				'placeholder'         => null,
+				'size'                => 'medium',
 				'tooltip_first'       => false,
-				'allow_clear'         => false,
+				'tooltip'             => null,
+				'type'                => 'html',
+				'value'               => $value,
 			];
 
 			// a list of valid field types, to prevent screwy behavior
 			$this->valid_field_types = [
-				'heading',
-				'html',
-				'text',
-				'textarea',
-				'wysiwyg',
-				'radio',
 				'checkbox_bool',
 				'checkbox_list',
-				'dropdown',
-				'dropdown',
-				'dropdown_select2', // Deprecated use `dropdown`
+				'color',
 				'dropdown_chosen', // Deprecated use `dropdown`
+				'dropdown_select2', // Deprecated use `dropdown`
+				'dropdown',
+				'dropdown',
+				'email',
+				'heading',
+				'html',
+				'image',
 				'license_key',
 				'number',
+				'radio',
+				'text',
+				'textarea',
 				'wrapped_html',
-				'email',
-				'color',
-				'image',
+				'wysiwyg',
 			];
 
 			$this->valid_field_types = apply_filters( 'tribe_valid_field_types', $this->valid_field_types );
@@ -463,6 +463,29 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$field .= $this->do_field_div_start();
 			$field .= '<input';
 			$field .= ' type="text"';
+			$field .= $this->do_field_name();
+			$field .= $this->do_field_value();
+			$field .= $this->do_field_placeholder();
+			$field .= $this->do_field_attributes();
+			$field .= '/>';
+			$field .= $this->do_screen_reader_label();
+			$field .= $this->do_field_div_end();
+			$field .= $this->do_field_end();
+
+			return $field;
+		}
+
+		/**
+		 * generate a simple text field
+		 *
+		 * @return string the field
+		 */
+		public function number() {
+			$field = $this->do_field_start();
+			$field .= $this->do_field_label();
+			$field .= $this->do_field_div_start();
+			$field .= '<input';
+			$field .= ' type="number"';
 			$field .= $this->do_field_name();
 			$field .= $this->do_field_value();
 			$field .= $this->do_field_placeholder();
