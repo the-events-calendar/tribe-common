@@ -126,6 +126,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'email',
 				'color',
 				'image',
+				'toggle',
 			];
 
 			$this->valid_field_types = apply_filters( 'tribe_valid_field_types', $this->valid_field_types );
@@ -780,6 +781,31 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			}
 			$field .= '</div>';
 			$field .= '<button class="tec-admin__settings-image-field-btn-remove hidden">' . $remove_image_text . '</button>';
+			$field .= $this->do_screen_reader_label();
+			$field .= $this->do_field_div_end();
+			$field .= $this->do_field_end();
+
+			return $field;
+		}
+
+		/**
+		 * Generate a toggle switch.
+		 * 
+		 * @since TBD
+		 *
+		 * @return string the field
+		 */
+		public function toggle() {
+			$field = $this->do_field_start();
+			$field .= $this->do_field_label();
+			$field .= $this->do_field_div_start();
+			$field .= '<input type="checkbox"';
+			$field .= ' class="tec-admin__settings-toggle-field-input"';
+			$field .= $this->do_field_name();
+			$field .= ' value="1" ' . checked( $this->value, true, false );
+			$field .= $this->do_field_attributes();
+			$field .= '/>';
+			$field .= '<span class="tec-admin__settings-toggle-field-span"></span>';
 			$field .= $this->do_screen_reader_label();
 			$field .= $this->do_field_div_end();
 			$field .= $this->do_field_end();
