@@ -2,14 +2,15 @@
 
 = [5.0.2] TBD =
 
+* Fix - Update version of Firebase/JWT from 5.x to 6.3.0
 * Fix - Prevents fatal around term cache primer with empty object ID or term name.
 * Tweak - Support replacement license keys in premium products and services.
+* Tweak - Deprecated the `Tribe__Settings_Manager::add_help_admin_menu_item()` method in favour of `Settings::add_admin_pages()`. [TEC-4443]
+* Tweak - Add a function to Tribe__Date_Utils to determine if "now" is between two dates. [TEC-4454]
 
 = [5.0.1] 2022-09-22 =
 
 * Fix - Avoid invoking unwanted callables with ORM post creation/updates. [ET-1560]
-* Tweak - Deprecated the `Tribe__Settings_Manager::add_help_admin_menu_item()` method in favour of `Settings::add_admin_pages()`. [TEC-4443]
-* Tweak - Add a function to Tribe__Date_Utils to determine if "now" is between two dates. [TBD]
 * Tweak - patch some PHP8 compatibility and ensure we don't try to test globals that might not be set. (props to @theskinnyghost for the implode fix!)  [TEC-4453]
 * Language - 0 new strings added, 1 updated, 1 fuzzied, and 0 obsoleted
 
