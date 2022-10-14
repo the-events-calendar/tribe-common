@@ -2,6 +2,7 @@
 
 = [5.0.2] TBD =
 
+* Fix - Update version of Firebase/JWT from 5.x to 6.3.0
 * Fix - Prevents fatal around term cache primer with empty object ID or term name.
 * Tweak - Support replacement license keys in premium products and services.
 * Tweak - Deprecated the `Tribe__Settings_Manager::add_help_admin_menu_item()` method in favour of `Settings::add_admin_pages()`. [TEC-4443]
