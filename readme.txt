@@ -7,6 +7,7 @@
 * Tweak - Support replacement license keys in premium products and services.
 * Tweak - Deprecated the `Tribe__Settings_Manager::add_help_admin_menu_item()` method in favour of `Settings::add_admin_pages()`. [TEC-4443]
 * Tweak - Add a function to Tribe__Date_Utils to determine if "now" is between two dates. [TEC-4454]
+* Language - 0 new strings added, 14 updated, 1 fuzzied, and 0 obsoleted.
 
 = [5.0.1] 2022-09-22 =
 
