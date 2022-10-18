@@ -1,0 +1,210 @@
+/* = Settings Screen
+============================================= */
+
+/* = Overrides for Core WP Styles
+============================================= */
+#tribe-settings-tabs.nav-tab-wrapper {
+	background-color: var(--tec-form-color-background);
+	display: flex;
+	flex-direction: row;
+	font-family: var(--tec-font-family-sans-serif);
+	font-size: var(--tec-font-size-3);
+	font-weight: var(--tec-font-weight-regular);
+	position: sticky;
+	top: var(--wp-admin--admin-bar--height);
+	will-change: transform;
+
+	@media (--viewport-wpadmin) {
+		border-bottom: unset;
+		border-color: var(--tec-color-border-default);
+		border-style: solid;
+		border-width: 1px 0;
+		margin: 0;
+		margin-left: -20px;
+		padding: 0;
+		position: sticky;
+		top: var(--wp-admin--admin-bar--height);
+		transition: var(--tec-transition-background-color);
+		width: calc(100% + 40px);
+	}
+
+	.nav-tab,
+	.nav-tab-active,
+	.tec-save-settings {
+		background-color: var(--tec-form-color-background);
+		float: none;
+		margin: 0 0 0 0.25em;
+
+		&:focus,
+		&:focus-within,
+		&:focus-visible {
+			border: 0;
+			box-shadow: none;
+		}
+
+		&:hover,
+		&:active,
+		&:target {
+			border: 0;
+			color: var(--tec-form-color-accent-primary);
+		}
+	}
+
+	.nav-tab {
+		border: 0;
+		flex-basis: fit-content;
+		flex-grow: 0;
+		flex-shrink: 0;
+		padding: 1em;
+	}
+
+	.nav-tab-active {
+		border-bottom-style: solid;
+		border-bottom-width: 3px;
+		border-color: var(--tec-form-color-accent-primary);
+		color: var(--tec-form-color-accent-primary);
+		padding-bottom: calc(1em - 3px);
+	}
+
+	.tec-save-settings {
+		background-color: var(--tec-color-accent-primary);
+		border-radius: 5px;
+		color: var(--tec-color-background);
+		flex-grow: 0;
+		flex-shrink: 0;
+		margin-left: auto;
+		margin-right: 0;
+		padding: 1em 2em;
+		width: fit-content;
+	}
+}
+
+/* = Settings Form
+============================================= */
+.tribe-settings-form {
+	max-width: 1000px;
+
+	fieldset {
+		clear: both;
+		display: inline-block;
+		padding: 10px 0;
+
+		&.tribe-field-license_key legend {
+			width: auto;
+		}
+	}
+
+	legend {
+		float: left;
+		font-weight: bold;
+		margin-right: 20px;
+		width: 220px;
+	}
+
+	.tribe-field-wrap {
+		float: left;
+		max-width: 500px;
+
+		*:first-child {
+			margin-top: 0;
+		}
+	}
+
+	.tribe-field-radio,
+	.tribe-field-checkbox_list {
+		label {
+			display: block;
+			margin: 5px 0 5px 20px;
+			text-indent: -20px;
+
+			> p {
+				margin-left: 1px;
+				text-indent: 0;
+			}
+
+			input {
+				margin-right: 5px;
+			}
+		}
+	}
+
+	.tribe-settings-form-wrap fieldset,
+	.tribe-settings-form-wrap .description,
+	fieldset[id^='tribe-field-geoloc_'] {
+		padding-left: 12px;
+	}
+
+	.tribe-settings-form-wrap {
+
+		fieldset {
+
+			.description {
+				margin-left: 0;
+				max-width: 450px;
+				padding-left: 0;
+			}
+
+			.tribe-style-selection {
+				margin-bottom: 18px;
+			}
+		}
+
+		#tribe-field-stylesheetOption {
+
+			.description {
+				color: #999;
+				margin-left: 1px;
+			}
+		}
+
+		h3 {
+			background-color: #f9f9f9;
+			margin-bottom: 10px;
+			padding: 6px 0 6px 12px;
+		}
+
+		.tribe-sysinfo-optin-msg,
+		.system-info,
+		h3 + p,
+		.contained {
+			margin: 0 0 10px;
+			padding-left: 12px;
+		}
+	}
+}
+
+.tribe_settings {
+	.tribe-field-indent {
+		margin-left: 245px;
+	}
+
+	#pu_dashboard_message {
+		display: none;
+	}
+
+	.tribe-errors-list {
+		margin-left: 15px;
+	}
+
+	.expiring-license {
+		color: var(--tec-color-icon-error);
+	}
+
+	.tribe-error {
+		border: 1px solid var(--tec-color-icon-error);
+	}
+
+	.tribe-field-description {
+		margin-bottom: 0;
+		position: relative;
+		top: -12px;
+	}
+
+	#ical-link {
+		top: -14px;
+	}
+}
+
+.tribe_events_page_tec-events-settings #wpcontent {
+	background-color: var(--tec-form-color-background);
+}

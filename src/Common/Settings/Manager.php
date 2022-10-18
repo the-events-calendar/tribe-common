@@ -1,14 +1,31 @@
 <?php
-class Tribe__Settings_Manager {
-	const OPTION_CACHE_VAR_NAME = 'Tribe__Settings_Manager:option_cache';
 
+namespace TEC\Common\Settings;
+
+class Manager extends \tad_DI52_ServiceProvider {
+	const OPTION_CACHE_VAR_NAME = 'TEC\Common\Settings\Manager:option_cache';
+	/**
+	 * Holds any network options.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
 	protected static $network_options;
-	public static $tribe_events_mu_defaults;
+
+	/**
+	 * Holds the multisite defaults.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	public static $tribe_events_mu_defaults = [];
 
 	/**
 	 * constructor
 	 */
-	public function __construct() {
+	public function register() {
 		$this->add_hooks();
 
 		// Load multisite defaults.
@@ -17,6 +34,7 @@ class Tribe__Settings_Manager {
 			if ( file_exists( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' ) ) {
 				require_once WP_CONTENT_DIR . '/tribe-events-mu-defaults.php';
 			}
+
 			self::$tribe_events_mu_defaults = apply_filters( 'tribe_events_mu_defaults', $tribe_events_mu_defaults );
 		}
 	}
@@ -36,7 +54,7 @@ class Tribe__Settings_Manager {
 	 * For performance reasons our options are saved in memory, but we need to make sure we update it when WordPress
 	 * updates the variable directly.
 	 *
-	 * @since 4.11.0
+	 * @since TBD
 	 *
 	 * @param string $option    Name of the updated option.
 	 * @param mixed  $old_value The old option value.
@@ -46,7 +64,7 @@ class Tribe__Settings_Manager {
 	 */
 	public function update_options_cache( $option, $old_value, $value ) {
 		// Bail when not our option.
-		if ( Tribe__Main::OPTIONNAME !== $option ) {
+		if ( \Tribe__Main::OPTIONNAME !== $option ) {
 			return;
 		}
 
@@ -59,7 +77,7 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public function init_options() {
-		Tribe__Settings::instance();
+		\Tribe__Settings::instance();
 	}
 
 	/**
@@ -83,7 +101,7 @@ class Tribe__Settings_Manager {
 		$options = tribe_get_var( self::OPTION_CACHE_VAR_NAME, [] );
 
 		if ( empty( $options ) ) {
-			$options = (array) get_option( Tribe__Main::OPTIONNAME, [] );
+			$options = (array) get_option( \Tribe__Main::OPTIONNAME, [] );
 
 			tribe_set_var( self::OPTION_CACHE_VAR_NAME, $options );
  		}
@@ -130,7 +148,7 @@ class Tribe__Settings_Manager {
 		if ( true === $apply_filters ) {
 			$options = apply_filters( 'tribe-events-save-options', $options );
 		}
-		$updated = update_option( Tribe__Main::OPTIONNAME, $options );
+		$updated = update_option( \Tribe__Main::OPTIONNAME, $options );
 
 		if ( $updated ) {
 			tribe_set_var( self::OPTION_CACHE_VAR_NAME, $options );
@@ -157,7 +175,7 @@ class Tribe__Settings_Manager {
 	/**
 	 * Remove an option. Actually remove (unset), as opposed to setting to null/empty string/etc.
 	 *
-	 * @since 4.14.13
+	 * @since TBD
 	 *
 	 * @param string $name The option key or 'name'.
 	 *
@@ -178,7 +196,7 @@ class Tribe__Settings_Manager {
 	 */
 	public static function get_network_options() {
 		if ( ! isset( self::$network_options ) ) {
-			$options               = get_site_option( Tribe__Main::OPTIONNAMENETWORK, [] );
+			$options               = get_site_option( \Tribe__Main::OPTIONNAMENETWORK, [] );
 			self::$network_options = apply_filters( 'tribe_get_network_options', $options );
 		}
 
@@ -238,29 +256,11 @@ class Tribe__Settings_Manager {
 			$options = apply_filters( 'tribe-events-save-network-options', $options, $admin_page );
 		}
 
-		if ( update_site_option( Tribe__Main::OPTIONNAMENETWORK, $options ) ) {
+		if ( update_site_option( \Tribe__Main::OPTIONNAMENETWORK, $options ) ) {
 			self::$network_options = apply_filters( 'tribe_get_network_options', $options );
 		} else {
 			self::$network_options = self::get_network_options();
 		}
-	}
-
-	/**
-	 * Add the network admin options page
-	 *
-	 * @return void
-	 */
-	public static function add_network_options_page() {
-		_deprecated_function( __METHOD__, '4.15.0' );
-	}
-
-	/**
-	 * Render network admin options view
-	 *
-	 * @return void
-	 */
-	public static function do_network_settings_tab() {
-		_deprecated_function( __METHOD__, '4.15.0' );
 	}
 
 	/**
@@ -285,7 +285,7 @@ class Tribe__Settings_Manager {
 		/**
 		 * @var $licenses_tab
 		 */
-		include Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-licenses.php';
+		include \Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-licenses.php';
 
 		/**
 		 * Allows the fields displayed in the licenses tab to be modified.
@@ -294,7 +294,7 @@ class Tribe__Settings_Manager {
 		 */
 		$license_fields = apply_filters( 'tribe_license_fields', $licenses_tab );
 
-		new Tribe__Settings_Tab( 'licenses', esc_html__( 'Licenses', 'tribe-common' ), [
+		new \Tribe__Settings_Tab( 'licenses', esc_html__( 'Licenses', 'tribe-common' ), [
 			'priority'      => '40',
 			'fields'        => $license_fields,
 			'network_admin' => is_network_admin() ? true : false,
@@ -309,7 +309,7 @@ class Tribe__Settings_Manager {
 		 * Include Help tab Assets here
 		 */
 
-		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help.php';
+		include_once \Tribe__Main::instance()->plugin_path . 'src/admin-views/help.php';
 	}
 
 	/**
@@ -323,7 +323,7 @@ class Tribe__Settings_Manager {
 			return;
 		}
 
-		$parent = class_exists( 'Tribe__Events__Main' ) ? Tribe__Settings::$parent_page : Tribe__Settings::$parent_slug;
+		$parent = class_exists( 'Tribe__Events__Main' ) ? \Tribe__Settings::$parent_page : \Tribe__Settings::$parent_slug;
 		$title  = esc_html__( 'Help', 'tribe-common' );
 		$slug   = 'tribe-help';
 
@@ -349,7 +349,7 @@ class Tribe__Settings_Manager {
 	public function save_all_tabs_hidden() {
 		$all_tabs_keys = array_keys( apply_filters( 'tribe_settings_all_tabs', [] ) );
 
-		$network_options = (array) get_site_option( Tribe__Main::OPTIONNAMENETWORK );
+		$network_options = (array) get_site_option( \Tribe__Main::OPTIONNAMENETWORK );
 
 		$this->set_network_options( $network_options );
 	}
@@ -357,7 +357,7 @@ class Tribe__Settings_Manager {
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return Tribe__Settings_Manager
+	 * @return Manager
 	 */
 	public static function instance() {
 		return tribe( 'settings.manager' );

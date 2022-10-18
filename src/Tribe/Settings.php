@@ -356,7 +356,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			$admin_page  = $admin_pages->get_current_page();
 
 			do_action( 'tribe_settings_top', $admin_page );
-			echo '<div class="tribe_settings wrap">';
+			echo '<div class="tribe-common tribe_settings wrap">';
 			echo '<h1>';
 			echo esc_html( $this->get_page_title( $admin_page ) );
 			echo '</h1>';
@@ -398,14 +398,15 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 */
 		public function generateTabs() {
 			if ( is_array( $this->tabs ) && ! empty( $this->tabs ) ) {
-				echo '<h2 id="tribe-settings-tabs" class="nav-tab-wrapper">';
+				echo '<nav id="tribe-settings-tabs" class="nav-tab-wrapper">';
 				foreach ( $this->tabs as $tab => $name ) {
 					$url   = $this->get_tab_url( $tab );
 					$class = ( $tab == $this->currentTab ) ? ' nav-tab-active' : '';
-					echo '<a id="' . esc_attr( $tab ) . '" class="nav-tab' . esc_attr( $class ) . '" href="' . esc_url( $url ) . '">' . esc_html( $name ) . '</a>';
+					echo '<button id="' . esc_attr( $tab ) . '" class="nav-tab tribe-common-c-btn' . esc_attr( $class ) . '" tabindex="-1" value="' . esc_url( $url ) . '">' . esc_html( $name ) . '</button>';
 				}
 				do_action( 'tribe_settings_after_tabs' );
-				echo '</h2>';
+				echo '<button class="tribe-common-c-btn tec-save-settings" name="tribeSaveSettings">Save</button>';
+				echo '</nav>';
 			}
 		}
 
