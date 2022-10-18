@@ -2956,7 +2956,10 @@ abstract class Tribe__Repository
 		}
 
 		foreach ( $this->updates as $key => $value ) {
-			if ( is_callable( $value ) ) {
+			if (
+				$value instanceof Closure ||
+				( is_array( $value ) && is_callable( $value ) )
+			) {
 				$value = $value( $id, $key, $this );
 			}
 
@@ -3758,5 +3761,14 @@ abstract class Tribe__Repository
 		$this->void_query = (bool) $void_query;
 
 		return $this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_last_sql(): ?string {
+		return $this->last_built_query instanceof WP_Query ?
+			$this->last_built_query->request
+			: null;
 	}
 }

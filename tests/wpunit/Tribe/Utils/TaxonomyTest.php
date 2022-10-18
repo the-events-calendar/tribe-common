@@ -5,8 +5,6 @@ namespace Tribe\Utils;
 use Codeception\TestCase\WPTestCase;
 
 class TaxonomyTest extends WPTestCase {
-
-
 	/**
 	 * @test
 	 *
@@ -106,6 +104,73 @@ class TaxonomyTest extends WPTestCase {
 			[],
 			$tax_query
 		);
+	}
+
+	/**
+	 * @test
+	 * @group        utils
+	 */
+	public function it_should_properly_prime_taxonomy_cache() {
+		$tag_1 = wp_insert_term( uniqid( 'Tag-', true ), 'post_tag' )['term_id'];
+		$tag_2 = wp_insert_term( uniqid( 'Tag-', true ), 'post_tag' )['term_id'];
+		$tag_3 = wp_insert_term( uniqid( 'Tag-', true ), 'post_tag' )['term_id'];
+		$tag_4 = wp_insert_term( uniqid( 'Tag-', true ), 'post_tag' )['term_id'];
+
+		$cat_1 = wp_insert_term( uniqid( 'Category-', true ), 'category' )['term_id'];
+		$cat_2 = wp_insert_term( uniqid( 'Category-', true ), 'category' )['term_id'];
+		$cat_3 = wp_insert_term( uniqid( 'Category-', true ), 'category' )['term_id'];
+		$cat_4 = wp_insert_term( uniqid( 'Category-', true ), 'category' )['term_id'];
+
+		$event_1 = ( new \WP_UnitTest_Factory_For_Post() )->create( [] );
+
+		wp_set_post_terms( $event_1, [ $tag_1, $tag_2 ], 'post_tag' );
+		wp_set_post_terms( $event_1, [ $cat_1, $cat_2 ], 'category' );
+
+		$event_2 = ( new \WP_UnitTest_Factory_For_Post() )->create( [] );
+
+		wp_set_post_terms( $event_2, [ $tag_3 ], 'post_tag' );
+
+		$event_3 = ( new \WP_UnitTest_Factory_For_Post() )->create( [] );
+
+		wp_set_post_terms( $event_3, [ $cat_3 ], 'category' );
+
+		// Clean taxonomy cache for testing.
+		clean_taxonomy_cache( 'post_tag' );
+		clean_taxonomy_cache( 'category' );
+
+		Taxonomy::prime_term_cache( [ $event_1, $event_2 ], [ 'post_tag', 'category' ] );
+
+		$cache_1_cat = wp_cache_get( $event_1, 'category_relationships' );
+		$cache_1_tag = wp_cache_get( $event_1, 'post_tag_relationships' );
+
+		$this->assertContains( $cat_1, $cache_1_cat );
+		$this->assertContains( $cat_2, $cache_1_cat );
+		$this->assertNotContains( $cat_3, $cache_1_cat );
+		$this->assertNotContains( $cat_4, $cache_1_cat );
+
+		$this->assertContains( $tag_1, $cache_1_tag );
+		$this->assertContains( $tag_2, $cache_1_tag );
+		$this->assertNotContains( $tag_3, $cache_1_tag );
+		$this->assertNotContains( $tag_4, $cache_1_tag );
+
+		$cache_2_cat = wp_cache_get( $event_2, 'category_relationships' );
+		$cache_2_tag = wp_cache_get( $event_2, 'post_tag_relationships' );
+
+		$this->assertNotContains( $cat_1, $cache_2_cat );
+		$this->assertNotContains( $cat_2, $cache_2_cat );
+		$this->assertNotContains( $cat_3, $cache_2_cat );
+		$this->assertNotContains( $cat_4, $cache_2_cat );
+
+		$this->assertNotContains( $tag_1, $cache_2_tag );
+		$this->assertNotContains( $tag_2, $cache_2_tag );
+		$this->assertContains( $tag_3, $cache_2_tag );
+		$this->assertNotContains( $tag_4, $cache_2_tag );
+
+		$cache_3_cat = wp_cache_get( $event_3, 'category_relationships' );
+		$cache_3_tag = wp_cache_get( $event_3, 'post_tag_relationships' );
+
+		$this->assertEmpty( $cache_3_cat );
+		$this->assertEmpty( $cache_3_tag );
 	}
 
 }
