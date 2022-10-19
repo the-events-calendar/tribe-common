@@ -575,7 +575,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Determine if "now" is between two dates.
 		 *
-		 * @since TBD
+		 * @since 5.0.2
 		 *
 		 * @param string|DateTime|int $start_date A `strtotime` parsable string, a DateTime object or a timestamp.
 		 * @param string|DateTime|int $end_date   A `strtotime` parsable string, a DateTime object or a timestamp.
@@ -612,7 +612,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Sort an array of dates.
 		 *
-		 * @since TBD
+		 * @since 5.0.2
 		 *
 		 * @param mixed  $dates     A single array of dates, or dates passed as individual params.
 		 *                          Individual dates can be a `strtotime` parsable string, a DateTime object or a timestamp.

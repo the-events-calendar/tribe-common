@@ -314,10 +314,10 @@ class Tribe__Settings_Manager {
 	/**
 	 * Add help menu item to the admin (unless blocked via network admin settings).
 	 *
-	 * @deprecated TBD
+	 * @deprecated 5.0.2
 	 */
 	public function add_help_admin_menu_item() {
-		_deprecated_function( __METHOD__, 'TBD', 'Now handled by Tribe\Events\Admin\Settings::add_admin_pages()' );
+		_deprecated_function( __METHOD__, '5.0.2', 'Now handled by Tribe\Events\Admin\Settings::add_admin_pages()' );
 	}
 
 	/**

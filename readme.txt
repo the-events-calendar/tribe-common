@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.0.2] TBD =
+= [5.0.2] 2022-10-20 =
 
 * Fix - Update version of Firebase/JWT from 5.x to 6.3.0
 * Fix - Prevents fatal around term cache primer with empty object ID or term name.
