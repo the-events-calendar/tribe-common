@@ -1,16 +1,14 @@
 == Changelog ==
 
-= [5.0.3] TBD =
+= [5.0.2] 2022-10-20 =
 
 * Feature - Adds a new `by_not_related_to` repository method for retrieving posts not related to other posts via a meta_value [ET-1567]
-
-= [5.0.2] TBD =
-
 * Fix - Update version of Firebase/JWT from 5.x to 6.3.0
 * Fix - Prevents fatal around term cache primer with empty object ID or term name.
 * Tweak - Support replacement license keys in premium products and services.
 * Tweak - Deprecated the `Tribe__Settings_Manager::add_help_admin_menu_item()` method in favour of `Settings::add_admin_pages()`. [TEC-4443]
 * Tweak - Add a function to Tribe__Date_Utils to determine if "now" is between two dates. [TEC-4454]
+* Language - 0 new strings added, 14 updated, 1 fuzzied, and 0 obsoleted.
 
 = [5.0.1] 2022-09-22 =
 
