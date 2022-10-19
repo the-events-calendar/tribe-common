@@ -10,22 +10,22 @@
 	font-family: var(--tec-font-family-sans-serif);
 	font-size: var(--tec-font-size-3);
 	font-weight: var(--tec-font-weight-regular);
-	position: sticky;
 	top: var(--wp-admin--admin-bar--height);
 	will-change: transform;
 
-	@media (--viewport-wpadmin) {
+	@media (min-width: 710px) {
 		border-bottom: unset;
 		border-color: var(--tec-color-border-default);
 		border-style: solid;
 		border-width: 1px 0;
 		margin: 0;
 		margin-left: -20px;
-		padding: 0;
+		padding: 1em 0;
 		position: sticky;
 		top: var(--wp-admin--admin-bar--height);
 		transition: var(--tec-transition-background-color);
 		width: calc(100% + 40px);
+		z-index: 10;
 	}
 
 	.nav-tab,
@@ -55,6 +55,8 @@
 		flex-basis: fit-content;
 		flex-grow: 0;
 		flex-shrink: 0;
+		font-size: inherit;
+		font-weight: inherit;
 		padding: 1em;
 	}
 
@@ -73,7 +75,7 @@
 		flex-grow: 0;
 		flex-shrink: 0;
 		margin-left: auto;
-		margin-right: 0;
+		margin-right: 1em;
 		padding: 1em 2em;
 		width: fit-content;
 	}

@@ -195,7 +195,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * @return void
 		 */
 		public function __construct() {
-
 			// Set instance variables.
 			$this->menuName    = apply_filters( 'tribe_settings_menu_name', esc_html__( 'Events', 'tribe-common' ) );
 			$this->requiredCap = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
@@ -264,6 +263,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 
 			// Load settings tab-specific helpers and enhancements.
 			Tribe__Admin__Live_Date_Preview::instance();
+			add_action( 'should_load_settings_assets', '__return_true' );
 
 			do_action( 'tribe_settings_do_tabs', $admin_page ); // This is the hook to use to add new tabs.
 
@@ -378,7 +378,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			do_action( 'tribe_settings_after_content', $this->currentTab );
 			if ( has_action( 'tribe_settings_content_tab_' . $this->currentTab ) && ! in_array( $this->currentTab, $this->noSaveTabs ) ) {
 				wp_nonce_field( 'saving', 'tribe-save-settings' );
-				echo '<div class="clear"></div>';
 				echo '<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="' . esc_attr( $this->currentTab ) . '" />';
 				echo '<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="' . esc_attr__( 'Save Changes', 'tribe-common' ) . '" />';
 			}
@@ -398,11 +397,11 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 */
 		public function generateTabs() {
 			if ( is_array( $this->tabs ) && ! empty( $this->tabs ) ) {
-				echo '<nav id="tribe-settings-tabs" class="nav-tab-wrapper">';
+				echo '<nav id="tribe-settings-tabs" class="nav-tab-wrapper" role="tablist" >';
 				foreach ( $this->tabs as $tab => $name ) {
 					$url   = $this->get_tab_url( $tab );
 					$class = ( $tab == $this->currentTab ) ? ' nav-tab-active' : '';
-					echo '<button id="' . esc_attr( $tab ) . '" class="nav-tab tribe-common-c-btn' . esc_attr( $class ) . '" tabindex="-1" value="' . esc_url( $url ) . '">' . esc_html( $name ) . '</button>';
+					echo '<button id="' . esc_attr( $tab ) . '" class="nav-tab tribe-common-c-btn' . esc_attr( $class ) . '" role="tab" value="' . esc_attr( $tab ) . '">' . esc_html( $name ) . '</button>';
 				}
 				do_action( 'tribe_settings_after_tabs' );
 				echo '<button class="tribe-common-c-btn tec-save-settings" name="tribeSaveSettings">Save</button>';

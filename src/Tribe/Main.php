@@ -303,6 +303,17 @@ class Tribe__Main {
 			]
 		);
 
+		tribe_asset(
+			$this,
+			'tec-admin-settings',
+			'admin/settings.js',
+			[],
+			'in_admin_footer',
+			[
+				'conditionals' => [ Tribe__Admin__Helpers::instance(), 'is_screen' ]
+			]
+		);
+
 		// Register the asset for Customizer controls.
 		tribe_asset(
 			$this,
