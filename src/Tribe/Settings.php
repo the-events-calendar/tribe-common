@@ -401,7 +401,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				foreach ( $this->tabs as $tab => $name ) {
 					$url   = $this->get_tab_url( $tab );
 					$class = ( $tab == $this->currentTab ) ? ' nav-tab-active' : '';
-					echo '<button id="' . esc_attr( $tab ) . '" class="nav-tab tribe-common-c-btn' . esc_attr( $class ) . '" role="tab" value="' . esc_attr( $tab ) . '">' . esc_html( $name ) . '</button>';
+					echo '<button id="' . esc_attr( $tab ) . '" class="nav-tab tribe-common-c-btn-border' . esc_attr( $class ) . '" role="tab" value="' . esc_attr( $tab ) . '">' . esc_html( $name ) . '</button>';
 				}
 				do_action( 'tribe_settings_after_tabs' );
 				echo '<button class="tribe-common-c-btn tec-save-settings" name="tribeSaveSettings">Save</button>';

@@ -46,7 +46,7 @@
 		obj.setSelectedTab( liveTab );
 
 		// When clicking on the header save button, just "transfer" the click to the bottom one.
-		// THen we don't have to alter/duplicate event listeners, etc.
+		// Then we don't have to alter/duplicate event listeners, etc.
 		document.querySelector('.tec-save-settings').addEventListener(
 			'click',
 			() => { document.getElementById('tribeSaveSettings').click(); },
@@ -56,7 +56,15 @@
 
 	obj.getSelectedTab = () => {
 		const urlParams = new URLSearchParams(window.location.search);
-		const liveTab = urlParams.get('tab') || obj.firstTab;
+		let liveTab = urlParams.get('tab');
+
+		if (! liveTab) {
+			obj.tabs.forEach ((tab) => {
+				if ( tab.classList.contains( 'nav-tab-active' ) ) {
+					liveTab = tab;
+				}
+			});
+		}
 
 		return liveTab;
 	};
@@ -69,7 +77,7 @@
 		const liveTab = obj.getSelectedTab();
 
 		obj.tabs.forEach ((tab) => {
-			if (currentTab === tab) {
+			if (currentTab === tab.value ) {
 				tab.setAttribute('aria-selected', 'true');
 				tab.removeAttribute('tabindex');
 			} else {
