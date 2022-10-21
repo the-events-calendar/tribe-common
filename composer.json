@@ -28,6 +28,9 @@
     "preferred-install": "dist",
     "platform": {
       "php": "7.3.33"
+    },
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   },
   "require": {

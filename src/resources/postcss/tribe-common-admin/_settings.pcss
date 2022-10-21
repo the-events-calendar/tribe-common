@@ -20,12 +20,12 @@
 		border-width: 1px 0;
 		flex-wrap: nowrap;
 		margin: 0;
-		margin-left: -20px;
+		margin-left: calc(var(--tec-spacer-4) * -1);
 		padding: 1em 0;
 		position: sticky;
 		top: var(--wp-admin--admin-bar--height);
 		transition: var(--tec-transition-background-color);
-		width: calc(100% + 40px);
+		width: calc(100% + (2 * var(--tec-spacer-4)));
 		z-index: 10;
 	}
 
@@ -70,7 +70,7 @@
 
 	.tec-save-settings {
 		background-color: var(--tec-color-accent-primary);
-		border-radius: 5px;
+		border-radius: var(--tec-border-radius-default);
 		color: var(--tec-color-background);
 		flex-grow: 0;
 		flex-shrink: 0;
@@ -89,7 +89,7 @@
 	fieldset {
 		clear: both;
 		display: inline-block;
-		padding: 10px 0;
+		padding: var(--tec-spacer-1) 0;
 
 		&.tribe-field-license_key legend {
 			width: auto;
@@ -99,7 +99,7 @@
 	legend {
 		float: left;
 		font-weight: bold;
-		margin-right: 20px;
+		margin-right: var(--tec-spacer-4);
 		width: 220px;
 	}
 
@@ -116,8 +116,8 @@
 	.tribe-field-checkbox_list {
 		label {
 			display: block;
-			margin: 5px 0 5px 20px;
-			text-indent: -20px;
+			margin: var(--tec-spacer-0) 0 var(--tec-spacer-0) var(--tec-spacer-4);
+			text-indent: calc(var(--tec-spacer-4) * -1);
 
 			> p {
 				margin-left: 1px;
@@ -125,7 +125,7 @@
 			}
 
 			input {
-				margin-right: 5px;
+				margin-right: var(--tec-spacer-0);
 			}
 		}
 	}
@@ -133,10 +133,11 @@
 	.tribe-settings-form-wrap fieldset,
 	.tribe-settings-form-wrap .description,
 	fieldset[id^='tribe-field-geoloc_'] {
-		padding-left: 12px;
+		padding-left: var(--tec-spacer-2);
 	}
 
 	.tribe-settings-form-wrap {
+		margin-left: var(--tec-spacer-2);
 
 		fieldset {
 
@@ -147,7 +148,7 @@
 			}
 
 			.tribe-style-selection {
-				margin-bottom: 18px;
+				margin-bottom: var(--tec-spacer-3);
 			}
 		}
 
@@ -160,17 +161,17 @@
 		}
 
 		h3 {
-			background-color: #f9f9f9;
+			background-color: var(--tec-color-border-default);
 			margin-bottom: 10px;
-			padding: 6px 0 6px 12px;
+			padding: var(--tec-spacer-0) 0 var(--tec-spacer-0) var(--tec-spacer-2);
 		}
 
 		.tribe-sysinfo-optin-msg,
 		.system-info,
 		h3 + p,
 		.contained {
-			margin: 0 0 10px;
-			padding-left: 12px;
+			margin: 0 0 var(--tec-spacer-1);
+			padding-left: var(--tec-spacer-2);
 		}
 	}
 }
@@ -199,14 +200,62 @@
 	.tribe-field-description {
 		margin-bottom: 0;
 		position: relative;
-		top: -12px;
+		top: calc(var(--tec-spacer-2) * -1);
 	}
 
 	#ical-link {
-		top: -14px;
+		top: calc(var(--tec-spacer-2) * -1);
 	}
 }
 
 .tribe_events_page_tec-events-settings #wpcontent {
 	background-color: var(--tec-form-color-background);
+}
+
+.tribe-common {
+	/* The base grid structure */
+	.tec-settings-grid {
+		display: grid;
+		grid-gap: 1em;
+		margin-bottom: 1em;
+	}
+
+	.tec-settings-grid__2-col {
+		grid-template-columns: repeat(2, 1fr);
+
+		.tec-settings-grid__header,
+		.tec-settings-grid__description {
+			grid-column: 1 / span 2;
+		}
+	}
+
+	.tec-settings-grid__3-col {
+		grid-template-columns: repeat(3, 1fr);
+
+		.tec-settings-grid__header,
+		.tec-settings-grid__description {
+			grid-column: 1 / span 3;
+		}
+	}
+
+	h3.tec-settings-grid__header {
+		grid-row: 1;
+		margin-left: calc(var(--tec-spacer-2) * -1);
+	}
+
+	.tec-settings-grid__description {
+		grid-row: 2;
+	}
+
+	/* Generic grid card styles */
+	.tec-settings-card {
+		border: 1px solid var(--tec-color-border-default);
+		border-radius: 1em;
+		padding: 0.25em;
+	}
+
+	.tec-settings-card__header {
+		border-radius: 1em 1em 0 0;
+		margin: -0.25em;
+	}
 }
