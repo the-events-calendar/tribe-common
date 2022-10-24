@@ -222,34 +222,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		}
 
 		/**
-		 * Determines whether or not the full admin pages should be initialized.
-		 *
-		 * @return boolean
-		 */
-		public function should_setup_pages() {
-			// @todo: Deprecate this and update where needed.
-			return true;
-		}
-
-		/**
-		 * create the main option page
-		 *
-		 * @return void
-		 */
-		public function addPage() {
-			_deprecated_function( __METHOD__, '4.15.0' );
-		}
-
-		/**
-		 * create the network options page
-		 *
-		 * @return void
-		 */
-		public function addNetworkPage() {
-			_deprecated_function( __METHOD__, '4.15.0' );
-		}
-
-		/**
 		 * Init all the tabs.
 		 *
 		 * @return void

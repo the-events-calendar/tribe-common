@@ -59,10 +59,6 @@ class Troubleshooting {
 	 *
 	 */
 	public function add_menu_page() {
-		if ( ! Tribe__Settings::instance()->should_setup_pages() ) {
-			return;
-		}
-
 		$page_title = esc_html__( 'Troubleshooting', 'tribe-common' );
 		$menu_title = esc_html__( 'Troubleshooting', 'tribe-common' );
 
@@ -153,9 +149,6 @@ class Troubleshooting {
 	 * @return boolean returns true if the current page is the troubleshooting page.
 	 */
 	public function is_current_page() {
-		if ( ! Tribe__Settings::instance()->should_setup_pages() || ! did_action( 'admin_menu' ) ) {
-			return false;
-		}
 
 		if ( is_null( $this->admin_page ) ) {
 			_doing_it_wrong(
