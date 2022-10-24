@@ -2,6 +2,8 @@
 
 = [5.0.2.1] 2022-11-03 =
 
+* Fix - Refactor the Post model code to avoid serialization/unserialization issues in object caching context. [TEC-4379]
+
 = [5.0.2] 2022-10-20 =
 
 * Feature - Adds a new `by_not_related_to` repository method for retrieving posts not related to other posts via a meta_value [ET-1567]
