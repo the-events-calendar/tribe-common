@@ -1,12 +1,12 @@
 <?php
 
-namespace TEC\Common\Settings\Textarea;
+namespace TEC\Common\Settings;
 
 /**
  * Helper class that creates textarea fields for use in Settings.
  *
  * @since TBD
  */
-class Textarea {
+class Textarea extends Abstract_Field  {
 
 }

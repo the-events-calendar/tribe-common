@@ -1,8 +1,6 @@
 <?php
 
-namespace TEC\Common\Settings\Abstract_Field;
-
-use Tribe__Debug;
+namespace TEC\Common\Settings;
 
 /**
  * Abstract class for creating fields for use in Settings.
@@ -54,6 +52,24 @@ abstract class Abstract_Field {
 	public $type;
 
 	/**
+	 * Holds passed classes.
+	 *
+	 * @since TBD
+	 *
+	 * @var string|array<string>
+	 */
+	public $class;
+
+	/**
+	 * Holds default classes.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string>
+	 */
+	public $default_classes = [];
+
+	/**
 	 * The field's value.
 	 *
 	 * @since TBD
@@ -64,16 +80,18 @@ abstract class Abstract_Field {
 
 	/**
 	 * The allowed arguments.
+	 * In the format slug -> allowed data type.
 	 *
 	 * @since TBD
 	 *
-	 * @var array
+	 * @var array<string,string>
 	 */
 	public $allowed_args = [
 		'attributes'          => 'array',
 		'can_be_empty'        => 'bool',
 		'class'               => 'array',
 		'clear_after'         => 'bool',
+		'content'             => 'string',
 		'error'               => 'bool',
 		'fields'              => 'array',
 		'fieldset_attributes' => 'array',
@@ -96,27 +114,27 @@ abstract class Abstract_Field {
 	 *
 	 * @since TBD
 	 *
-	 * @var array
+	 * @var array<string,mixed>
 	 */
 	public $defaults = [
 		'attributes'          => [],
 		'can_be_empty'        => false,
-		'class'               => null,
-		'clear_after'         => true,
+		'class'               => [],
+		'content'             => null,
 		'error'               => false,
 		'fields'              => [],
 		'fieldset_attributes' => [],
 		'html'                => null,
 		'if_empty'            => null,
-		'label_attributes'    => null,
+		'label_attributes'    => [],
 		'label'               => null,
 		'name'                => '',
-		'options'             => null,
+		'options'             => [],
 		'placeholder'         => null,
 		'size'                => 'medium',
 		'tooltip_first'       => false,
 		'tooltip'             => null,
-		'value'               => '',
+		'value'               => null,
 	];
 
 	/**
@@ -130,27 +148,31 @@ abstract class Abstract_Field {
 	 *
 	 * @return void
 	 */
-	public function __construct( $id, $args, $value = null ) {
-		// setup the defaults
+	public function __construct( $id, $args ) {
+		// Set up some defaults
 		$this->defaults['name']  = $id;
-		$this->defaults['value'] = $value;
 
-		$this->valid_field_types = apply_filters( 'tribe_valid_field_types', $this->valid_field_types );
-
-		// parse args with defaults and extract them
+		// Parse args with defaults and extract them.
 		$this->args = wp_parse_args( $args, $this->defaults );
-
-		// sanitize the values just to be safe
-		$this->id   = $id;
 		$this->type = $args['type'];
 
-		// set the ID
-		$this->id = apply_filters( 'tribe_field_id', $id );
-		$this->id = apply_filters( 'tribe_field_id', $id );
+		// Normalize our ID.
+		$this->id = $this->normalize_id( $id );
 
-		// set each instance variable and filter
+		// Set each instance variable and filter.
 		foreach ( array_keys( $this->defaults ) as $key ) {
-			$this->{$key} = apply_filters( 'tribe_field_' . $key, $$key, $this->id );
+			$this->{$key} = apply_filters( 'tec_settings_field_' . $key, $$key, $this->id );
+		}
+
+		// Convert class arrays to a string.
+		$this->class = $this->normalize_class();
+
+		// Handle saved and default values.
+		$this->value = $this->normalize_value();
+
+		// Convert attribute arrays to a string.
+		if ( ! empty( $this->attributes ) ) {
+			$this->attributes = $this->concat_attributes( $this->attributes );
 		}
 	}
 
@@ -159,7 +181,7 @@ abstract class Abstract_Field {
 	 *
 	 * @since TBD
 	 *
-	 * @return string
+	 * @return void
 	 */
 	public function render() {
 		/**
@@ -170,7 +192,7 @@ abstract class Abstract_Field {
 		 * @param bool $render
 		 */
 		$render = apply_filters(
-			"tec_render_field_{$this->id}",
+			'tec_render_field_' . $this->id,
 			true,
 			$this->args,
 			$this->value
@@ -179,7 +201,9 @@ abstract class Abstract_Field {
 		if ( empty( $render ) ) {
 			return;
 		}
-	};
+
+		echo '';
+	}
 
 	/**
 	 * Concatenates an array of attributes to use in HTML tags.
@@ -197,7 +221,7 @@ abstract class Abstract_Field {
 	 *
 	 * @return string The concatenated attributes.
 	 */
-	protected function concat_attributes( array $attributes = [] ) {
+	protected function concat_attributes( array $attributes = [] ): string {
 		if ( empty( $attributes ) ) {
 			return '';
 		}
@@ -215,81 +239,102 @@ abstract class Abstract_Field {
 	}
 
 	/**
-	 * returns the field's start
+	 * Ensure if we pass an ID as part of $this->attributes
+	 * it overrides the auto ID from the array.
 	 *
-	 * @return string the field start
+	 * @since TBD
+	 *
+	 * @param string $id
+	 * @return string
 	 */
-	public function do_fieldset_start() {
-		$return = '<fieldset id="tribe-field-' . $this->id . '"';
-		$return .= ' class="tribe-field tribe-field-' . $this->type;
-		$return .= ( $this->error ) ? ' tribe-error' : '';
-		$return .= ( $this->size ) ? ' tribe-size-' . $this->size : '';
-		$return .= ( $this->class ) ? ' ' . $this->class . '"' : '"';
-		$return .= ( $this->fieldset_attributes ) ? ' ' . $this->do_fieldset_attributes() : '';
-		$return .= '>';
+	protected function normalize_id( $id ): string {
+		if ( empty( $this->attributes['id'] ) ) {
+			return $id;
+		}
 
-		return apply_filters( 'tec_fieldset_start', $return, $this->id, $this->type, $this->error, $this->class, $this );
+		$id = $this->attributes['id'];
+
+		// Remove it from the attributes array, we're done with it.
+		unset( $this->attributes['id'] );
+
+		return apply_filters( 'tec_settings_field_id', $id, $this );
 	}
 
 	/**
-	 * returns the field's end
+	 * Ensure if we pass classes as part of $this->attributes
+	 * they are combined with the input's default classes.
 	 *
-	 * @return string the field end
-	 */
-	public function do_field_end() {
-		$return = '</fieldset>';
-		$return .= ( $this->clear_after ) ? '<div class="clear"></div>' : '';
-
-		return apply_filters( 'tribe_field_end', $return, $this->id, $this );
-	}
-
-	/**
-	 * returns the field's label
+	 * We convert both to an array to eliminate duplicates,
+	 * then merge them and convert the resulting array to a string.
 	 *
-	 * @return string the field label
+	 * @since TBD
+	 *
+	 * @return string
 	 */
-	public function do_field_label() {
-		$return = '';
-		if ( $this->label ) {
-			if ( isset( $this->label_attributes ) ) {
-				$this->label_attributes['class'] = isset( $this->label_attributes['class'] ) ?
-					implode( ' ', array_merge( [ 'tribe-field-label' ], $this->label_attributes['class'] ) ) :
-					[ 'tribe-field-label' ];
-				$this->label_attributes = $this->concat_attributes( $this->label_attributes );
+	protected function normalize_class(): string {
+		if ( empty( $this->attributes['class'] ) && empty( $this->default_classes ) ) {
+			return '';
+		}
+
+		$passed_classes = [];
+
+		if ( ! empty( $this->attributes['class'] ) ) {
+			$passed_classes = $this->attributes['class'];
+
+			if ( is_string( $passed_classes ) ) {
+				$passed_classes = explode( ' ', $passed_classes );
 			}
-			$return = sprintf( '<legend class="tribe-field-label" %s>%s</legend>', $this->label_attributes, $this->label );
 		}
 
-		return apply_filters( 'tribe_field_label', $return, $this->label, $this );
+		// Remove it from the attributes array, we're done with it.
+		unset( $this->attributes['class'] );
+
+		if ( ! empty( $default_classes ) ) {
+			if ( is_string( $this->default_classes ) ) {
+				$default_classes = explode( ' ', $this->default_classes );
+			}
+		}
+
+		$classes = array_merge( $default_classes, $passed_classes );
+
+		$classes = implode( ' ', $classes );
+
+		return apply_filters( 'tec_settings_field_classes', $classes, $this );
 	}
 
 	/**
-	 * returns the field's div start
+	 * Handles various possible passed or saved values and defaults.
 	 *
-	 * @return string the field div start
+	 * @since TBD
+	 *
+	 * @return mixed
 	 */
-	public function do_field_div_start() {
-		$return = '<div class="tribe-field-wrap">';
+	protected function normalize_value(): mixed {
+		$value  = ! empty( $this->attributes['default'] ) ? $this->attributes['default'] : null;
+		$value = ! empty( $this->attributes['value'] ) ? $this->attributes['value'] : $value;
 
-		if ( true === $this->tooltip_first ) {
-			$return .= $this->do_tool_tip();
-			// and empty it to avoid it from being printed again
-			$this->tooltip = '';
-		}
+		// Remove these from the attributes array, we're done with them.
+		unset( $this->attributes['default'] );
+		unset( $this->attributes['value'] );
 
-		return apply_filters( 'tribe_field_div_start', $return, $this );
+		$value =  tribe_get_option( $this->name, $value );
+
+		return apply_filters( 'tec_settings_field_value', $value, $this );
+
 	}
 
 	/**
-	 * returns the field's div end
+	 * Handles output of the passed attributes.
 	 *
-	 * @return string the field div end
+	 * @since TBD
 	 */
-	public function do_field_div_end() {
-		$return = $this->do_tool_tip();
-		$return .= '</div>';
+	protected function do_attributes() {
+		if ( empty( $this->attributes ) ) {
+			return;
+		}
 
-		return apply_filters( 'tribe_field_div_end', $return, $this );
+		// Escaped in concat_attributes() above.
+		echo $this->attributes;
 	}
 
 	/**
@@ -297,13 +342,13 @@ abstract class Abstract_Field {
 	 *
 	 * @return string the field tooltip
 	 */
-	public function do_tool_tip() {
+	protected function do_tool_tip() {
 		$return = '';
 		if ( $this->tooltip ) {
 			$return = '<p class="tooltip description">' . $this->tooltip . '</p>';
 		}
 
-		return apply_filters( 'tribe_field_tooltip', $return, $this->tooltip, $this );
+		return apply_filters( 'tec_settings_field_tooltip', $return, $this->tooltip, $this );
 	}
 
 	/**
@@ -311,92 +356,12 @@ abstract class Abstract_Field {
 	 *
 	 * @return string the screen reader label
 	 */
-	public function do_screen_reader_label() {
+	protected function do_screen_reader_label() {
 		$return = '';
 		if ( $this->tooltip ) {
 			$return = '<label class="screen-reader-text">' . $this->tooltip . '</label>';
 		}
 
-		return apply_filters( 'tribe_field_screen_reader_label', $return, $this->tooltip, $this );
-	}
-
-	/**
-	 * returns the field's value
-	 *
-	 * @return string the field value
-	 */
-	public function do_field_value() {
-		$return = '';
-		if ( $this->value ) {
-			$return = ' value="' . $this->value . '"';
-		}
-
-		return apply_filters( 'tribe_field_value', $return, $this->value, $this );
-	}
-
-	/**
-	 * returns the field's name
-	 *
-	 * @param bool $multi
-	 *
-	 * @return string the field name
-	 */
-	public function do_field_name( $multi = false ) {
-		$return = '';
-		if ( $this->name ) {
-			if ( $multi ) {
-				$return = ' name="' . $this->name . '[]"';
-			} else {
-				$return = ' name="' . $this->name . '"';
-			}
-		}
-
-		return apply_filters( 'tribe_field_name', $return, $this->name, $this );
-	}
-
-	/**
-	 * returns the field's placeholder
-	 *
-	 * @return string the field value
-	 */
-	public function do_field_placeholder() {
-		$return = '';
-		if ( $this->placeholder ) {
-			$return = ' placeholder="' . $this->placeholder . '"';
-		}
-
-		return apply_filters( 'tribe_field_placeholder', $return, $this->placeholder, $this );
-	}
-
-	/**
-	 * Return a string of attributes for the field
-	 *
-	 * @return string
-	 **/
-	public function do_field_attributes() {
-		$return = '';
-		if ( ! empty( $this->attributes ) ) {
-			foreach ( $this->attributes as $key => $value ) {
-				$return .= ' ' . $key . '="' . $value . '"';
-			}
-		}
-
-		return apply_filters( 'tribe_field_attributes', $return, $this->name, $this );
-	}
-
-	/**
-	 * Return a string of attributes for the fieldset
-	 *
-	 * @return string
-	 **/
-	public function do_fieldset_attributes() {
-		$return = '';
-		if ( ! empty( $this->fieldset_attributes ) ) {
-			foreach ( $this->fieldset_attributes as $key => $value ) {
-				$return .= ' ' . $key . '="' . $value . '"';
-			}
-		}
-
-		return apply_filters( 'tribe_fieldset_attributes', $return, $this->name, $this );
+		return apply_filters( 'tec_settings_field_screen_reader_label', $return, $this->tooltip, $this );
 	}
 }

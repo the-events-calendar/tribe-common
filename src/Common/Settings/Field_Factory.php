@@ -16,7 +16,7 @@ class Field_Factory {
 	 *
 	 * @var string
 	 */
-	public $id;
+	public static $id;
 
 	/**
 	 * The field's name (defaults to $id).
@@ -44,11 +44,11 @@ class Field_Factory {
 	 * @var array
 	 */
 	public $defaults = [
-		'conditional'         => true,
-		'display_callback'    => null,
-		'name'                => '',
-		'type'                => 'text',
-		'value'               => '',
+		'conditional'      => true,
+		'display_callback' => null,
+		'name'             => '',
+		'type'             => 'text',
+		'value'            => null,
 	];
 
 	/**
@@ -58,9 +58,10 @@ class Field_Factory {
 	 *
 	 * @var array
 	 */
-	public $valid_field_types = [
-		'checkbox_bool',
-		'checkbox_list',
+	public static $valid_field_types = [
+		'checkbox',
+		'checkbox_bool', // Deprecated use `checkbox`
+		'checkbox_list', // Deprecated use `checkbox`
 		'color',
 		'dropdown_chosen', // Deprecated use `dropdown`
 		'dropdown_select2', // Deprecated use `dropdown`
@@ -76,8 +77,16 @@ class Field_Factory {
 		'section',
 		'text',
 		'textarea',
-		'wrapped_html',
+		'wrapped_html', // Deprecated use `html`
 		'wysiwyg',
+	];
+
+	public static $compatibility_types = [
+		'checkbox_bool'    => 'checkbox',
+		'checkbox_list'    => 'checkbox',
+		'dropdown_chosen'  => 'dropdown',
+		'dropdown_select2' => 'dropdown',
+		'wrapped_html'     => 'html',
 	];
 
 	/**
@@ -89,12 +98,15 @@ class Field_Factory {
 	 *
 	 * @return void
 	 */
-	public function __construct( $id, $field, $value = null ) {
-		$this->valid_field_types = apply_filters( 'tribe_valid_field_types', $this->valid_field_types );
+	public function __construct( $id, $field ) {
+		$this->type = $this->normalize_type( $this->type );
+		// If type is wrong, bail early
+		if ( is_null( $this->type ) ) {
+			return;
+		}
 
 		// Setup some useful defaults.
 		$this->defaults['name']  = $id;
-		$this->defaults['value'] = $value;
 
 		// Parse args with defaults - only the ones we care about.
 		$this->args  = wp_parse_args( $field, $this->defaults );
@@ -102,37 +114,8 @@ class Field_Factory {
 		// These aren't needed for field generation beyond this class - extract them.
 		$this->conditional      = $this->args['conditional'];
 		$this->display_callback = $this->args['display_callback'];
-		$this->type             = $this->args['type'];
 		unset( $this->args['conditional'] );
 		unset( $this->args['display_callback'] );
-		unset( $this->args['type'] );
-
-		// Massage type.
-		if ( false !== stripos( $this->type, 'checkbox' ) ) {
-			$this->type = 'checkbox';
-		}
-
-		if ( false !== stripos( $this->type, 'dropdown' ) ) {
-			$this->type = 'dropdown';
-		}
-
-		// Test args.
-		if ( ! in_array( $this->type, $this->valid_field_types ) ) {
-			// Fail, log the error.
-			\Tribe__Debug::debug(
-				esc_html__(
-					'Invalid field type supplied! Field will not display. Ensure you have ',
-					'tribe-common'
-				),
-				[
-					$this->type,
-					$this->id,
-				],
-				'warning'
-			);
-
-			return;
-		}
 
 		if ( ! empty( $this->display_callback ) && ! is_callable( $this->display_callback ) ) {
 			// Fail, log the error.
@@ -143,7 +126,7 @@ class Field_Factory {
 				),
 				[
 					$this->display_callback,
-					$this->id,
+					self::$id,
 					$this->type
 				],
 				'warning'
@@ -153,10 +136,9 @@ class Field_Factory {
 		}
 
 		// These get passed to the field class, along with $this->args.
-		$this->value = is_array( $value ) ? array_map( 'esc_attr', $value ) : esc_attr( $value );
-		$this->id    = apply_filters( 'tribe_field_id', esc_attr( $id ) );
+		self::$id    = apply_filters( 'tribe_field_id', esc_attr( $id ) );
 
-		// Epicness!
+		// Epicness?
 		$this->do_field();
 	}
 
@@ -170,7 +152,6 @@ class Field_Factory {
 	 * @return void
 	 */
 	public function do_field() {
-
 		if ( ! $this->conditional ) {
 			return;
 		}
@@ -178,6 +159,7 @@ class Field_Factory {
 		if ( ! empty( $this->display_callback ) ) {
 			// If there's a callback, run it.
 			call_user_func( $this->display_callback );
+
 			return;
 		}
 
@@ -208,9 +190,9 @@ class Field_Factory {
 			return;
 		}
 
-		$field = new $field_class( $this->id, $this->args, $this->value );
+		$field = new $field_class( self::$id, $this->args );
 
-		return $field;
+		$field->render();
 	}
 
 	/**
@@ -222,11 +204,9 @@ class Field_Factory {
 	 *
 	 * @return string $classname
 	 */
-	public static function clean_type_to_classname( $type ) {
-		$regex = '/[_\-\s]/m';
-		$replace = ' ';
-
-		$classname = preg_replace( $regex, $replace, $type );
+	public static function clean_type_to_classname( $type ): string {
+		$regex     = '/[_\-\s]/m';
+		$classname = preg_replace( $regex, ' ', $type );
 		$classname = ucwords( $classname );
 		$classname =  str_replace( ' ', '_', $classname );
 
@@ -238,9 +218,61 @@ class Field_Factory {
 		 *
 		 * @param string $classname
 		 */
-		return apply_filters(
-			'tec_settings_input_classname',
-			$classname
+		return apply_filters( 'tec_settings_input_classname', $classname );
+	}
+
+	/**
+	 * Validate our input type against the $valid_field_types array.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $type
+	 * @return bool
+	 */
+	public static function validate_type( $type ): bool {
+		// Test args.
+		if ( in_array( $type, self::$valid_field_types ) ) {
+			return true;
+		}
+
+		// Fail, log the error.
+		\Tribe__Debug::debug(
+			esc_html__(
+				'Invalid field type supplied! Field will not display. Ensure you have ',
+				'tribe-common'
+			),
+			[
+				$type,
+				self::$id,
+			],
+			'warning'
 		);
+
+		return false;
+	}
+
+	/**
+	 * Normalize legacy types to the new Classes.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $type
+	 * @return string|null
+	 */
+	public static function normalize_type( $type ): ?string {
+		self::$valid_field_types = apply_filters( 'tec_valid_field_types', self::$valid_field_types );
+
+		// Bail if type invalid.
+		if ( ! self::validate_type( $type ) ) {
+			return null;
+		}
+
+		// Bail if we don't need to convert for backwards compatibility.
+		if ( ! in_array( $type, array_keys( self::$compatibility_types ) ) ) {
+			return $type;
+		}
+
+		// Massage input type for backwards compatibility.
+		return self::$compatibility_types[ $type ];
 	}
 }
