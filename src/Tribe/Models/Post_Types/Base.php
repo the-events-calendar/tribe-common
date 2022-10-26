@@ -21,7 +21,13 @@ use Tribe__Cache_Listener as Cache_Listener;
  * @package Tribe\Models\Post_Types
  */
 abstract class Base {
-	const PRE_SERIALIZED_PROPERTY = '_tec_pre_serialized';
+	/**
+	 * The key used to store pre-serializes properties data in the cache.
+	 *
+	 * @since TBD
+	 */
+	public const PRE_SERIALIZED_PROPERTY = '_tec_pre_serialized';
+
 	/**
 	 * The post object base for this post type instance.
 	 *
@@ -79,7 +85,7 @@ abstract class Base {
 		}
 
 		// Cache by post ID and filter.
-		$cache_key  = $cache_slug . '_' . $this->post->ID . '_' . $filter;
+		$cache_key = $this->get_properties_cache_key( $filter );
 
 		return ( new Cache() )->get( $cache_key, Cache_Listener::TRIGGER_SAVE_POST );
 	}
@@ -209,7 +215,6 @@ abstract class Base {
 	 * @since 4.9.18
 	 *
 	 * @param string $filter The kind of filter applied to the model.
-	 *
 	 * @return callable The closure, or callable, that should be used to cache this model when, and if, required.
 	 */
 	protected function get_caching_callback( $filter ) {
@@ -278,8 +283,8 @@ abstract class Base {
 	 *
 	 * @return \Closure The callback function that should be used to cache the model using object caching.
 	 */
-	protected function get_object_cache_callback( string $cache_slug, string $filter ): \Closure {
-		$cache_key = $cache_slug . '_' . $this->post->ID . '_' . $filter;
+	protected function get_object_cache_callback( string $filter ): \Closure {
+		$cache_key = $this->get_properties_cache_key( $filter );
 		$cache = new Cache();
 
 		return function () use ( $cache, $cache_key, $filter ) {
@@ -287,10 +292,16 @@ abstract class Base {
 			$pre_serialized_properties = [];
 
 			try {
-				// Pre-serialize each Serializable property and store it in a separate cache entry.
+				// Pre-serialize each object property and store it in a separate cache entry.
 				foreach ( $properties as $key => &$value ) {
-					if ( $value instanceof \Serializable ) {
-						$pre_serialized_properties[ $key ] = serialize( $value );
+					try {
+						if ( is_object( $value ) && ! $value instanceof \stdClass ) {
+							// We might end up pre-serializing other built-in objects here, but let's play it safe.
+							$pre_serialized_properties[ $key ] = serialize( $value );
+						}
+					} catch ( \Throwable $t ) {
+						// Null the property: an object that cannot be serialized correctly is not cacheable.
+						$value = null;
 					}
 				}
 				unset( $value );
@@ -302,7 +313,9 @@ abstract class Base {
 				$properties = $this->scalar_serialize_properties( $properties );
 
 				// Add the pre-serialized properties to the main cache entry.
-				$properties[ self::PRE_SERIALIZED_PROPERTY ] = $pre_serialized_properties;
+				if ( count( $pre_serialized_properties ) ) {
+					$properties[ self::PRE_SERIALIZED_PROPERTY ] = $pre_serialized_properties;
+				}
 
 				/**
 				 * Allows filtering the properties of the post type model before they are cached.
@@ -324,5 +337,32 @@ abstract class Base {
 			 */
 			$cache->set( $cache_key, $properties, 0, Cache_Listener::TRIGGER_SAVE_POST );
 		};
+	}
+
+	/**
+	 * Returns the cache key to be used to cache the model properties.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $filter The filter to cache the model for.
+	 *
+	 * @return string The cache key to be used to cache the model properties.
+	 */
+	public function get_properties_cache_key( string $filter ): string {
+		return $this->get_cache_slug() . '_' . $this->post->ID . '_' . $filter;
+	}
+
+	/**
+	 * Commits the model properties to cache immediately.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $filter The filter to cache the model properties for.
+	 *
+	 * @return void The model properties are cached immediately.
+	 */
+	public function commit_to_cache( string $filter = 'raw' ): void {
+		$caching_callback = $this->get_object_cache_callback( $filter );
+		$caching_callback();
 	}
 }
