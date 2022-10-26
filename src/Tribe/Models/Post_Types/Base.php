@@ -227,7 +227,7 @@ abstract class Base {
 		$callback = null;
 
 		if ( wp_using_ext_object_cache() ) {
-			$callback = $this->get_object_cache_callback( $cache_slug, $filter );
+			$callback = $this->get_object_cache_callback( $filter );
 		}
 
 		return $callback;
