@@ -179,12 +179,13 @@ abstract class Base {
 	 * Returns the WP_Post version of this model.
 	 *
 	 * @since 4.9.18
+	 * @since TBD Added the `$force` parameter.
 	 *
 	 * @param string $output The required return type. One of OBJECT, ARRAY_A, or ARRAY_N, which correspond to a WP_Post
 	 *                       object,an associative array, or a numeric array, respectively.
 	 * @param string $filter Type of filter to apply. Accepts 'raw', 'edit', 'db', or 'display' and other formats
 	 *                       supported by the specific type implementation.
-	 * @param bool $force Whether to force the post to be reloaded from the database or not.
+	 * @param bool   $force  Whether to force the post to be reloaded from the database or not.
 	 *
 	 * @return \WP_Post|array|null The post object version of this post type model or `null` if the post is not valid.
 	 */
