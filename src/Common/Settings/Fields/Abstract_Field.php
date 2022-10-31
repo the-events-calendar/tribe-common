@@ -1,6 +1,6 @@
 <?php
 
-namespace TEC\Common\Settings;
+namespace TEC\Common\Settings\Fields;
 
 /**
  * Abstract class for creating fields for use in Settings.
@@ -34,7 +34,7 @@ abstract class Abstract_Field {
 	 *
 	 * @var string
 	 */
-	public $id;
+	public static $id;
 
 	/**
 	 * The field's name (also known as it's label)
@@ -49,7 +49,7 @@ abstract class Abstract_Field {
 	 *
 	 * @var string
 	 */
-	public $type;
+	public static $type;
 
 	/**
 	 * Holds passed classes.
@@ -99,6 +99,7 @@ abstract class Abstract_Field {
 		'if_empty'            => 'string',
 		'label_attributes'    => 'array',
 		'label'               => 'string',
+		'level'               => 'string',
 		'name'                => 'name',
 		'options'             => 'array',
 		'placeholder'         => 'string',
@@ -128,6 +129,7 @@ abstract class Abstract_Field {
 		'if_empty'            => null,
 		'label_attributes'    => [],
 		'label'               => null,
+		'level'               => null,
 		'name'                => '',
 		'options'             => [],
 		'placeholder'         => null,
@@ -154,14 +156,19 @@ abstract class Abstract_Field {
 
 		// Parse args with defaults and extract them.
 		$this->args = wp_parse_args( $args, $this->defaults );
-		$this->type = $args['type'];
+		self::$type = $args['type'];
 
 		// Normalize our ID.
-		$this->id = $this->normalize_id( $id );
+		self::$id = $this->normalize_id( $id );
 
 		// Set each instance variable and filter.
-		foreach ( array_keys( $this->defaults ) as $key ) {
-			$this->{$key} = apply_filters( 'tec_settings_field_' . $key, $$key, $this->id );
+		foreach ( array_keys( $this->args ) as $key => $value) {
+			// If a custom or incorrect arg is passed, skip over it.
+			if ( ! isset( $this->allowed_args[ $key ] ) ) {
+				continue;
+			}
+
+			$this->{$key} = apply_filters( 'tec_settings_field_' . $key, $value, self::$id );
 		}
 
 		// Convert class arrays to a string.
@@ -192,7 +199,7 @@ abstract class Abstract_Field {
 		 * @param bool $render
 		 */
 		$render = apply_filters(
-			'tec_render_field_' . $this->id,
+			'tec_render_field_' . self::$id,
 			true,
 			$this->args,
 			$this->value
@@ -227,6 +234,7 @@ abstract class Abstract_Field {
 		}
 
 		$concat = [];
+
 		foreach ( $attributes as $attribute => $value ) {
 			if ( is_array( $value ) ) {
 				$value = implode( ' ', $value );
@@ -309,7 +317,7 @@ abstract class Abstract_Field {
 	 *
 	 * @return mixed
 	 */
-	protected function normalize_value(): mixed {
+	protected function normalize_value() {
 		$value  = ! empty( $this->attributes['default'] ) ? $this->attributes['default'] : null;
 		$value = ! empty( $this->attributes['value'] ) ? $this->attributes['value'] : $value;
 

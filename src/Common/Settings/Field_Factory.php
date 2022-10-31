@@ -2,6 +2,7 @@
 
 namespace TEC\Common\Settings;
 
+use \Tribe__Debug as Debug;
 
 /**
  * Factory class that creates fields for use in Settings.
@@ -77,12 +78,13 @@ class Field_Factory {
 		'section',
 		'text',
 		'textarea',
+		'toggle',
 		'wrapped_html', // Deprecated use `html`
 		'wysiwyg',
 	];
 
 	public static $compatibility_types = [
-		'checkbox_bool'    => 'checkbox',
+		'checkbox_bool'    => 'toggle',
 		'checkbox_list'    => 'checkbox',
 		'dropdown_chosen'  => 'dropdown',
 		'dropdown_select2' => 'dropdown',
@@ -94,7 +96,6 @@ class Field_Factory {
 	 *
 	 * @param string     $id    The field id.
 	 * @param array      $field The field settings.
-	 * @param null|mixed $value The field's current value.
 	 *
 	 * @return void
 	 */
@@ -119,7 +120,7 @@ class Field_Factory {
 
 		if ( ! empty( $this->display_callback ) && ! is_callable( $this->display_callback ) ) {
 			// Fail, log the error.
-			\Tribe__Debug::debug(
+			Debug::debug(
 				esc_html__(
 					'Invalid display callback supplied! Field will not display. Ensure the display callback is correct and is publicly callable.',
 					'tribe-common'
@@ -151,7 +152,7 @@ class Field_Factory {
 	 *
 	 * @return void
 	 */
-	public function do_field() {
+	public function do_field(): void {
 		if ( ! $this->conditional ) {
 			return;
 		}
@@ -178,7 +179,7 @@ class Field_Factory {
 		// Ensure the class is instantiatable.
 		if ( ! class_exists( $field_class ) ) {
 			// Fail, log the error.
-			\Tribe__Debug::debug(
+			Debug::debug(
 				esc_html__( 'Invalid field class called! Field will not display.', 'tribe-common' ),
 				[
 					$field_class,
@@ -236,7 +237,7 @@ class Field_Factory {
 		}
 
 		// Fail, log the error.
-		\Tribe__Debug::debug(
+		Debug::debug(
 			esc_html__(
 				'Invalid field type supplied! Field will not display. Ensure you have ',
 				'tribe-common'

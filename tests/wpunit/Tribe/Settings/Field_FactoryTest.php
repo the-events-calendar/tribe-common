@@ -70,7 +70,7 @@ class Field_FactoryTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function compatibility_types_provider() {
 		return [
-			[ 'checkbox_bool'    => 'checkbox' ],
+			[ 'checkbox_bool'    => 'toggle' ],
 			[ 'checkbox_list'    => 'checkbox' ],
 			[ 'dropdown_chosen'  => 'dropdown' ],
 			[ 'dropdown_select2' => 'dropdown' ],

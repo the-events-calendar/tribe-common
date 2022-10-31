@@ -17,14 +17,14 @@ class Section extends Abstract_Field  {
 		ob_start();
 		?>
 			<section
-				id="<?php echo esc_attr( $this->id ); ?>"
+				id="<?php echo esc_attr( self::$id ); ?>"
 				class="tec-settings__section"
 				<?php $this->do_attributes(); ?>
 			><?php
 				if ( ! empty( $this->fields ) ) {
 					foreach( $this->fields as $id => $field) {
-						$field['parent'] = $this->id;
-						$field['parent_type'] = $this->type;
+						$field['parent']      = self::$id;
+						$field['parent_type'] = self::$type;
 
 						new Field_Factory( $id, $field );
 					}
@@ -35,7 +35,7 @@ class Section extends Abstract_Field  {
 		$this->content = ob_end_clean();
 
 		$content = apply_filters(
-			'tec-settings-field-section-content',
+			'tec-field-section-content',
 			$this->content,
 			$this
 		);

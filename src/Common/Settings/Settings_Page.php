@@ -35,7 +35,7 @@ class Settings_Page {
 	 * @return void
 	 */
 	public function init_options() {
-		Settings::instance();
+
 	}
 
 }

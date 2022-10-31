@@ -20,8 +20,8 @@ class Radio extends Abstract_Field {
 				\Tribe__Debug::debug(
 					esc_html__( 'No radio options specified! Field will not display.', 'tribe-common' ),
 					[
-						$this->id,
-						$this->type,
+						self::$id,
+						self::$type,
 					],
 					'warning'
 				);
@@ -34,7 +34,7 @@ class Radio extends Abstract_Field {
 			foreach ( $this->args['options'] as $option_id => $title ) {
 				$field_id = sprintf(
 					'%1$s-%2$s',
-					sanitize_html_class( trim( $this->id ) ),
+					sanitize_html_class( trim( self::$id ) ),
 					sanitize_html_class( trim( $option_id ) )
 				);
 
@@ -43,9 +43,9 @@ class Radio extends Abstract_Field {
 				<label title="<?php echo esc_attr( strip_tags( $title ) ); ?>" class="tec-field-label tec-field-label__radio">
 					<input
 						type="radio"
-						id="tec-settings-field-<?php echo esc_attr( $field_id ); ?>"
+						id="tec-field-<?php echo esc_attr( $field_id ); ?>"
 						name="<?php echo esc_attr( $name ) ?>"
-						class="tec-settings__field tec-settings__field--radio"
+						class="tec-field tec-field__radio"
 						value="<?php echo esc_attr( $option_id ); ?>"
 						<?php $this->do_attributes(); ?>
 						<?php checked( $this->value, $option_id, false ); ?>
@@ -58,7 +58,7 @@ class Radio extends Abstract_Field {
 			$content = ob_end_clean();
 
 			$content =  apply_filters(
-				'tec-settings-field-radio-content',
+				'tec-field-radio-content',
 				$content,
 				$this
 			);

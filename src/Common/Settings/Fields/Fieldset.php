@@ -9,7 +9,7 @@ namespace TEC\Common\Settings;
  */
 class Fieldset extends Abstract_Field  {
 
-	public $default_class = [ 'tec-settings__fieldset' ];
+	public $default_class = [ 'tec-fieldset' ];
 	/**
 	 * Generate a fieldset "field".
 	 *
@@ -19,7 +19,7 @@ class Fieldset extends Abstract_Field  {
 		ob_start();
 		?>
 			<fieldset
-				id="<?php echo esc_attr( $this->id ); ?>"
+				id="<?php echo esc_attr( self::$id ); ?>"
 				class="<?php echo esc_attr( $this->class ); ?>"
 				<?php echo empty( $this->error ) ? 'tribe-error' : ''; ?>
 				<?php $this->do_attributes(); ?>
@@ -27,23 +27,25 @@ class Fieldset extends Abstract_Field  {
 				if ( ! empty( $this->fields ) ) {
 					foreach( $this->fields as $id => $field ) {
 						if ( $field['type'] !== 'fieldset' ) {
-							$field['parent'] = $this->id;
-							$field['parent_type'] = $this->type;
-
-							new Field_Factory( $id, $field );
+							// Don't allow nested fieldsets - they are really bad for screen readers. Fail and log the error.
+							\Tribe__Debug::debug(
+								esc_html__(
+									'Nested fieldsets are bad for accessibility! Fieldset will not display.',
+									'tribe-common'
+								),
+								[
+									$id,
+									$field,
+									$this
+								],
+								'warning'
+							);
 						}
 
-						// Don't allow nested fieldsets - they are really bad for screen readers.
-						// Fail, log the error.
-						\Tribe__Debug::debug(
-							esc_html__( 'Nested fieldsets are bad for accessibility! Fieldset will not display.', 'tribe-common' ),
-							[
-								$id,
-								$field,
-								$this
-							],
-							'warning'
-						);
+						$field['parent']      = self::$id;
+						$field['parent_type'] = self::$type;
+
+						new Field_Factory( $id, $field );
 					}
 				}
 			?></fieldset>
@@ -52,7 +54,7 @@ class Fieldset extends Abstract_Field  {
 		$this->content = ob_end_clean();
 
 		$content = apply_filters(
-			'tec-settings-field-fieldset-content',
+			'tec-field-fieldset-content',
 			$this->content,
 			$this
 		);
