@@ -67,7 +67,7 @@ class Tribe__Timezones {
 	 */
 	public static function wp_timezone_string() {
 		$cache = tribe( 'cache' );
-		if ( ! isset( $cache['option_timezone_string'] ) ) {
+		if ( empty( $cache['option_timezone_string'] ) ) {
 			$cache['option_timezone_string'] = get_option( 'timezone_string' );
 		}
 		if ( ! isset( $cache['option_gmt_offset'] ) ) {

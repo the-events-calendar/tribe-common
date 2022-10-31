@@ -2,6 +2,7 @@
 
 = [TBD] TBD =
 
+* Fix - Ensure the TEC timezone settings are applied correctly when using a combination of the WP Engine System MU plugin and Divi or Avada Themes. [TEC-4387]
 * Fix - Refactor the Post model code to avoid serialization/unserialization issues in object caching context. [TEC-4379]
 
 = [5.0.2] 2022-10-20 =
