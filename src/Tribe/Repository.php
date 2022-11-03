@@ -2432,6 +2432,40 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
+	public function by_not_related_to( $by_meta_keys, $keys = null, $values = null ) {
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		$by_meta_keys = $this->prepare_interval( $by_meta_keys );
+
+		$join      = '';
+		$and_where = '';
+		if ( ! empty( $keys ) || ! empty( $values ) ) {
+			$join = "\nJOIN {$wpdb->postmeta} pm2 ON pm1.post_id = pm2.post_id\n";
+		}
+		if ( ! empty( $keys ) ) {
+			$keys       = $this->prepare_interval( $keys );
+			$and_where .= "\nAND pm2.meta_key IN {$keys}\n";
+		}
+		if ( ! empty( $values ) ) {
+			$values     = $this->prepare_interval( $values );
+			$and_where .= "\nAND pm2.meta_value IN {$values}\n";
+		}
+
+		$this->where_clause( "{$wpdb->posts}.ID NOT IN (
+			SELECT pm1.meta_value
+			FROM {$wpdb->postmeta} pm1 {$join}
+			WHERE pm1.meta_key IN {$by_meta_keys} {$and_where}
+			GROUP BY( pm1.meta_value )
+		)" );
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function has_filter( $key, $value = null ) {
 		$args   = func_get_args();
 		$values = array_slice( $args, 1 );
