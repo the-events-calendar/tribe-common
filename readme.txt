@@ -3,6 +3,7 @@
 = [5.0.3] TBD =
 
 * Fix - Ensure the TEC timezone settings are applied correctly when using a combination of the WP Engine System MU plugin and Divi or Avada Themes. [TEC-4387]
+* Fix - Ensure that when filtering script tags we return the expected string no matter what we're given. [TEC-4556]
 
 = [5.0.2.1] 2022-11-03 =
 
