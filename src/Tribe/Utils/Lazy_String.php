@@ -71,11 +71,16 @@ class Lazy_String implements \Serializable, \JsonSerializable {
 	 */
 	public function __toString() {
 		if ( null === $this->string ) {
-			$this->string = (string) call_user_func( $this->value_callback );
+			$value =  call_user_func( $this->value_callback );
+			if ( ! $value instanceof \Generator ) {
+				$value = (string) $value;
+			}
+
+			$this->string = $value;
 			$this->resolved();
 		}
 
-		return $this->string;
+		return (string) $this->string;
 	}
 
 	/**
