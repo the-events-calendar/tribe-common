@@ -80,7 +80,7 @@ class Lazy_String implements \Serializable, \JsonSerializable {
 			$this->resolved();
 		}
 
-		return (string) $this->string;
+		return $this->string;
 	}
 
 	/**
