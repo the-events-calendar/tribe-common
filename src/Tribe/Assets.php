@@ -60,17 +60,17 @@ class Tribe__Assets {
 	public function filter_print_before_after_script( $tag, $handle ) : string {
 		// Only filter for our own filters.
 		if ( ! $asset = $this->get( $handle ) ) {
-			return $tag;
+			return (string) $tag;
 		}
 
 		// Bail when not dealing with JS assets.
 		if ( 'js' !== $asset->type ) {
-			return $tag;
+			return (string) $tag;
 		}
 
 		// Only go forward if there is any print before or after.
 		if ( empty( $asset->print_before ) && empty( $asset->print_after ) ) {
-			return $tag;
+			return (string) $tag;
 		}
 
 		$before = '';
@@ -83,7 +83,9 @@ class Tribe__Assets {
 			$after = (string) ( is_callable( $asset->print_after ) ? call_user_func( $asset->print_after, $asset ) : $asset->print_after );
 		}
 
-		return $before . $tag . $after;
+		$tag = $before . (string) $tag . $after;
+
+		return $tag;
 	}
 
 	/**
