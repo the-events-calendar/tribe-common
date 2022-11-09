@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Move the General and Display settings tab content to TEC. [TBD]
+
 = [5.0.3] TBD =
 
 * FiX - Prevent `Lazy_String` from ever returning anything that is not a string, avoiding PHP 8.1 warnings. Props @amiut
