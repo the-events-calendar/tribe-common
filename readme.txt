@@ -5,6 +5,7 @@
 * FiX - Prevent `Lazy_String` from ever returning anything that is not a string, avoiding PHP 8.1 warnings. Props @amiut
 * Fix - Ensure the TEC timezone settings are applied correctly when using a combination of the WP Engine System MU plugin and Divi or Avada Themes. [TEC-4387]
 * Fix - Ensure that when filtering script tags we return the expected string no matter what we're given. [TEC-4556]
+* Language - 0 new strings added, 1 updated, 1 fuzzied, and 0 obsoleted.
 
 = [5.0.2.1] 2022-11-03 =
 
