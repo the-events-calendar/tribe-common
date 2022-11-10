@@ -555,8 +555,8 @@ class Tribe__Rewrite {
 			);
 
 			// Build an array that will match the start, allowing for translated slugs to be there.
-			$array_map = array_map( static function ( $foo ) {
-				return '#' . preg_quote( rtrim( $foo, ')' ), '#' ) . '[^\\/]*#';
+			$array_map = array_map( static function ( $replace_item ) {
+				return '#' . preg_quote( rtrim( $replace_item, ')' ), '#' ) . '[^\\/]*#';
 
 			}, array_keys( $replace ) );
 			$replaced = preg_replace( $array_map, $replace, $link_template );
