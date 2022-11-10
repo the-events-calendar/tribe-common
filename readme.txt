@@ -5,6 +5,7 @@
 * FiX - Prevent `Lazy_String` from ever returning anything that is not a string, avoiding PHP 8.1 warnings. Props @amiut
 * Fix - Ensure the TEC timezone settings are applied correctly when using a combination of the WP Engine System MU plugin and Divi or Avada Themes. [TEC-4387]
 * Fix - Ensure that when filtering script tags we return the expected string no matter what we're given. [TEC-4556]
+* Language - 0 new strings added, 1 updated, 1 fuzzied, and 0 obsoleted.
 
 = [5.0.2.1] 2022-11-03 =
 
@@ -15,6 +16,7 @@
 * Feature - Adds a new `by_not_related_to` repository method for retrieving posts not related to other posts via a meta_value [ET-1567]
 * Fix - Update version of Firebase/JWT from 5.x to 6.3.0
 * Fix - Prevents fatal around term cache primer with empty object ID or term name.
+* Fix - Prevent Warnings from Lazy_String on PHP 8.1 [TBD]
 * Tweak - Support replacement license keys in premium products and services.
 * Tweak - Deprecated the `Tribe__Settings_Manager::add_help_admin_menu_item()` method in favour of `Settings::add_admin_pages()`. [TEC-4443]
 * Tweak - Add a function to Tribe__Date_Utils to determine if "now" is between two dates. [TEC-4454]

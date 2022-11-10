@@ -24,7 +24,7 @@ abstract class Base {
 	/**
 	 * The key used to store pre-serializes properties data in the cache.
 	 *
-	 * @since TBD
+	 * @since 5.0.3
 	 */
 	public const PRE_SERIALIZED_PROPERTY = '_tec_pre_serialized';
 
@@ -141,7 +141,7 @@ abstract class Base {
 				 * Allows filtering the properties of the post type model after they have been unserialized from the
 				 * cache..
 				 *
-				 * @since TBD
+				 * @since 5.0.3
 				 *
 				 * @param array<string,mixed> $cached The key-value map of the properties of the post type model.
 				 * @param \WP_Post            $post   The post object of the post type model.
@@ -179,7 +179,7 @@ abstract class Base {
 	 * Returns the WP_Post version of this model.
 	 *
 	 * @since 4.9.18
-	 * @since TBD Added the `$force` parameter.
+	 * @since 5.0.3 Added the `$force` parameter.
 	 *
 	 * @param string $output The required return type. One of OBJECT, ARRAY_A, or ARRAY_N, which correspond to a WP_Post
 	 *                       object,an associative array, or a numeric array, respectively.
@@ -240,7 +240,7 @@ abstract class Base {
 	 * Extending classes should implement this method to handle
 	 * specific scalarization of the model properties.
 	 *
-	 * @since TBD
+	 * @since 5.0.3
 	 *
 	 * @param array<string,mixed> $properties A key-value map of the
 	 *                                        properties of the post type model.
@@ -257,7 +257,7 @@ abstract class Base {
 	 * Extending classes should implement this method to handle
 	 * specific un-scalarization of the model properties.
 	 *
-	 * @since TBD
+	 * @since 5.0.3
 	 *
 	 * @param array<string,mixed> $properties A key-value map of the
 	 *                                        properties of the post type model.
@@ -277,7 +277,7 @@ abstract class Base {
 	 * Cache could be pre-fetched: in that case only built-in PHP classes will be supported: for this reason
 	 * object properties will be "scalarized".
 	 *
-	 * @since TBD
+	 * @since 5.0.3
 	 *
 	 * @param string $cache_slug The cache slug of the post type model.
 	 * @param string $filter     The filter to cache the model for.
@@ -321,7 +321,7 @@ abstract class Base {
 				/**
 				 * Allows filtering the properties of the post type model before they are cached.
 				 *
-				 * @since TBD
+				 * @since 5.0.3
 				 *
 				 * @param array<string,mixed> $properties The key-value map of the properties of the post type model.
 				 * @param \WP_Post            $post       The post object of the post type model.
@@ -343,7 +343,7 @@ abstract class Base {
 	/**
 	 * Returns the cache key to be used to cache the model properties.
 	 *
-	 * @since TBD
+	 * @since 5.0.3
 	 *
 	 * @param string $filter The filter to cache the model for.
 	 *
@@ -356,7 +356,7 @@ abstract class Base {
 	/**
 	 * Commits the model properties to cache immediately.
 	 *
-	 * @since TBD
+	 * @since 5.0.3
 	 *
 	 * @param string $filter The filter to cache the model properties for.
 	 *
