@@ -622,7 +622,7 @@ class Tribe__Rewrite {
 		$our_rules = tribe_get_var( $cache_var_name, null );
 
 		// We need to make sure we are have WP_Rewrite setup
-		if ( ! $this->rewrite ) {
+		if ( ! $this->rewrite || empty( $this->rewrite->rules ) ) {
 			$this->setup();
 		}
 
