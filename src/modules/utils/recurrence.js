@@ -8,7 +8,6 @@ import { plugins } from '@moderntribe/common/data';
  *
  * @since 5.0.0
  * @param {object} state The current container state.
- *
  * @returns {boolean} Whether the Event has at least one recurrence rule or not.
  */
 export const hasRecurrenceRules = ( state ) => {
