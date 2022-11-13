@@ -2,6 +2,7 @@
 
 = [TBD] TBD =
 
+* Tweak - Add some styling for the ECP View teasers. [TBD]
 * Tweak - Move the General and Display settings tab content to TEC. [TCMN-149]
 
 = [5.0.3] TBD =

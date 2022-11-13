@@ -278,17 +278,45 @@ table.plugins {
 		}
 
 		.tec-disabled {
-			color: var(--tec-color-icon-secondary);
+			color: #999;
 		}
 
 		.tec-settings-teaser-pill {
 			background-color: var(--tec-color-border-default);
 			border-radius: var(--tec-border-radius-default);
 			color: var(--tec-color-text-primary);
-			font-size: 8px;
-			padding: calc(var(--tec-spacer-0) / 2) var(--tec-spacer-0);
+			font-size: 9px;
+			margin-left: var(--tec-spacer-0);
+			padding: calc(var(--tec-spacer-0) / 2) 5px;
 			text-transform: uppercase;
+
+			&:hover,
+			&:focus {
+				text-decoration: underline;
+			}
 		}
+	}
+}
+
+.tribe_settings {
+	.tribe-field-indent {
+		margin-left: 245px;
+	}
+
+	#pu_dashboard_message {
+		display: none;
+	}
+
+	.tribe-errors-list {
+		margin-left: 15px;
+	}
+
+	.expiring-license {
+		color: red;
+	}
+
+	.tribe-error {
+		border: 1px solid #f00;
 	}
 }
 
