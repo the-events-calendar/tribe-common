@@ -37,7 +37,7 @@ class End_Of_Year_Sale extends Datetime_Conditional_Abstract {
 	 * @return void
 	 */
 	public function hook() {
-		add_action( 'tribe-event-general-settings-fields', [ $this, 'add_conditional_content' ] );
+		add_action( 'tribe_general_settings_tab_fields', [ $this, 'add_conditional_content' ] );
 	}
 
 	/**
