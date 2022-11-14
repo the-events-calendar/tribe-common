@@ -189,7 +189,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Filters the query to return posts that are not related to posts that have a specific meta value.
 	 *
-	 * @since TBD
+	 * @since 5.0.2.1
 	 *
 	 * @param string|array $by_meta_keys One or more `meta_keys` relating
 	 *                                   another post TO this post type.
