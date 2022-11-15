@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.0.3] TBD =
+= [5.0.3] 2022-11-15 =
 
 * FiX - Prevent `Lazy_String` from ever returning anything that is not a string, avoiding PHP 8.1 warnings. Props @amiut
 * Fix - Ensure the TEC timezone settings are applied correctly when using a combination of the WP Engine System MU plugin and Divi or Avada Themes. [TEC-4387]
