@@ -546,7 +546,7 @@ class Tribe__Rewrite {
 			$replace = array_combine(
 				array_map( static function ( $key ) {
 					return preg_replace(
-						'/' . preg_quote( Tribe__Rewrite::$localized_matcher_delimiter ) . '\\w*$/',
+						'/' . preg_quote( Tribe__Rewrite::$localized_matcher_delimiter, '/' ) . '\\w*$/',
 						'',
 						$key
 					);
