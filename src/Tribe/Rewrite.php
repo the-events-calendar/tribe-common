@@ -1,5 +1,6 @@
 <?php
 
+use TEC\Common\Locale_Switcher;
 use Tribe\Traits\Cache_User;
 use Tribe__Cache_Listener as Listener;
 use Tribe__Utils__Array as Arr;
@@ -89,6 +90,14 @@ class Tribe__Rewrite {
 	 * @var array
 	 */
 	protected $clean_url_cache = null;
+	/**
+	 * A reference to the Locale Switcher instance.
+	 *
+	 * @since TBD
+	 *
+	 * @var Locale_Switcher
+	 */
+	protected $locale_switcher;
 
 	/**
 	 * Static Singleton Factory Method
@@ -108,8 +117,9 @@ class Tribe__Rewrite {
 	 *
 	 * @param WP_Rewrite|null $wp_rewrite
 	 */
-	public function __construct( WP_Rewrite $wp_rewrite = null ) {
+	public function __construct( WP_Rewrite $wp_rewrite = null, Locale_Switcher $locale_switcher = null ) {
 		$this->rewrite = $wp_rewrite;
+		$this->locale_switcher = tribe( Locale_Switcher::class );
 	}
 
 	/**
