@@ -5,6 +5,7 @@
 
 // Don't load directly
 
+use TEC\Common\Locale_Switcher;
 use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
 
@@ -349,7 +350,7 @@ class Tribe__Main {
 	public function hook_load_text_domain() {
 		$loaded = $this->load_text_domain(
 			'tribe-common',
-			basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/'
+				basename( dirname( __FILE__, 4 ) ) . '/common/lang/'
 		);
 
 		/**
@@ -432,6 +433,8 @@ class Tribe__Main {
 		// Register for the assets to be available everywhere
 		add_action( 'tribe_common_loaded', [ $this, 'load_assets' ], 1 );
 		add_action( 'init', [ $this, 'hook_load_text_domain' ] );
+		add_action( 'switch_locale', [ $this, 'hook_load_text_domain' ] );
+		add_action( 'restore_previous_locale', [ $this, 'hook_load_text_domain' ] );
 		add_action( 'init', [ $this, 'load_localize_data' ] );
 		add_action( 'plugins_loaded', [ 'Tribe__Admin__Notices', 'instance' ], 1 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'store_admin_notices' ] );
@@ -705,6 +708,7 @@ class Tribe__Main {
 		tribe_singleton( Tribe__Admin__Help_Page::class, Tribe__Admin__Help_Page::class, [ 'hook' ] );
 		tribe_singleton( 'admin.pages', '\Tribe\Admin\Pages' );
 		tribe_singleton( 'admin.activation.page', 'Tribe__Admin__Activation_Page' );
+		tribe_singleton( Locale_Switcher::class, Locale_Switcher::class );
 
 		tribe_register_provider( Tribe__Editor__Provider::class );
 		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
