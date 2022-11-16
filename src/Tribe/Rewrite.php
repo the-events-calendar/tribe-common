@@ -554,12 +554,8 @@ class Tribe__Rewrite {
 				$replace
 			);
 
-			// Build an array that will match the start, allowing for translated slugs to be there.
-			$array_map = array_map( static function ( $replace_item ) {
-				return '#' . preg_quote( rtrim( $replace_item, ')' ), '#' ) . '[^\\/]*#';
-
-			}, array_keys( $replace ) );
-			$replaced = preg_replace( $array_map, $replace, $link_template );
+			// Use case-insensitive replace to make sure to work with some decoding using uppercase escaped chars.
+			$replaced = str_ireplace( array_keys( $replace ), $replace, $link_template );
 
 			// Remove trailing chars.
 			$path     = rtrim( $replaced, '?$' );
