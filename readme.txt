@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.0.4] TBD =
+
+
+
 = [5.0.3] 2022-11-15 =
 
 * FiX - Prevent `Lazy_String` from ever returning anything that is not a string, avoiding PHP 8.1 warnings. Props @amiut
