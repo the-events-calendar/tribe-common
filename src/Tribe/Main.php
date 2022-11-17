@@ -5,7 +5,7 @@
 
 // Don't load directly
 
-use TEC\Common\Locale_Switcher;
+use TEC\Common\Translations_Loader;
 use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
 
@@ -708,7 +708,7 @@ class Tribe__Main {
 		tribe_singleton( Tribe__Admin__Help_Page::class, Tribe__Admin__Help_Page::class, [ 'hook' ] );
 		tribe_singleton( 'admin.pages', '\Tribe\Admin\Pages' );
 		tribe_singleton( 'admin.activation.page', 'Tribe__Admin__Activation_Page' );
-		tribe_singleton( Locale_Switcher::class, Locale_Switcher::class );
+		tribe_singleton( Translations_Loader::class, Translations_Loader::class );
 
 		tribe_register_provider( Tribe__Editor__Provider::class );
 		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
