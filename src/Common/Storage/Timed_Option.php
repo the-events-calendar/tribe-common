@@ -100,7 +100,7 @@ class Timed_Option {
 	 *
 	 * @return string
 	 */
-	protected function get_option_name( string $key ): string {
+	public function get_option_name( string $key ): string {
 		/**
 		 * Allows the modification of where we store the Transient Data.
 		 *
