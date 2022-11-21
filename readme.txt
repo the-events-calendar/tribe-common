@@ -2,6 +2,8 @@
 
 = [5.0.4] TBD =
 
+* Feature - Include `Timed_Options` as a storage for simple replacement for Flags, avoiding Transients for these cases to improve performance and reliability. [TEC-4413]
+* Fix - Prevent calls to `supports_async_process` that were slowing down servers due to not stopping reliably once a decision was made [TEC-4413]
 
 
 = [5.0.3] 2022-11-15 =
