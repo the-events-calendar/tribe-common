@@ -1,6 +1,5 @@
 /**
  * Internal dependencies
- * Recurrence-based global utils
  */
 import { plugins } from '@moderntribe/common/data';
 
