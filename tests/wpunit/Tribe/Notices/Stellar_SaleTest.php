@@ -109,7 +109,7 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 		// Ensure we're on a good screen.
 		set_current_screen( 'tribe_events_page_tribe-common' );
 
-		$notice = tribe( Tribe\Admin\Notice\Marketing\Black_Friday::class );
+		$notice = tribe( Tribe\Admin\Notice\Marketing\Stellar_Sale::class );
 
 		$this->assertFalse( $notice->should_display() );
 
@@ -144,7 +144,7 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 		// Ensure we're on a good screen.
 		set_current_screen( 'tribe_events_page_tribe-common' );
 
-		$notice = tribe( Tribe\Admin\Notice\Marketing\Black_Friday::class );
+		$notice = tribe( Tribe\Admin\Notice\Marketing\Stellar_Sale::class );
 
 		$this->assertFalse( $notice->should_display() );
 
