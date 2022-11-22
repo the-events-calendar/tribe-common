@@ -2,6 +2,7 @@
 
 = [5.0.4] TBD =
 
+* Fix - Fixed a bug where the `Tribe\Utils\Taxonomy::prime_term_cache()` method would throw on invalid term results (thanks @shawfactor). [TCMN-160]
 * Tweak - Add some styling for the ECP View teasers. [TCMN-149]
 * Tweak - Move the General and Display settings tab content to TEC. [TCMN-149]
 
