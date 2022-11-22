@@ -101,7 +101,7 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 				: new DateTime( $input );
 		}, true );
 
-		$notice = tribe( Tribe\Admin\Notice\Marketing\Black_Friday::class );
+		$notice = tribe( Tribe\Admin\Notice\Marketing\Stellar_Sale::class );
 
 		$this->assertFalse( $notice->should_display() );
 	}
@@ -124,7 +124,7 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 				: new DateTime( $input );
 		}, true );
 
-		$notice = tribe( Tribe\Admin\Notice\Marketing\Black_Friday::class );
+		$notice = tribe( Tribe\Admin\Notice\Marketing\Stellar_Sale::class );
 
 		$this->assertFalse( $notice->should_display() );
 	}
