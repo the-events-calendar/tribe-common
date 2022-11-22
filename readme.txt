@@ -2,7 +2,7 @@
 
 = [5.0.4] TBD =
 
-* Fix - Fixed a bug where the `Tribe\Utils\Taxonomy::prime_term_cache()` method would throw on invalid term results (thanks @shawfactor). [TBD]
+* Fix - Fixed a bug where the `Tribe\Utils\Taxonomy::prime_term_cache()` method would throw on invalid term results (thanks @shawfactor). [TCMN-160]
 
 = [5.0.3] 2022-11-15 =
 
