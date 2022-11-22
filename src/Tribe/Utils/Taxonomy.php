@@ -163,9 +163,15 @@ class Taxonomy {
 			'taxonomy'   => $taxonomies,
 		];
 		$terms = get_terms( $args );
-		$term_ids = wp_list_pluck( $terms, 'term_id' );
 
-		foreach ( $terms as $term ) {
+		// Drop invalid results.
+		$valid_terms = array_filter( $terms, static function ( $term ) {
+			return $term instanceof \WP_Term;
+		} );
+
+		$term_ids = wp_list_pluck( $valid_terms, 'term_id' );
+
+		foreach ( $valid_terms as $term ) {
 			$cache[ $term->object_id ][ $term->taxonomy ][] = $term->term_id;
 		}
 
