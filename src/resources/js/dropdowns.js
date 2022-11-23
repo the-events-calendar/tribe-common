@@ -495,10 +495,11 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		var $search = select2Data.$dropdown.find( obj.selector.searchField ); // eslint-disable-line es5/no-es6-methods,max-len
 
 		var originalClasses = obj.getSelectClasses( select2Data.$element ).reduce(
-			function ( prev, curr, index, array ) {
+			function ( prev, curr ) {
 				if( 'hide-if-js' === curr ) {
 					return prev;
 				}
+
 				if ( 'tribe-dropdown-created' === curr ) {
 					return prev;
 				}
