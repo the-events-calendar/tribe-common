@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Better handling of translated slugs in rewrite context. [TEC-3733]
+
 = [5.0.4] 2022-11-29 =
 
 * Fix - Fixed a bug where the `Tribe\Utils\Taxonomy::prime_term_cache()` method would throw on invalid term results (thanks @shawfactor). [TCMN-160]
@@ -18,7 +22,6 @@
 = [5.0.2.1] 2022-11-03 =
 
 * Fix - Refactor the Post model code to avoid serialization/unserialization issues in object caching context. [TEC-4379]
-* Tweak - Better handling of translated slugs in rewrite context. [TEC-3733]
 
 = [5.0.2] 2022-10-20 =
 
