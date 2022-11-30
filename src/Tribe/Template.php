@@ -416,7 +416,7 @@ class Tribe__Template {
 		$path = array_merge( (array) $this->template_base_path, $this->folder );
 
 		// Implode to avoid Window Problems
-		$path = implode( DIRECTORY_SEPARATOR, $path );
+		$path = implode( DIRECTORY_SEPARATOR, array_filter( $path ) );
 
 		/**
 		 * Allows filtering of the base path for templates
@@ -505,7 +505,7 @@ class Tribe__Template {
 		}
 
 		// Implode to avoid Window Problems
-		$path = implode( DIRECTORY_SEPARATOR, $path );
+		$path = implode( DIRECTORY_SEPARATOR, array_filter( $path ) );
 
 		/**
 		 * Allows filtering of the base path for templates
@@ -649,7 +649,7 @@ class Tribe__Template {
 				}
 
 				// Build the File Path
-				$file = implode( DIRECTORY_SEPARATOR, array_merge( (array) $folder['path'], $name ) );
+				$file = implode( DIRECTORY_SEPARATOR, array_filter( array_merge( (array) $folder['path'], $name ) ) );
 
 				// Append the Extension to the file path
 				$file .= '.php';
@@ -1149,7 +1149,7 @@ class Tribe__Template {
 		$path            = array_merge( (array) $common_abs_path, $this->folder );
 
 		// Implode to avoid problems on Windows hosts.
-		$path = implode( DIRECTORY_SEPARATOR, $path );
+		$path = implode( DIRECTORY_SEPARATOR, array_filter( $path ) );
 
 		/**
 		 * Allows filtering the path to a template provided by Common.
