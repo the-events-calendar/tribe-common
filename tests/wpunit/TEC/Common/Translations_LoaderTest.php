@@ -15,11 +15,21 @@ class Translations_LoaderTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_switching_locale_between_en_us_and_other_languages() {
 		$translations_loader = new Translations_Loader();
 
+		$this->assertFalse( $translations_loader->has_loaded_translations() );
+
 		// Use a translation we know will be there in the default text-domain.
 		$this->assertEquals( 'test', __( 'test', 'test-text-domain' ) );
 
 		$translations_loader->load( 'it_IT', [ 'test-text-domain' => $this->get_text_domain_translations_dir() ] );
 
+		$this->assertTrue( $translations_loader->has_loaded_translations() );
+
 		$this->assertEquals( 'prova', __( 'test', 'test-text-domain' ) );
+
+		$translations_loader->restore();
+
+		$this->assertFalse( $translations_loader->has_loaded_translations() );
+
+		$this->assertEquals( 'test', __( 'test', 'test-text-domain' ) );
 	}
 }

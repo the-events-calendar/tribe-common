@@ -73,8 +73,8 @@ class Translations_Loader {
 		do_action( 'tec_locale_translations_load_before', $locale, $domains );
 
 		$this->has_loaded_translations = true;
-		$this->override_locale = $locale;
-		$this->loaded_domains = $domains;
+		$this->override_locale         = $locale;
+		$this->loaded_domains          = $domains;
 
 		/*
 		 * The `plugin_locale` filter will be applied in `load_plugin_textdomain()` to determine
@@ -104,11 +104,13 @@ class Translations_Loader {
 	 *
 	 * Used during filter application.
 	 *
-	 * @since TBD
+	 * @since    TBD
 	 *
 	 * @param string $locale The locale to override.
 	 *
 	 * @return string The overridden locale.
+	 *
+	 * @internal This function is public only for the purpose of being used as a filter callback.
 	 */
 	public function override_locale( $locale ) {
 		return $this->override_locale ?: $locale;
@@ -133,7 +135,7 @@ class Translations_Loader {
 	 * @return void Translations for each domain will be reloaded.
 	 */
 	public function restore() {
-		if(!$this->has_loaded_translations){
+		if ( ! $this->has_loaded_translations ) {
 			return;
 		}
 
@@ -159,6 +161,8 @@ class Translations_Loader {
 		 * @param array<string> $domains The list of domains translations have been loaded for.
 		 */
 		do_action( 'tec_locale_translations_restore_after', $this->loaded_domains );
+
+		$this->has_loaded_translations = false;
 	}
 
 	/**
