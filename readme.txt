@@ -4,11 +4,13 @@
 
 * Fix - Ensure the `clear country` icon resets the value as expect in the create/edit venue page. [TEC-4393]
 
-= [5.0.4] TBD =
+= [5.0.4] 2022-11-29 =
 
 * Fix - Fixed a bug where the `Tribe\Utils\Taxonomy::prime_term_cache()` method would throw on invalid term results (thanks @shawfactor). [TCMN-160]
 * Tweak - Add some styling for the ECP View teasers. [TCMN-149]
 * Tweak - Move the General and Display settings tab content to TEC. [TCMN-149]
+* Tweak - Removed filters: `tribe_general_settings_tab_fields`.
+* Language - 6 new strings added, 17 updated, 3 fuzzied, and 26 obsoleted.
 
 = [5.0.3] 2022-11-15 =
 
