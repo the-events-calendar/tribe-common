@@ -3,6 +3,7 @@
 = [TBD] TBD =
 
 * Tweak - Better handling of translated slugs in rewrite context. [TEC-3733]
+* Fix - Ensure the `clear country` icon resets the value as expect in the create/edit venue page. [TEC-4393]
 
 = [5.0.4] 2022-11-29 =
 
