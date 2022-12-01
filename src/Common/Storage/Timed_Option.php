@@ -231,11 +231,13 @@ class Timed_Option {
 		$updated = false;
 
 		if ( $this->is_active() ) {
-			$updated = update_option( $this->get_option_name( $key ), null, true );
+			$timed_option_name = $this->get_option_name( $key );
+			$updated = update_option( $timed_option_name, null, true );
+			wp_cache_delete( $timed_option_name, 'options' );
 		}
 
 		// Bail with default when non-existent.
-		if ( empty( $data[ $key ] ) ) {
+		if ( ! isset( $this->data[ $key ] ) ) {
 			return $updated;
 		}
 

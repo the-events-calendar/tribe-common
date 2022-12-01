@@ -127,6 +127,6 @@ class Timed_OptionTest extends \Codeception\TestCase\WPTestCase {
 		tec_timed_option()->set( 'foo', 'foobar' );
 		$value = tec_timed_option()->get( 'foo' );
 
-		$this->assertNotEquals( $value, 'foobar' );
+		$this->assertEquals( $value, 'foobar' );
 	}
 }
