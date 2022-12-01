@@ -64,7 +64,7 @@ class End_Of_Year_Sale extends Datetime_Conditional_Abstract {
 		$content = $this->get_template()->template( 'conditional_content/end-of-year-sale', $template_args, false );
 
 		// Replace starting info box markup.
-		$fields['info-start']['html'] = '<div id="modern-tribe-info">' . $content;
+		$fields['info-start']['html'] .= $content;
 
 		return $fields;
 	}
