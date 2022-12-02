@@ -41,17 +41,6 @@ class Timed_Option {
 	protected $data = [];
 
 	/**
-	 * Load and sets up all the hooks related to the timed options.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function hook(): void {
-
-	}
-
-	/**
 	 * Deactivate the usage of Database Timed Options, all timed options are only a glorified memoization.
 	 *
 	 * @since TBD
@@ -154,8 +143,8 @@ class Timed_Option {
 
 		// If we have a stored value that is not expired, use it.
 		if (
-			! $force &&
-			isset( $this->data[ $key ] )
+			! $force
+			&& isset( $this->data[ $key ] )
 			&& is_numeric( $this->data[ $key ]['expiration'] )
 			&& $time < $this->data[ $key ]['expiration']
 		) {
@@ -232,7 +221,7 @@ class Timed_Option {
 
 		if ( $this->is_active() ) {
 			$timed_option_name = $this->get_option_name( $key );
-			$updated = update_option( $timed_option_name, null, true );
+			$updated           = update_option( $timed_option_name, null, true );
 			wp_cache_delete( $timed_option_name, 'options' );
 		}
 
@@ -278,8 +267,8 @@ class Timed_Option {
 
 		// If we have a stored value that is not expired, use it.
 		if (
-			! $force &&
-			isset( $this->data[ $key ] )
+			! $force
+			&& isset( $this->data[ $key ] )
 			&& is_numeric( $this->data[ $key ]['expiration'] )
 			&& $time < $this->data[ $key ]['expiration']
 		) {

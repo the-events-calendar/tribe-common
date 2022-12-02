@@ -73,7 +73,7 @@ class Tribe__Feature_Detection {
 
 		$this->lock_option_name = 'tribe_feature_support_check_lock';
 		$transient_name         = Tribe__Process__Tester::TRANSIENT_NAME;
-		$timed_option_exists = tec_timed_option()->exists( $transient_name );
+		$timed_option_exists    = tec_timed_option()->exists( $transient_name );
 		$supports_async_process = tec_timed_option()->get( $transient_name, null, $force );
 
 		if (
