@@ -2,8 +2,10 @@
 
 = [TBD] TBD =
 
-* Tweak - Better handling of translated slugs in rewrite context. [TEC-3733]
+* Feature - Include `Timed_Options` as a storage for simple replacement for Flags, avoiding Transients for these cases to improve performance and reliability. [TEC-4413]
+* Fix - Prevent calls to `supports_async_process` that were slowing down servers due to not stopping reliably once a decision was made [TEC-4413]
 * Fix - Ensure the `clear country` icon resets the value as expect in the create/edit venue page. [TEC-4393]
+* Tweak - Better handling of translated slugs in rewrite context. [TEC-3733]
 
 = [5.0.4] 2022-11-29 =
 
