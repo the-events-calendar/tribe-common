@@ -623,16 +623,16 @@ class Tribe__Rewrite {
 	 * @return array An array of rewrite rules handled by the implementation in the shape `[ <regex> => <path> ]`.
 	 */
 	protected function get_handled_rewrite_rules() {
-		static $cache_var_name = __METHOD__;
-
-		$our_rules = tribe_get_var( $cache_var_name, null );
+		// Try and pull it from memoized values.
+		$cache     = tribe_cache();
+		$our_rules = $cache['handled_rewrite_rules'] ?? null;
 
 		// We need to make sure we are have WP_Rewrite setup
 		if ( ! $this->rewrite || empty( $this->rewrite->rules ) ) {
 			$this->setup();
 		}
 
-		$all_rules     = isset( $this->rewrite->rules ) ? (array) $this->rewrite->rules : [];
+		$all_rules = isset( $this->rewrite->rules ) ? (array) $this->rewrite->rules : [];
 
 		if ( null === $our_rules ) {
 			// While this is specific to The Events Calendar we're handling a small enough post type base to keep it here.
@@ -644,7 +644,7 @@ class Tribe__Rewrite {
 				}
 			);
 
-			tribe_set_var( $cache_var_name, $our_rules );
+			$cache['handled_rewrite_rules'] = $our_rules;
 		}
 
 		/**
@@ -652,12 +652,12 @@ class Tribe__Rewrite {
 		 *
 		 * @since  4.9.18
 		 *
-		 * @param array $our_rules An array of rewrite rules handled by our code, in the shape
-		 *                         `[ <rewrite_rule_regex_pattern> => <query_string> ]`.
-		 *                         E.g. `[ '(?:events)/(?:list)/?$' => 'index.php?post_type=tribe_events&eventDisplay=list' ]`.
-		 * @param array<string,string> All the current rewrite rules, before any filtering is applied; these have the
-		 *                             same `<pattern => rewrite >` format as the previous argument, which is the
-		 *                             format used by WordPress rewrite rules.
+		 * @param array                $our_rules An array of rewrite rules handled by our code, in the shape
+		 *                                        `[ <rewrite_rule_regex_pattern> => <query_string> ]`.
+		 *                                        E.g. `[ '(?:events)/(?:list)/?$' => 'index.php?post_type=tribe_events&eventDisplay=list' ]`.
+		 * @param array<string,string> $all_rules All the current rewrite rules, before any filtering is applied; these
+		 *                                        have the same `<pattern => rewrite >` format as the previous argument,
+		 *                                        which is the format used by WordPress rewrite rules.
 		 */
 		$our_rules = apply_filters( 'tribe_rewrite_handled_rewrite_rules', $our_rules, $all_rules );
 
