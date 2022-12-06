@@ -4,9 +4,17 @@
 
 * Tweak - Sync `tribe-common-styles` to its latest, in order to fix styling issues. [ETP-828]
 
+= [5.0.4] 2022-11-29 =
+
+* Fix - Fixed a bug where the `Tribe\Utils\Taxonomy::prime_term_cache()` method would throw on invalid term results (thanks @shawfactor). [TCMN-160]
+* Tweak - Add some styling for the ECP View teasers. [TCMN-149]
+* Tweak - Move the General and Display settings tab content to TEC. [TCMN-149]
+* Tweak - Removed filters: `tribe_general_settings_tab_fields`.
+* Language - 6 new strings added, 17 updated, 3 fuzzied, and 26 obsoleted.
+
 = [5.0.3] 2022-11-15 =
 
-* FiX - Prevent `Lazy_String` from ever returning anything that is not a string, avoiding PHP 8.1 warnings. Props @amiut
+* Fix - Prevent `Lazy_String` from ever returning anything that is not a string, avoiding PHP 8.1 warnings. Props @amiut
 * Fix - Ensure the TEC timezone settings are applied correctly when using a combination of the WP Engine System MU plugin and Divi or Avada Themes. [TEC-4387]
 * Fix - Ensure that when filtering script tags we return the expected string no matter what we're given. [TEC-4556]
 * Language - 0 new strings added, 1 updated, 1 fuzzied, and 0 obsoleted.
