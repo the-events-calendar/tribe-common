@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.0.5] TBD =
+= [5.0.5] 2022-12-08 =
 
 * Tweak - Sync `tribe-common-styles` to its latest, in order to fix styling issues. [ETP-828]
 
