@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [G22.tyrannousaurus] TBD =
+= [5.0.5] TBD =
 
 * Tweak - Sync `tribe-common-styles` to its latest, in order to fix styling issues. [ETP-828]
 
