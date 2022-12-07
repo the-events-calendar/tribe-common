@@ -140,7 +140,34 @@ class Lazy_String implements \Serializable, \JsonSerializable {
 	/**
 	 * {@inheritDoc}
 	 */
+	#[\ReturnTypeWillChange]
 	public function jsonSerialize() {
 		return $this->value();
+	}
+
+	/**
+	 * PHP 8.0+ compatible implementation of the serialization logic.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The data to serialize.
+	 */
+	public function __serialize(): array {
+		return [
+			'string'  => $this->string,
+			'escaped' => $this->escaped,
+		];
+	}
+
+	/**
+	 * PHP 8.0+ compatible implementation of the unserialization logic.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $data The data to unserialize.
+	 */
+	public function __unserialize( array $data ): void {
+		$this->string  = $data['string'] ?? null;
+		$this->escaped = $data['escaped'] ?? null;
 	}
 }

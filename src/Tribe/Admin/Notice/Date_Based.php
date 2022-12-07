@@ -281,7 +281,9 @@ abstract class Date_Based {
 	 */
 	public function get_start_time() {
 		$date = Dates::build_date_object( $this->start_date, 'UTC' );
-		$date = $date->setTime( $this->start_time, 0 );
+		if ( $this->start_time !== null ) {
+			$date = $date->setTime( $this->start_time, 0 );
+		}
 
 		/**
 		 * Allow filtering of the start date DateTime object,
@@ -305,7 +307,9 @@ abstract class Date_Based {
 	 */
 	public function get_end_time() {
 		$date = Dates::build_date_object( $this->end_date, 'UTC' );
-		$date = $date->setTime( $this->end_time, 0 );
+		if ( $this->end_time !== null ) {
+			$date = $date->setTime( $this->end_time, 0 );
+		}
 
 		/**
 		* Allow filtering of the end date DateTime object,
@@ -331,7 +335,9 @@ abstract class Date_Based {
 	 */
 	public function get_extension_time() {
 		$date = Dates::build_date_object( $this->extension_date, 'UTC' );
-		$date = $date->setTime( $this->extension_time, 0 );
+		if ( $this->extension_time !== null ) {
+			$date = $date->setTime( $this->extension_time, 0 );
+		}
 
 		/**
 		* Allow filtering of the extension date DateTime object,
