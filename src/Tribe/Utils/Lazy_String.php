@@ -132,9 +132,8 @@ class Lazy_String implements \Serializable, \JsonSerializable {
 	 * @since 4.9.16
 	 */
 	public function unserialize( $serialized ) {
-		list( $string, $escaped ) = unserialize( $serialized );
-		$this->string  = $string;
-		$this->escaped = $escaped;
+		$data = unserialize( $serialized );
+		$this->__unserialize( $data );
 	}
 
 	/**
@@ -154,8 +153,8 @@ class Lazy_String implements \Serializable, \JsonSerializable {
 	 */
 	public function __serialize(): array {
 		return [
-			'string'  => $this->string,
-			'escaped' => $this->escaped,
+			'string'  => $this->__toString(),
+			'escaped' => $this->escaped(),
 		];
 	}
 
