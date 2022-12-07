@@ -334,7 +334,12 @@ abstract class Date_Based {
 	 * @return int $end_time The date & time the notice should stop displaying, as a Unix timestamp.
 	 */
 	public function get_extension_time() {
+		if ( $this->extension_date === null ) {
+			return null;
+		}
+
 		$date = Dates::build_date_object( $this->extension_date, 'UTC' );
+
 		if ( $this->extension_time !== null ) {
 			$date = $date->setTime( $this->extension_time, 0 );
 		}
