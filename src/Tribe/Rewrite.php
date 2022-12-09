@@ -672,13 +672,18 @@ class Tribe__Rewrite {
 	 * @return array A map of localized regex matchers in the shape `[ <localized_regex> => <query_var> ]`.
 	 */
 	protected function get_localized_matchers() {
-		static $cache_var_name = __METHOD__;
+		$cache_key = __METHOD__;
+		$cache = tribe_cache();
+
+		$localized_matchers = $cache[ $cache_key ];
+
+		if ( ! empty( $localized_matchers ) ) {
+			return $localized_matchers;
+		}
 
 		$bases         = (array) $this->get_bases();
-
 		$query_var_map = $this->get_matcher_to_query_var_map();
-
-		$localized_matchers = tribe_get_var( $cache_var_name, [] );
+		$localized_matchers = [];
 
 		foreach ( $bases as $base => $localized_matcher ) {
 			// Use the base too to allow possible conflicts if the slugs are the same for single and archive.
@@ -713,7 +718,7 @@ class Tribe__Rewrite {
 			}
 		}
 
-		tribe_set_var( $cache_var_name, $localized_matchers );
+		$cache[ $cache_key ] = $localized_matchers;
 
 		return $localized_matchers;
 	}
