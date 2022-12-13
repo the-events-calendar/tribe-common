@@ -2,14 +2,14 @@
 /**
  * Functions, or polyfills, related to Transient data manipulation.
  *
- * @since TBD
+ * @since 5.0.6
  */
 
 if ( ! function_exists( 'tec_timed_option' ) ) {
 	/**
 	 * Checks if a file is from one of the specified plugins.
 	 *
-	 * @since TBD
+	 * @since 5.0.6
 	 *
 	 * @return \TEC\Common\Storage\Timed_Option
 	 */

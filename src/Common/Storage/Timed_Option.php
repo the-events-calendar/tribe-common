@@ -8,7 +8,7 @@ namespace TEC\Common\Storage;
  * Caching, on those cases Transients will execute two SQL queries when using `get_transient()`, which is demolishes
  * the performance of certain pages.
  *
- * @since   TBD
+ * @since   5.0.6
  *
  * @package TEC\Common
  */
@@ -16,7 +16,7 @@ class Timed_Option {
 	/**
 	 *
 	 *
-	 * @since TBD
+	 * @since 5.0.6
 	 *
 	 * @var bool
 	 */
@@ -25,7 +25,7 @@ class Timed_Option {
 	/**
 	 * Prefix for all the Timed Options stored on the database.
 	 *
-	 * @since TBD
+	 * @since 5.0.6
 	 *
 	 * @var string
 	 */
@@ -34,7 +34,7 @@ class Timed_Option {
 	/**
 	 * Local storage of the data on the Options. Keys will not have the prefix used on the database.
 	 *
-	 * @since TBD
+	 * @since 5.0.6
 	 *
 	 * @var array
 	 */
@@ -43,7 +43,7 @@ class Timed_Option {
 	/**
 	 * Deactivate the usage of Database Timed Options, all timed options are only a glorified memoization.
 	 *
-	 * @since TBD
+	 * @since 5.0.6
 	 *
 	 * @return void
 	 */
@@ -54,7 +54,7 @@ class Timed_Option {
 	/**
 	 * Activate the usage of Database Timed Options.
 	 *
-	 * @since TBD
+	 * @since 5.0.6
 	 *
 	 * @return void
 	 */
@@ -65,7 +65,7 @@ class Timed_Option {
 	/**
 	 * Is the timed options active?
 	 *
-	 * @since TBD
+	 * @since 5.0.6
 	 *
 	 * @return bool
 	 */
@@ -73,7 +73,7 @@ class Timed_Option {
 		/**
 		 * Allows the modification of the state of usage for Timed Options.
 		 *
-		 * @since TBD
+		 * @since 5.0.6
 		 *
 		 * @param bool $active Whether we use Database Timed Options or a glorified Memoization system.
 		 */
@@ -83,7 +83,7 @@ class Timed_Option {
 	/**
 	 * Gets the option name for a given timed option, by attaching a prefix and allowing filtering.
 	 *
-	 * @since TBD
+	 * @since 5.0.6
 	 *
 	 * @param string $key Key for the option we are trying to get the option name for.
 	 *
@@ -93,7 +93,7 @@ class Timed_Option {
 		/**
 		 * Allows the modification of where we store the Transient Data.
 		 *
-		 * @since TBD
+		 * @since 5.0.6
 		 *
 		 * @param string $option_name Name of the option where all the transient data will live.
 		 */
@@ -103,7 +103,7 @@ class Timed_Option {
 	/**
 	 * Fetches the value of a given timed option.
 	 *
-	 * @since TBD
+	 * @since 5.0.6
 	 *
 	 * @param string $key     Key for the option we are trying to get.
 	 * @param mixed  $default Default value when the option is either expired or not-set.
@@ -115,7 +115,7 @@ class Timed_Option {
 		/**
 		 * Allows the filtering the default timed_option value.
 		 *
-		 * @since TBD
+		 * @since 5.0.6
 		 *
 		 * @param mixed  $default Default value when the option is either expired or not-set.
 		 * @param string $key     Key for the option we are trying to get.
@@ -126,7 +126,7 @@ class Timed_Option {
 		/**
 		 * Allows the filtering to short-circuit the whole fetch logic.
 		 *
-		 * @since TBD
+		 * @since 5.0.6
 		 *
 		 * @param mixed|null $pre     If anything diff than null it will short-circuit.
 		 * @param string     $key     Key for the option we are trying to get.
@@ -151,7 +151,7 @@ class Timed_Option {
 			/**
 			 * Allows the filtering of the cached value of the timed option.
 			 *
-			 * @since TBD
+			 * @since 5.0.6
 			 *
 			 * @param mixed  $value   If anything diff than null it will short-circuit.
 			 * @param string $key     Key for the option we are trying to get.
@@ -194,7 +194,7 @@ class Timed_Option {
 		/**
 		 * Allows the filtering of the value of the timed option.
 		 *
-		 * @since TBD
+		 * @since 5.0.6
 		 *
 		 * @param mixed  $value   If anything diff than null it will short-circuit.
 		 * @param string $key     Key for the option we are trying to get.
@@ -209,7 +209,7 @@ class Timed_Option {
 	 * Delete a given timed option based on a key.
 	 * Will also clear local cache.
 	 *
-	 * @since TBD
+	 * @since 5.0.6
 	 *
 	 * @param string $key Which timed option we are checking.
 	 *
@@ -238,7 +238,7 @@ class Timed_Option {
 	/**
 	 * Checks if a given timed option exists.
 	 *
-	 * @since TBD
+	 * @since 5.0.6
 	 *
 	 * @param string $key   Which timed option we are checking.
 	 * @param bool   $force Clears the cache before get_option()
@@ -249,7 +249,7 @@ class Timed_Option {
 		/**
 		 * Allows the filtering to short-circuit the whole exists logic.
 		 *
-		 * @since TBD
+		 * @since 5.0.6
 		 *
 		 * @param mixed|null $pre   If anything diff than null it will short-circuit.
 		 * @param string     $key   Key for the option we are trying to get.
@@ -299,7 +299,7 @@ class Timed_Option {
 		/**
 		 * Does a particular timed option key exists.
 		 *
-		 * @since TBD
+		 * @since 5.0.6
 		 *
 		 * @param mixed  $exists If anything diff than null it will short-circuit.
 		 * @param string $key    Key for the option we are trying to get.
@@ -312,7 +312,7 @@ class Timed_Option {
 	/**
 	 * Update the value of a timed option on the database and on local cache.
 	 *
-	 * @since TBD
+	 * @since 5.0.6
 	 *
 	 * @param string $key        Key for this option.
 	 * @param mixed  $value      Value stored for this option.

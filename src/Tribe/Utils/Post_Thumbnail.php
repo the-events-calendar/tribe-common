@@ -325,7 +325,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * PHP 8.0+ compatible implementation of the serialization logic.
 	 *
-	 * @since TBD
+	 * @since 5.0.6
 	 *
 	 * @return array The data to serialize.
 	 */
@@ -339,7 +339,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * PHP 8.0+ compatible implementation of the unserialization logic.
 	 *
-	 * @since TBD
+	 * @since 5.0.6
 	 *
 	 * @param array $data The data to unserialize.
 	 */
