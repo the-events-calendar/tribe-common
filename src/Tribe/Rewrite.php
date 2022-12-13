@@ -115,11 +115,12 @@ class Tribe__Rewrite {
 	/**
 	 * Tribe__Rewrite constructor.
 	 *
-	 * @param WP_Rewrite|null $wp_rewrite
+	 * @param WP_Rewrite|null $wp_rewrite An instance of the `WP_Rewrite` class.
+	 * @param Translations_Loader|null $translations_loader An instance of the translations loader.
 	 */
-	public function __construct( WP_Rewrite $wp_rewrite = null, Translations_Loader $locale_switcher = null ) {
-		$this->rewrite = $wp_rewrite;
-		$this->translations_loader = tribe( Translations_Loader::class );
+	public function __construct( WP_Rewrite $wp_rewrite = null, Translations_Loader $translations_loader = null ) {
+		$this->rewrite             = $wp_rewrite;
+		$this->translations_loader = $translations_loader ?? tribe( Translations_Loader::class );
 	}
 
 	/**
