@@ -5,6 +5,7 @@
 * Feature - Include `Timed_Options` as a storage for simple replacement for Flags, avoiding Transients for these cases to improve performance and reliability. [TEC-4413]
 * Fix - Prevent calls to `supports_async_process` that were slowing down servers due to not stopping reliably once a decision was made [TEC-4413]
 * Fix - Ensure the `clear country` icon resets the value as expect in the create/edit venue page. [TEC-4393]
+* Tweak - Added filters: `tec_common_timed_option_is_active`, `tec_common_timed_option_name`, `tec_common_timed_option_default_value`, `tec_common_timed_option_pre_value`, `tec_common_timed_option_value`, `tec_common_timed_option_pre_exists`, `tec_common_timed_option_exists`
 * Language - 0 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.0.5] 2022-12-08 =
