@@ -1127,7 +1127,7 @@ if ( ! function_exists( 'tribe_sanitize_deep' ) ) {
 			return $value;
 		}
 		if ( is_string( $value ) ) {
-			$value = htmlspecialchars( stripslashes( strip_tags( $value ) ), ENT_QUOTES );
+			$value = filter_var( $value, FILTER_SANITIZE_STRING );
 			return $value;
 		}
 		if ( is_int( $value ) ) {
