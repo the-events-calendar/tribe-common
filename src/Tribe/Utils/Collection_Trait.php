@@ -220,7 +220,7 @@ trait Collection_Trait {
 	/**
 	 * PHP 8.0+ compatible implementation of the serialization logic.
 	 *
-	 * @since TBD
+	 * @since 5.0.6
 	 *
 	 * @return array The data to serialize.
 	 */
@@ -237,7 +237,7 @@ trait Collection_Trait {
 	/**
 	 * PHP 8.0+ compatible implementation of the unserialization logic.
 	 *
-	 * @since TBD
+	 * @since 5.0.6
 	 *
 	 * @param array $data The data to unserialize.
 	 */

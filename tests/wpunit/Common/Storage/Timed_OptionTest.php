@@ -5,7 +5,7 @@ namespace TEC\Common\Storage;
 /**
  * Class Timed_Option
  *
- * @since   TBD
+ * @since   5.0.6
  *
  * @package TEC\Common\Storage
  */
