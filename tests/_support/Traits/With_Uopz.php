@@ -104,4 +104,22 @@ trait With_Uopz {
 		uopz_set_return( $class, $method, $value, $execute );
 		$this->uopz_set_returns[] = [ $class, $method ];
 	}
+
+	private function set_class_property( $object, $field, $value ) {
+		if ( ! function_exists( 'uopz_set_property' ) ) {
+			$this->markTestSkipped( 'uopz extension is not installed' );
+		}
+		uopz_set_property( $object, $field, $value );
+	}
+
+	private function add_class_fn( $class, $function, $handler ) {
+		if ( ! function_exists( 'uopz_add_function' ) ) {
+			$this->markTestSkipped( 'uopz extension is not installed' );
+		}
+		uopz_add_function(
+			$class,
+			$function,
+			$handler
+		);
+	}
 }
