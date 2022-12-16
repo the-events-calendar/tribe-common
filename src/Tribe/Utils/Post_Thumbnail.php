@@ -230,6 +230,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * {@inheritDoc}
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetExists( $offset ) {
 		$this->data = $this->fetch_data();
 
@@ -239,6 +240,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * {@inheritDoc}
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetGet( $offset ) {
 		$this->data = $this->fetch_data();
 
@@ -250,6 +252,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * {@inheritDoc}
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetSet( $offset, $value ) {
 		$this->data = $this->fetch_data();
 
@@ -259,6 +262,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * {@inheritDoc}
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetUnset( $offset ) {
 		$this->data = $this->fetch_data();
 
@@ -283,10 +287,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	 * {@inheritDoc}
 	 */
 	public function serialize() {
-		$data            = $this->fetch_data();
-		$data['post_id'] = $this->post_id;
-
-		return wp_json_encode( $data );
+		return wp_json_encode( $this->__serialize() );
 	}
 
 	/**
@@ -294,14 +295,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	 */
 	public function unserialize( $serialized ) {
 		$data = json_decode( $serialized, true );
-		array_walk( $data, static function ( &$data_entry ) {
-			if ( is_array( $data_entry ) ) {
-				$data_entry = (object) $data_entry;
-			}
-		} );
-		$this->post_id = $data['post_id'];
-		unset( $data['post_id'] );
-		$this->data = ! empty( $data ) ? $data : null;
+		$this->__unserialize( $data );
 	}
 
 	/**
@@ -326,5 +320,37 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 		}
 
 		return $this->exists;
+	}
+
+	/**
+	 * PHP 8.0+ compatible implementation of the serialization logic.
+	 *
+	 * @since 5.0.6
+	 *
+	 * @return array The data to serialize.
+	 */
+	public function __serialize(): array {
+		$data            = $this->fetch_data();
+		$data['post_id'] = $this->post_id;
+
+		return $data;
+	}
+
+	/**
+	 * PHP 8.0+ compatible implementation of the unserialization logic.
+	 *
+	 * @since 5.0.6
+	 *
+	 * @param array $data The data to unserialize.
+	 */
+	public function __unserialize( array $data ): void {
+		array_walk( $data, static function ( &$data_entry ) {
+			if ( is_array( $data_entry ) ) {
+				$data_entry = (object) $data_entry;
+			}
+		} );
+		$this->post_id = $data['post_id'];
+		unset( $data['post_id'] );
+		$this->data = ! empty( $data ) ? $data : null;
 	}
 }

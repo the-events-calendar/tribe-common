@@ -73,6 +73,7 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 
 	/**
 	 * The task this class will perform is just setting a transient.
+	 *
 	 * The transient existence will be used as a canary to detect if
 	 * background processing is supported.
 	 *
@@ -81,7 +82,7 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 	 * @param array|null $data_source Unused.
 	 */
 	protected function handle( array $data_source = null ) {
-		set_transient( self::TRANSIENT_NAME, 1, HOUR_IN_SECONDS );
+		tec_timed_option()->set( static::TRANSIENT_NAME, 1, WEEK_IN_SECONDS );
 	}
 
 	/**

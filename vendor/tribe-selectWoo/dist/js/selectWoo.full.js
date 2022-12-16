@@ -1875,7 +1875,12 @@ S2.define('select2/selection/allowClear',[
       }
     }
 
-    this.$element.val(this.placeholder.id).trigger('change');
+    // Allow clearing when the data-placeholder attribute isn't set. 
+    if ( typeof this.placeholder !== 'undefined' ) {
+      this.$element.val( this.placeholder.id ).trigger( 'change' );
+    } else {
+      this.$element.val( '' ).trigger( 'change' );
+    }
 
     this.trigger('toggle', {});
   };

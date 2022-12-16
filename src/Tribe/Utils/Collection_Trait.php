@@ -67,6 +67,7 @@ trait Collection_Trait {
 	/**
 	 * {@inheritDoc}
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetExists( $offset ) {
 		$items = $this->all();
 
@@ -76,6 +77,7 @@ trait Collection_Trait {
 	/**
 	 * {@inheritDoc}
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetGet( $offset ) {
 		$items = $this->all();
 
@@ -87,6 +89,7 @@ trait Collection_Trait {
 	/**
 	 * {@inheritDoc}
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetSet( $offset, $value ) {
 		$this->items = $this->all();
 
@@ -96,6 +99,7 @@ trait Collection_Trait {
 	/**
 	 * {@inheritDoc}
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetUnset( $offset ) {
 		$this->items = $this->all();
 
@@ -105,6 +109,7 @@ trait Collection_Trait {
 	/**
 	 * {@inheritDoc}
 	 */
+	#[\ReturnTypeWillChange]
 	public function next() {
 		$this->items_index ++;
 	}
@@ -112,6 +117,7 @@ trait Collection_Trait {
 	/**
 	 * {@inheritDoc}
 	 */
+	#[\ReturnTypeWillChange]
 	public function valid() {
 		$items = $this->all();
 
@@ -121,6 +127,7 @@ trait Collection_Trait {
 	/**
 	 * {@inheritDoc}
 	 */
+	#[\ReturnTypeWillChange]
 	public function key() {
 		return $this->items_index;
 	}
@@ -128,6 +135,7 @@ trait Collection_Trait {
 	/**
 	 * {@inheritDoc}
 	 */
+	#[\ReturnTypeWillChange]
 	public function current() {
 		$items = array_values( $this->all() );
 
@@ -137,6 +145,7 @@ trait Collection_Trait {
 	/**
 	 * {@inheritDoc}
 	 */
+	#[\ReturnTypeWillChange]
 	public function rewind() {
 		$this->items_index = 0;
 	}
@@ -144,6 +153,7 @@ trait Collection_Trait {
 	/**
 	 * {@inheritDoc}
 	 */
+	#[\ReturnTypeWillChange]
 	public function count() {
 		return count( $this->all() );
 	}
@@ -169,6 +179,7 @@ trait Collection_Trait {
 
 		if ( method_exists( $this, 'custom_unserialize' ) ) {
 			$this->items = $this->custom_unserialize( $to_unserialize );
+
 			return;
 		}
 
@@ -178,6 +189,7 @@ trait Collection_Trait {
 	/**
 	 * {@inheritDoc}
 	 */
+	#[\ReturnTypeWillChange]
 	public function seek( $position ) {
 		$this->items_index = $position;
 	}
@@ -203,5 +215,39 @@ trait Collection_Trait {
 		$filtered->items = array_filter( $this->all(), $filter_callback );
 
 		return $filtered;
+	}
+
+	/**
+	 * PHP 8.0+ compatible implementation of the serialization logic.
+	 *
+	 * @since 5.0.6
+	 *
+	 * @return array The data to serialize.
+	 */
+	public function __serialize(): array {
+		$to_serialize = $this->all();
+
+		if ( method_exists( $this, 'before_serialize' ) ) {
+			$to_serialize = $this->before_serialize( $this->all() );
+		}
+
+		return $to_serialize;
+	}
+
+	/**
+	 * PHP 8.0+ compatible implementation of the unserialization logic.
+	 *
+	 * @since 5.0.6
+	 *
+	 * @param array $data The data to unserialize.
+	 */
+	public function __unserialize( array $data ): void {
+		if ( method_exists( $this, 'custom_unserialize' ) ) {
+			$this->items = $this->custom_unserialize( serialize( $data ) );
+
+			return;
+		}
+
+		$this->items = $data;
 	}
 }
