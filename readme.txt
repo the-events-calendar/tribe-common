@@ -1,5 +1,13 @@
 == Changelog ==
 
+= [5.0.6] 2022-12-14 =
+
+* Feature - Include `Timed_Options` as a storage for simple replacement for Flags, avoiding Transients for these cases to improve performance and reliability. [TEC-4413]
+* Fix - Prevent calls to `supports_async_process` that were slowing down servers due to not stopping reliably once a decision was made [TEC-4413]
+* Fix - Ensure the `clear country` icon resets the value as expect in the create/edit venue page. [TEC-4393]
+* Tweak - Added filters: `tec_common_timed_option_is_active`, `tec_common_timed_option_name`, `tec_common_timed_option_default_value`, `tec_common_timed_option_pre_value`, `tec_common_timed_option_value`, `tec_common_timed_option_pre_exists`, `tec_common_timed_option_exists`
+* Language - 0 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
+
 = [5.0.5] 2022-12-08 =
 
 * Tweak - Sync `tribe-common-styles` to its latest, in order to fix styling issues. [ETP-828]
@@ -28,7 +36,7 @@
 * Feature - Adds a new `by_not_related_to` repository method for retrieving posts not related to other posts via a meta_value [ET-1567]
 * Fix - Update version of Firebase/JWT from 5.x to 6.3.0
 * Fix - Prevents fatal around term cache primer with empty object ID or term name.
-* Fix - Prevent Warnings from Lazy_String on PHP 8.1 [TBD]
+* Fix - Prevent Warnings from Lazy_String on PHP 8.1 [5.0.6]
 * Tweak - Support replacement license keys in premium products and services.
 * Tweak - Deprecated the `Tribe__Settings_Manager::add_help_admin_menu_item()` method in favour of `Settings::add_admin_pages()`. [TEC-4443]
 * Tweak - Add a function to Tribe__Date_Utils to determine if "now" is between two dates. [TEC-4454]
