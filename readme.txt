@@ -2,7 +2,7 @@
 
 = [5.0.8] 2023-01-TBD =
 
-
+* Fix - Correct handling of translated slugs in rewrite context. [TEC-3733]
 
 = [5.0.6] 2022-12-14 =
 
