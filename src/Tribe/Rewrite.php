@@ -641,7 +641,7 @@ class Tribe__Rewrite {
 			// Reverse the rules to try and match the most complex first.
 			$our_rules = array_filter( $all_rules,
 				static function ( $rule_query_string ) use ( $pattern ) {
-					return preg_match( $pattern, $rule_query_string );
+					return is_string( $rule_query_string ) && preg_match( $pattern, $rule_query_string );
 				}
 			);
 
@@ -761,12 +761,13 @@ class Tribe__Rewrite {
 							array_map(
 								static function ( $rule_string ) {
 									wp_parse_str( parse_url( $rule_string, PHP_URL_QUERY ), $vars );
+
 									return array_keys( $vars );
 								},
-								$rules
+								array_filter( $rules, 'is_string' )
 							)
 						)
-					)
+					),
 				)
 			);
 
