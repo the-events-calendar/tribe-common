@@ -548,7 +548,7 @@ class Tribe__Utils__Color {
 	 * 
 	 * @return int
 	 */
-	public static function get_contrast_ratio ( $hex_color, $compare_color ) {
+	public static function get_contrast_ratio( $hex_color, $compare_color ) {
 		// Separate into hexColor RGB.
 		$R1 = hexdec( substr( $hex_color, 1, 2 ) );
 		$G1 = hexdec( substr( $hex_color, 3, 2 ) );
