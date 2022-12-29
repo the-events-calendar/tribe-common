@@ -533,9 +533,8 @@ class Tribe__Utils__Color {
 		// Return the highest ratio.
 		if ( $dark_ratio > $lite_ratio ) {
 			return $dark_color;
-		} else {
-			return $lite_color;
 		}
+		return $lite_color;
 	}
 
 	/**
