@@ -81,8 +81,6 @@ class Tribe__Admin__Notice__Php_Version {
 			return false;
 		}
 
-		$i = version_compare( PHP_VERSION, '7.4.0' );
-
 		return version_compare( PHP_VERSION, '7.4.0' ) < 0;
 	}
 
