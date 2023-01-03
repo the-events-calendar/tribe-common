@@ -92,11 +92,14 @@ class Tribe__Admin__Notice__Php_Version {
 	 * @return string
 	 */
 	public function display_notice() {
-		// PHP versions older than 7.4
-		$text = __( 'Starting February 2023, %1$s will no longer work with versions prior to PHP 7.4. Currently your site is using PHP version %2$s. For best results, we recommend using PHP 7.4 or above.', 'tribe-common' );
+		/* Translators: %1$s list of plugins, %2$s current PHP version, %3$s link for read more */
+		$text = __( 'Starting February 2023, %1$s will require PHP 7.4 or later. Currently, your site is using PHP version %2$s. Please update to a newer version. %3$s.', 'tribe-common' );
+
+		/* Translators: %1$s read more label */
+		$link = sprintf( '<a href="https://wordpress.org/support/update-php/" target="_blank">%1$s</a>', __( 'Read more.', 'tribe-common' ) );
 
 		$plugins = $this->get_active_plugins();
 
-		return sprintf( $text, $plugins, PHP_VERSION );
+		return sprintf( $text, $plugins, PHP_VERSION, $link );
 	}
 }
