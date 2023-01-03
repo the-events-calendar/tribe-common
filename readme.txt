@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.0.4] 2023-01-TBD =
+
+* Tweak - Adding a notice to users using version prior to PHP 7.4 about the incompatibility after February of 2023
+
 = [5.0.3] 2022-11-15 =
 
 * FiX - Prevent `Lazy_String` from ever returning anything that is not a string, avoiding PHP 8.1 warnings. Props @amiut
