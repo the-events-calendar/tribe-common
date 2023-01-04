@@ -3,6 +3,7 @@
 = [5.0.7] 2023-01-TBD =
 
 * Fix - Correct handling of translated slugs in rewrite context. [TEC-3733]
+* Fix - Handle the case where rewrite rules map to arrays avoiding fatal errors. [TEC-4567]
 
 = [5.0.6] 2022-12-14 =
 
