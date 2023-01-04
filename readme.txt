@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.0.7] 2023-01-TBD =
+
+* Tweak - Added a dashboard notice for sites running PHP versions lower than 7.4 to alert them that the minimum version of PHP is changing to 7.4 in Feburary 2023.
+
 = [5.0.6] 2022-12-14 =
 
 * Feature - Include `Timed_Options` as a storage for simple replacement for Flags, avoiding Transients for these cases to improve performance and reliability. [TEC-4413]
