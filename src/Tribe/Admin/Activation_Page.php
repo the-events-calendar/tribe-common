@@ -217,19 +217,13 @@ class Tribe__Admin__Activation_Page {
 		}
 
 		$current_version = explode( '.', $this->args['version'] );
-		if ( count( $current_version ) > 2 ) {
-			$current_version = array_splice( $current_version, 0, 2 );
-		} elseif ( count( $current_version ) < 2 ) {
-			$current_version[] = 0;
-		}
+		$current_version = array_splice( $current_version, 0, 2 );
+		$current_version = array_pad( $current_version, 3, 0 );
 		$current_version = implode( '.', $current_version );
 
 		$message_version_displayed = explode( '.', $message_version_displayed );
-		if ( count( $message_version_displayed ) > 2 ) {
-			$message_version_displayed = array_splice( $message_version_displayed, 0, 2 );
-		} elseif ( count( $message_version_displayed ) < 2 ) {
-			$message_version_displayed[] = 0;
-		}
+		$message_version_displayed = array_splice( $message_version_displayed, 0, 2 );
+		$message_version_displayed = array_pad( $message_version_displayed, 3, 0 );
 		$message_version_displayed = implode( '.', $message_version_displayed );
 
 		if ( version_compare( $message_version_displayed, $current_version, '<' ) ) {
