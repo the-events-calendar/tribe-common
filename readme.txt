@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.0.8] 2023-01-TBD =
+
+* Fix - Prevent Update page from display on minor updates, only for major updates and feature updates. [TEC-4589]
+
 = [5.0.7] 2023-01-TBD =
 
 * Fix - Correct handling of translated slugs in rewrite context. [TEC-3733]
