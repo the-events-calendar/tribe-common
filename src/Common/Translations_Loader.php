@@ -2,7 +2,7 @@
 /**
  * Handle the switching of the site locale with awareness of the plugin's context.
  *
- * @since   TBD
+ * @since   5.0.8
  *
  * @package TEC\Common;
  */
@@ -12,7 +12,7 @@ namespace TEC\Common;
 /**
  * Class Translations_Loader.
  *
- * @since   TBD
+ * @since   5.0.8
  *
  * @package TEC\Common;
  */
@@ -20,7 +20,7 @@ class Translations_Loader {
 	/**
 	 * The override locale that should be used.
 	 *
-	 * @since TBD
+	 * @since 5.0.8
 	 *
 	 * @var string
 	 */
@@ -29,7 +29,7 @@ class Translations_Loader {
 	/**
 	 * Whether the locale has been switched or not.
 	 *
-	 * @since TBD
+	 * @since 5.0.8
 	 *
 	 * @var bool
 	 */
@@ -38,7 +38,7 @@ class Translations_Loader {
 	/**
 	 * A list of the text domains translations have been loaded for.
 	 *
-	 * @since TBD
+	 * @since 5.0.8
 	 *
 	 * @var array<string>
 	 */
@@ -50,7 +50,7 @@ class Translations_Loader {
 	 * Note: the method will not check what the current locale is and will just load the
 	 * translations specified. The burden of checking the current locale is on the caller.
 	 *
-	 * @since TBD
+	 * @since 5.0.8
 	 *
 	 * @param string               $locale  The locale to switch to.
 	 * @param array<string,string> $domains A map from text domains to the directory containing the translations.
@@ -65,7 +65,7 @@ class Translations_Loader {
 		/**
 		 * Fires before the locale translations are loaded.
 		 *
-		 * @since TBD
+		 * @since 5.0.8
 		 *
 		 * @param string        $locale  The locale that will be loaded.
 		 * @param array<string> $domains The list of domains translations will be loaded for.
@@ -89,7 +89,7 @@ class Translations_Loader {
 		/**
 		 * Fires after the locale translations are loaded.
 		 *
-		 * @since TBD
+		 * @since 5.0.8
 		 *
 		 * @param string        $locale  The locale that has been loaded.
 		 * @param array<string> $domains The list of domains translations have been loaded for.
@@ -104,7 +104,7 @@ class Translations_Loader {
 	 *
 	 * Used during filter application.
 	 *
-	 * @since    TBD
+	 * @since    5.0.8
 	 *
 	 * @param string $locale The locale to override.
 	 *
@@ -119,7 +119,7 @@ class Translations_Loader {
 	/**
 	 * Returns whether the locale has been switched or not.
 	 *
-	 * @since TBD
+	 * @since 5.0.8
 	 *
 	 * @return bool Whether the locale has been switched or not.
 	 */
@@ -130,7 +130,7 @@ class Translations_Loader {
 	/**
 	 * Restored the locale to the previous one and removes the class filters.
 	 *
-	 * @since TBD
+	 * @since 5.0.8
 	 *
 	 * @return void Translations for each domain will be reloaded.
 	 */
@@ -144,7 +144,7 @@ class Translations_Loader {
 		/**
 		 * Fires before the locale translations are restored.
 		 *
-		 * @since TBD
+		 * @since 5.0.8
 		 *
 		 * @param array<string> $domains The list of domains translations will be loaded for.
 		 */
@@ -156,7 +156,7 @@ class Translations_Loader {
 		/**
 		 * Fires after the locale translations are restored.
 		 *
-		 * @since TBD
+		 * @since 5.0.8
 		 *
 		 * @param array<string> $domains The list of domains translations have been loaded for.
 		 */
@@ -168,7 +168,7 @@ class Translations_Loader {
 	/**
 	 * Load the translations for the map of domains for the current locale.
 	 *
-	 * @since TBD
+	 * @since 5.0.8
 	 *
 	 * @param array<string,string> $domains A map from text domains to the directory containing the translations.
 	 * @param string               $locale  The locale to load the translations for.

@@ -93,7 +93,7 @@ class Tribe__Rewrite {
 	/**
 	 * A reference to the Locale Switcher instance.
 	 *
-	 * @since TBD
+	 * @since 5.0.8
 	 *
 	 * @var Translations_Loader
 	 */
