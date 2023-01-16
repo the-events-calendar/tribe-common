@@ -9,8 +9,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+<<<<<<< HEAD
 "POT-Creation-Date: 2023-01-13T06:46:05-08:00\n"
 "PO-Revision-Date: 2023-01-13 14:46\n"
+=======
+"POT-Creation-Date: 2023-01-11T05:13:54-08:00\n"
+"PO-Revision-Date: 2023-01-11 13:13\n"
+>>>>>>> c45b41b56bbf56da2f176ad0bcf5ba04fa846f88
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: tribe-common\n"
 
@@ -1211,12 +1216,10 @@ msgctxt "the final separator in a list of two or more items"
 msgid " and "
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Php_Version.php:98
-msgid "Starting March 2019, %1$s will no longer support versions prior to PHP 5.6. Your site is currently using PHP version %2$s which will no longer be supported by %1$s. For best results, we recommend using PHP 5.6 or above."
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Php_Version.php:101
-msgid "Starting March 2019, %1$s will no longer work with versions prior to PHP 5.4. Currently your site is using PHP version %2$s. For best results, we recommend using PHP 5.6 or above."
+#. Translators: %1$s list of plugins, %2$s current PHP version, %3$s open anchor html link for read more, %4$s open anchor html link for read more
+#: src/Tribe/Admin/Notice/Php_Version.php:96
+msgctxt "Message notifying users they need to upgrade PHP"
+msgid "Starting February 2023, %1$s will require PHP 7.4 or later. Currently, your site is using PHP version %2$s. Please update to a newer version. %3$sRead more%4$s."
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Plugin_Download.php:122

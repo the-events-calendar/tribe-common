@@ -2,14 +2,13 @@
 
 = [5.0.8] 2023-01-TBD =
 
-* Fix - Prevent Update page from display on minor updates, only for major updates and feature updates. [TEC-4589]
-* Tweak - Added actions: `tec_locale_translations_load_before`, `tec_locale_translations_load_after`, `tec_locale_translations_restore_before`, `tec_locale_translations_restore_after`
-* Language - 0 new strings added, 23 updated, 1 fuzzied, and 1 obsoleted.
-
-= [5.0.7] 2023-01-TBD =
-
 * Fix - Correct handling of translated slugs in rewrite context. [TEC-3733]
 * Fix - Handle the case where rewrite rules map to arrays avoiding fatal errors. [TEC-4567]
+
+= [5.0.7] 2023-01-16 =
+
+* Tweak - Added a dashboard notice for sites running PHP versions lower than 7.4 to alert them that the minimum version of PHP is changing to 7.4 in February 2023.
+* Language - 1 new strings added, 0 updated, 1 fuzzied, and 2 obsoleted
 
 = [5.0.6] 2022-12-14 =
 
