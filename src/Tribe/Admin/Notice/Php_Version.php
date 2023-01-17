@@ -8,7 +8,7 @@ class Tribe__Admin__Notice__Php_Version {
 
 		// display the PHP version notice
 		tribe_notice(
-			'php-deprecated',
+			'php-deprecated-74',
 			[ $this, 'display_notice' ],
 			[
 				'type'    => 'warning',
@@ -81,7 +81,7 @@ class Tribe__Admin__Notice__Php_Version {
 			return false;
 		}
 
-		return ! ( version_compare( phpversion(), '5.6.0' ) > 0 );
+		return version_compare( PHP_VERSION, '7.4.0' ) < 0;
 	}
 
 	/**
@@ -92,18 +92,15 @@ class Tribe__Admin__Notice__Php_Version {
 	 * @return string
 	 */
 	public function display_notice() {
-
-		// for PHP version above 5.4 and up to 5.6
-		if ( version_compare( phpversion(), '5.4.0' ) >= 0 ) {
-			$text = __( 'Starting March 2019, %1$s will no longer support versions prior to PHP 5.6. Your site is currently using PHP version %2$s which will no longer be supported by %1$s. For best results, we recommend using PHP 5.6 or above.', 'tribe-common' );
-		} else {
-			// for PHPversions below 5.4
-			$text = __( 'Starting March 2019, %1$s will no longer work with versions prior to PHP 5.4. Currently your site is using PHP version %2$s. For best results, we recommend using PHP 5.6 or above.', 'tribe-common' );
-		}
+		/* Translators: %1$s list of plugins, %2$s current PHP version, %3$s open anchor html link for read more, %4$s open anchor html link for read more */
+		$text = _x(
+			'Starting February 2023, %1$s will require PHP 7.4 or later. Currently, your site is using PHP version %2$s. Please update to a newer version. %3$sRead more%4$s.',
+            'Message notifying users they need to upgrade PHP',
+			'tribe-common'
+		);
 
 		$plugins = $this->get_active_plugins();
 
-		return sprintf( $text, $plugins, phpversion() );
-
+		return sprintf( $text, $plugins, PHP_VERSION, '<a href="https://wordpress.org/support/update-php/" target="_blank">', '</a>' );
 	}
 }
