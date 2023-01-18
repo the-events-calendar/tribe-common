@@ -1,8 +1,9 @@
 == Changelog ==
 
-= [5.0.7] 2023-01-12 =
+= [5.0.7] 2023-01-16 =
 
 * Tweak - Added a dashboard notice for sites running PHP versions lower than 7.4 to alert them that the minimum version of PHP is changing to 7.4 in February 2023.
+* Language - 1 new strings added, 0 updated, 1 fuzzied, and 2 obsoleted
 
 = [5.0.6] 2022-12-14 =
 
