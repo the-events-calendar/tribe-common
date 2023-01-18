@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [5.0.8] 2023-01-18 =
+
+* Fix - Correct handling of translated slugs in rewrite context. [TEC-3733]
+* Fix - Handle the case where rewrite rules map to arrays avoiding fatal errors. [TEC-4567]
+
 = [5.0.7] 2023-01-16 =
 
 * Tweak - Added a dashboard notice for sites running PHP versions lower than 7.4 to alert them that the minimum version of PHP is changing to 7.4 in February 2023.
