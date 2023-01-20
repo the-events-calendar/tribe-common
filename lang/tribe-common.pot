@@ -1,16 +1,21 @@
-# Copyright (C) 2022 The Events Calendar
+# Copyright (C) 2023 The Events Calendar
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 5.0.4\n"
+"Project-Id-Version: Tribe Common 5.0.7\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-11-25T10:27:59-08:00\n"
-"PO-Revision-Date: 2022-11-25 18:28\n"
+<<<<<<< HEAD
+"POT-Creation-Date: 2023-01-13T06:46:05-08:00\n"
+"PO-Revision-Date: 2023-01-13 14:46\n"
+=======
+"POT-Creation-Date: 2023-01-11T05:13:54-08:00\n"
+"PO-Revision-Date: 2023-01-11 13:13\n"
+>>>>>>> c45b41b56bbf56da2f176ad0bcf5ba04fa846f88
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: tribe-common\n"
 
@@ -1211,12 +1216,10 @@ msgctxt "the final separator in a list of two or more items"
 msgid " and "
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Php_Version.php:98
-msgid "Starting March 2019, %1$s will no longer support versions prior to PHP 5.6. Your site is currently using PHP version %2$s which will no longer be supported by %1$s. For best results, we recommend using PHP 5.6 or above."
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Php_Version.php:101
-msgid "Starting March 2019, %1$s will no longer work with versions prior to PHP 5.4. Currently your site is using PHP version %2$s. For best results, we recommend using PHP 5.6 or above."
+#. Translators: %1$s list of plugins, %2$s current PHP version, %3$s open anchor html link for read more, %4$s open anchor html link for read more
+#: src/Tribe/Admin/Notice/Php_Version.php:96
+msgctxt "Message notifying users they need to upgrade PHP"
+msgid "Starting February 2023, %1$s will require PHP 7.4 or later. Currently, your site is using PHP version %2$s. Please update to a newer version. %3$sRead more%4$s."
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Plugin_Download.php:122
@@ -3037,89 +3040,89 @@ msgstr ""
 msgid "Null logger (will log nothing)"
 msgstr ""
 
-#: src/Tribe/Main.php:383
+#: src/Tribe/Main.php:387
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:384
+#: src/Tribe/Main.php:388
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:386
+#: src/Tribe/Main.php:390
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:387
+#: src/Tribe/Main.php:391
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:388
+#: src/Tribe/Main.php:392
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:389
+#: src/Tribe/Main.php:393
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:390
+#: src/Tribe/Main.php:394
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:391
+#: src/Tribe/Main.php:395
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:392
+#: src/Tribe/Main.php:396
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:393
+#: src/Tribe/Main.php:397
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:394
+#: src/Tribe/Main.php:398
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:395
+#: src/Tribe/Main.php:399
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:397
+#: src/Tribe/Main.php:401
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:398
-#: src/Tribe/Main.php:415
+#: src/Tribe/Main.php:402
+#: src/Tribe/Main.php:419
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:399
+#: src/Tribe/Main.php:403
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:404
+#: src/Tribe/Main.php:408
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:405
+#: src/Tribe/Main.php:409
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:416
+#: src/Tribe/Main.php:420
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:417
-#: src/Tribe/Main.php:419
+#: src/Tribe/Main.php:421
+#: src/Tribe/Main.php:423
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:418
+#: src/Tribe/Main.php:422
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:420
+#: src/Tribe/Main.php:424
 msgid "Clear"
 msgstr ""
 

@@ -263,6 +263,10 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 						]
 					]
 				],
+			],
+			'URL-encoded string' => [
+				'ticket_name=A%20ticket&ticket_description=Lorem%20ipsum',
+				'ticket_name=A%20ticket&ticket_description=Lorem%20ipsum',
 			]
 		];
 	}
