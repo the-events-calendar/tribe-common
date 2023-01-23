@@ -68,7 +68,7 @@ class Tribe__Plugins_API {
 				'plugin-dir'	  => '',
 				'main-file'       => '',
 				'description'     => __( 'Automate your event workflow with Zapier—no code required!', 'tribe-common' ),
-				'description-help' => __( 'Import events from Meetup, Eventbrite, iCal, Google Calendar, and more.', 'tribe-common' ),
+				'description-help' => __( 'Connect The Events Calendar and Event Tickets with thousands of the most popular apps.', 'tribe-common' ),
 				'features'        => [
 					__( 'Lead Management', 'tribe-common' ),
 					__( 'Communication Outreach', 'tribe-common' ),
