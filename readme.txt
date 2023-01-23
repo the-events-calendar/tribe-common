@@ -1,5 +1,9 @@
 == Changelog ==
 
+= TBD [TBD] =
+
+* Feature - Add Event Automator to Add-ons page. [TEC-4660]
+
 = [5.0.8] 2023-01-19 =
 
 * Fix - Correct handling of translated slugs in rewrite context. [TEC-3733]
