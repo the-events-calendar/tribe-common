@@ -65,11 +65,20 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		 * `TRIBE_DISABLE_LOGGING` environment variable to a truthy value. Use the environment variable
 		 * in the context of integration tests.
 		 */
-		if (
-			(defined( 'TEC_DISABLE_LOGGING' ) && TEC_DISABLE_LOGGING)
-			|| ! empty( $_ENV['TEC_DISABLE_LOGGING'] )
-			|| getenv( 'TEC_DISABLE_LOGGING' )
-		) {
+		$logger_disabled = ( defined( 'TEC_DISABLE_LOGGING' ) && TEC_DISABLE_LOGGING )
+		                   || ! empty( $_ENV['TEC_DISABLE_LOGGING'] )
+		                   || getenv( 'TEC_DISABLE_LOGGING' );
+
+		/**
+		 * Allow filtering the logger enabled status.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $logger_disabled Whether the logger should be disabled or not.
+		 */
+		$logger_disabled = apply_filters( 'tec_disable_logging', $logger_disabled );
+
+		if ( $logger_disabled ) {
 			// Logging is disabled, still build a logger to allow fine usage of it and make sure it exists.
 			$logger = new Monolog_Logger( Monolog_Logger::DEFAULT_CHANNEL );
 

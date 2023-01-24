@@ -86,4 +86,32 @@ class ProviderTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertCount( 1, $logger->getHandlers() );
 		$this->assertNotInstanceOf( NullHandler::class, $logger->getHandlers()[0] );
 	}
+
+	public function test_filter_works_to_disable_the_logger():void{
+		// Start from a context where the logger is not disabled by either env or const.
+		$this->assertFalse( defined( 'TEC_DISABLE_LOGGING' ) );
+		$this->assertEmpty( getenv( 'TEC_DISABLE_LOGGING' ) );
+		// Filter `tec_disable_logging` to return true and disable the logger.
+		add_filter( 'tec_disable_logging', '__return_true' );
+
+		$logger = tribe(Service_Provider::class)->build_logger();
+
+		$this->assertInstanceOf( Monolog_Logger::class, $logger );
+		$this->assertCount( 1, $logger->getHandlers() );
+		$this->assertInstanceOf( NullHandler::class, $logger->getHandlers()[0] );
+	}
+
+	public function test_filter_overrides_constant_value_to_disable_the_logger(): void {
+		// Start from a context where the logger is disabled by means of the env var.
+		putenv( 'TEC_DISABLE_LOGGING=1' );
+		// Filter the `tec_disable_logging` to return false and enable the logger.
+		add_filter( 'tec_disable_logging', '__return_false' );
+
+		$logger = tribe( Service_Provider::class )->build_logger();
+
+		$this->assertInstanceOf( Monolog_Logger::class, $logger );
+		$this->assertCount( 1, $logger->getHandlers() );
+		$this->assertNotInstanceOf( NullHandler::class, $logger->getHandlers()[0] );
+
+	}
 }
