@@ -77,7 +77,7 @@ class Tribe__Plugins_API {
 				],
 				'image'           => 'images/shop/automator.svg',
 				'logo'            => 'images/logo/events-automator.svg',
-				'is_installed'    => class_exists( 'TEC\Events_Automator\Plugin' ),
+				'is_installed'    => class_exists( 'TEC\Event_Automator\Plugin' ),
 				'free'            => false,
 				'active_installs' => 0,
 			],
