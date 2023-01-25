@@ -767,7 +767,7 @@ class Tribe__Rewrite {
 								array_filter( $rules, 'is_string' )
 							)
 						)
-					),
+					)
 				)
 			);
 
