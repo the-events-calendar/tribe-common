@@ -8,6 +8,7 @@
 
 * Fix - Correct handling of translated slugs in rewrite context. [TEC-3733]
 * Fix - Handle the case where rewrite rules map to arrays avoiding fatal errors. [TEC-4567]
+* Language - 7 new strings added, 140 updated, 1 fuzzied, and 2 obsoleted.
 
 = [5.0.7] 2023-01-16 =
 
