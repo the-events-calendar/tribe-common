@@ -519,22 +519,23 @@ class Tribe__Utils__Color {
 	 * 
 	 * @since TBD
 	 *
-	 * @param string $hex_color  Hex value of color to compare.
-	 * @param string $lite_color Hex value of dark contrast color.
-	 * @param string $dark_color Hex value of light contrast color.
+	 * @param string $hex_color   Hex value of color to compare.
+	 * @param string $light_color Hex value of dark contrast color.
+	 * @param string $dark_color  Hex value of light contrast color.
 	 * 
 	 * @return string
 	 */
-	public static function get_contrast_color( $hex_color, $lite_color = '#ffffff', $dark_color = '#000000' ) {
+	public static function get_contrast_color( $hex_color, $light_color = '#ffffff', $dark_color = '#000000' ) {
 		// Get contrast ratios for both light and dark.
-		$dark_ratio = self::get_contrast_ratio( $hex_color, $dark_color );
-		$lite_ratio = self::get_contrast_ratio( $hex_color, $lite_color );
+		$dark_ratio  = self::get_contrast_ratio( $hex_color, $dark_color );
+		$light_ratio = self::get_contrast_ratio( $hex_color, $light_color );
 
 		// Return the highest ratio.
-		if ( $dark_ratio > $lite_ratio ) {
+		if ( $dark_ratio > $light_ratio ) {
 			return $dark_color;
 		}
-		return $lite_color;
+		return $light_color
+;
 	}
 
 	/**
