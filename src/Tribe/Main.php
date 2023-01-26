@@ -5,6 +5,7 @@
 
 // Don't load directly
 
+use TEC\Common\Translations_Loader;
 use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
 
@@ -21,7 +22,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '5.0.4';
+	const VERSION             = '5.0.9';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -184,6 +185,7 @@ class Tribe__Main {
 	public function init_libraries() {
 		require_once $this->plugin_path . 'src/functions/utils.php';
 		require_once $this->plugin_path . 'src/functions/conditionals.php';
+		require_once $this->plugin_path . 'src/functions/transient.php';
 		require_once $this->plugin_path . 'src/functions/url.php';
 		require_once $this->plugin_path . 'src/functions/query.php';
 		require_once $this->plugin_path . 'src/functions/multibyte.php';
@@ -194,6 +196,8 @@ class Tribe__Main {
 		require_once $this->plugin_path . 'src/functions/template-tags/post.php';
 
 		Tribe__Debug::instance();
+		tec_timed_option();
+
 		tribe( 'assets' );
 		tribe( 'assets.pipeline' );
 		tribe( 'settings.manager' );
@@ -349,7 +353,7 @@ class Tribe__Main {
 	public function hook_load_text_domain() {
 		$loaded = $this->load_text_domain(
 			'tribe-common',
-			basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/'
+				basename( dirname( __FILE__, 4 ) ) . '/common/lang/'
 		);
 
 		/**
@@ -432,6 +436,8 @@ class Tribe__Main {
 		// Register for the assets to be available everywhere
 		add_action( 'tribe_common_loaded', [ $this, 'load_assets' ], 1 );
 		add_action( 'init', [ $this, 'hook_load_text_domain' ] );
+		add_action( 'switch_locale', [ $this, 'hook_load_text_domain' ] );
+		add_action( 'restore_previous_locale', [ $this, 'hook_load_text_domain' ] );
 		add_action( 'init', [ $this, 'load_localize_data' ] );
 		add_action( 'plugins_loaded', [ 'Tribe__Admin__Notices', 'instance' ], 1 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'store_admin_notices' ] );
@@ -676,6 +682,7 @@ class Tribe__Main {
 	 * @return void Implementation of components loader doesn't return anything.
 	 */
 	public function bind_implementations() {
+		tribe_singleton( \TEC\Common\Storage\Timed_Option::class, \TEC\Common\Storage\Timed_Option::class );
 		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
 		tribe_singleton( 'settings', 'Tribe__Settings', [ 'hook' ] );
 		tribe_singleton( 'ajax.dropdown', 'Tribe__Ajax__Dropdown', [ 'hook' ] );
@@ -705,6 +712,7 @@ class Tribe__Main {
 		tribe_singleton( Tribe__Admin__Help_Page::class, Tribe__Admin__Help_Page::class, [ 'hook' ] );
 		tribe_singleton( 'admin.pages', '\Tribe\Admin\Pages' );
 		tribe_singleton( 'admin.activation.page', 'Tribe__Admin__Activation_Page' );
+		tribe_singleton( Translations_Loader::class, Translations_Loader::class );
 
 		tribe_register_provider( Tribe__Editor__Provider::class );
 		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
