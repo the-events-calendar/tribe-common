@@ -149,7 +149,10 @@ class Tribe__Admin__Activation_Page {
 			return; // A way to skip these checks and.
 		}
 
-		if ( ! $this->showed_update_message_for_current_version() && ! $this->is_new_install()  ) {
+		if (
+			! $this->showed_update_message_for_current_version()
+			&& ! $this->is_new_install()
+		) {
 			$page = tribe_get_request_var( 'page' );
 			if ( empty( $page ) ) {
 				return;
@@ -212,7 +215,18 @@ class Tribe__Admin__Activation_Page {
 		if ( empty( $message_version_displayed ) ) {
 			return false;
 		}
-		if ( version_compare( $message_version_displayed, $this->args['version'], '<' ) ) {
+
+		$current_version = explode( '.', $this->args['version'] );
+		$current_version = array_splice( $current_version, 0, 2 );
+		$current_version = array_pad( $current_version, 3, 0 );
+		$current_version = implode( '.', $current_version );
+
+		$message_version_displayed = explode( '.', $message_version_displayed );
+		$message_version_displayed = array_splice( $message_version_displayed, 0, 2 );
+		$message_version_displayed = array_pad( $message_version_displayed, 3, 0 );
+		$message_version_displayed = implode( '.', $message_version_displayed );
+
+		if ( version_compare( $message_version_displayed, $current_version, '<' ) ) {
 			return false;
 		}
 		return true;
