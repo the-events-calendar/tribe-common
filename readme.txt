@@ -1,8 +1,8 @@
 == Changelog ==
 
-= TBD [TBD] =
+= [5.0.9] 2023-01-26 =
 
-* Feature - Add Event Automator to Add-ons page. [TEC-4660]
+* Feature - Add Event Automator to Add-ons and Help page. [TEC-4660]
 
 = [5.0.8] 2023-01-19 =
 
