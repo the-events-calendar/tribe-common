@@ -520,8 +520,8 @@ class Tribe__Utils__Color {
 	 * @since TBD
 	 *
 	 * @param string $hex_color   Hex value of color to compare.
-	 * @param string $light_color Hex value of dark contrast color.
-	 * @param string $dark_color  Hex value of light contrast color.
+	 * @param string $light_color Hex value of light contrast color.
+	 * @param string $dark_color  Hex value of dark contrast color.
 	 * 
 	 * @return string
 	 */
