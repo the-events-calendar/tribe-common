@@ -1035,7 +1035,7 @@ class Tribe__Admin__Help_Page {
 			'events-calendar-pro',
 			'tribe-filterbar',
 			'event-aggregator',
-			'events-automator',
+			'event-automator',
 			'events-virtual',
 		] );
 

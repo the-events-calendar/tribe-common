@@ -61,9 +61,9 @@ class Tribe__Plugins_API {
 				'free'            => false,
 				'active_installs' => 20000,
 			],
-			'events-automator'         => [
+			'event-automator'         => [
 				'title'           => __( 'Event Automator', 'tribe-common' ),
-				'slug'            => 'events-automator',
+				'slug'            => 'event-automator',
 				'link'            => 'https://evnt.is/1bc7',
 				'plugin-dir'	  => '',
 				'main-file'       => '',
@@ -76,7 +76,7 @@ class Tribe__Plugins_API {
 					__( 'Data Management', 'tribe-common' ),
 				],
 				'image'           => 'images/shop/automator.svg',
-				'logo'            => 'images/logo/events-automator.svg',
+				'logo'            => 'images/logo/event-automator.svg',
 				'is_installed'    => class_exists( 'TEC\Event_Automator\Plugin' ),
 				'free'            => false,
 				'active_installs' => 0,
