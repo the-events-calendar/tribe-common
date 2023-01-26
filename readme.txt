@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [5.0.9] 2023-01-26 =
+
+* Feature - Add Event Automator to Add-ons and Help page. [TEC-4660]
+* Language - 7 new strings added, 140 updated, 1 fuzzied, and 2 obsoleted.
+
 = [5.0.8] 2023-01-19 =
 
 * Fix - Correct handling of translated slugs in rewrite context. [TEC-3733]
