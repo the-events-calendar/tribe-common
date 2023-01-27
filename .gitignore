@@ -33,6 +33,7 @@ vendor/*
 !vendor/xrstf/composer-php52
 !vendor/a5hleyrich/wp-background-processing
 !vendor/freemius
+!vendor/ky
 vendor/freemius/languages/*.po
 
 # Resources Ignoring
@@ -43,7 +44,3 @@ src/resources/js/**/*.min.js
 # get from translate.wordpress.org as needed
 lang/*.po
 lang/*.mo
-
-# tric files
-*.tric
-*.tric.*

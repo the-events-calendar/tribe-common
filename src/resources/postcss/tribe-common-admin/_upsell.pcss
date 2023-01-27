@@ -1,0 +1,58 @@
+/*
+ * Upsell CSS
+ * -------------------------------------------------------------
+ * This file includes styles for the Upsell Notice feature.
+ */
+
+.tribe-common {
+
+	.tec-admin__upsell {
+		display: inline-block;
+		font-family: var(--tec-font-family-sans-serif);
+		font-size: var(--tec-font-size-1);
+		font-weight: var(--tec-font-weight-regular);
+		line-height: var(--tec-line-height-1);
+	}
+
+	.tec-admin__upsell-content {
+		align-items: center;
+		display: flex;
+		padding: var(--tec-spacer-1);
+		padding-right: var(--tec-spacer-2);
+	}
+
+	.tec-admin__upsell-icon,
+	.tec-admin__upsell-icon-image {
+		height: 24px;
+		width: 24px;
+	}
+
+	.tec-admin__upsell-text-wrap {
+		margin-left: var(--tec-spacer-2);
+	}
+
+	.tec-admin__upsell-link {
+		color: var(--tec-color-accent-primary);
+		font-weight: var(--tec-font-weight-bold);
+		text-decoration: none;
+	}
+
+	.tec-admin__upsell--rounded-corners .tec-admin__upsell-content {
+		background: var(--tec-color-accent-primary-background);
+		border-radius: 24px;
+	}
+
+	.tec-admin__upsell--rounded-corners-text .tec-admin__upsell-text-wrap {
+		background: rgba(51, 74, 255, 0.1);
+		border-radius: 14px;
+		padding: var(--tec-spacer-1) var(--tec-spacer-2);
+	}
+
+	.tec-admin__upsell-link--dark {
+		color: var(--tec-color-text-primary);
+	}
+
+	.tec-admin__upsell-link--underlined {
+		text-decoration: underline;
+	}
+}

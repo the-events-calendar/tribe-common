@@ -16,7 +16,7 @@ use \Tribe\Admin\Troubleshooting;
 ?>
 
 <div class="tribe-events-admin-header tribe-events-admin-container">
-	<?php 
+	<?php
 		tribe( Troubleshooting::class )->admin_notice( 'help' );
 	?>
 	<div class="tribe-events-admin-header__content-wrapper">
@@ -53,6 +53,10 @@ use \Tribe\Admin\Troubleshooting;
 
 		// Community Tab
 		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-community.php';
+
+		$troubleshooting_link = class_exists( 'Tribe__Events__Main' )
+			? admin_url( 'edit.php?post_type=tribe_events&page=tec-troubleshooting' )
+			: admin_url( 'admin.php?page=tec-tickets-troubleshooting' );
 	?>
 
 	<?php // shared footer area ?>
@@ -69,7 +73,7 @@ use \Tribe\Admin\Troubleshooting;
 			</h2>
 
 			<div class="tribe-events-admin-cta__content-description">
-				<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=tribe_events&page=tec-troubleshooting' ) ); ?>">
+				<a href="<?php echo esc_url( $troubleshooting_link ); ?>">
 					<?php esc_html_e( 'Visit Troubleshooting next', 'tribe-common' ); ?>
 				</a>
 			</div>

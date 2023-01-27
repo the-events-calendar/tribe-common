@@ -63,7 +63,7 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 
 		$expected_tmpl = <<< TAG
 <script src='{{ home_url }}/tests/_data/resources/test-script-1.js?ver=1.0.0' id='tribe-test-js-js'></script>
-<link rel='stylesheet' id='tribe-test-css-css'  href='{{ home_url }}/tests/_data/resources/test-style-1.css?ver=1.0.0' media='all' />
+<link rel='stylesheet' id='tribe-test-css-css' href='{{ home_url }}/tests/_data/resources/test-style-1.css?ver=1.0.0' media='all' />
 
 TAG;
 		$expected = str_replace( '{{ home_url }}', home_url(), $expected_tmpl );

@@ -229,24 +229,25 @@ class Classic_Editor {
 			return $should_load_blocks;
 		}
 
-		$remember = static::classic_editor_remembers();
-
-		if ( false !== $remember ) {
-			$should_load_blocks = static::$block_term === $remember;
-		}
-
-		if ( static::get_classic_override() ) {
-			$should_load_blocks = true;
-		}
-
 		if ( static::get_classic_param() ) {
 			$should_load_blocks = false;
 		}
 
+		// The override param inverts whatever else is set via parameter/preference.
+		if ( static::get_classic_override() ) {
+			$should_load_blocks = ! $should_load_blocks;
+		}
+
 		global $pagenow;
 
-		// The profile setting only applies to new posts/etc so bail out now if we're not in the admin and creating a new event.
+		// The profile and remember settings only apply to new posts/etc so bail out now if we're not in the admin and creating a new event.
 		if ( ! empty( $pagenow ) && ! in_array( $pagenow, [ 'post-new.php' ] ) ) {
+			$remember = static::classic_editor_remembers();
+
+			if ( false !== $remember ) {
+				$should_load_blocks = static::$block_term === $remember;
+			}
+
 			return $should_load_blocks;
 		}
 
@@ -262,6 +263,11 @@ class Classic_Editor {
 			$should_load_blocks = true;
 		} else if ( static::$classic_term === $profile_choice ) {
 			$should_load_blocks = false;
+		}
+
+		// The override param inverts whatever else is set via parameter/preference.
+		if ( static::get_classic_override() ) {
+			$should_load_blocks = ! $should_load_blocks;
 		}
 
 		return $should_load_blocks;

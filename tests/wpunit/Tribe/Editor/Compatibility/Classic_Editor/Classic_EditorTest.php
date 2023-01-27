@@ -12,7 +12,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Set up.
 	 *
-	 * @since TBD
+	 * @since 4.15.1
 	 */
 	function setUp() {
 		parent::setUp();
@@ -24,7 +24,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Tear down.
 	 *
-	 * @since TBD
+	 * @since 4.15.1
 	 */
 	public function tearDown() {
 		// Set options back to defaults (nothing set).
@@ -55,7 +55,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Use this to ensure no settings bleed!
 	 *
-	 * @since TBD
+	 * @since 4.15.1
 	 */
 	public function clear_all() {
 		delete_option( $this->classic_editor::$classic_option_key );
@@ -66,26 +66,30 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 			return $this->classic_editor::is_classic_option_active();
 		} );
 		$this->clear_user_override();
+		remove_filter( 'tribe_events_blocks_editor_is_on', '__return_false' );
+		remove_filter( 'tribe_events_blocks_editor_is_on', '__return_true' );
+		tribe( 'cache' )->reset();
 	}
 
 	/**
 	 * This tells Editor the option is active via the filter.
 	 * Since we aren't installing the actual plugin.
 	 *
-	 * @since TBD
+	 * @since 4.15.1
 	 *
 	 * @return void
 	 */
 	public function mock_classic_editor() {
-		add_filter( 'tribe_editor_classic_is_active', function() {
-			return $this->classic_editor::is_classic_option_active();
+		add_filter( 'tribe_events_blocks_editor_is_on', '__return_false' );
+		add_filter( 'tribe_editor_should_load_blocks', function() {
+			return ! $this->classic_editor::is_classic_option_active();
 		} );
 	}
 
 	/**
 	 * Sets Classic Editor to "classic".
 	 *
-	 * @since TBD
+	 * @since 4.15.1
 	 */
 	public function set_classic() {
 		update_option( $this->classic_editor::$classic_option_key, 'classic' );
@@ -94,7 +98,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Sets Classic Editor to "replace" (old value).
 	 *
-	 * @since TBD
+	 * @since 4.15.1
 	 */
 	public function set_legacy_classic() {
 		update_option( $this->classic_editor::$classic_option_key, 'replace' );
@@ -103,7 +107,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Sets Classic Editor to "blocks".
 	 *
-	 * @since TBD
+	 * @since 4.15.1
 	 */
 	public function set_blocks() {
 		update_option( $this->classic_editor::$classic_option_key, 'blocks' );
@@ -112,7 +116,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Sets Classic Editor user choice option to on ("allow").
 	 *
-	 * @since TBD
+	 * @since 4.15.1
 	 */
 	public function choice_on() {
 		update_option( $this->classic_editor::$user_choice_key, 'allow' );
@@ -121,7 +125,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Sets Classic Editor user choice option to off ("disallow").
 	 *
-	 * @since TBD
+	 * @since 4.15.1
 	 */
 	public function choice_off() {
 		update_option( $this->classic_editor::$user_choice_key, 'disallow' );
@@ -130,7 +134,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Mocks the user override value as set to block.
 	 *
-	 * @since TBD
+	 * @since 4.15.1
 	 */
 	public function user_override_set_block() {
 		add_filter( 'tec_classic_editor_user_profile_override_value', function() {
@@ -154,7 +158,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Mocks the user override value as set to classic.
 	 *
-	 * @since TBD
+	 * @since 4.15.1
 	 */
 	public function user_override_set_classic() {
 		add_filter( 'tec_classic_editor_user_profile_override_value', function() {
@@ -179,7 +183,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Clears the mocked user override value.
 	 *
-	 * @since TBD
+	 * @since 4.15.1
 	 */
 	public function clear_user_override() {
 		remove_all_filters( 'tec_classic_editor_user_profile_override_value' );
@@ -189,7 +193,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Imitates checking TEC blocks toggle.
 	 *
-	 * @since TBD
+	 * @since 4.15.1
 	 */
 	public function tec_blocks_on() {
 		tribe_update_option( $this->editor::$blocks_editor_key, '1' );
@@ -198,7 +202,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Imitates actively unchecking TEC blocks toggle.
 	 *
-	 * @since TBD
+	 * @since 4.15.1
 	 */
 	public function tec_blocks_off() {
 		tribe_update_option( $this->editor::$blocks_editor_key, '0' );

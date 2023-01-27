@@ -118,7 +118,7 @@ class Tribe__Cache implements ArrayAccess {
 
 		if ( is_callable( $default ) ) {
 			// A callback has been specified.
-			$value = call_user_func_array( $default, $args );
+			$value = $default( ...$args );
 		} else {
 			// Default is a value.
 			$value = $default;
@@ -258,7 +258,7 @@ class Tribe__Cache implements ArrayAccess {
 	public function get_id( $key, $expiration_trigger = '' ) {
 		if ( is_array( $expiration_trigger ) ) {
 			$triggers = $expiration_trigger;
-		} else {
+		} elseif ( 'tribe-events-non-persistent' !== $expiration_trigger && 'tribe-events' !== $expiration_trigger ) {
 			$triggers = array_filter( explode( '|', $expiration_trigger ) );
 		}
 

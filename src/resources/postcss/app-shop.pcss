@@ -7,6 +7,7 @@
 body.events_page_tribe-app-shop,
 body.tribe_events_page_tribe-app-shop {
 	background-color: white;
+
 	/* fixes an issue at very narrow widths */
 	min-width: 350px;
 
@@ -21,8 +22,8 @@ body.tribe_events_page_tribe-app-shop {
 }
 
 #tribe-app-shop {
-	color: #0F1031;
-	font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+	color: #0f1031;
+	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 
 	a {
 		text-decoration: none;
@@ -30,8 +31,8 @@ body.tribe_events_page_tribe-app-shop {
 
 	.content-wrapper {
 		margin: 0 auto;
-		width: 360px;
 		max-width: 1060px;
+		width: 360px;
 
 		@media screen and (min-width: 710px) {
 			width: 710px;
@@ -39,18 +40,17 @@ body.tribe_events_page_tribe-app-shop {
 
 		@media screen and (min-width: 1217px) {
 			width: 100%;
-
 		}
 	}
 
 	.tribe-events-admin-graphic {
-		top: 0;
 		height: 40px;
+		top: 0;
+
 		@media screen and (min-width: 710px) {
 			height: 131px;
 		}
 	}
-
 
 	.tribe-header {
 		height: 120px;
@@ -75,6 +75,7 @@ body.tribe_events_page_tribe-app-shop {
 			@media screen and (min-width: 710px) {
 				width: 710px;
 			}
+
 			@media screen and (min-width: 1217px) {
 				width: 100%;
 			}
@@ -107,7 +108,7 @@ body.tribe_events_page_tribe-app-shop {
 
 		ul {
 			/* for now we are hiding this nav on small screen sizes */
-			border-bottom: 1px solid #E1E1E4;
+			border-bottom: 1px solid #e1e1e4;
 			display: block;
 			margin: 0 auto;
 			overflow: scroll;
@@ -141,7 +142,7 @@ body.tribe_events_page_tribe-app-shop {
 				}
 
 				&:hover {
-					color: #161B7D;
+					color: #161b7d;
 				}
 
 				&.selected {
@@ -149,7 +150,7 @@ body.tribe_events_page_tribe-app-shop {
 				}
 
 				&.selected:after {
-					background: #334AFF;
+					background: #334aff;
 					border-radius: 100px;
 					bottom: 0;
 					content: '';
@@ -208,11 +209,15 @@ body.tribe_events_page_tribe-app-shop {
 				img {
 					height: 40px;
 					margin-right: 8px;
+
+					&[src*="automator"] {
+						height: auto;
+						max-width: 40px;
+					}
 				}
 
 				a {
 					display: table-cell;
-
 				}
 
 				h3 {
@@ -232,6 +237,7 @@ body.tribe_events_page_tribe-app-shop {
 
 			.description {
 				display: table;
+
 				/* an attempt at flexibility for 2-lines */
 				min-height: 48px;
 
@@ -245,11 +251,13 @@ body.tribe_events_page_tribe-app-shop {
 			}
 
 			.features {
+				margin-bottom: 16px;
+
 				/* attempting to get more height consistency */
 				min-height: 158px;
 
 				li {
-					color: #0F1031;
+					color: #0f1031;
 					font-size: 15px;
 					font-weight: normal;
 					line-height: 24px;
@@ -269,13 +277,11 @@ body.tribe_events_page_tribe-app-shop {
 					}
 
 					svg {
-						color: #3D54FF;
+						color: #3d54ff;
 						height: 12px;
 						width: 16px;
 					}
 				}
-
-				margin-bottom: 16px;
 			}
 		}
 
@@ -323,7 +329,6 @@ body.tribe_events_page_tribe-app-shop {
 					padding-top: 4px;
 
 					@media screen and (min-width: 710px) {
-
 						font-size: 16px;
 						line-height: 26px;
 					}
@@ -371,14 +376,14 @@ body.tribe_events_page_tribe-app-shop {
 
 				.discount {
 					color: #007363;
+					display: block;
 					font-size: 14px;
 					font-weight: bold;
 					letter-spacing: 1px;
 					line-height: 58px;
 					margin-left: 11px;
-					width: 100%;
-					display: block;
 					text-align: center;
+					width: 100%;
 				}
 			}
 
@@ -416,7 +421,7 @@ body.tribe_events_page_tribe-app-shop {
 				}
 
 				li {
-					color: #0F1031;
+					color: #0f1031;
 					font-size: 14px;
 					font-weight: 500;
 					height: 40px;
@@ -425,8 +430,8 @@ body.tribe_events_page_tribe-app-shop {
 					img {
 						float: left;
 						height: 40px;
-						width: 40px;
 						margin-right: 16px;
+						width: 40px;
 					}
 
 					span {
@@ -440,8 +445,8 @@ body.tribe_events_page_tribe-app-shop {
 		.tribe-addon,
 		.tribe-bundle {
 			background-color: #fff;
+			border: 1px solid #e1e1e4;
 			border-radius: 16px;
-			border: 1px solid #E1E1E4;
 			box-sizing: border-box;
 			display: inline-block;
 			margin: 0 20px 40px 20px;
@@ -455,7 +460,7 @@ body.tribe_events_page_tribe-app-shop {
 				}
 
 				a {
-					color: #0F1031;
+					color: #0f1031;
 					vertical-align: middle;
 				}
 
@@ -484,7 +489,7 @@ body.tribe_events_page_tribe-app-shop {
 
 					&.active {
 						background: rgba(61, 84, 255, 0.16);
-						color: #3D54FF;
+						color: #3d54ff;
 					}
 				}
 			}
@@ -494,17 +499,20 @@ body.tribe_events_page_tribe-app-shop {
 			}
 
 			p {
-				color: #0F1031;
+				color: #0f1031;
 				text-align: left;
 			}
 		}
 
 		.button {
-			background: #3D54FF;
+			background: #3d54ff;
+			border: none; /* overrides WordPress button styles */
 			border-radius: 100px;
+			box-shadow: none; /* overrides WordPress button styles */
 			color: #fff;
 			font-size: 16px;
 			font-weight: bold;
+			height: auto; /* overrides WordPress button styles */
 			letter-spacing: 1px;
 			line-height: 20px;
 			margin-bottom: 13px;
@@ -512,35 +520,28 @@ body.tribe_events_page_tribe-app-shop {
 			text-align: center;
 			width: 255px;
 
-			/* these 3 override WordPress button styles */
-			border: none;
-			box-shadow: none;
-			height: auto;
-
 			&:hover {
-				background: #1C39BB;
+				background: #1c39bb;
 			}
 
 			&.secondary {
 				background: #fff;
-				border: 1px solid #0F1031;
-				color: #0F1031;
+				border: 1px solid #0f1031;
+				color: #0f1031;
 				display: block;
 				margin: auto;
 
 				&:hover {
+					background: #3d54ff;
 					color: #fff;
-					background: #3D54FF;
 				}
 			}
-
-
 		}
 	}
 
 	#tribe-extensions {
 		p {
-			color: #0F1031;
+			color: #0f1031;
 			font-size: 15px;
 			font-weight: normal;
 			line-height: 24px;
@@ -554,18 +555,93 @@ body.tribe_events_page_tribe-app-shop {
 	display: none;
 }
 
-/**
- * Button compatibility for App Shop.
+/* Stellar Discounts Tab */
+#tribe-stellar .content-wrapper {
+	max-width: 1020px;
+}
 
-.branch-4-9 {
-	#tribe-app-shop {
-		.addon-grid {
-			.button {
-				height: 58px;
-				box-shadow: none;
-			}
+.stellar-logo {
+	margin: 0 auto 32px;
+	max-width: 260px;
+
+	img {
+		max-width: 100%;
+	}
+}
+
+.stellar-discounts-description {
+	margin: 0 auto 44px;
+	max-width: 620px;
+	text-align: center;
+
+	p {
+		font-size: 22px;
+		line-height: 1.3;
+
+		@media (min-width: 710px) {
+			font-size: 28px;
 		}
 	}
 }
 
-*/
+.stellar-discounts-coupon-callout {
+	border: 1px solid #e1e1e4;
+	border-radius: 12px;
+	color: #0f1031;
+	margin-bottom: 40px;
+	padding: 16px;
+	text-align: center;
+
+	@media (min-width: 710px) {
+		padding: 32px;
+	}
+
+	p {
+		font-size: 22px;
+		margin: 0;
+	}
+}
+
+.stellar-brand-grid {
+	display: grid;
+	gap: 40px;
+	grid-template-columns: 1fr;
+
+	@media (min-width: 710px) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@media (min-width: 1220px) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+.stellar-brand {
+	border: 1px solid #e1e1e4;
+	border-radius: 16px;
+	display: flex;
+	flex-direction: column;
+	padding: 28px;
+	padding-top: 12px;
+}
+
+.stellar-brand__image,
+.stellar-brand__logo {
+	img {
+		max-width: 100%;
+	}
+}
+
+.stellar-brand__content {
+	flex-grow: 1;
+	margin-bottom: 24px;
+}
+
+.stellar-brand__description {
+	font-size: 15px;
+}
+
+#tribe-app-shop .addon-grid .stellar-brand__link {
+	margin-bottom: 0;
+	width: 100%;
+}

@@ -14,13 +14,14 @@
   "src/resources/js/*",
   "src/resources/images/**/*",
   "src/Tribe/**/*",
+  "src/Common/**/*",
   "src/views/**/*",
   "tribe-autoload.php",
   "vendor/autoload.php",
   "vendor/autoload_52.php",
   "vendor/composer/*",
+  "vendor/ky/*",
   "vendor/attrchange/js/*.js",
-  "vendor/clipboard/*.min.js",
   "vendor/datatables/datatables*.css",
   "vendor/datatables/datatables*.js",
   "vendor/datatables/**/*.png",
@@ -46,5 +47,6 @@
   "vendor/monolog/monolog/src/**/*.php",
   "node_modules/mt-a11y-dialog/*.min.js",
   "node_modules/intro.js/*.js",
-  "node_modules/intro.js/*.css"
+  "node_modules/intro.js/*.css",
+  "node_modules/clipboard/dist/clipboard.min.js"
 ]

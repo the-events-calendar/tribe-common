@@ -15,6 +15,7 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		register_taxonomy( 'genre', 'book' );
 		$this->class = new class extends \Tribe__Repository {
 			protected $default_args = [ 'post_type' => 'book', 'orderby' => 'ID', 'order' => 'ASC' ];
+			protected $create_args = [ 'post_type' => 'book' ];
 			protected $filter_name = 'books';
 
 			public function filter_postarr_for_update( array $postarr, $post_id ) {
@@ -557,5 +558,55 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		$promise = $this->repository()->where( 'author', 23 )->set( 'foo', 'bar' )->save( true );
 
 		$this->assertInstanceOf( \Tribe__Promise::class, $promise );
+	}
+
+	/**
+	 * Sample title for instance.
+	 *
+	 * @return string
+	 */
+	public function get_instance_title():string {
+		return 'hello instance';
+	}
+
+	/**
+	 * Sample title for static methods.
+	 *
+	 * @return string
+	 */
+	public static function get_static_title():string {
+		return 'hello static';
+	}
+
+	public function callable_title_data_provider(): array {
+		return [
+			'title is a non-callable string' => [ 'rafsun', 'rafsun' ],
+			'title is a callable string'     => [ 'max', 'max' ],
+			'title is a Closure'             => [
+				static function () {
+					return 'hello there';
+				},
+				'hello there'
+			],
+			'title is a Closure Object'      => [ \Closure::fromCallable( 'tribe_is_truthy' ), '' ],
+			'title is an instance callable'  => [ [ $this, 'get_instance_title' ], 'hello instance' ],
+			'title is an static callable'    => [ [ self::class, 'get_static_title' ], 'hello static' ],
+		];
+	}
+
+	/**
+	 * It should handle callable options properly and avoid processing texts as callables when not intended.
+	 *
+	 * @test
+	 *
+	 * @dataProvider callable_title_data_provider
+	 */
+	public function should_allow_proper_callable_input( $title, string $expected ) {
+		$post = $this->repository()->set_args( [
+			'title'  => $title,
+			'status' => 'publish'
+		] )->create();
+
+		$this->assertEquals( $expected, $post->post_title );
 	}
 }

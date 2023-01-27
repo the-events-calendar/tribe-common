@@ -35,6 +35,7 @@ use \Tribe\Admin\Troubleshooting;
 				<li class="selected" data-tab="tribe-all-solutions"><?php esc_html_e( 'All Solutions', 'tribe-common' ); ?></li>
 				<li data-tab="tribe-bundles"><?php esc_html_e( 'Save with Bundles', 'tribe-common' ); ?></li>
 				<li data-tab="tribe-extensions"><?php esc_html_e( 'Extensions', 'tribe-common' ); ?></li>
+				<li data-tab="tribe-stellar"><?php esc_html_e( 'Stellar Discounts', 'tribe-common' ); ?></li>
 			</ul>
 		</div>
 	</div>
@@ -190,6 +191,50 @@ use \Tribe\Admin\Troubleshooting;
 
 			</div>
 
+		</div>
+	</div>
+
+	<div id="tribe-stellar" class="tribe-content" style="display: none;">
+		<img
+			class="tribe-events-admin-graphic"
+			src="<?php echo esc_url( tribe_resource_url( 'images/header/all-solutions.jpg', false, null, $main ) ); ?>"
+			alt="<?php esc_attr_e( 'Shapes and lines for visual interest', 'tribe-common' ); ?>"
+		/>
+		<div class="content-wrapper">
+			<div class="stellar-logo">
+				<img src="<?php echo esc_url( tribe_resource_url( 'images/shop/stellar-logo.png', false, null, $main ) ); ?>" />
+			</div>
+
+			<div class="stellar-discounts-description">
+				<p><?php esc_html_e( 'Stellar is a collective of WordPress innovators, and home to WordPress products done right.', 'tribe-common' ); ?></p>
+			</div>
+
+			<div class="stellar-discounts-coupon-callout">
+				<p><?php printf( wp_kses( __( '$25 towards any Stellar product using code <u>%s</u>', 'tribe-common' ), ['u' => []] ), 'Stellar25' );?></p>
+			</div>
+
+			<div class="stellar-brand-grid addon-grid">
+				<?php foreach ( $stellar_brands as $stellar_brand ) : ?>
+					<div class="stellar-brand">
+						<div class="stellar-brand__image">
+							<a href="<?php echo esc_url( $stellar_brand->link ); ?>" target="_blank"><img src="<?php echo esc_url( tribe_resource_url( $stellar_brand->image, false, null, $main ) ); ?>" /></a>
+						</div>
+
+						<div class="stellar-brand__logo">
+							<img src="<?php echo esc_url( tribe_resource_url( $stellar_brand->logo, false, null, $main ) ); ?>" />
+						</div>
+
+						<div class="stellar-brand__content">
+							<h3 class="stellar-brand__title"><?php echo esc_html( $stellar_brand->title ); ?></h3>
+							<p class="stellar-brand__description"><?php echo esc_html( $stellar_brand->description ); ?></p>
+						</div>						
+
+						<a class="button stellar-brand__link" href="<?php echo esc_url( $stellar_brand->link ); ?>" target="_blank" rel="noopener noreferrer">
+							<?php echo esc_html( $stellar_brand->linktext ); ?>
+						</a>
+					</div>
+				<?php endforeach; ?>
+			</div>
 		</div>
 	</div>
 

@@ -1,5 +1,176 @@
 == Changelog ==
 
+= [5.0.9] 2023-01-26 =
+
+* Feature - Add Event Automator to Add-ons and Help page. [TEC-4660]
+
+= [5.0.8] 2023-01-19 =
+
+* Fix - Correct handling of translated slugs in rewrite context. [TEC-3733]
+* Fix - Handle the case where rewrite rules map to arrays avoiding fatal errors. [TEC-4567]
+* Language - 7 new strings added, 140 updated, 1 fuzzied, and 2 obsoleted.
+
+= [5.0.7] 2023-01-16 =
+
+* Tweak - Added a dashboard notice for sites running PHP versions lower than 7.4 to alert them that the minimum version of PHP is changing to 7.4 in February 2023.
+* Language - 1 new strings added, 0 updated, 1 fuzzied, and 2 obsoleted
+
+= [5.0.6] 2022-12-14 =
+
+* Feature - Include `Timed_Options` as a storage for simple replacement for Flags, avoiding Transients for these cases to improve performance and reliability. [TEC-4413]
+* Fix - Prevent calls to `supports_async_process` that were slowing down servers due to not stopping reliably once a decision was made [TEC-4413]
+* Fix - Ensure the `clear country` icon resets the value as expect in the create/edit venue page. [TEC-4393]
+* Tweak - Added filters: `tec_common_timed_option_is_active`, `tec_common_timed_option_name`, `tec_common_timed_option_default_value`, `tec_common_timed_option_pre_value`, `tec_common_timed_option_value`, `tec_common_timed_option_pre_exists`, `tec_common_timed_option_exists`
+* Language - 0 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.0.5] 2022-12-08 =
+
+* Tweak - Sync `tribe-common-styles` to its latest, in order to fix styling issues. [ETP-828]
+
+= [5.0.4] 2022-11-29 =
+
+* Fix - Fixed a bug where the `Tribe\Utils\Taxonomy::prime_term_cache()` method would throw on invalid term results (thanks @shawfactor). [TCMN-160]
+* Tweak - Add some styling for the ECP View teasers. [TCMN-149]
+* Tweak - Move the General and Display settings tab content to TEC. [TCMN-149]
+* Tweak - Removed filters: `tribe_general_settings_tab_fields`.
+* Language - 6 new strings added, 17 updated, 3 fuzzied, and 26 obsoleted.
+
+= [5.0.3] 2022-11-15 =
+
+* Fix - Prevent `Lazy_String` from ever returning anything that is not a string, avoiding PHP 8.1 warnings. Props @amiut
+* Fix - Ensure the TEC timezone settings are applied correctly when using a combination of the WP Engine System MU plugin and Divi or Avada Themes. [TEC-4387]
+* Fix - Ensure that when filtering script tags we return the expected string no matter what we're given. [TEC-4556]
+* Language - 0 new strings added, 1 updated, 1 fuzzied, and 0 obsoleted.
+
+= [5.0.2.1] 2022-11-03 =
+
+* Fix - Refactor the Post model code to avoid serialization/unserialization issues in object caching context. [TEC-4379]
+
+= [5.0.2] 2022-10-20 =
+
+* Feature - Adds a new `by_not_related_to` repository method for retrieving posts not related to other posts via a meta_value [ET-1567]
+* Fix - Update version of Firebase/JWT from 5.x to 6.3.0
+* Fix - Prevents fatal around term cache primer with empty object ID or term name.
+* Fix - Prevent Warnings from Lazy_String on PHP 8.1 [5.0.6]
+* Tweak - Support replacement license keys in premium products and services.
+* Tweak - Deprecated the `Tribe__Settings_Manager::add_help_admin_menu_item()` method in favour of `Settings::add_admin_pages()`. [TEC-4443]
+* Tweak - Add a function to Tribe__Date_Utils to determine if "now" is between two dates. [TEC-4454]
+* Language - 0 new strings added, 14 updated, 1 fuzzied, and 0 obsoleted.
+
+= [5.0.1] 2022-09-22 =
+
+* Fix - Avoid invoking unwanted callables with ORM post creation/updates. [ET-1560]
+* Tweak - patch some PHP8 compatibility and ensure we don't try to test globals that might not be set. (props to @theskinnyghost for the implode fix!)  [TEC-4453]
+* Language - 0 new strings added, 1 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.0.0.1] 2022-09-07 =
+
+* Fix - Prevent `E_ERROR` from showing up when calling `tribe_context()->is( 'is_main_query' )` too early in execution. [TEC-4464]
+
+= [5.0.0] 2022-09-06 =
+
+* Feature - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
+* Fix - Avoid fatal errors when transient notices are registered from inactive plugins.
+* Tweak - Allow suppression of admin notices for specific plugins via the filters `tec_pue_expired_key_notice_plugins`, `tec_pue_invalid_key_notice_plugins`, and `tec_pue_upgrade_key_notice_plugins`.
+* Language - 2 new strings added, 185 updated, 1 fuzzied, and 1 obsoleted
+
+= [4.15.5] 2022-08-15 =
+
+* Feature - Added image field for settings in the admin area. [ET-1541]
+* Feature - Added color field for settings in the admin area. [ET-1540]
+* Tweak - Prevent a possible infinite hook loop. [ECP-1203]
+* Language - 4 new strings added, 104 updated, 3 fuzzied, and 2 obsoleted.
+
+= [4.15.4.1] 2022-07-21 =
+
+* Fix - Update Freemius to avoid PHP 8 fatals. [TEC-4330]
+
+= [4.15.4] 2022-07-20 =
+
+* Tweak - Implement 2022 Stellar Sale banner. [TEC-4433]
+* Tweak - Added filters: `tribe_{$this->slug}_notice_extension_date`
+* Tweak - Changed views: `v2/components/icons/stellar-icon`
+* Language - 2 new strings added, 4 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.15.3] 2022-07-06 =
+
+* Fix - Correct some hardcoded admin URLs. [ECP-1175]
+* Tweak - Add a target ID for the EA Troubleshooting page link. [TEC-4403]
+
+= [4.15.2] 2022-06-08 =
+
+* Fix - Only show Event Aggregator status on the troubleshooting page if Event Aggregator is accessible. [ET-1517]
+
+= [4.15.1] 2022-05-31 =
+
+* Feature - Add Calendar Export icon as a template. [TEC-4176]
+* Tweak - Add Stellar Discounts tab in Event Add-Ons
+* Tweak - Element Classes now will support callbacks inside of arrays as well as non boolean values that are validated by `tribe_is_truthy`
+* Tweak - Add Stellar Discounts tab in Event Add-Ons. [TEC-4302]
+* Fix - On the import preview screen when ctrl/shift click to multi-select rows make sure all the in between rows are counted as selected. [EA-123]
+* Language - 21 new strings added, 46 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.15.0.1] 2022-05-23 =
+
+* Fix - Check if function exists for `get_current_screen` to avoid a fatal if not.
+
+= [4.15.0] 2022-05-19 =
+
+* Feature - Introducing new admin pages structure and updating the settings framework to have Settings on multiple pages. [ET-1335]
+* Tweak - Add Stellar Discounts tab in Event Add-Ons
+* Language - 0 new strings added, 150 updated, 0 fuzzied, and 43 obsoleted
+
+= [4.14.20.1] 2022-05-12 =
+
+* Tweak - Modify PUE Checker class to support faster and more reliable license checking [ET-1513]
+
+= [4.14.20] 2022-05-11 =
+
+* Fix - Fixed missing target and rel attribute for admin view links. [ETP-792]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.14.19] 2022-04-27 =
+
+* Tweak - Add long-term license validation storage using options in addition to transients. [ET-1498]
+* Language - 0 new strings added, 26 updated, 1 fuzzied, and 1 obsoleted.
+
+= [4.14.18.1] 2022-04-28 =
+
+* Fix - Undo reversion.
+
+= [4.14.18] 2022-04-28 =
+
+* Feature - First iteration of changes for Full Site Editor compatibility. [TEC-4262]
+* Tweak - Added EA status row showing if it is enabled or disabled in the Event Aggregator system status [TCMN-134]
+* Tweak - Added actions: `tec_start_widget_`, `tec_end_widget_`.
+* Fix - Ensure the Classic Editor "forget" parameter overrides all else when loading the editor w/Classic Editor active. [TEC-4287]
+* Fix - Do not autoload options used to save batched data. [EA-427]
+* Fix - Update bootstrap logic to make sure Common will correctly load completely in the context of plugin activations requests. [TEC-4338]
+* Language - 1 new strings added, 29 updated, 1 fuzzied, and 2 obsoleted.
+
+= [4.14.17] 2022-04-05 =
+
+* Feature - New customizable upsell element to offer upgrades, additions and services that are available. [ET-1351]
+* Fix - Updated Dropdown functionality to work with PHP8, thanks @huubl. [CE-141]
+* Tweak - Changed the wording to include upgrading required plugins to reduce confusion. [TCMN-132]
+* Language - 2 new strings added, 1 updated, 1 fuzzied, and 1 obsoleted
+
+= [4.14.16] 2022-03-15 =
+
+* Fix - Modify logic of `filter_modify_to_module` so that we can safely set as module those assets that are loaded in themes without support for `html5`, `scripts`. [ET-1447]
+* Fix - Ensure our full common variables file requires the skeleton variables. [TEC-4308]
+* Fix - Correct Troubleshooting Menu Item label in Admin Bar. [TEC-4310]
+* Language - 0 new strings added, 24 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.14.15] 2022-03-01 =
+
+* Tweak - Update version of Freemius to 2.4.3.
+
+= [4.14.14] 2022-02-24 =
+
+* Feature - The PUE Checker now stores a transient with the status of the last license key check.
+* Language - 0 new strings added, 49 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.14.13] 2022-02-15 =
 
 * Tweak - Prevent scripts from loading on all Admin pages, only load on pages needed.
@@ -38,11 +209,11 @@
 
 = [4.14.8] 2021-11-17 =
 
-* Feature - Add link to TEC customizer section in admin menu and on Event->Settings->Display page [TBD]
+* Feature - Add link to TEC customizer section in admin menu and on Event->Settings->Display page [TEC-4126]
 * Feature - Adding Onboarding functionality, featuring `Tours` and `Hints`.
 * Tweak - Added the `tribe_repository_{$filter_name}_pre_first_post`, `tribe_repository_{$filter_name}_pre_last_post`, and `tribe_repository_{$filter_name}_pre_get_ids_for_posts` actions. (Props to @sc0ttkclark)
 * Language - 10 new strings added, 3 updated, 1 fuzzied, and 0 obsoleted
-w
+
 = [4.16.7] 2021-11-04 =
 
 * Feature - Added Black Friday promo to the General Settings panel. [TCMN-127]
@@ -186,7 +357,7 @@ w
 
 * Tweak - Add the `tribe_customizer_print_styles_action` to allow filtering the action the Customizer will use to print inline styles. [TEC-3686]
 * Tweak - Allow disabling and enabling logging functionality by calling hte `tribe( 'log' )->disable()` and `tribe( 'log' )->enable()` methods on the Log service provider.
-* Tweak - Update di52 containers to latest version for compatibility with WPStaging Pro. [BTRIA-650]
+* Tweak - Update di52 containers to latest version for compatibility with WPStaging Pro. [TCMN-136]
 * Language - 0 new strings added, 9 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.12.14] 2020-12-02 =
@@ -205,7 +376,7 @@ w
 
 * Tweak - Allow deletion of non persistent keys from Tribe__Cache handling. [ET-917]
 * Fix - Prevent items without children to be marked as groups in SelectWoo UI. [CE-106]
-* Fix - Update the MomentJS version to 2.19.3 for the `tribe-moment` asset. [BTRIA-574]
+* Fix - Update the MomentJS version to 2.19.3 for the `tribe-moment` asset. [TEC-3676]
 * Language - 0 new strings added, 3 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.12.12.1] 2020-11-19 =
@@ -342,7 +513,7 @@ w
 
 = [4.11.5] 2020-03-23 =
 
-* Tweak - Added context to the country and the state of Georgia to allow separate translation [BTRIA-63]
+* Tweak - Added context to the country and the state of Georgia to allow separate translation [TCMN-137]
 * Tweak - Allow uploads of images with a large size and images with no extension provided from the URL, as the extension from the URL was used to define the type of the file to be uploaded and when the extension was not present on the URL the file was considered invalid. [TCMN-46]
 * Tweak - Expired transient garbage collector will only run once per request and when needed [TCMN-38]
 * Language - 2 new strings added, 0 updated, 1 fuzzied, and 1 obsoleted

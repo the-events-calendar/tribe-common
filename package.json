@@ -1,6 +1,6 @@
 {
   "name": "tribe-common",
-  "version": "4.14.13",
+  "version": "5.0.9",
   "repository": "git@github.com:the-events-calendar/tribe-common.git",
   "_resourcepath": "src/resources",
   "_domainPath": "lang",
@@ -63,6 +63,7 @@
     "bezier-easing": "^2.1.0",
     "chrono-node": "^2.2.4",
     "classnames": "^2.2.6",
+    "clipboard": "^2.0.10",
     "file-loader": "^1.1.6",
     "he": "^1.2.0",
     "intro.js": "^3.4.0",

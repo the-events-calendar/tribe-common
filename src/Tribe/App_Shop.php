@@ -135,6 +135,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 			$products = $this->get_all_products();
 			$bundles = $this->get_bundles();
 			$extensions = $this->get_extensions();
+			$stellar_brands = $this->get_stellar_brands();
 			include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/app-shop.php';
 		}
 
@@ -147,18 +148,19 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 			$all_products = tribe( 'plugins.api' )->get_products();
 
 			$products = [
-				'the-events-calendar' =>      (object) $all_products['the-events-calendar'],
-				'events-calendar-pro' =>      (object) $all_products['events-calendar-pro'],
-				'events-virtual' =>           (object) $all_products['events-virtual'],
-				'event-aggregator' =>         (object) $all_products['event-aggregator'],
-				'event-tickets' =>            (object) $all_products['event-tickets'],
-				'event-tickets-plus' =>       (object) $all_products['event-tickets-plus'],
-				'promoter' =>                 (object) $all_products['promoter'],
-				'tribe-filterbar' =>          (object) $all_products['tribe-filterbar'],
-				'events-community' =>         (object) $all_products['events-community'],
+				'the-events-calendar'      => (object) $all_products['the-events-calendar'],
+				'events-calendar-pro'      => (object) $all_products['events-calendar-pro'],
+				'events-virtual'           => (object) $all_products['events-virtual'],
+				'event-aggregator'         => (object) $all_products['event-aggregator'],
+				'event-automator'         => (object) $all_products['event-automator'],
+				'event-tickets'            => (object) $all_products['event-tickets'],
+				'event-tickets-plus'       => (object) $all_products['event-tickets-plus'],
+				'promoter'                 => (object) $all_products['promoter'],
+				'tribe-filterbar'          => (object) $all_products['tribe-filterbar'],
+				'events-community'         => (object) $all_products['events-community'],
 				'events-community-tickets' => (object) $all_products['events-community-tickets'],
-				'tribe-eventbrite' =>         (object) $all_products['tribe-eventbrite'],
-				'image-widget-plus' =>        (object) $all_products['image-widget-plus'],
+				'tribe-eventbrite'         => (object) $all_products['tribe-eventbrite'],
+				'image-widget-plus'        => (object) $all_products['image-widget-plus'],
 			];
 
 			return $products;
@@ -297,6 +299,67 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 			];
 
 			return $extensions;
+		}
+
+		/**
+		 * Gets Stellar brands
+		 *
+		 * @return array|WP_Error
+		 */
+		private function get_stellar_brands() {
+			$stellar_brands = [
+				(object) [
+					'image' => 'images/shop/stellar-learndash-cta.jpg',
+					'logo' => 'images/shop/stellar-learndash-logo.png',
+					'title' => __( 'The online course platform created by e-learning experts.', 'tribe-common' ),
+					'link' => 'https://evnt.is/learndash',
+					'linktext' => __( 'Add Courses', 'tribe-common' ),
+					'description' => __( 'Trusted to power learning programs for major universities, startups, entrepreneurs, and bloggers worldwide.', 'tribe-common' ),
+				],
+				(object) [
+					'image' => 'images/shop/stellar-ithemes-cta.jpg',
+					'logo' => 'images/shop/stellar-ithemes-logo.png',
+					'title' => __( 'Foundational favorites: iThemes Security and Developer Toolkit.', 'tribe-common' ),
+					'link' => 'https://evnt.is/ithemes',
+					'linktext' => __( 'Add Security', 'tribe-common' ),
+					'description' => __( 'iThemes Security, the WordPress security plugin that’s easy to use. Built with performance in mind.', 'tribe-common' ),
+				],
+				(object) [
+					'image' => 'images/shop/stellar-rcp-cta.jpg',
+					'logo' => 'images/shop/stellar-rcp-logo.png',
+					'title' => __( 'Built with developers in mind.', 'tribe-common' ),
+					'link' => 'https://evnt.is/rcp',
+					'linktext' => __( 'Add Content Restriction', 'tribe-common' ),
+					'description' => __( 'Restrict Content Pro is flexible, easy to extend, and chock full of action hooks and filters, making it easy to modify and tweak to your specific needs.', 'tribe-common' ),
+				],
+				(object) [
+					'image' => 'images/shop/stellar-kadence-cta.jpg',
+					'logo' => 'images/shop/stellar-kadence-logo.png',
+					'title' => __( 'Build better WordPress websites with Kadence.', 'tribe-common' ),
+					'link' => 'https://evnt.is/kadencewp',
+					'linktext' => __( 'Add Starter Templates', 'tribe-common' ),
+					'description' => __( 'Kadence lets you unlock your creativity in the WordPress Block Editor with expertly designed blocks, a robust theme, and a massive library of starter templates.', 'tribe-common' ),
+				],
+				(object) [
+					'image' => 'images/shop/stellar-iconic-cta.jpg',
+					'logo' => 'images/shop/stellar-iconic-logo.png',
+					'title' => __( 'Sales-boosting WooCommerce plugins.', 'tribe-common' ),
+					'link' => 'https://evnt.is/iconic',
+					'linktext' => __( 'Add Commerce Tools', 'tribe-common' ),
+					'description' => __( 'Easy-to-use WooCommerce plugins work perfectly together, with any theme. Create a fast and profitable eCommerce store without any technical knowledge.
+					', 'tribe-common' ),
+				],
+				(object) [
+					'image' => 'images/shop/stellar-give-cta.jpg',
+					'logo' => 'images/shop/stellar-give-logo.png',
+					'title' => __( 'The best WordPress donation plugin.', 'tribe-common' ),
+					'link' => 'https://evnt.is/givewp',
+					'linktext' => __( 'Add Donations', 'tribe-common' ),
+					'description' => __( 'GiveWP makes it easy to raise money online with donation forms, donor databases, and fundraising reporting.', 'tribe-common' ),
+				],
+			];
+
+			return $stellar_brands;
 		}
 
 		/**
