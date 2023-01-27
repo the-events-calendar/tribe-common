@@ -2,6 +2,7 @@
 
 = [TBD] TBD =
 
+* Feature - Add new `get_contrast_color` and `get_contrast_ratio` methods to the color utility for determining contrasting colors. [ET-1551]
 * Fix - Set max width to image in image setting field. [ET-1597]
 
 = [5.0.7] 2023-01-16 =
