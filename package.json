@@ -8,10 +8,7 @@
   "_glotPressUrl": "https://translations.theeventscalendar.com",
   "_glotPressSlug": "tribe-common",
   "_glotPressFileFormat": "%textdomain%-%wp_locale%.%format%",
-  "_glotPressFormats": [
-    "po",
-    "mo"
-  ],
+  "_glotPressFormats": ["po", "mo"],
   "_glotPressFilter": {
     "translation_sets": false,
     "minimum_percentage": 30,
@@ -34,23 +31,18 @@
       "!src/resources/postcss/datepicker.pcss",
       "!src/resources/postcss/tribe-ui.pcss"
     ],
-    "jest": [
-      "src/modules/**/__tests__/**/*.js"
-    ]
+    "jest": ["src/modules/**/__tests__/**/*.js"]
   },
-  "engines": {
-    "node": "18.13.0",
-    "npm": "8.19.3"
-  },
+  "engines": { "node": "18.13.0", "npm": "8.19.3" },
   "scripts": {
     "analyze": "webpack-bundle-analyzer -m static stats.json",
     "bootstrap": "./scripts/linkDependencies",
     "build:webpack": "cross-env NODE_ENV=production webpack -p",
     "build:gulp": "cross-env NODE_ENV=production gulp",
     "prebuild": "npm install && node node_modules/@the-events-calendar/product-taskmaster/scripts/syncBrowserslistConfig.js",
-    "build": "npm run build:webpack && npm run build:gulp",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && npm run build:webpack && npm run build:gulp",
     "rebuild": "rm -rf node_modules && npm install && npm run build",
-    "dev": "cross-env NODE_ENV=development webpack -d --watch",
+    "dev": "export NODE_OPTIONS=--openssl-legacy-provider && cross-env NODE_ENV=development webpack -d --watch",
     "preanalyze": "cross-env NODE_ENV=production webpack -p --profile --json > stats.json",
     "lint": "npm run lint:eslint && npm run lint:stylelint",
     "lint:eslint": "gulp eslint",
@@ -102,7 +94,7 @@
     "zero-fill": "^2.2.3"
   },
   "devDependencies": {
-    "product-taskmaster": "the-events-calendar/product-taskmaster#task/update-node",
+    "@the-events-calendar/product-taskmaster": "the-events-calendar/product-taskmaster#task/update-node",
     "@wordpress/hooks": "^1.3.2",
     "cross-env": "^5.2.0",
     "enzyme": "^3.7.0",
