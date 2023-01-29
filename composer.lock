@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b42a02e0460ca4505be5b1d3400babe7",
+    "content-hash": "5d733ffc5c1c343f392b48a0da499abd",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -352,16 +352,16 @@
         },
         {
             "name": "stellarwp/installer",
-            "version": "0.2.1",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/installer.git",
-                "reference": "632e1b1940ed4339e031144e864ec42d68d5b174"
+                "reference": "219312b0b0cfa071499b90c353b703adc89bcbc8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/installer/zipball/632e1b1940ed4339e031144e864ec42d68d5b174",
-                "reference": "632e1b1940ed4339e031144e864ec42d68d5b174",
+                "url": "https://api.github.com/repos/stellarwp/installer/zipball/219312b0b0cfa071499b90c353b703adc89bcbc8",
+                "reference": "219312b0b0cfa071499b90c353b703adc89bcbc8",
                 "shasum": ""
             },
             "require": {
@@ -399,9 +399,9 @@
             "description": "StellarWP plugin install/activation library.",
             "support": {
                 "issues": "https://github.com/stellarwp/installer/issues",
-                "source": "https://github.com/stellarwp/installer/tree/0.2.1"
+                "source": "https://github.com/stellarwp/installer/tree/1.0.0"
             },
-            "time": "2023-01-28T20:45:11+00:00"
+            "time": "2023-01-29T17:23:48+00:00"
         },
         {
             "name": "xrstf/composer-php52",
