@@ -5,6 +5,7 @@
 
 // Don't load directly
 
+use TEC\Common\Libraries;
 use TEC\Common\Translations_Loader;
 use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
@@ -71,6 +72,7 @@ class Tribe__Main {
 		}
 
 		require_once realpath( dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/autoload.php' );
+		require_once realpath( dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/vendor-prefixed/autoload.php' );
 
 		// the DI container class
 		require_once dirname( __FILE__ ) . '/Container.php';
@@ -728,6 +730,7 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Service_Providers\Onboarding::class );
 		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
 		tribe_register_provider( Tribe\Admin\Conditional_Content\Service_Provider::class );
+		tribe_register_provider( Libraries\Provider::class );
 	}
 
 	/**
