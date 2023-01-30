@@ -28,12 +28,16 @@
     "preferred-install": "dist",
     "platform": {
       "php": "7.3.33"
+    },
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": false
     }
   },
   "require": {
     "lucatume/di52": "~2.1.5",
     "firebase/php-jwt": "~6.3.0",
-    "monolog/monolog": "1.24.*"
+    "monolog/monolog": "1.24.*",
+    "woocommerce/action-scheduler": "^3.5"
   },
   "repositories": [
     {
