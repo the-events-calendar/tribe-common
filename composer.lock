@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5d733ffc5c1c343f392b48a0da499abd",
+    "content-hash": "9b5be29807e2c2de450e876d4bdea91e",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -352,16 +352,16 @@
         },
         {
             "name": "stellarwp/installer",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/installer.git",
-                "reference": "219312b0b0cfa071499b90c353b703adc89bcbc8"
+                "reference": "13e800c750dbdab561ad6d67b768938fa4fee8a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/installer/zipball/219312b0b0cfa071499b90c353b703adc89bcbc8",
-                "reference": "219312b0b0cfa071499b90c353b703adc89bcbc8",
+                "url": "https://api.github.com/repos/stellarwp/installer/zipball/13e800c750dbdab561ad6d67b768938fa4fee8a4",
+                "reference": "13e800c750dbdab561ad6d67b768938fa4fee8a4",
                 "shasum": ""
             },
             "require": {
@@ -399,9 +399,9 @@
             "description": "StellarWP plugin install/activation library.",
             "support": {
                 "issues": "https://github.com/stellarwp/installer/issues",
-                "source": "https://github.com/stellarwp/installer/tree/1.0.0"
+                "source": "https://github.com/stellarwp/installer/tree/1.1.0"
             },
-            "time": "2023-01-29T17:23:48+00:00"
+            "time": "2023-01-30T18:33:24+00:00"
         },
         {
             "name": "xrstf/composer-php52",
@@ -2170,16 +2170,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.65.0",
+            "version": "2.66.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "09acf64155c16dc6f580f36569ae89344e9734a3"
+                "reference": "496712849902241f04902033b0441b269effe001"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/09acf64155c16dc6f580f36569ae89344e9734a3",
-                "reference": "09acf64155c16dc6f580f36569ae89344e9734a3",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/496712849902241f04902033b0441b269effe001",
+                "reference": "496712849902241f04902033b0441b269effe001",
                 "shasum": ""
             },
             "require": {
@@ -2268,7 +2268,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-06T15:55:01+00:00"
+            "time": "2023-01-29T18:53:47+00:00"
         },
         {
             "name": "nilportugues/sql-query-formatter",
