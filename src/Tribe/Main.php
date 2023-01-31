@@ -193,8 +193,10 @@ class Tribe__Main {
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/html.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/post.php';
+		require_once $this->plugin_path . 'src/Pigeon/Pigeon.php';
 
 		Tribe__Debug::instance();
+		\StellarWP\Pigeon::init();
 		tec_timed_option();
 
 		tribe( 'assets' );
