@@ -45,6 +45,7 @@
   "vendor/psr/log/Psr/Log/*.php",
   "vendor/monolog/monolog/src/*.php",
   "vendor/monolog/monolog/src/**/*.php",
+  "vendor/vendor-prefixed/**/*",
   "node_modules/mt-a11y-dialog/*.min.js",
   "node_modules/intro.js/*.js",
   "node_modules/intro.js/*.css",

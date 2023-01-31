@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - Add the stellarwp/db library and configure it.
+* Feature - Add the stellarwp/installer library and bootstrap it.
+
 = [5.0.9] 2023-01-26 =
 
 * Feature - Add Event Automator to Add-ons and Help page. [TEC-4660]
