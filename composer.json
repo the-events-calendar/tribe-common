@@ -37,7 +37,8 @@
     "lucatume/di52": "~2.1.5",
     "firebase/php-jwt": "~6.3.0",
     "monolog/monolog": "1.24.*",
-    "woocommerce/action-scheduler": "^3.5"
+    "woocommerce/action-scheduler": "^3.5",
+    "stellarwp/pigeon": "dev-main"
   },
   "repositories": [
     {
@@ -51,6 +52,11 @@
       "type": "github",
       "url": "https://github.com/the-events-calendar/coding-standards",
       "no-api": true
+    },
+    {
+     "name": "stellarwp/pigeon",
+      "type": "path",
+      "url": "../Pigeon"
     }
   ],
   "scripts": {
