@@ -373,6 +373,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * Whether a offset exists.
 	 *
 	 * @since 4.11.0
+	 * @since TBD Will check against cache expiration. Previously would give false positive if expiration had passed but was cached recently.
 	 *
 	 * @link  http://php.net/manual/en/arrayaccess.offsetexists.php
 	 *
@@ -382,7 +383,11 @@ class Tribe__Cache implements ArrayAccess {
 	 */
 	#[\ReturnTypeWillChange]
 	public function offsetExists( $offset ) {
-		return isset( $this->non_persistent_keys[ $offset ] );
+		if ( ! isset( $this->non_persistent_keys[ $offset ] ) ) {
+			return false;
+		}
+
+		return $this->get( $offset ) !== false;
 	}
 
 	/**
