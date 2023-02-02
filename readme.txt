@@ -2,6 +2,7 @@
 
 = [TBD] TBD =
 
+* Fix - Fix a false positive on checking if a cache value is set after cache expiration passed.
 * Feature - Add the stellarwp/db library and configure it.
 * Feature - Add the stellarwp/installer library and bootstrap it.
 
