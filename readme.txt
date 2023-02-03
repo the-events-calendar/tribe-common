@@ -1,10 +1,12 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [5.0.10] TBD =
 
-* Fix - Fix a false positive on checking if a cache value is set after cache expiration passed.
+* Feature - Add new `get_contrast_color` and `get_contrast_ratio` methods to the color utility for determining contrasting colors. [ET-1551]
 * Feature - Add the stellarwp/db library and configure it.
 * Feature - Add the stellarwp/installer library and bootstrap it.
+* Fix - Set max width to image in image setting field. [ET-1597]
+* Fix - Fix a false positive on checking if a cache value is set after cache expiration passed.
 
 = [5.0.9] 2023-01-26 =
 
