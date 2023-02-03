@@ -1,5 +1,6 @@
 <?php
 
+use TEC\Common\Translations_Loader;
 use Tribe\Traits\Cache_User;
 use Tribe__Cache_Listener as Listener;
 use Tribe__Utils__Array as Arr;
@@ -89,6 +90,14 @@ class Tribe__Rewrite {
 	 * @var array
 	 */
 	protected $clean_url_cache = null;
+	/**
+	 * A reference to the Locale Switcher instance.
+	 *
+	 * @since 5.0.8
+	 *
+	 * @var Translations_Loader
+	 */
+	protected $translations_loader;
 
 	/**
 	 * Static Singleton Factory Method
@@ -106,10 +115,12 @@ class Tribe__Rewrite {
 	/**
 	 * Tribe__Rewrite constructor.
 	 *
-	 * @param WP_Rewrite|null $wp_rewrite
+	 * @param WP_Rewrite|null $wp_rewrite An instance of the `WP_Rewrite` class.
+	 * @param Translations_Loader|null $translations_loader An instance of the translations loader.
 	 */
-	public function __construct( WP_Rewrite $wp_rewrite = null ) {
-		$this->rewrite = $wp_rewrite;
+	public function __construct( WP_Rewrite $wp_rewrite = null, Translations_Loader $translations_loader = null ) {
+		$this->rewrite             = $wp_rewrite;
+		$this->translations_loader = $translations_loader ?? tribe( Translations_Loader::class );
 	}
 
 	/**
@@ -546,7 +557,7 @@ class Tribe__Rewrite {
 			$replace = array_combine(
 				array_map( static function ( $key ) {
 					return preg_replace(
-						'/' . preg_quote( Tribe__Rewrite::$localized_matcher_delimiter ) . '\\w*$/',
+						'/' . preg_quote( Tribe__Rewrite::$localized_matcher_delimiter, '/' ) . '\\w*$/',
 						'',
 						$key
 					);
@@ -613,28 +624,28 @@ class Tribe__Rewrite {
 	 * @return array An array of rewrite rules handled by the implementation in the shape `[ <regex> => <path> ]`.
 	 */
 	protected function get_handled_rewrite_rules() {
-		static $cache_var_name = __METHOD__;
-
-		$our_rules = tribe_get_var( $cache_var_name, null );
+		// Try and pull it from memoized values.
+		$cache     = tribe_cache();
+		$our_rules = $cache['handled_rewrite_rules'] ?? null;
 
 		// We need to make sure we are have WP_Rewrite setup
-		if ( ! $this->rewrite ) {
+		if ( ! $this->rewrite || empty( $this->rewrite->rules ) ) {
 			$this->setup();
 		}
 
-		$all_rules     = isset( $this->rewrite->rules ) ? (array) $this->rewrite->rules : [];
+		$all_rules = isset( $this->rewrite->rules ) ? (array) $this->rewrite->rules : [];
 
-		if ( null === $our_rules ) {
+		if ( ! is_array( $our_rules ) ) {
 			// While this is specific to The Events Calendar we're handling a small enough post type base to keep it here.
 			$pattern = '/post_type=tribe_(events|venue|organizer)/';
 			// Reverse the rules to try and match the most complex first.
 			$our_rules = array_filter( $all_rules,
 				static function ( $rule_query_string ) use ( $pattern ) {
-					return preg_match( $pattern, $rule_query_string );
+					return is_string( $rule_query_string ) && preg_match( $pattern, $rule_query_string );
 				}
 			);
 
-			tribe_set_var( $cache_var_name, $our_rules );
+			$cache['handled_rewrite_rules'] = $our_rules;
 		}
 
 		/**
@@ -642,12 +653,12 @@ class Tribe__Rewrite {
 		 *
 		 * @since  4.9.18
 		 *
-		 * @param array $our_rules An array of rewrite rules handled by our code, in the shape
-		 *                         `[ <rewrite_rule_regex_pattern> => <query_string> ]`.
-		 *                         E.g. `[ '(?:events)/(?:list)/?$' => 'index.php?post_type=tribe_events&eventDisplay=list' ]`.
-		 * @param array<string,string> All the current rewrite rules, before any filtering is applied; these have the
-		 *                             same `<pattern => rewrite >` format as the previous argument, which is the
-		 *                             format used by WordPress rewrite rules.
+		 * @param array                $our_rules An array of rewrite rules handled by our code, in the shape
+		 *                                        `[ <rewrite_rule_regex_pattern> => <query_string> ]`.
+		 *                                        E.g. `[ '(?:events)/(?:list)/?$' => 'index.php?post_type=tribe_events&eventDisplay=list' ]`.
+		 * @param array<string,string> $all_rules All the current rewrite rules, before any filtering is applied; these
+		 *                                        have the same `<pattern => rewrite >` format as the previous argument,
+		 *                                        which is the format used by WordPress rewrite rules.
 		 */
 		$our_rules = apply_filters( 'tribe_rewrite_handled_rewrite_rules', $our_rules, $all_rules );
 
@@ -662,13 +673,18 @@ class Tribe__Rewrite {
 	 * @return array A map of localized regex matchers in the shape `[ <localized_regex> => <query_var> ]`.
 	 */
 	protected function get_localized_matchers() {
-		static $cache_var_name = __METHOD__;
+		$cache_key = __METHOD__;
+		$cache = tribe_cache();
+
+		$localized_matchers = $cache[ $cache_key ];
+
+		if ( ! empty( $localized_matchers ) ) {
+			return $localized_matchers;
+		}
 
 		$bases         = (array) $this->get_bases();
-
 		$query_var_map = $this->get_matcher_to_query_var_map();
-
-		$localized_matchers = tribe_get_var( $cache_var_name, [] );
+		$localized_matchers = [];
 
 		foreach ( $bases as $base => $localized_matcher ) {
 			// Use the base too to allow possible conflicts if the slugs are the same for single and archive.
@@ -703,7 +719,7 @@ class Tribe__Rewrite {
 			}
 		}
 
-		tribe_set_var( $cache_var_name, $localized_matchers );
+		$cache[ $cache_key ] = $localized_matchers;
 
 		return $localized_matchers;
 	}
@@ -745,9 +761,10 @@ class Tribe__Rewrite {
 							array_map(
 								static function ( $rule_string ) {
 									wp_parse_str( parse_url( $rule_string, PHP_URL_QUERY ), $vars );
+
 									return array_keys( $vars );
 								},
-								$rules
+								array_filter( $rules, 'is_string' )
 							)
 						)
 					)
