@@ -1,6 +1,6 @@
 <?php
 
-namespace TEC\Common\Settings;
+namespace TEC\Common\Fields;
 
 use \Tribe__Debug as Debug;
 
@@ -9,7 +9,7 @@ use \Tribe__Debug as Debug;
  *
  * @since TBD
  */
-class Field_Factory {
+class Factory {
 	/**
 	 * The field's id.
 	 *
@@ -94,15 +94,15 @@ class Field_Factory {
 	/**
 	 * Class constructor
 	 *
-	 * @param string     $id    The field id.
-	 * @param array      $field The field settings.
+	 * @param string         $id    The field id.
+	 * @param Abstract_Field $field The field settings.
 	 *
 	 * @return void
 	 */
 	public function __construct( $id, $field ) {
-		$this->type = $this->normalize_type( $this->type );
+		$field->type = $this->normalize_type( $field->type );
 		// If type is wrong, bail early
-		if ( is_null( $this->type ) ) {
+		if ( is_null( $field->type ) ) {
 			return;
 		}
 
@@ -113,12 +113,12 @@ class Field_Factory {
 		$this->args  = wp_parse_args( $field, $this->defaults );
 
 		// These aren't needed for field generation beyond this class - extract them.
-		$this->conditional      = $this->args['conditional'];
-		$this->display_callback = $this->args['display_callback'];
-		unset( $this->args['conditional'] );
-		unset( $this->args['display_callback'] );
+		$field->conditional      = $field->args['conditional'];
+		$field->display_callback = $field->args['display_callback'];
+		unset( $field->args['conditional'] );
+		unset( $field->args['display_callback'] );
 
-		if ( ! empty( $this->display_callback ) && ! is_callable( $this->display_callback ) ) {
+		if ( ! empty( $field->display_callback ) && ! is_callable( $field->display_callback ) ) {
 			// Fail, log the error.
 			Debug::debug(
 				esc_html__(
@@ -126,9 +126,9 @@ class Field_Factory {
 					'tribe-common'
 				),
 				[
-					$this->display_callback,
+					$field->display_callback,
 					self::$id,
-					$this->type
+					$field->type
 				],
 				'warning'
 			);
@@ -139,8 +139,7 @@ class Field_Factory {
 		// These get passed to the field class, along with $this->args.
 		self::$id    = apply_filters( 'tribe_field_id', esc_attr( $id ) );
 
-		// Epicness?
-		$this->do_field();
+		$this->do_field( $field );
 	}
 
 	/**
@@ -150,16 +149,18 @@ class Field_Factory {
 	 *
 	 * @since TBD
 	 *
+	 * @param Abstract_Field $field The field settings.
+	 *
 	 * @return void
 	 */
-	public function do_field(): void {
-		if ( ! $this->conditional ) {
+	public function do_field( $field ): void {
+		if ( ! $field->conditional ) {
 			return;
 		}
 
-		if ( ! empty( $this->display_callback ) ) {
+		if ( ! empty( $field->display_callback ) ) {
 			// If there's a callback, run it.
-			call_user_func( $this->display_callback );
+			call_user_func( $field->display_callback );
 
 			return;
 		}
@@ -173,7 +174,7 @@ class Field_Factory {
 		 */
 		$field_class = apply_filters(
 			'tec_settings_field_class',
-			__NAMESPACE__ . '\\Field\\' . self::clean_type_to_classname( $this->type )
+			__NAMESPACE__ . '\\Field\\' . self::clean_type_to_classname( $field->type )
 		);
 
 		// Ensure the class is instantiatable.
@@ -183,7 +184,7 @@ class Field_Factory {
 				esc_html__( 'Invalid field class called! Field will not display.', 'tribe-common' ),
 				[
 					$field_class,
-					$this->type,
+					$field->type,
 				],
 				'warning'
 			);

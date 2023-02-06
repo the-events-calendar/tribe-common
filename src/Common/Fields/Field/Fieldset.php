@@ -1,6 +1,8 @@
 <?php
 
-namespace TEC\Common\Settings;
+namespace TEC\Common\Fields\Field;
+
+use TEC\Common\Fields\Factory;
 
 /**
  * Helper class that creates fieldsets for use in Settings.
@@ -8,8 +10,26 @@ namespace TEC\Common\Settings;
  * @since TBD
  */
 class Fieldset extends Abstract_Field  {
+	/**
+	 * The fieldset's contained fields.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	public $fields = [];
+
+	/**
+	 * The fieldset's content.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public $content = '';
 
 	public $default_class = [ 'tec-fieldset' ];
+
 	/**
 	 * Generate a fieldset "field".
 	 *
@@ -21,7 +41,7 @@ class Fieldset extends Abstract_Field  {
 			<fieldset
 				id="<?php echo esc_attr( self::$id ); ?>"
 				class="<?php echo esc_attr( $this->class ); ?>"
-				<?php echo empty( $this->error ) ? 'tribe-error' : ''; ?>
+				<?php echo ! empty( $this->error ) ? 'tribe-error' : ''; ?>
 				<?php $this->do_attributes(); ?>
 			><?php
 				if ( ! empty( $this->fields ) ) {
@@ -45,7 +65,7 @@ class Fieldset extends Abstract_Field  {
 						$field['parent']      = self::$id;
 						$field['parent_type'] = self::$type;
 
-						new Field_Factory( $id, $field );
+						new Factory( $id, $field );
 					}
 				}
 			?></fieldset>

@@ -1,6 +1,6 @@
 <?php
 
-namespace TEC\Common\Settings;
+namespace TEC\Common\Fields\Field;
 
 /**
  * Helper class that creates checkbox fields for use in Settings.

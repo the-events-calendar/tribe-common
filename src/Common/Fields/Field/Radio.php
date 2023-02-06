@@ -1,8 +1,8 @@
 <?php
 
-namespace TEC\Common\Settings;
+namespace TEC\Common\Fields\Field;
 
-use TEC\Common\Settings\Abstract_Field;
+use TEC\Common\Fields\Abstract_Field;
 
 /**
  * Helper class that creates radio fields for use in Settings.

@@ -1,6 +1,6 @@
 <?php
 
-namespace TEC\Common\Settings;
+namespace TEC\Common\Fields\Field;
 
 /**
  * Helper class that creates HTML headings for use in Settings.

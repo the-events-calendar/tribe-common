@@ -1,7 +1,7 @@
 <?php
-namespace TEC\Common\Settings;
+namespace TEC\Common\Fields;
 
-class Field_FactoryTest extends \Codeception\TestCase\WPTestCase {
+class Factory_Test extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Provides a slug -> Classname list for consumption.
 	 *
@@ -84,7 +84,7 @@ class Field_FactoryTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider fields_classname_provider
 	 */
 	public function it_should_get_classname_from_args( $key, $classname ) {
-		$converted = Field_Factory::clean_type_to_classname( $key );
+		$converted = Factory::clean_type_to_classname( $key );
 
 		$this->assertEquals( $classname, $converted );
 	}
@@ -95,7 +95,7 @@ class Field_FactoryTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider fields_class_provider
 	 */
 	public function it_should_pass_valid_types( $key, $classname ) {
-		$valid = Field_Factory::validate_type( $key );
+		$valid = Factory::validate_type( $key );
 
 		$this->assertTrue( $valid );
 	}
@@ -105,7 +105,7 @@ class Field_FactoryTest extends \Codeception\TestCase\WPTestCase {
 	 * It should fail invalid types.
 	 */
 	public function it_should_fail_invalid_types() {
-		$valid = Field_Factory::validate_type( 'fnord' );
+		$valid = Factory::validate_type( 'fnord' );
 
 		$this->assertFalse( $valid );
 	}
@@ -116,7 +116,7 @@ class Field_FactoryTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider fields_class_provider
 	 */
 	public function it_should_return_the_proper_type( $key, $class ) {
-		$converted = Field_Factory::normalize_type( $key );
+		$converted = Factory::normalize_type( $key );
 		$class = strtolower( $class );
 
 		$this->assertEquals( $class, $converted );
@@ -128,7 +128,7 @@ class Field_FactoryTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider compatibility_types_provider
 	 */
 	public function it_should_fail_when_passed_an_invalid_type() {
-		$converted = Field_Factory::normalize_type( 'fnord' );
+		$converted = Factory::normalize_type( 'fnord' );
 
 		$this->assertNull( $converted );
 	}

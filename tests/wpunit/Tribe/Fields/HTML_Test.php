@@ -1,5 +1,5 @@
 <?php
-namespace TEC\Common\Settings\Fields;
+namespace TEC\Common\Fields\Field;
 
 class HTML_Test extends \Codeception\TestCase\WPTestCase {
 	/**

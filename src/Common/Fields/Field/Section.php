@@ -1,6 +1,8 @@
 <?php
 
-namespace TEC\Common\Settings;
+namespace TEC\Common\Fields\Field;
+
+use TEC\Common\Fields\Factory;
 
 /**
  * Helper class that creates HTML sections for use in Settings.
@@ -9,11 +11,33 @@ namespace TEC\Common\Settings;
  */
 class Section extends Abstract_Field  {
 	/**
+	 * The sections's contained fields.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	public $fields = [];
+
+	/**
+	 * The section's content.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public $content = '';
+
+	/**
 	 * Generate a section "field".
 	 *
 	 * @return void
 	 */
 	public function render() {
+		if ( empty( $this->fields ) ) {
+			return;
+		}
+
 		ob_start();
 		?>
 			<section
@@ -21,13 +45,11 @@ class Section extends Abstract_Field  {
 				class="tec-settings__section"
 				<?php $this->do_attributes(); ?>
 			><?php
-				if ( ! empty( $this->fields ) ) {
-					foreach( $this->fields as $id => $field) {
-						$field['parent']      = self::$id;
-						$field['parent_type'] = self::$type;
+				foreach( $this->fields as $id => $field) {
+					$field->parent      = self::$id;
+					$field->parent_type = self::$type;
 
-						new Field_Factory( $id, $field );
-					}
+					new Factory( $id, $field );
 				}
 			?></section>
 		<?php

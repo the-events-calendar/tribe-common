@@ -1,6 +1,6 @@
 <?php
 
-namespace TEC\Common\Settings\Fields;
+namespace TEC\Common\Fields\Field;
 
 /**
  * Abstract class for creating fields for use in Settings.

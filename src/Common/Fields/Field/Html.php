@@ -1,6 +1,6 @@
 <?php
 
-namespace TEC\Common\Settings\Fields;
+namespace TEC\Common\Fields\Field;
 
 /**
  * Helper class that creates HTML entities for use in Settings.
@@ -8,6 +8,15 @@ namespace TEC\Common\Settings\Fields;
  * @since TBD
  */
 class HTML extends Abstract_Field  {
+	/**
+	 * The field's content.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public $content = '';
+
 	/**
 	 * Class constructor.
 	 *
@@ -55,7 +64,7 @@ class HTML extends Abstract_Field  {
 			return null;
 		} elseif ( empty( $args['content'] ) && empty( $args['html'] ) ) {
 			\Tribe__Debug::debug(
-				esc_html__( 'You must provide `content` (or deprecated `html`) for an html field! Field will not display.', 'tribe-common' ),
+				esc_html__( 'You must provide `content` for an html field! Field will not display.', 'tribe-common' ),
 				[
 					'id'      => self::$id,
 					'type'    => self::$type,
@@ -67,11 +76,27 @@ class HTML extends Abstract_Field  {
 			return null;
 		}
 
-		return ! empty( $args['content'] ) ? $args['content'] : $args['html'] ;
+		if ( empty( $args['content'] ) && ! empty( $args['html'] ) ) {
+			\Tribe__Debug::debug(
+				esc_html__( 'You must provide `content` for an html field! `html` is deprecated.', 'tribe-common' ),
+				[
+					'id'      => self::$id,
+					'type'    => self::$type,
+					'html'    => $args['html'],
+					'content' => $args['content'],
+				],
+				'warning'
+			);
+
+			// Neither is set - we need to bail now.
+			$args['content'] = $args['html'];
+		}
+
+		return $args['content'];
 	}
 
 	/**
-	 * Generate an html "field".
+	 * Generate an HTML "field".
 	 *
 	 * @param bool $echo Whether to echo the field (default) or just return the HTML string.
 	 *
