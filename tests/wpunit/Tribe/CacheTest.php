@@ -76,6 +76,7 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 			'foo9'  => 'false',
 			'foo10' => 'null',
 			'foo11' => true,
+			'foo12' => false,
 		];
 
 		foreach ( $key_values as $key => $value ) {
@@ -110,8 +111,6 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 		return [
 			// Null fails isset(), should be the same for our cache utility.
 			'null is not cached'  => [ uniqid(), null ],
-			// Because wp core cache utility sends false if no cache found.
-			'false is not cached' => [ uniqid(), false ]
 		];
 	}
 
@@ -144,9 +143,9 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_allow_removing_value_using_array_access_api() {
 		$cache = $this->make_instance();
 
-		$this->assertFalse( isset( $cache['foo'] ) );
-
 		$cache['foo'] = 'bar';
+
+		$this->assertTrue( isset( $cache['foo'] ) );
 
 		unset( $cache['foo'] );
 
