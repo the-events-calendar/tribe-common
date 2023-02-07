@@ -7,6 +7,7 @@
 * Feature - Add the stellarwp/installer library and bootstrap it.
 * Fix - Set max width to image in image setting field. [ET-1597]
 * Tweak - Added filters: `tec_disable_logging`
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.0.9] 2023-01-26 =
 
