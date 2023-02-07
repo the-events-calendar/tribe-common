@@ -8,7 +8,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Hook prefix.
 	 *
-	 * @since TBD
+	 * @since 5.0.10
 	 *
 	 * @var string
 	 */
@@ -17,7 +17,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 5.0.10
 	 */
 	public function register() {
 		$this->container->singleton( static::class, $this );
@@ -30,7 +30,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Gets the hook prefix.
 	 *
-	 * @since TBD
+	 * @since 5.0.10
 	 *
 	 * @return string
 	 */

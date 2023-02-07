@@ -9,7 +9,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 5.0.10
 	 */
 	public function register() {
 		$this->container->singleton( static::class, $this );
@@ -24,7 +24,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the installer button classes.
 	 *
-	 * @since TBD
+	 * @since 5.0.10
 	 *
 	 * @param array|mixed $classes The button classes.
 	 *
