@@ -6,8 +6,13 @@
 * Feature - Add the stellarwp/db library and configure it.
 * Feature - Add the stellarwp/installer library and bootstrap it.
 * Fix - Set max width to image in image setting field. [ET-1597]
+* Fix - Added safeguard against the `rewrite_rules_array` filter being passed non-array values, avoids fatal. [TEC-4679]
 * Tweak - Added filters: `tec_disable_logging`
+<<<<<<< HEAD
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+=======
 * Language - 0 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
+>>>>>>> 51eafa5ac80bbc47c9b7e36896384bdf1356dffa
 
 = [5.0.9] 2023-01-26 =
 
