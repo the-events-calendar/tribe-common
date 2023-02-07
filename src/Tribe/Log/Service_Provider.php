@@ -72,7 +72,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		/**
 		 * Allow filtering the logger enabled status.
 		 *
-		 * @since TBD
+		 * @since 5.0.10
 		 *
 		 * @param bool $logger_disabled Whether the logger should be disabled or not.
 		 */
