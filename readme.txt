@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Added safeguard against the `rewrite_rules_array` filter being passed non-array values, avoids fatal. [TEC-4679]
+
 = [5.0.10] TBD =
 
 * Feature - Add new `get_contrast_color` and `get_contrast_ratio` methods to the color utility for determining contrasting colors. [ET-1551]
