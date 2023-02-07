@@ -516,13 +516,13 @@ class Tribe__Utils__Color {
 
 	/**
 	 * Get color that contrasts the most.
-	 * 
-	 * @since TBD
+	 *
+	 * @since 5.0.10
 	 *
 	 * @param string $hex_color   Hex value of color to compare.
 	 * @param string $light_color Hex value of light contrast color.
 	 * @param string $dark_color  Hex value of dark contrast color.
-	 * 
+	 *
 	 * @return string
 	 */
 	public static function get_contrast_color( $hex_color, $light_color = '#ffffff', $dark_color = '#000000' ) {
@@ -540,12 +540,12 @@ class Tribe__Utils__Color {
 
 	/**
 	 * Get contrast ratio of two colors.
-	 * 
-	 * @since TBD
+	 *
+	 * @since 5.0.10
 	 *
 	 * @param string $hex_color     Hex value of color.
 	 * @param string $compare_color Hax value of comparing color.
-	 * 
+	 *
 	 * @return int
 	 */
 	public static function get_contrast_ratio( $hex_color, $compare_color ) {
