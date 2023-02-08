@@ -31,8 +31,8 @@ textarea::-webkit-input-placeholder {
 }
 
 .bubble {
-	background-color: var(--tec-color-background);
-	border-color: var(--tec-color-border-default);
+	background-color: #f9f9f9;
+	border-color: #dfdfdf;
 	border-radius: 3px;
 	border-spacing: 0;
 	border-style: solid;
@@ -62,10 +62,10 @@ td.tribe_message {
 }
 
 .tribe-rating {
-	color: var(--tec-color-accent-primary);
+	color: #3d54ff;
 
 	&:hover {
-		color: var(--tec-color-accent-primary-hover);
+		color: #1c39bb;
 	}
 }
 
@@ -76,11 +76,40 @@ td.tribe_message {
 	}
 }
 
+.tribe-field {
+
+	&.indent {
+		margin-left: 252px;
+		width: 75%;
+
+		legend {
+			font-weight: normal;
+			width: auto;
+		}
+
+		.tribe-field-wrap {
+			padding-right: 12px;
+		}
+
+		&.tribe-field-radio {
+
+			.tribe-field-wrap {
+				clear: left;
+				margin-top: 12px;
+			}
+		}
+	}
+
+	&.light-bordered {
+		background-color: white;
+		border: solid lightgrey 1px;
+	}
+}
 
 /* = Upgrade Screen
 ============================================= */
 #tribe-upgrade {
-	background: var(--tec-color-background-secondary);
+	background: #f6f6f6;
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	margin: 20px 0 30px;
@@ -88,7 +117,7 @@ td.tribe_message {
 }
 
 #tribe-upgrade .message {
-	background-color: var(--tec-color-background);
+	background-color: #ffffe0;
 	border-color: #e6db55;
 	border-radius: 3px;
 	border-style: solid;
@@ -102,7 +131,7 @@ table.plugins {
 
 	.tribe-plugin-update-message {
 		background: #d54e21; /* taken from color scheme in list-tables.css */
-		color: var(--tec-color-background);
+		color: white;
 		display: inline-table;
 		margin: 6px 0;
 		padding: 10px 12px;
@@ -118,13 +147,274 @@ table.plugins {
 		}
 
 		a {
-			color: var(--tec-color-background);
+			color: white;
 			text-decoration: underline;
 		}
 	}
 }
 
-/* sizes */
+/* = Settings Screen
+============================================= */
+.tribe_settings {
+	.tribe-field-indent {
+		margin-left: 245px;
+	}
+
+	#pu_dashboard_message {
+		display: none;
+	}
+
+	.tribe-errors-list {
+		margin-left: 15px;
+	}
+
+	.expiring-license {
+		color: red;
+	}
+
+	.tribe-error {
+		border: 1px solid #f00;
+	}
+
+	.tribe-field-description {
+		margin-bottom: 0;
+		position: relative;
+		top: -12px;
+	}
+
+	#ical-link {
+		top: -14px;
+	}
+}
+
+.tribe-settings-form {
+	max-width: 1000px;
+
+	.tribe-field-radio,
+	.tribe-field-checkbox_list {
+		label {
+			display: block;
+			margin: 5px 0 5px 20px;
+			text-indent: -20px;
+
+			> p {
+				margin-left: 1px;
+				text-indent: 0;
+			}
+
+			input {
+				margin-right: 5px;
+			}
+		}
+	}
+
+	.tribe-settings-form-wrap {
+		.description {
+			padding-left: 12px;
+		}
+
+		h3 {
+			background-color: #f9f9f9;
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 10px;
+			padding: 6px 12px;
+
+			.tec-top-link {
+				font-size: var(--tec-font-size-0);
+				font-weight: var(--tec-font-weight-regular);
+			}
+		}
+
+		fieldset {
+			clear: both;
+			display: inline-block;
+			padding: 10px 0 10px 10px;
+
+			&.tribe-field-license_key legend {
+				width: auto;
+			}
+
+			.description {
+				margin-left: 0;
+				max-width: 450px;
+				padding-left: 0;
+			}
+
+			.tribe-style-selection {
+				margin-bottom: 18px;
+			}
+		}
+
+		#tribe-field-stylesheetOption {
+			.description {
+				color: #999;
+				margin-left: 1px;
+			}
+		}
+
+		legend {
+			float: left;
+			font-weight: bold;
+			margin-right: 20px;
+			width: 220px;
+		}
+
+		.tribe-field-wrap {
+			float: left;
+			max-width: 500px;
+
+			*:first-child:not(.wp-switch-editor) {
+				margin-top: 0;
+			}
+		}
+
+		.tribe-sysinfo-optin-msg,
+		.system-info,
+		h3 + p,
+		.contained {
+			margin: 0 0 10px;
+			padding-left: 12px;
+		}
+
+		.tec-disabled {
+			color: #999;
+		}
+
+		.tec-settings-teaser-pill {
+			background-color: var(--tec-color-border-default);
+			border-radius: var(--tec-border-radius-default);
+			color: var(--tec-color-text-primary);
+			font-size: 9px;
+			margin-left: var(--tec-spacer-0);
+			padding: calc(var(--tec-spacer-0) / 2) 5px;
+			text-transform: uppercase;
+
+			&:hover,
+			&:focus {
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
+/* The Events Calendar box @TODO why is this an ID?
+============================================= */
+#modern-tribe-info,
+.tec-settings-header {
+	background-color: #f9f9f9;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	margin: 20px 0;
+	padding: 8px 20px 12px;
+
+	img {
+		margin: 10px 0;
+	}
+
+	ul {
+		list-style: disc;
+		margin-left: 20px;
+	}
+
+	ul ul {
+		list-style: circle;
+	}
+
+	ul.tec-events-settings__toc {
+		display: flex;
+		flex-flow: row;
+		list-style: none;
+		margin: 5px 0;
+
+		li {
+			margin-bottom: 0;
+
+			&:not(:first-child) {
+				margin-left: 1em;
+			}
+		}
+	}
+}
+
+.tec-settings-header {
+	padding: 12px 20px;
+}
+
+/* sizes
+============================================= */
+
+.tribe-size-small {
+	&.tribe-field-textarea textarea {
+		height: 60px;
+		width: 180px;
+	}
+
+	&.tribe-field-text input,
+	&.tribe-field-email input,
+	&.tribe-field-license_key input {
+		width: 50px;
+	}
+
+	&.tribe-field-dropdown select {
+		width: 100px;
+	}
+
+	&.tribe-field-dropdown_chosen select {
+		width: 100px;
+	}
+}
+
+.tribe-size-medium {
+	&.tribe-field-textarea textarea {
+		height: 80px;
+		width: 300px;
+	}
+
+	&.tribe-field-text input,
+	&.tribe-field-email input,
+	&.tribe-field-license_key input {
+		width: 225px;
+	}
+
+	&.tribe-field-dropdown select {
+		width: 300px;
+	}
+
+	&.tribe-field-dropdown_chosen select {
+		width: 200px;
+	}
+}
+
+.tribe-size-large {
+	&.tribe-field-textarea textarea {
+		height: 120px;
+		width: 450px;
+	}
+
+	&.tribe-field-text input,
+	&.tribe-field-email input,
+	&.tribe-field-license_key input {
+		width: 450px;
+	}
+
+	&.tribe-field-dropdown select {
+		width: 450px;
+	}
+
+	&.tribe-field-wrapped_html .tribe-field-wrap {
+		max-width: 600px;
+
+		.description {
+			max-width: 100%;
+		}
+	}
+
+	&.tribe-field-dropdown_chosen select {
+		width: 300px;
+	}
+}
+
 .tribe-field-inline-dropdown {
 	margin-left: 0;
 	margin-right: 0;
@@ -135,77 +425,8 @@ table.plugins {
 	margin: 0 2px;
 }
 
-.tribe-field-textarea.tribe-size-small textarea {
-	height: 60px;
-	width: 180px;
-}
-
-.tribe-field-textarea.tribe-size-medium textarea {
-	height: 80px;
-	width: 300px;
-}
-
-.tribe-field-textarea.tribe-size-large textarea {
-	height: 120px;
-	width: 450px;
-}
-
-.tribe-field-text.tribe-size-small input,
-.tribe-field-email.tribe-size-small input,
-.tribe-field-license_key.tribe-size-small input {
-	width: 50px;
-}
-
-.tribe-field-number.tribe-size-small input {
-	width: 60px;
-}
-
-.tribe-field-dropdown.tribe-size-small select {
-	width: 100px;
-}
-
-.tribe-field-dropdown_chosen.tribe-size-small select {
-	width: 100px;
-}
-
-.tribe-field-text.tribe-size-medium input,
-.tribe-field-email.tribe-size-medium input,
-.tribe-field-license_key.tribe-size-medium input {
-	width: 225px;
-}
-
-.tribe-field-dropdown.tribe-size-medium select {
-	width: 300px;
-}
-
-.tribe-field-dropdown_chosen.tribe-size-medium select {
-	width: 200px;
-}
-
-.tribe-field-text.tribe-size-large input,
-.tribe-field-number.tribe-size-large input,
-.tribe-field-email.tribe-size-large input,
-.tribe-field-license_key.tribe-size-large input {
-	width: 450px;
-}
-
-.tribe-field-dropdown.tribe-size-large select {
-	width: 450px;
-}
-
-.tribe-field-wrapped_html.tribe-size-large .tribe-field-wrap {
-	max-width: 600px;
-
-	.description {
-		max-width: 100%;
-	}
-}
-
-.tribe-field-dropdown_chosen.tribe-size-large select {
-	width: 300px;
-}
-
-/* license keys */
+/* license keys
+============================================= */
 .ajax-loading-license,
 .valid-key,
 .invalid-key {
@@ -236,14 +457,16 @@ table.plugins {
 	color: #b72;
 }
 
-/* additional fields */
+/* additional fields
+============================================= */
 #additional-field-table {
 	margin-bottom: 20px;
 }
 
-/* miscellaneous */
+/* miscellaneous
+============================================= */
 .tribe-admin-box-left {
-	background-color: var(--tec-color-background);
+	background-color: #f9f9f9;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	float: left;
@@ -253,7 +476,7 @@ table.plugins {
 }
 
 .tribe-admin-box-right {
-	background-color: var(--tec-color-background);
+	background-color: #f9f9f9;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	float: right;
@@ -289,7 +512,7 @@ table.plugins {
 }
 
 .tribe-arrangeable-child {
-	background-color: var(--tec-color-background);
+	background-color: #f9f9f9;
 	border-top: 1px solid lightgrey;
 	display: none;
 	padding: 25px;
@@ -350,7 +573,7 @@ table.plugins {
 }
 
 #tribe-help-general h3 {
-	background-color: var(--tec-color-background);
+	background-color: #f9f9f9;
 	margin-bottom: 10px;
 	padding: 6px 0 6px 12px;
 }
@@ -373,7 +596,7 @@ table.plugins {
 }
 
 .tribe-section-type-box {
-	background-color: var(--tec-color-background);
+	background-color: #f9f9f9;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	padding: 8px 20px 12px;
@@ -712,7 +935,7 @@ table.plugins {
 }
 
 #tribe-loading {
-	background: var(--tec-color-background);
+	background: #fff;
 	background: rgba(255, 255, 255, 0.8);
 	display: none;
 	height: 100%;
@@ -847,7 +1070,7 @@ a.tribe-rating-link {
 	display: none;
 }
 
-/* = Widget Admin Screen
+/* Widget Admin Screen
 ============================ */
 .tribe-events-widget-admin-form__input-section p {
 	margin: 0;
@@ -857,7 +1080,8 @@ a.tribe-rating-link {
 	margin: 0.5em 0;
 }
 
-/* Media Queries for Mobile Dashboard */
+/* Media Queries for Mobile Dashboard
+============================================= */
 @media screen and (max-width: 782px) {
 	.tribe-half-column,
 	.tribe-row .tribe-half-column:last-child {
@@ -906,7 +1130,7 @@ a.tribe-rating-link {
 	width: 1%;
 }
 
-/* = Modals/thickbox dialogs
+/* Modals/thickbox dialogs
 ============================ */
 
 #tribe-dialog-wrapper {
@@ -920,7 +1144,7 @@ a.tribe-rating-link {
 	}
 
 	#heading {
-		background: var(--tec-color-background);
+		background: white;
 	}
 
 	label {
@@ -938,12 +1162,12 @@ a.tribe-rating-link {
 			transition: opacity 0.2s;
 
 			&:nth-child(odd) {
-				background: var(--tec-color-background);
+				background: white;
 			}
 
 			&.selected {
 				background: #0073aa;
-				color: var(--tec-color-background);
+				color: white;
 				font-weight: bold;
 			}
 
@@ -983,7 +1207,7 @@ a.tribe-rating-link {
 		&:hover {
 
 			&:before {
-				color: var(--tec-color-background);
+				color: #fff;
 			}
 		}
 	}
@@ -1069,7 +1293,7 @@ a.tribe-rating-link {
 		&:hover {
 
 			&:before {
-				color: var(--tec-color-background);
+				color: #fff;
 			}
 		}
 	}
@@ -1181,17 +1405,17 @@ a.tribe-rating-link {
 
 			.tribe-common-c-svgicon--stellar-icon {
 				circle {
-					stroke: var(--tec-color-background);
+					stroke: #fff;
 				}
 			}
 		}
 
 		.tec-stellar-sale-text {
-			fill: var(--tec-color-background);
+			fill: #fff;
 			height: 16px;
 			margin: unset;
 			margin-top: 0.25em;
-			stroke: var(--tec-color-background);
+			stroke: #fff;
 			width: 176px;
 		}
 
@@ -1203,7 +1427,7 @@ a.tribe-rating-link {
 	}
 
 	h3 {
-		color: var(--tec-color-background);
+		color: #fff;
 		display: block;
 		font-size: 0.875rem;
 		line-height: 1.25;
@@ -1233,7 +1457,7 @@ a.tribe-rating-link {
 
 	a,
 	p {
-		color: var(--tec-color-background);
+		color: #fff;
 		display: inline-block;
 		font-size: 0.875rem;
 		line-height: 1.25;
@@ -1356,7 +1580,7 @@ a.tribe-rating-link {
 
 	&.select2-container--focus {
 		.select2-selection--single {
-			border-color: var(--tec-color-accent-primary);
+			border-color: #5897fb;
 			box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 		}
 	}
@@ -1405,7 +1629,7 @@ a.tribe-rating-link {
 			width: 26px;
 
 			b {
-				background: var(--tec-color-background) url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%206l5%205%205-5%202%201-7%207-7-7%202-1z%22%20fill%3D%22%23555%22%2F%3E%3C%2Fsvg%3E') no-repeat right 5px top 55%;
+				background: #fff url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%206l5%205%205-5%202%201-7%207-7-7%202-1z%22%20fill%3D%22%23555%22%2F%3E%3C%2Fsvg%3E') no-repeat right 5px top 55%;
 				background-size: auto;
 				background-size: 16px 16px;
 				border: 0;
@@ -1478,16 +1702,13 @@ a.tribe-rating-link {
 	}
 }
 
-/*
-Red button styles.
-
-Credit to https://github.com/jensjns/wp-admin-red-button
-============================================= */
+/* Red button styles. Credit to https://github.com/jensjns/wp-admin-red-button
+============================================================================== */
 .wp-core-ui .button-red {
 	background-color: #a00;
 	border-color: #9b2124;
 	box-shadow: inset 0 1px 0 rgba(120, 200, 230, 0.5);
-	color: var(--tec-color-background);
+	color: #fff;
 	text-decoration: none;
 	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
 }
@@ -1499,7 +1720,7 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 	background-color: #a00;
 	border-color: #7f1c1f;
 	box-shadow: inset 0 1px 0 rgba(120, 200, 230, 0.6);
-	color: var(--tec-color-background);
+	color: #fff;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
 
@@ -1542,7 +1763,8 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 	}
 }
 
-/* Clearfix Utility */
+/* Clearfix Utility
+============================================= */
 
 .clear {
 	zoom: 1;
@@ -1558,7 +1780,8 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 	}
 }
 
-/* from https://codepen.io/lajlev/pen/diKbz */
+/* Pure CSS checkmark. From https://codepen.io/lajlev/pen/diKbz
+ ============================================= */
 .checkmark {
 
 	&:after {
@@ -1636,7 +1859,7 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 
 body.tribe-welcome,
 body.tec-help {
-	background-color: var(--tec-color-background);
+	background-color: white;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
@@ -1690,7 +1913,7 @@ body.tec-help {
 }
 
 .tribe-events-admin-card {
-	background: var(--tec-color-background);
+	background: #fff;
 	border: 1px solid #e1e1e4;
 	border-radius: 16px;
 	box-sizing: border-box;
@@ -1776,9 +1999,9 @@ body.tec-help {
 }
 
 .tribe-events-admin-card__button {
-	background-color: var(--tec-color-background);
+	background-color: white;
 	border: none;
-	color: var(--tec-color-accent-primary);
+	color: #3d54ff;
 	font-size: 14px;
 	font-weight: bold;
 	letter-spacing: 1px;
@@ -1809,7 +2032,7 @@ body.tec-help {
 }
 
 .tribe-events-admin-card__link {
-	color: var(--tec-color-accent-primary);
+	color: #3d54ff;
 	display: inline-block;
 	font-size: 16px;
 	font-style: normal;
@@ -1851,12 +2074,13 @@ body.tec-help {
 	max-width: 1048px;
 }
 
-/* -- CSS Switch based off https://codepen.io/mallendeo/pen/eLIiG  -- */
+/* CSS Switch based off https://codepen.io/mallendeo/pen/eLIiG
+============================================= */
 input[type="checkbox"].tribe-common-switch__input {
 	display: none;
 
 	+ .tribe-common-switch__label {
-		background: var(--tec-color-background);
+		background: #fff;
 		border: 1px solid #aaa;
 		border-radius: 4px;
 		box-sizing: border-box;
@@ -1989,6 +2213,22 @@ input[type="checkbox"].tribe-common-switch__input {
 	margin-bottom: 0;
 	margin-right: 30px;
 
+	&:hover {
+		color: #334aff;
+	}
+
+	&:after {
+		background: #334aff;
+		border-radius: 100px;
+		bottom: 0;
+		content: "";
+		display: block;
+		height: 3px;
+		left: 0;
+		position: absolute;
+		right: 0;
+	}
+
 	@media screen and (max-width: 768px) {
 		margin-right: 20px;
 	}
@@ -1997,10 +2237,6 @@ input[type="checkbox"].tribe-common-switch__input {
 		margin-bottom: 18px;
 		margin-right: 0;
 	}
-}
-
-.tribe-events-admin-tab-nav li:hover {
-	color: #334aff;
 }
 
 .tribe-events-admin-tab-nav .selected {
@@ -2018,18 +2254,6 @@ input[type="checkbox"].tribe-common-switch__input {
 		padding-bottom: 10px;
 		width: fit-content;
 	}
-}
-
-.tribe-events-admin-tab-nav li:after {
-	background: #334aff;
-	border-radius: 100px;
-	bottom: 0;
-	content: "";
-	display: block;
-	height: 3px;
-	left: 0;
-	position: absolute;
-	right: 0;
 }
 
 .tribe-events-admin__line {
@@ -2065,9 +2289,9 @@ input[type="checkbox"].tribe-common-switch__input {
 }
 
 .tribe-events-admin-products-card__icon {
-	height: 40px;
+	max-height: 40px;
+	max-width: 40px;
 	object-fit: contain;
-	width: 40px;
 }
 
 .tribe-events-admin-products-card__group {
@@ -2093,7 +2317,7 @@ input[type="checkbox"].tribe-common-switch__input {
 }
 
 .tribe-events-admin-products-card__button {
-	background-color: var(--tec-color-background);
+	background-color: white;
 	border: 1px solid #e1e1e4;
 	border-radius: 20px;
 	color: #0f1031;
@@ -2109,7 +2333,7 @@ input[type="checkbox"].tribe-common-switch__input {
 
 .tribe-events-admin-products-card__button:hover {
 	background-color: #334aff;
-	color: var(--tec-color-background);
+	color: #fff;
 }
 
 .tribe-events-admin-products-card__button:active,
@@ -2274,7 +2498,7 @@ input[type="checkbox"].tribe-common-switch__input {
 }
 
 .tribe-events-admin-card--promo-blue {
-	background-color: var(--tec-color-accent-primary);
+	background-color: #3d54ff;
 	background-image: url("../images/welcome/promo.jpg");
 
 	@media screen and (min-width: 710px) {
@@ -2289,7 +2513,7 @@ input[type="checkbox"].tribe-common-switch__input {
 	}
 
 	.tribe-events-admin-card__description {
-		color: var(--tec-color-background);
+		color: white;
 		font-size: 16px;
 		margin-bottom: 16px;
 		text-align: left;
@@ -2305,7 +2529,7 @@ input[type="checkbox"].tribe-common-switch__input {
 	}
 
 	.tribe-events-admin-card__title {
-		color: var(--tec-color-background);
+		color: white;
 		text-align: left;
 	}
 }
@@ -2357,7 +2581,7 @@ input[type="checkbox"].tribe-common-switch__input {
 
 /* including the specificity on input type to override base WP admin styles */
 input[type="email"].tribe-events-admin-card__input {
-	background: var(--tec-color-background);
+	background: #fff;
 	border: 1px solid #e1e1e4;
 	border-radius: 16px;
 	box-sizing: border-box;
@@ -2379,7 +2603,8 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
-/* container */
+/* Container
+============================================= */
 
 .tribe-events-admin-container,
 .tribe-events-admin-content-wrapper.tribe-events-admin-container {
@@ -2392,7 +2617,8 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
-/* columns */
+/* Columns
+============================================= */
 
 .tribe-events-admin-2col-grid {
 	display: grid;
@@ -2453,7 +2679,7 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-quick-nav {
-	background: var(--tec-color-background);
+	background: #fff;
 	border: 1px solid #e1e1e4;
 	border-radius: 16px;
 	box-sizing: border-box;
@@ -2472,7 +2698,7 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-quick-nav__link {
-	color: var(--tec-color-accent-primary);
+	color: #3d54ff;
 	font-size: 16px;
 	font-weight: bold;
 	line-height: 18px;
@@ -2561,7 +2787,7 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-notice {
-	background-color: var(--tec-color-accent-primary);
+	background-color: #3d54ff;
 	height: 65px;
 
 	.tribe-events-admin-content-wrapper {
@@ -2570,7 +2796,7 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	p {
-		color: var(--tec-color-background);
+		color: #fff;
 		display: inline-block;
 		font-family: Helvetica, sans-serif;
 		font-size: 16px;
@@ -2587,7 +2813,8 @@ input[type="email"].tribe-events-admin-card__input {
 	display: inline-block;
 }
 
-/* -- Event Tickets tweaks for welcome screen -- */
+/* Event Tickets tweaks for welcome screen
+============================================= */
 .tribe-events-admin-tickets {
 	.tribe-events-admin-section-header {
 		font-size: 28px;
@@ -2636,7 +2863,8 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
-/* Kb section */
+/* Kb section
+============================================= */
 
 .tribe-events-admin-kb {
 	margin: 10px 0 0;
@@ -2683,7 +2911,7 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	&:hover {
-		color: var(--tec-color-accent-primary-hover);
+		color: #1c39bb;
 	}
 }
 
@@ -2723,11 +2951,12 @@ input[type="email"].tribe-events-admin-card__input {
 
 	&:hover {
 		border-bottom: 2px solid;
-		color: var(--tec-color-accent-primary-hover);
+		color: #1c39bb;
 	}
 }
 
-/* faq section */
+/* FAQ section
+============================================= */
 
 .tribe-events-admin-faq {
 	margin: 10px 0 0;
@@ -2750,7 +2979,7 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	&:hover {
-		color: var(--tec-color-accent-primary-hover);
+		color: #1c39bb;
 	}
 }
 
@@ -2780,7 +3009,7 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	&:hover {
-		color: var(--tec-color-accent-primary-hover);
+		color: #1c39bb;
 	}
 }
 
@@ -2947,7 +3176,7 @@ input[type="email"].tribe-events-admin-card__input {
 
 	&:hover {
 		border-bottom: 2px solid;
-		color: var(--tec-color-accent-primary-hover);
+		color: #1c39bb;
 	}
 }
 
@@ -2965,7 +3194,8 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
-/* first steps section */
+/* First Steps section
+============================================= */
 
 .tribe-events-admin-step {
 	margin: 10px 0 0;
@@ -2992,7 +3222,7 @@ input[type="email"].tribe-events-admin-card__input {
 
 	&:hover {
 		border-bottom: 2px solid;
-		color: var(--tec-color-accent-primary-hover);
+		color: #1c39bb;
 	}
 }
 
@@ -3083,7 +3313,7 @@ input[type="email"].tribe-events-admin-card__input {
 .tribe-events-admin__recent-template-changes .template-updates-wrapper {
 	background: #0f1031;
 	border-radius: 16px;
-	color: var(--tec-color-background);
+	color: #fff;
 	font-size: 14px;
 	line-height: 1.14;
 	max-height: 280px;
@@ -3094,7 +3324,7 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__recent-template-changes .template-updates-wrapper p {
-	color: var(--tec-color-background);
+	color: #fff;
 	font-size: 14px;
 	line-height: 1.14;
 	margin: 0;
@@ -3144,7 +3374,7 @@ input[type="email"].tribe-events-admin-card__input {
 	background-color: #334aff;
 	border: none;
 	border-radius: 100px;
-	color: var(--tec-color-background);
+	color: #fff;
 	cursor: pointer;
 	font-size: 16px;
 	font-weight: bold;
@@ -3153,7 +3383,7 @@ input[type="email"].tribe-events-admin-card__input {
 	text-align: center;
 
 	&:hover {
-		background-color: var(--tec-color-accent-primary-hover);
+		background-color: #1c39bb;
 	}
 
 	.dashicons,
@@ -3162,7 +3392,7 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	.optin-success {
-		color: var(--tec-color-background);
+		color: #fff;
 		font-size: 16px;
 		font-weight: bold;
 		text-align: center;
@@ -3196,7 +3426,7 @@ input[type="email"].tribe-events-admin-card__input {
 .tribe-events-admin__troubleshooting-event-log-wrapper #tribe-log-viewer {
 	background: #0f1031;
 	border-radius: 16px;
-	color: var(--tec-color-background);
+	color: #fff;
 	font-size: 14px;
 	line-height: 1.14;
 	max-height: 280px;
@@ -3225,7 +3455,7 @@ input[type="email"].tribe-events-admin-card__input {
 
 	&:hover {
 		border-bottom: 2px solid;
-		color: var(--tec-color-accent-primary-hover);
+		color: #1c39bb;
 	}
 }
 
@@ -3332,7 +3562,8 @@ input[type="email"].tribe-events-admin-card__input {
 	margin-top: 50px;
 }
 
-/* issues found section */
+/* Issues Found section
+============================================= */
 .tribe-events-admin__issues-found-card {
 	background-color: #f3eee8;
 	border-radius: 8px;
@@ -3430,7 +3661,7 @@ input[type="email"].tribe-events-admin-card__input {
 
 	&:hover {
 		border-bottom: 2px solid;
-		color: var(--tec-color-accent-primary-hover);
+		color: #1c39bb;
 	}
 }
 
@@ -3462,7 +3693,7 @@ input[type="email"].tribe-events-admin-card__input {
 
 	&:hover {
 		border-bottom: 2px solid;
-		color: var(--tec-color-accent-primary-hover);
+		color: #1c39bb;
 	}
 }
 
@@ -3524,7 +3755,7 @@ input[type="email"].tribe-events-admin-card__input {
 
 .tribe_events_page_tec-troubleshooting,
 .tec-troubleshooting {
-	background-color: var(--tec-color-background);
+	background-color: #fff;
 }
 
 #tribe-ticketing,
@@ -3534,7 +3765,7 @@ input[type="email"].tribe-events-admin-card__input {
 
 .tribe-events-admin__troubleshooting-notice {
 	background-color: #161b7d;
-	color: var(--tec-color-background);
+	color: #fff;
 	font-size: 16px;
 	line-height: 1;
 	margin-left: -1.55vw;
@@ -3558,7 +3789,7 @@ input[type="email"].tribe-events-admin-card__input {
 
 .tribe-events-admin__troubleshooting-notice_title a {
 	border-bottom: 2px solid;
-	color: var(--tec-color-background);
+	color: #fff;
 	font-size: 16px;
 	line-height: 1;
 	padding-bottom: 2px;
@@ -3575,9 +3806,10 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
-/* -- Help page overrides -- */
+/* Help page overrides
+============================================= */
 
-/* TODO: fix right side alignment */
+/* @TODO: fix right side alignment */
 .tec-help {
 	#tec-help-ticketing,
 	#tec-help-community {
@@ -3593,7 +3825,8 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
-/* -- Freemius tweaks -- */
+/* Freemius tweaks
+============================================= */
 body.tribe-welcome #fs_connect {
 	border: 1px solid #e1e1e4;
 	border-radius: 16px;
@@ -3611,18 +3844,18 @@ body.tribe-welcome #fs_connect {
 	}
 
 	button {
-		background-color: var(--tec-color-accent-primary);
-		border-color: var(--tec-color-accent-primary);
+		background-color: #3d54ff;
+		border-color: #3d54ff;
 	}
 
 	.button-secondary {
-		background: var(--tec-color-background);
-		border-color: var(--tec-color-accent-primary);
-		color: var(--tec-color-accent-primary);
+		background: white;
+		border-color: #3d54ff;
+		color: #3d54ff;
 	}
 
 	a {
-		color: var(--tec-color-accent-primary);
+		color: #3d54ff;
 
 		&:focus {
 			box-shadow: none;
@@ -3635,7 +3868,8 @@ body.tribe-welcome #fs_connect {
 	}
 }
 
-/* -- Black Friday Promo -- */
+/* Black Friday Promo
+============================================= */
 .black-friday-promo {
 	align-items: flex-start;
 	display: flex;
@@ -3643,10 +3877,10 @@ body.tribe-welcome #fs_connect {
 	justify-content: space-between;
 
 	.black-friday-promo__button {
-		background: var(--tec-color-accent-primary);
+		background: #3d54ff;
 		border-color: transparent;
 		border-radius: 20px;
-		color: var(--tec-color-background);
+		color: white;
 		font-size: 12px;
 		height: 34px;
 		line-height: 32px;
@@ -3656,9 +3890,9 @@ body.tribe-welcome #fs_connect {
 		&:hover,
 		&:active,
 		&:focus {
-			background: var(--tec-color-accent-primary-hover);
+			background: #1c39bb;
 			border-color: transparent;
-			color: var(--tec-color-background);
+			color: white;
 		}
 	}
 }
@@ -3707,7 +3941,8 @@ body.tribe-welcome #fs_connect {
 	}
 }
 
-/* -- End of year sale Promo -- */
+/* End of year sale Promo
+============================================= */
 .end-of-year-sale-promo {
 	align-items: flex-start;
 	display: flex;
@@ -3715,10 +3950,10 @@ body.tribe-welcome #fs_connect {
 	justify-content: space-between;
 
 	.end-of-year-sale-promo__button {
-		background: var(--tec-color-accent-primary);
+		background: #3d54ff;
 		border-color: transparent;
 		border-radius: 20px;
-		color: var(--tec-color-background);
+		color: white;
 		font-size: 12px;
 		height: 34px;
 		line-height: 32px;
@@ -3728,15 +3963,15 @@ body.tribe-welcome #fs_connect {
 		&:hover,
 		&:active,
 		&:focus {
-			background: var(--tec-color-accent-primary-hover);
+			background: #1c39bb;
 			border-color: transparent;
-			color: var(--tec-color-background);
+			color: white;
 		}
 	}
 }
 
 .end-of-year-sale-promo__promo {
-	background-color: var(--tec-color-background);
+	background-color: white;
 	background-position: left top;
 	background-repeat: no-repeat;
 	border-radius: 10px;
@@ -3782,7 +4017,8 @@ body.tribe-welcome #fs_connect {
 	}
 }
 
-/* EOY Sale Promo Mobile */
+/* EOY Sale Promo Mobile
+============================================= */
 @media (max-width: 525px) {
 	.end-of-year-sale-promo__promo {
 		grid-template-areas: "space" "promo-content";
