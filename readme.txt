@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - Add the `is_editing_posts_list` method to the `Tribe__Context` class. [APM-5]
+
 = [5.0.10] 2023-02-09 =
 
 * Feature - Add new `get_contrast_color` and `get_contrast_ratio` methods to the color utility for determining contrasting colors. [ET-1551]

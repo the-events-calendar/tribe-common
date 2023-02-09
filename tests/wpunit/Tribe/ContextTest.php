@@ -4,6 +4,8 @@ namespace Tribe;
 
 use Tribe\Common\Tests\TestClass;
 use Tribe__Context as Context;
+use Generator;
+use Closure;
 
 function __context__test__function__() {
 	return '__value__';
@@ -1754,5 +1756,119 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( '__value_after_repopulate__', $value_overwrite_after_reset );
 	}
 
+	public function is_editing_posts_list_data_provider(): Generator {
+		yield 'new post screen' => [
+			function () {
+				$_SERVER['REQUEST_URI'] = '/wp-admin/post-new.php?post_type=post';
+				$GLOBALS['pagenow'] = 'post-new.php';
 
+				return 'post';
+			},
+			false
+		];
+
+		yield 'existing post edit screen' => [
+			function () {
+				$post_id                = static::factory()->post->create();
+				$_SERVER['REQUEST_URI'] = "/wp-admin/post.php?post=$post_id&action=edit";
+				$GLOBALS['pagenow'] = 'post.php';
+
+				return 'post';
+			},
+			false
+		];
+
+		yield 'post list screen' => [
+			function () {
+				$_SERVER['REQUEST_URI'] = '/wp-admin/edit.php?post_type=post';
+				$GLOBALS['pagenow'] = 'edit.php';
+
+				return 'post';
+			},
+			true
+		];
+
+		yield 'new post screen, multiple post types' => [
+			function () {
+				$_SERVER['REQUEST_URI'] = '/wp-admin/post-new.php?post_type=post';
+				$GLOBALS['pagenow'] = 'post-new.php';
+
+				return [ 'page', 'post' ];
+			},
+			false
+		];
+
+		yield 'existing post edit screen, multiple post types' => [
+			function () {
+				$post_id                = static::factory()->post->create();
+				$_SERVER['REQUEST_URI'] = "/wp-admin/post.php?post=$post_id&action=edit";
+				$GLOBALS['pagenow'] = 'post.php';
+
+				return [ 'post', 'page' ];
+			},
+			false
+		];
+
+		yield 'post list screen, multiple post types' => [
+			function () {
+				$_SERVER['REQUEST_URI'] = '/wp-admin/edit.php?post_type=post';
+				$GLOBALS['pagenow'] = 'edit.php';
+
+				return [ 'page', 'post' ];
+			},
+			true
+		];
+
+		yield 'new post screen, not this post type' => [
+			function () {
+				$_SERVER['REQUEST_URI'] = '/wp-admin/post-new.php?post_type=post';
+				$GLOBALS['pagenow'] = 'post-new.php';
+
+				return [ 'page' ];
+			},
+			false
+		];
+
+		yield 'existing post edit screen, not this post type' => [
+			function () {
+				$post_id                = static::factory()->post->create();
+				$_SERVER['REQUEST_URI'] = "/wp-admin/post.php?post=$post_id&action=edit";
+				$GLOBALS['pagenow'] = 'post.php';
+
+				return [ 'page' ];
+			},
+			false
+		];
+
+		yield 'post list screen, not this post type' => [
+			function () {
+				$_SERVER['REQUEST_URI'] = '/wp-admin/edit.php?post_type=post';
+				$GLOBALS['pagenow'] = 'edit.php';
+
+				return [ 'page' ];
+			},
+			false
+		];
+
+		yield 'empty $_SERVER[\'REQUEST_URI\']' => [
+			function () {
+				$_SERVER['REQUEST_URI'] = '';
+				$GLOBALS['pagenow'] = '';
+
+				return 'post';
+			},
+			false
+		];
+	}
+
+	/**
+	 * @dataProvider is_editing_posts_list_data_provider
+	 */
+	public function test_is_editing_posts_list( Closure $fixture, bool $expected ): void {
+		$post_types = $fixture();
+
+		$actual = tribe_context()->is_editing_posts_list( $post_types );
+
+		$this->assertEquals( $expected, $actual );
+	}
 }
