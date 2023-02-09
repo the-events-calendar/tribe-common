@@ -196,7 +196,7 @@ class Tribe__Rewrite {
 	/**
 	 * Filter for the `rewrite_rules_array` hook.
 	 *
-	 * @since TBD
+	 * @since 5.0.10
 	 *
 	 * @param array|mixed $rules The rules to be filtered.
 	 *
