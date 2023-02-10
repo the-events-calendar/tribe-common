@@ -193,18 +193,35 @@ class Tribe__Rewrite {
 		return $rules;
 	}
 
+	/**
+	 * Filter for the `rewrite_rules_array` hook.
+	 *
+	 * @since 5.0.10
+	 *
+	 * @param array|mixed $rules The rules to be filtered.
+	 *
+	 * @return array|mixed Rules after filtering.
+	 */
+	public function filter_rewrite_rules_array( $rules ) {
+		if ( ! is_array( $rules ) ) {
+			return $rules;
+		}
+
+		return $this->remove_percent_placeholders( $rules );
+	}
+
 	protected function add_hooks() {
 		add_filter( 'generate_rewrite_rules', [ $this, 'filter_generate' ] );
 
 		// Remove percent Placeholders on all items
-		add_filter( 'rewrite_rules_array', [ $this, 'remove_percent_placeholders' ], 25 );
+		add_filter( 'rewrite_rules_array', [ $this, 'filter_rewrite_rules_array' ], 25 );
 
 		add_action( 'shutdown', [ $this, 'dump_cache' ] );
 	}
 
 	protected function remove_hooks() {
 		remove_filter( 'generate_rewrite_rules', [ $this, 'filter_generate' ] );
-		remove_filter( 'rewrite_rules_array', [ $this, 'remove_percent_placeholders' ], 25 );
+		remove_filter( 'rewrite_rules_array', [ $this, 'filter_rewrite_rules_array' ], 25 );
 
 		remove_action( 'shutdown', [ $this, 'dump_cache' ] );
 	}

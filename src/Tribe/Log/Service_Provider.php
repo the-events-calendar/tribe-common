@@ -11,7 +11,9 @@ namespace Tribe\Log;
 
 
 use Monolog\Handler\ErrorLogHandler;
+use Monolog\Handler\NullHandler;
 use Monolog\Logger;
+use Psr\Log\NullLogger;
 
 class Service_Provider extends \tad_DI52_ServiceProvider {
 
@@ -58,6 +60,32 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @return Logger
 	 */
 	public function build_logger() {
+		/*
+		 * Disable logging by either setting the `TEC_DISABLE_LOGGING` constant or by setting the
+		 * `TRIBE_DISABLE_LOGGING` environment variable to a truthy value. Use the environment variable
+		 * in the context of integration tests.
+		 */
+		$logger_disabled = ( defined( 'TEC_DISABLE_LOGGING' ) && TEC_DISABLE_LOGGING )
+		                   || ! empty( $_ENV['TEC_DISABLE_LOGGING'] )
+		                   || getenv( 'TEC_DISABLE_LOGGING' );
+
+		/**
+		 * Allow filtering the logger enabled status.
+		 *
+		 * @since 5.0.10
+		 *
+		 * @param bool $logger_disabled Whether the logger should be disabled or not.
+		 */
+		$logger_disabled = apply_filters( 'tec_disable_logging', $logger_disabled );
+
+		if ( $logger_disabled ) {
+			// Logging is disabled, still build a logger to allow fine usage of it and make sure it exists.
+			$logger = new Monolog_Logger( Monolog_Logger::DEFAULT_CHANNEL );
+
+			// Set the handlers to one NullHandler: setting them to an empty array would make it use the STDERR one.
+			return $logger->setHandlers( [ new NullHandler() ] );
+		}
+
 		// Provide more information in debug mode.
 		$level_threshold = defined( 'WP_DEBUG' ) && WP_DEBUG ? Logger::DEBUG : Logger::WARNING;
 
