@@ -5,6 +5,10 @@ namespace Tribe\Tests\Traits;
 use PHPUnit\Framework\Assert;
 
 trait With_Uopz {
+	/*
+	 * The following properties are static to cover data providers where 2 diff. instances of the test case are used:
+	 * one to build the data sets, the other to run the tests.
+	 */
 	private static array $uopz_set_returns = [];
 	private static array $uopz_redefines = [];
 	private static array $uopz_set_properties = [];
