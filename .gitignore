@@ -44,3 +44,6 @@ src/resources/js/**/*.min.js
 # get from translate.wordpress.org as needed
 lang/*.po
 lang/*.mo
+
+# Strauss
+bin/strauss.phar
