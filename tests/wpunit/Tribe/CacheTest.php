@@ -148,6 +148,8 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 
 		$cache['foo'] = 'bar';
 
+		$this->assertTrue( isset( $cache['foo'] ) );
+
 		unset( $cache['foo'] );
 
 		$this->assertFalse( isset( $cache['foo'] ) );

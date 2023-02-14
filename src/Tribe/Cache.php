@@ -384,9 +384,6 @@ class Tribe__Cache implements ArrayAccess {
 	 */
 	#[\ReturnTypeWillChange]
 	public function offsetExists( $offset ) {
-		if ( ! isset( $this->non_persistent_keys[ $offset ] ) ) {
-			return false;
-		}
 		$value = $this->get( $offset );
 
 		return $value !== false && $value !== null;
