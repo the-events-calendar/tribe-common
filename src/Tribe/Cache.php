@@ -107,13 +107,12 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 * @return mixed
 	 */
-	public function get( $id, $expiration_trigger = '', $default = null, $expiration = 0, $args = [] ) {
-		$group = isset( $this->non_persistent_keys[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
-		$found = false;
-		$value = wp_cache_get( $this->get_id( $id, $expiration_trigger ), $group, false, $found );
+	public function get( $id, $expiration_trigger = '', $default = false, $expiration = 0, $args = [] ) {
+		$group   = isset( $this->non_persistent_keys[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
+		$value   = wp_cache_get( $this->get_id( $id, $expiration_trigger ), $group );
 
 		// Value found.
-		if ( $found === true ) {
+		if ( false !== $value ) {
 			return $value;
 		}
 
@@ -125,8 +124,8 @@ class Tribe__Cache implements ArrayAccess {
 			$value = $default;
 		}
 
-		// Cache our default value if one specified.
-		if ( $default !== null ) {
+		// No need to set a cache value to false since non-existent values return false.
+		if ( false !== $value ) {
 			$this->set( $id, $value, $expiration, $expiration_trigger );
 		}
 
@@ -385,9 +384,12 @@ class Tribe__Cache implements ArrayAccess {
 	 */
 	#[\ReturnTypeWillChange]
 	public function offsetExists( $offset ) {
+		if ( ! isset( $this->non_persistent_keys[ $offset ] ) ) {
+			return false;
+		}
 		$value = $this->get( $offset );
 
-		return $value !== null;
+		return $value !== false && $value !== null;
 	}
 
 	/**
