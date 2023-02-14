@@ -2,7 +2,7 @@
 
 = [TBD] TBD =
 
-* Fix - Fix the pagination styling on the Aggregator import preview data table. [TCMN-163]
+* Fix - Fix the pagination styling on the Aggregator import preview data table. [TEC-4698]
 
 = [5.0.10] 2023-02-09 =
 
