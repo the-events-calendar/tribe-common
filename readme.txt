@@ -3,6 +3,7 @@
 = [TBD] = TBD =
 
 * Fix - Fix a false positive on checking if a cache value is set after cache expiration passed.
+* Fix - Fix the pagination styling on the Aggregator import preview data table. [TEC-4698]
 
 = [5.0.10] 2023-02-09 =
 
