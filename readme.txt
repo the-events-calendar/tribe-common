@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Fix the pagination styling on the Aggregator import preview data table. [TEC-4698]
+
 = [5.0.10] 2023-02-09 =
 
 * Feature - Add new `get_contrast_color` and `get_contrast_ratio` methods to the color utility for determining contrasting colors. [ET-1551]
