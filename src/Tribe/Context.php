@@ -1656,4 +1656,30 @@ class Tribe__Context {
 			$this->request_cache[ $key ] = $val;
 		}
 	}
+
+	/**
+	 * Whether the current request is one to edit a list of the specified post types or not.
+	 *
+	 * The admin edit screen for a post type is the one that lists all the posts of that typ,
+	 * it has the URL `/wp-admin/edit.php?post_type=<post_type>`.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|array<string> $post_type The post type or post types to check.
+	 *
+	 * @return bool Whether the current request is one to edit a list of the specified post types or not.
+	 */
+	public function is_editing_posts_list( $post_type ): bool {
+		// Quick check: are we on the `/wp-admin/edit.php` page?
+		global $pagenow;
+
+		if ( $pagenow !== 'edit.php' ) {
+			return false;
+		}
+
+		// Run some more thorough checks for the post type(s).
+		$post_types = array_filter( (array) $post_type );
+
+		return $this->is_editing_post( $post_types );
+	}
 }

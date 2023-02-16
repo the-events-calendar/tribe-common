@@ -5,17 +5,21 @@ namespace Tribe\Tests\Traits;
 use PHPUnit\Framework\Assert;
 
 trait With_Uopz {
-	private $uopz_set_returns = [];
-	private $uopz_redefines = [];
-	private $uopz_set_properties = [];
-	private $uopz_add_class_fns = [];
+	/*
+	 * The following properties are static to cover data providers where 2 diff. instances of the test case are used:
+	 * one to build the data sets, the other to run the tests.
+	 */
+	private static array $uopz_set_returns = [];
+	private static array $uopz_redefines = [];
+	private static array $uopz_set_properties = [];
+	private static array $uopz_add_class_fns = [];
 
 	/**
 	 * @after
 	 */
 	public function unset_uopz_returns() {
 		if ( function_exists( 'uopz_set_return' ) ) {
-			foreach ( $this->uopz_set_returns as $f ) {
+			foreach ( self::$uopz_set_returns as $f ) {
 				if ( is_array( $f ) ) {
 					list( $class, $method ) = $f;
 					uopz_unset_return( $class, $method );
@@ -26,7 +30,7 @@ trait With_Uopz {
 		}
 
 		if ( function_exists( 'uopz_redefine' ) ) {
-			foreach ( $this->uopz_redefines as $restore_callback ) {
+			foreach ( self::$uopz_redefines as $restore_callback ) {
 				$restore_callback();
 			}
 		}
@@ -37,13 +41,13 @@ trait With_Uopz {
 	 */
 	public function unset_uopz_properties() {
 		if ( function_exists( 'uopz_set_property' ) ) {
-			foreach ( $this->uopz_set_properties as $definition ) {
+			foreach ( self::$uopz_set_properties as $definition ) {
 				list( $object, $field, $original_value ) = $definition;
 				// Overwrite value with what we stored as the original value.
 				uopz_set_property( $object, $field, $original_value );
 			}
 		}
-		$this->uopz_set_properties = [];
+		self::$uopz_set_properties = [];
 	}
 
 	/**
@@ -65,7 +69,7 @@ trait With_Uopz {
 			$this->markTestSkipped( 'uopz extension is not installed' );
 		}
 		uopz_set_return( $fn, $value, $execute );
-		$this->uopz_set_returns[] = $fn;
+		self::$uopz_set_returns[] = $fn;
 	}
 
 	private function set_const_value( $const, ...$args ) {
@@ -88,7 +92,7 @@ trait With_Uopz {
 				};
 			}
 			uopz_redefine( $const, $args[0] );
-			$this->uopz_redefines[] = $restore_callback;
+			self::$uopz_redefines[] = $restore_callback;
 
 			return;
 		}
@@ -112,7 +116,7 @@ trait With_Uopz {
 			};
 		}
 		uopz_redefine( $const, ...$args );
-		$this->uopz_redefines[] = $restore_callback;
+		self::$uopz_redefines[] = $restore_callback;
 	}
 
 	private function set_class_fn_return( $class, $method, $value, $execute = false ) {
@@ -120,7 +124,7 @@ trait With_Uopz {
 			$this->markTestSkipped( 'uopz extension is not installed' );
 		}
 		uopz_set_return( $class, $method, $value, $execute );
-		$this->uopz_set_returns[] = [ $class, $method ];
+		self::$uopz_set_returns[] = [ $class, $method ];
 	}
 
 	/**
@@ -135,7 +139,7 @@ trait With_Uopz {
 		$original_value = uopz_get_property( $object, $field );
 		uopz_set_property( $object, $field, $value );
 		// Store here to override, i.e. unset, later.
-		$this->uopz_set_properties[] = [ $object, $field, $original_value ];
+		self::$uopz_set_properties[] = [ $object, $field, $original_value ];
 	}
 
 	private function add_class_fn( $class, $function, $handler ) {
@@ -147,7 +151,7 @@ trait With_Uopz {
 			$function,
 			$handler
 		);
-		$this->uopz_add_class_fns[] = [ $class, $function ];
+		self::$uopz_add_class_fns[] = [ $class, $function ];
 	}
 
 	/**
@@ -158,10 +162,10 @@ trait With_Uopz {
 			$this->markTestSkipped( 'uopz extension is not installed' );
 		}
 
-		foreach ( $this->uopz_add_class_fns as $definition ) {
+		foreach ( self::$uopz_add_class_fns as $definition ) {
 			list( $class, $function ) = $definition;
 			uopz_del_function( $class, $function );
 		}
-		$this->uopz_add_class_fns = [];
+		self::$uopz_add_class_fns = [];
 	}
 }
