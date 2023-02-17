@@ -2,6 +2,7 @@
 
 namespace TEC\Common\Compatibility\Pigeon;
 
+use StellarWP\Pigeon\Config\Config;
 use StellarWP\Pigeon\Pigeon;
 
 class Provider extends \tad_DI52_ServiceProvider {
@@ -19,6 +20,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	}
 
 	public function plugins_loaded() {
+		Config::set_hook_prefix('tec');
 		$this->container->make( Pigeon::class )->init( new Container( $this->container ) );
 	}
 }

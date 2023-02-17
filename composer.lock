@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0a13c6021f5f3a2863820adafb97d7f",
+    "content-hash": "0c81a1031c2e8e6fbabf35ab0f39ea8b",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -403,46 +403,28 @@
             "version": "dev-main",
             "dist": {
                 "type": "path",
-                "url": "../Pigeon",
-                "reference": "bd008a0ffe997ce0d94825fe4dc402954cd8c967"
+                "url": "/app/Pigeon",
+                "reference": "2fc3acfa670958eb39139464cb0f5185f6512557"
             },
             "require": {
+                "lucatume/di52": "^2.1",
                 "stellarwp/db": "^1.0",
                 "stellarwp/schema": "^1.1"
             },
             "require-dev": {
                 "bordoni/phpass": "^0.3.6",
-                "brianhenryie/strauss": "^0.13.0",
                 "lucatume/wp-browser": "^3.1",
                 "the-events-calendar/coding-standards": "dev-master",
                 "the-events-calendar/tec-testing-facilities": "dev-master"
             },
             "type": "library",
-            "extra": {
-                "strauss": {
-                    "namespace_prefix": "StellarWP\\Pigeon\\",
-                    "classmap_prefix": "StellarWP_Pigeon_",
-                    "constant_prefix": "STELLARWP_PIGEON_"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "StellarWP\\Pigeon\\": "src/"
                 }
             },
-            "scripts": {
-                "strauss": [
-                    "vendor/bin/strauss"
-                ],
-                "post-install-cmd": [
-                    "@strauss"
-                ],
-                "post-update-cmd": [
-                    "@strauss"
-                ]
-            },
             "transport-options": {
-                "relative": true
+                "relative": false
             }
         },
         {
@@ -6486,5 +6468,5 @@
     "platform-overrides": {
         "php": "7.3.33"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }
