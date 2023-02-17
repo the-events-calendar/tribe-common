@@ -5,7 +5,6 @@
 
 // Don't load directly
 
-use StellarWP\Pigeon\Pigeon;
 use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
 
@@ -196,7 +195,7 @@ class Tribe__Main {
 		require_once $this->plugin_path . 'src/functions/template-tags/post.php';
 
 		Tribe__Debug::instance();
-		Pigeon::init();
+
 		tec_timed_option();
 
 		tribe( 'assets' );
@@ -726,6 +725,9 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Service_Providers\Onboarding::class );
 		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
 		tribe_register_provider( Tribe\Admin\Conditional_Content\Service_Provider::class );
+
+		tribe_register_provider( TEC\Common\Action_Scheduler\Provider::class );
+		tribe_register_provider( TEC\Common\Compatibility\Pigeon\Provider::class );
 	}
 
 	/**

@@ -76,3 +76,7 @@ function tec_should_hide_upsell( $slug = 'all' ) {
 
 	return $verify( $slug, $haystack );
 }
+
+function stellarwp_pigeon_is_enabled() {
+	return class_exists( '\StellarWP\Pigeon\Pigeon' ) && \StellarWP\Pigeon\Pigeon::is_enabled();
+}
