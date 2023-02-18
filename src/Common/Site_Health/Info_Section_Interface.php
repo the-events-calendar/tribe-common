@@ -11,6 +11,10 @@ interface Info_Section_Interface {
 
 	public function get_description(): string;
 
+	public function get_show_count(): bool;
+
+	public function is_private(): bool;
+
 	public function get_fields(): array;
 
 	public function has_field( $key ): bool;

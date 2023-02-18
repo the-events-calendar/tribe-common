@@ -14,6 +14,10 @@ class Info_Section_Abstract implements Info_Section_Interface {
 
 	protected $label;
 
+	protected $show_count = true;
+
+	protected $is_private = false;
+
 	protected $description;
 
 	protected $fields = [];
@@ -26,7 +30,11 @@ class Info_Section_Abstract implements Info_Section_Interface {
 		return [
 			'label'       => $this->get_label(),
 			'description' => $this->get_description(),
-			'fields'      => $this->get_fields(),
+			'private'     => $this->is_private(),
+			'show_count'  => $this->get_show_count(),
+			'fields'      => array_map( static function ( $field ) {
+				return $field->to_array();
+			}, $this->get_fields() ),
 		];
 	}
 
@@ -40,6 +48,12 @@ class Info_Section_Abstract implements Info_Section_Interface {
 
 	public function get_fields(): array {
 		return $this->fields;
+	}
+	public function get_show_count(): bool {
+		return $this->show_count;
+	}
+	public function is_private(): bool {
+		return $this->is_private;
 	}
 
 	public function has_field( $field ): bool {
