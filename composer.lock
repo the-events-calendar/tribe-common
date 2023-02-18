@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b5be29807e2c2de450e876d4bdea91e",
+    "content-hash": "28cae9b8bbb5a34f4cc08268e37a54c3",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -70,32 +70,33 @@
         },
         {
             "name": "lucatume/di52",
-            "version": "2.1.5",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/di52.git",
-                "reference": "591eadfe768d931d3a0d522069c0924d668aa35e"
+                "reference": "6d1e3641d02995c78027a565e8d205d9b6e73eca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/di52/zipball/591eadfe768d931d3a0d522069c0924d668aa35e",
-                "reference": "591eadfe768d931d3a0d522069c0924d668aa35e",
+                "url": "https://api.github.com/repos/lucatume/di52/zipball/6d1e3641d02995c78027a565e8d205d9b6e73eca",
+                "reference": "6d1e3641d02995c78027a565e8d205d9b6e73eca",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.2",
-                "xrstf/composer-php52": "1.*"
+                "ext-json": "*",
+                "php": ">=5.6",
+                "psr/container": "^1.0"
             },
             "require-dev": {
-                "phpunit/phpunit-mock-objects-php52": "dev-1.1.0-php52",
-                "phpunit/phpunit-php52": "dev-3.6.12-php52"
+                "phpunit/phpunit": "*"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "tad_DI52_": [
-                        "src/"
-                    ]
+                "files": [
+                    "aliases.php"
+                ],
+                "psr-4": {
+                    "lucatume\\DI52\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -108,12 +109,12 @@
                     "email": "luca@theaveragedev.com"
                 }
             ],
-            "description": "A PHP 5.2 compatible dependency injection container.",
+            "description": "A PHP 5.6 compatible dependency injection container.",
             "support": {
                 "issues": "https://github.com/lucatume/di52/issues",
-                "source": "https://github.com/lucatume/di52/tree/2.1.5"
+                "source": "https://github.com/lucatume/di52/tree/3.1.1"
             },
-            "time": "2021-12-20T12:52:26+00:00"
+            "time": "2023-02-16T16:19:29+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -198,6 +199,54 @@
             "time": "2018-11-05T09:00:11+00:00"
         },
         {
+            "name": "psr/container",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/container.git",
+                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/8622567409010282b7aeebe4bb841fe98b58dcaf",
+                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Container\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common Container Interface (PHP FIG PSR-11)",
+            "homepage": "https://github.com/php-fig/container",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "container-interface",
+                "container-interop",
+                "psr"
+            ],
+            "support": {
+                "issues": "https://github.com/php-fig/container/issues",
+                "source": "https://github.com/php-fig/container/tree/1.1.1"
+            },
+            "time": "2021-03-05T17:36:06+00:00"
+        },
+        {
             "name": "psr/log",
             "version": "1.1.4",
             "source": {
@@ -249,16 +298,16 @@
         },
         {
             "name": "stellarwp/container-contract",
-            "version": "1.0.4",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/container-contract.git",
-                "reference": "37becc9edbecb0ff95556048337600dd9cc888f0"
+                "reference": "b1568be99b4d2d38446895d31a1c0f3718bf4d36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/container-contract/zipball/37becc9edbecb0ff95556048337600dd9cc888f0",
-                "reference": "37becc9edbecb0ff95556048337600dd9cc888f0",
+                "url": "https://api.github.com/repos/stellarwp/container-contract/zipball/b1568be99b4d2d38446895d31a1c0f3718bf4d36",
+                "reference": "b1568be99b4d2d38446895d31a1c0f3718bf4d36",
                 "shasum": ""
             },
             "require": {
@@ -290,9 +339,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stellarwp/container-contract/issues",
-                "source": "https://github.com/stellarwp/container-contract/tree/1.0.4"
+                "source": "https://github.com/stellarwp/container-contract/tree/1.1.0"
             },
-            "time": "2022-12-20T21:29:17+00:00"
+            "time": "2023-02-13T21:24:31+00:00"
         },
         {
             "name": "stellarwp/db",
@@ -404,54 +453,74 @@
             "time": "2023-01-30T18:33:24+00:00"
         },
         {
-            "name": "xrstf/composer-php52",
-            "version": "v1.0.21",
+            "name": "stellarwp/telemetry",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/composer-php52/composer-php52.git",
-                "reference": "670ac996f93792f8de0427605cfef342b3429ff3"
+                "url": "https://github.com/stellarwp/telemetry.git",
+                "reference": "3a0a1c40e44bc56776f77b23f78bb8ecbb3a8cb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer-php52/composer-php52/zipball/670ac996f93792f8de0427605cfef342b3429ff3",
-                "reference": "670ac996f93792f8de0427605cfef342b3429ff3",
+                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/3a0a1c40e44bc56776f77b23f78bb8ecbb3a8cb4",
+                "reference": "3a0a1c40e44bc56776f77b23f78bb8ecbb3a8cb4",
                 "shasum": ""
             },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-default": "1.x-dev"
-                }
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.1",
+                "stellarwp/container-contract": "^1.0"
             },
+            "require-dev": {
+                "automattic/vipwpcs": "^2.3",
+                "codeception/module-asserts": "^1.0",
+                "codeception/module-cli": "^1.0",
+                "codeception/module-db": "^1.0",
+                "codeception/module-filesystem": "^1.0",
+                "codeception/module-phpbrowser": "^1.0",
+                "codeception/module-webdriver": "^1.0",
+                "codeception/util-universalframework": "^1.0",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+                "lucatume/di52": "3.0.0",
+                "lucatume/wp-browser": "^3.1",
+                "phpcompatibility/phpcompatibility-wp": "*",
+                "szepeviktor/phpstan-wordpress": "^1.1",
+                "the-events-calendar/coding-standards": "dev-master",
+                "wp-coding-standards/wpcs": "^2.3"
+            },
+            "type": "library",
             "autoload": {
-                "psr-0": {
-                    "xrstf\\Composer52": "lib/"
+                "psr-4": {
+                    "StellarWP\\Telemetry\\": "src/Telemetry",
+                    "StellarWP\\Telemetry\\Views_Dir\\": "src/views",
+                    "StellarWP\\Telemetry\\Assets_Dir\\": "src/resources"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "MIT"
+                "GPL-2.0-or-later"
             ],
+            "description": "Telemetry library for StellarWP plugins.",
             "support": {
-                "issues": "https://github.com/composer-php52/composer-php52/issues",
-                "source": "https://github.com/composer-php52/composer-php52"
+                "issues": "https://github.com/stellarwp/telemetry/issues",
+                "source": "https://github.com/stellarwp/telemetry/tree/1.0.5"
             },
-            "time": "2022-06-08T03:23:46+00:00"
+            "time": "2023-02-16T17:29:53+00:00"
         }
     ],
     "packages-dev": [
         {
             "name": "antecedent/patchwork",
-            "version": "2.1.21",
+            "version": "2.1.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antecedent/patchwork.git",
-                "reference": "25c1fa0cd9a6e6d0d13863d8df8f050b6733f16d"
+                "reference": "17314e042d45e0dacb0a494c2d1ef50e7621136a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antecedent/patchwork/zipball/25c1fa0cd9a6e6d0d13863d8df8f050b6733f16d",
-                "reference": "25c1fa0cd9a6e6d0d13863d8df8f050b6733f16d",
+                "url": "https://api.github.com/repos/antecedent/patchwork/zipball/17314e042d45e0dacb0a494c2d1ef50e7621136a",
+                "reference": "17314e042d45e0dacb0a494c2d1ef50e7621136a",
                 "shasum": ""
             },
             "require": {
@@ -484,9 +553,9 @@
             ],
             "support": {
                 "issues": "https://github.com/antecedent/patchwork/issues",
-                "source": "https://github.com/antecedent/patchwork/tree/2.1.21"
+                "source": "https://github.com/antecedent/patchwork/tree/2.1.25"
             },
-            "time": "2022-02-07T07:28:34+00:00"
+            "time": "2023-02-19T12:51:24+00:00"
         },
         {
             "name": "automattic/vipwpcs",
@@ -1845,16 +1914,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "3.1.6",
+            "version": "3.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "5cefdab50d16f69447c48e5a8668d67d4892d6ef"
+                "reference": "7fe42a1e1ce4150c27e18261c91c1262efe8e54c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/5cefdab50d16f69447c48e5a8668d67d4892d6ef",
-                "reference": "5cefdab50d16f69447c48e5a8668d67d4892d6ef",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/7fe42a1e1ce4150c27e18261c91c1262efe8e54c",
+                "reference": "7fe42a1e1ce4150c27e18261c91c1262efe8e54c",
                 "shasum": ""
             },
             "require": {
@@ -1938,7 +2007,7 @@
             ],
             "support": {
                 "issues": "https://github.com/lucatume/wp-browser/issues",
-                "source": "https://github.com/lucatume/wp-browser/tree/3.1.6"
+                "source": "https://github.com/lucatume/wp-browser/tree/3.1.7"
             },
             "funding": [
                 {
@@ -1946,7 +2015,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-04-28T06:45:08+00:00"
+            "time": "2023-02-14T08:36:32+00:00"
         },
         {
             "name": "mikehaertl/php-shellcommand",
@@ -3088,54 +3157,6 @@
             },
             "abandoned": true,
             "time": "2018-08-09T05:50:03+00:00"
-        },
-        {
-            "name": "psr/container",
-            "version": "1.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/container.git",
-                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/container/zipball/8622567409010282b7aeebe4bb841fe98b58dcaf",
-                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Psr\\Container\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "https://www.php-fig.org/"
-                }
-            ],
-            "description": "Common Container Interface (PHP FIG PSR-11)",
-            "homepage": "https://github.com/php-fig/container",
-            "keywords": [
-                "PSR-11",
-                "container",
-                "container-interface",
-                "container-interop",
-                "psr"
-            ],
-            "support": {
-                "issues": "https://github.com/php-fig/container/issues",
-                "source": "https://github.com/php-fig/container/tree/1.1.1"
-            },
-            "time": "2021-03-05T17:36:06+00:00"
         },
         {
             "name": "psr/http-message",

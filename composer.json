@@ -34,12 +34,13 @@
     }
   },
   "require": {
-    "lucatume/di52": "~2.1.5",
     "firebase/php-jwt": "~6.3.0",
+    "lucatume/di52": "^3.1.0",
     "monolog/monolog": "1.24.*",
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
-    "stellarwp/installer": "^1.1.0"
+    "stellarwp/installer": "^1.1.0",
+    "stellarwp/telemetry": "^1.0.4"
   },
   "repositories": [
     {
@@ -93,7 +94,9 @@
       "packages": [
         "stellarwp/container-contract",
         "stellarwp/db",
-        "stellarwp/installer"
+        "stellarwp/installer",
+        "stellarwp/telemetry",
+        "lucatume/di52"
       ],
       "delete_vendor_files": true
     }
