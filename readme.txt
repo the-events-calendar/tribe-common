@@ -1,5 +1,26 @@
 == Changelog ==
 
+= [5.0.10] 2023-02-09 =
+
+* Feature - Add new `get_contrast_color` and `get_contrast_ratio` methods to the color utility for determining contrasting colors. [ET-1551]
+* Feature - Add the stellarwp/db library and configure it.
+* Feature - Add the stellarwp/installer library and bootstrap it.
+* Fix - Set max width to image in image setting field. [ET-1597]
+* Fix - Added safeguard against the `rewrite_rules_array` filter being passed non-array values, avoids fatal. [TEC-4679]
+* Tweak - Added filters: `tec_disable_logging`
+* Language - 0 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.0.9] 2023-01-26 =
+
+* Feature - Add Event Automator to Add-ons and Help page. [TEC-4660]
+* Language - 7 new strings added, 140 updated, 1 fuzzied, and 2 obsoleted.
+
+= [5.0.8] 2023-01-19 =
+
+* Fix - Correct handling of translated slugs in rewrite context. [TEC-3733]
+* Fix - Handle the case where rewrite rules map to arrays avoiding fatal errors. [TEC-4567]
+* Tweak - Allow disabling the Logger by setting the `TEC_DISABLE_LOGGING` constant or environment variable to truthy value or by means of the `tec_disable_logging` filter. [n/a]
+
 = [5.0.7] 2023-01-16 =
 
 * Tweak - Added a dashboard notice for sites running PHP versions lower than 7.4 to alert them that the minimum version of PHP is changing to 7.4 in February 2023.

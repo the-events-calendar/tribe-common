@@ -5,6 +5,8 @@
 
 // Don't load directly
 
+use TEC\Common\Libraries;
+use TEC\Common\Translations_Loader;
 use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
 
@@ -21,7 +23,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '5.0.7';
+	const VERSION             = '5.0.10';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -70,6 +72,7 @@ class Tribe__Main {
 		}
 
 		require_once realpath( dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/autoload.php' );
+		require_once realpath( dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/vendor-prefixed/autoload.php' );
 
 		// the DI container class
 		require_once dirname( __FILE__ ) . '/Container.php';
@@ -353,7 +356,7 @@ class Tribe__Main {
 	public function hook_load_text_domain() {
 		$loaded = $this->load_text_domain(
 			'tribe-common',
-			basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/'
+				basename( dirname( __FILE__, 4 ) ) . '/common/lang/'
 		);
 
 		/**
@@ -436,6 +439,8 @@ class Tribe__Main {
 		// Register for the assets to be available everywhere
 		add_action( 'tribe_common_loaded', [ $this, 'load_assets' ], 1 );
 		add_action( 'init', [ $this, 'hook_load_text_domain' ] );
+		add_action( 'switch_locale', [ $this, 'hook_load_text_domain' ] );
+		add_action( 'restore_previous_locale', [ $this, 'hook_load_text_domain' ] );
 		add_action( 'init', [ $this, 'load_localize_data' ] );
 		add_action( 'plugins_loaded', [ 'Tribe__Admin__Notices', 'instance' ], 1 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'store_admin_notices' ] );
@@ -710,6 +715,7 @@ class Tribe__Main {
 		tribe_singleton( Tribe__Admin__Help_Page::class, Tribe__Admin__Help_Page::class, [ 'hook' ] );
 		tribe_singleton( 'admin.pages', '\Tribe\Admin\Pages' );
 		tribe_singleton( 'admin.activation.page', 'Tribe__Admin__Activation_Page' );
+		tribe_singleton( Translations_Loader::class, Translations_Loader::class );
 
 		tribe_register_provider( Tribe__Editor__Provider::class );
 		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
@@ -725,9 +731,9 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Service_Providers\Onboarding::class );
 		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
 		tribe_register_provider( Tribe\Admin\Conditional_Content\Service_Provider::class );
-
 		tribe_register_provider( TEC\Common\Action_Scheduler\Provider::class );
 		tribe_register_provider( TEC\Common\Compatibility\Pigeon\Provider::class );
+		tribe_register_provider( Libraries\Provider::class );
 	}
 
 	/**

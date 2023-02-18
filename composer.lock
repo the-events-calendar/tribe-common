@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c81a1031c2e8e6fbabf35ab0f39ea8b",
+    "content-hash": "084edbcc2721eed4eb955471cd3244c9",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -297,16 +297,16 @@
         },
         {
             "name": "stellarwp/container-contract",
-            "version": "1.0.4",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/container-contract.git",
-                "reference": "37becc9edbecb0ff95556048337600dd9cc888f0"
+                "reference": "b1568be99b4d2d38446895d31a1c0f3718bf4d36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/container-contract/zipball/37becc9edbecb0ff95556048337600dd9cc888f0",
-                "reference": "37becc9edbecb0ff95556048337600dd9cc888f0",
+                "url": "https://api.github.com/repos/stellarwp/container-contract/zipball/b1568be99b4d2d38446895d31a1c0f3718bf4d36",
+                "reference": "b1568be99b4d2d38446895d31a1c0f3718bf4d36",
                 "shasum": ""
             },
             "require": {
@@ -338,9 +338,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stellarwp/container-contract/issues",
-                "source": "https://github.com/stellarwp/container-contract/tree/1.0.4"
+                "source": "https://github.com/stellarwp/container-contract/tree/1.1.0"
             },
-            "time": "2022-12-20T21:29:17+00:00"
+            "time": "2023-02-13T21:24:31+00:00"
         },
         {
             "name": "stellarwp/db",
@@ -399,20 +399,77 @@
             "time": "2022-11-22T21:32:56+00:00"
         },
         {
+            "name": "stellarwp/installer",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stellarwp/installer.git",
+                "reference": "13e800c750dbdab561ad6d67b768938fa4fee8a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stellarwp/installer/zipball/13e800c750dbdab561ad6d67b768938fa4fee8a4",
+                "reference": "13e800c750dbdab561ad6d67b768938fa4fee8a4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "automattic/vipwpcs": "^2.3",
+                "codeception/module-asserts": "^1.0",
+                "codeception/module-cli": "^1.0",
+                "codeception/module-db": "^1.0",
+                "codeception/module-filesystem": "^1.0",
+                "codeception/module-phpbrowser": "^1.0",
+                "codeception/module-webdriver": "^1.0",
+                "codeception/util-universalframework": "^1.0",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+                "lucatume/wp-browser": "^3.1",
+                "phpcompatibility/phpcompatibility-wp": "*",
+                "szepeviktor/phpstan-wordpress": "^1.1",
+                "the-events-calendar/coding-standards": "dev-master",
+                "wp-coding-standards/wpcs": "^2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "StellarWP\\Installer\\": "src/Installer",
+                    "StellarWP\\Installer\\Assets_JS\\": "src/assets/js",
+                    "StellarWP\\Installer\\Admin_Views\\": "src/admin-views"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "description": "StellarWP plugin install/activation library.",
+            "support": {
+                "issues": "https://github.com/stellarwp/installer/issues",
+                "source": "https://github.com/stellarwp/installer/tree/1.1.0"
+            },
+            "time": "2023-01-30T18:33:24+00:00"
+        },
+        {
             "name": "stellarwp/pigeon",
             "version": "dev-main",
             "dist": {
                 "type": "path",
-                "url": "/app/Pigeon",
-                "reference": "2fc3acfa670958eb39139464cb0f5185f6512557"
+                "url": "/Users/ricardo/tec/localdev/Pigeon",
+                "reference": "4d4444bf38415bc6ca2384f2d306d6e2d981dbd8"
             },
             "require": {
                 "lucatume/di52": "^2.1",
                 "stellarwp/db": "^1.0",
-                "stellarwp/schema": "^1.1"
+                "stellarwp/schema": "^1.1",
+                "woocommerce/action-scheduler": "^3.5"
             },
             "require-dev": {
                 "bordoni/phpass": "^0.3.6",
+                "codeception/module-asserts": "*",
+                "codeception/module-db": "*",
+                "codeception/module-phpbrowser": "*",
                 "lucatume/wp-browser": "^3.1",
                 "the-events-calendar/coding-standards": "dev-master",
                 "the-events-calendar/tec-testing-facilities": "dev-master"
@@ -565,16 +622,16 @@
     "packages-dev": [
         {
             "name": "antecedent/patchwork",
-            "version": "2.1.21",
+            "version": "2.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antecedent/patchwork.git",
-                "reference": "25c1fa0cd9a6e6d0d13863d8df8f050b6733f16d"
+                "reference": "56f6c993734c780844e73e8ad052bc6d2a74a8c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antecedent/patchwork/zipball/25c1fa0cd9a6e6d0d13863d8df8f050b6733f16d",
-                "reference": "25c1fa0cd9a6e6d0d13863d8df8f050b6733f16d",
+                "url": "https://api.github.com/repos/antecedent/patchwork/zipball/56f6c993734c780844e73e8ad052bc6d2a74a8c8",
+                "reference": "56f6c993734c780844e73e8ad052bc6d2a74a8c8",
                 "shasum": ""
             },
             "require": {
@@ -607,9 +664,9 @@
             ],
             "support": {
                 "issues": "https://github.com/antecedent/patchwork/issues",
-                "source": "https://github.com/antecedent/patchwork/tree/2.1.21"
+                "source": "https://github.com/antecedent/patchwork/tree/2.1.23"
             },
-            "time": "2022-02-07T07:28:34+00:00"
+            "time": "2023-02-18T11:49:55+00:00"
         },
         {
             "name": "automattic/vipwpcs",
@@ -1968,16 +2025,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "3.1.6",
+            "version": "3.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "5cefdab50d16f69447c48e5a8668d67d4892d6ef"
+                "reference": "7fe42a1e1ce4150c27e18261c91c1262efe8e54c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/5cefdab50d16f69447c48e5a8668d67d4892d6ef",
-                "reference": "5cefdab50d16f69447c48e5a8668d67d4892d6ef",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/7fe42a1e1ce4150c27e18261c91c1262efe8e54c",
+                "reference": "7fe42a1e1ce4150c27e18261c91c1262efe8e54c",
                 "shasum": ""
             },
             "require": {
@@ -2061,7 +2118,7 @@
             ],
             "support": {
                 "issues": "https://github.com/lucatume/wp-browser/issues",
-                "source": "https://github.com/lucatume/wp-browser/tree/3.1.6"
+                "source": "https://github.com/lucatume/wp-browser/tree/3.1.7"
             },
             "funding": [
                 {
@@ -2069,7 +2126,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-04-28T06:45:08+00:00"
+            "time": "2023-02-14T08:36:32+00:00"
         },
         {
             "name": "mikehaertl/php-shellcommand",
@@ -6468,5 +6525,5 @@
     "platform-overrides": {
         "php": "7.3.33"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
