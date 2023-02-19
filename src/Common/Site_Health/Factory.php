@@ -63,6 +63,15 @@ class Factory {
 		return 'wp-media';
 	}
 
+	/**
+	 * Filters the actual site health data to include our sections.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $info
+	 *
+	 * @return array
+	 */
 	public function filter_include_info_sections( array $info = [] ) {
 		$sections = [];
 		foreach ( $this->get_sections() as $key => $section ) {

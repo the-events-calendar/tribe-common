@@ -79,7 +79,9 @@ interface Info_Field_Interface {
 	 *
 	 * @since TBD
 	 *
+	 * @param null|Info_Section_Abstract $section
+	 *
 	 * @return array
 	 */
-	public function to_array(): array;
+	public function to_array( Info_Section_Abstract $section ): array;
 }

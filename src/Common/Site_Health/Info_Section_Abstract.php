@@ -7,13 +7,13 @@ use TEC\Common\Site_Health\Fields\Generic_Info_Field;
 /**
  * Class Abstract_Info_Section
  *
- * @link https://developer.wordpress.org/reference/hooks/debug_information/
+ * @link    https://developer.wordpress.org/reference/hooks/debug_information/
  *
  * @since   TBD
  *
  * @package TEC\Common\Site_Health
  */
-class Info_Section_Abstract implements Info_Section_Interface {
+abstract class Info_Section_Abstract implements Info_Section_Interface {
 	/**
 	 * Slug for the section.
 	 *
@@ -81,7 +81,7 @@ class Info_Section_Abstract implements Info_Section_Interface {
 	public function to_array(): array {
 		$fields = [];
 		foreach ( $this->get_fields() as $key => $field ) {
-			$fields[ $key ] = $field->to_array();
+			$fields[ $key ] = $field->to_array( $this );
 		}
 
 		return [
@@ -194,9 +194,8 @@ class Info_Section_Abstract implements Info_Section_Interface {
 		 *
 		 * @since TBD
 		 *
-		 * @param mixed $value Value of the field.
-		 *
-		 * @poram Info_Section_Abstract $section Current Section.
+		 * @param mixed                 $value   Value of the field.
+		 * @param Info_Section_Abstract $section Current Section.
 		 */
 		$value = apply_filters( "tec_debug_info_section_get_{$param}", $value, $this );
 
@@ -205,9 +204,8 @@ class Info_Section_Abstract implements Info_Section_Interface {
 		 *
 		 * @since TBD
 		 *
-		 * @param mixed $value Value of the field.
-		 *
-		 * @poram Info_Section_Abstract $section Current Section.
+		 * @param mixed                 $value   Value of the field.
+		 * @param Info_Section_Abstract $section Current Section.
 		 */
 		return apply_filters( "tec_debug_info_section_{$section_slug}_get_{$param}", $value, $this );
 	}
