@@ -1,10 +1,10 @@
 <?php
 
-namespace TEC\Common\Compatibility\Pigeon;
+namespace TEC\Common\Libraries\Pigeon;
 
 use StellarWP\ContainerContract\ContainerInterface;
 use StellarWP\Pigeon\Pigeon;
-use \tad_DI52_Container as DI52Container;
+use tad_DI52_Container as DI52Container;
 
 class Container extends DI52Container implements ContainerInterface {
 	/**

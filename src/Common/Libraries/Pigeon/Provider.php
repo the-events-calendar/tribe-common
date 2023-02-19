@@ -1,8 +1,8 @@
 <?php
 
-namespace TEC\Common\Compatibility\Pigeon;
+namespace TEC\Common\Libraries\Pigeon;
 
-use StellarWP\Pigeon\Config\Config;
+use StellarWP\Pigeon\Config;
 use StellarWP\Pigeon\Pigeon;
 
 class Provider extends \tad_DI52_ServiceProvider {

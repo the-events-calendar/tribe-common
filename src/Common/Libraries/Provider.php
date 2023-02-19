@@ -22,7 +22,9 @@ class Provider extends \tad_DI52_ServiceProvider {
 	public function register() {
 		$this->container->singleton( static::class, $this );
 
+		tribe_register_provider( Action_Scheduler\Provider::class );
 		tribe_register_provider( Installer\Provider::class );
+		tribe_register_provider( Pigeon\Provider::class );
 
 		DB\Config::setHookPrefix( $this->get_hook_prefix() );
 	}

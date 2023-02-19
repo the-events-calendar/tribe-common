@@ -1,12 +1,10 @@
 <?php
 
-namespace TEC\Common\Action_Scheduler;
+namespace TEC\Common\Libraries\Action_Scheduler;
 
 class Provider extends \tad_DI52_ServiceProvider {
 
 	public function register() {
-		$this->container->singleton( Provider::class );
-
 		$this->hooks();
 	}
 
