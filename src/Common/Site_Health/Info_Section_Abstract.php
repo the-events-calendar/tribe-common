@@ -7,6 +7,8 @@ use TEC\Common\Site_Health\Fields\Generic_Info_Field;
 /**
  * Class Abstract_Info_Section
  *
+ * @link https://developer.wordpress.org/reference/hooks/debug_information/
+ *
  * @since   TBD
  *
  * @package TEC\Common\Site_Health

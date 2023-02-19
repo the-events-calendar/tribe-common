@@ -2,6 +2,15 @@
 
 namespace TEC\Common\Site_Health;
 
+/**
+ * Interface for Site Health Info Section.
+ *
+ * @link https://developer.wordpress.org/reference/hooks/debug_information/
+ *
+ * @since TBD
+ *
+ * @package TEC\Common\Site_Health
+ */
 interface Info_Section_Interface {
 	/**
 	 * Static way of fetching the slug of this section.

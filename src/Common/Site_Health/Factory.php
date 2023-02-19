@@ -7,6 +7,8 @@ use Tribe__Main;
 /**
  * Class Factory
  *
+ * @link https://developer.wordpress.org/reference/hooks/debug_information/
+ *
  * @since   TBD
  *
  * @package TEC\Common\Site_Health
