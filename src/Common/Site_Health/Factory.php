@@ -7,17 +7,29 @@ use Tribe__Main;
 /**
  * Class Factory
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Common\Site_Health
  */
 class Factory {
-	public function generate_generic_field( string $id, string $label, ?string $value, int $priority = 50 ): ?Info_Field_Abstract {
-		return Generic_Info_Field::from_args( $id, $label, $value, $priority );
+	/**
+	 * Generates a Generic field from a set of arguments.
+	 *
+	 * @since TBD
+	 *
+	 * @param string      $id
+	 * @param string      $label
+	 * @param string|null $value
+	 * @param int         $priority (optional) By default all fields are generated with priority 50.
+	 *
+	 * @return Info_Field_Abstract
+	 */
+	public function generate_generic_field( string $id, string $label, ?string $value, int $priority = 50 ): Info_Field_Abstract {
+		return Fields\Generic_Info_Field::from_args( $id, $label, $value, $priority );
 	}
 
 	/**
-	 *
+	 * Gets all registered sections.
 	 *
 	 * @since TBD
 	 *
@@ -33,19 +45,27 @@ class Factory {
 		 */
 		$sections = (array) apply_filters( 'tec_debug_info_sections', [] );
 
-		return array_filter( $sections, static function( $section ) {
+		return array_filter( $sections, static function ( $section ) {
 			return $section instanceof Info_Section_Abstract;
 		} );
 	}
 
-	protected function get_insert_after_section_key() {
+	/**
+	 * Gets the section that we will insert all the sections registered by the factory.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	protected function get_insert_after_section_key(): string {
 		return 'wp-media';
 	}
 
 	public function filter_include_info_sections( array $info = [] ) {
-		$sections = array_map( static function( Info_Section_Abstract $section ) {
-			return $section->to_array();
-		}, $this->get_sections() );
+		$sections = [];
+		foreach ( $this->get_sections() as $key => $section ) {
+			$sections[ $key ] = $section->to_array();
+		}
 
 		$info = Tribe__Main::array_insert_after_key( $this->get_insert_after_section_key(), $info, $sections );
 
