@@ -1,43 +1,50 @@
 <?php
-/**
- * Service Provider for Site Health.
- *
- * @since   TBD
- *
- * @package TEC\Common\Site_Health
- */
 
 namespace TEC\Common\Site_Health;
 
-use tad_DI52_ServiceProvider as Service_Provider;
+use \tad_DI52_ServiceProvider;
 
 /**
  * Class Provider
  *
  * @since   TBD
-
+ *
  * @package TEC\Common\Site_Health
+ *
  */
-class Provider extends Service_Provider {
-
+class Provider extends tad_DI52_ServiceProvider {
 	/**
-	 * Registers the handlers and modifiers for notifying the site
-	 * that Legacy views are removed.
+	 * Register the functionality related to this module.
 	 *
-	 * @since 5.13.0
+	 * @since TBD
+	 *
+	 * @return void
 	 */
 	public function register() {
-		$this->add_actions();
 		$this->add_filters();
 	}
 
-	public function add_actions() {}
-
-	public function add_filters() {
-		add_filter( 'debug_information', [ $this, 'filter_debug_information' ] );
+	/**
+	 * Include the filters related to this module.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function add_filters(): void {
+		add_filter( 'debug_information', [ $this, 'filter_include_info_section' ] );
 	}
 
-	public function filter_debug_information( $info ) {
-		return $this->container->make( Site_Health::class )->add_data( $info );
+	/**
+	 * Includes the info sections controlled by Common.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $info Current set of info sections.
+	 *
+	 * @return array
+	 */
+	public function filter_include_info_section( $info ): array {
+		return $this->container->make( Factory::class )->filter_include_info_sections( (array) $info );
 	}
 }
