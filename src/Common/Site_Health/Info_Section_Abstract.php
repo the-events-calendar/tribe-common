@@ -211,13 +211,13 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 	}
 
 	/**
-	 * Sorts the fields stored on this section, will retain keys.
+	 * Sorts the fields stored on this section in-place by priority. Will retain keys.
 	 *
 	 * @since TBD
 	 *
 	 * @return void
 	 */
-	protected function sort_fields(): void {
+	protected function sort_fields_by_priority(): void {
 		uasort( $this->fields, static function ( $field_a, $field_b ) {
 			$a = $field_a->get_priority();
 			$b = $field_b->get_priority();
