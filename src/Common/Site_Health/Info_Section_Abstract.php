@@ -172,7 +172,7 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 
 		$this->fields[ $field->get_id() ] = $field;
 
-		$this->sort_fields();
+		$this->sort_fields_by_priority();
 
 		return true;
 	}
