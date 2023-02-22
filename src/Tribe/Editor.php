@@ -35,6 +35,11 @@ class Tribe__Editor {
 	public function should_load_blocks() {
 		$should_load_blocks = (boolean) $this->are_blocks_enabled();
 
+		// Run only on event.
+		if ( function_exists( 'tribe_is_event' ) && ! tribe_is_event() ) {
+			return $should_load_blocks;
+		}
+
 		/**
 		 * Filters whether the Blocks Editor should be activated or not for events.
 		 *
