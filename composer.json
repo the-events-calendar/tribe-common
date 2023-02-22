@@ -39,7 +39,7 @@
     "monolog/monolog": "1.24.*",
     "woocommerce/action-scheduler": "^3.5",
     "stellarwp/pigeon": "dev-main",
-    "stellarwp/container-contract": "^1.0.4",
+    "stellarwp/container-contract": "^1.1",
     "stellarwp/db": "^1.0.3",
     "stellarwp/installer": "^1.1.0"
   },
@@ -59,7 +59,7 @@
     {
      "name": "stellarwp/pigeon",
       "type": "path",
-      "url": "/Users/ricardo/tec/localdev/Pigeon"
+      "url": "/app/Pigeon"
     }
   ],
   "scripts": {
@@ -102,7 +102,7 @@
         "stellarwp/db",
         "stellarwp/installer"
       ],
-      "delete_vendor_files": true
+      "delete_vendor_files": false
     }
   }
 }

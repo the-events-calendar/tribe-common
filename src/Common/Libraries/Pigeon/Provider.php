@@ -10,8 +10,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	protected $pigeon;
 
 	public function register() {
-		$this->container->singleton( Provider::class );
-
+		$this->container->singleton( static::class );
 		$this->hooks();
 	}
 
