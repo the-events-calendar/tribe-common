@@ -71,8 +71,9 @@ class Tribe__Main {
 			return;
 		}
 
-		require_once realpath( dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/autoload.php' );
-		require_once realpath( dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/vendor-prefixed/autoload.php' );
+		$vendor_folder = dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/';
+		require_once realpath( $vendor_folder . 'autoload.php' );
+		require_once realpath( $vendor_folder . 'vendor-prefixed/autoload.php' );
 
 		// the DI container class
 		require_once dirname( __FILE__ ) . '/Container.php';
