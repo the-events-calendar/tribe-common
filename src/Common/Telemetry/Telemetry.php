@@ -50,7 +50,6 @@ class Telemetry {
 	private $optin_args = [];
 
 	function init() {
-		static::$plugin_slug = 'tec-common';
 		/**
 		 * Configure the container.
 		 *
@@ -74,7 +73,31 @@ class Telemetry {
 		Config::set_stellar_slug( static::$plugin_slug );
 
 		// Initialize the library.
-		Core::instance()->init( __FILE__ );
+		$path = \Tribe__Main::instance()->plugin_path . 'tribe-common.php';
+		error_log($path);
+		Core::instance()->init( \Tribe__Main::instance()->plugin_path . 'tribe-common.php' );
+	}
+
+	public function filter_optin_args( $args ) {
+		$user_name   = esc_html( wp_get_current_user()->display_name );
+
+		$this->optin_args = [
+			'plugin_logo'           => tribe_resource_url( 'images/logo/tec-brand.svg', false, null, \Tribe__Main::instance() ),
+			'plugin_logo_width'     => 'auto',
+			'plugin_logo_height'    => 42,
+			'plugin_logo_alt'       => 'The Events Calendar Logo',
+			'plugin_name'           => 'The Events Calendar',
+			'plugin_slug'           => static::$plugin_slug,
+			'user_name'             => $user_name,
+			'permissions_url'       => '#',
+			'tos_url'               => '#',
+			'privacy_url'           => '#',
+			'opted_in_plugins_text' => __( 'See which plugins you have opted in to tracking for', 'the-events-calendar' ),
+			'heading'               => __( 'We hope you love The Events Calendar.', 'the-events-calendar' ),
+			'intro'                 => __( "Hi, {$user_name}! This is an invitation to help our StellarWP community. If you opt-in, some data about your usage of The Events Calendar and future StellarWP Products will be shared with our teams (so they can work their butts off to improve). We will also share some helpful info on WordPress, and our products from time to time. And if you skip this, that’s okay! Our products still work just fine.", 'the-events-calendar' ),
+		];
+
+		return array_merge( $args, $this->optin_args );
 	}
 
 	/**
@@ -85,31 +108,7 @@ class Telemetry {
 	 * @return void
 	 */
 	public function do_optin_modal() {
-		$user_name   = esc_html( wp_get_current_user()->display_name );
 		$plugin_slug = static::$plugin_slug;
-
-		$this->optin_args = [
-			'plugin_logo'           => tribe_resource_url( 'images/logos/tec-brand.svg', false, null, \Tribe__Main::instance() ),
-			'plugin_logo_width'     => 151,
-			'plugin_logo_height'    => 32,
-			'plugin_logo_alt'       => 'The Events Calendar Logo',
-			'plugin_name'           => 'The Events Calendar',
-			'plugin_slug'           => $plugin_slug,
-			'user_name'             => $user_name,
-			'permissions_url'       => '#',
-			'tos_url'               => '#',
-			'privacy_url'           => '#',
-			'opted_in_plugins_text' => __( 'See which plugins you have opted in to tracking for', 'the-events-calendar' ),
-			'heading'               => __( 'We hope you love The Events Calendar.', 'the-events-calendar' ),
-			'intro'                 => __( "Hi, {$user_name}! This is an invitation to help our StellarWP community. If you opt-in, some data about your usage of The Events Calendar and future StellarWP Products will be shared with our teams (so they can work their butts off to improve). We will also share some helpful info on WordPress, and our products from time to time. And if you skip this, that’s okay! Our products still work just fine.", 'the-events-calendar' ),
-		];
-
-		add_filter(
-			"stellarwp/telemetry/{$plugin_slug}/optin_args",
-			function( $args ) {
-				return array_merge( $args, $this->optin_args );
-			}
-		);
 
 		do_action( "stellarwp/telemetry/{$plugin_slug}/optin" );
 	}

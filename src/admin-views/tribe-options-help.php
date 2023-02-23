@@ -5,6 +5,8 @@ $help = tribe( Tribe__Admin__Help_Page::class );
 // Fetch plugins
 $plugins = $help->get_plugins( null, false );
 
+do_action( 'stellarwp/telemetry/tec-common/optin' );
+
 // Creates the Feature Box section
 $help->add_section( 'feature-box', null, 0, 'box' );
 $help->add_section_content( 'feature-box', '<img src="' . esc_url( plugins_url( 'resources/images/logo/tec-brand.svg', dirname( __FILE__ ) ) ) . '" alt="The Events Calendar" title="The Events Calendar">' );

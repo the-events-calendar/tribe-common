@@ -41,7 +41,12 @@ class Provider extends ServiceProvider {
 
 	}
 
-	public function add_filters() {}
+	public function add_filters() {
+		/* @var Telemetry::plugin_slug $telemetry_slug */
+		$telemetry_slug = Telemetry::$plugin_slug;
+
+		add_filter( "stellarwp/telemetry/{$telemetry_slug}/optin_args", [ $this, 'filter_optin_args' ] );
+	}
 
 	public function initialize_telemetry() {
 		$this->container->make( Telemetry::class )->init();
@@ -57,5 +62,9 @@ class Provider extends ServiceProvider {
 
 	public function do_optin_modal() {
 		$this->container->make( Telemetry::class )->do_optin_modal();
+	}
+
+	public function filter_optin_args( $args ) {
+		return $this->container->make( Telemetry::class )->filter_optin_args( $args );
 	}
 }

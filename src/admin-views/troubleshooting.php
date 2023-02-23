@@ -1,4 +1,5 @@
 <?php
+	do_action( 'stellarwp/telemetry/tec-common/optin' );
 	// admin notice
 	include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/notice.php';
 	// intro
@@ -25,9 +26,9 @@
 
 <?php // this is inline jQuery / javascript for extra simplicity */ ?>
 <script>
-	if ( 
+	if (
 		jQuery( '.tribe-events-admin__issues-found-card .tribe-events-admin__issues-found-title' )
-			.hasClass( 'active' ) 
+			.hasClass( 'active' )
 	) {
 		jQuery( '.tribe-events-admin__issues-found-card .tribe-events-admin__issues-found-card-title.active' )
 			.closest( '.tribe-events-admin__issues-found-card' )
