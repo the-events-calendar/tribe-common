@@ -30,7 +30,7 @@
       "php": "7.3.33"
     },
     "allow-plugins": {
-      "dealerdirect/phpcodesniffer-composer-installer": false
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   },
   "require": {
