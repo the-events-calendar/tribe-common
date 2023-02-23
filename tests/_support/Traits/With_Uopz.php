@@ -66,7 +66,7 @@ trait With_Uopz {
 	public function unset_uopz_functions() {
 		if ( function_exists( 'uopz_del_function' ) ) {
 			foreach ( self::$uopz_del_functions as $function ) {
-				uopz_del_function($function);
+				uopz_del_function( $function );
 			}
 		}
 
