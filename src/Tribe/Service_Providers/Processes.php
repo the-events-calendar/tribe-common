@@ -1,5 +1,7 @@
 <?php
 
+use TEC\Common\lucatume\DI52\ServiceProvider;
+
 /**
  * Class Tribe__Service_Providers__Processes
  *
@@ -7,7 +9,7 @@
  *
  * Handles the registration and creation of our async process handlers.
  */
-class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
+class Tribe__Service_Providers__Processes extends ServiceProvider {
 
 	/**
 	 * An array of all handler actions registered in this HTTP request.

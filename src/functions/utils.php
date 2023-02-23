@@ -738,7 +738,7 @@ if ( ! function_exists( 'tribe_get_class_instance' ) ) {
 	 *
 	 * @since 4.10.0
 	 *
-	 * @see   \tad_DI52_Container::isBound()
+	 * @see   \TEC\Common\lucatume\DI52\Builders\ValueBuilder\App::isBound()
 	 * @see   \tribe()
 	 *
 	 * @param string|object $class The plugin class' singleton name, class name, or instance.

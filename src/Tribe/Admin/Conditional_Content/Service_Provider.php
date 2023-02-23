@@ -8,12 +8,14 @@
 
 namespace Tribe\Admin\Conditional_Content;
 
+use TEC\Common\lucatume\DI52\ServiceProvider;
+
 /**
  * Conditional Content Provider.
  *
  * @since 4.14.7
  */
-class Service_Provider extends \tad_DI52_ServiceProvider {
+class Service_Provider extends ServiceProvider {
 
 	/**
 	 * Registers the required objects and filters.

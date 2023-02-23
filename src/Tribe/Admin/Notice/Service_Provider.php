@@ -9,6 +9,8 @@
 
 namespace Tribe\Admin\Notice;
 
+use TEC\Common\lucatume\DI52\ServiceProvider;
+
 /**
  * Class Notice
  *
@@ -16,7 +18,7 @@ namespace Tribe\Admin\Notice;
  *
  * @package Tribe\Admin\Notice
  */
-class Service_Provider extends \tad_DI52_ServiceProvider {
+class Service_Provider extends ServiceProvider {
 
 	/**
 	 * Registers the objects and filters required by the provider to manage admin notices.

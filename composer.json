@@ -60,18 +60,15 @@
     "strauss": [
       "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.13.0/strauss.phar",
       "vendor/stellarwp/installer/bin/set-domain domain=tribe-common",
-      "@php bin/strauss.phar"
+      "@php bin/strauss.phar",
+      "echo \"<?php\" > vendor/lucatume/di52/aliases.php",
+      "echo \"<?php\" > vendor/vendor-prefixed/lucatume/di52/aliases.php"
     ],
     "post-install-cmd": [
-      "@strauss",
-      "xrstf\\Composer52\\Generator::onPostInstallCmd"
+      "@strauss"
     ],
     "post-update-cmd": [
-      "@strauss",
-      "xrstf\\Composer52\\Generator::onPostInstallCmd"
-    ],
-    "post-autoload-dump": [
-      "xrstf\\Composer52\\Generator::onPostInstallCmd"
+      "@strauss"
     ]
   },
   "autoload": {

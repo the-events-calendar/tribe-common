@@ -13,7 +13,6 @@ use TEC\Common\StellarWP\Telemetry\Config;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Subscriber;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
 use TEC\Common\Container;
-use TEC\Common\Site_Health\Site_Health;
 
 /**
  * Class Telemetry
@@ -51,7 +50,7 @@ class Telemetry {
 	private $optin_args = [];
 
 	function init() {
-		static::$plugin_slug = Site_Health::$slug;
+		static::$plugin_slug = 'tec-common';
 		/**
 		 * Configure the container.
 		 *
