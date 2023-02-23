@@ -138,7 +138,7 @@ class Telemetry {
 	 * than 10 to make sure you're setting the status after it initializes the option in the options table.
 	 */
 	function migrate_existing_opt_in() {
-		$user_has_opted_in_already = false; // For now.
+		$user_has_opted_in_already = get_option( 'fs_accounts' ); // For now.
 
 		if ( $user_has_opted_in_already ) {
 			// Get the Opt_In_Subscriber object.
