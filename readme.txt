@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - Added new toggle field for settings in the admin area. [ET-1564]
+
 = [5.0.11] 2023-02-22 =
 
 * Tweak - PHP version compatibility bumped to PHP 7.4
