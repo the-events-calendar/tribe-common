@@ -38,4 +38,49 @@
 			padding: 0 var(--tec-spacer-2);
 		}
 	}
+
+	.tec-admin__settings-toggle-field-span {
+		background: var(--tec-color-text-disabled);
+		border-radius: 16px;
+		display: inline-block;
+		height: 18px;
+		position: relative;
+		transition: background 0.4s;
+		vertical-align: middle;
+		width: 36px;
+		z-index: 10;
+
+		&:after,
+		&:before {
+			content: "";
+		}
+
+		&:before {
+			background: #c4c4c4;
+			border-radius: 50%;
+			display: block;
+			height: 12px;
+			left: 3px;
+			position: absolute;
+			top: 3px;
+			transition: left 0.4s;
+			width: 12px;
+		}
+	}
+
+	.tec-admin__settings-toggle-field-input {
+		height: 18px;
+		opacity: 0;
+		position: absolute;
+		width: 36px;
+		z-index: 20;
+
+		&:checked + .tec-admin__settings-toggle-field-span {
+			background: #2271b1;
+		}
+
+		&:checked + .tec-admin__settings-toggle-field-span:before {
+			left: 21px;
+		}
+	}
 }
