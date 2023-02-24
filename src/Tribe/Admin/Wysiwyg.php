@@ -38,7 +38,7 @@ class Wysiwyg {
 	protected $args = [];
 
 	/**
-	 * Create a new Wywiwyg object.
+	 * Create a new Wysiwyg object.
 	 *
 	 * @since TBD
 	 * 
