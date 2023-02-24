@@ -29,10 +29,10 @@ class Tribe__Events__Aggregator_Mocker__Cleaner
 				continue;
 			}
 
-			if ( $trigger !== 'ea_mocker-clean-all' ) {
-				$post_types = (array) filter_var( $_POST[ $trigger ], FILTER_SANITIZE_STRING );
+			if ( $trigger === 'ea_mocker-clean-all' ) {
+				$post_types = [ 'tribe_events', 'tribe-ea-record', 'tribe_venue', 'tribe_organizer' ];
 			} else {
-				$post_types = array( 'tribe_events', 'tribe-ea-record', 'tribe_venue', 'tribe_organizer' );
+				$post_types = (array) htmlspecialchars( $_POST[ $trigger ], ENT_QUOTES );
 			}
 
 			if ( empty( $post_types ) ) {
