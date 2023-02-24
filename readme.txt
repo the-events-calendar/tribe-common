@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Enhancement - Added a way to customize the WYSIWYG editor field by passing in a `settings` parameter. [ET-1565]
+
 = [5.0.11] 2023-02-22 =
 
 * Tweak - PHP version compatibility bumped to PHP 7.4
