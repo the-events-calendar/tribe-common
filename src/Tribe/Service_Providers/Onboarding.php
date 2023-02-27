@@ -2,7 +2,7 @@
 namespace Tribe\Service_Providers;
 
 use \Tribe\Onboarding\Main as Onboarding_Main;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use tad_DI52_ServiceProvider;
 
 /**
  * Class Onboarding

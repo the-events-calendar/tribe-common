@@ -2,7 +2,7 @@
 
 namespace TEC\Common\Site_Health;
 
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use tad_DI52_ServiceProvider;
 
 /**
  * Class Provider

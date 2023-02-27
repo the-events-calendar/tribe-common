@@ -1,5 +1,5 @@
 <?php
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use tad_DI52_ServiceProvider;
 class Tribe__Editor__Provider extends ServiceProvider {
 
 	/**

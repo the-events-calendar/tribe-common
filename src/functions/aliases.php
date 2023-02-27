@@ -10,7 +10,9 @@ $aliases = [
 ];
 
 foreach ( $aliases as list( $class, $alias ) ) {
-    if ( !class_exists( $alias ) ) {
+	$class_ex = class_exists( $alias );
+    if ( ! $class_ex ) {
         class_alias( $class, $alias );
     }
+	$foo = '';
 }

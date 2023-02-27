@@ -13,7 +13,7 @@ namespace Tribe\Log;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\NullHandler;
 use Monolog\Logger;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use tad_DI52_ServiceProvider;
 
 class Service_Provider extends ServiceProvider {
 

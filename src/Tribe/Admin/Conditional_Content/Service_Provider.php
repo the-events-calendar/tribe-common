@@ -8,7 +8,7 @@
 
 namespace Tribe\Admin\Conditional_Content;
 
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use tad_DI52_ServiceProvider;
 
 /**
  * Conditional Content Provider.

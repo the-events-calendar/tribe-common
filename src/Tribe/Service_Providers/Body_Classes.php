@@ -3,7 +3,7 @@
 namespace Tribe\Service_Providers;
 
 use Tribe\Utils\Body_Classes as Body_Class_Object;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use tad_DI52_ServiceProvider;
 
 /**
  * Class Body_Classes

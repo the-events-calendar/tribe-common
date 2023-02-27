@@ -5,7 +5,7 @@ namespace Tribe\Editor;
 use Tribe\Editor\Compatibility\Classic_Editor;
 use Tribe\Editor\Compatibility\Divi;
 
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use tad_DI52_ServiceProvider;
 
 /**
  * Editor Compatibility with other plugins and themes.

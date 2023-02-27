@@ -2,7 +2,7 @@
 namespace Tribe\Service_Providers;
 
 use Tribe\Shortcode\Manager;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use tad_DI52_ServiceProvider;
 
 /**
  * Class Shortcode

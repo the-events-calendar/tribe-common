@@ -5,7 +5,7 @@ if ( ! class_exists( 'Tribe__Container' ) ) {
 	 *
 	 * Tribe Dependency Injection Container.
 	 */
-	class Tribe__Container extends TEC\Common\lucatume\DI52\Container {
+	class Tribe__Container extends tad_DI52_Container {
 
 		/**
 		 * @var Tribe__Container
@@ -274,11 +274,11 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 	/**
 	 * Registers a service provider in the container.
 	 *
-	 * Service providers must implement the `use TEC\Common\lucatume\DI52\ServiceProviderInterface` interface or extend
-	 * the `TEC\Common\lucatume\DI52\ServiceProvider` class.
+	 * Service providers must implement the `use tad_DI52_ServiceProviderInterface` interface or extend
+	 * the `tad_DI52_ServiceProvider` class.
 	 *
-	 * @see TEC\Common\lucatume\DI52\ServiceProvider
-	 * @see TEC\Common\lucatume\DI52\ServiceProviderInterface
+	 * @see tad_DI52_ServiceProvider
+	 * @see tad_DI52_ServiceProviderInterface
 	 *
 	 * @param string $provider_class
 	 */
