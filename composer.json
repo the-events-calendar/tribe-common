@@ -8,20 +8,6 @@
   ],
   "homepage": "https://theeventscalendar.com",
   "license": "GPL-2.0",
-  "require-dev": {
-    "bordoni/phpass": "0.3.5",
-    "automattic/vipwpcs": "^2.0",
-    "codeception/codeception": "^2.5.5",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
-    "lucatume/function-mocker-le": "^1.0",
-    "lucatume/wp-browser": "^3.0.14",
-    "the-events-calendar/coding-standards": "dev-master",
-    "the-events-calendar/tec-testing-facilities": "dev-master",
-    "phpunit/phpunit": "~6.0",
-    "wp-cli/checksum-command": "1.0.5",
-    "wp-coding-standards/wpcs": "^2.1",
-    "lucatume/codeception-snapshot-assertions": "^0.2.4"
-  },
   "minimum-stability": "dev",
   "prefer-stable": true,
   "config": {
@@ -40,7 +26,21 @@
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
     "stellarwp/installer": "^1.1.0",
-    "stellarwp/telemetry": "^1.0.4"
+    "stellarwp/telemetry": "^1.0.0"
+  },
+  "require-dev": {
+    "bordoni/phpass": "0.3.5",
+    "automattic/vipwpcs": "^2.0",
+    "codeception/codeception": "^2.5.5",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+    "lucatume/function-mocker-le": "^1.0",
+    "lucatume/wp-browser": "^3.0.14",
+    "the-events-calendar/coding-standards": "dev-master",
+    "the-events-calendar/tec-testing-facilities": "dev-master",
+    "phpunit/phpunit": "~6.0",
+    "wp-cli/checksum-command": "1.0.5",
+    "wp-coding-standards/wpcs": "^2.1",
+    "lucatume/codeception-snapshot-assertions": "^0.2.4"
   },
   "repositories": [
     {
@@ -75,7 +75,10 @@
     "psr-4": {
       "Tribe\\": "src/Tribe/",
       "TEC\\Common\\": "src/Common/"
-    }
+    },
+    "files": [
+      "src/functions/compatibility.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
