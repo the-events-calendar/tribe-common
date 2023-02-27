@@ -77,7 +77,7 @@
       "TEC\\Common\\": "src/Common/"
     },
     "files": [
-      "src/functions/compatibility.php"
+      "src/functions/aliases.php"
     ]
   },
   "autoload-dev": {
