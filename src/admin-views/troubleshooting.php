@@ -1,5 +1,4 @@
 <?php
-	do_action( 'stellarwp/telemetry/tec-common/optin' );
 	// admin notice
 	include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/notice.php';
 	// intro

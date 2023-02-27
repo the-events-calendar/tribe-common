@@ -21,7 +21,7 @@ use TEC\Common\Container;
 
  * @package TEC\Common\Telemetry
  */
-class Telemetry {
+final class Telemetry {
 	/**
 	 * The plugin slug used for identification
 	 *
@@ -29,7 +29,7 @@ class Telemetry {
 	 *
 	 * @var string
 	 */
-	public static $plugin_slug  = 'tec-common';
+	protected static $plugin_slug  = 'tec-common';
 
 	/**
 	 * The custom hook prefix.
@@ -38,7 +38,7 @@ class Telemetry {
 	 *
 	 * @var string
 	 */
-	public static $hook_prefix = 'tec';
+	protected static $hook_prefix = 'tec';
 
 	/**
 	 * Array to hold the optin args.
@@ -78,8 +78,23 @@ class Telemetry {
 		Core::instance()->init( \Tribe__Main::instance()->plugin_path . 'tribe-common.php' );
 	}
 
+	public static function get_slug() {
+		return self::$plugin_slug;
+	}
+
+	public static function get_optin_arg_hook() {
+		$slug = self::get_slug();
+		return "stellarwp/telemetry/{$slug}/optin_args";
+	}
+
 	public function filter_optin_args( $args ) {
 		$user_name   = esc_html( wp_get_current_user()->display_name );
+
+		/*
+		if ET only change logo, name to Event Tickets
+		if TEC only change logo
+		If both, use The Events Calendar
+		*/
 
 		$this->optin_args = [
 			'plugin_logo'           => tribe_resource_url( 'images/logo/tec-brand.svg', false, null, \Tribe__Main::instance() ),
