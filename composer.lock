@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "21d89e31796d5ea0ef268aafa0450978",
+    "content-hash": "bde44ab2958d59b286d4eaa34bb47907",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -70,16 +70,16 @@
         },
         {
             "name": "lucatume/di52",
-            "version": "3.1.1",
+            "version": "dev-refactor/remove-aliases",
             "source": {
                 "type": "git",
-                "url": "https://github.com/lucatume/di52.git",
-                "reference": "6d1e3641d02995c78027a565e8d205d9b6e73eca"
+                "url": "https://github.com/lucatume/di52",
+                "reference": "540455a1297e2eea8a2c50919311d953a3ca4e1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/di52/zipball/6d1e3641d02995c78027a565e8d205d9b6e73eca",
-                "reference": "6d1e3641d02995c78027a565e8d205d9b6e73eca",
+                "url": "https://api.github.com/repos/lucatume/di52/zipball/540455a1297e2eea8a2c50919311d953a3ca4e1d",
+                "reference": "540455a1297e2eea8a2c50919311d953a3ca4e1d",
                 "shasum": ""
             },
             "require": {
@@ -88,18 +88,14 @@
                 "psr/container": "^1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "*"
+                "phpunit/phpunit": "<10.0"
             },
             "type": "library",
             "autoload": {
-                "files": [
-                    "aliases.php"
-                ],
                 "psr-4": {
                     "lucatume\\DI52\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0"
             ],
@@ -110,11 +106,7 @@
                 }
             ],
             "description": "A PHP 5.6 compatible dependency injection container.",
-            "support": {
-                "issues": "https://github.com/lucatume/di52/issues",
-                "source": "https://github.com/lucatume/di52/tree/3.1.1"
-            },
-            "time": "2023-02-16T16:19:29+00:00"
+            "time": "2023-02-28T15:05:44+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -6404,6 +6396,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "lucatume/di52": 20,
         "the-events-calendar/coding-standards": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },

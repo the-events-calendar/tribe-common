@@ -10,7 +10,7 @@
 namespace Tribe\Service_Providers;
 
 use Tribe\DB_Lock;
-
+use TEC\Common\lucatume\DI52\ServiceProvider;
 
 /**
  * Class Crons
@@ -19,7 +19,7 @@ use Tribe\DB_Lock;
  *
  * @package Tribe\Service_Providers
  */
-class Crons extends \tad_DI52_ServiceProvider {
+class Crons extends ServiceProvider {
 
 
 	/**

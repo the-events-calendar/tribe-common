@@ -6,9 +6,9 @@
  * @since 4.9.5
  */
 
+ use TEC\Common\lucatume\DI52\ServiceProvider;
 
-
-class Tribe__Service_Providers__Debug_Bar extends \tad_DI52_ServiceProvider {
+class Tribe__Service_Providers__Debug_Bar extends ServiceProvider {
 
 
 	/**

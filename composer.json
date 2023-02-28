@@ -21,7 +21,7 @@
   },
   "require": {
     "firebase/php-jwt": "~6.3.0",
-    "lucatume/di52": "^3.1.0",
+    "lucatume/di52": "dev-refactor/remove-aliases",
     "monolog/monolog": "1.24.*",
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
@@ -29,18 +29,18 @@
     "stellarwp/telemetry": "^1.0.0"
   },
   "require-dev": {
-    "bordoni/phpass": "0.3.5",
     "automattic/vipwpcs": "^2.0",
+    "bordoni/phpass": "0.3.5",
     "codeception/codeception": "^2.5.5",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+    "lucatume/codeception-snapshot-assertions": "^0.2.4",
     "lucatume/function-mocker-le": "^1.0",
     "lucatume/wp-browser": "^3.0.14",
+    "phpunit/phpunit": "~6.0",
     "the-events-calendar/coding-standards": "dev-master",
     "the-events-calendar/tec-testing-facilities": "dev-master",
-    "phpunit/phpunit": "~6.0",
     "wp-cli/checksum-command": "1.0.5",
-    "wp-coding-standards/wpcs": "^2.1",
-    "lucatume/codeception-snapshot-assertions": "^0.2.4"
+    "wp-coding-standards/wpcs": "^2.1"
   },
   "repositories": [
     {
@@ -53,6 +53,12 @@
       "name": "the-events-calendar/coding-standards",
       "type": "github",
       "url": "https://github.com/the-events-calendar/coding-standards",
+      "no-api": true
+    },
+    {
+      "name": "lucatume/di52",
+      "type": "github",
+      "url": "https://github.com/lucatume/di52",
       "no-api": true
     }
   ],
@@ -73,10 +79,7 @@
     "psr-4": {
       "Tribe\\": "src/Tribe/",
       "TEC\\Common\\": "src/Common/"
-    },
-    "files": [
-      "src/functions/aliases.php"
-    ]
+    }
   },
   "autoload-dev": {
     "psr-4": {

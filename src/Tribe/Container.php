@@ -1,11 +1,14 @@
 <?php
+
+use TEC\Common\lucatume\DI52\Container;
+
 if ( ! class_exists( 'Tribe__Container' ) ) {
 	/**
 	 * Class Tribe__Container
 	 *
 	 * Tribe Dependency Injection Container.
 	 */
-	class Tribe__Container extends \tad_DI52_Container {
+	class Tribe__Container extends Container {
 
 		/**
 		 * @var Tribe__Container
@@ -142,7 +145,7 @@ if ( ! function_exists( 'tribe_register' ) ) {
 	 *                                                    or a callback that will return the instance of the class.
 	 * @param array                  $after_build_methods An array of methods that should be called on
 	 *                                                    the built object after the `__construct` method; the methods
-	 *                                                    will be called each time after the instance contstruction.
+	 *                                                    will be called each time after the instance construction.
 	 */
 	function tribe_register( $slug, $class, array $after_build_methods = null ) {
 		Tribe__Container::init()->bind( $slug, $class, $after_build_methods );
@@ -274,11 +277,11 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 	/**
 	 * Registers a service provider in the container.
 	 *
-	 * Service providers must implement the `use tad_DI52_ServiceProviderInterface` interface or extend
-	 * the `tad_DI52_ServiceProvider` class.
+	 * Service providers must implement the `use ServiceProviderInterface` interface or extend
+	 * the `ServiceProvider` class.
 	 *
-	 * @see tad_DI52_ServiceProvider
-	 * @see tad_DI52_ServiceProviderInterface
+	 * @see ServiceProvider
+	 * @see ServiceProviderInterface
 	 *
 	 * @param string $provider_class
 	 */

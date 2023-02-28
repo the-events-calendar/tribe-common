@@ -1,5 +1,6 @@
 <?php
 
+use TEC\Common\lucatume\DI52\ServiceProvider;
 
 /**
  * Class Tribe__Service_Providers__Promoter_Connector
@@ -8,7 +9,7 @@
  *
  * Handles the registration and creation of our async process handlers.
  */
-class Tribe__Service_Providers__Promoter extends \tad_DI52_ServiceProvider {
+class Tribe__Service_Providers__Promoter extends ServiceProvider {
 
 
 	/**
