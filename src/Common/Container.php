@@ -10,7 +10,7 @@
 namespace TEC\Common;
 
 use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
-use tad_DI52_Container as DI52Container;
+use TEC\Common\lucatume\DI52\Container as DI52Container;
 
 /**
  * Class Container

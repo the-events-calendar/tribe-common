@@ -9,7 +9,7 @@
 
 namespace TEC\Common\Telemetry;
 
-
+use TEC\Common\lucatume\DI52\ServiceProvider;
 
 /**
  * Class Provider
@@ -18,7 +18,7 @@ namespace TEC\Common\Telemetry;
 
  * @package TEC\Common\Telemetry
  */
-class Provider extends \tad_DI52_ServiceProvider {
+class Provider extends ServiceProvider {
 
 
 	/**

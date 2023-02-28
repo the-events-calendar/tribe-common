@@ -73,8 +73,8 @@ class Tribe__Main {
 
 		$vendor_folder = dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/';
 		require_once realpath( $vendor_folder . 'vendor-prefixed/autoload.php' );
-		require_once realpath( $vendor_folder . 'autoload.php' );
 		require_once realpath( dirname( dirname( __FILE__ ) ) . '/functions/aliases.php' );
+		require_once realpath( $vendor_folder . 'autoload.php' );
 
 		$fnord = class_exists( 'tad_DI52_Container' );
 		error_log( (int) $fnord );
