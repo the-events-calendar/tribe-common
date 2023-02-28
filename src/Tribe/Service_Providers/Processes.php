@@ -1,6 +1,6 @@
 <?php
 
-use tad_DI52_ServiceProvider;
+
 
 /**
  * Class Tribe__Service_Providers__Processes
@@ -9,7 +9,8 @@ use tad_DI52_ServiceProvider;
  *
  * Handles the registration and creation of our async process handlers.
  */
-class Tribe__Service_Providers__Processes extends ServiceProvider {
+class Tribe__Service_Providers__Processes extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * An array of all handler actions registered in this HTTP request.

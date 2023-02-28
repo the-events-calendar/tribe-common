@@ -9,7 +9,7 @@
 
 namespace Tribe\Admin\Notice;
 
-use tad_DI52_ServiceProvider;
+
 
 /**
  * Class Notice
@@ -18,7 +18,8 @@ use tad_DI52_ServiceProvider;
  *
  * @package Tribe\Admin\Notice
  */
-class Service_Provider extends ServiceProvider {
+class Service_Provider extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * Registers the objects and filters required by the provider to manage admin notices.

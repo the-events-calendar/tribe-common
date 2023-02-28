@@ -3,7 +3,7 @@
 namespace Tribe\Service_Providers;
 
 use Tribe\Utils\Body_Classes as Body_Class_Object;
-use tad_DI52_ServiceProvider;
+
 
 /**
  * Class Body_Classes
@@ -12,7 +12,8 @@ use tad_DI52_ServiceProvider;
  *
  * Handles the registration and creation of our async process handlers.
  */
-class Body_Classes extends ServiceProvider {
+class Body_Classes extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * Binds and sets up implementations.

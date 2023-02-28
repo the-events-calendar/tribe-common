@@ -13,9 +13,10 @@ namespace Tribe\Log;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\NullHandler;
 use Monolog\Logger;
-use tad_DI52_ServiceProvider;
 
-class Service_Provider extends ServiceProvider {
+
+class Service_Provider extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * Binds and sets up implementations.

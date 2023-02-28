@@ -6,9 +6,10 @@
  * @since 4.9.5
  */
 
-use tad_DI52_ServiceProvider;
 
-class Tribe__Service_Providers__Debug_Bar extends ServiceProvider {
+
+class Tribe__Service_Providers__Debug_Bar extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * Binds and sets up implementations.

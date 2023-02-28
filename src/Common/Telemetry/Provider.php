@@ -9,7 +9,7 @@
 
 namespace TEC\Common\Telemetry;
 
-use tad_DI52_ServiceProvider;
+
 
 /**
  * Class Provider
@@ -18,7 +18,8 @@ use tad_DI52_ServiceProvider;
 
  * @package TEC\Common\Telemetry
  */
-class Provider extends ServiceProvider {
+class Provider extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * Registers the handlers and modifiers for notifying the site

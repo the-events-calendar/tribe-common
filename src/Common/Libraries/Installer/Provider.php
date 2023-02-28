@@ -4,9 +4,10 @@ namespace TEC\Common\Libraries\Installer;
 
 use TEC\Common\Libraries;
 use TEC\Common\StellarWP\Installer;
-use tad_DI52_ServiceProvider;
 
-class Provider extends ServiceProvider {
+
+class Provider extends \tad_DI52_ServiceProvider {
+
 	/**
 	 * Binds and sets up implementations.
 	 *

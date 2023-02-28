@@ -2,7 +2,7 @@
 
 namespace Tribe\Service_Providers;
 
-use tad_DI52_ServiceProvider;
+
 
 /**
  * Class Dialog
@@ -11,7 +11,8 @@ use tad_DI52_ServiceProvider;
  *
  * Handles the registration and creation of our async process handlers.
  */
-class Dialog extends ServiceProvider {
+class Dialog extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * Binds and sets up implementations.

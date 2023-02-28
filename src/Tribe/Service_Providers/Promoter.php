@@ -1,6 +1,6 @@
 <?php
 
-use tad_DI52_ServiceProvider;
+
 /**
  * Class Tribe__Service_Providers__Promoter_Connector
  *
@@ -8,7 +8,8 @@ use tad_DI52_ServiceProvider;
  *
  * Handles the registration and creation of our async process handlers.
  */
-class Tribe__Service_Providers__Promoter extends ServiceProvider {
+class Tribe__Service_Providers__Promoter extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * Binds and sets up implementations.

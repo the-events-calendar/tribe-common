@@ -1,7 +1,7 @@
 <?php
 
 namespace Tribe\Service_Providers;
-use tad_DI52_ServiceProvider;
+
 
 /**
  * Class Tribe__Service_Providers__Tooltip
@@ -10,7 +10,8 @@ use tad_DI52_ServiceProvider;
  *
  * Handles the registration and creation of our async process handlers.
  */
-class Tooltip extends ServiceProvider {
+class Tooltip extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * Binds and sets up implementations.

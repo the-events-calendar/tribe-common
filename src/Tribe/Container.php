@@ -5,7 +5,7 @@ if ( ! class_exists( 'Tribe__Container' ) ) {
 	 *
 	 * Tribe Dependency Injection Container.
 	 */
-	class Tribe__Container extends tad_DI52_Container {
+	class Tribe__Container extends \tad_DI52_Container {
 
 		/**
 		 * @var Tribe__Container

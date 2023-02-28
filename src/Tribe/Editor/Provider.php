@@ -1,6 +1,6 @@
 <?php
-use tad_DI52_ServiceProvider;
-class Tribe__Editor__Provider extends ServiceProvider {
+
+class Tribe__Editor__Provider extends tad_DI52_ServiceProvider {
 
 	/**
 	 * Binds and sets up implementations.

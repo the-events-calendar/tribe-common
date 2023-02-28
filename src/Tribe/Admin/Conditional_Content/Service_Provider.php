@@ -8,14 +8,15 @@
 
 namespace Tribe\Admin\Conditional_Content;
 
-use tad_DI52_ServiceProvider;
+
 
 /**
  * Conditional Content Provider.
  *
  * @since 4.14.7
  */
-class Service_Provider extends ServiceProvider {
+class Service_Provider extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * Registers the required objects and filters.

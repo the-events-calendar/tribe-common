@@ -5,14 +5,15 @@ namespace Tribe\Editor;
 use Tribe\Editor\Compatibility\Classic_Editor;
 use Tribe\Editor\Compatibility\Divi;
 
-use tad_DI52_ServiceProvider;
+
 
 /**
  * Editor Compatibility with other plugins and themes.
  *
  * @since 4.14.13
  */
-class Compatibility extends ServiceProvider {
+class Compatibility extends \tad_DI52_ServiceProvider {
+
 	public function register() {
 		$this->container->singleton( self::class, $this );
 		$this->container->singleton( 'editor.compatibility', $this );

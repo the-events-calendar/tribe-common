@@ -2,7 +2,7 @@
 namespace Tribe\Service_Providers;
 
 use \Tribe\Onboarding\Main as Onboarding_Main;
-use tad_DI52_ServiceProvider;
+
 
 /**
  * Class Onboarding
@@ -11,7 +11,8 @@ use tad_DI52_ServiceProvider;
  *
  * Handles the registration and creation of our async process handlers.
  */
-class Onboarding extends ServiceProvider {
+class Onboarding extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * The Onboarding assets group identifier.

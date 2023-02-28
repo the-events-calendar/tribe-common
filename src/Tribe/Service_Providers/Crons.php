@@ -10,7 +10,7 @@
 namespace Tribe\Service_Providers;
 
 use Tribe\DB_Lock;
-use tad_DI52_ServiceProvider;
+
 
 /**
  * Class Crons
@@ -19,7 +19,8 @@ use tad_DI52_ServiceProvider;
  *
  * @package Tribe\Service_Providers
  */
-class Crons extends ServiceProvider {
+class Crons extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * Registers the filters required by the provider to manage cron processes.

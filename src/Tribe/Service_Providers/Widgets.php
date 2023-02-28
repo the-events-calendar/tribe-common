@@ -2,7 +2,7 @@
 namespace Tribe\Service_Providers;
 
 use Tribe\Widget\Manager;
-use tad_DI52_ServiceProvider;
+
 
 /**
  * Class Widget
@@ -11,7 +11,8 @@ use tad_DI52_ServiceProvider;
  *
  * @package Tribe\Service_Providers
  */
-class Widgets extends ServiceProvider {
+class Widgets extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * Binds and sets up implementations.

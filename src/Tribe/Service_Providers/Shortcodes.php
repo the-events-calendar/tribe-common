@@ -2,7 +2,7 @@
 namespace Tribe\Service_Providers;
 
 use Tribe\Shortcode\Manager;
-use tad_DI52_ServiceProvider;
+
 
 /**
  * Class Shortcode
@@ -11,7 +11,8 @@ use tad_DI52_ServiceProvider;
  *
  * @package Tribe\Service_Providers
  */
-class Shortcodes extends ServiceProvider {
+class Shortcodes extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * Binds and sets up implementations.
