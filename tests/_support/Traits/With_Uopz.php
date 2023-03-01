@@ -13,6 +13,7 @@ trait With_Uopz {
 	private static array $uopz_redefines = [];
 	private static array $uopz_set_properties = [];
 	private static array $uopz_add_class_fns = [];
+	private static array $uopz_del_functions = [];
 
 	/**
 	 * @after
@@ -29,11 +30,20 @@ trait With_Uopz {
 			}
 		}
 
+		self::$uopz_set_returns = [];
+	}
+
+	/**
+	 * @after
+	 */
+	public function unset_uopz_redefines() {
 		if ( function_exists( 'uopz_redefine' ) ) {
 			foreach ( self::$uopz_redefines as $restore_callback ) {
 				$restore_callback();
 			}
 		}
+
+		self::$uopz_redefines = [];
 	}
 
 	/**
@@ -48,6 +58,19 @@ trait With_Uopz {
 			}
 		}
 		self::$uopz_set_properties = [];
+	}
+
+	/**
+	 * @after
+	 */
+	public function unset_uopz_functions() {
+		if ( function_exists( 'uopz_del_function' ) ) {
+			foreach ( self::$uopz_del_functions as $function ) {
+				uopz_del_function( $function );
+			}
+		}
+
+		self::$uopz_del_functions = [];
 	}
 
 	/**
@@ -167,5 +190,17 @@ trait With_Uopz {
 			uopz_del_function( $class, $function );
 		}
 		self::$uopz_add_class_fns = [];
+	}
+
+	/**
+	 * @param string   $function
+	 * @param \Closure $handler
+	 */
+	private function add_fn( string $function, \Closure $handler ) {
+		if ( ! function_exists( 'uopz_add_function' ) ) {
+			$this->markTestSkipped( 'uopz extension is not installed' );
+		}
+		uopz_add_function( $function, $handler );
+		self::$uopz_del_functions[] = $function;
 	}
 }
