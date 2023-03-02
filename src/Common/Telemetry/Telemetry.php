@@ -73,9 +73,7 @@ final class Telemetry {
 		Config::set_stellar_slug( static::$plugin_slug );
 
 		// Initialize the library.
-		$path = \Tribe__Main::instance()->plugin_path . 'tribe-common.php';
-		error_log($path);
-		Core::instance()->init( \Tribe__Main::instance()->plugin_path . 'tribe-common.php' );
+		Core::instance()->init( \Tribe__Main::instance()->get_parent_plugin_file() );
 	}
 
 	public static function get_slug() {

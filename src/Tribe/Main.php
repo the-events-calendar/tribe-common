@@ -30,6 +30,15 @@ class Tribe__Main {
 	protected $plugin_context;
 	protected $plugin_context_class;
 
+	/**
+	 * Holds the path to the main file of the parent plugin.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected string $parent_plugin_file;
+
 	public static $tribe_url = 'http://tri.be/';
 	public static $tec_url   = 'https://theeventscalendar.com/';
 
@@ -754,6 +763,14 @@ class Tribe__Main {
 			'determine_current_user',
 			tribe_callback( 'promoter.connector', 'authenticate_user_with_connector' )
 		);
+	}
+
+	public function set_parent_plugin_file( string $path ): void {
+		$this->parent_plugin_file = $path;
+	}
+
+	public function get_parent_plugin_file(): string {
+		return apply_filters( 'tec_common_parent_plugin_file', $this->parent_plugin_file );
 	}
 
 
