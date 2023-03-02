@@ -87,6 +87,18 @@ final class Telemetry {
 		return "stellarwp/telemetry/{$slug}/optin_args";
 	}
 
+	public static function get_permissions_url() {
+		return apply_filters( 'tec_common_telemetry_permissions_url', '#' );
+	}
+
+	public static function get_terms_url() {
+		return apply_filters( 'tec_common_telemetry_terms_url', '#' );
+	}
+
+	public static function get_privacy_url() {
+		return apply_filters( 'tec_common_telemetry_privacy_url', '#' );
+	}
+
 	public function filter_optin_args( $args ) {
 		$user_name   = esc_html( wp_get_current_user()->display_name );
 
@@ -104,9 +116,9 @@ final class Telemetry {
 			'plugin_name'           => 'TEC Common',
 			'plugin_slug'           => static::$plugin_slug,
 			'user_name'             => $user_name,
-			'permissions_url'       => '#',
-			'tos_url'               => '#',
-			'privacy_url'           => '#',
+			'permissions_url'       => self::get_permissions_url(),
+			'tos_url'               => self::get_terms_url(),
+			'privacy_url'           => self::get_privacy_url(),
 			'opted_in_plugins_text' => __( 'See which plugins you have opted in to tracking for', 'tribe-common' ),
 			'heading'               => __( 'We hope you love TEC Common!', 'tribe-common' ),
 			'intro'                 => __( "Hi, {$user_name}! This is an invitation to help our StellarWP community. If you opt-in, some data about your usage of TEC Common and future StellarWP Products will be shared with our teams (so they can work their butts off to improve). We will also share some helpful info on WordPress, and our products from time to time. And if you skip this, that’s okay! Our products still work just fine.", 'tribe-common' ),
@@ -127,6 +139,12 @@ final class Telemetry {
 	public function do_optin_modal() {
 		$plugin_slug = static::$plugin_slug;
 
+		$go = apply_filters( 'tec_common_telemetry_do_optin_modal', true, $plugin_slug );
+
+		if ( ! $go ) {
+			return;
+		}
+
 		do_action( "stellarwp/telemetry/{$plugin_slug}/optin" );
 	}
 
@@ -142,12 +160,16 @@ final class Telemetry {
 		}
 
 		// Get an instance of the Status class.
-		$Status = Config::get_container()->get( Status::class );
+		$status = $this->get_status_object();
 
 		// Get the value submitted on the settings page as a boolean.
 		$value = filter_input( INPUT_POST, 'opt-in-status', FILTER_VALIDATE_BOOL );
 
-		$Status->set_status( $value );
+		$status->set_status( $value );
+	}
+
+	public function get_status_object() {
+		return Config::get_container()->get( Status::class );
 	}
 
 	/**
