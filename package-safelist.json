@@ -26,7 +26,6 @@
   "vendor/datatables/datatables*.js",
   "vendor/datatables/**/*.png",
   "vendor/firebase/php-jwt/src/*.php",
-  "vendor/freemius/**/*",
   "vendor/tooltipster/**/*.min.*",
   "vendor/handlebars/*.js",
   "vendor/jquery-tribe-timepicker/**/*.css",
