@@ -4,7 +4,7 @@
 
 * Feature - Add the `is_editing_posts_list` method to the `Tribe__Context` class. [APM-5]
 * Fix - Fix a false positive on checking if a cache value is set after cache expiration passed.
-* Fix - Update the Google Maps API setting url on the Troubleshooting page. [TBD]
+* Fix - Update the Google Maps API setting url on the Troubleshooting page. [TEC-4728]
 
 = [5.0.10] 2023-02-09 =
 
