@@ -17,8 +17,8 @@ class Container extends DI52Container implements ContainerInterface {
 	 *
 	 * @param object $container The container to use.
 	 */
-	public function __construct( $container = null ) {
-		$this->container = $container ?: new Pigeon();
+	public function __construct( $container ) {
+		$this->container = $container;
 	}
 
 	/**
