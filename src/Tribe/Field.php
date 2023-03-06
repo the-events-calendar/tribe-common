@@ -61,9 +61,9 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 
 		/**
 		 * Settings array.
-		 * 
-		 * @since TBD
-		 * 
+		 *
+		 * @since 5.0.12
+		 *
 		 * @var array
 		 */
 		public $settings;
@@ -790,8 +790,8 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 
 		/**
 		 * Generate a toggle switch.
-		 * 
-		 * @since TBD
+		 *
+		 * @since 5.0.12
 		 *
 		 * @return string the field
 		 */
