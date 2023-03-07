@@ -67,10 +67,10 @@ final class Telemetry {
 		Config::set_server_url( 'https://telemetry-api.moderntribe.qa/api/v1' );
 
 		// Set a unique prefix for actions & filters.
-		Config::set_hook_prefix( static::$hook_prefix );
+		Config::set_hook_prefix( self::$hook_prefix );
 
 		// Set a unique plugin slug.
-		Config::set_stellar_slug( static::$plugin_slug );
+		Config::set_stellar_slug( self::$plugin_slug );
 
 		// Initialize the library.
 		Core::instance()->init( \Tribe__Main::instance()->get_parent_plugin_file() );
@@ -97,7 +97,16 @@ final class Telemetry {
 		return apply_filters( 'tec_common_telemetry_privacy_url', '#' );
 	}
 
-	public function filter_optin_args( $args ) {
+	/**
+	 * Filters the default optin modal args.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string|mixed> $args The current optin modal args.
+	 *
+	 * @return array<string|mixed>
+	 */
+	public function filter_optin_args( $args ): array {
 		$user_name   = esc_html( wp_get_current_user()->display_name );
 
 		/*
@@ -112,7 +121,7 @@ final class Telemetry {
 			'plugin_logo_height'    => 42,
 			'plugin_logo_alt'       => 'TEC Common Logo',
 			'plugin_name'           => 'TEC Common',
-			'plugin_slug'           => static::$plugin_slug,
+			'plugin_slug'           => self::$plugin_slug,
 			'user_name'             => $user_name,
 			'permissions_url'       => self::get_permissions_url(),
 			'tos_url'               => self::get_terms_url(),
@@ -134,8 +143,8 @@ final class Telemetry {
 	 *
 	 * @return void
 	 */
-	public function do_optin_modal() {
-		$plugin_slug = static::$plugin_slug;
+	public function do_optin_modal(): void {
+		$plugin_slug = self::$plugin_slug;
 
 		$go = apply_filters( 'tec_common_telemetry_do_optin_modal', true, $plugin_slug );
 
@@ -151,7 +160,7 @@ final class Telemetry {
 	 *
 	 * @return void
 	 */
-	public function save_opt_in_setting_field() {
+	public function save_opt_in_setting_field(): void {
 		// Return early if not saving the Opt In Status field.
 		if ( ! isset( $_POST[ 'opt-in-status' ] ) ) {
 			return;
@@ -174,7 +183,7 @@ final class Telemetry {
 	 * The library attempts to set the opt-in status for a site during 'admin_init'. Use the hook with a priority higher
 	 * than 10 to make sure you're setting the status after it initializes the option in the options table.
 	 */
-	function migrate_existing_opt_in() {
+	function migrate_existing_opt_in(): void {
 		$user_has_opted_in_already = get_option( 'fs_accounts' ); // For now.
 
 		if ( $user_has_opted_in_already ) {
@@ -182,5 +191,34 @@ final class Telemetry {
 			$Opt_In_Subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
 			$Opt_In_Subscriber->opt_in();
 		}
+	}
+
+	/**
+	 * Get the status for this plugin, we don't care about the rest.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public static function get_plugin_status(): bool {
+		$hook_prefix = self::$hook_prefix;
+		$status_obj  = self::get_status_object();
+		$option      = $status_obj->get_option();
+
+		// Avoid checking for missing items
+		if ( ! isset( $option['plugins'][self::$plugin_slug]['optin'] ) ) {
+			return Status::STATUS_INACTIVE;
+		}
+
+		$status = $option['plugins'][self::$plugin_slug]['optin'];
+
+		/**
+		 * Filters the opt-in status value.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $status The opt-in status value.
+		 */
+		return (bool) apply_filters( "tec_common_telemetry_{$hook_prefix}_optin_status", $status );
 	}
 }
