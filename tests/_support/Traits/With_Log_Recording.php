@@ -10,9 +10,9 @@
 
 namespace Tribe\Tests\Traits;
 
-use Monolog\Formatter\FormatterInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Logger;
+use TEC\Common\Monolog\Formatter\FormatterInterface;
+use TEC\Common\Monolog\Handler\HandlerInterface;
+use TEC\Common\Monolog\Logger;
 use PHPUnit\Framework\Assert;
 
 trait With_Log_Recording {

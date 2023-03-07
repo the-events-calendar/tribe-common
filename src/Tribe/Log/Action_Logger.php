@@ -9,7 +9,7 @@
 
 namespace Tribe\Log;
 
-use Monolog\Logger;
+use TEC\Common\Monolog\Logger;
 use Tribe__Log;
 
 /**
