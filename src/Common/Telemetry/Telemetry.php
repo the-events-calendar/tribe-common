@@ -169,8 +169,10 @@ final class Telemetry {
 		// Get an instance of the Status class.
 		$status = $this->get_status_object();
 
+		$filter = defined( FILTER_VALIDATE_BOOL ) ? FILTER_VALIDATE_BOOL : FILTER_VALIDATE_BOOLEAN;
+
 		// Get the value submitted on the settings page as a boolean.
-		$value = filter_input( INPUT_POST, 'opt-in-status', FILTER_VALIDATE_BOOL );
+		$value = filter_input( INPUT_POST, 'opt-in-status', $filter );
 
 		$status->set_status( $value );
 	}
