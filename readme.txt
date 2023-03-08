@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.0.12] 2023-03-06 =
+= [5.0.12] 2023-03-08 =
 
 * Enhancement - Added a way to customize the WYSIWYG editor field by passing in a `settings` parameter. [ET-1565]
 * Feature - Added new toggle field for settings in the admin area. [ET-1564]
