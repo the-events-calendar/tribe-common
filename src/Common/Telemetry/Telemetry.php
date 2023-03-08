@@ -49,6 +49,15 @@ final class Telemetry {
 	 */
 	private $optin_args = [];
 
+	/**
+	 * The slug for the parent plugin.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	private static $parent_plugin = '';
+
 	function init() {
 		/**
 		 * Configure the container.
@@ -73,27 +82,45 @@ final class Telemetry {
 		Config::set_stellar_slug( self::$plugin_slug );
 
 		// Initialize the library.
+
 		Core::instance()->init( \Tribe__Main::instance()->get_parent_plugin_file() );
 	}
 
-	public static function get_slug() {
+	/**
+	 * Get the slug of the parent plugin.
+	 * Hydrated lazily.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public static function get_parent_plugin_slug(): string {
+		if ( empty( self::$parent_plugin ) ) {
+			$file = \Tribe__Main::instance()->get_parent_plugin_file();
+			self::$parent_plugin = substr( $file, ( strrpos( $file, '/' ) + 1 ), ( strlen( $file ) - ( strrpos( $file, '/' ) + 5 ) ),  );
+		}
+		//"/Users/stephenpage/Sites/tec/dev/plugins/the-events-calendar/the-events-calendar.php"
+		return self::$parent_plugin;
+	}
+
+	public static function get_slug(): string {
 		return self::$plugin_slug;
 	}
 
-	public static function get_optin_arg_hook() {
+	public static function get_optin_arg_hook(): string {
 		$slug = self::get_slug();
 		return "stellarwp/telemetry/{$slug}/optin_args";
 	}
 
-	public static function get_permissions_url() {
+	public static function get_permissions_url(): string {
 		return apply_filters( 'tec_common_telemetry_permissions_url', '#' );
 	}
 
-	public static function get_terms_url() {
+	public static function get_terms_url(): string {
 		return apply_filters( 'tec_common_telemetry_terms_url', '#' );
 	}
 
-	public static function get_privacy_url() {
+	public static function get_privacy_url(): string {
 		return apply_filters( 'tec_common_telemetry_privacy_url', '#' );
 	}
 
@@ -162,20 +189,39 @@ final class Telemetry {
 	 */
 	public function save_opt_in_setting_field(): void {
 		// Return early if not saving the Opt In Status field.
-		if ( ! isset( $_POST[ 'opt-in-status' ] ) ) {
+		if ( ! isset( $_POST[ 'current-settings-tab' ] ) ) {
+			return;
+		}
+
+		/**
+		 * Filter for the the settings page/tab that the optin control goes on.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $tab    The tab slug where the optin control is found.
+		 * @param string $parent The prefix fot the setting
+		 */
+		$optin_tab = apply_filters( 'tec_common_telemetry_optin_tab', 'general' );
+
+		$parent = self::get_parent_plugin_slug();
+		$optin_tab = apply_filters( "tec_common_telemetry_{$parent}_optin_tab", $optin_tab );
+
+		if ( $_POST[ 'current-settings-tab' ] !== $optin_tab ) {
 			return;
 		}
 
 		// Get an instance of the Status class.
 		$status = $this->get_status_object();
 
+		$filter = defined( FILTER_VALIDATE_BOOL ) ? FILTER_VALIDATE_BOOL : FILTER_VALIDATE_BOOLEAN;
+
 		// Get the value submitted on the settings page as a boolean.
-		$value = filter_input( INPUT_POST, 'opt-in-status', FILTER_VALIDATE_BOOL );
+		$value = filter_input( INPUT_POST, 'opt-in-status', $filter );
 
 		$status->set_status( $value );
 	}
 
-	public function get_status_object() {
+	public function get_status_object(): Status {
 		return Config::get_container()->get( Status::class );
 	}
 
