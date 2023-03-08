@@ -4,6 +4,7 @@
 
 * Feature - Add the `is_editing_posts_list` method to the `Tribe__Context` class. [APM-5]
 * Fix - Fix a false positive on checking if a cache value is set after cache expiration passed.
+* Fix - Updates the Monolog repository to use TEC namespacing via Strauss, to provide more compatibility with other plugins. [TEC-4730]
 
 = [5.0.11] 2023-02-22 =
 
