@@ -10,6 +10,7 @@
 namespace TEC\Common\Telemetry;
 
 use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\StellarWP\Telemetry\Config;
 
 /**
  * Class Provider
@@ -39,6 +40,8 @@ class Provider extends ServiceProvider {
 		// add_action( 'admin_init', [ $this, 'migrate_existing_opt_in' ], 11 );
 		add_action( 'admin_init', [ $this, 'save_opt_in_setting_field' ] );
 		add_action( 'tec-telemetry-modal', [ $this, 'do_optin_modal' ] );
+		// @todo For testing, remove before release!
+		//add_action( 'stellarwp/telemetry/tec/last_send_expire_seconds', [ $this, 'filter_last_send_expire' ] );
 
 	}
 
@@ -67,5 +70,9 @@ class Provider extends ServiceProvider {
 
 	public function filter_optin_args( $args ) {
 		return $this->container->make( Telemetry::class )->filter_optin_args( $args );
+	}
+
+	public function filter_last_send_expire( $expire_seconds ) {
+		return MINUTE_IN_SECONDS * 5;
 	}
 }
