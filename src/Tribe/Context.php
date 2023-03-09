@@ -291,7 +291,7 @@ class Tribe__Context {
 	 *
 	 * @return bool
 	 */
-	public function is_editing_post( $post_or_type = null ) {
+	public function is_editing_post( $post_or_type = null ): bool {
 		return $this->post_state->is_editing_post( $post_or_type );
 	}
 
