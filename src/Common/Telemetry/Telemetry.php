@@ -58,7 +58,14 @@ final class Telemetry {
 	 */
 	private static $parent_plugin = '';
 
-	function init() {
+	/**
+	 * Gentlefolk, start your engines.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	function init(): void {
 		/**
 		 * Configure the container.
 		 *
@@ -103,25 +110,61 @@ final class Telemetry {
 		return self::$parent_plugin;
 	}
 
+	/**
+	 * Get the plugin slug used for identification.
+	 *
+	 * @since TBD
+	 *
+	 * @return string $plugin_slug
+	 */
 	public static function get_slug(): string {
 		return self::$plugin_slug;
 	}
 
+	/**
+	 * Get the hook for arguments passed to the opt-in modal.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
 	public static function get_optin_arg_hook(): string {
 		$slug = self::get_slug();
+
 		return "stellarwp/telemetry/{$slug}/optin_args";
 	}
 
+	/**
+	 * Get the URL for the permission link.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
 	public static function get_permissions_url(): string {
-		return apply_filters( 'tec_common_telemetry_permissions_url', '#' );
+		return esc_url( apply_filters( 'tec_common_telemetry_permissions_url', 'https://evnt.is/1bcl' ) );
 	}
 
+	/**
+	 * Get the URL for the Terms of Service link
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
 	public static function get_terms_url(): string {
-		return apply_filters( 'tec_common_telemetry_terms_url', '#' );
+		return esc_url( apply_filters( 'tec_common_telemetry_terms_url', 'https://evnt.is/1bcm' ) );
 	}
 
+	/**
+	 * Get the URL for the Privacy Policy link.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
 	public static function get_privacy_url(): string {
-		return apply_filters( 'tec_common_telemetry_privacy_url', '#' );
+		return esc_url( apply_filters( 'tec_common_telemetry_privacy_url', 'https://evnt.is/1bcn' ) );
 	}
 
 	/**
@@ -219,6 +262,13 @@ final class Telemetry {
 		$status->set_status( $value );
 	}
 
+	/**
+	 * Sugar function to get the status object from the container.
+	 *
+	 * @since TBD
+	 *
+	 * @return Status
+	 */
 	public function get_status_object(): Status {
 		return Config::get_container()->get( Status::class );
 	}
@@ -238,7 +288,7 @@ final class Telemetry {
 	}
 
 	/**
-	 * Get the status for this plugin, we don't care about the rest.
+	 * Get the status for *this* plugin, 'cos we don't care about the rest.
 	 *
 	 * @since TBD
 	 *
