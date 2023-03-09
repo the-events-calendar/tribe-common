@@ -505,21 +505,29 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		 * @since TBD
 		 */
 		public function email_list() {
-			$candidate = trim( $this->value );
-			$emails = preg_split( '[,|;]', $candidate );
+			$value = trim( $this->value );
 			$this->result->valid = true;
 			$sanitized_emails = [];
 
+			// Break emails into an array.
+			$emails = preg_split( '[,|;]', $value );
+			
 			foreach ( $emails as $email ) {
-				if ( ! filter_var( trim( $email ), FILTER_VALIDATE_EMAIL ) ) {
+				// In case there's a blank email or extra comma/semicolon, skip with no error.
+				if ( empty( $email ) ) {
+					continue;
+				}
+
+				// Sanitized email returns blank if invalid.
+				$email = sanitize_email( trim( $email ) );
+				if ( empty( $email ) ) {
 					$this->result->valid = false;
 					break;
 				}
-				$sanitized_emails[] = filter_var( trim( $email ), FILTER_SANITIZE_EMAIL );
+				$sanitized_emails[] = $email;
 			}
 
-			$this->result->valid = true;
-
+			// If any of the emails are invalid, throw an error.
 			if ( ! $this->result->valid ) {
 				$this->result->error = sprintf( 
 					// Translators: %s - Label of the form input field.
