@@ -97,7 +97,7 @@ class Post_Request_Type {
 	 *
 	 * @return bool
 	 */
-	public function is_editing_post( $post_or_type = null ) {
+	public function is_editing_post( $post_or_type = null ): bool {
 		global $pagenow;
 		$is_new     = 'post-new.php' === $pagenow;
 		$is_post    = 'post.php' === $pagenow;
