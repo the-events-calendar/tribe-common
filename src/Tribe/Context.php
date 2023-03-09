@@ -1,6 +1,6 @@
 <?php
 
-use TEC\Common\Context\Post_State;
+use TEC\Common\Context\Post_Request_Type;
 use Tribe__Utils__Array as Arr;
 
 /**
@@ -251,26 +251,26 @@ class Tribe__Context {
 	 *
 	 * @since TBD
 	 *
-	 * @var Post_State
+	 * @var Post_Request_Type
 	 */
-	protected Post_State $post_state;
+	protected Post_Request_Type $post_state;
 
 	/**
 	 * Tribe__Context constructor.
 	 *
 	 * since TBD
 	 *
-	 * @param Post_State|null $post_state An instance of the post state handler.
+	 * @param Post_Request_Type|null $post_state An instance of the post state handler.
 	 */
-	public function __construct( Post_State $post_state = null ) {
-		$this->post_state = $post_state ?: tribe( Post_State::class );
+	public function __construct( Post_Request_Type $post_state = null ) {
+		$this->post_state = $post_state ?: tribe( Post_Request_Type::class );
 	}
 
 	/**
 	 * Whether we are currently creating a new post, a post of post type(s) or not.
 	 *
 	 * @since 4.7.7
-	 * @since TBD Extracted the logic to the `TEC\Common\Context\Post_State` class.
+	 * @since TBD Extracted the logic to the `TEC\Common\Context\Post_Request_Type` class.
 	 *
 	 * @param null $post_type The optional post type to check.
 	 *
@@ -284,7 +284,7 @@ class Tribe__Context {
 	 * Whether we are currently editing a post(s), post type(s) or not.
 	 *
 	 * @since 4.7.7
-	 * @since TBD Extracted the logic to the `TEC\Common\Context\Post_State` class.
+	 * @since TBD Extracted the logic to the `TEC\Common\Context\Post_Request_Type` class.
 	 *
 	 * @param null|array|string|int $post_or_type A post ID, post type, an array of post types or post IDs, `null`
 	 *                                            to just make sure we are currently editing a post.
@@ -1630,7 +1630,7 @@ class Tribe__Context {
 	 * it has the URL `/wp-admin/edit.php?post_type=<post_type>`.
 	 *
 	 * @since TBD
-	 * @since TBD Extracted the logic to the `TEC\Common\Context\Post_State` class.
+	 * @since TBD Extracted the logic to the `TEC\Common\Context\Post_Request_Type` class.
 	 *
 	 * @param string|array<string> $post_type The post type or post types to check.
 	 *

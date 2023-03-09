@@ -13,13 +13,13 @@ use WP_Post;
 use Tribe__Utils__Array as Arr;
 
 /**
- * Class Post_State.
+ * Class Post_Request_Type.
  *
  * @since   TBD
  *
  * @package TEC\Common\Context;
  */
-class Post_State {
+class Post_Request_Type {
 
 	/**
 	 * Whether the current request is one to quick edit a single post of the specified post type or not.
