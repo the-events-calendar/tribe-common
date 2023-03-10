@@ -3,6 +3,7 @@
 namespace Tribe;
 
 use Tribe\Common\Tests\TestClass;
+use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Context as Context;
 use Generator;
 use Closure;
@@ -19,6 +20,7 @@ function __set_function__( $value ) {
 include_once codecept_data_dir( 'classes/TestClass.php' );
 
 class ContextTest extends \Codeception\TestCase\WPTestCase {
+	use With_Uopz;
 
 	public static $__key__;
 	public static $__static_prop_1__;
@@ -1870,5 +1872,119 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$actual = tribe_context()->is_editing_posts_list( $post_types );
 
 		$this->assertEquals( $expected, $actual );
+	}
+
+	public function is_inline_editing_post_data_provider(): \Generator {
+		yield 'empty post type' => [
+			function () {
+				return [ '', false ];
+			}
+		];
+
+		yield 'empty array post type' => [
+			function () {
+				return [ [], false ];
+			}
+		];
+
+		yield 'not doing AJAX' => [
+			function () {
+				$this->set_fn_return( 'wp_doing_ajax', false );
+
+				return [ 'post', false ];
+			}
+		];
+
+		yield 'doing AJAX, missing action request var' => [
+			function () {
+				$this->set_fn_return( 'wp_doing_ajax', true );
+				unset( $_POST['action'] );
+
+				return [ 'post', false ];
+			}
+		];
+
+		yield 'doing AJAX, action request var not inline-save' => [
+			function () {
+				$this->set_fn_return( 'wp_doing_ajax', true );
+				$_POST['action'] = 'not-inline-save';
+
+				return [ 'post', false ];
+			}
+		];
+
+		yield 'missing post ID' => [
+			function () {
+				$this->set_fn_return( 'wp_doing_ajax', true );
+				$_POST['action'] = 'inline-save';
+				unset( $_POST['post_ID'] );
+
+				return [ 'post', false ];
+			}
+		];
+
+		yield 'post ID is empty' => [
+			function () {
+				$this->set_fn_return( 'wp_doing_ajax', true );
+				$_POST['action']  = 'inline-save';
+				$_POST['post_ID'] = '';
+
+				return [ 'post', false ];
+			}
+		];
+
+		yield 'post ID is not numeric' => [
+			function () {
+				$this->set_fn_return( 'wp_doing_ajax', true );
+				$_POST['action']  = 'inline-save';
+				$_POST['post_ID'] = 'not-numeric';
+
+				return [ 'post', false ];
+			}
+		];
+
+		yield 'post_type not the requested one' => [
+			function () {
+				$this->set_fn_return( 'wp_doing_ajax', true );
+				$_POST['action']  = 'inline-save';
+				$_POST['post_ID'] = 1;
+				$this->set_fn_return( 'get_post_type', 'page' );
+
+				return [ 'post', false ];
+			}
+		];
+
+		yield 'post_type same as requested one' => [
+			function () {
+				$this->set_fn_return( 'wp_doing_ajax', true );
+				$_POST['action']  = 'inline-save';
+				$_POST['post_ID'] = 1;
+				$this->set_fn_return( 'get_post_type', 'post' );
+
+				return [ 'post', true ];
+			}
+		];
+
+		yield 'post_type one of the requested ones' => [
+			function () {
+				$this->set_fn_return( 'wp_doing_ajax', true );
+				$_POST['action']  = 'inline-save';
+				$_POST['post_ID'] = 1;
+				$this->set_fn_return( 'get_post_type', 'post' );
+
+				return [ ['post', 'page'], true ];
+			}
+		];
+	}
+
+	/**
+	 * @dataProvider is_inline_editing_post_data_provider
+	 */
+	public function test_is_inline_editing_post( Closure $fixture ): void {
+		[ $post_type, $expected ] = $fixture();
+
+		$is_inline_editing_post = tribe_context()->is_inline_editing_post( $post_type );
+
+		$this->assertEquals( $expected, $is_inline_editing_post );
 	}
 }

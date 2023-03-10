@@ -2,9 +2,14 @@
 
 = [TBD] TBD =
 
+* Fix - Update the Google Maps API setting url on the Troubleshooting page. [TEC-4728]
+
+= [TBD] TBD =
+
 * Feature - Add the `is_editing_posts_list` method to the `Tribe__Context` class. [APM-5]
 * Fix - Fix a false positive on checking if a cache value is set after cache expiration passed.
-* Fix - Update the Google Maps API setting url on the Troubleshooting page. [TEC-4728]
+* Feature - Add the `Tribe__Context::is_inline_editing_post` method.
+* Tweak - Extract `TEC\Common\Context\Post_Request_Type` class from `Tribe__Context` class; proxy post request type methods to it.
 
 = [5.0.11] 2023-02-22 =
 
