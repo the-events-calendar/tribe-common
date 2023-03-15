@@ -41,7 +41,7 @@ class Provider extends ServiceProvider {
 		add_action( 'admin_init', [ $this, 'save_opt_in_setting_field' ] );
 		add_action( 'tec-telemetry-modal', [ $this, 'do_optin_modal' ] );
 		// @todo For testing, remove before release!
-		add_action( 'stellarwp/telemetry/tec/last_send_expire_seconds', [ $this, 'filter_last_send_expire' ] );
+		// add_action( 'stellarwp/telemetry/tec/last_send_expire_seconds', [ $this, 'filter_last_send_expire' ] );
 
 	}
 
@@ -50,6 +50,10 @@ class Provider extends ServiceProvider {
 		$telemetry_filter = Telemetry::get_optin_arg_hook();
 
 		add_filter( $telemetry_filter, [ $this, 'filter_optin_args' ] );
+
+		add_filter( 'stellarwp/telemetry/tec/should_show_optin', 'should_show_optin', 10, 1 );
+
+		add_filter( 'stellarwp/telemetry/tec/exit_interview_args', [ $this, 'filter_exit_interview_args' ] );
 	}
 
 	public function initialize_telemetry() {
@@ -68,11 +72,45 @@ class Provider extends ServiceProvider {
 		$this->container->make( Telemetry::class )->do_optin_modal();
 	}
 
-	public function filter_optin_args( $args ) {
+	/**
+	 * Filters the default optin modal args.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string|mixed> $args The current optin modal args.
+	 *
+	 * @return array<string|mixed>
+	 */
+	public function filter_optin_args( $args ): array  {
 		return $this->container->make( Telemetry::class )->filter_optin_args( $args );
 	}
 
-	public function filter_last_send_expire( $expire_seconds ) {
+	/**
+	 * Placeholder for now - a way for our Freemius code to trigger/hide the optin modal.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $show
+	 * @return bool
+	 */
+	public function filter_should_show_optin( $show ): bool {
+		return $this->container->make( Telemetry::class )->filter_should_show_optin( $show );
+	}
+
+	public function filter_exit_interview_args( $args ) {
+		return $this->container->make( Telemetry::class )->filter_exit_interview_args( $args );
+	}
+
+	/**
+	 * Filters the "polling time" so we can see changes on test servers quickly.
+	 * @todo: remove before release!
+	 *
+	 * @since TBD
+	 *
+	 * @param integer $expire_seconds
+	 * @return integer
+	 */
+	public function filter_last_send_expire( $expire_seconds ): int {
 		return MINUTE_IN_SECONDS * 5;
 	}
 }

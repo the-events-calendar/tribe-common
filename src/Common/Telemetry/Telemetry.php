@@ -12,7 +12,7 @@ use TEC\Common\StellarWP\Telemetry\Core;
 use TEC\Common\StellarWP\Telemetry\Config;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Subscriber;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
-use TEC\Common\Container;
+use Tribe__Container as Container;
 
 /**
  * Class Telemetry
@@ -29,7 +29,16 @@ final class Telemetry {
 	 *
 	 * @var string
 	 */
-	protected static $plugin_slug  = 'tec-common';
+	protected static $plugin_slug  = 'tec';
+
+	/**
+	 * The stellar slug used for identification
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected static $stellar_slug  = 'tec';
 
 	/**
 	 * The custom hook prefix.
@@ -41,7 +50,7 @@ final class Telemetry {
 	protected static $hook_prefix = 'tec';
 
 	/**
-	 * Array to hold the optin args.
+	 * Array to hold the opt-in args.
 	 *
 	 * @since TBD
 	 *
@@ -76,7 +85,7 @@ final class Telemetry {
 		 * and the corresponding wrapper:
 		 * https://github.com/stellarwp/container-contract/blob/main/examples/di52/Container.php
 		 */
-		$container = new Container();
+		$container = Container::init();
 		Config::set_container( $container );
 
 		// Set the full URL for the Telemetry Server API.
@@ -86,10 +95,9 @@ final class Telemetry {
 		Config::set_hook_prefix( self::$hook_prefix );
 
 		// Set a unique plugin slug.
-		Config::set_stellar_slug( self::$plugin_slug );
+		Config::set_stellar_slug( self::$stellar_slug );
 
 		// Initialize the library.
-
 		Core::instance()->init( \Tribe__Main::instance()->get_parent_plugin_file() );
 	}
 
@@ -111,17 +119,6 @@ final class Telemetry {
 	}
 
 	/**
-	 * Get the plugin slug used for identification.
-	 *
-	 * @since TBD
-	 *
-	 * @return string $plugin_slug
-	 */
-	public static function get_slug(): string {
-		return self::$plugin_slug;
-	}
-
-	/**
 	 * Get the hook for arguments passed to the opt-in modal.
 	 *
 	 * @since TBD
@@ -129,7 +126,7 @@ final class Telemetry {
 	 * @return string
 	 */
 	public static function get_optin_arg_hook(): string {
-		$slug = self::get_slug();
+		$slug = self::$hook_prefix;
 
 		return "stellarwp/telemetry/{$slug}/optin_args";
 	}
@@ -165,6 +162,18 @@ final class Telemetry {
 	 */
 	public static function get_privacy_url(): string {
 		return esc_url( apply_filters( 'tec_common_telemetry_privacy_url', 'https://evnt.is/1bcn' ) );
+	}
+
+	/**
+	 * Placeholder for now - a way for our Freemius code to trigger/hide the optin modal
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $show
+	 * @return bool
+	 */
+	public function filter_should_show_optin( $show ): bool {
+		return apply_filters( 'tec_common_telemetry_show_optin', $show );
 	}
 
 	/**
@@ -204,6 +213,46 @@ final class Telemetry {
 		$this->optin_args = apply_filters( 'tec_common_telemetry_optin_args', $optin_args );
 
 		return array_merge( $args, $this->optin_args );
+	}
+
+	public function filter_exit_interview_args( $args ) {
+		$new_args = [
+			'plugin_slug'        => self::$plugin_slug,
+			'plugin_logo'        => tribe_resource_url( 'images/logo/tec-brand.svg', false, null, \Tribe__Main::instance() ),
+			'plugin_logo_width'  => 'auto',
+			'plugin_logo_height' => 32,
+			'plugin_logo_alt'    => 'TEC Common Logo',
+			'heading'            => __( 'We’re sorry to see you go.', 'tribe-common' ),
+			'intro'              => __( 'We’d love to know why you’re leaving so we can improve our plugin.', 'tribe-common' ),
+			'uninstall_reasons'  => [
+				[
+					'uninstall_reason_id' => 'confusing',
+					'uninstall_reason'    => __( 'I couldn’t understand how to make it work.', 'tribe-common' ),
+				],
+				[
+					'uninstall_reason_id' => 'better-plugin',
+					'uninstall_reason'    => __( 'I found a better plugin.', 'tribe-common' ),
+					'show_comment'        => true,
+				],
+				[
+					'uninstall_reason_id' => 'no-feature',
+					'uninstall_reason'    => __( 'I need a specific feature it doesn’t provide.', 'tribe-common' ),
+					'show_comment'        => true,
+				],
+				[
+					'uninstall_reason_id' => 'broken',
+					'uninstall_reason'    => __( 'The plugin doesn’t work.', 'tribe-common' ),
+					'show_comment'        => true,
+				],
+				[
+					'uninstall_reason_id' => 'other',
+					'uninstall_reason'    => __( 'Other', 'tribe-common' ),
+					'show_comment'        => true,
+				],
+			],
+		];
+
+		return $new_args;
 	}
 
 	/**
@@ -260,6 +309,14 @@ final class Telemetry {
 		$value = ! empty( filter_input( INPUT_POST, 'opt-in-status', FILTER_VALIDATE_BOOLEAN ) );
 
 		$status->set_status( $value );
+
+		// If they are opting in, we need to ensure we tell the server.
+		$Opt_In_Subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
+
+		if ( $value ) {
+			$Opt_In_Subscriber->opt_in();
+		}
+
 	}
 
 	/**
