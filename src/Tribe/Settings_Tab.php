@@ -150,7 +150,7 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 		 * @return void
 		 */
 		public function doContent() {
-			do_action( 'stellarwp/telemetry/tec-common/optin' );
+			do_action( 'stellarwp/telemetry/tec/optin' );
 			if ( $this->display_callback && is_callable( $this->display_callback ) ) {
 				call_user_func( $this->display_callback );
 
