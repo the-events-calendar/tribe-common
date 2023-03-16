@@ -2,7 +2,7 @@
 /**
  * Provides methods to check and get the post state from the current request context.
  *
- * @since   TBD
+ * @since 5.0.13
  *
  * @package TEC\Common\Context;
  */
@@ -15,7 +15,7 @@ use Tribe__Utils__Array as Arr;
 /**
  * Class Post_Request_Type.
  *
- * @since   TBD
+ * @since 5.0.13
  *
  * @package TEC\Common\Context;
  */
@@ -24,7 +24,7 @@ class Post_Request_Type {
 	/**
 	 * Whether the current request is one to quick edit a single post of the specified post type or not.
 	 *
-	 * @since TBD
+	 * @since 5.0.13
 	 *
 	 * @param string|array<string> $post_type The post type or post types to check.
 	 *
@@ -50,7 +50,7 @@ class Post_Request_Type {
 	 * The admin edit screen for a post type is the one that lists all the posts of that typ,
 	 * it has the URL `/wp-admin/edit.php?post_type=<post_type>`.
 	 *
-	 * @since TBD
+	 * @since 5.0.13
 	 *
 	 * @param string|array<string> $post_type The post type or post types to check.
 	 *

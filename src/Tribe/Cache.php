@@ -373,7 +373,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * Whether a offset exists.
 	 *
 	 * @since 4.11.0
-	 * @since TBD Will check against cache expiration. Previously would give false positive
+	 * @since 5.0.13 Will check against cache expiration. Previously would give false positive
 	 *            if expiration had passed but was cached recently. Will now consider null not set.
 	 *
 	 * @param mixed $offset An offset to check for.
@@ -383,7 +383,7 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 */
 	#[\ReturnTypeWillChange]
-	public function offsetExists( $offset ) {
+	public function offsetExists( $offset ): bool {
 		$value = $this->get( $offset );
 
 		return $value !== false && $value !== null;
@@ -418,7 +418,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return void
 	 */
 	#[\ReturnTypeWillChange]
-	public function offsetSet( $offset, $value ) {
+	public function offsetSet( $offset, $value ): void {
 		$this->set( $offset, $value, self::NON_PERSISTENT );
 	}
 
@@ -434,7 +434,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return void
 	 */
 	#[\ReturnTypeWillChange]
-	public function offsetUnset( $offset ) {
+	public function offsetUnset( $offset ): void {
 		$this->delete( $offset );
 	}
 
