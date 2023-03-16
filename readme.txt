@@ -1,11 +1,16 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [5.0.13] 2023-3-20 =
 
 * Feature - Add the `is_editing_posts_list` method to the `Tribe__Context` class. [APM-5]
 * Fix - Fix a false positive on checking if a cache value is set after cache expiration passed.
 * Feature - Add the `Tribe__Context::is_inline_editing_post` method.
 * Tweak - Extract `TEC\Common\Context\Post_Request_Type` class from `Tribe__Context` class; proxy post request type methods to it.
+
+= [5.0.12] 2023-03-08 =
+
+* Enhancement - Added a way to customize the WYSIWYG editor field by passing in a `settings` parameter. [ET-1565]
+* Feature - Added new toggle field for settings in the admin area. [ET-1564]
 
 = [5.0.11] 2023-02-22 =
 
