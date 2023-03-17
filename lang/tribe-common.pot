@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 5.0.10\n"
+"Project-Id-Version: Tribe Common 5.0.13\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-02-07T06:37:36-08:00\n"
-"PO-Revision-Date: 2023-02-07 14:37\n"
+"POT-Creation-Date: 2023-03-17T10:21:25-07:00\n"
+"PO-Revision-Date: 2023-03-17 17:21\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: tribe-common\n"
 
@@ -1779,35 +1779,35 @@ msgctxt "extension disallowed"
 msgid "This extension has been programmatically disallowed. The most common reason is due to another The Events Calendar plugin having absorbed or replaced this extension's functionality. This extension plugin has been deactivated, and you should likely delete it."
 msgstr ""
 
-#: src/Tribe/Field.php:240
+#: src/Tribe/Field.php:253
 msgid "Invalid field type specified"
 msgstr ""
 
-#: src/Tribe/Field.php:550
+#: src/Tribe/Field.php:557
 msgid "No radio options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:586
+#: src/Tribe/Field.php:593
 msgid "No checkbox options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:648
+#: src/Tribe/Field.php:655
 msgid "No select options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:750
+#: src/Tribe/Field.php:757
 msgid "Select Image"
 msgstr ""
 
-#: src/Tribe/Field.php:751
+#: src/Tribe/Field.php:758
 msgid "Remove Image"
 msgstr ""
 
-#: src/Tribe/Field.php:755
+#: src/Tribe/Field.php:762
 msgid "Select an image"
 msgstr ""
 
-#: src/Tribe/Field.php:756
+#: src/Tribe/Field.php:763
 msgid "Use this image"
 msgstr ""
 
