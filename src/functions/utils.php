@@ -1099,7 +1099,7 @@ if ( ! function_exists( 'tribe_get_request_vars' ) ) {
 			array_keys( $_REQUEST ),
 			array_map( static function ( $v )
 			{
-				return filter_var( $v, FILTER_SANITIZE_STRING );
+				return tribe_sanitize_string( $v );
 			},
 				$_REQUEST )
 		);
@@ -1109,6 +1109,31 @@ if ( ! function_exists( 'tribe_get_request_vars' ) ) {
 }
 
 if ( ! function_exists( 'tribe_sanitize_deep' ) ) {
+
+	/**
+	 * Sanitizes string values.
+	 * 
+	 * @since TBD
+	 * 
+	 * @param string $string The string being sanitized.
+	 * 
+	 * @return string $string The sanitized version of the string.
+	 */
+	function tribe_sanitize_string( $string ) {
+		// Replace HTML tags and entities with their plain text equivalents
+		$string = htmlspecialchars_decode( $string, ENT_QUOTES );
+
+		// Remove any remaining HTML tags
+		$string = strip_tags( $string );
+
+		// Remove any non-alphanumeric characters
+		$string = preg_replace( '/[^a-zA-Z0-9\s]/', '', $string );
+
+		// Trim any whitespace from the beginning and end of the string
+		$string = trim( $string );
+
+		return $string;
+	}
 
 	/**
 	 * Sanitizes a value according to its type.
@@ -1127,7 +1152,7 @@ if ( ! function_exists( 'tribe_sanitize_deep' ) ) {
 			return $value;
 		}
 		if ( is_string( $value ) ) {
-			$value = filter_var( $value, FILTER_SANITIZE_STRING );
+			$value = tribe_sanitize_string( $value );
 			return $value;
 		}
 		if ( is_int( $value ) ) {

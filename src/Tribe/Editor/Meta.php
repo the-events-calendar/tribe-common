@@ -180,6 +180,31 @@ abstract class Tribe__Editor__Meta
 	}
 
 	/**
+	 * Sanitizes string values.
+	 * 
+	 * @since TBD
+	 * 
+	 * @param string $string The string being sanitized.
+	 * 
+	 * @return string $string The sanitized version of the string.
+	 */
+	public function tribe_sanitize_string( $string ) {
+		// Replace HTML tags and entities with their plain text equivalents
+		$string = htmlspecialchars_decode( $string, ENT_QUOTES );
+
+		// Remove any remaining HTML tags
+		$string = strip_tags( $string );
+
+		// Remove any non-alphanumeric characters
+		$string = preg_replace( '/[^a-zA-Z0-9\s]/', '', $string );
+
+		// Trim any whitespace from the beginning and end of the string
+		$string = trim( $string );
+
+		return $string;
+	}
+
+	/**
 	 * Sanitize strings allowing the usage of white spaces before or after the separators, as
 	 * - sanitize_text_field removes any whitespace
 	 *
@@ -190,7 +215,7 @@ abstract class Tribe__Editor__Meta
 	 * @return mixed
 	 */
 	public function sanitize_separator( $value ) {
-		return filter_var( $value, FILTER_SANITIZE_STRING );
+		return $this->tribe_sanitize_string( $value );
 	}
 
 	/**
