@@ -1,9 +1,26 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [5.0.13] 2023-3-20 =
 
 * Feature - Add the `is_editing_posts_list` method to the `Tribe__Context` class. [APM-5]
+* Feature - Add the `Tribe__Context::is_inline_editing_post` method.
 * Fix - Fix a false positive on checking if a cache value is set after cache expiration passed.
+* Tweak - Extract `TEC\Common\Context\Post_Request_Type` class from `Tribe__Context` class; proxy post request type methods to it.
+* Tweak - Removed actions: `tribe_log`
+* Tweak - Changed views: `single-event`, `v2/day/event/featured-image`, `v2/latest-past/event/featured-image`, `v2/list/event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image`, `v2/month/mobile-events/mobile-day/mobile-event/featured-image`, `v2/widgets/widget-events-list/event/date-tag`
+
+= [5.0.12] 2023-03-08 =
+
+* Enhancement - Added a way to customize the WYSIWYG editor field by passing in a `settings` parameter. [ET-1565]
+* Feature - Added new toggle field for settings in the admin area. [ET-1564]
+
+= [5.0.11] 2023-02-22 =
+
+* Tweak - PHP version compatibility bumped to PHP 7.4
+* Tweak - Version Composer updated to 2
+* Tweak - Version Node updated to 18.13.0
+* Tweak - Version NPM update to 8.19.3
+* Tweak - Reduce JavaScript bundle sizes for Blocks editor
 
 = [5.0.10] 2023-02-09 =
 
