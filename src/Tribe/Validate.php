@@ -510,7 +510,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 			$sanitized_emails = [];
 
 			// Break emails into an array.
-			$emails = preg_split( '[,|;]', $value );
+			$emails = preg_split( '/[,;]+/', $value );
 			
 			foreach ( $emails as $email ) {
 				// In case there's a blank email or extra comma/semicolon, skip with no error.
