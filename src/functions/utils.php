@@ -1126,9 +1126,6 @@ if ( ! function_exists( 'tribe_sanitize_deep' ) ) {
 		// Remove any remaining HTML tags
 		$string = strip_tags( $string );
 
-		// Remove any non-alphanumeric characters
-		$string = preg_replace( '/[^a-zA-Z0-9\s]/', '', $string );
-
 		// Trim any whitespace from the beginning and end of the string
 		$string = trim( $string );
 
