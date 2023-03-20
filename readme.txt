@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Fixed issue with "Upload Theme" button not working properly when a notification was displayed on the Theme page. [CT-77]
+
 = [5.0.11] 2023-02-22 =
 
 * Tweak - PHP version compatibility bumped to PHP 7.4
