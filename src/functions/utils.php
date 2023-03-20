@@ -1,5 +1,27 @@
 <?php
 
+/**
+ * Sanitizes string values.
+ * 
+ * @since TBD
+ * 
+ * @param string $string The string being sanitized.
+ * 
+ * @return string $string The sanitized version of the string.
+ */
+function tribe_sanitize_string( $string ) {
+	// Replace HTML tags and entities with their plain text equivalents
+	$string = htmlspecialchars_decode( $string, ENT_QUOTES );
+
+	// Remove any remaining HTML tags
+	$string = strip_tags( $string );
+
+	// Trim any whitespace from the beginning and end of the string
+	$string = trim( $string );
+
+	return $string;
+}
+
 if ( ! function_exists( 'tribe_array_merge_recursive' ) ) {
 	/**
 	 * Recursively merge two arrays preserving keys.
@@ -1109,28 +1131,6 @@ if ( ! function_exists( 'tribe_get_request_vars' ) ) {
 }
 
 if ( ! function_exists( 'tribe_sanitize_deep' ) ) {
-
-	/**
-	 * Sanitizes string values.
-	 * 
-	 * @since TBD
-	 * 
-	 * @param string $string The string being sanitized.
-	 * 
-	 * @return string $string The sanitized version of the string.
-	 */
-	function tribe_sanitize_string( $string ) {
-		// Replace HTML tags and entities with their plain text equivalents
-		$string = htmlspecialchars_decode( $string, ENT_QUOTES );
-
-		// Remove any remaining HTML tags
-		$string = strip_tags( $string );
-
-		// Trim any whitespace from the beginning and end of the string
-		$string = trim( $string );
-
-		return $string;
-	}
 
 	/**
 	 * Sanitizes a value according to its type.
