@@ -16,9 +16,6 @@ function tribe_sanitize_string( $string ) {
 	// Remove any remaining HTML tags
 	$string = strip_tags( $string );
 
-	// Trim any whitespace from the beginning and end of the string
-	$string = trim( $string );
-
 	return $string;
 }
 
