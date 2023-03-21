@@ -1,15 +1,22 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [5.0.13] 2023-03-20 =
 
 * Fix - Update the Google Maps API setting url on the Troubleshooting page. [TEC-4728]
 
 = [TBD] TBD =
 
 * Feature - Add the `is_editing_posts_list` method to the `Tribe__Context` class. [APM-5]
-* Fix - Fix a false positive on checking if a cache value is set after cache expiration passed.
 * Feature - Add the `Tribe__Context::is_inline_editing_post` method.
+* Fix - Fix a false positive on checking if a cache value is set after cache expiration passed.
 * Tweak - Extract `TEC\Common\Context\Post_Request_Type` class from `Tribe__Context` class; proxy post request type methods to it.
+* Tweak - Removed actions: `tribe_log`
+* Tweak - Changed views: `single-event`, `v2/day/event/featured-image`, `v2/latest-past/event/featured-image`, `v2/list/event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image`, `v2/month/mobile-events/mobile-day/mobile-event/featured-image`, `v2/widgets/widget-events-list/event/date-tag`
+
+= [5.0.12] 2023-03-08 =
+
+* Enhancement - Added a way to customize the WYSIWYG editor field by passing in a `settings` parameter. [ET-1565]
+* Feature - Added new toggle field for settings in the admin area. [ET-1564]
 
 = [5.0.11] 2023-02-22 =
 
