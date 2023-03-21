@@ -62,15 +62,9 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 'rob', $cache['foo'] );
 	}
 
-	/**
-	 * It should allow setting many different values using ArrayAccess API with long cache keys.
-	 *
-	 * @test
-	 */
-	public function it_should_allow_setting_many_different_values_using_array_access_api_with_long_cache_keys() {
-		$cache = $this->make_instance();
-
-		$expected = [
+	public function it_should_allow_setting_many_different_values_using_array_access_api_with_long_cache_keys_data_provider(): array {
+		$expected   = [];
+		$key_values = [
 			'foo1'  => '',
 			'foo2'  => '0',
 			'foo3'  => '-1',
@@ -81,27 +75,65 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 			'foo8'  => [],
 			'foo9'  => 'false',
 			'foo10' => 'null',
-			'foo11' => false,
-			'foo12' => null,
+			'foo11' => true,
 		];
 
-		foreach ( $expected as $key => $value ) {
+		foreach ( $key_values as $key => $value ) {
 			// Attempt to add a longer cache key to trigger the md5() cache key logic.
-			$key .= __METHOD__ . '-' . $key;
-
-			$cache[ $key ] = $value;
+			$key                                                   .= __METHOD__ . '-' . $key;
+			$expected[ substr( $key, 0, 6 ) . '... => ' . $value ] = [ $key, $value ];
 		}
 
-		foreach ( $expected as $key => $value ) {
-			// Attempt to add a longer cache key to trigger the md5() cache key logic.
-			$key .= __METHOD__ . '-' . $key;
+		// Generate long keys with variety of values.
+		return $expected;
+	}
 
-			// Any value set will always come back as 'set' because it exists in the non-persistent keys list.
-			$this->assertTrue( isset( $cache[ $key ] ) );
+	/**
+	 * It should allow setting many different values using ArrayAccess API with long cache keys.
+	 *
+	 * @dataProvider it_should_allow_setting_many_different_values_using_array_access_api_with_long_cache_keys_data_provider
+	 * @test
+	 */
+	public function it_should_allow_setting_many_different_values_using_array_access_api_with_long_cache_keys( string $key, $value ) {
+		$cache = $this->make_instance();
 
-			// The value will always match the type and value what we set.
-			$this->assertSame( $value, $cache[ $key ] );
-		}
+		$cache[ $key ] = $value;
+
+		// All values set will be evaluated as being set against expiration and other implied logic.
+		$this->assertTrue( isset( $cache[ $key ] ) );
+
+		// The value will always match the type and value what we set.
+		$this->assertSame( $value, $cache[ $key ] );
+	}
+
+	public function should_treat_some_values_as_not_set_data_provider(): array {
+		return [
+			// Null fails isset(), should be the same for our cache utility.
+			'null is not cached'  => [ uniqid(), null ],
+			// Because wp core cache utility sends false if no cache found.
+			'false is not cached' => [ uniqid(), false ]
+		];
+	}
+
+	/**
+	 * It should allow setting many different values using ArrayAccess API with long cache keys.
+	 *
+	 * @dataProvider should_treat_some_values_as_not_set_data_provider
+	 * @test
+	 */
+	public function should_treat_some_values_as_not_set( string $key, $value ) {
+		$cache = $this->make_instance();
+
+		$cache[ $key ] = $value;
+
+		// Invalid values will not be considered set.
+		$this->assertFalse( isset( $cache[ $key ] ) );
+
+		// The value will always be the same for consistency and expectations in a single instance,
+		// e.g. (value in / value out) but it will potentially not persist as it could be interpreted
+		// as an invalid cache value.
+		// False is wp_cache_get version of invalid, and null is natively considered not set.
+		$this->assertSame( $value, $cache[ $key ] );
 	}
 
 	/**
@@ -115,6 +147,8 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( isset( $cache['foo'] ) );
 
 		$cache['foo'] = 'bar';
+
+		$this->assertTrue( isset( $cache['foo'] ) );
 
 		unset( $cache['foo'] );
 

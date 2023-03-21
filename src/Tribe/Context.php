@@ -1,5 +1,6 @@
 <?php
 
+use TEC\Common\Context\Post_Request_Type;
 use Tribe__Utils__Array as Arr;
 
 /**
@@ -246,87 +247,52 @@ class Tribe__Context {
 	protected $use_default_locations = true;
 
 	/**
+	 * An instance of the post state handler.
+	 *
+	 * @since 5.0.13
+	 *
+	 * @var Post_Request_Type
+	 */
+	protected Post_Request_Type $post_state;
+
+	/**
+	 * Tribe__Context constructor.
+	 *
+	 * since 5.0.13
+	 *
+	 * @param Post_Request_Type|null $post_state An instance of the post state handler.
+	 */
+	public function __construct( Post_Request_Type $post_state = null ) {
+		$this->post_state = $post_state ?: tribe( Post_Request_Type::class );
+	}
+
+	/**
 	 * Whether we are currently creating a new post, a post of post type(s) or not.
 	 *
 	 * @since 4.7.7
+	 * @since 5.0.13 Extracted the logic to the `TEC\Common\Context\Post_Request_Type` class.
 	 *
 	 * @param null $post_type The optional post type to check.
 	 *
 	 * @return bool Whether we are currently creating a new post, a post of post type(s) or not.
 	 */
 	public function is_new_post( $post_type = null ) {
-		global $pagenow;
-		$is_new = 'post-new.php' === $pagenow;
-
-		return $is_new && $this->is_editing_post( $post_type );
+		return $this->post_state->is_new_post( $post_type );
 	}
 
 	/**
 	 * Whether we are currently editing a post(s), post type(s) or not.
 	 *
 	 * @since 4.7.7
+	 * @since 5.0.13 Extracted the logic to the `TEC\Common\Context\Post_Request_Type` class.
 	 *
 	 * @param null|array|string|int $post_or_type A post ID, post type, an array of post types or post IDs, `null`
 	 *                                            to just make sure we are currently editing a post.
 	 *
 	 * @return bool
 	 */
-	public function is_editing_post( $post_or_type = null ) {
-		global $pagenow;
-		$is_new  = 'post-new.php' === $pagenow;
-		$is_post = 'post.php' === $pagenow;
-		$is_editing = 'edit.php' === $pagenow;
-
-		if ( ! ( $is_new || $is_post || $is_editing ) ) {
-			return false;
-		}
-
-		if ( ! empty( $post_or_type ) ) {
-			$lookup = [];
-			// Prevent a slew of warnings every time we call this.
-			if ( isset( $_REQUEST ) ) {
-				$lookup[] = (array) $_REQUEST;
-			}
-
-			if ( isset( $_GET ) ) {
-				$lookup[] = (array) $_GET;
-			}
-
-			if ( isset( $_POST ) ) {
-				$lookup[] = (array) $_POST;
-			}
-
-			if ( empty( $lookup ) ) {
-				return false;
-			}
-
-			$current_post = Tribe__Utils__Array::get_in_any( $lookup, 'post', get_post() );
-
-			if ( is_numeric( $post_or_type ) ) {
-
-				$post = $is_post ? get_post( $post_or_type ) : null;
-
-				return ! empty( $post ) && $post == $current_post;
-			}
-
-			$post_types = is_array( $post_or_type ) ? $post_or_type : [ $post_or_type ];
-
-			$post = $is_post ? get_post( $current_post ) : null;
-
-			if ( count( array_filter( $post_types, 'is_numeric' ) ) === count( $post_types ) ) {
-				return ! empty( $post ) && in_array( $post->ID, $post_types );
-			}
-
-			if ( $is_post && $post instanceof WP_Post ) {
-				$post_type = $post->post_type;
-			} else {
-				$post_type = Tribe__Utils__Array::get_in_any( $lookup, 'post_type', 'post' );
-			}
-
-			return (bool) count( array_intersect( $post_types, [ $post_type ] ) );
-		}
-
-		return $is_new || $is_post;
+	public function is_editing_post( $post_or_type = null ): bool {
+		return $this->post_state->is_editing_post( $post_or_type );
 	}
 
 	/**
@@ -1655,5 +1621,35 @@ class Tribe__Context {
 			}
 			$this->request_cache[ $key ] = $val;
 		}
+	}
+
+	/**
+	 * Whether the current request is one to edit a list of the specified post types or not.
+	 *
+	 * The admin edit screen for a post type is the one that lists all the posts of that typ,
+	 * it has the URL `/wp-admin/edit.php?post_type=<post_type>`.
+	 *
+	 * @since 5.0.13
+	 * @since 5.0.13 Extracted the logic to the `TEC\Common\Context\Post_Request_Type` class.
+	 *
+	 * @param string|array<string> $post_type The post type or post types to check.
+	 *
+	 * @return bool Whether the current request is one to edit a list of the specified post types or not.
+	 */
+	public function is_editing_posts_list( $post_type ): bool {
+		return $this->post_state->is_editing_post_list( $post_type );
+	}
+
+	/**
+	 * Whether the current request is one to quick edit a single post of the specified post type or not.
+	 *
+	 * @since 5.0.13
+	 *
+	 * @param string|array<string> $post_type The post type or post types to check.
+	 *
+	 * @return bool Whether the current request is one to quick edit a single post of the specified post type or not.
+	 */
+	public function is_inline_editing_post( $post_type ): bool {
+		return $this->post_state->is_inline_editing_post( $post_type );
 	}
 }
