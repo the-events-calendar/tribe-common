@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Fixed issue with "Upload Theme" button not working properly when a notification was displayed on the Theme page. [CT-77]
+
 = [5.0.13] 2023-03-20 =
 
 * Feature - Add the `is_editing_posts_list` method to the `Tribe__Context` class. [APM-5]
