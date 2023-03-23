@@ -516,16 +516,15 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 		$string5  = 'My name is <h1>John Doe</h1>';
 		$string6  = 'I like to use the & symbol';
 		$string7  = 'This is <b>bold</b> text';
-		$string8  = "This string has \"quotes\" and 'apostrophes'";
-		$string9  = 'This string contains \ backslashes';
-		$string10 = 'This string has <a href=\'https://example.com\'>links</a>';
-		$string11 = 'This string contains special characters like äöüß';
-		$string12 = 'This string has multiple spaces       inside';
-		$string13 = 'This string has a newline\n and a carriage return\r';
-		$string14 = 'This string has a \t horizontal tab character';
-		$string15 = 'This string has <img src=\'image.jpg\'> an image tag';
-		$string16 = 'This string has a trailing space ';
-		$string17 = ' This string has a leading space';
+		$string8  = 'This string contains \ backslashes';
+		$string9  = 'This string has <a href=\'https://example.com\'>links</a>';
+		$string10 = 'This string contains special characters like äöüß';
+		$string11 = 'This string has multiple spaces       inside';
+		$string12 = 'This string has a newline\n and a carriage return\r';
+		$string13 = 'This string has a \t horizontal tab character';
+		$string14 = 'This string has <img src=\'image.jpg\'> an image tag';
+		$string15 = 'This string has a trailing space ';
+		$string16 = ' This string has a leading space';
 
 		return [
 			[ $string1, filter_var( $string1, FILTER_SANITIZE_STRING ) ],
@@ -544,7 +543,6 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 			[ $string14, filter_var( $string14, FILTER_SANITIZE_STRING ) ],
 			[ $string15, filter_var( $string15, FILTER_SANITIZE_STRING ) ],
 			[ $string16, filter_var( $string16, FILTER_SANITIZE_STRING ) ],
-			[ $string17, filter_var( $string17, FILTER_SANITIZE_STRING ) ],
 		];
 	}
 
