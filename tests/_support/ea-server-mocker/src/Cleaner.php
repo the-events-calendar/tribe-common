@@ -30,7 +30,7 @@ class Tribe__Events__Aggregator_Mocker__Cleaner
 			}
 
 			if ( $trigger !== 'ea_mocker-clean-all' ) {
-				$post_types = (array) filter_var( $_POST[ $trigger ], FILTER_SANITIZE_STRING );
+				$post_types = (array) tec_sanitize_string( $_POST[ $trigger ] );
 			} else {
 				$post_types = array( 'tribe_events', 'tribe-ea-record', 'tribe_venue', 'tribe_organizer' );
 			}
