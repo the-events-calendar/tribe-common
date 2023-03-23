@@ -509,41 +509,31 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	public function tec_sanitize_string_data_set() {
-		$string1  = 'Hello, how are you?';
-		$string2  = 'This is an email: john@example.com';
-		$string3  = 'My phone number is 123-456-7890';
-		$string4  = '<script>alert("This is an attack!)</script>';
-		$string5  = 'My name is <h1>John Doe</h1>';
-		$string6  = 'I like to use the & symbol';
-		$string7  = 'This is <b>bold</b> text';
-		$string8  = 'This string contains \ backslashes';
-		$string9  = 'This string has <a href=\'https://example.com\'>links</a>';
-		$string10 = 'This string contains special characters like äöüß';
-		$string11 = 'This string has multiple spaces       inside';
-		$string12 = 'This string has a newline\n and a carriage return\r';
-		$string13 = 'This string has a \t horizontal tab character';
-		$string14 = 'This string has <img src=\'image.jpg\'> an image tag';
-		$string15 = 'This string has a trailing space ';
-		$string16 = ' This string has a leading space';
 
-		return [
-			[ $string1, filter_var( $string1, FILTER_SANITIZE_STRING ) ],
-			[ $string2, filter_var( $string2, FILTER_SANITIZE_STRING ) ],
-			[ $string3, filter_var( $string3, FILTER_SANITIZE_STRING ) ],
-			[ $string4, filter_var( $string4, FILTER_SANITIZE_STRING ) ],
-			[ $string5, filter_var( $string5, FILTER_SANITIZE_STRING ) ],
-			[ $string6, filter_var( $string6, FILTER_SANITIZE_STRING ) ],
-			[ $string7, filter_var( $string7, FILTER_SANITIZE_STRING ) ],
-			[ $string8, filter_var( $string8, FILTER_SANITIZE_STRING ) ],
-			[ $string9, filter_var( $string9, FILTER_SANITIZE_STRING ) ],
-			[ $string10, filter_var( $string10, FILTER_SANITIZE_STRING ) ],
-			[ $string11, filter_var( $string11, FILTER_SANITIZE_STRING ) ],
-			[ $string12, filter_var( $string12, FILTER_SANITIZE_STRING ) ],
-			[ $string13, filter_var( $string13, FILTER_SANITIZE_STRING ) ],
-			[ $string14, filter_var( $string14, FILTER_SANITIZE_STRING ) ],
-			[ $string15, filter_var( $string15, FILTER_SANITIZE_STRING ) ],
-			[ $string16, filter_var( $string16, FILTER_SANITIZE_STRING ) ],
+		$strings = [
+			'Hello, how are you?',
+			'This is an email: john@example.com',
+			'My phone number is 123-456-7890',
+			'<script>alert("This is an attack!)</script>',
+			'My name is <h1>John Doe</h1>',
+			'I like to use the & symbol',
+			'This is <b>bold</b> text',
+			'This string contains \ backslashes',
+			'This string has <a href=\'https://example.com\'>links</a>',
+			'This string contains special characters like äöüß',
+			'This string has multiple spaces       inside',
+			'This string has a newline\n and a carriage return\r',
+			'This string has a \t horizontal tab character',
+			'This string has <img src=\'image.jpg\'> an image tag',
+			'This string has a trailing space ',
+			' This string has a leading space',
 		];
+
+		foreach ( $strings as $string ) {
+			return [
+				[ $string, filter_var( $string, FILTER_SANITIZE_STRING ) ]
+			];
+		}
 	}
 
 	/**
