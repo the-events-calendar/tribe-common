@@ -3,6 +3,7 @@
 = [TBD] TBD =
 
 * Fix - Fixed issue with "Upload Theme" button not working properly when a notification was displayed on the Theme page. [CT-77]
+* Tweak - Fix styles for checkboxes and toggle, to have the description in the same line. [ET-1692]
 
 = [5.0.13] 2023-03-20 =
 
