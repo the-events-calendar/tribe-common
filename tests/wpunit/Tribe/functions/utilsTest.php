@@ -509,24 +509,42 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	public function tec_sanitize_string_data_set() {
+		$string1  = 'Hello, how are you?';
+		$string2  = 'This is an email: john@example.com';
+		$string3  = 'My phone number is 123-456-7890';
+		$string4  = '<script>alert(\'This is an attack!\')</script>';
+		$string5  = 'My name is <h1>John Doe</h1>';
+		$string6  = 'I like to use the & symbol';
+		$string7  = 'This is <b>bold</b> text';
+		$string8  = 'This string has "quotes" and \'apostrophes\'';
+		$string9  = 'This string contains \ backslashes';
+		$string10 = 'This string has <a href=\'https://example.com\'>links</a>';
+		$string11 = 'This string contains special characters like äöüß';
+		$string12 = 'This string has multiple spaces       inside';
+		$string13 = 'This string has a newline\n and a carriage return\r';
+		$string14 = 'This string has a \t horizontal tab character';
+		$string15 = 'This string has <img src=\'image.jpg\'> an image tag';
+		$string16 = 'This string has a trailing space ';
+		$string17 = ' This string has a leading space';
+
 		return [
-			[ 'Hello, how are you?', 'Hello, how are you?' ],
-			[ 'This is an email: john@example.com', 'This is an email: john@example.com' ],
-			[ 'My phone number is 123-456-7890', 'My phone number is 123-456-7890' ],
-			[ '<script>alert(\'This is an attack!\')</script>', 'alert(\'This is an attack!\')' ],
-			[ 'My name is <h1>John Doe</h1>', 'My name is John Doe' ],
-			[ 'I like to use the & symbol', 'I like to use the &amp; symbol' ],
-			[ 'This is <b>bold</b> text', 'This is bold text' ],
-			[ 'This string has "quotes" and \'apostrophes\'', 'This string has "quotes" and \'apostrophes\'' ],
-			[ 'This string contains \ backslashes', 'This string contains \ backslashes' ],
-			[ 'This string has <a href=\'https://example.com\'>links</a>', 'This string has links' ],
-			[ 'This string contains special characters like äöüß', 'This string contains special characters like äöüß' ],
-			[ 'This string has multiple spaces       inside', 'This string has multiple spaces inside' ],
-			[ 'This string has a newline\n and a carriage return\r', 'This string has a newline\n and a carriage return\r' ],
-			[ 'This string has a \t horizontal tab character', 'This string has a \t horizontal tab character' ],
-			[ 'This string has <img src=\'image.jpg\'> an image tag', 'This string has an image tag' ],
-			[ 'This string has a trailing space ', 'This string has a trailing space' ],
-			[ ' This string has a leading space', 'This string has a leading space' ],
+			[ $string1, filter_var( $string1, FILTER_SANITIZE_STRING ) ],
+			[ $string2, filter_var( $string2, FILTER_SANITIZE_STRING ) ],
+			[ $string3, filter_var( $string3, FILTER_SANITIZE_STRING ) ],
+			[ $string4, filter_var( $string4, FILTER_SANITIZE_STRING ) ],
+			[ $string5, filter_var( $string5, FILTER_SANITIZE_STRING ) ],
+			[ $string6, filter_var( $string6, FILTER_SANITIZE_STRING ) ],
+			[ $string7, filter_var( $string7, FILTER_SANITIZE_STRING ) ],
+			[ $string8, filter_var( $string8, FILTER_SANITIZE_STRING ) ],
+			[ $string9, filter_var( $string9, FILTER_SANITIZE_STRING ) ],
+			[ $string10, filter_var( $string10, FILTER_SANITIZE_STRING ) ],
+			[ $string11, filter_var( $string11, FILTER_SANITIZE_STRING ) ],
+			[ $string12, filter_var( $string12, FILTER_SANITIZE_STRING ) ],
+			[ $string13, filter_var( $string13, FILTER_SANITIZE_STRING ) ],
+			[ $string14, filter_var( $string14, FILTER_SANITIZE_STRING ) ],
+			[ $string15, filter_var( $string15, FILTER_SANITIZE_STRING ) ],
+			[ $string16, filter_var( $string16, FILTER_SANITIZE_STRING ) ],
+			[ $string17, filter_var( $string17, FILTER_SANITIZE_STRING ) ],
 		];
 	}
 
