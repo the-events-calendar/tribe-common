@@ -512,11 +512,11 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 		$string1  = 'Hello, how are you?';
 		$string2  = 'This is an email: john@example.com';
 		$string3  = 'My phone number is 123-456-7890';
-		$string4  = '<script>alert(\'This is an attack!\')</script>';
+		$string4  = '<script>alert("This is an attack!)</script>';
 		$string5  = 'My name is <h1>John Doe</h1>';
 		$string6  = 'I like to use the & symbol';
 		$string7  = 'This is <b>bold</b> text';
-		$string8  = 'This string has "quotes" and \'apostrophes\'';
+		$string8  = "This string has \"quotes\" and 'apostrophes'";
 		$string9  = 'This string contains \ backslashes';
 		$string10 = 'This string has <a href=\'https://example.com\'>links</a>';
 		$string11 = 'This string contains special characters like äöüß';
