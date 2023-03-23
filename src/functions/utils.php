@@ -9,7 +9,7 @@
  * 
  * @return string $string The sanitized version of the string.
  */
-function tribe_sanitize_string( $string ) {
+function tec_sanitize_string( $string ) {
 	// Replace HTML tags and entities with their plain text equivalents
 	$string = htmlspecialchars_decode( $string, ENT_QUOTES );
 
@@ -1118,7 +1118,7 @@ if ( ! function_exists( 'tribe_get_request_vars' ) ) {
 			array_keys( $_REQUEST ),
 			array_map( static function ( $v )
 			{
-				return tribe_sanitize_string( $v );
+				return tec_sanitize_string( $v );
 			},
 				$_REQUEST )
 		);
@@ -1146,7 +1146,7 @@ if ( ! function_exists( 'tribe_sanitize_deep' ) ) {
 			return $value;
 		}
 		if ( is_string( $value ) ) {
-			$value = tribe_sanitize_string( $value );
+			$value = tec_sanitize_string( $value );
 			return $value;
 		}
 		if ( is_int( $value ) ) {
