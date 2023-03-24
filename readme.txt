@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Update the Google Maps API setting url on the Troubleshooting page. [TEC-4728]
+* Tweak - Replace the use of `FILTER_SANITIZE_STRING` in favour of `tec_sanitize_string` to improve PHP 8.1 compatibility. [TEC-4666]
+
 = [5.0.13] 2023-03-20 =
 
 * Feature - Add the `is_editing_posts_list` method to the `Tribe__Context` class. [APM-5]
