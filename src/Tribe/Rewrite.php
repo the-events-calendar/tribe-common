@@ -731,10 +731,15 @@ class Tribe__Rewrite {
 					);
 
 					// The English version is the first.
-					$en_slug                                                        = reset( $slugs );
-					$localized_matchers[ $localized_matcher_key ]['en_slug']        = $en_slug;
+					$en_slug                                                 = reset( $slugs );
+					$localized_matchers[ $localized_matcher_key ]['en_slug'] = $en_slug;
+
 					$localized_slug                                                 = $this->filter_matcher( $en_slug, $base );
-					$localized_matchers[ $localized_matcher_key ]['localized_slug'] = $localized_slug;
+
+					// Either the localized slug is different from the English one or use the default logic.
+					if ( $localized_slug !== $en_slug ) {
+						$localized_matchers[ $localized_matcher_key ]['localized_slug'] = $localized_slug;
+					}
 				}
 			}
 		}
@@ -822,11 +827,18 @@ class Tribe__Rewrite {
 				if ( isset( $matches['slugs'] ) ) {
 					$slugs = explode( '|', $matches['slugs'] );
 					// The localized version is the last, by default.
-					$localized_slug = $this->filter_matcher( end( $slugs ), 'page' );
+					$en_slug        = end( $slugs );
+					$localized_slug = $this->filter_matcher( $en_slug, 'page' );
 
-					// We use two different regular expressions to read pages, let's add both.
-					$dynamic_matchers["{$page_regex}/(\d+)"]       = "{$localized_slug}/{$query_vars[$page_var]}";
-					$dynamic_matchers["{$page_regex}/([0-9]{1,})"] = "{$localized_slug}/{$query_vars[$page_var]}";
+					// Either the localized slug is different from the English one or use the default logic.
+					if ( $localized_slug !== $en_slug ) {
+						$dynamic_matchers["{$page_regex}/(\d+)"]       = "{$localized_slug}/{$query_vars[$page_var]}";
+						$dynamic_matchers["{$page_regex}/([0-9]{1,})"] = "{$localized_slug}/{$query_vars[$page_var]}";
+					} else {
+						// We use two different regular expressions to read pages, let's add both.
+						$dynamic_matchers["{$page_regex}/(\d+)"]       = "{$en_slug}/{$query_vars[$page_var]}";
+						$dynamic_matchers["{$page_regex}/([0-9]{1,})"] = "{$en_slug}/{$query_vars[$page_var]}";
+					}
 				}
 			}
 		}
@@ -842,8 +854,13 @@ class Tribe__Rewrite {
 				if ( isset( $matches['slugs'] ) ) {
 					$slugs = explode( '|', $matches['slugs'] );
 					// The localized version is the last, by default.
-					$localized_slug                           = $this->filter_matcher( end( $slugs ), 'tag' );
-					$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$localized_slug}/{$tag}";
+					$en_slug        = end( $slugs );
+					$localized_slug = $this->filter_matcher( $en_slug, 'tag' );
+					if ( $localized_slug !== $en_slug ) {
+						$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$localized_slug}/{$tag}";
+					} else {
+						$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$en_slug}/{$tag}";
+					}
 				}
 			}
 		}
