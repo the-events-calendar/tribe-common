@@ -39,7 +39,9 @@
     "monolog/monolog": "1.24.*",
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
-    "stellarwp/installer": "^1.1.0"
+    "stellarwp/installer": "^1.1.0",
+    "stellarwp/schema": "^1.1.2",
+    "stellarwp/models": "dev-main"
   },
   "repositories": [
     {
@@ -62,15 +64,10 @@
       "@php bin/strauss.phar"
     ],
     "post-install-cmd": [
-      "@strauss",
-      "xrstf\\Composer52\\Generator::onPostInstallCmd"
+      "@strauss"
     ],
     "post-update-cmd": [
-      "@strauss",
-      "xrstf\\Composer52\\Generator::onPostInstallCmd"
-    ],
-    "post-autoload-dump": [
-      "xrstf\\Composer52\\Generator::onPostInstallCmd"
+      "@strauss"
     ]
   },
   "autoload": {
@@ -93,6 +90,8 @@
       "packages": [
         "stellarwp/container-contract",
         "stellarwp/db",
+        "stellarwp/models",
+        "stellarwp/schema",
         "stellarwp/installer",
         "monolog/monolog"
       ],
