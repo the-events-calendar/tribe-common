@@ -34,7 +34,7 @@ class Tribe__Rewrite {
 	 *
 	 * @var string
 	 */
-	protected static $localized_matcher_delimiter = '~';
+	public static $localized_matcher_delimiter = '~';
 
 	/**
 	 * WP_Rewrite Instance
@@ -732,6 +732,12 @@ class Tribe__Rewrite {
 
 					// The English version is the first.
 					$localized_matchers[ $localized_matcher_key ]['en_slug'] = reset( $slugs );
+
+					$localized_slug = $this->filter_matcher( null, $base );
+
+					if ( $localized_slug ) {
+						$localized_matchers[ $localized_matcher_key ]['localized_slug'] = $localized_slug;
+					}
 				}
 			}
 		}
@@ -818,11 +824,18 @@ class Tribe__Rewrite {
 				preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $page_regex, $matches );
 				if ( isset( $matches['slugs'] ) ) {
 					$slugs = explode( '|', $matches['slugs'] );
-					// The localized version is the last.
-					$localized_slug = end( $slugs );
+					// The localized version is the last, by default.
+					$en_slug        = end( $slugs );
+					$localized_slug = $this->filter_matcher( null, 'page' );
+
 					// We use two different regular expressions to read pages, let's add both.
-					$dynamic_matchers["{$page_regex}/(\d+)"]       = "{$localized_slug}/{$query_vars[$page_var]}";
-					$dynamic_matchers["{$page_regex}/([0-9]{1,})"] = "{$localized_slug}/{$query_vars[$page_var]}";
+					if ( $localized_slug ) {
+						$dynamic_matchers["{$page_regex}/(\d+)"]       = "{$localized_slug}/{$query_vars[$page_var]}";
+						$dynamic_matchers["{$page_regex}/([0-9]{1,})"] = "{$localized_slug}/{$query_vars[$page_var]}";
+					} else {
+						$dynamic_matchers["{$page_regex}/(\d+)"]       = "{$en_slug}/{$query_vars[$page_var]}";
+						$dynamic_matchers["{$page_regex}/([0-9]{1,})"] = "{$en_slug}/{$query_vars[$page_var]}";
+					}
 				}
 			}
 		}
@@ -837,9 +850,15 @@ class Tribe__Rewrite {
 				preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $tag_regex, $matches );
 				if ( isset( $matches['slugs'] ) ) {
 					$slugs = explode( '|', $matches['slugs'] );
-					// The localized version is the last.
-					$localized_slug                           = end( $slugs );
-					$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$localized_slug}/{$tag}";
+					// The localized version is the last, by default.
+					$en_slug        = end( $slugs );
+					$localized_slug = $this->filter_matcher( null, 'tag' );
+
+					if ( $localized_slug ) {
+						$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$localized_slug}/{$tag}";
+					} else {
+						$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$en_slug}/{$tag}";
+					}
 				}
 			}
 		}
@@ -1136,5 +1155,19 @@ class Tribe__Rewrite {
 		$this->clean_url_cache[ $url ] = $clean;
 
 		return $clean;
+	}
+
+	/**
+	 * Filters the localized matcher to allow integrations to provider contextual translations of the matcher.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|null $localized_matcher The localized matcher.
+	 * @param string      $base              The base the localized matcher is for.
+	 *
+	 * @return string The localized matcher.
+	 */
+	protected function filter_matcher( ?string $localized_matcher, string $base ): string {
+		return (string) apply_filters( 'tec_common_rewrite_localize_matcher', $localized_matcher, $base );
 	}
 }
