@@ -2,7 +2,7 @@
 
 namespace Tribe\Log;
 
-use Monolog\Handler\NullHandler;
+use TEC\Common\Monolog\Handler\NullHandler;
 use Tribe\Tests\Traits\With_Uopz;
 
 class ProviderTest extends \Codeception\TestCase\WPTestCase {

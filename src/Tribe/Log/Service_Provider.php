@@ -10,9 +10,9 @@
 namespace Tribe\Log;
 
 
-use Monolog\Handler\ErrorLogHandler;
-use Monolog\Handler\NullHandler;
-use Monolog\Logger;
+use TEC\Common\Monolog\Handler\ErrorLogHandler;
+use TEC\Common\Monolog\Handler\NullHandler;
+use TEC\Common\Monolog\Logger;
 use Psr\Log\NullLogger;
 
 class Service_Provider extends \tad_DI52_ServiceProvider {
