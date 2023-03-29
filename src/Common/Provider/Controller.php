@@ -9,7 +9,7 @@
 
 namespace TEC\Common\Provider;
 
-use TEC\Common\lucatume\DI52\ServiceProvider as Service_Provider;
+use tad_DI52_ServiceProvider as Service_Provider;
 
 /**
  * Class Controller.
@@ -24,9 +24,9 @@ abstract class Controller extends Service_Provider {
 	 *
 	 * Bound implementations should not be removed in this method!
 	 *
+	 * @return void Filters and actions hooks added by the controller are be removed.
 	 * @since TBD
 	 *
-	 * @return void Filters and actions hooks added by the controller are be removed.
 	 */
 	abstract public function unregister(): void;
 }
