@@ -11,8 +11,8 @@
 namespace Tribe\Log;
 
 
-use Monolog\Formatter\FormatterInterface;
-use Monolog\Formatter\LineFormatter;
+use TEC\Common\Monolog\Formatter\FormatterInterface;
+use TEC\Common\Monolog\Formatter\LineFormatter;
 
 class Canonical_Formatter implements FormatterInterface {
 	/**
