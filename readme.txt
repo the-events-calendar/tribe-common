@@ -1,10 +1,11 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [5.0.14] 2023-04-03 =
 
 * Fix - Fixed issue with "Upload Theme" button not working properly when a notification was displayed on the Theme page. [CT-77]
 * Enhancement - Added an `email_list` validation check for validating a delimited string of valid email addresses. [ET-1621]
 * Tweak - Fix styles for checkboxes and toggle, to have the description in the same line. [ET-1692]
+* Language - 1 new strings added, 6 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.0.13] 2023-03-20 =
 

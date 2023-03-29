@@ -502,7 +502,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		/**
 		 * Validates and sanitizes a list of email addresses.
 		 *
-		 * @since TBD
+		 * @since 5.0.14
 		 */
 		public function email_list() {
 			$value = trim( $this->value );
@@ -511,7 +511,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 			// Break emails into an array.
 			$emails = preg_split( '/[,;]+/', $value );
-			
+
 			foreach ( $emails as $email ) {
 				// In case there's a blank email or extra comma/semicolon, skip with no error.
 				if ( empty( $email ) ) {
@@ -529,7 +529,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 			// If any of the emails are invalid, throw an error.
 			if ( ! $this->result->valid ) {
-				$this->result->error = sprintf( 
+				$this->result->error = sprintf(
 					// Translators: %s - Label of the form input field.
 					esc_html__( '%s must be a list of valid email addresses separated by commas or semicolons.', 'tribe-common' ),
 					$this->label
