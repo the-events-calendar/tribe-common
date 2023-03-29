@@ -3,7 +3,7 @@
  * Provides methods to both mute and record log messages dispatched in the context
  * by the Logger.
  *
- * @since   5.0.1
+ * @since 5.0.1
  *
  * @package Tribe\Tests\Traits
  */
