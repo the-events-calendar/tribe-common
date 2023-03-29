@@ -2,11 +2,11 @@
 
 /**
  * Sanitizes string values.
- * 
+ *
  * @since TBD
- * 
+ *
  * @param string $string The string being sanitized.
- * 
+ *
  * @return string $string The sanitized version of the string.
  */
 function tec_sanitize_string( $string ) {
@@ -1116,11 +1116,12 @@ if ( ! function_exists( 'tribe_get_request_vars' ) ) {
 
 		$cache = array_combine(
 			array_keys( $_REQUEST ),
-			array_map( static function ( $v )
-			{
-				return tec_sanitize_string( $v );
-			},
-				$_REQUEST )
+			array_map(
+				static function ( $v ) {
+					return tribe_sanitize_deep( $v );
+				},
+				$_REQUEST
+			)
 		);
 
 		return $cache;
