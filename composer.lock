@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4b17db41ce33e615562b04cb35ae096b",
+    "content-hash": "587da79808a6a67da39c4e40a1a6a902",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -510,16 +510,16 @@
         },
         {
             "name": "stellarwp/schema",
-            "version": "1.1.2",
+            "version": "dev-feat/has-foreign-key",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/schema.git",
-                "reference": "35d4054552d410860fb768377c47e82e7132171e"
+                "reference": "79fb5c0a75f3c873d80b9abb6e8ecbb989e34885"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/schema/zipball/35d4054552d410860fb768377c47e82e7132171e",
-                "reference": "35d4054552d410860fb768377c47e82e7132171e",
+                "url": "https://api.github.com/repos/stellarwp/schema/zipball/79fb5c0a75f3c873d80b9abb6e8ecbb989e34885",
+                "reference": "79fb5c0a75f3c873d80b9abb6e8ecbb989e34885",
                 "shasum": ""
             },
             "require": {
@@ -563,9 +563,9 @@
             "description": "A library for simplifying the creation and updates of custom tables within WordPress.",
             "support": {
                 "issues": "https://github.com/stellarwp/schema/issues",
-                "source": "https://github.com/stellarwp/schema/tree/1.1.2"
+                "source": "https://github.com/stellarwp/schema/tree/feat/has-foreign-key"
             },
-            "time": "2022-11-22T21:29:36+00:00"
+            "time": "2023-04-03T12:20:35+00:00"
         },
         {
             "name": "xrstf/composer-php52",
@@ -4096,16 +4096,16 @@
         },
         {
             "name": "sirbrillig/phpcs-variable-analysis",
-            "version": "v2.11.12",
+            "version": "v2.11.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sirbrillig/phpcs-variable-analysis.git",
-                "reference": "d8a00fb972b9317ef4decf66725a25e712cc4cbe"
+                "reference": "dc5582dc5a93a235557af73e523c389aac9a8e88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sirbrillig/phpcs-variable-analysis/zipball/d8a00fb972b9317ef4decf66725a25e712cc4cbe",
-                "reference": "d8a00fb972b9317ef4decf66725a25e712cc4cbe",
+                "url": "https://api.github.com/repos/sirbrillig/phpcs-variable-analysis/zipball/dc5582dc5a93a235557af73e523c389aac9a8e88",
+                "reference": "dc5582dc5a93a235557af73e523c389aac9a8e88",
                 "shasum": ""
             },
             "require": {
@@ -4150,7 +4150,7 @@
                 "source": "https://github.com/sirbrillig/phpcs-variable-analysis",
                 "wiki": "https://github.com/sirbrillig/phpcs-variable-analysis/wiki"
             },
-            "time": "2023-03-13T14:54:42+00:00"
+            "time": "2023-03-31T16:46:32+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -6499,6 +6499,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "stellarwp/schema": 20,
         "stellarwp/models": 20,
         "the-events-calendar/coding-standards": 20,
         "the-events-calendar/tec-testing-facilities": 20

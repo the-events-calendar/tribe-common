@@ -40,7 +40,7 @@
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
     "stellarwp/installer": "^1.1.0",
-    "stellarwp/schema": "^1.1.2",
+    "stellarwp/schema": "dev-feat/has-foreign-key",
     "stellarwp/models": "dev-main"
   },
   "repositories": [
