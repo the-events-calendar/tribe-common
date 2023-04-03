@@ -10,9 +10,6 @@
  * @return string $string The sanitized version of the string.
  */
 function tec_sanitize_string( $string ) {
-	// Sanitize the string to remove any potentially malicious characters
-	$string = sanitize_text_field( $string );
-
 	// Replace HTML tags and entities with their plain text equivalents
 	$string = htmlspecialchars_decode( $string, ENT_QUOTES );
 
@@ -1121,7 +1118,7 @@ if ( ! function_exists( 'tribe_get_request_vars' ) ) {
 			array_keys( $_REQUEST ),
 			array_map( static function ( $v )
 			{
-				return tec_sanitize_string( $v );
+				return tribe_sanitize_deep( $v );
 			},
 				$_REQUEST )
 		);
