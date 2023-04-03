@@ -28,6 +28,7 @@ PHP;
         $I->loginAsAdmin();
         $I->amOnPluginsPage();
         $I->activatePlugin('the-events-calendar');
+        $I->amOnPluginsPage();
         $I->seePluginActivated('the-events-calendar');
 
         $I->seeOptionInDatabase('_tribe_common_loaded_on_request', 'POST /wp-admin/plugins.php');
