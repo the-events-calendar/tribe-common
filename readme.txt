@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [5.0.15] 2023-04-10 =
 
 * Fix - Update the Google Maps API setting url on the Troubleshooting page. [TEC-4728]
 * Fix - Updates the Monolog repository to use TEC namespacing via Strauss, to provide more compatibility with other plugins. [TEC-4730]
