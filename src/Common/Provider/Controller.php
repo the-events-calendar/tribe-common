@@ -23,6 +23,39 @@ use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
  */
 abstract class Controller extends Service_Provider {
 	/**
+	 * Registers the filters and actions hooks added by the controller if the controller has not registered yet.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function register() {
+		/*
+		 * Look up and set the value in the container request cache to allow building the same Controller
+		 * with a **different** container. (e.g. in tests).
+		 */
+		if ( $this->container->getVar( static::class . '_registered' ) ) {
+			return;
+		}
+
+		$this->container->setVar( static::class . '_registered', true );
+
+		// Register the controller as a singleton.j
+		$this->container->singleton( self::class, self::class );
+
+		$this->do_register();
+	}
+
+	/**
+	 * Registers the filters and actions hooks added by the controller.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	abstract protected function do_register(): void;
+
+	/**
 	 * Removes the filters and actions hooks added by the controller.
 	 *
 	 * Bound implementations should not be removed in this method!
