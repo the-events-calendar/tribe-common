@@ -514,7 +514,7 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 			'Hello, how are you?',
 			'This is an email: john@example.com',
 			'My phone number is 123-456-7890',
-			'<script>alert("This is an attack!")</script>',
+			'<script>alert("This is an attack!)</script>',
 			'My name is <h1>John Doe</h1>',
 			'I like to use the & symbol',
 			'This is <b>bold</b> text',
