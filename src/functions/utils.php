@@ -10,6 +10,9 @@
  * @return string $string The sanitized version of the string.
  */
 function tec_sanitize_string( $string ) {
+	// Sanitize the string to remove any potentially malicious characters
+	$string = sanitize_text_field( $string );
+
 	// Replace HTML tags and entities with their plain text equivalents
 	$string = htmlspecialchars_decode( $string, ENT_QUOTES );
 
