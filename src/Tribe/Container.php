@@ -1,11 +1,14 @@
 <?php
+
+use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
+
 if ( ! class_exists( 'Tribe__Container' ) ) {
 	/**
 	 * Class Tribe__Container
 	 *
 	 * Tribe Dependency Injection Container.
 	 */
-	class Tribe__Container extends tad_DI52_Container {
+	class Tribe__Container extends tad_DI52_Container implements ContainerInterface {
 
 		/**
 		 * @var Tribe__Container
@@ -21,6 +24,33 @@ if ( ! class_exists( 'Tribe__Container' ) ) {
 			}
 
 			return self::$instance;
+		}
+
+		/**
+		 * Returns the implementation for the specified class, interface or slug.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $id The class, interface or slug to return the implementation for.
+		 *
+		 * @return mixed The implementation for the specified class, interface or slug.
+		 *
+		 */
+		public function get( string $id ) {
+			return $this->make( $id );
+		}
+
+		/**
+		 * Returns whether the container has an implementation for the specified class, interface or slug.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $id The class, interface or slug to check the implementation for.
+		 *
+		 * @return bool Whether the container has an implementation for the specified class, interface or slug.
+		 */
+		public function has( string $id ) {
+			return $this->isBound( $id );
 		}
 	}
 }

@@ -10,6 +10,7 @@
 namespace TEC\Common\Provider;
 
 use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
 
 /**
  * Class Controller.
@@ -17,6 +18,8 @@ use tad_DI52_ServiceProvider as Service_Provider;
  * @since   TBD
  *
  * @package TEC\Common\Provider;
+ *
+ * @property ContainerInterface $container
  */
 abstract class Controller extends Service_Provider {
 	/**
@@ -24,9 +27,9 @@ abstract class Controller extends Service_Provider {
 	 *
 	 * Bound implementations should not be removed in this method!
 	 *
-	 * @return void Filters and actions hooks added by the controller are be removed.
 	 * @since TBD
 	 *
+	 * @return void Filters and actions hooks added by the controller are be removed.
 	 */
 	abstract public function unregister(): void;
 }
