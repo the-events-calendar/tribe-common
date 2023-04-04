@@ -38,6 +38,10 @@ abstract class Controller extends Service_Provider {
 			return;
 		}
 
+		if(!$this->is_active()){
+			return;
+		}
+
 		$this->container->setVar( static::class . '_registered', true );
 
 		// Register the controller as a singleton.j
@@ -65,4 +69,17 @@ abstract class Controller extends Service_Provider {
 	 * @return void Filters and actions hooks added by the controller are be removed.
 	 */
 	abstract public function unregister(): void;
+
+	/**
+	 * Whether the controller is active or not.
+	 *
+	 * Controllers will be active by default, if that is not the case, the controller should override this method.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the controller is active or not.
+	 */
+	public function is_active(): bool {
+		return true;
+	}
 }
