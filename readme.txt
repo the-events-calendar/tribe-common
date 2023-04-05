@@ -7,6 +7,7 @@
 * Tweak - Replace the use of `FILTER_SANITIZE_STRING` in favour of `tec_sanitize_string` to improve PHP 8.1 compatibility. [TEC-4666]
 * Tweak - More flexible filtering of localized and dynamic matchers in the Rewrite component to allow easier rewrite rules translation. [TEC-4689]
 * Tweak - Added filters: `tec_common_rewrite_localize_matcher`
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.0.14] 2023-04-03 =
 
