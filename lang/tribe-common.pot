@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 5.0.13\n"
+"Project-Id-Version: Tribe Common 5.0.14\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-03-17T10:21:25-07:00\n"
-"PO-Revision-Date: 2023-03-17 17:21\n"
+"POT-Creation-Date: 2023-03-29T07:43:45-07:00\n"
+"PO-Revision-Date: 2023-03-29 14:43\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: tribe-common\n"
 
@@ -1200,13 +1200,13 @@ msgid "This extension allows you to add custom HTML content to the top of the Co
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Php_Version.php:59
-#: src/Tribe/Admin/Notice/Plugin_Download.php:149
+#: src/Tribe/Admin/Notice/Plugin_Download.php:147
 msgctxt "separator used in a list of items"
 msgid ", "
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Php_Version.php:60
-#: src/Tribe/Admin/Notice/Plugin_Download.php:150
+#: src/Tribe/Admin/Notice/Plugin_Download.php:148
 msgctxt "the final separator in a list of two or more items"
 msgid " and "
 msgstr ""
@@ -1217,16 +1217,16 @@ msgctxt "Message notifying users they need to upgrade PHP"
 msgid "Starting February 2023, %1$s will require PHP 7.4 or later. Currently, your site is using PHP version %2$s. Please update to a newer version. %3$sRead more%4$s."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Plugin_Download.php:122
+#: src/Tribe/Admin/Notice/Plugin_Download.php:120
 msgid "To begin using %2$s, please install (or upgrade) and activate %3$s."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Plugin_Download.php:124
+#: src/Tribe/Admin/Notice/Plugin_Download.php:122
 #: src/Tribe/PUE/Update_Prevention.php:181
 msgid "Read more"
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Plugin_Download.php:125
+#: src/Tribe/Admin/Notice/Plugin_Download.php:123
 msgid "There’s a new version of %1$s available, but your license is expired. You’ll need to renew your license to get access to the latest version. If you plan to continue using your current version of the plugin(s), be sure to use a compatible version of The Events Calendar. %2$s"
 msgstr ""
 
@@ -3795,7 +3795,12 @@ msgstr ""
 msgid "%s must be an email address."
 msgstr ""
 
-#: src/Tribe/Validate.php:512
+#. Translators: %s - Label of the form input field.
+#: src/Tribe/Validate.php:534
+msgid "%s must be a list of valid email addresses separated by commas or semicolons."
+msgstr ""
+
+#: src/Tribe/Validate.php:552
 msgid "%s must be a valid HTML color code."
 msgstr ""
 

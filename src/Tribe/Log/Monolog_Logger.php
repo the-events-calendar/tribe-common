@@ -2,7 +2,7 @@
 /**
  * An extension of the base Monolog logger to add our need to replace the instance, and global, loggers.
  *
- * @since   4.9.16
+ * @since 4.9.16
  *
  * @package Tribe\Log
  */
@@ -14,7 +14,7 @@ use TEC\Common\Monolog\Logger;
 /**
  * Class Monolog_Logger
  *
- * @since   4.9.16
+ * @since 4.9.16
  *
  * @package Tribe\Log
  */
