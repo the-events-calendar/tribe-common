@@ -2,20 +2,20 @@
 /**
  * Hooks the `tribe_log` action based logger under the existing one for back-compatibility.
  *
- * @since   4.9.16
+ * @since 4.9.16
  *
  * @package Tribe\Log
  */
 
 namespace Tribe\Log;
 
-use Monolog\Logger;
+use TEC\Common\Monolog\Logger;
 use Tribe__Log;
 
 /**
  * Class Action_Logger
  *
- * @since   4.9.16
+ * @since 4.9.16
  *
  * @package Tribe\Log
  */

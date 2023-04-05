@@ -93,7 +93,8 @@
       "packages": [
         "stellarwp/container-contract",
         "stellarwp/db",
-        "stellarwp/installer"
+        "stellarwp/installer",
+        "monolog/monolog"
       ],
       "delete_vendor_files": true
     }
