@@ -114,7 +114,7 @@ final class Telemetry {
 			$file = \Tribe__Main::instance()->get_parent_plugin_file();
 			self::$parent_plugin = substr( $file, ( strrpos( $file, '/' ) + 1 ), ( strlen( $file ) - ( strrpos( $file, '/' ) + 5 ) ),  );
 		}
-		//"/Users/stephenpage/Sites/tec/dev/plugins/the-events-calendar/the-events-calendar.php"
+
 		return self::$parent_plugin;
 	}
 

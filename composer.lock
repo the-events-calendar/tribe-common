@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d7e1a12d5d0ef43f2d898c9bd53e56a0",
+    "content-hash": "7962ad437a061eae4fa23bbfeeb862e4",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -70,16 +70,16 @@
         },
         {
             "name": "lucatume/di52",
-            "version": "3.3.0",
+            "version": "3.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/di52",
-                "reference": "b51304f3e95ae6ee9eb2cfd60831b5d4829ed4d7"
+                "reference": "2ad290de6143a26bfbc61ee0eb0dce10edf09dd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/di52/zipball/b51304f3e95ae6ee9eb2cfd60831b5d4829ed4d7",
-                "reference": "b51304f3e95ae6ee9eb2cfd60831b5d4829ed4d7",
+                "url": "https://api.github.com/repos/lucatume/di52/zipball/2ad290de6143a26bfbc61ee0eb0dce10edf09dd6",
+                "reference": "2ad290de6143a26bfbc61ee0eb0dce10edf09dd6",
                 "shasum": ""
             },
             "require": {
@@ -106,7 +106,7 @@
                 }
             ],
             "description": "A PHP 5.6 compatible dependency injection container.",
-            "time": "2023-02-28T18:02:36+00:00"
+            "time": "2023-03-17T08:40:53+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -446,16 +446,16 @@
         },
         {
             "name": "stellarwp/telemetry",
-            "version": "1.0.6",
+            "version": "dev-feature/allow-multiple-stellar-slugs",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/telemetry.git",
-                "reference": "331b61749bf1b4d90fa975419c2be506dd5d2cfc"
+                "reference": "f9645a1245aef8a1808f51f7cef23ab2c774d1ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/331b61749bf1b4d90fa975419c2be506dd5d2cfc",
-                "reference": "331b61749bf1b4d90fa975419c2be506dd5d2cfc",
+                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/f9645a1245aef8a1808f51f7cef23ab2c774d1ce",
+                "reference": "f9645a1245aef8a1808f51f7cef23ab2c774d1ce",
                 "shasum": ""
             },
             "require": {
@@ -488,16 +488,55 @@
                     "StellarWP\\Telemetry\\Assets_Dir\\": "src/resources"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "StellarWP\\Telemetry\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "test:analysis": [
+                    "phpstan analyse --memory-limit=512M"
+                ],
+                "compatibility:php-7.1": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 7.1"
+                ],
+                "compatibility:php-7.2": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 7.2"
+                ],
+                "compatibility:php-7.3": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 7.3"
+                ],
+                "compatibility:php-7.4": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 7.4"
+                ],
+                "compatibility:php-8.0": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.0"
+                ],
+                "compatibility:php-8.1": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.1"
+                ],
+                "compatibility:php-8.2": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.2"
+                ],
+                "compatibility": [
+                    "@compatibility:php-7.1",
+                    "@compatibility:php-7.2",
+                    "@compatibility:php-7.3",
+                    "@compatibility:php-7.4",
+                    "@compatibility:php-8.0",
+                    "@compatibility:php-8.1",
+                    "@compatibility:php-8.2"
+                ]
+            },
             "license": [
                 "GPL-2.0-or-later"
             ],
             "description": "Telemetry library for StellarWP plugins.",
             "support": {
-                "issues": "https://github.com/stellarwp/telemetry/issues",
-                "source": "https://github.com/stellarwp/telemetry/tree/1.0.6"
+                "source": "https://github.com/stellarwp/telemetry/tree/feature/allow-multiple-stellar-slugs",
+                "issues": "https://github.com/stellarwp/telemetry/issues"
             },
-            "time": "2023-02-23T18:58:09+00:00"
+            "time": "2023-04-05T20:14:18+00:00"
         }
     ],
     "packages-dev": [
@@ -3152,25 +3191,25 @@
         },
         {
             "name": "psr/http-message",
-            "version": "1.0.1",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-message.git",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": "^7.2 || ^8.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -3199,9 +3238,9 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-message/tree/master"
+                "source": "https://github.com/php-fig/http-message/tree/1.1"
             },
-            "time": "2016-08-06T14:39:51+00:00"
+            "time": "2023-04-04T09:50:52+00:00"
         },
         {
             "name": "psr/simple-cache",
@@ -3993,16 +4032,16 @@
         },
         {
             "name": "sirbrillig/phpcs-variable-analysis",
-            "version": "v2.11.10",
+            "version": "v2.11.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sirbrillig/phpcs-variable-analysis.git",
-                "reference": "0f25a3766f26df91d6bdda0c8931303fc85499d7"
+                "reference": "dc5582dc5a93a235557af73e523c389aac9a8e88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sirbrillig/phpcs-variable-analysis/zipball/0f25a3766f26df91d6bdda0c8931303fc85499d7",
-                "reference": "0f25a3766f26df91d6bdda0c8931303fc85499d7",
+                "url": "https://api.github.com/repos/sirbrillig/phpcs-variable-analysis/zipball/dc5582dc5a93a235557af73e523c389aac9a8e88",
+                "reference": "dc5582dc5a93a235557af73e523c389aac9a8e88",
                 "shasum": ""
             },
             "require": {
@@ -4047,7 +4086,7 @@
                 "source": "https://github.com/sirbrillig/phpcs-variable-analysis",
                 "wiki": "https://github.com/sirbrillig/phpcs-variable-analysis/wiki"
             },
-            "time": "2023-01-05T18:45:16+00:00"
+            "time": "2023-03-31T16:46:32+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -6153,16 +6192,16 @@
         },
         {
             "name": "wp-cli/php-cli-tools",
-            "version": "v0.11.17",
+            "version": "v0.11.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-cli/php-cli-tools.git",
-                "reference": "f6be76b7c4ee2ef93c9531b8a37bdb7ce42c3728"
+                "reference": "0f503a790698cb36cf835e5c8d09cd4b64bf2325"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-cli/php-cli-tools/zipball/f6be76b7c4ee2ef93c9531b8a37bdb7ce42c3728",
-                "reference": "f6be76b7c4ee2ef93c9531b8a37bdb7ce42c3728",
+                "url": "https://api.github.com/repos/wp-cli/php-cli-tools/zipball/0f503a790698cb36cf835e5c8d09cd4b64bf2325",
+                "reference": "0f503a790698cb36cf835e5c8d09cd4b64bf2325",
                 "shasum": ""
             },
             "require": {
@@ -6210,9 +6249,9 @@
             ],
             "support": {
                 "issues": "https://github.com/wp-cli/php-cli-tools/issues",
-                "source": "https://github.com/wp-cli/php-cli-tools/tree/v0.11.17"
+                "source": "https://github.com/wp-cli/php-cli-tools/tree/v0.11.18"
             },
-            "time": "2023-01-12T01:18:21+00:00"
+            "time": "2023-04-04T16:03:53+00:00"
         },
         {
             "name": "wp-cli/wp-cli",
@@ -6396,6 +6435,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "stellarwp/telemetry": 20,
         "the-events-calendar/coding-standards": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
