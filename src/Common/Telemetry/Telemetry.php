@@ -13,6 +13,7 @@ use TEC\Common\StellarWP\Telemetry\Config;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Subscriber;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
 use Tribe__Container as Container;
+use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Template;
 
 /**
  * Class Telemetry
@@ -68,6 +69,15 @@ final class Telemetry {
 	private static $parent_plugin = '';
 
 	/**
+	 * Path to main pugin file
+	*
+	* @since TBD
+	*
+	* @var string
+	*/
+	private static $plugin_path = 'tribe-common.php';
+
+	/**
 	 * Gentlefolk, start your engines.
 	 *
 	 * @since TBD
@@ -88,8 +98,12 @@ final class Telemetry {
 		$container = Container::init();
 		Config::set_container( $container );
 
-		// Set the full URL for the Telemetry Server API.
-		Config::set_server_url( 'https://telemetry-api.moderntribe.qa/api/v1' );
+		// Set the full URL for the Telemetry Server API. Allow overriding reporting server.
+		if ( defined('TELEMETRY_SERVER') ) {
+            Config::set_server_url( TELEMETRY_SERVER );
+        } else {
+            Config::set_server_url( 'https://telemetry.stellarwp.com/api/v1' );
+        }
 
 		// Set a unique prefix for actions & filters.
 		Config::set_hook_prefix( self::$hook_prefix );
@@ -97,8 +111,21 @@ final class Telemetry {
 		// Set a unique plugin slug.
 		Config::set_stellar_slug( self::$stellar_slug );
 
+		self::$plugin_path = \Tribe__Main::instance()->parent_plugin_dir . self::$plugin_path;
+
 		// Initialize the library.
-		Core::instance()->init( \Tribe__Main::instance()->get_parent_plugin_file() );
+
+		Core::instance()->init( self::$plugin_path );
+
+		do_action( 'tec_common_telemetry_loaded', $this );
+	}
+
+	public static function get_plugin_slug() {
+		return self::$plugin_slug;
+	}
+
+	public static function get_hook_prefix() {
+		return self::$hook_prefix;
 	}
 
 	/**
@@ -107,7 +134,7 @@ final class Telemetry {
 	 *
 	 * @since TBD
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public static function get_parent_plugin_slug(): string {
 		if ( empty( self::$parent_plugin ) ) {
@@ -165,18 +192,6 @@ final class Telemetry {
 	}
 
 	/**
-	 * Placeholder for now - a way for our Freemius code to trigger/hide the optin modal
-	 *
-	 * @since TBD
-	 *
-	 * @param bool $show
-	 * @return bool
-	 */
-	public function filter_should_show_optin( $show ): bool {
-		return apply_filters( 'tec_common_telemetry_show_optin', $show );
-	}
-
-	/**
 	 * Filters the default optin modal args.
 	 *
 	 * @since TBD
@@ -215,6 +230,15 @@ final class Telemetry {
 		return array_merge( $args, $this->optin_args );
 	}
 
+	/**
+	 * Filters the exit questionnaire shown during plugin deactivation/uninstall.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $args The default args.
+	 *
+	 * @return array<string,mixed> $args The modified args.
+	 */
 	public function filter_exit_interview_args( $args ) {
 		$new_args = [
 			'plugin_slug'        => self::$plugin_slug,
@@ -252,7 +276,7 @@ final class Telemetry {
 			],
 		];
 
-		return $new_args;
+		return array_merge( $args, $new_args );
 	}
 
 	/**
@@ -262,16 +286,24 @@ final class Telemetry {
 	 *
 	 * @return void
 	 */
-	public function do_optin_modal(): void {
+	public function show_optin_modal(): void {
 		$plugin_slug = self::$plugin_slug;
 
-		$go = apply_filters( 'tec_common_telemetry_do_optin_modal', true, $plugin_slug );
+		/**
+		 * Filter allowing disabling of the optin modal.
+		 * Returning boolean false will disable the modal
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $show Whether to show the modal or not.
+		 */
+		$show = (bool) apply_filters( 'tec_common_telemetry_show_optin_modal', true );
 
-		if ( ! $go ) {
+		if ( ! $show ) {
 			return;
 		}
 
-		do_action( "stellarwp/telemetry/{$plugin_slug}/optin" );
+		do_action( 'stellarwp/telemetry/optin', $plugin_slug );
 	}
 
 	/**
@@ -291,11 +323,18 @@ final class Telemetry {
 		 * @since TBD
 		 *
 		 * @param string $tab    The tab slug where the optin control is found.
-		 * @param string $parent The prefix fot the setting
 		 */
 		$optin_tab = apply_filters( 'tec_common_telemetry_optin_tab', 'general' );
 
 		$parent = self::get_parent_plugin_slug();
+
+		/**
+		 * Parent-specific filter for the the settings page/tab that the optin control goes on.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $tab    The tab slug where the optin control is found.
+		 */
 		$optin_tab = apply_filters( "tec_common_telemetry_{$parent}_optin_tab", $optin_tab );
 
 		if ( $_POST[ 'current-settings-tab' ] !== $optin_tab ) {
@@ -308,15 +347,10 @@ final class Telemetry {
 		// Get the value submitted on the settings page as a boolean.
 		$value = ! empty( filter_input( INPUT_POST, 'opt-in-status', FILTER_VALIDATE_BOOLEAN ) );
 
-		$status->set_status( $value );
+		$status->set_status( $value, self::$stellar_slug );
 
-		// If they are opting in, we need to ensure we tell the server.
-		$Opt_In_Subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
-
-		if ( $value ) {
-			$Opt_In_Subscriber->opt_in();
-		}
-
+		// Gotta catch them all..
+		$this->register_tec_telemetry_plugins( $value );
 	}
 
 	/**
@@ -371,5 +405,67 @@ final class Telemetry {
 		 * @param boolean $status The opt-in status value.
 		 */
 		return (bool) apply_filters( "tec_common_telemetry_{$hook_prefix}_optin_status", $status );
+	}
+
+	/**
+	 * Allows out plugins to hook in and add themselves,
+	 * automating a lot of the registration and opt in/out process.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,string> An array of plugins in the format [ 'plugin_slug' => 'plugin_path' ]
+	 */
+	public static function get_tec_telemetry_slugs() {
+		return apply_filters( 'tec_telemetry_slugs', [] );
+	}
+
+	/**
+	 * Register and opt in/out the plugins that are hooked into `tec_telemetry_slugs`.
+	 * This keeps all TEC plugins in sync and only requires one optin modal response.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function register_tec_telemetry_plugins( $opted = null ) {
+		// Let's reduce the amount this triggers.
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			return;
+		}
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
+		$action = current_action();
+		$tec_slugs     = self::get_tec_telemetry_slugs();
+		$stellar_slugs = Config::get_all_stellar_slugs();
+
+		// We got no plugins?
+		if ( empty( $tec_slugs ) ) {
+			return;
+		}
+
+		$status = Config::get_container()->get( Status::class );
+		$option = $status->get_option();
+		if ( NULL === $opted ) {
+			$opted = ! empty( $option['plugins'][self::$plugin_slug]['optin'] );
+		}
+
+		foreach ( $tec_slugs as $slug => $path ) {
+			if ( empty( $stellar_slugs[ $slug ] ) ) {
+				// Register each plugin with the already instantiated library.
+				Config::add_stellar_slug( $slug, $path );
+				$status->add_plugin($slug, $opted, $path );
+			}
+
+			// If we have opted in to common, we're opting in to all TEC plugins as well - or the reverse.
+			$status->set_status( $opted, $slug );
+
+			if ( $opted ) {
+				// Don't show the opt-in modal for this plugin.
+				update_option( Config::get_container()->get( Opt_In_Template::class )->get_option_name( $slug ), '0' );
+			}
+		}
 	}
 }

@@ -38,41 +38,66 @@ class Provider extends ServiceProvider {
 		add_action( 'tribe_plugins_loaded', [ $this, 'initialize_telemetry' ] );
 		// add_action( 'admin_init', [ $this, 'migrate_existing_opt_in' ], 11 );
 		add_action( 'admin_init', [ $this, 'save_opt_in_setting_field' ] );
-		add_action( 'tec-telemetry-modal', [ $this, 'do_optin_modal' ] );
+		add_action( 'tec-telemetry-modal', [ $this, 'show_optin_modal' ] );
 		// @todo For testing, remove before release!
 		add_action( 'stellarwp/telemetry/tec/last_send_expire_seconds', [ $this, 'filter_last_send_expire' ] );
-
 	}
 
 	public function add_filters() {
-		/* @var Telemetry::plugin_slug $telemetry_slug */
-		$telemetry_filter = Telemetry::get_optin_arg_hook();
-
-		add_filter( $telemetry_filter, [ $this, 'filter_optin_args' ] );
-
+		add_filter( "stellarwp/telemetry/optin_args", [ $this, 'filter_optin_args' ] );
 		add_filter( 'stellarwp/telemetry/tec/should_show_optin', 'should_show_optin', 10, 1 );
-
-		add_filter( 'stellarwp/telemetry/tec/exit_interview_args', [ $this, 'filter_exit_interview_args' ] );
+		add_filter( 'stellarwp/telemetry/exit_interview_args', [ $this, 'filter_exit_interview_args' ] );
 	}
 
+	/**
+	 * Initialize our internal Telemetry code.
+	 * Drivers, start your engines...
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
 	public function initialize_telemetry() {
 		$this->container->make( Telemetry::class )->init();
 	}
 
+	/**
+	 * Placeholder for eventual Freemius removal hooking in to modify things.
+	 *
+	 * @since TBD
+	 * @todo @bordoni leverage this when ready.
+	 *
+	 * @return void
+	 */
 	public function migrate_existing_opt_in() {
 		$this->container->make( Telemetry::class )->migrate_existing_opt_in();
 	}
 
+	/**
+	 * Saves the settings field if it exists.
+	 * Ensures all connected plugins follow opt in/out in lockstep.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
 	public function save_opt_in_setting_field() {
 		$this->container->make( Telemetry::class )->save_opt_in_setting_field();
 	}
 
-	public function do_optin_modal() {
-		$this->container->make( Telemetry::class )->do_optin_modal();
+	/**
+	 * Logic for if the opt-in modal should be shown.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function show_optin_modal() {
+		$this->container->make( Telemetry::class )->show_optin_modal();
 	}
 
 	/**
-	 * Filters the default optin modal args.
+	 * Filters the default opt-in modal args.
 	 *
 	 * @since TBD
 	 *
@@ -82,18 +107,6 @@ class Provider extends ServiceProvider {
 	 */
 	public function filter_optin_args( $args ): array  {
 		return $this->container->make( Telemetry::class )->filter_optin_args( $args );
-	}
-
-	/**
-	 * Placeholder for now - a way for our Freemius code to trigger/hide the optin modal.
-	 *
-	 * @since TBD
-	 *
-	 * @param bool $show
-	 * @return bool
-	 */
-	public function filter_should_show_optin( $show ): bool {
-		return $this->container->make( Telemetry::class )->filter_should_show_optin( $show );
 	}
 
 	public function filter_exit_interview_args( $args ) {
@@ -110,6 +123,6 @@ class Provider extends ServiceProvider {
 	 * @return integer
 	 */
 	public function filter_last_send_expire( $expire_seconds ): int {
-		return MINUTE_IN_SECONDS * 5;
+		return MINUTE_IN_SECONDS * 2;
 	}
 }
