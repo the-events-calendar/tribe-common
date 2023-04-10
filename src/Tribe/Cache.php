@@ -289,6 +289,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * Returns the time of an action last occurrence.
 	 *
 	 * @since 4.9.14 Changed the return value type from `int` to `float`.
+	 * @since TBD No longer memoizes the first triggered timestamp.
 	 *
 	 * @param string $action The action to return the time for.
 	 *
