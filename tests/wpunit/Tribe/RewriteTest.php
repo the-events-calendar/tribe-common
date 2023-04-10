@@ -59,7 +59,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 
 		global $wp_rewrite;
 
-		$rewrite        = new Tribe__Rewrite( $wp_rewrite );
+		$rewrite = new Tribe__Rewrite( $wp_rewrite );
 		// Replaces our percent placeholder.
 		$filtered_rules = $rewrite->filter_rewrite_rules_array( $rules );
 		foreach ( $filtered_rules as $rule_match => $url ) {
@@ -71,5 +71,86 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		foreach ( $faux_rules as $faux ) {
 			$this->assertEquals( $faux, $rewrite->filter_rewrite_rules_array( $faux ) );
 		}
+	}
+
+	public function filtered_matchers_provider(): \Generator {
+		// Test localized matchers.
+		yield 'events archive page' => [
+			home_url( '/index.php?post_type=tribe_events' ),
+			home_url( '/events/' ),
+			home_url( '/classes/' ),
+		];
+
+		yield 'list page' => [
+			home_url( '/index.php?post_type=tribe_events&eventDisplay=list' ),
+			home_url( '/events/list/' ),
+			home_url( '/classes/table/' ),
+		];
+
+		// Test dynamic matchers.
+		yield 'list page 2' => [
+			home_url( '/index.php?post_type=tribe_events&eventDisplay=list&page=2' ),
+			home_url( '/events/list/page/2/' ),
+			home_url( '/classes/table/semester/2/' ),
+		];
+	}
+
+	/**
+	 * @dataProvider filtered_matchers_provider
+	 * @test
+	 */
+	public function should_allow_filtering_matchers( string $url, string $expected_wo_filter, string $expected_w_filter ): void {
+		// TEC post types are hard-coded in the base class code, might as well use them.
+		$wp_rewrite         = new \WP_Rewrite();
+		$test_rewrite_rules = [
+			'/(?:events)/?$'                         => 'index.php?post_type=tribe_events',
+			'/(?:events)/(?:list)/?$'                => 'index.php?post_type=tribe_events&eventDisplay=list',
+			'/(?:events)/(?:list)/(?:page)/(\d+)/?$' => 'index.php?post_type=tribe_events&eventDisplay=list&page=$matches[1]',
+		];
+		update_option( 'rewrite_rules', $test_rewrite_rules );
+		$wp_rewrite->rules = $test_rewrite_rules;
+
+		// Create a Rewrite class extending the base one.
+		$rewrite = new class( $wp_rewrite ) extends Tribe__Rewrite {
+			protected function get_post_types() {
+				return [ 'tribe_events', 'tribe_venue', 'tribe_organizer' ];
+			}
+
+			protected function get_matcher_to_query_var_map() {
+				return [
+					'list'    => 'eventDisplay',
+					'archive' => 'post_type',
+					'page'    => 'page',
+				];
+			}
+
+			public function get_bases( $method = 'regex' ) {
+				return [
+					'archive' => '(?:events)',
+					'list'    => '(?:list)',
+					'page'    => '(?:page)',
+				];
+			}
+		};
+
+		// Test without filtering the matchers.
+		$clean_url = $rewrite->get_clean_url( $url, true );
+		$this->assertEquals( $expected_wo_filter, $clean_url );
+
+		// Test filtering the matchers.
+		add_filter( 'tec_common_rewrite_localize_matcher', static function ( $localized_matcher, $base ) {
+			$map = [
+				'archive' => 'classes',
+				'list'    => 'table',
+				'page'    => 'semester',
+			];
+
+			return $map[ $base ] ?? $localized_matcher;
+		}, 10, 2 );
+
+		// Flush the cache to make sure we're not getting a cached value.
+		wp_cache_flush();
+		$clean_url = $rewrite->get_clean_url( $url, true );
+		$this->assertEquals( $expected_w_filter, $clean_url );
 	}
 }
