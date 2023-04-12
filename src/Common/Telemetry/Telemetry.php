@@ -15,6 +15,8 @@ use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
 use Tribe__Container as Container;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Template;
 
+use function ElasticPress\Utils\delete_option;
+
 /**
  * Class Telemetry
  *
@@ -351,6 +353,11 @@ final class Telemetry {
 
 		// Gotta catch them all..
 		$this->register_tec_telemetry_plugins( $value );
+
+		if ( $value ) {
+			// If opting in, blow away the expiration datetime so we send updates on next shutdown.
+			delete_option( 'stellarwp_telemetry_last_send' );
+		}
 	}
 
 	/**
