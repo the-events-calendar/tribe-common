@@ -18,7 +18,6 @@
   "src/views/**/*",
   "tribe-autoload.php",
   "vendor/autoload.php",
-  "vendor/autoload_52.php",
   "vendor/composer/*",
   "vendor/ky/*",
   "vendor/attrchange/js/*.js",
