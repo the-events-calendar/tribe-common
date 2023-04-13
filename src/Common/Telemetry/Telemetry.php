@@ -86,7 +86,7 @@ final class Telemetry {
 	 *
 	 * @return void
 	 */
-	function init(): void {
+	public function init(): void {
 		/**
 		 * Configure the container.
 		 *
@@ -100,6 +100,8 @@ final class Telemetry {
 		$container = Container::init();
 		Config::set_container( $container );
 
+		self::$plugin_path = \Tribe__Main::instance()->get_parent_plugin_file();
+
 		// Set the full URL for the Telemetry Server API. Allow overriding reporting server.
 		if ( defined('TELEMETRY_SERVER') ) {
             Config::set_server_url( TELEMETRY_SERVER );
@@ -111,9 +113,7 @@ final class Telemetry {
 		Config::set_hook_prefix( self::$hook_prefix );
 
 		// Set a unique plugin slug.
-		Config::set_stellar_slug( self::$stellar_slug );
-
-		self::$plugin_path = \Tribe__Main::instance()->parent_plugin_dir . self::$plugin_path;
+		Config::set_stellar_slug( self::get_parent_stellar_slug() );
 
 		// Initialize the library.
 
@@ -145,6 +145,18 @@ final class Telemetry {
 		}
 
 		return self::$parent_plugin;
+	}
+
+	public static function get_parent_stellar_slug() {
+		$tec_slugs = self::get_tec_telemetry_slugs();
+
+		foreach( $tec_slugs as $slug => $path ) {
+			if ( stripos( self::$plugin_path, $path ) ) {
+				return $slug;
+			}
+		}
+
+		return self::$stellar_slug;
 	}
 
 	/**
@@ -444,11 +456,10 @@ final class Telemetry {
 			return;
 		}
 
-		$action = current_action();
 		$tec_slugs     = self::get_tec_telemetry_slugs();
 		$stellar_slugs = Config::get_all_stellar_slugs();
 
-		// We got no plugins?
+		// We got no other plugins?
 		if ( empty( $tec_slugs ) ) {
 			return;
 		}
@@ -460,19 +471,20 @@ final class Telemetry {
 		}
 
 		foreach ( $tec_slugs as $slug => $path ) {
+			// Don't re-register plugins (like parent) that are already in there.
 			if ( empty( $stellar_slugs[ $slug ] ) ) {
 				// Register each plugin with the already instantiated library.
 				Config::add_stellar_slug( $slug, $path );
 				$status->add_plugin($slug, $opted, $path );
+
+				if ( $opted ) {
+					// Don't show the opt-in modal for this plugin.
+					update_option( Config::get_container()->get( Opt_In_Template::class )->get_option_name( $slug ), '0' );
+				}
 			}
 
-			// If we have opted in to common, we're opting in to all TEC plugins as well - or the reverse.
+			// If we have opted in to one TEC plugin, we're opting in to all other TEC plugins as well - or the reverse.
 			$status->set_status( $opted, $slug );
-
-			if ( $opted ) {
-				// Don't show the opt-in modal for this plugin.
-				update_option( Config::get_container()->get( Opt_In_Template::class )->get_option_name( $slug ), '0' );
-			}
 		}
 	}
 }
