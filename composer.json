@@ -102,7 +102,8 @@
         "stellarwp/db",
         "stellarwp/installer",
         "stellarwp/telemetry",
-        "lucatume/di52"
+        "lucatume/di52",
+        "monolog/monolog"
       ],
       "delete_vendor_files": true
     }

@@ -2,7 +2,7 @@
 /**
  * Registers and hooks the default log handler.
  *
- * @since   4.9.16
+ * @since 4.9.16
  *
  * @package Tribe\Log
  */
@@ -10,14 +10,13 @@
 namespace Tribe\Log;
 
 
-use Monolog\Handler\ErrorLogHandler;
-use Monolog\Handler\NullHandler;
-use Monolog\Logger;
 use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\Monolog\Handler\ErrorLogHandler;
+use TEC\Common\Monolog\Handler\NullHandler;
+use TEC\Common\Monolog\Logger;
+use Psr\Log\NullLogger;
 
 class Service_Provider extends ServiceProvider {
-
-
 	/**
 	 * Binds and sets up implementations.
 	 *
