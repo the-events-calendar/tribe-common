@@ -1,5 +1,24 @@
 <?php
 
+/**
+ * Sanitizes string values.
+ *
+ * @since TBD
+ *
+ * @param string $string The string being sanitized.
+ *
+ * @return string $string The sanitized version of the string.
+ */
+function tec_sanitize_string( $string ) {
+	// Replace HTML tags and entities with their plain text equivalents
+	$string = htmlspecialchars_decode( $string, ENT_QUOTES );
+
+	// Remove any remaining HTML tags
+	$string = strip_tags( $string );
+
+	return $string;
+}
+
 if ( ! function_exists( 'tribe_array_merge_recursive' ) ) {
 	/**
 	 * Recursively merge two arrays preserving keys.
@@ -1097,11 +1116,12 @@ if ( ! function_exists( 'tribe_get_request_vars' ) ) {
 
 		$cache = array_combine(
 			array_keys( $_REQUEST ),
-			array_map( static function ( $v )
-			{
-				return filter_var( $v, FILTER_SANITIZE_STRING );
-			},
-				$_REQUEST )
+			array_map(
+				static function ( $v ) {
+					return tribe_sanitize_deep( $v );
+				},
+				$_REQUEST
+			)
 		);
 
 		return $cache;
@@ -1127,7 +1147,7 @@ if ( ! function_exists( 'tribe_sanitize_deep' ) ) {
 			return $value;
 		}
 		if ( is_string( $value ) ) {
-			$value = filter_var( $value, FILTER_SANITIZE_STRING );
+			$value = tec_sanitize_string( $value );
 			return $value;
 		}
 		if ( is_int( $value ) ) {

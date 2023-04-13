@@ -507,4 +507,39 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 			)
 		);
 	}
+
+	public function tec_sanitize_string_data_set() {
+
+		$strings = [
+			'Hello, how are you?',
+			'This is an email: john@example.com',
+			'My phone number is 123-456-7890',
+			'<script>alert("This is an attack!)</script>',
+			'My name is <h1>John Doe</h1>',
+			'I like to use the & symbol',
+			'This is <b>bold</b> text',
+			'This string contains \ backslashes',
+			'This string has <a href=\'https://example.com\'>links</a>',
+			'This string contains special characters like äöüß',
+			'This string has multiple spaces       inside',
+			'This string has a newline\n and a carriage return\r',
+			'This string has a \t horizontal tab character',
+			'This string has <img src=\'image.jpg\'> an image tag',
+			'This string has a trailing space ',
+			' This string has a leading space',
+		];
+
+		foreach ( $strings as $string ) {
+			return [
+				[ $string, filter_var( $string, FILTER_SANITIZE_STRING ) ]
+			];
+		}
+	}
+
+	/**
+	 * @dataProvider  tec_sanitize_string_data_set
+	 */
+	public function test_tec_sanitize_string( $input, $expected ) {
+		$this->assertEquals( $expected, tec_sanitize_string( $input ) );
+	}
 }

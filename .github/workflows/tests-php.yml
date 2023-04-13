@@ -67,6 +67,7 @@ jobs:
       - name: Set up slic env vars
         if: steps.skip.outputs.value != 1
         run: |
+          echo "SLIC_COMPOSER_VERSION=2" >> $GITHUB_ENV
           echo "SLIC_BIN=${GITHUB_WORKSPACE}/../slic/slic" >> $GITHUB_ENV
           echo "SLIC_WP_DIR=${GITHUB_WORKSPACE}/../slic/_wordpress" >> $GITHUB_ENV
       - name: Set run context for slic
