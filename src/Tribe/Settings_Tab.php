@@ -1,6 +1,9 @@
 <?php
 
 // Don't load directly
+
+use TEC\Common\Telemetry\Telemetry;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -150,7 +153,8 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 		 * @return void
 		 */
 		public function doContent() {
-			do_action( 'stellarwp/telemetry/tec/optin' );
+			$telemetry_slug = Telemetry::get_plugin_slug();
+			do_action( "stellarwp/telemetry/{$telemetry_slug}/optin" );
 			if ( $this->display_callback && is_callable( $this->display_callback ) ) {
 				call_user_func( $this->display_callback );
 
