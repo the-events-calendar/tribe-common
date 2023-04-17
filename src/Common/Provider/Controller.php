@@ -45,9 +45,6 @@ abstract class Controller extends Service_Provider {
 
 		$this->container->setVar( static::class . '_registered', true );
 
-		// Register the controller as a singleton.j
-		$this->container->singleton( self::class, self::class );
-
 		$this->do_register();
 	}
 
