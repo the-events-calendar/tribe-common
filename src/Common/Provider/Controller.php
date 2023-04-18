@@ -87,14 +87,14 @@ abstract class Controller extends Service_Provider {
 	 * @since TBD
 	 *
 	 * @param string $message The message to log.
+	 * @param array  $context An array of context to log with the message.
 	 *
 	 * @return void The message is logged.
 	 */
-	protected function debug( string $message ): void {
-		do_action( 'tribe_log', Log::DEBUG, $message, [
-			'message' => $message,
-			'context' => static::class,
-		] );
+	protected function debug( string $message, array $context = [] ): void {
+		do_action( 'tribe_log', Log::DEBUG, $message, array_merge( [
+			'controller' => static::class,
+		], $context ) );
 	}
 
 	/**
@@ -103,14 +103,14 @@ abstract class Controller extends Service_Provider {
 	 * @since TBD
 	 *
 	 * @param string $message The message to log.
+	 * @param array  $context An array of context to log with the message.
 	 *
 	 * @return void The message is logged.
 	 */
-	protected function warning( string $message ): void {
-		do_action( 'tribe_log', Log::WARNING, $message, [
-			'message' => $message,
-			'context' => static::class,
-		] );
+	protected function warning( string $message, array $context = [] ): void {
+		do_action( 'tribe_log', Log::WARNING, $message, array_merge( [
+			'controller' => static::class,
+		], $context ) );
 	}
 
 	/**
@@ -119,13 +119,13 @@ abstract class Controller extends Service_Provider {
 	 * @since TBD
 	 *
 	 * @param string $message The message to log.
+	 * @param array  $context An array of context to log with the message.
 	 *
 	 * @return void The message is logged.
 	 */
-	protected function error( string $message ): void {
-		do_action( 'tribe_log', Log::ERROR, $message, [
-			'message' => $message,
-			'context' => static::class,
-		] );
+	protected function error( string $message, array $context = [] ): void {
+		do_action( 'tribe_log', Log::ERROR, $message, array_merge( [
+			'controller' => static::class,
+		], $context ) );
 	}
 }
