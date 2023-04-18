@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Fixes a cache bug that showed up in ECP-1475. The underlying issue was cache would carry stale data and not clear with the `save_post` trigger being hit repeatedly.
+
+
 = [5.0.15] 2023-04-10 =
 
 * Fix - Update the Google Maps API setting url on the Troubleshooting page. [TEC-4728]
