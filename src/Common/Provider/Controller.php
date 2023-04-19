@@ -39,6 +39,10 @@ abstract class Controller extends Service_Provider {
 			return;
 		}
 
+		// Register the controller as a singleton in the container.
+		// @todo remove when the Container is updated to bind Providers as singletons by default.
+		$this->container->singleton( static::class, $this );
+
 		if ( ! $this->is_active() ) {
 			return;
 		}
