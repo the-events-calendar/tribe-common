@@ -717,7 +717,6 @@ class Tribe__Main {
 		tribe_singleton( 'post-transient', 'Tribe__Post_Transient' );
 		tribe_singleton( 'db', 'Tribe__Db' );
 		tribe_singleton( 'db-lock', DB_Lock::class );
-		tribe_singleton( 'freemius', 'Tribe__Freemius' );
 		tribe_singleton( 'customizer', 'Tribe__Customizer' );
 		tribe_singleton( Tribe__Dependency::class, Tribe__Dependency::class );
 		tribe_singleton( \Tribe\Admin\Troubleshooting::class, \Tribe\Admin\Troubleshooting::class, [ 'hook' ] );
