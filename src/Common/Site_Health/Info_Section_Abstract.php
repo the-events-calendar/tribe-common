@@ -230,27 +230,15 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 		} );
 	}
 
-
 	/**
-	 * Sugar function to convert booleans to text for use in Site Health.
-	 *
-	 * @since TBD
-	 *
-	 * @param bool $bool
-	 * @return string "true" or "false" based on the boolean value.
-	 */
-	public function bool_to_text( $bool ): string {
-		return tribe_is_truthy( $bool ) ? 'true' : 'false';
-	}
-
-	/**
-	 * Undocumented function
+	 * Converts a post status count object to an array in the format
+	 *            [ (string) status_slug => (int) count]
 	 *
 	 * @since TBD
 	 *
 	 * @param stdClass $obj The object returned from wp_count_posts().
 	 *
-	 * @return array An array of stati (key) with counts (value).
+	 * @return array<string,int> An array of stati (key) with counts (value).
 	 */
 	public function clean_status_counts( $obj ): array {
 		$obj = (array) $obj;
