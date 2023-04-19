@@ -3,6 +3,7 @@
 = [TBD] TBD =
 
 * Fix - Fixes a cache bug that showed up in ECP-1475. The underlying issue was cache would carry stale data and not clear with the `save_post` trigger being hit repeatedly.
+* Feat - Add the `TEC\Provider\Controller` abstract class to kick-start Controllers and the `TEC\Common\Tests\Provider\Controller_Test_Case` class to test them.
 
 
 = [5.0.15] 2023-04-10 =
