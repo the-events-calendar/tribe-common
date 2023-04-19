@@ -229,4 +229,52 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 			return ( $a < $b ) ? - 1 : 1;
 		} );
 	}
+
+
+	/**
+	 * Sugar function to convert booleans to text for use in Site Health.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $bool
+	 * @return string "true" or "false" based on the boolean value.
+	 */
+	public function bool_to_text( $bool ): string {
+		return tribe_is_truthy( $bool ) ? 'true' : 'false';
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @since TBD
+	 *
+	 * @param stdClass $obj The object returned from wp_count_posts().
+	 *
+	 * @return array An array of stati (key) with counts (value).
+	 */
+	public function clean_status_counts( $obj ): array {
+		$obj = (array) $obj;
+		$stati = [
+			'publish',
+			'future',
+			'draft',
+			'pending',
+		];
+
+		/**
+		 * Allows other plugins to add stati to track.
+		 *
+		 * @param array<string|bool> $stati An array of stati to track.
+		 */
+		apply_filters( 'tec_site_heath_event_stati', $stati );
+
+		$keys = array_keys( $obj );
+		foreach( $keys as $key ) {
+			if ( ! in_array( $key, $stati ) ) {
+				unset( $obj[ $key ] );
+			}
+		}
+
+		return $obj;
+	}
 }

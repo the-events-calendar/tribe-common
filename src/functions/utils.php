@@ -300,6 +300,34 @@ if ( ! function_exists( 'tribe_is_truthy' ) ) {
 	}
 }
 
+if ( ! function_exists( 'tec_bool_to_string' ) ) {
+	/**
+	 * Utility function to convert booleans to text.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $bool
+	 * @return string "true" or "false" based on the boolean value.
+	 */
+	function tec_bool_to_string( bool $bool ): string {
+		return tribe_is_truthy( $bool ) ? 'true' : 'false';
+	}
+}
+
+if ( ! function_exists( 'tec_bool_to_int' ) ) {
+	/**
+	 * Utility function to convert booleans to text.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $bool
+	 * @return int 1 (true) or 0 (false) based on the boolean value.
+	 */
+	function tec_bool_to_int( bool $bool ): int {
+		return tribe_is_truthy( $bool ) ? 1 : 0;
+	}
+}
+
 if ( ! function_exists( 'tribe_sort_by_priority' ) ) {
 	/**
 	 * Sorting function based on Priority
