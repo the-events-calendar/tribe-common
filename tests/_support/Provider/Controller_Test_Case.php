@@ -13,7 +13,7 @@ use Tribe__Container as Container;
 /**
  * Class Controller_Test_Case.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Tickets\Flexible_Tickets;
  */
