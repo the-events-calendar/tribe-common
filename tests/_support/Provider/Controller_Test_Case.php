@@ -67,8 +67,10 @@ class Controller_Test_Case extends WPTestCase {
 		$original_controller = tribe( $controller_class );
 		// Unregister the original controller to avoid actions and filters hooking twice.
 		$original_controller->unregister();
-		// Create a container that will provide the context for the controller cloning the original container.
+		// Create a container that will provide the context for the controller cloning the original Service Locator.
 		$this->test_container = clone tribe();
+		// When code interacts with the Service Locator, use the test one.
+		$this->set_fn_return( 'tribe', $this->test_container );
 		// Register the test container in the test container.
 		$this->test_container->singleton( get_class( $this->test_container ), $this->test_container );
 		$this->test_container->singleton( \tad_DI52_Container::class, $this->test_container );
@@ -78,6 +80,7 @@ class Controller_Test_Case extends WPTestCase {
 		unset( $this->test_container[ $controller_class ] );
 		// Nothing should be bound in the container for the controller.
 		$this->assertFalse( $this->test_container->isBound( $controller_class ) );
+		$this->assertFalse( $controller_class::is_registered() );
 		// From now on, ingest all logging.
 		global $wp_filter;
 		$wp_filter['tribe_log'] = new \WP_Hook();
