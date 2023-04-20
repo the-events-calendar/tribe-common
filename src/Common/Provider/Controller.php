@@ -1,8 +1,8 @@
 <?php
 /**
- * The base clas all Controllers should extend.
+ * The base class all Controllers should extend.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\Provider;
  */
@@ -16,7 +16,7 @@ use Tribe__Log as Log;
 /**
  * Class Controller.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\Provider;
  *
