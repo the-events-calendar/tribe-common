@@ -107,6 +107,8 @@ final class Telemetry {
 		$container = Container::init();
 		Config::set_container( $container );
 
+		$this->register_tec_telemetry_plugins();
+
 		self::$tec_slugs    = self::get_tec_telemetry_slugs();
 		self::$plugin_path  = \Tribe__Main::instance()->get_parent_plugin_file();
 		self::$stellar_slug = self::get_parent_stellar_slug();
@@ -121,8 +123,8 @@ final class Telemetry {
 		Config::set_stellar_slug( self::$stellar_slug );
 
 		// Initialize the library.
-
 		Core::instance()->init( self::$plugin_path );
+
 
 		do_action( 'tec_common_telemetry_loaded', $this );
 	}
@@ -251,7 +253,6 @@ final class Telemetry {
 	 */
 	public function filter_exit_interview_args( $args ) {
 		$new_args = [
-			'plugin_slug'        => self::get_plugin_slug(),
 			'plugin_logo'        => tribe_resource_url( 'images/logo/tec-brand.svg', false, null, \Tribe__Main::instance() ),
 			'plugin_logo_width'  => 'auto',
 			'plugin_logo_height' => 32,
@@ -443,7 +444,7 @@ final class Telemetry {
 		foreach ( $tec_slugs as $slug => $path ) {
 			// Register each plugin with the already instantiated library.
 			Config::add_stellar_slug( $slug, $path );
-			$status->add_plugin($slug, $opted, $path );
+			$status->add_plugin( $slug, $opted, $path );
 
 			// If we have opted in to one TEC plugin, we're opting in to all other TEC plugins as well - or the reverse.
 			$status->set_status( $opted, $slug );
