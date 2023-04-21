@@ -35,7 +35,7 @@ abstract class Controller extends Service_Provider {
 		 * Look up and set the value in the container request cache to allow building the same Controller
 		 * with a **different** container. (e.g. in tests).
 		 */
-		if ( ! static::is_registered() ) {
+		if ( static::is_registered() ) {
 			return;
 		}
 
