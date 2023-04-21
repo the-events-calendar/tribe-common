@@ -70,7 +70,10 @@ class Controller_Test_Case extends WPTestCase {
 		// Create a container that will provide the context for the controller cloning the original Service Locator.
 		$this->test_container = clone tribe();
 		// When code interacts with the Service Locator, use the test one.
-		$this->set_fn_return( 'tribe', $this->test_container );
+		$test_container = $this->test_container;
+		$this->set_fn_return( 'tribe', function ( $id = null ) use ( $test_container ) {
+			return $id ? $test_container->make( $id ) : $test_container;
+		}, true );
 		// Register the test container in the test container.
 		$this->test_container->singleton( get_class( $this->test_container ), $this->test_container );
 		$this->test_container->singleton( \tad_DI52_Container::class, $this->test_container );
