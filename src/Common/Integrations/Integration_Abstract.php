@@ -13,6 +13,8 @@ namespace TEC\Common\Integrations;
  *
  * @since   TBD
  *
+ * @link  https://docs.theeventscalendar.com/apis/integrations/including-new-integrations/
+ *
  * @package TEC\Common\Integrations
  */
 abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
