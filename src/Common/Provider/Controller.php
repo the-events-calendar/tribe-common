@@ -1,8 +1,8 @@
 <?php
 /**
- * The base clas all Controllers should extend.
+ * The base class all Controllers should extend.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\Provider;
  */
@@ -16,7 +16,7 @@ use Tribe__Log as Log;
 /**
  * Class Controller.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\Provider;
  *
@@ -35,7 +35,7 @@ abstract class Controller extends Service_Provider {
 		 * Look up and set the value in the container request cache to allow building the same Controller
 		 * with a **different** container. (e.g. in tests).
 		 */
-		if ( $this->container->getVar( static::class . '_registered' ) ) {
+		if ( ! static::is_registered() ) {
 			return;
 		}
 
@@ -127,5 +127,16 @@ abstract class Controller extends Service_Provider {
 		do_action( 'tribe_log', Log::ERROR, $message, array_merge( [
 			'controller' => static::class,
 		], $context ) );
+	}
+
+	/**
+	 * Returns whether any instance of this controller has been registered or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether any instance of this controller has been registered or not.
+	 */
+	public static function is_registered(): bool {
+		return tribe()->getVar( static::class . '_registered' );
 	}
 }
