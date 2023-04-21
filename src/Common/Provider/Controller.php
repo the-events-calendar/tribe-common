@@ -141,6 +141,6 @@ abstract class Controller extends Service_Provider {
 	 * @return bool Whether any instance of this controller has been registered or not.
 	 */
 	public static function is_registered(): bool {
-		return tribe()->getVar( static::class . '_registered' );
+		return (bool) tribe()->getVar( static::class . '_registered' );
 	}
 }
