@@ -35,7 +35,7 @@ abstract class Controller extends Service_Provider {
 		 * Look up and set the value in the container request cache to allow building the same Controller
 		 * with a **different** container. (e.g. in tests).
 		 */
-		if ( ! static::is_registered() ) {
+		if ( static::is_registered() ) {
 			return;
 		}
 
@@ -137,6 +137,6 @@ abstract class Controller extends Service_Provider {
 	 * @return bool Whether any instance of this controller has been registered or not.
 	 */
 	public static function is_registered(): bool {
-		return tribe()->getVar( static::class . '_registered' );
+		return (bool) tribe()->getVar( static::class . '_registered' );
 	}
 }
