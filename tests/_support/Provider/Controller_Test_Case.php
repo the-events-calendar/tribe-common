@@ -13,7 +13,7 @@ use Tribe__Container as Container;
 /**
  * Class Controller_Test_Case.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Tickets\Flexible_Tickets;
  */
@@ -25,7 +25,7 @@ class Controller_Test_Case extends WPTestCase {
 	 *
 	 * @var Container
 	 */
-	protected Container $test_services;
+	protected Container $test_container;
 
 	/**
 	 * A set of logs collected after the Controller has been registered.
@@ -67,17 +67,20 @@ class Controller_Test_Case extends WPTestCase {
 		$original_controller = tribe( $controller_class );
 		// Unregister the original controller to avoid actions and filters hooking twice.
 		$original_controller->unregister();
-		// Create a container that will provide the context for the controller cloning the original container.
-		$this->test_services = clone tribe();
+		// Create a container that will provide the context for the controller cloning the original Service Locator.
+		$this->test_container = clone tribe();
+		// When code interacts with the Service Locator, use the test one.
+		$this->set_fn_return( 'tribe', $this->test_container );
 		// Register the test container in the test container.
-		$this->test_services->singleton( get_class( $this->test_services ), $this->test_services );
-		$this->test_services->singleton( \tad_DI52_Container::class, $this->test_services );
+		$this->test_container->singleton( get_class( $this->test_container ), $this->test_container );
+		$this->test_container->singleton( \tad_DI52_Container::class, $this->test_container );
 		// The controller will NOT have registered in this container.
-		$this->test_services->setVar( $controller_class . '_registered', false );
+		$this->test_container->setVar( $controller_class . '_registered', false );
 		// Unset the previous, maybe, bound and resolved instance of the controller.
-		unset( $this->test_services[ $controller_class ] );
+		unset( $this->test_container[ $controller_class ] );
 		// Nothing should be bound in the container for the controller.
-		$this->assertFalse( $this->test_services->has( $controller_class ) );
+		$this->assertFalse( $this->test_container->isBound( $controller_class ) );
+		$this->assertFalse( $controller_class::is_registered() );
 		// From now on, ingest all logging.
 		global $wp_filter;
 		$wp_filter['tribe_log'] = new \WP_Hook();
@@ -101,7 +104,7 @@ class Controller_Test_Case extends WPTestCase {
 		}, 10, 3 );
 
 		// Due to the previous unset, the container will build this as a prototype.
-		return $this->test_services->make( $controller_class );
+		return $this->test_container->make( $controller_class );
 	}
 
 	/**
