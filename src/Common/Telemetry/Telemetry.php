@@ -68,6 +68,11 @@ final class Telemetry {
 	 */
 	private static $parent_plugin = '';
 
+	private static $base_parent_slugs = [
+		'the-events-calendar',
+		'event-tickets'
+	];
+
 	/**
 	 * Path to main pugin file
 	*
@@ -449,7 +454,7 @@ final class Telemetry {
 			// If we have opted in to one TEC plugin, we're opting in to all other TEC plugins as well - or the reverse.
 			$status->set_status( $opted, $slug );
 
-			if ( $opted ) {
+			if ( $opted && ( ! in_array( $slug, self::$base_parent_slugs ) ) ) {
 				// Don't show the opt-in modal for this plugin.
 				update_option( Config::get_container()->get( Opt_In_Template::class )->get_option_name( $slug ), '0' );
 			}
