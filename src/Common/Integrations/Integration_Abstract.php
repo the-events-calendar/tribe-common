@@ -2,7 +2,7 @@
 /**
  * Abstract for Integrations.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\Integrations
  */
