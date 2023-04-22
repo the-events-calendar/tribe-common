@@ -6,14 +6,15 @@
  *
  * @package TEC\Common\Integrations
  */
+
 namespace TEC\Common\Integrations;
 
 /**
  * Class Integration_Abstract
  *
- * @since   TBD
+ * @link    https://docs.theeventscalendar.com/apis/integrations/including-new-integrations/
  *
- * @link  https://docs.theeventscalendar.com/apis/integrations/including-new-integrations/
+ * @since   TBD
  *
  * @package TEC\Common\Integrations
  */
@@ -34,6 +35,15 @@ abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
 
 		$this->load();
 	}
+
+	/**
+	 * Gets the slug for this integration parent, the main plugin that is being integrated to.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	abstract public static function get_parent(): string;
 
 	/**
 	 * Gets the slug for this integration.
@@ -65,8 +75,9 @@ abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
 	 * @return bool
 	 */
 	protected function filter_should_load( bool $value ): bool {
-		$slug = static::get_slug();
-		$type = static::get_type();
+		$parent = static::get_parent();
+		$slug   = static::get_slug();
+		$type   = static::get_type();
 
 		/**
 		 * Filters if integrations should be loaded.
@@ -77,7 +88,18 @@ abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
 		 * @param string $type  Type of integration we are loading.
 		 * @param string $slug  Slug of the integration we are loading.
 		 */
-		$value = apply_filters( 'tec_integrations_should_load', $value, $type, $slug );
+		$value = apply_filters( 'tec_integration:should_load', $value, $parent, $type, $slug );
+
+		/**
+		 * Filters if integrations should be loaded.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $value Whether the integration should load.
+		 * @param string $type  Type of integration we are loading.
+		 * @param string $slug  Slug of the integration we are loading.
+		 */
+		$value = apply_filters( "tec_integration:{$parent}/should_load", $value, $type, $slug );
 
 		/**
 		 * Filters if integrations of the current type should be loaded.
@@ -87,7 +109,7 @@ abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
 		 * @param bool   $value Whether the integration should load.
 		 * @param string $slug  Slug of the integration we are loading.
 		 */
-		$value = apply_filters( "tec_integrations_{$type}_should_load", $value, $slug );
+		$value = apply_filters( "tec_integration:{$parent}/{$type}/should_load", $value, $slug );
 
 		/**
 		 * Filters if a specific integration (by type and slug) should be loaded.
@@ -96,7 +118,7 @@ abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
 		 *
 		 * @param bool $value Whether the integration should load.
 		 */
-		return (bool) apply_filters( "tec_integrations_{$type}_{$slug}_should_load", $value );
+		return (bool) apply_filters( "tec_integration:{$parent}/{$type}/{$slug}/should_load", $value );
 	}
 
 	/**
