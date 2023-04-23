@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.0.16] TBD =
+
+* Feature - Include a Integrations framework that was ported from The Events Calendar.
+
 = [5.0.15] 2023-04-10 =
 
 * Fix - Update the Google Maps API setting url on the Troubleshooting page. [TEC-4728]
