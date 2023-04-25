@@ -26,7 +26,7 @@
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
     "stellarwp/installer": "^1.1.0",
-    "stellarwp/telemetry": "dev-feature/allow-multiple-stellar-slugs"
+    "stellarwp/telemetry": "^2.0.0"
   },
   "require-dev": {
     "automattic/vipwpcs": "^2.0",

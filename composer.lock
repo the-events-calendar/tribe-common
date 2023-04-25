@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7938fe15323f53f3cdac5a1faea0688b",
+    "content-hash": "b1aa4c0ef7a2c5d5c3324d45a43a6c55",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -446,16 +446,16 @@
         },
         {
             "name": "stellarwp/telemetry",
-            "version": "dev-feature/allow-multiple-stellar-slugs",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/telemetry.git",
-                "reference": "c393439d4d7c4f0f89bd285df6a331d427ea8f5c"
+                "reference": "e02f117dd260fc3d55fae28ec1dcfccfb83c9ea9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/c393439d4d7c4f0f89bd285df6a331d427ea8f5c",
-                "reference": "c393439d4d7c4f0f89bd285df6a331d427ea8f5c",
+                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/e02f117dd260fc3d55fae28ec1dcfccfb83c9ea9",
+                "reference": "e02f117dd260fc3d55fae28ec1dcfccfb83c9ea9",
                 "shasum": ""
             },
             "require": {
@@ -533,10 +533,10 @@
             ],
             "description": "Telemetry library for StellarWP plugins.",
             "support": {
-                "source": "https://github.com/stellarwp/telemetry/tree/2.0.0-rc.01",
+                "source": "https://github.com/stellarwp/telemetry/tree/2.0.0",
                 "issues": "https://github.com/stellarwp/telemetry/issues"
             },
-            "time": "2023-04-14T19:50:16+00:00"
+            "time": "2023-04-25T19:13:21+00:00"
         }
     ],
     "packages-dev": [
@@ -6430,7 +6430,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "stellarwp/telemetry": 20,
         "the-events-calendar/coding-standards": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
