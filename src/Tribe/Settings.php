@@ -375,7 +375,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				echo '<p>' . esc_html__( "You've requested a non-existent tab.", 'tribe-common' ) . '</p>';
 			}
 			do_action( 'tribe_settings_after_content_tab_' . $this->currentTab );
-			do_action( 'tribe_settings_after_content' );
+			do_action( 'tribe_settings_after_content', $this->currentTab );
 			if ( has_action( 'tribe_settings_content_tab_' . $this->currentTab ) && ! in_array( $this->currentTab, $this->noSaveTabs ) ) {
 				wp_nonce_field( 'saving', 'tribe-save-settings' );
 				echo '<div class="clear"></div>';

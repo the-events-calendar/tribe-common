@@ -12,10 +12,10 @@
     "bordoni/phpass": "0.3.5",
     "automattic/vipwpcs": "^2.0",
     "codeception/codeception": "^2.5.5",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
     "lucatume/function-mocker-le": "^1.0",
     "lucatume/wp-browser": "^3.0.14",
-    "the-events-calendar/tribalscents": "dev-master",
+    "the-events-calendar/coding-standards": "dev-master",
     "the-events-calendar/tec-testing-facilities": "dev-master",
     "phpunit/phpunit": "~6.0",
     "wp-cli/checksum-command": "1.0.5",
@@ -27,13 +27,19 @@
   "config": {
     "preferred-install": "dist",
     "platform": {
-      "php": "7.0.33"
+      "php": "7.3.33"
+    },
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   },
   "require": {
     "lucatume/di52": "~2.1.5",
-    "firebase/php-jwt": "~5.0.0",
-    "monolog/monolog": "1.24.*"
+    "firebase/php-jwt": "~6.3.0",
+    "monolog/monolog": "1.24.*",
+    "stellarwp/container-contract": "^1.0.4",
+    "stellarwp/db": "^1.0.3",
+    "stellarwp/installer": "^1.1.0"
   },
   "repositories": [
     {
@@ -43,17 +49,24 @@
       "no-api": true
     },
     {
-      "name": "the-events-calendar/TribalScents",
+      "name": "the-events-calendar/coding-standards",
       "type": "github",
-      "url": "https://github.com/the-events-calendar/TribalScents",
+      "url": "https://github.com/the-events-calendar/coding-standards",
       "no-api": true
     }
   ],
   "scripts": {
+    "strauss": [
+      "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.13.0/strauss.phar",
+      "vendor/stellarwp/installer/bin/set-domain domain=tribe-common",
+      "@php bin/strauss.phar"
+    ],
     "post-install-cmd": [
+      "@strauss",
       "xrstf\\Composer52\\Generator::onPostInstallCmd"
     ],
     "post-update-cmd": [
+      "@strauss",
       "xrstf\\Composer52\\Generator::onPostInstallCmd"
     ],
     "post-autoload-dump": [
@@ -64,6 +77,26 @@
     "psr-4": {
       "Tribe\\": "src/Tribe/",
       "TEC\\Common\\": "src/Common/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "TEC\\Common\\Tests\\": "tests/_data/classes"
+    }
+  },
+  "extra": {
+    "strauss": {
+      "target_directory": "vendor/vendor-prefixed",
+      "namespace_prefix": "TEC\\Common",
+      "classmap_prefix": "TEC__Common__",
+      "constant_prefix": "TEC_COMMON_",
+      "packages": [
+        "stellarwp/container-contract",
+        "stellarwp/db",
+        "stellarwp/installer",
+        "monolog/monolog"
+      ],
+      "delete_vendor_files": true
     }
   }
 }

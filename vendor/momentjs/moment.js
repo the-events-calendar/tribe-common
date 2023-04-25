@@ -1834,11 +1834,22 @@ function chooseLocale(names) {
     return null;
 }
 
+
+function isLocaleNameSane(name) {
+    // Prevent names that look like filesystem paths, i.e contain '/' or '\'
+    return name.match('^[^/\\\\]*$') != null;
+}
+
 function loadLocale(name) {
     var oldLocale = null;
-    // TODO: Find a better way to register and load all the locales in Node
-    if (!locales[name] && (typeof module !== 'undefined') &&
-            module && module.exports) {
+	// TODO: Find a better way to register and load all the locales in Node
+	 if (
+	     locales[name] === undefined &&
+	     typeof module !== 'undefined' &&
+	     module &&
+	     module.exports &&
+	     isLocaleNameSane(name)
+	 ) {
         try {
             oldLocale = globalLocale._abbr;
             var aliasedRequire = require;

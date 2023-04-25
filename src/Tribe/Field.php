@@ -1,6 +1,10 @@
 <?php
 
 // Don't load directly
+
+use Tribe\Admin\Settings;
+use Tribe\Admin\Wysiwyg;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -55,6 +59,15 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 */
 		public $valid_field_types;
 
+		/**
+		 * Settings array.
+		 *
+		 * @since 5.0.12
+		 *
+		 * @var array
+		 */
+		public $settings;
+
 
 		/**
 		 * Class constructor
@@ -90,6 +103,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'clear_after'         => true,
 				'tooltip_first'       => false,
 				'allow_clear'         => false,
+				'settings'            => [],
 			];
 
 			// a list of valid field types, to prevent screwy behavior
@@ -110,6 +124,9 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'number',
 				'wrapped_html',
 				'email',
+				'color',
+				'image',
+				'toggle',
 			];
 
 			$this->valid_field_types = apply_filters( 'tribe_valid_field_types', $this->valid_field_types );
@@ -191,6 +208,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$clear_after      = (bool) $args['clear_after'];
 			$tooltip_first    = (bool) $args['tooltip_first'];
 			$allow_clear      = (bool) $args['allow_clear'];
+			$settings         = $args['settings'];
 
 			// set the ID
 			$this->id = apply_filters( 'tribe_field_id', $id );
@@ -498,17 +516,11 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 * @return string the field
 		 */
 		public function wysiwyg() {
-			$settings = [
-				'teeny'   => true,
-				'wpautop' => true,
-			];
-			ob_start();
-			wp_editor( html_entity_decode( ( $this->value ) ), $this->name, $settings );
-			$editor = ob_get_clean();
+			$mce = new Wysiwyg( $this->name, $this->value, $this->settings );
 			$field  = $this->do_field_start();
 			$field .= $this->do_field_label();
 			$field .= $this->do_field_div_start();
-			$field .= $editor;
+			$field .= $mce->get_html();
 			$field .= $this->do_screen_reader_label();
 			$field .= $this->do_field_div_end();
 			$field .= $this->do_field_end();
@@ -695,6 +707,105 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$field .= '/>';
 			$field .= '<p class="license-test-results"><img src="' . esc_url( admin_url( 'images/wpspin_light.gif' ) ) . '" class="ajax-loading-license" alt="Loading" style="display: none"/>';
 			$field .= '<span class="key-validity"></span>';
+			$field .= $this->do_screen_reader_label();
+			$field .= $this->do_field_div_end();
+			$field .= $this->do_field_end();
+
+			return $field;
+		}
+
+		/**
+		 * Generate a color field.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @return string The field.
+		 */
+		public function color() {
+
+			tribe( Settings::class )->maybe_load_color_field_assets();
+
+			$field = $this->do_field_start();
+			$field .= $this->do_field_label();
+			$field .= $this->do_field_div_start();
+			$field .= '<input';
+			$field .= ' type="text"';
+			$field .= ' class="tec-admin__settings-color-field-input"';
+			$field .= $this->do_field_name();
+			$field .= $this->do_field_value();
+			$field .= $this->do_field_attributes();
+			$field .= '/>';
+			$field .= $this->do_screen_reader_label();
+			$field .= $this->do_field_div_end();
+			$field .= $this->do_field_end();
+
+			return $field;
+		}
+
+		/**
+		 * Generate an image field.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @return string The field.
+		 */
+		public function image() {
+
+			tribe( Settings::class )->maybe_load_image_field_assets();
+
+			$image_exists = ! empty( $this->value );
+			$upload_image_text = esc_html__( 'Select Image', 'tribe-common' );
+			$remove_image_text = esc_html__( 'Remove Image', 'tribe-common' );
+
+			// Add default fieldset attributes if none exist.
+			$image_fieldset_attributes = [
+				'data-select-image-text' => esc_html__( 'Select an image', 'tribe-common' ),
+				'data-use-image-text'    => esc_html__( 'Use this image', 'tribe-common' ),
+			];
+			$this->fieldset_attributes = array_merge( $image_fieldset_attributes, $this->fieldset_attributes );
+
+			$field = $this->do_field_start();
+			$field .= $this->do_field_label();
+			$field .= $this->do_field_div_start();
+			$field .= '<input';
+			$field .= ' type="hidden"';
+			$field .= ' class="tec-admin__settings-image-field-input"';
+			$field .= $this->do_field_name();
+			$field .= $this->do_field_value();
+			$field .= $this->do_field_attributes();
+			$field .= '/>';
+			$field .= '<button type="button" class="button tec-admin__settings-image-field-btn-add">' . $upload_image_text . '</button>';
+			$field .= '<div class="tec-admin__settings-image-field-image-container hidden">';
+			if ( $image_exists ) {
+				$field .= '<img src="' . esc_url( $this->value ) . '" />';
+			}
+			$field .= '</div>';
+			$field .= '<button class="tec-admin__settings-image-field-btn-remove hidden">' . $remove_image_text . '</button>';
+			$field .= $this->do_screen_reader_label();
+			$field .= $this->do_field_div_end();
+			$field .= $this->do_field_end();
+
+			return $field;
+		}
+
+		/**
+		 * Generate a toggle switch.
+		 *
+		 * @since 5.0.12
+		 *
+		 * @return string the field
+		 */
+		public function toggle() {
+			$field = $this->do_field_start();
+			$field .= $this->do_field_label();
+			$field .= $this->do_field_div_start();
+			$field .= '<input type="checkbox"';
+			$field .= ' class="tec-admin__settings-toggle-field-input"';
+			$field .= $this->do_field_name();
+			$field .= ' value="1" ' . checked( $this->value, true, false );
+			$field .= $this->do_field_attributes();
+			$field .= '/>';
+			$field .= '<span class="tec-admin__settings-toggle-field-span"></span>';
 			$field .= $this->do_screen_reader_label();
 			$field .= $this->do_field_div_end();
 			$field .= $this->do_field_end();

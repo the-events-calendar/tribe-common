@@ -513,4 +513,62 @@ class Tribe__Utils__Color {
 
 		return $color;
 	}
+
+	/**
+	 * Get color that contrasts the most.
+	 *
+	 * @since 5.0.10
+	 *
+	 * @param string $hex_color   Hex value of color to compare.
+	 * @param string $light_color Hex value of light contrast color.
+	 * @param string $dark_color  Hex value of dark contrast color.
+	 *
+	 * @return string
+	 */
+	public static function get_contrast_color( $hex_color, $light_color = '#ffffff', $dark_color = '#000000' ) {
+		// Get contrast ratios for both light and dark.
+		$dark_ratio  = self::get_contrast_ratio( $hex_color, $dark_color );
+		$light_ratio = self::get_contrast_ratio( $hex_color, $light_color );
+
+		// Return the highest ratio.
+		if ( $dark_ratio > $light_ratio ) {
+			return $dark_color;
+		}
+		return $light_color
+;
+	}
+
+	/**
+	 * Get contrast ratio of two colors.
+	 *
+	 * @since 5.0.10
+	 *
+	 * @param string $hex_color     Hex value of color.
+	 * @param string $compare_color Hax value of comparing color.
+	 *
+	 * @return int
+	 */
+	public static function get_contrast_ratio( $hex_color, $compare_color ) {
+		// Separate into hexColor RGB.
+		$R1 = hexdec( substr( $hex_color, 1, 2 ) );
+		$G1 = hexdec( substr( $hex_color, 3, 2 ) );
+		$B1 = hexdec( substr( $hex_color, 5, 2 ) );
+
+		$R2comp = hexdec( substr( $compare_color, 1, 2 ) );
+		$G2comp = hexdec( substr( $compare_color, 3, 2 ) );
+		$B2comp = hexdec( substr( $compare_color, 5, 2 ) );
+
+		// Calculate contrast ratio.
+		$L1 = 0.2126 * pow( $R1 / 255, 2.2 ) +
+			0.7152 * pow( $G1 / 255, 2.2 ) +
+			0.0722 * pow( $B1 / 255, 2.2 );
+		$L2 = 0.2126 * pow( $R2comp / 255, 2.2 ) +
+			0.7152 * pow( $G2comp / 255, 2.2 ) +
+			0.0722 * pow( $B2comp / 255, 2.2 );
+
+		if ( $L1 > $L2 ) {
+			return (int)( ( $L1 + 0.05 ) / ( $L2 + 0.05 ) );
+		}
+		return (int)( ( $L2 + 0.05 ) / ( $L1 + 0.05 ) );
+	}
 }

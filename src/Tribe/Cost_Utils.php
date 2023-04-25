@@ -111,7 +111,7 @@ class Tribe__Cost_Utils {
 			is_numeric( $cost_with_period )
 			&& '0.00' === number_format( $cost_with_period, 2, '.', ',' )
 		) {
-			return esc_html__( 'Free', 'the-events-calendar' );
+			return esc_html__( 'Free', 'tribe-common' );
 		}
 
 		return $cost;

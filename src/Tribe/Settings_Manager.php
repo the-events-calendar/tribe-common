@@ -26,7 +26,6 @@ class Tribe__Settings_Manager {
 		add_action( '_network_admin_menu', [ $this, 'init_options' ] );
 		add_action( '_admin_menu', [ $this, 'init_options' ] );
 
-		add_action( 'admin_menu', [ $this, 'add_help_admin_menu_item' ], 50 );
 		add_action( 'tribe_settings_do_tabs', [ $this, 'do_setting_tabs' ] );
 		add_action( 'tribe_settings_validate_tab_network', [ $this, 'save_all_tabs_hidden' ] );
 		add_action( 'updated_option', [ $this, 'update_options_cache' ], 10, 3 );
@@ -315,19 +314,10 @@ class Tribe__Settings_Manager {
 	/**
 	 * Add help menu item to the admin (unless blocked via network admin settings).
 	 *
-	 * @todo move to an admin class
+	 * @deprecated 5.0.2
 	 */
 	public function add_help_admin_menu_item() {
-		$hidden_settings_tabs = self::get_network_option( 'hideSettingsTabs', [] );
-		if ( in_array( 'help', $hidden_settings_tabs ) ) {
-			return;
-		}
-
-		$parent = class_exists( 'Tribe__Events__Main' ) ? Tribe__Settings::$parent_page : Tribe__Settings::$parent_slug;
-		$title  = esc_html__( 'Help', 'tribe-common' );
-		$slug   = 'tribe-help';
-
-		add_submenu_page( $parent, $title, $title, 'manage_options', $slug, [ $this, 'do_help_tab' ] );
+		_deprecated_function( __METHOD__, '5.0.2', 'Now handled by Tribe\Events\Admin\Settings::add_admin_pages()' );
 	}
 
 	/**
