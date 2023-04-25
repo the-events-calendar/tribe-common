@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7962ad437a061eae4fa23bbfeeb862e4",
+    "content-hash": "7938fe15323f53f3cdac5a1faea0688b",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -70,16 +70,16 @@
         },
         {
             "name": "lucatume/di52",
-            "version": "3.3.1",
+            "version": "3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/di52",
-                "reference": "2ad290de6143a26bfbc61ee0eb0dce10edf09dd6"
+                "reference": "a063c9a18819b00a25883aca65b1d09697d8abf0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/di52/zipball/2ad290de6143a26bfbc61ee0eb0dce10edf09dd6",
-                "reference": "2ad290de6143a26bfbc61ee0eb0dce10edf09dd6",
+                "url": "https://api.github.com/repos/lucatume/di52/zipball/a063c9a18819b00a25883aca65b1d09697d8abf0",
+                "reference": "a063c9a18819b00a25883aca65b1d09697d8abf0",
                 "shasum": ""
             },
             "require": {
@@ -106,7 +106,7 @@
                 }
             ],
             "description": "A PHP 5.6 compatible dependency injection container.",
-            "time": "2023-03-17T08:40:53+00:00"
+            "time": "2023-04-07T12:38:10+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -450,12 +450,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/telemetry.git",
-                "reference": "f9645a1245aef8a1808f51f7cef23ab2c774d1ce"
+                "reference": "c393439d4d7c4f0f89bd285df6a331d427ea8f5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/f9645a1245aef8a1808f51f7cef23ab2c774d1ce",
-                "reference": "f9645a1245aef8a1808f51f7cef23ab2c774d1ce",
+                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/c393439d4d7c4f0f89bd285df6a331d427ea8f5c",
+                "reference": "c393439d4d7c4f0f89bd285df6a331d427ea8f5c",
                 "shasum": ""
             },
             "require": {
@@ -533,10 +533,10 @@
             ],
             "description": "Telemetry library for StellarWP plugins.",
             "support": {
-                "source": "https://github.com/stellarwp/telemetry/tree/feature/allow-multiple-stellar-slugs",
+                "source": "https://github.com/stellarwp/telemetry/tree/2.0.0-rc.01",
                 "issues": "https://github.com/stellarwp/telemetry/issues"
             },
-            "time": "2023-04-05T20:14:18+00:00"
+            "time": "2023-04-14T19:50:16+00:00"
         }
     ],
     "packages-dev": [
@@ -1531,16 +1531,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.9.0",
+            "version": "1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "e98e3e6d4f86621a9b75f623996e6bbdeb4b9318"
+                "reference": "e4490cabc77465aaee90b20cfc9a770f8c04be6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/e98e3e6d4f86621a9b75f623996e6bbdeb4b9318",
-                "reference": "e98e3e6d4f86621a9b75f623996e6bbdeb4b9318",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/e4490cabc77465aaee90b20cfc9a770f8c04be6b",
+                "reference": "e4490cabc77465aaee90b20cfc9a770f8c04be6b",
                 "shasum": ""
             },
             "require": {
@@ -1559,11 +1559,6 @@
                 "laminas/laminas-httphandlerrunner": "Emit PSR-7 responses"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.9-dev"
-                }
-            },
             "autoload": {
                 "files": [
                     "src/functions_include.php"
@@ -1621,7 +1616,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/1.9.0"
+                "source": "https://github.com/guzzle/psr7/tree/1.9.1"
             },
             "funding": [
                 {
@@ -1637,7 +1632,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-20T21:43:03+00:00"
+            "time": "2023-04-17T16:00:37+00:00"
         },
         {
             "name": "illuminate/collections",
@@ -1945,16 +1940,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "3.1.8",
+            "version": "3.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "161bf51aea475f86fb124aad1642c845b5379444"
+                "reference": "38e15758d2960d31ce6347bff843574f147d2630"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/161bf51aea475f86fb124aad1642c845b5379444",
-                "reference": "161bf51aea475f86fb124aad1642c845b5379444",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/38e15758d2960d31ce6347bff843574f147d2630",
+                "reference": "38e15758d2960d31ce6347bff843574f147d2630",
                 "shasum": ""
             },
             "require": {
@@ -2038,7 +2033,7 @@
             ],
             "support": {
                 "issues": "https://github.com/lucatume/wp-browser/issues",
-                "source": "https://github.com/lucatume/wp-browser/tree/3.1.8"
+                "source": "https://github.com/lucatume/wp-browser/tree/3.1.9"
             },
             "funding": [
                 {
@@ -2046,20 +2041,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-24T15:10:07+00:00"
+            "time": "2023-04-11T07:42:24+00:00"
         },
         {
             "name": "mikehaertl/php-shellcommand",
-            "version": "1.6.4",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mikehaertl/php-shellcommand.git",
-                "reference": "3488d7803df1e8f1a343d3d0ca452d527ad8d5e5"
+                "reference": "e79ea528be155ffdec6f3bf1a4a46307bb49e545"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikehaertl/php-shellcommand/zipball/3488d7803df1e8f1a343d3d0ca452d527ad8d5e5",
-                "reference": "3488d7803df1e8f1a343d3d0ca452d527ad8d5e5",
+                "url": "https://api.github.com/repos/mikehaertl/php-shellcommand/zipball/e79ea528be155ffdec6f3bf1a4a46307bb49e545",
+                "reference": "e79ea528be155ffdec6f3bf1a4a46307bb49e545",
                 "shasum": ""
             },
             "require": {
@@ -2090,9 +2085,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mikehaertl/php-shellcommand/issues",
-                "source": "https://github.com/mikehaertl/php-shellcommand/tree/1.6.4"
+                "source": "https://github.com/mikehaertl/php-shellcommand/tree/1.7.0"
             },
-            "time": "2021-03-17T06:54:33+00:00"
+            "time": "2023-04-19T08:25:22+00:00"
         },
         {
             "name": "mikemclin/laravel-wp-password",
