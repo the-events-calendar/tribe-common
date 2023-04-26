@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.0.18] TBD =
+
+
+
 = [5.0.15] 2023-04-10 =
 
 * Fix - Update the Google Maps API setting url on the Troubleshooting page. [TEC-4728]
