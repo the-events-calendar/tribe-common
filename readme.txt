@@ -1,5 +1,12 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Fixes a cache bug that showed up in ECP-1475. The underlying issue was cache would carry stale data and not clear with the `save_post` trigger being hit repeatedly.
+* Feat - Add the `TEC\Provider\Controller` abstract class to kick-start Controllers and the `TEC\Common\Tests\Provider\Controller_Test_Case` class to test them.
+* Fix - Minor button style hardening to prevent some common theme global style bleed, namely from Elementor global styles. [TEC-4677]
+* Fix - Fix for the fatal `PHP Fatal error: Uncaught ArgumentCountError: Too few arguments to function Firebase\JWT\JWT::encode(), 2 passed` from other plugins using a different version of the `Firebase\JWT` library. Setup a Strauss namespaced version for this library. [TEC-4635]
+
 = [5.0.15] 2023-04-10 =
 
 * Fix - Update the Google Maps API setting url on the Troubleshooting page. [TEC-4728]
