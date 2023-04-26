@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.0.16] TBD =
+= [5.0.18] TBD =
 
 * Feature - Include a Integrations framework that was ported from The Events Calendar.
 
