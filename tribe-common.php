@@ -28,6 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 // the main plugin class
-require_once dirname( __FILE__ ) . '/src/Tribe/Main.php';
+require_once __DIR__ . '/src/Tribe/Main.php';
 
 Tribe__Main::instance();
