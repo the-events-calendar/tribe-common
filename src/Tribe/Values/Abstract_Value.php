@@ -109,7 +109,7 @@ abstract class Abstract_Value implements Value_Interface {
 		 * @since 4.14.9
 		 *
 		 * @param int $integer the integer representation of the value
-		 * @param Abstract_Value the object instance
+		 * @param Abstract_Value $instance the object instance
 		 *
 		 * @return int
 		 */
@@ -121,7 +121,7 @@ abstract class Abstract_Value implements Value_Interface {
 		 * @since 4.14.9
 		 *
 		 * @param int $integer the integer representation of the value
-		 * @param Abstract_Value the object instance
+		 * @param Abstract_Value $instance the object instance
 		 *
 		 * @return int
 		 */
@@ -139,7 +139,7 @@ abstract class Abstract_Value implements Value_Interface {
 		 * @since 4.14.9
 		 *
 		 * @param float $float the float representation of the value
-		 * @param Abstract_Value the object instance
+		 * @param Abstract_Value $instance the object instance
 		 *
 		 * @return float
 		 */
@@ -151,7 +151,7 @@ abstract class Abstract_Value implements Value_Interface {
 		 * @since 4.14.9
 		 *
 		 * @param float $float the float representation of the value
-		 * @param Abstract_Value the object instance
+		 * @param Abstract_Value $instance the object instance
 		 *
 		 * @return float
 		 */
@@ -168,7 +168,7 @@ abstract class Abstract_Value implements Value_Interface {
 		 * @since 4.14.9
 		 *
 		 * @param int $precision the precision to which values will be calculated
-		 * @param Abstract_Value the object instance
+		 * @param Abstract_Value $instance the object instance
 		 *
 		 * @return int
 		 */
@@ -180,7 +180,7 @@ abstract class Abstract_Value implements Value_Interface {
 		 * @since 4.14.9
 		 *
 		 * @param int $precision the precision to which values will be calculated
-		 * @param Abstract_Value the object instance
+		 * @param Abstract_Value $instance the object instance
 		 *
 		 * @return int
 		 */
@@ -356,7 +356,7 @@ abstract class Abstract_Value implements Value_Interface {
 		 * @since 4.14.9
 		 *
 		 * @param float $normalized_value the normalized value
-		 * @param Abstract_Value the object instance
+		 * @param Abstract_Value $instance the object instance
 		 *
 		 * @return float
 		 */
@@ -368,7 +368,7 @@ abstract class Abstract_Value implements Value_Interface {
 		 * @since 4.14.9
 		 *
 		 * @param float $normalized_value the normalized value
-		 * @param Abstract_Value the object instance
+		 * @param Abstract_Value $instance the object instance
 		 *
 		 * @return float
 		 */
@@ -380,7 +380,7 @@ abstract class Abstract_Value implements Value_Interface {
 		 * @since 4.14.9
 		 *
 		 * @param float $normalized_value the normalized value
-		 * @param Abstract_Value the object instance
+		 * @param Abstract_Value $instance the object instance
 		 */
 		do_action( 'tec_common_value_normalized', $normalized_value, $this );
 

@@ -64,6 +64,9 @@
       "vendor/stellarwp/installer/bin/set-domain domain=tribe-common",
       "@php bin/strauss.phar"
     ],
+    "stan": [
+      "vendor/bin/phpstan analyze --memory-limit=4000M"
+    ],
     "post-install-cmd": [
       "@strauss",
       "xrstf\\Composer52\\Generator::onPostInstallCmd"

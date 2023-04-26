@@ -713,13 +713,12 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
 		 *
 		 * @since 4.9.12
 		 *
+		 * @param array  $args      Either an array of options for the endpoint, or an array of arrays for
+		 *                          multiple methods. Default empty array.
 		 * @param string $namespace The first URL segment after core prefix. Should be unique to your package/plugin.
 		 * @param string $route     The base URL for route you are adding.
 		 * @param bool   $override  Optional. If the route already exists, should we override it? True overrides,
 		 *                          false merges (with newer overriding if duplicate keys exist). Default false.
-		 *
-		 * @param array  $args      Either an array of options for the endpoint, or an array of arrays for
-		 *                          multiple methods. Default empty array.
 		 */
 		$args = apply_filters( 'tribe_register_rest_route_args_' . $namespace . $route, $args, $namespace, $route, $override );
 
@@ -728,13 +727,12 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
 		 *
 		 * @since 4.9.12
 		 *
+		 * @param array  $args      Either an array of options for the endpoint, or an array of arrays for
+		 *                          multiple methods. Default empty array.
 		 * @param string $namespace The first URL segment after core prefix. Should be unique to your package/plugin.
 		 * @param string $route     The base URL for route you are adding.
 		 * @param bool   $override  Optional. If the route already exists, should we override it? True overrides,
 		 *                          false merges (with newer overriding if duplicate keys exist). Default false.
-		 *
-		 * @param array  $args      Either an array of options for the endpoint, or an array of arrays for
-		 *                          multiple methods. Default empty array.
 		 */
 		$args = apply_filters( 'tribe_register_rest_route_args', $args, $namespace, $route, $override );
 

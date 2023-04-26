@@ -24,7 +24,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 		 *
 		 * @since 4.10.0
 		 *
-		 * @param Tribe\Service_Providers\Dialog $dialog
+		 * @param \Tribe\Service_Providers\Dialog $dialog
 		 */
 		do_action( 'tribe_dialog_register', $this );
 
@@ -45,7 +45,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 		 *
 		 * @since 4.10.0
 		 *
-		 * @param Tribe\Service_Providers\Dialog $dialog
+		 * @param \Tribe\Service_Providers\Dialog $dialog
 		 */
 		do_action( 'tribe_dialog_hooks', $this );
 	}
@@ -103,7 +103,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 		 *
 		 * @since 4.10.0
 		 *
-		 * @param Tribe\Service_Providers\Dialog $dialog
+		 * @param \Tribe\Service_Providers\Dialog $dialog
 		 */
 		do_action( 'tribe_dialog_assets_registered', $this );
 	}

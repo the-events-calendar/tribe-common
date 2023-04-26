@@ -794,10 +794,10 @@ class Tribe__Template {
 		 *
 		 * @since  4.12.0
 		 *
-		 * @param string  null     Whether to continue displaying the template or not.
-		 * @param array   $name    Template name.
-		 * @param array   $context Any context data you need to expose to this file.
-		 * @param boolean $echo    If we should also print the Template.
+		 * @param string|null $done    Whether to continue displaying the template or not.
+		 * @param array       $name    Template name.
+		 * @param array       $context Any context data you need to expose to this file.
+		 * @param boolean     $echo    If we should also print the Template.
 		 */
 		$done = apply_filters( 'tribe_template_done', null, $name, $context, $echo );
 
@@ -873,10 +873,10 @@ class Tribe__Template {
 		 *
 		 * @since  4.11.0
 		 *
-		 * @param string $html     The initial HTML
-		 * @param string $file     Complete path to include the PHP File
-		 * @param array  $name     Template name
-		 * @param self   $template Current instance of the Tribe__Template
+		 * @param string|null $html     The initial HTML
+		 * @param string      $file     Complete path to include the PHP File
+		 * @param array       $name     Template name
+		 * @param self        $template Current instance of the Tribe__Template
 		 */
 		$pre_html = apply_filters( 'tribe_template_pre_html', null, $file, $name, $this );
 

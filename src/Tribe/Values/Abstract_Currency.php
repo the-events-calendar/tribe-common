@@ -103,7 +103,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		 * @since 4.14.9
 		 *
 		 * @param string $currency the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param Abstract_Currency $instance the object instance
 		 *
 		 * @return string
 		 */
@@ -115,7 +115,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		 * @since 4.14.9
 		 *
 		 * @param string $currency the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param Abstract_Currency $instance the object instance
 		 *
 		 * @return string
 		 */
@@ -133,7 +133,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		 * @since 4.14.9
 		 *
 		 * @param float $decimal the float representation of the value, rounded to precision
-		 * @param Abstract_Currency the object instance
+		 * @param Abstract_Currency $instance the object instance
 		 *
 		 * @return float
 		 */
@@ -145,7 +145,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		 * @since 4.14.9
 		 *
 		 * @param float $decimal the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param Abstract_Currency $instance the object instance
 		 *
 		 * @return float
 		 */
@@ -163,7 +163,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		 * @since 4.14.9
 		 *
 		 * @param string $string the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param Abstract_Currency $instance the object instance
 		 *
 		 * @return string
 		 */
@@ -175,7 +175,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		 * @since 4.14.9
 		 *
 		 * @param string $string the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param Abstract_Currency $instance the object instance
 		 *
 		 * @return string
 		 */
@@ -193,7 +193,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		 * @since 4.14.9
 		 *
 		 * @param string $currency_code the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param Abstract_Currency $instance the object instance
 		 *
 		 * @return string
 		 */
@@ -205,7 +205,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		 * @since 4.14.9
 		 *
 		 * @param string $currency_code the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param Abstract_Currency $instance the object instance
 		 *
 		 * @return string
 		 */
@@ -223,7 +223,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		 * @since 4.14.9
 		 *
 		 * @param string $currency_symbol the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param Abstract_Currency $instance the object instance
 		 *
 		 * @return string
 		 */
@@ -235,7 +235,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		 * @since 4.14.9
 		 *
 		 * @param string $currency_symbol the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param Abstract_Currency $instance the object instance
 		 *
 		 * @return string
 		 */
@@ -253,7 +253,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		 * @since 4.14.9
 		 *
 		 * @param string $currency_symbol_position the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param Abstract_Currency $instance the object instance
 		 *
 		 * @return string
 		 */
@@ -265,7 +265,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		 * @since 4.14.9
 		 *
 		 * @param string $currency_symbol_position the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param Abstract_Currency $instance the object instance
 		 *
 		 * @return string
 		 */
@@ -283,7 +283,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		 * @since 4.14.9
 		 *
 		 * @param string $currency_separator_decimal the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param Abstract_Currency $instance the object instance
 		 *
 		 * @return string
 		 */
@@ -295,7 +295,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		 * @since 4.14.9
 		 *
 		 * @param string $currency_separator_decimal the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param Abstract_Currency $instance the object instance
 		 *
 		 * @return string
 		 */
@@ -313,7 +313,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		 * @since 4.14.9
 		 *
 		 * @param string $currency_separator_thousands the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param Abstract_Currency $instance the object instance
 		 *
 		 * @return string
 		 */
@@ -325,7 +325,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		 * @since 4.14.9
 		 *
 		 * @param string $currency_separator_thousands the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param Abstract_Currency $instance the object instance
 		 *
 		 * @return string
 		 */

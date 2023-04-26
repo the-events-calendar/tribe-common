@@ -268,7 +268,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 * {@inheritdoc}
 	 */
 	public function save( $return_promise = true ) {
-		$this->decorated->save( $return_promise );
+		return $this->decorated->save( $return_promise );
 	}
 
 	/**
@@ -472,7 +472,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 * {@inheritdoc}
 	 */
 	public function filter_postarr_for_create( array $postarr ) {
-		return $this->decorated->filter_postarr_for_create( $postarr, $post_id );
+		return $this->decorated->filter_postarr_for_create( $postarr );
 	}
 
 	/**

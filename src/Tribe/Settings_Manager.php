@@ -275,21 +275,21 @@ class Tribe__Settings_Manager {
 		 * Normally it will only show if the current user has the "activate_plugins" capability
 		 * and there are some currently-activated premium plugins.
 		 *
-		 * @var bool
+		 * @param bool $show_tab
 		 */
 		if ( ! apply_filters( 'tribe_events_show_licenses_tab', $show_tab ) ) {
 			return;
 		}
 
 		/**
-		 * @var $licenses_tab
+		 * @var array $licenses_tab
 		 */
 		include Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-licenses.php';
 
 		/**
 		 * Allows the fields displayed in the licenses tab to be modified.
 		 *
-		 * @var array
+		 * @param array $licenses_tab
 		 */
 		$license_fields = apply_filters( 'tribe_license_fields', $licenses_tab );
 
