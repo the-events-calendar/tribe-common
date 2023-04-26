@@ -22,7 +22,7 @@ if ( $disabled ) {
 	$notes 		  = sprintf(
 		'<a href="%1$s">%2$s</a>',
 		esc_url( $settings_url ),
-		_x( 'Edit Import Settings', '','tribe-common' ),
+		_x( 'Edit Import Settings', '','tribe-common' )
 	);
 }
 ?>

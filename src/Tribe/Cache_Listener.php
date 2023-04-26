@@ -62,6 +62,7 @@ class Tribe__Cache_Listener {
 		add_action( 'updated_option', [ $this, 'update_last_updated_option' ], 10, 3 );
 		add_action( 'updated_option', [ $this, 'update_last_save_post' ], 10, 3 );
 		add_action( 'generate_rewrite_rules', [ $this, 'generate_rewrite_rules' ] );
+		add_action( 'clean_post_cache', [ $this, 'save_post' ], 0, 2 );
 	}
 
 	/**

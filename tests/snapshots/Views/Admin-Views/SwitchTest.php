@@ -1,6 +1,6 @@
 <?php
 
-namespace Tribe\Tests\Snapshots\Views\V2\Admin_Views\Components;
+namespace Tribe\Tests\Snapshots\Views\V2\Admin_Views;
 
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use Tribe\Tests\Snapshots\Snapshot_Test_Case;

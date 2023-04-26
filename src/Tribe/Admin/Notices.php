@@ -191,14 +191,33 @@ class Tribe__Admin__Notices {
 			$content = $notice->content;
 			$wrap    = isset( $notice->wrap ) ? $notice->wrap : false;
 
+			if ( is_array( $content ) && isset( $content[0] ) && $content[0] instanceof __PHP_Incomplete_Class ) {
+				// From a class that no longer exists (e.g. the plugin is not active), clean and bail.
+				$this->remove( $slug );
+				$this->remove_transient( $slug );
+
+				return false;
+			}
+
 			if ( is_callable( $content ) ) {
 				$content = call_user_func_array( $content, [ $notice ] );
 			}
 
+			if ( empty( $content ) ) {
+				// There is nothing to render, let's avoid the empty notice frame.
+				return false;
+			}
+
 			tribe_asset_enqueue_group( 'tec-admin-notices' );
 
-			// Return the rendered HTML
-			return $this->render( $slug, $content, false, $wrap );
+			// Return the rendered HTML.
+			$html = $this->render( $slug, $content, false, $wrap );
+
+			// Remove the notice and the transient (if any) since it's been rendered.
+			$this->remove( $slug );
+			$this->remove_transient( $slug );
+
+			return $html;
 		}
 
 		return false;
@@ -239,6 +258,10 @@ class Tribe__Admin__Notices {
 
 		if ( $notice->dismiss ) {
 			$classes[] = 'is-dismissible';
+		}
+
+		if ( $notice->inline ) {
+			$classes[] = 'inline';
 		}
 
 		// Prevents Empty Notices
@@ -529,6 +552,7 @@ class Tribe__Admin__Notices {
 			'priority'           => 10,
 			'expire'             => false,
 			'dismiss'            => false,
+			'inline'             => false,
 			'recurring'          => false,
 			'recurring_interval' => null,
 			'type'               => 'error',
@@ -552,8 +576,14 @@ class Tribe__Admin__Notices {
 		// Clean these
 		$notice->priority  = absint( $notice->priority );
 		$notice->expire    = (bool) $notice->expire;
-		$notice->dismiss   = (bool) $notice->dismiss;
 		$notice->recurring = (bool) $notice->recurring;
+
+		if ( ! is_callable( $notice->dismiss ) ) {
+			$notice->dismiss   = (bool) $notice->dismiss;
+		}
+		if ( ! is_callable( $notice->inline ) ) {
+			$notice->inline   = (bool) $notice->inline;
+		}
 
 		// Set the Notice on the array of notices
 		$this->notices[ $slug ] = $notice;
@@ -622,7 +652,7 @@ class Tribe__Admin__Notices {
 	 *
 	 * @param string $slug
 	 *
-	 * @return array|null
+	 * @return object|array|null
 	 */
 	public function get( $slug = null ) {
 		if ( is_null( $slug ) ) {
@@ -633,7 +663,18 @@ class Tribe__Admin__Notices {
 		$slug = sanitize_key( $slug );
 
 		if ( ! empty( $this->notices[ $slug ] ) ) {
-			return $this->notices[ $slug ];
+			// I want to avoid modifying the registered value.
+			$notice = $this->notices[ $slug ];
+
+			if ( is_callable( $notice->inline ) ) {
+				$notice->inline = call_user_func( $notice->inline, $notice );
+			}
+
+			if ( is_callable( $notice->dismiss ) ) {
+				$notice->dismiss = call_user_func( $notice->dismiss, $notice );
+			}
+
+			return $notice;
 		}
 
 		return null;

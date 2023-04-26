@@ -67,8 +67,6 @@ class Tribe__Admin__Notice__Plugin_Download {
 		}
 
 		// Make sure Thickbox is available and consistent appearance regardless of which admin page we're on
-		wp_enqueue_style( 'plugin-install' );
-		wp_enqueue_script( 'plugin-install' );
 		add_thickbox();
 
 		$has_pue_notices = false;

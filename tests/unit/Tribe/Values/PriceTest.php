@@ -6,15 +6,15 @@ namespace Tribe\Values;
  * Stub class used for testing so we don't depend on a live WP install
  */
 class PriceClassStub extends Abstract_Currency {
-	private $currency_code = 'USD';
+	protected $currency_code = 'USD';
 
-	private $currency_separator_decimal = '.';
+	protected $currency_separator_decimal = '.';
 
-	private $currency_separator_thousands = ',';
+	protected $currency_separator_thousands = ',';
 
-	private $currency_symbol = '$';
+	protected $currency_symbol = '$';
 
-	private $currency_symbol_position = 'prefix';
+	protected $currency_symbol_position = 'prefix';
 
 	public function set_up_currency_details() {
 		return;

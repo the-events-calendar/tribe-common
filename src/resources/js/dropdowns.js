@@ -451,7 +451,8 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		$container = $select.select2TEC( args );
 
 		// Propagating original input classes to the select2 container.
-		$container.data( 'select2' ).$container.addClass( obj.getSelectClasses( $select ).join( ' ' ) );
+		var originalClasses = obj.getSelectClasses( $select ).join( ' ' );
+		$container.data( 'select2' ).$container.addClass( originalClasses );
 
 		// Propagating original input classes to the select2 container.
 		$container.data( 'select2' ).$container.removeClass( 'hide-before-select2-init' );
@@ -493,7 +494,21 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		var select2Data = $select.data( 'select2' );
 		var $search = select2Data.$dropdown.find( obj.selector.searchField ); // eslint-disable-line es5/no-es6-methods,max-len
 
-		select2Data.$dropdown.addClass( obj.selector.dropdown.className() );
+		var originalClasses = obj.getSelectClasses( select2Data.$element ).reduce(
+			function ( prev, curr ) {
+				if( 'hide-if-js' === curr ) {
+					return prev;
+				}
+
+				if ( 'tribe-dropdown-created' === curr ) {
+					return prev;
+				}
+
+				return prev + ' ' + curr;
+			}
+		);
+
+		select2Data.$dropdown.addClass( originalClasses );
 
 		// If we have a placeholder for search, apply it!
 		if ( $select.is( '[data-search-placeholder]' ) ) {

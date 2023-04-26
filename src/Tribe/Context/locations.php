@@ -47,6 +47,14 @@ return [
 			Tribe__Context::FUNC => static function () {
 				global $wp_query;
 
+				if ( empty( $wp_query ) ) {
+					return false;
+				}
+
+				if ( ! $wp_query instanceof WP_Query ) {
+					return false;
+				}
+
 				return $wp_query->is_main_query();
 			},
 		],

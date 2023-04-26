@@ -71,6 +71,11 @@ class Tribe__Admin__Activation_Page {
 	 * Listen for opportunities to show update and welcome splash pages.
 	 */
 	public function hooks() {
+		// Never show this on the front-end.
+		if ( ! is_admin() ) {
+			return;
+		}
+
 		if (
 			tribe_is_truthy( get_option( 'tribe_skip_welcome', false ) )
 			|| tribe_is_truthy( tribe_get_option( 'skip_welcome', false ) )
@@ -144,6 +149,37 @@ class Tribe__Admin__Activation_Page {
 			return; // A way to skip these checks and.
 		}
 
+		if (
+			! $this->showed_update_message_for_current_version()
+			&& ! $this->is_new_install()
+		) {
+			$page = tribe_get_request_var( 'page' );
+			if ( empty( $page ) ) {
+				return;
+			}
+
+			$match_page = str_replace( 'tribe_events_page_', '', $this->args['admin_page'] );
+
+			if ( $page !== $match_page ) {
+				return;
+			}
+
+			/**
+			 * Filters whether we should disable the update page redirect.
+			 *
+			 * @since 5.0.0
+			 *
+			 * @param $bypass bool
+			 */
+			$bypass_update_page = apply_filters( 'tec_admin_update_page_bypass', false, $this );
+
+			if ( $bypass_update_page ) {
+				return;
+			}
+
+			$this->redirect_to_update_page();
+		}
+
 		// Bail if we aren't activating a plugin.
 		if ( ! get_transient( $this->args['activation_transient'] ) ) {
 			return;
@@ -152,10 +188,6 @@ class Tribe__Admin__Activation_Page {
 		delete_transient( $this->args['activation_transient'] );
 
 		if ( ! current_user_can( Tribe__Settings::instance()->requiredCap ) ) {
-			return;
-		}
-
-		if ( $this->showed_update_message_for_current_version() ) {
 			return;
 		}
 
@@ -173,15 +205,28 @@ class Tribe__Admin__Activation_Page {
 	/**
 	 * Have we shown the welcome/update message for the current version?
 	 *
+	 * @since 5.0.0 Turned this method public.
+	 *
 	 * @return bool
 	 */
-	protected function showed_update_message_for_current_version() {
+	public function showed_update_message_for_current_version() {
 		$message_version_displayed = Tribe__Settings_Manager::get_option( 'last-update-message-' . $this->args['slug'] );
 
 		if ( empty( $message_version_displayed ) ) {
 			return false;
 		}
-		if ( version_compare( $message_version_displayed, $this->args['version'], '<' ) ) {
+
+		$current_version = explode( '.', $this->args['version'] );
+		$current_version = array_splice( $current_version, 0, 2 );
+		$current_version = array_pad( $current_version, 3, 0 );
+		$current_version = implode( '.', $current_version );
+
+		$message_version_displayed = explode( '.', $message_version_displayed );
+		$message_version_displayed = array_splice( $message_version_displayed, 0, 2 );
+		$message_version_displayed = array_pad( $message_version_displayed, 3, 0 );
+		$message_version_displayed = implode( '.', $message_version_displayed );
+
+		if ( version_compare( $message_version_displayed, $current_version, '<' ) ) {
 			return false;
 		}
 		return true;

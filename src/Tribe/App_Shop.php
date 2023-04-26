@@ -148,18 +148,19 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 			$all_products = tribe( 'plugins.api' )->get_products();
 
 			$products = [
-				'the-events-calendar' =>      (object) $all_products['the-events-calendar'],
-				'events-calendar-pro' =>      (object) $all_products['events-calendar-pro'],
-				'events-virtual' =>           (object) $all_products['events-virtual'],
-				'event-aggregator' =>         (object) $all_products['event-aggregator'],
-				'event-tickets' =>            (object) $all_products['event-tickets'],
-				'event-tickets-plus' =>       (object) $all_products['event-tickets-plus'],
-				'promoter' =>                 (object) $all_products['promoter'],
-				'tribe-filterbar' =>          (object) $all_products['tribe-filterbar'],
-				'events-community' =>         (object) $all_products['events-community'],
+				'the-events-calendar'      => (object) $all_products['the-events-calendar'],
+				'events-calendar-pro'      => (object) $all_products['events-calendar-pro'],
+				'events-virtual'           => (object) $all_products['events-virtual'],
+				'event-aggregator'         => (object) $all_products['event-aggregator'],
+				'event-automator'         => (object) $all_products['event-automator'],
+				'event-tickets'            => (object) $all_products['event-tickets'],
+				'event-tickets-plus'       => (object) $all_products['event-tickets-plus'],
+				'promoter'                 => (object) $all_products['promoter'],
+				'tribe-filterbar'          => (object) $all_products['tribe-filterbar'],
+				'events-community'         => (object) $all_products['events-community'],
 				'events-community-tickets' => (object) $all_products['events-community-tickets'],
-				'tribe-eventbrite' =>         (object) $all_products['tribe-eventbrite'],
-				'image-widget-plus' =>        (object) $all_products['image-widget-plus'],
+				'tribe-eventbrite'         => (object) $all_products['tribe-eventbrite'],
+				'image-widget-plus'        => (object) $all_products['image-widget-plus'],
 			];
 
 			return $products;
@@ -343,7 +344,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 					'image' => 'images/shop/stellar-iconic-cta.jpg',
 					'logo' => 'images/shop/stellar-iconic-logo.png',
 					'title' => __( 'Sales-boosting WooCommerce plugins.', 'tribe-common' ),
-					'link' => 'https://iconicwp.com/?utm_source=theeventscalendar&utm_medium=in-app&utm_campaign=cross-brand-add-on-shop',
+					'link' => 'https://evnt.is/iconic',
 					'linktext' => __( 'Add Commerce Tools', 'tribe-common' ),
 					'description' => __( 'Easy-to-use WooCommerce plugins work perfectly together, with any theme. Create a fast and profitable eCommerce store without any technical knowledge.
 					', 'tribe-common' ),

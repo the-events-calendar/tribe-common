@@ -45,6 +45,5 @@ src/resources/js/**/*.min.js
 lang/*.po
 lang/*.mo
 
-# tric files
-*.tric
-*.tric.*
+# Strauss
+bin/strauss.phar

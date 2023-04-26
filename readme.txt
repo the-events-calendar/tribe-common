@@ -1,5 +1,158 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Fixes a cache bug that showed up in ECP-1475. The underlying issue was cache would carry stale data and not clear with the `save_post` trigger being hit repeatedly.
+* Feat - Add the `TEC\Provider\Controller` abstract class to kick-start Controllers and the `TEC\Common\Tests\Provider\Controller_Test_Case` class to test them.
+* Fix - Minor button style hardening to prevent some common theme global style bleed, namely from Elementor global styles. [TEC-4677]
+* Fix - Fix for the fatal `PHP Fatal error: Uncaught ArgumentCountError: Too few arguments to function Firebase\JWT\JWT::encode(), 2 passed` from other plugins using a different version of the `Firebase\JWT` library. Setup a Strauss namespaced version for this library. [TEC-4635]
+
+= [5.0.15] 2023-04-10 =
+
+* Fix - Update the Google Maps API setting url on the Troubleshooting page. [TEC-4728]
+* Fix - Updates the Monolog repository to use TEC namespacing via Strauss, to provide more compatibility with other plugins. [TEC-4730]
+* Tweak - Replace the use of `FILTER_SANITIZE_STRING` in favour of `tec_sanitize_string` to improve PHP 8.1 compatibility. [TEC-4666]
+* Tweak - More flexible filtering of localized and dynamic matchers in the Rewrite component to allow easier rewrite rules translation. [TEC-4689]
+* Tweak - Added filters: `tec_common_rewrite_localize_matcher`
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.0.14] 2023-04-03 =
+
+* Fix - Fixed issue with "Upload Theme" button not working properly when a notification was displayed on the Theme page. [CT-77]
+* Enhancement - Added an `email_list` validation check for validating a delimited string of valid email addresses. [ET-1621]
+* Tweak - Fix styles for checkboxes and toggle, to have the description in the same line. [ET-1692]
+* Language - 1 new strings added, 6 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.0.13] 2023-03-20 =
+
+* Feature - Add the `is_editing_posts_list` method to the `Tribe__Context` class. [APM-5]
+* Feature - Add the `Tribe__Context::is_inline_editing_post` method.
+* Fix - Fix a false positive on checking if a cache value is set after cache expiration passed.
+* Tweak - Extract `TEC\Common\Context\Post_Request_Type` class from `Tribe__Context` class; proxy post request type methods to it.
+* Tweak - Removed actions: `tribe_log`
+* Tweak - Changed views: `single-event`, `v2/day/event/featured-image`, `v2/latest-past/event/featured-image`, `v2/list/event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image`, `v2/month/mobile-events/mobile-day/mobile-event/featured-image`, `v2/widgets/widget-events-list/event/date-tag`
+
+= [5.0.12] 2023-03-08 =
+
+* Enhancement - Added a way to customize the WYSIWYG editor field by passing in a `settings` parameter. [ET-1565]
+* Feature - Added new toggle field for settings in the admin area. [ET-1564]
+
+= [5.0.11] 2023-02-22 =
+
+* Tweak - PHP version compatibility bumped to PHP 7.4
+* Tweak - Version Composer updated to 2
+* Tweak - Version Node updated to 18.13.0
+* Tweak - Version NPM update to 8.19.3
+* Tweak - Reduce JavaScript bundle sizes for Blocks editor
+
+= [5.0.10] 2023-02-09 =
+
+* Feature - Add new `get_contrast_color` and `get_contrast_ratio` methods to the color utility for determining contrasting colors. [ET-1551]
+* Feature - Add the stellarwp/db library and configure it.
+* Feature - Add the stellarwp/installer library and bootstrap it.
+* Fix - Set max width to image in image setting field. [ET-1597]
+* Fix - Added safeguard against the `rewrite_rules_array` filter being passed non-array values, avoids fatal. [TEC-4679]
+* Tweak - Added filters: `tec_disable_logging`
+* Language - 0 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.0.9] 2023-01-26 =
+
+* Feature - Add Event Automator to Add-ons and Help page. [TEC-4660]
+* Language - 7 new strings added, 140 updated, 1 fuzzied, and 2 obsoleted.
+
+= [5.0.8] 2023-01-19 =
+
+* Fix - Correct handling of translated slugs in rewrite context. [TEC-3733]
+* Fix - Handle the case where rewrite rules map to arrays avoiding fatal errors. [TEC-4567]
+* Tweak - Allow disabling the Logger by setting the `TEC_DISABLE_LOGGING` constant or environment variable to truthy value or by means of the `tec_disable_logging` filter. [n/a]
+
+= [5.0.7] 2023-01-16 =
+
+* Tweak - Added a dashboard notice for sites running PHP versions lower than 7.4 to alert them that the minimum version of PHP is changing to 7.4 in February 2023.
+* Language - 1 new strings added, 0 updated, 1 fuzzied, and 2 obsoleted
+
+= [5.0.6] 2022-12-14 =
+
+* Feature - Include `Timed_Options` as a storage for simple replacement for Flags, avoiding Transients for these cases to improve performance and reliability. [TEC-4413]
+* Fix - Prevent calls to `supports_async_process` that were slowing down servers due to not stopping reliably once a decision was made [TEC-4413]
+* Fix - Ensure the `clear country` icon resets the value as expect in the create/edit venue page. [TEC-4393]
+* Tweak - Added filters: `tec_common_timed_option_is_active`, `tec_common_timed_option_name`, `tec_common_timed_option_default_value`, `tec_common_timed_option_pre_value`, `tec_common_timed_option_value`, `tec_common_timed_option_pre_exists`, `tec_common_timed_option_exists`
+* Language - 0 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.0.5] 2022-12-08 =
+
+* Tweak - Sync `tribe-common-styles` to its latest, in order to fix styling issues. [ETP-828]
+
+= [5.0.4] 2022-11-29 =
+
+* Fix - Fixed a bug where the `Tribe\Utils\Taxonomy::prime_term_cache()` method would throw on invalid term results (thanks @shawfactor). [TCMN-160]
+* Tweak - Add some styling for the ECP View teasers. [TCMN-149]
+* Tweak - Move the General and Display settings tab content to TEC. [TCMN-149]
+* Tweak - Removed filters: `tribe_general_settings_tab_fields`.
+* Language - 6 new strings added, 17 updated, 3 fuzzied, and 26 obsoleted.
+
+= [5.0.3] 2022-11-15 =
+
+* Fix - Prevent `Lazy_String` from ever returning anything that is not a string, avoiding PHP 8.1 warnings. Props @amiut
+* Fix - Ensure the TEC timezone settings are applied correctly when using a combination of the WP Engine System MU plugin and Divi or Avada Themes. [TEC-4387]
+* Fix - Ensure that when filtering script tags we return the expected string no matter what we're given. [TEC-4556]
+* Language - 0 new strings added, 1 updated, 1 fuzzied, and 0 obsoleted.
+
+= [5.0.2.1] 2022-11-03 =
+
+* Fix - Refactor the Post model code to avoid serialization/unserialization issues in object caching context. [TEC-4379]
+
+= [5.0.2] 2022-10-20 =
+
+* Feature - Adds a new `by_not_related_to` repository method for retrieving posts not related to other posts via a meta_value [ET-1567]
+* Fix - Update version of Firebase/JWT from 5.x to 6.3.0
+* Fix - Prevents fatal around term cache primer with empty object ID or term name.
+* Fix - Prevent Warnings from Lazy_String on PHP 8.1 [5.0.6]
+* Tweak - Support replacement license keys in premium products and services.
+* Tweak - Deprecated the `Tribe__Settings_Manager::add_help_admin_menu_item()` method in favour of `Settings::add_admin_pages()`. [TEC-4443]
+* Tweak - Add a function to Tribe__Date_Utils to determine if "now" is between two dates. [TEC-4454]
+* Language - 0 new strings added, 14 updated, 1 fuzzied, and 0 obsoleted.
+
+= [5.0.1] 2022-09-22 =
+
+* Fix - Avoid invoking unwanted callables with ORM post creation/updates. [ET-1560]
+* Tweak - patch some PHP8 compatibility and ensure we don't try to test globals that might not be set. (props to @theskinnyghost for the implode fix!)  [TEC-4453]
+* Language - 0 new strings added, 1 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.0.0.1] 2022-09-07 =
+
+* Fix - Prevent `E_ERROR` from showing up when calling `tribe_context()->is( 'is_main_query' )` too early in execution. [TEC-4464]
+
+= [5.0.0] 2022-09-06 =
+
+* Feature - Set the Logger logging threshold do DEBUG when WP_DEBUG is defined.
+* Fix - Avoid fatal errors when transient notices are registered from inactive plugins.
+* Tweak - Allow suppression of admin notices for specific plugins via the filters `tec_pue_expired_key_notice_plugins`, `tec_pue_invalid_key_notice_plugins`, and `tec_pue_upgrade_key_notice_plugins`.
+* Language - 2 new strings added, 185 updated, 1 fuzzied, and 1 obsoleted
+
+= [4.15.5] 2022-08-15 =
+
+* Feature - Added image field for settings in the admin area. [ET-1541]
+* Feature - Added color field for settings in the admin area. [ET-1540]
+* Tweak - Prevent a possible infinite hook loop. [ECP-1203]
+* Language - 4 new strings added, 104 updated, 3 fuzzied, and 2 obsoleted.
+
+= [4.15.4.1] 2022-07-21 =
+
+* Fix - Update Freemius to avoid PHP 8 fatals. [TEC-4330]
+
+= [4.15.4] 2022-07-20 =
+
+* Tweak - Implement 2022 Stellar Sale banner. [TEC-4433]
+* Tweak - Added filters: `tribe_{$this->slug}_notice_extension_date`
+* Tweak - Changed views: `v2/components/icons/stellar-icon`
+* Language - 2 new strings added, 4 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.15.3] 2022-07-06 =
+
+* Fix - Correct some hardcoded admin URLs. [ECP-1175]
+* Tweak - Add a target ID for the EA Troubleshooting page link. [TEC-4403]
+
 = [4.15.2] 2022-06-08 =
 
 * Fix - Only show Event Aggregator status on the troubleshooting page if Event Aggregator is accessible. [ET-1517]
@@ -20,6 +173,7 @@
 = [4.15.0] 2022-05-19 =
 
 * Feature - Introducing new admin pages structure and updating the settings framework to have Settings on multiple pages. [ET-1335]
+* Tweak - Add Stellar Discounts tab in Event Add-Ons
 * Language - 0 new strings added, 150 updated, 0 fuzzied, and 43 obsoleted
 
 = [4.14.20.1] 2022-05-12 =
@@ -84,7 +238,7 @@
 * Fix - Remove incorrect reference for moment.min.js.map [TEC-4148]
 * Fix - Fixed troubleshooting page styles for standalone Event Tickets setup [ET-1382]
 * Fix - Remove singleton created from a deprecated class.
-* Language - 0 new strings added, 38 updated, 1 fuzzied, and 0 obsoleted\
+* Language - 0 new strings added, 38 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.14.12] 2022-01-17 =
 
