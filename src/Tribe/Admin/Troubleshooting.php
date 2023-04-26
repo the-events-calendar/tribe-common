@@ -314,7 +314,7 @@ class Troubleshooting {
 				'description'  => __( 'The Events Calendar comes with an API key for basic maps functionality. If you’d like to use more advanced features like custom map pins, dynamic map loads, or Events Calendar Pro\'s Location Search and advanced Map View, you’ll need to get your own Google Maps API key and add it to Events > Settings > Integrations', 'tribe-common' ),
 				'more_info'    => 'https://evnt.is/1aqx',
 				'resolve_text' => __( 'Enter a custom API key', 'tribe-common' ),
-				'fix'          => '/wp-admin/edit.php?page=tribe-common&tab=addons&post_type=tribe_events',
+				'fix'          => '/wp-admin/edit.php?page=tec-events-settings&tab=addons&post_type=tribe_events#tribe-field-google_maps_js_api_key',
 				'active'       => $this->is_active_issue( 'geolocation' ),
 			],
 			[

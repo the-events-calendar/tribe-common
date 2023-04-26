@@ -1,5 +1,14 @@
 == Changelog ==
 
+= [5.0.15] 2023-04-10 =
+
+* Fix - Update the Google Maps API setting url on the Troubleshooting page. [TEC-4728]
+* Fix - Updates the Monolog repository to use TEC namespacing via Strauss, to provide more compatibility with other plugins. [TEC-4730]
+* Tweak - Replace the use of `FILTER_SANITIZE_STRING` in favour of `tec_sanitize_string` to improve PHP 8.1 compatibility. [TEC-4666]
+* Tweak - More flexible filtering of localized and dynamic matchers in the Rewrite component to allow easier rewrite rules translation. [TEC-4689]
+* Tweak - Added filters: `tec_common_rewrite_localize_matcher`
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
 = [5.0.14] 2023-04-03 =
 
 * Fix - Fixed issue with "Upload Theme" button not working properly when a notification was displayed on the Theme page. [CT-77]
