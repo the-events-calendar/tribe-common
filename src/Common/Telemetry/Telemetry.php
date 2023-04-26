@@ -163,6 +163,13 @@ final class Telemetry {
 		return self::$parent_plugin;
 	}
 
+	/**
+	 * Get the stellar slug based on the parent plugin.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
 	public static function get_parent_stellar_slug() {
 		$tec_slugs = self::get_tec_telemetry_slugs();
 
@@ -386,17 +393,141 @@ final class Telemetry {
 	}
 
 	/**
-	 * The library attempts to set the opt-in status for a site during 'admin_init'. Use the hook with a priority higher
-	 * than 10 to make sure you're setting the status after it initializes the option in the options table.
+	 * Detect if the user has opted in to Freemius and auto-opt them in to Telemetry.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
 	 */
-	function migrate_existing_opt_in(): void {
-		$user_has_opted_in_already = get_option( 'fs_accounts' ); // For now.
-
-		if ( $user_has_opted_in_already ) {
-			// Get the Opt_In_Subscriber object.
-			$Opt_In_Subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
-			$Opt_In_Subscriber->opt_in();
+	public function migrate_existing_opt_in(): void {
+		bdump('migrate!');
+		// Let's reduce the amount this triggers.
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			bdump('ajax');
+			return;
 		}
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			bdump('autosave');
+			return;
+		}
+
+		$fs_active_plugins = get_option( 'fs_active_plugins' );
+		$our_plugins       = [
+			'the-events-calendar/common/vendor/freemius',
+			'event-tickets/common/vendor/freemius'
+		];
+
+		// Bail if empty.
+		if ( empty( $fs_active_plugins ) ) {
+			bdump('no fs active plugins');
+			return;
+		}
+
+		// We're going to need these...
+		$fs_accounts      = get_option( 'fs_accounts' );
+		$freemius_plugins = $fs_active_plugins->plugins;
+
+		foreach( $our_plugins as $plugin ) {
+			if ( ! isset( $freemius_plugins[$plugin] ) ) {
+				unset( $our_plugins[$plugin] );
+			}
+		}
+
+		// Bail if none of our plugins are present.
+		if ( ! count( $our_plugins ) ) {
+			bdump('no TEC pugins');
+			return;
+		}
+
+		// We opted in to Freemius, opt in to Telemetry.
+		$Opt_In_Subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
+		$Opt_In_Subscriber->opt_in( self::$stellar_slug );
+		// Allow for plugins to do something when automatically opting in. Like display a notice
+		do_action( 'tec_telemetry_auto_opt_in' );
+
+		// Store these for later.
+		update_option( 'tec_freemius_accounts_archive', $fs_accounts );
+		update_option( 'tec_freemius_plugins_archive', $fs_active_plugins );
+
+		// If only our plugins are present, short-cut and delete everything.
+		if ( count( $our_plugins ) === count( $freemius_plugins ) ) {
+			bdump('kill it all');
+			$removed = true;
+			delete_option( 'fs_active_plugins' );
+			delete_option( 'fs_accounts' );
+
+			return;
+		}
+
+		// Remove us from fs_active_plugins.
+		if ( empty( $removed ) ) {
+			bdump('in-it');
+			foreach ( $our_plugins as $plugin ) {
+				unset( $fs_active_plugins->plugins[$plugin] );
+
+				if ( ! empty( $fs_active_plugins->newest->sdk_path ) && $fs_active_plugins->newest->sdk_path === $plugin ) {
+					unset( $fs_active_plugins->newest );
+				}
+			}
+
+			// Update the option in the database with our edits.
+			update_option( 'fs_active_plugins', $fs_active_plugins );
+		}
+
+		// Remove us from fs_accounts.
+		foreach ( $our_plugins as $plugin ) {
+			$plugin = str_replace( '/common/vendor/freemius', '', $plugin );
+			$fs_accounts = $this->strip_plugin_from_fs_accounts( $plugin, $fs_accounts );
+		}
+
+		// Update the option in the database with our edits.
+		update_option( 'fs_accounts', $fs_accounts );
+	}
+
+	/**
+	 * Contains all the logic for stripping our plugins from the fs_accounts option.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $plugin
+	 * @param array<string,mixed> $fs_accounts
+	 * @return array<string,mixed>
+	 */
+	private function strip_plugin_from_fs_accounts( $plugin, $fs_accounts ): array {
+		foreach( $fs_accounts[ 'id_slug_type_path_map' ] as $key => $data ) {
+			if ( $data['slug'] === $plugin ) {
+				unset( $fs_accounts[ 'id_slug_type_path_map' ][$key] );
+			}
+		}
+
+		// these use the slug as the key.
+		$straight_keys = [
+			'plugins',
+			'plugin_data',
+			'plans',
+			'admin_notices',
+			'sites'
+		];
+
+		foreach( $straight_keys as $key ) {
+			if ( isset( $fs_accounts[$key][$plugin] ) ) {
+				unset( $fs_accounts[$key][$plugin] );
+			}
+		}
+
+		// These use the path instead of the slug as the key.
+		$plugin = $plugin . '/' . $plugin . '.php';
+		if ( isset( $fs_accounts['file_slug_map'][$plugin] ) ) {
+			unset( $fs_accounts['file_slug_map'][$plugin] );
+		}
+
+		if ( isset( $fs_accounts['active_plugins']->plugins[$plugin] ) ) {
+			unset( $fs_accounts['active_plugins']->plugins[$plugin] );
+		}
+
+		// ...and return!
+		return $fs_accounts;
 	}
 
 	/**
@@ -419,7 +550,7 @@ final class Telemetry {
 	 *
 	 * @return void
 	 */
-	public function register_tec_telemetry_plugins( $opted = null ) {
+	public function register_tec_telemetry_plugins( $opted = NULL ) {
 		// Let's reduce the amount this triggers.
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			return;
@@ -429,8 +560,7 @@ final class Telemetry {
 			return;
 		}
 
-		$tec_slugs     = self::get_tec_telemetry_slugs();
-		$stellar_slugs = Config::get_all_stellar_slugs();
+		$tec_slugs = self::get_tec_telemetry_slugs();
 
 		// We got no other plugins?
 		if ( empty( $tec_slugs ) ) {
@@ -447,6 +577,9 @@ final class Telemetry {
 		}
 
 		foreach ( $tec_slugs as $slug => $path ) {
+			if ( $slug = self::$stellar_slug ) {
+				continue;
+			}
 			// Register each plugin with the already instantiated library.
 			Config::add_stellar_slug( $slug, $path );
 			$status->add_plugin( $slug, $opted, $path );
