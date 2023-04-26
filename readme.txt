@@ -2,7 +2,7 @@
 
 = [5.0.18] TBD =
 
-
+* Feature - Include a Integrations framework that was ported from The Events Calendar.
 
 = [5.0.15] 2023-04-10 =
 
