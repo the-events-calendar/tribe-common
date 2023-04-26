@@ -1,6 +1,8 @@
 parameters:
   level: 0
   inferPrivatePropertyTypeFromConstructor: true
+  scanDirectories:
+    - ../src
   paths:
     - src/
     - tribe-common.php
