@@ -18,6 +18,9 @@ class Tribe__Service_Providers__Promoter extends tad_DI52_ServiceProvider {
 		if ( ! class_exists( 'Firebase\JWT\JWT' ) ) {
 			class_alias( 'TEC\Common\Firebase\JWT\JWT', 'Firebase\JWT\JWT' );
 		}
+		if ( ! class_exists( 'Firebase\JWT\Key' ) ) {
+			class_alias( 'TEC\Common\Firebase\JWT\Key', 'Firebase\JWT\Key' );
+		}
 		tribe_singleton( 'promoter.auth', 'Tribe__Promoter__Auth' );
 		tribe_singleton( 'promoter.pue', 'Tribe__Promoter__PUE', [ 'load' ] );
 		tribe_singleton( 'promoter.view', 'Tribe__Promoter__View' );
