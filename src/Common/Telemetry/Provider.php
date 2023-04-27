@@ -40,7 +40,7 @@ class Provider extends ServiceProvider {
 		add_action( 'tec-telemetry-modal', [ $this, 'show_optin_modal' ] );
 
 		add_action( 'admin_init', [ $this, 'migrate_existing_opt_in' ], 9 );
-		add-action( 'tec_telemetry_auto_opt_in', [ $this, 'auto_opt_in' ] );
+		add_action( 'tec_telemetry_auto_opt_in', [ $this, 'auto_opt_in' ] );
 		// @todo For testing, remove before release!
 		add_action( 'stellarwp/telemetry/the-events-calendar/last_send_expire_seconds', [ $this, 'filter_last_send_expire' ] );
 	}
