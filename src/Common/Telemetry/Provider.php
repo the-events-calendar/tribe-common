@@ -36,9 +36,11 @@ class Provider extends ServiceProvider {
 
 	public function add_actions() {
 		add_action( 'tribe_plugins_loaded', [ $this, 'initialize_telemetry' ] );
-		add_action( 'admin_init', [ $this, 'migrate_existing_opt_in' ], 9 );
 		add_action( 'admin_init', [ $this, 'save_opt_in_setting_field' ] );
 		add_action( 'tec-telemetry-modal', [ $this, 'show_optin_modal' ] );
+
+		add_action( 'admin_init', [ $this, 'migrate_existing_opt_in' ], 9 );
+		add-action( 'tec_telemetry_auto_opt_in', [ $this, 'auto_opt_in' ] );
 		// @todo For testing, remove before release!
 		add_action( 'stellarwp/telemetry/the-events-calendar/last_send_expire_seconds', [ $this, 'filter_last_send_expire' ] );
 	}
@@ -70,7 +72,18 @@ class Provider extends ServiceProvider {
 	 * @return void
 	 */
 	public function migrate_existing_opt_in() {
-		$this->container->make( Telemetry::class )->migrate_existing_opt_in();
+		$this->container->make( Migration::class )->migrate_existing_opt_in();
+	}
+
+	/**
+	 * Triggers the automatic opt-in for folks who opted in to Freemius.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function auto_opt_in() {
+		$this->container->make( Migration::class )->auto_opt_in();
 	}
 
 	/**
