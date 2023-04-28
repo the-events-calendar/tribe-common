@@ -13,7 +13,7 @@ use Tribe__Container as Container;
 /**
  * Class Controller_Test_Case.
  *
- * @since TBD
+ * @since 5.0.17
  *
  * @package TEC\Tickets\Flexible_Tickets;
  */
@@ -49,7 +49,7 @@ class Controller_Test_Case extends WPTestCase {
 	 *
 	 * In the context of the dedicated Service Locator the controller is not yet registered.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @param class-string<Controller>|null $controller_class The controller class to create an instance of, or `null`
 	 *                                                        to build from the `controller_class` property.
@@ -173,7 +173,7 @@ class Controller_Test_Case extends WPTestCase {
 	/**
 	 * Asserts the controller logged a message with the specified level and message.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @param string $level  The log level.
 	 * @param string $needle The message to look for, or a part of it.
@@ -197,7 +197,7 @@ class Controller_Test_Case extends WPTestCase {
 	 *
 	 * This assertion will look in all logs, including the ones logged by the controller.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @param string $level  The log level.
 	 * @param string $needle The message to look for, or a part of it.
