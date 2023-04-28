@@ -1,5 +1,7 @@
 <?php
 
+use TEC\Common\Firebase\JWT\JWT as TEC_JWT;
+
 /**
  * Custom class for communicating with the Promoter Auth Connector the class is created
  * early in the process and many functions that come from utils are not available during the
@@ -54,7 +56,7 @@ class Tribe__Promoter__Connector {
 			'userId'       => $user_id,
 		];
 
-		$token = \Firebase\JWT\JWT::encode( $payload, $promoter_key, 'HS256' );
+		$token = TEC_JWT::encode( $payload, $promoter_key, 'HS256' );
 
 		$response = $this->make_call( $url, [
 			'body'      => [ 'token' => $token ],
@@ -196,7 +198,7 @@ class Tribe__Promoter__Connector {
 			'sourceId' => $post_id instanceof WP_Post ? $post_id->ID : $post_id,
 		];
 
-		$token = \Firebase\JWT\JWT::encode( $payload, $secret_key, 'HS256' );
+		$token = TEC_JWT::encode( $payload, $secret_key, 'HS256' );
 
 		$url = $this->base_url() . 'connect/notify';
 

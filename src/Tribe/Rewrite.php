@@ -1160,7 +1160,7 @@ class Tribe__Rewrite {
 	/**
 	 * Filters the localized matcher to allow integrations to provider contextual translations of the matcher.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @param string|null $localized_matcher The localized matcher.
 	 * @param string      $base              The base the localized matcher is for.
