@@ -2,47 +2,98 @@
 /**
  * Handles Telemetry migration from Freemius.
  *
- * @since   TBD
+ * @since   5.0.17
  *
  * @package TEC\Common\Telemetry
  */
 namespace TEC\Common\Telemetry;
 
+use Automattic\WooCommerce\Utilities\ArrayUtil;
 use TEC\Common\StellarWP\Telemetry\Config;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Subscriber;
 
 /**
  * Class Migration
  *
- * @since   TBD
+ * @since   5.0.17
 
  * @package TEC\Common\Telemetry
  */
 final class Migration {
+	/**
+	 * The key we back up fs_accounts data to.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
 	public $fs_accounts_slug = 'tec_freemius_accounts_archive';
+
+	/**
+	 * The key we back up fs_active_plugins data to.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
 	public $fs_plugins_slug = 'tec_freemius_plugins_archive';
+
+	/**
+	 * Placeholder for fs_accounts data
+	 *
+	 * @since TBD
+	 *
+	 * @var [type]
+	 */
+	private $fs_accounts;
+
+	/**
+	 * List of our plugins to check for.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
 	public $our_plugins = [
-		'the-events-calendar/common/vendor/freemius',
-		'event-tickets/common/vendor/freemius'
+		'the-events-calendar',
+		'event-tickets'
 	];
 
 	/**
 	 * Determine if we are opted-in to Freemius
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @return boolean
 	 */
 	public function is_opted_in(): bool {
-		$fs_active_plugins = get_option( 'fs_active_plugins' );
+		global $wpdb;
+		$fs_accounts = $wpdb->get_results( "SELECT `option_value` FROM $wpdb->options WHERE `option_name` = 'fs_accounts'", ARRAY_A );
 
-		if ( empty( $fs_active_plugins ) ) {
+		if ( empty( $fs_accounts ) || $fs_accounts instanceof \WP_Error ) {
 			return false;
 		}
 
+		$fs_accounts = array_pop( $fs_accounts );
+
+		// Prevent issues with incomplete classes
+		$re = '/O:(\d+):"(?:[^:]+)":/m';
+		$subst = "a:";
+
+		$result = preg_replace($re, $subst, $fs_accounts['option_value'] );
+
+		/** boolean true/false as an integer */
+		$opted = substr($result, stripos( $result, 'is_disconnected\";b:' ) + 20, 1 );
+
+		return false;
+		// Dig for the actual "opt-in" value.
 		foreach( $this->our_plugins as $plugin ) {
-			if ( isset( $fs_active_plugins->plugin[$plugin] ) ) {
-				return true;
+			// 'is_disconnected' will be false if they opted out, true if they opted in.
+			if ( ! empty( $fs_accounts['sites'][$plugin] ) ) {
+				$object = json_encode( $fs_accounts['sites'][$plugin] );
+				if ( $object->is_disconnected ) {
+					return true;
+				}
 			}
 		}
 
@@ -52,7 +103,7 @@ final class Migration {
 	/**
 	 * Whether the class should load/run.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @return boolean
 	 */
@@ -71,7 +122,7 @@ final class Migration {
 	/**
 	 * Detect if the user has opted in to Freemius and auto-opt them in to Telemetry.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 */
 	public function migrate_existing_opt_in(): void {
 		// Let's reduce the amount this triggers.
@@ -108,7 +159,7 @@ final class Migration {
 		 *
 		 * We also use this to trigger the actual auto-opt-in at the default priority.
 		 *
-		 * @since TBD
+		 * @since 5.0.17
 		 */
 		do_action( 'tec_telemetry_auto_opt_in' );
 
@@ -135,7 +186,7 @@ final class Migration {
 	/**
 	 * Filters our list of plugins to only the ones Freemius shows as active
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @param Object $fs_active_plugins The stored list of active plugins from Freemius.
 	 */
@@ -152,7 +203,7 @@ final class Migration {
 	/**
 	 * Handles our entries in the fs_active_plugins option.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @param Object $fs_active_plugins
 	 * @return void
@@ -162,6 +213,8 @@ final class Migration {
 		update_option( $this->fs_plugins_slug, $fs_active_plugins );
 
 		foreach ( $this->our_plugins as $plugin ) {
+			$plugin .= '/common/vendor/freemius';
+
 			unset( $fs_active_plugins->plugins[$plugin] );
 
 			if ( ! empty( $fs_active_plugins->newest->sdk_path ) && $fs_active_plugins->newest->sdk_path === $plugin ) {
@@ -176,7 +229,7 @@ final class Migration {
 	/**
 	 * Removes our plugins from the fs_accounts option.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @param array<string,mixed> $fs_accounts
 	 */
@@ -196,7 +249,7 @@ final class Migration {
 	 * Removes all freemius options from the database.
 	 * Only used if we were the only active plugin.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 */
 	private function remove_all_freemius(): void {
 		delete_option( 'fs_active_plugins' );
@@ -209,7 +262,7 @@ final class Migration {
 	/**
 	 * Contains all the logic for stripping our plugins from the fs_accounts option.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @param string $plugin
 	 * @param array<string,mixed> $fs_accounts
@@ -217,8 +270,6 @@ final class Migration {
 	 * @return array<string,mixed>
 	 */
 	private function strip_plugin_from_fs_accounts( $plugin, $fs_accounts ): array {
-		$plugin = str_replace( '/common/vendor/freemius', '', $plugin );
-
 		foreach( $fs_accounts[ 'id_slug_type_path_map' ] as $key => $data ) {
 			if ( $data['slug'] === $plugin ) {
 				unset( $fs_accounts[ 'id_slug_type_path_map' ][$key] );
@@ -257,7 +308,7 @@ final class Migration {
 	/**
 	 * Opts the user in to Telemetry.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 */
 	public function auto_opt_in() {
 		$Opt_In_Subscriber = Config::get_container()->get( Opt_In_Subscriber::class );

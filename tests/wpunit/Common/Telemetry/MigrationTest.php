@@ -5,7 +5,7 @@ namespace TEC\Common\Telemetry;
 /**
  * Class MigrationTest
  *
- * @since   TBD
+ * @since	TBD
  *
  * @package TEC\Common\Telemetry
  */
@@ -28,25 +28,37 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 		update_option(
 			'fs_active_plugins',
 			(object) [
-				'plugins' =>
-			   [
-				'the-events-calendar/common/vendor/freemius' =>
-				(object) [
-				   'version' => '2.4.4',
-				   'type' => 'plugin',
-				   'timestamp' => 1682623989,
-				   'plugin_path' => 'the-events-calendar/the-events-calendar.php',
+				'plugins' => [
+					'the-events-calendar/common/vendor/freemius' => (object) [
+						'version' => '2.4.4',
+						'type' => 'plugin',
+						'timestamp' => 1682623989,
+						'plugin_path' => 'the-events-calendar/the-events-calendar.php',
+					],
 				],
-			  ],
 				'abspath' => '/app/',
-				'newest' =>
-			   (object) [
-				'plugin_path' => 'the-events-calendar/the-events-calendar.php',
-				'sdk_path' => 'the-events-calendar/common/vendor/freemius',
-				'version' => '2.4.4',
-				'in_activation' => false,
-				'timestamp' => 1682623989,
-			 ],
+				'newest' => (object) [
+					'plugin_path' => 'the-events-calendar/the-events-calendar.php',
+					'sdk_path' => 'the-events-calendar/common/vendor/freemius',
+					'version' => '2.4.4',
+					'in_activation' => false,
+					'timestamp' => 1682623989,
+				],
+			]
+		);
+	}
+
+	protected function setup_fs_accounts() {
+		update_option(
+			'fs_accounts',
+			[
+				'sites' => [
+					'sites' => [
+						'the-events-calendar' => ( object ) [
+							'is_disconnected' => true,
+						],
+					],
+				],
 			 ]
 		);
 	}
@@ -84,7 +96,7 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 	 * Tests the positive case of is_opted_in
 	 */
 	public function it_should_detect_freemius() {
-		$this->set_up_active_plugins();
+		$this->setup_fs_accounts();
 
 		$sut = $this->make_instance();
 
@@ -108,7 +120,7 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 	 * Tests the positive case of should_load
 	 */
 	public function it_should_load_if_freemius() {
-		$this->set_up_active_plugins();
+		$this->setup_fs_accounts();
 
 		$sut = $this->make_instance();
 
