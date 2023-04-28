@@ -2,11 +2,7 @@
 /*
 Plugin Name: Tribe Common
 Description: An event settings framework for managing shared options
-<<<<<<< HEAD
 Version: 5.0.18
-=======
-Version: 5.0.17
->>>>>>> c6532bf440f1f3a2c21ee61386a36d8997b6f9be
 Author: The Events Calendar
 Author URI: http://evnt.is/1x
 Text Domain: tribe-common
