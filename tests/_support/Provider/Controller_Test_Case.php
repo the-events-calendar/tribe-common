@@ -9,11 +9,12 @@ use Codeception\TestCase\WPTestCase;
 use TEC\Common\Provider\Controller;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Container as Container;
+use function tad\WPBrowser\setPrivateProperties;
 
 /**
  * Class Controller_Test_Case.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Tickets\Flexible_Tickets;
  */
@@ -43,6 +44,44 @@ class Controller_Test_Case extends WPTestCase {
 	 *                         `context`.
 	 */
 	protected $logs = [];
+	/**
+	 * The controller instances created by the test case.
+	 *
+	 * @var array<Controller>
+	 */
+	private array $made_controllers = [];
+
+	/**
+	 * Unregisters the original controller and sets up the test case.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function setUp() {
+		parent::setUp();
+		/** @var Controller $original_controller */
+		$original_controller = tribe( $this->controller_class );
+		// Unregister the original controller to avoid actions and filters hooking twice.
+		$original_controller->unregister();
+		$this->unhook_all_controller_instances( $original_controller );
+	}
+
+	/**
+	 * Unregisters all the controllers created by the test case.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function tearDown() {
+		foreach ( $this->made_controllers as $controller ) {
+			$controller->unregister();
+			unset( $controller );
+		}
+		$this->made_controllers = [];
+		parent::tearDown();
+	}
 
 	/**
 	 * Creates a controller instance and sets up a dedicated Service Locator for it.
@@ -63,10 +102,6 @@ class Controller_Test_Case extends WPTestCase {
 
 		$controller_class = $controller_class ?: $this->controller_class;
 
-		/** @var Controller $original_controller */
-		$original_controller = tribe( $controller_class );
-		// Unregister the original controller to avoid actions and filters hooking twice.
-		$original_controller->unregister();
 		// Create a container that will provide the context for the controller cloning the original Service Locator.
 		$this->test_services = clone tribe();
 		// When code interacts with the Service Locator, use the test one.
@@ -88,7 +123,7 @@ class Controller_Test_Case extends WPTestCase {
 		global $wp_filter;
 		$wp_filter['tribe_log'] = new \WP_Hook();
 		add_action( 'tribe_log', function ( $level, $message, $context ) {
-			if ( isset($context['controller']) && $context['controller'] === $this->controller_class ) {
+			if ( isset( $context['controller'] ) && $context['controller'] === $this->controller_class ) {
 				// Log the controller logs.
 				$this->controller_logs[] = [
 					'level'   => $level,
@@ -107,7 +142,11 @@ class Controller_Test_Case extends WPTestCase {
 		}, 10, 3 );
 
 		// Due to the previous unset, the container will build this as a prototype.
-		return $this->test_services->make( $controller_class );
+		$controller = $this->test_services->make( $controller_class );
+
+		$this->made_controllers[] = $controller;
+
+		return $controller;
 	}
 
 	/**
@@ -214,5 +253,47 @@ class Controller_Test_Case extends WPTestCase {
 			}
 		}
 		$this->assertTrue( $found, "Could not find a log with level {$level} and message matching {$needle}" );
+	}
+
+	/**
+	 * Removes any instance of the controller from any filter or action it might have hooked to.
+	 *
+	 * @since TBD
+	 *
+	 * @param Controller $original_controller The controller to unhook.
+	 */
+	protected function unhook_all_controller_instances( Controller $original_controller ): void {
+		// The original controller did not register.
+		tribe()->setVar( get_class( $original_controller ) . '_registered', false );
+		// Combing all wp_filter to remove any instance of the controller would be too slow.
+		// Here we use the controller to let use know what filters it would hook to by
+		// intercepting the `add_filter` function.
+		$hooked = [];
+		uopz_set_return( 'add_filter', function ( $tag, $function_to_add, $priority = 10, $accepted_args = 1 ) use ( &$hooked ) {
+			if ( ! ( is_array( $function_to_add ) && $function_to_add[0] instanceof Controller ) ) {
+				return false;
+			}
+
+			$hooked[] = [ $tag, $priority ];
+		}, true );
+		$original_controller->register();
+		// No need to mock add_filter anymore.
+		uopz_unset_return( 'add_filter' );
+		// Comb wp_filters to remove the filters added by **any instance** of the controller.
+		global $wp_filter;
+		$to_remove = [];
+		foreach ( $hooked as [$tag, $priority] ) {
+			if ( ! isset( $wp_filter[ $tag ]->callbacks[ $priority ] ) ) {
+				continue;
+			}
+			foreach ( $wp_filter[ $tag ]->callbacks[ $priority ] as $hook ) {
+				if ( is_array( $hook['function'] ) && $hook['function'][0] instanceof Controller ) {
+					$to_remove[] = [ $tag, $hook['function'], $priority ];
+				}
+			}
+		}
+		foreach ( $to_remove as [$tag, $hook, $priority] ) {
+			remove_filter( $tag, $hook, $priority );
+		}
 	}
 }
