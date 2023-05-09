@@ -48,7 +48,7 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 		);
 	}
 
-	protected function setup_fs_accounts() {
+	protected function setup_fs_accounts_disconnected() {
 		update_option(
 			'fs_accounts',
 			[
@@ -63,10 +63,45 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 		);
 	}
 
+	protected function setup_fs_accounts_connected() {
+		update_option(
+			'fs_accounts',
+			[
+				'sites' => [
+					'sites' => [
+						'the-events-calendar' => ( object ) [
+							'is_disconnected' => false,
+						],
+					],
+				],
+			 ]
+		);
+	}
+
+	protected function setup_fs_accounts_mixed() {
+		update_option(
+			'fs_accounts',
+			[
+				'sites' => [
+					'sites' => [
+						'the-events-calendar' => ( object ) [
+							'is_disconnected' => false,
+						],
+						'event-tickets' => ( object ) [
+							'is_disconnected' => true,
+						],
+					],
+				],
+			 ]
+		);
+	}
+
 	/**
 	 * @return Migration
 	 */
 	protected function make_instance() {
+		$this->set_up_active_plugins();
+
 		return new Migration();
 	}
 	/**
@@ -81,7 +116,7 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * Tests the negative case of is_opted_in
+	 * Tests the positive case of is_opted_in
 	 */
 	public function it_should_detect_no_freemius() {
 		$this->remove_all_freemius_meta();
@@ -93,14 +128,14 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * Tests the positive case of is_opted_in
+	 * Tests the negative case of is_opted_in
 	 */
-	public function it_should_detect_freemius() {
-		$this->setup_fs_accounts();
+	public function it_should_detect_opted_out_freemius() {
+		$this->setup_fs_accounts_disconnected();
 
 		$sut = $this->make_instance();
 
-		$this->assertTrue( $sut->is_opted_in() );
+		$this->assertFalse( $sut->is_opted_in() );
 	}
 
 	/**
@@ -120,7 +155,31 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 	 * Tests the positive case of should_load
 	 */
 	public function it_should_load_if_freemius() {
-		$this->setup_fs_accounts();
+		$this->setup_fs_accounts_connected();
+
+		$sut = $this->make_instance();
+
+		$this->assertTrue( $sut->should_load() );
+	}
+
+	/**
+	 * @test
+	 * Tests the positive case of should_load
+	 */
+	public function it_should_not_load_if_freemius_opted_out() {
+		$this->setup_fs_accounts_disconnected();
+
+		$sut = $this->make_instance();
+
+		$this->assertFalse( $sut->should_load() );
+	}
+
+	/**
+	 * @test
+	 * Tests the positive case of should_load
+	 */
+	public function it_should_load_if_freemius_mixed() {
+		$this->setup_fs_accounts_mixed();
 
 		$sut = $this->make_instance();
 

@@ -77,22 +77,25 @@ final class Migration {
 		$fs_accounts = array_pop( $fs_accounts );
 
 		// Prevent issues with incomplete classes
-		$re = '/O:(\d+):"(?:[^:]+)":/m';
-		$subst = "a:";
+		$result = preg_replace(
+			'/O:(\d+):"(?:[^:]+)":/m',
+			'a:',
+			$fs_accounts['option_value']
+		);
+		$result = substr( $result, stripos( $result, 'sites' ) );
 
-		$result = preg_replace($re, $subst, $fs_accounts['option_value'] );
-
-		/** boolean true/false as an integer */
-		$opted = substr($result, stripos( $result, 'is_disconnected\";b:' ) + 20, 1 );
-
-		return false;
-		// Dig for the actual "opt-in" value.
-		foreach( $this->our_plugins as $plugin ) {
-			// 'is_disconnected' will be false if they opted out, true if they opted in.
-			if ( ! empty( $fs_accounts['sites'][$plugin] ) ) {
-				$object = json_encode( $fs_accounts['sites'][$plugin] );
-				if ( $object->is_disconnected ) {
-					return true;
+		foreach ( $this->our_plugins as $plugin ) {
+			$pos = stripos( $result, $plugin );
+			if ( false !== $pos ) {
+				$pos = stripos( $result, 'is_disconnected', $pos );
+				if ( false !== $pos ) {
+					$pos = stripos( $result, 'b:', $pos );
+					if ( false !== $pos ) {
+						$pos = stripos( $result, '0', $pos );
+						if ( false !== $pos ) {
+							return true;
+						}
+					}
 				}
 			}
 		}
