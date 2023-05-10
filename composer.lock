@@ -249,16 +249,16 @@
         },
         {
             "name": "stellarwp/container-contract",
-            "version": "1.0.4",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/container-contract.git",
-                "reference": "37becc9edbecb0ff95556048337600dd9cc888f0"
+                "reference": "b1568be99b4d2d38446895d31a1c0f3718bf4d36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/container-contract/zipball/37becc9edbecb0ff95556048337600dd9cc888f0",
-                "reference": "37becc9edbecb0ff95556048337600dd9cc888f0",
+                "url": "https://api.github.com/repos/stellarwp/container-contract/zipball/b1568be99b4d2d38446895d31a1c0f3718bf4d36",
+                "reference": "b1568be99b4d2d38446895d31a1c0f3718bf4d36",
                 "shasum": ""
             },
             "require": {
@@ -290,9 +290,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stellarwp/container-contract/issues",
-                "source": "https://github.com/stellarwp/container-contract/tree/1.0.4"
+                "source": "https://github.com/stellarwp/container-contract/tree/1.1.0"
             },
-            "time": "2022-12-20T21:29:17+00:00"
+            "time": "2023-02-13T21:24:31+00:00"
         },
         {
             "name": "stellarwp/db",
@@ -442,16 +442,16 @@
     "packages-dev": [
         {
             "name": "antecedent/patchwork",
-            "version": "2.1.21",
+            "version": "2.1.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antecedent/patchwork.git",
-                "reference": "25c1fa0cd9a6e6d0d13863d8df8f050b6733f16d"
+                "reference": "17314e042d45e0dacb0a494c2d1ef50e7621136a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antecedent/patchwork/zipball/25c1fa0cd9a6e6d0d13863d8df8f050b6733f16d",
-                "reference": "25c1fa0cd9a6e6d0d13863d8df8f050b6733f16d",
+                "url": "https://api.github.com/repos/antecedent/patchwork/zipball/17314e042d45e0dacb0a494c2d1ef50e7621136a",
+                "reference": "17314e042d45e0dacb0a494c2d1ef50e7621136a",
                 "shasum": ""
             },
             "require": {
@@ -484,9 +484,9 @@
             ],
             "support": {
                 "issues": "https://github.com/antecedent/patchwork/issues",
-                "source": "https://github.com/antecedent/patchwork/tree/2.1.21"
+                "source": "https://github.com/antecedent/patchwork/tree/2.1.25"
             },
-            "time": "2022-02-07T07:28:34+00:00"
+            "time": "2023-02-19T12:51:24+00:00"
         },
         {
             "name": "automattic/vipwpcs",
@@ -1845,16 +1845,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "3.1.6",
+            "version": "3.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "5cefdab50d16f69447c48e5a8668d67d4892d6ef"
+                "reference": "161bf51aea475f86fb124aad1642c845b5379444"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/5cefdab50d16f69447c48e5a8668d67d4892d6ef",
-                "reference": "5cefdab50d16f69447c48e5a8668d67d4892d6ef",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/161bf51aea475f86fb124aad1642c845b5379444",
+                "reference": "161bf51aea475f86fb124aad1642c845b5379444",
                 "shasum": ""
             },
             "require": {
@@ -1938,7 +1938,7 @@
             ],
             "support": {
                 "issues": "https://github.com/lucatume/wp-browser/issues",
-                "source": "https://github.com/lucatume/wp-browser/tree/3.1.6"
+                "source": "https://github.com/lucatume/wp-browser/tree/3.1.8"
             },
             "funding": [
                 {
@@ -1946,7 +1946,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-04-28T06:45:08+00:00"
+            "time": "2023-02-24T15:10:07+00:00"
         },
         {
             "name": "mikehaertl/php-shellcommand",
@@ -4038,16 +4038,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.7.1",
+            "version": "3.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "1359e176e9307e906dc3d890bcc9603ff6d90619"
+                "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/1359e176e9307e906dc3d890bcc9603ff6d90619",
-                "reference": "1359e176e9307e906dc3d890bcc9603ff6d90619",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/ed8e00df0a83aa96acf703f8c2979ff33341f879",
+                "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879",
                 "shasum": ""
             },
             "require": {
@@ -4083,14 +4083,15 @@
             "homepage": "https://github.com/squizlabs/PHP_CodeSniffer",
             "keywords": [
                 "phpcs",
-                "standards"
+                "standards",
+                "static analysis"
             ],
             "support": {
                 "issues": "https://github.com/squizlabs/PHP_CodeSniffer/issues",
                 "source": "https://github.com/squizlabs/PHP_CodeSniffer",
                 "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
             },
-            "time": "2022-06-18T07:21:10+00:00"
+            "time": "2023-02-22T23:07:41+00:00"
         },
         {
             "name": "symfony/browser-kit",

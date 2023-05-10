@@ -500,6 +500,46 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		}
 
 		/**
+		 * Validates and sanitizes a list of email addresses.
+		 *
+		 * @since 5.0.14
+		 */
+		public function email_list() {
+			$value = trim( $this->value );
+			$this->result->valid = true;
+			$sanitized_emails = [];
+
+			// Break emails into an array.
+			$emails = preg_split( '/[,;]+/', $value );
+
+			foreach ( $emails as $email ) {
+				// In case there's a blank email or extra comma/semicolon, skip with no error.
+				if ( empty( $email ) ) {
+					continue;
+				}
+
+				// Sanitized email returns blank if invalid.
+				$email = sanitize_email( trim( $email ) );
+				if ( empty( $email ) ) {
+					$this->result->valid = false;
+					break;
+				}
+				$sanitized_emails[] = $email;
+			}
+
+			// If any of the emails are invalid, throw an error.
+			if ( ! $this->result->valid ) {
+				$this->result->error = sprintf(
+					// Translators: %s - Label of the form input field.
+					esc_html__( '%s must be a list of valid email addresses separated by commas or semicolons.', 'tribe-common' ),
+					$this->label
+				);
+			} else {
+				$this->value = implode( ', ', $sanitized_emails );
+			}
+		}
+
+		/**
 		 * Validates and sanitizes a HTML color codes, including hex, rgb, rgba, hsl and hsla.
 		 *
 		 * @since 5.0.0

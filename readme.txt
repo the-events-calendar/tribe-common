@@ -1,5 +1,44 @@
 == Changelog ==
 
+= [5.0.17] 2023-05-08 =
+
+* Feature - Add the `TEC\Provider\Controller` abstract class to kick-start Controllers and the `TEC\Common\Tests\Provider\Controller_Test_Case` class to test them.
+* Fix - Fix for the fatal `PHP Fatal error: Uncaught ArgumentCountError: Too few arguments to function Firebase\JWT\JWT::encode(), 2 passed` from other plugins using a different version of the `Firebase\JWT` library. Setup a Strauss namespaced version for this library. [TEC-4635]
+* Fix - Fixes a cache bug that showed up in ECP-1475. The underlying issue was cache would carry stale data and not clear with the `save_post` trigger being hit repeatedly.
+* Fix - Minor button style hardening to prevent some common theme global style bleed, namely from Elementor global styles. [TEC-4677]
+* Tweak - Added filters: `tec_common_rewrite_localize_matcher`
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.0.15] 2023-04-10 =
+
+* Fix - Update the Google Maps API setting url on the Troubleshooting page. [TEC-4728]
+* Fix - Updates the Monolog repository to use TEC namespacing via Strauss, to provide more compatibility with other plugins. [TEC-4730]
+* Tweak - Replace the use of `FILTER_SANITIZE_STRING` in favour of `tec_sanitize_string` to improve PHP 8.1 compatibility. [TEC-4666]
+* Tweak - More flexible filtering of localized and dynamic matchers in the Rewrite component to allow easier rewrite rules translation. [TEC-4689]
+* Tweak - Added filters: `tec_common_rewrite_localize_matcher`
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.0.14] 2023-04-03 =
+
+* Fix - Fixed issue with "Upload Theme" button not working properly when a notification was displayed on the Theme page. [CT-77]
+* Enhancement - Added an `email_list` validation check for validating a delimited string of valid email addresses. [ET-1621]
+* Tweak - Fix styles for checkboxes and toggle, to have the description in the same line. [ET-1692]
+* Language - 1 new strings added, 6 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.0.13] 2023-03-20 =
+
+* Feature - Add the `is_editing_posts_list` method to the `Tribe__Context` class. [APM-5]
+* Feature - Add the `Tribe__Context::is_inline_editing_post` method.
+* Fix - Fix a false positive on checking if a cache value is set after cache expiration passed.
+* Tweak - Extract `TEC\Common\Context\Post_Request_Type` class from `Tribe__Context` class; proxy post request type methods to it.
+* Tweak - Removed actions: `tribe_log`
+* Tweak - Changed views: `single-event`, `v2/day/event/featured-image`, `v2/latest-past/event/featured-image`, `v2/list/event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image`, `v2/month/mobile-events/mobile-day/mobile-event/featured-image`, `v2/widgets/widget-events-list/event/date-tag`
+
+= [5.0.12] 2023-03-08 =
+
+* Enhancement - Added a way to customize the WYSIWYG editor field by passing in a `settings` parameter. [ET-1565]
+* Feature - Added new toggle field for settings in the admin area. [ET-1564]
+
 = [5.0.11] 2023-02-22 =
 
 * Tweak - PHP version compatibility bumped to PHP 7.4
