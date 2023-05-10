@@ -3,7 +3,7 @@
 /**
  * Sanitizes string values.
  *
- * @since TBD
+ * @since 5.0.17
  *
  * @param string $string The string being sanitized.
  *

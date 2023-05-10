@@ -103,7 +103,8 @@
         "stellarwp/installer",
         "stellarwp/telemetry",
         "lucatume/di52",
-        "monolog/monolog"
+        "monolog/monolog",
+        "firebase/php-jwt"
       ],
       "delete_vendor_files": true
     }
