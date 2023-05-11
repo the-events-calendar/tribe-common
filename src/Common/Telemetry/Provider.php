@@ -41,8 +41,6 @@ class Provider extends ServiceProvider {
 
 		add_action( 'admin_init', [ $this, 'migrate_existing_opt_in' ], 9 );
 		add_action( 'tec_telemetry_auto_opt_in', [ $this, 'auto_opt_in' ] );
-		// @todo For testing, remove before release!
-		add_action( 'stellarwp/telemetry/the-events-calendar/last_send_expire_seconds', [ $this, 'filter_last_send_expire' ] );
 	}
 
 	public function add_filters() {
@@ -124,18 +122,5 @@ class Provider extends ServiceProvider {
 
 	public function filter_exit_interview_args( $args ) {
 		return $this->container->make( Telemetry::class )->filter_exit_interview_args( $args );
-	}
-
-	/**
-	 * Filters the "polling time" so we can see changes on test servers quickly.
-	 * @todo: remove before release!
-	 *
-	 * @since TBD
-	 *
-	 * @param integer $expire_seconds
-	 * @return integer
-	 */
-	public function filter_last_send_expire( $expire_seconds ): int {
-		return MINUTE_IN_SECONDS * 2;
 	}
 }
