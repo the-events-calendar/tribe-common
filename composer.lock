@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1aa4c0ef7a2c5d5c3324d45a43a6c55",
+    "content-hash": "33211652fcaa67fb3e0ddafd6c10f708",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -70,16 +70,16 @@
         },
         {
             "name": "lucatume/di52",
-            "version": "3.3.2",
+            "version": "3.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/di52",
-                "reference": "a063c9a18819b00a25883aca65b1d09697d8abf0"
+                "reference": "4185e21be2ac6c96bb1bb03970258352b6876bb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/di52/zipball/a063c9a18819b00a25883aca65b1d09697d8abf0",
-                "reference": "a063c9a18819b00a25883aca65b1d09697d8abf0",
+                "url": "https://api.github.com/repos/lucatume/di52/zipball/4185e21be2ac6c96bb1bb03970258352b6876bb2",
+                "reference": "4185e21be2ac6c96bb1bb03970258352b6876bb2",
                 "shasum": ""
             },
             "require": {
@@ -106,7 +106,7 @@
                 }
             ],
             "description": "A PHP 5.6 compatible dependency injection container.",
-            "time": "2023-04-07T12:38:10+00:00"
+            "time": "2023-04-28T07:39:10+00:00"
         },
         {
             "name": "monolog/monolog",
