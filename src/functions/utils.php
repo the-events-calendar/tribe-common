@@ -1,5 +1,7 @@
 <?php
 
+use TEC\Common\lucatume\DI52\ContainerException;
+
 /**
  * Sanitizes string values.
  *
@@ -813,8 +815,8 @@ if ( ! function_exists( 'tribe_get_class_instance' ) ) {
 		}
 
 		try {
-			return tribe( $class );
-		} catch ( \RuntimeException $exception ) {
+			return tribe()->has( $class ) ? tribe()->get( $class ) : null;
+		} catch ( ContainerException $exception ) {
 			return null;
 		}
 	}
