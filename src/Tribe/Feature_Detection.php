@@ -71,13 +71,15 @@ class Tribe__Feature_Detection {
 			return (bool) $supports_async_process;
 		}
 
-		$cached = get_transient( self::$transient );
-
 		$this->lock_option_name = 'tribe_feature_support_check_lock';
+		$transient_name         = Tribe__Process__Tester::TRANSIENT_NAME;
+		$timed_option_exists    = tec_timed_option()->exists( $transient_name );
+		$supports_async_process = tec_timed_option()->get( $transient_name, null, $force );
+
 		if (
 			$force
-			|| false === $cached
-			|| ( is_array( $cached ) && ! isset( $cached['supports_async_process'] ) )
+			|| null === $supports_async_process
+			|| ! $timed_option_exists
 		) {
 			if ( $this->is_locked() ) {
 				// We're already running this check, bail and return the safe option for the time being.
@@ -100,12 +102,10 @@ class Tribe__Feature_Detection {
 			$wait_up_to             = 10;
 			$start                  = time();
 			$supports_async_process = false;
-			$transient_name         = Tribe__Process__Tester::TRANSIENT_NAME;
 
 			while ( time() <= $start + $wait_up_to ) {
 				// We want to force a refetch from the database on each check.
-				wp_cache_delete( $transient_name, 'transient' );
-				$supports_async_process = (bool) get_transient( $transient_name );
+				$supports_async_process = (bool) tec_timed_option()->get( $transient_name );
 
 				if ( $supports_async_process ) {
 					break;
@@ -113,23 +113,15 @@ class Tribe__Feature_Detection {
 				sleep( $wait_up_to / 5 );
 			}
 
-			// Remove it not to spoof future checks.
-			delete_transient( $transient_name );
-
 			$this->unlock();
-
-			$cached['supports_async_process'] = $supports_async_process;
-
 			if ( $supports_async_process ) {
 				tribe( 'logger' )->log( 'AJAX-based async processing is supported.', Tribe__Log::DEBUG );
 			} else {
 				tribe( 'logger' )->log( 'AJAX-based async processing is not supported; background processing will rely on WP Cron.', Tribe__Log::DEBUG );
 			}
-
-			set_transient( self::$transient, $cached, WEEK_IN_SECONDS );
 		}
 
-		return $cached['supports_async_process'];
+		return (bool) $supports_async_process;
 	}
 
 	/**

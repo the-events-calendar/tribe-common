@@ -3,7 +3,10 @@
 namespace Tribe;
 
 use Tribe\Common\Tests\TestClass;
+use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Context as Context;
+use Generator;
+use Closure;
 
 function __context__test__function__() {
 	return '__value__';
@@ -17,6 +20,7 @@ function __set_function__( $value ) {
 include_once codecept_data_dir( 'classes/TestClass.php' );
 
 class ContextTest extends \Codeception\TestCase\WPTestCase {
+	use With_Uopz;
 
 	public static $__key__;
 	public static $__static_prop_1__;
@@ -1754,5 +1758,233 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( '__value_after_repopulate__', $value_overwrite_after_reset );
 	}
 
+	public function is_editing_posts_list_data_provider(): Generator {
+		yield 'new post screen' => [
+			function () {
+				$_SERVER['REQUEST_URI'] = '/wp-admin/post-new.php?post_type=post';
+				$GLOBALS['pagenow'] = 'post-new.php';
 
+				return 'post';
+			},
+			false
+		];
+
+		yield 'existing post edit screen' => [
+			function () {
+				$post_id                = static::factory()->post->create();
+				$_SERVER['REQUEST_URI'] = "/wp-admin/post.php?post=$post_id&action=edit";
+				$GLOBALS['pagenow'] = 'post.php';
+
+				return 'post';
+			},
+			false
+		];
+
+		yield 'post list screen' => [
+			function () {
+				$_SERVER['REQUEST_URI'] = '/wp-admin/edit.php?post_type=post';
+				$GLOBALS['pagenow'] = 'edit.php';
+
+				return 'post';
+			},
+			true
+		];
+
+		yield 'new post screen, multiple post types' => [
+			function () {
+				$_SERVER['REQUEST_URI'] = '/wp-admin/post-new.php?post_type=post';
+				$GLOBALS['pagenow'] = 'post-new.php';
+
+				return [ 'page', 'post' ];
+			},
+			false
+		];
+
+		yield 'existing post edit screen, multiple post types' => [
+			function () {
+				$post_id                = static::factory()->post->create();
+				$_SERVER['REQUEST_URI'] = "/wp-admin/post.php?post=$post_id&action=edit";
+				$GLOBALS['pagenow'] = 'post.php';
+
+				return [ 'post', 'page' ];
+			},
+			false
+		];
+
+		yield 'post list screen, multiple post types' => [
+			function () {
+				$_SERVER['REQUEST_URI'] = '/wp-admin/edit.php?post_type=post';
+				$GLOBALS['pagenow'] = 'edit.php';
+
+				return [ 'page', 'post' ];
+			},
+			true
+		];
+
+		yield 'new post screen, not this post type' => [
+			function () {
+				$_SERVER['REQUEST_URI'] = '/wp-admin/post-new.php?post_type=post';
+				$GLOBALS['pagenow'] = 'post-new.php';
+
+				return [ 'page' ];
+			},
+			false
+		];
+
+		yield 'existing post edit screen, not this post type' => [
+			function () {
+				$post_id                = static::factory()->post->create();
+				$_SERVER['REQUEST_URI'] = "/wp-admin/post.php?post=$post_id&action=edit";
+				$GLOBALS['pagenow'] = 'post.php';
+
+				return [ 'page' ];
+			},
+			false
+		];
+
+		yield 'post list screen, not this post type' => [
+			function () {
+				$_SERVER['REQUEST_URI'] = '/wp-admin/edit.php?post_type=post';
+				$GLOBALS['pagenow'] = 'edit.php';
+
+				return [ 'page' ];
+			},
+			false
+		];
+
+		yield 'empty $_SERVER[\'REQUEST_URI\']' => [
+			function () {
+				$_SERVER['REQUEST_URI'] = '';
+				$GLOBALS['pagenow'] = '';
+
+				return 'post';
+			},
+			false
+		];
+	}
+
+	/**
+	 * @dataProvider is_editing_posts_list_data_provider
+	 */
+	public function test_is_editing_posts_list( Closure $fixture, bool $expected ): void {
+		$post_types = $fixture();
+
+		$actual = tribe_context()->is_editing_posts_list( $post_types );
+
+		$this->assertEquals( $expected, $actual );
+	}
+
+	public function is_inline_editing_post_data_provider(): \Generator {
+		yield 'empty post type' => [
+			function () {
+				return [ '', false ];
+			}
+		];
+
+		yield 'empty array post type' => [
+			function () {
+				return [ [], false ];
+			}
+		];
+
+		yield 'not doing AJAX' => [
+			function () {
+				$this->set_fn_return( 'wp_doing_ajax', false );
+
+				return [ 'post', false ];
+			}
+		];
+
+		yield 'doing AJAX, missing action request var' => [
+			function () {
+				$this->set_fn_return( 'wp_doing_ajax', true );
+				unset( $_POST['action'] );
+
+				return [ 'post', false ];
+			}
+		];
+
+		yield 'doing AJAX, action request var not inline-save' => [
+			function () {
+				$this->set_fn_return( 'wp_doing_ajax', true );
+				$_POST['action'] = 'not-inline-save';
+
+				return [ 'post', false ];
+			}
+		];
+
+		yield 'missing post ID' => [
+			function () {
+				$this->set_fn_return( 'wp_doing_ajax', true );
+				$_POST['action'] = 'inline-save';
+				unset( $_POST['post_ID'] );
+
+				return [ 'post', false ];
+			}
+		];
+
+		yield 'post ID is empty' => [
+			function () {
+				$this->set_fn_return( 'wp_doing_ajax', true );
+				$_POST['action']  = 'inline-save';
+				$_POST['post_ID'] = '';
+
+				return [ 'post', false ];
+			}
+		];
+
+		yield 'post ID is not numeric' => [
+			function () {
+				$this->set_fn_return( 'wp_doing_ajax', true );
+				$_POST['action']  = 'inline-save';
+				$_POST['post_ID'] = 'not-numeric';
+
+				return [ 'post', false ];
+			}
+		];
+
+		yield 'post_type not the requested one' => [
+			function () {
+				$this->set_fn_return( 'wp_doing_ajax', true );
+				$_POST['action']  = 'inline-save';
+				$_POST['post_ID'] = 1;
+				$this->set_fn_return( 'get_post_type', 'page' );
+
+				return [ 'post', false ];
+			}
+		];
+
+		yield 'post_type same as requested one' => [
+			function () {
+				$this->set_fn_return( 'wp_doing_ajax', true );
+				$_POST['action']  = 'inline-save';
+				$_POST['post_ID'] = 1;
+				$this->set_fn_return( 'get_post_type', 'post' );
+
+				return [ 'post', true ];
+			}
+		];
+
+		yield 'post_type one of the requested ones' => [
+			function () {
+				$this->set_fn_return( 'wp_doing_ajax', true );
+				$_POST['action']  = 'inline-save';
+				$_POST['post_ID'] = 1;
+				$this->set_fn_return( 'get_post_type', 'post' );
+
+				return [ ['post', 'page'], true ];
+			}
+		];
+	}
+
+	/**
+	 * @dataProvider is_inline_editing_post_data_provider
+	 */
+	public function test_is_inline_editing_post( Closure $fixture ): void {
+		[ $post_type, $expected ] = $fixture();
+
+		$is_inline_editing_post = tribe_context()->is_inline_editing_post( $post_type );
+
+		$this->assertEquals( $expected, $is_inline_editing_post );
+	}
 }

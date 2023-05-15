@@ -110,7 +110,7 @@ class Tribe__Process__Post_Thumbnail_Setter extends Tribe__Process__Handler {
 		}
 
 		$id             = filter_var( $data_source['post_id'], FILTER_SANITIZE_NUMBER_INT );
-		$post_thumbnail = filter_var( $data_source['post_thumbnail'], FILTER_SANITIZE_STRING );
+		$post_thumbnail = tec_sanitize_string( $data_source['post_thumbnail'] );
 
 		do_action( 'tribe_log', 'debug', $this->identifier, [
 			'status'         => 'fetching thumbnail',

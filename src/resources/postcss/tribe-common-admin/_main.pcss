@@ -69,6 +69,43 @@ td.tribe_message {
 	}
 }
 
+.tribe-field-wrap {
+
+	.tooltip:first-child {
+		font-style: normal;
+	}
+}
+
+.tribe-field {
+
+	&.indent {
+		margin-left: 252px;
+		width: 75%;
+
+		legend {
+			font-weight: normal;
+			width: auto;
+		}
+
+		.tribe-field-wrap {
+			padding-right: 12px;
+		}
+
+		&.tribe-field-radio {
+
+			.tribe-field-wrap {
+				clear: left;
+				margin-top: 12px;
+			}
+		}
+	}
+
+	&.light-bordered {
+		background-color: white;
+		border: solid lightgrey 1px;
+	}
+}
+
 /* = Upgrade Screen
 ============================================= */
 #tribe-upgrade {
@@ -118,98 +155,6 @@ table.plugins {
 
 /* = Settings Screen
 ============================================= */
-.tribe-settings-form {
-	max-width: 1000px;
-
-	fieldset {
-		clear: both;
-		display: inline-block;
-		padding: 10px 0;
-
-		&.tribe-field-license_key legend {
-			width: auto;
-		}
-	}
-
-	legend {
-		float: left;
-		font-weight: bold;
-		margin-right: 20px;
-		width: 220px;
-	}
-
-	.tribe-field-wrap {
-		float: left;
-		max-width: 500px;
-
-		*:first-child {
-			margin-top: 0;
-		}
-	}
-
-	.tribe-field-radio,
-	.tribe-field-checkbox_list {
-		label {
-			display: block;
-			margin: 5px 0 5px 20px;
-			text-indent: -20px;
-
-			> p {
-				margin-left: 1px;
-				text-indent: 0;
-			}
-
-			input {
-				margin-right: 5px;
-			}
-		}
-	}
-
-	.tribe-settings-form-wrap fieldset,
-	.tribe-settings-form-wrap .description,
-	fieldset[id^='tribe-field-geoloc_'] {
-		padding-left: 12px;
-	}
-
-	.tribe-settings-form-wrap {
-
-		fieldset {
-
-			.description {
-				margin-left: 0;
-				max-width: 450px;
-				padding-left: 0;
-			}
-
-			.tribe-style-selection {
-				margin-bottom: 18px;
-			}
-		}
-
-		#tribe-field-stylesheetOption {
-
-			.description {
-				color: #999;
-				margin-left: 1px;
-			}
-		}
-
-		h3 {
-			background-color: #f9f9f9;
-			margin-bottom: 10px;
-			padding: 6px 0 6px 12px;
-		}
-
-		.tribe-sysinfo-optin-msg,
-		.system-info,
-		h3 + p,
-		.contained {
-			margin: 0 0 10px;
-			padding-left: 12px;
-		}
-	}
-}
-
 .tribe_settings {
 	.tribe-field-indent {
 		margin-left: 245px;
@@ -242,29 +187,246 @@ table.plugins {
 	}
 }
 
-/* The Events Calendar box */
-#modern-tribe-info {
+.tribe-settings-form {
+	max-width: 1000px;
+
+	.tribe-field-radio,
+	.tribe-field-checkbox_list {
+		label {
+			display: block;
+			margin: 5px 0 5px 20px;
+			text-indent: -20px;
+
+			> p {
+				margin-left: 1px;
+				text-indent: 0;
+			}
+
+			input {
+				margin-right: 5px;
+			}
+		}
+	}
+
+	.tribe-settings-form-wrap {
+		.description {
+			padding-left: 12px;
+		}
+
+		h3 {
+			background-color: #f9f9f9;
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 10px;
+			padding: 6px 12px;
+
+			.tec-top-link {
+				font-size: var(--tec-font-size-0);
+				font-weight: var(--tec-font-weight-regular);
+			}
+		}
+
+		fieldset {
+			clear: both;
+			display: inline-block;
+			padding: 10px 0 10px 10px;
+
+			&.tribe-field-license_key legend {
+				width: auto;
+			}
+
+			.description {
+				margin-left: 0;
+				max-width: 450px;
+				padding-left: 0;
+			}
+
+			.tribe-style-selection {
+				margin-bottom: 18px;
+			}
+
+			.tribe-field-wrap {
+				input[type="checkbox"] ~ .description {
+					display: inline-block;
+					margin-top: 0;
+				}
+
+				input[type="checkbox"] {
+					margin-top: 2px !important;
+					vertical-align: top;
+				}
+			}
+		}
+
+		#tribe-field-stylesheetOption {
+			.description {
+				color: #999;
+				margin-left: 1px;
+			}
+		}
+
+		legend {
+			float: left;
+			font-weight: bold;
+			margin-right: 20px;
+			width: 220px;
+		}
+
+		.tribe-field-wrap {
+			float: left;
+			max-width: 500px;
+
+			*:first-child:not(.wp-switch-editor) {
+				margin-top: 0;
+			}
+		}
+
+		.tribe-sysinfo-optin-msg,
+		.system-info,
+		h3 + p,
+		.contained {
+			margin: 0 0 10px;
+			padding-left: 12px;
+		}
+
+		.tec-disabled {
+			color: #999;
+		}
+
+		.tec-settings-teaser-pill {
+			background-color: var(--tec-color-border-default);
+			border-radius: var(--tec-border-radius-default);
+			color: var(--tec-color-text-primary);
+			font-size: 9px;
+			margin-left: var(--tec-spacer-0);
+			padding: calc(var(--tec-spacer-0) / 2) 5px;
+			text-transform: uppercase;
+
+			&:hover,
+			&:focus {
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
+/* The Events Calendar box @TODO why is this an ID?
+============================================= */
+#modern-tribe-info,
+.tec-settings-header {
 	background-color: #f9f9f9;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	margin: 20px 0;
 	padding: 8px 20px 12px;
+
+	img {
+		margin: 10px 0;
+	}
+
+	ul {
+		list-style: disc;
+		margin-left: 20px;
+	}
+
+	ul ul {
+		list-style: circle;
+	}
+
+	ul.tec-events-settings__toc {
+		display: flex;
+		flex-flow: row;
+		list-style: none;
+		margin: 5px 0;
+
+		li {
+			margin-bottom: 0;
+
+			&:not(:first-child) {
+				margin-left: 1em;
+			}
+		}
+	}
 }
 
-#modern-tribe-info img {
-	margin: 10px 0;
+.tec-settings-header {
+	padding: 12px 20px;
 }
 
-#modern-tribe-info ul {
-	list-style: disc;
-	margin-left: 20px;
+/* sizes
+============================================= */
+
+.tribe-size-small {
+	&.tribe-field-textarea textarea {
+		height: 60px;
+		width: 180px;
+	}
+
+	&.tribe-field-text input,
+	&.tribe-field-email input,
+	&.tribe-field-license_key input {
+		width: 50px;
+	}
+
+	&.tribe-field-dropdown select {
+		width: 100px;
+	}
+
+	&.tribe-field-dropdown_chosen select {
+		width: 100px;
+	}
 }
 
-#modern-tribe-info ul ul {
-	list-style: circle;
+.tribe-size-medium {
+	&.tribe-field-textarea textarea {
+		height: 80px;
+		width: 300px;
+	}
+
+	&.tribe-field-text input,
+	&.tribe-field-email input,
+	&.tribe-field-license_key input {
+		width: 225px;
+	}
+
+	&.tribe-field-dropdown select {
+		width: 300px;
+	}
+
+	&.tribe-field-dropdown_chosen select {
+		width: 200px;
+	}
 }
 
-/* sizes */
+.tribe-size-large {
+	&.tribe-field-textarea textarea {
+		height: 120px;
+		width: 450px;
+	}
+
+	&.tribe-field-text input,
+	&.tribe-field-email input,
+	&.tribe-field-license_key input {
+		width: 450px;
+	}
+
+	&.tribe-field-dropdown select {
+		width: 450px;
+	}
+
+	&.tribe-field-wrapped_html .tribe-field-wrap {
+		max-width: 600px;
+
+		.description {
+			max-width: 100%;
+		}
+	}
+
+	&.tribe-field-dropdown_chosen select {
+		width: 300px;
+	}
+}
+
 .tribe-field-inline-dropdown {
 	margin-left: 0;
 	margin-right: 0;
@@ -275,109 +437,8 @@ table.plugins {
 	margin: 0 2px;
 }
 
-.tribe-field-textarea.tribe-size-small textarea {
-	height: 60px;
-	width: 180px;
-}
-
-.tribe-field-textarea.tribe-size-medium textarea {
-	height: 80px;
-	width: 300px;
-}
-
-.tribe-field-textarea.tribe-size-large textarea {
-	height: 120px;
-	width: 450px;
-}
-
-.tribe-field-text.tribe-size-small input,
-.tribe-field-email.tribe-size-small input,
-.tribe-field-license_key.tribe-size-small input {
-	width: 50px;
-}
-
-.tribe-field-text.tribe-size-medium input,
-.tribe-field-email.tribe-size-medium input,
-.tribe-field-license_key.tribe-size-medium input {
-	width: 225px;
-}
-
-.tribe-field-text.tribe-size-large input,
-.tribe-field-email.tribe-size-large input,
-.tribe-field-license_key.tribe-size-large input {
-	width: 450px;
-}
-
-.tribe-field-dropdown.tribe-size-small select {
-	width: 100px;
-}
-
-.tribe-field-dropdown.tribe-size-medium select {
-	width: 300px;
-}
-
-.tribe-field-dropdown.tribe-size-large select {
-	width: 450px;
-}
-
-.tribe-field-wrapped_html.tribe-size-large .tribe-field-wrap {
-	max-width: 600px;
-
-	.description {
-		max-width: 100%;
-	}
-}
-
-.tribe-field-dropdown_chosen.tribe-size-small select {
-	width: 100px;
-}
-
-.tribe-field-dropdown_chosen.tribe-size-medium select {
-	width: 200px;
-}
-
-.tribe-field-dropdown_chosen.tribe-size-large select {
-	width: 300px;
-}
-
-.tribe-field-wrap {
-
-	.tooltip:first-child {
-		font-style: normal;
-	}
-}
-
-.tribe-field {
-
-	&.indent {
-		margin-left: 252px;
-		width: 75%;
-
-		legend {
-			font-weight: normal;
-			width: auto;
-		}
-
-		.tribe-field-wrap {
-			padding-right: 12px;
-		}
-
-		&.tribe-field-radio {
-
-			.tribe-field-wrap {
-				clear: left;
-				margin-top: 12px;
-			}
-		}
-	}
-
-	&.light-bordered {
-		background-color: white;
-		border: solid lightgrey 1px;
-	}
-}
-
-/* license keys */
+/* license keys
+============================================= */
 .ajax-loading-license,
 .valid-key,
 .invalid-key {
@@ -408,12 +469,14 @@ table.plugins {
 	color: #b72;
 }
 
-/* additional fields */
+/* additional fields
+============================================= */
 #additional-field-table {
 	margin-bottom: 20px;
 }
 
-/* miscellaneous */
+/* miscellaneous
+============================================= */
 .tribe-admin-box-left {
 	background-color: #f9f9f9;
 	border: 1px solid #ccc;
@@ -1019,7 +1082,7 @@ a.tribe-rating-link {
 	display: none;
 }
 
-/* = Widget Admin Screen
+/* Widget Admin Screen
 ============================ */
 .tribe-events-widget-admin-form__input-section p {
 	margin: 0;
@@ -1029,7 +1092,8 @@ a.tribe-rating-link {
 	margin: 0.5em 0;
 }
 
-/* Media Queries for Mobile Dashboard */
+/* Media Queries for Mobile Dashboard
+============================================= */
 @media screen and (max-width: 782px) {
 	.tribe-half-column,
 	.tribe-row .tribe-half-column:last-child {
@@ -1078,7 +1142,7 @@ a.tribe-rating-link {
 	width: 1%;
 }
 
-/* = Modals/thickbox dialogs
+/* Modals/thickbox dialogs
 ============================ */
 
 #tribe-dialog-wrapper {
@@ -1650,11 +1714,8 @@ a.tribe-rating-link {
 	}
 }
 
-/*
-Red button styles.
-
-Credit to https://github.com/jensjns/wp-admin-red-button
-============================================= */
+/* Red button styles. Credit to https://github.com/jensjns/wp-admin-red-button
+============================================================================== */
 .wp-core-ui .button-red {
 	background-color: #a00;
 	border-color: #9b2124;
@@ -1714,7 +1775,8 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 	}
 }
 
-/* Clearfix Utility */
+/* Clearfix Utility
+============================================= */
 
 .clear {
 	zoom: 1;
@@ -1730,7 +1792,8 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 	}
 }
 
-/* from https://codepen.io/lajlev/pen/diKbz */
+/* Pure CSS checkmark. From https://codepen.io/lajlev/pen/diKbz
+ ============================================= */
 .checkmark {
 
 	&:after {
@@ -2023,7 +2086,8 @@ body.tec-help {
 	max-width: 1048px;
 }
 
-/* -- CSS Switch based off https://codepen.io/mallendeo/pen/eLIiG  -- */
+/* CSS Switch based off https://codepen.io/mallendeo/pen/eLIiG
+============================================= */
 input[type="checkbox"].tribe-common-switch__input {
 	display: none;
 
@@ -2161,6 +2225,22 @@ input[type="checkbox"].tribe-common-switch__input {
 	margin-bottom: 0;
 	margin-right: 30px;
 
+	&:hover {
+		color: #334aff;
+	}
+
+	&:after {
+		background: #334aff;
+		border-radius: 100px;
+		bottom: 0;
+		content: "";
+		display: block;
+		height: 3px;
+		left: 0;
+		position: absolute;
+		right: 0;
+	}
+
 	@media screen and (max-width: 768px) {
 		margin-right: 20px;
 	}
@@ -2169,10 +2249,6 @@ input[type="checkbox"].tribe-common-switch__input {
 		margin-bottom: 18px;
 		margin-right: 0;
 	}
-}
-
-.tribe-events-admin-tab-nav li:hover {
-	color: #334aff;
 }
 
 .tribe-events-admin-tab-nav .selected {
@@ -2190,18 +2266,6 @@ input[type="checkbox"].tribe-common-switch__input {
 		padding-bottom: 10px;
 		width: fit-content;
 	}
-}
-
-.tribe-events-admin-tab-nav li:after {
-	background: #334aff;
-	border-radius: 100px;
-	bottom: 0;
-	content: "";
-	display: block;
-	height: 3px;
-	left: 0;
-	position: absolute;
-	right: 0;
 }
 
 .tribe-events-admin__line {
@@ -2237,9 +2301,9 @@ input[type="checkbox"].tribe-common-switch__input {
 }
 
 .tribe-events-admin-products-card__icon {
-	height: 40px;
+	max-height: 40px;
+	max-width: 40px;
 	object-fit: contain;
-	width: 40px;
 }
 
 .tribe-events-admin-products-card__group {
@@ -2551,7 +2615,8 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
-/* container */
+/* Container
+============================================= */
 
 .tribe-events-admin-container,
 .tribe-events-admin-content-wrapper.tribe-events-admin-container {
@@ -2564,7 +2629,8 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
-/* columns */
+/* Columns
+============================================= */
 
 .tribe-events-admin-2col-grid {
 	display: grid;
@@ -2759,7 +2825,8 @@ input[type="email"].tribe-events-admin-card__input {
 	display: inline-block;
 }
 
-/* -- Event Tickets tweaks for welcome screen -- */
+/* Event Tickets tweaks for welcome screen
+============================================= */
 .tribe-events-admin-tickets {
 	.tribe-events-admin-section-header {
 		font-size: 28px;
@@ -2808,7 +2875,8 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
-/* Kb section */
+/* Kb section
+============================================= */
 
 .tribe-events-admin-kb {
 	margin: 10px 0 0;
@@ -2899,7 +2967,8 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
-/* faq section */
+/* FAQ section
+============================================= */
 
 .tribe-events-admin-faq {
 	margin: 10px 0 0;
@@ -3137,7 +3206,8 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
-/* first steps section */
+/* First Steps section
+============================================= */
 
 .tribe-events-admin-step {
 	margin: 10px 0 0;
@@ -3504,7 +3574,8 @@ input[type="email"].tribe-events-admin-card__input {
 	margin-top: 50px;
 }
 
-/* issues found section */
+/* Issues Found section
+============================================= */
 .tribe-events-admin__issues-found-card {
 	background-color: #f3eee8;
 	border-radius: 8px;
@@ -3747,9 +3818,10 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
-/* -- Help page overrides -- */
+/* Help page overrides
+============================================= */
 
-/* TODO: fix right side alignment */
+/* @TODO: fix right side alignment */
 .tec-help {
 	#tec-help-ticketing,
 	#tec-help-community {
@@ -3765,7 +3837,8 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
-/* -- Freemius tweaks -- */
+/* Freemius tweaks
+============================================= */
 body.tribe-welcome #fs_connect {
 	border: 1px solid #e1e1e4;
 	border-radius: 16px;
@@ -3807,7 +3880,8 @@ body.tribe-welcome #fs_connect {
 	}
 }
 
-/* -- Black Friday Promo -- */
+/* Black Friday Promo
+============================================= */
 .black-friday-promo {
 	align-items: flex-start;
 	display: flex;
@@ -3879,7 +3953,8 @@ body.tribe-welcome #fs_connect {
 	}
 }
 
-/* -- End of year sale Promo -- */
+/* End of year sale Promo
+============================================= */
 .end-of-year-sale-promo {
 	align-items: flex-start;
 	display: flex;
@@ -3954,7 +4029,8 @@ body.tribe-welcome #fs_connect {
 	}
 }
 
-/* EOY Sale Promo Mobile */
+/* EOY Sale Promo Mobile
+============================================= */
 @media (max-width: 525px) {
 	.end-of-year-sale-promo__promo {
 		grid-template-areas: "space" "promo-content";

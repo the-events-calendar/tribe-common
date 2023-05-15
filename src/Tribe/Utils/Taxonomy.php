@@ -136,10 +136,11 @@ class Taxonomy {
 	 *
 	 * @param array $posts
 	 * @param array $taxonomies
+	 * @param bool  $prime_term_meta
 	 *
 	 * @return array<int, array>
 	 */
-	public static function prime_term_cache( array $posts = [], array $taxonomies = [ 'post_tag', \Tribe__Events__Main::TAXONOMY ], $prime_term_meta = false ) {
+	public static function prime_term_cache( array $posts = [], array $taxonomies = [ 'post_tag', \Tribe__Events__Main::TAXONOMY ], bool $prime_term_meta = false ): array {
 		$first = reset( $posts );
 		$is_numeric = ( ! $first instanceof \WP_Post );
 		if ( $is_numeric ) {
@@ -162,14 +163,31 @@ class Taxonomy {
 			'taxonomy'   => $taxonomies,
 		];
 		$terms = get_terms( $args );
-		$term_ids = wp_list_pluck( $terms, 'term_id' );
 
-		foreach ( $terms as $term ) {
+		// Drop invalid results.
+		$valid_terms = array_filter( (array) $terms, static function ( $term ) {
+			return $term instanceof \WP_Term;
+		} );
+
+		$term_ids = wp_list_pluck( $valid_terms, 'term_id' );
+
+		foreach ( $valid_terms as $term ) {
 			$cache[ $term->object_id ][ $term->taxonomy ][] = $term->term_id;
 		}
 
 		foreach ( $cache as $id => $object_taxonomies ) {
+			// Skip when invalid object id is passed.
+			if ( empty( $id ) ) {
+				continue;
+			}
+
 			foreach ( $object_taxonomies as $taxonomy => $term_ids ) {
+				// Skip when invalid taxonomy is passed.
+				if ( empty( $taxonomy ) ) {
+					continue;
+				}
+
+				// Do not skip when `term_ids` are empty.
 				wp_cache_add( $id, $term_ids, $taxonomy . '_relationships' );
 			}
 		}

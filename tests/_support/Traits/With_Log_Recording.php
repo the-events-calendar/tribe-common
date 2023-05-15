@@ -3,16 +3,16 @@
  * Provides methods to both mute and record log messages dispatched in the context
  * by the Logger.
  *
- * @since   5.0.1
+ * @since 5.0.1
  *
  * @package Tribe\Tests\Traits
  */
 
 namespace Tribe\Tests\Traits;
 
-use Monolog\Formatter\FormatterInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Logger;
+use TEC\Common\Monolog\Formatter\FormatterInterface;
+use TEC\Common\Monolog\Handler\HandlerInterface;
+use TEC\Common\Monolog\Logger;
 use PHPUnit\Framework\Assert;
 
 trait With_Log_Recording {
