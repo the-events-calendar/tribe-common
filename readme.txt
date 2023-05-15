@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Elementor and other themes would inadvertently override styles on the tickets button, when the global styles were set. This hardens the common button (rsv/ticket button) styles a bit more. [TEC-4794]
+
 = [5.0.17] 2023-05-08 =
 
 * Feature - Add the `TEC\Provider\Controller` abstract class to kick-start Controllers and the `TEC\Common\Tests\Provider\Controller_Test_Case` class to test them.
