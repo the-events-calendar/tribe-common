@@ -2126,7 +2126,7 @@ abstract class Tribe__Repository
 				$args['meta_query'][ $array_key ]['value'] = $meta_value;
 			}
 
-			if ( 0 === strpos( $type_or_format, '%' ) ) {
+			if ( is_string( $type_or_format ) && 0 === strpos( $type_or_format, '%' ) ) {
 				throw Tribe__Repository__Usage_Error::because_the_type_is_a_wpdb_prepare_format( $meta_key, $type_or_format, $this );
 			}
 

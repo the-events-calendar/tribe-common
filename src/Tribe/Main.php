@@ -23,7 +23,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '5.0.13';
+	const VERSION             = '5.1.0';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -705,7 +705,6 @@ class Tribe__Main {
 		tribe_singleton( 'post-transient', 'Tribe__Post_Transient' );
 		tribe_singleton( 'db', 'Tribe__Db' );
 		tribe_singleton( 'db-lock', DB_Lock::class );
-		tribe_singleton( 'freemius', 'Tribe__Freemius' );
 		tribe_singleton( 'customizer', 'Tribe__Customizer' );
 		tribe_singleton( Tribe__Dependency::class, Tribe__Dependency::class );
 		tribe_singleton( \Tribe\Admin\Troubleshooting::class, \Tribe\Admin\Troubleshooting::class, [ 'hook' ] );
