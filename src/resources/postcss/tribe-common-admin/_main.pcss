@@ -244,6 +244,18 @@ table.plugins {
 			.tribe-style-selection {
 				margin-bottom: 18px;
 			}
+
+			.tribe-field-wrap {
+				input[type="checkbox"] ~ .description {
+					display: inline-block;
+					margin-top: 0;
+				}
+
+				input[type="checkbox"] {
+					margin-top: 2px !important;
+					vertical-align: top;
+				}
+			}
 		}
 
 		#tribe-field-stylesheetOption {
@@ -2289,9 +2301,9 @@ input[type="checkbox"].tribe-common-switch__input {
 }
 
 .tribe-events-admin-products-card__icon {
-	height: 40px;
+	max-height: 40px;
+	max-width: 40px;
 	object-fit: contain;
-	width: 40px;
 }
 
 .tribe-events-admin-products-card__group {

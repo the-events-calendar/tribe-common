@@ -165,7 +165,7 @@ class Taxonomy {
 		$terms = get_terms( $args );
 
 		// Drop invalid results.
-		$valid_terms = array_filter( $terms, static function ( $term ) {
+		$valid_terms = array_filter( (array) $terms, static function ( $term ) {
 			return $term instanceof \WP_Term;
 		} );
 
