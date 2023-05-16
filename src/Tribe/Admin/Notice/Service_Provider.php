@@ -9,7 +9,7 @@
 
 namespace Tribe\Admin\Notice;
 
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\DI\Service_Provider as DI_Provider;
 
 /**
  * Class Notice
@@ -18,7 +18,7 @@ use TEC\Common\DI\Service_Provider;
  *
  * @package Tribe\Admin\Notice
  */
-class Service_Provider extends Service_Provider {
+class Service_Provider extends DI_Provider {
 
 
 	/**
