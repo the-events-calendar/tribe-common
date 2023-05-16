@@ -2,7 +2,7 @@
 
 namespace Tribe\Utils;
 
-class TransformationTest extends \Codeception\TestCase\WPTestCase {
+class Boolean_TransformationTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test

@@ -5,11 +5,12 @@
  */
 
 $aliases = [
-    ['TEC\Common\lucatume\DI52\Container', 'tad_DI52_Container'],
-    ['TEC\Common\lucatume\DI52\ServiceProvider', 'tad_DI52_ServiceProvider']
+    [ 'TEC\Common\lucatume\DI52\Container', 'tad_DI52_Container' ],
+    [ 'TEC\Common\lucatume\DI52\ServiceProvider', 'tad_DI52_ServiceProvider' ]
 ];
-foreach ($aliases as list($class, $alias)) {
-    if (!class_exists($alias)) {
-        class_alias($class, $alias);
+
+foreach ( $aliases as list( $class, $alias ) ) {
+    if ( ! class_exists( $alias ) ) {
+        class_alias( $class, $alias );
     }
 }
