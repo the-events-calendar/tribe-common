@@ -44,7 +44,7 @@ class Provider extends ServiceProvider {
 	}
 
 	public function add_filters() {
-		add_filter( "stellarwp/telemetry/optin_args", [ $this, 'filter_optin_args' ] );
+		add_filter( 'stellarwp/telemetry/optin_args', [ $this, 'filter_optin_args' ] );
 		add_filter( 'stellarwp/telemetry/tec/should_show_optin', 'should_show_optin', 10, 1 );
 		add_filter( 'stellarwp/telemetry/exit_interview_args', [ $this, 'filter_exit_interview_args' ] );
 	}
