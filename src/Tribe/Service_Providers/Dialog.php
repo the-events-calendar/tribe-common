@@ -2,7 +2,7 @@
 
 namespace Tribe\Service_Providers;
 
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 /**
  * Class Dialog
@@ -11,7 +11,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * Handles the registration and creation of our async process handlers.
  */
-class Dialog extends ServiceProvider {
+class Dialog extends Service_Provider {
 
 
 	/**

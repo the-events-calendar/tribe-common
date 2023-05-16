@@ -2,7 +2,7 @@
 namespace Tribe\Service_Providers;
 
 use Tribe\PUE\Update_Prevention;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 /**
  * Hooks and manages the implementation and loading of PUE.
@@ -13,7 +13,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @since 4.9.12
  */
-class PUE extends ServiceProvider {
+class PUE extends Service_Provider {
 
 	/**
 	 * Binds and sets up implementations.

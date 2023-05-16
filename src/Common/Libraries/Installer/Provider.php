@@ -4,10 +4,10 @@ namespace TEC\Common\Libraries\Installer;
 
 use TEC\Common\Libraries;
 use TEC\Common\StellarWP\Installer;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 
-class Provider extends ServiceProvider {
+class Provider extends Service_Provider {
 
 	/**
 	 * Binds and sets up implementations.

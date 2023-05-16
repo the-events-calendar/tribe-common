@@ -3,7 +3,7 @@
 namespace Tribe\Service_Providers;
 
 use Tribe\Utils\Body_Classes as Body_Class_Object;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 /**
  * Class Body_Classes
@@ -12,7 +12,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * Handles the registration and creation of our async process handlers.
  */
-class Body_Classes extends ServiceProvider {
+class Body_Classes extends Service_Provider {
 
 
 	/**

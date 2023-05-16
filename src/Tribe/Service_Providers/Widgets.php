@@ -2,7 +2,7 @@
 namespace Tribe\Service_Providers;
 
 use Tribe\Widget\Manager;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 /**
  * Class Widget
@@ -11,7 +11,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @package Tribe\Service_Providers
  */
-class Widgets extends ServiceProvider {
+class Widgets extends Service_Provider {
 
 
 	/**

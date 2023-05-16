@@ -2,7 +2,7 @@
 namespace Tribe\Service_Providers;
 
 use Tribe\Shortcode\Manager;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 /**
  * Class Shortcode
@@ -11,7 +11,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @package Tribe\Service_Providers
  */
-class Shortcodes extends ServiceProvider {
+class Shortcodes extends Service_Provider {
 
 
 	/**

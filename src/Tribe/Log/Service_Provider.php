@@ -10,13 +10,13 @@
 namespace Tribe\Log;
 
 
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 use TEC\Common\Monolog\Handler\ErrorLogHandler;
 use TEC\Common\Monolog\Handler\NullHandler;
 use TEC\Common\Monolog\Logger;
 use Psr\Log\NullLogger;
 
-class Service_Provider extends ServiceProvider {
+class Service_Provider extends Service_Provider {
 	/**
 	 * Binds and sets up implementations.
 	 *

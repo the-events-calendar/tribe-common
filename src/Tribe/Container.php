@@ -1,7 +1,6 @@
 <?php
 
-use TEC\Common\lucatume\DI52\Container;
-use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
+use TEC\Common\DI\Container;
 
 if ( ! class_exists( 'Tribe__Container' ) ) {
 	/**
@@ -9,7 +8,7 @@ if ( ! class_exists( 'Tribe__Container' ) ) {
 	 *
 	 * Tribe Dependency Injection Container.
 	 */
-	class Tribe__Container extends Container implements ContainerInterface {
+	class Tribe__Container extends Container {
 
 		/**
 		 * @var Tribe__Container

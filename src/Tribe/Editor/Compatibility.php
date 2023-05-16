@@ -4,14 +4,14 @@ namespace Tribe\Editor;
 
 use Tribe\Editor\Compatibility\Classic_Editor;
 use Tribe\Editor\Compatibility\Divi;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 /**
  * Editor Compatibility with other plugins and themes.
  *
  * @since 4.14.13
  */
-class Compatibility extends ServiceProvider {
+class Compatibility extends Service_Provider {
 
 	public function register() {
 		$this->container->singleton( self::class, $this );

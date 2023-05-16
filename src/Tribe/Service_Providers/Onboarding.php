@@ -2,7 +2,7 @@
 namespace Tribe\Service_Providers;
 
 use \Tribe\Onboarding\Main as Onboarding_Main;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 /**
  * Class Onboarding
@@ -11,7 +11,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * Handles the registration and creation of our async process handlers.
  */
-class Onboarding extends ServiceProvider {
+class Onboarding extends Service_Provider {
 
 
 	/**

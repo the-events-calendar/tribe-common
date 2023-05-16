@@ -3,10 +3,10 @@
 namespace TEC\Common\Libraries;
 
 use TEC\Common\StellarWP\DB;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 
-class Provider extends ServiceProvider {
+class Provider extends Service_Provider {
 
 	/**
 	 * Hook prefix.

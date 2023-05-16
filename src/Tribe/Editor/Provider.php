@@ -1,8 +1,8 @@
 <?php
 
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
-class Tribe__Editor__Provider extends ServiceProvider {
+class Tribe__Editor__Provider extends Service_Provider {
 
 	/**
 	 * Binds and sets up implementations.

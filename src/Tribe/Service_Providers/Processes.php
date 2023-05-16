@@ -1,6 +1,6 @@
 <?php
 
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 /**
  * Class Tribe__Service_Providers__Processes
@@ -9,7 +9,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * Handles the registration and creation of our async process handlers.
  */
-class Tribe__Service_Providers__Processes extends ServiceProvider {
+class Tribe__Service_Providers__Processes extends Service_Provider {
 
 
 	/**

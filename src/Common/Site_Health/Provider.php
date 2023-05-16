@@ -2,7 +2,7 @@
 
 namespace TEC\Common\Site_Health;
 
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 /**
  * Class Provider
@@ -12,7 +12,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  * @package TEC\Common\Site_Health
  *
  */
-class Provider extends ServiceProvider {
+class Provider extends Service_Provider {
 
 	/**
 	 * Register the functionality related to this module.
