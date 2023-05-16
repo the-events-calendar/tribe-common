@@ -10,13 +10,12 @@
 namespace Tribe\Log;
 
 
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\DI\Service_Provider as DI_Provider;
 use TEC\Common\Monolog\Handler\ErrorLogHandler;
 use TEC\Common\Monolog\Handler\NullHandler;
 use TEC\Common\Monolog\Logger;
-use Psr\Log\NullLogger;
 
-class Service_Provider extends Service_Provider {
+class Service_Provider extends DI_Provider {
 	/**
 	 * Binds and sets up implementations.
 	 *
