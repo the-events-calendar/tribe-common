@@ -277,7 +277,7 @@ abstract class Date_Based {
 	 *
 	 * @since 4.14.2
 	 *
-	 * @return int $start_time The date & time the notice should start displaying, as a Unix timestamp.
+	 * @return \Tribe\Utils\Date_I18n - Date Object
 	 */
 	public function get_start_time() {
 		$date = Dates::build_date_object( $this->start_date, 'UTC' );
@@ -303,7 +303,7 @@ abstract class Date_Based {
 	 *
 	 * @since 4.14.2
 	 *
-	 * @return int $end_time The date & time the notice should stop displaying, or shift to the extension datetime as a Unix timestamp.
+	 * @return \Tribe\Utils\Date_I18n - Date Object
 	 */
 	public function get_end_time() {
 		$date = Dates::build_date_object( $this->end_date, 'UTC' );
