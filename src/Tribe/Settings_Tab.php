@@ -148,13 +148,17 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 		}
 
 		/**
-		 * displays the content for the tab
+		 * Displays the content for the tab.
 		 *
 		 * @return void
 		 */
 		public function doContent() {
 			$telemetry_slug = Telemetry::get_plugin_slug();
+			/**
+			 * Fires when the user is viewing the tab content.
+			 */
 			do_action( "stellarwp/telemetry/{$telemetry_slug}/optin" );
+
 			if ( $this->display_callback && is_callable( $this->display_callback ) ) {
 				call_user_func( $this->display_callback );
 

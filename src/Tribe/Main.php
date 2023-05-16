@@ -765,11 +765,34 @@ class Tribe__Main {
 		);
 	}
 
+	/**
+	 * Register the common library's parent plugin file path.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $path The path to the parent plugin file.
+	 */
 	public function set_parent_plugin_file( string $path ): void {
 		$this->parent_plugin_file = $path;
 	}
 
-	public function get_parent_plugin_file(): string {
+	/**
+	 * Get the common library's parent plugin file path.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The path to the parent plugin file.
+	 */
+	public function get_parent_plugin_file_path(): string {
+		/**
+		 * Allows plugins to hook in and declare themselves the parent of common.
+		 * Used by Telemetry to determine which plugin to associate with.
+		 *
+		 * @since TBD
+		 *
+		 * @var string $parent_plugin_file The current path to the parent plugin file.
+		 *
+		 */
 		return apply_filters( 'tec_common_parent_plugin_file', $this->parent_plugin_file );
 	}
 

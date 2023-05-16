@@ -115,7 +115,7 @@ final class Telemetry {
 		$this->register_tec_telemetry_plugins();
 
 		self::$tec_slugs    = self::get_tec_telemetry_slugs();
-		self::$plugin_path  = \Tribe__Main::instance()->get_parent_plugin_file();
+		self::$plugin_path  = \Tribe__Main::instance()->get_parent_plugin_file_path();
 		self::$stellar_slug = self::get_stellar_slug();
 		$telemetry_server   = ! defined('TELEMETRY_SERVER') ? 'https://telemetry.stellarwp.com/api/v1': TELEMETRY_SERVER;
 
@@ -152,7 +152,7 @@ final class Telemetry {
 	 */
 	public static function get_parent_plugin_slug(): string {
 		if ( empty( self::$parent_plugin ) ) {
-			$file = \Tribe__Main::instance()->get_parent_plugin_file();
+			$file = \Tribe__Main::instance()->get_parent_plugin_file_path();
 			self::$parent_plugin = substr(
 				$file,
 				( strrpos( $file, '/' ) + 1 ),
@@ -259,7 +259,7 @@ final class Telemetry {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string,mixed> $args The default args.
+	 * @param array<string,mixed> $args The current args.
 	 *
 	 * @return array<string,mixed> $args The modified args.
 	 */

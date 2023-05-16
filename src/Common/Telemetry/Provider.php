@@ -120,6 +120,15 @@ class Provider extends ServiceProvider {
 		return $this->container->make( Telemetry::class )->filter_optin_args( $args );
 	}
 
+	/**
+	 * Filters the exit questionnaire shown during plugin deactivation/uninstall.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $args The current args.
+	 *
+	 * @return array<string,mixed> $args The modified args.
+	 */
 	public function filter_exit_interview_args( $args ) {
 		return $this->container->make( Telemetry::class )->filter_exit_interview_args( $args );
 	}
