@@ -83,5 +83,5 @@ interface Info_Field_Interface {
 	 *
 	 * @return array
 	 */
-	public function to_array( Info_Section_Abstract $section ): array;
+	public function to_array(): array;
 }

@@ -27,7 +27,7 @@ class Factory {
 	 * @return Info_Field_Abstract
 	 */
 	public function generate_generic_field( string $id, string $label, ?string $value, int $priority = 50 ): Info_Field_Abstract {
-		return Fields\Generic_Info_Field::from_args( $id, $label, $value, $priority );
+		return new Fields\Generic_Info_Field( $id, $label, $value, $priority );
 	}
 
 	/**
