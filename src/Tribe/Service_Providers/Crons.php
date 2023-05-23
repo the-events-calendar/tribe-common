@@ -10,7 +10,7 @@
 namespace Tribe\Service_Providers;
 
 use Tribe\DB_Lock;
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 /**
  * Class Crons

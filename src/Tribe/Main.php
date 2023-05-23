@@ -83,10 +83,11 @@ class Tribe__Main {
 
 		$vendor_folder = dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/';
 		require_once realpath( $vendor_folder . 'vendor-prefixed/autoload.php' );
+		// ALiases for backwards compatibility. @todo @camwyn: Remove once unneeded.
 		require_once realpath( dirname( dirname( __FILE__ ) ) . '/functions/aliases.php' );
 		require_once realpath( $vendor_folder . 'autoload.php' );
 
-		// the DI container class
+		// The DI container class.
 		require_once dirname( __FILE__ ) . '/Container.php';
 
 		if ( is_object( $context ) ) {

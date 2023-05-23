@@ -1,6 +1,6 @@
 <?php
 
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 /**
  * Class Tribe__Service_Providers__Promoter_Connector

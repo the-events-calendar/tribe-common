@@ -3,7 +3,7 @@
 namespace Tribe\Service_Providers;
 
 use Tribe\Utils\Body_Classes as Body_Class_Object;
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 /**
  * Class Body_Classes

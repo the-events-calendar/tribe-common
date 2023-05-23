@@ -2,7 +2,7 @@
 namespace Tribe\Service_Providers;
 
 use Tribe\PUE\Update_Prevention;
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 /**
  * Hooks and manages the implementation and loading of PUE.

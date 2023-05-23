@@ -4,7 +4,7 @@ namespace TEC\Common\Libraries\Installer;
 
 use TEC\Common\Libraries;
 use TEC\Common\StellarWP\Installer;
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 
 class Provider extends Service_Provider {

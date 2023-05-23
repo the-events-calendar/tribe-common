@@ -1,6 +1,6 @@
 <?php
 
-use TEC\Common\DI\Container;
+use TEC\Common\Contracts\Container;
 
 if ( ! class_exists( 'Tribe__Container' ) ) {
 	/**

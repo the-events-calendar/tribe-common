@@ -4,7 +4,7 @@ namespace Tribe\Editor;
 
 use Tribe\Editor\Compatibility\Classic_Editor;
 use Tribe\Editor\Compatibility\Divi;
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 /**
  * Editor Compatibility with other plugins and themes.

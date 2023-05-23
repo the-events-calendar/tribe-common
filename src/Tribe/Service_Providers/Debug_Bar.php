@@ -6,7 +6,7 @@
  * @since 4.9.5
  */
 
- use TEC\Common\DI\Service_Provider;
+ use TEC\Common\Contracts\Service_Provider;
 
 class Tribe__Service_Providers__Debug_Bar extends Service_Provider {
 

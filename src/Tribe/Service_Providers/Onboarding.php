@@ -2,7 +2,7 @@
 namespace Tribe\Service_Providers;
 
 use \Tribe\Onboarding\Main as Onboarding_Main;
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 /**
  * Class Onboarding

@@ -1,6 +1,6 @@
 <?php
 
-use TEC\Common\lucatume\DI52\ContainerException;
+use TEC\Common\lucatume\Contracts52\ContainerException;
 
 /**
  * Sanitizes string values.
@@ -787,7 +787,7 @@ if ( ! function_exists( 'tribe_get_class_instance' ) ) {
 	 *
 	 * @since 4.10.0
 	 *
-	 * @see   \TEC\Common\lucatume\DI52\Builders\ValueBuilder\App::isBound()
+	 * @see   \TEC\Common\lucatume\Contracts52\Builders\ValueBuilder\App::isBound()
 	 * @see   \tribe()
 	 *
 	 * @param string|object $class The plugin class' singleton name, class name, or instance.
