@@ -81,7 +81,7 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 	public function to_array(): array {
 		$fields = [];
 		foreach ( $this->get_fields() as $key => $field ) {
-			$fields[ $key ] = $field->to_array( $this );
+			$fields[ $key ] = $field->to_array();
 		}
 
 		return [

@@ -111,7 +111,7 @@ abstract class Info_Field_Abstract implements Info_Field_Interface {
 	/**
 	 * @inheritDoc
 	 */
-	public function to_array( Info_Section_Abstract $section ): array {
+	public function to_array(): array {
 		return [
 			'id'       => $this->filter_param( 'id', $this->get_id() ),
 			'label'    => $this->filter_param( 'label', $this->get_label() ),
