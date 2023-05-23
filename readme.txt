@@ -1,12 +1,10 @@
 == Changelog ==
 
-= [TBD] TBD =
-
-* Enhancement - Made settings field widths more uniform and mobile-friendly. [ET-1734]
-
 = [5.0.18] TBD =
 
 * Feature - Include a Integrations framework that was ported from The Events Calendar.
+* Enhancement - Made settings field widths more uniform and mobile-friendly. [ET-1734]
+* Fix - Change image field styling for a better look and user experience.
 
 = [5.0.17] 2023-05-08 =
 
