@@ -113,12 +113,12 @@ abstract class Info_Field_Abstract implements Info_Field_Interface {
 	 */
 	public function to_array( Info_Section_Abstract $section ): array {
 		return [
-			'id'       => $this->filter_param( 'id', $section, $this->get_id() ),
-			'label'    => $this->filter_param( 'label', $section, $this->get_label() ),
-			'value'    => $this->filter_param( 'value', $section, $this->get_value() ),
-			'priority' => $this->filter_param( 'priority', $section, $this->get_priority() ),
-			'private'  => $this->filter_param( 'private', $section, $this->is_private() ),
-			'debug'    => $this->filter_param( 'debug', $section, $this->get_debug() ),
+			'id'       => $this->filter_param( 'id', $this->get_id() ),
+			'label'    => $this->filter_param( 'label', $this->get_label() ),
+			'value'    => $this->filter_param( 'value', $this->get_value() ),
+			'priority' => $this->filter_param( 'priority', $this->get_priority() ),
+			'private'  => $this->filter_param( 'private', $this->is_private() ),
+			'debug'    => $this->filter_param( 'debug', $this->get_debug() ),
 		];
 	}
 
@@ -127,37 +127,33 @@ abstract class Info_Field_Abstract implements Info_Field_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param string                $param
-	 * @param Info_Section_Abstract $section Current Section.
-	 * @param mixed                 $value
+	 * @param string                $param   The field parameter we're filtering.
+	 * @param mixed                 $value   Value of the field.
 	 *
 	 * @return mixed
 	 */
-	protected function filter_param( string $param, Info_Section_Abstract $section, $value = null ) {
-		$section_slug = $section::get_slug();
+	protected function filter_param( string $param, $value = null ) {
 		$field_id     = $this->get_id();
 
 		/**
-		 * Filters the get of a particular param for all sections.
+		 * Filters the get of a particular param for all fields.
 		 *
 		 * @since TBD
 		 *
 		 * @param mixed                 $value   Value of the field.
-		 * @param Info_Section_Abstract $section Current Section.
 		 * @param Info_Field_Abstract   $field   Current Field.
 		 */
-		$value = apply_filters( "tec_debug_info_section_{$section_slug}_field_get_{$param}", $value, $section, $this );
+		$value = apply_filters( "tec_debug_info_field_get_{$param}", $value, $this );
 
 		/**
-		 * Filters the get of a particular param for a specific section.
+		 * Filters the get of a particular param for a specific section + field combination.
 		 *
 		 * @since TBD
 		 *
 		 * @param mixed                 $value   Value of the field.
-		 * @param Info_Section_Abstract $section Current Section.
 		 * @param Info_Field_Abstract   $field   Current Field.
 		 */
-		return apply_filters( "tec_debug_info_section_{$section_slug}_field_{$field_id}_get_{$param}", $value, $section, $this );
+		return apply_filters( "tec_debug_info_field_{$field_id}_get_{$param}", $value, $this );
 	}
 
 }

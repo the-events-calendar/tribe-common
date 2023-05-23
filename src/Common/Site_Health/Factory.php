@@ -53,7 +53,7 @@ class Factory {
 	}
 
 	/**
-	 * Gets the section that we will insert all the sections registered by the factory.
+	 * Gets the section after which we will insert all the factory-generated sections.
 	 *
 	 * @since TBD
 	 *
