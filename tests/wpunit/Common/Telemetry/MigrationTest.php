@@ -53,7 +53,7 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 			'fs_accounts',
 			[
 				'sites' => [
-					'the-events-calendar' => ( object ) [
+					'the-events-calendar' => [
 						'is_disconnected' => true,
 					],
 				],
@@ -66,8 +66,34 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 			'fs_accounts',
 			[
 				'sites' => [
-					'the-events-calendar' => ( object ) [
+					'the-events-calendar' => [
 						'is_disconnected' => false,
+					],
+				],
+			 ]
+		);
+	}
+
+	protected function setup_fs_accounts_no_tec() {
+		update_option(
+			'fs_accounts',
+			[
+				'sites' => [
+					'some-plugin' => [
+						'is_disconnected' => false,
+					],
+				],
+			 ]
+		);
+	}
+
+	protected function setup_fs_accounts_bad_data() {
+		update_option(
+			'fs_accounts',
+			[
+				'sites' => [
+					'the-events-calendar' => [
+						'is_disconnected' => 'luca',
 					],
 				],
 			 ]
@@ -79,14 +105,14 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 			'fs_accounts',
 			[
 				'sites' => [
-					'the-events-calendar' => ( object ) [
+					'the-events-calendar' => [
 						'is_disconnected' => false,
 					],
-					'event-tickets' => ( object ) [
+					'event-tickets' => [
 						'is_disconnected' => true,
 					],
 				],
-			 ]
+			]
 		);
 	}
 
@@ -122,6 +148,34 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
+	 * Tests the positive case of is_opted_in
+	 */
+	public function it_should_detect_no_tec() {
+		$this->remove_all_freemius_meta();
+
+		$sut = $this->make_instance();
+
+		$this->setup_fs_accounts_no_tec();
+
+		$this->assertFalse( $sut->is_opted_in() );
+	}
+
+	/**
+	 * @test
+	 * Tests the positive case of is_opted_in
+	 */
+	public function it_should_detect_bad_data() {
+		$this->remove_all_freemius_meta();
+
+		$sut = $this->make_instance();
+
+		$this->setup_fs_accounts_bad_data();
+
+		$this->assertFalse( $sut->is_opted_in() );
+	}
+
+	/**
+	 * @test
 	 * Tests the negative case of is_opted_in
 	 */
 	public function it_should_detect_opted_out_freemius() {
@@ -137,6 +191,7 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 	 * Tests the negative case of should_load
 	 */
 	public function it_should_not_load_if_no_freemius() {
+		$this->remove_all_freemius_meta();
 		$sut = $this->make_instance();
 
 		$this->remove_all_freemius_meta();
@@ -149,6 +204,7 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 	 * Tests the positive case of should_load
 	 */
 	public function it_should_not_load_if_freemius_opted_out() {
+		$this->remove_all_freemius_meta();
 		$sut = $this->make_instance();
 
 		$this->setup_fs_accounts_disconnected();

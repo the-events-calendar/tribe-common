@@ -10,6 +10,7 @@ namespace TEC\Common\Telemetry;
 
 use TEC\Common\StellarWP\Telemetry\Config;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Subscriber;
+use Tribe__Utils__Array as Arr;
 
 /**
  * Class Migration
@@ -26,7 +27,7 @@ final class Migration {
 	 *
 	 * @var string
 	 */
-	public $fs_accounts_slug = 'tec_freemius_accounts_archive';
+	public static $fs_accounts_slug = 'tec_freemius_accounts_archive';
 
 	/**
 	 * The key we back up modified fs_accounts data to.
@@ -35,7 +36,7 @@ final class Migration {
 	 *
 	 * @var string
 	 */
-	public $fs_accounts_data = 'tec_freemius_accounts_data_archive';
+	public static $fs_accounts_data = 'tec_freemius_accounts_data_archive';
 
 	/**
 	 * The key we back up fs_active_plugins data to.
@@ -44,7 +45,7 @@ final class Migration {
 	 *
 	 * @var string
 	 */
-	public $fs_plugins_slug = 'tec_freemius_plugins_archive';
+	public static $fs_plugins_slug = 'tec_freemius_plugins_archive';
 
 	/**
 	 * List of our plugins to check for.
@@ -58,9 +59,16 @@ final class Migration {
 		'event-tickets'
 	];
 
+	/**
+	 * Get and massage the fs_accounts
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
 	private function get_fs_accounts() {
 		// If we've already been here for some reason, don't do it all again.
-		$data = get_option( $this->fs_accounts_data );
+		$data = get_option( static::$fs_accounts_data );
 		if ( ! empty( $data ) ) {
 			return maybe_unserialize( $data );
 		}
@@ -69,27 +77,31 @@ final class Migration {
 		$fs_accounts = $wpdb->get_var( "SELECT `option_value` FROM $wpdb->options WHERE `option_name` = 'fs_accounts' LIMIT 1" );
 
 		if ( empty( $fs_accounts ) || $fs_accounts instanceof \WP_Error ) {
-			return false;
+			return [];
 		}
 
 		// Store original here as backup.
-		update_option( $this->fs_accounts_slug, $fs_accounts );
+		update_option( static::$fs_accounts_slug, $fs_accounts );
 
 		// Prevent issues with incomplete classes
 		$fs_accounts = preg_replace_callback(
-			'/O:8:"FS_Plugin":([^:]+):/m',
+			'/O:(\d+):"([^:]+)":([^:]+):/m',
 			function( $matches ) {
-				$key_slug = "__key";
+				if ( $matches[2] === 'stdClass' ) {
+					return $matches[0];
+				}
+
+				$key_slug = "tec_fs_key";
 				$key_slug_count = strlen( $key_slug );
 				$new_size = $matches[3] + 1;
 
-				return "O:8:\"stdClass\":{$new_size}:{s:{$key_slug_count}:\"{$key_slug}\";s:{$matches[1]}:\"{$matches[2]}\";";
+				return "a:{$new_size}:{s:{$key_slug_count}:\"{$key_slug}\";s:{$matches[1]}:\"{$matches[2]}\";";
 			},
 			$fs_accounts
 		);
 
 		// Store the modified data here.
-		update_option( $this->fs_accounts_data, $fs_accounts );
+		update_option( static::$fs_accounts_data, $fs_accounts );
 
 		// return the modified data.
 		return maybe_unserialize( $fs_accounts );
@@ -105,33 +117,23 @@ final class Migration {
 	public function is_opted_in(): bool {
 		$fs_accounts = $this->get_fs_accounts();
 
-		if ( empty( $fs_accounts ) ) {
+		$sites = Arr::get( $fs_accounts, 'sites', [] );
+
+		if ( empty( $sites ) ) {
 			return false;
 		}
 
-		if ( $fs_accounts instanceof \WP_Error ) {
-			return false;
-		}
-
-		if ( ! isset( $fs_accounts['sites'] ) ) {
-			return false;
-		}
+		$disconnected = [];
 
 		foreach ( $this->our_plugins as $plugin ) {
-			// Plugin not recorded, skip.
-			if ( ! isset( $fs_accounts['sites'][$plugin] ) ) {
+			if ( ! isset( $sites[ $plugin ] ) ) {
 				continue;
 			}
 
-			// Plugin not connected, skip.
-			if ( ! empty( $fs_accounts['sites'][$plugin]->is_disconnected ) ) {
-				continue;
-			}
-
-			return true;
+			$disconnected[] = (bool) Arr::get( $sites, [ $plugin, 'is_disconnected' ] );
 		}
 
-		return false;
+		return in_array( false, $disconnected, true );
 	}
 
 	/**
@@ -142,6 +144,11 @@ final class Migration {
 	 * @return boolean
 	 */
 	public function should_load(): bool {
+		// If we've already checked, bail.
+		if ( get_option( static::$fs_accounts_data ) ) {
+			return false;
+		}
+
 		// If we're not opted in to Freemius, bail.
 		if ( ! $this->is_opted_in() ) {
 			return false;
@@ -246,7 +253,7 @@ final class Migration {
 	 */
 	private function handle_fs_active_plugins( $fs_active_plugins ): void {
 		// Store a backup of the original option.
-		update_option( $this->fs_plugins_slug, $fs_active_plugins );
+		update_option( static::$fs_plugins_slug, $fs_active_plugins );
 
 		foreach ( $this->our_plugins as $plugin ) {
 			$plugin .= '/common/vendor/freemius';
@@ -355,10 +362,12 @@ final class Migration {
 	 */
 	public function restore_original_freemius() {
 		global $wpdb;
-		$fs_accounts_original = $wpdb->get_var( "SELECT `option_value` FROM $wpdb->options WHERE `option_name` = '$this->fs_accounts_slug' LIMIT 1" );
+		$fs_accounts_slug = static::$fs_accounts_slug;
+		$fs_accounts_original = $wpdb->get_var( "SELECT `option_value` FROM $wpdb->options WHERE `option_name` = '{$fs_accounts_slug}' LIMIT 1" );
 		update_option( 'fs_accounts', $fs_accounts_original );
 
-		$fs_plugins_original  = $wpdb->get_var( "SELECT `option_value` FROM $wpdb->options WHERE `option_name` = '$this->fs_plugins_slug' LIMIT 1" );
+		$fs_plugins_slug = static::$fs_plugins_slug;
+		$fs_plugins_original  = $wpdb->get_var( "SELECT `option_value` FROM $wpdb->options WHERE `option_name` = '{$fs_plugins_slug}' LIMIT 1" );
 		update_option( 'fs_active_plugins', $fs_plugins_original );
 	}
 }
