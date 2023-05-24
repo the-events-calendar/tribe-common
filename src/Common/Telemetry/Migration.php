@@ -77,7 +77,7 @@ final class Migration {
 
 		// Prevent issues with incomplete classes
 		$fs_accounts = preg_replace_callback(
-			'/O:(\d+):"([^:]+)":([^:]+):/m',
+			'/O:8:"FS_Plugin":([^:]+):/m',
 			function( $matches ) {
 				$key_slug = "__key";
 				$key_slug_count = strlen( $key_slug );
@@ -105,22 +105,26 @@ final class Migration {
 	public function is_opted_in(): bool {
 		$fs_accounts = $this->get_fs_accounts();
 
-		if ( empty( $fs_accounts ) || $fs_accounts instanceof \WP_Error ) {
+		if ( empty( $fs_accounts ) ) {
 			return false;
 		}
 
-		if ( ! isset( $fs_accounts->sites ) ) {
+		if ( $fs_accounts instanceof \WP_Error ) {
+			return false;
+		}
+
+		if ( ! isset( $fs_accounts['sites'] ) ) {
 			return false;
 		}
 
 		foreach ( $this->our_plugins as $plugin ) {
 			// Plugin not recorded, skip.
-			if ( ! isset( $fs_accounts->sites->$plugin ) ) {
+			if ( ! isset( $fs_accounts['sites'][$plugin] ) ) {
 				continue;
 			}
 
 			// Plugin not connected, skip.
-			if ( empty( $fs_accounts->sites->$plugin->is_disconnected ) ) {
+			if ( ! empty( $fs_accounts['sites'][$plugin]->is_disconnected ) ) {
 				continue;
 			}
 

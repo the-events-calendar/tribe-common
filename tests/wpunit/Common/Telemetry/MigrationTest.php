@@ -53,10 +53,8 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 			'fs_accounts',
 			[
 				'sites' => [
-					'sites' => [
-						'the-events-calendar' => ( object ) [
-							'is_disconnected' => true,
-						],
+					'the-events-calendar' => ( object ) [
+						'is_disconnected' => true,
 					],
 				],
 			 ]
@@ -68,10 +66,8 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 			'fs_accounts',
 			[
 				'sites' => [
-					'sites' => [
-						'the-events-calendar' => ( object ) [
-							'is_disconnected' => false,
-						],
+					'the-events-calendar' => ( object ) [
+						'is_disconnected' => false,
 					],
 				],
 			 ]
@@ -83,13 +79,11 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 			'fs_accounts',
 			[
 				'sites' => [
-					'sites' => [
-						'the-events-calendar' => ( object ) [
-							'is_disconnected' => false,
-						],
-						'event-tickets' => ( object ) [
-							'is_disconnected' => true,
-						],
+					'the-events-calendar' => ( object ) [
+						'is_disconnected' => false,
+					],
+					'event-tickets' => ( object ) [
+						'is_disconnected' => true,
 					],
 				],
 			 ]
@@ -131,9 +125,9 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 	 * Tests the negative case of is_opted_in
 	 */
 	public function it_should_detect_opted_out_freemius() {
-		$this->setup_fs_accounts_disconnected();
-
 		$sut = $this->make_instance();
+
+		$this->setup_fs_accounts_disconnected();
 
 		$this->assertFalse( $sut->is_opted_in() );
 	}
@@ -143,9 +137,21 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 	 * Tests the negative case of should_load
 	 */
 	public function it_should_not_load_if_no_freemius() {
+		$sut = $this->make_instance();
+
 		$this->remove_all_freemius_meta();
 
+		$this->assertFalse( $sut->should_load() );
+	}
+
+	/**
+	 * @test
+	 * Tests the positive case of should_load
+	 */
+	public function it_should_not_load_if_freemius_opted_out() {
 		$sut = $this->make_instance();
+
+		$this->setup_fs_accounts_disconnected();
 
 		$this->assertFalse( $sut->should_load() );
 	}
@@ -155,9 +161,9 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 	 * Tests the positive case of should_load
 	 */
 	public function it_should_load_if_freemius() {
-		$this->setup_fs_accounts_connected();
-
 		$sut = $this->make_instance();
+
+		$this->setup_fs_accounts_connected();
 
 		$this->assertTrue( $sut->should_load() );
 	}
@@ -166,22 +172,10 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 * Tests the positive case of should_load
 	 */
-	public function it_should_not_load_if_freemius_opted_out() {
-		$this->setup_fs_accounts_disconnected();
-
-		$sut = $this->make_instance();
-
-		$this->assertFalse( $sut->should_load() );
-	}
-
-	/**
-	 * @test
-	 * Tests the positive case of should_load
-	 */
 	public function it_should_load_if_freemius_mixed() {
-		$this->setup_fs_accounts_mixed();
-
 		$sut = $this->make_instance();
+
+		$this->setup_fs_accounts_mixed();
 
 		$this->assertTrue( $sut->should_load() );
 	}
