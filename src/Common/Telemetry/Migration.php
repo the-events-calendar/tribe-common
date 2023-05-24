@@ -26,7 +26,7 @@ final class Migration {
 	 *
 	 * @var string
 	 */
-	public static $fs_accounts_slug = 'tec_freemius_accounts_archive';
+	public $fs_accounts_slug = 'tec_freemius_accounts_archive';
 
 	/**
 	 * The key we back up modified fs_accounts data to.
@@ -35,7 +35,7 @@ final class Migration {
 	 *
 	 * @var string
 	 */
-	public static $fs_accounts_data = 'tec_freemius_accounts_data_archive';
+	public $fs_accounts_data = 'tec_freemius_accounts_data_archive';
 
 	/**
 	 * The key we back up fs_active_plugins data to.
@@ -44,7 +44,7 @@ final class Migration {
 	 *
 	 * @var string
 	 */
-	public static $fs_plugins_slug = 'tec_freemius_plugins_archive';
+	public $fs_plugins_slug = 'tec_freemius_plugins_archive';
 
 	/**
 	 * List of our plugins to check for.
@@ -60,7 +60,7 @@ final class Migration {
 
 	private function get_fs_accounts() {
 		// If we've already been here for some reason, don't do it all again.
-		$data = get_option( self::$fs_accounts_data );
+		$data = get_option( $this->fs_accounts_data );
 		if ( ! empty( $data ) ) {
 			return maybe_unserialize( $data );
 		}
@@ -73,7 +73,7 @@ final class Migration {
 		}
 
 		// Store original here as backup.
-		update_option( self::$fs_accounts_slug, $fs_accounts );
+		update_option( $this->fs_accounts_slug, $fs_accounts );
 
 		// Prevent issues with incomplete classes
 		$fs_accounts = preg_replace_callback(
@@ -89,7 +89,7 @@ final class Migration {
 		);
 
 		// Store the modified data here.
-		update_option( self::$fs_accounts_data, $fs_accounts );
+		update_option( $this->fs_accounts_data, $fs_accounts );
 
 		// return the modified data.
 		return maybe_unserialize( $fs_accounts );
@@ -242,7 +242,7 @@ final class Migration {
 	 */
 	private function handle_fs_active_plugins( $fs_active_plugins ): void {
 		// Store a backup of the original option.
-		update_option( self::$fs_plugins_slug, $fs_active_plugins );
+		update_option( $this->fs_plugins_slug, $fs_active_plugins );
 
 		foreach ( $this->our_plugins as $plugin ) {
 			$plugin .= '/common/vendor/freemius';
@@ -342,5 +342,19 @@ final class Migration {
 	public function auto_opt_in() {
 		$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
 		$opt_in_subscriber->opt_in( Telemetry::get_stellar_slug() );
+	}
+
+	/**
+	 * Method to restore the original fs_accounts and fs_active_plugins options.
+	 *
+	 * @since TBD
+	 */
+	public function restore_original_freemius() {
+		global $wpdb;
+		$fs_accounts_original = $wpdb->get_var( "SELECT `option_value` FROM $wpdb->options WHERE `option_name` = '$this->fs_accounts_slug' LIMIT 1" );
+		update_option( 'fs_accounts', $fs_accounts_original );
+
+		$fs_plugins_original  = $wpdb->get_var( "SELECT `option_value` FROM $wpdb->options WHERE `option_name` = '$this->fs_plugins_slug' LIMIT 1" );
+		update_option( 'fs_active_plugins', $fs_plugins_original );
 	}
 }
