@@ -212,16 +212,11 @@ final class Migration {
 
 		// If only our plugins are present, short-cut and delete everything.
 		if ( count( $this->our_plugins ) === count( $fs_active_plugins->plugins ) ) {
-			$this->remove_all_freemius();
-
 			return;
 		}
 
 		// Remove us from fs_active_plugins.
 		$this->handle_fs_active_plugins( $fs_active_plugins );
-
-		// Remove us from fs_accounts.
-		$this->handle_fs_accounts( $fs_accounts );
 
 	}
 
@@ -270,82 +265,6 @@ final class Migration {
 	}
 
 	/**
-	 * Removes all freemius options from the database.
-	 * Only used if we were the *only* active plugin(s).
-	 *
-	 * @since TBD
-	 */
-	private function remove_all_freemius(): void {
-		delete_option( 'fs_active_plugins' );
-		delete_option( 'fs_accounts' );
-		delete_option( 'fs_api_cache' );
-		delete_option( 'fs_debug_mode' );
-		delete_option( 'fs_gdpr' );
-	}
-
-	/**
-	 * Removes our plugins from the fs_accounts option.
-	 *
-	 * @since TBD
-	 *
-	 * @param array<string,mixed> $fs_accounts
-	 */
-	private function handle_fs_accounts( $fs_accounts ): void {
-		foreach ( $this->our_plugins as $plugin ) {
-			$fs_accounts = $this->strip_plugin_from_fs_accounts( $plugin, $fs_accounts );
-		}
-
-		// Update the option in the database with our edits.
-		update_option( 'fs_accounts', $fs_accounts );
-	}
-
-	/**
-	 * Contains all the logic for stripping our plugins from the fs_accounts option.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $plugin
-	 * @param array<string,mixed> $fs_accounts
-	 *
-	 * @return array<string,mixed>
-	 */
-	private function strip_plugin_from_fs_accounts( $plugin, $fs_accounts ): array {
-		foreach( $fs_accounts['id_slug_type_path_map'] as $key => $data ) {
-			if ( $data['slug'] === $plugin ) {
-				unset( $fs_accounts['id_slug_type_path_map'][ $key ] );
-			}
-		}
-
-		// These use the slug as the key.
-		$straight_keys = [
-			'plugins',
-			'plugin_data',
-			'plans',
-			'admin_notices',
-			'sites'
-		];
-
-		foreach( $straight_keys as $key ) {
-			if ( isset( $fs_accounts[ $key ][ $plugin ] ) ) {
-				unset( $fs_accounts[ $key ][ $plugin ] );
-			}
-		}
-
-		// These use the path instead of the slug as the key.
-		$plugin = $plugin . '/' . $plugin . '.php';
-		if ( isset( $fs_accounts['file_slug_map'][ $plugin ] ) ) {
-			unset( $fs_accounts['file_slug_map'][ $plugin ] );
-		}
-
-		if ( isset( $fs_accounts['active_plugins']->plugins[ $plugin ] ) ) {
-			unset( $fs_accounts['active_plugins']->plugins[ $plugin ] );
-		}
-
-		// ...and return!
-		return $fs_accounts;
-	}
-
-	/**
 	 * Opts the user in to Telemetry.
 	 *
 	 * @since TBD
@@ -353,21 +272,5 @@ final class Migration {
 	public function auto_opt_in() {
 		$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
 		$opt_in_subscriber->opt_in( Telemetry::get_stellar_slug() );
-	}
-
-	/**
-	 * Method to restore the original fs_accounts and fs_active_plugins options.
-	 *
-	 * @since TBD
-	 */
-	public function restore_original_freemius() {
-		global $wpdb;
-		$fs_accounts_slug = static::$fs_accounts_slug;
-		$fs_accounts_original = $wpdb->get_var( "SELECT `option_value` FROM $wpdb->options WHERE `option_name` = '{$fs_accounts_slug}' LIMIT 1" );
-		update_option( 'fs_accounts', $fs_accounts_original );
-
-		$fs_plugins_slug = static::$fs_plugins_slug;
-		$fs_plugins_original  = $wpdb->get_var( "SELECT `option_value` FROM $wpdb->options WHERE `option_name` = '{$fs_plugins_slug}' LIMIT 1" );
-		update_option( 'fs_active_plugins', $fs_plugins_original );
 	}
 }
