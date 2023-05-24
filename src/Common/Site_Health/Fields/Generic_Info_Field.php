@@ -16,16 +16,18 @@ class Generic_Info_Field extends Info_Field_Abstract {
 	/**
 	 * Configure all the params for a generic field.
 	 *
-	 * @param string      $id
-	 * @param string      $label
-	 * @param string|null $value
-	 * @param int         $priority
+	 * @param string                           $id
+	 * @param string                           $label
+	 * @param array<string,string>|string|null $value
+	 * @param int                              $priority
 	 */
-	public function __construct( string $id, string $label, ?string $value, int $priority = 50 ) {
-		$this->id       = $id;
-		$this->label    = $label;
-		$this->value    = $value;
-		$this->priority = $priority;
+	public function __construct( string $id, string $label, $value = null, int $priority = 50 ) {
+		$this->id         = $id;
+		$this->label      = $label;
+		$this->value      = $value;
+		$this->priority   = $priority;
+		$this->is_private = true;
+		$this->debug      = false;
 	}
 
 	/**

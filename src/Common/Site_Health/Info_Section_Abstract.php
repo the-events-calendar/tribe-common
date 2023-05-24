@@ -2,6 +2,7 @@
 
 namespace TEC\Common\Site_Health;
 
+use stdClass;
 use TEC\Common\Site_Health\Fields\Generic_Info_Field;
 
 /**
@@ -240,8 +241,8 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 	 *
 	 * @return array<string,int> An array of stati (key) with counts (value).
 	 */
-	public function clean_status_counts( $obj ): array {
-		$obj = (array) $obj;
+	public function clean_post_status_counts( string $post_type ): array {
+		$obj = wp_count_posts( $post_type );
 		$stati = [
 			'publish',
 			'future',
@@ -250,7 +251,7 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 		];
 
 		/**
-		 * Allows other plugins to add stati to track.
+		 * Allows other plugins to add/remove stati to track.
 		 *
 		 * @param array<string|bool> $stati An array of stati to track.
 		 */

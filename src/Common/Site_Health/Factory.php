@@ -19,15 +19,30 @@ class Factory {
 	 *
 	 * @since TBD
 	 *
-	 * @param string      $id
-	 * @param string      $label
-	 * @param string|null $value
-	 * @param int         $priority (optional) By default all fields are generated with priority 50.
+	 * @param string            $id
+	 * @param string            $label
+	 * @param array|string|null $value
+	 * @param int               $priority (optional) By default all fields are generated with priority 50.
 	 *
 	 * @return Info_Field_Abstract
 	 */
-	public function generate_generic_field( string $id, string $label, ?string $value, int $priority = 50 ): Info_Field_Abstract {
+	public static function generate_generic_field( string $id, string $label, $value, int $priority = 50 ): Info_Field_Abstract {
 		return new Fields\Generic_Info_Field( $id, $label, $value, $priority );
+	}
+
+	/**
+	 * Generates a Post type count field from a set of arguments.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $id
+	 * @param string $post_type
+	 * @param int    $priority (optional) By default all fields are generated with priority 50.
+	 *
+	 * @return Info_Field_Abstract
+	 */
+	public static function generate_post_status_count_field( string $id, string $post_type, int $priority = 50 ): Info_Field_Abstract {
+		return new Fields\Post_Status_Count_Field( $id, $post_type, $priority );
 	}
 
 	/**
