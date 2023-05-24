@@ -27,7 +27,7 @@ final class Migration {
 	 *
 	 * @var string
 	 */
-	public $fs_accounts_slug = 'tec_freemius_accounts_archive';
+	public static $fs_accounts_slug = 'tec_freemius_accounts_archive';
 
 	/**
 	 * The key we back up fs_active_plugins data to.
@@ -164,7 +164,7 @@ final class Migration {
 		$fs_accounts = get_option( 'fs_accounts' );
 
 		// Store these for later.
-		update_option( $this->fs_accounts_slug, $fs_accounts );
+		update_option( self::$fs_accounts_slug, $fs_accounts );
 
 		// If only our plugins are present, short-cut and delete everything.
 		if ( count( $this->our_plugins ) === count( $fs_active_plugins->plugins ) ) {
@@ -233,7 +233,7 @@ final class Migration {
 	 */
 	private function handle_fs_accounts( $fs_accounts ): void {
 		// Store a backup of the original option.
-		update_option( $this->fs_accounts_slug, $fs_accounts );
+		update_option( self::$fs_accounts_slug, $fs_accounts );
 
 		foreach ( $this->our_plugins as $plugin ) {
 			$fs_accounts = $this->strip_plugin_from_fs_accounts( $plugin, $fs_accounts );
