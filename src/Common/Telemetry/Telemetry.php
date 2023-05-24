@@ -231,6 +231,13 @@ final class Telemetry {
 			'intro'                 => __( "Hi, {$user_name}! This is an invitation to help our StellarWP community. If you opt-in, some data about your usage of TEC Common and future StellarWP Products will be shared with our teams (so they can work their butts off to improve). We will also share some helpful info on WordPress, and our products from time to time. And if you skip this, that’s okay! Our products still work just fine.", 'tribe-common' ),
 		];
 
+		/**
+		 * Allows overriding the modal optin args.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,mixed> $optin_args The modal arguments to filter.
+		 */
 		$this->optin_args = apply_filters( 'tec_common_telemetry_optin_args', $optin_args );
 
 		return array_merge( $args, $this->optin_args );

@@ -5,7 +5,7 @@ namespace TEC\Common\Site_Health\Fields;
 use TEC\Common\Site_Health\Info_Field_Abstract;
 
 /**
- * Class Generic_Info_Field
+ * Class Post_Status_Count_Field
  *
  * @since   TBD
  *
@@ -60,7 +60,7 @@ class Post_Status_Count_Field extends Generic_Info_Field {
 	 * @inheritDoc
 	 */
 	public function get_value() {
-		return $this->clean_post_status_counts();
+		return $this->get_counts();
 	}
 
 	/**
@@ -73,7 +73,7 @@ class Post_Status_Count_Field extends Generic_Info_Field {
 	 *
 	 * @return array<string,int> An array of stati (key) with counts (value).
 	 */
-	protected function clean_post_status_counts(): array {
+	protected function get_counts(): array {
 		$counts = (array) wp_count_posts( $this->post_type );
 		$stati  = [
 			'publish',

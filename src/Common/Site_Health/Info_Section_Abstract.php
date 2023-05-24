@@ -230,40 +230,4 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 			return ( $a < $b ) ? - 1 : 1;
 		} );
 	}
-
-	/**
-	 * Converts a post status count object to an array in the format
-	 *            [ (string) status_slug => (int) count]
-	 *
-	 * @since TBD
-	 *
-	 * @param stdClass $obj The object returned from wp_count_posts().
-	 *
-	 * @return array<string,int> An array of stati (key) with counts (value).
-	 */
-	public function clean_post_status_counts( string $post_type ): array {
-		$obj = wp_count_posts( $post_type );
-		$stati = [
-			'publish',
-			'future',
-			'draft',
-			'pending',
-		];
-
-		/**
-		 * Allows other plugins to add/remove stati to track.
-		 *
-		 * @param array<string|bool> $stati An array of stati to track.
-		 */
-		apply_filters( 'tec_site_heath_event_stati', $stati );
-
-		$keys = array_keys( $obj );
-		foreach( $keys as $key ) {
-			if ( ! in_array( $key, $stati ) ) {
-				unset( $obj[ $key ] );
-			}
-		}
-
-		return $obj;
-	}
 }

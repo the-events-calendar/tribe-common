@@ -39,15 +39,6 @@ final class Migration {
 	public $fs_plugins_slug = 'tec_freemius_plugins_archive';
 
 	/**
-	 * Placeholder for fs_accounts data
-	 *
-	 * @since TBD
-	 *
-	 * @var [type]
-	 */
-	private $fs_accounts;
-
-	/**
 	 * List of our plugins to check for.
 	 *
 	 * @since TBD
@@ -118,6 +109,10 @@ final class Migration {
 
 		/**
 		 * Allows filtering of whether the class should load/run.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $should_load Whether the class should load/run.
 		 */
 		return apply_filters( 'tec_telemetry_migration_should_load', true );
 	}
