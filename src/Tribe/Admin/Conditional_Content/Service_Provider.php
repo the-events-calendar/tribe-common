@@ -8,14 +8,14 @@
 
 namespace Tribe\Admin\Conditional_Content;
 
-use TEC\Common\Contracts\Service_Provider as DI_Provider;
+use TEC\Common\Contracts\Service_Provider as Provider_Contract;
 
 /**
  * Conditional Content Provider.
  *
  * @since 4.14.7
  */
-class Service_Provider extends DI_Provider {
+class Service_Provider extends Provider_Contract {
 
 
 	/**
