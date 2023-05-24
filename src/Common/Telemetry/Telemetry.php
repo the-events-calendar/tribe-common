@@ -68,6 +68,13 @@ final class Telemetry {
 	 */
 	private static $parent_plugin = '';
 
+	/**
+	 * The slugs for the base TEC plugins.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
 	private static $base_parent_slugs = [
 		'the-events-calendar',
 		'event-tickets'
@@ -119,7 +126,7 @@ final class Telemetry {
 		self::$stellar_slug = self::get_stellar_slug();
 		$telemetry_server   = ! defined('TELEMETRY_SERVER') ? 'https://telemetry.stellarwp.com/api/v1': TELEMETRY_SERVER;
 
-        Config::set_server_url( $telemetry_server );
+		Config::set_server_url( $telemetry_server );
 
 		// Set a unique prefix for actions & filters.
 		Config::set_hook_prefix( self::$hook_prefix );
@@ -131,6 +138,14 @@ final class Telemetry {
 		Core::instance()->init( self::$plugin_path );
 
 
+		/**
+		 * Allow plugins to hook in and add themselves,
+		 * running their own actions once Telemetry is initiated.
+		 *
+		 * @since TBD
+		 *
+		 * @param self $telemetry The Telemetry instance.
+		 */
 		do_action( 'tec_common_telemetry_loaded', $this );
 	}
 
@@ -229,6 +244,13 @@ final class Telemetry {
 	 * @return string
 	 */
 	public static function get_permissions_url(): string {
+		/**
+		 * Allow overriding the permissions URL.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $url The URL to the permissions page.
+		 */
 		return esc_url( apply_filters( 'tec_common_telemetry_permissions_url', 'https://evnt.is/1bcl' ) );
 	}
 
@@ -240,6 +262,13 @@ final class Telemetry {
 	 * @return string
 	 */
 	public static function get_terms_url(): string {
+		/**
+		 * Allow overriding the Terms of Service URL.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $url The URL to the Terms of Service page.
+		 */
 		return esc_url( apply_filters( 'tec_common_telemetry_terms_url', 'https://evnt.is/1bcm' ) );
 	}
 
@@ -251,6 +280,13 @@ final class Telemetry {
 	 * @return string
 	 */
 	public static function get_privacy_url(): string {
+		/**
+		 * Allow overriding the Privacy Policy URL.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $url The URL to the Privacy Policy page.
+		 */
 		return esc_url( apply_filters( 'tec_common_telemetry_privacy_url', 'https://evnt.is/1bcn' ) );
 	}
 
@@ -326,6 +362,14 @@ final class Telemetry {
 			return;
 		}
 
+		/**
+		 * Telemetry uses this to determine when/where the optin modal should be shown.
+		 * i.e. the modal is shown when we run this.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $plugin_slug The slug of the plugin showing the modal.
+		 */
 		do_action( 'stellarwp/telemetry/optin', $plugin_slug );
 	}
 
@@ -335,8 +379,9 @@ final class Telemetry {
 	 * @return void
 	 */
 	public function save_opt_in_setting_field(): void {
+		$current_tab = tribe_get_var( 'current-settings-tab' );
 		// Return early if not saving the Opt In Status field.
-		if ( ! isset( $_POST[ 'current-settings-tab' ] ) ) {
+		if ( ! empty( $current_tab ) ) {
 			return;
 		}
 
@@ -360,7 +405,7 @@ final class Telemetry {
 		 */
 		$optin_tab = apply_filters( "tec_common_telemetry_{$parent}_optin_tab", $optin_tab );
 
-		if ( $_POST[ 'current-settings-tab' ] !== $optin_tab ) {
+		if ( $current_tab !== $optin_tab ) {
 			return;
 		}
 
@@ -401,6 +446,15 @@ final class Telemetry {
 	 * @return array<string,string> An array of plugins in the format [ 'plugin_slug' => 'plugin_path' ]
 	 */
 	public static function get_tec_telemetry_slugs() {
+		/**
+		 * Filter for plugins to hooked into Telemetry and add themselves.
+		 * This acts a Telemetry "registry" for all TEC plugins.
+		 * Used to ensure TEC plugins get (de)activated as a group.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,string> $slugs An array of plugins in the format [ 'plugin_slug' => 'plugin_path' ]
+		 */
 		return apply_filters( 'tec_telemetry_slugs', [] );
 	}
 
@@ -435,7 +489,7 @@ final class Telemetry {
 
 
 		if ( NULL === $opted ) {
-			$opted = ! empty( $option[ 'plugins' ][ $plugin_slug ][ 'optin' ] );
+			$opted = ! empty( $option['plugins'][ $plugin_slug ]['optin'] );
 		}
 
 		foreach ( $tec_slugs as $slug => $path ) {

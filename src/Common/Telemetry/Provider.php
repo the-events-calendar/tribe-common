@@ -34,6 +34,11 @@ class Provider extends Service_Provider {
 		$this->add_filters();
 	}
 
+	/**
+	 * Add the action hooks.
+	 *
+	 * @since TBD
+	 */
 	public function add_actions() {
 		add_action( 'tribe_plugins_loaded', [ $this, 'initialize_telemetry' ] );
 		add_action( 'admin_init', [ $this, 'save_opt_in_setting_field' ] );
@@ -43,6 +48,11 @@ class Provider extends Service_Provider {
 		add_action( 'tec_telemetry_auto_opt_in', [ $this, 'auto_opt_in' ] );
 	}
 
+	/**
+	 * Add the filter hooks.
+	 *
+	 * @since TBD
+	 */
 	public function add_filters() {
 		add_filter( 'stellarwp/telemetry/optin_args', [ $this, 'filter_optin_args' ] );
 		add_filter( 'stellarwp/telemetry/tec/should_show_optin', 'should_show_optin', 10, 1 );

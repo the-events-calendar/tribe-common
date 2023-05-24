@@ -197,8 +197,8 @@ final class Migration {
 		$freemius_plugins = $fs_active_plugins->plugins;
 
 		foreach( $this->our_plugins as $plugin ) {
-			if ( ! isset( $freemius_plugins[$plugin] ) ) {
-				unset( $this->our_plugins[$plugin] );
+			if ( ! isset( $freemius_plugins[ $plugin ] ) ) {
+				unset( $this->our_plugins[ $plugin ] );
 			}
 		}
 	}
@@ -218,7 +218,7 @@ final class Migration {
 		foreach ( $this->our_plugins as $plugin ) {
 			$plugin .= '/common/vendor/freemius';
 
-			unset( $fs_active_plugins->plugins[$plugin] );
+			unset( $fs_active_plugins->plugins[ $plugin ] );
 
 			if ( ! empty( $fs_active_plugins->newest->sdk_path ) && $fs_active_plugins->newest->sdk_path === $plugin ) {
 				unset( $fs_active_plugins->newest );
@@ -273,9 +273,9 @@ final class Migration {
 	 * @return array<string,mixed>
 	 */
 	private function strip_plugin_from_fs_accounts( $plugin, $fs_accounts ): array {
-		foreach( $fs_accounts[ 'id_slug_type_path_map' ] as $key => $data ) {
+		foreach( $fs_accounts['id_slug_type_path_map'] as $key => $data ) {
 			if ( $data['slug'] === $plugin ) {
-				unset( $fs_accounts[ 'id_slug_type_path_map' ][$key] );
+				unset( $fs_accounts['id_slug_type_path_map'][ $key ] );
 			}
 		}
 
@@ -289,19 +289,19 @@ final class Migration {
 		];
 
 		foreach( $straight_keys as $key ) {
-			if ( isset( $fs_accounts[$key][$plugin] ) ) {
-				unset( $fs_accounts[$key][$plugin] );
+			if ( isset( $fs_accounts[ $key ][ $plugin ] ) ) {
+				unset( $fs_accounts[ $key ][ $plugin ] );
 			}
 		}
 
 		// These use the path instead of the slug as the key.
 		$plugin = $plugin . '/' . $plugin . '.php';
-		if ( isset( $fs_accounts['file_slug_map'][$plugin] ) ) {
-			unset( $fs_accounts['file_slug_map'][$plugin] );
+		if ( isset( $fs_accounts['file_slug_map'][ $plugin ] ) ) {
+			unset( $fs_accounts['file_slug_map'][ $plugin ] );
 		}
 
-		if ( isset( $fs_accounts['active_plugins']->plugins[$plugin] ) ) {
-			unset( $fs_accounts['active_plugins']->plugins[$plugin] );
+		if ( isset( $fs_accounts['active_plugins']->plugins[ $plugin ] ) ) {
+			unset( $fs_accounts['active_plugins']->plugins[ $plugin ] );
 		}
 
 		// ...and return!
@@ -314,7 +314,7 @@ final class Migration {
 	 * @since 5.0.17
 	 */
 	public function auto_opt_in() {
-		$Opt_In_Subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
-		$Opt_In_Subscriber->opt_in( Telemetry::get_stellar_slug() );
+		$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
+		$opt_in_subscriber->opt_in( Telemetry::get_stellar_slug() );
 	}
 }
