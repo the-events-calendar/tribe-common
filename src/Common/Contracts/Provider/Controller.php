@@ -3,13 +3,14 @@
  * The base class all Controllers should extend.
  *
  * @since 5.0.17
+ * @since TBD moved.
  *
- * @package TEC\Common\Provider;
+ * @package TEC\Common\Contracts\Provider;
  */
 
-namespace TEC\Common\Provider;
+namespace TEC\Common\Contracts\Provider;
 
-use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\Contracts\Service_Provider as Service_Provider;
 use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
 use Tribe__Log as Log;
 

@@ -1,5 +1,8 @@
 == Changelog ==
 
+= [5.1.0] =
+Dummy version for telemetry testing.
+
 = [5.0.17] 2023-05-08 =
 
 * Feature - Add the `TEC\Provider\Controller` abstract class to kick-start Controllers and the `TEC\Common\Tests\Provider\Controller_Test_Case` class to test them.

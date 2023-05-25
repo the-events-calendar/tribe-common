@@ -106,6 +106,7 @@
     "webpack-cli": "^3.1.2",
     "webpack-merge": "^4.1.4"
   },
+  "overrides": { "babel-plugin-lodash": { "@babel/types": "~7.20.0" } },
   "browserslist": [
     "last 2 Chrome versions",
     "last 2 Firefox versions",

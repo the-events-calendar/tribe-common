@@ -2,6 +2,8 @@
 
 namespace Tribe\Service_Providers;
 
+use TEC\Common\Contracts\Service_Provider;
+
 /**
  * Class Tribe__Service_Providers__Tooltip
  *
@@ -9,7 +11,8 @@ namespace Tribe\Service_Providers;
  *
  * Handles the registration and creation of our async process handlers.
  */
-class Tooltip extends \tad_DI52_ServiceProvider {
+class Tooltip extends Service_Provider {
+
 
 	/**
 	 * Binds and sets up implementations.

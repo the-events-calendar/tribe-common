@@ -30,12 +30,22 @@ class Tribe__Main {
 	protected $plugin_context;
 	protected $plugin_context_class;
 
+	/**
+	 * Holds the path to the main file of the parent plugin.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected string $parent_plugin_file;
+
 	public static $tribe_url = 'http://tri.be/';
 	public static $tec_url   = 'https://theeventscalendar.com/';
 
 	public $plugin_dir;
 	public $plugin_path;
 	public $plugin_url;
+	public $parent_plugin_dir;
 
 	/**
 	 * Static Singleton Holder
@@ -71,10 +81,13 @@ class Tribe__Main {
 			return;
 		}
 
-		require_once realpath( dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/autoload.php' );
-		require_once realpath( dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/vendor-prefixed/autoload.php' );
+		$vendor_folder = dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/';
+		require_once realpath( $vendor_folder . 'vendor-prefixed/autoload.php' );
+		// ALiases for backwards compatibility. @todo @camwyn: Remove once unneeded.
+		require_once realpath( dirname( dirname( __FILE__ ) ) . '/functions/aliases.php' );
+		require_once realpath( $vendor_folder . 'autoload.php' );
 
-		// the DI container class
+		// The DI container class.
 		require_once dirname( __FILE__ ) . '/Container.php';
 
 		if ( is_object( $context ) ) {
@@ -84,8 +97,8 @@ class Tribe__Main {
 
 		$this->plugin_path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
-		$parent_plugin_dir = trailingslashit( plugin_basename( $this->plugin_path ) );
-		$this->plugin_url  = plugins_url( $parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $parent_plugin_dir );
+		$this->parent_plugin_dir = trailingslashit( plugin_basename( $this->plugin_path ) );
+		$this->plugin_url  = plugins_url( $this->parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $this->parent_plugin_dir );
 
 		$this->promoter_connector();
 
@@ -730,6 +743,9 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
 		tribe_register_provider( Tribe\Admin\Conditional_Content\Service_Provider::class );
 		tribe_register_provider( Libraries\Provider::class );
+
+		tribe_register_provider( TEC\Common\Site_Health\Provider::class );
+		tribe_register_provider( TEC\Common\Telemetry\Provider::class );
 	}
 
 	/**
@@ -748,6 +764,37 @@ class Tribe__Main {
 			'determine_current_user',
 			tribe_callback( 'promoter.connector', 'authenticate_user_with_connector' )
 		);
+	}
+
+	/**
+	 * Register the common library's parent plugin file path.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $path The path to the parent plugin file.
+	 */
+	public function set_parent_plugin_file( string $path ): void {
+		$this->parent_plugin_file = $path;
+	}
+
+	/**
+	 * Get the common library's parent plugin file path.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The path to the parent plugin file.
+	 */
+	public function get_parent_plugin_file_path(): string {
+		/**
+		 * Allows plugins to hook in and declare themselves the parent of common.
+		 * Used by Telemetry to determine which plugin to associate with.
+		 *
+		 * @since TBD
+		 *
+		 * @var string $parent_plugin_file The current path to the parent plugin file.
+		 *
+		 */
+		return apply_filters( 'tec_common_parent_plugin_file', $this->parent_plugin_file );
 	}
 
 
