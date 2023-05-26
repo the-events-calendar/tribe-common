@@ -45,6 +45,7 @@
   "vendor/tribe-select2/*.png",
   "vendor/tribe-selectWoo/dist/css/*.css",
   "vendor/tribe-selectWoo/dist/js/*.js",
+  "vendor/vendor-prefixed",
   "vendor/vendor-prefixed/**/*.js",
   "vendor/vendor-prefixed/**/*.php",
   "vendor/vendor-prefixed/autoload-classmap.php",
