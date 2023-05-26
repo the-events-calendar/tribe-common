@@ -37,7 +37,7 @@ class Tribe__Main {
 	 *
 	 * @var string
 	 */
-	protected string $parent_plugin_file ='';
+	protected $parent_plugin_file ='';
 
 	public static $tribe_url = 'http://tri.be/';
 	public static $tec_url   = 'https://theeventscalendar.com/';
@@ -783,7 +783,18 @@ class Tribe__Main {
 		 * @var string $parent_plugin_file The current path to the parent plugin file.
 		 *
 		 */
-		return apply_filters( 'tec_common_parent_plugin_file', $this->parent_plugin_file );
+
+		$paths = apply_filters( 'tec_common_parent_plugin_file', [] );
+
+		foreach( $paths as $path ) {
+			$test_path = str_ireplace( '/common', '', $this->parent_plugin_dir );
+
+			if ( stripos( $path, $test_path ) ) {
+				return $path;
+			}
+		}
+
+		return '';
 	}
 
 

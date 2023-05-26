@@ -120,7 +120,6 @@ final class Telemetry {
 		Config::set_container( $container );
 
 		$this->register_tec_telemetry_plugins();
-
 		self::$tec_slugs    = self::get_tec_telemetry_slugs();
 		self::$plugin_path  = \Tribe__Main::instance()->get_parent_plugin_file_path();
 		self::$stellar_slug = self::get_stellar_slug();
@@ -136,7 +135,6 @@ final class Telemetry {
 
 		// Initialize the library.
 		Core::instance()->init( self::$plugin_path );
-
 
 		/**
 		 * Allow plugins to hook in and add themselves,
@@ -182,10 +180,8 @@ final class Telemetry {
 	 * Get the stellar slug based on the parent plugin.
 	 *
 	 * @since TBD
-	 *
-	 * @return void
 	 */
-	public static function get_stellar_slug() {
+	public static function get_stellar_slug(): string {
 		$tec_slugs = self::get_tec_telemetry_slugs();
 
 		foreach( $tec_slugs as $slug => $path ) {
