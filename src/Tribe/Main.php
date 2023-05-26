@@ -37,7 +37,7 @@ class Tribe__Main {
 	 *
 	 * @var string
 	 */
-	protected string $parent_plugin_file;
+	protected string $parent_plugin_file ='';
 
 	public static $tribe_url = 'http://tri.be/';
 	public static $tec_url   = 'https://theeventscalendar.com/';
@@ -764,17 +764,6 @@ class Tribe__Main {
 			'determine_current_user',
 			tribe_callback( 'promoter.connector', 'authenticate_user_with_connector' )
 		);
-	}
-
-	/**
-	 * Register the common library's parent plugin file path.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $path The path to the parent plugin file.
-	 */
-	public function set_parent_plugin_file( string $path ): void {
-		$this->parent_plugin_file = $path;
 	}
 
 	/**
