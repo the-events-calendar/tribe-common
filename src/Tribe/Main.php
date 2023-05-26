@@ -791,9 +791,9 @@ class Tribe__Main {
 			if ( stripos( $path, $test_path ) ) {
 				return $path;
 			}
-
-			return '';
 		}
+
+		return '';
 	}
 
 
