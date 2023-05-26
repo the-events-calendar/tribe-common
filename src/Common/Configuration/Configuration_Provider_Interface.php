@@ -22,13 +22,29 @@ interface Configuration_Provider_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param $key
+	 * @param $key string Variable name.
 	 *
-	 * @return bool
+	 * @return bool Whether the variable is defined or not.
 	 */
-	public function has( $key ):bool;
+	public function has( string $key ): bool;
 
-	public function get( $key );
+	/**
+	 * Retrieves the value for the given variable.
+	 *
+	 * @since TBD
+	 *
+	 * @param $key string Variable name.
+	 *
+	 * @return null|mixed
+	 */
+	public function get( string $key );
 
-	public function all():array;
+	/**
+	 * Retrieve all variables defined in an associative array.
+	 *
+	 * @since TBD
+	 *
+	 * @return array All vars.
+	 */
+	public function all(): array;
 }

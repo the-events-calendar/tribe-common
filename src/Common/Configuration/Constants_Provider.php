@@ -21,7 +21,7 @@ class Constants_Provider implements Configuration_Provider_Interface {
 	/**
 	 * @inheritDoc
 	 */
-	public function has( $key ):bool {
+	public function has( $key ): bool {
 		return defined( $key );
 	}
 
@@ -30,17 +30,15 @@ class Constants_Provider implements Configuration_Provider_Interface {
 	 */
 	public function get( $key ) {
 		if ( $this->has( $key ) ) {
-
 			return constant( $key );
 		}
-
 		return null;
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	public function all():array {
+	public function all(): array {
 		return get_defined_constants( false );
 	}
 }

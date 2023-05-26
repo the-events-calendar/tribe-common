@@ -22,8 +22,18 @@ class Configuration_Loader {
 	 */
 	protected static $providers = [];
 
-	public function add( Configuration_Provider_Interface $provider ):self {
-		if(is_callable([$provider, 'register'])) {
+	/**
+	 * Add a var provider to the list of providers referenced when accessing a variable
+	 * from within the Configuration object.
+	 *
+	 * @since TBD
+	 *
+	 * @param Configuration_Provider_Interface $provider
+	 *
+	 * @return $this
+	 */
+	public function add( Configuration_Provider_Interface $provider ): self {
+		if ( is_callable( [ $provider, 'register' ] ) ) {
 			$provider->register();
 		}
 		self::$providers[] = $provider;
@@ -32,10 +42,26 @@ class Configuration_Loader {
 	}
 
 	/**
+	 * Retrieve a list of all Configuration_Provider_Interface providers loaded.
+	 *
+	 * @since TBD
+	 *
 	 * @return Configuration_Provider_Interface[]
 	 */
-	public function all():array {
+	public function all(): array {
 		return self::$providers;
 	}
 
+	/**
+	 * Remove the providers.
+	 *
+	 * @since TBD
+	 *
+	 * @return $this
+	 */
+	public function reset(): self {
+		self::$providers = [];
+
+		return $this;
+	}
 }
