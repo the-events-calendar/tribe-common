@@ -24,6 +24,35 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 		return new Cache();
 	}
 
+
+	/**
+	 * Should continue to expire cache after multiple triggers / listeners being hit.
+	 *
+	 * @test
+	 */
+	public function should_expire_cache_on_each_trigger() {
+		$cache = $this->make_instance();
+		// This key should iterate values as the expiration tirgger is hit.
+		$key  = 'faux_key';
+		$hook = 'faux_hook';
+
+		// Cache is now "listening" to this hook.
+		add_action( $hook, function () use ( $cache, $hook ) {
+			$cache->set_last_occurrence( $hook );
+		} );
+
+		// Each unique values to test
+		$values = [ 'a', 'b', 1, 2, time() ];
+		foreach ( $values as $value ) {
+			$cache->set( $key, $value, Cache::NON_PERSISTENT, $hook );
+			$this->assertEquals( $value, $cache->get( $key, $hook, null, Cache::NON_PERSISTENT ) );
+			// This should expire the cache.
+			do_action( $hook );
+			$this->assertNotEquals( $value, $cache->get( $key, $hook, null, Cache::NON_PERSISTENT ) );
+			$this->assertNull( $cache->get( $key, $hook, null, Cache::NON_PERSISTENT ) );
+		}
+	}
+
 	/**
 	 * It should allow storing value using ArrayAccess API
 	 *

@@ -3,6 +3,7 @@
  * The base class all Controllers should extend.
  *
  * @since TBD
+ * @since 5.0.17
  *
  * @package TEC\Common\Provider;
  */
@@ -16,7 +17,7 @@ use Tribe__Log as Log;
 /**
  * Class Controller.
  *
- * @since TBD
+ * @since 5.0.17
  *
  * @package TEC\Common\Provider;
  *
@@ -26,7 +27,7 @@ abstract class Controller extends Service_Provider {
 	/**
 	 * Registers the filters and actions hooks added by the controller if the controller has not registered yet.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @return void
 	 */
@@ -38,6 +39,10 @@ abstract class Controller extends Service_Provider {
 		if ( static::is_registered() ) {
 			return;
 		}
+
+		// Register the controller as a singleton in the container.
+		// @todo remove when the Container is updated to bind Providers as singletons by default.
+		$this->container->singleton( static::class, $this );
 
 		if ( ! $this->is_active() ) {
 			return;
@@ -51,7 +56,7 @@ abstract class Controller extends Service_Provider {
 	/**
 	 * Registers the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @return void
 	 */
@@ -62,7 +67,7 @@ abstract class Controller extends Service_Provider {
 	 *
 	 * Bound implementations should not be removed in this method!
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @return void Filters and actions hooks added by the controller are be removed.
 	 */
@@ -73,7 +78,7 @@ abstract class Controller extends Service_Provider {
 	 *
 	 * Controllers will be active by default, if that is not the case, the controller should override this method.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @return bool Whether the controller is active or not.
 	 */
@@ -84,7 +89,7 @@ abstract class Controller extends Service_Provider {
 	/**
 	 * Logs a message at the `debug` level.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @param string $message The message to log.
 	 * @param array  $context An array of context to log with the message.
@@ -100,7 +105,7 @@ abstract class Controller extends Service_Provider {
 	/**
 	 * Logs a message at the `warning` level.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @param string $message The message to log.
 	 * @param array  $context An array of context to log with the message.
@@ -116,7 +121,7 @@ abstract class Controller extends Service_Provider {
 	/**
 	 * Logs a message at the `error` level.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @param string $message The message to log.
 	 * @param array  $context An array of context to log with the message.
@@ -132,7 +137,7 @@ abstract class Controller extends Service_Provider {
 	/**
 	 * Returns whether any instance of this controller has been registered or not.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @return bool Whether any instance of this controller has been registered or not.
 	 */

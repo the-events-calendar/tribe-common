@@ -94,7 +94,8 @@
         "stellarwp/models",
         "stellarwp/schema",
         "stellarwp/installer",
-        "monolog/monolog"
+        "monolog/monolog",
+        "firebase/php-jwt"
       ],
       "delete_vendor_files": true
     }

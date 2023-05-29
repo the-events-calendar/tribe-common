@@ -9,15 +9,16 @@ use Codeception\TestCase\WPTestCase;
 use TEC\Common\Provider\Controller;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Container as Container;
-use function tad\WPBrowser\setPrivateProperties;
 
 /**
  * Class Controller_Test_Case.
  *
- * @since   TBD
+ * @since 5.0.17
  *
- * @package TEC\Tickets\Flexible_Tickets;
+ * @package TEC\Common\Tests\Provider;
  * @property string $controller_class The class name of the controller to test.
+ *
+ * @package TEC\Common\Tests\Provider;
  */
 class Controller_Test_Case extends WPTestCase {
 	use With_Uopz;
@@ -45,6 +46,7 @@ class Controller_Test_Case extends WPTestCase {
 	 *                         `context`.
 	 */
 	protected $logs = [];
+
 	/**
 	 * The controller instances created by the test case.
 	 *
@@ -152,9 +154,9 @@ class Controller_Test_Case extends WPTestCase {
 	/**
 	 * Creates a controller instance and sets up a dedicated Service Locator for it.
 	 *
-	 * In the context of the test Service Locator the Controller is not yet registered.
+	 * In the context of the dedicated Service Locator the controller is not yet registered.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @param class-string<Controller>|null $controller_class The controller class to create an instance of, or `null`
 	 *                                                        to build from the `controller_class` property.
@@ -258,7 +260,7 @@ class Controller_Test_Case extends WPTestCase {
 	/**
 	 * Asserts the controller logged a message with the specified level and message.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @param string $level  The log level.
 	 * @param string $needle The message to look for, or a part of it.
@@ -282,7 +284,7 @@ class Controller_Test_Case extends WPTestCase {
 	 *
 	 * This assertion will look in all logs, including the ones logged by the controller.
 	 *
-	 * @since TBD
+	 * @since 5.0.17
 	 *
 	 * @param string $level  The log level.
 	 * @param string $needle The message to look for, or a part of it.
