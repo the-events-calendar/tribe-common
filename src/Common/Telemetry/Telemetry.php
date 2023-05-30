@@ -10,7 +10,6 @@ namespace TEC\Common\Telemetry;
 
 use TEC\Common\StellarWP\Telemetry\Core;
 use TEC\Common\StellarWP\Telemetry\Config;
-use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Subscriber;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
 use Tribe__Container as Container;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Template;
