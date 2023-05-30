@@ -41,9 +41,7 @@ class Provider extends Service_Provider {
 	 */
 	public function add_actions() {
 		add_action( 'tribe_plugins_loaded', [ $this, 'initialize_telemetry' ] );
-		add_action( 'admin_init', [ $this, 'save_opt_in_setting_field' ] );
 		add_action( 'tec-telemetry-modal', [ $this, 'show_optin_modal' ] );
-
 		add_action( 'admin_init', [ $this, 'migrate_existing_opt_in' ], 9 );
 		add_action( 'tec_telemetry_auto_opt_in', [ $this, 'auto_opt_in' ] );
 	}

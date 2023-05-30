@@ -118,7 +118,6 @@ final class Telemetry {
 		$container = Container::init();
 		Config::set_container( $container );
 
-		$this->register_tec_telemetry_plugins();
 		self::$tec_slugs    = self::get_tec_telemetry_slugs();
 		self::$plugin_path  = \Tribe__Main::instance()->get_parent_plugin_file_path();
 		self::$stellar_slug = self::get_stellar_slug();
@@ -134,6 +133,8 @@ final class Telemetry {
 
 		// Initialize the library.
 		Core::instance()->init( self::$plugin_path );
+
+		$this->register_tec_telemetry_plugins();
 
 		/**
 		 * Allow plugins to hook in and add themselves,
@@ -376,59 +377,6 @@ final class Telemetry {
 	}
 
 	/**
-	 * Saves the "Opt In Status" setting.
-	 *
-	 * @return void
-	 */
-	public function save_opt_in_setting_field(): void {
-		$current_tab = tribe_get_var( 'current-settings-tab' );
-		// Return early if not saving the Opt In Status field.
-		if ( ! empty( $current_tab ) ) {
-			return;
-		}
-
-		/**
-		 * Filter for the the settings page/tab that the optin control goes on.
-		 *
-		 * @since TBD
-		 *
-		 * @param string $tab    The tab slug where the optin control is found.
-		 */
-		$optin_tab = apply_filters( 'tec_common_telemetry_optin_tab', 'general' );
-
-		$parent = self::get_parent_plugin_slug();
-
-		/**
-		 * Parent-specific filter for the the settings page/tab that the optin control goes on.
-		 *
-		 * @since TBD
-		 *
-		 * @param string $tab    The tab slug where the optin control is found.
-		 */
-		$optin_tab = apply_filters( "tec_common_telemetry_{$parent}_optin_tab", $optin_tab );
-
-		if ( $current_tab !== $optin_tab ) {
-			return;
-		}
-
-		// Get an instance of the Status class.
-		$status = self::get_status_object();
-
-		// Get the value submitted on the settings page as a boolean.
-		$value = ! empty( filter_input( INPUT_POST, 'opt-in-status', FILTER_VALIDATE_BOOLEAN ) );
-
-		$status->set_status( $value, self::$stellar_slug );
-
-		// Gotta catch them all..
-		$this->register_tec_telemetry_plugins( $value );
-
-		if ( $value ) {
-			// If opting in, blow away the expiration datetime so we send updates on next shutdown.
-			delete_option( 'stellarwp_telemetry_last_send' );
-		}
-	}
-
-	/**
 	 * Sugar function to get the status object from the container.
 	 *
 	 * @since TBD
@@ -485,19 +433,22 @@ final class Telemetry {
 			return;
 		}
 
-		$status = Config::get_container()->get( Status::class );
-		$option = $status->get_option();
-		$plugin_slug = self::get_plugin_slug();
-
-
+		// If we're not specifically passing a status...
 		if ( NULL === $opted ) {
-			$opted = ! empty( $option['plugins'][ $plugin_slug ]['optin'] );
+			$status = Config::get_container()->get( Status::class );
+			// If they have opted in to one plugin, opt them in to all TEC ones.
+			// @todo: @camwyn this needs a more sane way to check for StellarWP plugins specifically -
+			// other than having to hardcode all the slugs and check them.
+			// This will _have to change_ once Telemetry gets used by a non-StellarWP plugin.
+			$opted = count( $status->get_opted_in_plugins() ) > 0;
+			// Finally, if we have manually changed things, use that.
+			$tec_option = tribe_get_option( 'opt-in-status', NULL );
+			if ( ! is_null( $tec_option ) ) {
+				$opted = $tec_option;
+			}
 		}
 
 		foreach ( $tec_slugs as $slug => $path ) {
-			if ( $slug = self::$stellar_slug ) {
-				continue;
-			}
 			// Register each plugin with the already instantiated library.
 			Config::add_stellar_slug( $slug, $path );
 			$status->add_plugin( $slug, $opted, $path );
