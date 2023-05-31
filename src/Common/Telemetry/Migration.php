@@ -272,5 +272,6 @@ final class Migration {
 	public function auto_opt_in() {
 		$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
 		$opt_in_subscriber->opt_in( Telemetry::get_stellar_slug() );
+		tribe( Telemetry::class )->register_tec_telemetry_plugins( true );
 	}
 }
