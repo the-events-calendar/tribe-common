@@ -783,7 +783,6 @@ class Tribe__Main {
 		 * @var string $parent_plugin_file The current path to the parent plugin file.
 		 *
 		 */
-
 		$paths = apply_filters( 'tec_common_parent_plugin_file', [] );
 
 		foreach( $paths as $path ) {
