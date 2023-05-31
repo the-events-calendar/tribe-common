@@ -135,7 +135,9 @@ final class Telemetry {
 		// Initialize the library.
 		Core::instance()->init( self::$plugin_path );
 
-		$this->register_tec_telemetry_plugins();
+		if ( is_admin() ) {
+			$this->register_tec_telemetry_plugins();
+		}
 
 		/**
 		 * Allow plugins to hook in and add themselves,
@@ -418,6 +420,7 @@ final class Telemetry {
 	 * @return void
 	 */
 	public function register_tec_telemetry_plugins( $opted = NULL ) {
+		$new_opted = $opted;
 		// Let's reduce the amount this triggers.
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			return;
@@ -442,26 +445,31 @@ final class Telemetry {
 			// other than having to hardcode all the slugs and check them.
 			// This will _have to change_ once Telemetry gets used by a non-StellarWP plugin.
 			if( is_admin() ) {
-				$opted = count( $status->get_opted_in_plugins() ) > 0;
+				$new_opted = count( $status->get_opted_in_plugins() ) > 0;
 			}
 
 			// Finally, if we have manually changed things, use that.
-			$tec_option = tribe_get_option( 'opt-in-status', NULL );
+			$tec_option = null; //tribe_get_option( 'opt-in-status', NULL );
 			if ( ! is_null( $tec_option ) ) {
-				$opted = $tec_option;
+				$new_opted = $tec_option;
+			}
+
+			// If we still have nothing, opt out by default
+			if ( is_null( $new_opted ) ) {
+				$new_opted = false;
 			}
 		}
 
 		foreach ( $tec_slugs as $slug => $path ) {
 			// Register each plugin with the already instantiated library.
 			Config::add_stellar_slug( $slug, $path );
-			$status->add_plugin( $slug, $opted, $path );
+			$status->add_plugin( $slug, $new_opted, $path );
 			$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
 			$opt_in_subscriber->initialize_optin_option();
 			$opt_in_subscriber->opt_in( $slug );
 
 			// If we have opted in to one TEC plugin, we're opting in to all other TEC plugins as well - or the reverse.
-			$status->set_status( $opted, $slug );
+			$status->set_status( $new_opted, $slug );
 
 			if ( $opted ) {
 				// Don't show the opt-in modal for this plugin.
