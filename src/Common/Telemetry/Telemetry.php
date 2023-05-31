@@ -440,7 +440,10 @@ final class Telemetry {
 			// @todo: @camwyn this needs a more sane way to check for StellarWP plugins specifically -
 			// other than having to hardcode all the slugs and check them.
 			// This will _have to change_ once Telemetry gets used by a non-StellarWP plugin.
-			$opted = count( $status->get_opted_in_plugins() ) > 0;
+			if( is_admin() ) {
+				$opted = count( $status->get_opted_in_plugins() ) > 0;
+			}
+
 			// Finally, if we have manually changed things, use that.
 			$tec_option = tribe_get_option( 'opt-in-status', NULL );
 			if ( ! is_null( $tec_option ) ) {
