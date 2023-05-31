@@ -11,6 +11,7 @@ namespace TEC\Common\Telemetry;
 use TEC\Common\StellarWP\Telemetry\Core;
 use TEC\Common\StellarWP\Telemetry\Config;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
+use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Subscriber;
 use Tribe__Container as Container;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Template;
 
@@ -455,11 +456,14 @@ final class Telemetry {
 			// Register each plugin with the already instantiated library.
 			Config::add_stellar_slug( $slug, $path );
 			$status->add_plugin( $slug, $opted, $path );
+			$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
+			$opt_in_subscriber->initialize_optin_option();
+			$opt_in_subscriber->opt_in( $slug );
 
 			// If we have opted in to one TEC plugin, we're opting in to all other TEC plugins as well - or the reverse.
 			$status->set_status( $opted, $slug );
 
-			if ( $opted && ( ! in_array( $slug, self::$base_parent_slugs ) ) ) {
+			if ( $opted ) {
 				// Don't show the opt-in modal for this plugin.
 				update_option( Config::get_container()->get( Opt_In_Template::class )->get_option_name( $slug ), '0' );
 			}
