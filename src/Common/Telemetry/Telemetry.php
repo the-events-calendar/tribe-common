@@ -449,7 +449,7 @@ final class Telemetry {
 			}
 
 			// Finally, if we have manually changed things, use that.
-			$tec_option = null; //tribe_get_option( 'opt-in-status', NULL );
+			$tec_option = tribe_get_option( 'opt-in-status', NULL );
 			if ( ! is_null( $tec_option ) ) {
 				$new_opted = $tec_option;
 			}
