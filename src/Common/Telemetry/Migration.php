@@ -133,6 +133,10 @@ final class Migration {
 			$disconnected[] = (bool) Arr::get( $sites, [ $plugin, 'is_disconnected' ] );
 		}
 
+		if ( empty( $disconnected ) ) {
+			return false;
+		}
+
 		return in_array( false, $disconnected, true );
 	}
 
@@ -208,8 +212,6 @@ final class Migration {
 		 */
 		do_action( 'tec_telemetry_auto_opt_in' );
 
-		$fs_accounts = $this->get_fs_accounts();
-
 		// If only our plugins are present, short-cut and delete everything.
 		if ( count( $this->our_plugins ) === count( $fs_active_plugins->plugins ) ) {
 			return;
@@ -268,10 +270,13 @@ final class Migration {
 	 * Opts the user in to Telemetry.
 	 *
 	 * @since TBD
+	 *
 	 */
 	public function auto_opt_in() {
+		$optin = $this->is_opted_in();
+
 		$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
 		$opt_in_subscriber->opt_in( Telemetry::get_stellar_slug() );
-		tribe( Telemetry::class )->register_tec_telemetry_plugins( true );
+		tribe( Telemetry::class )->register_tec_telemetry_plugins( $optin );
 	}
 }
