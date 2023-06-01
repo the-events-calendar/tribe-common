@@ -93,18 +93,6 @@ class Provider extends Service_Provider {
 	}
 
 	/**
-	 * Saves the settings field if it exists.
-	 * Ensures all connected plugins follow opt in/out in lockstep.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function save_opt_in_setting_field() {
-		$this->container->make( Telemetry::class )->save_opt_in_setting_field();
-	}
-
-	/**
 	 * Logic for if the opt-in modal should be shown.
 	 *
 	 * @since TBD

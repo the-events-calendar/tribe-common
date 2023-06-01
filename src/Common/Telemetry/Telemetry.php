@@ -437,9 +437,9 @@ final class Telemetry {
 			return;
 		}
 
+		$status = Config::get_container()->get( Status::class );
 		// If we're not specifically passing a status...
 		if ( NULL === $opted ) {
-			$status = Config::get_container()->get( Status::class );
 			// If they have opted in to one plugin, opt them in to all TEC ones.
 			// @todo: @camwyn this needs a more sane way to check for StellarWP plugins specifically -
 			// other than having to hardcode all the slugs and check them.
