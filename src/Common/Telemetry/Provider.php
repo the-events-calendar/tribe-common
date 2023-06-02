@@ -10,6 +10,7 @@
 namespace TEC\Common\Telemetry;
 
 use TEC\Common\Contracts\Service_Provider;
+use TEC\Common\StellarWP\Telemetry\Admin\Admin_Subscriber as Asset_Subscriber;
 
 /**
  * Class Provider
@@ -44,6 +45,7 @@ class Provider extends Service_Provider {
 		add_action( 'tec-telemetry-modal', [ $this, 'show_optin_modal' ] );
 		add_action( 'admin_init', [ $this, 'migrate_existing_opt_in' ], 9 );
 		add_action( 'tec_telemetry_auto_opt_in', [ $this, 'auto_opt_in' ] );
+		add_action( 'tec_common_telemetry_loaded', [ $this, 'maybe_enqueue_admin_modal_assets' ] );
 	}
 
 	/**
@@ -62,10 +64,8 @@ class Provider extends Service_Provider {
 	 * Drivers, start your engines...
 	 *
 	 * @since TBD
-	 *
-	 * @return void
 	 */
-	public function initialize_telemetry() {
+	public function initialize_telemetry(): void {
 		$this->container->make( Telemetry::class )->init();
 	}
 
@@ -74,10 +74,8 @@ class Provider extends Service_Provider {
 	 *
 	 * @since TBD
 	 * @todo @bordoni leverage this when ready.
-	 *
-	 * @return void
 	 */
-	public function migrate_existing_opt_in() {
+	public function migrate_existing_opt_in(): void {
 		$this->container->make( Migration::class )->migrate_existing_opt_in();
 	}
 
@@ -85,10 +83,8 @@ class Provider extends Service_Provider {
 	 * Triggers the automatic opt-in for folks who opted in to Freemius.
 	 *
 	 * @since TBD
-	 *
-	 * @return void
 	 */
-	public function auto_opt_in() {
+	public function auto_opt_in(): void {
 		$this->container->make( Migration::class )->auto_opt_in();
 	}
 
@@ -96,10 +92,8 @@ class Provider extends Service_Provider {
 	 * Logic for if the opt-in modal should be shown.
 	 *
 	 * @since TBD
-	 *
-	 * @return void
 	 */
-	public function show_optin_modal() {
+	public function show_optin_modal(): void {
 		$this->container->make( Telemetry::class )->show_optin_modal();
 	}
 
@@ -127,5 +121,14 @@ class Provider extends Service_Provider {
 	 */
 	public function filter_exit_interview_args( $args ) {
 		return $this->container->make( Telemetry::class )->filter_exit_interview_args( $args );
+	}
+
+	/**
+	 * Ensure the assets for the modal are enqueued, if needed.
+	 *
+	 * @since TBD
+	 */
+	public function maybe_enqueue_admin_modal_assets(): void {
+		$this->container->make( Asset_Subscriber::class )->maybe_enqueue_admin_assets();
 	}
 }
