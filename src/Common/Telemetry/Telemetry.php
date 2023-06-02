@@ -467,11 +467,14 @@ final class Telemetry {
 			$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
 			$opt_in_subscriber->initialize_optin_option();
 
+			if ( $opted ) {
+				$opt_in_subscriber->opt_in( $slug );
+			}
+
 			// If we have opted in to one TEC plugin, we're opting in to all other TEC plugins as well - or the reverse.
 			$status->set_status( $new_opted, $slug );
 
 			if ( $opted ) {
-				$opt_in_subscriber->opt_in( $slug );
 				// Don't show the opt-in modal for this plugin.
 				update_option( Config::get_container()->get( Opt_In_Template::class )->get_option_name( $slug ), '0' );
 			}
