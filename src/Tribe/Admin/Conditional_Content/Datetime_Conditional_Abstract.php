@@ -69,6 +69,11 @@ abstract class Datetime_Conditional_Abstract {
 	 */
 	protected function get_start_time() {
 		$date = Dates::build_date_object( $this->start_date, 'UTC' );
+		// If not set, set to midnight.
+		if ( empty( $this->start_time ) ) {
+			$this->start_time = 0;
+		}
+
 		$date = $date->setTime( $this->start_time, 0 );
 
 		/**
@@ -91,6 +96,11 @@ abstract class Datetime_Conditional_Abstract {
 	 */
 	protected function get_end_time() {
 		$date = Dates::build_date_object( $this->end_date, 'UTC' );
+		// If not set, set to midnight.
+		if ( empty( $this->end_time ) ) {
+			$this->end_time = 0;
+		}
+
 		$date = $date->setTime( $this->end_time, 0 );
 
 		/**
