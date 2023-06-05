@@ -42,7 +42,7 @@ class Provider extends Service_Provider {
 	public function add_actions() {
 		add_action( 'wp', [ $this, 'initialize_telemetry' ] );
 		add_action( 'tec-telemetry-modal', [ $this, 'show_optin_modal' ] );
-		add_action( 'admin_init', [ $this, 'migrate_existing_opt_in' ], 9 );
+		add_action( 'tec_common_telemetry_loaded', [ $this, 'migrate_existing_opt_in' ], 100 );
 		add_action( 'tec_telemetry_auto_opt_in', [ $this, 'auto_opt_in' ] );
 	}
 
