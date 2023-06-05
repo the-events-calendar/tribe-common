@@ -488,15 +488,18 @@ final class Telemetry {
 			$status->add_plugin( $slug, $new_opted, $path );
 			$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
 			$opt_in_subscriber->initialize_optin_option();
-			$option_slug = Config::get_container()->get( Opt_In_Template::class )->get_option_name( $slug );
 
 			if ( $new_opted ) {
 				$opt_in_subscriber->opt_in( $slug );
 
 				// If we have opted in to one TEC plugin, we're opting in to all other TEC plugins as well.
 				$status->set_status( $new_opted, $slug );
+			}
 
-				//update_option( $option_slug, '0' );
+			// If we're manually opting in, don't show the modal(s).
+			if ( $opted ) {
+				$option_slug = Config::get_container()->get( Opt_In_Template::class )->get_option_name( $slug );
+				update_option( $option_slug, '0' );
 			}
 		}
 	}
