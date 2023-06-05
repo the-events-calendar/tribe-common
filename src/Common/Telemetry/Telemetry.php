@@ -106,6 +106,30 @@ final class Telemetry {
 	 * @return void
 	 */
 	public function init(): void {
+
+		if ( is_admin() ) {
+			$this->register_tec_telemetry_plugins();
+		}
+
+		/**
+		 * Allow plugins to hook in and add themselves,
+		 * running their own actions once Telemetry is initiated.
+		 *
+		 * @since TBD
+		 *
+		 * @param self $telemetry The Telemetry instance.
+		 */
+		do_action( 'tec_common_telemetry_loaded', $this );
+	}
+
+	/**
+	 * Gentlefolk, start your engines.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function boot(): void {
 		/**
 		 * Configure the container.
 		 *
@@ -135,19 +159,16 @@ final class Telemetry {
 		// Initialize the library.
 		Core::instance()->init( self::$plugin_path );
 
-		if ( is_admin() ) {
-			$this->register_tec_telemetry_plugins();
-		}
-
 		/**
 		 * Allow plugins to hook in and add themselves,
-		 * running their own actions once Telemetry is initiated.
+		 * running their own actions once Telemetry is initiated,
+		 *  but before we register all our plugins.
 		 *
 		 * @since TBD
 		 *
 		 * @param self $telemetry The Telemetry instance.
 		 */
-		do_action( 'tec_common_telemetry_loaded', $this );
+		do_action( 'tec_common_telemetry_preload', $this );
 	}
 
 	public static function get_plugin_slug() {
@@ -351,8 +372,7 @@ final class Telemetry {
 	 *
 	 * @return void
 	 */
-	public function show_optin_modal(): void {
-		$plugin_slug = self::get_plugin_slug();
+	public function show_optin_modal(  $slug  ): void {
 
 		/**
 		 * Filter allowing disabling of the optin modal.
@@ -361,8 +381,9 @@ final class Telemetry {
 		 * @since TBD
 		 *
 		 * @param bool $show Whether to show the modal or not.
+		 *
 		 */
-		$show = (bool) apply_filters( 'tec_common_telemetry_show_optin_modal', true );
+		$show = (bool) apply_filters( 'tec_common_telemetry_show_optin_modal', true,  $slug  );
 
 		if ( ! $show ) {
 			return;
@@ -376,7 +397,7 @@ final class Telemetry {
 		 *
 		 * @param string $plugin_slug The slug of the plugin showing the modal.
 		 */
-		do_action( 'stellarwp/telemetry/optin', $plugin_slug );
+		do_action( 'stellarwp/telemetry/optin', $slug );
 	}
 
 	/**
@@ -461,19 +482,21 @@ final class Telemetry {
 		}
 
 		foreach ( $tec_slugs as $slug => $path ) {
+
 			// Register each plugin with the already instantiated library.
 			Config::add_stellar_slug( $slug, $path );
 			$status->add_plugin( $slug, $new_opted, $path );
 			$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
 			$opt_in_subscriber->initialize_optin_option();
+			$option_slug = Config::get_container()->get( Opt_In_Template::class )->get_option_name( $slug );
 
 			if ( $new_opted ) {
 				$opt_in_subscriber->opt_in( $slug );
 
-				// If we have opted in to one TEC plugin, we're opting in to all other TEC plugins as well - or the reverse.
+				// If we have opted in to one TEC plugin, we're opting in to all other TEC plugins as well.
 				$status->set_status( $new_opted, $slug );
-				// Don't show the opt-in modal for this plugin.
-				update_option( Config::get_container()->get( Opt_In_Template::class )->get_option_name( $slug ), '0' );
+
+				//update_option( $option_slug, '0' );
 			}
 		}
 	}

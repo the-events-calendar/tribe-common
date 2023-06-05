@@ -10,6 +10,7 @@
 namespace TEC\Common\Telemetry;
 
 use TEC\Common\Contracts\Service_Provider;
+use TEC\Common\StellarWP\Telemetry\Admin\Admin_Subscriber as Asset_Subscriber;
 
 /**
  * Class Provider
@@ -40,10 +41,12 @@ class Provider extends Service_Provider {
 	 * @since TBD
 	 */
 	public function add_actions() {
-		add_action( 'wp', [ $this, 'initialize_telemetry' ] );
+		add_action( 'wp', [ $this, 'initialize_telemetry' ], 5 );
+		add_action( 'plugins_loaded', [ $this, 'boot_telemetry' ], 50 );
 		add_action( 'tec-telemetry-modal', [ $this, 'show_optin_modal' ] );
-		add_action( 'tec_common_telemetry_loaded', [ $this, 'migrate_existing_opt_in' ], 100 );
 		add_action( 'tec_telemetry_auto_opt_in', [ $this, 'auto_opt_in' ] );
+		add_action( 'tec_common_telemetry_loaded', [ $this, 'migrate_existing_opt_in' ], 100 );
+		add_action( 'tec_common_telemetry_loaded', [ $this, 'maybe_enqueue_admin_modal_assets' ] );
 	}
 
 	/**
@@ -53,8 +56,19 @@ class Provider extends Service_Provider {
 	 */
 	public function add_filters() {
 		add_filter( 'stellarwp/telemetry/optin_args', [ $this, 'filter_optin_args' ] );
-		add_filter( 'stellarwp/telemetry/tec/should_show_optin', 'should_show_optin', 10, 1 );
 		add_filter( 'stellarwp/telemetry/exit_interview_args', [ $this, 'filter_exit_interview_args' ] );
+	}
+
+	/**
+	 * Initialize our internal Telemetry code.
+	 * Drivers, start your engines...
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function boot_telemetry() {
+		$this->container->make( Telemetry::class )->boot();
 	}
 
 	/**
@@ -99,8 +113,8 @@ class Provider extends Service_Provider {
 	 *
 	 * @return void
 	 */
-	public function show_optin_modal() {
-		$this->container->make( Telemetry::class )->show_optin_modal();
+	public function show_optin_modal( $slug ) {
+		$this->container->make( Telemetry::class )->show_optin_modal( $slug );
 	}
 
 	/**
@@ -127,5 +141,15 @@ class Provider extends Service_Provider {
 	 */
 	public function filter_exit_interview_args( $args ) {
 		return $this->container->make( Telemetry::class )->filter_exit_interview_args( $args );
+	}
+
+
+	/**
+	 * Ensure the assets for the modal are enqueued, if needed.
+	 *
+	 * @since TBD
+	 */
+	public function maybe_enqueue_admin_modal_assets(): void {
+		$this->container->make( Asset_Subscriber::class )->maybe_enqueue_admin_assets();
 	}
 }
