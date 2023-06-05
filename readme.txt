@@ -1,8 +1,9 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [5.0.18] 2023-06-06 =
 
 * Fix - Elementor and other themes would inadvertently override styles on the tickets button, when the global styles were set. This hardens the common button (rsv/ticket button) styles a bit more. [TEC-4794]
+* Tweak - Added filters: `tec_common_rewrite_localize_matcher`
 
 = [5.0.17] 2023-05-08 =
 
