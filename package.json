@@ -1,6 +1,6 @@
 {
   "name": "tribe-common",
-  "version": "5.0.17",
+  "version": "5.1.0",
   "repository": "git@github.com:the-events-calendar/tribe-common.git",
   "_resourcepath": "src/resources",
   "_domainPath": "lang",
@@ -106,6 +106,7 @@
     "webpack-cli": "^3.1.2",
     "webpack-merge": "^4.1.4"
   },
+  "overrides": { "babel-plugin-lodash": { "@babel/types": "~7.20.0" } },
   "browserslist": [
     "last 2 Chrome versions",
     "last 2 Firefox versions",
