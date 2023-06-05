@@ -70,11 +70,12 @@ final class Migration {
 		// If we've already been here for some reason, don't do it all again.
 		$data = get_option( static::$fs_accounts_data );
 		if ( ! empty( $data ) ) {
-			return maybe_unserialize( $data );
+			return $data;
 		}
 
 		global $wpdb;
 		$fs_accounts = $wpdb->get_var( "SELECT `option_value` FROM $wpdb->options WHERE `option_name` = 'fs_accounts' LIMIT 1" );
+
 
 		if ( empty( $fs_accounts ) || $fs_accounts instanceof \WP_Error ) {
 			return [];
@@ -85,7 +86,7 @@ final class Migration {
 
 		// Prevent issues with incomplete classes
 		$fs_accounts = preg_replace_callback(
-			'/O:(\d+):"([^:]+)":([^:]+):/m',
+			'/O:(\d+):"([^"]+)":([^:]+):\{/m',
 			function( $matches ) {
 				if ( $matches[2] === 'stdClass' ) {
 					return $matches[0];
@@ -100,11 +101,13 @@ final class Migration {
 			$fs_accounts
 		);
 
+		$fs_accounts = maybe_unserialize( $fs_accounts );
+
 		// Store the modified data here.
 		update_option( static::$fs_accounts_data, $fs_accounts );
 
 		// return the modified data.
-		return maybe_unserialize( $fs_accounts );
+		return $fs_accounts;
 	}
 
 	/**
