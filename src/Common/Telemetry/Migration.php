@@ -86,7 +86,7 @@ final class Migration {
 
 		// Prevent issues with incomplete classes
 		$fs_accounts = preg_replace_callback(
-			'/O:(\d+):"([^:]+)":([^:]+):\{/m',
+			'/O:(\d+):"([^"]+)":([^:]+):\{/m',
 			function( $matches ) {
 				if ( $matches[2] === 'stdClass' ) {
 					return $matches[0];
