@@ -7,7 +7,7 @@ use TEC\Common\Site_Health\Info_Field_Abstract;
 /**
  * Class Generic_Info_Field
  *
- * @since   TBD
+ * @since   5.1.0
  *
  * @package TEC\Common\Site_Health
  */
@@ -33,7 +33,7 @@ class Generic_Info_Field extends Info_Field_Abstract {
 	/**
 	 * Given an array of configurations sets up a new generic field instance.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param array $field
 	 *
@@ -46,7 +46,7 @@ class Generic_Info_Field extends Info_Field_Abstract {
 	/**
 	 * Given all the arguments create a new Generic Field.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param string      $id
 	 * @param string      $label

@@ -10,7 +10,7 @@ use TEC\Common\Site_Health\Fields\Generic_Info_Field;
  *
  * @link    https://developer.wordpress.org/reference/hooks/debug_information/
  *
- * @since   TBD
+ * @since   5.1.0
  *
  * @package TEC\Common\Site_Health
  */
@@ -18,7 +18,7 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 	/**
 	 * Slug for the section.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var string $slug
 	 */
@@ -27,7 +27,7 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 	/**
 	 * Label for the section.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var string $label
 	 */
@@ -36,7 +36,7 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 	/**
 	 * If we should show the count of fields in the site health info page.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var bool $show_count
 	 */
@@ -45,7 +45,7 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 	/**
 	 * If this section is private.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var bool $is_private
 	 */
@@ -54,7 +54,7 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 	/**
 	 * Description for the section.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var string $description
 	 */
@@ -63,7 +63,7 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 	/**
 	 * Which fields are stored on this section.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var array<string, Info_Field_Abstract> $fields
 	 */
@@ -181,7 +181,7 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 	/**
 	 * Internal method to the Section class, to allow filtering of specific values.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param string $param
 	 * @param mixed  $value
@@ -193,7 +193,7 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 		/**
 		 * Filters the get of a particular param for all sections.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param mixed                 $value   Value of the field.
 		 * @param Info_Section_Abstract $section Current Section.
@@ -203,7 +203,7 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 		/**
 		 * Filters the get of a particular param for a specific section.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param mixed                 $value   Value of the field.
 		 * @param Info_Section_Abstract $section Current Section.
@@ -214,7 +214,7 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 	/**
 	 * Sorts the fields stored on this section, will retain keys.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return void
 	 */

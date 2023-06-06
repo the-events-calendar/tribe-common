@@ -2,7 +2,7 @@
 /**
  * Handles Telemetry migration from Freemius.
  *
- * @since   TBD
+ * @since   5.1.0
  *
  * @package TEC\Common\Telemetry
  */
@@ -15,7 +15,7 @@ use Tribe__Utils__Array as Arr;
 /**
  * Class Migration
  *
- * @since   TBD
+ * @since   5.1.0
 
  * @package TEC\Common\Telemetry
  */
@@ -23,7 +23,7 @@ final class Migration {
 	/**
 	 * The key we back up original fs_accounts data to.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var string
 	 */
@@ -32,7 +32,7 @@ final class Migration {
 	/**
 	 * The key we back up modified fs_accounts data to.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var string
 	 */
@@ -41,7 +41,7 @@ final class Migration {
 	/**
 	 * The key we back up fs_active_plugins data to.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var string
 	 */
@@ -50,7 +50,7 @@ final class Migration {
 	/**
 	 * List of our plugins to check for.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var array
 	 */
@@ -62,7 +62,7 @@ final class Migration {
 	/**
 	 * Get and massage the fs_accounts
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return void
 	 */
@@ -113,7 +113,7 @@ final class Migration {
 	/**
 	 * Determine if we are opted-in to Freemius
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return boolean
 	 */
@@ -146,7 +146,7 @@ final class Migration {
 	/**
 	 * Whether the class should load/run.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return boolean
 	 */
@@ -164,7 +164,7 @@ final class Migration {
 		/**
 		 * Allows filtering of whether the class should load/run.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param bool $should_load Whether the class should load/run.
 		 */
@@ -174,7 +174,7 @@ final class Migration {
 	/**
 	 * Detect if the user has opted in to Freemius and auto-opt them in to Telemetry.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 */
 	public function migrate_existing_opt_in(): void {
 		// Let's reduce the amount this triggers.
@@ -211,7 +211,7 @@ final class Migration {
 		 *
 		 * We also use this to trigger the actual auto-opt-in at the default priority.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 */
 		do_action( 'tec_telemetry_auto_opt_in' );
 
@@ -228,7 +228,7 @@ final class Migration {
 	/**
 	 * Filters our list of plugins to only the ones Freemius shows as active
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param Object $fs_active_plugins The stored list of active plugins from Freemius.
 	 */
@@ -246,7 +246,7 @@ final class Migration {
 	 * Handles our entries in the fs_active_plugins option.
 	 * Removes them from the Freemius option and stores a backup of the original.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param Object $fs_active_plugins
 	 * @return void
@@ -272,7 +272,7 @@ final class Migration {
 	/**
 	 * Opts the user in to Telemetry.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 */
 	public function auto_opt_in() {

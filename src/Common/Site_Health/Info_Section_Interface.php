@@ -7,7 +7,7 @@ namespace TEC\Common\Site_Health;
  *
  * @link https://developer.wordpress.org/reference/hooks/debug_information/
  *
- * @since TBD
+ * @since 5.1.0
  *
  * @package TEC\Common\Site_Health
  */
@@ -15,7 +15,7 @@ interface Info_Section_Interface {
 	/**
 	 * Static way of fetching the slug of this section.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return string
 	 */
@@ -24,7 +24,7 @@ interface Info_Section_Interface {
 	/**
 	 * Returns the section as an array ready for WordPress site health.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return array
 	 */
@@ -35,7 +35,7 @@ interface Info_Section_Interface {
 	 *
 	 * @see Info_Section_Abstract::filter_param() For how to hook into this params.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return string
 	 */
@@ -46,7 +46,7 @@ interface Info_Section_Interface {
 	 *
 	 * @see Info_Section_Abstract::filter_param() For how to hook into this params.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return string
 	 */
@@ -57,7 +57,7 @@ interface Info_Section_Interface {
 	 *
 	 * @see Info_Section_Abstract::filter_param() For how to hook into this params.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return bool
 	 */
@@ -68,7 +68,7 @@ interface Info_Section_Interface {
 	 *
  	 * @see Info_Section_Abstract::filter_param() For how to hook into this params.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return bool
 	 */
@@ -79,7 +79,7 @@ interface Info_Section_Interface {
 	 *
  	 * @see Info_Section_Abstract::filter_param() For how to hook into this params.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return array<string, Info_Field_Abstract>
 	 */
@@ -88,7 +88,7 @@ interface Info_Section_Interface {
 	/**
 	 * Determines if a given field exists.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param string|Info_Field_Abstract $field
 	 *
@@ -99,7 +99,7 @@ interface Info_Section_Interface {
 	/**
 	 * Based on the id of the field return the object.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param string $id
 	 *
@@ -112,7 +112,7 @@ interface Info_Section_Interface {
 	 *
 	 * @see Generic_Info_Field If you are looking on how to quickly generate a field without creating a new class.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param Info_Field_Abstract $field     What field we are trying to add.
 	 * @param bool                $overwrite (optional) Determines if we will overwrite the field or not, if found.

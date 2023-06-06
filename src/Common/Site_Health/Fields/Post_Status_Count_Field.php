@@ -7,7 +7,7 @@ use TEC\Common\Site_Health\Info_Field_Abstract;
 /**
  * Class Post_Status_Count_Field
  *
- * @since   TBD
+ * @since   5.1.0
  *
  * @package TEC\Common\Site_Health
  */
@@ -16,7 +16,7 @@ class Post_Status_Count_Field extends Generic_Info_Field {
 	/**
 	 * Stores the post type for the field.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var string
 	 */
@@ -67,7 +67,7 @@ class Post_Status_Count_Field extends Generic_Info_Field {
 	 * Converts a post status count object to an array in the format
 	 *            [ (string) status_slug => (int) count]
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param stdClass $obj The object returned from wp_count_posts().
 	 *

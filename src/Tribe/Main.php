@@ -33,7 +33,7 @@ class Tribe__Main {
 	/**
 	 * Holds the path to the main file of the parent plugin.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var string
 	 */
@@ -769,7 +769,7 @@ class Tribe__Main {
 	/**
 	 * Get the common library's parent plugin file path.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return string The path to the parent plugin file.
 	 */
@@ -778,7 +778,7 @@ class Tribe__Main {
 		 * Allows plugins to hook in and declare themselves the parent of common.
 		 * Used by Telemetry to determine which plugin to associate with.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @var string $parent_plugin_file The current path to the parent plugin file.
 		 *

@@ -306,7 +306,7 @@ if ( ! function_exists( 'tec_bool_to_string' ) ) {
 	/**
 	 * Utility function to convert booleans to text.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param bool $bool
 	 * @return string "true" or "false" based on the boolean value.
@@ -320,7 +320,7 @@ if ( ! function_exists( 'tec_bool_to_int' ) ) {
 	/**
 	 * Utility function to convert booleans to text.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param bool $bool
 	 * @return int 1 (true) or 0 (false) based on the boolean value.

@@ -7,7 +7,7 @@ namespace TEC\Common\Site_Health;
  *
  * @link    https://developer.wordpress.org/reference/hooks/debug_information/
  *
- * @since   TBD
+ * @since   5.1.0
  *
  * @package TEC\Common\Site_Health
  */
@@ -15,7 +15,7 @@ abstract class Info_Field_Abstract implements Info_Field_Interface {
 	/**
 	 * Stores the ID for the field.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var string
 	 */
@@ -24,7 +24,7 @@ abstract class Info_Field_Abstract implements Info_Field_Interface {
 	/**
 	 * Stores the label for the field.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var string
 	 */
@@ -33,7 +33,7 @@ abstract class Info_Field_Abstract implements Info_Field_Interface {
 	/**
 	 * Stores the value for field.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return string|int|float|array<int>|array<float>|array<string>
 	 */
@@ -42,7 +42,7 @@ abstract class Info_Field_Abstract implements Info_Field_Interface {
 	/**
 	 * Stores the priority for the field, used for sorting.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var int
 	 */
@@ -51,7 +51,7 @@ abstract class Info_Field_Abstract implements Info_Field_Interface {
 	/**
 	 * Stores the flag for if the field is private.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var bool
 	 */
@@ -60,7 +60,7 @@ abstract class Info_Field_Abstract implements Info_Field_Interface {
 	/**
 	 * Stores the debug value for the field.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var string
 	 */
@@ -125,7 +125,7 @@ abstract class Info_Field_Abstract implements Info_Field_Interface {
 	/**
 	 * Internal method to the Field class, to allow filtering of specific values.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param string                $param   The field parameter we're filtering.
 	 * @param mixed                 $value   Value of the field.
@@ -138,7 +138,7 @@ abstract class Info_Field_Abstract implements Info_Field_Interface {
 		/**
 		 * Filters the get of a particular param for all fields.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param mixed                 $value   Value of the field.
 		 * @param Info_Field_Abstract   $field   Current Field.
@@ -148,7 +148,7 @@ abstract class Info_Field_Abstract implements Info_Field_Interface {
 		/**
 		 * Filters the get of a particular param for a specific section + field combination.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param mixed                 $value   Value of the field.
 		 * @param Info_Field_Abstract   $field   Current Field.

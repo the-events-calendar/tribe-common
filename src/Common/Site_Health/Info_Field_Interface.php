@@ -7,7 +7,7 @@ namespace TEC\Common\Site_Health;
  *
  * @link https://developer.wordpress.org/reference/hooks/debug_information/
  *
- * @since TBD
+ * @since 5.1.0
  *
  * @package TEC\Common\Site_Health
  */
@@ -16,7 +16,7 @@ interface Info_Field_Interface {
 	/**
 	 * Gets the ID for this field.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return string
 	 */
@@ -25,7 +25,7 @@ interface Info_Field_Interface {
 	/**
 	 * Gets the label for this field.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return string
 	 */
@@ -35,7 +35,7 @@ interface Info_Field_Interface {
 	 * Gets the value for this field.
 	 * Text should be translated. Can be an associative array that is displayed as name/value pairs.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return string|int|float|array<int>|array<float>|array<string>
 	 */
@@ -44,7 +44,7 @@ interface Info_Field_Interface {
 	/**
 	 * Gets the priority for the field, used to order fields in a section.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return int
 	 */
@@ -57,7 +57,7 @@ interface Info_Field_Interface {
 	 * not translated. If not set, the content of $value is used. Note that the array keys are used as labels for
 	 * the copied data.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return string
 	 */
@@ -68,7 +68,7 @@ interface Info_Field_Interface {
 	 *
 	 * Optional. If set to true, the field will be excluded from the copied data, allowing you to show, for example, API keys here. Default false.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return bool
 	 */
@@ -77,7 +77,7 @@ interface Info_Field_Interface {
 	/**
 	 * Pulls all the params for this field into an array consumable by the site health info page.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return array
 	 */
