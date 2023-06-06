@@ -44,8 +44,7 @@ class Provider extends Service_Provider {
 		add_action( 'wp', [ $this, 'initialize_telemetry' ], 5 );
 		add_action( 'plugins_loaded', [ $this, 'boot_telemetry' ], 50 );
 		add_action( 'tec_telemetry_modal', [ $this, 'show_optin_modal' ] );
-		add_action( 'tec_telemetry_auto_opt_in', [ $this, 'auto_opt_in' ] );
-		add_action( 'tec_common_telemetry_loaded', [ $this, 'migrate_existing_opt_in' ], 100 );
+		add_action( 'tec_common_telemetry_preload', [ $this, 'migrate_existing_opt_in' ], 100 );
 		add_action( 'tec_common_telemetry_loaded', [ $this, 'maybe_enqueue_admin_modal_assets' ] );
 	}
 
@@ -93,17 +92,6 @@ class Provider extends Service_Provider {
 	 */
 	public function migrate_existing_opt_in() {
 		$this->container->make( Migration::class )->migrate_existing_opt_in();
-	}
-
-	/**
-	 * Triggers the automatic opt-in for folks who opted in to Freemius.
-	 *
-	 * @since 5.1.0
-	 *
-	 * @return void
-	 */
-	public function auto_opt_in() {
-		$this->container->make( Migration::class )->auto_opt_in();
 	}
 
 	/**
