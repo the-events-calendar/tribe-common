@@ -1,12 +1,12 @@
 <?php
 /**
- * The base test case to test controllers extending the `TEC\Common\Provider\Controller` class.
+ * The base test case to test controllers extending the `TEC\Common\Contracts\Provider\Controller` class.
  */
 
 namespace TEC\Common\Tests\Provider;
 
 use Codeception\TestCase\WPTestCase;
-use TEC\Common\Provider\Controller;
+use TEC\Common\Contracts\Provider\Controller;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Container as Container;
 
