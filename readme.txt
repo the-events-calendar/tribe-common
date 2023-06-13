@@ -3,6 +3,7 @@
 = [TBD] TBD =
 
 * Release - B23.Goldorak
+* Fix - In some scenarios the garbage collection of our query filters would slow page speeds. Removed garbage collection for the filters. [ECP-1505]
 
 = [5.1.0] 2023-06-06 =
 
