@@ -6,7 +6,10 @@
  * @since 4.9.5
  */
 
-class Tribe__Service_Providers__Debug_Bar extends tad_DI52_ServiceProvider {
+ use TEC\Common\Contracts\Service_Provider;
+
+class Tribe__Service_Providers__Debug_Bar extends Service_Provider {
+
 
 	/**
 	 * Binds and sets up implementations.

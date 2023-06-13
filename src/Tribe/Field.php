@@ -139,7 +139,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$type       = esc_attr( $args['type'] );
 			$name       = esc_attr( $args['name'] );
 			$placeholder = esc_attr( $args['placeholder'] );
-			$class = $this->sanitize_class_attribute( $args['class'] );
+			$class = empty( $args['class'] ) ? '' : $this->sanitize_class_attribute( $args['class'] );
 			$label      = wp_kses(
 				$args['label'], [
 					'a'      => [ 'href' => [], 'title' => [] ],
