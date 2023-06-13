@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Release - Goldorak
+
 = [5.1.0] 2023-06-06 =
 
 * Feature - Replace Freemius with Telemetry - an in-house info system. [TEC-4700]
