@@ -1,6 +1,9 @@
 <?php
 
 // Don't load directly
+
+use TEC\Common\Telemetry\Telemetry;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -145,7 +148,7 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 		}
 
 		/**
-		 * displays the content for the tab
+		 * Displays the content for the tab.
 		 *
 		 * @return void
 		 */

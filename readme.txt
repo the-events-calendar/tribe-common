@@ -2,7 +2,16 @@
 
 = [TBD] TBD =
 
+* Release - B23.Goldorak
+
+= [5.1.0] 2023-06-06 =
+
+* Feature - Replace Freemius with Telemetry - an in-house info system. [TEC-4700]
+* Feature - Add architecture for adding our plugins to the Site Health admin page. [TEC-4701]
 * Fix - Elementor and other themes would inadvertently override styles on the tickets button, when the global styles were set. This hardens the common button (rsv/ticket button) styles a bit more. [TEC-4794]
+* Tweak - Update our container architecture.
+* Tweak - Added filters: `tec_common_rewrite_localize_matcher`
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.0.17] 2023-05-08 =
 

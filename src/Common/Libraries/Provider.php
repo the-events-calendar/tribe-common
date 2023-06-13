@@ -3,8 +3,11 @@
 namespace TEC\Common\Libraries;
 
 use TEC\Common\StellarWP\DB;
+use TEC\Common\Contracts\Service_Provider;
 
-class Provider extends \tad_DI52_ServiceProvider {
+
+class Provider extends Service_Provider {
+
 	/**
 	 * Hook prefix.
 	 *

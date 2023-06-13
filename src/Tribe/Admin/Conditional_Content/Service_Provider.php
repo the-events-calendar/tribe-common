@@ -8,12 +8,15 @@
 
 namespace Tribe\Admin\Conditional_Content;
 
+use TEC\Common\Contracts\Service_Provider as Provider_Contract;
+
 /**
  * Conditional Content Provider.
  *
  * @since 4.14.7
  */
-class Service_Provider extends \tad_DI52_ServiceProvider {
+class Service_Provider extends Provider_Contract {
+
 
 	/**
 	 * Registers the required objects and filters.
