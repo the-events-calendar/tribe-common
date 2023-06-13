@@ -2,7 +2,7 @@
 
 = [TBD] TBD =
 
-* Release - Goldorak
+* Release - B23.Goldorak
 
 = [5.1.0] 2023-06-06 =
 
