@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.1.0] 2023-06-13 =
+= [5.1.0] 2023-06-14 =
 
 * Feature - Replace Freemius with Telemetry - an in-house info system. [TEC-4700]
 * Feature - Add architecture for adding our plugins to the Site Health admin page. [TEC-4701]
