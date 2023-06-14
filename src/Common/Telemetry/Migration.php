@@ -2,7 +2,7 @@
 /**
  * Handles Telemetry migration from Freemius.
  *
- * @since   TBD
+ * @since   5.1.0
  *
  * @package TEC\Common\Telemetry
  */
@@ -15,7 +15,7 @@ use Tribe__Utils__Array as Arr;
 /**
  * Class Migration
  *
- * @since   TBD
+ * @since   5.1.0
 
  * @package TEC\Common\Telemetry
  */
@@ -23,7 +23,7 @@ final class Migration {
 	/**
 	 * The key we back up original fs_accounts data to.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var string
 	 */
@@ -32,7 +32,7 @@ final class Migration {
 	/**
 	 * The key we back up modified fs_accounts data to.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var string
 	 */
@@ -41,7 +41,7 @@ final class Migration {
 	/**
 	 * The key we back up fs_active_plugins data to.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var string
 	 */
@@ -50,7 +50,7 @@ final class Migration {
 	/**
 	 * List of our plugins to check for.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var array
 	 */
@@ -60,9 +60,18 @@ final class Migration {
 	];
 
 	/**
+	 * Placeholder for if the user has opted in via Freemius.
+	 *
+	 * @since 5.1.0
+	 *
+	 * @var boolean
+	 */
+	public static $is_opted_in;
+
+	/**
 	 * Get and massage the fs_accounts
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return void
 	 */
@@ -113,16 +122,21 @@ final class Migration {
 	/**
 	 * Determine if we are opted-in to Freemius
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return boolean
 	 */
 	public function is_opted_in(): bool {
+		if ( ! is_null( static::$is_opted_in ) ) {
+			return static::$is_opted_in;
+		}
+
 		$fs_accounts = $this->get_fs_accounts();
 
 		$sites = Arr::get( $fs_accounts, 'sites', [] );
 
 		if ( empty( $sites ) ) {
+			static::$is_opted_in = false;
 			return false;
 		}
 
@@ -136,17 +150,19 @@ final class Migration {
 			$disconnected[] = (bool) Arr::get( $sites, [ $plugin, 'is_disconnected' ] );
 		}
 
-		if ( empty( $disconnected ) ) {
+		if ( 1 > count( $disconnected ) ) {
+			static::$is_opted_in = false;
 			return false;
 		}
 
-		return in_array( false, $disconnected, true );
+		static::$is_opted_in = in_array( false, $disconnected, true );
+		return static::$is_opted_in;
 	}
 
 	/**
 	 * Whether the class should load/run.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return boolean
 	 */
@@ -156,15 +172,10 @@ final class Migration {
 			return false;
 		}
 
-		// If we're not opted in to Freemius, bail.
-		if ( ! $this->is_opted_in() ) {
-			return false;
-		}
-
 		/**
 		 * Allows filtering of whether the class should load/run.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param bool $should_load Whether the class should load/run.
 		 */
@@ -174,7 +185,7 @@ final class Migration {
 	/**
 	 * Detect if the user has opted in to Freemius and auto-opt them in to Telemetry.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 */
 	public function migrate_existing_opt_in(): void {
 		// Let's reduce the amount this triggers.
@@ -205,15 +216,7 @@ final class Migration {
 			return;
 		}
 
-		/**
-		 * Allows plugins to hook in and perform actions (like display a notice) when
-		 * the user is automatically opted in to Telemetry.
-		 *
-		 * We also use this to trigger the actual auto-opt-in at the default priority.
-		 *
-		 * @since TBD
-		 */
-		do_action( 'tec_telemetry_auto_opt_in' );
+		$this->auto_opt_in();
 
 		// If only our plugins are present, short-cut and delete everything.
 		if ( count( $this->our_plugins ) === count( $fs_active_plugins->plugins ) ) {
@@ -228,7 +231,7 @@ final class Migration {
 	/**
 	 * Filters our list of plugins to only the ones Freemius shows as active
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param Object $fs_active_plugins The stored list of active plugins from Freemius.
 	 */
@@ -246,7 +249,7 @@ final class Migration {
 	 * Handles our entries in the fs_active_plugins option.
 	 * Removes them from the Freemius option and stores a backup of the original.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param Object $fs_active_plugins
 	 * @return void
@@ -272,14 +275,30 @@ final class Migration {
 	/**
 	 * Opts the user in to Telemetry.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 */
 	public function auto_opt_in() {
-		$optin = $this->is_opted_in();
+		$opt_in = $this->is_opted_in();
 
 		$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
-		$opt_in_subscriber->opt_in( Telemetry::get_stellar_slug() );
-		tribe( Telemetry::class )->register_tec_telemetry_plugins( $optin );
+		$telemetry         = tribe( Telemetry::class );
+		$slug              = Telemetry::get_stellar_slug();
+
+		$opt_in_subscriber->opt_in( $slug );
+		$telemetry->register_tec_telemetry_plugins( $opt_in );
+
+		/**
+		 * Allows plugins to hook in and perform actions (like display a notice) when
+		 * the user is automatically opted in to Telemetry.
+		 *
+		 * We also use this to trigger the actual auto-opt-in at the default priority.
+		 *
+		 * @since 5.1.0
+		 */
+		do_action( 'tec_telemetry_auto_opt_in' );
+
+		// Disable the modal on all migrations.
+		$telemetry::disable_modal( $slug, 0 );
 	}
 }

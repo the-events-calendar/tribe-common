@@ -1,12 +1,12 @@
 == Changelog ==
 
-= [5.1.1] 2023-06-07 =
+= [5.1.1] 2023-06-15 =
 
 * Feature - Include a Integrations framework that was ported from The Events Calendar.
 * Enhancement - Made settings field widths more uniform and mobile-friendly. [ET-1734]
 * Fix - Change image field styling for a better look and user experience.
 
-= [5.1.0] 2023-06-06 =
+= [5.1.0] 2023-06-14 =
 
 * Feature - Replace Freemius with Telemetry - an in-house info system. [TEC-4700]
 * Feature - Add architecture for adding our plugins to the Site Health admin page. [TEC-4701]

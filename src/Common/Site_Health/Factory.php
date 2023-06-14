@@ -9,7 +9,7 @@ use Tribe__Main;
  *
  * @link https://developer.wordpress.org/reference/hooks/debug_information/
  *
- * @since   TBD
+ * @since   5.1.0
  *
  * @package TEC\Common\Site_Health
  */
@@ -17,7 +17,7 @@ class Factory {
 	/**
 	 * Generates a Generic field from a set of arguments.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param string            $id
 	 * @param string            $label
@@ -33,7 +33,7 @@ class Factory {
 	/**
 	 * Generates a Post type count field from a set of arguments.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param string $id
 	 * @param string $post_type
@@ -48,7 +48,7 @@ class Factory {
 	/**
 	 * Gets all registered sections.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return array<string,Info_Section_Abstract>
 	 */
@@ -56,7 +56,7 @@ class Factory {
 		/**
 		 * Allows filtering of the Common Info Sections.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param array<string,mixed> $sections Which sections exist.
 		 */
@@ -70,7 +70,7 @@ class Factory {
 	/**
 	 * Gets the section after which we will insert all the factory-generated sections.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return string
 	 */
@@ -81,7 +81,7 @@ class Factory {
 	/**
 	 * Filters the actual site health data to include our sections.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param array $info
 	 *

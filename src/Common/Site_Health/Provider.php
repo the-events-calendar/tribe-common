@@ -7,7 +7,7 @@ use TEC\Common\Contracts\Service_Provider;
 /**
  * Class Provider
  *
- * @since   TBD
+ * @since   5.1.0
  *
  * @package TEC\Common\Site_Health
  *
@@ -17,7 +17,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Register the functionality related to this module.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return void
 	 */
@@ -28,7 +28,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Include the filters related to this module.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return void
 	 */
@@ -39,7 +39,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Includes the info sections controlled by Common.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param array $info Current set of info sections.
 	 *

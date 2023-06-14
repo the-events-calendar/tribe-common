@@ -2,7 +2,7 @@
 /**
  * Handles Telemetry setup and actions.
  *
- * @since   TBD
+ * @since   5.1.0
  *
  * @package TEC\Common\Telemetry
  */
@@ -18,7 +18,7 @@ use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Template;
 /**
  * Class Telemetry
  *
- * @since   TBD
+ * @since   5.1.0
 
  * @package TEC\Common\Telemetry
  */
@@ -26,7 +26,7 @@ final class Telemetry {
 	/**
 	 * The plugin slug used for identification
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var string
 	 */
@@ -35,7 +35,7 @@ final class Telemetry {
 	/**
 	 * The stellar slug used for identification
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var string
 	 */
@@ -44,7 +44,7 @@ final class Telemetry {
 	/**
 	 * The custom hook prefix.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var string
 	 */
@@ -53,7 +53,7 @@ final class Telemetry {
 	/**
 	 * Array to hold the opt-in args.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var array
 	 */
@@ -62,7 +62,7 @@ final class Telemetry {
 	/**
 	 * The slug for the parent plugin.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var string
 	 */
@@ -71,7 +71,7 @@ final class Telemetry {
 	/**
 	 * The slugs for the base TEC plugins.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var array
 	 */
@@ -83,7 +83,7 @@ final class Telemetry {
 	/**
 	 * Path to main pugin file
 	*
-	* @since TBD
+	* @since 5.1.0
 	*
 	* @var string
 	*/
@@ -92,40 +92,17 @@ final class Telemetry {
 	/**
 	 * Array for the TEC plugins to add themselves to.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @var array<string,string>
 	 */
 	public static $tec_slugs = [];
 
-	/**
-	 * Gentlefolk, start your engines.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function init(): void {
-
-		if ( is_admin() ) {
-			$this->register_tec_telemetry_plugins();
-		}
-
-		/**
-		 * Allow plugins to hook in and add themselves,
-		 * running their own actions once Telemetry is initiated.
-		 *
-		 * @since TBD
-		 *
-		 * @param self $telemetry The Telemetry instance.
-		 */
-		do_action( 'tec_common_telemetry_loaded', $this );
-	}
 
 	/**
 	 * Gentlefolk, start your engines.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return void
 	 */
@@ -164,11 +141,35 @@ final class Telemetry {
 		 * running their own actions once Telemetry is initiated,
 		 *  but before we register all our plugins.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param self $telemetry The Telemetry instance.
 		 */
 		do_action( 'tec_common_telemetry_preload', $this );
+	}
+
+	/**
+	 * Initializes the plugins and triggers the "loaded" action.
+	 *
+	 * @since 5.1.0
+	 *
+	 * @return void
+	 */
+	public function init(): void {
+
+		if ( is_admin() ) {
+			$this->register_tec_telemetry_plugins();
+		}
+
+		/**
+		 * Allow plugins to hook in and add themselves,
+		 * running their own actions once Telemetry is initiated.
+		 *
+		 * @since 5.1.0
+		 *
+		 * @param self $telemetry The Telemetry instance.
+		 */
+		do_action( 'tec_common_telemetry_loaded', $this );
 	}
 
 	public static function get_plugin_slug() {
@@ -183,7 +184,7 @@ final class Telemetry {
 	 * Get the slug of the parent plugin.
 	 * Hydrated lazily.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return string
 	 */
@@ -203,7 +204,7 @@ final class Telemetry {
 	/**
 	 * Get the stellar slug based on the parent plugin.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 */
 	public static function get_stellar_slug(): string {
 		$tec_slugs = self::get_tec_telemetry_slugs();
@@ -220,7 +221,7 @@ final class Telemetry {
 	/**
 	 * Filters the default optin modal args.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param array<string|mixed> $args The current optin modal args.
 	 *
@@ -254,7 +255,7 @@ final class Telemetry {
 		/**
 		 * Allows overriding the modal optin args.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param array<string,mixed> $optin_args The modal arguments to filter.
 		 */
@@ -266,7 +267,7 @@ final class Telemetry {
 	/**
 	 * Get the URL for the permission link in the optin modal.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return string
 	 */
@@ -274,7 +275,7 @@ final class Telemetry {
 		/**
 		 * Allow overriding the permissions URL.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param string $url The URL to the permissions page.
 		 */
@@ -284,7 +285,7 @@ final class Telemetry {
 	/**
 	 * Get the URL for the Terms of Service link in the optin modal.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return string
 	 */
@@ -292,7 +293,7 @@ final class Telemetry {
 		/**
 		 * Allow overriding the Terms of Service URL.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param string $url The URL to the Terms of Service page.
 		 */
@@ -302,7 +303,7 @@ final class Telemetry {
 	/**
 	 * Get the URL for the Privacy Policy link in the optin modal.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return string
 	 */
@@ -310,7 +311,7 @@ final class Telemetry {
 		/**
 		 * Allow overriding the Privacy Policy URL.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param string $url The URL to the Privacy Policy page.
 		 */
@@ -320,7 +321,7 @@ final class Telemetry {
 	/**
 	 * Filters the exit questionnaire shown during plugin deactivation/uninstall.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param array<string,mixed> $args The current args.
 	 *
@@ -368,7 +369,7 @@ final class Telemetry {
 	/**
 	 * Triggers Telemetry's opt-in modal with our parameters.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return void
 	 */
@@ -378,7 +379,7 @@ final class Telemetry {
 		 * Filter allowing disabling of the optin modal.
 		 * Returning boolean false will disable the modal
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param bool $show Whether to show the modal or not.
 		 *
@@ -393,7 +394,7 @@ final class Telemetry {
 		 * Telemetry uses this to determine when/where the optin modal should be shown.
 		 * i.e. the modal is shown when we run this.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param string $plugin_slug The slug of the plugin showing the modal.
 		 */
@@ -403,7 +404,7 @@ final class Telemetry {
 	/**
 	 * Sugar function to get the status object from the container.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return Status
 	 */
@@ -415,7 +416,7 @@ final class Telemetry {
 	 * Allows out plugins to hook in and add themselves,
 	 * automating a lot of the registration and opt in/out process.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return array<string,string> An array of plugins in the format [ 'plugin_slug' => 'plugin_path' ]
 	 */
@@ -425,7 +426,7 @@ final class Telemetry {
 		 * This acts a Telemetry "registry" for all TEC plugins.
 		 * Used to ensure TEC plugins get (de)activated as a group.
 		 *
-		 * @since TBD
+		 * @since 5.1.0
 		 *
 		 * @param array<string,string> $slugs An array of plugins in the format [ 'plugin_slug' => 'plugin_path' ]
 		 */
@@ -436,7 +437,7 @@ final class Telemetry {
 	 * Register and opt in/out the plugins that are hooked into `tec_telemetry_slugs`.
 	 * This keeps all TEC plugins in sync and only requires one optin modal response.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return void
 	 */
@@ -453,54 +454,84 @@ final class Telemetry {
 
 		$tec_slugs = self::get_tec_telemetry_slugs();
 
-		// We got no other plugins?
+		// We've got no other plugins?
 		if ( empty( $tec_slugs ) ) {
 			return;
 		}
 
+		// In case we're not specifically passed a status...
+		$new_opted = $this->calculate_optin_status( $opted );
+
 		$status = Config::get_container()->get( Status::class );
-		// If we're not specifically passing a status...
+		$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
+		$opt_in_subscriber->initialize_optin_option();
+
+		foreach ( $tec_slugs as $slug => $path ) {
+			// Register each plugin with the already instantiated library.
+			Config::add_stellar_slug( $slug, $path );
+			$status->add_plugin( $slug, $new_opted, $path );
+
+			if ( $new_opted ) {
+				$opt_in_subscriber->opt_in( $slug );
+				$status->set_status( $new_opted, $slug );
+			}
+
+			// If we're manually opting in/out, don't show the modal(s).
+			if ( ! is_null( $opted ) ) {
+				static::disable_modal( $slug );
+			}
+		}
+	}
+
+	/**
+	 * Calculate the optin status for the TEC plugins from various sources.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $opted
+	 *
+	 * @return bool $opted
+	 */
+	public function calculate_optin_status( $opted ) {
+		$status = Config::get_container()->get( Status::class );
+
+		// If they have opted in to one plugin, opt them in to all TEC ones.
 		if ( NULL === $opted ) {
-			// If they have opted in to one plugin, opt them in to all TEC ones.
 			// @todo: @camwyn this needs a more sane way to check for StellarWP plugins specifically -
 			// other than having to hardcode all the slugs and check them.
 			// This will _have to change_ once Telemetry gets used by a non-StellarWP plugin.
-			if( is_admin() ) {
-				$new_opted = count( $status->get_opted_in_plugins() ) > 0;
+			if ( is_admin() ) {
+				$opted = count( $status->get_opted_in_plugins() ) > 0;
 			}
 
 			// Finally, if we have manually changed things, use that.
 			$tec_option = tribe_get_option( 'opt-in-status', NULL );
 			if ( ! is_null( $tec_option ) ) {
-				$new_opted = $tec_option;
+				$opted = $tec_option;
 			}
 
 			// If we still have nothing, opt out by default
-			if ( is_null( $new_opted ) ) {
-				$new_opted = false;
+			if ( is_null( $opted ) ) {
+				$opted = false;
 			}
 		}
 
-		foreach ( $tec_slugs as $slug => $path ) {
+		return $opted;
+	}
 
-			// Register each plugin with the already instantiated library.
-			Config::add_stellar_slug( $slug, $path );
-			$status->add_plugin( $slug, $new_opted, $path );
-			$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
-			$opt_in_subscriber->initialize_optin_option();
+	/**
+	 * Sugar function to disable (or enable) the optin modal.
+	 *
+	 * @since TBD
+	 *
+	 * @param string      $slug   The plugin slug for Telemetry.
+	 * @param boolean|int $enable Opt out (0|false) or in (1|true).
+	 */
+	public static function disable_modal( $slug, $enable = false ) {
+		// Ensure we have a integer representation of a boolean value.
+		$enable = tec_bool_to_int( tribe_is_truthy( $enable ) );
 
-			if ( $new_opted ) {
-				$opt_in_subscriber->opt_in( $slug );
-
-				// If we have opted in to one TEC plugin, we're opting in to all other TEC plugins as well.
-				$status->set_status( $new_opted, $slug );
-			}
-
-			// If we're manually opting in, don't show the modal(s).
-			if ( $opted ) {
-				$option_slug = Config::get_container()->get( Opt_In_Template::class )->get_option_name( $slug );
-				update_option( $option_slug, '0' );
-			}
-		}
+		$option_slug = Config::get_container()->get( Opt_In_Template::class )->get_option_name( $slug );
+		update_option( $option_slug, $enable );
 	}
 }

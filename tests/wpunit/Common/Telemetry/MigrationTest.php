@@ -188,32 +188,6 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * Tests the negative case of should_load
-	 */
-	public function it_should_not_load_if_no_freemius() {
-		$this->remove_all_freemius_meta();
-		$sut = $this->make_instance();
-
-		$this->remove_all_freemius_meta();
-
-		$this->assertFalse( $sut->should_load() );
-	}
-
-	/**
-	 * @test
-	 * Tests the positive case of should_load
-	 */
-	public function it_should_not_load_if_freemius_opted_out() {
-		$this->remove_all_freemius_meta();
-		$sut = $this->make_instance();
-
-		$this->setup_fs_accounts_disconnected();
-
-		$this->assertFalse( $sut->should_load() );
-	}
-
-	/**
-	 * @test
 	 * Tests the positive case of should_load
 	 */
 	public function it_should_load_if_freemius() {

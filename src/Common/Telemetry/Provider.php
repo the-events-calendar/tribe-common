@@ -2,7 +2,7 @@
 /**
  * Service Provider for Telemetry.
  *
- * @since   TBD
+ * @since   5.1.0
  *
  * @package TEC\Common\Telemetry
  */
@@ -15,7 +15,7 @@ use TEC\Common\StellarWP\Telemetry\Admin\Admin_Subscriber as Asset_Subscriber;
 /**
  * Class Provider
  *
- * @since   TBD
+ * @since   5.1.0
 
  * @package TEC\Common\Telemetry
  */
@@ -38,21 +38,20 @@ class Provider extends Service_Provider {
 	/**
 	 * Add the action hooks.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 */
 	public function add_actions() {
 		add_action( 'wp', [ $this, 'initialize_telemetry' ], 5 );
 		add_action( 'plugins_loaded', [ $this, 'boot_telemetry' ], 50 );
 		add_action( 'tec_telemetry_modal', [ $this, 'show_optin_modal' ] );
-		add_action( 'tec_telemetry_auto_opt_in', [ $this, 'auto_opt_in' ] );
-		add_action( 'tec_common_telemetry_loaded', [ $this, 'migrate_existing_opt_in' ], 100 );
+		add_action( 'tec_common_telemetry_preload', [ $this, 'migrate_existing_opt_in' ], 100 );
 		add_action( 'tec_common_telemetry_loaded', [ $this, 'maybe_enqueue_admin_modal_assets' ] );
 	}
 
 	/**
 	 * Add the filter hooks.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 */
 	public function add_filters() {
 		add_filter( 'stellarwp/telemetry/optin_args', [ $this, 'filter_optin_args' ] );
@@ -63,7 +62,7 @@ class Provider extends Service_Provider {
 	 * Initialize our internal Telemetry code.
 	 * Drivers, start your engines...
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return void
 	 */
@@ -75,7 +74,7 @@ class Provider extends Service_Provider {
 	 * Initialize our internal Telemetry code.
 	 * Drivers, start your engines...
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return void
 	 */
@@ -86,7 +85,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Placeholder for eventual Freemius removal hooking in to modify things.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 * @todo @bordoni leverage this when ready.
 	 *
 	 * @return void
@@ -96,20 +95,9 @@ class Provider extends Service_Provider {
 	}
 
 	/**
-	 * Triggers the automatic opt-in for folks who opted in to Freemius.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function auto_opt_in() {
-		$this->container->make( Migration::class )->auto_opt_in();
-	}
-
-	/**
 	 * Logic for if the opt-in modal should be shown.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @return void
 	 */
@@ -120,7 +108,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Filters the default opt-in modal args.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param array<string|mixed> $args The current optin modal args.
 	 *
@@ -133,7 +121,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Filters the exit questionnaire shown during plugin deactivation/uninstall.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 *
 	 * @param array<string,mixed> $args The current args.
 	 *
@@ -147,7 +135,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Ensure the assets for the modal are enqueued, if needed.
 	 *
-	 * @since TBD
+	 * @since 5.1.0
 	 */
 	public function maybe_enqueue_admin_modal_assets(): void {
 		$this->container->make( Asset_Subscriber::class )->maybe_enqueue_admin_assets();
