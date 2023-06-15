@@ -149,6 +149,9 @@ class Tribe__Main {
 			require_once dirname( __FILE__ ) . '/Autoloader.php';
 		}
 
+		// Aliases for backwards compatibility. @todo @camwyn: Remove once unneeded.
+		require_once realpath( dirname( dirname( __FILE__ ) ) . '/functions/aliases.php' );
+
 		$autoloader = Tribe__Autoloader::instance();
 
 		$prefixes = [
@@ -163,9 +166,6 @@ class Tribe__Main {
 		}
 
 		$autoloader->register_autoloader();
-
-		// Aliases for backwards compatibility. @todo @camwyn: Remove once unneeded.
-		require_once realpath( dirname( dirname( __FILE__ ) ) . '/functions/aliases.php' );
 	}
 
 	public function tribe_common_app_store() {
