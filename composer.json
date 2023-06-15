@@ -23,6 +23,7 @@
     "firebase/php-jwt": "~6.3.0",
     "lucatume/di52": "^3.3.0",
     "monolog/monolog": "1.24.*",
+    "psr/container": "^1.0.0",
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
     "stellarwp/installer": "^1.1.0",
@@ -107,7 +108,7 @@
         "firebase/php-jwt",
         "psr/container"
       ],
-      "excluded_from_prefix": {
+      "exclude_from_prefix": {
         "file_patterns": []
       },
       "delete_vendor_files": true
