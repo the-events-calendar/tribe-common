@@ -19,7 +19,11 @@ class Provider extends Service_Provider {
 
 		$hook_prefix = $this->container->make( Libraries\Provider::class )->get_hook_prefix();
 
-		Installer\Config::set_hook_prefix( $hook_prefix );
+		try {
+			Installer\Config::set_hook_prefix( $hook_prefix );
+		} catch ( \Exception $e ) {
+			// Ignore.
+		}
 
 		add_filter( "stellarwp/installer/{$hook_prefix}/button_classes", [ $this, 'filter_button_classes' ] );
 	}
