@@ -107,6 +107,9 @@
         "firebase/php-jwt",
         "psr/container"
       ],
+      "excluded_from_prefix": {
+        "file_patterns": []
+      },
       "delete_vendor_files": true
     }
   }
