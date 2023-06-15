@@ -33,7 +33,6 @@ namespace PHPSTORM_META {
 			'context'                               => \Tribe__Context::class,
 			'post-transient'                        => \Tribe__Post_Transient::class,
 			'db'                                    => \Tribe__Db::class,
-			'freemius'                              => \Tribe__Freemius::class,
 			'customizer'                            => \Tribe__Customizer::class,
 			'callback'                              => \Tribe__Utils__Callback::class,
 			'pue.notices'                           => \Tribe__PUE__Notices::class,
