@@ -83,8 +83,6 @@ class Tribe__Main {
 
 		$vendor_folder = dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/';
 		require_once realpath( $vendor_folder . 'vendor-prefixed/autoload.php' );
-		// ALiases for backwards compatibility. @todo @camwyn: Remove once unneeded.
-		require_once realpath( dirname( dirname( __FILE__ ) ) . '/functions/aliases.php' );
 		require_once realpath( $vendor_folder . 'autoload.php' );
 
 		// The DI container class.
@@ -165,6 +163,9 @@ class Tribe__Main {
 		}
 
 		$autoloader->register_autoloader();
+
+		// Aliases for backwards compatibility. @todo @camwyn: Remove once unneeded.
+		require_once realpath( dirname( dirname( __FILE__ ) ) . '/functions/aliases.php' );
 	}
 
 	public function tribe_common_app_store() {
