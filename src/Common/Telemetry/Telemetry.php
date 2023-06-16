@@ -120,8 +120,9 @@ final class Telemetry {
 		$container = Container::init();
 		Config::set_container( $container );
 
+		static::clean_up();
+
 		self::$tec_slugs    = self::get_tec_telemetry_slugs();
-		self::$plugin_path  = \Tribe__Main::instance()->get_parent_plugin_file_path();
 		self::$stellar_slug = self::get_stellar_slug();
 		$telemetry_server   = ! defined('TELEMETRY_SERVER') ? 'https://telemetry.stellarwp.com/api/v1': TELEMETRY_SERVER;
 
@@ -132,6 +133,12 @@ final class Telemetry {
 
 		// Set a unique plugin slug.
 		Config::set_stellar_slug( self::$stellar_slug );
+
+		self::$plugin_path  = \Tribe__Main::instance()->get_parent_plugin_file_path();
+
+		if ( empty( self::$plugin_path ) ) {
+			return;
+		}
 
 		// Initialize the library.
 		Core::instance()->init( self::$plugin_path );
@@ -146,6 +153,14 @@ final class Telemetry {
 		 * @param self $telemetry The Telemetry instance.
 		 */
 		do_action( 'tec_common_telemetry_preload', $this );
+	}
+
+	public static function clean_up() {
+		$status = static::get_status_object();
+		$option = $status->get_option();
+		if ( empty( $option['plugins'][ self::$stellar_slug ]['wp_slug'] ) ) {
+			$status->remove_plugin( self::$stellar_slug );
+		}
 	}
 
 	/**
