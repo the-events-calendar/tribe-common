@@ -117,8 +117,12 @@ final class Telemetry {
 		 * and the corresponding wrapper:
 		 * https://github.com/stellarwp/container-contract/blob/main/examples/di52/Container.php
 		 */
-		$container = Container::init();
-		Config::set_container( $container );
+		if ( ! Config::has_container() ) {
+			$container = Container::init();
+			Config::set_container( $container );
+		} else {
+			$container = Config::get_container();
+		}
 
 		static::clean_up();
 
