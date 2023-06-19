@@ -109,12 +109,9 @@ final class Telemetry {
 		 * and the corresponding wrapper:
 		 * https://github.com/stellarwp/container-contract/blob/main/examples/di52/Container.php
 		 */
-		if ( ! Config::has_container() ) {
-			$container = Container::init();
-			Config::set_container( $container );
-		} else {
-			$container = Config::get_container();
-		}
+		$container = Container::init();
+
+		Config::set_container( $container );
 
 		static::clean_up();
 
@@ -160,6 +157,27 @@ final class Telemetry {
 	}
 
 	/**
+	 * Initializes the plugins and triggers the "loaded" action.
+	 *
+	 * @since 5.1.0
+	 *
+	 * @return void
+	 */
+	public function init(): void {
+		$this->register_tec_telemetry_plugins();
+
+		/**
+		 * Allow plugins to hook in and add themselves,
+		 * running their own actions once Telemetry is initiated.
+		 *
+		 * @since 5.1.0
+		 *
+		 * @param self $telemetry The Telemetry instance.
+		 */
+		do_action( 'tec_common_telemetry_loaded', $this );
+	}
+
+	/**
 	 * Clean up some old data.
 	 * If the "tec" plugin exists, and it has no wp_slug, remove it.
 	 * This prevents a fatal with the Telemetry library when we call get_opted_in_plugins().
@@ -174,36 +192,6 @@ final class Telemetry {
 		if ( ! empty( $option['plugins'][ 'tec' ] ) && empty( $option['plugins'][ 'tec' ]['wp_slug'] ) ) {
 			$status->remove_plugin( 'tec' );
 		}
-	}
-
-	/**
-	 * Initializes the plugins and triggers the "loaded" action.
-	 *
-	 * @since 5.1.0
-	 *
-	 * @return void
-	 */
-	public function init(): void {
-		global $current_screen;
-		$page = tribe( 'admin.pages' )->determine_current_page();
-		$admin = is_admin();
-		$current = current_action();
-
-		if (
-			is_admin()
-		) {
-			$this->register_tec_telemetry_plugins();
-		}
-
-		/**
-		 * Allow plugins to hook in and add themselves,
-		 * running their own actions once Telemetry is initiated.
-		 *
-		 * @since 5.1.0
-		 *
-		 * @param self $telemetry The Telemetry instance.
-		 */
-		do_action( 'tec_common_telemetry_loaded', $this );
 	}
 
 	public static function get_plugin_slug() {

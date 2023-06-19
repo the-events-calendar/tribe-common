@@ -41,8 +41,9 @@ class Provider extends Service_Provider {
 	 * @since 5.1.0
 	 */
 	public function add_actions() {
-		add_action( 'admin_init', [ $this, 'initialize_telemetry' ], 5 );
 		add_action( 'tribe_plugins_loaded', [ $this, 'boot_telemetry' ], 50 );
+		add_action( 'admin_init', [ $this, 'initialize_telemetry' ], 5 );
+
 		add_action( 'tec_telemetry_modal', [ $this, 'show_optin_modal' ] );
 		add_action( 'tec_common_telemetry_preload', [ $this, 'migrate_existing_opt_in' ], 100 );
 		add_action( 'tec_common_telemetry_loaded', [ $this, 'maybe_enqueue_admin_modal_assets' ] );
