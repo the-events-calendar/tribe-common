@@ -486,7 +486,7 @@ final class Telemetry {
 	/**
 	 * Calculate the optin status for the TEC plugins from various sources.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param bool $opted
 	 *
@@ -522,7 +522,7 @@ final class Telemetry {
 	/**
 	 * Sugar function to disable (or enable) the optin modal.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param string      $slug   The plugin slug for Telemetry.
 	 * @param boolean|int $enable Opt out (0|false) or in (1|true).
