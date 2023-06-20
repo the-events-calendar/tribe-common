@@ -6,7 +6,7 @@ trait Theme_Integration {
 	/**
 	 * Gets the integration type.
 	 *
-	 * @since  TBD
+	 * @since  5.1.1
 	 *
 	 * @return string
 	 */

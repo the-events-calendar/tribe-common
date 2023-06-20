@@ -14,7 +14,6 @@ use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Subscriber;
 use Tribe__Container as Container;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Template;
-use Tribe\Admin\Pages;
 
 /**
  * Class Telemetry
@@ -182,7 +181,7 @@ final class Telemetry {
 	 * If the "tec" plugin exists, and it has no wp_slug, remove it.
 	 * This prevents a fatal with the Telemetry library when we call get_opted_in_plugins().
 	 *
-	 * @since TBD
+	 * @since 5.1.1.1
 	 *
 	 * @return void
 	 */
@@ -544,7 +543,7 @@ final class Telemetry {
 	/**
 	 * Calculate the optin status for the TEC plugins from various sources.
 	 *
-	 * @since TBD
+	 * @since 5.1.1.1
 	 *
 	 * @return bool $show If the modal should show
 	 */
