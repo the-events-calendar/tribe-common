@@ -2,7 +2,7 @@
 
 = [5.1.1.1] 2023-06-19 =
 
-
+* Fix - Increase the reliability of Telemetry initialization for Event Tickets loading [TEC-4836]
 
 = [5.1.1] 2023-06-15 =
 
