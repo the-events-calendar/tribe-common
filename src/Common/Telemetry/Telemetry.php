@@ -14,6 +14,7 @@ use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Subscriber;
 use Tribe__Container as Container;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Template;
+use Tribe\Admin\Pages;
 
 /**
  * Class Telemetry
@@ -31,15 +32,6 @@ final class Telemetry {
 	 * @var string
 	 */
 	protected static $plugin_slug  = '';
-
-	/**
-	 * The stellar slug used for identification
-	 *
-	 * @since 5.1.0
-	 *
-	 * @var string
-	 */
-	protected static $stellar_slug  = 'tec';
 
 	/**
 	 * The custom hook prefix.
@@ -87,7 +79,7 @@ final class Telemetry {
 	*
 	* @var string
 	*/
-	private static $plugin_path = 'tribe-common.php';
+	private static $plugin_path = '';
 
 	/**
 	 * Array for the TEC plugins to add themselves to.
@@ -118,11 +110,21 @@ final class Telemetry {
 		 * https://github.com/stellarwp/container-contract/blob/main/examples/di52/Container.php
 		 */
 		$container = Container::init();
+
 		Config::set_container( $container );
 
+		static::clean_up();
+
 		self::$tec_slugs    = self::get_tec_telemetry_slugs();
+		self::$plugin_slug  = self::get_parent_plugin_slug();
 		self::$plugin_path  = \Tribe__Main::instance()->get_parent_plugin_file_path();
-		self::$stellar_slug = self::get_stellar_slug();
+		$stellar_slug = self::get_stellar_slug();
+
+
+		if ( empty( $stellar_slug ) ) {
+			return;
+		}
+
 		$telemetry_server   = ! defined('TELEMETRY_SERVER') ? 'https://telemetry.stellarwp.com/api/v1': TELEMETRY_SERVER;
 
 		Config::set_server_url( $telemetry_server );
@@ -131,7 +133,13 @@ final class Telemetry {
 		Config::set_hook_prefix( self::$hook_prefix );
 
 		// Set a unique plugin slug.
-		Config::set_stellar_slug( self::$stellar_slug );
+		Config::set_stellar_slug( $stellar_slug );
+
+		self::$plugin_path  = \Tribe__Main::instance()->get_parent_plugin_file_path();
+
+		if ( empty( self::$plugin_path ) ) {
+			return;
+		}
 
 		// Initialize the library.
 		Core::instance()->init( self::$plugin_path );
@@ -156,10 +164,7 @@ final class Telemetry {
 	 * @return void
 	 */
 	public function init(): void {
-
-		if ( is_admin() ) {
-			$this->register_tec_telemetry_plugins();
-		}
+		$this->register_tec_telemetry_plugins();
 
 		/**
 		 * Allow plugins to hook in and add themselves,
@@ -170,6 +175,23 @@ final class Telemetry {
 		 * @param self $telemetry The Telemetry instance.
 		 */
 		do_action( 'tec_common_telemetry_loaded', $this );
+	}
+
+	/**
+	 * Clean up some old data.
+	 * If the "tec" plugin exists, and it has no wp_slug, remove it.
+	 * This prevents a fatal with the Telemetry library when we call get_opted_in_plugins().
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public static function clean_up(): void {
+		$status = static::get_status_object();
+		$option = $status->get_option();
+		if ( ! empty( $option['plugins'][ 'tec' ] ) && empty( $option['plugins'][ 'tec' ]['wp_slug'] ) ) {
+			$status->remove_plugin( 'tec' );
+		}
 	}
 
 	public static function get_plugin_slug() {
@@ -215,7 +237,7 @@ final class Telemetry {
 			}
 		}
 
-		return self::$stellar_slug;
+		return '';
 	}
 
 	/**
@@ -477,7 +499,7 @@ final class Telemetry {
 			}
 
 			// If we're manually opting in/out, don't show the modal(s).
-			if ( ! is_null( $opted ) ) {
+			if ( ! is_null( $opted ) || ! empty( $new_opted ) ) {
 				static::disable_modal( $slug );
 			}
 		}
@@ -493,30 +515,24 @@ final class Telemetry {
 	 * @return bool $opted
 	 */
 	public function calculate_optin_status( $opted ) {
-		$status = Config::get_container()->get( Status::class );
+		if ( NULL !== $opted ) {
+			return $opted;
+		}
 
 		// If they have opted in to one plugin, opt them in to all TEC ones.
-		if ( NULL === $opted ) {
-			// @todo: @camwyn this needs a more sane way to check for StellarWP plugins specifically -
-			// other than having to hardcode all the slugs and check them.
-			// This will _have to change_ once Telemetry gets used by a non-StellarWP plugin.
-			if ( is_admin() ) {
-				$opted = count( $status->get_opted_in_plugins() ) > 0;
-			}
+		$status_obj = static::get_status_object();
+		$stati      = [];
+		$option     = $status_obj->get_option();
 
-			// Finally, if we have manually changed things, use that.
-			$tec_option = tribe_get_option( 'opt-in-status', NULL );
-			if ( ! is_null( $tec_option ) ) {
-				$opted = $tec_option;
-			}
-
-			// If we still have nothing, opt out by default
-			if ( is_null( $opted ) ) {
-				$opted = false;
+		foreach ( static::$base_parent_slugs as $slug ) {
+			if ( $status_obj->plugin_exists( $slug ) ) {
+				$stati[ $slug ] = $option['plugins'][ $slug ][ 'optin' ];
 			}
 		}
 
-		return $opted;
+		$status = array_filter( $stati );
+
+		return (bool) array_pop( $status );
 	}
 
 	/**
