@@ -505,7 +505,7 @@ final class Telemetry {
 
 			// If we've already interacted with a modal, don't show another one.
 			$show = static::calculate_modal_status();
-			if ( $show ) {
+			if ( ! $show ) {
 				static::disable_modal( $slug, $show );
 			}
 		}
@@ -546,26 +546,34 @@ final class Telemetry {
 	 *
 	 * @since TBD
 	 *
-	 * @return bool $show
+	 * @return bool $show If the modal should show
 	 */
 	public static function calculate_modal_status() {
 		// If they have already interacted with a modal, find out.
-		$shows      = [];
+		$shows = array_flip( static::$base_parent_slugs );
+		$optin = Config::get_container()->get( Opt_In_Template::class );
 
 		foreach ( static::$base_parent_slugs as $slug ) {
-			$show = get_option( Config::get_container()->get( Opt_In_Template::class )->get_option_name( $slug ), null );
+			$show = get_option( $optin->get_option_name( $slug ), null );
+			// Remove unset entries from the array.
 			if ( is_null( $show )  ) {
+				unset( $shows[ $slug ] );
 				continue;
 			}
 
-			// If the return value is false, we want to hide the modal.
-			if ( '0' === $show ) {
-				$shows[] = $slug;
-			}
+			$shows[ $slug ] = $show;
 		}
 
+		// No entries - show modal.
+		if ( empty( $shows ) ) {
+			return true;
+		}
+
+		// Flip the array = duplicate entries will be overwritten.
+		$shows = array_flip( $shows );
+
 		// If we have interacted with any modals, don't show this one.
-		return ! empty( $show );
+		return ! isset( $shows[0] );
 	}
 
 	/**
