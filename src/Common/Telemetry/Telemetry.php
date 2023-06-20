@@ -502,6 +502,12 @@ final class Telemetry {
 			if ( ! is_null( $opted ) || ! empty( $new_opted ) ) {
 				static::disable_modal( $slug );
 			}
+
+			// If we've already interacted with a modal, don't show another one.
+			$show = static::calculate_modal_status();
+			if ( $show ) {
+				static::disable_modal( $slug, $show );
+			}
 		}
 	}
 
@@ -533,6 +539,33 @@ final class Telemetry {
 		$status = array_filter( $stati );
 
 		return (bool) array_pop( $status );
+	}
+
+	/**
+	 * Calculate the optin status for the TEC plugins from various sources.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool $show
+	 */
+	public static function calculate_modal_status() {
+		// If they have already interacted with a modal, find out.
+		$shows      = [];
+
+		foreach ( static::$base_parent_slugs as $slug ) {
+			$show = get_option( Config::get_container()->get( Opt_In_Template::class )->get_option_name( $slug ), null );
+			if ( is_null( $show )  ) {
+				continue;
+			}
+
+			// If the return value is false, we want to hide the modal.
+			if ( '0' === $show ) {
+				$shows[] = $slug;
+			}
+		}
+
+		// If we have interacted with any modals, don't show this one.
+		return ! empty( $show );
 	}
 
 	/**
