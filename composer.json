@@ -21,7 +21,7 @@
   },
   "require": {
     "firebase/php-jwt": "~6.3.0",
-    "lucatume/di52": "^3.3.0",
+    "lucatume/di52": "^3.3.4",
     "monolog/monolog": "1.24.*",
     "psr/container": "^1.0.0",
     "stellarwp/container-contract": "^1.0.4",
