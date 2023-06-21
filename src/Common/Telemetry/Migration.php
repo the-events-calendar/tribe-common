@@ -219,7 +219,7 @@ final class Migration {
 		$this->auto_opt_in();
 
 		// If only our plugins are present, short-cut and delete everything.
-		if ( count( $this->our_plugins ) === count( $fs_active_plugins->plugins ) ) {
+		if ( count( $this->our_plugins ) === count( (array) $fs_active_plugins->plugins ) ) {
 			return;
 		}
 
