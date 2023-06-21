@@ -9,6 +9,8 @@ use Codeception\TestCase\WPTestCase;
 use TEC\Common\Contracts\Provider\Controller;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Container as Container;
+use TEC\Common\lucatume\DI52\Container as DI52_Container;
+use function DeepCopy\deep_copy;
 
 /**
  * Class Controller_Test_Case.
@@ -83,17 +85,19 @@ class Controller_Test_Case extends WPTestCase {
 		}
 
 		// Store a reference to the original Service Locator to be used in `tearDown`.
-		$services                = tribe();
-		$this->original_services = $services;
+		$original_services                = tribe();
+		$this->original_services = $original_services;
 
 		// Store a reference to the original controller to be used in `tearDown`.
-		$this->original_controller = tribe( $this->controller_class );
+		$this->original_controller = $original_services->get( $this->controller_class );
 
 		// Unhook all the controller instances to avoid callbacks running twice: original and test Controller.
 		$this->unregister_all_controller_instances( $this->original_controller );
 
 		// Clone the original Service Locator to be used as a test Service Locator.
-		$test_services = clone $services;
+		$test_services = clone $original_services;
+		// $test_services = deep_copy( $original_services, false );
+		$test_services->_test = true;
 
 		// From now on calls to the Service Locator (the `tribe` function) will be redirected to a test Service Locator.
 		uopz_set_return( 'tribe', static function ( $key = null ) use ( $test_services ) {
@@ -107,7 +111,8 @@ class Controller_Test_Case extends WPTestCase {
 
 		// Register the test Service Locator in the test Service Locator itself.
 		$this->test_services->singleton( get_class( $this->test_services ), $this->test_services );
-		$this->test_services->singleton( \tad_DI52_Container::class, $this->test_services );
+		$this->test_services->singleton( Container::class, $this->test_services );
+		$this->test_services->singleton( DI52_Container::class, $this->test_services );
 
 		// In the test Service Locator, the Controller should not be registered.
 		$this->test_services->setVar( $this->controller_class . '_registered', false );
@@ -190,6 +195,7 @@ class Controller_Test_Case extends WPTestCase {
 
 		// Due to the previous unset, the container will build this as a prototype.
 		$controller = $this->test_services->make( $controller_class );
+		$this->assertNotSame( $controller, $this->original_controller );
 
 		$this->made_controllers[] = $controller;
 
