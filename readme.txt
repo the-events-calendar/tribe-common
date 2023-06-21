@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [5.1.2] TBD =
 
 * Release - B23.Goldorak
 
