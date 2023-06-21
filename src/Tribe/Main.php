@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'Tribe__Main' ) ) {
+if ( class_exists( 'Tribe__Main', false ) ) {
 	return;
 }
 

@@ -2,7 +2,7 @@
 /**
  * Abstract for Integrations.
  *
- * @since TBD
+ * @since 5.1.1
  *
  * @package TEC\Common\Integrations
  */
@@ -15,7 +15,7 @@ use TEC\Common\Contracts\Service_Provider;
  *
  * @link    https://docs.theeventscalendar.com/apis/integrations/including-new-integrations/
  *
- * @since   TBD
+ * @since   5.1.1
  *
  * @package TEC\Common\Integrations
  */
@@ -23,7 +23,7 @@ abstract class Integration_Abstract extends Service_Provider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 */
 	public function register() {
 		// Registers this provider as a singleton for ease of use.
@@ -40,7 +40,7 @@ abstract class Integration_Abstract extends Service_Provider {
 	/**
 	 * Gets the slug for this integration parent, the main plugin that is being integrated to.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @return string
 	 */
@@ -49,7 +49,7 @@ abstract class Integration_Abstract extends Service_Provider {
 	/**
 	 * Gets the slug for this integration.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @return string
 	 */
@@ -58,7 +58,7 @@ abstract class Integration_Abstract extends Service_Provider {
 	/**
 	 * Determines whether this integration should load.
 	 *
-	 * @since  TBD
+	 * @since  5.1.1
 	 *
 	 * @return bool
 	 */
@@ -69,7 +69,7 @@ abstract class Integration_Abstract extends Service_Provider {
 	/**
 	 * Filters whether the integration should load.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @param bool $value Whether the integration should load.
 	 *
@@ -83,7 +83,7 @@ abstract class Integration_Abstract extends Service_Provider {
 		/**
 		 * Filters if integrations should be loaded.
 		 *
-		 * @since TBD
+		 * @since 5.1.1
 		 *
 		 * @param bool   $value Whether the integration should load.
 		 * @param string $type  Type of integration we are loading.
@@ -94,7 +94,7 @@ abstract class Integration_Abstract extends Service_Provider {
 		/**
 		 * Filters if integrations should be loaded.
 		 *
-		 * @since TBD
+		 * @since 5.1.1
 		 *
 		 * @param bool   $value Whether the integration should load.
 		 * @param string $type  Type of integration we are loading.
@@ -105,7 +105,7 @@ abstract class Integration_Abstract extends Service_Provider {
 		/**
 		 * Filters if integrations of the current type should be loaded.
 		 *
-		 * @since TBD
+		 * @since 5.1.1
 		 *
 		 * @param bool   $value Whether the integration should load.
 		 * @param string $slug  Slug of the integration we are loading.
@@ -115,7 +115,7 @@ abstract class Integration_Abstract extends Service_Provider {
 		/**
 		 * Filters if a specific integration (by type and slug) should be loaded.
 		 *
-		 * @since TBD
+		 * @since 5.1.1
 		 *
 		 * @param bool $value Whether the integration should load.
 		 */
@@ -125,7 +125,7 @@ abstract class Integration_Abstract extends Service_Provider {
 	/**
 	 * Determines if the integration in question should be loaded.
 	 *
-	 * @since  TBD
+	 * @since  5.1.1
 	 *
 	 * @return bool
 	 */
@@ -134,7 +134,7 @@ abstract class Integration_Abstract extends Service_Provider {
 	/**
 	 * Loads the integration itself.
 	 *
-	 * @since  TBD
+	 * @since  5.1.1
 	 *
 	 * @return void
 	 */
@@ -143,7 +143,7 @@ abstract class Integration_Abstract extends Service_Provider {
 	/**
 	 * Determines the integration type.
 	 *
-	 * @since  TBD
+	 * @since  5.1.1
 	 *
 	 * @return string
 	 */
