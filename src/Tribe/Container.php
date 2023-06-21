@@ -21,80 +21,9 @@ if ( ! class_exists( 'Tribe__Container' ) ) {
 		public static function init() {
 			if ( empty( self::$instance ) ) {
 				self::$instance = new self();
-				// Bind the container in itself to make sure any implementation requiring the container will get it.
-				self::$instance->singleton( static::class, static::$instance );
-				self::$instance->singleton( \tad_DI52_Container::class, static::$instance );
 			}
 
 			return self::$instance;
-		}
-
-		/**
-		 * Returns the implementation for the specified class, interface or slug.
-		 *
-		 * @since TBD
-		 *
-		 * @param string $id The class, interface or slug to return the implementation for.
-		 *
-		 * @return mixed The implementation for the specified class, interface or slug.
-		 *
-		 */
-		public function get( string $id ) {
-			return $this->make( $id );
-		}
-
-		/**
-		 * Returns whether the container has an implementation for the specified class, interface or slug.
-		 *
-		 * @since TBD
-		 *
-		 * @param string $id The class, interface or slug to check the implementation for.
-		 *
-		 * @return bool Whether the container has an implementation for the specified class, interface or slug.
-		 */
-		public function has( string $id ) {
-			return $this->isBound( $id );
-		}
-
-		/**
-		 * Overrides the basic DI52 implementation to build Service Providers using the container and allow dependency
-		 * injection in the Service Provider constructor.
-		 *
-		 * @todo Remove this override once the di52 dependency is updated to 3.0.0 or later.
-		 *
-		 * @since TBD
-		 *
-		 * @param string $serviceProviderClass The class name of the service provider to register.
-		 *
-		 * @return void The service provider is registered in the container.
-		 * @throws ReflectionException If the service provider class does not exist.
-		 */
-		public function register( $serviceProviderClass ) {
-			/** @var tad_DI52_ServiceProviderInterface $provider */
-			$provider = $this->make( $serviceProviderClass );
-
-			// Register the provider as a singleton, there should only be one single instance of each provider.
-			$this->singleton( $serviceProviderClass, $provider );
-
-			if ( ! $provider->isDeferred() ) {
-				$provider->register();
-			} else {
-				$provided = $provider->provides();
-
-				$count = count( $provided );
-				if ( $count === 0 ) {
-					throw new RuntimeException( "Service provider '{$serviceProviderClass}' is marked as deferred but is not providing any implementation." );
-				}
-
-				$this->bindings = array_merge( $this->bindings, array_combine( $provided, $provided ) );
-				$this->deferred = array_merge( $this->deferred,
-					array_combine( $provided, array_fill( 0, $count, $provider ) ) );
-			}
-			$ref          = new ReflectionMethod( $provider, 'boot' );
-			$requiresBoot = ( $ref->getDeclaringClass()->getName() === get_class( $provider ) );
-			if ( $requiresBoot ) {
-				$this->bootable[] = $provider;
-			}
 		}
 	}
 }
