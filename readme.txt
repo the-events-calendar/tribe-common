@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.1.1.2] 2023-06-21 =
+
+* Fix - Adjusted our PHP Exception usage to protect against third-party code causing fatals when attempting to access objects that have not been initialized.
+
 = [5.1.1.1] 2023-06-20 =
 
 * Fix - Increase the reliability of Telemetry initialization for Event Tickets loading [TEC-4836]
