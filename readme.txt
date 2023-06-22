@@ -1,5 +1,8 @@
 == Changelog ==
 
+= [5.1.2] 2023-06-22 =
+
+
 = [5.1.1.2] 2023-06-21 =
 
 * Fix - Adjusted our PHP Exception usage to protect against third-party code causing fatals when attempting to access objects that have not been initialized.
