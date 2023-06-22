@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.1.2] 2023-06-22 =
+
+* Fix - Lock our container usage(s) to the new Service_Provider contract in tribe-common. This prevents conflicts and potential fatals with other plugins that use a di52 container.
+
 = [5.1.1.2] 2023-06-21 =
 
 * Fix - Adjusted our PHP Exception usage to protect against third-party code causing fatals when attempting to access objects that have not been initialized.
