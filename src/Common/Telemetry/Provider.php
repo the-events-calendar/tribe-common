@@ -102,7 +102,6 @@ class Provider extends Service_Provider {
 	 * Placeholder for eventual Freemius removal hooking in to modify things.
 	 *
 	 * @since 5.1.0
-	 * @todo @bordoni leverage this when ready.
 	 *
 	 * @return void
 	 */
