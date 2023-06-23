@@ -23,7 +23,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '5.1.1.1';
+	const VERSION             = '5.1.2.2';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -149,7 +149,7 @@ class Tribe__Main {
 			require_once dirname( __FILE__ ) . '/Autoloader.php';
 		}
 
-		// Aliases for backwards compatibility. @todo @camwyn: Remove once unneeded.
+		// Aliases for backwards compatibility with our Extensions and Pods.
 		require_once realpath( dirname( dirname( __FILE__ ) ) . '/functions/aliases.php' );
 
 		$autoloader = Tribe__Autoloader::instance();
