@@ -149,6 +149,9 @@ class Tribe__Main {
 			require_once dirname( __FILE__ ) . '/Autoloader.php';
 		}
 
+		// Aliases for backwards compatibility with our Extensions and Pods.
+		require_once realpath( dirname( dirname( __FILE__ ) ) . '/functions/aliases.php' );
+
 		$autoloader = Tribe__Autoloader::instance();
 
 		$prefixes = [
