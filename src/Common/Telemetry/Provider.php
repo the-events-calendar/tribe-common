@@ -42,7 +42,12 @@ class Provider extends Service_Provider {
 	 */
 	public function add_actions() {
 		add_action( 'tribe_plugins_loaded', [ $this, 'boot_telemetry' ], 50 );
-		add_action( 'admin_init', [ $this, 'initialize_telemetry' ], 5 );
+
+		/**
+		 * All these actions here need to be hooked from `tec_common_telemetry_preload` action to make sure that we have
+		 * all the telemetry code loaded and ready to go.
+		 */
+		add_action( 'tec_common_telemetry_preload', [ $this, 'hook_telemetry_init' ], 5 );
 
 		add_action( 'tec_telemetry_modal', [ $this, 'show_optin_modal' ] );
 		add_action( 'tec_common_telemetry_preload', [ $this, 'migrate_existing_opt_in' ], 100 );
@@ -57,6 +62,16 @@ class Provider extends Service_Provider {
 	public function add_filters() {
 		add_filter( 'stellarwp/telemetry/optin_args', [ $this, 'filter_optin_args' ] );
 		add_filter( 'stellarwp/telemetry/exit_interview_args', [ $this, 'filter_exit_interview_args' ] );
+	}
+
+	/**
+	 * It's super important to make sure when hooking to WordPress actions that we don't do before we are sure that
+	 * telemetry was properly booted into the system.
+	 *
+	 * @since TBD
+	 */
+	public function hook_telemetry_init(): void {
+		add_action( 'admin_init', [ $this, 'initialize_telemetry' ], 5 );
 	}
 
 	/**
