@@ -2,7 +2,7 @@
 
 = [5.1.2.1] 2023-06-22 =
 
-
+* Fix - Prevent Telemetry from being initialized and triggering a Fatal when the correct conditionals are not met.
 
 = [5.1.2] 2023-06-22 =
 
