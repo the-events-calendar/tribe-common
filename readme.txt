@@ -4,6 +4,22 @@
 
 * Release - B23.Goldorak
 
+= [5.1.2.2] 2023-06-23 =
+
+* Fix - Ensure there is backwards compatibility with Extensions and Pods.
+
+= [5.1.2.1] 2023-06-22 =
+
+* Fix - Prevent Telemetry from being initialized and triggering a Fatal when the correct conditionals are not met.
+
+= [5.1.2] 2023-06-22 =
+
+* Fix - Lock our container usage(s) to the new Service_Provider contract in tribe-common. This prevents conflicts and potential fatals with other plugins that use a di52 container.
+
+= [5.1.1.2] 2023-06-21 =
+
+* Fix - Adjusted our PHP Exception usage to protect against third-party code causing fatals when attempting to access objects that have not been initialized.
+
 = [5.1.1.1] 2023-06-20 =
 
 * Fix - Increase the reliability of Telemetry initialization for Event Tickets loading [TEC-4836]

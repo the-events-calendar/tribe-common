@@ -15,7 +15,7 @@ namespace TEC\Common\Integrations;
  *
  * @package TEC\Common\Integrations
  */
-class Provider extends \tad_DI52_ServiceProvider {
+class Provider extends \TEC\Common\Contracts\Service_Provider {
 	/**
 	 * Binds and sets up implementations.
 	 *
