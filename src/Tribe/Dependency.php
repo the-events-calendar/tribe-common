@@ -548,6 +548,28 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		public static function instance() {
 			return tribe( self::class );
 		}
+
+		/**
+		 * Return if we have a premium plugin active.
+		 * Results may be unreliable if called before the tribe_plugins_loaded hook.
+		 *
+		 * @since TBD
+		 *
+		 * @return bool
+		 */
+		public function has_active_premium_plugin(): bool {
+			$active_plugins = $this->get_active_plugins();
+			foreach ( $active_plugins as $plugin ) {
+				if (
+					'Tribe__Events__Main' !== $plugin['class']
+					&& 'Tribe__Tickets__Main' !== $plugin['class']
+				) {
+					return true;
+				}
+			}
+
+			return false;
+		}
 	}
 
 }
