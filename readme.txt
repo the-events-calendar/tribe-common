@@ -3,6 +3,7 @@
 = [5.1.2] TBD =
 
 * Release - B23.Goldorak
+* Security - Various improvements to event creation.
 
 = [5.1.2.2] 2023-06-23 =
 
