@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.1.2] TBD =
+
+* Fix - Properly handle plugin paths on windows during telemetry booting. [TEC-4842]
+
 = [5.1.2.2] 2023-06-23 =
 
 * Fix - Ensure there is backwards compatibility with Extensions and Pods.
