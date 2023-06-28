@@ -1,8 +1,9 @@
 == Changelog ==
 
-= [5.1.2] TBD =
+= [5.1.2] 2023-06-29 =
 
 * Fix - Properly handle plugin paths on Windows during telemetry booting. [TEC-4842]
+* Security - Various improvements to event creation.
 
 = [5.1.2.2] 2023-06-23 =
 
