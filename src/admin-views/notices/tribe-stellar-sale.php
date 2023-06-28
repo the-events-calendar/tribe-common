@@ -10,10 +10,6 @@
 ?>
 <div class="tribe-marketing-notice">
 	<div class="tribe-marketing-notice__content">
-		<div class="tribe-marketing-notice__icon">
-			<?php include \Tribe__Main::instance()->plugin_path . 'src/views/v2/components/icons/stellar-icon.php'; ?>
-		</div>
-		<?php include \Tribe__Main::instance()->plugin_path . 'src/resources/images/marketing/stellar-sale-text.svg'; ?>
 		<h3>
 			<?php
 			/* Translators: %1$s formatted date. */

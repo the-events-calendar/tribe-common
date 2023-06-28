@@ -163,5 +163,15 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 
 			return isset( $plugins[ $plugin_name ] ) && tribe_is_truthy( $plugins[ $plugin_name ] );
 		}
+
+		public function get_active_plugins() {
+			$plugins = $this->get_list();
+
+			$plugins = array_filter( $plugins, function ( $plugin ) {
+				return self::is_active( $plugin['short_name'] );
+			} );
+
+			return $plugins;
+		}
 	}
 }
