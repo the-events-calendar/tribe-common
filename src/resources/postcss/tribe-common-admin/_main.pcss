@@ -1663,8 +1663,9 @@ a.tribe-rating-link {
 		.notice-dismiss {
 			&:before {
 				content: "X";
-				font-size: 25px;
+				font-size: 30px;
 				font-family: inherit;
+				font-weight: 300;
 				position: absolute;
 				right: 20px;
 				top: 20px;
@@ -1680,6 +1681,7 @@ a.tribe-rating-link {
 			width: 100%;
 
 			@media screen and (max-width: 480px) {
+				align-items: flex-start;
 				flex-direction: column;
 				padding: 40px 0 30px;
 			}
@@ -1836,7 +1838,7 @@ a.tribe-rating-link {
 						bottom: 0;
 						/* maybe don't show this on mobile? */
 						/* display: block; */
-						height: 150px;
+						height: 125px;
 						position: absolute;
 						right: 0;
 						width: auto;
