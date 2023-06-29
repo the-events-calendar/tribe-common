@@ -1655,6 +1655,10 @@ a.tribe-rating-link {
 				color: #e6b1fc;
 			}
 		}
+		
+		.tribe-marketing-notice {
+			max-width: 100%;
+		}
 
 		.notice-dismiss {
 			&:before {
@@ -1670,6 +1674,7 @@ a.tribe-rating-link {
 		.tribe-marketing-notice__content-wrapper {
 			align-items: center;
 			display: flex;
+			flex-wrap: wrap;
 			font-family: 'Neurial Grotesk', sans-serif; /* todo: enqueue font */
 			padding: 40px 0 30px 50px;
 			width: 100%;
@@ -1784,6 +1789,7 @@ a.tribe-rating-link {
 			.tribe-marketing-notice__col--inner {
 				align-items: center;
 				display: flex;
+				flex-wrap: wrap;
 			}
 
 			.tribe-marketing-notice__col--md {
@@ -1803,7 +1809,7 @@ a.tribe-rating-link {
 			}
 
 			.tribe-marketing-notice__col--sm {
-				flex: 25%;
+				flex: 20%;
 				z-index: 1;
 
 				@media (min-width: 768px) and (max-width: 1023px) {
@@ -1812,13 +1818,13 @@ a.tribe-rating-link {
 
 				.tribe-marketing-notice__col--sm-bg {
 					bottom: 0;
-					height: 150px;
+					height: 8vw;
 					position: absolute;
 					right: 0;
 					width: auto;
 					z-index: -1;
 				
-					@media screen and (max-width: 768px) {
+					@media screen and (max-width: 767px) {
 						display: none;
 					}
 				}
@@ -1826,9 +1832,10 @@ a.tribe-rating-link {
 				.tribe-marketing-notice__col--sm-bg-mobile {
 					display: none;
 
-					@media (min-width: 768px) and (max-width: 1023px) {
+					@media screen and (max-width: 767px) {
 						bottom: 0;
-						display: block;
+						/* maybe don't show this on mobile? */
+						/* display: block; */
 						height: 150px;
 						position: absolute;
 						right: 0;
