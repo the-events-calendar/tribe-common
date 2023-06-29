@@ -9,17 +9,36 @@
  */
 ?>
 <div class="tribe-marketing-notice">
-	<div class="tribe-marketing-notice__content">
-		<h3>
-			<?php
-			/* Translators: %1$s formatted date. */
-			echo sprintf(
-				__( '<b>40%% off</b> all WordPress solutions through %1$s.', 'tribe-common' ),
-				esc_html( $end_date->format( 'F j' ) )
-			); ?>
-		</h3>
-		<p>
-			<span class="tribe-marketing-notice__cta"><a target="_blank" href="<?php echo esc_url( $cta_url ); ?>"><?php echo esc_html_x( 'Shop now', 'Shop now link text', 'tribe-common' ) ?></a></span>
-		</p>
+	<div class="tribe-marketing-notice__content-wrapper">
+		<div class="tribe-marketing-notice__col--md">
+			<h3>
+				<?php echo _e( 'Make it yours.', 'tribe-common' ); ?>
+			</h3>
+			<h4>
+				<?php echo _e( 'Save 30% on all Events Calendar products.', 'tribe-common' ); ?>
+			</h4>
+			<p>
+				<span class="tribe-marketing-notice__cta-shop-now">
+					<a target="_blank" href="<?php echo esc_url( $cta_url ); ?>">
+						<?php echo esc_html_x( 'Shop now', 'Shop now link text', 'tribe-common' ) ?>
+					</a>
+				</span>
+			</p>
+		</div>
+		
+		<div class="tribe-marketing-notice__col--lg">
+			<p>
+				<?php echo __( 'Purchase any StellarWP product during the sale and get <b>100%</b> off WP Business Reviews and take <b>40%</b> off all other brands.', 'tribe-common' ); ?>
+			</p>
+			<p>
+				<span class="tribe-marketing-notice__cta-stellar-deals">
+					<a target="_blank" href="<?php echo esc_url( $stellar_url ); ?>">
+						<?php echo esc_html_x( 'View all StellarWP Deals', 'View all StellarWP Deals link text', 'tribe-common' ); ?>
+					</a>
+				</span>
+			</p>
+		</div>
+
+		<div class="tribe-marketing-notice__col--sm"></div>
 	</div>
 </div>

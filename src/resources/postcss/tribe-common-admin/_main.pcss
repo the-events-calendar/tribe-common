@@ -1655,6 +1655,104 @@ a.tribe-rating-link {
 				color: #e6b1fc;
 			}
 		}
+
+		.tribe-marketing-notice__content-wrapper {
+			align-items: center;
+			display: flex;
+			font-family: 'Neurial Grotesk', sans-serif; /* todo: enqueue font */
+			padding: 40px 0 30px 50px;
+			width: 100%;
+
+			@media screen and (max-width: 480px) {
+				flex-direction: column;
+				padding: 40px 0 30px;
+			}
+
+			h3, h4, p {
+				color: #fff;
+			}
+
+			h3 {
+				font-size: 24px;
+				font-weight: 700;
+				line-height: 1;
+				margin: 0;
+				text-align: left;
+			}
+
+			h4 {
+				font-size: 18px;
+				font-weight: 400;
+				line-height: 1;
+				margin: 10px 0 25px;
+				text-align: left;
+			}
+
+			p {
+				font-size: 14px;
+				font-weight: 400;
+				line-height: 22px;
+				letter-spacing: 1px;
+				margin-bottom: 20px;
+			}
+
+			.tribe-marketing-notice__cta-shop-now {
+
+				a {
+					background-color: #3849F5;
+					border: 1px solid transparent; /* prevents btn from twitching on hover */
+					border-radius: 125px;
+					color: #fff;
+					font-family: 'Inconsolata', monospace; /* todo: enqueue font */
+					font-size: 14px;
+					font-weight: 400;
+					line-height: 1;
+					padding: 12px 27px;
+
+					&:active,
+					&:focus,
+					&:focus-within,
+					&:hover {
+						color: #3849F5;
+						background-color: transparent;
+						border: 1px solid #3849F5;
+						box-shadow: none;
+						outline: none;
+					}
+				}
+			}
+
+			.tribe-marketing-notice__cta-stellar-deals {
+				a {
+					color: #fff;
+					font-size: 14px;
+					font-weight: 700;
+					line-height: 24px;
+					text-transform: none;
+
+					&:active,
+					&:focus,
+					&:focus-within,
+					&:hover {
+						color: #3849F5;
+						box-shadow: none;
+						outline: none;
+					}
+				}
+			}
+
+			.tribe-marketing-notice__col--md {
+				flex: 35% 0 0;
+			}
+
+			.tribe-marketing-notice__col--lg {
+				flex: 0 40% 0;
+			}
+
+			.tribe-marketing-notice__col--sm {
+				flex: 0 0 25%;
+			}
+		}
 	}
 }
 
