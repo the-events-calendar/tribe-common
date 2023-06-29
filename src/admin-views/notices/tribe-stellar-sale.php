@@ -18,7 +18,7 @@
 				<?php echo _e( 'Save 30% on all Events Calendar products.', 'tribe-common' ); ?>
 			</h4>
 			<p>
-				<span class="tribe-marketing-notice__cta-shop-now">
+				<span class="tribe-marketing-notice__cta-shop-now tribe-marketing-notice__cta-shop-now--desktop">
 					<a target="_blank" href="<?php echo esc_url( $cta_url ); ?>">
 						<?php echo esc_html_x( 'Shop now', 'Shop now link text', 'tribe-common' ) ?>
 					</a>
@@ -27,18 +27,39 @@
 		</div>
 		
 		<div class="tribe-marketing-notice__col--lg">
-			<p>
+			<p class="tribe-marketing-notice__info">
 				<?php echo __( 'Purchase any StellarWP product during the sale and get <b>100%</b> off WP Business Reviews and take <b>40%</b> off all other brands.', 'tribe-common' ); ?>
 			</p>
-			<p>
-				<span class="tribe-marketing-notice__cta-stellar-deals">
-					<a target="_blank" href="<?php echo esc_url( $stellar_url ); ?>">
-						<?php echo esc_html_x( 'View all StellarWP Deals', 'View all StellarWP Deals link text', 'tribe-common' ); ?>
-					</a>
-				</span>
-			</p>
+			<div class="tribe-marketing-notice__col--inner">
+				<p>
+					<span class="tribe-marketing-notice__cta-shop-now tribe-marketing-notice__cta-shop-now--mobile">
+						<a target="_blank" href="<?php echo esc_url( $cta_url ); ?>">
+							<?php echo esc_html_x( 'Shop now', 'Shop now link text', 'tribe-common' ) ?>
+						</a>
+					</span>
+				</p>
+
+				<p>
+					<span class="tribe-marketing-notice__cta-stellar-deals">
+						<a target="_blank" href="<?php echo esc_url( $stellar_url ); ?>">
+							<?php echo esc_html_x( 'View all StellarWP Deals', 'View all StellarWP Deals link text', 'tribe-common' ); ?>
+						</a>
+					</span>
+				</p>
+			</div>
 		</div>
 
-		<div class="tribe-marketing-notice__col--sm"></div>
+		<div class="tribe-marketing-notice__col--sm">
+			<img
+				class="tribe-marketing-notice__col--sm-bg"
+				src="<?php echo esc_url( tribe_resource_url( 'images/marketing/stellar-sale-banner-bg.svg', false, null, Tribe__Main::instance() ) ); ?>"
+			/>
+
+			<!-- Mobile background image, todo: replave with correct asset -->
+			<img
+				class="tribe-marketing-notice__col--sm-bg-mobile"
+				src="<?php echo esc_url( tribe_resource_url( 'images/marketing/stellar-sale-banner-bg-mobile.svg', false, null, Tribe__Main::instance() ) ); ?>"
+			/>
+		</div>
 	</div>
 </div>
