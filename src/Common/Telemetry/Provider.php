@@ -41,8 +41,14 @@ class Provider extends Service_Provider {
 	 * @since 5.1.0
 	 */
 	public function add_actions() {
-		add_action( 'wp', [ $this, 'initialize_telemetry' ], 5 );
-		add_action( 'plugins_loaded', [ $this, 'boot_telemetry' ], 50 );
+		add_action( 'tribe_plugins_loaded', [ $this, 'boot_telemetry' ], 50 );
+
+		/**
+		 * All these actions here need to be hooked from `tec_common_telemetry_preload` action to make sure that we have
+		 * all the telemetry code loaded and ready to go.
+		 */
+		add_action( 'tec_common_telemetry_preload', [ $this, 'hook_telemetry_init' ], 5 );
+
 		add_action( 'tec_telemetry_modal', [ $this, 'show_optin_modal' ] );
 		add_action( 'tec_common_telemetry_preload', [ $this, 'migrate_existing_opt_in' ], 100 );
 		add_action( 'tec_common_telemetry_loaded', [ $this, 'maybe_enqueue_admin_modal_assets' ] );
@@ -56,6 +62,16 @@ class Provider extends Service_Provider {
 	public function add_filters() {
 		add_filter( 'stellarwp/telemetry/optin_args', [ $this, 'filter_optin_args' ] );
 		add_filter( 'stellarwp/telemetry/exit_interview_args', [ $this, 'filter_exit_interview_args' ] );
+	}
+
+	/**
+	 * It's super important to make sure when hooking to WordPress actions that we don't do before we are sure that
+	 * telemetry was properly booted into the system.
+	 *
+	 * @since TBD
+	 */
+	public function hook_telemetry_init(): void {
+		add_action( 'admin_init', [ $this, 'initialize_telemetry' ], 5 );
 	}
 
 	/**
@@ -86,7 +102,6 @@ class Provider extends Service_Provider {
 	 * Placeholder for eventual Freemius removal hooking in to modify things.
 	 *
 	 * @since 5.1.0
-	 * @todo @bordoni leverage this when ready.
 	 *
 	 * @return void
 	 */

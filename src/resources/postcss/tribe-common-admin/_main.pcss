@@ -275,9 +275,14 @@ table.plugins {
 		.tribe-field-wrap {
 			float: left;
 			max-width: 500px;
+			width: 100%;
 
 			*:first-child:not(.wp-switch-editor) {
 				margin-top: 0;
+			}
+			
+			@media (--viewport-medium) {
+				width: auto;
 			}
 		}
 
@@ -359,59 +364,141 @@ table.plugins {
 .tribe-size-small {
 	&.tribe-field-textarea textarea {
 		height: 60px;
-		width: 180px;
+		max-width: 180px;
+		width: 100%;
+
+		@media (--viewport-medium) {
+			width: 180px;
+		}
+	}
+
+	&.tribe-field-wysiwyg .wp-editor-container {
+		max-width: 180px;
+		width: 100%;
+
+		@media (--viewport-medium) {
+			width: 180px;
+		}
 	}
 
 	&.tribe-field-text input,
 	&.tribe-field-email input,
 	&.tribe-field-license_key input {
-		width: 50px;
+		max-width: 50px;
+		width: 100%;
+
+		@media (--viewport-medium) {
+			width: 50px;
+		}
 	}
 
 	&.tribe-field-dropdown select {
-		width: 100px;
+		max-width: 100px;
+		width: 100%;
+
+		@media (--viewport-medium) {
+			width: 100px;
+		}
 	}
 
 	&.tribe-field-dropdown_chosen select {
-		width: 100px;
+		max-width: 100px;
+		width: 100%;
+
+		@media (--viewport-medium) {
+			width: 100px;
+		}
 	}
 }
 
 .tribe-size-medium {
 	&.tribe-field-textarea textarea {
 		height: 80px;
-		width: 300px;
+		max-width: 300px;
+		width: 100%;
+
+		@media (--viewport-medium) {
+			width: 300px;
+		}
+	}
+
+	&.tribe-field-wysiwyg .wp-editor-container {
+		max-width: 300px;
+		width: 100%;
+
+		@media (--viewport-medium) {
+			width: 300px;
+		}
 	}
 
 	&.tribe-field-text input,
 	&.tribe-field-email input,
 	&.tribe-field-license_key input {
-		width: 225px;
+		max-width: 225px;
+		width: 100%;
+
+		@media (--viewport-medium) {
+			width: 225px;
+		}
 	}
 
 	&.tribe-field-dropdown select {
-		width: 300px;
+		max-width: 300px;
+		width: 100%;
+
+		@media (--viewport-medium) {
+			width: 300px;
+		}
 	}
 
 	&.tribe-field-dropdown_chosen select {
-		width: 200px;
+		max-width: 200px;
+		width: 100%;
+
+		@media (--viewport-medium) {
+			width: 200px;
+		}
 	}
 }
 
 .tribe-size-large {
 	&.tribe-field-textarea textarea {
 		height: 120px;
-		width: 450px;
+		max-width: 450px;
+		width: 100%;
+
+		@media (--viewport-medium) {
+			width: 450px;
+		}
+	}
+
+	&.tribe-field-wysiwyg .wp-editor-container {
+		max-width: 450px;
+		width: 100%;
+
+		@media (--viewport-medium) {
+			width: 450px;
+		}
 	}
 
 	&.tribe-field-text input,
 	&.tribe-field-email input,
 	&.tribe-field-license_key input {
-		width: 450px;
+		max-width: 450px;
+		width: 100%;
+
+		@media (--viewport-medium) {
+			width: 450px;
+		}
 	}
 
 	&.tribe-field-dropdown select {
-		width: 450px;
+		max-width: 450px;
+		width: 100%;
+
+		@media (--viewport-medium) {
+			width: 450px;
+		}
 	}
 
 	&.tribe-field-wrapped_html .tribe-field-wrap {
@@ -423,7 +510,12 @@ table.plugins {
 	}
 
 	&.tribe-field-dropdown_chosen select {
-		width: 300px;
+		max-width: 300px;
+		width: 100%;
+
+		@media (--viewport-medium) {
+			width: 300px;
+		}
 	}
 }
 
