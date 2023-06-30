@@ -7,15 +7,19 @@
  * @var string $icon_url The local URL for the notice's image.
  * @var string $cta_url The short URL for the Stellar Sale.
  */
+
+$has_tec_only = true; // todo: update this to check if the user has Pro plugins installed.
+$label        = $has_tec_only ? 'yours' : 'stellar';
+$brand        = $has_tec_only ? 'Events Calendar' : 'StellarWP';
 ?>
 <div class="tribe-marketing-notice">
 	<div class="tribe-marketing-notice__content-wrapper">
 		<div class="tribe-marketing-notice__col--md">
 			<h3>
-				<?php echo _e( 'Make it yours.', 'tribe-common' ); ?>
+				<?php echo sprintf( __( 'Make it %s.', 'tribe-common' ), $label ); ?>
 			</h3>
 			<h4>
-				<?php echo _e( 'Save 30% on all Events Calendar products.', 'tribe-common' ); ?>
+				<?php echo sprintf( __( 'Save 30%% on all %s products.', 'tribe-common' ), $brand ); ?>
 			</h4>
 			<p>
 				<span class="tribe-marketing-notice__cta-shop-now tribe-marketing-notice__cta-shop-now--desktop">
