@@ -54,12 +54,6 @@
 				class="tribe-marketing-notice__col--sm-bg"
 				src="<?php echo esc_url( tribe_resource_url( 'images/marketing/stellar-sale-banner-bg.svg', false, null, Tribe__Main::instance() ) ); ?>"
 			/>
-
-			<!-- Mobile background image, todo: replave with correct asset -->
-			<img
-				class="tribe-marketing-notice__col--sm-bg-mobile"
-				src="<?php echo esc_url( tribe_resource_url( 'images/marketing/stellar-sale-banner-bg-mobile.svg', false, null, Tribe__Main::instance() ) ); ?>"
-			/>
 		</div>
 	</div>
 </div>

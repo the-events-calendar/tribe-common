@@ -1587,7 +1587,7 @@ a.tribe-rating-link {
 		justify-content: flex-start;
 		margin: 0 auto;
 		min-height: 65px;
-		padding: 0 0.75rem;
+		padding: 0;
 		width: 100%;
 
 		.events_page_tribe-app-shop &,
@@ -1644,6 +1644,11 @@ a.tribe-rating-link {
 
 	&.tribe-notice-stellar-sale {
 		background-color: #1D202F;
+		overflow: hidden;
+
+		@media screen and (max-width: 767px) {
+			padding: 20px 20px 0;
+		}
 
 		a {
 			color: #d8ff00;
@@ -1677,17 +1682,17 @@ a.tribe-rating-link {
 			display: flex;
 			flex-wrap: wrap;
 			font-family: 'Neurial Grotesk', sans-serif; /* todo: enqueue font */
-			padding: 40px 0 30px 50px;
+			padding: 35px 0 10px 35px;
 			width: 100%;
 
 			@media screen and (max-width: 480px) {
 				align-items: flex-start;
 				flex-direction: column;
-				padding: 40px 0 30px;
+				padding: 30px 0 10px;
 			}
 
 			@media (min-width: 768px) and (max-width: 1023px) {
-				padding: 40px 15px 30px;
+				padding: 30px 0 10px 25px;
 			}
 
 			h3, h4 {
@@ -1731,7 +1736,7 @@ a.tribe-rating-link {
 			.tribe-marketing-notice__cta-shop-now {
 				a {
 					background-color: #3849F5;
-					border: 1px solid transparent; /* prevents btn from twitching on hover */
+					border: 1px solid #3849F5;
 					border-radius: 125px;
 					color: #fff;
 					font-family: 'Inconsolata', monospace; /* todo: enqueue font */
@@ -1744,9 +1749,8 @@ a.tribe-rating-link {
 					&:focus,
 					&:focus-within,
 					&:hover {
-						color: #3849F5;
-						background-color: transparent;
-						border: 1px solid #3849F5;
+						background-color: #1c39bb;
+						border: 1px solid #1c39bb;
 						box-shadow: none;
 						outline: none;
 					}
@@ -1765,7 +1769,7 @@ a.tribe-rating-link {
 					&:focus,
 					&:focus-within,
 					&:hover {
-						color: #3849F5;
+						color: #1c39bb;
 						box-shadow: none;
 						outline: none;
 					}
@@ -1827,26 +1831,12 @@ a.tribe-rating-link {
 					z-index: -1;
 
 					@media (min-width: 768px) and (max-width: 1023px) {
-						height: 13vw;
+						height: 11vw;
 					}
 				
 					@media screen and (max-width: 767px) {
-						display: none;
-					}
-				}
-
-				.tribe-marketing-notice__col--sm-bg-mobile {
-					display: none;
-
-					@media screen and (max-width: 767px) {
-						bottom: 0;
-						/* maybe don't show this on mobile? */
-						/* display: block; */
-						height: 125px;
-						position: absolute;
-						right: 0;
-						width: auto;
-						z-index: -1;
+						height: 43vw;
+						right: -55vw;
 					}
 				}
 			}
