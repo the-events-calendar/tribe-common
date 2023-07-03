@@ -1,12 +1,40 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [5.1.3] TBD =
+
+* Security - Various improvements to event creation.
+* Fix - Properly handle plugin paths on Windows during telemetry booting. [TEC-4842]
+
+= [5.1.2.2] 2023-06-23 =
+
+* Fix - Ensure there is backwards compatibility with Extensions and Pods.
+
+= [5.1.2.1] 2023-06-22 =
+
+* Fix - Prevent Telemetry from being initialized and triggering a Fatal when the correct conditionals are not met.
+
+= [5.1.2] 2023-06-22 =
+
+* Fix - Lock our container usage(s) to the new Service_Provider contract in tribe-common. This prevents conflicts and potential fatals with other plugins that use a di52 container.
+
+= [5.1.1.2] 2023-06-21 =
+
+* Fix - Adjusted our PHP Exception usage to protect against third-party code causing fatals when attempting to access objects that have not been initialized.
+
+= [5.1.1.1] 2023-06-20 =
 
 * Release - B23.Goldorak
 * Fix - Adding Configuration feature, to enable simple feature flag and other checks, with less boilerplate. See [readme](https://github.com/the-events-calendar/tribe-common/pull/1923/files#diff-cf03646ad083f81f8ec80bbdd775d8ac45c75c7bc1bf302f6fb06dfa34a1dc64) for more details. [ECP-1505]
 * Fix - In some scenarios the garbage collection of our query filters would slow page speeds. Removed garbage collection for the filters. [ECP-1505]
+* Fix - Increase the reliability of Telemetry initialization for Event Tickets loading [TEC-4836]
 
-= [5.1.0] 2023-06-06 =
+= [5.1.1] 2023-06-15 =
+
+* Feature - Include a Integrations framework that was ported from The Events Calendar.
+* Enhancement - Made settings field widths more uniform and mobile-friendly. [ET-1734]
+* Fix - Change image field styling for a better look and user experience.
+
+= [5.1.0] 2023-06-14 =
 
 * Feature - Replace Freemius with Telemetry - an in-house info system. [TEC-4700]
 * Feature - Add architecture for adding our plugins to the Site Health admin page. [TEC-4701]

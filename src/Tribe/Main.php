@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'Tribe__Main' ) ) {
+if ( class_exists( 'Tribe__Main', false ) ) {
 	return;
 }
 
@@ -23,7 +23,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '5.1.0';
+	const VERSION             = '5.1.3';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -83,8 +83,6 @@ class Tribe__Main {
 
 		$vendor_folder = dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/';
 		require_once realpath( $vendor_folder . 'vendor-prefixed/autoload.php' );
-		// ALiases for backwards compatibility. @todo @camwyn: Remove once unneeded.
-		require_once realpath( dirname( dirname( __FILE__ ) ) . '/functions/aliases.php' );
 		require_once realpath( $vendor_folder . 'autoload.php' );
 
 		// The DI container class.
@@ -150,6 +148,9 @@ class Tribe__Main {
 		if ( ! class_exists( 'Tribe__Autoloader' ) ) {
 			require_once dirname( __FILE__ ) . '/Autoloader.php';
 		}
+
+		// Aliases for backwards compatibility with our Extensions and Pods.
+		require_once realpath( dirname( dirname( __FILE__ ) ) . '/functions/aliases.php' );
 
 		$autoloader = Tribe__Autoloader::instance();
 
@@ -744,6 +745,8 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Admin\Conditional_Content\Service_Provider::class );
 		tribe_register_provider( Libraries\Provider::class );
 
+		// Load the new third-party integration system.
+		tribe_register_provider( TEC\Common\Integrations\Provider::class );
 		tribe_register_provider( TEC\Common\Site_Health\Provider::class );
 		tribe_register_provider( TEC\Common\Telemetry\Provider::class );
 	}
@@ -786,6 +789,7 @@ class Tribe__Main {
 		$paths = apply_filters( 'tec_common_parent_plugin_file', [] );
 
 		foreach( $paths as $path ) {
+			$path      = wp_normalize_path( $path );
 			$test_path = str_ireplace( '/common', '', $this->parent_plugin_dir );
 
 			if ( stripos( $path, $test_path ) ) {
