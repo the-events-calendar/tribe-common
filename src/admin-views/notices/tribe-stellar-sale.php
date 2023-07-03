@@ -3,14 +3,16 @@
  * The Stellar Sale admin notice.
  *
  * @since 4.14.2
+ * @since TBD - Made updates to the notice for the 2023 sale.
  *
  * @var string $icon_url The local URL for the notice's image.
  * @var string $cta_url The short URL for the Stellar Sale.
  */
 
-$has_tec_only = true; // todo: update this to check if the user has Pro plugins installed.
-$label        = $has_tec_only ? 'yours' : 'stellar';
-$brand        = $has_tec_only ? 'Events Calendar' : 'StellarWP';
+$dependency       = Tribe__Dependency::instance();
+$hasPremiumPlugin = $dependency->has_active_premium_plugin();
+$label            = $hasPremiumPlugin ? 'stellar' : 'yours';
+$brand            = $hasPremiumPlugin ? 'StellarWP' : 'Events Calendar';
 ?>
 <div class="tribe-marketing-notice">
 	<div class="tribe-marketing-notice__content-wrapper">
