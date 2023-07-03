@@ -789,6 +789,7 @@ class Tribe__Main {
 		$paths = apply_filters( 'tec_common_parent_plugin_file', [] );
 
 		foreach( $paths as $path ) {
+			$path      = wp_normalize_path( $path );
 			$test_path = str_ireplace( '/common', '', $this->parent_plugin_dir );
 
 			if ( stripos( $path, $test_path ) ) {
