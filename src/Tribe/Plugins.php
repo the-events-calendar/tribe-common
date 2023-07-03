@@ -164,6 +164,13 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 			return isset( $plugins[ $plugin_name ] ) && tribe_is_truthy( $plugins[ $plugin_name ] );
 		}
 
+		/**
+		 * Retrieves a list of active plugins.
+		 * 
+		 * @since TBD
+		 * 
+		 * @return array List of active plugins.
+		 */
 		public function get_active_plugins() {
 			$plugins = $this->get_list();
 
