@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feat - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
+
 = [5.1.2.2] 2023-06-23 =
 
 * Fix - Ensure there is backwards compatibility with Extensions and Pods.
