@@ -111,7 +111,8 @@ class Lazy_Collection implements Collection_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function jsonSerialize():mixed {
+	#[\ReturnTypeWillChange]
+	public function jsonSerialize() {
 		return $this->all();
 	}
 }

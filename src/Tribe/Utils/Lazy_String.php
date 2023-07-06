@@ -140,7 +140,7 @@ class Lazy_String implements \Serializable, \JsonSerializable {
 	 * {@inheritDoc}
 	 */
 	#[\ReturnTypeWillChange]
-	public function jsonSerialize(): mixed {
+	public function jsonSerialize() {
 		return $this->value();
 	}
 
