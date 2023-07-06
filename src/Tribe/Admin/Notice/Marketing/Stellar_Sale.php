@@ -73,13 +73,10 @@ class Stellar_Sale extends \Tribe\Admin\Notice\Date_Based {
 		];
 		$dependency   = tribe( \Tribe__Dependency::class );
 
-		ob_start();
 		if ( $dependency->has_active_premium_plugin() ) {
-			$this->get_template()->template( 'notices/tribe-stellar-sale-premium', $template_args, true );
+			return $this->get_template()->template( 'notices/tribe-stellar-sale-premium', $template_args, false );
 		} else {
-			$this->get_template()->template( 'notices/tribe-stellar-sale', $template_args, true );
+			return $this->get_template()->template( 'notices/tribe-stellar-sale', $template_args, false );
 		}
-
-		return ob_get_clean();
 	}
 }
