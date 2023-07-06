@@ -81,8 +81,6 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 		remove_all_filters( "tribe_stellar-sale_notice_start_date" );
 	}
 
-
-
 	/**
 	 * Test ! should_display() when date passed.
 	 * Note this test assumes we have not set the constant in our testing environment.

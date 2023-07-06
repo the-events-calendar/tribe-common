@@ -23,7 +23,7 @@ class Stellar_Sale extends \Tribe\Admin\Notice\Date_Based {
 	/**
 	 * {@inheritDoc}
 	 */
-	public $start_date = 'July 24th, 2023';
+	public $start_date = 'June 24th, 2023';
 
 	/**
 	 * {@inheritDoc}
@@ -66,11 +66,17 @@ class Stellar_Sale extends \Tribe\Admin\Notice\Date_Based {
 		$cta_url      = 'https://evnt.is/1bcv';
 		$stellar_url  = 'https://evnt.is/1bcu';
 		$end_date     = $this->get_end_time();
+		$template_args = [
+			'cta_url'      => 'https://evnt.is/1bcv',
+			'stellar_url'  => 'https://evnt.is/1bcu',
+			'end_date'     => $this->get_end_time(),
+		];
+		$dependency   = tribe( \Tribe__Dependency::class );
 
-		ob_start();
-
-		include \Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-stellar-sale.php';
-
-		return ob_get_clean();
+		if ( $dependency->has_active_premium_plugin() ) {
+			return $this->get_template()->template( 'notices/tribe-stellar-sale-premium', $template_args, false );
+		} else {
+			return $this->get_template()->template( 'notices/tribe-stellar-sale', $template_args, false );
+		}
 	}
 }
