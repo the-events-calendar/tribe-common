@@ -143,7 +143,7 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 		$year = date( 'Y' );
 		$this->set_class_fn_return( Dates::class, 'build_date_object', static function ( $input ) use ( $year ) {
 			return $input === 'now' ?
-				new DateTime( "2022-07-27 19:23:23" )
+				new DateTime( "2023-07-27 19:23:23" )
 				: new DateTime( $input );
 		}, true );
 
