@@ -582,7 +582,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			}
 
 			// For extensions that break the rules.
-			if ( in_array( $this->extensions, $plugin['class'], true) ) {
+			if ( in_array( $plugin['class'], $this->extensions, true) ) {
 				return true;
 			}
 
