@@ -566,15 +566,19 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 */
 		public function is_extension( $class ): bool {
 			$plugin = $this->get_registered_plugin_by_class( $class );
+			$bad_words = [
+				'extension',
+				'labs',
+				'hubspot',
+				'mt_support',
+				'support_team',
+				'idea_garden',
+			];
 
-			// We have no plugins with the word "extension" in the class name.
-			if ( stripos( $class, 'Extensions' ) !== false ) {
-				return true;
-			}
-
-			// We have no plugins with the word "labs" in the class name.
-			if ( stripos( $class, 'Labs' ) !== false ) {
-				return true;
+			foreach ( $bad_words as $bad_word ) {
+				if ( stripos( $plugin['class'], $bad_word ) !== false ) {
+					return true;
+				}
 			}
 
 			// For extensions that break the rules.
