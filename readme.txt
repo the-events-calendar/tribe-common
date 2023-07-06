@@ -4,6 +4,7 @@
 
 * Security - Various improvements to event creation.
 * Fix - Properly handle plugin paths on Windows during telemetry booting. [TEC-4842]
+* Tweak - Update Stellar Sale banner. [TEC-4841]
 
 = [5.1.2.2] 2023-06-23 =
 
