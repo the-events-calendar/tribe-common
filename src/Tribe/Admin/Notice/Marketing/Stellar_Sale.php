@@ -23,7 +23,7 @@ class Stellar_Sale extends \Tribe\Admin\Notice\Date_Based {
 	/**
 	 * {@inheritDoc}
 	 */
-	public $start_date = 'July 24th, 2023';
+	public $start_date = 'June 24th, 2023';
 
 	/**
 	 * {@inheritDoc}

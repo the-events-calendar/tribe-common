@@ -39,6 +39,10 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 */
 		protected $admin_messages = [];
 
+		private $extensions = [
+			'Tribe__AdminDashboard',
+		];
+
 		/**
 		 * Adds a plugin to the active list
 		 *
@@ -550,6 +554,38 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		}
 
 		/**
+		 * Test if plugin is an extension.
+		 * This is cludgy as none of our extensions flag themselves as such.
+		 * THus, we have to do some text searching.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $class - the classname to use to look up the plugin.
+		 *
+		 * @return boolean
+		 */
+		public function is_extension( $class ): bool {
+			$plugin = $this->get_registered_plugin_by_class( $class );
+
+			// We have no plugins with the word "extension" in the class name.
+			if ( stripos( $class, 'Extensions' ) !== false ) {
+				return true;
+			}
+
+			// We have no plugins with the word "labs" in the class name.
+			if ( stripos( $class, 'Labs' ) !== false ) {
+				return true;
+			}
+
+			// For extensions that break the rules.
+			if ( in_array( $this->extensions, $plugin['class'], true) ) {
+				return true;
+			}
+
+			return false;
+		}
+
+		/**
 		 * Return if we have a premium plugin active.
 		 * Results may be unreliable if called before the tribe_plugins_loaded hook.
 		 *
@@ -563,6 +599,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 				if (
 					'Tribe__Events__Main' !== $plugin['class']
 					&& 'Tribe__Tickets__Main' !== $plugin['class']
+					&& ! $this->is_extension( $plugin['class'] ) // ensure extensions don't trigger the "premium" flag.
 				) {
 					return true;
 				}
