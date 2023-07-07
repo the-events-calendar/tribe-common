@@ -50,9 +50,19 @@ class Container extends DI52_Container implements ContainerInterface {
 		 *
 		 * @since TBD
 		 *
-		 * @param string $serviceProviderClass The service provider class name.
+		 * @param string        $serviceProviderClass The service provider class name.
+		 * @param array<string> $alias                The alias(es) the service provider was registered with.
 		 */
-		do_action( 'tec_container_registered_provider', $serviceProviderClass );
+		do_action( 'tec_container_registered_provider', $serviceProviderClass, $alias );
+
+		/**
+		 * Fires a class-specific action when a service provider is registered by the container.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string> $alias The alias(es) the service provider was registered with.
+		 */
+		do_action( 'tec_container_registered_provider_' . $serviceProviderClass, $alias );
 
 		if (
 			// Back compat with older definition of Service Provider.
@@ -68,7 +78,7 @@ class Container extends DI52_Container implements ContainerInterface {
 		 *
 		 * @since TBD
 		 */
-		do_action( $serviceProviderClass::$registration_action, $serviceProviderClass );
+		do_action( $serviceProviderClass::$registration_action, $serviceProviderClass, $alias );
 	}
 
 	/**

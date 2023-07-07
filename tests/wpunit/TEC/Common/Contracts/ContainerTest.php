@@ -155,4 +155,84 @@ class ContainerTest extends WPTestCase {
 
 		$this->assertEquals( 1, $did_register_times, 'The provider should only be registered once.' );
 	}
+
+	/**
+	 * It should dispatch a class specific action for each registered provider
+	 *
+	 * @test
+	 */
+	public function should_dispatch_a_class_specific_action_for_each_registered_provider(): void {
+		$generally_registered = [];
+		add_action(
+			'tec_container_registered_provider',
+			function ( string $class, array $aliases ) use ( &$generally_registered ) {
+				$generally_registered[] = $class;
+			}, 10, 2 );
+
+		$generic_registered_times = 0;
+		add_action(
+			'tec_container_registered_provider_' . Generic_Service_Provider::class,
+			function ( array $aliases ) use ( &$generic_registered_times ) {
+				$generic_registered_times ++;
+			}, 10, 1 );
+
+		$custom_registered_times = 0;
+		add_action(
+			'tec_container_registered_provider_' . Custom_Registration_Action_Provider::class,
+			function ( array $aliases ) use ( &$custom_registered_times ) {
+				$custom_registered_times ++;
+			}, 10, 1 );
+
+		$container = new Container();
+		$container->register( Generic_Service_Provider::class );
+		$container->register( Custom_Registration_Action_Provider::class );
+
+		$this->assertEquals( [
+			Generic_Service_Provider::class,
+			Custom_Registration_Action_Provider::class,
+		], $generally_registered );
+		$this->assertEquals( 1, $generic_registered_times );
+		$this->assertEquals( 1, $custom_registered_times );
+	}
+
+	/**
+	 * It should provide aliases when dispatching actions
+	 *
+	 * @test
+	 */
+	public function should_provide_aliases_when_dispatching_actions(): void {
+		$did_general_registration_times = 0;
+		add_action( 'tec_container_registered_provider', function ( string $class, array $aliases ) use ( &$did_general_registration_times ) {
+			$did_general_registration_times ++;
+			$this->assertEquals( Custom_Registration_Action_Provider::class, $class );
+			$this->assertEquals( [ 'custom_one', 'custom.one', 'foo.bar' ], $aliases );
+		}, 10, 2 );
+
+		$did_class_registration_times = 0;
+		add_action(
+			'tec_container_registered_provider_' . Custom_Registration_Action_Provider::class,
+			function ( array $aliases ) use ( &$did_class_registration_times ) {
+				$did_class_registration_times ++;
+				$this->assertEquals( [ 'custom_one', 'custom.one', 'foo.bar' ], $aliases );
+			}, 10, 1 );
+
+		$did_custom_registration_times = 0;
+		add_action(
+			'custom_action',
+			function ( string $class, array $aliases ) use ( &$did_custom_registration_times ) {
+				$did_custom_registration_times ++;
+				$this->assertEquals( Custom_Registration_Action_Provider::class, $class );
+				$this->assertEquals( [ 'custom_one', 'custom.one', 'foo.bar' ], $aliases );
+			}, 10, 2 );
+
+		$container = new Container();
+		$container->register(
+			Custom_Registration_Action_Provider::class,
+			'custom_one', 'custom.one', 'foo.bar'
+		);
+
+		$this->assertEquals( 1, $did_general_registration_times, 'A general registration action should be fired.' );
+		$this->assertEquals( 1, $did_class_registration_times, 'A class specific registration action should be fired.' );
+		$this->assertEquals( 1, $did_custom_registration_times, 'A custom registration action should be fired.' );
+	}
 }
