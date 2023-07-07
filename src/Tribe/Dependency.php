@@ -558,7 +558,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * This is cludgy as none of our extensions flag themselves as such.
 		 * THus, we have to do some text searching.
 		 *
-		 * @since TBD
+		 * @since 5.1.3
 		 *
 		 * @param string $class - the classname to use to look up the plugin.
 		 *
@@ -593,7 +593,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * Return if we have a premium plugin active.
 		 * Results may be unreliable if called before the tribe_plugins_loaded hook.
 		 *
-		 * @since TBD
+		 * @since 5.1.3
 		 *
 		 * @return bool
 		 */

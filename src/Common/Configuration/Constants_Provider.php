@@ -2,7 +2,7 @@
 /**
  * Provides a constants value for the Configuration_Loader.
  *
- * @since   TBD
+ * @since 5.1.3
  *
  * @package TEC\Common\Configuration;
  */
@@ -12,7 +12,7 @@ namespace TEC\Common\Configuration;
 /**
  * Class Constants_Provider.
  *
- * @since   TBD
+ * @since 5.1.3
  *
  * @package TEC\Common\Configuration;
  */

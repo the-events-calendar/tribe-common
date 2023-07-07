@@ -2,7 +2,7 @@
 /**
  * Handles loading feature flags and other configuration values.
  *
- * @since   TBD
+ * @since 5.1.3
  *
  * @package TEC\Common\Configuration;
  */
@@ -12,7 +12,7 @@ namespace TEC\Common\Configuration;
 /**
  * Class Configuration.
  *
- * @since   TBD
+ * @since 5.1.3
  *
  * @package TEC\Common\Configuration;
  */
@@ -20,7 +20,7 @@ class Configuration implements Configuration_Provider_Interface {
 	/**
 	 * The Configuration loader.
 	 *
-	 * @since TBD
+	 * @since 5.1.3
 	 *
 	 * @var Configuration_Loader The loader.
 	 */
@@ -29,7 +29,7 @@ class Configuration implements Configuration_Provider_Interface {
 	/**
 	 * The configuration service.
 	 *
-	 * @since TBD
+	 * @since 5.1.3
 	 *
 	 * @param Configuration_Loader $loader
 	 */

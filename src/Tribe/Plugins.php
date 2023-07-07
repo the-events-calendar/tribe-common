@@ -166,9 +166,9 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 
 		/**
 		 * Retrieves a list of active plugins.
-		 * 
-		 * @since TBD
-		 * 
+		 *
+		 * @since 5.1.3
+		 *
 		 * @return array List of active plugins.
 		 */
 		public function get_active_plugins() {

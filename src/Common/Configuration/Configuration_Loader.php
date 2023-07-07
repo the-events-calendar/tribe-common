@@ -2,7 +2,7 @@
 /**
  * Handles loading configuration services.
  *
- * @since   TBD
+ * @since 5.1.3
  *
  * @package TEC\Common\Configuration;
  */
@@ -12,7 +12,7 @@ namespace TEC\Common\Configuration;
 /**
  * Class Configuration_Loader.
  *
- * @since   TBD
+ * @since 5.1.3
  *
  * @package TEC\Common\Configuration;
  */
@@ -26,7 +26,7 @@ class Configuration_Loader {
 	 * Add a var provider to the list of providers referenced when accessing a variable
 	 * from within the Configuration object.
 	 *
-	 * @since TBD
+	 * @since 5.1.3
 	 *
 	 * @param Configuration_Provider_Interface $provider
 	 *
@@ -44,7 +44,7 @@ class Configuration_Loader {
 	/**
 	 * Retrieve a list of all Configuration_Provider_Interface providers loaded.
 	 *
-	 * @since TBD
+	 * @since 5.1.3
 	 *
 	 * @return Configuration_Provider_Interface[]
 	 */
@@ -55,7 +55,7 @@ class Configuration_Loader {
 	/**
 	 * Remove the providers.
 	 *
-	 * @since TBD
+	 * @since 5.1.3
 	 *
 	 * @return $this
 	 */

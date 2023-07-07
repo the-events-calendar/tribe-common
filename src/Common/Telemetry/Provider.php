@@ -68,7 +68,7 @@ class Provider extends Service_Provider {
 	 * It's super important to make sure when hooking to WordPress actions that we don't do before we are sure that
 	 * telemetry was properly booted into the system.
 	 *
-	 * @since TBD
+	 * @since 5.1.3
 	 */
 	public function hook_telemetry_init(): void {
 		add_action( 'admin_init', [ $this, 'initialize_telemetry' ], 5 );

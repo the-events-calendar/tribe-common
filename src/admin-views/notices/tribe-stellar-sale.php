@@ -3,7 +3,7 @@
  * The Stellar Sale admin notice.
  *
  * @since 4.14.2
- * @since TBD - Made updates to the notice for the 2023 sale.
+ * @since 5.1.3 - Made updates to the notice for the 2023 sale.
  *
  * @var string $icon_url The local URL for the notice's image.
  * @var string $cta_url The short URL for the Stellar Sale.

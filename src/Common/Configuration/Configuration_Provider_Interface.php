@@ -2,7 +2,7 @@
 /**
  * Interface used to provider access to a particular configuration for the Configuration_Loader.
  *
- * @since   TBD
+ * @since 5.1.3
  *
  * @package TEC\Common\Configuration;
  */
@@ -12,7 +12,7 @@ namespace TEC\Common\Configuration;
 /**
  * Interface Configuration_Provider_Interface.
  *
- * @since   TBD
+ * @since 5.1.3
  *
  * @package TEC\Common\Configuration;
  */
@@ -20,7 +20,7 @@ interface Configuration_Provider_Interface {
 	/**
 	 * Whether a particular variable is defined or not.
 	 *
-	 * @since TBD
+	 * @since 5.1.3
 	 *
 	 * @param $key string Variable name.
 	 *
@@ -31,7 +31,7 @@ interface Configuration_Provider_Interface {
 	/**
 	 * Retrieves the value for the given variable.
 	 *
-	 * @since TBD
+	 * @since 5.1.3
 	 *
 	 * @param $key string Variable name.
 	 *
@@ -42,7 +42,7 @@ interface Configuration_Provider_Interface {
 	/**
 	 * Retrieve all variables defined in an associative array.
 	 *
-	 * @since TBD
+	 * @since 5.1.3
 	 *
 	 * @return array All vars.
 	 */

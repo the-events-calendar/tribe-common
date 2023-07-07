@@ -935,9 +935,9 @@ class Tribe__Assets {
 
 	/**
 	 * Enqueue StellarWP fonts.
-	 * 
-	 * @since TBD
-	 * 
+	 *
+	 * @since 5.1.3
+	 *
 	 * @return void
 	 */
 	public function enqueue_stellar_wp_fonts() {
