@@ -80,8 +80,8 @@ class Container extends DI52_Container implements ContainerInterface {
 	 * @param string $class The service provider class name.
 	 * @param string ...$alias Optional. The alias(es) to register the service provider with.
 	 *
-	 * @return void The Service Provider is registered immediately if the action has already fired, or when
-	 *              the action fires.
+	 * @return void The Service Provider is registered when the action fires,
+	 *               or immediately if the action has already fired.
 	 *
 	 * @throws \TEC\Common\lucatume\DI52\ContainerException If the provider class is marked as deferred but
 	 *                                                      does not provide a set of deferred registrations.
