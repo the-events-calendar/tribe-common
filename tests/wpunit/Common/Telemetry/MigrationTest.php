@@ -14,7 +14,7 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 	 * Removes all freemius options from the database.
 	 * Only used if we were the only active plugin.
 	 *
-	 * @since TBD
+	 * @since 5.1.3
 	 */
 	protected function remove_all_freemius_meta(): void {
 		delete_option( 'fs_active_plugins' );
