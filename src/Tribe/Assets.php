@@ -38,6 +38,7 @@ class Tribe__Assets {
 	public function __construct() {
 		// Hook the actual registering of.
 		add_action( 'init', [ $this, 'register_in_wp' ], 1, 0 );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_stellar_wp_fonts' ] );
 		add_filter( 'script_loader_tag', [ $this, 'filter_tag_async_defer' ], 50, 2 );
 		add_filter( 'script_loader_tag', [ $this, 'filter_modify_to_module' ], 50, 2 );
 		add_filter( 'script_loader_tag', [ $this, 'filter_print_before_after_script' ], 100, 2 );
@@ -930,5 +931,19 @@ class Tribe__Assets {
 		}
 
 		return $tags;
+	}
+
+	/**
+	 * Enqueue StellarWP fonts.
+	 *
+	 * @since 5.1.3
+	 *
+	 * @return void
+	 */
+	public function enqueue_stellar_wp_fonts() {
+		wp_enqueue_style(
+			'stellar-wp-inconsolata-font',
+			'https://fonts.googleapis.com/css2?family=Inconsolata&display=swap'
+		);
 	}
 }

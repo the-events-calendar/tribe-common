@@ -23,7 +23,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '5.1.2.2';
+	const VERSION             = '5.1.3';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -789,6 +789,7 @@ class Tribe__Main {
 		$paths = apply_filters( 'tec_common_parent_plugin_file', [] );
 
 		foreach( $paths as $path ) {
+			$path      = wp_normalize_path( $path );
 			$test_path = str_ireplace( '/common', '', $this->parent_plugin_dir );
 
 			if ( stripos( $path, $test_path ) ) {
