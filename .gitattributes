@@ -4,3 +4,16 @@
 tests/_support/_generated/* linguist-generated=true
 */__snapshots__/* linguist-generated=true
 */__mocks__/* linguist-generated=true
+
+node_modules/* export-ignore
+src/modules/* export-ignore
+vendor/attrchange/* export-ignore
+vendor/datatables/* export-ignore
+vendor/firebase/* export-ignore
+vendor/handlebars/* export-ignore
+vendor/momentjs/* export-ignore
+vendor/monolog/* export-ignore
+vendor/psr/* export-ignore
+vendor/tooltipster/* export-ignore
+vendor/tribe-select2/* export-ignore
+vendor/tribe-selectWoo/* export-ignore
