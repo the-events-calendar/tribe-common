@@ -81,8 +81,6 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 		remove_all_filters( "tribe_stellar-sale_notice_start_date" );
 	}
 
-
-
 	/**
 	 * Test ! should_display() when date passed.
 	 * Note this test assumes we have not set the constant in our testing environment.
@@ -143,7 +141,7 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 		$year = date( 'Y' );
 		$this->set_class_fn_return( Dates::class, 'build_date_object', static function ( $input ) use ( $year ) {
 			return $input === 'now' ?
-				new DateTime( "2022-07-27 19:23:23" )
+				new DateTime( "2023-07-27 19:23:23" )
 				: new DateTime( $input );
 		}, true );
 

@@ -186,7 +186,7 @@ final class Migration {
 			return false;
 		}
 
-		$fs_active_plugins = get_option(  self::$key_fs_active_plugins );
+		$fs_active_plugins = get_option( self::$key_fs_active_plugins );
 
 		// Bail if empty.
 		if ( empty( $fs_active_plugins ) ) {
@@ -246,9 +246,9 @@ final class Migration {
 	 * @param Object $fs_active_plugins The stored list of active plugins from Freemius.
 	 */
 	private function remove_inactive_plugins( $fs_active_plugins ): void {
-		$freemius_plugins = $fs_active_plugins->plugins;
+		$freemius_plugins = ! empty( $fs_active_plugins->plugins ) ? (array) $fs_active_plugins->plugins : [];
 
-		foreach( $this->our_plugins as $plugin ) {
+		foreach ( $this->our_plugins as $plugin ) {
 			if ( ! isset( $freemius_plugins[ $plugin ] ) ) {
 				unset( $this->our_plugins[ $plugin ] );
 			}

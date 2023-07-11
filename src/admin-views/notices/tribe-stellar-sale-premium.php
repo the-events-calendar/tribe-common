@@ -13,14 +13,14 @@
 	<div class="tribe-marketing-notice__content-wrapper">
 		<div class="tribe-marketing-notice__col--md">
 			<h3>
-				<?php _e( 'Make it yours.', 'tribe-common' ); ?>
+				<?php _e( 'Make it stellar.', 'tribe-common' ); ?>
 			</h3>
 			<h4>
-				<?php _e( 'Save 30% on all The Events Calendar products.', 'tribe-common' ); ?>
+				<?php _e( 'Save 30% on all StellarWP products.', 'tribe-common' ); ?>
 			</h4>
 			<p>
 				<span class="tribe-marketing-notice__cta-shop-now tribe-marketing-notice__cta-shop-now--desktop">
-					<a target="_blank" href="<?php echo esc_url( $cta_url ); ?>">
+					<a target="_blank" href="<?php echo esc_url( $stellar_url ); ?>">
 						<?php echo esc_html_x( 'Shop now', 'Shop now link text', 'tribe-common' ) ?>
 					</a>
 				</span>
@@ -34,7 +34,7 @@
 			<div class="tribe-marketing-notice__col--inner">
 				<p>
 					<span class="tribe-marketing-notice__cta-shop-now tribe-marketing-notice__cta-shop-now--mobile">
-						<a target="_blank" href="<?php echo esc_url( $cta_url ); ?>">
+						<a target="_blank" href="<?php echo esc_url( $stellar_url ); ?>">
 							<?php echo esc_html_x( 'Shop now', 'Shop now link text', 'tribe-common' ) ?>
 						</a>
 					</span>

@@ -163,5 +163,22 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 
 			return isset( $plugins[ $plugin_name ] ) && tribe_is_truthy( $plugins[ $plugin_name ] );
 		}
+
+		/**
+		 * Retrieves a list of active plugins.
+		 *
+		 * @since 5.1.3
+		 *
+		 * @return array List of active plugins.
+		 */
+		public function get_active_plugins() {
+			$plugins = $this->get_list();
+
+			$plugins = array_filter( $plugins, function ( $plugin ) {
+				return self::is_active( $plugin['short_name'] );
+			} );
+
+			return $plugins;
+		}
 	}
 }

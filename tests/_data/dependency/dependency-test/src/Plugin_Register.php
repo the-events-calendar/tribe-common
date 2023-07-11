@@ -19,6 +19,6 @@ class DT_Plugin_Register extends Tribe__Abstract_Plugin_Register {
 	}
 
 	public function add_active_plugin() {
-		Tribe__Dependency::instance()->add_active_plugin( $this->main_class, $this->version, $this->main_path );
+		tribe( Tribe__Dependency::class )->add_active_plugin( $this->main_class, $this->version, $this->main_path );
 	}
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "33211652fcaa67fb3e0ddafd6c10f708",
+    "content-hash": "21a576846805bcaa49add0b200fe1fb4",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -393,16 +393,16 @@
         },
         {
             "name": "stellarwp/installer",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/installer.git",
-                "reference": "13e800c750dbdab561ad6d67b768938fa4fee8a4"
+                "reference": "9c2774a1fcc9724839c7f009784420ed71831fde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/installer/zipball/13e800c750dbdab561ad6d67b768938fa4fee8a4",
-                "reference": "13e800c750dbdab561ad6d67b768938fa4fee8a4",
+                "url": "https://api.github.com/repos/stellarwp/installer/zipball/9c2774a1fcc9724839c7f009784420ed71831fde",
+                "reference": "9c2774a1fcc9724839c7f009784420ed71831fde",
                 "shasum": ""
             },
             "require": {
@@ -440,9 +440,9 @@
             "description": "StellarWP plugin install/activation library.",
             "support": {
                 "issues": "https://github.com/stellarwp/installer/issues",
-                "source": "https://github.com/stellarwp/installer/tree/1.1.0"
+                "source": "https://github.com/stellarwp/installer/tree/1.1.1"
             },
-            "time": "2023-01-30T18:33:24+00:00"
+            "time": "2023-06-06T13:25:04+00:00"
         },
         {
             "name": "stellarwp/telemetry",
