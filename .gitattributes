@@ -29,3 +29,5 @@ vendor/tooltipster/* export-ignore
 vendor/tribe-select2/* export-ignore
 vendor/tribe-selectWoo/* export-ignore
 vendor/tribe-selectWoo/dist/js/i18n export-ignore
+
+tribe-common.php export-ignore
