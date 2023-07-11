@@ -48,6 +48,15 @@ final class Migration {
 	public static $fs_plugins_slug = 'tec_freemius_plugins_archive';
 
 	/**
+	 * Where Freemius stores the active plugins.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected static string $key_fs_active_plugins = 'fs_active_plugins';
+
+	/**
 	 * List of our plugins to check for.
 	 *
 	 * @since 5.1.0
@@ -96,7 +105,7 @@ final class Migration {
 		// Prevent issues with incomplete classes
 		$fs_accounts = preg_replace_callback(
 			'/O:(\d+):"([^"]+)":([^:]+):\{/m',
-			function( $matches ) {
+			static function( $matches ) {
 				if ( $matches[2] === 'stdClass' ) {
 					return $matches[0];
 				}
@@ -168,7 +177,19 @@ final class Migration {
 	 */
 	public function should_load(): bool {
 		// If we've already checked, bail.
-		if ( get_option( static::$fs_accounts_data ) ) {
+		if ( get_option( self::$fs_accounts_data ) ) {
+			return false;
+		}
+
+		// When we have an archived plugin list we can bail.
+		if ( get_option( self::$fs_plugins_slug ) ) {
+			return false;
+		}
+
+		$fs_active_plugins = get_option(  self::$key_fs_active_plugins );
+
+		// Bail if empty.
+		if ( empty( $fs_active_plugins ) ) {
 			return false;
 		}
 
@@ -201,12 +222,7 @@ final class Migration {
 			return;
 		}
 
-		$fs_active_plugins = get_option( 'fs_active_plugins' );
-
-		// Bail if empty.
-		if ( empty( $fs_active_plugins ) ) {
-			return;
-		}
+		$fs_active_plugins = get_option( self::$key_fs_active_plugins );
 
 		// Clean up our list.
 		$this->remove_inactive_plugins( $fs_active_plugins );
@@ -225,7 +241,6 @@ final class Migration {
 
 		// Remove us from fs_active_plugins.
 		$this->handle_fs_active_plugins( $fs_active_plugins );
-
 	}
 
 	/**
@@ -269,7 +284,7 @@ final class Migration {
 		}
 
 		// Update the Freemius option in the database with our edits.
-		update_option( 'fs_active_plugins', $fs_active_plugins );
+		update_option( self::$key_fs_active_plugins, $fs_active_plugins );
 	}
 
 	/**
