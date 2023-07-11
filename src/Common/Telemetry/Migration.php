@@ -186,7 +186,7 @@ final class Migration {
 			return false;
 		}
 
-		$fs_active_plugins = get_option(  self::$key_fs_active_plugins );
+		$fs_active_plugins = get_option( self::$key_fs_active_plugins );
 
 		// Bail if empty.
 		if ( empty( $fs_active_plugins ) ) {
