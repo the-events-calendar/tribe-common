@@ -1,8 +1,10 @@
 src/modules/icons
+node_modules/clipboard
+node_modules/clipboard/dist
 node_modules/clipboard/dist/clipboard.min.js
+node_modules/intro.js
 node_modules/intro.js/*.css
 node_modules/intro.js/*.js
-node_modules/mt-a11y-dialog/*.min.js
 vendor/attrchange/js/*.js
 vendor/datatables/DataTables-1.10.23/images/*.png
 vendor/datatables/datatables*.css

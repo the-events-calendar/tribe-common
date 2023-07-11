@@ -6,6 +6,9 @@ tests/_support/_generated/* linguist-generated=true
 */__mocks__/* linguist-generated=true
 
 node_modules/* export-ignore
+node_modules/clipboard/* export-ignore
+node_modules/clipboard/dist/* export-ignore
+node_modules/intro.js/* export-ignore
 src/modules/* export-ignore
 vendor/attrchange/* export-ignore
 vendor/datatables/* export-ignore
