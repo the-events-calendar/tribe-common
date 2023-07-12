@@ -19,7 +19,7 @@ use Tribe__Utils__Array as Arr;
 
  * @package TEC\Common\Telemetry
  */
-final class Migration {
+class Migration {
 	/**
 	 * The key we back up original fs_accounts data to.
 	 *

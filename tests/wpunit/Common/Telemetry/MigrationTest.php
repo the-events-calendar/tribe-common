@@ -4,6 +4,16 @@ namespace TEC\Common\Telemetry;
 
 use Tribe\Tests\Traits\With_Uopz;
 
+class Migration_No_Auto_Opt_In extends \TEC\Common\Telemetry\Migration {
+	public $counter = 0;
+
+	public function auto_opt_in() {
+		$this->counter++;
+
+		return;
+	}
+}
+
 /**
  * Class MigrationTest
  *
@@ -128,6 +138,16 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 
 		return new Migration();
 	}
+
+	/**
+	 * @return Migration
+	 */
+	protected function make_no_auto_opt_in_instance() {
+		$this->set_up_active_plugins();
+
+		return new Migration_No_Auto_Opt_In();
+	}
+
 	/**
 	 * @test
 	 * it should be instantiatable
@@ -218,60 +238,46 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_not_migrate_when_ajax() {
-		$counter = 0;
 		$this->set_const_value( 'DOING_AJAX', true );
 		$this->set_const_value( 'DOING_AUTOSAVE', false );
 
-		$this->set_class_fn_return( Migration::class, 'auto_opt_in', static function() use ( $counter ) {
-			$counter++;
-		} );
-
-		$sut = $this->make_instance();
+		$sut = $this->make_no_auto_opt_in_instance();
 		$this->setup_fs_accounts_connected();
 
 		$sut->migrate_existing_opt_in();
 
-		$this->assertEquals( 0, $counter );
+		$this->assertEquals( 0, $sut->counter );
 	}
 
 	/**
 	 * @test
 	 */
 	public function it_should_not_migrate_when_autosaving() {
-		$counter = 0;
 		$this->set_const_value( 'DOING_AJAX', false );
 		$this->set_const_value( 'DOING_AUTOSAVE', true );
 
-		$this->set_class_fn_return( Migration::class, 'auto_opt_in', static function() use ( $counter ) {
-			$counter++;
-		} );
-
-		$sut = $this->make_instance();
+		$sut = $this->make_no_auto_opt_in_instance();
 		$this->setup_fs_accounts_connected();
 
 		$sut->migrate_existing_opt_in();
 
-		$this->assertEquals( 0, $counter );
+		$this->assertEquals( 0, $sut->counter );
 	}
 
 	/**
 	 * @test
 	 */
 	public function it_should_not_call_auto_optin_more_than_once() {
-		$counter = 0;
 		$this->set_const_value( 'DOING_AJAX', false );
 		$this->set_const_value( 'DOING_AUTOSAVE', false );
 
-		$this->set_class_fn_return( Migration::class, 'auto_opt_in', static function() use ( $counter ) {
-			$counter++;
-		} );
+		$sut = $this->make_no_auto_opt_in_instance();
 
-		$sut = $this->make_instance();
 		$this->setup_fs_accounts_connected();
 
 		$sut->migrate_existing_opt_in();
 		$sut->migrate_existing_opt_in();
 
-		$this->assertEquals( 1, $counter );
+		$this->assertEquals( 1, $sut->counter );
 	}
 }
