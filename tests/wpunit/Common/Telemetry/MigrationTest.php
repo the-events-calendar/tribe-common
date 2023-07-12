@@ -227,6 +227,7 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 		} );
 
 		$sut = $this->make_instance();
+		$this->setup_fs_accounts_connected();
 
 		$sut->migrate_existing_opt_in();
 
@@ -246,6 +247,7 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 		} );
 
 		$sut = $this->make_instance();
+		$this->setup_fs_accounts_connected();
 
 		$sut->migrate_existing_opt_in();
 
@@ -265,6 +267,7 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 		} );
 
 		$sut = $this->make_instance();
+		$this->setup_fs_accounts_connected();
 
 		$sut->migrate_existing_opt_in();
 		$sut->migrate_existing_opt_in();
