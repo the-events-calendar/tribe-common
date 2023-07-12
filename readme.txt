@@ -2,9 +2,10 @@
 
 = [5.1.3] TBD =
 
-* Security - Various improvements to event creation.
-* Fix - Properly handle plugin paths on Windows during telemetry booting. [TEC-4842]
+* Tweak - Prevents Telemetry servers from being hit when migrating from Freemius to Telemetry more than once.
+* Tweak - Various improvements to event creation to improve sanitization.
 * Tweak - Update Stellar Sale banner. [TEC-4841]
+* Fix - Properly handle plugin paths on Windows during telemetry booting. [TEC-4842]
 * Language - 16 new strings added, 24 updated, 1 fuzzied, and 1 obsoleted.
 
 = [5.1.2.2] 2023-06-23 =
