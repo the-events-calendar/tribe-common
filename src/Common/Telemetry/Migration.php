@@ -82,11 +82,11 @@ final class Migration {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @return void
+	 * @return array
 	 */
 	private function get_fs_accounts() {
 		// If we've already been here for some reason, don't do it all again.
-		$data = get_option( static::$fs_accounts_data );
+		$data = get_option( self::$fs_accounts_data );
 		if ( ! empty( $data ) ) {
 			return $data;
 		}
@@ -136,8 +136,8 @@ final class Migration {
 	 * @return boolean
 	 */
 	public function is_opted_in(): bool {
-		if ( ! is_null( static::$is_opted_in ) ) {
-			return static::$is_opted_in;
+		if ( ! is_null( self::$is_opted_in ) ) {
+			return self::$is_opted_in;
 		}
 
 		$fs_accounts = $this->get_fs_accounts();
@@ -145,7 +145,7 @@ final class Migration {
 		$sites = Arr::get( $fs_accounts, 'sites', [] );
 
 		if ( empty( $sites ) ) {
-			static::$is_opted_in = false;
+			self::$is_opted_in = false;
 			return false;
 		}
 
@@ -160,12 +160,12 @@ final class Migration {
 		}
 
 		if ( 1 > count( $disconnected ) ) {
-			static::$is_opted_in = false;
+			self::$is_opted_in = false;
 			return false;
 		}
 
-		static::$is_opted_in = in_array( false, $disconnected, true );
-		return static::$is_opted_in;
+		self::$is_opted_in = in_array( false, $disconnected, true );
+		return self::$is_opted_in;
 	}
 
 	/**
@@ -266,7 +266,7 @@ final class Migration {
 	 */
 	private function handle_fs_active_plugins( $fs_active_plugins ): void {
 		// Store a backup of the original option.
-		update_option( static::$fs_plugins_slug, $fs_active_plugins );
+		update_option( self::$fs_plugins_slug, $fs_active_plugins );
 
 		foreach ( $this->our_plugins as $plugin ) {
 			$plugin .= '/common/vendor/freemius';

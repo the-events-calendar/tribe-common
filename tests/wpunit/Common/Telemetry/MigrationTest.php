@@ -2,6 +2,8 @@
 
 namespace TEC\Common\Telemetry;
 
+use Tribe\Tests\Traits\With_Uopz;
+
 /**
  * Class MigrationTest
  *
@@ -10,6 +12,8 @@ namespace TEC\Common\Telemetry;
  * @package TEC\Common\Telemetry
  */
 class MigrationTest extends \Codeception\TestCase\WPTestCase {
+	use With_Uopz;
+
 	/**
 	 * Removes all freemius options from the database.
 	 * Only used if we were the only active plugin.
@@ -208,5 +212,63 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 		$this->setup_fs_accounts_mixed();
 
 		$this->assertTrue( $sut->should_load() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_migrate_when_ajax() {
+		$counter = 0;
+		$this->set_const_value( 'DOING_AJAX', true );
+		$this->set_const_value( 'DOING_AUTOSAVE', false );
+
+		$this->set_class_fn_return( Migration::class, 'auto_opt_in', static function() use ( $counter ) {
+			$counter++;
+		} );
+
+		$sut = $this->make_instance();
+
+		$sut->migrate_existing_opt_in();
+
+		$this->assertEquals( 0, $counter );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_migrate_when_autosaving() {
+		$counter = 0;
+		$this->set_const_value( 'DOING_AJAX', false );
+		$this->set_const_value( 'DOING_AUTOSAVE', true );
+
+		$this->set_class_fn_return( Migration::class, 'auto_opt_in', static function() use ( $counter ) {
+			$counter++;
+		} );
+
+		$sut = $this->make_instance();
+
+		$sut->migrate_existing_opt_in();
+
+		$this->assertEquals( 0, $counter );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_call_auto_optin_more_than_once() {
+		$counter = 0;
+		$this->set_const_value( 'DOING_AJAX', false );
+		$this->set_const_value( 'DOING_AUTOSAVE', false );
+
+		$this->set_class_fn_return( Migration::class, 'auto_opt_in', static function() use ( $counter ) {
+			$counter++;
+		} );
+
+		$sut = $this->make_instance();
+
+		$sut->migrate_existing_opt_in();
+		$sut->migrate_existing_opt_in();
+
+		$this->assertEquals( 1, $counter );
 	}
 }
