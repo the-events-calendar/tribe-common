@@ -2,6 +2,18 @@
 
 namespace TEC\Common\Telemetry;
 
+use Tribe\Tests\Traits\With_Uopz;
+
+class Migration_No_Auto_Opt_In extends \TEC\Common\Telemetry\Migration {
+	public $counter = 0;
+
+	public function auto_opt_in() {
+		$this->counter++;
+
+		return;
+	}
+}
+
 /**
  * Class MigrationTest
  *
@@ -10,6 +22,8 @@ namespace TEC\Common\Telemetry;
  * @package TEC\Common\Telemetry
  */
 class MigrationTest extends \Codeception\TestCase\WPTestCase {
+	use With_Uopz;
+
 	/**
 	 * Removes all freemius options from the database.
 	 * Only used if we were the only active plugin.
@@ -124,6 +138,16 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 
 		return new Migration();
 	}
+
+	/**
+	 * @return Migration
+	 */
+	protected function make_no_auto_opt_in_instance() {
+		$this->set_up_active_plugins();
+
+		return new Migration_No_Auto_Opt_In();
+	}
+
 	/**
 	 * @test
 	 * it should be instantiatable
@@ -208,5 +232,52 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 		$this->setup_fs_accounts_mixed();
 
 		$this->assertTrue( $sut->should_load() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_migrate_when_ajax() {
+		$this->set_const_value( 'DOING_AJAX', true );
+		$this->set_const_value( 'DOING_AUTOSAVE', false );
+
+		$sut = $this->make_no_auto_opt_in_instance();
+		$this->setup_fs_accounts_connected();
+
+		$sut->migrate_existing_opt_in();
+
+		$this->assertEquals( 0, $sut->counter );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_migrate_when_autosaving() {
+		$this->set_const_value( 'DOING_AJAX', false );
+		$this->set_const_value( 'DOING_AUTOSAVE', true );
+
+		$sut = $this->make_no_auto_opt_in_instance();
+		$this->setup_fs_accounts_connected();
+
+		$sut->migrate_existing_opt_in();
+
+		$this->assertEquals( 0, $sut->counter );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_call_auto_optin_more_than_once() {
+		$this->set_const_value( 'DOING_AJAX', false );
+		$this->set_const_value( 'DOING_AUTOSAVE', false );
+
+		$sut = $this->make_no_auto_opt_in_instance();
+
+		$this->setup_fs_accounts_connected();
+
+		$sut->migrate_existing_opt_in();
+		$sut->migrate_existing_opt_in();
+
+		$this->assertEquals( 1, $sut->counter );
 	}
 }
