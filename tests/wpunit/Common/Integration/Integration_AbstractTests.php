@@ -11,7 +11,7 @@ use TEC\Common\Integrations\Dummy_Theme;
 /**
  * Class Integration_AbstractTests
  *
- * @since   TBD
+ * @since 5.1.3
  *
  * @package TEC\Common\Integration
  */

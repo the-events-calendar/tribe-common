@@ -119,7 +119,6 @@ final class Telemetry {
 		self::$plugin_path  = \Tribe__Main::instance()->get_parent_plugin_file_path();
 		$stellar_slug = self::get_stellar_slug();
 
-
 		if ( empty( $stellar_slug ) ) {
 			return;
 		}

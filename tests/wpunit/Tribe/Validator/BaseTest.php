@@ -321,6 +321,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function test_is_image_with_good_inputs() {
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
 		$image_url = plugins_url( 'common/tests/_data/images/featured-image.jpg', \Tribe__Events__Main::instance()->plugin_file );
 		$bad_image_url = plugins_url( 'common/tests/_data/images/featured-image.raw', \Tribe__Events__Main::instance()->plugin_file );
 		$image_uploader = new \Tribe__Image__Uploader( $image_url );
@@ -331,6 +332,23 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertTrue( $sut->is_image( $image_url ) );
 		$this->assertTrue( $sut->is_image( $image_id ) );
 		$this->assertFalse( $sut->is_image( $bad_image_url ) );
+	}
+
+	/**
+	 * Test is_image with good inputs
+	 *
+	 * @test
+	 */
+	public function test_is_image_with_good_inputs_but_invalid_user() {
+		$image_url = plugins_url( 'common/tests/_data/images/featured-image.jpg', \Tribe__Events__Main::instance()->plugin_file );
+		$bad_image_url = plugins_url( 'common/tests/_data/images/featured-image.raw', \Tribe__Events__Main::instance()->plugin_file );
+		$image_uploader = new \Tribe__Image__Uploader( $image_url );
+		$image_id = $image_uploader->upload_and_get_attachment_id();
+
+		$sut = $this->make_instance();
+
+		$this->assertFalse( $sut->is_image( $image_url ) );
+		$this->assertFalse( $sut->is_image( $image_id ) );
 	}
 
 	public function test_is_image_or_empty_bad_inputs() {
@@ -381,6 +399,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function test_is_image_or_empty_with_images() {
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
 		$image_url = plugins_url( 'common/tests/_data/images/featured-image2.jpg', \Tribe__Events__Main::instance()->plugin_file );
 		$bad_image_url = plugins_url( 'common/tests/_data/images/featured-image.raw', \Tribe__Events__Main::instance()->plugin_file );
 		$image_uploader = new \Tribe__Image__Uploader( $image_url );
@@ -391,6 +410,23 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertTrue( $sut->is_image_or_empty( $image_url ) );
 		$this->assertTrue( $sut->is_image_or_empty( $image_id ) );
 		$this->assertFalse( $sut->is_image_or_empty( $bad_image_url ) );
+	}
+
+	/**
+	 * Test is_image_or_empty with images
+	 *
+	 * @test
+	 */
+	public function test_is_image_or_empty_with_images_but_invalid_user() {
+		$image_url = plugins_url( 'common/tests/_data/images/featured-image2.jpg', \Tribe__Events__Main::instance()->plugin_file );
+		$bad_image_url = plugins_url( 'common/tests/_data/images/featured-image.raw', \Tribe__Events__Main::instance()->plugin_file );
+		$image_uploader = new \Tribe__Image__Uploader( $image_url );
+		$image_id = $image_uploader->upload_and_get_attachment_id();
+
+		$sut = $this->make_instance();
+
+		$this->assertFalse( $sut->is_image_or_empty( $image_url ) );
+		$this->assertFalse( $sut->is_image_or_empty( $image_id ) );
 	}
 
 	public function is_url_inputs() {

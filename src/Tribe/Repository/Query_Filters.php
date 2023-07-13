@@ -617,16 +617,6 @@ class Tribe__Repository__Query_Filters {
 	}
 
 	/**
-	 * Clean up before the object destruction.
-	 *
-	 * @since 4.7.19
-	 */
-	public function __destruct() {
-		// let's make sure we clean up when the object is dereferenced
-		$this->remove_filters();
-	}
-
-	/**
 	 * Removes all the filters this class applied.
 	 *
 	 * @since 4.7.19
