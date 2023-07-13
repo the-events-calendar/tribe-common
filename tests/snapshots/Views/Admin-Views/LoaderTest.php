@@ -5,7 +5,7 @@ namespace Tribe\Tests\Snapshots\Views\V2\Admin_Views\Components;
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use Tribe\Tests\Snapshots\Snapshot_Test_Case;
 
-class SwitchTest extends Snapshot_Test_Case {
+class LoaderTest extends Snapshot_Test_Case {
 
 	use SnapshotAssertions;
 

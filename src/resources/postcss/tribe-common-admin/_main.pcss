@@ -1587,7 +1587,7 @@ a.tribe-rating-link {
 		justify-content: flex-start;
 		margin: 0 auto;
 		min-height: 65px;
-		padding: 0 0.75rem;
+		padding: 0;
 		width: 100%;
 
 		.events_page_tribe-app-shop &,
@@ -1643,7 +1643,12 @@ a.tribe-rating-link {
 	padding-right: 0;
 
 	&.tribe-notice-stellar-sale {
-		background-color: #000;
+		background-color: #1D202F;
+		overflow: hidden;
+
+		@media screen and (max-width: 767px) {
+			padding: 20px 20px 0;
+		}
 
 		a {
 			color: #d8ff00;
@@ -1653,6 +1658,187 @@ a.tribe-rating-link {
 			&:focus,
 			&:hover {
 				color: #e6b1fc;
+			}
+		}
+		
+		.tribe-marketing-notice {
+			max-width: 100%;
+		}
+
+		.notice-dismiss {
+			&:before {
+				content: "X";
+				font-size: 30px;
+				font-family: inherit;
+				font-weight: 300;
+				position: absolute;
+				right: 20px;
+				top: 20px;
+			}
+		}
+
+		.tribe-marketing-notice__content-wrapper {
+			align-items: center;
+			display: flex;
+			flex-wrap: wrap;
+			font-family: 'Neurial Grotesk', sans-serif; /* todo: enqueue font */
+			padding: 35px 0 10px 35px;
+			width: 100%;
+
+			@media screen and (max-width: 480px) {
+				align-items: flex-start;
+				flex-direction: column;
+				padding: 30px 0 10px;
+			}
+
+			@media (min-width: 768px) and (max-width: 1023px) {
+				padding: 30px 0 10px 25px;
+			}
+
+			h3, h4 {
+				color: #fff;
+			}
+
+			h3 {
+				font-size: 24px;
+				font-weight: 700;
+				margin: 0;
+				text-align: left;
+			}
+
+			h4 {
+				font-size: 18px;
+				font-weight: 300;
+				margin: 10px 0 25px;
+				text-align: left;
+
+				@media screen and (max-width: 480px) {
+					margin: 10px 0 5px;
+				}
+			}
+
+			p {
+				color: #fff;
+				font-size: 14px;
+				font-weight: 400;
+				line-height: 22px;
+				letter-spacing: 1px;
+				margin: 0 0 20px;
+			}
+
+			.tribe-marketing-notice__info {
+				/* hide on mobile */
+				@media screen and (max-width: 767px) {
+					display: none;
+				}
+			}
+
+			.tribe-marketing-notice__cta-shop-now {
+				a {
+					background-color: #3849F5;
+					border: 1px solid #3849F5;
+					border-radius: 125px;
+					color: #fff;
+					font-family: 'Inconsolata', monospace; /* todo: enqueue font */
+					font-size: 14px;
+					font-weight: 400;
+					line-height: 1;
+					padding: 12px 27px;
+
+					&:active,
+					&:focus,
+					&:focus-within,
+					&:hover {
+						background-color: #1c39bb;
+						border: 1px solid #1c39bb;
+						box-shadow: none;
+						outline: none;
+					}
+				}
+			}
+
+			.tribe-marketing-notice__cta-stellar-deals {
+				a {
+					color: #fff;
+					font-size: 14px;
+					font-weight: 700;
+					line-height: 24px;
+					text-transform: none;
+
+					&:active,
+					&:focus,
+					&:focus-within,
+					&:hover {
+						color: #1c39bb;
+						box-shadow: none;
+						outline: none;
+					}
+				}
+			}
+
+			.tribe-marketing-notice__cta-shop-now--desktop {
+				/* hide on mobile */
+				@media screen and (max-width: 767px) {
+					display: none;
+				}
+			}
+
+			.tribe-marketing-notice__cta-shop-now--mobile {
+				display: none;
+
+				@media screen and (max-width: 767px) {
+					display: block;
+					margin-right: 10px;
+				}
+			}
+
+			.tribe-marketing-notice__col--inner {
+				align-items: center;
+				display: flex;
+				flex-wrap: wrap;
+			}
+
+			.tribe-marketing-notice__col--md {
+				flex: 35%;
+
+				@media (min-width: 768px) and (max-width: 1023px) {
+					flex: 45%;
+				}
+			}
+
+			.tribe-marketing-notice__col--lg {
+				flex: 40%;
+
+				@media (min-width: 768px) and (max-width: 1023px) {
+					flex: 45%;
+				}
+			}
+
+			.tribe-marketing-notice__col--sm {
+				flex: 20%;
+				z-index: 1;
+
+				@media (min-width: 768px) and (max-width: 1023px) {
+					flex: 10%;
+				}
+
+				.tribe-marketing-notice__col--sm-bg {
+					bottom: 0;
+					height: 8vw;
+					position: absolute;
+					right: 0;
+					width: auto;
+					z-index: -1;
+
+					@media (min-width: 768px) and (max-width: 1023px) {
+						height: 11vw;
+					}
+				
+					@media screen and (max-width: 767px) {
+						height: 35vw;
+						right: -45vw;
+					}
+				}
 			}
 		}
 	}

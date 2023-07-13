@@ -19,7 +19,7 @@ use Tribe__Utils__Array as Arr;
 
  * @package TEC\Common\Telemetry
  */
-final class Migration {
+class Migration {
 	/**
 	 * The key we back up original fs_accounts data to.
 	 *
@@ -48,6 +48,15 @@ final class Migration {
 	public static $fs_plugins_slug = 'tec_freemius_plugins_archive';
 
 	/**
+	 * Where Freemius stores the active plugins.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected static string $key_fs_active_plugins = 'fs_active_plugins';
+
+	/**
 	 * List of our plugins to check for.
 	 *
 	 * @since 5.1.0
@@ -73,11 +82,11 @@ final class Migration {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @return void
+	 * @return array
 	 */
 	private function get_fs_accounts() {
 		// If we've already been here for some reason, don't do it all again.
-		$data = get_option( static::$fs_accounts_data );
+		$data = get_option( self::$fs_accounts_data );
 		if ( ! empty( $data ) ) {
 			return $data;
 		}
@@ -96,7 +105,7 @@ final class Migration {
 		// Prevent issues with incomplete classes
 		$fs_accounts = preg_replace_callback(
 			'/O:(\d+):"([^"]+)":([^:]+):\{/m',
-			function( $matches ) {
+			static function( $matches ) {
 				if ( $matches[2] === 'stdClass' ) {
 					return $matches[0];
 				}
@@ -127,8 +136,8 @@ final class Migration {
 	 * @return boolean
 	 */
 	public function is_opted_in(): bool {
-		if ( ! is_null( static::$is_opted_in ) ) {
-			return static::$is_opted_in;
+		if ( ! is_null( self::$is_opted_in ) ) {
+			return self::$is_opted_in;
 		}
 
 		$fs_accounts = $this->get_fs_accounts();
@@ -136,7 +145,7 @@ final class Migration {
 		$sites = Arr::get( $fs_accounts, 'sites', [] );
 
 		if ( empty( $sites ) ) {
-			static::$is_opted_in = false;
+			self::$is_opted_in = false;
 			return false;
 		}
 
@@ -151,12 +160,12 @@ final class Migration {
 		}
 
 		if ( 1 > count( $disconnected ) ) {
-			static::$is_opted_in = false;
+			self::$is_opted_in = false;
 			return false;
 		}
 
-		static::$is_opted_in = in_array( false, $disconnected, true );
-		return static::$is_opted_in;
+		self::$is_opted_in = in_array( false, $disconnected, true );
+		return self::$is_opted_in;
 	}
 
 	/**
@@ -168,7 +177,19 @@ final class Migration {
 	 */
 	public function should_load(): bool {
 		// If we've already checked, bail.
-		if ( get_option( static::$fs_accounts_data ) ) {
+		if ( get_option( self::$fs_accounts_data ) ) {
+			return false;
+		}
+
+		// When we have an archived plugin list we can bail.
+		if ( get_option( self::$fs_plugins_slug ) ) {
+			return false;
+		}
+
+		$fs_active_plugins = get_option( self::$key_fs_active_plugins );
+
+		// Bail if empty.
+		if ( empty( $fs_active_plugins ) ) {
 			return false;
 		}
 
@@ -201,12 +222,7 @@ final class Migration {
 			return;
 		}
 
-		$fs_active_plugins = get_option( 'fs_active_plugins' );
-
-		// Bail if empty.
-		if ( empty( $fs_active_plugins ) ) {
-			return;
-		}
+		$fs_active_plugins = get_option( self::$key_fs_active_plugins );
 
 		// Clean up our list.
 		$this->remove_inactive_plugins( $fs_active_plugins );
@@ -218,14 +234,8 @@ final class Migration {
 
 		$this->auto_opt_in();
 
-		// If only our plugins are present, short-cut and delete everything.
-		if ( count( $this->our_plugins ) === count( (array) $fs_active_plugins->plugins ) ) {
-			return;
-		}
-
 		// Remove us from fs_active_plugins.
 		$this->handle_fs_active_plugins( $fs_active_plugins );
-
 	}
 
 	/**
@@ -236,9 +246,9 @@ final class Migration {
 	 * @param Object $fs_active_plugins The stored list of active plugins from Freemius.
 	 */
 	private function remove_inactive_plugins( $fs_active_plugins ): void {
-		$freemius_plugins = $fs_active_plugins->plugins;
+		$freemius_plugins = ! empty( $fs_active_plugins->plugins ) ? (array) $fs_active_plugins->plugins : [];
 
-		foreach( $this->our_plugins as $plugin ) {
+		foreach ( $this->our_plugins as $plugin ) {
 			if ( ! isset( $freemius_plugins[ $plugin ] ) ) {
 				unset( $this->our_plugins[ $plugin ] );
 			}
@@ -256,7 +266,7 @@ final class Migration {
 	 */
 	private function handle_fs_active_plugins( $fs_active_plugins ): void {
 		// Store a backup of the original option.
-		update_option( static::$fs_plugins_slug, $fs_active_plugins );
+		update_option( self::$fs_plugins_slug, $fs_active_plugins );
 
 		foreach ( $this->our_plugins as $plugin ) {
 			$plugin .= '/common/vendor/freemius';
@@ -269,7 +279,7 @@ final class Migration {
 		}
 
 		// Update the Freemius option in the database with our edits.
-		update_option( 'fs_active_plugins', $fs_active_plugins );
+		update_option( self::$key_fs_active_plugins, $fs_active_plugins );
 	}
 
 	/**
