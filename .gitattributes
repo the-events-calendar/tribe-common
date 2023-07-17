@@ -5,29 +5,5 @@ tests/_support/_generated/* linguist-generated=true
 */__snapshots__/* linguist-generated=true
 */__mocks__/* linguist-generated=true
 
-node_modules/* export-ignore
-node_modules/clipboard/* export-ignore
-node_modules/clipboard/dist/* export-ignore
-node_modules/intro.js/* export-ignore
-src/modules/* export-ignore
-src/resources/css/app/* export-ignore
-src/resources/js/app/* export-ignore
-vendor/attrchange/* export-ignore
-vendor/attrchange/js/* export-ignore
-vendor/datatables/* export-ignore
-vendor/datatables/DataTables-1.10.23/* export-ignore
-vendor/datatables/DataTables-1.10.23/images/* export-ignore
-vendor/firebase/* export-ignore
-vendor/handlebars/* export-ignore
-vendor/jquery-tribe-timepicker/* export-ignore
-vendor/jquery-tribe-timepicker/lib/* export-ignore
-vendor/momentjs/* export-ignore
-vendor/monolog/* export-ignore
-vendor/psr/* export-ignore
-vendor/stellarwp export-ignore
-vendor/tooltipster/* export-ignore
-vendor/tribe-select2/* export-ignore
-vendor/tribe-selectWoo/* export-ignore
-vendor/tribe-selectWoo/dist/js/i18n export-ignore
-
+readme.txt export-ignore
 tribe-common.php export-ignore
