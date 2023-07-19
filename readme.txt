@@ -2,6 +2,7 @@
 
 = [5.1.4] TBD =
 
+* Feat - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
 
 = [5.1.3] 2023-07-13 =
 
