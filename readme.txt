@@ -1,7 +1,5 @@
 == Changelog ==
 
-= [TBD] TBD =
-
 = [5.1.4] TBD =
 
 * Feat - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
