@@ -469,7 +469,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 */
 		public static function reformat( $dt_string, $new_format ) {
 			$timestamp = self::is_timestamp( $dt_string ) ? $dt_string : strtotime( $dt_string );
-			$revised   = date( $new_format, $timestamp );
+			$revised   = wp_date( $new_format, $timestamp );
 
 			return $revised ? $revised : '';
 		}
