@@ -111,7 +111,9 @@
       "exclude_from_prefix": {
         "file_patterns": []
       },
-      "delete_vendor_files": true
+      "delete_vendor_files": true,
+      "include_modified_date": false,
+      "include_author": false
     }
   }
 }

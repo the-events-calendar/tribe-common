@@ -1,6 +1,11 @@
 == Changelog ==
 
-= [5.1.3] TBD =
+= [5.1.4] TBD =
+
+* Feat - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
+* Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
+
+= [5.1.3] 2023-07-13 =
 
 * Tweak - Prevents Telemetry servers from being hit when migrating from Freemius to Telemetry more than once.
 * Tweak - Various improvements to event creation to improve sanitization.
@@ -26,7 +31,6 @@
 
 = [5.1.1.1] 2023-06-20 =
 
-* Release - B23.Goldorak
 * Fix - Adding Configuration feature, to enable simple feature flag and other checks, with less boilerplate. See [readme](https://github.com/the-events-calendar/tribe-common/pull/1923/files#diff-cf03646ad083f81f8ec80bbdd775d8ac45c75c7bc1bf302f6fb06dfa34a1dc64) for more details. [ECP-1505]
 * Fix - In some scenarios the garbage collection of our query filters would slow page speeds. Removed garbage collection for the filters. [ECP-1505]
 * Fix - Increase the reliability of Telemetry initialization for Event Tickets loading [TEC-4836]
