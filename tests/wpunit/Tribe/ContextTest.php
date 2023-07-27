@@ -304,11 +304,11 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should allow reading a value from a contstant
+	 * It should allow reading a value from a constant
 	 *
 	 * @test
 	 */
-	public function should_allow_reading_a_value_from_a_contstant() {
+	public function should_allow_reading_a_value_from_a_constant() {
 		define( '__KEY__', '__value__' );
 
 		$original_context = tribe_context();
@@ -1541,7 +1541,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @test
 	 */
-	public function should_allow_getting_a_value_calling_a_fucntion_on_a_location_value() {
+	public function should_allow_getting_a_value_calling_a_function_on_a_location_value() {
 		$context = (new Context)->add_locations( [
 			'test_location' => [
 				'read' => [
@@ -1566,11 +1566,11 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should allow safe seting of values
+	 * It should allow safe setting of values
 	 *
 	 * @test
 	 */
-	public function should_allow_safe_seting_of_values() {
+	public function should_allow_safe_setting_of_values() {
 		$context = (new Context)->add_locations( [
 			'test_location' => [
 				'read' => [

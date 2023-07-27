@@ -1350,7 +1350,7 @@ msgid "Plugin(s) are out of date"
 msgstr ""
 
 #: src/Tribe/Admin/Troubleshooting.php:322
-msgid "It's important to use the most recent versions of our plugins so that you have access to the latest features, bug fixes, and security updates. Plugin functionality can be comprimised if your site is running outdated or mis-matched versions."
+msgid "It's important to use the most recent versions of our plugins so that you have access to the latest features, bug fixes, and security updates. Plugin functionality can be compromised if your site is running outdated or mismatched versions."
 msgstr ""
 
 #: src/Tribe/Admin/Troubleshooting.php:324
@@ -3765,11 +3765,11 @@ msgid "Field ID:"
 msgstr ""
 
 #: src/Tribe/Validate.php:104
-msgid "Non-existant field validation function passed"
+msgid "Non-existent field validation function passed"
 msgstr ""
 
 #: src/Tribe/Validate.php:105
-msgctxt "non-existant function name passed for field validation"
+msgctxt "non-existent function name passed for field validation"
 msgid "with function name:"
 msgstr ""
 
@@ -3783,7 +3783,7 @@ msgid "%s must contain numbers, letters and dots only"
 msgstr ""
 
 #: src/Tribe/Validate.php:160
-msgid "%s must contain numbers, letters, dashes and undescores only"
+msgid "%s must contain numbers, letters, dashes and underscores only"
 msgstr ""
 
 #: src/Tribe/Validate.php:174

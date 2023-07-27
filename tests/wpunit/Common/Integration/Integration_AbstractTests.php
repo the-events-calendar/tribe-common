@@ -61,7 +61,7 @@ class Integration_AbstractTests {
 	 * @test
 	 * @dataProvider get_integration_instances
 	 */
-	public function integrations_should_load_as_inteded( $integration, $type, $slug, $parent, $was_loaded ) {
+	public function integrations_should_load_as_intended( $integration, $type, $slug, $parent, $was_loaded ) {
 		$this->assertEquals( $integration->get_type(), $type, 'Integration type does not match' );
 		$this->assertEquals( $integration->get_slug(), $slug, 'Integration slug does not match' );
 		$this->assertEquals( $integration->get_parent(), $parent, 'Integration parent does not match' );

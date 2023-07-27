@@ -40,7 +40,7 @@ interface Tribe__REST__Headers__Base_Interface {
 
 	/**
 	 * Returns the header the REST API will print on the page head to report its origin
-	 * url. Normaly the home_url()
+	 * url. Normally the home_url()
 
 	 *
 	 * @return string

@@ -318,7 +318,7 @@ class Tabbed_ViewTest extends \Codeception\TestCase\WPTestCase {
 		$sut->register( $three->reveal() );
 		$sut->register( $four->reveal() );
 
-		$tabs = $sut->get_visibles();
+		$tabs = $sut->get_visible();
 
 		$this->assertCount( 3, $tabs );
 	}

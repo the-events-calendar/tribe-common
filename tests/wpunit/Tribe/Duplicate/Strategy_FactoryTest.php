@@ -91,11 +91,11 @@ class Strategy_FactoryTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should return false when trying to build with empy map
+	 * It should return false when trying to build with empty map
 	 *
 	 * @test
 	 */
-	public function it_should_return_false_when_trying_to_build_with_empy_map() {
+	public function it_should_return_false_when_trying_to_build_with_empty_map() {
 		$sut = $this->make_instance();
 		$sut->set_strategy_map( [] );
 

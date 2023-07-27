@@ -98,7 +98,7 @@ class Tribe__Tabbed_View {
 	 *
 	 * @return Tribe__Tabbed_View__Tab[] An array of all the active and visible tabs.
 	 */
-	public function get_visibles() {
+	public function get_visible() {
 		return array_filter( $this->get(), [ $this, 'is_tab_visible' ] );
 	}
 
@@ -317,8 +317,8 @@ class Tribe__Tabbed_View {
 	 * @return string
 	 */
 	public function render() {
-		$visibles = $this->get_visibles();
-		if ( empty( $visibles ) ) {
+		$visible = $this->get_visible();
+		if ( empty( $visible ) ) {
 			return '';
 		}
 

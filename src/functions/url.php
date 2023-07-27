@@ -84,7 +84,7 @@ if ( ! function_exists( 'tribe_build_url' ) ) {
 			$flags |= HTTP_URL_STRIP_USER | HTTP_URL_STRIP_PASS;
 		}
 
-		// Schema and host are alwasy replaced
+		// Schema and host are always replaced
 		foreach ( [ 'scheme', 'host' ] as $part ) {
 			if ( isset( $parts[ $part ] ) ) {
 				$url[ $part ] = $parts[ $part ];

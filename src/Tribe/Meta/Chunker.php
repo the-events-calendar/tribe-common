@@ -71,7 +71,7 @@ class Tribe__Meta__Chunker {
 	protected $filter_priority = - 1;
 
 	/**
-	 * @var string The meta key prefix applied ot any Chunker related post meta.
+	 * @var string The meta key prefix applied to any Chunker related post meta.
 	 */
 	protected $meta_key_prefix = '_tribe_chunker_';
 

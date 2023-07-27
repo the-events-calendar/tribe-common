@@ -278,7 +278,7 @@ abstract class Tribe__Process__Handler {
 	}
 
 	/**
-	 * Returns the URL that wil be used to post the request.
+	 * Returns the URL that will be used to post the request.
 	 *
 	 * @since 4.9.5 Pulled from the `WP_Async_Request` class.
 	 *

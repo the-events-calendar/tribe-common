@@ -833,7 +833,7 @@ class ReadTest extends ReadTestBase {
 	 *
 	 * @test
 	 */
-	public function should_not_take_permissions_into_account_when_reding_posts_by_primary_key() {
+	public function should_not_take_permissions_into_account_when_reading_posts_by_primary_key() {
 		$ids        = $this->factory()->post->create_many( 3, [ 'post_type' => 'book' ] );
 		$repository = $this->repository();
 

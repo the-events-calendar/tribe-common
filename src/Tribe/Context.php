@@ -131,7 +131,7 @@ class Tribe__Context {
 	const WP_PARSED = 'wp_parsed';
 
 	/**
-	 * The key to locate a context value among the values in the query mached by `WP::parse_request`.
+	 * The key to locate a context value among the values in the query matched by `WP::parse_request`.
 	 *
 	 * @since 4.9.11
 	 */

@@ -27,7 +27,7 @@ class Tribe__Log__Null_Logger implements Tribe__Log__Logger {
 	}
 
 	/**
-	 * Responsible for commiting the entry to the log (but only if the debug level
+	 * Responsible for committing the entry to the log (but only if the debug level
 	 * is appropriate).
 	 *
 	 * @param string $entry
@@ -43,8 +43,8 @@ class Tribe__Log__Null_Logger implements Tribe__Log__Logger {
 	 * order. If $limit is a negative or zero value, there is no limit.
 	 *
 	 * Implementation-specific arguments can optionally be provided as a second
-	 * parameter. This may include support for a 'log' param where an identifer
-	 * obtained via the list_availalbe_logs() method is passed in order to query
+	 * parameter. This may include support for a 'log' param where an identifier
+	 * obtained via the list_available_logs() method is passed in order to query
 	 * a specific archived log.
 	 *
 	 * @see Tribe__Log__Logger::list_available_logs()

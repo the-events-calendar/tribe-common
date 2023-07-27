@@ -138,7 +138,7 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 	}
 
 	/**
-	 * Responsible for commiting the entry to the log.
+	 * Responsible for committing the entry to the log.
 	 *
 	 * @param string $entry
 	 * @param string $type
@@ -197,7 +197,7 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 
 	/**
 	 * Returns a list of currently accessible logs (current first, oldest last).
-	 * Each is refered to by date.
+	 * Each is referred to by date.
 	 *
 	 * Example:
 	 *

@@ -544,7 +544,7 @@ class Tribe__Utils__Color {
 	 * @since 5.0.10
 	 *
 	 * @param string $hex_color     Hex value of color.
-	 * @param string $compare_color Hax value of comparing color.
+	 * @param string $compare_color Hex value of comparing color.
 	 *
 	 * @return int
 	 */

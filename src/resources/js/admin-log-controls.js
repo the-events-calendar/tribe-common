@@ -140,7 +140,7 @@ var tribe_logger_data  = tribe_logger_data || {};
 	}
 
 	/**
-	 * Check if a change in controls constituting a change of view has occured.
+	 * Check if a change in controls constituting a change of view has occurred.
 	 *
 	 * This could be because the user changed logging engine or because they picked
 	 * a different log to peruse; a change in logging level on the other hand does

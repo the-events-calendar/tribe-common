@@ -41,7 +41,7 @@ class Tribe__Duplicate__Strategy__Like
 	}
 
 	/**
-	 * Removes anything that's not letters, numbers, hypens and underscores from the string and returns its frags.
+	 * Removes anything that's not letters, numbers, hyphens and underscores from the string and returns its frags.
 	 *
 	 * @param string $value
 	 *

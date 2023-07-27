@@ -477,7 +477,7 @@ class Tribe__Admin__Help_Page {
 			] );
 
 			if ( ! is_wp_error( $data ) ) {
-				// Format Downloaded Infomation
+				// Format Downloaded Information
 				$data->downloaded = $data->downloaded ? number_format( $data->downloaded ) : _x( 'n/a', 'not available', 'tribe-common' );
 			} else {
 				// If there was a bug on the Current Request just leave

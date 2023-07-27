@@ -67,7 +67,7 @@ class Tribe__Editor__Utils {
 	}
 
 	/**
-	 * Update the content of a post using a pattern to search a specifc string, with a custom
+	 * Update the content of a post using a pattern to search a specific string, with a custom
 	 * replacement
 	 *
 	 * @since 4.8.2

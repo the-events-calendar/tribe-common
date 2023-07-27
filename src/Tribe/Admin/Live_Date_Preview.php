@@ -1,6 +1,6 @@
 <?php
 /**
- * Facilitiates live date previews in the Events > Settings > Display admin screen.
+ * Facilitates live date previews in the Events > Settings > Display admin screen.
  */
 class Tribe__Admin__Live_Date_Preview {
 	protected $target_fields = [

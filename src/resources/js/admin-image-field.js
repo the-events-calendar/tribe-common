@@ -19,7 +19,7 @@ tribe.settings.fields = tribe.settings.fields || {};
 tribe.settings.fields.image = {};
 
 /**
- * Intializes the image field for settings.
+ * Initializes the image field for settings.
  *
  * @since 5.0.0
  *

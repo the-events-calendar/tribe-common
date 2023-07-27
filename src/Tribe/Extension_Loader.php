@@ -34,7 +34,7 @@ class Tribe__Extension_Loader {
 	}
 
 	/**
-	 * Intializes each extension.
+	 * Initializes each extension.
 	 */
 	private function __construct() {
 		$prefixes = self::get_extension_file_prefixes();

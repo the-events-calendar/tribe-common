@@ -325,7 +325,7 @@ class Tribe__Timezones {
 	 *
 	 * @param string     $format   The format the date shouuld be formatted to.
 	 * @param string|int $date     The date UNIX timestamp or `strtotime` parseable string.
-	 * @param string     $timezone An optional timezone string identifying the timezone the date shoudl be localized
+	 * @param string     $timezone An optional timezone string identifying the timezone the date should be localized
 	 *                             to; defaults to the WordPress installation timezone (if available) or to the system
 	 *                             timezone.
 	 *

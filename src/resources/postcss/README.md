@@ -67,7 +67,7 @@ Given the above structure of using a wrapper class, we've increased the [CSS spe
 
 In this case, the label is an element of the toggle. However, the `--vertical` modifier is applied to the top level block. Given this structure, our minimum specificity becomes 3 classes.
 
-For overriding styles, it is recommended to only use classes to keep overriding specificity consistent. All elements should have classes and should be targetted using those classes.
+For overriding styles, it is recommended to only use classes to keep overriding specificity consistent. All elements should have classes and should be targeted using those classes.
 
 ## Modifiers, pseudo-classes, and container query classes
 
@@ -255,11 +255,11 @@ Common theme overrides, mainly in base and components, are applied to the bottom
 You want to contribute to these styles? Great! There are a couple things to consider when making changes:
 
 1. These styles are the base layer to a number of The Events Calendar plugins. Make changes with care.
-2. Consider whether these styles may be reuseable or not. If they are good candidates for a component for more than one plugin, then it's probably a good idea to put them into these styles.
+2. Consider whether these styles may be reusable or not. If they are good candidates for a component for more than one plugin, then it's probably a good idea to put them into these styles.
 
 ### Additions
 
-Additions are generally safe, as long as the selectors do not conflict with existing selectors. Confirm that the styles you are adding are reuseable and are a consistent part of the design system before adding.
+Additions are generally safe, as long as the selectors do not conflict with existing selectors. Confirm that the styles you are adding are reusable and are a consistent part of the design system before adding.
 
 ### Alterations
 

@@ -99,7 +99,7 @@ JSON;
 }
 JSON;
 
-	protected $json_mock_reponse_missing_location = <<<JSON
+	protected $json_mock_response_missing_location = <<<JSON
 {
   "results": [
     {

@@ -141,7 +141,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	}
 
 	/**
-	 * A custom error handler to log any error tha might happen while invoking a promise
+	 * A custom error handler to log any error that might happen while invoking a promise
 	 * callback.
 	 *
 	 * @since 4.9.5

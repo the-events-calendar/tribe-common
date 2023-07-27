@@ -120,7 +120,7 @@ class Tribe__Log__Admin {
 	}
 
 	/**
-	 * Checks wether the assets should be enqueued.
+	 * Checks whether the assets should be enqueued.
 	 *
 	 * @since 4.15.0
 	 *

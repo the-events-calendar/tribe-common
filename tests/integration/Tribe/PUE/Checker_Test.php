@@ -104,7 +104,7 @@ class Checker_Test extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $replacement_key, $pue_instance->get_key() );
 	}
 
-	public function test_replacemnt_key_update_in_multisite_context(): void {
+	public function test_replacement_key_update_in_multisite_context(): void {
 
 	}
 }

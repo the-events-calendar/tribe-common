@@ -324,7 +324,7 @@ class Classic_Editor {
 
 
 	/**
-	 * Get and store wether user choice is allowed - lets us bypass some checks.
+	 * Get and store whether user choice is allowed - lets us bypass some checks.
 	 *
 	 * @since 4.14.13
 	 *

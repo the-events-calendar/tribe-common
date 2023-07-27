@@ -26,7 +26,7 @@ if ( ! function_exists( 'set_object_state' ) ) {
 
 if ( ! function_exists( 'template' ) ) {
 	/**
-	 * An Handlebars dumb clone to replace occurences of double fenced instances of a word in a template.
+	 * An Handlebars dumb clone to replace occurrences of double fenced instances of a word in a template.
 	 *
 	 * @param      array|object|string $template
 	 * @param array                    $data

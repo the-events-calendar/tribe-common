@@ -44,7 +44,7 @@ tribe.urlFragmentScroll = tribe.urlFragmentScroll || {};
 	}
 
 	/**
-	 * Will atempt to navigate to a given Fragment based on a URL.
+	 * Will attempt to navigate to a given Fragment based on a URL.
 	 *
 	 * @since  4.9.12
 	 *

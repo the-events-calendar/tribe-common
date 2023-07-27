@@ -174,7 +174,7 @@ tribe.validation = {};
 
 	/**
 	 * Parses the Condition for all the types of conditional and returns a
-	 * better state of Value and Contraint based on the rules for each
+	 * better state of Value and Constraint based on the rules for each
 	 *
 	 * @since  4.7
 	 *

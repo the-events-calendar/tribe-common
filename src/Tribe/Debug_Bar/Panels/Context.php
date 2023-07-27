@@ -2,7 +2,7 @@
 use Tribe__Utils__Array as Arr;
 
 /**
- * The Debug Bar panel that will display tribe context informations.
+ * The Debug Bar panel that will display tribe context information.
  *
  * @since 4.9.5
  */

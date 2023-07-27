@@ -209,7 +209,7 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 		$sut = $this->make_instance();
 
 		$this->assertFalse( $sut->should_show_subsite_editable_license() );
-		$this->assertFalse( $sut->should_show_overrideable_license() );
+		$this->assertFalse( $sut->should_show_overridable_license() );
 		$this->assertTrue( $sut->should_show_network_editable_license() );
 	}
 
@@ -228,7 +228,7 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 		$sut = $this->make_instance();
 
 		$this->assertTrue( $sut->should_show_subsite_editable_license() );
-		$this->assertFalse( $sut->should_show_overrideable_license() );
+		$this->assertFalse( $sut->should_show_overridable_license() );
 		$this->assertFalse( $sut->should_show_network_editable_license() );
 	}
 
@@ -247,7 +247,7 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 		$sut = $this->make_instance();
 
 		$this->assertFalse( $sut->should_show_subsite_editable_license() );
-		$this->assertTrue( $sut->should_show_overrideable_license() );
+		$this->assertTrue( $sut->should_show_overridable_license() );
 		$this->assertFalse( $sut->should_show_network_editable_license() );
 	}
 
@@ -265,7 +265,7 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 		$sut = $this->make_instance();
 
 		$this->assertTrue( $sut->should_show_subsite_editable_license() );
-		$this->assertFalse( $sut->should_show_overrideable_license() );
+		$this->assertFalse( $sut->should_show_overridable_license() );
 		$this->assertFalse( $sut->should_show_network_editable_license() );
 	}
 
@@ -284,7 +284,7 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 		$sut = $this->make_instance();
 
 		$this->assertTrue( $sut->should_show_subsite_editable_license() );
-		$this->assertFalse( $sut->should_show_overrideable_license() );
+		$this->assertFalse( $sut->should_show_overridable_license() );
 		$this->assertFalse( $sut->should_show_network_editable_license() );
 	}
 
@@ -303,7 +303,7 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 		$sut = $this->make_instance();
 
 		$this->assertTrue( $sut->should_show_subsite_editable_license() );
-		$this->assertFalse( $sut->should_show_overrideable_license() );
+		$this->assertFalse( $sut->should_show_overridable_license() );
 		$this->assertFalse( $sut->should_show_network_editable_license() );
 	}
 
@@ -323,7 +323,7 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 		$sut = $this->make_instance();
 
 		$this->assertTrue( $sut->should_show_subsite_editable_license() );
-		$this->assertFalse( $sut->should_show_overrideable_license() );
+		$this->assertFalse( $sut->should_show_overridable_license() );
 		$this->assertFalse( $sut->should_show_network_editable_license() );
 	}
 

@@ -136,7 +136,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @param  string $format The weird format you are using
 		 * @param  string $date   The date string to parse
 		 *
-		 * @return string         A DB formated Date, includes time if possible
+		 * @return string         A DB formatted Date, includes time if possible
 		 */
 		public static function datetime_from_format( $format, $date ) {
 			// Reverse engineer the relevant date formats
