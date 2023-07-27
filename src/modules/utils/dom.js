@@ -33,7 +33,7 @@ export const isRootNode = ( node ) => node === window.top.document;
  *
  * @param {(HTMLElement|object)} node - The DOM node where the search starts
  * @param {Function} callback - Is executed on every iteration, it should return a boolean
- * @returns {boolean} Returns tree if the callback returns true with any of the parents.
+ * @returns {boolean} Returns true if the callback returns true with any of the parents.
  */
 export const searchParent = ( node = {}, callback = noop ) => {
 	let found = false;
