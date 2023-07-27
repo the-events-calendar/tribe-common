@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [4.15.5.1] 2023-07-27 =
+
+* Security - Update Freemius to version 2.5.10 to address a security vulnerability on their end.
+
 = [4.15.5] 2022-08-15 =
 
 * Feature - Added image field for settings in the admin area. [ET-1541]
