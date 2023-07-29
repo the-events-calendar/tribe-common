@@ -2,7 +2,8 @@
 
 = [5.1.4] TBD =
 
-* Feat - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
+* Feature - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
+* Tweak - Add filters in `Tribe__Editor__Blocks__Abstract::has_block` to allow for more control over the block detection.
 * Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
 
 = [5.1.3] 2023-07-13 =
