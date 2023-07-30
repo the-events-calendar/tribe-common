@@ -198,8 +198,9 @@ implements Tribe__Editor__Blocks__Interface {
 		 * @param WP_Post|null $wp_post The post object.
 		 * @param int|null $post_id The post ID.
 		 * @param string $block_name The block name.
+		 * @param Tribe__Editor__Blocks__Abstract $this The block object.
 		 */
-		$has_block = (bool) apply_filters( 'tec_block_has_block', $has_block, $wp_post, $post_id, $this->name() );
+		$has_block = (bool) apply_filters( 'tec_block_has_block', $has_block, $wp_post, $post_id, $this->name(), $this );
 
 		/**
 		 * Filters whether the post has this block.
@@ -209,8 +210,9 @@ implements Tribe__Editor__Blocks__Interface {
 		 * @param bool $has_block Whether the post has this block.
 		 * @param WP_Post|null $wp_post The post object.
 		 * @param int|null $post_id The post ID.
+		 * @param Tribe__Editor__Blocks__Abstract $this The block object.
 		 */
-		return (bool) apply_filters( 'tec_block_' . $this->name() . '_has_block', $has_block, $wp_post, $post_id );
+		return (bool) apply_filters( 'tec_block_' . $this->name() . '_has_block', $has_block, $wp_post, $post_id, $this );
 	}
 
 	/**
