@@ -4,6 +4,7 @@
 
 * Feat - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
 * Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
+* Feat - Add Generator-based fetching of posts to the Repository/ORM. [ET-1648]
 
 = [5.1.3] 2023-07-13 =
 
