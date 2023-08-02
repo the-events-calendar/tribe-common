@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Borked UI on the WYZIWIG field in the Additional Content section of the admin display settings. [TEC-4861]
+
 = [5.1.4] TBD =
 
 * Feat - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
