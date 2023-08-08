@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.1.4] TBD =
+= [5.1.5] TBD =
 
 * Fix  - Make use of `wp_date` to format dates and avoid translation issues with translating month names in other languages. [ET-1820]
 * Feat - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
