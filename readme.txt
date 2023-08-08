@@ -2,6 +2,7 @@
 
 = [5.1.6] TBD =
 
+* Tweak - Added filters: `tec_block_has_block`, `tec_block_{$block_name}_has_block`, `tec_common_rewrite_dynamic_matchers`, `tec_shortcode_aliased_arguments`, `tec_shortcode_{$registration_slug}_aliased_arguments`
 
 = [5.1.5] TBD =
 
