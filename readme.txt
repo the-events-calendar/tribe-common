@@ -1,9 +1,14 @@
 == Changelog ==
 
+= [5.1.5] TBD =
+
+* Feature - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
+* Fix  - Make use of `wp_date` to format dates and avoid translation issues with translating month names in other languages. [ET-1820]
+* Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
+
 = [5.1.4] TBD =
 
-* Feat - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
-* Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
+* Feature - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
 
 = [5.1.3] 2023-07-13 =
 
