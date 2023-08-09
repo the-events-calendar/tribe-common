@@ -22,7 +22,7 @@ class AllQueryTest extends ReadTestBase {
 	public function should_throw_if_batch_size_is_not_integer_greater_than_0( int $wrong_batch_size ): void {
 		$this->expectException( \Tribe__Repository__Usage_Error::class );
 
-		$this->repository()->get_ids_generator( $wrong_batch_size )->next();
+		$this->repository()->get_ids( true, $wrong_batch_size )->next();
 	}
 
 	/**
@@ -36,7 +36,7 @@ class AllQueryTest extends ReadTestBase {
 		$queries_before = $wpdb->num_queries;
 
 		$repository = $this->repository();
-		$generator  = $repository->get_ids_generator( 20 );
+		$generator  = $repository->get_ids( true, 20 );
 
 		$this->assertEqualSets( $ids, iterator_to_array( $generator ) );
 		// One query to fetch, one to get found rows.
@@ -54,7 +54,7 @@ class AllQueryTest extends ReadTestBase {
 		$queries_before = $wpdb->num_queries;
 
 		$repository = $this->repository();
-		$generator  = $repository->get_ids_generator( 3 );
+		$generator  = $repository->get_ids( true, 3 );
 
 		$actual = iterator_to_array( $generator );
 		$this->assertEqualSets( $ids, $actual );
@@ -73,7 +73,7 @@ class AllQueryTest extends ReadTestBase {
 		$queries_before = $wpdb->num_queries;
 
 		$repository = $this->repository();
-		$generator  = $repository->get_ids_generator( 10 );
+		$generator  = $repository->get_ids( true, 10 );
 
 		$this->assertEqualSets( $ids, iterator_to_array( $generator ) );
 		// One query to fetch, one to get found rows, one to check if there are more.
@@ -89,7 +89,7 @@ class AllQueryTest extends ReadTestBase {
 	public function should_throw_if_batch_size_is_not_integer_greater_than_0_to_get_all_posts( int $wrong_batch_size ): void {
 		$this->expectException( \Tribe__Repository__Usage_Error::class );
 
-		$this->repository()->get_all_generator( $wrong_batch_size )->next();
+		$this->repository()->all( true, $wrong_batch_size )->next();
 	}
 
 	/**
@@ -103,7 +103,7 @@ class AllQueryTest extends ReadTestBase {
 		$queries_before = $wpdb->num_queries;
 
 		$repository = $this->repository();
-		$generator  = $repository->get_all_generator( 20 );
+		$generator  = $repository->all( true, 20 );
 
 		$all_books = iterator_to_array( $generator );
 		$this->assertContainsOnlyInstancesOf( \WP_Post::class, $all_books );
@@ -123,7 +123,7 @@ class AllQueryTest extends ReadTestBase {
 		$queries_before = $wpdb->num_queries;
 
 		$repository = $this->repository();
-		$generator  = $repository->get_all_generator( 3 );
+		$generator  = $repository->all( true, 3 );
 
 		$all_books = iterator_to_array( $generator );
 		$this->assertContainsOnlyInstancesOf( \WP_Post::class, $all_books );
@@ -143,7 +143,7 @@ class AllQueryTest extends ReadTestBase {
 		$queries_before = $wpdb->num_queries;
 
 		$repository = $this->repository();
-		$generator  = $repository->get_all_generator( 10 );
+		$generator  = $repository->all( true, 10 );
 
 		$all_books = iterator_to_array( $generator );
 		$this->assertContainsOnlyInstancesOf( \WP_Post::class, $all_books );
@@ -154,9 +154,9 @@ class AllQueryTest extends ReadTestBase {
 
 	public function offset_limit_provider(): array {
 		return [
-			'OFFSET 5 LIMIT 7' => [5,7],
-			'OFFSET 0 LIMIT 5' => [0,5],
-			'OFFSET 2, LIMIT 3' => [2,3],
+			'OFFSET 5 LIMIT 7'  => [ 5, 7 ],
+			'OFFSET 0 LIMIT 5'  => [ 0, 5 ],
+			'OFFSET 2, LIMIT 3' => [ 2, 3 ],
 		];
 	}
 
@@ -168,14 +168,14 @@ class AllQueryTest extends ReadTestBase {
 	 * @test
 	 * @dataProvider offset_limit_provider
 	 */
-	public function should_handle_query_offset_and_limit_correctly( int $offset, int $limit): void {
-		$ids = static::factory()->post->create_many( 10, [ 'post_type' => 'book' ] );
-		$expected = array_slice( $ids, $offset, $limit );
+	public function should_handle_query_offset_and_limit_correctly( int $offset, int $limit ): void {
+		$ids        = static::factory()->post->create_many( 10, [ 'post_type' => 'book' ] );
+		$expected   = array_slice( $ids, $offset, $limit );
 		$repository = $this->repository();
 		$repository->offset( $offset );
 		$repository->per_page( $limit );
 		// Get the posts 2 at a time.
-		$generator  = $repository->get_all_generator( 2 );
+		$generator = $repository->all( true, 2 );
 
 		$fetched = iterator_to_array( $generator );
 

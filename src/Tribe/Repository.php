@@ -665,7 +665,11 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function all() {
+	public function all( $return_generator = false, int $batch_size = 50 ) {
+		if ( $return_generator ) {
+			return $this->get_all_generator( $batch_size );
+		}
+
 		if ( $this->void_query ) {
 			return [];
 		}
@@ -1386,7 +1390,11 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get_ids() {
+	public function get_ids( $return_generator = false, int $batch_size = 50 ) {
+		if ( $return_generator ) {
+			return $this->get_ids_generator( $batch_size );
+		}
+
 		if ( $this->void_query ) {
 			return [];
 		}

@@ -94,8 +94,8 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function all() {
-		return $this->decorated->all();
+	public function all( $return_generator = false, int $batch_size = 50 ) {
+		return $this->decorated->all( $return_generator, $batch_size );
 	}
 
 	/**
@@ -380,8 +380,8 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get_ids() {
-		return $this->decorated->get_ids();
+	public function get_ids( $return_generator = false, int $batch_size = 50 ) {
+		return $this->decorated->get_ids( $return_generator, $batch_size );
 	}
 
 	/**
