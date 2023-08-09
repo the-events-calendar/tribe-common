@@ -212,6 +212,13 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	public function first_id(): ?int {
+		return $this->decorated->first_id();
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function last() {

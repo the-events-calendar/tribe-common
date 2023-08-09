@@ -3878,4 +3878,15 @@ abstract class Tribe__Repository
 			yield $this->format_item( $id );
 		}
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function first_id(): ?int {
+		$this->fields( 'ids' );
+		$this->per_page( 1 );
+		$first_id = $this->first();
+
+		return $first_id ? (int) $first_id : null;
+	}
 }
