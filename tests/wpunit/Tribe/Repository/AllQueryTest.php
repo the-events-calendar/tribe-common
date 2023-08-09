@@ -181,4 +181,18 @@ class AllQueryTest extends ReadTestBase {
 
 		$this->assertEqualSets( $expected, wp_list_pluck( $fetched, 'ID' ) );
 	}
+
+	/**
+	 * It should handle queries that will return nothing
+	 *
+	 * @test
+	 */
+	public function should_handle_queries_that_will_return_nothing(): void {
+		global $wpdb;
+		$books_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'book'" );
+		$this->assertEquals( 0, $books_count );
+
+		$this->assertEquals( [], iterator_to_array( $this->repository()->get_ids( true ), false ) );
+		$this->assertEquals( [], iterator_to_array( $this->repository()->all( true ), false ) );
+	}
 }

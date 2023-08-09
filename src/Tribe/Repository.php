@@ -3815,6 +3815,12 @@ abstract class Tribe__Repository
 		$this->query_args['posts_per_page'] = $batch_size;
 		// Run the query a first time and get its SQL and the first batch of results.
 		$results = $this->get_ids();
+
+		if ( ! $results ) {
+			// If there are no results in the first batch, there are no results at all.
+			return;
+		}
+
 		$sql     = $this->last_built_query->request;
 		// Assume the structure would end with "LIMIT ..." and cut it there.
 		$limit_last_occurrence = strrpos( $sql, 'LIMIT' );
