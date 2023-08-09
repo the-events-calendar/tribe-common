@@ -348,22 +348,4 @@ interface Tribe__Repository__Interface
 	 * @return string|null The SQL code for the last query built and ran by the repository, if any.
 	 */
 	public function get_last_sql(): ?string;
-
-	/**
-	 * Returns a Generator that will yield all the IDs requested avoiding unbound queries.
-	 *
-	 * @since TBD
-	 *
-	 * @return Generator The Generator that will yield all the IDs requested.
-	 */
-	public function get_ids_generator(): \Generator;
-
-	/**
-	 * Returns a Generator that will yield all the posts requested avoiding unbound queries.
-	 *
-	 * @since TBD
-	 *
-	 * @return Generator The Generator that will yield all the posts requested.
-	 */
-	public function get_all_generator(): \Generator;
 }

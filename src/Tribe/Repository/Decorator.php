@@ -701,18 +701,4 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	public function get_last_sql(): ?string {
 		return $this->decorated->get_last_sql();
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function get_ids_generator(): \Generator {
-		return $this->decorated->get_ids_generator();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function get_all_generator(): \Generator {
-		return $this->decorated->get_all_generator();
-	}
 }

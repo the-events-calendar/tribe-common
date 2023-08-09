@@ -3793,7 +3793,7 @@ abstract class Tribe__Repository
 	 *
 	 * @throws Tribe__Repository__Usage_Error If the batch size is less than 1.
 	 */
-	public function get_ids_generator( int $batch_size = 50 ): Generator {
+	protected function get_ids_generator( int $batch_size = 50 ): Generator {
 		if ( $batch_size < 1 ) {
 			throw new Tribe__Repository__Usage_Error( 'Batch size must be greater than 0.' );
 		}
@@ -3866,7 +3866,7 @@ abstract class Tribe__Repository
 	 *
 	 * @throws Tribe__Repository__Usage_Error If the batch size is less than 1.
 	 */
-	public function get_all_generator( int $batch_size = 50 ): Generator {
+	protected function get_all_generator( int $batch_size = 50 ): Generator {
 		// Get all the IDs.
 		foreach ( $this->get_ids_generator( $batch_size ) as $id ) {
 			yield $this->format_item( $id );
