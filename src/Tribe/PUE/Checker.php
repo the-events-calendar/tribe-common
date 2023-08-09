@@ -170,7 +170,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Validation array
 		 *
-		 * @since TBD
+		 * @since 5.1.4
 		 *
 		 * @var array
 		 */

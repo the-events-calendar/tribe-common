@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.1.4] TBD =
+= [5.1.4] 2023-08-10 =
 
 * Feat - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
 * Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
