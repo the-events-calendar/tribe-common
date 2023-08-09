@@ -168,6 +168,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		private static $stats_full = [];
 
 		/**
+		 * Validation array
+		 *
+		 * @since TBD
+		 *
+		 * @var array
+		 */
+		private $validate_query = [];
+
+		/**
 		 * Class constructor.
 		 *
 		 * @param string $pue_update_url Deprecated. The URL of the plugin's metadata file.
