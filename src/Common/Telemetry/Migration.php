@@ -50,7 +50,7 @@ class Migration {
 	/**
 	 * Where Freemius stores the active plugins.
 	 *
-	 * @since TBD
+	 * @since 5.1.4
 	 *
 	 * @var string
 	 */
