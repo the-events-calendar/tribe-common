@@ -6,7 +6,9 @@
 namespace TEC\Common\Tests\Provider;
 
 use Codeception\TestCase\WPTestCase;
+use Codeception\Util\ReflectionPropertyAccessor;
 use TEC\Common\Contracts\Provider\Controller;
+use TEC\Common\lucatume\DI52\Builders\Resolver;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Container as Container;
 use TEC\Common\lucatume\DI52\Container as DI52_Container;
@@ -96,8 +98,6 @@ class Controller_Test_Case extends WPTestCase {
 
 		// Clone the original Service Locator to be used as a test Service Locator.
 		$test_services = clone $original_services;
-		// $test_services = deep_copy( $original_services, false );
-		$test_services->_test = true;
 
 		// From now on calls to the Service Locator (the `tribe` function) will be redirected to a test Service Locator.
 		uopz_set_return( 'tribe', static function ( $key = null ) use ( $test_services ) {
@@ -132,8 +132,8 @@ class Controller_Test_Case extends WPTestCase {
 	protected function tearDown() {
 		// Unregister all the controllers created by the test case.
 		foreach ( $this->made_controllers as $controller ) {
-			$controller->unregister();
-			unset( $controller );
+			 $controller->unregister();
+			 unset( $controller );
 		}
 		$this->made_controllers = [];
 
@@ -146,7 +146,8 @@ class Controller_Test_Case extends WPTestCase {
 		// We should now be working with the original Service Locator.
 		$this->assertSame( $this->original_services, tribe() );
 
-		// The original controller should not be registered: it has been unregistered in `setUp`.
+		// The original controller should not be registered: let's make sure.
+		$this->original_services->setVar( $this->controller_class . '_registered', false );
 		$this->assertFalse( $this->original_controller::is_registered() );
 
 		// Re-register the original controller after the Service Locator has been reset.
