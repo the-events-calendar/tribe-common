@@ -2,7 +2,6 @@
 
 = [5.1.5] TBD =
 
-* Fix  - Make use of `wp_date` to format dates and avoid translation issues with translating month names in other languages. [ET-1820]
 * Feat - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
 * Feat - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
 
