@@ -4,6 +4,7 @@
 
 * Feature - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
 * Tweak - Added filters: `tec_block_has_block`, `tec_block_{$block_name}_has_block`, `tec_common_rewrite_dynamic_matchers`, `tec_shortcode_aliased_arguments`, `tec_shortcode_{$registration_slug}_aliased_arguments`
+* Language - 0 new strings added, 23 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.1.4] 2023-08-10 =
 
