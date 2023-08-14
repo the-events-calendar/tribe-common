@@ -1136,7 +1136,7 @@ class Tribe__Repository__Query_Filters {
 	 * This method is an alternative approach to the static `meta_not_in_or_not_exists` method that avoids
 	 * the excessive use of JOINs the use of `meta_query` implies.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 *
 	 * @param string|array<string>    $meta_keys  The meta keys to filter by.
 	 * @param mixed|array<mixed>|null $values     The values to filter by or `null` to filter by existence only.

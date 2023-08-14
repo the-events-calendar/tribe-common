@@ -31,7 +31,7 @@ class Container extends DI52_Container implements ContainerInterface {
 	/**
 	 * Overrides the parent method to fire an action when a service provider is registered.
 	 *
-	 * @since TBD
+	 * @since 5.1.4
 	 *
 	 * @param string $serviceProviderClass The service provider class name.
 	 * @param string ...$alias             Optional. The alias(es) to register the service provider with.
@@ -48,7 +48,7 @@ class Container extends DI52_Container implements ContainerInterface {
 		/**
 		 * Fires when a service provider is registered by the container.
 		 *
-		 * @since TBD
+		 * @since 5.1.4
 		 *
 		 * @param string        $serviceProviderClass The service provider class name.
 		 * @param array<string> $alias                The alias(es) the service provider was registered with.
@@ -58,7 +58,7 @@ class Container extends DI52_Container implements ContainerInterface {
 		/**
 		 * Fires a class-specific action when a service provider is registered by the container.
 		 *
-		 * @since TBD
+		 * @since 5.1.4
 		 *
 		 * @param array<string> $alias The alias(es) the service provider was registered with.
 		 */
@@ -76,7 +76,7 @@ class Container extends DI52_Container implements ContainerInterface {
 		/**
 		 * Fires a custom action defined by the Service Provider when it's registered.
 		 *
-		 * @since TBD
+		 * @since 5.1.4
 		 */
 		do_action( $serviceProviderClass::$registration_action, $serviceProviderClass, $alias );
 	}
@@ -84,7 +84,7 @@ class Container extends DI52_Container implements ContainerInterface {
 	/**
 	 * Registers a service provider on a given action is dispatched.
 	 *
-	 * @since TBD
+	 * @since 5.1.4
 	 *
 	 * @param string $action The action to register the provider on.
 	 * @param string $class The service provider class name.
