@@ -164,7 +164,7 @@ implements Tribe__Editor__Blocks__Interface {
 	 * you should use the block parser on post content.
 	 *
 	 * @since 4.8
-	 * @since TBD Added a has_block filter.
+	 * @since 5.1.5 Added a has_block filter.
 	 *
 	 * @see gutenberg_parse_blocks()
 	 *
@@ -192,7 +192,7 @@ implements Tribe__Editor__Blocks__Interface {
 		/**
 		 * Filters whether the post has this block.
 		 *
-		 * @since TBD
+		 * @since 5.1.5
 		 *
 		 * @param bool $has_block Whether the post has this block.
 		 * @param WP_Post|null $wp_post The post object.
@@ -206,7 +206,7 @@ implements Tribe__Editor__Blocks__Interface {
 		/**
 		 * Filters whether the post has this block.
 		 *
-		 * @since TBD
+		 * @since 5.1.5
 		 *
 		 * @param bool $has_block Whether the post has this block.
 		 * @param WP_Post|null $wp_post The post object.

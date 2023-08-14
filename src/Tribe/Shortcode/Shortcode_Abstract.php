@@ -92,7 +92,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 		/**
 		 * Applies a filter to instance aliased arguments.
 		 *
-		 * @since TBD
+		 * @since 5.1.5
 		 *
 		 * @param array  $aliased_arguments Current set of aliased arguments.
 		 * @param static $instance          Which instance of shortcode we are dealing with.
@@ -104,7 +104,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 		/**
 		 * Applies a filter to instance aliased arguments based on the registration slug of the shortcode.
 		 *
-		 * @since TBD
+		 * @since 5.1.5
 		 *
 		 * @param array  $aliased_arguments Current set of aliased arguments.
 		 * @param static $instance          Which instance of shortcode we are dealing with.

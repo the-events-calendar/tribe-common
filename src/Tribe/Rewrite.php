@@ -872,7 +872,7 @@ class Tribe__Rewrite {
 		/**
 		 * Allow extending classes to add their own dynamic matchers.
 		 *
-		 * @since TBD
+		 * @since 5.1.5
 		 *
 		 * @param array<string, string> $dynamic_matchers An array of dynamic matchers in the shape `[ <regex> => <value> ]`.
 		 * @param array<string, mixed>  $query_vars       A map of query vars and their values.

@@ -1,7 +1,8 @@
 == Changelog ==
 
-= [5.1.6] TBD =
+= [5.1.5] 2023-08-14 =
 
+* Feature - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
 * Tweak - Added filters: `tec_block_has_block`, `tec_block_{$block_name}_has_block`, `tec_common_rewrite_dynamic_matchers`, `tec_shortcode_aliased_arguments`, `tec_shortcode_{$registration_slug}_aliased_arguments`
 
 = [5.1.4] 2023-08-10 =
@@ -14,10 +15,6 @@
 * Tweak - Removed filters: `tribe_google_data_markup_json`, `tribe_general_settings_tab_fields`
 * Tweak - Added actions: `tec_container_registered_provider`, `tec_container_registered_provider_`, `tribe_log`, `tec_telemetry_auto_opt_in`, `tec_common_telemetry_preload`, `tec_common_telemetry_loaded`, `stellarwp/telemetry/optin`, `tec_locale_translations_load_before`, `tec_locale_translations_load_after`, `tec_locale_translations_restore_before`, `tec_locale_translations_restore_after`
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
-
-= [5.1.4] TBD =
-
-* Feature - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
 
 = [5.1.3] 2023-07-13 =
 
