@@ -164,6 +164,7 @@ implements Tribe__Editor__Blocks__Interface {
 	 * you should use the block parser on post content.
 	 *
 	 * @since 4.8
+	 * @since 5.1.5 Added a has_block filter.
 	 *
 	 * @see gutenberg_parse_blocks()
 	 *
@@ -172,14 +173,47 @@ implements Tribe__Editor__Blocks__Interface {
 	 * @return bool Whether the post has this block.
 	 */
 	public function has_block( $post = null ) {
-		if ( ! is_numeric( $post ) ) {
+		$wp_post = null;
+		$post_id = null;
+
+		if ( is_numeric( $post ) || $post === null ) {
 			$wp_post = get_post( $post );
-			if ( $wp_post instanceof WP_Post ) {
-				$post = $wp_post->post_content;
-			}
+		} elseif ( $post instanceof WP_Post ) {
+			$wp_post = $post;
 		}
 
-		return false !== strpos( (string) $post, '<!-- wp:' . $this->name() );
+		if ( $wp_post instanceof WP_Post ) {
+			$post    = $wp_post->post_content;
+			$post_id = $wp_post->ID;
+		}
+
+		$has_block = false !== strpos( (string) $post, '<!-- wp:' . $this->name() );
+
+		/**
+		 * Filters whether the post has this block.
+		 *
+		 * @since 5.1.5
+		 *
+		 * @param bool $has_block Whether the post has this block.
+		 * @param WP_Post|null $wp_post The post object.
+		 * @param int|null $post_id The post ID.
+		 * @param string $block_name The block name.
+		 * @param Tribe__Editor__Blocks__Abstract $this The block object.
+		 */
+		$has_block = (bool) apply_filters( 'tec_block_has_block', $has_block, $wp_post, $post_id, $this->name(), $this );
+		$block_name = $this->name();
+
+		/**
+		 * Filters whether the post has this block.
+		 *
+		 * @since 5.1.5
+		 *
+		 * @param bool $has_block Whether the post has this block.
+		 * @param WP_Post|null $wp_post The post object.
+		 * @param int|null $post_id The post ID.
+		 * @param Tribe__Editor__Blocks__Abstract $this The block object.
+		 */
+		return (bool) apply_filters( "tec_block_{$block_name}_has_block", $has_block, $wp_post, $post_id, $this );
 	}
 
 	/**
