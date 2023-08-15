@@ -231,7 +231,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	 * {@inheritDoc}
 	 */
 	#[\ReturnTypeWillChange]
-	public function offsetExists( $offset ) {
+	public function offsetExists( $offset ): bool {
 		$this->data = $this->fetch_data();
 
 		return isset( $this->data[ $offset ] );

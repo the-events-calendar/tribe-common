@@ -150,6 +150,10 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 		 * @return array An array of list elements.
 		 */
 		public static function list_to_array( $value, $sep = ',' ) {
+			// Let's not jump through all the hoops if the value is empty.
+			if ( empty( $value ) ) {
+				return [];
+			}
 			// since we might receive URL encoded strings for CSV lists let's URL decode them first
 			$value = is_array( $value ) ? $value : urldecode( $value );
 
