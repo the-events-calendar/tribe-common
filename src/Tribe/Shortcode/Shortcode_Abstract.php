@@ -89,7 +89,27 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_aliased_arguments() {
-		return $this->aliased_arguments;
+		/**
+		 * Applies a filter to instance aliased arguments.
+		 *
+		 * @since 5.1.5
+		 *
+		 * @param array  $aliased_arguments Current set of aliased arguments.
+		 * @param static $instance          Which instance of shortcode we are dealing with.
+		 */
+		$aliased_arguments = (array) apply_filters( 'tec_shortcode_aliased_arguments', $this->aliased_arguments, $this );
+
+		$registration_slug = $this->get_registration_slug();
+
+		/**
+		 * Applies a filter to instance aliased arguments based on the registration slug of the shortcode.
+		 *
+		 * @since 5.1.5
+		 *
+		 * @param array  $aliased_arguments Current set of aliased arguments.
+		 * @param static $instance          Which instance of shortcode we are dealing with.
+		 */
+		return (array) apply_filters( "tec_shortcode_{$registration_slug}_aliased_arguments", $aliased_arguments, $this );
 	}
 
 	/**
@@ -152,7 +172,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 		 * @param array  $validate_arguments_map Current set of callbacks for arguments.
 		 * @param static $instance               Which instance of shortcode we are dealing with.
 		 */
-		$validate_arguments_map = apply_filters( "tribe__shortcode_{$registration_slug}_validate_arguments_map", $validate_arguments_map, $this );
+		$validate_arguments_map = apply_filters( "tribe_shortcode_{$registration_slug}_validate_arguments_map", $validate_arguments_map, $this );
 
 		return $validate_arguments_map;
 	}
