@@ -4,9 +4,20 @@
 
 * Fix - Resolves a plugin integration bug that happens in certain scenarios with instantiating `Firebase\JWT` library classes. In these scenarios you would see a fatal error similar to `Uncaught TypeError: TEC\Common\Firebase\JWT\JWT::getKey(): Return value must be of type TEC\Common\Firebase\JWT\Key, OpenSSLAsymmetricKey returned..` [TEC-4866]
 
+= [5.1.6] 2023-08-15 =
+
+* Feature - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
+* Tweak - Added filters: `tec_block_has_block`, `tec_block_{$block_name}_has_block`, `tec_common_rewrite_dynamic_matchers`, `tec_shortcode_aliased_arguments`, `tec_shortcode_{$registration_slug}_aliased_arguments`
+* Language - 0 new strings added, 23 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.5] 2023-08-15 =
+
+* This version was skipped due to a merge and packaging issue.
+
 = [5.1.4] 2023-08-10 =
 
-* Feat - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
+* Feature - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
+* Fix  - Make use of `wp_date` to format dates and avoid translation issues with translating month names in other languages. [ET-1820]
 * Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
 * Tweak - Correct some issues around PHP 8.1 deprecations. [TEC-4871]
 * Tweak - Added filters: `tec_integration:should_load`, `tec_integration:{$parent}/should_load`, `tec_integration:{$parent}/{$type}/should_load`, `tec_integration:{$parent}/{$type}/{$slug}/should_load`, `tec_debug_info_sections`, `tec_site_heath_event_stati`, `tec_debug_info_field_get_{$param}`, `tec_debug_info_field_{$field_id}_get_{$param}`, `tec_debug_info_section_get_{$param}`, `tec_debug_info_section_{$section_slug}_get_{$param}`, `tec_common_timed_option_is_active`, `tec_common_timed_option_name`, `tec_common_timed_option_default_value`, `tec_common_timed_option_pre_value`, `tec_common_timed_option_value`, `tec_common_timed_option_pre_exists`, `tec_common_timed_option_exists`, `tec_telemetry_migration_should_load`, `tec_common_telemetry_permissions_url`, `tec_common_telemetry_terms_url`, `tec_common_telemetry_privacy_url`, `tec_common_telemetry_show_optin_modal`, `tec_telemetry_slugs`, `tec_admin_update_page_bypass`, `tec_disable_logging`, `tec_common_parent_plugin_file`, `tec_model_{$this->get_cache_slug()}_read_cache_properties`, `tec_model_{$this->get_cache_slug()}_put_cache_properties`, `tec_pue_invalid_key_notice_plugins`, `tec_pue_expired_key_notice_plugins`, `tec_pue_upgrade_key_notice_plugins`, `tec_common_rewrite_localize_matcher`
