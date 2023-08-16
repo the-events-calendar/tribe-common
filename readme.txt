@@ -2,7 +2,7 @@
 
 = [5.1.7] TBD =
 
-
+* Fix - WP Rewrite was being incorrectly initialized in some scenarios due to container DI, and causing some 404s. This was affecting classes that extend the `Tribe__Rewrite`. [TEC-4844]
 
 = [5.1.4] 2023-08-10 =
 
