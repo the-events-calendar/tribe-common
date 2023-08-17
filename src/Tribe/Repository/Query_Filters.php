@@ -1,5 +1,7 @@
 <?php
 
+use Tribe__Utils__Array as Arr;
+
 /**
  * Class Tribe__Repository__Query_Filters
  *
@@ -12,7 +14,7 @@ class Tribe__Repository__Query_Filters {
 	 *
 	 * @since 4.9.21
 	 */
-	CONST AFTER = 'after:';
+	const AFTER = 'after:';
 
 	/**
 	 * @var array
@@ -95,8 +97,8 @@ class Tribe__Repository__Query_Filters {
 	 * @return array
 	 */
 	public static function meta_not_in( $meta_keys, $values, $query_slug ) {
-		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
-		$values    = Tribe__Utils__Array::list_to_array( $values );
+		$meta_keys = Arr::list_to_array( $meta_keys );
+		$values    = Arr::list_to_array( $values );
 
 		if ( empty( $meta_keys ) || count( $values ) === 0 ) {
 			return [];
@@ -149,8 +151,8 @@ class Tribe__Repository__Query_Filters {
 	 * @return array
 	 */
 	public static function meta_in( $meta_keys, $values, $query_slug ) {
-		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
-		$values    = Tribe__Utils__Array::list_to_array( $values );
+		$meta_keys = Arr::list_to_array( $meta_keys );
+		$values    = Arr::list_to_array( $values );
 
 		if ( empty( $meta_keys ) || count( $values ) === 0 ) {
 			return [];
@@ -194,7 +196,7 @@ class Tribe__Repository__Query_Filters {
 	 * @return array
 	 */
 	public static function meta_exists( $meta_keys, $query_slug ) {
-		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
+		$meta_keys = Arr::list_to_array( $meta_keys );
 
 		if ( empty( $meta_keys ) ) {
 			return [];
@@ -231,8 +233,8 @@ class Tribe__Repository__Query_Filters {
 	 * @return array
 	 */
 	public static function meta_in_or_not_exists( $meta_keys, $values, $query_slug ) {
-		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
-		$values    = Tribe__Utils__Array::list_to_array( $values );
+		$meta_keys = Arr::list_to_array( $meta_keys );
+		$values    = Arr::list_to_array( $values );
 
 		if ( empty( $meta_keys ) || count( $values ) === 0 ) {
 			return [];
@@ -283,8 +285,8 @@ class Tribe__Repository__Query_Filters {
 	 * @return array
 	 */
 	public static function meta_not_in_or_not_exists( $meta_keys, $values, $query_slug ) {
-		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
-		$values    = Tribe__Utils__Array::list_to_array( $values );
+		$meta_keys = Arr::list_to_array( $meta_keys );
+		$values    = Arr::list_to_array( $values );
 
 		if ( empty( $meta_keys ) || count( $values ) === 0 ) {
 			return [];
@@ -634,11 +636,11 @@ class Tribe__Repository__Query_Filters {
 	 * @since 4.7.19
 	 * @since 4.9.14 Added the `$id` and `$override` parameters.
 	 *
-	 * @param string $where_clause
-	 * @param null|string $id          Optional WHERE ID to prevent duplicating clauses.
-	 * @param boolean     $override    Whether to override the clause if a WHERE by the same ID exists or not.
+	 * @param string      $where_clause
+	 * @param null|string $id       Optional WHERE ID to prevent duplicating clauses.
+	 * @param boolean     $override Whether to override the clause if a WHERE by the same ID exists or not.
 	 */
-	public function where( $where_clause, $id = null, $override =false  ) {
+	public function where( $where_clause, $id = null, $override = false ) {
 		if ( $this->buffer_where_clauses ) {
 			if ( $id ) {
 				if ( $override || ! isset( $this->buffered_where_clauses[ $id ] ) ) {
@@ -704,7 +706,7 @@ class Tribe__Repository__Query_Filters {
 	 */
 	public function orderby( $orderby, $id = null, $override = false, $after = false ) {
 		$orderby_key = $after ? static::AFTER . 'orderby' : 'orderby';
-		$entries = [];
+		$entries     = [];
 
 		foreach ( (array) $orderby as $key => $value ) {
 			/*
@@ -739,7 +741,7 @@ class Tribe__Repository__Query_Filters {
 	 * @since 4.9.5
 	 * @since 4.9.14 Added the `$id` and `$override` parameters.
 	 *
-	 * @param string $field The field to add to the result.
+	 * @param string      $field    The field to add to the result.
 	 * @param null|string $id       Optional ORDER ID to prevent duplicating order-by clauses..
 	 * @param boolean     $override Whether to override the clause if another by the same ID exists.
 	 */
@@ -984,7 +986,7 @@ class Tribe__Repository__Query_Filters {
 		 * format.
 		 */
 		$build_entry = static function ( $entries ) {
-			$buffer  = [];
+			$buffer = [];
 
 			foreach ( $entries as list( $orderby, $order ) ) {
 				$buffer[] = sprintf( '%s %s', $orderby, $order );
@@ -1093,7 +1095,7 @@ class Tribe__Repository__Query_Filters {
 	 *
 	 * @return array An associative array of identifiable filters and their values, if any.
 	 *
-	 * @see Tribe__Repository__Query_Filters::$identifiable_filters
+	 * @see   Tribe__Repository__Query_Filters::$identifiable_filters
 	 */
 	public function get_filters_by_id( $id ) {
 		$entries = [];
@@ -1125,5 +1127,62 @@ class Tribe__Repository__Query_Filters {
 				unset( $filters[ $id ] );
 			}
 		);
+	}
+
+	/**
+	 * Filters the query JOIN and WHERE clauses to filter out posts that either do not have a meta key
+	 * or whose meta value is not in the provided list.
+	 *
+	 * This method is an alternative approach to the static `meta_not_in_or_not_exists` method that avoids
+	 * the excessive use of JOINs the use of `meta_query` implies.
+	 *
+	 * @since 5.1.5
+	 *
+	 * @param string|array<string>    $meta_keys  The meta keys to filter by.
+	 * @param mixed|array<mixed>|null $values     The values to filter by or `null` to filter by existence only.
+	 * @param string|null             $query_slug The prefix that will be used to distinguish the query from other
+	 *                                            queries.
+	 *
+	 * @return void The method will filter the query JOIN and WHERE clauses.
+	 */
+	public function meta_not( $meta_keys, $values = null, string $query_slug = null ): void {
+		$keys = Arr::list_to_array( $meta_keys );
+
+		if ( ! count( $keys ) ) {
+			return;
+		}
+
+		global $wpdb;
+		$keys_sql_list = $wpdb->prepare(
+			implode( ',', array_fill( 0, count( $keys ), '%s' ) ),
+			$keys
+		);
+
+		$values = Arr::list_to_array( $values );
+
+		// Sanitize the query_slug to make sure it will make for a valid MYSQL table alias.
+		$safe_query_slug = $query_slug ?
+			preg_replace( '/[^a-z0-9_]/i', '_', $query_slug )
+			: substr( md5( microtime() ), 0, 8 );
+		$meta_table      = "meta_not_$safe_query_slug";
+		$this->join( "LEFT JOIN $wpdb->postmeta AS $meta_table ON " .
+		             "($wpdb->posts.ID = $meta_table.post_id AND $meta_table.meta_key IN ($keys_sql_list))" );
+
+		if ( ! count( $values ) ) {
+			// Just check the meta_keys are not set.
+			$this->where( "$meta_table.meta_value IS NULL" );
+
+			return;
+		}
+
+		/*
+		 * There are values: either the meta values should be NULL (LEFT JOIN), or the values should not be in the list.
+		 * Prepare all values as strings: meta values are always strings.
+		 */
+		$values_sql_list = $wpdb->prepare(
+			implode( ',', array_fill( 0, count( $values ), '%s' ) ),
+			$values
+		);
+		$this->where( "$meta_table.meta_value IS NULL OR $meta_table.meta_value NOT IN ($values_sql_list)" );
 	}
 }
