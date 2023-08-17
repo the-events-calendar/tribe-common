@@ -135,12 +135,12 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$args = wp_parse_args( $field, $this->defaults );
 
 			// sanitize the values just to be safe
-			$id         = esc_attr( $id );
-			$type       = esc_attr( $args['type'] );
-			$name       = esc_attr( $args['name'] );
-			$placeholder = esc_attr( $args['placeholder'] );
+			$id         = is_null( $id ) ? null : esc_attr( $id );
+			$type       = is_null( $args['type'] ) ? null : esc_attr( $args['type'] );
+			$name       = is_null( $args['name'] ) ? null : esc_attr( $args['name'] );
+			$placeholder = is_null( $args['placeholder'] ) ? null : esc_attr( $args['placeholder'] );
 			$class = empty( $args['class'] ) ? '' : $this->sanitize_class_attribute( $args['class'] );
-			$label      = wp_kses(
+			$label      = is_null( $args['label'] ) ? null : wp_kses(
 				$args['label'], [
 					'a'      => [ 'href' => [], 'title' => [] ],
 					'br'     => [],
@@ -158,7 +158,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				]
 			);
 			$label_attributes = $args['label_attributes'];
-			$tooltip    = wp_kses(
+			$tooltip    = is_null( $args['tooltip'] ) ? null : wp_kses(
 				$args['tooltip'], [
 					'a'      => [  'class' => [], 'href' => [], 'title' => [], 'target' => [], 'rel' => [] ],
 					'br'     => [],
@@ -197,10 +197,10 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			} else {
 				$options = $args['options'];
 			}
-			$size             = esc_attr( $args['size'] );
+			$size             = is_null( $value ) ? null : esc_attr( $args['size'] );
 			$html             = $args['html'];
 			$error            = (bool) $args['error'];
-			$value            = is_array( $value ) ? array_map( 'esc_attr', $value ) : esc_attr( $value );
+			$value            = is_null( $value ) ? null : ( is_array( $value )  ? array_map( 'esc_attr', $value ) : esc_attr( $value ) );
 			$conditional      = $args['conditional'];
 			$display_callback = $args['display_callback'];
 			$if_empty         = is_string( $args['if_empty'] ) ? trim( $args['if_empty'] ) : $args['if_empty'];
