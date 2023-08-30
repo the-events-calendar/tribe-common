@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Enhance accessibility by providing an outline for elements when they are in focus. [TEC-4888]
+
 = [5.1.7] TBD =
 
 * Fix - Borked UI on the WYZIWIG field in the Additional Content section of the admin display settings. [TEC-4861]
