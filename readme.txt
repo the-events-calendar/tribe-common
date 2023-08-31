@@ -2,7 +2,7 @@
 
 = [5.1.7] TBD =
 
-* Fix - Borked UI on the WYZIWIG field in the Additional Content section of the admin display settings. [TEC-4861]
+* Fix - Broken UI on the WYSIWYG field in the Additional Content section of the admin display settings. [TEC-4861]
 * Fix - Resolves a plugin integration bug that happens in certain scenarios with instantiating `Firebase\JWT` library classes. In these scenarios you would see a fatal error similar to `Uncaught TypeError: TEC\Common\Firebase\JWT\JWT::getKey(): Return value must be of type TEC\Common\Firebase\JWT\Key, OpenSSLAsymmetricKey returned..` [TEC-4866]
 * Fix - WP Rewrite was being incorrectly initialized in some scenarios due to container DI, and causing some 404s. This was affecting classes that extend the `Tribe__Rewrite`. [TEC-4844]
 
