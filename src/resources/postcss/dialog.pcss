@@ -110,6 +110,10 @@ This can include modals, toasters, confirms. alerts.
 			background-size: contain;
 			outline: none;
 		}
+
+		&:focus {
+			outline: var(--tec-outline-width-default) dashed var(--tec-color-accent-primary-focus);
+		}
 	}
 
 	.tribe-dialog__close-button--hidden {

@@ -75,6 +75,11 @@
 				outline: none;
 			}
 
+			&:focus,
+			&:focus-visible {
+				outline: var(--tec-outline-width-default) dashed var(--tec-color-accent-primary-focus);
+			}
+
 			/* Track styles for allthebrowsers */
 
 			&::-moz-range-track {
@@ -207,6 +212,11 @@
 					.tec-switch-toggle {
 						box-shadow: 0 0 0 2px var(--tec-color-accent-primary);
 					}
+				}
+
+				&:focus,
+				&:focus-visible {
+					outline: var(--tec-outline-width-default) dashed var(--tec-color-accent-primary-focus);
 				}
 			}
 
