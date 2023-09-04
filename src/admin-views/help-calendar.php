@@ -5,9 +5,12 @@ use \Tribe\Admin\Help_Page;
 $faqs              = tribe( Tribe__Admin__Help_Page::class )->get_calendar_faqs();
 $extensions        = tribe( Tribe__Admin__Help_Page::class )->get_calendar_extensions();
 $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_products();
+$is_calendar_help_page = tribe( Tribe__Admin__Help_Page::class )->is_tec_current_help_page();
+
+$tribe_calendar_style = $is_calendar_help_page ? 'style="display:block;"' : 'style="display:none;"';
 
 ?>
-<div id="tribe-calendar">
+<div id="tribe-calendar" <?php echo $tribe_calendar_style; ?>>
 	<img
 		class="tribe-events-admin-header__right-image"
 		src="<?php echo esc_url( tribe_resource_url( 'images/help/help-calendar-header.png', false, null, $main ) ); ?>"
@@ -34,7 +37,7 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 						<?php echo esc_html( $products[ $slug ]['description-help'] ); ?>
 					</div>
 				</div>
-				<?php 
+				<?php
 					$plugin_path_url = WP_PLUGIN_DIR . '/' . $products[ $slug ]['plugin-dir'] . '/' . $products[ $slug ]['main-file'];
 					$plugin_exists = file_exists( $plugin_path_url );
 
@@ -42,7 +45,7 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 					if ( $products[ $slug ]['is_installed'] ) { ?>
 						<button class="tribe-events-admin-products-card__button tribe-events-admin-products-card__button--active">
 							<?php esc_html_e( 'Active', 'tribe-common' ); ?>
-						</button> 
+						</button>
 						<?php
 					}
 					// displays different message for EA
@@ -75,7 +78,7 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 		<h3>
 			<?php esc_html_e( 'Start Here', 'tribe-common' ); ?>
 		</h3>
-		
+
 		<a href="https://evnt.is/1aq9" target="_blank" rel="noopener noreferrer">
 			<?php esc_html_e( 'Visit Knowledgebase', 'tribe-common' ); ?>
 		</a>
@@ -187,7 +190,7 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 		<h3>
 			<?php esc_html_e( 'FAQs', 'tribe-common' ); ?>
 		</h3>
-		
+
 		<a href="https://evnt.is/1av1#faqs" target="_blank" rel="noopener noreferrer">
 			<?php esc_html_e( 'All FAQs', 'tribe-common' ); ?>
 		</a>
@@ -202,10 +205,10 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 						alt="<?php esc_attr_e( 'lightbulb icon', 'tribe-common' ); ?>"
 					/>
 				</div>
-				<div class="tribe-events-admin-faq-card__content">					
+				<div class="tribe-events-admin-faq-card__content">
 					<div class="tribe-events-admin-faq__question">
 						<a href="<?php echo esc_url( $faq['link'] ); ?>" target="_blank" rel="noopener noreferrer">
-							<?php echo esc_html( $faq['question'] ); ?>	
+							<?php echo esc_html( $faq['question'] ); ?>
 						</a>
 					</div>
 					<div class="tribe-events-admin-faq__answer">
@@ -221,7 +224,7 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 		<h3>
 			<?php esc_html_e( 'Free extensions', 'tribe-common' ); ?>
 		</h3>
-		
+
 		<a href="https://evnt.is/1aqa" target="_blank" rel="noopener noreferrer">
 			<?php esc_html_e( 'All Extensions', 'tribe-common' ); ?>
 		</a>

@@ -67,6 +67,32 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
+	 * Checks if the current page is the TEC Help one
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_tec_current_help_page() {
+		global $current_screen;
+
+		return 'tribe_events_page_tec-events-help' === $current_screen->id;
+	}
+
+	/**
+	 * Checks if the current page is the Tickets Help one
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_ticketing_current_help_page() {
+		global $current_screen;
+
+		return 'tickets_page_tec-tickets-help' === $current_screen->id;
+	}
+
+	/**
 	 * Register the Admin assets for the help page
 	 *
 	 * @since  4.9.12
