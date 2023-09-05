@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Resolved "Uncaught ReferenceError: lodash is not defined" error by adding `lodash` as a dependency for the Events Gutenberg Assets. [ECP-1575]
+
 = [5.1.7] TBD =
 
 * Fix - Borked UI on the WYZIWIG field in the Additional Content section of the admin display settings. [TEC-4861]

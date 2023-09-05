@@ -128,6 +128,7 @@ class Tribe__Editor__Assets {
 			'wp-i18n',
 			'wp-element',
 			'wp-editor',
+			'lodash',
 		];
 
 		if ( 'post.php' !== $pagenow && 'post-new.php' !== $pagenow ) {
