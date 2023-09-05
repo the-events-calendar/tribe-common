@@ -358,6 +358,14 @@ table.plugins {
 	padding: 12px 20px;
 }
 
+.tribe-field-label {
+	margin-bottom: var(--tec-spacer-1);
+
+	@media (--viewport-full) {
+		margin-bottom: 0;
+	}
+}
+
 /* sizes
 ============================================= */
 
@@ -423,12 +431,7 @@ table.plugins {
 	}
 
 	&.tribe-field-wysiwyg .wp-editor-container {
-		max-width: 300px;
 		width: 100%;
-
-		@media (--viewport-medium) {
-			width: 300px;
-		}
 	}
 
 	&.tribe-field-text input,
