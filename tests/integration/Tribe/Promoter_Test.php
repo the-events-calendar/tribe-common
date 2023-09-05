@@ -8,6 +8,18 @@ use WP_Error;
 class Promoter_Test extends \Codeception\TestCase\WPTestCase {
 
 	/**
+	 * This tests our reliance on a 3rd party library and temporary aliasing of a JWT library.
+	 *
+	 * @see TEC-4866 - this is regarding 3rd party library collissions.
+	 *      https://theeventscalendar.atlassian.net/browse/TEC-4866
+	 * @test
+	 */
+	public function should_handle_vendor_prefixed_firebase_library() {
+		$this->assertFalse( class_exists( 'Firebase\JWT\JWT' ) );
+		$this->assertTrue( class_exists( 'TEC\Common\Firebase\JWT\JWT' ) );
+	}
+
+	/**
 	 * Basic sanity check of "failed" connection.
 	 *
 	 * @test
