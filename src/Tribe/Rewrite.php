@@ -115,7 +115,7 @@ class Tribe__Rewrite {
 	/**
 	 * Tribe__Rewrite constructor.
 	 *
-	 * @since TBD Removed type hinting. This causes issues with Dependency Injection passing empty objects.
+	 * @since 5.1.7 Removed type hinting. This causes issues with Dependency Injection passing empty objects.
 	 *
 	 * @param WP_Rewrite|null          $wp_rewrite          An instance of the `WP_Rewrite` class.
 	 * @param Translations_Loader|null $translations_loader An instance of the translations loader.

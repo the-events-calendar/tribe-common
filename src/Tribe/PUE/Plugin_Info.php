@@ -21,13 +21,18 @@ if ( ! class_exists( 'Tribe__PUE__Plugin_Info' ) ) {
 	 */
 	class Tribe__PUE__Plugin_Info {
 		// Most fields map directly to the contents of the plugin's info.json file.
-
 		public $name;
+		public $plugin;
 		public $slug;
 		public $version;
 		public $homepage;
 		public $sections;
 		public $download_url;
+		public $home_url;
+		public $origin_url;
+		public $zip_url;
+		public $icon_svg_url;
+		public $file_prefix;
 
 		public $author;
 		public $author_homepage;
@@ -39,13 +44,26 @@ if ( ! class_exists( 'Tribe__PUE__Plugin_Info' ) ) {
 		public $rating;
 		public $num_ratings;
 		public $downloaded;
+		public $release_date;
 		public $last_updated;
+		public $expiration;
+		public $daily_limit;
+		public $custom_update;
 
 		public $api_expired;
 		public $api_invalid;
 		public $api_upgrade;
+		public $api_message;
+		public $api_inline_invalid_message;
+		public $api_invalid_message;
+
+		public $license_error;
+
+		public $new_install_key;
+		public $replacement_key;
 
 		public $id = 0; // The native WP.org API returns numeric plugin IDs, but they're not used for anything.
+
 
 		/**
 		 * Create a new instance of Tribe__PUE__Plugin_Info from JSON-encoded plugin info
