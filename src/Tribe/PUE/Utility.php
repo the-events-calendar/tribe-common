@@ -31,6 +31,7 @@ if ( ! class_exists( 'Tribe__PUE__Utility' ) ) {
 		public $sections = [];
 		public $upgrade_notice;
 		public $custom_update;
+		public $license_error;
 
 		/**
 		 * Create a new instance of Tribe__PUE__Utility from its JSON-encoded representation.
