@@ -3,6 +3,7 @@
 = [TBD] TBD =
 
 * Tweak - Set background image to none on the button element to prevent general button styling overrides. [ET-1815]
+* Tweak - Ticketing & RSVP tab selected by default when clicking Help from the Tickets menu. [ET-1837]
 
 = [5.1.6] 2023-08-15 =
 
