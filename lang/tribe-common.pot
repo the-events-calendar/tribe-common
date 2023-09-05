@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 5.1.6\n"
+"Project-Id-Version: Tribe Common 5.1.7\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-08-13T21:33:05-07:00\n"
-"PO-Revision-Date: 2023-08-14 04:33\n"
+"POT-Creation-Date: 2023-08-31T07:40:15-07:00\n"
+"PO-Revision-Date: 2023-08-31 14:40\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: tribe-common\n"
 
@@ -3591,15 +3591,15 @@ msgstr ""
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1821
+#: src/Tribe/PUE/Checker.php:1823
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1822
+#: src/Tribe/PUE/Checker.php:1824
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1823
+#: src/Tribe/PUE/Checker.php:1825
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
@@ -3672,17 +3672,17 @@ msgstr ""
 msgid "The request wasn't sent from this tab."
 msgstr ""
 
-#: src/Tribe/Settings.php:646
+#: src/Tribe/Settings.php:653
 msgid "Your form had the following errors:"
 msgstr ""
 
-#: src/Tribe/Settings.php:657
+#: src/Tribe/Settings.php:664
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Settings.php:678
+#: src/Tribe/Settings.php:685
 msgid "Settings saved."
 msgstr ""
 
