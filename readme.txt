@@ -3,6 +3,7 @@
 = [TBD] TBD =
 
 * Tweak - Set background image to none on the button element to prevent general button styling overrides. [ET-1815]
+* Tweak - Add the `set_request_context( ?string $context)` and `get_request_context(): ?string` methods to the `Tribe__Repository__Interface` and classes. [ET-1813]
 
 = [5.1.6] 2023-08-15 =
 

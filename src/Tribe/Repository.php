@@ -12,6 +12,15 @@ abstract class Tribe__Repository
 	const MAX_NUMBER_OF_POSTS_PER_PAGE = 99999999999;
 
 	/**
+	 * The context of the current query.
+	 *
+	 * @since TBD
+	 *
+	 * @var string|null
+	 */
+	protected ?string $request_context = null;
+
+	/**
 	 * @var  array An array of keys that cannot be updated on this repository.
 	 */
 	protected static $blocked_keys = [
@@ -3821,7 +3830,7 @@ abstract class Tribe__Repository
 			return;
 		}
 
-		$sql     = $this->last_built_query->request;
+		$sql = $this->last_built_query->request;
 		// Assume the structure would end with "LIMIT ..." and cut it there.
 		$limit_last_occurrence = strrpos( $sql, 'LIMIT' );
 		$sql_template          = substr( $sql, 0, $limit_last_occurrence );
@@ -3888,5 +3897,21 @@ abstract class Tribe__Repository
 		$first_id = $this->first();
 
 		return $first_id ? (int) $first_id : null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_request_context(): ?string {
+		return $this->request_context;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function set_request_context( string $context = null ): self {
+		$this->request_context = $context;
+
+		return $this;
 	}
 }

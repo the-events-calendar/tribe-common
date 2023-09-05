@@ -708,4 +708,20 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	public function get_last_sql(): ?string {
 		return $this->decorated->get_last_sql();
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_request_context(): ?string {
+		return $this->decorated->get_request_context();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function set_request_context( string $context = null ): self {
+		$this->decorated->set_request_context( $context );
+
+		return $this;
+	}
 }

@@ -348,4 +348,24 @@ interface Tribe__Repository__Interface
 	 * @return string|null The SQL code for the last query built and ran by the repository, if any.
 	 */
 	public function get_last_sql(): ?string;
+
+	/**
+	 * Returns the request for the current context.
+	 *
+	 * @since TBD
+	 *
+	 * @return string|null The request context.
+	 */
+	public function get_request_context(): ?string;
+
+	/**
+	 * Sets the request context for the current request.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|null $context The request context.
+	 *
+	 * @return void
+	 */
+	public function set_request_context( string $context = null ): self;
 }
