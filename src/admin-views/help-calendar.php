@@ -2,15 +2,14 @@
 
 use \Tribe\Admin\Help_Page;
 
-$faqs              = tribe( Tribe__Admin__Help_Page::class )->get_calendar_faqs();
-$extensions        = tribe( Tribe__Admin__Help_Page::class )->get_calendar_extensions();
-$calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_products();
-$is_calendar_help_page = tribe( Tribe__Admin__Help_Page::class )->is_tec_current_help_page();
-
-$tribe_calendar_style = $is_calendar_help_page ? 'style="display:block;"' : 'style="display:none;"';
+$faqs                    = tribe( Tribe__Admin__Help_Page::class )->get_calendar_faqs();
+$extensions              = tribe( Tribe__Admin__Help_Page::class )->get_calendar_extensions();
+$calendar_products       = tribe( Tribe__Admin__Help_Page::class )->get_calendar_products();
+$is_tec_events_help_page = tribe( Tribe__Admin__Help_Page::class )->is_tec_events_help_page();
+$tec_events_style        = $is_tec_events_help_page ? 'block' : 'none';
 
 ?>
-<div id="tribe-calendar" <?php echo $tribe_calendar_style; ?>>
+<div id="tribe-calendar" style="display: <?php echo $tec_events_style; ?>;">
 	<img
 		class="tribe-events-admin-header__right-image"
 		src="<?php echo esc_url( tribe_resource_url( 'images/help/help-calendar-header.png', false, null, $main ) ); ?>"

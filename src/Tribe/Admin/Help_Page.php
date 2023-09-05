@@ -73,7 +73,7 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @return bool
 	 */
-	public function is_tec_current_help_page() {
+	public function is_tec_events_help_page() {
 		global $current_screen;
 
 		return 'tribe_events_page_tec-events-help' === $current_screen->id;
@@ -86,7 +86,7 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @return bool
 	 */
-	public function is_ticketing_current_help_page() {
+	public function is_tec_tickets_help_page() {
 		global $current_screen;
 
 		return 'tickets_page_tec-tickets-help' === $current_screen->id;

@@ -11,11 +11,10 @@ $help = tribe( Tribe__Admin__Help_Page::class );
 // get the products list
 $products = tribe( 'plugins.api' )->get_products();
 
-$is_tec_current_help_page = $help->is_tec_current_help_page();
-$is_tickets_help_page = $help->is_ticketing_current_help_page();
-
-$tribe_calendar_tab_class  = $is_tec_current_help_page ? 'class="selected"' : '';
-$tribe_ticketing_tab_class = $is_tickets_help_page     ? 'class="selected"' : '';
+$is_tec_events_help_page  = $help->is_tec_events_help_page();
+$is_tec_tickets_help_page = $help->is_tec_tickets_help_page();
+$tec_events_tab_class     = $is_tec_events_help_page  ? 'class="selected"' : '';
+$tec_tickets_tab_class    = $is_tec_tickets_help_page ? 'class="selected"' : '';
 
 use \Tribe\Admin\Troubleshooting;
 
@@ -37,8 +36,8 @@ use \Tribe\Admin\Troubleshooting;
 		<p class="tribe-events-admin-header__description"><?php esc_html_e( 'We\'re committed to helping make your calendar spectacular and have a wealth of resources available.', 'tribe-common' ); ?></p>
 
 		<ul class="tribe-events-admin-tab-nav">
-			<li <?php echo $tribe_calendar_tab_class; ?> data-tab="tribe-calendar"><?php esc_html_e( 'Calendar', 'tribe-common' ); ?></li>
-			<li <?php echo $tribe_ticketing_tab_class; ?> data-tab="tribe-ticketing"><?php esc_html_e( 'Ticketing & RSVP', 'tribe-common' ); ?></li>
+			<li <?php echo $tec_events_tab_class; ?> data-tab="tribe-calendar"><?php esc_html_e( 'Calendar', 'tribe-common' ); ?></li>
+			<li <?php echo $tec_tickets_tab_class; ?> data-tab="tribe-ticketing"><?php esc_html_e( 'Ticketing & RSVP', 'tribe-common' ); ?></li>
 			<li data-tab="tribe-community"><?php esc_html_e( 'Community', 'tribe-common' ); ?></li>
 		</ul>
 	</div>

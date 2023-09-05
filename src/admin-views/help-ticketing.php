@@ -2,15 +2,14 @@
 
 use \Tribe\Admin\Help_Page;
 
-$faqs               = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_faqs();
-$extensions         = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_extensions();
-$ticketing_products = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_products();
-$is_tickets_help_page = tribe( Tribe__Admin__Help_Page::class )->is_ticketing_current_help_page();
-
-$tribe_ticketing_style = $is_tickets_help_page ? 'style="display:block;"' : 'style="display:none;"';
+$faqs                     = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_faqs();
+$extensions               = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_extensions();
+$ticketing_products       = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_products();
+$is_tec_tickets_help_page = tribe( Tribe__Admin__Help_Page::class )->is_tec_tickets_help_page();
+$tec_tickets_style        = $is_tec_tickets_help_page ? 'block' : 'none';
 
 ?>
-<div id="tribe-ticketing" <?php echo $tribe_ticketing_style; ?>>
+<div id="tribe-ticketing" style="display: <?php echo $tec_tickets_style; ?>;">
 	<img
 		class="tribe-events-admin-header__right-image"
 		src="<?php echo esc_url( tribe_resource_url( 'images/help/help-ticketing-header.png', false, null, $main ) ); ?>"
