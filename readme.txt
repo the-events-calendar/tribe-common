@@ -5,6 +5,13 @@
 * Tweak - Set background image to none on the button element to prevent general button styling overrides. [ET-1815]
 * Tweak - Add the `set_request_context( ?string $context)` and `get_request_context(): ?string` methods to the `Tribe__Repository__Interface` and classes. [ET-1813]
 
+= [5.1.7] 2023-09-05 =
+
+* Fix - Broken UI on the WYSIWYG field in the Additional Content section of the admin display settings. [TEC-4861]
+* Fix - Resolves a plugin integration bug that happens in certain scenarios with instantiating `Firebase\JWT` library classes. In these scenarios you would see a fatal error similar to `Uncaught TypeError: TEC\Common\Firebase\JWT\JWT::getKey(): Return value must be of type TEC\Common\Firebase\JWT\Key, OpenSSLAsymmetricKey returned..` [TEC-4866]
+* Fix - WP Rewrite was being incorrectly initialized in some scenarios due to container DI, and causing some 404s. This was affecting classes that extend the `Tribe__Rewrite`. [TEC-4844]
+* Language - 0 new strings added, 6 updated, 1 fuzzied, and 0 obsoleted
+
 = [5.1.6] 2023-08-15 =
 
 * Feat - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
