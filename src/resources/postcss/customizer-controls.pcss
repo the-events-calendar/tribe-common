@@ -72,10 +72,12 @@
 			&:focus,
 			&:focus-visible {
 				box-shadow: 0 0 0 2px var(--tec-color-accent-primary);
+				outline: none;
 			}
 
-			&:active {
-				outline: none;
+			&:focus,
+			&:focus-visible {
+				outline: auto;
 			}
 
 			/* Track styles for allthebrowsers */
@@ -205,13 +207,16 @@
 				&:active,
 				&:focus,
 				&:focus-visible {
+					outline: none;
+
 					.tec-switch-toggle {
 						box-shadow: 0 0 0 2px var(--tec-color-accent-primary);
 					}
 				}
 
-				&:active {
-					outline: none;
+				&:focus,
+				&:focus-visible {
+					outline: auto;
 				}
 			}
 

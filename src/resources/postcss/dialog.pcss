@@ -108,10 +108,11 @@ This can include modals, toasters, confirms. alerts.
 			background: var(--tec-dialog-close-background);
 			background-image: svg-inline(close);
 			background-size: contain;
+			outline: none;
 		}
 
-		&:hover {
-			outline: none;
+		&:focus {
+			outline: auto;
 		}
 	}
 
