@@ -2,7 +2,7 @@
 
 = [TBD] TBD =
 
-* Tweak - Enhance accessibility by providing an outline for elements when they are in focus. [TEC-4888]
+* Tweak - Updated focus state for relevant elements to have default outline ensuring improved accessibility and consistent browser behavior. [TEC-4888]
 
 = [5.1.7] 2023-09-05 =
 
