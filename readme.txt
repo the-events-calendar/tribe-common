@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Resolved "Uncaught ReferenceError: lodash is not defined" error by adding `lodash` as a dependency for the Block Editor Assets. [ECP-1575]
+
 = [5.1.7] 2023-09-05 =
 
 * Fix - Broken UI on the WYSIWYG field in the Additional Content section of the admin display settings. [TEC-4861]
