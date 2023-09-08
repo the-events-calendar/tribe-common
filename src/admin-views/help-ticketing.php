@@ -9,7 +9,7 @@ $is_tec_tickets_help_page = tribe( Tribe__Admin__Help_Page::class )->is_tec_tick
 $tec_tickets_style        = $is_tec_tickets_help_page ? 'block' : 'none';
 
 ?>
-<div id="tribe-ticketing" style="display: <?php echo $tec_tickets_style; ?>;">
+<div id="tribe-ticketing" style="display: <?php echo esc_attr( $tec_tickets_style ); ?>;">
 	<img
 		class="tribe-events-admin-header__right-image"
 		src="<?php echo esc_url( tribe_resource_url( 'images/help/help-ticketing-header.png', false, null, $main ) ); ?>"

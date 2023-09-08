@@ -9,7 +9,7 @@ $is_tec_events_help_page = tribe( Tribe__Admin__Help_Page::class )->is_tec_event
 $tec_events_style        = $is_tec_events_help_page ? 'block' : 'none';
 
 ?>
-<div id="tribe-calendar" style="display: <?php echo $tec_events_style; ?>;">
+<div id="tribe-calendar" style="display: <?php echo esc_attr( $tec_events_style ); ?>;">
 	<img
 		class="tribe-events-admin-header__right-image"
 		src="<?php echo esc_url( tribe_resource_url( 'images/help/help-calendar-header.png', false, null, $main ) ); ?>"
