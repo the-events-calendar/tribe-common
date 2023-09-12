@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.1.8] TBD =
+= [5.1.8] 2023-09-13 =
 
 * Tweak - Compress the size of all images used by the Common module, to reduce the size of the plugin
 * Tweak - Set background image to none on the button element to prevent general button styling overrides. [ET-1815]
