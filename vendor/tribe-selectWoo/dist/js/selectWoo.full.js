@@ -2080,7 +2080,7 @@ S2.define('select2/selection/search',[
    */
   Search.prototype._transferTabIndex = function (decorated) {
     this.$search.attr('tabindex', this.$selection.attr('tabindex'));
-    this.$selection.attr('tabindex', '-1'); // @todo ditch? flag?
+    this.$selection.attr('tabindex', '-1');
   };
 
   Search.prototype.createPlaceholder = function (decorated, placeholder) {
