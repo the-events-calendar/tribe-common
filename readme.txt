@@ -4,6 +4,7 @@
 
 * Tweak - Updated focus state for relevant elements to have default outline ensuring improved accessibility and consistent browser behavior. [TEC-4888]
 * Fix - Resolved "Uncaught ReferenceError: lodash is not defined" error by adding `lodash` as a dependency for the Block Editor Assets. [ECP-1575]
+* Fix - Keyboard controls were not working as one would expect for screen readers and accessibility needs, namely for Filter Bar dropdowns. Updated so tabbing and up/down selection of options works with keyboard input. [FBAR-311]
 
 = [5.1.8] 2023-09-13 =
 
