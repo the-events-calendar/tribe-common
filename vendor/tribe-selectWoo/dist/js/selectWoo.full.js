@@ -5514,7 +5514,7 @@ S2.define('select2/core',[
         // Required for screen readers to work properly.
         if (key === KEYS.DOWN || key === KEYS.UP) {
             self.focusOnActiveElement();
-        } else if ( !self.options.get( 'disableEagerFocus' ) ) {
+        } else if ( ! self.options.get( 'disableEagerFocus' ) ) {
             // Focus on the search if user starts typing.
             $searchField.trigger( 'focus' );
             // Focus back to active selection when finished typing.
@@ -5523,7 +5523,7 @@ S2.define('select2/core',[
                 self.focusOnActiveElement();
             }, 1000 );
         }
-      } else if ( self.hasFocus() && !self.options.get( 'disableEagerFocus' ) ) {
+      } else if ( self.hasFocus() && ! self.options.get( 'disableEagerFocus' ) ) {
         if (key === KEYS.ENTER || key === KEYS.SPACE ||
             key === KEYS.DOWN) {
           self.open();
