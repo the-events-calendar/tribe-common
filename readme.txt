@@ -6,6 +6,11 @@
 * Fix - Resolved "Uncaught ReferenceError: lodash is not defined" error by adding `lodash` as a dependency for the Block Editor Assets. [ECP-1575]
 * Fix - Keyboard controls were not working as one would expect for screen readers and accessibility needs, namely for Filter Bar dropdowns. Updated so tabbing and up/down selection of options works with keyboard input. [FBAR-311]
 
+= [5.1.8] 2023-09-13 =
+
+* Tweak - Compress the size of all images used by the Common module, to reduce the size of the plugin
+* Tweak - Set background image to none on the button element to prevent general button styling overrides. [ET-1815]
+
 = [5.1.7] 2023-09-05 =
 
 * Fix - Broken UI on the WYSIWYG field in the Additional Content section of the admin display settings. [TEC-4861]
