@@ -492,7 +492,6 @@ final class Telemetry {
 			$status->add_plugin( $slug, $new_opted, $path );
 
 			if ( $new_opted ) {
-				$opt_in_subscriber->opt_in( $slug );
 				$status->set_status( $new_opted, $slug );
 			}
 
