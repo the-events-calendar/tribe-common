@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.1.10] TBD =
+
+* Tweak - Add the `tec_cache_listener_save_post_types` filter to allow filtering the post types that should trigger a cache invalidation on post save. [ET-1805]
+
 = [5.1.8] 2023-09-13 =
 
 * Tweak - Compress the size of all images used by the Common module, to reduce the size of the plugin
