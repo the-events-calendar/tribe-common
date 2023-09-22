@@ -13,7 +13,6 @@ use TEC\Common\StellarWP\Telemetry\Config;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
 use Tribe__Container as Container;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Template;
-use Tribe__Cache;
 
 /**
  * Class Telemetry
@@ -495,7 +494,7 @@ final class Telemetry {
 		// Check for cached slugs.
 		$cached_slugs = tribe( 'cache' )['tec_telemetry_slugs'] ?? null;
 
-		// We have already run and the slug list hasn't changed since then.
+		// We have already run and the slug list hasn't changed since then. Or we are manually running.
 		if ( is_null( $opted ) && ! empty( $cached_slugs ) && $cached_slugs == $tec_slugs  ) {
 			return;
 		}
