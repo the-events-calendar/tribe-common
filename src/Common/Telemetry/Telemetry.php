@@ -493,19 +493,15 @@ final class Telemetry {
 		}
 
 		// Check for cached slugs.
-		$cached_slugs = tribe( 'cache' )->get( 'tec_telemetry_slugs' );
+		$cached_slugs = tribe( 'cache' )['tec_telemetry_slugs'] ?? null;
 
-		// We have already run and the slug list hasn';t changed since then.
+		// We have already run and the slug list hasn't changed since then.
 		if ( is_null( $opted ) && ! empty( $cached_slugs ) && $cached_slugs == $tec_slugs  ) {
 			return;
 		}
 
 		// No cached slugs, or the list has changed, or we're running manually - so (re)set the cached value.
-		tribe( 'cache' )->set(
-			'tec_telemetry_slugs',
-			$tec_slugs,
-			Tribe__Cache::NON_PERSISTENT
-		);
+		tribe( 'cache' )['tec_telemetry_slugs'] = $tec_slugs;
 
 		// In case we're not specifically passed a status...
 		$new_opted = $this->calculate_optin_status( $opted );
