@@ -97,6 +97,14 @@ final class Telemetry {
 	 * @return void
 	 */
 	public function boot(): void {
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			return;
+		}
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
 		/**
 		 * Configure the container.
 		 *
@@ -122,7 +130,7 @@ final class Telemetry {
 			return;
 		}
 
-		$telemetry_server   = ! defined('TELEMETRY_SERVER') ? 'https://telemetry.stellarwp.com/api/v1': TELEMETRY_SERVER;
+		$telemetry_server   = ! defined('STELLARWP_TELEMETRY_SERVER') ? 'https://telemetry.stellarwp.com/api/v1': STELLARWP_TELEMETRY_SERVER;
 
 		Config::set_server_url( $telemetry_server );
 
@@ -131,8 +139,6 @@ final class Telemetry {
 
 		// Set a unique plugin slug.
 		Config::set_stellar_slug( $stellar_slug );
-
-		self::$plugin_path  = \Tribe__Main::instance()->get_parent_plugin_file_path();
 
 		if ( empty( self::$plugin_path ) ) {
 			return;
@@ -449,7 +455,9 @@ final class Telemetry {
 		 *
 		 * @param array<string,string> $slugs An array of plugins in the format [ 'plugin_slug' => 'plugin_path' ]
 		 */
-		return apply_filters( 'tec_telemetry_slugs', [] );
+		$slugs = apply_filters( 'tec_telemetry_slugs', [] );
+		$list = json_encode( array_keys( $slugs ) );
+		return $slugs;
 	}
 
 	/**
@@ -461,13 +469,12 @@ final class Telemetry {
 	 * @return void
 	 */
 	public function register_tec_telemetry_plugins( $opted = NULL ) {
-		$new_opted = $opted;
 		// Let's reduce the amount this triggers.
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-			return;
-		}
 
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		global $pagenow;
+
+		// Only run on the plugins page, or when we're manually setting an opt-in!
+		if ( $pagenow !== 'plugins.php' && is_null( $opted ) ) {
 			return;
 		}
 
@@ -480,8 +487,15 @@ final class Telemetry {
 
 		// In case we're not specifically passed a status...
 		$new_opted = $this->calculate_optin_status( $opted );
+		$status    = Config::get_container()->get( Status::class );
 
-		$status = Config::get_container()->get( Status::class );
+		$stellar_slugs = Config::get_all_stellar_slugs();
+		$diff = array_diff( array_keys( $stellar_slugs ), array_keys( $tec_slugs ) );
+
+		// No new keys, bail.
+		if ( empty( $diff ) ) {
+			// return;
+		}
 
 		foreach ( $tec_slugs as $slug => $path ) {
 			// Register each plugin with the already instantiated library.
@@ -493,14 +507,15 @@ final class Telemetry {
 			}
 
 			// If we're manually opting in/out, don't show the modal(s).
-			if ( ! is_null( $opted ) || ! empty( $new_opted ) ) {
+			if ( ! is_null( $opted ) ) {
 				static::disable_modal( $slug );
-			}
+			} else {
+				// If we've already interacted with a modal, don't show another one.
+				$show_modal = static::calculate_modal_status();
 
-			// If we've already interacted with a modal, don't show another one.
-			$show = static::calculate_modal_status();
-			if ( ! $show ) {
-				static::disable_modal( $slug, $show );
+				if ( ! $show_modal ) {
+					static::disable_modal( $slug, $show_modal );
+				}
 			}
 		}
 	}
