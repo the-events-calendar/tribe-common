@@ -455,9 +455,7 @@ final class Telemetry {
 		 *
 		 * @param array<string,string> $slugs An array of plugins in the format [ 'plugin_slug' => 'plugin_path' ]
 		 */
-		$slugs = apply_filters( 'tec_telemetry_slugs', [] );
-		$list = json_encode( array_keys( $slugs ) );
-		return $slugs;
+		return apply_filters( 'tec_telemetry_slugs', [] );
 	}
 
 	/**
@@ -488,14 +486,6 @@ final class Telemetry {
 		// In case we're not specifically passed a status...
 		$new_opted = $this->calculate_optin_status( $opted );
 		$status    = Config::get_container()->get( Status::class );
-
-		$stellar_slugs = Config::get_all_stellar_slugs();
-		$diff = array_diff( array_keys( $stellar_slugs ), array_keys( $tec_slugs ) );
-
-		// No new keys, bail.
-		if ( empty( $diff ) ) {
-			// return;
-		}
 
 		foreach ( $tec_slugs as $slug => $path ) {
 			// Register each plugin with the already instantiated library.
