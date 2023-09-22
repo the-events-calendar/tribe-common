@@ -13,6 +13,7 @@ use TEC\Common\StellarWP\Telemetry\Config;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
 use Tribe__Container as Container;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Template;
+use Tribe__Cache;
 
 /**
  * Class Telemetry
@@ -468,6 +469,13 @@ final class Telemetry {
 	 */
 	public function register_tec_telemetry_plugins( $opted = NULL ) {
 		// Let's reduce the amount this triggers.
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			return;
+		}
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
 
 		global $pagenow;
 
@@ -478,10 +486,26 @@ final class Telemetry {
 
 		$tec_slugs = self::get_tec_telemetry_slugs();
 
+
 		// We've got no other plugins?
 		if ( empty( $tec_slugs ) ) {
 			return;
 		}
+
+		// Check for cached slugs.
+		$cached_slugs = tribe( 'cache' )->get( 'tec_telemetry_slugs' );
+
+		// We have already run and the slug list hasn';t changed since then.
+		if ( is_null( $opted ) && ! empty( $cached_slugs ) && $cached_slugs == $tec_slugs  ) {
+			return;
+		}
+
+		// No cached slugs, or the list has changed, or we're running manually - so (re)set the cached value.
+		tribe( 'cache' )->set(
+			'tec_telemetry_slugs',
+			$tec_slugs,
+			Tribe__Cache::NON_PERSISTENT
+		);
 
 		// In case we're not specifically passed a status...
 		$new_opted = $this->calculate_optin_status( $opted );
