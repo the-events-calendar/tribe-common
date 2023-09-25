@@ -11,7 +11,6 @@ namespace TEC\Common\Telemetry;
 use TEC\Common\StellarWP\Telemetry\Core;
 use TEC\Common\StellarWP\Telemetry\Config;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
-use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Subscriber;
 use Tribe__Container as Container;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Template;
 
@@ -98,6 +97,14 @@ final class Telemetry {
 	 * @return void
 	 */
 	public function boot(): void {
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			return;
+		}
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
 		/**
 		 * Configure the container.
 		 *
@@ -123,7 +130,7 @@ final class Telemetry {
 			return;
 		}
 
-		$telemetry_server   = ! defined('TELEMETRY_SERVER') ? 'https://telemetry.stellarwp.com/api/v1': TELEMETRY_SERVER;
+		$telemetry_server   = ! defined( 'STELLARWP_TELEMETRY_SERVER' ) ? 'https://telemetry.stellarwp.com/api/v1': STELLARWP_TELEMETRY_SERVER;
 
 		Config::set_server_url( $telemetry_server );
 
@@ -132,8 +139,6 @@ final class Telemetry {
 
 		// Set a unique plugin slug.
 		Config::set_stellar_slug( $stellar_slug );
-
-		self::$plugin_path  = \Tribe__Main::instance()->get_parent_plugin_file_path();
 
 		if ( empty( self::$plugin_path ) ) {
 			return;
@@ -462,7 +467,6 @@ final class Telemetry {
 	 * @return void
 	 */
 	public function register_tec_telemetry_plugins( $opted = NULL ) {
-		$new_opted = $opted;
 		// Let's reduce the amount this triggers.
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			return;
@@ -472,19 +476,35 @@ final class Telemetry {
 			return;
 		}
 
+		global $pagenow;
+
+		// Only run on the plugins page, or when we're manually setting an opt-in!
+		if ( $pagenow !== 'plugins.php' && is_null( $opted ) ) {
+			return;
+		}
+
 		$tec_slugs = self::get_tec_telemetry_slugs();
+
 
 		// We've got no other plugins?
 		if ( empty( $tec_slugs ) ) {
 			return;
 		}
 
+		// Check for cached slugs.
+		$cached_slugs = tribe( 'cache' )['tec_telemetry_slugs'] ?? null;
+
+		// We have already run and the slug list hasn't changed since then. Or we are manually running.
+		if ( is_null( $opted ) && ! empty( $cached_slugs ) && $cached_slugs == $tec_slugs  ) {
+			return;
+		}
+
+		// No cached slugs, or the list has changed, or we're running manually - so (re)set the cached value.
+		tribe( 'cache' )['tec_telemetry_slugs'] = $tec_slugs;
+
 		// In case we're not specifically passed a status...
 		$new_opted = $this->calculate_optin_status( $opted );
-
-		$status = Config::get_container()->get( Status::class );
-		$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
-		$opt_in_subscriber->initialize_optin_option();
+		$status    = Config::get_container()->get( Status::class );
 
 		foreach ( $tec_slugs as $slug => $path ) {
 			// Register each plugin with the already instantiated library.
@@ -492,19 +512,19 @@ final class Telemetry {
 			$status->add_plugin( $slug, $new_opted, $path );
 
 			if ( $new_opted ) {
-				$opt_in_subscriber->opt_in( $slug );
 				$status->set_status( $new_opted, $slug );
 			}
 
 			// If we're manually opting in/out, don't show the modal(s).
-			if ( ! is_null( $opted ) || ! empty( $new_opted ) ) {
+			if ( ! is_null( $opted ) ) {
 				static::disable_modal( $slug );
-			}
+			} else {
+				// If we've already interacted with a modal, don't show another one.
+				$show_modal = static::calculate_modal_status();
 
-			// If we've already interacted with a modal, don't show another one.
-			$show = static::calculate_modal_status();
-			if ( ! $show ) {
-				static::disable_modal( $slug, $show );
+				if ( ! $show_modal ) {
+					static::disable_modal( $slug, $show_modal );
+				}
 			}
 		}
 	}
