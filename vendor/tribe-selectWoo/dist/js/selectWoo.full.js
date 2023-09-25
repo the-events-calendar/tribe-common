@@ -1928,7 +1928,7 @@ S2.define('select2/selection/search',[
   Search.prototype.render = function (decorated) {
     var $search = $(
       '<li class="select2-search select2-search--inline">' +
-        '<input class="select2-search__field" type="text" tabindex="0"' +
+        '<input class="select2-search__field" type="text" tabindex="-1"' +
         ' autocomplete="off" autocorrect="off" autocapitalize="none"' +
         ' spellcheck="false" role="textbox" aria-autocomplete="list" />' +
       '</li>'
@@ -3991,9 +3991,8 @@ S2.define('select2/dropdown',[
 
 S2.define('select2/dropdown/search',[
   'jquery',
-  '../utils',
-  '../keys'
-], function ($, Utils, KEYS) {
+  '../utils'
+], function ($, Utils) {
   function Search () { }
 
   Search.prototype.render = function (decorated) {
@@ -4001,7 +4000,7 @@ S2.define('select2/dropdown/search',[
 
     var $search = $(
       '<span class="select2-search select2-search--dropdown">' +
-        '<input class="select2-search__field" type="text" tabindex="0"' +
+        '<input class="select2-search__field" type="text" tabindex="-1"' +
         ' autocomplete="off" autocorrect="off" autocapitalize="none"' +
         ' spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="true" />' +
       '</span>'
@@ -4035,14 +4034,9 @@ S2.define('select2/dropdown/search',[
       $(this).off('keyup');
     });
 
-      this.$search.on( 'keyup input', function ( evt ) {
-          const key = evt.which;
-          // Tabbing is moving to other input - not activating a search.
-          if ( key == KEYS.TAB ) {
-              return;
-          }
-          self.handleSearch( evt );
-      } );
+    this.$search.on('keyup input', function (evt) {
+      self.handleSearch(evt);
+    });
 
     container.on('open', function () {
       self.$search.attr('tabindex', 0);
@@ -4055,6 +4049,7 @@ S2.define('select2/dropdown/search',[
     });
 
     container.on('close', function () {
+      self.$search.attr('tabindex', -1);
       self.$search.removeAttr('aria-activedescendant');
       self.$search.removeAttr('aria-owns');
       self.$search.val('');
@@ -5468,16 +5463,13 @@ S2.define('select2/core',[
       });
     });
 
-      this.on( 'open', function ( evt ) {
-          if ( this.options.get( 'disableEagerFocus' ) ) {
-              return;
-          }
-          // Focus on the active element when opening dropdown.
-          // Needs 1 ms delay because of other 1 ms setTimeouts when rendering.
-          setTimeout( function () {
-              self.focusOnActiveElement();
-          }, 1 );
-      } );
+    this.on('open', function(){
+      // Focus on the active element when opening dropdown.
+      // Needs 1 ms delay because of other 1 ms setTimeouts when rendering.
+      setTimeout(function(){
+        self.focusOnActiveElement();
+      }, 1);
+    });
 
     $(document).on('keydown', function (evt) {
       var key = evt.which;
@@ -5514,16 +5506,16 @@ S2.define('select2/core',[
         // Required for screen readers to work properly.
         if (key === KEYS.DOWN || key === KEYS.UP) {
             self.focusOnActiveElement();
-        } else if ( ! self.options.get( 'disableEagerFocus' ) ) {
-            // Focus on the search if user starts typing.
-            $searchField.trigger( 'focus' );
-            // Focus back to active selection when finished typing.
-            // Small delay so typed character can be read by screen reader.
-            setTimeout( function () {
-                self.focusOnActiveElement();
-            }, 1000 );
+        } else {
+          // Focus on the search if user starts typing.
+          $searchField.trigger( 'focus' );
+          // Focus back to active selection when finished typing.
+          // Small delay so typed character can be read by screen reader.
+          setTimeout(function(){
+              self.focusOnActiveElement();
+          }, 1000);
         }
-      } else if ( self.hasFocus() && ! self.options.get( 'disableEagerFocus' ) ) {
+      } else if (self.hasFocus()) {
         if (key === KEYS.ENTER || key === KEYS.SPACE ||
             key === KEYS.DOWN) {
           self.open();
