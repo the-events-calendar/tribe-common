@@ -130,7 +130,7 @@ final class Telemetry {
 			return;
 		}
 
-		$telemetry_server   = ! defined('STELLARWP_TELEMETRY_SERVER') ? 'https://telemetry.stellarwp.com/api/v1': STELLARWP_TELEMETRY_SERVER;
+		$telemetry_server   = ! defined( 'STELLARWP_TELEMETRY_SERVER' ) ? 'https://telemetry.stellarwp.com/api/v1': STELLARWP_TELEMETRY_SERVER;
 
 		Config::set_server_url( $telemetry_server );
 
