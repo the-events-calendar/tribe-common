@@ -2,7 +2,7 @@
 
 = [TBD] TBD =
 
-* Fix - Correct issue where Telemetry would run and register repeatedly, spamming the server. [TEC-4920]
+* Fix - Correct issue where Telemetry would register active plugins multiple times. [TEC-4920]
 * Fix - Ensure Telemetry's `register_tec_telemetry_plugins()` only runs on the plugins page i.e. on plugin activation. [TEC-4920]
 
 = [5.1.8] 2023-09-13 =
