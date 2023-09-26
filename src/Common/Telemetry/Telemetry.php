@@ -13,6 +13,7 @@ use TEC\Common\StellarWP\Telemetry\Config;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
 use Tribe__Container as Container;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Template;
+use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Subscriber;
 
 /**
  * Class Telemetry
@@ -515,6 +516,17 @@ final class Telemetry {
 			// If we're manually opting in/out, don't show the modal(s).
 			if ( ! is_null( $opted ) ) {
 				static::disable_modal( $slug );
+
+				/*
+				 * If we originally opted out, there will be no registration token,
+				 * so we have to do this to get Telemetry to *register* the site -
+				 * else it will never send updates!
+				 */
+				$status = Config::get_container()->get( Status::class );
+				if ( empty( $status->get_token() ) ) {
+					$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
+					$opt_in_subscriber->opt_in( $slug );
+				}
 			} else {
 				// If we've already interacted with a modal, don't show another one.
 				$show_modal = static::calculate_modal_status();
@@ -594,7 +606,7 @@ final class Telemetry {
 		$shows = array_flip( $shows );
 
 		// If we have interacted with any modals, don't show this one.
-		return ! isset( $shows[0] );
+		return isset( $shows[1] );
 	}
 
 	/**
