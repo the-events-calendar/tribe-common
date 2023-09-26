@@ -523,7 +523,7 @@ final class Telemetry {
 				 * else it will never send updates!
 				 */
 				$status = Config::get_container()->get( Status::class );
-				if ( empty( $status->get_token() ) ) {
+				if ( empty( $status->get_token() ) && ! empty( $opted ) ) {
 					$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
 					$opt_in_subscriber->opt_in( $slug );
 				}
@@ -564,7 +564,6 @@ final class Telemetry {
 		}
 
 		$status = array_filter( $stati );
-
 		return (bool) array_pop( $status );
 	}
 
