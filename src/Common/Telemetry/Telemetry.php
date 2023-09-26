@@ -97,14 +97,6 @@ final class Telemetry {
 	 * @return void
 	 */
 	public function boot(): void {
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-			return;
-		}
-
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-			return;
-		}
-
 		/**
 		 * Configure the container.
 		 *
@@ -538,7 +530,7 @@ final class Telemetry {
 	 *
 	 * @return bool $opted
 	 */
-	public function calculate_optin_status( $opted ) {
+	public function calculate_optin_status( $opted = null ) {
 		if ( NULL !== $opted ) {
 			return $opted;
 		}
