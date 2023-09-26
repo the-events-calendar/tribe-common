@@ -559,6 +559,12 @@ final class Telemetry {
 	 * @return bool $show If the modal should show
 	 */
 	public static function calculate_modal_status() {
+		// If we've already set our internal option, don't show the modal.
+		$option = tribe_get_option( 'opt-in-status', null );
+		if ( ! is_null( $option ) ) {
+			return false;
+		}
+
 		// If they have already interacted with a modal, find out.
 		$shows = array_flip( static::$base_parent_slugs );
 		$optin = Config::get_container()->get( Opt_In_Template::class );
