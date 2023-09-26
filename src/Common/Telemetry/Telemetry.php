@@ -391,6 +391,11 @@ final class Telemetry {
 	 * @return void
 	 */
 	public function show_optin_modal(  $slug  ): void {
+		// IF we've already opted in/out somewhere, don't show the modal.
+		$option = tribe_get_option( 'opt-in-status', null );
+		if ( ! is_null( $option ) ) {
+			return;
+		}
 
 		/**
 		 * Filter allowing disabling of the optin modal.
