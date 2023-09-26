@@ -599,7 +599,6 @@ final class Telemetry {
 
 		// No entries - show modal.
 		if ( count( $shows ) < 1 ) {
-			error_log( 'count' );
 			return true;
 		}
 
@@ -607,8 +606,6 @@ final class Telemetry {
 		$shows = array_flip( $shows );
 
 		// If we have interacted with any modals, don't show this one.
-		error_log( 'end' );
-		error_log( json_encode( $shows ) );
 		return ! isset( $shows[0] );
 	}
 
