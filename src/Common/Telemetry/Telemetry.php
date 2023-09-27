@@ -517,7 +517,9 @@ final class Telemetry {
 				$status = Config::get_container()->get( Status::class );
 				if ( empty( $status->get_token() ) && ! empty( $opted ) ) {
 					$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
-					$opt_in_subscriber->opt_in( $slug );
+					$opt_in_subscriber->initialize_optin_option();
+
+					$this->normalize_optin_status();
 				}
 
 				static::disable_modal( $slug );
@@ -533,6 +535,47 @@ final class Telemetry {
 
 		// In case this hasn't been set yet.
 		tribe_update_option( 'opt-in-status' , $new_opted);
+	}
+
+
+
+	/**
+	 * This ensures all our entries are the same.
+	 *
+	 * @since 5.1.8.1
+	 */
+	public function normalize_optin_status(): void {
+		// If they have opted in to one plugin, opt them in to all TEC ones.
+		$status_obj = static::get_status_object();
+		$stati      = [];
+		$option     = $status_obj->get_option();
+		$tec_option = tribe_get_option( 'opt-in-status', null );
+
+		// If we have set the tribe option - use that.
+		if ( ! is_null( $tec_option ) ) {
+			foreach ( static::$base_parent_slugs as $slug ) {
+				if ( $status_obj->plugin_exists( $slug ) ) {
+					$status_obj->set_status( (bool) $tec_option, $slug );
+				}
+			}
+
+			return;
+		}
+
+		foreach ( static::$base_parent_slugs as $slug ) {
+			if ( $status_obj->plugin_exists( $slug ) ) {
+				$stati[ $slug ] = $option['plugins'][ $slug ][ 'optin' ];
+			}
+		}
+
+		$stati = array_filter( $stati );
+		$status = ! empty( $stati );
+
+		foreach ( static::$base_parent_slugs as $slug ) {
+			if ( $status_obj->plugin_exists( $slug ) ) {
+				$status_obj->set_status( (bool) $status, $slug );
+			}
+		}
 	}
 
 	/**
