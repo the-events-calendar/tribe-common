@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.1.8.1] 2023-09-26 =
+= [5.1.8.1] 2023-09-27 =
 
 * Fix - Correct issue where Telemetry would register active plugins multiple times. [TEC-4920]
 * Fix - Ensure Telemetry's `register_tec_telemetry_plugins()` only runs on the plugins page i.e. on plugin activation. [TEC-4920]
