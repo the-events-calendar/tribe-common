@@ -532,9 +532,6 @@ final class Telemetry {
 				}
 			}
 		}
-
-		// In case this hasn't been set yet.
-		tribe_update_option( 'opt-in-status' , $new_opted);
 	}
 
 	/**
@@ -595,9 +592,9 @@ final class Telemetry {
 	 * @return bool $show If the modal should show
 	 */
 	public static function calculate_modal_status(): bool {
-		// If we've already set our internal option, don't show the modal.
+		// If we've already opted in, don't show the modal.
 		$option = tribe_get_option( 'opt-in-status', null );
-		if ( ! is_null( $option ) ) {
+		if ( tribe_is_truthy( $option ) ) {
 			return false;
 		}
 
@@ -618,14 +615,20 @@ final class Telemetry {
 
 		// No entries - show modal.
 		if ( count( $shows ) < 1 ) {
+			error_log('no entries');
 			return true;
 		}
 
-		// Flip the array = duplicate entries will be overwritten.
-		$shows = array_flip( $shows );
+		$shows = array_filter(
+			$shows,
+			function( $val ) {
+				// remove all the truthy values from the array.
+				return ! tribe_is_truthy( $val );
+			}
+		);
 
 		// If we have interacted with any modals, don't show this one.
-		return ! isset( $shows[0] );
+		return empty( $shows );
 	}
 
 	/**
