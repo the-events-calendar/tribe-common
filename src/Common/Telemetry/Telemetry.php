@@ -537,8 +537,6 @@ final class Telemetry {
 		tribe_update_option( 'opt-in-status' , $new_opted);
 	}
 
-
-
 	/**
 	 * This ensures all our entries are the same.
 	 *
@@ -548,34 +546,16 @@ final class Telemetry {
 		// If they have opted in to one plugin, opt them in to all TEC ones.
 		$status_obj = static::get_status_object();
 		$stati      = [];
-		$option     = $status_obj->get_option();
-		$tec_option = tribe_get_option( 'opt-in-status', null );
-
-		// If we have set the tribe option - use that.
-		if ( ! is_null( $tec_option ) ) {
-			foreach ( static::$base_parent_slugs as $slug ) {
-				if ( $status_obj->plugin_exists( $slug ) ) {
-					$status_obj->set_status( (bool) $tec_option, $slug );
-				}
-			}
-
-			return;
-		}
-
-		foreach ( static::$base_parent_slugs as $slug ) {
-			if ( $status_obj->plugin_exists( $slug ) ) {
-				$stati[ $slug ] = $option['plugins'][ $slug ][ 'optin' ];
-			}
-		}
-
-		$stati = array_filter( $stati );
-		$status = ! empty( $stati );
+		$status     = $this->calculate_optin_status();
+		$stati      = array_filter( $stati );
 
 		foreach ( static::$base_parent_slugs as $slug ) {
 			if ( $status_obj->plugin_exists( $slug ) ) {
 				$status_obj->set_status( (bool) $status, $slug );
 			}
 		}
+
+		tribe_update_option( 'opt-in-status', $status );
 	}
 
 	/**
