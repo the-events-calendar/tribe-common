@@ -477,7 +477,6 @@ final class Telemetry {
 
 		$tec_slugs = self::get_tec_telemetry_slugs();
 
-
 		// We've got no other plugins?
 		if ( empty( $tec_slugs ) ) {
 			return;
@@ -521,17 +520,12 @@ final class Telemetry {
 
 					$this->normalize_optin_status();
 				}
-
-				static::disable_modal( $slug );
-			} else {
-				// If we've already interacted with a modal, don't show another one.
-				$show_modal = static::calculate_modal_status();
-
-				if ( ! $show_modal ) {
-					static::disable_modal( $slug, $show_modal );
-				}
 			}
 		}
+
+		$show_modal = static::calculate_modal_status();
+
+		static::disable_modal( $slug, $show_modal );
 	}
 
 	/**
