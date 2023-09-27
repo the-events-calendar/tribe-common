@@ -521,11 +521,11 @@ final class Telemetry {
 					$this->normalize_optin_status();
 				}
 			}
+
+			$show_modal = static::calculate_modal_status();
+
+			static::disable_modal( $slug, $show_modal );
 		}
-
-		$show_modal = static::calculate_modal_status();
-
-		static::disable_modal( $slug, $show_modal );
 	}
 
 	/**
