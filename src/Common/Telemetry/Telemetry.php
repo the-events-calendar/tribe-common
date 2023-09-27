@@ -392,12 +392,6 @@ final class Telemetry {
 	 * @return void
 	 */
 	public function show_optin_modal(  $slug  ): void {
-		// IF we've already opted in/out somewhere, don't show the modal.
-		$option = tribe_get_option( 'opt-in-status', null );
-		if ( ! is_null( $option ) ) {
-			return;
-		}
-
 		/**
 		 * Filter allowing disabling of the optin modal.
 		 * Returning boolean false will disable the modal
@@ -515,8 +509,6 @@ final class Telemetry {
 
 			// If we're manually opting in/out, don't show the modal(s).
 			if ( ! is_null( $opted ) ) {
-				static::disable_modal( $slug );
-
 				/*
 				 * If we originally opted out, there will be no registration token,
 				 * so we have to do this to get Telemetry to *register* the site -
@@ -527,6 +519,8 @@ final class Telemetry {
 					$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
 					$opt_in_subscriber->opt_in( $slug );
 				}
+
+				static::disable_modal( $slug );
 			} else {
 				// If we've already interacted with a modal, don't show another one.
 				$show_modal = static::calculate_modal_status();
@@ -536,6 +530,9 @@ final class Telemetry {
 				}
 			}
 		}
+
+		// In case this hasn't been set yet.
+		tribe_update_option( 'opt-in-status' , $new_opted);
 	}
 
 	/**
@@ -574,7 +571,7 @@ final class Telemetry {
 	 *
 	 * @return bool $show If the modal should show
 	 */
-	public static function calculate_modal_status() {
+	public static function calculate_modal_status(): bool {
 		// If we've already set our internal option, don't show the modal.
 		$option = tribe_get_option( 'opt-in-status', null );
 		if ( ! is_null( $option ) ) {
