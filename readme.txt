@@ -1,10 +1,21 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Updated focus state for relevant elements to have default outline ensuring improved accessibility and consistent browser behavior. [TEC-4888]
+* Fix - Resolved "Uncaught ReferenceError: lodash is not defined" error by adding `lodash` as a dependency for the Block Editor Assets. [ECP-1575]
+
+= [5.1.8] 2023-09-13 =
+
+* Tweak - Compress the size of all images used by the Common module, to reduce the size of the plugin
+* Tweak - Set background image to none on the button element to prevent general button styling overrides. [ET-1815]
+
 = [5.1.7] 2023-09-05 =
 
 * Fix - Broken UI on the WYSIWYG field in the Additional Content section of the admin display settings. [TEC-4861]
 * Fix - Resolves a plugin integration bug that happens in certain scenarios with instantiating `Firebase\JWT` library classes. In these scenarios you would see a fatal error similar to `Uncaught TypeError: TEC\Common\Firebase\JWT\JWT::getKey(): Return value must be of type TEC\Common\Firebase\JWT\Key, OpenSSLAsymmetricKey returned..` [TEC-4866]
 * Fix - WP Rewrite was being incorrectly initialized in some scenarios due to container DI, and causing some 404s. This was affecting classes that extend the `Tribe__Rewrite`. [TEC-4844]
+* Tweak - Add checks to ensure that settings don't pass null to wp_kses() or esc_attr() [TBD]
 * Language - 0 new strings added, 6 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.1.6] 2023-08-15 =
