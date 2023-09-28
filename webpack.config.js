@@ -50,7 +50,27 @@ const modulesConfig = merge.strategy( {
 	},
 );
 
+const adminDashboardConfig = merge.strategy({
+    externals: 'replace',
+    optimization: 'replace',
+})(
+    common,
+    {
+        externals: [],
+        entry: {
+            'admin-dashboard': resolve( __dirname, './src/modules/admin-dashboard.js' ),
+        },
+        output: {
+            path: resolve( __dirname, './src/resources/js/app/' ),
+            filename: '[name].js',
+            library: [ 'tribe', 'adminDashboard' ],
+        },
+        optimization: {},
+    },
+);
+
 module.exports = [
 	config,
 	modulesConfig,
+	adminDashboardConfig,
 ];

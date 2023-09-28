@@ -343,6 +343,15 @@ class Tribe__Main {
 				'conditionals' => [ tribe( Settings::class ), 'should_load_color_field_assets' ]
 			]
 		);
+		
+		// todo: move this to the appropriate file and add a conditionals callback.
+		tribe_asset(
+			$this,
+			'tec-events-dashboard',
+			'app/admin-dashboard.js',
+			[ 'wp-element' ],
+			'admin_enqueue_scripts',
+		);
 
 		tribe( Tribe__Admin__Help_Page::class )->register_assets();
 	}

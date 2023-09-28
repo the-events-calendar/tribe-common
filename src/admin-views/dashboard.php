@@ -3,6 +3,4 @@
  * The template that displays the dashboard page.
  */
 ?>
-<h2>
-	TEC Dashboard
-</h2>
+<div id="tec-events-dashboard" />
