@@ -349,7 +349,7 @@ class Tribe__Main {
 			$this,
 			'tec-events-dashboard',
 			'app/admin-dashboard.js',
-			[ 'wp-element' ],
+			[],
 			'admin_enqueue_scripts',
 		);
 

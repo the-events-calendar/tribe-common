@@ -50,7 +50,7 @@ const modulesConfig = merge.strategy( {
 	},
 );
 
-const adminDashboardConfig = merge.strategy({
+const adminDashboardConfig = merge.strategy( {
     externals: 'replace',
     optimization: 'replace',
 })(
@@ -66,6 +66,20 @@ const adminDashboardConfig = merge.strategy({
             library: [ 'tribe', 'adminDashboard' ],
         },
         optimization: {},
+        module: {
+            rules: [
+                {
+                    test: /\.(js|jsx)$/,
+                    exclude: /node_modules/,
+                    use: {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: [ '@babel/preset-env', '@babel/preset-react' ],
+                        },
+                    },
+                },
+            ],
+        },
     },
 );
 

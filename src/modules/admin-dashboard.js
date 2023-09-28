@@ -1,16 +1,14 @@
 /**
- * This represents the entry point for the admin dashboard.
+ * External dependencies.
  */
-const { createElement } = wp.element;
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const DashBoard = () => {
-    return(
-        <h2>
-            Hello from the admin dashboard!
-        </h2>
-    );
-};
+const AdminDashbord = () => (
+    <h2>
+        Hello from the Admin Dashboard!
+    </h2>
+);
 
 const root = document.getElementById( 'tec-events-dashboard' );
-
-wp.element.render( createElement( DashBoard ), root );
+ReactDOM.render(<AdminDashbord />, root);
