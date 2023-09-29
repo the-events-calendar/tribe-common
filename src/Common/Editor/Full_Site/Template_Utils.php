@@ -185,14 +185,14 @@ class Template_Utils {
 	 *
 	 * @return WP_Block_Template|null The newly created WP_Block_Template, or null on error.
 	 */
-	public static function hydrate_block_template_by_post( WP_Post $post ):?WP_Block_Template {
-		$terms                  = get_the_terms( $post, 'wp_theme' );
-		if ( is_wp_error( $terms ) || empty($terms) ) {
+	public static function hydrate_block_template_by_post( WP_Post $post ): ?WP_Block_Template {
+		$terms = get_the_terms( $post, 'wp_theme' );
+		if ( is_wp_error( $terms ) || empty( $terms ) ) {
 			return null;
 		}
 
 		// Hydrate our template with the saved data.
-		$template      = new WP_Block_Template();
+		$template                 = new WP_Block_Template();
 		$template->wp_id          = $post->ID;
 		$template->id             = $terms[0]->name . '//' . $post->post_name;
 		$template->theme          = $terms[0]->name;
