@@ -34,7 +34,7 @@ implements Tribe__Editor__Blocks__Interface {
 	 *
 	 * @return string
 	 */
-	public function get_namespace() {
+	public function get_namespace(): string {
 		return $this->namespace;
 	}
 
