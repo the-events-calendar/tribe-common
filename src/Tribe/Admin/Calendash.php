@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Admin Calendash for TEC plugins.
+ * Calendash Admin page.
  *
  * @since   TBD
  *
@@ -13,13 +13,6 @@ namespace Tribe\Admin;
 use Tribe__Main;
 use Tribe__Settings;
 
-/**
- * Class Admin Calendash.
- *
- * @since   TBD
- *
- * @package Tribe\Admin
- */
 class Calendash {
 	/**
 	 * Defines the slug of the calendash page in the WP admin menu item.
