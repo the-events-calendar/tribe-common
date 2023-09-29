@@ -11,4 +11,4 @@ const Calendash = () => (
 );
 
 const root = document.getElementById( 'tec-calendash' );
-ReactDOM.render(<Calendash />, root);
+ReactDOM.render( <Calendash />, root );
