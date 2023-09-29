@@ -5,6 +5,11 @@
 * Tweak - Updated focus state for relevant elements to have default outline ensuring improved accessibility and consistent browser behavior. [TEC-4888]
 * Fix - Resolved "Uncaught ReferenceError: lodash is not defined" error by adding `lodash` as a dependency for the Block Editor Assets. [ECP-1575]
 
+= [5.1.8.1] 2023-09-28 =
+
+* Fix - Correct issue where Telemetry would register active plugins multiple times. [TEC-4920]
+* Fix - Ensure Telemetry's `register_tec_telemetry_plugins()` only runs on the plugins page i.e. on plugin activation. [TEC-4920]
+
 = [5.1.8] 2023-09-13 =
 
 * Tweak - Compress the size of all images used by the Common module, to reduce the size of the plugin
