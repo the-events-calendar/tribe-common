@@ -347,8 +347,8 @@ class Tribe__Main {
 		// todo: move this to the appropriate file and add a conditionals callback.
 		tribe_asset(
 			$this,
-			'tec-events-dashboard',
-			'app/admin-dashboard.js',
+			'tec-calendash',
+			'app/calendash.js',
 			[],
 			'admin_enqueue_scripts',
 		);

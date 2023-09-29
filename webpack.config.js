@@ -50,7 +50,7 @@ const modulesConfig = merge.strategy( {
 	},
 );
 
-const adminDashboardConfig = merge.strategy( {
+const calendashConfig = merge.strategy( {
     externals: 'replace',
     optimization: 'replace',
 })(
@@ -58,12 +58,12 @@ const adminDashboardConfig = merge.strategy( {
     {
         externals: [],
         entry: {
-            'admin-dashboard': resolve( __dirname, './src/modules/admin-dashboard.js' ),
+            'calendash': resolve( __dirname, './src/modules/calendash.js' ),
         },
         output: {
             path: resolve( __dirname, './src/resources/js/app/' ),
             filename: '[name].js',
-            library: [ 'tribe', 'adminDashboard' ],
+            library: [ 'tribe', 'calendash' ],
         },
         optimization: {},
         module: {
@@ -86,5 +86,5 @@ const adminDashboardConfig = merge.strategy( {
 module.exports = [
 	config,
 	modulesConfig,
-	adminDashboardConfig,
+	calendashConfig,
 ];

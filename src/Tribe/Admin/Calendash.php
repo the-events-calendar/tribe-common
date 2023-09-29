@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Admin Dashboard for TEC plugins.
+ * Admin Calendash for TEC plugins.
  *
  * @since   TBD
  *
@@ -14,21 +14,21 @@ use Tribe__Main;
 use Tribe__Settings;
 
 /**
- * Class Admin Dashboard.
+ * Class Admin Calendash.
  *
  * @since   TBD
  *
  * @package Tribe\Admin
  */
-class Dashboard {
+class Calendash {
 	/**
-	 * Defines the slug of the dashboard page in the WP admin menu item.
+	 * Defines the slug of the calendash page in the WP admin menu item.
 	 *
 	 * @since TBD
 	 *
-	 * @var string the dashboard menu slug.
+	 * @var string the calendash menu slug.
 	 */
-	const MENU_SLUG = 'tec-dashboard';
+	const MENU_SLUG = 'tec-calendash';
 
 	/**
 	 * The slug for the new admin page.
@@ -51,7 +51,7 @@ class Dashboard {
 	}
 
 	/**
-	 * This method created the dashboard page and adds it to TEC menu.
+	 * This method created the calendash page and adds it to TEC menu.
 	 *
 	 * @since TBD
 	 *
@@ -61,8 +61,8 @@ class Dashboard {
 			return;
 		}
 
-		$page_title = esc_html__( 'Dashboard', 'tribe-common' );
-		$menu_title = esc_html__( 'Dashboard', 'tribe-common' );
+		$page_title = esc_html__( 'Calendash', 'tribe-common' );
+		$menu_title = esc_html__( 'Calendash', 'tribe-common' );
 
 		$capability = $this->get_required_capability();
 
@@ -82,29 +82,29 @@ class Dashboard {
 	}
 
 	/**
-	 * Gets the required capability for the dashboard page.
+	 * Gets the required capability for the calendash page.
 	 *
 	 * @since TBD
 	 *
-	 * @return string Which capability we required for the dashboard page.
+	 * @return string Which capability we required for the calendash page.
 	 */
 	public function get_required_capability() {
 		/**
-		 * Allows third party filtering of capability required to see the Dashboard page.
+		 * Allows third party filtering of capability required to see the Calendash page.
 		 *
 		 * @since TBD
 		 *
 		 * @param string $capability      Which capability we are using as the one required for the
-		 *                                dashboard page.
-		 * @param static $dashboard       The current instance of the class that handles this page.
+		 *                                calendash page.
+		 * @param static $calendash       The current instance of the class that handles this page.
 		 */
-		$capability = apply_filters( 'tec_dashboard_capability', 'install_plugins', $this );
+		$capability = apply_filters( 'tec_calendash_capability', 'install_plugins', $this );
 
 		return $capability;
 	}
 
 	/**
-	 * Hooked to admin_body_class to add a class for dashboard page.
+	 * Hooked to admin_body_class to add a class for calendash page.
 	 *
 	 * @since 4.15.0
 	 *
@@ -117,13 +117,13 @@ class Dashboard {
 			return $classes;
 		}
 
-		$classes .= ' tec-dashboard';
+		$classes .= ' tec-calendash';
 
 		return $classes;
 	}
 
 	/**
-	 * Adds the dashboard menu to the the WP admin bar under events.
+	 * Adds the calendash menu to the the WP admin bar under events.
 	 *
 	 * @since TBD
 	 *
@@ -138,19 +138,19 @@ class Dashboard {
 		global $wp_admin_bar;
 
 		$wp_admin_bar->add_menu( [
-			'id'     => 'tec-dashboard',
-			'title'  => esc_html__( 'Dashboard', 'tribe-common' ),
+			'id'     => 'tec-calendash',
+			'title'  => esc_html__( 'Calendash', 'tribe-common' ),
 			'href'   => Tribe__Settings::instance()->get_url( [ 'page' => static::MENU_SLUG ] ),
 			'parent' => 'tribe-events-settings-group',
 		] );
 	}
 
 	/**
-	 * Checks if the current page is the dashboard page.
+	 * Checks if the current page is the calendash page.
 	 *
 	 * @since TBD
 	 *
-	 * @return boolean returns true if the current page is the dashboard page.
+	 * @return boolean returns true if the current page is the calendash page.
 	 */
 	public function is_current_page() {
 		if ( ! Tribe__Settings::instance()->should_setup_pages() || ! did_action( 'admin_menu' ) ) {
@@ -169,16 +169,16 @@ class Dashboard {
 
 		global $current_screen;
 
-		$dashboard_pages = [
-			'tribe_events_page_tec-dashboard',
-			'tickets_page_tec-tickets-dashboard',
+		$calendash_pages = [
+			'tribe_events_page_tec-calendash',
+			'tickets_page_tec-tickets-calendash',
 		];
 
-		return in_array( $current_screen->id, $dashboard_pages );
+		return in_array( $current_screen->id, $calendash_pages );
 	}
 
 	/**
-	 * Renders the Dashboard page.
+	 * Renders the Calendash page.
 	 *
 	 * @since TBD
 	 *
@@ -186,7 +186,7 @@ class Dashboard {
 	public function do_menu_page() {
 		tribe_asset_enqueue( 'tribe-admin-help-page' );
 		$main = Tribe__Main::instance();
-		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/dashboard.php';
+		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/calendash.php';
 	}
 
 	/**
