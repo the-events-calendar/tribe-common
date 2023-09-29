@@ -25,7 +25,7 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 	/**
 	 * {@inheritDoc}
 	 */
-	public $start_date = 'fourth Thursday of November';
+	public $start_date = '4th Thursday of November';
 
 	/**
 	 * {@inheritDoc}
