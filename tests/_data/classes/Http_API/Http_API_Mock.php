@@ -2,6 +2,10 @@
 
 namespace TEC\Common\Tests\Http_API;
 
+use WpOrg\Requests\Cookie\Jar;
+use WpOrg\Requests\Response;
+use WpOrg\Requests\Response\Headers;
+
 abstract class Http_API_Mock {
 	/**
 	 * A map from status codes to the HTTP standard status description.
@@ -99,8 +103,8 @@ abstract class Http_API_Mock {
 
 		$url = rtrim( $this->get_url(), '/' );
 		$current_date = ( new \DateTime( 'now', new \DateTimezone( 'GMT' ) ) )->format( 'D, d M Y H:i:s GMT' );
-		$request_response = new \Requests_Response();
-		$request_response->headers = new \Requests_Response_Headers( [
+		$request_response = new Response();
+		$request_response->headers = new Headers( [
 			'date'                          => [ $current_date ],
 			'content-type'                  => [ "$content_type; charset=UTF-8" ],
 			'server'                        => [ 'nginx' ],
@@ -120,7 +124,7 @@ abstract class Http_API_Mock {
 			'x-ua-compatible'               => [ 'IE=Edge' ],
 			'content-encoding'              => [ 'gzip' ],
 		] );
-		$request_response->cookies = new \Requests_Cookie_Jar( [] );
+		$request_response->cookies = new Jar( [] );
 		$status_message = self::$status_messages[ $status_code ] ?? 'Unknown';
 		foreach (
 			[
