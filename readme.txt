@@ -4,6 +4,11 @@
 
 * Tweak - Add the `tec_cache_listener_save_post_types` filter to allow filtering the post types that should trigger a cache invalidation on post save. [ET-xxx]
 
+= [5.1.8.1] 2023-09-28 =
+
+* Fix - Correct issue where Telemetry would register active plugins multiple times. [TEC-4920]
+* Fix - Ensure Telemetry's `register_tec_telemetry_plugins()` only runs on the plugins page i.e. on plugin activation. [TEC-4920]
+
 = [5.1.8] 2023-09-13 =
 
 * Tweak - Compress the size of all images used by the Common module, to reduce the size of the plugin
