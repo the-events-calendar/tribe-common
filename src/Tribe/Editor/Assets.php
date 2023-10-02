@@ -110,7 +110,7 @@ class Tribe__Editor__Assets {
 	 * Filter the dependencies for event blocks
 	 *
 	 * @since 4.14.2
-	 * @since TBD Added lodash to the dependencies.
+	 * @since 5.1.9 Added lodash to the dependencies.
 	 *
 	 * @param array|object|null $assets Array of asset objects, single asset object, or null.
 	 *

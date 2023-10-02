@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [5.1.9] 2023-10-02 =
 
 * Tweak - Updated focus state for relevant elements to have default outline ensuring improved accessibility and consistent browser behavior. [TEC-4888]
 * Fix - Resolved "Uncaught ReferenceError: lodash is not defined" error by adding `lodash` as a dependency for the Block Editor Assets. [ECP-1575]
