@@ -1,5 +1,7 @@
 == Changelog ==
 
+= [5.1.12] TBD =
+
 = [5.1.9] 2023-10-03 =
 
 * Tweak - Updated focus state for relevant elements to have default outline ensuring improved accessibility and consistent browser behavior. [TEC-4888]
