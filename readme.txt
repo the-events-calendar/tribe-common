@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Changed scope of the Tribe__Editor__Blocks__Abstract::$namespace property to protected. [TEC-4792]
+
 = [5.1.6] 2023-08-15 =
 
 * Feature - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
