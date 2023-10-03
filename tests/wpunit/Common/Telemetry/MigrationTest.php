@@ -17,7 +17,7 @@ class Migration_No_Auto_Opt_In extends \TEC\Common\Telemetry\Migration {
 /**
  * Class MigrationTest
  *
- * @since	TBD
+ * @since	5.1.0
  *
  * @package TEC\Common\Telemetry
  */
