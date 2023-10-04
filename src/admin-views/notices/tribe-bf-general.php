@@ -9,7 +9,6 @@
  * @var string $cta_url The short URL for black friday.
  * @var string $start_date - the end date of the sale.
  * @var string $end_date - the end date of the sale.
- * @var string $extension_date - the eextension date of the sale. This overrides treh $end_date once the $end_date has passed.
  */
 ?>
 <div class="tribe-common tribe-marketing-notice">
