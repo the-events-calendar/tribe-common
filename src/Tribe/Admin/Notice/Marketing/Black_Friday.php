@@ -79,7 +79,7 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 	/**
 	 * Enqueue additional assets for the notice.
 	 *
-	 * @since TBD
+	 * @since 5.1.10
 	 */
 	public function enqueue_additional_assets() {
 		if ( ! $this->should_display() ) {

@@ -3,7 +3,7 @@
  * The Black Friday admin notice.
  *
  * @since 4.12.14
- * @since TBD - reworked to make it more like the Stellar Sale banner in layout, can include an icon
+ * @since 5.1.10 - reworked to make it more like the Stellar Sale banner in layout, can include an icon
  *
  * @var string $icon_url The local URL for the notice's image. Can be empty.
  * @var string $cta_url The short URL for black friday.

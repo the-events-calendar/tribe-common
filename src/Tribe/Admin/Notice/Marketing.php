@@ -38,10 +38,10 @@ class Tribe__Admin__Notice__Marketing {
 	 * Register the various Marketing notices.
 	 *
 	 * @since 4.7.23
-	 * @deprecated TBD
+	 * @deprecated 5.1.10
 	 */
 	public function hook() {
-		_deprecated_function( __METHOD__, 'TBD', 'See Tribe\Admin\Notice\Date_Based.' );
+		_deprecated_function( __METHOD__, '5.1.10', 'See Tribe\Admin\Notice\Date_Based.' );
 		$this->black_friday_hook_notice();
 	}
 
@@ -49,10 +49,10 @@ class Tribe__Admin__Notice__Marketing {
 	 * Register the Black Friday notice.
 	 *
 	 * @since 4.12.14
-	 * @deprecated TBD
+	 * @deprecated 5.1.10
 	 */
 	public function black_friday_hook_notice() {
-		_deprecated_function( __METHOD__, 'TBD', 'See Tribe\Admin\Notice\Marketing\Black_Friday.' );
+		_deprecated_function( __METHOD__, '5.1.10', 'See Tribe\Admin\Notice\Marketing\Black_Friday.' );
 
 		tribe_notice(
 			'black-friday',
@@ -71,12 +71,12 @@ class Tribe__Admin__Notice__Marketing {
 	 * Unix time for Monday of Thanksgiving week @ 11am UTC. (11am UTC is 6am EST).
 	 *
 	 * @since 4.12.14
-	 * @deprecated TBD
+	 * @deprecated 5.1.10
 	 *
 	 * @return int
 	 */
 	public function get_black_friday_start_time() {
-		_deprecated_function( __METHOD__, 'TBD', 'See Tribe\Admin\Notice\Marketing\Black_Friday.' );
+		_deprecated_function( __METHOD__, '5.1.10', 'See Tribe\Admin\Notice\Marketing\Black_Friday.' );
 
 		$date = Dates::build_date_object( 'fourth Thursday of November ' . date( 'Y' ), 'UTC' );
 		$date = $date->modify( '-3 days' );
@@ -98,12 +98,12 @@ class Tribe__Admin__Notice__Marketing {
 	 * Unix time for Dec 1 @ 5am UTC. (5am UTC is 12am EST).
 	 *
 	 * @since 4.12.14
-	 * @deprecated TBD
+	 * @deprecated 5.1.10
 	 *
 	 * @return int
 	 */
 	public function get_black_friday_end_time() {
-		_deprecated_function( __METHOD__, 'TBD', 'See Tribe\Admin\Notice\Marketing\Black_Friday.' );
+		_deprecated_function( __METHOD__, '5.1.10', 'See Tribe\Admin\Notice\Marketing\Black_Friday.' );
 
 		$date = Dates::build_date_object( 'December 1st', 'UTC' );
 		$date = $date->setTime( 5, 0 );
@@ -127,12 +127,12 @@ class Tribe__Admin__Notice__Marketing {
 	 * 6am UTC is midnight for TheEventsCalendar.com, which uses the America/Los_Angeles time zone.
 	 *
 	 * @since 4.12.14
-	 * @deprecated TBD
+	 * @deprecated 5.1.10
 	 *
 	 * @return boolean
 	 */
 	public function black_friday_should_display() {
-		_deprecated_function( __METHOD__, 'TBD', 'See Tribe\Admin\Notice\Marketing\Black_Friday.' );
+		_deprecated_function( __METHOD__, '5.1.10', 'See Tribe\Admin\Notice\Marketing\Black_Friday.' );
 
 		// If upsells have been manually hidden, respect that.
 		if ( tec_should_hide_upsell() ) {
@@ -166,12 +166,12 @@ class Tribe__Admin__Notice__Marketing {
 	 * HTML for the Black Friday notice.
 	 *
 	 * @since 4.12.14
-	 * @deprecated TBD
+	 * @deprecated 5.1.10
 	 *
 	 * @return string
 	 */
 	public function black_friday_display_notice() {
-		_deprecated_function( __METHOD__, 'TBD', 'See Tribe\Admin\Notice\Marketing\Black_Friday.' );
+		_deprecated_function( __METHOD__, '5.1.10', 'See Tribe\Admin\Notice\Marketing\Black_Friday.' );
 
 		Tribe__Assets::instance()->enqueue( [ 'tribe-common-admin' ] );
 
