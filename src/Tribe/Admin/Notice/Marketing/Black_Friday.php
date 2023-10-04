@@ -52,8 +52,8 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 		$template_args = [
 			'icon_url' => tribe_resource_url( $this->icon_url, false, null, \Tribe__Main::instance() ),
 			'cta_url'  => 'https://evnt.is/1aqi',
-			'start_date' => $this->get_start_time()->format_i18n( 'F jS' ),
-			'end_date' => $this->get_end_time()->format_i18n( 'F jS' ),
+			'start_date' => $this->get_start_time()->format( 'F jS' ),
+			'end_date' => $this->get_end_time()->format( 'F jS' ),
 		];
 
 		// Get the Black Friday notice content.
