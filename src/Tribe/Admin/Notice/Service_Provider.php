@@ -65,6 +65,12 @@ class Service_Provider extends Provider_Contract {
 		// tribe( Marketing\End_Of_Year_Sale::class );
 	}
 
+	/**
+	 * This method is used to enqueue additional assets for the admin notices.
+	 * Each should conditionally call an internal `enqueue_additional_assets()` function to handle the enqueueing.
+	 *
+	 * @since 5.1.10
+	 */
 	public function enqueue_additional_assets() {
 		tribe( Marketing\Black_Friday::class )->enqueue_additional_assets();
 	}
