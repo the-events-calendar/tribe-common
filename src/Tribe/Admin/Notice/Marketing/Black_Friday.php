@@ -82,10 +82,17 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 	 * @since 5.1.10
 	 */
 	public function enqueue_additional_assets() {
-		if ( ! $this->should_display() ) {
-			return;
-		}
 		// Adds the Montserrat font from Google Fonts.
-		wp_enqueue_style( 'tec_black_friday_font', 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700' );
+		tribe_asset(
+			\Tribe__Main::instance(),
+			'tec-black-friday-font',
+			'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700',
+			null,
+			null,
+			[
+				'type' => 'css',
+				'conditionals' => [ $this, 'should_display' ]
+			]
+		);
 	}
 }
