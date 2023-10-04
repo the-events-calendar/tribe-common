@@ -42,6 +42,7 @@ class Service_Provider extends Provider_Contract {
 	 */
 	private function hooks() {
 		add_action( 'tribe_plugins_loaded', [ $this, 'plugins_loaded'] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_additional_assets' ] );
 	}
 
 	/**
@@ -62,5 +63,9 @@ class Service_Provider extends Provider_Contract {
 		tribe( Marketing\Black_Friday::class );
         // EOY Sale disabled for 2022
 		// tribe( Marketing\End_Of_Year_Sale::class );
+	}
+
+	public function enqueue_additional_assets() {
+		tribe( Marketing\Black_Friday::class )->enqueue_additional_assets();
 	}
 }
