@@ -42,7 +42,7 @@ class Service_Provider extends Provider_Contract {
 	 */
 	private function hooks() {
 		add_action( 'tribe_plugins_loaded', [ $this, 'plugins_loaded'] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_additional_assets' ] );
+		add_action( 'current_screen', [ $this, 'enqueue_additional_assets' ] );
 	}
 
 	/**

@@ -88,7 +88,7 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 			'tec-black-friday-font',
 			'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700',
 			null,
-			null,
+			'admin_enqueue_scripts',
 			[
 				'type' => 'css',
 				'conditionals' => [ $this, 'should_display' ]
