@@ -216,7 +216,7 @@ class Tribe__Cache_Listener {
 	/**
 	 * Returns the list of post types that should trigger a cache invalidation on `save_post.
 	 *
-	 * @since TBD
+	 * @since 5.1.10
 	 *
 	 * @return array<string> The list of post types that should trigger a cache invalidation on `save_post`.
 	 */
@@ -226,7 +226,7 @@ class Tribe__Cache_Listener {
 		/**
 		 * Filters the list of post types that should trigger a cache invalidation on `save_post`.
 		 *
-		 * @since TBD
+		 * @since 5.1.10
 		 *
 		 * @param array<string> $post_types The list of post types that should trigger a cache invalidation on
 		 *                                  `save_post`.
