@@ -40,7 +40,7 @@ class Tribe__Assets {
 		add_action( 'init', [ $this, 'register_in_wp' ], 1, 0 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_stellar_wp_fonts' ] );
 
-		// From 6.3 leverage the build in defer/async strategy feature.
+		// From WordPress 6.3 leverage the Script API strategy feature to add defer/async.
 		if ( version_compare( strtok( get_bloginfo( 'version' ), '-' ), '6.3', '<' ) ) {
 			add_filter( 'script_loader_tag', [ $this, 'filter_tag_async_defer' ], 50, 2 );
 		}
@@ -637,7 +637,6 @@ class Tribe__Assets {
 			'print'         => false,
 
 			'async'         => false,
-			'defer'         => false,
 			'module'        => false,
 
 			// Print before and after.
