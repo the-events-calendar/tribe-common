@@ -637,6 +637,7 @@ class Tribe__Assets {
 			'print'         => false,
 
 			'async'         => false,
+			'defer'         => false,
 			'module'        => false,
 
 			// Print before and after.
