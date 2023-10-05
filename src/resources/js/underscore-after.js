@@ -10,13 +10,10 @@
 	 * On a third scenario when lodash is not included this will either be executed which will allow to use
 	 * something like: window.underscore || window._ to fallback to the correct value of underscore in the plugins.
 	 */
-	// Wait until the domContentLoaded event since underscore is loaded using `defer`.
-	document.addEventListener('DOMContentLoaded', function() {
-		if ( window._lodash_tmp !== false && typeof window._lodash_tmp === 'function' ) {
-			// Remove reference to _ if is underscore
-			window.underscore = _.noConflict();
-			// Restore reference to lodash if present
-			window._ = window._lodash_tmp;
-		}
-	}, false);
+	if ( window._lodash_tmp !== false && typeof window._lodash_tmp === 'function' ) {
+		// Remove reference to _ if is underscore
+		window.underscore = _.noConflict();
+		// Restore reference to lodash if present
+		window._ = window._lodash_tmp;
+	}
 })();
