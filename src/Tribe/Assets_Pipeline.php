@@ -35,9 +35,9 @@ class Tribe__Assets_Pipeline {
 
 		if ( 'underscore' === $handle ) {
 			$dir = Tribe__Main::instance()->plugin_url . 'src/resources/js';
-			$tag = "<script src='{$dir}/underscore-before.js'></script>\n"
+			$tag = "<script src='{$dir}/underscore-before.js' defer></script>\n"
 			       . $tag
-			       . "<script src='{$dir}/underscore-after.js'></script>\n";
+			       . "<script src='{$dir}/underscore-after.js'></script defer>\n";
 		}
 
 		return $tag;
