@@ -39,7 +39,11 @@ class Tribe__Assets {
 		// Hook the actual registering of.
 		add_action( 'init', [ $this, 'register_in_wp' ], 1, 0 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_stellar_wp_fonts' ] );
-		add_filter( 'script_loader_tag', [ $this, 'filter_tag_async_defer' ], 50, 2 );
+
+		// From 6.3 leverage the build in defer/async strategy feature.
+		if ( version_compare( strtok( get_bloginfo( 'version' ), '-' ), '6.3', '<' ) ) {
+			add_filter( 'script_loader_tag', [ $this, 'filter_tag_async_defer' ], 50, 2 );
+		}
 		add_filter( 'script_loader_tag', [ $this, 'filter_modify_to_module' ], 50, 2 );
 		add_filter( 'script_loader_tag', [ $this, 'filter_print_before_after_script' ], 100, 2 );
 
@@ -705,7 +709,7 @@ class Tribe__Assets {
 
 		// Clean these
 		$asset->priority  = absint( $asset->priority );
-		$asset->in_footer = (bool) $asset->in_footer;
+		$asset->in_footer = $asset->in_footer; // Since WordPress 6.3, this parameter accepts an array argument.
 		$asset->media     = esc_attr( $asset->media );
 
 		// Ensures that we have a priority over 1.
