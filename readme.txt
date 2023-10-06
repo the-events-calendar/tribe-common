@@ -1,5 +1,9 @@
 == Changelog ==
 
+
+= [5.1.10] TBD =
+
+
 = [5.1.8] 2023-09-13 =
 
 * Tweak - Compress the size of all images used by the Common module, to reduce the size of the plugin
