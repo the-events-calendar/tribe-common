@@ -190,6 +190,10 @@ final class Telemetry {
 		}
 	}
 
+	public static function get_hook_prefix() {
+		return self::$hook_prefix;
+	}
+
 	public static function get_plugin_slug() {
 		if ( empty( self::$plugin_slug ) ) {
 			self::$plugin_slug = self::get_parent_plugin_slug();
@@ -639,5 +643,59 @@ final class Telemetry {
 
 		$option_slug = Config::get_container()->get( Opt_In_Template::class )->get_option_name( $slug );
 		update_option( $option_slug, $enable );
+	}
+
+	/**
+	 * Filters the data arguments for TEC plugins.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $args The data arguments to filter.
+	 *
+	 * @return array<string,mixed> $args The filtered data arguments.
+	 */
+	public function filter_data_args( $args ): array {
+		error_log( 'filter_data_args' );
+		$tec_slugs = self::get_tec_telemetry_slugs();
+		$fnord = false;
+
+		foreach ( $tec_slugs as $slug => $path ) {
+			if ( in_array( $slug, self::$base_parent_slugs ) ) {
+				error_log( 'discard ' . $slug );
+				continue;
+			}
+
+
+
+			$modified_slug = 'pue_install_key_' . str_replace( '-', '_', $slug );
+			// pue_install_key_events_calendar_pro
+			error_log( 'looking for ' . $modified_slug );
+			$key = get_option( $modified_slug, null );
+
+			if ( empty( $key ) ) {
+				error_log( 'no key found' );
+				continue;
+			}
+
+
+			error_log( 'inserting key ' . $key );
+			$fnord = true;
+			$args['plugins'][ $slug ]['license'] = $key;
+		}
+
+		if ( $fnord ) {
+			error_log( json_encode( $args ) );
+		}
+
+		/**
+		 * Allows overriding the data arguments for TEC plugins.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,mixed> $args The data arguments to filter.
+		 *
+		 * @return array<string,mixed> $args The filtered data arguments.
+		 */
+		return apply_filters( 'tec_telemetry_data_arguments', $args );
 	}
 }
