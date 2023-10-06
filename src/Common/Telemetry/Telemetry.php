@@ -190,7 +190,14 @@ final class Telemetry {
 		}
 	}
 
-	public static function get_hook_prefix() {
+	/**
+	 * Get the hook prefix we are using.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The hook prefix. Note there is no trailing slash!
+	 */
+	public static function get_hook_prefix(): string {
 		return self::$hook_prefix;
 	}
 
@@ -613,7 +620,6 @@ final class Telemetry {
 
 		// No entries - show modal.
 		if ( count( $shows ) < 1 ) {
-			error_log('no entries');
 			return true;
 		}
 
@@ -655,36 +661,22 @@ final class Telemetry {
 	 * @return array<string,mixed> $args The filtered data arguments.
 	 */
 	public function filter_data_args( $args ): array {
-		error_log( 'filter_data_args' );
 		$tec_slugs = self::get_tec_telemetry_slugs();
-		$fnord = false;
 
 		foreach ( $tec_slugs as $slug => $path ) {
 			if ( in_array( $slug, self::$base_parent_slugs ) ) {
-				error_log( 'discard ' . $slug );
 				continue;
 			}
 
-
-
 			$modified_slug = 'pue_install_key_' . str_replace( '-', '_', $slug );
-			// pue_install_key_events_calendar_pro
-			error_log( 'looking for ' . $modified_slug );
+			// pue_install_key_events_calendar_pro, etc
 			$key = get_option( $modified_slug, null );
 
 			if ( empty( $key ) ) {
-				error_log( 'no key found' );
 				continue;
 			}
 
-
-			error_log( 'inserting key ' . $key );
-			$fnord = true;
 			$args['plugins'][ $slug ]['license'] = $key;
-		}
-
-		if ( $fnord ) {
-			error_log( json_encode( $args ) );
 		}
 
 		/**
