@@ -155,10 +155,11 @@ class Template_Utils {
 	 */
 	public static function save_block_template( $post_array ): ?WP_Block_Template {
 		if ( empty( $post_array['post_name'] ) ) {
-			throw new InvalidArgumentException( "Must have both `post_name` parameter to denote this template uniquely." );
+			throw new InvalidArgumentException( "Must have `post_name` parameter to denote this template uniquely." );
 		}
+
 		if ( empty( $post_array['tax_input'] ) ) {
-			throw new InvalidArgumentException( "Must have both `tax_input` parameter to include the term of the `wp_theme` this template is under." );
+			throw new InvalidArgumentException( "Must have `tax_input` parameter to include the term of the `wp_theme` this template is under." );
 		}
 
 		// Merge with default params.
@@ -169,6 +170,7 @@ class Template_Utils {
 
 		// Create this template.
 		$id = wp_insert_post( $insert );
+
 		if ( ! $id ) {
 			return null;
 		}
@@ -187,6 +189,7 @@ class Template_Utils {
 	 */
 	public static function hydrate_block_template_by_post( WP_Post $post ): ?WP_Block_Template {
 		$terms = get_the_terms( $post, 'wp_theme' );
+
 		if ( is_wp_error( $terms ) || empty( $terms ) ) {
 			return null;
 		}
