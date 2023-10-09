@@ -2,6 +2,8 @@
 
 = [5.1.12] TBD =
 
+* Fix - AM/PM time formats `g:i A` and `g:i a` are now respected for the French locale. [TEC-4807]
+
 = [5.1.9] 2023-10-03 =
 
 * Tweak - Updated focus state for relevant elements to have default outline ensuring improved accessibility and consistent browser behavior. [TEC-4888]
