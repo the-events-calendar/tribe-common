@@ -142,7 +142,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Storing any `plugin_info` data that get's returned so we can display an admin notice.
 		 *
-		 * @var array|null
+		 * @var Tribe__PUE__Plugin_Info|array|null
 		 */
 		public $plugin_info;
 
@@ -1366,7 +1366,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @param array $query_args Additional query arguments to append to the request. Optional.
 		 *
-		 * @return string $plugin_info
+		 * @return Tribe__PUE__Plugin_Info|string|null $plugin_info
 		 */
 		public function request_info( $query_args = [] ) {
 			$query_args = apply_filters( 'tribe_puc_request_info_query_args-' . $this->get_slug(), $query_args );
@@ -1408,9 +1408,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			// Try to parse the response
 			$plugin_info = null;
+
 			if ( ! is_wp_error( $result ) && isset( $result['response']['code'] ) && ( 200 === (int) $result['response']['code'] ) && ! empty( $result['body'] ) ) {
 				$plugin_info = Tribe__PUE__Plugin_Info::from_json( $result['body'] );
 			}
+
 			$plugin_info = apply_filters( 'tribe_puc_request_info_result-' . $this->get_slug(), $plugin_info, $result );
 
 			$plugin_info_cache[ $key ] = $plugin_info;
@@ -1587,7 +1589,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @param string $value
 		 * @param string $field_id
-		 * @param string $validated_field
+		 * @param object $validated_field
 		 *
 		 * @return string
 		 */

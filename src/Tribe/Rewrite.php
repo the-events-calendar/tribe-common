@@ -115,10 +115,12 @@ class Tribe__Rewrite {
 	/**
 	 * Tribe__Rewrite constructor.
 	 *
+	 * @since 5.1.7 Removed type hinting. This causes issues with Dependency Injection passing empty objects.
+	 *
 	 * @param WP_Rewrite|null          $wp_rewrite          An instance of the `WP_Rewrite` class.
 	 * @param Translations_Loader|null $translations_loader An instance of the translations loader.
 	 */
-	public function __construct( WP_Rewrite $wp_rewrite = null, Translations_Loader $translations_loader = null ) {
+	public function __construct( $wp_rewrite = null, Translations_Loader $translations_loader = null ) {
 		$this->rewrite             = $wp_rewrite;
 		$this->translations_loader = $translations_loader ?? tribe( Translations_Loader::class );
 	}
@@ -908,6 +910,7 @@ class Tribe__Rewrite {
 	 * @return array An array of query vars, as parsed from the input URL.
 	 */
 	public function parse_request( $url, array $extra_query_vars = [], $force = false ) {
+
 		if ( null === $this->rewrite ) {
 			// We re-do this check here as the object might have been initialized before the global rewrite was set.
 			$this->setup();

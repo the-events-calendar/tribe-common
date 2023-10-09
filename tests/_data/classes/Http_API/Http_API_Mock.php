@@ -1,6 +1,9 @@
 <?php
 
 namespace TEC\Common\Tests\Http_API;
+use WpOrg\Requests\Cookie\Jar;
+use WpOrg\Requests\Response;
+use WpOrg\Requests\Response\Headers;
 
 use WpOrg\Requests\Cookie\Jar;
 use WpOrg\Requests\Response;

@@ -555,6 +555,13 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				foreach ( $this->validated as $field_id => $validated_field ) {
 					// Get the value and filter it.
 					$value = $validated_field->value;
+					/**
+					 * Filter the value of the field before saving.
+					 *
+					 * @param mixed  $value           The value of the field.
+					 * @param string $field_id        The ID of the field.
+					 * @param object $validated_field The validated field object.
+					 */
 					$value = apply_filters( 'tribe_settings_save_field_value', $value, $field_id, $validated_field );
 
 					// Figure out the parent option [could be set to false] and filter it.
