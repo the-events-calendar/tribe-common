@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 5.1.7\n"
+"Project-Id-Version: Tribe Common 5.1.9\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-08-31T07:40:15-07:00\n"
-"PO-Revision-Date: 2023-08-31 14:40\n"
+"POT-Creation-Date: 2023-10-02T10:57:39-07:00\n"
+"PO-Revision-Date: 2023-10-02 17:57\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: tribe-common\n"
 
@@ -927,39 +927,39 @@ msgstr ""
 msgid "%1$s counts"
 msgstr ""
 
-#: src/Common/Telemetry/Telemetry.php:270
+#: src/Common/Telemetry/Telemetry.php:268
 msgid "See which plugins you have opted in to tracking for"
 msgstr ""
 
-#: src/Common/Telemetry/Telemetry.php:271
+#: src/Common/Telemetry/Telemetry.php:269
 msgid "We hope you love TEC Common!"
 msgstr ""
 
-#: src/Common/Telemetry/Telemetry.php:356
+#: src/Common/Telemetry/Telemetry.php:354
 msgid "We’re sorry to see you go."
 msgstr ""
 
-#: src/Common/Telemetry/Telemetry.php:357
+#: src/Common/Telemetry/Telemetry.php:355
 msgid "We’d love to know why you’re leaving so we can improve our plugin."
 msgstr ""
 
-#: src/Common/Telemetry/Telemetry.php:361
+#: src/Common/Telemetry/Telemetry.php:359
 msgid "I couldn’t understand how to make it work."
 msgstr ""
 
-#: src/Common/Telemetry/Telemetry.php:365
+#: src/Common/Telemetry/Telemetry.php:363
 msgid "I found a better plugin."
 msgstr ""
 
-#: src/Common/Telemetry/Telemetry.php:370
+#: src/Common/Telemetry/Telemetry.php:368
 msgid "I need a specific feature it doesn’t provide."
 msgstr ""
 
-#: src/Common/Telemetry/Telemetry.php:375
+#: src/Common/Telemetry/Telemetry.php:373
 msgid "The plugin doesn’t work."
 msgstr ""
 
-#: src/Common/Telemetry/Telemetry.php:380
+#: src/Common/Telemetry/Telemetry.php:378
 msgid "Other"
 msgstr ""
 
