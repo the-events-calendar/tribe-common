@@ -99,7 +99,7 @@ class Template_Utils {
 	 * @param string $post_name The post_name field to search by.
 	 * @param string $terms     The terms field to search by, default to 'tec'.
 	 *
-	 * @return WP_Block_Template|null The newly created WP_Block_Template, or null on error.
+	 * @return WP_Block_Template|null The newly created WP_Block_Template, or null on failure to locate.
 	 */
 	public static function find_block_template_by_post( string $post_name, string $terms = 'tec' ): ?WP_Block_Template {
 		// Let's see if we have a saved template?
