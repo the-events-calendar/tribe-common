@@ -20,7 +20,7 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 	 *
 	 * Returns formatted date
 	 * 
-	 * @since    TBD Added logic to handle French AM/PM time formats `g:i A` and `g:i a` display.
+	 * @since    TBD Introduced a temporary locale switch to handle the AM/PM format specifically for French language settings.
 	 *
 	 * @category Events
 	 *
