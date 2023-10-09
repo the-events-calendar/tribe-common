@@ -120,7 +120,7 @@ class Template_Utils {
 		$template_query = new WP_Query( $wp_query_args );
 		$posts          = $template_query->posts;
 
-		// If empty, this is our first time loading our Block Template. Let's create it.
+		// If empty, our Block Template has not been created in `wp_posts` yet.
 		if ( empty( $posts ) ) {
 			return null;
 		}
