@@ -656,14 +656,19 @@ final class Telemetry {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string,mixed> $args The data arguments to filter.
+	 * @param array<string,mixed> $args The array of data arguments to filter.
 	 *
-	 * @return array<string,mixed> $args The filtered data arguments.
+	 * @return array<string,mixed> $args The array of filtered data arguments.
 	 */
 	public function filter_data_args( $args ): array {
 		$tec_slugs = self::get_tec_telemetry_slugs();
+		$tec_slugs = array_keys( $tec_slugs ); // we don't need the path info for this.
+		$telemetry = json_decode( $args['telemetry'] );
+		error_log(gettype($telemetry));
 
-		foreach ( $tec_slugs as $slug => $path ) {
+		$telemetry->stellar_licenses = [];
+
+		foreach ( $tec_slugs as $slug ) {
 			if ( in_array( $slug, self::$base_parent_slugs ) ) {
 				continue;
 			}
@@ -676,7 +681,12 @@ final class Telemetry {
 				continue;
 			}
 
-			$args['plugins'][ $slug ]['license'] = $key;
+			$changed = true;
+			$telemetry->stellar_licenses[] = [ $slug => $key ];
+		}
+
+		if ( ! isset( $changed ) ) {
+			$args['telemetry'] = json_encode( $telemetry );
 		}
 
 		/**
