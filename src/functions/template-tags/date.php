@@ -54,10 +54,13 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 
 		$original_locale = get_locale();
 
+		// Check if the current locale is French and if the date format is using AM/PM.
+		$should_override = 'fr_FR' === $original_locale && ( 'g:i A' === $date_format || 'g:i a' === $date_format );
+
 		/**
 		 * Temporarily override locale to English (US) for French AM/PM time display, as French does not have a dedicated AM/PM system.
 		 */
-		if ( 'fr_FR' === $original_locale && ( 'g:i A' === $date_format || 'g:i a' === $date_format ) ) {
+		if ( $should_override ) {
 			switch_to_locale( 'en_US' );
 		}
 
@@ -66,7 +69,7 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 		/**
 		 * Revert back to original locale to ensure there are no unexpected side effects elsewhere.
 		 */
-		if ( 'fr_FR' === $original_locale && ( 'g:i A' === $date_format || 'g:i a' === $date_format ) ) {
+		if ( $should_override ) {
 			switch_to_locale( $original_locale );
 		}
 
