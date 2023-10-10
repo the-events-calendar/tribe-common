@@ -42,7 +42,7 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 
 		// Check if date formatting is in English format.
 		$this->assertEquals( '10:10 AM', $formattedDateA );
-		$this->assertEquals( '10:10 pm', $formattedDatea );  // Adjusted to expect lowercase
+		$this->assertEquals( '10:10 pm', $formattedDatea );
 
 		// Revert locale back to English
 		switch_to_locale( 'en_US' );
