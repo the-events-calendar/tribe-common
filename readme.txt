@@ -3,6 +3,7 @@
 = [5.1.12] TBD =
 
 * Fix - AM/PM time formats `g:i A` and `g:i a` are now respected for the French locale. [TEC-4807]
+* Fix - Keyboard controls were not working as one would expect for screen readers and accessibility needs, namely for Filter Bar dropdowns. Updated so tabbing and up/down selection of options works with keyboard input. [FBAR-311]
 
 = [5.1.9] 2023-10-03 =
 
