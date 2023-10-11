@@ -609,7 +609,6 @@ final class Telemetry {
 
 		// No entries - show modal.
 		if ( count( $shows ) < 1 ) {
-			error_log('no entries');
 			return true;
 		}
 
