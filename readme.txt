@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.1.10] 2023-10-10 =
+= [5.1.10] 2023-10-11 =
 
 * Tweak - Add the `tec_cache_listener_save_post_types` filter to allow filtering the post types that should trigger a cache invalidation on post save. [ET-1887]
 * Tweak - Updates to the Date_Based banner functionality. [ET-1890]
