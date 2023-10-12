@@ -1,6 +1,9 @@
 <?php
 
 use Tribe__Date_Utils as Dates;
+use TEC\Common\StellarWP\DB\DB;
+
+use function Crontrol\Event\delete;
 
 /**
  * @since 4.3
@@ -708,10 +711,36 @@ class Tribe__Admin__Notices {
 		}
 
 		$transient = self::$transient_notices_name;
+
+		// Manually grab the option from the database so unserialize doesn't happen automatically.
+		$transient_value = DB::get_var(
+			DB::table( 'options' )
+				->select( 'option_value' )
+				->where( 'option_name', "_transient_{$transient}" )
+				->getSQL()
+		);
+
+		// Check for serialized classes and if they exist. If any do not, wipe the transient and return an empty array.
+		if (
+			! empty( $transient_value )
+			&& preg_match_all( '/"[^"]*(TEC\\\\[A-Za-z0-9_\\\\]+)/', $transient_value, $matches )
+			&& ! empty( $matches[1] )
+		) {
+			foreach( $matches[1] as $class ) {
+				if ( class_exists( $class, false ) ) {
+					continue;
+				}
+
+				delete_transient( $transient );
+
+				return [];
+			}
+		}
+
 		$notices   = get_transient( $transient );
 		$notices   = is_array( $notices ) ? $notices : [];
 
-		if ( $this->did_prune_transients ) {
+		if ( ! $this->did_prune_transients ) {
 			$this->did_prune_transients = true;
 			foreach ( $notices as $key => $notice ) {
 				list( $html, $args, $expire_at ) = $notice;
