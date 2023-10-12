@@ -3,6 +3,7 @@
 = [5.1.10.1] 2023-10-12 =
 
 * Fix - Correct a problem that can cause a fatal when plugins are deactivated in a certain order. [TEC-4951]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.1.10] 2023-10-11 =
 
