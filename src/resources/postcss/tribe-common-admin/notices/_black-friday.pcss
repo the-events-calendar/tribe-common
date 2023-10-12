@@ -1,0 +1,201 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Tribe Common Admin - Black Friday Marketing Notice
+ *
+ * ----------------------------------------------------------------------------- */
+ @import "../../utilities/_all.pcss";
+
+.tribe-notice-black-friday {
+	--tec-bf-color-start: #00010c;
+	--tec-bf-color-end: #3D54FF;
+	--tec-bf-color-text: #F9FAF9;
+	--tec-bf-color-button-background: transparent;
+
+	background: linear-gradient(to right, var(--tec-bf-color-start), var(--tec-bf-color-end));
+	container: tec-bf-notice / inline-size;
+	font-family: 'Montserrat', sans-serif;
+
+	.tribe-marketing-notice {
+		flex-direction: column;
+		align-items: flex-start;
+		max-height: 367px;
+		overflow: hidden;
+
+		@container tec-bf-notice (min-width: 540px) {
+			align-items: center;
+			flex-direction: row;
+			max-height: 236px;
+		}
+
+		@container tec-bf-notice (min-width: 960px) {
+			max-height: 208px;
+		}
+
+		.tribe-marketing-notice__header,
+		.tribe-marketing-notice__content {
+			font-family: 'Montserrat', sans-serif;
+			color: var(--tec-bf-color-text);
+		}
+
+		.tribe-marketing-notice__content {
+			display: block;
+			font-weight: var(--tec-font-weight-regular);
+			margin: 0;
+			padding: 0;
+		}
+
+		.tribe-marketing-notice__header {
+			max-width: 278px;
+
+			@container tec-bf-notice (min-width: 540px) {
+				max-width: none;
+			}
+		}
+
+		.tribe-marketing-notice__content-wrapper {
+			max-width: 328px;
+			flex-grow: 1;
+
+			@container tec-bf-notice (min-width: 540px) {
+				max-width: none;
+			}
+		}
+
+		.tribe-marketing-notice__cta {
+			align-items: center;
+			border: 1px solid var(--tec-bf-color-text);
+			border-radius: 125px;
+			display: flex;
+			height: 44px;
+			justify-content: center;
+			margin-top: 20px;
+			margin-left: 0;
+			width: 136px;
+
+			a {
+				color: var(--tec-bf-color-text);
+			}
+
+			&:hover,
+			&:focus,
+			&:focus-within {
+				background-color: var(--tec-bf-color-text);
+
+				a {
+					color: var(--tec-bf-color-start);
+				}
+			}
+		}
+
+		.tribe-marketing-notice__image-wrapper {
+			bottom: 26px;
+			align-self: flex-end;
+			position: relative;
+
+			@container tec-bf-notice (min-width: 540px) {
+				bottom: -46px;
+				padding-left: 20px;
+			}
+
+			@container tec-bf-notice (min-width: 656px) {
+				bottom: -40px;
+			}
+		}
+
+		.tribe-marketing-notice__image {
+			height: 213px;
+			max-width: none;
+		}
+	}
+
+	.notice-dismiss {
+		align-self: flex-start;
+
+		&:before {
+			background-color: var(--tec-color-background);
+			background-image: svg-inline(close);
+			background-position: center;
+    		background-repeat: no-repeat;
+			background-size: 55%;
+			border-radius: 50%;
+			content: '';
+			height: 30px;
+			overflow: hidden;
+			width: 30px;
+		}
+	}
+}
+
+/* Old Black Friday Promo - unused?
+ * -------------------------------- */
+.black-friday-promo {
+	align-items: flex-start;
+	display: flex;
+	flex-direction: column-reverse;
+	justify-content: space-between;
+
+	@media (min-width: 1024px) {
+		align-items: center;
+		flex-direction: row;
+	}
+
+	.black-friday-promo__button {
+		background: #3d54ff;
+		border-color: transparent;
+		border-radius: 20px;
+		color: white;
+		font-size: 12px;
+		height: 34px;
+		line-height: 32px;
+		min-height: unset;
+		width: 115px;
+
+		&:hover,
+		&:active,
+		&:focus {
+			background: #1c39bb;
+			border-color: transparent;
+			color: white;
+		}
+	}
+}
+
+.black-friday-promo__promo {
+	background-position: center;
+	background-repeat: no-repeat;
+	border-radius: 10px;
+	display: grid;
+	grid-template-areas: "space promo-content";
+	grid-template-columns: auto 150px;
+	height: 150px;
+	margin: 10px 0;
+	max-width: 100%;
+	width: 450px;
+}
+
+.black-friday-promo__content {
+	grid-area: promo-content;
+	padding-top: 8px;
+	text-align: center;
+}
+
+.black-friday-promo__text {
+	color: #0f1031;
+	font-family: monospace;
+	font-size: 16px;
+	line-height: 1;
+	text-transform: uppercase;
+}
+
+.black-friday-promo__branding {
+	@media (min-width: 1024px) {
+		padding-right: 10px;
+		width: calc(100% - 450px);
+	}
+}
+
+.black-friday-promo__branding-image {
+	max-width: 390px;
+	width: 100%;
+}
+
