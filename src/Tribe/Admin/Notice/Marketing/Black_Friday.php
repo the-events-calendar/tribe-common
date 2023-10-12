@@ -40,14 +40,20 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 	/**
 	 * {@inheritDoc}
 	 */
+	public $icon_url = 'images/icons/horns-white.svg';
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public function display_notice() {
 		\Tribe__Assets::instance()->enqueue( [ 'tribe-common-admin' ] );
 
 		// Set up template variables.
 		$template_args = [
-			'icon_url' => \Tribe__Main::instance()->plugin_url . 'src/resources/images/icons/sale-burst.svg',
+			'icon_url' => tribe_resource_url( $this->icon_url, false, null, \Tribe__Main::instance() ),
 			'cta_url'  => 'https://evnt.is/1aqi',
-			'end_date' => $this->get_end_time()->format_i18n( 'F jS' ),
+			'start_date' => $this->get_start_time()->format( 'F jS' ),
+			'end_date' => $this->get_end_time()->format( 'F jS' ),
 		];
 
 		// Get the Black Friday notice content.
@@ -68,5 +74,25 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 		$date = $date->modify( '-3 days' );
 
 		return $date;
+	}
+
+	/**
+	 * Enqueue additional assets for the notice.
+	 *
+	 * @since 5.1.10
+	 */
+	public function enqueue_additional_assets() {
+		// Adds the Montserrat font from Google Fonts.
+		tribe_asset(
+			\Tribe__Main::instance(),
+			'tec-black-friday-font',
+			'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700',
+			null,
+			'admin_enqueue_scripts',
+			[
+				'type' => 'css',
+				'conditionals' => [ $this, 'should_display' ]
+			]
+		);
 	}
 }
