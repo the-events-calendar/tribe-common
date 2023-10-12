@@ -4,6 +4,17 @@
 
 * Fix - AM/PM time formats `g:i A` and `g:i a` are now respected for the French locale. [TEC-4807]
 
+= [5.1.10.1] 2023-10-12 =
+
+* Fix - Correct a problem that can cause a fatal when plugins are deactivated in a certain order. [TEC-4951]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.10] 2023-10-11 =
+
+* Tweak - Add the `tec_cache_listener_save_post_types` filter to allow filtering the post types that should trigger a cache invalidation on post save. [ET-1887]
+* Tweak - Updates to the Date_Based banner functionality. [ET-1890]
+* Language - 2 new strings added, 2 updated, 1 fuzzied, and 2 obsoleted
+
 = [5.1.9] 2023-10-03 =
 
 * Tweak - Updated focus state for relevant elements to have default outline ensuring improved accessibility and consistent browser behavior. [TEC-4888]
