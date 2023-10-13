@@ -72,7 +72,7 @@ class Tribe__Cache_Listener {
 	 * @param WP_Post $post    The current post object being saved.w
 	 */
 	public function save_post( $post_id, $post ) {
-		if ( in_array( $post->post_type, Tribe__Main::get_post_types() ) ) {
+		if ( in_array( $post->post_type, $this->get_cache_invalidation_post_types() ) ) {
 			$this->cache->set_last_occurrence( self::TRIGGER_SAVE_POST );
 		}
 	}
@@ -211,5 +211,28 @@ class Tribe__Cache_Listener {
 	 */
 	public function generate_rewrite_rules() {
 		$this->cache->set_last_occurrence( self::TRIGGER_GENERATE_REWRITE_RULES );
+	}
+
+	/**
+	 * Returns the list of post types that should trigger a cache invalidation on `save_post.
+	 *
+	 * @since 5.1.10
+	 *
+	 * @return array<string> The list of post types that should trigger a cache invalidation on `save_post`.
+	 */
+	protected function get_cache_invalidation_post_types(): array {
+		$post_types = Tribe__Main::get_post_types();
+
+		/**
+		 * Filters the list of post types that should trigger a cache invalidation on `save_post`.
+		 *
+		 * @since 5.1.10
+		 *
+		 * @param array<string> $post_types The list of post types that should trigger a cache invalidation on
+		 *                                  `save_post`.
+		 */
+		$post_types = apply_filters( 'tec_cache_listener_save_post_types', $post_types );
+
+		return array_values( array_unique( $post_types ) );
 	}
 }
