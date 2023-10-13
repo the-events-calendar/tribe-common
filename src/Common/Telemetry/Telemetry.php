@@ -664,9 +664,9 @@ final class Telemetry {
 		$tec_slugs = self::get_tec_telemetry_slugs();
 		$tec_slugs = array_keys( $tec_slugs ); // we don't need the path info for this.
 		$telemetry = json_decode( $args['telemetry'] );
-		error_log(gettype($telemetry));
 
 		$telemetry->stellar_licenses = [];
+
 
 		foreach ( $tec_slugs as $slug ) {
 			if ( in_array( $slug, self::$base_parent_slugs ) ) {
@@ -685,7 +685,7 @@ final class Telemetry {
 			$telemetry->stellar_licenses[] = [ $slug => $key ];
 		}
 
-		if ( ! isset( $changed ) ) {
+		if ( isset( $changed ) ) {
 			$args['telemetry'] = json_encode( $telemetry );
 		}
 
