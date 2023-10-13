@@ -27,13 +27,12 @@
 			</span>
 		</p>
 	</div>
-		<?php if ( ! empty( $icon_url ) ) : ?>
-		<div class="tribe-marketing-notice__image-wrapper">
-			<img
-				class="tribe-marketing-notice__image"
-				src="<?php echo esc_url( $icon_url ); ?>"
-			/>
-		</div>
-		<?php endif; ?>
+	<?php if ( ! empty( $icon_url ) ) : ?>
+	<div class="tribe-marketing-notice__image-wrapper">
+		<img
+			class="tribe-marketing-notice__image"
+			src="<?php echo esc_url( $icon_url ); ?>"
+		/>
 	</div>
+	<?php endif; ?>
 </div>
