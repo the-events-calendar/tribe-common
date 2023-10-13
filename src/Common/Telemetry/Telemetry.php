@@ -72,7 +72,7 @@ final class Telemetry {
 	];
 
 	/**
-	 * Path to main pugin file
+	 * Path to main plugin file
 	*
 	* @since 5.1.0
 	*
@@ -661,31 +661,12 @@ final class Telemetry {
 	 * @return array<string,mixed> $args The array of filtered data arguments.
 	 */
 	public function filter_data_args( $args ): array {
-		$tec_slugs = self::get_tec_telemetry_slugs();
-		$tec_slugs = array_keys( $tec_slugs ); // we don't need the path info for this.
-		$telemetry = json_decode( $args['telemetry'] );
+		// WE only want to mess with the data block.
+		$telemetry = json_decode( $args['telemetry'], true );
 
-		$telemetry->stellar_licenses = [];
+		list( $changed, $telemetry ) = $this->add_licenses( $telemetry );
 
-
-		foreach ( $tec_slugs as $slug ) {
-			if ( in_array( $slug, self::$base_parent_slugs ) ) {
-				continue;
-			}
-
-			$modified_slug = 'pue_install_key_' . str_replace( '-', '_', $slug );
-			// pue_install_key_events_calendar_pro, etc
-			$key = get_option( $modified_slug, null );
-
-			if ( empty( $key ) ) {
-				continue;
-			}
-
-			$changed = true;
-			$telemetry->stellar_licenses[] = [ $slug => $key ];
-		}
-
-		if ( isset( $changed ) ) {
+		if ( tribe_is_truthy( $changed ) ) {
 			$args['telemetry'] = json_encode( $telemetry );
 		}
 
@@ -699,5 +680,63 @@ final class Telemetry {
 		 * @return array<string,mixed> $args The filtered data arguments.
 		 */
 		return apply_filters( 'tec_telemetry_data_arguments', $args );
+	}
+
+	/**
+	 * Add premium plugin licenses to the telemetry data.
+	 *
+	 * @since TBD
+	 *
+	 * @param object $telemetry The telemetry data object.
+	 *
+	 * @return array<bool,object> and array in the format:
+	 * 		[
+	 * 			bool $changed   If the data has changed.
+	 * 			obj  $telemetry The (potentially modified) telemetry data object.
+	 * 		]
+	 */
+	protected function add_licenses( $telemetry ) {
+		// No data sent, bail safely.
+		if ( empty( $telemetry ) ){
+			return [ false, $telemetry ];
+		}
+
+		// We don't need the path info for this.
+		$tec_slugs = array_keys( self::get_tec_telemetry_slugs() );
+		// Remove parent slugs - they don't have licenses.
+		$tec_slugs = array_diff( $tec_slugs, self::$base_parent_slugs );
+
+		// Nothing to add, bail safely.
+		if ( empty( $tec_slugs ) ){
+			return [ false, $telemetry ];
+		}
+
+		if ( ! isset( $telemetry->stellar_licenses ) ) {
+			// Set up if it doesn't exist.
+			$telemetry->stellar_licenses = [];
+		} elseif( ! is_array( $telemetry->stellar_licenses ) ) {
+			// Make sure it's an array if it does exist.
+			$telemetry->stellar_licenses = (array) $telemetry->stellar_licenses;
+		}
+
+		foreach ( $tec_slugs as $slug ) {
+			$modified_slug = 'pue_install_key_' . str_replace( '-', '_', $slug );
+			// pue_install_key_events_calendar_pro, etc
+			$key = get_option( $modified_slug, null );
+
+			if ( empty( $key ) ) {
+				continue;
+			}
+
+			$telemetry->stellar_licenses[] = [ $slug => $key ];
+		}
+
+		if ( ! empty( $telemetry->stellar_licenses ) ) {
+			// return changed data set and flag.
+			return [ true, $telemetry ];
+		}
+
+		// Fallback - no changes.
+		return [ false, $telemetry ];
 	}
 }
