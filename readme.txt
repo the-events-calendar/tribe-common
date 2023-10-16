@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Remove ini_check for deprecated safe_mode. [TBD]
+
 = [5.1.10.1] 2023-10-12 =
 
 * Fix - Correct a problem that can cause a fatal when plugins are deactivated in a certain order. [TEC-4951]
