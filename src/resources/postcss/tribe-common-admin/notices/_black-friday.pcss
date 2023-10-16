@@ -5,7 +5,7 @@
  * ----------------------------------------------------------------------------- */
  @import "../../utilities/_all.pcss";
 
-.tribe-notice-black-friday {
+..notice-tribe-banner.tribe-notice-black-friday {
 	--tec-bf-color-start: #00010c;
 	--tec-bf-color-end: #3D54FF;
 	--tec-bf-color-text: #F9FAF9;
@@ -39,12 +39,14 @@
 
 		.tribe-marketing-notice__content {
 			display: block;
+			font-size: var(--tec-font-size-5);
 			font-weight: var(--tec-font-weight-regular);
 			margin: 0;
 			padding: 0;
 		}
 
 		.tribe-marketing-notice__header {
+			font-size: var(--tec-font-size-6);
 			max-width: 278px;
 
 			@container tec-bf-notice (min-width: 540px) {
@@ -74,6 +76,7 @@
 
 			a {
 				color: var(--tec-bf-color-text);
+				text-decoration: none;
 			}
 
 			&:hover,
@@ -83,6 +86,7 @@
 
 				a {
 					color: var(--tec-bf-color-start);
+					text-decoration: none;
 				}
 			}
 		}
