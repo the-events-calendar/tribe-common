@@ -31,22 +31,24 @@
 			max-height: 208px;
 		}
 
-		.tribe-marketing-notice__header,
+		h3.tribe-marketing-notice__header,
 		.tribe-marketing-notice__content {
 			font-family: 'Montserrat', sans-serif;
 			color: var(--tec-bf-color-text);
+			margin: 0;
+			padding: 0;
 		}
 
 		.tribe-marketing-notice__content {
 			display: block;
 			font-size: var(--tec-font-size-5);
 			font-weight: var(--tec-font-weight-regular);
-			margin: 0;
-			padding: 0;
+			line-height: var(--tec-line-height-1);
 		}
 
-		.tribe-marketing-notice__header {
+		h3.tribe-marketing-notice__header {
 			font-size: var(--tec-font-size-6);
+			line-height: var(--tec-line-height-2);
 			max-width: 278px;
 
 			@container tec-bf-notice (min-width: 540px) {
@@ -57,6 +59,7 @@
 		.tribe-marketing-notice__content-wrapper {
 			max-width: 328px;
 			flex-grow: 1;
+			-webkit-font-smoothing: antialiased;
 
 			@container tec-bf-notice (min-width: 540px) {
 				max-width: none;
