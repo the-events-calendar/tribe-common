@@ -68,7 +68,7 @@ trait Collection_Trait {
 	 * {@inheritDoc}
 	 */
 	#[\ReturnTypeWillChange]
-	public function offsetExists( $offset ) {
+	public function offsetExists( $offset ): bool {
 		$items = $this->all();
 
 		return isset( $items[ $offset ] );

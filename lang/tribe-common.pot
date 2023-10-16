@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 5.0.14\n"
+"Project-Id-Version: Tribe Common 5.1.10\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-03-29T07:43:45-07:00\n"
-"PO-Revision-Date: 2023-03-29 14:43\n"
+"POT-Creation-Date: 2023-10-07T21:56:26-07:00\n"
+"PO-Revision-Date: 2023-10-08 04:56\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: tribe-common\n"
 
@@ -486,25 +486,51 @@ msgid "Get 30% off on all plugins from now through December 31."
 msgstr ""
 
 #: src/admin-views/notices/end-of-year-sale.php:25
-#: src/admin-views/notices/tribe-bf-general.php:26
 msgid "Shop now"
 msgstr ""
 
 #: src/admin-views/notices/tribe-bf-general.php:17
-msgid "Save 40% on every single plugin."
+msgid "Save 40% on The Events Calendar"
 msgstr ""
 
-#: src/admin-views/notices/tribe-bf-general.php:19
-msgid "Black Friday Sale now through %s."
+#: src/admin-views/notices/tribe-bf-general.php:20
+msgid "Upgrade and purchase new products during the Black Friday Sale."
 msgstr ""
 
-#: src/admin-views/notices/tribe-stellar-sale.php:21
-msgid "<b>40%% off</b> all WordPress solutions through %1$s."
-msgstr ""
-
-#: src/admin-views/notices/tribe-stellar-sale.php:26
+#: src/admin-views/notices/tribe-bf-general.php:25
+#: src/admin-views/notices/tribe-stellar-sale-premium.php:24
+#: src/admin-views/notices/tribe-stellar-sale-premium.php:38
+#: src/admin-views/notices/tribe-stellar-sale.php:24
+#: src/admin-views/notices/tribe-stellar-sale.php:38
 msgctxt "Shop now link text"
 msgid "Shop now"
+msgstr ""
+
+#: src/admin-views/notices/tribe-stellar-sale-premium.php:16
+msgid "Make it stellar."
+msgstr ""
+
+#: src/admin-views/notices/tribe-stellar-sale-premium.php:19
+msgid "Save 30% on all StellarWP products."
+msgstr ""
+
+#: src/admin-views/notices/tribe-stellar-sale-premium.php:32
+#: src/admin-views/notices/tribe-stellar-sale.php:32
+msgid "Purchase any StellarWP product during the sale and get <b>100%</b> off WP Business Reviews and take <b>40%</b> off all other brands."
+msgstr ""
+
+#: src/admin-views/notices/tribe-stellar-sale-premium.php:46
+#: src/admin-views/notices/tribe-stellar-sale.php:46
+msgctxt "View all StellarWP Deals link text"
+msgid "View all StellarWP Deals"
+msgstr ""
+
+#: src/admin-views/notices/tribe-stellar-sale.php:16
+msgid "Make it yours."
+msgstr ""
+
+#: src/admin-views/notices/tribe-stellar-sale.php:19
+msgid "Save 30% on all The Events Calendar products."
 msgstr ""
 
 #: src/admin-views/notices/upsell/icon.php:19
@@ -755,8 +781,8 @@ msgid "License & Usage"
 msgstr ""
 
 #: src/admin-views/troubleshooting/ea-status/license-key.php:44
-#: src/Tribe/PUE/Checker.php:620
-#: src/Tribe/PUE/Checker.php:631
+#: src/Tribe/PUE/Checker.php:629
+#: src/Tribe/PUE/Checker.php:640
 msgid "License Key"
 msgstr ""
 
@@ -894,6 +920,47 @@ msgstr ""
 
 #: src/admin-views/troubleshooting/system-information.php:28
 msgid "* Your system information will only be used by The Events Calendar support team. All information is stored securely. We do not share this information with any third parties."
+msgstr ""
+
+#. Translators: %1$s the post type label.
+#: src/Common/Site_Health/Fields/Post_Status_Count_Field.php:54
+msgid "%1$s counts"
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:268
+msgid "See which plugins you have opted in to tracking for"
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:269
+msgid "We hope you love TEC Common!"
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:354
+msgid "We’re sorry to see you go."
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:355
+msgid "We’d love to know why you’re leaving so we can improve our plugin."
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:359
+msgid "I couldn’t understand how to make it work."
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:363
+msgid "I found a better plugin."
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:368
+msgid "I need a specific feature it doesn’t provide."
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:373
+msgid "The plugin doesn’t work."
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:378
+msgid "Other"
 msgstr ""
 
 #: src/functions/template-tags/html.php:101
@@ -3035,89 +3102,89 @@ msgstr ""
 msgid "Null logger (will log nothing)"
 msgstr ""
 
-#: src/Tribe/Main.php:389
+#: src/Tribe/Main.php:403
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:390
+#: src/Tribe/Main.php:404
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:392
+#: src/Tribe/Main.php:406
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:393
+#: src/Tribe/Main.php:407
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:394
+#: src/Tribe/Main.php:408
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:395
+#: src/Tribe/Main.php:409
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:396
+#: src/Tribe/Main.php:410
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:397
+#: src/Tribe/Main.php:411
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:398
+#: src/Tribe/Main.php:412
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:399
+#: src/Tribe/Main.php:413
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:400
+#: src/Tribe/Main.php:414
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:401
+#: src/Tribe/Main.php:415
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:403
+#: src/Tribe/Main.php:417
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:404
-#: src/Tribe/Main.php:421
+#: src/Tribe/Main.php:418
+#: src/Tribe/Main.php:435
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:405
+#: src/Tribe/Main.php:419
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:410
+#: src/Tribe/Main.php:424
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:411
+#: src/Tribe/Main.php:425
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:422
+#: src/Tribe/Main.php:436
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:423
-#: src/Tribe/Main.php:425
+#: src/Tribe/Main.php:437
+#: src/Tribe/Main.php:439
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:424
+#: src/Tribe/Main.php:438
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:426
+#: src/Tribe/Main.php:440
 msgid "Clear"
 msgstr ""
 
@@ -3445,94 +3512,94 @@ msgstr ""
 msgid "Promoter Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:605
+#: src/Tribe/PUE/Checker.php:614
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:608
+#: src/Tribe/PUE/Checker.php:617
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:640
-#: src/Tribe/PUE/Checker.php:674
+#: src/Tribe/PUE/Checker.php:649
+#: src/Tribe/PUE/Checker.php:683
 msgid "License Key Status:"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:649
+#: src/Tribe/PUE/Checker.php:658
 msgid "Override network license key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:650
+#: src/Tribe/PUE/Checker.php:659
 msgid "Check this box if you wish to override the network license key with your own"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:661
+#: src/Tribe/PUE/Checker.php:670
 msgid "Site License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:761
+#: src/Tribe/PUE/Checker.php:770
 msgid "License key(s) updated."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1015
+#: src/Tribe/PUE/Checker.php:1024
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1028
+#: src/Tribe/PUE/Checker.php:1037
 msgid "unknown date"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1034
+#: src/Tribe/PUE/Checker.php:1043
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1060
+#: src/Tribe/PUE/Checker.php:1069
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1065
+#: src/Tribe/PUE/Checker.php:1074
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1094
+#: src/Tribe/PUE/Checker.php:1103
 #: src/Tribe/PUE/Notices.php:360
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1096
+#: src/Tribe/PUE/Checker.php:1105
 #: src/Tribe/PUE/Notices.php:362
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1113
+#: src/Tribe/PUE/Checker.php:1122
 msgid "Please refresh the page and try your request again."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1133
+#: src/Tribe/PUE/Checker.php:1142
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1190
+#: src/Tribe/PUE/Checker.php:1199
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1220
+#: src/Tribe/PUE/Checker.php:1229
 msgid "Update now to version %s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1231
+#: src/Tribe/PUE/Checker.php:1240
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1812
+#: src/Tribe/PUE/Checker.php:1823
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1813
+#: src/Tribe/PUE/Checker.php:1824
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1814
+#: src/Tribe/PUE/Checker.php:1825
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
@@ -3572,7 +3639,7 @@ msgstr ""
 msgid "Could not delete post with ID "
 msgstr ""
 
-#: src/Tribe/Service_Providers/Onboarding.php:109
+#: src/Tribe/Service_Providers/Onboarding.php:111
 msgid "Got it"
 msgstr ""
 
@@ -3605,21 +3672,21 @@ msgstr ""
 msgid "The request wasn't sent from this tab."
 msgstr ""
 
-#: src/Tribe/Settings.php:646
+#: src/Tribe/Settings.php:653
 msgid "Your form had the following errors:"
 msgstr ""
 
-#: src/Tribe/Settings.php:657
+#: src/Tribe/Settings.php:664
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Settings.php:678
+#: src/Tribe/Settings.php:685
 msgid "Settings saved."
 msgstr ""
 
-#: src/Tribe/Settings_Tab.php:222
+#: src/Tribe/Settings_Tab.php:225
 msgid "There are no fields set up for this tab yet."
 msgstr ""
 

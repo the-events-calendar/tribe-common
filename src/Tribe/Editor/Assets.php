@@ -110,6 +110,7 @@ class Tribe__Editor__Assets {
 	 * Filter the dependencies for event blocks
 	 *
 	 * @since 4.14.2
+	 * @since 5.1.9 Added lodash to the dependencies.
 	 *
 	 * @param array|object|null $assets Array of asset objects, single asset object, or null.
 	 *
@@ -128,6 +129,7 @@ class Tribe__Editor__Assets {
 			'wp-i18n',
 			'wp-element',
 			'wp-editor',
+			'lodash',
 		];
 
 		if ( 'post.php' !== $pagenow && 'post-new.php' !== $pagenow ) {

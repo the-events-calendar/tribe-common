@@ -4,8 +4,11 @@ namespace TEC\Common\Libraries\Installer;
 
 use TEC\Common\Libraries;
 use TEC\Common\StellarWP\Installer;
+use TEC\Common\Contracts\Service_Provider;
 
-class Provider extends \tad_DI52_ServiceProvider {
+
+class Provider extends Service_Provider {
+
 	/**
 	 * Binds and sets up implementations.
 	 *
@@ -16,7 +19,11 @@ class Provider extends \tad_DI52_ServiceProvider {
 
 		$hook_prefix = $this->container->make( Libraries\Provider::class )->get_hook_prefix();
 
-		Installer\Config::set_hook_prefix( $hook_prefix );
+		try {
+			Installer\Config::set_hook_prefix( $hook_prefix );
+		} catch ( \Exception $e ) {
+			// Ignore.
+		}
 
 		add_filter( "stellarwp/installer/{$hook_prefix}/button_classes", [ $this, 'filter_button_classes' ] );
 	}

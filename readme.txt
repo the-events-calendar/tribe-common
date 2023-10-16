@@ -1,5 +1,106 @@
 == Changelog ==
 
+= [5.1.10.1] 2023-10-12 =
+
+* Fix - Correct a problem that can cause a fatal when plugins are deactivated in a certain order. [TEC-4951]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.10] 2023-10-11 =
+
+* Tweak - Add the `tec_cache_listener_save_post_types` filter to allow filtering the post types that should trigger a cache invalidation on post save. [ET-1887]
+* Tweak - Updates to the Date_Based banner functionality. [ET-1890]
+* Language - 2 new strings added, 2 updated, 1 fuzzied, and 2 obsoleted
+
+= [5.1.9] 2023-10-03 =
+
+* Tweak - Updated focus state for relevant elements to have default outline ensuring improved accessibility and consistent browser behavior. [TEC-4888]
+* Fix - Resolved "Uncaught ReferenceError: lodash is not defined" error by adding `lodash` as a dependency for the Block Editor Assets. [ECP-1575]
+* Language - 0 new strings added, 9 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.8.1] 2023-09-28 =
+
+* Fix - Correct issue where Telemetry would register active plugins multiple times. [TEC-4920]
+* Fix - Ensure Telemetry's `register_tec_telemetry_plugins()` only runs on the plugins page i.e. on plugin activation. [TEC-4920]
+
+= [5.1.8] 2023-09-13 =
+
+* Tweak - Compress the size of all images used by the Common module, to reduce the size of the plugin
+* Tweak - Set background image to none on the button element to prevent general button styling overrides. [ET-1815]
+
+= [5.1.7] 2023-09-05 =
+
+* Fix - Broken UI on the WYSIWYG field in the Additional Content section of the admin display settings. [TEC-4861]
+* Fix - Resolves a plugin integration bug that happens in certain scenarios with instantiating `Firebase\JWT` library classes. In these scenarios you would see a fatal error similar to `Uncaught TypeError: TEC\Common\Firebase\JWT\JWT::getKey(): Return value must be of type TEC\Common\Firebase\JWT\Key, OpenSSLAsymmetricKey returned..` [TEC-4866]
+* Fix - WP Rewrite was being incorrectly initialized in some scenarios due to container DI, and causing some 404s. This was affecting classes that extend the `Tribe__Rewrite`. [TEC-4844]
+* Tweak - Add checks to ensure that settings don't pass null to wp_kses() or esc_attr() [TBD]
+* Language - 0 new strings added, 6 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.6] 2023-08-15 =
+
+* Feature - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
+* Tweak - Added filters: `tec_block_has_block`, `tec_block_{$block_name}_has_block`, `tec_common_rewrite_dynamic_matchers`, `tec_shortcode_aliased_arguments`, `tec_shortcode_{$registration_slug}_aliased_arguments`
+* Language - 0 new strings added, 23 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.5] 2023-08-15 =
+
+* This version was skipped due to a merge and packaging issue.
+
+= [5.1.4] 2023-08-10 =
+
+* Feature - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
+* Fix  - Make use of `wp_date` to format dates and avoid translation issues with translating month names in other languages. [ET-1820]
+* Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
+* Tweak - Correct some issues around PHP 8.1 deprecations. [TEC-4871]
+* Tweak - Added filters: `tec_integration:should_load`, `tec_integration:{$parent}/should_load`, `tec_integration:{$parent}/{$type}/should_load`, `tec_integration:{$parent}/{$type}/{$slug}/should_load`, `tec_debug_info_sections`, `tec_site_heath_event_stati`, `tec_debug_info_field_get_{$param}`, `tec_debug_info_field_{$field_id}_get_{$param}`, `tec_debug_info_section_get_{$param}`, `tec_debug_info_section_{$section_slug}_get_{$param}`, `tec_common_timed_option_is_active`, `tec_common_timed_option_name`, `tec_common_timed_option_default_value`, `tec_common_timed_option_pre_value`, `tec_common_timed_option_value`, `tec_common_timed_option_pre_exists`, `tec_common_timed_option_exists`, `tec_telemetry_migration_should_load`, `tec_common_telemetry_permissions_url`, `tec_common_telemetry_terms_url`, `tec_common_telemetry_privacy_url`, `tec_common_telemetry_show_optin_modal`, `tec_telemetry_slugs`, `tec_admin_update_page_bypass`, `tec_disable_logging`, `tec_common_parent_plugin_file`, `tec_model_{$this->get_cache_slug()}_read_cache_properties`, `tec_model_{$this->get_cache_slug()}_put_cache_properties`, `tec_pue_invalid_key_notice_plugins`, `tec_pue_expired_key_notice_plugins`, `tec_pue_upgrade_key_notice_plugins`, `tec_common_rewrite_localize_matcher`
+* Tweak - Removed filters: `tribe_google_data_markup_json`, `tribe_general_settings_tab_fields`
+* Tweak - Added actions: `tec_container_registered_provider`, `tec_container_registered_provider_`, `tribe_log`, `tec_telemetry_auto_opt_in`, `tec_common_telemetry_preload`, `tec_common_telemetry_loaded`, `stellarwp/telemetry/optin`, `tec_locale_translations_load_before`, `tec_locale_translations_load_after`, `tec_locale_translations_restore_before`, `tec_locale_translations_restore_after`
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.3] 2023-07-13 =
+
+* Tweak - Prevents Telemetry servers from being hit when migrating from Freemius to Telemetry more than once.
+* Tweak - Various improvements to event creation to improve sanitization.
+* Tweak - Update Stellar Sale banner. [TEC-4841]
+* Fix - Properly handle plugin paths on Windows during telemetry booting. [TEC-4842]
+* Language - 16 new strings added, 24 updated, 1 fuzzied, and 1 obsoleted.
+
+= [5.1.2.2] 2023-06-23 =
+
+* Fix - Ensure there is backwards compatibility with Extensions and Pods.
+
+= [5.1.2.1] 2023-06-22 =
+
+* Fix - Prevent Telemetry from being initialized and triggering a Fatal when the correct conditionals are not met.
+
+= [5.1.2] 2023-06-22 =
+
+* Fix - Lock our container usage(s) to the new Service_Provider contract in tribe-common. This prevents conflicts and potential fatals with other plugins that use a di52 container.
+
+= [5.1.1.2] 2023-06-21 =
+
+* Fix - Adjusted our PHP Exception usage to protect against third-party code causing fatals when attempting to access objects that have not been initialized.
+
+= [5.1.1.1] 2023-06-20 =
+
+* Fix - Adding Configuration feature, to enable simple feature flag and other checks, with less boilerplate. See [readme](https://github.com/the-events-calendar/tribe-common/pull/1923/files#diff-cf03646ad083f81f8ec80bbdd775d8ac45c75c7bc1bf302f6fb06dfa34a1dc64) for more details. [ECP-1505]
+* Fix - In some scenarios the garbage collection of our query filters would slow page speeds. Removed garbage collection for the filters. [ECP-1505]
+* Fix - Increase the reliability of Telemetry initialization for Event Tickets loading [TEC-4836]
+
+= [5.1.1] 2023-06-15 =
+
+* Feature - Include a Integrations framework that was ported from The Events Calendar.
+* Enhancement - Made settings field widths more uniform and mobile-friendly. [ET-1734]
+* Fix - Change image field styling for a better look and user experience.
+
+= [5.1.0] 2023-06-14 =
+
+* Feature - Replace Freemius with Telemetry - an in-house info system. [TEC-4700]
+* Feature - Add architecture for adding our plugins to the Site Health admin page. [TEC-4701]
+* Fix - Elementor and other themes would inadvertently override styles on the tickets button, when the global styles were set. This hardens the common button (rsv/ticket button) styles a bit more. [TEC-4794]
+* Tweak - Update our container architecture.
+* Tweak - Added filters: `tec_common_rewrite_localize_matcher`
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
 = [5.0.17] 2023-05-08 =
 
 * Feature - Add the `TEC\Provider\Controller` abstract class to kick-start Controllers and the `TEC\Common\Tests\Provider\Controller_Test_Case` class to test them.

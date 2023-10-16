@@ -240,7 +240,7 @@ interface Core_Read_Interface {
 	 * Sugar method to set the `s` argument.
 	 *
 	 * Successive calls will replace the search string.
-	 * This is the default WordPress searh, to search by title,
+	 * This is the default WordPress search, to search by title,
 	 * content or excerpt only use the `title`, `content`, `excerpt` filters.
 	 *
 	 * @param $search

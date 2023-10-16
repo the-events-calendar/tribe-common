@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'Tribe__Main' ) ) {
+if ( class_exists( 'Tribe__Main', false ) ) {
 	return;
 }
 
@@ -23,12 +23,21 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '5.0.17';
+	const VERSION             = '5.1.10.1';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
+
+	/**
+	 * Holds the path to the main file of the parent plugin.
+	 *
+	 * @since 5.1.0
+	 *
+	 * @var string
+	 */
+	protected $parent_plugin_file ='';
 
 	public static $tribe_url = 'http://tri.be/';
 	public static $tec_url   = 'https://theeventscalendar.com/';
@@ -36,6 +45,7 @@ class Tribe__Main {
 	public $plugin_dir;
 	public $plugin_path;
 	public $plugin_url;
+	public $parent_plugin_dir;
 
 	/**
 	 * Static Singleton Holder
@@ -71,10 +81,11 @@ class Tribe__Main {
 			return;
 		}
 
-		require_once realpath( dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/autoload.php' );
-		require_once realpath( dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/vendor-prefixed/autoload.php' );
+		$vendor_folder = dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/';
+		require_once realpath( $vendor_folder . 'vendor-prefixed/autoload.php' );
+		require_once realpath( $vendor_folder . 'autoload.php' );
 
-		// the DI container class
+		// The DI container class.
 		require_once dirname( __FILE__ ) . '/Container.php';
 
 		if ( is_object( $context ) ) {
@@ -84,8 +95,8 @@ class Tribe__Main {
 
 		$this->plugin_path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
-		$parent_plugin_dir = trailingslashit( plugin_basename( $this->plugin_path ) );
-		$this->plugin_url  = plugins_url( $parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $parent_plugin_dir );
+		$this->parent_plugin_dir = trailingslashit( plugin_basename( $this->plugin_path ) );
+		$this->plugin_url  = plugins_url( $this->parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $this->parent_plugin_dir );
 
 		$this->promoter_connector();
 
@@ -137,6 +148,9 @@ class Tribe__Main {
 		if ( ! class_exists( 'Tribe__Autoloader' ) ) {
 			require_once dirname( __FILE__ ) . '/Autoloader.php';
 		}
+
+		// Aliases for backwards compatibility with our Extensions and Pods.
+		require_once realpath( dirname( dirname( __FILE__ ) ) . '/functions/aliases.php' );
 
 		$autoloader = Tribe__Autoloader::instance();
 
@@ -705,7 +719,6 @@ class Tribe__Main {
 		tribe_singleton( 'post-transient', 'Tribe__Post_Transient' );
 		tribe_singleton( 'db', 'Tribe__Db' );
 		tribe_singleton( 'db-lock', DB_Lock::class );
-		tribe_singleton( 'freemius', 'Tribe__Freemius' );
 		tribe_singleton( 'customizer', 'Tribe__Customizer' );
 		tribe_singleton( Tribe__Dependency::class, Tribe__Dependency::class );
 		tribe_singleton( \Tribe\Admin\Troubleshooting::class, \Tribe\Admin\Troubleshooting::class, [ 'hook' ] );
@@ -731,6 +744,11 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
 		tribe_register_provider( Tribe\Admin\Conditional_Content\Service_Provider::class );
 		tribe_register_provider( Libraries\Provider::class );
+
+		// Load the new third-party integration system.
+		tribe_register_provider( TEC\Common\Integrations\Provider::class );
+		tribe_register_provider( TEC\Common\Site_Health\Provider::class );
+		tribe_register_provider( TEC\Common\Telemetry\Provider::class );
 	}
 
 	/**
@@ -749,6 +767,37 @@ class Tribe__Main {
 			'determine_current_user',
 			tribe_callback( 'promoter.connector', 'authenticate_user_with_connector' )
 		);
+	}
+
+	/**
+	 * Get the common library's parent plugin file path.
+	 *
+	 * @since 5.1.0
+	 *
+	 * @return string The path to the parent plugin file.
+	 */
+	public function get_parent_plugin_file_path(): string {
+		/**
+		 * Allows plugins to hook in and declare themselves the parent of common.
+		 * Used by Telemetry to determine which plugin to associate with.
+		 *
+		 * @since 5.1.0
+		 *
+		 * @var string $parent_plugin_file The current path to the parent plugin file.
+		 *
+		 */
+		$paths = apply_filters( 'tec_common_parent_plugin_file', [] );
+
+		foreach( $paths as $path ) {
+			$path      = wp_normalize_path( $path );
+			$test_path = str_ireplace( '/common', '', $this->parent_plugin_dir );
+
+			if ( stripos( $path, $test_path ) ) {
+				return $path;
+			}
+		}
+
+		return '';
 	}
 
 
