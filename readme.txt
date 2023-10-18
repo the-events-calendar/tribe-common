@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.1.12] TBD =
+= [5.1.11] 2023-10-19 =
 
 * Fix - AM/PM time formats `g:i A` and `g:i a` are now respected for the French locale. [TEC-4807]
 
