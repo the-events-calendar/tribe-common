@@ -7,7 +7,7 @@
  * @package Common\Blocks;
  */
 
-namespace Common\Blocks;
+namespace TEC\Common\Blocks;
 
 /**
  * Interface Block_Interface.
