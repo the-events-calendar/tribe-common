@@ -1,9 +1,11 @@
 == Changelog ==
 
-= [5.1.12] TBD =
+= [5.1.11] 2023-10-19 =
 
 * Tweak - Changed scope of the Tribe__Editor__Blocks__Abstract::$namespace property to protected. [TEC-4792]
 * Fix - AM/PM time formats `g:i A` and `g:i a` are now respected for the French locale. [TEC-4807]
+* Tweak - Pass the appropriate arguments to telemetry opt-ins.
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.1.10.1] 2023-10-12 =
 
