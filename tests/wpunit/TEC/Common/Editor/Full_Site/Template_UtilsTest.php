@@ -69,6 +69,7 @@ class Template_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( false, $block_template->has_theme_file );
 		$this->assertEquals( true, $block_template->is_custom );
 		$this->assertEquals( $user_id, $block_template->author );
+		$this->assertEquals( $post->post_modified, $block_template->modified );
 
 		wp_set_current_user( 0 );
 	}
