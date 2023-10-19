@@ -185,7 +185,7 @@ class Template_Utils {
 	 *
 	 * @param WP_Post $post The post to hydrate the WP_Block_Template.
 	 *
-	 * @return WP_Block_Template|null The newly created WP_Block_Template, or null on error.
+	 * @return WP_Block_Template|null The newly created WP_Block_Template, or null if missing required data.
 	 */
 	public static function hydrate_block_template_by_post( WP_Post $post ): ?WP_Block_Template {
 		$terms = get_the_terms( $post, 'wp_theme' );
