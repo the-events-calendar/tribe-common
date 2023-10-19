@@ -563,6 +563,7 @@ class Tribe__Assets {
 	 * Register an Asset and attach a callback to the required action to display it correctly.
 	 *
 	 * @since 4.3
+	 * @since 5.2 The `$in_footer` parameter was expanded to accept a boolean or an array, mirroring the change in WordPress core.
 	 *
 	 * @param object            $origin    The main object for the plugin you are enqueueing the asset for.
 	 * @param string            $slug      Slug to save the asset - passes through `sanitize_title_with_dashes()`.
@@ -580,7 +581,7 @@ class Tribe__Assets {
 	 *     @type array              $deps           An array of other asset as dependencies.
 	 *     @type string             $version        Version number, used for cache expiring.
 	 *     @type string             $media          Used only for CSS, when to load the file.
-	 *     @type bool               $in_footer      A boolean determining if the javascript should be loaded on the footer.
+	 *     @type bool|array         $in_footer      A boolean determining if the javascript should be loaded on the footer; or an array of arguments.
 	 *     @type array|object       $localize       {
 	 *          Variables needed on the JavaScript side.
 	 *
