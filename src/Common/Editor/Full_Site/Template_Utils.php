@@ -209,6 +209,7 @@ class Template_Utils {
 		$template->has_theme_file = false;
 		$template->is_custom      = true;
 		$template->author         = $post->post_author;
+		$template->modified       = $post->post_modified;
 
 		return $template;
 	}
