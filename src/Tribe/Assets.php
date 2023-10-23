@@ -710,7 +710,7 @@ class Tribe__Assets {
 
 		// Clean these
 		$asset->priority  = absint( $asset->priority );
-		$asset->in_footer = $asset->in_footer; // Since WordPress 6.3, this parameter accepts an array argument.
+		$asset->in_footer = is_array($asset->in_footer) ? $asset->in_footer : (bool)$asset->in_footer; // Since WordPress 6.3, this parameter accepts an array argument.
 		$asset->media     = esc_attr( $asset->media );
 
 		// Ensures that we have a priority over 1.
