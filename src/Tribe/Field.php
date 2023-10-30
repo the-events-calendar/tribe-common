@@ -68,6 +68,95 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 */
 		public $settings;
 
+		/**
+		 * @var string
+		 */
+		public $type;
+
+		/**
+		 * @var string
+		 */
+		public $class;
+
+		/**
+		 * @var string
+		 */
+		public $label;
+
+		/**
+		 * @var array
+		 */
+		public $label_attributes;
+
+		/**
+		 * @var string
+		 */
+		public $error;
+
+		/**
+		 * @var string
+		 */
+		public $tooltip;
+
+		/**
+		 * @var string
+		 */
+		public $size;
+
+		/**
+		 * @var string
+		 */
+		public $html;
+
+		/**
+		 * @var array
+		 */
+		public $options;
+
+		/**
+		 * @var string
+		 */
+		public $value;
+
+		/**
+		 * @var boolean
+		 */
+		public $conditional;
+
+		/**
+		 * @var string
+		 */
+		public $placeholder;
+
+		/**
+		 * @var closure
+		 */
+		public $display_callback;
+
+		/**
+		 * @var string
+		 */
+		public $if_empty;
+
+		/**
+		 * @var boolean
+		 */
+		public $can_be_empty;
+
+		/**
+		 * @var boolean
+		 */
+		public $clear_after;
+
+		/**
+		 * @var boolean
+		 */
+		public $tooltip_first;
+
+		/**
+		 * @var boolean
+		 */
+		public $allow_clear;
 
 		/**
 		 * Class constructor
