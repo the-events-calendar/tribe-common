@@ -291,7 +291,7 @@ implements Tribe__Editor__Blocks__Interface {
 	 *
 	 * @return string|WP_Block_Type The block type argument that will be used to register the block.
 	 */
-	protected function get_registration_block_type() {
+	public function get_registration_block_type() {
 		return $this->name();
 	}
 
@@ -306,7 +306,7 @@ implements Tribe__Editor__Blocks__Interface {
 	 *
 	 * @return array<string,mixed> The arguments to use when registering the block.
 	 */
-	protected function get_registration_args( array $args ): array {
+	public function get_registration_args( array $args ): array {
 		return $args;
 	}
 }
