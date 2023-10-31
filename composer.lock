@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "21a576846805bcaa49add0b200fe1fb4",
+    "content-hash": "0e036488fe815e97fd743ebcaa5c3133",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -446,16 +446,16 @@
         },
         {
             "name": "stellarwp/telemetry",
-            "version": "2.0.0",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/telemetry.git",
-                "reference": "e02f117dd260fc3d55fae28ec1dcfccfb83c9ea9"
+                "reference": "91a1b700cb78321cfe74885ce131bb8a0f8d000b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/e02f117dd260fc3d55fae28ec1dcfccfb83c9ea9",
-                "reference": "e02f117dd260fc3d55fae28ec1dcfccfb83c9ea9",
+                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/91a1b700cb78321cfe74885ce131bb8a0f8d000b",
+                "reference": "91a1b700cb78321cfe74885ce131bb8a0f8d000b",
                 "shasum": ""
             },
             "require": {
@@ -465,21 +465,16 @@
             },
             "require-dev": {
                 "automattic/vipwpcs": "^2.3",
-                "codeception/module-asserts": "^1.0",
-                "codeception/module-cli": "^1.0",
-                "codeception/module-db": "^1.0",
-                "codeception/module-filesystem": "^1.0",
-                "codeception/module-phpbrowser": "^1.0",
-                "codeception/module-webdriver": "^1.0",
-                "codeception/util-universalframework": "^1.0",
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
                 "lucatume/di52": "3.0.0",
-                "lucatume/wp-browser": "^3.1",
+                "lucatume/wp-browser": "^4.0",
                 "phpcompatibility/phpcompatibility-wp": "*",
+                "phpunit/php-code-coverage": "^9.2",
                 "szepeviktor/phpstan-wordpress": "^1.1",
                 "the-events-calendar/coding-standards": "dev-master",
                 "wp-coding-standards/wpcs": "^2.3"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -490,7 +485,8 @@
             },
             "autoload-dev": {
                 "psr-4": {
-                    "StellarWP\\Telemetry\\Tests\\": "tests/"
+                    "StellarWP\\Telemetry\\Tests\\": "tests/",
+                    "StellarWP\\Telemetry\\Tests\\Support\\": "tests/_support/"
                 }
             },
             "scripts": {
@@ -533,10 +529,10 @@
             ],
             "description": "Telemetry library for StellarWP plugins.",
             "support": {
-                "source": "https://github.com/stellarwp/telemetry/tree/2.0.0",
+                "source": "https://github.com/stellarwp/telemetry/tree/develop",
                 "issues": "https://github.com/stellarwp/telemetry/issues"
             },
-            "time": "2023-04-25T19:13:21+00:00"
+            "time": "2023-10-30T19:20:03+00:00"
         }
     ],
     "packages-dev": [
@@ -6425,6 +6421,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "stellarwp/telemetry": 20,
         "the-events-calendar/coding-standards": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
@@ -6435,5 +6432,5 @@
     "platform-overrides": {
         "php": "7.3.33"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
