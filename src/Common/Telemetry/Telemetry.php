@@ -729,7 +729,7 @@ final class Telemetry {
 		$options = array_filter(
 			$options,
 			function( $key ) {
-				return str_starts_with( $key, "pue_install_key_");
+				return false !== stripos( $key, "pue_install_key_");
 			},
 			ARRAY_FILTER_USE_KEY
 		);
