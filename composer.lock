@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e036488fe815e97fd743ebcaa5c3133",
+    "content-hash": "75c26b21233e4107ae83387adcf6243d",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -446,16 +446,16 @@
         },
         {
             "name": "stellarwp/telemetry",
-            "version": "dev-develop",
+            "version": "2.3.0-rc.01",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/telemetry.git",
-                "reference": "91a1b700cb78321cfe74885ce131bb8a0f8d000b"
+                "reference": "b0ca2e4b6ae5b689c88e6947a91cb7b34d7b7684"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/91a1b700cb78321cfe74885ce131bb8a0f8d000b",
-                "reference": "91a1b700cb78321cfe74885ce131bb8a0f8d000b",
+                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/b0ca2e4b6ae5b689c88e6947a91cb7b34d7b7684",
+                "reference": "b0ca2e4b6ae5b689c88e6947a91cb7b34d7b7684",
                 "shasum": ""
             },
             "require": {
@@ -474,7 +474,6 @@
                 "the-events-calendar/coding-standards": "dev-master",
                 "wp-coding-standards/wpcs": "^2.3"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -529,10 +528,10 @@
             ],
             "description": "Telemetry library for StellarWP plugins.",
             "support": {
-                "source": "https://github.com/stellarwp/telemetry/tree/develop",
+                "source": "https://github.com/stellarwp/telemetry/tree/2.3.0-rc.01",
                 "issues": "https://github.com/stellarwp/telemetry/issues"
             },
-            "time": "2023-10-30T19:20:03+00:00"
+            "time": "2023-10-30T20:59:32+00:00"
         }
     ],
     "packages-dev": [
@@ -6421,7 +6420,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "stellarwp/telemetry": 20,
         "the-events-calendar/coding-standards": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
