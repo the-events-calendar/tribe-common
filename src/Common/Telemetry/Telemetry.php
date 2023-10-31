@@ -667,7 +667,7 @@ final class Telemetry {
 		// We only want to mess with the data block.
 		$telemetry = json_decode( $args['telemetry'], true );
 
-		list( $changed, $telemetry ) = $this->add_licenses( $telemetry );
+		$changed = $this->add_licenses( $telemetry );
 
 		if ( tribe_is_truthy( $changed ) ) {
 			$args['telemetry'] = json_encode( $telemetry );
@@ -690,28 +690,24 @@ final class Telemetry {
 	 *
 	 * @since TBD
 	 *
-	 * @param object $telemetry The telemetry data object.
+	 * @param object $telemetry_by_reference The telemetry data object.
 	 *
-	 * @return array<bool,object> and array in the format:
-	 * 		[
-	 * 			bool $changed   If the data has changed.
-	 * 			obj  $telemetry The (potentially modified) telemetry data object.
-	 * 		]
+	 * @return bool If the data has changed.
 	 */
-	protected function add_licenses( $telemetry ) {
+	protected function add_licenses( &$telemetry_by_reference ): bool {
 		// No data sent, bail safely.
-		if ( empty( $telemetry ) ){
-			return [ false, $telemetry ];
+		if ( empty( $telemetry_by_reference ) ) {
+			return false;
 		}
 
+		$telemetry = $telemetry_by_reference;
 		// We don't need the path info for this.
 		$tec_slugs = array_keys( self::get_tec_telemetry_slugs() );
 		// Remove parent slugs - they don't have licenses.
 		$tec_slugs = array_diff( $tec_slugs, self::$base_parent_slugs );
-
 		// Nothing to add, bail safely.
-		if ( empty( $tec_slugs ) ){
-			return [ false, $telemetry ];
+		if ( empty( $tec_slugs ) ) {
+			return false;
 		}
 
 		if ( ! isset( $telemetry['stellar_licenses'] ) ) {
@@ -721,28 +717,25 @@ final class Telemetry {
 			// Make sure it's an array if it does exist.
 			$telemetry['stellar_licenses'] = (array) $telemetry['stellar_licenses'];
 		}
-
 		// Grab all the options, cached.
 		$options = wp_load_alloptions();
-
 		// Filter out everything but our license keys.
 		$options = array_filter(
 			$options,
-			function( $key ) {
-				return false !== stripos( $key, "pue_install_key_");
+			static function( $key ) {
+				return str_starts_with( $key, 'pue_install_key_' );
 			},
 			ARRAY_FILTER_USE_KEY
 		);
 
 		// No keys found.
 		if ( empty( $options ) ) {
-			return [ false, $telemetry ];
+			return false;
 		}
 
 		foreach ( $options as $slug => $key ) {
 			$slug = str_replace( 'pue_install_key_', '', $slug );
 			$slug = str_replace( '-', '_', $slug );
-
 			/**
 			 * Filter the license slug.
 			 * This allows for some plugins that use older nomenclature (like Filter Bar) to add a more "modern" slug.
@@ -752,16 +745,16 @@ final class Telemetry {
 			 * @param string $slug The stored license slug.
 			 */
 			$slug = apply_filters( 'tec_telemetry_license_slug_' . $slug, $slug );
-
-			$telemetry['stellar_licenses'][$slug] = $key;
+			$telemetry['stellar_licenses'][ $slug ] = $key;
 		}
 
 		if ( ! empty( $telemetry['stellar_licenses'] ) ) {
-			// return changed data set and flag.
-			return [ true, $telemetry ];
+			// Update telemetry to hold the new modifications.
+			$telemetry_by_reference = $telemetry;
+			return true;
 		}
 
 		// Fallback - no changes.
-		return [ false, $telemetry ];
+		return false;
 	}
 }
