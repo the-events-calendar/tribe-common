@@ -80,8 +80,8 @@ abstract class Datetime_Conditional_Abstract {
 		 * Allow filtering of the start date for testing.
 		 *
 		 * @since 4.14.7
-		 * @param \DateTime $date - Unix timestamp for start date
-		 * @param object $this
+		 * @param \DateTime $date   Unix timestamp for start date
+		 * @param object    $notice The date-based notice object.
 		 */
 		$date = apply_filters( "tec_admin_conditional_content_{$this->slug}_start_date", $date, $this );
 

@@ -86,8 +86,8 @@ class Tribe__Admin__Activation_Page {
 		add_action( 'admin_init', [ $this, 'maybe_redirect' ], 10, 0 );
 		add_action( 'admin_menu', [ $this, 'register_page' ], 100, 0 ); // Come in after the default page is registered.
 
-		add_action( 'update_plugin_complete_actions', [ $this, 'update_complete_actions' ], 15, 2 );
-		add_action( 'update_bulk_plugins_complete_actions', [ $this, 'update_complete_actions' ], 15, 2 );
+		add_filter( 'update_plugin_complete_actions', [ $this, 'update_complete_actions' ], 15, 2 );
+		add_filter( 'update_bulk_plugins_complete_actions', [ $this, 'update_complete_actions' ], 15, 2 );
 	}
 
 	/**
@@ -170,6 +170,7 @@ class Tribe__Admin__Activation_Page {
 			 * @since 5.0.0
 			 *
 			 * @param $bypass bool
+			 * @param $activation_page Tribe__Admin__Activation_Page
 			 */
 			$bypass_update_page = apply_filters( 'tec_admin_update_page_bypass', false, $this );
 
@@ -337,7 +338,7 @@ class Tribe__Admin__Activation_Page {
 	 *
 	 * @param string $context
 	 *
-	 * @return string|null
+	 * @return void
 	 */
 	public function display_page() {
 		if ( empty( $this->args[ $this->current_context . '_page_title' ] ) || empty( $this->args[ $this->current_context . '_page_template'] ) ) {
