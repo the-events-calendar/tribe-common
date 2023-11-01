@@ -169,8 +169,8 @@ class Tribe__Admin__Activation_Page {
 			 *
 			 * @since 5.0.0
 			 *
-			 * @param $bypass bool
-			 * @param $activation_page Tribe__Admin__Activation_Page
+			 * @param bool                          $bypass
+			 * @param Tribe__Admin__Activation_Page $activation_page 
 			 */
 			$bypass_update_page = apply_filters( 'tec_admin_update_page_bypass', false, $this );
 

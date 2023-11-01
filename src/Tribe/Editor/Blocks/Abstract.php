@@ -61,8 +61,8 @@ implements Tribe__Editor__Blocks__Interface {
 		/**
 		 * Filters the default attributes for the block
 		 *
-		 * @param array  $attributes    The attributes
-		 * @param object $this      The current object
+		 * @param array  $attributes   The attributes
+		 * @param object $block_object The current object
 		 */
 		$attributes = apply_filters( 'tribe_block_attributes_defaults_' . $this->slug(), $attributes, $this );
 
@@ -85,8 +85,8 @@ implements Tribe__Editor__Blocks__Interface {
 		/**
 		 * Filters the default attributes
 		 *
-		 * @param array  $params    The attributes
-		 * @param object $this      The current object
+		 * @param array  $params       The attributes
+		 * @param object $block_object The current object
 		 */
 		$attributes = apply_filters( 'tribe_block_attributes_defaults', $attributes, $this );
 
@@ -263,8 +263,8 @@ implements Tribe__Editor__Blocks__Interface {
 		 *
 		 * @since 4.12.0
 		 *
-		 * @param array  $block_data The block data.
-		 * @param object $this       The current object.
+		 * @param array  $block_data   The block data.
+		 * @param object $block_object The current object
 		 */
 		$block_data = apply_filters( 'tribe_block_block_data', $block_data, $this );
 
@@ -273,8 +273,8 @@ implements Tribe__Editor__Blocks__Interface {
 		 *
 		 * @since 4.12.0
 		 *
-		 * @param array  $block_data The block data.
-		 * @param object $this       The current object.
+		 * @param array  $block_data   The block data.
+		 * @param object $block_object The current object
 		 */
 		$block_data = apply_filters( 'tribe_block_block_data_' . $this->slug(), $block_data, $this );
 
