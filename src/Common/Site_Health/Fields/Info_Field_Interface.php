@@ -9,6 +9,6 @@ namespace TEC\Common\Site_Health\Fields;
  *
  * @package TEC\Common\Site_Health\Fields
  */
-interface Info_Section_Interface {
+interface Info_Field_Interface {
     public function __construct( string $id, string $label, $value, int $priority );
 }
