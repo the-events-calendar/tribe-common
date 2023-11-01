@@ -76,7 +76,7 @@ if ( ! function_exists( 'tribe_check_plugin' ) ) {
 	 */
 	function tribe_check_plugin( $main_class ) {
 
-		$tribe_dependency = Tribe__Dependency::instance();
+		$tribe_dependency = tribe( Tribe__Dependency::class );
 
 		return $tribe_dependency->check_plugin( $main_class );
 

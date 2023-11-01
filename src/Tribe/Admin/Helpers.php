@@ -44,7 +44,7 @@ class Tribe__Admin__Helpers {
 		 * Allows fo filter if we're on a WP_Screen
 		 *
 		 * @since 4.9.5
-		 * @param bool    null bypass if we want to return a bool of is_wp_scren
+		 * @param bool|null $bypass return non-null if we want to short-circuit and return a bool for is_wp_screen
 		 */
 		$is_wp_screen = apply_filters( 'tribe_admin_is_wp_screen', null );
 		if ( null !== $is_wp_screen ) {
