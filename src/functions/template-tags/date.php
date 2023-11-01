@@ -19,6 +19,8 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 	 * Formatted Date
 	 *
 	 * Returns formatted date
+	 * 
+	 * @since 5.11.1 Introduced a temporary locale switch to handle the AM/PM format specifically for French language settings.
 	 *
 	 * @category Events
 	 *
@@ -50,7 +52,26 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 			}
 		}
 
+		$original_locale = get_locale();
+
+		// Check if the current locale is French and if the date format is using AM/PM.
+		$should_override = 'fr_FR' === $original_locale && ( 'g:i A' === $date_format || 'g:i a' === $date_format );
+
+		/**
+		 * Temporarily override locale to English (US) for French AM/PM time display, as French does not have a dedicated AM/PM system.
+		 */
+		if ( $should_override ) {
+			switch_to_locale( 'en_US' );
+		}
+
 		$date = date_i18n( $format, $date );
+
+		/**
+		 * Revert back to original locale to ensure there are no unexpected side effects elsewhere.
+		 */
+		if ( $should_override ) {
+			switch_to_locale( $original_locale );
+		}
 
 		/**
 		 * Deprecated tribe_event_formatted_date in 4.0 in favor of tribe_formatted_date. Remove in 5.0
