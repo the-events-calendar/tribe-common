@@ -4,3 +4,5 @@ parameters:
     - src
     - tribe-common.php
     - tribe-autoload.php
+  scanDirectories:
+    - vendor/vendor-prefixed
