@@ -166,7 +166,6 @@ class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 	 * notice (if any) for a version higher than $this->current_version.
 	 *
 	 * @param  string $readme
-	 * @return string
 	 */
 	protected function parse_for_upgrade_notice( $readme ) {
 		$in_upgrade_notice = false;

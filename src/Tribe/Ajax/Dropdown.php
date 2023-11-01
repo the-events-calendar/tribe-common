@@ -182,8 +182,6 @@ class Tribe__Ajax__Dropdown {
 	 * @param array<int|object>   &$terms  Array of Terms from `get_terms`.
 	 * @param array<string|mixed> &$into   Variable where we will store the.
 	 * @param integer              $parent Used for the recursion.
-	 *
-	 * @return array<string|mixed>
 	 */
 	public function sort_terms_hierarchically( &$terms, &$into, $parent = 0 ) {
 		foreach ( $terms as $i => $term ) {

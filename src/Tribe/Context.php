@@ -454,9 +454,9 @@ class Tribe__Context {
 			 *
 			 * @since 4.10.2
 			 *
-			 * @param $locations array           An array of read and write location in the shape of the `Tribe__Context::$locations` one,
-			 *                                   `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
-			 * @param $context   Tribe__Context  Current instance of the context.
+			 * @param array          $locations An array of read and write location in the shape of the `Tribe__Context::$locations` one,
+			 *                                  `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
+			 * @param Tribe__Context $context   Current instance of the context.
 			 */
 			$locations = apply_filters( 'tribe_context_locations', $locations, $this );
 		}
@@ -1178,7 +1178,7 @@ class Tribe__Context {
 		 * @param array $state             The Redux store compatible state produced from the current context.
 		 * @param bool  $is_global_context Whether the context producing the state is the global one
 		 *                                 or a modified clone of it.
-		 * @param Tribe__Context The context object producing the state.
+		 * @param Tribe__Context $context  The context object producing the state.
 		 */
 		$state = apply_filters( 'tribe_context_state', $state, $is_global_context, $this );
 
