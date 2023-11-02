@@ -11,6 +11,7 @@ namespace TEC\Common\Telemetry;
 
 use TEC\Common\Contracts\Service_Provider;
 use TEC\Common\StellarWP\Telemetry\Admin\Admin_Subscriber as Asset_Subscriber;
+use Tribe__Main;
 
 /**
  * Class Provider
@@ -62,6 +63,27 @@ class Provider extends Service_Provider {
 	public function add_filters() {
 		add_filter( 'stellarwp/telemetry/optin_args', [ $this, 'filter_optin_args' ] );
 		add_filter( 'stellarwp/telemetry/exit_interview_args', [ $this, 'filter_exit_interview_args' ] );
+		add_filter( 'http_request_args', [ $this, 'filter_telemetry_http_request_args' ], 10, 2 );
+	}
+
+	/**
+	 * Filters the HTTP request arguments for TEC telemetry to add the tribe-common integration ID and version.
+	 * For versioning purposes.
+	 *
+	 * @since 5.1.8.1
+	 *
+	 * @param array  $parsed_args An array of HTTP request arguments.
+	 * @param string $url         The request URL.
+	 */
+	public function filter_telemetry_http_request_args( $parsed_args, $url ) {
+		if ( false === stripos( $url, 'telemetry.stellarwp.com/api/v1/opt-in' ) ) {
+			return $parsed_args;
+		}
+
+		$parsed_args['body']['integration_id']      = 'tec_common';
+		$parsed_args['body']['integration_version'] = Tribe__Main::VERSION;
+
+		return $parsed_args;
 	}
 
 	/**

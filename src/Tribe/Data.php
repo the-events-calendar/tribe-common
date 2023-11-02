@@ -67,7 +67,7 @@ class Tribe__Data implements ArrayAccess, Iterator {
 	 *                      The return value will be casted to boolean if non-boolean was returned.
 	 * @since 4.11.0
 	 */
-	public function offsetExists( $offset ) {
+	public function offsetExists( $offset ): bool {
 		return isset( $this->data[ $offset ] );
 	}
 

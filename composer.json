@@ -27,7 +27,7 @@
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
     "stellarwp/installer": "^1.1.0",
-    "stellarwp/telemetry": "^2.0.0"
+    "stellarwp/telemetry": "^2.3.0-rc.01"
   },
   "require-dev": {
     "automattic/vipwpcs": "^2.0",
@@ -111,7 +111,9 @@
       "exclude_from_prefix": {
         "file_patterns": []
       },
-      "delete_vendor_files": true
+      "delete_vendor_files": true,
+      "include_modified_date": false,
+      "include_author": false
     }
   }
 }

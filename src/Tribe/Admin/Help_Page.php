@@ -52,10 +52,17 @@ class Tribe__Admin__Help_Page {
 	 * Checks if the current page is the Help one
 	 *
 	 * @since 4.5.7
+	 * @since TBD Verifying that the current page is a screen
 	 *
 	 * @return bool
 	 */
 	public function is_current_page() {
+		$is_screen = Tribe__Admin__Helpers::instance()->is_screen();
+
+		if ( ! $is_screen ) {
+			return false;
+		}
+
 		global $current_screen;
 
 		$help_pages = [
@@ -64,6 +71,44 @@ class Tribe__Admin__Help_Page {
 		];
 
 		return in_array( $current_screen->id, $help_pages );
+	}
+
+	/**
+	 * Checks if the current page is the TEC Help one
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_tec_events_help_page() {
+		$is_screen = Tribe__Admin__Helpers::instance()->is_screen();
+
+		if ( ! $is_screen ) {
+			return false;
+		}
+
+		global $current_screen;
+
+		return 'tribe_events_page_tec-events-help' === $current_screen->id;
+	}
+
+	/**
+	 * Checks if the current page is the Tickets Help one
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_tec_tickets_help_page() {
+		$is_screen = Tribe__Admin__Helpers::instance()->is_screen();
+
+		if ( ! $is_screen ) {
+			return false;
+		}
+
+		global $current_screen;
+
+		return 'tickets_page_tec-tickets-help' === $current_screen->id;
 	}
 
 	/**
