@@ -823,7 +823,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$field .= '<button type="button" class="button tec-admin__settings-image-field-btn-add">' . $upload_image_text . '</button>';
 			$field .= '<div class="tec-admin__settings-image-field-image-container hidden">';
 			if ( $image_exists ) {
-				$field .= '<img src="' . esc_url( wp_get_attachment_image_url( $this->value ) ) . '" />';
+				$field .= '<img src="' . esc_url( wp_get_attachment_image_url( $this->value, 'medium' ) ) . '" />';
 			}
 			$field .= '</div>';
 			$field .= '<button class="tec-admin__settings-image-field-btn-remove hidden">' . $remove_image_text . '</button>';
