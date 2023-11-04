@@ -4,6 +4,10 @@
 
 * Tweak - Add the `set_request_context( ?string $context)` and `get_request_context(): ?string` methods to the `Tribe__Repository__Interface` and classes. [ET-1813]
 
+= [5.1.13] 2023-11-15 =
+
+
+
 = [5.1.12] 2023-11-01 =
 
 * Tweak - Ticketing & RSVP tab selected by default when clicking Help from the Tickets menu. [ET-1837]
