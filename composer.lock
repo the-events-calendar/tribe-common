@@ -450,12 +450,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/models.git",
-                "reference": "b0f25e4deaf6507df904178ed8d5e3359fde5b18"
+                "reference": "1e364cc54883ac43fc25f7fce652259439af0a89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/models/zipball/b0f25e4deaf6507df904178ed8d5e3359fde5b18",
-                "reference": "b0f25e4deaf6507df904178ed8d5e3359fde5b18",
+                "url": "https://api.github.com/repos/stellarwp/models/zipball/1e364cc54883ac43fc25f7fce652259439af0a89",
+                "reference": "1e364cc54883ac43fc25f7fce652259439af0a89",
                 "shasum": ""
             },
             "require": {
@@ -497,9 +497,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stellarwp/models/issues",
-                "source": "https://github.com/stellarwp/models/tree/1.2.0"
+                "source": "https://github.com/stellarwp/models/tree/1.2.1"
             },
-            "time": "2023-06-09T18:26:14+00:00"
+            "time": "2023-09-12T15:59:24+00:00"
         },
         {
             "name": "stellarwp/schema",
@@ -562,11 +562,11 @@
         },
         {
             "name": "stellarwp/telemetry",
-            "version": "2.0.1",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/telemetry.git",
-                "reference": "cccdf75a925547d25222a2fa92a3c357a952069b"
+                "reference": "c311c04dc103c53f0adb866f7245cf679035bc7c"
             },
             "dist": {
                 "type": "zip",

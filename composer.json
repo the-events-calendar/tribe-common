@@ -16,7 +16,8 @@
       "php": "7.3.33"
     },
     "allow-plugins": {
-      "dealerdirect/phpcodesniffer-composer-installer": true
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "phpstan/extension-installer": true
     }
   },
   "require": {
