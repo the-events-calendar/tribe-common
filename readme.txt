@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Correct `tribe_get_end_date` to return dates in the correct time zone. [BTRIA-2100]
+
 = [5.1.12] 2023-11-01 =
 
 * Tweak - Ticketing & RSVP tab selected by default when clicking Help from the Tickets menu. [ET-1837]
