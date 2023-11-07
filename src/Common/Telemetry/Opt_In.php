@@ -2,7 +2,7 @@
 /**
  * Handles Telemetry opt-in logic.
  *
- * @since   TBD
+ * @since   5.1.13
  *
  * @package TEC\Common\Telemetry
  */
@@ -16,7 +16,7 @@ use WP_User;
 /**
  * Class Opt_In
  *
- * @since   TBD
+ * @since   5.1.13
 
  * @package TEC\Common\Telemetry
  */
@@ -24,7 +24,7 @@ class Opt_In {
 	/**
 	 * Build the opt-in user data, store it, and fetch it.
 	 *
-	 * @since TBD
+	 * @since 5.1.13
 	 *
 	 * @return array
 	 */
@@ -68,7 +68,7 @@ class Opt_In {
 	/**
 	 * Get the opt-in user to be used in the opt_in_user telemetry field.
 	 *
-	 * @since TBD
+	 * @since 5.1.13
 	 *
 	 * @return WP_User|null
 	 */
@@ -87,7 +87,7 @@ class Opt_In {
 	/**
 	 * Get an admin user based on the admin email for the site.
 	 *
-	 * @since TBD
+	 * @since 5.1.13
 	 *
 	 * @return WP_User|null
 	 */
@@ -110,7 +110,7 @@ class Opt_In {
 	/**
 	 * Get the first admin user from the first 5,000 users of the site.
 	 *
-	 * @since TBD
+	 * @since 5.1.13
 	 *
 	 * @return WP_User|null
 	 */

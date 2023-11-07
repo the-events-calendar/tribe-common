@@ -90,7 +90,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Filters the arguments for telemetry data to add the opt-in user data if missing.
 	 *
-	 * @since TBD
+	 * @since 5.1.13
 	 *
 	 * @param array $args Telemetry args.
 	 *
@@ -126,7 +126,7 @@ class Provider extends Service_Provider {
 	 * telemetry was properly booted into the system.
 	 *
 	 * @since 5.1.3
-	 * @since TBD Added filter of send_data_args to include opt-in data.
+	 * @since 5.1.13 Added filter of send_data_args to include opt-in data.
 	 */
 	public function hook_telemetry_init(): void {
 		add_filter( "stellarwp/telemetry/tec/send_data_args", [ $this, 'filter_send_data_args' ] );

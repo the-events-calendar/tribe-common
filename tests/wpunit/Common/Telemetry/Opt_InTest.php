@@ -10,7 +10,7 @@ use TEC\Common\Telemetry\Telemetry as Common_Telemetry;
 /**
  * Class Opt_InTest
  *
- * @since TBD
+ * @since 5.1.13
  *
  * @package TEC\Common\Telemetry
  */
