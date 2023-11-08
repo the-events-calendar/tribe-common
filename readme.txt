@@ -4,6 +4,10 @@
 
 * Fix - Resolved several `Deprecated: Creation of dynamic property` warnings on: `\Tribe__Field::$allow_clear, $type, $class, $label, $label_attributes, $error, $tooltip, $size, $html, $options, $value, $conditional, $placeholder, $display_callback, $if_empty, $can_be_empty, $clear_after, $tooltip_first` and `\Tribe__Settings_Tab::$priority, public $fields, $show_save, $display_callback, $network_admin` [BTRIA-2088]
 
+= [5.1.13] 2023-11-08 =
+
+* Tweak - Ensure stability of opt-in data.
+
 = [5.1.12] 2023-11-01 =
 
 * Tweak - Ticketing & RSVP tab selected by default when clicking Help from the Tickets menu. [ET-1837]
