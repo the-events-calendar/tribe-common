@@ -42,6 +42,31 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 		public $defaults;
 
 		/**
+		 * @var array
+		 */
+		public $fields;
+
+		/**
+		 * @var boolean
+		 */
+		public $show_save;
+
+		/**
+		 * @var closure
+		 */
+		public $display_callback;
+
+		/**
+		 * @var boolean
+		 */
+		public $network_admin;
+
+		/**
+		 * @var int
+		 */
+		public $priority;
+
+		/**
 		 * class constructor
 		 *
 		 * @param string $id   the tab's id (no spaces or special characters)

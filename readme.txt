@@ -3,6 +3,7 @@
 = [TBD] TBD =
 
 * Fix - Correct `tribe_get_end_date` to return dates in the correct time zone. [BTRIA-2100]
+* Fix - Resolved several `Deprecated: Creation of dynamic property` warnings on: `\Tribe__Field::$allow_clear, $type, $class, $label, $label_attributes, $error, $tooltip, $size, $html, $options, $value, $conditional, $placeholder, $display_callback, $if_empty, $can_be_empty, $clear_after, $tooltip_first` and `\Tribe__Settings_Tab::$priority, public $fields, $show_save, $display_callback, $network_admin` [BTRIA-2088]
 
 = [5.1.12] 2023-11-01 =
 
@@ -11,6 +12,7 @@
 
 = [5.1.11] 2023-10-19 =
 
+* Tweak - Changed scope of the Tribe__Editor__Blocks__Abstract::$namespace property to protected. [TEC-4792]
 * Fix - AM/PM time formats `g:i A` and `g:i a` are now respected for the French locale. [TEC-4807]
 * Tweak - Pass the appropriate arguments to telemetry opt-ins.
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
