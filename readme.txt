@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.1.13] 2023-11-08 =
+
+* Tweak - Ensure stability of opt-in data.
+
 = [5.1.12] 2023-11-01 =
 
 * Tweak - Ticketing & RSVP tab selected by default when clicking Help from the Tickets menu. [ET-1837]
