@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.1.13.1] 2023-11-10 =
+
+* Fix - Update Telemetry library to prevent potential fatals. [TBD]
+
 = [5.1.13] 2023-11-08 =
 
 * Tweak - Ensure stability of opt-in data.
