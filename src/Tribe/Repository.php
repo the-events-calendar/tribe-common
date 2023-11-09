@@ -2510,14 +2510,13 @@ abstract class Tribe__Repository
 		 *
 		 * @since TBD
 		 *
-		 * @param array|Tribe__Promise|null $pre_check      The overwritten delete values or null if not handled externally.
-		 * @param self                      $this           This repository instance.
-		 * @param bool                      $return_promise Flag whether to return a Tribe__Promise or array of values.
+		 * @param int[]|null $pre_check The overwritten delete values or null if not handled externally.
+		 * @param self       $this      This repository instance.
 		 */
-		$pre_check = apply_filters( "tribe_repository_{$this->filter_name}_before_delete", null, $this, $return_promise );
+		$pre_check = apply_filters( "tribe_repository_{$this->filter_name}_before_delete", null, $this );
 
 		if ( $pre_check !== null ) {
-			return $pre_check;
+			return $return_promise ? new Tribe__Promise() : $pre_check;
 		}
 
 		$to_delete = $this->get_ids();
@@ -2525,7 +2524,6 @@ abstract class Tribe__Repository
 		if ( empty( $to_delete ) ) {
 			return $return_promise ? new Tribe__Promise() : [];
 		}
-
 
 		/**
 		 * Filters the post delete operation allowing third party code to bail out of
