@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75c26b21233e4107ae83387adcf6243d",
+    "content-hash": "43ec74747c68c7396bedc0a710526d75",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -446,16 +446,16 @@
         },
         {
             "name": "stellarwp/telemetry",
-            "version": "2.3.0-rc.01",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/telemetry.git",
-                "reference": "b0ca2e4b6ae5b689c88e6947a91cb7b34d7b7684"
+                "reference": "79f7a048c0f1b3beddd1dc07075e5e70ad39cd21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/b0ca2e4b6ae5b689c88e6947a91cb7b34d7b7684",
-                "reference": "b0ca2e4b6ae5b689c88e6947a91cb7b34d7b7684",
+                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/79f7a048c0f1b3beddd1dc07075e5e70ad39cd21",
+                "reference": "79f7a048c0f1b3beddd1dc07075e5e70ad39cd21",
                 "shasum": ""
             },
             "require": {
@@ -528,10 +528,10 @@
             ],
             "description": "Telemetry library for StellarWP plugins.",
             "support": {
-                "source": "https://github.com/stellarwp/telemetry/tree/2.3.0-rc.01",
+                "source": "https://github.com/stellarwp/telemetry/tree/2.3.1",
                 "issues": "https://github.com/stellarwp/telemetry/issues"
             },
-            "time": "2023-10-30T20:59:32+00:00"
+            "time": "2023-11-09T18:29:08+00:00"
         }
     ],
     "packages-dev": [
