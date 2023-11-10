@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0389af03917faf7f58b751bb03240105",
+    "content-hash": "1d3ebeb1e9ccedd2cc7af3db262c13d7",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -446,16 +446,16 @@
         },
         {
             "name": "stellarwp/telemetry",
-            "version": "2.3.0",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/telemetry.git",
-                "reference": "c311c04dc103c53f0adb866f7245cf679035bc7c"
+                "reference": "79f7a048c0f1b3beddd1dc07075e5e70ad39cd21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/c311c04dc103c53f0adb866f7245cf679035bc7c",
-                "reference": "c311c04dc103c53f0adb866f7245cf679035bc7c",
+                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/79f7a048c0f1b3beddd1dc07075e5e70ad39cd21",
+                "reference": "79f7a048c0f1b3beddd1dc07075e5e70ad39cd21",
                 "shasum": ""
             },
             "require": {
@@ -528,10 +528,10 @@
             ],
             "description": "Telemetry library for StellarWP plugins.",
             "support": {
-                "source": "https://github.com/stellarwp/telemetry/tree/2.3.0",
+                "source": "https://github.com/stellarwp/telemetry/tree/2.3.1",
                 "issues": "https://github.com/stellarwp/telemetry/issues"
             },
-            "time": "2023-10-31T19:07:27+00:00"
+            "time": "2023-11-09T18:29:08+00:00"
         }
     ],
     "packages-dev": [
@@ -2577,25 +2577,27 @@
         },
         {
             "name": "php-stubs/wordpress-stubs",
-            "version": "v6.3.2",
+            "version": "v6.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/wordpress-stubs.git",
-                "reference": "f22b00cacd3b9addc2b07ff48290084503c48574"
+                "reference": "6d6063cf9464a306ca2a0529705d41312b08500b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/f22b00cacd3b9addc2b07ff48290084503c48574",
-                "reference": "f22b00cacd3b9addc2b07ff48290084503c48574",
+                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/6d6063cf9464a306ca2a0529705d41312b08500b",
+                "reference": "6d6063cf9464a306ca2a0529705d41312b08500b",
                 "shasum": ""
             },
             "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
                 "nikic/php-parser": "^4.13",
                 "php": "^7.4 || ~8.0.0",
                 "php-stubs/generator": "^0.8.3",
                 "phpdocumentor/reflection-docblock": "^5.3",
                 "phpstan/phpstan": "^1.10.12",
-                "phpunit/phpunit": "^9.5"
+                "phpunit/phpunit": "^9.5",
+                "szepeviktor/phpcs-psr-12-neutron-hybrid-ruleset": "^0.8"
             },
             "suggest": {
                 "paragonie/sodium_compat": "Pure PHP implementation of libsodium",
@@ -2616,9 +2618,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/wordpress-stubs/issues",
-                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.3.2"
+                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.4.1"
             },
-            "time": "2023-10-14T10:08:05+00:00"
+            "time": "2023-11-10T00:33:47+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -2948,16 +2950,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.40",
+            "version": "1.10.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "93c84b5bf7669920d823631e39904d69b9c7dc5d"
+                "reference": "c6174523c2a69231df55bdc65b61655e72876d76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/93c84b5bf7669920d823631e39904d69b9c7dc5d",
-                "reference": "93c84b5bf7669920d823631e39904d69b9c7dc5d",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/c6174523c2a69231df55bdc65b61655e72876d76",
+                "reference": "c6174523c2a69231df55bdc65b61655e72876d76",
                 "shasum": ""
             },
             "require": {
@@ -3006,7 +3008,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-30T14:48:31+00:00"
+            "time": "2023-11-05T12:57:57+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
