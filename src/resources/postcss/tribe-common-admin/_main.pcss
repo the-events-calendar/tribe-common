@@ -280,7 +280,7 @@ table.plugins {
 			*:first-child:not(.wp-switch-editor) {
 				margin-top: 0;
 			}
-			
+
 			@media (--viewport-medium) {
 				width: auto;
 			}
@@ -358,6 +358,14 @@ table.plugins {
 	padding: 12px 20px;
 }
 
+.tribe-field-label {
+	margin-bottom: var(--tec-spacer-1);
+
+	@media (--viewport-full) {
+		margin-bottom: 0;
+	}
+}
+
 /* sizes
 ============================================= */
 
@@ -423,12 +431,7 @@ table.plugins {
 	}
 
 	&.tribe-field-wysiwyg .wp-editor-container {
-		max-width: 300px;
 		width: 100%;
-
-		@media (--viewport-medium) {
-			width: 300px;
-		}
 	}
 
 	&.tribe-field-text input,
@@ -1660,7 +1663,7 @@ a.tribe-rating-link {
 				color: #e6b1fc;
 			}
 		}
-		
+
 		.tribe-marketing-notice {
 			max-width: 100%;
 		}
@@ -1833,7 +1836,7 @@ a.tribe-rating-link {
 					@media (min-width: 768px) and (max-width: 1023px) {
 						height: 11vw;
 					}
-				
+
 					@media screen and (max-width: 767px) {
 						height: 35vw;
 						right: -45vw;
@@ -4048,6 +4051,12 @@ input[type="email"].tribe-events-admin-card__input {
 	background-color: #fff;
 }
 
+body.tec-troubleshooting {
+	#wpcontent {
+		padding-left: 0;
+	}
+}
+
 #tribe-ticketing,
 #tribe-community {
 	display: none;
@@ -4058,7 +4067,6 @@ input[type="email"].tribe-events-admin-card__input {
 	color: #fff;
 	font-size: 16px;
 	line-height: 1;
-	margin-left: -1.55vw;
 	padding: 24px 0;
 
 	@media screen and (max-width: 480px) {

@@ -1,5 +1,60 @@
 == Changelog ==
 
+= [5.1.13.1] 2023-11-10 =
+
+* Fix - Update Telemetry library to prevent potential fatals. [TEC-4978]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.13] 2023-11-08 =
+
+* Tweak - Ensure stability of opt-in data.
+
+= [5.1.12] 2023-11-01 =
+
+* Tweak - Ticketing & RSVP tab selected by default when clicking Help from the Tickets menu. [ET-1837]
+* Language - 0 new strings added, 124 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.11] 2023-10-19 =
+
+* Fix - AM/PM time formats `g:i A` and `g:i a` are now respected for the French locale. [TEC-4807]
+* Tweak - Pass the appropriate arguments to telemetry opt-ins.
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.10.1] 2023-10-12 =
+
+* Fix - Correct a problem that can cause a fatal when plugins are deactivated in a certain order. [TEC-4951]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.10] 2023-10-11 =
+
+* Tweak - Add the `tec_cache_listener_save_post_types` filter to allow filtering the post types that should trigger a cache invalidation on post save. [ET-1887]
+* Tweak - Updates to the Date_Based banner functionality. [ET-1890]
+* Language - 2 new strings added, 2 updated, 1 fuzzied, and 2 obsoleted
+
+= [5.1.9] 2023-10-03 =
+
+* Tweak - Updated focus state for relevant elements to have default outline ensuring improved accessibility and consistent browser behavior. [TEC-4888]
+* Fix - Resolved "Uncaught ReferenceError: lodash is not defined" error by adding `lodash` as a dependency for the Block Editor Assets. [ECP-1575]
+* Language - 0 new strings added, 9 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.8.1] 2023-09-28 =
+
+* Fix - Correct issue where Telemetry would register active plugins multiple times. [TEC-4920]
+* Fix - Ensure Telemetry's `register_tec_telemetry_plugins()` only runs on the plugins page i.e. on plugin activation. [TEC-4920]
+
+= [5.1.8] 2023-09-13 =
+
+* Tweak - Compress the size of all images used by the Common module, to reduce the size of the plugin
+* Tweak - Set background image to none on the button element to prevent general button styling overrides. [ET-1815]
+
+= [5.1.7] 2023-09-05 =
+
+* Fix - Broken UI on the WYSIWYG field in the Additional Content section of the admin display settings. [TEC-4861]
+* Fix - Resolves a plugin integration bug that happens in certain scenarios with instantiating `Firebase\JWT` library classes. In these scenarios you would see a fatal error similar to `Uncaught TypeError: TEC\Common\Firebase\JWT\JWT::getKey(): Return value must be of type TEC\Common\Firebase\JWT\Key, OpenSSLAsymmetricKey returned..` [TEC-4866]
+* Fix - WP Rewrite was being incorrectly initialized in some scenarios due to container DI, and causing some 404s. This was affecting classes that extend the `Tribe__Rewrite`. [TEC-4844]
+* Tweak - Add checks to ensure that settings don't pass null to wp_kses() or esc_attr() [TBD]
+* Language - 0 new strings added, 6 updated, 1 fuzzied, and 0 obsoleted
+
 = [5.1.6] 2023-08-15 =
 
 * Feature - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.

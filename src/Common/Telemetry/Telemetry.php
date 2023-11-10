@@ -11,9 +11,9 @@ namespace TEC\Common\Telemetry;
 use TEC\Common\StellarWP\Telemetry\Core;
 use TEC\Common\StellarWP\Telemetry\Config;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
-use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Subscriber;
 use Tribe__Container as Container;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Template;
+use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Subscriber;
 
 /**
  * Class Telemetry
@@ -123,7 +123,7 @@ final class Telemetry {
 			return;
 		}
 
-		$telemetry_server   = ! defined('TELEMETRY_SERVER') ? 'https://telemetry.stellarwp.com/api/v1': TELEMETRY_SERVER;
+		$telemetry_server   = ! defined( 'STELLARWP_TELEMETRY_SERVER' ) ? 'https://telemetry.stellarwp.com/api/v1': STELLARWP_TELEMETRY_SERVER;
 
 		Config::set_server_url( $telemetry_server );
 
@@ -132,8 +132,6 @@ final class Telemetry {
 
 		// Set a unique plugin slug.
 		Config::set_stellar_slug( $stellar_slug );
-
-		self::$plugin_path  = \Tribe__Main::instance()->get_parent_plugin_file_path();
 
 		if ( empty( self::$plugin_path ) ) {
 			return;
@@ -394,7 +392,6 @@ final class Telemetry {
 	 * @return void
 	 */
 	public function show_optin_modal(  $slug  ): void {
-
 		/**
 		 * Filter allowing disabling of the optin modal.
 		 * Returning boolean false will disable the modal
@@ -462,13 +459,19 @@ final class Telemetry {
 	 * @return void
 	 */
 	public function register_tec_telemetry_plugins( $opted = NULL ) {
-		$new_opted = $opted;
 		// Let's reduce the amount this triggers.
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			return;
 		}
 
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
+		global $pagenow;
+
+		// Only run on the plugins page, or when we're manually setting an opt-in!
+		if ( $pagenow !== 'plugins.php' && is_null( $opted ) ) {
 			return;
 		}
 
@@ -479,12 +482,20 @@ final class Telemetry {
 			return;
 		}
 
+		// Check for cached slugs.
+		$cached_slugs = tribe( 'cache' )['tec_telemetry_slugs'] ?? null;
+
+		// We have already run and the slug list hasn't changed since then. Or we are manually running.
+		if ( is_null( $opted ) && ! empty( $cached_slugs ) && $cached_slugs == $tec_slugs  ) {
+			return;
+		}
+
+		// No cached slugs, or the list has changed, or we're running manually - so (re)set the cached value.
+		tribe( 'cache' )['tec_telemetry_slugs'] = $tec_slugs;
+
 		// In case we're not specifically passed a status...
 		$new_opted = $this->calculate_optin_status( $opted );
-
-		$status = Config::get_container()->get( Status::class );
-		$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
-		$opt_in_subscriber->initialize_optin_option();
+		$status    = Config::get_container()->get( Status::class );
 
 		foreach ( $tec_slugs as $slug => $path ) {
 			// Register each plugin with the already instantiated library.
@@ -492,21 +503,50 @@ final class Telemetry {
 			$status->add_plugin( $slug, $new_opted, $path );
 
 			if ( $new_opted ) {
-				$opt_in_subscriber->opt_in( $slug );
 				$status->set_status( $new_opted, $slug );
 			}
 
 			// If we're manually opting in/out, don't show the modal(s).
-			if ( ! is_null( $opted ) || ! empty( $new_opted ) ) {
-				static::disable_modal( $slug );
+			if ( ! is_null( $opted ) ) {
+				/*
+				 * If we originally opted out, there will be no registration token,
+				 * so we have to do this to get Telemetry to *register* the site -
+				 * else it will never send updates!
+				 */
+				$status = Config::get_container()->get( Status::class );
+				if ( empty( $status->get_token() ) && ! empty( $opted ) ) {
+					$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
+					$opt_in_subscriber->initialize_optin_option();
+
+					$this->normalize_optin_status();
+				}
 			}
 
-			// If we've already interacted with a modal, don't show another one.
-			$show = static::calculate_modal_status();
-			if ( ! $show ) {
-				static::disable_modal( $slug, $show );
+			$show_modal = static::calculate_modal_status();
+
+			static::disable_modal( $slug, $show_modal );
+		}
+	}
+
+	/**
+	 * This ensures all our entries are the same.
+	 *
+	 * @since 5.1.8.1
+	 */
+	public function normalize_optin_status(): void {
+		// If they have opted in to one plugin, opt them in to all TEC ones.
+		$status_obj = static::get_status_object();
+		$stati      = [];
+		$status     = $this->calculate_optin_status();
+		$stati      = array_filter( $stati );
+
+		foreach ( static::$base_parent_slugs as $slug ) {
+			if ( $status_obj->plugin_exists( $slug ) ) {
+				$status_obj->set_status( (bool) $status, $slug );
 			}
 		}
+
+		tribe_update_option( 'opt-in-status', $status );
 	}
 
 	/**
@@ -518,7 +558,7 @@ final class Telemetry {
 	 *
 	 * @return bool $opted
 	 */
-	public function calculate_optin_status( $opted ) {
+	public function calculate_optin_status( $opted = null ) {
 		if ( NULL !== $opted ) {
 			return $opted;
 		}
@@ -535,7 +575,6 @@ final class Telemetry {
 		}
 
 		$status = array_filter( $stati );
-
 		return (bool) array_pop( $status );
 	}
 
@@ -546,7 +585,13 @@ final class Telemetry {
 	 *
 	 * @return bool $show If the modal should show
 	 */
-	public static function calculate_modal_status() {
+	public static function calculate_modal_status(): bool {
+		// If we've already opted in, don't show the modal.
+		$option = tribe_get_option( 'opt-in-status', null );
+		if ( tribe_is_truthy( $option ) ) {
+			return false;
+		}
+
 		// If they have already interacted with a modal, find out.
 		$shows = array_flip( static::$base_parent_slugs );
 		$optin = Config::get_container()->get( Opt_In_Template::class );
@@ -559,19 +604,24 @@ final class Telemetry {
 				continue;
 			}
 
-			$shows[ $slug ] = $show;
+			$shows[ $slug ] = (int) $show;
 		}
 
 		// No entries - show modal.
-		if ( empty( $shows ) ) {
+		if ( count( $shows ) < 1 ) {
 			return true;
 		}
 
-		// Flip the array = duplicate entries will be overwritten.
-		$shows = array_flip( $shows );
+		$shows = array_filter(
+			$shows,
+			function( $val ) {
+				// remove all the truthy values from the array.
+				return ! tribe_is_truthy( $val );
+			}
+		);
 
 		// If we have interacted with any modals, don't show this one.
-		return ! isset( $shows[0] );
+		return empty( $shows );
 	}
 
 	/**
