@@ -1,7 +1,12 @@
 == Changelog ==
 
-= [5.1.13] 2023-11-15 =
+= [5.1.14] 2023-11-15 =
 
+
+= [5.1.13.1] 2023-11-10 =
+
+* Fix - Update Telemetry library to prevent potential fatals. [TEC-4978]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.1.13] 2023-11-08 =
 
