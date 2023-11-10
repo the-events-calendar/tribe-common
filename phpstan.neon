@@ -6,3 +6,6 @@ parameters:
     - tribe-autoload.php
   scanDirectories:
     - vendor/vendor-prefixed
+  excludePaths:
+        analyse:
+            - src/deprecated
