@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.1.15] 2023-11-15 =
+= [5.1.15] 2023-11-16 =
 
 * Fix - Ensure the JavaScript module assets are properly getting the `type="module"` added on all scenarios [GTRIA-1112]
 * Language - 0 new strings added, 11 updated, 1 fuzzied, and 2 obsoleted
