@@ -228,12 +228,12 @@ class Tribe__Assets {
 		// Remove the type attribute if it exists.
 		preg_match( "/ *type=['\"]{0,1}[^'\"]+['\"]{0,1}/i", $tag, $matches );
 		if ( ! empty( $matches ) ) {
-			$tag = str_replace( $matches[0], '', $tag );
+			$tag = str_replace( $matches[0], ' ', $tag );
 		}
 
 		$replacement = '<script type="module" ';
 
-		return str_replace( '<script ', $replacement, $tag );
+		return str_replace( [ '<script ', '<script' ], $replacement, $tag );
 	}
 
 	/**

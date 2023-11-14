@@ -88,6 +88,6 @@ class AssetsTest extends \Codeception\TestCase\WPTestCase {
 
 		$script_tag = $assets->filter_modify_to_module( $script_tag, 'test-script' );
 
-		$this->assertStringContainsString( 'type="module"', $script_tag );
+		$this->assertContains( 'type="module"', $script_tag );
 	}
 }
