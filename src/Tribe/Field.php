@@ -881,7 +881,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		/**
 		 * Generate an image field that uses the attachment instead of URL.
 		 *
-		 * @since TBD
+		 * @since 5.1.15
 		 *
 		 * @return string The field.
 		 */
