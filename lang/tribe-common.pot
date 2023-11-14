@@ -9,13 +9,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2023-11-13T06:22:37-08:00\n"
-"PO-Revision-Date: 2023-11-13 14:22\n"
-=======
-"POT-Creation-Date: 2023-11-14T09:07:05-08:00\n"
-"PO-Revision-Date: 2023-11-14 17:07\n"
->>>>>>> 29a24ee04713d5c666c171062a6425b7372aa6e4
+"POT-Creation-Date: 2023-11-14T12:10:52-08:00\n"
+"PO-Revision-Date: 2023-11-14 20:10\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: tribe-common\n"
 
@@ -1851,71 +1846,39 @@ msgctxt "extension disallowed"
 msgid "This extension has been programmatically disallowed. The most common reason is due to another The Events Calendar plugin having absorbed or replaced this extension's functionality. This extension plugin has been deactivated, and you should likely delete it."
 msgstr ""
 
-<<<<<<< HEAD
-#: src/Tribe/Field.php:342
+#: src/Tribe/Field.php:343
 msgid "Invalid field type specified"
 msgstr ""
 
-#: src/Tribe/Field.php:646
+#: src/Tribe/Field.php:647
 msgid "No radio options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:682
+#: src/Tribe/Field.php:683
 msgid "No checkbox options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:744
+#: src/Tribe/Field.php:745
 msgid "No select options specified"
-msgstr ""
-
-#: src/Tribe/Field.php:846
-msgid "Select Image"
 msgstr ""
 
 #: src/Tribe/Field.php:847
-msgid "Remove Image"
-msgstr ""
-
-#: src/Tribe/Field.php:851
-msgid "Select an image"
-msgstr ""
-
-#: src/Tribe/Field.php:852
-=======
-#: src/Tribe/Field.php:254
-msgid "Invalid field type specified"
-msgstr ""
-
-#: src/Tribe/Field.php:558
-msgid "No radio options specified"
-msgstr ""
-
-#: src/Tribe/Field.php:594
-msgid "No checkbox options specified"
-msgstr ""
-
-#: src/Tribe/Field.php:656
-msgid "No select options specified"
-msgstr ""
-
-#: src/Tribe/Field.php:758
-#: src/Tribe/Field.php:804
+#: src/Tribe/Field.php:893
 msgid "Select Image"
 msgstr ""
 
-#: src/Tribe/Field.php:759
-#: src/Tribe/Field.php:805
+#: src/Tribe/Field.php:848
+#: src/Tribe/Field.php:894
 msgid "Remove Image"
 msgstr ""
 
-#: src/Tribe/Field.php:763
-#: src/Tribe/Field.php:809
+#: src/Tribe/Field.php:852
+#: src/Tribe/Field.php:898
 msgid "Select an image"
 msgstr ""
 
-#: src/Tribe/Field.php:764
-#: src/Tribe/Field.php:810
->>>>>>> 29a24ee04713d5c666c171062a6425b7372aa6e4
+#: src/Tribe/Field.php:853
+#: src/Tribe/Field.php:899
 msgid "Use this image"
 msgstr ""
 
