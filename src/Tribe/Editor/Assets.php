@@ -22,11 +22,8 @@ class Tribe__Editor__Assets {
 	 * @since 4.8
 	 *
 	 * @param string $key Which key we are checking against
-	 *
-	 * @return boolean
 	 */
 	public function register() {
-
 		$plugin = Tribe__Main::instance();
 
 		/**
@@ -104,6 +101,7 @@ class Tribe__Editor__Assets {
 				'in_footer' => false,
 			]
 		);
+
 	}
 
 	/**

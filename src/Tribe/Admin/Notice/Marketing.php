@@ -89,7 +89,7 @@ class Tribe__Admin__Notice__Marketing {
 		 *
 		 * @since 4.12.14
 		 *
-		 * @param int $bf_start_date Unix time for the Monday of Thanksgiving week @ 6am UTC.
+		 * @param string $bf_start_date Numeric string: Unix time for the Monday of Thanksgiving week @ 6am UTC.
 		 */
 		return apply_filters( 'tribe_black_friday_start_time', $start_time );
 	}
@@ -115,7 +115,7 @@ class Tribe__Admin__Notice__Marketing {
 		 *
 		 * @since 4.12.14
 		 *
-		 * @param int $bf_end_date Unix time for Dec 1 @ 6am UTC.
+		 * @param string $bf_end_date Numeric string: Unix time for Dec 1 @ 6am UTC.
 		 */
 		return apply_filters( 'tribe_black_friday_end_time', $end_time );
 	}

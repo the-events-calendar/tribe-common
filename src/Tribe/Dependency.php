@@ -377,19 +377,19 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			 */
 			$callback_map = [
 				'Tribe__Events__Pro__Main' => function() {
-					$pue_reflection = new ReflectionClass( Tribe__Events__Pro__PUE::class );
+					$pue_reflection = new ReflectionClass( Tribe__Events__Pro__PUE::class ); // @phpstan-ignore-line
 					$values = $pue_reflection->getStaticProperties();
 					$values['plugin_file'] = EVENTS_CALENDAR_PRO_FILE;
 					return $values;
 				},
 				'Tribe__Events__Filterbar__View' => function() {
-					$pue_reflection = new ReflectionClass( Tribe__Events__Filterbar__PUE::class );
+					$pue_reflection = new ReflectionClass( Tribe__Events__Filterbar__PUE::class ); // @phpstan-ignore-line
 					$values = $pue_reflection->getStaticProperties();
 					$values['plugin_file'] = TRIBE_EVENTS_FILTERBAR_FILE;
 					return $values;
 				},
 				'Tribe__Events__Tickets__Eventbrite__Main' => function() {
-					$pue_reflection = new ReflectionClass( Tribe__Events__Tickets__Eventbrite__PUE::class );
+					$pue_reflection = new ReflectionClass( Tribe__Events__Tickets__Eventbrite__PUE::class ); // @phpstan-ignore-line
 					$values = $pue_reflection->getStaticProperties();
 					$values['plugin_file'] = EVENTBRITE_PLUGIN_FILE;
 					return $values;

@@ -298,7 +298,7 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 			add_action(
 				'tribe_tickets_plugin_loaded',
 				static function() use ( $container ) {
-					$container->register( Tribe\Tickets\Admin\Home\Service_Provider::class );
+					$container->register( Tribe\Tickets\Admin\Home\Service_Provider::class ); /** @phpstan-ignore class.notFound */
 				}
 			);
 		} else {

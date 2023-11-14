@@ -3,6 +3,7 @@
 namespace TEC\Common\Site_Health\Fields;
 
 use TEC\Common\Site_Health\Info_Field_Abstract;
+use TEC\Common\Site_Health\Info_Field_Interface;
 
 /**
  * Class Generic_Info_Field
@@ -11,7 +12,7 @@ use TEC\Common\Site_Health\Info_Field_Abstract;
  *
  * @package TEC\Common\Site_Health
  */
-class Generic_Info_Field extends Info_Field_Abstract {
+class Generic_Info_Field extends Info_Field_Abstract implements Info_Field_Interface {
 
 	/**
 	 * Configure all the params for a generic field.

@@ -29,7 +29,7 @@ class Tribe__Admin__Notice__Php_Version {
 	 */
 	public function get_active_plugins() {
 
-		$active_plugins = Tribe__Dependency::instance()->get_active_plugins();
+		$active_plugins = tribe( Tribe__Dependency::class )->get_active_plugins();
 
 		foreach ( $active_plugins as $active_plugin ) {
 

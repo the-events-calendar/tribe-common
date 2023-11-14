@@ -29,7 +29,7 @@ class Main {
 	 * @return \Tribe__Template
 	 */
 	private function get_template() {
-		if ( empty( self::$template ) ) {
+		if ( empty( $this->template ) ) {
 			$this->template = new \Tribe__Template();
 			$this->template->set_template_origin( \Tribe__Main::instance() );
 			$this->template->set_template_folder( 'src/admin-views/notices/upsell' );

@@ -61,8 +61,8 @@ implements Tribe__Editor__Blocks__Interface {
 		/**
 		 * Filters the default attributes for the block
 		 *
-		 * @param array  $attributes    The attributes
-		 * @param object $this      The current object
+		 * @param array  $attributes   The attributes
+		 * @param object $block_object The current object
 		 */
 		$attributes = apply_filters( 'tribe_block_attributes_defaults_' . $this->slug(), $attributes, $this );
 
@@ -85,8 +85,8 @@ implements Tribe__Editor__Blocks__Interface {
 		/**
 		 * Filters the default attributes
 		 *
-		 * @param array  $params    The attributes
-		 * @param object $this      The current object
+		 * @param array  $params       The attributes
+		 * @param object $block_object The current object
 		 */
 		$attributes = apply_filters( 'tribe_block_attributes_defaults', $attributes, $this );
 
@@ -194,11 +194,11 @@ implements Tribe__Editor__Blocks__Interface {
 		 *
 		 * @since 5.1.5
 		 *
-		 * @param bool $has_block Whether the post has this block.
-		 * @param WP_Post|null $wp_post The post object.
-		 * @param int|null $post_id The post ID.
-		 * @param string $block_name The block name.
-		 * @param Tribe__Editor__Blocks__Abstract $this The block object.
+		 * @param bool                            $has_block    Whether the post has this block.
+		 * @param WP_Post|null                    $wp_post      The post object.
+		 * @param int|null                        $post_id      The post ID.
+		 * @param string                          $block_name   The block name.
+		 * @param Tribe__Editor__Blocks__Abstract $block_object The block object.
 		 */
 		$has_block = (bool) apply_filters( 'tec_block_has_block', $has_block, $wp_post, $post_id, $this->name(), $this );
 		$block_name = $this->name();
@@ -208,10 +208,10 @@ implements Tribe__Editor__Blocks__Interface {
 		 *
 		 * @since 5.1.5
 		 *
-		 * @param bool $has_block Whether the post has this block.
-		 * @param WP_Post|null $wp_post The post object.
-		 * @param int|null $post_id The post ID.
-		 * @param Tribe__Editor__Blocks__Abstract $this The block object.
+		 * @param bool                            $has_block    Whether the post has this block.
+		 * @param WP_Post|null                    $wp_post      The post object.
+		 * @param int|null                        $post_id      The post ID.
+		 * @param Tribe__Editor__Blocks__Abstract $block_object The block object.
 		 */
 		return (bool) apply_filters( "tec_block_{$block_name}_has_block", $has_block, $wp_post, $post_id, $this );
 	}
@@ -263,8 +263,8 @@ implements Tribe__Editor__Blocks__Interface {
 		 *
 		 * @since 4.12.0
 		 *
-		 * @param array  $block_data The block data.
-		 * @param object $this       The current object.
+		 * @param array  $block_data   The block data.
+		 * @param object $block_object The current object
 		 */
 		$block_data = apply_filters( 'tribe_block_block_data', $block_data, $this );
 
@@ -273,8 +273,8 @@ implements Tribe__Editor__Blocks__Interface {
 		 *
 		 * @since 4.12.0
 		 *
-		 * @param array  $block_data The block data.
-		 * @param object $this       The current object.
+		 * @param array  $block_data   The block data.
+		 * @param object $block_object The current object
 		 */
 		$block_data = apply_filters( 'tribe_block_block_data_' . $this->slug(), $block_data, $this );
 

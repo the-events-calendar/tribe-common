@@ -902,62 +902,6 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			return $field;
 		}
 
-		/* deprecated camelCase methods */
-		public function doField() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field' );
-			return $this->do_field();
-		}
-
-		public function doFieldStart() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_start' );
-			return $this->do_field_start();
-		}
-
-		public function doFieldEnd() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_end' );
-			return $this->do_field_end();
-		}
-
-		public function doFieldLabel() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_label' );
-			return $this->do_field_label();
-		}
-
-		public function doFieldDivStart() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_div_start' );
-			return $this->do_field_div_start();
-		}
-
-		public function doFieldDivEnd() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_div_end' );
-			return $this->do_field_div_end();
-		}
-
-		public function doToolTip() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_tool_tip' );
-			return $this->do_tool_tip();
-		}
-
-		public function doFieldValue() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_value' );
-			return $this->do_field_value();
-		}
-
-		public function doFieldName( $multi = false ) {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_name' );
-			return $this->do_field_name( $multi );
-		}
-
-		public function doFieldAttributes() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_attributes' );
-			return $this->do_field_attributes();
-		}
-
-		public function doScreenReaderLabel() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_screen_reader_label' );
-			return $this->do_screen_reader_label();
-		}
-
 		/**
 		 * Generate a wrapped html field.
 		 *

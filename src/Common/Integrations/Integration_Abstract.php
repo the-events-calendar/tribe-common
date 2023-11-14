@@ -86,6 +86,7 @@ abstract class Integration_Abstract extends Service_Provider {
 		 * @since 5.1.1
 		 *
 		 * @param bool   $value Whether the integration should load.
+		 * @param string $parent Parent of the integration we are loading.
 		 * @param string $type  Type of integration we are loading.
 		 * @param string $slug  Slug of the integration we are loading.
 		 */

@@ -40,7 +40,6 @@ $attributes = $button_attributes ?: [];
 	<?php if ( ! empty( $button_value ) && 0 !== absint( $button_value ) ) : ?>
 		value="<?php echo esc_attr( $button_value ); ?>"
 	<?php endif; ?>
-	<?php if ( ! empty( $button_disabled ) && tribe_is_truthy( $button_disabled ) ) : ?>
-		<?php tribe_disabled( true ); ?>
-	<?php endif; ?>
+	<?php disabled( $button_disabled ); ?>
+
 ><?php echo wp_kses_post( $button_text ); ?></button>

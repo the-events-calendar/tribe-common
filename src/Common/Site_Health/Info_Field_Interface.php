@@ -14,6 +14,16 @@ namespace TEC\Common\Site_Health;
 interface Info_Field_Interface {
 
 	/**
+	 * Configure all the params for a generic field.
+	 *
+	 * @param string                           $id
+	 * @param string                           $label
+	 * @param array<string,string>|string|null $value
+	 * @param int                              $priority
+	 */
+	public function __construct( string $id, string $label, $value = null, int $priority = 50 );
+
+	/**
 	 * Gets the ID for this field.
 	 *
 	 * @since 5.1.0

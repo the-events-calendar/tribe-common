@@ -794,7 +794,8 @@ class Tribe__Template {
 		 *
 		 * @since  4.12.0
 		 *
-		 * @param string  null     Whether to continue displaying the template or not.
+		 * @param string  $display Whether to continue displaying the template or not. Default null.
+		 *                         Returning anything except null will prevent the template from displaying.
 		 * @param array   $name    Template name.
 		 * @param array   $context Any context data you need to expose to this file.
 		 * @param boolean $echo    If we should also print the Template.

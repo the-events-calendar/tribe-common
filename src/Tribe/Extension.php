@@ -172,7 +172,7 @@ abstract class Tribe__Extension {
 			$plugins_required
 		);
 
-		$dependency = Tribe__Dependency::instance();
+		$dependency = tribe( Tribe__Dependency::class );
 
 		// check requisite plugins are active for this extension
 		$is_plugin_authorized = $dependency->has_requisite_plugins( $plugins_required );

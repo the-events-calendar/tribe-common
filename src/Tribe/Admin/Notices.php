@@ -3,8 +3,6 @@
 use Tribe__Date_Utils as Dates;
 use TEC\Common\StellarWP\DB\DB;
 
-use function Crontrol\Event\delete;
-
 /**
  * @since 4.3
  */
@@ -608,7 +606,6 @@ class Tribe__Admin__Notices {
 	 * @param array  $arguments Arguments to Setup a notice
 	 * @param int    $expire    After how much time (in seconds) the notice will stop showing.
 	 *
-	 * @return stdClass Which notice was registered
 	 */
 	public function register_transient( $slug, $html, $arguments = [], $expire = null ) {
 		$notices          = $this->get_transients();

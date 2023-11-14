@@ -308,7 +308,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * @param string $key The key of the data to save.
 	 * @param array  $data The data to save.
 	 *
-	 * @return $this This process instance.
+	 * @return $this The current process instance.
 	 */
 	public function update( $key, $data ) {
 		$meta_key = $this->get_meta_key( $key );
@@ -697,7 +697,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 *
 	 * @param mixed $data An item to process.
 	 *
-	 * @return $this This process instance.
+	 * @return $this The current process instance.
 	 */
 	public function push_to_queue( $data ) {
 		$this->data[] = $data;
@@ -807,7 +807,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		 * @since 4.9.5
 		 *
 		 * @param int    $lock_duration The lock duration in seconds; defaults to one minute.
-		 * @param static $this          This process instance.
+		 * @param static $instance      The current process instance.
 		 */
 		$lock_duration = apply_filters( $this->identifier . '_queue_lock_time', $lock_duration, $this );
 
@@ -819,7 +819,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 *
 	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 *
-	 * @return $this This process instance.
+	 * @return $this The current process instance.
 	 */
 	protected function unlock_process() {
 		delete_transient( $this->identifier . '_process_lock' );
@@ -912,8 +912,8 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		 *
 		 * @since 4.9.5
 		 *
-		 * @param bool   $return Whether the process did exceed the allowed memory limit or not.
-		 * @param static $this   This process instance.
+		 * @param bool   $return   Whether the process did exceed the allowed memory limit or not.
+		 * @param static $instance The current process instance.
 		 */
 		return apply_filters( $this->identifier . '_memory_exceeded', $return, $this );
 	}
@@ -961,7 +961,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		 * @since 4.9.5
 		 *
 		 * @param int    $default_time_limit The time limit for the process.
-		 * @param static $this               This process instance.
+		 * @param static $instance           The current process instance.
 		 */
 		$time_limit = apply_filters( $this->identifier . '_default_time_limit', 20, $this );
 
@@ -977,8 +977,8 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		 *
 		 * @since 4.9.5
 		 *
-		 * @param bool   $return Whether the process did exceed the time limit or not.
-		 * @param static $this   This process instance.
+		 * @param bool   $return   Whether the process did exceed the time limit or not.
+		 * @param static $instance The current process instance.
 		 */
 		return apply_filters( $this->identifier . '_time_exceeded', $return );
 	}
@@ -1014,7 +1014,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		 * @since 4.9.5
 		 *
 		 * @param int    $interval The number of minutes to schedule the cron health-check; defaults to 5.
-		 * @param static $this     This process instance.
+		 * @param static $instance The current process instance.
 		 */
 		$interval = apply_filters( $this->identifier . '_cron_interval', $this->healthcheck_cron_interval, $this );
 

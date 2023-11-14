@@ -624,8 +624,8 @@ final class Tribe__Customizer {
 			 * @since 4.4
 			 * @since 4.12.15 Add Customizer instance as a parameter.
 			 *
-			 * @param array                $section
-			 * @param WP_Customize_Manager $manager
+			 * @param WP_Customize_Section $section The customizer section.
+			 * @param WP_Customize_Manager $manager The customizer manager.
 			 * @param Tribe__Customizer    $customizer The current customizer instance.
 			 */
 			do_action( "tribe_customizer_register_{$id}_settings", $this->sections[ $id ], $this->manager, $this );

@@ -260,14 +260,13 @@ abstract class Date_Based {
 
 		$should_display = $notice_start <= $now && $now < $notice_end;
 
-
 		/**
 		 * Allow filtering of whether the notice should display.
 		 *
 		 * @since 4.14.2
 		 *
-		 * @param boolean                          $should_display Whether the notice should display.
-		 * @param Tribe__Admin__Notice_Date_Based $notice  The notice object.
+		 * @param boolean    $should_display Whether the notice should display.
+		 * @param Date_Based $notice         The notice object.
 		 */
 		return apply_filters( "tribe_{$this->slug}_notice_should_display", $should_display, $this );
 	}
@@ -291,7 +290,8 @@ abstract class Date_Based {
 		 *
 		 * @since 4.14.2
 		 *
-		 * @param \DateTime $date Date object for the notice start.
+		 * @param \DateTime  $date   Date object for the notice start.
+		 * @param Date_Based $notice The notice object.
 		 */
 		$date = apply_filters( "tribe_{$this->slug}_notice_start_date", $date, $this );
 
@@ -317,7 +317,8 @@ abstract class Date_Based {
 		*
 		* @since 4.14.2
 		*
-		* @param \DateTime $date Date object for the notice end.
+		* @param \DateTime $date    Date object for the notice end.
+		* @param Date_Based $notice The notice object.
 		*/
 		$date = apply_filters( "tribe_{$this->slug}_notice_end_date", $date, $this );
 
@@ -348,7 +349,8 @@ abstract class Date_Based {
 		*
 		* @since 4.14.2
 		*
-		* @param \DateTime $date Date object for the notice end.
+		* @param \DateTime $date    Date object for the notice end.
+		* @param Date_Based $notice The notice object.
 		*/
 		$date = apply_filters( "tribe_{$this->slug}_notice_extension_date", $date, $this );
 

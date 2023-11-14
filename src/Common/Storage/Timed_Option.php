@@ -96,6 +96,7 @@ class Timed_Option {
 		 * @since 5.0.6
 		 *
 		 * @param string $option_name Name of the option where all the transient data will live.
+		 * @param string $option_name_prefix The option prefix used.
 		 */
 		return (string) apply_filters( 'tec_common_timed_option_name', $this->option_name_prefix . $key, $this->option_name_prefix );
 	}

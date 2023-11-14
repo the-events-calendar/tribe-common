@@ -77,7 +77,7 @@ class View extends \Tribe__Template {
 	 * @param string  $id      The unique ID for this dialog. Gets prepended to the data attributes. Generated if not passed (`uniqid()`).
 	 * @param boolean $echo    Whether to echo the script or to return it (default: true).
 	 *
-	 * @return string An HTML string of the dialog.
+	 * @return string $html An HTML string of the dialog.
 	 */
 	public function render_dialog( $content, $args = [], $id = null, $echo = true ) {
 		// Check for content to be passed.
@@ -538,7 +538,6 @@ class View extends \Tribe__Template {
 			'overlayClasses'       => $args[ 'overlay_classes' ],
 			'overlayClickCloses'   => $args[ 'overlay_click_closes' ],
 			'showEvent'            => $args[ 'show_event' ],
-			'closeEvent'           => $args[ 'close_event' ],
 			'template'             => $args[ 'template' ],
 			'wrapperClasses'       => esc_attr( $args[ 'wrapper_classes' ] ),
 		];
@@ -603,7 +602,7 @@ class View extends \Tribe__Template {
 		 *
 		 * @since 4.10.0
 		 *
-		 * @param array $args List of arguments to override dialog script. See \Tribe\Dialog\View->build_dialog().
+		 * @param array $html The HTML prior to output.
 		 */
 		$html = apply_filters( 'tribe_dialog_script_html', $html );
 

@@ -157,8 +157,8 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 		/**
 		 * Filters the resource URL
 		 *
-		 * @param $url
-		 * @param $resource
+		 * @param string $url
+		 * @param string $resource
 		 */
 		$url = apply_filters( 'tribe_resource_url', $url, $resource );
 
@@ -310,7 +310,7 @@ if ( ! function_exists( 'tribe_prepare_for_json' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param $string
+	 * @param string $string
 	 *
 	 * @return string
 	 */
