@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.1.14] 2023-11-15 =
+
+* Fix - Ensure the JavaScript module assets are properly getting the `type="module"` added on all scenarios [GTRIA-1112]
+
 = [5.1.13.1] 2023-11-10 =
 
 * Fix - Update Telemetry library to prevent potential fatals. [TEC-4978]
