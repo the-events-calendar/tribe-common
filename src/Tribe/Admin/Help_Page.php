@@ -52,7 +52,7 @@ class Tribe__Admin__Help_Page {
 	 * Checks if the current page is the Help one
 	 *
 	 * @since 4.5.7
-	 * @since TBD Verifying that the current page is a screen
+	 * @since 5.1.12 Verifying that the current page is a screen
 	 *
 	 * @return bool
 	 */
@@ -76,7 +76,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Checks if the current page is the TEC Help one
 	 *
-	 * @since TBD
+	 * @since 5.1.12
 	 *
 	 * @return bool
 	 */
@@ -95,7 +95,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Checks if the current page is the Tickets Help one
 	 *
-	 * @since TBD
+	 * @since 5.1.12
 	 *
 	 * @return bool
 	 */

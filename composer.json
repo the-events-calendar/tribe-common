@@ -27,7 +27,7 @@
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
     "stellarwp/installer": "^1.1.0",
-    "stellarwp/telemetry": "^2.3.0-rc.01"
+    "stellarwp/telemetry": "^2.3.1"
   },
   "require-dev": {
     "automattic/vipwpcs": "^2.0",

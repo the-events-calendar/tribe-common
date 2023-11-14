@@ -94,7 +94,7 @@ class Template_Utils {
 	/**
 	 * Fetch a WP_Block_Template by the post_name and terms field.
 	 *
-	 * @since TBD
+	 * @since 5.1.14
 	 *
 	 * @param string $post_name The post_name field to search by.
 	 * @param string $terms     The terms field to search by, default to 'tec'.
@@ -146,7 +146,7 @@ class Template_Utils {
 	/**
 	 * Create a post for the wp_theme and return the hydrated WP_Block_Template.
 	 *
-	 * @since TBD
+	 * @since 5.1.14
 	 *
 	 * @param array $post_array Post array for insert.
 	 *
@@ -181,7 +181,7 @@ class Template_Utils {
 	/**
 	 * Hydrate a WP_Block_Template from a WP_Post object.
 	 *
-	 * @since TBD
+	 * @since 5.1.14
 	 *
 	 * @param WP_Post $post The post to hydrate the WP_Block_Template.
 	 *

@@ -31,6 +31,7 @@ class Provider extends Service_Provider {
 	 */
 	public function register() {
 		$this->container->bind( Telemetry::class, Telemetry::class );
+		$this->container->singleton( Opt_In::class, Opt_In::class );
 
 		$this->add_actions();
 		$this->add_filters();
@@ -87,12 +88,48 @@ class Provider extends Service_Provider {
 	}
 
 	/**
+	 * Filters the arguments for telemetry data to add the opt-in user data if missing.
+	 *
+	 * @since 5.1.13
+	 *
+	 * @param array $args Telemetry args.
+	 *
+	 * @return array
+	 */
+	public function filter_send_data_args( $args ) {
+		if ( ! is_array( $args ) ) {
+			return $args;
+		}
+
+		if ( empty( $args['telemetry'] ) ) {
+			return $args;
+		}
+
+		$telemetry = json_decode( $args['telemetry'], true );
+
+		if ( ! empty( $telemetry['opt_in_user'] ) ) {
+			return $args;
+		}
+
+		/** @var Opt_In $opt_in */
+		$opt_in = $this->container->get( Opt_In::class );
+
+		$telemetry['opt_in_user'] = $opt_in->build_opt_in_user();
+
+		$args['telemetry'] = wp_json_encode( $telemetry );
+
+		return $args;
+	}
+
+	/**
 	 * It's super important to make sure when hooking to WordPress actions that we don't do before we are sure that
 	 * telemetry was properly booted into the system.
 	 *
 	 * @since 5.1.3
+	 * @since 5.1.13 Added filter of send_data_args to include opt-in data.
 	 */
 	public function hook_telemetry_init(): void {
+		add_filter( "stellarwp/telemetry/tec/send_data_args", [ $this, 'filter_send_data_args' ] );
 		add_action( 'admin_init', [ $this, 'initialize_telemetry' ], 5 );
 	}
 
