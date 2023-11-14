@@ -209,8 +209,9 @@ class Tribe__Assets {
 	 * @return string Script tag with the type=module
 	 */
 	public function filter_modify_to_module( $tag, $handle ) {
+		$asset = $this->get( $handle );
 		// Only filter for own filters.
-		if ( ! $asset = $this->get( $handle ) ) {
+		if ( ! $asset ) {
 			return $tag;
 		}
 
