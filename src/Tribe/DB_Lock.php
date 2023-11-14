@@ -95,7 +95,7 @@ class DB_Lock {
 		 *
 		 * @param int    $timeout  The timeout, in seconds, of the lock acquisition attempt.
 		 * @param string $lock_key The lock key the target of the acquisition attempt.
-		 * @param static $this     The object that's trying to acquire the lock by means of the trait.
+		 * @param static $instance The object instance that's trying to acquire the lock by means of the trait.
 		 */
 		$timeout = apply_filters( 'tribe_db_lock_timeout', 3, $lock_key, $this );
 

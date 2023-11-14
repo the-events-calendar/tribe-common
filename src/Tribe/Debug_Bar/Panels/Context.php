@@ -2,12 +2,12 @@
 use Tribe__Utils__Array as Arr;
 
 /**
- * The Debug Bar panel that will display tribe context informations.
+ * The Debug Bar panel that will display tribe context information.
  *
  * @since 4.9.5
  */
 
-class Tribe__Debug_Bar__Panels__Context extends Debug_Bar_Panel {
+class Tribe__Debug_Bar__Panels__Context extends Debug_Bar_Panel { // @phpstan-ignore-line
 
 	/**
 	 * Returns the Panel name.

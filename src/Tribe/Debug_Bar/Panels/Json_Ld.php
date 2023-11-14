@@ -7,7 +7,7 @@
  * @package Tribe\Debug_Bar\Panels
  */
 
-class Tribe__Debug_Bar__Panels__Json_Ld extends Debug_Bar_Panel {
+class Tribe__Debug_Bar__Panels__Json_Ld extends Debug_Bar_Panel { // @phpstan-ignore-line
 	/**
 	 * Returns the Panel name.
 	 *

@@ -35,7 +35,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	protected $string;
 
 	/**
-	 * The default currency code
+	 * The default currency code.
 	 *
 	 * @since 4.14.9
 	 *
@@ -44,7 +44,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	protected $currency_code = 'USD';
 
 	/**
-	 * The default currency decimal separator
+	 * The default currency decimal separator.
 	 *
 	 * @since 4.14.9
 	 *
@@ -53,7 +53,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	protected $currency_separator_decimal = '.';
 
 	/**
-	 * The default currency thousands separator
+	 * The default currency thousands separator.
 	 *
 	 * @since 4.14.9
 	 *
@@ -62,7 +62,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	protected $currency_separator_thousands = ',';
 
 	/**
-	 * The default complete currency symbol, such as $, € or R$
+	 * The default complete currency symbol, such as $, € or R$.
 	 *
 	 * @since 4.14.9
 	 *
@@ -71,7 +71,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	protected $currency_symbol = '$';
 
 	/**
-	 * The default currency symbol position: prefix if $1 or postfix for 1$
+	 * The default currency symbol position: prefix if $1 or postfix for 1$.
 	 *
 	 * @since 4.14.9
 	 *
@@ -80,11 +80,11 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	protected $currency_symbol_position = 'prefix';
 
 	/**
-	 * Initialize object
+	 * Initialize object.
 	 *
 	 * @since 4.14.9
 	 *
-	 * @param mixed $amount the value to set initially
+	 * @param mixed $amount The value to set initially.
 	 */
 	public function __construct( $amount = 0 ) {
 		$this->set_up_currency_details();
@@ -96,26 +96,27 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	 * @inheritDoc
 	 */
 	public function get_currency() {
+		$value_type = $this->get_value_type();
 
 		/**
-		 * Filter the value returned for get_currency() when implemented in a specific class type
+		 * Filter the value returned for get_currency() when implemented in a specific class type.
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param string $currency the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param string            $currency The string representation of the value with symbol.
+		 * @param Abstract_Currency $instance The object instance.
 		 *
 		 * @return string
 		 */
-		$currency = apply_filters( "tec_common_value_{$this->get_value_type()}_get_currency", $this->currency, $this );
+		$currency = apply_filters( "tec_common_value_{$value_type}_get_currency", $this->currency, $this );
 
 		/**
-		 * Filter the value returned for get_currency() when implemented in any class
+		 * Filter the value returned for get_currency() when implemented in any class.
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param string $currency the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param string            $currency The string representation of the value with symbol.
+		 * @param Abstract_Currency $instance The object instance.
 		 *
 		 * @return string
 		 */
@@ -126,26 +127,27 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	 * @inheritDoc
 	 */
 	public function get_decimal() {
+		$value_type = $this->get_value_type();
 
 		/**
-		 * Filter the value returned for get_decimal() when implemented in a specific class type
+		 * Filter the value returned for get_decimal() when implemented in a specific class type.
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param float $decimal the float representation of the value, rounded to precision
-		 * @param Abstract_Currency the object instance
+		 * @param float             $decimal  The float representation of the value, rounded to precision.
+		 * @param Abstract_Currency $instance The object instance.
 		 *
 		 * @return float
 		 */
-		$decimal = apply_filters( "tec_common_value_{$this->get_value_type()}_get_decimal", $this->decimal, $this );
+		$decimal = apply_filters( "tec_common_value_{$value_type}_get_decimal", $this->decimal, $this );
 
 		/**
-		 * Filter the value returned for get_decimal() when implemented in any class
+		 * Filter the value returned for get_decimal() when implemented in any class.
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param float $decimal the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param float             $decimal  The float representation of the value.
+		 * @param Abstract_Currency $instance The object instance.
 		 *
 		 * @return float
 		 */
@@ -156,26 +158,27 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	 * @inheritDoc
 	 */
 	public function get_string() {
+		$value_type = $this->get_value_type();
 
 		/**
-		 * Filter the value returned for get_string() when implemented in a specific class type
+		 * Filter the value returned for get_string() when implemented in a specific class type.
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param string $string the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param string             $string  The string representation of the value.
+		 * @param Abstract_Currency $instance The object instance.
 		 *
 		 * @return string
 		 */
-		$string = apply_filters( "tec_common_value_{$this->get_value_type()}_get_string", $this->string, $this );
+		$string = apply_filters( "tec_common_value_{$value_type}_get_string", $this->string, $this );
 
 		/**
 		 * Filter the value returned for get_string() when implemented in any class
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param string $string the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param string             $string  The string representation of the value.
+		 * @param Abstract_Currency $instance The object instance.
 		 *
 		 * @return string
 		 */
@@ -186,26 +189,27 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	 * @inheritDoc
 	 */
 	public function get_currency_code() {
+		$value_type = $this->get_value_type();
 
 		/**
 		 * Filter the value returned for get_currency_code() when implemented in a specific class type
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param string $currency_code the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param string             $currency_code The string representation of the currency code.
+		 * @param Abstract_Currency $instance       The object instance.
 		 *
 		 * @return string
 		 */
-		$currency_code = apply_filters( "tec_common_value_{$this->get_value_type()}_get_currency_code", $this->currency_code, $this );
+		$currency_code = apply_filters( "tec_common_value_{$value_type}_get_currency_code", $this->currency_code, $this );
 
 		/**
 		 * Filter the value returned for get_currency_code() when implemented in any class
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param string $currency_code the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param string             $currency_code The string representation of the currency code.
+		 * @param Abstract_Currency $instance       The object instance.
 		 *
 		 * @return string
 		 */
@@ -216,26 +220,27 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	 * @inheritDoc
 	 */
 	public function get_currency_symbol() {
+		$value_type = $this->get_value_type();
 
 		/**
 		 * Filter the value returned for get_currency_symbol() when implemented in a specific class type
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param string $currency_symbol the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param string             $currency_symbol The string representation of the currency symbol.
+		 * @param Abstract_Currency $instance         The object instance.
 		 *
 		 * @return string
 		 */
-		$currency_symbol = apply_filters( "tec_common_value_{$this->get_value_type()}_get_currency_symbol", $this->currency_symbol, $this );
+		$currency_symbol = apply_filters( "tec_common_value_{$value_type}_get_currency_symbol", $this->currency_symbol, $this );
 
 		/**
 		 * Filter the value returned for get_currency_symbol() when implemented in any class
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param string $currency_symbol the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param string             $currency_symbol The string representation of the currency symbol.
+		 * @param Abstract_Currency $instance         The object instance.
 		 *
 		 * @return string
 		 */
@@ -246,26 +251,27 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	 * @inheritDoc
 	 */
 	public function get_currency_symbol_position() {
+		$value_type = $this->get_value_type();
 
 		/**
 		 * Filter the value returned for get_currency_symbol_position() when implemented in a specific class type
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param string $currency_symbol_position the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param string             $currency_symbol_position The string representation of the currency symbol position.
+		 * @param Abstract_Currency $instance                  The object instance.
 		 *
 		 * @return string
 		 */
-		$currency_symbol_position = apply_filters( "tec_common_value_{$this->get_value_type()}_get_currency_symbol_position", $this->currency_symbol_position, $this );
+		$currency_symbol_position = apply_filters( "tec_common_value_{$value_type}_get_currency_symbol_position", $this->currency_symbol_position, $this );
 
 		/**
 		 * Filter the value returned for get_currency_symbol_position() when implemented in any class
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param string $currency_symbol_position the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param string             $currency_symbol_position The string representation of the currency symbol position.
+		 * @param Abstract_Currency $instance                  The object instance.
 		 *
 		 * @return string
 		 */
@@ -276,26 +282,27 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	 * @inheritDoc
 	 */
 	public function get_currency_separator_decimal() {
+		$value_type = $this->get_value_type();
 
 		/**
 		 * Filter the value returned for get_currency_separator_decimal() when implemented in a specific class type
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param string $currency_separator_decimal the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param string            $currency_separator_decimal The string representation of the currency decimal separator.
+		 * @param Abstract_Currency $instance                   The object instance.
 		 *
 		 * @return string
 		 */
-		$currency_separator_decimal = apply_filters( "tec_common_value_{$this->get_value_type()}_get_currency_separator_decimal", $this->currency_separator_decimal, $this );
+		$currency_separator_decimal = apply_filters( "tec_common_value_{$value_type}_get_currency_separator_decimal", $this->currency_separator_decimal, $this );
 
 		/**
 		 * Filter the value returned for get_currency_separator_decimal() when implemented in any class
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param string $currency_separator_decimal the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param string            $currency_separator_decimal The string representation of the currency decimal separator.
+		 * @param Abstract_Currency $instance                   The object instance.
 		 *
 		 * @return string
 		 */
@@ -306,26 +313,27 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	 * @inheritDoc
 	 */
 	public function get_currency_separator_thousands() {
+		$value_type = $this->get_value_type();
 
 		/**
 		 * Filter the value returned for get_currency_separator_thousands() when implemented in a specific class type
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param string $currency_separator_thousands the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param string            $currency_separator_thousands The string representation of the value.
+		 * @param Abstract_Currency $instance                     The object instance.
 		 *
 		 * @return string
 		 */
-		$currency_separator_thousands = apply_filters( "tec_common_value_{$this->get_value_type()}_get_currency_separator_thousands", $this->currency_separator_thousands, $this );
+		$currency_separator_thousands = apply_filters( "tec_common_value_{$value_type}_get_currency_separator_thousands", $this->currency_separator_thousands, $this );
 
 		/**
 		 * Filter the value returned for get_currency_separator_thousands() when implemented in any class
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param string $currency_separator_thousands the string representation of the value
-		 * @param Abstract_Currency the object instance
+		 * @param string            $currency_separator_thousands The string representation of the value.
+		 * @param Abstract_Currency $instance                     The object instance.
 		 *
 		 * @return string
 		 */

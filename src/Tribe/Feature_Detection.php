@@ -62,7 +62,7 @@ class Tribe__Feature_Detection {
 		 *
 		 * @since 4.7.23
 		 *
-		 * @param bool $supports_async_process Whether async, AJAX-based, processing is supported or not.
+		 * @param ?bool $supports_async_process Whether async, AJAX-based, processing is supported or not.
 		 * @param bool $force                  Whether the check is forcing the cached value to be refreshed
 		 *                                     or not.
 		 */
@@ -170,7 +170,7 @@ class Tribe__Feature_Detection {
 		 *
 		 * @since 4.10.2
 		 *
-		 * @param int $mysql_max_packet_size The value of the `max_allowed_packet` variable, initially `null`.
+		 * @param ?int $mysql_max_packet_size The value of the `max_allowed_packet` variable, initially `null`.
 		 */
 		$mysql_max_packet_size = apply_filters( 'tribe_max_allowed_packet_size', null );
 

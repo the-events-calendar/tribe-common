@@ -48,7 +48,7 @@ class Tribe__Cost_Utils {
 	}
 
 	/**
-	 * Returns the regular expression that shold be used to  identify a valid
+	 * Returns the regular expression that should be used to  identify a valid
 	 * cost string.
 	 *
 	 * @return string
@@ -65,8 +65,12 @@ class Tribe__Cost_Utils {
 		 *
 		 * @deprecated 4.3 Use `tribe_cost_regex` instead
 		 */
-		$cost_regex = apply_filters(
-			'tribe_events_cost_regex', $cost_regex
+		$cost_regex = apply_filters_deprecated(
+			'tribe_events_cost_regex',
+			$cost_regex,
+			'4.3.0',
+			'tribe_cost_regex',
+			'Tribe__Cost_Utils::get_cost_regex'
 		);
 
 		/**
@@ -125,13 +129,13 @@ class Tribe__Cost_Utils {
 	 * return string
 	 * @param int|WP_Post      $event             An event post ID or post object.
 	 * @param string           $currency_symbol
-	 * @param string           $currency_position Either "prefix" or "posfix"
+	 * @param string           $currency_position Either "prefix" or "postfix"
 	 *
 	 * @return float|int|string
 	 */
 	public function maybe_format_with_currency( $cost, $event = null, $currency_symbol = null, $currency_position = null ) {
 		// check if the currency symbol is desired, and it's just a number in the field
-		// be sure to account for european formats in decimals, and thousands separators
+		// be sure to account for European formats in decimals, and thousands separators
 		if ( is_numeric( str_replace( $this->get_separators(), '', $cost ) ) ) {
 			$reverse_position = null;
 			// currency_position often gets passed as null or an empty string.
@@ -188,11 +192,14 @@ class Tribe__Cost_Utils {
 				$matches[0]
 			);
 
-		$numeric_orignal_costs                  = empty( $matches[0] ) ? $matches[0] : array_map(
-			'floatval', $matches[0]
+		$numeric_original_costs                  = empty( $matches[0] )
+			? $matches[0]
+			: array_map(
+			'floatval',
+			$matches[0]
 		);
 
-		$all_numeric_costs = array_filter( array_merge( $numeric_merging_cost_costs, $numeric_orignal_costs ) );
+		$all_numeric_costs = array_filter( array_merge( $numeric_merging_cost_costs, $numeric_original_costs ) );
 		$cost_min          = $cost_max = false;
 
 		$merging_mins     = array_intersect( $sorted_mins, (array) $merging_cost );
@@ -257,10 +264,10 @@ class Tribe__Cost_Utils {
 	 */
 	protected function get_cost_by_func( $costs = null, $function = 'max' ) {
 		if ( null === $costs ) {
-			$costs = $this->get_all_costs();
-		} else {
-			$costs = (array) $costs;
+			return 0;
 		}
+
+		$costs = (array) $costs;
 
 		$costs = $this->parse_cost_range( $costs );
 

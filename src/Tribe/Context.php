@@ -1191,8 +1191,8 @@ class Tribe__Context {
 			 *
 			 * @since 4.9.5
 			 *
-			 * @param array $state The Redux store compatible state produced from the global context.
-			 * @param Tribe__Context The global context object producing the state.
+			 * @param array          $state   The Redux store compatible state produced from the global context.
+			 * @param Tribe__Context $context The global context object producing the state.
 			 */
 			$state = apply_filters( 'tribe_global_context_state', $state, $this );
 		}
@@ -1252,10 +1252,10 @@ class Tribe__Context {
 		 *
 		 * @since 4.9.5
 		 *
-		 * @param array $orm_args          The ORM args produced from the current context.
-		 * @param bool  $is_global_context Whether the context producing the ORM args is the global one
-		 *                                 or a modified clone of it.
-		 * @param Tribe__Context The context object producing the ORM args.
+		 * @param array          $orm_args          The ORM args produced from the current context.
+		 * @param bool           $is_global_context Whether the context producing the ORM args is the global one
+		 *                                          or a modified clone of it.
+		 * @param Tribe__Context $context           The context object producing the ORM args.
 		 */
 		$orm_args = apply_filters( 'tribe_context_orm_args', $orm_args, $is_global_context, $this );
 
@@ -1268,8 +1268,8 @@ class Tribe__Context {
 			 *
 			 * @since 4.9.5
 			 *
-			 * @param array $orm_args The ORM args produced from the global context.
-			 * @param Tribe__Context The global context object producing the ORM args.
+			 * @param array          $orm_args The ORM args produced from the global context.
+			 * @param Tribe__Context $context  The global context object producing the ORM args.
 			 */
 			$orm_args = apply_filters( 'tribe_global_context_orm_args', $orm_args, $this );
 		}
@@ -1297,7 +1297,8 @@ class Tribe__Context {
 		 *
 		 * @since 4.9.8
 		 *
-		 * @param  array  $locations  An array of locations registered on the Context object.
+		 * @param  array         $locations An array of locations registered on the Context object.
+		 * @param Tribe__Context $context   The global context object producing the ORM args.
 		 */
 		static::$locations = apply_filters( 'tribe_context_locations', static::$locations, $this );
 

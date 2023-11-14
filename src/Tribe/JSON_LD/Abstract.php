@@ -132,7 +132,7 @@ abstract class Tribe__JSON_LD__Abstract {
 		$type = strtolower( esc_attr( $this->type ) );
 
 		/**
-		 * Allows the event data to be modifed by themes and other plugins.
+		 * Allows the event data to be modified by themes and other plugins.
 		 *
 		 * @example tribe_json_ld_thing_object
 		 * @example tribe_json_ld_event_object
@@ -160,7 +160,7 @@ abstract class Tribe__JSON_LD__Abstract {
 		}
 
 		/**
-		 * Allows the event data to be modifed by themes and other plugins.
+		 * Allows the event data to be modified by themes and other plugins.
 		 *
 		 * @example tribe_json_ld_thing_data
 		 * @example tribe_json_ld_event_data
@@ -188,7 +188,7 @@ abstract class Tribe__JSON_LD__Abstract {
 		/**
 		 * Allows users to filter the end markup of JSON-LD
 		 *
-		 * @param string The HTML for the JSON LD markup
+		 * @param string $html The HTML for the JSON LD markup
 		 */
 		$html = apply_filters( 'tribe_json_ld_markup', $html );
 		echo $html;

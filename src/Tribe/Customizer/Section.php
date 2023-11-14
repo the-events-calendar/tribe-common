@@ -335,16 +335,16 @@ abstract class Tribe__Customizer__Section {
 	 *
 	 * @since 4.13.3
 	 *
-	 * @return void
+	 * @return array<string,callable> The filtered arguments.
 	 */
 	public function setup_arguments() {}
 
 	/**
 	 * Filter section arguments.
 	 *
-	 * @since 4.14.0
+	 * @return array<string,callable> The filtered arguments.
 	 *
-	 * @return void
+	 * @since 4.14.0
 	 */
 	public function filter_arguments( $arguments ) {
 		/**
@@ -375,7 +375,7 @@ abstract class Tribe__Customizer__Section {
 	 *
 	 * @since 4.14.0
 	 *
-	 * @return void
+	 * @return array<string,callable> The filtered arguments.
 	 */
 	public function get_arguments() {
 		return $this->filter_arguments( $this->setup_arguments() );
@@ -705,7 +705,10 @@ abstract class Tribe__Customizer__Section {
 		 *
 		 * @since 4.13.3
 		 *
-		 * @param array<string,string> $control_types The map of keys to WP Control classes.
+		 * @param array<string,callable> $control_types The map of keys to WP Control classes.
+		 * @param static			     $instance	  The section instance we are dealing with.
+		 *
+		 * @return array<string,callable> $control_types The modified map of keys to WP Control classes.
 		 */
 		return apply_filters( 'tribe_customizer_accepted_control_types', $accepted_control_types, $this );
 	}

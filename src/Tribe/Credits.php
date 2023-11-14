@@ -14,15 +14,16 @@ class Tribe__Credits {
 	 */
 	public function hook() {
 		add_filter( 'tribe_events_after_html', [ $this, 'html_comment_credit' ] );
-		add_filter( 'admin_footer_text', [ $this, 'rating_nudge' ], 1, 2 );
+		add_filter( 'admin_footer_text', [ $this, 'rating_nudge' ], 1  );
 	}
 
 	/**
 	 * Add credit in HTML page source
 	 *
-	 * @return void
+	 * @param string $after_html  The current HTML page source.
+	 * @return string $after_html The modified HTML page source.
 	 **/
-	public function html_comment_credit( $after_html ) {
+	public function html_comment_credit( $after_html ): string {
 
 		if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			return $after_html;

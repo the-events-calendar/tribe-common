@@ -333,6 +333,6 @@ class Tribe__Ajax__Dropdown {
 	public function __call( $name, $arguments ) {
 		$message = __( 'The "%s" source is invalid and cannot be reached on "%s" instance.', 'tribe-common' );
 
-		return $this->error( sprintf( $message, $name, __CLASS__ ) );
+		$this->error( sprintf( $message, $name, __CLASS__ ) );
 	}
 }

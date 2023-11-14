@@ -27,8 +27,8 @@ trait Value_Update {
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param string[] $setters the list of setter methods returned
-		 * @param Abstract_Value the object instance
+		 * @param string[]       $setters  The list of setter methods returned.
+		 * @param Abstract_Value $instance The object instance.
 		 *
 		 * @return string[]
 		 */
@@ -39,8 +39,8 @@ trait Value_Update {
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param string[] $setters the list of setter methods returned
-		 * @param Abstract_Value the object instance
+		 * @param string[]       $setters  The list of setter methods returned.
+		 * @param Abstract_Value $instance The object instance.
 		 *
 		 * @return string[]
 		 */

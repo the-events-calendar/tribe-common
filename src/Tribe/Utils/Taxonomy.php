@@ -61,6 +61,7 @@ class Taxonomy {
 			return $tax_query;
 		}
 
+		// @todo: This does not belong here!
 		$repo = tribe_events();
 
 		$operation = static::OPERAND_AND === $operand ? 'term_and' : 'term_in';
@@ -130,9 +131,8 @@ class Taxonomy {
 	 * so this method primes the caching by doing a single query that will build the cache for all Posts involved on
 	 * the template we are about to render, reducing about 2 queries for each Post that we prime the cache for.
 	 *
-	 * Important to note that
-	 *
 	 * @since 5.0.0
+	 * @since TBD Removed dependency on Tribe__Events__Main
 	 *
 	 * @param array $posts
 	 * @param array $taxonomies
@@ -140,7 +140,7 @@ class Taxonomy {
 	 *
 	 * @return array<int, array>
 	 */
-	public static function prime_term_cache( array $posts = [], array $taxonomies = [ 'post_tag', \Tribe__Events__Main::TAXONOMY ], bool $prime_term_meta = false ): array {
+	public static function prime_term_cache( array $posts = [], array $taxonomies = [ 'post_tag' ], bool $prime_term_meta = false ): array {
 		$first = reset( $posts );
 		$is_numeric = ( ! $first instanceof \WP_Post );
 		if ( $is_numeric ) {

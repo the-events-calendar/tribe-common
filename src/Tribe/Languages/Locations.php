@@ -329,7 +329,7 @@ class Tribe__Languages__Locations {
 		 *
 		 * @since 4.7.12
 		 *
-		 * @param array associative array with: Country Code => Country Name
+		 * @param array<string,string> $countries associative array with: Country Code => Country Name
 		 */
 		return (array) apply_filters( 'tribe_countries', $countries );
 	}
@@ -406,7 +406,7 @@ class Tribe__Languages__Locations {
 		 *
 		 * @since 4.7.12
 		 *
-		 * @param array Associative array with the format: State Code => State Name
+		 * @param array<string,string> $states Associative array with the format: State Code => State Name
 		 */
 		return (array) apply_filters( 'tribe_us_states', $states );
 	}

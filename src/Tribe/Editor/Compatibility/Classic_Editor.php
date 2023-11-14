@@ -294,7 +294,7 @@ class Classic_Editor {
 		 * @since 4.9.12
 		 * @since 4.14.13 moved to separate class.
 		 *
-		 * @param $is_plugin_active bool Value that indicates if the plugin is active or not.
+		 * @param bool $is_plugin_active Value that indicates if the plugin is active or not.
 		 */
 		return (boolean) apply_filters( 'tribe_is_classic_editor_plugin_active', $is_plugin_active );
 	}

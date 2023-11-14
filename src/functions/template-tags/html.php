@@ -110,30 +110,6 @@ function tribe_required_label( $required, $echo = true ) {
 }
 
 /**
- * Get attributes for disabled fields.
- *
- * @deprecated 4.12.6
- *
- * @since 4.10.0
- *
- * @param boolean $disabled If the field is disabled.
- * @param boolean $echo     Whether to echo the string or return it.
- *
- * @return string|void If echo is false, returns $disabled_string.
- */
-function tribe_disabled( $disabled, $echo = true ) {
-	if ( $disabled ) {
-		$disabled_string = 'disabled aria-disabled="true"';
-
-		if ( ! $echo ) {
-			return $disabled_string;
-		} else {
-			echo $disabled_string;
-		}
-	}
-}
-
-/**
  * Generates a string for the tribe-dependency attributes.
  *
  * @since 4.12.14

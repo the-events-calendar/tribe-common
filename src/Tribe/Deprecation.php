@@ -167,9 +167,9 @@ class Tribe__Deprecation {
 	}
 
 	/**
-	 * @param string $deprecated_tag
+	 * @param string $deprecated_tag The deprecated action handle.
 	 *
-	 * @return int|string
+	 * @return int|string $new_tag The new action handle, if found. Original tag if not.
 	 */
 	protected function get_action_for_deprecated_tag( $deprecated_tag ) {
 		foreach ( $this->deprecated_actions as $new_tag => $args ) {
@@ -177,12 +177,14 @@ class Tribe__Deprecation {
 				return $new_tag;
 			}
 		}
+
+		return $deprecated_tag;
 	}
 
 	/**
-	 * @param string $deprecated_tag
+	 * @param string $deprecated_tag The deprecated filter handle.
 	 *
-	 * @return int|string
+	 * @return int|string $new_tag The new filter handle, if found. Original tag if not.
 	 */
 	protected function get_filter_for_deprecated_tag( $deprecated_tag ) {
 		foreach ( $this->deprecated_filters as $new_tag => $args ) {
@@ -190,5 +192,7 @@ class Tribe__Deprecation {
 				return $new_tag;
 			}
 		}
+
+		return $deprecated_tag;
 	}
 }

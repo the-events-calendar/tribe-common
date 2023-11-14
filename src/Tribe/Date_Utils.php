@@ -136,7 +136,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @param  string $format The weird format you are using
 		 * @param  string $date   The date string to parse
 		 *
-		 * @return string         A DB formated Date, includes time if possible
+		 * @return string         A DB formatted Date, includes time if possible
 		 */
 		public static function datetime_from_format( $format, $date ) {
 			// Reverse engineer the relevant date formats
@@ -400,13 +400,13 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return int The timestamp of the date that fits the qualifications.
 		 */
 		public static function get_last_day_of_week_in_month( $curdate, $day_of_week ) {
-			$nextdate = mktime( date( 'H', $curdate ), date( 'i', $curdate ), date( 's', $curdate ), date( 'n', $curdate ), self::get_last_day_of_month( $curdate ), date( 'Y', $curdate ) );;
+			$next_date = mktime( date( 'H', $curdate ), date( 'i', $curdate ), date( 's', $curdate ), date( 'n', $curdate ), self::get_last_day_of_month( $curdate ), date( 'Y', $curdate ) );;
 
-			while ( date( 'N', $nextdate ) != $day_of_week && $day_of_week != - 1 ) {
-				$nextdate = strtotime( date( self::DBDATETIMEFORMAT, $nextdate ) . ' - 1 day' );
+			while ( date( 'N', $next_date ) != $day_of_week && $day_of_week != - 1 ) {
+				$next_date = strtotime( date( self::DBDATETIMEFORMAT, $next_date ) . ' - 1 day' );
 			}
 
-			return $nextdate;
+			return $next_date;
 		}
 
 		/**
@@ -418,15 +418,15 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return int The timestamp of the date that fits the qualifications.
 		 */
 		public static function get_first_day_of_week_in_month( $curdate, $day_of_week ) {
-			$nextdate = mktime( 0, 0, 0, date( 'n', $curdate ), 1, date( 'Y', $curdate ) );
+			$next_date = mktime( 0, 0, 0, date( 'n', $curdate ), 1, date( 'Y', $curdate ) );
 
-			while ( ! ( $day_of_week > 0 && date( 'N', $nextdate ) == $day_of_week ) &&
-					! ( $day_of_week == - 1 && self::is_weekday( $nextdate ) ) &&
-					! ( $day_of_week == - 2 && self::is_weekend( $nextdate ) ) ) {
-				$nextdate = strtotime( date( self::DBDATETIMEFORMAT, $nextdate ) . ' + 1 day' );
+			while ( ! ( $day_of_week > 0 && date( 'N', $next_date ) == $day_of_week ) &&
+					! ( $day_of_week == - 1 && self::is_weekday( $next_date ) ) &&
+					! ( $day_of_week == - 2 && self::is_weekend( $next_date ) ) ) {
+				$next_date = strtotime( date( self::DBDATETIMEFORMAT, $next_date ) . ' + 1 day' );
 			}
 
-			return $nextdate;
+			return $next_date;
 		}
 
 		/**
@@ -1079,160 +1079,6 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Returns the end of a given day.
-		 *
-		 * @deprecated since 3.10 - use tribe_event_end_of_day()
-		 * @todo       remove in 4.1
-		 *
-		 * @param int|string $date        The date (timestamp or string).
-		 * @param bool       $isTimestamp Is $date in timestamp format?
-		 *
-		 * @return string The date and time of the end of a given day
-		 */
-		public static function endOfDay( $date, $isTimestamp = false ) {
-			_deprecated_function( __METHOD__, '3.10', 'tribe_event_end_of_day' );
-
-			if ( $isTimestamp ) {
-				$date = date( self::DBDATEFORMAT, $date );
-			}
-
-			return tribe_event_end_of_day( $date, self::DBDATETIMEFORMAT );
-		}
-
-		/**
-		 * Returns the beginning of a given day.
-		 *
-		 * @deprecated since 3.10
-		 * @todo       remove in 4.1
-		 *
-		 * @param int|string $date        The date (timestamp or string).
-		 * @param bool       $isTimestamp Is $date in timestamp format?
-		 *
-		 * @return string The date and time of the beginning of a given day.
-		 */
-		public static function beginningOfDay( $date, $isTimestamp = false ) {
-			_deprecated_function( __METHOD__, '3.10', 'tribe_event_beginning_of_day' );
-
-			if ( $isTimestamp ) {
-				$date = date( self::DBDATEFORMAT, $date );
-			}
-
-			return tribe_event_beginning_of_day( $date, self::DBDATETIMEFORMAT );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::time_between
-		 *
-		 * @param string $date1 The first date.
-		 * @param string $date2 The second date.
-		 *
-		 * @return int The number of seconds between the dates.
-		 */
-		public static function timeBetween( $date1, $date2 ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::time_between' );
-			return self::time_between( $date1, $date2 );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::date_diff
-		 *
-		 * @param string $date1 The first date.
-		 * @param string $date2 The second date.
-		 *
-		 * @return int The number of days between two dates.
-		 */
-		public static function dateDiff( $date1, $date2 ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::date_diff' );
-			return self::date_diff( $date1, $date2 );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::get_last_day_of_month
-		 *
-		 * @param int $timestamp THe timestamp.
-		 *
-		 * @return string The last day of the month.
-		 */
-		public static function getLastDayOfMonth( $timestamp ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::get_last_day_of_month' );
-			return self::get_last_day_of_month( $timestamp );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::is_weekday
-		 *
-		 * @param int $curDate A timestamp.
-		 *
-		 * @return bool If the timestamp is a weekday.
-		 */
-		public static function isWeekday( $curdate ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::is_weekday' );
-			return self::is_weekday( $curdate );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::is_weekend
-		 *
-		 * @param int $curDate A timestamp.
-		 *
-		 * @return bool If the timestamp is a weekend.
-		 */
-		public static function isWeekend( $curdate ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::is_weekend' );
-			return self::is_weekend( $curdate );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::get_last_day_of_week_in_month
-		 *
-		 * @param int $curdate     A timestamp.
-		 * @param int $day_of_week The index of the day of the week.
-		 *
-		 * @return int The timestamp of the date that fits the qualifications.
-		 */
-		public static function getLastDayOfWeekInMonth( $curdate, $day_of_week ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::get_last_day_of_week_in_month' );
-			return self::get_last_day_of_week_in_month( $curdate, $day_of_week );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::get_first_day_of_week_in_month
-		 *
-		 * @param int $curdate     A timestamp.
-		 * @param int $day_of_week The index of the day of the week.
-		 *
-		 * @return int The timestamp of the date that fits the qualifications.
-		 */
-		public static function getFirstDayOfWeekInMonth( $curdate, $day_of_week ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::get_fist_day_of_week_in_month' );
-			return self::get_first_day_of_week_in_month( $curdate, $day_of_week );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::number_to_ordinal
-		 *
-		 * @param int $number A number.
-		 *
-		 * @return string The ordinal for that number.
-		 */
-		public static function numberToOrdinal( $number ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::number_to_ordinal' );
-			return self::number_to_ordinal( $number );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::is_timestamp
-		 *
-		 * @param $timestamp
-		 *
-		 * @return bool
-		 */
-		public static function isTimestamp( $timestamp ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::is_timestamp' );
-			return self::is_timestamp( $timestamp );
-		}
-
-		/**
 		 * Gets the timestamp of a day in week, month and year context.
 		 *
 		 * Kudos to [icedwater StackOverflow user](http://stackoverflow.com/users/1091386/icedwater) in
@@ -1254,7 +1100,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *                       $week_direction `1` and $week_in_month `1` means "first week of the month"
 		 *                       $week_direction `1` and $week_in_month `3` means "third week of the month"
 		 *                       $week_direction `-1` and $week_in_month `1` means "last week of the month"
-		 *                       $week_direction `-1` and $week_in_month `2` means "penultimmate week of the month"
+		 *                       $week_direction `-1` and $week_in_month `2` means "penultimate week of the month"
 		 *
 		 * @return int The day timestamp
 		 */
@@ -1273,12 +1119,12 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			}
 
 			if ( $week_direction > 0 ) {
-				$startday = 1;
+				$start_day = 1;
 			} else {
-				$startday = date( 't', mktime( 0, 0, 0, $month, 1, $year ) );
+				$start_day = date( 't', mktime( 0, 0, 0, $month, 1, $year ) );
 			}
 
-			$start   = mktime( 0, 0, 0, $month, $startday, $year );
+			$start   = mktime( 0, 0, 0, $month, $start_day, $year );
 			$weekday = date( 'N', $start );
 
 			if ( $week_direction * $day_of_week >= $week_direction * $weekday ) {
@@ -1289,7 +1135,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 
 			$offset += $week_direction * ( $week_in_month * 7 ) + ( $day_of_week - $weekday );
 
-			return mktime( 0, 0, 0, $month, $startday + $offset, $year );
+			return mktime( 0, 0, 0, $month, $start_day + $offset, $year );
 		}
 
 		/**
@@ -1451,7 +1297,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				// If the current date of the week is before the start of the week, move back a week.
 				$week_offset = -1;
 			} elseif ( 0 === $date_day ) {
-				// When start of the week is on a sunday we add a week.
+				// When start of the week is on a Sunday we add a week.
 				$week_offset = 1;
 			}
 

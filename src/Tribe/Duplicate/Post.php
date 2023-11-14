@@ -342,6 +342,7 @@ class Tribe__Duplicate__Post {
 		 * Filters the excluded status.
 		 *
 		 * @param array  $excluded_status The list of post_status to exclude from the query.
+		 * @param array  $where_frags The WHERE components for this duplicate search query
 		 * @param string $post_type       The post type that's being used for this duplicate search query.
 		 *
 		 * @since 4.6

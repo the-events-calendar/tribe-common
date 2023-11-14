@@ -582,7 +582,7 @@ class Tribe__Main {
 		 *
 		 * @since 4.0.1
 		 *
-		 * @param array Slugs for all Post Types registered.
+		 * @param array $types Slugs for all Post Types registered.
 		 */
 		return apply_filters( 'tribe_post_types', [] );
 	}

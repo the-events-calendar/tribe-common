@@ -95,9 +95,9 @@ class Service_Provider extends Provider_Contract {
 		 *
 		 * @since 4.9.16
 		 *
-		 * @param int  The threshold level; if the level of a message is this level or above, then it will be logged.
+		 * @param int $level_threshold The threshold level; if the level of a message is this level or above, then it will be logged.
 		 *
-		 * @see   \Monolog\Logger for possible levels.
+		 * @see \Monolog\Logger for possible levels.
 		 */
 		$level_threshold = apply_filters( 'tribe_log_level', $level_threshold );
 
