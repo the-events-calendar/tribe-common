@@ -356,16 +356,16 @@ class Tribe__Tracker {
 	 *
 	 * @see wp_set_object_terms()
 	 *
-	 * @param $object_id
-	 * @param $terms
-	 * @param $tt_ids
-	 * @param $taxonomy
-	 * @param $append
-	 * @param $old_tt_ids
+	 * @param string|int $object_id The post object ID.
+	 * @param array  $terms
+	 * @param array  $tt_ids
+	 * @param string $taxonomy
+	 * @param bool   $unused_append
+	 * @param array  $old_tt_ids
 	 *
 	 * @return bool `true` if the post type and taxonomy are tracked, `false` otherwise.
 	 */
-	public function track_taxonomy_term_changes( $object_id, $terms, $tt_ids, $taxonomy, $append, $old_tt_ids ) {
+	public function track_taxonomy_term_changes( $object_id, $terms, $tt_ids, $taxonomy, $unused_append, $old_tt_ids ) {
 		/**
 		 * Allows toggling the post taxonomy terms tracking
 		 *

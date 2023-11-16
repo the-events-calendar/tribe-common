@@ -389,6 +389,8 @@ final class Telemetry {
 	 *
 	 * @since 5.1.0
 	 *
+	 * @param string $slug The slug of the plugin showing the modal.
+	 *
 	 * @return void
 	 */
 	public function show_optin_modal(  $slug  ): void {
@@ -399,6 +401,7 @@ final class Telemetry {
 		 * @since 5.1.0
 		 *
 		 * @param bool $show Whether to show the modal or not.
+		 * @param string $slug The slug of the plugin showing the modal.
 		 *
 		 */
 		$show = (bool) apply_filters( 'tec_common_telemetry_show_optin_modal', true,  $slug  );

@@ -294,14 +294,14 @@ class Classic_Editor {
 		 * @since 4.9.12
 		 * @since 4.14.13 moved to separate class.
 		 *
-		 * @param $is_plugin_active bool Value that indicates if the plugin is active or not.
+		 * @param bool $is_plugin_active Value that indicates if the plugin is active or not.
 		 */
 		return (boolean) apply_filters( 'tribe_is_classic_editor_plugin_active', $is_plugin_active );
 	}
 
 	/**
 	 * Check if the setting `classic-editor-replace` is set to `replace` that option means to
-	 * replace the gutenberg editor with the Classic Editor.
+	 * replace the Gutenberg editor with the Classic Editor.
 	 *
 	 * Prior to 1.3 on Classic Editor plugin the value to identify if is on classic the value
 	 * was `replace`, now the value is `classic`

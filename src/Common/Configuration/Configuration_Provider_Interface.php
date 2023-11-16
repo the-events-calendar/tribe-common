@@ -22,7 +22,7 @@ interface Configuration_Provider_Interface {
 	 *
 	 * @since 5.1.3
 	 *
-	 * @param $key string Variable name.
+	 * @param string $key Variable name.
 	 *
 	 * @return bool Whether the variable is defined or not.
 	 */
@@ -33,7 +33,7 @@ interface Configuration_Provider_Interface {
 	 *
 	 * @since 5.1.3
 	 *
-	 * @param $key string Variable name.
+	 * @param string $key Variable name.
 	 *
 	 * @return null|mixed
 	 */

@@ -446,7 +446,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * check if a given string is a timestamp
 		 *
-		 * @param $timestamp
+		 * @param mixed $timestamp
 		 *
 		 * @return bool
 		 */
@@ -464,8 +464,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *
 		 * @since 5.1.5 Make use of `wp_date` for i18n.
 		 *
-		 * @param $dt_string
-		 * @param $new_format
+		 * @param string|int $dt_string  The date/time string to reformat.
+		 * @param string     $new_format The format to convert to.
 		 *
 		 * @return string
 		 */
@@ -481,9 +481,9 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * option) and converts it to a strtotime() style modifier that can be used
 		 * to adjust a DateTime object, etc.
 		 *
-		 * @param $offset
+		 * @param string|int $offset The offset to convert.
 		 *
-		 * @return string
+		 * @return string The converted offset.
 		 */
 		public static function get_modifier_from_offset( $offset ) {
 			$modifier = '';
@@ -1017,220 +1017,6 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 
 		// DEPRECATED METHODS
 		// @codingStandardsIgnoreStart
-		/**
-		 * Deprecated camelCase version of self::date_only
-		 *
-		 * @param int|string $date        The date (timestamp or string).
-		 * @param bool       $isTimestamp Is $date in timestamp format?
-		 *
-		 * @return string The date only in DB format.
-		 */
-		public static function dateOnly( $date, $isTimestamp = false ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::date_only' );
-			return self::date_only( $date, $isTimestamp );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::time_only
-		 *
-		 * @param string $date The date.
-		 *
-		 * @return string The time only in DB format.
-		 */
-		public static function timeOnly( $date ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::time_only' );
-			return self::time_only( $date );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::hour_only
-		 *
-		 * @param string $date The date.
-		 *
-		 * @return string The hour only.
-		 */
-		public static function hourOnly( $date ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::hour_only' );
-			return self::hour_only( $date );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::minutes_only
-		 *
-		 * @param string $date The date.
-		 *
-		 * @return string The minute only.
-		 */
-		public static function minutesOnly( $date ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::minutes_only' );
-			return self::minutes_only( $date );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::meridian_only
-		 *
-		 * @param string $date The date.
-		 *
-		 * @return string The meridian only in DB format.
-		 */
-		public static function meridianOnly( $date ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::meridian_only' );
-			return self::meridian_only( $date );
-		}
-
-		/**
-		 * Returns the end of a given day.
-		 *
-		 * @deprecated since 3.10 - use tribe_event_end_of_day()
-		 * @todo       remove in 4.1
-		 *
-		 * @param int|string $date        The date (timestamp or string).
-		 * @param bool       $isTimestamp Is $date in timestamp format?
-		 *
-		 * @return string The date and time of the end of a given day
-		 */
-		public static function endOfDay( $date, $isTimestamp = false ) {
-			_deprecated_function( __METHOD__, '3.10', 'tribe_event_end_of_day' );
-
-			if ( $isTimestamp ) {
-				$date = date( self::DBDATEFORMAT, $date );
-			}
-
-			return tribe_event_end_of_day( $date, self::DBDATETIMEFORMAT );
-		}
-
-		/**
-		 * Returns the beginning of a given day.
-		 *
-		 * @deprecated since 3.10
-		 * @todo       remove in 4.1
-		 *
-		 * @param int|string $date        The date (timestamp or string).
-		 * @param bool       $isTimestamp Is $date in timestamp format?
-		 *
-		 * @return string The date and time of the beginning of a given day.
-		 */
-		public static function beginningOfDay( $date, $isTimestamp = false ) {
-			_deprecated_function( __METHOD__, '3.10', 'tribe_event_beginning_of_day' );
-
-			if ( $isTimestamp ) {
-				$date = date( self::DBDATEFORMAT, $date );
-			}
-
-			return tribe_event_beginning_of_day( $date, self::DBDATETIMEFORMAT );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::time_between
-		 *
-		 * @param string $date1 The first date.
-		 * @param string $date2 The second date.
-		 *
-		 * @return int The number of seconds between the dates.
-		 */
-		public static function timeBetween( $date1, $date2 ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::time_between' );
-			return self::time_between( $date1, $date2 );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::date_diff
-		 *
-		 * @param string $date1 The first date.
-		 * @param string $date2 The second date.
-		 *
-		 * @return int The number of days between two dates.
-		 */
-		public static function dateDiff( $date1, $date2 ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::date_diff' );
-			return self::date_diff( $date1, $date2 );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::get_last_day_of_month
-		 *
-		 * @param int $timestamp THe timestamp.
-		 *
-		 * @return string The last day of the month.
-		 */
-		public static function getLastDayOfMonth( $timestamp ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::get_last_day_of_month' );
-			return self::get_last_day_of_month( $timestamp );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::is_weekday
-		 *
-		 * @param int $curDate A timestamp.
-		 *
-		 * @return bool If the timestamp is a weekday.
-		 */
-		public static function isWeekday( $curdate ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::is_weekday' );
-			return self::is_weekday( $curdate );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::is_weekend
-		 *
-		 * @param int $curDate A timestamp.
-		 *
-		 * @return bool If the timestamp is a weekend.
-		 */
-		public static function isWeekend( $curdate ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::is_weekend' );
-			return self::is_weekend( $curdate );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::get_last_day_of_week_in_month
-		 *
-		 * @param int $curdate     A timestamp.
-		 * @param int $day_of_week The index of the day of the week.
-		 *
-		 * @return int The timestamp of the date that fits the qualifications.
-		 */
-		public static function getLastDayOfWeekInMonth( $curdate, $day_of_week ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::get_last_day_of_week_in_month' );
-			return self::get_last_day_of_week_in_month( $curdate, $day_of_week );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::get_first_day_of_week_in_month
-		 *
-		 * @param int $curdate     A timestamp.
-		 * @param int $day_of_week The index of the day of the week.
-		 *
-		 * @return int The timestamp of the date that fits the qualifications.
-		 */
-		public static function getFirstDayOfWeekInMonth( $curdate, $day_of_week ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::get_fist_day_of_week_in_month' );
-			return self::get_first_day_of_week_in_month( $curdate, $day_of_week );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::number_to_ordinal
-		 *
-		 * @param int $number A number.
-		 *
-		 * @return string The ordinal for that number.
-		 */
-		public static function numberToOrdinal( $number ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::number_to_ordinal' );
-			return self::number_to_ordinal( $number );
-		}
-
-		/**
-		 * Deprecated camelCase version of self::is_timestamp
-		 *
-		 * @param $timestamp
-		 *
-		 * @return bool
-		 */
-		public static function isTimestamp( $timestamp ) {
-			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::is_timestamp' );
-			return self::is_timestamp( $timestamp );
-		}
 
 		/**
 		 * Gets the timestamp of a day in week, month and year context.

@@ -565,7 +565,7 @@ if ( ! function_exists( 'tribe_post_excerpt' ) ) {
 	 * Wrapper function for `tribe_events_get_the_excerpt` to prevent access the function when is not present on the
 	 * current site installation.
 	 *
-	 * @param $post
+	 * @param WP_Post|int|null $post The Post Object|ID, if null defaults to get_the_ID()
 	 *
 	 * @return null|string
 	 */

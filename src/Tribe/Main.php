@@ -590,43 +590,43 @@ class Tribe__Main {
 	/**
 	 * Insert an array after a specified key within another array.
 	 *
-	 * @param $key
-	 * @param $source_array
-	 * @param $insert_array
+	 * @param string $key    The key after which the array should be inserted.
+	 * @param array  $source The array into which the other array should be inserted.
+	 * @param array  $insert The array to insert.
 	 *
 	 * @return array
 	 */
-	public static function array_insert_after_key( $key, $source_array, $insert_array ) {
-		if ( array_key_exists( $key, $source_array ) ) {
-			$position     = array_search( $key, array_keys( $source_array ) ) + 1;
-			$source_array = array_slice( $source_array, 0, $position, true ) + $insert_array + array_slice( $source_array, $position, null, true );
+	public static function array_insert_after_key( $key, $source, $insert ) {
+		if ( array_key_exists( $key, $source ) ) {
+			$position     = array_search( $key, array_keys( $source ) ) + 1;
+			$source = array_slice( $source, 0, $position, true ) + $insert + array_slice( $source, $position, null, true );
 		} else {
 			// If no key is found, then add it to the end of the array.
-			$source_array += $insert_array;
+			$source += $insert;
 		}
 
-		return $source_array;
+		return $source;
 	}
 
 	/**
 	 * Insert an array immediately before a specified key within another array.
 	 *
-	 * @param $key
-	 * @param $source_array
-	 * @param $insert_array
+	 * @param string $key    The key after which the array should be inserted.
+	 * @param array  $source The array into which the other array should be inserted.
+	 * @param array  $insert The array to insert.
 	 *
 	 * @return array
 	 */
-	public static function array_insert_before_key( $key, $source_array, $insert_array ) {
-		if ( array_key_exists( $key, $source_array ) ) {
-			$position     = array_search( $key, array_keys( $source_array ) );
-			$source_array = array_slice( $source_array, 0, $position, true ) + $insert_array + array_slice( $source_array, $position, null, true );
+	public static function array_insert_before_key( $key, $source, $insert ) {
+		if ( array_key_exists( $key, $source ) ) {
+			$position     = array_search( $key, array_keys( $source ) );
+			$source = array_slice( $source, 0, $position, true ) + $insert + array_slice( $source, $position, null, true );
 		} else {
 			// If no key is found, then add it to the end of the array.
-			$source_array += $insert_array;
+			$source += $insert;
 		}
 
-		return $source_array;
+		return $source;
 	}
 
 	/**

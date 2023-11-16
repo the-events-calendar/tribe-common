@@ -239,7 +239,7 @@ class Tribe__Cost_Utils {
 	 * Returns a maximum cost in a list of costs. If an array of costs is not passed in, the array of costs is fetched
 	 * via query.
 	 *
-	 * @param $costs mixed Cost(s) to review for max value
+	 * @param mixed $costs Cost(s) to review for max value
 	 *
 	 * @return float
 	 */
@@ -250,8 +250,8 @@ class Tribe__Cost_Utils {
 	/**
 	 * Returns a particular cost within an array of costs
 	 *
-	 * @param $costs    mixed Cost(s) to review for max value
-	 * @param $function string Function to use to determine which cost to return from range. Valid values: max, min
+	 * @param mixed $costs     Mixed Cost(s) to review for max value
+	 * @param string $function Function to use to determine which cost to return from range. Valid values: max, min
 	 *
 	 * @return float
 	 */
@@ -375,7 +375,7 @@ class Tribe__Cost_Utils {
 	 * Returns a minimum cost in a list of costs. If an array of costs is not passed in, the array of costs is fetched
 	 * via query.
 	 *
-	 * @param $costs mixed Cost(s) to review for min value
+	 * @param mixed $costs Cost(s) to review for min value
 	 *
 	 * @return float
 	 */

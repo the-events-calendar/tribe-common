@@ -243,7 +243,7 @@ interface Core_Read_Interface {
 	 * This is the default WordPress search, to search by title,
 	 * content or excerpt only use the `title`, `content`, `excerpt` filters.
 	 *
-	 * @param $search
+	 * @param string $search
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */

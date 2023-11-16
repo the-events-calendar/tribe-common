@@ -209,11 +209,11 @@ class Tribe__Log__Admin {
 	 * Provides a URL that can be used to download the current or specified
 	 * log.
 	 *
-	 * @param $log
+	 * @param ?string $unused_log
 	 *
 	 * @return string
 	 */
-	protected function get_log_url( $log = null ) {
+	protected function get_log_url( $unused_log = null ) {
 		$query = [
 			'tribe-common-log' => 'download',
 			'check'            => wp_create_nonce( 'download_log' ),

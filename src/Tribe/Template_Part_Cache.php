@@ -28,6 +28,11 @@ class Tribe__Template_Part_Cache {
 	private $cache;
 
 	/**
+	 * @var string The transient key/ID.
+	*/
+	private $key;
+
+	/**
 	 * @var string
 	 */
 	private $html;
@@ -35,10 +40,10 @@ class Tribe__Template_Part_Cache {
 	/**
 	 ** Short description
 	 *
-	 * @param $template           - which template in the views directory is being cached (relative path).
-	 * @param $id                 - a unique identifier for this fragment.
-	 * @param $expiration         - expiration time for the cached fragment.
-	 * @param $expiration_trigger - wordpress hook to expire on.
+	 * @param string     $template           Which template in the views directory is being cached (relative path).
+	 * @param string|int $id                 A unique identifier for this fragment.
+	 * @param string|int $expiration         The expiration time for the cached fragment.
+	 * @param string     $expiration_trigger The wordpress hook to expire on.
 	 */
 	public function __construct( $template, $id, $expiration, $expiration_trigger ) {
 		$this->template           = $template;
@@ -69,7 +74,7 @@ class Tribe__Template_Part_Cache {
 	 * Checks if there is a cached html fragment in the transients, if it's there,
 	 * don't include the requested file path. If not, just return the file path like normal
 	 *
-	 * @param $path file path to the month view template part
+	 * @param string $path file path to the month view template part
 	 *
 	 * @return bool
 	 * @uses tribe_get_template_part_path_[template] hook
@@ -89,8 +94,8 @@ class Tribe__Template_Part_Cache {
 	/**
 	 * Set cached html in transients
 	 *
-	 * @param $html
-	 * @param $template
+	 * @param string $html     HTML to cache.
+	 * @param string $template Template part being cached.
 	 *
 	 * @return string
 	 * @uses tribe_get_template_part_content hook
