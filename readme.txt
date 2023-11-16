@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [5.1.15] 2023-11-16 =
+
+* Fix - Ensure the JavaScript module assets are properly getting the `type="module"` added on all scenarios [GTRIA-1112]
+* Language - 0 new strings added, 11 updated, 1 fuzzied, and 2 obsoleted
+
 = [5.1.14] 2023-11-13 =
 
 * Fix - Resolved several `Deprecated: Creation of dynamic property` warnings on: `\Tribe__Field::$allow_clear, $type, $class, $label, $label_attributes, $error, $tooltip, $size, $html, $options, $value, $conditional, $placeholder, $display_callback, $if_empty, $can_be_empty, $clear_after, $tooltip_first` and `\Tribe__Settings_Tab::$priority, public $fields, $show_save, $display_callback, $network_admin` [BTRIA-2088]
