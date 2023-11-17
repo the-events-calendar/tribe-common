@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 5.1.12\n"
+"Project-Id-Version: Tribe Common 5.1.14\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-10-30T10:01:37-07:00\n"
-"PO-Revision-Date: 2023-10-30 17:01\n"
+"POT-Creation-Date: 2023-11-14T12:10:52-08:00\n"
+"PO-Revision-Date: 2023-11-14 20:10\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: tribe-common\n"
 
@@ -1536,7 +1536,7 @@ msgid "Trusted to power learning programs for major universities, startups, entr
 msgstr ""
 
 #: src/Tribe/App_Shop.php:322
-msgid "Foundational favorites: iThemes Security and Developer Toolkit."
+msgid "Security, backups, and management — that’s Solid Suite."
 msgstr ""
 
 #: src/Tribe/App_Shop.php:324
@@ -1544,7 +1544,7 @@ msgid "Add Security"
 msgstr ""
 
 #: src/Tribe/App_Shop.php:325
-msgid "iThemes Security, the WordPress security plugin that’s easy to use. Built with performance in mind."
+msgid "SolidWP, the seriously solid foundation your WordPress site needs. Built with performance in mind."
 msgstr ""
 
 #: src/Tribe/App_Shop.php:330
@@ -1846,35 +1846,39 @@ msgctxt "extension disallowed"
 msgid "This extension has been programmatically disallowed. The most common reason is due to another The Events Calendar plugin having absorbed or replaced this extension's functionality. This extension plugin has been deactivated, and you should likely delete it."
 msgstr ""
 
-#: src/Tribe/Field.php:253
+#: src/Tribe/Field.php:343
 msgid "Invalid field type specified"
 msgstr ""
 
-#: src/Tribe/Field.php:557
+#: src/Tribe/Field.php:647
 msgid "No radio options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:593
+#: src/Tribe/Field.php:683
 msgid "No checkbox options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:655
+#: src/Tribe/Field.php:745
 msgid "No select options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:757
+#: src/Tribe/Field.php:847
+#: src/Tribe/Field.php:893
 msgid "Select Image"
 msgstr ""
 
-#: src/Tribe/Field.php:758
+#: src/Tribe/Field.php:848
+#: src/Tribe/Field.php:894
 msgid "Remove Image"
 msgstr ""
 
-#: src/Tribe/Field.php:762
+#: src/Tribe/Field.php:852
+#: src/Tribe/Field.php:898
 msgid "Select an image"
 msgstr ""
 
-#: src/Tribe/Field.php:763
+#: src/Tribe/Field.php:853
+#: src/Tribe/Field.php:899
 msgid "Use this image"
 msgstr ""
 
@@ -3686,7 +3690,7 @@ msgstr[1] ""
 msgid "Settings saved."
 msgstr ""
 
-#: src/Tribe/Settings_Tab.php:225
+#: src/Tribe/Settings_Tab.php:250
 msgid "There are no fields set up for this tab yet."
 msgstr ""
 

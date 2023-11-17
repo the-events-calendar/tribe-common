@@ -4,9 +4,24 @@
 
 * Tweak - Add the `set_request_context( ?string $context)` and `get_request_context(): ?string` methods to the `Tribe__Repository__Interface` and classes. [ET-1813]
 
-= [5.1.13] 2023-11-15 =
+= [5.1.15] 2023-11-16 =
 
+* Fix - Ensure the JavaScript module assets are properly getting the `type="module"` added on all scenarios [GTRIA-1112]
+* Language - 0 new strings added, 11 updated, 1 fuzzied, and 2 obsoleted
 
+= [5.1.14] 2023-11-13 =
+
+* Fix - Resolved several `Deprecated: Creation of dynamic property` warnings on: `\Tribe__Field::$allow_clear, $type, $class, $label, $label_attributes, $error, $tooltip, $size, $html, $options, $value, $conditional, $placeholder, $display_callback, $if_empty, $can_be_empty, $clear_after, $tooltip_first` and `\Tribe__Settings_Tab::$priority, public $fields, $show_save, $display_callback, $network_admin` [BTRIA-2088]
+* Language - 2 new strings added, 9 updated, 1 fuzzied, and 2 obsoleted.
+
+= [5.1.13.1] 2023-11-10 =
+
+* Fix - Update Telemetry library to prevent potential fatals. [TEC-4978]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.13] 2023-11-08 =
+
+* Tweak - Ensure stability of opt-in data.
 
 = [5.1.12] 2023-11-01 =
 
@@ -15,6 +30,7 @@
 
 = [5.1.11] 2023-10-19 =
 
+* Tweak - Changed scope of the Tribe__Editor__Blocks__Abstract::$namespace property to protected. [TEC-4792]
 * Fix - AM/PM time formats `g:i A` and `g:i a` are now respected for the French locale. [TEC-4807]
 * Tweak - Pass the appropriate arguments to telemetry opt-ins.
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted

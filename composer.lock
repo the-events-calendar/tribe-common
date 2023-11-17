@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4718bddf250068d22e6872eff623cd06",
+    "content-hash": "bcc06a756026cb72e484118d8ec32d2d",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -70,16 +70,16 @@
         },
         {
             "name": "lucatume/di52",
-            "version": "3.3.4",
+            "version": "3.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/di52",
-                "reference": "a86c6d38bb932bb70995143ca47212af73fc79da"
+                "reference": "d39d1cbbc57eb41c7aa21fab106e17b6938ec6b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/di52/zipball/a86c6d38bb932bb70995143ca47212af73fc79da",
-                "reference": "a86c6d38bb932bb70995143ca47212af73fc79da",
+                "url": "https://api.github.com/repos/lucatume/di52/zipball/d39d1cbbc57eb41c7aa21fab106e17b6938ec6b3",
+                "reference": "d39d1cbbc57eb41c7aa21fab106e17b6938ec6b3",
                 "shasum": ""
             },
             "require": {
@@ -106,7 +106,7 @@
                 }
             ],
             "description": "A PHP 5.6 compatible dependency injection container.",
-            "time": "2023-06-20T06:50:28+00:00"
+            "time": "2023-09-01T08:49:32+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -337,16 +337,16 @@
         },
         {
             "name": "stellarwp/db",
-            "version": "1.0.4",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/db.git",
-                "reference": "728ef079b67092b4510ea26fd47eac86ef8fa1f2"
+                "reference": "9c76724be8b60e76b7281118e4ccdf2cc129f257"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/db/zipball/728ef079b67092b4510ea26fd47eac86ef8fa1f2",
-                "reference": "728ef079b67092b4510ea26fd47eac86ef8fa1f2",
+                "url": "https://api.github.com/repos/stellarwp/db/zipball/9c76724be8b60e76b7281118e4ccdf2cc129f257",
+                "reference": "9c76724be8b60e76b7281118e4ccdf2cc129f257",
                 "shasum": ""
             },
             "require-dev": {
@@ -387,9 +387,9 @@
             "description": "A WPDB wrapper and query builder library.",
             "support": {
                 "issues": "https://github.com/stellarwp/db/issues",
-                "source": "https://github.com/stellarwp/db/tree/1.0.4"
+                "source": "https://github.com/stellarwp/db/tree/1.1.0"
             },
-            "time": "2023-06-06T17:22:51+00:00"
+            "time": "2023-11-14T12:37:35+00:00"
         },
         {
             "name": "stellarwp/installer",
@@ -503,16 +503,16 @@
         },
         {
             "name": "stellarwp/schema",
-            "version": "1.1.3",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/schema.git",
-                "reference": "018ad9d52ce14e49cc6dfeb85e7d444cda541bce"
+                "reference": "43920f52b1d1ca03a59857ae61988ca138baad49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/schema/zipball/018ad9d52ce14e49cc6dfeb85e7d444cda541bce",
-                "reference": "018ad9d52ce14e49cc6dfeb85e7d444cda541bce",
+                "url": "https://api.github.com/repos/stellarwp/schema/zipball/43920f52b1d1ca03a59857ae61988ca138baad49",
+                "reference": "43920f52b1d1ca03a59857ae61988ca138baad49",
                 "shasum": ""
             },
             "require": {
@@ -556,22 +556,22 @@
             "description": "A library for simplifying the creation and updates of custom tables within WordPress.",
             "support": {
                 "issues": "https://github.com/stellarwp/schema/issues",
-                "source": "https://github.com/stellarwp/schema/tree/1.1.3"
+                "source": "https://github.com/stellarwp/schema/tree/1.1.4"
             },
-            "time": "2023-04-04T07:09:43+00:00"
+            "time": "2023-11-15T17:17:47+00:00"
         },
         {
             "name": "stellarwp/telemetry",
-            "version": "2.3.0",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/telemetry.git",
-                "reference": "c311c04dc103c53f0adb866f7245cf679035bc7c"
+                "reference": "79f7a048c0f1b3beddd1dc07075e5e70ad39cd21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/cccdf75a925547d25222a2fa92a3c357a952069b",
-                "reference": "cccdf75a925547d25222a2fa92a3c357a952069b",
+                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/79f7a048c0f1b3beddd1dc07075e5e70ad39cd21",
+                "reference": "79f7a048c0f1b3beddd1dc07075e5e70ad39cd21",
                 "shasum": ""
             },
             "require": {
@@ -644,10 +644,10 @@
             ],
             "description": "Telemetry library for StellarWP plugins.",
             "support": {
-                "source": "https://github.com/stellarwp/telemetry/tree/2.0.1",
+                "source": "https://github.com/stellarwp/telemetry/tree/2.3.1",
                 "issues": "https://github.com/stellarwp/telemetry/issues"
             },
-            "time": "2023-06-01T14:25:43+00:00"
+            "time": "2023-11-09T18:29:08+00:00"
         }
     ],
     "packages-dev": [
@@ -2371,16 +2371,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.68.1",
+            "version": "2.71.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "4f991ed2a403c85efbc4f23eb4030063fdbe01da"
+                "reference": "98276233188583f2ff845a0f992a235472d9466a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/4f991ed2a403c85efbc4f23eb4030063fdbe01da",
-                "reference": "4f991ed2a403c85efbc4f23eb4030063fdbe01da",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/98276233188583f2ff845a0f992a235472d9466a",
+                "reference": "98276233188583f2ff845a0f992a235472d9466a",
                 "shasum": ""
             },
             "require": {
@@ -2473,7 +2473,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-20T18:29:04+00:00"
+            "time": "2023-09-25T11:31:05+00:00"
         },
         {
             "name": "nilportugues/sql-query-formatter",
@@ -4805,16 +4805,16 @@
         },
         {
             "name": "symfony/event-dispatcher-contracts",
-            "version": "v1.1.13",
+            "version": "v1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher-contracts.git",
-                "reference": "1d5cd762abaa6b2a4169d3e77610193a7157129e"
+                "reference": "761c8b8387cfe5f8026594a75fdf0a4e83ba6974"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher-contracts/zipball/1d5cd762abaa6b2a4169d3e77610193a7157129e",
-                "reference": "1d5cd762abaa6b2a4169d3e77610193a7157129e",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher-contracts/zipball/761c8b8387cfe5f8026594a75fdf0a4e83ba6974",
+                "reference": "761c8b8387cfe5f8026594a75fdf0a4e83ba6974",
                 "shasum": ""
             },
             "require": {
@@ -4864,7 +4864,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/event-dispatcher-contracts/tree/v1.1.13"
+                "source": "https://github.com/symfony/event-dispatcher-contracts/tree/v1.10.0"
             },
             "funding": [
                 {
@@ -4880,7 +4880,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-02T09:41:36+00:00"
+            "time": "2022-07-20T09:59:04+00:00"
         },
         {
             "name": "symfony/finder",
@@ -6461,16 +6461,16 @@
         },
         {
             "name": "wp-cli/wp-cli",
-            "version": "v2.8.1",
+            "version": "v2.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-cli/wp-cli.git",
-                "reference": "5dd2340b9a01c3cfdbaf5e93a140759fdd190eee"
+                "reference": "8a3befba2d947fbf5cc6d1941edf2dd99da4d4b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/5dd2340b9a01c3cfdbaf5e93a140759fdd190eee",
-                "reference": "5dd2340b9a01c3cfdbaf5e93a140759fdd190eee",
+                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/8a3befba2d947fbf5cc6d1941edf2dd99da4d4b7",
+                "reference": "8a3befba2d947fbf5cc6d1941edf2dd99da4d4b7",
                 "shasum": ""
             },
             "require": {
@@ -6527,7 +6527,7 @@
                 "issues": "https://github.com/wp-cli/wp-cli/issues",
                 "source": "https://github.com/wp-cli/wp-cli"
             },
-            "time": "2023-06-05T06:55:55+00:00"
+            "time": "2023-10-25T09:06:37+00:00"
         },
         {
             "name": "wp-coding-standards/wpcs",

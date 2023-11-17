@@ -318,11 +318,11 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 				],
 				(object) [
 					'image' => 'images/shop/stellar-ithemes-cta.jpg',
-					'logo' => 'images/shop/stellar-ithemes-logo.png',
-					'title' => __( 'Foundational favorites: iThemes Security and Developer Toolkit.', 'tribe-common' ),
+					'logo' => 'images/shop/stellar-solidwp-logo.png',
+					'title' => __( 'Security, backups, and management — that’s Solid Suite.', 'tribe-common' ),
 					'link' => 'https://evnt.is/ithemes',
 					'linktext' => __( 'Add Security', 'tribe-common' ),
-					'description' => __( 'iThemes Security, the WordPress security plugin that’s easy to use. Built with performance in mind.', 'tribe-common' ),
+					'description' => __( 'SolidWP, the seriously solid foundation your WordPress site needs. Built with performance in mind.', 'tribe-common' ),
 				],
 				(object) [
 					'image' => 'images/shop/stellar-rcp-cta.jpg',
