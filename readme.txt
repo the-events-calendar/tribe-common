@@ -2,11 +2,11 @@
 
 = [5.1.15.1] 2023-11-20 =
 
-* Security - Ensure all password protected posts have their settings respected.
+* Security - Ensure all password protected posts have their settings respected. [TCMN-167]
 
 = [5.1.15] 2023-11-16 =
 
-* Fix - Ensure the JavaScript module assets are properly getting the `type="module"` added on all scenarios [GTRIA-1112]
+* Fix - Ensure the JavaScript module assets are properly getting the `type="module"` added on all scenarios [ET-1921]
 * Language - 0 new strings added, 11 updated, 1 fuzzied, and 2 obsoleted
 
 = [5.1.14] 2023-11-13 =
