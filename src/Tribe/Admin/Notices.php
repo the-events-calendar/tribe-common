@@ -381,8 +381,9 @@ class Tribe__Admin__Notices {
 	/**
 	 * Checks if a given user has dismissed a given notice.
 	 *
-	 * @since      4.3
-	 * @deprecated 4.13.0 Deprecated in favor of correcting the typo.
+	 * @since 4.3
+	 *
+	 * @deprecated 4.13.0
 	 *
 	 * @param string   $slug    The Name of the Notice
 	 * @param int|null $user_id The user ID
@@ -390,6 +391,7 @@ class Tribe__Admin__Notices {
 	 * @return boolean
 	 */
 	public function has_user_dimissed( $slug, $user_id = null ) {
+		_deprecated_function( __FUNCTION__, '4.13.0', 'Tribe__Admin__Notices::has_user_dismissed' );
 		return $this->has_user_dismissed( $slug, $user_id );
 	}
 

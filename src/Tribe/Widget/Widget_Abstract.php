@@ -826,9 +826,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @since 4.13.0
 	 */
-	protected function add_hooks() {
-
-	}
+	protected function add_hooks() {}
 
 	/**
 	 * Toggles on portions of the template that were modified in `add_template_mods()` above.
@@ -837,9 +835,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @since 4.13.0
 	 */
-	protected function remove_hooks() {
-
-	}
+	protected function remove_hooks() {}
 
 	/**********************
 	 * Deprecated Methods *
@@ -851,7 +847,6 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @since 4.12.12
 	 *
 	 * @deprecated 4.13.0 Moved into using static::$widget_slug
-	 * @todo remove after 2021-08-01
 	 *
 	 * @var string
 	 */
@@ -863,7 +858,6 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @since 4.12.14
 	 *
 	 * @deprecated 4.13.0 Moved into using static::$widget_slug
-	 * @todo remove after 2021-08-01
 	 *
 	 * @var string
 	 */
@@ -871,9 +865,10 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 
 	/**
 	 * {@inheritDoc}
-	 * @deprecated 4.13.0 Moved into using static::get_widget_slug
+	 * @deprecated 4.13.0
 	 */
 	public function get_registration_slug() {
+		_deprecated_function( __FUNCTION__, '4.13.0', 'static::get_widget_slug' );
 		return static::get_widget_slug();
 	}
 }

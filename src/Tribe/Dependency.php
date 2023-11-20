@@ -545,11 +545,13 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Static Singleton Factory Method
 		 *
-		 * @deprecated  4.9.12  We shouldn't be handling singletons internally.
+		 * @deprecated  4.9.12
 		 *
 		 * @return self
 		 */
 		public static function instance() {
+			_deprecated_function( __METHOD__, '4.9.12', 'tribe( Tribe__Dependency::class )' );
+
 			return tribe( self::class );
 		}
 

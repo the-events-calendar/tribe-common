@@ -63,10 +63,13 @@ class Tribe__Cost_Utils {
 		 *
 		 * @param string $cost_regex
 		 *
-		 * @deprecated 4.3 Use `tribe_cost_regex` instead
+		 * @deprecated 4.3
 		 */
-		$cost_regex = apply_filters(
-			'tribe_events_cost_regex', $cost_regex
+		$cost_regex = apply_filters_deprecated(
+			'tribe_events_cost_regex',
+			$cost_regex,
+			4.3,
+			'tribe_cost_regex'
 		);
 
 		/**

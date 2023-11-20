@@ -15,9 +15,10 @@ final class Tribe__Customizer {
 	 *
 	 * @return self
 	 *
-	 * @deprecated since 4.12.6, use `tribe( 'customizer' )` instead.
+	 * @deprecated 4.12.6
 	 */
 	public static function instance() {
+		_deprecated_function( __METHOD__, '4.12.6', 'tribe( \'customizer\' )' );
 		return tribe( 'customizer' );
 	}
 
@@ -189,7 +190,7 @@ final class Tribe__Customizer {
 		/**
 		 * Allow developers to filter Classes from Customizer Sections
 		 *
-		 * @deprecated
+		 * @deprecated 4.4
 		 * @since 4.0
 		 *
 		 * @param array $sections_class
@@ -240,7 +241,7 @@ final class Tribe__Customizer {
 		/**
 		 * Allows Developers to completely deactivate Events Calendar Customizer
 		 *
-		 * @deprecated
+		 * @deprecated 4.4
 		 *
 		 * @param boolean $is_active
 		 */
@@ -303,7 +304,7 @@ final class Tribe__Customizer {
 			/**
 			 * Allow filtering the defaults for each settings to be filtered before the Ghost options to be set
 			 *
-			 * @deprecated
+			 * @deprecated 4.4
 			 * @since 4.0
 			 *
 			 * @param array $defaults
@@ -325,7 +326,7 @@ final class Tribe__Customizer {
 		/**
 		 * Allows Ghost Options to be inserted
 		 *
-		 * @deprecated
+		 * @deprecated 4.4
 		 * @since 4.0
 		 *
 		 * @param array $sections
@@ -1012,6 +1013,8 @@ final class Tribe__Customizer {
 	 * Inserts link to TEC Customizer section for FSE themes in admin (left) menu.
 	 *
 	 * @since 4.14.8
+	 *
+	 * @deprecated  4.14.18
 	 */
 	public function add_fse_customizer_link() {
 		_deprecated_function( __METHOD__, '4.14.18', 'No replacement. Customizer menu item is preserved as long as we activate it.');
@@ -1034,6 +1037,8 @@ final class Tribe__Customizer {
 	 * Inserts link to TEC Customizer section for FSE themes in Events > Settings > Display.
 	 *
 	 * @since 4.14.8
+	 *
+	 * @deprecated  4.14.18
 	 *
 	 * @param array<string|mixed> $settings The existing settings array.
 	 *

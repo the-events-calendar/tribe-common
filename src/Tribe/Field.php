@@ -755,7 +755,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 * regular dropdown but wrapped so it can have the
 		 * right css class applied to it
 		 *
-		 * @deprecated
+		 * @deprecated 4.4
 		 *
 		 * @return string the field
 		 */
@@ -770,7 +770,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 * regular dropdown but wrapped so it can have the
 		 * right css class applied to it
 		 *
-		 * @deprecated
+		 * @deprecated 4.4
 		 *
 		 * @return string the field
 		 */

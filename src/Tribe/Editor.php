@@ -200,7 +200,7 @@ class Tribe__Editor {
 	 * Adds the required fields into the Events Post Type so that we can use Block Editor
 	 *
 	 * @since 4.8
-	 * @deprecated 4.14.13 This is not used anywhere.
+	 * @deprecated 4.14.13
 	 *
 	 * @param  array $args Arguments used to setup the Post Type
 	 *

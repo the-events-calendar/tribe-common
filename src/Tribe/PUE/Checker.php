@@ -134,7 +134,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @var array|null
 		 *
-		 * @deprecated
+		 * @deprecated 4.3
 		 * @todo  remove on 4.5
 		 */
 		public $json_error;
