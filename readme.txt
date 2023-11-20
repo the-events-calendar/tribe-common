@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.1.15.1] =
+= [5.1.15.1] 2023-11-20 =
 
 * Security - Ensure all password protected posts have their settings respected.
 
