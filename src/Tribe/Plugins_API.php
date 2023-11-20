@@ -282,6 +282,26 @@ class Tribe__Plugins_API {
 				'free'            => false,
 				'active_installs' => 2500,
 			],
+			'event-tickets-wallet-plus' => [
+				'title'            => __( 'Wallet Plus', 'tribe-common' ),
+				'slug'             => 'event-tickets-wallet-plus',
+				'link'             => 'https://evnt.is/1bd7',
+				'plugin-dir'       => 'event-tickets-wallet-plus',
+				'main-file'        => 'event-tickets-wallet-plus.php',
+				'description'      => __( 'Allow event attendees to save their tickets to digital wallets, like Apple Wallet or PassWallet, and download PDF tickets, to have them with them at any time.', 'tribe-common' ),
+				'description-help' => __( 'Allow event attendees to save their tickets to digital wallets, like Apple Wallet or PassWallet, and download PDF tickets, to have them with them at any time.', 'tribe-common' ),
+				'features'         => [
+					__( 'Zoom integration', 'tribe-common' ),
+					__( 'Virtual event labels', 'tribe-common' ),
+					__( 'Status control for canceled or postponed events', 'tribe-common' ),
+					__( 'Embed livestreams and videos', 'tribe-common' ),
+				],
+				'image'            => 'images/shop/virtual-events.jpg',
+				'logo'             => 'images/logo/virtual-events.svg',
+				'is_installed'     => defined( 'EVENT_TICKETS_WALLET_FILE' ),
+				'free'             => false,
+				'active_installs'  => 0,
+			],
 		];
 
 		return $products;
