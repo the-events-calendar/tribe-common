@@ -89,6 +89,16 @@ abstract class Tribe__JSON_LD__Abstract {
 			return [];
 		}
 
+		// Double check that the user can read this post.
+		if ( ! current_user_can( 'read', $post->ID ) ) {
+			return [];
+		}
+
+		// Ensure this post is not password protected.
+		if ( post_password_required( $post ) ) {
+			return [];
+		}
+
 		$data = (object) [];
 
 		// We may need to prevent the context to be triggered

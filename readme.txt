@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.1.15.1] =
+
+* Security - Ensure all password protected posts have their settings respected.
+
 = [5.1.15] 2023-11-16 =
 
 * Fix - Ensure the JavaScript module assets are properly getting the `type="module"` added on all scenarios [GTRIA-1112]
