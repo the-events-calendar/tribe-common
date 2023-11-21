@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Correct some signatures in the Tribe__Data class so they conform to the classes it implements, avoiding deprecation notices. [TEC-4992]
+
 = [5.1.15.1] 2023-11-20 =
 
 * Security - Ensure all password protected posts have their settings respected. [TCMN-167]
