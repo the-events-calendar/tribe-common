@@ -57,14 +57,26 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
+	 * it should be instantiatable
+	 */
+	public function user_has_cap_filter( $allcaps, $caps ) {
+		$caps['read'] = true;
+		return $caps;
+	}
+
+	/**
+	 * @test
 	 * it should return array with one post in it if trying to get data for one post
 	 */
 	public function it_should_return_array_with_one_post_in_it_if_trying_to_get_data_for_one_post() {
 		$post = $this->factory()->post->create();
 
+		add_filter( 'user_has_cap', [ $this, 'user_has_cap_filter' ], 10, 2 );
+
 		$sut  = $this->make_instance();
 		$data = $sut->get_data( $post );
-
+		
+		remove_filter( 'user_has_cap', [ $this, 'user_has_cap_filter' ], 10, 2 );
 		$this->assertInternalType( 'array', $data );
 		$this->assertCount( 1, $data );
 		$this->assertContainsOnly( 'stdClass', $data );
