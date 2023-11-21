@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak -  Include Wallet Plus on Help Page. [ET-1931]
+
 = [5.1.15] 2023-11-16 =
 
 * Fix - Ensure the JavaScript module assets are properly getting the `type="module"` added on all scenarios [GTRIA-1112]
