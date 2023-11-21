@@ -56,8 +56,12 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
-	 * it should be instantiatable
+	 * Filter to allow read access to all posts.
+	 *
+	 * @param array $allcaps The user's capabilities.
+	 * @param array $caps The capabilities being checked.
+	 *
+	 * @return array
 	 */
 	public function user_has_cap_filter( $allcaps = [], $caps = [] ) {
 		$caps['read'] = true;
