@@ -62,9 +62,11 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_return_array_with_one_post_in_it_if_trying_to_get_data_for_one_post() {
 		$post = $this->factory()->post->create();
 
+		$user = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user );
+		
 		$sut  = $this->make_instance();
 		$data = $sut->get_data( $post );
-
 		$this->assertInternalType( 'array', $data );
 		$this->assertCount( 1, $data );
 		$this->assertContainsOnly( 'stdClass', $data );
