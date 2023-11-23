@@ -89,14 +89,21 @@ abstract class Tribe__JSON_LD__Abstract {
 			return [];
 		}
 
-		// Double check that the user can read this post.
-		if ( ! current_user_can( 'read', $post->ID ) ) {
-			return [];
-		}
-
-		// Ensure this post is not password protected.
-		if ( post_password_required( $post ) ) {
-			return [];
+		$current_user_id = get_current_user_id();
+		if ( $current_user_id === 0 ) {
+			// Visitor: only see published, not password-protected, posts.
+			if ( $post->post_status !== 'publish' || post_password_required( $post ) ) {
+				return [];
+			}
+		} else {
+			// Logged-in user: only see published posts or posts they can read.
+			$capability = $post->post_status === 'private' ? 'read_private_posts' : 'read';
+			if (
+				( post_password_required( $post ) && (int) $post->post_author !== $current_user_id )
+				|| ! current_user_can( $capability, $post->ID )
+			) {
+				return [];
+			}
 		}
 
 		$data = (object) [];
