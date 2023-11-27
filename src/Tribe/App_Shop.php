@@ -155,13 +155,13 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 				'event-automator'           => (object) $all_products['event-automator'],
 				'event-tickets'             => (object) $all_products['event-tickets'],
 				'event-tickets-plus'        => (object) $all_products['event-tickets-plus'],
+				'event-tickets-wallet-plus' => (object) $all_products['event-tickets-wallet-plus'],
 				'promoter'                  => (object) $all_products['promoter'],
 				'tribe-filterbar'           => (object) $all_products['tribe-filterbar'],
 				'events-community'          => (object) $all_products['events-community'],
 				'events-community-tickets'  => (object) $all_products['events-community-tickets'],
 				'tribe-eventbrite'          => (object) $all_products['tribe-eventbrite'],
 				'image-widget-plus'         => (object) $all_products['image-widget-plus'],
-				'event-tickets-wallet-plus' => (object) $all_products['event-tickets-wallet-plus'],
 			];
 
 			return $products;
