@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Ensure correct access rights to JSON-LD data depending on the user role. [TBD]
+
 = [5.1.15.1] 2023-11-20 =
 
 * Security - Ensure all password protected posts have their settings respected. [TCMN-167]
