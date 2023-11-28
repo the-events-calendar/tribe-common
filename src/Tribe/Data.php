@@ -175,13 +175,7 @@ class Tribe__Data implements ArrayAccess, Iterator {
 	 * @since 4.11.0
 	 */
 	public function next(): void {
-		$keys = array_keys( $this->data );
-
-		if ( isset( $keys[ ++ $this->index ] ) ) {
-			return $this->data[ $keys[ $this->index ] ];
-		}
-
-		return false;
+		++$this->index;
 	}
 
 	/**
