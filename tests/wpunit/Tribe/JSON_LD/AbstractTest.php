@@ -1,4 +1,5 @@
 <?php
+
 namespace Tribe\JSON_LD;
 
 require_once codecept_data_dir( 'classes/Tribe__JSON_LD__Test_Class.php' );
@@ -142,4 +143,342 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEqualSets( array_splice( $ids, 1 ), $sut->get_registered_post_ids() );
 	}
 
+	/**
+	 * It should show JSON-LD information to visitors
+	 *
+	 * @test
+	 */
+	public function should_show_json_ld_information_to_visitors(): void {
+		wp_set_current_user( 0 ); // 0 is the visitor.
+
+		$event   = tribe_events()->set_args( [
+			'title'      => 'Test Event',
+			'status'     => 'publish',
+			'start_date' => '2020-01-01 10:00:00',
+			'end_date'   => '2020-01-01 12:00:00',
+		] )->create();
+		$post_id = static::factory()->post->create();
+
+		$this->assertFalse(
+			current_user_can( 'read' ),
+			'A visitor user will not have the read capability.'
+		);
+
+		$this->assertFalse(
+			current_user_can( 'read', $post_id ),
+			'A visitor user will not have the read capability for posts.'
+		);
+
+		$this->assertFalse(
+			current_user_can( 'read', $event->ID ),
+			'A visitor user will not have the read capability for events.'
+		);
+
+		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $event->ID );
+
+		$this->assertCount( 1, $json_data );
+		$json_ld_data = array_shift( $json_data );
+		$this->assertObjectHasAttribute( 'eventAttendanceMode', $json_ld_data );
+		$this->assertObjectHasAttribute( 'startDate', $json_ld_data );
+		$this->assertObjectHasAttribute( 'endDate', $json_ld_data );
+	}
+
+	/**
+	 * It should not show JSON-LD information about private events to visitors
+	 *
+	 * @test
+	 */
+	public function should_not_show_json_ld_information_about_private_events_to_visitors(): void {
+		wp_set_current_user( 0 ); // 0 is the visitor.
+
+		$private_event = tribe_events()->set_args( [
+			'title'      => 'Test Event',
+			'status'     => 'private',
+			'start_date' => '2020-01-01 10:00:00',
+			'end_date'   => '2020-01-01 12:00:00',
+		] )->create();
+
+		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $private_event->ID );
+
+		$this->assertEmpty( $json_data );
+	}
+
+	/**
+	 * It should not show JSON-LD information about password-protected events to visitors
+	 *
+	 * @test
+	 */
+	public function should_not_show_json_ld_information_about_password_protected_events_to_visitors(): void {
+		wp_set_current_user( 0 ); // 0 is the visitor.
+
+		$private_event = tribe_events()->set_args( [
+			'title'         => 'Test Event',
+			'status'        => 'publish',
+			'start_date'    => '2020-01-01 10:00:00',
+			'end_date'      => '2020-01-01 12:00:00',
+			'post_password' => 'secret',
+		] )->create();
+
+		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $private_event->ID );
+
+		$this->assertEmpty( $json_data );
+	}
+
+	/**
+	 * It should show JSON-LD information to subscribers
+	 *
+	 * @test
+	 */
+	public function should_show_json_ld_information_to_subscribers(): void {
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'subscriber' ] ) );
+
+		$event   = tribe_events()->set_args( [
+			'title'      => 'Test Event',
+			'status'     => 'publish',
+			'start_date' => '2020-01-01 10:00:00',
+			'end_date'   => '2020-01-01 12:00:00',
+		] )->create();
+		$post_id = static::factory()->post->create();
+
+		$this->assertTrue(
+			current_user_can( 'read' ),
+			'A subscriber user will have the read capability.'
+		);
+
+		$this->assertTrue(
+			current_user_can( 'read', $post_id ),
+			'A subscriber user will have the read capability for posts.'
+		);
+
+		$this->assertTrue(
+			current_user_can( 'read', $event->ID ),
+			'A subscriber user will have the read capability for events.'
+		);
+
+		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $event->ID );
+
+		$this->assertCount( 1, $json_data );
+		$json_ld_data = array_shift( $json_data );
+		$this->assertObjectHasAttribute( 'eventAttendanceMode', $json_ld_data );
+		$this->assertObjectHasAttribute( 'startDate', $json_ld_data );
+		$this->assertObjectHasAttribute( 'endDate', $json_ld_data );
+	}
+
+	/**
+	 * It should not show JSON-LD information about private events to subscribers
+	 *
+	 * @test
+	 */
+	public function should_not_show_json_ld_information_about_private_events_to_subscribers(): void {
+		// Have an Author create a private post.
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'editor' ] ) );
+		$private_event = tribe_events()->set_args( [
+			'title'      => 'Test Event',
+			'status'     => 'private',
+			'start_date' => '2020-01-01 10:00:00',
+			'end_date'   => '2020-01-01 12:00:00',
+		] )->create();
+
+		// Have a Subscriber try to read the private post.
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'subscriber' ] ) );
+
+		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $private_event->ID );
+
+		$this->assertEmpty( $json_data );
+	}
+
+	/**
+	 * It should not show JSON-LD information about password-protected events to subscribers
+	 *
+	 * @test
+	 */
+	public function should_show_json_ld_information_about_password_protected_events_to_subscribers(): void {
+		// Have an Author create a password-protected post.
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'editor' ] ) );
+		$private_event = tribe_events()->set_args( [
+			'title'         => 'Test Event',
+			'status'        => 'publish',
+			'start_date'    => '2020-01-01 10:00:00',
+			'end_date'      => '2020-01-01 12:00:00',
+			'post_password' => 'secret',
+		] )->create();
+
+		// Have a Subscriber try to read the password-protected post.
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'subscriber' ] ) );
+
+		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $private_event->ID );
+
+		$this->assertEmpty( $json_data );
+	}
+
+	/**
+	 * It should show JSON-LD information to authors
+	 *
+	 * @test
+	 */
+	public function should_show_json_ld_information_to_authors(): void {
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'author' ] ) );
+
+		$event   = tribe_events()->set_args( [
+			'title'      => 'Test Event',
+			'status'     => 'publish',
+			'start_date' => '2020-01-01 10:00:00',
+			'end_date'   => '2020-01-01 12:00:00',
+		] )->create();
+
+		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $event->ID );
+
+		$this->assertCount( 1, $json_data );
+		$json_ld_data = array_shift( $json_data );
+		$this->assertObjectHasAttribute( 'eventAttendanceMode', $json_ld_data );
+		$this->assertObjectHasAttribute( 'startDate', $json_ld_data );
+		$this->assertObjectHasAttribute( 'endDate', $json_ld_data );
+	}
+
+	/**
+	 * It should not show JSON-LD information about private events to authors
+	 *
+	 * @test
+	 */
+	public function should_not_show_json_ld_information_about_private_events_to_authors(): void {
+		// Have an Editor create a private post.
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'editor' ] ) );
+		$private_event = tribe_events()->set_args( [
+			'title'      => 'Test Event',
+			'status'     => 'private',
+			'start_date' => '2020-01-01 10:00:00',
+			'end_date'   => '2020-01-01 12:00:00',
+		] )->create();
+
+		// Have an Author try to read the private post.
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'author' ] ) );
+
+		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $private_event->ID );
+
+		$this->assertEmpty( $json_data );
+	}
+
+	/**
+	 * It should not show JSON-LD information about password-protected events to authors
+	 *
+	 * @test
+	 */
+	public function should_not_show_json_ld_information_about_password_protected_events_to_authors(): void {
+		// Have an Editor create a password-protected post.
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'editor' ] ) );
+		$private_event = tribe_events()->set_args( [
+			'title'         => 'Test Event',
+			'status'        => 'publish',
+			'start_date'    => '2020-01-01 10:00:00',
+			'end_date'      => '2020-01-01 12:00:00',
+			'post_password' => 'secret',
+		] )->create();
+
+		// Have an Author try to read the password-protected post.
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'author' ] ) );
+
+		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $private_event->ID );
+
+		$this->assertEmpty( $json_data );
+	}
+
+	/**
+	 * It should show JSON-LD information to editors
+	 *
+	 * @test
+	 */
+	public function should_show_json_ld_information_to_editors(): void {
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'editor' ] ) );
+
+		$event   = tribe_events()->set_args( [
+			'title'      => 'Test Event',
+			'status'     => 'publish',
+			'start_date' => '2020-01-01 10:00:00',
+			'end_date'   => '2020-01-01 12:00:00',
+		] )->create();
+
+		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $event->ID );
+
+		$this->assertCount( 1, $json_data );
+		$json_ld_data = array_shift( $json_data );
+		$this->assertObjectHasAttribute( 'eventAttendanceMode', $json_ld_data );
+		$this->assertObjectHasAttribute( 'startDate', $json_ld_data );
+		$this->assertObjectHasAttribute( 'endDate', $json_ld_data );
+	}
+
+	/**
+	 * It should show JSON-LD information about private events to authors
+	 *
+	 * @test
+	 */
+	public function should_show_json_ld_information_about_private_events_to_editors(): void {
+		// Have another Editor create a private post.
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'editor' ] ) );
+		$private_event = tribe_events()->set_args( [
+			'title'      => 'Test Event',
+			'status'     => 'private',
+			'start_date' => '2020-01-01 10:00:00',
+			'end_date'   => '2020-01-01 12:00:00',
+		] )->create();
+
+		// Have an Editor try to read the private post.
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'editor' ] ) );
+
+		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $private_event->ID );
+
+		$this->assertCount( 1, $json_data );
+		$json_ld_data = array_shift( $json_data );
+		$this->assertObjectHasAttribute( 'eventAttendanceMode', $json_ld_data );
+		$this->assertObjectHasAttribute( 'startDate', $json_ld_data );
+		$this->assertObjectHasAttribute( 'endDate', $json_ld_data );
+	}
+
+	/**
+	 * It should not show JSON-LD information about password-protected events to editors
+	 *
+	 * @test
+	 */
+	public function should_not_show_json_ld_information_about_password_protected_events_to_editors(): void {
+		// Have another Editor create a password-protected post.
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'editor' ] ) );
+		$private_event = tribe_events()->set_args( [
+			'title'         => 'Test Event',
+			'status'        => 'publish',
+			'start_date'    => '2020-01-01 10:00:00',
+			'end_date'      => '2020-01-01 12:00:00',
+			'post_password' => 'secret',
+		] )->create();
+
+		// Have an Editor try to read the password-protected post.
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'editor' ] ) );
+
+		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $private_event->ID );
+
+		$this->assertEmpty( $json_data );
+	}
+
+	/**
+	 * It should show JSON-LD information of password-protected events to their authors
+	 *
+	 * @test
+	 */
+	public function should_show_json_ld_information_of_password_protected_events_to_their_authors(): void {
+		// Have an Editor create a password-protected post.
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'editor' ] ) );
+		$private_event = tribe_events()->set_args( [
+			'title'         => 'Test Event',
+			'status'        => 'publish',
+			'start_date'    => '2020-01-01 10:00:00',
+			'end_date'      => '2020-01-01 12:00:00',
+			'post_password' => 'secret',
+		] )->create();
+
+		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $private_event->ID );
+
+		$this->assertCount( 1, $json_data );
+		$json_ld_data = array_shift( $json_data );
+		$this->assertObjectHasAttribute( 'eventAttendanceMode', $json_ld_data );
+		$this->assertObjectHasAttribute( 'startDate', $json_ld_data );
+		$this->assertObjectHasAttribute( 'endDate', $json_ld_data );
+	}
 }
