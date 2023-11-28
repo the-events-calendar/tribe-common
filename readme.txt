@@ -2,9 +2,9 @@
 
 = [TBD] TBD =
 
-* Tweak -  Include Wallet Plus on Help Page. [ET-1931]
-* Fix - Ensure JSON_LD is set for non logged-in users. [TCMN-167]
+* Fix - Ensure correct access rights to JSON-LD data depending on the user role. [TCMN-167]
 * Tweak -  Include Wallet Plus on Add-Ons Page. [ET-1932]
+* Tweak -  Include Wallet Plus on Help Page. [ET-1931]
 
 = [5.1.15.1] 2023-11-20 =
 
