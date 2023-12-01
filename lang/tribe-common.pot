@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 5.1.14\n"
+"Project-Id-Version: Tribe Common 5.1.15.2\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-11-14T12:10:52-08:00\n"
-"PO-Revision-Date: 2023-11-14 20:10\n"
+"POT-Creation-Date: 2023-12-01T11:31:24-08:00\n"
+"PO-Revision-Date: 2023-12-01 19:31\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: tribe-common\n"
 
@@ -3106,89 +3106,89 @@ msgstr ""
 msgid "Null logger (will log nothing)"
 msgstr ""
 
-#: src/Tribe/Main.php:403
+#: src/Tribe/Main.php:401
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:404
+#: src/Tribe/Main.php:402
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:406
+#: src/Tribe/Main.php:404
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:407
+#: src/Tribe/Main.php:405
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:408
+#: src/Tribe/Main.php:406
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:409
+#: src/Tribe/Main.php:407
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:410
+#: src/Tribe/Main.php:408
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:411
+#: src/Tribe/Main.php:409
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:412
+#: src/Tribe/Main.php:410
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:413
+#: src/Tribe/Main.php:411
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:414
+#: src/Tribe/Main.php:412
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:415
+#: src/Tribe/Main.php:413
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:417
+#: src/Tribe/Main.php:415
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:418
-#: src/Tribe/Main.php:435
+#: src/Tribe/Main.php:416
+#: src/Tribe/Main.php:433
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:419
+#: src/Tribe/Main.php:417
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:424
+#: src/Tribe/Main.php:422
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:425
+#: src/Tribe/Main.php:423
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:436
+#: src/Tribe/Main.php:434
 msgid "Prev"
 msgstr ""
 
+#: src/Tribe/Main.php:435
 #: src/Tribe/Main.php:437
-#: src/Tribe/Main.php:439
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:438
+#: src/Tribe/Main.php:436
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:440
+#: src/Tribe/Main.php:438
 msgid "Clear"
 msgstr ""
 
