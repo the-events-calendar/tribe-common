@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [5.1.15.2] 2023-12-04 =
 
 * Fix - Ensure correct access rights to JSON-LD data depending on the user role. [TEC-4995]
 
