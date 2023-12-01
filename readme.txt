@@ -2,7 +2,7 @@
 
 = [TBD] TBD =
 
-* Fix - Ensure correct access rights to JSON-LD data depending on the user role. [TBD]
+* Fix - Ensure correct access rights to JSON-LD data depending on the user role. [TEC-4995]
 
 = [5.1.15.1] 2023-11-20 =
 
