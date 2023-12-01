@@ -99,7 +99,7 @@ abstract class Tribe__JSON_LD__Abstract {
 			// Logged-in user: only see published posts or posts they can read.
 			$capability = $post->post_status === 'private' ? 'read_private_posts' : 'read';
 			if (
-				( post_password_required( $post ) && (int) $post->post_author !== $current_user_id )
+				( post_password_required( $post ) )
 				|| ! current_user_can( $capability, $post->ID )
 			) {
 				return [];
@@ -149,7 +149,7 @@ abstract class Tribe__JSON_LD__Abstract {
 		$type = strtolower( esc_attr( $this->type ) );
 
 		/**
-		 * Allows the event data to be modifed by themes and other plugins.
+		 * Allows the event data to be modified by themes and other plugins.
 		 *
 		 * @example tribe_json_ld_thing_object
 		 * @example tribe_json_ld_event_object
@@ -177,7 +177,7 @@ abstract class Tribe__JSON_LD__Abstract {
 		}
 
 		/**
-		 * Allows the event data to be modifed by themes and other plugins.
+		 * Allows the event data to be modified by themes and other plugins.
 		 *
 		 * @example tribe_json_ld_thing_data
 		 * @example tribe_json_ld_event_data
