@@ -1,8 +1,9 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [5.1.15.2] 2023-12-04 =
 
-* Fix - Ensure correct access rights to JSON-LD data depending on the user role. [TBD]
+* Fix - Ensure correct access rights to JSON-LD data depending on the user role. [TEC-4995]
+* Language - 0 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.1.15.1] 2023-11-20 =
 
