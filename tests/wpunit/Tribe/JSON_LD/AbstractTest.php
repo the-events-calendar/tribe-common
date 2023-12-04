@@ -462,7 +462,7 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @test
 	 */
-	public function should_show_json_ld_information_of_password_protected_events_to_their_authors(): void {
+	public function should_not_show_json_ld_information_of_password_protected_events_to_their_authors(): void {
 		// Have an Editor create a password-protected post.
 		wp_set_current_user( static::factory()->user->create( [ 'role' => 'editor' ] ) );
 		$private_event = tribe_events()->set_args( [
@@ -475,10 +475,6 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 
 		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $private_event->ID );
 
-		$this->assertCount( 1, $json_data );
-		$json_ld_data = array_shift( $json_data );
-		$this->assertObjectHasAttribute( 'eventAttendanceMode', $json_ld_data );
-		$this->assertObjectHasAttribute( 'startDate', $json_ld_data );
-		$this->assertObjectHasAttribute( 'endDate', $json_ld_data );
+		$this->assertEmpty( $json_data );
 	}
 }
