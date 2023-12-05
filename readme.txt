@@ -4,6 +4,11 @@
 
 * Tweak - Add the `set_request_context( ?string $context)` and `get_request_context(): ?string` methods to the `Tribe__Repository__Interface` and classes. [ET-1813]
 
+= [TBD] TBD =
+
+* Tweak -  Include Wallet Plus on Add-Ons Page. [ET-1932]
+* Tweak -  Include Wallet Plus on Help Page. [ET-1931]
+
 = [5.1.15.2] 2023-12-04 =
 
 * Fix - Ensure correct access rights to JSON-LD data depending on the user role. [TEC-4995]
