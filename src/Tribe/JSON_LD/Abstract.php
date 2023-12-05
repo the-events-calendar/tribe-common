@@ -99,7 +99,7 @@ abstract class Tribe__JSON_LD__Abstract {
 			// Logged-in user: only see published posts or posts they can read.
 			$capability = $post->post_status === 'private' ? 'read_private_posts' : 'read';
 			if (
-				( post_password_required( $post ) && (int) $post->post_author !== $current_user_id )
+				( post_password_required( $post ) )
 				|| ! current_user_can( $capability, $post->ID )
 			) {
 				return [];
