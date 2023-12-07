@@ -47,7 +47,7 @@ tribe.settings.fields.image = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		imageFieldContainer: '.tribe-field-image',
+		imageFieldContainer: '.tribe-field-image, .tribe-field-image_id',
 		addImgLink: '.tec-admin__settings-image-field-btn-add',
 		removeImgLink: '.tec-admin__settings-image-field-btn-remove',
 		imgContainer: '.tec-admin__settings-image-field-image-container',
@@ -80,14 +80,19 @@ tribe.settings.fields.image = {};
 	 * @return {void}
 	 */
 	obj.onImageSelect = function( $fieldParent ) {
-		const attachment = obj.frame.state().get('selection').first().toJSON(),
-			$imgContainer = $fieldParent.find( obj.selectors.imgContainer );
+		const attachment = obj.frame.state().get('selection').first().toJSON();
+		const $imgContainer = $fieldParent.find( obj.selectors.imgContainer );
 		if ( $imgContainer.find( 'img' ).length > 0 ) {
 			$imgContainer.find( 'img' ).attr( 'src', attachment.url );
 		} else {
 			$imgContainer.html( '<img src="' + attachment.url + '" />' );
 		}
-		$fieldParent.find( obj.selectors.imgIdInput ).val( attachment.url );
+
+		if ( $fieldParent.is( '[data-image-id=1]' ) ) {
+			 $fieldParent.find( obj.selectors.imgIdInput ).val( attachment.id );
+		} else {
+			$fieldParent.find( obj.selectors.imgIdInput ).val( attachment.url );
+		}
 		obj.hideElements( $fieldParent );
 	};
 
