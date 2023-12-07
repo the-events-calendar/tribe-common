@@ -241,8 +241,7 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @return object
 	 */
-	public function parse_params( $params )
-	{
+	public function parse_params( $params ) {
 		$defaults       = [
 			'search' => null,
 			'page'   => 0,
@@ -289,7 +288,7 @@ class Tribe__Ajax__Dropdown {
 		$filter = sanitize_key( 'tribe_dropdown_' . $args->source );
 		if ( has_filter( $filter ) ) {
 			$data = apply_filters( $filter, [], $args->search, $args->page, $args->args, $args->source );
-		} else if(in_array($args->source,['search_terms', 'search_posts'])) {
+		} elseif (in_array($args->source,['search_terms', 'search_posts'])) {
 			$data = call_user_func_array( [ $this, $args->source ], array_values( (array) $args ) );
 		}
 
@@ -344,8 +343,6 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @param string $name
 	 * @param mixed  $arguments
-	 *
-	 * @return void
 	 */
 	public function __call( $name, $arguments ) {
 		$message = __( 'The "%s" source is invalid and cannot be reached on "%s" instance.', 'tribe-common' );

@@ -9,10 +9,15 @@ class AjaxDropdownTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
-	public function should_default_to_only_published_posts()
-	{
-		$post1 = $this->factory->post->create( [ 'post_content' => 'Event Content', 'post_status' => 'draft' ] );
-		$post2 = $this->factory->post->create( [ 'post_content' => 'Event Content', 'post_status' => 'publish' ] );
+	public function should_default_to_only_published_posts() {
+		$post1 = $this->factory->post->create( [
+			'post_content' => 'Event Content',
+			'post_status' => 'draft'
+		] );
+		$post2 = $this->factory->post->create( [
+			'post_content' => 'Event Content',
+			'post_status' => 'publish'
+		] );
 
 		$search = [];
 
@@ -26,15 +31,13 @@ class AjaxDropdownTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider parse_params_data_provider
 	 * @test
 	 */
-	public function should_clean_query_args( $dirty_params, $expected_params )
-	{
+	public function should_clean_query_args( $dirty_params, $expected_params ) {
 		$dropdown     = new Tribe__Ajax__Dropdown();
 		$clean_params = $dropdown->parse_params( $dirty_params );
 		$this->assertEquals( $expected_params, (array) $clean_params );
 	}
 
-	public function parse_params_data_provider()
-	{
+	public function parse_params_data_provider() {
 		return [
 			'dirty args'    => [
 				[
