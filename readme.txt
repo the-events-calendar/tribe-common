@@ -2,7 +2,7 @@
 
 = [TBD] TBD =
 
-* Fix - A security vulnerability as detected with the dropdown API. Adding a param white list to validate input. [BTRIA-2148]
+* Fix - Adding a param safe list to validate input for Select2 usage on AJAX requests. [BTRIA-2148]
 
 = [5.1.15.2] 2023-12-04 =
 
