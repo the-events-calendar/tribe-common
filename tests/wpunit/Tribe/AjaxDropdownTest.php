@@ -10,14 +10,14 @@ class AjaxDropdownTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_default_to_only_published_posts() {
-		$post1 = $this->factory->post->create( [
-			'post_content' => 'Event Content',
-			'post_status' => 'draft'
-		] );
-		$post2 = $this->factory->post->create( [
-			'post_content' => 'Event Content',
-			'post_status' => 'publish'
-		] );
+        $post1 = $this->factory->post->create( [
+            'post_content' => 'Event Content',
+            'post_status'  => 'draft',
+        ] );
+        $post2 = $this->factory->post->create( [
+            'post_content' => 'Event Content',
+            'post_status'  => 'publish',
+        ] );
 
 		$search = [];
 

@@ -241,31 +241,24 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @return object
 	 */
-	public function parse_params( $params ) {
-		$defaults       = [
-			'search' => null,
-			'page'   => 0,
-			'source' => null,
-		];
-		$allowed_params = [
-			'search' => $params['search'] ?? null,
-			'page'   => $params['page'] ?? 0,
-			'source' => $params['source'] ?? null,
-			'args'   => [ 'post_status' => 'publish' ],
-		];
+    public function parse_params( $params ) {
+        $allowed_params = [
+            'search' => $params['search'] ?? null,
+            'page'   => $params['page'] ?? 0,
+            'source' => $params['source'] ?? null,
+            'args'   => [ 'post_status' => 'publish' ],
+        ];
 
-		if ( isset( $params['args']['taxonomy'] ) ) {
-			$allowed_params['args']['taxonomy'] = $params['args']['taxonomy'];
-		}
-		if ( isset( $params['args']['post_type'] ) ) {
-			$allowed_params['args']['post_type'] = $params['args']['post_type'];
-		}
+        if ( isset( $params['args']['taxonomy'] ) ) {
+            $allowed_params['args']['taxonomy'] = $params['args']['taxonomy'];
+        }
+        if ( isset( $params['args']['post_type'] ) ) {
+            $allowed_params['args']['post_type'] = $params['args']['post_type'];
+        }
 
-		$arguments = wp_parse_args( $allowed_params, $defaults );
-
-		// Return Object just for the sake of making it simpler to read
-		return (object) $arguments;
-	}
+        // Return Object just for the sake of making it simpler to read
+        return (object) $allowed_params;
+    }
 
 	/**
 	 * The default Method that will route all the AJAX calls from our Dropdown AJAX requests
