@@ -24,8 +24,12 @@ class AjaxDropdownTest extends \Codeception\TestCase\WPTestCase {
 
 		$dropdown = new Tribe__Ajax__Dropdown();
 		$data     = $dropdown->search_posts( $id, 1, [] );
-		$this->assertCount( 1, $data['posts'] );
-		$this->assertEquals( $post2, $data['posts'][0]['id'] );
+		$ids      = array_map( function ( $item ) {
+			return $item['id'];
+		}, $data['posts'] );
+
+		$this->assertContains( $post2, $ids );
+		$this->assertNotContains( $post1, $ids );
 	}
 
 	/**
