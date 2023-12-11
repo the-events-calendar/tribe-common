@@ -4,6 +4,7 @@
 
 * Tweak -  Include Wallet Plus on Add-Ons Page. [ET-1932]
 * Tweak -  Include Wallet Plus on Help Page. [ET-1931]
+* Language - 7 new strings added, 54 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.1.15.2] 2023-12-04 =
 
