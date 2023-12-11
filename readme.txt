@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Adding a param safe list to validate input for Select2 usage on AJAX requests. [BTRIA-2148]
+
 = [5.1.15.2] 2023-12-04 =
 
 * Fix - Ensure correct access rights to JSON-LD data depending on the user role. [TEC-4995]
