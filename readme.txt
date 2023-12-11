@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [5.1.16] 2023-12-13 =
 
 * Tweak -  Include Wallet Plus on Add-Ons Page. [ET-1932]
 * Tweak -  Include Wallet Plus on Help Page. [ET-1931]
