@@ -28,7 +28,7 @@ class AjaxDropdownTest extends \Codeception\TestCase\WPTestCase {
 
 		$dropdown = new Tribe__Ajax__Dropdown();
 		$args     = $dropdown->parse_params( [] );
-		$data     = $dropdown->search_posts( $id, 1, $args );
+		$data     = $dropdown->search_posts( $id, 1, $args->search, $args->page, $args->args, $args->source );
 		$ids      = array_map(
 			function ( $item ) {
 				return $item['id'];
