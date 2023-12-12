@@ -84,13 +84,14 @@ class Timed_OptionTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function deactivated_should_not_save_option_but_still_memoize_it() {
 		tec_timed_option()->deactivate();
+		// Avoid database/cache collisions.
+		$id = 'foo' . uniqid();
+		tec_timed_option()->set( $id, 'bar' );
 
-		tec_timed_option()->set( 'foo', 'bar' );
-
-		$value = tec_timed_option()->get( 'foo' );
+		$value = tec_timed_option()->get( $id );
 
 		$non_existent_value = '__NON_EXISTENT__';
-		$option_raw = get_option( tec_timed_option()->get_option_name( 'foo' ), $non_existent_value );
+		$option_raw         = get_option( tec_timed_option()->get_option_name( $id ), $non_existent_value );
 
 		$this->assertEquals( $value, 'bar' );
 		$this->assertEquals( $option_raw, $non_existent_value );

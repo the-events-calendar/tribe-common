@@ -235,30 +235,37 @@ class Tribe__Ajax__Dropdown {
 	 * Parses the Params coming from Select2 Search box
 	 *
 	 * @since  4.6
+	 * @since TBD Added an allow list of params to restrict the shape of the database queries.
 	 *
 	 * @param array<string|mixed> $params Params to overwrite the defaults
 	 *
 	 * @return object
 	 */
-	public function parse_params( $params ) {
-		$defaults = [
-			'search' => null,
-			'page'   => 0,
-			'args'   => [],
-			'source' => null,
-		];
+    public function parse_params( $params ) {
+        $allowed_params = [
+            'search' => $params['search'] ?? null,
+            'page'   => $params['page'] ?? 0,
+            'source' => $params['source'] ?? null,
+            'args'   => [ 'post_status' => 'publish' ],
+        ];
 
-		$arguments = wp_parse_args( $params, $defaults );
+        if ( isset( $params['args']['taxonomy'] ) ) {
+            $allowed_params['args']['taxonomy'] = $params['args']['taxonomy'];
+        }
+        if ( isset( $params['args']['post_type'] ) ) {
+            $allowed_params['args']['post_type'] = $params['args']['post_type'];
+        }
 
-		// Return Object just for the sake of making it simpler to read
-		return (object) $arguments;
-	}
+        // Return Object just for the sake of making it simpler to read
+        return (object) $allowed_params;
+    }
 
 	/**
 	 * The default Method that will route all the AJAX calls from our Dropdown AJAX requests
 	 * It is like a Catch All on `wp_ajax_tribe_dropdown` and `wp_ajax_nopriv_tribe_dropdown`
 	 *
 	 * @since  4.6
+	 * @since TBD Adding more sanitization to the request params.
 	 *
 	 * @return void
 	 */
@@ -274,7 +281,7 @@ class Tribe__Ajax__Dropdown {
 		$filter = sanitize_key( 'tribe_dropdown_' . $args->source );
 		if ( has_filter( $filter ) ) {
 			$data = apply_filters( $filter, [], $args->search, $args->page, $args->args, $args->source );
-		} else {
+		} elseif ( in_array( $args->source, ['search_terms', 'search_posts'] ) ) {
 			$data = call_user_func_array( [ $this, $args->source ], array_values( (array) $args ) );
 		}
 
@@ -329,8 +336,6 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @param string $name
 	 * @param mixed  $arguments
-	 *
-	 * @return void
 	 */
 	public function __call( $name, $arguments ) {
 		$message = __( 'The "%s" source is invalid and cannot be reached on "%s" instance.', 'tribe-common' );

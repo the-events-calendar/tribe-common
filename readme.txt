@@ -8,6 +8,7 @@
 
 * Tweak -  Include Wallet Plus on Add-Ons Page. [ET-1932]
 * Tweak -  Include Wallet Plus on Help Page. [ET-1931]
+* Fix - Adding a param safe list to validate input for Select2 usage on AJAX requests. [BTRIA-2148]
 
 = [5.1.15.2] 2023-12-04 =
 
