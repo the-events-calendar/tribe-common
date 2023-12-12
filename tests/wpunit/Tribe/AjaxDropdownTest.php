@@ -10,25 +10,25 @@ class AjaxDropdownTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_default_to_only_published_posts() {
-		$id    = 'post_title' . uniqid();
+		$title = 'post_title' . uniqid();
 		$post1 = $this->factory->post->create(
 			[
 				'post_content' => 'Event Content',
-				'post_title'   => $id,
+				'post_title'   => $title,
 				'post_status'  => 'draft',
 			]
 		);
 		$post2 = $this->factory->post->create(
 			[
 				'post_content' => 'Event Content',
-				'post_title'   => $id,
+				'post_title'   => $title,
 				'post_status'  => 'publish',
 			]
 		);
 
 		$dropdown = new Tribe__Ajax__Dropdown();
 		$args     = $dropdown->parse_params( [] );
-		$data     = $dropdown->search_posts( $id, 1, $args->search, $args->page, $args->args, $args->source );
+		$data     = $dropdown->search_posts( $title, 1, $args->args, $args->source );
 		$ids      = array_map(
 			function ( $item ) {
 				return $item['id'];
