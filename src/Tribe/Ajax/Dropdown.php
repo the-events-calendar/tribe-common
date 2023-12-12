@@ -8,7 +8,7 @@
  *
  * @since  4.6
  */
-class Tribe__Ajax__Dropdown { // phpcs:ignore PEAR.NamingConventions.ValidClassName.Invalid
+class Tribe__Ajax__Dropdown { // phpcs:ignore-next-line  PEAR.NamingConventions.ValidClassName.Invalid
 
 	/**
 	 * Hooks the AJAX for Select2 Dropdowns
@@ -185,7 +185,6 @@ class Tribe__Ajax__Dropdown { // phpcs:ignore PEAR.NamingConventions.ValidClassN
 	 * @param array<int|object>   $terms  Array of Terms from `get_terms`.
 	 * @param array<string|mixed> $into   Variable where we will store the.
 	 * @param integer             $parent Used for the recursion.
-	 *
 	 */
 	public function sort_terms_hierarchically( &$terms, &$into, $parent = 0 ) {
 		foreach ( $terms as $i => $term ) {
@@ -309,7 +308,7 @@ class Tribe__Ajax__Dropdown { // phpcs:ignore PEAR.NamingConventions.ValidClassN
 	 *
 	 * @since 4.6
 	 *
-	 * @param array $data
+	 * @param array $data The data to send back to Select2.
 	 *
 	 * @return void
 	 */

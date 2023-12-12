@@ -11,22 +11,30 @@ class AjaxDropdownTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_default_to_only_published_posts() {
 		$id    = 'post_title' . uniqid();
-		$post1 = $this->factory->post->create( [
-			'post_content' => 'Event Content',
-			'post_title'   => $id,
-			'post_status'  => 'draft',
-		] );
-		$post2 = $this->factory->post->create( [
-			'post_content' => 'Event Content',
-			'post_title'   => $id,
-			'post_status'  => 'publish',
-		] );
+		$post1 = $this->factory->post->create(
+			[
+				'post_content' => 'Event Content',
+				'post_title'   => $id,
+				'post_status'  => 'draft',
+			]
+		);
+		$post2 = $this->factory->post->create(
+			[
+				'post_content' => 'Event Content',
+				'post_title'   => $id,
+				'post_status'  => 'publish',
+			]
+		);
 
 		$dropdown = new Tribe__Ajax__Dropdown();
-		$data     = $dropdown->search_posts( $id, 1, [] );
-		$ids      = array_map( function ( $item ) {
-			return $item['id'];
-		}, $data['posts'] );
+		$args     = $dropdown->parse_params( [] );
+		$data     = $dropdown->search_posts( $id, 1, $args );
+		$ids      = array_map(
+			function ( $item ) {
+				return $item['id'];
+			},
+			$data['posts']
+		);
 
 		$this->assertContains( $post2, $ids );
 		$this->assertNotContains( $post1, $ids );
@@ -57,19 +65,26 @@ class AjaxDropdownTest extends \Codeception\TestCase\WPTestCase {
 					'page'   => 0,
 					'source' => null,
 					'args'   => [ 'post_status' => 'publish' ],
-				]
+				],
 			],
 			'expected args' => [
 				[
-					'args' => [ 'taxonomy' => 'abc', 'post_type' => 'post' ],
+					'args' => [
+						'taxonomy'  => 'abc',
+						'post_type' => 'post',
+					],
 				],
 				[
 					'search' => null,
 					'page'   => 0,
 					'source' => null,
-					'args'   => [ 'post_status' => 'publish', 'taxonomy' => 'abc', 'post_type' => 'post' ],
-				]
-			]
+					'args'   => [
+						'post_status' => 'publish',
+						'taxonomy'    => 'abc',
+						'post_type'   => 'post',
+					],
+				],
+			],
 		];
 	}
 }
