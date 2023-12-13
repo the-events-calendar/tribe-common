@@ -42,8 +42,8 @@ class Tribe__Ajax__Dropdown { // phpcs:ignore-next-line  PEAR.NamingConventions.
 		}
 
 		// We always want all the fields so we overwrite it.
-		$args['fields'] ?? 'all';
-		$args['hide_empty'] ?? false;
+		$args['fields'] = $args['fields'] ?? 'all';
+		$args['hide_empty'] = $args['hide_empty'] ?? false;
 
 		if ( ! empty( $search ) ) {
 			if ( ! is_array( $search ) ) {
@@ -124,7 +124,7 @@ class Tribe__Ajax__Dropdown { // phpcs:ignore-next-line  PEAR.NamingConventions.
 			}
 		}
 
-		$args['post_status'] ?? 'publish';
+		$args['post_status'] = $args['post_status'] ?? 'publish';
 		$args['paged']                  = $page;
 		$args['update_post_meta_cache'] = false;
 		$args['update_post_term_cache'] = false;
