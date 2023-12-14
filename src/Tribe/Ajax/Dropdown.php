@@ -1,11 +1,14 @@
 <?php
+/**
+ * Ajax Dropdown class.
+ */
 
 /**
  * Handles common AJAX operations.
  *
  * @since  4.6
  */
-class Tribe__Ajax__Dropdown {
+class Tribe__Ajax__Dropdown { // phpcs:ignore-next-line  PEAR.NamingConventions.ValidClassName.Invalid
 
 	/**
 	 * Hooks the AJAX for Select2 Dropdowns
@@ -24,10 +27,10 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  4.6
 	 *
-	 * @param string|array<string|mixed> $search Search string from Select2
-	 * @param int                        $page   When we deal with pagination
-	 * @param array<string|mixed>        $args   Which arguments we got from the Template
-	 * @param string                     $source What source it is
+	 * @param string|array<string|mixed> $search Search string from Select2.
+	 * @param int                        $page   When we deal with pagination.
+	 * @param array<string|mixed>        $args   Which arguments we got from the Template.
+	 * @param string                     $source What source it is.
 	 *
 	 * @return array<string|mixed>
 	 */
@@ -38,9 +41,9 @@ class Tribe__Ajax__Dropdown {
 			$this->error( esc_attr__( 'Cannot look for Terms without a taxonomy', 'tribe-common' ) );
 		}
 
-		// We always want all the fields so we overwrite it
-		$args['fields']     = isset( $args['fields'] ) ? $args['fields'] : 'all';
-		$args['hide_empty'] = isset( $args['hide_empty'] ) ? $args['hide_empty'] : false;
+		// We always want all the fields so we overwrite it.
+		$args['fields'] = $args['fields'] ?? 'all';
+		$args['hide_empty'] = $args['hide_empty'] ?? false;
 
 		if ( ! empty( $search ) ) {
 			if ( ! is_array( $search ) ) {
@@ -52,7 +55,7 @@ class Tribe__Ajax__Dropdown {
 			}
 		}
 
-		// On versions older than 4.5 taxonomy goes as an Param
+		// On versions older than 4.5 taxonomy goes as a Param.
 		if ( version_compare( $GLOBALS['wp_version'], '4.5', '<' ) ) {
 			$terms = get_terms( $args['taxonomy'], $args );
 		} else {
@@ -61,7 +64,7 @@ class Tribe__Ajax__Dropdown {
 
 		$results = [];
 
-		// Respect the parent/child_of argument if set
+		// Respect the parent/child_of argument if set.
 		$parent = ! empty( $args['child_of'] ) ? (int) $args['child_of'] : 0;
 		$parent = ! empty( $args['parent'] ) ? (int) $args['parent'] : $parent;
 
@@ -70,7 +73,7 @@ class Tribe__Ajax__Dropdown {
 			$results = $this->convert_children_to_array( $results );
 		} else {
 			foreach ( $terms as $term ) {
-				// Prep for Select2
+				// Prep for Select2.
 				$term->id          = $term->term_id;
 				$term->text        = $term->name;
 				$term->breadcrumbs = [];
@@ -121,6 +124,7 @@ class Tribe__Ajax__Dropdown {
 			}
 		}
 
+		$args['post_status'] = $args['post_status'] ?? 'publish';
 		$args['paged']                  = $page;
 		$args['update_post_meta_cache'] = false;
 		$args['update_post_term_cache'] = false;
@@ -136,9 +140,9 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since 4.12.17
 	 *
-	 * @param array<WP_Post>    $posts
-	 * @param null|int $selected
-	 * @param boolean  $pagination
+	 * @param array<WP_Post> $posts      Array of WP_Post objects.
+	 * @param null|int       $selected   Selected item ID.
+	 * @param boolean        $pagination Whether or not we have pagination.
 	 *
 	 * @return array
 	 */
@@ -148,7 +152,7 @@ class Tribe__Ajax__Dropdown {
 			'pagination' => $pagination,
 		];
 
-		// Skip when we don't have posts
+		// Skip when we don't have posts.
 		if ( empty( $posts ) ) {
 			return $data;
 		}
@@ -179,16 +183,14 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  4.6
 	 *
-	 * @param array<int|object>   &$terms  Array of Terms from `get_terms`.
-	 * @param array<string|mixed> &$into   Variable where we will store the.
-	 * @param integer              $parent Used for the recursion.
-	 *
-	 * @return array<string|mixed>
+	 * @param array<int|object>   $terms  Array of Terms from `get_terms`.
+	 * @param array<string|mixed> $into   Variable where we will store the.
+	 * @param integer             $parent Used for the recursion.
 	 */
 	public function sort_terms_hierarchically( &$terms, &$into, $parent = 0 ) {
 		foreach ( $terms as $i => $term ) {
 			if ( $term->parent === $parent ) {
-				// Prep for Select2
+				// Prep for Select2.
 				$term->id   = $term->term_id;
 				$term->text = $term->name;
 
@@ -208,7 +210,7 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  4.6
 	 *
-	 * @param object|array<string|mixed> $results The Select2 results
+	 * @param object|array<string|mixed> $results The Select2 results.
 	 *
 	 * @return array<string|mixed>
 	 */
@@ -232,26 +234,32 @@ class Tribe__Ajax__Dropdown {
 	}
 
 	/**
-	 * Parses the Params coming from Select2 Search box
+	 * Parses the Params coming from Select2 Search box.
 	 *
 	 * @since  4.6
+	 * @since 5.1.17 Added an allow list of params to restrict the shape of the database queries.
 	 *
-	 * @param array<string|mixed> $params Params to overwrite the defaults
+	 * @param array<string|mixed> $params Params to overwrite the defaults.
 	 *
 	 * @return object
 	 */
 	public function parse_params( $params ) {
-		$defaults = [
-			'search' => null,
-			'page'   => 0,
-			'args'   => [],
-			'source' => null,
+		$allowed_params = [
+			'search' => $params['search'] ?? null,
+			'page'   => $params['page'] ?? 0,
+			'source' => $params['source'] ?? null,
+			'args'   => [ 'post_status' => 'publish' ],
 		];
 
-		$arguments = wp_parse_args( $params, $defaults );
+		if ( isset( $params['args']['taxonomy'] ) ) {
+			$allowed_params['args']['taxonomy'] = $params['args']['taxonomy'];
+		}
+		if ( isset( $params['args']['post_type'] ) ) {
+			$allowed_params['args']['post_type'] = $params['args']['post_type'];
+		}
 
-		// Return Object just for the sake of making it simpler to read
-		return (object) $arguments;
+		// Return Object just for the sake of making it simpler to read.
+		return (object) $allowed_params;
 	}
 
 	/**
@@ -259,12 +267,13 @@ class Tribe__Ajax__Dropdown {
 	 * It is like a Catch All on `wp_ajax_tribe_dropdown` and `wp_ajax_nopriv_tribe_dropdown`
 	 *
 	 * @since  4.6
+	 * @since 5.1.17 Adding more sanitization to the request params.
 	 *
 	 * @return void
 	 */
 	public function route() {
-		// Push all POST params into a Default set of data
-		$args = $this->parse_params( empty( $_POST ) ? [] : $_POST );
+		// Push all POST params into a Default set of data.
+		$args = $this->parse_params( empty( $_POST ) ? [] : $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 		if ( empty( $args->source ) ) {
 			$this->error( esc_attr__( 'Missing data source for this dropdown', 'tribe-common' ) );
@@ -274,8 +283,17 @@ class Tribe__Ajax__Dropdown {
 		$filter = sanitize_key( 'tribe_dropdown_' . $args->source );
 		if ( has_filter( $filter ) ) {
 			$data = apply_filters( $filter, [], $args->search, $args->page, $args->args, $args->source );
-		} else {
-			$data = call_user_func_array( [ $this, $args->source ], array_values( (array) $args ) );
+		} elseif ( in_array( $args->source, [ 'search_terms', 'search_posts' ] ) ) {
+			// Switched from array to object above. Specify what we're sending.
+			$data = call_user_func_array(
+				[ $this, $args->source ],
+				[
+					$args->search,
+					$args->page,
+					$args->args,
+					$args->source,
+				]
+			);
 		}
 
 		// If we've got a empty dataset we return an error.
@@ -291,12 +309,12 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since 4.6
 	 *
-	 * @param array $data
+	 * @param array $data The data to send back to Select2.
 	 *
 	 * @return void
 	 */
 	private function success( $data ) {
-		// We need a Results item for Select2 Work
+		// We need a Results item for Select2 Work.
 		if ( ! isset( $data['results'] ) ) {
 			$data['results'] = [];
 		}
@@ -309,7 +327,7 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  4.6
 	 *
-	 * @param string $message
+	 * @param string $message The error message.
 	 *
 	 * @return void
 	 */
@@ -327,14 +345,19 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  4.6
 	 *
-	 * @param string $name
-	 * @param mixed  $arguments
-	 *
-	 * @return void
+	 * @param string $name      The name of the method.
+	 * @param mixed  $arguments The arguments passed to the method.
 	 */
 	public function __call( $name, $arguments ) {
-		$message = __( 'The "%s" source is invalid and cannot be reached on "%s" instance.', 'tribe-common' );
+		/* Translators: %1$s is the name of the source, %2$s is the class name */
+		$message = __( 'The "%1$s" source is invalid and cannot be reached on "%2$s" instance.', 'tribe-common' );
 
-		return $this->error( sprintf( $message, $name, __CLASS__ ) );
+		return $this->error(
+			sprintf(
+				$message,
+				$name,
+				__CLASS__
+			)
+		);
 	}
 }

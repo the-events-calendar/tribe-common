@@ -282,6 +282,26 @@ class Tribe__Plugins_API {
 				'free'            => false,
 				'active_installs' => 2500,
 			],
+			'event-tickets-wallet-plus' => [
+				'title'            => __( 'Wallet Plus', 'tribe-common' ),
+				'slug'             => 'event-tickets-wallet-plus',
+				'link'             => 'https://evnt.is/1bd7',
+				'plugin-dir'       => 'event-tickets-wallet-plus',
+				'main-file'        => 'event-tickets-wallet-plus.php',
+				'description'      => __( 'Make it simple for your attendees to save and find their tickets.', 'tribe-common' ),
+				'description-help' => __( 'Allow event attendees to save their tickets to digital wallets.', 'tribe-common' ),
+				'features'         => [
+					__( 'Flexible ticket formats', 'tribe-common' ),
+					__( 'Easy day-of-event management', 'tribe-common' ),
+					__( 'Email and checkout integration', 'tribe-common' ),
+					__( 'Ticket portability', 'tribe-common' ),
+				],
+				'image'            => 'images/shop/wallet-plus.jpg',
+				'logo'             => 'images/logo/wallet-plus.svg',
+				'is_installed'     => defined( 'EVENT_TICKETS_WALLET_FILE' ),
+				'free'             => false,
+				'active_installs'  => 0,
+			],
 		];
 
 		return $products;
