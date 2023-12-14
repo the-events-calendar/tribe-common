@@ -1,15 +1,10 @@
 <?php
-/**
- * Main Tribe Common class.
- */
-
-// Don't load directly
-
 use TEC\Common\Libraries;
 use TEC\Common\Translations_Loader;
 use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
 
+// Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -23,7 +18,7 @@ class Tribe__Main {
 	const OPTIONNAME        = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK = 'tribe_events_calendar_network_options';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
-	const VERSION           = '5.1.16';
+	const VERSION           = '5.1.17';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
@@ -430,7 +425,7 @@ class Tribe__Main {
 				'monthNames'      => $datepicker_months,
 				'monthNamesShort' => $datepicker_months, // We deliberately use full month names here,
 				'monthNamesMin'   => array_values( Tribe__Date_Utils::get_localized_months_short() ),
- 				'nextText'        => esc_html__( 'Next', 'tribe-common' ),
+				'nextText'        => esc_html__( 'Next', 'tribe-common' ),
 				'prevText'        => esc_html__( 'Prev', 'tribe-common' ),
 				'currentText'     => esc_html__( 'Today', 'tribe-common' ),
 				'closeText'       => esc_html__( 'Done', 'tribe-common' ),
