@@ -1,0 +1,100 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Tribe Common Admin - To Be Moved - EA Status
+ *
+ * These styles pertain to event-aggregator features.
+ * These styles should be moved out of common and into The Events Calendar.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events-admin__ea-status {
+	margin-top: 50px;
+}
+
+.tribe-events-admin__ea-status-table-wrapper {
+	overflow-x: auto;
+}
+
+.tribe-events-admin__ea-status-table {
+	border: 1px solid #e1e1e4;
+	border-radius: 16px;
+	margin: 30px 0 40px;
+	overflow: hidden;
+
+	@media only screen and (max-width: 480px) {
+		overflow: scroll;
+	}
+}
+
+.tribe-events-admin__ea-status-table a {
+	border-bottom: 2px solid;
+	color: #334aff;
+	padding-bottom: 2px;
+	text-decoration: none;
+
+	&:focus {
+		box-shadow: none;
+		outline: none;
+	}
+
+	&:hover {
+		border-bottom: 2px solid;
+		color: #1c39bb;
+	}
+}
+
+.tribe-events-admin__ea-status-table tr {
+	align-items: center;
+	display: flex;
+}
+
+.tribe-events-admin__ea-status-table th {
+	color: #0f1031;
+	font-weight: bold;
+	line-height: 1.17;
+	margin-top: 10px;
+	padding: 5px 25px;
+}
+
+.tribe-events-admin__ea-status-table td {
+	align-items: center;
+	color: #0f1031;
+	display: flex;
+	font-size: 16px;
+	line-height: 1.63;
+	padding: 10px 25px;
+	width: 25%;
+
+	@media only screen and (max-width: 480px) {
+		min-width: 150px;
+	}
+}
+
+.tribe-events-admin__ea-status-table td:nth-child(2) {
+	width: 45%;
+
+	@media only screen and (max-width: 480px) {
+		width: 100%;
+	}
+}
+
+.tribe-events-admin__ea-status-table td:nth-child(3) {
+	display: flex;
+	justify-content: flex-end;
+	width: 30%;
+
+	@media only screen and (max-width: 480px) {
+		width: 100%;
+	}
+}
+
+.tribe-events-admin__ea-status-table-dark {
+	background-color: #f9f7f4;
+}
+
+.tribe-events-admin__ea-status-table td img {
+	height: 21px;
+	margin-right: 14px;
+	object-fit: contain;
+	width: 21px;
+}

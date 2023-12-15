@@ -1,0 +1,197 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Tribe Common Admin - Overrides
+ *
+ * This file includes styles overriding third-party admin styles (WP, jQuery, etc).
+ * Theme overrides are almpst never generic and should be placed in the respective plugin.
+ *
+ * ----------------------------------------------------------------------------- */
+
+/* = jQuery UI
+============================================= */
+.ui-widget-overlay {
+	background: #666;
+	filter: alpha(opacity=50);
+	opacity: 0.5;
+}
+
+.ui-widget-shadow {
+	background: #000;
+	border-radius: 5px;
+	filter: alpha(opacity=20);
+	margin: -5px 0 0 -5px;
+	opacity: 0.2;
+	padding: 5px;
+}
+
+.ui-resizable {
+	position: relative;
+}
+
+.ui-resizable-handle {
+	display: block;
+	font-size: 0.1px;
+	position: absolute;
+	z-index: 99999;
+}
+
+.ui-resizable-disabled .ui-resizable-handle,
+.ui-resizable-autohide .ui-resizable-handle {
+	display: none;
+}
+
+.ui-resizable-n {
+	cursor: n-resize;
+	height: 7px;
+	left: 0;
+	top: -5px;
+	width: 100%;
+}
+
+.ui-resizable-s {
+	bottom: -5px;
+	cursor: s-resize;
+	height: 7px;
+	left: 0;
+	width: 100%;
+}
+
+.ui-resizable-e {
+	cursor: e-resize;
+	height: 100%;
+	right: -5px;
+	top: 0;
+	width: 7px;
+}
+
+.ui-resizable-w {
+	cursor: w-resize;
+	height: 100%;
+	left: -5px;
+	top: 0;
+	width: 7px;
+}
+
+.ui-resizable-se {
+	bottom: 1px;
+	cursor: se-resize;
+	height: 12px;
+	right: 1px;
+	width: 12px;
+}
+
+.ui-resizable-sw {
+	bottom: -5px;
+	cursor: sw-resize;
+	height: 9px;
+	left: -5px;
+	width: 9px;
+}
+
+.ui-resizable-nw {
+	cursor: nw-resize;
+	height: 9px;
+	left: -5px;
+	top: -5px;
+	width: 9px;
+}
+
+.ui-resizable-ne {
+	cursor: ne-resize;
+	height: 9px;
+	right: -5px;
+	top: -5px;
+	width: 9px;
+}
+
+.ui-dialog {
+	padding: 0.2em;
+	position: relative;
+	width: 375px;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+	padding: 0.5em 0.3em 0.3em 1em;
+	position: relative;
+}
+
+.ui-dialog .ui-dialog-title {
+	float: left;
+	margin: 0.1em 0 0.2em;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+	height: 18px;
+	margin: -10px 0 0 0;
+	padding: 1px;
+	position: absolute;
+	right: 0.3em;
+	top: 50%;
+	width: 19px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close span {
+	display: block;
+	margin-left: -8px;
+	margin-top: -8px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close:hover,
+.ui-dialog .ui-dialog-titlebar-close:focus {
+	padding: 0;
+}
+
+.ui-dialog .ui-dialog-content {
+	background: none;
+	border: 0;
+	overflow: auto;
+	padding: 0.5em 1em;
+	zoom: 1;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+	background-image: none;
+	border-width: 1px 0 0 0;
+	margin: 0.5em 0 0 0;
+	padding: 0.3em 1em 0.5em !important;
+	text-align: right;
+}
+
+.ui-dialog .ui-dialog-buttonpane button {
+	cursor: pointer;
+	line-height: 1.4em;
+	margin: 0.5em 0.4em 0.5em !important;
+	overflow: visible;
+	padding: 0.2em 0.6em 0.3em;
+	text-shadow: none;
+	width: auto;
+}
+
+.ui-dialog .ui-resizable-se {
+	bottom: 3px;
+	height: 14px;
+	right: 3px;
+	width: 14px;
+}
+
+.ui-draggable .ui-dialog-titlebar {
+	cursor: move;
+}
+
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+	float: none !important;
+	text-align: center;
+}
+
+.ui-button-text-only .ui-button-text {
+	padding: 0.4em 1em;
+}
+
+.ui-button .ui-button-text {
+	display: block;
+	line-height: 1.4;
+}
+
+#ui-datepicker-div {
+	display: none;
+}

@@ -1,0 +1,393 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Tribe Common Admin - Banner Styles
+ *
+ * This file contains the base styles.
+ * Make partials (start with an underscore) for any individual banners.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.notice-tribe-banner {
+	.tribe-marketing-notice__icon {
+		width: 47px;
+
+		@media screen and (min-width: 400px) {
+			width: 67px;
+		}
+	}
+
+	.tribe-marketing-notice__content {
+		margin-left: 0;
+		padding: 1em 0;
+
+		@media screen and (min-width: 320px) {
+			margin-left: 22px;
+		}
+
+		@media screen and (min-width: 600px) and (max-width: 782px) {
+			margin-left: 22px;
+			padding: 0;
+		}
+
+		@media screen and (min-width: 782px) {
+			margin-left: 22px;
+			padding: 0;
+		}
+	}
+
+	&.tribe-notice-stellar-sale {
+		.tribe-marketing-notice {
+			min-height: 50px;
+		}
+
+		.tribe-marketing-notice__content {
+			align-content: center;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin: auto;
+		}
+
+		.tribe-marketing-notice__icon {
+			align-self: baseline;
+			height: 20px;
+			margin: auto 14px auto 0;
+			width: 13px;
+
+			.tribe-common-c-svgicon--stellar-icon {
+				circle {
+					stroke: #fff;
+				}
+			}
+		}
+
+		.tec-stellar-sale-text {
+			fill: #fff;
+			height: 16px;
+			margin: unset;
+			margin-top: 0.25em;
+			stroke: #fff;
+			width: 176px;
+		}
+
+		h3 {
+			font-weight: 400;
+			margin: auto 8px auto 14px;
+			text-align: center;
+		}
+	}
+
+	h3 {
+		color: #fff;
+		display: block;
+		font-size: 0.875rem;
+		line-height: 1.25;
+		margin: 0 0 0.25rem 0;
+
+		@media screen and (min-width: 800px) {
+			display: inline-block;
+			font-size: 1rem;
+			margin: 0 0.5rem 0 0;
+		}
+	}
+
+	a {
+		border-bottom: 1px solid;
+		line-height: 1.25;
+		margin: 0;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: none;
+		}
+
+		@media screen and (min-width: 800px) {
+			line-height: 1.5;
+		}
+	}
+
+	a,
+	p {
+		color: #fff;
+		display: inline-block;
+		font-size: 0.875rem;
+		line-height: 1.25;
+
+		@media screen and (min-width: 800px) {
+			font-size: 1rem;
+		}
+	}
+
+	p {
+		display: inline-block;
+		margin: 0;
+		padding: 0;
+
+		@media screen and (min-width: 800px) {
+			margin: 0 0.5rem 0 0;
+		}
+	}
+
+	.tribe-marketing-notice {
+		align-items: center;
+		display: flex;
+		justify-content: flex-start;
+		margin: 0 auto;
+		min-height: 65px;
+		padding: 0;
+		width: 100%;
+
+		.events_page_tribe-app-shop &,
+		.tribe_events_page_tribe-app-shop & {
+			max-width: 100%;
+
+			@media screen and (min-width: 782px) {
+				max-width: 642px;
+			}
+
+			@media screen and (min-width: 1215px) {
+				max-width: 992px;
+			}
+		}
+
+		.tribe-welcome & {
+			max-width: 100%;
+
+			@media screen and (min-width: 782px) {
+				max-width: 642px;
+			}
+
+			@media screen and (min-width: 1215px) {
+				max-width: 1036px;
+			}
+		}
+	}
+
+	.notice-dismiss {
+		position: static;
+
+		&:before {
+			color: #eaf1ff;
+		}
+	}
+
+	.tribe-marketing-notice__cta {
+		@media screen and (min-width: 800px) {
+			display: inline-block;
+			margin-left: 0.5rem;
+		}
+	}
+}
+
+#wpcontent .notice-tribe-banner {
+	align-items: center;
+	background-color: #161b7d;
+	border: 0;
+	box-shadow: none;
+	display: flex;
+	justify-content: flex-start;
+	margin: 0 0 16px 0;
+	padding-right: 0;
+
+	&.tribe-notice-stellar-sale {
+		background-color: #1d202f;
+		overflow: hidden;
+
+		@media screen and (max-width: 767px) {
+			padding: 20px 20px 0;
+		}
+
+		a {
+			color: #d8ff00;
+			text-transform: uppercase;
+
+			&:active,
+			&:focus,
+			&:hover {
+				color: #e6b1fc;
+			}
+		}
+
+		.tribe-marketing-notice {
+			max-width: 100%;
+		}
+
+		.notice-dismiss {
+			&:before {
+				content: "X";
+				font-family: inherit;
+				font-size: 30px;
+				font-weight: 300;
+				position: absolute;
+				right: 20px;
+				top: 20px;
+			}
+		}
+
+		.tribe-marketing-notice__content-wrapper {
+			align-items: center;
+			display: flex;
+			flex-wrap: wrap;
+			font-family: 'Neurial Grotesk', sans-serif; /* todo: enqueue font */
+			padding: 35px 0 10px 35px;
+			width: 100%;
+
+			@media screen and (max-width: 480px) {
+				align-items: flex-start;
+				flex-direction: column;
+				padding: 30px 0 10px;
+			}
+
+			@media (min-width: 768px) and (max-width: 1023px) {
+				padding: 30px 0 10px 25px;
+			}
+
+			h3,
+			h4 {
+				color: #fff;
+			}
+
+			h3 {
+				font-size: 24px;
+				font-weight: 700;
+				margin: 0;
+				text-align: left;
+			}
+
+			h4 {
+				font-size: 18px;
+				font-weight: 300;
+				margin: 10px 0 25px;
+				text-align: left;
+
+				@media screen and (max-width: 480px) {
+					margin: 10px 0 5px;
+				}
+			}
+
+			p {
+				color: #fff;
+				font-size: 14px;
+				font-weight: 400;
+				letter-spacing: 1px;
+				line-height: 22px;
+				margin: 0 0 20px;
+			}
+
+			.tribe-marketing-notice__info {
+				/* hide on mobile */
+				@media screen and (max-width: 767px) {
+					display: none;
+				}
+			}
+
+			.tribe-marketing-notice__cta-shop-now {
+				a {
+					background-color: #3849f5;
+					border: 1px solid #3849f5;
+					border-radius: 125px;
+					color: #fff;
+					font-family: 'Inconsolata', monospace; /* todo: enqueue font */
+					font-size: 14px;
+					font-weight: 400;
+					line-height: 1;
+					padding: 12px 27px;
+
+					&:active,
+					&:focus,
+					&:focus-within,
+					&:hover {
+						background-color: #1c39bb;
+						border: 1px solid #1c39bb;
+						box-shadow: none;
+						outline: none;
+					}
+				}
+			}
+
+			.tribe-marketing-notice__cta-stellar-deals {
+				a {
+					color: #fff;
+					font-size: 14px;
+					font-weight: 700;
+					line-height: 24px;
+					text-transform: none;
+
+					&:active,
+					&:focus,
+					&:focus-within,
+					&:hover {
+						box-shadow: none;
+						color: #1c39bb;
+						outline: none;
+					}
+				}
+			}
+
+			.tribe-marketing-notice__cta-shop-now--desktop {
+				/* hide on mobile */
+				@media screen and (max-width: 767px) {
+					display: none;
+				}
+			}
+
+			.tribe-marketing-notice__cta-shop-now--mobile {
+				display: none;
+
+				@media screen and (max-width: 767px) {
+					display: block;
+					margin-right: 10px;
+				}
+			}
+
+			.tribe-marketing-notice__col--inner {
+				align-items: center;
+				display: flex;
+				flex-wrap: wrap;
+			}
+
+			.tribe-marketing-notice__col--md {
+				flex: 35%;
+
+				@media (min-width: 768px) and (max-width: 1023px) {
+					flex: 45%;
+				}
+			}
+
+			.tribe-marketing-notice__col--lg {
+				flex: 40%;
+
+				@media (min-width: 768px) and (max-width: 1023px) {
+					flex: 45%;
+				}
+			}
+
+			.tribe-marketing-notice__col--sm {
+				flex: 20%;
+				z-index: 1;
+
+				@media (min-width: 768px) and (max-width: 1023px) {
+					flex: 10%;
+				}
+
+				.tribe-marketing-notice__col--sm-bg {
+					bottom: 0;
+					height: 8vw;
+					position: absolute;
+					right: 0;
+					width: auto;
+					z-index: -1;
+
+					@media (min-width: 768px) and (max-width: 1023px) {
+						height: 11vw;
+					}
+
+					@media screen and (max-width: 767px) {
+						height: 35vw;
+						right: -45vw;
+					}
+				}
+			}
+		}
+	}
+}

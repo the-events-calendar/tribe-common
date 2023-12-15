@@ -1,0 +1,30 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Tribe Common Admin - Plugin Screen
+ *
+ * ----------------------------------------------------------------------------- */
+
+table.plugins {
+	.tribe-plugin-update-message {
+		background: #d54e21; /* taken from color scheme in list-tables.css */
+		color: white;
+		display: inline-table;
+		margin: 6px 0;
+		padding: 10px 12px;
+
+		h4 {
+			display: inline;
+			font-weight: bold;
+			margin-right: 8px;
+
+			&:after {
+				content: ' \00BB ';
+			}
+		}
+
+		a {
+			color: white;
+			text-decoration: underline;
+		}
+	}
+}

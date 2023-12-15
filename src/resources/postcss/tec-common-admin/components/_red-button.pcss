@@ -1,0 +1,49 @@
+/* Red button styles. Credit to https://github.com/jensjns/wp-admin-red-button
+============================================================================== */
+.wp-core-ui .button-red {
+	background-color: #a00;
+	border-color: #9b2124;
+	box-shadow: inset 0 1px 0 rgba(120, 200, 230, 0.5);
+	color: #fff;
+	text-decoration: none;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.wp-core-ui .button-red.hover,
+.wp-core-ui .button-red:hover,
+.wp-core-ui .button-red.focus,
+.wp-core-ui .button-red:focus {
+	background-color: #a00;
+	border-color: #7f1c1f;
+	box-shadow: inset 0 1px 0 rgba(120, 200, 230, 0.6);
+	color: #fff;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.wp-core-ui .button-red.focus,
+.wp-core-ui .button-red:focus {
+	border-color: #500f0e;
+	box-shadow: inset 0 1px 0 rgba(120, 200, 230, 0.6), 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.wp-core-ui .button-red.active,
+.wp-core-ui .button-red.active:hover,
+.wp-core-ui .button-red.active:focus,
+.wp-core-ui .button-red:active {
+	background: #7f1c1f;
+	border-color: #601312 #ae2426 #ae2426 #ae2426;
+	box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1);
+	color: rgba(255, 255, 255, 0.95);
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.wp-core-ui .button-red[disabled],
+.wp-core-ui .button-red:disabled,
+.wp-core-ui .button-red-disabled {
+	background: #ba292b !important;
+	border-color: #7f1c1f !important;
+	box-shadow: none !important;
+	color: #e79496 !important;
+	cursor: default;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1) !important;
+}

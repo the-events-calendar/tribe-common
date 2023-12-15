@@ -1,0 +1,35 @@
+
+
+/* Pure CSS checkmark. From https://codepen.io/lajlev/pen/diKbz
+ ============================================= */
+ .checkmark {
+
+	&:after {
+		/* Add a white border on the bottom and left, creating that 'L' */
+		border: solid #0ab152;
+		border-width: 0 3px 3px 0;
+
+		/* Add another block-level blank space */
+		content: '';
+		display: block;
+
+		/* Make it a small rectangle so the border will create an L-shape, rotate the L 45 degrees to turn it into a checkmark */
+		height: 15px;
+		transform: rotate(45deg);
+		width: 8px;
+	}
+
+	&.checkmark-right:after {
+		float: right;
+		margin-right: 2em;
+	}
+
+	&.checkmark-left:after {
+		float: left;
+		margin-left: 2em;
+	}
+
+	&.no-checkmark:after {
+		display: none;
+	}
+}

@@ -1,0 +1,165 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Tribe Common Admin - Settings Screen
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe_settings {
+	.tribe-field-indent {
+		margin-left: 245px;
+	}
+
+	#pu_dashboard_message {
+		display: none;
+	}
+
+	.tribe-errors-list {
+		margin-left: 15px;
+	}
+
+	.expiring-license {
+		color: red;
+	}
+
+	.tribe-error {
+		border: 1px solid #f00;
+	}
+
+	.tribe-field-description {
+		margin-bottom: 0;
+		position: relative;
+		top: -12px;
+	}
+
+	#ical-link {
+		top: -14px;
+	}
+}
+
+.tribe-settings-form {
+	max-width: 1000px;
+
+	.tribe-field-radio,
+	.tribe-field-checkbox_list {
+		label {
+			display: block;
+			margin: 5px 0 5px 20px;
+			text-indent: -20px;
+
+			> p {
+				margin-left: 1px;
+				text-indent: 0;
+			}
+
+			input {
+				margin-right: 5px;
+			}
+		}
+	}
+
+	.tribe-settings-form-wrap {
+		.description {
+			padding-left: 12px;
+		}
+
+		h3 {
+			background-color: #f9f9f9;
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 10px;
+			padding: 6px 12px;
+
+			.tec-top-link {
+				font-size: var(--tec-font-size-0);
+				font-weight: var(--tec-font-weight-regular);
+			}
+		}
+
+		fieldset {
+			clear: both;
+			display: inline-block;
+			padding: 10px 0 10px 10px;
+
+			&.tribe-field-license_key legend {
+				width: auto;
+			}
+
+			.description {
+				margin-left: 0;
+				max-width: 450px;
+				padding-left: 0;
+			}
+
+			.tribe-style-selection {
+				margin-bottom: 18px;
+			}
+
+			.tribe-field-wrap {
+				input[type="checkbox"] ~ .description {
+					display: inline-block;
+					margin-top: 0;
+				}
+
+				input[type="checkbox"] {
+					margin-top: 2px !important;
+					vertical-align: top;
+				}
+			}
+		}
+
+		#tribe-field-stylesheetOption {
+			.description {
+				color: #999;
+				margin-left: 1px;
+			}
+		}
+
+		legend {
+			float: left;
+			font-weight: bold;
+			margin-right: 20px;
+			width: 220px;
+		}
+
+		.tribe-field-wrap {
+			float: left;
+			max-width: 500px;
+			width: 100%;
+
+			*:first-child:not(.wp-switch-editor) {
+				margin-top: 0;
+			}
+
+			@media (--viewport-medium) {
+				width: auto;
+			}
+		}
+
+		.tribe-sysinfo-optin-msg,
+		.system-info,
+		h3 + p,
+		.contained {
+			margin: 0 0 10px;
+			padding-left: 12px;
+		}
+
+		.tec-disabled {
+			color: #999;
+		}
+
+		.tec-settings-teaser-pill {
+			background-color: var(--tec-color-border-default);
+			border-radius: var(--tec-border-radius-default);
+			color: var(--tec-color-text-primary);
+			font-size: 9px;
+			margin-left: var(--tec-spacer-0);
+			padding: calc(var(--tec-spacer-0) / 2) 5px;
+			text-transform: uppercase;
+
+			&:hover,
+			&:focus {
+				text-decoration: underline;
+			}
+		}
+	}
+}

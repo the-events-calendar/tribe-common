@@ -1,0 +1,152 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Tribe Common Admin - Troubleshooting - Error Logging section
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events-admin__troubleshooting-event-log-wrapper label {
+	color: #0f1031;
+	display: block;
+	font-size: 16px;
+	line-height: 1.63;
+	margin-bottom: 10px;
+}
+
+.tribe-events-admin__troubleshooting-event-log-wrapper #tribe-log-controls {
+	margin: 20px 0 10px;
+}
+
+.tribe-events-admin__troubleshooting-event-log-wrapper #tribe-log-viewer {
+	background: #0f1031;
+	border-radius: 16px;
+	color: #fff;
+	font-size: 14px;
+	line-height: 1.14;
+	max-height: 280px;
+	min-height: 60px;
+	overflow: scroll;
+	-ms-overflow-style: none;  /* hide scrollbar on IE and Edge */
+	padding: 12px 0 0 27px;
+	scrollbar-width: none;  /* hide scrollbar on Firefox */
+}
+
+.tribe-events-admin__troubleshooting-event-log-wrapper #tribe-log-viewer::-webkit-scrollbar {
+	display: none; /* hide scrollbar on Chrome */
+}
+
+.tribe-events-admin__troubleshooting-event-log-wrapper .download_log {
+	border-bottom: 2px solid;
+	color: #334aff;
+	font-size: 16px;
+	padding-bottom: 2px;
+	text-decoration: none;
+
+	&:focus {
+		box-shadow: none;
+		outline: none;
+	}
+
+	&:hover {
+		border-bottom: 2px solid;
+		color: #1c39bb;
+	}
+}
+
+.tribe-events-admin__troubleshooting-event-log-wrapper .tribe-events-admin__recent-log-filters-select-wrapper:after {
+	display: none;
+}
+
+.tribe-events-admin__recent-log-filters {
+	display: flex;
+	padding: 20px 0 40px;
+
+	@media only screen and (max-width: 768px) {
+		flex-direction: column;
+	}
+
+	@media only screen and (max-width: 480px) {
+		flex-direction: column;
+	}
+}
+
+.tribe-events-admin__recent-log-filters-field {
+	margin-right: 40px;
+
+	@media only screen and (max-width: 768px) {
+		margin-bottom: 30px;
+		margin-right: 0;
+	}
+
+	@media only screen and (max-width: 480px) {
+		margin-bottom: 30px;
+		margin-right: 0;
+	}
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper:after {
+	content: url("../images/help/polygon.svg");
+	height: 13px;
+	pointer-events: none;
+	position: absolute;
+	right: 22px;
+	top: 20px;
+	width: 14px;
+
+	@media only screen and (max-width: 480px) {
+		right: 25px;
+	}
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper .select2-container--default .select2-selection--single {
+	/* targets the event log select */
+	border: 1px solid #e1e1e4 !important;
+	border-radius: 16px;
+	color: #0f1031;
+	font-size: 14px;
+	line-height: 1.14;
+	padding: 0 25px 0 15px !important;
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper #tribe-log-controls {
+	margin-bottom: 20px;
+	padding: 0;
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper #tribe-log-controls div:nth-child(1),
+.tribe-events-admin__recent-log-filters-select-wrapper #tribe-log-controls div:nth-child(2),
+.tribe-events-admin__recent-log-filters-select-wrapper #tribe-log-controls div:nth-child(3) {
+	/* adds a margin between the dropdowns */
+	padding-right: 75px;
+
+	@media only screen and (max-width: 768px) {
+		padding-right: 30px;
+	}
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper .select2-selection__clear {
+	display: none;
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper .select2-container--default .select2-selection--single .select2-selection__arrow {
+	right: 5px;
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper .select2-container--default.select2-container--open.select2-container--below .select2-selection--single,
+.select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple {
+	border-bottom-left-radius: 16px;
+	border-bottom-right-radius: 16px;
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper .select2-container .select2-selection--single .select2-selection__rendered {
+	width: 100%;
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper select:focus-visible {
+	outline: none;
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper select option {
+	color: #0f1031;
+	font-size: 14px;
+	line-height: 1.14;
+}
