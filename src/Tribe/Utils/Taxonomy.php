@@ -141,9 +141,9 @@ class Taxonomy {
 	 * @return array<int, array>
 	 */
 	public static function prime_term_cache( array $posts = [], array $taxonomies = [ 'post_tag', \Tribe__Events__Main::TAXONOMY ], bool $prime_term_meta = false ): array {
-                if ( count( $posts ) === 0 ) {
+		if ( count( $posts ) === 0 ) {
 			return [];
-                }
+		}
 
 		$first = reset( $posts );
 		$is_numeric = ( ! $first instanceof \WP_Post );
