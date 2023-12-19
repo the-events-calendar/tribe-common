@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+*Tweak - Update the DataTables library used by Event Aggregator. [TBD]
+
 = [5.1.17] 2023-12-14 =
 
 * Fix - Adding a param safe list to validate input for Select2 usage on AJAX requests. [BTRIA-2148]
