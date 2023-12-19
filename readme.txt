@@ -7,6 +7,7 @@
 = [5.1.17] 2023-12-14 =
 
 * Fix - Adding a param safe list to validate input for Select2 usage on AJAX requests. [BTRIA-2148]
+* Language - 0 new strings added, 24 updated, 2 fuzzied, and 0 obsoleted
 
 = [5.1.16] 2023-12-13 =
 
