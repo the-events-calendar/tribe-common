@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Fix PHP 8.2 deprecation errors `PHP Deprecated:  html_entity_decode(): Passing null to parameter #1 ($string) of type string is deprecated`. [ECP-1603]
+
 = [5.1.17] 2023-12-14 =
 
 * Fix - Adding a param safe list to validate input for Select2 usage on AJAX requests. [BTRIA-2148]
