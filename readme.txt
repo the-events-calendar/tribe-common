@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Default to uppercase meridian ("AM" rather than "am") for screen readers. [TBD]
+
 = [5.1.17] 2023-12-14 =
 
 * Fix - Adding a param safe list to validate input for Select2 usage on AJAX requests. [BTRIA-2148]

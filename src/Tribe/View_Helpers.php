@@ -280,12 +280,12 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 		 * @return string a set of HTML options with all meridians
 		 */
 		public static function getMeridianOptions( $date = '', $isStart = false ) {
-			if ( strstr( get_option( 'time_format', Tribe__Date_Utils::TIMEFORMAT ), 'A' ) ) {
-				$a         = 'A';
-				$meridians = [ 'AM', 'PM' ];
-			} else {
+			if ( strstr( get_option( 'time_format', Tribe__Date_Utils::TIMEFORMAT ), 'a' ) ) {
 				$a         = 'a';
 				$meridians = [ 'am', 'pm' ];
+			} else {
+				$a         = 'A';
+				$meridians = [ 'AM', 'PM' ];
 			}
 			if ( empty( $date ) ) {
 				$meridian = ( $isStart ) ? $meridians[0] : $meridians[1];
