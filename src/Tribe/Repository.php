@@ -3914,4 +3914,27 @@ abstract class Tribe__Repository
 
 		return $this;
 	}
+
+	/**
+	 * Maps the query results to an array using a callback.
+	 *
+	 * @since TBD
+	 *
+	 * @param callable $mapper The callback to use to map the results. The callback should have signature
+	 *                         `function ( mixed $item, string|int $key, array<mixed> $items ): mixed`.
+	 *
+	 * @return array<mixed> The mapped results.
+	 */
+	public function map( callable $mapper ): array {
+		$items  = ( $this->query_args['fields'] ?? null ) === 'ids' ?
+			$this->get_ids( true )
+			: $this->all( true );
+		$mapped = [];
+
+		foreach ( $items as $k => $item ) {
+			$mapped[] = $mapper( $item, $k, $items );
+		}
+
+		return $mapped;
+	}
 }
