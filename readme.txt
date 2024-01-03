@@ -2,7 +2,7 @@
 
 = [TBD] TBD =
 
-*Tweak - Update the DataTables library used by Event Aggregator. [TBD]
+* Tweak - Update the DataTables library used by Event Aggregator. [TBD]
 
 = [5.1.17] 2023-12-14 =
 
