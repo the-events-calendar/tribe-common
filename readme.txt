@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - Add the `get_country_based_on_code` method to the `Tribe__Languages__Locations` class. [EA-469]
+
 = [5.1.17] 2023-12-14 =
 
 * Fix - Adding a param safe list to validate input for Select2 usage on AJAX requests. [BTRIA-2148]
