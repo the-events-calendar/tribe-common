@@ -410,4 +410,23 @@ class Tribe__Languages__Locations {
 		 */
 		return (array) apply_filters( 'tribe_us_states', $states );
 	}
+
+	/**
+	 * Get a country name based on a country code.
+	 * 
+	 * @since TBD
+	 *
+	 * @param string $country_code A 2-digit country code.
+	 *
+	 * @return string The full country name.
+	 */
+	public function get_country_based_on_code( $country_code ) {
+		// Get the country code of the venue.
+		$country_code = strtoupper( $country_code );
+
+		// Get the country array from Tribe Common.
+		$countries = $this->get_countries();
+
+		return $countries[ $country_code ] ?? $country_code;
+	}
 }
