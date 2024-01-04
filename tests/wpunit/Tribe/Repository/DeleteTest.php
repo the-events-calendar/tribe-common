@@ -30,7 +30,7 @@ class DeleteTest extends \Codeception\TestCase\WPTestCase {
 			return [];
 		} );
 		$delete_filter_ran = false;
-		add_filter( "tribe_repository_books_delete", function () use ( $delete_filter_ran ) {
+		add_filter( "tribe_repository_books_delete", function () use ( &$delete_filter_ran ) {
 			$delete_filter_ran = true;
 		} );
 
