@@ -1,9 +1,44 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [5.1.17] 2023-12-14 =
+
+* Fix - Adding a param safe list to validate input for Select2 usage on AJAX requests. [BTRIA-2148]
+* Language - 0 new strings added, 24 updated, 2 fuzzied, and 0 obsoleted
+
+= [5.1.16] 2023-12-13 =
+
+* Tweak -  Include Wallet Plus on Add-Ons Page. [ET-1932]
+* Tweak -  Include Wallet Plus on Help Page. [ET-1931]
+* Language - 7 new strings added, 54 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.15.2] 2023-12-04 =
+
+* Fix - Ensure correct access rights to JSON-LD data depending on the user role. [TEC-4995]
+* Language - 0 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.15.1] 2023-11-20 =
+
+* Security - Ensure all password protected posts have their settings respected. [TCMN-167]
+
+= [5.1.15] 2023-11-16 =
+
+* Fix - Ensure the JavaScript module assets are properly getting the `type="module"` added on all scenarios [ET-1921]
+* Language - 0 new strings added, 11 updated, 1 fuzzied, and 2 obsoleted
+
+= [5.1.14] 2023-11-13 =
 
 * Tweak - Added pre-check filter `tribe_repository_{$this->filter_name}_before_delete` to enable overriding the `Repository` delete operation. [TEC-4935]
 * Fix - Resolved several `Deprecated: Creation of dynamic property` warnings on: `\Tribe__Field::$allow_clear, $type, $class, $label, $label_attributes, $error, $tooltip, $size, $html, $options, $value, $conditional, $placeholder, $display_callback, $if_empty, $can_be_empty, $clear_after, $tooltip_first` and `\Tribe__Settings_Tab::$priority, public $fields, $show_save, $display_callback, $network_admin` [BTRIA-2088]
+* Language - 2 new strings added, 9 updated, 1 fuzzied, and 2 obsoleted.
+
+= [5.1.13.1] 2023-11-10 =
+
+* Fix - Update Telemetry library to prevent potential fatals. [TEC-4978]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.13] 2023-11-08 =
+
+* Tweak - Ensure stability of opt-in data.
 
 = [5.1.12] 2023-11-01 =
 
@@ -12,6 +47,7 @@
 
 = [5.1.11] 2023-10-19 =
 
+* Tweak - Changed scope of the Tribe__Editor__Blocks__Abstract::$namespace property to protected. [TEC-4792]
 * Fix - AM/PM time formats `g:i A` and `g:i a` are now respected for the French locale. [TEC-4807]
 * Tweak - Pass the appropriate arguments to telemetry opt-ins.
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted

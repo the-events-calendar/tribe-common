@@ -10,7 +10,7 @@ implements Tribe__Editor__Blocks__Interface {
 	 *
 	 * @var string
 	 */
-	private $namespace = 'tribe';
+	protected $namespace = 'tribe';
 
 	/**
 	 * Builds the name of the Block
@@ -34,7 +34,7 @@ implements Tribe__Editor__Blocks__Interface {
 	 *
 	 * @return string
 	 */
-	public function get_namespace() {
+	public function get_namespace(): string {
 		return $this->namespace;
 	}
 
