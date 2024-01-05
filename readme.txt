@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - Enable auto-updates for premium plugins.
+
 = [5.1.17] 2023-12-14 =
 
 * Fix - Adding a param safe list to validate input for Select2 usage on AJAX requests. [BTRIA-2148]
