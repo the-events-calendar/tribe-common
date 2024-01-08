@@ -4,6 +4,22 @@
 
 * Fix - Correct some signatures in the Tribe__Data class so they conform to the classes it implements, avoiding deprecation notices. [TEC-4992]
 
+= [5.1.17] 2023-12-14 =
+
+* Fix - Adding a param safe list to validate input for Select2 usage on AJAX requests. [BTRIA-2148]
+* Language - 0 new strings added, 24 updated, 2 fuzzied, and 0 obsoleted
+
+= [5.1.16] 2023-12-13 =
+
+* Tweak -  Include Wallet Plus on Add-Ons Page. [ET-1932]
+* Tweak -  Include Wallet Plus on Help Page. [ET-1931]
+* Language - 7 new strings added, 54 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.15.2] 2023-12-04 =
+
+* Fix - Ensure correct access rights to JSON-LD data depending on the user role. [TEC-4995]
+* Language - 0 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
+
 = [5.1.15.1] 2023-11-20 =
 
 * Security - Ensure all password protected posts have their settings respected. [TCMN-167]
