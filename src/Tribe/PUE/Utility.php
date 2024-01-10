@@ -33,6 +33,14 @@ if ( ! class_exists( 'Tribe__PUE__Utility' ) ) {
 		public $custom_update;
 		public $license_error;
 		public $auth_url;
+		/**
+		 * @var bool
+		 */
+		public $api_expired;
+		/**
+		 * @var bool
+		 */
+		public $api_upgrade;
 
 		/**
 		 * Create a new instance of Tribe__PUE__Utility from its JSON-encoded representation.
