@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class Locations
+ * Class Tribe__Languages__Locations
  *
  * Localized lists of locations, like countries and states.
  */
@@ -413,7 +413,7 @@ class Tribe__Languages__Locations {
 
 	/**
 	 * Get a country name based on a country code.
-	 * 
+	 *
 	 * @since TBD
 	 *
 	 * @param string $country_code A 2-digit country code.
