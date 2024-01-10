@@ -3,6 +3,7 @@
 = [TBD] TBD =
 
 * Fix - Correct some signatures in the Tribe__Data class so they conform to the classes it implements, avoiding deprecation notices. [TEC-4992]
+* Feature - Enable auto-updates for premium plugins.
 * Tweak - Update the DataTables library used by Event Aggregator. [TBD]
 * Fix - Fix PHP 8.2 deprecation errors `PHP Deprecated:  html_entity_decode(): Passing null to parameter #1 ($string) of type string is deprecated`. [ECP-1603]
 
