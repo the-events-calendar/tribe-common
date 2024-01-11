@@ -81,7 +81,8 @@ class Tribe__Data implements ArrayAccess, Iterator { // phpcs:ignore TEC.Classes
 	 *
 	 * @since 4.11.0
 	 */
-	public function offsetGet( $offset ): mixed {
+	#[\ReturnTypeWillChange]
+	public function offsetGet( $offset ) {
 		return $this->data[ $offset ] ?? $this->default;
 	}
 
@@ -154,10 +155,13 @@ class Tribe__Data implements ArrayAccess, Iterator { // phpcs:ignore TEC.Classes
 	 * Return the current element
 	 *
 	 * @link  http://php.net/manual/en/iterator.current.php
+	 *
 	 * @return mixed Can return any type.
+	 *
 	 * @since 4.11.0
 	 */
-	public function current(): mixed {
+	#[\ReturnTypeWillChange]
+	public function current() {
 		$keys = array_keys( $this->data );
 
 		return $this->data[ $keys[ $this->index ] ];
@@ -178,10 +182,13 @@ class Tribe__Data implements ArrayAccess, Iterator { // phpcs:ignore TEC.Classes
 	 * Return the key of the current element
 	 *
 	 * @link  http://php.net/manual/en/iterator.key.php
+	 *
 	 * @return mixed scalar on success, or null on failure.
+	 *
 	 * @since 4.11.0
 	 */
-	public function key(): mixed {
+	#[\ReturnTypeWillChange]
+	public function key() {
 		$keys = array_keys( $this->data );
 
 		return $keys[ $this->index ];
