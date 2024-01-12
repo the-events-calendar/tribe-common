@@ -124,7 +124,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 				return false;
 			}
 
-			return Tribe__Admin__Helpers::instance()->is_screen( $this->admin_page );
+			return tribe( 'admin.helpers' )->is_screen( $this->admin_page );
 		}
 
 		/**

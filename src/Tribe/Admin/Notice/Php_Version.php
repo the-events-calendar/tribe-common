@@ -1,12 +1,26 @@
 <?php
 /**
- * Shows an admin notice for Php_Version
+ * Admin Notice for PHP Version.
+ *
+ * @since 4.7.16
+ *
+ * @package Tribe\Common\Admin_Notice
+ */
+
+ // phpcs:disable PEAR.NamingConventions.ValidClassName.Invalid
+ // phpcs:disable TEC.Classes.ValidClassName.NotSnakeCase
+
+/**
+ * Class Tribe__Admin__Notice__Php_Version
  */
 class Tribe__Admin__Notice__Php_Version {
 
+	/**
+	 * Hooks the notice to trigger the logic
+	 */
 	public function hook() {
 
-		// display the PHP version notice
+		// Display the PHP version notice.
 		tribe_notice(
 			'php-deprecated-74',
 			[ $this, 'display_notice' ],
@@ -29,7 +43,7 @@ class Tribe__Admin__Notice__Php_Version {
 	 */
 	public function get_active_plugins() {
 
-		$active_plugins = Tribe__Dependency::instance()->get_active_plugins();
+		$active_plugins = tribe( Tribe__Dependency::class )->get_active_plugins();
 
 		foreach ( $active_plugins as $active_plugin ) {
 

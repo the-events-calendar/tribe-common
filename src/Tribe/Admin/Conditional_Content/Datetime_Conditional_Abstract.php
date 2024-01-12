@@ -1,4 +1,8 @@
 <?php
+/**
+ * Abstract Datetime Conditional
+ */
+
 namespace Tribe\Admin\Conditional_Content;
 
 use Tribe__Date_Utils as Dates;
@@ -13,6 +17,8 @@ abstract class Datetime_Conditional_Abstract {
 	 * Item slug.
 	 *
 	 * @since 4.14.7
+	 *
+	 * @var string
 	 */
 	protected $slug = '';
 
@@ -20,6 +26,8 @@ abstract class Datetime_Conditional_Abstract {
 	 * Start date.
 	 *
 	 * @since 4.14.7
+	 *
+	 * @var string
 	 */
 	protected $start_date;
 
@@ -27,6 +35,8 @@ abstract class Datetime_Conditional_Abstract {
 	 * Start time.
 	 *
 	 * @since 4.14.7
+	 *
+	 * @var string
 	 */
 	protected $start_time;
 
@@ -34,6 +44,8 @@ abstract class Datetime_Conditional_Abstract {
 	 * End date.
 	 *
 	 * @since 4.14.7
+	 *
+	 * @var string
 	 */
 	protected $end_date;
 
@@ -41,6 +53,8 @@ abstract class Datetime_Conditional_Abstract {
 	 * End time.
 	 *
 	 * @since 4.14.7
+	 *
+	 * @var string
 	 */
 	protected $end_time;
 
@@ -59,12 +73,13 @@ abstract class Datetime_Conditional_Abstract {
 	 * @since 4.14.7
 	 * @return void
 	 */
-	abstract function hook();
+	abstract public function hook();
 
 	/**
 	 * Unix datetime for content start.
 	 *
 	 * @since 4.14.7
+	 *
 	 * @return \Tribe\Utils\Date_I18n - Date Object
 	 */
 	protected function get_start_time() {
@@ -80,8 +95,8 @@ abstract class Datetime_Conditional_Abstract {
 		 * Allow filtering of the start date for testing.
 		 *
 		 * @since 4.14.7
-		 * @param \DateTime $date - Unix timestamp for start date
-		 * @param object $this
+		 * @param \DateTime $date     Unix timestamp for start date.
+		 * @param object    $instance the conditional content object.
 		 */
 		$date = apply_filters( "tec_admin_conditional_content_{$this->slug}_start_date", $date, $this );
 
@@ -92,6 +107,7 @@ abstract class Datetime_Conditional_Abstract {
 	 * Unix datetime for content end.
 	 *
 	 * @since 4.14.7
+	 *
 	 * @return \Tribe\Utils\Date_I18n - Date Object
 	 */
 	protected function get_end_time() {
@@ -107,8 +123,8 @@ abstract class Datetime_Conditional_Abstract {
 		 * Allow filtering of the end date for testing.
 		 *
 		 * @since 4.14.7
-		 * @param \DateTime $date - Unix timestamp for end date
-		 * @param object $this
+		 * @param \DateTime $date Unix timestamp for end date.
+		 * @param object    $instance the conditional content object.
 		 */
 		$date = apply_filters( "tec_admin_conditional_content_{$this->slug}_end_date", $date, $this );
 
@@ -119,7 +135,8 @@ abstract class Datetime_Conditional_Abstract {
 	 * Whether the content should display.
 	 *
 	 * @since 4.14.7
-	 * @return boolean - Whether the content should display
+	 *
+	 * @return boolean Whether the content should display.
 	 */
 	protected function should_display() {
 		$now          = Dates::build_date_object( 'now', 'UTC' );
@@ -131,12 +148,10 @@ abstract class Datetime_Conditional_Abstract {
 		 * Allow filtering whether the content should display.
 		 *
 		 * @since 4.14.7
-		 * @param bool $should_display - whether the content should display
-		 * @param object $this - the conditional content object
+		 * @param bool $should_display whether the content should display.
+		 * @param object $instance     the conditional content object.
 		 */
-		$should_display = apply_filters( "tec_admin_conditional_content_{$this->slug}_should_display", $display, $this );
-
-		return $should_display;
+		return apply_filters( "tec_admin_conditional_content_{$this->slug}_should_display", $display, $this );
 	}
 
 	/**

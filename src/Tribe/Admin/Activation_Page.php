@@ -337,12 +337,10 @@ class Tribe__Admin__Activation_Page {
 	 * Prints the splash screen.
 	 *
 	 * @param string $context
-	 *
-	 * @return string|null
 	 */
 	public function display_page() {
 		if ( empty( $this->args[ $this->current_context . '_page_title' ] ) || empty( $this->args[ $this->current_context . '_page_template'] ) ) {
-			return null;
+			return;
 		}
 
 		do_action( 'tribe_settings_top' );
