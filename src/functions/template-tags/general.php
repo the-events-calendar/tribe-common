@@ -157,15 +157,10 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 		/**
 		 * Filters the resource URL
 		 *
-		 * @param $url
-		 * @param $resource
+		 * @param string $url
+		 * @param string $resource
 		 */
 		$url = apply_filters( 'tribe_resource_url', $url, $resource );
-
-		/**
-		 * Deprecated the tribe_events_resource_url filter in 4.0 in favor of tribe_resource_url. Remove in 5.0
-		 */
-		$url = apply_filters( 'tribe_events_resource_url', $url, $resource );
 
 		if ( $echo ) {
 			echo $url;
@@ -310,7 +305,7 @@ if ( ! function_exists( 'tribe_prepare_for_json' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param $string
+	 * @param string $string
 	 *
 	 * @return string
 	 */
@@ -427,11 +422,12 @@ if ( ! function_exists( 'tribe_count_hierarchical_keys' ) ) {
 	/**
 	 * Count keys in a hierarchical array
 	 *
-	 * @param $value
-	 * @param $key
-	 * @todo - remove, only used in the meta walker
+	 * @param mixed $value
+	 * @param mixed $key
+	 * @deprecated TBD
 	 */
 	function tribe_count_hierarchical_keys( $value, $key ) {
+		_deprecated_function( __FUNCTION__, 'TBD' );
 		global $tribe_count_hierarchical_increment;
 		$tribe_count_hierarchical_increment++;
 	}
@@ -444,9 +440,10 @@ if ( ! function_exists( 'tribe_count_hierarchical' ) ) {
 	 * @param array $walk
 	 *
 	 * @return int
-	 * @todo - remove, only used in the meta walker
+	 * @deprecated TBD
 	 */
 	function tribe_count_hierarchical( array $walk ) {
+		_deprecated_function( __FUNCTION__, 'TBD' );
 		global $tribe_count_hierarchical_increment;
 		$tribe_count_hierarchical_increment = 0;
 		array_walk_recursive( $walk, 'tribe_count_hierarchical_keys' );

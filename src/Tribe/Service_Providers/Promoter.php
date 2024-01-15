@@ -51,7 +51,8 @@ class Tribe__Service_Providers__Promoter extends Service_Provider {
 	 * Add Admin Bar link to the promoter website
 	 *
 	 * @since 4.9.2
-	 * @param $wp_admin_bar
+	 *
+	 * @param WP_Admin_Bar $wp_admin_bar
 	 */
 	public function add_promoter_logo_on_admin_bar( $wp_admin_bar ) {
 		/** @var Tribe__Promoter__PUE $pue */
@@ -77,6 +78,7 @@ class Tribe__Service_Providers__Promoter extends Service_Provider {
 				'class'  => 'promoter-admin-bar-link',
 			],
 		];
+
 		$wp_admin_bar->add_node( $args );
 	}
 

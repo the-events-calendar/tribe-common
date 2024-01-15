@@ -75,7 +75,7 @@ class Tribe__Tabbed_View__Tab {
 	}
 
 	/**
-	 * @param $priority
+	 * @param int $priority
 	 */
 	public function set_priority( $priority ) {
 		$this->priority = $priority;

@@ -454,9 +454,9 @@ class Tribe__Context {
 			 *
 			 * @since 4.10.2
 			 *
-			 * @param $locations array           An array of read and write location in the shape of the `Tribe__Context::$locations` one,
-			 *                                   `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
-			 * @param $context   Tribe__Context  Current instance of the context.
+			 * @param array          $locations An array of read and write location in the shape of the `Tribe__Context::$locations` one,
+			 *                                  `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
+			 * @param Tribe__Context $context   Current instance of the context.
 			 */
 			$locations = apply_filters( 'tribe_context_locations', $locations, $this );
 		}

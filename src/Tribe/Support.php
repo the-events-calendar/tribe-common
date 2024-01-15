@@ -343,9 +343,9 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		/**
 		 * Method to send back sysinfo
 		 *
-		 * @param $query
+		 * @param mixed $query The event query.
 		 *
-		 * @return string|void
+		 * @return string
 		 *
 		 */
 		public static function sysinfo_query( $query ) {
@@ -361,10 +361,9 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				wp_send_json_error( __( 'Invalid Key', 'tribe-common' ) );
 			}
 
-			$support    = Tribe__Support::getInstance();
-			$systeminfo = $support->formattedSupportStats();
+			$support = static::getInstance();
 
-			return $systeminfo;
+			return $support->formattedSupportStats();
 		}
 
 		/*

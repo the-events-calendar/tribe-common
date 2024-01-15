@@ -624,7 +624,7 @@ class Tribe__Cache implements ArrayAccess {
 		$inserted         = [];
 		$serialized_value = maybe_serialize( $value );
 		$chunk_size       = tribe( 'feature-detection' )->get_mysql_max_packet_size() * 0.9;
-		$chunks           = str_split( $serialized_value, $chunk_size );
+		$chunks           = str_split( $serialized_value, (int) $chunk_size );
 		foreach ( $chunks as $i => $chunk ) {
 			$chunk_transient = $transient . '_' . $i;
 

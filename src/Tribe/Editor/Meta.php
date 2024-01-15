@@ -134,9 +134,9 @@ abstract class Tribe__Editor__Meta
 	 *
 	 * @since 4.8
 	 *
-	 * @param $value
+	 * @param array<string|mixed> $value The array to sanitize.
 	 *
-	 * @return array
+	 * @return array<string> The sanitized array.
 	 */
 	public function sanitize_text_array( $value ) {
 		if ( is_array( $value ) ) {
@@ -151,7 +151,7 @@ abstract class Tribe__Editor__Meta
 	 *
 	 * @since 4.8
 	 *
-	 * @param  mixed $value Check agains this value
+	 * @param  mixed $value Check against this value
 	 *
 	 * @return array|bool|int
 	 */
@@ -171,9 +171,9 @@ abstract class Tribe__Editor__Meta
 	 *
 	 * @since 4.8
 	 *
-	 * @param $value
+	 * @param mixed $value The value to sanitize.
 	 *
-	 * @return bool
+	 * @return bool The sanitized value.
 	 */
 	public function sanitize_boolean( $value ) {
 		return filter_var( $value, FILTER_VALIDATE_BOOLEAN );
@@ -185,16 +185,16 @@ abstract class Tribe__Editor__Meta
 	 *
 	 * @since 4.8
 	 *
-	 * @param $value
+	 * @param mixed $value The separator value to sanitize.
 	 *
-	 * @return mixed
+	 * @return string The sanitized string value of the separator
 	 */
 	public function sanitize_separator( $value ) {
 		return tec_sanitize_string( $value );
 	}
 
 	/**
-	 * Verify if the current user can edit or not this Post
+	 * Verify if the current user can edit this Post or not.
 	 *
 	 * @since 4.8
 	 *
@@ -205,7 +205,7 @@ abstract class Tribe__Editor__Meta
 	 * @param string $cap Capability name.
 	 * @param array  $caps User capabilities.
 	 *
-	 * @return boolean
+	 * @return boolean Whether the user can edit the post.
 	 */
 	public function auth_callback( $allowed, $meta_key, $post_id, $user_id, $cap, $caps ) {
 		$post             = get_post( $post_id );

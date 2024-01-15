@@ -291,10 +291,10 @@ abstract class Tribe__JSON_LD__Abstract {
 	 *
 	 * @since 4.7.12
 	 *
-	 * @param $post
-	 * @param $type
+	 * @param WP_Post|int|null $post The Post Object|ID, if null defaults to the global post object.
+	 * @param string $type           The type to set.
 	 *
-	 * @return mixed
+	 * @return mixed The type(s) for the post.
 	 */
 	public function set_type( $post, $type ) {
 		$id = Tribe__Main::post_id_helper( $post );
@@ -336,8 +336,8 @@ abstract class Tribe__JSON_LD__Abstract {
 	 *
 	 * @since 4.7.12
 	 *
-	 * @param $id
-	 * @param $type
+	 * @param string|int $id
+	 * @param string     $type
 	 *
 	 * @return bool
 	 */
