@@ -1172,6 +1172,7 @@ class Tribe__Admin__Help_Page {
 			'event-tickets-plus',
 			'tribe-eventbrite',
 			'promoter',
+			'event-tickets-wallet-plus',
 		] );
 
 		return $ticketing_products;

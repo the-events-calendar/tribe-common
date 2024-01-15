@@ -3,6 +3,7 @@
 node_modules
 .phpstorm*
 .vscode
+bun.lockb
 
 # Tests - local config files
 codeception.yml
