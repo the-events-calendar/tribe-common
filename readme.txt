@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [FT] TBD =
+= [5.2.0] 2024-01-16 =
 
 * Tweak - Add the `set_request_context( ?string $context)` and `get_request_context(): ?string` methods to the `Tribe__Repository__Interface` and classes. [ET-1813]
 
