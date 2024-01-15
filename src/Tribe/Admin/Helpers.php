@@ -48,7 +48,7 @@ class Tribe__Admin__Helpers {
 		 *
 		 * @since 4.9.5
 		 *
-		 * @param bool $bypass bypass if we want to return a bool of is_wp_screen
+		 * @param ?bool $bypass Any non-null value will bypass if we want to return a bool of is_wp_screen
 		 */
 		$is_wp_screen = apply_filters( 'tribe_admin_is_wp_screen', null );
 		if ( null !== $is_wp_screen ) {
