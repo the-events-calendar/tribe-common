@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Correct `tribe_get_end_date` to return dates in the correct time zone. [BTRIA-2100]
+
 = [5.1.17] 2023-12-14 =
 
 * Fix - Adding a param safe list to validate input for Select2 usage on AJAX requests. [BTRIA-2148]
