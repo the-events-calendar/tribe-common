@@ -1,0 +1,92 @@
+
+/* -----------------------------------------------------------------------------
+ *
+ * Tribe Common Admin - End of Year Sale banner.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.end-of-year-sale-promo {
+	align-items: flex-start;
+	display: flex;
+	flex-direction: column-reverse;
+	justify-content: space-between;
+
+	.end-of-year-sale-promo__button {
+		background: #3d54ff;
+		border-color: transparent;
+		border-radius: 20px;
+		color: white;
+		font-size: 12px;
+		height: 34px;
+		line-height: 32px;
+		min-height: unset;
+		width: 115px;
+
+		&:hover,
+		&:active,
+		&:focus {
+			background: #1c39bb;
+			border-color: transparent;
+			color: white;
+		}
+	}
+}
+
+.end-of-year-sale-promo__promo {
+	background-color: white;
+	background-position: left top;
+	background-repeat: no-repeat;
+	border-radius: 10px;
+	display: grid;
+	flex-shrink: 0;
+	grid-template-areas: "space promo-content";
+	grid-template-columns: auto 160px;
+	height: 150px;
+	margin: 10px 0;
+	max-width: 100%;
+	width: 460px;
+}
+
+.end-of-year-sale-promo__content {
+	grid-area: promo-content;
+	padding-top: 8px;
+	text-align: center;
+}
+
+.end-of-year-sale-promo__text {
+	color: #0f1031;
+	font-family: monospace;
+	font-size: 13px;
+	line-height: 1.2;
+	margin-bottom: 8px;
+	text-transform: uppercase;
+}
+
+.end-of-year-sale-promo__branding-image {
+	max-width: 390px;
+	width: 100%;
+}
+
+@media (min-width: 1024px) {
+	.end-of-year-sale-promo {
+		align-items: center;
+		flex-direction: row;
+	}
+
+	.end-of-year-sale-promo__branding {
+		padding-right: 10px;
+		width: calc(100% - 460px);
+	}
+}
+
+/* EOY Sale Promo Mobile
+============================================= */
+@media (max-width: 525px) {
+	.end-of-year-sale-promo__promo {
+		grid-template-areas: "space" "promo-content";
+		grid-template-columns: auto;
+		margin: 20px auto;
+		padding-top: 100px;
+		width: 300px;
+	}
+}

@@ -1,0 +1,132 @@
+
+
+body.tribe-welcome,
+body.tec-help {
+	background-color: white;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	/* hide WordPress update notices on this page */
+	.update-nag {
+		display: none;
+	}
+
+	#wpcontent {
+		padding: 0;
+	}
+
+	/* this is a temporary hack until the Update page and Event Tickets Welcome are re-factored */
+	.tribe_settings {
+		margin: 0;
+
+		& > h1 {
+			display: none;
+		}
+	}
+
+	#wpfooter {
+		display: none;
+	}
+
+	#wpbody-content {
+		padding-bottom: 25px;
+	}
+
+	/* hide our dependency errors so we don't make a bad first impression */
+	.tribe-dependency-error {
+		display: none;
+	}
+}
+
+/* Event Tickets tweaks for welcome screen
+============================================= */
+.tribe-events-admin-tickets {
+	.tribe-events-admin-section-header {
+		font-size: 28px;
+		line-height: 32px;
+	}
+
+	.tribe-events-admin-graphic--desktop-only {
+		width: 365px;
+	}
+
+	.tribe-events-admin-graphic--mobile-only {
+		top: 230px;
+		width: 300px;
+	}
+
+	.tribe-events-admin-title__heading {
+		margin-top: 0;
+	}
+
+	.tribe-events-admin-card__title {
+		@media screen and (min-width: 710px) {
+			font-size: 18px;
+		}
+	}
+
+	.tribe-events-admin-card--2up .tribe-events-admin-card__title {
+		@media screen and (min-width: 710px) {
+			font-size: 18px;
+			height: 66px;
+		}
+
+		@media screen and (min-width: 1217px) {
+			height: auto;
+		}
+	}
+
+	.tribe-events-admin-title__logo {
+		margin-right: 4px;
+		width: 32px;
+
+		@media screen and (min-width: 710px) {
+			margin-right: 8px;
+			padding-top: 4px;
+			width: 60px;
+		}
+	}
+}
+
+/* Freemius tweaks - unused.  Keeping for reference.
+============================================= */
+body.tribe-welcome #fs_connect {
+	border: 1px solid #e1e1e4;
+	border-radius: 16px;
+	box-shadow: none;
+	box-sizing: border-box;
+	margin-left: 22px;
+
+	.fs-actions {
+		background-color: transparent;
+	}
+
+	.fs-permissions {
+		border-top: 1px solid #e1e1e4;
+		margin: 0 16px;
+	}
+
+	button {
+		background-color: #3d54ff;
+		border-color: #3d54ff;
+	}
+
+	.button-secondary {
+		background: white;
+		border-color: #3d54ff;
+		color: #3d54ff;
+	}
+
+	a {
+		color: #3d54ff;
+
+		&:focus {
+			box-shadow: none;
+			outline: none;
+		}
+
+		&:hover {
+			color: #161b7d;
+		}
+	}
+}

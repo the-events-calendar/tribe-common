@@ -1,0 +1,251 @@
+/* -----------------------------------------------------------------------------
+
+ *
+ * Tribe Common Admin - Help Screen
+ *
+ * ----------------------------------------------------------------------------- */
+
+body.tec-help {
+	background-color: white;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	/* this is a temporary hack until the Update page and Event Tickets Welcome are re-factored */
+	.tribe_settings {
+		margin: 0;
+
+		& > h1 {
+			display: none;
+		}
+	}
+
+	.tribe-events-admin-title {
+		padding-top: 25px;
+
+		img {
+			height: 67px;
+		}
+	}
+
+	/* hide WordPress update notices on this page */
+	.update-nag {
+		display: none;
+	}
+
+	/* hide our dependency errors so we don't make a bad first impression */
+	.tribe-dependency-error {
+		display: none;
+	}
+
+	#wpcontent {
+		padding: 0;
+	}
+
+	#wpfooter {
+		display: none;
+	}
+
+	#wpbody-content {
+		padding-bottom: 25px;
+	}
+
+	/* @TODO: fix right side alignment */
+	#tec-help-ticketing,
+	#tec-help-community {
+		display: none;
+	}
+}
+
+#tribe-help-general,
+#tribe-help-sidebar {
+	float: left;
+	margin-top: 20px;
+}
+
+#tribe-help-general p {
+	margin-left: 15px;
+}
+
+#tribe-help-general ul {
+	list-style-type: square;
+	margin-bottom: 20px;
+	margin-left: 35px;
+}
+
+#tribe-help-general ol {
+	margin-bottom: 20px;
+	margin-left: 35px;
+}
+
+#tribe-help-general h3 {
+	background-color: #f9f9f9;
+	margin-bottom: 10px;
+	padding: 6px 0 6px 12px;
+}
+
+#tribe-help-general h3 ~ h3 {
+	margin-top: 2.25em;
+}
+
+#tribe-help-general h3 + p {
+	margin: 0 0 20px;
+	padding-left: 12px;
+}
+
+#tribe-help-general {
+	width: 65%;
+}
+
+.tribe-help-section {
+	padding-bottom: 10px;
+}
+
+.tribe-section-type-box {
+	background-color: #f9f9f9;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 8px 20px 12px;
+}
+
+.tribe-section-type-box img {
+	height: auto;
+	margin: 10px 0;
+	max-width: 300px;
+}
+
+.tribe-section-type-box ul {
+	list-style: disc;
+	margin-left: 20px;
+}
+
+.tribe-section-type-box ul ul {
+	list-style: circle;
+}
+
+#tribe-log-controls {
+	padding-bottom: 1rem;
+
+	/* For consistency with help screen h3 and p elements */
+	padding-left: 12px;
+
+	& > div {
+		display: inline-block;
+		padding-right: 1rem;
+	}
+
+	.working {
+		opacity: 1;
+		transition: opacity 0.2s;
+	}
+
+	.working.hidden {
+		opacity: 0;
+		transition: opacity 0.2s;
+	}
+}
+
+#tribe-system-info dl.support-stats,
+#tribe-log-viewer,
+.template-updates-wrapper {
+	background: #000;
+	border-radius: 2px;
+	color: #888;
+	max-height: 400px;
+	overflow: scroll;
+	padding: 10px;
+}
+
+#tribe-system-info dl.support-stats dt,
+.template-updates-wrapper dt {
+	clear: both;
+	float: left;
+	font-weight: bold;
+	text-transform: uppercase;
+	width: 25%;
+}
+
+#tribe-system-info dl.support-stats dd,
+.template-updates-wrapper dd {
+	margin-left: 25%;
+	padding-left: 10px;
+}
+
+.system-info-copy {
+	.system-info-copy-btn {
+		padding: 6px;
+
+		.dashicons {
+			padding-right: 10px;
+		}
+	}
+}
+
+.template-updates-wrapper p {
+	margin-top: 0;
+}
+
+#tribe-help-sidebar {
+	margin: 20px 0 0 3%;
+	max-width: 225px;
+	width: 32%;
+}
+
+.tribe-help-plugin-info {
+	border: 1px solid #ccc;
+	padding: 0 12px 12px;
+
+	dt,
+	dd {
+		display: inline;
+		margin: 0;
+	}
+
+	dt {
+		font-weight: bold;
+	}
+
+	dd:after {
+		content: '';
+		display: block;
+		height: 0.4em;
+	}
+
+	dd:last-child:after {
+		height: 0;
+	}
+
+	+ .tribe-help-plugin-info {
+		margin-top: 20px;
+	}
+
+	& > div {
+		line-height: 2em;
+	}
+
+	.star-rating {
+		display: inline-block;
+		margin-left: 3px;
+		position: relative;
+		top: -2px;
+	}
+
+	.tribe-list-addons {
+		color: #21a6cb;
+		font-size: 24px;
+		list-style: circle inside;
+		margin-bottom: 10px;
+		margin-top: 10px;
+		padding-left: 4px;
+
+		a {
+			font-size: 13px;
+			left: -5px;
+			position: relative;
+			top: -5px;
+		}
+
+		.tribe-active-addon {
+			list-style: disc inside;
+		}
+	}
+}

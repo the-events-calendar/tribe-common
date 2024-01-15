@@ -1,0 +1,107 @@
+
+/* -----------------------------------------------------------------------------
+ *
+ * Tribe Common Admin - Troubleshooting - Issues Found section
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events-admin__issues-found-card {
+	background-color: #f3eee8;
+	border-radius: 8px;
+	margin-bottom: 20px;
+}
+
+.tribe-events-admin__issues-found-card:last-of-type {
+	margin-bottom: 100px;
+}
+
+.tribe-events-admin__issues-found-card-title {
+	align-items: center;
+	cursor: pointer;
+	display: flex;
+	padding: 10px 20px 10px 17px;
+	position: relative;
+}
+
+.tribe-events-admin__issues-found-card-title img {
+	height: 21px;
+	margin-right: 14px;
+	object-fit: contain;
+	width: 21px;
+}
+
+.tribe-events-admin__issues-found-card-title h3 {
+	margin: 0;
+
+	@media only screen and (max-width: 768px) {
+		max-width: 90%;
+	}
+
+	@media only screen and (max-width: 480px) {
+		max-width: 80%;
+	}
+}
+
+.tribe-events-admin__issues-found-card-title span {
+	color: #0f1031;
+	display: block;
+}
+
+.tribe-events-admin__issues-found-card-title i {
+	background-image: url("../images/help/arrow-down.svg");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 15px;
+	margin: 12px 20px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	-moz-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+	width: 15px;
+}
+
+.tribe-events-admin__issues-found-card-title.active i {
+	background-image: url("../images/help/arrow-up.svg");
+	background-repeat: no-repeat;
+	top: 5px;
+}
+
+.tribe-events-admin__issues-found-card-description {
+	display: none;
+	padding: 0 20px 20px 55px;
+}
+
+.tribe-events-admin__issues-found-card-description p {
+	color: #0f1031;
+	font-size: 16px;
+	margin: 0;
+}
+
+.tribe-events-admin__issues-found-card-description-actions {
+	display: flex;
+	padding: 20px 0 10px;
+}
+
+.tribe-events-admin__issues-found-card-description-actions a {
+	border-bottom: 2px solid;
+	color: #334aff;
+	font-size: 16px;
+	margin-right: 20px;
+	padding-bottom: 5px;
+	text-decoration: none;
+
+	&:focus {
+		box-shadow: none;
+		outline: none;
+	}
+
+	&:hover {
+		border-bottom: 2px solid;
+		color: #1c39bb;
+	}
+}

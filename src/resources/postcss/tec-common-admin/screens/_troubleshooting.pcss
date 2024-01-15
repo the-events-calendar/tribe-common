@@ -1,0 +1,91 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Tribe Common Admin - Troubleshooting
+ *
+ * This file includes styles for the Troubleshooting page.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe_events_page_tec-troubleshooting,
+.tec-troubleshooting {
+	background-color: #fff;
+}
+
+body.tec-troubleshooting {
+	#wpcontent {
+		padding-left: 0;
+	}
+}
+
+.tribe-events-admin__troubleshooting-cta {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 20px 0;
+	width: 100%;
+
+	@media screen and (max-width: 480px) {
+		align-items: flex-start;
+		padding: 32px 23px 45px;
+		width: auto;
+	}
+}
+
+.tribe-events-admin__troubleshooting-title {
+	color: #0f1031;
+	font-size: 28px;
+	font-weight: bold;
+	line-height: 1;
+	margin: 0;
+}
+
+.tribe-events-admin__troubleshooting-description {
+	color: #0f1031;
+	font-size: 18px;
+	line-height: 1.2;
+	line-height: 1.44;
+	margin: 20px 0;
+}
+
+.tribe-events-admin__troubleshooting-notice {
+	background-color: #161b7d;
+	color: #fff;
+	font-size: 16px;
+	line-height: 1;
+	padding: 24px 0;
+
+	@media screen and (max-width: 480px) {
+		margin-left: -20px;
+	}
+}
+
+.tribe-events-admin__troubleshooting-notice_title {
+	margin: 0 auto;
+	max-width: 1024px;
+	padding-left: 25px;
+	width: 90%;
+
+	@media screen and (max-width: 480px) {
+		max-width: 90%;
+	}
+}
+
+.tribe-events-admin__troubleshooting-notice_title a {
+	border-bottom: 2px solid;
+	color: #fff;
+	font-size: 16px;
+	line-height: 1;
+	padding-bottom: 2px;
+	text-decoration: none;
+
+	&:focus {
+		box-shadow: none;
+		outline: none;
+	}
+
+	&:hover {
+		border-bottom: 2px solid;
+		color: #f3eee8;
+	}
+}
