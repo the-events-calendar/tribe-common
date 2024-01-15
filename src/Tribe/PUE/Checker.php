@@ -1576,19 +1576,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					if ( $this->plugin_info->api_expired ) {
 						Tribe__Main::instance()->pue_notices()->add_notice( Tribe__PUE__Notices::EXPIRED_KEY, $this->plugin_name );
 					}
-				} else {
-					/**
-					 * If the plugin is up to date, we need to add it to the `no_update` property so that enable auto updates can appear correctly in the UI.
-					 *
-					 * See this post for more information:
-					 *
-					 * @link https://make.wordpress.org/core/2020/07/30/recommended-usage-of-the-updates-api-to-support-the-auto-updates-ui-for-plugins-and-themes-in-wordpress-5-5/
-					 */
-					/** @var \stdClass $transient */
-					if ( ! isset( $updates->no_update ) ) {
-						$updates->no_update = [];
-					}
-					$updates->no_update[ $this->get_plugin_file() ] = $state->update->to_wp_format();
 				}
 			}
 

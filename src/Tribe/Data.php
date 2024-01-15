@@ -100,7 +100,7 @@ class Tribe__Data implements ArrayAccess, Iterator {
 	 * @return void
 	 * @since 4.11.0
 	 */
-	public function offsetSet( $offset, $value ): void {
+	public function offsetSet( $offset, $value ) {
 		$this->data[ $offset ] = $value;
 	}
 
@@ -114,7 +114,7 @@ class Tribe__Data implements ArrayAccess, Iterator {
 	 * @return void
 	 * @since 4.11.0
 	 */
-	public function offsetUnset( $offset ): void {
+	public function offsetUnset( $offset ) {
 		unset( $this->data[ $offset ] );
 	}
 
@@ -174,8 +174,14 @@ class Tribe__Data implements ArrayAccess, Iterator {
 	 * @return void Any returned value is ignored.
 	 * @since 4.11.0
 	 */
-	public function next(): void {
-		++$this->index;
+	public function next() {
+		$keys = array_keys( $this->data );
+
+		if ( isset( $keys[ ++ $this->index ] ) ) {
+			return $this->data[ $keys[ $this->index ] ];
+		}
+
+		return false;
 	}
 
 	/**
@@ -199,7 +205,7 @@ class Tribe__Data implements ArrayAccess, Iterator {
 	 * Returns true on success or false on failure.
 	 * @since 4.11.0
 	 */
-	public function valid(): bool {
+	public function valid() {
 		$keys = array_keys( $this->data );
 
 		return isset( $keys[ $this->index ] );
@@ -212,7 +218,7 @@ class Tribe__Data implements ArrayAccess, Iterator {
 	 * @return void Any returned value is ignored.
 	 * @since 4.11.0
 	 */
-	public function rewind(): void {
+	public function rewind() {
 		$this->index = 0;
 	}
 
