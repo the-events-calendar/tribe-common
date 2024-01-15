@@ -97,7 +97,7 @@ class Tribe__Data implements ArrayAccess, Iterator { // phpcs:ignore TEC.Classes
 	 * @return void
 	 * @since 4.11.0
 	 */
-	public function offsetSet( $offset, $value ) {
+	public function offsetSet( $offset, $value ): void {
 		$this->data[ $offset ] = $value;
 	}
 
@@ -111,7 +111,7 @@ class Tribe__Data implements ArrayAccess, Iterator { // phpcs:ignore TEC.Classes
 	 * @return void
 	 * @since 4.11.0
 	 */
-	public function offsetUnset( $offset ) {
+	public function offsetUnset( $offset ): void {
 		unset( $this->data[ $offset ] );
 	}
 
@@ -174,14 +174,8 @@ class Tribe__Data implements ArrayAccess, Iterator { // phpcs:ignore TEC.Classes
 	 * @return void Any returned value is ignored.
 	 * @since 4.11.0
 	 */
-	public function next() {
-		$keys = array_keys( $this->data );
-
-		if ( isset( $keys[ ++ $this->index ] ) ) {
-			return $this->data[ $keys[ $this->index ] ];
-		}
-
-		return false;
+	public function next(): void {
+		++$this->index;
 	}
 
 	/**
@@ -208,7 +202,7 @@ class Tribe__Data implements ArrayAccess, Iterator { // phpcs:ignore TEC.Classes
 	 * Returns true on success or false on failure.
 	 * @since 4.11.0
 	 */
-	public function valid() {
+	public function valid(): bool {
 		$keys = array_keys( $this->data );
 
 		return isset( $keys[ $this->index ] );
@@ -221,7 +215,7 @@ class Tribe__Data implements ArrayAccess, Iterator { // phpcs:ignore TEC.Classes
 	 * @return void Any returned value is ignored.
 	 * @since 4.11.0
 	 */
-	public function rewind() {
+	public function rewind(): void {
 		$this->index = 0;
 	}
 
