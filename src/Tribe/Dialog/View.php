@@ -93,7 +93,7 @@ class View extends \Tribe__Template {
 		/**
 		 * Filters the dialog ID.
 		 *
-		 * @since TBD
+		 * @since 5.2.0
 		 *
 		 * @param string              $id      The dialog ID; either the one passed or a generated one.
 		 * @param string              $content The dialog content.
