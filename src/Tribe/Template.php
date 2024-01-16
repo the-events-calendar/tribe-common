@@ -872,7 +872,7 @@ class Tribe__Template {
 		 * Allow users to filter the HTML before rendering
 		 *
 		 * @since  4.11.0
-		 * @since TBD Added the `$context` parameter; take charge of rendering the filtered HTML.
+		 * @since 5.2.0 Added the `$context` parameter; take charge of rendering the filtered HTML.
 		 *
 		 * @param string              $html     The initial HTML
 		 * @param string              $file     Complete path to include the PHP File
@@ -891,7 +891,7 @@ class Tribe__Template {
 		 *    `tribe_template_pre_html:tickets/login-to-purchase`
 		 *
 		 * @since  4.11.0
-		 * @since TBD Added the `$context` parameter; take charge of rendering the filtered HTML.
+		 * @since 5.2.0 Added the `$context` parameter; take charge of rendering the filtered HTML.
 		 *
 		 * @param string              $html     The initial HTML
 		 * @param string              $file     Complete path to include the PHP File
