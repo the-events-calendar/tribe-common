@@ -352,7 +352,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Returns the request for the current context.
 	 *
-	 * @since TBD
+	 * @since 5.2.0
 	 *
 	 * @return string|null The request context.
 	 */
@@ -361,7 +361,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Sets the request context for the current request.
 	 *
-	 * @since TBD
+	 * @since 5.2.0
 	 *
 	 * @param string|null $context The request context.
 	 *

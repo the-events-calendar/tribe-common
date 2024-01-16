@@ -291,7 +291,7 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 	 * @category Events
 	 *
 	 * @since 4.7.6 Deprecated the $timezone parameter.
-	 * @since TBD Updated filter params.
+	 * @since 5.2.0 Updated filter params.
 	 *
 	 * @param int    $event        (optional)
 	 * @param bool   $display_time If true shows date and time, if false only shows date
@@ -338,7 +338,7 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 		/**
 		 * Filters the returned event start date and time.
 		 *
-		 * @since TBD Added the $display_time and $date_format parameters.
+		 * @since 5.2.0 Added the $display_time and $date_format parameters.
 		 *
 		 * @param string  $start_date The formatted start date.
 		 * @param WP_Post $event The event object.
@@ -358,7 +358,7 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 	 * @category Events
 	 *
 	 * @since 4.7.6 Deprecated the $timezone parameter.
-	 * @since TBD Updated filter params.
+	 * @since 5.2.0 Updated filter params.
 	 *
 	 * @param int    $event        (optional)
 	 * @param bool   $display_time If true shows date and time, if false only shows date
@@ -405,7 +405,7 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 		/**
 		 * Filters the returned event end date and time
 		 *
-		 * @since TBD Added the $display_time and $date_format parameters.
+		 * @since 5.2.0 Added the $display_time and $date_format parameters.
 		 *
 		 * @param string  $end_date The formatted end date.
 		 * @param WP_Post $event The event object.

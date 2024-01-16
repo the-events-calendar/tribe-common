@@ -1,16 +1,16 @@
-# Copyright (C) 2023 The Events Calendar
+# Copyright (C) 2024 The Events Calendar
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 5.1.17\n"
+"Project-Id-Version: Tribe Common 5.2.0\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-12-13T10:35:43-08:00\n"
-"PO-Revision-Date: 2023-12-13 18:35\n"
+"POT-Creation-Date: 2024-01-15T19:04:29-08:00\n"
+"PO-Revision-Date: 2024-01-16 03:04\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: tribe-common\n"
 
@@ -1680,33 +1680,33 @@ msgstr ""
 msgid "The Events Calendar JSON-LD Data"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:157
+#: src/Tribe/Dialog/View.php:169
 msgid "Open the modal window"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:158
+#: src/Tribe/Dialog/View.php:170
 msgid "Close this modal window"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:228
-#: src/Tribe/Dialog/View.php:300
+#: src/Tribe/Dialog/View.php:240
+#: src/Tribe/Dialog/View.php:312
 msgid "Cancel"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:229
+#: src/Tribe/Dialog/View.php:241
 msgid "Confirm"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:302
-#: src/Tribe/Dialog/View.php:371
+#: src/Tribe/Dialog/View.php:314
+#: src/Tribe/Dialog/View.php:383
 msgid "OK"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:443
+#: src/Tribe/Dialog/View.php:455
 msgid "Open the dialog window"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:460
+#: src/Tribe/Dialog/View.php:472
 msgid "Close this dialog window"
 msgstr ""
 
@@ -3668,7 +3668,7 @@ msgstr ""
 msgid "Your update failed due to an incompatibility between the version (%1$s) of the %2$s you tried to update to and the version of %3$s that you are using. %4$s"
 msgstr ""
 
-#: src/Tribe/Repository.php:2543
+#: src/Tribe/Repository.php:2563
 msgid "Could not delete post with ID "
 msgstr ""
 

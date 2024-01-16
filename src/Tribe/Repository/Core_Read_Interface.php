@@ -108,7 +108,7 @@ interface Core_Read_Interface {
 	 * Mind that "all" means "all the posts matching all the filters" so pagination applies.
 	 *
 	 * @since 4.1.3
-	 * @since TBD Added the `$return_generator` and `$batch_size` parameters.
+	 * @since 5.2.0 Added the `$return_generator` and `$batch_size` parameters.
 	 *
 	 * @param bool $return_generator Whether to return a generator of post IDs instead of an array of post IDs.
 	 * @param int  $batch_size       The number of post IDs to fetch at a time when using a generator; ignored
@@ -405,7 +405,7 @@ interface Core_Read_Interface {
 	 * Gets the ids of the posts matching the query.
 	 *
 	 * @since 4.1.3
-	 * @since TBD Added the `$return_generator` and `$batch_size` parameters.
+	 * @since 5.2.0 Added the `$return_generator` and `$batch_size` parameters.
 	 *
 	 * @param bool $return_generator Whether to return a generator of post IDs instead of an array of post IDs.
 	 * @param int  $batch_size       The number of post IDs to fetch at a time when using a generator; ignored

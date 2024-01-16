@@ -287,7 +287,7 @@ implements Tribe__Editor__Blocks__Interface {
 	 *
 	 * @see register_block_type() for the values that can be used in the `block_type` argument.
 	 *
-	 * @since TBD
+	 * @since 5.2.0
 	 *
 	 * @return string|WP_Block_Type The block type argument that will be used to register the block.
 	 */
@@ -299,7 +299,7 @@ implements Tribe__Editor__Blocks__Interface {
 	 * Allows extending blocks to modify and update the arguments used to register the block
 	 * in the `register_block_type` function.
 	 *
-	 * @since TBD
+	 * @since 5.2.0
 	 *
 	 * @param array<string,mixed> $args The default arguments the block would be registered with if this method is not
 	 *                                  overridden.
