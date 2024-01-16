@@ -14,7 +14,7 @@ abstract class Tribe__Repository
 	/**
 	 * The context of the current query.
 	 *
-	 * @since TBD
+	 * @since 5.2.0
 	 *
 	 * @var string|null
 	 */
@@ -3796,7 +3796,7 @@ abstract class Tribe__Repository
 	/**
 	 * Returns a Generator that will yield all the IDs requested avoiding unbound queries.
 	 *
-	 * @since TBD
+	 * @since 5.2.0
 	 *
 	 * @return Generator<int> The Generator that will yield all the IDs requested.
 	 *
@@ -3874,7 +3874,7 @@ abstract class Tribe__Repository
 	/**
 	 * Returns a Generator that will yield all the posts requested avoiding unbound queries.
 	 *
-	 * @since TBD
+	 * @since 5.2.0
 	 *
 	 * @return Generator<WP_Post|mixed> The Generator that will yield all the posts requested,
 	 *                                  formatted according to the repository's `format_item` method.
@@ -3918,7 +3918,7 @@ abstract class Tribe__Repository
 	/**
 	 * Maps the query results to an array using a callback.
 	 *
-	 * @since TBD
+	 * @since 5.2.0
 	 *
 	 * @param callable $mapper The callback to use to map the results. The callback should have signature
 	 *                         `function ( mixed $item, string|int $key, array<mixed> $items ): mixed`.
