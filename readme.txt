@@ -2,7 +2,13 @@
 
 = [5.2.0] 2024-01-16 =
 
+* Feature - Add the `Tribe__Repository::first_id` method to fetch the first ID of a query. [ET-1490]
+* Feature - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
+* Feature - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
+* Feature - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
+* Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
 * Tweak - Add the `set_request_context( ?string $context)` and `get_request_context(): ?string` methods to the `Tribe__Repository__Interface` and classes. [ET-1813]
+* Tweak - Ticketing & RSVP tab selected by default when clicking Help from the Tickets menu. [ET-1837]
 * Language - 0 new strings added, 8 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.1.17] 2023-12-14 =
@@ -95,8 +101,7 @@
 
 = [5.1.6] 2023-08-15 =
 
-* Feat - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
-* Feat - Add the `Tribe__Repository::first_id` method to fetch the first ID of a query. [ET-1490]
+* Feature - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
 
 = [5.1.5] 2023-08-15 =
 
@@ -112,10 +117,6 @@
 
 * Feature - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
 * Fix  - Make use of `wp_date` to format dates and avoid translation issues with translating month names in other languages. [ET-1820]
-* Feat - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
-* Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
-* Feat - Add Generator-based fetching of posts to the Repository/ORM. [ET-1648]
-* Feat - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
 * Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
 * Tweak - Correct some issues around PHP 8.1 deprecations. [TEC-4871]
 * Tweak - Added filters: `tec_integration:should_load`, `tec_integration:{$parent}/should_load`, `tec_integration:{$parent}/{$type}/should_load`, `tec_integration:{$parent}/{$type}/{$slug}/should_load`, `tec_debug_info_sections`, `tec_site_heath_event_stati`, `tec_debug_info_field_get_{$param}`, `tec_debug_info_field_{$field_id}_get_{$param}`, `tec_debug_info_section_get_{$param}`, `tec_debug_info_section_{$section_slug}_get_{$param}`, `tec_common_timed_option_is_active`, `tec_common_timed_option_name`, `tec_common_timed_option_default_value`, `tec_common_timed_option_pre_value`, `tec_common_timed_option_value`, `tec_common_timed_option_pre_exists`, `tec_common_timed_option_exists`, `tec_telemetry_migration_should_load`, `tec_common_telemetry_permissions_url`, `tec_common_telemetry_terms_url`, `tec_common_telemetry_privacy_url`, `tec_common_telemetry_show_optin_modal`, `tec_telemetry_slugs`, `tec_admin_update_page_bypass`, `tec_disable_logging`, `tec_common_parent_plugin_file`, `tec_model_{$this->get_cache_slug()}_read_cache_properties`, `tec_model_{$this->get_cache_slug()}_put_cache_properties`, `tec_pue_invalid_key_notice_plugins`, `tec_pue_expired_key_notice_plugins`, `tec_pue_upgrade_key_notice_plugins`, `tec_common_rewrite_localize_matcher`
