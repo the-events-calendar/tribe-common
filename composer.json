@@ -51,12 +51,6 @@
       "no-api": true
     },
     {
-      "name": "the-events-calendar/coding-standards",
-      "type": "github",
-      "url": "https://github.com/the-events-calendar/coding-standards",
-      "no-api": true
-    },
-    {
       "name": "lucatume/di52",
       "type": "github",
       "url": "https://github.com/lucatume/di52",
