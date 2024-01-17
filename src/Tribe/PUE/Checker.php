@@ -1616,16 +1616,35 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 						$updates->response = [];
 					}
 
-					$updates->response[ $this->get_plugin_file() ] = $state->update->to_wp_format();
+					$plugin_file = $this->get_plugin_file();
+
+					$updates->response[ $plugin_file ] = $state->update->to_wp_format();
+
+					// Stellar License never sends an ID, so we need to add it.
+					if ( empty( $updates->response[ $plugin_file ]->id ) ) {
+						$updates->response[ $plugin_file ]->id = 'stellarwp/plugins/' . $this->get_slug();
+					}
+
+					// Stellar License never sends a plugin, so we need to add it.
+					if ( empty( $updates->response[ $plugin_file ]->plugin ) ) {
+						$updates->response[ $plugin_file ]->plugin = $plugin_file;
+					}
+
+					// Clear the no_update property if it exists.
+					if ( isset( $updates->no_update[ $plugin_file ] ) ) {
+						unset( $updates->no_update[ $plugin_file ] );
+					}
 
 					// If the key has expired we should register an appropriate admin notice.
 					if ( $this->plugin_info->api_expired ) {
 						tribe( 'pue.notices' )->add_notice( Tribe__PUE__Notices::EXPIRED_KEY, $this->plugin_name );
 					}
 				} else {
+					$plugin_file = $this->get_plugin_file();
+
 					// Clean up any stale update info.
-					if ( isset( $updates->response[ $this->get_plugin_file() ] ) ) {
-						unset( $updates->response[ $this->get_plugin_file() ] );
+					if ( isset( $updates->response[ $plugin_file ] ) ) {
+						unset( $updates->response[ $plugin_file ] );
 					}
 
 					/**
@@ -1640,7 +1659,17 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 						$updates->no_update = [];
 					}
 
-					$updates->no_update[ $this->get_plugin_file() ] = $state->update->to_wp_format();
+					$updates->no_update[ $plugin_file ] = $state->update->to_wp_format();
+
+					// Stellar License never sends an ID, so we need to add it.
+					if ( empty( $updates->no_update[ $plugin_file ]->id ) ) {
+						$updates->no_update[ $plugin_file ]->id = 'stellarwp/plugins/' . $this->get_slug();
+					}
+
+					// Stellar License never sends a plugin, so we need to add it.
+					if ( empty( $updates->no_update[ $plugin_file ]->plugin ) ) {
+						$updates->no_update[ $plugin_file ]->plugin = $plugin_file;
+					}
 				}
 			}
 
