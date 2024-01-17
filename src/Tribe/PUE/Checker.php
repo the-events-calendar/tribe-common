@@ -1618,17 +1618,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 					$plugin_file = $this->get_plugin_file();
 
-					$updates->response[ $plugin_file ] = $state->update->to_wp_format();
-
-					// Stellar License never sends an ID, so we need to add it.
-					if ( empty( $updates->response[ $plugin_file ]->id ) ) {
-						$updates->response[ $plugin_file ]->id = 'stellarwp/plugins/' . $this->get_slug();
-					}
-
-					// Stellar License never sends a plugin, so we need to add it.
-					if ( empty( $updates->response[ $plugin_file ]->plugin ) ) {
-						$updates->response[ $plugin_file ]->plugin = $plugin_file;
-					}
+					$updates->response[ $plugin_file ] = $state->update->to_wp_format( $plugin_file );
 
 					// Clear the no_update property if it exists.
 					if ( isset( $updates->no_update[ $plugin_file ] ) ) {
@@ -1659,17 +1649,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 						$updates->no_update = [];
 					}
 
-					$updates->no_update[ $plugin_file ] = $state->update->to_wp_format();
-
-					// Stellar License never sends an ID, so we need to add it.
-					if ( empty( $updates->no_update[ $plugin_file ]->id ) ) {
-						$updates->no_update[ $plugin_file ]->id = 'stellarwp/plugins/' . $this->get_slug();
-					}
-
-					// Stellar License never sends a plugin, so we need to add it.
-					if ( empty( $updates->no_update[ $plugin_file ]->plugin ) ) {
-						$updates->no_update[ $plugin_file ]->plugin = $plugin_file;
-					}
+					$updates->no_update[ $plugin_file ] = $state->update->to_wp_format( $plugin_file );
 				}
 			}
 
