@@ -503,7 +503,7 @@ class Tribe__Main {
 	 * @return bool Whether we should load Common Admin CSS or not.
 	 */
 	public function should_load_common_admin_css() {
-		$helper = Tribe__Admin__Helpers::instance();
+		$helper = tribe( 'admin.helpers' );
 
 		// Are we on a post type screen?
 		$is_post_type = $helper->is_post_type_screen();

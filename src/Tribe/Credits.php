@@ -41,7 +41,7 @@ class Tribe__Credits {
 	 * @return string
 	 */
 	public function rating_nudge( $footer_text ) {
-		$admin_helpers = Tribe__Admin__Helpers::instance();
+		$admin_helpers = tribe( 'admin.helpers' );
 
 		add_filter( 'tribe_tickets_post_types', [ $this, 'tmp_return_tribe_events' ], 99 );
 

@@ -122,12 +122,6 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * {@inheritDoc}
 	 */
 	public function __construct( $id_base = '', $name = '', $widget_options = [], $control_options = [] ) {
-		/**
-		 * For backwards compatibility purposes alone.
-		 * @todo remove after 2021-08-01
-		 */
-		$this->slug = static::get_widget_slug();
-
 		parent::__construct(
 			$this->parse_id_base( $id_base ),
 			$this->parse_name( $name ),
@@ -813,9 +807,9 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 *
 		 * @since 4.13.0
 		 *
-		 * @param bool   $toggle Whether the hooks should be turned on or off. This value is `true` before a widget
-		 *                       HTML is rendered and `false` after the widget HTML rendered.
-		 * @param static $this   The widget object that is toggling the hooks.
+		 * @param bool   $toggle        Whether the hooks should be turned on or off. This value is `true` before a widget
+		 *                              HTML is rendered and `false` after the widget HTML rendered.
+		 * @param static $widget_object The widget object that is toggling the hooks.
 		 */
 		do_action( 'tribe_shortcode_toggle_hooks', $toggle, $this );
 	}
@@ -826,9 +820,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @since 4.13.0
 	 */
-	protected function add_hooks() {
-
-	}
+	protected function add_hooks() {}
 
 	/**
 	 * Toggles on portions of the template that were modified in `add_template_mods()` above.
@@ -837,8 +829,39 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @since 4.13.0
 	 */
-	protected function remove_hooks() {
+	protected function remove_hooks() {}
 
+
+
+	/**
+	 * Massages the data before asking tribe_format_field_dependency() to create the dependency attributes.
+	 *
+	 * @since 5.3.0 (in TEC)
+	 * @since TBD Moved into common from TEC Widget Abstract
+	 *
+	 * @param array <string,mixed> $field The field info.
+	 *
+	 * @return string The dependency attributes.
+	 */
+	public function format_dependency( $field ) {
+		$deps = Arr::get( $field, 'dependency', false );
+		// Sanity check.
+		if ( empty( $deps ) ) {
+			return '';
+		}
+
+		if ( isset( $deps['ID'] ) ) {
+			$deps['id'] = $deps['ID'];
+		}
+
+		// No ID to hook to? Bail.
+		if ( empty( $deps['id'] ) ) {
+			return '';
+		}
+
+		$deps['id'] = $this->get_field_id( $deps['id'] );
+
+		return tribe_format_field_dependency( $deps );
 	}
 
 	/**********************
