@@ -1605,7 +1605,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			$state->update = $this->request_update();
 
-
 			// If a null update was returned, skip to the end of the function.
 			if ( null !== $state->update ) {
 				// We treat this like an object throughout so let's convert it here.
@@ -1624,6 +1623,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 						tribe( 'pue.notices' )->add_notice( Tribe__PUE__Notices::EXPIRED_KEY, $this->plugin_name );
 					}
 				} else {
+					// Clean up any stale update info.
+					if ( isset( $updates->response[ $this->get_plugin_file() ] ) ) {
+						unset( $updates->response[ $this->get_plugin_file() ] );
+					}
+
 					/**
 					 * If the plugin is up to date, we need to add it to the `no_update` property so that enable auto updates can appear correctly in the UI.
 					 *
