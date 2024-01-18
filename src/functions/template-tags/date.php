@@ -304,8 +304,7 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 		static $cache_var_name = __FUNCTION__;
 
 		if ( is_null( $event ) ) {
-			global $post;
-			$event = $post;
+			$event = get_post();
 		}
 
 		if ( is_numeric( $event ) ) {
@@ -371,8 +370,7 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 		static $cache_var_name = __FUNCTION__;
 
 		if ( is_null( $event ) ) {
-			global $post;
-			$event = $post;
+			$event = get_post();
 		}
 
 		if ( is_numeric( $event ) ) {
