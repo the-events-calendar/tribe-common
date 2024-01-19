@@ -40,5 +40,5 @@ export const noTicketsOnRecurring = () => {
  * @returns {boolean} Whether RSVPs are allowed on Recurring events or not.
  */
 export const noRsvpsOnRecurring = () => {
-	return document.body.classList.contains('tec-no-rsvp-on-recurring')
+	return document.body.classList.contains( 'tec-no-rsvp-on-recurring' )
 };
