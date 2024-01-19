@@ -2,8 +2,8 @@
 <ruleset name="The Events Calendar Coding Standards">
 	<rule ref="StellarWP"/>
 	<rule ref="WordPress-VIP-Go"/>
-	<rule ref="WordPress-Extra""/>
-	<rule ref="WordPress-Core""/>
+	<rule ref="WordPress-Extra"/>
+	<rule ref="WordPress-Core"/>
 	<rule ref="WordPress-Docs">
 		<exclude-pattern>*/tests/*</exclude-pattern>
 	</rule>
