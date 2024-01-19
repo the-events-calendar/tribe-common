@@ -2,14 +2,14 @@
   "name": "the-events-calendar/tribe-common",
   "description": "Common classes and functions used in our plugins",
   "type": "wordpress-plugin",
-  "keywords": [
-    "wordpress",
-    "events"
-  ],
   "homepage": "https://theeventscalendar.com",
   "license": "GPL-2.0",
   "minimum-stability": "dev",
   "prefer-stable": true,
+  "keywords": [
+    "wordpress",
+    "events"
+  ],
   "config": {
     "preferred-install": "dist",
     "platform": {
@@ -39,30 +39,22 @@
     "lucatume/function-mocker-le": "^1.0",
     "lucatume/wp-browser": "^3.0.14",
     "phpunit/phpunit": "~6.0",
-    "stellarwp/coding-standards": "dev-main",
+    "stellarwp/coding-standards": "2.0",
     "the-events-calendar/tec-testing-facilities": "dev-master",
     "wp-cli/checksum-command": "1.0.5",
     "wp-coding-standards/wpcs": "^3.0"
   },
-  "repositories": [
-    {
-      "name": "the-events-calendar/tec-testing-facilities",
-      "type": "github",
-      "url": "https://github.com/the-events-calendar/tec-testing-facilities",
-      "no-api": true
-    },
-    {
-      "name": "lucatume/di52",
-      "type": "github",
-      "url": "https://github.com/lucatume/di52",
-      "no-api": true
-    },
-    {
-      "name": "stellarwp/telemetry",
-      "type": "vcs",
-      "url": "git@github.com:stellarwp/telemetry.git"
+  "autoload": {
+    "psr-4": {
+      "Tribe\\": "src/Tribe/",
+      "TEC\\Common\\": "src/Common/"
     }
-  ],
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "TEC\\Common\\Tests\\": "tests/_data/classes"
+    }
+  },
   "scripts": {
     "strauss": [
       "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.13.0/strauss.phar",
@@ -75,17 +67,6 @@
     "post-update-cmd": [
       "@strauss"
     ]
-  },
-  "autoload": {
-    "psr-4": {
-      "Tribe\\": "src/Tribe/",
-      "TEC\\Common\\": "src/Common/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "TEC\\Common\\Tests\\": "tests/_data/classes"
-    }
   },
   "extra": {
     "strauss": {
