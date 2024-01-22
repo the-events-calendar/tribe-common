@@ -19,7 +19,7 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 	 * Formatted Date
 	 *
 	 * Returns formatted date
-	 * 
+	 *
 	 * @since 5.11.1 Introduced a temporary locale switch to handle the AM/PM format specifically for French language settings.
 	 *
 	 * @category Events
@@ -291,6 +291,7 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 	 * @category Events
 	 *
 	 * @since 4.7.6 Deprecated the $timezone parameter.
+	 * @since 5.2.0 Updated filter params.
 	 *
 	 * @param int    $event        (optional)
 	 * @param bool   $display_time If true shows date and time, if false only shows date
@@ -303,8 +304,7 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 		static $cache_var_name = __FUNCTION__;
 
 		if ( is_null( $event ) ) {
-			global $post;
-			$event = $post;
+			$event = get_post();
 		}
 
 		if ( is_numeric( $event ) ) {
@@ -335,12 +335,16 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 		}
 
 		/**
-		 * Filters the returned event start date and time
+		 * Filters the returned event start date and time.
 		 *
-		 * @param string  $start_date
-		 * @param WP_Post $event
+		 * @since 5.2.0 Added the $display_time and $date_format parameters.
+		 *
+		 * @param string  $start_date The formatted start date.
+		 * @param WP_Post $event The event object.
+		 * @param bool    $display_time If true shows date and time, if false only shows date.
+		 * @param string  $date_format The date format.
 		 */
-		return apply_filters( 'tribe_get_start_date', $start_dates[ $cache_key ], $event );
+		return apply_filters( 'tribe_get_start_date', $start_dates[ $cache_key ], $event, $display_time, $date_format );
 	}
 }
 
@@ -353,6 +357,7 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 	 * @category Events
 	 *
 	 * @since 4.7.6 Deprecated the $timezone parameter.
+	 * @since 5.2.0 Updated filter params.
 	 *
 	 * @param int    $event        (optional)
 	 * @param bool   $display_time If true shows date and time, if false only shows date
@@ -365,8 +370,7 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 		static $cache_var_name = __FUNCTION__;
 
 		if ( is_null( $event ) ) {
-			global $post;
-			$event = $post;
+			$event = get_post();
 		}
 
 		if ( is_numeric( $event ) ) {
@@ -399,10 +403,14 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 		/**
 		 * Filters the returned event end date and time
 		 *
-		 * @param string  $end_date
-		 * @param WP_Post $event
+		 * @since 5.2.0 Added the $display_time and $date_format parameters.
+		 *
+		 * @param string  $end_date The formatted end date.
+		 * @param WP_Post $event The event object.
+		 * @param bool    $display_time If true shows date and time, if false only shows date.
+		 * @param string  $date_format The date format.
 		 */
-		return apply_filters( 'tribe_get_end_date', $end_dates[ $cache_key ], $event );
+		return apply_filters( 'tribe_get_end_date', $end_dates[ $cache_key ], $event, $display_time, $date_format );
 	}
 }
 

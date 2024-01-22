@@ -55,6 +55,7 @@ export const iacVars = () => ticketsPlus().iacVars || {};
 
 // Post Objects
 export const postObjects = () => config().post_objects || {};
+export const post = () => config().post || {};
 
 // Blocks
 export const blocks = () => config().blocks || {};
