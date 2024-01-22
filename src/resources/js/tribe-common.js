@@ -30,6 +30,56 @@ String.prototype.varName = function () {
 	return this.replace( '-', '_' );
 };
 
+/*
+ Delayed deep-linking. Wait for initial mutations to have stopped for a while, then scroll to the fragment element.
+ When DOM mutations do not happen for 250ms, scroll the linked element into view.
+ Kudos: https://stackoverflow.com/a/50803220
+ */
+( function () {
+	const url = new URL ( window.location.href );
+	const hash = url.hash;
+
+	// Do not handle deeplinking if not coming from the plugins.
+	if ( !hash || !hash.match ( '#(tribe|tec)' ) ) {
+		return;
+	}
+
+	let updatesDidOccurr = true;
+
+	const mutationObserver = new MutationObserver ( function () {
+		updatesDidOccurr = true;
+	} );
+
+	// Observe all window events.
+	mutationObserver.observe ( window.document, {
+		attributes: true,
+		childList: true,
+		characterData: true,
+		subtree: true
+	} );
+
+	let mutationCallback = function () {
+		if ( updatesDidOccurr ) {
+			updatesDidOccurr = false;
+			setTimeout ( mutationCallback, 250 );
+		} else {
+			mutationObserver.takeRecords ();
+			mutationObserver.disconnect ();
+
+			// Detect the element now: it might have been added by a script.
+			const scrollTo = document.getElementById ( hash.substring ( 1 ) );
+
+			if ( scrollTo ) {
+				// Scroll to the element, if it exists.
+				scrollTo.scrollIntoView ();
+			}
+		}
+	};
+
+	// Start the loop.
+	mutationCallback ();
+} ) ();
+
 /**
  * Creates a global Tribe Variable where we should start to store all the things
  * @type {object}

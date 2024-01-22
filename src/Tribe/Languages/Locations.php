@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class Locations
+ * Class Tribe__Languages__Locations
  *
  * Localized lists of locations, like countries and states.
  */
@@ -409,5 +409,24 @@ class Tribe__Languages__Locations {
 		 * @param array Associative array with the format: State Code => State Name
 		 */
 		return (array) apply_filters( 'tribe_us_states', $states );
+	}
+
+	/**
+	 * Get a country name based on a country code.
+	 *
+	 * @since 5.2.1
+	 *
+	 * @param string $country_code A 2-digit country code.
+	 *
+	 * @return string The full country name.
+	 */
+	public function get_country_based_on_code( $country_code ) {
+		// Get the country code of the venue.
+		$country_code = strtoupper( $country_code );
+
+		// Get the country array from Tribe Common.
+		$countries = $this->get_countries();
+
+		return $countries[ $country_code ] ?? $country_code;
 	}
 }

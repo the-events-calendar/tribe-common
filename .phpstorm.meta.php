@@ -3,6 +3,8 @@
 namespace PHPSTORM_META {
 
 	// Allow PhpStorm IDE to resolve return types when calling tribe( Object_Type::class ) or tribe( `Object_Type` )
+	use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
+
 	override(
 		\tribe(),
 		map( [
@@ -49,4 +51,6 @@ namespace PHPSTORM_META {
 			''                                      => '@class',
 		] )
 	);
+
+	override( ContainerInterface::get( 0 ), type( 0 ) );
 }
