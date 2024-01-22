@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "43ec74747c68c7396bedc0a710526d75",
+    "content-hash": "bcc06a756026cb72e484118d8ec32d2d",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -337,16 +337,16 @@
         },
         {
             "name": "stellarwp/db",
-            "version": "1.0.7",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/db.git",
-                "reference": "e299e35869cb8092b48143a11509c1574cc33dc0"
+                "reference": "9c76724be8b60e76b7281118e4ccdf2cc129f257"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/db/zipball/e299e35869cb8092b48143a11509c1574cc33dc0",
-                "reference": "e299e35869cb8092b48143a11509c1574cc33dc0",
+                "url": "https://api.github.com/repos/stellarwp/db/zipball/9c76724be8b60e76b7281118e4ccdf2cc129f257",
+                "reference": "9c76724be8b60e76b7281118e4ccdf2cc129f257",
                 "shasum": ""
             },
             "require-dev": {
@@ -387,9 +387,9 @@
             "description": "A WPDB wrapper and query builder library.",
             "support": {
                 "issues": "https://github.com/stellarwp/db/issues",
-                "source": "https://github.com/stellarwp/db/tree/1.0.7"
+                "source": "https://github.com/stellarwp/db/tree/1.1.0"
             },
-            "time": "2023-10-23T20:46:29+00:00"
+            "time": "2023-11-14T12:37:35+00:00"
         },
         {
             "name": "stellarwp/installer",
@@ -443,6 +443,122 @@
                 "source": "https://github.com/stellarwp/installer/tree/1.1.1"
             },
             "time": "2023-06-06T13:25:04+00:00"
+        },
+        {
+            "name": "stellarwp/models",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stellarwp/models.git",
+                "reference": "1e364cc54883ac43fc25f7fce652259439af0a89"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stellarwp/models/zipball/1e364cc54883ac43fc25f7fce652259439af0a89",
+                "reference": "1e364cc54883ac43fc25f7fce652259439af0a89",
+                "shasum": ""
+            },
+            "require": {
+                "stellarwp/db": "^1.0.3"
+            },
+            "require-dev": {
+                "codeception/module-asserts": "^1.0",
+                "codeception/module-cli": "^1.0",
+                "codeception/module-db": "^1.0",
+                "codeception/module-filesystem": "^1.0",
+                "codeception/module-phpbrowser": "^1.0",
+                "codeception/module-rest": "^1.0",
+                "codeception/module-webdriver": "^1.0",
+                "codeception/util-universalframework": "^1.0",
+                "lucatume/wp-browser": "^3.0.14",
+                "phpunit/phpunit": "~6.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "StellarWP\\Models\\": "src/Models/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "StellarWP",
+                    "homepage": "https://github.com/stellarwp"
+                }
+            ],
+            "description": "A library for a simple model structure.",
+            "homepage": "https://github.com/stellarwp/models",
+            "keywords": [
+                "stellarwp"
+            ],
+            "support": {
+                "issues": "https://github.com/stellarwp/models/issues",
+                "source": "https://github.com/stellarwp/models/tree/1.2.1"
+            },
+            "time": "2023-09-12T15:59:24+00:00"
+        },
+        {
+            "name": "stellarwp/schema",
+            "version": "1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stellarwp/schema.git",
+                "reference": "43920f52b1d1ca03a59857ae61988ca138baad49"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stellarwp/schema/zipball/43920f52b1d1ca03a59857ae61988ca138baad49",
+                "reference": "43920f52b1d1ca03a59857ae61988ca138baad49",
+                "shasum": ""
+            },
+            "require": {
+                "psr/container": "^1.0",
+                "stellarwp/container-contract": "^1.0"
+            },
+            "require-dev": {
+                "brianhenryie/strauss": "^0.11.0",
+                "codeception/module-asserts": "^1.0",
+                "codeception/module-cli": "^1.0",
+                "codeception/module-db": "^1.0",
+                "codeception/module-filesystem": "^1.0",
+                "codeception/module-phpbrowser": "^1.0",
+                "codeception/module-rest": "^1.0",
+                "codeception/module-webdriver": "^1.0",
+                "codeception/util-universalframework": "^1.0",
+                "lucatume/di52": "^3.0",
+                "lucatume/wp-browser": "^3.0.14",
+                "phpunit/phpunit": "~6.0",
+                "stellarwp/db": "^1.0",
+                "symfony/event-dispatcher-contracts": "^2.5.1",
+                "symfony/string": "^5.4",
+                "szepeviktor/phpstan-wordpress": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "StellarWP\\Schema\\": "src/Schema/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "StellarWP",
+                    "email": "dev@stellarwp.com"
+                }
+            ],
+            "description": "A library for simplifying the creation and updates of custom tables within WordPress.",
+            "support": {
+                "issues": "https://github.com/stellarwp/schema/issues",
+                "source": "https://github.com/stellarwp/schema/tree/1.1.4"
+            },
+            "time": "2023-11-15T17:17:47+00:00"
         },
         {
             "name": "stellarwp/telemetry",
@@ -4689,16 +4805,16 @@
         },
         {
             "name": "symfony/event-dispatcher-contracts",
-            "version": "v1.1.13",
+            "version": "v1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher-contracts.git",
-                "reference": "1d5cd762abaa6b2a4169d3e77610193a7157129e"
+                "reference": "761c8b8387cfe5f8026594a75fdf0a4e83ba6974"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher-contracts/zipball/1d5cd762abaa6b2a4169d3e77610193a7157129e",
-                "reference": "1d5cd762abaa6b2a4169d3e77610193a7157129e",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher-contracts/zipball/761c8b8387cfe5f8026594a75fdf0a4e83ba6974",
+                "reference": "761c8b8387cfe5f8026594a75fdf0a4e83ba6974",
                 "shasum": ""
             },
             "require": {
@@ -4748,7 +4864,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/event-dispatcher-contracts/tree/v1.1.13"
+                "source": "https://github.com/symfony/event-dispatcher-contracts/tree/v1.10.0"
             },
             "funding": [
                 {
@@ -4764,7 +4880,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-02T09:41:36+00:00"
+            "time": "2022-07-20T09:59:04+00:00"
         },
         {
             "name": "symfony/finder",
@@ -6524,6 +6640,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "stellarwp/models": 20,
         "the-events-calendar/coding-standards": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },

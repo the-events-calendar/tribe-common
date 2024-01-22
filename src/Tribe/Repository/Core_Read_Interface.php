@@ -107,9 +107,17 @@ interface Core_Read_Interface {
 	 *
 	 * Mind that "all" means "all the posts matching all the filters" so pagination applies.
 	 *
-	 * @return array
+	 * @since 4.1.3
+	 * @since 5.2.0 Added the `$return_generator` and `$batch_size` parameters.
+	 *
+	 * @param bool $return_generator Whether to return a generator of post IDs instead of an array of post IDs.
+	 * @param int  $batch_size       The number of post IDs to fetch at a time when using a generator; ignored
+	 *                               if `$return_generator` is false.
+	 *
+	 * @return array<int>|Generator<int> An array of all the matching post IDs, or a generator of them
+	 *                                   if `$return_generator` is true.
 	 */
-	public function all();
+	public function all( $return_generator = false, int $batch_size = 50 );
 
 	/**
 	 * Sets the offset on the query.
@@ -396,7 +404,15 @@ interface Core_Read_Interface {
 	/**
 	 * Gets the ids of the posts matching the query.
 	 *
-	 * @return array An array containing the post IDs to update.
+	 * @since 4.1.3
+	 * @since 5.2.0 Added the `$return_generator` and `$batch_size` parameters.
+	 *
+	 * @param bool $return_generator Whether to return a generator of post IDs instead of an array of post IDs.
+	 * @param int  $batch_size       The number of post IDs to fetch at a time when using a generator; ignored
+	 *                               if `$return_generator` is false.
+	 *
+	 * @return array<int>|Generator<int> An array of all the matching post IDs, or a generator of them
+	 *                                   if `$return_generator` is true.
 	 */
-	public function get_ids();
+	public function get_ids( $return_generator = false, int $batch_size = 50 );
 }

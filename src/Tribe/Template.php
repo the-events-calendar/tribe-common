@@ -872,13 +872,15 @@ class Tribe__Template {
 		 * Allow users to filter the HTML before rendering
 		 *
 		 * @since  4.11.0
+		 * @since 5.2.0 Added the `$context` parameter; take charge of rendering the filtered HTML.
 		 *
-		 * @param string $html     The initial HTML
-		 * @param string $file     Complete path to include the PHP File
-		 * @param array  $name     Template name
-		 * @param self   $template Current instance of the Tribe__Template
+		 * @param string              $html     The initial HTML
+		 * @param string              $file     Complete path to include the PHP File
+		 * @param array               $name     Template name
+		 * @param self                $template Current instance of the Tribe__Template
+		 * @param array<string,mixed> $context  The context data passed to the template.
 		 */
-		$pre_html = apply_filters( 'tribe_template_pre_html', null, $file, $name, $this );
+		$html = apply_filters( 'tribe_template_pre_html', null, $file, $name, $this, $context );
 
 		/**
 		 * Allow users to filter the HTML by the name before rendering
@@ -889,37 +891,37 @@ class Tribe__Template {
 		 *    `tribe_template_pre_html:tickets/login-to-purchase`
 		 *
 		 * @since  4.11.0
+		 * @since 5.2.0 Added the `$context` parameter; take charge of rendering the filtered HTML.
 		 *
-		 * @param string $html      The initial HTML
-		 * @param string $file      Complete path to include the PHP File
-		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Template
+		 * @param string              $html     The initial HTML
+		 * @param string              $file     Complete path to include the PHP File
+		 * @param array               $name     Template name
+		 * @param self                $template Current instance of the Tribe__Template
+		 * @param array<string,mixed> $context  The context data passed to the template.
 		 */
-		$pre_html = apply_filters( "tribe_template_pre_html:{$hook_name}", $pre_html, $file, $name, $this );
+		$html = apply_filters( "tribe_template_pre_html:{$hook_name}", $html, $file, $name, $this, $context );
 
-		if ( null !== $pre_html ) {
-			return $pre_html;
+		if ( null === $html ) {
+			// Merges the local data passed to template to the global scope
+			$this->merge_context( $context, $file, $name );
+
+			$before_include_html = $this->actions_before_template( $file, $name, $hook_name );
+			$before_include_html = $this->filter_template_before_include_html( $before_include_html, $file, $name, $hook_name );
+
+			$include_html = $this->template_safe_include( $file );
+			$include_html = $this->filter_template_include_html( $include_html, $file, $name, $hook_name );
+
+			$after_include_html = $this->actions_after_template( $file, $name, $hook_name );
+			$after_include_html = $this->filter_template_after_include_html( $after_include_html, $file, $name, $hook_name );
+
+			// Only fetch the contents after the action
+			$html = $before_include_html . $include_html . $after_include_html;
+
+			$html = $this->filter_template_html( $html, $file, $name, $hook_name );
+
+			// Tries to hook container entry points in the HTML.
+			$html = $this->template_hook_container_entry_points( $html );
 		}
-
-		// Merges the local data passed to template to the global scope
-		$this->merge_context( $context, $file, $name );
-
-		$before_include_html = $this->actions_before_template( $file, $name, $hook_name );
-		$before_include_html = $this->filter_template_before_include_html( $before_include_html, $file, $name, $hook_name );
-
-		$include_html = $this->template_safe_include( $file );
-		$include_html = $this->filter_template_include_html( $include_html, $file, $name, $hook_name );
-
-		$after_include_html = $this->actions_after_template( $file, $name, $hook_name );
-		$after_include_html = $this->filter_template_after_include_html( $after_include_html, $file, $name, $hook_name );
-
-		// Only fetch the contents after the action
-		$html = $before_include_html . $include_html . $after_include_html;
-
-		$html = $this->filter_template_html( $html, $file, $name, $hook_name );
-
-		// Tries to hook container entry points in the HTML.
-		$html = $this->template_hook_container_entry_points( $html );
 
 		if ( $echo ) {
 			echo $html;
