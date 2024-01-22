@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.2.1] TBD =
+= [5.2.1] 2024-01-24 =
 
 * Feature - Add the `get_country_based_on_code` method to the `Tribe__Languages__Locations` class. [EA-469]
 * Feature - Enable auto-updates for premium plugins.
@@ -8,6 +8,7 @@
 * Fix - Fix PHP 8.2 deprecation errors `PHP Deprecated:  html_entity_decode(): Passing null to parameter #1 ($string) of type string is deprecated`. [ECP-1603]
 * Tweak - Update the DataTables library used by Event Aggregator. [EA-479]
 * Tweak - Added filters: `tec_dialog_id`, `tribe_repository_{$this->filter_name}_before_delete`
+* Language - 0 new strings added, 20 updated, 4 fuzzied, and 0 obsoleted
 
 = [5.2.0] 2024-01-22 =
 
