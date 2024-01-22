@@ -462,6 +462,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * Accepts a string representing a date/time and attempts to convert it to
 		 * the specified format, returning an empty string if this is not possible.
 		 *
+		 * @since 5.1.5 Make use of `wp_date` for i18n.
+		 *
 		 * @param $dt_string
 		 * @param $new_format
 		 *

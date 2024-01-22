@@ -11,6 +11,7 @@ namespace TEC\Common\Telemetry;
 
 use TEC\Common\Contracts\Service_Provider;
 use TEC\Common\StellarWP\Telemetry\Admin\Admin_Subscriber as Asset_Subscriber;
+use Tribe__Main;
 
 /**
  * Class Provider
@@ -30,6 +31,7 @@ class Provider extends Service_Provider {
 	 */
 	public function register() {
 		$this->container->bind( Telemetry::class, Telemetry::class );
+		$this->container->singleton( Opt_In::class, Opt_In::class );
 
 		$this->add_actions();
 		$this->add_filters();
@@ -62,6 +64,61 @@ class Provider extends Service_Provider {
 	public function add_filters() {
 		add_filter( 'stellarwp/telemetry/optin_args', [ $this, 'filter_optin_args' ] );
 		add_filter( 'stellarwp/telemetry/exit_interview_args', [ $this, 'filter_exit_interview_args' ] );
+		add_filter( 'http_request_args', [ $this, 'filter_telemetry_http_request_args' ], 10, 2 );
+	}
+
+	/**
+	 * Filters the HTTP request arguments for TEC telemetry to add the tribe-common integration ID and version.
+	 * For versioning purposes.
+	 *
+	 * @since 5.1.8.1
+	 *
+	 * @param array  $parsed_args An array of HTTP request arguments.
+	 * @param string $url         The request URL.
+	 */
+	public function filter_telemetry_http_request_args( $parsed_args, $url ) {
+		if ( false === stripos( $url, 'telemetry.stellarwp.com/api/v1/opt-in' ) ) {
+			return $parsed_args;
+		}
+
+		$parsed_args['body']['integration_id']      = 'tec_common';
+		$parsed_args['body']['integration_version'] = Tribe__Main::VERSION;
+
+		return $parsed_args;
+	}
+
+	/**
+	 * Filters the arguments for telemetry data to add the opt-in user data if missing.
+	 *
+	 * @since 5.1.13
+	 *
+	 * @param array $args Telemetry args.
+	 *
+	 * @return array
+	 */
+	public function filter_send_data_args( $args ) {
+		if ( ! is_array( $args ) ) {
+			return $args;
+		}
+
+		if ( empty( $args['telemetry'] ) ) {
+			return $args;
+		}
+
+		$telemetry = json_decode( $args['telemetry'], true );
+
+		if ( ! empty( $telemetry['opt_in_user'] ) ) {
+			return $args;
+		}
+
+		/** @var Opt_In $opt_in */
+		$opt_in = $this->container->get( Opt_In::class );
+
+		$telemetry['opt_in_user'] = $opt_in->build_opt_in_user();
+
+		$args['telemetry'] = wp_json_encode( $telemetry );
+
+		return $args;
 	}
 
 	/**
@@ -69,8 +126,10 @@ class Provider extends Service_Provider {
 	 * telemetry was properly booted into the system.
 	 *
 	 * @since 5.1.3
+	 * @since 5.1.13 Added filter of send_data_args to include opt-in data.
 	 */
 	public function hook_telemetry_init(): void {
+		add_filter( "stellarwp/telemetry/tec/send_data_args", [ $this, 'filter_send_data_args' ] );
 		add_action( 'admin_init', [ $this, 'initialize_telemetry' ], 5 );
 	}
 

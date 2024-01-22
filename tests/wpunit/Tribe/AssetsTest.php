@@ -47,4 +47,47 @@ class AssetsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertContains( $expected_msgid, $translations_string );
 		$this->assertContains( $expected_msgstr, $translations_string );
 	}
+
+	public function get_script_tags() {
+		yield 'simple-script' => [
+			'<script src="https://localhost/tec-ky.js?ver=5.1.13.1" id="tec-ky-js"></script>'
+		];
+		yield 'simple-with-existing-type' => [
+			'<script type="text/javascript" src="https://localhost/tec-ky.js?ver=5.1.13.1" id="tec-ky-js"></script>'
+		];
+		yield 'simple-without-src-or-id' => [
+			'<script></script>'
+		];
+		yield 'simple-with-existing-type-simple-quotes' => [
+			'<script type=\'text/javascript\' src="https://localhost/tec-ky.js?ver=5.1.13.1" id="tec-ky-js"></script>'
+		];
+		yield 'simple-with-existing-type-no-quotes' => [
+			'<script type=text/javascript src="https://localhost/tec-ky.js?ver=5.1.13.1" id="tec-ky-js"></script>'
+		];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider get_script_tags
+	 */
+	public function it_should_properly_had_module_type( $script_tag ) {
+		$plugin = Plugin::instance();
+		$assets = new Assets;
+
+		// Register generic script to ensure the module type is added.
+		$assets->register(
+			$plugin,
+			'test-script',
+			codecept_data_dir( 'resources/test-script-1.js' ),
+			[],
+			null,
+			[
+				'module' => true,
+			]
+		);
+
+		$script_tag = $assets->filter_modify_to_module( $script_tag, 'test-script' );
+
+		$this->assertContains( 'type="module"', $script_tag );
+	}
 }

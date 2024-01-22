@@ -87,8 +87,20 @@ class View extends \Tribe__Template {
 
 		// Generate an ID if we weren't passed one.
 		if ( is_null( $id ) ) {
-			$id = \uniqid();
+			$id = \uniqid( );
 		}
+
+		/**
+		 * Filters the dialog ID.
+		 *
+		 * @since 5.2.0
+		 *
+		 * @param string              $id      The dialog ID; either the one passed or a generated one.
+		 * @param string              $content The dialog content.
+		 * @param array<string,mixed> $args    The dialog arguments.
+		 * @param bool                $echo    Whether to echo the script or to return it (default: true).
+		 */
+		$id = apply_filters( 'tec_dialog_id', $id, $content, $args, $echo );
 
 		/** @var \Tribe__Assets $assets */
 		$assets = tribe( 'assets' );

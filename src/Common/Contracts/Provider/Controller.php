@@ -10,7 +10,7 @@
 
 namespace TEC\Common\Contracts\Provider;
 
-use TEC\Common\Contracts\Service_Provider as Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
 use Tribe__Log as Log;
 
@@ -39,10 +39,6 @@ abstract class Controller extends Service_Provider {
 		if ( static::is_registered() ) {
 			return;
 		}
-
-		// Register the controller as a singleton in the container.
-		// @todo remove when the Container is updated to bind Providers as singletons by default.
-		$this->container->singleton( static::class, $this );
 
 		if ( ! $this->is_active() ) {
 			return;
