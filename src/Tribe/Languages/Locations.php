@@ -414,7 +414,7 @@ class Tribe__Languages__Locations {
 	/**
 	 * Get a country name based on a country code.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @param string $country_code A 2-digit country code.
 	 *

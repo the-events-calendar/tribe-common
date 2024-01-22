@@ -7,6 +7,7 @@
 * Fix - Correct some signatures in the Tribe__Data class so they conform to the classes it implements, avoiding deprecation notices. [TEC-4992]
 * Fix - Fix PHP 8.2 deprecation errors `PHP Deprecated:  html_entity_decode(): Passing null to parameter #1 ($string) of type string is deprecated`. [ECP-1603]
 * Tweak - Update the DataTables library used by Event Aggregator. [EA-479]
+* Tweak - Added filters: `tec_dialog_id`, `tribe_repository_{$this->filter_name}_before_delete`
 
 = [5.2.0] 2024-01-22 =
 

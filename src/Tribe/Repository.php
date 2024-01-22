@@ -2528,7 +2528,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the delete operation, allowing third party operations to take over.
 		 *
-		 * @since TBD
+		 * @since 5.2.1
 		 *
 		 * @param int[]|null $pre_check The overwritten delete values or null if not handled externally.
 		 * @param self       $this      This repository instance.
