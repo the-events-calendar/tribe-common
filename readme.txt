@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.2.0] 2024-01-16 =
+= [5.2.0] 2024-01-22 =
 
 * Feature - Add the `Tribe__Repository::first_id` method to fetch the first ID of a query. [ET-1490]
 * Feature - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
