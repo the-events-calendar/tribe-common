@@ -171,7 +171,7 @@ class Tribe__Admin__Notices {
 
 		$slug = sanitize_key( $slug );
 
-		$nonce = tribe_get_request_var( self::$nonce_param, false );
+		$nonce        = tribe_get_request_var( self::$nonce_param, false );
 		$nonce_action = $this->get_nonce_action( $slug );
 
 		if ( ! wp_verify_nonce( $nonce, $nonce_action ) ) {
@@ -790,7 +790,7 @@ class Tribe__Admin__Notices {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $slug
+	 * @param string $slug Which notice we are handling.
 	 *
 	 * @return string
 	 */
