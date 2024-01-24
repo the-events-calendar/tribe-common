@@ -65,7 +65,7 @@ class Tribe__Admin__Notices {
 	/**
 	 * Request param used to pass the nonce for dismissal.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @var string
 	 */
@@ -788,7 +788,7 @@ class Tribe__Admin__Notices {
 	/**
 	 * Returns the nonce action for a given notice slug.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @param string $slug Which notice we are handling.
 	 *
