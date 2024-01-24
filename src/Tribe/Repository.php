@@ -2525,12 +2525,25 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function delete( $return_promise = false ) {
+		/**
+		 * Filters the delete operation, allowing third party operations to take over.
+		 *
+		 * @since 5.2.1
+		 *
+		 * @param int[]|null $pre_check The overwritten delete values or null if not handled externally.
+		 * @param self       $this      This repository instance.
+		 */
+		$pre_check = apply_filters( "tribe_repository_{$this->filter_name}_before_delete", null, $this );
+
+		if ( $pre_check !== null ) {
+			return $return_promise ? new Tribe__Promise() : $pre_check;
+		}
+
 		$to_delete = $this->get_ids();
 
 		if ( empty( $to_delete ) ) {
 			return $return_promise ? new Tribe__Promise() : [];
 		}
-
 
 		/**
 		 * Filters the post delete operation allowing third party code to bail out of
@@ -2538,8 +2551,8 @@ abstract class Tribe__Repository
 		 *
 		 * @since 4.9.5
 		 *
-		 * @param array|null $deleted An array containing the the IDs of the deleted posts.
-		 * @param self       $this    This repository instance.
+		 * @param array|null $deleted   An array containing the the IDs of the deleted posts.
+		 * @param array      $to_delete The items to delete.
 		 */
 		$deleted = apply_filters( "tribe_repository_{$this->filter_name}_delete", null, $to_delete );
 		if ( null !== $deleted ) {
