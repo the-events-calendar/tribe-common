@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Tribe Common
  * Description: An event settings framework for managing shared options
- * Version: 5.2.0
+ * Version: 5.2.1
  * Author: The Events Calendar
  * Author URI: http://evnt.is/1x
  * Text Domain: tribe-common
@@ -31,3 +31,4 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 require_once dirname( __FILE__ ) . '/src/Tribe/Main.php';
 
 Tribe__Main::instance();
+
