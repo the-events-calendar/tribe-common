@@ -463,17 +463,22 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * the specified format, returning an empty string if this is not possible.
 		 *
 		 * @since 5.1.5 Make use of `wp_date` for i18n.
+		 * @since TBD Adding timezone param.
 		 *
-		 * @param $dt_string
-		 * @param $new_format
+		 * @param string|int  $dt_string  The date or timestamp to be converted.
+		 * @param string      $new_format The date format to convert to.
+		 * @param null|string $timezone   Optional timezone param.
 		 *
 		 * @return string
 		 */
-		public static function reformat( $dt_string, $new_format ) {
+		public static function reformat( $dt_string, $new_format, $timezone = null ): string {
 			$timestamp = self::is_timestamp( $dt_string ) ? $dt_string : strtotime( $dt_string );
-			$revised   = date( $new_format, $timestamp );
+			$date      = DateTime::createFromFormat( 'U', $timestamp );
+			if ( is_string( $timezone ) ) {
+				$date->setTimezone( new DateTimeZone( $timezone ) );
+			}
 
-			return $revised ? $revised : '';
+			return $date->format( $new_format );
 		}
 
 		/**
