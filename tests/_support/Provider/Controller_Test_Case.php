@@ -6,18 +6,17 @@
 namespace TEC\Common\Tests\Provider;
 
 use Codeception\TestCase\WPTestCase;
-use Codeception\Util\ReflectionPropertyAccessor;
+use RuntimeException;
 use TEC\Common\Contracts\Provider\Controller;
-use TEC\Common\lucatume\DI52\Builders\Resolver;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Container as Container;
 use TEC\Common\lucatume\DI52\Container as DI52_Container;
-use function DeepCopy\deep_copy;
+use WP_Hook;
 
 /**
  * Class Controller_Test_Case.
  *
- * @since 5.0.17
+ * @since   5.0.17
  *
  * @package TEC\Common\Tests\Provider;
  * @property string $controller_class The class name of the controller to test.
@@ -83,11 +82,11 @@ class Controller_Test_Case extends WPTestCase {
 
 		// Ensure the test case defines the controller class to test.
 		if ( ! property_exists( $this, 'controller_class' ) ) {
-			throw new \RuntimeException( 'Each Controller test case must define a controller_class property.' );
+			throw new RuntimeException( 'Each Controller test case must define a controller_class property.' );
 		}
 
 		// Store a reference to the original Service Locator to be used in `tearDown`.
-		$original_services                = tribe();
+		$original_services       = tribe();
 		$this->original_services = $original_services;
 
 		// Store a reference to the original controller to be used in `tearDown`.
@@ -103,6 +102,8 @@ class Controller_Test_Case extends WPTestCase {
 		uopz_set_return( 'tribe', static function ( $key = null ) use ( $test_services ) {
 			return $key ? $test_services->get( $key ) : $test_services;
 		}, true );
+		// Redirect calls to init the container too.
+		uopz_set_return( Container::class, 'init', $test_services );
 		$this->test_services = $test_services;
 
 		// We should now be working with the test Service Locator.
@@ -132,8 +133,8 @@ class Controller_Test_Case extends WPTestCase {
 	protected function tearDown() {
 		// Unregister all the controllers created by the test case.
 		foreach ( $this->made_controllers as $controller ) {
-			 $controller->unregister();
-			 unset( $controller );
+			$controller->unregister();
+			unset( $controller );
 		}
 		$this->made_controllers = [];
 
@@ -142,6 +143,8 @@ class Controller_Test_Case extends WPTestCase {
 
 		// Stop redirecting calls to the test Service Locator.
 		uopz_unset_return( 'tribe' );
+		// Stop redirecting calls to init the container too.
+		uopz_unset_return( Container::class, 'init' );
 
 		// We should now be working with the original Service Locator.
 		$this->assertSame( $this->original_services, tribe() );
@@ -174,7 +177,7 @@ class Controller_Test_Case extends WPTestCase {
 
 		// From now on, ingest all logging.
 		global $wp_filter;
-		$wp_filter['tribe_log'] = new \WP_Hook();
+		$wp_filter['tribe_log'] = new WP_Hook();
 		add_action( 'tribe_log', function ( $level, $message, $context ) {
 			if ( isset( $context['controller'] ) && $context['controller'] === $this->controller_class ) {
 				// Log the controller logs.
