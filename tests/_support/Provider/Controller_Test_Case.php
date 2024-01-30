@@ -177,7 +177,7 @@ class Controller_Test_Case extends WPTestCase {
 
 		// From now on, ingest all logging.
 		global $wp_filter;
-		$wp_filter['tribe_log'] = new WP_Hook();
+		$wp_filter['tribe_log'] = new WP_Hook(); // phpcs:ignore
 		add_action( 'tribe_log', function ( $level, $message, $context ) {
 			if ( isset( $context['controller'] ) && $context['controller'] === $this->controller_class ) {
 				// Log the controller logs.
