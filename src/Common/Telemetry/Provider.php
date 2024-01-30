@@ -190,7 +190,7 @@ class Provider extends Service_Provider {
 	 *
 	 * @return array<string|mixed>
 	 */
-	public function filter_optin_args( $args, $slug = null ): array  {
+	public function filter_optin_args( $args, $slug = null ): array {
 		return $this->container->make( Telemetry::class )->filter_optin_args( $args, $slug = null );
 	}
 
@@ -203,7 +203,7 @@ class Provider extends Service_Provider {
 	 *
 	 * @return array<string|mixed>
 	 */
-	public function filter_tec_optin_args( $args ): array  {
+	public function filter_tec_optin_args( $args ): array {
 		return $this->container->make( Telemetry::class )->filter_optin_args( $args, 'the-events-calendar' );
 	}
 
@@ -216,7 +216,7 @@ class Provider extends Service_Provider {
 	 *
 	 * @return array<string|mixed>
 	 */
-	public function filter_et_optin_args( $args ): array  {
+	public function filter_et_optin_args( $args ): array {
 		return $this->container->make( Telemetry::class )->filter_optin_args( $args, 'event-tickets' );
 	}
 
