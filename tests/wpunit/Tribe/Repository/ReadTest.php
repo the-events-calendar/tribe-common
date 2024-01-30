@@ -1198,4 +1198,30 @@ class ReadTest extends ReadTestBase {
 			'Adding the same meta_not_exists clause multiple times should work as if adding it once'
 		);
 	}
+
+	/**
+	 * It should allow fetching the first post ID
+	 *
+	 * @test
+	 */
+	public function should_allow_fetching_the_first_post_id(): void {
+		// Going for alphabetical order here.
+		$book_1 = static::factory()->post->create( [
+			'post_title' => 'All about bees',
+			'post_type'  => 'book'
+		] );
+		$book_2 = static::factory()->post->create( [
+			'post_title' => 'Bees, a field guide',
+			'post_type'  => 'book'
+		] );
+		$book_3 = static::factory()->post->create( [
+			'post_title' => 'Crawling out of the hive, a bee\'s story',
+			'post_type'  => 'book'
+		] );
+
+		$this->assertEquals( $book_1, $this->repository()->order_by( 'title', 'ASC' )->first_id() );
+		$this->assertEquals( $book_3, $this->repository()->order_by( 'title', 'DESC' )->first_id() );
+		$this->assertEquals( $book_2, $this->repository()->order_by( 'title', 'ASC' )->offset( 1 )->first_id() );
+		$this->assertNull( $this->repository()->where( 'title', 'Domesticated insects and their history' )->first_id() );
+	}
 }

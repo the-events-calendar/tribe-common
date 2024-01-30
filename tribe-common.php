@@ -1,13 +1,13 @@
 <?php
-/*
-Plugin Name: Tribe Common
-Description: An event settings framework for managing shared options
-Version: 5.1.11
-Author: The Events Calendar
-Author URI: http://evnt.is/1x
-Text Domain: tribe-common
-License: GPLv2 or later
-*/
+/**
+ * Plugin Name: Tribe Common
+ * Description: An event settings framework for managing shared options
+ * Version: 5.2.1
+ * Author: The Events Calendar
+ * Author URI: http://evnt.is/1x
+ * Text Domain: tribe-common
+ * License: GPLv2 or later
+ */
 
 /*
 Copyright 2009-2015 by The Events Calendar and the contributors
@@ -27,7 +27,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-// the main plugin class
+// The main plugin class.
 require_once dirname( __FILE__ ) . '/src/Tribe/Main.php';
 
 Tribe__Main::instance();
+
