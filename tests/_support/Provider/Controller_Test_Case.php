@@ -16,7 +16,7 @@ use WP_Hook;
 /**
  * Class Controller_Test_Case.
  *
- * @since   5.0.17
+ * @since 5.0.17
  *
  * @package TEC\Common\Tests\Provider;
  * @property string $controller_class The class name of the controller to test.
