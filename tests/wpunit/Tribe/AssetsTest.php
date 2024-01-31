@@ -90,4 +90,33 @@ class AssetsTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertContains( 'type="module"', $script_tag );
 	}
+
+	/**
+	 * Verify defer strategy asset extra is registerable.
+	 * 
+	 * @test
+	 */
+	public function it_should_properly_defer_scripts() {
+		global $wp_scripts;
+		$plugin = Plugin::instance();
+		$assets = new Assets;
+
+		// Put a faux URL
+		$add_url_to_asset = function ( $asset ) {
+			$asset->url = 'http://localhost/tec-ky.js?ver=5.1.13.1';
+
+			return $asset;
+		};
+		add_filter( 'tribe_asset_pre_register', $add_url_to_asset );
+
+		// Register generic script to ensure the module type is added.
+		$assets->register( $plugin, 'test-defer', codecept_data_dir( 'resources/test-script-1.js' ), [], null, [
+			                          'in_footer' => [ 'strategy' => 'defer' ],
+		                          ] );
+
+		$assets->enqueue( 'test-defer' );
+		remove_filter( 'tribe_asset_pre_register', $add_url_to_asset );
+
+		$this->assertEquals( [ 'strategy' => 'defer' ], $wp_scripts->registered['test-defer']->extra );
+	}
 }
