@@ -93,7 +93,7 @@ class AssetsTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * Verify defer strategy asset extra is registerable.
-	 * 
+	 *
 	 * @test
 	 */
 	public function it_should_properly_defer_scripts() {
