@@ -191,7 +191,7 @@ class Provider extends Service_Provider {
 	 * @return array<string|mixed>
 	 */
 	public function filter_optin_args( $args, $slug = null ): array {
-		return $this->container->make( Telemetry::class )->filter_optin_args( $args, $slug = null );
+		return $this->container->make( Telemetry::class )->filter_optin_args( $args, $slug );
 	}
 
 	/**

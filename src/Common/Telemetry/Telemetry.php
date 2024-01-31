@@ -248,6 +248,7 @@ final class Telemetry {
 	 * @since 5.1.0
 	 *
 	 * @param array<string|mixed> $args The current optin modal args.
+	 * @param ?string         $slug The Stellar slug being used for Telemetry.
 	 *
 	 * @return array<string|mixed>
 	 */
