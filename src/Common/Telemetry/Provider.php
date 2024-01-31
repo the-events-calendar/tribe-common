@@ -130,7 +130,7 @@ class Provider extends Service_Provider {
 	 * @since 5.1.13 Added filter of send_data_args to include opt-in data.
 	 */
 	public function hook_telemetry_init(): void {
-		add_filter( "stellarwp/telemetry/tec/send_data_args", [ $this, 'filter_send_data_args' ] );
+		add_filter( 'stellarwp/telemetry/tec/send_data_args', [ $this, 'filter_send_data_args' ] );
 		add_action( 'admin_init', [ $this, 'initialize_telemetry' ], 5 );
 	}
 
