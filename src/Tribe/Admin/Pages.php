@@ -127,7 +127,8 @@ class Pages {
 				$options['title'],
 				$options['capability'],
 				$options['path'],
-				$options['callback']
+				$options['callback'],
+				$options['position']
 			);
 		}
 
