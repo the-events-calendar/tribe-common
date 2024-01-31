@@ -467,15 +467,18 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *
 		 * @param string|int  $dt_string  The date or timestamp to be converted.
 		 * @param string      $new_format The date format to convert to.
-		 * @param null|string $timezone   Optional timezone param.
+		 * @param null|string $timezone   Optional timezone the date string is in.
 		 *
 		 * @return string
 		 */
 		public static function reformat( $dt_string, $new_format, $timezone = null ): string {
-			$timestamp = self::is_timestamp( $dt_string ) ? $dt_string : strtotime( $dt_string );
-			$date      = DateTime::createFromFormat( 'U', $timestamp );
-			if ( is_string( $timezone ) ) {
-				$date->setTimezone( new DateTimeZone( $timezone ) );
+			$timestamp = $dt_string;
+			$timezone  = $timezone ? new DateTimeZone( $timezone ) : wp_timezone();
+			if ( ! self::is_timestamp( $timestamp ) ) {
+				$date = new DateTime( $timestamp, $timezone );
+			} else {
+				$date = DateTime::createFromFormat( 'U', $timestamp );
+				$date->setTimezone( $timezone );
 			}
 
 			return $date->format( $new_format );
