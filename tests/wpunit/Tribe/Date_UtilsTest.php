@@ -234,6 +234,9 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 			[ 'tomorrow 9am', 'Y-m-d' ],
 			[ 'tomorrow 9am', 'H:i:s' ],
 			[ 'tomorrow 9am', 'Y-m-d H:i:s' ],
+			[ 'tomorrow 9am', false ],
+			[ 'tomorrow 9am', null ],
+			[ 'tomorrow 9am', 0 ],
 		];
 	}
 
