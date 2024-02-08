@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Added timezone param to our date utility function `Date_Utils::reformat`. [BTRIA-2231]
+
 = [5.2.1] 2024-01-24 =
 
 * Feature - Add the `get_country_based_on_code` method to the `Tribe__Languages__Locations` class. [EA-469]
