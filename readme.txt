@@ -2,6 +2,7 @@
 
 = [TBD] TBD =
 
+* Tweak - Added timezone param to our date utility function `Date_Utils::reformat`. [BTRIA-2231]
 * Feature - Adding support for the `defer` strategy on script tags added in WordPress 6.3. [TECENG-48]
 
 = [5.2.1] 2024-01-24 =
