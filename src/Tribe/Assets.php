@@ -578,8 +578,8 @@ class Tribe__Assets {
 	 *
 	 *     @type array|string|null  $action         The WordPress action(s) this asset will be enqueued on.
 	 *     @type int                $priority       Priority in which this asset will be loaded on the WordPress action.
-	 *     @type bool			    $async          Whether to load the asset via the async strategy.
-	 *     @type bool			    $defer          Whether to load the asset via a deferred strategy.
+	 *     @type bool               $async          Whether to load the asset via the async strategy.
+	 *     @type bool               $defer          Whether to load the asset via a deferred strategy.
 	 *     @type string             $file           The relative path to the File that will be enqueued, uses the $origin to get the full path.
 	 *     @type string             $type           Asset Type, `js` or `css`.
 	 *     @type array              $deps           An array of other asset as dependencies.
@@ -705,7 +705,7 @@ class Tribe__Assets {
 		$asset->media     = esc_attr( $asset->media );
 
 		// Since WordPress 6.3, the `in_footer` parameter accepts an array argument.
-		if ( version_compare( strtok( $wp_version, '-' ), '6.3', '>=' )  ) {
+		if ( version_compare( strtok( $wp_version, '-' ), '6.3', '>=' ) ) {
 			// if `in_footer` is set to boolean true, add it to the `in_footer` array. i.e. [ 'in_footer' => true ].
 			if ( (bool) $asset->in_footer ) {
 				$asset->in_footer['in_footer'] = (bool) $asset->in_footer;
@@ -715,7 +715,7 @@ class Tribe__Assets {
 			if ( ( ! empty( $asset->async ) || ! empty( $asset->defer ) ) ) {
 				$strategy = $asset->async ? 'async' : 'defer';
 
-				$asset->in_footer['strategy'] = $strategy ;
+				$asset->in_footer['strategy'] = $strategy;
 			}
 		} else {
 			$asset->in_footer = (bool) $asset->in_footer; // Default, for backwards compatibility.
