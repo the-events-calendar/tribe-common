@@ -198,7 +198,7 @@ class Tribe__Assets {
 
 		if ( $asset->async ) {
 			$replacement .= 'async '; // Again, trailing space is important.
-		} elseif ( $asset->defer  ) {
+		} elseif ( $asset->defer ) {
 			$replacement .= 'defer '; // Again, trailing space is important.
 		}
 
@@ -629,44 +629,31 @@ class Tribe__Assets {
 
 		// Default variables to prevent notices.
 		$defaults = [
-			'slug'          => null,
-			'file'          => false,
-			'url'           => false,
-			'action'        => null,
-			'priority'      => 10,
-			'type'          => null,
-			'deps'          => [],
-			'groups'        => [],
-			'version'       => $version,
-			'media'         => 'all',
-
-			'print'         => false,
-
-			'async'         => false,
-			'defer'         => false,
-			'module'        => false,
-
-			// Print before and after.
-			'print_before'  => null,
-			'print_after'  => null,
-
-			'in_footer'     => true,
-			'strategy'      => '',
-			'is_registered' => false,
-
-			// Origin related params
-			'origin_path'   => null,
-			'origin_url'    => null,
-			'origin_name'   => null,
-
-			// Bigger Variables at the end.
-			'localize'      => [],
-			'conditionals'  => [],
-
-			// Used to handle Translations handled in the JavaScript side of the Assets.
-			'translations'  => [],
-
-			// Execute after the asset is enqueued.
+			'slug'             => null,
+			'file'             => false,
+			'url'              => false,
+			'action'           => null,
+			'priority'         => 10,
+			'type'             => null,
+			'deps'             => [],
+			'groups'           => [],
+			'version'          => $version,
+			'media'            => 'all',
+			'print'            => false,
+			'async'            => false,
+			'defer'            => false,
+			'module'           => false,
+			'print_before'     => null,
+			'print_after'      => null,
+			'in_footer'        => true,
+			'strategy'         => '',
+			'is_registered'    => false,
+			'origin_path'      => null,
+			'origin_url'       => null,
+			'origin_name'      => null,
+			'localize'         => [],
+			'conditionals'     => [],
+			'translations'     => [],
 			'after_enqueue'    => null,
 			'already_enqueued' => false,
 			'already_printed'  => false,
@@ -728,7 +715,7 @@ class Tribe__Assets {
 
 			// if `in_footer` is set to boolean true, add it to the `in_footer` array. i.e. [ 'strategy' => `async`, 'in_footer' => true ].
 			if ( (bool) $asset->in_footer ) {
-				$asset->in_footer[ 'in_footer' ] = (bool) $asset->in_footer;
+				$asset->in_footer['in_footer'] = (bool) $asset->in_footer;
 			}
 		}
 
