@@ -723,12 +723,10 @@ class Tribe__Assets {
 		if (
 			version_compare( strtok( $wp_version, '-' ), '6.3', '<' )
 			&& ! empty( $asset->strategy ) ) {
-			// if the strategy is set, put it in `in_footer` as an array. i.e. [ 'strategy' => `defer` ]
-			$asset->in_footer = [
-				'strategy' => $asset->strategy
-			];
+			// if the strategy is set, put it in `in_footer` as an array. i.e. [ 'strategy' => `defer` ].
+			$asset->in_footer = [ 'strategy' => $asset->strategy ];
 
-			// if `in_footer` is set to boolean true, add it to the `in_footer` array. i.e. [ 'strategy' => `async`, 'in_footer' => true ]
+			// if `in_footer` is set to boolean true, add it to the `in_footer` array. i.e. [ 'strategy' => `async`, 'in_footer' => true ].
 			if ( (bool) $asset->in_footer ) {
 				$asset->in_footer[ 'in_footer' ] = (bool) $asset->in_footer;
 			}
