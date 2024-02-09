@@ -566,7 +566,6 @@ class Tribe__Assets {
 	 * Register an Asset and attach a callback to the required action to display it correctly.
 	 *
 	 * @since 4.3
-	 * @since 5.2 The `$strategy` parameter was added to accept a string, adapting to the change in WordPress core `in_footer`.
 	 *
 	 * @param object            $origin    The main object for the plugin you are enqueueing the asset for.
 	 * @param string            $slug      Slug to save the asset - passes through `sanitize_title_with_dashes()`.
@@ -704,11 +703,9 @@ class Tribe__Assets {
 		// Clean these
 		$asset->priority  = absint( $asset->priority );
 		$asset->media     = esc_attr( $asset->media );
-		$asset->in_footer = (bool) $asset->in_footer; // default, for backwards compatibility.
 
 		// Since WordPress 6.3, the `in_footer` parameter accepts an array argument.
-		if ( version_compare( strtok( $wp_version, '-' ), '6.3', '<' )  ) {
-
+		if ( version_compare( strtok( $wp_version, '-' ), '6.3', '>=' )  ) {
 			// if `in_footer` is set to boolean true, add it to the `in_footer` array. i.e. [ 'in_footer' => true ].
 			if ( (bool) $asset->in_footer ) {
 				$asset->in_footer['in_footer'] = (bool) $asset->in_footer;
@@ -718,9 +715,10 @@ class Tribe__Assets {
 			if ( ( ! empty( $asset->async ) || ! empty( $asset->defer ) ) ) {
 				$strategy = $asset->async ? 'async' : 'defer';
 
-
-				$asset->in_footer = [ 'strategy' => $strategy ];
+				$asset->in_footer['strategy'] = $strategy ;
 			}
+		} else {
+			$asset->in_footer = (bool) $asset->in_footer; // Default, for backwards compatibility.
 		}
 
 		// Ensures that we have a priority over 1.
