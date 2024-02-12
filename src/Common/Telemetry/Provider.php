@@ -174,6 +174,8 @@ class Provider extends Service_Provider {
 	 *
 	 * @since 5.1.0
 	 *
+	 * @param string $slug The slug of the plugin to show the opt-in modal for.
+	 *
 	 * @return void
 	 */
 	public function show_optin_modal( $slug ) {
@@ -187,6 +189,7 @@ class Provider extends Service_Provider {
 	 * @deprecated TBD Use the slug-specific filters instead.
 	 *
 	 * @param array<string|mixed> $args The current optin modal args.
+	 * @param string|null         $slug The slug of the plugin to show the opt-in modal for.
 	 *
 	 * @return array<string|mixed>
 	 */
