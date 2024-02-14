@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [5.2.3] TBD =
+
+* Tweak - Refactor JS logic to prevent ticketing of recurring events. [ET-1936]
+* Fix - Better clean up of global space in Controller test case. [ET-1936]
+
 = [5.2.1] 2024-01-24 =
 
 * Feature - Add the `get_country_based_on_code` method to the `Tribe__Languages__Locations` class. [EA-469]
