@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.2.3] TBD =
+= [5.2.3]  TBD =
 
 * Tweak - Refactor JS logic to prevent ticketing of recurring events. [ET-1936]
 * Fix - Better clean up of global space in Controller test case. [ET-1936]
