@@ -1,8 +1,8 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [5.2.2] 2024-02-19 =
 
-* Tweak - Added timezone param to our date utility function `Date_Utils::reformat`. [BTRIA-2231]
+* Tweak - Added timezone param to our date utility function `Date_Utils::reformat`. [TEC-5042]
 
 = [5.2.1] 2024-01-24 =
 
