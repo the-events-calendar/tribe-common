@@ -3,6 +3,7 @@
 = [5.2.2] 2024-02-19 =
 
 * Tweak - Added timezone param to our date utility function `Date_Utils::reformat`. [TEC-5042]
+* Language - 1 new strings added, 4 updated, 6 fuzzied, and 0 obsoleted
 
 = [5.2.1] 2024-01-24 =
 
@@ -14,6 +15,7 @@
 * Tweak - Improve the notice dismissal logic with more modern JavaScript and PHP.
 * Tweak - Added filters: `tec_dialog_id`, `tribe_repository_{$this->filter_name}_before_delete`
 * Language - 0 new strings added, 20 updated, 4 fuzzied, and 0 obsoleted
+
 
 = [5.2.0] 2024-01-22 =
 
