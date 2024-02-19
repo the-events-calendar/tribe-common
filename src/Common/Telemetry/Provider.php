@@ -186,7 +186,7 @@ class Provider extends Service_Provider {
 	 * Filters the default opt-in modal args.
 	 *
 	 * @since 5.1.0
-	 * @deprecated TBD Use the slug-specific filters instead.
+	 * @deprecated 5.2.2 Use the slug-specific filters instead.
 	 *
 	 * @param array<string|mixed> $args The current optin modal args.
 	 * @param string|null         $slug The slug of the plugin to show the opt-in modal for.
@@ -200,7 +200,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Filters the TEC opt-in modal args, passing the correct slug.
 	 *
-	 * @since TBD
+	 * @since 5.2.2
 	 *
 	 * @param array<string|mixed> $args The current optin modal args.
 	 *
@@ -213,7 +213,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Filters the ET opt-in modal args, passing the correct slug.
 	 *
-	 * @since TBD
+	 * @since 5.2.2
 	 *
 	 * @param array<string|mixed> $args The current optin modal args.
 	 *
