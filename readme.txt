@@ -21,7 +21,6 @@
 * Tweak - Added filters: `tec_dialog_id`, `tribe_repository_{$this->filter_name}_before_delete`
 * Language - 0 new strings added, 20 updated, 4 fuzzied, and 0 obsoleted
 
-
 = [5.2.0] 2024-01-22 =
 
 * Feature - Add the `Tribe__Repository::first_id` method to fetch the first ID of a query. [ET-1490]

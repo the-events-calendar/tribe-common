@@ -463,7 +463,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * the specified format, returning an empty string if this is not possible.
 		 *
 		 * @since 5.1.5 Make use of `wp_date` for i18n.
-		 * @since TBD Adding timezone param.
+		 * @since 5.2.2 Adding timezone param.
 		 *
 		 * @param string|int  $dt_string  The date or timestamp to be converted.
 		 * @param string      $new_format The date format to convert to.
