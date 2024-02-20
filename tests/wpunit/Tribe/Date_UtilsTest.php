@@ -234,6 +234,9 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 			[ 'tomorrow 9am', 'Y-m-d' ],
 			[ 'tomorrow 9am', 'H:i:s' ],
 			[ 'tomorrow 9am', 'Y-m-d H:i:s' ],
+			[ 'tomorrow 9am', false ],
+			[ 'tomorrow 9am', null ],
+			[ 'tomorrow 9am', 0 ],
 		];
 	}
 
@@ -250,6 +253,25 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $date->format( 'U' ), Date_Utils::reformat( $input, 'U' ) );
 		$this->assertEquals( $date->format( $format ), Date_Utils::reformat( $date->format( 'U' ), $format ) );
 		$this->assertEquals( $date->format( 'U' ), Date_Utils::reformat( $date->format( 'U' ), 'U' ) );
+	}
+
+	/**
+	 * Test reformat w/ timezone.
+	 *
+	 * @test
+	 * @dataProvider reformat_inputs
+	 */
+	public function test_reformat_with_timezone( $input, $format ) {
+		$tz   = new DateTimeZone( 'America/New_York' );
+		$date = new DateTime( $input, $tz );
+
+		$this->assertEquals( $date->format( $format ), Date_Utils::reformat( $input, $format, $tz->getName() ) );
+		$this->assertEquals( $date->format( 'U' ), Date_Utils::reformat( $input, 'U', $tz->getName() ) );
+
+		// Defaults to wp_timezone
+		$date = new DateTime( $input, wp_timezone() );
+		$this->assertEquals( $date->format( $format ), Date_Utils::reformat( $input, $format ) );
+		$this->assertEquals( $date->format( 'U' ), Date_Utils::reformat( $input, 'U' ) );
 	}
 
 	public function build_date_object_empty_data_set() {
