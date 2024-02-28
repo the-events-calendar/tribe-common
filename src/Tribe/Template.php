@@ -805,8 +805,9 @@ class Tribe__Template {
 			return false;
 		}
 
-		// Key we'll use for in-memory caching of expensive operations.
-		$cache_name_key = is_array( $name ) ? implode( '/', $name ) : $name;
+		// Key we'll use for memoizing of expensive operations.
+		$key            = implode( '/', $this->folder );
+		$cache_name_key = $key . ( is_array( $name ) ? implode( '/', $name ) : $name );
 
 		// Cache template name massaging so we don't have to repeat these actions.
 		if ( ! isset( $template_names[ $cache_name_key ] ) ) {
