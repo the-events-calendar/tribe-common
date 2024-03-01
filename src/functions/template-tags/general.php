@@ -19,8 +19,8 @@ if ( ! function_exists( 'tribe_get_option' ) ) {
 	 * Retrieve specific key from options array, optionally provide a default return value
 	 *
 	 * @category Events
-	 * @param string $optionName Name of the option to retrieve.
-	 * @param string $default    Value to return if no such option is found.
+	 * @param string      $optionName Name of the option to retrieve.
+	 * @param bool|string $default    Value to return if no such option is found.
 	 *
 	 * @return mixed Value of the option if found.
 	 * @todo Abstract this function out of template tags or otherwise secure it from other namespace conflicts.
