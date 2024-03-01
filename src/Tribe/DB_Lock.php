@@ -1,6 +1,6 @@
 <?php
 /**
- * Manages database locks using MySQL fucntions or queries.
+ * Manages database locks using MySQL functions or queries.
  *
  * The MySQL functions used by this class are `GET_LOCK`, `IS_FREE_LOCK` and `RELEASE_LOCK`.
  * The functions are part of MySQL 5.6 and in line with WordPress minimum requirement of MySQL version (5.6).

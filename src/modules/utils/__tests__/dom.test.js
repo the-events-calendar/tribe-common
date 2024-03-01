@@ -23,7 +23,7 @@ describe( 'Tests for dom.js', () => {
 			expect( hasClass( window.document.body, [ 'eight' ] ) ).toBe( false );
 		} );
 
-		it( 'Should return true whe the dom element has any of the classes', () => {
+		it( 'Should return true when the dom element has any of the classes', () => {
 			expect( hasClass( window.document.body, [ 'one', 'two' ] ) ).toBe( true );
 			expect( hasClass( window.document.body, [ 'two', 'one' ] ) ).toBe( true );
 			expect( hasClass( window.document.body, [ 'four', 'two' ] ) ).toBe( true );

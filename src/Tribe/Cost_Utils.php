@@ -48,7 +48,7 @@ class Tribe__Cost_Utils {
 	}
 
 	/**
-	 * Returns the regular expression that shold be used to  identify a valid
+	 * Returns the regular expression that should be used to identify a valid
 	 * cost string.
 	 *
 	 * @return string
@@ -188,11 +188,11 @@ class Tribe__Cost_Utils {
 				$matches[0]
 			);
 
-		$numeric_orignal_costs                  = empty( $matches[0] ) ? $matches[0] : array_map(
+		$numeric_original_costs                  = empty( $matches[0] ) ? $matches[0] : array_map(
 			'floatval', $matches[0]
 		);
 
-		$all_numeric_costs = array_filter( array_merge( $numeric_merging_cost_costs, $numeric_orignal_costs ) );
+		$all_numeric_costs = array_filter( array_merge( $numeric_merging_cost_costs, $numeric_original_costs ) );
 		$cost_min          = $cost_max = false;
 
 		$merging_mins     = array_intersect( $sorted_mins, (array) $merging_cost );

@@ -173,7 +173,7 @@ class ArrayTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected, \Tribe__Utils__Array::parse_associative_array_alias( $original, $alias_map ) );
 	}
 
-	public function key_fitering_data_provider() {
+	public function key_filtering_data_provider() {
 		return [
 			'empty array'                                  => [
 				'input'                => [],
@@ -235,7 +235,7 @@ class ArrayTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @dataProvider key_fitering_data_provider
+	 * @dataProvider key_filtering_data_provider
 	 */
 	public function test_key_filtering( $input, $expected_numeric,$expected_associative ) {
 		$this->assertEquals( $expected_numeric, Arr::remove_string_keys_recursive( $input ) );

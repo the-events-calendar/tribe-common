@@ -90,7 +90,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 *
 	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
 	 */
-	public static function because_udpate_key_should_be_a_string( $object ) {
+	public static function because_update_key_should_be_a_string( $object ) {
 		return self::because_update_key_should_be_a_string( $object );
 	}
 

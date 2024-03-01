@@ -181,8 +181,8 @@ class Package_HandlerTest extends \Codeception\TestCase\WPTestCase {
 		$filtered = $sut->filter_upgrader_pre_download( false, $package, $upgrader );
 
 		$expected_dir           = dirname( $real_temp_file_name );
-		$expected_file_exension = pathinfo( $real_temp_file_name, PATHINFO_EXTENSION );
-		$expected_file_basename = substr( md5( $real_temp_file_name ), 0, 5 ) . '.' . $expected_file_exension;
+		$expected_file_extension = pathinfo( $real_temp_file_name, PATHINFO_EXTENSION );
+		$expected_file_basename = substr( md5( $real_temp_file_name ), 0, 5 ) . '.' . $expected_file_extension;
 		$expected_filename      = $expected_dir . '/' . $expected_file_basename;
 		$this->assertEquals( $expected_filename, $destination_file );
 		$this->assertEquals( $destination_file, $filtered );

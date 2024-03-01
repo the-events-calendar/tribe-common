@@ -46,12 +46,12 @@ export const formatTime = ( time, format ) => {
 			showHr = true;
 			break;
 		case TIME_FORMAT_HH_MM_SS:
-			showMs = ! ! time.miliseconds;
+			showMs = ! ! time.milliseconds;
 			showSc = true;
 			showHr = true;
 			break;
 		case TIME_FORMAT_HH_MM:
-			showMs = ! ! time.miliseconds;
+			showMs = ! ! time.milliseconds;
 			showSc = showMs || ! ! time.seconds;
 			showHr = true;
 			break;
@@ -61,7 +61,7 @@ export const formatTime = ( time, format ) => {
 			showHr = ! ! time.hours;
 			break;
 		case TIME_FORMAT_MM_SS:
-			showMs = ! ! time.miliseconds;
+			showMs = ! ! time.milliseconds;
 			showSc = true;
 			showHr = ! ! time.hours;
 			break;
@@ -73,7 +73,7 @@ export const formatTime = ( time, format ) => {
 	const hh = zeroFill( 2, time.hours );
 	const mm = zeroFill( 2, time.minutes );
 	const ss = zeroFill( 2, time.seconds );
-	const sss = zeroFill( 3, time.miliseconds );
+	const sss = zeroFill( 3, time.milliseconds );
 
 	let formattedTime = time.negative ? '-' : '';
 	formattedTime += showHr ? `${ hh }:` : '';
@@ -118,7 +118,7 @@ export const toMilliseconds = ( time, format = TIME_FORMAT_MM_SS ) => {
 	const hours = result[ 2 ] | 0;
 	const minutes = result[ 3 ] | 0;
 	const seconds = result[ 4 ] | 0;
-	const miliseconds = Math.floor( 1000 * result[ 5 ] | 0 );
+	const milliseconds = Math.floor( 1000 * result[ 5 ] | 0 );
 
 	if ( minutes >= 60 || seconds >= 60 ) {
 		/* eslint-disable-next-line max-len */
@@ -129,7 +129,7 @@ export const toMilliseconds = ( time, format = TIME_FORMAT_MM_SS ) => {
 		hours * HOUR_IN_MS +
 		minutes * MINUTE_IN_MS +
 		seconds * SECOND_IN_MS +
-		miliseconds
+		milliseconds
 	);
 };
 
@@ -152,14 +152,14 @@ export const fromMilliseconds = ( ms, format = TIME_FORMAT_MM_SS ) => {
 	const hours = Math.floor( absMs / HOUR_IN_MS );
 	const minutes = Math.floor( absMs % HOUR_IN_MS / MINUTE_IN_MS );
 	const seconds = Math.floor( absMs % MINUTE_IN_MS / SECOND_IN_MS );
-	const miliseconds = Math.floor( absMs % SECOND_IN_MS );
+	const milliseconds = Math.floor( absMs % SECOND_IN_MS );
 
 	return formatTime( {
 		negative,
 		hours,
 		minutes,
 		seconds,
-		miliseconds,
+		milliseconds,
 	}, format );
 };
 

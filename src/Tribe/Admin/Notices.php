@@ -417,7 +417,7 @@ class Tribe__Admin__Notices {
 	 *
 	 * @return boolean
 	 */
-	public function has_user_dimissed( $slug, $user_id = null ) {
+	public function has_user_dismissed( $slug, $user_id = null ) {
 		return $this->has_user_dismissed( $slug, $user_id );
 	}
 

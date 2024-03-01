@@ -85,9 +85,9 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 		$current_version = Tribe__Main::VERSION;
 		$updater         = new Tribe__Updater( $current_version );
 
-		$contant_updates = $updater->get_constant_update_callbacks();
-		foreach ( $contant_updates as $contant_update_callable ) {
-			$this->assertTrue( is_callable( $contant_update_callable ), 'checking constant update function is callable' );
+		$contsant_updates = $updater->get_constant_update_callbacks();
+		foreach ( $constant_updates as $constant_update_callable ) {
+			$this->assertTrue( is_callable( $constant_update_callable ), 'checking constant update function is callable' );
 		}
 	}
 

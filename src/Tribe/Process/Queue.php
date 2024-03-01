@@ -300,7 +300,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	}
 
 	/**
-	 * Upates the queue and meta data for the process.
+	 * Updates the queue and meta data for the process.
 	 *
 	 * @since 4.7.12
 	 * @since 4.9.5 Pulled method from the `WP_Background_Process` class.

@@ -1,7 +1,7 @@
 # Monolog-based logging
 
 We've introduced a [Monolog based](https://github.com/Seldaek/monolog) logger in our common libraries.
-You can find more information about all the possibilities this opens [on the library documentaion](https://seldaek.github.io/monolog/), but this document will serve as an introduction to the essentials of its day to day use.
+You can find more information about all the possibilities this opens [on the library documentation](https://seldaek.github.io/monolog/), but this document will serve as an introduction to the essentials of its day to day use.
 
 ## When should I log?
 
@@ -35,7 +35,7 @@ The Monolog-based logger will handle logging coming from the legacy logger only 
 add_filter( 'tribe_log_use_action_logger', '__return_true' );
  ```
 
-Once this is in your code any call to the legacy logger wil be redirected to the new one.
+Once this is in your code any call to the legacy logger will be redirected to the new one.
 
 ## Using the logger
 

@@ -590,9 +590,9 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 
 		 $cache = $this->make_instance();
 
-		 $this->assertTrue( $cache->set_chunkable_transient( '__test___retrival__from__cache', $value, DAY_IN_SECONDS, [ 'save_post' ] ) );
+		 $this->assertTrue( $cache->set_chunkable_transient( '__test___retrieval__from__cache', $value, DAY_IN_SECONDS, [ 'save_post' ] ) );
 
 		 // The value from the cache should be the same that was stored.
-		 $this->assertSame( $value, $cache->get_chunkable_transient( '__test___retrival__from__cache', [ 'save_post' ] ) );
+		 $this->assertSame( $value, $cache->get_chunkable_transient( '__test___retrieval__from__cache', [ 'save_post' ] ) );
 	 }
 }

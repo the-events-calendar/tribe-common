@@ -81,7 +81,7 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 		}
 
 		/**
-		 * Get the i18ned states available to the plugin.
+		 * Get the i18n-d states available to the plugin.
 		 *
 		 * @return array The states array.
 		 */
@@ -272,7 +272,7 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 		}
 
 		/**
-		 * Builds a set of options for diplaying a meridian chooser
+		 * Builds a set of options for displaying a meridian chooser
 		 *
 		 * @param string $date YYYY-MM-DD HH:MM:SS to select (optional)
 		 * @param bool   $isStart

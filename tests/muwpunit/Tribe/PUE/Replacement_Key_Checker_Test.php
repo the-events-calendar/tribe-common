@@ -117,7 +117,7 @@ class Replacement_Key_Checker_Test extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should set not previosly set network key to validated key when replacement key not provided
+	 * It should set not previously set network key to validated key when replacement key not provided
 	 *
 	 * @test
 	 */

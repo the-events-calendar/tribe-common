@@ -293,7 +293,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Install the hooks required to run periodic update checks and inject update info
 		 * into WP data structures.
-		 * Also other hooks related to the automatic updates (such as checking agains API and what not (@from Darren)
+		 * Also other hooks related to the automatic updates (such as checking against API and what not (@from Darren)
 		 */
 		public function hooks() {
 			// Override requests for plugin information.
@@ -644,7 +644,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'parent_option'   => false,
 					'network_option'  => false,
 				];
-			} elseif ( $this->should_show_overrideable_license() ) {
+			} elseif ( $this->should_show_overridable_license() ) {
 				$to_insert[ $this->pue_install_key . '-state' ] = [
 					'type'             => 'html',
 					'label'            => sprintf( esc_attr__( 'License Key Status:', 'tribe-common' ) ),
@@ -1938,7 +1938,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function should_show_overrideable_license() {
+		public function should_show_overridable_license() {
 			if ( is_network_admin() ) {
 				return false;
 			}

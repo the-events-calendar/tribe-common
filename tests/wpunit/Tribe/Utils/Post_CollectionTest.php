@@ -81,7 +81,7 @@ class Post_CollectionTest extends \Codeception\TestCase\WPTestCase {
 		$posts[] = static::factory()->post->create();
 		$posts[] = static::factory()->post->create();
 		$posts[] = static::factory()->post->create();
-		// The `tax_input` creation argument works in tricky ways, avoid it completely and use explict assignment.
+		// The `tax_input` creation argument works in tricky ways, avoid it completely and use explicit assignment.
 		foreach ( $posts as $id ) {
 			foreach (
 				[
@@ -122,7 +122,7 @@ class Post_CollectionTest extends \Codeception\TestCase\WPTestCase {
 		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 1' ] );
 		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 2' ] );
 		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 3' ] );
-		// The `tax_input` creation argument works in tricky ways, avoid it completely and use explict assignment.
+		// The `tax_input` creation argument works in tricky ways, avoid it completely and use explicit assignment.
 		foreach ( $posts as $id ) {
 			foreach (
 				[

@@ -550,7 +550,7 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
-	 * Returns a transient that might have been stored, due ot its size, in chunks.
+	 * Returns a transient that might have been stored, due to its size, in chunks.
 	 *
 	 * @since 4.13.3
 	 *

@@ -38,7 +38,7 @@ class Tribe__Utils__Post_Root_Pool {
 	public function generate_unique_root( WP_Post $post ) {
 		$post_name = $post->post_name;
 
-		// A lot fo these get urlencoded, so let's try to fix that first
+		// A lot of these get urlencoded, so let's try to fix that first
 		$post_name = tribe_maybe_urldecode( $post_name );
 
 		$this->current_post = $post;

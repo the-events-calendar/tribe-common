@@ -6,7 +6,7 @@
  */
 
 /** @var Tribe__Tabbed_View__Tab[] $tabs */
-$tabs = $view->get_visibles();
+$tabs = $view->get_visible();
 ?>
 
 <?php if ( count( $tabs ) > 1 ) : ?>

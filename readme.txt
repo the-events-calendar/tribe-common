@@ -494,7 +494,7 @@
 * Feature - Add new custom Customizer controls - Number, Range Slider, Toggle. [TEC-3897]
 * Tweak - Added a `tribe_post_id` filter to `post_id_helper` in the Main class.
 * Tweak - Alter Customizer and Section objects to be more versatile. [TCMN-104]
-* Tweak - Split pcss variable imports so we only import hte necessary variables for skeleton, and don't import more than once. [TCMN-104]
+* Tweak - Split pcss variable imports so we only import the necessary variables for skeleton, and don't import more than once. [TCMN-104]
 * Tweak - added new `get_hex_with_hash` function to Tribe/Utils/Color.php to reduce need for manual string concatenation. [TCMN-104]
 * Language - 0 new strings added, 50 updated, 1 fuzzied, and 0 obsoleted
 
@@ -605,7 +605,7 @@
 = [4.12.15] 2020-12-15 =
 
 * Tweak - Add the `tribe_customizer_print_styles_action` to allow filtering the action the Customizer will use to print inline styles. [TEC-3686]
-* Tweak - Allow disabling and enabling logging functionality by calling hte `tribe( 'log' )->disable()` and `tribe( 'log' )->enable()` methods on the Log service provider.
+* Tweak - Allow disabling and enabling logging functionality by calling the `tribe( 'log' )->disable()` and `tribe( 'log' )->enable()` methods on the Log service provider.
 * Tweak - Update di52 containers to latest version for compatibility with WPStaging Pro. [TCMN-136]
 * Language - 0 new strings added, 9 updated, 1 fuzzied, and 0 obsoleted
 

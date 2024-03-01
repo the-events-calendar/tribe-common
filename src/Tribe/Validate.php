@@ -101,8 +101,8 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				} else {
 					// invalid validation type set, validation fails
 					$this->result->valid = false;
-					$this->result->error = esc_html__( 'Non-existant field validation function passed', 'tribe-common' );
-					$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . esc_html__( 'Field ID:', 'tribe-common' ) . ' ' . $this->field['id'] . ' ' . _x( 'with function name:', 'non-existant function name passed for field validation', 'tribe-common' ) . ' ' . $this->field['validation_type'] . ' )' : '';
+					$this->result->error = esc_html__( 'Non-existent field validation function passed', 'tribe-common' );
+					$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . esc_html__( 'Field ID:', 'tribe-common' ) . ' ' . $this->field['id'] . ' ' . _x( 'with function name:', 'non-existent function name passed for field validation', 'tribe-common' ) . ' ' . $this->field['validation_type'] . ' )' : '';
 				}
 			}
 		}
@@ -157,7 +157,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must contain numbers, letters, dashes and undescores only', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must contain numbers, letters, dashes and underscores only', 'tribe-common' ), $this->label );
 			}
 		}
 

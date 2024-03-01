@@ -122,7 +122,7 @@ class Tribe__Tracker {
 	}
 
 	/**
-	 * Easy way to see currenlty which meta values are been tracked by our code
+	 * Easy way to see currently which meta values are been tracked by our code
 	 *
 	 * @return array
 	 */

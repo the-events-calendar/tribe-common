@@ -77,7 +77,7 @@ class Compatibility_Classes {
 
 	/**
 	 * Checks if a class is in the queue,
-	 * wether it's going to be added or not.
+	 * whether it's going to be added or not.
 	 *
 	 * @since 4.14.0
 	 *

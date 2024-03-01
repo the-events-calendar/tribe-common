@@ -35,7 +35,7 @@ class Tribe__Simple_Table {
 	/**
 	 * Tribe__Simple_Table constructor.
 	 *
-	 * @param array $tbody Multidimension array containing table rows/columns
+	 * @param array $tbody Multidimensional array containing table rows/columns
 	 * @param array $thead Single dimension array containing table headings
 	 */
 	public function __construct( $tbody, $thead = [] ) {

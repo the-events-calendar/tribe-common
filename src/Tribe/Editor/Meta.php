@@ -151,7 +151,7 @@ abstract class Tribe__Editor__Meta
 	 *
 	 * @since 4.8
 	 *
-	 * @param  mixed $value Check agains this value
+	 * @param  mixed $value Check against this value
 	 *
 	 * @return array|bool|int
 	 */

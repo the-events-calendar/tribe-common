@@ -438,7 +438,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		/**
 		 * Applies a filter to a widget's admin fields based on the widget slug of the widget.
 		 *
-		 * @since TBE
+		 * @since 4.12.14
 		 *
 		 * @param array<string,mixed> $admin_fields The array of widget admin fields.
 		 * @param static              $instance     The widget instance we are dealing with.

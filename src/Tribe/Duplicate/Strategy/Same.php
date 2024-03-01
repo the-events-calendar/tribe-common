@@ -3,7 +3,7 @@
 /**
  * Class Tribe__Duplicate__Strategy__Same
  *
- * Models a close matching strategy; rougly a `==` equivalent.
+ * Models a close matching strategy; roughly a `==` equivalent.
  *
  * @since 4.6
  */
