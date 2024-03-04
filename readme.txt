@@ -4,6 +4,16 @@
 
 * Feature - Adding support for the `defer` strategy on script tags added in WordPress 6.3. [TECENG-48]
 
+= [5.2.3] 2024-02-19 =
+
+* Tweak - Refactor JS logic to prevent ticketing of recurring events. [ET-1936]
+* Fix - Better clean up of global space in Controller test case. [ET-1936]
+
+= [5.2.2] 2024-02-19 =
+
+* Tweak - Added timezone param to our date utility function `Date_Utils::reformat`. [TEC-5042]
+* Language - 1 new strings added, 4 updated, 6 fuzzied, and 0 obsoleted
+
 = [5.2.1] 2024-01-24 =
 
 * Feature - Add the `get_country_based_on_code` method to the `Tribe__Languages__Locations` class. [EA-469]

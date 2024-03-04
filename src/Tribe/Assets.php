@@ -36,12 +36,13 @@ class Tribe__Assets {
 	 * @since 4.3
 	 */
 	public function __construct() {
+		global $wp_version;
 		// Hook the actual registering of.
 		add_action( 'init', [ $this, 'register_in_wp' ], 1, 0 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_stellar_wp_fonts' ] );
 
 		// From WordPress 6.3 leverage the Script API strategy feature to add defer/async.
-		if ( version_compare( strtok( get_bloginfo( 'version' ), '-' ), '6.3', '<' ) ) {
+		if ( version_compare( strtok( $wp_version, '-' ), '6.3', '<' ) ) {
 			add_filter( 'script_loader_tag', [ $this, 'filter_tag_async_defer' ], 50, 2 );
 		}
 		add_filter( 'script_loader_tag', [ $this, 'filter_modify_to_module' ], 250, 2 );
