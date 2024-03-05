@@ -253,7 +253,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return string The date only in DB format.
 		 */
 		public static function date_only( $date, $isTimestamp = false, $format = null ) {
-			$date = $isTimestamp ? $date : strtotime( $date );
+			$date = $isTimestamp ? $date : strtotime( $date ?? 'now' );
 
 			if ( is_null( $format ) ) {
 				$format = self::DBDATEFORMAT;
