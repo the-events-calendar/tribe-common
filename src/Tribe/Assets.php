@@ -564,6 +564,37 @@ class Tribe__Assets {
 	}
 
 	/**
+	 * Infer `strategy` and `in_footer` params to be set for the script registration and return the mutated object.
+	 *
+	 * @since TBD
+	 *
+	 * @param stdClass $asset The Asset object to be mutated.
+	 *
+	 * @return stdClass The mutated Asset object.
+	 */
+	public static function setup_in_footer_param( stdClass $asset ): stdClass {
+		global $wp_version;
+		// Since WordPress 6.3, the `in_footer` parameter accepts an array argument.
+		if ( version_compare( strtok( $wp_version, '-' ), '6.3', '>=' ) ) {
+			// if `in_footer` is set to boolean true, add it to the `in_footer` array. i.e. [ 'in_footer' => true ].
+			if ( is_bool( $asset->in_footer ) ) {
+				$asset->in_footer = [ 'in_footer' => $asset->in_footer ];
+			}
+
+			// if the strategy is set, add it to the `in_footer` array. i.e. [ 'strategy' => `defer` ].
+			if ( ( ! empty( $asset->async ) || ! empty( $asset->defer ) ) ) {
+				$strategy = $asset->async ? 'async' : 'defer';
+
+				$asset->in_footer['strategy'] = $strategy;
+			}
+		} else {
+			$asset->in_footer = (bool) $asset->in_footer; // Default, for backwards compatibility.
+		}
+
+		return $asset;
+	}
+
+	/**
 	 * Register an Asset and attach a callback to the required action to display it correctly.
 	 *
 	 * @since 4.3
@@ -599,7 +630,6 @@ class Tribe__Assets {
 	 * @return object|false The registered object or false on error.
 	 */
 	public function register( $origin, $slug, $file, $deps = [], $action = null, $arguments = [] ) {
-		global $wp_version;
 		// Prevent weird stuff here.
 		$slug = sanitize_key( $slug );
 
@@ -705,22 +735,7 @@ class Tribe__Assets {
 		$asset->priority  = absint( $asset->priority );
 		$asset->media     = esc_attr( $asset->media );
 
-		// Since WordPress 6.3, the `in_footer` parameter accepts an array argument.
-		if ( version_compare( strtok( $wp_version, '-' ), '6.3', '>=' ) ) {
-			// if `in_footer` is set to boolean true, add it to the `in_footer` array. i.e. [ 'in_footer' => true ].
-			if ( is_bool( $asset->in_footer ) ) {
-				$asset->in_footer = [ 'in_footer' => $asset->in_footer ];
-			}
-
-			// if the strategy is set, add it to the `in_footer` array. i.e. [ 'strategy' => `defer` ].
-			if ( ( ! empty( $asset->async ) || ! empty( $asset->defer ) ) ) {
-				$strategy = $asset->async ? 'async' : 'defer';
-
-				$asset->in_footer['strategy'] = $strategy;
-			}
-		} else {
-			$asset->in_footer = (bool) $asset->in_footer; // Default, for backwards compatibility.
-		}
+		$asset = self::setup_in_footer_param( $asset );
 
 		// Ensures that we have a priority over 1.
 		if ( $asset->priority < 1 ) {
