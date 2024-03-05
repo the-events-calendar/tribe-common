@@ -247,8 +247,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * Returns the date only.
 		 *
 		 * @param int|string  $date         The date (timestamp or string).
-		 * @param bool        $is_timestamp Is $date in timestamp format?
-		 * @param string|null $format       The format used
+		 * @param bool        $is_timestamp Whether or not $date is in timestamp format.
+		 * @param string|null $format       The format used.
 		 *
 		 * @return string The date only in DB format.
 		 */
