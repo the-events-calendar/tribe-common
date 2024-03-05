@@ -708,8 +708,8 @@ class Tribe__Assets {
 		// Since WordPress 6.3, the `in_footer` parameter accepts an array argument.
 		if ( version_compare( strtok( $wp_version, '-' ), '6.3', '>=' ) ) {
 			// if `in_footer` is set to boolean true, add it to the `in_footer` array. i.e. [ 'in_footer' => true ].
-			if ( (bool) $asset->in_footer ) {
-				$asset->in_footer['in_footer'] = (bool) $asset->in_footer;
+			if ( is_bool( $asset->in_footer ) ) {
+				$asset->in_footer = [ 'in_footer' => $asset->in_footer ];
 			}
 
 			// if the strategy is set, add it to the `in_footer` array. i.e. [ 'strategy' => `defer` ].
