@@ -1,10 +1,73 @@
 <?php
+
 namespace Tribe;
 
 use Tribe__Assets as Assets;
 use Tribe__Main as Plugin;
 
 class AssetsTest extends \Codeception\TestCase\WPTestCase {
+
+	public function in_footer_data_provider() {
+		return [
+			'async=true, in_footer=true'              => [
+				(object) [
+					'async'     => true,
+					'in_footer' => [
+						'strategy'  => 'async',
+						'in_footer' => false,
+					],
+
+				],
+				(object) [
+					'async'     => true,
+					'in_footer' => false,
+				],
+			],
+			'defer=true, async=false, in_footer=true' => [
+				(object) [
+					'async'     => false,
+					'defer'     => true,
+					'in_footer' => [
+						'strategy'  => 'defer',
+						'in_footer' => true,
+					],
+				],
+				(object) [
+					'async'     => false,
+					'defer'     => true,
+					'in_footer' => true,
+				],
+			],
+			'in_footer=true'                          => [
+				(object) [
+					'in_footer' => [
+						'in_footer' => true,
+					],
+				],
+				(object) [
+					'in_footer' => true,
+				],
+			],
+		];
+	}
+
+	/**
+	 * @param $expected
+	 * @param $obj
+	 *
+	 * @dataProvider in_footer_data_provider
+	 * @test
+	 */
+	public function test_in_footer_setup( $expected, $obj ) {
+
+		$obj = Assets::setup_in_footer_param( $obj );
+		$this->assertEquals( $expected, $obj );
+
+		// Should be idempotent.
+		$obj = Assets::setup_in_footer_param( $obj );
+		$this->assertEquals( $expected, $obj );
+	}
+
 	/**
 	 * @test
 	 *
@@ -12,32 +75,25 @@ class AssetsTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function it_should_have_translations() {
 		$locale = 'en';
-		add_filter( 'pre_determine_locale', static function() use ( $locale ) {
+		add_filter( 'pre_determine_locale', static function () use ( $locale ) {
 			return $locale;
 		} );
 
-		$expected_msgid = 'Translations MSGID';
+		$expected_msgid  = 'Translations MSGID';
 		$expected_msgstr = 'Translations MSGID';
-		$domain = 'tribe-common';
+		$domain          = 'tribe-common';
 
 		$plugin = Plugin::instance();
 		$assets = new Assets;
 
 		$asset_slug = 'test-script';
 
-		$assets->register(
-			$plugin,
-			$asset_slug,
-			codecept_data_dir( 'resources/test-script-1.js' ),
-			[],
-			null,
-			[
-				'translations' => [
-					'domain' => $domain,
-					'path'   => codecept_data_dir( 'lang/' ),
-				]
-			]
-		);
+		$assets->register( $plugin, $asset_slug, codecept_data_dir( 'resources/test-script-1.js' ), [], null, [
+			'translations' => [
+				'domain' => $domain,
+				'path'   => codecept_data_dir( 'lang/' ),
+			],
+		] );
 
 		$assets->register_in_wp( [ $assets->get( $asset_slug ) ] );
 		$assets->enqueue( $asset_slug );
@@ -50,19 +106,19 @@ class AssetsTest extends \Codeception\TestCase\WPTestCase {
 
 	public function get_script_tags() {
 		yield 'simple-script' => [
-			'<script src="https://localhost/tec-ky.js?ver=5.1.13.1" id="tec-ky-js"></script>'
+			'<script src="https://localhost/tec-ky.js?ver=5.1.13.1" id="tec-ky-js"></script>',
 		];
 		yield 'simple-with-existing-type' => [
-			'<script type="text/javascript" src="https://localhost/tec-ky.js?ver=5.1.13.1" id="tec-ky-js"></script>'
+			'<script type="text/javascript" src="https://localhost/tec-ky.js?ver=5.1.13.1" id="tec-ky-js"></script>',
 		];
 		yield 'simple-without-src-or-id' => [
-			'<script></script>'
+			'<script></script>',
 		];
 		yield 'simple-with-existing-type-simple-quotes' => [
-			'<script type=\'text/javascript\' src="https://localhost/tec-ky.js?ver=5.1.13.1" id="tec-ky-js"></script>'
+			'<script type=\'text/javascript\' src="https://localhost/tec-ky.js?ver=5.1.13.1" id="tec-ky-js"></script>',
 		];
 		yield 'simple-with-existing-type-no-quotes' => [
-			'<script type=text/javascript src="https://localhost/tec-ky.js?ver=5.1.13.1" id="tec-ky-js"></script>'
+			'<script type=text/javascript src="https://localhost/tec-ky.js?ver=5.1.13.1" id="tec-ky-js"></script>',
 		];
 	}
 
@@ -75,16 +131,9 @@ class AssetsTest extends \Codeception\TestCase\WPTestCase {
 		$assets = new Assets;
 
 		// Register generic script to ensure the module type is added.
-		$assets->register(
-			$plugin,
-			'test-script',
-			codecept_data_dir( 'resources/test-script-1.js' ),
-			[],
-			null,
-			[
-				'module' => true,
-			]
-		);
+		$assets->register( $plugin, 'test-script', codecept_data_dir( 'resources/test-script-1.js' ), [], null, [
+			'module' => true,
+		] );
 
 		$script_tag = $assets->filter_modify_to_module( $script_tag, 'test-script' );
 
@@ -111,8 +160,8 @@ class AssetsTest extends \Codeception\TestCase\WPTestCase {
 
 		// Register generic script to ensure the module type is added.
 		$assets->register( $plugin, 'test-defer', codecept_data_dir( 'resources/test-script-1.js' ), [], null, [
-			                          'in_footer' => [ 'strategy' => 'defer' ],
-		                          ] );
+			'in_footer' => [ 'strategy' => 'defer' ],
+		] );
 
 		$assets->enqueue( 'test-defer' );
 		remove_filter( 'tribe_asset_pre_register', $add_url_to_asset );

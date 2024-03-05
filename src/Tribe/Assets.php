@@ -189,16 +189,19 @@ class Tribe__Assets {
 
 		$tag_has_async = false !== strpos( $tag, ' async ' );
 		$tag_has_defer = false !== strpos( $tag, ' defer ' );
-		$replacement = '<script ';
 
-		if ( $asset->async && ! $tag_has_async ) {
-			$replacement .= 'async ';
+		// Note we only support one of these tags at a time. So if one exists, we bail.
+		if ( $tag_has_async || $tag_has_defer ) {
+			return $tag;
 		}
 
-		if ( $asset->defer && ! $tag_has_defer ) {
-			$replacement .= 'defer ';
-		}
+		$replacement = '<script '; // Trailing space is intentional and important.
 
+		if ( $asset->async ) {
+			$replacement .= 'async '; // Again, trailing space is important.
+		} elseif ( $asset->defer ) {
+			$replacement .= 'defer '; // Again, trailing space is important.
+		}
 
 		return str_replace( '<script ', $replacement, $tag );
 	}
@@ -561,10 +564,40 @@ class Tribe__Assets {
 	}
 
 	/**
+	 * Infer `strategy` and `in_footer` params to be set for the script registration and return the mutated object.
+	 *
+	 * @since TBD
+	 *
+	 * @param stdClass $asset The Asset object to be mutated.
+	 *
+	 * @return stdClass The mutated Asset object.
+	 */
+	public static function setup_in_footer_param( stdClass $asset ): stdClass {
+		global $wp_version;
+		// Since WordPress 6.3, the `in_footer` parameter accepts an array argument.
+		if ( version_compare( strtok( $wp_version, '-' ), '6.3', '>=' ) ) {
+			// if `in_footer` is set to boolean true, add it to the `in_footer` array. i.e. [ 'in_footer' => true ].
+			if ( is_bool( $asset->in_footer ) ) {
+				$asset->in_footer = [ 'in_footer' => $asset->in_footer ];
+			}
+
+			// if the strategy is set, add it to the `in_footer` array. i.e. [ 'strategy' => `defer` ].
+			if ( ( ! empty( $asset->async ) || ! empty( $asset->defer ) ) ) {
+				$strategy = $asset->async ? 'async' : 'defer';
+
+				$asset->in_footer['strategy'] = $strategy;
+			}
+		} else {
+			$asset->in_footer = (bool) $asset->in_footer; // Default, for backwards compatibility.
+		}
+
+		return $asset;
+	}
+
+	/**
 	 * Register an Asset and attach a callback to the required action to display it correctly.
 	 *
 	 * @since 4.3
-	 * @since 5.2 The `$in_footer` parameter was expanded to accept a boolean or an array, mirroring the change in WordPress core.
 	 *
 	 * @param object            $origin    The main object for the plugin you are enqueueing the asset for.
 	 * @param string            $slug      Slug to save the asset - passes through `sanitize_title_with_dashes()`.
@@ -577,12 +610,14 @@ class Tribe__Assets {
 	 *
 	 *     @type array|string|null  $action         The WordPress action(s) this asset will be enqueued on.
 	 *     @type int                $priority       Priority in which this asset will be loaded on the WordPress action.
+	 *     @type bool               $async          Whether to load the asset via the async strategy.
+	 *     @type bool               $defer          Whether to load the asset via a deferred strategy.
 	 *     @type string             $file           The relative path to the File that will be enqueued, uses the $origin to get the full path.
 	 *     @type string             $type           Asset Type, `js` or `css`.
 	 *     @type array              $deps           An array of other asset as dependencies.
 	 *     @type string             $version        Version number, used for cache expiring.
 	 *     @type string             $media          Used only for CSS, when to load the file.
-	 *     @type bool|array         $in_footer      A boolean determining if the javascript should be loaded on the footer; or an array of arguments.
+	 *     @type bool|array         $in_footer      A boolean determining if the javascript should be loaded on the footer.
 	 *     @type array|object       $localize       {
 	 *          Variables needed on the JavaScript side.
 	 *
@@ -625,43 +660,30 @@ class Tribe__Assets {
 
 		// Default variables to prevent notices.
 		$defaults = [
-			'slug'          => null,
-			'file'          => false,
-			'url'           => false,
-			'action'        => null,
-			'priority'      => 10,
-			'type'          => null,
-			'deps'          => [],
-			'groups'        => [],
-			'version'       => $version,
-			'media'         => 'all',
-
-			'print'         => false,
-
-			'async'         => false,
-			'defer'         => false,
-			'module'        => false,
-
-			// Print before and after.
-			'print_before'  => null,
-			'print_after'  => null,
-
-			'in_footer'     => true,
-			'is_registered' => false,
-
-			// Origin related params
-			'origin_path'   => null,
-			'origin_url'    => null,
-			'origin_name'   => null,
-
-			// Bigger Variables at the end.
-			'localize'      => [],
-			'conditionals'  => [],
-
-			// Used to handle Translations handled in the JavaScript side of the Assets.
-			'translations'  => [],
-
-			// Execute after the asset is enqueued.
+			'slug'             => null,
+			'file'             => false,
+			'url'              => false,
+			'action'           => null,
+			'priority'         => 10,
+			'type'             => null,
+			'deps'             => [],
+			'groups'           => [],
+			'version'          => $version,
+			'media'            => 'all',
+			'print'            => false,
+			'async'            => false,
+			'defer'            => false,
+			'module'           => false,
+			'print_before'     => null,
+			'print_after'      => null,
+			'in_footer'        => true,
+			'is_registered'    => false,
+			'origin_path'      => null,
+			'origin_url'       => null,
+			'origin_name'      => null,
+			'localize'         => [],
+			'conditionals'     => [],
+			'translations'     => [],
 			'after_enqueue'    => null,
 			'already_enqueued' => false,
 			'already_printed'  => false,
@@ -711,8 +733,9 @@ class Tribe__Assets {
 
 		// Clean these
 		$asset->priority  = absint( $asset->priority );
-		$asset->in_footer = is_array( $asset->in_footer ) ? $asset->in_footer : (bool) $asset->in_footer; // Since WordPress 6.3, this parameter accepts an array argument.
 		$asset->media     = esc_attr( $asset->media );
+
+		$asset = self::setup_in_footer_param( $asset );
 
 		// Ensures that we have a priority over 1.
 		if ( $asset->priority < 1 ) {
