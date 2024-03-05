@@ -32,6 +32,7 @@ class Template_CheckerTest extends WPTestCase {
 			'templates/dummy-valid-template-01.php'   => '',
 			'templates/dummy-valid-template-03.php'   => '',
 			'templates/dummy-valid-template-02.php'   => '',
+			'templates/etc/dummy-template.php'        => '',
 			'modules/alpha.php'                       => '1.4',
 			'modules/beta.php'                        => '',
 			'modules/gamma.php'                       => '',

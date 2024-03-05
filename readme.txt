@@ -1,4 +1,7 @@
 == Changelog ==
+= [TBD] TBD =
+
+* Fix - This fixes an issue where a template with a duplicate name but located in different folders is called it would always reference the first file. Updated the key to be unique by folder as well. [ECP-1627]
 
 = [5.2.3] 2024-02-19 =
 
