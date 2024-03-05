@@ -246,14 +246,14 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Returns the date only.
 		 *
-		 * @param int|string $date        The date (timestamp or string).
-		 * @param bool       $isTimestamp Is $date in timestamp format?
-		 * @param string|null $format The format used
+		 * @param int|string  $date         The date (timestamp or string).
+		 * @param bool        $is_timestamp Is $date in timestamp format?
+		 * @param string|null $format       The format used
 		 *
 		 * @return string The date only in DB format.
 		 */
-		public static function date_only( $date, $isTimestamp = false, $format = null ) {
-			$date = $isTimestamp ? $date : strtotime( $date ?? 'now' );
+		public static function date_only( $date, $is_timestamp = false, $format = null ) {
+			$date = $is_timestamp ? $date : strtotime( $date ?? 'now' );
 
 			if ( is_null( $format ) ) {
 				$format = self::DBDATEFORMAT;
