@@ -483,4 +483,41 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( $expected, $end_of_day->format( Date_Utils::DBDATETIMEFORMAT ) );
 	}
+
+	public function date_only_data_provider() {
+		return [
+			'null'               => [
+				date( 'Y-m-d' ),
+				null,
+			],
+			'2023-01-03 3:22am'  => [
+				'2023-01-03',
+				'2023-01-03 3:22am',
+			],
+			'2022-12-03'         => [
+				'2022-12-03',
+				'2022-12-03',
+			],
+			'december 12th 2010' => [
+				'2010-12-12',
+				'december 12th 2010',
+			],
+			'1702341373'         => [
+				'2023-12-12',
+				1702341373,
+				true,
+			],
+		];
+	}
+
+	/**
+	 * Validates date_only() works as expected.
+	 *
+	 * @dataProvider date_only_data_provider
+	 * @test
+	 */
+	public function test_date_only( $expected, $date, $is_timestamp = false ) {
+		$date_only = Date_Utils::date_only( $date, $is_timestamp );
+		$this->assertEquals( $expected, $date_only );
+	}
 }
