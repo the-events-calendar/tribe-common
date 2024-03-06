@@ -246,7 +246,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Returns the date only.
 		 *
-		 * @param int|string  $date         The date (timestamp or string).
+		 * @param int|string  $date         The date (timestamp or string). If an empty or null date is provided it will default to 'now'.
 		 * @param bool        $is_timestamp Whether or not $date is in timestamp format.
 		 * @param string|null $format       The format used.
 		 *
