@@ -225,7 +225,7 @@ class Tribe__Main {
 			$this,
 			[
 				[ 'tribe-accessibility-css', 'accessibility.css' ],
-				[ 'tribe-query-string', 'utils/query-string.js' ],
+				[ 'tribe-query-string', 'utils/query-string.js', null, null, [ 'in_footer' => [ 'strategy' => 'defer' ] ] ],
 				[ 'tribe-clipboard', 'node_modules/clipboard/dist/clipboard.min.js' ],
 				[ 'datatables', 'vendor/datatables/datatables.js', [ 'jquery' ] ],
 				[ 'tribe-select2', 'vendor/tribe-selectWoo/dist/js/selectWoo.full.js', [ 'jquery' ] ],
@@ -290,6 +290,7 @@ class Tribe__Main {
 			'admin_enqueue_scripts',
 			[
 				'priority' => 0,
+				'in_footer' => [ 'strategy' => 'defer' ],
 			]
 		);
 

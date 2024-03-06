@@ -62,7 +62,7 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 		$output = tribe_asset_print_group( 'test-group', false );
 
 		$expected_tmpl = <<< TAG
-<script src='{{ home_url }}/tests/_data/resources/test-script-1.js?ver=1.0.0' id='tribe-test-js-js'></script>
+<script src="{{ home_url }}/tests/_data/resources/test-script-1.js?ver=1.0.0" id="tribe-test-js-js"></script>
 <link rel='stylesheet' id='tribe-test-css-css' href='{{ home_url }}/tests/_data/resources/test-style-1.css?ver=1.0.0' media='all' />
 
 TAG;

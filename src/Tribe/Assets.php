@@ -36,10 +36,15 @@ class Tribe__Assets {
 	 * @since 4.3
 	 */
 	public function __construct() {
+		global $wp_version;
 		// Hook the actual registering of.
 		add_action( 'init', [ $this, 'register_in_wp' ], 1, 0 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_stellar_wp_fonts' ] );
-		add_filter( 'script_loader_tag', [ $this, 'filter_tag_async_defer' ], 50, 2 );
+
+		// From WordPress 6.3 leverage the Script API strategy feature to add defer/async.
+		if ( version_compare( strtok( $wp_version, '-' ), '6.3', '<' ) ) {
+			add_filter( 'script_loader_tag', [ $this, 'filter_tag_async_defer' ], 50, 2 );
+		}
 		add_filter( 'script_loader_tag', [ $this, 'filter_modify_to_module' ], 250, 2 );
 		add_filter( 'script_loader_tag', [ $this, 'filter_print_before_after_script' ], 100, 2 );
 
@@ -559,6 +564,7 @@ class Tribe__Assets {
 	 * Register an Asset and attach a callback to the required action to display it correctly.
 	 *
 	 * @since 4.3
+	 * @since 5.2 The `$in_footer` parameter was expanded to accept a boolean or an array, mirroring the change in WordPress core.
 	 *
 	 * @param object            $origin    The main object for the plugin you are enqueueing the asset for.
 	 * @param string            $slug      Slug to save the asset - passes through `sanitize_title_with_dashes()`.
@@ -576,7 +582,7 @@ class Tribe__Assets {
 	 *     @type array              $deps           An array of other asset as dependencies.
 	 *     @type string             $version        Version number, used for cache expiring.
 	 *     @type string             $media          Used only for CSS, when to load the file.
-	 *     @type bool               $in_footer      A boolean determining if the javascript should be loaded on the footer.
+	 *     @type bool|array         $in_footer      A boolean determining if the javascript should be loaded on the footer; or an array of arguments.
 	 *     @type array|object       $localize       {
 	 *          Variables needed on the JavaScript side.
 	 *
@@ -705,7 +711,7 @@ class Tribe__Assets {
 
 		// Clean these
 		$asset->priority  = absint( $asset->priority );
-		$asset->in_footer = (bool) $asset->in_footer;
+		$asset->in_footer = is_array( $asset->in_footer ) ? $asset->in_footer : (bool) $asset->in_footer; // Since WordPress 6.3, this parameter accepts an array argument.
 		$asset->media     = esc_attr( $asset->media );
 
 		// Ensures that we have a priority over 1.
