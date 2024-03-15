@@ -6,7 +6,7 @@ use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Cache as Cache;
 use Tribe__Cache_Listener as Triggers;
 
-class CacheTest extends \Codeception\TestCase\WPTestCase {
+class Cache_Test extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
 
 	/**
@@ -38,9 +38,12 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 		$hook = 'faux_hook';
 
 		// Cache is now "listening" to this hook.
-		add_action( $hook, function () use ( $cache, $hook ) {
-			$cache->set_last_occurrence( $hook );
-		} );
+		add_action(
+			$hook,
+			function () use ( $cache, $hook ) {
+				$cache->set_last_occurrence( $hook );
+			}
+		);
 
 		// Each unique values to test
 		$values = [ 'a', 'b', 1, 2, time() ];
@@ -110,7 +113,7 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 
 		foreach ( $key_values as $key => $value ) {
 			// Attempt to add a longer cache key to trigger the md5() cache key logic.
-			$key                                                   .= __METHOD__ . '-' . $key;
+			$key .= __METHOD__ . '-' . $key;
 			$expected[ substr( $key, 0, 6 ) . '... => ' . $value ] = [ $key, $value ];
 		}
 
@@ -141,7 +144,7 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 			// Null fails isset(), should be the same for our cache utility.
 			'null is not cached'  => [ uniqid(), null ],
 			// Because wp core cache utility sends false if no cache found.
-			'false is not cached' => [ uniqid(), false ]
+			'false is not cached' => [ uniqid(), false ],
 		];
 	}
 
@@ -192,8 +195,22 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_correctly_fabricate_keys() {
-		$components_1 = [ __FILE__, [ 23, 89 ], [ 'foo' => 'bar', 'bar' => 'baz' ] ];
-		$components_2 = [ __FILE__, [ 23, 89 ], [ 'bar' => 'baz', 'foo' => 'bar' ] ];
+		$components_1 = [
+			__FILE__,
+			[ 23, 89 ],
+			[
+				'foo' => 'bar',
+				'bar' => 'baz',
+			],
+		];
+		$components_2 = [
+			__FILE__,
+			[ 23, 89 ],
+			[
+				'bar' => 'baz',
+				'foo' => 'bar',
+			],
+		];
 
 		$cache = $this->make_instance();
 
@@ -209,12 +226,19 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_correctly_handle_long_keys() {
-		$components = [ __FILE__, [ 23, 89 ], [ 'foo' => 'bar', 'bar' => 'baz' ] ];
+		$components = [
+			__FILE__,
+			[ 23, 89 ],
+			[
+				'foo' => 'bar',
+				'bar' => 'baz',
+			],
+		];
 
 		$cache = $this->make_instance();
 
-		$long_prefix = 'some very long prefix that should trigger some kind of minification on the key creation or so I hope';
-		$key = $cache->make_key( $components, $long_prefix );
+		$long_prefix   = 'some very long prefix that should trigger some kind of minification on the key creation or so I hope';
+		$key           = $cache->make_key( $components, $long_prefix );
 		$cache[ $key ] = 'bar';
 
 		$this->assertTrue( isset( $cache[ $key ] ) );
@@ -227,8 +251,24 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_correctly_generate_key_for_numeric_array_components() {
-		$components_1 = [ __FILE__, [ 23, 89 ], [ 1 => 'bar', 23 => 'baz', 89 => 'bar' ] ];
-		$components_2 = [ __FILE__, [ 23, 89 ], [ 89 => 'bar', 23 => 'baz', 1 => 'bar' ] ];
+		$components_1 = [
+			__FILE__,
+			[ 23, 89 ],
+			[
+				1  => 'bar',
+				23 => 'baz',
+				89 => 'bar',
+			],
+		];
+		$components_2 = [
+			__FILE__,
+			[ 23, 89 ],
+			[
+				89 => 'bar',
+				23 => 'baz',
+				1  => 'bar',
+			],
+		];
 
 		$cache = $this->make_instance();
 
@@ -248,10 +288,13 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 
 		$passed = false;
 
-		add_filter( 'tribe_cache_delete_expired_transients_sql', static function( $sql ) use ( $passed ) {
-			$passed = true;
-			return $sql;
-		} );
+		add_filter(
+			'tribe_cache_delete_expired_transients_sql',
+			static function ( $sql ) use ( $passed ) {
+				$passed = true;
+				return $sql;
+			}
+		);
 
 		$cache->set_last_occurrence( 'foo_bar' );
 
@@ -276,12 +319,15 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 		$cache_instance_two = new \Tribe__Cache();
 
 		$passed = 0;
-		add_filter( 'tribe_cache_delete_expired_transients_sql', static function () use ( & $passed ) {
-			$passed ++;
+		add_filter(
+			'tribe_cache_delete_expired_transients_sql',
+			static function () use ( &$passed ) {
+				$passed++;
 
-			// Return  a real query to make sure the "cancellation" will go through.
-			return 'SELECT 1';
-		} );
+				// Return  a real query to make sure the "cancellation" will go through.
+				return 'SELECT 1';
+			}
+		);
 
 		$provided_cache->flag_required_delete_transients( true );
 
@@ -316,12 +362,15 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 		$cache_instance_two = new \Tribe__Cache();
 
 		$passed = 0;
-		add_filter( 'tribe_cache_delete_expired_transients_sql', static function () use ( & $passed ) {
-			$passed ++;
+		add_filter(
+			'tribe_cache_delete_expired_transients_sql',
+			static function () use ( &$passed ) {
+				$passed++;
 
-			// Return  a real query to make sure the "cancellation" will go through.
-			return 'SELECT 1';
-		} );
+				// Return  a real query to make sure the "cancellation" will go through.
+				return 'SELECT 1';
+			}
+		);
 
 		$provided_cache->delete_expired_transients();
 		$provided_cache->delete_expired_transients();
@@ -344,10 +393,14 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 	public function should_not_cache_overly_large_strings_in_transients() {
 		$max_allow_packet = 200;
 		// Filter the feature detection (tested elsewhere).
-		add_filter( 'tribe_max_allowed_packet_size', static function () use ( $max_allow_packet ) {
-			return $max_allow_packet;
-		} );
+		add_filter(
+			'tribe_max_allowed_packet_size',
+			static function () use ( $max_allow_packet ) {
+				return $max_allow_packet;
+			}
+		);
 		// Simulate a case where external object caching is NOT in use.
+		// phpcs:ignore
 		$GLOBALS['_wp_using_ext_object_cache'] = false;
 		$small_size_value                      = str_repeat( '#', $max_allow_packet * .1 );
 		$medium_size_value                     = str_repeat( '#', $max_allow_packet * .5 );
@@ -375,9 +428,12 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 	public function should_not_cache_overly_large_values_in_database() {
 		$max_allow_packet = 200;
 		// Filter the feature detection (tested elsewhere).
-		add_filter( 'tribe_max_allowed_packet_size', static function () use ( $max_allow_packet ) {
-			return $max_allow_packet;
-		} );
+		add_filter(
+			'tribe_max_allowed_packet_size',
+			static function () use ( $max_allow_packet ) {
+				return $max_allow_packet;
+			}
+		);
 		// Build an object whose serialized size is known before-hand.
 		$build_object_to_size = function ( int $size ) {
 			$template_size = 33;
@@ -392,9 +448,11 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 
 			$this->assertEquals( $size, strlen( $serialized ) );
 
+			// phpcs:ignore
 			return unserialize( $serialized );
 		};
 		// Simulate a case where external object caching is NOT in use.
+		// phpcs:ignore
 		$GLOBALS['_wp_using_ext_object_cache'] = false;
 		$medium_size_value                     = $build_object_to_size( $max_allow_packet * .5 );
 		$large_size_value                      = $build_object_to_size( $max_allow_packet * .9 );
@@ -419,10 +477,14 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 	public function should_not_prevent_caching_of_large_values_when_using_external_cache() {
 		$max_allow_packet = 200;
 		// Filter the feature detection (tested elsewhere).
-		add_filter( 'tribe_max_allowed_packet_size', static function () use ( $max_allow_packet ) {
-			return $max_allow_packet;
-		} );
+		add_filter(
+			'tribe_max_allowed_packet_size',
+			static function () use ( $max_allow_packet ) {
+				return $max_allow_packet;
+			}
+		);
 		// Simulate a case where external object caching is NOT in use.
+		// phpcs:ignore
 		$GLOBALS['_wp_using_ext_object_cache'] = true;
 		$large_size_value                      = str_repeat( '#', $max_allow_packet * .9 );
 		$too_large_size_value                  = str_repeat( '#', $max_allow_packet * 1.1 );
@@ -431,7 +493,7 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 		$cache = tribe( 'cache' );
 
 		$this->assertTrue( $cache->set_transient( 'test', $large_size_value ) );
-		$this->assertFalse( $cache->data_size_over_packet_size( $large_size_value) );
+		$this->assertFalse( $cache->data_size_over_packet_size( $large_size_value ) );
 		$this->assertTrue( $cache->set_transient( 'test', $too_large_size_value ) );
 		$this->assertFalse( $cache->data_size_over_packet_size( $too_large_size_value ) );
 	}
@@ -443,27 +505,42 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_allow_storing_too_large_transients_in_chunks() {
 		// Set a size for the MySQL max_allowed_packet_size in bytes.
-		add_filter( 'tribe_max_allowed_packet_size', static function () {
-			return 100;
-		} );
+		add_filter(
+			'tribe_max_allowed_packet_size',
+			static function () {
+				return 100;
+			}
+		);
 		// Create a value that, in string format, is 4+ times the max allowed packet size.
 		$value               = (object) [ 'value' => str_repeat( 'test', 100 ) ];
 		$set_transient_calls = [];
 		$this->set_fn_return( 'wp_using_ext_object_cache', false );
-		$this->set_fn_return( 'set_transient', static function ( $name, $value ) use ( &$set_transient_calls ) {
-			$set_transient_calls[$name] = $value;
+		$this->set_fn_return(
+			'set_transient',
+			static function ( $name, $value ) use ( &$set_transient_calls ) {
+				$set_transient_calls[ $name ] = $value;
 
-			return true;
-		}, true );
+				return true;
+			},
+			true
+		);
 
 		$cache = $this->make_instance();
 
 		$set = $cache->set_chunkable_transient( '__test__', $value, DAY_IN_SECONDS, [ 'save_post' ] );
 
 		$this->assertTrue( $set );
-		$this->assertCount( 5, array_filter( $set_transient_calls, static function ( $key ) {
-			return strpos( $key, '__test__' ) === 0;
-		}, ARRAY_FILTER_USE_KEY ) );
+		$this->assertCount(
+			5,
+			array_filter(
+				$set_transient_calls,
+				static function ( $key ) {
+					return strpos( $key, '__test__' ) === 0;
+				},
+				ARRAY_FILTER_USE_KEY
+			)
+		);
+		// phpcs:ignore
 		$this->assertSame( serialize( $value ), implode( '', $set_transient_calls ) );
 	}
 
@@ -474,27 +551,40 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_redirect_chunkable_not_too_large_transients_to_normal_transients() {
 		// Set a size for the MySQL max_allowed_packet_size in bytes.
-		add_filter( 'tribe_max_allowed_packet_size', static function () {
-			return 100;
-		} );
+		add_filter(
+			'tribe_max_allowed_packet_size',
+			static function () {
+				return 100;
+			}
+		);
 		// Create a value that, in string format, is below the max allowed packet size.
 		$value               = (object) [ 'value' => 'test' ];
 		$set_transient_calls = [];
 		$this->set_fn_return( 'wp_using_ext_object_cache', false );
-		$this->set_fn_return( 'set_transient', static function ( $name ) use ( &$set_transient_calls ) {
-			$set_transient_calls[] = $name;
+		$this->set_fn_return(
+			'set_transient',
+			static function ( $name ) use ( &$set_transient_calls ) {
+				$set_transient_calls[] = $name;
 
-			return true;
-		}, true );
+				return true;
+			},
+			true
+		);
 
 		$cache = $this->make_instance();
 
 		$set = $cache->set_chunkable_transient( '__test__', $value, DAY_IN_SECONDS, [ 'save_post' ] );
 
 		$this->assertTrue( $set );
-		$this->assertCount( 1, array_filter( $set_transient_calls, static function ( $key ) {
-			return strpos( $key, '__test__' ) === 0;
-		} ) );
+		$this->assertCount(
+			1,
+			array_filter(
+				$set_transient_calls,
+				static function ( $key ) {
+					return strpos( $key, '__test__' ) === 0;
+				}
+			)
+		);
 	}
 
 	/**
@@ -504,36 +594,59 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_delete_inserted_transients_when_one_chunk_insertion_fails() {
 		// Set a size for the MySQL max_allowed_packet_size in bytes.
-		add_filter( 'tribe_max_allowed_packet_size', static function () {
-			return 100;
-		} );
+		add_filter(
+			'tribe_max_allowed_packet_size',
+			static function () {
+				return 100;
+			}
+		);
 		// Create a value that, in string format, is below the max allowed packet size.
-		$value               = (object) [ 'value' => str_repeat( 'test', 100 ) ];
-		$set_transient_calls = [];
+		$value                  = (object) [ 'value' => str_repeat( 'test', 100 ) ];
+		$set_transient_calls    = [];
 		$delete_transient_calls = [];
 		$this->set_fn_return( 'wp_using_ext_object_cache', false );
-		$this->set_fn_return( 'set_transient', static function ( $name ) use ( &$set_transient_calls ) {
-			$set_transient_calls[] = $name;
+		$this->set_fn_return(
+			'set_transient',
+			static function ( $name ) use ( &$set_transient_calls ) {
+				$set_transient_calls[] = $name;
 
-			// On the insertion of the 3rd one return `false`.
-			return count( $set_transient_calls ) <= 2;
-		}, true );
-		$this->set_fn_return( 'delete_transient', static function ( $name ) use ( &$delete_transient_calls ) {
-			$delete_transient_calls[] = $name;
-			return true;
-		}, true );
+				// On the insertion of the 3rd one return `false`.
+				return count( $set_transient_calls ) <= 2;
+			},
+			true
+		);
+		$this->set_fn_return(
+			'delete_transient',
+			static function ( $name ) use ( &$delete_transient_calls ) {
+				$delete_transient_calls[] = $name;
+				return true;
+			},
+			true
+		);
 
 		$cache = $this->make_instance();
 
 		$set = $cache->set_chunkable_transient( '__test__', $value, DAY_IN_SECONDS, [ 'save_post' ] );
 
 		$this->assertFalse( $set );
-		$this->assertCount( 3, array_filter( $set_transient_calls, static function ( $key ) {
-			return strpos( $key, '__test__' ) === 0;
-		} ) );
-		$this->assertCount( 2, array_filter( $delete_transient_calls, static function ( $key ) {
-			return strpos( $key, '__test__' ) === 0;
-		} ) );
+		$this->assertCount(
+			3,
+			array_filter(
+				$set_transient_calls,
+				static function ( $key ) {
+					return strpos( $key, '__test__' ) === 0;
+				}
+			)
+		);
+		$this->assertCount(
+			2,
+			array_filter(
+				$delete_transient_calls,
+				static function ( $key ) {
+					return strpos( $key, '__test__' ) === 0;
+				}
+			)
+		);
 	}
 
 	/**
@@ -543,19 +656,26 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_return_false_when_getting_chunkable_in_incoherent_state() {
 		// Set a size for the MySQL max_allowed_packet_size in bytes.
-		add_filter( 'tribe_max_allowed_packet_size', static function () {
-			return 100;
-		} );
+		add_filter(
+			'tribe_max_allowed_packet_size',
+			static function () {
+				return 100;
+			}
+		);
 		// Create a value that, in string format, is below the max allowed packet size.
-		$value                  = (object) [ 'value' => str_repeat( 'test', 100 ) ];
-		$set_transient_calls    = [];
+		$value               = (object) [ 'value' => str_repeat( 'test', 100 ) ];
+		$set_transient_calls = [];
 		$this->set_fn_return( 'wp_using_ext_object_cache', false );
-		$this->set_fn_return( 'set_transient', static function ( $name, $value ) use ( &$set_transient_calls ) {
-			$set_transient_calls[] = $name;
+		$this->set_fn_return(
+			'set_transient',
+			static function ( $name, $value ) use ( &$set_transient_calls ) {
+				$set_transient_calls[] = $name;
 
-			// Log the call.
-			return set_transient( $name, $value );
-		}, true );
+				// Log the call.
+				return set_transient( $name, $value );
+			},
+			true
+		);
 
 		$cache = $this->make_instance();
 
@@ -573,29 +693,36 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @test
 	 */
-	 public function should_return_the_chunks_from_the_cache_correctly_when_the_cache_is_stored() {
-		 // Set a size for the MySQL max_allowed_packet_size in bytes.
-		 add_filter( 'tribe_max_allowed_packet_size', static function () {
-			 return 100;
-		 } );
-		 // Create a value that, in string format, is higher the max allowed packet size.
-		 $value                  = [ 'value' => str_repeat( 'test', 250 ) ];
-		 $set_transient_calls    = [];
-		 $this->set_fn_return( 'wp_using_ext_object_cache', false );
-		 $this->set_fn_return( 'set_transient', static function ( $name, $value ) use ( &$set_transient_calls ) {
-			 $set_transient_calls[] = $name;
+	public function should_return_the_chunks_from_the_cache_correctly_when_the_cache_is_stored() {
+		// Set a size for the MySQL max_allowed_packet_size in bytes.
+		add_filter(
+			'tribe_max_allowed_packet_size',
+			static function () {
+				return 100;
+			}
+		);
+		// Create a value that, in string format, is higher the max allowed packet size.
+		$value               = [ 'value' => str_repeat( 'test', 250 ) ];
+		$set_transient_calls = [];
+		$this->set_fn_return( 'wp_using_ext_object_cache', false );
+		$this->set_fn_return(
+			'set_transient',
+			static function ( $name, $value ) use ( &$set_transient_calls ) {
+				$set_transient_calls[] = $name;
 
-			 // Log the call.
-			 return set_transient( $name, $value );
-		 }, true );
+				// Log the call.
+				return set_transient( $name, $value );
+			},
+			true
+		);
 
-		 $cache = $this->make_instance();
+		$cache = $this->make_instance();
 
-		 $this->assertTrue( $cache->set_chunkable_transient( '__test___retrival__from__cache', $value, DAY_IN_SECONDS, [ 'save_post' ] ) );
+		$this->assertTrue( $cache->set_chunkable_transient( '__test___retrival__from__cache', $value, DAY_IN_SECONDS, [ 'save_post' ] ) );
 
-		 // The value from the cache should be the same that was stored.
-		 $this->assertSame( $value, $cache->get_chunkable_transient( '__test___retrival__from__cache', [ 'save_post' ] ) );
-	 }
+		// The value from the cache should be the same that was stored.
+		$this->assertSame( $value, $cache->get_chunkable_transient( '__test___retrival__from__cache', [ 'save_post' ] ) );
+	}
 
 	/**
 	 * It should allow knowing whether a value is in cache or not
@@ -621,22 +748,22 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 
 		$cache->set( 'foo-bar', 'bar' );
 		$this->assertTrue( $cache->has( 'foo-bar' ) );
-		$this->assertEquals('bar', $cache->get( 'foo-bar','', false, 0, [], $found ) );
+		$this->assertEquals( 'bar', $cache->get( 'foo-bar', '', false, 0, [], $found ) );
 		$this->assertTrue( $found );
 
 		$cache->set( 'foo-bar-save-post', 'bar', 0, Triggers::TRIGGER_SAVE_POST );
 		$this->assertTrue( $cache->has( 'foo-bar-save-post', Triggers::TRIGGER_SAVE_POST ) );
-		$this->assertEquals('bar', $cache->get( 'foo-bar-save-post', Triggers::TRIGGER_SAVE_POST, false, 0, [], $found ) );
+		$this->assertEquals( 'bar', $cache->get( 'foo-bar-save-post', Triggers::TRIGGER_SAVE_POST, false, 0, [], $found ) );
 		$this->assertTrue( $found );
 
 		$cache->set( 'foo-bar-updated-option', 'bar', 0, Triggers::TRIGGER_UPDATED_OPTION );
 		$this->assertTrue( $cache->has( 'foo-bar-updated-option', Triggers::TRIGGER_UPDATED_OPTION ) );
-		$this->assertEquals('bar', $cache->get( 'foo-bar-updated-option', Triggers::TRIGGER_UPDATED_OPTION, false, 0, [], $found ) );
+		$this->assertEquals( 'bar', $cache->get( 'foo-bar-updated-option', Triggers::TRIGGER_UPDATED_OPTION, false, 0, [], $found ) );
 		$this->assertTrue( $found );
 
 		$cache->set( 'foo-bar-generate-rewrite-rules', 'bar', 0, Triggers::TRIGGER_GENERATE_REWRITE_RULES );
 		$this->assertTrue( $cache->has( 'foo-bar-generate-rewrite-rules', Triggers::TRIGGER_GENERATE_REWRITE_RULES ) );
-		$this->assertEquals('bar', $cache->get( 'foo-bar-generate-rewrite-rules', Triggers::TRIGGER_GENERATE_REWRITE_RULES, false, 0, [], $found ) );
+		$this->assertEquals( 'bar', $cache->get( 'foo-bar-generate-rewrite-rules', Triggers::TRIGGER_GENERATE_REWRITE_RULES, false, 0, [], $found ) );
 		$this->assertTrue( $found );
 	}
 }

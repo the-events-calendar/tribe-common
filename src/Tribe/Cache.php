@@ -1,4 +1,9 @@
 <?php
+/**
+ * Manage setting and expiring cached data
+ *
+ * Select actions can be used to force cached
+ */
 
 /**
  * Manage setting and expiring cached data
@@ -6,6 +11,8 @@
  * Select actions can be used to force cached
  * data to expire. Implemented so far:
  *  - save_post
+ *  - update main option
+ *  - regenerate rewrite rules
  *
  * When used in its ArrayAccess API the cache will provide non persistent storage.
  */
@@ -112,7 +119,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return mixed
 	 */
 	public function get( $id, $expiration_trigger = '', $default = false, $expiration = 0, $args = [], ?bool &$found = false ) {
-		$group   = isset( $this->non_persistent_keys[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
+		$group = isset( $this->non_persistent_keys[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
 		$value = wp_cache_get( $this->get_id( $id, $expiration_trigger ), $group, false, $found );
 
 		// Value found.
@@ -153,7 +160,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return bool
 	 */
 	public function delete( $id, $expiration_trigger = '' ) {
-		$group   = isset( $this->non_persistent_keys[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
+		$group = isset( $this->non_persistent_keys[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
 
 		// Delete from non-persistent keys list.
 		if ( 'tribe-events-non-persistent' === $group ) {
@@ -373,7 +380,6 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 * @return boolean Whether the offset exists in the cache.
 	 *@link  http://php.net/manual/en/arrayaccess.offsetexists.php
-	 *
 	 */
 	#[\ReturnTypeWillChange]
 	public function offsetExists( $offset ): bool {
@@ -503,7 +509,7 @@ class Tribe__Cache implements ArrayAccess {
 
 		do {
 			$limit_clause = $limit < 0 ? sprintf( 'LIMIT %d,%d', $limit * $page, $limit ) : '';
-			$page++;
+			++$page;
 			$these_ids    = array_splice( $buffer, 0, $limit );
 			$interval     = implode( ',', array_map( 'absint', $these_ids ) );
 			$posts_query  = "SELECT * FROM {$wpdb->posts} WHERE ID IN ({$interval}) {$limit_clause}";
@@ -607,7 +613,6 @@ class Tribe__Cache implements ArrayAccess {
 	 * DB row, it will be chunked.
 	 *
 	 * The method will redirect to the `set_transient` function if the site is using object caching.
-	 *
 	 *
 	 * @since 4.13.3
 	 *
