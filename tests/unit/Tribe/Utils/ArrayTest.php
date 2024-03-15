@@ -4,7 +4,7 @@ use Tribe__Utils__Array as Arr;
 
 class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 	public function shape_filter_data_provider() {
-		$test_shape = [
+		$test_shape          = [
 			'a'       =>
 				[
 					'deeply' =>
@@ -306,10 +306,10 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 	}
 
 	public function usearch_data_provider() {
-		$value_gt_needle = static function ( $needle, $value ): bool {
+		$value_gt_needle              = static function ( $needle, $value ): bool {
 			return $value > $needle;
 		};
-		$matches_needle = static function ( $needle, $value ): bool {
+		$matches_needle               = static function ( $needle, $value ): bool {
 			return $value === $needle;
 		};
 		$callback_using_value_and_key = static function ( $needle, $value, $key ): bool {
@@ -351,5 +351,91 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 	 */
 	public function test_usearch( $needle, array $haystack, $expected, callable $callback ) {
 		$this->assertEquals( $expected, Arr::usearch( $needle, $haystack, $callback ) );
+	}
+
+	public function has_shape_data_provider(): array {
+		return [
+			'not an array'                                                     => [ 'foo', [], true, false ],
+			'empty array, empty shape'                                         => [ [], [], true, true ],
+			'empty array, non-empty shape, strict'                             => [
+				[],
+				[ 'foo' => 'is_string' ],
+				true,
+				false
+			],
+			'empty array, non-empty shape, non-strict'                         => [
+				[],
+				[ 'foo' => 'is_string' ],
+				false,
+				false
+			],
+			'non-empty array, function shape, missing key, strict'             => [
+				[ 'foo' => 23 ],
+				[ 'bar' => 'is_string' ],
+				true,
+				false
+			],
+			'non-empty array, function shape, missing key, non-strict'         => [
+				[ 'foo' => 23 ],
+				[ 'bar' => 'is_string' ],
+				false,
+				false
+			],
+			'non-empty array, function shape, extra key, strict'               => [
+				[ 'foo' => 23, 'bar' => 'baz' ],
+				[ 'foo' => 'is_int' ],
+				true,
+				false
+			],
+			'non-empty array, function shape, extra key, non-strict'           => [
+				[ 'foo' => 23, 'bar' => 'baz' ],
+				[ 'foo' => 'is_int' ],
+				false,
+				true
+			],
+			'non-empty array, closure shape, all key fail failure, strict'     => [
+				[ 'foo' => 23, 'bar' => 89 ],
+				[ 'foo' => fn( $foo ) => $foo === 'hello', 'bar' => fn( $bar ) => $bar === 'world' ],
+				true,
+				false
+			],
+			'non-empty array, closure shape, all key fail failure, non-strict' => [
+				[ 'foo' => 23, 'bar' => 89 ],
+				[ 'foo' => fn( $foo ) => $foo === 'hello', 'bar' => fn( $bar ) => $bar === 'world' ],
+				false,
+				false
+			],
+			'non-empty array, closure shape, all key pass, strict'             => [
+				[ 'foo' => 'hello', 'bar' => 'world' ],
+				[ 'foo' => fn( $foo ) => $foo === 'hello', 'bar' => fn( $bar ) => $bar === 'world' ],
+				true,
+				true
+			],
+			'non-empty array, closure shape, all key pass, non-strict '        => [
+				[ 'foo' => 'hello', 'bar' => 'world' ],
+				[ 'foo' => fn( $foo ) => $foo === 'hello', 'bar' => fn( $bar ) => $bar === 'world' ],
+				false,
+				true
+			],
+			'non-empty array, closure shape, some key pass, strict'            => [
+				[ 'foo' => 'hello', 'bar' => 89 ],
+				[ 'foo' => fn( $foo ) => $foo === 'hello', 'bar' => fn( $bar ) => $bar === 'world' ],
+				true,
+				false
+			],
+			'non-empty array, closure shape, some key pass, non-strict'        => [
+				[ 'foo' => 'hello', 'bar' => 89 ],
+				[ 'foo' => fn( $foo ) => $foo === 'hello', 'bar' => fn( $bar ) => $bar === 'world' ],
+				false,
+				false
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider has_shape_data_provider
+	 */
+	public function test_has_shape( $input, $shape, $strict, $expected ): void {
+		$this->assertEquals( $expected, Arr::has_shape( $input, $shape, $strict ) );
 	}
 }
