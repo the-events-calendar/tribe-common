@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - Add the `Tribe__Cache::has( string $key, string $expiration_trigger = '' )`; add the `&$found` parameter to the `Tribe__Cache::get` method.
+
 = [5.2.3] 2024-02-19 =
 
 * Tweak - Refactor JS logic to prevent ticketing of recurring events. [ET-1936]

@@ -99,17 +99,21 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 * Note: When a default value or callback is specified, this value gets set in the cache.
 	 *
+	 * @since 4.11.0
+	 * @since TBD Added the `$found` parameter.
+	 *
 	 * @param string       $id                 The key for the cached value.
 	 * @param string|array $expiration_trigger Optional. Hook to trigger cache invalidation.
 	 * @param mixed        $default            Optional. A default value or callback that returns a default value.
 	 * @param int          $expiration         Optional. When the default value expires, if it gets set.
 	 * @param mixed        $args               Optional. Args passed to callback.
+	 * @param bool         $found              Optional. Whether the value was found in the cache. Set by reference.
 	 *
 	 * @return mixed
 	 */
-	public function get( $id, $expiration_trigger = '', $default = false, $expiration = 0, $args = [] ) {
+	public function get( $id, $expiration_trigger = '', $default = false, $expiration = 0, $args = [], ?bool &$found = false ) {
 		$group   = isset( $this->non_persistent_keys[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
-		$value   = wp_cache_get( $this->get_id( $id, $expiration_trigger ), $group );
+		$value = wp_cache_get( $this->get_id( $id, $expiration_trigger ), $group, false, $found );
 
 		// Value found.
 		if ( false !== $value ) {
@@ -642,5 +646,22 @@ class Tribe__Cache implements ArrayAccess {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Checks whether a value is set in the cache or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $id                 The key for the cached value.
+	 * @param string $expiration_trigger Optional. Hook to trigger cache invalidation.
+	 *
+	 * @return bool Whether the value is set in the cache or not.
+	 */
+	public function has( $id, $expiration_trigger = '' ): bool {
+		$group = isset( $this->non_persistent_keys[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
+		wp_cache_get( $this->get_id( $id, $expiration_trigger ), $group, false, $found );
+
+		return $found;
 	}
 }

@@ -4,6 +4,7 @@ namespace Tribe;
 
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Cache as Cache;
+use Tribe__Cache_Listener as Triggers;
 
 class CacheTest extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
@@ -595,4 +596,47 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 		 // The value from the cache should be the same that was stored.
 		 $this->assertSame( $value, $cache->get_chunkable_transient( '__test___retrival__from__cache', [ 'save_post' ] ) );
 	 }
+
+	/**
+	 * It should allow knowing whether a value is in cache or not
+	 *
+	 * @test
+	 */
+	public function should_allow_knowing_whether_a_value_is_in_cache_or_not(): void {
+		$cache = tribe_cache();
+
+		$this->assertFalse( $cache->has( 'foo-bar' ) );
+		$this->assertFalse( $cache->has( 'foo-bar-save-post', Triggers::TRIGGER_SAVE_POST ) );
+		$this->assertFalse( $cache->has( 'foo-bar-updated-option', Triggers::TRIGGER_UPDATED_OPTION ) );
+		$this->assertFalse( $cache->has( 'foo-bar-generate-rewrite-rules', Triggers::TRIGGER_GENERATE_REWRITE_RULES ) );
+
+		$this->assertFalse( $cache->get( 'foo-bar', '', false, 0, [], $found ) );
+		$this->assertFalse( $found );
+		$this->assertFalse( $cache->get( 'foo-bar-save-post', Triggers::TRIGGER_SAVE_POST, false, 0, [], $found ) );
+		$this->assertFalse( $found );
+		$this->assertFalse( $cache->get( 'foo-bar-updated-option', Triggers::TRIGGER_UPDATED_OPTION, false, 0, [], $found ) );
+		$this->assertFalse( $found );
+		$this->assertFalse( $cache->get( 'foo-bar-generate-rewrite-rules', Triggers::TRIGGER_GENERATE_REWRITE_RULES, false, 0, [], $found ) );
+		$this->assertFalse( $found );
+
+		$cache->set( 'foo-bar', 'bar' );
+		$this->assertTrue( $cache->has( 'foo-bar' ) );
+		$this->assertEquals('bar', $cache->get( 'foo-bar','', false, 0, [], $found ) );
+		$this->assertTrue( $found );
+
+		$cache->set( 'foo-bar-save-post', 'bar', 0, Triggers::TRIGGER_SAVE_POST );
+		$this->assertTrue( $cache->has( 'foo-bar-save-post', Triggers::TRIGGER_SAVE_POST ) );
+		$this->assertEquals('bar', $cache->get( 'foo-bar-save-post', Triggers::TRIGGER_SAVE_POST, false, 0, [], $found ) );
+		$this->assertTrue( $found );
+
+		$cache->set( 'foo-bar-updated-option', 'bar', 0, Triggers::TRIGGER_UPDATED_OPTION );
+		$this->assertTrue( $cache->has( 'foo-bar-updated-option', Triggers::TRIGGER_UPDATED_OPTION ) );
+		$this->assertEquals('bar', $cache->get( 'foo-bar-updated-option', Triggers::TRIGGER_UPDATED_OPTION, false, 0, [], $found ) );
+		$this->assertTrue( $found );
+
+		$cache->set( 'foo-bar-generate-rewrite-rules', 'bar', 0, Triggers::TRIGGER_GENERATE_REWRITE_RULES );
+		$this->assertTrue( $cache->has( 'foo-bar-generate-rewrite-rules', Triggers::TRIGGER_GENERATE_REWRITE_RULES ) );
+		$this->assertEquals('bar', $cache->get( 'foo-bar-generate-rewrite-rules', Triggers::TRIGGER_GENERATE_REWRITE_RULES, false, 0, [], $found ) );
+		$this->assertTrue( $found );
+	}
 }
