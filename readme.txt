@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Rename the `Controller_Test_Case` `setUp` and `tearDown` methods and annotate them with `@before` and `@after` annotations to improve PHPUnit version cross-compat.
+
 = [5.2.4] 2024-03-25 =
 
 * Fix - Resolves a PHP 8.2 deprecation error on `Date_Utils` - `PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in /.../wp-content/plugins/the-events-calendar/common/src/Tribe/Date_Utils.php on line 256`.
