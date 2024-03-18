@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - Add the `has( string $key, string $expiration_trigger = '' ): bool`; add the `&$found` parameter to the `Tribe__Cache::get` method.
+* Feature - Add the `has_shape( mixed $array, array $shape ): bool ` method to the `Tribe__Utils__Array` class.
+
 = [5.2.3] 2024-02-19 =
 
 * Tweak - Refactor JS logic to prevent ticketing of recurring events. [ET-1936]

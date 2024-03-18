@@ -1,4 +1,9 @@
 <?php
+/**
+ * Manage setting and expiring cached data
+ *
+ * Select actions can be used to force cached
+ */
 
 /**
  * Manage setting and expiring cached data
@@ -6,6 +11,8 @@
  * Select actions can be used to force cached
  * data to expire. Implemented so far:
  *  - save_post
+ *  - update main option
+ *  - regenerate rewrite rules
  *
  * When used in its ArrayAccess API the cache will provide non persistent storage.
  */
@@ -99,17 +106,21 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 * Note: When a default value or callback is specified, this value gets set in the cache.
 	 *
+	 * @since 4.11.0
+	 * @since TBD Added the `$found` parameter.
+	 *
 	 * @param string       $id                 The key for the cached value.
 	 * @param string|array $expiration_trigger Optional. Hook to trigger cache invalidation.
 	 * @param mixed        $default            Optional. A default value or callback that returns a default value.
 	 * @param int          $expiration         Optional. When the default value expires, if it gets set.
 	 * @param mixed        $args               Optional. Args passed to callback.
+	 * @param bool         $found              Optional. Whether the value was found in the cache. Set by reference.
 	 *
 	 * @return mixed
 	 */
-	public function get( $id, $expiration_trigger = '', $default = false, $expiration = 0, $args = [] ) {
-		$group   = isset( $this->non_persistent_keys[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
-		$value   = wp_cache_get( $this->get_id( $id, $expiration_trigger ), $group );
+	public function get( $id, $expiration_trigger = '', $default = false, $expiration = 0, $args = [], ?bool &$found = false ) {
+		$group = isset( $this->non_persistent_keys[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
+		$value = wp_cache_get( $this->get_id( $id, $expiration_trigger ), $group, false, $found );
 
 		// Value found.
 		if ( false !== $value ) {
@@ -149,7 +160,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return bool
 	 */
 	public function delete( $id, $expiration_trigger = '' ) {
-		$group   = isset( $this->non_persistent_keys[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
+		$group = isset( $this->non_persistent_keys[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
 
 		// Delete from non-persistent keys list.
 		if ( 'tribe-events-non-persistent' === $group ) {
@@ -369,7 +380,6 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 * @return boolean Whether the offset exists in the cache.
 	 *@link  http://php.net/manual/en/arrayaccess.offsetexists.php
-	 *
 	 */
 	#[\ReturnTypeWillChange]
 	public function offsetExists( $offset ): bool {
@@ -499,7 +509,7 @@ class Tribe__Cache implements ArrayAccess {
 
 		do {
 			$limit_clause = $limit < 0 ? sprintf( 'LIMIT %d,%d', $limit * $page, $limit ) : '';
-			$page++;
+			++$page;
 			$these_ids    = array_splice( $buffer, 0, $limit );
 			$interval     = implode( ',', array_map( 'absint', $these_ids ) );
 			$posts_query  = "SELECT * FROM {$wpdb->posts} WHERE ID IN ({$interval}) {$limit_clause}";
@@ -604,7 +614,6 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 * The method will redirect to the `set_transient` function if the site is using object caching.
 	 *
-	 *
 	 * @since 4.13.3
 	 *
 	 * @param string               $id                 The transient ID.
@@ -642,5 +651,22 @@ class Tribe__Cache implements ArrayAccess {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Checks whether a value is set in the cache or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $id                 The key for the cached value.
+	 * @param string $expiration_trigger Optional. Hook to trigger cache invalidation.
+	 *
+	 * @return bool Whether the value is set in the cache or not.
+	 */
+	public function has( $id, $expiration_trigger = '' ): bool {
+		$group = isset( $this->non_persistent_keys[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
+		wp_cache_get( $this->get_id( $id, $expiration_trigger ), $group, false, $found );
+
+		return $found;
 	}
 }

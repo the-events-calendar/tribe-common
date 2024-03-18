@@ -732,5 +732,55 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 
 			return false;
 		}
+
+		/**
+		 * Checks if an array has a specific shape.
+		 *
+		 * @since TBD
+		 *
+		 * @param array                      $array The array to check.
+		 * @param array<string|int,callable> $shape The shape to check for. Each key, either a string or an integer,
+		 *                                          maps to a callable that will be used to validate the value at that key.
+		 *                                          The callable must have the signature `fn( mixed $value ) :bool`.
+		 * @param bool                       $strict Whether the array should only contain the keys specified in the shape.
+		 *
+		 * @return bool Whether the array has the specified shape.
+		 */
+		public static function has_shape( $array, array $shape, bool $strict = false ): bool {
+			if ( ! is_array( $array ) ) {
+				return false;
+			}
+
+			if (
+				$strict
+				&& (
+					array_intersect_key( $array, $shape ) !== $array
+					||
+					array_diff_key( $array, $shape ) !== []
+				)
+			) {
+				return false;
+			}
+
+			if ( count( array_intersect_key( $shape, $array ) ) < count( $shape ) ) {
+				return false;
+			}
+
+			foreach ( $shape as $key => $check ) {
+				if ( ! is_callable( $check ) ) {
+					throw new \BadMethodCallException( 'The shape array must contain only callables as values.' );
+				}
+
+				try {
+					if ( ! $check( $array[ $key ] ) ) {
+						return false;
+					}
+				} catch ( \Throwable $th ) {
+					return false;
+				}
+			}
+
+			return true;
+		}
 	}
 }

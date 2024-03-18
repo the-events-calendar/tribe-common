@@ -2,9 +2,9 @@
 
 use Tribe__Utils__Array as Arr;
 
-class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
+class Array_Test extends \Codeception\Test\Unit {
 	public function shape_filter_data_provider() {
-		$test_shape = [
+		$test_shape          = [
 			'a'       =>
 				[
 					'deeply' =>
@@ -12,7 +12,7 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 							'nested' =>
 								[
 									'key',
-									'key_2'
+									'key_2',
 								],
 						],
 				],
@@ -23,12 +23,12 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 							'nested' =>
 								[
 									'key',
-									'key_2'
+									'key_2',
 								],
 						],
 				],
 			'key_2',
-			'key_3'
+			'key_3',
 		];
 		$test_optional_shape = [
 			'?a'      =>
@@ -38,7 +38,7 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 							'nested' =>
 								[
 									'key',
-									'key_2'
+									'key_2',
 								],
 						],
 				],
@@ -49,16 +49,16 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 							'?nested' =>
 								[
 									'key',
-									'key_2'
+									'key_2',
 								],
 						],
 				],
 			'?key_2',
-			'key_3'
+			'key_3',
 		];
 
 		return [
-			'empty array, non empty shape'           => [
+			'empty array, non empty shape'              => [
 				'array'    => [],
 				'shape'    => $test_shape,
 				'expected' => [
@@ -69,7 +69,7 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 									'nested' =>
 										[
 											'key'   => null,
-											'key_2' => null
+											'key_2' => null,
 										],
 								],
 						],
@@ -80,7 +80,7 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 									'nested' =>
 										[
 											'key'   => null,
-											'key_2' => null
+											'key_2' => null,
 										],
 								],
 						],
@@ -88,7 +88,7 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 					'key_3'   => null,
 				],
 			],
-			'empty array, optional shape'            => [
+			'empty array, optional shape'               => [
 				'array'    => [],
 				'shape'    => $test_optional_shape,
 				'expected' => [
@@ -96,15 +96,15 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 						[
 							'deeply' => [],
 						],
-					'key_3'   => null
+					'key_3'   => null,
 				],
 			],
-			'empty array, empty shape'               => [
+			'empty array, empty shape'                  => [
 				'array'    => [],
 				'shape'    => [],
 				'expected' => [],
 			],
-			'non-empty array, empty shape'           => [
+			'non-empty array, empty shape'              => [
 				'array'    => [
 					'a'       =>
 						[
@@ -113,7 +113,7 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 									'nested' =>
 										[
 											'key'   => 23,
-											'key_2' => 89
+											'key_2' => 89,
 										],
 								],
 						],
@@ -134,7 +134,7 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 				'shape'    => [],
 				'expected' => [],
 			],
-			'test shape on non-empty array'          => [
+			'test shape on non-empty array'             => [
 				'array'    => [
 					'a'     =>
 						[
@@ -143,7 +143,7 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 									'nested' =>
 										[
 											'key'   => 23,
-											'key_2' => 89
+											'key_2' => 89,
 										],
 								],
 						],
@@ -158,7 +158,7 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 									'nested' =>
 										[
 											'key'   => 23,
-											'key_2' => 89
+											'key_2' => 89,
 										],
 								],
 						],
@@ -177,13 +177,13 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 					'key_3'   => null,
 				],
 			],
-			'test optional shape on non-empty array' => [
+			'test optional shape on non-empty array'    => [
 				'array'    => [
 					'a'     =>
 						[
 							'b' => [ 'c' => [ 'd' ] ],
 						],
-					'key_3' => 'foo-bar'
+					'key_3' => 'foo-bar',
 				],
 				'shape'    => $test_optional_shape,
 				'expected' => [
@@ -205,7 +205,7 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 					'key_3'   => 'foo-bar',
 				],
 			],
-			'test shape on diff. sorted array'       => [
+			'test shape on diff. sorted array'          => [
 				'array'    => [
 					'key_2'   => 'bar-baz',
 					'another' =>
@@ -293,7 +293,7 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 					'key_2'   => 'bar-baz',
 					'key_3'   => 'foo-bar',
 				],
-			]
+			],
 		];
 	}
 
@@ -306,10 +306,10 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 	}
 
 	public function usearch_data_provider() {
-		$value_gt_needle = static function ( $needle, $value ): bool {
+		$value_gt_needle              = static function ( $needle, $value ): bool {
 			return $value > $needle;
 		};
-		$matches_needle = static function ( $needle, $value ): bool {
+		$matches_needle               = static function ( $needle, $value ): bool {
 			return $value === $needle;
 		};
 		$callback_using_value_and_key = static function ( $needle, $value, $key ): bool {
@@ -317,31 +317,39 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 		};
 
 		return [
-			'empty haysatck'                                    => [ 'foo', [], false, $value_gt_needle ],
-			'haystack not contains needle'                      => [
+			'empty haysatck'                     => [ 'foo', [], false, $value_gt_needle ],
+			'haystack not contains needle'       => [
 				23,
 				[ 'foo', 'bar', 'baz' ],
 				false,
-				$value_gt_needle
+				$value_gt_needle,
 			],
-			'haystack contains 1 needle'                        => [ 23, [ 89, 23, 113, 17 ], 1, $matches_needle ],
-			'haystack contains multiple needles'                => [
+			'haystack contains 1 needle'         => [ 23, [ 89, 23, 113, 17 ], 1, $matches_needle ],
+			'haystack contains multiple needles' => [
 				23,
 				[ 89, 23, 113, 17, 23, 11, 23 ],
 				1,
-				$matches_needle
+				$matches_needle,
 			],
 			'haystack contains multiple needles w/ string keys' => [
 				23,
-				[ 'one' => 89, 'two' => 23, 'three' => 23 ],
+				[
+					'one'   => 89,
+					'two'   => 23,
+					'three' => 23,
+				],
 				'two',
-				$matches_needle
+				$matches_needle,
 			],
-			'callback using value and key'                      => [
+			'callback using value and key'       => [
 				23,
-				[ 'one' => 89, 'two' => 23, 'three' => 23 ],
+				[
+					'one'   => 89,
+					'two'   => 23,
+					'three' => 23,
+				],
 				'three',
-				$callback_using_value_and_key
+				$callback_using_value_and_key,
 			],
 		];
 	}
@@ -351,5 +359,133 @@ class Tribe__Utils__Array_Test extends \Codeception\Test\Unit {
 	 */
 	public function test_usearch( $needle, array $haystack, $expected, callable $callback ) {
 		$this->assertEquals( $expected, Arr::usearch( $needle, $haystack, $callback ) );
+	}
+
+	public function has_shape_data_provider(): array {
+		return [
+			'not an array'                             => [ 'foo', [], true, false ],
+			'empty array, empty shape'                 => [ [], [], true, true ],
+			'empty array, non-empty shape, strict'     => [
+				[],
+				[ 'foo' => 'is_string' ],
+				true,
+				false,
+			],
+			'empty array, non-empty shape, non-strict' => [
+				[],
+				[ 'foo' => 'is_string' ],
+				false,
+				false,
+			],
+			'non-empty array, function shape, missing key, strict' => [
+				[ 'foo' => 23 ],
+				[ 'bar' => 'is_string' ],
+				true,
+				false,
+			],
+			'non-empty array, function shape, missing key, non-strict' => [
+				[ 'foo' => 23 ],
+				[ 'bar' => 'is_string' ],
+				false,
+				false,
+			],
+			'non-empty array, function shape, extra key, strict' => [
+				[
+					'foo' => 23,
+					'bar' => 'baz',
+				],
+				[ 'foo' => 'is_int' ],
+				true,
+				false,
+			],
+			'non-empty array, function shape, extra key, non-strict' => [
+				[
+					'foo' => 23,
+					'bar' => 'baz',
+				],
+				[ 'foo' => 'is_int' ],
+				false,
+				true,
+			],
+			'non-empty array, closure shape, all key fail failure, strict' => [
+				[
+					'foo' => 23,
+					'bar' => 89,
+				],
+				[
+					'foo' => fn( $foo ) => $foo === 'hello',
+					'bar' => fn( $bar ) => $bar === 'world',
+				],
+				true,
+				false,
+			],
+			'non-empty array, closure shape, all key fail failure, non-strict' => [
+				[
+					'foo' => 23,
+					'bar' => 89,
+				],
+				[
+					'foo' => fn( $foo ) => $foo === 'hello',
+					'bar' => fn( $bar ) => $bar === 'world',
+				],
+				false,
+				false,
+			],
+			'non-empty array, closure shape, all key pass, strict' => [
+				[
+					'foo' => 'hello',
+					'bar' => 'world',
+				],
+				[
+					'foo' => fn( $foo ) => $foo === 'hello',
+					'bar' => fn( $bar ) => $bar === 'world',
+				],
+				true,
+				true,
+			],
+			'non-empty array, closure shape, all key pass, non-strict ' => [
+				[
+					'foo' => 'hello',
+					'bar' => 'world',
+				],
+				[
+					'foo' => fn( $foo ) => $foo === 'hello',
+					'bar' => fn( $bar ) => $bar === 'world',
+				],
+				false,
+				true,
+			],
+			'non-empty array, closure shape, some key pass, strict' => [
+				[
+					'foo' => 'hello',
+					'bar' => 89,
+				],
+				[
+					'foo' => fn( $foo ) => $foo === 'hello',
+					'bar' => fn( $bar ) => $bar === 'world',
+				],
+				true,
+				false,
+			],
+			'non-empty array, closure shape, some key pass, non-strict' => [
+				[
+					'foo' => 'hello',
+					'bar' => 89,
+				],
+				[
+					'foo' => fn( $foo ) => $foo === 'hello',
+					'bar' => fn( $bar ) => $bar === 'world',
+				],
+				false,
+				false,
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider has_shape_data_provider
+	 */
+	public function test_has_shape( $input, $shape, $strict, $expected ): void {
+		$this->assertEquals( $expected, Arr::has_shape( $input, $shape, $strict ) );
 	}
 }
