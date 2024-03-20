@@ -4,6 +4,96 @@
 
 * Tweak - Remove ini_check for deprecated safe_mode. [TBD]
 
+= [5.2.4] 2024-03-20 =
+
+* Fix - Resolves a PHP 8.2 deprecation error on `Date_Utils` - `PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in /.../wp-content/plugins/the-events-calendar/common/src/Tribe/Date_Utils.php on line 256`. [ECP-1620]
+* Fix - This fixes an issue where a template with a duplicate name but located in different folders is called it would always reference the first file. Updated the key to be unique by folder as well. [ECP-1627]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.2.3] 2024-02-19 =
+
+* Tweak - Refactor JS logic to prevent ticketing of recurring events. [ET-1936]
+* Fix - Better clean up of global space in Controller test case. [ET-1936]
+
+= [5.2.2] 2024-02-19 =
+
+* Tweak - Added timezone param to our date utility function `Date_Utils::reformat`. [TEC-5042]
+* Language - 1 new strings added, 4 updated, 6 fuzzied, and 0 obsoleted
+
+= [5.2.1] 2024-01-24 =
+
+* Feature - Add the `get_country_based_on_code` method to the `Tribe__Languages__Locations` class. [EA-469]
+* Feature - Enable auto-updates for premium plugins.
+* Fix - Correct some signatures in the Tribe__Data class so they conform to the classes it implements, avoiding deprecation notices. [TEC-4992]
+* Fix - Fix PHP 8.2 deprecation errors `PHP Deprecated:  html_entity_decode(): Passing null to parameter #1 ($string) of type string is deprecated`. [ECP-1603]
+* Tweak - Update the DataTables library used by Event Aggregator. [EA-479]
+* Tweak - Improve the notice dismissal logic with more modern JavaScript and PHP.
+* Tweak - Added filters: `tec_dialog_id`, `tribe_repository_{$this->filter_name}_before_delete`
+* Language - 0 new strings added, 20 updated, 4 fuzzied, and 0 obsoleted
+
+= [5.2.0] 2024-01-22 =
+
+* Feature - Add the `Tribe__Repository::first_id` method to fetch the first ID of a query. [ET-1490]
+* Feature - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
+* Feature - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
+* Feature - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
+* Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
+* Tweak - Add the `set_request_context( ?string $context)` and `get_request_context(): ?string` methods to the `Tribe__Repository__Interface` and classes. [ET-1813]
+* Tweak - Ticketing & RSVP tab selected by default when clicking Help from the Tickets menu. [ET-1837]
+* Language - 0 new strings added, 8 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.17] 2023-12-14 =
+
+* Fix - Adding a param safe list to validate input for Select2 usage on AJAX requests. [BTRIA-2148]
+* Language - 0 new strings added, 24 updated, 2 fuzzied, and 0 obsoleted
+
+= [5.1.16] 2023-12-13 =
+
+* Tweak -  Include Wallet Plus on Add-Ons Page. [ET-1932]
+* Tweak -  Include Wallet Plus on Help Page. [ET-1931]
+* Language - 7 new strings added, 54 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.15.2] 2023-12-04 =
+
+* Fix - Ensure correct access rights to JSON-LD data depending on the user role. [TEC-4995]
+* Language - 0 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.15.1] 2023-11-20 =
+
+* Security - Ensure all password protected posts have their settings respected. [TCMN-167]
+
+= [5.1.15] 2023-11-16 =
+
+* Fix - Ensure the JavaScript module assets are properly getting the `type="module"` added on all scenarios [ET-1921]
+* Language - 0 new strings added, 11 updated, 1 fuzzied, and 2 obsoleted
+
+= [5.1.14] 2023-11-13 =
+
+* Tweak - Added pre-check filter `tribe_repository_{$this->filter_name}_before_delete` to enable overriding the `Repository` delete operation. [TEC-4935]
+* Fix - Resolved several `Deprecated: Creation of dynamic property` warnings on: `\Tribe__Field::$allow_clear, $type, $class, $label, $label_attributes, $error, $tooltip, $size, $html, $options, $value, $conditional, $placeholder, $display_callback, $if_empty, $can_be_empty, $clear_after, $tooltip_first` and `\Tribe__Settings_Tab::$priority, public $fields, $show_save, $display_callback, $network_admin` [BTRIA-2088]
+* Language - 2 new strings added, 9 updated, 1 fuzzied, and 2 obsoleted.
+
+= [5.1.13.1] 2023-11-10 =
+
+* Fix - Update Telemetry library to prevent potential fatals. [TEC-4978]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.13] 2023-11-08 =
+
+* Tweak - Ensure stability of opt-in data.
+
+= [5.1.12] 2023-11-01 =
+
+* Tweak - Ticketing & RSVP tab selected by default when clicking Help from the Tickets menu. [ET-1837]
+* Language - 0 new strings added, 124 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.1.11] 2023-10-19 =
+
+* Tweak - Changed scope of the Tribe__Editor__Blocks__Abstract::$namespace property to protected. [TEC-4792]
+* Fix - AM/PM time formats `g:i A` and `g:i a` are now respected for the French locale. [TEC-4807]
+* Tweak - Pass the appropriate arguments to telemetry opt-ins.
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
 = [5.1.10.1] 2023-10-12 =
 
 * Fix - Correct a problem that can cause a fatal when plugins are deactivated in a certain order. [TEC-4951]
@@ -30,6 +120,8 @@
 
 * Tweak - Compress the size of all images used by the Common module, to reduce the size of the plugin
 * Tweak - Set background image to none on the button element to prevent general button styling overrides. [ET-1815]
+* Tweak - Add the `set_request_context( ?string $context)` and `get_request_context(): ?string` methods to the `Tribe__Repository__Interface` and classes. [ET-1813]
+* Tweak - Ticketing & RSVP tab selected by default when clicking Help from the Tickets menu. [ET-1837]
 
 = [5.1.7] 2023-09-05 =
 
@@ -42,6 +134,10 @@
 = [5.1.6] 2023-08-15 =
 
 * Feature - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
+
+= [5.1.5] 2023-08-15 =
+
+* Feature - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
 * Tweak - Added filters: `tec_block_has_block`, `tec_block_{$block_name}_has_block`, `tec_common_rewrite_dynamic_matchers`, `tec_shortcode_aliased_arguments`, `tec_shortcode_{$registration_slug}_aliased_arguments`
 * Language - 0 new strings added, 23 updated, 1 fuzzied, and 0 obsoleted
 
