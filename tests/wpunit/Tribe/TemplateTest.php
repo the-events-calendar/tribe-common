@@ -8,6 +8,27 @@ use Tribe__Template as Template;
 include_once codecept_data_dir( 'classes/Dummy_Plugin_Origin.php' );
 
 class TemplateTest extends \Codeception\TestCase\WPTestCase {
+	/**
+	 * @test
+	 */
+	public function should_not_memoize_same_name_template() {
+		$plugin = new Dummy_Plugin_Origin();
+
+		// Template should be unique by folder path + name.
+		$template = new Template();
+		$template->set_template_origin( $plugin )->set_template_folder( 'tests/_data/plugin-views/templates' );
+		$template2 = new Template();
+		$template2->set_template_origin( $plugin )->set_template_folder( 'tests/_data/plugin-views/templates/etc' );
+
+		// Same name, but different folders.
+		$html1 = $template->template( 'dummy-template', [], false );
+		$html2 = $template2->template( 'dummy-template', [], false );
+
+		// Should find two different templates.
+		$this->assertNotEquals( $html1, $html2 );
+		$this->assertContains( 'Our duplicate.', $html2 );
+		$this->assertContains( 'Our own test.', $html1 );
+	}
 
 	/**
 	 * It should allow setting a number of values at the same time
