@@ -31,7 +31,7 @@ final class Telemetry {
 	 *
 	 * @var string
 	 */
-	protected static $plugin_slug  = '';
+	protected static $plugin_slug = '';
 
 	/**
 	 * The custom hook prefix.
@@ -73,7 +73,7 @@ final class Telemetry {
 	];
 
 	/**
-	 * Path to main pugin file
+	 * Path to main plugin file
 	 *
 	 * @since 5.1.0
 	 *
@@ -193,6 +193,8 @@ final class Telemetry {
 
 	/**
 	 * Get the slug of the plugin.
+	 *
+	 * @since 5.1.0
 	 */
 	public static function get_plugin_slug(): string {
 		if ( empty( self::$plugin_slug ) ) {
@@ -246,10 +248,16 @@ final class Telemetry {
 	 * @since 5.1.0
 	 *
 	 * @param array<string|mixed> $args The current optin modal args.
+	 * @param ?string             $slug The Stellar slug being used for Telemetry.
 	 *
 	 * @return array<string|mixed>
 	 */
-	public function filter_optin_args( $args ): array {
+	public function filter_optin_args( $args, $slug = null ): array {
+		// Sanity check for slug mismatch.
+		if ( ! in_array( $slug, self::$base_parent_slugs, true ) ) {
+			return $args;
+		}
+
 		$user_name  = esc_html( wp_get_current_user()->display_name );
 		$optin_args = [
 			'plugin_logo'           => tribe_resource_url( 'images/logo/tec-brand.svg', false, null, \Tribe__Main::instance() ),
@@ -355,12 +363,12 @@ final class Telemetry {
 			'plugin_logo_width'  => 'auto',
 			'plugin_logo_height' => 32,
 			'plugin_logo_alt'    => 'TEC Common Logo',
-			'heading'            => __( 'We’re sorry to see you go.', 'tribe-common' ),
-			'intro'              => __( 'We’d love to know why you’re leaving so we can improve our plugin.', 'tribe-common' ),
+			'heading'            => __( 'We\'re sorry to see you go.', 'tribe-common' ),
+			'intro'              => __( 'We\'d love to know why you\'re leaving so we can improve our plugin.', 'tribe-common' ),
 			'uninstall_reasons'  => [
 				[
 					'uninstall_reason_id' => 'confusing',
-					'uninstall_reason'    => __( 'I couldn’t understand how to make it work.', 'tribe-common' ),
+					'uninstall_reason'    => __( 'I couldn\'t understand how to make it work.', 'tribe-common' ),
 				],
 				[
 					'uninstall_reason_id' => 'better-plugin',
@@ -369,12 +377,12 @@ final class Telemetry {
 				],
 				[
 					'uninstall_reason_id' => 'no-feature',
-					'uninstall_reason'    => __( 'I need a specific feature it doesn’t provide.', 'tribe-common' ),
+					'uninstall_reason'    => __( 'I need a specific feature it doesn\'t provide.', 'tribe-common' ),
 					'show_comment'        => true,
 				],
 				[
 					'uninstall_reason_id' => 'broken',
-					'uninstall_reason'    => __( 'The plugin doesn’t work.', 'tribe-common' ),
+					'uninstall_reason'    => __( 'The plugin doesn\'t work.', 'tribe-common' ),
 					'show_comment'        => true,
 				],
 				[
@@ -421,7 +429,7 @@ final class Telemetry {
 		 *
 		 * @param string $plugin_slug The slug of the plugin showing the modal.
 		 */
-		do_action( 'stellarwp/telemetry/optin', $slug );
+		do_action( 'stellarwp/telemetry/optin', $slug ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 	}
 
 	/**

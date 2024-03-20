@@ -132,16 +132,16 @@ implements Tribe__Editor__Blocks__Interface {
 	 * @return void
 	 */
 	public function register() {
-		$block_args = [
+		$block_args = $this->get_registration_args( [
 			'render_callback' => [ $this, 'render' ],
-		];
+		] );
 
 		// Prevents a block from being registered twice.
 		if ( ! class_exists( 'WP_Block_Type_Registry' ) || WP_Block_Type_Registry::get_instance()->is_registered( $this->name() ) ) {
 			return;
 		}
 
-		register_block_type( $this->name(), $block_args );
+		register_block_type( $this->get_registration_block_type(), $block_args );
 	}
 
 	/**
@@ -279,5 +279,34 @@ implements Tribe__Editor__Blocks__Interface {
 		$block_data = apply_filters( 'tribe_block_block_data_' . $this->slug(), $block_data, $this );
 
 		return $block_data;
+	}
+
+	/**
+	 * Returns the block type argument that should be used to register the block in the `register_block_type`
+	 * function.
+	 *
+	 * @see register_block_type() for the values that can be used in the `block_type` argument.
+	 *
+	 * @since 5.2.0
+	 *
+	 * @return string|WP_Block_Type The block type argument that will be used to register the block.
+	 */
+	public function get_registration_block_type() {
+		return $this->name();
+	}
+
+	/**
+	 * Allows extending blocks to modify and update the arguments used to register the block
+	 * in the `register_block_type` function.
+	 *
+	 * @since 5.2.0
+	 *
+	 * @param array<string,mixed> $args The default arguments the block would be registered with if this method is not
+	 *                                  overridden.
+	 *
+	 * @return array<string,mixed> The arguments to use when registering the block.
+	 */
+	public function get_registration_args( array $args ): array {
+		return $args;
 	}
 }
