@@ -6,16 +6,22 @@
 namespace TEC\Common\Tests\Provider;
 
 use Codeception\TestCase\WPTestCase;
+use RuntimeException;
 use TEC\Common\Contracts\Provider\Controller;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Container as Container;
+use TEC\Common\lucatume\DI52\Container as DI52_Container;
+use WP_Hook;
 
 /**
  * Class Controller_Test_Case.
  *
  * @since 5.0.17
  *
- * @package TEC\Tickets\Flexible_Tickets;
+ * @package TEC\Common\Tests\Provider;
+ * @property string $controller_class The class name of the controller to test.
+ *
+ * @package TEC\Common\Tests\Provider;
  */
 class Controller_Test_Case extends WPTestCase {
 	use With_Uopz;
@@ -25,7 +31,7 @@ class Controller_Test_Case extends WPTestCase {
 	 *
 	 * @var Container
 	 */
-	protected Container $test_container;
+	protected Container $test_services;
 
 	/**
 	 * A set of logs collected after the Controller has been registered.
@@ -45,6 +51,116 @@ class Controller_Test_Case extends WPTestCase {
 	protected $logs = [];
 
 	/**
+	 * The controller instances created by the test case.
+	 *
+	 * @var array<Controller>
+	 */
+	private array $made_controllers = [];
+
+	/**
+	 * The original controller instance.
+	 */
+	private ?Controller $original_controller;
+	/**
+	 * ${CARET}
+	 *
+	 * @since TBD
+	 *
+	 * @var Container
+	 */
+	private $original_services;
+
+	/**
+	 * Unregisters the original controller and sets up the test case.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function setUp() {
+		parent::setUp();
+
+		// Ensure the test case defines the controller class to test.
+		if ( ! property_exists( $this, 'controller_class' ) ) {
+			throw new RuntimeException( 'Each Controller test case must define a controller_class property.' );
+		}
+
+		// Store a reference to the original Service Locator to be used in `tearDown`.
+		$original_services       = tribe();
+		$this->original_services = $original_services;
+
+		// Store a reference to the original controller to be used in `tearDown`.
+		$this->original_controller = $original_services->get( $this->controller_class );
+
+		// Unhook all the controller instances to avoid callbacks running twice: original and test Controller.
+		$this->unregister_all_controller_instances( $this->original_controller );
+
+		// Clone the original Service Locator to be used as a test Service Locator.
+		$test_services = clone $original_services;
+
+		// From now on calls to the Service Locator (the `tribe` function) will be redirected to a test Service Locator.
+		uopz_set_return( 'tribe', static function ( $key = null ) use ( $test_services ) {
+			return $key ? $test_services->get( $key ) : $test_services;
+		}, true );
+		// Redirect calls to init the container too.
+		uopz_set_return( Container::class, 'init', $test_services );
+		$this->test_services = $test_services;
+
+		// We should now be working with the test Service Locator.
+		$this->assertNotSame( $this->original_controller, $this->test_services );
+		$this->assertSame( $this->test_services, tribe() );
+
+		// Register the test Service Locator in the test Service Locator itself.
+		$this->test_services->singleton( get_class( $this->test_services ), $this->test_services );
+		$this->test_services->singleton( Container::class, $this->test_services );
+		$this->test_services->singleton( DI52_Container::class, $this->test_services );
+
+		// In the test Service Locator, the Controller should not be registered.
+		$this->test_services->setVar( $this->controller_class . '_registered', false );
+		$this->assertFalse( $this->original_controller::is_registered() );
+
+		// Unset the previous, maybe, bound and resolved instance of the controller.
+		unset( $this->test_services[ $this->controller_class ] );
+	}
+
+	/**
+	 * Unregisters all the controllers created by the test case.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function tearDown() {
+		// Unregister all the controllers created by the test case.
+		foreach ( $this->made_controllers as $controller ) {
+			$controller->unregister();
+			unset( $controller );
+		}
+		$this->made_controllers = [];
+
+		// We should be still redirecting `tribe()` calls to the test Service Locator.
+		$this->assertNotSame( $this->original_services, tribe() );
+
+		// Stop redirecting calls to the test Service Locator.
+		uopz_unset_return( 'tribe' );
+		// Stop redirecting calls to init the container too.
+		uopz_unset_return( Container::class, 'init' );
+
+		// We should now be working with the original Service Locator.
+		$this->assertSame( $this->original_services, tribe() );
+
+		// The original controller should not be registered: let's make sure.
+		$this->original_services->setVar( $this->controller_class . '_registered', false );
+		$this->assertFalse( $this->original_controller::is_registered() );
+
+		// Re-register the original controller after the Service Locator has been reset.
+		$this->original_controller->register();
+		$this->original_controller = null;
+
+		parent::tearDown();
+	}
+
+	/**
 	 * Creates a controller instance and sets up a dedicated Service Locator for it.
 	 *
 	 * In the context of the dedicated Service Locator the controller is not yet registered.
@@ -57,38 +173,13 @@ class Controller_Test_Case extends WPTestCase {
 	 * @return Controller The controller instance, built on a dedicated testing Service Locator.
 	 */
 	protected function make_controller( string $controller_class = null ): Controller {
-		if ( ! ( $controller_class || property_exists( $this, 'controller_class' ) ) ) {
-			throw new \RuntimeException( 'Each Controller test case must define a controller_class property.' );
-		}
-
 		$controller_class = $controller_class ?: $this->controller_class;
 
-		/** @var Controller $original_controller */
-		$original_controller = tribe( $controller_class );
-		// Unregister the original controller to avoid actions and filters hooking twice.
-		$original_controller->unregister();
-		// Create a container that will provide the context for the controller cloning the original Service Locator.
-		$this->test_container = clone tribe();
-		// When code interacts with the Service Locator, use the test one.
-		$test_container = $this->test_container;
-		$this->set_fn_return( 'tribe', function ( $id = null ) use ( $test_container ) {
-			return $id ? $test_container->make( $id ) : $test_container;
-		}, true );
-		// Register the test container in the test container.
-		$this->test_container->singleton( get_class( $this->test_container ), $this->test_container );
-		$this->test_container->singleton( \tad_DI52_Container::class, $this->test_container );
-		// The controller will NOT have registered in this container.
-		$this->test_container->setVar( $controller_class . '_registered', false );
-		// Unset the previous, maybe, bound and resolved instance of the controller.
-		unset( $this->test_container[ $controller_class ] );
-		// Nothing should be bound in the container for the controller.
-		$this->assertFalse( $this->test_container->isBound( $controller_class ) );
-		$this->assertFalse( $controller_class::is_registered() );
 		// From now on, ingest all logging.
 		global $wp_filter;
-		$wp_filter['tribe_log'] = new \WP_Hook();
+		$wp_filter['tribe_log'] = new WP_Hook(); // phpcs:ignore
 		add_action( 'tribe_log', function ( $level, $message, $context ) {
-			if ( isset($context['controller']) && $context['controller'] === $this->controller_class ) {
+			if ( isset( $context['controller'] ) && $context['controller'] === $this->controller_class ) {
 				// Log the controller logs.
 				$this->controller_logs[] = [
 					'level'   => $level,
@@ -107,7 +198,13 @@ class Controller_Test_Case extends WPTestCase {
 		}, 10, 3 );
 
 		// Due to the previous unset, the container will build this as a prototype.
-		return $this->test_container->make( $controller_class );
+		$controller = $this->test_services->make( $controller_class );
+		$this->assertNotSame( $controller, $this->original_controller );
+
+		$this->made_controllers[] = $controller;
+
+		// Return a yet unregistered Controller instance.
+		return $controller;
 	}
 
 	/**
@@ -214,5 +311,64 @@ class Controller_Test_Case extends WPTestCase {
 			}
 		}
 		$this->assertTrue( $found, "Could not find a log with level {$level} and message matching {$needle}" );
+	}
+
+	/**
+	 * Removes any instance of the controller from any filter or action it might have hooked to.
+	 *
+	 * @since TBD
+	 *
+	 * @param Controller $original_controller The controller to unhook.
+	 */
+	protected function unregister_all_controller_instances( Controller $original_controller ): void {
+		// Unregister the original controller to avoid actions and filters hooking twice.
+		$original_controller->unregister();
+
+		// We'll run the Controller registration again, so we need to reset the registered flag.
+		tribe()->setVar( get_class( $original_controller ) . '_registered', false );
+
+		// The original controller should not be registered at this point.
+		$this->assertFalse( $original_controller::is_registered() );
+
+		// Combing all wp_filter to remove any instance of the controller would be too slow.
+		// Here we use the controller to let use know what filters it would hook to by
+		// intercepting the `add_filter` function.
+		$hooked = [];
+		uopz_set_return( 'add_filter', function ( $tag, $function_to_add, $priority = 10, $accepted_args = 1 ) use ( &$hooked ) {
+			if ( ! ( is_array( $function_to_add ) && $function_to_add[0] instanceof Controller ) ) {
+				return false;
+			}
+
+			$hooked[] = [ $tag, $priority ];
+		}, true );
+		// The controller will also flag itself as registered in the Service Locator.
+		$original_controller->register();
+		// No need to mock add_filter anymore.
+		uopz_unset_return( 'add_filter' );
+		// Comb wp_filters to remove the filters added by **any instance** of the controller.
+		global $wp_filter;
+		$to_remove = [];
+		foreach ( $hooked as [$tag, $priority] ) {
+			if ( ! isset( $wp_filter[ $tag ]->callbacks[ $priority ] ) ) {
+				continue;
+			}
+			foreach ( $wp_filter[ $tag ]->callbacks[ $priority ] as $hook ) {
+				if ( is_array( $hook['function'] ) && $hook['function'][0] instanceof Controller ) {
+					$to_remove[] = [ $tag, $hook['function'], $priority ];
+				}
+			}
+		}
+		foreach ( $to_remove as [$tag, $hook, $priority] ) {
+			remove_filter( $tag, $hook, $priority );
+		}
+
+		// Unregister the original controller again for good measure.
+		$original_controller->unregister();
+
+		// The controller flagged itself as registered in the Service Locator, lower the flag.
+		$this->original_services->setVar( get_class( $original_controller ) . '_registered', false );
+
+		// The original controller should not be registered at this point.
+		$this->assertFalse( $original_controller::is_registered() );
 	}
 }
