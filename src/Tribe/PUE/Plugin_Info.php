@@ -32,12 +32,15 @@ if ( ! class_exists( 'Tribe__PUE__Plugin_Info' ) ) {
 		public $origin_url;
 		public $zip_url;
 		public $icon_svg_url;
+		public $auth_url;
 		public $file_prefix;
 
 		public $author;
 		public $author_homepage;
 
 		public $requires;
+		public $auth_required;
+		public $is_authorized;
 		public $tested;
 		public $upgrade_notice;
 

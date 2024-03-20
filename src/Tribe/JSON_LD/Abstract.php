@@ -89,6 +89,23 @@ abstract class Tribe__JSON_LD__Abstract {
 			return [];
 		}
 
+		$current_user_id = get_current_user_id();
+		if ( $current_user_id === 0 ) {
+			// Visitor: only see published, not password-protected, posts.
+			if ( $post->post_status !== 'publish' || post_password_required( $post ) ) {
+				return [];
+			}
+		} else {
+			// Logged-in user: only see published posts or posts they can read.
+			$capability = $post->post_status === 'private' ? 'read_private_posts' : 'read';
+			if (
+				( post_password_required( $post ) )
+				|| ! current_user_can( $capability, $post->ID )
+			) {
+				return [];
+			}
+		}
+
 		$data = (object) [];
 
 		// We may need to prevent the context to be triggered
@@ -132,7 +149,7 @@ abstract class Tribe__JSON_LD__Abstract {
 		$type = strtolower( esc_attr( $this->type ) );
 
 		/**
-		 * Allows the event data to be modifed by themes and other plugins.
+		 * Allows the event data to be modified by themes and other plugins.
 		 *
 		 * @example tribe_json_ld_thing_object
 		 * @example tribe_json_ld_event_object
@@ -160,7 +177,7 @@ abstract class Tribe__JSON_LD__Abstract {
 		}
 
 		/**
-		 * Allows the event data to be modifed by themes and other plugins.
+		 * Allows the event data to be modified by themes and other plugins.
 		 *
 		 * @example tribe_json_ld_thing_data
 		 * @example tribe_json_ld_event_data

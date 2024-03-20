@@ -148,19 +148,20 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 			$all_products = tribe( 'plugins.api' )->get_products();
 
 			$products = [
-				'the-events-calendar'      => (object) $all_products['the-events-calendar'],
-				'events-calendar-pro'      => (object) $all_products['events-calendar-pro'],
-				'events-virtual'           => (object) $all_products['events-virtual'],
-				'event-aggregator'         => (object) $all_products['event-aggregator'],
-				'event-automator'         => (object) $all_products['event-automator'],
-				'event-tickets'            => (object) $all_products['event-tickets'],
-				'event-tickets-plus'       => (object) $all_products['event-tickets-plus'],
-				'promoter'                 => (object) $all_products['promoter'],
-				'tribe-filterbar'          => (object) $all_products['tribe-filterbar'],
-				'events-community'         => (object) $all_products['events-community'],
-				'events-community-tickets' => (object) $all_products['events-community-tickets'],
-				'tribe-eventbrite'         => (object) $all_products['tribe-eventbrite'],
-				'image-widget-plus'        => (object) $all_products['image-widget-plus'],
+				'the-events-calendar'       => (object) $all_products['the-events-calendar'],
+				'events-calendar-pro'       => (object) $all_products['events-calendar-pro'],
+				'events-virtual'            => (object) $all_products['events-virtual'],
+				'event-aggregator'          => (object) $all_products['event-aggregator'],
+				'event-automator'           => (object) $all_products['event-automator'],
+				'event-tickets'             => (object) $all_products['event-tickets'],
+				'event-tickets-plus'        => (object) $all_products['event-tickets-plus'],
+				'event-tickets-wallet-plus' => (object) $all_products['event-tickets-wallet-plus'],
+				'promoter'                  => (object) $all_products['promoter'],
+				'tribe-filterbar'           => (object) $all_products['tribe-filterbar'],
+				'events-community'          => (object) $all_products['events-community'],
+				'events-community-tickets'  => (object) $all_products['events-community-tickets'],
+				'tribe-eventbrite'          => (object) $all_products['tribe-eventbrite'],
+				'image-widget-plus'         => (object) $all_products['image-widget-plus'],
 			];
 
 			return $products;
@@ -318,11 +319,11 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 				],
 				(object) [
 					'image' => 'images/shop/stellar-ithemes-cta.jpg',
-					'logo' => 'images/shop/stellar-ithemes-logo.png',
-					'title' => __( 'Foundational favorites: iThemes Security and Developer Toolkit.', 'tribe-common' ),
+					'logo' => 'images/shop/stellar-solidwp-logo.png',
+					'title' => __( 'Security, backups, and management — that’s Solid Suite.', 'tribe-common' ),
 					'link' => 'https://evnt.is/ithemes',
 					'linktext' => __( 'Add Security', 'tribe-common' ),
-					'description' => __( 'iThemes Security, the WordPress security plugin that’s easy to use. Built with performance in mind.', 'tribe-common' ),
+					'description' => __( 'SolidWP, the seriously solid foundation your WordPress site needs. Built with performance in mind.', 'tribe-common' ),
 				],
 				(object) [
 					'image' => 'images/shop/stellar-rcp-cta.jpg',
