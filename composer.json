@@ -10,16 +10,16 @@
   "license": "GPL-2.0",
   "require-dev": {
     "bordoni/phpass": "0.3.5",
-    "automattic/vipwpcs": "^2.0",
+    "automattic/vipwpcs": "^3.0",
     "codeception/codeception": "^2.5.5",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
     "lucatume/function-mocker-le": "^1.0",
     "lucatume/wp-browser": "^3.0.14",
-    "the-events-calendar/tribalscents": "dev-master",
+    "stellarwp/coding-standards": "dev-main",
     "the-events-calendar/tec-testing-facilities": "dev-master",
     "phpunit/phpunit": "~6.0",
     "wp-cli/checksum-command": "1.0.5",
-    "wp-coding-standards/wpcs": "^2.1",
+    "wp-coding-standards/wpcs": "^3.0.0",
     "lucatume/codeception-snapshot-assertions": "^0.2.4"
   },
   "minimum-stability": "dev",
@@ -28,6 +28,9 @@
     "preferred-install": "dist",
     "platform": {
       "php": "7.0.33"
+    },
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   },
   "require": {
@@ -43,22 +46,13 @@
       "no-api": true
     },
     {
-      "name": "the-events-calendar/TribalScents",
+      "name": "stellarwp/coding-standards",
       "type": "github",
-      "url": "https://github.com/the-events-calendar/TribalScents",
+      "url": "https://github.com/stellarwp/coding-standards.git",
       "no-api": true
     }
   ],
   "scripts": {
-    "post-install-cmd": [
-      "xrstf\\Composer52\\Generator::onPostInstallCmd"
-    ],
-    "post-update-cmd": [
-      "xrstf\\Composer52\\Generator::onPostInstallCmd"
-    ],
-    "post-autoload-dump": [
-      "xrstf\\Composer52\\Generator::onPostInstallCmd"
-    ]
   },
   "autoload": {
     "psr-4": {

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="Tribe Common Coding Standards">
-	<rule ref="TribalScents"></rule>
+	<rule ref="StellarWP"></rule>
 	<rule ref="WordPress-VIP-Go"></rule>
 	<rule ref="WordPress">
 		<exclude name="WordPress.Files.FileName"/>
