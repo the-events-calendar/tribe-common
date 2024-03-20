@@ -1,8 +1,7 @@
 /**
  * External dependencies
  */
-import { includes } from 'lodash';
-import { curry } from 'lodash/fp';
+import { curry, includes } from 'lodash';
 
 export const getPlugins = ( state ) => state.plugins;
 

@@ -39,7 +39,7 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 	 * Test tribe_asset_print_group
 	 */
 	public function test_tribe_asset_print_group() {
-		// Ensure teh version will stay fixed.
+		// Ensure the version will stay fixed.
 		add_filter( 'tribe_asset_version', static function () {
 			return '1.0.0';
 		} );

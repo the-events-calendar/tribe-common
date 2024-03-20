@@ -3,6 +3,7 @@
 node_modules
 .phpstorm*
 .vscode
+bun.lockb
 
 # Tests - local config files
 codeception.yml
@@ -44,3 +45,6 @@ src/resources/js/**/*.min.js
 # get from translate.wordpress.org as needed
 lang/*.po
 lang/*.mo
+
+# Strauss
+bin/strauss.phar

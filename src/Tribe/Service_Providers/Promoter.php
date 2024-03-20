@@ -1,5 +1,7 @@
 <?php
 
+use TEC\Common\Contracts\Service_Provider;
+
 /**
  * Class Tribe__Service_Providers__Promoter_Connector
  *
@@ -7,12 +9,14 @@
  *
  * Handles the registration and creation of our async process handlers.
  */
-class Tribe__Service_Providers__Promoter extends tad_DI52_ServiceProvider {
+class Tribe__Service_Providers__Promoter extends Service_Provider {
+
 
 	/**
 	 * Binds and sets up implementations.
 	 */
 	public function register() {
+		// Using Strauss namespacing - this is fallback for dependent plugins.
 		tribe_singleton( 'promoter.auth', 'Tribe__Promoter__Auth' );
 		tribe_singleton( 'promoter.pue', 'Tribe__Promoter__PUE', [ 'load' ] );
 		tribe_singleton( 'promoter.view', 'Tribe__Promoter__View' );

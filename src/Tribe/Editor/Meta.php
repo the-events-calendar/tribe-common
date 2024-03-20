@@ -190,7 +190,7 @@ abstract class Tribe__Editor__Meta
 	 * @return mixed
 	 */
 	public function sanitize_separator( $value ) {
-		return filter_var( $value, FILTER_SANITIZE_STRING );
+		return tec_sanitize_string( $value );
 	}
 
 	/**

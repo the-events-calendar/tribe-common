@@ -34,7 +34,7 @@ class Tribe__Rewrite {
 	 *
 	 * @var string
 	 */
-	protected static $localized_matcher_delimiter = '~';
+	public static $localized_matcher_delimiter = '~';
 
 	/**
 	 * WP_Rewrite Instance
@@ -115,10 +115,12 @@ class Tribe__Rewrite {
 	/**
 	 * Tribe__Rewrite constructor.
 	 *
-	 * @param WP_Rewrite|null $wp_rewrite An instance of the `WP_Rewrite` class.
+	 * @since 5.1.7 Removed type hinting. This causes issues with Dependency Injection passing empty objects.
+	 *
+	 * @param WP_Rewrite|null          $wp_rewrite          An instance of the `WP_Rewrite` class.
 	 * @param Translations_Loader|null $translations_loader An instance of the translations loader.
 	 */
-	public function __construct( WP_Rewrite $wp_rewrite = null, Translations_Loader $translations_loader = null ) {
+	public function __construct( $wp_rewrite = null, Translations_Loader $translations_loader = null ) {
 		$this->rewrite             = $wp_rewrite;
 		$this->translations_loader = $translations_loader ?? tribe( Translations_Loader::class );
 	}
@@ -126,7 +128,7 @@ class Tribe__Rewrite {
 	/**
 	 * When you are going to use any of the functions to create new rewrite rules you need to setup first
 	 *
-	 * @param  WP_Rewrite|null $wp_rewrite Pass the WP_Rewrite if you have it
+	 * @param WP_Rewrite|null $wp_rewrite Pass the WP_Rewrite if you have it
 	 *
 	 * @return Tribe__Rewrite       The modified version of the class with the required variables in place
 	 */
@@ -144,7 +146,7 @@ class Tribe__Rewrite {
 	/**
 	 * Generate the Rewrite Rules
 	 *
-	 * @param  WP_Rewrite $wp_rewrite WordPress Rewrite that will be modified, pass it by reference (&$wp_rewrite)
+	 * @param WP_Rewrite $wp_rewrite WordPress Rewrite that will be modified, pass it by reference (&$wp_rewrite)
 	 */
 	public function filter_generate( WP_Rewrite $wp_rewrite ) {
 		// Gets the rewrite bases and completes any other required setup work
@@ -181,7 +183,7 @@ class Tribe__Rewrite {
 	/**
 	 * Converts any percentage placeholders in the array keys back to % symbols.
 	 *
-	 * @param  array $rules
+	 * @param array $rules
 	 *
 	 * @return array
 	 */
@@ -193,18 +195,35 @@ class Tribe__Rewrite {
 		return $rules;
 	}
 
+	/**
+	 * Filter for the `rewrite_rules_array` hook.
+	 *
+	 * @since 5.0.10
+	 *
+	 * @param array|mixed $rules The rules to be filtered.
+	 *
+	 * @return array|mixed Rules after filtering.
+	 */
+	public function filter_rewrite_rules_array( $rules ) {
+		if ( ! is_array( $rules ) ) {
+			return $rules;
+		}
+
+		return $this->remove_percent_placeholders( $rules );
+	}
+
 	protected function add_hooks() {
 		add_filter( 'generate_rewrite_rules', [ $this, 'filter_generate' ] );
 
 		// Remove percent Placeholders on all items
-		add_filter( 'rewrite_rules_array', [ $this, 'remove_percent_placeholders' ], 25 );
+		add_filter( 'rewrite_rules_array', [ $this, 'filter_rewrite_rules_array' ], 25 );
 
 		add_action( 'shutdown', [ $this, 'dump_cache' ] );
 	}
 
 	protected function remove_hooks() {
 		remove_filter( 'generate_rewrite_rules', [ $this, 'filter_generate' ] );
-		remove_filter( 'rewrite_rules_array', [ $this, 'remove_percent_placeholders' ], 25 );
+		remove_filter( 'rewrite_rules_array', [ $this, 'filter_rewrite_rules_array' ], 25 );
 
 		remove_action( 'shutdown', [ $this, 'dump_cache' ] );
 	}
@@ -225,7 +244,7 @@ class Tribe__Rewrite {
 	 *
 	 * WARNING: Don't mess with the filters below if you don't know what you are doing
 	 *
-	 * @param  string $method Use "regex" to return a Regular Expression with the possible Base Slugs using l10n
+	 * @param string $method Use "regex" to return a Regular Expression with the possible Base Slugs using l10n
 	 *
 	 * @return object         Return Base Slugs with l10n variations
 	 */
@@ -282,9 +301,9 @@ class Tribe__Rewrite {
 	 * In the case of registering new post types, $permastruct_name should
 	 * generally match the CPT name itself.
 	 *
-	 * @param  string $slug
-	 * @param  string $permastruct_name
-	 * @param  string $is_regular_exp
+	 * @param string $slug
+	 * @param string $permastruct_name
+	 * @param string $is_regular_exp
 	 *
 	 * @return string
 	 */
@@ -336,9 +355,9 @@ class Tribe__Rewrite {
 	 *
 	 * @since  4.0.6
 	 *
-	 * @param  array  &$array  The Rules Array should be used here
-	 * @param  string $search  Search for this Key
-	 * @param  string $replace Replace with this key]
+	 * @param array  &$array   The Rules Array should be used here
+	 * @param string  $search  Search for this Key
+	 * @param string  $replace Replace with this key]
 	 *
 	 * @return bool            Did we replace anything?
 	 */
@@ -364,7 +383,7 @@ class Tribe__Rewrite {
 	 *
 	 * @since 4.9.11
 	 *
-	 * @param string $url The URL to try and translate into its canonical form.
+	 * @param string $url   The URL to try and translate into its canonical form.
 	 * @param bool   $force Whether to try and use the cache or force a new canonical URL conversion.
 	 *
 	 * @return string The canonical URL, or the input URL if it could not be resolved to a canonical one.
@@ -491,7 +510,7 @@ class Tribe__Rewrite {
 
 		if ( empty( $matched_vars ) ) {
 			// The URL does contain query vars, but none we handle.
-			$wp_canonical = trailingslashit( redirect_canonical( $url, false ) );
+			$wp_canonical                      = trailingslashit( redirect_canonical( $url, false ) );
 			$this->canonical_url_cache[ $url ] = $wp_canonical;
 
 			return $wp_canonical;
@@ -542,6 +561,7 @@ class Tribe__Rewrite {
 				 * We use `end` as, by default, the localized version of the slug in the current language will be at the
 				 * end of the array.
 				 */
+
 				return end( $localized_matcher['localized_slugs'] );
 			}, $localized_matchers );
 
@@ -571,7 +591,7 @@ class Tribe__Rewrite {
 			// Remove trailing chars.
 			$path     = rtrim( $replaced, '?$' );
 			$resolved = trailingslashit( home_url( $path ) );
-			$found = true;
+			$found    = true;
 
 			break;
 		}
@@ -674,7 +694,7 @@ class Tribe__Rewrite {
 	 */
 	protected function get_localized_matchers() {
 		$cache_key = __METHOD__;
-		$cache = tribe_cache();
+		$cache     = tribe_cache();
 
 		$localized_matchers = $cache[ $cache_key ];
 
@@ -682,8 +702,8 @@ class Tribe__Rewrite {
 			return $localized_matchers;
 		}
 
-		$bases         = (array) $this->get_bases();
-		$query_var_map = $this->get_matcher_to_query_var_map();
+		$bases              = (array) $this->get_bases();
+		$query_var_map      = $this->get_matcher_to_query_var_map();
 		$localized_matchers = [];
 
 		foreach ( $bases as $base => $localized_matcher ) {
@@ -715,6 +735,12 @@ class Tribe__Rewrite {
 
 					// The English version is the first.
 					$localized_matchers[ $localized_matcher_key ]['en_slug'] = reset( $slugs );
+
+					$localized_slug = $this->filter_matcher( null, $base );
+
+					if ( $localized_slug ) {
+						$localized_matchers[ $localized_matcher_key ]['localized_slug'] = $localized_slug;
+					}
 				}
 			}
 		}
@@ -750,7 +776,7 @@ class Tribe__Rewrite {
 		static $cache_var_name = __METHOD__;
 
 		$cached_rules = tribe_get_var( $cache_var_name, [] );
-		$cache_key = md5( json_encode( $rules ) );
+		$cache_key    = md5( json_encode( $rules ) );
 
 		if ( ! isset( $cached_rules[ $cache_key ] ) ) {
 			$cached_rules[ $cache_key ] = array_unique(
@@ -801,11 +827,18 @@ class Tribe__Rewrite {
 				preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $page_regex, $matches );
 				if ( isset( $matches['slugs'] ) ) {
 					$slugs = explode( '|', $matches['slugs'] );
-					// The localized version is the last.
-					$localized_slug = end( $slugs );
+					// The localized version is the last, by default.
+					$en_slug        = end( $slugs );
+					$localized_slug = $this->filter_matcher( null, 'page' );
+
 					// We use two different regular expressions to read pages, let's add both.
-					$dynamic_matchers["{$page_regex}/(\d+)"]       = "{$localized_slug}/{$query_vars[$page_var]}";
-					$dynamic_matchers["{$page_regex}/([0-9]{1,})"] = "{$localized_slug}/{$query_vars[$page_var]}";
+					if ( $localized_slug ) {
+						$dynamic_matchers["{$page_regex}/(\d+)"]       = "{$localized_slug}/{$query_vars[$page_var]}";
+						$dynamic_matchers["{$page_regex}/([0-9]{1,})"] = "{$localized_slug}/{$query_vars[$page_var]}";
+					} else {
+						$dynamic_matchers["{$page_regex}/(\d+)"]       = "{$en_slug}/{$query_vars[$page_var]}";
+						$dynamic_matchers["{$page_regex}/([0-9]{1,})"] = "{$en_slug}/{$query_vars[$page_var]}";
+					}
 				}
 			}
 		}
@@ -820,9 +853,15 @@ class Tribe__Rewrite {
 				preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $tag_regex, $matches );
 				if ( isset( $matches['slugs'] ) ) {
 					$slugs = explode( '|', $matches['slugs'] );
-					// The localized version is the last.
-					$localized_slug                           = end( $slugs );
-					$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$localized_slug}/{$tag}";
+					// The localized version is the last, by default.
+					$en_slug        = end( $slugs );
+					$localized_slug = $this->filter_matcher( null, 'tag' );
+
+					if ( $localized_slug ) {
+						$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$localized_slug}/{$tag}";
+					} else {
+						$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$en_slug}/{$tag}";
+					}
 				}
 			}
 		}
@@ -832,7 +871,16 @@ class Tribe__Rewrite {
 			$dynamic_matchers[ $feed_regex ] = "feed/{$query_vars['feed']}";
 		}
 
-		return $dynamic_matchers;
+		/**
+		 * Allow extending classes to add their own dynamic matchers.
+		 *
+		 * @since 5.1.5
+		 *
+		 * @param array<string, string> $dynamic_matchers An array of dynamic matchers in the shape `[ <regex> => <value> ]`.
+		 * @param array<string, mixed>  $query_vars       A map of query vars and their values.
+		 * @param Tribe__Rewrite        $rewrite          The rewrite instance.
+		 */
+		return apply_filters( 'tec_common_rewrite_dynamic_matchers', $dynamic_matchers, $query_vars, $this );
 	}
 
 	/**
@@ -857,11 +905,12 @@ class Tribe__Rewrite {
 	 * @param string $url              The URLto parse.
 	 * @param array  $extra_query_vars An associative array of extra query vars to use for the parsing. These vars will
 	 *                                 be read before the WordPress defined ones overriding them.
-	 * @param bool   $force Whether to try and use the cache or force a new canonical URL conversion.
+	 * @param bool   $force            Whether to try and use the cache or force a new canonical URL conversion.
 	 *
 	 * @return array An array of query vars, as parsed from the input URL.
 	 */
 	public function parse_request( $url, array $extra_query_vars = [], $force = false ) {
+
 		if ( null === $this->rewrite ) {
 			// We re-do this check here as the object might have been initialized before the global rewrite was set.
 			$this->setup();
@@ -900,9 +949,9 @@ class Tribe__Rewrite {
 		$query_vars           = [];
 		$post_type_query_vars = [];
 		$perma_query_vars     = [];
-		$url_components = parse_url($url);
-		$url_path = Arr::get( $url_components, 'path', '/' );
-		$site_path = parse_url( home_url(), PHP_URL_PATH );
+		$url_components       = parse_url( $url );
+		$url_path             = Arr::get( $url_components, 'path', '/' );
+		$site_path            = parse_url( home_url(), PHP_URL_PATH );
 		if ( ! empty( $site_path ) && '/' !== $site_path ) {
 			// The current site is in a sub-directory: the site path should be dropped from the request path.
 			$url_path = str_replace( $site_path, '', $url_path );
@@ -915,7 +964,7 @@ class Tribe__Rewrite {
 
 		// Fetch the rewrite rules.
 		$rewrite_rules = $this->rewrite->wp_rewrite_rules();
-		$matched_rule = false;
+		$matched_rule  = false;
 
 		if ( ! empty( $rewrite_rules ) ) {
 			foreach ( (array) $rewrite_rules as $match => $query ) {
@@ -1091,7 +1140,7 @@ class Tribe__Rewrite {
 	 *
 	 * @since 4.9.11
 	 *
-	 * @param string $url The URL to clean.
+	 * @param string $url   The URL to clean.
 	 * @param bool   $force Whether to try and use the cache or force a new URL cleaning run.
 	 *
 	 * @return string The cleaned URL, or the input URL if it could not be resolved to a clean one.
@@ -1119,5 +1168,19 @@ class Tribe__Rewrite {
 		$this->clean_url_cache[ $url ] = $clean;
 
 		return $clean;
+	}
+
+	/**
+	 * Filters the localized matcher to allow integrations to provider contextual translations of the matcher.
+	 *
+	 * @since 5.0.17
+	 *
+	 * @param string|null $localized_matcher The localized matcher.
+	 * @param string      $base              The base the localized matcher is for.
+	 *
+	 * @return string The localized matcher.
+	 */
+	protected function filter_matcher( ?string $localized_matcher, string $base ): string {
+		return (string) apply_filters( 'tec_common_rewrite_localize_matcher', $localized_matcher, $base );
 	}
 }

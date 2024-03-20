@@ -38,8 +38,9 @@ class Tribe__Assets {
 	public function __construct() {
 		// Hook the actual registering of.
 		add_action( 'init', [ $this, 'register_in_wp' ], 1, 0 );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_stellar_wp_fonts' ] );
 		add_filter( 'script_loader_tag', [ $this, 'filter_tag_async_defer' ], 50, 2 );
-		add_filter( 'script_loader_tag', [ $this, 'filter_modify_to_module' ], 50, 2 );
+		add_filter( 'script_loader_tag', [ $this, 'filter_modify_to_module' ], 250, 2 );
 		add_filter( 'script_loader_tag', [ $this, 'filter_print_before_after_script' ], 100, 2 );
 
 		// Enqueue late.
@@ -208,8 +209,9 @@ class Tribe__Assets {
 	 * @return string Script tag with the type=module
 	 */
 	public function filter_modify_to_module( $tag, $handle ) {
-		// Only filter for own own filters.
-		if ( ! $asset = $this->get( $handle ) ) {
+		$asset = $this->get( $handle );
+		// Only filter for own filters.
+		if ( ! $asset ) {
 			return $tag;
 		}
 
@@ -223,16 +225,15 @@ class Tribe__Assets {
 			return $tag;
 		}
 
-		// These themes already have the `type='text/javascript'` added by WordPress core.
-		if ( ! current_theme_supports( 'html5', 'script' ) ) {
-			$replacement = 'type="module"';
-
-			return str_replace( "type='text/javascript'", $replacement, $tag );
+		// Remove the type attribute if it exists.
+		preg_match( "/ *type=['\"]{0,1}[^'\"]+['\"]{0,1}/i", $tag, $matches );
+		if ( ! empty( $matches ) ) {
+			$tag = str_replace( $matches[0], ' ', $tag );
 		}
 
 		$replacement = '<script type="module" ';
 
-		return str_replace( '<script ', $replacement, $tag );
+		return str_replace( [ '<script ', '<script' ], $replacement, $tag );
 	}
 
 	/**
@@ -930,5 +931,19 @@ class Tribe__Assets {
 		}
 
 		return $tags;
+	}
+
+	/**
+	 * Enqueue StellarWP fonts.
+	 *
+	 * @since 5.1.3
+	 *
+	 * @return void
+	 */
+	public function enqueue_stellar_wp_fonts() {
+		wp_enqueue_style(
+			'stellar-wp-inconsolata-font',
+			'https://fonts.googleapis.com/css2?family=Inconsolata&display=swap'
+		);
 	}
 }

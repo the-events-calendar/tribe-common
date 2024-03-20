@@ -114,7 +114,7 @@ export const sendForm = ( id, fields = {}, completed ) => ( dispatch, getState )
 	dispatch( requestActions.wpRequest( options ) );
 };
 
-const deleteEntry = ( dispatch ) => ( path ) => ( { body } ) => {
+export const deleteEntry = ( dispatch ) => ( path ) => ( { body } ) => {
 	const { id, status } = body;
 
 	if ( 'draft' !== status ) {

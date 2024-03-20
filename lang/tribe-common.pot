@@ -1,16 +1,16 @@
-# Copyright (C) 2023 The Events Calendar
+# Copyright (C) 2024 The Events Calendar
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 5.0.9\n"
+"Project-Id-Version: Tribe Common 5.2.2\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-26T06:10:24-08:00\n"
-"PO-Revision-Date: 2023-01-26 14:10\n"
+"POT-Creation-Date: 2024-02-15T11:50:08-08:00\n"
+"PO-Revision-Date: 2024-02-15 19:50\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: tribe-common\n"
 
@@ -23,8 +23,8 @@ msgid "An event settings framework for managing shared options"
 msgstr ""
 
 #. Author of the plugin
-#: src/admin-views/help-calendar.php:97
-#: src/Tribe/Admin/Help_Page.php:116
+#: src/admin-views/help-calendar.php:99
+#: src/Tribe/Admin/Help_Page.php:161
 #: src/Tribe/Customizer.php:664
 #: src/Tribe/Plugins_API.php:25
 msgid "The Events Calendar"
@@ -37,8 +37,8 @@ msgstr ""
 #: src/admin-views/app-shop.php:30
 #: src/admin-views/conditional_content/black-friday.php:16
 #: src/admin-views/conditional_content/end-of-year-sale.php:16
-#: src/admin-views/help.php:27
-#: src/admin-views/help.php:86
+#: src/admin-views/help.php:35
+#: src/admin-views/help.php:104
 #: src/admin-views/troubleshooting/footer-logo.php:12
 #: src/admin-views/troubleshooting/introduction.php:19
 msgid "The Events Calendar brand logo"
@@ -86,9 +86,9 @@ msgid "TEC Logo"
 msgstr ""
 
 #: src/admin-views/app-shop.php:66
-#: src/admin-views/help-calendar.php:44
+#: src/admin-views/help-calendar.php:46
 #: src/admin-views/help-community.php:44
-#: src/admin-views/help-ticketing.php:44
+#: src/admin-views/help-ticketing.php:46
 msgid "Active"
 msgstr ""
 
@@ -102,9 +102,9 @@ msgid "Manage"
 msgstr ""
 
 #: src/admin-views/app-shop.php:95
-#: src/admin-views/help-calendar.php:65
+#: src/admin-views/help-calendar.php:67
 #: src/admin-views/help-community.php:58
-#: src/admin-views/help-ticketing.php:65
+#: src/admin-views/help-ticketing.php:67
 msgid "Learn More"
 msgstr ""
 
@@ -186,153 +186,153 @@ msgstr ""
 msgid "Download log"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:16
+#: src/admin-views/help-calendar.php:18
 #: src/admin-views/help-community.php:16
-#: src/admin-views/help-ticketing.php:16
+#: src/admin-views/help-ticketing.php:18
 msgid "Get help for these products and learn more about products you don't have."
 msgstr ""
 
-#: src/admin-views/help-calendar.php:27
+#: src/admin-views/help-calendar.php:29
 #: src/admin-views/help-community.php:27
-#: src/admin-views/help-ticketing.php:27
+#: src/admin-views/help-ticketing.php:29
 msgid "logo icon"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:51
-#: src/admin-views/help-ticketing.php:51
+#: src/admin-views/help-calendar.php:53
+#: src/admin-views/help-ticketing.php:53
 msgid "Add license key"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:58
+#: src/admin-views/help-calendar.php:60
 #: src/admin-views/help-community.php:51
-#: src/admin-views/help-ticketing.php:58
+#: src/admin-views/help-ticketing.php:60
 msgid "Activate"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:76
+#: src/admin-views/help-calendar.php:78
 #: src/admin-views/help-community.php:69
-#: src/admin-views/help-ticketing.php:76
+#: src/admin-views/help-ticketing.php:78
 msgid "Start Here"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:80
+#: src/admin-views/help-calendar.php:82
 #: src/admin-views/help-community.php:73
-#: src/admin-views/help-ticketing.php:80
+#: src/admin-views/help-ticketing.php:82
 msgid "Visit Knowledgebase"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:89
-#: src/admin-views/help-calendar.php:122
-#: src/admin-views/help-calendar.php:155
+#: src/admin-views/help-calendar.php:91
+#: src/admin-views/help-calendar.php:124
+#: src/admin-views/help-calendar.php:157
 msgid "book with The Events Calendar logo"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:92
+#: src/admin-views/help-calendar.php:94
 #: src/admin-views/help-community.php:85
-#: src/admin-views/help-ticketing.php:92
+#: src/admin-views/help-ticketing.php:94
 msgid "Getting Started Guides"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:102
-#: src/Tribe/Admin/Help_Page.php:285
+#: src/admin-views/help-calendar.php:104
+#: src/Tribe/Admin/Help_Page.php:330
 #: src/Tribe/Plugins_API.php:45
 msgid "Event Aggregator"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:107
-#: src/Tribe/Admin/Help_Page.php:295
+#: src/admin-views/help-calendar.php:109
+#: src/Tribe/Admin/Help_Page.php:340
 #: src/Tribe/Plugins_API.php:166
 msgid "Filter Bar"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:112
-#: src/Tribe/Admin/Help_Page.php:303
+#: src/admin-views/help-calendar.php:114
+#: src/Tribe/Admin/Help_Page.php:348
 #: src/Tribe/Plugins_API.php:266
 msgid "Virtual Events"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:125
+#: src/admin-views/help-calendar.php:127
 msgid "Customizing"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:130
+#: src/admin-views/help-calendar.php:132
 msgid "Getting started with customizations"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:135
+#: src/admin-views/help-calendar.php:137
 msgid "Highlighting events"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:140
+#: src/admin-views/help-calendar.php:142
 msgid "How to Customize Template Files"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:145
+#: src/admin-views/help-calendar.php:147
 msgid "Customizing CSS (Video)"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:158
+#: src/admin-views/help-calendar.php:160
 msgid "Common Issues"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:163
+#: src/admin-views/help-calendar.php:165
 msgid "Known Issues"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:168
+#: src/admin-views/help-calendar.php:170
 #: src/admin-views/help-community.php:161
-#: src/admin-views/help-ticketing.php:164
+#: src/admin-views/help-ticketing.php:166
 msgid "Release notes"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:173
+#: src/admin-views/help-calendar.php:175
 #: src/admin-views/help-community.php:166
-#: src/admin-views/help-ticketing.php:169
+#: src/admin-views/help-ticketing.php:171
 msgid "Integrations"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:178
-#: src/admin-views/help-ticketing.php:140
+#: src/admin-views/help-calendar.php:180
+#: src/admin-views/help-ticketing.php:142
 #: src/Tribe/Plugins_API.php:96
 msgid "Shortcodes"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:188
+#: src/admin-views/help-calendar.php:190
 #: src/admin-views/help-community.php:181
-#: src/admin-views/help-ticketing.php:184
+#: src/admin-views/help-ticketing.php:186
 msgid "FAQs"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:192
+#: src/admin-views/help-calendar.php:194
 #: src/admin-views/help-community.php:185
-#: src/admin-views/help-ticketing.php:188
+#: src/admin-views/help-ticketing.php:190
 msgid "All FAQs"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:202
+#: src/admin-views/help-calendar.php:204
 #: src/admin-views/help-community.php:195
-#: src/admin-views/help-ticketing.php:198
+#: src/admin-views/help-ticketing.php:200
 #: src/admin-views/troubleshooting/common-issues.php:24
 #: src/admin-views/troubleshooting/first-steps.php:20
 #: src/admin-views/troubleshooting/first-steps.php:40
 msgid "lightbulb icon"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:222
+#: src/admin-views/help-calendar.php:224
 #: src/admin-views/help-community.php:215
-#: src/admin-views/help-ticketing.php:218
+#: src/admin-views/help-ticketing.php:220
 msgid "Free extensions"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:226
+#: src/admin-views/help-calendar.php:228
 #: src/admin-views/help-community.php:219
-#: src/admin-views/help-ticketing.php:222
+#: src/admin-views/help-ticketing.php:224
 msgid "All Extensions"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:231
+#: src/admin-views/help-calendar.php:233
 #: src/admin-views/help-community.php:224
-#: src/admin-views/help-ticketing.php:227
+#: src/admin-views/help-ticketing.php:229
 msgid "Small, lightweight WordPress plugins that add new capabilities to our core plugins. Support is not offered for extensions; however they provide enhanced functionality and bonus features."
 msgstr ""
 
@@ -342,13 +342,13 @@ msgid "book with The Events community logo"
 msgstr ""
 
 #: src/admin-views/help-community.php:90
-#: src/Tribe/Admin/Help_Page.php:277
+#: src/Tribe/Admin/Help_Page.php:322
 #: src/Tribe/Plugins_API.php:186
 msgid "Community Events"
 msgstr ""
 
 #: src/admin-views/help-community.php:95
-#: src/Tribe/Admin/Help_Page.php:320
+#: src/Tribe/Admin/Help_Page.php:365
 #: src/Tribe/Plugins_API.php:206
 msgid "Community Tickets"
 msgstr ""
@@ -362,7 +362,7 @@ msgid "Locating Links to Your Community Events Pages"
 msgstr ""
 
 #: src/admin-views/help-community.php:115
-#: src/admin-views/help-ticketing.php:117
+#: src/admin-views/help-ticketing.php:119
 msgid "book with Event Tickets logo"
 msgstr ""
 
@@ -387,36 +387,36 @@ msgid "Preventing Spam Submissions"
 msgstr ""
 
 #: src/admin-views/help-community.php:151
-#: src/admin-views/help-ticketing.php:154
+#: src/admin-views/help-ticketing.php:156
 msgid "Plugin Maintenance"
 msgstr ""
 
 #: src/admin-views/help-community.php:156
-#: src/admin-views/help-ticketing.php:159
+#: src/admin-views/help-ticketing.php:161
 msgid "Testing for Conflicts"
 msgstr ""
 
 #: src/admin-views/help-community.php:171
-#: src/admin-views/help-ticketing.php:174
+#: src/admin-views/help-ticketing.php:176
 msgid "Automatic Updates"
 msgstr ""
 
-#: src/admin-views/help-ticketing.php:89
-#: src/admin-views/help-ticketing.php:151
+#: src/admin-views/help-ticketing.php:91
+#: src/admin-views/help-ticketing.php:153
 msgid "book with The Events ticketing logo"
 msgstr ""
 
-#: src/admin-views/help-ticketing.php:97
-#: src/Tribe/Admin/Help_Page.php:135
+#: src/admin-views/help-ticketing.php:99
+#: src/Tribe/Admin/Help_Page.php:180
 #: src/Tribe/Plugins_API.php:106
 msgid "Event Tickets"
 msgstr ""
 
-#: src/admin-views/help-ticketing.php:102
+#: src/admin-views/help-ticketing.php:104
 msgid "Calendar & Ticket Shortcodes"
 msgstr ""
 
-#: src/admin-views/help-ticketing.php:107
+#: src/admin-views/help-ticketing.php:109
 #: src/Tribe/Plugins_API.php:146
 #: src/Tribe/Promoter/PUE.php:28
 #: src/views/promoter/auth.php:30
@@ -424,56 +424,56 @@ msgstr ""
 msgid "Promoter"
 msgstr ""
 
-#: src/admin-views/help-ticketing.php:120
+#: src/admin-views/help-ticketing.php:122
 msgid "Creating Tickets & RSVPs"
 msgstr ""
 
-#: src/admin-views/help-ticketing.php:125
+#: src/admin-views/help-ticketing.php:127
 msgid "Creating Tickets"
 msgstr ""
 
-#: src/admin-views/help-ticketing.php:130
+#: src/admin-views/help-ticketing.php:132
 msgid "Creating RSVPs"
 msgstr ""
 
-#: src/admin-views/help-ticketing.php:135
+#: src/admin-views/help-ticketing.php:137
 msgid "Configuring Paypal for Tickets"
 msgstr ""
 
-#: src/admin-views/help-ticketing.php:142
+#: src/admin-views/help-ticketing.php:144
 msgid "(Event Tickets Plus)"
 msgstr ""
 
-#: src/admin-views/help.php:30
+#: src/admin-views/help.php:38
 msgid "Help"
 msgstr ""
 
-#: src/admin-views/help.php:31
+#: src/admin-views/help.php:39
 msgid "We're committed to helping make your calendar spectacular and have a wealth of resources available."
 msgstr ""
 
-#: src/admin-views/help.php:34
+#: src/admin-views/help.php:46
 msgid "Calendar"
 msgstr ""
 
-#: src/admin-views/help.php:35
+#: src/admin-views/help.php:52
 msgid "Ticketing & RSVP"
 msgstr ""
 
-#: src/admin-views/help.php:36
+#: src/admin-views/help.php:54
 msgid "Community"
 msgstr ""
 
-#: src/admin-views/help.php:67
+#: src/admin-views/help.php:85
 #: src/admin-views/troubleshooting/support-cta.php:13
 msgid "Graphic with an electrical plug and gears"
 msgstr ""
 
-#: src/admin-views/help.php:72
+#: src/admin-views/help.php:90
 msgid "Need additional support?"
 msgstr ""
 
-#: src/admin-views/help.php:77
+#: src/admin-views/help.php:95
 msgid "Visit Troubleshooting next"
 msgstr ""
 
@@ -486,25 +486,51 @@ msgid "Get 30% off on all plugins from now through December 31."
 msgstr ""
 
 #: src/admin-views/notices/end-of-year-sale.php:25
-#: src/admin-views/notices/tribe-bf-general.php:26
 msgid "Shop now"
 msgstr ""
 
 #: src/admin-views/notices/tribe-bf-general.php:17
-msgid "Save 40% on every single plugin."
+msgid "Save 40% on The Events Calendar"
 msgstr ""
 
-#: src/admin-views/notices/tribe-bf-general.php:19
-msgid "Black Friday Sale now through %s."
+#: src/admin-views/notices/tribe-bf-general.php:20
+msgid "Upgrade and purchase new products during the Black Friday Sale."
 msgstr ""
 
-#: src/admin-views/notices/tribe-stellar-sale.php:21
-msgid "<b>40%% off</b> all WordPress solutions through %1$s."
-msgstr ""
-
-#: src/admin-views/notices/tribe-stellar-sale.php:26
+#: src/admin-views/notices/tribe-bf-general.php:25
+#: src/admin-views/notices/tribe-stellar-sale-premium.php:24
+#: src/admin-views/notices/tribe-stellar-sale-premium.php:38
+#: src/admin-views/notices/tribe-stellar-sale.php:24
+#: src/admin-views/notices/tribe-stellar-sale.php:38
 msgctxt "Shop now link text"
 msgid "Shop now"
+msgstr ""
+
+#: src/admin-views/notices/tribe-stellar-sale-premium.php:16
+msgid "Make it stellar."
+msgstr ""
+
+#: src/admin-views/notices/tribe-stellar-sale-premium.php:19
+msgid "Save 30% on all StellarWP products."
+msgstr ""
+
+#: src/admin-views/notices/tribe-stellar-sale-premium.php:32
+#: src/admin-views/notices/tribe-stellar-sale.php:32
+msgid "Purchase any StellarWP product during the sale and get <b>100%</b> off WP Business Reviews and take <b>40%</b> off all other brands."
+msgstr ""
+
+#: src/admin-views/notices/tribe-stellar-sale-premium.php:46
+#: src/admin-views/notices/tribe-stellar-sale.php:46
+msgctxt "View all StellarWP Deals link text"
+msgid "View all StellarWP Deals"
+msgstr ""
+
+#: src/admin-views/notices/tribe-stellar-sale.php:16
+msgid "Make it yours."
+msgstr ""
+
+#: src/admin-views/notices/tribe-stellar-sale.php:19
+msgid "Save 30% on all The Events Calendar products."
 msgstr ""
 
 #: src/admin-views/notices/upsell/icon.php:19
@@ -755,8 +781,8 @@ msgid "License & Usage"
 msgstr ""
 
 #: src/admin-views/troubleshooting/ea-status/license-key.php:44
-#: src/Tribe/PUE/Checker.php:620
-#: src/Tribe/PUE/Checker.php:631
+#: src/Tribe/PUE/Checker.php:630
+#: src/Tribe/PUE/Checker.php:641
 msgid "License Key"
 msgstr ""
 
@@ -896,6 +922,52 @@ msgstr ""
 msgid "* Your system information will only be used by The Events Calendar support team. All information is stored securely. We do not share this information with any third parties."
 msgstr ""
 
+#. Translators: %1$s the post type label.
+#: src/Common/Site_Health/Fields/Post_Status_Count_Field.php:54
+msgid "%1$s counts"
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:273
+msgid "See which plugins you have opted in to tracking for"
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:274
+msgid "We hope you love TEC Common!"
+msgstr ""
+
+#. Translators: %s is the current user's display name.
+#: src/Common/Telemetry/Telemetry.php:277
+msgid "Hi, %1$s! This is an invitation to help our StellarWP community. If you opt-in, some data about your usage of TEC Common and future StellarWP Products will be shared with our teams (so they can work their butts off to improve). We will also share some helpful info on WordPress, and our products from time to time. And if you skip this, that's okay! Our products still work just fine."
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:363
+msgid "We're sorry to see you go."
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:364
+msgid "We'd love to know why you're leaving so we can improve our plugin."
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:368
+msgid "I couldn't understand how to make it work."
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:372
+msgid "I found a better plugin."
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:377
+msgid "I need a specific feature it doesn't provide."
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:382
+msgid "The plugin doesn't work."
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:387
+msgid "Other"
+msgstr ""
+
 #: src/functions/template-tags/html.php:101
 msgctxt "The associated field is required."
 msgid "(required)"
@@ -909,304 +981,304 @@ msgstr ""
 msgid "Go to WordPress Updates page"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:90
+#: src/Tribe/Admin/Help_Page.php:135
 msgctxt "Copy to clipboard button text."
 msgid "Copy to clipboard"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:91
+#: src/Tribe/Admin/Help_Page.php:136
 msgctxt "Copy to clipboard success message"
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:92
+#: src/Tribe/Admin/Help_Page.php:137
 msgctxt "Copy to clipboard instructions"
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:93
+#: src/Tribe/Admin/Help_Page.php:138
 msgctxt "Default error message for system info optin"
 msgid "Something has gone wrong!"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:94
+#: src/Tribe/Admin/Help_Page.php:139
 msgctxt "Error code label for system info optin"
 msgid "Code:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:95
+#: src/Tribe/Admin/Help_Page.php:140
 msgctxt "Error status label for system info optin"
 msgid "Status:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:120
+#: src/Tribe/Admin/Help_Page.php:165
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:139
+#: src/Tribe/Admin/Help_Page.php:184
 msgid "Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:154
+#: src/Tribe/Admin/Help_Page.php:199
 msgid "Advanced Post Manager"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:158
+#: src/Tribe/Admin/Help_Page.php:203
 msgid "Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:236
+#: src/Tribe/Admin/Help_Page.php:281
 msgid " and "
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:260
+#: src/Tribe/Admin/Help_Page.php:305
 msgid "Events Calendar PRO"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:269
+#: src/Tribe/Admin/Help_Page.php:314
 #: src/Tribe/Plugins_API.php:227
 msgid "Eventbrite Tickets"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:311
+#: src/Tribe/Admin/Help_Page.php:356
 #: src/Tribe/Plugins_API.php:126
 msgid "Event Tickets Plus"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:481
+#: src/Tribe/Admin/Help_Page.php:526
 msgctxt "not available"
 msgid "n/a"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:489
+#: src/Tribe/Admin/Help_Page.php:534
 msgid "You need to upgrade!"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:489
-#: src/Tribe/Admin/Help_Page.php:864
+#: src/Tribe/Admin/Help_Page.php:534
+#: src/Tribe/Admin/Help_Page.php:909
 msgid "You are up to date!"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:854
+#: src/Tribe/Admin/Help_Page.php:899
 msgid "Activate %s"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:854
+#: src/Tribe/Admin/Help_Page.php:899
 msgid "Activate Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:862
+#: src/Tribe/Admin/Help_Page.php:907
 msgid "Upgrade Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:878
+#: src/Tribe/Admin/Help_Page.php:923
 msgid "Install %s"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:878
+#: src/Tribe/Admin/Help_Page.php:923
 msgid "Install Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:895
+#: src/Tribe/Admin/Help_Page.php:940
 msgid "Latest Version:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:898
+#: src/Tribe/Admin/Help_Page.php:943
 msgid "Requires:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:899
+#: src/Tribe/Admin/Help_Page.php:944
 msgid "WordPress "
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:901
+#: src/Tribe/Admin/Help_Page.php:946
 msgid "Active Users:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:904
+#: src/Tribe/Admin/Help_Page.php:949
 msgid "Rating:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:927
+#: src/Tribe/Admin/Help_Page.php:972
 msgid "Premium Add-Ons"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:933
+#: src/Tribe/Admin/Help_Page.php:978
 msgid "Plugin Active"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:935
+#: src/Tribe/Admin/Help_Page.php:980
 msgid "Plugin Inactive"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:940
+#: src/Tribe/Admin/Help_Page.php:985
 msgid "Visit the Add-on Page"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:964
+#: src/Tribe/Admin/Help_Page.php:1009
 msgid "Can I have more than one calendar?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:965
+#: src/Tribe/Admin/Help_Page.php:1010
 msgid "No, but you can use event categories or tags to display certain events like having..."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:969
+#: src/Tribe/Admin/Help_Page.php:1014
 msgid "What do I get with Events Calendar Pro?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:974
+#: src/Tribe/Admin/Help_Page.php:1019
 msgid "How do I sell tickets to events?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:975
+#: src/Tribe/Admin/Help_Page.php:1020
 msgid "Use our free Event Tickets plugin to get started with tickets and RSVPs."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:979
+#: src/Tribe/Admin/Help_Page.php:1024
 msgid "Where can I find a list of available shortcodes?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:980
+#: src/Tribe/Admin/Help_Page.php:1025
 msgid "Our plugins include many shortcodes that do everything from embedding the calendar..."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:998
+#: src/Tribe/Admin/Help_Page.php:1043
 msgid "Calendar widget areas"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:999
+#: src/Tribe/Admin/Help_Page.php:1044
 msgid "This extension creates a useful variety of WordPress widget areas (a.k.a. sidebars)."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1004
+#: src/Tribe/Admin/Help_Page.php:1049
 msgid "Event block patterns"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1005
+#: src/Tribe/Admin/Help_Page.php:1050
 msgid "This extension adds a set of block patterns for events to the WordPress block editor."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1010
+#: src/Tribe/Admin/Help_Page.php:1055
 msgid "Alternative photo view"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1011
+#: src/Tribe/Admin/Help_Page.php:1056
 msgid "This extension replaces photo view with a tiled grid of cards featuring event images."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1016
+#: src/Tribe/Admin/Help_Page.php:1061
 msgid "The Events Calendar Tweaks"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1017
+#: src/Tribe/Admin/Help_Page.php:1062
 msgid "This extension is a collection of tweaks and snippets for The Events Calendar."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1055
+#: src/Tribe/Admin/Help_Page.php:1100
 msgid "How Do I create events with Tickets or RSVP’s?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1056
+#: src/Tribe/Admin/Help_Page.php:1101
 msgid "We’ve put together a video tutorial showing how to create events with Tickets using our plugins. Click on the link in the link in the title to learn more."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1060
+#: src/Tribe/Admin/Help_Page.php:1105
 msgid "How Do I Set Up E-Commerce Plugins for Selling Tickets?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1061
+#: src/Tribe/Admin/Help_Page.php:1106
 msgid "You can sell tickets using our built-in e-commerce option, or upgrade to Event Tickets Plus to use ecommerce plugins such as WooCommerce."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1065
+#: src/Tribe/Admin/Help_Page.php:1110
 msgid "Can I have a seating chart associated with my tickets?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1066
+#: src/Tribe/Admin/Help_Page.php:1111
 msgid "Yes! You can easily accomplish this task using the stock options and multiple ticket types available with Event Tickets."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1070
+#: src/Tribe/Admin/Help_Page.php:1115
 msgid "How do I process refunds for tickets?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1071
+#: src/Tribe/Admin/Help_Page.php:1116
 msgid "When it comes to paid tickets, these orders can be refunded through the e-commerce platform in use."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1089
+#: src/Tribe/Admin/Help_Page.php:1134
 msgid "Ticket Email Settings"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1090
+#: src/Tribe/Admin/Help_Page.php:1135
 msgid "Adds a new settings panel in Events > Settings that gives more control over the ticket and rsvp emails that are sent to attendees after registration."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1095
+#: src/Tribe/Admin/Help_Page.php:1140
 msgid "Per Event Check In API"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1096
+#: src/Tribe/Admin/Help_Page.php:1141
 msgid "This extension shows a meta box with an API key on each Event with Ticket/RSVP."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1101
+#: src/Tribe/Admin/Help_Page.php:1146
 msgid "Add Event & Attendee Info to WooCommerce Order Details"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1102
+#: src/Tribe/Admin/Help_Page.php:1147
 msgid "Displays the information collected by “attendee meta fields” in the WooCommerce order screens as well."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1107
+#: src/Tribe/Admin/Help_Page.php:1152
 msgid "Organizer Notification Email"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1108
+#: src/Tribe/Admin/Help_Page.php:1153
 msgid "This extension will send an email to event organizers whenever a user registers for their event."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1145
+#: src/Tribe/Admin/Help_Page.php:1191
 msgid "Add Cost Currency Symbol"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1146
+#: src/Tribe/Admin/Help_Page.php:1192
 msgid "This extension allows you to set default currency symbols for your users to choose from instead of having a plain text field."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1151
+#: src/Tribe/Admin/Help_Page.php:1197
 msgid "Add Google Maps Display and Link Options"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1152
+#: src/Tribe/Admin/Help_Page.php:1198
 msgid "This extension adds the “Show Google Maps” and “Show Google Maps Link” checkboxes when creating a new Venue."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1157
+#: src/Tribe/Admin/Help_Page.php:1203
 msgid "Hide Others’ Organizers and Venues"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1158
+#: src/Tribe/Admin/Help_Page.php:1204
 msgid "This extension allows you to hide the Organizers and Venues that a visitor has not created from the Community Events submission form."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1163
+#: src/Tribe/Admin/Help_Page.php:1209
 msgid "Display Custom HTML"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1164
+#: src/Tribe/Admin/Help_Page.php:1210
 msgid "This extension allows you to add custom HTML content to the top of the Community Events submission form."
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Php_Version.php:59
-#: src/Tribe/Admin/Notice/Plugin_Download.php:149
+#: src/Tribe/Admin/Notice/Plugin_Download.php:147
 msgctxt "separator used in a list of items"
 msgid ", "
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Php_Version.php:60
-#: src/Tribe/Admin/Notice/Plugin_Download.php:150
+#: src/Tribe/Admin/Notice/Plugin_Download.php:148
 msgctxt "the final separator in a list of two or more items"
 msgid " and "
 msgstr ""
@@ -1217,16 +1289,16 @@ msgctxt "Message notifying users they need to upgrade PHP"
 msgid "Starting February 2023, %1$s will require PHP 7.4 or later. Currently, your site is using PHP version %2$s. Please update to a newer version. %3$sRead more%4$s."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Plugin_Download.php:122
+#: src/Tribe/Admin/Notice/Plugin_Download.php:120
 msgid "To begin using %2$s, please install (or upgrade) and activate %3$s."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Plugin_Download.php:124
+#: src/Tribe/Admin/Notice/Plugin_Download.php:122
 #: src/Tribe/PUE/Update_Prevention.php:181
 msgid "Read more"
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Plugin_Download.php:125
+#: src/Tribe/Admin/Notice/Plugin_Download.php:123
 msgid "There’s a new version of %1$s available, but your license is expired. You’ll need to renew your license to get access to the latest version. If you plan to continue using your current version of the plugin(s), be sure to use a compatible version of The Events Calendar. %2$s"
 msgstr ""
 
@@ -1318,20 +1390,21 @@ msgstr ""
 msgid "There are a few %s to resolve and prevent 404 errors."
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:38
+#: src/Tribe/Ajax/Dropdown.php:41
 msgid "Cannot look for Terms without a taxonomy"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:270
+#: src/Tribe/Ajax/Dropdown.php:279
 msgid "Missing data source for this dropdown"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:283
+#: src/Tribe/Ajax/Dropdown.php:301
 msgid "Empty data set for this dropdown"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:336
-msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
+#. Translators: %1$s is the name of the source, %2$s is the class name
+#: src/Tribe/Ajax/Dropdown.php:353
+msgid "The \"%1$s\" source is invalid and cannot be reached on \"%2$s\" instance."
 msgstr ""
 
 #: src/Tribe/App_Shop.php:50
@@ -1340,193 +1413,193 @@ msgstr ""
 msgid "Event Add-Ons"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:177
+#: src/Tribe/App_Shop.php:178
 msgid "Events Marketing Bundle"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:180
-#: src/Tribe/App_Shop.php:204
-#: src/Tribe/App_Shop.php:223
-#: src/Tribe/App_Shop.php:236
+#: src/Tribe/App_Shop.php:181
+#: src/Tribe/App_Shop.php:205
+#: src/Tribe/App_Shop.php:224
+#: src/Tribe/App_Shop.php:237
 msgid "Save over 20%"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:181
+#: src/Tribe/App_Shop.php:182
 msgid "Ticket sales, attendee management, and email marketing for your events"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:189
+#: src/Tribe/App_Shop.php:190
 msgid "Event Importer Bundle"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:192
+#: src/Tribe/App_Shop.php:193
 msgid "Save over 25%"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:193
+#: src/Tribe/App_Shop.php:194
 msgid "Fill your calendar with events from across the web, including Google Calendar, Meetup, and more."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:201
+#: src/Tribe/App_Shop.php:202
 msgid "Virtual Events Marketing Bundle"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:205
+#: src/Tribe/App_Shop.php:206
 msgid "Streamline your online events and increase revenue."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:213
+#: src/Tribe/App_Shop.php:214
 msgid "Sell tickets and earn revenue for online events"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:214
+#: src/Tribe/App_Shop.php:215
 #: src/Tribe/Plugins_API.php:274
 msgid "Zoom integration"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:215
+#: src/Tribe/App_Shop.php:216
 msgid "Automated emails optimized for virtual events"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:216
+#: src/Tribe/App_Shop.php:217
 msgid "Add recurring events"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:220
+#: src/Tribe/App_Shop.php:221
 msgid "Community Manager Bundle"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:224
+#: src/Tribe/App_Shop.php:225
 msgid "Handle event submissions with ticket sales and everything you need to build a robust community."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:233
+#: src/Tribe/App_Shop.php:234
 msgid "Ultimate Bundle"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:237
+#: src/Tribe/App_Shop.php:238
 msgid "All of our premium events management plugins at a deep discount."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:264
+#: src/Tribe/App_Shop.php:265
 msgid "Website URL CTA"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:267
+#: src/Tribe/App_Shop.php:268
 msgid "Create a strong call-to-action for attendees to \"Join Webinar\" instead of only sharing a website address."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:270
+#: src/Tribe/App_Shop.php:271
 msgid "Link Directly to Webinar"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:273
+#: src/Tribe/App_Shop.php:274
 msgid "When users click on the event title, they’ll be taken right to the source of your event, offering a direct route to join."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:276
+#: src/Tribe/App_Shop.php:277
 msgid "Events Happening Now"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:279
+#: src/Tribe/App_Shop.php:280
 msgid "Use this shortcode to display events that are currently in progress, like webinars and livestreams."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:282
+#: src/Tribe/App_Shop.php:283
 msgid "Custom Venue Links"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:285
+#: src/Tribe/App_Shop.php:286
 msgid "Turn the venue name for your event into a clickable URL — a great way to link directly to a venue’s website or a virtual meeting."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:288
+#: src/Tribe/App_Shop.php:289
 msgid "Adjust Label"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:291
+#: src/Tribe/App_Shop.php:292
 msgid "Change \"Events\" to \"Webinars,\" or \"Venues\" to \"Livestream,\" or \"Organizers\" to \"Hosts.\" Tailor your calendar for virtual events and meetings."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:294
+#: src/Tribe/App_Shop.php:295
 msgid "Reach Attendees"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:297
+#: src/Tribe/App_Shop.php:298
 msgid "From registration to attendance history, view every step of the event lifecycle with this HubSpot integration."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:314
+#: src/Tribe/App_Shop.php:315
 msgid "The online course platform created by e-learning experts."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:316
+#: src/Tribe/App_Shop.php:317
 msgid "Add Courses"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:317
+#: src/Tribe/App_Shop.php:318
 msgid "Trusted to power learning programs for major universities, startups, entrepreneurs, and bloggers worldwide."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:322
-msgid "Foundational favorites: iThemes Security and Developer Toolkit."
-msgstr ""
-
-#: src/Tribe/App_Shop.php:324
-msgid "Add Security"
+#: src/Tribe/App_Shop.php:323
+msgid "Security, backups, and management — that’s Solid Suite."
 msgstr ""
 
 #: src/Tribe/App_Shop.php:325
-msgid "iThemes Security, the WordPress security plugin that’s easy to use. Built with performance in mind."
+msgid "Add Security"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:330
+#: src/Tribe/App_Shop.php:326
+msgid "SolidWP, the seriously solid foundation your WordPress site needs. Built with performance in mind."
+msgstr ""
+
+#: src/Tribe/App_Shop.php:331
 msgid "Built with developers in mind."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:332
+#: src/Tribe/App_Shop.php:333
 msgid "Add Content Restriction"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:333
+#: src/Tribe/App_Shop.php:334
 msgid "Restrict Content Pro is flexible, easy to extend, and chock full of action hooks and filters, making it easy to modify and tweak to your specific needs."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:338
+#: src/Tribe/App_Shop.php:339
 msgid "Build better WordPress websites with Kadence."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:340
+#: src/Tribe/App_Shop.php:341
 msgid "Add Starter Templates"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:341
+#: src/Tribe/App_Shop.php:342
 msgid "Kadence lets you unlock your creativity in the WordPress Block Editor with expertly designed blocks, a robust theme, and a massive library of starter templates."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:346
+#: src/Tribe/App_Shop.php:347
 msgid "Sales-boosting WooCommerce plugins."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:348
+#: src/Tribe/App_Shop.php:349
 msgid "Add Commerce Tools"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:349
+#: src/Tribe/App_Shop.php:350
 msgid ""
 "Easy-to-use WooCommerce plugins work perfectly together, with any theme. Create a fast and profitable eCommerce store without any technical knowledge.\n"
 "\t\t\t\t\t"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:355
+#: src/Tribe/App_Shop.php:356
 msgid "The best WordPress donation plugin."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:357
+#: src/Tribe/App_Shop.php:358
 msgid "Add Donations"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:358
+#: src/Tribe/App_Shop.php:359
 msgid "GiveWP makes it easy to raise money online with donation forms, donor databases, and fundraising reporting."
 msgstr ""
 
@@ -1612,33 +1685,33 @@ msgstr ""
 msgid "The Events Calendar JSON-LD Data"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:157
+#: src/Tribe/Dialog/View.php:169
 msgid "Open the modal window"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:158
+#: src/Tribe/Dialog/View.php:170
 msgid "Close this modal window"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:228
-#: src/Tribe/Dialog/View.php:300
+#: src/Tribe/Dialog/View.php:240
+#: src/Tribe/Dialog/View.php:312
 msgid "Cancel"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:229
+#: src/Tribe/Dialog/View.php:241
 msgid "Confirm"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:302
-#: src/Tribe/Dialog/View.php:371
+#: src/Tribe/Dialog/View.php:314
+#: src/Tribe/Dialog/View.php:383
 msgid "OK"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:443
+#: src/Tribe/Dialog/View.php:455
 msgid "Open the dialog window"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:460
+#: src/Tribe/Dialog/View.php:472
 msgid "Close this dialog window"
 msgstr ""
 
@@ -1779,35 +1852,39 @@ msgctxt "extension disallowed"
 msgid "This extension has been programmatically disallowed. The most common reason is due to another The Events Calendar plugin having absorbed or replaced this extension's functionality. This extension plugin has been deactivated, and you should likely delete it."
 msgstr ""
 
-#: src/Tribe/Field.php:240
+#: src/Tribe/Field.php:343
 msgid "Invalid field type specified"
 msgstr ""
 
-#: src/Tribe/Field.php:550
+#: src/Tribe/Field.php:647
 msgid "No radio options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:586
+#: src/Tribe/Field.php:683
 msgid "No checkbox options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:648
+#: src/Tribe/Field.php:745
 msgid "No select options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:750
+#: src/Tribe/Field.php:847
+#: src/Tribe/Field.php:893
 msgid "Select Image"
 msgstr ""
 
-#: src/Tribe/Field.php:751
+#: src/Tribe/Field.php:848
+#: src/Tribe/Field.php:894
 msgid "Remove Image"
 msgstr ""
 
-#: src/Tribe/Field.php:755
+#: src/Tribe/Field.php:852
+#: src/Tribe/Field.php:898
 msgid "Select an image"
 msgstr ""
 
-#: src/Tribe/Field.php:756
+#: src/Tribe/Field.php:853
+#: src/Tribe/Field.php:899
 msgid "Use this image"
 msgstr ""
 
@@ -3035,93 +3112,93 @@ msgstr ""
 msgid "Null logger (will log nothing)"
 msgstr ""
 
-#: src/Tribe/Main.php:387
+#: src/Tribe/Main.php:396
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:388
+#: src/Tribe/Main.php:397
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:390
+#: src/Tribe/Main.php:399
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:391
+#: src/Tribe/Main.php:400
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:392
+#: src/Tribe/Main.php:401
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:393
+#: src/Tribe/Main.php:402
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:394
+#: src/Tribe/Main.php:403
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:395
+#: src/Tribe/Main.php:404
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:396
+#: src/Tribe/Main.php:405
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:397
+#: src/Tribe/Main.php:406
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:398
+#: src/Tribe/Main.php:407
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:399
+#: src/Tribe/Main.php:408
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:401
+#: src/Tribe/Main.php:410
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:402
-#: src/Tribe/Main.php:419
+#: src/Tribe/Main.php:411
+#: src/Tribe/Main.php:428
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:403
+#: src/Tribe/Main.php:412
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:408
+#: src/Tribe/Main.php:417
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:409
+#: src/Tribe/Main.php:418
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:420
+#: src/Tribe/Main.php:429
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:421
-#: src/Tribe/Main.php:423
+#: src/Tribe/Main.php:430
+#: src/Tribe/Main.php:432
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:422
+#: src/Tribe/Main.php:431
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:424
+#: src/Tribe/Main.php:433
 msgid "Clear"
 msgstr ""
 
-#: src/Tribe/Plugins.php:147
+#: src/Tribe/Plugins.php:137
 msgid "Using this function before \"plugins_loaded\" action has fired can return unreliable results."
 msgstr ""
 
@@ -3437,6 +3514,34 @@ msgstr ""
 msgid "Embed livestreams and videos"
 msgstr ""
 
+#: src/Tribe/Plugins_API.php:286
+msgid "Wallet Plus"
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:291
+msgid "Make it simple for your attendees to save and find their tickets."
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:292
+msgid "Allow event attendees to save their tickets to digital wallets."
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:294
+msgid "Flexible ticket formats"
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:295
+msgid "Easy day-of-event management"
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:296
+msgid "Email and checkout integration"
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:297
+msgid "Ticket portability"
+msgstr ""
+
 #: src/Tribe/Process/Queue.php:1024
 msgid "Every %d Minutes"
 msgstr ""
@@ -3445,94 +3550,102 @@ msgstr ""
 msgid "Promoter Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:605
+#: src/Tribe/PUE/Checker.php:614
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:608
+#. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
+#: src/Tribe/PUE/Checker.php:618
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:640
-#: src/Tribe/PUE/Checker.php:674
+#: src/Tribe/PUE/Checker.php:650
+#: src/Tribe/PUE/Checker.php:684
 msgid "License Key Status:"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:649
+#: src/Tribe/PUE/Checker.php:659
 msgid "Override network license key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:650
+#: src/Tribe/PUE/Checker.php:660
 msgid "Check this box if you wish to override the network license key with your own"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:661
+#: src/Tribe/PUE/Checker.php:671
 msgid "Site License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:761
+#: src/Tribe/PUE/Checker.php:770
 msgid "License key(s) updated."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1015
-msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
+#. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
+#: src/Tribe/PUE/Checker.php:1021
+msgid "Hmmm... something's wrong with this validator. Please contact %1$ssupport%2$s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1028
+#: src/Tribe/PUE/Checker.php:1040
 msgid "unknown date"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1034
+#: src/Tribe/PUE/Checker.php:1046
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1060
+#. Translators: %s is the expiration date.
+#: src/Tribe/PUE/Checker.php:1075
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1065
+#. Translators: %s is the expiration date.
+#: src/Tribe/PUE/Checker.php:1086
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1094
+#: src/Tribe/PUE/Checker.php:1124
 #: src/Tribe/PUE/Notices.php:360
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1096
+#: src/Tribe/PUE/Checker.php:1126
 #: src/Tribe/PUE/Notices.php:362
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1113
+#: src/Tribe/PUE/Checker.php:1143
 msgid "Please refresh the page and try your request again."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1133
-msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
+#. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
+#: src/Tribe/PUE/Checker.php:1164
+msgid "There is an update for %1$s. You'll need to %2$scheck your license%3$s to have access to updates, downloads, and support."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1190
-msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
+#. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
+#: src/Tribe/PUE/Checker.php:1228
+msgid "There is an update for %1$s. %2$sRenew your license%3$s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1220
+#. Translators: %s is the plugin version number.
+#: src/Tribe/PUE/Checker.php:1260
 msgid "Update now to version %s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1231
+#. Translators: %1$s is the plugin name. %2$s is the update now link.
+#: src/Tribe/PUE/Checker.php:1275
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1812
+#: src/Tribe/PUE/Checker.php:1891
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1813
+#: src/Tribe/PUE/Checker.php:1892
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1814
+#: src/Tribe/PUE/Checker.php:1893
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
@@ -3568,11 +3681,11 @@ msgstr ""
 msgid "Your update failed due to an incompatibility between the version (%1$s) of the %2$s you tried to update to and the version of %3$s that you are using. %4$s"
 msgstr ""
 
-#: src/Tribe/Repository.php:2543
+#: src/Tribe/Repository.php:2576
 msgid "Could not delete post with ID "
 msgstr ""
 
-#: src/Tribe/Service_Providers/Onboarding.php:109
+#: src/Tribe/Service_Providers/Onboarding.php:111
 msgid "Got it"
 msgstr ""
 
@@ -3605,21 +3718,21 @@ msgstr ""
 msgid "The request wasn't sent from this tab."
 msgstr ""
 
-#: src/Tribe/Settings.php:646
+#: src/Tribe/Settings.php:653
 msgid "Your form had the following errors:"
 msgstr ""
 
-#: src/Tribe/Settings.php:657
+#: src/Tribe/Settings.php:664
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Settings.php:678
+#: src/Tribe/Settings.php:685
 msgid "Settings saved."
 msgstr ""
 
-#: src/Tribe/Settings_Tab.php:222
+#: src/Tribe/Settings_Tab.php:250
 msgid "There are no fields set up for this tab yet."
 msgstr ""
 
@@ -3795,7 +3908,12 @@ msgstr ""
 msgid "%s must be an email address."
 msgstr ""
 
-#: src/Tribe/Validate.php:512
+#. Translators: %s - Label of the form input field.
+#: src/Tribe/Validate.php:534
+msgid "%s must be a list of valid email addresses separated by commas or semicolons."
+msgstr ""
+
+#: src/Tribe/Validate.php:552
 msgid "%s must be a valid HTML color code."
 msgstr ""
 
