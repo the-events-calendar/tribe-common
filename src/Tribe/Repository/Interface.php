@@ -50,7 +50,7 @@ interface Tribe__Repository__Interface
 	 *
 	 * @return string
 	 */
-	public function get_filter_name(  );
+	public function get_filter_name();
 
 	/**
 	 * Sets the formatter in charge of formatting items to the correct format.
@@ -109,7 +109,7 @@ interface Tribe__Repository__Interface
 	 * each callback method to add, at least, one WHERE clause using the repository
 	 * own `where_clause` method.
 	 *
-	 * @param array $callbacks       One or more WHERE callbacks that will be called
+	 * @param array $callbacks        One or more WHERE callbacks that will be called
 	 *                                this repository. The callbacks have the shape
 	 *                                [ <method>, <...args>]
 	 *
@@ -187,6 +187,24 @@ interface Tribe__Repository__Interface
 	public function by_related_to_between( $by_meta_keys, $min, $max, $keys = null, $values = null );
 
 	/**
+	 * Filters the query to return posts that are not related to posts that have a specific meta value.
+	 *
+	 * @since 5.0.2.1
+	 *
+	 * @param string|array $by_meta_keys One or more `meta_keys` relating
+	 *                                   another post TO this post type.
+	 *
+	 * @param string|array $keys         One or more meta_keys to check on the post type in relation
+	 *                                   with the query post type(s); if the `$values` parameter is
+	 *                                   not provided then this will trigger an EXISTS check.
+	 * @param string|array $values       One or more value the meta_key specified with `$keys` should
+	 *                                   match.
+	 *
+	 * @return $this
+	 */
+	public function by_not_related_to( $by_meta_keys, $keys = null, $values = null );
+
+	/**
 	 * Adds an entry to the repository filter schema.
 	 *
 	 * @since 4.9.5
@@ -207,10 +225,10 @@ interface Tribe__Repository__Interface
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param array          $settings An array of settings to define how the hash should be produced in the shape
+	 * @param array         $settings  An array of settings to define how the hash should be produced in the shape
 	 *                                 `[ 'exclude' => [ 'ex_1', ... ], 'include' => [ 'inc_1', ... ] ]`. This array
 	 *                                 will apply both to the Repository filters and the query vars.
-	 * @param WP_Query|null $query An optional query object to include in the hashing.
+	 * @param WP_Query|null $query     An optional query object to include in the hashing.
 	 *
 	 * @return string The generated hash string.
 	 *
@@ -222,10 +240,10 @@ interface Tribe__Repository__Interface
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param array          $settings An array of settings to define how the hash should be produced in the shape
+	 * @param array         $settings  An array of settings to define how the hash should be produced in the shape
 	 *                                 `[ 'exclude' => [ 'ex_1', ... ], 'include' => [ 'inc_1', ... ] ]`. This array
 	 *                                 will apply both to the Repository filters and the query vars.
-	 * @param WP_Query|null $query An optional query object to include in the hashing.
+	 * @param WP_Query|null $query     An optional query object to include in the hashing.
 	 *
 	 * @return array An array of hash data components.
 	 */
@@ -245,12 +263,13 @@ interface Tribe__Repository__Interface
 	 *
 	 * @since 4.9.6
 	 *
-	 * @param array  $fields         The fields to add WHERE clauses for. The fields can be post fields, custom fields or
-	 *                               taxonomy terms.
+	 * @param array  $fields         The fields to add WHERE clauses for. The fields can be post fields, custom fields
+	 *                               or taxonomy terms.
 	 * @param string $compare        The comparison operator to use, e.g. 'LIKE' or '>'.
-	 * @param mixed  $value          The value, or values, to compare with; the format will be set depending on the type of
-	 *                               each value.
-	 * @param string $where_relation The relation to join the WHERE clauses with, either 'OR' or 'AND'; default to 'OR'.
+	 * @param mixed  $value          The value, or values, to compare with; the format will be set depending on the
+	 *                               type of each value.
+	 * @param string $where_relation The relation to join the WHERE clauses with, either 'OR' or 'AND'; default to
+	 *                               'OR'.
 	 * @param string $value_relation The relation to join the value clauses in case the value is an array, either 'OR'
 	 *                               or 'AND'; defaults to 'OR'.
 	 *
@@ -267,7 +286,7 @@ interface Tribe__Repository__Interface
 	 *
 	 * @since 4.9.9
 	 *
-	 * @param  \WP_Query  $query An query instance.
+	 * @param \WP_Query $query An query instance.
 	 *
 	 * @return \Tribe__Repository__Interface The repository instance, for chaining.
 	 * @throws \Tribe__Repository__Usage_Error If trying to set the query after a fetching operation is done.
@@ -320,4 +339,33 @@ interface Tribe__Repository__Interface
 	 * @return Tribe__Repository__Interface $this The repository instance.
 	 */
 	public function void_query( $void_query = true );
+
+	/**
+	 * Returns the SQL code for the last query built and ran by the repository, if any.
+	 *
+	 * @since 5.0.1
+	 *
+	 * @return string|null The SQL code for the last query built and ran by the repository, if any.
+	 */
+	public function get_last_sql(): ?string;
+
+	/**
+	 * Returns the request for the current context.
+	 *
+	 * @since 5.2.0
+	 *
+	 * @return string|null The request context.
+	 */
+	public function get_request_context(): ?string;
+
+	/**
+	 * Sets the request context for the current request.
+	 *
+	 * @since 5.2.0
+	 *
+	 * @param string|null $context The request context.
+	 *
+	 * @return void
+	 */
+	public function set_request_context( string $context = null ): self;
 }

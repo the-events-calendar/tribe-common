@@ -54,16 +54,6 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 				'thickbox_url' => 'https://theeventscalendar.com/product/wordpress-events-filterbar/?TB_iframe=true',
 			],
 			[
-				'short_name'   => 'Facebook Events',
-				'class'        => 'Tribe__Events__Facebook__Importer',
-				'thickbox_url' => 'https://theeventscalendar.com/product/facebook-events/?TB_iframe=true',
-			],
-			[
-				'short_name'   => 'iCal Importer',
-				'class'        => 'Tribe__Events__Ical_Importer__Main',
-				'thickbox_url' => 'https://theeventscalendar.com/product/ical-importer/?TB_iframe=true',
-			],
-			[
 				'short_name'   => 'Eventbrite Tickets',
 				'class'        => 'Tribe__Events__Tickets__Eventbrite__Main',
 				'thickbox_url' => 'https://theeventscalendar.com/product/wordpress-eventbrite-tickets/?TB_iframe=true',
@@ -162,6 +152,23 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 			$plugins = apply_filters( 'tribe_active_plugins', [] );
 
 			return isset( $plugins[ $plugin_name ] ) && tribe_is_truthy( $plugins[ $plugin_name ] );
+		}
+
+		/**
+		 * Retrieves a list of active plugins.
+		 *
+		 * @since 5.1.3
+		 *
+		 * @return array List of active plugins.
+		 */
+		public function get_active_plugins() {
+			$plugins = $this->get_list();
+
+			$plugins = array_filter( $plugins, function ( $plugin ) {
+				return self::is_active( $plugin['short_name'] );
+			} );
+
+			return $plugins;
 		}
 	}
 }

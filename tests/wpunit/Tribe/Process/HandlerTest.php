@@ -11,6 +11,29 @@ use Tribe__Feature_Detection as Feature_Detection;
 class HandlerTest extends \Codeception\TestCase\WPTestCase {
 	use Cron_Assertions;
 
+	private static $no_async_backup_value;
+
+	/**
+	 * @beforeClass
+	 */
+	public static function backup_no_async_value():void{
+		self::$no_async_backup_value = getenv( 'TRIBE_NO_ASYNC' )	;
+	}
+
+	/**
+	 * @afterClass
+	 */
+	public function restore_no_aync_value(): void {
+		putenv( 'TRIBE_NO_ASYNC=' . self::$no_async_backup_value );
+	}
+
+	/**
+	 * @before
+	 */
+	public function support_async(): void {
+		putenv( 'TRIBE_NO_ASYNC=0' );
+	}
+
 	/**
 	 * A prophecy of the feature detection class.
 	 *

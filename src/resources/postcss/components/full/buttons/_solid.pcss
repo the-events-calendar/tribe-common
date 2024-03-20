@@ -18,6 +18,24 @@
 		padding: 11px 20px 11px;
 		width: 100%;
 
+		&,
+		&:hover,
+		&:focus {
+			background-image: none;
+			border: 0;
+			border-radius: var(--tec-border-radius-default);
+			box-shadow: none;
+			color: var(--tec-color-background);
+			font-style: normal;
+			outline: none;
+			text-decoration: none;
+			text-shadow: none;
+		}
+
+		&:focus {
+			outline: auto;
+		}
+
 		.tribe-common--breakpoint-medium& {
 			width: auto;
 		}
@@ -25,14 +43,17 @@
 		&:focus,
 		&:hover {
 			background-color: var(--tec-color-button-primary-hover);
+			padding: 11px 20px 11px;
 		}
 
 		&:active {
 			background-color: var(--tec-color-button-primary-active);
+			padding: 11px 20px 11px;
 		}
 
 		&:disabled {
 			background-color: var(--tec-color-button-primary-background);
+			padding: 11px 20px 11px;
 		}
 	}
 

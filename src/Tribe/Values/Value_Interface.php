@@ -102,6 +102,15 @@ interface Value_Interface {
 	public function set_value( $amount );
 
 	/**
+	 * Public setter to use for any object.
+	 *
+	 * @since 4.14.14
+	 *
+	 * @param int $amount the precision value to set
+	 */
+	public function set_precision( $amount );
+
+	/**
 	 * Get all valid setters registered to this object instance, up the inheritance chain.
 	 *
 	 * Implemented in Tribe\Values\Value_Update.php

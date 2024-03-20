@@ -44,7 +44,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	 * Start the Monday before Thanksgiving.
 	 *
 	 * @since 4.14.7
-	 * @return int - Unix timestamp
+	 * @return \Tribe\Utils\Date_I18n - Date Object
 	 */
 	protected function get_start_time() {
 		$date = parent::get_start_time();
@@ -77,7 +77,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		$content = $this->get_template()->template( 'conditional_content/black-friday', $template_args, false );
 
 		// Replace starting info box markup.
-		$fields['info-start']['html'] = '<div id="modern-tribe-info">' . $content;
+		$fields['info-start']['html'] .=  $content;
 
 		return $fields;
 	}

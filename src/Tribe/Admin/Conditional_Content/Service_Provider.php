@@ -8,12 +8,15 @@
 
 namespace Tribe\Admin\Conditional_Content;
 
+use TEC\Common\Contracts\Service_Provider as Provider_Contract;
+
 /**
  * Conditional Content Provider.
  *
  * @since 4.14.7
  */
-class Service_Provider extends \tad_DI52_ServiceProvider {
+class Service_Provider extends Provider_Contract {
+
 
 	/**
 	 * Registers the required objects and filters.
@@ -22,7 +25,8 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 */
 	public function register() {
 		$this->container->singleton(  Black_Friday::class, Black_Friday::class, [ 'hook' ] );
-		$this->container->singleton(  End_Of_Year_Sale::class, End_Of_Year_Sale::class, [ 'hook' ] );
+        // EOY Sale disabled for 2022
+		// $this->container->singleton(  End_Of_Year_Sale::class, End_Of_Year_Sale::class, [ 'hook' ] );
 		$this->hooks();
 	}
 
@@ -42,6 +46,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 */
 	public function plugins_loaded() {
 		$this->container->make( Black_Friday::class );
-		$this->container->make( End_Of_Year_Sale::class );
+        // EOY Sale disabled for 2022
+		// $this->container->make( End_Of_Year_Sale::class );
 	}
 }

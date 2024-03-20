@@ -1,6 +1,7 @@
 <?php
 
 namespace Tribe;
+
 use Tribe\Common\Tests\Dummy_Plugin_Origin;
 use Tribe__Template as Template;
 
@@ -306,7 +307,7 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 			protected $folder = [ 'src', 'views' ];
 			protected $common_lookup = false;
 		};
-		$assert = function ( array $folders ) {
+		$assert   = function ( array $folders ) {
 			$this->assertEquals( [ 'plugin' ], array_keys( $folders ),
 				'There should be a plugin folder only.' );
 		};
@@ -426,5 +427,39 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 
 		// What we look for is not really relevant: the assertions happens before.
 		$template->get_template_file( [ 'foo', 'bar', 'component' ] );
+	}
+
+	/**
+	 * It should allow filtering template HTML and echo it
+	 *
+	 * @test
+	 */
+	public function should_allow_filtering_template_html_and_echo_it(): void {
+		$template = new class extends Template {
+			protected $folder = [ 'template' ];
+
+			public function __construct() {
+				$this->template_base_path = dirname( __DIR__, 2 ) . '/_data';
+			}
+		};
+
+		$this->assertEquals( '', $template->template( 'say-hi', [ 'name' => 'Alice' ], false ) );
+
+		ob_start();
+		$template->template( 'say-hi', [ 'name' => 'Alice' ], true );
+		$this->assertEquals( '', ob_get_clean() );
+
+		add_filter( 'tribe_template_pre_html:template/say-hi',
+			function ( ?string $html, string $file, $name, Template $template ): string {
+				$name = $template->get( 'name' );
+
+				return "<h3>Hello $name!</h3>";
+			}, 10, 4 );
+
+		$this->assertEquals( '<h3>Hello Alice!</h3>', $template->template( 'say-hi', [ 'name' => 'Alice' ], false ) );
+
+		ob_start();
+		$template->template( 'say-hi', [ 'name' => 'Alice' ], true );
+		$this->assertEquals( '<h3>Hello Alice!</h3>', ob_get_clean() );
 	}
 }

@@ -60,11 +60,11 @@ class End_Of_Year_Sale extends Datetime_Conditional_Abstract {
 			'button_link' => 'https://evnt.is/1a-x',
 		];
 
-		// Get the Black Friday promo content.
+		// Get the promo content.
 		$content = $this->get_template()->template( 'conditional_content/end-of-year-sale', $template_args, false );
 
 		// Replace starting info box markup.
-		$fields['info-start']['html'] = '<div id="modern-tribe-info">' . $content;
+		$fields['info-start']['html'] .= $content;
 
 		return $fields;
 	}
@@ -74,7 +74,7 @@ class End_Of_Year_Sale extends Datetime_Conditional_Abstract {
 	 *
 	 * @since 4.14.9
 	 *
-	 * @return int $end_time The date & time the notice should stop displaying, as a Unix timestamp.
+	 * @return \Tribe\Utils\Date_I18n - Date Object
 	 */
 	public function get_end_time() {
 		$date = parent::get_end_time();

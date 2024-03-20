@@ -9,6 +9,8 @@ settings:
     colors: true
     memory_limit: 1024M
 extensions:
+    enabled:
+        - tad\WPBrowser\Extension\Events
     commands:
         - 'Codeception\Command\GenerateWPUnit'
         - 'Codeception\Command\GenerateWPRestApi'

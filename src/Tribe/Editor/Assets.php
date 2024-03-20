@@ -29,13 +29,37 @@ class Tribe__Editor__Assets {
 
 		$plugin = Tribe__Main::instance();
 
+		/**
+		 * Block editor JS.
+		 */
 		tribe_asset(
 			$plugin,
-			'tribe-common-gutenberg-data',
-			'app/data.js',
-			/**
-			 * @todo revise this dependencies
-			 */
+			'tribe-common-gutenberg-vendor',
+			'app/vendor.js',
+			[ $this, 'filter_event_blocks_editor_deps' ],
+			'enqueue_block_editor_assets',
+			[
+				'in_footer' => false,
+				'localize'  => [],
+				'priority'  => 10,
+			]
+		);
+		tribe_asset(
+			$plugin,
+			'tribe-common-gutenberg-modules',
+			'app/modules.js',
+			[ $this, 'filter_event_blocks_editor_deps' ],
+			'enqueue_block_editor_assets',
+			[
+				'in_footer' => false,
+				'localize'  => [],
+				'priority'  => 11,
+			]
+		);
+		tribe_asset(
+			$plugin,
+			'tribe-common-gutenberg-main',
+			'app/main.js',
 			[ $this, 'filter_event_blocks_editor_deps' ],
 			'enqueue_block_editor_assets',
 			[
@@ -53,107 +77,27 @@ class Tribe__Editor__Assets {
 						'data' => tribe_callback( 'common.editor.configuration', 'localize' ),
 					],
 				],
-				'priority'  => 11,
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-common-gutenberg-utils',
-			'app/utils.js',
-			[ $this, 'filter_event_blocks_editor_deps' ],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer' => false,
-				'localize'  => [],
 				'priority'  => 12,
 			]
 		);
 
-		tribe_asset(
-			$plugin,
-			'tribe-common-gutenberg-store',
-			'app/store.js',
-			[ $this, 'filter_event_blocks_editor_deps' ],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer' => false,
-				'localize'  => [],
-				'priority'  => 13,
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-common-gutenberg-icons',
-			'app/icons.js',
-			[ $this, 'filter_event_blocks_editor_deps' ],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer' => false,
-				'localize'  => [],
-				'priority'  => 14,
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-common-gutenberg-hoc',
-			'app/hoc.js',
-			[ $this, 'filter_event_blocks_editor_deps' ],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer' => false,
-				'localize'  => [],
-				'priority'  => 15,
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-common-gutenberg-components',
-			'app/components.js',
-			[ $this, 'filter_event_blocks_editor_deps' ],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer' => false,
-				'localize'  => [],
-				'priority'  => 16,
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-common-gutenberg-elements',
-			'app/elements.js',
-			[ $this, 'filter_event_blocks_editor_deps' ],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer' => false,
-				'localize'  => [],
-				'priority'  => 17,
-			]
-		);
-
 		/**
-		 * @todo: figure out why element styles are loading for tickets but not events.
+		 * Block editor CSS.
 		 */
 		tribe_asset(
 			$plugin,
-			'tribe-common-gutenberg-components',
-			'app/components.js',
-			[ $this, 'filter_event_blocks_editor_deps' ],
+			'tribe-common-gutenberg-vendor-styles',
+			'app/vendor.css',
+			[],
 			'enqueue_block_editor_assets',
 			[
 				'in_footer' => false,
-				'localize'  => [],
-				'priority'  => 17,
 			]
 		);
 		tribe_asset(
 			$plugin,
-			'tribe-common-gutenberg-elements-styles',
-			'app/elements.css',
+			'tribe-common-gutenberg-main-styles',
+			'app/main.css',
 			[],
 			'enqueue_block_editor_assets',
 			[
@@ -166,6 +110,7 @@ class Tribe__Editor__Assets {
 	 * Filter the dependencies for event blocks
 	 *
 	 * @since 4.14.2
+	 * @since 5.1.9 Added lodash to the dependencies.
 	 *
 	 * @param array|object|null $assets Array of asset objects, single asset object, or null.
 	 *
@@ -184,6 +129,7 @@ class Tribe__Editor__Assets {
 			'wp-i18n',
 			'wp-element',
 			'wp-editor',
+			'lodash',
 		];
 
 		if ( 'post.php' !== $pagenow && 'post-new.php' !== $pagenow ) {

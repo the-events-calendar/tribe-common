@@ -21,6 +21,8 @@ class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Inter
 		 * @var Tribe__Languages__Locations $languages_locations
 		 */
 		$languages_locations = tribe( 'languages.locations' );
+		$post_type = get_post_type();
+		$post_type_object = get_post_type_object( $post_type );
 		$editor_config = [
 			'common' => [
 				'adminUrl'     => admin_url(),
@@ -39,10 +41,14 @@ class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Inter
 				],
 				'dateSettings' => $this->get_date_settings(),
 				'constants'    => [
-					'hideUpsell' => ( defined( 'TRIBE_HIDE_UPSELL' ) && TRIBE_HIDE_UPSELL ),
+					'hideUpsell' => tec_should_hide_upsell(),
 				],
 				'countries'    => $languages_locations->get_countries( true ),
 				'usStates'     => Tribe__View_Helpers::loadStates(),
+			],
+			'post'   => [
+				'type'   => $post_type,
+				'labels' => $post_type_object ? get_post_type_labels( $post_type_object ) : [],
 			],
 			'blocks' => [],
 		];

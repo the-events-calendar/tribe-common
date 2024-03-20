@@ -87,7 +87,7 @@ The function to hook onto `tribe_onboarding_tours` should have the following for
  *
  * @see   \Tribe\Onboarding\Main::get_registered_tours()
  *
- * @since TBD
+ * @since 1.0
  *
  * @param array $tours An associative array of tours in the shape `[ <tour_id> => <class> ]`.
  *
@@ -138,7 +138,7 @@ class MyAwesomeTourClass extends Tour_Abstract {
 	/**
 	 * Tour steps.
 	 *
-	 * @since TBD
+	 * @since 1.0
 	 *
 	 * @return array $steps The tour steps
 	 */

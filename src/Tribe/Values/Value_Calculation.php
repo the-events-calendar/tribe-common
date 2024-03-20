@@ -66,6 +66,6 @@ trait Value_Calculation {
 	 * @return int
 	 */
 	public function to_integer( $value ) {
-		return (int) ( round( $value, $this->precision ) * pow( 10, $this->precision ) );
+		return (int) ( round( $value, $this->get_precision() ) * pow( 10, $this->get_precision() ) );
 	}
 }

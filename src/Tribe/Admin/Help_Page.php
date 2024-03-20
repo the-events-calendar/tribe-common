@@ -22,14 +22,93 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
+	 * Set up hooks.
+	 *
+	 * @since 4.15.0
+	 */
+	public function hook() {
+		add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
+	}
+
+	/**
+	 * Hooked to admin_body_class to add a class for help page.
+	 *
+	 * @since 4.15.0
+	 *
+	 * @param string $classes A space separated string of classes to be added to body.
+	 *
+	 * @return string $classes A space separated string of classes to be added to body.
+	 */
+	public function admin_body_class( $classes ) {
+		if ( ! $this->is_current_page() ) {
+			return $classes;
+		}
+
+		$classes .= ' tribe-help tec-help';
+		return $classes;
+	}
+
+	/**
 	 * Checks if the current page is the Help one
 	 *
 	 * @since 4.5.7
+	 * @since 5.1.12 Verifying that the current page is a screen
 	 *
 	 * @return bool
 	 */
 	public function is_current_page() {
-		return Tribe__Admin__Helpers::instance()->is_screen( 'tribe_events_page_tribe-help' ) || Tribe__Admin__Helpers::instance()->is_screen( 'settings_page_tribe-common-help-network' );
+		$is_screen = Tribe__Admin__Helpers::instance()->is_screen();
+
+		if ( ! $is_screen ) {
+			return false;
+		}
+
+		global $current_screen;
+
+		$help_pages = [
+			'tribe_events_page_tec-events-help',
+			'tickets_page_tec-tickets-help',
+		];
+
+		return in_array( $current_screen->id, $help_pages );
+	}
+
+	/**
+	 * Checks if the current page is the TEC Help one
+	 *
+	 * @since 5.1.12
+	 *
+	 * @return bool
+	 */
+	public function is_tec_events_help_page() {
+		$is_screen = Tribe__Admin__Helpers::instance()->is_screen();
+
+		if ( ! $is_screen ) {
+			return false;
+		}
+
+		global $current_screen;
+
+		return 'tribe_events_page_tec-events-help' === $current_screen->id;
+	}
+
+	/**
+	 * Checks if the current page is the Tickets Help one
+	 *
+	 * @since 5.1.12
+	 *
+	 * @return bool
+	 */
+	public function is_tec_tickets_help_page() {
+		$is_screen = Tribe__Admin__Helpers::instance()->is_screen();
+
+		if ( ! $is_screen ) {
+			return false;
+		}
+
+		global $current_screen;
+
+		return 'tickets_page_tec-tickets-help' === $current_screen->id;
 	}
 
 	/**
@@ -1001,6 +1080,7 @@ class Tribe__Admin__Help_Page {
 			'events-calendar-pro',
 			'tribe-filterbar',
 			'event-aggregator',
+			'event-automator',
 			'events-virtual',
 		] );
 
@@ -1092,6 +1172,7 @@ class Tribe__Admin__Help_Page {
 			'event-tickets-plus',
 			'tribe-eventbrite',
 			'promoter',
+			'event-tickets-wallet-plus',
 		] );
 
 		return $ticketing_products;

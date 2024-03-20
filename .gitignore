@@ -3,6 +3,7 @@
 node_modules
 .phpstorm*
 .vscode
+bun.lockb
 
 # Tests - local config files
 codeception.yml
@@ -33,6 +34,7 @@ vendor/*
 !vendor/xrstf/composer-php52
 !vendor/a5hleyrich/wp-background-processing
 !vendor/freemius
+!vendor/ky
 vendor/freemius/languages/*.po
 
 # Resources Ignoring
@@ -44,6 +46,5 @@ src/resources/js/**/*.min.js
 lang/*.po
 lang/*.mo
 
-# tric files
-*.tric
-*.tric.*
+# Strauss
+bin/strauss.phar

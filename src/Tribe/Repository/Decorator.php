@@ -94,8 +94,8 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function all() {
-		return $this->decorated->all();
+	public function all( $return_generator = false, int $batch_size = 50 ) {
+		return $this->decorated->all( $return_generator, $batch_size );
 	}
 
 	/**
@@ -209,6 +209,13 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 */
 	public function first() {
 		return $this->decorated->first();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function first_id(): ?int {
+		return $this->decorated->first_id();
 	}
 
 	/**
@@ -357,6 +364,15 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
+	public function by_not_related_to( $by_meta_keys, $keys = null, $values = null ) {
+		$this->decorated->by_not_related_to( $by_meta_keys, $keys, $values );
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function has_filter( $key, $value = null ) {
 		return $this->decorated->has_filter( $key, $value );
 	}
@@ -371,8 +387,8 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get_ids() {
-		return $this->decorated->get_ids();
+	public function get_ids( $return_generator = false, int $batch_size = 50 ) {
+		return $this->decorated->get_ids( $return_generator, $batch_size );
 	}
 
 	/**
@@ -682,6 +698,29 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 */
 	public function void_query( $void_query = true ) {
 		$this->decorated->void_query( $void_query );
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_last_sql(): ?string {
+		return $this->decorated->get_last_sql();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_request_context(): ?string {
+		return $this->decorated->get_request_context();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function set_request_context( string $context = null ): self {
+		$this->decorated->set_request_context( $context );
 
 		return $this;
 	}

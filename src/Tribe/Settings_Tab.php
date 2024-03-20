@@ -1,6 +1,9 @@
 <?php
 
 // Don't load directly
+
+use TEC\Common\Telemetry\Telemetry;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -37,6 +40,31 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 		 * @var array
 		 */
 		public $defaults;
+
+		/**
+		 * @var array
+		 */
+		public $fields;
+
+		/**
+		 * @var boolean
+		 */
+		public $show_save;
+
+		/**
+		 * @var closure
+		 */
+		public $display_callback;
+
+		/**
+		 * @var boolean
+		 */
+		public $network_admin;
+
+		/**
+		 * @var int
+		 */
+		public $priority;
 
 		/**
 		 * class constructor
@@ -145,7 +173,7 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 		}
 
 		/**
-		 * displays the content for the tab
+		 * Displays the content for the tab.
 		 *
 		 * @return void
 		 */
@@ -219,7 +247,7 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 				}
 			} else {
 				// no fields setup for this tab yet
-				echo '<p>' . esc_html__( 'There are no fields setup for this tab yet.', 'tribe-common' ) . '</p>';
+				echo '<p>' . esc_html__( 'There are no fields set up for this tab yet.', 'tribe-common' ) . '</p>';
 			}
 		}
 

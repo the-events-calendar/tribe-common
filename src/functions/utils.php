@@ -1,5 +1,26 @@
 <?php
 
+use TEC\Common\lucatume\DI52\ContainerException;
+
+/**
+ * Sanitizes string values.
+ *
+ * @since 5.0.17
+ *
+ * @param string $string The string being sanitized.
+ *
+ * @return string $string The sanitized version of the string.
+ */
+function tec_sanitize_string( $string ) {
+	// Replace HTML tags and entities with their plain text equivalents
+	$string = htmlspecialchars_decode( $string, ENT_QUOTES );
+
+	// Remove any remaining HTML tags
+	$string = strip_tags( $string );
+
+	return $string;
+}
+
 if ( ! function_exists( 'tribe_array_merge_recursive' ) ) {
 	/**
 	 * Recursively merge two arrays preserving keys.
@@ -144,7 +165,26 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 * @return mixed
 	 */
 	function tribe_get_request_var( $var, $default = null ) {
-		$unsafe = Tribe__Utils__Array::get_in_any( [ $_GET, $_POST, $_REQUEST ], $var, $default );
+		$requests = [];
+
+		// Prevent a slew of warnings every time we call this.
+		if ( isset( $_REQUEST ) ) {
+			$requests[] = (array) $_REQUEST;
+		}
+
+		if ( isset( $_GET ) ) {
+			$requests[] = (array) $_GET;
+		}
+
+		if ( isset( $_POST ) ) {
+			$requests[] = (array) $_POST;
+		}
+
+		if ( empty( $requests ) ) {
+			return $default;
+		}
+
+		$unsafe = Tribe__Utils__Array::get_in_any( $requests, $var, $default );
 		return tribe_sanitize_deep( $unsafe );
 	}
 }
@@ -241,6 +281,7 @@ if ( ! function_exists( 'tribe_is_truthy' ) ) {
 			'yes',
 			'true',
 		] );
+
 		// Makes sure we are dealing with lowercase for testing
 		if ( is_string( $var ) ) {
 			$var = strtolower( $var );
@@ -258,6 +299,34 @@ if ( ! function_exists( 'tribe_is_truthy' ) ) {
 
 		// For other types (ints, floats etc) cast to bool
 		return (bool) $var;
+	}
+}
+
+if ( ! function_exists( 'tec_bool_to_string' ) ) {
+	/**
+	 * Utility function to convert booleans to text.
+	 *
+	 * @since 5.1.0
+	 *
+	 * @param bool $bool
+	 * @return string "true" or "false" based on the boolean value.
+	 */
+	function tec_bool_to_string( bool $bool ): string {
+		return tribe_is_truthy( $bool ) ? 'true' : 'false';
+	}
+}
+
+if ( ! function_exists( 'tec_bool_to_int' ) ) {
+	/**
+	 * Utility function to convert booleans to text.
+	 *
+	 * @since 5.1.0
+	 *
+	 * @param bool $bool
+	 * @return int 1 (true) or 0 (false) based on the boolean value.
+	 */
+	function tec_bool_to_int( bool $bool ): int {
+		return tribe_is_truthy( $bool ) ? 1 : 0;
 	}
 }
 
@@ -718,7 +787,7 @@ if ( ! function_exists( 'tribe_get_class_instance' ) ) {
 	 *
 	 * @since 4.10.0
 	 *
-	 * @see   \tad_DI52_Container::isBound()
+	 * @see   \TEC\Common\lucatume\DI52\Builders\ValueBuilder\App::isBound()
 	 * @see   \tribe()
 	 *
 	 * @param string|object $class The plugin class' singleton name, class name, or instance.
@@ -746,8 +815,8 @@ if ( ! function_exists( 'tribe_get_class_instance' ) ) {
 		}
 
 		try {
-			return tribe( $class );
-		} catch ( \RuntimeException $exception ) {
+			return tribe()->has( $class ) ? tribe()->get( $class ) : null;
+		} catch ( ContainerException $exception ) {
 			return null;
 		}
 	}
@@ -1077,11 +1146,12 @@ if ( ! function_exists( 'tribe_get_request_vars' ) ) {
 
 		$cache = array_combine(
 			array_keys( $_REQUEST ),
-			array_map( static function ( $v )
-			{
-				return filter_var( $v, FILTER_SANITIZE_STRING );
-			},
-				$_REQUEST )
+			array_map(
+				static function ( $v ) {
+					return tribe_sanitize_deep( $v );
+				},
+				$_REQUEST
+			)
 		);
 
 		return $cache;
@@ -1107,7 +1177,7 @@ if ( ! function_exists( 'tribe_sanitize_deep' ) ) {
 			return $value;
 		}
 		if ( is_string( $value ) ) {
-			$value = filter_var( $value, FILTER_UNSAFE_RAW );
+			$value = tec_sanitize_string( $value );
 			return $value;
 		}
 		if ( is_int( $value ) ) {

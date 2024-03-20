@@ -39,7 +39,7 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 	 * Test tribe_asset_print_group
 	 */
 	public function test_tribe_asset_print_group() {
-		// Ensure teh version will stay fixed.
+		// Ensure the version will stay fixed.
 		add_filter( 'tribe_asset_version', static function () {
 			return '1.0.0';
 		} );
@@ -63,7 +63,7 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 
 		$expected_tmpl = <<< TAG
 <script src='{{ home_url }}/tests/_data/resources/test-script-1.js?ver=1.0.0' id='tribe-test-js-js'></script>
-<link rel='stylesheet' id='tribe-test-css-css'  href='{{ home_url }}/tests/_data/resources/test-style-1.css?ver=1.0.0' media='all' />
+<link rel='stylesheet' id='tribe-test-css-css' href='{{ home_url }}/tests/_data/resources/test-style-1.css?ver=1.0.0' media='all' />
 
 TAG;
 		$expected = str_replace( '{{ home_url }}', home_url(), $expected_tmpl );

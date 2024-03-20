@@ -450,8 +450,45 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 
 		$container = $select.select2TEC( args );
 
+		// If data-clear-to-value is set, on clear, set the value to the specified value.
+		if ( $select.is( '[data-clear-to-value]' ) ){
+			/*
+			 * Unlike setting `allowClear` to `false`, this will allow the user to clear the dropdown,
+			 * but will then immediately set the value to the specified value.
+			 */
+			$container
+				.on( 'select2:unselect', function(  ) {
+				/*
+			   * Flag the dropdown to expect the opening event that would allow the user to pick
+			   * a new value, or none, after clearing.
+				 */
+				var $select = $( this );
+				$select.data('openingAfterUnselect', 1);
+			} )
+				.on('select2:opening',function(event){
+					/*
+					 * If the dropdown is expecting the opening event, then prevent it from opening
+					 * and instead set the value to the specified value.
+					 */
+					var $select = $( this );
+
+					if( ! $select.data( 'openingAfterUnselect' ) ){
+						return;
+					}
+
+					$select.data( 'openingAfterUnselect', 0 );
+
+					var value = $select.data( 'clear-to-value' );
+					$select.val( value ).trigger( 'change' );
+
+					// Do not open the dropdown.
+					event.preventDefault()
+			});
+		}
+
 		// Propagating original input classes to the select2 container.
-		$container.data( 'select2' ).$container.addClass( obj.getSelectClasses( $select ).join( ' ' ) );
+		var originalClasses = obj.getSelectClasses( $select ).join( ' ' );
+		$container.data( 'select2' ).$container.addClass( originalClasses );
 
 		// Propagating original input classes to the select2 container.
 		$container.data( 'select2' ).$container.removeClass( 'hide-before-select2-init' );
@@ -493,7 +530,21 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		var select2Data = $select.data( 'select2' );
 		var $search = select2Data.$dropdown.find( obj.selector.searchField ); // eslint-disable-line es5/no-es6-methods,max-len
 
-		select2Data.$dropdown.addClass( obj.selector.dropdown.className() );
+		var originalClasses = obj.getSelectClasses( select2Data.$element ).reduce(
+			function ( prev, curr ) {
+				if( 'hide-if-js' === curr ) {
+					return prev;
+				}
+
+				if ( 'tribe-dropdown-created' === curr ) {
+					return prev;
+				}
+
+				return prev + ' ' + curr;
+			}
+		);
+
+		select2Data.$dropdown.addClass( originalClasses );
 
 		// If we have a placeholder for search, apply it!
 		if ( $select.is( '[data-search-placeholder]' ) ) {
