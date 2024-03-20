@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 5.2.1\n"
+"Project-Id-Version: Tribe Common 5.2.2\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-01-22T07:16:48-08:00\n"
-"PO-Revision-Date: 2024-01-22 15:16\n"
+"POT-Creation-Date: 2024-02-15T11:50:08-08:00\n"
+"PO-Revision-Date: 2024-02-15 19:50\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: tribe-common\n"
 
@@ -927,39 +927,44 @@ msgstr ""
 msgid "%1$s counts"
 msgstr ""
 
-#: src/Common/Telemetry/Telemetry.php:268
+#: src/Common/Telemetry/Telemetry.php:273
 msgid "See which plugins you have opted in to tracking for"
 msgstr ""
 
-#: src/Common/Telemetry/Telemetry.php:269
+#: src/Common/Telemetry/Telemetry.php:274
 msgid "We hope you love TEC Common!"
 msgstr ""
 
-#: src/Common/Telemetry/Telemetry.php:354
-msgid "We’re sorry to see you go."
-msgstr ""
-
-#: src/Common/Telemetry/Telemetry.php:355
-msgid "We’d love to know why you’re leaving so we can improve our plugin."
-msgstr ""
-
-#: src/Common/Telemetry/Telemetry.php:359
-msgid "I couldn’t understand how to make it work."
+#. Translators: %s is the current user's display name.
+#: src/Common/Telemetry/Telemetry.php:277
+msgid "Hi, %1$s! This is an invitation to help our StellarWP community. If you opt-in, some data about your usage of TEC Common and future StellarWP Products will be shared with our teams (so they can work their butts off to improve). We will also share some helpful info on WordPress, and our products from time to time. And if you skip this, that's okay! Our products still work just fine."
 msgstr ""
 
 #: src/Common/Telemetry/Telemetry.php:363
-msgid "I found a better plugin."
+msgid "We're sorry to see you go."
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:364
+msgid "We'd love to know why you're leaving so we can improve our plugin."
 msgstr ""
 
 #: src/Common/Telemetry/Telemetry.php:368
-msgid "I need a specific feature it doesn’t provide."
+msgid "I couldn't understand how to make it work."
 msgstr ""
 
-#: src/Common/Telemetry/Telemetry.php:373
-msgid "The plugin doesn’t work."
+#: src/Common/Telemetry/Telemetry.php:372
+msgid "I found a better plugin."
 msgstr ""
 
-#: src/Common/Telemetry/Telemetry.php:378
+#: src/Common/Telemetry/Telemetry.php:377
+msgid "I need a specific feature it doesn't provide."
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:382
+msgid "The plugin doesn't work."
+msgstr ""
+
+#: src/Common/Telemetry/Telemetry.php:387
 msgid "Other"
 msgstr ""
 

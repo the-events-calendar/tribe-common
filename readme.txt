@@ -4,6 +4,22 @@
 
 * Tweak - Default to uppercase meridian ("AM" rather than "am") for screen readers. [TBD]
 
+= [5.2.4] 2024-03-20 =
+
+* Fix - Resolves a PHP 8.2 deprecation error on `Date_Utils` - `PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in /.../wp-content/plugins/the-events-calendar/common/src/Tribe/Date_Utils.php on line 256`. [ECP-1620]
+* Fix - This fixes an issue where a template with a duplicate name but located in different folders is called it would always reference the first file. Updated the key to be unique by folder as well. [ECP-1627]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.2.3] 2024-02-19 =
+
+* Tweak - Refactor JS logic to prevent ticketing of recurring events. [ET-1936]
+* Fix - Better clean up of global space in Controller test case. [ET-1936]
+
+= [5.2.2] 2024-02-19 =
+
+* Tweak - Added timezone param to our date utility function `Date_Utils::reformat`. [TEC-5042]
+* Language - 1 new strings added, 4 updated, 6 fuzzied, and 0 obsoleted
+
 = [5.2.1] 2024-01-24 =
 
 * Feature - Add the `get_country_based_on_code` method to the `Tribe__Languages__Locations` class. [EA-469]
@@ -11,6 +27,7 @@
 * Fix - Correct some signatures in the Tribe__Data class so they conform to the classes it implements, avoiding deprecation notices. [TEC-4992]
 * Fix - Fix PHP 8.2 deprecation errors `PHP Deprecated:  html_entity_decode(): Passing null to parameter #1 ($string) of type string is deprecated`. [ECP-1603]
 * Tweak - Update the DataTables library used by Event Aggregator. [EA-479]
+* Tweak - Improve the notice dismissal logic with more modern JavaScript and PHP.
 * Tweak - Added filters: `tec_dialog_id`, `tribe_repository_{$this->filter_name}_before_delete`
 * Language - 0 new strings added, 20 updated, 4 fuzzied, and 0 obsoleted
 
