@@ -1,5 +1,11 @@
 == Changelog ==
 
+= [5.2.4] 2024-03-20 =
+
+* Fix - Resolves a PHP 8.2 deprecation error on `Date_Utils` - `PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in /.../wp-content/plugins/the-events-calendar/common/src/Tribe/Date_Utils.php on line 256`. [ECP-1620]
+* Fix - This fixes an issue where a template with a duplicate name but located in different folders is called it would always reference the first file. Updated the key to be unique by folder as well. [ECP-1627]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
 = [5.2.3] 2024-02-19 =
 
 * Tweak - Refactor JS logic to prevent ticketing of recurring events. [ET-1936]
