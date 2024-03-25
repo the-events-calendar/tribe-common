@@ -5,6 +5,9 @@
  * @since 4.14.2
  *
  */
+
+ // @TODO: This class lives in TEC, it should not be used here!
+ use Tribe__Events__Aggregator__Record__Eventbrite as Eventbrite;
 ?>
 <tr>
 	<th>
@@ -22,7 +25,7 @@
 		if ( ! tribe( 'events-aggregator.settings' )->has_eb_security_key() ) {
 			$icon                = 'warning';
 			$message             = __( 'You have not connected Event Aggregator to Eventbrite', 'tribe-common' );
-			$eventbrite_auth_url = Tribe__Events__Aggregator__Record__Eventbrite::get_auth_url(
+			$eventbrite_auth_url = Eventbrite::get_auth_url(
 					[ 'back' => 'settings' ]
 			);
 			$notes               = '<a href="' . esc_url( $eventbrite_auth_url ). '">' . esc_html_x( 'Connect to Eventbrite', 'link for connecting eventbrite', 'tribe-common' ) . '</a>';

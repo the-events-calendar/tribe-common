@@ -57,7 +57,7 @@ class Tribe__Admin__Help_Page {
 	 * @return bool
 	 */
 	public function is_current_page() {
-		$is_screen = Tribe__Admin__Helpers::instance()->is_screen();
+		$is_screen = tribe( 'admin.helpers' )->is_screen();
 
 		if ( ! $is_screen ) {
 			return false;
@@ -81,7 +81,7 @@ class Tribe__Admin__Help_Page {
 	 * @return bool
 	 */
 	public function is_tec_events_help_page() {
-		$is_screen = Tribe__Admin__Helpers::instance()->is_screen();
+		$is_screen = tribe( 'admin.helpers' )->is_screen();
 
 		if ( ! $is_screen ) {
 			return false;
@@ -100,7 +100,7 @@ class Tribe__Admin__Help_Page {
 	 * @return bool
 	 */
 	public function is_tec_tickets_help_page() {
-		$is_screen = Tribe__Admin__Helpers::instance()->is_screen();
+		$is_screen = tribe( 'admin.helpers' )->is_screen();
 
 		if ( ! $is_screen ) {
 			return false;

@@ -9,6 +9,9 @@ namespace Tribe\Admin\Notice;
 
 use Tribe__Date_Utils as Dates;
 
+/**
+ * Class Date_Based
+ */
 abstract class Date_Based {
 	/**
 	 * The slug used to make filters specific to an individual notice.
@@ -121,10 +124,13 @@ abstract class Date_Based {
 		'tribe_events_page_tribe-common', // Old Settings & Welcome.
 		'events_page_tribe-common', // Settings & Welcome.
 		'toplevel_page_tribe-common', // Settings & Welcome.
-		'tribe_events_page_aggregator', // Import page
-		'edit-tribe_events', // Events admin list
+		'tribe_events_page_aggregator', // Import page.
+		'edit-tribe_events', // Events admin list.
 	];
 
+	/**
+	 * Constructor.
+	 */
 	public function __construct() {
 		$tribe_dependency    = tribe( \Tribe__Dependency::class );
 		$this->tec_is_active = $tribe_dependency->is_plugin_active( 'Tribe__Events__Main' );
@@ -137,15 +143,18 @@ abstract class Date_Based {
 
 		// If we have an extension date defined.
 		if ( ! empty( $this->get_extension_time() ) ) {
-			// If the sale has started and
+			// If the sale has started.
 			if (
 				$notice_start <= $now
 				&& $notice_end < $now
 				&& $now < $extension_date
 			) {
-				add_filter( "tribe_{$this->slug}_notice_end_date", function() {
-					return $this->get_extension_time();
-				});
+				add_filter(
+					"tribe_{$this->slug}_notice_end_date",
+					function () {
+						return $this->get_extension_time();
+					}
+				);
 			}
 		}
 
@@ -169,14 +178,14 @@ abstract class Date_Based {
 	public function hook_notice() {
 		tribe_notice(
 			$this->slug,
-			[ $this, "display_notice" ],
+			[ $this, 'display_notice' ],
 			[
 				'type'     => 'tribe-banner',
 				'dismiss'  => 1,
 				'priority' => -1,
 				'wrap'     => false,
 			],
-			[ $this, "should_display" ]
+			[ $this, 'should_display' ]
 		);
 	}
 
@@ -187,7 +196,7 @@ abstract class Date_Based {
 	 *
 	 * @return string The HTML string to be displayed.
 	 */
-	abstract function display_notice();
+	abstract public function display_notice();
 
 	/**
 	 * Function to get and filter the screens the notice is displayed on.
@@ -257,7 +266,6 @@ abstract class Date_Based {
 		$now            = Dates::build_date_object( 'now', 'UTC' );
 		$notice_start   = $this->get_start_time();
 		$notice_end     = $this->get_end_time();
-
 		$should_display = $notice_start <= $now && $now < $notice_end;
 
 
@@ -266,10 +274,14 @@ abstract class Date_Based {
 		 *
 		 * @since 4.14.2
 		 *
-		 * @param boolean                          $should_display Whether the notice should display.
-		 * @param Tribe__Admin__Notice_Date_Based $notice  The notice object.
+		 * @param boolean    $should_display Whether the notice should display.
+		 * @param Date_Based $notice  The notice object.
 		 */
-		return apply_filters( "tribe_{$this->slug}_notice_should_display", $should_display, $this );
+		return apply_filters(
+			"tribe_{$this->slug}_notice_should_display",
+			$should_display,
+			$this
+		);
 	}
 
 	/**
@@ -291,7 +303,8 @@ abstract class Date_Based {
 		 *
 		 * @since 4.14.2
 		 *
-		 * @param \DateTime $date Date object for the notice start.
+		 * @param \DateTime  $date Date object for the notice start.
+		 * @param Date_Based $notice  The notice object.
 		 */
 		$date = apply_filters( "tribe_{$this->slug}_notice_start_date", $date, $this );
 
@@ -312,13 +325,14 @@ abstract class Date_Based {
 		}
 
 		/**
-		* Allow filtering of the end date DateTime object,
-		* to allow for things like "the day after" ( $date->modify( '+1 day' ) ) and such.
-		*
-		* @since 4.14.2
-		*
-		* @param \DateTime $date Date object for the notice end.
-		*/
+		 * Allow filtering of the end date DateTime object,
+		 * to allow for things like "the day after" ( $date->modify( '+1 day' ) ) and such.
+		 *
+		 * @since 4.14.2
+		 *
+		 * @param \DateTime $date    Date object for the notice end.
+		 * @param Date_Based $notice The notice object.
+		 */
 		$date = apply_filters( "tribe_{$this->slug}_notice_end_date", $date, $this );
 
 		return $date;
@@ -348,7 +362,8 @@ abstract class Date_Based {
 		*
 		* @since 4.14.2
 		*
-		* @param \DateTime $date Date object for the notice end.
+		* @param \DateTime $date    Date object for the notice end.
+		* @param Date_Based $notice The notice object.
 		*/
 		$date = apply_filters( "tribe_{$this->slug}_notice_extension_date", $date, $this );
 

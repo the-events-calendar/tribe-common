@@ -1,0 +1,11 @@
+parameters:
+  level: 0
+  paths:
+    - src
+    - tribe-common.php
+    - tribe-autoload.php
+  scanDirectories:
+    - vendor/vendor-prefixed
+  excludePaths:
+        analyse:
+            - src/deprecated

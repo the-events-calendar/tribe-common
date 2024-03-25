@@ -1,31 +1,34 @@
 <?php
+/**
+ * Admin Page Helpers
+ */
 
-// Don't load directly
+// Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
-
+// phpcs:disable PEAR.NamingConventions.ValidClassName.Invalid
+//phpcs:disable TEC.Classes.ValidClassName.NotSnakeCase
 /**
  * Class with a few helpers for the Administration Pages
  */
 class Tribe__Admin__Helpers {
 	/**
 	 * Static Singleton Holder
-	 * @var Tribe__Admin__Helpers|null
+	 *
+	 * @var Tribe__Admin__Helpers|null The single instance of the class
 	 */
 	protected static $instance;
 
 	/**
 	 * Static Singleton Factory Method
 	 *
+	 * @deprecated TBD We should not be using handling Singletons internally.
+	 *
 	 * @return Tribe__Admin__Helpers
 	 */
 	public static function instance() {
-		if ( empty( self::$instance ) ) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
+		return tribe( 'admin.helpers' );
 	}
 
 	/**
@@ -44,7 +47,8 @@ class Tribe__Admin__Helpers {
 		 * Allows fo filter if we're on a WP_Screen
 		 *
 		 * @since 4.9.5
-		 * @param bool    null bypass if we want to return a bool of is_wp_scren
+		 *
+		 * @param bool $bypass bypass if we want to return a bool of is_wp_screen
 		 */
 		$is_wp_screen = apply_filters( 'tribe_admin_is_wp_screen', null );
 		if ( null !== $is_wp_screen ) {
@@ -57,14 +61,14 @@ class Tribe__Admin__Helpers {
 	/**
 	 * Matcher for Admin Pages related to Post Types
 	 *
-	 * @param string|array|null $id What will be checked to see if we return true or false
+	 * @param mixed $post_type What will be checked to see if we return true or false.
 	 *
 	 * @return boolean
 	 */
 	public function is_post_type_screen( $post_type = null ) {
 		global $current_screen;
 
-		// Not in the admin we don't even care
+		// Not in the admin we don't even care.
 		if ( ! is_admin() ) {
 			return false;
 		}
@@ -74,24 +78,24 @@ class Tribe__Admin__Helpers {
 			return false;
 		}
 
-		// Avoid Notices by checking the object type of WP_Screen
+		// Avoid Notices by checking the object type of WP_Screen.
 		if ( ! $this->is_wp_screen() ) {
 			return false;
 		}
 
 		$defaults = apply_filters( 'tribe_is_post_type_screen_post_types', Tribe__Main::get_post_types() );
 
-		// Match any Post Type from Tribe
+		// Match any Post Type from TEC.
 		if ( is_null( $post_type ) && in_array( $current_screen->post_type, $defaults ) ) {
 			return true;
 		}
 
-		// Match any of the post_types set
+		// Match any of the post_types set.
 		if ( ! is_scalar( $post_type ) && in_array( $current_screen->post_type, (array) $post_type ) ) {
 			return true;
 		}
 
-		// Match a specific Post Type
+		// Match a specific Post Type.
 		if ( $current_screen->post_type === $post_type ) {
 			return true;
 		}
@@ -102,14 +106,14 @@ class Tribe__Admin__Helpers {
 	/**
 	 * Matcher for administration pages that are from Tribe the easier way
 	 *
-	 * @param  string|array|null $id What will be checked to see if we return true or false
+	 * @param string|array|null $id What will be checked to see if we return true or false.
 	 *
 	 * @return boolean
 	 */
 	public function is_screen( $id = null ) {
 		global $current_screen;
 
-		// Not in the admin we don't even care
+		// Not in the admin we don't even care.
 		if ( ! is_admin() ) {
 			return false;
 		}
@@ -134,7 +138,7 @@ class Tribe__Admin__Helpers {
 			return true;
 		}
 
-		// Match any of the pages set
+		// Match any of the pages set.
 		if ( ! is_scalar( $id ) && in_array( $current_screen->id, (array) $id ) ) {
 			return true;
 		}
@@ -149,21 +153,21 @@ class Tribe__Admin__Helpers {
 		if ( in_array( $current_screen->post_type, $defaults ) ) {
 			return true;
 		}
-		return false;
 
+		return false;
 	}
 
 	/**
 	 * Matcher for administration pages action
 	 *
-	 * @param  string|array|null $action What will be checked to see if we return true or false
+	 * @param mixed $action What will be checked to see if we return true or false.
 	 *
 	 * @return boolean
 	 */
 	public function is_action( $action = null ) {
 		global $current_screen;
 
-		// Not in the admin we don't even care
+		// Not in the admin we don't even care.
 		if ( ! is_admin() ) {
 			return false;
 		}
@@ -173,17 +177,17 @@ class Tribe__Admin__Helpers {
 			return false;
 		}
 
-		// Avoid Notices by checking the object type of WP_Screen
+		// Avoid Notices by checking the object type of WP_Screen.
 		if ( ! $this->is_wp_screen() ) {
 			return false;
 		}
 
-		// Match any of the pages set
+		// Match any of the pages set.
 		if ( ! is_scalar( $action ) && in_array( $current_screen->action, (array) $action ) ) {
 			return true;
 		}
 
-		// Match a specific page
+		// Match a specific page.
 		if ( $current_screen->action === $action ) {
 			return true;
 		}

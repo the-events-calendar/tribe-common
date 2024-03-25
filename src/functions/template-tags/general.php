@@ -19,6 +19,7 @@ if ( ! function_exists( 'tribe_get_option' ) ) {
 	 * Retrieve specific key from options array, optionally provide a default return value
 	 *
 	 * @category Events
+	 *
 	 * @param string $optionName Name of the option to retrieve.
 	 * @param string $default    Value to return if no such option is found.
 	 *
@@ -33,7 +34,7 @@ if ( ! function_exists( 'tribe_get_option' ) ) {
 		 *
 		 * @since 4.0.1
 		 *
-		 * @param mixed $value Value of the option if found.
+		 * @param mixed  $value      Value of the option if found.
 		 * @param string $optionName Name of the option to retrieve.
 		 * @param string $default    Value to return if no such option is found.
 		 */
@@ -44,7 +45,7 @@ if ( ! function_exists( 'tribe_get_option' ) ) {
 		 *
 		 * @since 4.0.1
 		 *
-		 * @param mixed $value Value of the option if found.
+		 * @param mixed  $value      Value of the option if found.
 		 * @param string $optionName Name of the option to retrieve.
 		 * @param string $default    Value to return if no such option is found.
 		 */
@@ -59,8 +60,9 @@ if ( ! function_exists( 'tribe_update_option' ) ) {
 	 * Set specific key from options array, optionally provide a default return value
 	 *
 	 * @category Events
+	 *
 	 * @param string $optionName Name of the option to retrieve.
-	 * @param string $value      Value to save
+	 * @param string $value      Value to save.
 	 *
 	 * @return bool
 	 */
@@ -76,8 +78,9 @@ if ( ! function_exists( 'tribe_remove_option' ) ) {
 	 * Remove specific key from options array
 	 *
 	 * @category Events
+	 *
 	 * @param string $optionName Name of the option to retrieve.
-	 * @param string $value      Value to save
+	 * @param string $value      Value to save.
 	 *
 	 * @return bool
 	 */
@@ -93,6 +96,7 @@ if ( ! function_exists( 'tribe_get_network_option' ) ) {
 	 * Retrieve specific key from options array, optionally provide a default return value
 	 *
 	 * @category Events
+	 *
 	 * @param string $optionName Name of the option to retrieve.
 	 * @param string $default    Value to return if no such option is found.
 	 *
@@ -110,10 +114,10 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param string $resource the filename of the resource
-	 * @param bool   $echo     whether or not to echo the url
-	 * @param string $root_dir directory to hunt for resource files (null or the actual path)
-	 * @param object $origin   Which plugin we are dealing with
+	 * @param string $resource the filename of the resource.
+	 * @param bool   $echo     whether or not to echo the url.
+	 * @param string $root_dir directory to hunt for resource files (null or the actual path).
+	 * @param object $origin   Which plugin we are dealing with.
 	 *
 	 * @return string
 	 **/
@@ -157,8 +161,8 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 		/**
 		 * Filters the resource URL
 		 *
-		 * @param $url
-		 * @param $resource
+		 * @param string $url      The URL to the resource.
+		 * @param string $resource The filename of the resource.
 		 */
 		$url = apply_filters( 'tribe_resource_url', $url, $resource );
 
@@ -180,11 +184,12 @@ if ( ! function_exists( 'tribe_multi_line_remove_empty_lines' ) ) {
 	 * helper function to remove empty lines from multi-line strings
 	 *
 	 * @category Events
+	 *
 	 * @link http://stackoverflow.com/questions/709669/how-do-i-remove-blank-lines-from-text-in-php
 	 *
-	 * @param string $multi_line_string a multiline string
+	 * @param string $multi_line_string a multiline string.
 	 *
-	 * @return string the same string without empty lines
+	 * @return string the same string without empty lines.
 	 */
 	function tribe_multi_line_remove_empty_lines( $multi_line_string ) {
 		return preg_replace( "/^\n+|^[\t\s]*\n+/m", '', $multi_line_string );
@@ -196,7 +201,8 @@ if ( ! function_exists( 'tribe_get_date_format' ) ) {
 	 * Get the date format specified in the tribe options
 	 *
 	 * @category Events
-	 * @param bool $with_year
+	 *
+	 * @param bool $with_year.
 	 *
 	 * @return mixed
 	 */
@@ -217,7 +223,7 @@ if ( ! function_exists( 'tribe_get_datetime_format' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param bool $with_year
+	 * @param bool $with_year.
 	 *
 	 * @return mixed|void
 	 */
@@ -234,6 +240,7 @@ if ( ! function_exists( 'tribe_get_datetime_format' ) ) {
 			 *
 			 * @param string $fallback The string to use as the fallback.
 			 * @param string $raw_separator The raw value of the dateTimeSeparator option.
+			 *
 			 * @return string
 			 */
 			$separator[0] = apply_filters( 'tribe_empty_datetime_separator_fallback', ' ', $raw_separator );
@@ -255,7 +262,7 @@ if ( ! function_exists( 'tribe_get_time_format' ) ) {
 	 *
 	 * @return mixed|void
 	 */
-	function tribe_get_time_format( ) {
+	function tribe_get_time_format() {
 		static $cache_var_name = __FUNCTION__;
 
 		$format = tribe_get_var( $cache_var_name, null );
@@ -275,9 +282,9 @@ if ( ! function_exists( 'tribe_get_days_between' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param string      $start_date
-	 * @param string      $end_date
-	 * @param string|bool $day_cutoff
+	 * @param string      $start_date The start date.
+	 * @param string      $end_date   The end date.
+	 * @param string|bool $day_cutoff The time of day to use as the cutoff for the day. If false, no cutoff is used. If true, the cutoff is the value of the multiDayCutoff option.
 	 *
 	 * @return int
 	 * @see Tribe__Date_Utils::date_diff()
@@ -310,7 +317,7 @@ if ( ! function_exists( 'tribe_prepare_for_json' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param $string
+	 * @param string $string The string to be cleaned.
 	 *
 	 * @return string
 	 */
@@ -332,7 +339,7 @@ if ( ! function_exists( 'tribe_prepare_for_json_deep' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param mixed $value The data to be cleaned
+	 * @param mixed $value The data to be cleaned.
 	 *
 	 * @return mixed The clean data
 	 */
@@ -357,7 +364,7 @@ if ( ! function_exists( 'tribe_the_notices' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param bool $echo Whether or not to echo the notices html
+	 * @param bool $echo Whether or not to echo the notices html.
 	 *
 	 * @return void | string
 	 * @see Tribe__Notices::get()
@@ -427,8 +434,8 @@ if ( ! function_exists( 'tribe_count_hierarchical_keys' ) ) {
 	/**
 	 * Count keys in a hierarchical array
 	 *
-	 * @param $value
-	 * @param $key
+	 * @param $value.
+	 * @param $key.
 	 * @todo - remove, only used in the meta walker
 	 */
 	function tribe_count_hierarchical_keys( $value, $key ) {
@@ -441,7 +448,7 @@ if ( ! function_exists( 'tribe_count_hierarchical' ) ) {
 	/**
 	 * Count items in a hierarchical array
 	 *
-	 * @param array $walk
+	 * @param array $walk.
 	 *
 	 * @return int
 	 * @todo - remove, only used in the meta walker
@@ -463,7 +470,7 @@ if ( ! function_exists( 'tribe_get_mobile_breakpoint' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param int $default The default width (in pixels) at which to break into mobile styles
+	 * @param int $default The default width (in pixels) at which to break into mobile styles.
 	 *
 	 * @return int
 	 */
@@ -477,10 +484,10 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 	 * Receives a float and formats it with a currency symbol
 	 *
 	 * @category Cost
-	 * @param string $cost pricing to format
-	 * @param null|int $post_id
-	 * @param null|string $currency_symbol
-	 * @param null|bool $reverse_position
+	 * @param string  $cost             pricing to format.
+	 * @param ?int    $post_id          post id.
+	 * @param ?string $currency_symbol  currency symbol.
+	 * @param ?bool   $reverse_position reverse position of symbol.
 	 *
 	 * @return string
 	 */
@@ -498,8 +505,8 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 			 *
 			 * @since 4.7.7
 			 *
-			 * @param string $currency_symbol
-			 * @param int $post_id
+			 * @param string $currency_symbol.
+			 * @param int $post_id.
 			 */
 			$currency_symbol = apply_filters( 'tribe_currency_symbol', $currency_symbol, $post_id );
 		}
@@ -513,8 +520,8 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 			 *
 			 * @since 4.7.7
 			 *
-			 * @param bool $reverse_position
-			 * @param int  $post_id
+			 * @param bool $reverse_position.
+			 * @param int  $post_id.
 			 */
 			$reverse_position = apply_filters( 'tribe_reverse_currency_position', (bool) $reverse_position, $post_id );
 		}
@@ -530,8 +537,8 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 		 *
 		 * @since 4.7.10
 		 *
-		 * @param string $cost
-		 * @param int $post_id
+		 * @param string $cost    The cost value.
+		 * @param int    $post_id The post ID.
 		 */
 		$cost = apply_filters( 'tribe_currency_cost', $cost, $post_id );
 
@@ -544,8 +551,8 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param string $cost
-		 * @param int $post_id
+		 * @param string $cost   The cost value.
+		 * @param int   $post_id The post ID.
 		 */
 		return apply_filters( 'tribe_currency_formatted', $cost, $post_id );
 	}
@@ -558,7 +565,7 @@ if ( ! function_exists( 'tribe_get_date_option' ) ) {
 	 * Retrieve an option value taking care to escape it to preserve date format slashes.
 	 *
 	 * @category Events
-	 * @param  string $optionName Name of the option to retrieve.
+	 * @param string  $optionName Name of the option to retrieve.
 	 * @param string  $default    Value to return if no such option is found.
 	 *
 	 * @return mixed Value of the option if found
@@ -573,10 +580,10 @@ if ( ! function_exists( 'tribe_get_date_option' ) ) {
 /**
  * Shortcut for Tribe__Admin__Notices::register(), create a Admin Notice easily
  *
- * @param  string          $slug      Slug to save the notice
- * @param  callable|string $callback  A callable Method/Function to actually display the notice
- * @param  array           $arguments Arguments to Setup a notice
- * @param callable|null    $active_callback An optional callback that should return bool values
+ * @param  string          $slug            Slug to save the notice.
+ * @param  callable|string $callback        A callable Method/Function to actually display the notice.
+ * @param  array           $arguments       Arguments to Setup a notice.
+ * @param ?callable        $active_callback An optional callback that should return bool values.
  *                                          to indicate whether the notice should display or not.
  *
  * @return stdClass Which notice was registered
@@ -591,10 +598,10 @@ function tribe_notice( $slug, $callback, $arguments = [], $active_callback = nul
  * A transient admin notice is a "fire-and-forget" admin notice that will display once registered and
  * until dismissed (if dismissible) without need, on the side of the source code, to register it on each request.
  *
- * @param  string $slug      Slug to save the notice
- * @param  string $html      The notice output HTML code
- * @param  array  $arguments Arguments to Setup a notice
- * @param int     $expire    After how much time (in seconds) the notice will stop showing.
+ * @param string $slug      Slug to save the notice.
+ * @param string $html      The notice output HTML code.
+ * @param array  $arguments Arguments to Setup a notice.
+ * @param int    $expire    After how much time (in seconds) the notice will stop showing.
  *
  * @return stdClass Which notice was registered
  */
@@ -609,7 +616,7 @@ function tribe_transient_notice( $slug, $html, $arguments = [], $expire = null )
  *
  * @since 4.7.7
  *
- * @param string $slug
+ * @param string $slug The slug of the transient notice to remove.
  */
 function tribe_transient_notice_remove( $slug ) {
 	Tribe__Admin__Notices::instance()->remove_transient( $slug );
@@ -618,9 +625,9 @@ function tribe_transient_notice_remove( $slug ) {
 /**
  * A quick internal way of sending errors using WP_Error
  *
- * @param  string|array $indexes Which Error we are looking for
- * @param  array        $context Gives the Error context
- * @param  array        $sprintf Allows variables on the message
+ * @param  string|array $indexes Which Error we are looking for.
+ * @param  array        $context Gives the Error context.
+ * @param  array        $sprintf Allows variables on the message.
  *
  * @return WP_Error
  */
@@ -631,8 +638,8 @@ function tribe_error( $indexes, $context = [], $sprintf = [] ) {
 /**
  * Register a new error based on a Namespace
  *
- * @param  string|array  $indexes  A list of the namespaces and last item should be the error name
- * @param  string        $message  What is going to be the message associate with this indexes
+ * @param  string|array  $indexes  A list of the namespaces and last item should be the error name.
+ * @param  string        $message  What is going to be the message associate with this indexes.
  *
  * @return boolean
  */
@@ -649,7 +656,7 @@ function tribe_register_error( $indexes, $message ) {
  * @param string            $slug      Slug to save the asset - passes through `sanitize_title_with_dashes()`.
  * @param string            $file      The asset file to load (CSS or JS), including non-minified file extension.
  * @param array             $deps      The list of dependencies or callable function that will return a list of dependencies.
- * @param string|array|null $action    The WordPress action(s) to enqueue on, such as `wp_enqueue_scripts`,
+ * @param string|array|null $action    The WordPress action(s) to enqueue on, such as `wp_enqueue_scripts`,.
  *                                     `admin_enqueue_scripts`, or `login_enqueue_scripts`.
  * @param array             $arguments See `Tribe__Assets::register()` for more info.
  *
@@ -667,7 +674,7 @@ function tribe_asset( $origin, $slug, $file, $deps = [], $action = null, $argume
  *
  * @since 4.7
  *
- * @param string|array $slug Slug to enqueue
+ * @param string|array $slug Slug to enqueue.
  */
 function tribe_asset_enqueue( $slug ) {
 	/** @var Tribe__Assets $assets */
@@ -681,7 +688,7 @@ function tribe_asset_enqueue( $slug ) {
  *
  * @since 4.7
  *
- * @param string|array  $group  Which group(s) should be enqueued.
+ * @param string|array $group Which group(s) should be enqueued.
  */
 function tribe_asset_enqueue_group( $group ) {
 	/** @var Tribe__Assets $assets */
@@ -696,8 +703,8 @@ function tribe_asset_enqueue_group( $group ) {
  * @since 4.3
  * @since 4.12.10 Added support for overriding arguments for individual assets.
  *
- * @param  object   $origin     The main Object for the plugin you are enqueueing the script/style for
- * @param  array    $assets     {
+ * @param  object $origin     The main Object for the plugin you are enqueueing the script/style for.
+ * @param  array  $assets     {.
  *    Indexed array, don't use any associative key.
  *    E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ]
  *
@@ -705,10 +712,10 @@ function tribe_asset_enqueue_group( $group ) {
  *    @type  string   $file       Which file will be loaded, either CSS or JS
  *    @type  array    $deps       (optional) Dependencies
  * }
- * @param  string   $action     A WordPress hook that will automatically enqueue this asset once fired
- * @param  array    $arguments  Look at `Tribe__Assets::register()` for more info
+ * @param  string $action     A WordPress hook that will automatically enqueue this asset once fired.
+ * @param  array  $arguments  Look at `Tribe__Assets::register()` for more info.
  *
- * @return array             Which Assets were registered
+ * @return array Which Assets were registered
  */
 function tribe_assets( $origin, $assets, $action = null, $arguments = [] ) {
 	$registered = [];
@@ -746,7 +753,7 @@ if ( ! function_exists( 'tribe_doing_frontend' ) ) {
 	 *
 	 * @since 4.7.4
 	 *
-	 * @param bool $doing_frontend Whether what is being done happens in the
+	 * @param bool $doing_frontend Whether what is being done happens in the.
 	 *                             context of the frontend or not.
 	 */
 	function tribe_doing_frontend( $doing_frontend ) {
@@ -770,7 +777,7 @@ if ( ! function_exists( 'tribe_is_frontend' ) ) {
 		 *
 		 * @since 4.6.2
 		 *
-		 * @param bool $is_frontend
+		 * @param bool $is_frontend.
 		 */
 		return (bool) apply_filters( 'tribe_doing_frontend', false );
 	}
@@ -844,14 +851,14 @@ if ( ! function_exists( 'tribe_asset_print_group' ) ) {
 	 * @since 4.12.6
 	 *
 	 * @param string|array $group Which group(s) should be enqueued.
-	 * @param bool         $echo  Whether to print the group(s) tag(s) to the page or not; default to `true` to
+	 * @param bool         $echo  Whether to print the group(s) tag(s) to the page or not; default to `true` to.
 	 *                            print the HTML `script` (JS) and `link` (CSS) tags to the page.
 	 *
 	 * @return string The `script` and `link` HTML tags produced for the group(s).
 	 */
 	function tribe_asset_print_group( $group, $echo = true ) {
 		/** @var \Tribe__Assets $assets */
-		$assets     = tribe( 'assets' );
+		$assets = tribe( 'assets' );
 
 		return $assets->print_group($group, $echo);
 	}
@@ -865,7 +872,7 @@ if ( ! function_exists( 'tribe_doing_shortcode' ) ) {
 	 *
 	 * @since 4.12.10
 	 *
-	 * @param null|string $tag The shortcode tag name, or null to check if doing any shortcode.
+	 * @param ?string $tag The shortcode tag name, or null to check if doing any shortcode.
 	 *
 	 * @return bool Whether the shortcode is currently being run.
 	 */

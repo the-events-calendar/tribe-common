@@ -196,7 +196,7 @@ final class Telemetry {
 	 *
 	 * @since 5.1.0
 	 */
-	public static function get_plugin_slug() {
+	public static function get_plugin_slug(): string {
 		if ( empty( self::$plugin_slug ) ) {
 			self::$plugin_slug = self::get_parent_plugin_slug();
 		}
@@ -273,8 +273,11 @@ final class Telemetry {
 			'opted_in_plugins_text' => __( 'See which plugins you have opted in to tracking for', 'tribe-common' ),
 			'heading'               => __( 'We hope you love TEC Common!', 'tribe-common' ),
 			'intro'                 => sprintf(
-				/* Translators: %s is the current user's display name. */
-				__( 'Hi, %1$s! This is an invitation to help our StellarWP community. If you opt-in, some data about your usage of TEC Common and future StellarWP Products will be shared with our teams (so they can work their butts off to improve). We will also share some helpful info on WordPress, and our products from time to time. And if you skip this, that\'s okay! Our products still work just fine.', 'tribe-common' ),
+				/* Translators: %1$s is the user's display name. */
+				__(
+					'Hi, %1$s! This is an invitation to help our StellarWP community. If you opt-in, some data about your usage of TEC Common and future StellarWP Products will be shared with our teams (so they can work their butts off to improve). We will also share some helpful info on WordPress, and our products from time to time. And if you skip this, that’s okay! Our products still work just fine.',
+					'tribe-common'
+				),
 				$user_name
 			),
 		];
@@ -398,7 +401,7 @@ final class Telemetry {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @param string $slug The plugin slug for Telemetry.
+	 * @param string $slug The slug of the plugin showing the modal.
 	 *
 	 * @return void
 	 */
@@ -409,7 +412,8 @@ final class Telemetry {
 		 *
 		 * @since 5.1.0
 		 *
-		 * @param bool $show Whether to show the modal or not.
+		 * @param bool   $show Whether to show the modal or not.
+		 * @param string $slug The slug of the plugin showing the modal.
 		 */
 		$show = (bool) apply_filters( 'tec_common_telemetry_show_optin_modal', true, $slug );
 
@@ -483,7 +487,7 @@ final class Telemetry {
 		global $pagenow;
 
 		// Only run on the plugins page, or when we're manually setting an opt-in!
-		if ( $pagenow !== 'plugins.php' && is_null( $opted ) ) {
+		if ( 'plugins.php' !== $pagenow && is_null( $opted ) ) {
 			return;
 		}
 
