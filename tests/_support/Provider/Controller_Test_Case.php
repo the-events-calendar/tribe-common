@@ -76,10 +76,10 @@ class Controller_Test_Case extends WPTestCase {
 	 * @since TBD
 	 *
 	 * @return void
+	 *
+	 * @before
 	 */
-	protected function setUp() {
-		parent::setUp();
-
+	protected function setUpTestCase() {
 		// Ensure the test case defines the controller class to test.
 		if ( ! property_exists( $this, 'controller_class' ) ) {
 			throw new RuntimeException( 'Each Controller test case must define a controller_class property.' );
@@ -99,9 +99,13 @@ class Controller_Test_Case extends WPTestCase {
 		$test_services = clone $original_services;
 
 		// From now on calls to the Service Locator (the `tribe` function) will be redirected to a test Service Locator.
-		uopz_set_return( 'tribe', static function ( $key = null ) use ( $test_services ) {
-			return $key ? $test_services->get( $key ) : $test_services;
-		}, true );
+		uopz_set_return(
+			'tribe',
+			static function ( $key = null ) use ( $test_services ) {
+				return $key ? $test_services->get( $key ) : $test_services;
+			},
+			true
+		);
 		// Redirect calls to init the container too.
 		uopz_set_return( Container::class, 'init', $test_services );
 		$this->test_services = $test_services;
@@ -129,8 +133,10 @@ class Controller_Test_Case extends WPTestCase {
 	 * @since TBD
 	 *
 	 * @return void
+	 *
+	 * @after
 	 */
-	protected function tearDown() {
+	protected function tearDownTestCase() {
 		// Unregister all the controllers created by the test case.
 		foreach ( $this->made_controllers as $controller ) {
 			$controller->unregister();
@@ -156,8 +162,6 @@ class Controller_Test_Case extends WPTestCase {
 		// Re-register the original controller after the Service Locator has been reset.
 		$this->original_controller->register();
 		$this->original_controller = null;
-
-		parent::tearDown();
 	}
 
 	/**
@@ -178,24 +182,28 @@ class Controller_Test_Case extends WPTestCase {
 		// From now on, ingest all logging.
 		global $wp_filter;
 		$wp_filter['tribe_log'] = new WP_Hook(); // phpcs:ignore
-		add_action( 'tribe_log', function ( $level, $message, $context ) {
-			if ( isset( $context['controller'] ) && $context['controller'] === $this->controller_class ) {
-				// Log the controller logs.
-				$this->controller_logs[] = [
+		add_action(
+			'tribe_log',
+			function ( $level, $message, $context ) {
+				if ( isset( $context['controller'] ) && $context['controller'] === $this->controller_class ) {
+					// Log the controller logs.
+					$this->controller_logs[] = [
+						'level'   => $level,
+						'message' => $message,
+						'context' => $context,
+					];
+				}
+
+				// Log everything.
+				$this->logs[] = [
 					'level'   => $level,
 					'message' => $message,
 					'context' => $context,
 				];
-			}
-
-			// Log everything.
-			$this->logs[] = [
-				'level'   => $level,
-				'message' => $message,
-				'context' => $context,
-			];
-
-		}, 10, 3 );
+			},
+			10,
+			3
+		);
 
 		// Due to the previous unset, the container will build this as a prototype.
 		$controller = $this->test_services->make( $controller_class );
@@ -221,32 +229,47 @@ class Controller_Test_Case extends WPTestCase {
 		$added_filters    = [];
 		$controller_class = $this->controller_class;
 
-		$this->set_fn_return( 'add_filter', function (
-			string $tag, callable $callback, int $priority = 10, int $args = 1
-		) use (
-			$controller_class, &$added_filters
-		) {
-			if ( is_array( $callback ) && $callback[0] instanceof $controller_class ) {
-				$added_filters[] = [ $tag, $callback, $priority ];
-			}
-			add_filter( $tag, $callback, $priority, $args );
-		}, true );
-		$this->set_fn_return( 'remove_filter', function (
-			string $tag, callable $callback, int $priority = 10
-		) use (
-			$controller_class, &$added_filters
-		) {
-			if (
+		$this->set_fn_return(
+			'add_filter',
+			function (
+				string $tag,
+				callable $callback,
+				int $priority = 10,
+				int $args = 1
+			) use (
+				$controller_class,
+				&$added_filters
+			) {
+				if ( is_array( $callback ) && $callback[0] instanceof $controller_class ) {
+					$added_filters[] = [ $tag, $callback, $priority ];
+				}
+				add_filter( $tag, $callback, $priority, $args );
+			},
+			true
+		);
+		$this->set_fn_return(
+			'remove_filter',
+			function (
+				string $tag,
+				callable $callback,
+				int $priority = 10
+			) use (
+				$controller_class,
+				&$added_filters
+			) {
+				if (
 				is_array( $callback )
 				&& $callback[0] instanceof $controller_class
-			) {
-				$found = array_search( [ $tag, $callback, $priority ], $added_filters, true );
-				if ( $found !== false ) {
-					unset( $added_filters[ $found ] );
+				) {
+					$found = array_search( [ $tag, $callback, $priority ], $added_filters, true );
+					if ( $found !== false ) {
+						unset( $added_filters[ $found ] );
+					}
 				}
-			}
-			remove_filter( $tag, $callback, $priority );
-		}, true );
+				remove_filter( $tag, $callback, $priority );
+			},
+			true
+		);
 
 		$controller->register();
 		$controller->unregister();
@@ -255,7 +278,7 @@ class Controller_Test_Case extends WPTestCase {
 			0,
 			$added_filters,
 			'The controller should have removed all its filters and actions: '
-			. PHP_EOL . json_encode( $added_filters, JSON_PRETTY_PRINT )
+			. PHP_EOL . wp_json_encode( $added_filters, JSON_PRETTY_PRINT )
 		);
 	}
 
@@ -334,13 +357,17 @@ class Controller_Test_Case extends WPTestCase {
 		// Here we use the controller to let use know what filters it would hook to by
 		// intercepting the `add_filter` function.
 		$hooked = [];
-		uopz_set_return( 'add_filter', function ( $tag, $function_to_add, $priority = 10, $accepted_args = 1 ) use ( &$hooked ) {
-			if ( ! ( is_array( $function_to_add ) && $function_to_add[0] instanceof Controller ) ) {
-				return false;
-			}
+		uopz_set_return(
+			'add_filter',
+			function ( $tag, $function_to_add, $priority = 10 ) use ( &$hooked ) {
+				if ( ! ( is_array( $function_to_add ) && $function_to_add[0] instanceof Controller ) ) {
+					return false;
+				}
 
-			$hooked[] = [ $tag, $priority ];
-		}, true );
+				$hooked[] = [ $tag, $priority ];
+			},
+			true
+		);
 		// The controller will also flag itself as registered in the Service Locator.
 		$original_controller->register();
 		// No need to mock add_filter anymore.
