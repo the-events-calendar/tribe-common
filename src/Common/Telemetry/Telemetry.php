@@ -192,6 +192,17 @@ final class Telemetry {
 	}
 
 	/**
+	 * Get the hook prefix we are using.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The hook prefix. Note there is no trailing slash!
+	 */
+	public static function get_hook_prefix(): string {
+		return self::$hook_prefix;
+	}
+
+	/**
 	 * Get the slug of the plugin.
 	 *
 	 * @since 5.1.0
@@ -457,7 +468,10 @@ final class Telemetry {
 		 *
 		 * @param array<string,string> $slugs An array of plugins in the format ['plugin_slug' => 'plugin_path']
 		 */
-		return apply_filters( 'tec_telemetry_slugs', [] );
+		$slugs = apply_filters( 'tec_telemetry_slugs', [] );
+
+		// Remove any potential duplicates.
+		return array_unique( $slugs, SORT_STRING );
 	}
 
 	/**
@@ -650,5 +664,109 @@ final class Telemetry {
 
 		$option_slug = Config::get_container()->get( Opt_In_Template::class )->get_option_name( $slug );
 		update_option( $option_slug, $enable );
+	}
+
+	/**
+	 * Filters the data arguments for TEC plugins.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $args The array of data arguments to filter.
+	 *
+	 * @return array<string,mixed> $args The array of filtered data arguments.
+	 */
+	public function filter_data_args( $args ): array {
+		// We only want to mess with the data block.
+		$telemetry = json_decode( $args['telemetry'], true );
+
+		$changed = $this->add_licenses( $telemetry );
+
+		if ( tribe_is_truthy( $changed ) ) {
+			$args['telemetry'] = wp_json_encode( $telemetry );
+		}
+
+		/**
+		 * Allows overriding the data arguments for TEC plugins.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,mixed> $args The data arguments to filter.
+		 *
+		 * @return array<string,mixed> $args The filtered data arguments.
+		 */
+		return apply_filters( 'tec_telemetry_data_arguments', $args );
+	}
+
+	/**
+	 * Add premium plugin licenses to the telemetry data.
+	 *
+	 * @since TBD
+	 *
+	 * @param object $telemetry_by_reference The telemetry data object.
+	 *
+	 * @return bool If the data has changed.
+	 */
+	protected function add_licenses( &$telemetry_by_reference ): bool {
+		// No data sent, bail safely.
+		if ( empty( $telemetry_by_reference ) ) {
+			return false;
+		}
+
+		$telemetry = $telemetry_by_reference;
+		// We don't need the path info for this.
+		$tec_slugs = array_keys( self::get_tec_telemetry_slugs() );
+		// Remove parent slugs - they don't have licenses.
+		$tec_slugs = array_diff( $tec_slugs, self::$base_parent_slugs );
+		// Nothing to add, bail safely.
+		if ( empty( $tec_slugs ) ) {
+			return false;
+		}
+
+		if ( ! isset( $telemetry['stellar_licenses'] ) ) {
+			// Set up if it doesn't exist.
+			$telemetry['stellar_licenses'] = [];
+		} elseif ( ! is_array( $telemetry['stellar_licenses'] ) ) {
+			// Make sure it's an array if it does exist.
+			$telemetry['stellar_licenses'] = (array) $telemetry['stellar_licenses'];
+		}
+		// Grab all the options, cached.
+		$options = wp_load_alloptions();
+		// Filter out everything but our license keys.
+		$options = array_filter(
+			$options,
+			static function ( $key ) {
+				return str_starts_with( $key, 'pue_install_key_' );
+			},
+			ARRAY_FILTER_USE_KEY
+		);
+
+		// No keys found.
+		if ( empty( $options ) ) {
+			return false;
+		}
+
+		foreach ( $options as $slug => $key ) {
+			$slug = str_replace( 'pue_install_key_', '', $slug );
+			$slug = str_replace( '-', '_', $slug );
+			/**
+			 * Filter the license slug.
+			 * This allows for some plugins that use older nomenclature (like Filter Bar) to add a more "modern" slug.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $slug The stored license slug.
+			 */
+			$slug                                   = apply_filters( 'tec_telemetry_license_slug_' . $slug, $slug );
+			$telemetry['stellar_licenses'][ $slug ] = $key;
+		}
+
+		if ( ! empty( $telemetry['stellar_licenses'] ) ) {
+			// Update telemetry to hold the new modifications.
+			$telemetry_by_reference = $telemetry;
+			return true;
+		}
+
+		// Fallback - no changes.
+		return false;
 	}
 }

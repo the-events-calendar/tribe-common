@@ -66,6 +66,10 @@ class Provider extends Service_Provider {
 		add_filter( 'stellarwp/telemetry/event-tickets/optin_args', [ $this, 'filter_et_optin_args' ], 10 );
 		add_filter( 'stellarwp/telemetry/exit_interview_args', [ $this, 'filter_exit_interview_args' ] );
 		add_filter( 'http_request_args', [ $this, 'filter_telemetry_http_request_args' ], 10, 2 );
+
+		/* Prefixed filters - should be 'tec' but best to grab it to be sure. */
+		$prefix = Telemetry::get_hook_prefix();
+		add_filter( "stellarwp/telemetry/{$prefix}/send_data_args", [ $this, 'filter_data_args' ] );
 	}
 
 	/**
@@ -244,5 +248,9 @@ class Provider extends Service_Provider {
 	 */
 	public function maybe_enqueue_admin_modal_assets(): void {
 		$this->container->make( Asset_Subscriber::class )->maybe_enqueue_admin_assets();
+	}
+
+	public function filter_data_args( $args ) {
+		return $this->container->make( Telemetry::class )->filter_data_args( $args );
 	}
 }
