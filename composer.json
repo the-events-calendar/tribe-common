@@ -42,7 +42,9 @@
     "stellarwp/coding-standards": "dev-main",
     "the-events-calendar/tec-testing-facilities": "dev-master",
     "wp-cli/checksum-command": "1.0.5",
-    "wp-coding-standards/wpcs": "^3.0.0"
+    "wp-coding-standards/wpcs": "^3.0.0",
+    "phpspec/prophecy": "^1.19",
+    "phpspec/prophecy-phpunit": "^2.2"
   },
   "autoload": {
     "psr-4": {

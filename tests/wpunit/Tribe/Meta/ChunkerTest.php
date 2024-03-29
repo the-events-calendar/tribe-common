@@ -8,20 +8,6 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 
 	public $post_types = [ 'post' ];
 
-	public function setUp() {
-		// before
-		parent::setUp();
-
-		// your set up methods here
-	}
-
-	public function tearDown() {
-		// your tear down methods here
-
-		// then
-		parent::tearDown();
-	}
-
 	/**
 	 * It should be instantiatable
 	 *
@@ -370,7 +356,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function it_should_allow_getting_the_max_chunk_size_from_the_db_max_allowed_packet() {
 		$sut = $this->make_instance();
-		$this->assertTrue( is_numeric( $sut->get_max_chunk_size() ) );
+		$this->assertIsNumeric( $sut->get_max_chunk_size() );
 	}
 
 	/**
@@ -617,7 +603,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$db_meta = get_post_meta( $id, $meta_key, true );
 		$this->assertNotEmpty( $db_meta );
 		$this->assertNotEquals( $meta_value, $db_meta );
-		$this->assertInternalType( 'string', $db_meta );
+		$this->assertIsString( $db_meta );
 	}
 
 	/**
@@ -659,7 +645,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$db_meta = get_post_meta( $id );
 		$this->assertNotEmpty( $db_meta[ $meta_key ] );
 		$this->assertNotEquals( $meta_value, $db_meta[ $meta_key ] );
-		$this->assertInternalType( 'string', $db_meta[ $meta_key ][0] );
+		$this->assertIsString( $db_meta[ $meta_key ][0] );
 	}
 
 	/**
@@ -929,7 +915,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 	     $this->assertEquals( 'bar', get_post_meta( $id, 'foo', true ) );
 	     delete_post_meta( $id, 'foo' );
      }
-     
+
      /**
       * It should not hit the filtering functions when handling meta for non registered posts and meta ids
       * @test
@@ -965,7 +951,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 	      $this->assertEquals( 'bar', get_post_meta( $id, 'foo', true ) );
 	      delete_post_meta( $id, 'foo' );
       }
-      
+
       /**
        * It should hit the cache when getting same post meta
        * @test

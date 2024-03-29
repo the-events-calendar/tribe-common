@@ -31,7 +31,6 @@ class ArrayTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test list_to_array
 	 *
-	 * @test
 	 * @dataProvider list_to_array_inputs
 	 */
 	public function test_list_to_array( $input, $sep, $expected ) {

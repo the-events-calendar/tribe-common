@@ -2,9 +2,11 @@
 namespace Tribe\Utils;
 
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Tribe__Utils__Coordinates_Provider as Coordinates_Provider;
 
 class Coordinates_ProviderTest extends \Codeception\TestCase\WPTestCase {
+	use ProphecyTrait;
 
 	protected $json_mock_response        = <<<JSON
 {
@@ -190,7 +192,7 @@ JSON;
 	 */
 	protected $http;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -198,7 +200,7 @@ JSON;
 		$this->http = $this->prophesize( 'WP_Http' );
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then
@@ -247,10 +249,10 @@ JSON;
 		$string_address      = '10, Downing Street, London, UK';
 		$address      = [
 			'10, Downing Street',
-			'London', 
+			'London',
 			'UK',
 		];
-		
+
 		$expected_url = esc_url( add_query_arg( array( 'address' => $string_address ), Coordinates_Provider::$google_api_base . Coordinates_Provider::$google_api_json_format ) );
 		$this->http->get( $expected_url )->shouldBeCalled();
 

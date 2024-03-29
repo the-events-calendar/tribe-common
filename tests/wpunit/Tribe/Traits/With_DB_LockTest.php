@@ -134,7 +134,7 @@ class With_DB_LockTest extends \Codeception\TestCase\WPTestCase {
 		$option_name  = tribe( 'db-lock' )->get_db_lock_option_name( $test_lock );
 		$option_value = $wpdb->get_var( "SELECT option_value FROM {$wpdb->options} WHERE option_name = '{$option_name}'" );
 		codecept_debug($option_value);
-		$this->assertTrue( is_numeric( $option_value ) );
+		$this->assertIsNumeric( $option_value );
 	}
 
 	/**

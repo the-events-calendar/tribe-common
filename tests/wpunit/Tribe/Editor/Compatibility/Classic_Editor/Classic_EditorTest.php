@@ -14,7 +14,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @since 4.15.1
 	 */
-	function setUp() {
+	function setUp(): void {
 		parent::setUp();
 
 		$this->classic_editor = $this->make_instance();
@@ -26,11 +26,9 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @since 4.15.1
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		// Set options back to defaults (nothing set).
 		$this->clear_all();
-
-
 
 		// then
 		parent::tearDown();
@@ -213,7 +211,6 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * It should be instantiatable
 	 *
-	 * @test
 	 */
 	public function test_instantiatable() {
 		$this->assertInstanceOf( Classic_Editor::class, $this->make_instance() );
@@ -225,7 +222,6 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	 *     TEC blocks off
 	 *     CE set to classic
 	 *
-	 * @test
 	 */
 	public function test_should_not_load_blocks_by_default() {
 		$this->clear_all();
@@ -239,7 +235,6 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	 *     TEC blocks unset
 	 *     CE set to classic
 	 *
-	 * @test
 	 */
 	public function test_should_not_load_blocks_with_ce_classic_and_tec_blocks_default() {
 		$this->clear_all();
@@ -253,7 +248,6 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	 *     TEC blocks on
 	 *     CE set to classic
 	 *
-	 * @test
 	 */
 	public function test_should_not_load_blocks_with_ce_classic_and_tec_blocks_on() {
 		$this->clear_all();
@@ -272,7 +266,6 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	 *     TEC blocks off
 	 *     CE set to classic
 	 *
-	 * @test
 	 */
 	public function test_should_not_load_blocks_with_ce_classic_and_tec_blocks_toggled_off() {
 		$this->clear_all();
@@ -287,7 +280,6 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	 *     TEC blocks unset
 	 *     CE set to blocks
 	 *
-	 * @test
 	 */
 	public function test_should_not_load_blocks_with_ce_blocks_and_tec_blocks_default() {
 		$this->clear_all();
@@ -301,7 +293,6 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	 *     TEC blocks off
 	 *     CE set to blocks
 	 *
-	 * @test
 	 */
 	public function test_should_not_load_blocks_with_ce_blocks_and_tec_blocks_off() {
 		$this->clear_all();
@@ -316,7 +307,6 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	 *     TEC blocks on
 	 *     CE set to blocks
 	 *
-	 * @test
 	 */
 	public function test_should_load_blocks_with_ce_blocks_and_tec_blocks_on() {
 		$this->clear_all();
@@ -333,7 +323,6 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	 *     CE choice enabled
 	 *     User choice unset
 	 *
-	 * @test
 	 */
 	public function test_should_not_load_blocks_with_ce_classic_user_choice_enabled_and_tec_blocks_on() {
 		$this->clear_all();
@@ -355,7 +344,6 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	 *     CE choice enabled
 	 *     User choice set to blocks
 	 *
-	 * @test
 	 */
 	public function test_should_load_blocks_with_ce_blocks_user_choice_block_and_tec_blocks_on() {
 		$this->clear_all();
@@ -374,7 +362,6 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	 *     CE choice enabled
 	 *     User choice set to classic
 	 *
-	 * @test
 	 */
 	public function test_should_not_load_blocks_with_ce_blocks_user_choice_classic_and_tec_blocks_on() {
 		$this->clear_all();

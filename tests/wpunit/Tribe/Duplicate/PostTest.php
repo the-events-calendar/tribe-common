@@ -11,19 +11,12 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $factory;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
 		// your set up methods here
 		$this->factory = new \Tribe__Duplicate__Strategy_Factory();
-	}
-
-	public function tearDown() {
-		// your tear down methods here
-
-		// then
-		parent::tearDown();
 	}
 
 	/**

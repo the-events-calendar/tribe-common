@@ -36,7 +36,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_string
 	 *
-	 * @test
 	 * @dataProvider is_string_data
 	 */
 	public function test_is_string( $value, $expected ) {
@@ -58,7 +57,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_string_or_empty
 	 *
-	 * @test
 	 * @dataProvider is_string_or_empty_data
 	 */
 	public function test_is_string_or_empty( $value, $expected ) {
@@ -82,7 +80,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_not_null
 	 *
-	 * @test
 	 * @dataProvider is_not_null_data
 	 */
 	public function test_is_not_null( $value, $expected ) {
@@ -106,7 +103,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_null
 	 *
-	 * @test
 	 * @dataProvider is_null_data
 	 */
 	public function test_is_null( $value, $expected ) {
@@ -129,7 +125,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_numeric
 	 *
-	 * @test
 	 * @dataProvider is_numeric_data
 	 */
 	public function test_is_numeric( $value, $expected ) {
@@ -155,7 +150,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_time
 	 *
-	 * @test
 	 * @dataProvider is_time_data
 	 */
 	public function test_is_time( $value, $expected ) {
@@ -176,7 +170,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_user bad users
 	 *
-	 * @test
 	 * @dataProvider is_user_bad_users
 	 */
 	public function test_is_user_bad_users( $bad_user ) {
@@ -186,7 +179,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_user with good user
 	 *
-	 * @test
 	 */
 	public function test_is_user_with_good_user() {
 		$user_id = $this->factory()->user->create();
@@ -207,7 +199,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_positive_int
 	 *
-	 * @test
 	 * @dataProvider is_positive_int_inputs
 	 */
 	public function test_is_positive_int( $value, $expected ) {
@@ -228,7 +219,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test trim
 	 *
-	 * @test
 	 * @dataProvider trim_inputs
 	 */
 	public function test_trim( $value, $expected ) {
@@ -248,7 +238,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_post_tag with bad tags
 	 *
-	 * @test
 	 * @dataProvider bad_post_tags
 	 */
 	public function test_is_post_tag_with_bad_tags( $tag ) {
@@ -260,7 +249,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_post_tag with good tags
 	 *
-	 * @test
 	 */
 	public function test_is_post_tag_with_good_tags() {
 		$tag_1 = $this->factory()->tag->create( [ 'slug' => 'foo' ] );
@@ -277,7 +265,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_post_tag with multiple tags
 	 *
-	 * @test
 	 */
 	public function test_is_post_tag_with_multiple_tags() {
 		$tag_1 = $this->factory()->tag->create( [ 'slug' => 'foo' ] );
@@ -306,7 +293,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_image with bad inputs
 	 *
-	 * @test
 	 * @dataProvider test_is_image_bad_inputs
 	 */
 	public function test_is_image_with_bad_inputs( $bad_input ) {
@@ -318,7 +304,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_image with good inputs
 	 *
-	 * @test
 	 */
 	public function test_is_image_with_good_inputs() {
 		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
@@ -337,7 +322,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_image with good inputs
 	 *
-	 * @test
 	 */
 	public function test_is_image_with_good_inputs_but_invalid_user() {
 		$image_url = plugins_url( 'common/tests/_data/images/featured-image.jpg', \Tribe__Events__Main::instance()->plugin_file );
@@ -362,7 +346,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_image_or_empty with bad inputs
 	 *
-	 * @test
 	 * @dataProvider test_is_image_or_empty_bad_inputs
 	 */
 	public function test_is_image_or_empty_with_bad_inputs( $bad_input ) {
@@ -384,7 +367,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_image_or_empty with good inputs
 	 *
-	 * @test
 	 * @dataProvider test_is_image_or_empty_good_inputs
 	 */
 	public function test_is_image_or_empty_with_good_inputs( $bad_input ) {
@@ -396,7 +378,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_image_or_empty with images
 	 *
-	 * @test
 	 */
 	public function test_is_image_or_empty_with_images() {
 		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
@@ -415,7 +396,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_image_or_empty with images
 	 *
-	 * @test
 	 */
 	public function test_is_image_or_empty_with_images_but_invalid_user() {
 		$image_url = plugins_url( 'common/tests/_data/images/featured-image2.jpg', \Tribe__Events__Main::instance()->plugin_file );
@@ -456,7 +436,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_url
 	 *
-	 * @test
 	 * @dataProvider is_url_inputs
 	 */
 	public function test_is_url( $input, $expected ) {
@@ -492,7 +471,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_url_or_empty
 	 *
-	 * @test
 	 * @dataProvider is_url_or_empty_inputs
 	 */
 	public function test_is_url_or_empty( $input, $expected ) {
@@ -516,7 +494,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test is_post_status
 	 *
-	 * @test
 	 * @dataProvider is_post_status_inputs
 	 */
 	public function test_is_post_status( $input, $expected ) {

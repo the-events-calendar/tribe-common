@@ -5,11 +5,6 @@ namespace Template_Tags;
 use Tribe__Date_Utils;
 
 class DateTest extends \Codeception\TestCase\WPTestCase {
-
-	protected function setUp() {
-		parent::setUp();
-	}
-
 	/**
 	 * @test
 	 */

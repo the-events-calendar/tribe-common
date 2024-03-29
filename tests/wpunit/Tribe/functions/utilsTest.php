@@ -321,7 +321,7 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 		if ( $class instanceof \Closure ) {
 			$class = $class();
 		}
-		$this->assertTrue( is_object( tribe_get_class_instance( $class ) ) );
+		$this->assertIsObject( tribe_get_class_instance( $class ) );
 	}
 
 	/**

@@ -17,7 +17,6 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test localize_date with timestamps
 	 *
-	 * @test
 	 * @dataProvider localizes_date_timestamp_inputs
 	 */
 	public function test_localize_date_with_timestamps( $timestamp, $timezone_string ) {
@@ -38,7 +37,6 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test localize_date sanity check
 	 *
-	 * @test
 	 */
 	public function test_localize_date_sanity_check() {
 		tribe( 'cache' )->reset();
@@ -60,7 +58,6 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test localize_date return false if date string is not parseable
 	 *
-	 * @test
 	 */
 	public function test_localize_date_return_false_if_date_string_is_not_parseable() {
 		$this->assertFalse( Timezones::localize_date( 'Y-m-d H:i:s', 'foo bar' ) );
@@ -69,7 +66,6 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test localize_date returns false if timezone string is not valid
 	 *
-	 * @test
 	 */
 	public function test_localize_date_returns_false_if_timezone_string_is_not_valid() {
 		$this->assertFalse( Timezones::localize_date( 'Y-m-d H:i:s', 'tomorrow 9am', 'This is not a timezone' ) );
@@ -87,7 +83,6 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test convert_date_from_timezone
 	 *
-	 * @test
 	 * @dataProvider convert_from_timezone_inputs
 	 */
 	public function test_convert_date_from_timezone( $date, $from_timezone, $to_timezone ) {

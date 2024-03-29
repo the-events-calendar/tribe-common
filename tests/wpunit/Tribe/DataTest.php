@@ -24,7 +24,6 @@ class DataTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test data setting in constructor
 	 *
-	 * @test
 	 */
 	public function test_data_setting_in_constructor() {
 		$data = new Data( [ 'foo' => 'bar', 'baz' => 23 ], 'wooz' );
@@ -39,7 +38,6 @@ class DataTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test data setting after construction
 	 *
-	 * @test
 	 */
 	public function test_data_setting_after_construction() {
 		$data = $this->make_instance();
@@ -57,7 +55,6 @@ class DataTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test iteration
 	 *
-	 * @test
 	 */
 	public function test_iteration() {
 		$data_set = [ 'foo' => 'bar', 'baz' => 23 ];
@@ -74,7 +71,6 @@ class DataTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test iteration on empty data
 	 *
-	 * @test
 	 */
 	public function test_iteration_on_empty_data() {
 		$data = new Data();
@@ -90,7 +86,6 @@ class DataTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test casting to array of object data set
 	 *
-	 * @test
 	 */
 	public function test_casting_to_array_of_object_data_set() {
 		$data_set = [ 'foo' => 'bar', 'baz' => 23 ];

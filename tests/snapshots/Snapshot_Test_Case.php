@@ -26,7 +26,7 @@ class Snapshot_Test_Case extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Sets up the template that will be used in the tests.
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		if ( empty( $this->template_path ) ) {

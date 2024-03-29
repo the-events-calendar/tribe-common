@@ -10,7 +10,7 @@ include_once codecept_data_dir( 'test-functions.php' );
 
 class PromiseTest extends \Codeception\TestCase\WPTestCase {
 
-	function setUp() {
+	function setUp(): void {
 		parent::setUp();
 		add_filter( 'tribe_supports_async_process', '__return_true' );
 	}
@@ -40,7 +40,7 @@ class PromiseTest extends \Codeception\TestCase\WPTestCase {
 		$promise = new Promise( 'wp_insert_post', $post_payloads );
 		$promise->resolve();
 
-		$this->assertInternalType( 'string', $promise->get_id() );
+		$this->assertIsString( $promise->get_id() );
 		$posts = get_posts();
 		$this->assertCount( 3, $posts );
 		$this->assertEqualSets( [ 'foo', 'baz', 'bar' ], wp_list_pluck( $posts, 'post_title' ) );

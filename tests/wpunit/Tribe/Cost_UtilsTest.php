@@ -40,7 +40,6 @@ class Cost_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test parse_currency_symbol
 	 *
-	 * @test
 	 * @dataProvider parse_currency_symbol_inputs
 	 */
 	public function test_parse_currency_symbol( $input, $expected ) {
@@ -70,7 +69,6 @@ class Cost_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test parse_currency_position
 	 *
-	 * @test
 	 * @dataProvider parse_currency_position_inputs
 	 */
 	public function test_parse_currency_position($input,$expected) {
@@ -106,7 +104,6 @@ class Cost_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test maybe_format_with_currency
 	 *
-	 * @test
 	 * @dataProvider maybe_format_with_currency_inputs
 	 */
 	public function test_maybe_format_with_currency( $post_id, $cost, $position, $symbol, $expected ) {

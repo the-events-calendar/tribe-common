@@ -10,7 +10,7 @@ class QuerySetTest extends \Codeception\TestCase\WPTestCase {
 
 	protected $class;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		register_post_type( 'book' );
 		register_taxonomy( 'genre', 'book' );

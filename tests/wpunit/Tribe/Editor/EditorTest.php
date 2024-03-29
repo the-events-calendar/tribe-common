@@ -6,14 +6,14 @@ use Tribe__Editor as Editor;
 
 class EditorTest extends \Codeception\TestCase\WPTestCase {
 
-	function setUp() {
+	function setUp(): void {
 		parent::setUp();
 		tribe( 'cache' )->reset();
 
 		$this->editor = $this->make_instance();
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		unset( $this->editor );
 
 		// then
@@ -46,14 +46,12 @@ class EditorTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_should_not_load_blocks_by_default() {
 		$this->assertFalse( $this->editor->should_load_blocks() );
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_should_load_blocks_if_toggled() {
 		$this->tec_blocks_on();
@@ -61,7 +59,6 @@ class EditorTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_should_not_load_blocks_if_toggled_off() {
 		$this->tec_blocks_off();
@@ -69,14 +66,12 @@ class EditorTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_is_classic_editor_by_default() {
 		$this->assertTrue( $this->editor->is_classic_editor() );
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_is_not_classic_editor_when_toggled() {
 		$this->tec_blocks_on();
@@ -84,7 +79,6 @@ class EditorTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_is_classic_editor_when_toggled_off() {
 		$this->tec_blocks_off();
@@ -92,14 +86,12 @@ class EditorTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_default_is_events_using_blocks_is_false() {
 		$this->assertFalse( $this->editor->is_events_using_blocks() );
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_is_events_using_blocks_toggled() {
 		$this->tec_blocks_on();
@@ -107,7 +99,6 @@ class EditorTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_is_events_using_blocks_toggled_off() {
 		$this->tec_blocks_off();
@@ -115,7 +106,6 @@ class EditorTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_is_events_using_blocks_filtered_true() {
 		add_filter( 'tribe_editor_should_load_blocks', '__return_true' );
@@ -126,7 +116,6 @@ class EditorTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_is_events_using_blocks_filtered_false() {
 		add_filter( 'tribe_editor_should_load_blocks', '__return_false' );

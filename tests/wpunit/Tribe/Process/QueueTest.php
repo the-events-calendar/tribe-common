@@ -10,7 +10,7 @@ use Tribe__Process__Queue as Process;
 
 class QueueTest extends WPTestCase {
 
-	function setUp() {
+	function setUp(): void {
 		parent::setUp();
 		$this->clear_queues();
 		add_filter( 'tribe_supports_async_process', '__return_true' );
@@ -22,7 +22,7 @@ class QueueTest extends WPTestCase {
 
 	}
 
-	function tearDown() {
+	function tearDown(): void {
 		$this->clear_queues();
 		parent::tearDown();
 	}
@@ -58,7 +58,7 @@ class QueueTest extends WPTestCase {
 			$sut->push_to_queue( $i );
 		}
 		$sut->save()->dispatch();
-		$this->assertInternalType( 'string', $sut->get_id() );
+		$this->assertIsString( $sut->get_id() );
 	}
 
 	/**
@@ -127,7 +127,7 @@ class QueueTest extends WPTestCase {
 		$this->assertEquals( $queue_id, $progress['identifier'] );
 		$this->assertEquals( 0, $progress['done'] );
 		$this->assertEquals( 10000, $progress['total'] );
-		$this->assertInternalType( 'int', $progress['fragments'] );
+		$this->assertIsInt( $progress['fragments'] );
 
 		\Tribe__Process__Queue::stop_queue( $queue_id );
 	}
@@ -221,7 +221,7 @@ class QueueTest extends WPTestCase {
 		$save_status = Queue::get_status_of( $sut->get_id() )->to_array();
 
 		$this->assertArrayHasKey( 'last_update', $save_status );
-		$this->assertInternalType( 'int', $save_status['last_update'] );
+		$this->assertIsInt( $save_status['last_update'] );
 		$after_save_last_update = $save_status['last_update'];
 		$this->assertEquals( time(), $after_save_last_update, 'Last update should be about now', 2 );
 
@@ -232,7 +232,7 @@ class QueueTest extends WPTestCase {
 		$update_status = Queue::get_status_of( $sut->get_id() )->to_array();
 
 		$this->assertArrayHasKey( 'last_update', $update_status );
-		$this->assertInternalType( 'int', $update_status['last_update'] );
+		$this->assertIsInt( $update_status['last_update'] );
 		$this->assertGreaterThan( $after_save_last_update, $update_status['last_update'] );
 		$this->assertEquals( time(), $update_status['last_update'], 'Last update should be about now', 2 );
 	}
