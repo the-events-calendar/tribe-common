@@ -6,17 +6,15 @@
 namespace TEC\Common\Tests\Provider;
 
 use Codeception\TestCase\WPTestCase;
-use RuntimeException;
 use TEC\Common\Contracts\Provider\Controller;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Container as Container;
-use TEC\Common\lucatume\DI52\Container as DI52_Container;
 use WP_Hook;
 
 /**
  * Class Controller_Test_Case.
  *
- * @since 5.0.17
+ * @since   5.0.17
  *
  * @package TEC\Common\Tests\Provider;
  * @property string $controller_class The class name of the controller to test.
@@ -76,10 +74,10 @@ class Controller_Test_Case extends WPTestCase {
 	 * @since TBD
 	 *
 	 * @return void
+	 *
+	 * @before
 	 */
-	protected function setUp() {
-		parent::setUp();
-
+	protected function set_up_controller_test_case(): void {
 		// Ensure the test case defines the controller class to test.
 		if ( ! property_exists( $this, 'controller_class' ) ) {
 			throw new RuntimeException( 'Each Controller test case must define a controller_class property.' );
@@ -129,8 +127,10 @@ class Controller_Test_Case extends WPTestCase {
 	 * @since TBD
 	 *
 	 * @return void
+	 *
+	 * @after
 	 */
-	protected function tearDown() {
+	protected function tear_down_controller_test_case(): void {
 		// Unregister all the controllers created by the test case.
 		foreach ( $this->made_controllers as $controller ) {
 			$controller->unregister();
@@ -153,8 +153,15 @@ class Controller_Test_Case extends WPTestCase {
 		$this->original_services->setVar( $this->controller_class . '_registered', false );
 		$this->assertFalse( $this->original_controller::is_registered() );
 
-		// Re-register the original controller after the Service Locator has been reset.
+		/*
+		 * Depending on the PHPUnit version, this method might run before of after the `WPTestCase::tearDown` method.
+		 * For this reason here we "anticipate" the hook cleanup call the `tearDown` method would run to restore the
+		 * hooks and go back to the hook initial state, register the controller, and then backup the hooks.
+		 */
+		$this->_restore_hooks();
 		$this->original_controller->register();
+		$this->_backup_hooks();
+
 		$this->original_controller = null;
 
 		parent::tearDown();
@@ -221,32 +228,8 @@ class Controller_Test_Case extends WPTestCase {
 		$added_filters    = [];
 		$controller_class = $this->controller_class;
 
-		$this->set_fn_return( 'add_filter', function (
-			string $tag, callable $callback, int $priority = 10, int $args = 1
-		) use (
-			$controller_class, &$added_filters
-		) {
-			if ( is_array( $callback ) && $callback[0] instanceof $controller_class ) {
-				$added_filters[] = [ $tag, $callback, $priority ];
-			}
-			add_filter( $tag, $callback, $priority, $args );
-		}, true );
-		$this->set_fn_return( 'remove_filter', function (
-			string $tag, callable $callback, int $priority = 10
-		) use (
-			$controller_class, &$added_filters
-		) {
-			if (
-				is_array( $callback )
-				&& $callback[0] instanceof $controller_class
-			) {
-				$found = array_search( [ $tag, $callback, $priority ], $added_filters, true );
-				if ( $found !== false ) {
-					unset( $added_filters[ $found ] );
-				}
-			}
-			remove_filter( $tag, $callback, $priority );
-		}, true );
+		$this->watch_added_filters( $added_filters );
+		$this->watch_removed_filters( $added_filters );
 
 		$controller->register();
 		$controller->unregister();
@@ -255,7 +238,7 @@ class Controller_Test_Case extends WPTestCase {
 			0,
 			$added_filters,
 			'The controller should have removed all its filters and actions: '
-			. PHP_EOL . json_encode( $added_filters, JSON_PRETTY_PRINT )
+			. PHP_EOL . wp_json_encode( $this->controller_added_filters, JSON_PRETTY_PRINT )
 		);
 	}
 
@@ -370,5 +353,56 @@ class Controller_Test_Case extends WPTestCase {
 
 		// The original controller should not be registered at this point.
 		$this->assertFalse( $original_controller::is_registered() );
+	}
+
+	/**
+	 * Watches, and logs, the filters added by the Controller.
+	 */
+	private function watch_added_filters( array &$added_filters ): void {
+		$controller_class = $this->controller_class;
+
+		$this->set_fn_return(
+			'add_filter',
+			function (
+				string $tag,
+				callable $callback,
+				int $priority = 10,
+				int $args = 1
+			) use ( $controller_class, &$added_filters ) {
+				if ( is_array( $callback ) && $callback[0] instanceof $controller_class ) {
+					$added_filters[] = [ $tag, $callback, $priority ];
+				}
+				add_filter( $tag, $callback, $priority, $args );
+			},
+			true
+		);
+	}
+
+	/**
+	 * Watches the filters removed by the Controller.
+	 */
+	private function watch_removed_filters( &$added_filters ): void {
+		$controller_class = $this->controller_class;
+
+		$this->set_fn_return(
+			'remove_filter',
+			function (
+				string $tag,
+				callable $callback,
+				int $priority = 10
+			) use ( $controller_class, &$added_filters ) {
+				if (
+					is_array( $callback )
+					&& $callback[0] instanceof $controller_class
+				) {
+					$found = array_search( [ $tag, $callback, $priority ], $added_filters, true );
+					if ( $found !== false ) {
+						unset( $added_filters[ $found ] );
+					}
+				}
+				remove_filter( $tag, $callback, $priority );
+			},
+			true
+		);
 	}
 }
