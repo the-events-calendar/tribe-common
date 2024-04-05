@@ -3,6 +3,7 @@
 = [TBD] TBD =
 
 * Tweak - Rename the `Controller_Test_Case` `setUp` and `tearDown` methods and annotate them with `@before` and `@after` annotations to improve PHPUnit version cross-compat.
+* Fix - Add the dir and filename of `event-automator` in the Plugins_API so that the upsell CTA button text and links are shown properly in the Help section of TEC.
 
 = [5.2.4] 2024-03-20 =
 
