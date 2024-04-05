@@ -1,4 +1,7 @@
 <?php
+/**
+ * Plugin Integration trait.
+ */
 
 namespace TEC\Common\Integrations\Traits;
 

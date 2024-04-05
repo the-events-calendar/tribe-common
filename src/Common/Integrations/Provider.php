@@ -6,6 +6,7 @@
  *
  * @package TEC\Common\Integrations
  */
+
 namespace TEC\Common\Integrations;
 
 /**
