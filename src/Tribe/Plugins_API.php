@@ -62,14 +62,14 @@ class Tribe__Plugins_API {
 				'active_installs' => 20000,
 			],
 			'event-automator'         => [
-				'title'           => __( 'Event Automator', 'tribe-common' ),
-				'slug'            => 'event-automator',
-				'link'            => 'https://evnt.is/1bc7',
-				'plugin-dir'	  => 'event-automator',
-				'main-file'       => 'event-automator.php',
-				'description'     => __( 'Automate your event workflow with Zapier—no code required!', 'tribe-common' ),
+				'title'            => __( 'Event Automator', 'tribe-common' ),
+				'slug'             => 'event-automator',
+				'link'             => 'https://evnt.is/1bc7',
+				'plugin-dir'	     => 'event-automator',
+				'main-file'        => 'event-automator.php',
+				'description'      => __( 'Automate your event workflow with Zapier—no code required!', 'tribe-common' ),
 				'description-help' => __( 'Connect The Events Calendar and Event Tickets with thousands of the most popular apps.', 'tribe-common' ),
-				'features'        => [
+				'features'         => [
 					__( 'Lead Management', 'tribe-common' ),
 					__( 'Communication Outreach', 'tribe-common' ),
 					__( 'Internal Processes', 'tribe-common' ),
@@ -183,14 +183,14 @@ class Tribe__Plugins_API {
 				'active_installs' => 20000,
 			],
 			'events-community'         => [
-				'title'           => __( 'Community Events', 'tribe-common' ),
-				'slug'            => 'events-community',
-				'link'            => 'https://evnt.is/19o7',
-				'plugin-dir'	  => 'the-events-calendar-community-events',
-				'main-file'       => 'tribe-community-events.php',
-				'description'     => __( 'Users submit events to your calendar', 'tribe-common' ),
+				'title'            => __( 'Community Events', 'tribe-common' ),
+				'slug'             => 'events-community',
+				'link'             => 'https://evnt.is/19o7',
+				'plugin-dir'       => 'the-events-calendar-community-events',
+				'main-file'        => 'tribe-community-events.php',
+				'description'      => __( 'Users submit events to your calendar', 'tribe-common' ),
 				'description-help' => __( 'Enable 3rd party event submissions.', 'tribe-common' ),
-				'features'        => [
+				'features'         => [
 					__( 'Publishing Control', 'tribe-common' ),
 					__( 'Event Submission Form', 'tribe-common' ),
 					__( 'Registered User Settings', 'tribe-common' ),
