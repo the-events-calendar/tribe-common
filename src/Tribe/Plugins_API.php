@@ -302,7 +302,7 @@ class Tribe__Plugins_API {
 				'free'             => false,
 				'active_installs'  => 0,
 			],
-			'event-schedule-manager' => [
+			'event-schedule-manager'    => [
 				'title'            => __( 'Event Schedule Manager', 'tribe-common' ),
 				'slug'             => 'event-schedule-manager',
 				'link'             => 'https://evnt.is/1bdm',
