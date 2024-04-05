@@ -65,8 +65,8 @@ class Tribe__Plugins_API {
 				'title'           => __( 'Event Automator', 'tribe-common' ),
 				'slug'            => 'event-automator',
 				'link'            => 'https://evnt.is/1bc7',
-				'plugin-dir'	  => '',
-				'main-file'       => '',
+				'plugin-dir'	  => 'event-automator',
+				'main-file'       => 'event-automator.php',
 				'description'     => __( 'Automate your event workflow with Zapier—no code required!', 'tribe-common' ),
 				'description-help' => __( 'Connect The Events Calendar and Event Tickets with thousands of the most popular apps.', 'tribe-common' ),
 				'features'        => [
