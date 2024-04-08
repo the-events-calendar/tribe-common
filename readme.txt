@@ -3,6 +3,7 @@
 = [5.2.5] 2024-04-09 =
 
 * Tweak - Improve compatibility with some theme styling re: calendar buttons. [TEC-5047]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
 
 = [5.2.4] 2024-03-20 =
 
