@@ -110,7 +110,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 *
 	 * @var string
 	 */
-	protected string $template_prefix = 'tec/integrations/elementor/widgets';
+	protected static string $template_prefix = 'tec/integrations/elementor/widgets';
 
 	/**
 	 * Template engine class.
@@ -213,6 +213,25 @@ abstract class Abstract_Widget extends Widget_Base {
 	}
 
 	/**
+	 * Get the template file path, which will be used to include the correct widget template to be rendered.
+	 * By default, it will be the combination of a folder named 'widgets' and the widget slug with _ replaced by -.
+	 * For example:
+	 * - if the widget slug is 'event_cost'
+	 * - template file path will be 'widgets/event-cost'.
+	 *
+	 * This method can be overridden by the child class to provide a custom template file path.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_template_file(): string {
+		$file = str_replace( '_', '-', static::get_slug() );
+
+		return "widgets/{$file}";
+	}
+
+	/**
 	 * Gets the CSS class list for the widget.
 	 * As a string (for use in attributes) or as an array.
 	 *
@@ -281,7 +300,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 */
 	public function get_widget_class(): string {
 		$slug  = static::get_slug();
-		$class = $this->asset_prefix . '__' . static::trim_slug();
+		$class = static::$asset_prefix . '__' . static::trim_slug();
 
 		/**
 		 * Filters the widget class for all tec-elementor widgets.
@@ -317,7 +336,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 */
 	public function get_icon_class(): string {
 		$slug  = static::get_slug();
-		$class = $this->asset_prefix . '__icon-' . static::trim_slug();
+		$class = static::$asset_prefix . '__icon-' . static::trim_slug();
 
 		/**
 		 * Filters the widget icon class for all tec-elementor widgets.
@@ -364,7 +383,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 */
 	protected function post_id(): ?int {
 		$post_id = (int) get_the_ID();
-		$slug    = self::get_slug();
+		$slug    = static::get_slug();
 
 		if (
 			is_admin() &&
@@ -429,7 +448,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 *
 	 * @return string
 	 */
-	protected function get_widget_post_type(): string {
+	public static function get_widget_post_type(): string {
 		return static::$post_type;
 	}
 
@@ -558,7 +577,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 */
 	public function get_template_args(): array {
 		$args = $this->template_args(); // Defined in each widget instance.
-		$slug = self::get_slug();
+		$slug = static::get_slug();
 
 
 		/**
@@ -581,7 +600,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		 *
 		 * @return array
 		 */
-		$args = (array) apply_filters( static::$slug_prefix . 'template_data', $args, false, $this );
+		$args = (array) apply_filters( static::$slug_prefix . "{$slug}_template_data", $args, false, $this );
 
 		// Add the widget to the data array.
 		$args['widget'] = $this;

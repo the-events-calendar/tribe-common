@@ -4,12 +4,12 @@
  *
  * @since TBD
  *
- * @package TEC\Integrations\Plugins\Elementor\Widgets
+ * @package TEC\Common\Integrations\Plugins\Elementor\Widgets
  */
 
 namespace TEC\Common\Integrations\Plugins\Elementor\Widgets;
 
-use TEC\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
+use TEC\Common\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 use Tribe__Template as Base_Template_Engine;
 use WP_Post;
 
@@ -18,17 +18,15 @@ use WP_Post;
  *
  * @since TBD
  *
- * @package TEC\Integrations\Plugins\Elementor\Widgets
+ * @package TEC\Common\Integrations\Plugins\Elementor\Widgets
  */
-class Template_Engine extends Base_Template_Engine {
+abstract class Template_Engine extends Base_Template_Engine {
 	/**
 	 * Which widget instance is being used for this template engine.
 	 *
 	 * @since TBD
-	 *
-	 * @var Abstract_Widget The widget instance.
 	 */
-	protected Abstract_Widget $widget;
+	protected $widget;
 
 	/**
 	 * Stores a potential Post ID associated with this template.
@@ -54,11 +52,11 @@ class Template_Engine extends Base_Template_Engine {
 	/**
 	 * Factory method to create a new instance of the Template Engine.
 	 *
-	 * @param Abstract_Widget $widget The widget instance to set.
+	 * @param $widget The widget instance to set.
 	 *
 	 * @return Template_Engine
 	 */
-	public static function with_widget( Abstract_Widget $widget ): Template_Engine {
+	public static function with_widget( $widget ): Template_Engine {
 		$instance = new static();
 		$instance->set_widget( $widget );
 
@@ -70,11 +68,11 @@ class Template_Engine extends Base_Template_Engine {
 	 *
 	 * @since TBD
 	 *
-	 * @param Abstract_Widget $widget The widget instance to set.
+	 * @param $widget The widget instance to set.
 	 *
 	 * @return void
 	 */
-	protected function set_widget( Abstract_Widget $widget ): void {
+	protected function set_widget( $widget ): void {
 		$this->widget = $widget;
 	}
 

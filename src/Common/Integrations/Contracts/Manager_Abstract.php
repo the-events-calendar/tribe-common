@@ -7,7 +7,7 @@
  * @package TEC\Integrations\Contracts
  */
 
-namespace TEC\Integrations\Contracts;
+namespace TEC\Common\Integrations\Contracts;
 
 /**
  * Class Manager_Abstract
