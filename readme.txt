@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.2.5] 2024-04-09 =
+
+* Tweak - Improve compatibility with some theme styling re: calendar buttons. [TEC-5047]
+
 = [5.2.4] 2024-03-20 =
 
 * Fix - Resolves a PHP 8.2 deprecation error on `Date_Utils` - `PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in /.../wp-content/plugins/the-events-calendar/common/src/Tribe/Date_Utils.php on line 256`. [ECP-1620]
