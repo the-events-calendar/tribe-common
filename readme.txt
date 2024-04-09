@@ -3,6 +3,7 @@
 = [TBD] TBD =
 
 * Tweak - Rename the `Controller_Test_Case` `setUp` and `tearDown` methods and annotate them with `@before` and `@after` annotations to improve PHPUnit version cross-compat.
+* Tweak - Added the `position` parameter for submenu pages on the admin pages class. [ET-1707]
 
 = [5.2.4] 2024-03-20 =
 
