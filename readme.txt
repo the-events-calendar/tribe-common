@@ -1,9 +1,15 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [5.2.6] TBD =
 
+* Tweak - Added the `position` parameter for submenu pages on the admin pages class. [ET-1707]]
+
+= [5.2.5] 2024-04-09 =
+
+* Tweak - Improve compatibility with some theme styling re: calendar buttons. [TEC-5047]
 * Tweak - Rename the `Controller_Test_Case` `setUp` and `tearDown` methods and annotate them with `@before` and `@after` annotations to improve PHPUnit version cross-compat.
-* Tweak - Added the `position` parameter for submenu pages on the admin pages class. [ET-1707]
+
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
 
 = [5.2.4] 2024-03-20 =
 
