@@ -1,5 +1,12 @@
 == Changelog ==
 
+
+= [5.2.5] 2024-04-09 =
+
+* Tweak - Improve compatibility with some theme styling re: calendar buttons. [TEC-5047]
+* Tweak - Rename the `Controller_Test_Case` `setUp` and `tearDown` methods and annotate them with `@before` and `@after` annotations to improve PHPUnit version cross-compat.
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
 = [5.2.4] 2024-03-20 =
 
 * Fix - Resolves a PHP 8.2 deprecation error on `Date_Utils` - `PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in /.../wp-content/plugins/the-events-calendar/common/src/Tribe/Date_Utils.php on line 256`. [ECP-1620]
