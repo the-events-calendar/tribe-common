@@ -97,9 +97,13 @@ class Controller_Test_Case extends WPTestCase {
 		$test_services = clone $original_services;
 
 		// From now on calls to the Service Locator (the `tribe` function) will be redirected to a test Service Locator.
-		uopz_set_return( 'tribe', static function ( $key = null ) use ( $test_services ) {
-			return $key ? $test_services->get( $key ) : $test_services;
-		}, true );
+		uopz_set_return(
+			'tribe',
+			static function ( $key = null ) use ( $test_services ) {
+				return $key ? $test_services->get( $key ) : $test_services;
+			},
+			true
+		);
 		// Redirect calls to init the container too.
 		uopz_set_return( Container::class, 'init', $test_services );
 		$this->test_services = $test_services;
@@ -163,8 +167,6 @@ class Controller_Test_Case extends WPTestCase {
 		$this->_backup_hooks();
 
 		$this->original_controller = null;
-
-		parent::tearDown();
 	}
 
 	/**
@@ -185,24 +187,28 @@ class Controller_Test_Case extends WPTestCase {
 		// From now on, ingest all logging.
 		global $wp_filter;
 		$wp_filter['tribe_log'] = new WP_Hook(); // phpcs:ignore
-		add_action( 'tribe_log', function ( $level, $message, $context ) {
-			if ( isset( $context['controller'] ) && $context['controller'] === $this->controller_class ) {
-				// Log the controller logs.
-				$this->controller_logs[] = [
+		add_action(
+			'tribe_log',
+			function ( $level, $message, $context ) {
+				if ( isset( $context['controller'] ) && $context['controller'] === $this->controller_class ) {
+					// Log the controller logs.
+					$this->controller_logs[] = [
+						'level'   => $level,
+						'message' => $message,
+						'context' => $context,
+					];
+				}
+
+				// Log everything.
+				$this->logs[] = [
 					'level'   => $level,
 					'message' => $message,
 					'context' => $context,
 				];
-			}
-
-			// Log everything.
-			$this->logs[] = [
-				'level'   => $level,
-				'message' => $message,
-				'context' => $context,
-			];
-
-		}, 10, 3 );
+			},
+			10,
+			3
+		);
 
 		// Due to the previous unset, the container will build this as a prototype.
 		$controller = $this->test_services->make( $controller_class );
@@ -317,13 +323,17 @@ class Controller_Test_Case extends WPTestCase {
 		// Here we use the controller to let use know what filters it would hook to by
 		// intercepting the `add_filter` function.
 		$hooked = [];
-		uopz_set_return( 'add_filter', function ( $tag, $function_to_add, $priority = 10, $accepted_args = 1 ) use ( &$hooked ) {
-			if ( ! ( is_array( $function_to_add ) && $function_to_add[0] instanceof Controller ) ) {
-				return false;
-			}
+		uopz_set_return(
+			'add_filter',
+			function ( $tag, $function_to_add, $priority = 10 ) use ( &$hooked ) {
+				if ( ! ( is_array( $function_to_add ) && $function_to_add[0] instanceof Controller ) ) {
+					return false;
+				}
 
-			$hooked[] = [ $tag, $priority ];
-		}, true );
+				$hooked[] = [ $tag, $priority ];
+			},
+			true
+		);
 		// The controller will also flag itself as registered in the Service Locator.
 		$original_controller->register();
 		// No need to mock add_filter anymore.
