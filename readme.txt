@@ -1,5 +1,8 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Ensure set up and tear down methods of the `Controller_Test_Case` will work independently of the PHPUnit version.
 
 = [5.2.5] 2024-04-09 =
 
