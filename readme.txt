@@ -1,9 +1,12 @@
 == Changelog ==
 
-= [TBD] TBD =
 
+= [5.2.5] 2024-04-09 =
+
+* Tweak - Improve compatibility with some theme styling re: calendar buttons. [TEC-5047]
 * Tweak - Rename the `Controller_Test_Case` `setUp` and `tearDown` methods and annotate them with `@before` and `@after` annotations to improve PHPUnit version cross-compat.
-* Fix - Add the dir and filename of `event-automator` in the Plugins_API so that the upsell CTA button text and links are shown properly in the Help section of TEC.
+* Fix - Add the dir and filename of `event-automator` in the Plugins_API so that the upsell CTA button text and links are shown properly in the Help section of TEC. [TEC-5071]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
 
 = [5.2.4] 2024-03-20 =
 
