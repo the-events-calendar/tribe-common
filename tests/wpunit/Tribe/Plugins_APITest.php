@@ -3,21 +3,7 @@ namespace Tribe;
 
 use Tribe__Plugins_API as API;
 
-class PluginsAPITest extends \Codeception\TestCase\WPTestCase {
-
-	public function setUp() {
-		// before
-		parent::setUp();
-
-		// your set up methods here
-	}
-
-	public function tearDown() {
-		// your tear down methods here
-
-		// then
-		parent::tearDown();
-	}
+class PluginsAPITest extends \Codeception\TestCase\WPTestCase { // phpcs:ignore
 
 	/**
 	 * @test
