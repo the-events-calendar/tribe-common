@@ -250,6 +250,7 @@ class Tribe__Plugins_API {
 				'plugin-dir'	  => 'image-widget-plus',
 				'main-file'       => 'image-widget-plus.php',
 				'description'     => __( 'Beautiful display options for your favorite photos.', 'tribe-common' ),
+				'description-help' => __( 'Beautiful display options for your favorite photos.', 'tribe-common' ),
 				'features'        => [
 					__( 'Multi-Image Support', 'tribe-common' ),
 					__( 'Lightbox', 'tribe-common' ),
