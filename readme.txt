@@ -1,8 +1,9 @@
 == Changelog ==
 
-= [5.2.6] TBD =
+= [5.2.6] 2024-04-17 =
 
-* Tweak - Added the `position` parameter for submenu pages on the admin pages class. [ET-1707]]
+* Tweak - Added the `position` parameter for submenu pages on the admin pages class. [ET-1707]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.2.5] 2024-04-09 =
 
