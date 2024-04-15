@@ -1,5 +1,8 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Updated our `query-string` javascript library to version 6.12. [TEC-5075]
 
 = [5.2.5] 2024-04-09 =
 
