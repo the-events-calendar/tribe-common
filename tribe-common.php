@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Tribe Common
- * Description: An event settings framework for managing shared options
+ * Description: An event settings framework for managing shared options.
  * Version: 5.2.5
  * Author: The Events Calendar
  * Author URI: http://evnt.is/1x
@@ -23,7 +23,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software.
+along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
