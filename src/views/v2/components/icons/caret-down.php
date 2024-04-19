@@ -14,6 +14,7 @@
  * @version 4.12.14
  *
  */
+
 $svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--caret-down' ];
 
 if ( ! empty( $classes ) ) {
