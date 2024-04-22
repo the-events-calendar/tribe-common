@@ -303,6 +303,26 @@ class Tribe__Plugins_API {
 				'free'             => false,
 				'active_installs'  => 0,
 			],
+			'event-schedule-manager'    => [
+				'title'            => __( 'Event Schedule Manager', 'tribe-common' ),
+				'slug'             => 'event-schedule-manager',
+				'link'             => 'https://evnt.is/1bdm',
+				'plugin-dir'       => 'event-schedule-manager',
+				'main-file'        => 'event-schedule-manager.php',
+				'description'      => __( 'Easily create the perfect schedule for your event and display it on any post type.', 'tribe-common' ),
+				'description-help' => __( 'Easily create the perfect schedule for your event and display it on any post type.', 'tribe-common' ),
+				'features'         => [
+					__( 'Multiple tracks support', 'tribe-common' ),
+					__( 'Speakers and sponsors', 'tribe-common' ),
+					__( 'Works on any post type', 'tribe-common' ),
+					__( 'Shortcodes and blocks', 'tribe-common' ),
+				],
+				'image'            => 'images/shop/event-schedule-manager.png',
+				'logo'             => 'images/logo/event-schedule-manager.svg',
+				'is_installed'     => defined( 'CONFERENCE_SCHEDULE_PRO_FILE' ),
+				'free'             => false,
+				'active_installs'  => 0,
+			],
 		];
 
 		return $products;

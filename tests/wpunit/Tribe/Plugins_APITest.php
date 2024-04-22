@@ -23,6 +23,7 @@ class PluginsAPITest extends \Codeception\TestCase\WPTestCase { // phpcs:ignore
 		$sut = $this->make_instance();
 
 		$products = $sut->get_products();
+		$services = [ 'promoter', 'event-aggregator' ];
 
 		$this->assertNotEmpty( $products );
 		$this->assertIsArray( $products );
@@ -41,11 +42,7 @@ class PluginsAPITest extends \Codeception\TestCase\WPTestCase { // phpcs:ignore
 			$this->assertArrayHasKey( 'is_installed', $product );
 			$this->assertArrayHasKey( 'free', $product );
 			$this->assertArrayHasKey( 'active_installs', $product );
-		}
 
-		$services = [ 'promoter', 'event-aggregator' ];
-
-		foreach ( $products as $product ) {
 			$this->assertNotEmpty( $product['title'] );
 			$this->assertNotEmpty( $product['slug'] );
 			$this->assertNotEmpty( $product['link'] );
