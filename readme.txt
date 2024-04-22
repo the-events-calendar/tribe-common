@@ -2,7 +2,7 @@
 
 = [TBD] TBD =
 
-* Tweak - Add `aria-hidden="true"` to icons so screen readers ignore it. [TEC-5019] [TEC-5020]
+* Tweak - Add `aria-hidden="true"` to icons so screen readers ignore it. [TEC-5019]
 * Fix - Add dir/filename of `event-automator` in the Plugins_API to fix CTA button text/links in the Help section. [TEC-5071]
 
 = [5.2.5] 2024-04-09 =
