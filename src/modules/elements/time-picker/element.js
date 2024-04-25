@@ -3,7 +3,6 @@
  */
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { noop } from 'lodash';
 import classNames from 'classnames';
 import { ScrollTo, ScrollArea } from 'react-scroll-to';
@@ -25,7 +24,6 @@ import Button from '@moderntribe/common/elements/button';
 import Input from '@moderntribe/common/elements/input';
 import {
 	date as dateUtil,
-	moment as momentUtil,
 	time as timeUtil,
 	TribePropTypes,
 } from '@moderntribe/common/utils';
@@ -89,9 +87,9 @@ const TimePicker = ( {
 	);
 
 	const formatLabel = ( seconds ) => {
-		return momentUtil
+		return dateUtil
 			.setTimeInSeconds( moment(), seconds )
-			.format( momentUtil.toFormat( timeFormat ) );
+			.format( dateUtil.toFormat( timeFormat ) );
 	};
 
 	const getItems = () => {
@@ -100,12 +98,12 @@ const TimePicker = ( {
 		const startSeconds = timeUtil.toSeconds( start, timeUtil.TIME_FORMAT_HH_MM );
 		const endSeconds = timeUtil.toSeconds( end, timeUtil.TIME_FORMAT_HH_MM );
 
-		const currentMoment = moment( current, momentUtil.TIME_FORMAT );
+		const currentMoment = moment( current, dateUtil.TIME_FORMAT );
 
 		for ( let time = startSeconds; time <= endSeconds; time += step ) {
 			let isCurrent = false;
 			if ( currentMoment.isValid() ) {
-				const currentTime = momentUtil.toTime24Hr( currentMoment );
+				const currentTime = dateUtil.toTime24Hr( currentMoment );
 				isCurrent = time === timeUtil.toSeconds( currentTime, timeUtil.TIME_FORMAT_HH_MM );
 			}
 

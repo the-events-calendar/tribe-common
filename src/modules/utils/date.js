@@ -13,7 +13,7 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import {
-	moment as momentUtil,
+	date as dateUtil,
 	timezone as timezoneUtil,
 } from '@moderntribe/common/utils';
 import { dateSettings } from '@moderntribe/common/utils/globals';
@@ -65,7 +65,7 @@ export const toNaturalLanguage = ( params = {} ) => {
 			month: 'MMMM',
 			day: 'D',
 			year: 'YYYY',
-			time: momentUtil.toFormat( FORMATS.WP.time ),
+			time: dateUtil.toFormat( FORMATS.WP.time ),
 		},
 		separator: '',
 		...params,
@@ -73,7 +73,7 @@ export const toNaturalLanguage = ( params = {} ) => {
 
 	const parsed = {
 		text: '',
-		moment: options.date && momentUtil.toMoment( options.date ),
+		moment: options.date && dateUtil.toMoment( options.date ),
 		detail: {
 			day: '',
 			month: '',
@@ -109,7 +109,7 @@ export const rangeToNaturalLanguage = ( start = '', end = '', separators = {} ) 
 	const parts = [ from.text ];
 
 	if ( from.isValid && to.isValid ) {
-		if ( momentUtil.isSameDay( from.moment, to.moment ) ) {
+		if ( dateUtil.isSameDay( from.moment, to.moment ) ) {
 			/**
 			 * If both dates are happening on the same day the only relevant thing is the time on the second
 			 * part of the string (to keep string cleaner).
@@ -118,7 +118,7 @@ export const rangeToNaturalLanguage = ( start = '', end = '', separators = {} ) 
 			 * - New behavior: 'Oct 8 2018 at 12:00 pm - 12:30 pm'
 			 */
 			parts.push( to.detail.time );
-		} else if ( momentUtil.isSameMonth( from.moment, to.moment ) ) {
+		} else if ( dateUtil.isSameMonth( from.moment, to.moment ) ) {
 			/**
 			 * If both dates are happening on the same month and not on the same day but during the same year
 			 * we don't need to show the same year twice.
@@ -144,8 +144,8 @@ export const labelToDate = ( label ) => {
 	};
 	if ( parsed ) {
 		const { start, end } = parsed;
-		dates.start = start ? momentUtil.toDateTime( momentUtil.toMoment( start.date() ) ) : null;
-		dates.end = end ? momentUtil.toDateTime( momentUtil.toMoment( end.date() ) ) : null;
+		dates.start = start ? dateUtil.toDateTime( dateUtil.toMoment( start.date() ) ) : null;
+		dates.end = end ? dateUtil.toDateTime( dateUtil.toMoment( end.date() ) ) : null;
 	}
 	return dates;
 };

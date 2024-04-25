@@ -224,15 +224,14 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			[
-				[ 'tribe-accessibility-css', 'accessibility.css' ],
+/*				[ 'tribe-accessibility-css', 'accessibility.css' ],
 				[ 'tribe-query-string', 'utils/query-string.js' ],
 				[ 'tribe-clipboard', 'node_modules/clipboard/dist/clipboard.min.js' ],
 				[ 'datatables', 'vendor/datatables/datatables.js', [ 'jquery' ] ],
 				[ 'tribe-select2', 'vendor/tribe-selectWoo/dist/js/selectWoo.full.js', [ 'jquery' ] ],
 				[ 'tribe-select2-css', 'vendor/tribe-selectWoo/dist/css/selectWoo.css' ],
-				[ 'tribe-utils-camelcase', 'utils-camelcase.js', [ 'underscore' ] ],
-				[ 'tribe-moment', 'vendor/momentjs/moment.js' ],
-				[ 'tribe-moment-locales', 'vendor/momentjs/locale.min.js' ],
+				[ 'tribe-utils-camelcase', 'utils-camelcase.js', [ 'underscore' ] ],*/
+			 	[ 'tribe-date', 'vendor/date-fns/date-fns-3.6.0.js' ],
 				[ 'tribe-tooltipster', 'vendor/tooltipster/tooltipster.bundle.js', [ 'jquery' ] ],
 				[ 'tribe-tooltipster-css', 'vendor/tooltipster/tooltipster.bundle.css' ],
 				[ 'datatables-css', 'datatables.css' ],

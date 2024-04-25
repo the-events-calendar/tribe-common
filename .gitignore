@@ -22,7 +22,7 @@ tests/_support/_generated
 vendor/*
 !vendor/jquery
 !vendor/select2
-!vendor/momentjs
+!vendor/date-fns
 !vendor/handlebars
 !vendor/clipboard
 !vendor/attrchange

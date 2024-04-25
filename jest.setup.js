@@ -27,4 +27,3 @@ global.render = render;
 global.mount = mount;
 global.renderer = renderer;
 
-moment.tz.setDefault( 'UTC' );
