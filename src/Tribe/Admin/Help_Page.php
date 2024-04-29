@@ -1082,6 +1082,7 @@ class Tribe__Admin__Help_Page {
 			'event-aggregator',
 			'event-automator',
 			'events-virtual',
+			'event-schedule-manager',
 		] );
 
 		return $calendar_products;
