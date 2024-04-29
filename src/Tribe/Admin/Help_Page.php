@@ -916,7 +916,8 @@ class Tribe__Admin__Help_Page {
 					's'             => '',
 				];
 				$activate_url = wp_nonce_url( add_query_arg( $args, 'plugins.php' ), 'activate-plugin_' . $status['file'] );
-				$link         = '<a class="button" href="' . $activate_url . '" aria-label="' . esc_attr( sprintf( esc_attr__( 'Activate %s', 'tribe-common' ), $plugin->name ) ) . '">' . esc_html__( 'Activate Plugin', 'tribe-common' ) . '</a>';
+				/* translators: %s: Plugin Name */
+				$link = '<a class="button" href="' . $activate_url . '" aria-label="' . esc_attr( sprintf( esc_attr__( 'Activate %s', 'tribe-common' ), $plugin->name ) ) . '">' . esc_html__( 'Activate Plugin', 'tribe-common' ) . '</a>';
 			} elseif ( 'update_available' === $status['status'] ) {
 				$args       = [
 					'action' => 'upgrade-plugin',
@@ -940,7 +941,8 @@ class Tribe__Admin__Help_Page {
 					'height'    => 600,
 				];
 				$iframe_url = add_query_arg( $args, admin_url( '/plugin-install.php' ) );
-				$link       = '<a class="button thickbox" href="' . $iframe_url . '" aria-label="' . esc_attr( sprintf( esc_attr__( 'Install %s', 'tribe-common' ), $plugin->name ) ) . '">' . esc_html__( 'Install Plugin', 'tribe-common' ) . '</a>';
+				/* translators: %s: Plugin Name */
+				$link = '<a class="button thickbox" href="' . $iframe_url . '" aria-label="' . esc_attr( sprintf( esc_attr__( 'Install %s', 'tribe-common' ), $plugin->name ) ) . '">' . esc_html__( 'Install Plugin', 'tribe-common' ) . '</a>';
 			} else {
 				$link = null;
 			}
