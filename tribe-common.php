@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Tribe Common
- * Description: An event settings framework for managing shared options
+ * Description: An event settings framework for managing shared options.
  * Version: 5.2.5
  * Author: The Events Calendar
  * Author URI: http://evnt.is/1x
