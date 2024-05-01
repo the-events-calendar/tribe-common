@@ -788,13 +788,10 @@ function tribe_asset( $origin, $slug, $file, $deps = [], $action = null, $argume
 	}
 
 	if ( isset( $arguments['localize'] ) ) {
-		foreach ( (array) $arguments['localize'] as $localize ) {
-			$array_localize = (array) $localize;
-			$object_name    = $array_localize['name'] ?? null;
-			$data           = $array_localize['data'] ?? null;
-			if ( ! ( $object_name && $data ) ) {
-				continue;
-			}
+		$array_localize = (array) $arguments['localize'];
+		$object_name    = $array_localize['name'] ?? null;
+		$data           = $array_localize['data'] ?? null;
+		if ( $object_name && $data ) {
 			$asset->add_localize_script( $object_name, $data );
 		}
 	}
