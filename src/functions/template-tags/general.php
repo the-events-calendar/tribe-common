@@ -3,6 +3,10 @@
  * Display functions (template-tags) for use in WordPress templates.
  */
 
+use TEC\Common\StellarWP\Assets\Asset;
+use TEC\Common\StellarWP\Assets\Assets;
+use Tribe__Utils__Array as Arr;
+
 // Don't load directly
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -641,9 +645,10 @@ function tribe_register_error( $indexes, $message ) {
 }
 
 /**
- * Shortcut for Tribe__Assets::register(), include a single asset
+ * Registers an asset.
  *
  * @since 4.3
+ * @since TBD Replaced the function internals with calls to the stellarwp/assets library.
  *
  * @param object            $origin    The main object for the plugin you are enqueueing the asset for.
  * @param string            $slug      Slug to save the asset - passes through `sanitize_title_with_dashes()`.
@@ -651,43 +656,202 @@ function tribe_register_error( $indexes, $message ) {
  * @param array             $deps      The list of dependencies or callable function that will return a list of dependencies.
  * @param string|array|null $action    The WordPress action(s) to enqueue on, such as `wp_enqueue_scripts`,
  *                                     `admin_enqueue_scripts`, or `login_enqueue_scripts`.
- * @param array             $arguments See `Tribe__Assets::register()` for more info.
+ * @param array{
+ *     priority?: int|null, // The priority of the asset, defaults to 10.
+ *     type?: string|null, // The type of the asset, defaults to 'script'.
+ *     media?: string|null, // The media type of the asset, defaults to 'all'.
+ *     conditionals?: array|null, // The conditionals that the asset should be enqueued for, defaults to `[]`.
+ *     deps?: array|null, // The list of dependencies or callable function that will return a list of dependencies.
+ *     groups: array|null, // The list of groups the asset should be enqueued for, defaults to `[]`.
+ *     print_before: string|null, // The hook to print the asset before, defaults to `null`.
+ *     print_after: string|null, // The hook to print the asset after, defaults to `null`.
+ *     localize: array|null, // The localization data for the asset, defaults to `[]`.
+ *     defer: bool|null, // Whether the asset should be deferred, defaults to `false`.
+ *     async: bool|null, // Whether the asset should be asynchronous, defaults to `false`.
+ *     print: bool|null, // Whether the asset should be printed, defaults to `false`.
+ * } $arguments See `Tribe__Assets::register()` for more info.
  *
  * @return object|false     The asset that got registered or false on error.
  */
 function tribe_asset( $origin, $slug, $file, $deps = [], $action = null, $arguments = [] ) {
-	/** @var Tribe__Assets $assets */
-	$assets = tribe( 'assets' );
+	// Origin needs to be a class with a `instance` method and a Version constant.
+	if (
+		is_string( $origin )
+		&& class_exists( $origin, false )
+		&& defined( $origin . '::VERSION' )
+		&& method_exists( $origin, 'instance' )
+	) {
+		$origin = call_user_func( [ $origin, 'instance' ] );
+	}
 
-	return $assets->register( $origin, $slug, $file, $deps, $action, $arguments );
+	if ( is_object( $origin ) ) {
+		$origin_name = get_class( $origin );
+
+		if ( ! defined( $origin_name . '::VERSION' ) ) {
+			// If we have an Object, and we don't have instance or version.
+			return false;
+		}
+	} else {
+		return false;
+	}
+
+	// Infer the type from the file extension, if not passed.
+	$type = empty( $arguments['type'] ) ?
+		substr( $file, strrpos( $file, '.' ) + 1 )
+		: $arguments['type'];
+
+	// Work out the file from the origin.
+	if ( ! is_file( $file ) ) {
+		$relative_asset_path = TEC\Common\StellarWP\Assets\Config::get_relative_asset_path();
+		$origin_path         = trailingslashit( ! empty( $origin->plugin_url ) ? $origin->plugin_url : $origin->pluginUrl );
+		$file                = $origin_path . $relative_asset_path . "{$type}/" . $file;
+	}
+
+	// Fetches the version on the Origin Version constant if not passed.
+	$version = $arguments['version'] ?: constant( $origin_name . '::VERSION' );
+
+	$asset = Asset::add( $slug, $file, $arguments['version'] ?: '' );
+
+	if ( ! empty( $action ) ) {
+		foreach ( (array) $action as $enqueue_on ) {
+			$asset->enqueue_on( $enqueue_on, $arguments['priority'] ?? null );
+		}
+	}
+
+	$asset->set_type( $type );
+
+	if ( isset( $arguments['media'] ) ) {
+		$asset->set_media( $arguments['media'] );
+	}
+
+	if ( isset( $arguments['conditionals'] ) ) {
+		if ( is_callable( $arguments['conditionals'] ) ) {
+			// One array argument is a callable, so call it.
+			$asset->set_condition( $arguments['conditionals'] );
+		} else {
+			// Build a condition closure out of a list of conditionals.
+			$conditionals = (array) $arguments['conditionals'];
+
+			// Pluck the operator from the conditionals.
+			$operator              = Arr::get( $conditionals, 'operator', 'OR' );
+			// Keep the callables.
+			$conditional_callables = array_values( array_filter( $conditionals, 'is_callable' ) );
+
+			if ( $operator === 'OR' ) {
+				// Build a Closure condition that will return true if any of the callables return true.
+				$asset->set_condition( function () use ( $conditional_callables ) {
+					foreach ( $conditional_callables as $condition ) {
+						if ( $condition() ) {
+							return true;
+						}
+					}
+
+					return false;
+				} );
+			} else {
+				// Build a Closure condition that will return true if all of the callables return true.
+				$asset->set_condition( function () use ( $conditional_callables ) {
+					foreach ( $conditional_callables as $condition ) {
+						if ( ! $condition() ) {
+							return false;
+						}
+					}
+
+					return true;
+				} );
+			}
+		}
+	}
+
+	if ( isset( $arguments['deps'] ) ) {
+		foreach ( (array) $arguments['deps'] as $dependency ) {
+			$asset->add_dependency( $dependency );
+		}
+	}
+
+	if ( isset( $arguments['groups'] ) ) {
+		foreach ( (array) $arguments['groups'] as $group ) {
+			$asset->add_to_group( $group );
+		}
+	}
+
+	if ( isset( $arguments['print_before'] ) ) {
+		$asset->print_before( $arguments['print_before'] );
+	}
+
+	if ( isset( $arguments['print_after'] ) ) {
+		$asset->print_after( $arguments['print_after'] );
+	}
+
+	if ( isset( $arguments['localize'] ) ) {
+		foreach ( (array) $arguments['localize'] as $localize ) {
+			$array_localize = (array) $localize;
+			$object_name    = $array_localize['name'] ?? null;
+			$data           = $array_localize['data'] ?? null;
+			if ( ! ( $object_name && $data ) ) {
+				continue;
+			}
+			$asset->add_localize_script( $object_name, $data );
+		}
+	}
+
+	if ( isset( $arguments['translations'], $arguments['translations']['domain'], $arguments['translations']['path'] ) ) {
+		$domain = $arguments['translations']['domain'];
+		$path   = $arguments['translations']['path'];
+		$asset->call_after_enqueue( fn() => wp_set_script_translations( $slug, $domain, $path ) );
+	}
+
+	if ( isset( $arguments['after_enqueue'] ) ) {
+		$asset->call_after_enqueue( $arguments['after_enqueue'] );
+	}
+
+	if ( ! empty( $arguments['in_footer'] ) ) {
+		$asset->in_footer();
+	}
+
+	if ( ! empty( $arguments['module'] ) ) {
+		$asset->set_as_module();
+	}
+
+	if ( ! empty( $arguments['defer'] ) ) {
+		$asset->set_as_deferred();
+	}
+
+	if ( ! empty( $arguments['async'] ) ) {
+		$asset->set_as_async();
+	}
+
+	if ( ! empty( $arguments['print'] ) ) {
+		$asset->print( true );
+	}
+
+	$asset->register();
+
+	return $asset;
 }
 
 /**
- * Shortcut for Tribe__Assets::enqueue() to include assets.
+ * Immediately enqueues an asset.
  *
  * @since 4.7
+ * @since TBD Refactored to use the `stelarwp/assets` library.
  *
  * @param string|array $slug Slug to enqueue
  */
 function tribe_asset_enqueue( $slug ) {
-	/** @var Tribe__Assets $assets */
-	$assets = tribe( 'assets' );
-
-	$assets->enqueue( $slug );
+	Assets::instance()->enqueue( $slug );
 }
 
 /**
- * Shortcut for Tribe__Assets::enqueue_group() include assets by groups.
+ * Enqueues assets by groups.
  *
  * @since 4.7
+ * @since TBD Refactored to use the `stelarwp/assets` library.
  *
  * @param string|array  $group  Which group(s) should be enqueued.
  */
 function tribe_asset_enqueue_group( $group ) {
-	/** @var Tribe__Assets $assets */
-	$assets = tribe( 'assets' );
-
-	$assets->enqueue_group( $group );
+	Assets::instance()->enqueue_group( $group );
 }
 
 /**
@@ -850,10 +1014,7 @@ if ( ! function_exists( 'tribe_asset_print_group' ) ) {
 	 * @return string The `script` and `link` HTML tags produced for the group(s).
 	 */
 	function tribe_asset_print_group( $group, $echo = true ) {
-		/** @var \Tribe__Assets $assets */
-		$assets     = tribe( 'assets' );
-
-		return $assets->print_group($group, $echo);
+		return Assets::instance()->print_group( $group, $echo );
 	}
 }
 

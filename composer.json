@@ -30,7 +30,8 @@
     "stellarwp/installer": "^1.1.0",
     "stellarwp/models": "dev-main",
     "stellarwp/schema": "^1.1.3",
-    "stellarwp/telemetry": "^2.3.1"
+    "stellarwp/telemetry": "^2.3.1",
+    "stellarwp/assets": "^1.1.3"
   },
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
@@ -86,7 +87,8 @@
         "lucatume/di52",
         "monolog/monolog",
         "firebase/php-jwt",
-        "psr/container"
+        "psr/container",
+        "stellarwp/assets"
       ],
       "exclude_from_prefix": {
         "file_patterns": []
