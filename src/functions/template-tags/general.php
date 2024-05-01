@@ -700,17 +700,17 @@ function tribe_asset( $origin, $slug, $file, $deps = [], $action = null, $argume
 		substr( $file, strrpos( $file, '.' ) + 1 )
 		: $arguments['type'];
 
-	// Work out the file from the origin.
-	if ( ! is_file( $file ) ) {
-		$relative_asset_path = TEC\Common\StellarWP\Assets\Config::get_relative_asset_path();
-		$origin_path         = trailingslashit( ! empty( $origin->plugin_url ) ? $origin->plugin_url : $origin->pluginUrl );
-		$file                = $origin_path . $relative_asset_path . "{$type}/" . $file;
-	}
+	// Work out the root path from the origin.
+	$root_path = str_replace(
+		dirname( WP_CONTENT_DIR ) ?: WP_CONTENT_DIR,
+		'',
+		trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath )
+	);
 
 	// Fetches the version on the Origin Version constant if not passed.
 	$version = $arguments['version'] ?: constant( $origin_name . '::VERSION' );
 
-	$asset = Asset::add( $slug, $file, $arguments['version'] ?: '' );
+	$asset = Asset::add( $slug, $file, $arguments['version'] ?: '', $root_path );
 
 	if ( ! empty( $action ) ) {
 		foreach ( (array) $action as $enqueue_on ) {
@@ -763,9 +763,13 @@ function tribe_asset( $origin, $slug, $file, $deps = [], $action = null, $argume
 		}
 	}
 
-	if ( isset( $arguments['deps'] ) ) {
-		foreach ( (array) $arguments['deps'] as $dependency ) {
-			$asset->add_dependency( $dependency );
+	if ( isset( $deps ) ) {
+		if ( is_callable( $deps ) ) {
+			$asset->set_dependencies( $deps );
+		} else {
+			foreach ( (array) $deps as $dependency ) {
+				$asset->add_dependency( $dependency );
+			}
 		}
 	}
 
