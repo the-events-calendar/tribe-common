@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "200fe05f1d08f331634ab25927a0bf14",
+    "content-hash": "037d37c8c1bfb7b1e2b4b758465c4620",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -295,16 +295,16 @@
         },
         {
             "name": "stellarwp/assets",
-            "version": "1.2.0",
+            "version": "dev-fix/too-early-checks",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/assets.git",
-                "reference": "c97e3288660c795db12bbae455741600ca08d584"
+                "reference": "a11ce813bb3c302d00469e1d9fe04fa6a1f9557a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/assets/zipball/c97e3288660c795db12bbae455741600ca08d584",
-                "reference": "c97e3288660c795db12bbae455741600ca08d584",
+                "url": "https://api.github.com/repos/stellarwp/assets/zipball/a11ce813bb3c302d00469e1d9fe04fa6a1f9557a",
+                "reference": "a11ce813bb3c302d00469e1d9fe04fa6a1f9557a",
                 "shasum": ""
             },
             "require-dev": {
@@ -345,9 +345,9 @@
             "description": "A library for managing asset registration and enqueuing in WordPress.",
             "support": {
                 "issues": "https://github.com/stellarwp/assets/issues",
-                "source": "https://github.com/stellarwp/assets/tree/1.2.0"
+                "source": "https://github.com/stellarwp/assets/tree/fix/too-early-checks"
             },
-            "time": "2024-05-01T15:31:50+00:00"
+            "time": "2024-05-03T11:29:33+00:00"
         },
         {
             "name": "stellarwp/container-contract",
@@ -6920,6 +6920,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "stellarwp/models": 20,
+        "stellarwp/assets": 20,
         "stellarwp/coding-standards": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
