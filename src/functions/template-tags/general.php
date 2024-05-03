@@ -3,6 +3,10 @@
  * Display functions (template-tags) for use in WordPress templates.
  */
 
+use TEC\Common\StellarWP\Assets\Asset;
+use TEC\Common\StellarWP\Assets\Assets;
+
+
 // Don't load directly
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -641,53 +645,74 @@ function tribe_register_error( $indexes, $message ) {
 }
 
 /**
- * Shortcut for Tribe__Assets::register(), include a single asset
+ * Registers an asset.
  *
  * @since 4.3
+ * @since TBD Replaced the function internals with calls to the stellarwp/assets library.
  *
- * @param object            $origin    The main object for the plugin you are enqueueing the asset for.
- * @param string            $slug      Slug to save the asset - passes through `sanitize_title_with_dashes()`.
- * @param string            $file      The asset file to load (CSS or JS), including non-minified file extension.
- * @param array             $deps      The list of dependencies or callable function that will return a list of dependencies.
- * @param string|array|null $action    The WordPress action(s) to enqueue on, such as `wp_enqueue_scripts`,
- *                                     `admin_enqueue_scripts`, or `login_enqueue_scripts`.
- * @param array             $arguments See `Tribe__Assets::register()` for more info.
+ * @param object|string $origin The origin of the asset, either a class or a string.
+ * @param string $handle The handle of the asset.
+ * @param string $file The file of the asset.
+ * @param array<string>|callable $deps The dependencies of the asset; either an array of dependencies or a callable
+ *                                      that returns an array of dependencies.
+ * @param string|string[]|null $action The action(s) to enqueue the asset on; either a string or an array of strings.
+ * @param array $arguments {
+ *     The arguments to pass to the asset.
  *
- * @return object|false     The asset that got registered or false on error.
+ *     @type string $type The type of the asset.
+ *     @type string $media The media type of the asset.
+ *     @type string|array $conditionals The conditionals to use for the asset.
+ *     @type string|array $groups The groups to add the asset to.
+ *     @type string|array $print_before The print_before to use for the asset.
+ *     @type string|array $print_after The print_after to use for the asset.
+ *     @type array $localize {
+ *         The localization data for the asset. One or more of the following:
+ *
+ *         @type string $name The name of the localization data.
+ *         @type array|callable $data The data to use for the localization.
+ *     }
+ *     @type array $translations {
+ *         The translations to use for the asset.
+ *
+ *         @type string $domain The domain to use for the translations.
+ *         @type string $path The path to use for the translations.
+ *     }
+ *     @type bool $after_enqueue Whether to call a callback after enqueuing the asset.
+ *     @type bool $in_footer Whether to enqueue the asset in the footer.
+ *     @type bool $module Whether to set the asset as a module.
+ *     @type bool $defer Whether to set the asset as deferred.
+ *     @type bool $async Whether to set the asset as asynchronous.
+ *     @type bool $print Whether to print the asset.
+ * }
+ *
+ * @return Asset|false The asset that was registered or `false` on error.
  */
 function tribe_asset( $origin, $slug, $file, $deps = [], $action = null, $arguments = [] ) {
-	/** @var Tribe__Assets $assets */
-	$assets = tribe( 'assets' );
-
-	return $assets->register( $origin, $slug, $file, $deps, $action, $arguments );
+	return Tribe__Assets::instance()->register( $origin, $slug, $file, $deps, $action, $arguments );
 }
 
 /**
- * Shortcut for Tribe__Assets::enqueue() to include assets.
+ * Immediately enqueues an asset.
  *
  * @since 4.7
+ * @since TBD Refactored to use the `stelarwp/assets` library.
  *
  * @param string|array $slug Slug to enqueue
  */
 function tribe_asset_enqueue( $slug ) {
-	/** @var Tribe__Assets $assets */
-	$assets = tribe( 'assets' );
-
-	$assets->enqueue( $slug );
+	Tribe__Assets::instance()->enqueue( $slug );
 }
 
 /**
- * Shortcut for Tribe__Assets::enqueue_group() include assets by groups.
+ * Enqueues assets by groups.
  *
  * @since 4.7
+ * @since TBD Refactored to use the `stelarwp/assets` library.
  *
  * @param string|array  $group  Which group(s) should be enqueued.
  */
 function tribe_asset_enqueue_group( $group ) {
-	/** @var Tribe__Assets $assets */
-	$assets = tribe( 'assets' );
-
-	$assets->enqueue_group( $group );
+	Tribe__Assets::instance()->enqueue_group( $group );
 }
 
 /**
@@ -732,7 +757,7 @@ function tribe_assets( $origin, $assets, $action = null, $arguments = [] ) {
 		// Support the asset having custom arguments and merge them with the original ones.
 		$asset_arguments = ! empty( $asset[4] ) ? array_merge( $arguments, $asset[4] ) : $arguments;
 
-		$registered[] = tribe_asset( $origin, $slug, $file, $deps, $asset_action, $asset_arguments );
+		$registered[] = Tribe__Assets::instance()->register( $origin, $slug, $file, $deps, $asset_action, $asset_arguments );
 
 	}
 
@@ -850,10 +875,7 @@ if ( ! function_exists( 'tribe_asset_print_group' ) ) {
 	 * @return string The `script` and `link` HTML tags produced for the group(s).
 	 */
 	function tribe_asset_print_group( $group, $echo = true ) {
-		/** @var \Tribe__Assets $assets */
-		$assets     = tribe( 'assets' );
-
-		return $assets->print_group($group, $echo);
+		return Assets::instance()->print_group( $group, $echo );
 	}
 }
 

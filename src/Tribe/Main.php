@@ -18,7 +18,7 @@ class Tribe__Main {
 	const OPTIONNAME        = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK = 'tribe_events_calendar_network_options';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
-	const VERSION           = '5.3.0-dev';
+	const VERSION           = '5.4-dev';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
@@ -695,7 +695,7 @@ class Tribe__Main {
 		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
 		tribe_singleton( 'settings', 'Tribe__Settings', [ 'hook' ] );
 		tribe_singleton( 'ajax.dropdown', 'Tribe__Ajax__Dropdown', [ 'hook' ] );
-		tribe_singleton( 'assets', 'Tribe__Assets' );
+		tribe_singleton( 'assets', 'Tribe__Assets', [ 'hook' ] );
 		tribe_singleton( 'assets.pipeline', 'Tribe__Assets_Pipeline', [ 'hook' ] );
 		tribe_singleton( 'asset.data', 'Tribe__Asset__Data', [ 'hook' ] );
 		tribe_singleton( 'admin.helpers', 'Tribe__Admin__Helpers' );
