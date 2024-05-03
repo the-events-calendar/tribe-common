@@ -356,7 +356,7 @@ class Tribe__Assets {
 		);
 
 		// Fetches the version on the Origin Version constant if not passed.
-		$version = $arguments['version'] ?: constant( $origin_name . '::VERSION' );
+		$version = $arguments['version'] ?? constant( $origin_name . '::VERSION' );
 
 		/**
 		 * Filter to change version number on assets.
