@@ -357,6 +357,10 @@ class Tribe__Assets {
 		}
 
 		foreach ( $assets as $asset ) {
+			if ( $asset->already_enqueued ) {
+				continue;
+			}
+
 			// Should this asset be enqueued regardless of the current filter/any conditional requirements?
 			$must_enqueue = in_array( $asset->slug, $forcibly_enqueue );
 			$in_filter    = in_array( current_filter(), (array) $asset->action );
@@ -753,6 +757,11 @@ class Tribe__Assets {
 
 		// Set the Asset on the array of notices.
 		$this->assets[ $slug ] = $asset;
+
+		// If we are already on the init action we register the asset.
+		if ( did_action( 'init' ) ) {
+			$this->register_in_wp( $asset );
+		}
 
 		// Return the Slug because it might be modified.
 		return $asset;
