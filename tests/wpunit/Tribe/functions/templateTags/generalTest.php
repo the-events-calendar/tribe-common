@@ -47,8 +47,8 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 		tribe_assets(
 			\Tribe__Main::instance(),
 			[
-				[ 'tribe-test-css', '/tests/_data/resources/test-style-1.css' ],
-				[ 'tribe-test-js', '/tests/_data/resources/test-script-1.js' ],
+				[ 'tribe-test-css', 'test-style-1.css' ],
+				[ 'tribe-test-js', 'test-script-1.js' ],
 			],
 			// This action cannot possibly have happened.
 			'test_test_test',
@@ -62,11 +62,11 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 		$output = tribe_asset_print_group( 'test-group', false );
 
 		$expected_tmpl = <<< TAG
-<script src='{{ home_url }}/tests/_data/resources/test-script-1.js?ver=1.0.0' id='tribe-test-js-js'></script>
-<link rel='stylesheet' id='tribe-test-css-css' href='{{ home_url }}/tests/_data/resources/test-style-1.css?ver=1.0.0' media='all' />
+<script src="{{ common_url }}/js/test-script-1.js?ver=1.0.0" id="tribe-test-js-js"></script>
+<link rel='stylesheet' id='tribe-test-css-css' href='{{ common_url }}/css/test-style-1.css?ver=1.0.0' media='all' />
 
 TAG;
-		$expected = str_replace( '{{ home_url }}', home_url(), $expected_tmpl );
+		$expected = str_replace( '{{ common_url }}', home_url('/wp-content/plugins/the-events-calendar/common/src/resources'), $expected_tmpl );
 		$this->assertEquals( $expected, $output );
 	}
 }
