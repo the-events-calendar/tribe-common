@@ -11,6 +11,7 @@ namespace TEC\Common\Integrations\Plugins\Elementor\Widgets\Contracts;
 
 use TEC\Common\Integrations\Plugins\Elementor\Widgets\Template_Engine;
 use Elementor\Widget_Base;
+use WP_Post;
 
 /**
  * Abstract Widget class
@@ -84,6 +85,15 @@ abstract class Abstract_Widget extends Widget_Base {
 	protected static bool $has_styles = false;
 
 	/**
+	 * Whether the widget has scripts to register/enqueue.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected static bool $has_scripts = false;
+
+	/**
 	 * Widget categories.
 	 *
 	 * @since TBD
@@ -137,8 +147,8 @@ abstract class Abstract_Widget extends Widget_Base {
 	 *
 	 * @return string
 	 */
-	public static function get_elementor_slug(): string {
-		return static::$slug_prefix . static::get_slug();
+	public function get_elementor_slug(): string {
+		return $this->get_slug_prefix() . static::get_slug();
 	}
 
 	/**
@@ -149,7 +159,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 * @return string
 	 */
 	public function get_name(): string {
-		return static::get_elementor_slug();
+		return $this->get_elementor_slug();
 	}
 
 	/**
@@ -161,6 +171,65 @@ abstract class Abstract_Widget extends Widget_Base {
 	 */
 	public static function get_slug(): string {
 		return static::$slug;
+	}
+
+	/**
+	 * Get local widget slug.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $trim Whether to trim the last underscore from the prefix.
+	 *
+	 * @return string
+	 */
+	public function get_slug_prefix( $trim = false ): string {
+		$prefix = static::$slug_prefix;
+
+
+		if ( $trim ) {
+			$prefix = rtrim( $prefix, '_' );
+		} else {
+			// Ensure our prefix ends with an underscore.
+			$prefix = rtrim( $prefix, '_' ) . '_';
+		}
+
+		/**
+		 * Filters the slug prefix for all tec-elementor widgets.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $prefix The widget slug prefix.
+		 * @param bool   $trim   Whether to trim the last underscore from the prefix.
+		 * @param object $this   The widget instance.
+		 *
+		 * @return string
+		 */
+		return (string) apply_filters( 'tec_elementor_widget_slug_prefix', $prefix, $trim, $this );
+	}
+
+	public function create_slug( $slug ) {
+		$prefix = $this->get_slug_prefix();
+
+		return $prefix . $slug;
+	}
+
+	/**
+	 * Get local widget slug.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $trim Whether to trim the last  slug.
+	 *
+	 * @return string
+	 */
+	public function get_asset_prefix( $trim = false ): string {
+		$prefix = str_replace( '_', '-', $this->get_slug_prefix() );
+
+		if ( $trim ) {
+			$prefix = rtrim( $prefix, '-' );
+		}
+
+		return $prefix;
 	}
 
 	/**
@@ -180,7 +249,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		 * @param string          $title The widget title.
 		 * @param Abstract_Widget $this  The widget instance.
 		 */
-		$title = apply_filters( static::$slug_prefix . 'title', $title, $this );
+		$title = apply_filters( $this->create_slug( 'title' ), $title, $this );
 
 		/**
 		 * Filters the title of a specific tec-elementor widget, by slug.
@@ -190,7 +259,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		 * @param string          $title The widget title.
 		 * @param Abstract_Widget $this  The widget instance.
 		 */
-		return (string) apply_filters( static::$slug_prefix . "_widget_{$slug}_title", $title, $this );
+		return (string) apply_filters( $this->get_slug_prefix() . "widget_{$slug}_title", $title, $this );
 	}
 
 	/**
@@ -257,7 +326,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		 *
 		 * @return array<string>
 		 */
-		$classes = apply_filters( static::$slug_prefix . 'element_classes', (array) $classes, $format, $this );
+		$classes = apply_filters( $this->get_slug_prefix() . 'element_classes', (array) $classes, $format, $this );
 
 		/**
 		 * Filters the widget class list for a specific tec-elementor widget, by slug.
@@ -270,7 +339,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		 *
 		 * @return array<string>
 		 */
-		$classes = apply_filters( static::$slug_prefix . "{$slug}_element_classes", (array) $classes, $format, $this );
+		$classes = apply_filters( $this->get_slug_prefix() . "{$slug}_element_classes", (array) $classes, $format, $this );
 
 		// If we want a string, this is where we convert.
 		if ( 'attribute' === $format ) {
@@ -300,7 +369,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 */
 	public function get_widget_class(): string {
 		$slug  = static::get_slug();
-		$class = static::$asset_prefix . '__' . static::trim_slug();
+		$class = static::get_asset_prefix() . '_' . static::trim_slug();
 
 		/**
 		 * Filters the widget class for all tec-elementor widgets.
@@ -312,7 +381,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		 *
 		 * @return string
 		 */
-		$class = apply_filters( static::$slug_prefix . 'class', $class, $this );
+		$class = apply_filters( $this->get_slug_prefix() . 'class', $class, $this );
 
 		/**
 		 * Filters the widget class for a specific tec-elementor widget, by slug.
@@ -324,7 +393,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		 *
 		 * @return string
 		 */
-		return apply_filters( static::$slug_prefix . "{$slug}_class", $class, $this );
+		return apply_filters( $this->get_slug_prefix() . "{$slug}_class", $class, $this );
 	}
 
 	/**
@@ -336,7 +405,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 */
 	public function get_icon_class(): string {
 		$slug  = static::get_slug();
-		$class = static::$asset_prefix . '__icon-' . static::trim_slug();
+		$class = static::get_asset_prefix() . '__icon-' . static::trim_slug();
 
 		/**
 		 * Filters the widget icon class for all tec-elementor widgets.
@@ -348,7 +417,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		 *
 		 * @return string
 		 */
-		$class = apply_filters( static::$slug_prefix . 'icon_class', $class, $this );
+		$class = apply_filters( $this->get_slug_prefix() . 'icon_class', $class, $this );
 
 		/**
 		 * Filters the widget icon class for a specific tec-elementor widget, by slug.
@@ -360,7 +429,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		 *
 		 * @return string
 		 */
-		return (string) apply_filters( static::$slug_prefix . "{$slug}icon_class", $class, $this );
+		return (string) apply_filters( $this->get_slug_prefix() . "{$slug}icon_class", $class, $this );
 	}
 
 	/**
@@ -400,7 +469,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		 * @param int             $post_id The post ID.
 		 * @param Abstract_Widget $this    The widget instance.
 		 */
-		$post_id = (int) apply_filters( static::$slug_prefix . 'post_id', (int) $post_id, $this );
+		$post_id = (int) apply_filters( $this->get_slug_prefix() . 'post_id', (int) $post_id, $this );
 
 		/**
 		 * Filters the post ID of the post the widget is used in.
@@ -410,7 +479,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		 * @param int             $post_id The post ID.
 		 * @param Abstract_Widget $this    The widget instance.
 		 */
-		$post_id = (int) apply_filters( static::$slug_prefix . "{$slug}_post_id", (int) $post_id, $this );
+		$post_id = (int) apply_filters( $this->get_slug_prefix() . "{$slug}_post_id", (int) $post_id, $this );
 
 		if ( get_post_type( $post_id ) !== static::get_widget_post_type() ) {
 			return null;
@@ -428,6 +497,29 @@ abstract class Abstract_Widget extends Widget_Base {
 	 */
 	public function get_post_id() {
 		return $this->post_id();
+	}
+
+	/**
+	 * Get the post object for the widget.
+	 *
+	 * @since TBD
+	 *
+	 * @return WP_Post|null
+	 */
+	public function get_post() {
+		$post = get_post( $this->get_post_id() );
+
+		/**
+		 * Filters the post object for the widget.
+		 *
+		 * @since TBD
+		 *
+		 * @param WP_Post         $post The post object.
+		 * @param Abstract_Widget $this The widget instance.
+		 *
+		 * @return WP_Post
+		 */
+		return apply_filters( $this->get_slug_prefix() . 'post', $post, $this );
 	}
 
 	/**
@@ -482,11 +574,16 @@ abstract class Abstract_Widget extends Widget_Base {
 			 */
 			$template_engine_class = $this->get_template_engine_class();
 			$this->template        = $template_engine_class::with_widget( $this );
+			$this->template->set_post( $this->get_post() );
 
 			do_action( 'tec_elementor_widget_set_template', $this );
 		}
 
 		return $this->template;
+	}
+
+	public function get_template_prefix( $file = '' ): string {
+		return trailingslashit( static::$template_prefix ) . ltrim( $file, '/' );
 	}
 
 	/**
@@ -501,8 +598,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 * @param int       $accepted_args The number of arguments the filter accepts.
 	 */
 	protected function set_template_filter( string $on, ?callable $callback = null, int $priority = 10, int $accepted_args = 1 ): void {
-		$template_file = $this->trim_slug();
-		$hook_name     = trailingslashit( static::$template_prefix ) . $template_file;
+		$hook_name     = $this->get_template_prefix( $this->trim_slug() );
 
 		$add    = "tribe_template_before_include:{$hook_name}";
 		$remove = "tribe_template_after_include:{$hook_name}";
@@ -589,7 +685,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		 *
 		 * @return array
 		 */
-		$args = (array) apply_filters( static::$slug_prefix . 'template_data', $args, false, $this );
+		$args = (array) apply_filters( $this->get_slug_prefix() . 'template_data', $args, false, $this );
 
 		/**
 		 * Filters the template data for a specific (by $slug) Elementor widget templates.
@@ -600,7 +696,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		 *
 		 * @return array
 		 */
-		$args = (array) apply_filters( static::$slug_prefix . "{$slug}_template_data", $args, false, $this );
+		$args = (array) apply_filters( $this->get_slug_prefix() . "{$slug}_template_data", $args, false, $this );
 
 		// Add the widget to the data array.
 		$args['widget'] = $this;
@@ -609,7 +705,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	}
 
 	/**
-	 * Get the asset source for the widget.
+	 * Get the asset source (plugin) for the widget.
 	 *
 	 * @since TBD
 	 *
@@ -618,11 +714,86 @@ abstract class Abstract_Widget extends Widget_Base {
 	abstract protected function get_asset_source();
 
 	/**
+	 * Get the asset base path for the widget.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_asset_base_path(): string {
+		/**
+		 * Filters the asset base path for all Elementor widgets.
+		 *
+		 * @since TBD
+		 *
+		 * @param string          $path The asset base path.
+		 * @param Abstract_Widget $this The widget instance.
+		 *
+		 * @return string
+		 */
+		return (string) apply_filters( $this->get_slug_prefix() . 'asset_base_path', static::$asset_base_path, $this );
+	}
+
+	/**
+	 * Get the asset file name for the widget.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $suffix The file suffix. 'js' for a javascript or 'css' for a stylesheet asset. Default is 'css'.
+	 *
+	 * @return string
+	 */
+	public function get_asset_file_name( $suffix = 'css' ) {
+		$file = static::get_asset_base_path() . static::trim_slug();
+		$file .= ( 'js' === $suffix ) ? '.js' : '.css';
+
+		/**
+		 * Filters the asset file name for all Elementor widgets.
+		 *
+		 * @since TBD
+		 *
+		 * @param string          $file The asset file name.
+		 * @param string          $suffix The file suffix. Should be 'js' or 'css'.
+		 * @param Abstract_Widget $this The widget instance.
+		 *
+		 * @return string
+		 */
+		return (string) apply_filters( $this->get_slug_prefix() . 'asset_file_name', $file, $suffix, $this );
+	}
+
+	/**
+	 * Get the asset handle for the widget.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $suffix The file suffix. 'js' for a javascript or 'css' for a stylesheet asset. Default is 'css'.
+	 *
+	 * @return string
+	 */
+	public function get_asset_handle( $suffix = 'css' ) {
+		$handle = static::get_asset_prefix() . static::trim_slug();
+		$handle .= ( 'js' === $suffix ) ? '-scripts' : '-styles';
+
+		/**
+		 * Filters the asset handle for all Elementor widgets.
+		 *
+		 * @since TBD
+		 *
+		 * @param string          $handle The asset handle.
+		 * @param string          $suffix The file suffix. Should be 'js' or 'css'.
+		 * @param Abstract_Widget $this The widget instance.
+		 *
+		 * @return string
+		 */
+		return (string) apply_filters( $this->get_slug_prefix() . 'asset_handle', $handle, $suffix, $this );
+	}
+
+	/**
 	 * Register the styles for the widget.
 	 *
 	 * @since TBD
 	 */
-	public function register_style(): void {
+	public function register_assets(): void {
 		if ( ! static::$has_styles ) {
 			return;
 		}
@@ -631,18 +802,30 @@ abstract class Abstract_Widget extends Widget_Base {
 			return;
 		}
 
-		$slug   = static::trim_slug();
-		$source = $this->get_asset_source();
-
 		// Register the styles for the widget.
-		tribe_asset(
-			tribe( $source ),
-			static::$asset_prefix . $slug . '-styles',
-			static::$asset_base_path . $slug . '.css',
-			[],
-			null,
-			[ 'groups' => [ static::$group_key ] ]
-		);
+		if ( static::$has_styles ) {
+			tribe_asset(
+				tribe( $this->get_asset_source() ),
+				$this->get_asset_handle(),
+				$this->get_asset_file_name(),
+				[],
+				null,
+				[ 'groups' => [ static::$group_key ] ]
+			);
+		}
+
+		// Register the scripts for the widget.
+		if ( static::$has_scripts ) {
+			tribe_asset(
+				tribe( $this->get_asset_source() ),
+				$this->get_asset_handle( 'js' ),
+				$this->get_asset_file_name( 'js' ),
+				[],
+				null,
+				[ 'groups' => [ static::$group_key ] ]
+			);
+		}
+
 	}
 
 	/**
@@ -655,9 +838,20 @@ abstract class Abstract_Widget extends Widget_Base {
 			return;
 		}
 
-		$slug = static::trim_slug();
+		tribe_asset_enqueue( static::get_asset_handle() );
+	}
 
-		tribe_asset_enqueue( static::$asset_prefix . $slug . '-styles' );
+	/**
+	 * Enqueue the styles for the widget.
+	 *
+	 * @since TBD
+	 */
+	public function enqueue_script(): void {
+		if ( ! static::$has_scripts ) {
+			return;
+		}
+
+		tribe_asset_enqueue( static::get_asset_handle( 'js' ) );
 	}
 
 	/**
@@ -668,7 +862,12 @@ abstract class Abstract_Widget extends Widget_Base {
 	 * @return string
 	 */
 	public function get_output(): string {
-		$output = $this->get_template()->template( 'widgets/base', $this->get_template_args(), false );
+		$template = $this->get_template();
+		$output = $template->template( 'widgets/base', $this->get_template_args(), false );
+
+		if ( ! $template->has_post() && ! $template->get_widget()->should_show_mock_data() ) {
+			return '';
+		}
 
 		$this->unset_template_filters();
 
