@@ -88,7 +88,7 @@ class Tribe__Assets {
 	 *
 	 * @deprecated TBD
 	 */
-	public function filter_print_before_after_script( $tag, $handle ): string {
+	public function filter_print_before_after_script( $tag, $handle ): string { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		_deprecated_function( __METHOD__, 'TBD', '' );
 		return '';
 	}
@@ -106,7 +106,7 @@ class Tribe__Assets {
 	 *
 	 * @deprecated TBD
 	 */
-	public function filter_add_localization_data( $tag, $handle ) {
+	public function filter_add_localization_data( $tag, $handle ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		_deprecated_function( __METHOD__, 'TBD', '' );
 		return '';
 	}
@@ -123,7 +123,7 @@ class Tribe__Assets {
 	 *
 	 * @deprecated TBD
 	 */
-	public function filter_tag_async_defer( $tag, $handle ) {
+	public function filter_tag_async_defer( $tag, $handle ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		_deprecated_function( __METHOD__, 'TBD', '' );
 		return '';
 	}
@@ -140,7 +140,7 @@ class Tribe__Assets {
 	 *
 	 * @deprecated TBD
 	 */
-	public function filter_modify_to_module( $tag, $handle ) {
+	public function filter_modify_to_module( $tag, $handle ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		_deprecated_function( __METHOD__, 'TBD', '' );
 		return '';
 	}
@@ -155,7 +155,7 @@ class Tribe__Assets {
 	 *
 	 * @deprecated TBD
 	 */
-	public function register_in_wp( $assets = null ) {
+	public function register_in_wp( $assets = null ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		_deprecated_function( __METHOD__, 'TBD', '' );
 	}
 
@@ -185,7 +185,7 @@ class Tribe__Assets {
 	 * @since 4.3
 	 * @since TBD Refactored to use the stellarwp/assets library.
 	 *
-	 * @param string|array $forcibly_enqueue
+	 * @param string|array $forcibly_enqueue Whether to force enqueueing of the assets or not.
 	 */
 	public function enqueue( $forcibly_enqueue = null ) {
 		Assets::instance()->enqueue( $forcibly_enqueue );
@@ -352,6 +352,7 @@ class Tribe__Assets {
 		$root_path = str_replace(
 			dirname( WP_CONTENT_DIR ) ?: WP_CONTENT_DIR,
 			'',
+			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath )
 		);
 
@@ -408,7 +409,7 @@ class Tribe__Assets {
 							}
 
 							return false;
-						} 
+						}
 					);
 				} else {
 					// Build a Closure condition that will return true if all of the callables return true.
@@ -421,7 +422,7 @@ class Tribe__Assets {
 							}
 
 							return true;
-						} 
+						}
 					);
 				}
 			}
@@ -509,7 +510,7 @@ class Tribe__Assets {
 		}
 
 		if ( ! empty( $arguments['print'] ) ) {
-			$asset->print( true );
+			$asset->print();
 		}
 
 		$asset->register();

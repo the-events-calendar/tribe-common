@@ -482,12 +482,12 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 	 * Receives a float and formats it with a currency symbol
 	 *
 	 * @category Cost
-	 * @param string      $cost pricing to format
-	 * @param null|int    $post_id
-	 * @param null|string $currency_symbol
-	 * @param null|bool   $reverse_position
+	 * @param string      $cost pricing to format.
+	 * @param null|int    $post_id Post ID.
+	 * @param null|string $currency_symbol Currency symbol.
+	 * @param null|bool   $reverse_position Reverse position.
 	 *
-	 * @return string
+	 * @return string Formatted currency.
 	 */
 	function tribe_format_currency( $cost, $post_id = null, $currency_symbol = null, $reverse_position = null ) {
 		$post_id = Tribe__Main::post_id_helper( $post_id );
@@ -636,10 +636,10 @@ function tribe_error( $indexes, $context = [], $sprintf = [] ) {
 /**
  * Register a new error based on a Namespace
  *
- * @param  string|array $indexes  A list of the namespaces and last item should be the error name
- * @param  string       $message  What is going to be the message associate with this indexes
+ * @param  string|array $indexes  A list of the namespaces and last item should be the error name.
+ * @param  string       $message  What is going to be the message associate with this indexes.
  *
- * @return boolean
+ * @return boolean Whether the error was registered or not.
  */
 function tribe_register_error( $indexes, $message ) {
 	return Tribe__Error::instance()->register( $indexes, $message );
@@ -652,7 +652,7 @@ function tribe_register_error( $indexes, $message ) {
  * @since TBD Replaced the function internals with calls to the stellarwp/assets library.
  *
  * @param object|string          $origin The origin of the asset, either a class or a string.
- * @param string                 $handle The handle of the asset.
+ * @param string                 $slug The handle of the asset.
  * @param string                 $file The file of the asset.
  * @param array<string>|callable $deps The dependencies of the asset; either an array of dependencies or a callable
  *                                      that returns an array of dependencies.
@@ -722,19 +722,19 @@ function tribe_asset_enqueue_group( $group ) {
  * @since 4.3
  * @since 4.12.10 Added support for overriding arguments for individual assets.
  *
- * @param  object $origin     The main Object for the plugin you are enqueueing the script/style for
+ * @param  object $origin     The main Object for the plugin you are enqueueing the script/style for.
  * @param  array  $assets     {
  *  Indexed array, don't use any associative key.
  *  E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ]
  *
- *    @type  string   $slug       Slug to save the asset
- *    @type  string   $file       Which file will be loaded, either CSS or JS
+ *    @type  string   $slug       Slug to save the asset.
+ *    @type  string   $file       Which file will be loaded, either CSS or JS.
  *    @type  array    $deps       (optional) Dependencies
  * }
- * @param  string $action     A WordPress hook that will automatically enqueue this asset once fired
- * @param  array  $arguments  Look at `Tribe__Assets::register()` for more info
+ * @param  string $action     A WordPress hook that will automatically enqueue this asset once fired.
+ * @param  array  $arguments  Look at `Tribe__Assets::register()` for more info.
  *
- * @return array             Which Assets were registered
+ * @return array<Asset|bool>      Which Assets were registered.
  */
 function tribe_assets( $origin, $assets, $action = null, $arguments = [] ) {
 	$registered = [];
