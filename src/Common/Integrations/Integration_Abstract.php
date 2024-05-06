@@ -8,6 +8,7 @@
  */
 
 namespace TEC\Common\Integrations;
+
 use TEC\Common\Contracts\Service_Provider;
 
 /**

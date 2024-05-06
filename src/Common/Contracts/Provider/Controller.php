@@ -11,7 +11,6 @@
 namespace TEC\Common\Contracts\Provider;
 
 use TEC\Common\Contracts\Service_Provider;
-use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
 use Tribe__Log as Log;
 
 /**
@@ -21,7 +20,6 @@ use Tribe__Log as Log;
  *
  * @package TEC\Common\Provider;
  *
- * @property ContainerInterface $container
  */
 abstract class Controller extends Service_Provider {
 	/**
