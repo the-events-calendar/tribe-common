@@ -758,7 +758,6 @@ function tribe_assets( $origin, $assets, $action = null, $arguments = [] ) {
 		$asset_arguments = ! empty( $asset[4] ) ? array_merge( $arguments, $asset[4] ) : $arguments;
 
 		$registered[] = Tribe__Assets::instance()->register( $origin, $slug, $file, $deps, $asset_action, $asset_arguments );
-
 	}
 
 	return $registered;
