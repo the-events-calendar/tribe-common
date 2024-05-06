@@ -26,13 +26,13 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 			'tribe_currency_symbol',
 			function () {
 				return 'Q';
-			} 
+			}
 		);
 		add_filter(
 			'tribe_reverse_currency_position',
 			function () {
 				return false;
-			} 
+			}
 		);
 
 		$this->assertEquals( 'Q12', tribe_format_currency( 12, $post_id ) );
@@ -50,7 +50,7 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 			'tribe_asset_version',
 			static function () {
 				return '1.0.0';
-			} 
+			}
 		);
 		// Register a group of assets that would never be printed.
 		tribe_assets(
@@ -71,7 +71,7 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 		$output = tribe_asset_print_group( 'test-group', false );
 
 		$expected_tmpl = <<< TAG
-<script src="{{ common_url }}/js/test-script-1.js?ver=1.0.0" id="tribe-test-js-js"></script>
+<script src='{{ common_url }}/js/test-script-1.js?ver=1.0.0' id='tribe-test-js-js'></script>
 <link rel='stylesheet' id='tribe-test-css-css' href='{{ common_url }}/css/test-style-1.css?ver=1.0.0' media='all' />
 
 TAG;
