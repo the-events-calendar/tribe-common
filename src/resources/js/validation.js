@@ -159,7 +159,7 @@ tribe.validation = {};
 			}
 
 			var format = formats[ formatKey ].toUpperCase();
-			value = moment( value, format ).format( 'X' );
+			value = dayjs( value, format ).valueOf();
 
 			return value;
 		},
