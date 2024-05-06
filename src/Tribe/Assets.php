@@ -38,7 +38,7 @@ class Tribe__Assets {
 	 * @return void
 	 */
 	public function hook(): void {
-		add_filter( "stellarwp/assets/tec/enqueue", [ $this, 'proxy_enqueue_filter' ], 10, 2 );
+		add_filter( 'stellarwp/assets/tec/enqueue', [ $this, 'proxy_enqueue_filter' ], 10, 2 );
 	}
 
 	/**
@@ -46,7 +46,7 @@ class Tribe__Assets {
 	 *
 	 * @since TBD
 	 *
-	 * @param bool $enqueue If we should enqueue or not a given asset.
+	 * @param bool  $enqueue If we should enqueue or not a given asset.
 	 * @param Asset $asset Which asset we are dealing with.
 	 *
 	 * @return mixed|null
@@ -88,7 +88,7 @@ class Tribe__Assets {
 	 *
 	 * @deprecated TBD
 	 */
-	public function filter_print_before_after_script( $tag, $handle ) : string {
+	public function filter_print_before_after_script( $tag, $handle ): string {
 		_deprecated_function( __METHOD__, 'TBD', '' );
 		return '';
 	}
@@ -399,26 +399,30 @@ class Tribe__Assets {
 
 				if ( $operator === 'OR' ) {
 					// Build a Closure condition that will return true if any of the callables return true.
-					$asset->set_condition( function () use ( $conditional_callables ) {
-						foreach ( $conditional_callables as $condition ) {
-							if ( $condition() ) {
-								return true;
+					$asset->set_condition(
+						function () use ( $conditional_callables ) {
+							foreach ( $conditional_callables as $condition ) {
+								if ( $condition() ) {
+									return true;
+								}
 							}
-						}
 
-						return false;
-					} );
+							return false;
+						} 
+					);
 				} else {
 					// Build a Closure condition that will return true if all of the callables return true.
-					$asset->set_condition( function () use ( $conditional_callables ) {
-						foreach ( $conditional_callables as $condition ) {
-							if ( ! $condition() ) {
-								return false;
+					$asset->set_condition(
+						function () use ( $conditional_callables ) {
+							foreach ( $conditional_callables as $condition ) {
+								if ( ! $condition() ) {
+									return false;
+								}
 							}
-						}
 
-						return true;
-					} );
+							return true;
+						} 
+					);
 				}
 			}
 		}
