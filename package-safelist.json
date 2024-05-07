@@ -35,7 +35,7 @@
   "vendor/jquery/**/*",
   "vendor/ky/*",
   "vendor/momentjs/*.min.js",
-  "vendor/dayjs/*.min.js",
+  "vendor/dayjs/**/*.min.js",
   "vendor/monolog/monolog/src/*.php",
   "vendor/monolog/monolog/src/**/*.php",
   "vendor/psr/log/Psr/Log/*.php",
