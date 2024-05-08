@@ -1,0 +1,51 @@
+/*
+ * Event Automator Grid CSS
+ * -------------------------------------------------------------
+ */
+.tec-automator-grid {
+	background-color: var(--tec-color-background);
+	display: grid;
+	grid-gap: var(--tec-spacer-2);
+	grid-template-columns: 3fr 2fr 1fr 2fr 1fr;
+	margin: auto;
+	max-width: 1000px;
+
+	&:nth-child(even) {
+		background-color: var(--tec-color-background-secondary);
+	}
+
+	&.tec-automator-endpoint-dashboard-grid {
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+	}
+}
+
+.tec-automator-grid-header {
+	background-color: var(--tec-color-background);
+	border: 1px solid var(--tec-color-border-default);
+	border-bottom: none;
+}
+
+.tec-automator-grid-row {
+	border: 1px solid var(--tec-color-border-default);
+	border-bottom: none;
+
+	&:last-child {
+		border-bottom: 1px solid var(--tec-color-border-default);
+	}
+}
+
+.tec-automator-grid-item {
+	padding: var(--tec-spacer-2);
+
+	&.disabled {
+		opacity: var(--tec-opacity-icon-hover);
+
+		.tec-automator-settings-details__field-wrap.tribe-field-wrap {
+			text-decoration: line-through;
+		}
+	}
+}
+
+.tec-automator-grid-full-width {
+	grid-column: 1 / -1;
+}

@@ -1,0 +1,175 @@
+/*
+ * Event Automator Settings CSS
+ * -------------------------------------------------------------
+ * This file includes styles for the Zapier integration.
+ */
+.tribe-settings-form {
+
+	.tec-automator-dashboard {
+		.tec-settings-power-automate-application__description,
+		.tec-settings-zapier-application__description {
+			margin: 0 0 var(--tec-spacer-3);
+			padding-left: var(--tec-spacer-2);
+		}
+	}
+
+	.tec-automator-endpoint-dashboard,
+	.tec-automator-settings {
+		width: 100%;
+
+		.notice,
+		div.error,
+		div.updated {
+			padding: var(--tec-spacer-1) var(--tec-spacer-2);
+		}
+
+		.tec-settings-power-automate-application__description,
+		.tec-settings-zapier-application__description {
+			margin: 0 0 var(--tec-spacer-3);
+			padding-left: var(--tec-spacer-2);
+		}
+
+		.tec-automator-settings-items__wrap {
+			margin: var(--tec-spacer-2) auto var(--tec-spacer-3);
+		}
+
+		fieldset {
+			padding: 0;
+		}
+
+		.tec-automator-api-fields {
+			margin-bottom: var(--tec-spacer-3);
+			padding-left: var(--tec-spacer-2);
+			width: 100%;
+
+			.tickets_page_tec-tickets-settings & {
+				margin-bottom: var(--tec-spacer-7);
+			}
+		}
+
+		label,
+		legend {
+			display: block;
+			font-weight: 700;
+			margin: 0;
+		}
+
+		legend {
+			float: none;
+		}
+
+		.tec-automator-settings-details__read-only-field {
+
+			.tec-automator-settings-details__field-wrap.tribe-field-wrap {
+				line-height: var(--tec-spacer-7);
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		}
+
+		.tec-settings-connection-endpoint-dashboard-details__last-access-wrap,
+		.tec-settings-zapier-details-api-key__last-access-wrap {
+
+			.tec-automator-settings-details__field-wrap.tribe-field-wrap {
+				line-height: var(--tec-spacer-3);
+				margin-top: var(--tec-spacer-1);
+			}
+		}
+
+		.tec-settings-connection-endpoint-dashboard-details__queue-wrap {
+			text-align: center;
+		}
+
+		.tec-settings-connection-endpoint-dashboard-details-actions__missing-dependency-wrap {
+			line-height: var(--tec-spacer-7);
+		}
+
+		.tec-settings-connection-endpoint-dashboard-details-actions__clear,
+		.tec-settings-connection-endpoint-dashboard-details-actions__enable,
+		.tec-settings-connection-endpoint-dashboard-details-actions__disable,
+		.tec-automator-settings-details-action__revoke {
+			background: transparent;
+			border: 0;
+			color: #2271b1;
+			cursor: pointer;
+			line-height: var(--tec-spacer-7);
+			padding: 0;
+
+			&:hover {
+				color: var(--tec-color-accent-primary-hover);
+			}
+		}
+
+		.consumer-created {
+			background: var(--tec-color-background);
+			border: 1px solid var(--tec-color-border-default);
+			border-left-color: var(--tec-color-accent-primary);
+			border-left-width: 4px;
+			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+			font-weight: var(--tec-font-weight-bold);
+			margin: var(--tec-spacer-2) 0 var(--tec-spacer-2) var(--tec-spacer-1);
+			padding: var(--tec-spacer-2) var(--tec-spacer-3);
+		}
+
+		.tec-automator-settings__add-api-key-button .dashicons {
+			margin-top: calc(var(--tec-spacer-0) + 1px);
+		}
+
+		.tec-automator-api-key__wrap {
+			background: var(--tec-color-background);
+			border: 1px solid var(--tec-color-border-default);
+			margin: var(--tec-spacer-1) var(--tec-spacer-3) var(--tec-spacer-3);
+			padding: var(--tec-spacer-2);
+		}
+
+		.tec-automator-settings-api-key-title {
+			font-weight: 700;
+			margin: 0 0 var(--tec-spacer-3);
+		}
+
+		.tec-settings-zapier-details-api-key__message-wrap {
+			border-bottom: 1px solid var(--tec-color-border-default);
+			margin: 0 0 var(--tec-spacer-3);
+			padding: 0 0 var(--tec-spacer-3);
+		}
+
+		.tec-settings-zapier-details-api-key__consumer-id-wrap,
+		.tec-settings-zapier-details-api-key__consumer-secret-wrap {
+			display: inline-block;
+			width: 50%;
+		}
+
+		.tec-automator-settings__copy-btn {
+			background: transparent;
+			border: 0;
+			color: #2271b1;
+			cursor: pointer;
+			padding: 0;
+
+			&:hover {
+				color: var(--tec-color-accent-primary-hover);
+			}
+		}
+	}
+
+	.tec-automator-endpoint-dashboard {
+		.tec-settings-power-automate-application__description,
+		.tec-settings-zapier-application__description {
+			padding-left: 0;
+		}
+	}
+
+	.tec-settings-power-automate-connection-details__access-token-wrap {
+		border-top: 1px solid var(--tec-color-border-default);
+		margin: var(--tec-spacer-3) 0 0;
+		padding: var(--tec-spacer-3) 0 0;
+
+		.tec-automator-settings-details__field-wrap {
+			line-height: var(--tec-spacer-4);
+			margin: var(--tec-spacer-1) 0;
+			max-width: 100%;
+			overflow: visible;
+			word-wrap: anywhere;
+		}
+	}
+}

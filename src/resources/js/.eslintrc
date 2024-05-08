@@ -1,27 +1,31 @@
 {
-  "root": true,
-  "extends": "../../../node_modules/@the-events-calendar/product-taskmaster/config/eslint.es5.js",
-  "env": {
-    "browser": true,
-    "es6": true
-  },
-  "rules": {
-    "es5/no-block-scoping": 0
-  },
-  "globals": {
-    "_": true,
-    "ajaxurl": true,
-    "Clipboard": true,
-	"ClipboardJS": true,
-    "introJs": true,
-    "jQuery": true,
-    "moment": true,
-    "TEC": true,
-    "tribe": true,
-    "tribe_l10n_datatables": true,
-    "tribe_system_info": true,
-    "TribeOnboarding": true,
-    "TribeOnboardingHints": true,
-    "TribeOnboardingTour": true
-  }
+	"root": true,
+	"extends": "../../../node_modules/@the-events-calendar/product-taskmaster/config/eslint.es5.js",
+	"env": {
+		"browser": true,
+		"es6": true
+	},
+	"rules": {
+		"es5/no-block-scoping": 0,
+		"es5/no-template-literals": 0,
+		"es5/no-arrow-functions": 0
+	},
+	"globals": {
+		"_": true,
+		"ajaxurl": true,
+		"Clipboard": true,
+		"ClipboardJS": true,
+		"introJs": true,
+		"jQuery": true,
+		"moment": true,
+		"TEC": true,
+		"tribe": true,
+		"tribe_l10n_datatables": true,
+		"tribe_system_info": true,
+		"TribeOnboarding": true,
+		"TribeOnboardingHints": true,
+		"TribeOnboardingTour": true,
+		"tec_automator": true,
+		"tribe_dropdowns": true
+	}
 }
