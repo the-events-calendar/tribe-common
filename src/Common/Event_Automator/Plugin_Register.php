@@ -1,0 +1,176 @@
+<?php
+/**
+ * Handles the Event Automator plugin dependency manifest registration.
+ *
+ * @since   1.0.0
+ *
+ * @package TEC\Common\Event_Automator
+ */
+
+namespace TEC\Common\Event_Automator;
+
+use Tribe__Abstract_Plugin_Register as Abstract_Plugin_Register;
+
+/**
+ * Class Plugin_Register.
+ *
+ * @since   1.0.0
+ *
+ * @package TEC\Common\Event_Automator
+ *
+ * @see     Tribe__Abstract_Plugin_Register For the plugin dependency manifest registration.
+ */
+class Plugin_Register extends Abstract_Plugin_Register {
+	/**
+	 * The version of the plugin.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @var string
+	 */
+	public const VERSION = '1.7.0';
+
+	/**
+	 * Configures the base_dir property which is the path to the plugin bootstrap file.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $file Which is the path to the plugin bootstrap file.
+	 */
+	public function set_base_dir( string $file ): void {
+		$this->base_dir = $file;
+	}
+
+	/**
+	 * Gets the previously configured base_dir property.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return string
+	 */
+	public function get_base_dir(): string {
+		return $this->base_dir;
+	}
+
+	/**
+	 * Gets the main class of the Plugin, stored on the main_class property.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return string
+	 */
+	public function get_plugin_class(): string {
+		return $this->main_class;
+	}
+
+	/**
+	 * File path to the main class of the plugin.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string The path to the main class of the plugin.
+	 */
+	protected $base_dir;
+
+	/**
+	 * Alias to the VERSION constant.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string The version of the plugin.
+	 */
+	protected $version = self::VERSION;
+
+	/**
+	 * Fully qualified name of the main class of the plugin.
+	 * Do not use the Plugin::class constant here, we need this value without loading the Plugin class.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string The main class of the plugin.
+	 */
+	protected $main_class = 'TEC\Common\Event_Automator\Plugin';
+
+	/**
+	 * An array of dependencies for the plugin.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var array<string,mixed>
+	 */
+	protected $dependencies = [
+		/*
+		 * READ THIS: Because Event Automator requires EITHER ET or TEC, we have to handle them
+		 *            in a weird way. So, ET and TEC version numbers are defined as separate class properties.
+		 */
+		'parent-dependencies' => [],
+	];
+
+	/**
+	 * Required version of ET.
+	 *
+	 * This is separated out from $dependencies because Event Automator is an either/or dependency on TEC and ET.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	protected $required_tec_tickets = '5.6.1';
+
+	/**
+	 * Required version of TEC.
+	 *
+	 * This is separated out from $dependencies because Event Automator is an either/or dependency on TEC and ET.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	protected $required_tec_events = '6.1.2';
+
+	/**
+	 * Constructor method.
+	 *
+	 * @since 1.0.0
+	 */
+	public function __construct() {
+		add_filter( 'tribe_register_' . $this->main_class . '_plugin_dependencies', [ $this, 'add_et_and_tec_as_loose_dependency' ] );
+	}
+
+	/**
+	 * Add ET and/or TEC as loose parent-dependency via filter instead of class property to avoid grammar errors in the notice.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $dependencies An array of dependencies for the plugins. These can include parent, add-on and other dependencies.
+	 *
+	 * @return array
+	 */
+	public function add_et_and_tec_as_loose_dependency( $dependencies ) {
+		$low_tec_tickets = null;
+		$low_tec_events  = null;
+
+		if ( ! defined( 'EVENT_TICKETS_DIR' ) && ! defined( 'TRIBE_EVENTS_FILE' ) ) {
+			$low_tec_tickets = true;
+			$low_tec_events  = true;
+		}
+
+		if ( defined( 'EVENT_TICKETS_DIR' ) ) {
+			$low_tec_tickets = ( -1 === version_compare( \Tribe__Tickets__Main::VERSION, $this->required_tec_tickets ) );
+		}
+
+		if ( defined( 'TRIBE_EVENTS_FILE' ) ) {
+			$low_tec_events = ( -1 === version_compare( \Tribe__Events__Main::VERSION, $this->required_tec_events ) );
+		}
+
+		if ( $low_tec_tickets ) {
+			$dependencies['parent-dependencies']['Tribe__Tickets__Main'] = $this->required_tec_tickets;
+		}
+
+		if ( $low_tec_events ) {
+			$dependencies['parent-dependencies']['Tribe__Events__Main'] = $this->required_tec_events;
+		}
+
+		return $dependencies;
+	}
+}
