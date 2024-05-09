@@ -4,19 +4,19 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Traits;
+ * @package TEC\Event_Automator\Traits;
  */
 
-namespace TEC\Common\Event_Automator\Traits;
+namespace TEC\Event_Automator\Traits;
 
-use TEC\Common\Event_Automator\Plugin;
+use TEC\Event_Automator\Plugin;
 
 /**
  * Trait With_Nonce_Routes
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Traits;
+ * @package TEC\Event_Automator\Traits;
  */
 trait With_Nonce_Routes {
 

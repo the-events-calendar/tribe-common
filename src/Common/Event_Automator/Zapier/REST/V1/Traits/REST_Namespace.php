@@ -4,17 +4,17 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier\REST\V1\Traits
+ * @package TEC\Event_Automator\Zapier\REST\V1\Traits
  */
 
-namespace TEC\Common\Event_Automator\Zapier\REST\V1\Traits;
+namespace TEC\Event_Automator\Zapier\REST\V1\Traits;
 
 /**
  * Abstract REST Endpoint Zapier
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier\REST\V1\Traits
+ * @package TEC\Event_Automator\Zapier\REST\V1\Traits
  */
 trait REST_Namespace {
 

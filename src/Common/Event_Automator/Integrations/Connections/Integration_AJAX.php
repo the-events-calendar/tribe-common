@@ -4,20 +4,20 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\Connections
+ * @package TEC\Event_Automator\Integrations\Connections
  */
 
-namespace TEC\Common\Event_Automator\Integrations\Connections;
+namespace TEC\Event_Automator\Integrations\Connections;
 
-use TEC\Common\Event_Automator\Traits\Last_Access;
-use TEC\Common\Event_Automator\Traits\With_AJAX;
+use TEC\Event_Automator\Traits\Last_Access;
+use TEC\Event_Automator\Traits\With_AJAX;
 
 /**
  * Class Integration_AJAX
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\Connections
+ * @package TEC\Event_Automator\Integrations\Connections
  */
 abstract class Integration_AJAX extends Integration_Connections {
 	use With_AJAX;

@@ -4,14 +4,14 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\REST\V1\Endpoints
+ * @package TEC\Event_Automator\Integrations\REST\V1\Endpoints
  */
 
-namespace TEC\Common\Event_Automator\Integrations\REST\V1\Endpoints\Queue;
+namespace TEC\Event_Automator\Integrations\REST\V1\Endpoints\Queue;
 
-use TEC\Common\Event_Automator\Integrations\REST\V1\Interfaces\REST_Endpoint_Interface;
-use TEC\Common\Event_Automator\Integrations\Trigger_Queue\Integration_Trigger_Queue;
-use TEC\Common\Event_Automator\Traits\Last_Access;
+use TEC\Event_Automator\Integrations\REST\V1\Interfaces\REST_Endpoint_Interface;
+use TEC\Event_Automator\Integrations\Trigger_Queue\Integration_Trigger_Queue;
+use TEC\Event_Automator\Traits\Last_Access;
 use Tribe__Documentation__Swagger__Provider_Interface as Swagger_Provider_Interface;
 use Tribe__REST__Endpoints__READ_Endpoint_Interface as READ_Endpoint_Interface;
 use Tribe__Utils__Array as Arr;
@@ -23,7 +23,7 @@ use WP_REST_Request;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integration\REST\V1\Endpoints
+ * @package TEC\Event_Automator\Integration\REST\V1\Endpoints
  */
 abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swagger_Provider_Interface, REST_Endpoint_Interface {
 	use Last_Access;

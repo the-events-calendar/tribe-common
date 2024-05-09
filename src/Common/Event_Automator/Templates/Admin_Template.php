@@ -4,12 +4,12 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Templates
+ * @package TEC\Event_Automator\Templates
  */
 
-namespace TEC\Common\Event_Automator\Templates;
+namespace TEC\Event_Automator\Templates;
 
-use TEC\Common\Event_Automator\Plugin;
+use TEC\Event_Automator\Plugin;
 use Tribe__Main;
 use Tribe__Template;
 
@@ -18,7 +18,7 @@ use Tribe__Template;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Templates
+ * @package TEC\Event_Automator\Templates
  */
 class Admin_Template extends Tribe__Template {
 

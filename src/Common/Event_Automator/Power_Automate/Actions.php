@@ -4,17 +4,17 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Power_Automate
+ * @package TEC\Event_Automator\Power_Automate
  */
 
-namespace TEC\Common\Event_Automator\Power_Automate;
+namespace TEC\Event_Automator\Power_Automate;
 
 /**
  * Class Actions
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Power_Automate
+ * @package TEC\Event_Automator\Power_Automate
  */
 class Actions {
 

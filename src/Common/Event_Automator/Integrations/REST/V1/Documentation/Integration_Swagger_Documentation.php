@@ -4,10 +4,10 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\REST\V1\Documentation
+ * @package TEC\Event_Automator\Integrations\REST\V1\Documentation
  */
 
-namespace TEC\Common\Event_Automator\Integrations\REST\V1\Documentation;
+namespace TEC\Event_Automator\Integrations\REST\V1\Documentation;
 
 use Tribe__REST__Endpoints__READ_Endpoint_Interface;
 use Tribe__Documentation__Swagger__Provider_Interface;
@@ -21,7 +21,7 @@ use WP_Error;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\REST\V1\Documentation
+ * @package TEC\Event_Automator\Integrations\REST\V1\Documentation
  */
 abstract class Integration_Swagger_Documentation
 	implements Tribe__REST__Endpoints__READ_Endpoint_Interface,

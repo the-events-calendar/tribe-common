@@ -3,32 +3,32 @@
  * The Zapier service provider.
  *
  * @since TBD Migrated to Common from Event Automator
- * @package TEC\Common\Event_Automator\Zapier
+ * @package TEC\Event_Automator\Zapier
  */
 
-namespace TEC\Common\Event_Automator\Zapier;
+namespace TEC\Event_Automator\Zapier;
 
 use EDD_Payment;
 use TEC\Common\Contracts\Service_Provider;
-use TEC\Common\Event_Automator\Traits\With_Nonce_Routes;
-use TEC\Common\Event_Automator\Zapier\Admin\Dashboard;
-use TEC\Common\Event_Automator\Zapier\Admin\Endpoints_Manager;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Documentation\Swagger_Documentation;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints\Actions\Create_Events;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints\Actions\Update_Events;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints\Actions\Find_Attendees;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints\Actions\Find_Events;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints\Actions\Find_Tickets;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints\Attendees;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints\Authorize;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints\Canceled_Events;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints\Checkin;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints\New_Events;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints\Orders;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints\Refunded_Orders;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints\Updated_Attendees;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints\Updated_Events;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Utilities\Action_Endpoints as Action_Endpoints_Utilities;
+use TEC\Event_Automator\Traits\With_Nonce_Routes;
+use TEC\Event_Automator\Zapier\Admin\Dashboard;
+use TEC\Event_Automator\Zapier\Admin\Endpoints_Manager;
+use TEC\Event_Automator\Zapier\REST\V1\Documentation\Swagger_Documentation;
+use TEC\Event_Automator\Zapier\REST\V1\Endpoints\Actions\Create_Events;
+use TEC\Event_Automator\Zapier\REST\V1\Endpoints\Actions\Update_Events;
+use TEC\Event_Automator\Zapier\REST\V1\Endpoints\Actions\Find_Attendees;
+use TEC\Event_Automator\Zapier\REST\V1\Endpoints\Actions\Find_Events;
+use TEC\Event_Automator\Zapier\REST\V1\Endpoints\Actions\Find_Tickets;
+use TEC\Event_Automator\Zapier\REST\V1\Endpoints\Attendees;
+use TEC\Event_Automator\Zapier\REST\V1\Endpoints\Authorize;
+use TEC\Event_Automator\Zapier\REST\V1\Endpoints\Canceled_Events;
+use TEC\Event_Automator\Zapier\REST\V1\Endpoints\Checkin;
+use TEC\Event_Automator\Zapier\REST\V1\Endpoints\New_Events;
+use TEC\Event_Automator\Zapier\REST\V1\Endpoints\Orders;
+use TEC\Event_Automator\Zapier\REST\V1\Endpoints\Refunded_Orders;
+use TEC\Event_Automator\Zapier\REST\V1\Endpoints\Updated_Attendees;
+use TEC\Event_Automator\Zapier\REST\V1\Endpoints\Updated_Events;
+use TEC\Event_Automator\Zapier\REST\V1\Utilities\Action_Endpoints as Action_Endpoints_Utilities;
 use Tribe__Tickets__Ticket_Object as Ticket_Object;
 use WC_Order;
 use WP_Post;
@@ -38,7 +38,7 @@ use WP_Post;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier
+ * @package TEC\Event_Automator\Zapier
  */
 class Zapier_Provider extends Service_Provider {
 
@@ -459,7 +459,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Provides the routes that should be used to handle Zapier Integration requests.
 	 *
-	 * The map returned by this method will be used by the `TEC\Common\Event_Automator\Traits\With_Nonce_Routes` trait.
+	 * The map returned by this method will be used by the `TEC\Event_Automator\Traits\With_Nonce_Routes` trait.
 	 *
 	 * @since TBD Migrated to Common from Event Automator
 	 *

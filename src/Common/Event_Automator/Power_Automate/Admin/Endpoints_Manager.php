@@ -4,21 +4,21 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Power_Automate
+ * @package TEC\Event_Automator\Power_Automate
  */
 
-namespace TEC\Common\Event_Automator\Power_Automate\Admin;
+namespace TEC\Event_Automator\Power_Automate\Admin;
 
-use TEC\Common\Event_Automator\Integrations\Admin\Abstract_Endpoints_Manager;
-use TEC\Common\Event_Automator\Power_Automate\Actions;
-use TEC\Common\Event_Automator\Power_Automate\Template_Modifications;
+use TEC\Event_Automator\Integrations\Admin\Abstract_Endpoints_Manager;
+use TEC\Event_Automator\Power_Automate\Actions;
+use TEC\Event_Automator\Power_Automate\Template_Modifications;
 
 /**
  * Class Endpoints_Manager
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Power_Automate
+ * @package TEC\Event_Automator\Power_Automate
  */
 class Endpoints_Manager extends Abstract_Endpoints_Manager {
 

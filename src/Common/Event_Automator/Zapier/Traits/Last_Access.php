@@ -4,10 +4,10 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Traits;
+ * @package TEC\Event_Automator\Traits;
  */
 
-namespace TEC\Common\Event_Automator\Zapier\Traits;
+namespace TEC\Event_Automator\Zapier\Traits;
 
 use Tribe\Utils\Date_I18n;
 use Tribe__Timezones as Timezones;
@@ -17,7 +17,7 @@ use Tribe__Timezones as Timezones;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier\Traits;
+ * @package TEC\Event_Automator\Zapier\Traits;
  */
 trait Last_Access {
 

@@ -4,17 +4,17 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\REST\V1\Interfaces
+ * @package TEC\Event_Automator\Integrations\REST\V1\Interfaces
  */
 
-namespace TEC\Common\Event_Automator\Integrations\REST\V1\Interfaces;
+namespace TEC\Event_Automator\Integrations\REST\V1\Interfaces;
 
 /**
  * REST_Endpoint_Interface
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integration\REST\V1\Interfaces
+ * @package TEC\Event_Automator\Integration\REST\V1\Interfaces
  */
 interface REST_Endpoint_Interface {
 

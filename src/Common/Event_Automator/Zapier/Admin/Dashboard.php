@@ -4,14 +4,14 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier\Admin
+ * @package TEC\Event_Automator\Zapier\Admin
  */
 
-namespace TEC\Common\Event_Automator\Zapier\Admin;
+namespace TEC\Event_Automator\Zapier\Admin;
 
-use TEC\Common\Event_Automator\Integrations\Admin\Abstract_Dashboard;
-use TEC\Common\Event_Automator\Zapier\Template_Modifications;
-use TEC\Common\Event_Automator\Zapier\Url;
+use TEC\Event_Automator\Integrations\Admin\Abstract_Dashboard;
+use TEC\Event_Automator\Zapier\Template_Modifications;
+use TEC\Event_Automator\Zapier\Url;
 
 /**
  * Class Dashboard
@@ -19,7 +19,7 @@ use TEC\Common\Event_Automator\Zapier\Url;
  * @since TBD Migrated to Common from Event Automator
  * @since TBD Migrated to Common from Event Automator - Refactored to use Abstract_Dashboard.
  *
- * @package TEC\Common\Event_Automator\Zapier\Admin
+ * @package TEC\Event_Automator\Zapier\Admin
  */
 class Dashboard extends Abstract_Dashboard {
 

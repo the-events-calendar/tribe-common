@@ -4,10 +4,10 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier
+ * @package TEC\Event_Automator\Zapier
  */
 
-namespace TEC\Common\Event_Automator\Zapier;
+namespace TEC\Event_Automator\Zapier;
 
 _deprecated_file( __FILE__, '1.2.0' );
 
@@ -17,7 +17,7 @@ _deprecated_file( __FILE__, '1.2.0' );
  * @since TBD Migrated to Common from Event Automator
  * @deprecated 1.2.0
  *
- * @package TEC\Common\Event_Automator\Zapier
+ * @package TEC\Event_Automator\Zapier
  */
 class Privacy_Notice {
 

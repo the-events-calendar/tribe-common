@@ -4,12 +4,12 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier
+ * @package TEC\Event_Automator\Zapier
  */
 
-namespace TEC\Common\Event_Automator\Zapier;
+namespace TEC\Event_Automator\Zapier;
 
-use TEC\Common\Event_Automator\Integrations\Connections\Integration_Settings;
+use TEC\Event_Automator\Integrations\Connections\Integration_Settings;
 
 /**
  * Class Settings
@@ -17,7 +17,7 @@ use TEC\Common\Event_Automator\Integrations\Connections\Integration_Settings;
  * @since TBD Migrated to Common from Event Automator
  * @since TBD Migrated to Common from Event Automator -  Utilize Integration_Settings to share coding among integrations.
  *
- * @package TEC\Common\Event_Automator\Zapier
+ * @package TEC\Event_Automator\Zapier
  */
 class Settings extends Integration_Settings {
 

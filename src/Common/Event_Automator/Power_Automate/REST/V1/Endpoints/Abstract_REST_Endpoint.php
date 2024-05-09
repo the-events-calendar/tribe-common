@@ -4,22 +4,22 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints
+ * @package TEC\Event_Automator\Power_Automate\REST\V1\Endpoints
  */
 
-namespace TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints;
+namespace TEC\Event_Automator\Power_Automate\REST\V1\Endpoints;
 
-use TEC\Common\Event_Automator\Integrations\REST\V1\Endpoints\Queue\Integration_REST_Endpoint;
-use TEC\Common\Event_Automator\Power_Automate\Api;
-use TEC\Common\Event_Automator\Power_Automate\REST\V1\Documentation\Swagger_Documentation;
-use TEC\Common\Event_Automator\Power_Automate\REST\V1\Traits\REST_Namespace as Power_Automate_REST_Namespace;
+use TEC\Event_Automator\Integrations\REST\V1\Endpoints\Queue\Integration_REST_Endpoint;
+use TEC\Event_Automator\Power_Automate\Api;
+use TEC\Event_Automator\Power_Automate\REST\V1\Documentation\Swagger_Documentation;
+use TEC\Event_Automator\Power_Automate\REST\V1\Traits\REST_Namespace as Power_Automate_REST_Namespace;
 
 /**
  * Abstract REST Endpoint Power Automate
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints
+ * @package TEC\Event_Automator\Power_Automate\REST\V1\Endpoints
  */
 abstract class Abstract_REST_Endpoint extends Integration_REST_Endpoint {
 	use Power_Automate_REST_Namespace;

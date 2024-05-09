@@ -3,28 +3,28 @@
  * The Power Automate service provider.
  *
  * @since TBD Migrated to Common from Event Automator
- * @package TEC\Common\Event_Automator\Power_Automate
+ * @package TEC\Event_Automator\Power_Automate
  */
 
-namespace TEC\Common\Event_Automator\Power_Automate;
+namespace TEC\Event_Automator\Power_Automate;
 
 use TEC\Common\Contracts\Service_Provider;
 use EDD_Payment;
-use TEC\Common\Event_Automator\Integrations\Assets;
-use TEC\Common\Event_Automator\Power_Automate\Admin\Dashboard;
-use TEC\Common\Event_Automator\Power_Automate\Admin\Endpoints_Manager;
-use TEC\Common\Event_Automator\Power_Automate\REST\V1\Documentation\Swagger_Documentation;
-use TEC\Common\Event_Automator\Integrations\REST\V1\Utilities\Action_Endpoints as Action_Endpoints_Utilities;
-use TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints\Actions\Create_Events;
-use TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue\New_Events;
-use TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue\Updated_Events;
-use TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue\Canceled_Events;
-use TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue\Attendees;
-use TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue\Updated_Attendees;
-use TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue\Checkin;
-use TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue\Orders;
-use TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue\Refunded_Orders;
-use TEC\Common\Event_Automator\Traits\With_Nonce_Routes;
+use TEC\Event_Automator\Integrations\Assets;
+use TEC\Event_Automator\Power_Automate\Admin\Dashboard;
+use TEC\Event_Automator\Power_Automate\Admin\Endpoints_Manager;
+use TEC\Event_Automator\Power_Automate\REST\V1\Documentation\Swagger_Documentation;
+use TEC\Event_Automator\Integrations\REST\V1\Utilities\Action_Endpoints as Action_Endpoints_Utilities;
+use TEC\Event_Automator\Power_Automate\REST\V1\Endpoints\Actions\Create_Events;
+use TEC\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue\New_Events;
+use TEC\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue\Updated_Events;
+use TEC\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue\Canceled_Events;
+use TEC\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue\Attendees;
+use TEC\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue\Updated_Attendees;
+use TEC\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue\Checkin;
+use TEC\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue\Orders;
+use TEC\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue\Refunded_Orders;
+use TEC\Event_Automator\Traits\With_Nonce_Routes;
 use Tribe__Tickets__Ticket_Object as Ticket_Object;
 use WC_Order;
 use WP_Post;
@@ -34,7 +34,7 @@ use WP_Post;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Power_Automate
+ * @package TEC\Event_Automator\Power_Automate
  */
 class Power_Automate_Provider extends Service_Provider {
 
@@ -119,7 +119,7 @@ class Power_Automate_Provider extends Service_Provider {
 	/**
 	 * Provides the routes that should be used to handle Power Automate Integration requests.
 	 *
-	 * The map returned by this method will be used by the `TEC\Common\Event_Automator\Traits\With_Nonce_Routes` trait.
+	 * The map returned by this method will be used by the `TEC\Event_Automator\Traits\With_Nonce_Routes` trait.
 	 *
 	 * @since TBD Migrated to Common from Event Automator
 	 *

@@ -3,12 +3,12 @@
  * The Zapier Canceled Event Triggers.
  *
  * @since TBD Migrated to Common from Event Automator
- * @package TEC\Common\Event_Automator\Zapier\Triggers;
+ * @package TEC\Event_Automator\Zapier\Triggers;
  */
 
-namespace TEC\Common\Event_Automator\Zapier\Triggers;
+namespace TEC\Event_Automator\Zapier\Triggers;
 
-use TEC\Common\Event_Automator\Zapier\Trigger_Queue\Abstract_Trigger_Queue;
+use TEC\Event_Automator\Zapier\Trigger_Queue\Abstract_Trigger_Queue;
 use Tribe__Events__Main as TEC;
 use Tribe__Utils__Array as Arr;
 
@@ -17,7 +17,7 @@ use Tribe__Utils__Array as Arr;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier\Triggers
+ * @package TEC\Event_Automator\Zapier\Triggers
  */
 class Canceled_Events extends Abstract_Trigger_Queue {
 

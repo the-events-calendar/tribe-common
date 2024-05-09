@@ -4,16 +4,16 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue;
+ * @package TEC\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue;
  */
 
-namespace TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue;
+namespace TEC\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue;
 
-use TEC\Common\Event_Automator\Power_Automate\Api;
-use TEC\Common\Event_Automator\Power_Automate\REST\V1\Documentation\Swagger_Documentation;
-use TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints\Abstract_REST_Endpoint;
-use TEC\Common\Event_Automator\Power_Automate\Triggers\Updated_Attendees as Trigger_Updated_Attendees;
-use TEC\Common\Event_Automator\Traits\Maps\Attendees as Attendees_map;
+use TEC\Event_Automator\Power_Automate\Api;
+use TEC\Event_Automator\Power_Automate\REST\V1\Documentation\Swagger_Documentation;
+use TEC\Event_Automator\Power_Automate\REST\V1\Endpoints\Abstract_REST_Endpoint;
+use TEC\Event_Automator\Power_Automate\Triggers\Updated_Attendees as Trigger_Updated_Attendees;
+use TEC\Event_Automator\Traits\Maps\Attendees as Attendees_map;
 use WP_REST_Server;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -23,7 +23,7 @@ use WP_REST_Response;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints
+ * @package TEC\Event_Automator\Power_Automate\REST\V1\Endpoints
  */
 class Updated_Attendees extends Abstract_REST_Endpoint {
 	use Attendees_Map;

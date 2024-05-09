@@ -4,21 +4,21 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints;
+ * @package TEC\Event_Automator\Power_Automate\REST\V1\Endpoints;
  */
 
-namespace TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue;
+namespace TEC\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue;
 
-use TEC\Common\Event_Automator\Power_Automate\Api;
-use TEC\Common\Event_Automator\Power_Automate\REST\V1\Documentation\Swagger_Documentation;
-use TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints\Abstract_REST_Endpoint;
-use TEC\Common\Event_Automator\Power_Automate\Triggers\Refunded_Orders as Trigger_Refunded_Orders;
+use TEC\Event_Automator\Power_Automate\Api;
+use TEC\Event_Automator\Power_Automate\REST\V1\Documentation\Swagger_Documentation;
+use TEC\Event_Automator\Power_Automate\REST\V1\Endpoints\Abstract_REST_Endpoint;
+use TEC\Event_Automator\Power_Automate\Triggers\Refunded_Orders as Trigger_Refunded_Orders;
 use WP_REST_Server;
 use WP_REST_Request;
 use WP_REST_Response;
-use TEC\Common\Event_Automator\Traits\Maps\Commerce\WooCommerce;
-use TEC\Common\Event_Automator\Traits\Maps\Commerce\EDD;
-use TEC\Common\Event_Automator\Traits\Maps\Commerce\Tickets_Commerce;
+use TEC\Event_Automator\Traits\Maps\Commerce\WooCommerce;
+use TEC\Event_Automator\Traits\Maps\Commerce\EDD;
+use TEC\Event_Automator\Traits\Maps\Commerce\Tickets_Commerce;
 use Tribe__Tickets__Tickets;
 
 /**
@@ -26,7 +26,7 @@ use Tribe__Tickets__Tickets;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints
+ * @package TEC\Event_Automator\Power_Automate\REST\V1\Endpoints
  */
 class Refunded_Orders extends Abstract_REST_Endpoint {
 	use WooCommerce;

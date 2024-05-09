@@ -4,12 +4,12 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator
+ * @package TEC\Event_Automator
  */
 
-namespace TEC\Common\Event_Automator;
+namespace TEC\Event_Automator;
 
-use TEC\Common\Event_Automator\PUE\Helper;
+use TEC\Event_Automator\PUE\Helper;
 use Tribe__Events__Updater;
 
 /**
@@ -17,7 +17,7 @@ use Tribe__Events__Updater;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator
+ * @package TEC\Event_Automator
  */
 class Updater extends Tribe__Events__Updater {
 	/**

@@ -4,14 +4,14 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints;
+ * @package TEC\Event_Automator\Zapier\REST\V1\Endpoints;
  */
 
-namespace TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints\Actions;
+namespace TEC\Event_Automator\Zapier\REST\V1\Endpoints\Actions;
 
-use TEC\Common\Event_Automator\Zapier\Api;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Documentation\Swagger_Documentation;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints\Abstract_REST_Endpoint;
+use TEC\Event_Automator\Zapier\Api;
+use TEC\Event_Automator\Zapier\REST\V1\Documentation\Swagger_Documentation;
+use TEC\Event_Automator\Zapier\REST\V1\Endpoints\Abstract_REST_Endpoint;
 use Tribe__Events__REST__V1__Endpoints__Single_Event as Single_Event_Endpoints;
 use Tribe__Events__REST__V1__Validator__Base;
 use Tribe__Events__Validator__Base;
@@ -25,7 +25,7 @@ use WP_Error;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints
+ * @package TEC\Event_Automator\Zapier\REST\V1\Endpoints
  */
 class Create_Events extends Abstract_REST_Endpoint {
 

@@ -4,19 +4,19 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier
+ * @package TEC\Event_Automator\Zapier
  */
 
-namespace TEC\Common\Event_Automator\Zapier;
+namespace TEC\Event_Automator\Zapier;
 
-use TEC\Common\Event_Automator\Plugin;
+use TEC\Event_Automator\Plugin;
 
 /**
  * Class Settings
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier
+ * @package TEC\Event_Automator\Zapier
  */
 class Assets {
 

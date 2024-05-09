@@ -4,30 +4,30 @@
  *
  * To remove a filter:
  * ```php
- *  remove_filter( 'some_filter', [ tribe( TEC\Common\Event_Automator\Hooks::class ), 'some_filtering_method' ] );
+ *  remove_filter( 'some_filter', [ tribe( TEC\Event_Automator\Hooks::class ), 'some_filtering_method' ] );
  * ```
  *
  * To remove an action:
  * ```php
- *  remove_action( 'some_action', [ tribe( TEC\Common\Event_Automator\Hooks::class ), 'some_method' ] );
+ *  remove_action( 'some_action', [ tribe( TEC\Event_Automator\Hooks::class ), 'some_method' ] );
  * ```
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator;
+ * @package TEC\Event_Automator;
  */
 
-namespace TEC\Common\Event_Automator;
+namespace TEC\Event_Automator;
 
 use TEC\Common\Contracts\Service_Provider;
-use TEC\Common\Event_Automator\Admin\Tabs\Tabs_Provider;
+use TEC\Event_Automator\Admin\Tabs\Tabs_Provider;
 
 /**
  * Class Hooks.
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator;
+ * @package TEC\Event_Automator;
  */
 class Hooks extends Service_Provider {
 

@@ -4,21 +4,21 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier\Admin
+ * @package TEC\Event_Automator\Zapier\Admin
  */
 
-namespace TEC\Common\Event_Automator\Zapier\Admin;
+namespace TEC\Event_Automator\Zapier\Admin;
 
-use TEC\Common\Event_Automator\Integrations\Admin\Abstract_Endpoints_Manager;
-use TEC\Common\Event_Automator\Zapier\Actions;
-use TEC\Common\Event_Automator\Zapier\Template_Modifications;
+use TEC\Event_Automator\Integrations\Admin\Abstract_Endpoints_Manager;
+use TEC\Event_Automator\Zapier\Actions;
+use TEC\Event_Automator\Zapier\Template_Modifications;
 
 /**
  * Class Endpoints_Manager
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier\Admin
+ * @package TEC\Event_Automator\Zapier\Admin
  */
 class Endpoints_Manager extends Abstract_Endpoints_Manager {
 

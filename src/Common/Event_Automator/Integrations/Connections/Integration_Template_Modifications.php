@@ -4,19 +4,19 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\Connections
+ * @package TEC\Event_Automator\Integrations\Connections
  */
 
-namespace TEC\Common\Event_Automator\Integrations\Connections;
+namespace TEC\Event_Automator\Integrations\Connections;
 
-use TEC\Common\Event_Automator\Templates\Admin_Template;
+use TEC\Event_Automator\Templates\Admin_Template;
 
 /**
  * Class Template_Modifications
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\Connections
+ * @package TEC\Event_Automator\Integrations\Connections
  */
 abstract class Integration_Template_Modifications {
 

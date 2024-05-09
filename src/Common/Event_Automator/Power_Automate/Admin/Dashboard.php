@@ -4,21 +4,21 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Power_Automate
+ * @package TEC\Event_Automator\Power_Automate
  */
 
-namespace TEC\Common\Event_Automator\Power_Automate\Admin;
+namespace TEC\Event_Automator\Power_Automate\Admin;
 
-use TEC\Common\Event_Automator\Integrations\Admin\Abstract_Dashboard;
-use TEC\Common\Event_Automator\Power_Automate\Template_Modifications;
-use TEC\Common\Event_Automator\Power_Automate\Url;
+use TEC\Event_Automator\Integrations\Admin\Abstract_Dashboard;
+use TEC\Event_Automator\Power_Automate\Template_Modifications;
+use TEC\Event_Automator\Power_Automate\Url;
 
 /**
  * Class Dashboard
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Power_Automate
+ * @package TEC\Event_Automator\Power_Automate
  */
 class Dashboard extends Abstract_Dashboard {
 

@@ -4,17 +4,17 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Traits;
+ * @package TEC\Event_Automator\Traits;
  */
 
-namespace TEC\Common\Event_Automator\Traits;
+namespace TEC\Event_Automator\Traits;
 
 /**
  * Trait With_AJAX
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Traits;
+ * @package TEC\Event_Automator\Traits;
  */
 trait With_AJAX {
 

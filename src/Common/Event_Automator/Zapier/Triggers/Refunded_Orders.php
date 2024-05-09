@@ -3,13 +3,13 @@
  * The Zapier Refunded_Orders Triggers.
  *
  * @since TBD Migrated to Common from Event Automator
- * @package TEC\Common\Event_Automator\Zapier\Triggers;
+ * @package TEC\Event_Automator\Zapier\Triggers;
  */
 
-namespace TEC\Common\Event_Automator\Zapier\Triggers;
+namespace TEC\Event_Automator\Zapier\Triggers;
 
 use EDD\Orders\Order as EDD_Order;
-use TEC\Common\Event_Automator\Zapier\Trigger_Queue\Abstract_Trigger_Queue;
+use TEC\Event_Automator\Zapier\Trigger_Queue\Abstract_Trigger_Queue;
 use Tribe__Tickets__Tickets;
 use Tribe__Tickets_Plus__Commerce__EDD__Main;
 use Tribe__Tickets_Plus__Commerce__WooCommerce__Main;
@@ -21,7 +21,7 @@ use TEC\Tickets\Commerce\Status\Refunded as TC_Refund_Status;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier\Triggers
+ * @package TEC\Event_Automator\Zapier\Triggers
  */
 class Refunded_Orders extends Abstract_Trigger_Queue {
 

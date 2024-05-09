@@ -4,10 +4,10 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\ZapierREST\V1\Utilities
+ * @package TEC\Event_Automator\ZapierREST\V1\Utilities
  */
 
-namespace TEC\Common\Event_Automator\Zapier\REST\V1\Utilities;
+namespace TEC\Event_Automator\Zapier\REST\V1\Utilities;
 
 use Tribe__Events__REST__V1__Validator__Base;
 
@@ -16,7 +16,7 @@ use Tribe__Events__REST__V1__Validator__Base;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier\REST\V1\Utilities
+ * @package TEC\Event_Automator\Zapier\REST\V1\Utilities
  */
 class Action_Endpoints {
 

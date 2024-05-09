@@ -1,6 +1,6 @@
 <?php
 
-namespace TEC\Common\Event_Automator\Admin\Tabs;
+namespace TEC\Event_Automator\Admin\Tabs;
 
 use Tribe\Tickets\Admin\Settings as Plugin_Settings;
 
@@ -8,7 +8,7 @@ use Tribe\Tickets\Admin\Settings as Plugin_Settings;
  * Class Integrations
  *
  * @since TBD Migrated to Common from Event Automator
- * @package TEC\Common\Event_Automator\Admin\Tabs
+ * @package TEC\Event_Automator\Admin\Tabs
  *
  */
 class Integrations {

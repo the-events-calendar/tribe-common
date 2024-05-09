@@ -4,20 +4,20 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Power_Automate
+ * @package TEC\Event_Automator\Power_Automate
  */
 
-namespace TEC\Common\Event_Automator\Power_Automate;
+namespace TEC\Event_Automator\Power_Automate;
 
-use TEC\Common\Event_Automator\Integrations\Connections\Integration_Template_Modifications;
-use TEC\Common\Event_Automator\Templates\Admin_Template;
+use TEC\Event_Automator\Integrations\Connections\Integration_Template_Modifications;
+use TEC\Event_Automator\Templates\Admin_Template;
 
 /**
  * Class Template_Modifications
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Power_Automate
+ * @package TEC\Event_Automator\Power_Automate
  */
 class Template_Modifications extends Integration_Template_Modifications {
 

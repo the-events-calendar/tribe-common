@@ -1,6 +1,6 @@
 <?php
 
-namespace TEC\Common\Event_Automator\PUE;
+namespace TEC\Event_Automator\PUE;
 
 class Helper {
 

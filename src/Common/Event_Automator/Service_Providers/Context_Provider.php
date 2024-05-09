@@ -4,12 +4,12 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Service_Providers
+ * @package TEC\Event_Automator\Service_Providers
  */
 
-namespace TEC\Common\Event_Automator\Service_Providers;
+namespace TEC\Event_Automator\Service_Providers;
 
-use TEC\Common\Event_Automator\Plugin;
+use TEC\Event_Automator\Plugin;
 use TEC\Common\Contracts\Service_Provider;
 use Tribe__Context;
 
@@ -18,7 +18,7 @@ use Tribe__Context;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Service_Providers
+ * @package TEC\Event_Automator\Service_Providers
  */
 class Context_Provider extends Service_Provider {
 

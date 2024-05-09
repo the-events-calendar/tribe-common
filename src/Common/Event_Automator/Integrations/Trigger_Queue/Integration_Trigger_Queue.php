@@ -3,17 +3,17 @@
  * Integrations Abstract Trigger Queue.
  *
  * @since TBD Migrated to Common from Event Automator
- * @package TEC\Common\Event_Automator\Integrations\Triggers;
+ * @package TEC\Event_Automator\Integrations\Triggers;
  */
 
-namespace TEC\Common\Event_Automator\Integrations\Trigger_Queue;
+namespace TEC\Event_Automator\Integrations\Trigger_Queue;
 
 /**
  * Class Integration_Trigger_Queue
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\Trigger_Queue
+ * @package TEC\Event_Automator\Integrations\Trigger_Queue
  */
 abstract class Integration_Trigger_Queue {
 

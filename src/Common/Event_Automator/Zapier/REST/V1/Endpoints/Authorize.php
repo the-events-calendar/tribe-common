@@ -4,10 +4,10 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints
+ * @package TEC\Event_Automator\Zapier\REST\V1\Endpoints
  */
 
-namespace TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints;
+namespace TEC\Event_Automator\Zapier\REST\V1\Endpoints;
 
 use WP_REST_Request;
 use WP_REST_Response;
@@ -19,7 +19,7 @@ use TEC\Common\Firebase\JWT\JWT;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints
+ * @package TEC\Event_Automator\Zapier\REST\V1\Endpoints
  */
 class Authorize extends Abstract_REST_Endpoint {
 

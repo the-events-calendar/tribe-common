@@ -4,20 +4,20 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier
+ * @package TEC\Event_Automator\Zapier
  */
 
-namespace TEC\Common\Event_Automator\Zapier;
+namespace TEC\Event_Automator\Zapier;
 
-use TEC\Common\Event_Automator\Integrations\Connections\Integration_Template_Modifications;
-use TEC\Common\Event_Automator\Templates\Admin_Template;
+use TEC\Event_Automator\Integrations\Connections\Integration_Template_Modifications;
+use TEC\Event_Automator\Templates\Admin_Template;
 
 /**
  * Class Template_Modifications
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier
+ * @package TEC\Event_Automator\Zapier
  */
 class Template_Modifications extends Integration_Template_Modifications {
 

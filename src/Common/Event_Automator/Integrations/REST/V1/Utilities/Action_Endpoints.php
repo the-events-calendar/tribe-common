@@ -4,17 +4,17 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\REST\V1\Utilities
+ * @package TEC\Event_Automator\Integrations\REST\V1\Utilities
  */
 
-namespace TEC\Common\Event_Automator\Integrations\REST\V1\Utilities;
+namespace TEC\Event_Automator\Integrations\REST\V1\Utilities;
 
 /**
  * Class Actions
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\REST\V1\Utilities
+ * @package TEC\Event_Automator\Integrations\REST\V1\Utilities
  */
 class Action_Endpoints {
 

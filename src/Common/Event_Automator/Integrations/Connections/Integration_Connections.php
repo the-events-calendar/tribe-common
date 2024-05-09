@@ -4,13 +4,13 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\Connections
+ * @package TEC\Event_Automator\Integrations\Connections
  */
 
-namespace TEC\Common\Event_Automator\Integrations\Connections;
+namespace TEC\Event_Automator\Integrations\Connections;
 
-use TEC\Common\Event_Automator\Traits\Last_Access;
-use TEC\Common\Event_Automator\Traits\With_AJAX;
+use TEC\Event_Automator\Traits\Last_Access;
+use TEC\Event_Automator\Traits\With_AJAX;
 use WP_Error;
 use WP_User;
 use WP_User_Query;
@@ -24,7 +24,7 @@ use TEC\Common\Firebase\JWT\Key;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\Connections
+ * @package TEC\Event_Automator\Integrations\Connections
  */
 abstract class Integration_Connections {
 	use With_AJAX;

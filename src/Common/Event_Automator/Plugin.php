@@ -4,15 +4,15 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator
+ * @package TEC\Event_Automator
  */
 
-namespace TEC\Common\Event_Automator;
+namespace TEC\Event_Automator;
 
-use TEC\Common\Event_Automator\Hooks as Hooks_Provider;
-use TEC\Common\Event_Automator\Service_Providers\Context_Provider;
-use TEC\Common\Event_Automator\Zapier\Zapier_Provider;
-use TEC\Common\Event_Automator\Power_Automate\Power_Automate_Provider;
+use TEC\Event_Automator\Hooks as Hooks_Provider;
+use TEC\Event_Automator\Service_Providers\Context_Provider;
+use TEC\Event_Automator\Zapier\Zapier_Provider;
+use TEC\Event_Automator\Power_Automate\Power_Automate_Provider;
 use Tribe__Autoloader;
 
 /**
@@ -20,7 +20,7 @@ use Tribe__Autoloader;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator
+ * @package TEC\Event_Automator
  */
 class Plugin {
 	/**

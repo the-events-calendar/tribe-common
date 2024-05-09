@@ -4,20 +4,20 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\Admin
+ * @package TEC\Event_Automator\Integrations\Admin
  */
 
-namespace TEC\Common\Event_Automator\Integrations\Admin;
+namespace TEC\Event_Automator\Integrations\Admin;
 
-use TEC\Common\Event_Automator\Integrations\REST\V1\Interfaces\REST_Endpoint_Interface;
-use TEC\Common\Event_Automator\Traits\With_AJAX;
+use TEC\Event_Automator\Integrations\REST\V1\Interfaces\REST_Endpoint_Interface;
+use TEC\Event_Automator\Traits\With_AJAX;
 
 /**
  * Class Abstract_Endpoints_Manager
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\Admin
+ * @package TEC\Event_Automator\Integrations\Admin
  */
 abstract class Abstract_Endpoints_Manager {
 

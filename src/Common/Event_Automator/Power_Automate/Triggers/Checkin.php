@@ -3,12 +3,12 @@
  * The Power Automate Checkin Triggers.
  *
  * @since TBD Migrated to Common from Event Automator
- * @package TEC\Common\Event_Automator\Power_Automate\Triggers;
+ * @package TEC\Event_Automator\Power_Automate\Triggers;
  */
 
-namespace TEC\Common\Event_Automator\Power_Automate\Triggers;
+namespace TEC\Event_Automator\Power_Automate\Triggers;
 
-use TEC\Common\Event_Automator\Power_Automate\Trigger_Queue\Abstract_Trigger_Queue;
+use TEC\Event_Automator\Power_Automate\Trigger_Queue\Abstract_Trigger_Queue;
 use Tribe__Tickets__Tickets;
 
 /**
@@ -16,7 +16,7 @@ use Tribe__Tickets__Tickets;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Power_Automate\Triggers
+ * @package TEC\Event_Automator\Power_Automate\Triggers
  */
 class Checkin extends Abstract_Trigger_Queue {
 

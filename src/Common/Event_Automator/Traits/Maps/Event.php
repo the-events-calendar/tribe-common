@@ -4,10 +4,10 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Traits\Maps;
+ * @package TEC\Event_Automator\Traits\Maps;
  */
 
-namespace TEC\Common\Event_Automator\Traits\Maps;
+namespace TEC\Event_Automator\Traits\Maps;
 
 use WP_Post;
 use WP_Term;
@@ -20,7 +20,7 @@ use Tribe__Events__Main as TEC;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Traits\Maps;
+ * @package TEC\Event_Automator\Traits\Maps;
  */
 trait Event {
 

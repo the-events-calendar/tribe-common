@@ -4,12 +4,12 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier
+ * @package TEC\Event_Automator\Zapier
  */
 
-namespace TEC\Common\Event_Automator\Zapier;
+namespace TEC\Event_Automator\Zapier;
 
-use TEC\Common\Event_Automator\Integrations\Connections\Integration_Url;
+use TEC\Event_Automator\Integrations\Connections\Integration_Url;
 
 /**
  * Class Url
@@ -17,7 +17,7 @@ use TEC\Common\Event_Automator\Integrations\Connections\Integration_Url;
  * @since TBD Migrated to Common from Event Automator
  * @since TBD Migrated to Common from Event Automator - Utilizes common class.
  *
- * @package TEC\Common\Event_Automator\Zapier
+ * @package TEC\Event_Automator\Zapier
  */
 class Url extends Integration_Url {
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace TEC\Common\Event_Automator\Admin\Tabs;
+namespace TEC\Event_Automator\Admin\Tabs;
 
 use TEC\Common\Contracts\Service_Provider;
 
 /**
  * Class Service_Provider
  *
- * @package TEC\Common\Event_Automator\Admin\Tabs
+ * @package TEC\Event_Automator\Admin\Tabs
  *
  * @since TBD Migrated to Common from Event Automator
  */

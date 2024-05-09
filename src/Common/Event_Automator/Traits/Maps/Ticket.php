@@ -4,17 +4,17 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Traits\Maps;
+ * @package TEC\Event_Automator\Traits\Maps;
  */
 
-namespace TEC\Common\Event_Automator\Traits\Maps;
+namespace TEC\Event_Automator\Traits\Maps;
 
 /**
  * Trait Event
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Traits\Maps;
+ * @package TEC\Event_Automator\Traits\Maps;
  */
 trait Ticket {
 

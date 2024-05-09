@@ -4,20 +4,20 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints
+ * @package TEC\Event_Automator\Zapier\REST\V1\Endpoints
  */
 
-namespace TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints;
+namespace TEC\Event_Automator\Zapier\REST\V1\Endpoints;
 
-use TEC\Common\Event_Automator\Integrations\REST\V1\Endpoints\Queue\Integration_REST_Endpoint;
-use TEC\Common\Event_Automator\Zapier\Api;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Documentation\Swagger_Documentation;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Traits\REST_Namespace as Zapier_REST_Namespace;
-use TEC\Common\Event_Automator\Traits\Maps\Attendees as Attendees_Map;
-use TEC\Common\Event_Automator\Traits\Maps\Event as Event_Map;
-use TEC\Common\Event_Automator\Traits\Maps\Commerce\WooCommerce as WooCommerce_Map;
-use TEC\Common\Event_Automator\Traits\Maps\Commerce\EDD as EDD_Map;
-use TEC\Common\Event_Automator\Traits\Maps\Commerce\Tickets_Commerce as Tickets_Commerce_Map;
+use TEC\Event_Automator\Integrations\REST\V1\Endpoints\Queue\Integration_REST_Endpoint;
+use TEC\Event_Automator\Zapier\Api;
+use TEC\Event_Automator\Zapier\REST\V1\Documentation\Swagger_Documentation;
+use TEC\Event_Automator\Zapier\REST\V1\Traits\REST_Namespace as Zapier_REST_Namespace;
+use TEC\Event_Automator\Traits\Maps\Attendees as Attendees_Map;
+use TEC\Event_Automator\Traits\Maps\Event as Event_Map;
+use TEC\Event_Automator\Traits\Maps\Commerce\WooCommerce as WooCommerce_Map;
+use TEC\Event_Automator\Traits\Maps\Commerce\EDD as EDD_Map;
+use TEC\Event_Automator\Traits\Maps\Commerce\Tickets_Commerce as Tickets_Commerce_Map;
 use Tribe__Tickets__Tickets;
 
 /**
@@ -26,7 +26,7 @@ use Tribe__Tickets__Tickets;
  * @since TBD Migrated to Common from Event Automator
  * @since TBD Migrated to Common from Event Automator - Utilize Integration_Trigger_Queue to share coding among integrations.
  *
- * @package TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints
+ * @package TEC\Event_Automator\Zapier\REST\V1\Endpoints
  */
 abstract class Abstract_REST_Endpoint extends Integration_REST_Endpoint {
 	use Attendees_Map;

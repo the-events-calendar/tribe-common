@@ -4,10 +4,10 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Traits\Maps\Commerce;
+ * @package TEC\Event_Automator\Traits\Maps\Commerce;
  */
 
-namespace TEC\Common\Event_Automator\Traits\Maps\Commerce;
+namespace TEC\Event_Automator\Traits\Maps\Commerce;
 
 use WP_Post;
 
@@ -16,7 +16,7 @@ use WP_Post;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Traits\Maps\Commerce;
+ * @package TEC\Event_Automator\Traits\Maps\Commerce;
  */
 trait Tickets_Commerce {
 

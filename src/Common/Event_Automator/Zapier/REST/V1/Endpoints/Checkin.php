@@ -4,14 +4,14 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints;
+ * @package TEC\Event_Automator\Zapier\REST\V1\Endpoints;
  */
 
-namespace TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints;
+namespace TEC\Event_Automator\Zapier\REST\V1\Endpoints;
 
-use TEC\Common\Event_Automator\Zapier\Api;
-use TEC\Common\Event_Automator\Zapier\REST\V1\Documentation\Swagger_Documentation;
-use TEC\Common\Event_Automator\Zapier\Triggers\Checkin as Trigger_Checkin;
+use TEC\Event_Automator\Zapier\Api;
+use TEC\Event_Automator\Zapier\REST\V1\Documentation\Swagger_Documentation;
+use TEC\Event_Automator\Zapier\Triggers\Checkin as Trigger_Checkin;
 use WP_REST_Server;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -21,7 +21,7 @@ use WP_REST_Response;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints
+ * @package TEC\Event_Automator\Zapier\REST\V1\Endpoints
  */
 class Checkin extends Abstract_REST_Endpoint {
 

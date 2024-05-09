@@ -4,10 +4,10 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator
+ * @package TEC\Event_Automator
  */
 
-namespace TEC\Common\Event_Automator;
+namespace TEC\Event_Automator;
 
 use Tribe__Abstract_Plugin_Register as Abstract_Plugin_Register;
 
@@ -16,7 +16,7 @@ use Tribe__Abstract_Plugin_Register as Abstract_Plugin_Register;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator
+ * @package TEC\Event_Automator
  *
  * @see     Tribe__Abstract_Plugin_Register For the plugin dependency manifest registration.
  */
@@ -89,7 +89,7 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	 *
 	 * @var string The main class of the plugin.
 	 */
-	protected $main_class = 'TEC\Common\Event_Automator\Plugin';
+	protected $main_class = 'TEC\Event_Automator\Plugin';
 
 	/**
 	 * An array of dependencies for the plugin.

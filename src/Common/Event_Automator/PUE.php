@@ -4,10 +4,10 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator
+ * @package TEC\Event_Automator
  */
 
-namespace TEC\Common\Event_Automator;
+namespace TEC\Event_Automator;
 
 use Tribe__PUE__Checker;
 use TEC\Common\Contracts\Service_Provider;
@@ -17,7 +17,7 @@ use TEC\Common\Contracts\Service_Provider;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator
+ * @package TEC\Event_Automator
  */
 class PUE extends Service_Provider {
 

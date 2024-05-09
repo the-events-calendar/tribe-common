@@ -4,10 +4,10 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\Connections
+ * @package TEC\Event_Automator\Integrations\Connections
  */
 
-namespace TEC\Common\Event_Automator\Integrations\Connections;
+namespace TEC\Event_Automator\Integrations\Connections;
 
 use Tribe\Events\Admin\Settings as TEC_Settings;
 use Tribe\Tickets\Admin\Settings as ET_Settings;
@@ -17,7 +17,7 @@ use Tribe\Tickets\Admin\Settings as ET_Settings;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\Connections
+ * @package TEC\Event_Automator\Integrations\Connections
  */
 abstract class Integration_Settings {
 

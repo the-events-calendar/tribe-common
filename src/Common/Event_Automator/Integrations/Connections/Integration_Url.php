@@ -4,19 +4,19 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\Connections
+ * @package TEC\Event_Automator\Integrations\Connections
  */
 
-namespace TEC\Common\Event_Automator\Integrations\Connections;
+namespace TEC\Event_Automator\Integrations\Connections;
 
-use TEC\Common\Event_Automator\Plugin;
+use TEC\Event_Automator\Plugin;
 
 /**
  * Class Url
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\Connections
+ * @package TEC\Event_Automator\Integrations\Connections
  */
 Abstract class Integration_Url {
 

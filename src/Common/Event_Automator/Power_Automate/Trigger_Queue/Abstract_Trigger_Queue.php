@@ -3,19 +3,19 @@
  * Power Automate Abstract Trigger Queue.
  *
  * @since TBD Migrated to Common from Event Automator
- * @package TEC\Common\Event_Automator\Power_Automate\Triggers;
+ * @package TEC\Event_Automator\Power_Automate\Triggers;
  */
 
-namespace TEC\Common\Event_Automator\Power_Automate\Trigger_Queue;
+namespace TEC\Event_Automator\Power_Automate\Trigger_Queue;
 
-use TEC\Common\Event_Automator\Integrations\Trigger_Queue\Integration_Trigger_Queue;
+use TEC\Event_Automator\Integrations\Trigger_Queue\Integration_Trigger_Queue;
 
 /**
  * Class Abstract_Trigger_Queue
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Power_Automate\Trigger_Queue
+ * @package TEC\Event_Automator\Power_Automate\Trigger_Queue
  */
 abstract class Abstract_Trigger_Queue extends Integration_Trigger_Queue {
 

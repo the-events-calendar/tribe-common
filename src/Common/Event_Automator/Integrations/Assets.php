@@ -4,19 +4,19 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations
+ * @package TEC\Event_Automator\Integrations
  */
 
-namespace TEC\Common\Event_Automator\Integrations;
+namespace TEC\Event_Automator\Integrations;
 
-use TEC\Common\Event_Automator\Plugin;
+use TEC\Event_Automator\Plugin;
 
 /**
  * Class Settings
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations
+ * @package TEC\Event_Automator\Integrations
  */
 class Assets {
 

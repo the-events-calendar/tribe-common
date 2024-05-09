@@ -4,22 +4,22 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\Admin
+ * @package TEC\Event_Automator\Integrations\Admin
  */
 
-namespace TEC\Common\Event_Automator\Integrations\Admin;
+namespace TEC\Event_Automator\Integrations\Admin;
 
-use TEC\Common\Event_Automator\Integrations\Dashboard;
-use TEC\Common\Event_Automator\Integrations\Endpoints_Manager;
-use TEC\Common\Event_Automator\Integrations\Template_Modifications;
-use TEC\Common\Event_Automator\Integrations\Url;
+use TEC\Event_Automator\Integrations\Dashboard;
+use TEC\Event_Automator\Integrations\Endpoints_Manager;
+use TEC\Event_Automator\Integrations\Template_Modifications;
+use TEC\Event_Automator\Integrations\Url;
 
 /**
  * Class Abstract_Dashboard
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Integrations\Admin
+ * @package TEC\Event_Automator\Integrations\Admin
  */
 class Abstract_Dashboard {
 

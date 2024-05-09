@@ -4,13 +4,13 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier
+ * @package TEC\Event_Automator\Zapier
  */
 
-namespace TEC\Common\Event_Automator\Zapier;
+namespace TEC\Event_Automator\Zapier;
 
-use TEC\Common\Event_Automator\Traits\With_AJAX;
-use TEC\Common\Event_Automator\Zapier\Traits\Last_Access;
+use TEC\Event_Automator\Traits\With_AJAX;
+use TEC\Event_Automator\Zapier\Traits\Last_Access;
 use WP_Error;
 use WP_User;
 
@@ -19,7 +19,7 @@ use WP_User;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Zapier
+ * @package TEC\Event_Automator\Zapier
  */
 abstract class Abstract_API_Key_Api {
 	use With_AJAX;

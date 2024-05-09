@@ -4,10 +4,10 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Traits\Maps\Commerce;
+ * @package TEC\Event_Automator\Traits\Maps\Commerce;
  */
 
-namespace TEC\Common\Event_Automator\Traits\Maps\Commerce;
+namespace TEC\Event_Automator\Traits\Maps\Commerce;
 
 use WC_Order;
 
@@ -16,7 +16,7 @@ use WC_Order;
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Traits\Maps\Commerce;
+ * @package TEC\Event_Automator\Traits\Maps\Commerce;
  */
 trait WooCommerce {
 

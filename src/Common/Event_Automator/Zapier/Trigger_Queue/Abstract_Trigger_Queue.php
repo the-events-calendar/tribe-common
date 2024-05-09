@@ -3,12 +3,12 @@
  * Zapier Abstract Trigger Queue.
  *
  * @since TBD Migrated to Common from Event Automator
- * @package TEC\Common\Event_Automator\Zapier\Triggers;
+ * @package TEC\Event_Automator\Zapier\Triggers;
  */
 
-namespace TEC\Common\Event_Automator\Zapier\Trigger_Queue;
+namespace TEC\Event_Automator\Zapier\Trigger_Queue;
 
-use TEC\Common\Event_Automator\Integrations\Trigger_Queue\Integration_Trigger_Queue;
+use TEC\Event_Automator\Integrations\Trigger_Queue\Integration_Trigger_Queue;
 
 /**
  * Class Abstract_Trigger_Queue
@@ -16,7 +16,7 @@ use TEC\Common\Event_Automator\Integrations\Trigger_Queue\Integration_Trigger_Qu
  * @since TBD Migrated to Common from Event Automator
  * @since TBD Migrated to Common from Event Automator - Utilize Integration_Trigger_Queue to share coding among integrations.
  *
- * @package TEC\Common\Event_Automator\Zapier\Trigger_Queue
+ * @package TEC\Event_Automator\Zapier\Trigger_Queue
  */
 abstract class Abstract_Trigger_Queue extends Integration_Trigger_Queue {
 

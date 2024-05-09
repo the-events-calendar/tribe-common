@@ -4,20 +4,20 @@
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Power_Automate
+ * @package TEC\Event_Automator\Power_Automate
  */
 
-namespace TEC\Common\Event_Automator\Power_Automate;
+namespace TEC\Event_Automator\Power_Automate;
 
 use TEC\Common\Firebase\JWT\JWT;
-use TEC\Common\Event_Automator\Integrations\Connections\Integration_AJAX;
+use TEC\Event_Automator\Integrations\Connections\Integration_AJAX;
 
 /**
  * Class Api
  *
  * @since TBD Migrated to Common from Event Automator
  *
- * @package TEC\Common\Event_Automator\Power_Automate
+ * @package TEC\Event_Automator\Power_Automate
  */
 class Api extends Integration_AJAX {
 
