@@ -2,7 +2,7 @@
 /**
  * Class to manage Power Automate settings.
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Power_Automate
  */
@@ -14,7 +14,7 @@ use TEC\Common\Event_Automator\Integrations\Connections\Integration_Settings;
 /**
  * Class Settings
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Power_Automate
  */
@@ -33,7 +33,7 @@ class Settings extends Integration_Settings {
 	/**
 	 * Settings constructor.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param Api                    $api                    An instance of the API handler.
 	 * @param Template_Modifications $template_modifications An instance of the Template_Modifications handler.

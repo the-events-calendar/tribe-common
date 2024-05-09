@@ -2,7 +2,7 @@
 /**
  * The Zapier API Key Endpoint.
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints
  */
@@ -17,7 +17,7 @@ use TEC\Common\Firebase\JWT\JWT;
 /**
  * Class Authorize
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints
  */
@@ -71,7 +71,7 @@ class Authorize extends Abstract_REST_Endpoint {
 	/**
 	 * Authorize Access to the Zapier EndPoints.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *

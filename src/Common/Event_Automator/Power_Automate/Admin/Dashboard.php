@@ -2,7 +2,7 @@
 /**
  * Class to manage Power Automate Endpoint Dashboard.
  *
- * @since   1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Power_Automate
  */
@@ -16,7 +16,7 @@ use TEC\Common\Event_Automator\Power_Automate\Url;
 /**
  * Class Dashboard
  *
- * @since   1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Power_Automate
  */
@@ -35,7 +35,7 @@ class Dashboard extends Abstract_Dashboard {
 	/**
 	 * Dashboard constructor.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param Endpoints_Manager      $manager                An instance of the Endpoints_Manager handler.
 	 * @param Template_Modifications $template_modifications An instance of the Template_Modifications handler.

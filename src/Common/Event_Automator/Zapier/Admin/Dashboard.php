@@ -2,7 +2,7 @@
 /**
  * Class to manage Zapier Endpoint Dashboard.
  *
- * @since   1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier\Admin
  */
@@ -16,8 +16,8 @@ use TEC\Common\Event_Automator\Zapier\Url;
 /**
  * Class Dashboard
  *
- * @since   1.4.0
- * @since   1.4.0 - Refactored to use Abstract_Dashboard.
+ * @since TBD Migrated to Common from Event Automator
+ * @since TBD Migrated to Common from Event Automator - Refactored to use Abstract_Dashboard.
  *
  * @package TEC\Common\Event_Automator\Zapier\Admin
  */
@@ -36,7 +36,7 @@ class Dashboard extends Abstract_Dashboard {
 	/**
 	 * Dashboard constructor.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param Endpoints_Manager      $manager                An instance of the Endpoints_Manager handler.
 	 * @param Template_Modifications $template_modifications An instance of the Template_Modifications handler.

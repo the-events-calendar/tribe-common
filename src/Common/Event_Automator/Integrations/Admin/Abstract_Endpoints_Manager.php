@@ -2,7 +2,7 @@
 /**
  * Abstract Class to manage endpoints.
  *
- * @since   1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Integrations\Admin
  */
@@ -15,7 +15,7 @@ use TEC\Common\Event_Automator\Traits\With_AJAX;
 /**
  * Class Abstract_Endpoints_Manager
  *
- * @since   1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Integrations\Admin
  */
@@ -26,7 +26,7 @@ abstract class Abstract_Endpoints_Manager {
 	/**
 	 * The name of the API
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -35,7 +35,7 @@ abstract class Abstract_Endpoints_Manager {
 	/**
 	 * The id of the API
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -44,7 +44,7 @@ abstract class Abstract_Endpoints_Manager {
 	/**
 	 * An instance of the Template_Modifications.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var Template_Modifications
 	 */
@@ -53,7 +53,7 @@ abstract class Abstract_Endpoints_Manager {
 	/**
 	 * The Actions name handler.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var Actions
 	 */
@@ -62,7 +62,7 @@ abstract class Abstract_Endpoints_Manager {
 	/**
 	 * Endpoints.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var array<string|mixed> An array of Endpoints.
 	 */
@@ -71,7 +71,7 @@ abstract class Abstract_Endpoints_Manager {
 	/**
 	 * Get an endpoint by id.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $endpoint_id The id of an endpoint.
 	 * @param string $type An optional
@@ -103,7 +103,7 @@ abstract class Abstract_Endpoints_Manager {
 	/**
 	 * Clear the provided endpoint queue.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param REST_Endpoint_Interface $endpoint An endpoint instance.
 	 *
@@ -122,7 +122,7 @@ abstract class Abstract_Endpoints_Manager {
 	/**
 	 * Disable the provided endpoint.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param REST_Endpoint_Interface $endpoint An endpoint instance.
 	 *
@@ -139,7 +139,7 @@ abstract class Abstract_Endpoints_Manager {
 	/**
 	 * Enable the provided endpoint.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param REST_Endpoint_Interface $endpoint An endpoint instance.
 	 *
@@ -154,7 +154,7 @@ abstract class Abstract_Endpoints_Manager {
 	/**
 	 * Handles clearing an endpoint queue.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string|null $nonce The nonce that should accompany the request.
 	 *
@@ -205,7 +205,7 @@ abstract class Abstract_Endpoints_Manager {
 	/**
 	 * Handles disabling an endpoint.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string|null $nonce The nonce that should accompany the request.
 	 *
@@ -256,7 +256,7 @@ abstract class Abstract_Endpoints_Manager {
 	/**
 	 * Handles enabling an endpoint.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string|null $nonce The nonce that should accompany the request.
 	 *
@@ -307,7 +307,7 @@ abstract class Abstract_Endpoints_Manager {
 	/**
 	 * Get the confirmation text for clearing an endpoint queue.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return string The confirmation text.
 	 */
@@ -324,7 +324,7 @@ abstract class Abstract_Endpoints_Manager {
 	/**
 	 * Get the confirmation text for disabling an endpoint.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @$type string An optional type of disable message to display. Default is queue.
 	 *
@@ -353,7 +353,7 @@ abstract class Abstract_Endpoints_Manager {
 	/**
 	 * Get the confirmation text for enabling a endpoint.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return string The confirmation text.
 	 */

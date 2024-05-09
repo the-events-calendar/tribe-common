@@ -2,7 +2,7 @@
 /**
  * Provides methods to format EDD data.
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Traits\Maps\Commerce;
  */
@@ -14,7 +14,7 @@ use EDD\Orders\Order as EDD_Order;
 /**
  * Trait With_AJAX
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Traits\Maps\Commerce;
  */
@@ -23,8 +23,8 @@ trait EDD {
 	/**
 	 * Get the EDD Order
 	 *
-	 * @since 1.0.0
-	 * @since 1.4.0 - Add encode arrays.
+	 * @since TBD Migrated to Common from Event Automator
+	 * @since TBD Migrated to Common from Event Automator - Add encode arrays.
 	 *
 	 * @param int    $order_id   The EDD order id.
 	 * @param string $service_id The service id used to modify the mapped event details.
@@ -84,8 +84,8 @@ trait EDD {
 		/**
 		 * Filters the order information for EDD that is sent to Zapier.
 		 *
-		 * @since 1.0.0
-		 * @since 1.4.0 - Add Service ID.
+		 * @since TBD Migrated to Common from Event Automator
+		 * @since TBD Migrated to Common from Event Automator - Add Service ID.
 		 *
 		 * @param array<string|mixed> $next_order An array of EDD order details.
 		 * @param EDD_Order           $order      An instance of the EDD order object.
@@ -103,7 +103,7 @@ trait EDD {
 	/**
 	 * Get EDD Customer Order Notes.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param EDD\Orders\Order $order An instance of the EDD order object.
 	 *

@@ -2,7 +2,7 @@
 /**
  * Handles the Event Automator plugin dependency manifest registration.
  *
- * @since   1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator
  */
@@ -14,7 +14,7 @@ use Tribe__Abstract_Plugin_Register as Abstract_Plugin_Register;
 /**
  * Class Plugin_Register.
  *
- * @since   1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator
  *
@@ -24,7 +24,7 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	/**
 	 * The version of the plugin.
 	 *
-	 * @since 1.5.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -33,7 +33,7 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	/**
 	 * Configures the base_dir property which is the path to the plugin bootstrap file.
 	 *
-	 * @since 1.5.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $file Which is the path to the plugin bootstrap file.
 	 */
@@ -44,7 +44,7 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	/**
 	 * Gets the previously configured base_dir property.
 	 *
-	 * @since 1.5.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return string
 	 */
@@ -55,7 +55,7 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	/**
 	 * Gets the main class of the Plugin, stored on the main_class property.
 	 *
-	 * @since 1.5.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return string
 	 */
@@ -66,7 +66,7 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	/**
 	 * File path to the main class of the plugin.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string The path to the main class of the plugin.
 	 */
@@ -75,7 +75,7 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	/**
 	 * Alias to the VERSION constant.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string The version of the plugin.
 	 */
@@ -85,7 +85,7 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	 * Fully qualified name of the main class of the plugin.
 	 * Do not use the Plugin::class constant here, we need this value without loading the Plugin class.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string The main class of the plugin.
 	 */
@@ -94,7 +94,7 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	/**
 	 * An array of dependencies for the plugin.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var array<string,mixed>
 	 */
@@ -111,7 +111,7 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	 *
 	 * This is separated out from $dependencies because Event Automator is an either/or dependency on TEC and ET.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -122,7 +122,7 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	 *
 	 * This is separated out from $dependencies because Event Automator is an either/or dependency on TEC and ET.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -131,7 +131,7 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	/**
 	 * Constructor method.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 */
 	public function __construct() {
 		add_filter( 'tribe_register_' . $this->main_class . '_plugin_dependencies', [ $this, 'add_et_and_tec_as_loose_dependency' ] );
@@ -140,7 +140,7 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	/**
 	 * Add ET and/or TEC as loose parent-dependency via filter instead of class property to avoid grammar errors in the notice.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array $dependencies An array of dependencies for the plugins. These can include parent, add-on and other dependencies.
 	 *

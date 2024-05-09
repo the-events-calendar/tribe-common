@@ -2,7 +2,7 @@
 /**
  * Zapier Abstract Trigger Queue.
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  * @package TEC\Common\Event_Automator\Zapier\Triggers;
  */
 
@@ -13,8 +13,8 @@ use TEC\Common\Event_Automator\Integrations\Trigger_Queue\Integration_Trigger_Qu
 /**
  * Class Abstract_Trigger_Queue
  *
- * @since 1.0.0
- * @since 1.4.0 - Utilize Integration_Trigger_Queue to share coding among integrations.
+ * @since TBD Migrated to Common from Event Automator
+ * @since TBD Migrated to Common from Event Automator - Utilize Integration_Trigger_Queue to share coding among integrations.
  *
  * @package TEC\Common\Event_Automator\Zapier\Trigger_Queue
  */

@@ -2,7 +2,7 @@
 /**
  * The Zapier Swagger Documentation Endpoint.
  *
- * @since   1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier\REST\V1\Documentation∂
  */
@@ -15,8 +15,8 @@ use TEC\Common\Event_Automator\Zapier\REST\V1\Traits\REST_Namespace as Zapier_RE
 /**
  * Class Swagger_Documentation
  *
- * @since   1.0.0
- * @since   1.4.0 - Utilize Integration_Swagger_Documentation to share coding among integrations.
+ * @since TBD Migrated to Common from Event Automator
+ * @since TBD Migrated to Common from Event Automator - Utilize Integration_Swagger_Documentation to share coding among integrations.
  *
  * @package TEC\Common\Event_Automator\Zapier\REST\V1\Documentation
  */

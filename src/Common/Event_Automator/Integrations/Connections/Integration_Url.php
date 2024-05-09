@@ -2,7 +2,7 @@
 /**
  * Abstract Class to Manage the Url for Connections to an Integration.
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Integrations\Connections
  */
@@ -14,7 +14,7 @@ use TEC\Common\Event_Automator\Plugin;
 /**
  * Class Url
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Integrations\Connections
  */
@@ -23,7 +23,7 @@ Abstract class Integration_Url {
 	/**
 	 * The internal id of the API integration.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -32,7 +32,7 @@ Abstract class Integration_Url {
 	/**
 	 * The current Actions handler instance.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var Actions
 	 */
@@ -41,7 +41,7 @@ Abstract class Integration_Url {
 	/**
 	 * Get the admin ajax url with parameters to enable an API action.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string               $action         The name of the action to add to the url.
 	 * @param string               $nonce          The nonce to verify for the action.
@@ -64,7 +64,7 @@ Abstract class Integration_Url {
 	/**
 	 * Returns the URL that should be used to add integration connection fields in the settings.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return string The URL to add integration connection fields.
 	 */
@@ -78,7 +78,7 @@ Abstract class Integration_Url {
 	/**
 	 * Returns the URL that should be used to create access token for an integration connection.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_id The consumer id to use to create the access token.
 	 *
@@ -96,7 +96,7 @@ Abstract class Integration_Url {
 	/**
 	 * Returns the URL that should be used to delete an integration connection.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_id The id of the connection to delete.
 	 *
@@ -114,7 +114,7 @@ Abstract class Integration_Url {
 	/**
 	 * Returns the URL that should be used clear a Zapier endpoint queue.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $endpoint_id An endpoint id to clear.
 	 *
@@ -132,7 +132,7 @@ Abstract class Integration_Url {
 	/**
 	 * Returns the URL that should be used disable a Zapier endpoint.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $endpoint_id An endpoint id to disable.
 	 *
@@ -150,7 +150,7 @@ Abstract class Integration_Url {
 	/**
 	 * Returns the URL that should be used enable a Zapier endpoint.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $endpoint_id An endpoint id to enable.
 	 *

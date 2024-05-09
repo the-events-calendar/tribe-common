@@ -2,7 +2,7 @@
 /**
  * Abstract Class to Manage Connections to an Integration.
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Integrations\Connections
  */
@@ -22,7 +22,7 @@ use TEC\Common\Firebase\JWT\Key;
 /**
  * Class Integration_Connections
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Integrations\Connections
  */
@@ -33,7 +33,7 @@ abstract class Integration_Connections {
 	/**
 	 * The name of the API
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -42,7 +42,7 @@ abstract class Integration_Connections {
 	/**
 	 * The id of the API
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -51,7 +51,7 @@ abstract class Integration_Connections {
 	/**
 	 * The API secret used for JWT tokens.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -60,7 +60,7 @@ abstract class Integration_Connections {
 	/**
 	 * The API secret key used to store it.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -69,7 +69,7 @@ abstract class Integration_Connections {
 	/**
 	 * Whether an api_key has been loaded for the API to use.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var boolean
 	 */
@@ -78,7 +78,7 @@ abstract class Integration_Connections {
 	/**
 	 * The name of the loaded api_key.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -87,7 +87,7 @@ abstract class Integration_Connections {
 	/**
 	 * The key to get the option with a list of all API Keys.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -96,7 +96,7 @@ abstract class Integration_Connections {
 	/**
 	 * The prefix to save all single API Key with.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -105,7 +105,7 @@ abstract class Integration_Connections {
 	/**
 	 * The hashed consumer id of the api key loaded.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -114,7 +114,7 @@ abstract class Integration_Connections {
 	/**
 	 * The consumer secret of the api key loaded.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -123,7 +123,7 @@ abstract class Integration_Connections {
 	/**
 	 * The permissions the API Key pair has access to.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -132,7 +132,7 @@ abstract class Integration_Connections {
 	/**
 	 * The last access of the API Key pair.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -141,7 +141,7 @@ abstract class Integration_Connections {
 	/**
 	 * The WordPress user id of the loaded api_key.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var integer
 	 */
@@ -150,7 +150,7 @@ abstract class Integration_Connections {
 	/**
 	 * The WP_User object.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var WP_User
 	 */
@@ -159,7 +159,7 @@ abstract class Integration_Connections {
 	/**
 	 * An instance of the Template_Modifications.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var Template_Modifications
 	 */
@@ -168,7 +168,7 @@ abstract class Integration_Connections {
 	/**
 	 * The Actions name handler.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var Actions
 	 */
@@ -177,7 +177,7 @@ abstract class Integration_Connections {
 	/**
 	 * Checks whether the current API is ready to use.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return bool Whether the current API has a loaded api_key.
 	 */
@@ -188,7 +188,7 @@ abstract class Integration_Connections {
 	/**
 	 * Get the id of the API .
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return string The id of the API.
 	 */
@@ -199,7 +199,7 @@ abstract class Integration_Connections {
 	/**
 	 * Get a random hash.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $prefix A optional prefix to the random hash.
 	 * @param int    $length A optional length of the random hash.
@@ -223,7 +223,7 @@ abstract class Integration_Connections {
 	/**
 	 * Set up the API secret key to use for generating tokens.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 */
 	protected function setup_api_secret() {
 		// Get the API Secret or set if empty.
@@ -237,7 +237,7 @@ abstract class Integration_Connections {
 	/**
 	 * Get the API secret key for this API class.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return string The secret key used for JWT tokens or empty string if not set.
 	 */
@@ -248,7 +248,7 @@ abstract class Integration_Connections {
 	/**
 	 * Set the API secret key for this API class.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return string The secret key used for JWT tokens.
 	 */
@@ -262,7 +262,7 @@ abstract class Integration_Connections {
 	/**
 	 * Get the API secret key for this API class.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return string The secret key used for JWT tokens.
 	 */
@@ -273,7 +273,7 @@ abstract class Integration_Connections {
 	/**
 	 * Decode the JWT access_token.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $access_token The JWT access_token to decode.
 	 *
@@ -315,7 +315,7 @@ abstract class Integration_Connections {
 	/**
 	 * Load a specific api_key into the API.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string|string> $api_key         An api_key with the fields to access the API.
 	 * @param string               $consumer_secret An optional consumer secret used to verify a connection.
@@ -336,7 +336,7 @@ abstract class Integration_Connections {
 	/**
 	 * Load a specific api_key by the id.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_id     The consumer id to get and load a connection.
 	 * @param string $consumer_secret The consumer secret used to verify a connection.
@@ -363,7 +363,7 @@ abstract class Integration_Connections {
 	/**
 	 * Check if an api_key has all the information to be valid.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string|string> $api_key An api_key with the fields to access the API.
 	 * @param string $consumer_secret The consumer secret to verify the connection with.
@@ -464,7 +464,7 @@ abstract class Integration_Connections {
 	/**
 	 * Initialize a connection to use for the API.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string|string> $api_key An api_key with the fields to access the API.
 	 */
@@ -481,7 +481,7 @@ abstract class Integration_Connections {
 	/**
 	 * Get the listing of connections.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param boolean $all_data Whether to return all api_key data, default is only name and status.
 	 *
@@ -510,7 +510,7 @@ abstract class Integration_Connections {
 	/**
 	 * Update the list of Connections with provided api_key.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string|string> $api_key_data The array of data for an api_key to add to the list.
 	 */
@@ -521,7 +521,7 @@ abstract class Integration_Connections {
 		/**
 		 * Fires after before the api_key list is updated for an API.
 		 *
-		 * @since 1.4.0
+		 * @since TBD Migrated to Common from Event Automator
 		 *
 		 * @param array<string,mixed>  An array of connections formatted for options dropdown.
 		 * @param array<string|string> $api_key_data The array of data for an api_key to add to the list.
@@ -539,7 +539,7 @@ abstract class Integration_Connections {
 	/**
 	 * Delete from the list of connections the provided api_key.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_id The id of the single api_key to save.
 	 */
@@ -553,7 +553,7 @@ abstract class Integration_Connections {
 	/**
 	 * Get a Single connection by id.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_id The id of the single api_key.
 	 *
@@ -566,7 +566,7 @@ abstract class Integration_Connections {
 	/**
 	 * Set a connection with the provided id.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string|string> $api_key_data A specific api_key data to save.
 	 */
@@ -588,7 +588,7 @@ abstract class Integration_Connections {
 	/**
 	 * Updates the last access valid access of the connection.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_id The id of the single api_key.
 	 * @param string $app_name    The optional app name used with this connection.
@@ -607,7 +607,7 @@ abstract class Integration_Connections {
 	/**
 	 * Delete an api_key by ID.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_id The id of the single api_key.
 	 *
@@ -624,7 +624,7 @@ abstract class Integration_Connections {
 	/**
 	 * Maybe hash the consumer secret.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_secret The consumer secret to verify the connection with.
 	 *
@@ -639,7 +639,7 @@ abstract class Integration_Connections {
 	/**
 	 * Check the consumer secret.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_secret The consumer secret to verify the connection with.
 	 *
@@ -657,7 +657,7 @@ abstract class Integration_Connections {
 	/**
 	 * Hash the specified text.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $text Text to be hashed.
 	 *
@@ -670,7 +670,7 @@ abstract class Integration_Connections {
 	/**
 	 * Get the WP_User object from thelLoaded connection.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return WP_User|null Returns the WP_User object or null if not loaded.
 	 */
@@ -681,7 +681,7 @@ abstract class Integration_Connections {
 	/**
 	 * Get the WP_User_Query query results.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return array<string|mixed> An array of user objects.
 	 */
@@ -695,7 +695,7 @@ abstract class Integration_Connections {
 		/**
 		 * Filters the argument array to query users for the connection fields user dropdown.
 		 *
-		 * @since 1.4.0
+		 * @since TBD Migrated to Common from Event Automator
 		 *
 		 * @param array<string|mixed> The default array to query users for the connection fields user dropdown.
 		 */
@@ -710,7 +710,7 @@ abstract class Integration_Connections {
 	/**
 	 * Get a user's information formatted for internal use.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string|mixed> $user Information for a user from an API,
 	 *
@@ -729,7 +729,7 @@ abstract class Integration_Connections {
 	/**
 	 * Get list of users formatted for options dropdown.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return array<string,mixed>  An array of WordPress Users to use for connection.
 	 */
@@ -772,7 +772,7 @@ abstract class Integration_Connections {
 	/**
 	 * Get users dropdown fields for a tribe dropdown input.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return array<string,mixed>  An array of WordPress Users to use in a tribe dropdown input.
 	 */

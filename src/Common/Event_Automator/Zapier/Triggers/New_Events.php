@@ -2,7 +2,7 @@
 /**
  * The Zapier New Event Triggers.
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  * @package TEC\Common\Event_Automator\Zapier\Triggers;
  */
 
@@ -14,7 +14,7 @@ use Tribe__Events__Main as TEC;
 /**
  * Class New_Events
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier\Triggers
  */

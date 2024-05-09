@@ -2,7 +2,7 @@
 /**
  * Handles Context manipulation.
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Service_Providers
  */
@@ -16,7 +16,7 @@ use Tribe__Context;
 /**
  * Class Context_Provider
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Service_Providers
  */
@@ -25,7 +25,7 @@ class Context_Provider extends Service_Provider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 */
 	public function register() {
 		add_filter( 'tribe_context_locations', [ $this, 'filter_context_locations' ] );
@@ -34,7 +34,7 @@ class Context_Provider extends Service_Provider {
 	/**
 	 * Filters the context locations to add the ones used by Event Automator.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array $locations The array of context locations.
 	 *

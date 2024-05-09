@@ -2,7 +2,7 @@
 /**
  * Class to manage Endpoint Dashboard.
  *
- * @since   1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Integrations\Admin
  */
@@ -17,7 +17,7 @@ use TEC\Common\Event_Automator\Integrations\Url;
 /**
  * Class Abstract_Dashboard
  *
- * @since   1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Integrations\Admin
  */
@@ -26,7 +26,7 @@ class Abstract_Dashboard {
 	/**
 	 * The prefix, in the context of tribe options, of each setting for this extension.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -35,7 +35,7 @@ class Abstract_Dashboard {
 	/**
 	 * The internal id of the integration.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -44,7 +44,7 @@ class Abstract_Dashboard {
 	/**
 	 * An instance of the Integration Endpoints_Manager.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var Endpoints_Manager
 	 */
@@ -53,7 +53,7 @@ class Abstract_Dashboard {
 	/**
 	 * An instance of the Template_Modifications.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var Template_Modifications
 	 */
@@ -62,7 +62,7 @@ class Abstract_Dashboard {
 	/**
 	 * The Integration URL handler instance.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var Url
 	 */
@@ -71,7 +71,7 @@ class Abstract_Dashboard {
 	/**
 	 * Get the integration endpoint dashboard fields to display on the Integrations tab.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string,array> $fields The current fields.
 	 *
@@ -109,7 +109,7 @@ class Abstract_Dashboard {
 		/**
 		 * Filters the integration endpoint dashboard shown to the user in the Events > Settings > Integrations tab.
 		 *
-		 * @since 1.4.0
+		 * @since TBD Migrated to Common from Event Automator
 		 *
 		 * @param array<string,array> $fields A map of the API fields that will be printed on the page.
 		 * @param Dashboard           $this   A Dashboard instance.
@@ -122,7 +122,7 @@ class Abstract_Dashboard {
 	/**
 	 * Provides the introductory text to the integration endpoint dashboard.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return string The introductory text for the integration endpoint dashboard.
 	 */
@@ -133,7 +133,7 @@ class Abstract_Dashboard {
 	/**
 	 * Get the integration endpoints.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return array<string,array> An array of the integration endpoints.
 	 */
@@ -143,7 +143,7 @@ class Abstract_Dashboard {
 		/**
 		 * Filters the integration endpoints for the dashboard.
 		 *
-		 * @since 1.4.0
+		 * @since TBD Migrated to Common from Event Automator
 		 *
 		 * @param array<string,array> An array of the integration endpoints.
 		 */
@@ -162,7 +162,7 @@ class Abstract_Dashboard {
 	/**
 	 * Get the integration endpoints dashboard template.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return string HTML for the dashboard.
 	 */

@@ -2,7 +2,7 @@
 /**
  * The Zapier Canceled Event Triggers.
  *
- * @since   1.2.0
+ * @since TBD Migrated to Common from Event Automator
  * @package TEC\Common\Event_Automator\Zapier\Triggers;
  */
 
@@ -15,7 +15,7 @@ use Tribe__Utils__Array as Arr;
 /**
  * Class Canceled_Events
  *
- * @since   1.2.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier\Triggers
  */

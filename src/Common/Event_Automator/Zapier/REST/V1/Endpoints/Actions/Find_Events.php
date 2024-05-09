@@ -2,7 +2,7 @@
 /**
  * The Zapier Find Event Endpoint.
  *
- * @since 1.6.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\ZapierREST\V1\Endpoints;
  */
@@ -22,7 +22,7 @@ use WP_REST_Server;
 /**
  * Class Find_Events
  *
- * @since 1.6.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints
  */
@@ -53,7 +53,7 @@ class Find_Events extends Abstract_REST_Endpoint {
 	/**
 	 * The REST instance endpoint to use.
 	 *
-	 * @since 1.6.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 */
@@ -69,7 +69,7 @@ class Find_Events extends Abstract_REST_Endpoint {
 	/**
 	 * The REST validator to use.
 	 *
-	 * @since 1.6.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var Tribe__Events__Validator__Base
 	 */
@@ -78,7 +78,7 @@ class Find_Events extends Abstract_REST_Endpoint {
 	/**
 	 * Abstract_REST_Endpoint constructor.
 	 *
-	 * @since 1.6.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param Api                   $api           An instance of the Zapier API handler.
 	 * @param Swagger_Documentation $documentation An instance of the Zapier Swagger_Documentation handler.
@@ -124,7 +124,7 @@ class Find_Events extends Abstract_REST_Endpoint {
 	/**
 	 * Get events from event archive.
 	 *
-	 * @since 1.6.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *

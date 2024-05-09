@@ -2,7 +2,7 @@
 /**
  * The Power Automate Attendees Endpoint.
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue;
  */
@@ -21,7 +21,7 @@ use WP_REST_Server;
 /**
  * Class Attendees
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue
  */
@@ -46,7 +46,7 @@ class Attendees extends Abstract_REST_Endpoint {
 	/**
 	 * The trigger accessed with this endpoint.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var Trigger_Attendees
 	 */
@@ -55,7 +55,7 @@ class Attendees extends Abstract_REST_Endpoint {
 	/**
 	 * Abstract_REST_Endpoint constructor.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param Api                   $api           An instance of the Power Automate API handler.
 	 * @param Swagger_Documentation $documentation An instance of the Power Automate Swagger_Documentation handler.
@@ -99,7 +99,7 @@ class Attendees extends Abstract_REST_Endpoint {
 	/**
 	 * Get attendees from queue.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *

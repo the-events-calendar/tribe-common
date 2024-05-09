@@ -2,7 +2,7 @@
 /**
  * Provides methods map attendee details.
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Traits\Maps;
  */
@@ -15,7 +15,7 @@ use \Tribe__Timezones as Timezones;
 /**
  * Trait Event
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Traits\Maps;
  */
@@ -24,9 +24,9 @@ trait Attendees {
 	/**
 	 * Get the event details mapped for 3rd party services.
 	 *
-	 * @since 1.0.0
-	 * @since 1.4.0 - Add encode arrays.
-	 * @since 1.5.0 - Add add_updated_id, and service_id parameters.
+	 * @since TBD Migrated to Common from Event Automator
+	 * @since TBD Migrated to Common from Event Automator - Add encode arrays.
+	 * @since TBD Migrated to Common from Event Automator - Add add_updated_id, and service_id parameters.
 	 *
 	 * @param int     $post_id        The post id for an attendee.
 	 * @param boolean $add_updated_id Whether to add a updated id, Zapier only updates events per
@@ -99,8 +99,8 @@ trait Attendees {
 		/**
 		 * Filters the attendee details sent to a 3rd party.
 		 *
-		 * @since 1.0.0
-		 * @since 1.4.0 - Add Service ID.
+		 * @since TBD Migrated to Common from Event Automator
+		 * @since TBD Migrated to Common from Event Automator - Add Service ID.
 		 *
 		 * @param array<string|mixed> $next_attendee An array of attendee mapped details.
 		 * @param array<string|mixed> $attendee      An array of raw attendee details.
@@ -118,7 +118,7 @@ trait Attendees {
 	/**
 	 * Get Attendee Meta.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string|mixed> $attendee An array of attendee details.
 	 *

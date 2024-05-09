@@ -2,7 +2,7 @@
 /**
  * Provides methods to set last access on Zapier endpoint.
  *
- * @since   1.2.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Traits;
  */
@@ -15,7 +15,7 @@ use Tribe__Timezones as Timezones;
 /**
  * Trait Last_Access
  *
- * @since   1.2.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier\Traits;
  */
@@ -24,7 +24,7 @@ trait Last_Access {
 	/**
 	 * Get the last access with provided app name.
 	 *
-	 * @since 1.2.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $app_name The optional app name used with this API key pair.
 	 */
@@ -39,7 +39,7 @@ trait Last_Access {
 		/**
 		 * Filters the Zapier app name.
 		 *
-		 * @since 1.2.0
+		 * @since TBD Migrated to Common from Event Automator
 		 *
 		 * @param string $pretty_app_name The Zapier app name.
 		 * @param string $app_name The Zapier app name id as sent from Zapier.

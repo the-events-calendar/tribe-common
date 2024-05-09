@@ -2,7 +2,7 @@
 /**
  * Manages the Zapier URLs for the plugin.
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier
  */
@@ -14,8 +14,8 @@ use TEC\Common\Event_Automator\Integrations\Connections\Integration_Url;
 /**
  * Class Url
  *
- * @since 1.0.0
- * @since 1.4.0 - Utilizes common class.
+ * @since TBD Migrated to Common from Event Automator
+ * @since TBD Migrated to Common from Event Automator - Utilizes common class.
  *
  * @package TEC\Common\Event_Automator\Zapier
  */
@@ -29,7 +29,7 @@ class Url extends Integration_Url {
 	/**
 	 * Url constructor.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param Actions $actions An instance of the Zapier Actions handler.
 	 */
@@ -41,7 +41,7 @@ class Url extends Integration_Url {
 	 * Returns the URL that should be used to delete an API Key pair in the settings.
 	 * @deprecated 1.4.0 - use to_add_connection_link() instead.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return string The URL to add an API Key.
 	 */
@@ -58,7 +58,7 @@ class Url extends Integration_Url {
 	 * Returns the URL that should be used to generate a Zapier API Key pair.
 	 * @deprecated 1.4.0 - use to_create_access_link() instead.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_id The consumer id for the key pair.
 	 *
@@ -79,7 +79,7 @@ class Url extends Integration_Url {
 	 * Returns the URL that should be used to revoke a Zapier API Key.
 	 * @deprecated 1.4.0 - use to_delete_connection_link() instead.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_id An API Key to revoke.
 	 *
@@ -99,7 +99,7 @@ class Url extends Integration_Url {
 	/**
 	 * Returns the URL that should be used clear a Zapier endpoint queue.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $endpoint_id An endpoint id to clear.
 	 *
@@ -117,7 +117,7 @@ class Url extends Integration_Url {
 	/**
 	 * Returns the URL that should be used disable a Zapier endpoint.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $endpoint_id An endpoint id to disable.
 	 *
@@ -135,7 +135,7 @@ class Url extends Integration_Url {
 	/**
 	 * Returns the URL that should be used enable a Zapier endpoint.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $endpoint_id An endpoint id to enable.
 	 *

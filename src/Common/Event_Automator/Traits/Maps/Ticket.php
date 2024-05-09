@@ -2,7 +2,7 @@
 /**
  * Provides methods map ticket details.
  *
- * @since 1.7.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Traits\Maps;
  */
@@ -12,7 +12,7 @@ namespace TEC\Common\Event_Automator\Traits\Maps;
 /**
  * Trait Event
  *
- * @since 1.7.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Traits\Maps;
  */
@@ -23,7 +23,7 @@ trait Ticket {
 	/**
 	 * Get the ticket details mapped for 3rd party services.
 	 *
-	 * @since 1.7.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param int    $post_id    The post id for an ticket.
 	 * @param string $service_id The service id used to modify the mapped event details.
@@ -84,7 +84,7 @@ trait Ticket {
 		/**
 		 * Filters the ticket details sent to a 3rd party.
 		 *
-		 * @since 1.7.0
+		 * @since TBD Migrated to Common from Event Automator
 		 *
 		 * @param array<string|mixed> $next_ticket An array of ticket mapped details.
 		 * @param array<string|mixed> $ticket      An array of raw ticket details.
@@ -102,7 +102,7 @@ trait Ticket {
 	/**
 	 * Get Ticket Information Fields.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string|mixed> $ticket An array of ticket details.
 	 *
@@ -133,7 +133,7 @@ trait Ticket {
 	/**
 	 * Get Ticket Information Fields.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string|mixed> $ticket An array of ticket details.
 	 *

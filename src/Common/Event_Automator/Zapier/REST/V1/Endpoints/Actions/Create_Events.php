@@ -2,7 +2,7 @@
 /**
  * The Zapier Create Event Endpoint.
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints;
  */
@@ -23,7 +23,7 @@ use WP_Error;
 /**
  * Class Find_Events
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints
  */
@@ -52,7 +52,7 @@ class Create_Events extends Abstract_REST_Endpoint {
 	/**
 	 * The REST instance endpoint to use.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var Single_Event_Endpoints
 	 */
@@ -61,7 +61,7 @@ class Create_Events extends Abstract_REST_Endpoint {
 	/**
 	 * The REST validator to use.
 	 *
-	 * @since 1.6.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var Tribe__Events__Validator__Base
 	 */
@@ -70,7 +70,7 @@ class Create_Events extends Abstract_REST_Endpoint {
 	/**
 	 * Abstract_REST_Endpoint constructor.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param Api                   $api           An instance of the Zapier API handler.
 	 * @param Swagger_Documentation $documentation An instance of the Zapier Swagger_Documentation handler.
@@ -128,8 +128,8 @@ class Create_Events extends Abstract_REST_Endpoint {
 	 * Whether the current user is set and the api is loaded.
 	 * The test for creating is done one the rest_pre_dispatch hook, if the api is not ready or no user loaded then it failed.
 	 *
-	 * @since 1.0.0
-	 * @since 1.4.0 - Modify to have pre_dispatch_verification do the verification and this method checks it was loaded.
+	 * @since TBD Migrated to Common from Event Automator
+	 * @since TBD Migrated to Common from Event Automator - Modify to have pre_dispatch_verification do the verification and this method checks it was loaded.
 	 *
 	 * @return bool Whether the current user and api are loaded.
 	 */
@@ -161,7 +161,7 @@ class Create_Events extends Abstract_REST_Endpoint {
 	 *
 	 * Required method from abstract that only returns an error.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -178,7 +178,7 @@ class Create_Events extends Abstract_REST_Endpoint {
 	/**
 	 * Create an event.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *

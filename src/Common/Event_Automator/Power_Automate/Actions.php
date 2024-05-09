@@ -2,7 +2,7 @@
 /**
  * Class to manage Power Automate actions.
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Power_Automate
  */
@@ -12,7 +12,7 @@ namespace TEC\Common\Event_Automator\Power_Automate;
 /**
  * Class Actions
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Power_Automate
  */
@@ -21,7 +21,7 @@ class Actions {
 	/**
 	 * The name of the action used to add a Power Automate connection.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -30,7 +30,7 @@ class Actions {
 	/**
 	 * The name of the action used to create a Power Automate access token.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -39,7 +39,7 @@ class Actions {
 	/**
 	 * The name of the action used to delete a Power Automate connection.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -48,7 +48,7 @@ class Actions {
 	/**
 	 * The name of the action used to clear a Power Automate endpoint queue.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -57,7 +57,7 @@ class Actions {
 	/**
 	 * The name of the action used to disable a Power Automate endpoint.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -66,7 +66,7 @@ class Actions {
 	/**
 	 * The name of the action used to enable a Power Automate endpoint.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */

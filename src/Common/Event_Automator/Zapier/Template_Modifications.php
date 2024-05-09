@@ -2,7 +2,7 @@
 /**
  * Zapier template modifications class.
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier
  */
@@ -15,7 +15,7 @@ use TEC\Common\Event_Automator\Templates\Admin_Template;
 /**
  * Class Template_Modifications
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier
  */
@@ -29,7 +29,7 @@ class Template_Modifications extends Integration_Template_Modifications {
 	/**
 	 * Template_Modifications constructor.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param Admin_Template $template An instance of the backend template handler.
 	 * @param Url            $Url      An instance of the URl handler.
@@ -44,7 +44,7 @@ class Template_Modifications extends Integration_Template_Modifications {
 	 * Adds an API authorize fields to events->settings->api.
 	 * @deprecated 1.4.0 - Use get_all_connection_fields().
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param Api $api An instance of an API handler.
 	 * @param Url $url The URLs handler for the integration.
@@ -75,7 +75,7 @@ class Template_Modifications extends Integration_Template_Modifications {
 	 * Get the API Key fields.
 	 * @deprecated 1.4.0 - Use get_connection_fields().
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param Api                 $api         An instance of an API handler.
 	 * @param string              $consumer_id The unique id used to save the API Key data.
@@ -100,7 +100,7 @@ class Template_Modifications extends Integration_Template_Modifications {
 	/**
 	 * Get intro text for an endpoint dashboard.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return string HTML for the intro text.
 	 */

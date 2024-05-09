@@ -2,7 +2,7 @@
 /**
  * The Zapier Updated Attendees Triggers.
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier\Triggers;
  */
@@ -15,7 +15,7 @@ use Tribe__Tickets__Tickets;
 /**
  * Class Updated_Attendees
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier\Triggers
  */

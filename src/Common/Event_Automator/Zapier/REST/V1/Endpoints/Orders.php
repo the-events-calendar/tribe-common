@@ -2,7 +2,7 @@
 /**
  * The Zapier Orders Endpoint.
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints;
  */
@@ -19,7 +19,7 @@ use WP_REST_Response;
 /**
  * Class Orders
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints
  */
@@ -43,7 +43,7 @@ class Orders extends Abstract_REST_Endpoint {
 	/**
 	 * The trigger accessed with this endpoint.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var Trigger_Orders
 	 */
@@ -52,7 +52,7 @@ class Orders extends Abstract_REST_Endpoint {
 	/**
 	 * Abstract_REST_Endpoint constructor.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param Api                   $api           An instance of the Zapier API handler.
 	 * @param Swagger_Documentation $documentation An instance of the Zapier Swagger_Documentation handler.
@@ -96,7 +96,7 @@ class Orders extends Abstract_REST_Endpoint {
 	/**
 	 * Get events from new event queue.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *

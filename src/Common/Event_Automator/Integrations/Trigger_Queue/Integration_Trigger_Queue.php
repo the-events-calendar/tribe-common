@@ -2,7 +2,7 @@
 /**
  * Integrations Abstract Trigger Queue.
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  * @package TEC\Common\Event_Automator\Integrations\Triggers;
  */
 
@@ -11,7 +11,7 @@ namespace TEC\Common\Event_Automator\Integrations\Trigger_Queue;
 /**
  * Class Integration_Trigger_Queue
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Integrations\Trigger_Queue
  */
@@ -20,7 +20,7 @@ abstract class Integration_Trigger_Queue {
 	/**
 	 * The API ID for the Trigger Queue.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -29,7 +29,7 @@ abstract class Integration_Trigger_Queue {
 	/**
 	 * Queue name prefix.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -38,7 +38,7 @@ abstract class Integration_Trigger_Queue {
 	/**
 	 * Queue name.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -47,7 +47,7 @@ abstract class Integration_Trigger_Queue {
 	/**
 	 * Meta field name when a custom post is added to a trigger queue to prevent duplicate.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -56,7 +56,7 @@ abstract class Integration_Trigger_Queue {
 	/**
 	 * Get the queue name for the trigger.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return string The queue name with prefix added.
 	 */
@@ -67,7 +67,7 @@ abstract class Integration_Trigger_Queue {
 	/**
 	 * Get the meta field name saved when an item is added to the queue.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return string The meta field name with prefix added.
 	 */
@@ -78,7 +78,7 @@ abstract class Integration_Trigger_Queue {
 	/**
 	 * Get the array of custom post ids in the queue.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return array<string> An array of custom post ids.
 	 */
@@ -91,7 +91,7 @@ abstract class Integration_Trigger_Queue {
 	/**
 	 * Set the queue transient.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string|integer> $queue An array of
 	 *
@@ -104,7 +104,7 @@ abstract class Integration_Trigger_Queue {
 	/**
 	 * Validate the hook to determine if the custom post should be added to a trigger queue.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param integer            $post_id A WordPress custom post id.
 	 * @param array<mixed|mixed> $data    An array of data specific to the trigger and used for validation.
@@ -116,7 +116,7 @@ abstract class Integration_Trigger_Queue {
 	/**
 	 * Add a custom post id to a trigger queue.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param integer            $post_id A WordPress custom post id.
 	 * @param array<mixed|mixed> $data    An array of data specific to the trigger and used for validation.
@@ -127,7 +127,7 @@ abstract class Integration_Trigger_Queue {
 		/**
 		 * Allows filtering whether items should be added to queues.
 		 *
-		 * @since 1.4.0
+		 * @since TBD Migrated to Common from Event Automator
 		 *
 		 * @param boolean $enable_add_to_queue Whether to add items to queues, default to false, enabled by each service.
 		 */
@@ -141,7 +141,7 @@ abstract class Integration_Trigger_Queue {
 		/**
 		 * Filters whether a post id should be added to a trigger queue.
 		 *
-		 * @since 1.4.0
+		 * @since TBD Migrated to Common from Event Automator
 		 *
 		 * @param boolean            $process Whether to add post id to a integration trigger queue.
 		 * @param integer            $post_id A WordPress custom post id.
@@ -169,7 +169,7 @@ abstract class Integration_Trigger_Queue {
 		/**
 		 * Filters the maximum number of items to keep in the current queue.
 		 *
-		 * @since 1.5.0
+		 * @since TBD Migrated to Common from Event Automator
 		 *
 		 * @param int $max_items The maximum number of items to keep in the queue, default to 15.
 		 */
@@ -178,7 +178,7 @@ abstract class Integration_Trigger_Queue {
 		/**
 		 * Filters the maximum number of items to keep in the current queue.
 		 *
-		 * @since 1.5.0
+		 * @since TBD Migrated to Common from Event Automator
 		 *
 		 * @param int $max_items The maximum number of items to keep in the queue, default to 15.
 		 */

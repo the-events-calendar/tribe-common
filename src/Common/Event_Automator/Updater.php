@@ -2,7 +2,7 @@
 /**
  * Handles Plugin Updates
  *
- * @since   1.2.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator
  */
@@ -15,7 +15,7 @@ use Tribe__Events__Updater;
 /**
  * Class Updater.
  *
- * @since 1.5.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator
  */
@@ -23,7 +23,7 @@ class Updater extends Tribe__Events__Updater {
 	/**
 	 * Event Automator reset version.
 	 *
-	 * @since 1.2.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -32,7 +32,7 @@ class Updater extends Tribe__Events__Updater {
 	/**
 	 * Event Automator Schema Key.
 	 *
-	 * @since 1.2.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -44,7 +44,7 @@ class Updater extends Tribe__Events__Updater {
 	 * and lower than $this->current_version will have its
 	 * callback called on admin_init after a plugin update.
 	 *
-	 * @since 1.2.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return array<string|callback> The version number and callback to use.
 	 */
@@ -57,7 +57,7 @@ class Updater extends Tribe__Events__Updater {
 	/**
 	 * Update the PUE license field.
 	 *
-	 * @since 1.2.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return boolean whether the update to pue license field is complete.
 	 */
@@ -77,7 +77,7 @@ class Updater extends Tribe__Events__Updater {
 	 * Force upgrade script to run even without an existing version number
 	 * The version was not previously stored for Event Automator.
 	 *
-	 * @since 1.2.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return bool
 	 */
@@ -88,7 +88,7 @@ class Updater extends Tribe__Events__Updater {
 	/**
 	 * Run Updates on Plugin Upgrades.
 	 *
-	 * @since 1.2.0
+	 * @since TBD Migrated to Common from Event Automator
 	 */
 	public function run_updates() {
 		if ( ! $this->update_required() ) {

@@ -2,7 +2,7 @@
 /**
  * The Zapier Find Tickets Endpoint.
  *
- * @since 1.7.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\ZapierREST\V1\Endpoints;
  */
@@ -22,7 +22,7 @@ use WP_REST_Server;
 /**
  * Class Find_Tickets
  *
- * @since 1.7.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier\REST\V1\Endpoints
  */
@@ -53,7 +53,7 @@ class Find_Tickets extends Abstract_REST_Endpoint {
 	/**
 	 * The REST instance endpoint to use.
 	 *
-	 * @since 1.7.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var Tribe__Tickets__REST__V1__Endpoints__ticket_Archive
 	 */
@@ -69,7 +69,7 @@ class Find_Tickets extends Abstract_REST_Endpoint {
 	/**
 	 * The REST validator to use.
 	 *
-	 * @since 1.7.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var Tribe__Tickets__Validator__Base
 	 */
@@ -78,7 +78,7 @@ class Find_Tickets extends Abstract_REST_Endpoint {
 	/**
 	 * Abstract_REST_Endpoint constructor.
 	 *
-	 * @since 1.7.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param Api                   $api           An instance of the Zapier API handler.
 	 * @param Swagger_Documentation $documentation An instance of the Zapier Swagger_Documentation handler.
@@ -125,7 +125,7 @@ class Find_Tickets extends Abstract_REST_Endpoint {
 	 * Whether the current user is set and the api is loaded.
 	 * The test for creating is done one the rest_pre_dispatch hook, if the api is not ready or no user loaded then it failed.
 	 *
-	 * @since 1.7.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -157,7 +157,7 @@ class Find_Tickets extends Abstract_REST_Endpoint {
 	/**
 	 * Get tickets from archive endpoint.
 	 *
-	 * @since 1.7.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *

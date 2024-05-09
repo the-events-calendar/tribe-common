@@ -2,7 +2,7 @@
 /**
  * The Power Automate New Event Queue.
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Power_Automate\Triggers
  */
@@ -15,7 +15,7 @@ use WP_Post;
 /**
  * Class New_Events
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Power_Automate\Triggers
  */

@@ -2,7 +2,7 @@
 /**
  * Abstract Class to Manage Multiple API Keys for Zapier.
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier
  */
@@ -17,7 +17,7 @@ use WP_User;
 /**
  * Class Abstract_API_Key_Api
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier
  */
@@ -28,7 +28,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * Whether an api_key has been loaded for the API to use.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var boolean
 	 */
@@ -37,7 +37,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * The name of the loaded api_key.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -46,7 +46,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * The key to get the option with a list of all API Keys.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -55,7 +55,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * The prefix to save all single API Key with.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -64,7 +64,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * The hashed consumer id of the api key loaded.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -73,7 +73,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * The consumer secret of the api key loaded.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -82,7 +82,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * The permissions the API Key pair has access to.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -91,7 +91,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * The last access of the API Key pair.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -100,7 +100,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * The WordPress user id of the loaded api_key.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var integer
 	 */
@@ -109,7 +109,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * The WP_User object.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var WP_User
 	 */
@@ -118,7 +118,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * Checks whether the current API is ready to use.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return bool Whether the current API has a loaded api_key.
 	 */
@@ -129,7 +129,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * Load a specific api_key into the API.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string|string> $api_key         An api_key with the fields to access the API.
 	 * @param string               $consumer_secret An optional consumer secret used to verify an API Key pair.
@@ -150,7 +150,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * Load a specific api_key by the id.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_id     The consumer id to get and load an API Key pair.
 	 * @param string $consumer_secret The consumer secret used to verify an API Key pair.
@@ -177,7 +177,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * Check if an api_key has all the information to be valid.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string|string> $api_key An api_key with the fields to access the API.
 	 * @param string $consumer_secret The consumer secret to verify the API Key with.
@@ -278,7 +278,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * Initialize an API Key to use for the API.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string|string> $api_key An api_key with the fields to access the API.
 	 */
@@ -295,7 +295,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * Get the listing of API Keys.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param boolean $all_data Whether to return all api_key data, default is only name and status.
 	 *
@@ -324,7 +324,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * Update the list of API Keys with provided api_key.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string|string> $api_key_data The array of data for an api_key to add to the list.
 	 */
@@ -334,7 +334,7 @@ abstract class Abstract_API_Key_Api {
 		/**
 		 * Fires after before the api_key list is updated for an API.
 		 *
-		 * @since 1.0.0
+		 * @since TBD Migrated to Common from Event Automator
 		 *
 		 * @param array<string,mixed>  An array of API Keys formatted for options dropdown.
 		 * @param array<string|string> $api_key_data The array of data for an api_key to add to the list.
@@ -352,7 +352,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * Delete from the list of API Keys the provided api_key.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_id The id of the single api_key to save.
 	 */
@@ -366,7 +366,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * Get a Single API Key by id.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_id The id of the single api_key.
 	 *
@@ -379,7 +379,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * Set an API Key with the provided id.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string|string> $api_key_data A specific api_key data to save.
 	 */
@@ -401,7 +401,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * Updates the last access valid access of the API Key pair.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_id The id of the single api_key.
 	 * @param string $app_name    The optional app name used with this API key pair.
@@ -420,7 +420,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * Delete an api_key by ID.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_id The id of the single api_key.
 	 *
@@ -437,7 +437,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * Maybe hash the consumer secret.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_secret The consumer secret to verify the API Key with.
 	 *
@@ -452,7 +452,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * Check the consumer secret.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_secret The consumer secret to verify the API Key with.
 	 *
@@ -470,7 +470,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * Hash the specified text.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $text Text to be hashed.
 	 *
@@ -483,7 +483,7 @@ abstract class Abstract_API_Key_Api {
 	/**
 	 * Get the WP_User object from the Loaded API Key.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return WP_User|null Returns the WP_User object or null if not loaded.
 	 */

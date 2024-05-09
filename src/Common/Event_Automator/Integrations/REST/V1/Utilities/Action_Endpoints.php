@@ -2,7 +2,7 @@
 /**
  * The Integrations Action Endpoint Utilities
  *
- * @since   1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Integrations\REST\V1\Utilities
  */
@@ -12,7 +12,7 @@ namespace TEC\Common\Event_Automator\Integrations\REST\V1\Utilities;
 /**
  * Class Actions
  *
- * @since   1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Integrations\REST\V1\Utilities
  */
@@ -21,7 +21,7 @@ class Action_Endpoints {
 	/**
 	 * Filters the endpoint details.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string,array>    $endpoint An array of the Zapier endpoint details.
 	 * @param Abstract_REST_Endpoint $this     An instance of the endpoint.

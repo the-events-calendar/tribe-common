@@ -2,7 +2,7 @@
 /**
  * The main Event Automator plugin service provider: it bootstraps the plugin code.
  *
- * @since   1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator
  */
@@ -18,7 +18,7 @@ use Tribe__Autoloader;
 /**
  * Class Plugin
  *
- * @since   1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator
  */
@@ -26,7 +26,7 @@ class Plugin {
 	/**
 	 * Stores the version for the plugin.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -35,7 +35,7 @@ class Plugin {
 	/**
 	 * Stores the base slug for the plugin.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -44,7 +44,7 @@ class Plugin {
 	/**
 	 * Stores the base slug for the extension.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -53,7 +53,7 @@ class Plugin {
 	/**
 	 * The slug that will be used to identify HTTP requests the plugin should handle.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -61,21 +61,21 @@ class Plugin {
 
 
 	/**
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string Plugin Directory.
 	 */
 	public $plugin_dir;
 
 	/**
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string Plugin path.
 	 */
 	public $plugin_path;
 
 	/**
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string Plugin URL.
 	 */
@@ -87,7 +87,7 @@ class Plugin {
 	 * Note this specifically doesn't have a typing, just a type hinting via Docblocks, it helps
 	 * avoid problems with deprecation since this is loaded so early.
 	 *
-	 * @since 1.5.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var \Tribe__Container
 	 */
@@ -99,7 +99,7 @@ class Plugin {
 	 * Note this specifically doesn't have a typing for the container, just a type hinting via Docblocks, it helps
 	 * avoid problems with deprecation since this is loaded so early.
 	 *
-	 * @since 1.5.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param ?\Tribe__Container $container The container to use, if any. If not provided, the global container will be used.
 	 *
@@ -114,7 +114,7 @@ class Plugin {
 	 * Note this specifically doesn't have a typing for the container, just a type hinting via Docblocks, it helps
 	 * avoid problems with deprecation since this is loaded so early.
 	 *
-	 * @since 1.5.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param ?\Tribe__Container $container The container to use, if any. If not provided, the global container will be used.
 	 */
@@ -161,7 +161,7 @@ class Plugin {
 	/**
 	 * Register the Tribe Autoloader in Events Automator.
 	 *
-	 * @since 1.2.0
+	 * @since TBD Migrated to Common from Event Automator
 	 */
 	protected function register_autoloader() {
 		// Load Composer autoload file only if we've not included this file already.
@@ -180,7 +180,7 @@ class Plugin {
 	/**
 	 * Checks whether the plugin dependency manifest is satisfied or not.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return bool Whether the plugin dependency manifest is satisfied or not.
 	 */
@@ -197,7 +197,7 @@ class Plugin {
 	/**
 	 * Registers the plugin and dependency manifest among those managed by Event Automator.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 */
 	protected function register_plugin_dependencies() {
 		$plugin_register = new Plugin_Register();

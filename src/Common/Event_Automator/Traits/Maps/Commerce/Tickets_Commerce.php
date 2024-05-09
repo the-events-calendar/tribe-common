@@ -2,7 +2,7 @@
 /**
  * Provides methods to format Tickets Commerce data.
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Traits\Maps\Commerce;
  */
@@ -14,7 +14,7 @@ use WP_Post;
 /**
  * Trait With_AJAX
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Traits\Maps\Commerce;
  */
@@ -23,8 +23,8 @@ trait Tickets_Commerce {
 	/**
 	 * Get the Tickets Commerce Order
 	 *
-	 * @since 1.0.0
-	 * @since 1.4.0 - Add encode arrays.
+	 * @since TBD Migrated to Common from Event Automator
+	 * @since TBD Migrated to Common from Event Automator - Add encode arrays.
 	 *
 	 * @param int    $order_id   The Tickets Commerce order id.
 	 * @param string $service_id The service id used to modify the mapped event details.
@@ -75,8 +75,8 @@ trait Tickets_Commerce {
 		/**
 		 * Filters the order information for Tickets Commerce that is sent to Zapier.
 		 *
-		 * @since 1.0.0
-		 * @since 1.4.0 - Add Service ID.
+		 * @since TBD Migrated to Common from Event Automator
+		 * @since TBD Migrated to Common from Event Automator - Add Service ID.
 		 *
 		 * @param array<string|mixed> $next_order An array of Tickets Commerce order details.
 		 * @param WP_Post             $order      An instance of the Tickets Commerce order object.
@@ -94,7 +94,7 @@ trait Tickets_Commerce {
 	/**
 	 * Get Tickets Commerce Ticket Meta.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string|mixed> $item An array ot Tickets Commerce order item.
 	 *

@@ -2,7 +2,7 @@
 /**
  * The Integration Abstract Swagger Documentation Endpoint.
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Integrations\REST\V1\Documentation
  */
@@ -19,7 +19,7 @@ use WP_Error;
 /**
  * Class Swagger_Documentation
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Integrations\REST\V1\Documentation
  */
@@ -31,7 +31,7 @@ abstract class Integration_Swagger_Documentation
 	/**
 	 * Open API Version.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -40,7 +40,7 @@ abstract class Integration_Swagger_Documentation
 	/**
 	 * Integration REST API Version.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -49,7 +49,7 @@ abstract class Integration_Swagger_Documentation
 	/**
 	 * REST Documentation Definition Providers.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var Tribe__Documentation__Swagger__Provider_Interface[]
 	 */
@@ -58,7 +58,7 @@ abstract class Integration_Swagger_Documentation
 	/**
 	 * REST Definition Definition Providers.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var Tribe__Documentation__Swagger__Provider_Interface[]
 	 */
@@ -67,7 +67,7 @@ abstract class Integration_Swagger_Documentation
 	/**
 	 * Register the actual endpoint on WP Rest API.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 */
 	public function register() {
 		tribe_register_rest_route( $this->get_events_route_namespace(), '/doc', [
@@ -80,7 +80,7 @@ abstract class Integration_Swagger_Documentation
 	/**
 	 * Handles GET requests on the endpoint.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request
 	 *
@@ -95,7 +95,7 @@ abstract class Integration_Swagger_Documentation
 	/**
 	 * Returns an array in the format used by Swagger 2.0.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * While the structure must conform to that used by v2.0 of Swagger the structure can be that of a full document
 	 * or that of a document part.
@@ -129,7 +129,7 @@ abstract class Integration_Swagger_Documentation
 		/**
 		 * Filters the Swagger documentation generated for the TEC REST API.
 		 *
-		 * @since 1.4.0
+		 * @since TBD Migrated to Common from Event Automator
 		 *
 		 * @param array<string|mixed>   $documentation An associative PHP array in the format supported by Swagger.
 		 * @param Swagger_Documentation $this          This documentation endpoint instance.
@@ -144,7 +144,7 @@ abstract class Integration_Swagger_Documentation
 	/**
 	 * Get REST API Info
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return array
 	 */
@@ -153,7 +153,7 @@ abstract class Integration_Swagger_Documentation
 	/**
 	 * Get REST API Path
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return array
 	 */
@@ -175,7 +175,7 @@ abstract class Integration_Swagger_Documentation
 	/**
 	 * Registers a documentation provider for a path.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param                                            $path
 	 * @param Tribe__Documentation__Swagger__Provider_Interface $endpoint
@@ -187,7 +187,7 @@ abstract class Integration_Swagger_Documentation
 	/**
 	 * Get REST API Documentation
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return array
 	 */
@@ -206,7 +206,7 @@ abstract class Integration_Swagger_Documentation
 	/**
 	 * Get REST API Definitions
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return array
 	 */
@@ -223,7 +223,7 @@ abstract class Integration_Swagger_Documentation
 	/**
 	 * Get REST API Registered Documentation Providers
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return Tribe__Documentation__Swagger__Provider_Interface[]
 	 */
@@ -234,7 +234,7 @@ abstract class Integration_Swagger_Documentation
 	/**
 	 * Registers a documentation provider for a definition.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string                                            $type
 	 * @param Tribe__Documentation__Swagger__Provider_Interface $provider
@@ -246,7 +246,7 @@ abstract class Integration_Swagger_Documentation
 	/**
 	 * Get Documentation Provider Interface
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return Tribe__Documentation__Swagger__Provider_Interface[]
 	 */
@@ -258,7 +258,7 @@ abstract class Integration_Swagger_Documentation
 	 * Returns the content of the `args` array that should be used to register the endpoint
 	 * with the `register_rest_route` function.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return array
 	 */

@@ -2,7 +2,7 @@
 /**
  * The Power Automate Canceled Event Endpoint.
  *
- * @since   1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints;
  */
@@ -21,7 +21,7 @@ use TEC\Common\Event_Automator\Traits\Maps\Event;
 /**
  * Class Canceled_Events
  *
- * @since   1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Power_Automate\REST\V1\Endpoints
  */
@@ -46,7 +46,7 @@ class Canceled_Events extends Abstract_REST_Endpoint {
 	/**
 	 * The trigger accessed with this endpoint.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var Trigger_Canceled_Events
 	 */
@@ -55,7 +55,7 @@ class Canceled_Events extends Abstract_REST_Endpoint {
 	/**
 	 * Abstract_REST_Endpoint constructor.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param Api                   $api           An instance of the Power Automate API handler.
 	 * @param Swagger_Documentation $documentation An instance of the Power Automate Swagger_Documentation handler.
@@ -99,7 +99,7 @@ class Canceled_Events extends Abstract_REST_Endpoint {
 	/**
 	 * Get events from canceled event queue.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *

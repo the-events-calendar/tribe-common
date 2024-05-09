@@ -12,7 +12,7 @@
  *  remove_action( 'some_action', [ tribe( TEC\Common\Event_Automator\Hooks::class ), 'some_method' ] );
  * ```
  *
- * @since 1.2.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator;
  */
@@ -25,7 +25,7 @@ use TEC\Common\Event_Automator\Admin\Tabs\Tabs_Provider;
 /**
  * Class Hooks.
  *
- * @since   1.2.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator;
  */
@@ -34,7 +34,7 @@ class Hooks extends Service_Provider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since 1.2.0
+	 * @since TBD Migrated to Common from Event Automator
 	 */
 	public function register() {
 		$this->container->singleton( static::class, $this );
@@ -47,7 +47,7 @@ class Hooks extends Service_Provider {
 	/**
 	 * Run Updates on Plugin Upgrades.
 	 *
-	 * @since 1.2.0
+	 * @since TBD Migrated to Common from Event Automator
 	 */
 	public function run_updates() {
 		if ( ! class_exists( 'Tribe__Events__Updater', false ) ) {
@@ -61,7 +61,7 @@ class Hooks extends Service_Provider {
 	/**
 	 * Register providers at admin_init, so dependencies are loaded.
 	 *
-	 * @since 1.6.0
+	 * @since TBD Migrated to Common from Event Automator
 	 */
 	public function admin_register() {
 		$this->container->register( Tabs_Provider::class );

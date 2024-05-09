@@ -2,7 +2,7 @@
 /**
  * Class to manage Power Automate Connections.
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Power_Automate
  */
@@ -15,7 +15,7 @@ use TEC\Common\Event_Automator\Integrations\Connections\Integration_AJAX;
 /**
  * Class Api
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Power_Automate
  */
@@ -49,7 +49,7 @@ class Api extends Integration_AJAX {
 	/**
 	 * API constructor.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param Actions                $actions An instance of the Actions name handler.
 	 * @param Template_Modifications $actions An instance of the Template_Modifications.
@@ -103,7 +103,7 @@ class Api extends Integration_AJAX {
 	/**
 	 * Create the access token.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_id The consumer id.
 	 * @param string $consumer_secret        The consumer secret.

@@ -2,7 +2,7 @@
 /**
  * Class to manage Zapier Endpoints.
  *
- * @since   1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier\Admin
  */
@@ -16,7 +16,7 @@ use TEC\Common\Event_Automator\Zapier\Template_Modifications;
 /**
  * Class Endpoints_Manager
  *
- * @since   1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier\Admin
  */
@@ -35,7 +35,7 @@ class Endpoints_Manager extends Abstract_Endpoints_Manager {
 	/**
 	 * Endpoints_Manager constructor.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param Actions                $actions An instance of the Actions name handler.
 	 * @param Template_Modifications $actions An instance of the Template_Modifications.
@@ -48,7 +48,7 @@ class Endpoints_Manager extends Abstract_Endpoints_Manager {
 		/**
 		 * Filters the endpoints for the dashboard.
 		 *
-		 * @since 1.4.0
+		 * @since TBD Migrated to Common from Event Automator
 		 *
 		 * @param array<string,array> An array of endpoints.
 		 */

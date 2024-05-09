@@ -2,7 +2,7 @@
 /**
  * Abstract Class to Manage Integration Connections AJAX.
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Integrations\Connections
  */
@@ -15,7 +15,7 @@ use TEC\Common\Event_Automator\Traits\With_AJAX;
 /**
  * Class Integration_AJAX
  *
- * @since 1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Integrations\Connections
  */
@@ -26,7 +26,7 @@ abstract class Integration_AJAX extends Integration_Connections {
 	/**
 	 * Add Connection fields using ajax.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $nonce The add action nonce to check.
 	 *
@@ -56,7 +56,7 @@ abstract class Integration_AJAX extends Integration_Connections {
 	/**
 	 * Create Connection Access.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $nonce The add action nonce to check.
 	 *
@@ -123,7 +123,7 @@ abstract class Integration_AJAX extends Integration_Connections {
 	/**
 	 * Save the Connection for an integration.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string $consumer_id The consumer id.
 	 * @param string $name        The name of the connection.
@@ -137,7 +137,7 @@ abstract class Integration_AJAX extends Integration_Connections {
 	/**
 	 * Get the confirmation text for deleting an api_key.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return string The confirmation text.
 	 */
@@ -146,7 +146,7 @@ abstract class Integration_AJAX extends Integration_Connections {
 	/**
 	 * Handles the request to delete an integration connection.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string|null $nonce The nonce that should accompany the request.
 	 *

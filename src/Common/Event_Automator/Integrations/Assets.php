@@ -2,7 +2,7 @@
 /**
  * Class to manage integrations assets.
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Integrations
  */
@@ -14,7 +14,7 @@ use TEC\Common\Event_Automator\Plugin;
 /**
  * Class Settings
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Integrations
  */
@@ -23,7 +23,7 @@ class Assets {
 	/**
 	 * Registers and Enqueues the admin assets.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 */
 	public function register_admin_assets() {
 		$admin_helpers = \Tribe__Admin__Helpers::instance();

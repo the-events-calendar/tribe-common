@@ -2,7 +2,7 @@
 /**
  * Class to manage Zapier settings.
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier
  */
@@ -14,8 +14,8 @@ use TEC\Common\Event_Automator\Integrations\Connections\Integration_Settings;
 /**
  * Class Settings
  *
- * @since 1.0.0
- * @since 1.4.0 -  Utilize Integration_Settings to share coding among integrations.
+ * @since TBD Migrated to Common from Event Automator
+ * @since TBD Migrated to Common from Event Automator -  Utilize Integration_Settings to share coding among integrations.
  *
  * @package TEC\Common\Event_Automator\Zapier
  */
@@ -34,7 +34,7 @@ class Settings extends Integration_Settings {
 	/**
 	 * Settings constructor.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param Api                    $api                    An instance of the Zapier API handler.
 	 * @param Template_Modifications $template_modifications An instance of the Template_Modifications handler.
@@ -50,7 +50,7 @@ class Settings extends Integration_Settings {
 	 * Get the Zapier API authorization fields.
 	 * @deprecated 1.4.0 - use get_all_connection_fields();
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return string The HTML fields.
 	 */

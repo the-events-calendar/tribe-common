@@ -2,7 +2,7 @@
 /**
  * The Zapier Action Endpoint Utilities
  *
- * @since   1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\ZapierREST\V1\Utilities
  */
@@ -14,7 +14,7 @@ use Tribe__Events__REST__V1__Validator__Base;
 /**
  * Class Actions
  *
- * @since   1.4.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier\REST\V1\Utilities
  */
@@ -23,7 +23,7 @@ class Action_Endpoints {
 	/**
 	 * Filters the Zapier endpoint details.
 	 *
-	 * @since 1.4.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string,array>    $endpoint An array of the Zapier endpoint details.
 	 * @param Abstract_REST_Endpoint $this     An instance of the endpoint.

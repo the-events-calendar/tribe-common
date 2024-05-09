@@ -7,7 +7,7 @@ use Tribe\Tickets\Admin\Settings as Plugin_Settings;
 /**
  * Class Integrations
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  * @package TEC\Common\Event_Automator\Admin\Tabs
  *
  */
@@ -16,7 +16,7 @@ class Integrations {
 	/**
 	 * Slug for the tab.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -25,7 +25,7 @@ class Integrations {
 	/**
 	 * Register the Tab.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param string Admin page id.
 	 */
@@ -43,7 +43,7 @@ class Integrations {
 		/**
 		 * Filter the tab settings options.
 		 *
-		 * @since 1.0.0
+		 * @since TBD Migrated to Common from Event Automator
 		 *
 		 * @param array<string,mixed> Key value pairs of setting options.
 		 */
@@ -55,7 +55,7 @@ class Integrations {
 	/**
 	 * Register tab ID for network mode support.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @param array<string> $tabs Array of tabs IDs for the Events settings page.
 	 *
@@ -70,7 +70,7 @@ class Integrations {
 	/**
 	 * Gets the settings.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 *
 	 * @return array<string,mixed> Key value pair for setting options.
 	 */
@@ -93,7 +93,7 @@ class Integrations {
 		 * Filters the fields in the Tickets > Settings > Integrations tab.
 		 * Utilizes the name from Event Tickets Plus as this is a replacement if that plugin is deactivated.
 		 *
-		 * @since 1.0.0
+		 * @since TBD Migrated to Common from Event Automator
 		 *
 		 * @param array<string,array> $fields The current fields.
 		 *

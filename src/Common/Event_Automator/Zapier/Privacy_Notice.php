@@ -2,7 +2,7 @@
 /**
  * Class to manage GDPR/CCPA privacy notice.
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  *
  * @package TEC\Common\Event_Automator\Zapier
  */
@@ -14,7 +14,7 @@ _deprecated_file( __FILE__, '1.2.0' );
 /**
  * Class Privacy_Notice
  *
- * @since 1.0.0
+ * @since TBD Migrated to Common from Event Automator
  * @deprecated 1.2.0
  *
  * @package TEC\Common\Event_Automator\Zapier
@@ -24,7 +24,7 @@ class Privacy_Notice {
 	/**
 	 * Renders the GDPR/CCPA privacy notice.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 * @deprecated 1.2.0
 	 */
 	public function render() {
@@ -46,7 +46,7 @@ class Privacy_Notice {
 	/**
 	 * This function determines whether to display the privacy notice.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 * @deprecated 1.2.0
 	 *
 	 * @return boolean Whether the notice should display.
@@ -61,7 +61,7 @@ class Privacy_Notice {
 	/**
 	 * HTML for privacy notice.
 	 *
-	 * @since 1.0.0
+	 * @since TBD Migrated to Common from Event Automator
 	 * @deprecated 1.2.0
 	 *
 	 * @return string The notice text.
