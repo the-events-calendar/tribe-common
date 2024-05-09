@@ -69,7 +69,7 @@ class Api extends Integration_AJAX {
 		$message = _x(
 			'Power Automate Connection saved.',
 			'Power Automate Connection save message.',
-			'event-automator'
+			'tribe-common'
 		);
 		$this->template_modifications->print_settings_message_template( $message );
 
@@ -135,8 +135,8 @@ class Api extends Integration_AJAX {
 			_x(
 				'Are you sure you want to delete this Power Automate connection? This operation cannot be undone. Existing Power Automate connections using this connection will no longer work.',
 				'The message to display to confirm a user would like to delete a Power Automate connection.',
-				'event-automator',
-				'event-automator'
+				'tribe-common',
+				'tribe-common'
 			),
 		);
 	}

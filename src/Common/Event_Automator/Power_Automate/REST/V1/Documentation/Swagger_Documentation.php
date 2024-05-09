@@ -29,8 +29,8 @@ class Swagger_Documentation extends Integration_Swagger_Documentation {
 	 */
 	protected function get_api_info() {
 		return [
-			'title'       => __( 'TEC Power Automate REST API', 'event-automator' ),
-			'description' => __( 'TEC Power Automate REST API allows direct connections to making Power Automate Connectors.', 'event-automator' ),
+			'title'       => __( 'TEC Power Automate REST API', 'tribe-common' ),
+			'description' => __( 'TEC Power Automate REST API allows direct connections to making Power Automate Connectors.', 'tribe-common' ),
 			'version'     => $this->rest_api_version,
 		];
 	}

@@ -72,7 +72,7 @@ abstract class Integration_AJAX extends Integration_Connections {
 			$message = _x(
 				'Connection is missing the local id.',
 				'Connection is missing local id message.',
-				'event-automator'
+				'tribe-common'
 			);
 			$this->template_modifications->print_settings_message_template( $message, 'error' );
 
@@ -84,7 +84,7 @@ abstract class Integration_AJAX extends Integration_Connections {
 			$message = _x(
 				'Connection is missing a name.',
 				'Connection is missing a name message.',
-				'event-automator'
+				'tribe-common'
 			);
 			$this->template_modifications->print_settings_message_template( $message, 'error' );
 
@@ -96,7 +96,7 @@ abstract class Integration_AJAX extends Integration_Connections {
 			$message = _x(
 				'Connection is missing a user id.',
 				'Connection is missing a user message.',
-				'event-automator'
+				'tribe-common'
 			);
 			$this->template_modifications->print_settings_message_template( $message, 'error' );
 
@@ -108,7 +108,7 @@ abstract class Integration_AJAX extends Integration_Connections {
 			$message = _x(
 				'Connection is missing permissions.',
 				'Connection is missing permissions message.',
-				'event-automator'
+				'tribe-common'
 			);
 			$this->template_modifications->print_settings_message_template( $message, 'error' );
 
@@ -164,7 +164,7 @@ abstract class Integration_AJAX extends Integration_Connections {
 			$error_message = _x(
 				'Connection was not deleted, the consumer id or the API Key information were not found.',
 				'Connection is missing information to delete failure message.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			$this->template_modifications->print_settings_message_template( $error_message, 'error' );
@@ -177,7 +177,7 @@ abstract class Integration_AJAX extends Integration_Connections {
 			$message = _x(
 				'Connection was successfully deleted',
 				'Connection deleted success message.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			$this->template_modifications->print_settings_message_template( $message );
@@ -188,7 +188,7 @@ abstract class Integration_AJAX extends Integration_Connections {
 		$error_message = _x(
 			'Connection was not deleted',
 			'Connection could not be deleted failure message.',
-			'event-automator'
+			'tribe-common'
 		);
 
 		$this->template_modifications->print_settings_message_template( $error_message, 'error' );

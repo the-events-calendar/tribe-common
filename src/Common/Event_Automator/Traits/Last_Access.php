@@ -31,15 +31,15 @@ trait Last_Access {
 	public function get_last_access( $app_name ) {
 		$pretty_app_name = '';
 		if ( $app_name === 'zapier-event-tickets' ) {
-			$pretty_app_name = _x( 'Event Tickets App', 'Name of the Event Tickets Zapier app.', 'event-automator' );
+			$pretty_app_name = _x( 'Event Tickets App', 'Name of the Event Tickets Zapier app.', 'tribe-common' );
 		} elseif ( $app_name === 'zapier-the-events-calendar' ) {
-			$pretty_app_name = _x( 'The Events Calendar App', 'Name of the Events Calendar Zapier app.', 'event-automator' );
+			$pretty_app_name = _x( 'The Events Calendar App', 'Name of the Events Calendar Zapier app.', 'tribe-common' );
 		}
 
 		if ( $app_name === 'integration-event-tickets' ) {
-			$pretty_app_name = _x( 'Event Tickets App', 'Name of the Event Tickets integration app.', 'event-automator' );
+			$pretty_app_name = _x( 'Event Tickets App', 'Name of the Event Tickets integration app.', 'tribe-common' );
 		} elseif ( $app_name === 'integration-the-events-calendar' ) {
-			$pretty_app_name = _x( 'The Events Calendar App', 'Name of the Events Calendar integration app.', 'event-automator' );
+			$pretty_app_name = _x( 'The Events Calendar App', 'Name of the Events Calendar integration app.', 'tribe-common' );
 		}
 
 		/**

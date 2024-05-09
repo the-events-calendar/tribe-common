@@ -166,7 +166,7 @@ abstract class Abstract_API_Key_Api {
 
 		// Return false if no api_key.
 		if ( empty( $api_key ) ) {
-			$error_msg = _x( 'Consumer ID failed to load, please check the value and try again.', 'Zapier API failure message.', 'event-automator' );
+			$error_msg = _x( 'Consumer ID failed to load, please check the value and try again.', 'Zapier API failure message.', 'tribe-common' );
 
 			return new WP_Error( 'zapier_consumer_id_not_found', $error_msg, [ 'status' => 400 ] );
 		}
@@ -190,7 +190,7 @@ abstract class Abstract_API_Key_Api {
 			$error = _x(
 				'SSL is required to Authorize Zapier API Keys.',
 				'Zapier API Key authorization error for no SSL.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			return new WP_Error( 'zapier_no_ssl', $error, [ 'status' => 400 ] );
@@ -200,7 +200,7 @@ abstract class Abstract_API_Key_Api {
 			$error = _x(
 				'Consumer ID is required to Authorize Zapier API Keys.',
 				'Zapier API Key authorization error for no consumer secret.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			return new WP_Error( 'zapier_no_consumer_id', $error, [ 'status' => 400 ] );
@@ -210,7 +210,7 @@ abstract class Abstract_API_Key_Api {
 			$error = _x(
 				'Consumer Secret is required to Authorize Zapier API Keys.',
 				'Zapier API Key authorization error for no consumer secret.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			return new WP_Error( 'zapier_no_consumer_secret', $error, [ 'status' => 400 ] );
@@ -223,7 +223,7 @@ abstract class Abstract_API_Key_Api {
 			$error = _x(
 				'Consumer Secret does not match.',
 				'Zapier API Key authorization error for the consumer secrets not matching.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			return new WP_Error( 'zapier_consumer_secret_no_match', $error, [ 'status' => 400 ] );
@@ -233,7 +233,7 @@ abstract class Abstract_API_Key_Api {
 			$error = _x(
 				'Zapier API Key is missing a name.',
 				'Zapier API Key authorization error for no API Key name.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			return new WP_Error( 'zapier_no_api_key_name', $error, [ 'status' => 400 ] );
@@ -243,7 +243,7 @@ abstract class Abstract_API_Key_Api {
 			$error = _x(
 				'Zapier API Key is missing permissions.',
 				'Zapier API Key authorization error for no API Key permissions.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			return new WP_Error( 'zapier_no_api_key_permissions', $error, [ 'status' => 400 ] );
@@ -253,7 +253,7 @@ abstract class Abstract_API_Key_Api {
 			$error = _x(
 				'Zapier API Key is a user id.',
 				'Zapier API Key authorization error for no API Key user id.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			return new WP_Error( 'zapier_no_api_key_user_id', $error, [ 'status' => 400 ] );
@@ -264,7 +264,7 @@ abstract class Abstract_API_Key_Api {
 			$error = _x(
 				'Zapier API Key could not load the WordPress user.',
 				'Zapier API Key authorization error for API Key user not loading.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			return new WP_Error( 'zapier_no_api_key_user_loading', $error, [ 'status' => 400 ] );

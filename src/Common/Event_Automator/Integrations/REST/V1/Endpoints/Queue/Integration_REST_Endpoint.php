@@ -233,7 +233,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 			return $args;
 		}
 
-		$no_description = _x( 'No description provided', 'Default description for integration endpoint.', 'event-automator' );
+		$no_description = _x( 'No description provided', 'Default description for integration endpoint.', 'tribe-common' );
 		$defaults = array_merge( [
 			'in'          => 'body',
 			'schema' => [
@@ -367,7 +367,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 			$access_token = $request->get_param( 'tec_access_token' );
 		}
 		if ( empty( $access_token ) ) {
-			return new WP_Error( 'missing_access_token', __( 'Missing access token.', 'event-automator' ), [ 'status' => 401 ] );
+			return new WP_Error( 'missing_access_token', __( 'Missing access token.', 'tribe-common' ), [ 'status' => 401 ] );
 		}
 
 		$key_pair = $this->api->decode_jwt( $access_token );

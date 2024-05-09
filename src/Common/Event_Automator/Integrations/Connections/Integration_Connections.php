@@ -287,7 +287,7 @@ abstract class Integration_Connections {
 				$error_message = _x(
 					'Access_token issuer does not match with this server.',
 					'JWT access_token issuer does not match with this server error message.',
-					'event-automator'
+					'tribe-common'
 				);
 
 				return new WP_Error( 'bad_issuer', $error_message, [ 'status' => 401 ] );
@@ -295,7 +295,7 @@ abstract class Integration_Connections {
 				$error_message = _x(
 					'Access_token is missing data.',
 					'JWT access_token s missing data error message.',
-					'event-automator'
+					'tribe-common'
 				);
 
 				return new WP_Error( 'bad_request', $error_message, [ 'status' => 401 ] );
@@ -352,7 +352,7 @@ abstract class Integration_Connections {
 
 		// Return false if no api_key.
 		if ( empty( $api_key ) ) {
-			$error_msg = _x( 'Consumer ID failed to load, please check the value and try again.', 'Account failed to load failure message.', 'event-automator' );
+			$error_msg = _x( 'Consumer ID failed to load, please check the value and try again.', 'Account failed to load failure message.', 'tribe-common' );
 
 			return new WP_Error( 'integration_consumer_id_not_found', $error_msg, [ 'status' => 400 ] );
 		}
@@ -376,7 +376,7 @@ abstract class Integration_Connections {
 			$error = _x(
 				'SSL is required to Authorize the integration.',
 				'API Key authorization error for no SSL.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			return new WP_Error( 'integration_no_ssl', $error, [ 'status' => 400 ] );
@@ -386,7 +386,7 @@ abstract class Integration_Connections {
 			$error = _x(
 				'Consumer ID is required to authorize your connection.',
 				'Connection authorization error for no consumer secret.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			return new WP_Error( 'integration_no_consumer_id', $error, [ 'status' => 400 ] );
@@ -396,7 +396,7 @@ abstract class Integration_Connections {
 			$error = _x(
 				'Consumer Secret is required to authorize your connection.',
 				'Connection authorization error for no consumer secret.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			return new WP_Error( 'integration_no_consumer_secret', $error, [ 'status' => 400 ] );
@@ -409,7 +409,7 @@ abstract class Integration_Connections {
 			$error = _x(
 				'Consumer Secret does not match.',
 				'Connection authorization error for the consumer secrets not matching.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			return new WP_Error( 'integration_consumer_secret_no_match', $error, [ 'status' => 400 ] );
@@ -419,7 +419,7 @@ abstract class Integration_Connections {
 			$error = _x(
 				'Account is missing a name.',
 				'Connection authorization error for no account name.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			return new WP_Error( 'integration_no_api_key_name', $error, [ 'status' => 400 ] );
@@ -429,7 +429,7 @@ abstract class Integration_Connections {
 			$error = _x(
 				'Account is missing permissions.',
 				'Connection authorization error for no account permissions.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			return new WP_Error( 'integration_no_api_key_permissions', $error, [ 'status' => 400 ] );
@@ -439,7 +439,7 @@ abstract class Integration_Connections {
 			$error = _x(
 				'Account is missing a user, please select one and try again..',
 				'Connection authorization error for no user selected.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			return new WP_Error( 'integration_no_api_key_user_id', $error, [ 'status' => 400 ] );
@@ -450,7 +450,7 @@ abstract class Integration_Connections {
 			$error = _x(
 				'Selected user could not be loaded.',
 				'Connection authorization error for account user not loading.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			return new WP_Error( 'integration_no_api_key_user_loading', $error, [ 'status' => 400 ] );
@@ -785,7 +785,7 @@ abstract class Integration_Connections {
 			'label'          => _x(
 				'Users',
 				'The label of the users dropdown for an integration.',
-				'event-automator'
+				'tribe-common'
 			),
 			'id'             => "tec-settings-{$api_id}-users",
 			'classes_label'  => [ 'screen-reader-text' ],
@@ -798,7 +798,7 @@ abstract class Integration_Connections {
 				'placeholder'       => _x(
 				    'Select a User',
 				    'The placeholder for the dropdown to select a user.',
-				    'event-automator'
+				    'tribe-common'
 				),
 				'data-prevent-clear' => true,
 				'data-force-search'  => true,

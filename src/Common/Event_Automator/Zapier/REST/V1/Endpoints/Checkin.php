@@ -67,7 +67,7 @@ class Checkin extends Abstract_REST_Endpoint {
 	 * @inheritdoc
 	 */
 	protected function get_display_name() : string {
-		return _x( 'Checkins', 'Display name of the Zapier endpoint for checkins.', 'event-automator' );
+		return _x( 'Checkins', 'Display name of the Zapier endpoint for checkins.', 'tribe-common' );
 	}
 
 	/**
@@ -132,13 +132,13 @@ class Checkin extends Abstract_REST_Endpoint {
 				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
 				'responses'  => [
 					'201' => [
-						'description' => _x( 'Returns successful checking of the new checkin queue.', 'Description for the Zapier Checkin REST endpoint on a successful return.', 'event-automator' ),
+						'description' => _x( 'Returns successful checking of the new checkin queue.', 'Description for the Zapier Checkin REST endpoint on a successful return.', 'tribe-common' ),
 						'schema'      => [
 							'$ref' => '#/definitions/Zapier',
 						],
 					],
 					'400' => [
-						'description' => _x( 'A required parameter is missing or an input parameter is in the wrong format', 'Description for the Zapier Checkin REST endpoint missing a required parameter.', 'event-automator' ),
+						'description' => _x( 'A required parameter is missing or an input parameter is in the wrong format', 'Description for the Zapier Checkin REST endpoint missing a required parameter.', 'tribe-common' ),
 					],
 				],
 			],
@@ -154,7 +154,7 @@ class Checkin extends Abstract_REST_Endpoint {
 				'required'          => true,
 				'validate_callback' => [ $this, 'sanitize_callback' ],
 				'type'              => 'string',
-				'description'       => _x( 'The access token to authorize Zapier connection.', 'Description for the Zapier Checkin REST endpoint required parameter.', 'event-automator' ),
+				'description'       => _x( 'The access token to authorize Zapier connection.', 'Description for the Zapier Checkin REST endpoint required parameter.', 'tribe-common' ),
 			],
 		];
 	}

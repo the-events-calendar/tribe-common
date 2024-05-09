@@ -49,7 +49,7 @@ class Integrations {
 		 */
 		$tab_settings = apply_filters( 'tec_event_automator_integrations_tab_settings', $tab_settings );
 
-		new \Tribe__Settings_Tab( static::$slug, esc_html__( 'Integrations', 'event-automator' ), $tab_settings );
+		new \Tribe__Settings_Tab( static::$slug, esc_html__( 'Integrations', 'tribe-common' ), $tab_settings );
 	}
 
 	/**

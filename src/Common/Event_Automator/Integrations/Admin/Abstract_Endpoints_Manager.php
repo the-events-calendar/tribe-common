@@ -168,7 +168,7 @@ abstract class Abstract_Endpoints_Manager {
 		$endpoint_id = tribe_get_request_var( 'endpoint_id' );
 		// If no endpoint id found, fail the request.
 		if ( empty( $endpoint_id ) ) {
-			$error_message = _x( 'Endpoint was not cleared, the endpoint id was not found.', 'Endpoint id is missing information to clear it.', 'event-automator' );
+			$error_message = _x( 'Endpoint was not cleared, the endpoint id was not found.', 'Endpoint id is missing information to clear it.', 'tribe-common' );
 
 			$this->template_modifications->print_settings_message_template( $error_message, 'error' );
 
@@ -177,7 +177,7 @@ abstract class Abstract_Endpoints_Manager {
 
 		$endpoint = $this->get_endpoint( $endpoint_id, 'queue' );
 		if ( empty( $endpoint ) ) {
-			$message = _x( 'Endpoint was not cleared as it could not be loaded.', 'Endpoint was not loaded failure message.', 'event-automator' );
+			$message = _x( 'Endpoint was not cleared as it could not be loaded.', 'Endpoint was not loaded failure message.', 'tribe-common' );
 
 			$this->template_modifications->print_settings_message_template( $message );
 
@@ -186,7 +186,7 @@ abstract class Abstract_Endpoints_Manager {
 
 		$success = $this->clear_endpoint( $endpoint );
 		if ( $success ) {
-			$message = _x( 'Endpoint was successfully cleared.', 'Endpoint has been cleared success message.', 'event-automator' );
+			$message = _x( 'Endpoint was successfully cleared.', 'Endpoint has been cleared success message.', 'tribe-common' );
 
 			$endpoint_details = $endpoint->get_endpoint_details();
 			$this->template_modifications->print_settings_message_template( $message );
@@ -195,7 +195,7 @@ abstract class Abstract_Endpoints_Manager {
 			wp_die( $message );
 		}
 
-		$error_message = _x( 'Endpoint was not cleared.', 'was not cleared failure message.', 'event-automator' );
+		$error_message = _x( 'Endpoint was not cleared.', 'was not cleared failure message.', 'tribe-common' );
 
 		$this->template_modifications->print_settings_message_template( $error_message, 'error' );
 
@@ -219,7 +219,7 @@ abstract class Abstract_Endpoints_Manager {
 		$endpoint_id = tribe_get_request_var( 'endpoint_id' );
 		// If no endpoint id found, fail the request.
 		if ( empty( $endpoint_id ) ) {
-			$error_message = _x( 'Endpoint was not disabled, the endpoint id was not found.', 'Endpoint id is missing information to disable it.', 'event-automator' );
+			$error_message = _x( 'Endpoint was not disabled, the endpoint id was not found.', 'Endpoint id is missing information to disable it.', 'tribe-common' );
 
 			$this->template_modifications->print_settings_message_template( $error_message, 'error' );
 
@@ -228,7 +228,7 @@ abstract class Abstract_Endpoints_Manager {
 
 		$endpoint = $this->get_endpoint( $endpoint_id );
 		if ( empty( $endpoint ) ) {
-			$message = _x( 'Endpoint was not disabled as it could not be loaded.', 'Endpoint was not loaded failure message.', 'event-automator' );
+			$message = _x( 'Endpoint was not disabled as it could not be loaded.', 'Endpoint was not loaded failure message.', 'tribe-common' );
 
 			$this->template_modifications->print_settings_message_template( $message );
 
@@ -237,7 +237,7 @@ abstract class Abstract_Endpoints_Manager {
 
 		$success = $this->disable_endpoint( $endpoint );
 		if ( $success ) {
-			$message = _x( 'Endpoint was successfully disabled.', 'Endpoint has been disabled success message.', 'event-automator' );
+			$message = _x( 'Endpoint was successfully disabled.', 'Endpoint has been disabled success message.', 'tribe-common' );
 
 			$endpoint_details = $endpoint->get_endpoint_details();
 			$this->template_modifications->print_settings_message_template( $message );
@@ -246,7 +246,7 @@ abstract class Abstract_Endpoints_Manager {
 			wp_die( $message );
 		}
 
-		$error_message = _x( 'Endpoint was not disabled', 'endpoint could not be enabled it error message.', 'event-automator' );
+		$error_message = _x( 'Endpoint was not disabled', 'endpoint could not be enabled it error message.', 'tribe-common' );
 
 		$this->template_modifications->print_settings_message_template( $error_message, 'error' );
 
@@ -270,7 +270,7 @@ abstract class Abstract_Endpoints_Manager {
 		$endpoint_id = tribe_get_request_var( 'endpoint_id' );
 		// If no endpoint id found, fail the request.
 		if ( empty( $endpoint_id ) ) {
-			$error_message = _x( 'Endpoint was not enabled, the endpoint id was not found.', 'endpoint id is missing information to enable it.', 'event-automator' );
+			$error_message = _x( 'Endpoint was not enabled, the endpoint id was not found.', 'endpoint id is missing information to enable it.', 'tribe-common' );
 
 			$this->template_modifications->print_settings_message_template( $error_message, 'error' );
 
@@ -279,7 +279,7 @@ abstract class Abstract_Endpoints_Manager {
 
 		$endpoint = $this->get_endpoint( $endpoint_id );
 		if ( empty( $endpoint ) ) {
-			$message = _x( 'Endpoint was not loaded.', 'Endpoint was not loaded failure message.', 'event-automator' );
+			$message = _x( 'Endpoint was not loaded.', 'Endpoint was not loaded failure message.', 'tribe-common' );
 
 			$this->template_modifications->print_settings_message_template( $message );
 
@@ -288,7 +288,7 @@ abstract class Abstract_Endpoints_Manager {
 
 		$success = $this->enable_endpoint( $endpoint );
 		if ( $success ) {
-			$message = _x( 'Endpoint was successfully enabled', 'Endpoint has been enabled success message.', 'event-automator' );
+			$message = _x( 'Endpoint was successfully enabled', 'Endpoint has been enabled success message.', 'tribe-common' );
 
 			$endpoint_details = $endpoint->get_endpoint_details();
 			$this->template_modifications->print_settings_message_template( $message );
@@ -297,7 +297,7 @@ abstract class Abstract_Endpoints_Manager {
 			wp_die( $message );
 		}
 
-		$error_message = _x( 'Endpoint was not enabled', 'endpoint could not be enabled it error message.', 'event-automator' );
+		$error_message = _x( 'Endpoint was not enabled', 'endpoint could not be enabled it error message.', 'tribe-common' );
 
 		$this->template_modifications->print_settings_message_template( $error_message, 'error' );
 
@@ -316,7 +316,7 @@ abstract class Abstract_Endpoints_Manager {
 			_x(
 				'Are you sure you want to clear this Endpoint queue? This operation cannot be undone.',
 				'The message to display to confirm a user would like to clear a endpoint queue.',
-				'event-automator'
+				'tribe-common'
 			),
 		);
 	}
@@ -336,7 +336,7 @@ abstract class Abstract_Endpoints_Manager {
 				_x(
 					'Are you sure you want to disable this Endpoint? This action will prevent this integration from being able to create an access token.',
 					'The message to display to confirm a user would like to disable an authorize endpoint.',
-					'event-automator'
+					'tribe-common'
 				),
 			);
 		}
@@ -345,7 +345,7 @@ abstract class Abstract_Endpoints_Manager {
 			_x(
 				'Are you sure you want to disable this Endpoint? This action will clear the queue and the last access. This operation cannot be undone.',
 				'The message to display to confirm a user would like to disable a queue endpoint.',
-				'event-automator'
+				'tribe-common'
 			),
 		);
 	}
@@ -362,7 +362,7 @@ abstract class Abstract_Endpoints_Manager {
 			_x(
 				'Are you sure you want to enable this Endpoint?',
 				'The message to display to confirm a user would like to enable an endpoint.',
-				'event-automator'
+				'tribe-common'
 			),
 		);
 	}

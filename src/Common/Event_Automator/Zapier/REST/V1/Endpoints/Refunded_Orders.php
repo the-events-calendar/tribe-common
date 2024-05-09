@@ -65,7 +65,7 @@ class Refunded_Orders extends Abstract_REST_Endpoint {
 	 * @inheritdoc
 	 */
 	protected function get_display_name() : string {
-		return _x( 'Refunded Orders', 'Display name of the Zapier endpoint for refunded ticket orders.', 'event-automator' );
+		return _x( 'Refunded Orders', 'Display name of the Zapier endpoint for refunded ticket orders.', 'tribe-common' );
 	}
 
 	/**
@@ -134,7 +134,7 @@ class Refunded_Orders extends Abstract_REST_Endpoint {
 						'description' => _x(
 							'Returns successful checking of the refunded orders queue.',
 							'Description for the Zapier Refunded Order REST endpoint on a successful return.',
-							'event-automator'
+							'tribe-common'
 						),
 						'schema'      => [
 							'$ref' => '#/definitions/Zapier',
@@ -144,7 +144,7 @@ class Refunded_Orders extends Abstract_REST_Endpoint {
 						'description' => _x(
 							'A required parameter is missing or an input parameter is in the wrong format',
 							'Description for the Zapier Refunded Order REST endpoint missing a required parameter.',
-							'event-automator'
+							'tribe-common'
 						),
 					],
 				],
@@ -164,7 +164,7 @@ class Refunded_Orders extends Abstract_REST_Endpoint {
 				'description'       => _x(
 					'The access token to authorize Zapier connection.',
 					'Description for the Zapier Refunded Order REST endpoint required parameter.',
-					'event-automator'
+					'tribe-common'
 				),
 			],
 		];

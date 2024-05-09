@@ -42,7 +42,7 @@ class Authorize extends Abstract_REST_Endpoint {
 	 * @inheritdoc
 	 */
 	protected function get_display_name() : string {
-		return _x( 'Authorize', 'Display name of the Zapier endpoint for authorization.', 'event-automator' );
+		return _x( 'Authorize', 'Display name of the Zapier endpoint for authorization.', 'tribe-common' );
 	}
 
 	/**
@@ -126,13 +126,13 @@ class Authorize extends Abstract_REST_Endpoint {
 				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
 				'responses'  => [
 					'200' => [
-						'description' => _x( 'Returns successful authentication', 'Zapier REST API authorize success message.', 'event-automator' ),
+						'description' => _x( 'Returns successful authentication', 'Zapier REST API authorize success message.', 'tribe-common' ),
 						'schema'      => [
 							'$ref' => '#/definitions/Zapier',
 						],
 					],
 					'400' => [
-						'description' => _x( 'A required authentication parameter is missing or an input parameter is in the wrong format', 'Zapier REST API authorize failure message.', 'event-automator' ),
+						'description' => _x( 'A required authentication parameter is missing or an input parameter is in the wrong format', 'Zapier REST API authorize failure message.', 'tribe-common' ),
 					],
 				],
 			],
@@ -148,19 +148,19 @@ class Authorize extends Abstract_REST_Endpoint {
 				'required'          => true,
 				'validate_callback' => [ $this, 'sanitize_callback' ],
 				'type'              => 'string',
-				'description'       => _x( 'The consumer id to authorize Zapier connection.', 'Zapier REST API description for consumer id parameter.', 'event-automator' ),
+				'description'       => _x( 'The consumer id to authorize Zapier connection.', 'Zapier REST API description for consumer id parameter.', 'tribe-common' ),
 			],
 			'consumer_secret'   => [
 				'required'          => true,
 				'validate_callback' => [ $this, 'sanitize_callback' ],
 				'type'              => 'string',
-				'description'       => _x( 'The consumer secret to authorize Zapier connection.', 'Zapier REST API description for consumer secret parameter.', 'event-automator' ),
+				'description'       => _x( 'The consumer secret to authorize Zapier connection.', 'Zapier REST API description for consumer secret parameter.', 'tribe-common' ),
 			],
 			'app_name'          => [
 				'required'          => false,
 				'validate_callback' => [ $this, 'sanitize_callback' ],
 				'type'              => 'string',
-				'description'       => _x( 'The app name of the Zapier connection.', 'Zapier app name parameter.', 'event-automator' ),
+				'description'       => _x( 'The app name of the Zapier connection.', 'Zapier app name parameter.', 'tribe-common' ),
 			],
 		];
 	}

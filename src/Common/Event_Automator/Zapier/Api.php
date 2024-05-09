@@ -69,7 +69,7 @@ class Api extends Integration_AJAX {
 		$message = _x(
 			'Zapier API Key Connection generated.',
 			'Zapier API Key Connection generated message.',
-			'event-automator'
+			'tribe-common'
 		);
 		$this->template_modifications->print_settings_message_template( $message );
 
@@ -105,8 +105,8 @@ class Api extends Integration_AJAX {
 			_x(
 				'Are you sure you want to revoke this Zapier connection? This operation cannot be undone. Existing Zapier connections tied will no longer work.',
 				'The message to display to confirm a user would like to revoke a Zapier connection.',
-				'event-automator',
-				'event-automator'
+				'tribe-common',
+				'tribe-common'
 			),
 		);
 	}
@@ -132,7 +132,7 @@ class Api extends Integration_AJAX {
 			$message = _x(
 				'Zapier API Key pair missing the local id.',
 				'Zapier API Key pair missing local id message.',
-				'event-automator'
+				'tribe-common'
 			);
 			$this->template_modifications->print_settings_message_template( $message, 'error' );
 
@@ -144,7 +144,7 @@ class Api extends Integration_AJAX {
 			$message = _x(
 				'Zapier API Key pair missing a name.',
 				'Zapier API Key pair missing a name message.',
-				'event-automator'
+				'tribe-common'
 			);
 			$this->template_modifications->print_settings_message_template( $message, 'error' );
 
@@ -156,7 +156,7 @@ class Api extends Integration_AJAX {
 			$message = _x(
 				'Zapier API Key pair missing a user id.',
 				'Zapier API Key pair missing a user message.',
-				'event-automator'
+				'tribe-common'
 			);
 			$this->template_modifications->print_settings_message_template( $message, 'error' );
 
@@ -168,7 +168,7 @@ class Api extends Integration_AJAX {
 			$message = _x(
 				'Zapier API Key pair missing permissions.',
 				'Zapier API Key pair missing permissions message.',
-				'event-automator'
+				'tribe-common'
 			);
 			$this->template_modifications->print_settings_message_template( $message, 'error' );
 
@@ -178,7 +178,7 @@ class Api extends Integration_AJAX {
 		$message = _x(
 			'Zapier API Key pair generated.',
 			'Zapier API Key pair generated message.',
-			'event-automator'
+			'tribe-common'
 		);
 		$this->template_modifications->print_settings_message_template( $message );
 
@@ -221,7 +221,7 @@ class Api extends Integration_AJAX {
 			_x(
 				'Are you sure you want to revoke this Zapier API Key pair? This operation cannot be undone. Existing Zapier connections tied to this API Key will no longer work.',
 				'The message to display to confirm a user would like to revoke a Zapier API Key pair.',
-				'event-automator'
+				'tribe-common'
 			),
 		);
 	}
@@ -250,7 +250,7 @@ class Api extends Integration_AJAX {
 			$error_message = _x(
 				'Zapier API Key pair was not deleted, the consumer id or the API Key information were not found.',
 				'Zapier API Key pair is missing information to delete failure message.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			$this->template_modifications->print_settings_message_template( $error_message, 'error' );
@@ -263,7 +263,7 @@ class Api extends Integration_AJAX {
 			$message = _x(
 				'Zapier API Key pair was successfully deleted',
 				'Zapier API Key pair has been deleted success message.',
-				'event-automator'
+				'tribe-common'
 			);
 
 			$this->template_modifications->print_settings_message_template( $message );
@@ -274,7 +274,7 @@ class Api extends Integration_AJAX {
 		$error_message = _x(
 			'Zapier API Key pair was not deleted',
 			'Zapier API Key pair could not be deleted failure message.',
-			'event-automator'
+			'tribe-common'
 		);
 
 		$this->template_modifications->print_settings_message_template( $error_message, 'error' );

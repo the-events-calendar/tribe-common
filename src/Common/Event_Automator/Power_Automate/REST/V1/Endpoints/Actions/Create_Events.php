@@ -87,7 +87,7 @@ class Create_Events extends Abstract_REST_Endpoint {
 	 * @inheritdoc
 	 */
 	protected function get_display_name() : string {
-		return _x( 'Create Events', 'Display name of the Power Automate endpoint.', 'event-automator' );
+		return _x( 'Create Events', 'Display name of the Power Automate endpoint.', 'tribe-common' );
 	}
 
 	/**
@@ -167,7 +167,7 @@ class Create_Events extends Abstract_REST_Endpoint {
 	 * @return WP_REST_Response The REST response.
 	 */
 	public function get( WP_REST_Request $request ) {
-		$error_msg = _x( 'GET responses not accepted on the create events endpoint, please us a POST request.', 'Power Automate API error for using GET request.', 'event-automator' );
+		$error_msg = _x( 'GET responses not accepted on the create events endpoint, please us a POST request.', 'Power Automate API error for using GET request.', 'tribe-common' );
 
 		$user_error = new WP_Error( 'Power Automate_incorrect_get_request', $error_msg, [ 'status' => 400 ] );
 
@@ -209,13 +209,13 @@ class Create_Events extends Abstract_REST_Endpoint {
 				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
 				'responses'  => [
 					'201' => [
-						'description' => _x( 'Returns creation of a new event.', 'Description for the Power Automate Create Event REST endpoint on a successful return.', 'event-automator' ),
+						'description' => _x( 'Returns creation of a new event.', 'Description for the Power Automate Create Event REST endpoint on a successful return.', 'tribe-common' ),
 						'schema'      => [
 							'$ref' => '#/definitions/Power_Automate',
 						],
 					],
 					'400' => [
-						'description' => _x( 'A required parameter is missing or an input parameter is in the wrong format', 'Description for the Power Automate Create Event REST endpoint missing a required parameter.', 'event-automator' ),
+						'description' => _x( 'A required parameter is missing or an input parameter is in the wrong format', 'Description for the Power Automate Create Event REST endpoint missing a required parameter.', 'tribe-common' ),
 					],
 				],
 			],
@@ -231,7 +231,7 @@ class Create_Events extends Abstract_REST_Endpoint {
 				'required'          => false,
 				'validate_callback' => [ $this, 'sanitize_callback' ],
 				'type'              => 'string',
-				'description'       => _x( 'The access token to authorize Power Automate connection.', 'Description for the Power Automate Create Event REST endpoint required parameter.', 'event-automator' ),
+				'description'       => _x( 'The access token to authorize Power Automate connection.', 'Description for the Power Automate Create Event REST endpoint required parameter.', 'tribe-common' ),
 			],
 		];
 	}
@@ -247,7 +247,7 @@ class Create_Events extends Abstract_REST_Endpoint {
 				'required'          => false,
 				'validate_callback' => [ $this, 'sanitize_callback' ],
 				'type'              => 'string',
-				'description'       => _x( 'The access token to authorize Power Automate connection.', 'Description for the Power Automate Create Event REST endpoint required parameter.', 'event-automator' ),
+				'description'       => _x( 'The access token to authorize Power Automate connection.', 'Description for the Power Automate Create Event REST endpoint required parameter.', 'tribe-common' ),
 			],
 		];
 

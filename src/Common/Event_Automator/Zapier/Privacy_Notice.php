@@ -74,7 +74,7 @@ class Privacy_Notice {
 			_x(
 				'Congratulations on installing Event Automator! Please read our %1$sPrivacy vs Data Automation: What You Need to Know%2$s knowledgebase article.',
 				'The dismissible privacy message.',
-				'event-automator'
+				'tribe-common'
 			),
 			'<a href="https://evnt.is/1bcd" target="_blank">',
 			'</a>',

@@ -95,7 +95,7 @@ class Find_Events extends Abstract_REST_Endpoint {
 	 * @inheritdoc
 	 */
 	protected function get_display_name(): string {
-		return _x( 'Find Events', 'Display name of the Zapier endpoint.', 'event-automator' );
+		return _x( 'Find Events', 'Display name of the Zapier endpoint.', 'tribe-common' );
 	}
 
 	/**
@@ -182,13 +182,13 @@ class Find_Events extends Abstract_REST_Endpoint {
 				'parameters' => $this->swaggerize_args( $post_args, $post_defaults ),
 				'responses'  => [
 					'201' => [
-						'description' => _x( 'Returns successful checking of the find event archive.', 'Description for the Zapier Find Event REST endpoint on a successful return.', 'event-automator' ),
+						'description' => _x( 'Returns successful checking of the find event archive.', 'Description for the Zapier Find Event REST endpoint on a successful return.', 'tribe-common' ),
 						'schema'      => [
 							'$ref' => '#/definitions/Zapier',
 						],
 					],
 					'400' => [
-						'description' => _x( 'A required parameter is missing or an input parameter is in the wrong format.', 'Description for the Zapier Find Event REST endpoint missing a required parameter.', 'event-automator' ),
+						'description' => _x( 'A required parameter is missing or an input parameter is in the wrong format.', 'Description for the Zapier Find Event REST endpoint missing a required parameter.', 'tribe-common' ),
 					],
 				],
 			],
@@ -209,7 +209,7 @@ class Find_Events extends Abstract_REST_Endpoint {
 				'required'          => false,
 				'validate_callback' => [ $this, 'sanitize_callback' ],
 				'type'              => 'string',
-				'description'       => _x( 'The access token to authorize Zapier connection.', 'Description for the Zapier Find Event REST endpoint required parameter.', 'event-automator' ),
+				'description'       => _x( 'The access token to authorize Zapier connection.', 'Description for the Zapier Find Event REST endpoint required parameter.', 'tribe-common' ),
 			],
 		];
 

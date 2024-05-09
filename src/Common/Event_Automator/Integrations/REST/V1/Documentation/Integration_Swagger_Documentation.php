@@ -196,7 +196,7 @@ abstract class Integration_Swagger_Documentation
 			'get' => [
 				'responses' =>[
 					'200' => [
-						'description' => __( 'Returns the documentation for TEC REST API in Swagger consumable format.', 'event-automator' ),
+						'description' => __( 'Returns the documentation for TEC REST API in Swagger consumable format.', 'tribe-common' ),
 					],
 				],
 			],

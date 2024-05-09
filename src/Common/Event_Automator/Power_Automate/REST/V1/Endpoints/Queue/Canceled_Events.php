@@ -70,7 +70,7 @@ class Canceled_Events extends Abstract_REST_Endpoint {
 	 * @inheritdoc
 	 */
 	protected function get_display_name() : string {
-		return _x( 'Canceled Events', 'Display name of the Power Automate endpoint for canceled events.', 'event-automator' );
+		return _x( 'Canceled Events', 'Display name of the Power Automate endpoint for canceled events.', 'tribe-common' );
 	}
 
 	/**
@@ -163,13 +163,13 @@ class Canceled_Events extends Abstract_REST_Endpoint {
 				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
 				'responses'  => [
 					'201' => [
-						'description' => _x( 'Returns successful checking of the canceled event queue.', 'Description for the Power Automate Canceled Event REST endpoint on a successful return.', 'event-automator' ),
+						'description' => _x( 'Returns successful checking of the canceled event queue.', 'Description for the Power Automate Canceled Event REST endpoint on a successful return.', 'tribe-common' ),
 						'schema'      => [
 							'$ref' => '#/definitions/Power_Automate',
 						],
 					],
 					'400' => [
-						'description' => _x( 'A required parameter is missing or an input parameter is in the wrong format', 'Description for the Power Automate Canceled Event REST endpoint missing a required parameter.', 'event-automator' ),
+						'description' => _x( 'A required parameter is missing or an input parameter is in the wrong format', 'Description for the Power Automate Canceled Event REST endpoint missing a required parameter.', 'tribe-common' ),
 					],
 				],
 			],
@@ -185,7 +185,7 @@ class Canceled_Events extends Abstract_REST_Endpoint {
 				'required'          => false,
 				'validate_callback' => [ $this, 'sanitize_callback' ],
 				'type'              => 'string',
-				'description'       => _x( 'The access token to authorize Power Automate connection.', 'Description for the Power Automate Canceled Event REST endpoint required parameter.', 'event-automator' ),
+				'description'       => _x( 'The access token to authorize Power Automate connection.', 'Description for the Power Automate Canceled Event REST endpoint required parameter.', 'tribe-common' ),
 			],
 		];
 	}
