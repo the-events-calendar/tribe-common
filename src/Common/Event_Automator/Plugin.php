@@ -152,7 +152,6 @@ class Plugin {
 		$this->register_autoloader();
 
 		$this->container->register( Hooks_Provider::class );
-		$this->container->register( PUE::class );
 		$this->container->register( Context_Provider::class );
 		$this->container->register( Zapier_Provider::class );
 		$this->container->register( Power_Automate_Provider::class );
