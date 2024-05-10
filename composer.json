@@ -48,7 +48,8 @@
   "autoload": {
     "psr-4": {
       "Tribe\\": "src/Tribe/",
-      "TEC\\Common\\": "src/Common/"
+      "TEC\\Common\\": "src/Common/",
+      "TEC\\Event_Automator\\": "src/Common/Event_Automator/"
     }
   },
   "autoload-dev": {

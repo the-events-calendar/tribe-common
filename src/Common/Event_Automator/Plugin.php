@@ -14,6 +14,7 @@ use TEC\Event_Automator\Service_Providers\Context_Provider;
 use TEC\Event_Automator\Zapier\Zapier_Provider;
 use TEC\Event_Automator\Power_Automate\Power_Automate_Provider;
 use Tribe__Autoloader;
+use Tribe__Main;
 
 /**
  * Class Plugin
@@ -42,15 +43,6 @@ class Plugin {
 	const SLUG = 'event-automator';
 
 	/**
-	 * Stores the base slug for the extension.
-	 *
-	 * @since TBD Migrated to Common from Event Automator
-	 *
-	 * @var string
-	 */
-	const FILE = EVENT_AUTOMATOR_FILE;
-
-	/**
 	 * The slug that will be used to identify HTTP requests the plugin should handle.
 	 *
 	 * @since TBD Migrated to Common from Event Automator
@@ -58,7 +50,6 @@ class Plugin {
 	 * @var string
 	 */
 	public static $request_slug = 'event_automator_request';
-
 
 	/**
 	 * @since TBD Migrated to Common from Event Automator
@@ -133,9 +124,8 @@ class Plugin {
 	 * This always executes even if the required plugins are not present.
 	 */
 	public function register() {
-		tec_automator_load_text_domain();
 		// Set up the plugin provider properties.
-		$this->plugin_path = trailingslashit( dirname( static::FILE ) );
+		$this->plugin_path = trailingslashit( Tribe__Main::instance()->plugin_path );
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
 		$this->plugin_url  = plugins_url( $this->plugin_dir, $this->plugin_path );
 
@@ -163,15 +153,17 @@ class Plugin {
 	 * @since TBD Migrated to Common from Event Automator
 	 */
 	protected function register_autoloader() {
+		$this->plugin_path = trailingslashit( Tribe__Main::instance()->plugin_path );
+
 		// Load Composer autoload file only if we've not included this file already.
-		require_once dirname( EVENT_AUTOMATOR_FILE ) . '/vendor/autoload.php';
+		require_once $this->plugin_path . '/vendor/autoload.php';
 
 		$autoloader = Tribe__Autoloader::instance();
 
 		// For namespaced classes.
 		$autoloader->register_prefix(
 			'\\TEC\\Event_Automator\\',
-			$this->plugin_path . '/src/Event_Automator',
+			$this->plugin_path . 'src/Common/Event_Automator',
 			'event-automator'
 		);
 	}
