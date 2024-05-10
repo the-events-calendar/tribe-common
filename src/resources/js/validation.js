@@ -7,6 +7,8 @@
  */
 tribe.validation = {};
 
+dayjs.extend(window.dayjs_plugin_customParseFormat);
+
 ( function( obj, $, _ ) {
 	'use strict';
 	var $document = $( document );
