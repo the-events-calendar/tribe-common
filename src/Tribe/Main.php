@@ -233,6 +233,7 @@ class Tribe__Main {
 				[ 'tribe-utils-camelcase', 'utils-camelcase.js', [ 'underscore' ] ],
 				[ 'tec-dayjs', 'vendor/dayjs/dayjs.min.js' ],
 				[ 'tec-dayjs-isoweek', 'vendor/dayjs/plugin/isoWeek.min.js', [ 'tec-dayjs' ] ],
+				[ 'tec-dayjs-customparseformat', 'vendor/dayjs/plugin/customParseFormat.min.js', [ 'tec-dayjs' ] ],
 				[ 'tribe-tooltipster', 'vendor/tooltipster/tooltipster.bundle.js', [ 'jquery' ] ],
 				[ 'tribe-tooltipster-css', 'vendor/tooltipster/tooltipster.bundle.css' ],
 				[ 'datatables-css', 'datatables.css' ],
