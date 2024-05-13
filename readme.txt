@@ -9,6 +9,7 @@
 * Tweak - Prevent potential conflict by changing all calls to select2 to our internal select2TEC version. [TCMN-170]
 * Tweak - Removed filters: `tec_help_calendar_faqs`, `tec_help_calendar_extensions`, `tec_help_calendar_products`, `tec_help_ticketing_faqs`, `tec_help_ticketing_extensions`, `tec_help_ticketing_products`
 * Tweak - Changed views: `v2/components/icons/arrow-right`, `v2/components/icons/caret-down`, `v2/components/icons/caret-left`, `v2/components/icons/caret-right`, `v2/components/icons/search`
+* Language - 6 new strings added, 161 updated, 2 fuzzied, and 0 obsoleted
 
 = [5.2.6] 2024-04-18 =
 
