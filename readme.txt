@@ -1,12 +1,14 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [5.2.7] 2024-05-13 =
 
 * Fix - Add dir/filename of `event-automator` in the Plugins_API to fix CTA button text/links in the Help section. [TEC-5071]
 * Tweak - Add `aria-hidden="true"` to icons so screen readers ignore it. [TEC-5019]
 * Tweak - Updated our `query-string` javascript library to version 6.12. [TEC-5075]
 * Tweak - Add Events Schedule Manager cards in the Help and App Shop admin pages to promote. [TEC-5058]
 * Tweak - Prevent potential conflict by changing all calls to select2 to our internal select2TEC version. [TCMN-170]
+* Tweak - Removed filters: `tec_help_calendar_faqs`, `tec_help_calendar_extensions`, `tec_help_calendar_products`, `tec_help_ticketing_faqs`, `tec_help_ticketing_extensions`, `tec_help_ticketing_products`
+* Tweak - Changed views: `v2/components/icons/arrow-right`, `v2/components/icons/caret-down`, `v2/components/icons/caret-left`, `v2/components/icons/caret-right`, `v2/components/icons/search`
 
 = [5.2.6] 2024-04-18 =
 
