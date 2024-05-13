@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.2.7] 2024-05-13 =
+= [5.2.7] 2024-05-14 =
 
 * Fix - Add dir/filename of `event-automator` in the Plugins_API to fix CTA button text/links in the Help section. [TEC-5071]
 * Tweak - Add `aria-hidden="true"` to icons so screen readers ignore it. [TEC-5019]
