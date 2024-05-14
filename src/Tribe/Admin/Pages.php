@@ -79,7 +79,7 @@ class Pages {
 	 *
 	 * @since 4.15.0
 	 *
-	 * @since TBD Added the `position` parameter for submenu pages.
+	 * @since 5.2.7 Added the `position` parameter for submenu pages.
 	 *
 	 * @param array $options {
 	 *   Array describing the page.

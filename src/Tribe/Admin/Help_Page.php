@@ -1,6 +1,12 @@
 <?php
 
-// Don't load directly
+/**
+ * Administration Help Page
+ *
+ * @since 4.0
+ */
+
+// Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -9,9 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class with a few helpers for the Administration Pages
  *
  * @since  4.0
- *
  */
 class Tribe__Admin__Help_Page {
+	//phpcs:ignore - legacy class naming.
 	/**
 	 * Static Singleton Factory Method
 	 *
@@ -128,7 +134,7 @@ class Tribe__Admin__Help_Page {
 			'admin_enqueue_scripts',
 			[
 				'conditionals' => [ $this, 'is_current_page' ],
-				'localize' => [
+				'localize'     => [
 					'name' => 'tribe_system_info',
 					'data' => [
 						'sysinfo_optin_nonce'        => wp_create_nonce( 'sysinfo_optin_nonce' ),
@@ -136,8 +142,8 @@ class Tribe__Admin__Help_Page {
 						'clipboard_copied_text'      => _x( 'System info copied', 'Copy to clipboard success message', 'tribe-common' ),
 						'clipboard_fail_text'        => _x( 'Press "Cmd + C" to copy', 'Copy to clipboard instructions', 'tribe-common' ),
 						'sysinfo_error_message_text' => _x( 'Something has gone wrong!', 'Default error message for system info optin', 'tribe-common' ),
-						'sysinfo_error_code_text'    => _x( 'Code:', 'Error code label for system info optin', 'tribe-common'),
-						'sysinfo_error_status_text'  => _x( 'Status:', 'Error status label for system info optin', 'tribe-common'),
+						'sysinfo_error_code_text'    => _x( 'Code:', 'Error code label for system info optin', 'tribe-common' ),
+						'sysinfo_error_status_text'  => _x( 'Status:', 'Error status label for system info optin', 'tribe-common' ),
 					],
 				],
 			]
@@ -149,8 +155,9 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since  4.0
 	 *
-	 * @param  string  $plugin_name    Should get only one plugin?
-	 * @param  boolean $is_active Only get active plugins?
+	 * @param  string  $plugin_name    If we should get only one plugin.
+	 * @param  boolean $is_active If we only get active plugins.
+	 *
 	 * @return array
 	 */
 	public function get_plugins( $plugin_name = null, $is_active = true ) {
@@ -171,7 +178,7 @@ class Tribe__Admin__Help_Page {
 		];
 
 		if ( class_exists( 'Tribe__Events__Main' ) ) {
-			$plugins['the-events-calendar']['version'] = Tribe__Events__Main::VERSION;
+			$plugins['the-events-calendar']['version']   = Tribe__Events__Main::VERSION;
 			$plugins['the-events-calendar']['is_active'] = true;
 		}
 
@@ -190,7 +197,7 @@ class Tribe__Admin__Help_Page {
 		];
 
 		if ( class_exists( 'Tribe__Tickets__Main' ) ) {
-			$plugins['event-tickets']['version'] = Tribe__Tickets__Main::VERSION;
+			$plugins['event-tickets']['version']   = Tribe__Tickets__Main::VERSION;
 			$plugins['event-tickets']['is_active'] = true;
 		}
 
@@ -209,7 +216,7 @@ class Tribe__Admin__Help_Page {
 		];
 
 		if ( class_exists( 'Tribe_APM' ) ) {
-			$plugins['advanced-post-manager']['version'] = 1;
+			$plugins['advanced-post-manager']['version']   = 1;
 			$plugins['advanced-post-manager']['is_active'] = true;
 		}
 
@@ -224,7 +231,7 @@ class Tribe__Admin__Help_Page {
 			}
 		}
 
-		// Do the search
+		// Do the search.
 		if ( is_string( $plugin_name ) ) {
 			if ( isset( $plugins[ $plugin_name ] ) ) {
 				return $plugins[ $plugin_name ];
@@ -241,7 +248,7 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since  4.0
 	 *
-	 * @param  boolean $is_active Filter only active plugins
+	 * @param  boolean $is_active Filter only active plugins.
 	 * @return array
 	 */
 	public function get_plugin_forum_links( $is_active = true ) {
@@ -260,17 +267,17 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since  4.0
 	 *
-	 * @param  boolean $is_active Filter only active plugins
+	 * @param  boolean $is_active Filter only active plugins.
 	 * @return string
 	 */
 	public function get_plugins_text( $is_active = true ) {
 		$plugins = array_merge( $this->get_plugins( null, $is_active ), $this->get_addons( null, $is_active, true ) );
 
 		$plugins_text = '';
-		$i = 0;
-		$count = count( $plugins );
+		$i            = 0;
+		$count        = count( $plugins );
 		foreach ( $plugins as $plugin ) {
-			$i++;
+			++$i;
 			if ( ! isset( $plugin['is_active'] ) || $plugin['is_active'] !== $is_active ) {
 				continue;
 			}
@@ -292,9 +299,9 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since  4.0
 	 *
-	 * @param  string $plugin Plugin Name to filter
-	 * @param  string $is_active Filter if it's active
-	 * @param  string $is_important filter if the plugin is important
+	 * @param  string $plugin Plugin Name to filter.
+	 * @param  string $is_active Filter if it's active.
+	 * @param  string $is_important filter if the plugin is important.
 	 * @return array
 	 */
 	public function get_addons( $plugin = null, $is_active = null, $is_important = null ) {
@@ -331,8 +338,8 @@ class Tribe__Admin__Help_Page {
 			'link'      => 'http://evnt.is/19mk',
 			'plugin'    => [ 'the-events-calendar' ],
 			'is_active' => class_exists( 'Tribe__Events__Aggregator' ) && tribe(
-					'events-aggregator.main'
-				)->is_service_active(),
+				'events-aggregator.main'
+			)->is_service_active(),
 		];
 
 		$addons['events-filter-bar'] = [
@@ -375,19 +382,19 @@ class Tribe__Admin__Help_Page {
 		 */
 		$addons = (array) apply_filters( 'tribe_help_addons', $addons );
 
-		// Should I filter something
+		// Should I filter something.
 		if ( is_null( $plugin ) && is_null( $is_active ) && is_null( $is_important ) ) {
 			return $addons;
 		}
 
-		// Allow for easily grab the addons for a plugin
+		// Allow for easily grab the addons for a plugin.
 		$filtered = [];
 		foreach ( $addons as $id => $addon ) {
 			if ( ! is_null( $plugin ) && ! in_array( $plugin, (array) $addon['plugin'] ) ) {
 				continue;
 			}
 
-			// Filter by is_active
+			// Filter by is_active.
 			if (
 				! is_null( $is_active ) &&
 				( ! isset( $addon['is_active'] ) || $is_active !== $addon['is_active'] )
@@ -409,6 +416,15 @@ class Tribe__Admin__Help_Page {
 		return $filtered;
 	}
 
+	/**
+	 * Check if a Plugin is active
+	 *
+	 * @since  4.0
+	 *
+	 * @param  string|array $should_be_active The Plugin Name or an array of Plugin Names.
+	 *
+	 * @return boolean
+	 */
 	public function is_active( $should_be_active ) {
 		$plugins = $this->get_plugins( null, true );
 		$addons  = $this->get_addons( null, true );
@@ -430,9 +446,9 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since  4.0
 	 *
-	 * @param  string  $link     An absolute or a Relative link
-	 * @param  boolean $relative Is the Link absolute or relative?
-	 * @return string            Link with the GA arguments
+	 * @param  string  $link     An absolute or a Relative link.
+	 * @param  boolean $relative Is the Link absolute or relative.
+	 * @return string            Link with the GA arguments.
 	 */
 	public function get_ga_link( $link = null, $relative = true ) {
 		$query_args = [
@@ -453,7 +469,7 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since  4.0
 	 *
-	 * @return array Feed Title and Link
+	 * @return array Feed Title and Link.
 	 */
 	public function get_feed_items() {
 		$news_rss  = fetch_feed( Tribe__Main::FEED_URL );
@@ -469,7 +485,7 @@ class Tribe__Admin__Help_Page {
 			$rss_items = $news_rss->get_items( 0, $maxitems );
 			if ( $maxitems > 0 ) {
 				foreach ( $rss_items as $item ) {
-					$item = [
+					$item        = [
 						'title' => esc_html( $item->get_title() ),
 						'link'  => esc_url( $item->get_permalink() ),
 					];
@@ -486,8 +502,8 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since  4.0
 	 *
-	 * @param  object $plugin Plugin Object to be used
-	 * @return object         An object with the API data
+	 * @param  object $plugin Plugin Object to be used.
+	 * @return object         An object with the API data.
 	 */
 	private function get_plugin_api_data( $plugin = null ) {
 		if ( is_scalar( $plugin ) ) {
@@ -497,35 +513,39 @@ class Tribe__Admin__Help_Page {
 		$plugin = (object) $plugin;
 
 		/**
-		 * Filter the amount of time (seconds) we will keep api data to avoid too many external calls
+		 * Filter the amount of time (seconds) we will keep api data to avoid too many external calls.
+		 *
 		 * @var int
 		 */
-		$timeout = apply_filters( 'tribe_help_api_data_timeout', 3 * HOUR_IN_SECONDS );
+		$timeout   = apply_filters( 'tribe_help_api_data_timeout', 3 * HOUR_IN_SECONDS );
 		$transient = 'tribe_help_api_data-' . $plugin->name;
-		$data = get_transient( $transient );
+		$data      = get_transient( $transient );
 
 		if ( false === $data ) {
 			if ( ! function_exists( 'plugins_api' ) ) {
 				include_once ABSPATH . '/wp-admin/includes/plugin-install.php';
 			}
 
-			// Fetch the data
-			$data = plugins_api( 'plugin_information', [
+			// Fetch the data.
+			$data = plugins_api(
+				'plugin_information',
+				[
 					'slug'   => $plugin->name,
 					'is_ssl' => is_ssl(),
 					'fields' => [
-							'banners'         => true,
-							'reviews'         => true,
-							'downloaded'      => true,
-							'active_installs' => true,
+						'banners'         => true,
+						'reviews'         => true,
+						'downloaded'      => true,
+						'active_installs' => true,
 					],
-			] );
+				]
+			);
 
 			if ( ! is_wp_error( $data ) ) {
-				// Format Downloaded Infomation
+				// Format Downloaded Infomation.
 				$data->downloaded = $data->downloaded ? number_format( $data->downloaded ) : _x( 'n/a', 'not available', 'tribe-common' );
 			} else {
-				// If there was a bug on the Current Request just leave
+				// If there was a bug on the Current Request just leave.
 				return false;
 			}
 
@@ -554,12 +574,12 @@ class Tribe__Admin__Help_Page {
 	 * @return string
 	 */
 	public function get_content_html( $mixed = '' ) {
-		// If it's an StdObj or String it will be converted
+		// If it's an StdObj or String it will be converted.
 		$mixed = (array) $mixed;
 
-		// Loop to start the HTML
+		// Loop to start the HTML.
 		foreach ( $mixed as &$line ) {
-			// If we have content we use that
+			// If we have content we use that.
 			if ( isset( $line->content ) ) {
 				$line = $line->content;
 			}
@@ -567,19 +587,19 @@ class Tribe__Admin__Help_Page {
 			if ( is_string( $line ) ) {
 				continue;
 			} elseif ( is_array( $line ) ) {
-				// Allow the developer to pass some configuration
+				// Allow the developer to pass some configuration.
 				if ( empty( $line['type'] ) ) {
 					$line['type'] = 'ul';
 				}
 
 				$text = '<' . $line['type'] . '>' . "\n";
 				foreach ( $line as $key => $item ) {
-					// Don't add non-numeric items (a.k.a.: configuration)
+					// Don't add non-numeric items (a.k.a.: configuration).
 					if ( ! is_numeric( $key ) ) {
 						continue;
 					}
 
-					// Only add List Item if is a UL or OL
+					// Only add List Item if is a UL or OL.
 					if ( in_array( $line['type'], [ 'ul', 'ol' ] ) ) {
 						$text .= '<li>' . "\n";
 					}
@@ -592,7 +612,7 @@ class Tribe__Admin__Help_Page {
 				}
 				$text .= '</' . $line['type'] . '>' . "\n";
 
-				// Create the list as html instead of array
+				// Create the list as html instead of array.
 				$line = $text;
 			}
 		}
@@ -651,10 +671,10 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since  4.0
 	 *
-	 * @param string  $id       HTML like ID
-	 * @param string  $title    The Title of the section, doesn't allow HTML
-	 * @param integer $priority A Numeric ordering for the Section
-	 * @param string  $type     by default only 'default' or 'box'
+	 * @param string  $id       HTML like ID.
+	 * @param string  $title    The Title of the section, doesn't allow HTML.
+	 * @param integer $priority A Numeric ordering for the Section.
+	 * @param string  $type     by default only 'default' or 'box'.
 	 *
 	 * @return object The section added
 	 */
@@ -663,31 +683,31 @@ class Tribe__Admin__Help_Page {
 			return false;
 		}
 
-		// Everytime you call this we will add this up
-		self::$section_count++;
+		// Everytime you call this we will add this up.
+		++self::$section_count;
 
 		$possible_types = (array) apply_filters( 'tribe_help_available_section_types', [ 'default', 'box' ] );
 
-		// Set a Default type
+		// Set a Default type.
 		if ( empty( $type ) || ! in_array( $type, $possible_types ) ) {
 			$type = 'default';
 		}
 
-		// Create the section and Sanitize the values to avoid having to do it later
+		// Create the section and Sanitize the values to avoid having to do it later.
 		$section = (object) [
-				'id'                => sanitize_html_class( $id ),
-				'title'             => esc_html( $title ),
-				'priority'          => absint( $priority ),
-				'type'              => sanitize_html_class( $type ),
+			'id'                => sanitize_html_class( $id ),
+			'title'             => esc_html( $title ),
+			'priority'          => absint( $priority ),
+			'type'              => sanitize_html_class( $type ),
 
-				// This Method Unique count integer used for ordering with priority
-				'unique_call_order' => self::$section_count,
+			// This Method Unique count integer used for ordering with priority.
+			'unique_call_order' => self::$section_count,
 
-				// Counter for ordering Content
-				'content_count'     => 0,
+			// Counter for ordering Content.
+			'content_count'     => 0,
 
-				// Setup the Base for the content to come
-				'content'           => [],
+			// Setup the Base for the content to come.
+			'content'           => [],
 		];
 
 		$this->sections[ $section->id ] = $section;
@@ -700,40 +720,40 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since  4.0
 	 *
-	 * @param string  $section_id Which section this content should be assigned to
-	 * @param string|array  $content    Item text or array of items, will be passed to `$this->get_content_html`
-	 * @param integer $priority   A Numeric priority
-	 * @param array   $arguments  If you need arguments for item, they can be passed here
+	 * @param string       $section_id Which section this content should be assigned to.
+	 * @param string|array $content    Item text or array of items, will be passed to `$this->get_content_html`.
+	 * @param integer      $priority   A Numeric priority.
+	 * @param array        $arguments  If you need arguments for item, they can be passed here.
 	 *
-	 * @return object The content item added
+	 * @return object The content item added.
 	 */
 	public function add_section_content( $section_id, $content, $priority = 10, $arguments = [] ) {
 		$section_id = sanitize_html_class( $section_id );
 
-		// Check if the section exists
+		// Check if the section exists.
 		if ( empty( $this->sections[ $section_id ] ) ) {
 			return false;
 		}
 
-		// Make sure we have arguments as Array
+		// Make sure we have arguments as Array.
 		if ( ! is_array( $arguments ) ) {
 			return false;
 		}
 
 		$section = &$this->sections[ $section_id ];
 
-		// Increment the content counter
-		$section->content_count++;
+		// Increment the content counter.
+		++$section->content_count;
 
 		$item = (object) $arguments;
 
 		// Set the priority
 		$item->priority = absint( $priority );
 
-		// Set the uid to help ordering
+		// Set the uid to help ordering.
 		$item->unique_call_order = $section->content_count;
 
-		// Content is not Safe, will be Sanitized on Output
+		// Content is not Safe, will be Sanitized on Output.
 		$item->content = $content;
 
 		$section->content[] = $item;
@@ -746,15 +766,15 @@ class Tribe__Admin__Help_Page {
 	 * This method will remove any sections that are indexed at that ID on the sections array
 	 * And the sections that have a propriety of `id` equals to the given $section_id argument
 	 *
-	 * @param  string|int $section_id You can use Numeric or String indexes to search
-	 * @return bool|int               Returns `false` when no sections were removed and an `int` with the number of sections removed
+	 * @param  string|int $section_id You can use Numeric or String indexes to search.
+	 * @return bool|int               Returns `false` when no sections were removed and an `int` with the number of sections removed.
 	 */
 	public function remove_section( $section_id ) {
 		if (
 			! isset( $this->sections[ $section_id ] ) &&
 			! in_array( (object) [ 'id' => $section_id ], $this->sections, true )
 		) {
-			// There are no sections to remove, so false
+			// There are no sections to remove, so false.
 			return false;
 		}
 
@@ -763,23 +783,23 @@ class Tribe__Admin__Help_Page {
 			if ( ! is_numeric( $id ) && ! is_numeric( $section_id ) && ! empty( $section->id ) ) {
 				if ( $section->id === $section_id ) {
 					unset( $this->sections[ $id ] );
-					// Mark that this section was removed
+					// Mark that this section was removed.
 					$removed[ $id ] = true;
 				}
 			} elseif ( $id === $section_id ) {
 				unset( $this->sections[ $section_id ] );
-				// Mark that this section was removed
+				// Mark that this section was removed.
 				$removed[ $id ] = true;
 			} else {
-				// Mark that this section was NOT removed
+				// Mark that this section was NOT removed.
 				$removed[ $id ] = false;
 			}
 		}
 
-		// Count how many were removed
+		// Count how many were removed.
 		$total = count( array_filter( $removed ) );
 
-		// if Zero just return false
+		// if Zero just return false.
 		return $total === 0 ? false : $total;
 	}
 
@@ -788,7 +808,7 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since  4.0
 	 *
-	 * @param  boolean $print    Return or Print the HTML after
+	 * @param  boolean $print    Return or Print the HTML after.
 	 * @return void|string
 	 */
 	public function get_sections( $print = true ) {
@@ -811,7 +831,7 @@ class Tribe__Admin__Help_Page {
 			return false;
 		}
 
-		// Sort by Priority
+		// Sort by Priority.
 		uasort( $sections, [ $this, 'by_priority' ] );
 
 		$html = [];
@@ -819,12 +839,12 @@ class Tribe__Admin__Help_Page {
 		foreach ( $sections as $index => $section ) {
 			$section = (object) $section;
 
-			// If it has no ID or Content, skip
+			// If it has no ID or Content, skip.
 			if ( empty( $section->id ) || empty( $section->content ) ) {
 				continue;
 			}
 
-			// Set a Default type
+			// Set a Default type.
 			if ( empty( $section->type ) ) {
 				$section->type = 'default';
 			}
@@ -836,7 +856,7 @@ class Tribe__Admin__Help_Page {
 			 */
 			$section = apply_filters( 'tribe_help_section_' . $section->id, $section, $this );
 
-			// Sort by Priority
+			// Sort by Priority.
 			uasort( $section->content, [ $this, 'by_priority' ] );
 
 			$html[ $section->id . '-start' ] = '<div id="tribe-' . sanitize_html_class( $section->id ) . '" class="tribe-help-section clearfix tribe-section-type-' . sanitize_html_class( $section->type ) . '">';
@@ -852,6 +872,7 @@ class Tribe__Admin__Help_Page {
 
 		/**
 		 * Creates a way for developers to hook to the final HTML
+		 *
 		 * @var array $html
 		 * @var array $sections
 		 */
@@ -862,7 +883,6 @@ class Tribe__Admin__Help_Page {
 		} else {
 			return $html;
 		}
-
 	}
 
 	/**
@@ -870,25 +890,25 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since  4.0
 	 *
-	 * @param  string $plugin Plugin Name key
+	 * @param  string $plugin Plugin Name key.
 	 * @return void
 	 */
 	public function print_plugin_box( $plugin ) {
-		$plugin = (object) $this->get_plugins( $plugin, false );
+		$plugin   = (object) $this->get_plugins( $plugin, false );
 		$api_data = $this->get_plugin_api_data( $plugin );
-		$addons = $this->get_addons( $plugin->name );
-		$plugins = get_plugins();
+		$addons   = $this->get_addons( $plugin->name );
+		$plugins  = get_plugins();
 
 		if ( $api_data ) {
 			if ( ! function_exists( 'install_plugin_install_status' ) ) {
 				include_once ABSPATH . '/wp-admin/includes/plugin-install.php';
 			}
-			$status = install_plugin_install_status( $api_data );
+			$status        = install_plugin_install_status( $api_data );
 			$plugin_active = is_plugin_active( $status['file'] );
 			$plugin_exists = isset( $plugins[ $status['file'] ] );
 
 			if ( 'install' !== $status['status'] && ! $plugin_active ) {
-				$args = [
+				$args         = [
 					'action'        => 'activate',
 					'plugin'        => $status['file'],
 					'plugin_status' => 'all',
@@ -896,9 +916,10 @@ class Tribe__Admin__Help_Page {
 					's'             => '',
 				];
 				$activate_url = wp_nonce_url( add_query_arg( $args, 'plugins.php' ), 'activate-plugin_' . $status['file'] );
+				/* translators: %s: Plugin Name */
 				$link = '<a class="button" href="' . $activate_url . '" aria-label="' . esc_attr( sprintf( esc_attr__( 'Activate %s', 'tribe-common' ), $plugin->name ) ) . '">' . esc_html__( 'Activate Plugin', 'tribe-common' ) . '</a>';
 			} elseif ( 'update_available' === $status['status'] ) {
-				$args = [
+				$args       = [
 					'action' => 'upgrade-plugin',
 					'plugin' => $status['file'],
 				];
@@ -912,7 +933,7 @@ class Tribe__Admin__Help_Page {
 
 		if ( ! isset( $link ) ) {
 			if ( $api_data ) {
-				$args = [
+				$args       = [
 					'tab'       => 'plugin-information',
 					'plugin'    => $plugin->name,
 					'TB_iframe' => true,
@@ -920,6 +941,7 @@ class Tribe__Admin__Help_Page {
 					'height'    => 600,
 				];
 				$iframe_url = add_query_arg( $args, admin_url( '/plugin-install.php' ) );
+				/* translators: %s: Plugin Name */
 				$link = '<a class="button thickbox" href="' . $iframe_url . '" aria-label="' . esc_attr( sprintf( esc_attr__( 'Install %s', 'tribe-common' ), $plugin->name ) ) . '">' . esc_html__( 'Install Plugin', 'tribe-common' ) . '</a>';
 			} else {
 				$link = null;
@@ -950,11 +972,13 @@ class Tribe__Admin__Help_Page {
 					<dd>
 						<a href="<?php echo esc_url( $plugin->stars_url ); ?>" target="_blank">
 							<?php
-							wp_star_rating( [
+							wp_star_rating(
+								[
 									'rating' => $api_data->rating,
 									'type'   => 'percent',
 									'number' => $api_data->num_ratings,
-							] );
+								]
+							);
 							?>
 						</a>
 					</dd>
@@ -962,7 +986,7 @@ class Tribe__Admin__Help_Page {
 			<?php } ?>
 
 			<?php
-			// Only show the link to the users can use it
+			// Only show the link to the users can use it.
 			if ( current_user_can( 'update_plugins' ) && current_user_can( 'install_plugins' ) ) {
 				echo $link ? '<p style="text-align: center;">' . $link . '</p>' : '';
 			}
@@ -971,7 +995,8 @@ class Tribe__Admin__Help_Page {
 			<?php if ( ! empty( $addons ) ) { ?>
 				<h3><?php esc_html_e( 'Premium Add-Ons', 'tribe-common' ); ?></h3>
 				<ul class='tribe-list-addons'>
-					<?php foreach ( $addons as $addon ) {
+					<?php
+					foreach ( $addons as $addon ) {
 						$addon = (object) $addon;
 
 						if ( isset( $addon->is_active ) && $addon->is_active ) {
@@ -989,7 +1014,8 @@ class Tribe__Admin__Help_Page {
 							echo '</a>';
 						}
 						echo '</li>';
-					} ?>
+					}
+					?>
 				</ul>
 			<?php } ?>
 		</div>
@@ -1004,30 +1030,31 @@ class Tribe__Admin__Help_Page {
 	 * @return array of FAQs which are displayed on the calendar tab of the in-app help page.
 	 */
 	public function get_calendar_faqs() {
-		$faqs = apply_filters( 'tec_help_calendar_faqs', [
+		return apply_filters(
+			'tec_help_calendar_faqs',
 			[
-				'question' => __( 'Can I have more than one calendar?', 'tribe-common' ),
-				'answer'   => __( 'No, but you can use event categories or tags to display certain events like having...', 'tribe-common' ),
-				'link'     => 'https://evnt.is/1arh',
-			],
-			[
-				'question' => __( 'What do I get with Events Calendar Pro?', 'tribe-common' ),
-				'answer'   => __( 'Events Calendar Pro runs alongside The Events Calendar and enhances...' ),
-				'link'     => 'https://evnt.is/1arj',
-			],
-			[
-				'question' => __( 'How do I sell tickets to events?', 'tribe-common' ),
-				'answer'   => __( 'Use our free Event Tickets plugin to get started with tickets and RSVPs.', 'tribe-common' ),
-				'link'     => 'https://evnt.is/1ark',
-			],
-			[
-				'question' => __( 'Where can I find a list of available shortcodes?', 'tribe-common' ),
-				'answer'   => __( 'Our plugins include many shortcodes that do everything from embedding the calendar...', 'tribe-common' ),
-				'link'     => 'https://evnt.is/1arl',
-			],
-		] );
-
-		return $faqs;
+				[
+					'question' => __( 'Can I have more than one calendar?', 'tribe-common' ),
+					'answer'   => __( 'No, but you can use event categories or tags to display certain events like having...', 'tribe-common' ),
+					'link'     => 'https://evnt.is/1arh',
+				],
+				[
+					'question' => __( 'What do I get with Events Calendar Pro?', 'tribe-common' ),
+					'answer'   => __( 'Events Calendar Pro runs alongside The Events Calendar and enhances...' ),
+					'link'     => 'https://evnt.is/1arj',
+				],
+				[
+					'question' => __( 'How do I sell tickets to events?', 'tribe-common' ),
+					'answer'   => __( 'Use our free Event Tickets plugin to get started with tickets and RSVPs.', 'tribe-common' ),
+					'link'     => 'https://evnt.is/1ark',
+				],
+				[
+					'question' => __( 'Where can I find a list of available shortcodes?', 'tribe-common' ),
+					'answer'   => __( 'Our plugins include many shortcodes that do everything from embedding the calendar...', 'tribe-common' ),
+					'link'     => 'https://evnt.is/1arl',
+				],
+			]
+		);
 	}
 
 	/**
@@ -1038,34 +1065,35 @@ class Tribe__Admin__Help_Page {
 	 * @return array of extensions which are displayed on the calendar and community tab of the in-app help page.
 	 */
 	public function get_calendar_extensions() {
-		$extensions = apply_filters( 'tec_help_calendar_extensions', [
+		return apply_filters(
+			'tec_help_calendar_extensions',
 			[
-				'title'        => __( 'Calendar widget areas', 'tribe-common' ),
-				'description'  => __( 'This extension creates a useful variety of WordPress widget areas (a.k.a. sidebars).', 'tribe-common' ),
-				'link'         => 'https://evnt.is/1arc',
-				'product-slug' => 'the-events-calendar',
-			],
-			[
-				'title'        => __( 'Event block patterns', 'tribe-common' ),
-				'description'  => __( 'This extension adds a set of block patterns for events to the WordPress block editor.', 'tribe-common' ),
-				'link'         => 'https://evnt.is/1ard',
-				'product-slug' => 'the-events-calendar',
-			],
-			[
-				'title'        => __( 'Alternative photo view', 'tribe-common' ),
-				'description'  => __( 'This extension replaces photo view with a tiled grid of cards featuring event images.', 'tribe-common' ),
-				'link'         => 'https://evnt.is/1are',
-				'product-slug' => 'events-calendar-pro',
-			],
-			[
-				'title'        => __( 'The Events Calendar Tweaks', 'tribe-common' ),
-				'description'  => __( 'This extension is a collection of tweaks and snippets for The Events Calendar.', 'tribe-common' ),
-				'link'         => 'https://evnt.is/1arg',
-				'product-slug' => 'the-events-calendar',
-			],
-		] );
-
-		return $extensions;
+				[
+					'title'        => __( 'Calendar widget areas', 'tribe-common' ),
+					'description'  => __( 'This extension creates a useful variety of WordPress widget areas (a.k.a. sidebars).', 'tribe-common' ),
+					'link'         => 'https://evnt.is/1arc',
+					'product-slug' => 'the-events-calendar',
+				],
+				[
+					'title'        => __( 'Event block patterns', 'tribe-common' ),
+					'description'  => __( 'This extension adds a set of block patterns for events to the WordPress block editor.', 'tribe-common' ),
+					'link'         => 'https://evnt.is/1ard',
+					'product-slug' => 'the-events-calendar',
+				],
+				[
+					'title'        => __( 'Alternative photo view', 'tribe-common' ),
+					'description'  => __( 'This extension replaces photo view with a tiled grid of cards featuring event images.', 'tribe-common' ),
+					'link'         => 'https://evnt.is/1are',
+					'product-slug' => 'events-calendar-pro',
+				],
+				[
+					'title'        => __( 'The Events Calendar Tweaks', 'tribe-common' ),
+					'description'  => __( 'This extension is a collection of tweaks and snippets for The Events Calendar.', 'tribe-common' ),
+					'link'         => 'https://evnt.is/1arg',
+					'product-slug' => 'the-events-calendar',
+				],
+			]
+		);
 	}
 
 	/**
@@ -1076,15 +1104,17 @@ class Tribe__Admin__Help_Page {
 	 * @return array of products which are displayed on the calendar tab of the in-app help page.
 	 */
 	public function get_calendar_products() {
-		$calendar_products = apply_filters( 'tec_help_calendar_products', [
-			'events-calendar-pro',
-			'tribe-filterbar',
-			'event-aggregator',
-			'event-automator',
-			'events-virtual',
-		] );
-
-		return $calendar_products;
+		return apply_filters(
+			'tec_help_calendar_products',
+			[
+				'events-calendar-pro',
+				'tribe-filterbar',
+				'event-aggregator',
+				'event-automator',
+				'events-virtual',
+				'event-schedule-manager',
+			]
+		);
 	}
 
 	/**
@@ -1095,30 +1125,31 @@ class Tribe__Admin__Help_Page {
 	 * @return array of FAQs which are displayed on the ticketing tab of the in-app help page.
 	 */
 	public function get_ticketing_faqs() {
-		$faqs = apply_filters( 'tec_help_ticketing_faqs', [
+		return apply_filters(
+			'tec_help_ticketing_faqs',
 			[
-				'question' => __( 'How Do I create events with Tickets or RSVP’s?', 'tribe-common' ),
-				'answer'   => __( 'We’ve put together a video tutorial showing how to create events with Tickets using our plugins. Click on the link in the link in the title to learn more.', 'tribe-common' ),
-				'link'     => 'https://evnt.is/1art',
-			],
-			[
-				'question' => __( 'How Do I Set Up E-Commerce Plugins for Selling Tickets?', 'tribe-common' ),
-				'answer'   => __( 'You can sell tickets using our built-in e-commerce option, or upgrade to Event Tickets Plus to use ecommerce plugins such as WooCommerce.', 'tribe-common' ),
-				'link'     => 'https://evnt.is/1arq',
-			],
-			[
-				'question' => __( 'Can I have a seating chart associated with my tickets?', 'tribe-common' ),
-				'answer'   => __( 'Yes! You can easily accomplish this task using the stock options and multiple ticket types available with Event Tickets.', 'tribe-common' ),
-				'link'     => 'https://evnt.is/1arr',
-			],
-			[
-				'question' => __( 'How do I process refunds for tickets?', 'tribe-common' ),
-				'answer'   => __( 'When it comes to paid tickets, these orders can be refunded through the e-commerce platform in use.', 'tribe-common' ),
-				'link'     => 'https://evnt.is/1ars',
-			],
-		] );
-
-		return $faqs;
+				[
+					'question' => __( 'How Do I create events with Tickets or RSVP’s?', 'tribe-common' ),
+					'answer'   => __( 'We’ve put together a video tutorial showing how to create events with Tickets using our plugins. Click on the link in the link in the title to learn more.', 'tribe-common' ),
+					'link'     => 'https://evnt.is/1art',
+				],
+				[
+					'question' => __( 'How Do I Set Up E-Commerce Plugins for Selling Tickets?', 'tribe-common' ),
+					'answer'   => __( 'You can sell tickets using our built-in e-commerce option, or upgrade to Event Tickets Plus to use ecommerce plugins such as WooCommerce.', 'tribe-common' ),
+					'link'     => 'https://evnt.is/1arq',
+				],
+				[
+					'question' => __( 'Can I have a seating chart associated with my tickets?', 'tribe-common' ),
+					'answer'   => __( 'Yes! You can easily accomplish this task using the stock options and multiple ticket types available with Event Tickets.', 'tribe-common' ),
+					'link'     => 'https://evnt.is/1arr',
+				],
+				[
+					'question' => __( 'How do I process refunds for tickets?', 'tribe-common' ),
+					'answer'   => __( 'When it comes to paid tickets, these orders can be refunded through the e-commerce platform in use.', 'tribe-common' ),
+					'link'     => 'https://evnt.is/1ars',
+				],
+			]
+		);
 	}
 
 	/**
@@ -1129,34 +1160,35 @@ class Tribe__Admin__Help_Page {
 	 * @return array of extensions which are displayed on the ticketing tab of the in-app help page.
 	 */
 	public function get_ticketing_extensions() {
-		$extensions = apply_filters( 'tec_help_ticketing_extensions', [
+		return apply_filters(
+			'tec_help_ticketing_extensions',
 			[
-				'title'        => __( 'Ticket Email Settings', 'tribe-common' ),
-				'description'  => __( 'Adds a new settings panel in Events > Settings that gives more control over the ticket and rsvp emails that are sent to attendees after registration.', 'tribe-common' ),
-				'link'         => 'https://evnt.is/1arx',
-				'product-slug' => 'event-tickets',
-			],
-			[
-				'title'        => __( 'Per Event Check In API', 'tribe-common' ),
-				'description'  => __( 'This extension shows a meta box with an API key on each Event with Ticket/RSVP.', 'tribe-common' ),
-				'link'         => 'https://evnt.is/1arw',
-				'product-slug' => 'event-tickets',
-			],
-			[
-				'title'        => __( 'Add Event & Attendee Info to WooCommerce Order Details', 'tribe-common' ),
-				'description'  => __( 'Displays the information collected by “attendee meta fields” in the WooCommerce order screens as well.', 'tribe-common' ),
-				'link'         => 'https://evnt.is/1arv',
-				'product-slug' => 'event-tickets',
-			],
-			[
-				'title'        => __( 'Organizer Notification Email', 'tribe-common' ),
-				'description'  => __( 'This extension will send an email to event organizers whenever a user registers for their event.', 'tribe-common' ),
-				'link'         => 'https://evnt.is/1aru',
-				'product-slug' => 'event-tickets',
-			],
-		] );
-
-		return $extensions;
+				[
+					'title'        => __( 'Ticket Email Settings', 'tribe-common' ),
+					'description'  => __( 'Adds a new settings panel in Events > Settings that gives more control over the ticket and rsvp emails that are sent to attendees after registration.', 'tribe-common' ),
+					'link'         => 'https://evnt.is/1arx',
+					'product-slug' => 'event-tickets',
+				],
+				[
+					'title'        => __( 'Per Event Check In API', 'tribe-common' ),
+					'description'  => __( 'This extension shows a meta box with an API key on each Event with Ticket/RSVP.', 'tribe-common' ),
+					'link'         => 'https://evnt.is/1arw',
+					'product-slug' => 'event-tickets',
+				],
+				[
+					'title'        => __( 'Add Event & Attendee Info to WooCommerce Order Details', 'tribe-common' ),
+					'description'  => __( 'Displays the information collected by “attendee meta fields” in the WooCommerce order screens as well.', 'tribe-common' ),
+					'link'         => 'https://evnt.is/1arv',
+					'product-slug' => 'event-tickets',
+				],
+				[
+					'title'        => __( 'Organizer Notification Email', 'tribe-common' ),
+					'description'  => __( 'This extension will send an email to event organizers whenever a user registers for their event.', 'tribe-common' ),
+					'link'         => 'https://evnt.is/1aru',
+					'product-slug' => 'event-tickets',
+				],
+			]
+		);
 	}
 
 	/**
@@ -1167,15 +1199,16 @@ class Tribe__Admin__Help_Page {
 	 * @return array of products which are displayed on the ticketing tab of the in-app help page.
 	 */
 	public function get_ticketing_products() {
-		$ticketing_products = apply_filters( 'tec_help_ticketing_products', [
-			'event-tickets',
-			'event-tickets-plus',
-			'tribe-eventbrite',
-			'promoter',
-			'event-tickets-wallet-plus',
-		] );
-
-		return $ticketing_products;
+		return apply_filters(
+			'tec_help_ticketing_products',
+			[
+				'event-tickets',
+				'event-tickets-plus',
+				'tribe-eventbrite',
+				'promoter',
+				'event-tickets-wallet-plus',
+			]
+		);
 	}
 
 	/**
@@ -1186,34 +1219,35 @@ class Tribe__Admin__Help_Page {
 	 * @return array of extensions which are displayed on the community tab of the in-app help page.
 	 */
 	public function get_community_extensions() {
-		$extensions = apply_filters( 'tec_help_ticketing_extensions', [
+		return apply_filters(
+			'tec_help_ticketing_extensions',
 			[
-				'title'        => __( 'Add Cost Currency Symbol', 'tribe-common' ),
-				'description'  => __( 'This extension allows you to set default currency symbols for your users to choose from instead of having a plain text field.', 'tribe-common' ),
-				'link'         => 'https://evnt.is/1arn',
-				'product-slug' => 'community-events',
-			],
-			[
-				'title'        => __( 'Add Google Maps Display and Link Options', 'tribe-common' ),
-				'description'  => __( 'This extension adds the “Show Google Maps” and “Show Google Maps Link” checkboxes when creating a new Venue.', 'tribe-common' ),
-				'link'         => 'https://evnt.is/1arm',
-				'product-slug' => 'community-events',
-			],
-			[
-				'title'        => __( 'Hide Others’ Organizers and Venues', 'tribe-common' ),
-				'description'  => __( 'This extension allows you to hide the Organizers and Venues that a visitor has not created from the Community Events submission form.', 'tribe-common' ),
-				'link'         => 'https://evnt.is/1aro',
-				'product-slug' => 'community-events',
-			],
-			[
-				'title'        => __( 'Display Custom HTML', 'tribe-common' ),
-				'description'  => __( 'This extension allows you to add custom HTML content to the top of the Community Events submission form.', 'tribe-common' ),
-				'link'         => 'https://evnt.is/1arp',
-				'product-slug' => 'community-events',
-			],
-		] );
-
-		return $extensions;
+				[
+					'title'        => __( 'Add Cost Currency Symbol', 'tribe-common' ),
+					'description'  => __( 'This extension allows you to set default currency symbols for your users to choose from instead of having a plain text field.', 'tribe-common' ),
+					'link'         => 'https://evnt.is/1arn',
+					'product-slug' => 'community-events',
+				],
+				[
+					'title'        => __( 'Add Google Maps Display and Link Options', 'tribe-common' ),
+					'description'  => __( 'This extension adds the “Show Google Maps” and “Show Google Maps Link” checkboxes when creating a new Venue.', 'tribe-common' ),
+					'link'         => 'https://evnt.is/1arm',
+					'product-slug' => 'community-events',
+				],
+				[
+					'title'        => __( 'Hide Others’ Organizers and Venues', 'tribe-common' ),
+					'description'  => __( 'This extension allows you to hide the Organizers and Venues that a visitor has not created from the Community Events submission form.', 'tribe-common' ),
+					'link'         => 'https://evnt.is/1aro',
+					'product-slug' => 'community-events',
+				],
+				[
+					'title'        => __( 'Display Custom HTML', 'tribe-common' ),
+					'description'  => __( 'This extension allows you to add custom HTML content to the top of the Community Events submission form.', 'tribe-common' ),
+					'link'         => 'https://evnt.is/1arp',
+					'product-slug' => 'community-events',
+				],
+			]
+		);
 	}
 
 	/**
@@ -1224,11 +1258,12 @@ class Tribe__Admin__Help_Page {
 	 * @return array of products which are displayed on the community tab of the in-app help page.
 	 */
 	public function get_community_products() {
-		$community_products = apply_filters( 'tec_help_ticketing_products', [
-			'events-community',
-			'events-community-tickets',
-		] );
-
-		return $community_products;
+		return apply_filters(
+			'tec_help_ticketing_products',
+			[
+				'events-community',
+				'events-community-tickets',
+			]
+		);
 	}
 }
