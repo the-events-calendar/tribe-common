@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - The Decorated repository was not returning values from `save()` and other methods. Now they return as expected. [BTRIA-2310]
+
 = [5.2.7] 2024-05-14 =
 
 * Fix - Add dir/filename of `event-automator` in the Plugins_API to fix CTA button text/links in the Help section. [TEC-5071]
