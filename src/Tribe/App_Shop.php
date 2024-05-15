@@ -150,18 +150,14 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 			$products = [
 				'the-events-calendar'       => (object) $all_products['the-events-calendar'],
 				'events-calendar-pro'       => (object) $all_products['events-calendar-pro'],
-				'events-virtual'            => (object) $all_products['events-virtual'],
 				'event-aggregator'          => (object) $all_products['event-aggregator'],
-				'event-automator'           => (object) $all_products['event-automator'],
 				'event-tickets'             => (object) $all_products['event-tickets'],
 				'event-tickets-plus'        => (object) $all_products['event-tickets-plus'],
-				'event-tickets-wallet-plus' => (object) $all_products['event-tickets-wallet-plus'],
 				'promoter'                  => (object) $all_products['promoter'],
 				'tribe-filterbar'           => (object) $all_products['tribe-filterbar'],
 				'events-community'          => (object) $all_products['events-community'],
 				'events-community-tickets'  => (object) $all_products['events-community-tickets'],
 				'event-schedule-manager'    => (object) $all_products['event-schedule-manager'],
-				'tribe-eventbrite'          => (object) $all_products['tribe-eventbrite'],
 				'image-widget-plus'         => (object) $all_products['image-widget-plus'],
 			];
 
@@ -197,25 +193,6 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 						'events-calendar-pro',
 						'tribe-filterbar',
 						'event-aggregator'
-					],
-				],
-				(object) [
-					'title' => __( 'Virtual Events Marketing Bundle', 'tribe-common' ),
-					'logo' => 'images/logo/bundle-virtual-events.svg',
-					'link' => 'http://evnt.is/ve-bundle',
-					'discount' => __( 'Save over 20%', 'tribe-common' ),
-					'description' => __( 'Streamline your online events and increase revenue.', 'tribe-common' ),
-					'includes' => [
-						'events-calendar-pro',
-						'event-tickets-plus',
-						'events-virtual',
-						'promoter',
-					],
-					'features' => [
-						__( 'Sell tickets and earn revenue for online events', 'tribe-common' ),
-						__( 'Zoom integration', 'tribe-common' ),
-						__( 'Automated emails optimized for virtual events', 'tribe-common' ),
-						__( 'Add recurring events', 'tribe-common' ),
 					],
 				],
 				(object) [
