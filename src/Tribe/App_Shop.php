@@ -160,6 +160,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 				'tribe-filterbar'           => (object) $all_products['tribe-filterbar'],
 				'events-community'          => (object) $all_products['events-community'],
 				'events-community-tickets'  => (object) $all_products['events-community-tickets'],
+				'event-schedule-manager'    => (object) $all_products['event-schedule-manager'],
 				'tribe-eventbrite'          => (object) $all_products['tribe-eventbrite'],
 				'image-widget-plus'         => (object) $all_products['image-widget-plus'],
 			];

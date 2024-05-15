@@ -7,6 +7,8 @@
  */
 tribe.validation = {};
 
+dayjs.extend(window.dayjs_plugin_customParseFormat);
+
 ( function( obj, $, _ ) {
 	'use strict';
 	var $document = $( document );
@@ -159,7 +161,7 @@ tribe.validation = {};
 			}
 
 			var format = formats[ formatKey ].toUpperCase();
-			value = moment( value, format ).format( 'X' );
+			value = dayjs( value, format ).valueOf();
 
 			return value;
 		},
