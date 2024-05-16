@@ -13,6 +13,7 @@
     "ajaxurl": true,
     "Clipboard": true,
 	"ClipboardJS": true,
+	"dayjs": true,
     "introJs": true,
     "jQuery": true,
     "moment": true,
