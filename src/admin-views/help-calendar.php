@@ -109,11 +109,6 @@ $tec_events_style        = $is_tec_events_help_page ? 'block' : 'none';
 						<?php esc_html_e( 'Filter Bar', 'tribe-common' ); ?>
 					</a>
 				</li>
-				<li>
-					<a href="https://evnt.is/1ape" target="_blank" rel="noopener noreferrer">
-						<?php esc_html_e( 'Virtual Events', 'tribe-common' ); ?>
-					</a>
-				</li>
 			</ul>
 		</div>
 
