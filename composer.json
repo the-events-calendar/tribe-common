@@ -35,15 +35,16 @@
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
     "bordoni/phpass": "0.3.5",
-    "codeception/codeception": "^2.5.5",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
     "lucatume/codeception-snapshot-assertions": "^0.2.4",
     "lucatume/function-mocker-le": "^1.0",
-    "lucatume/wp-browser": "^3.0.14",
+    "lucatume/wp-browser": "^3.5",
     "stellarwp/coding-standards": "dev-main",
     "the-events-calendar/tec-testing-facilities": "dev-master",
     "wp-cli/checksum-command": "1.0.5",
-    "wp-coding-standards/wpcs": "^3.0.0"
+    "wp-coding-standards/wpcs": "^3.0.0",
+    "phpspec/prophecy": "^1.19",
+    "phpspec/prophecy-phpunit": "^2.2"
   },
   "autoload": {
     "psr-4": {

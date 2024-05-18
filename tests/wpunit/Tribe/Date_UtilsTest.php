@@ -11,19 +11,19 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 
 	protected $backupGlobals = false;
 
-	public static function setUpBeforeClass() {
+	public static function setUpBeforeClass(): void {
 		self::$tz_backup = date_default_timezone_get();
 
-		return parent::setUpBeforeClass();
+		parent::setUpBeforeClass();
 	}
 
-	public static function tearDownAfterClass() {
+	public static function tearDownAfterClass(): void {
 		date_default_timezone_set( self::$tz_backup );
 
-		return parent::tearDownAfterClass();
+		parent::tearDownAfterClass();
 	}
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -31,13 +31,6 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 
 		// Default timezone to UTC at beginning of each test
 		date_default_timezone_set( 'UTC' );
-	}
-
-	public function tearDown() {
-		// your tear down methods here
-
-		// then
-		parent::tearDown();
 	}
 
 	public function bad_argument_formats() {
@@ -243,7 +236,6 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test reformat
 	 *
-	 * @test
 	 * @dataProvider reformat_inputs
 	 */
 	public function test_reformat( $input, $format ) {
@@ -258,7 +250,6 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test reformat w/ timezone.
 	 *
-	 * @test
 	 * @dataProvider reformat_inputs
 	 */
 	public function test_reformat_with_timezone( $input, $format ) {
@@ -314,7 +305,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 			'2019-12-01 08:00:00',
 			$timezone_str,
 		];
-		yield '2019-12-01 08:00:00 DateTime w/timezone' => [
+		yield '2019-12-01 08:00:00 DateTime w/timezone string' => [
 			new DateTime( '2019-12-01 08:00:00', $timezone_obj ),
 			'2019-12-01 08:00:00',
 			$timezone_str,
@@ -335,7 +326,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 			'2019-12-01 08:00:00',
 			$timezone_obj,
 		];
-		yield '2019-12-01 08:00:00 DateTime w/timezone' => [
+		yield '2019-12-01 08:00:00 DateTime w/timezone object' => [
 			new DateTime( '2019-12-01 08:00:00', $timezone_obj ),
 			'2019-12-01 08:00:00',
 			$timezone_obj,
@@ -514,7 +505,6 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	 * Validates date_only() works as expected.
 	 *
 	 * @dataProvider date_only_data_provider
-	 * @test
 	 */
 	public function test_date_only( $expected, $date, $is_timestamp = false ) {
 		$date_only = Date_Utils::date_only( $date, $is_timestamp );

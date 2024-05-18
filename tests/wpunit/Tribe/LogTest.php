@@ -2,9 +2,11 @@
 
 namespace Tribe;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Tribe__Log as Log;
 
 class LogTest extends \Codeception\TestCase\WPTestCase {
+	use ProphecyTrait;
 
 	/**
 	 * @return Log

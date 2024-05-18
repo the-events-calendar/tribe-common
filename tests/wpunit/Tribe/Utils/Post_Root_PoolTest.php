@@ -5,7 +5,7 @@ use \Tribe__Utils__Post_Root_Pool as Post_Root_Pool;
 
 class Post_Root_PoolTest extends \Codeception\TestCase\WPTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -13,7 +13,7 @@ class Post_Root_PoolTest extends \Codeception\TestCase\WPTestCase {
 		Post_Root_Pool::reset_pool();
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

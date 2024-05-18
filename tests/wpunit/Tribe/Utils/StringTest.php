@@ -7,7 +7,6 @@ use Tribe\Utils\Strings;
 class StringTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
-	 * @test
 	 */
 	public function test_string_replace_first() {
 		$string      = '<div><div><span><p></p></span></div></div>';
@@ -20,7 +19,6 @@ class StringTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_string_replace_last() {
 		$string      = '<div><p><div><span><p></p></span></div></p></div>';

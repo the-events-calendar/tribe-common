@@ -101,7 +101,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		// Replaces our percent placeholder.
 		$filtered_rules = $rewrite->filter_rewrite_rules_array( $rules );
 		foreach ( $filtered_rules as $rule_match => $url ) {
-			$this->assertNotContains( Tribe__Rewrite::PERCENT_PLACEHOLDER, $rule_match );
+			$this->assertStringNotContainsString( Tribe__Rewrite::PERCENT_PLACEHOLDER, $rule_match );
 		}
 
 		// Safely returns bad values.

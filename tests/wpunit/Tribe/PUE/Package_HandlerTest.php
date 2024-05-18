@@ -2,16 +2,18 @@
 namespace Tribe\PUE;
 
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Tribe__PUE__Package_Handler as Package_Handler;
 
 class Package_HandlerTest extends \Codeception\TestCase\WPTestCase {
+	use ProphecyTrait;
 
 	/**
 	 * @var \WP_Filesystem_Base
 	 */
 	protected $filesystem;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -20,13 +22,6 @@ class Package_HandlerTest extends \Codeception\TestCase\WPTestCase {
 		require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
 
 		$this->filesystem = $this->prophesize( \WP_Filesystem_Base::class );
-	}
-
-	public function tearDown() {
-		// your tear down methods here
-
-		// then
-		parent::tearDown();
 	}
 
 	/**

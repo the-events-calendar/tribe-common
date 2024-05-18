@@ -10,7 +10,6 @@
 class Updater_Test extends \Codeception\TestCase\WPTestCase {
 
 	/**
-	 * @test
 	 * @since 4.9.4
 	 */
 	public function test_update_required() {
@@ -31,7 +30,6 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 * @since 4.9.4
 	 */
 	public function test_get_version_from_db() {
@@ -45,7 +43,6 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 * @since 4.9.4
 	 */
 	public function test_update_version_option() {
@@ -64,7 +61,6 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 * @since 4.9.4
 	 */
 	public function test_get_update_callbacks() {
@@ -73,12 +69,11 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 
 		$updates = $updater->get_update_callbacks();
 		foreach ( $updates as $version => $update_callable ) {
-			$this->assertTrue( is_callable( $update_callable ), "checking defined update function is callable ($version)" );
+			$this->assertIsCallable( $update_callable, "checking defined update function is callable ($version)" );
 		}
 	}
 
 	/**
-	 * @test
 	 * @since 4.9.4
 	 */
 	public function test_get_constant_update_callbacks() {
@@ -87,12 +82,11 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 
 		$contant_updates = $updater->get_constant_update_callbacks();
 		foreach ( $contant_updates as $contant_update_callable ) {
-			$this->assertTrue( is_callable( $contant_update_callable ), 'checking constant update function is callable' );
+			$this->assertIsCallable( $contant_update_callable, 'checking constant update function is callable' );
 		}
 	}
 
 	/**
-	 * @test
 	 * @since 4.9.4
 	 */
 	public function test_constant_updates_applied() {
@@ -108,7 +102,6 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 * @since 4.9.4
 	 */
 	public function test_update_only_runs_once() {

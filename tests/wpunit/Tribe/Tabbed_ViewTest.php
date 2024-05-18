@@ -4,24 +4,11 @@ namespace Tribe;
 
 require_once codecept_data_dir( 'classes/Tab_Extension.php' );
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Tribe__Tabbed_View as Tabbed_View;
 
 class Tabbed_ViewTest extends \Codeception\TestCase\WPTestCase {
-
-	public function setUp() {
-		// before
-		parent::setUp();
-
-		// your set up methods here
-	}
-
-	public function tearDown() {
-		// your tear down methods here
-
-		// then
-		parent::tearDown();
-
-	}
+	use ProphecyTrait;
 
 	/**
 	 * @test

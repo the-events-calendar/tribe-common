@@ -22,7 +22,7 @@ class Monolog_LoggerTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( Monolog_Logger::DEFAULT_CHANNEL, tribe( 'monolog' )->getName() );
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		tribe( 'monolog' )->reset_global_channel();
 		parent::tearDown();
 	}

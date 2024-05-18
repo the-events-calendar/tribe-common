@@ -26,8 +26,8 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 
 		// Should find two different templates.
 		$this->assertNotEquals( $html1, $html2 );
-		$this->assertContains( 'Our duplicate.', $html2 );
-		$this->assertContains( 'Our own test.', $html1 );
+		$this->assertStringContainsString( 'Our duplicate.', $html2 );
+		$this->assertStringContainsString( 'Our own test.', $html1 );
 	}
 
 	/**
@@ -100,7 +100,7 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 
 		$html = $template->template( 'dummy-template', [], false );
 
-		$this->assertContains( '<div class="test">%%after_container_open%%', $html );
+		$this->assertStringContainsString( '<div class="test">%%after_container_open%%', $html );
 		$this->assertStringEndsWith( '%%before_container_close%%</div>', $html );
 	}
 
@@ -121,7 +121,7 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		$html                      = $template->template( 'dummy-template', [], false );
 		$html                      = \Tribe\Utils\Strings::replace_last( $last_tag_html, $last_tag_html . $customer_entry_point_html, $html );
 
-		$this->assertContains( '</div>%%custom_entry_point%%', $html );
+		$this->assertStringContainsString( '</div>%%custom_entry_point%%', $html );
 	}
 
 	/**
@@ -140,7 +140,7 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		} );
 		$html = $template->template( 'dummy-invalid-template-01', [], false );
 
-		$this->assertNotContains( '%%after_container_open%%', $html );
+		$this->assertStringNotContainsString( '%%after_container_open%%', $html );
 		$this->assertStringEndsNotWith( '%%before_container_close%%', $html );
 	}
 
@@ -160,7 +160,7 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		} );
 		$html = $template->template( 'dummy-invalid-template-02', [], false );
 
-		$this->assertNotContains( '%%after_container_open%%', $html );
+		$this->assertStringNotContainsString( '%%after_container_open%%', $html );
 		$this->assertStringEndsNotWith( '%%before_container_close%%', $html );
 	}
 
@@ -180,7 +180,7 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		} );
 		$html = $template->template( 'dummy-invalid-template-03', [], false );
 
-		$this->assertNotContains( '%%after_container_open%%', $html );
+		$this->assertStringNotContainsString( '%%after_container_open%%', $html );
 		$this->assertStringEndsNotWith( '%%before_container_close%%', $html );
 	}
 
@@ -200,7 +200,7 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		} );
 		$html = $template->template( 'dummy-invalid-template-04', [], false );
 
-		$this->assertNotContains( '%%after_container_open%%', $html );
+		$this->assertStringNotContainsString( '%%after_container_open%%', $html );
 		$this->assertStringEndsNotWith( '%%before_container_close%%', $html );
 	}
 
@@ -220,7 +220,7 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		} );
 		$html = $template->template( 'dummy-valid-template-01', [], false );
 
-		$this->assertContains( '<a href="https://tri.be" class="test" target="_blank" title="Test Link" data-link="automated-tests">%%after_container_open%%', $html );
+		$this->assertStringContainsString( '<a href="https://tri.be" class="test" target="_blank" title="Test Link" data-link="automated-tests">%%after_container_open%%', $html );
 		$this->assertStringEndsWith( '%%before_container_close%%</a>', $html );
 
 	}
@@ -242,7 +242,7 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		$html = $template->template( 'dummy-valid-template-02', [], false );
 
 		$replaced_html = str_replace( array( "\n", "\r" ), '', $html );
-		$this->assertContains( 'data-view-breakpoint-pointer="99ccf293-c1b0-41b2-a1c8-033776ac6f10">%%after_container_open%%', $replaced_html );
+		$this->assertStringContainsString( 'data-view-breakpoint-pointer="99ccf293-c1b0-41b2-a1c8-033776ac6f10">%%after_container_open%%', $replaced_html );
 		$this->assertStringEndsWith( '%%before_container_close%%</div>', $html );
 	}
 
@@ -263,7 +263,7 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		$html = $template->template( 'dummy-valid-template-03', [], false );
 
 		$replaced_html = str_replace( array( "\n", "\r" ), '', $html );
-		$this->assertContains( '<div class="tribe-view tribe-view--base tribe-view--dummy">%%after_container_open%%', $replaced_html );
+		$this->assertStringContainsString( '<div class="tribe-view tribe-view--base tribe-view--dummy">%%after_container_open%%', $replaced_html );
 		$this->assertStringEndsWith( '%%before_container_close%%</div>', $html );
 	}
 
@@ -286,7 +286,7 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 
 		$html = $template->template( 'dummy-template', [], false );
 
-		$this->assertNotContains( '<div class="test">%%after_container_open%%', $html );
+		$this->assertStringNotContainsString( '<div class="test">%%after_container_open%%', $html );
 		$this->assertStringEndsNotWith( '%%before_container_close%%</div>', $html );
 	}
 

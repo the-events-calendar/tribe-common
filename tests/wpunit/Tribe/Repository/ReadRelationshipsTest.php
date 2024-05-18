@@ -10,7 +10,7 @@ class ReadRelationshipsTest extends ReadTestBase {
 
 	public $reviews;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->books = $this->factory()->post->create_many( 5, [ 'post_type' => 'book' ] );
@@ -40,7 +40,7 @@ class ReadRelationshipsTest extends ReadTestBase {
 			->by_not_related_to( [ 'book_id' ] )
 			->get_ids();
 
-		$this->assertEquals( 2, count( $not_related_ids ) );
+		$this->assertCount( 2, $not_related_ids );
 		$this->assertEqualSets( [ $this->books[0], $this->books[1] ], $not_related_ids );
 	}
 }

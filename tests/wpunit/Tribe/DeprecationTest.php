@@ -5,7 +5,7 @@ use Tribe__Deprecation as Deprecation;
 
 class DeprecationTest extends \Codeception\TestCase\WPTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -14,13 +14,6 @@ class DeprecationTest extends \Codeception\TestCase\WPTestCase {
 		remove_action('tribe_current', '__return_empty_string');
 		remove_filter('tribe_deprecated', '__return_empty_string');
 		remove_action('tribe_deprecated', '__return_empty_string');
-	}
-
-	public function tearDown() {
-		// your tear down methods here
-
-		// then
-		parent::tearDown();
 	}
 
 	/**

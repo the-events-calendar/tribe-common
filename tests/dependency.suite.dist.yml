@@ -8,9 +8,7 @@ modules:
         - Asserts
     config:
         WPDb:
-          dsn: 'mysql:host=%DB_HOST%;dbname=%DB_NAME%'
-          user: %DB_USER%
-          password: %DB_PASSWORD%
+          dbUrl: 'mysql://%DB_USER%:%DB_PASSWORD%@%DB_HOST%/%DB_NAME%'
           dump: tests/_data/dependency-dump.sql
           populate: true
           cleanup: true

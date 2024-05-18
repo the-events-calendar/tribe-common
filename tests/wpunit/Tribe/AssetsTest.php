@@ -1,10 +1,13 @@
 <?php
 namespace Tribe;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Tribe__Assets as Assets;
 use Tribe__Main as Plugin;
 
 class AssetsTest extends \Codeception\TestCase\WPTestCase {
+	use ProphecyTrait;
+
 	/**
 	 * @test
 	 *
@@ -44,8 +47,8 @@ class AssetsTest extends \Codeception\TestCase\WPTestCase {
 
 		$translations_string = wp_scripts()->print_translations( $asset_slug, false );
 
-		$this->assertContains( $expected_msgid, $translations_string );
-		$this->assertContains( $expected_msgstr, $translations_string );
+		$this->assertStringContainsString( $expected_msgid, $translations_string );
+		$this->assertStringContainsString( $expected_msgstr, $translations_string );
 	}
 
 	public function get_script_tags() {
@@ -88,6 +91,6 @@ class AssetsTest extends \Codeception\TestCase\WPTestCase {
 
 		$script_tag = $assets->filter_modify_to_module( $script_tag, 'test-script' );
 
-		$this->assertContains( 'type="module"', $script_tag );
+		$this->assertStringContainsString( 'type="module"', $script_tag );
 	}
 }

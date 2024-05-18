@@ -5,7 +5,6 @@ namespace Tribe\Utils;
 class Boolean_TransformationTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
-	 * @test
 	 */
 	public function test_bool_to_string_true() {
 		$bool = true;
@@ -16,7 +15,6 @@ class Boolean_TransformationTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_bool_to_string_false() {
 		$bool = false;
@@ -26,7 +24,6 @@ class Boolean_TransformationTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_bool_to_int_true() {
 		$bool = true;
@@ -36,7 +33,6 @@ class Boolean_TransformationTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_bool_to_int_false() {
 		$bool = false;

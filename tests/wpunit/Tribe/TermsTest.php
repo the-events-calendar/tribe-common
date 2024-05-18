@@ -18,7 +18,6 @@ class TermsTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test translate_terms_to_ids with bad inputs
 	 *
-	 * @test
 	 * @dataProvider translate_terms_to_ids_bad_inputs
 	 */
 	public function test_translate_terms_to_ids_with_bad_inputs( $input ) {
@@ -28,7 +27,6 @@ class TermsTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test translate_terms_to_ids should create not found terms
 	 *
-	 * @test
 	 */
 	public function test_translate_terms_to_ids_should_create_not_found_terms() {
 		$this->assertFalse( (bool) term_exists( 'foo', 'post_tag' ) );
@@ -42,7 +40,6 @@ class TermsTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test translate_terms_to_ids does not create existing terms
 	 *
-	 * @test
 	 */
 	public function test_translate_terms_to_ids_does_not_create_existing_terms() {
 		$foo = $this->factory()->term->create( [ 'slug' => 'foo', 'taxonomy' => 'post_tag' ] );
@@ -56,6 +53,7 @@ class TermsTest extends \Codeception\TestCase\WPTestCase {
 		$created = Terms::translate_terms_to_ids( $terms, 'post_tag' );
 
 		$this->assertCount( 3, $created );
+		$created = array_map('absint', $created);
 		$this->assertContains( $foo, $created );
 		$this->assertContains( $bar, $created );
 		$this->assertTrue( (bool) term_exists( 'foo', 'post_tag' ) );
@@ -66,7 +64,6 @@ class TermsTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test translate_terms_to_ids detects existing terms by id and slug
 	 *
-	 * @test
 	 */
 	public function test_translate_terms_to_ids_detects_existing_terms_by_id_and_slug() {
 		$foo = $this->factory()->term->create( [ 'slug' => 'foo', 'taxonomy' => 'post_tag' ] );
@@ -90,7 +87,6 @@ class TermsTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test translate_term_to_ids does not create terms for non valid taxonomy
 	 *
-	 * @test
 	 */
 	public function test_translate_term_to_ids_does_not_create_terms_for_non_valid_taxonomy() {
 		$created = Terms::translate_terms_to_ids( 'foo', 'bar' );
@@ -100,7 +96,6 @@ class TermsTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test translate_terms_to_ids accepts comma separated strings of slugs ans IDs
 	 *
-	 * @test
 	 */
 	public function test_translate_terms_to_ids_accepts_comma_separated_strings_of_slugs_ans_i_ds() {
 		$foo = $this->factory()->term->create( [ 'slug' => 'foo', 'taxonomy' => 'post_tag' ] );
@@ -113,6 +108,7 @@ class TermsTest extends \Codeception\TestCase\WPTestCase {
 		$created = Terms::translate_terms_to_ids( 'foo,bar,baz', 'post_tag' );
 
 		$this->assertCount( 3, $created );
+		$created = array_map( 'absint', $created );
 		$this->assertContains( $foo, $created );
 		$this->assertContains( $bar, $created );
 		$this->assertTrue( (bool) term_exists( 'foo', 'post_tag' ) );
@@ -123,6 +119,7 @@ class TermsTest extends \Codeception\TestCase\WPTestCase {
 		$created = Terms::translate_terms_to_ids( implode( ',', [ $foo, 'bar', 'baz' ] ), 'post_tag' );
 
 		$this->assertCount( 3, $created );
+		$created = array_map( 'absint', $created );
 		$this->assertContains( $foo, $created );
 		$this->assertContains( $bar, $created );
 		$this->assertContains( $baz, $created );
@@ -131,7 +128,6 @@ class TermsTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test translate_terms_to_ids does not create missing terms if told
 	 *
-	 * @test
 	 */
 	public function test_translate_terms_to_ids_does_not_create_missing_terms_if_told() {
 		$foo = $this->factory()->term->create( [ 'slug' => 'foo', 'taxonomy' => 'post_tag' ] );
@@ -144,6 +140,7 @@ class TermsTest extends \Codeception\TestCase\WPTestCase {
 		$created = Terms::translate_terms_to_ids( 'foo,bar,baz', 'post_tag', false );
 
 		$this->assertCount( 2, $created );
+		$created = array_map( 'absint', $created );
 		$this->assertContains( $foo, $created );
 		$this->assertContains( $bar, $created );
 		$this->assertTrue( (bool) term_exists( 'foo', 'post_tag' ) );
@@ -153,6 +150,7 @@ class TermsTest extends \Codeception\TestCase\WPTestCase {
 		$created = Terms::translate_terms_to_ids( implode( ',', [ $foo, 'bar', 'baz' ] ), 'post_tag',false );
 
 		$this->assertCount( 2, $created );
+		$created = array_map( 'absint', $created );
 		$this->assertContains( $foo, $created );
 		$this->assertContains( $bar, $created );
 	}
@@ -160,7 +158,6 @@ class TermsTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test translate_terms_to_ids handles WP_Term objects
 	 *
-	 * @test
 	 */
 	public function test_translate_terms_to_ids_handles_wp_term_objects() {
 		$foo = $this->factory()->term->create( [ 'slug' => 'foo', 'taxonomy' => 'post_tag' ] );

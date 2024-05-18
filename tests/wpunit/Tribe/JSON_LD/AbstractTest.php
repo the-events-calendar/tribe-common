@@ -4,19 +4,14 @@ namespace Tribe\JSON_LD;
 
 require_once codecept_data_dir( 'classes/Tribe__JSON_LD__Test_Class.php' );
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Tribe__Events__Main as Main;
 use Tribe__JSON_LD__Test_Class as Jsonld;
 
 class AbstractTest extends \Codeception\TestCase\WPTestCase {
+	use ProphecyTrait;
 
-	public function setUp() {
-		// before
-		parent::setUp();
-
-		// your set up methods here
-	}
-
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 		\Tribe__JSON_LD__Abstract::unregister_all();
 
@@ -65,10 +60,10 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 
 		$user = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user );
-		
+
 		$sut  = $this->make_instance();
 		$data = $sut->get_data( $post );
-		$this->assertInternalType( 'array', $data );
+		$this->assertIsArray( $data );
 		$this->assertCount( 1, $data );
 		$this->assertContainsOnly( 'stdClass', $data );
 	}
@@ -85,7 +80,7 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 		$sut->set_type( $post, strtolower( $sut->type ) );
 		$second_fetch_data = $sut->get_data( $post );
 
-		$this->assertInternalType( 'array', $second_fetch_data );
+		$this->assertIsArray( $second_fetch_data );
 		$this->assertEmpty( $second_fetch_data );
 	}
 
@@ -180,9 +175,9 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertCount( 1, $json_data );
 		$json_ld_data = array_shift( $json_data );
-		$this->assertObjectHasAttribute( 'eventAttendanceMode', $json_ld_data );
-		$this->assertObjectHasAttribute( 'startDate', $json_ld_data );
-		$this->assertObjectHasAttribute( 'endDate', $json_ld_data );
+		$this->assertObjectHasProperty( 'eventAttendanceMode', $json_ld_data );
+		$this->assertObjectHasProperty( 'startDate', $json_ld_data );
+		$this->assertObjectHasProperty( 'endDate', $json_ld_data );
 	}
 
 	/**
@@ -261,9 +256,9 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertCount( 1, $json_data );
 		$json_ld_data = array_shift( $json_data );
-		$this->assertObjectHasAttribute( 'eventAttendanceMode', $json_ld_data );
-		$this->assertObjectHasAttribute( 'startDate', $json_ld_data );
-		$this->assertObjectHasAttribute( 'endDate', $json_ld_data );
+		$this->assertObjectHasProperty( 'eventAttendanceMode', $json_ld_data );
+		$this->assertObjectHasProperty( 'startDate', $json_ld_data );
+		$this->assertObjectHasProperty( 'endDate', $json_ld_data );
 	}
 
 	/**
@@ -332,9 +327,9 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertCount( 1, $json_data );
 		$json_ld_data = array_shift( $json_data );
-		$this->assertObjectHasAttribute( 'eventAttendanceMode', $json_ld_data );
-		$this->assertObjectHasAttribute( 'startDate', $json_ld_data );
-		$this->assertObjectHasAttribute( 'endDate', $json_ld_data );
+		$this->assertObjectHasProperty( 'eventAttendanceMode', $json_ld_data );
+		$this->assertObjectHasProperty( 'startDate', $json_ld_data );
+		$this->assertObjectHasProperty( 'endDate', $json_ld_data );
 	}
 
 	/**
@@ -403,9 +398,9 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertCount( 1, $json_data );
 		$json_ld_data = array_shift( $json_data );
-		$this->assertObjectHasAttribute( 'eventAttendanceMode', $json_ld_data );
-		$this->assertObjectHasAttribute( 'startDate', $json_ld_data );
-		$this->assertObjectHasAttribute( 'endDate', $json_ld_data );
+		$this->assertObjectHasProperty( 'eventAttendanceMode', $json_ld_data );
+		$this->assertObjectHasProperty( 'startDate', $json_ld_data );
+		$this->assertObjectHasProperty( 'endDate', $json_ld_data );
 	}
 
 	/**
@@ -430,9 +425,9 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertCount( 1, $json_data );
 		$json_ld_data = array_shift( $json_data );
-		$this->assertObjectHasAttribute( 'eventAttendanceMode', $json_ld_data );
-		$this->assertObjectHasAttribute( 'startDate', $json_ld_data );
-		$this->assertObjectHasAttribute( 'endDate', $json_ld_data );
+		$this->assertObjectHasProperty( 'eventAttendanceMode', $json_ld_data );
+		$this->assertObjectHasProperty( 'startDate', $json_ld_data );
+		$this->assertObjectHasProperty( 'endDate', $json_ld_data );
 	}
 
 	/**

@@ -6,7 +6,7 @@ use Codeception\TestCase\WPTestCase,
     Tribe__Log__Logger,
     Tribe__Main;
 
-class Logging_Test extends WPTestCase {
+class File_Logging_Test extends WPTestCase {
 	/**
 	 * @var Tribe__Log
 	 */
@@ -24,7 +24,7 @@ class Logging_Test extends WPTestCase {
 	 */
 	protected $test_dates = array();
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->use_test_prefix();

@@ -5,7 +5,7 @@ namespace Tribe\Repository;
 require_once __DIR__ . '/ReadTestBase.php';
 
 class Custom_OrderbyTest extends ReadTestBase {
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->class = new class extends \Tribe__Repository {
 			protected $default_args = [ 'post_type' => 'book', 'orderby' => 'ID', 'order' => 'ASC' ];

@@ -8,7 +8,7 @@ class Template_CheckerTest extends WPTestCase {
 	/** @var \Tribe__Support__Template_Checker */
 	protected $template_checker;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$test_data_dir = codecept_data_dir();
 

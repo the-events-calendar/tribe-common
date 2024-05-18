@@ -21,7 +21,7 @@ class Action_LoggerTest extends \Codeception\TestCase\WPTestCase {
 	public function should_have_a_name_() {
 		$action_logger = new Action_Logger();
 		$this->assertNotEmpty( $action_logger->get_name() );
-		$this->assertInternalType( 'string', $action_logger->get_name() );
+		$this->assertIsString( $action_logger->get_name() );
 	}
 
 	public function log_levels_data_set() {

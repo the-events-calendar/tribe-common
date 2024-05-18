@@ -8,7 +8,6 @@ use Tribe__Date_Utils as Dates;
 class DateTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
-	 * @test
 	 */
 	public function test_date_sort_with_array_of_strings() {
 		$now          = '47448000';
@@ -31,7 +30,6 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_date_sort_with_array_of_ints() {
 		$now          = 47448000;
@@ -54,7 +52,6 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_date_sort_with_array_of_mutable_objects() {
 		$now          = Dates::mutable( '47448000' );
@@ -71,7 +68,6 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_date_sort_with_array_of_mixed_immutable_and_mutable_objects() {
 		$now          = Dates::mutable( '47448000' );
@@ -88,7 +84,6 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_date_sort_with_array_of_immutable_objects() {
 		$now          = Dates::immutable( '47448000' );
@@ -105,7 +100,6 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_date_sort_with_mixed_array() {
 		$now          = '47448000';
@@ -128,7 +122,6 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_date_sort_desc() {
 		$now        = '47448000';
@@ -152,7 +145,6 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_two_identical_timestamps() {
 		$now        = '47448000';
@@ -163,7 +155,6 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_span_starts_after_now() {
 		$now        = '47448000';
@@ -174,7 +165,6 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_span_starts_after_now_out_of_order() {
 		$now        = '47448000';
@@ -185,7 +175,6 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_span_ends_before_now() {
 		$now        = '47448000';
@@ -196,7 +185,6 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_span_ends_before_now_out_of_order() {
 		$now        = '47448000';
@@ -207,7 +195,6 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_span_ends_now() {
 		$now        = '47448000';
@@ -218,7 +205,6 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_span_ends_now_out_of_order() {
 		$now        = '47448000';
@@ -229,7 +215,6 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_span_starts_now() {
 		$now        = '47448000';
@@ -240,7 +225,6 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_span_starts_now_out_of_order() {
 		$now        = '47448000';
@@ -251,7 +235,6 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_span_started_in_past() {
 		$now        = '47448000';
@@ -262,7 +245,6 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
 	 */
 	public function test_span_started_in_past_out_of_order() {
 		$now        = '47448000';

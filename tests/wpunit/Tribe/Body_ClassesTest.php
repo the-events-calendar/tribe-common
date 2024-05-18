@@ -8,7 +8,7 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 
 	protected $class_object;
 
-	function setUp() {
+	function setUp(): void {
 		parent::setUp();
 
 
@@ -112,7 +112,7 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 		$class_array = $this->class_object->get_classes();
 
 		$this->assertTrue( array_key_exists( 'chupacabra', $class_array ) );
-		$this->assertTrue( $class_array['chupacabra'] === true );
+		$this->assertSame( $class_array['chupacabra'], true );
 	}
 
 	/**
@@ -125,7 +125,7 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 
 		$class_array = $this->class_object->get_class_names();
 
-		$this->assertTrue( in_array( 'chupacabra', $class_array ) );
+		$this->assertContains( 'chupacabra', $class_array );
 	}
 
 	/**
@@ -217,7 +217,7 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 		$this->create_mixed_classes();
 
 		$classes = tribe( Body_Classes::class )->add_body_classes( $classes );
-		$this->assertFalse( in_array( 'wolfman', $classes ) );
+		$this->assertNotContains( 'wolfman', $classes );
 	}
 
 	/**
@@ -231,7 +231,7 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 		$this->create_mixed_classes();
 
 		$classes = tribe( Body_Classes::class )->add_body_classes( $classes );
-		$this->assertFalse( in_array( 'wolfman', $classes ) );
+		$this->assertNotContains( 'wolfman', $classes );
 	}
 
 	/**

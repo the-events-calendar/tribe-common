@@ -16,7 +16,7 @@ use TEC\Common\Integrations\Dummy_Theme;
  * @package TEC\Common\Integration
  */
 class Integration_AbstractTests {
-	public static function setUpBeforeClass() {
+	public static function setUpBeforeClass(): void {
 		tribe_register_provider( Dummy_Plugin::class );
 		tribe_register_provider( Dummy_Theme::class );
 		tribe_register_provider( Dummy_Module::class );
