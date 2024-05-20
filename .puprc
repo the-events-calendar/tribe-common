@@ -50,7 +50,7 @@
 			},
 			{
 				"file": "package.json",
-				"regex": "(\"version\": \")([^\"]+)"
+				"regex": "(\"version\": ?\")([^\"]+)"
 			}
 		],
 		"views": [ "src/views" ]
