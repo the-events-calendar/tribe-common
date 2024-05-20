@@ -1,0 +1,75 @@
+
+<div
+	id="tec-common-settings-message"
+	 class="tec-automator-settings-message__wrap updated" >
+	Endpoint was successfully cleared.</div>
+
+<div
+	class="tec-automator-grid tec-automator-grid-row tec-automator-endpoint-dashboard-grid tec-automator-settings-details__container tec-settings-connection-endpoint-dashboard-details__container"
+	data-endpoint-id="updated_attendees"
+>
+	<div  class="tec-automator-grid-item tec-settings-connection-endpoint-dashboard-details__name-wrap"  >
+	<fieldset class="tec-automator-settings-details__read-only-field">
+		<legend class="tec-automator-settings-details__label tribe-field-label screen-reader-text">
+			Name		</legend>
+		<div class="tec-automator-settings-details__field-wrap tribe-field-wrap">
+			Updated Attendees			<input
+				id="tec_automator_integration_endpoint_name_updated_attendees"
+				type="hidden"
+				name="tec_automator_integration[][&#039;endpoint_name&#039;]"
+				value="Updated Attendees"
+			>
+							<label class="screen-reader-text">
+					The name for the integration endpoint.				</label>
+					</div>
+	</fieldset>
+</div>	<div  class="tec-automator-grid-item tec-settings-connection-endpoint-dashboard-details__last-access-wrap"  >
+	<fieldset class="tec-automator-settings-details__read-only-field">
+		<legend class="tec-automator-settings-details__label tribe-field-label screen-reader-text">
+			Last Access		</legend>
+		<div class="tec-automator-settings-details__field-wrap tribe-field-wrap">
+						<input
+				id="tec_automator_integration_endpoint_last_access_updated_attendees"
+				type="hidden"
+				name="tec_automator_integration[][&#039;endpoint_last_access&#039;]"
+				value=""
+			>
+							<label class="screen-reader-text">
+					The last access for the integration endpoint.				</label>
+					</div>
+	</fieldset>
+</div>	<div  class="tec-automator-grid-item tec-settings-connection-endpoint-dashboard-details__queue-wrap"  >
+	<fieldset class="tec-automator-settings-details__read-only-field">
+		<legend class="tec-automator-settings-details__label tribe-field-label screen-reader-text">
+			Queue		</legend>
+		<div class="tec-automator-settings-details__field-wrap tribe-field-wrap">
+			0			<input
+				id="tec_automator_integration_endpoint_queue_updated_attendees"
+				type="hidden"
+				name="tec_automator_integration[][&#039;endpoint_queue&#039;]"
+				value="0"
+			>
+							<label class="screen-reader-text">
+					The Queue for the integration endpoint.				</label>
+					</div>
+	</fieldset>
+</div>	<div class="tec-automator-grid-item tec-settings-connection-endpoint-dashboard-details__actions-wrap tec-common-integration-endpoint-details__actions-wrap">
+		<div class="tec-settings-connection-endpoint-dashboard-details-actions__clear-wrap ">
+	<button
+		class="tec-settings-connection-endpoint-dashboard-details-action__button tec-settings-connection-endpoint-dashboard-details-actions__clear tec-common-integration-endpoint-details-actions__clear"
+		type="button"
+		data-ajax-action-url="http://%TEST_SITE_WP_DOMAIN%/wp-admin/admin-ajax.php?action=tec_automator_ev_power-automate_dashboard_clear_endpoint_queue&event_automator_request=c6f01bbbe9&_ajax_nonce=c6f01bbbe9&endpoint_id=updated_attendees"
+		data-confirmation="Are you sure you want to clear this Endpoint queue? This operation cannot be undone."
+	>
+		Clear Queue	</button>
+</div>	<div class="tec-settings-connection-endpoint-dashboard-details-actions__disable-wrap">
+		<button
+			class="tec-settings-connection-endpoint-dashboard-details-action__button tec-settings-connection-endpoint-dashboard-details-actions__disable tec-common-integration-details-actions__disable"
+			type="button"
+			data-ajax-action-url="http://%TEST_SITE_WP_DOMAIN%/wp-admin/admin-ajax.php?action=tec_automator_ev_power-automate_dashboard_disable_endpoint&event_automator_request=c6f01bbbe9&_ajax_nonce=c6f01bbbe9&endpoint_id=updated_attendees"
+			data-confirmation="Are you sure you want to disable this Endpoint? This action will clear the queue and the last access. This operation cannot be undone."
+		>
+			Disable		</button>
+	</div>
+	</div>
+</div>
