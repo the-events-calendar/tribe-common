@@ -25,7 +25,7 @@ class Tribe__Assets {
 	 * Register the Methods in the correct places.
 	 *
 	 * @since 4.3
-	 * @since TBD Emptied of all hooks in favor fo the stellarwp/assets library.
+	 * @since TBD Emptied of all hooks in favor of the stellarwp/assets library.
 	 */
 	public function __construct() {
 	}
