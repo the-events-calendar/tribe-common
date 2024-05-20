@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.3.0] 2024-06-11 =
+
+
+
 = [5.2.7] 2024-05-14 =
 
 * Fix - Add dir/filename of `event-automator` in the Plugins_API to fix CTA button text/links in the Help section. [TEC-5071]
