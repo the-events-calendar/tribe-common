@@ -233,7 +233,7 @@ class Controller_Test_Case extends WPTestCase {
 			'add_filter',
 			function (
 				string $tag,
-				callable $callback,
+				$callback,
 				int $priority = 10,
 				int $args = 1
 			) use (
@@ -251,7 +251,7 @@ class Controller_Test_Case extends WPTestCase {
 			'remove_filter',
 			function (
 				string $tag,
-				callable $callback,
+				$callback,
 				int $priority = 10
 			) use (
 				$controller_class,
