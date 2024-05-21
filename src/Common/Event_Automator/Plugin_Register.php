@@ -115,7 +115,7 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	 *
 	 * @var string
 	 */
-	protected $required_tec_tickets = '5.6.1';
+	protected $required_tec_tickets = '5.10.0';
 
 	/**
 	 * Required version of TEC.
@@ -126,7 +126,7 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	 *
 	 * @var string
 	 */
-	protected $required_tec_events = '6.1.2';
+	protected $required_tec_events = '6.5.0';
 
 	/**
 	 * Constructor method.
@@ -135,6 +135,8 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	 */
 	public function __construct() {
 		add_filter( 'tribe_register_' . $this->main_class . '_plugin_dependencies', [ $this, 'add_et_and_tec_as_loose_dependency' ] );
+
+		$this->load_deprecated();
 	}
 
 	/**
@@ -172,5 +174,16 @@ class Plugin_Register extends Abstract_Plugin_Register {
 		}
 
 		return $dependencies;
+	}
+
+	/**
+	 * Load the deprecated constants.
+	 *
+	 * @since TBD Migrated to Common from Event Automator
+	 */
+	protected function load_deprecated() {
+		if ( ! defined( 'EVENT_AUTOMATOR_FILE' ) ) {
+			define( 'EVENT_AUTOMATOR_FILE', __FILE__ );
+		}
 	}
 }
