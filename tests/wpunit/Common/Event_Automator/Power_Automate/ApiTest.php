@@ -22,7 +22,7 @@ class ApiTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_mark_api_as_ready_when_api_key_loaded() {
 		$this->set_fn_return( 'is_ssl', true );
-		$mock_api_key_data = file_get_contents( codecept_data_dir( 'event-automator/Power_Automate/Connections/200-account-valid-key-pair.json' ) );
+		$mock_api_key_data = file_get_contents( codecept_data_dir( 'Power_Automate/Connections/200-account-valid-key-pair.json' ) );
 		$api               = new Api( tribe( Actions::class ), tribe( Template_Modifications::class ) );
 		$api_key_data      = json_decode( $mock_api_key_data, true );
 		$api->set_api_key_by_id( $api_key_data );
@@ -36,7 +36,7 @@ class ApiTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_mark_api_as_ready_when_api_key_loaded_by_id() {
 		$this->set_fn_return( 'is_ssl', true );
-		$mock_api_key_data = file_get_contents( codecept_data_dir( 'event-automator/Power_Automate/Connections/200-account-valid-key-pair.json' ) );
+		$mock_api_key_data = file_get_contents( codecept_data_dir( 'Power_Automate/Connections/200-account-valid-key-pair.json' ) );
 		$api               = new Api( tribe( Actions::class ), tribe( Template_Modifications::class ) );
 		$api_key_data      = json_decode( $mock_api_key_data, true );
 		$api->set_api_key_by_id( $api_key_data );
@@ -50,7 +50,7 @@ class ApiTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_update_api_key_pair() {
 		$this->set_fn_return( 'is_ssl', true );
-		$mock_api_key_data = file_get_contents( codecept_data_dir( 'event-automator/Power_Automate/Connections/200-account-valid-key-pair.json' ) );
+		$mock_api_key_data = file_get_contents( codecept_data_dir( 'Power_Automate/Connections/200-account-valid-key-pair.json' ) );
 		$api               = new Api( tribe( Actions::class ), tribe( Template_Modifications::class ) );
 		$api_key_data      = json_decode( $mock_api_key_data, true );
 		$api->set_api_key_by_id( $api_key_data );
@@ -71,7 +71,7 @@ class ApiTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_delete_api_key_pair() {
 		$this->set_fn_return( 'is_ssl', true );
-		$mock_api_key_data = file_get_contents( codecept_data_dir( 'event-automator/Power_Automate/Connections/200-account-valid-key-pair.json' ) );
+		$mock_api_key_data = file_get_contents( codecept_data_dir( 'Power_Automate/Connections/200-account-valid-key-pair.json' ) );
 		$api               = new Api( tribe( Actions::class ), tribe( Template_Modifications::class ) );
 		$api_key_data      = json_decode( $mock_api_key_data, true );
 		$api->set_api_key_by_id( $api_key_data );
