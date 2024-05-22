@@ -1,0 +1,57 @@
+class_name: Restv1_etTester
+modules:
+    enabled:
+        - \Helper\Restv1_et
+        - \Helper\TribeDb
+        - REST
+        - WPDb
+        - WPBrowser
+        - WPFilesystem
+        - WPLoader
+        - Asserts
+    config:
+        WPDb:
+            dsn: 'mysql:host=%WP_DB_HOST%;dbname=%WP_DB_NAME%'
+            user: %WP_DB_USER%
+            password: %WP_DB_PASSWORD%
+            dump: tests/_data/restv1_et-dump.sql
+            populate: true
+            cleanup: true
+            waitlock: 10
+            url: '%WP_URL%'
+            tablePrefix: '%WP_TABLE_PREFIX%'
+        WPBrowser:
+            url: '%WP_URL%'
+            adminUsername: %WP_ADMIN_USERNAME%
+            adminPassword: '%WP_ADMIN_PASSWORD%'
+            adminUrl: /wp-admin
+            # See https://wpbrowser.wptestkit.dev/tutorials/automatically-change-db-in-tests
+        WPFilesystem:
+            wpRootFolder: '%WP_ROOT_FOLDER%'
+            themes: '/wp-content/themes'
+            plugins: '/wp-content/plugins'
+            mu-plugins: '/wp-content/mu-plugins'
+            uploads: '/wp-content/uploads'
+        REST:
+            depends: WPBrowser
+            url: '%WP_URL%/wp-json/tribe/zapier/v1/'
+        WPLoader:
+            # just load WordPress using the same db as WPDb
+            loadOnly: true
+            wpRootFolder: %WP_ROOT_FOLDER%
+            dbName: %WP_DB_NAME%
+            dbHost: %WP_DB_HOST%
+            dbUser: %WP_DB_USER%
+            dbPassword: '%WP_DB_PASSWORD%'
+            plugins:
+              - event-tickets/event-tickets.php
+              - event-tickets-plus/event-tickets-plus.php
+              - event-automator/event-automator.php
+              - woocommerce/woocommerce.php
+              - easy-digital-downloads/easy-digital-downloads.php
+            activatePlugins:
+              - event-tickets/event-tickets.php
+              - event-tickets-plus/event-tickets-plus.php
+              - event-automator/event-automator.php
+              - woocommerce/woocommerce.php
+              - easy-digital-downloads/easy-digital-downloads.php

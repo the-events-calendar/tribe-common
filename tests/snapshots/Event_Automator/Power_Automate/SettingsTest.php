@@ -33,7 +33,7 @@ class SettingsTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_correctly_render_connection_fields_initial_state() {
-		$this->uopz_set_return( 'wp_create_nonce', '123123' );
+		$this->set_fn_return( 'wp_create_nonce', '123123' );
 		$api = $this->construct( Api::class, [ tribe( Actions::class ), tribe( Template_Modifications::class ) ], [
 			'get_random_hash' => static function ( $prefix = '', $length = 20 ) {
 				return 'ci_8a2485a30a1298538da77dbb8e91a8d450ddf3a7';
@@ -50,7 +50,7 @@ class SettingsTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_correctly_render_single_connection() {
-		$this->uopz_set_return( 'wp_create_nonce', '123123' );
+		$this->set_fn_return( 'wp_create_nonce', '123123' );
 		$mock_api_key_data = file_get_contents( codecept_data_dir( 'Power_Automate/Connections/200-account-valid-key-pair.json' ) );
 		$api               = new Api( tribe( Actions::class ), tribe( Template_Modifications::class ) );
 		$api_key_data      = json_decode( $mock_api_key_data, true );
@@ -68,7 +68,7 @@ class SettingsTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_render_correctly_when_multiple_connections() {
-		$this->uopz_set_return( 'wp_create_nonce', '123123' );
+		$this->set_fn_return( 'wp_create_nonce', '123123' );
 		$api               = new Api( tribe( Actions::class ), tribe( Template_Modifications::class ) );
 
 		// Setup account 1.
@@ -93,7 +93,7 @@ class SettingsTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_render_correctly_after_deleting_a_connection() {
-		$this->uopz_set_return( 'wp_create_nonce', '123123' );
+		$this->set_fn_return( 'wp_create_nonce', '123123' );
 		$api               = new Api( tribe( Actions::class ), tribe( Template_Modifications::class ) );
 
 		// Setup account 1.

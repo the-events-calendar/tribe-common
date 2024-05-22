@@ -1,11 +1,11 @@
 <?php
 
-namespace TEC\Event_Automator\Zapier;
+namespace TEC\Event_Automator\Power_Automate;
 
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
-use Tribe\Tests\Traits\With_Uopz;
-use TEC\Event_Automator\Zapier\Admin\Endpoints_Manager;
-use TEC\Event_Automator\Zapier\REST\V1\Endpoints\Abstract_REST_Endpoint;
+use TEC\Event_Automator\Power_Automate\Admin\Endpoints_Manager;
+use TEC\Event_Automator\Power_Automate\REST\V1\Endpoints\Abstract_REST_Endpoint;
+use TEC\Event_Automator\Tests\Traits\With_Uopz;
 
 class EndpointsManagerTest extends \Codeception\TestCase\WPAjaxTestCase {
 
@@ -97,17 +97,13 @@ class EndpointsManagerTest extends \Codeception\TestCase\WPAjaxTestCase {
 
 	public function endpoint_data_provider() {
 		return [
-			'missing-endpoint-id'                 => [ '', 'authorize' ],
 			'invalid-endpoint-id'                 => [ 'not-valid-endpoint', 'authorize' ],
 			'valid-attendees-endpoint-id'         => [ 'attendees', 'attendee' ],
 			'valid-updated-attendees-endpoint-id' => [ 'updated_attendees', 'updated_attendee' ],
-			'valid-authorize-endpoint-id'         => [ 'authorize', 'authorize' ],
-			'valid-canceled-events-endpoint-id'   => [ 'canceled_events', 'canceled_events' ],
 			'valid-checkin-endpoint-id'           => [ 'checkin', 'checkin' ],
-			'valid-new-events-endpoint-id'        => [ 'new_events', 'new_events' ],
 			'valid-orders-endpoint-id'            => [ 'orders', 'orders' ],
 			'valid-refunded-orders-endpoint-id'   => [ 'refunded_orders', 'refunded_orders' ],
-			'valid-updated-events-endpoint-id'    => [ 'updated_events', 'updated_events' ],
+			'valid-new-events-endpoint-id'        => [ 'new_events', 'new_events' ],
 		];
 	}
 
@@ -118,10 +114,10 @@ class EndpointsManagerTest extends \Codeception\TestCase\WPAjaxTestCase {
 	public function should_correctly_handle_clearing_an_endpoint( $endpoint_id, $endpoint_details ) {
 		$this->ajax_setup();
 
-		tribe( Zapier_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Power_Automate_Provider::class )->add_endpoints_to_dashboard();
 		$_REQUEST['endpoint_id'] = $endpoint_id;
 		$endpoints_manager       = new Endpoints_Manager( tribe( Actions::class ), tribe( Template_Modifications::class ) );
-		$mock_api_key_data       = file_get_contents( codecept_data_dir( "Zapier/Endpoints/{$endpoint_details}.json" ) );
+		$mock_api_key_data       = file_get_contents( codecept_data_dir( "Power_Automate/Endpoints/{$endpoint_details}.json" ) );
 		$mock_endpoint_data      = json_decode( $mock_api_key_data, true );
 		$endpoint                = $endpoints_manager->get_endpoint( $endpoint_id );
 
@@ -160,10 +156,10 @@ class EndpointsManagerTest extends \Codeception\TestCase\WPAjaxTestCase {
 	public function should_correctly_handle_disabling_an_endpoint( $endpoint_id, $endpoint_details ) {
 		$this->ajax_setup();
 
-		tribe( Zapier_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Power_Automate_Provider::class )->add_endpoints_to_dashboard();
 		$_REQUEST['endpoint_id'] = $endpoint_id;
 		$endpoints_manager       = new Endpoints_Manager( tribe( Actions::class ), tribe( Template_Modifications::class ) );
-		$mock_api_key_data       = file_get_contents( codecept_data_dir( "Zapier/Endpoints/{$endpoint_details}.json" ) );
+		$mock_api_key_data       = file_get_contents( codecept_data_dir( "Power_Automate/Endpoints/{$endpoint_details}.json" ) );
 		$mock_endpoint_data      = json_decode( $mock_api_key_data, true );
 		$endpoint                = $endpoints_manager->get_endpoint( $endpoint_id );
 
@@ -202,10 +198,10 @@ class EndpointsManagerTest extends \Codeception\TestCase\WPAjaxTestCase {
 	public function should_correctly_handle_enabling_an_endpoint( $endpoint_id, $endpoint_details ) {
 		$this->ajax_setup();
 
-		tribe( Zapier_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Power_Automate_Provider::class )->add_endpoints_to_dashboard();
 		$_REQUEST['endpoint_id']       = $endpoint_id;
 		$endpoints_manager             = new Endpoints_Manager( tribe( Actions::class ), tribe( Template_Modifications::class ) );
-		$mock_api_key_data             = file_get_contents( codecept_data_dir( "Zapier/Endpoints/{$endpoint_details}.json" ) );
+		$mock_api_key_data             = file_get_contents( codecept_data_dir( "Power_Automate/Endpoints/{$endpoint_details}.json" ) );
 		$mock_endpoint_data            = json_decode( $mock_api_key_data, true );
 		$mock_endpoint_data['count']   = 0;
 		$mock_endpoint_data['enabled'] = false;
@@ -220,9 +216,6 @@ class EndpointsManagerTest extends \Codeception\TestCase\WPAjaxTestCase {
 		}
 
 		try {
-			if ( $endpoint_id ==='orders' ) {
-				//var_dump('hi');
-			}
 			$endpoints_manager->ajax_enable( wp_create_nonce( Actions::$enable_action ) );
 		} catch ( \WPAjaxDieContinueException $e ) {
 			// Expected this, do nothing.
@@ -231,10 +224,6 @@ class EndpointsManagerTest extends \Codeception\TestCase\WPAjaxTestCase {
 		//Check queue is cleared.
 		$this->assertTrue( isset( $e ) );
 		$html = $this->_last_response;
-
-		if ( $endpoint_id ==='orders' ) {
-			//var_dump($html);
-		}
 
 		// Test Endpoint counts after disable.
 		if ( $endpoint instanceof Abstract_REST_Endpoint && isset( $endpoint->trigger ) ) {

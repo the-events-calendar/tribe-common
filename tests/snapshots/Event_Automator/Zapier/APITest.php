@@ -32,7 +32,7 @@ class APITest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_correctly_get_single_api_key_pair() {
-		$this->uopz_set_return( 'wp_create_nonce', '123123' );
+		$this->set_fn_return( 'wp_create_nonce', '123123' );
 		$mock_api_key_data = file_get_contents( codecept_data_dir( 'Zapier/API-Keys/200-account-valid-key-pair.json' ) );
 		$api               = new Api( tribe( Actions::class ), tribe( Template_Modifications::class ) );
 		$api_key_data      = json_decode( $mock_api_key_data, true );
@@ -46,7 +46,7 @@ class APITest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_correctly_get_multiple_api_key_pairs() {
-		$this->uopz_set_return( 'wp_create_nonce', '123123' );
+		$this->set_fn_return( 'wp_create_nonce', '123123' );
 		$api = new Api( tribe( Actions::class ), tribe( Template_Modifications::class ) );
 
 		// Setup account 1.
@@ -68,7 +68,7 @@ class APITest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_correctly_get_user_dropdown() {
-		$this->uopz_set_return( 'wp_create_nonce', '123123' );
+		$this->set_fn_return( 'wp_create_nonce', '123123' );
 		$api = new Api( tribe( Actions::class ), tribe( Template_Modifications::class ) );
 		$user_dropdown = $api->get_users_dropdown( true );
 

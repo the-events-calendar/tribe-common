@@ -23,7 +23,7 @@ class DashboardTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_correctly_render_dashboard_fields_initial_state() {
-		$this->uopz_set_return( 'wp_create_nonce', '123123' );
+		$this->set_fn_return( 'wp_create_nonce', '123123' );
 		$dashboard = tribe( Dashboard::class );
 		tribe( Power_Automate_Provider::class )->add_endpoints_to_dashboard();
 		$fields   = $dashboard->add_fields( [] );
@@ -35,7 +35,7 @@ class DashboardTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_correctly_render_dashboard_fields_disabled() {
-		$this->uopz_set_return( 'wp_create_nonce', '123123' );
+		$this->set_fn_return( 'wp_create_nonce', '123123' );
 		$dashboard = tribe( Dashboard::class );
 		tribe( Power_Automate_Provider::class )->add_endpoints_to_dashboard();
 		add_filter( 'tec_event_automator_zapier_endpoints', function( $endpoints ) {
@@ -54,7 +54,7 @@ class DashboardTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_correctly_render_dashboard_fields_queue_counts() {
-		$this->uopz_set_return( 'wp_create_nonce', '123123' );
+		$this->set_fn_return( 'wp_create_nonce', '123123' );
 		$dashboard = tribe( Dashboard::class );
 		tribe( Power_Automate_Provider::class )->add_endpoints_to_dashboard();
 		add_filter( 'tec_event_automator_zapier_endpoints', function( $endpoints ) {
