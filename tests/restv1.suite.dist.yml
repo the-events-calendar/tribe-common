@@ -47,13 +47,9 @@ modules:
               - the-events-calendar/the-events-calendar.php
               - event-tickets/event-tickets.php
               - event-tickets-plus/event-tickets-plus.php
-              - event-automator/event-automator.php
               - woocommerce/woocommerce.php
-              - easy-digital-downloads/easy-digital-downloads.php
             activatePlugins:
               - the-events-calendar/the-events-calendar.php
               - event-tickets/event-tickets.php
               - event-tickets-plus/event-tickets-plus.php
-              - event-automator/event-automator.php
               - woocommerce/woocommerce.php
-              - easy-digital-downloads/easy-digital-downloads.php

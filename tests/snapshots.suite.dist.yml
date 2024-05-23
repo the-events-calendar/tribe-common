@@ -16,10 +16,7 @@ modules:
       title: "Event Common Tests"
       plugins:
         - the-events-calendar/the-events-calendar.php
-        - event-automator/event-automator.php
         - event-tickets/event-tickets.php
-      activatePlugins:
-        - event-automator/event-automator.php
       activatePluginsSilently:
         - the-events-calendar/the-events-calendar.php
         - event-tickets/event-tickets.php

@@ -10,6 +10,5 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_activate_plugins_correctly() {
 		$this->assertTrue( is_plugin_active( Plugins::TEC_PLUGIN_PATH ) );
-		$this->assertTrue( is_plugin_active( Plugins::AUTOMATOR_PLUGIN_PATH ) );
 	}
 }
