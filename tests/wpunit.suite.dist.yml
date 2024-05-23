@@ -1,34 +1,27 @@
-# Codeception Test Suite Configuration
-#
-# Suite for unit or integration tests that require WordPress functions and classes.
-
-actor: WpunitTester
-bootstrap: _bootstrap.php
+class_name: WpunitTester
 modules:
   enabled:
-    - WPLoader
     - \Helper\Wpunit
-  config:
-    WPLoader:
-      wpRootFolder: "%WP_ROOT_FOLDER%"
-      dbName: "%TEST_DB_NAME%"
-      dbHost: "%TEST_DB_HOST%"
-      dbUser: "%TEST_DB_USER%"
-      dbPassword: "%TEST_DB_PASSWORD%"
-      domain: "%TEST_SITE_WP_DOMAIN%"
-      adminEmail: "%TEST_SITE_ADMIN_EMAIL%"
-      title: "Event Common Tests"
-      plugins:
-        - the-events-calendar/the-events-calendar.php
-        - event-automator/event-automator.php
-        - event-tickets/event-tickets.php
-        - woocommerce/woocommerce.php
-        - easy-digital-downloads/easy-digital-downloads.php
-        - event-tickets-plus/event-tickets-plus.php
-      activatePlugins:
-        - the-events-calendar/the-events-calendar.php
-        - event-automator/event-automator.php
-        - event-tickets/event-tickets.php
-        - woocommerce/woocommerce.php
-        - easy-digital-downloads/easy-digital-downloads.php
-        - event-tickets-plus/event-tickets-plus.php
+    - WPQueries
+    - WPLoader:
+        wpRootFolder: %WP_ROOT_FOLDER%
+        dbName: %TEST_DB_NAME%
+        dbHost: %TEST_DB_HOST%
+        dbUser: %TEST_DB_USER%
+        dbPassword: %TEST_DB_PASSWORD%
+        domain: %WP_DOMAIN%
+        adminEmail: admin@%WP_DOMAIN%
+        title: 'Event Common Tests'
+        plugins:
+          - the-events-calendar/the-events-calendar.php
+          - event-automator/event-automator.php
+          - event-tickets/event-tickets.php
+          - woocommerce/woocommerce.php
+          - event-tickets-plus/event-tickets-plus.php
+        activatePlugins:
+          - the-events-calendar/the-events-calendar.php
+          - event-automator/event-automator.php
+          - event-tickets/event-tickets.php
+          - woocommerce/woocommerce.php
+          - event-tickets-plus/event-tickets-plus.php
+
