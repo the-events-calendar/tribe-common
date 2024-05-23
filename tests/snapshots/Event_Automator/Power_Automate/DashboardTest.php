@@ -4,7 +4,7 @@ namespace TEC\Event_Automator\Power_Automate;
 
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use TEC\Event_Automator\Power_Automate\Admin\Dashboard;
-use TEC\Event_Automator\Tests\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 
 class DashboardTest extends \Codeception\TestCase\WPTestCase {
 

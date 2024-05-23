@@ -3,7 +3,7 @@
 namespace TEC\Event_Automator\Zapier;
 
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
-use TEC\Event_Automator\Tests\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 use TEC\Event_Automator\Zapier\Admin\Dashboard;
 
 class DashboardTest extends \Codeception\TestCase\WPTestCase {
