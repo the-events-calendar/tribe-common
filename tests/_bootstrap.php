@@ -27,7 +27,7 @@ $et_dir         = dirname( __DIR__, 3 ) . '/event-tickets';
 $et_tests_dir   = $et_dir . '/tests';
 $et_support_dir = $et_tests_dir . '/_support';
 if ( ! is_dir( $et_tests_dir ) ) {
-	throw new RuntimeException( "Event Automator tests require Event Tickets installed in a \"event-tickets\" sibling folder: {$tec_tests_dir} not found." );
+	throw new RuntimeException( "Event Automator tests require Event Tickets installed in a \"event-tickets\" sibling folder: {$et_tests_dir} not found." );
 }
 
 // ET+ Test Support.
@@ -35,7 +35,7 @@ $etplus_dir         = dirname( __DIR__, 3 ) . '/event-tickets-plus';
 $etplus_tests_dir   = $etplus_dir . '/tests';
 $etplus_support_dir = $etplus_tests_dir . '/_support';
 if ( ! is_dir( $etplus_tests_dir ) ) {
-	throw new RuntimeException( "Event Automator tests require Event Tickets Plus installed in a \"event-tickets-plus\" sibling folder: {$tec_tests_dir} not found." );
+	throw new RuntimeException( "Event Automator tests require Event Tickets Plus installed in a \"event-tickets-plus\" sibling folder: {$etplus_tests_dir} not found." );
 }
 
 /**
