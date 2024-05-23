@@ -4,7 +4,7 @@ namespace TEC\Event_Automator\Power_Automate\Triggers;
 
 use TEC\Event_Automator\Tests\Traits\Create_events;
 use TEC\Event_Automator\Tests\Traits\Create_attendees;
-use TEC\Event_Automator\Tests\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 use TEC\Tickets\Commerce\Module;
 use Tribe__Tickets_Plus__Commerce__EDD__Main as EDD_Tickets;
 use Tribe__Tickets_Plus__Commerce__WooCommerce__Main as Woo_Tickets;

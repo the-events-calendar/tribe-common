@@ -4,7 +4,7 @@ namespace TEC\Event_Automator\Traits\Maps;
 
 use TEC\Event_Automator\Tests\Traits\Create_events;
 use TEC\Event_Automator\Tests\Traits\Create_attendees;
-use TEC\Event_Automator\Tests\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 use Tribe\Events\Event_Status\Admin_Template;
 use Tribe\Events\Event_Status\Classic_Editor;
 use Tribe__Events__Main as TEC_Main;

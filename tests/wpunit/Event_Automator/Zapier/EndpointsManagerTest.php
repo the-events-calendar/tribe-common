@@ -3,7 +3,7 @@
 namespace TEC\Event_Automator\Zapier;
 
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
-use TEC\Event_Automator\Tests\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 use TEC\Event_Automator\Zapier\Admin\Endpoints_Manager;
 use TEC\Event_Automator\Zapier\REST\V1\Endpoints\Abstract_REST_Endpoint;
 

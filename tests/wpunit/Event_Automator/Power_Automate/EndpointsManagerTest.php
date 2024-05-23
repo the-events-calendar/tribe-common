@@ -5,7 +5,7 @@ namespace TEC\Event_Automator\Power_Automate;
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use TEC\Event_Automator\Power_Automate\Admin\Endpoints_Manager;
 use TEC\Event_Automator\Power_Automate\REST\V1\Endpoints\Abstract_REST_Endpoint;
-use TEC\Event_Automator\Tests\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 
 class EndpointsManagerTest extends \Codeception\TestCase\WPAjaxTestCase {
 

@@ -4,7 +4,7 @@ namespace TEC\Event_Automator\Traits\Maps\Commerce;
 
 use TEC\Event_Automator\Tests\Traits\Create_events;
 use TEC\Event_Automator\Tests\Traits\Create_attendees;
-use TEC\Event_Automator\Tests\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 

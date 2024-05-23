@@ -2,7 +2,7 @@
 
 namespace TEC\Event_Automator\Zapier;
 
-use TEC\Event_Automator\Tests\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 
 class ApiTest extends \Codeception\TestCase\WPTestCase {
 

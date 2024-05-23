@@ -3,7 +3,7 @@
 namespace TEC\Event_Automator\Power_Automate\Triggers;
 
 use TEC\Event_Automator\Tests\Traits\Create_events;
-use TEC\Event_Automator\Tests\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 
 class CanceledEventTest extends \Codeception\TestCase\WPTestCase {
 
