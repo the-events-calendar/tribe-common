@@ -14,7 +14,6 @@ class SettingsCest {
 		$I->activatePlugin(
 			[
 				'the-events-calendar',
-				'the-events-calendar-event-automator',
 			]
 		);
 	}
@@ -25,7 +24,6 @@ class SettingsCest {
 	public function should_activate_plugin( End2endTester $I ) {
 		$I->amOnPluginsPage();
 		$I->seePluginActivated( 'the-events-calendar' );
-		$I->seePluginActivated( 'the-events-calendar-event-automator' );
 		$I->amOnAdminPage('/edit.php?page=tec-events-settings&tab=addons&post_type=tribe_events');
 		$I->seeElement( '.tec-settings-zapier-application__title' );
 		$I->seeElement( '#tec-field-zapier_token' );

@@ -1,7 +1,7 @@
 <?php
 
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
-use  TEC\Event_Automator\Tests\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 
 class BaseSnapshotTest extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;

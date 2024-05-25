@@ -20,6 +20,7 @@ modules:
             waitlock: 10
             url: '%WP_URL%'
             tablePrefix: '%WP_TABLE_PREFIX%'
+            originalUrl: '%TEST_SITE_WP_URL%'
         WPBrowser:
             url: '%WP_URL%'
             adminUsername: %WP_ADMIN_USERNAME%
