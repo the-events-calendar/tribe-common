@@ -2,7 +2,6 @@ class_name: WpunitTester
 modules:
   enabled:
     - \Helper\Wpunit
-    - WPQueries
     - WPLoader:
         wpRootFolder: %WP_ROOT_FOLDER%
         dbName: %TEST_DB_NAME%
@@ -15,11 +14,12 @@ modules:
         plugins:
           - the-events-calendar/the-events-calendar.php
           - event-tickets/event-tickets.php
-          - woocommerce/woocommerce.php
           - event-tickets-plus/event-tickets-plus.php
         activatePlugins:
           - the-events-calendar/the-events-calendar.php
           - event-tickets/event-tickets.php
-          - woocommerce/woocommerce.php
           - event-tickets-plus/event-tickets-plus.php
+        silentlyActivatePlugins:
+          - woocommerce/woocommerce.php
+    - WPQueries
 
