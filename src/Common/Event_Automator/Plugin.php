@@ -133,14 +133,6 @@ class Plugin {
 		$this->container->singleton( static::class, $this );
 		$this->container->singleton( 'event-automator', $this );
 		$this->container->singleton( 'event-automator.plugin', $this );
-
-		if ( ! $this->check_plugin_dependencies() ) {
-			// If the plugin dependency manifest is not met, then bail and stop here.
-			return;
-		}
-
-		$this->register_autoloader();
-
 		$this->container->register( Hooks_Provider::class );
 		$this->container->register( Context_Provider::class );
 		$this->container->register( Zapier_Provider::class );

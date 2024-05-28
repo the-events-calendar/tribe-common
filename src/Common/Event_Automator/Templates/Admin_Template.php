@@ -31,7 +31,7 @@ class Admin_Template extends Tribe__Template {
 	 */
 	public function __construct() {
 		$this->set_template_origin( tribe( Plugin::class ) );
-		$this->set_template_folder( 'src/admin-views/event-automator' );
+		$this->set_template_folder( 'src/admin-views' );
 
 		// We specifically don't want to look up template files here.
 		$this->set_template_folder_lookup( false );
