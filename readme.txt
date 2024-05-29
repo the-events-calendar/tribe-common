@@ -1,8 +1,31 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [5.3.0] 2024-06-11 =
 
 * Tweak - Remove ini_check for deprecated safe_mode. [TBD]
+
+= [5.2.7] 2024-05-14 =
+
+* Fix - Add dir/filename of `event-automator` in the Plugins_API to fix CTA button text/links in the Help section. [TEC-5071]
+* Tweak - Add `aria-hidden="true"` to icons so screen readers ignore it. [TEC-5019]
+* Tweak - Updated our `query-string` javascript library to version 6.12. [TEC-5075]
+* Tweak - Add Events Schedule Manager cards in the Help and App Shop admin pages to promote. [TEC-5058]
+* Tweak - Prevent potential conflict by changing all calls to select2 to our internal select2TEC version. [TCMN-170]
+* Tweak - Removed filters: `tec_help_calendar_faqs`, `tec_help_calendar_extensions`, `tec_help_calendar_products`, `tec_help_ticketing_faqs`, `tec_help_ticketing_extensions`, `tec_help_ticketing_products`
+* Tweak - Changed views: `v2/components/icons/arrow-right`, `v2/components/icons/caret-down`, `v2/components/icons/caret-left`, `v2/components/icons/caret-right`, `v2/components/icons/search`
+* Language - 6 new strings added, 161 updated, 2 fuzzied, and 0 obsoleted
+
+= [5.2.6] 2024-04-18 =
+
+* Tweak - Added the `position` parameter for submenu pages on the admin pages class. [ET-1707]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.2.5] 2024-04-09 =
+
+* Tweak - Improve compatibility with some theme styling re: calendar buttons. [TEC-5047]
+* Tweak - Rename the `Controller_Test_Case` `setUp` and `tearDown` methods and annotate them with `@before` and `@after` annotations to improve PHPUnit version cross-compat.
+
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
 
 = [5.2.4] 2024-03-20 =
 
