@@ -167,10 +167,11 @@ class Tribe__Assets {
 	 *
 	 * @uses  Tribe__Assets::enqueue()
 	 *
-	 * @param string|array $groups Which groups will be enqueued.
+	 * @param string|array $groups           Which groups will be enqueued.
+	 * @param bool         $forcibly_enqueue Whether to ignore conditional requirements when enqueuing.
 	 */
-	public function enqueue_group( $groups ) {
-		Assets::instance()->enqueue_group( $groups );
+	public function enqueue_group( $groups, $forcibly_enqueue = false ) {
+		Assets::instance()->enqueue_group( $groups, $forcibly_enqueue );
 	}
 
 	/**
@@ -185,10 +186,11 @@ class Tribe__Assets {
 	 * @since 4.3
 	 * @since TBD Refactored to use the stellarwp/assets library.
 	 *
-	 * @param string|array $forcibly_enqueue Whether to force enqueueing of the assets or not.
+	 * @param string|array $assets           Which assets to enqueue.
+	 * @param bool         $forcibly_enqueue Whether to ignore conditional requirements when enqueuing.
 	 */
-	public function enqueue( $forcibly_enqueue = null ) {
-		Assets::instance()->enqueue( $forcibly_enqueue );
+	public function enqueue( $assets = [], $forcibly_enqueue = true ) {
+		Assets::instance()->enqueue( $assets, $forcibly_enqueue );
 	}
 
 	/**

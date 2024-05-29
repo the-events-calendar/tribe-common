@@ -695,25 +695,32 @@ function tribe_asset( $origin, $slug, $file, $deps = [], $action = null, $argume
 /**
  * Immediately enqueues an asset.
  *
+ * Note if force is set ot `true` (default) this will ignore any
+ * conditional logic set for the asset and enqueue regardless.
+ *
  * @since 4.7
- * @since TBD Refactored to use the `stelarwp/assets` library.
+ * @since TBD Refactored to use the `stellarwp/assets` library.
  *
  * @param string|array $slug Slug to enqueue
+ * @param bool         $force Whether to force the enqueue or not.
  */
-function tribe_asset_enqueue( $slug ) {
-	Tribe__Assets::instance()->enqueue( $slug );
+function tribe_asset_enqueue( $slug, $force = true ) {
+	Tribe__Assets::instance()->enqueue( $slug, $force );
 }
 
 /**
  * Enqueues assets by groups.
  *
+ * Note if force is set ot `true` (default) this will ignore any
+ * conditional logic set for the asset and enqueue regardless.
+ *
  * @since 4.7
- * @since TBD Refactored to use the `stelarwp/assets` library.
+ * @since TBD Refactored to use the `stellarwp/assets` library.
  *
  * @param string|array $group  Which group(s) should be enqueued.
  */
-function tribe_asset_enqueue_group( $group ) {
-	Tribe__Assets::instance()->enqueue_group( $group );
+function tribe_asset_enqueue_group( $group, $force = true ) {
+	Tribe__Assets::instance()->enqueue_group( $group, $force );
 }
 
 /**
