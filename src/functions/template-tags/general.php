@@ -719,7 +719,7 @@ function tribe_asset_enqueue( $slug, $force = true ) {
  *
  * @param string|array $group  Which group(s) should be enqueued.
  */
-function tribe_asset_enqueue_group( $group, $force = false ) {
+function tribe_asset_enqueue_group( $group, $force = true ) {
 	Tribe__Assets::instance()->enqueue_group( $group, $force );
 }
 
