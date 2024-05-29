@@ -165,12 +165,12 @@ class Tribe__Assets {
 	 * @since 4.7
 	 * @since TBD Refactored to use the stellarwp/assets library.
 	 *
-	 * @uses  Tribe__Assets::enqueue()
+	 * @uses  TEC\Common\StellarWP\Assets\Assets::enqueue_group()
 	 *
 	 * @param string|array $groups           Which groups will be enqueued.
 	 * @param bool         $forcibly_enqueue Whether to ignore conditional requirements when enqueuing.
 	 */
-	public function enqueue_group( $groups, $forcibly_enqueue = false ) {
+	public function enqueue_group( $groups, $forcibly_enqueue = true ) {
 		Assets::instance()->enqueue_group( $groups, $forcibly_enqueue );
 	}
 
@@ -185,6 +185,8 @@ class Tribe__Assets {
 	 *
 	 * @since 4.3
 	 * @since TBD Refactored to use the stellarwp/assets library.
+	 *
+	 * @uses  TEC\Common\StellarWP\Assets\Assets::enqueue()
 	 *
 	 * @param string|array $assets           Which assets to enqueue.
 	 * @param bool         $forcibly_enqueue Whether to ignore conditional requirements when enqueuing.

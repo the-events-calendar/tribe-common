@@ -719,7 +719,7 @@ function tribe_asset_enqueue( $slug, $force = true ) {
  *
  * @param string|array $group  Which group(s) should be enqueued.
  */
-function tribe_asset_enqueue_group( $group, $force = true ) {
+function tribe_asset_enqueue_group( $group, $force = false ) {
 	Tribe__Assets::instance()->enqueue_group( $group, $force );
 }
 
@@ -731,13 +731,13 @@ function tribe_asset_enqueue_group( $group, $force = true ) {
  *
  * @param  object $origin     The main Object for the plugin you are enqueueing the script/style for.
  * @param  array  $assets     {
- *  Indexed array, don't use any associative key.
- *  E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ]
+ *      Indexed array, don't use any associative key.
+ *      E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ]
  *
- *    @type  string   $slug       Slug to save the asset.
- *    @type  string   $file       Which file will be loaded, either CSS or JS.
- *    @type  array    $deps       (optional) Dependencies
- * }
+ *        @type  string   $slug       Slug to save the asset.
+ *        @type  string   $file       Which file will be loaded, either CSS or JS.
+ *        @type  array    $deps       (optional) Dependencies
+ *     }
  * @param  string $action     A WordPress hook that will automatically enqueue this asset once fired.
  * @param  array  $arguments  Look at `Tribe__Assets::register()` for more info.
  *
