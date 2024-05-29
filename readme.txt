@@ -2,7 +2,7 @@
 
 = [5.3.0] 2024-06-11 =
 
-
+* Feature - Refactor tribe_asset to use Stellar Assets. [TCMN-172]
 
 = [5.2.7] 2024-05-14 =
 
