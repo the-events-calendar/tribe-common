@@ -10,7 +10,7 @@
 namespace TEC\Event_Automator\Power_Automate\Triggers;
 
 use TEC\Event_Automator\Power_Automate\Trigger_Queue\Abstract_Trigger_Queue;
-use Tribe__Tickets__Tickets;
+use Tribe__Tickets__Tickets as Tribe__Tickets__TicketsAlias;
 
 /**
  * Class Attendees
@@ -39,7 +39,7 @@ class Attendees extends Abstract_Trigger_Queue {
 		}
 
 		$provider = tribe_tickets_get_ticket_provider( $post_id );
-		if ( ! $provider instanceof Tribe__Tickets__Tickets ) {
+		if ( ! $provider instanceof Tribe__Tickets__TicketsAlias ) {
 			return false;
 		}
 

@@ -1,0 +1,24 @@
+actor: Eva_integrationTester
+modules:
+    enabled:
+        - \Helper\Eva_integration
+        - WPLoader:
+            wpRootFolder: %WP_ROOT_FOLDER%
+            dbName: %TEST_DB_NAME%
+            dbHost: %TEST_DB_HOST%
+            dbUser: %TEST_DB_USER%
+            dbPassword: %TEST_DB_PASSWORD%
+            domain: %WP_DOMAIN%
+            adminEmail: admin@%WP_DOMAIN%
+            title: 'EVA Integration Tests'
+            plugins:
+              - the-events-calendar/the-events-calendar.php
+              - event-tickets/event-tickets.php
+              - event-tickets-plus/event-tickets-plus.php
+            activatePlugins:
+              - the-events-calendar/the-events-calendar.php
+              - event-tickets/event-tickets.php
+              - event-tickets-plus/event-tickets-plus.php
+            silentlyActivatePlugins:
+              - woocommerce/woocommerce.php
+        - WPQueries

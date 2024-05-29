@@ -4,7 +4,7 @@ jobs:
   test:
     strategy:
       matrix:
-        suite: [ activation, dependency, end2end, integration, muwpunit, restv1, restv1_et, snapshots, unit, wpunit  ]
+        suite: [ activation, dependency, integration, muwpunit, snapshots, unit, wpunit ]
     runs-on: ubuntu-latest
     steps:
       # ------------------------------------------------------------------------------
@@ -119,28 +119,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
         continue-on-error: true
-      - name: Fetch head branch from ET
-        uses: octokit/request-action@v2.x
-        id: fetch-et-head-branch
-        if: steps.skip.outputs.value != 1
-        with:
-          route: GET /repos/{owner}/{repo}/branches/${{ github.head_ref }}
-          owner: the-events-calendar
-          repo: event-tickets
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
-        continue-on-error: true
-      - name: Fetch base branch from ET
-        uses: octokit/request-action@v2.x
-        id: fetch-et-base-branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-et-head-branch.outcome != 'success'
-        with:
-          route: GET /repos/{owner}/{repo}/branches/${{ github.base_ref }}
-          owner: the-events-calendar
-          repo: event-tickets
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
-        continue-on-error: true
       # ------------------------------------------------------------------------------
       # Set TEC branch
       # ------------------------------------------------------------------------------
@@ -153,18 +131,6 @@ jobs:
       - name: Set TEC with master branch
         if: steps.skip.outputs.value != 1 && steps.fetch-tec-head-branch.outcome != 'success' && steps.fetch-tec-base-branch.outcome != 'success'
         run: echo "TEC_BRANCH=master" >> $GITHUB_ENV
-      # ------------------------------------------------------------------------------
-      # Set ET branch
-      # ------------------------------------------------------------------------------
-      - name: Set ET with head branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-et-head-branch.outcome == 'success'
-        run: echo "ET_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
-      - name: Set ET with base branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-et-head-branch.outcome != 'success' && steps.fetch-et-base-branch.outcome == 'success'
-        run: echo "ET_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
-      - name: Set ET with master branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-et-head-branch.outcome != 'success' && steps.fetch-et-base-branch.outcome != 'success'
-        run: echo "ET_BRANCH=master" >> $GITHUB_ENV
       # ------------------------------------------------------------------------------
       # Clone and init TEC
       # ------------------------------------------------------------------------------
@@ -185,58 +151,6 @@ jobs:
           docker network prune -f
           ${SLIC_BIN} use the-events-calendar
           ${SLIC_BIN} composer install --no-dev
-      # ------------------------------------------------------------------------------
-      # Clone and init ET
-      # ------------------------------------------------------------------------------
-      - name: Clone ET
-        uses: actions/checkout@v2
-        if: steps.skip.outputs.value != 1
-        with:
-          fetch-depth: 1
-          repository: the-events-calendar/event-tickets
-          ref: ${{ env.ET_BRANCH }}
-          token: ${{ secrets.GH_BOT_TOKEN }}
-          path: event-tickets
-          submodules: recursive
-      - name: Init ET
-        if: steps.skip.outputs.value != 1
-        run: |
-          mv ${GITHUB_WORKSPACE}/event-tickets ${GITHUB_WORKSPACE}/../event-tickets
-          docker network prune -f
-          ${SLIC_BIN} use event-tickets
-          ${SLIC_BIN} composer install --no-dev
-      - name: Set up Common
-        if: steps.skip.outputs.value != 1
-        run: |
-          docker network prune -f
-          ${SLIC_BIN} use event-tickets/common
-          ${SLIC_BIN} composer install --no-dev
-      # ------------------------------------------------------------------------------
-      # Clone and init ET+
-      # ------------------------------------------------------------------------------
-      - name: Clone ET+
-        uses: actions/checkout@v2
-        if: steps.skip.outputs.value != 1
-        with:
-          fetch-depth: 1
-          repository: the-events-calendar/event-tickets-plus
-          ref: ${{ env.ET_BRANCH }}
-          token: ${{ secrets.GH_BOT_TOKEN }}
-          path: event-tickets-plus
-          submodules: recursive
-      - name: Init ET
-        if: steps.skip.outputs.value != 1
-        run: |
-          mv ${GITHUB_WORKSPACE}/event-tickets-plus ${GITHUB_WORKSPACE}/../event-tickets-plus
-          docker network prune -f
-          ${SLIC_BIN} use event-tickets-plus
-          ${SLIC_BIN} composer install --no-dev
-      # ------------------------------------------------------------------------------
-      # Install and activate WooCommerce
-      # ------------------------------------------------------------------------------
-      - name: Install WooCommerce
-        if: steps.skip.outputs.value != 1
-        run: ${SLIC_BIN} site-cli plugin install woocommerce --version='8.2.2'
       # ------------------------------------------------------------------------------
       # Set up Common
       # ------------------------------------------------------------------------------
