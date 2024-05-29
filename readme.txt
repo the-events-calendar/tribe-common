@@ -2,7 +2,7 @@
 
 = [5.3.0] 2024-06-11 =
 
-
+* Tweak - Remove ini_check for deprecated safe_mode. [TBD]
 
 = [5.2.7] 2024-05-14 =
 
