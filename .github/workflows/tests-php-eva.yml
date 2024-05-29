@@ -1,4 +1,4 @@
-ame: 'Codeception Tests'
+name: 'Codeception Tests'
 on: [ pull_request ]
 jobs:
   test:
