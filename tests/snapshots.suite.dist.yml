@@ -16,7 +16,5 @@ modules:
       title: "Event Common Tests"
       plugins:
         - the-events-calendar/the-events-calendar.php
-        - event-tickets/event-tickets.php
       activatePluginsSilently:
         - the-events-calendar/the-events-calendar.php
-        - event-tickets/event-tickets.php
