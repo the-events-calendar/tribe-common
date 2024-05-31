@@ -250,6 +250,12 @@ jobs:
         if: steps.skip.outputs.value != 1
         run: ${SLIC_BIN} site-cli plugin install woocommerce --version='8.2.2'
       # ------------------------------------------------------------------------------
+      # Install and activate Easy Digital Downloads
+      # ------------------------------------------------------------------------------
+      - name: Install Easy Digital Downloads
+        if: steps.skip.outputs.value != 1
+        run: ${SLIC_BIN} site-cli plugin install easy-digital-downloads
+      # ------------------------------------------------------------------------------
       # Set up Common
       # ------------------------------------------------------------------------------
       - name: Move Common inside TEC
