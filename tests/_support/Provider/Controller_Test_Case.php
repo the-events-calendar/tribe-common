@@ -99,7 +99,7 @@ class Controller_Test_Case extends WPTestCase {
 		$test_services = clone $original_services;
 
 		// From now on calls to the Service Locator (the `tribe` function) will be redirected to a test Service Locator.
-		uopz_set_return(
+		set_fn_return(
 			'tribe',
 			static function ( $key = null ) use ( $test_services ) {
 				return $key ? $test_services->get( $key ) : $test_services;
@@ -107,7 +107,7 @@ class Controller_Test_Case extends WPTestCase {
 			true
 		);
 		// Redirect calls to init the container too.
-		uopz_set_return( Container::class, 'init', $test_services );
+		set_fn_return( Container::class, 'init', $test_services );
 		$this->test_services = $test_services;
 
 		// We should now be working with the test Service Locator.
@@ -357,7 +357,7 @@ class Controller_Test_Case extends WPTestCase {
 		// Here we use the controller to let use know what filters it would hook to by
 		// intercepting the `add_filter` function.
 		$hooked = [];
-		uopz_set_return(
+		set_fn_return(
 			'add_filter',
 			function ( $tag, $function_to_add, $priority = 10 ) use ( &$hooked ) {
 				if ( ! ( is_array( $function_to_add ) && $function_to_add[0] instanceof Controller ) ) {
