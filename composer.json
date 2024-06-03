@@ -30,7 +30,8 @@
     "stellarwp/installer": "^1.1.0",
     "stellarwp/models": "dev-main",
     "stellarwp/schema": "^1.1.3",
-    "stellarwp/telemetry": "^2.3.1"
+    "stellarwp/telemetry": "^2.3.1",
+    "stellarwp/uplink": "^1.4"
   },
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
@@ -64,10 +65,15 @@
       "@php bin/strauss.phar"
     ],
     "post-install-cmd": [
-      "@strauss"
+      "@strauss",
+      "@stellar-uplink"
     ],
     "post-update-cmd": [
-      "@strauss"
+      "@strauss",
+      "@stellar-uplink"
+    ],
+    "stellar-uplink": [
+      "vendor/bin/stellar-uplink domain=<your-plugin-domain>"
     ]
   },
   "extra": {
@@ -83,6 +89,7 @@
         "stellarwp/schema",
         "stellarwp/installer",
         "stellarwp/telemetry",
+        "stellarwp/uplink",
         "lucatume/di52",
         "monolog/monolog",
         "firebase/php-jwt",

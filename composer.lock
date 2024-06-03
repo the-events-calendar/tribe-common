@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6b73fd2c3dd621ec2cc01b42d50549af",
+    "content-hash": "d076e549a84ac736ef8ce29e6f0869bf",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -613,6 +613,72 @@
                 "source": "https://github.com/stellarwp/telemetry/tree/2.3.2"
             },
             "time": "2024-01-08T18:55:26+00:00"
+        },
+        {
+            "name": "stellarwp/uplink",
+            "version": "v1.4.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stellarwp/uplink.git",
+                "reference": "2a37fbbd4702630caad032678b52bbab3d3e8ca4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stellarwp/uplink/zipball/2a37fbbd4702630caad032678b52bbab3d3e8ca4",
+                "reference": "2a37fbbd4702630caad032678b52bbab3d3e8ca4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.1",
+                "stellarwp/container-contract": "^1.0"
+            },
+            "require-dev": {
+                "codeception/module-asserts": "^1.0",
+                "codeception/module-cli": "^1.0",
+                "codeception/module-db": "^1.0",
+                "codeception/module-filesystem": "^1.0",
+                "codeception/module-phpbrowser": "^1.0",
+                "codeception/module-rest": "^1.0",
+                "codeception/module-webdriver": "^1.0",
+                "codeception/util-universalframework": "^1.0",
+                "lucatume/di52": "^3.0",
+                "lucatume/wp-browser": "^3.0.14",
+                "phpspec/prophecy": "^1.0",
+                "phpspec/prophecy-phpunit": "^1.0|^2.0",
+                "phpunit/phpunit": "^6.0|^7.0|^8.0|^9.0",
+                "symfony/event-dispatcher-contracts": "^2.5.1",
+                "symfony/string": "^5.4",
+                "szepeviktor/phpstan-wordpress": "^1.1"
+            },
+            "bin": [
+                "bin/stellar-uplink"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "StellarWP\\Uplink\\": "src/Uplink/",
+                    "StellarWP\\Uplink\\Views\\": "src/views/",
+                    "StellarWP\\Uplink\\Assets_Dir\\": "src/assets/",
+                    "StellarWP\\Uplink\\Admin_Views\\": "src/admin-views/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "StellarWP",
+                    "homepage": "https://stellarwp.com"
+                }
+            ],
+            "description": "A library that integrates a WordPress product with the StellarWP Licensing system.",
+            "support": {
+                "issues": "https://github.com/stellarwp/uplink/issues",
+                "source": "https://github.com/stellarwp/uplink/tree/v1.4.3"
+            },
+            "time": "2024-03-01T19:58:23+00:00"
         }
     ],
     "packages-dev": [

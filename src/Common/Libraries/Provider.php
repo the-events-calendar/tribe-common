@@ -26,6 +26,7 @@ class Provider extends Service_Provider {
 		$this->container->singleton( static::class, $this );
 
 		tribe_register_provider( Installer\Provider::class );
+		tribe_register_provider( Uplink\Controller::class );
 
 		DB\Config::setHookPrefix( $this->get_hook_prefix() );
 	}
