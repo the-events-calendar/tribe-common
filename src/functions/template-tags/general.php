@@ -820,7 +820,6 @@ if ( ! function_exists( 'tribe_set_time_limit' ) ) {
 		if (
 			! function_exists( 'set_time_limit' )
 			&& false !== strpos( ini_get( 'disable_functions' ), 'set_time_limit' )
-			&& ini_get( 'safe_mode' )
 		) {
 			return false;
 		}
