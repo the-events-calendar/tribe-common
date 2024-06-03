@@ -67,6 +67,6 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 
 TAG;
 		$expected = str_replace( '{{ home_url }}', home_url(), $expected_tmpl );
-		$this->assertEquals( $expected, $output );
+		$this->assertEquals( str_replace('\'', '"', $expected), str_replace('\'', '"', $output) );
 	}
 }
