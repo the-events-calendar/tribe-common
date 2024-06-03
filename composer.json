@@ -22,7 +22,7 @@
   },
   "require": {
     "firebase/php-jwt": "~6.3.0",
-    "lucatume/di52": "^3.3.4",
+    "lucatume/di52": "^3.3.7",
     "monolog/monolog": "1.24.*",
     "psr/container": "^1.0.0",
     "stellarwp/container-contract": "^1.0.4",
@@ -30,7 +30,8 @@
     "stellarwp/installer": "^1.1.0",
     "stellarwp/models": "dev-main",
     "stellarwp/schema": "^1.1.3",
-    "stellarwp/telemetry": "^2.3.1"
+    "stellarwp/telemetry": "^2.3.1",
+    "stellarwp/assets": "^1.2.1"
   },
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
@@ -86,7 +87,8 @@
         "lucatume/di52",
         "monolog/monolog",
         "firebase/php-jwt",
-        "psr/container"
+        "psr/container",
+        "stellarwp/assets"
       ],
       "exclude_from_prefix": {
         "file_patterns": []

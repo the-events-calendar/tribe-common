@@ -1,0 +1,61 @@
+{
+	"build": [
+		"echo 'building Tribe Common in: '$(pwd)",
+		"rm -rf vendor",
+		"git checkout -- vendor",
+		"composer install --no-dev",
+		"npm ci",
+		"npm run build"
+	],
+	"build_dev": [
+		"echo 'building Tribe Common in: '$(pwd)",
+		"rm -rf vendor",
+		"git checkout -- vendor",
+		"composer install",
+		"npm ci",
+		"npm run build"
+	],
+	"checks": {
+		"tbd": {
+			"dirs": [ "src" ]
+		},
+		"version-conflict": {}
+	},
+	"i18n": [
+		{
+			"textdomain": "tribe-common",
+			"url": "https://translations.theeventscalendar.com",
+			"slug": "tribe-common"
+		}
+	],
+	"paths": {
+		"changelog": "readme.txt",
+		"css": [
+			"src/resources/postcss"
+		],
+		"js": [
+			"src/resources/js",
+			"src/modules"
+		],
+		"sync_files": [
+			".distfiles",
+			".gitattributes"
+		],
+		"versions": [
+			{
+				"file": "src/Tribe/Main.php",
+				"regex": "(const VERSION += ')([^']+)"
+			},
+			{
+				"file": "tribe-common.php",
+				"regex": "(Version: )(.+)"
+			},
+			{
+				"file": "package.json",
+				"regex": "(\"version\": ?\")([^\"]+)"
+			}
+		],
+		"views": [ "src/views" ]
+	},
+	"zip_name": "tribe-common"
+}
