@@ -58,7 +58,7 @@ class Stellar_Sale extends \Tribe\Admin\Notice\Date_Based {
 		$template_args = [
 			'heading'           => __( 'Make it yours.', 'tribe-common' ),
 			'sub_heading'       => __( 'Save 40% on all The Events Calendar products.', 'tribe-common' ),
-			'content'      => __( 'Take <b>40%</b> off all premium The Events Calendar products during the annual Stellar Sale. Now through July 30.', 'tribe-common' ),
+			'content'           => __( 'Take <b>40%</b> off all premium The Events Calendar products during the annual Stellar Sale. Now through July 30.', 'tribe-common' ),
 			'cta_link_text'     => _x( 'Shop now', 'Shop now link text', 'tribe-common' ),
 			'cta_url'           => $cta_url,
 			'stellar_link_text' => _x( 'View all StellarWP Deals', 'View all StellarWP Deals link text', 'tribe-common' ),
