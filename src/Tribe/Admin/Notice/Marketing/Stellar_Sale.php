@@ -67,8 +67,8 @@ class Stellar_Sale extends \Tribe\Admin\Notice\Date_Based {
 
 		if ( $dependency->has_active_premium_plugin() ) {
 			// Determine the copy based on the active plugins.
-			$has_events_calendar_pro  = $dependency->is_plugin_active( 'Tribe__Events__Pro__Main' );
-			$has_event_tickets_plus   = $dependency->is_plugin_active( 'Tribe__Tickets_Plus__Main' );
+			$has_events_calendar_pro = $dependency->is_plugin_active( 'Tribe__Events__Pro__Main' );
+			$has_event_tickets_plus  = $dependency->is_plugin_active( 'Tribe__Tickets_Plus__Main' );
 
 			if ( $has_events_calendar_pro && ! $has_event_tickets_plus ) {
 				$template_args['sub_heading']  = __( 'Save 40% on Filter Bar.', 'tribe-common' );
