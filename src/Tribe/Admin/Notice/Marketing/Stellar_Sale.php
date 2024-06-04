@@ -74,7 +74,7 @@ class Stellar_Sale extends \Tribe\Admin\Notice\Date_Based {
 			if ( $has_events_calendar_pro && ! $has_event_tickets_plus ) {
 				$template_args['sub_heading']  = __( 'Save 40% on Filter Bar.', 'tribe-common' );
 				$template_args['stellar_copy'] = __( 'Add filters to your calendar during the annual Stellar Sale. Now through July 30.', 'tribe-common' );
-			} elseif( $has_event_tickets_plus && ! $has_events_calendar_pro ) {
+			} elseif ( $has_event_tickets_plus && ! $has_events_calendar_pro ) {
 				$template_args['sub_heading']  = __( 'Save 40% on The Events Calendar Bundles.', 'tribe-common' );
 				$template_args['stellar_copy'] = __( 'Take <b>40%</b> off when you upgrade to a bundle during the annual Stellar Sale. Now through July 30.', 'tribe-common' );
 			} else {
