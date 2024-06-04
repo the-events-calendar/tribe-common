@@ -51,6 +51,7 @@ class Stellar_Sale extends \Tribe\Admin\Notice\Date_Based {
 		\Tribe__Assets::instance()->enqueue( [ 'tribe-common-admin' ] );
 
 		// Used in the template.
+		// @todo @codingmusician - Update the URLs when they are available.
 		$cta_url     = 'https://evnt.is/1bcv';
 		$stellar_url = 'https://evnt.is/1bcu';
 
