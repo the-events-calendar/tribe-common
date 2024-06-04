@@ -13,15 +13,15 @@
 	<div class="tribe-marketing-notice__content-wrapper">
 		<div class="tribe-marketing-notice__col--md">
 			<h3>
-				<?php esc_html_e( $heading ); ?>
+				<?php echo esc_html( $heading ); ?>
 			</h3>
 			<h4>
-			<?php esc_html_e( $sub_heading ); ?>
+			<?php echo esc_html( $sub_heading ); ?>
 			</h4>
 			<p>
 				<span class="tribe-marketing-notice__cta-shop-now tribe-marketing-notice__cta-shop-now--desktop">
 					<a target="_blank" href="<?php echo esc_url( $cta_url ); ?>">
-						<?php esc_html_e( $cta_link_text ); ?>
+						<?php echo esc_html( $cta_link_text ); ?>
 					</a>
 				</span>
 			</p>
@@ -35,7 +35,7 @@
 				<p>
 					<span class="tribe-marketing-notice__cta-shop-now tribe-marketing-notice__cta-shop-now--mobile">
 						<a target="_blank" href="<?php echo esc_url( $cta_url ); ?>">
-							<?php esc_html_e( $cta_link_text ) ?>
+							<?php echo esc_html( $cta_link_text ) ?>
 						</a>
 					</span>
 				</p>
@@ -43,7 +43,7 @@
 				<p>
 					<span class="tribe-marketing-notice__cta-stellar-deals">
 						<a target="_blank" href="<?php echo esc_url( $stellar_url ); ?>">
-							<?php esc_html_e( $stellar_link_text ) ?>
+							<?php echo esc_html( $stellar_link_text ) ?>
 						</a>
 					</span>
 				</p>
