@@ -35,7 +35,7 @@
 				<p>
 					<span class="tribe-marketing-notice__cta-shop-now tribe-marketing-notice__cta-shop-now--mobile">
 						<a target="_blank" href="<?php echo esc_url( $cta_url ); ?>">
-							<?php echo esc_html( $cta_link_text ) ?>
+							<?php echo esc_html( $cta_link_text ); ?>
 						</a>
 					</span>
 				</p>
@@ -43,7 +43,7 @@
 				<p>
 					<span class="tribe-marketing-notice__cta-stellar-deals">
 						<a target="_blank" href="<?php echo esc_url( $stellar_url ); ?>">
-							<?php echo esc_html( $stellar_link_text ) ?>
+							<?php echo esc_html( $stellar_link_text ); ?>
 						</a>
 					</span>
 				</p>
