@@ -48,7 +48,6 @@ class Stellar_Sale extends \Tribe\Admin\Notice\Date_Based {
 	 * {@inheritDoc}
 	 */
 	public function display_notice() {
-		error_log( 'Stellar_Sale::display_notice()' );
 		\Tribe__Assets::instance()->enqueue( [ 'tribe-common-admin' ] );
 
 		// Used in the template.
