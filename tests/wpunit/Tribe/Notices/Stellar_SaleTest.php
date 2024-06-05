@@ -19,7 +19,7 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 		uopz_redefine( 'TRIBE_HIDE_UPSELL', true );
 		// Ensure we're on a good date.
 		add_filter(
-			"tribe_stellar-sale-2024_notice_start_date",
+			'tribe_stellar-sale-2024_notice_start_date',
 			function( $date ) {
 				// Set the start date to the past.
 				return Dates::build_date_object( '-7 days', 'UTC' );
@@ -27,7 +27,7 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 		);
 
 		add_filter(
-			"tribe_stellar-sale-2024_notice_end_date",
+			'tribe_stellar-sale-2024_notice_end_date',
 			function( $date ) {
 				// Set the end date to the future.
 				return Dates::build_date_object( '+7 days', 'UTC' );
@@ -42,7 +42,7 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $notice->should_display() );
 
 		// So we don't muck up later tests.
-		remove_all_filters( "tribe_stellar-sale-2024_notice_start_date" );
+		remove_all_filters( 'tribe_stellar-sale-2024_notice_start_date' );
 		uopz_undefine( 'TRIBE_HIDE_UPSELL' );
 	}
 
@@ -55,7 +55,7 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 	public function should_not_display_when_wrong_screen() {
 		// Ensure we're on a good date.
 		add_filter(
-			"tribe_stellar-sale-2024_notice_start_date",
+			'tribe_stellar-sale-2024_notice_start_date',
 			function( $date ) {
 				// Set the start date to the past.
 				return Dates::build_date_object( '-7 days', 'UTC' );
@@ -63,7 +63,7 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 		);
 
 		add_filter(
-			"tribe_stellar-sale-2024_notice_end_date",
+			'tribe_stellar-sale-2024_notice_end_date',
 			function( $date ) {
 				// Set the end date to the future.
 				return Dates::build_date_object( '+7 days', 'UTC' );
@@ -78,7 +78,7 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $notice->should_display() );
 
 		// So we don't muck up later tests.
-		remove_all_filters( "tribe_stellar-sale-2024_notice_start_date" );
+		remove_all_filters( 'tribe_stellar-sale-2024_notice_start_date' );
 	}
 
 	/**
@@ -141,7 +141,7 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 		$year = date( 'Y' );
 		$this->set_class_fn_return( Dates::class, 'build_date_object', static function ( $input ) use ( $year ) {
 			return $input === 'now' ?
-				new DateTime( "2023-07-27 19:23:23" )
+				new DateTime( "2024-07-26 19:23:23" )
 				: new DateTime( $input );
 		}, true );
 
