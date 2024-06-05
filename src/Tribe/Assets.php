@@ -347,17 +347,35 @@ class Tribe__Assets {
 			return false;
 		}
 
+		$extension = substr( $file, strrpos( $file, '.' ) + 1 );
+		$plugin_path = ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath;
+
 		// Infer the type from the file extension, if not passed.
-		$type = empty( $arguments['type'] ) ?
-			substr( $file, strrpos( $file, '.' ) + 1 )
-			: $arguments['type'];
+		$type   = empty( $arguments['type'] ) ? $extension : $arguments['type'];
+
+		// Try to enqueue the minified version of vendor files, the unminified version will not be packaged.
+		if ( str_contains( $file, 'vendor' . DIRECTORY_SEPARATOR ) && ! str_contains( $file, '.min.' ) ) {
+			// If available, enqueue the minified version of the vendor file.
+			$minified_file   = substr( $file, 0, - ( strlen( $extension ) + 1 ) ) . '.min.' . $extension;
+			$origin_min_file = $plugin_path . $minified_file;
+
+			if (
+				is_file( $origin_min_file )
+				&& (
+					! is_file( $file )
+					|| ( ! defined( 'SCRIPT_DEBUG' ) || ! SCRIPT_DEBUG )
+				)
+			) {
+				$file = $minified_file;
+			}
+		}
 
 		// Work out the root path from the origin.
 		$root_path = str_replace(
 			dirname( WP_CONTENT_DIR ) ?: WP_CONTENT_DIR,
 			'',
 			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath )
+			trailingslashit( $plugin_path )
 		);
 
 		// Fetches the version on the Origin Version constant if not passed.
