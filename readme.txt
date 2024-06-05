@@ -4,6 +4,7 @@
 
 * Feature - Refactor tribe_asset to use Stellar Assets. [TCMN-172]
 * Tweak - Remove ini_check for deprecated safe_mode. [TBD]
+* Tweak - Added information about upcoming promotion. [ET-2113]
 
 = [5.2.7] 2024-05-14 =
 
