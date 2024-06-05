@@ -347,7 +347,7 @@ class Tribe__Assets {
 			return false;
 		}
 
-		$extension   = substr( $file, strrpos( $file, '.' ) + 1 );
+		$extension = substr( $file, strrpos( $file, '.' ) + 1 );
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		$plugin_path = ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath;
 
