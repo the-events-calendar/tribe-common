@@ -347,16 +347,17 @@ class Tribe__Assets {
 			return false;
 		}
 
-		$extension = substr( $file, strrpos( $file, '.' ) + 1 );
+		$extension   = substr( $file, strrpos( $file, '.' ) + 1 );
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		$plugin_path = ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath;
 
 		// Infer the type from the file extension, if not passed.
-		$type   = empty( $arguments['type'] ) ? $extension : $arguments['type'];
+		$type = empty( $arguments['type'] ) ? $extension : $arguments['type'];
 
 		// Try to enqueue the minified version of the file if not debugging scripts or the file is not available.
 		if ( ! str_contains( $file, '.min.' ) ) {
 			// From `something.js` to `something.min.js`.
-			$minified_file   = substr( $file, 0, - ( strlen( $extension ) + 1 ) ) . '.min.' . $extension;
+			$minified_file    = substr( $file, 0, - ( strlen( $extension ) + 1 ) ) . '.min.' . $extension;
 			$min_file_abspath = $plugin_path . $minified_file;
 
 			if (
