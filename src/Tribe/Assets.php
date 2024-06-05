@@ -353,16 +353,18 @@ class Tribe__Assets {
 		// Infer the type from the file extension, if not passed.
 		$type   = empty( $arguments['type'] ) ? $extension : $arguments['type'];
 
-		// Try to enqueue the minified version of vendor files, the unminified version will not be packaged.
-		if ( str_contains( $file, 'vendor' . DIRECTORY_SEPARATOR ) && ! str_contains( $file, '.min.' ) ) {
-			// If available, enqueue the minified version of the vendor file.
+		// Try to enqueue the minified version of the file if not debugging scripts or the file is not available.
+		if ( ! str_contains( $file, '.min.' ) ) {
+			// From `something.js` to `something.min.js`.
 			$minified_file   = substr( $file, 0, - ( strlen( $extension ) + 1 ) ) . '.min.' . $extension;
-			$origin_min_file = $plugin_path . $minified_file;
+			$min_file_abspath = $plugin_path . $minified_file;
 
 			if (
-				is_file( $origin_min_file )
+				is_file( $min_file_abspath )
 				&& (
+					// The original file is not available.
 					! is_file( $file )
+					// Not in script debug mode.
 					|| ( ! defined( 'SCRIPT_DEBUG' ) || ! SCRIPT_DEBUG )
 				)
 			) {
