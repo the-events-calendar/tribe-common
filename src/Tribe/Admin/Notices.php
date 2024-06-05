@@ -808,6 +808,8 @@ class Tribe__Admin__Notices {
 	protected function set_transients( $notices ) {
 		$transient = self::$transient_notices_name;
 		set_transient( $transient, $notices, MONTH_IN_SECONDS );
+		// Manually memoize the value so we don't have to fetch it again.
+		tribe( 'cache' )['transient_admin_notices'] = $notices;
 	}
 
 	/**
