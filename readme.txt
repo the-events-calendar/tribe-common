@@ -5,6 +5,9 @@
 * Feature - Refactor tribe_asset to use Stellar Assets. [TCMN-172]
 * Tweak - Remove ini_check for deprecated safe_mode. [TBD]
 * Tweak - Added information about upcoming promotion. [ET-2113]
+* Tweak - Added filters: `tribe_asset_enqueue_{$asset->get_slug()}`
+* Tweak - Removed filters: `tribe_asset_enqueue_{$asset->slug}`, `tribe_asset_pre_register`
+* Language: 7 new strings added, 5 updated, 2 fuzzied, and 0 obsoleted
 
 = [5.2.7] 2024-05-14 =
 
