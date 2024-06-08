@@ -29,17 +29,19 @@ class Action_Endpoints {
 	 * @param Abstract_REST_Endpoint $this     An instance of the endpoint.
 	 */
 	public function filter_details( $endpoint, $endpoint_obj ) {
-		if ( $endpoint_obj->get_id() !== 'create_events' ) {
-			return $endpoint;
+		if ( in_array( $endpoint_obj->get_id(), [ 'new_events', 'updated_events', 'canceled_events', 'create_events' ], true ) ) {
+			if ( ! class_exists( 'Tribe__Events__REST__V1__Validator__Base', false ) ) {
+				// Disable if Tribe__Events__REST__V1__Validator__Base class does not exist.
+				$endpoint['missing_dependency'] = true;
+				$endpoint['dependents'] = ['tec'];
+			}
+		} elseif ( in_array( $endpoint_obj->get_id(), [ 'attendees', 'updated_attendees', 'checkin', 'orders', 'refunded_orders' ], true ) ) {
+			if ( ! class_exists( 'Tribe__Tickets__REST__V1__Validator__Base', false ) ) {
+				// Disable if Tribe__Tickets__REST__V1__Validator__Base class does not exist.
+				$endpoint['missing_dependency'] = true;
+				$endpoint['dependents'] = ['et'];
+			}
 		}
-
-		if ( class_exists( 'Tribe__Events__REST__V1__Validator__Base', false ) ) {
-			return $endpoint;
-		}
-
-		// Disable if Tribe__Events__REST__V1__Validator__Base class does not exist.
-		$endpoint['missing_dependency'] = true;
-		$endpoint['dependents'] = $endpoint_obj->get_dependents();
 
 		return $endpoint;
 	}

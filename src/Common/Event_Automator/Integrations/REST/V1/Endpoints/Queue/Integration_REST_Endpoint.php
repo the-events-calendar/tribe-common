@@ -483,33 +483,20 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 		];
 
 		// Setup queue counts only on that endpoint type.
-		if (
-			static::$type !== 'queue'
-			|| ! isset( $this->trigger )
-		) {
-			/**
-			 * Filters the integration endpoint details.
-			 *
-			 * @since TBD Migrated to Common from Event Automator
-			 *
-			 * @param array<string,array>    $endpoint An array of the integration endpoint details.
-			 * @param Abstract_REST_Endpoint $this     An instance of the endpoint.
-			 */
-			return apply_filters( "tec_event_automator_{$api_id}_endpoint_details", $endpoint, $this );
+		if ( static::$type === 'queue' && isset( $this->trigger ) ) {
+			$endpoint_queue = (array) $this->trigger->get_queue();
+			$endpoint['count'] = empty( $endpoint_queue ) ? 0 : count( $endpoint_queue );
 		}
 
-		$endpoint_queue = (array) $this->trigger->get_queue();
-		$endpoint['count'] = empty( $endpoint_queue ) ? 0 : count( $endpoint_queue );
-
 		/**
-		 * Filters the integation queue type endpoint details.
+		 * Filters the integration endpoint details.
 		 *
 		 * @since TBD Migrated to Common from Event Automator
 		 *
 		 * @param array<string,array>    $endpoint An array of the integration endpoint details.
 		 * @param Abstract_REST_Endpoint $this     An instance of the endpoint.
 		 */
-		return apply_filters( "tec_event_automator_{$api_id}_queue_endpoint_details", $endpoint, $this );
+		return apply_filters( "tec_event_automator_{$api_id}_endpoint_details", $endpoint, $this );
 	}
 
 	/**
