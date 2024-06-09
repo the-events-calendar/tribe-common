@@ -234,11 +234,11 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 		}
 
 		$no_description = _x( 'No description provided', 'Default description for integration endpoint.', 'tribe-common' );
-		$defaults = array_merge(
+		$defaults       = array_merge(
 			[
 				'in'          => 'body',
-				'schema' => [
-					'type'        => 'string',
+				'schema'      => [
+					'type' => 'string',
 				],
 				'description' => $no_description,
 				'required'    => false,
@@ -248,7 +248,6 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 			],
 			$defaults
 		);
-
 
 		$swaggerized = [];
 		foreach ( $args as $name => $info ) {
@@ -261,13 +260,13 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 			$type = $this->convert_type( $type );
 
 			$read = [
-				'name'             => $name,
-				'in'               => $info['in'] ?? false,
-				'description'      => $info['description'] ?? false,
-				'schema' => [
-					'type'         => $type,
+				'name'        => $name,
+				'in'          => $info['in'] ?? false,
+				'description' => $info['description'] ?? false,
+				'schema'      => [
+					'type' => $type,
 				],
-				'required'         => $info['required'] ?? false,
+				'required'    => $info['required'] ?? false,
 			];
 
 			if ( isset( $info['items'] ) ) {
@@ -284,12 +283,12 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 			}
 
 			// Copy in case we need to mutate default values for this field in args
-			$defaultsCopy = $defaults;
-			unset( $defaultsCopy['default'] );
-			unset( $defaultsCopy['items'] );
-			unset( $defaultsCopy['type'] );
+			$defaults_copy = $defaults;
+			unset( $defaults_copy['default'] );
+			unset( $defaults_copy['items'] );
+			unset( $defaults_copy['type'] );
 
-			$swaggerized[] = array_merge( $defaultsCopy, array_filter( $read ) );
+			$swaggerized[] = array_merge( $defaults_copy, array_filter( $read ) );
 		}
 
 		return $swaggerized;
@@ -441,7 +440,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	 * @since TBD Migrated to Common from Event Automator
 	 */
 	public function add_to_dashboard() {
-		$api_id          = $this->api::get_api_id();
+		$api_id = $this->api::get_api_id();
 
 		add_filter( "tec_event_automator_{$api_id}_endpoints", [ $this, 'add_endpoint_details' ], 10, 2 );
 	}
@@ -485,7 +484,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 
 		// Setup queue counts only on that endpoint type.
 		if ( static::$type === 'queue' && isset( $this->trigger ) ) {
-			$endpoint_queue = (array) $this->trigger->get_queue();
+			$endpoint_queue    = (array) $this->trigger->get_queue();
 			$endpoint['count'] = empty( $endpoint_queue ) ? 0 : count( $endpoint_queue );
 		}
 
@@ -512,7 +511,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 			$this->get_option_id(),
 			[
 				'last_access' => '',
-				'enabled' => true,
+				'enabled'     => true,
 			]
 		);
 	}
@@ -584,7 +583,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 			return;
 		}
 
-		$api_id          = $this->api::get_api_id();
+		$api_id = $this->api::get_api_id();
 
 		/**
 		 * Filters data passed to the trigger queue for an endpoint.
