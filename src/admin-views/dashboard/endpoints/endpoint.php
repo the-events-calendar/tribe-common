@@ -83,19 +83,19 @@
 	?>
 	<div class="tec-automator-grid-item tec-settings-connection-endpoint-dashboard-details__actions-wrap tec-common-integration-endpoint-details__actions-wrap">
 		<?php
-			$this->template( 'dashboard/components/clear-button', [
-				'endpoint' => $endpoint,
-				'manager'  => $manager,
-				'url'      => $url,
-			] );
-			$this->template( 'dashboard/components/status-button', [
-				'endpoint' => $endpoint,
-				'manager'  => $manager,
-				'url'      => $url,
-			] );
-
 			if ( $endpoint['missing_dependency'] ) {
 				$this->template( 'dashboard/components/missing-dependency', [
+					'endpoint' => $endpoint,
+					'manager'  => $manager,
+					'url'      => $url,
+				] );
+			} else {
+				$this->template( 'dashboard/components/clear-button', [
+					'endpoint' => $endpoint,
+					'manager'  => $manager,
+					'url'      => $url,
+				] );
+				$this->template( 'dashboard/components/status-button', [
 					'endpoint' => $endpoint,
 					'manager'  => $manager,
 					'url'      => $url,
