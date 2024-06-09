@@ -234,17 +234,20 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 		}
 
 		$no_description = _x( 'No description provided', 'Default description for integration endpoint.', 'tribe-common' );
-		$defaults = array_merge( [
-			'in'          => 'body',
-			'schema' => [
-				'type'        => 'string',
+		$defaults = array_merge(
+			[
+				'in'          => 'body',
+				'schema' => [
+					'type'        => 'string',
+				],
+				'description' => $no_description,
+				'required'    => false,
+				'items'       => [
+					'type' => 'integer',
+				],
 			],
-			'description' => $no_description,
-			'required'    => false,
-			'items'       => [
-				'type' => 'integer',
-			],
-		], $defaults );
+			$defaults
+		);
 
 
 		$swaggerized = [];
@@ -252,19 +255,19 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 			if ( isset( $info['swagger_type'] ) ) {
 				$type = $info['swagger_type'];
 			} else {
-				$type = isset( $info['type'] ) ? $info['type'] : false;
+				$type = $info['type'] ?? false;
 			}
 
 			$type = $this->convert_type( $type );
 
 			$read = [
 				'name'             => $name,
-				'in'               => isset( $info['in'] ) ? $info['in'] : false,
-				'description'      => isset( $info['description'] ) ? $info['description'] : false,
+				'in'               => $info['in'] ?? false,
+				'description'      => $info['description'] ?? false,
 				'schema' => [
 					'type'         => $type,
 				],
-				'required'         => isset( $info['required'] ) ? $info['required'] : false,
+				'required'         => $info['required'] ?? false,
 			];
 
 			if ( isset( $info['items'] ) ) {
@@ -344,7 +347,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 		}
 
 		$app_name = empty( $token['app_name'] ) ? '' : $token['app_name'];
-		$app_name = $app_header_id ?  : $app_name;
+		$app_name = $app_header_id ?: $app_name;
 		$this->api->set_api_key_last_access( $consumer_id, $app_name );
 		$this->set_endpoint_last_access( $app_name );
 
@@ -369,9 +372,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 			return new WP_Error( 'missing_access_token', __( 'Missing access token.', 'tribe-common' ), [ 'status' => 401 ] );
 		}
 
-		$key_pair = $this->api->decode_jwt( $access_token );
-
-		return $key_pair;
+		return $this->api->decode_jwt( $access_token );
 	}
 
 	/**
@@ -507,7 +508,13 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	 * @return array<string,array> An array of saved details for an endpoint.
 	 */
 	public function get_saved_details() {
-		return get_option( $this->get_option_id(), [ 'last_access' => '', 'enabled' => true ] );
+		return get_option(
+			$this->get_option_id(),
+			[
+				'last_access' => '',
+				'enabled' => true,
+			]
+		);
 	}
 
 	/**
@@ -690,8 +697,8 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	 * @param WP_REST_Response|WP_Error $response Response to replace the requested version with. Can be anything
 	 *                                            a normal endpoint can return, or a WP_Error if replacing the
 	 *                                            response with an error.
-	 * @param WP_REST_Server $handler  ResponseHandler instance (usually WP_REST_Server).
-	 * @param WP_REST_Request $request Request used to generate the response.
+	 * @param WP_REST_Server            $handler  ResponseHandler instance (usually WP_REST_Server).
+	 * @param WP_REST_Request           $request Request used to generate the response.
 	 *
 	 * @return WP_REST_Response|WP_Error The response.
 	 */
@@ -700,7 +707,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 			return $response;
 		}
 
-		if ( $request->get_route() !== '/' . $this->get_events_route_namespace() .  $this->get_endpoint_path() ) {
+		if ( $request->get_route() !== '/' . $this->get_events_route_namespace() . $this->get_endpoint_path() ) {
 			return $response;
 		}
 
@@ -711,6 +718,6 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 			$request->set_param( 'organizer', $organizer_array );
 		}
 
-	    return $response;
+		return $response;
 	}
 }
