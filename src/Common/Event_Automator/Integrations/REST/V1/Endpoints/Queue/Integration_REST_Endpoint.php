@@ -234,37 +234,39 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 		}
 
 		$no_description = _x( 'No description provided', 'Default description for integration endpoint.', 'tribe-common' );
-		$defaults = array_merge( [
-			'in'          => 'body',
-			'schema' => [
-				'type'        => 'string',
+		$defaults       = array_merge(
+			[
+				'in'          => 'body',
+				'schema'      => [
+					'type' => 'string',
+				],
+				'description' => $no_description,
+				'required'    => false,
+				'items'       => [
+					'type' => 'integer',
+				],
 			],
-			'description' => $no_description,
-			'required'    => false,
-			'items'       => [
-				'type' => 'integer',
-			],
-		], $defaults );
-
+			$defaults
+		);
 
 		$swaggerized = [];
 		foreach ( $args as $name => $info ) {
 			if ( isset( $info['swagger_type'] ) ) {
 				$type = $info['swagger_type'];
 			} else {
-				$type = isset( $info['type'] ) ? $info['type'] : false;
+				$type = $info['type'] ?? false;
 			}
 
 			$type = $this->convert_type( $type );
 
 			$read = [
-				'name'             => $name,
-				'in'               => isset( $info['in'] ) ? $info['in'] : false,
-				'description'      => isset( $info['description'] ) ? $info['description'] : false,
-				'schema' => [
-					'type'         => $type,
+				'name'        => $name,
+				'in'          => $info['in'] ?? false,
+				'description' => $info['description'] ?? false,
+				'schema'      => [
+					'type' => $type,
 				],
-				'required'         => isset( $info['required'] ) ? $info['required'] : false,
+				'required'    => $info['required'] ?? false,
 			];
 
 			if ( isset( $info['items'] ) ) {
@@ -281,12 +283,12 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 			}
 
 			// Copy in case we need to mutate default values for this field in args
-			$defaultsCopy = $defaults;
-			unset( $defaultsCopy['default'] );
-			unset( $defaultsCopy['items'] );
-			unset( $defaultsCopy['type'] );
+			$defaults_copy = $defaults;
+			unset( $defaults_copy['default'] );
+			unset( $defaults_copy['items'] );
+			unset( $defaults_copy['type'] );
 
-			$swaggerized[] = array_merge( $defaultsCopy, array_filter( $read ) );
+			$swaggerized[] = array_merge( $defaults_copy, array_filter( $read ) );
 		}
 
 		return $swaggerized;
@@ -344,7 +346,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 		}
 
 		$app_name = empty( $token['app_name'] ) ? '' : $token['app_name'];
-		$app_name = $app_header_id ?  : $app_name;
+		$app_name = $app_header_id ?: $app_name;
 		$this->api->set_api_key_last_access( $consumer_id, $app_name );
 		$this->set_endpoint_last_access( $app_name );
 
@@ -369,9 +371,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 			return new WP_Error( 'missing_access_token', __( 'Missing access token.', 'tribe-common' ), [ 'status' => 401 ] );
 		}
 
-		$key_pair = $this->api->decode_jwt( $access_token );
-
-		return $key_pair;
+		return $this->api->decode_jwt( $access_token );
 	}
 
 	/**
@@ -440,7 +440,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	 * @since TBD Migrated to Common from Event Automator
 	 */
 	public function add_to_dashboard() {
-		$api_id          = $this->api::get_api_id();
+		$api_id = $this->api::get_api_id();
 
 		add_filter( "tec_event_automator_{$api_id}_endpoints", [ $this, 'add_endpoint_details' ], 10, 2 );
 	}
@@ -483,33 +483,20 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 		];
 
 		// Setup queue counts only on that endpoint type.
-		if (
-			static::$type !== 'queue'
-			|| ! isset( $this->trigger )
-		) {
-			/**
-			 * Filters the integration endpoint details.
-			 *
-			 * @since TBD Migrated to Common from Event Automator
-			 *
-			 * @param array<string,array>    $endpoint An array of the integration endpoint details.
-			 * @param Abstract_REST_Endpoint $this     An instance of the endpoint.
-			 */
-			return apply_filters( "tec_event_automator_{$api_id}_endpoint_details", $endpoint, $this );
+		if ( static::$type === 'queue' && isset( $this->trigger ) ) {
+			$endpoint_queue    = (array) $this->trigger->get_queue();
+			$endpoint['count'] = empty( $endpoint_queue ) ? 0 : count( $endpoint_queue );
 		}
 
-		$endpoint_queue = (array) $this->trigger->get_queue();
-		$endpoint['count'] = empty( $endpoint_queue ) ? 0 : count( $endpoint_queue );
-
 		/**
-		 * Filters the integation queue type endpoint details.
+		 * Filters the integration endpoint details.
 		 *
 		 * @since TBD Migrated to Common from Event Automator
 		 *
 		 * @param array<string,array>    $endpoint An array of the integration endpoint details.
 		 * @param Abstract_REST_Endpoint $this     An instance of the endpoint.
 		 */
-		return apply_filters( "tec_event_automator_{$api_id}_queue_endpoint_details", $endpoint, $this );
+		return apply_filters( "tec_event_automator_{$api_id}_endpoint_details", $endpoint, $this );
 	}
 
 	/**
@@ -520,7 +507,13 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	 * @return array<string,array> An array of saved details for an endpoint.
 	 */
 	public function get_saved_details() {
-		return get_option( $this->get_option_id(), [ 'last_access' => '', 'enabled' => true ] );
+		return get_option(
+			$this->get_option_id(),
+			[
+				'last_access' => '',
+				'enabled'     => true,
+			]
+		);
 	}
 
 	/**
@@ -590,7 +583,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 			return;
 		}
 
-		$api_id          = $this->api::get_api_id();
+		$api_id = $this->api::get_api_id();
 
 		/**
 		 * Filters data passed to the trigger queue for an endpoint.
@@ -703,8 +696,8 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	 * @param WP_REST_Response|WP_Error $response Response to replace the requested version with. Can be anything
 	 *                                            a normal endpoint can return, or a WP_Error if replacing the
 	 *                                            response with an error.
-	 * @param WP_REST_Server $handler  ResponseHandler instance (usually WP_REST_Server).
-	 * @param WP_REST_Request $request Request used to generate the response.
+	 * @param WP_REST_Server            $handler  ResponseHandler instance (usually WP_REST_Server).
+	 * @param WP_REST_Request           $request Request used to generate the response.
 	 *
 	 * @return WP_REST_Response|WP_Error The response.
 	 */
@@ -713,7 +706,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 			return $response;
 		}
 
-		if ( $request->get_route() !== '/' . $this->get_events_route_namespace() .  $this->get_endpoint_path() ) {
+		if ( $request->get_route() !== '/' . $this->get_events_route_namespace() . $this->get_endpoint_path() ) {
 			return $response;
 		}
 
@@ -724,6 +717,6 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 			$request->set_param( 'organizer', $organizer_array );
 		}
 
-	    return $response;
+		return $response;
 	}
 }

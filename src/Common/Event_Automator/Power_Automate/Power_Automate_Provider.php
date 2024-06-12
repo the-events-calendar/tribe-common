@@ -144,7 +144,7 @@ class Power_Automate_Provider extends Service_Provider {
 	 * @since TBD Migrated to Common from Event Automator
 	 */
 	protected function add_actions() {
-		add_action( 'tribe_plugins_loaded', [ $this, 'register_admin_assets' ] );
+		add_action( 'admin_init', [ $this, 'register_admin_assets' ] );
 		add_action( 'rest_api_init', [ $this, 'register_endpoints' ] );
 
 		// Add endpoints to settings dashboard.

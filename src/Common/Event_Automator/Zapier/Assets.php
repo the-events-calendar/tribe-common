@@ -9,8 +9,6 @@
 
 namespace TEC\Event_Automator\Zapier;
 
-use TEC\Event_Automator\Plugin;
-
 /**
  * Class Settings
  *
@@ -26,31 +24,15 @@ class Assets {
 	 * @since TBD Migrated to Common from Event Automator
 	 */
 	public function register_admin_assets() {
-		$admin_helpers = \Tribe__Admin__Helpers::instance();
-		$plugin = tribe( Plugin::class );
-
 		tribe_asset(
-			$plugin,
-			'tec-event-automator-css',
-			'tec-event-automator.css',
-			[ 'tribe-tooltip' ],
-			'admin_enqueue_scripts',
-			[
-				'conditionals' => [
-					[ $admin_helpers, 'is_screen' ],
-				],
-			]
-		);
-
-		tribe_asset(
-			$plugin,
+			\Tribe__Main::instance(),
 			'tec-event-automator-js',
 			'tec-event-automator.js',
-			[ 'jquery', 'tribe-dropdowns', 'tribe-clipboard', 'tribe-tooltip-js' ],
+			[ 'jquery' ],
 			'admin_enqueue_scripts',
 			[
 				'conditionals' => [
-					[ $admin_helpers, 'is_screen' ],
+					[ \Tribe__Admin__Helpers::instance(), 'is_screen' ],
 				],
 				'localize' => [
 					'name' => 'tec_automator',

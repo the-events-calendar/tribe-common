@@ -18,7 +18,7 @@
  * @var Url                 $url       The URLs handler for the integration.
  */
 // Only show for queue endpoints.
-if ( $endpoint['type'] !== 'queue' || ! $endpoint['enabled'] ) {
+if ( $endpoint['type'] !== 'queue' || ! $endpoint['enabled'] || $endpoint['missing_dependency'] ) {
 	return;
 }
 
