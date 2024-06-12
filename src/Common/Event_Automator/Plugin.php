@@ -23,7 +23,7 @@ use Tribe__Main;
  *
  * @package TEC\Event_Automator
  */
-class Plugin {
+class Plugin extends \tad_DI52_ServiceProvider {
 	/**
 	 * Stores the version for the plugin.
 	 *
@@ -109,7 +109,7 @@ class Plugin {
 	 *
 	 * @param ?\Tribe__Container $container The container to use, if any. If not provided, the global container will be used.
 	 */
-	public static function boot( $container = null ): void {
+	public function boot( $container = null ): void {
 		$plugin = new static();
 		$plugin->register_autoloader();
 		$plugin->set_container( $container );
