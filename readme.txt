@@ -4,6 +4,7 @@
 
 * Fix - The Decorated repository was not returning values from `save()` and other methods. Now they return as expected. [BTRIA-2310]
 * Fix - Resolved an issue where transient notices would disappear given a certain order of operations. [ECP-1804]
+* Tweak - Added a new action hook `tec_event_automator_zapier_provider_registered` to fire after the Zapier service has successfully registered. [EVA-159]
 
 = [5.2.7] 2024-05-14 =
 
