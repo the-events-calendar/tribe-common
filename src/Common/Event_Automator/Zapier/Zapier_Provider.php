@@ -88,6 +88,13 @@ class Zapier_Provider extends Service_Provider {
 		$ajax_capability = apply_filters( 'tec_event_automator_zapier_admin_ajax_capability', 'manage_options' );
 
 		$this->route_admin_by_nonce( $this->admin_routes(), $ajax_capability );
+
+		/**
+		 * Fires after the Zapier provider has been registered.
+		 *
+		 * @since TBD
+		 */
+		do_action( 'tec_event_automator_zapier_provider_registered' );
 	}
 
 	/**
@@ -181,8 +188,6 @@ class Zapier_Provider extends Service_Provider {
 	 * @since TBD Migrated to Common from Event Automator
 	 */
 	protected function add_filters() {
-		add_filter( 'tribe_addons_tab_fields', [ $this, 'filter_tec_integrations_tab_fields' ] );
-		add_filter( 'tec_tickets_plus_integrations_tab_fields', [ $this, 'filter_et_integrations_tab_fields' ], 30 );
 		add_filter( 'tec_event_automator_zapier_settings_fields', [ $this, 'add_dashboard_fields' ] );
 		add_filter( 'tec_event_automator_zapier_endpoint_details', [ $this, 'filter_create_event_details' ], 10, 2 );
 		add_filter( 'tec_event_automator_zapier_enable_add_to_queues', [ $this, 'filter_enable_add_to_queues' ], 10 );
@@ -212,20 +217,6 @@ class Zapier_Provider extends Service_Provider {
 	public function register_endpoints() {
 		$this->container->make( Swagger_Documentation::class )->register();
 		$this->container->make( Authorize::class )->register();
-		$this->container->make( Canceled_Events::class )->register();
-		$this->container->make( New_Events::class )->register();
-		$this->container->make( Updated_Events::class )->register();
-		$this->container->make( Attendees::class )->register();
-		$this->container->make( Updated_Attendees::class )->register();
-		$this->container->make( Orders::class )->register();
-		$this->container->make( Refunded_Orders::class )->register();
-		$this->container->make( Checkin::class )->register();
-
-		$this->container->make( Create_Events::class )->register();
-		$this->container->make( Update_Events::class )->register();
-		$this->container->make( Find_Events::class )->register();
-		$this->container->make( Find_Attendees::class )->register();
-		$this->container->make( Find_Tickets::class )->register();
 	}
 
 	/**
@@ -235,54 +226,6 @@ class Zapier_Provider extends Service_Provider {
 	 */
 	public function add_endpoints_to_dashboard() {
 		$this->container->make( Authorize::class )->add_to_dashboard();
-		$this->container->make( New_Events::class )->add_to_dashboard();
-		$this->container->make( Canceled_Events::class )->add_to_dashboard();
-		$this->container->make( Updated_Events::class )->add_to_dashboard();
-		$this->container->make( Attendees::class )->add_to_dashboard();
-		$this->container->make( Updated_Attendees::class )->add_to_dashboard();
-		$this->container->make( Checkin::class )->add_to_dashboard();
-		$this->container->make( Orders::class )->add_to_dashboard();
-		$this->container->make( Refunded_Orders::class )->add_to_dashboard();
-
-		$this->container->make( Create_Events::class )->add_to_dashboard();
-		$this->container->make( Update_Events::class )->add_to_dashboard();
-		$this->container->make( Find_Events::class )->add_to_dashboard();
-		$this->container->make( Find_Attendees::class )->add_to_dashboard();
-		$this->container->make( Find_Tickets::class )->add_to_dashboard();
-	}
-
-	/**
-	 * Filters the fields in the Events > Settings > Integrations tab to Zapier settings.
-	 *
-	 * @since TBD Migrated to Common from Event Automator
-	 *
-	 * @param array<string,array> $fields The current fields.
-	 *
-	 * @return array<string,array> The fields, as updated by the settings.
-	 */
-	public function filter_tec_integrations_tab_fields( $fields ) {
-		if ( ! is_array( $fields ) ) {
-			return $fields;
-		}
-
-		return tribe( Settings::class )->add_fields_tec( $fields );
-	}
-
-	/**
-	 * Filters the fields in the Tickets > Settings > Integrations tab to Zapier settings.
-	 *
-	 * @since TBD Migrated to Common from Event Automator
-	 *
-	 * @param array<string,array> $fields The current fields.
-	 *
-	 * @return array<string,array> The fields, as updated by the settings.
-	 */
-	public function filter_et_integrations_tab_fields( $fields ) {
-		if ( ! is_array( $fields ) ) {
-			return $fields;
-		}
-
-		return tribe( Settings::class )->add_fields_et( $fields );
 	}
 
 	/**
