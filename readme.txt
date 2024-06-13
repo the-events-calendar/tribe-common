@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.3.0.1] 2024-06-13 =
+
+* Fix - Issue on which some assets (css,js) would not be located in WP installs which could have some WP constant modified (WP_CONTENT_DIR, WP_PLUGIN_DIR)[TECTRIA-83]
+
 = [5.3.0] 2024-06-11 =
 
 * Feature - Refactor tribe_asset to use Stellar Assets. [TCMN-172]
