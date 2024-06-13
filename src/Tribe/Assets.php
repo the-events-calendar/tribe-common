@@ -353,7 +353,7 @@ class Tribe__Assets {
 			: $arguments['type'];
 
 		// Work out the root path from the origin.
-		$root_path = trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath );
+		$root_path = trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
 		// Fetches the version on the Origin Version constant if not passed.
 		$version = $arguments['version'] ?? constant( $origin_name . '::VERSION' );
