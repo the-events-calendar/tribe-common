@@ -3,6 +3,7 @@
 = [5.3.0.2] 2024-06-14 =
 
 * Fix - Windows Server compatibility issues with updated Assets handling. [TECTRIA-83]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.3.0.1] 2024-06-13 =
 
