@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.3.0.2] 2024-06-14 =
+
+* Fix - Windows Server compatibility issues with updated Assets handling. [TECTRIA-83]
+
 = [5.3.0.1] 2024-06-13 =
 
 * Fix - Issue on which some assets (css,js) would not be located in WP installs which could have some WP constant modified (WP_CONTENT_DIR, WP_PLUGIN_DIR)[TECTRIA-83]
