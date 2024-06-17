@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 5.2.7\n"
+"Project-Id-Version: Tribe Common 5.3.0\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-13T09:38:31-07:00\n"
-"PO-Revision-Date: 2024-05-13 16:38\n"
+"POT-Creation-Date: 2024-06-07T11:39:23-07:00\n"
+"PO-Revision-Date: 2024-06-07 18:39\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: tribe-common\n"
 
@@ -500,13 +500,13 @@ msgstr ""
 #: src/admin-views/notices/tribe-bf-general.php:25
 #: src/admin-views/notices/tribe-stellar-sale-premium.php:24
 #: src/admin-views/notices/tribe-stellar-sale-premium.php:38
-#: src/admin-views/notices/tribe-stellar-sale.php:24
-#: src/admin-views/notices/tribe-stellar-sale.php:38
+#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:61
 msgctxt "Shop now link text"
 msgid "Shop now"
 msgstr ""
 
 #: src/admin-views/notices/tribe-stellar-sale-premium.php:16
+#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:80
 msgid "Make it stellar."
 msgstr ""
 
@@ -515,22 +515,13 @@ msgid "Save 30% on all StellarWP products."
 msgstr ""
 
 #: src/admin-views/notices/tribe-stellar-sale-premium.php:32
-#: src/admin-views/notices/tribe-stellar-sale.php:32
 msgid "Purchase any StellarWP product during the sale and get <b>100%</b> off WP Business Reviews and take <b>40%</b> off all other brands."
 msgstr ""
 
 #: src/admin-views/notices/tribe-stellar-sale-premium.php:46
-#: src/admin-views/notices/tribe-stellar-sale.php:46
+#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:63
 msgctxt "View all StellarWP Deals link text"
 msgid "View all StellarWP Deals"
-msgstr ""
-
-#: src/admin-views/notices/tribe-stellar-sale.php:16
-msgid "Make it yours."
-msgstr ""
-
-#: src/admin-views/notices/tribe-stellar-sale.php:19
-msgid "Save 30% on all The Events Calendar products."
 msgstr ""
 
 #: src/admin-views/notices/upsell/icon.php:19
@@ -1273,6 +1264,42 @@ msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:1245
 msgid "This extension allows you to add custom HTML content to the top of the Community Events submission form."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:58
+msgid "Make it yours."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:59
+msgid "Save 40% on all The Events Calendar products."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:60
+msgid "Take <b>40%</b> off all premium The Events Calendar products during the annual Stellar Sale. Now through July 30."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:74
+msgid "Save 40% on Filter Bar."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:75
+msgid "Add filters to your calendar during the annual Stellar Sale. Now through July 30."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:77
+msgid "Save 40% on The Events Calendar Bundles."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:78
+msgid "Take <b>40%</b> off when you upgrade to a bundle during the annual Stellar Sale. Now through July 30."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:81
+msgid "Save 40% on all StellarWP products."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:82
+msgid "Take <b>40%</b> off all brands during the annual Stellar Sale. Now through July 30."
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Php_Version.php:59

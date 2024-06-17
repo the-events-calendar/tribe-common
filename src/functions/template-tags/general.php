@@ -649,7 +649,7 @@ function tribe_register_error( $indexes, $message ) {
  * Registers an asset.
  *
  * @since 4.3
- * @since TBD Replaced the function internals with calls to the stellarwp/assets library.
+ * @since 5.3.0 Replaced the function internals with calls to the stellarwp/assets library.
  *
  * @param object|string          $origin The origin of the asset, either a class or a string.
  * @param string                 $slug The handle of the asset.
@@ -695,25 +695,32 @@ function tribe_asset( $origin, $slug, $file, $deps = [], $action = null, $argume
 /**
  * Immediately enqueues an asset.
  *
+ * Note if force is set ot `true` (default) this will ignore any
+ * conditional logic set for the asset and enqueue regardless.
+ *
  * @since 4.7
- * @since TBD Refactored to use the `stelarwp/assets` library.
+ * @since 5.3.0 Refactored to use the `stellarwp/assets` library.
  *
  * @param string|array $slug Slug to enqueue
+ * @param bool         $force Whether to force the enqueue or not.
  */
-function tribe_asset_enqueue( $slug ) {
-	Tribe__Assets::instance()->enqueue( $slug );
+function tribe_asset_enqueue( $slug, $force = true ) {
+	Tribe__Assets::instance()->enqueue( $slug, $force );
 }
 
 /**
  * Enqueues assets by groups.
  *
+ * Note if force is set ot `true` (default) this will ignore any
+ * conditional logic set for the asset and enqueue regardless.
+ *
  * @since 4.7
- * @since TBD Refactored to use the `stelarwp/assets` library.
+ * @since 5.3.0 Refactored to use the `stellarwp/assets` library.
  *
  * @param string|array $group  Which group(s) should be enqueued.
  */
-function tribe_asset_enqueue_group( $group ) {
-	Tribe__Assets::instance()->enqueue_group( $group );
+function tribe_asset_enqueue_group( $group, $force = true ) {
+	Tribe__Assets::instance()->enqueue_group( $group, $force );
 }
 
 /**
@@ -724,13 +731,13 @@ function tribe_asset_enqueue_group( $group ) {
  *
  * @param  object $origin     The main Object for the plugin you are enqueueing the script/style for.
  * @param  array  $assets     {
- *  Indexed array, don't use any associative key.
- *  E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ]
+ *      Indexed array, don't use any associative key.
+ *      E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ]
  *
- *    @type  string   $slug       Slug to save the asset.
- *    @type  string   $file       Which file will be loaded, either CSS or JS.
- *    @type  array    $deps       (optional) Dependencies
- * }
+ *        @type  string   $slug       Slug to save the asset.
+ *        @type  string   $file       Which file will be loaded, either CSS or JS.
+ *        @type  array    $deps       (optional) Dependencies
+ *     }
  * @param  string $action     A WordPress hook that will automatically enqueue this asset once fired.
  * @param  array  $arguments  Look at `Tribe__Assets::register()` for more info.
  *
@@ -813,7 +820,6 @@ if ( ! function_exists( 'tribe_set_time_limit' ) ) {
 		if (
 			! function_exists( 'set_time_limit' )
 			&& false !== strpos( ini_get( 'disable_functions' ), 'set_time_limit' )
-			&& ini_get( 'safe_mode' )
 		) {
 			return false;
 		}

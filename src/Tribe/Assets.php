@@ -25,7 +25,7 @@ class Tribe__Assets {
 	 * Register the Methods in the correct places.
 	 *
 	 * @since 4.3
-	 * @since TBD Emptied of all hooks in favor of the stellarwp/assets library.
+	 * @since 5.3.0 Emptied of all hooks in favor of the stellarwp/assets library.
 	 */
 	public function __construct() {
 	}
@@ -33,7 +33,7 @@ class Tribe__Assets {
 	/**
 	 * Hooks the filters used to register the assets.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return void
 	 */
@@ -44,7 +44,7 @@ class Tribe__Assets {
 	/**
 	 * Proxies the generic stellarwp/assets/enqueue filter to apply the TEC ones.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param bool  $enqueue If we should enqueue or not a given asset.
 	 * @param Asset $asset Which asset we are dealing with.
@@ -56,7 +56,7 @@ class Tribe__Assets {
 		 * Allows developers to hook-in and prevent an asset from being loaded.
 		 *
 		 * @since 4.3
-		 * @since TBD Moved here from the `Tribe__Assets` class.
+		 * @since 5.3.0 Moved here from the `Tribe__Assets` class.
 		 *
 		 * @param bool $enqueue If we should enqueue or not a given asset.
 		 * @param object $asset Which asset we are dealing with.
@@ -67,7 +67,7 @@ class Tribe__Assets {
 		 * Allows developers to hook-in and prevent an asset from being loaded.
 		 *
 		 * @since 4.3
-		 * @since TBD Moved here from the `Tribe__Assets` class.
+		 * @since 5.3.0 Moved here from the `Tribe__Assets` class.
 		 *
 		 * @param bool $enqueue If we should enqueue or not a given asset.
 		 * @param object $asset Which asset we are dealing with.
@@ -86,10 +86,10 @@ class Tribe__Assets {
 	 *
 	 * @return string Script tag with the before and after strings attached to it.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 5.3.0
 	 */
 	public function filter_print_before_after_script( $tag, $handle ): string { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-		_deprecated_function( __METHOD__, 'TBD', '' );
+		_deprecated_function( __METHOD__, '5.3.0', '' );
 		return '';
 	}
 
@@ -104,10 +104,10 @@ class Tribe__Assets {
 	 *
 	 * @return string Script tag with the localization variable HTML attached to it.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 5.3.0
 	 */
 	public function filter_add_localization_data( $tag, $handle ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-		_deprecated_function( __METHOD__, 'TBD', '' );
+		_deprecated_function( __METHOD__, '5.3.0', '' );
 		return '';
 	}
 
@@ -121,10 +121,10 @@ class Tribe__Assets {
 	 *
 	 * @return string Script tag with the defer and/or async attached.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 5.3.0
 	 */
 	public function filter_tag_async_defer( $tag, $handle ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-		_deprecated_function( __METHOD__, 'TBD', '' );
+		_deprecated_function( __METHOD__, '5.3.0', '' );
 		return '';
 	}
 
@@ -138,10 +138,10 @@ class Tribe__Assets {
 	 *
 	 * @return string Script tag with the type=module
 	 *
-	 * @deprecated TBD
+	 * @deprecated 5.3.0
 	 */
 	public function filter_modify_to_module( $tag, $handle ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-		_deprecated_function( __METHOD__, 'TBD', '' );
+		_deprecated_function( __METHOD__, '5.3.0', '' );
 		return '';
 	}
 
@@ -153,24 +153,25 @@ class Tribe__Assets {
 	 *
 	 * @return void
 	 *
-	 * @deprecated TBD
+	 * @deprecated 5.3.0
 	 */
 	public function register_in_wp( $assets = null ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
-		_deprecated_function( __METHOD__, 'TBD', '' );
+		_deprecated_function( __METHOD__, '5.3.0', '' );
 	}
 
 	/**
 	 * Enqueues registered assets based on their groups.
 	 *
 	 * @since 4.7
-	 * @since TBD Refactored to use the stellarwp/assets library.
+	 * @since 5.3.0 Refactored to use the stellarwp/assets library.
 	 *
-	 * @uses  Tribe__Assets::enqueue()
+	 * @uses  TEC\Common\StellarWP\Assets\Assets::enqueue_group()
 	 *
-	 * @param string|array $groups Which groups will be enqueued.
+	 * @param string|array $groups           Which groups will be enqueued.
+	 * @param bool         $forcibly_enqueue Whether to ignore conditional requirements when enqueuing.
 	 */
-	public function enqueue_group( $groups ) {
-		Assets::instance()->enqueue_group( $groups );
+	public function enqueue_group( $groups, $forcibly_enqueue = true ) {
+		Assets::instance()->enqueue_group( $groups, $forcibly_enqueue );
 	}
 
 	/**
@@ -183,12 +184,15 @@ class Tribe__Assets {
 	 * registered.
 	 *
 	 * @since 4.3
-	 * @since TBD Refactored to use the stellarwp/assets library.
+	 * @since 5.3.0 Refactored to use the stellarwp/assets library.
 	 *
-	 * @param string|array $forcibly_enqueue Whether to force enqueueing of the assets or not.
+	 * @uses  TEC\Common\StellarWP\Assets\Assets::enqueue()
+	 *
+	 * @param string|array $assets           Which assets to enqueue.
+	 * @param bool         $forcibly_enqueue Whether to ignore conditional requirements when enqueuing.
 	 */
-	public function enqueue( $forcibly_enqueue = null ) {
-		Assets::instance()->enqueue( $forcibly_enqueue );
+	public function enqueue( $assets = [], $forcibly_enqueue = true ) {
+		Assets::instance()->enqueue( $assets, $forcibly_enqueue );
 	}
 
 	/**
@@ -349,12 +353,7 @@ class Tribe__Assets {
 			: $arguments['type'];
 
 		// Work out the root path from the origin.
-		$root_path = str_replace(
-			dirname( WP_CONTENT_DIR ) ?: WP_CONTENT_DIR,
-			'',
-			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath )
-		);
+		$root_path = trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
 		// Fetches the version on the Origin Version constant if not passed.
 		$version = $arguments['version'] ?? constant( $origin_name . '::VERSION' );
@@ -363,7 +362,7 @@ class Tribe__Assets {
 		 * Filter to change version number on assets.
 		 *
 		 * @since 4.3
-		 * @since TBD The second filter argument is now deprecated; added the slug as a third argument.
+		 * @since 5.3.0 The second filter argument is now deprecated; added the slug as a third argument.
 		 *
 		 * @param string $version The version number.
 		 * @param null $deprecated Used to be the asset object, it will now be always null.
@@ -527,10 +526,10 @@ class Tribe__Assets {
 	 *
 	 * @return stdClass
 	 *
-	 * @deprecated TBD
+	 * @deprecated 5.3.0
 	 */
 	public function parse_argument_localize( stdClass $asset ) {
-		_deprecated_function( __METHOD__, 'TBD', '' );
+		_deprecated_function( __METHOD__, '5.3.0', '' );
 		return $asset;
 	}
 
@@ -538,7 +537,7 @@ class Tribe__Assets {
 	 * Removes an Asset from been registered and enqueue.
 	 *
 	 * @since 4.3
-	 * @since TBD Refactored to use the stellarwp/assets library.
+	 * @since 5.3.0 Refactored to use the stellarwp/assets library.
 	 *
 	 * @param  string $slug Slug of the Asset.
 	 *
@@ -553,7 +552,7 @@ class Tribe__Assets {
 	 *
 	 * @since 4.3
 	 * @since 4.11.0  Added $sort param.
-	 * @since TBD Refactored to use the stellarwp/assets library.
+	 * @since 5.3.0 Refactored to use the stellarwp/assets library.
 	 *
 	 * @param string|array $slug Slug of the Asset.
 	 * @param boolean      $sort  If we should do any sorting before returning.
@@ -570,7 +569,7 @@ class Tribe__Assets {
 	 *
 	 * @param  string|array $slug Slug of the Asset.
 	 *
-	 * @since TBD Refactored to use the stellarwp/assets library.
+	 * @since 5.3.0 Refactored to use the stellarwp/assets library.
 	 *
 	 * @return bool
 	 */
@@ -584,7 +583,7 @@ class Tribe__Assets {
 	 * The method will force the scripts and styles to print overriding their registration and conditional.
 	 *
 	 * @since 4.12.6
-	 * @since TBD Refactored to use the stellarwp/assets library.
+	 * @since 5.3.0 Refactored to use the stellarwp/assets library.
 	 *
 	 * @param string|array $group Which group(s) should be enqueued.
 	 * @param bool         $echo  Whether to print the group(s) tag(s) to the page or not; default to `true` to
