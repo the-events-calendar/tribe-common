@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [5.3.0.4] 2024-06-18 =
+
+* Fix - Follow Symlinks in order to locate assets []
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
 = [5.3.0.3] 2024-06-14 =
 
 * Fix - Issue where scripts would not be enqueued as modules. [TECTRIA-86]
