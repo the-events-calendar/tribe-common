@@ -2,6 +2,7 @@
 
 = [5.3.1] TBD =
 
+
 = [5.3.0.4] 2024-06-18 =
 
 * Fix - In installations where the plugins or wp-content directories were symbolic linked, assets would fail to be located. [TECTRIA-91]
