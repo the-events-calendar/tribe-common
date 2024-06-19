@@ -64,7 +64,7 @@ class Controller_Test_Case extends WPTestCase {
 	/**
 	 * ${CARET}
 	 *
-	 * @since TBD
+	 * @since 5.2.7
 	 *
 	 * @var Container
 	 */
@@ -73,7 +73,7 @@ class Controller_Test_Case extends WPTestCase {
 	/**
 	 * Unregisters the original controller and sets up the test case.
 	 *
-	 * @since TBD
+	 * @since 5.2.7
 	 *
 	 * @return void
 	 *
@@ -130,7 +130,7 @@ class Controller_Test_Case extends WPTestCase {
 	/**
 	 * Unregisters all the controllers created by the test case.
 	 *
-	 * @since TBD
+	 * @since 5.2.7
 	 *
 	 * @return void
 	 *
@@ -339,7 +339,7 @@ class Controller_Test_Case extends WPTestCase {
 	/**
 	 * Removes any instance of the controller from any filter or action it might have hooked to.
 	 *
-	 * @since TBD
+	 * @since 5.2.7
 	 *
 	 * @param Controller $original_controller The controller to unhook.
 	 */

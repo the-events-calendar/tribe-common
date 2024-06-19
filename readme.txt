@@ -1,5 +1,45 @@
 == Changelog ==
 
+= [5.3.0.4] 2024-06-18 =
+
+* Fix - In installations where the plugins or wp-content directories were symbolic linked, assets would fail to be located.[TECTRIA-91]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
+
+= [5.3.0.3] 2024-06-14 =
+
+* Fix - Issue where scripts would not be enqueued as modules. [TECTRIA-86]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.3.0.2] 2024-06-14 =
+
+* Fix - Windows Server compatibility issues with updated Assets handling. [TECTRIA-83]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.3.0.1] 2024-06-13 =
+
+* Fix - Issue on which some assets (css,js) would not be located in WP installs which could have some WP constant modified (WP_CONTENT_DIR, WP_PLUGIN_DIR)[TECTRIA-83]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.3.0] 2024-06-11 =
+
+* Feature - Refactor tribe_asset to use Stellar Assets. [TCMN-172]
+* Tweak - Remove ini_check for deprecated safe_mode. [TBD]
+* Tweak - Added information about upcoming promotion. [ET-2113]
+* Tweak - Added filters: `tribe_asset_enqueue_{$asset->get_slug()}`
+* Tweak - Removed filters: `tribe_asset_enqueue_{$asset->slug}`, `tribe_asset_pre_register`
+* Language: 7 new strings added, 5 updated, 2 fuzzied, and 0 obsoleted
+
+= [5.2.7] 2024-05-14 =
+
+* Fix - Add dir/filename of `event-automator` in the Plugins_API to fix CTA button text/links in the Help section. [TEC-5071]
+* Tweak - Add `aria-hidden="true"` to icons so screen readers ignore it. [TEC-5019]
+* Tweak - Updated our `query-string` javascript library to version 6.12. [TEC-5075]
+* Tweak - Add Events Schedule Manager cards in the Help and App Shop admin pages to promote. [TEC-5058]
+* Tweak - Prevent potential conflict by changing all calls to select2 to our internal select2TEC version. [TCMN-170]
+* Tweak - Removed filters: `tec_help_calendar_faqs`, `tec_help_calendar_extensions`, `tec_help_calendar_products`, `tec_help_ticketing_faqs`, `tec_help_ticketing_extensions`, `tec_help_ticketing_products`
+* Tweak - Changed views: `v2/components/icons/arrow-right`, `v2/components/icons/caret-down`, `v2/components/icons/caret-left`, `v2/components/icons/caret-right`, `v2/components/icons/search`
+* Language - 6 new strings added, 161 updated, 2 fuzzied, and 0 obsoleted
+
 = [5.2.6] 2024-04-18 =
 
 * Tweak - Added the `position` parameter for submenu pages on the admin pages class. [ET-1707]
