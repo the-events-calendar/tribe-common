@@ -353,12 +353,10 @@ class Tribe__Assets {
 			: $arguments['type'];
 
 		// Work out the root path from the origin.
-		$root_path = str_replace(
-			dirname( WP_CONTENT_DIR ) ?: WP_CONTENT_DIR,
-			'',
-			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath )
-		);
+		$root_path = trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+
+		// Follow symlinks.
+		$root_path = str_replace( trailingslashit( dirname( dirname( dirname( dirname( __DIR__ ) ) ) ) ), trailingslashit( WP_PLUGIN_DIR ), $root_path );
 
 		// Fetches the version on the Origin Version constant if not passed.
 		$version = $arguments['version'] ?? constant( $origin_name . '::VERSION' );
