@@ -21,7 +21,7 @@
 <?php $this->template( '/components/loader' ); ?>
 
 <h3 id="tec-power-automate-application-credentials" class="tec-settings-power-automate-application__title">
-	<?php echo esc_html_x( 'Power Automate', 'API connection header', 'event-automator' ); ?>
+	<?php echo esc_html_x( 'Power Automate', 'API connection header', 'tribe-common' ); ?>
 </h3>
 <p class="tec-settings-power-automate-application__description">
 	<?php
@@ -30,7 +30,7 @@
 			esc_html_x(
 				'Please generate a connection for each of our applications you are using with Power Automate to enable its integrations. i.e.: one connection for The Events Calendar and one connection for Event Tickets.',
 				'Settings help text for Power Automate API.',
-				'event-automator'
+				'tribe-common'
 			),
 	);
 	?>
@@ -44,7 +44,7 @@
 			esc_html_x(
 			'Read more about adding and managing access.',
 			'Settings link text for Power Automate API.',
-			'event-automator'
+			'tribe-common'
 			)
 	);
 	?>

@@ -19,7 +19,7 @@
  */
 
 $revoke_link  = $url->to_delete_connection_link( $consumer_id );
-$revoke_label = _x( 'Delete', 'Removes a connection from the list of integration connections.', 'event-automator' )
+$revoke_label = _x( 'Delete', 'Removes a connection from the list of integration connections.', 'tribe-common' )
 ?>
 <div class="tec-automator-grid-item tec-automator-settings-details-action__delete-wrap">
 	<button

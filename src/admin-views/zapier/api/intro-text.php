@@ -21,7 +21,7 @@
 <?php $this->template( '/components/loader' ); ?>
 
 <h3 id="tec-zapier-application-credentials" class="tec-settings-zapier-application__title">
-	<?php echo esc_html_x( 'Zapier', 'API connection header', 'event-automator' ); ?>
+	<?php echo esc_html_x( 'Zapier', 'API connection header', 'tribe-common' ); ?>
 </h3>
 <p class="tec-settings-zapier-application__description">
 	<?php
@@ -30,7 +30,7 @@
 			esc_html_x(
 				'Please generate a consumer id and secret for each of our applications you are using with Zapier to enable its integrations. i.e.: one consumer id and secret for The Events Calendar and one consumer id and secret for Event Tickets.',
 				'Settings help text for Zapier API.',
-				'event-automator'
+				'tribe-common'
 			),
 	);
 	?>
@@ -44,7 +44,7 @@
 			esc_html_x(
 			'Read more about adding and managing access.',
 			'Settings link text for Zapier API.',
-			'event-automator'
+			'tribe-common'
 			)
 	);
 	?>

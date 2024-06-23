@@ -23,7 +23,7 @@ if ( $endpoint['type'] !== 'queue' || ! $endpoint['enabled'] || $endpoint['missi
 }
 
 $clear_link  = $url->to_clear_endpoint_queue( $endpoint['id'] );
-$clear_label = _x( 'Clear Queue', 'Clears a integration endpoint queue.', 'event-automator' )
+$clear_label = _x( 'Clear Queue', 'Clears a integration endpoint queue.', 'tribe-common' )
 ?>
 <div class="tec-settings-connection-endpoint-dashboard-details-actions__clear-wrap ">
 	<button
