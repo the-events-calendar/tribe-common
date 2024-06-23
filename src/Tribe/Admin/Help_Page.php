@@ -1110,7 +1110,6 @@ class Tribe__Admin__Help_Page {
 				'events-calendar-pro',
 				'tribe-filterbar',
 				'event-aggregator',
-				'event-automator',
 				'events-virtual',
 				'event-schedule-manager',
 			]

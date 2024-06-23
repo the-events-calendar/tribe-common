@@ -152,7 +152,6 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 				'events-calendar-pro'       => (object) $all_products['events-calendar-pro'],
 				'events-virtual'            => (object) $all_products['events-virtual'],
 				'event-aggregator'          => (object) $all_products['event-aggregator'],
-				'event-automator'           => (object) $all_products['event-automator'],
 				'event-tickets'             => (object) $all_products['event-tickets'],
 				'event-tickets-plus'        => (object) $all_products['event-tickets-plus'],
 				'event-tickets-wallet-plus' => (object) $all_products['event-tickets-wallet-plus'],
