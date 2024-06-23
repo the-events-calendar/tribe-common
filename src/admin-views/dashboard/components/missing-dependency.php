@@ -25,10 +25,10 @@ if ( empty( $endpoint['dependents'] ) ) {
 
 switch ( $endpoint['dependents'][0] ) {
 	case 'tec':
-		$dependency = '<a href="https://wordpress.org/plugins/the-events-calendar/">' . _x( 'The Events Calendar', 'The name of the missing dependent plugin for a Integration Endpoint.', 'event-automator' ) . '</a>';
+		$dependency = '<a href="https://wordpress.org/plugins/the-events-calendar/">' . _x( 'The Events Calendar', 'Name of missing dependency for Endpoint.', 'event-automator' ) . '</a>';
 		break;
 	case 'et':
-		$dependency = '<a href="https://wordpress.org/plugins/event-tickets/">' . _x( 'Event Tickets', 'The name of the missing dependent plugin for a Integration Endpoint.', 'event-automator' ) . '</a>';
+		$dependency = '<a href="https://wordpress.org/plugins/event-tickets/">' . _x( 'Event Tickets', 'Name of missing dependency for Endpoint.', 'event-automator' ) . '</a>';
 		break;
 }
 
@@ -43,8 +43,8 @@ $tooltip = [
 ];
 ?>
 <div class="tec-settings-connection-endpoint-dashboard-details-actions__missing-dependency-wrap">
-	<?php echo esc_html_x( 'Endpoint Disabled', 'Missing dependency label in the settings.', 'event-automator' ); ?>
 	<?php
+	echo esc_html_x( 'Endpoint Disabled', 'Missing dependency label in the settings.', 'event-automator' );
 	$this->template( 'components/tooltip', $tooltip );
 	?>
 </div>
