@@ -25,8 +25,8 @@
 		'zapier/api/components/read-only',
 		[
 			'classes_wrap'  => [ 'tec-automator-grid-item', 'tec-settings-connection-endpoint-dashboard-details__name-wrap', ! $endpoint['enabled'] || $endpoint['missing_dependency'] ? 'disabled' : '' ],
-			'label'         => _x( 'Name', 'Label for the Zapier Endpoint Dashboard endpoint name.', 'event-automator' ),
-			'screen_reader' => _x( 'The name for the Zapier endpoint.', 'The screen reader text of the label for the Zapier Endpoint Dashboard endpoint name.', 'event-automator' ),
+			'label'         => _x( 'Name', 'Label for the Zapier Endpoint Dashboard endpoint name.', 'tribe-common' ),
+			'screen_reader' => _x( 'The name for the Zapier endpoint.', 'The screen reader text of the label for the Zapier Endpoint Dashboard endpoint name.', 'tribe-common' ),
 			'id'            => 'tec_automator_zapier_endpoint_name_' . $endpoint['id'],
 			'name'          => "tec_automator_zapier[]['endpoint_name']",
 			'value'         => $endpoint['display_name'],
@@ -35,14 +35,14 @@
 	?>
 	<?php
 	$last_access_classes = [ 'tec-automator-grid-item', 'tec-settings-connection-endpoint-dashboard-details__last-access-wrap' ];
-	$last_access_label   = _x( 'Last Access', 'Label for the Zapier Endpoint Dashboards endpoint last access.', 'event-automator' );
+	$last_access_label   = _x( 'Last Access', 'Label for the Zapier Endpoint Dashboards endpoint last access.', 'tribe-common' );
 	if ( $endpoint['enabled'] && ! $endpoint['missing_dependency'] ) {
 		$this->template(
 			'zapier/api/components/read-only',
 			[
 				'classes_wrap'  => $last_access_classes,
 				'label'         => $last_access_label,
-				'screen_reader' => _x( 'The last access for the Zapier endpoint.', 'The screen reader text of the label for the Zapier Endpoint Dashboard endpoint last access.', 'event-automator' ),
+				'screen_reader' => _x( 'The last access for the Zapier endpoint.', 'The screen reader text of the label for the Zapier Endpoint Dashboard endpoint last access.', 'tribe-common' ),
 				'id'            => 'tec_automator_zapier_endpoint_last_access_' . $endpoint['id'],
 				'name'          => "tec_automator_zapier[]['endpoint_last_access']",
 				'value'         => str_replace( '|', ' - ', $endpoint['last_access'] ),
@@ -54,21 +54,21 @@
 			[
 				'classes_wrap'  => $last_access_classes,
 				'label'         => $last_access_label,
-				'screen_reader' => _x( 'The last access is disabled as this endpoint is disabled.', 'The screen reader text of the label for the Zapier Endpoint Dashboard endpoint last access when disabled.', 'event-automator' ),
+				'screen_reader' => _x( 'The last access is disabled as this endpoint is disabled.', 'The screen reader text of the label for the Zapier Endpoint Dashboard endpoint last access when disabled.', 'tribe-common' ),
 			]
 		);
 	}
 	?>
 	<?php
 	$queue_classes = [ 'tec-automator-grid-item', 'tec-settings-connection-endpoint-dashboard-details__queue-wrap' ];
-	$queue_label   = _x( 'Queue', 'Label for the Zapier Endpoint Dashboards endpoint queue.', 'event-automator' );
+	$queue_label   = _x( 'Queue', 'Label for the Zapier Endpoint Dashboards endpoint queue.', 'tribe-common' );
 	if ( $endpoint['type'] === 'queue' && $endpoint['enabled'] ) {
 		$this->template(
 			'zapier/api/components/read-only',
 			[
 				'classes_wrap'  => $queue_classes,
 				'label'         => $queue_label,
-				'screen_reader' => _x( 'The Queue for the Zapier endpoint.', 'The screen reader text of the label for the Zapier Endpoint Dashboard endpoint queue.', 'event-automator' ),
+				'screen_reader' => _x( 'The Queue for the Zapier endpoint.', 'The screen reader text of the label for the Zapier Endpoint Dashboard endpoint queue.', 'tribe-common' ),
 				'id'            => 'tec_automator_zapier_endpoint_queue_' . $endpoint['id'],
 				'name'          => "tec_automator_zapier[]['endpoint_queue']",
 				'value'         => $endpoint['count'],
@@ -80,7 +80,7 @@
 			[
 				'classes_wrap'  => $queue_classes,
 				'label'         => $queue_label,
-				'screen_reader' => _x( 'The Queue is disabled for this Zapier endpoint.', 'The screen reader text of the label for the Zapier Endpoint Dashboard endpoint queue when disabled.', 'event-automator' ),
+				'screen_reader' => _x( 'The Queue is disabled for this Zapier endpoint.', 'The screen reader text of the label for the Zapier Endpoint Dashboard endpoint queue when disabled.', 'tribe-common' ),
 			]
 		);
 	}

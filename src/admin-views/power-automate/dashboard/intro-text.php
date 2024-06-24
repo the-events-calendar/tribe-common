@@ -17,7 +17,7 @@
 <?php $this->template( '/components/loader' ); ?>
 
 <h3 id="tec-power-automate-endpoint-dashboard" class="tec-settings-power-automate-application__title">
-	<?php echo esc_html_x( 'Power Automate Endpoint Dashboard', 'Power Automate settings endpoint dashboard header', 'event-automator' ); ?>
+	<?php echo esc_html_x( 'Power Automate Endpoint Dashboard', 'Power Automate settings endpoint dashboard header', 'tribe-common' ); ?>
 </h3>
 <p class="tec-settings-power-automate-application__description">
 	<?php
@@ -26,7 +26,7 @@
 			esc_html_x(
 				'Monitor your Power Automate endpoints (triggers and actions used by your connectors).',
 				'Settings help text for Power Automate Endpoint Dashboard.',
-				'event-automator'
+				'tribe-common'
 			),
 	);
 	?>
@@ -40,7 +40,7 @@
 			esc_html_x(
 			'Read more about the Power Automate Endpoint Dashboard.',
 			'Settings link text for Power Automate endpoint dashboard.',
-			'event-automator'
+			'tribe-common'
 			)
 	);
 	?>

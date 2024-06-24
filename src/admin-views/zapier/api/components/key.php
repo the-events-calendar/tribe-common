@@ -38,7 +38,7 @@
 		</div>
 		<div class="ec-automator-settings__copy-btn-wrap">
 			<button class="tec-automator-settings__copy-btn" data-clipboard-text="<?php echo trim( esc_html( $value ) ); ?>" >
-				<span class="dashicons dashicons-admin-page"></span> <span class="tec-automator-settings__copy-btn-text"><?php echo esc_attr_x( 'Copy', 'Button text for copying the consumer id or secret.', 'event-automator' ); ?></span>
+				<span class="dashicons dashicons-admin-page"></span> <span class="tec-automator-settings__copy-btn-text"><?php echo esc_attr_x( 'Copy', 'Button text for copying the consumer id or secret.', 'tribe-common' ); ?></span>
 			</button>
 		</div>
 	</fieldset>
