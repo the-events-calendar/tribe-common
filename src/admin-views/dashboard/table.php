@@ -19,7 +19,7 @@
  */
 ?>
 <fieldset id="tec-field-integration_token" class="tec-automator-endpoint-dashboard tribe-field tribe-field-text tribe-size-medium">
-	<legend class="tribe-field-label"><?php echo esc_html_x( 'Endpoint Dashboard', 'The legend for the integration endpoint dashboard.','event-automator' ); ?></legend>
+	<legend class="tribe-field-label"><?php echo esc_html_x( 'Endpoint Dashboard', 'The legend for the integration endpoint dashboard.','tribe-common' ); ?></legend>
 	<?php if ( $manager::$api_id === 'zapier' ) { ?>
 		<p class="tec-settings-zapier-application__description">
 			<?php
@@ -28,7 +28,7 @@
 					esc_html_x(
 						'The Zapier queue is currently limited to 15 items for each endpoint on your site. To increase that limit, check out the %1$sIncreasing the Zapier Queue Limit knowledgebase article%2$s.',
 						'The Zapier endpoint dashboard description.',
-						'event-automator'
+						'tribe-common'
 					),
 						'<a href="https://evnt.is/1bda" target="_blank">',
 						'</a>',

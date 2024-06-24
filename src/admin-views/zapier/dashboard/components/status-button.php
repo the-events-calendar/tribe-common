@@ -24,12 +24,12 @@ if ( $endpoint['missing_dependency'] ) {
 }
 
 $link  = $url->to_enable_endpoint_queue( $endpoint['id'] );
-$label = _x( 'Enable', 'Enables a Zapier endpoint.', 'event-automator' );
+$label = _x( 'Enable', 'Enables a Zapier endpoint.', 'tribe-common' );
 $confirmation = $manager->get_confirmation_to_enable_endpoint();
 $type = 'enable';
 if ( $endpoint['enabled'] ) {
 	$link  = $url->to_disable_endpoint_queue( $endpoint['id'] );
-	$label = _x( 'Disable', 'Disables a Zapier endpoint queue.', 'event-automator' );
+	$label = _x( 'Disable', 'Disables a Zapier endpoint queue.', 'tribe-common' );
 	$confirmation = $manager->get_confirmation_to_disable_endpoint( $endpoint['type'] );
 	$type = 'disable';
 }

@@ -22,7 +22,7 @@
 $keys = $api->get_list_of_api_keys( true );
 ?>
 <fieldset id="tec-field-power_automate_token" class="tec-automator-api-fields tribe-field tribe-field-text tribe-size-medium">
-	<legend class="tribe-field-label"><?php esc_html_e( 'API Keys', 'event-automator' ); ?></legend>
+	<legend class="tribe-field-label"><?php esc_html_e( 'API Keys', 'tribe-common' ); ?></legend>
 	<div class="tec-automator-settings-message__wrap tec-power-automate-api-keys-messages">
 		<?php
 		$this->template( 'components/message', [

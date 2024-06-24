@@ -29,8 +29,8 @@
 	<?php
 	$this->template( 'zapier/api/components/read-only', [
 		'classes_wrap'  => [ 'tec-automator-grid-item', 'tec-settings-zapier-details-api-key__name-wrap' ],
-		'label'         => _x( 'Description', 'Label for the name of the API Key for Zapier.', 'event-automator' ),
-		'screen_reader' => _x( 'The name for the Zapier API Key.', 'The screen reader text of the label for the Zapier API Key name.', 'event-automator' ),
+		'label'         => _x( 'Description', 'Label for the name of the API Key for Zapier.', 'tribe-common' ),
+		'screen_reader' => _x( 'The name for the Zapier API Key.', 'The screen reader text of the label for the Zapier API Key name.', 'tribe-common' ),
 		'id'            => "tec_automator_zapier_name_" . $consumer_id,
 		'name'          => "tec_automator_zapier[]['name']",
 		'value'         => $api_key['name'],
@@ -41,8 +41,8 @@
 	$user = get_user_by( 'id', $api_key['user_id'] );
 	$this->template( 'zapier/api/components/read-only', [
 		'classes_wrap'  => [ 'tec-automator-grid-item', 'tec-settings-zapier-details-api-key__user-wrap' ],
-		'label'         => _x( 'User', 'Label for the user of the API Key for Zapier.', 'event-automator' ),
-		'screen_reader' => _x( 'The user for the Zapier API Key.', 'The screen reader text of the label for the Zapier API Key user.', 'event-automator' ),
+		'label'         => _x( 'User', 'Label for the user of the API Key for Zapier.', 'tribe-common' ),
+		'screen_reader' => _x( 'The user for the Zapier API Key.', 'The screen reader text of the label for the Zapier API Key user.', 'tribe-common' ),
 		'id'            => "tec_automator_zapier_user_" . $consumer_id,
 		'name'          => "tec_automator_zapier[]['user']",
 		'value'         => $user->user_login,
@@ -52,8 +52,8 @@
 	<?php
 	$this->template( 'zapier/api/components/read-only', [
 		'classes_wrap'  => [ 'tec-automator-grid-item', 'tec-settings-zapier-details-api-key__permissions-wrap' ],
-		'label'         => _x( 'Permissions', 'Label for the permissions of the API Key for Zapier.', 'event-automator' ),
-		'screen_reader' => _x( 'The permissions for the Zapier API Key.', 'The screen reader text of the label for the Zapier API Key permissions.', 'event-automator' ),
+		'label'         => _x( 'Permissions', 'Label for the permissions of the API Key for Zapier.', 'tribe-common' ),
+		'screen_reader' => _x( 'The permissions for the Zapier API Key.', 'The screen reader text of the label for the Zapier API Key permissions.', 'tribe-common' ),
 		'id'            => "tec_automator_zapier_permissions_" . $consumer_id,
 		'name'          => "tec_automator_zapier[]['permissions']",
 		'value'         => $api_key['permissions'],
@@ -63,8 +63,8 @@
 	<?php
 	$this->template( 'zapier/api/components/read-only', [
 		'classes_wrap'  => [ 'tec-automator-grid-item', 'tec-settings-zapier-details-api-key__last-access-wrap' ],
-		'label'         => _x( 'Last Access', 'Label for the last access of the API Key for Zapier.', 'event-automator' ),
-		'screen_reader' => _x( 'The last access for the Zapier API Key.', 'The screen reader text of the label for the Zapier API Key last access.', 'event-automator' ),
+		'label'         => _x( 'Last Access', 'Label for the last access of the API Key for Zapier.', 'tribe-common' ),
+		'screen_reader' => _x( 'The last access for the Zapier API Key.', 'The screen reader text of the label for the Zapier API Key last access.', 'tribe-common' ),
 		'id'            => "tec_automator_zapier_last_access_" . $consumer_id,
 		'name'          => "tec_automator_zapier[]['last_access']",
 		'value'         => str_replace( '|', ' - ', $api_key['last_access'] ),

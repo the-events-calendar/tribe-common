@@ -26,22 +26,22 @@ if ( empty( $endpoint['dependents'] ) ) {
 $dependents = [];
 foreach ( $endpoint['dependents'] as $dependent ) {
 	if ( $dependent === 'tec') {
-		$dependents[] = _x( 'The Events Calendar', 'The of the missing dependent plugin for a Zapier Endpoint.','event-automator' );
+		$dependents[] = _x( 'The Events Calendar', 'The of the missing dependent plugin for a Zapier Endpoint.','tribe-common' );
 	}
 	if ( $dependent === 'et') {
-		$dependents[] = _x( 'Event Tickets', 'The of the missing dependent plugin for a Zapier Endpoint.','event-automator' );
+		$dependents[] = _x( 'Event Tickets', 'The of the missing dependent plugin for a Zapier Endpoint.','tribe-common' );
 	}
 }
 $tooltip      = [
 		'classes_wrap'  => [ 'tec-settings-connection-endpoint-dashboard-details__tooltip' ],
 		'message'   => sprintf( '%1s %2s',
-			_x( 'Missing ', 'Missing dependency message in the settings.', 'event-automator' ),
+			_x( 'Missing ', 'Missing dependency message in the settings.', 'tribe-common' ),
 			implode( ' and ', $dependents )
 		),
 	];
 ?>
 	<div class="tec-settings-connection-endpoint-dashboard-details-actions__missing-dependency-wrap">
-		<?php echo esc_html_x( 'Endpoint Disabled', 'Missing dependency label in the settings.', 'event-automator' ); ?>
+		<?php echo esc_html_x( 'Endpoint Disabled', 'Missing dependency label in the settings.', 'tribe-common' ); ?>
 		<?php $this->template( 'components/tooltip', $tooltip );
 		?>
 	</div>
