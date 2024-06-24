@@ -28,7 +28,7 @@ class Assets {
 			\Tribe__Main::instance(),
 			'tec-event-automator-js',
 			'tec-event-automator.js',
-			[ 'jquery' ],
+			[ 'jquery', 'tribe-dropdowns', 'tribe-clipboard' ],
 			'admin_enqueue_scripts',
 			[
 				'conditionals' => [
