@@ -21,6 +21,7 @@
  * @var string|int           $checked       Whether the switch is enabled or not.
  * @var array<string,string> $attrs         Associative array of attributes of the switch.
  */
+
 $switch_wrap_classes = [ 'tribe-common-control', 'tribe-common-control--switch' ];
 if ( ! empty( $classes_wrap ) ) {
 	$switch_wrap_classes = array_merge( $switch_wrap_classes, $classes_wrap );
@@ -46,7 +47,7 @@ if ( ! empty( $classes_label ) ) {
 		type="checkbox"
 		value="<?php echo esc_attr( $value ); ?>"
 		<?php checked( true, tribe_is_truthy( $checked ) ); ?>
-		<?php tribe_attributes( $attrs ) ?>
+		<?php tribe_attributes( $attrs ); ?>
 	/>
 
 	<label <?php tribe_classes( $switch_label_classes ); ?> for="<?php echo esc_attr( $id ); ?>">

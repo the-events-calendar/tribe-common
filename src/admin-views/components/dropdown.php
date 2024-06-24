@@ -46,24 +46,27 @@ if ( empty( $wrap_attrs ) ) {
 ?>
 <div
 	<?php tribe_classes( $wrap_classes ); ?>
-	<?php tribe_attributes( $wrap_attrs ) ?>
+	<?php tribe_attributes( $wrap_attrs ); ?>
 >
 	<label
 		<?php tribe_classes( $label_classes ); ?>
 		for="<?php echo esc_attr( $id ); ?>"
 	>
 		<?php echo esc_html( $label ); ?>
-	</label><?php // Move opening and closing php tags next to html tags to prevent whitespace and alignment issues.
+	</label>
+	<?php
+	// Move opening and closing php tags next to html tags to prevent whitespace and alignment issues.
 	if ( ! empty( $tooltip['message'] ) ) {
 		$this->template( 'components/tooltip', $tooltip );
 	}
-	?><select
+	?>
+	<select
 		id="<?php echo esc_attr( $id ); ?>"
 		name="<?php echo esc_attr( $name ); ?>"
 		<?php tribe_classes( $select_classes ); ?>
 		value="<?php echo esc_attr( $selected ); ?>"
 		style="width: 100%;" <?php /* This is required for selectWoo styling to prevent select box overflow */ ?>
-		<?php tribe_attributes( $attrs ) ?>
+		<?php tribe_attributes( $attrs ); ?>
 	>
 	</select>
 </div>

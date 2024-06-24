@@ -23,10 +23,14 @@ $this->template( 'dashboard/endpoints/list-header', [] );
 
 foreach ( $endpoints as $endpoint ) : ?>
 	<?php
-	$this->template( 'dashboard/endpoints/endpoint', [
-		'endpoint' => $endpoint,
-		'manager'  => $manager,
-		'url'      => $url,
-	] );
+	$this->template(
+		'dashboard/endpoints/endpoint',
+		[
+			'endpoint' => $endpoint,
+			'manager'  => $manager,
+			'url'      => $url,
+		] 
+	);
 	?>
-<?php endforeach; ?>
+	<?php
+endforeach; 

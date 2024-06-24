@@ -17,21 +17,22 @@
  * @var Endpoints_Manager   $manager   The Endpoint Manager instance.
  * @var Url                 $url       The URLs handler for the integration.
  */
+
 ?>
 <fieldset id="tec-field-integration_token" class="tec-automator-endpoint-dashboard tribe-field tribe-field-text tribe-size-medium">
-	<legend class="tribe-field-label"><?php echo esc_html_x( 'Endpoint Dashboard', 'The legend for the integration endpoint dashboard.','tribe-common' ); ?></legend>
+	<legend class="tribe-field-label"><?php echo esc_html_x( 'Endpoint Dashboard', 'The legend for the integration endpoint dashboard.', 'tribe-common' ); ?></legend>
 	<?php if ( $manager::$api_id === 'zapier' ) { ?>
 		<p class="tec-settings-zapier-application__description">
 			<?php
-				echo sprintf(
+				printf(
 					/* Translators: 1: Opening anchor tag, 2: Closing anchor tag. */
 					esc_html_x(
 						'The Zapier queue is currently limited to 15 items for each endpoint on your site. To increase that limit, check out the %1$sIncreasing the Zapier Queue Limit knowledgebase article%2$s.',
 						'The Zapier endpoint dashboard description.',
 						'tribe-common'
 					),
-						'<a href="https://evnt.is/1bda" target="_blank">',
-						'</a>',
+					'<a href="https://evnt.is/1bda" target="_blank">',
+					'</a>',
 				);
 			?>
 		</p>
@@ -40,11 +41,14 @@
 	</div>
 	<div class="tec-automator-settings-items__wrap tec-integration-endpoint-dashboard-wrap event-automator">
 		<?php
-		$this->template( 'dashboard/endpoints/list', [
-			'endpoints' => $endpoints,
-			'manager'   => $manager,
-			'url'       => $url,
-		] );
+		$this->template(
+			'dashboard/endpoints/list',
+			[
+				'endpoints' => $endpoints,
+				'manager'   => $manager,
+				'url'       => $url,
+			]
+		);
 		?>
 	</div>
 </fieldset>

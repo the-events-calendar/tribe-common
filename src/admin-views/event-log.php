@@ -6,6 +6,7 @@
  * @var array  $log_entries
  * @var string $download_url
  */
+
 ?>
 <div id="tribe-log-controls">
 
@@ -18,15 +19,15 @@
 	?>
 
 	<div>
-		<label for="log-levels"><?php esc_html_e( 'Logging level', 'tribe-common' ) ?></label>
+		<label for="log-levels"><?php esc_html_e( 'Logging level', 'tribe-common' ); ?></label>
 		<select
 			class="tribe-dropdown"
 			name="log-level"
 			id="log-level"
 		>
-			<?php foreach ( $log_levels as $code => $name ): ?>
-				<option name="<?php echo esc_attr( $code ) ?>" <?php selected( $code, tribe_get_option( 'logging_level') ); ?>>
-					<?php echo esc_html( $name ) ?>
+			<?php foreach ( $log_levels as $code => $name ) : ?>
+				<option name="<?php echo esc_attr( $code ); ?>" <?php selected( $code, tribe_get_option( 'logging_level' ) ); ?>>
+					<?php echo esc_html( $name ); ?>
 				</option>
 			<?php endforeach; ?>
 		</select>
@@ -40,15 +41,15 @@
 	?>
 
 	<div>
-		<label for="log-engine"><?php esc_html_e( 'Method', 'tribe-common' ) ?></label>
+		<label for="log-engine"><?php esc_html_e( 'Method', 'tribe-common' ); ?></label>
 		<select
 			class="tribe-dropdown"
 			name="log-engine"
 			id="log-engine"
 		>
-			<?php foreach ( $log_engines as $code => $name ): ?>
-				<option name="<?php echo esc_attr( $code ) ?>" <?php selected( $code, tribe_get_option( 'logging_engine') ); ?>>
-					<?php echo esc_html( $name ) ?>
+			<?php foreach ( $log_engines as $code => $name ) : ?>
+				<option name="<?php echo esc_attr( $code ); ?>" <?php selected( $code, tribe_get_option( 'logging_engine' ) ); ?>>
+					<?php echo esc_html( $name ); ?>
 				</option>
 			<?php endforeach; ?>
 		</select>
@@ -62,14 +63,14 @@
 	?>
 
 	<div>
-		<label for="log-selector"><?php esc_html_e( 'View', 'tribe-common' ) ?></label>
+		<label for="log-selector"><?php esc_html_e( 'View', 'tribe-common' ); ?></label>
 		<select
 			class="tribe-dropdown"
 			name="log-selector"
 			id="log-selector"
 		>
-			<?php foreach ( $log_choices as $name ): ?>
-				<option name="<?php echo esc_attr( $name ) ?>"><?php echo esc_html( $name ) ?></option>
+			<?php foreach ( $log_choices as $name ) : ?>
+				<option name="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $name ); ?></option>
 			<?php endforeach; ?>
 		</select>
 	</div>
@@ -96,14 +97,14 @@
 </div>
 
 <div id="tribe-log-viewer">
-	<?php if ( empty( $log_entries ) ): ?>
+	<?php if ( empty( $log_entries ) ) : ?>
 		<p><?php esc_html_e( 'The selected log file is empty or has not been generated yet.', 'tribe-common' ); ?></p>
-	<?php else: ?>
+	<?php else : ?>
 
 	<table>
-		<?php foreach ( $log_entries as $data ): ?>
+		<?php foreach ( $log_entries as $data ) : ?>
 			<tr>
-				<?php foreach ( $data as $single_cell ): ?>
+				<?php foreach ( $data as $single_cell ) : ?>
 					<td><?php echo esc_html( $single_cell ); ?></td>
 				<?php endforeach; ?>
 			</tr>
@@ -114,4 +115,4 @@
 
 </div>
 
-<p> <a href="<?php echo esc_url( $download_url ) ?>" class="download_log" target="_blank"><?php esc_html_e( 'Download log', 'tribe-common' ); ?> </a> </p>
+<p> <a href="<?php echo esc_url( $download_url ); ?>" class="download_log" target="_blank"><?php esc_html_e( 'Download log', 'tribe-common' ); ?> </a> </p>

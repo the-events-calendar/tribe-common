@@ -25,24 +25,26 @@ if ( empty( $endpoint['dependents'] ) ) {
 
 $dependents = [];
 foreach ( $endpoint['dependents'] as $dependent ) {
-	if ( $dependent === 'tec') {
-		$dependents[] = _x( 'The Events Calendar', 'The name of the missing dependent plugin for a Integration Endpoint.','tribe-common' );
+	if ( $dependent === 'tec' ) {
+		$dependents[] = _x( 'The Events Calendar', 'The name of the missing dependent plugin for a Integration Endpoint.', 'tribe-common' );
 	}
-	if ( $dependent === 'et') {
-		$dependents[] = _x( 'Event Tickets', 'The name of the missing dependent plugin for a Integration Endpoint.','tribe-common' );
+	if ( $dependent === 'et' ) {
+		$dependents[] = _x( 'Event Tickets', 'The name of the missing dependent plugin for a Integration Endpoint.', 'tribe-common' );
 	}
 }
-$tooltip      = [
-		'classes_wrap'  => [ 'tec-settings-connection-endpoint-dashboard-details__tooltip' ],
-		'message'   => sprintf( '%1s %2s',
-			_x( 'Missing ', 'Missing dependency message in the settings.', 'tribe-common' ),
-			implode( ' and ', $dependents )
-		),
-	];
+$tooltip = [
+	'classes_wrap' => [ 'tec-settings-connection-endpoint-dashboard-details__tooltip' ],
+	'message'      => sprintf(
+		'%1s %2s',
+		_x( 'Missing ', 'Missing dependency message in the settings.', 'tribe-common' ),
+		implode( ' and ', $dependents )
+	),
+];
 ?>
 	<div class="tec-settings-connection-endpoint-dashboard-details-actions__missing-dependency-wrap">
 		<?php echo esc_html_x( 'Endpoint Disabled', 'Missing dependency label in the settings.', 'tribe-common' ); ?>
-		<?php $this->template( 'components/tooltip', $tooltip );
+		<?php
+		$this->template( 'components/tooltip', $tooltip );
 		?>
 	</div>
 <?php

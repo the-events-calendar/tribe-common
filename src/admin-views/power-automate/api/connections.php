@@ -25,28 +25,37 @@ $keys = $api->get_list_of_api_keys( true );
 	<legend class="tribe-field-label"><?php esc_html_e( 'API Keys', 'tribe-common' ); ?></legend>
 	<div class="tec-automator-settings-message__wrap tec-power-automate-api-keys-messages">
 		<?php
-		$this->template( 'components/message', [
-			'message' => $message,
-			'type'    => 'standard',
-		] );
+		$this->template(
+			'components/message',
+			[
+				'message' => $message,
+				'type'    => 'standard',
+			] 
+		);
 		?>
 	</div>
 	<div class="tec-automator-settings-items__wrap tec-power-automate-api-keys-wrap event-automator">
 		<?php
-		$this->template( 'power-automate/api/list/list', [
-			'api'         => $api,
-			'url'         => $url,
-			'connections' => $keys,
-			'users'       => $users,
-		] );
+		$this->template(
+			'power-automate/api/list/list',
+			[
+				'api'         => $api,
+				'url'         => $url,
+				'connections' => $keys,
+				'users'       => $users,
+			] 
+		);
 		?>
 	</div>
 	<div class="tec-power-automate-add-wrap">
 		<?php
-		$this->template( 'components/integration/add-connection', [
-			'api' => $api,
-			'url' => $url,
-		] );
+		$this->template(
+			'components/integration/add-connection',
+			[
+				'api' => $api,
+				'url' => $url,
+			] 
+		);
 		?>
 	</div>
 </fieldset>

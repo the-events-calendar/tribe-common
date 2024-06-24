@@ -23,8 +23,8 @@ $add_label = _x( 'Create', 'Create a integration connection access token or cons
 <button
 	class="tec-automator-settings-details-action__generate button-primary"
 	type="button"
-	data-ajax-generate-url="<?php echo $add_link; ?>"
-	data-generate-error="<?php echo _x( 'Description or User missing. Please add a description and select a user before create the access information.', 'An error message that the description or user is missing when creating access information for an integration connection. ', 'tribe-common'); ?>"
+	data-ajax-generate-url="<?php echo esc_url( $add_link ); ?>"
+	data-generate-error="<?php echo esc_attr_x( 'Description or User missing. Please add a description and select a user before create the access information.', 'An error message that the description or user is missing when creating access information for an integration connection. ', 'tribe-common' ); ?>"
 >
 	<span>
 		<?php echo esc_html( $add_label ); ?>

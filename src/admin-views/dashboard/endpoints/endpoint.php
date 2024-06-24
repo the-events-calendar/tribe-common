@@ -17,6 +17,7 @@
  * @var Endpoints_Manager   $manager   The Endpoint Manager instance.
  * @var Url                 $url       The URLs handler for the integration.
  */
+
 ?>
 
 <div class="tec-automator-grid tec-automator-grid-row tec-automator-endpoint-dashboard-grid tec-automator-settings-details__container tec-settings-connection-endpoint-dashboard-details__container" data-endpoint-id="<?php echo esc_attr( $endpoint['id'] ); ?>">

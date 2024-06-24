@@ -27,41 +27,52 @@
 	data-consumer-id="<?php echo esc_attr( $consumer_id ); ?>"
 >
 	<?php
-	$this->template( 'components/text', [
-		'classes_wrap'  => [ 'tec-automator-grid-item', 'tec-settings-zapier-details-api-key__name-wrap' ],
-		'classes_label' => [ 'screen-reader-text', 'tec-settings-zapier-details-api-key__name-label' ],
-		'classes_input' => [ 'tec-automator-settings-details__input', 'tec-automator-settings-details__name-input', 'tec-settings-zapier-details-api-key__name-input' ],
-		'label'         => _x( 'Description', 'Label for the name of the API Key for Zapier.', 'tribe-common' ),
-		'id'            => "tec_automator_zapier_name_" . $consumer_id,
-		'name'          => "tec_automator_zapier[]['name']",
-		'placeholder'   => _x( 'Enter an API Key description', 'The placeholder for the Zapier API Key name.', 'tribe-common' ),
-		'screen_reader' => _x( 'Enter an API Key description.', 'The screen reader text of the label for the Zapier API Key name.', 'tribe-common' ),
-		'value'         => $api_key['name'],
-		'attrs'         => [],
-	] );
+	$this->template(
+		'components/text',
+		[
+			'classes_wrap'  => [ 'tec-automator-grid-item', 'tec-settings-zapier-details-api-key__name-wrap' ],
+			'classes_label' => [ 'screen-reader-text', 'tec-settings-zapier-details-api-key__name-label' ],
+			'classes_input' => [ 'tec-automator-settings-details__input', 'tec-automator-settings-details__name-input', 'tec-settings-zapier-details-api-key__name-input' ],
+			'label'         => _x( 'Description', 'Label for the name of the API Key for Zapier.', 'tribe-common' ),
+			'id'            => 'tec_automator_zapier_name_' . $consumer_id,
+			'name'          => "tec_automator_zapier[]['name']",
+			'placeholder'   => _x( 'Enter an API Key description', 'The placeholder for the Zapier API Key name.', 'tribe-common' ),
+			'screen_reader' => _x( 'Enter an API Key description.', 'The screen reader text of the label for the Zapier API Key name.', 'tribe-common' ),
+			'value'         => $api_key['name'],
+			'attrs'         => [],
+		] 
+	);
 	?>
 
 	<?php $this->template( 'components/dropdown', $users ); ?>
 
 	<?php
-	$this->template( 'zapier/api/components/read-only', [
-		'classes_wrap'  => [ 'tec-automator-grid-item', 'tec-settings-zapier-details-api-key__permissions-wrap' ],
-		'label'         => _x( 'Permissions', 'Label for the permissions of the API Key for Zapier.', 'tribe-common' ),
-		'screen_reader' => _x( 'The permissions for the Zapier API Key.', 'The screen reader text of the label for the Zapier API Key permissions.', 'tribe-common' ),
-		'id'            => "tec_automator_zapier_permissions_" . $consumer_id,
-		'name'          => "tec_automator_zapier[]['permissions']",
-		'value'         => 'Read',
-	] );
+	$this->template(
+		'zapier/api/components/read-only',
+		[
+			'classes_wrap'  => [ 'tec-automator-grid-item', 'tec-settings-zapier-details-api-key__permissions-wrap' ],
+			'label'         => _x( 'Permissions', 'Label for the permissions of the API Key for Zapier.', 'tribe-common' ),
+			'screen_reader' => _x( 'The permissions for the Zapier API Key.', 'The screen reader text of the label for the Zapier API Key permissions.', 'tribe-common' ),
+			'id'            => 'tec_automator_zapier_permissions_' . $consumer_id,
+			'name'          => "tec_automator_zapier[]['permissions']",
+			'value'         => 'Read',
+		] 
+	);
 	?>
 
 	<div class="tec-automator-grid-item"></div>
 
 	<div class="tec-automator-grid-item tec-settings-zapier-details__actions tec-settings-zapier-details__api-key-save">
-		<?php if ( empty( $api_key['name'] ) || empty( $api_key['has_pair'] ) ) {
-			$this->template( 'zapier/api/components/generate-button', [
-				'api_key' => $api_key,
-				'url'     => $url,
-			] );
-		} ?>
+		<?php
+		if ( empty( $api_key['name'] ) || empty( $api_key['has_pair'] ) ) {
+			$this->template(
+				'zapier/api/components/generate-button',
+				[
+					'api_key' => $api_key,
+					'url'     => $url,
+				] 
+			);
+		}
+		?>
 	</div>
 </div>

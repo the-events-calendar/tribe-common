@@ -17,6 +17,7 @@
  * @var array<string|mixed> $api_key     The API Key data.
  * @var Url                 $url         An instance of the URL handler.
  */
+
 $message_classes = [ 'tec-settings-power-automate-details-api-key__message-wrap' ];
 $message_title   = _x( 'API Authentication Details', 'Label for the consumer id and secret section.', 'tribe-common' );
 $message         = esc_html_x( 'Please copy the consumer id and secret below. Once you leave the page they will no longer be available.', 'Consumer id and secret only show once help text for Power Automate API.', 'tribe-common' );
@@ -33,14 +34,17 @@ $message         = esc_html_x( 'Please copy the consumer id and secret below. On
 		</div>
 
 		<?php
-		$this->template( 'power-automate/api/components/token', [
-			'classes_wrap'  => [ 'tec-settings-power-automate-connection-details__access-token-wrap' ],
-			'label'         => _x( 'Access Token', 'Label for the access token connection for Power Automate.', 'tribe-common' ),
-			'screen_reader' => '',
-			'id'            => "tec_automator_power_automate_access_token_" . $consumer_id,
-			'name'          => "tec_automator_power_automate[]['access_token']",
-			'value'         => $api_key['access_token'],
-		] );
+		$this->template(
+			'power-automate/api/components/token',
+			[
+				'classes_wrap'  => [ 'tec-settings-power-automate-connection-details__access-token-wrap' ],
+				'label'         => _x( 'Access Token', 'Label for the access token connection for Power Automate.', 'tribe-common' ),
+				'screen_reader' => '',
+				'id'            => 'tec_automator_power_automate_access_token_' . $consumer_id,
+				'name'          => "tec_automator_power_automate[]['access_token']",
+				'value'         => $api_key['access_token'],
+			]
+		);
 		?>
 	</div>
 </div>

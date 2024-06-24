@@ -23,23 +23,23 @@ if ( $endpoint['missing_dependency'] ) {
 	return;
 }
 
-$link  = $url->to_enable_endpoint_queue( $endpoint['id'] );
-$label = _x( 'Enable', 'Enables a integration endpoint.', 'tribe-common' );
+$action_link  = $url->to_enable_endpoint_queue( $endpoint['id'] );
+$label        = _x( 'Enable', 'Enables a integration endpoint.', 'tribe-common' );
 $confirmation = $manager->get_confirmation_to_enable_endpoint();
-$type = 'enable';
+$end_type     = 'enable';
 if ( $endpoint['enabled'] ) {
-	$link  = $url->to_disable_endpoint_queue( $endpoint['id'] );
-	$label = _x( 'Disable', 'Disables a integration endpoint queue.', 'tribe-common' );
+	$action_link  = $url->to_disable_endpoint_queue( $endpoint['id'] );
+	$label        = _x( 'Disable', 'Disables a integration endpoint queue.', 'tribe-common' );
 	$confirmation = $manager->get_confirmation_to_disable_endpoint( $endpoint['type'] );
-	$type = 'disable';
+	$end_type     = 'disable';
 }
 ?>
-	<div class="tec-settings-connection-endpoint-dashboard-details-actions__<?php echo esc_html( $type ); ?>-wrap">
+	<div class="tec-settings-connection-endpoint-dashboard-details-actions__<?php echo esc_html( $end_type ); ?>-wrap">
 		<button
-			class="tec-settings-connection-endpoint-dashboard-details-action__button tec-settings-connection-endpoint-dashboard-details-actions__<?php echo esc_html( $type ); ?> tec-common-integration-details-actions__<?php echo esc_html( $type ); ?>"
+			class="tec-settings-connection-endpoint-dashboard-details-action__button tec-settings-connection-endpoint-dashboard-details-actions__<?php echo esc_html( $end_type ); ?> tec-common-integration-details-actions__<?php echo esc_html( $end_type ); ?>"
 			type="button"
-			data-ajax-action-url="<?php echo $link; ?>"
-			data-confirmation="<?php echo esc_html( $confirmation ); ?>"
+			data-ajax-action-url="<?php echo esc_url( $action_link ); ?>"
+			data-confirmation="<?php echo esc_attr( $confirmation ); ?>"
 		>
 			<?php echo esc_html( $label ); ?>
 		</button>

@@ -25,27 +25,27 @@
 </h3>
 <p class="tec-settings-zapier-application__description">
 	<?php
-	echo sprintf(
+	printf(
 		'%1$s',
-			esc_html_x(
-				'Please generate a consumer id and secret for each of our applications you are using with Zapier to enable its integrations. i.e.: one consumer id and secret for The Events Calendar and one consumer id and secret for Event Tickets.',
-				'Settings help text for Zapier API.',
-				'tribe-common'
-			),
+		esc_html_x(
+			'Please generate a consumer id and secret for each of our applications you are using with Zapier to enable its integrations. i.e.: one consumer id and secret for The Events Calendar and one consumer id and secret for Event Tickets.',
+			'Settings help text for Zapier API.',
+			'tribe-common'
+		),
 	);
 	?>
 </p>
 <p class="tec-settings-zapier-application__description">
 	<?php
 	$url = 'https://evnt.is/1bc8';
-	echo sprintf(
+	printf(
 		'<a href="%1$s" target="_blank">%2$s</a>',
-			esc_url( $url ),
-			esc_html_x(
+		esc_url( $url ),
+		esc_html_x(
 			'Read more about adding and managing access.',
 			'Settings link text for Zapier API.',
 			'tribe-common'
-			)
+		)
 	);
 	?>
 </p>

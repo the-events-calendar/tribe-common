@@ -21,6 +21,7 @@
  * @var string               $value         The value of the text field.
  * @var boolean              $copy_button   Whether to display the copy button.
  */
+
 ?>
 <div <?php tribe_classes( $classes_wrap ); ?> >
 	<fieldset class="tec-automator-settings-details__read-only-field">
@@ -32,13 +33,13 @@
 			<input
 				id="<?php echo esc_attr( $id ); ?>"
 				type="hidden"
-				name="<?php echo esc_html( $name ); ?>"
-				value="<?php echo esc_html( $value ); ?>"
+				name="<?php echo esc_attr( $name ); ?>"
+				value="<?php echo esc_attr( $value ); ?>"
 			>
 		</div>
 		<div class="ec-automator-settings__copy-btn-wrap">
-			<button class="tec-automator-settings__copy-btn" data-clipboard-text="<?php echo trim( esc_html( $value ) ); ?>" >
-				<span class="dashicons dashicons-admin-page"></span> <span class="tec-automator-settings__copy-btn-text"><?php echo esc_attr_x( 'Copy', 'Button text for copying the acess_token.', 'tribe-common' ); ?></span>
+			<button class="tec-automator-settings__copy-btn" data-clipboard-text="<?php echo esc_attr( trim( $value ) ); ?>" >
+				<span class="dashicons dashicons-admin-page"></span> <span class="tec-automator-settings__copy-btn-text"><?php echo esc_html_x( 'Copy', 'Button text for copying the acess_token.', 'tribe-common' ); ?></span>
 			</button>
 		</div>
 	</fieldset>

@@ -1,8 +1,12 @@
 <?php
-// $main, $products, $bundles, $extensions must be defined before loading this file
+/**
+ * The template for the App Shop page.
+ *
+ * $main, $products, $bundles, $extensions must be defined before loading this file.
+ */
 
 $all_products = [
-	'for-sale' => [],
+	'for-sale'  => [],
 	'installed' => [],
 ];
 foreach ( $products as $product ) {
@@ -13,12 +17,12 @@ foreach ( $products as $product ) {
 	}
 }
 
-use \Tribe\Admin\Troubleshooting;
+use Tribe\Admin\Troubleshooting;
 ?>
 
 <div id="tribe-app-shop">
 
-	<?php 
+	<?php
 		tribe( Troubleshooting::class )->admin_notice( 'app-shop' );
 	?>
 
@@ -48,11 +52,11 @@ use \Tribe\Admin\Troubleshooting;
 		/>
 		<div class="content-wrapper">
 			<div class="addon-grid">
-				<?php foreach ( $all_products as $status => $some_products ) : ?>
-					<?php if ( 'for-sale' == $status ) :?>
+				<?php foreach ( $all_products as $pr_status => $some_products ) : ?>
+					<?php if ( 'for-sale' == $pr_status ) : ?>
 						<h2><?php esc_html_e( 'One calendar. Countless ways to make it your own.', 'tribe-common' ); ?></h2>
 						<p><?php esc_html_e( 'Calendars, ticketing, and powerful WordPress tools to manage your events from start to finish.', 'tribe-common' ); ?></p>
-					<?php else: ?>
+					<?php else : ?>
 						<h2 class="already-installed"><?php esc_html_e( 'Already Installed', 'tribe-common' ); ?></h2>
 					<?php endif; ?>
 
@@ -60,9 +64,9 @@ use \Tribe\Admin\Troubleshooting;
 						<div class="tribe-addon">
 							<div class="headline">
 								<img src="<?php echo esc_url( tribe_resource_url( $product->logo, false, null, $main ) ); ?>" alt="<?php esc_attr_e( 'TEC Logo', 'tribe-common' ); ?>" />
-								<h3 <?php echo ( 'installed' == $status || $product->free ) ? 'class="has-pill"' : ''; ?>><a href="<?php echo esc_url( $product->link ); ?>" target="_blank"><?php echo esc_html( $product->title ); ?></a></h3>
+								<h3 <?php echo ( 'installed' == $pr_status || $product->free ) ? 'class="has-pill"' : ''; ?>><a href="<?php echo esc_url( $product->link ); ?>" target="_blank"><?php echo esc_html( $product->title ); ?></a></h3>
 
-								<?php if ( 'installed' == $status ) : ?>
+								<?php if ( 'installed' == $pr_status ) : ?>
 									<span class="pill active"><?php esc_html_e( 'Active', 'tribe-common' ); ?></span>
 								<?php elseif ( $product->free ) : ?>
 									<span class="pill free"><?php esc_html_e( 'FREE', 'tribe-common' ); ?></span>
@@ -89,7 +93,7 @@ use \Tribe\Admin\Troubleshooting;
 								<?php endforeach; ?>
 							</ul>
 
-							<?php if ( 'installed' == $status ) : ?>
+							<?php if ( 'installed' == $pr_status ) : ?>
 								<a class="button" href="https://evnt.is/1aiz"><?php esc_html_e( 'Manage', 'tribe-common' ); ?></a>
 							<?php else : ?>
 								<a class="button" href="<?php echo esc_url( $product->link ); ?>"><?php esc_html_e( 'Learn More', 'tribe-common' ); ?></a>
@@ -133,7 +137,7 @@ use \Tribe\Admin\Troubleshooting;
 							<ul>
 								<?php foreach ( $bundle->includes as $i => $product_key ) : ?>
 									<?php
-									// get $product object
+									// get $product object.
 									$product = $products[ $product_key ];
 									?>
 
@@ -142,7 +146,7 @@ use \Tribe\Admin\Troubleshooting;
 										<span><?php echo esc_html( $product->title ); ?></span>
 									</li>
 
-									<?php if ( $i == 4 ) : // if there are 5 products included, then we need 2 lists ?>
+									<?php if ( $i == 4 ) : // if there are 5 products included, then we need 2 lists. ?>
 										</ul><ul class="second">
 									<?php endif; ?>
 								<?php endforeach; ?>
@@ -210,7 +214,12 @@ use \Tribe\Admin\Troubleshooting;
 			</div>
 
 			<div class="stellar-discounts-coupon-callout">
-				<p><?php printf( wp_kses( __( '$25 towards any Stellar product using code <u>%s</u>', 'tribe-common' ), ['u' => []] ), 'Stellar25' );?></p>
+				<p>
+					<?php
+					/* translators: %s is the coupon code */
+					printf( wp_kses( __( '$25 towards any Stellar product using code <u>%s</u>', 'tribe-common' ), [ 'u' => [] ] ), 'Stellar25' );
+					?>
+				</p>
 			</div>
 
 			<div class="stellar-brand-grid addon-grid">
@@ -227,7 +236,7 @@ use \Tribe\Admin\Troubleshooting;
 						<div class="stellar-brand__content">
 							<h3 class="stellar-brand__title"><?php echo esc_html( $stellar_brand->title ); ?></h3>
 							<p class="stellar-brand__description"><?php echo esc_html( $stellar_brand->description ); ?></p>
-						</div>						
+						</div>
 
 						<a class="button stellar-brand__link" href="<?php echo esc_url( $stellar_brand->link ); ?>" target="_blank" rel="noopener noreferrer">
 							<?php echo esc_html( $stellar_brand->linktext ); ?>
@@ -240,7 +249,7 @@ use \Tribe\Admin\Troubleshooting;
 
 </div>
 
-<?php // this is inline jQuery / javascript for extra simplicity */ ?>
+<?php /* this is inline jQuery / javascript for extra simplicity */ ?>
 <script type="text/javascript">
 	jQuery( document ).ready( function($) {
 		var current_tab = "#tribe-all-solutions";

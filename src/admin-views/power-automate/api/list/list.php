@@ -22,30 +22,37 @@
 $this->template( 'power-automate/api/list/list-header', [] );
 
 if ( empty( $connections ) ) {
-	$this->template( 'power-automate/api/list/connection-new', [
-		'api'         => $api,
-		'consumer_id' => $api->get_random_hash( 'ci_' ),
-		'connection_data' => [
-			'name'         => '',
-			'page_id'      => '',
-			'access_token' => '',
-			'expiration'   => '',
-		],
-		'users'       => $users,
-		'url'         => $url,
-	] );
+	$this->template(
+		'power-automate/api/list/connection-new',
+		[
+			'api'             => $api,
+			'consumer_id'     => $api->get_random_hash( 'ci_' ),
+			'connection_data' => [
+				'name'         => '',
+				'page_id'      => '',
+				'access_token' => '',
+				'expiration'   => '',
+			],
+			'users'           => $users,
+			'url'             => $url,
+		] 
+	);
 
 	return;
 }
 ?>
 <?php foreach ( $connections as $consumer_id => $connection_data ) : ?>
 	<?php
-	$this->template( 'power-automate/api/list/connection-saved', [
-		'api'             => $api,
-		'connection_data' => $connection_data,
-		'consumer_id'     => $consumer_id,
-		'users'           => [],
-		'url'             => $url,
-	] );
+	$this->template(
+		'power-automate/api/list/connection-saved',
+		[
+			'api'             => $api,
+			'connection_data' => $connection_data,
+			'consumer_id'     => $consumer_id,
+			'users'           => [],
+			'url'             => $url,
+		] 
+	);
 	?>
-<?php endforeach; ?>
+	<?php
+endforeach; 

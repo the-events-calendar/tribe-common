@@ -26,8 +26,8 @@ $revoke_label = _x( 'Revoke', 'Removes a zapier page from the list of Zapier liv
 	<button
 		class="tec-automator-settings-details-action__revoke tec-common-zapier-details-action__revoke"
 		type="button"
-		data-ajax-revoke-url="<?php echo $revoke_link; ?>"
-		data-confirmation="<?php echo $api->get_confirmation_to_delete_connection(); ?>"
+		data-ajax-revoke-url="<?php echo esc_url( $revoke_link ); ?>"
+		data-confirmation="<?php echo esc_attr( $api->get_confirmation_to_delete_connection() ); ?>"
 	>
 		<?php echo esc_html( $revoke_label ); ?>
 	</button>
