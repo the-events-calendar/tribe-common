@@ -399,6 +399,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 					search: search,
 					page: page,
 					args: $select.data( 'source-args' ),
+					nonce: $select.data( 'source-nonce' ),
 				};
 			};
 		}
