@@ -23,26 +23,29 @@ if ( empty( $endpoint['dependents'] ) ) {
 	return;
 }
 
-$dependents = [];
-foreach ( $endpoint['dependents'] as $dependent ) {
-	if ( $dependent === 'tec') {
-		$dependents[] = _x( 'The Events Calendar', 'The name of the missing dependent plugin for a Integration Endpoint.','tribe-common' );
-	}
-	if ( $dependent === 'et') {
-		$dependents[] = _x( 'Event Tickets', 'The name of the missing dependent plugin for a Integration Endpoint.','tribe-common' );
-	}
+switch ( $endpoint['dependents'][0] ) {
+	case 'tec':
+		$dependency = '<a href="https://wordpress.org/plugins/the-events-calendar/">' . _x( 'The Events Calendar', 'Name of missing dependency for Endpoint.', 'tribe-common' ) . '</a>';
+		break;
+	case 'et':
+		$dependency = '<a href="https://wordpress.org/plugins/event-tickets/">' . _x( 'Event Tickets', 'Name of missing dependency for Endpoint.', 'tribe-common' ) . '</a>';
+		break;
 }
-$tooltip      = [
-		'classes_wrap'  => [ 'tec-settings-connection-endpoint-dashboard-details__tooltip' ],
-		'message'   => sprintf( '%1s %2s',
-			_x( 'Missing ', 'Missing dependency message in the settings.', 'tribe-common' ),
-			implode( ' and ', $dependents )
-		),
-	];
+
+$tooltip = [
+	'classes_wrap' => [ 'tec-settings-connection-endpoint-dashboard-details__tooltip' ],
+	'message'      => sprintf(
+		'%1s %2s %3s',
+		_x( 'Missing ', 'Missing dependency message in the settings.', 'tribe-common' ),
+		$dependency,
+		_x( ' plugin.', 'Missing dependency message in the settings.', 'tribe-common' )
+	),
+];
 ?>
-	<div class="tec-settings-connection-endpoint-dashboard-details-actions__missing-dependency-wrap">
-		<?php echo esc_html_x( 'Endpoint Disabled', 'Missing dependency label in the settings.', 'tribe-common' ); ?>
-		<?php $this->template( 'components/tooltip', $tooltip );
-		?>
-	</div>
+<div class="tec-settings-connection-endpoint-dashboard-details-actions__missing-dependency-wrap">
+	<?php
+	echo esc_html_x( 'Endpoint Disabled', 'Missing dependency label in the settings.', 'tribe-common' );
+	$this->template( 'components/tooltip', $tooltip );
+	?>
+</div>
 <?php
