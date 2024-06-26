@@ -85,6 +85,22 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	protected $container;
 
 	/**
+	 * Plugin constructor.
+	 *
+	 * @since TBD
+	 *
+	 * @param \tad_DI52_Container $container The container to use.
+	 */
+	public function __construct( \tad_DI52_Container $container ) {
+		$this->container = $container;
+
+		// Set up the plugin provider properties.
+		$this->plugin_path = trailingslashit( Tribe__Main::instance()->plugin_path );
+		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
+		$this->plugin_url  = plugins_url( $this->plugin_dir, $this->plugin_path );
+	}
+
+	/**
 	 * Sets the container for the class.
 	 *
 	 * Note this specifically doesn't have a typing for the container, just a type hinting via Docblocks, it helps
@@ -124,11 +140,6 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	 * This always executes even if the required plugins are not present.
 	 */
 	public function register() {
-		// Set up the plugin provider properties.
-		$this->plugin_path = trailingslashit( Tribe__Main::instance()->plugin_path );
-		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
-		$this->plugin_url  = plugins_url( $this->plugin_dir, $this->plugin_path );
-
 		// Register this provider as the main one and use a bunch of aliases.
 		$this->container->singleton( static::class, $this );
 		$this->container->singleton( 'event-automator', $this );

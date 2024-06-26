@@ -44,7 +44,7 @@
 				<p>
 					<span class="tribe-marketing-notice__cta-stellar-deals">
 						<a target="_blank" href="<?php echo esc_url( $stellar_url ); ?>">
-							<?php echo esc_html_x( 'View all StellarWP Deals', 'View all StellarWP Deals link text', 'tribe-common' ); ?>
+							<?php echo esc_html( $stellar_link_text ); ?>
 						</a>
 					</span>
 				</p>

@@ -696,7 +696,7 @@ class Tribe__Main {
 		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
 		tribe_singleton( 'settings', 'Tribe__Settings', [ 'hook' ] );
 		tribe_singleton( 'ajax.dropdown', 'Tribe__Ajax__Dropdown', [ 'hook' ] );
-		tribe_singleton( 'assets', 'Tribe__Assets' );
+		tribe_singleton( 'assets', 'Tribe__Assets', [ 'hook' ] );
 		tribe_singleton( 'assets.pipeline', 'Tribe__Assets_Pipeline', [ 'hook' ] );
 		tribe_singleton( 'asset.data', 'Tribe__Asset__Data', [ 'hook' ] );
 		tribe_singleton( 'admin.helpers', 'Tribe__Admin__Helpers' );
