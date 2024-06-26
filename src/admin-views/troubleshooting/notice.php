@@ -15,7 +15,7 @@ $help = '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Help page?', 'tribe-
 	<div class="tribe-events-admin__troubleshooting-notice_title">
 		<?php
 			/* translators: %s: link to the help page */
-			printf( esc_html__( 'Hey there... did you check out the %s', 'tribe-common' ), $help ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			printf( esc_html__( 'Hey there... did you check out the %s', 'tribe-common' ), $help ); // phpcs:ignore WordPress.Security.EscapeOutput,StellarWP.XSS.EscapeOutput
 		?>
 	</div>
 </div>

@@ -51,5 +51,5 @@ if ( ! $up || is_wp_error( $up ) ) {
 		/>
 		<?php echo esc_html( $message ); ?>
 	</td>
-	<td><?php echo $notes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
+	<td><?php echo $notes; // phpcs:ignore WordPress.Security.EscapeOutput,StellarWP.XSS.EscapeOutput ?></td>
 </tr>

@@ -30,7 +30,7 @@ $optin_key   = ! empty( get_option( $support::$option_key ) );
 	</div>
 
 	<div class="tribe-events-admin__system-information-widget">
-		<?php echo $system_info; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<?php echo $system_info; // phpcs:ignore WordPress.Security.EscapeOutput,StellarWP.XSS.EscapeOutput ?>
 	</div>
 
 	<div class="tribe-events-admin__system-information-widget-copy">

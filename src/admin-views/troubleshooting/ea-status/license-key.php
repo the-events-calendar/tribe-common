@@ -49,5 +49,5 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 		/>
 		<?php echo esc_html( $message ); ?>
 	</td>
-	<td><?php echo $notes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
+	<td><?php echo $notes; // phpcs:ignore WordPress.Security.EscapeOutput,StellarWP.XSS.EscapeOutput ?></td>
 </tr>

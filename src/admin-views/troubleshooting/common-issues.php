@@ -30,7 +30,7 @@ $common_issues = tribe( Troubleshooting::class )->get_common_issues();
 				<div class="tribe-events-admin-faq__answer">
 					<?php
 						$label = '<a href="' . esc_url( $common_issue['link'] ) . '" target="_blank" rel="noopener noreferrer">' . esc_html( $common_issue['link_label'] ) . '</a>';
-						printf( esc_html( $common_issue['solution'] ), $label ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						printf( esc_html( $common_issue['solution'] ), $label ); // phpcs:ignore WordPress.Security.EscapeOutput,StellarWP.XSS.EscapeOutput
 					?>
 				</div>
 			</div>
