@@ -28,5 +28,5 @@ if ( defined( 'DISABLE_WP_CRON' ) && true === DISABLE_WP_CRON ) {
 		/>
 		<?php echo esc_html( $message ); ?>
 	</td>
-	<td><?php echo wp_kses_post( $notes ); ?></td>
+	<td><?php echo $notes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
 </tr>

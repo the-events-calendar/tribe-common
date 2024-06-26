@@ -12,6 +12,6 @@ $error_log = tribe( Tribe__Log__Admin::class )->display_log();
 		<?php esc_html_e( 'Event log', 'tribe-common' ); ?>
 	</h3>
 	<div class="tribe-events-admin__recent-log-filters-select-wrapper">
-		<?php echo esc_html( $error_log ); ?>
+		<?php echo $error_log; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 	</div>
 </div>
