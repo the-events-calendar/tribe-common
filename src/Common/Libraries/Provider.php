@@ -2,9 +2,11 @@
 
 namespace TEC\Common\Libraries;
 
-use TEC\Common\StellarWP\DB;
 use TEC\Common\Contracts\Service_Provider;
-
+use TEC\Common\StellarWP\Assets;
+use TEC\Common\StellarWP\DB;
+use TEC\Common\StellarWP\Schema;
+use Tribe__Main as Common;
 
 class Provider extends Service_Provider {
 
@@ -28,6 +30,10 @@ class Provider extends Service_Provider {
 		tribe_register_provider( Installer\Provider::class );
 
 		DB\Config::setHookPrefix( $this->get_hook_prefix() );
+		Assets\Config::set_hook_prefix( $this->get_hook_prefix() );
+		Assets\Config::set_path( Common::instance()->plugin_path . 'src/resources/' );
+		Assets\Config::set_version( Common::VERSION );
+		Assets\Config::set_relative_asset_path( 'src/resources/' );
 	}
 
 	/**

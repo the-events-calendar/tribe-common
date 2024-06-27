@@ -23,7 +23,7 @@ use Tribe__Main;
  *
  * @package TEC\Event_Automator
  */
-class Plugin {
+class Plugin extends \tad_DI52_ServiceProvider {
 	/**
 	 * Stores the version for the plugin.
 	 *
@@ -85,6 +85,22 @@ class Plugin {
 	protected $container;
 
 	/**
+	 * Plugin constructor.
+	 *
+	 * @since TBD
+	 *
+	 * @param \tad_DI52_Container $container The container to use.
+	 */
+	public function __construct( \tad_DI52_Container $container ) {
+		$this->container = $container;
+
+		// Set up the plugin provider properties.
+		$this->plugin_path = trailingslashit( Tribe__Main::instance()->plugin_path );
+		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
+		$this->plugin_url  = plugins_url( $this->plugin_dir, $this->plugin_path );
+	}
+
+	/**
 	 * Sets the container for the class.
 	 *
 	 * Note this specifically doesn't have a typing for the container, just a type hinting via Docblocks, it helps
@@ -109,7 +125,7 @@ class Plugin {
 	 *
 	 * @param ?\Tribe__Container $container The container to use, if any. If not provided, the global container will be used.
 	 */
-	public static function boot( $container = null ): void {
+	public function boot( $container = null ): void {
 		$plugin = new static();
 		$plugin->register_autoloader();
 		$plugin->set_container( $container );
@@ -124,11 +140,6 @@ class Plugin {
 	 * This always executes even if the required plugins are not present.
 	 */
 	public function register() {
-		// Set up the plugin provider properties.
-		$this->plugin_path = trailingslashit( Tribe__Main::instance()->plugin_path );
-		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
-		$this->plugin_url  = plugins_url( $this->plugin_dir, $this->plugin_path );
-
 		// Register this provider as the main one and use a bunch of aliases.
 		$this->container->singleton( static::class, $this );
 		$this->container->singleton( 'event-automator', $this );

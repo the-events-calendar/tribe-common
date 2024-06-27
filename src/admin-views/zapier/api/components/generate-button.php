@@ -19,13 +19,13 @@
  */
 
 $add_link  = $url->to_create_access_link( $consumer_id );
-$add_label = _x( 'Generate', 'Generate a Zapier API Key pair.', 'event-automator' );
+$add_label = _x( 'Generate', 'Generate a Zapier API Key pair.', 'tribe-common' );
 ?>
 <button
 	class="tec-automator-settings-details-action__generate tec-settings-zapier-detailsaction__generate button-primary"
 	type="button"
 	data-ajax-generate-url="<?php echo $add_link; ?>"
-	data-generate-error="<?php echo _x( 'Description or User missing. Please add a description and select a user before generating a key pair.', 'An error message that the description or user is missing when generating a key pair for Zapier.', 'event-automator'); ?>"
+	data-generate-error="<?php echo _x( 'Description or User missing. Please add a description and select a user before generating a key pair.', 'An error message that the description or user is missing when generating a key pair for Zapier.', 'tribe-common'); ?>"
 >
 	<span>
 		<?php echo esc_html( $add_label ); ?>

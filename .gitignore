@@ -46,5 +46,8 @@ src/resources/js/**/*.min.js
 lang/*.po
 lang/*.mo
 
+# Local packaging files
+.pup-*
+
 # Strauss
 bin/strauss.phar

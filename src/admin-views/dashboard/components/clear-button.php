@@ -18,12 +18,12 @@
  * @var Url                 $url       The URLs handler for the integration.
  */
 // Only show for queue endpoints.
-if ( $endpoint['type'] !== 'queue' || ! $endpoint['enabled'] ) {
+if ( $endpoint['type'] !== 'queue' || ! $endpoint['enabled'] || $endpoint['missing_dependency'] ) {
 	return;
 }
 
 $clear_link  = $url->to_clear_endpoint_queue( $endpoint['id'] );
-$clear_label = _x( 'Clear Queue', 'Clears a integration endpoint queue.', 'event-automator' )
+$clear_label = _x( 'Clear Queue', 'Clears a integration endpoint queue.', 'tribe-common' )
 ?>
 <div class="tec-settings-connection-endpoint-dashboard-details-actions__clear-wrap ">
 	<button

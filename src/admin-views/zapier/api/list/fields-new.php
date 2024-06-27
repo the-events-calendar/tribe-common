@@ -31,11 +31,11 @@
 		'classes_wrap'  => [ 'tec-automator-grid-item', 'tec-settings-zapier-details-api-key__name-wrap' ],
 		'classes_label' => [ 'screen-reader-text', 'tec-settings-zapier-details-api-key__name-label' ],
 		'classes_input' => [ 'tec-automator-settings-details__input', 'tec-automator-settings-details__name-input', 'tec-settings-zapier-details-api-key__name-input' ],
-		'label'         => _x( 'Description', 'Label for the name of the API Key for Zapier.', 'event-automator' ),
+		'label'         => _x( 'Description', 'Label for the name of the API Key for Zapier.', 'tribe-common' ),
 		'id'            => "tec_automator_zapier_name_" . $consumer_id,
 		'name'          => "tec_automator_zapier[]['name']",
-		'placeholder'   => _x( 'Enter an API Key description', 'The placeholder for the Zapier API Key name.', 'event-automator' ),
-		'screen_reader' => _x( 'Enter an API Key description.', 'The screen reader text of the label for the Zapier API Key name.', 'event-automator' ),
+		'placeholder'   => _x( 'Enter an API Key description', 'The placeholder for the Zapier API Key name.', 'tribe-common' ),
+		'screen_reader' => _x( 'Enter an API Key description.', 'The screen reader text of the label for the Zapier API Key name.', 'tribe-common' ),
 		'value'         => $api_key['name'],
 		'attrs'         => [],
 	] );
@@ -46,8 +46,8 @@
 	<?php
 	$this->template( 'zapier/api/components/read-only', [
 		'classes_wrap'  => [ 'tec-automator-grid-item', 'tec-settings-zapier-details-api-key__permissions-wrap' ],
-		'label'         => _x( 'Permissions', 'Label for the permissions of the API Key for Zapier.', 'event-automator' ),
-		'screen_reader' => _x( 'The permissions for the Zapier API Key.', 'The screen reader text of the label for the Zapier API Key permissions.', 'event-automator' ),
+		'label'         => _x( 'Permissions', 'Label for the permissions of the API Key for Zapier.', 'tribe-common' ),
+		'screen_reader' => _x( 'The permissions for the Zapier API Key.', 'The screen reader text of the label for the Zapier API Key permissions.', 'tribe-common' ),
 		'id'            => "tec_automator_zapier_permissions_" . $consumer_id,
 		'name'          => "tec_automator_zapier[]['permissions']",
 		'value'         => 'Read',

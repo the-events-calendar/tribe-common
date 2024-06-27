@@ -17,7 +17,7 @@
 <?php $this->template( '/components/loader' ); ?>
 
 <h3 id="tec-zapier-endpoint-dashboard" class="tec-settings-zapier-application__title">
-	<?php echo esc_html_x( 'Zapier Endpoint Dashboard', 'Zapier settings endpoint dashboard header', 'event-automator' ); ?>
+	<?php echo esc_html_x( 'Zapier Endpoint Dashboard', 'Zapier settings endpoint dashboard header', 'tribe-common' ); ?>
 </h3>
 <p class="tec-settings-zapier-application__description">
 	<?php
@@ -26,7 +26,7 @@
 			esc_html_x(
 				'Monitor your Zapier endpoints (triggers and actions used by your connectors).',
 				'Settings help text for Zapier Endpoint Dashboard.',
-				'event-automator'
+				'tribe-common'
 			),
 	);
 	?>
@@ -40,7 +40,7 @@
 			esc_html_x(
 			'Read more about the Zapier Endpoint Dashboard.',
 			'Settings link text for Zapier endpoint dashboard.',
-			'event-automator'
+			'tribe-common'
 			)
 	);
 	?>

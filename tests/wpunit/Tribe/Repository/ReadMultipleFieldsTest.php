@@ -25,7 +25,6 @@ class ReadMultipleFieldsTest extends ReadTestBase {
 			'LIKE',
 			'%jump%'
 		)->get_ids();
-		codecept_debug( 'Query request SQL: ' . $repository->get_last_built_query()->request );
 
 		$this->assertEquals( [ $one, $three ], $matches );
 
@@ -35,7 +34,6 @@ class ReadMultipleFieldsTest extends ReadTestBase {
 			'LIKE',
 			'jump%'
 		)->get_ids();
-		codecept_debug( 'Query request SQL: ' . $repository->get_last_built_query()->request );
 
 		$this->assertEquals( [ $one ], $matches );
 
@@ -45,7 +43,6 @@ class ReadMultipleFieldsTest extends ReadTestBase {
 			'LIKE',
 			'%jump'
 		)->get_ids();
-		codecept_debug( 'Query request SQL: ' . $repository->get_last_built_query()->request );
 
 		$this->assertEmpty( $matches );
 
@@ -56,7 +53,6 @@ class ReadMultipleFieldsTest extends ReadTestBase {
 			'%jump%',
 			'AND'
 		)->get_ids();
-		codecept_debug( 'Query request SQL: ' . $repository->get_last_built_query()->request );
 
 		$this->assertEquals( [ $two ], $matches );
 	}
@@ -170,7 +166,6 @@ class ReadMultipleFieldsTest extends ReadTestBase {
 			'LIKE',
 			'jump'
 		)->get_ids();
-		codecept_debug( 'Query request SQL: ' . $repository->get_last_built_query()->request );
 
 		$this->assertEquals( [ $one, $three ], $matches );
 
@@ -181,7 +176,6 @@ class ReadMultipleFieldsTest extends ReadTestBase {
 			'%jump%',
 			'AND'
 		)->get_ids();
-		codecept_debug( 'Query request SQL: ' . $repository->get_last_built_query()->request );
 
 		$this->assertEquals( [ $two ], $matches );
 	}
@@ -202,7 +196,6 @@ class ReadMultipleFieldsTest extends ReadTestBase {
 			'OR',
 			'OR'
 		)->get_ids();
-		codecept_debug( 'Query request SQL: ' . $repository->get_last_built_query()->request );
 		$this->assertEquals( [ $one, $two, $three ], $matches );
 
 		$repository = $this->repository();
@@ -213,7 +206,6 @@ class ReadMultipleFieldsTest extends ReadTestBase {
 			'OR',
 			'AND'
 		)->get_ids();
-		codecept_debug( 'Query request SQL: ' . $repository->get_last_built_query()->request );
 		$this->assertEmpty( $matches );
 
 		$repository = $this->repository();
@@ -222,7 +214,6 @@ class ReadMultipleFieldsTest extends ReadTestBase {
 			'LIKE',
 			[ 'wizards', 'quickly' ]
 		)->get_ids();
-		codecept_debug( 'Query request SQL: ' . $repository->get_last_built_query()->request );
 		$this->assertEquals( [ $three ], $matches );
 	}
 
@@ -276,7 +267,6 @@ class ReadMultipleFieldsTest extends ReadTestBase {
 			'LIKE',
 			'fiction'
 		)->get_ids();
-		codecept_debug( 'Query request SQL: ' . $repository->get_last_built_query()->request );
 		$this->assertEquals( [ $one, $two ], $matches );
 
 		$repository = $this->repository();
@@ -287,7 +277,6 @@ class ReadMultipleFieldsTest extends ReadTestBase {
 			'AND',
 			'AND'
 		)->get_ids();
-		codecept_debug( 'Query request SQL: ' . $repository->get_last_built_query()->request );
 		$this->assertEquals( [ $three ], $matches );
 
 		$repository = $this->repository();
@@ -297,7 +286,6 @@ class ReadMultipleFieldsTest extends ReadTestBase {
 			[ 'trolling' ],
 			'AND'
 		)->get_ids();
-		codecept_debug( 'Query request SQL: ' . $repository->get_last_built_query()->request );
 		$this->assertEquals( [ $one, $two, $three ], $matches );
 
 		$repository = $this->repository();
@@ -306,7 +294,6 @@ class ReadMultipleFieldsTest extends ReadTestBase {
 			'LIKE',
 			[ 'trolling' ]
 		)->get_ids();
-		codecept_debug( 'Query request SQL: ' . $repository->get_last_built_query()->request );
 		$this->assertEquals( [ $one, $two ], $matches );
 	}
 
@@ -324,7 +311,6 @@ class ReadMultipleFieldsTest extends ReadTestBase {
 			'LIKE',
 			[ 'good' ]
 		)->get_ids();
-		codecept_debug( 'Query request SQL: ' . $repository->get_last_built_query()->request );
 		$this->assertEquals( [ $one, $two, $three ], $matches );
 
 		$repository = $this->repository();
@@ -333,7 +319,6 @@ class ReadMultipleFieldsTest extends ReadTestBase {
 			'LIKE',
 			[ 'pretty good' ]
 		)->get_ids();
-		codecept_debug( 'Query request SQL: ' . $repository->get_last_built_query()->request );
 		$this->assertEquals( [ $three ], $matches );
 
 		$repository = $this->repository();
@@ -342,7 +327,6 @@ class ReadMultipleFieldsTest extends ReadTestBase {
 			'LIKE',
 			[ 'bad', 'pretty bad' ]
 		)->get_ids();
-		codecept_debug( 'Query request SQL: ' . $repository->get_last_built_query()->request );
 		$this->assertEquals( [ $two, $three ], $matches );
 	}
 
@@ -360,7 +344,6 @@ class ReadMultipleFieldsTest extends ReadTestBase {
 			'LIKE',
 			[ 'fox', 'good' ]
 		)->get_ids();
-		codecept_debug( 'Query request SQL: ' . $repository->get_last_built_query()->request );
 		$this->assertEquals( [ $one, $two, $three ], $matches );
 
 		$repository = $this->repository();
@@ -369,7 +352,6 @@ class ReadMultipleFieldsTest extends ReadTestBase {
 			'LIKE',
 			[ 'fox' ]
 		)->get_ids();
-		codecept_debug( 'Query request SQL: ' . $repository->get_last_built_query()->request );
 		$this->assertEquals( [ $one ], $matches );
 	}
 }
