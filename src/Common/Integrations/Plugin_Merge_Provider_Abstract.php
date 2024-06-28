@@ -117,6 +117,11 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @since TBD
 	 */
 	public function init() {
+		// Load our is_plugin_activated function.
+		if ( ! class_exists( 'is_plugin_activated' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		}
+
 		if ( $this->updated_to_merge_version && ! $this->is_child_plugin_active() ) {
 			// Leave a notice of the recent update.
 			$this->send_updated_notice();
