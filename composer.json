@@ -74,7 +74,7 @@
       "@stellar-uplink"
     ],
     "stellar-uplink": [
-      "vendor/bin/stellar-uplink domain=<your-plugin-domain>"
+      "vendor/bin/stellar-uplink domain=tribe-common"
     ]
   },
   "extra": {
@@ -84,6 +84,8 @@
       "classmap_prefix": "TEC__Common__",
       "constant_prefix": "TEC_COMMON_",
       "packages": [
+        "stellarwp/arrays",
+        "stellarwp/assets",
         "stellarwp/container-contract",
         "stellarwp/db",
         "stellarwp/models",
@@ -94,8 +96,7 @@
         "lucatume/di52",
         "monolog/monolog",
         "firebase/php-jwt",
-        "psr/container",
-        "stellarwp/assets"
+        "psr/container"
       ],
       "exclude_from_prefix": {
         "file_patterns": []
