@@ -25,6 +25,7 @@
     "lucatume/di52": "^3.3.7",
     "monolog/monolog": "1.24.*",
     "psr/container": "^1.0.0",
+    "stellarwp/arrays": "^1.2",
     "stellarwp/assets": "^1.2.1",
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
@@ -74,7 +75,7 @@
       "@stellar-uplink"
     ],
     "stellar-uplink": [
-      "vendor/bin/stellar-uplink domain=<your-plugin-domain>"
+      "vendor/bin/stellar-uplink domain=tribe-common"
     ]
   },
   "extra": {
@@ -84,6 +85,8 @@
       "classmap_prefix": "TEC__Common__",
       "constant_prefix": "TEC_COMMON_",
       "packages": [
+        "stellarwp/arrays",
+        "stellarwp/assets",
         "stellarwp/container-contract",
         "stellarwp/db",
         "stellarwp/models",
@@ -94,8 +97,7 @@
         "lucatume/di52",
         "monolog/monolog",
         "firebase/php-jwt",
-        "psr/container",
-        "stellarwp/assets"
+        "psr/container"
       ],
       "exclude_from_prefix": {
         "file_patterns": []
