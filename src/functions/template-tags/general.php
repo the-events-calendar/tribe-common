@@ -649,7 +649,7 @@ function tribe_register_error( $indexes, $message ) {
  * Registers an asset.
  *
  * @since 4.3
- * @since TBD Replaced the function internals with calls to the stellarwp/assets library.
+ * @since 5.3.0 Replaced the function internals with calls to the stellarwp/assets library.
  *
  * @param object|string          $origin The origin of the asset, either a class or a string.
  * @param string                 $slug The handle of the asset.
@@ -699,7 +699,7 @@ function tribe_asset( $origin, $slug, $file, $deps = [], $action = null, $argume
  * conditional logic set for the asset and enqueue regardless.
  *
  * @since 4.7
- * @since TBD Refactored to use the `stellarwp/assets` library.
+ * @since 5.3.0 Refactored to use the `stellarwp/assets` library.
  *
  * @param string|array $slug Slug to enqueue
  * @param bool         $force Whether to force the enqueue or not.
@@ -715,7 +715,7 @@ function tribe_asset_enqueue( $slug, $force = true ) {
  * conditional logic set for the asset and enqueue regardless.
  *
  * @since 4.7
- * @since TBD Refactored to use the `stellarwp/assets` library.
+ * @since 5.3.0 Refactored to use the `stellarwp/assets` library.
  *
  * @param string|array $group  Which group(s) should be enqueued.
  */

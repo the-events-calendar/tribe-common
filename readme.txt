@@ -1,9 +1,33 @@
 == Changelog ==
 
+= [5.3.0.4] 2024-06-18 =
+
+* Fix - In installations where the plugins or wp-content directories were symbolic linked, assets would fail to be located. [TECTRIA-91]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
+
+= [5.3.0.3] 2024-06-14 =
+
+* Fix - Issue where scripts would not be enqueued as modules. [TECTRIA-86]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.3.0.2] 2024-06-14 =
+
+* Fix - Windows Server compatibility issues with updated Assets handling. [TECTRIA-83]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.3.0.1] 2024-06-13 =
+
+* Fix - Issue on which some assets (css,js) would not be located in WP installs which could have some WP constant modified (WP_CONTENT_DIR, WP_PLUGIN_DIR)[TECTRIA-83]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
 = [5.3.0] 2024-06-11 =
 
 * Feature - Refactor tribe_asset to use Stellar Assets. [TCMN-172]
 * Tweak - Remove ini_check for deprecated safe_mode. [TBD]
+* Tweak - Added information about upcoming promotion. [ET-2113]
+* Tweak - Added filters: `tribe_asset_enqueue_{$asset->get_slug()}`
+* Tweak - Removed filters: `tribe_asset_enqueue_{$asset->slug}`, `tribe_asset_pre_register`
+* Language: 7 new strings added, 5 updated, 2 fuzzied, and 0 obsoleted
 
 = [5.2.7] 2024-05-14 =
 
