@@ -88,6 +88,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	public function register() {
 		// Was updated from a version that is less than the merged version?
 		$this->updated_to_merge_version = $this->did_update_to_merge_version();
+		$this->init();
 	}
 
 	/**
@@ -102,12 +103,21 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	}
 
 	/**
+	 * Is the child plugin active?
+	 *
+	 * @since TBD
+	 */
+	protected function is_child_plugin_active(): bool {
+		return is_plugin_active( $this->get_plugin_file_key() );
+	}
+
+	/**
 	 * Initializes the merged compatibility checks.
 	 *
 	 * @since TBD
 	 */
 	public function init() {
-		if ( $this->updated_to_merge_version && ! is_plugin_active( $this->get_plugin_file_key() ) ) {
+		if ( $this->updated_to_merge_version && ! $this->is_child_plugin_active() ) {
 			// Leave a notice of the recent update.
 			$this->send_updated_notice();
 			$this->init_merged_plugin();
@@ -115,7 +125,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 		}
 
 		// If the Event Ticket Wallet Plus plugin is active, we need to deactivate it before continuing to avoid a fatal.
-		if ( is_plugin_active( $this->get_plugin_file_key() ) ) {
+		if ( $this->is_child_plugin_active() ) {
 			$this->deactivate_plugin();
 
 			// Leave a notice of the forced deactivation.
@@ -128,7 +138,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 			add_action( 'activated_plugin', [ $this, 'deactivate_plugin' ] );
 
 			// Remove "Plugin activated" notice from redirect.
-			add_action( 'activate_' . $this->get_plugin_file_key(), [ $this, 'remove_activated_from_redirect' ] );
+			add_action( 'activate_plugin', [ $this, 'remove_activated_from_redirect' ] );
 			// Leave a notice of the forced deactivation.
 			$this->send_activating_merge_notice();
 			return;
@@ -160,9 +170,13 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * Adds the hook to remove the "Plugin activated" notice from the redirect.
 	 *
 	 * @since TBD
+	 *
+	 * @param string $plugin The plugin file path.
 	 */
-	public function remove_activated_from_redirect() {
-		add_filter( 'wp_redirect', [ $this, 'filter_remove_activated_from_redirect' ] );
+	public function remove_activated_from_redirect( $plugin ) {
+		if ( basename( $plugin ) === basename( $this->get_plugin_file_key() ) ) {
+			add_filter( 'wp_redirect', [ $this, 'filter_remove_activated_from_redirect' ] );
+		}
 	}
 
 	/**
