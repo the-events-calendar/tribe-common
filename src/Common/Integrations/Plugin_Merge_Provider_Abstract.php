@@ -6,8 +6,8 @@
  *
  * @package TEC\Common\Integrations
  */
-
 namespace TEC\Common\Integrations;
+
 use TEC\Common\Contracts\Service_Provider;
 use Tribe__Admin__Notices;
 use Tribe__Settings_Manager;
@@ -34,7 +34,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 *
 	 * @return string
 	 */
-	abstract public function get_merged_version();
+	abstract public function get_merged_version(): string;
 
 	/**
 	 * Get version key for the last version option.
@@ -43,42 +43,42 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 *
 	 * @return string
 	 */
-	abstract public function get_last_version_option_key();
+	abstract public function get_last_version_option_key(): string;
 
 	/**
 	 * Get the key of the plugin file, e.g. path/file.php.
 	 *
 	 * @return string
 	 */
-	abstract public function get_plugin_file_key();
+	abstract public function get_plugin_file_key(): string;
 
 	/**
 	 * Get the slug of the notice to display with various notices.
 	 *
 	 * @return string
 	 */
-	abstract public function get_merge_notice_slug();
+	abstract public function get_merge_notice_slug(): string;
 
 	/**
 	 * Get the message to display when the parent plugin is being updated but the child plugin is not active.
 	 *
 	 * @return string
 	 */
-	abstract public function get_updated_notice_message();
+	abstract public function get_updated_notice_message(): string;
 
 	/**
 	 * Get the message to display when the parent plugin is being updated to the merge.
 	 *
 	 * @return string
 	 */
-	abstract public function get_updated_merge_notice_message();
+	abstract public function get_updated_merge_notice_message(): string;
 
 	/**
 	 * Get the message to display when the child plugin is being activated.
 	 *
 	 * @return string
 	 */
-	abstract public function get_activating_merge_notice_message();
+	abstract public function get_activating_merge_notice_message(): string;
 
 	/**
 	 * Binds and sets up implementations.
@@ -97,7 +97,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 *
 	 * @return bool
 	 */
-	protected function did_update_to_merge_version() {
+	protected function did_update_to_merge_version(): bool {
 		return version_compare( Tribe__Settings_Manager::get_option( $this->get_last_version_option_key() ), $this->get_merged_version(), '<' );
 	}
 
@@ -178,8 +178,6 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 		return remove_query_arg( 'activate', $location );
 	}
 
-
-
 	/**
 	 * Send admin notice about the updates of Tickets Plus.
 	 *
@@ -229,7 +227,6 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 		);
 	}
 
-
 	/**
 	 * Send admin notice about the merge of the Event Tickets Wallet Plus plugin into Tickets Plus.
 	 * This notice is for after activating the deprecated Wallet Plus plugin.
@@ -262,7 +259,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 *
 	 * @return bool
 	 */
-	public static function should_show_merge_notice() {
+	public static function should_show_merge_notice(): bool {
 		return tribe( \Tribe__Admin__Helpers::class )->is_screen() || tribe( \Tribe__Admin__Helpers::class )->is_screen( 'plugins' );
 	}
 
@@ -301,9 +298,9 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 		// phpcs:ignore
 		$is_activating = isset( $_GET['action'] ) && $_GET['action'] === 'activate';
 		// phpcs:ignore
-		$is_etwp_plugin    = isset( $_GET['plugin'] ) && basename( $_GET['plugin'] ) === basename( $this->get_plugin_file_key() );
+		$is_child_plugin   = isset( $_GET['plugin'] ) && basename( $_GET['plugin'] ) === basename( $this->get_plugin_file_key() );
 		$user_can_activate = current_user_can( 'activate_plugins' ) && is_admin();
 
-		return $is_etwp_plugin && $is_activating && $user_can_activate;
+		return $is_child_plugin && $is_activating && $user_can_activate;
 	}
 }
