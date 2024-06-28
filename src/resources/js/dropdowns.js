@@ -364,7 +364,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 				url: obj.ajaxurl(),
 
 				// parse the results into the format expected by Select2.
-				processResults: function ( response, page, query ) { // eslint-disable-line no-unused-vars
+				processResults: function ( response, params ) { // eslint-disable-line no-unused-vars
 					if ( ! $.isPlainObject( response ) || 'undefined' === typeof response.success ) {
 						console.error( 'We received a malformed Object, could not complete the Select2 Search.' ); // eslint-disable-line max-len
 						return { results: [] };
@@ -390,6 +390,20 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 					return response.data;
 				},
 			};
+
+
+			if ( $select.is( '[data-ajax-delay]' ) ) {
+				args.ajax.delay = $select.data( 'ajax-delay' );
+			}
+
+			if ( $select.is( '[data-ajax-cache]' ) ) {
+				const ajaxCache = $select.data( 'ajax-cache' );
+				args.ajax.cache = 1 === ajaxCache || '1' === ajaxCache || 'true' === ajaxCache;
+			}
+
+			if ( $select.is( '[data-minimum-input-length]' ) ) {
+				args.minimumInputLength = parseInt( $select.data( 'minimum-input-length' ) );
+			}
 
 			// By default only send the source
 			args.ajax.data = function( search, page ) {
