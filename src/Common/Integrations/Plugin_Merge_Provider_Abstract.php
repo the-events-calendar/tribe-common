@@ -118,7 +118,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 */
 	public function init() {
 		// Load our is_plugin_activated function.
-		if ( ! class_exists( 'is_plugin_activated' ) ) {
+		if ( ! function_exists( 'is_plugin_activated' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		}
 
@@ -292,7 +292,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 *
 	 * @return bool
 	 */
-	protected function cli_args_start_with( array $looking_for, $args ) {
+	protected function cli_args_start_with(array $looking_for, $args): bool {
 		if ( empty( $args ) || ! is_array( $args ) ) {
 			return false;
 		}
@@ -307,7 +307,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 *
 	 * @return bool
 	 */
-	protected function is_activating_plugin() {
+	protected function is_activating_plugin(): bool {
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			// Taking advantage of Runner's __get method to access private properties.
 			$args = \WP_CLI::get_runner()->arguments;
