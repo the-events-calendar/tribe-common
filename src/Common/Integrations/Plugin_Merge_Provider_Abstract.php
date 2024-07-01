@@ -293,7 +293,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 *
 	 * @return bool
 	 */
-	protected function cli_args_start_with(array $looking_for, $args): bool {
+	protected function cli_args_start_with( array $looking_for, $args ): bool {
 		if ( empty( $args ) || ! is_array( $args ) ) {
 			return false;
 		}
