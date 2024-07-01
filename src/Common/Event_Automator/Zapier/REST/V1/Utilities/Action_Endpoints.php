@@ -27,7 +27,7 @@ class Action_Endpoints {
 	 * @param Abstract_REST_Endpoint $endpoint_obj An instance of the endpoint.
 	 */
 	public function filter_details( $endpoint, $endpoint_obj ) {
-		if ( in_array( $endpoint_obj->get_id(), [ 'new_events', 'updated_events', 'canceled_events', 'create_events' ], true ) ) {
+		if ( in_array( $endpoint_obj->get_id(), [ 'new_events', 'updated_events', 'canceled_events', 'create_events', 'find_events', 'update_events' ], true ) ) {
 			if ( ! class_exists( 'Tribe__Events__REST__V1__Validator__Base', false ) ) {
 				// Disable if Tribe__Events__REST__V1__Validator__Base class does not exist.
 				$endpoint['missing_dependency'] = true;
