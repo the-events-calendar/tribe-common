@@ -1,6 +1,6 @@
 <?php
 /**
- * Abstract for Integrations.
+ * Abstract for Plugin Merge operations.
  *
  * @since TBD
  *
@@ -10,6 +10,7 @@
 namespace TEC\Common\Integrations;
 
 use TEC\Common\Contracts\Service_Provider;
+use TEC\Common\lucatume\DI52\Container;
 use Tribe__Admin__Notices;
 use Tribe__Settings_Manager;
 
@@ -82,13 +83,24 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	abstract public function get_activating_merge_notice_message(): string;
 
 	/**
+	 * Run initialization of container and plugin version comparison.
+	 *
+	 * @since TBD
+	 *
+	 * @param Container $container
+	 */
+	public function __construct( Container $container ) {
+		parent::__construct( $container );
+		// Was updated from a version that is less than the merged version?
+		$this->updated_to_merge_version = $this->did_update_to_merge_version();
+	}
+
+	/**
 	 * Binds and sets up implementations.
 	 *
 	 * @since TBD
 	 */
-	public function register() {
-		// Was updated from a version that is less than the merged version?
-		$this->updated_to_merge_version = $this->did_update_to_merge_version();
+	public function register(): void {
 		$this->init();
 	}
 
@@ -117,7 +129,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 *
 	 * @since TBD
 	 */
-	public function init() {
+	public function init(): void {
 		// Load our is_plugin_activated function.
 		if ( ! function_exists( 'is_plugin_activated' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -159,7 +171,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 *
 	 * @since TBD
 	 */
-	public function init_merged_plugin() {
+	public function init_merged_plugin(): void {
 		// Implement the merged plugin initialization.
 	}
 
@@ -168,7 +180,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 *
 	 * @since TBD
 	 */
-	public function deactivate_plugin() {
+	public function deactivate_plugin(): void {
 		deactivate_plugins( $this->get_plugin_file_key() );
 	}
 
@@ -179,7 +191,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 *
 	 * @param string $plugin The plugin file path.
 	 */
-	public function remove_activated_from_redirect( $plugin ) {
+	public function remove_activated_from_redirect( $plugin ): void {
 		if ( basename( $plugin ) === basename( $this->get_plugin_file_key() ) ) {
 			add_filter( 'wp_redirect', [ $this, 'filter_remove_activated_from_redirect' ] );
 		}
@@ -194,7 +206,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 *
 	 * @return string The redirect location without the "activate" query arg.
 	 */
-	public function filter_remove_activated_from_redirect( $location ) {
+	public function filter_remove_activated_from_redirect( $location ): string {
 		return remove_query_arg( 'activate', $location );
 	}
 
@@ -203,7 +215,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 *
 	 * @since TBD
 	 */
-	public function send_updated_notice() {
+	public function send_updated_notice(): void {
 		// Remove dismissed flag since we want to show the notice everytime this is triggered.
 		Tribe__Admin__Notices::instance()->undismiss( $this->get_merge_notice_slug() );
 
@@ -228,7 +240,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 *
 	 * @since TBD
 	 */
-	public function send_updated_merge_notice() {
+	public function send_updated_merge_notice(): void {
 		// Remove dismissed flag since we want to show the notice everytime this is triggered.
 		Tribe__Admin__Notices::instance()->undismiss( $this->get_merge_notice_slug() );
 
@@ -253,7 +265,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 *
 	 * @since TBD
 	 */
-	public function send_activating_merge_notice() {
+	public function send_activating_merge_notice(): void {
 		// Remove dismissed flag since we want to show the notice everytime this is triggered.
 		Tribe__Admin__Notices::instance()->undismiss( $this->get_merge_notice_slug() );
 
