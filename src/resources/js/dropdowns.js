@@ -284,7 +284,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		if ( $select.is( '[data-freeform]' ) ) {
 			args.createTag = obj.freefrom_create_search_choice;
 			args.tags = true;
-			$select.data( 'tags', true );
 		}
 
 		if ( $select.is( '[multiple]' ) ) {
@@ -326,18 +325,22 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 
 		// Select also allows Tags, so we go with that too
 		if ( $select.is( '[data-tags]' ) ) {
-			args.tags = $select.data( 'tags' );
+			const selectTags = $select.data( 'tags' );
+			args.tags = 1 === selectTags || '1' === selectTags || 'true' === selectTags;
 
-			args.createSearchChoice = function( term, data ) { // eslint-disable-line no-unused-vars
-				if ( term.match( args.regexToken ) ) {
-					return { id: term, text: term };
-				}
-			};
-
-			if ( 0 === args.tags.length ) {
-				args.formatNoMatches = function() {
-					return $select.attr( 'placeholder' );
+			// Don't force tags!
+			if ( args.tags ) {
+				args.createSearchChoice = function( term, data ) { // eslint-disable-line no-unused-vars
+					if ( term.match( args.regexToken ) ) {
+						return { id: term, text: term };
+					}
 				};
+
+				if ( 0 === args.tags.length ) {
+					args.formatNoMatches = function() {
+						return $select.attr( 'placeholder' );
+					};
+				}
 			}
 		}
 
