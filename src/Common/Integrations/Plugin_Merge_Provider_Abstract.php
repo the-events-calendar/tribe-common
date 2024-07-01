@@ -87,7 +87,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 *
 	 * @since TBD
 	 *
-	 * @param Container $container
+	 * @param Container $container The container instance for DI.
 	 */
 	public function __construct( Container $container ) {
 		parent::__construct( $container );
