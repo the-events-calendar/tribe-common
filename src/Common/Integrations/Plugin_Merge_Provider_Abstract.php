@@ -181,7 +181,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @since TBD
 	 */
 	public function deactivate_plugin(): void {
-		deactivate_plugins( $this->get_plugin_file_key() );
+		deactivate_plugins( $this->get_plugin_file_key(), true, is_multisite() && is_plugin_active_for_network( $this->get_plugin_file_key() ) );
 	}
 
 	/**
