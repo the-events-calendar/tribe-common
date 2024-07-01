@@ -6,6 +6,7 @@
  *
  * @package TEC\Common\Integrations
  */
+
 namespace TEC\Common\Integrations;
 
 use TEC\Common\Contracts\Service_Provider;
@@ -119,7 +120,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	public function init() {
 		// Load our is_plugin_activated function.
 		if ( ! function_exists( 'is_plugin_activated' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
 		if ( $this->updated_to_merge_version && ! $this->is_child_plugin_active() ) {
