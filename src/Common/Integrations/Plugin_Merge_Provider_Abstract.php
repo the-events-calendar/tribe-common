@@ -148,6 +148,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 
 			// Leave a notice of the forced deactivation.
 			$this->send_updated_merge_notice();
+			$this->send_updated_notice();
 			return;
 		}
 
@@ -216,12 +217,13 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @since TBD
 	 */
 	public function send_updated_notice(): void {
+		$notice_slug = 'updated-to-merge-version-consolidated-notice';
 		// Remove dismissed flag since we want to show the notice everytime this is triggered.
-		Tribe__Admin__Notices::instance()->undismiss( $this->get_merge_notice_slug() );
+		Tribe__Admin__Notices::instance()->undismiss( $notice_slug );
 
 		$message = $this->get_updated_notice_message();
 		tribe_transient_notice(
-			$this->get_merge_notice_slug(),
+			$notice_slug,
 			sprintf( '<p>%s</p>', $message ),
 			[
 				'type'            => 'success',
@@ -240,10 +242,8 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @since TBD
 	 */
 	public function send_updated_merge_notice(): void {
-		$notice_slug = 'updated-to-merge-version-consolidated-notice';
-
 		// Remove dismissed flag since we want to show the notice everytime this is triggered.
-		Tribe__Admin__Notices::instance()->undismiss( $notice_slug );
+		Tribe__Admin__Notices::instance()->undismiss( $this->get_merge_notice_slug() );
 
 		$message = $this->get_updated_merge_notice_message();
 		tribe_transient_notice(
@@ -328,33 +328,33 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 			return $this->cli_args_start_with( [ 'plugin', 'activate' ], $args ) || $this->cli_args_start_with( [ 'plugin', 'install' ], $args );
 		}
 
-		$action = $_GET['action']?? null;
+		$action = $_GET['action']  ?? null;
 		$action = $_POST['action'] ?? $action;
 
 		// Are we activating?
-		if(!in_array($action, [ 'activate', 'activate-selected' ])) {
+		if ( ! in_array( $action, ['activate', 'activate-selected'] ) ) {
 			return false;
 		}
 
 		// Can we even activate?
-		if(!current_user_can( 'activate_plugins' ) || ! is_admin()) {
+		if ( ! current_user_can('activate_plugins') || ! is_admin() ) {
 			return false;
 		}
 
 		// Which plugin are we activating?
-		$targeted_plugins = isset( $_GET['plugin'] ) ? [basename( $_GET['plugin'] )] : null;
-		if(!$targeted_plugins && isset( $_POST['checked'] ) ) {
-			$targeted_plugins = array_map('basename', $_POST['checked']);
+		$targeted_plugins = isset( $_GET['plugin'] ) ? [ basename( $_GET['plugin'] ) ] : null;
+		if ( ! $targeted_plugins && isset( $_POST['checked'] ) ) {
+			$targeted_plugins = array_map( 'basename', $_POST['checked'] );
 		}
 
 		// Something went wrong, bail.
-		if(!is_array($targeted_plugins)){
+		if ( ! is_array( $targeted_plugins ) ) {
 			return false;
 		}
 
 		// Are we activating our plugin?
-		$child_plugin   =  basename( $this->get_plugin_file_key() );
+		$child_plugin = basename( $this->get_plugin_file_key() );
 
-		return in_array($child_plugin, $targeted_plugins);
+		return in_array( $child_plugin, $targeted_plugins );
 	}
 }
