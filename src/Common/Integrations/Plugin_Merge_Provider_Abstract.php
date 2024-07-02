@@ -235,14 +235,15 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	}
 
 	/**
-	 * Send admin notice about the merge of the Event Tickets Wallet Plus plugin into Tickets Plus.
-	 * This notice is for after updating Tickets Plus to the merged version.
+	 * Send admin notice about the merge of the child plugin into the parent plugin.
 	 *
 	 * @since TBD
 	 */
 	public function send_updated_merge_notice(): void {
+		$notice_slug = 'updated-to-merge-version-consolidated-notice';
+
 		// Remove dismissed flag since we want to show the notice everytime this is triggered.
-		Tribe__Admin__Notices::instance()->undismiss( $this->get_merge_notice_slug() );
+		Tribe__Admin__Notices::instance()->undismiss( $notice_slug );
 
 		$message = $this->get_updated_merge_notice_message();
 		tribe_transient_notice(
@@ -327,12 +328,33 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 			return $this->cli_args_start_with( [ 'plugin', 'activate' ], $args ) || $this->cli_args_start_with( [ 'plugin', 'install' ], $args );
 		}
 
-		// phpcs:ignore
-		$is_activating = isset( $_GET['action'] ) && $_GET['action'] === 'activate';
-		// phpcs:ignore
-		$is_child_plugin   = isset( $_GET['plugin'] ) && basename( $_GET['plugin'] ) === basename( $this->get_plugin_file_key() );
-		$user_can_activate = current_user_can( 'activate_plugins' ) && is_admin();
+		$action = $_GET['action']?? null;
+		$action = $_POST['action'] ?? $action;
 
-		return $is_child_plugin && $is_activating && $user_can_activate;
+		// Are we activating?
+		if(!in_array($action, [ 'activate', 'activate-selected' ])) {
+			return false;
+		}
+
+		// Can we even activate?
+		if(!current_user_can( 'activate_plugins' ) || ! is_admin()) {
+			return false;
+		}
+
+		// Which plugin are we activating?
+		$targeted_plugins = isset( $_GET['plugin'] ) ? [basename( $_GET['plugin'] )] : null;
+		if(!$targeted_plugins && isset( $_POST['checked'] ) ) {
+			$targeted_plugins = array_map('basename', $_POST['checked']);
+		}
+
+		// Something went wrong, bail.
+		if(!is_array($targeted_plugins)){
+			return false;
+		}
+
+		// Are we activating our plugin?
+		$child_plugin   =  basename( $this->get_plugin_file_key() );
+
+		return in_array($child_plugin, $targeted_plugins);
 	}
 }
