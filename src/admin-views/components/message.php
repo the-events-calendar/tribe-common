@@ -17,6 +17,7 @@
  * @var string               $type        The type of message, either standard or error.
  * @var array<string|string> $add_classes An array of message classes.
  */
+
 // If not message, do not display.
 if ( empty( $message ) ) {
 	return;

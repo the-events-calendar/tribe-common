@@ -23,10 +23,14 @@ $this->template( 'zapier/dashboard/endpoints/list-header', [] );
 
 foreach ( $endpoints as $endpoint ) : ?>
 	<?php
-	$this->template( 'zapier/dashboard/endpoints/endpoint', [
-		'endpoint' => $endpoint,
-		'manager'  => $manager,
-		'url'      => $url,
-	] );
+	$this->template(
+		'zapier/dashboard/endpoints/endpoint',
+		[
+			'endpoint' => $endpoint,
+			'manager'  => $manager,
+			'url'      => $url,
+		] 
+	);
 	?>
-<?php endforeach; ?>
+	<?php
+endforeach; 

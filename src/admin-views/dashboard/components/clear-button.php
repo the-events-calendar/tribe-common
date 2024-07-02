@@ -17,6 +17,7 @@
  * @var Endpoints_Manager   $manager   The Endpoint Manager instance.
  * @var Url                 $url       The URLs handler for the integration.
  */
+
 // Only show for queue endpoints.
 if ( $endpoint['type'] !== 'queue' || ! $endpoint['enabled'] || $endpoint['missing_dependency'] ) {
 	return;
@@ -29,8 +30,8 @@ $clear_label = _x( 'Clear Queue', 'Clears a integration endpoint queue.', 'tribe
 	<button
 		class="tec-settings-connection-endpoint-dashboard-details-action__button tec-settings-connection-endpoint-dashboard-details-actions__clear tec-common-integration-endpoint-details-actions__clear"
 		type="button"
-		data-ajax-action-url="<?php echo $clear_link; ?>"
-		data-confirmation="<?php echo $manager->get_confirmation_to_clear_endpoint_queue(); ?>"
+		data-ajax-action-url="<?php echo esc_url( $clear_link ); ?>"
+		data-confirmation="<?php echo esc_attr( $manager->get_confirmation_to_clear_endpoint_queue() ); ?>"
 	>
 		<?php echo esc_html( $clear_label ); ?>
 	</button>

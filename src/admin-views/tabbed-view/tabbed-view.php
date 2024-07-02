@@ -5,12 +5,12 @@
  * @var Tribe__Tabbed_View $view
  */
 
-/** @var Tribe__Tabbed_View__Tab[] $tabs */
-$tabs = $view->get_visibles();
+/** @var Tribe__Tabbed_View__Tab[] $tribe_tabs */
+$tribe_tabs = $view->get_visibles();
 ?>
 
-<?php if ( count( $tabs ) > 1 ) : ?>
-    <div class="tabbed-view-wrap wrap">
+<?php if ( count( $tribe_tabs ) > 1 ) : ?>
+	<div class="tabbed-view-wrap wrap">
 		<?php if ( $view->get_label() ) : ?>
 			<h1>
 				<?php echo esc_html( $view->get_label() ); ?>
@@ -28,14 +28,15 @@ $tabs = $view->get_visibles();
 		<?php endif; ?>
 
 		<h2 class="nav-tab-wrapper">
-			<?php foreach ( $tabs as $tab ): ?>
-				<a id="<?php echo esc_attr( $tab->get_slug() ); ?>"
-				   class="nav-tab<?php echo( $tab->is_active() ? ' nav-tab-active' : '' ); ?>"
-				   href="<?php echo esc_url( $tab->get_url() ); ?>"><?php echo esc_html( $tab->get_label() ); ?>
+			<?php foreach ( $tribe_tabs as $tribe_tab ) : ?>
+				<a id="<?php echo esc_attr( $tribe_tab->get_slug() ); ?>"
+					class="nav-tab<?php echo $tribe_tab->is_active() ? ' nav-tab-active' : ''; ?>"
+					href="<?php echo esc_url( $tribe_tab->get_url() ); ?>"><?php echo esc_html( $tribe_tab->get_label() ); ?>
 				</a>
 			<?php endforeach; ?>
 		</h2>
-    </div>
-<?php else: ?>
-    <h1><?php esc_html_e( reset( $tabs )->get_label() ); ?></h1>
+	</div>
+<?php else : ?>
+	<?php $reset_label = reset( $tribe_tabs )->get_label(); ?>
+	<h1><?php echo esc_html( $reset_label ); ?></h1>
 <?php endif; ?>

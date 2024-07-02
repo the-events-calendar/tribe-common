@@ -8,20 +8,21 @@
  * @var string $icon_url The local URL for the notice's image.
  * @var string $cta_url The short URL for the Stellar Sale.
  */
+
 ?>
 <div class="tribe-marketing-notice">
 	<div class="tribe-marketing-notice__content-wrapper">
 		<div class="tribe-marketing-notice__col--md">
 			<h3>
-				<?php echo esc_html( $heading ); ?>
+				<?php esc_html_e( 'Make it yours.', 'tribe-common' ); ?>
 			</h3>
 			<h4>
-			<?php echo esc_html( $sub_heading ); ?>
+				<?php esc_html_e( 'Save 30% on all The Events Calendar products.', 'tribe-common' ); ?>
 			</h4>
 			<p>
 				<span class="tribe-marketing-notice__cta-shop-now tribe-marketing-notice__cta-shop-now--desktop">
 					<a target="_blank" href="<?php echo esc_url( $cta_url ); ?>">
-						<?php echo esc_html( $cta_link_text ); ?>
+						<?php echo esc_html_x( 'Shop now', 'Shop now link text', 'tribe-common' ); ?>
 					</a>
 				</span>
 			</p>
@@ -29,13 +30,13 @@
 
 		<div class="tribe-marketing-notice__col--lg">
 			<p class="tribe-marketing-notice__info">
-				<?php echo wp_kses_post( $content ); ?>
+				<?php esc_html_e( 'Purchase any StellarWP product during the sale and get <b>100%</b> off WP Business Reviews and take <b>40%</b> off all other brands.', 'tribe-common' ); ?>
 			</p>
 			<div class="tribe-marketing-notice__col--inner">
 				<p>
 					<span class="tribe-marketing-notice__cta-shop-now tribe-marketing-notice__cta-shop-now--mobile">
 						<a target="_blank" href="<?php echo esc_url( $cta_url ); ?>">
-							<?php echo esc_html( $cta_link_text ); ?>
+							<?php echo esc_html_x( 'Shop now', 'Shop now link text', 'tribe-common' ); ?>
 						</a>
 					</span>
 				</p>

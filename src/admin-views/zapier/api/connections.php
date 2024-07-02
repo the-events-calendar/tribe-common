@@ -25,28 +25,37 @@ $keys = $api->get_list_of_api_keys( true );
 	<legend class="tribe-field-label"><?php esc_html_e( 'API Keys', 'tribe-common' ); ?></legend>
 	<div class="tec-automator-settings-message__wrap tec-zapier-api-keys-messages">
 		<?php
-		$this->template( 'components/message', [
-			'message' => $message,
-			'type'    => 'standard',
-		] );
+		$this->template(
+			'components/message',
+			[
+				'message' => $message,
+				'type'    => 'standard',
+			] 
+		);
 		?>
 	</div>
 	<div class="tec-automator-settings-items__wrap tec-zapier-api-keys-wrap event-automator">
 		<?php
-		$this->template( 'zapier/api/list/list', [
-			'api'   => $api,
-			'url'   => $url,
-			'keys'  => $keys,
-			'users' => $users,
-		] );
+		$this->template(
+			'zapier/api/list/list',
+			[
+				'api'   => $api,
+				'url'   => $url,
+				'keys'  => $keys,
+				'users' => $users,
+			] 
+		);
 		?>
 	</div>
 	<div class="tec-zapier-add-wrap">
 		<?php
-		$this->template( 'components/integration/add-connection', [
-			'api' => $api,
-			'url' => $url,
-		] );
+		$this->template(
+			'components/integration/add-connection',
+			[
+				'api' => $api,
+				'url' => $url,
+			] 
+		);
 		?>
 	</div>
 </fieldset>

@@ -21,8 +21,8 @@ $add_link      = $url->to_add_connection_link();
 $connect_label = _x( 'Add Connection', 'Label to add an integration connection fields.', 'tribe-common' );
 
 $classes = [
-	'button'                                        => true,
-	'tec-automator-settings__add-api-key-button'    => true,
+	'button'                                     => true,
+	'tec-automator-settings__add-api-key-button' => true,
 ];
 ?>
 <a

@@ -15,8 +15,8 @@
  *
  * @var array<string,string> $classes_wrap An array of classes for the tooltip wrap.
  * @var string               $message  The message to add to the tooltip.
- *
  */
+
 $wrap_classes = [ 'tribe-tooltip', 'event-helper-text' ];
 if ( ! empty( $classes_wrap ) ) {
 	$wrap_classes = array_merge( $wrap_classes, $classes_wrap );
@@ -33,7 +33,8 @@ if ( ! empty( $classes_wrap ) ) {
 			<?php
 			echo wp_kses(
 				$message,
-				[ 'a' => [ 'href' => [] ] ] );
+				[ 'a' => [ 'href' => [] ] ]
+			);
 			?>
 		</p>
 	</div>

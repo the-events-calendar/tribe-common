@@ -51,9 +51,9 @@ if ( ! empty( $classes_input ) ) {
 		id="<?php echo esc_attr( $id ); ?>"
 		<?php tribe_classes( $input_classes ); ?>
 		type="text"
-		name="<?php echo esc_html( $name ); ?>"
-		placeholder="<?php echo esc_html( $placeholder ); ?>"
-		value="<?php echo esc_html( $value ); ?>"
-		<?php tribe_attributes( $attrs ) ?>
+		name="<?php echo esc_attr( $name ); ?>"
+		placeholder="<?php echo esc_attr( $placeholder ); ?>"
+		value="<?php echo esc_attr( $value ); ?>"
+		<?php tribe_attributes( $attrs ); ?>
 	>
 </div>

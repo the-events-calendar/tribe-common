@@ -20,6 +20,7 @@
  * @var string               $name          The name for the text input.
  * @var string               $value         The value of the text field.
  */
+
 ?>
 <div <?php tribe_classes( $classes_wrap ); ?> >
 	<fieldset class="tec-automator-settings-details__read-only-field">
@@ -31,8 +32,8 @@
 			<input
 				id="<?php echo esc_attr( $id ); ?>"
 				type="hidden"
-				name="<?php echo esc_html( $name ); ?>"
-				value="<?php echo esc_html( $value ); ?>"
+				name="<?php echo esc_attr( $name ); ?>"
+				value="<?php echo esc_attr( $value ); ?>"
 			>
 			<?php if ( $screen_reader ) { ?>
 				<label class="screen-reader-text">

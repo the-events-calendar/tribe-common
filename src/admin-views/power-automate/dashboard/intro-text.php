@@ -13,6 +13,7 @@
  *
  * @link    http://evnt.is/1aiy
  */
+
 ?>
 <?php $this->template( '/components/loader' ); ?>
 
@@ -21,27 +22,27 @@
 </h3>
 <p class="tec-settings-power-automate-application__description">
 	<?php
-	echo sprintf(
+	printf(
 		'%1$s',
-			esc_html_x(
-				'Monitor your Power Automate endpoints (triggers and actions used by your connectors).',
-				'Settings help text for Power Automate Endpoint Dashboard.',
-				'tribe-common'
-			),
+		esc_html_x(
+			'Monitor your Power Automate endpoints (triggers and actions used by your connectors).',
+			'Settings help text for Power Automate Endpoint Dashboard.',
+			'tribe-common'
+		),
 	);
 	?>
 </p>
 <p class="tec-settings-power-automate-application__description">
 	<?php
 	$url = 'https://evnt.is/1bcx';
-	echo sprintf(
+	printf(
 		'<a href="%1$s" target="_blank">%2$s</a>',
-			esc_url( $url ),
-			esc_html_x(
+		esc_url( $url ),
+		esc_html_x(
 			'Read more about the Power Automate Endpoint Dashboard.',
 			'Settings link text for Power Automate endpoint dashboard.',
 			'tribe-common'
-			)
+		)
 	);
 	?>
 </p>

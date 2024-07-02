@@ -24,8 +24,8 @@ $add_label = _x( 'Generate', 'Generate a Zapier API Key pair.', 'tribe-common' )
 <button
 	class="tec-automator-settings-details-action__generate tec-settings-zapier-detailsaction__generate button-primary"
 	type="button"
-	data-ajax-generate-url="<?php echo $add_link; ?>"
-	data-generate-error="<?php echo _x( 'Description or User missing. Please add a description and select a user before generating a key pair.', 'An error message that the description or user is missing when generating a key pair for Zapier.', 'tribe-common'); ?>"
+	data-ajax-generate-url="<?php echo esc_url( $add_link ); ?>"
+	data-generate-error="<?php echo esc_attr_x( 'Description or User missing. Please add a description and select a user before generating a key pair.', 'An error message that the description or user is missing when generating a key pair for Zapier.', 'tribe-common' ); ?>"
 >
 	<span>
 		<?php echo esc_html( $add_label ); ?>
