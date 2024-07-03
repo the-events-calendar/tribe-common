@@ -253,7 +253,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 				'type'            => 'success',
 				'dismiss'         => true,
 				'action'          => 'admin_notices',
-				'priority'        => 1,
+				'priority'        => 10,
 				'active_callback' => __CLASS__ . '::should_show_merge_notice',
 			],
 			YEAR_IN_SECONDS
@@ -278,7 +278,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 				'type'            => 'warning',
 				'dismiss'         => true,
 				'action'          => 'admin_notices',
-				'priority'        => 1,
+				'priority'        => 10,
 				'active_callback' => __CLASS__ . '::should_show_merge_notice',
 			],
 			YEAR_IN_SECONDS
