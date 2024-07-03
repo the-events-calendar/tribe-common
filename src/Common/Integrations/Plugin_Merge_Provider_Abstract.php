@@ -328,8 +328,9 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 			return $this->cli_args_start_with( [ 'plugin', 'activate' ], $args ) || $this->cli_args_start_with( [ 'plugin', 'install' ], $args );
 		}
 
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
 		$action = $_GET['action'] ?? null;
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
 		$action = $_POST['action'] ?? $action;
 
 		// Are we activating?
@@ -345,7 +346,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 		// Which plugin are we activating?
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
 		$targeted_plugins = isset( $_GET['plugin'] ) ? [ basename( $_GET['plugin'] ) ] : null;
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
 		if ( ! $targeted_plugins && isset( $_POST['checked'] ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
 			$targeted_plugins = array_map( 'basename', $_POST['checked'] );
