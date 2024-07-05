@@ -217,7 +217,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @since TBD
 	 */
 	public function send_updated_notice(): void {
-		$notice_slug = 'updated-to-merge-version-consolidated-notice';
+		$notice_slug = $this->get_merge_notice_slug() . '-version-consolidated-notice';
 		// Remove dismissed flag since we want to show the notice everytime this is triggered.
 		Tribe__Admin__Notices::instance()->undismiss( $notice_slug );
 
