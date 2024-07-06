@@ -71,13 +71,6 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	abstract public function get_merge_notice_slug(): string;
 
 	/**
-	 * Get the message to display when the parent plugin is being updated but the child plugin is not active.
-	 *
-	 * @return string
-	 */
-	abstract public function get_updated_notice_message(): string;
-
-	/**
 	 * Get the message to display when the parent plugin is being updated to the merge.
 	 *
 	 * @return string
