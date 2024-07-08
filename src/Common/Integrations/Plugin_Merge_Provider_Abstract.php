@@ -237,12 +237,25 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	}
 
 	/**
-	 * Send admin notice about the updates of Tickets Plus.
+	 * Send admin notice about the updates in the merged version.
 	 *
 	 * @since TBD
 	 */
 	public function send_updated_notice(): void {
 		$this->register_update();
+
+		// Defer so we have time to register updates for each plugin.
+		add_action( 'admin_init', [ $this, 'register_updated_notice' ], 99 );
+	}
+
+	/**
+	 * Registers the notice transient with the rendered message.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function register_updated_notice(): void {
 		$notice_slug = 'updated-to-merge-version-consolidated-notice';
 
 		// Remove dismissed flag since we want to show the notice every time this is triggered.
@@ -250,7 +263,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 
 		tribe_transient_notice(
 			$notice_slug,
-			__CLASS__ . '::render_updated_notice',
+			$this->render_updated_notice(),
 			[
 				'type'            => 'success',
 				'dismiss'         => true,
@@ -269,7 +282,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 *
 	 * @return string
 	 */
-	public static function render_updated_notice(): string {
+	public function render_updated_notice(): string {
 		$plugins_str  = '';
 		$plugins_list = static::$plugin_updated_names;
 		$last_plugin  = array_pop( $plugins_list );
