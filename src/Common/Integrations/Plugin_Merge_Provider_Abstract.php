@@ -283,18 +283,19 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 			);
 			$all_but_last = join( $separator, $plugins_list );
 			$plugins_str  = sprintf(
+				/* Translators: %1$s is the list of plugins except the last, %2$s is the last plugin name. i.e "one and two" or "one, two and three" */
 				_x(
-					'%1$s and ',
-					'Joined plugin list, except for last',
+					'%1$s and %2$s',
+					'Joined plugin list, last after the "and" separator.',
 					'tribe-common'
 				),
-				$all_but_last
+				$all_but_last,
+				$last_plugin
 			);
 		}
 
-		$plugins_str .= $last_plugin;
 		$message      = sprintf(
-			// translators: %1$s is the plugin name and version(s), %2$s is the opening anchor tag, %3$s is the closing anchor tag.
+			/* Translators: %1$s is the plugin name and version(s), %2$s and %3$s are the opening and closing anchor tags. */
 			_x(
 				'Thanks for upgrading %1$s now with even more value! Learn more about the latest changes %2$shere%3$s.',
 				'Notice message after updating plugins to the merged version.',
