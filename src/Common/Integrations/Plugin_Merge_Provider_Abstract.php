@@ -30,6 +30,15 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	protected bool $updated_to_merge_version = false;
 
 	/**
+	 * The list of parent plugins initialized.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string, string>
+	 */
+	protected static array $plugin_updated_names = [];
+
+	/**
 	 * Get the plugins version where the merge was applied.
 	 *
 	 * @since TBD
@@ -62,13 +71,6 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	abstract public function get_merge_notice_slug(): string;
 
 	/**
-	 * Get the message to display when the parent plugin is being updated but the child plugin is not active.
-	 *
-	 * @return string
-	 */
-	abstract public function get_updated_notice_message(): string;
-
-	/**
 	 * Get the message to display when the parent plugin is being updated to the merge.
 	 *
 	 * @return string
@@ -81,6 +83,15 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @return string
 	 */
 	abstract public function get_activating_merge_notice_message(): string;
+
+	/**
+	 * Retrieves the name of the plugin.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The name of the parent plugin.
+	 */
+	abstract public function get_plugin_updated_name(): string;
 
 	/**
 	 * Run initialization of container and plugin version comparison.
@@ -122,6 +133,20 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 */
 	protected function is_child_plugin_active(): bool {
 		return is_plugin_active( $this->get_plugin_file_key() );
+	}
+
+	/**
+	 * This fires if we are initializing the merge and stores the parent plugin information.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function register_update(): void {
+		// Stores the upgrade string.
+		if ( ! in_array( $this->get_plugin_updated_name(), self::$plugin_updated_names, true ) ) {
+			self::$plugin_updated_names[] = $this->get_plugin_updated_name();
+		}
 	}
 
 	/**
@@ -217,14 +242,15 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @since TBD
 	 */
 	public function send_updated_notice(): void {
-		$notice_slug = $this->get_merge_notice_slug() . '-version-consolidated-notice';
-		// Remove dismissed flag since we want to show the notice everytime this is triggered.
+		$this->register_update();
+		$notice_slug = 'updated-to-merge-version-consolidated-notice';
+
+		// Remove dismissed flag since we want to show the notice every time this is triggered.
 		Tribe__Admin__Notices::instance()->undismiss( $notice_slug );
 
-		$message = $this->get_updated_notice_message();
 		tribe_transient_notice(
 			$notice_slug,
-			sprintf( '<p>%s</p>', $message ),
+			__CLASS__ . '::render_updated_notice',
 			[
 				'type'            => 'success',
 				'dismiss'         => true,
@@ -237,12 +263,59 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	}
 
 	/**
+	 * Compiles the updated plugin message.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public static function render_updated_notice(): string {
+		$plugins_str  = '';
+		$plugins_list = static::$plugin_updated_names;
+		$last_plugin  = array_pop( $plugins_list );
+
+		// Do we have more than one?
+		if ( count( $plugins_list ) ) {
+			$separator    = _x(
+				', ',
+				'Initial separator for list of plugins for the plugin consolidation notice message.',
+				'tribe-common'
+			);
+			$all_but_last = join( $separator, $plugins_list );
+			$plugins_str  = sprintf(
+				/* Translators: %1$s is the list of plugins except the last, %2$s is the last plugin name. i.e "one and two" or "one, two and three" */
+				_x(
+					'%1$s and %2$s',
+					'Joined plugin list, last after the "and" separator.',
+					'tribe-common'
+				),
+				$all_but_last,
+				$last_plugin
+			);
+		}
+
+		$message = sprintf(
+			/* Translators: %1$s is the plugin name(s) and version(s), %2$s and %3$s are the opening and closing anchor tags. */
+			_x(
+				'Thanks for upgrading %1$s now with even more value! Learn more about the latest changes %2$shere%3$s.',
+				'Notice message after updating plugins to the merged version.',
+				'tribe-common'
+			),
+			$plugins_str,
+			'<a target="_blank" href="https://evnt.is/1bdy" rel="noopener noreferrer">',
+			'</a>'
+		);
+
+		return sprintf( '<p>%1$s</p>', $message );
+	}
+
+	/**
 	 * Send admin notice about the merge of the child plugin into the parent plugin.
 	 *
 	 * @since TBD
 	 */
 	public function send_updated_merge_notice(): void {
-		// Remove dismissed flag since we want to show the notice everytime this is triggered.
+		// Remove dismissed flag since we want to show the notice every time this is triggered.
 		Tribe__Admin__Notices::instance()->undismiss( $this->get_merge_notice_slug() );
 
 		$message = $this->get_updated_merge_notice_message();
@@ -267,7 +340,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @since TBD
 	 */
 	public function send_activating_merge_notice(): void {
-		// Remove dismissed flag since we want to show the notice everytime this is triggered.
+		// Remove dismissed flag since we want to show the notice every time this is triggered.
 		Tribe__Admin__Notices::instance()->undismiss( $this->get_merge_notice_slug() );
 
 		$message = $this->get_activating_merge_notice_message();
