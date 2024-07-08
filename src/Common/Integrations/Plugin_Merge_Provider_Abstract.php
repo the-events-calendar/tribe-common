@@ -36,7 +36,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 *
 	 * @var array<string, string>
 	 */
-	protected static array<string, string> $plugin_updated_names = [];
+	protected static array $plugin_updated_names = [];
 
 	/**
 	 * Get the plugins version where the merge was applied.
@@ -144,7 +144,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 */
 	public function register_update(): void {
 		// Stores the upgrade string.
-		if( ! in_array( $this->get_plugin_updated_name(), self::$plugin_updated_names, true ) ) {
+		if ( ! in_array( $this->get_plugin_updated_name(), self::$plugin_updated_names, true ) ) {
 			self::$plugin_updated_names[] = $this->get_plugin_updated_name();
 		}
 	}
@@ -244,7 +244,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	public function send_updated_notice(): void {
 		$this->register_update();
 		$notice_slug = 'updated-to-merge-version-consolidated-notice';
-    
+
 		// Remove dismissed flag since we want to show the notice everytime this is triggered.
 		Tribe__Admin__Notices::instance()->undismiss( $notice_slug );
 
@@ -275,7 +275,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 		$last_plugin  	= array_pop( $plugins_list );
 
 		// Do we have more than one?
-		if( count( $plugins_list ) ) {
+		if ( count( $plugins_list ) ) {
 			$separator = _x(
 				', ',
 				'Initial separator for list of plugins for the plugin consolidation notice message.',
