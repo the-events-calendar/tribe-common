@@ -245,7 +245,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 		$this->register_update();
 		$notice_slug = 'updated-to-merge-version-consolidated-notice';
 
-		// Remove dismissed flag since we want to show the notice everytime this is triggered.
+		// Remove dismissed flag since we want to show the notice every time this is triggered.
 		Tribe__Admin__Notices::instance()->undismiss( $notice_slug );
 
 		tribe_transient_notice(
@@ -270,19 +270,19 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @return string
 	 */
 	public static function render_updated_notice(): string {
-		$plugins_str 	= '';
-		$plugins_list 	= static::$plugin_updated_names;
-		$last_plugin  	= array_pop( $plugins_list );
+		$plugins_str  = '';
+		$plugins_list = static::$plugin_updated_names;
+		$last_plugin  = array_pop( $plugins_list );
 
 		// Do we have more than one?
 		if ( count( $plugins_list ) ) {
-			$separator = _x(
+			$separator    = _x(
 				', ',
 				'Initial separator for list of plugins for the plugin consolidation notice message.',
 				'tribe-common'
 			);
 			$all_but_last = join( $separator, $plugins_list );
-			$plugins_str = sprintf(
+			$plugins_str  = sprintf(
 				_x(
 					'%1$s and ',
 					'Joined plugin list, except for last',
@@ -293,7 +293,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 		}
 
 		$plugins_str .= $last_plugin;
-		$message = sprintf(
+		$message      = sprintf(
 			// translators: %1$s is the plugin name and version(s), %2$s is the opening anchor tag, %3$s is the closing anchor tag.
 			_x(
 				'Thanks for upgrading %1$s now with even more value! Learn more about the latest changes %2$shere%3$s.',
@@ -314,7 +314,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @since TBD
 	 */
 	public function send_updated_merge_notice(): void {
-		// Remove dismissed flag since we want to show the notice everytime this is triggered.
+		// Remove dismissed flag since we want to show the notice every time this is triggered.
 		Tribe__Admin__Notices::instance()->undismiss( $this->get_merge_notice_slug() );
 
 		$message = $this->get_updated_merge_notice_message();
@@ -339,7 +339,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @since TBD
 	 */
 	public function send_activating_merge_notice(): void {
-		// Remove dismissed flag since we want to show the notice everytime this is triggered.
+		// Remove dismissed flag since we want to show the notice every time this is triggered.
 		Tribe__Admin__Notices::instance()->undismiss( $this->get_merge_notice_slug() );
 
 		$message = $this->get_activating_merge_notice_message();
