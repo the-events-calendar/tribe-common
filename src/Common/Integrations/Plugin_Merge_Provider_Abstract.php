@@ -34,9 +34,9 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 *
 	 * @since TBD
 	 *
-	 * @var array
+	 * @var array<string, string>
 	 */
-	protected static array $plugin_updated_names = [];
+	protected static array<string, string> $plugin_updated_names = [];
 
 	/**
 	 * Get the plugins version where the merge was applied.
@@ -144,7 +144,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 */
 	public function register_update(): void {
 		// Stores the upgrade string.
-		if( ! in_array( $this->get_plugin_updated_name() , self::$plugin_updated_names ) ) {
+		if( ! in_array( $this->get_plugin_updated_name(), self::$plugin_updated_names, true ) ) {
 			self::$plugin_updated_names[] = $this->get_plugin_updated_name();
 		}
 	}
@@ -301,7 +301,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 				'tribe-common'
 			),
 			$plugins_str,
-			'<a target="_blank" href="https://evnt.is/1bdy">',
+			'<a target="_blank" href="https://evnt.is/1bdy" rel="noopener noreferrer">',
 			'</a>'
 		);
 
