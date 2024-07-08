@@ -294,8 +294,8 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 			);
 		}
 
-		$message      = sprintf(
-			/* Translators: %1$s is the plugin name and version(s), %2$s and %3$s are the opening and closing anchor tags. */
+		$message = sprintf(
+			/* Translators: %1$s is the plugin name(s) and version(s), %2$s and %3$s are the opening and closing anchor tags. */
 			_x(
 				'Thanks for upgrading %1$s now with even more value! Learn more about the latest changes %2$shere%3$s.',
 				'Notice message after updating plugins to the merged version.',
