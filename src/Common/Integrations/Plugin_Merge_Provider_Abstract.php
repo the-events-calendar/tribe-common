@@ -163,7 +163,9 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 		if ( $this->updated_to_merge_version && ! $this->is_child_plugin_active() ) {
 			// Leave a notice of the recent update.
 			$this->send_updated_notice();
-			$this->init_merged_plugin();
+			if( ! $this->is_activating_plugin() ) {
+				$this->init_merged_plugin();
+			}
 			return;
 		}
 
@@ -283,9 +285,9 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @return string
 	 */
 	public function render_updated_notice(): string {
-		$plugins_str  = '';
 		$plugins_list = static::$plugin_updated_names;
 		$last_plugin  = array_pop( $plugins_list );
+		$plugins_str  = $last_plugin;
 
 		// Do we have more than one?
 		if ( count( $plugins_list ) ) {
