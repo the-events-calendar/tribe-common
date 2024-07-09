@@ -213,6 +213,15 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	}
 
 	/**
+	 * Fetch the plugin text domain used for locating and checking a specific plugin.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	abstract public function get_child_plugin_text_domain(): string;
+
+	/**
 	 * Adds the hook to remove the "Plugin activated" notice from the redirect.
 	 *
 	 * @since TBD
