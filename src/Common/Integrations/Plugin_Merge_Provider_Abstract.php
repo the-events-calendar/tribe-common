@@ -73,13 +73,13 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @return string
 	 */
 	public function get_plugin_real_path(): string {
-		$plugins 		= get_option( 'active_plugins', [] );
-		$text_domain 	= $this->get_child_plugin_text_domain();
-		$plugins 		= array_filter(
+		$plugins     = get_option( 'active_plugins', [] );
+		$text_domain = $this->get_child_plugin_text_domain();
+		$plugins     = array_filter(
 			$plugins,
-			function( $plugin ) use ( $text_domain ) {
-				$plugin = get_plugin_data(WP_PLUGIN_DIR.'/'.$plugin);
-				if( ! isset( $plugin['TextDomain'] ) ) {
+			function ( $plugin ) use ( $text_domain ) {
+				$plugin = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin );
+				if ( ! isset( $plugin['TextDomain'] ) ) {
 					return false;
 				}
 
@@ -159,13 +159,13 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @since TBD
 	 */
 	protected function is_child_plugin_active(): bool {
-		if( is_plugin_active( $this->get_plugin_file_key() ) ) {
+		if ( is_plugin_active( $this->get_plugin_file_key() ) ) {
 			return true;
 		}
 
 		$real_path = $this->get_plugin_real_path();
 
-		return $real_path && is_plugin_active($real_path);
+		return $real_path && is_plugin_active( $real_path );
 	}
 
 	/**
