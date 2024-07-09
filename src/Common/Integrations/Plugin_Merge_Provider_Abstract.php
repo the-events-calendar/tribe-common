@@ -59,9 +59,36 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Get the key of the plugin file, e.g. path/file.php.
 	 *
+	 * @since TBD
+	 *
 	 * @return string
 	 */
 	abstract public function get_plugin_file_key(): string;
+
+	/**
+	 * Retrieve the relative path to the child plugin.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_plugin_real_path(): string {
+		$plugins 		= get_option( 'active_plugins', [] );
+		$text_domain 	= $this->get_child_plugin_text_domain();
+		$plugins 		= array_filter(
+			$plugins,
+			function( $plugin ) use ( $text_domain ) {
+				$plugin = get_plugin_data(WP_PLUGIN_DIR.'/'.$plugin);
+				if( ! isset( $plugin['TextDomain'] ) ) {
+					return false;
+				}
+
+				return $plugin['TextDomain'] === $text_domain;
+			}
+		);
+
+		return (string) array_pop( $plugins );
+	}
 
 	/**
 	 * Get the slug of the notice to display with various notices.
@@ -132,7 +159,13 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @since TBD
 	 */
 	protected function is_child_plugin_active(): bool {
-		return is_plugin_active( $this->get_plugin_file_key() );
+		if( is_plugin_active( $this->get_plugin_file_key() ) ) {
+			return true;
+		}
+
+		$real_path = $this->get_plugin_real_path();
+
+		return $real_path && is_plugin_active($real_path);
 	}
 
 	/**
@@ -163,7 +196,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 		if ( $this->updated_to_merge_version && ! $this->is_child_plugin_active() ) {
 			// Leave a notice of the recent update.
 			$this->send_updated_notice();
-			if( ! $this->is_activating_plugin() ) {
+			if ( ! $this->is_activating_plugin() ) {
 				$this->init_merged_plugin();
 			}
 			return;
@@ -209,7 +242,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @since TBD
 	 */
 	public function deactivate_plugin(): void {
-		deactivate_plugins( $this->get_plugin_file_key(), true, is_multisite() && is_plugin_active_for_network( $this->get_plugin_file_key() ) );
+		deactivate_plugins( $this->get_plugin_real_path(), true, is_multisite() && is_plugin_active_for_network( $this->get_plugin_real_path() ) );
 	}
 
 	/**
