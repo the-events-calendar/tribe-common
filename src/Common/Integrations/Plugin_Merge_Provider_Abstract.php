@@ -75,19 +75,27 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	public function get_plugin_real_path(): string {
 		$plugins     = get_option( 'active_plugins', [] );
 		$text_domain = $this->get_child_plugin_text_domain();
-		$plugins     = array_filter(
-			$plugins,
-			function ( $plugin ) use ( $text_domain ) {
-				$plugin = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin );
-				if ( ! isset( $plugin['TextDomain'] ) ) {
-					return false;
-				}
+		$plugin_path = '';
 
-				return $plugin['TextDomain'] === $text_domain;
+		foreach ( $plugins as $plugin ) {
+			$plugin_file_path = WP_PLUGIN_DIR . '/' . $plugin;
+
+			// Skip if the path is a directory or the file does not exist.
+			if ( is_dir( $plugin_file_path ) || ! file_exists( $plugin_file_path ) ) {
+				continue;
 			}
-		);
 
-		return (string) array_pop( $plugins );
+			// Get plugin data.
+			$plugin_data = get_plugin_data( $plugin_file_path );
+
+			// Check for TextDomain and match.
+			if ( isset( $plugin_data['TextDomain'] ) && $plugin_data['TextDomain'] === $text_domain ) {
+				$plugin_path = $plugin;
+				break;
+			}
+		}
+
+		return $plugin_path;
 	}
 
 	/**
