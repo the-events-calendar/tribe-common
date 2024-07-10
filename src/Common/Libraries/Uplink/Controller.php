@@ -4,7 +4,7 @@ namespace TEC\Common\Libraries\Uplink;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\Libraries\Provider as Libraries_Provider;
 use TEC\Common\StellarWP\Arrays\Arr;
-use TEC\Common\StellarWP\Uplink\Admin\License_Field;
+use TEC\Common\StellarWP\Uplink\Admin\Fields\Field;
 use TEC\Common\StellarWP\Uplink\Config;
 use TEC\Common\StellarWP\Uplink\Resources\Collection;
 use TEC\Common\StellarWP\Uplink\Uplink;
@@ -44,7 +44,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function add_actions(): void {
 		add_action( 'init', [ $this, 'register_uplink' ], 8 );
-		add_action( 'tribe_license_fields', [ $this, 'register_license_fields' ] );
+		add_filter( 'tribe_license_fields', [ $this, 'register_license_fields' ], 20 );
 	}
 
 	/**
@@ -54,7 +54,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function remove_actions(): void {
 		remove_action( 'init', [ $this, 'register_uplink' ], 8 );
-		remove_action( 'tribe_license_fields', [ $this, 'register_license_fields' ] );
+		remove_filter( 'tribe_license_fields', [ $this, 'register_license_fields' ], 20 );
 	}
 
 	/**
@@ -67,31 +67,40 @@ class Controller extends Controller_Contract {
 	public function register_license_fields( $fields_array ) {
 		$collection = tribe( Collection::class );
 		$plugins    = $collection->get_plugins();
-		$fields     = tribe( License_Field::class );
-		$all_fields = [];
+
+		$fields_to_inject = [];
 
 		foreach ( $plugins as $plugin ) {
-			ob_start();
-			$fields->render_single( $plugin->get_slug(), false, false );
-			$field_html = ob_get_clean();
-
 			$legacy_slug = str_replace( '-', '_', $plugin->get_slug() );
 
-			$field_html = str_replace( 'name="stellarwp_uplink_license_key_' . $legacy_slug . '"', 'name="pue_install_key_' . $legacy_slug . '"', $field_html );
+			$field = new Field( $plugin->get_slug() );
+			$field->set_field_name( 'pue_install_key_' . $legacy_slug )->show_label( false );
 
-			$all_fields[ 'stellarwp-uplink_' . $plugin->get_slug() . '-heading' ] = [
+			$field_html = $field->render();
+
+			// Remove duplicate entries of plugins migrated to uplink.
+			if ( isset( $fields_array[ 'pue_install_key_' . $legacy_slug . '-heading' ] ) ) {
+				unset( $fields_array[ 'pue_install_key_' . $legacy_slug . '-heading' ] );
+			}
+
+			// Remove duplicate entries of plugins migrated to uplink.
+			if ( isset( $fields_array[ 'pue_install_key_' . $legacy_slug ] ) ) {
+				unset( $fields_array[ 'pue_install_key_' . $legacy_slug ] );
+			}
+
+			$fields_to_inject[ 'stellarwp-uplink_' . $plugin->get_slug() . '-heading' ] = [
 				'type'  => 'heading',
-				'label'  => $plugin->get_name(),
+				'label' => $plugin->get_name(),
 			];
 
-			$all_fields[ 'stellarwp-uplink_' . $plugin->get_slug() ] = [
+			$fields_to_inject[ 'stellarwp-uplink_' . $plugin->get_slug() ] = [
 				'type'  => 'html',
-				'label' => __( 'License Key', 'tribe-common' ),
+				'label' => '',
 				'html'  => $field_html,
 			];
 		}
 
-		$fields_array = Arr::insert_after_key( 'tribe-form-content-start', $fields_array, $all_fields );
+		$fields_array = Arr::insert_after_key( 'tribe-form-content-start', $fields_array, $fields_to_inject );
 
 		return $fields_array;
 	}
