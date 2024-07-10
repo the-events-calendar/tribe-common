@@ -73,8 +73,16 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @return string
 	 */
 	public function get_plugin_real_path(): string {
-		$plugins     = get_option( 'active_plugins', [] );
+		static $plugins_path = [];
+
 		$text_domain = $this->get_child_plugin_text_domain();
+
+		// Check if the result is already memoized.
+		if ( isset( $plugins_path[ $text_domain ] ) ) {
+			return $plugins_path[ $text_domain ];
+		}
+
+		$plugins     = get_option( 'active_plugins', [] );
 		$plugin_path = '';
 
 		foreach ( $plugins as $plugin ) {
@@ -94,6 +102,9 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 				break;
 			}
 		}
+
+		// Memoize the result.
+		$plugins_path[ $text_domain ] = $plugin_path;
 
 		return $plugin_path;
 	}
