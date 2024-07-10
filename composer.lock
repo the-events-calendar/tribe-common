@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a61a627a500079e1f35e24b96bfa1259",
+    "content-hash": "f46cf4314e6aa6cdd23f2212af3a5065",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -615,7 +615,7 @@
             ],
             "support": {
                 "issues": "https://github.com/stellarwp/models/issues",
-                "source": "https://github.com/stellarwp/models/tree/1.2.1"
+                "source": "https://github.com/stellarwp/models/tree/main"
             },
             "time": "2023-09-12T15:59:24+00:00"
         },
@@ -6405,11 +6405,11 @@
             "require": {
                 "lucatume/wp-browser": "^2.0 || ^3.0",
                 "nilportugues/sql-query-formatter": "^1.2",
-                "php": ">=7.0"
+                "php": ">=7.4"
             },
             "require-dev": {
                 "codeception/codeception": "^3.0",
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
                 "phpunit/phpunit": "^6.0",
                 "vlucas/phpdotenv": "^3.0",
                 "wordpress/wordpress": "dev-master",
