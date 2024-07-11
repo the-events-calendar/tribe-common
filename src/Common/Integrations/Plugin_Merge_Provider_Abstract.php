@@ -103,9 +103,14 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 			}
 		}
 
-		// Memoize the result.
-		$plugins_path[ $text_domain ] = $plugin_path;
+		// Return empty string if no matching plugin is found.
+		if ( empty( $plugin_path ) ) {
+			return '';
+		}
 
+		// Memoize the result if we found it.
+		$plugins_path[ $text_domain ] = $plugin_path;
+		
 		return $plugin_path;
 	}
 
@@ -221,12 +226,13 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 			return;
 		}
 
-		// If the Event Ticket Wallet Plus plugin is active, we need to deactivate it before continuing to avoid a fatal.
+		// If the child plugin is active, we need to deactivate it before continuing to avoid a fatal.
 		if ( $this->is_child_plugin_active() ) {
 			$this->deactivate_plugin();
 
 			// Leave a notice of the forced deactivation.
 			$this->send_updated_merge_notice();
+			$this->send_updated_notice();
 			return;
 		}
 
