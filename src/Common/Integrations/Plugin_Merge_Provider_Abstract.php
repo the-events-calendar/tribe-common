@@ -227,7 +227,6 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 
 			// Leave a notice of the forced deactivation.
 			$this->send_updated_merge_notice();
-			$this->send_updated_notice();
 			return;
 		}
 
