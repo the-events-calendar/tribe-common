@@ -103,15 +103,14 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 			}
 		}
 
-	// Return empty string if no matching plugin is found.
-	if ( empty( $plugin_path ) ) {
-		return '';
-	}
+		// Return empty string if no matching plugin is found.
+		if ( empty( $plugin_path ) ) {
+			return '';
+		}
 
-	// Memoize the result if we found it.
-	$plugins_path[ $text_domain ] = $plugin_path;
-	return $plugin_path;
-
+		// Memoize the result if we found it.
+		$plugins_path[ $text_domain ] = $plugin_path;
+		
 		return $plugin_path;
 	}
 
