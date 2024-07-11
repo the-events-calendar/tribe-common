@@ -1,4 +1,8 @@
 <?php
+/**
+ * The Controller to set up the Uplink library.
+ */
+
 namespace TEC\Common\Libraries\Uplink;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
@@ -61,6 +65,8 @@ class Controller extends Controller_Contract {
 	 * Register the license fields.
 	 *
 	 * @since TBD
+	 *
+	 * @param array $fields_array The array of fields.
 	 *
 	 * @return array
 	 */
