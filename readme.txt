@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [5.3.0.5] 2024-07-11 =
+
+* Fix - Ensure compatibility with WordPress 6.6 for removed polyfill `regenerator-runtime`. [TECTRIA-149]
+
 = [5.3.0.4] 2024-06-18 =
 
 * Fix - In installations where the plugins or wp-content directories were symbolic linked, assets would fail to be located. [TECTRIA-91]
