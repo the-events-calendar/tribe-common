@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Support additional select2 attributes in order to improve search performance in select2 fields.
+
 = [5.3.1] TBD =
 
 = [5.3.0.5] 2024-07-11 =

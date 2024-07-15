@@ -275,6 +275,8 @@ class Tribe__Ajax__Dropdown { // phpcs:ignore-next-line  PEAR.NamingConventions.
 		// Push all POST params into a Default set of data.
 		$args = $this->parse_params( empty( $_POST ) ? [] : $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
+		check_ajax_referer( 'tribe_dropdown', 'nonce' );
+
 		if ( empty( $args->source ) ) {
 			$this->error( esc_attr__( 'Missing data source for this dropdown', 'tribe-common' ) );
 		}
