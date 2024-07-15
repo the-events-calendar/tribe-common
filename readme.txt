@@ -7,6 +7,12 @@
 * Fix - Resolved an issue where transient notices would disappear given a certain order of operations. [ECP-1804]
 * Tweak - Added a new action hook `tec_event_automator_zapier_provider_registered` to fire after the Zapier service has successfully registered. [EVA-159]
 
+= [5.3.1] TBD =
+
+= [5.3.0.5] 2024-07-11 =
+
+* Fix - Ensure compatibility with WordPress 6.6 for removed polyfill `regenerator-runtime`. [TECTRIA-149]
+
 = [5.3.0.4] 2024-06-18 =
 
 * Fix - In installations where the plugins or wp-content directories were symbolic linked, assets would fail to be located. [TECTRIA-91]
