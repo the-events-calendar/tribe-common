@@ -57,10 +57,11 @@ interface Tribe__Repository__Interface
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param Tribe__Repository__Formatter_Interface $formatter
+	 * @param Tribe__Repository__Formatter_Interface $formatter The formatter to use.
+	 *
+	 * @return $this This repository instance to allow chain calls.
 	 */
 	public function set_formatter( Tribe__Repository__Formatter_Interface $formatter );
-
 
 	/**
 	 * Build, without initializing it, the query.
@@ -78,7 +79,9 @@ interface Tribe__Repository__Interface
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param string $join
+	 * @param string $join The JOIN clause to add to the query.
+	 *
+	 * @return $this This repository instance to allow chain calls.
 	 */
 	public function join_clause( $join );
 
@@ -87,7 +90,9 @@ interface Tribe__Repository__Interface
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param string $where
+	 * @param string $where The WHERE clause to add to the query.
+	 *
+	 * @return $this This repository instance to allow chain calls.
 	 */
 	public function where_clause( $where );
 
@@ -96,7 +101,7 @@ interface Tribe__Repository__Interface
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param mixed $query_builder
+	 * @param mixed $query_builder The query builder to use.
 	 *
 	 * @return mixed
 	 */
@@ -113,7 +118,7 @@ interface Tribe__Repository__Interface
 	 *                                this repository. The callbacks have the shape
 	 *                                [ <method>, <...args>]
 	 *
-	 * @return $this
+	 * @return $this This repository instance to allow chain calls.
 	 * @throws Tribe__Repository__Usage_Error If one of the callback methods does
 	 *                                        not add any WHERE clause.
 	 *
@@ -138,7 +143,7 @@ interface Tribe__Repository__Interface
 	 * @param string|array $values       One or more value the meta_key specified with `$keys` should
 	 *                                   match.
 	 *
-	 * @return $this
+	 * @return $this This repository instance to allow chain calls.
 	 */
 	public function by_related_to_min( $by_meta_keys, $min, $keys = null, $values = null );
 
@@ -159,7 +164,7 @@ interface Tribe__Repository__Interface
 	 * @param string|array $values       One or more value the meta_key specified with `$keys` should
 	 *                                   match.
 	 *
-	 * @return $this
+	 * @return $this This repository instance to allow chain calls.
 	 */
 	public function by_related_to_max( $by_meta_keys, $max, $keys = null, $values = null );
 
@@ -182,7 +187,7 @@ interface Tribe__Repository__Interface
 	 * @param string|array $values       One or more value the meta_key specified with `$keys` should
 	 *                                   match.
 	 *
-	 * @return $this
+	 * @return $this This repository instance to allow chain calls.
 	 */
 	public function by_related_to_between( $by_meta_keys, $min, $max, $keys = null, $values = null );
 
@@ -200,7 +205,7 @@ interface Tribe__Repository__Interface
 	 * @param string|array $values       One or more value the meta_key specified with `$keys` should
 	 *                                   match.
 	 *
-	 * @return $this
+	 * @return $this This repository instance to allow chain calls.
 	 */
 	public function by_not_related_to( $by_meta_keys, $keys = null, $values = null );
 

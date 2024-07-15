@@ -1,5 +1,12 @@
 == Changelog ==
 
+= [6.0.0] TBD =
+
+* Fix - Fixed an issue where admin transient notices with the dismiss flag not persisting passed the first page load. [ECP-1808]
+* Fix - The Decorated repository was not returning values from `save()` and other methods. Now they return as expected. [BTRIA-2310]
+* Fix - Resolved an issue where transient notices would disappear given a certain order of operations. [ECP-1804]
+* Tweak - Added a new action hook `tec_event_automator_zapier_provider_registered` to fire after the Zapier service has successfully registered. [EVA-159]
+
 = [5.3.1] TBD =
 
 = [5.3.0.5] 2024-07-11 =

@@ -3,10 +3,9 @@
  * View: Troubleshooting - Introduction
  *
  * @since 4.14.2
- *
  */
 
-use \Tribe\Admin\Troubleshooting;
+use Tribe\Admin\Troubleshooting;
 ?>
 <div class="tribe-events-admin-header tribe-events-admin-container">
 	<?php
@@ -23,7 +22,7 @@ use \Tribe\Admin\Troubleshooting;
 	</div>
 </div>
 
-<?php //this div is closed in the footer-logo file in this folder ?>
+<?php // this div is closed in the footer-logo file in this folder. ?>
 <div class="tribe-events-admin-content-wrapper tribe-events-admin-container">
 	<img
 		class="tribe-events-admin-header__right-image"

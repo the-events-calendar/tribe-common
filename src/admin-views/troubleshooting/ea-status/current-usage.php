@@ -3,7 +3,6 @@
  * View: Troubleshooting - EA Status Table Current Usage Section
  *
  * @since 4.14.2
- *
  */
 
 $service          = tribe( 'events-aggregator.service' );
@@ -21,7 +20,8 @@ if ( 0 === $import_limit || $import_count >= $import_limit ) {
 	$notes = esc_html__( 'You are approaching your daily import limit. You may want to adjust your Scheduled Import frequencies.', 'tribe-common' );
 }
 
-$message = sprintf( // import count and limit
+$message = sprintf(
+	/* translators: %1$d: import count, %2$d: import limit */
 	_n( '%1$d import used out of %2$d available today', '%1$d imports used out of %2$d available today', $import_count, 'tribe-common' ),
 	intval( $import_count ),
 	intval( $import_limit )
@@ -38,5 +38,5 @@ $message = sprintf( // import count and limit
 		/>
 		<?php echo esc_html( $message ); ?>
 	</td>
-	<td><?php echo $notes;  // Escaping handled above. ?></td>
+	<td><?php echo $notes; // phpcs:ignore WordPress.Security.EscapeOutput,StellarWP.XSS.EscapeOutput ?></td>
 </tr>

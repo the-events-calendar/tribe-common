@@ -16,10 +16,10 @@
  * @version 4.12.18
  */
 
-use  Tribe\Widget\Widget_Abstract;
+use Tribe\Widget\Widget_Abstract;
 
 $default_classes = [
-	'tribe-widget-fields'
+	'tribe-widget-fields',
 ];
 
 $classes = array_merge( $default_classes, $this->get( 'fields_container_classes', [] ) );

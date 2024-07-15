@@ -35,5 +35,5 @@ $fieldset_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-fo
 		<legend class="tribe-widget-form-control__legend"><?php echo esc_html( $label ); ?></legend>
 	<?php endif; ?>
 
-	<?php $this->template( "widgets/components/fields", [ 'fields' => $children ] );  ?>
+	<?php $this->template( 'widgets/components/fields', [ 'fields' => $children ] ); ?>
 </fieldset>

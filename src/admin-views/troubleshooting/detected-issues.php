@@ -3,25 +3,25 @@
  * View: Troubleshooting - Detected Issues
  *
  * @since 4.14.2
- *
  */
-use \Tribe\Admin\Troubleshooting;
+
+use Tribe\Admin\Troubleshooting;
 $issues_found = tribe( Troubleshooting::class )->get_issues_found();
 
-if ( tribe( Troubleshooting::class )->is_any_issue_active() ) : //checks is there are any active issues before printing ?>
+if ( tribe( Troubleshooting::class )->is_any_issue_active() ) : // checks is there are any active issues before printing. ?>
 	<div class="tribe-events-admin-section-header">
 		<h3>
 			<?php esc_html_e( 'We’ve detected the following issues', 'tribe-common' ); ?>
 		</h3>
 	</div>
 
-	<?php // toggles to appear here ?>
+	<?php // toggles to appear here. ?>
 	<?php foreach ( $issues_found as $issue ) : ?>
 		<?php
-			// yoda conditioning
-			if ( false === $issue['active'] ) {
-				continue;
-			}
+			// yoda conditioning.
+		if ( false === $issue['active'] ) {
+			continue;
+		}
 		?>
 		<div class="tribe-events-admin__issues-found-card">
 			<div class="tribe-events-admin__issues-found-card-title">
