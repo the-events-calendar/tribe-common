@@ -72,19 +72,13 @@ class Controller_Test extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
-	public function it_should_add_actions_on_do_register() {
+	public function it_should_add_actions_on_do_register_and_unregister() {
 		$this->controller->do_register();
 
 		// Assert actions were added
 		$this->assertNotFalse( has_action( 'init', [ $this->controller, 'register_uplink' ] ) );
 		$this->assertNotFalse( has_filter( 'tribe_license_fields', [ $this->controller, 'register_license_fields' ] ) );
-	}
 
-	/**
-	 * @test
-	 */
-	public function it_should_remove_actions_on_unregister() {
-		$this->controller->do_register(); // First add them
 		$this->controller->unregister(); // Then remove them
 
 		// Assert actions were removed
