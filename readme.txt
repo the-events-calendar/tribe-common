@@ -1,16 +1,14 @@
 == Changelog ==
 
-<<<<<<< HEAD
 = [TBD] TBD =
 
 * Tweak - Support additional select2 attributes in order to improve search performance in select2 fields.
-=======
+
 = [5.3.1] TBD =
 
 = [5.3.0.5] 2024-07-11 =
 
 * Fix - Ensure compatibility with WordPress 6.6 for removed polyfill `regenerator-runtime`. [TECTRIA-149]
->>>>>>> release/T24.babayaga
 
 = [5.3.0.4] 2024-06-18 =
 
