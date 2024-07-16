@@ -34,6 +34,8 @@ class Provider extends Service_Provider {
 		Assets\Config::set_path( Common::instance()->plugin_path . 'src/resources/' );
 		Assets\Config::set_version( Common::VERSION );
 		Assets\Config::set_relative_asset_path( 'src/resources/' );
+		Schema\Config::set_db( DB\DB::class );
+		Schema\Config::set_container( tribe() );
 	}
 
 	/**
