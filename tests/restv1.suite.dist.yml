@@ -2,7 +2,7 @@ class_name: Restv1Tester
 modules:
     enabled:
         - \Helper\Restv1
-        - \Tribe\Events\Test\Helper\TribeDb
+        - \Helper\TribeDb
         - REST
         - WPDb
         - WPBrowser
