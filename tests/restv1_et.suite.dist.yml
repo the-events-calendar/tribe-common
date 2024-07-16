@@ -2,7 +2,7 @@ class_name: Restv1_etTester
 modules:
     enabled:
         - \Helper\Restv1_et
-        - \Helper\TribeDb
+        - \Helper\TECDb
         - REST
         - WPDb
         - WPBrowser
