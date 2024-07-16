@@ -5,6 +5,7 @@ namespace TEC\Common\Libraries;
 use TEC\Common\Contracts\Service_Provider;
 use TEC\Common\StellarWP\Assets;
 use TEC\Common\StellarWP\DB;
+use TEC\Common\StellarWP\Schema;
 use Tribe__Main as Common;
 
 class Provider extends Service_Provider {
