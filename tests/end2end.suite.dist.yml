@@ -8,7 +8,7 @@ modules:
     - WPFilesystem #manipulate the WP filesystem, scaffold themes and plugins
     - Asserts #PHPUnit-like assertions
     - WPLoader
-    - \Tribe\Events\Test\Helper\TECDb
+    - \Tribe\Events\Test\Helper\TribeDb
   config:
     WPWebDriver:
       # We have to use a URL Chromedriver will be able to resolve.
