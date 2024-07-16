@@ -66,7 +66,11 @@ class Controller_Test extends \Codeception\TestCase\WPTestCase {
 
 		// Register license fields and assert the HTML snapshot
 		$license_fields = $this->controller->register_license_fields( $fields );
-		$this->assertMatchesHtmlSnapshot( $license_fields );
+
+		$html = $license_fields['stellarwp-uplink_common-test-slug']['html'];
+		$html = str_replace( dirname( __DIR__, 5 ), '{__DIR__}', $html );
+
+		$this->assertMatchesHtmlSnapshot( $html );
 	}
 
 	/**
