@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [5.3.1] TBD =
+= [5.3.1] 2024-07-18 =
 
 * Tweak - Support additional select2 attributes in order to improve search performance in select2 fields.
 * Language - 0 new strings added, 31 updated, 1 fuzzied, and 0 obsoleted
