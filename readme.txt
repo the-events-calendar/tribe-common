@@ -7,11 +7,7 @@
 * Fix - Resolved an issue where transient notices would disappear given a certain order of operations. [ECP-1804]
 * Tweak - Added a new action hook `tec_event_automator_zapier_provider_registered` to fire after the Zapier service has successfully registered. [EVA-159]
 
-= [TBD] TBD =
-
-* Tweak - Support additional select2 attributes in order to improve search performance in select2 fields.
-
-= [5.3.1] TBD =
+= [5.3.1] 2024-07-18 =
 
 * Tweak - Support additional select2 attributes in order to improve search performance in select2 fields.
 * Language - 0 new strings added, 31 updated, 1 fuzzied, and 0 obsoleted
