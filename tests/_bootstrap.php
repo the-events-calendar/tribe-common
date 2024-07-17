@@ -16,7 +16,7 @@ if ( in_array( 'eva_integration', $GLOBALS['argv'] ) || in_array( 'restv1', $GLO
 	 */
 
 	// TEC Test Support.
-	$tec_dir         = dirname( __DIR__, 2 );
+	$tec_dir         = dirname( __DIR__, 3 ) . '/the-events-calendar';
 	$tec_tests_dir   = $tec_dir . '/tests';
 	$tec_support_dir = $tec_tests_dir . '/_support';
 	if ( ! is_dir( $tec_tests_dir ) ) {
