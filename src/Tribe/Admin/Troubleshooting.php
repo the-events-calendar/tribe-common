@@ -263,6 +263,14 @@ class Troubleshooting {
 				'fix'          => false,
 				'active'       => $this->is_active_issue( 'php-timezone' ),
 			],
+			[
+				'title'        => __( 'Caching plugin detected', 'tribe-common' ),
+				'description'  => __( 'Caching can improve your site performance and speed up your site. Check out our Caching Guide to help you set up caching with our plugins correctly.', 'tribe-common' ),
+				'more_info'    => 'https://evnt.is/tec-and-caching',
+				'resolve_text' => false,
+				'fix'          => false,
+				'active'       => $this->is_active_issue( 'caching' ),
+			],
 		] );
 
 		return $issues_found;
@@ -296,6 +304,24 @@ class Troubleshooting {
 			$php_timezone = date_default_timezone_get();
 
 			return $php_timezone != "UTC";
+		}
+		if ( 'caching' === $slug ) {
+			$active_plugins = get_option( 'active_plugins' );
+			$caching_plugins = [
+				'litespeed-cache/litespeed-cache.php',
+				'wp-super-cache/wp-cache.php',
+				'autoptimize/autoptimize.php',
+				'wp-rocket/wp-rocket.php',
+				'sg-cachepress/sg-cachepress.php',
+				'breeze/breeze.php',
+				'wp-optimize/wp-optimize.php',
+				'wp-fastest-cache/wpFastestCache.php',
+				//'wp-engine',
+			];
+
+			// Check if any of the above caching plugins are active.
+			$intersection = array_intersect( $caching_plugins, $active_plugins );
+			return ! empty( $intersection );
 		}
 
 		return false;
