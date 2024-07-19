@@ -292,6 +292,10 @@ class Troubleshooting {
 		if ( 'php-version' === $slug ) {
 			return version_compare( PHP_VERSION, '8.0.0', '<' );
 		}
+		if ( 'php-timezone' === $slug ) {
+			$php_timezone = date_default_timezone_get();
+			return $php_timezone != "UTC";
+		}
 
 		return false;
 	}
@@ -344,6 +348,14 @@ class Troubleshooting {
 				'resolve_text' => false,
 				'fix'          => false,
 				'active'      => $this->is_active_issue( 'php-version' ),
+			],
+			[
+				'title'       => __( 'Default PHP timezone is other than UTC', 'tribe-common' ),
+				'description' => __( 'The default PHP timezone of your server is set to something else than UTC. This can cause issues when displaying event times and time zones. We recommend you to set the default PHP time zone on your server to UTC. This is usually done with the `date.timezone` directive in the php.ini file.', 'tribe-common' ),
+				'more_info'   => 'https://evnt.is/tec-php-support',
+				'resolve_text' => false,
+				'fix'          => false,
+				'active'      => $this->is_active_issue( 'php-timezone' ),
 			],
 		] );
 
