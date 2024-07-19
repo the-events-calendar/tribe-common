@@ -264,7 +264,7 @@ class Troubleshooting {
 				'active'       => $this->is_active_issue( 'php-timezone' ),
 			],
 			[
-				'title'        => __( 'Caching plugin detected', 'tribe-common' ),
+				'title'        => sprintf( __( 'Caching plugin detected: %s', 'tribe-common' ), $this->get_active_caching_plugin_name() ),
 				'description'  => __( 'Caching can improve your site performance and speed up your site. Check out our Caching Guide to help you set up caching with our plugins correctly.', 'tribe-common' ),
 				'more_info'    => 'https://evnt.is/tec-and-caching',
 				'resolve_text' => false,
@@ -306,21 +306,8 @@ class Troubleshooting {
 			return $php_timezone != "UTC";
 		}
 		if ( 'caching' === $slug ) {
-			$active_plugins = get_option( 'active_plugins' );
-			$caching_plugins = [
-				'litespeed-cache/litespeed-cache.php',
-				'wp-super-cache/wp-cache.php',
-				'autoptimize/autoptimize.php',
-				'wp-rocket/wp-rocket.php',
-				'sg-cachepress/sg-cachepress.php',
-				'breeze/breeze.php',
-				'wp-optimize/wp-optimize.php',
-				'wp-fastest-cache/wpFastestCache.php',
-				//'wp-engine',
-			];
+			$intersection = $this->get_active_caching_plugins();
 
-			// Check if any of the above caching plugins are active.
-			$intersection = array_intersect( $caching_plugins, $active_plugins );
 			return ! empty( $intersection );
 		}
 
@@ -437,5 +424,52 @@ class Troubleshooting {
 	 */
 	public function admin_notice( $page ) {
 		do_action( 'tec_admin_notice_area', $page );
+	}
+
+	/**
+	 * Check if any caching plugins are active on the site.
+	 *
+	 * @since TBD
+	 *
+	 * @return string[] An array of the active caching plugins.
+	 */
+	private function get_active_caching_plugins(): array {
+		$active_plugins  = get_option( 'active_plugins' );
+		$caching_plugins = [
+			'litespeed-cache/litespeed-cache.php',
+			'wp-super-cache/wp-cache.php',
+			'autoptimize/autoptimize.php',
+			'wp-rocket/wp-rocket.php',
+			'sg-cachepress/sg-cachepress.php',
+			'breeze/breeze.php',
+			'wp-optimize/wp-optimize.php',
+			'wp-fastest-cache/wpFastestCache.php',
+			//'wp-engine',
+		];
+
+		// Check if any of the above caching plugins are active.
+		$active_caching_plugins = array_intersect( $caching_plugins, $active_plugins );
+
+		return $active_caching_plugins;
+	}
+
+	/**
+	 * Get the name of the first found active caching plugin.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The name of the caching plugin.
+	 */
+	private function get_active_caching_plugin_name() {
+		$active_caching_plugins = $this->get_active_caching_plugins();
+
+		if ( empty( $active_caching_plugins ) ) {
+			return __( 'Plugin couldn\'t be identified.', 'tribe-common' );
+		}
+
+		$plugin = array_pop( $active_caching_plugins );
+		$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin, false );
+		
+		return $plugin_data['Name'];
 	}
 }
