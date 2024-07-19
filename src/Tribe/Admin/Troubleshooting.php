@@ -3,12 +3,13 @@
 /**
  * Admin Troubleshooting for TEC plugins.
  *
- * @since 4.14.2
- *
  * @package Tribe\Admin
+ * @since   4.14.2
+ *
  */
 
 namespace Tribe\Admin;
+
 use \Tribe__Settings;
 use \Tribe__Main;
 use \Tribe__Admin__Helpers;
@@ -18,9 +19,9 @@ use \Tribe__Events__Google__Maps_API_Key;
 /**
  * Class Admin Troubleshooting.
  *
- * @since 4.14.2
- *
  * @package Tribe\Admin
+ * @since   4.14.2
+ *
  */
 class Troubleshooting {
 	/**
@@ -101,6 +102,7 @@ class Troubleshooting {
 		 * @param static $troubleshooting The current instance of the class that handles this page.
 		 */
 		$capability = apply_filters( 'tec_troubleshooting_capability', 'install_plugins', $this );
+
 		return $capability;
 	}
 
@@ -119,6 +121,7 @@ class Troubleshooting {
 		}
 
 		$classes .= ' tec-troubleshooting';
+
 		return $classes;
 	}
 
@@ -163,6 +166,7 @@ class Troubleshooting {
 				'Function was called before it is possible to accurately determine what the current page is.',
 				'4.5.6'
 			);
+
 			return false;
 		}
 
@@ -198,6 +202,7 @@ class Troubleshooting {
 	public function is_any_issue_active() {
 		$issues        = $this->get_issues_found();
 		$active_issues = wp_list_pluck( $issues, 'active' );
+
 		return in_array( true, $active_issues );
 	}
 
@@ -244,8 +249,9 @@ class Troubleshooting {
 		if ( defined( 'IMAGE_WIDGET_PLUS_DIR' ) ) {
 			$plugins[] = IMAGE_WIDGET_PLUS_DIR;
 		}
-		$plugins = array_map( static function( $file ) {
+		$plugins = array_map( static function ( $file ) {
 			$file = \str_replace( WP_PLUGIN_DIR . '/', '', $file );
+
 			return $file;
 		}, $plugins );
 
@@ -258,6 +264,7 @@ class Troubleshooting {
 				return true;
 			}
 		}
+
 		return false;
 	}
 
@@ -276,11 +283,16 @@ class Troubleshooting {
 		}
 		if ( 'geolocation' === $slug && class_exists( 'Tribe__Events__Google__Maps_API_Key' ) ) {
 			$key = \tribe_get_option( 'google_maps_js_api_key', false );
-			return empty( $key ) || Tribe__Events__Google__Maps_API_Key::$default_api_key === $key ;
+
+			return empty( $key ) || Tribe__Events__Google__Maps_API_Key::$default_api_key === $key;
 		}
 		if ( 'out-of-date' === $slug ) {
 			return $this->is_any_tec_plugin_out_of_date();
 		}
+		if ( 'php-version' === $slug ) {
+			return version_compare( PHP_VERSION, '8.0.0', '<' );
+		}
+
 		return false;
 	}
 
@@ -324,6 +336,14 @@ class Troubleshooting {
 				'resolve_text' => __( 'Check for updates', 'tribe-common' ),
 				'fix'          => '/wp-admin/update-core.php',
 				'active'       => $this->is_active_issue( 'out-of-date' ),
+			],
+			[
+				'title'       => __( 'PHP version out of date', 'tribe-common' ),
+				'description' => __( 'The PHP version your site uses has reached its end of life of life on November 28, 2022. This means it no longer receives security updates or bug fixes. Users are encouraged to upgrade to newer versions of PHP to ensure continued support and security. Reach out to your hosting provider for assistance.', 'tribe-common' ),
+				'more_info'   => 'https://evnt.is/tec-php-support',
+				'resolve_text' => false,
+				'fix'          => false,
+				'active'      => $this->is_active_issue( 'php-version' ),
 			],
 		] );
 
