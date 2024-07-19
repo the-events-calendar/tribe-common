@@ -66,6 +66,28 @@ trait Function_Spy {
 	}
 
 	/**
+	 * Sets whether the function is expected to be called or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function should_be_called():void{
+		$this->expects_calls = true;
+	}
+
+	/**
+	 * Sets whether the function is not expected to be called or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function should_not_be_called():void{
+		$this->expects_calls = false;
+	}
+
+	/**
 	 * Returns whether the function is expected to be called or not.
 	 *
 	 * @return bool
