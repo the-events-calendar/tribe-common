@@ -57,12 +57,12 @@ trait Function_Spy {
 	/**
 	 * Registers a call to the function.
 	 *
-	 * @param array $args
+	 * @param array<int,mixed> $args
 	 *
 	 * @return void
 	 */
 	public function register_call( array $args ): void {
-		$this->calls[] = [ $args, microtime( true ) ];
+		$this->calls[] = $args;
 	}
 
 	/**
@@ -72,7 +72,7 @@ trait Function_Spy {
 	 *
 	 * @return void
 	 */
-	public function should_be_called():void{
+	public function should_be_called(): void {
 		$this->expects_calls = true;
 	}
 
@@ -83,7 +83,7 @@ trait Function_Spy {
 	 *
 	 * @return void
 	 */
-	public function should_not_be_called():void{
+	public function should_not_be_called(): void {
 		$this->expects_calls = false;
 	}
 
@@ -102,9 +102,37 @@ trait Function_Spy {
 	 * @return bool
 	 */
 	public function was_called(): bool {
-		$this->was_verified = true;
+		$was_called = count( $this->calls ) > 0;
 
-		return count( $this->calls ) > 0;
+		if ( $was_called ) {
+			$this->was_verified = true;
+		}
+
+		return $was_called;
+	}
+
+	public function was_called_times_with( int $times, ...$args ): bool {
+		if ( count( $this->calls ) < $times ) {
+			return false;
+		}
+
+		$matching_calls = 0;
+
+		foreach ( $this->calls as $call ) {
+			$match = true;
+			foreach ( $args as $k => $arg ) {
+				if ( $arg == $call[ $k ] ) {
+					continue;
+				}
+
+				$match = false;
+				break;
+			}
+
+			$matching_calls += (int) $match;
+		}
+
+		return $matching_calls === $times;
 	}
 
 	/**

@@ -15,27 +15,30 @@ class WP_Send_Json_Mock_Spy {
 	use Function_Spy;
 	use With_Uopz;
 
-	private $value;
+	private $data;
 	private $status_code;
 	private $flags;
 
-	public function __construct( string $name, $value = null, ?int $status_code = null, ?int $flags = null ) {
-		$this->name        = $name;
-		$this->value       = $value;
-		$this->status_code = $status_code;
-		$this->flags       = $flags;
+	public function __construct( string $name ) {
+		$this->name = $name;
 	}
 
-	public function get_value() {
-		return $this->value;
+	public function get_pretty_arguments(): string {
+		return json_encode( [
+			$this->data,
+			$this->status_code,
+			$this->flags,
+		], JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_HEX_QUOT | JSON_UNESCAPED_SLASHES );
 	}
 
-	public function get_status_code(): ?int {
-		return $this->status_code;
+	public function get_pretty_calls(): array {
+		return array_map( static function ( $call ) {
+			return var_export( $call, true );
+		}, $this->calls );
 	}
 
-	public function get_flags(): ?int {
-		return $this->flags;
+	public function get_calls_as_string(): string {
+		return var_export( $this->calls, true );
 	}
 }
 
@@ -54,34 +57,27 @@ trait WP_Send_Json_Mocks {
 	 */
 	public array $wp_send_json_spies = [];
 
+	public WP_Send_Json_Mock_Spy $wp_send_json_unexpected_spy;
+
 	/**
 	 * @before
 	 */
 	public function set_up_wp_send_json_mocks(): void {
-		$this->wp_send_json_spies = [];
-		$test_case                = $this;
-		$log_unexpected           = static function ( $response, $status_code = null, $flags = 0 ) use ( $test_case ) {
-			$spy = new WP_Send_Json_Mock_Spy( 'wp_send_json', $response, $status_code, $flags );
-			$spy->should_not_be_called();
-			$spy->register_call( [ $response, $status_code, $flags ] );
-			$test_case->wp_send_json_spies[] = $spy;
+		$this->wp_send_json_spies          = [];
+		$this->wp_send_json_unexpected_spy = new WP_Send_Json_Mock_Spy( 'wp_send_json' );
+		$this->wp_send_json_unexpected_spy->should_not_be_called();
+		$this->wp_send_json_spies[] = $this->wp_send_json_unexpected_spy;
+		$test_case                  = $this;
+		$log_unexpected             = static function ( $response, $status_code = null, $flags = 0 ) use ( $test_case ) {
+			$test_case->wp_send_json_unexpected_spy->register_call( [ $response, $status_code, $flags ] );
 		};
 		$this->set_fn_return( "wp_send_json", $log_unexpected, true );
 	}
 
 	protected function mock_wp_send_json_error( $value = null, $status_code = null, $flags = 0 ): WP_Send_Json_Mock_Spy {
-		$spy   = new WP_Send_Json_Mock_Spy( 'wp_send_json_error', $value, $status_code );
-		$spies = $this->wp_send_json_spies;
+		$spy = new WP_Send_Json_Mock_Spy( 'wp_send_json_error' );
 
-		$mock = static function (
-			$call_value = null, $call_status_code = null, $call_flags = 0
-		) use ( $flags, $status_code, $value, $spy, &$spies ): void {
-			if ( ! ( $call_value === $value && $call_status_code === $status_code && $call_flags === $flags ) ) {
-				wp_send_json_error( $value, $status_code, $flags );
-
-				return;
-			}
-
+		$mock = static function ( $value = null, $status_code = null, $flags = 0 ) use ( $spy ) {
 			$spy->register_call( [ $value, $status_code, $flags ] );
 		};
 
@@ -89,6 +85,24 @@ trait WP_Send_Json_Mocks {
 		$this->wp_send_json_spies[] = $spy;
 
 		return $spy;
+	}
+
+	protected function mock_wp_send_json_success(): WP_Send_Json_Mock_Spy {
+		$spy  = new WP_Send_Json_Mock_Spy( 'wp_send_json_success' );
+		$mock = function ( $data = null, $status_code = null, $options = 0 ) use ( $spy ) {
+			$spy->register_call( [ $data, $status_code, $options ] );
+		};
+
+		$this->set_fn_return( "wp_send_json_success", $mock, true );
+		$this->wp_send_json_spies[] = $spy;
+
+		return $spy;
+	}
+
+	protected function reset_wp_send_json_mocks(): void {
+		$this->wp_send_json_spies = [];
+		uopz_unset_return( 'wp_send_json_error' );
+		uopz_unset_return( 'wp_send_json_success' );
 	}
 
 	/**
@@ -103,26 +117,25 @@ trait WP_Send_Json_Mocks {
 			if ( $spy->expects_calls() ) {
 				$this->assertTrue( $spy->was_called(),
 					sprintf(
-						"The %s mock function was never called for %s, status %d and flags %d.",
+						"The %s mock function was never called with expected arguments:\n%s\n\nUnexpected calls:\n%s\n\nwp_send_json calls:\n%s",
 						$spy->get_name(),
-						print_r( $spy->get_value(), true ),
-						print_r( $spy->get_status_code(), true ),
-						print_r( $spy->get_flags(), true )
+						$spy->get_pretty_arguments(),
+						implode( "\n", $spy->get_pretty_calls() ) ?: 'none',
+						implode( "\n", $this->wp_send_json_unexpected_spy->get_pretty_calls() ) ?: 'none',
 					)
 				);
 			} else {
 				$this->assertFalse( $spy->was_called(),
 					sprintf(
-						"The %s mock function was unexpectedly called for %s, status %d and flags %d.",
+						"The %s mock function was unexpectedly called with:\n%s",
 						$spy->get_name(),
-						print_r( $spy->get_value(), true ),
-						print_r( $spy->get_status_code(), true ),
-						print_r( $spy->get_flags(), true )
+						implode( "\n", $spy->get_pretty_calls() )
 					)
 				);
 			}
 		}
 
-		$this->wp_send_json_spies = [];
+		$this->wp_send_json_spies          = [];
+		$this->wp_send_json_unexpected_spy = new WP_Send_Json_Mock_Spy( 'wp_send_json' );
 	}
 }
