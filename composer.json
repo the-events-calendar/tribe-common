@@ -44,7 +44,8 @@
     "stellarwp/coding-standards": "dev-main",
     "the-events-calendar/tec-testing-facilities": "dev-master",
     "wp-cli/checksum-command": "1.0.5",
-    "wp-coding-standards/wpcs": "^3.0.0"
+    "wp-coding-standards/wpcs": "^3.0.0",
+    "automattic/jetpack-changelogger": "^4.2"
   },
   "autoload": {
     "psr-4": {
@@ -96,6 +97,25 @@
       "delete_vendor_files": true,
       "include_modified_date": false,
       "include_author": false
+    },
+    "changelogger": {
+      "changelog": "changelog.md",
+      "types": {
+        "version" : "Version",
+        "feat" : "Feature",
+        "tweak" : "Tweak",
+        "fix" : "Fix",
+        "performance" : "Performance",
+        "security" : "Security",
+        "accessibility" : "Accessibility",
+        "compatibility" : "Compatibility",
+        "deprecated" : "Deprecated",
+        "language" : "Language"
+      },
+      "formatter": {
+        "filename": "bin/class-tec-changelog-formatter.php"
+      },
+      "changes-dir": "changelog"
     }
   }
 }
