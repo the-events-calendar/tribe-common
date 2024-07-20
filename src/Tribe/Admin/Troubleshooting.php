@@ -468,7 +468,7 @@ class Troubleshooting {
 			return __( 'Plugin couldn\'t be identified.', 'tribe-common' );
 		}
 
-		$plugin = array_pop( $active_caching_plugins );
+		$plugin      = array_pop( $active_caching_plugins );
 		$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin, false );
 
 		return $plugin_data['Name'];
