@@ -304,7 +304,7 @@ class Troubleshooting {
 		if ( 'php-timezone' === $slug ) {
 			$php_timezone = date_default_timezone_get();
 
-			return $php_timezone != "UTC";
+			return $php_timezone != 'UTC';
 		}
 		if ( 'caching' === $slug ) {
 			$intersection = $this->get_active_caching_plugins();
