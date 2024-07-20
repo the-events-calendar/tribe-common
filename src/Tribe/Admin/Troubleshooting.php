@@ -264,6 +264,7 @@ class Troubleshooting {
 				'active'       => $this->is_active_issue( 'php-timezone' ),
 			],
 			[
+				/* translators: %s: The name of the caching plugin. */
 				'title'        => sprintf( __( 'Caching plugin detected: %s', 'tribe-common' ), $this->get_active_caching_plugin_name() ),
 				'description'  => __( 'Caching can improve your site performance and speed up your site. Check out our Caching Guide to help you set up caching with our plugins correctly.', 'tribe-common' ),
 				'more_info'    => 'https://evnt.is/tec-and-caching',
@@ -469,7 +470,7 @@ class Troubleshooting {
 
 		$plugin = array_pop( $active_caching_plugins );
 		$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin, false );
-		
+
 		return $plugin_data['Name'];
 	}
 }
