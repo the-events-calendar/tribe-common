@@ -445,7 +445,7 @@ class Troubleshooting {
 			'breeze/breeze.php',
 			'wp-optimize/wp-optimize.php',
 			'wp-fastest-cache/wpFastestCache.php',
-			//'wp-engine',
+			// 'wp-engine',
 		];
 
 		// Check if any of the above caching plugins are active.
