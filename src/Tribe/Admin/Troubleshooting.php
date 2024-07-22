@@ -388,32 +388,35 @@ class Troubleshooting {
 	 * @return array of common issues which are displayed on the troubleshooting page.
 	 */
 	public function get_common_issues(): array {
-		return apply_filters( 'tec_help_troubleshooting_issues', [
+		return apply_filters(
+			'tec_help_troubleshooting_issues',
 			[
-				'issue'      => __( 'Common Error Messages', 'tribe-common' ),
-				'solution'   => __( 'Here’s an overview of %s and what they mean.', 'tribe-common' ),
-				'link'       => 'https://evnt.is/1as0',
-				'link_label' => 'common error messages',
-			],
-			[
-				'issue'      => __( 'My calendar doesn’t look right.', 'tribe-common' ),
-				'solution'   => __( 'This can happen when other plugins try to improve performance. %s.' ),
-				'link'       => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/#layout-issue',
-				'link_label' => 'More info',
-			],
-			[
-				'issue'      => __( 'I installed the calendar and it crashed my site.', 'tribe-common' ),
-				'solution'   => __( '%s and other common installation issues.', 'tribe-common' ),
-				'link'       => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/#fatal-errors',
-				'link_label' => 'Find solutions to this',
-			],
-			[
-				'issue'      => __( 'I keep getting “Page Not Found” on events.', 'tribe-common' ),
-				'solution'   => __( 'There are a few %s to resolve and prevent 404 errors.', 'tribe-common' ),
-				'link'       => 'https://evnt.is/1as2',
-				'link_label' => 'things you can do',
-			],
-		] );
+				[
+					'issue'      => __( 'Common Error Messages', 'tribe-common' ),
+					'solution'   => __( 'Here’s an overview of %s and what they mean.', 'tribe-common' ),
+					'link'       => 'https://evnt.is/1as0',
+					'link_label' => 'common error messages',
+				],
+				[
+					'issue'      => __( 'My calendar doesn’t look right.', 'tribe-common' ),
+					'solution'   => __( 'This can happen when other plugins try to improve performance. %s.' ),
+					'link'       => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/#layout-issue',
+					'link_label' => 'More info',
+				],
+				[
+					'issue'      => __( 'I installed the calendar and it crashed my site.', 'tribe-common' ),
+					'solution'   => __( '%s and other common installation issues.', 'tribe-common' ),
+					'link'       => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/#fatal-errors',
+					'link_label' => 'Find solutions to this',
+				],
+				[
+					'issue'      => __( 'I keep getting “Page Not Found” on events.', 'tribe-common' ),
+					'solution'   => __( 'There are a few %s to resolve and prevent 404 errors.', 'tribe-common' ),
+					'link'       => 'https://evnt.is/1as2',
+					'link_label' => 'things you can do',
+				],
+			]
+		);
 	}
 
 	/**
