@@ -511,6 +511,10 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				foreach ( $this->attributes as $key => $value ) {
 					$return .= ' ' . $key . '="' . $value . '"';
 				}
+
+				if ( ! empty( $this->attributes['data-source'] ) ) {
+					$return .= ' data-source-nonce="' . esc_attr( wp_create_nonce( 'tribe_dropdown' ) ) . '"';
+				}
 			}
 
 			return apply_filters( 'tribe_field_attributes', $return, $this->name, $this );

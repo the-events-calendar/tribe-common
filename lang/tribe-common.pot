@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 5.3.0\n"
+"Project-Id-Version: Tribe Common 5.3.1\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-07T11:39:23-07:00\n"
-"PO-Revision-Date: 2024-06-07 18:39\n"
+"POT-Creation-Date: 2024-07-17T07:46:10-07:00\n"
+"PO-Revision-Date: 2024-07-17 14:46\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: tribe-common\n"
 
@@ -1425,16 +1425,16 @@ msgstr ""
 msgid "Cannot look for Terms without a taxonomy"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:279
+#: src/Tribe/Ajax/Dropdown.php:281
 msgid "Missing data source for this dropdown"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:301
+#: src/Tribe/Ajax/Dropdown.php:303
 msgid "Empty data set for this dropdown"
 msgstr ""
 
 #. Translators: %1$s is the name of the source, %2$s is the class name
-#: src/Tribe/Ajax/Dropdown.php:353
+#: src/Tribe/Ajax/Dropdown.php:355
 msgid "The \"%1$s\" source is invalid and cannot be reached on \"%2$s\" instance."
 msgstr ""
 
@@ -1887,35 +1887,35 @@ msgstr ""
 msgid "Invalid field type specified"
 msgstr ""
 
-#: src/Tribe/Field.php:647
+#: src/Tribe/Field.php:651
 msgid "No radio options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:683
+#: src/Tribe/Field.php:687
 msgid "No checkbox options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:745
+#: src/Tribe/Field.php:749
 msgid "No select options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:847
-#: src/Tribe/Field.php:893
+#: src/Tribe/Field.php:851
+#: src/Tribe/Field.php:897
 msgid "Select Image"
-msgstr ""
-
-#: src/Tribe/Field.php:848
-#: src/Tribe/Field.php:894
-msgid "Remove Image"
 msgstr ""
 
 #: src/Tribe/Field.php:852
 #: src/Tribe/Field.php:898
+msgid "Remove Image"
+msgstr ""
+
+#: src/Tribe/Field.php:856
+#: src/Tribe/Field.php:902
 msgid "Select an image"
 msgstr ""
 
-#: src/Tribe/Field.php:853
-#: src/Tribe/Field.php:899
+#: src/Tribe/Field.php:857
+#: src/Tribe/Field.php:903
 msgid "Use this image"
 msgstr ""
 
@@ -3143,89 +3143,89 @@ msgstr ""
 msgid "Null logger (will log nothing)"
 msgstr ""
 
-#: src/Tribe/Main.php:397
+#: src/Tribe/Main.php:398
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:398
+#: src/Tribe/Main.php:399
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:400
+#: src/Tribe/Main.php:401
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:401
+#: src/Tribe/Main.php:402
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:402
+#: src/Tribe/Main.php:403
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:403
+#: src/Tribe/Main.php:404
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:404
+#: src/Tribe/Main.php:405
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:405
+#: src/Tribe/Main.php:406
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:406
+#: src/Tribe/Main.php:407
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:407
+#: src/Tribe/Main.php:408
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:408
+#: src/Tribe/Main.php:409
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:409
+#: src/Tribe/Main.php:410
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:411
+#: src/Tribe/Main.php:412
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:412
-#: src/Tribe/Main.php:429
+#: src/Tribe/Main.php:413
+#: src/Tribe/Main.php:430
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:413
+#: src/Tribe/Main.php:414
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:418
+#: src/Tribe/Main.php:419
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:419
+#: src/Tribe/Main.php:420
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:430
+#: src/Tribe/Main.php:431
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:431
-#: src/Tribe/Main.php:433
+#: src/Tribe/Main.php:432
+#: src/Tribe/Main.php:434
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:432
+#: src/Tribe/Main.php:433
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:434
+#: src/Tribe/Main.php:435
 msgid "Clear"
 msgstr ""
 

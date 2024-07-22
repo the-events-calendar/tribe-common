@@ -20,6 +20,8 @@ trait With_Uopz {
 	 */
 	public function unset_uopz_returns() {
 		if ( function_exists( 'uopz_set_return' ) ) {
+			self::$uopz_set_returns = array_reverse( self::$uopz_set_returns );
+
 			foreach ( self::$uopz_set_returns as $f ) {
 				if ( is_array( $f ) ) {
 					list( $class, $method ) = $f;
@@ -38,6 +40,8 @@ trait With_Uopz {
 	 */
 	public function unset_uopz_redefines() {
 		if ( function_exists( 'uopz_redefine' ) ) {
+			self::$uopz_redefines = array_reverse( self::$uopz_redefines );
+
 			foreach ( self::$uopz_redefines as $restore_callback ) {
 				$restore_callback();
 			}
@@ -51,6 +55,8 @@ trait With_Uopz {
 	 */
 	public function unset_uopz_properties() {
 		if ( function_exists( 'uopz_set_property' ) ) {
+			self::$uopz_set_properties = array_reverse( self::$uopz_set_properties );
+
 			foreach ( self::$uopz_set_properties as $definition ) {
 				list( $object, $field, $original_value ) = $definition;
 				// Overwrite value with what we stored as the original value.
@@ -65,6 +71,8 @@ trait With_Uopz {
 	 */
 	public function unset_uopz_functions() {
 		if ( function_exists( 'uopz_del_function' ) ) {
+			self::$uopz_del_functions = array_reverse( self::$uopz_del_functions );
+
 			foreach ( self::$uopz_del_functions as $function ) {
 				uopz_del_function( $function );
 			}
@@ -184,6 +192,8 @@ trait With_Uopz {
 		if ( ! function_exists( 'uopz_del_function' ) ) {
 			$this->markTestSkipped( 'uopz extension is not installed' );
 		}
+
+		self::$uopz_add_class_fns = array_reverse( self::$uopz_add_class_fns );
 
 		foreach ( self::$uopz_add_class_fns as $definition ) {
 			list( $class, $function ) = $definition;

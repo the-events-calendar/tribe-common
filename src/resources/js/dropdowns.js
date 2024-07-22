@@ -284,7 +284,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		if ( $select.is( '[data-freeform]' ) ) {
 			args.createTag = obj.freefrom_create_search_choice;
 			args.tags = true;
-			$select.data( 'tags', true );
 		}
 
 		if ( $select.is( '[multiple]' ) ) {
@@ -326,18 +325,22 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 
 		// Select also allows Tags, so we go with that too
 		if ( $select.is( '[data-tags]' ) ) {
-			args.tags = $select.data( 'tags' );
+			const selectTags = $select.data( 'tags' );
+			args.tags = 1 === selectTags || '1' === selectTags || 'true' === selectTags;
 
-			args.createSearchChoice = function( term, data ) { // eslint-disable-line no-unused-vars
-				if ( term.match( args.regexToken ) ) {
-					return { id: term, text: term };
-				}
-			};
-
-			if ( 0 === args.tags.length ) {
-				args.formatNoMatches = function() {
-					return $select.attr( 'placeholder' );
+			// Don't force tags!
+			if ( args.tags ) {
+				args.createSearchChoice = function( term, data ) { // eslint-disable-line no-unused-vars
+					if ( term.match( args.regexToken ) ) {
+						return { id: term, text: term };
+					}
 				};
+
+				if ( 0 === args.tags.length ) {
+					args.formatNoMatches = function() {
+						return $select.attr( 'placeholder' );
+					};
+				}
 			}
 		}
 
@@ -364,7 +367,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 				url: obj.ajaxurl(),
 
 				// parse the results into the format expected by Select2.
-				processResults: function ( response, page, query ) { // eslint-disable-line no-unused-vars
+				processResults: function ( response, params ) { // eslint-disable-line no-unused-vars
 					if ( ! $.isPlainObject( response ) || 'undefined' === typeof response.success ) {
 						console.error( 'We received a malformed Object, could not complete the Select2 Search.' ); // eslint-disable-line max-len
 						return { results: [] };
@@ -391,6 +394,20 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 				},
 			};
 
+
+			if ( $select.is( '[data-ajax-delay]' ) ) {
+				args.ajax.delay = $select.data( 'ajax-delay' );
+			}
+
+			if ( $select.is( '[data-ajax-cache]' ) ) {
+				const ajaxCache = $select.data( 'ajax-cache' );
+				args.ajax.cache = 1 === ajaxCache || '1' === ajaxCache || 'true' === ajaxCache;
+			}
+
+			if ( $select.is( '[data-minimum-input-length]' ) ) {
+				args.minimumInputLength = parseInt( $select.data( 'minimum-input-length' ) );
+			}
+
 			// By default only send the source
 			args.ajax.data = function( search, page ) {
 				return {
@@ -399,6 +416,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 					search: search,
 					page: page,
 					args: $select.data( 'source-args' ),
+					nonce: $select.data( 'source-nonce' ),
 				};
 			};
 		}

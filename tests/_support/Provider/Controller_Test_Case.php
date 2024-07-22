@@ -137,6 +137,7 @@ class Controller_Test_Case extends WPTestCase {
 	 * @after
 	 */
 	protected function tearDownTestCase() {
+		$this->made_controllers = array_reverse( $this->made_controllers );
 		// Unregister all the controllers created by the test case.
 		foreach ( $this->made_controllers as $controller ) {
 			$controller->unregister();
