@@ -102,13 +102,8 @@ trait Function_Spy {
 	 * @return bool
 	 */
 	public function was_called(): bool {
-		$was_called = count( $this->calls ) > 0;
-
-		if ( $was_called ) {
-			$this->was_verified = true;
-		}
-
-		return $was_called;
+		$this->was_verified = true;
+		return count( $this->calls ) > 0;
 	}
 
 	public function was_called_times_with( int $times, ...$args ): bool {
