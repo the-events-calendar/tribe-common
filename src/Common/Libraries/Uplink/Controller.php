@@ -8,11 +8,12 @@ namespace TEC\Common\Libraries\Uplink;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\Libraries\Provider as Libraries_Provider;
 use TEC\Common\StellarWP\Arrays\Arr;
-use TEC\Common\StellarWP\Uplink\Admin\Fields\Field;
 use TEC\Common\StellarWP\Uplink\Config;
 use TEC\Common\StellarWP\Uplink\Resources\Collection;
 use TEC\Common\StellarWP\Uplink\Resources\Resource;
 use TEC\Common\StellarWP\Uplink\Uplink;
+
+use function TEC\Common\StellarWP\Uplink\get_field;
 
 /**
  * Controller for setting up the stellarwp/uplink library.
@@ -80,8 +81,10 @@ class Controller extends Controller_Contract {
 		foreach ( $plugins as $plugin ) {
 			$legacy_slug = str_replace( '-', '_', $plugin->get_slug() );
 
-			$field = new Field( $plugin->get_slug() );
+			$field = get_field( $plugin->get_slug() );
 			$field->set_field_name( 'pue_install_key_' . $legacy_slug )->show_label( false );
+
+			$prefix = tribe( Libraries_Provider::class )->get_hook_prefix();
 
 			// If there is a license registered prior Uplink but not with Uplink. Return license registered prior Uplink.
 			add_filter(
@@ -97,7 +100,7 @@ class Controller extends Controller_Contract {
 				2
 			);
 
-			$field_html = $field->render();
+			$field_html = $field->get_render_html();
 
 			// Remove duplicate entries of plugins migrated to uplink.
 			if ( isset( $fields_array[ 'pue_install_key_' . $legacy_slug . '-heading' ] ) ) {
@@ -108,8 +111,6 @@ class Controller extends Controller_Contract {
 			if ( isset( $fields_array[ 'pue_install_key_' . $legacy_slug ] ) ) {
 				unset( $fields_array[ 'pue_install_key_' . $legacy_slug ] );
 			}
-
-			$prefix = tribe( Libraries_Provider::class )->get_hook_prefix();
 
 			$fields_to_inject[ 'stellarwp-uplink_' . $plugin->get_slug() . '-heading' ] = [
 				'type'  => 'heading',
