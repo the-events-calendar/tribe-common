@@ -14,6 +14,7 @@ use TEC\Common\StellarWP\Uplink\Resources\Resource;
 use TEC\Common\StellarWP\Uplink\Uplink;
 
 use function TEC\Common\StellarWP\Uplink\get_field;
+use function TEC\Common\StellarWP\Uplink\get_plugins;
 
 /**
  * Controller for setting up the stellarwp/uplink library.
@@ -73,8 +74,7 @@ class Controller extends Controller_Contract {
 	 * @return array
 	 */
 	public function register_license_fields( $fields_array ) {
-		$collection = tribe( Collection::class );
-		$plugins    = $collection->get_plugins();
+		$plugins = get_plugins();
 
 		$fields_to_inject = [];
 

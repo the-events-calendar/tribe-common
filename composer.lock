@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f46cf4314e6aa6cdd23f2212af3a5065",
+    "content-hash": "d24b8e25836d33d9e927b3d77832b7e1",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -729,16 +729,16 @@
         },
         {
             "name": "stellarwp/uplink",
-            "version": "v1.4.3",
+            "version": "dev-feat/fluent-form-builder",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/uplink.git",
-                "reference": "2a37fbbd4702630caad032678b52bbab3d3e8ca4"
+                "reference": "f0f06102ffc265071965af183b1a31e025096910"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/uplink/zipball/2a37fbbd4702630caad032678b52bbab3d3e8ca4",
-                "reference": "2a37fbbd4702630caad032678b52bbab3d3e8ca4",
+                "url": "https://api.github.com/repos/stellarwp/uplink/zipball/f0f06102ffc265071965af183b1a31e025096910",
+                "reference": "f0f06102ffc265071965af183b1a31e025096910",
                 "shasum": ""
             },
             "require": {
@@ -755,6 +755,7 @@
                 "codeception/module-rest": "^1.0",
                 "codeception/module-webdriver": "^1.0",
                 "codeception/util-universalframework": "^1.0",
+                "lucatume/codeception-snapshot-assertions": "^0.4.0",
                 "lucatume/di52": "^3.0",
                 "lucatume/wp-browser": "^3.0.14",
                 "phpspec/prophecy": "^1.0",
@@ -789,9 +790,9 @@
             "description": "A library that integrates a WordPress product with the StellarWP Licensing system.",
             "support": {
                 "issues": "https://github.com/stellarwp/uplink/issues",
-                "source": "https://github.com/stellarwp/uplink/tree/v1.4.3"
+                "source": "https://github.com/stellarwp/uplink/tree/feat/fluent-form-builder"
             },
-            "time": "2024-03-01T19:58:23+00:00"
+            "time": "2024-07-22T19:37:33+00:00"
         }
     ],
     "packages-dev": [
@@ -7043,6 +7044,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "stellarwp/models": 20,
+        "stellarwp/uplink": 20,
         "stellarwp/coding-standards": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
