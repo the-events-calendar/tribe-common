@@ -21,7 +21,6 @@ use \Tribe__Events__Google__Maps_API_Key;
  *
  * @package Tribe\Admin
  * @since   4.14.2
- *
  */
 class Troubleshooting {
 	/**
@@ -158,10 +157,9 @@ class Troubleshooting {
 	}
 
 	/**
-	 * Adds the troubleshooting menu to the the WP admin bar under events.
+	 * Adds the troubleshooting menu to the WP admin bar under events.
 	 *
 	 * @since 4.14.2
-	 *
 	 */
 	public function add_toolbar_item() {
 		$capability = $this->get_required_capability();
@@ -184,7 +182,6 @@ class Troubleshooting {
 	 * Renders the Troubleshooting page.
 	 *
 	 * @since 4.14.2
-	 *
 	 */
 	public function do_menu_page() {
 		tribe_asset_enqueue( 'tribe-admin-help-page' );
@@ -421,7 +418,6 @@ class Troubleshooting {
 	 * @since 4.14.2
 	 *
 	 * @param string $page the page which the action is being applied.
-	 *
 	 */
 	public function admin_notice( $page ) {
 		do_action( 'tec_admin_notice_area', $page );
