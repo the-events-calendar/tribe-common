@@ -393,24 +393,28 @@ class Troubleshooting {
 			[
 				[
 					'issue'      => __( 'Common Error Messages', 'tribe-common' ),
+					/* Translators: %s: The link label, i.e. "common error messages" */
 					'solution'   => __( 'Here’s an overview of %s and what they mean.', 'tribe-common' ),
 					'link'       => 'https://evnt.is/1as0',
 					'link_label' => 'common error messages',
 				],
 				[
 					'issue'      => __( 'My calendar doesn’t look right.', 'tribe-common' ),
+					/* Translators: %s: The link label, i.e. "More info" */
 					'solution'   => __( 'This can happen when other plugins try to improve performance. %s.' ),
 					'link'       => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/#layout-issue',
 					'link_label' => 'More info',
 				],
 				[
 					'issue'      => __( 'I installed the calendar and it crashed my site.', 'tribe-common' ),
+					/* Translators: %s: The link label, i.e. "Find solutions to this" */
 					'solution'   => __( '%s and other common installation issues.', 'tribe-common' ),
 					'link'       => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/#fatal-errors',
 					'link_label' => 'Find solutions to this',
 				],
 				[
 					'issue'      => __( 'I keep getting “Page Not Found” on events.', 'tribe-common' ),
+					/* Translators: %s: The link label, i.e. "things you can do" */
 					'solution'   => __( 'There are a few %s to resolve and prevent 404 errors.', 'tribe-common' ),
 					'link'       => 'https://evnt.is/1as2',
 					'link_label' => 'things you can do',
