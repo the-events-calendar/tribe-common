@@ -2,7 +2,7 @@
 /**
  * Provides methods to format WooCommerce data.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Traits\Maps\Commerce;
  */
@@ -14,7 +14,7 @@ use WC_Order;
 /**
  * Trait With_AJAX
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Traits\Maps\Commerce;
  */
@@ -23,8 +23,8 @@ trait WooCommerce {
 	/**
 	 * Get the WooCommerce Order
 	 *
-	 * @since TBD Migrated to Common from Event Automator
-	 * @since TBD Migrated to Common from Event Automator - Add encode arrays.
+	 * @since 6.0.0 Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator - Add encode arrays.
 	 *
 	 * @param int    $order_id   The Woocommerce order id.
 	 * @param string $service_id The service id used to modify the mapped event details.
@@ -105,8 +105,8 @@ trait WooCommerce {
 		/**
 		 * Filters the order information for WooCommerce that is sent to Zapier.
 		 *
-		 * @since TBD Migrated to Common from Event Automator
-		 * @since TBD Migrated to Common from Event Automator - Add Service ID.
+		 * @since 6.0.0 Migrated to Common from Event Automator
+		 * @since 6.0.0 Migrated to Common from Event Automator - Add Service ID.
 		 *
 		 * @param array<string|mixed> $next_order An array of WooCommerce order details.
 		 * @param WC_Order            $order      An instance of the WooCommerce order object.
@@ -124,7 +124,7 @@ trait WooCommerce {
 	/**
 	 * Get WooCommerce Ticket Meta.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WC_Order_Item_Product $item An instance of the WooCommerce order item object.
 	 *
@@ -164,7 +164,7 @@ trait WooCommerce {
 	/**
 	 * Get WooCommerce Customer Order Notes.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WC_Order $order An instance of the WooCommerce order object.
 	 *

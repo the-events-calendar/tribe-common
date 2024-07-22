@@ -2,7 +2,7 @@
 /**
  * Provides a map of single event details.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Traits\Maps;
  */
@@ -18,7 +18,7 @@ use Tribe__Events__Main as TEC;
 /**
  * Trait Event
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Traits\Maps;
  */
@@ -27,8 +27,8 @@ trait Event {
 	/**
 	 * Get the event details mapped for 3rd party services.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
-	 * @since TBD Migrated to Common from Event Automator - Service ID.
+	 * @since 6.0.0 Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator - Service ID.
 	 *
 	 * @param int     $post_id    The post id for an event.
 	 * @param boolean $unique_id  Whether to add a unique id, Zapier only updates events per
@@ -97,8 +97,8 @@ trait Event {
 		/**
 		 * Filters the event details sent to a 3rd party.
 		 *
-		 * @since TBD Migrated to Common from Event Automator
-		 * @since TBD Migrated to Common from Event Automator - Add Service ID.
+		 * @since 6.0.0 Migrated to Common from Event Automator
+		 * @since 6.0.0 Migrated to Common from Event Automator - Add Service ID.
 		 *
 		 * @param array<string|mixed> $next_event An array of event details.
 		 * @param WP_Post             $event      An instance of the event WP_Post object.
@@ -116,7 +116,7 @@ trait Event {
 	/**
 	 * Get all the taxonomy terms for an event.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param string  $taxonomy_name The event taxonomy name.
 	 * @param WP_Post $event         An instance of the event WP_Post object.
@@ -152,7 +152,7 @@ trait Event {
 	/**
 	 * Get the term formatted for the event map for 3rd party services.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_Term|WP_Error $term A term object or WP_Error instance.
 	 *
@@ -176,7 +176,7 @@ trait Event {
 	/**
 	 * Get all the organizer details for an event.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_Post $event The instance of WP_Post for an event.
 	 *
@@ -204,7 +204,7 @@ trait Event {
 		/**
 		 * Filters all the organizer details sent to a 3rd party.
 		 *
-		 * @since TBD Migrated to Common from Event Automator
+		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param array<string|mixed> An array of organizers with mapped details.
 		 * @param array<WP_Post> An array of instances of the organizer WP_Post object.
@@ -217,7 +217,7 @@ trait Event {
 	/**
 	 * Get the organizer details mapped for 3rd party services.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_Post $organizer The post for a organizer.
 	 *
@@ -250,7 +250,7 @@ trait Event {
 		/**
 		 * Filters the organizer details sent to a 3rd party.
 		 *
-		 * @since TBD Migrated to Common from Event Automator
+		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param array<string|mixed> An array of organizer details.
 		 * @param WP_Post An instance of the organizer WP_Post object.
@@ -263,7 +263,7 @@ trait Event {
 	/**
 	 * Get all the venue details for an event.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_Post $event The instance of WP_Post for an event.
 	 *
@@ -291,7 +291,7 @@ trait Event {
 		/**
 		 * Filters all the venue details sent to a 3rd party.
 		 *
-		 * @since TBD Migrated to Common from Event Automator
+		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param array<string|mixed> An array of venues with mapped details.
 		 * @param array<WP_Post> An array of instances of the venue WP_Post object.
@@ -304,7 +304,7 @@ trait Event {
 	/**
 	 * Get the venue details mapped for 3rd party services.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_Post     $venue   The post for a venue.
 	 *
@@ -344,7 +344,7 @@ trait Event {
 		/**
 		 * Filters the venue details sent to a 3rd party.
 		 *
-		 * @since TBD Migrated to Common from Event Automator
+		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param array<string|mixed> An array of venue details.
 		 * @param WP_Post An instance of the venue WP_Post object.
@@ -357,7 +357,7 @@ trait Event {
 	/**
 	 * Get all tickets|rsvps for an Event.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_Post $event The instance of WP_Post for an event.
 	 *
@@ -417,7 +417,7 @@ trait Event {
 		/**
 		 * Filters all the venue details sent to a 3rd party.
 		 *
-		 * @since TBD Migrated to Common from Event Automator
+		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param array<string|mixed> An array of venues with mapped details.
 		 * @param WP_Post $event The instance of WP_Post for an event.

@@ -21,7 +21,7 @@ class AttendeeTest extends \Codeception\TestCase\WPTestCase {
 	/*
 	 * Attendee meta values.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string> The values to use for attendee meta.
 	 */

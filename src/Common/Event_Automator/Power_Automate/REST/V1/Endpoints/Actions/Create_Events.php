@@ -2,7 +2,7 @@
 /**
  * The Power Automate Create Event Endpoint.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Power_Automate\REST\V1\Endpoints;
  */
@@ -23,7 +23,7 @@ use WP_Error;
 /**
  * Class Create_Events
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Power_Automate\REST\V1\Endpoints
  */
@@ -52,7 +52,7 @@ class Create_Events extends Abstract_REST_Endpoint {
 	/**
 	 * The REST instance endpoint to use.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var Single_Event_Endpoints
 	 */
@@ -61,7 +61,7 @@ class Create_Events extends Abstract_REST_Endpoint {
 	/**
 	 * The REST validator to use.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var Tribe__Events__Validator__Base
 	 */
@@ -70,7 +70,7 @@ class Create_Events extends Abstract_REST_Endpoint {
 	/**
 	 * Abstract_REST_Endpoint constructor.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param Api                   $api           An instance of the Power Automate API handler.
 	 * @param Swagger_Documentation $documentation An instance of the Power Automate Swagger_Documentation handler.
@@ -128,7 +128,7 @@ class Create_Events extends Abstract_REST_Endpoint {
 	 * Whether the current user is set and the api is loaded.
 	 * The test for creating is done one the rest_pre_dispatch hook, if the api is not ready or no user loaded then it failed.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return bool Whether the current user and api are loaded.
 	 */
@@ -160,7 +160,7 @@ class Create_Events extends Abstract_REST_Endpoint {
 	 *
 	 * Required method from abstract that only returns an error.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -177,7 +177,7 @@ class Create_Events extends Abstract_REST_Endpoint {
 	/**
 	 * Create an event.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *

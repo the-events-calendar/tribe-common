@@ -2,7 +2,7 @@
 /**
  * Provides methods to route requests using nonce-based routes to identify the kind of request.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Traits;
  */
@@ -14,7 +14,7 @@ use TEC\Event_Automator\Plugin;
 /**
  * Trait With_Nonce_Routes
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Traits;
  */
@@ -23,7 +23,7 @@ trait With_Nonce_Routes {
 	/**
 	 * Routes a request to the admin area only if the user can manage the site options.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param array<string,callable>    $routes A map of the routes to handle, from nonce actions to the callables
 	 *                                              that should handle each.
@@ -59,7 +59,7 @@ trait With_Nonce_Routes {
 	/**
 	 * Routes a request to the admin area ignoring capabilities.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param array<string,callable> $routes A map of the routes to handle, from nonce actions to the callables
 	 *                                              that should handle each.
@@ -88,7 +88,7 @@ trait With_Nonce_Routes {
 	/**
 	 * Routes a request to the admin area ignoring capabilities.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param string                    $nonce Nonce to be validated.
 	 *

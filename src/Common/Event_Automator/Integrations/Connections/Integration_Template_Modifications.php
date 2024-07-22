@@ -2,7 +2,7 @@
 /**
  * Integrations Template Modifications abstract class.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Integrations\Connections
  */
@@ -14,7 +14,7 @@ use TEC\Event_Automator\Templates\Admin_Template;
 /**
  * Class Template_Modifications
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Integrations\Connections
  */
@@ -23,7 +23,7 @@ abstract class Integration_Template_Modifications {
 	/**
 	 * The internal id of the API integration.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -32,7 +32,7 @@ abstract class Integration_Template_Modifications {
 	/**
 	 * The prefix, in the context of tribe options, of each setting for an API.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -41,7 +41,7 @@ abstract class Integration_Template_Modifications {
 	/**
 	 * An instance of the admin template handler.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var Admin_Template
 	 */
@@ -50,7 +50,7 @@ abstract class Integration_Template_Modifications {
 	/**
 	 * An instance of the URl handler.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var Url
 	 */
@@ -59,7 +59,7 @@ abstract class Integration_Template_Modifications {
 	/**
 	 * Get intro text for an API Settings.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return string HTML for the intro text.
 	 */
@@ -79,7 +79,7 @@ abstract class Integration_Template_Modifications {
 	/**
 	 * Gets all the integration connections.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param Integration_Connections $api An instance of an API handler.
 	 * @param Integration_Url         $url The URLs handler for the integration.
@@ -107,7 +107,7 @@ abstract class Integration_Template_Modifications {
 	/**
 	 * Get the message template.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param string $message The message to display.
 	 * @param string $type    The type of message, either updated or error.
@@ -126,7 +126,7 @@ abstract class Integration_Template_Modifications {
 	/**
 	 * Print the message template to display.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param string  $message The message to display.
 	 * @param string  $type    The type of message, either updated or error.
@@ -141,7 +141,7 @@ abstract class Integration_Template_Modifications {
 	/**
 	 * Get fields for a connection.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param Integration_Connections $api         An instance of an API handler.
 	 * @param string                  $consumer_id The unique id used to save the API Key data.
@@ -164,7 +164,7 @@ abstract class Integration_Template_Modifications {
 	/**
 	 * Get intro text for an endpoint dashboard.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return string HTML for the intro text.
 	 */
@@ -175,7 +175,7 @@ abstract class Integration_Template_Modifications {
 	/**
 	 * Adds the Endpoint Dashboard.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param array<string,array> $endpoints An array of the Zapier endpoints.
 	 * @param Endpoints_Manager   $manager   The Endpoint Manager instance.
@@ -196,7 +196,7 @@ abstract class Integration_Template_Modifications {
 	/**
 	 * Get the HTML for an Integration Endpoint.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param array<string,array> $endpoint An array of details for a Zapier endpoint.
 	 * @param Endpoints_Manager   $manager  The Endpoint Manager instance.
@@ -217,7 +217,7 @@ abstract class Integration_Template_Modifications {
 	/**
 	 * Print the HTML for a Integration Endpoint.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param array<string,array> $endpoint An array of details for a Zapier endpoint.
 	 * @param Endpoints_Manager   $manager  The Endpoint Manager instance.

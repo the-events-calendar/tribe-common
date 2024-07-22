@@ -21,7 +21,7 @@ class TicketsTest extends \Codeception\TestCase\WPTestCase {
 	/*
 	 * Ticket meta values.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string> The values to use for ticket meta.
 	 */

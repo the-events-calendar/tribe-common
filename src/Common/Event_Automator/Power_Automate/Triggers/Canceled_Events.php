@@ -2,7 +2,7 @@
 /**
  * The Power Automate Canceled Event Triggers.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  * @package TEC\Event_Automator\Power_Automate\Triggers;
  */
 
@@ -14,7 +14,7 @@ use Tribe__Utils__Array as Arr;
 /**
  * Class Canceled_Events
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Power_Automate\Triggers
  */

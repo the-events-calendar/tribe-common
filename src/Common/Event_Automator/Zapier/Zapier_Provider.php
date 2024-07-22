@@ -2,7 +2,7 @@
 /**
  * The Zapier service provider.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  * @package TEC\Event_Automator\Zapier
  */
 
@@ -36,7 +36,7 @@ use WP_Post;
 /**
  * Class Zapier_Provider
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Zapier
  */
@@ -47,21 +47,21 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * The constant to disable the event status coding.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	const DISABLED = 'TEC_ZAPIER_DISABLED';
 
 	/**
 	 * The constant to enable add to queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	const ENABLE_ADD_TO_QUEUE = 'TEC_ZAPIER_ENABLE_ADD_TO_QUEUE';
 
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	public function register() {
 		if ( ! self::is_active() ) {
@@ -81,7 +81,7 @@ class Zapier_Provider extends Service_Provider {
 		/**
 		 * Allows filtering of the capability required to use the Zapier integration ajax features.
 		 *
-		 * @since TBD Migrated to Common from Event Automator
+		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param string $ajax_capability The capability required to use the ajax features, default manage_options.
 		 */
@@ -92,7 +92,7 @@ class Zapier_Provider extends Service_Provider {
 		/**
 		 * Fires after the Zapier provider has been registered.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 */
 		do_action( 'tec_event_automator_zapier_provider_registered' );
 	}
@@ -100,7 +100,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Returns whether the event status should register, thus activate, or not.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return bool Whether the event status should register or not.
 	 */
@@ -121,7 +121,7 @@ class Zapier_Provider extends Service_Provider {
 		 * Note: this filter will only apply if the disable constant or env var
 		 * are not set or are set to falsy values.
 		 *
-		 * @since TBD Migrated to Common from Event Automator
+		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param bool $activate Defaults to `true`.
 		 */
@@ -131,7 +131,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Adds the actions required for event status.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	protected function add_actions() {
 		add_action( 'tribe_plugins_loaded', [ $this, 'register_admin_assets' ] );
@@ -146,7 +146,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Adds the actions to add to the queues.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	protected function setup_add_to_queues() {
 		// Canceled Events.
@@ -185,7 +185,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Adds the filters required by Zapier.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	protected function add_filters() {
 		add_filter( 'tec_event_automator_zapier_settings_fields', [ $this, 'add_dashboard_fields' ] );
@@ -203,7 +203,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Register the Admin Assets for Zapier.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	public function register_admin_assets() {
 		$this->container->make( Assets::class )->register_admin_assets();
@@ -212,7 +212,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Registers the REST API endpoints for Zapier
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	public function register_endpoints() {
 		$this->container->make( Swagger_Documentation::class )->register();
@@ -222,7 +222,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Adds the endpoint to the Zapier endpoint dashboard filter.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	public function add_endpoints_to_dashboard() {
 		$this->container->make( Authorize::class )->add_to_dashboard();
@@ -231,7 +231,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Adds the Zapier Endpoint dashboard fields after the Zapier API key settings.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param array<string,array> $fields The current fields.
 	 *
@@ -248,7 +248,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Filters the Zapier endpoint details.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param array<string,array>    $endpoint An array of the Zapier endpoint details.
 	 * @param Abstract_REST_Endpoint $this     An instance of the endpoint.
@@ -261,7 +261,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Filter to enable adding to the queues for Zapier.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param boolean $enable_add_to_queue Whether to enable adding to the queues for Zapier, default to false.
 	 *
@@ -289,7 +289,7 @@ class Zapier_Provider extends Service_Provider {
 		 * Note: this filter will only apply if the enable constant or env var
 		 * are not set or are set to true values.
 		 *
-		 * @since TBD Migrated to Common from Event Automator
+		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param bool                $enable_add_to_queue Defaults to `false`.
 		 * @param array<string|mixed> $access_keys         An array of the Zapier access keys.
@@ -301,7 +301,7 @@ class Zapier_Provider extends Service_Provider {
 	 * Verify token and login user before dispatching the request.
 	 * Done on `rest_pre_dispatch` to be able to set current user to pass validation capability checks.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param mixed           $result  Response to replace the requested version with. Can be anything
 	 *                                 a normal endpoint can return, or null to not hijack the request.
@@ -318,7 +318,7 @@ class Zapier_Provider extends Service_Provider {
 	 * Verify token and login user before dispatching the request.
 	 * Done on `rest_pre_dispatch` to be able to set current user to pass validation capability checks.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param mixed           $result  Response to replace the requested version with. Can be anything
 	 *                                 a normal endpoint can return, or null to not hijack the request.
@@ -335,7 +335,7 @@ class Zapier_Provider extends Service_Provider {
 	 * Verify token and login user before dispatching the request.
 	 * Done on `rest_pre_dispatch` to be able to set current user to pass validation capability checks.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param mixed           $result  Response to replace the requested version with. Can be anything
 	 *                                 a normal endpoint can return, or null to not hijack the request.
@@ -352,7 +352,7 @@ class Zapier_Provider extends Service_Provider {
 	 * Verify token and login user before dispatching the request.
 	 * Done on `rest_pre_dispatch` to be able to set current user to pass validation capability checks.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param mixed           $result  Response to replace the requested version with. Can be anything
 	 *                                 a normal endpoint can return, or null to not hijack the request.
@@ -368,7 +368,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Modifies REST API comma seperated  parameters before validation.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Response|WP_Error $response Response to replace the requested version with. Can be anything
 	 *                                            a normal endpoint can return, or a WP_Error if replacing the
@@ -385,7 +385,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Modifies REST API comma seperated  parameters before validation.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Response|WP_Error $response Response to replace the requested version with. Can be anything
 	 *                                            a normal endpoint can return, or a WP_Error if replacing the
@@ -404,7 +404,7 @@ class Zapier_Provider extends Service_Provider {
 	 *
 	 * The map returned by this method will be used by the `TEC\Event_Automator\Traits\With_Nonce_Routes` trait.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return array<string,callable> A map from the nonce actions to the corresponding handlers.
 	 */
@@ -424,7 +424,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Add a canceled event post id to a trigger queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param int           $post_id ID of the post we're saving.
 	 * @param array<string> $data    The meta data we're trying to save.
@@ -436,7 +436,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Add a custom post id to a trigger queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param int     $post_id A WordPress custom post id.
 	 * @param WP_Post $post    A WordPress custom post object.
@@ -459,7 +459,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Add a custom post id  of an event that has been updated to a trigger queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param int     $post_id A WordPress custom post id.
 	 * @param WP_Post $post_after   Post object following the update.
@@ -482,7 +482,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Add RSVP attendee to queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param integer $attendee_id       An attendee id.
 	 * @param integer $post_id           A WordPress custom post id.
@@ -503,7 +503,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Add Tickets Commerce attendee to queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_Post       $attendee Post object for the attendee.
 	 * @param WP_Post       $order    Which order generated this attendee.
@@ -560,7 +560,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Add Tickets Commerce order to queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_Post       $attendee Post object for the attendee.
 	 * @param WP_Post       $order    Which order generated this attendee.
@@ -581,7 +581,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Add EDD order to queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param int $attendee_id       ID of attendee ticket.
 	 * @param int $order_id          Easy Digital Downloads order ID.
@@ -602,7 +602,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Add Woo order to queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param int $attendee_id       ID of attendee ticket.
 	 * @param int $order_id          WooCommerce order ID.
@@ -623,7 +623,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Add checkin to the queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param int       $attendee_id ID of attendee ticket.
 	 * @param bool|null $qr          true if from QR checkin process
@@ -639,7 +639,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Add a custom post id of an attendee that has been updated to a trigger queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param int     $post_id     A WordPress custom post id.
 	 * @param WP_Post $post_after  Post object following the update.
@@ -662,7 +662,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Add Refunded Tickets Commerce order to queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param Status_Interface      $new_status New post status.
 	 * @param Status_Interface|null $old_status Old post status.
@@ -683,7 +683,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Add Refunded EDD order to queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param int  $order_id     The ID number of the order.
 	 * @param int  $refund_id    The ID number of the refund order.
@@ -708,7 +708,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Add Refunded Woo order to queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param int      $order_id   WooCommerce order ID.
 	 * @param string   $old_status The status of the order prior to this change.
@@ -729,7 +729,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Renders the GDPR/CCPA privacy notice.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	public function render_privacy_notice() {
 		$this->container->make( Privacy_Notice::class )->render();

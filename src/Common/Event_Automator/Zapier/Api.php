@@ -2,7 +2,7 @@
 /**
  * Class to manage Zapier api.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Zapier
  */
@@ -14,8 +14,8 @@ use TEC\Event_Automator\Integrations\Connections\Integration_AJAX;
 /**
  * Class Api
  *
- * @since TBD Migrated to Common from Event Automator
- * @since TBD Migrated to Common from Event Automator - Utilize Integration_AJAX and Integration_Connections to share coding among integrations.
+ * @since 6.0.0 Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator - Utilize Integration_AJAX and Integration_Connections to share coding among integrations.
  *
  * @package TEC\Event_Automator\Zapier
  */
@@ -49,7 +49,7 @@ class Api extends Integration_AJAX {
 	/**
 	 * API constructor.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param Actions                $actions An instance of the Actions name handler.
 	 * @param Template_Modifications $actions An instance of the Template_Modifications.
@@ -114,7 +114,7 @@ class Api extends Integration_AJAX {
 	/**
 	 * Generate a Zapier API Key pair.
 	 * @deprecated 1.4.0 - use ajax_generate_connection_access();
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param string $nonce The add action nonce to check.
 	 *
@@ -210,7 +210,7 @@ class Api extends Integration_AJAX {
 	 * Get the confirmation text for revoking an api_key.
 	 * @deprecated 1.4.0 - Use get_confirmation_to_delete_connection() instead.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return string The confirmation text.
 	 */
@@ -230,7 +230,7 @@ class Api extends Integration_AJAX {
 	 * Handles the request to revoke a Zapier API Key pair.
 	 * @deprecated 1.4.0 - Use ajax_revoke() instead.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param string|null $nonce The nonce that should accompany the request.
 	 *

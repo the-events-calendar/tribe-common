@@ -2,7 +2,7 @@
 /**
  * The Power Automate Refunded Orders Endpoint.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Power_Automate\REST\V1\Endpoints;
  */
@@ -24,7 +24,7 @@ use Tribe__Tickets__Tickets;
 /**
  * Class Refunded_Orders
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Power_Automate\REST\V1\Endpoints
  */
@@ -51,7 +51,7 @@ class Refunded_Orders extends Abstract_REST_Endpoint {
 	/**
 	 * Abstract_REST_Endpoint constructor.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param Api                     $api           An instance of the Power Automate API handler.
 	 * @param Swagger_Documentation   $documentation An instance of the Power Automate Swagger_Documentation handler.
@@ -95,7 +95,7 @@ class Refunded_Orders extends Abstract_REST_Endpoint {
 	/**
 	 * Get events from refunded orders queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *

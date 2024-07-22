@@ -2,7 +2,7 @@
 /**
  * The Integrations REST Endpoint.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Integrations\REST\V1\Endpoints
  */
@@ -21,7 +21,7 @@ use WP_REST_Request;
 /**
  * Integration_REST_Endpoint
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Integration\REST\V1\Endpoints
  */
@@ -31,7 +31,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * The REST API endpoint path.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -40,7 +40,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * An instance of the Integration API handler.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var Api
 	 */
@@ -49,7 +49,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * An instance of the Swagger_Documentation handler.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var Swagger_Documentation
 	 */
@@ -58,7 +58,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Endpoint details prefix.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -67,7 +67,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Endpoint id.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -76,7 +76,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * An array of details for the endpoint.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var array<string,array>
 	 */
@@ -85,7 +85,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Whether the Endpoint is enabled or disabled.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var bool
 	 */
@@ -94,7 +94,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Whether the Endpoint is missing a dependency.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var bool
 	 */
@@ -103,7 +103,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * An array of dependent codes for endpoint [ 'et', 'tec' ].
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var array<string>
 	 */
@@ -112,7 +112,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * The endpoint type( authorize or queue ).
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -121,7 +121,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * The endpoint service id.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -130,7 +130,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * The trigger accessed with this endpoint.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var Integration_Trigger_Queue
 	 */
@@ -139,7 +139,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Register the actual endpoint on WP Rest API.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	abstract public function register();
 
@@ -151,7 +151,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	 * The intelligence lies in the "gatherer" of informations rather than in the single "providers" implementing this
 	 * interface.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @link http://swagger.io/
 	 *
@@ -162,7 +162,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Provides the content of the `args` array to register the endpoint support for GET requests.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return array<string|mixed> An array of read 'args'.
 	 */
@@ -171,7 +171,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Gets the Endpoint path for this route.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return string
 	 */
@@ -204,7 +204,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Sanitize a request argument based on details registered to the route.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param mixed $value Value of the 'filter' argument.
 	 *
@@ -221,7 +221,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Converts an array of arguments suitable for the WP REST API to the Swagger format.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param array<string|mixed> $args An array of arguments to swaggerize.
 	 * @param array<string|mixed> $defaults A default array of arguments.
@@ -297,7 +297,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Converts REST format type argument to the corresponding Swagger.io definition.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param string $type A type to convert to Swagger.
 	 *
@@ -330,7 +330,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Load the API Key Pair using the consumer id and secret.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param string               $consumer_id     The consumer id to get and load an API Key pair.
 	 * @param string               $consumer_secret The consumer secret used to verify an API Key pair.
@@ -356,7 +356,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Verify the access_token for the integration request.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -377,7 +377,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Verify and load the access_token for the request.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -395,7 +395,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Get the endpoint type.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return string The endpoint type.
 	 */
@@ -406,7 +406,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Get the endpoint id.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return string The endpoint details id with prefix and endpoint combined.
 	 */
@@ -417,7 +417,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Get the endpoint option id.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return string The endpoint details id with prefix and endpoint combined.
 	 */
@@ -428,7 +428,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Get the translatable display name for the integration endpoint.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return string The display name for the integration endpoint.
 	 */
@@ -437,7 +437,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Adds the endpoint to the endpoint dashboard fitler.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	public function add_to_dashboard() {
 		$api_id = $this->api::get_api_id();
@@ -448,7 +448,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Add the endpoint details to the endpoint array for the dashboard.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param array<string,array> $endpoints An array of the integration endpoints to display.
 	 *
@@ -463,7 +463,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Get details for the current endpoint.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return array<string,array> An array of the details for an endpoint.
 	 */
@@ -491,7 +491,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 		/**
 		 * Filters the integration endpoint details.
 		 *
-		 * @since TBD Migrated to Common from Event Automator
+		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param array<string,array>    $endpoint An array of the integration endpoint details.
 		 * @param Abstract_REST_Endpoint $this     An instance of the endpoint.
@@ -502,7 +502,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Get the endpoint saved details ( last access and enabled ).
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return array<string,array> An array of saved details for an endpoint.
 	 */
@@ -519,7 +519,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Set the endpoint details ( last access and enabled ).
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param array<string|integer> $details An array of saved details for an endpoint ( last access and enabled ).
 	 *
@@ -532,7 +532,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Updates the last access valid access of an endpoint.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param string $app_name The optional app name used with this API key pair.
 	 */
@@ -546,7 +546,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Clears last access of an endpoint.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	public function clear_endpoint_last_access() {
 		$endpoint_details                = $this->get_saved_details();
@@ -558,7 +558,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Disables or enables the endpoint.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param bool $enabled The enabled to change the endpoint too.
 	 */
@@ -572,7 +572,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Add a custom post id to a trigger queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param integer            $post_id A WordPress custom post id.
 	 * @param array<mixed|mixed> $data    An array of data specific to the trigger and used for validation.
@@ -588,7 +588,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 		/**
 		 * Filters data passed to the trigger queue for an endpoint.
 		 *
-		 * @since TBD Migrated to Common from Event Automator
+		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param array<mixed|mixed>     $data    An array of data specific to the trigger and used for validation.
 		 * @param integer                $post_id A WordPress custom post id.
@@ -601,7 +601,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 		/**
 		 * Filters data passed to the trigger queue for an endpoint by endpoint id.
 		 *
-		 * @since TBD Migrated to Common from Event Automator
+		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param array<mixed|mixed>     $data    An array of data specific to the trigger and used for validation.
 		 * @param integer                $post_id A WordPress custom post id.
@@ -615,7 +615,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Check if it's a REST request.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return bool True if it's a REST request, false otherwise.
 	 */
@@ -626,7 +626,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 		/**
 		 * Filter to change the value of $is_rest_request.
 		 *
-		 * @since TBD Migrated to Common from Event Automator
+		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param bool $is_rest_request True if it's a REST request, false otherwise.
 		 */
@@ -636,7 +636,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Get the endpoint dependents.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return array<string> The endpoint dependents array.
 	 */
@@ -648,7 +648,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	 * Verify token and login user before dispatching the request.
 	 * Done on `rest_pre_dispatch` to be able to set current user to pass validation capability checks.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param mixed           $result  Response to replace the requested version with. Can be anything
 	 *                                 a normal endpoint can return, or null to not hijack the request.
@@ -691,7 +691,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 	/**
 	 * Modifies REST API comma seperated parameters before validation.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Response|WP_Error $response Response to replace the requested version with. Can be anything
 	 *                                            a normal endpoint can return, or a WP_Error if replacing the

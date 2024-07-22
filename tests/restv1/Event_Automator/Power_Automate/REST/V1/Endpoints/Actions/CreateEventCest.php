@@ -3,7 +3,7 @@
  * Power_Automate's create events endpoint utilizes the Single Events Endpoint to create events with a different authentication.
  * These tests cover the parameters for this endpoint: the-events-calendar/tests/restv1/EventInsertionCest.php
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @package TEC\Event_Automator\Power_Automate\REST\V1\Endpoints\Actions
  */

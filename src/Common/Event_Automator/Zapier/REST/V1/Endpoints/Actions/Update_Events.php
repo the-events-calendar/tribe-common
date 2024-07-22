@@ -2,7 +2,7 @@
 /**
  * The Zapier Update Event Endpoint.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Zapier\REST\V1\Endpoints;
  */
@@ -23,7 +23,7 @@ use WP_Error;
 /**
  * Class Find_Events
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Zapier\REST\V1\Endpoints
  */
@@ -60,7 +60,7 @@ class Update_Events extends Abstract_REST_Endpoint {
 	/**
 	 * The REST instance endpoint to use.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var Single_Event_Endpoints
 	 */
@@ -69,7 +69,7 @@ class Update_Events extends Abstract_REST_Endpoint {
 	/**
 	 * The REST validator to use.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var Tribe__Events__Validator__Base
 	 */
@@ -78,7 +78,7 @@ class Update_Events extends Abstract_REST_Endpoint {
 	/**
 	 * Abstract_REST_Endpoint constructor.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param Api                   $api           An instance of the Zapier API handler.
 	 * @param Swagger_Documentation $documentation An instance of the Zapier Swagger_Documentation handler.
@@ -136,7 +136,7 @@ class Update_Events extends Abstract_REST_Endpoint {
 	 * Whether the current user is set and the api is loaded.
 	 * The test for creating is done on the rest_pre_dispatch hook, if the api is not ready or no user was loaded then it failed.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -170,7 +170,7 @@ class Update_Events extends Abstract_REST_Endpoint {
 	 *
 	 * Required method from abstract that only returns an error.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -187,7 +187,7 @@ class Update_Events extends Abstract_REST_Endpoint {
 	/**
 	 * Update an event.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *

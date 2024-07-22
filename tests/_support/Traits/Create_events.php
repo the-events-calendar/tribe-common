@@ -57,7 +57,7 @@ trait Create_events {
 	/**
 	 * Generate an event and set update event status.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string        $mock_date A date string to use to create an event.
 	 * @param array<string> $overrides An optional array of overrides to generate events.
@@ -80,7 +80,7 @@ trait Create_events {
 	/**
 	 * Generate multiple events and set update event status.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string        $mock_date A date string to use to create an event.
 	 * @param array<string> $overrides An optional array of overrides to generate events.
@@ -105,7 +105,7 @@ trait Create_events {
 	/**
 	 * Get the details to update an event.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<\DateTime> An array of datetime objects.
 	 */
@@ -122,7 +122,7 @@ trait Create_events {
 	/**
 	 * Generate an event and update it so it is added to the update queue.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string        $mock_date A date string to use to create an event.
 	 * @param array<string> $overrides An optional array of overrides to generate events.
@@ -147,7 +147,7 @@ trait Create_events {
 	/**
 	 * Generate multiple events and update them to add to the update queue.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string        $mock_date A date string to use to create an event.
 	 * @param array<string> $overrides An optional array of overrides to generate events.

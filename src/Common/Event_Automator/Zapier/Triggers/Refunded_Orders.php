@@ -2,7 +2,7 @@
 /**
  * The Zapier Refunded_Orders Triggers.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  * @package TEC\Event_Automator\Zapier\Triggers;
  */
 
@@ -19,7 +19,7 @@ use TEC\Tickets\Commerce\Status\Refunded as TC_Refund_Status;
 /**
  * Class Refunded_Orders
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Zapier\Triggers
  */
@@ -73,7 +73,7 @@ class Refunded_Orders extends Abstract_Trigger_Queue {
 	/**
 	 * Checks if an EDD Order has Tickets.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param int                $order_id The ID number of the order.
 	 * @param array<mixed|mixed> $data     An array of data specific to the trigger and used for validation.
@@ -122,7 +122,7 @@ class Refunded_Orders extends Abstract_Trigger_Queue {
 	/**
 	 * Checks if a Woo Order has Tickets.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param int                $order_id The ID number of the order.
 	 * @param array<mixed|mixed> $data     An array of data specific to the trigger and used for validation.

@@ -2,7 +2,7 @@
 /**
  * The Power_Automate Updated Event Endpoint.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Power_Automate\REST\V1\Endpoints;
  */
@@ -21,7 +21,7 @@ use TEC\Event_Automator\Traits\Maps\Event;
 /**
  * Class Updated_Events
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Power_Automate\REST\V1\Endpoints
  */
@@ -46,7 +46,7 @@ class Updated_Events extends Abstract_REST_Endpoint {
 	/**
 	 * The trigger accessed with this endpoint.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var Trigger_Updated_Events
 	 */
@@ -55,7 +55,7 @@ class Updated_Events extends Abstract_REST_Endpoint {
 	/**
 	 * Abstract_REST_Endpoint constructor.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param Api                   $api           An instance of the Power Automate API handler.
 	 * @param Swagger_Documentation $documentation An instance of the Power Automate Swagger_Documentation handler.
@@ -99,7 +99,7 @@ class Updated_Events extends Abstract_REST_Endpoint {
 	/**
 	 * Get events from updated event queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *

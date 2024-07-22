@@ -2,7 +2,7 @@
 /**
  * Admin Template.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Templates
  */
@@ -16,7 +16,7 @@ use Tribe__Template;
 /**
  * Class Admin_Template
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Templates
  */
@@ -27,7 +27,7 @@ class Admin_Template extends Tribe__Template {
 	 *
 	 * Sets the correct paths for templates for event status.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	public function __construct() {
 		$this->set_template_origin( tribe( Plugin::class ) );

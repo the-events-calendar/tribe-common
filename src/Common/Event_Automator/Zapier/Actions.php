@@ -2,7 +2,7 @@
 /**
  * Class to manage Zapier actions.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Zapier
  */
@@ -12,7 +12,7 @@ namespace TEC\Event_Automator\Zapier;
 /**
  * Class Actions
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Zapier
  */
@@ -22,7 +22,7 @@ class Actions {
 	 * The name of the action used to add a Zapier API Key.
 	 * @deprecated 1.4.0 - Use $add_connection instead.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -31,7 +31,7 @@ class Actions {
 	/**
 	 * The name of the action used to add a Zapier Connection.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -41,7 +41,7 @@ class Actions {
 	 * The name of the action used to generate a Zapier API Key.
 	 * @deprecated 1.4.0 - Use $create_access instead.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -50,7 +50,7 @@ class Actions {
 	/**
 	 * The name of the action used to create access information for a Zapier.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -60,7 +60,7 @@ class Actions {
 	 * The name of the action used to revoke a Zapier API Key.
 	 * @deprecated 1.4.0 - Use $delete_connection instead.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -69,7 +69,7 @@ class Actions {
 	/**
 	 * The name of the action used to delete a Zapier API Key.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -78,7 +78,7 @@ class Actions {
 	/**
 	 * The name of the action used to clear a Zapier endpoint queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -87,7 +87,7 @@ class Actions {
 	/**
 	 * The name of the action used to disable a Zapier endpoint.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -96,7 +96,7 @@ class Actions {
 	/**
 	 * The name of the action used to enable a Zapier endpoint.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */

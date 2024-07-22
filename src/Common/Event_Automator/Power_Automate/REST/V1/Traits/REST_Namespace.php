@@ -2,7 +2,7 @@
 /**
  * The Power Automate REST Namespace Trait.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Power_Automate\REST\V1\Traits
  */
@@ -12,7 +12,7 @@ namespace TEC\Event_Automator\Power_Automate\REST\V1\Traits;
 /**
  * Abstract REST Endpoint Power Automate
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Power_Automate\REST\V1\Traits
  */
@@ -21,7 +21,7 @@ trait REST_Namespace {
 	/**
 	 * The REST API endpoint path.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -39,7 +39,7 @@ trait REST_Namespace {
 	/**
 	 * Returns the string indicating the REST API version.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return string
 	 */
@@ -50,7 +50,7 @@ trait REST_Namespace {
 	/**
 	 * Returns the events REST API namespace string that should be used to register a route.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return string
 	 */

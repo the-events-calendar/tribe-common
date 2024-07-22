@@ -2,7 +2,7 @@
 /**
  * Abstract Class to manage integration settings.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Integrations\Connections
  */
@@ -15,7 +15,7 @@ use Tribe\Tickets\Admin\Settings as ET_Settings;
 /**
  * Class Settings
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Integrations\Connections
  */
@@ -24,7 +24,7 @@ abstract class Integration_Settings {
 	/**
 	 * The prefix, in the context of tribe options, of each setting for this extension.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -33,7 +33,7 @@ abstract class Integration_Settings {
 	/**
 	 * The internal id of the integration.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -42,7 +42,7 @@ abstract class Integration_Settings {
 	/**
 	 * An instance of the Integration API handler.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var Api
 	 */
@@ -51,7 +51,7 @@ abstract class Integration_Settings {
 	/**
 	 * An instance of the Integration Template_Modifications.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var Template_Modifications
 	 */
@@ -60,7 +60,7 @@ abstract class Integration_Settings {
 	/**
 	 * The Integration URL handler instance.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var Url
 	 */
@@ -69,7 +69,7 @@ abstract class Integration_Settings {
 	/**
 	 * Settings constructor.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param Api                    $api                    An instance of the API handler.
 	 * @param Template_Modifications $template_modifications An instance of the Template_Modifications handler.
@@ -84,7 +84,7 @@ abstract class Integration_Settings {
 	/**
 	 * Returns the URL of the TEC Settings URL page.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return string The URL of the TEC Integration settings page.
 	 */
@@ -97,7 +97,7 @@ abstract class Integration_Settings {
 	/**
 	 * Returns the URL of the ET Settings URL page.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return string The URL of the ET Integration settings page.
 	 */
@@ -110,7 +110,7 @@ abstract class Integration_Settings {
 	/**
 	 * Get the integration connection fields to the ones in the Integrations tab.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return array<string,array> The fields, as updated by the settings.
 	 */
@@ -144,7 +144,7 @@ abstract class Integration_Settings {
 		/**
 		 * Filters the integrations settings shown to the user in the Events > Settings > Integrations tab.
 		 *
-		 * @since TBD Migrated to Common from Event Automator
+		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param array<string,array> A map of the API fields that will be printed on the page.
 		 * @param Settings $this A Settings instance.
@@ -157,7 +157,7 @@ abstract class Integration_Settings {
 	/**
 	 * Adds the integration connections to The Events Calendar Integration Tab.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param array<string,array> $fields The current fields.
 	 *
@@ -177,7 +177,7 @@ abstract class Integration_Settings {
 	/**
 	 * Get the key to place the integration fields.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return string The key to place the API integration fields.
 	 */
@@ -187,7 +187,7 @@ abstract class Integration_Settings {
 		/**
 		 * Filters the array key to place the API integration settings.
 		 *
-		 * @since TBD Migrated to Common from Event Automator
+		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param string The default array key to place the API integration fields.
 		 * @param Settings $this This Settings instance.
@@ -198,7 +198,7 @@ abstract class Integration_Settings {
 	/**
 	 * Adds the integration connections to Event Tickets Integration Tab.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param array<string,array> $fields The current fields.
 	 *
@@ -218,7 +218,7 @@ abstract class Integration_Settings {
 	/**
 	 * Get the key to place the integration fields in Event Tickets.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return string The key to place the API integration fields.
 	 */
@@ -228,7 +228,7 @@ abstract class Integration_Settings {
 		/**
 		 * Filters the array key to place the API integration settings.
 		 *
-		 * @since TBD Migrated to Common from Event Automator
+		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param string The default array key to place the API integration fields.
 		 * @param Settings $this Settings instance.
@@ -239,7 +239,7 @@ abstract class Integration_Settings {
 	/**
 	 * Provides the introductory text to the set up and configuration an integration.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return string The introductory text to the the set up and configuration of an integration.
 	 */
@@ -250,7 +250,7 @@ abstract class Integration_Settings {
 	/**
 	 * Get the all the integration connection fields.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return string The HTML for all integration connections.
 	 */

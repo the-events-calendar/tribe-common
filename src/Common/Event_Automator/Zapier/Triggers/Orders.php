@@ -2,7 +2,7 @@
 /**
  * The Zapier Orders Triggers.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  * @package TEC\Event_Automator\Zapier\Triggers;
  */
 
@@ -14,7 +14,7 @@ use Tribe__Tickets__Tickets;
 /**
  * Class Orders
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Zapier\Triggers
  */

@@ -2,7 +2,7 @@
 /**
  * The Power Automate API Key Endpoint.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Power_Automate\REST\V1\Endpoints
  */
@@ -17,7 +17,7 @@ use TEC\Event_Automator\Power_Automate\REST\V1\Traits\REST_Namespace as Power_Au
 /**
  * Abstract REST Endpoint Power Automate
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Power_Automate\REST\V1\Endpoints
  */
@@ -37,7 +37,7 @@ abstract class Abstract_REST_Endpoint extends Integration_REST_Endpoint {
 	/**
 	 * Abstract_REST_Endpoint constructor.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param Api $api An instance of the Power Automate API handler.
 	 * @param Swagger_Documentation $documentation An instance of the Power Automate Swagger_Documentation handler.

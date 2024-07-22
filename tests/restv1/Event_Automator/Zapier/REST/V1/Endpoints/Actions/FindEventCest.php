@@ -3,7 +3,7 @@
  * Zapier's find events endpoint utilizes the Event Archive Endpoint to find events with a different authentication.
  * These tests cover the parameters for this endpoint: the-events-calendar/tests/restv1/EventArchiveCest.php
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @package TEC\Event_Automator\Zapier\REST\V1\Endpoints\Actions
  */

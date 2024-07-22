@@ -25,7 +25,7 @@ class SettingsTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Gets an array of field keys to remove, to keep these tests about the API Key settings only.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<string> An array of field keys to remove.
 	 */

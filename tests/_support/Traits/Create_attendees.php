@@ -39,7 +39,7 @@ trait Create_attendees {
 	/*
 	 * Attendee meta fieldset.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string|mixed> The fieldset to use for attendee meta.
 	 */
@@ -193,7 +193,7 @@ trait Create_attendees {
 	/**
 	 * Generate RSVP for an Event.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int $event_id The event id to create a RSVP for.
 	 *
@@ -208,7 +208,7 @@ trait Create_attendees {
 	/**
 	 * Generate RSVP Attendee.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int           $event_id      The event id to create a RSVP for.
 	 * @param array<string> $overrides     An optional array of overrides to generate attendees.
@@ -241,7 +241,7 @@ trait Create_attendees {
 	/**
 	 * Generate Multiple RSVP Attendee.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post $event The event post object to create an RSVP for.
 	 *
@@ -268,7 +268,7 @@ trait Create_attendees {
 	/**
 	 * Generate RSVP Attendee and update it.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post       $event     The event post object to create a RSVP for.
 	 * @param array<string> $overrides An optional array of overrides to generate attendees.
@@ -310,7 +310,7 @@ trait Create_attendees {
 	/**
 	 * Generate Tickets Commerce Ticket for an Event.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int $event_id The event id to create a TC Ticket for.
 	 *
@@ -325,7 +325,7 @@ trait Create_attendees {
 	/**
 	 * Generate TC Attendee.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post       $event         The event post object to create an TC Attendee for.
 	 * @param array<string> $overrides     An optional array of overrides to generate attendees.
@@ -368,7 +368,7 @@ trait Create_attendees {
 	/**
 	 * Generate Multiple TC Attendee.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post $event The event post object to create an TC Attendee for.
 	 *
@@ -406,7 +406,7 @@ trait Create_attendees {
 	/**
 	 * Generate TC Attendee and updated it.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post       $event     The event post object to create an TC Attendee for.
 	 * @param array<string> $overrides An optional array of overrides to generate attendees.
@@ -445,7 +445,7 @@ trait Create_attendees {
 	/**
 	 * Generate TC Order.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post $event The event post object to create a TC Order for.
 	 *
@@ -474,7 +474,7 @@ trait Create_attendees {
 	/**
 	 * Generate TC Order and refund it.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post $event The event post object to create a TC Order for.
 	 *
@@ -491,7 +491,7 @@ trait Create_attendees {
 	/**
 	 * Generate EDD Ticket for an Event.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int $event_id The event id to create an EDD Ticket for.
 	 *
@@ -506,7 +506,7 @@ trait Create_attendees {
 	/**
 	 * Generate EDD Attendee.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post       $event         The event post object to create an EDD Attendee for.
 	 * @param array<string> $overrides     An optional array of overrides to generate attendees.
@@ -540,7 +540,7 @@ trait Create_attendees {
 	/**
 	 * Generate Multiple EDD Attendee.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post $event The event post object to create an EDD Attendee for.
 	 *
@@ -568,7 +568,7 @@ trait Create_attendees {
 	/**
 	 * Generate EDD Attendee and updated it.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post       $event     The event post object to create an EDD Attendee for.
 	 * @param array<string> $overrides An optional array of overrides to generate attendees.
@@ -607,7 +607,7 @@ trait Create_attendees {
 	/**
 	 * Create a EDD download.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return int The created product id.
 	 */
@@ -630,7 +630,7 @@ trait Create_attendees {
 	/**
 	 * Generate EDD Order.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post $event The event post object to create an EDD Order for.
 	 *
@@ -646,7 +646,7 @@ trait Create_attendees {
 	/**
 	 * Generate EDD Order with no tickets.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return int The generated order id.
 	 */
@@ -660,7 +660,7 @@ trait Create_attendees {
 	/**
 	 * Generate EDD Order and refund it.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post $event The event post object to create an EDD Order for.
 	 *
@@ -676,7 +676,7 @@ trait Create_attendees {
 	/**
 	 * Generate EDD Order with no tickets and refund it.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return int The generated order id.
 	 */
@@ -694,7 +694,7 @@ trait Create_attendees {
 	/**
 	 * Create an EDD Order with No Tickets.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int                 $download_id The EDD download id.
 	 * @param int                 $qty         The quantity to add to the order.
@@ -781,7 +781,7 @@ trait Create_attendees {
 	/**
 	 * Generate Woo Ticket for an Event.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int $event_id The event id to create a Woo Ticket for.
 	 *
@@ -796,7 +796,7 @@ trait Create_attendees {
 	/**
 	 * Generate Woo Attendee.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post       $event         The event post object to create a Woo Attendee for.
 	 * @param array<string> $overrides     An optional array of overrides to generate attendees.
@@ -829,7 +829,7 @@ trait Create_attendees {
 	/**
 	 * Generate Multiple Woo Attendee.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post $event The event post object to create a Woo Attendee for.
 	 *
@@ -856,7 +856,7 @@ trait Create_attendees {
 	/**
 	 * Generate Woo Attendee and updated it.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post       $event     The event post object to create a Woo Attendee for.
 	 * @param array<string> $overrides An optional array of overrides to generate attendees.
@@ -895,7 +895,7 @@ trait Create_attendees {
 	/**
 	 * Create a Woo product.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return int The created product id.
 	 */
@@ -913,7 +913,7 @@ trait Create_attendees {
 	/**
 	 * Generate Woo Order.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post $event The event post object to create a Woo Order for.
 	 *
@@ -929,7 +929,7 @@ trait Create_attendees {
 	/**
 	 * Generate Woo Order with no tickets.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return int The generated order id.
 	 */
@@ -948,7 +948,7 @@ trait Create_attendees {
 	/**
 	 * Generate Woo Order and refund it.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post $event The event post object to create a Woo Order for.
 	 *
@@ -964,7 +964,7 @@ trait Create_attendees {
 	/**
 	 * Generate Woo Order with no tickets and refund it.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return int The generated order id.
 	 */
@@ -984,7 +984,7 @@ trait Create_attendees {
 	/**
 	 * Setup attendee meta fields for a ticket.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param Int $ticket_id A ticket post id.
 	 */

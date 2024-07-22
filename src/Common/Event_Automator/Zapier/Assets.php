@@ -2,7 +2,7 @@
 /**
  * Class to manage Zapier assets.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Zapier
  */
@@ -12,7 +12,7 @@ namespace TEC\Event_Automator\Zapier;
 /**
  * Class Settings
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Zapier
  */
@@ -21,7 +21,7 @@ class Assets {
 	/**
 	 * Registers and Enqueues the admin assets.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	public function register_admin_assets() {
 		tribe_asset(

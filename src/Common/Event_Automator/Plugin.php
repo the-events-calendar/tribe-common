@@ -2,7 +2,7 @@
 /**
  * The main Event Automator plugin service provider: it bootstraps the plugin code.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator
  */
@@ -19,7 +19,7 @@ use Tribe__Main;
 /**
  * Class Plugin
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator
  */
@@ -27,7 +27,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	/**
 	 * Stores the version for the plugin.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -36,7 +36,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	/**
 	 * Stores the base slug for the plugin.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
@@ -45,28 +45,28 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	/**
 	 * The slug that will be used to identify HTTP requests the plugin should handle.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string
 	 */
 	public static $request_slug = 'event_automator_request';
 
 	/**
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string Plugin Directory.
 	 */
 	public $plugin_dir;
 
 	/**
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string Plugin path.
 	 */
 	public $plugin_path;
 
 	/**
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var string Plugin URL.
 	 */
@@ -78,7 +78,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	 * Note this specifically doesn't have a typing, just a type hinting via Docblocks, it helps
 	 * avoid problems with deprecation since this is loaded so early.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var \Tribe__Container
 	 */
@@ -87,7 +87,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	/**
 	 * Plugin constructor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param \tad_DI52_Container $container The container to use.
 	 */
@@ -106,7 +106,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	 * Note this specifically doesn't have a typing for the container, just a type hinting via Docblocks, it helps
 	 * avoid problems with deprecation since this is loaded so early.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param ?\Tribe__Container $container The container to use, if any. If not provided, the global container will be used.
 	 *
@@ -121,7 +121,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	 * Note this specifically doesn't have a typing for the container, just a type hinting via Docblocks, it helps
 	 * avoid problems with deprecation since this is loaded so early.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param ?\Tribe__Container $container The container to use, if any. If not provided, the global container will be used.
 	 */
@@ -153,7 +153,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	/**
 	 * Register the Tribe Autoloader in Events Automator.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	protected function register_autoloader() {
 		$this->plugin_path = trailingslashit( Tribe__Main::instance()->plugin_path );
@@ -174,7 +174,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	/**
 	 * Checks whether the plugin dependency manifest is satisfied or not.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @return bool Whether the plugin dependency manifest is satisfied or not.
 	 */
@@ -191,7 +191,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	/**
 	 * Registers the plugin and dependency manifest among those managed by Event Automator.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	protected function register_plugin_dependencies() {
 		$plugin_register = new Plugin_Register();

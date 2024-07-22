@@ -2,7 +2,7 @@
 /**
  * The Zapier Ticket Sales Endpoint.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Zapier\REST\V1\Endpoints;
  */
@@ -19,7 +19,7 @@ use WP_REST_Response;
 /**
  * Class Checkin
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Zapier\REST\V1\Endpoints
  */
@@ -43,7 +43,7 @@ class Checkin extends Abstract_REST_Endpoint {
 	/**
 	 * The trigger accessed with this endpoint.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @var Trigger_Checkin
 	 */
@@ -52,7 +52,7 @@ class Checkin extends Abstract_REST_Endpoint {
 	/**
 	 * Abstract_REST_Endpoint constructor.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param Api                   $api           An instance of the Zapier API handler.
 	 * @param Swagger_Documentation $documentation An instance of the Zapier Swagger_Documentation handler.
@@ -95,7 +95,7 @@ class Checkin extends Abstract_REST_Endpoint {
 	/**
 	 * Get attendees from new attendee queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *

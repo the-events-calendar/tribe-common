@@ -30,7 +30,7 @@ class Restv1_etTester extends \Codeception\Actor {
 	/**
 	 * Test Last Access.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array<string|mixed> $data An array of details for an API key pair or an endpoint.
 	 */

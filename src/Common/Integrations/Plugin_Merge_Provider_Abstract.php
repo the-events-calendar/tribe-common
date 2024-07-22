@@ -2,7 +2,7 @@
 /**
  * Abstract for Plugin Merge operations.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @package TEC\Common\Integrations
  */
@@ -17,7 +17,7 @@ use Tribe__Settings_Manager;
 /**
  * Class Plugin_Merge_Provider_Abstract
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @package TEC\Common\Integrations
  */
@@ -32,7 +32,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * The list of parent plugins initialized.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string, string>
 	 */
@@ -41,7 +41,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Get the plugins version where the merge was applied.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string
 	 */
@@ -50,7 +50,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Get version key for the last version option.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string
 	 */
@@ -59,7 +59,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Get the key of the plugin file, e.g. path/file.php.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string
 	 */
@@ -68,7 +68,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Retrieve the relative path to the child plugin.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string
 	 */
@@ -110,7 +110,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 
 		// Memoize the result if we found it.
 		$plugins_path[ $text_domain ] = $plugin_path;
-		
+
 		return $plugin_path;
 	}
 
@@ -138,7 +138,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Retrieves the name of the plugin.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string The name of the parent plugin.
 	 */
@@ -147,7 +147,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Run initialization of container and plugin version comparison.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param Container $container The container instance for DI.
 	 */
@@ -160,7 +160,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function register(): void {
 		$this->init();
@@ -169,7 +169,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Check if the plugin was updated from a version that is less than the merged plugin version.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool
 	 */
@@ -180,7 +180,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Is the child plugin active?
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	protected function is_child_plugin_active(): bool {
 		if ( is_plugin_active( $this->get_plugin_file_key() ) ) {
@@ -195,7 +195,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * This fires if we are initializing the merge and stores the parent plugin information.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return void
 	 */
@@ -209,7 +209,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Initializes the merged compatibility checks.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function init(): void {
 		// Load our is_plugin_activated function.
@@ -254,7 +254,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * If any initialization is necessary for the merged plugin to work after child plugin deactivation is resolved.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function init_merged_plugin(): void {
 		// Implement the merged plugin initialization.
@@ -263,7 +263,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Deactivates the merged plugin.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function deactivate_plugin(): void {
 		deactivate_plugins( $this->get_plugin_real_path(), true, is_multisite() && is_plugin_active_for_network( $this->get_plugin_real_path() ) );
@@ -272,7 +272,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Fetch the plugin text domain used for locating and checking a specific plugin.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string
 	 */
@@ -281,7 +281,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Adds the hook to remove the "Plugin activated" notice from the redirect.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $plugin The plugin file path.
 	 */
@@ -294,7 +294,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Filter the redirect location to remove the "activate" query arg.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $location The redirect location.
 	 *
@@ -307,7 +307,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Send admin notice about the updates in the merged version.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function send_updated_notice(): void {
 		$this->register_update();
@@ -319,7 +319,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Registers the notice transient with the rendered message.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return void
 	 */
@@ -346,7 +346,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Compiles the updated plugin message.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string
 	 */
@@ -393,7 +393,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Send admin notice about the merge of the child plugin into the parent plugin.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function send_updated_merge_notice(): void {
 		// Remove dismissed flag since we want to show the notice every time this is triggered.
@@ -418,7 +418,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * Send admin notice about the merge of the Event Tickets Wallet Plus plugin into Tickets Plus.
 	 * This notice is for after activating the deprecated Wallet Plus plugin.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function send_activating_merge_notice(): void {
 		// Remove dismissed flag since we want to show the notice every time this is triggered.
@@ -442,7 +442,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Check if the merge notice should be shown.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool
 	 */
@@ -453,7 +453,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Implements Runner's private method cmd_starts_with.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array $looking_for The array of strings to look for.
 	 * @param mixed $args        The arguments to search in.
@@ -471,7 +471,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	/**
 	 * Checks if the current request is activating the VE plugin.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool
 	 */

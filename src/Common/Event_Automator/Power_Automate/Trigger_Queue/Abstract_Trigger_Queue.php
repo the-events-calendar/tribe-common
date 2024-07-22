@@ -2,7 +2,7 @@
 /**
  * Power Automate Abstract Trigger Queue.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  * @package TEC\Event_Automator\Power_Automate\Triggers;
  */
 
@@ -13,7 +13,7 @@ use TEC\Event_Automator\Integrations\Trigger_Queue\Integration_Trigger_Queue;
 /**
  * Class Abstract_Trigger_Queue
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Power_Automate\Trigger_Queue
  */

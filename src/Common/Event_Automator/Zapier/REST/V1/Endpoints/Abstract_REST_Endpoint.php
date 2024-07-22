@@ -2,7 +2,7 @@
 /**
  * The Zapier API Key Endpoint.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Zapier\REST\V1\Endpoints
  */
@@ -23,8 +23,8 @@ use Tribe__Tickets__Tickets;
 /**
  * Abstract REST Endpoint Zapier
  *
- * @since TBD Migrated to Common from Event Automator
- * @since TBD Migrated to Common from Event Automator - Utilize Integration_Trigger_Queue to share coding among integrations.
+ * @since 6.0.0 Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator - Utilize Integration_Trigger_Queue to share coding among integrations.
  *
  * @package TEC\Event_Automator\Zapier\REST\V1\Endpoints
  */
@@ -49,7 +49,7 @@ abstract class Abstract_REST_Endpoint extends Integration_REST_Endpoint {
 	/**
 	 * Abstract_REST_Endpoint constructor.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param Api $api An instance of the Zapier API handler.
 	 * @param Swagger_Documentation $documentation An instance of the Zapier Swagger_Documentation handler.
@@ -65,7 +65,7 @@ abstract class Abstract_REST_Endpoint extends Integration_REST_Endpoint {
 	/**
 	 * Retrieves a list of mapped attendees from the specified queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param array<string|mixed> $current_queue  The queue of attendee IDs to be processed.
 	 * @param bool                $add_updated_id Whether to add updated IDs to the attendees array.
@@ -101,7 +101,7 @@ abstract class Abstract_REST_Endpoint extends Integration_REST_Endpoint {
 	/**
 	 * Retrieves a list of mapped events from the specified queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param array<string|mixed> $current_queue  The queue of event IDs to be processed.
 	 * @param bool                $add_updated_id Whether to add updated IDs to the events array.
@@ -137,7 +137,7 @@ abstract class Abstract_REST_Endpoint extends Integration_REST_Endpoint {
 	/**
 	 * Retrieves a list of mapped orders from the specified queue.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param array<string|mixed> $current_queue The queue of order IDs to be processed.
 	 * @param string              $empty_code    The code to return if the current queue is empty.
@@ -192,7 +192,7 @@ abstract class Abstract_REST_Endpoint extends Integration_REST_Endpoint {
 	/**
 	 * Modifies a request argument marking it as not required.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param array<string|mixed> $arg An array of arguements.
 	 */

@@ -25,7 +25,7 @@ class EndpointsManagerTest extends \Codeception\TestCase\WPAjaxTestCase {
 	/**
 	 * Setup AJAX Test.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	private function ajax_setup() {
 		$this->set_fn_return( 'wp_create_nonce', 'c6f01bbbe9' );
@@ -37,7 +37,7 @@ class EndpointsManagerTest extends \Codeception\TestCase\WPAjaxTestCase {
 	/**
 	 * Generate IDs for the trigger queue.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int $max The maximum number of ids to generate.
 	 */

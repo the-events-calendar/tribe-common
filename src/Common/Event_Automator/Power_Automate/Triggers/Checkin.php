@@ -2,7 +2,7 @@
 /**
  * The Power Automate Checkin Triggers.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  * @package TEC\Event_Automator\Power_Automate\Triggers;
  */
 
@@ -14,7 +14,7 @@ use Tribe__Tickets__Tickets;
 /**
  * Class Checkin
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Power_Automate\Triggers
  */

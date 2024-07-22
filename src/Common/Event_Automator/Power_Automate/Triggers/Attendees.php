@@ -2,7 +2,7 @@
 /**
  * The Power Automate Attendees Queue.
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Power_Automate\Triggers
  */
@@ -15,7 +15,7 @@ use Tribe__Tickets__Tickets as Tribe__Tickets__TicketsAlias;
 /**
  * Class Attendees
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  *
  * @package TEC\Event_Automator\Power_Automate\Triggers
  */

@@ -9,14 +9,14 @@ use TEC\Common\Contracts\Service_Provider;
  *
  * @package TEC\Event_Automator\Admin\Tabs
  *
- * @since TBD Migrated to Common from Event Automator
+ * @since 6.0.0 Migrated to Common from Event Automator
  */
 class Tabs_Provider extends Service_Provider {
 
 	/**
 	 * Register the provider.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	public function register() {
 
@@ -38,7 +38,7 @@ class Tabs_Provider extends Service_Provider {
 	/**
 	 * Add the action hooks.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	public function add_actions() {
 		add_action( 'tribe_settings_do_tabs', [ $this, 'add_tabs' ] );
@@ -47,7 +47,7 @@ class Tabs_Provider extends Service_Provider {
 	/**
 	 * Add fhe filter hooks.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	public function add_filters() {
 		add_filter( 'tec_tickets_settings_tabs_ids', [ $this, 'filter_include_integrations_tab_id' ] );
@@ -56,7 +56,7 @@ class Tabs_Provider extends Service_Provider {
 	/**
 	 * Register the Attendee Registration tab.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param string Admin page id.
 	 *
@@ -69,7 +69,7 @@ class Tabs_Provider extends Service_Provider {
 	/**
 	 * Register the Integrations tab id.
 	 *
-	 * @since TBD Migrated to Common from Event Automator
+	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
 	 * @param array<string> $tabs Array of tabs IDs for the Events settings page.
 	 *
