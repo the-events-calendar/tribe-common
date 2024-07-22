@@ -35,8 +35,8 @@ class WP_Remote_Mock_Spy {
 	 */
 	private string $url;
 
-	public function __construct( string $method, string $url ) {
-		$this->name   = 'wp_remote_' . strtolower( $method );
+	public function __construct( string $name, string $method, string $url) {
+		$this->name   = $name;
 		$this->method = strtoupper( $method );
 		$this->url    = $url;
 	}
@@ -47,6 +47,11 @@ class WP_Remote_Mock_Spy {
 
 	public function get_http_method(): string {
 		return $this->method;
+	}
+
+	public function tear_down(): void {
+		$this->was_verified = true;
+		uopz_unset_return( $this->name );
 	}
 }
 
@@ -90,7 +95,7 @@ trait WP_Remote_Mocks {
 	 *
 	 * @throws \ReflectionException
 	 */
-	protected function mock_wp_remote( string $type, string $mock_url, $expected_args, $mock_response ): object {
+	protected function mock_wp_remote( string $type, string $mock_url, $expected_args, $mock_response ): WP_Remote_Mock_Spy {
 		// Extract the expected arguments' generator.
 		if (
 			is_callable( $expected_args )
@@ -109,7 +114,8 @@ trait WP_Remote_Mocks {
 			$mock_response = $mock_response();
 		}
 
-		$spy = new WP_Remote_Mock_Spy( $type, $mock_url );
+		$name = in_array( $type, [ 'get', 'head', 'post' ], true ) ? 'wp_remote_' . $type : 'wp_remote_request';
+		$spy = new WP_Remote_Mock_Spy( $name, $type, $mock_url );
 
 		$mock = function ( string $url, array $args ) use ( $mock_url, $expected_args, $mock_response, &$spy ) {
 			if ( $url !== $mock_url ) {
@@ -143,7 +149,11 @@ trait WP_Remote_Mocks {
 
 		$this->wp_remote_spies[] = $spy;
 
-		$this->set_fn_return( "wp_remote_{$type}", $mock, true );
+		if ( in_array( $type, [ 'get', 'head', 'post' ], true ) ) {
+			$this->set_fn_return( "wp_remote_{$type}", $mock, true );
+		} else {
+			$this->set_fn_return( "wp_remote_request", $mock, true );
+		}
 
 		return $spy;
 	}
