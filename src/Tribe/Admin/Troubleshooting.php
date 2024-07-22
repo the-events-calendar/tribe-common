@@ -212,8 +212,8 @@ class Troubleshooting {
 	 *
 	 * @return array of issues which are displayed on the troubleshooting page.
 	 */
-	public function get_issues_found() {
-		$issues_found = apply_filters(
+	public function get_issues_found(): array {
+		return apply_filters(
 			'tec_help_troubleshooting_issues_found',
 			[
 				[
@@ -275,8 +275,6 @@ class Troubleshooting {
 				],
 			]
 		);
-
-		return $issues_found;
 	}
 
 	/**
@@ -389,8 +387,8 @@ class Troubleshooting {
 	 *
 	 * @return array of common issues which are displayed on the troubleshooting page.
 	 */
-	public function get_common_issues() {
-		$common_issues = apply_filters( 'tec_help_troubleshooting_issues', [
+	public function get_common_issues(): array {
+		return apply_filters( 'tec_help_troubleshooting_issues', [
 			[
 				'issue'      => __( 'Common Error Messages', 'tribe-common' ),
 				'solution'   => __( 'Here’s an overview of %s and what they mean.', 'tribe-common' ),
@@ -416,8 +414,6 @@ class Troubleshooting {
 				'link_label' => 'things you can do',
 			],
 		] );
-
-		return $common_issues;
 	}
 
 	/**
@@ -452,10 +448,8 @@ class Troubleshooting {
 			// 'wp-engine',
 		];
 
-		// Check if any of the above caching plugins are active.
-		$active_caching_plugins = array_intersect( $caching_plugins, $active_plugins );
-
-		return $active_caching_plugins;
+		// Return the active caching plugins.
+		return array_intersect( $caching_plugins, $active_plugins );
 	}
 
 	/**
