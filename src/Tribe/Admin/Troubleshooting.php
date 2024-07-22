@@ -360,11 +360,14 @@ class Troubleshooting {
 		if ( defined( 'IMAGE_WIDGET_PLUS_DIR' ) ) {
 			$plugins[] = IMAGE_WIDGET_PLUS_DIR;
 		}
-		$plugins = array_map( static function ( $file ) {
-			$file = \str_replace( WP_PLUGIN_DIR . '/', '', $file );
+		$plugins = array_map(
+			static function ( $file ) {
+				$file = \str_replace( WP_PLUGIN_DIR . '/', '', $file );
 
-			return $file;
-		}, $plugins );
+				return $file;
+			},
+			$plugins
+		);
 
 		foreach ( $plugins as $file ) {
 			if ( ! isset( $current->response[ $file ] ) ) {
