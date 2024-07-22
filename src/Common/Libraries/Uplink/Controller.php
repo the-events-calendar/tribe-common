@@ -9,7 +9,6 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\Libraries\Provider as Libraries_Provider;
 use TEC\Common\StellarWP\Arrays\Arr;
 use TEC\Common\StellarWP\Uplink\Config;
-use TEC\Common\StellarWP\Uplink\Resources\Collection;
 use TEC\Common\StellarWP\Uplink\Resources\Resource;
 use TEC\Common\StellarWP\Uplink\Uplink;
 
