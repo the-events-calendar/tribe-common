@@ -2,6 +2,8 @@
 
 = [6.0.0] 2024-07-22 =
 
+* Feature - Included compatibility with Events Calendar Pro 7.0.0 for integrations with Zapier and Power Automate.
+* Feature - Included compatibility with Events Tickets Plus 6.0.0 for integrations with Zapier and Power Automate.
 * Fix - Fixed an issue where admin transient notices with the dismiss flag not persisting passed the first page load. [ECP-1808]
 * Fix - The Decorated repository was not returning values from `save()` and other methods. Now they return as expected. [BTRIA-2310]
 * Fix - Resolved an issue where transient notices would disappear given a certain order of operations. [ECP-1804]
@@ -42,7 +44,7 @@
 * Tweak - Remove ini_check for deprecated safe_mode. [TBD]
 * Tweak - Added information about upcoming promotion. [ET-2113]
 * Tweak - Added filters: `tribe_asset_enqueue_{$asset->get_slug()}`
-* Tweak - Removed filters: `tribe_asset_enqueue_{$asset->slug}`, `tribe_asset_pre_register`
+* Tweak - Removed filters: `tribe_asset_enqueue_{$asset->slug}`, `tribe_asset_pre_register`w
 * Language: 7 new strings added, 5 updated, 2 fuzzied, and 0 obsoleted
 
 = [5.2.7] 2024-05-14 =
