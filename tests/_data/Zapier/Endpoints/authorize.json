@@ -1,0 +1,8 @@
+{
+  "id": "authorize",
+  "display_name": "Authorize",
+  "type"        : "authorize",
+  "last_access" : "",
+  "count"       : "0",
+  "enabled"     : "true"
+}

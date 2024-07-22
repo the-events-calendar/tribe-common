@@ -3,7 +3,6 @@
  * Upsell Template
  * The base template for TEC Upsell notices.
  *
- *
  * @since 4.14.17
  * 
  * @version 4.14.17
@@ -14,7 +13,6 @@
  * @var string        $icon_url  URL to icon.
  * @var array<string> $classes   Additional classes to add to the upsell div.
  * @var array<string> $link      Array of link properties, including 'text', 'url', 'rel', 'target' and 'classes'.
- * 
  */
 
 $upsell_classes = [ 'tec-admin__upsell' ];
@@ -22,7 +20,7 @@ if ( ! empty( $classes ) ) {
 	$upsell_classes = array_merge( $upsell_classes, $classes );
 }
 
-$link_classes = [ 'tec-admin__upsell-link '];
+$link_classes = [ 'tec-admin__upsell-link ' ];
 if ( ! empty( $link ) && ! empty( $link['classes'] ) ) {
 	$link_classes = array_merge( $link_classes, $link['classes'] );
 }

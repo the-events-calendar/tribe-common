@@ -1,0 +1,57 @@
+
+<div
+	id="tec-common-settings-message"
+	 class="tec-automator-settings-message__wrap updated" >
+	Endpoint was successfully disabled.</div>
+
+<div
+	class="tec-automator-grid tec-automator-grid-row tec-automator-endpoint-dashboard-grid tec-automator-settings-details__container tec-settings-connection-endpoint-dashboard-details__container"
+	data-endpoint-id="authorize"
+>
+	<div  class="tec-automator-grid-item tec-settings-connection-endpoint-dashboard-details__name-wrap disabled"  >
+	<fieldset class="tec-automator-settings-details__read-only-field">
+		<legend class="tec-automator-settings-details__label tribe-field-label screen-reader-text">
+			Name		</legend>
+		<div class="tec-automator-settings-details__field-wrap tribe-field-wrap">
+			Authorize			<input
+				id="tec_automator_integration_endpoint_name_authorize"
+				type="hidden"
+				name="tec_automator_integration[][&#039;endpoint_name&#039;]"
+				value="Authorize"
+			>
+							<label class="screen-reader-text">
+					The name for the integration endpoint.				</label>
+					</div>
+	</fieldset>
+</div>	<div  class="tec-automator-grid-item tec-settings-connection-endpoint-dashboard-details__last-access-wrap"  >
+	<fieldset class="tec-automator-settings-details__read-only-field">
+		<legend class="tec-automator-settings-details__label tribe-field-label screen-reader-text">
+			Last Access		</legend>
+		<div class="tec-automator-settings-details__field-wrap tribe-field-wrap">
+			-
+							<label class="screen-reader-text">
+					The last access is disabled as this endpoint is disabled.				</label>
+					</div>
+	</fieldset>
+</div>	<div  class="tec-automator-grid-item tec-settings-connection-endpoint-dashboard-details__queue-wrap"  >
+	<fieldset class="tec-automator-settings-details__read-only-field">
+		<legend class="tec-automator-settings-details__label tribe-field-label screen-reader-text">
+			Queue		</legend>
+		<div class="tec-automator-settings-details__field-wrap tribe-field-wrap">
+			-
+							<label class="screen-reader-text">
+					The Queue is disabled for this endpoint.				</label>
+					</div>
+	</fieldset>
+</div>	<div class="tec-automator-grid-item tec-settings-connection-endpoint-dashboard-details__actions-wrap tec-common-integration-endpoint-details__actions-wrap">
+			<div class="tec-settings-connection-endpoint-dashboard-details-actions__enable-wrap">
+		<button
+			class="tec-settings-connection-endpoint-dashboard-details-action__button tec-settings-connection-endpoint-dashboard-details-actions__enable tec-common-integration-details-actions__enable"
+			type="button"
+			data-ajax-action-url="http://%TEST_SITE_WP_DOMAIN%/wp-admin/admin-ajax.php?action=tec_automator_ev_zapier_dashboard_enable_endpoint&event_automator_request=c6f01bbbe9&_ajax_nonce=c6f01bbbe9&endpoint_id=authorize"
+			data-confirmation="Are you sure you want to enable this Endpoint?"
+		>
+			Enable		</button>
+	</div>
+	</div>
+</div>

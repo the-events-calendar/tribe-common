@@ -1,0 +1,8 @@
+{
+  "id": "orders",
+  "display_name": "Orders",
+  "type"        : "queue",
+  "last_access" : "",
+  "count"       : "23",
+  "enabled"     : "true"
+}

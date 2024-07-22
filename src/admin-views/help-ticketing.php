@@ -1,6 +1,7 @@
 <?php
-
-use \Tribe\Admin\Help_Page;
+/**
+ * Help page for ticketing products.
+ */
 
 $faqs                     = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_faqs();
 $extensions               = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_extensions();
@@ -18,10 +19,12 @@ $tec_tickets_style        = $is_tec_tickets_help_page ? 'block' : 'none';
 		<?php esc_html_e( 'Get help for these products and learn more about products you don\'t have.', 'tribe-common' ); ?>
 	</p>
 
-	<?php // list of products ?>
+	<?php // list of products. ?>
 	<div class="tribe-events-admin-products tribe-events-admin-2col-grid">
-	<?php //requires valid links for all the products
-		foreach ( $ticketing_products as $slug ) : ?>
+	<?php
+	// requires valid links for all the products.
+	foreach ( $ticketing_products as $slug ) :
+		?>
 			<div class="tribe-events-admin-products-card">
 				<img
 					class="tribe-events-admin-products-card__icon"
@@ -37,37 +40,49 @@ $tec_tickets_style        = $is_tec_tickets_help_page ? 'block' : 'none';
 					</div>
 				</div>
 				<?php
-					$plugin_path_url = WP_PLUGIN_DIR . '/' . $products[ $slug ]['plugin-dir'] . '/' . $products[ $slug ]['main-file'];
-					$plugin_exists = file_exists( $plugin_path_url );
+				$plugin_path_url = WP_PLUGIN_DIR . '/' . $products[ $slug ]['plugin-dir'] . '/' . $products[ $slug ]['main-file'];
+				$plugin_exists   = file_exists( $plugin_path_url );
 
-					// checks if plugin is installed and activated
-					if ( $products[ $slug ]['is_installed'] ) { ?>
+				// checks if plugin is installed and activated.
+				if ( $products[ $slug ]['is_installed'] ) {
+					?>
 						<button class="tribe-events-admin-products-card__button tribe-events-admin-products-card__button--active">
 							<?php esc_html_e( 'Active', 'tribe-common' ); ?>
 						</button>
 						<?php
-					}
-					// displays different message for Promoter
-					elseif ( ! $products[ $slug ]['is_installed'] && 'Promoter' === $products[ $slug ]['title'] ) { ?>
-						<a href="<?php echo esc_url( Tribe__Settings::instance()->get_url( [ 'tab' => 'licenses', 'post_type' => 'tribe_events' ] ) ); ?>" class="tribe-events-admin-products-card__button">
+						// displays different message for Promoter.
+				} elseif ( ! $products[ $slug ]['is_installed'] && 'Promoter' === $products[ $slug ]['title'] ) {
+					?>
+						<a href="
+						<?php
+						echo esc_url(
+							Tribe__Settings::instance()->get_url(
+								[
+									'tab'       => 'licenses',
+									'post_type' => 'tribe_events',
+								]
+							)
+						);
+						?>
+									" class="tribe-events-admin-products-card__button">
 							<?php esc_html_e( 'Add license key', 'tribe-common' ); ?>
 						</a>
 						<?php
-					}
-					// checks if plugin is installed but not activated
-					elseif ( ! $products[ $slug ]['is_installed'] && $plugin_exists ) { ?>
+						// checks if plugin is installed but not activated.
+				} elseif ( ! $products[ $slug ]['is_installed'] && $plugin_exists ) {
+					?>
 						<a href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>" class="tribe-events-admin-products-card__button">
 							<?php esc_html_e( 'Activate', 'tribe-common' ); ?>
 						</a>
 						<?php
-					}
-					// adds a learn more link if plugin is neither activated nor installed
-					else { ?>
-						<a href="<?php echo $products[ $slug ]['link'] ?>" target="_blank" rel="noopener noreferrer" class="tribe-events-admin-products-card__button">
+						// adds a learn more link if plugin is neither activated nor installed.
+				} else {
+					?>
+						<a href="<?php echo esc_url( $products[ $slug ]['link'] ); ?>" target="_blank" rel="noopener noreferrer" class="tribe-events-admin-products-card__button">
 							<?php esc_html_e( 'Learn More', 'tribe-common' ); ?>
 						</a>
 						<?php
-					}
+				}
 				?>
 			</div>
 		<?php endforeach; ?>
@@ -180,7 +195,7 @@ $tec_tickets_style        = $is_tec_tickets_help_page ? 'block' : 'none';
 		</div>
 	</div>
 
-	<?php // faq section ?>
+	<?php // faq section. ?>
 	<div class="tribe-events-admin-section-header">
 		<h3>
 			<?php esc_html_e( 'FAQs', 'tribe-common' ); ?>
@@ -214,7 +229,7 @@ $tec_tickets_style        = $is_tec_tickets_help_page ? 'block' : 'none';
 		<?php endforeach; ?>
 	</div>
 
-	<?php // extensions section ?>
+	<?php // extensions section. ?>
 	<div class="tribe-events-admin-section-header">
 		<h3>
 			<?php esc_html_e( 'Free extensions', 'tribe-common' ); ?>

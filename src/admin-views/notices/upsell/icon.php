@@ -8,7 +8,6 @@
  * @version 4.14.17
  *
  * @var string        $icon_url  URL to icon.
- * 
  */
 
 ?>

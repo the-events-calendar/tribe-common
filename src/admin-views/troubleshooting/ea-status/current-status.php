@@ -4,10 +4,8 @@
  *
  * @since 4.14.18
  *
- *
  * @param array<string|string> $status_icons An array of icons for the EA Status table.
  * @param \Tribe__Main         $main         An instance of the main class of Tribe Common.
- *
  */
 
 $icon     = 'success';
@@ -18,11 +16,11 @@ $disabled = tribe_get_option( 'tribe_aggregator_disable', false );
 if ( $disabled ) {
 	$icon         = 'error';
 	$message      = _x( 'Imports disabled in Settings', '', 'tribe-common' );
-	$settings_url = Tribe__Settings::instance()->get_url( array( 'tab' => 'imports' ) );
-	$notes 		  = sprintf(
+	$settings_url = Tribe__Settings::instance()->get_url( [ 'tab' => 'imports' ] );
+	$notes        = sprintf(
 		'<a href="%1$s">%2$s</a>',
 		esc_url( $settings_url ),
-		_x( 'Edit Import Settings', '','tribe-common' )
+		_x( 'Edit Import Settings', '', 'tribe-common' )
 	);
 }
 ?>
@@ -37,5 +35,5 @@ if ( $disabled ) {
 		/>
 		<?php echo esc_html( $message ); ?>
 	</td>
-	<td><?php echo $notes;  // Escaping handled above. ?></td>
+	<td><?php echo $notes; // phpcs:ignore WordPress.Security.EscapeOutput,StellarWP.XSS.EscapeOutput ?></td>
 </tr>

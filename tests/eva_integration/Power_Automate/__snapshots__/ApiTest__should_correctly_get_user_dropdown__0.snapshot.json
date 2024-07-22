@@ -1,0 +1,29 @@
+{
+    "label": "Users",
+    "id": "tec-settings-power-automate-users",
+    "classes_label": [
+        "screen-reader-text"
+    ],
+    "classes_select": [
+        "tec-settings__users-dropdown",
+        "tec-settings-power-automate-details-api-key__users-dropdown"
+    ],
+    "name": "tec_automator_power-automate[]['users']",
+    "selected": 0,
+    "users_count": 1,
+    "users_arr": [
+        {
+            "text": "admin",
+            "sort": "admin",
+            "id": "1",
+            "value": "1",
+            "selected": false
+        }
+    ],
+    "attrs": {
+        "placeholder": "Select a User",
+        "data-prevent-clear": true,
+        "data-force-search": true,
+        "data-options": "[{\"text\":\"admin\",\"sort\":\"admin\",\"id\":\"1\",\"value\":\"1\",\"selected\":false}]"
+    }
+}

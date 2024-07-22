@@ -35,6 +35,7 @@
   },
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
+    "wp-cli/wp-cli": ">=2.0 <3.0.0",
     "bordoni/phpass": "0.3.5",
     "codeception/codeception": "^2.5.5",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
@@ -50,7 +51,8 @@
   "autoload": {
     "psr-4": {
       "Tribe\\": "src/Tribe/",
-      "TEC\\Common\\": "src/Common/"
+      "TEC\\Common\\": "src/Common/",
+      "TEC\\Event_Automator\\": "src/Common/Event_Automator/"
     }
   },
   "autoload-dev": {

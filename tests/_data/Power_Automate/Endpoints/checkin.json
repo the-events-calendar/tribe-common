@@ -1,0 +1,8 @@
+{
+  "id": "checkin",
+  "display_name": "Checkin",
+  "type"        : "queue",
+  "last_access" : "",
+  "count"       : "5",
+  "enabled"     : "true"
+}

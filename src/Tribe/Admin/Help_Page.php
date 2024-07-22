@@ -1110,8 +1110,6 @@ class Tribe__Admin__Help_Page {
 				'events-calendar-pro',
 				'tribe-filterbar',
 				'event-aggregator',
-				'event-automator',
-				'events-virtual',
 				'event-schedule-manager',
 			]
 		);
@@ -1206,7 +1204,6 @@ class Tribe__Admin__Help_Page {
 				'event-tickets-plus',
 				'tribe-eventbrite',
 				'promoter',
-				'event-tickets-wallet-plus',
 			]
 		);
 	}

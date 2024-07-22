@@ -1571,6 +1571,8 @@ abstract class Tribe__Repository
 	 */
 	public function set_formatter( Tribe__Repository__Formatter_Interface $formatter ) {
 		$this->formatter = $formatter;
+
+		return $this;
 	}
 
 	/**

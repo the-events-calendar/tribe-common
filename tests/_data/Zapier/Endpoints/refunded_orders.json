@@ -1,0 +1,8 @@
+{
+  "id": "refunded_orders",
+  "display_name": "Refunded Orders",
+  "type"        : "queue",
+  "last_access" : "",
+  "count"       : "3",
+  "enabled"     : "true"
+}

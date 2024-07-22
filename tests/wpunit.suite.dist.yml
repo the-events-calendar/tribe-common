@@ -1,18 +1,19 @@
 class_name: WpunitTester
 modules:
-    enabled:
-        - \Helper\Wpunit
-        - WPQueries
-        - WPLoader:
-            wpRootFolder: %WP_ROOT_FOLDER%
-            dbName: %TEST_DB_NAME%
-            dbHost: %TEST_DB_HOST%
-            dbUser: %TEST_DB_USER%
-            dbPassword: %TEST_DB_PASSWORD%
-            domain: %WP_DOMAIN%
-            adminEmail: admin@%WP_DOMAIN%
-            title: 'Event Common Tests'
-            plugins:
-                - the-events-calendar/the-events-calendar.php
-            activatePlugins:
-                - the-events-calendar/the-events-calendar.php
+  enabled:
+    - \Helper\Wpunit
+    - WPLoader:
+        wpRootFolder: %WP_ROOT_FOLDER%
+        dbName: %TEST_DB_NAME%
+        dbHost: %TEST_DB_HOST%
+        dbUser: %TEST_DB_USER%
+        dbPassword: %TEST_DB_PASSWORD%
+        domain: %WP_DOMAIN%
+        adminEmail: admin@%WP_DOMAIN%
+        title: 'Event Common Tests'
+        plugins:
+          - the-events-calendar/the-events-calendar.php
+        activatePlugins:
+          - the-events-calendar/the-events-calendar.php
+    - WPQueries
+
