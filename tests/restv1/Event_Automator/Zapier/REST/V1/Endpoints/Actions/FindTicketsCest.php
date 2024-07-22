@@ -3,7 +3,7 @@
  * Zapier's find tickets endpoint utilizes the Attendee Archive Endpoint to find tickets with a different authentication.
  * These tests cover the parameters for this endpoint: event-tickets/tests/restv1/TicketArchiveSearchCestx.php
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Event_Automator\Zapier\REST\V1\Endpoints\Actions
  */
