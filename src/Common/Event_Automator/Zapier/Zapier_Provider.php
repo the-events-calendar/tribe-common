@@ -170,6 +170,7 @@ class Zapier_Provider extends Service_Provider {
 		// Refunded Ticket Orders.
 		add_action( 'tec_tickets_commerce_order_status_refunded', [ $this, 'add_refunded_tc_order_to_queue' ], 10, 3 );
 		add_action( 'edd_refund_order', [ $this, 'add_refunded_edd_order_to_queue' ], 10, 3 );
+
 		add_action( 'woocommerce_order_status_changed', [ $this, 'add_refunded_woo_order_to_queue' ], 10, 4 );
 
 		// Checkin.
@@ -716,6 +717,10 @@ class Zapier_Provider extends Service_Provider {
 	 * @param WC_Order $order      The instance of the order object.
 	 */
 	public function add_refunded_woo_order_to_queue( $order_id, $old_status, $new_status, $order ) {
+		if ( ! function_exists( 'tribe_tickets_get_ticket_provider' ) ) {
+			return;
+		}
+
 		$data = [
 			'provider'   => tribe_tickets_get_ticket_provider( $order_id ),
 			'order_id'   => $order_id,

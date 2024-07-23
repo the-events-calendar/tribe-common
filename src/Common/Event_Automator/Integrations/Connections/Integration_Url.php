@@ -18,7 +18,7 @@ use TEC\Event_Automator\Plugin;
  *
  * @package TEC\Event_Automator\Integrations\Connections
  */
-Abstract class Integration_Url {
+abstract class Integration_Url {
 
 	/**
 	 * The internal id of the API integration.
