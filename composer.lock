@@ -733,12 +733,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/uplink.git",
-                "reference": "f0f06102ffc265071965af183b1a31e025096910"
+                "reference": "73b4f5ed62bfa54347875f712c27c4f0f1cab745"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/uplink/zipball/f0f06102ffc265071965af183b1a31e025096910",
-                "reference": "f0f06102ffc265071965af183b1a31e025096910",
+                "url": "https://api.github.com/repos/stellarwp/uplink/zipball/73b4f5ed62bfa54347875f712c27c4f0f1cab745",
+                "reference": "73b4f5ed62bfa54347875f712c27c4f0f1cab745",
                 "shasum": ""
             },
             "require": {
@@ -792,7 +792,7 @@
                 "issues": "https://github.com/stellarwp/uplink/issues",
                 "source": "https://github.com/stellarwp/uplink/tree/feat/fluent-form-builder"
             },
-            "time": "2024-07-22T19:37:33+00:00"
+            "time": "2024-07-23T18:27:37+00:00"
         }
     ],
     "packages-dev": [
