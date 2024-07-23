@@ -140,11 +140,11 @@ class Controller extends Controller_Contract {
 		foreach ( $plugins as $plugin ) {
 			$legacy_slug = str_replace( '-', '_', $plugin->get_slug() );
 
-			if ( ! isset( $_POST[ 'pue_install_key_' . $legacy_slug ] ) ) {
+			if ( ! isset( $_POST[ 'pue_install_key_' . $legacy_slug ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 				continue;
 			}
 
-			$license_key = sanitize_text_field( $_POST[ 'pue_install_key_' . $legacy_slug ] );
+			$license_key = sanitize_text_field( $_POST[ 'pue_install_key_' . $legacy_slug ] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 			// If the license key has a value, it will be validated and stored by uplink.
 			// We only want to give our users the option to remove a license key if they want to.
