@@ -25,7 +25,7 @@
 						<?php echo esc_html_x( 'Shop now', 'Shop now link text', 'tribe-common' ); ?>
 					</a>
 				</span>
-			</p>q
+			</p>
 		</div>
 
 		<div class="tribe-marketing-notice__col--lg">
