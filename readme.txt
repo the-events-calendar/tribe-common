@@ -3,7 +3,7 @@
 = [6.0.0.1] 2024-07-23 =
 
 * Fix - Prevent fatal on WooCommerce Order transition when Event Tickets plugin is not present. [EVA-166]
-* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+* Language - 0 new strings added, 2 updated, 3 fuzzied, and 0 obsoleted
 
 = [6.0.0] 2024-07-22 =
 
