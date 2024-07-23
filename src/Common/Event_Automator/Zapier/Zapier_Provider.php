@@ -160,7 +160,7 @@ class Zapier_Provider extends Service_Provider {
 	 * @since TBD
 	 */
 	protected function add_tec_setup(): void {
-		if ( ! defined( 'TRIBE_EVENTS_FILE' ) ) {
+		if ( ! defined( 'tribe_events_first_boot' ) ) {
 			return;
 		}
 
@@ -178,7 +178,7 @@ class Zapier_Provider extends Service_Provider {
 	 * @since TBD
 	 */
 	protected function add_et_setup(): void {
-		if ( ! defined( 'EVENT_TICKETS_DIR' ) ) {
+		if ( ! did_action( 'tribe_tickets_plugin_loaded' ) ) {
 			return;
 		}
 
