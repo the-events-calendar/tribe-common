@@ -748,10 +748,6 @@ class Zapier_Provider extends Service_Provider {
 	 * @param WC_Order $order      The instance of the order object.
 	 */
 	public function add_refunded_woo_order_to_queue( $order_id, $old_status, $new_status, $order ) {
-		if ( ! function_exists( 'tribe_tickets_get_ticket_provider' ) ) {
-			return;
-		}
-
 		$data = [
 			'provider'   => tribe_tickets_get_ticket_provider( $order_id ),
 			'order_id'   => $order_id,
