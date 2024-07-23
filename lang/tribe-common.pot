@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 6.0.0\n"
+"Project-Id-Version: Tribe Common 6.0.0.1\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-22T06:29:30-07:00\n"
-"PO-Revision-Date: 2024-07-22 13:29\n"
+"POT-Creation-Date: 2024-07-23T13:09:11-07:00\n"
+"PO-Revision-Date: 2024-07-23 20:09\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: tribe-common\n"
 
@@ -641,9 +641,9 @@ msgstr ""
 
 #: src/admin-views/notices/tribe-bf-general.php:26
 #: src/admin-views/notices/tribe-stellar-sale-premium.php:25
-#: src/admin-views/notices/tribe-stellar-sale-premium.php:39
+#: src/admin-views/notices/tribe-stellar-sale-premium.php:46
 #: src/admin-views/notices/tribe-stellar-sale.php:25
-#: src/admin-views/notices/tribe-stellar-sale.php:39
+#: src/admin-views/notices/tribe-stellar-sale.php:46
 #: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:61
 msgctxt "Shop now link text"
 msgid "Shop now"
@@ -658,12 +658,13 @@ msgstr ""
 msgid "Save 30% on all StellarWP products."
 msgstr ""
 
-#: src/admin-views/notices/tribe-stellar-sale-premium.php:33
-#: src/admin-views/notices/tribe-stellar-sale.php:33
-msgid "Purchase any StellarWP product during the sale and get <b>100%</b> off WP Business Reviews and take <b>40%</b> off all other brands."
+#. translators: %1$s and %2$s are bold tags used to wrap the discount percentages
+#: src/admin-views/notices/tribe-stellar-sale-premium.php:36
+#: src/admin-views/notices/tribe-stellar-sale.php:36
+msgid "Purchase any StellarWP product during the sale and get %1$s100%%%2$s off WP Business Reviews and take %1$s40%%%2$s off all other brands."
 msgstr ""
 
-#: src/admin-views/notices/tribe-stellar-sale-premium.php:47
+#: src/admin-views/notices/tribe-stellar-sale-premium.php:54
 #: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:63
 msgctxt "View all StellarWP Deals link text"
 msgid "View all StellarWP Deals"
