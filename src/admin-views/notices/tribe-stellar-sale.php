@@ -30,7 +30,14 @@
 
 		<div class="tribe-marketing-notice__col--lg">
 			<p class="tribe-marketing-notice__info">
-				<?php esc_html_e( 'Purchase any StellarWP product during the sale and get <b>100%</b> off WP Business Reviews and take <b>40%</b> off all other brands.', 'tribe-common' ); ?>
+				<?php
+				printf(
+					/* translators: %1$s and %2$s are bold tags used to wrap the discount percentages */
+					esc_html__( 'Purchase any StellarWP product during the sale and get %1$s100%%%2$s off WP Business Reviews and take %1$s40%%%2$s off all other brands.', 'tribe-common' ),
+					'<b>',
+					'</b>'
+				);
+				?>
 			</p>
 			<div class="tribe-marketing-notice__col--inner">
 				<p>
