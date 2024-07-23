@@ -163,6 +163,10 @@ class Zapier_Provider extends Service_Provider {
 	 * @return void
 	 */
 	protected function add_tec_setup(): void {
+		if ( ! did_action( 'tribe_events_first_boot' ) ) {
+			return;
+		}
+
 		// Canceled Events.
 		add_action( 'tribe_events_event_status_update_post_meta', [ $this, 'add_canceled_to_queue' ], 10, 2 );
 		// New Events.
