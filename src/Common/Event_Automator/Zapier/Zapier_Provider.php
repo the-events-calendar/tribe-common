@@ -148,7 +148,7 @@ class Zapier_Provider extends Service_Provider {
 	 * Adds the actions to add to the queues.
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
-	 * @since TBD Split the method in sub-methods for each plugin.
+	 * @since 6.0.0.1 Split the method in sub-methods for each plugin.
 	 */
 	public function setup_add_to_queues() {
 		$this->add_tec_setup();
@@ -158,7 +158,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Adds the actions required for The Events Calendar.
 	 *
-	 * @since TBD
+	 * @since 6.0.0.1
 	 *
 	 * @return void
 	 */
@@ -178,7 +178,7 @@ class Zapier_Provider extends Service_Provider {
 	/**
 	 * Adds the actions required for Event Tickets.
 	 *
-	 * @since TBD
+	 * @since 6.0.0.1
 	 *
 	 * @return void
 	 */
