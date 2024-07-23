@@ -51,6 +51,7 @@ class Controller extends Controller_Contract {
 	public function add_actions(): void {
 		add_action( 'init', [ $this, 'register_uplink' ], 8 );
 		add_filter( 'tribe_license_fields', [ $this, 'register_license_fields' ], 20 );
+		add_action( 'tribe_settings_save', [ $this, 'save_empty_license_keys' ] );
 	}
 
 	/**
@@ -126,6 +127,33 @@ class Controller extends Controller_Contract {
 		$fields_array = Arr::insert_after_key( 'tribe-form-content-start', $fields_array, $fields_to_inject );
 
 		return $fields_array;
+	}
+
+	/**
+	 * Save empty license keys.
+	 *
+	 * @since TBD
+	 */
+	public function save_empty_license_keys() {
+		$plugins = get_plugins();
+
+		foreach ( $plugins as $plugin ) {
+			$legacy_slug = str_replace( '-', '_', $plugin->get_slug() );
+
+			if ( ! isset( $_POST[ 'pue_install_key_' . $legacy_slug ] ) ) {
+				continue;
+			}
+
+			$license_key = sanitize_text_field( $_POST[ 'pue_install_key_' . $legacy_slug ] );
+
+			// If the license key has a value, it will be validated and stored by uplink.
+			// We only want to give our users the option to remove a license key if they want to.
+			if ( $license_key ) {
+				continue;
+			}
+
+			$plugin->set_license_key( '' );
+		}
 	}
 
 	/**
