@@ -140,7 +140,8 @@ class Zapier_Provider extends Service_Provider {
 		// Add endpoints to settings dashboard.
 		add_action( 'admin_init', [ $this, 'add_endpoints_to_dashboard' ] );
 
-		$this->setup_add_to_queues();
+		// Wait until plugins are loaded and then add queues for our various plugins.
+		add_action( 'tribe_plugins_loaded', [ $this, 'setup_add_to_queues' ] );
 	}
 
 	/**
@@ -149,12 +150,37 @@ class Zapier_Provider extends Service_Provider {
 	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	protected function setup_add_to_queues() {
+		$this->add_tec_setup();
+		$this->add_et_setup();
+	}
+
+	/**
+	 * Adds the actions required for The Events Calendar.
+	 *
+	 * @since TBD
+	 */
+	protected function add_tec_setup(): void {
+		if ( ! defined( 'TRIBE_EVENTS_FILE' ) ) {
+			return;
+		}
+
 		// Canceled Events.
 		add_action( 'tribe_events_event_status_update_post_meta', [ $this, 'add_canceled_to_queue' ], 10, 2 );
 		// New Events.
 		add_action( 'wp_insert_post', [ $this, 'add_to_queue' ], 10, 3 );
 		// Updated Events.
 		add_action( 'post_updated', [ $this, 'add_updated_to_queue' ], 10, 3 );
+	}
+
+	/**
+	 * Adds the actions required for Event Tickets.
+	 *
+	 * @since TBD
+	 */
+	protected function add_et_setup(): void {
+		if ( ! defined( 'EVENT_TICKETS_DIR' ) ) {
+			return;
+		}
 
 		// Attendees.
 		add_action( 'event_tickets_rsvp_attendee_created', [ $this, 'add_rsvp_attendee_to_queue' ], 10, 4 );
