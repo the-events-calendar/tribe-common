@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Prevent Fatal on WooCommerce Order transition when Event Tickets plugin is not present. [EVA-166]
