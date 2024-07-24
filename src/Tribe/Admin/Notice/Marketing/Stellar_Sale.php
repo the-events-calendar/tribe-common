@@ -63,7 +63,8 @@ class Stellar_Sale extends \Tribe\Admin\Notice\Date_Based {
 			'stellar_link_text' => _x( 'View all StellarWP Deals', 'View all StellarWP Deals link text', 'tribe-common' ),
 			'stellar_url'       => $stellar_url,
 		];
-		$dependency   = tribe( \Tribe__Dependency::class );
+
+		$dependency = tribe( \Tribe__Dependency::class );
 
 		if ( $dependency->has_active_premium_plugin() ) {
 			// Determine the copy based on the active plugins.
