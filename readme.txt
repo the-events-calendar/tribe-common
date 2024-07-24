@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [6.0.1] TBD =
+
+
+
 = [6.0.0.2] 2024-07-24 =
 
 * Fix - Stellar Sale's banner links, details, and HTML tags handling. [TEC-5121]
