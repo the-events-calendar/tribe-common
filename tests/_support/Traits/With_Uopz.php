@@ -138,7 +138,7 @@ trait With_Uopz {
 				Assert::assertEquals( $previous_value, constant( $class . '::' . $const ) );
 			};
 		}
-		uopz_redefine( $const, ...$args );
+		uopz_redefine( $class, ...$args );
 		self::$uopz_redefines[] = $restore_callback;
 	}
 
