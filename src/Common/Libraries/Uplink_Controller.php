@@ -3,7 +3,7 @@
  * The Controller to set up the Uplink library.
  */
 
-namespace TEC\Common\Libraries\Uplink;
+namespace TEC\Common\Libraries;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\Libraries\Provider as Libraries_Provider;
@@ -22,7 +22,7 @@ use function TEC\Common\StellarWP\Uplink\get_plugins;
  *
  * @package TEC\Common\Libraries\Uplink
  */
-class Controller extends Controller_Contract {
+class Uplink_Controller extends Controller_Contract {
 	/**
 	 * Register the controller.
 	 *
