@@ -1,6 +1,6 @@
 <?php
 
-namespace TEC\Common\Libraries\Uplink;
+namespace TEC\Common\Libraries;
 
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use TEC\Common\StellarWP\Uplink\Config;
@@ -9,7 +9,7 @@ use TEC\Common\StellarWP\Uplink\Resources\Collection;
 use Tribe__Main;
 use Tribe\Tests\Traits\With_Uopz;
 
-class Controller_Test extends \Codeception\TestCase\WPTestCase {
+class Uplink_Controller_Test extends \Codeception\TestCase\WPTestCase {
 	use SnapshotAssertions;
 	use With_Uopz;
 
@@ -22,7 +22,7 @@ class Controller_Test extends \Codeception\TestCase\WPTestCase {
 	 * @before
 	 */
 	public function setup_uplink() {
-		$this->controller = tribe( Controller::class );
+		$this->controller = tribe( Uplink_Controller::class );
 		$this->controller->register_uplink();
 		$this->register_plugin();
 	}
@@ -33,7 +33,7 @@ class Controller_Test extends \Codeception\TestCase\WPTestCase {
 			'common-test-slug',
 			'common-test',
 			'1.0.0',
-			dirname( __FILE__ ),
+			__DIR__,
 			tribe( Tribe__Main::class )
 		);
 	}
