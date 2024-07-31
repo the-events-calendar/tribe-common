@@ -173,7 +173,7 @@ class Power_Automate_Provider extends Service_Provider {
 	 * @return void
 	 */
 	protected function add_tec_setup(): void {
-		if ( ! did_action( 'tribe_events_first_boot' ) ) {
+		if ( ! did_action( 'tribe_events_bound_implementations' ) ) {
 			return;
 		}
 
