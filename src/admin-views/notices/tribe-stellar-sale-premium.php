@@ -8,20 +8,21 @@
  * @var string $icon_url The local URL for the notice's image.
  * @var string $cta_url The short URL for the Stellar Sale.
  */
+
 ?>
 <div class="tribe-marketing-notice">
 	<div class="tribe-marketing-notice__content-wrapper">
 		<div class="tribe-marketing-notice__col--md">
 			<h3>
-				<?php _e( 'Make it stellar.', 'tribe-common' ); ?>
+				<?php esc_html_e( 'Make it stellar.', 'tribe-common' ); ?>
 			</h3>
 			<h4>
-				<?php _e( 'Save 30% on all StellarWP products.', 'tribe-common' ); ?>
+				<?php esc_html_e( 'Save 30% on all StellarWP products.', 'tribe-common' ); ?>
 			</h4>
 			<p>
 				<span class="tribe-marketing-notice__cta-shop-now tribe-marketing-notice__cta-shop-now--desktop">
 					<a target="_blank" href="<?php echo esc_url( $stellar_url ); ?>">
-						<?php echo esc_html_x( 'Shop now', 'Shop now link text', 'tribe-common' ) ?>
+						<?php echo esc_html_x( 'Shop now', 'Shop now link text', 'tribe-common' ); ?>
 					</a>
 				</span>
 			</p>
@@ -29,13 +30,20 @@
 
 		<div class="tribe-marketing-notice__col--lg">
 			<p class="tribe-marketing-notice__info">
-				<?php echo __( 'Purchase any StellarWP product during the sale and get <b>100%</b> off WP Business Reviews and take <b>40%</b> off all other brands.', 'tribe-common' ); ?>
+			<?php
+				printf(
+					/* translators: %1$s and %2$s are bold tags used to wrap the discount percentages */
+					esc_html__( 'Purchase any StellarWP product during the sale and get %1$s100%%%2$s off WP Business Reviews and take %1$s40%%%2$s off all other brands.', 'tribe-common' ),
+					'<b>',
+					'</b>'
+				);
+				?>
 			</p>
 			<div class="tribe-marketing-notice__col--inner">
 				<p>
 					<span class="tribe-marketing-notice__cta-shop-now tribe-marketing-notice__cta-shop-now--mobile">
 						<a target="_blank" href="<?php echo esc_url( $stellar_url ); ?>">
-							<?php echo esc_html_x( 'Shop now', 'Shop now link text', 'tribe-common' ) ?>
+							<?php echo esc_html_x( 'Shop now', 'Shop now link text', 'tribe-common' ); ?>
 						</a>
 					</span>
 				</p>

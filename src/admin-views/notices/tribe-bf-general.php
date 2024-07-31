@@ -10,19 +10,20 @@
  * @var string $start_date - the end date of the sale.
  * @var string $end_date - the end date of the sale.
  */
+
 ?>
 <div class="tribe-common tribe-marketing-notice">
 	<div class="tribe-marketing-notice__content-wrapper">
 		<h3 class="tribe-marketing-notice__header tribe-common-h3">
-			<?php _e( 'Save 40% on The Events Calendar', 'tribe-common' ); ?>
+			<?php esc_html_e( 'Save 40% on The Events Calendar', 'tribe-common' ); ?>
 		</h3>
 		<p class="tribe-marketing-notice__content tribe-common-h4">
-			<?php _e( 'Upgrade and purchase new products during the Black Friday Sale.', 'tribe-common' ); ?>
+			<?php esc_html_e( 'Upgrade and purchase new products during the Black Friday Sale.', 'tribe-common' ); ?>
 		</p>
 		<p>
 			<span class="tribe-marketing-notice__cta tribe-marketing-notice__cta-shop-now tribe-marketing-notice__cta-shop-now--desktop">
 				<a target="_blank" href="<?php echo esc_url( $cta_url ); ?>">
-					<?php echo esc_html_x( 'Shop now', 'Shop now link text', 'tribe-common' ) ?>
+					<?php echo esc_html_x( 'Shop now', 'Shop now link text', 'tribe-common' ); ?>
 				</a>
 			</span>
 		</p>

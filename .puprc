@@ -1,6 +1,5 @@
 {
 	"build": [
-		"echo 'building Tribe Common in: '$(pwd)",
 		"rm -rf vendor",
 		"git checkout -- vendor",
 		"composer install --no-dev",
@@ -8,7 +7,6 @@
 		"npm run build"
 	],
 	"build_dev": [
-		"echo 'building Tribe Common in: '$(pwd)",
 		"rm -rf vendor",
 		"git checkout -- vendor",
 		"composer install",

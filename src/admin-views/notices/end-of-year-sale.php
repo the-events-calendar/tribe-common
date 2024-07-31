@@ -7,6 +7,7 @@
  * @var string $icon_url The local URL for the notice's image.
  * @var string $cta_url The URL for the sale page.
  */
+
 ?>
 <div class="tribe-marketing-notice">
 	<div class="tribe-marketing-notice__icon">

@@ -8,6 +8,7 @@
  * @var string $icon_url The local URL for the notice's image.
  * @var string $cta_url The short URL for the Stellar Sale.
  */
+
 ?>
 <div class="tribe-marketing-notice">
 	<div class="tribe-marketing-notice__content-wrapper">

@@ -1,5 +1,31 @@
 == Changelog ==
 
+= [6.0.0.2] 2024-07-24 =
+
+* Fix - Stellar Sale's banner links, details, and HTML tags handling. [TEC-5121]
+
+= [6.0.0.1] 2024-07-23 =
+
+* Fix - Prevent fatal on WooCommerce Order transition when Event Tickets plugin is not present. [EVA-166]
+* Language - 0 new strings added, 2 updated, 3 fuzzied, and 0 obsoleted
+
+= [6.0.0] 2024-07-22 =
+
+* Feature - Included compatibility with Events Calendar Pro 7.0.0 for integrations with Zapier and Power Automate.
+* Feature - Included compatibility with Events Tickets Plus 6.0.0 for integrations with Zapier and Power Automate.
+* Fix - Fixed an issue where admin transient notices with the dismiss flag not persisting passed the first page load. [ECP-1808]
+* Fix - The Decorated repository was not returning values from `save()` and other methods. Now they return as expected. [BTRIA-2310]
+* Fix - Resolved an issue where transient notices would disappear given a certain order of operations. [ECP-1804]
+* Tweak - Added a new action hook `tec_event_automator_zapier_provider_registered` to fire after the Zapier service has successfully registered. [EVA-159]
+* Tweak - Added filters: `tec_event_automator_integrations_tab_settings`, `tec_tickets_plus_integrations_tab_fields`, `tec_event_automator_{$api_id}_dashboard_fields`, `tec_event_automator_{$api_id}_api_get_user_arguments`, `tec_event_automator_{$api_id}_settings_fields`, `tec_event_automator_{$api_id}_settings_field_placement_key`, `tec_event_automator_rest_swagger_documentation`, `tec_event_automator_{$api_id}_endpoint_details`, `tec_event_automator_{$api_id}_add_to_queue_data`, `tec_event_automator_{$api_id}_add_to_queue_data_{$endpoint_id}`, `tec_event_automator_{$api_id}_is_rest_request`, `tec_event_automator_{$api_id}_enable_add_to_queues`, `tec_event_automator_{$api_id}_add_to_queue`, `tec_event_automator_{$api_id}_max_queue_items`, `tec_event_automator_{$api_id}_max_queue_items_{$queue_name}`, `tec_event_automator_power_automate_admin_ajax_capability`, `tec_event_automator_power_automate_enabled`, `tec_event_automator_power_automate_enable_add_to_queue`, `tec_event_automator_integration_app_name`, `tec_automator_map_attendee_details`, `tec_automator_map_edd_order_details`, `tec_automator_map_tickets_commerce_order_details`, `tec_automator_map_woo_order_details`, `tec_automator_map_event_details`, `tec_automator_map_all_organizers`, `tec_automator_map_organizer_details`, `tec_automator_map_all_venues`, `tec_automator_map_venue_details`, `tec_automator_map_ticket_details`, `tec_event_automator_zapier_app_name`, `tec_event_automator_zapier_admin_ajax_capability`, `tec_event_automator_zapier_enabled`, `tec_event_automator_zapier_enable_add_to_queue`
+* Tweak - Added actions: `tec_automator_before_update_{$api_id}_api_keys`, `tec_automator_before_update_zapier_api_keys`, `tec_event_automator_zapier_provider_registered`
+* Language - 271 new strings added, 313 updated, 1 fuzzied, and 25 obsoleted
+
+= [5.3.1] 2024-07-18 =
+
+* Tweak - Support additional select2 attributes in order to improve search performance in select2 fields.
+* Language - 0 new strings added, 31 updated, 1 fuzzied, and 0 obsoleted
+
 = [5.3.0.5] 2024-07-11 =
 
 * Fix - Ensure compatibility with WordPress 6.6 for removed polyfill `regenerator-runtime`. [TECTRIA-149]
@@ -31,7 +57,7 @@
 * Tweak - Added information about upcoming promotion. [ET-2113]
 * Tweak - Added filters: `tribe_asset_enqueue_{$asset->get_slug()}`
 * Tweak - Removed filters: `tribe_asset_enqueue_{$asset->slug}`, `tribe_asset_pre_register`
-* Language: 7 new strings added, 5 updated, 2 fuzzied, and 0 obsoleted
+* Language - 7 new strings added, 5 updated, 2 fuzzied, and 0 obsoleted
 
 = [5.2.7] 2024-05-14 =
 

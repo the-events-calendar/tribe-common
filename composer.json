@@ -37,6 +37,7 @@
   },
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
+    "wp-cli/wp-cli": ">=2.0 <3.0.0",
     "bordoni/phpass": "0.3.5",
     "codeception/codeception": "^2.5.5",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
@@ -46,12 +47,14 @@
     "stellarwp/coding-standards": "dev-main",
     "the-events-calendar/tec-testing-facilities": "dev-master",
     "wp-cli/checksum-command": "1.0.5",
-    "wp-coding-standards/wpcs": "^3.0.0"
+    "wp-coding-standards/wpcs": "^3.0.0",
+    "automattic/jetpack-changelogger": "^4.2"
   },
   "autoload": {
     "psr-4": {
       "Tribe\\": "src/Tribe/",
-      "TEC\\Common\\": "src/Common/"
+      "TEC\\Common\\": "src/Common/",
+      "TEC\\Event_Automator\\": "src/Common/Event_Automator/"
     }
   },
   "autoload-dev": {
@@ -105,6 +108,25 @@
       "delete_vendor_files": true,
       "include_modified_date": false,
       "include_author": false
+    },
+    "changelogger": {
+      "changelog": "changelog.md",
+      "types": {
+        "version" : "Version",
+        "feat" : "Feature",
+        "tweak" : "Tweak",
+        "fix" : "Fix",
+        "performance" : "Performance",
+        "security" : "Security",
+        "accessibility" : "Accessibility",
+        "compatibility" : "Compatibility",
+        "deprecated" : "Deprecated",
+        "language" : "Language"
+      },
+      "formatter": {
+        "filename": "bin/class-tec-changelog-formatter.php"
+      },
+      "changes-dir": "changelog"
     }
   }
 }

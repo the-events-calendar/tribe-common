@@ -1,0 +1,50 @@
+/*
+ * Event Automator Loader CSS
+ * -------------------------------------------------------------
+ */
+.tec-automator-settings,
+.tec-automator-dashboard {
+	position: relative;
+
+	.tribe-common-c-loader {
+		align-items: center;
+		background: rgba(255, 255, 255, 0.8);
+		bottom: 0;
+		height: 100%;
+		justify-content: center;
+		left: 0;
+		padding: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 100%;
+		z-index: 10;
+	}
+
+	.tribe-common-c-loader__dot circle {
+		animation-direction: normal;
+		animation-duration: 2.24s;
+		animation-iteration-count: infinite;
+		animation-name: tec-eva-c-loader-bounce;
+		fill: var(--tec-color-accent-primary);
+		opacity: var(--tec-opacity-select-highlighted);
+	}
+
+	.tribe-common-c-loader__dot--first circle {
+		animation-delay: 0.45s;
+	}
+
+	.tribe-common-c-loader__dot--second circle {
+		animation-delay: 1.05s;
+	}
+
+	.tribe-common-c-loader__dot--third circle {
+		animation-delay: 1.35s;
+	}
+}
+
+@keyframes tec-eva-c-loader-bounce {
+	50% {
+		opacity: var(--tec-opacity-default);
+	}
+}

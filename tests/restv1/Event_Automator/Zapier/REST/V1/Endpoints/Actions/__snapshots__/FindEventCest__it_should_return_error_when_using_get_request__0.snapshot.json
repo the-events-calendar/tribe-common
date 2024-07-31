@@ -1,0 +1,12 @@
+{
+    "errors": {
+        "missing_access_token": [
+            "Missing access token."
+        ]
+    },
+    "error_data": {
+        "missing_access_token": {
+            "status": 401
+        }
+    }
+}

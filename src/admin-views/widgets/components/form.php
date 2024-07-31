@@ -17,7 +17,7 @@
  */
 
 $default_classes = [
-	'tribe-widget-form'
+	'tribe-widget-form',
 ];
 
 $classes = array_merge( $default_classes, $this->get( 'form_classes', [] ) );

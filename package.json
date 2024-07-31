@@ -1,6 +1,6 @@
 {
   "name": "tribe-common",
-  "version": "5.4.0",
+  "version": "6.0.0",
   "repository": "git@github.com:the-events-calendar/tribe-common.git",
   "_resourcepath": "src/resources",
   "_domainPath": "lang",
@@ -49,7 +49,8 @@
     "lint:stylelint": "gulp stylelint",
     "jest": "TZ=UTC gulp jest",
     "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js",
-    "glotpress": "gulp glotpress"
+    "glotpress": "gulp glotpress",
+    "changelog": "./vendor/bin/changelogger add"
   },
   "dependencies": {
     "@babel/runtime": "^7.15.3",
