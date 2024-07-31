@@ -151,7 +151,7 @@ class Power_Automate_Provider extends Service_Provider {
 		add_action( 'admin_init', [ $this, 'add_endpoints_to_dashboard' ] );
 
 		// Wait until plugins are loaded and then add queues for our various plugins.
-		add_action( 'tribe_plugins_loaded', [ $this, 'setup_add_to_queues' ] );
+		add_action( 'init', [ $this, 'setup_add_to_queues' ] );
 	}
 
 	/**
@@ -173,7 +173,7 @@ class Power_Automate_Provider extends Service_Provider {
 	 * @return void
 	 */
 	protected function add_tec_setup(): void {
-		if ( ! did_action( 'tribe_events_first_boot' ) ) {
+		if ( ! did_action( 'tribe_events_bound_implementations' ) ) {
 			return;
 		}
 
