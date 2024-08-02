@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [6.0.1] TBD =
+
+* Fix - Change hook to detect if TEC is active for Automator Event Endpoints used by Power Automate and Zapier. [TEC-5123]
+* Fix - Move action pre-dispatch filters for Zapier to Event Tickets Plus and Events Calendar Pro to fix not authorized errors. [TEC-5123]
+
 = [6.0.0.2] 2024-07-24 =
 
 * Fix - Stellar Sale's banner links, details, and HTML tags handling. [TEC-5121]
