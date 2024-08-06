@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [6.0.1] 2024-08-05 =
+= [6.0.1] 2024-08-06 =
 
 * Fix - Change hook to detect if TEC is active for Automator Event Endpoints used by Power Automate and Zapier. [TEC-5123]
 * Fix - Move action pre-dispatch filters for Zapier to Event Tickets Plus and Events Calendar Pro to fix not authorized errors. [TEC-5123]
