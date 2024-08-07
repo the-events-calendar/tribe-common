@@ -2,6 +2,7 @@
 
 namespace Tribe\Tests\Traits;
 
+use Closure;
 use PHPUnit\Framework\Assert;
 
 trait With_Uopz {
@@ -93,14 +94,19 @@ trait With_Uopz {
 	 * @param boolean $execute If true, and a Closure was provided as the value,
 	 *                         the Closure will be executed in place of the original function.
 	 *
-	 * @return void
+	 * @return Closure A Closure that will unset the return value when called.
 	 */
-	private function set_fn_return( $fn, $value, $execute = false ) {
+	private function set_fn_return( $fn, $value, $execute = false ): Closure {
 		if ( ! function_exists( 'uopz_set_return' ) ) {
 			$this->markTestSkipped( 'uopz extension is not installed' );
 		}
 		uopz_set_return( $fn, $value, $execute );
 		self::$uopz_set_returns[] = $fn;
+
+		return static function () use ( $fn ) {
+			uopz_unset_return( $fn );
+			self::$uopz_set_returns = array_values( array_diff( self::$uopz_set_returns, [ $fn ] ) );
+		};
 	}
 
 	private function set_const_value( $const, ...$args ) {
@@ -204,9 +210,9 @@ trait With_Uopz {
 
 	/**
 	 * @param string   $function
-	 * @param \Closure $handler
+	 * @param Closure $handler
 	 */
-	private function add_fn( string $function, \Closure $handler ) {
+	private function add_fn( string $function, Closure $handler ) {
 		if ( ! function_exists( 'uopz_add_function' ) ) {
 			$this->markTestSkipped( 'uopz extension is not installed' );
 		}
