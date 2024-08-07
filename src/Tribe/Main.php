@@ -30,7 +30,7 @@ class Tribe__Main {
 	 *
 	 * @var string
 	 */
-	protected $parent_plugin_file ='';
+	protected $parent_plugin_file = '';
 
 	public static $tribe_url = 'http://tri.be/';
 	public static $tec_url   = 'https://theeventscalendar.com/';
