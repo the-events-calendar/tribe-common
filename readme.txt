@@ -1,5 +1,8 @@
 == Changelog ==
 
+= [6.0.2] TBD =
+
+
 = [6.0.1] 2024-08-06 =
 
 * Fix - Change hook to detect if TEC is active for Automator Event Endpoints used by Power Automate and Zapier. [TEC-5123]
