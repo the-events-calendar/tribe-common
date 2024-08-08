@@ -232,24 +232,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		}
 
 		/**
-		 * create the main option page
-		 *
-		 * @return void
-		 */
-		public function addPage() {
-			_deprecated_function( __METHOD__, '4.15.0' );
-		}
-
-		/**
-		 * create the network options page
-		 *
-		 * @return void
-		 */
-		public function addNetworkPage() {
-			_deprecated_function( __METHOD__, '4.15.0' );
-		}
-
-		/**
 		 * Init all the tabs.
 		 *
 		 * @return void
@@ -821,6 +803,30 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			return is_callable( $condition )
 				? call_user_func( $condition, $this->current_fields )
 				: true == $condition;
+		}
+
+		/* Deprecated Methods */
+
+		/**
+		 * create the main option page
+		 *
+		 * @deprecated 4.15.0
+		 *
+		 * @return void
+		 */
+		public function addPage() {
+			_deprecated_function( __METHOD__, '4.15.0' );
+		}
+
+		/**
+		 * create the network options page
+		 *
+		 * @deprecated 4.15.0
+		 *
+		 * @return void
+		 */
+		public function addNetworkPage() {
+			_deprecated_function( __METHOD__, '4.15.0' );
 		}
 	} // end class
 } // endif class_exists
