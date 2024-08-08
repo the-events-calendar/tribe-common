@@ -58,7 +58,7 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public function init_options() {
-		Tribe__Settings::instance();
+		tribe( 'settings' );
 	}
 
 	/**
