@@ -13,10 +13,7 @@ if ( did_action( 'tec_settings_init' ) ) {
 }
 
 /**
- * helper class that allows registration of settings
- * this is a static class & uses the singleton design method
- * instantiation takes place in Tribe__Main
- *
+ * Helper class that allows registration of settings.
  */
 class Tribe__Settings {
 	/**
@@ -49,9 +46,11 @@ class Tribe__Settings {
 	/**
 	 * All the tabs registered, not just the ones that will appear.
 	 *
+	 * @since TBD
+	 *
 	 * @var array
 	 */
-	public $allTabs;
+	public $all_tabs;
 
 	/**
 	 * Multidimensional array of the fields that will be generated
@@ -65,30 +64,35 @@ class Tribe__Settings {
 	 * The default tab for the settings panel
 	 * this should be a tab ID.
 	 *
+	 * @since TBD
+	 *
 	 * @var string
 	 */
-	public $defaultTab;
+	public $default_tab;
 
 	/**
 	 * The current tab being displayed.
 	 *
+	 * @since TBD
+	 *
 	 * @var string
 	 */
-	public $currentTab;
+	public $current_tab;
 
 	/**
 	 * Tabs that shouldn't show the save button.
 	 *
 	 * @var array
 	 */
-	public $noSaveTabs;
+	public $no_save_tabs;
+
 
 	/**
 	 * The slug used in the admin to generate the settings page.
 	 *
 	 * @var string
 	 */
-	public $adminSlug;
+	public $admin_slug;
 
 	/**
 	 * The slug used in the admin to generate the help page.
@@ -102,14 +106,14 @@ class Tribe__Settings {
 	 *
 	 * @var string
 	 */
-	public $menuName;
+	public $menu_name;
 
 	/**
 	 * The required capability for the settings page.
 	 *
 	 * @var string
 	 */
-	public $requiredCap;
+	public $required_cap;
 
 	/**
 	 * Errors that occur after a save operation.
@@ -147,13 +151,6 @@ class Tribe__Settings {
 	public $validated;
 
 	/**
-	 * Static Singleton Holder.
-	 *
-	 * @var Tribe__Settings|null
-	 */
-	private static $instance;
-
-	/**
 	 * The settings page URL.
 	 *
 	 * @var string
@@ -184,6 +181,85 @@ class Tribe__Settings {
 	 */
 	protected $current_fields = [];
 
+	/* Deprecated properties */
+
+	/**
+	 * Static Singleton Holder.
+	 *
+	 * @deprecated TBD use tribe( 'settings' ) instead.
+	 *
+	 * @var Tribe__Settings|null
+	 */
+	private static $instance;
+
+	// phpcs:disable WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase
+
+	/**
+	 * All the tabs registered, not just the ones that will appear.
+	 *
+	 * @deprecated TBD use $all_tabs.
+	 *
+	 * @var array
+	 */
+	public $allTabs;
+
+	/**
+	 * The default tab for the settings panel
+	 * this should be a tab ID.
+	 *
+	 * @deprecated TBD Use $default_tab.
+	 *
+	 * @var string
+	 */
+	public $defaultTab;
+
+	/**
+	 * The current tab being displayed.
+	 *
+	 * @deprecated TBD Use $current_tab.
+	 *
+	 * @var string
+	 */
+	public $currentTab;
+
+	/**
+	 * Tabs that shouldn't show the save button.
+	 *
+	 * @deprecated TBD Use $no_save_tabs.
+	 *
+	 * @var array
+	 */
+	public $noSaveTabs;
+
+	/**
+	 * The slug used in the admin to generate the settings page.
+	 *
+	 * @deprecated TBD Use $admin_slug.
+	 *
+	 * @var string
+	 */
+	public $adminSlug;
+
+	/**
+	 * The menu name used for the settings page.
+	 *
+	 * @deprecated TBD Use $menu_name.
+	 *
+	 * @var string
+	 */
+	public $menuName;
+
+	/**
+	 * The required capability for the settings page.
+	 *
+	 * @deprecated TBD Use $required_cap.
+	 *
+	 * @var string
+	 */
+	public $requiredCap;
+
+	// phpcs:enable WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase
+
 	/**
 	 * Class constructor.
 	 *
@@ -191,16 +267,16 @@ class Tribe__Settings {
 	 */
 	public function __construct() {
 		// Set instance variables.
-		$this->menuName    = apply_filters( 'tribe_settings_menu_name', esc_html__( 'Events', 'tribe-common' ) );
-		$this->requiredCap = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
-		$this->adminSlug   = apply_filters( 'tribe_settings_admin_slug', 'tribe-common' );
+		$this->menu_name    = apply_filters( 'tribe_settings_menu_name', esc_html__( 'Events', 'tribe-common' ) );
+		$this->required_cap = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
+		$this->admin_slug   = apply_filters( 'tribe_settings_admin_slug', 'tribe-common' );
 		$this->help_slug   = apply_filters( 'tribe_settings_help_slug', 'tribe-common-help' );
 		$this->errors      = get_option( 'tribe_settings_errors', [] );
 		$this->major_error = get_option( 'tribe_settings_major_error', false );
 		$this->sent_data   = get_option( 'tribe_settings_sent_data', [] );
 		$this->validated   = [];
-		$this->defaultTab  = null;
-		$this->currentTab  = null;
+		$this->default_tab  = null;
+		$this->current_tab  = null;
 
 		$this->hook();
 	}
@@ -246,20 +322,20 @@ class Tribe__Settings {
 		do_action( 'tribe_settings_do_tabs', $admin_page ); // This is the hook to use to add new tabs.
 
 		$this->tabs       = (array) apply_filters( 'tribe_settings_tabs', [], $admin_page );
-		$this->allTabs    = (array) apply_filters( 'tribe_settings_all_tabs', [], $admin_page );
-		$this->noSaveTabs = (array) apply_filters( 'tribe_settings_no_save_tabs', [], $admin_page );
+		$this->all_tabs    = (array) apply_filters( 'tribe_settings_all_tabs', [], $admin_page );
+		$this->no_save_tabs = (array) apply_filters( 'tribe_settings_no_save_tabs', [], $admin_page );
 
 		if ( is_network_admin() ) {
-			$this->defaultTab = apply_filters( 'tribe_settings_default_tab_network', 'network', $admin_page );
-			$current_tab      = ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->defaultTab;
-			$this->currentTab = apply_filters( 'tribe_settings_current_tab', $current_tab, $admin_page );
-			$this->url        = $this->get_tab_url( $this->currentTab );
+			$this->default_tab = apply_filters( 'tribe_settings_default_tab_network', 'network', $admin_page );
+			$current_tab      = ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->default_tab;
+			$this->current_tab = apply_filters( 'tribe_settings_current_tab', $current_tab, $admin_page );
+			$this->url        = $this->get_tab_url( $this->current_tab );
 		} else {
 			$tabs_keys        = array_keys( $this->tabs );
 			$default_tab      = apply_filters( 'tribe_settings_default_tab', 'general', $admin_page );
-			$this->defaultTab = in_array( $default_tab, $tabs_keys ) ? $default_tab : $tabs_keys[0];
-			$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->defaultTab );
-			$this->url        = $this->get_tab_url( $this->currentTab );
+			$this->default_tab = in_array( $default_tab, $tabs_keys ) ? $default_tab : $tabs_keys[0];
+			$this->current_tab = apply_filters( 'tribe_settings_current_tab', ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->default_tab );
+			$this->url        = $this->get_tab_url( $this->current_tab );
 		}
 
 		$this->fields_for_save = (array) apply_filters( 'tribe_settings_fields', [], $admin_page );
@@ -278,7 +354,7 @@ class Tribe__Settings {
 	public function get_settings_page_url( array $args = [] ) {
 		$admin_pages = tribe( 'admin.pages' );
 		$page        = $admin_pages->get_current_page();
-		$tab         = tribe_get_request_var( 'tab', $this->defaultTab );
+		$tab         = tribe_get_request_var( 'tab', $this->default_tab );
 		$defaults    = [
 			'page' => $page,
 			'tab'  => $tab,
@@ -307,7 +383,7 @@ class Tribe__Settings {
 		$page_title = sprintf(
 			// Translators: %s is the name of the menu item.
 			__( '%s Settings', 'tribe-common' ),
-			$this->menuName
+			$this->menu_name
 		);
 
 		/**
@@ -339,34 +415,34 @@ class Tribe__Settings {
 		echo esc_html( $this->get_page_title( $admin_page ) );
 		echo '</h1>';
 		do_action( 'tribe_settings_above_tabs' );
-		$this->generate_tabs( $this->currentTab, $admin_page );
+		$this->generate_tabs( $this->current_tab, $admin_page );
 		do_action( 'tribe_settings_below_tabs' );
-		do_action( 'tribe_settings_below_tabs_tab_' . $this->currentTab, $admin_page );
+		do_action( 'tribe_settings_below_tabs_tab_' . $this->current_tab, $admin_page );
 		echo '<div class="tribe-settings-form form">';
 		do_action( 'tribe_settings_above_form_element' );
-		do_action( 'tribe_settings_above_form_element_tab_' . $this->currentTab, $admin_page );
-		echo apply_filters( 'tribe_settings_form_element_tab_' . $this->currentTab, '<form id="tec-settings-form" method="post">' );
+		do_action( 'tribe_settings_above_form_element_tab_' . $this->current_tab, $admin_page );
+		echo apply_filters( 'tribe_settings_form_element_tab_' . $this->current_tab, '<form id="tec-settings-form" method="post">' );
 		do_action( 'tribe_settings_before_content' );
-		do_action( 'tribe_settings_before_content_tab_' . $this->currentTab );
-		do_action( 'tribe_settings_content_tab_' . $this->currentTab );
+		do_action( 'tribe_settings_before_content_tab_' . $this->current_tab );
+		do_action( 'tribe_settings_content_tab_' . $this->current_tab );
 
-		if ( ! has_action( 'tribe_settings_content_tab_' . $this->currentTab ) ) {
+		if ( ! has_action( 'tribe_settings_content_tab_' . $this->current_tab ) ) {
 			echo '<p>' . esc_html__( "You've requested a non-existent tab.", 'tribe-common' ) . '</p>';
 		}
 
-		do_action( 'tribe_settings_after_content_tab_' . $this->currentTab );
-		do_action( 'tribe_settings_after_content', $this->currentTab );
+		do_action( 'tribe_settings_after_content_tab_' . $this->current_tab );
+		do_action( 'tribe_settings_after_content', $this->current_tab );
 
-		if ( has_action( 'tribe_settings_content_tab_' . $this->currentTab ) && ! in_array( $this->currentTab, $this->noSaveTabs ) ) {
+		if ( has_action( 'tribe_settings_content_tab_' . $this->current_tab ) && ! in_array( $this->current_tab, $this->no_save_tabs ) ) {
 			wp_nonce_field( 'saving', 'tribe-save-settings' );
 			echo '<div class="clear"></div>';
-			echo '<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="' . esc_attr( $this->currentTab ) . '" />';
+			echo '<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="' . esc_attr( $this->current_tab ) . '" />';
 			echo '<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="' . esc_attr__( 'Save Changes', 'tribe-common' ) . '" />';
 		}
 
 		echo apply_filters( 'tribe_settings_closing_form_element', '</form>' );
 		do_action( 'tribe_settings_after_form_element' );
-		do_action( 'tribe_settings_after_form_element_tab_' . $this->currentTab, $admin_page );
+		do_action( 'tribe_settings_after_form_element_tab_' . $this->current_tab, $admin_page );
 		echo '</div>';
 		do_action( 'tribe_settings_after_form_div' );
 		echo '</div>';
@@ -385,7 +461,7 @@ class Tribe__Settings {
 			echo '<h2 id="tribe-settings-tabs" class="nav-tab-wrapper">';
 			foreach ( $this->tabs as $tab => $name ) {
 				$url   = $this->get_tab_url( $tab );
-				$class = ( $tab == $this->currentTab ) ? ' nav-tab-active' : '';
+				$class = ( $tab == $this->current_tab ) ? ' nav-tab-active' : '';
 				echo '<a id="' . esc_attr( $tab ) . '" class="nav-tab' . esc_attr( $class ) . '" href="' . esc_url( $url ) . '">' . esc_html( $name ) . '</a>';
 			}
 			do_action( 'tribe_settings_after_tabs' );
@@ -445,7 +521,7 @@ class Tribe__Settings {
 			}
 
 			// check that the request originated from the current tab.
-			if ( $_POST['current-settings-tab'] != $this->currentTab ) {
+			if ( $_POST['current-settings-tab'] != $this->current_tab ) {
 				$this->errors[]    = esc_html__( "The request wasn't sent from this tab.", 'tribe-common' );
 				$this->major_error = true;
 			}
@@ -461,10 +537,10 @@ class Tribe__Settings {
 
 			// Some hooks.
 			do_action( 'tribe_settings_validate', $admin_page );
-			do_action( 'tribe_settings_validate_tab_' . $this->currentTab, $admin_page );
+			do_action( 'tribe_settings_validate_tab_' . $this->current_tab, $admin_page );
 
 			// Set the current tab and current fields.
-			$tab    = $this->currentTab;
+			$tab    = $this->current_tab;
 			$fields = $this->current_fields = $this->fields_for_save[ $tab ];
 
 			if ( is_array( $fields ) ) {
@@ -524,7 +600,7 @@ class Tribe__Settings {
 
 		// Some hooks.
 		do_action( 'tribe_settings_save', $admin_page );
-		do_action( 'tribe_settings_save_tab_' . $this->currentTab, $admin_page );
+		do_action( 'tribe_settings_save_tab_' . $this->current_tab, $admin_page );
 
 		// We'll need this later.
 		$parent_options = [];
@@ -609,7 +685,7 @@ class Tribe__Settings {
 		}
 
 		do_action( 'tribe_settings_after_save', $admin_page );
-		do_action( 'tribe_settings_after_save_' . $this->currentTab, $admin_page );
+		do_action( 'tribe_settings_after_save_' . $this->current_tab, $admin_page );
 		remove_action( 'shutdown', [ $this, 'delete_options' ] );
 		add_option( 'tribe_settings_sent_data', $_POST );
 		add_option( 'tribe_settings_errors', $this->errors );
@@ -672,7 +748,7 @@ class Tribe__Settings {
 			// output the filtered message
 			$message = esc_html__( 'Settings saved.', 'tribe-common' );
 			$output  = '<div id="message" class="updated"><p><strong>' . $message . '</strong></p></div>';
-			echo apply_filters( 'tribe_settings_success_message', $output, $this->currentTab );
+			echo apply_filters( 'tribe_settings_success_message', $output, $this->current_tab );
 		}
 
 		// Delete Temporary Options After Display Errors and Success.
@@ -699,7 +775,7 @@ class Tribe__Settings {
 	 */
 	public function get_url( array $args = [] ) {
 		$defaults = [
-			'page'   => $this->adminSlug,
+			'page'   => $this->admin_slug,
 			'parent' => self::$parent_page,
 		];
 

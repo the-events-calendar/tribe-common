@@ -39,7 +39,7 @@ class Tribe__Admin__Live_Date_Preview {
 	 */
 	public function listen() {
 		// We are only interested in the "Display" tab
-		if ( 'display' !== tribe( 'settings' )->currentTab ) {
+		if ( 'display' !== tribe( 'settings' )->current_tab ) {
 			return;
 		}
 

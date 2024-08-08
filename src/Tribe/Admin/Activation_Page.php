@@ -187,7 +187,7 @@ class Tribe__Admin__Activation_Page {
 
 		delete_transient( $this->args['activation_transient'] );
 
-		if ( ! current_user_can( tribe( 'settings' )->requiredCap ) ) {
+		if ( ! current_user_can( tribe( 'settings' )->required_cap ) ) {
 			return;
 		}
 
