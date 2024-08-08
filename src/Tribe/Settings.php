@@ -217,8 +217,8 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		public function hook() {
 			// Run actions & filters.
 			add_action( 'admin_init', [ $this, 'initTabs' ] );
-			add_action( 'tribe_settings_below_tabs', [ $this, 'displayErrors' ] );
-			add_action( 'tribe_settings_below_tabs', [ $this, 'displaySuccess' ] );
+			add_action( 'tribe_settings_below_tabs', [ $this, 'display_errors' ] );
+			add_action( 'tribe_settings_below_tabs', [ $this, 'display_success' ] );
 		}
 
 		/**
@@ -329,11 +329,11 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * Generate the main option page.
 		 * includes the view file.
 		 *
-		 * @since 4.15.0 Add the current page as parameter for the actions.
+		 * @since TBD
 		 *
 		 * @return void
 		 */
-		public function generatePage() {
+		public function generate_page(): void {
 			$admin_pages = tribe( 'admin.pages' );
 			$admin_page  = $admin_pages->get_current_page();
 
@@ -343,7 +343,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			echo esc_html( $this->get_page_title( $admin_page ) );
 			echo '</h1>';
 			do_action( 'tribe_settings_above_tabs' );
-			$this->generateTabs( $this->currentTab, $admin_page );
+			$this->generate_tabs( $this->currentTab, $admin_page );
 			do_action( 'tribe_settings_below_tabs' );
 			do_action( 'tribe_settings_below_tabs_tab_' . $this->currentTab, $admin_page );
 			echo '<div class="tribe-settings-form form">';
@@ -353,17 +353,21 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			do_action( 'tribe_settings_before_content' );
 			do_action( 'tribe_settings_before_content_tab_' . $this->currentTab );
 			do_action( 'tribe_settings_content_tab_' . $this->currentTab );
+
 			if ( ! has_action( 'tribe_settings_content_tab_' . $this->currentTab ) ) {
 				echo '<p>' . esc_html__( "You've requested a non-existent tab.", 'tribe-common' ) . '</p>';
 			}
+
 			do_action( 'tribe_settings_after_content_tab_' . $this->currentTab );
 			do_action( 'tribe_settings_after_content', $this->currentTab );
+
 			if ( has_action( 'tribe_settings_content_tab_' . $this->currentTab ) && ! in_array( $this->currentTab, $this->noSaveTabs ) ) {
 				wp_nonce_field( 'saving', 'tribe-save-settings' );
 				echo '<div class="clear"></div>';
 				echo '<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="' . esc_attr( $this->currentTab ) . '" />';
 				echo '<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="' . esc_attr__( 'Save Changes', 'tribe-common' ) . '" />';
 			}
+
 			echo apply_filters( 'tribe_settings_closing_form_element', '</form>' );
 			do_action( 'tribe_settings_after_form_element' );
 			do_action( 'tribe_settings_after_form_element_tab_' . $this->currentTab, $admin_page );
@@ -376,9 +380,11 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		/**
 		 * Generate the tabs in the settings screen.
 		 *
+		 * @since TBD
+		 *
 		 * @return void
 		 */
-		public function generateTabs() {
+		public function generate_tabs(): void {
 			if ( is_array( $this->tabs ) && ! empty( $this->tabs ) ) {
 				echo '<h2 id="tribe-settings-tabs" class="nav-tab-wrapper">';
 				foreach ( $this->tabs as $tab => $name ) {
@@ -450,7 +456,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 
 				// Bail if we have errors.
 				if ( count( $this->errors ) ) {
-					remove_action( 'shutdown', [ $this, 'deleteOptions' ] );
+					remove_action( 'shutdown', [ $this, 'delete_options' ] );
 					add_option( 'tribe_settings_errors', $this->errors );
 					add_option( 'tribe_settings_major_error', $this->major_error );
 					wp_redirect( $this->get_settings_page_url() );
@@ -608,7 +614,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 
 			do_action( 'tribe_settings_after_save', $admin_page );
 			do_action( 'tribe_settings_after_save_' . $this->currentTab, $admin_page );
-			remove_action( 'shutdown', [ $this, 'deleteOptions' ] );
+			remove_action( 'shutdown', [ $this, 'delete_options' ] );
 			add_option( 'tribe_settings_sent_data', $_POST );
 			add_option( 'tribe_settings_errors', $this->errors );
 			add_option( 'tribe_settings_major_error', $this->major_error );
@@ -619,9 +625,11 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		/**
 		 * Display errors, if any, after saving.
 		 *
+		 * @since TBD
+		 *
 		 * @return void
 		 */
-		public function displayErrors() {
+		public function display_errors(): void {
 			// Fetch the errors and filter them.
 			$errors = (array) apply_filters( 'tribe_settings_display_errors', $this->errors );
 			$count  = apply_filters( 'tribe_settings_count_errors', count( $errors ) );
@@ -655,9 +663,11 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		/**
 		 * Display success message after saving.
 		 *
+		 * @since TBD
+		 *
 		 * @return void
 		 */
-		public function displaySuccess() {
+		public function display_success(): void {
 			$errors = (array) apply_filters( 'tribe_settings_display_errors', $this->errors );
 			$count  = apply_filters( 'tribe_settings_count_errors', count( $errors ) );
 
@@ -670,15 +680,17 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			}
 
 			// Delete Temporary Options After Display Errors and Success.
-			$this->deleteOptions();
+			$this->delete_options();
 		}
 
 		/**
 		 * Delete temporary options.
 		 *
+		 * @since TBD
+		 *
 		 * @return void
 		 */
-		public function deleteOptions() {
+		public function delete_options(): void {
 			delete_option( 'tribe_settings_errors' );
 			delete_option( 'tribe_settings_major_error' );
 			delete_option( 'tribe_settings_sent_data' );
@@ -827,6 +839,70 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 */
 		public function addNetworkPage() {
 			_deprecated_function( __METHOD__, '4.15.0' );
+		}
+
+		/**
+		 * Generate the tabs in the settings screen.
+		 *
+		 * @deprecated TBD
+		 *
+		 * @return void
+		 */
+		public function generateTabs() {
+			_deprecated_function( __METHOD__, 'TBD', 'generate_tabs' );
+			$this->generate_tabs();
+		}
+
+		/**
+		 * Display errors, if any, after saving.
+		 *
+		 * @deprecated TBD
+		 *
+		 * @return void
+		 */
+		public function displayErrors() {
+			_deprecated_function( __METHOD__, 'TBD', 'display_errors' );
+			$this->display_errors();
+		}
+
+		/**
+		 * Display success message after saving.
+		 *
+		 * @deprecated TBD
+		 *
+		 * @return void
+		 */
+		public function displaySuccess() {
+			_deprecated_function( __METHOD__, 'TBD', 'display_success' );
+			$this->display_success();
+		}
+
+
+		/**
+		 * Delete temporary options.
+		 *
+		 * @deprecated TBD
+		 *
+		 * @return void
+		 */
+		public function deleteOptions() {
+			_deprecated_function( __METHOD__, 'TBD', 'delete_options' );
+			$this->delete_options();
+		}
+
+		/**
+		 * Generate the main option page.
+		 * includes the view file.
+		 *
+		 * @deprecated TBD
+		 *
+		 * @since 4.15.0 Add the current page as parameter for the actions.
+		 *
+		 * @return void
+		 */
+		public function generatePage() {
+			_deprecated_function( __METHOD__, 'TBD', 'generate_page' );
+			$this->generate_page();
 		}
 	} // end class
 } // endif class_exists
