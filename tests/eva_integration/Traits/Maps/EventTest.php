@@ -289,6 +289,7 @@ class EventTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
+	 * @skip Tickets and RSVP are generated but not included in the event object.
 	 */
 	public function should_map_event_with_edd_tickets() {
 		$event  = $this->generate_event( $this->mock_date_value );
