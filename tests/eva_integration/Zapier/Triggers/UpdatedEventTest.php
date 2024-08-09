@@ -18,6 +18,7 @@ class UpdatedEventTest extends \Codeception\TestCase\WPTestCase {
 		// Clear Queue.
 		$queue = tribe( Updated_Events::class );
 		$queue->set_queue( [] );
+		add_filter( 'tec_event_automator_zapier_enable_add_to_queue', '__return_true' );
 	}
 
 	/**

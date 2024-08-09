@@ -100,7 +100,7 @@ class ApiAJAXTest extends \Codeception\TestCase\WPAjaxTestCase {
 		$_REQUEST['permissions'] = $permissions;
 
 		try {
-			$api->ajax_generate_api_key_pair( wp_create_nonce( Actions::$generate_action ) );
+			$api->ajax_create_connection_access( wp_create_nonce( Actions::$create_access ) );
 		} catch ( \WPAjaxDieContinueException $e ) {
 			// Expected this, do nothing.
 		}
@@ -134,7 +134,7 @@ class ApiAJAXTest extends \Codeception\TestCase\WPAjaxTestCase {
 		$_REQUEST['consumer_id'] = $consumer_id;
 
 		try {
-			$api->ajax_revoke( wp_create_nonce( Actions::$revoke_action ) );
+			$api->ajax_delete_connection( wp_create_nonce( Actions::$delete_connection ) );
 		} catch ( \WPAjaxDieContinueException $e ) {
 			// Expected this, do nothing.
 		}

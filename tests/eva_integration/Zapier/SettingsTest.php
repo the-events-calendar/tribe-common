@@ -3,8 +3,11 @@
 namespace Tribe\tests\eva_integration\Zapier;
 
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
+use TEC\Event_Automator\Zapier\Actions;
 use TEC\Event_Automator\Zapier\Api;
 use TEC\Event_Automator\Zapier\Settings;
+use TEC\Event_Automator\Zapier\Template_Modifications;
+use TEC\Event_Automator\Zapier\Url;
 use Tribe\Tests\Traits\With_Uopz;
 
 class SettingsTest extends \Codeception\TestCase\WPTestCase {
