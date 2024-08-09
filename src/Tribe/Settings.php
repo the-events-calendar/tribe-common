@@ -287,7 +287,7 @@ class Tribe__Settings {
 	 */
 	public function hook() {
 		// Run actions & filters.
-		add_action( 'admin_init', [ $this, 'initTabs' ] );
+		add_action( 'admin_init', [ $this, 'init_tabs' ] );
 		add_action( 'tribe_settings_below_tabs', [ $this, 'display_errors' ] );
 		add_action( 'tribe_settings_below_tabs', [ $this, 'display_success' ] );
 
@@ -309,7 +309,7 @@ class Tribe__Settings {
 	 *
 	 * @return void
 	 */
-	public function initTabs() {
+	public function init_tabs() {
 		$admin_pages = tribe( 'admin.pages' );
 		$admin_page  = $admin_pages->get_current_page();
 
@@ -322,21 +322,21 @@ class Tribe__Settings {
 
 		do_action( 'tribe_settings_do_tabs', $admin_page ); // This is the hook to use to add new tabs.
 
-		$this->tabs       = (array) apply_filters( 'tribe_settings_tabs', [], $admin_page );
-		$this->all_tabs    = (array) apply_filters( 'tribe_settings_all_tabs', [], $admin_page );
+		$this->tabs         = (array) apply_filters( 'tribe_settings_tabs', [], $admin_page );
+		$this->all_tabs     = (array) apply_filters( 'tribe_settings_all_tabs', [], $admin_page );
 		$this->no_save_tabs = (array) apply_filters( 'tribe_settings_no_save_tabs', [], $admin_page );
 
 		if ( is_network_admin() ) {
 			$this->default_tab = apply_filters( 'tribe_settings_default_tab_network', 'network', $admin_page );
-			$current_tab      = ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->default_tab;
+			$current_tab       = ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->default_tab;
 			$this->current_tab = apply_filters( 'tribe_settings_current_tab', $current_tab, $admin_page );
-			$this->url        = $this->get_tab_url( $this->current_tab );
+			$this->url         = $this->get_tab_url( $this->current_tab );
 		} else {
-			$tabs_keys        = array_keys( $this->tabs );
-			$default_tab      = apply_filters( 'tribe_settings_default_tab', 'general', $admin_page );
+			$tabs_keys         = array_keys( $this->tabs );
+			$default_tab       = apply_filters( 'tribe_settings_default_tab', 'general', $admin_page );
 			$this->default_tab = in_array( $default_tab, $tabs_keys ) ? $default_tab : $tabs_keys[0];
 			$this->current_tab = apply_filters( 'tribe_settings_current_tab', ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->default_tab );
-			$this->url        = $this->get_tab_url( $this->current_tab );
+			$this->url         = $this->get_tab_url( $this->current_tab );
 		}
 
 		$this->fields_for_save = (array) apply_filters( 'tribe_settings_fields', [], $admin_page );
@@ -904,6 +904,7 @@ class Tribe__Settings {
 
 	/* Deprecated Methods */
 
+	// phpcs:disable WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
 	/**
 	 * Static Singleton Factory Method.
 	 *
@@ -914,6 +915,18 @@ class Tribe__Settings {
 	public static function instance() {
 		_deprecated_function( __METHOD__, 'TBD', "tribe( 'settings' )" );
 		return tribe( 'settings' );
+	}
+
+	/**
+	 * Init all the tabs.
+	 *
+	 * @deprecated TBD Use init_tabs
+	 *
+	 * @return void
+	 */
+	public function initTabs() {
+		_deprecated_function( __METHOD__, 'TBD', 'init_tabs' );
+		$this->init_tabs();
 	}
 
 	/**
@@ -1001,4 +1014,5 @@ class Tribe__Settings {
 		_deprecated_function( __METHOD__, 'TBD', 'generate_page' );
 		$this->generate_page();
 	}
+	// phpcs:enable WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
 }
