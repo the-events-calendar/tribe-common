@@ -1,4 +1,9 @@
 <?php
+/**
+ * Settings
+ *
+ * @since 4.0.1
+ */
 
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -763,7 +768,7 @@ class Tribe__Settings {
 			// Output the filtered message.
 			$message = esc_html__( 'Settings saved.', 'tribe-common' );
 			$output  = '<div id="message" class="updated"><p><strong>' . $message . '</strong></p></div>';
-			echo apply_filters( 'tribe_settings_success_message', $output, $this->current_tab );
+			echo wp_kses_post( apply_filters( 'tribe_settings_success_message', $output, $this->current_tab ) );
 		}
 
 		// Delete Temporary Options After Display Errors and Success.
@@ -861,7 +866,6 @@ class Tribe__Settings {
 		}
 
 		return false;
-
 	}
 
 	/**

@@ -14,69 +14,85 @@ if ( class_exists( 'Tribe__Settings_Tab', false ) ) {
 	return;
 }
 
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase,StellarWP.Classes.ValidClassName.NotSnakeCase,PEAR.NamingConventions.ValidClassName.Invalid
+
 /**
- * helper class that creates a settings tab
+ * Helper class that creates a settings tab
  * this is a public API, use it to create tabs
- * simply by instantiating this class
- *
+ * simply by instantiating this class.
  */
 class Tribe__Settings_Tab {
 
 	/**
-	 * Tab ID, used in query string and elsewhere
+	 * Tab ID, used in query string and elsewhere.
+	 *
 	 * @var string
 	 */
 	public $id;
 
 	/**
-	 * Tab's name
+	 * Tab's name.
+	 *
 	 * @var string
 	 */
 	public $name;
 
 	/**
-	 * Tab's arguments
+	 * Tab's arguments.
+	 *
 	 * @var array
 	 */
 	public $args;
 
 	/**
-	 * Defaults for tabs
+	 * Defaults for tabs.
+	 *
 	 * @var array
 	 */
 	public $defaults;
 
 	/**
+	 * Fields for the tab.
+	 *
 	 * @var array
 	 */
 	public $fields;
 
 	/**
+	 * Whether to show the save button.
+	 *
 	 * @var boolean
 	 */
 	public $show_save;
 
 	/**
+	 * Display callback function.
+	 *
 	 * @var closure
 	 */
 	public $display_callback;
 
 	/**
+	 * Whether this tab is for network admin.
+	 *
 	 * @var boolean
 	 */
 	public $network_admin;
 
 	/**
+	 * Priority for the tab.
+	 * Used to order tabs.
+	 *
 	 * @var int
 	 */
 	public $priority;
 
 	/**
-	 * class constructor
+	 * Class constructor.
 	 *
-	 * @param string $id   the tab's id (no spaces or special characters)
-	 * @param string $name the tab's visible name
-	 * @param array  $args additional arguments for the tab
+	 * @param string $id   The tab's id (no spaces or special characters).
+	 * @param string $name The tab's visible name.
+	 * @param array  $args Additional arguments for the tab.
 	 */
 	public function __construct( $id, $name, $args = [] ) {
 
@@ -107,13 +123,13 @@ class Tribe__Settings_Tab {
 	}
 
 	/**
-	 * filters the tabs array from Tribe__Settings
+	 * Filters the tabs array from Tribe__Settings
 	 * and adds the current tab to it
-	 * does not add a tab if it's empty
+	 * does not add a tab if it's empty.
 	 *
-	 * @param array $tabs the $tabs from Tribe__Settings
+	 * @param array $tabs the $tabs from Tribe__Settings.
 	 *
-	 * @return array $tabs the filtered tabs
+	 * @return array $tabs the filtered tabs.
 	 */
 	public function add_tab( $tabs ): array {
 		$hide_settings_tabs = Tribe__Settings_Manager::get_network_option( 'hideSettingsTabs', [] );
@@ -136,39 +152,40 @@ class Tribe__Settings_Tab {
 	 *
 	 * @return array $all_tabs All the tabs.
 	 */
-	public function add_all_tabs( $all_tabs ): array{
+	public function add_all_tabs( $all_tabs ): array {
 		$all_tabs[ $this->id ] = $this->name;
 
 		return $all_tabs;
 	}
 
 	/**
-	 * filters the fields array from Tribe__Settings
+	 * Filters the fields array from Tribe__Settings
 	 * and adds the current tab's fields to it
 	 *
 	 * @since TBD
 	 *
-	 * @param array $field the $fields from Tribe__Settings.
+	 * @param array $fields the $fields from Tribe__Settings.
 	 *
-	 * @return array $fields the filtered fields
+	 * @return array $fields the filtered fields.
 	 */
 	public function add_fields( $fields ): array {
-		if ( ! empty ( $this->fields ) ) {
+		if ( ! empty( $this->fields ) ) {
 			$fields[ $this->id ] = $this->fields;
 		} elseif ( has_action( 'tribe_settings_content_tab_' . $this->id ) ) {
-			$fields[ $this->id ] = $this->fields = [ 0 => null ]; // Just to trick it.
+			$this->fields        = [ 0 => null ]; // Just to trick it.
+			$fields[ $this->id ] = $this->fields;
 		}
 
 		return $fields;
 	}
 
 	/**
-	 * sets whether the current tab should show the save
-	 * button or not
+	 * Sets whether the current tab should show the save
+	 * button or not.
 	 *
-	 * @param array $no_save_tabs the $no_save_tabs from Tribe__Settings
+	 * @param array $no_save_tabs the $no_save_tabs from Tribe__Settings.
 	 *
-	 * @return array $no_save_tabs the filtered non saving tabs
+	 * @return array $no_save_tabs the filtered non saving tabs.
 	 */
 	public function show_save_tab( $no_save_tabs ): array {
 		if ( ! $this->show_save || empty( $this->fields ) ) {
@@ -203,8 +220,7 @@ class Tribe__Settings_Tab {
 
 					if ( is_network_admin() ) {
 						$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : Tribe__Main::OPTIONNAMENETWORK;
-					}
-					if ( ! is_network_admin() ) {
+					} else {
 						$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : Tribe__Main::OPTIONNAME;
 					}
 					// Get the field's parent_option in order to later get the field's value.
@@ -212,29 +228,26 @@ class Tribe__Settings_Tab {
 					$default       = ( isset( $field['default'] ) ) ? $field['default'] : null;
 					$default       = apply_filters( 'tribe_settings_field_default', $default, $field );
 
-					if ( ! $parent_option ) {
-						// No parent option, get the straight up value.
-						if ( $network_option || is_network_admin() ) {
-							$value = get_site_option( $key, $default );
-						} else {
-							$value = get_option( $key, $default );
-						}
+					if ( ! $parent_option && ( $network_option || is_network_admin() ) ) {
+						// No parent option, network admin.
+						$value = get_site_option( $key, $default );
+					} elseif ( ! $parent_option ) {
+						// No parent option.
+						$value = get_option( $key, $default );
+					} elseif ( $parent_option == Tribe__Main::OPTIONNAME ) {
+						// Get the options from Tribe__Settings_Manager if we're getting the main array.
+						$value = Tribe__Settings_Manager::get_option( $key, $default );
+					} elseif ( $parent_option == Tribe__Main::OPTIONNAMENETWORK ) {
+						// Get the network options from Tribe__Settings_Manager.
+						$value = Tribe__Settings_Manager::get_network_option( $key, $default );
+					} elseif ( is_network_admin() ) {
+						// Get the parent option for network admin.
+						$options = (array) get_site_option( $parent_option );
+						$value   = ( isset( $options[ $key ] ) ) ? $options[ $key ] : $default;
 					} else {
-						// There's a parent option.
-						if ( $parent_option == Tribe__Main::OPTIONNAME ) {
-							// Get the options from Tribe__Settings_Manager if we're getting the main array.
-							$value = Tribe__Settings_Manager::get_option( $key, $default );
-						} elseif ( $parent_option == Tribe__Main::OPTIONNAMENETWORK ) {
-							$value = Tribe__Settings_Manager::get_network_option( $key, $default );
-						} else {
-							// Else, get the parent option normally.
-							if ( is_network_admin() ) {
-								$options = (array) get_site_option( $parent_option );
-							} else {
-								$options = (array) get_option( $parent_option );
-							}
-							$value = ( isset( $options[ $key ] ) ) ? $options[ $key ] : $default;
-						}
+						// Else, get the parent option normally.
+						$options = (array) get_option( $parent_option );
+						$value   = ( isset( $options[ $key ] ) ) ? $options[ $key ] : $default;
 					}
 				}
 
@@ -258,6 +271,8 @@ class Tribe__Settings_Tab {
 	}
 
 	/* Deprecated Methods */
+
+	// phpcs:disable
 
 	/**
 	 * Adds this tab to the list of total tabs, even if it is not displayed.
@@ -338,5 +353,5 @@ class Tribe__Settings_Tab {
 
 		return $this->add_tab( $tabs );
 	}
-
+	// phpcs:enable
 }
