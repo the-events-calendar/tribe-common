@@ -73,6 +73,7 @@ class Tribe__Settings {
 
 	/**
 	 * The current tab being displayed.
+	 * This should be a tab ID.
 	 *
 	 * @since TBD
 	 *
@@ -460,7 +461,7 @@ class Tribe__Settings {
 		<?php
 		do_action( 'tribe_settings_bottom' );
 
-		echo ob_get_clean();
+		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -700,7 +701,7 @@ class Tribe__Settings {
 
 		remove_action( 'shutdown', [ $this, 'delete_options' ] );
 
-		add_option( 'tribe_settings_sent_data', $_POST );
+		add_option( 'tribe_settings_sent_data', $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		add_option( 'tribe_settings_errors', $this->errors );
 		add_option( 'tribe_settings_major_error', $this->major_error );
 
@@ -758,7 +759,7 @@ class Tribe__Settings {
 		$count  = apply_filters( 'tribe_settings_count_errors', count( $errors ) );
 
 		// Are we coming from the saving place?
-		if ( isset( $_GET['saved'] ) && ! apply_filters( 'tribe_settings_display_errors_or_not', ( $count > 0 ) ) ) {
+		if ( tribe_get_request_var( 'saved', false ) && ! apply_filters( 'tribe_settings_display_errors_or_not', ( $count > 0 ) ) ) {
 			// Output the filtered message.
 			$message = esc_html__( 'Settings saved.', 'tribe-common' );
 			$output  = '<div id="message" class="updated"><p><strong>' . $message . '</strong></p></div>';
