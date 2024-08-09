@@ -251,6 +251,23 @@ class Tribe__Main {
 			]
 		);
 
+		tribe_asset(
+			$this,
+			'tec-copy-to-clipboard',
+			'utils/tec-copy-to-clipboard.js',
+			[ 'tribe-clipboard' ],
+			'admin_enqueue_scripts',
+			[
+				'localize' => [
+					'name' => 'tribeCopyToClipboard',
+					'data' => [
+						'clipboard_copied_text' => _x( 'Copied to Clipboard!', 'Copy to clipboard success message', 'tribe-common' ),
+						'clipboard_fail_text'   => _x( 'Failed to copy.', 'Copy to clipboard instructions', 'tribe-common' ),
+					],
+				],
+			]
+		);
+
 		tribe_assets(
 			$this,
 			[
