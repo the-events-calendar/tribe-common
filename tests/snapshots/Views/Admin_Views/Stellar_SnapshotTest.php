@@ -1,15 +1,14 @@
 <?php
 
-namespace Tribe\tests\eva_integration\Views\Admin_Views;
+namespace Tribe\tests\snapshots\Views\Admin_Views;
 
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use Tribe\Admin\Notice\Marketing\Stellar_Sale;
-use Tribe\tests\eva_integration\Snapshot_Test_Case;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Date_Utils as Dates;
 use Tribe__Dependency;
 
-class Stellar_SnapshotTest extends Snapshot_Test_Case {
+class Stellar_SnapshotTest extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
 	use SnapshotAssertions;
 
