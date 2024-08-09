@@ -1,6 +1,6 @@
 <?php
 
-// Don't load directly
+// Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -320,7 +320,7 @@ class Tribe__Settings {
 		// Load settings tab-specific helpers and enhancements.
 		Tribe__Admin__Live_Date_Preview::instance();
 
-		do_action( 'tribe_settings_do_tabs', $admin_page ); // This is the hook to use to add new tabs.
+		do_action( 'tribe_settings_do_tabs', $admin_page ); // This is the hook used to add new tabs.
 
 		$this->tabs         = (array) apply_filters( 'tribe_settings_tabs', [], $admin_page );
 		$this->all_tabs     = (array) apply_filters( 'tribe_settings_all_tabs', [], $admin_page );
@@ -552,9 +552,9 @@ class Tribe__Settings {
 			do_action( 'tribe_settings_validate', $admin_page );
 			do_action( 'tribe_settings_validate_tab_' . $this->current_tab, $admin_page );
 
-			// Set the current tab and current fields.
-			$tab    = $this->current_tab;
-			$fields = $this->current_fields = $this->fields_for_save[ $tab ];
+			// Set the current fields.
+			$this->current_fields = $this->fields_for_save[ $this->current_tab ];
+			$fields               = $this->current_fields;
 
 			if ( is_array( $fields ) ) {
 				// Loop through the fields and validate them.
@@ -568,7 +568,6 @@ class Tribe__Settings {
 						( ! isset( $field['conditional'] ) || $field['conditional'] )
 						&& ( ! empty( $field['validation_type'] ) || ! empty( $field['validation_callback'] ) )
 					) {
-						// Some hooks.
 						do_action( 'tribe_settings_validate_field', $field_id, $value, $field );
 						do_action( 'tribe_settings_validate_field_' . $field_id, $value, $field );
 
@@ -576,11 +575,11 @@ class Tribe__Settings {
 						$validate = new Tribe__Validate( $field_id, $field, $value );
 
 						if ( isset( $validate->result->error ) ) {
-							// Uh oh; validation failed.
+							// Validation failed.
 							$this->errors[ $field_id ] = $validate->result->error;
 						} elseif ( $validate->result->valid ) {
 							// Validation passed.
-							$this->validated[ $field_id ]        = new stdClass;
+							$this->validated[ $field_id ]        = new stdClass();
 							$this->validated[ $field_id ]->field = $validate->field;
 							$this->validated[ $field_id ]->value = $validate->value;
 						}
@@ -589,12 +588,12 @@ class Tribe__Settings {
 
 				// Do not generate errors for dependent fields that should not show.
 				if ( ! empty( $this->errors ) ) {
-					$keep = array_filter( array_keys( $this->errors ), [ $this, 'dependency_checks' ] );
-					$compare = empty( $keep ) ? [] : array_combine( $keep, $keep );
+					$keep         = array_filter( array_keys( $this->errors ), [ $this, 'dependency_checks' ] );
+					$compare      = empty( $keep ) ? [] : array_combine( $keep, $keep );
 					$this->errors = array_intersect_key( $this->errors, $compare );
 				}
 
-				// Run the saving method.
+				// Run the save method.
 				$this->save();
 			}
 		}
@@ -648,7 +647,6 @@ class Tribe__Settings {
 				$parent_option  = apply_filters( 'tribe_settings_save_field_parent_option', $parent_option, $field_id );
 				$network_option = isset( $validated_field->field['network_option'] ) ? (bool) $validated_field->field['network_option'] : false;
 
-				// Some hooks.
 				do_action( 'tribe_settings_save_field', $field_id, $value, $validated_field );
 				do_action( 'tribe_settings_save_field_' . $field_id, $value, $validated_field );
 
@@ -758,7 +756,7 @@ class Tribe__Settings {
 
 		// Are we coming from the saving place?
 		if ( isset( $_GET['saved'] ) && ! apply_filters( 'tribe_settings_display_errors_or_not', ( $count > 0 ) ) ) {
-			// output the filtered message
+			// Output the filtered message.
 			$message = esc_html__( 'Settings saved.', 'tribe-common' );
 			$output  = '<div id="message" class="updated"><p><strong>' . $message . '</strong></p></div>';
 			echo apply_filters( 'tribe_settings_success_message', $output, $this->current_tab );
@@ -784,31 +782,35 @@ class Tribe__Settings {
 	/**
 	 * Returns the main admin settings URL.
 	 *
+	 * @since 4.15.0
+	 *
+	 * @param array $args An array of arguments to add to the URL.
+	 *
 	 * @return string
 	 */
-	public function get_url( array $args = [] ) {
+	public function get_url( array $args = [] ): string {
 		$defaults = [
 			'page'   => $this->admin_slug,
 			'parent' => self::$parent_page,
 		];
 
-		// Allow the link to be "changed" on the fly
+		// Allow the link to be "changed" on the fly.
 		$args = wp_parse_args( $args, $defaults );
 
 		$url = admin_url( $args['parent'] );
 
-		// keep the resulting URL args clean
+		// Keep the resulting URL args clean.
 		unset( $args['parent'] );
 
 		return apply_filters( 'tribe_settings_url', add_query_arg( $args, $url ), $args, $url );
 	}
 
 	/**
-	 * The "slug" used for adding submenu pages
+	 * The "slug" used for adding submenu pages.
 	 *
 	 * @return string
 	 */
-	public function get_parent_slug() {
+	public function get_parent_slug(): string {
 		$slug = self::$parent_page;
 
 		// If we don't have an event post type, then we can just use the tribe-common slug.
@@ -820,9 +822,11 @@ class Tribe__Settings {
 	}
 
 	/**
+	 * Gets the slug for the help page.
+	 *
 	 * @return string
 	 */
-	public function get_help_slug() {
+	public function get_help_slug(): string {
 		return $this->help_slug;
 	}
 
@@ -835,9 +839,9 @@ class Tribe__Settings {
 	 * Beyond this at least one of the two "root" plugins (The Events Calendar and Event Tickets)
 	 * should be network activated to add the page.
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
-	public function should_setup_network_pages() {
+	public function should_setup_network_pages(): bool {
 		$root_plugin_is_mu_activated = array_sum( array_map( 'is_plugin_active_for_network', $this->root_plugins ) ) >= 1;
 
 		if ( ! $root_plugin_is_mu_activated ) {
@@ -861,7 +865,7 @@ class Tribe__Settings {
 	 *
 	 * @param array $root_plugins An array of plugins in the `<folder>/<file.php>` format.
 	 */
-	public function set_root_plugins( array $root_plugins ) {
+	public function set_root_plugins( array $root_plugins ): void {
 		$this->root_plugins = $root_plugins;
 	}
 
@@ -876,7 +880,7 @@ class Tribe__Settings {
 	 * @return bool `true` if the field dependency condition is valid, `false` if the field
 	 *              dependency condition is not valid.
 	 */
-	protected function dependency_checks( $field_id ) {
+	protected function dependency_checks( $field_id ): bool {
 		$does_not_exist = ! array_key_exists( $field_id, $this->current_fields );
 
 		if ( $does_not_exist ) {
