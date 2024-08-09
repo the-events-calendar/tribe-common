@@ -326,22 +326,23 @@ class Tribe__Settings {
 		$this->all_tabs     = (array) apply_filters( 'tribe_settings_all_tabs', [], $admin_page );
 		$this->no_save_tabs = (array) apply_filters( 'tribe_settings_no_save_tabs', [], $admin_page );
 
+
 		if ( is_network_admin() ) {
 			$this->default_tab = apply_filters( 'tribe_settings_default_tab_network', 'network', $admin_page );
-			$current_tab       = ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->default_tab;
-			$this->current_tab = apply_filters( 'tribe_settings_current_tab', $current_tab, $admin_page );
-			$this->url         = $this->get_tab_url( $this->current_tab );
 		} else {
 			$tabs_keys         = array_keys( $this->tabs );
 			$default_tab       = apply_filters( 'tribe_settings_default_tab', 'general', $admin_page );
 			$this->default_tab = in_array( $default_tab, $tabs_keys ) ? $default_tab : $tabs_keys[0];
-			$this->current_tab = apply_filters( 'tribe_settings_current_tab', ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->default_tab );
-			$this->url         = $this->get_tab_url( $this->current_tab );
 		}
 
+		$this->current_tab     = apply_filters( 'tribe_settings_current_tab', tribe_get_request_var( 'tab', $this->default_tab ), $admin_page );
+		$this->url             = $this->get_tab_url( $this->current_tab );
 		$this->fields_for_save = (array) apply_filters( 'tribe_settings_fields', [], $admin_page );
+
 		do_action( 'tribe_settings_after_do_tabs', $admin_page );
+
 		$this->fields = (array) apply_filters( 'tribe_settings_fields', [], $admin_page );
+
 		$this->validate();
 	}
 
@@ -492,13 +493,13 @@ class Tribe__Settings {
 	 * @return string $url The URL.
 	 */
 	public function get_tab_url( $tab ) {
-		$admin_pages  = tribe( 'admin.pages' );
-		$admin_page   = $admin_pages->get_current_page();
-		$wp_page      = is_network_admin() ? network_admin_url( 'settings.php' ) : admin_url( 'admin.php' );
-		$url          = add_query_arg(
+		$admin_pages = tribe( 'admin.pages' );
+		$admin_page  = $admin_pages->get_current_page();
+		$wp_page     = is_network_admin() ? network_admin_url( 'settings.php' ) : admin_url( 'admin.php' );
+		$url         = add_query_arg(
 			[
-				'page'      => $admin_page,
-				'tab'       => $tab,
+				'page' => $admin_page,
+				'tab'  => $tab,
 			],
 			$wp_page
 		);
@@ -509,7 +510,7 @@ class Tribe__Settings {
 	}
 
 	/**
-	 * validate the settings
+	 * Validate the settings.
 	 *
 	 * @return void
 	 */
@@ -521,7 +522,7 @@ class Tribe__Settings {
 
 		// Check that the right POST && variables are set.
 		if ( isset( $_POST['tribeSaveSettings'] ) && isset( $_POST['current-settings-tab'] ) ) {
-			// check permissions
+			// Check permissions.
 			if ( ! current_user_can( Admin_Pages::get_capability() ) ) {
 				$this->errors[]    = esc_html__( "You don't have permission to do that.", 'tribe-common' );
 				$this->major_error = true;
@@ -533,7 +534,7 @@ class Tribe__Settings {
 				$this->major_error = true;
 			}
 
-			// check that the request originated from the current tab.
+			// Check that the request originated from the current tab.
 			if ( $_POST['current-settings-tab'] != $this->current_tab ) {
 				$this->errors[]    = esc_html__( "The request wasn't sent from this tab.", 'tribe-common' );
 				$this->major_error = true;
@@ -548,7 +549,6 @@ class Tribe__Settings {
 				exit;
 			}
 
-			// Some hooks.
 			do_action( 'tribe_settings_validate', $admin_page );
 			do_action( 'tribe_settings_validate_tab_' . $this->current_tab, $admin_page );
 
