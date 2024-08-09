@@ -928,8 +928,6 @@ trait Create_attendees {
 	 */
 	protected function generate_woo_order( $event ) {
 		$ticket_id = $this->create_woocommerce_ticket( $event->ID, 8 );
-		$ticket_post = get_post( $ticket_id );
-		$ticket_meta = get_post_meta( $ticket_id );
 		$order_id  = $this->create_woocommerce_order( $ticket_id, 2 );
 
 		return $order_id;

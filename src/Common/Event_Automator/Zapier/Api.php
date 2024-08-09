@@ -228,6 +228,7 @@ class Api extends Integration_AJAX {
 
 	/**
 	 * Handles the request to revoke a Zapier API Key pair.
+	 *
 	 * @deprecated 1.4.0 - Use ajax_delete_connection() instead.
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
@@ -237,7 +238,7 @@ class Api extends Integration_AJAX {
 	 * @return bool Whether the request was handled or not.
 	 */
 	public function ajax_revoke( $nonce = null ) {
-		_deprecated_function( __METHOD__, '1.4.0', 'ajax_delete_connection');
+		_deprecated_function( __METHOD__, '1.4.0', 'ajax_delete_connection' );
 
 		if ( ! $this->check_ajax_nonce( $this->actions::$delete_connection, $nonce ) ) {
 			return false;

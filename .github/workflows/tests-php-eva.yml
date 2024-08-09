@@ -179,6 +179,18 @@ jobs:
         if: steps.skip.outputs.value != 1 && steps.fetch-et-plus-head-branch.outcome != 'success' && steps.fetch-et-plus-base-branch.outcome != 'success'
         run: echo "ET_PLUS_BRANCH=master" >> $GITHUB_ENV
       # ------------------------------------------------------------------------------
+      # Set Pro branch
+      # ------------------------------------------------------------------------------
+      - name: Set Pro with head branch
+        if: steps.skip.outputs.value != 1 && steps.fetch-pro-head-branch.outcome == 'success'
+        run: echo "PRO_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
+      - name: Set Pro with base branch
+        if: steps.skip.outputs.value != 1 && steps.fetch-pro-head-branch.outcome != 'success' && steps.fetch-et-plus-base-branch.outcome == 'success'
+        run: echo "PRO_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+      - name: Set Pro with master branch
+        if: steps.skip.outputs.value != 1 && steps.fetch-pro-head-branch.outcome != 'success' && steps.fetch-et-plus-base-branch.outcome != 'success'
+        run: echo "PRO_BRANCH=master" >> $GITHUB_ENV
+      # ------------------------------------------------------------------------------
       # Clone and init TEC
       # ------------------------------------------------------------------------------
       - name: Clone TEC
@@ -243,6 +255,26 @@ jobs:
           mv ${GITHUB_WORKSPACE}/event-tickets-plus ${GITHUB_WORKSPACE}/../event-tickets-plus
           docker network prune -f
           ${SLIC_BIN} use event-tickets-plus
+          ${SLIC_BIN} composer install --no-dev
+      # ------------------------------------------------------------------------------
+      # Clone and init Pro
+      # ------------------------------------------------------------------------------
+      - name: Clone Pro
+        uses: actions/checkout@v2
+        if: steps.skip.outputs.value != 1
+        with:
+          fetch-depth: 1
+          repository: the-events-calendar/events-pro
+          ref: ${{ env.PRO_BRANCH }}
+          token: ${{ secrets.GH_BOT_TOKEN }}
+          path: event-tickets-plus
+          submodules: recursive
+      - name: Init ET
+        if: steps.skip.outputs.value != 1
+        run: |
+          mv ${GITHUB_WORKSPACE}/events-pro ${GITHUB_WORKSPACE}/../events-pro
+          docker network prune -f
+          ${SLIC_BIN} use events-pro
           ${SLIC_BIN} composer install --no-dev
       # ------------------------------------------------------------------------------
       # Install and activate WooCommerce
