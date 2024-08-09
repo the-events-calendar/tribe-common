@@ -8,9 +8,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 use Tribe\Admin\Pages as Admin_Pages;
 
 if ( did_action( 'tec_settings_init' ) ) {
-	// If We've already initialized, don't do it again - return the current instance.
-	return tribe( 'settings' );
+	return;
 }
+
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase,StellarWP.Classes.ValidClassName.NotSnakeCase,PEAR.NamingConventions.ValidClassName.Invalid
 
 /**
  * Helper class that allows registration of settings.
@@ -270,11 +271,11 @@ class Tribe__Settings {
 		$this->menu_name    = apply_filters( 'tribe_settings_menu_name', esc_html__( 'Events', 'tribe-common' ) );
 		$this->required_cap = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
 		$this->admin_slug   = apply_filters( 'tribe_settings_admin_slug', 'tribe-common' );
-		$this->help_slug   = apply_filters( 'tribe_settings_help_slug', 'tribe-common-help' );
-		$this->errors      = get_option( 'tribe_settings_errors', [] );
-		$this->major_error = get_option( 'tribe_settings_major_error', false );
-		$this->sent_data   = get_option( 'tribe_settings_sent_data', [] );
-		$this->validated   = [];
+		$this->help_slug    = apply_filters( 'tribe_settings_help_slug', 'tribe-common-help' );
+		$this->errors       = get_option( 'tribe_settings_errors', [] );
+		$this->major_error  = get_option( 'tribe_settings_major_error', false );
+		$this->sent_data    = get_option( 'tribe_settings_sent_data', [] );
+		$this->validated    = [];
 		$this->default_tab  = null;
 		$this->current_tab  = null;
 
@@ -349,6 +350,8 @@ class Tribe__Settings {
 	 *
 	 * @since 4.15.0
 	 *
+	 * @param array $args An array of arguments to add to the URL.
+	 *
 	 * @return string The current settings page URL.
 	 */
 	public function get_settings_page_url( array $args = [] ) {
@@ -409,44 +412,54 @@ class Tribe__Settings {
 		$admin_pages = tribe( 'admin.pages' );
 		$admin_page  = $admin_pages->get_current_page();
 
+		ob_start();
 		do_action( 'tribe_settings_top', $admin_page );
-		echo '<div class="tribe_settings wrap">';
-		echo '<h1>';
-		echo esc_html( $this->get_page_title( $admin_page ) );
-		echo '</h1>';
-		do_action( 'tribe_settings_above_tabs' );
-		$this->generate_tabs( $this->current_tab, $admin_page );
-		do_action( 'tribe_settings_below_tabs' );
-		do_action( 'tribe_settings_below_tabs_tab_' . $this->current_tab, $admin_page );
-		echo '<div class="tribe-settings-form form">';
-		do_action( 'tribe_settings_above_form_element' );
-		do_action( 'tribe_settings_above_form_element_tab_' . $this->current_tab, $admin_page );
-		echo apply_filters( 'tribe_settings_form_element_tab_' . $this->current_tab, '<form id="tec-settings-form" method="post">' );
-		do_action( 'tribe_settings_before_content' );
-		do_action( 'tribe_settings_before_content_tab_' . $this->current_tab );
-		do_action( 'tribe_settings_content_tab_' . $this->current_tab );
+		?>
+		<div class="tribe_settings wrap">';
+			<h1><?php echo esc_html( $this->get_page_title( $admin_page ) ); ?></h1>
+			<?php
+			do_action( 'tribe_settings_above_tabs' );
+			$this->generate_tabs( $this->current_tab, $admin_page );
+			do_action( 'tribe_settings_below_tabs' );
+			do_action( 'tribe_settings_below_tabs_tab_' . $this->current_tab, $admin_page );
+			?>
+			<div class="tribe-settings-form form">
+				<?php
+				do_action( 'tribe_settings_above_form_element' );
+				do_action( 'tribe_settings_above_form_element_tab_' . $this->current_tab, $admin_page );
+				echo apply_filters( 'tribe_settings_form_element_tab_' . $this->current_tab, '<form id="tec-settings-form" method="post">' );
+				do_action( 'tribe_settings_before_content' );
+				do_action( 'tribe_settings_before_content_tab_' . $this->current_tab );
+				do_action( 'tribe_settings_content_tab_' . $this->current_tab );
 
-		if ( ! has_action( 'tribe_settings_content_tab_' . $this->current_tab ) ) {
-			echo '<p>' . esc_html__( "You've requested a non-existent tab.", 'tribe-common' ) . '</p>';
-		}
+				if ( ! has_action( 'tribe_settings_content_tab_' . $this->current_tab ) ) {
+					?>
+					<p><?php echo esc_html__( "You've requested a non-existent tab.", 'tribe-common' ); ?></p>
+					<?php
+				}
+				do_action( 'tribe_settings_after_content_tab_' . $this->current_tab );
+				do_action( 'tribe_settings_after_content', $this->current_tab );
 
-		do_action( 'tribe_settings_after_content_tab_' . $this->current_tab );
-		do_action( 'tribe_settings_after_content', $this->current_tab );
+				if ( has_action( 'tribe_settings_content_tab_' . $this->current_tab ) && ! in_array( $this->current_tab, $this->no_save_tabs ) ) {
+					wp_nonce_field( 'saving', 'tribe-save-settings' );
+					?>
+					<div class="clear"></div>
+					<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="<?php echo esc_attr( $this->current_tab ); ?>" />
+					<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="<?php echo esc_attr__( 'Save Changes', 'tribe-common' ); ?>" />
+					<?php
+				}
 
-		if ( has_action( 'tribe_settings_content_tab_' . $this->current_tab ) && ! in_array( $this->current_tab, $this->no_save_tabs ) ) {
-			wp_nonce_field( 'saving', 'tribe-save-settings' );
-			echo '<div class="clear"></div>';
-			echo '<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="' . esc_attr( $this->current_tab ) . '" />';
-			echo '<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="' . esc_attr__( 'Save Changes', 'tribe-common' ) . '" />';
-		}
-
-		echo apply_filters( 'tribe_settings_closing_form_element', '</form>' );
-		do_action( 'tribe_settings_after_form_element' );
-		do_action( 'tribe_settings_after_form_element_tab_' . $this->current_tab, $admin_page );
-		echo '</div>';
-		do_action( 'tribe_settings_after_form_div' );
-		echo '</div>';
+				echo apply_filters( 'tribe_settings_closing_form_element', '</form>' );
+				do_action( 'tribe_settings_after_form_element' );
+				do_action( 'tribe_settings_after_form_element_tab_' . $this->current_tab, $admin_page );
+				?>
+			</div>
+			<?php do_action( 'tribe_settings_after_form_div' ); ?>
+		</div>
+		<?php
 		do_action( 'tribe_settings_bottom' );
+
+		echo wp_kses_post( ob_get_clean() );
 	}
 
 	/**
@@ -988,4 +1001,4 @@ class Tribe__Settings {
 		_deprecated_function( __METHOD__, 'TBD', 'generate_page' );
 		$this->generate_page();
 	}
-} // end class
+}
