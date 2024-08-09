@@ -152,7 +152,7 @@ class Tribe__Settings_Tab {
 	 *
 	 * @return array $all_tabs All the tabs.
 	 */
-	public function add_all_tabs( $all_tabs ): array{
+	public function add_all_tabs( $all_tabs ): array {
 		$all_tabs[ $this->id ] = $this->name;
 
 		return $all_tabs;
@@ -219,8 +219,7 @@ class Tribe__Settings_Tab {
 
 					if ( is_network_admin() ) {
 						$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : Tribe__Main::OPTIONNAMENETWORK;
-					}
-					if ( ! is_network_admin() ) {
+					} else {
 						$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : Tribe__Main::OPTIONNAME;
 					}
 					// Get the field's parent_option in order to later get the field's value.
@@ -228,29 +227,26 @@ class Tribe__Settings_Tab {
 					$default       = ( isset( $field['default'] ) ) ? $field['default'] : null;
 					$default       = apply_filters( 'tribe_settings_field_default', $default, $field );
 
-					if ( ! $parent_option ) {
-						// No parent option, get the straight up value.
-						if ( $network_option || is_network_admin() ) {
-							$value = get_site_option( $key, $default );
-						} else {
-							$value = get_option( $key, $default );
-						}
+					if ( ! $parent_option && ( $network_option || is_network_admin() ) ) {
+						// No parent option, network admin.
+						$value = get_site_option( $key, $default );
+					} elseif ( ! $parent_option ) {
+						// No parent option.
+						$value = get_option( $key, $default );
+					} elseif ( $parent_option == Tribe__Main::OPTIONNAME ) {
+						// Get the options from Tribe__Settings_Manager if we're getting the main array.
+						$value = Tribe__Settings_Manager::get_option( $key, $default );
+					} elseif ( $parent_option == Tribe__Main::OPTIONNAMENETWORK ) {
+						// Get the network options from Tribe__Settings_Manager.
+						$value = Tribe__Settings_Manager::get_network_option( $key, $default );
+					} elseif ( is_network_admin() ) {
+						// Get the parent option for network admin.
+						$options = (array) get_site_option( $parent_option );
+						$value   = ( isset( $options[ $key ] ) ) ? $options[ $key ] : $default;
 					} else {
-						// There's a parent option.
-						if ( $parent_option == Tribe__Main::OPTIONNAME ) {
-							// Get the options from Tribe__Settings_Manager if we're getting the main array.
-							$value = Tribe__Settings_Manager::get_option( $key, $default );
-						} elseif ( $parent_option == Tribe__Main::OPTIONNAMENETWORK ) {
-							$value = Tribe__Settings_Manager::get_network_option( $key, $default );
-						} else {
-							// Else, get the parent option normally.
-							if ( is_network_admin() ) {
-								$options = (array) get_site_option( $parent_option );
-							} else {
-								$options = (array) get_option( $parent_option );
-							}
-							$value = ( isset( $options[ $key ] ) ) ? $options[ $key ] : $default;
-						}
+						// Else, get the parent option normally.
+						$options = (array) get_option( $parent_option );
+						$value = ( isset( $options[ $key ] ) ) ? $options[ $key ] : $default;
 					}
 				}
 
