@@ -36,7 +36,7 @@ tribe.copyToClipboard = tribe.copyToClipboard || {};
 			notice.html( '<span class="optin-fail">' + tribeCopyToClipboard.clipboard_fail_text + '<span>' ); // eslint-disable-line max-len
 			notice.show();
 			window.setTimeout( function () {
-				notice.html();
+				notice.html( '' );
 				notice.hide();
 			}, 2000 );
 		} );
