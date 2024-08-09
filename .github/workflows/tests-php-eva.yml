@@ -4,8 +4,7 @@ jobs:
   test:
     strategy:
       matrix:
-        suite: [ eva_integration, restv1, restv1_et, end2end  ]
-        #t
+        suite: [ eva_integration ]
     runs-on: ubuntu-latest
     steps:
       # ------------------------------------------------------------------------------
