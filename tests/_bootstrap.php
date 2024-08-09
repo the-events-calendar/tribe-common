@@ -8,4 +8,12 @@ Autoload::addNamespace( 'Tribe\\Tests', __DIR__ . '/_support' );
 // Silence the logger in the tests.
 $_ENV['TEC_DISABLE_LOGGING'] = 1;
 
-require_once __DIR__ . '/_support/_eva_boostrap.php';
+if (
+	in_array( 'eva_integration', $GLOBALS['argv'] )
+	|| in_array( 'restv1', $GLOBALS['argv'] )
+	|| in_array( 'restv1_et', $GLOBALS['argv'] )
+	|| in_array( 'end2end', $GLOBALS['argv'] )
+) {
+	require_once __DIR__ . '/_support/_eva_boostrap.php';
+}
+
