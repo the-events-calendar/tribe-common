@@ -262,7 +262,7 @@ class Tribe__Main {
 					'name' => 'tribeCopyToClipboard',
 					'data' => [
 						'clipboard_copied_text' => _x( 'Copied to Clipboard!', 'Copy to clipboard success message', 'tribe-common' ),
-						'clipboard_fail_text'   => _x( 'Failed to copy.', 'Copy to clipboard instructions', 'tribe-common' ),
+						'clipboard_fail_text'   => _x( 'Failed to copy.', 'Copy to clipboard failed message', 'tribe-common' ),
 					],
 				],
 			]
