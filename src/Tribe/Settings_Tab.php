@@ -14,11 +14,12 @@ if ( class_exists( 'Tribe__Settings_Tab', false ) ) {
 	return;
 }
 
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase,StellarWP.Classes.ValidClassName.NotSnakeCase,PEAR.NamingConventions.ValidClassName.Invalid
+
 /**
- * helper class that creates a settings tab
+ * Helper class that creates a settings tab
  * this is a public API, use it to create tabs
- * simply by instantiating this class
- *
+ * simply by instantiating this class.
  */
 class Tribe__Settings_Tab {
 
