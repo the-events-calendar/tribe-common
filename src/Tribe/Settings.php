@@ -37,8 +37,8 @@ class Tribe__Settings {
 	public $live_date_preview;
 
 	/**
-	 * The tabs that will appear in the settings page
-	 * filtered on class construct.
+	 * The tabs that will appear in the settings page.
+	 * Filtered on class construct.
 	 *
 	 * @var array
 	 */
@@ -62,8 +62,8 @@ class Tribe__Settings {
 	public $fields;
 
 	/**
-	 * The default tab for the settings panel
-	 * this should be a tab ID.
+	 * The default tab for the settings panel.
+	 * This should be a tab ID.
 	 *
 	 * @since TBD
 	 *
@@ -205,8 +205,8 @@ class Tribe__Settings {
 	public $allTabs;
 
 	/**
-	 * The default tab for the settings panel
-	 * this should be a tab ID.
+	 * The default tab for the settings panel.
+	 * This should be a tab ID.
 	 *
 	 * @deprecated TBD Use $default_tab.
 	 *
@@ -403,7 +403,7 @@ class Tribe__Settings {
 
 	/**
 	 * Generate the main option page.
-	 * includes the view file.
+	 * Includes the view file.
 	 *
 	 * @since TBD
 	 *
@@ -620,10 +620,10 @@ class Tribe__Settings {
 		$parent_options = [];
 
 		/**
-		 * loop through each validated option and either
+		 * Loop through each validated option and either
 		 * save it as is or figure out its parent option ID
 		 * (in that case, it's a serialized option array and
-		 * will be saved in the next loop)
+		 * will be saved in the next loop).
 		 */
 		if ( ! empty( $this->validated ) ) {
 			foreach ( $this->validated as $field_id => $validated_field ) {
@@ -666,7 +666,7 @@ class Tribe__Settings {
 		}
 
 		/**
-		 * loop through parent option arrays
+		 * Loop through parent option arrays
 		 * and save them
 		 * NOTE: in the case of the main option Tribe Options,
 		 * this will save using the Tribe__Settings_Manager::set_options method.
@@ -937,7 +937,7 @@ class Tribe__Settings {
 	}
 
 	/**
-	 * create the main option page
+	 * Create the main option page.
 	 *
 	 * @deprecated 4.15.0
 	 *
@@ -948,7 +948,7 @@ class Tribe__Settings {
 	}
 
 	/**
-	 * create the network options page
+	 * Create the network options page.
 	 *
 	 * @deprecated 4.15.0
 	 *

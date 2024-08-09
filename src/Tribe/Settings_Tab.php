@@ -1,4 +1,9 @@
 <?php
+/**
+ * Settings Tab
+ *
+ * @since 4.0.1
+ */
 
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
