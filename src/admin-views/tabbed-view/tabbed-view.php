@@ -9,7 +9,10 @@
 $tribe_tabs = $view->get_visibles();
 ?>
 
-<?php if ( count( $tribe_tabs ) > 1 ) : ?>
+<?php if ( count( $tribe_tabs ) <= 1 ) : ?>
+	<?php $reset_label = reset( $tribe_tabs )->get_label(); ?>
+	<h1><?php echo esc_html( $reset_label ); ?></h1>
+<?php else : ?>
 	<div class="tabbed-view-wrap wrap">
 		<?php if ( $view->get_label() ) : ?>
 			<h1>
@@ -27,16 +30,17 @@ $tribe_tabs = $view->get_visibles();
 			</h1>
 		<?php endif; ?>
 
-		<h2 class="nav-tab-wrapper">
-			<?php foreach ( $tribe_tabs as $tribe_tab ) : ?>
-				<a id="<?php echo esc_attr( $tribe_tab->get_slug() ); ?>"
-					class="nav-tab<?php echo $tribe_tab->is_active() ? ' nav-tab-active' : ''; ?>"
-					href="<?php echo esc_url( $tribe_tab->get_url() ); ?>"><?php echo esc_html( $tribe_tab->get_label() ); ?>
-				</a>
-			<?php endforeach; ?>
-		</h2>
+		<nav class="nav-tab-wrapper">
+			<ul class="tec-nav-tabs">
+				<?php foreach ( $tribe_tabs as $tribe_tab ) : ?>
+					<li class="nav-tab<?php echo $tribe_tab->is_active() ? ' nav-tab-active' : ''; ?>"">
+						<a id="<?php echo esc_attr( $tribe_tab->get_slug() ); ?>"
+							class="nav-link"
+							href="<?php echo esc_url( $tribe_tab->get_url() ); ?>"><?php echo esc_html( $tribe_tab->get_label() ); ?>
+						</a>
+				</li>
+				<?php endforeach; ?>
+			</ul>
+		</nav>
 	</div>
-<?php else : ?>
-	<?php $reset_label = reset( $tribe_tabs )->get_label(); ?>
-	<h1><?php echo esc_html( $reset_label ); ?></h1>
 <?php endif; ?>

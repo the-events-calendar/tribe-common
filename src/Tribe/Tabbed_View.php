@@ -11,7 +11,7 @@ class Tribe__Tabbed_View {
 	/**
 	 * A list of all the tabs registered for the tabbed view.
 	 *
-	 * @var array An associative array in the [<slug> => <instance>] format.
+	 * @var array<string,Tribe__Tabbed_View__Tab> An associative array in the [<slug> => <instance>] format.
 	 */
 	protected $items = [];
 

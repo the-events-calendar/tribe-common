@@ -57,6 +57,24 @@ class Tribe__Tabbed_View__Tab {
 	protected $url = '';
 
 	/**
+	 * The slug of the parent tab, if any.
+	 *
+	 * @since TBD
+	 *
+	 * @var string $parent
+	 */
+	protected $parent = null;
+
+	/**
+	 * The child tabs of this tab, if any.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string,Tribe__Tabbed_View__Tab> $children An associative array in the [<slug> => <instance>] format.
+	 */
+	protected $children = [];
+
+	/**
 	 * Tribe__Tabbed_View__Tab constructor.
 	 *
 	 * @param Tribe__Tabbed_View $tabbed_view
@@ -149,39 +167,6 @@ class Tribe__Tabbed_View__Tab {
 	}
 
 	/**
-	 * Creates a way to include the this tab HTML easily
-	 *
-	 * @return string HTML content of the tab
-	 */
-	public function render() {
-		if ( empty( $this->template ) ) {
-			$this->template = Tribe__Main::instance()->plugin_path . '/src/admin-views/tabbed-view/tab.php';
-		}
-
-		$template = $this->template;
-
-		if ( empty( $template ) ) {
-			return '';
-		}
-
-		$default_data = [
-			'tab' => $this,
-		];
-
-		$data = array_merge( $default_data, (array) $this->data );
-
-		extract( $data );
-
-		ob_start();
-
-		include $template;
-
-		$html = ob_get_clean();
-
-		return $html;
-	}
-
-	/**
 	 * Returns the link to this tab
 	 *
 	 * @param array|string $args     Query String or Array with the arguments
@@ -226,6 +211,24 @@ class Tribe__Tabbed_View__Tab {
 	}
 
 	/**
+	 * Gets the parent tab slug.
+	 *
+	 * @param ?string $slug The parent tab slug. Null if no parent.
+	 */
+	public function get_parent(): ?string {
+		return $this->parent;
+	}
+
+	/**
+	 * Gets the child tab array.
+	 *
+	 * @param array $children The child tab array. Empty if no child tabs.
+	 */
+	public function get_children(): array {
+		return $this->children;
+	}
+
+	/**
 	 * Determines if this Tab is currently displayed
 	 *
 	 * @return boolean
@@ -234,5 +237,38 @@ class Tribe__Tabbed_View__Tab {
 		$active = $this->tabbed_view->get_active();
 
 		return ! empty( $active ) ? $this->get_slug() === $active->get_slug() : false;
+	}
+
+	/**
+	 * Creates a way to include the this tab HTML easily
+	 *
+	 * @return string HTML content of the tab
+	 */
+	public function render() {
+		if ( empty( $this->template ) ) {
+			$this->template = Tribe__Main::instance()->plugin_path . '/src/admin-views/tabbed-view/tab.php';
+		}
+
+		$template = $this->template;
+
+		if ( empty( $template ) ) {
+			return '';
+		}
+
+		$default_data = [
+			'tab' => $this,
+		];
+
+		$data = array_merge( $default_data, (array) $this->data );
+
+		extract( $data );
+
+		ob_start();
+
+		include $template;
+
+		$html = ob_get_clean();
+
+		return $html;
 	}
 }

@@ -284,9 +284,9 @@ class Tribe__Settings {
 	/**
 	 * Hooks the actions and filters required for the class to work.
 	 */
-	public function hook() {
+	public function hook(): void {
 		// Run actions & filters.
-		add_action( 'admin_init', [ $this, 'initTabs' ] );
+		add_action( 'admin_init', [ $this, 'init_tabs' ] );
 		add_action( 'tribe_settings_below_tabs', [ $this, 'display_errors' ] );
 		add_action( 'tribe_settings_below_tabs', [ $this, 'display_success' ] );
 
@@ -298,7 +298,7 @@ class Tribe__Settings {
 	 *
 	 * @return boolean
 	 */
-	public function should_setup_pages() {
+	public function should_setup_pages(): bool {
 		// @todo: Deprecate this and update where needed.
 		return true;
 	}
@@ -308,7 +308,7 @@ class Tribe__Settings {
 	 *
 	 * @return void
 	 */
-	public function initTabs() {
+	public function init_tabs(): void {
 		$admin_pages = tribe( 'admin.pages' );
 		$admin_page  = $admin_pages->get_current_page();
 
@@ -351,7 +351,7 @@ class Tribe__Settings {
 	 *
 	 * @return string The current settings page URL.
 	 */
-	public function get_settings_page_url( array $args = [] ) {
+	public function get_settings_page_url( array $args = [] ): string {
 		$admin_pages = tribe( 'admin.pages' );
 		$page        = $admin_pages->get_current_page();
 		$tab         = tribe_get_request_var( 'tab', $this->default_tab );
@@ -379,7 +379,7 @@ class Tribe__Settings {
 	 * @param string $admin_page The admin page ID.
 	 * @return string The settings page title.
 	 */
-	public function get_page_title( $admin_page ) {
+	public function get_page_title( $admin_page ): string {
 		$page_title = sprintf(
 			// Translators: %s is the name of the menu item.
 			__( '%s Settings', 'tribe-common' ),
@@ -478,7 +478,7 @@ class Tribe__Settings {
 	 *
 	 * @return string $url The URL.
 	 */
-	public function get_tab_url( $tab ) {
+	public function get_tab_url( $tab ): string {
 		$admin_pages  = tribe( 'admin.pages' );
 		$admin_page   = $admin_pages->get_current_page();
 		$wp_page      = is_network_admin() ? network_admin_url( 'settings.php' ) : admin_url( 'admin.php' );
@@ -500,7 +500,7 @@ class Tribe__Settings {
 	 *
 	 * @return void
 	 */
-	public function validate() {
+	public function validate(): void {
 		$admin_pages = tribe( 'admin.pages' );
 		$admin_page  = $admin_pages->get_current_page();
 
@@ -594,7 +594,7 @@ class Tribe__Settings {
 	 *
 	 * @return void
 	 */
-	public function save() {
+	public function save(): void {
 		$admin_pages = tribe( 'admin.pages' );
 		$admin_page  = $admin_pages->get_current_page();
 
@@ -923,6 +923,18 @@ class Tribe__Settings {
 	 */
 	public function addNetworkPage() {
 		_deprecated_function( __METHOD__, '4.15.0' );
+	}
+
+	/**
+	 * Init all the tabs.
+	 *
+	 * @deprecated TBD Use init_tabs.
+	 *
+	 * @return void
+	 */
+	public function initTabs() {
+		_deprecated_function( __METHOD__, 'TBD', 'init_tabs' );
+		$this->init_tabs();
 	}
 
 	/**
