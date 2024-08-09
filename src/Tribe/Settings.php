@@ -861,7 +861,6 @@ class Tribe__Settings {
 		}
 
 		return false;
-
 	}
 
 	/**

@@ -23,60 +23,75 @@ if ( class_exists( 'Tribe__Settings_Tab', false ) ) {
 class Tribe__Settings_Tab {
 
 	/**
-	 * Tab ID, used in query string and elsewhere
+	 * Tab ID, used in query string and elsewhere.
+	 *
 	 * @var string
 	 */
 	public $id;
 
 	/**
-	 * Tab's name
+	 * Tab's name.
+	 *
 	 * @var string
 	 */
 	public $name;
 
 	/**
-	 * Tab's arguments
+	 * Tab's arguments.
+	 *
 	 * @var array
 	 */
 	public $args;
 
 	/**
-	 * Defaults for tabs
+	 * Defaults for tabs.
+	 *
 	 * @var array
 	 */
 	public $defaults;
 
 	/**
+	 * Fields for the tab.
+	 *
 	 * @var array
 	 */
 	public $fields;
 
 	/**
+	 * Whether to show the save button.
+	 *
 	 * @var boolean
 	 */
 	public $show_save;
 
 	/**
+	 * Display callback function.
+	 *
 	 * @var closure
 	 */
 	public $display_callback;
 
 	/**
+	 * Whether this tab is for network admin.
+	 *
 	 * @var boolean
 	 */
 	public $network_admin;
 
 	/**
+	 * Priority for the tab.
+	 * Used to order tabs.
+	 *
 	 * @var int
 	 */
 	public $priority;
 
 	/**
-	 * class constructor
+	 * Class constructor.
 	 *
-	 * @param string $id   the tab's id (no spaces or special characters)
-	 * @param string $name the tab's visible name
-	 * @param array  $args additional arguments for the tab
+	 * @param string $id   The tab's id (no spaces or special characters).
+	 * @param string $name The tab's visible name.
+	 * @param array  $args Additional arguments for the tab.
 	 */
 	public function __construct( $id, $name, $args = [] ) {
 
@@ -107,13 +122,13 @@ class Tribe__Settings_Tab {
 	}
 
 	/**
-	 * filters the tabs array from Tribe__Settings
+	 * Filters the tabs array from Tribe__Settings
 	 * and adds the current tab to it
-	 * does not add a tab if it's empty
+	 * does not add a tab if it's empty.
 	 *
-	 * @param array $tabs the $tabs from Tribe__Settings
+	 * @param array $tabs the $tabs from Tribe__Settings.
 	 *
-	 * @return array $tabs the filtered tabs
+	 * @return array $tabs the filtered tabs.
 	 */
 	public function add_tab( $tabs ): array {
 		$hide_settings_tabs = Tribe__Settings_Manager::get_network_option( 'hideSettingsTabs', [] );
@@ -143,14 +158,14 @@ class Tribe__Settings_Tab {
 	}
 
 	/**
-	 * filters the fields array from Tribe__Settings
+	 * Filters the fields array from Tribe__Settings
 	 * and adds the current tab's fields to it
 	 *
 	 * @since TBD
 	 *
 	 * @param array $field the $fields from Tribe__Settings.
 	 *
-	 * @return array $fields the filtered fields
+	 * @return array $fields the filtered fields.
 	 */
 	public function add_fields( $fields ): array {
 		if ( ! empty ( $this->fields ) ) {
@@ -163,12 +178,12 @@ class Tribe__Settings_Tab {
 	}
 
 	/**
-	 * sets whether the current tab should show the save
-	 * button or not
+	 * Sets whether the current tab should show the save
+	 * button or not.
 	 *
-	 * @param array $no_save_tabs the $no_save_tabs from Tribe__Settings
+	 * @param array $no_save_tabs the $no_save_tabs from Tribe__Settings.
 	 *
-	 * @return array $no_save_tabs the filtered non saving tabs
+	 * @return array $no_save_tabs the filtered non saving tabs.
 	 */
 	public function show_save_tab( $no_save_tabs ): array {
 		if ( ! $this->show_save || empty( $this->fields ) ) {
@@ -259,6 +274,8 @@ class Tribe__Settings_Tab {
 
 	/* Deprecated Methods */
 
+	// phpcs:disable
+
 	/**
 	 * Adds this tab to the list of total tabs, even if it is not displayed.
 	 *
@@ -338,5 +355,5 @@ class Tribe__Settings_Tab {
 
 		return $this->add_tab( $tabs );
 	}
-
+	// phpcs:enable
 }
