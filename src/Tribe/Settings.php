@@ -428,7 +428,7 @@ class Tribe__Settings {
 				<?php
 				do_action( 'tribe_settings_above_form_element' );
 				do_action( 'tribe_settings_above_form_element_tab_' . $this->current_tab, $admin_page );
-				echo apply_filters( 'tribe_settings_form_element_tab_' . $this->current_tab, '<form id="tec-settings-form" method="post">' );
+				echo wp_kses_post( apply_filters( 'tribe_settings_form_element_tab_' . $this->current_tab, '<form id="tec-settings-form" method="post">' ) );
 				do_action( 'tribe_settings_before_content' );
 				do_action( 'tribe_settings_before_content_tab_' . $this->current_tab );
 				do_action( 'tribe_settings_content_tab_' . $this->current_tab );
@@ -450,7 +450,7 @@ class Tribe__Settings {
 					<?php
 				}
 
-				echo apply_filters( 'tribe_settings_closing_form_element', '</form>' );
+				echo wp_kses_post( apply_filters( 'tribe_settings_closing_form_element', '</form>' ) );
 				do_action( 'tribe_settings_after_form_element' );
 				do_action( 'tribe_settings_after_form_element_tab_' . $this->current_tab, $admin_page );
 				?>
@@ -460,7 +460,7 @@ class Tribe__Settings {
 		<?php
 		do_action( 'tribe_settings_bottom' );
 
-		echo wp_kses_post( ob_get_clean() );
+		echo ob_get_clean();
 	}
 
 	/**
