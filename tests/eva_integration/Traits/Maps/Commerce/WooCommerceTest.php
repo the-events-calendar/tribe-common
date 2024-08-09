@@ -41,7 +41,6 @@ class WooCommerceTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * @skip WooCommerce Product not being saved correctly on order creation in test code.
 	 */
 	public function should_map_woo_types() {
 		$event    = $this->generate_event( $this->mock_date_value );

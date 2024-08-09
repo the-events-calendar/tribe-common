@@ -10,7 +10,7 @@
     ],
     "name": "tec_automator_zapier[]['users']",
     "selected": 0,
-    "users_count": 13,
+    "users_count": 11,
     "users_arr": [
         {
             "text": "User 231",
@@ -83,20 +83,6 @@
             "selected": false
         },
         {
-            "text": "User 300",
-            "sort": "User 300",
-            "id": "15",
-            "value": "15",
-            "selected": false
-        },
-        {
-            "text": "User 301",
-            "sort": "User 301",
-            "id": "16",
-            "value": "16",
-            "selected": false
-        },
-        {
             "text": "admin",
             "sort": "admin",
             "id": "1",
@@ -108,6 +94,6 @@
         "placeholder": "Select a User",
         "data-prevent-clear": true,
         "data-force-search": true,
-        "data-options": "[{\"text\":\"User 231\",\"sort\":\"User 231\",\"id\":\"2\",\"value\":\"2\",\"selected\":false},{\"text\":\"User 233\",\"sort\":\"User 233\",\"id\":\"3\",\"value\":\"3\",\"selected\":false},{\"text\":\"User 235\",\"sort\":\"User 235\",\"id\":\"4\",\"value\":\"4\",\"selected\":false},{\"text\":\"User 236\",\"sort\":\"User 236\",\"id\":\"5\",\"value\":\"5\",\"selected\":false},{\"text\":\"User 255\",\"sort\":\"User 255\",\"id\":\"6\",\"value\":\"6\",\"selected\":false},{\"text\":\"User 256\",\"sort\":\"User 256\",\"id\":\"7\",\"value\":\"7\",\"selected\":false},{\"text\":\"User 257\",\"sort\":\"User 257\",\"id\":\"8\",\"value\":\"8\",\"selected\":false},{\"text\":\"User 258\",\"sort\":\"User 258\",\"id\":\"9\",\"value\":\"9\",\"selected\":false},{\"text\":\"User 298\",\"sort\":\"User 298\",\"id\":\"13\",\"value\":\"13\",\"selected\":false},{\"text\":\"User 299\",\"sort\":\"User 299\",\"id\":\"14\",\"value\":\"14\",\"selected\":false},{\"text\":\"User 300\",\"sort\":\"User 300\",\"id\":\"15\",\"value\":\"15\",\"selected\":false},{\"text\":\"User 301\",\"sort\":\"User 301\",\"id\":\"16\",\"value\":\"16\",\"selected\":false},{\"text\":\"admin\",\"sort\":\"admin\",\"id\":\"1\",\"value\":\"1\",\"selected\":false}]"
+        "data-options": "[{\"text\":\"User 231\",\"sort\":\"User 231\",\"id\":\"2\",\"value\":\"2\",\"selected\":false},{\"text\":\"User 233\",\"sort\":\"User 233\",\"id\":\"3\",\"value\":\"3\",\"selected\":false},{\"text\":\"User 235\",\"sort\":\"User 235\",\"id\":\"4\",\"value\":\"4\",\"selected\":false},{\"text\":\"User 236\",\"sort\":\"User 236\",\"id\":\"5\",\"value\":\"5\",\"selected\":false},{\"text\":\"User 255\",\"sort\":\"User 255\",\"id\":\"6\",\"value\":\"6\",\"selected\":false},{\"text\":\"User 256\",\"sort\":\"User 256\",\"id\":\"7\",\"value\":\"7\",\"selected\":false},{\"text\":\"User 257\",\"sort\":\"User 257\",\"id\":\"8\",\"value\":\"8\",\"selected\":false},{\"text\":\"User 258\",\"sort\":\"User 258\",\"id\":\"9\",\"value\":\"9\",\"selected\":false},{\"text\":\"User 298\",\"sort\":\"User 298\",\"id\":\"13\",\"value\":\"13\",\"selected\":false},{\"text\":\"User 299\",\"sort\":\"User 299\",\"id\":\"14\",\"value\":\"14\",\"selected\":false},{\"text\":\"admin\",\"sort\":\"admin\",\"id\":\"1\",\"value\":\"1\",\"selected\":false}]"
     }
 }
