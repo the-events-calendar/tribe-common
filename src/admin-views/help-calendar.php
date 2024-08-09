@@ -51,7 +51,7 @@ $tec_events_style        = $is_tec_events_help_page ? 'block' : 'none';
 					<a href="
 						<?php
 						echo esc_url(
-							Tribe__Settings::instance()->get_url(
+							tribe( 'settings' )->get_url(
 								[
 									'tab'       => 'licenses',
 									'post_type' => 'tribe_events',
