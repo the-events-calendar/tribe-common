@@ -1330,3 +1330,43 @@ function tribe_get_next_cached_increment( $key, $expiration_trigger = '', $defau
 
 	return $value;
 }
+
+if ( ! function_exists( 'tribe_copy_to_clipboard_button' ) ) {
+	/**
+	 * Output a button to copy the content of an element to the clipboard.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $content_to_copy The content to copy to the clipboard.
+	 * @param bool   $output_button   Whether to output the button or just the target element.
+	 *
+	 * @return string
+	 */
+	function tribe_copy_to_clipboard_button( string $content_to_copy, bool $output_button = true ): string {
+		static $counter = 1;
+
+		$target        = 'tec-copy-text-target-' . $counter;
+		$notice_target = 'tec-copy-to-clipboard-notice-content-' . $counter;
+		++$counter;
+		if ( $output_button ) :
+			?>
+			<a href="javascript:void(0)" data-clipboard-action="copy" data-notice-target=".<?php echo esc_attr( $notice_target ); ?>" data-clipboard-target=".<?php echo esc_attr( $target ); ?>" class="tribe-copy-to-clipboard tribe-dashicons">
+				<input type="text" readonly value="<?php echo esc_attr( $content_to_copy ); ?>" />
+				<span class="dashicons dashicons-admin-page"></span>
+			</a>
+			<?php
+		endif;
+		?>
+			<span class="screen-reader-text <?php echo esc_attr( $target ); ?>"><?php echo esc_html( $content_to_copy ); ?></span>
+			<div class="tec-copy-to-clipboard-notice">
+				<div class="tec-copy-to-clipboard-notice-content <?php echo esc_attr( $notice_target ); ?>">
+					<!-- <span class="optin-success">Copied to Clipboard!<span>
+					<span class="optin-fail">Failed to copy<span> -->
+				</div>
+			</div>
+		<?php
+
+		// When they want to print the button outside of this function they need to be aware of the target.
+		return $target;
+	}
+}
