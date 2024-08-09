@@ -521,7 +521,9 @@ class Tribe__Settings {
 		do_action( 'tribe_settings_validate_before_checks', $admin_page );
 
 		// Check that the right POST && variables are set.
-		if ( isset( $_POST['tribeSaveSettings'] ) && isset( $_POST['current-settings-tab'] ) ) {
+		$tribe_save_settings  = tribe_get_request_var( 'tribeSaveSettings', false );
+		$current_settings_tab = tribe_get_request_var( 'current-settings-tab', false );
+		if ( $tribe_save_settings && $current_settings_tab ) {
 			// Check permissions.
 			if ( ! current_user_can( Admin_Pages::get_capability() ) ) {
 				$this->errors[]    = esc_html__( "You don't have permission to do that.", 'tribe-common' );
@@ -529,13 +531,13 @@ class Tribe__Settings {
 			}
 
 			// Check the nonce.
-			if ( ! wp_verify_nonce( $_POST['tribe-save-settings'], 'saving' ) ) {
+			if ( ! wp_verify_nonce( $tribe_save_settings, 'saving' ) ) {
 				$this->errors[]    = esc_html__( 'The request was sent insecurely.', 'tribe-common' );
 				$this->major_error = true;
 			}
 
 			// Check that the request originated from the current tab.
-			if ( $_POST['current-settings-tab'] != $this->current_tab ) {
+			if ( $current_settings_tab !== $this->current_tab ) {
 				$this->errors[]    = esc_html__( "The request wasn't sent from this tab.", 'tribe-common' );
 				$this->major_error = true;
 			}
@@ -545,7 +547,7 @@ class Tribe__Settings {
 				remove_action( 'shutdown', [ $this, 'delete_options' ] );
 				add_option( 'tribe_settings_errors', $this->errors );
 				add_option( 'tribe_settings_major_error', $this->major_error );
-				wp_redirect( $this->get_settings_page_url() );
+				wp_safe_redirect( $this->get_settings_page_url() );
 				exit;
 			}
 
@@ -560,7 +562,7 @@ class Tribe__Settings {
 				// Loop through the fields and validate them.
 				foreach ( $fields as $field_id => $field ) {
 					// Get the value.
-					$value = ( isset( $_POST[ $field_id ] ) ) ? $_POST[ $field_id ] : null;
+					$value = tribe_get_request_var( $field_id, null );
 					$value = apply_filters( 'tribe_settings_validate_field_value', $value, $field_id, $field );
 
 					// Make sure it has validation set up for it, else do nothing.
@@ -680,28 +682,29 @@ class Tribe__Settings {
 			// Set the options by parsing old + new and filter that.
 			$options = apply_filters( 'tribe_settings_save_option_array', wp_parse_args( $new_options, $old_options ), $option_id );
 
-			if ( $option_id == Tribe__Main::OPTIONNAME ) {
+			if ( $option_id === Tribe__Main::OPTIONNAME ) {
 				// Save using the Tribe__Settings_Manager method.
 				Tribe__Settings_Manager::set_options( $options );
-			} elseif ( $option_id == Tribe__Main::OPTIONNAMENETWORK ) {
+			} elseif ( $option_id === Tribe__Main::OPTIONNAMENETWORK ) {
 				Tribe__Settings_Manager::set_network_options( $options );
-			} else {
+			} elseif ( is_network_admin() ) {
 				// Save using regular WP method.
-				if ( is_network_admin() ) {
-					update_site_option( $option_id, $options );
-				} else {
-					update_option( $option_id, $options );
-				}
+				update_site_option( $option_id, $options );
+			} else {
+				update_option( $option_id, $options );
 			}
 		}
 
 		do_action( 'tribe_settings_after_save', $admin_page );
 		do_action( 'tribe_settings_after_save_' . $this->current_tab, $admin_page );
+
 		remove_action( 'shutdown', [ $this, 'delete_options' ] );
+
 		add_option( 'tribe_settings_sent_data', $_POST );
 		add_option( 'tribe_settings_errors', $this->errors );
 		add_option( 'tribe_settings_major_error', $this->major_error );
-		wp_redirect( esc_url_raw( add_query_arg( [ 'saved' => true ], $this->get_settings_page_url() ) ) );
+
+		wp_safe_redirect( esc_url_raw( add_query_arg( [ 'saved' => true ], $this->get_settings_page_url() ) ) );
 		exit;
 	}
 
@@ -722,7 +725,7 @@ class Tribe__Settings {
 			return;
 		}
 
-		$output = '<div id="message" class="error"><p><strong>';
+		$output  = '<div id="message" class="error"><p><strong>';
 		$output .= esc_html__( 'Your form had the following errors:', 'tribe-common' );
 		$output .= '</strong></p><ul class="tribe-errors-list">';
 
@@ -740,7 +743,7 @@ class Tribe__Settings {
 		$output .= '</ul><p>' . $message . '</p></div>';
 
 		// Final output, filtered of course.
-		echo apply_filters( 'tribe_settings_error_message', $output );
+		echo wp_kses_post( apply_filters( 'tribe_settings_error_message', $output ) );
 	}
 
 	/**
