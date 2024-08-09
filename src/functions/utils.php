@@ -1339,18 +1339,21 @@ if ( ! function_exists( 'tribe_copy_to_clipboard_button' ) ) {
 	 *
 	 * @param string $content_to_copy The content to copy to the clipboard.
 	 * @param bool   $output_button   Whether to output the button or just the target element.
+	 * @param string $aria_label      The aria-label attribute for the button.
 	 *
 	 * @return string
 	 */
-	function tribe_copy_to_clipboard_button( string $content_to_copy, bool $output_button = true ): string {
+	function tribe_copy_to_clipboard_button( string $content_to_copy, bool $output_button = true, string $aria_label = '' ): string {
 		static $counter = 1;
 
 		$target        = 'tec-copy-text-target-' . $counter;
 		$notice_target = 'tec-copy-to-clipboard-notice-content-' . $counter;
+
+		$aria_label = $aria_label ? $aria_label : __( 'Copy to clipboard', 'the-events-calendar' );
 		++$counter;
 		if ( $output_button ) :
 			?>
-			<a href="javascript:void(0)" data-clipboard-action="copy" data-notice-target=".<?php echo esc_attr( $notice_target ); ?>" data-clipboard-target=".<?php echo esc_attr( $target ); ?>" class="tribe-copy-to-clipboard tribe-dashicons">
+			<a title="<?php echo esc_attr( $aria_label ); ?>" href="javascript:void(0)" data-clipboard-action="copy" data-notice-target=".<?php echo esc_attr( $notice_target ); ?>" data-clipboard-target=".<?php echo esc_attr( $target ); ?>" class="tribe-copy-to-clipboard tribe-dashicons">
 				<input type="text" readonly value="<?php echo esc_attr( $content_to_copy ); ?>" />
 				<span class="dashicons dashicons-admin-page"></span>
 			</a>
