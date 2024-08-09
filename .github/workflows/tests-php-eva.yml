@@ -266,7 +266,7 @@ jobs:
           repository: the-events-calendar/events-pro
           ref: ${{ env.PRO_BRANCH }}
           token: ${{ secrets.GH_BOT_TOKEN }}
-          path: event-tickets-plus
+          path: events-pro
           submodules: recursive
       - name: Init ET
         if: steps.skip.outputs.value != 1
