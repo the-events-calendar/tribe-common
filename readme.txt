@@ -2,6 +2,9 @@
 
 = [6.0.2] TBD =
 
+* Tweak - Move Registering of Power Automate and Zapier endpoints to Event Tickets Plus and Events Calendar Pro. [EVA-160]
+* Tweak - Change setup of queues for Automator integrations to use Event Tickets Plus and Events Calendar Pro hooks instead of the core versions. [EVA-160]
+* Fix - Fixed attendee, updated attendee, and checkin endpoints from having invalid response for workflow operation 'id' to be of type 'Integer' but is of type 'String'. [EVA-160]
 
 = [6.0.1] 2024-08-06 =
 
