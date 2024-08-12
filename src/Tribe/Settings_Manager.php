@@ -270,7 +270,7 @@ class Tribe__Settings_Manager {
 		$show_tab = ( current_user_can( 'activate_plugins' ) && $this->have_addons() );
 
 		/**
-		 * Provides an oppotunity to override the decision to show or hide the licenses tab
+		 * Provides an opportunity to override the decision to show or hide the licenses tab
 		 *
 		 * Normally it will only show if the current user has the "activate_plugins" capability
 		 * and there are some currently-activated premium plugins.
