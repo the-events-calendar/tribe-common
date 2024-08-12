@@ -3,6 +3,7 @@ use TEC\Common\Libraries;
 use TEC\Common\Translations_Loader;
 use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
+use TEC\Common\StellarWP\Assets\Asset;
 
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -250,6 +251,21 @@ class Tribe__Main {
 				[ 'tec-ky', 'vendor/ky/tec-ky.js', [ 'tec-ky-module' ], null, [ 'module' => true ] ],
 			]
 		);
+
+		Asset::add( 'tec-copy-to-clipboard', 'utils/tec-copy-to-clipboard.js' )
+		->set_dependencies( 'tribe-clipboard' )
+		->enqueue_on( 'admin_enqueue_scripts' )
+		->add_localize_script(
+			'tribeCopyToClipboard',
+			[
+				'name' => 'tribeCopyToClipboard',
+				'data' => [
+					'clipboard_copied_text' => _x( 'Copied to Clipboard!', 'Copy to clipboard success message', 'tribe-common' ),
+					'clipboard_fail_text'   => _x( 'Failed to copy.', 'Copy to clipboard failed message', 'tribe-common' ),
+				],
+			]
+		)
+		->register();
 
 		tribe_assets(
 			$this,
