@@ -83,12 +83,14 @@
 
 .tec-nav__subnav {
 	display: none;
+	flex-direction: column;
 	margin-left: var(--tec-spacer-0);
 
 	@media (--viewport-wpadmin) {
 		background-color: var(--wp-core-grey-80);
 		border-top-left-radius: var(--tec-border-radius-default);
 		border-top-right-radius: var(--tec-border-radius-default);
+		flex-direction: row;
 		margin-left: var(--tec-spacer-5);
 		margin-top: var(--tec-spacer-7);
 		max-width: 1000px;
@@ -122,7 +124,6 @@
 	.tec-nav__subnav {
 		border-bottom-color: var(--tec-color-background);
 		display: flex;
-		position: absolute;
 	}
 
 	> .tec-nav__link {
@@ -144,6 +145,10 @@
 			> .tec-nav__link {
 				color: var(--wp-core-grey-80);
 			}
+		}
+
+		.tec-nav__subnav {
+			position: absolute;
 		}
 	}
 }
