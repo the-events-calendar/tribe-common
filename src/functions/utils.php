@@ -1353,7 +1353,17 @@ if ( ! function_exists( 'tribe_copy_to_clipboard_button' ) ) {
 		++$counter;
 		if ( $output_button ) :
 			?>
-			<a title="<?php echo esc_attr( $aria_label ); ?>" href="javascript:void(0)" data-clipboard-action="copy" data-notice-target=".<?php echo esc_attr( $notice_target ); ?>" data-clipboard-target=".<?php echo esc_attr( $target ); ?>" class="tribe-copy-to-clipboard tribe-dashicons">
+			<a
+				title="<?php echo esc_attr( $aria_label ); ?>"
+				href="javascript:void(0)"
+				aria-label="<?php echo esc_attr( $aria_label ); ?>"
+				aria-describedby="<?php echo esc_attr( $notice_target ); ?>"
+				data-clipboard-action="copy"
+				data-notice-target=".<?php echo esc_attr( $notice_target ); ?>"
+				data-clipboard-target=".<?php echo esc_attr( $target ); ?>"
+				class="tribe-copy-to-clipboard tribe-dashicons"
+				role="button"
+			>
 				<input type="text" readonly value="<?php echo esc_attr( $content_to_copy ); ?>" />
 				<span class="dashicons dashicons-admin-page"></span>
 			</a>
