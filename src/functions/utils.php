@@ -1344,13 +1344,14 @@ if ( ! function_exists( 'tribe_copy_to_clipboard_button' ) ) {
 	 * @return string
 	 */
 	function tribe_copy_to_clipboard_button( string $content_to_copy, bool $output_button = true, string $aria_label = '' ): string {
-		static $counter = 1;
+		$cache_key = 'tec_copy_to_clipboard_counter';
+		$counter   = tribe( 'cache' )->get( $cache_key, '', 1 );
 
 		$target        = 'tec-copy-text-target-' . $counter;
 		$notice_target = 'tec-copy-to-clipboard-notice-content-' . $counter;
 
 		$aria_label = $aria_label ? $aria_label : __( 'Copy to clipboard', 'the-events-calendar' );
-		++$counter;
+		tribe( 'cache' )->set( $cache_key, ++$counter, Tribe__Cache::NON_PERSISTENT );
 		if ( $output_button ) :
 			?>
 			<a
