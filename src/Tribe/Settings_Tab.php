@@ -305,7 +305,7 @@ class Tribe__Settings_Tab {
 	 */
 	public function add_child( $tab ): void {
 		$this->children[ $tab->id ] = $tab;
-		$tab->parent               = $this;
+		$tab->parent                = $this;
 	}
 
 	/**
@@ -317,9 +317,12 @@ class Tribe__Settings_Tab {
 	 */
 	public function has_children(): bool {
 		// Ensure all our children are tabs, as expected.
-		$this->children = array_filter( $this->children, function( $child ) {
-			return $child instanceof Tribe__Settings_Tab;
-		} );
+		$this->children = array_filter(
+			$this->children,
+			function ( $child ) {
+				return $child instanceof Tribe__Settings_Tab;
+			}
+		);
 
 		return ! empty( $this->children );
 	}

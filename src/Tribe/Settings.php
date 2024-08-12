@@ -410,7 +410,14 @@ class Tribe__Settings {
 		$this->validate();
 	}
 
-	public function get_current_tab() {
+	/**
+	 * Gets the current tab ID.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_current_tab(): string {
 		return $this->current_tab;
 	}
 
@@ -552,7 +559,7 @@ class Tribe__Settings {
 
 				foreach ( $this->tabs as $tab ) {
 					if ( ! empty( $tab->parent ) ) {
-						//This tab belongs in the subnav!
+						// This tab belongs in the subnav!
 						continue;
 					}
 
@@ -571,7 +578,7 @@ class Tribe__Settings {
 	 *
 	 * @since TBD
 	 *
-	 * @param Tribe__Settings_Tab $tab
+	 * @param Tribe__Settings_Tab $tab The tab object.
 	 */
 	public function generate_tab( $tab ) {
 		if ( ! $tab instanceof Tribe__Settings_Tab ) {
@@ -581,9 +588,9 @@ class Tribe__Settings {
 		$url   = $this->get_tab_url( $tab->id );
 		$class = [ 'tec-nav__tab' ];
 
-		if ( $tab->has_children() && isset( $tab->children[$this->current_tab] ) ) {
+		if ( $tab->has_children() && isset( $tab->children[ $this->current_tab ] ) ) {
 			$class[] = 'tec-nav__tab--subnav-active';
-		} elseif ($tab->has_children() && $tab->id === $this->current_tab ) {
+		} elseif ( $tab->has_children() && $tab->id === $this->current_tab ) {
 			$this->current_tab = array_key_first( $tab->children );
 			$class[] = 'tec-nav__tab--subnav-active';
 		} elseif ( $tab->id === $this->current_tab ) {
