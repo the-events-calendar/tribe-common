@@ -15,8 +15,9 @@ tribe.copyToClipboard = tribe.copyToClipboard || {};
 		const notice     = $( $( obj.selectors.copyButton ).data( 'notice-target' ) );
 
 		//Prevent Button From Doing Anything Else
-		$( obj.selectors.copyButton ).on(
+		$( document ).on(
 			'click',
+			obj.selectors.copyButton,
 			function ( e ) {
 				e.preventDefault();
 			}
