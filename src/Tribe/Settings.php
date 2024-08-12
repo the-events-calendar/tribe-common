@@ -592,7 +592,7 @@ class Tribe__Settings {
 			$class[] = 'tec-nav__tab--subnav-active';
 		} elseif ( $tab->has_children() && $tab->id === $this->current_tab ) {
 			$this->current_tab = array_key_first( $tab->children );
-			$class[] = 'tec-nav__tab--subnav-active';
+			$class[]           = 'tec-nav__tab--subnav-active';
 		} elseif ( $tab->id === $this->current_tab ) {
 			$class[] = 'tec-nav__tab--active';
 		}
@@ -620,6 +620,8 @@ class Tribe__Settings {
 	 * Each level of the tab nav is a unordered list inside a nav element.
 	 * This function generates the structure for a subnav and
 	 * the generate_tab function creates the individual list items.
+	 *
+	 * @param Tribe__Settings_Tab $parent_tab The parent tab object.
 	 *
 	 * @since TBD
 	 */

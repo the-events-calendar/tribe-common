@@ -156,9 +156,7 @@ class Tribe__Settings_Tab {
 		if ( ( isset( $this->fields ) || has_action( 'tribe_settings_content_tab_' . $this->id ) ) && ( empty( $hide_settings_tabs ) || ! in_array( $this->id, $hide_settings_tabs ) ) ) {
 			if ( ( is_network_admin() && $this->args['network_admin'] ) || ( ! is_network_admin() && ! $this->args['network_admin'] ) ) {
 				$tabs[ $this->id ] = $this;
-				if ( $this->id === 'viewing' ) {
-					error_log( $this->parent );
-				}
+
 				if ( ! empty( $this->parent ) && isset( $tabs[ $this->parent ] ) ) {
 					$tabs[ $this->parent ]->add_child( $this );
 				}
@@ -273,7 +271,7 @@ class Tribe__Settings_Tab {
 					} else {
 						// Else, get the parent option normally.
 						$options = (array) get_option( $parent_option );
-						$value = ( isset( $options[ $key ] ) ) ? $options[ $key ] : $default;
+						$value   = ( isset( $options[ $key ] ) ) ? $options[ $key ] : $default;
 					}
 				}
 
