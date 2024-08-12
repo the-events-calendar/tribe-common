@@ -1364,7 +1364,7 @@ if ( ! function_exists( 'tribe_copy_to_clipboard_button' ) ) {
 				class="tribe-copy-to-clipboard tribe-dashicons"
 				role="button"
 			>
-				<input type="text" readonly value="<?php echo esc_attr( $content_to_copy ); ?>" />
+				<input type="text" readonly value="<?php echo esc_attr( $content_to_copy ); ?>" aria-hidden="true" />
 				<span class="dashicons dashicons-admin-page" aria-hidden="true"></span>
 			</a>
 			<?php
