@@ -1362,7 +1362,7 @@ if ( ! function_exists( 'tribe_copy_to_clipboard_button' ) ) {
 		?>
 			<span class="screen-reader-text <?php echo esc_attr( $target ); ?>"><?php echo esc_html( $content_to_copy ); ?></span>
 			<div class="tec-copy-to-clipboard-notice">
-				<div class="tec-copy-to-clipboard-notice-content <?php echo esc_attr( $notice_target ); ?>">
+				<div class="tec-copy-to-clipboard-notice-content <?php echo esc_attr( $notice_target ); ?>" aria-live="polite">
 				</div>
 			</div>
 		<?php
