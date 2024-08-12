@@ -2,12 +2,12 @@
 
 namespace Tribe\tests\eva_integration\Power_Automate\Triggers;
 
-use TEC\Event_Automator\Tests\Traits\Create_events;
+use TEC\Event_Automator\Tests\Traits\Create_Events;
 use Tribe\Tests\Traits\With_Uopz;
 
 class NewEventTest extends \Codeception\TestCase\WPTestCase {
 
-	use Create_events;
+	use Create_Events;
 	use With_Uopz;
 
 	public function setUp() {
