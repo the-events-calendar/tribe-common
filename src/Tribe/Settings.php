@@ -1,4 +1,9 @@
 <?php
+/**
+ * Settings
+ *
+ * @since 4.0.1
+ */
 
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -87,7 +92,6 @@ class Tribe__Settings {
 	 * @var array<string> $no_save_tabs
 	 */
 	public $no_save_tabs = [];
-
 
 	/**
 	 * The slug used in the admin to generate the settings page.
@@ -296,15 +300,19 @@ class Tribe__Settings {
 	/**
 	 * Determines whether or not the full admin pages should be initialized.
 	 *
-	 * @return boolean
+	 * @since TBD
+	 *
+	 * @return bool
 	 */
-	public function should_setup_pages() {
+	public function should_setup_pages(): bool {
 		// @todo: Deprecate this and update where needed.
 		return true;
 	}
 
 	/**
 	 * Init all the tabs.
+	 *
+	 * @since TBD
 	 */
 	public function init_tabs() {
 		$admin_pages = tribe( 'admin.pages' );
@@ -908,7 +916,7 @@ class Tribe__Settings {
 			// Output the filtered message.
 			$message = esc_html__( 'Settings saved.', 'tribe-common' );
 			$output  = '<div id="message" class="updated"><p><strong>' . $message . '</strong></p></div>';
-			echo apply_filters( 'tribe_settings_success_message', $output, $this->current_tab );
+			echo wp_kses_post( apply_filters( 'tribe_settings_success_message', $output, $this->current_tab ) );
 		}
 
 		// Delete Temporary Options After Display Errors and Success.

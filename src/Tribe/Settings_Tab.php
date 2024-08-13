@@ -189,15 +189,16 @@ class Tribe__Settings_Tab {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $field the $fields from Tribe__Settings.
+	 * @param array $fields the $fields from Tribe__Settings.
 	 *
 	 * @return array $fields the filtered fields.
 	 */
 	public function add_fields( $fields ): array {
-		if ( ! empty ( $this->fields ) ) {
+		if ( ! empty( $this->fields ) ) {
 			$fields[ $this->id ] = $this->fields;
 		} elseif ( has_action( 'tribe_settings_content_tab_' . $this->id ) ) {
-			$fields[ $this->id ] = $this->fields = [ 0 => null ]; // Just to trick it.
+			$this->fields        = [ 0 => null ]; // Just to trick it.
+			$fields[ $this->id ] = $this->fields;
 		}
 
 		return $fields;
