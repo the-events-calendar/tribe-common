@@ -1,0 +1,47 @@
+body.tribe_events_page_tec-events-settings {
+	background-color: var(--tec-color-background);
+}
+
+.tec-nav-wrapper {
+	width: 100%;
+}
+
+.tec-nav {
+	display: flex;
+	flex-direction: column;
+	list-style: none;
+	margin-left: var(--tec-spacer-0);
+
+	@media (--viewport-wpadmin) {
+		flex-direction: row;
+	}
+}
+
+.tec-nav-tab {
+	font-family: var(--tec-font-family-sans-serif);
+	font-size: var(--tec-font-size-3);
+	line-height: var(--tec-line-height-2);
+	padding: var(--tec-spacer-1) var(--tec-spacer-2);
+
+	@media (--viewport-wpadmin) {
+		border-bottom: 4px solid var(--tec-color-background);
+		font-size: var(--tec-font-size-2);
+		font-weight: var(--tec-font-weight-bold);
+		line-height: var(--tec-line-height-0);
+		margin-left: var(--tec-spacer-1);
+		padding: var(--tec-spacer-1);
+	}
+}
+
+.tec-nav-link {
+	color: var(--wp_core-gray-50);
+	text-decoration: none;
+}
+
+.tec-nav-tab-active {
+	border-color: var(--wp_core-blue-50);
+
+	.tec-nav-link {
+		color: var(--wp_core-blue-50);
+	}
+}

@@ -43,7 +43,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		 * Adds the page to the admin menu
 		 */
 		public function add_menu_page() {
-			if ( ! Tribe__Settings::instance()->should_setup_pages() ) {
+			if ( ! tribe( 'settings' )->should_setup_pages() ) {
 				return;
 			}
 
@@ -51,7 +51,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 			$menu_title = esc_html__( 'Event Add-Ons', 'tribe-common' );
 			$capability = apply_filters( 'tribe_events_addon_page_capability', 'install_plugins' );
 
-			$where = Tribe__Settings::instance()->get_parent_slug();
+			$where = tribe( 'settings' )->get_parent_slug();
 
 			$this->admin_page = add_submenu_page(
 				$where,
@@ -80,7 +80,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 				$wp_admin_bar->add_menu( [
 					'id'     => 'tribe-events-app-shop',
 					'title'  => esc_html__( 'Event Add-Ons', 'tribe-common' ),
-					'href'   => Tribe__Settings::instance()->get_url( [ 'page' => self::MENU_SLUG ] ),
+					'href'   => tribe( 'settings' )->get_url( [ 'page' => self::MENU_SLUG ] ),
 					'parent' => 'tribe-events-settings-group',
 				] );
 			}
@@ -111,7 +111,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		 * @return bool
 		 */
 		public function is_current_page() {
-			if ( ! Tribe__Settings::instance()->should_setup_pages() || ! did_action( 'admin_menu' ) ) {
+			if ( ! tribe( 'settings' )->should_setup_pages() || ! did_action( 'admin_menu' ) ) {
 				return false;
 			}
 
