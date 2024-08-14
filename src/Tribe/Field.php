@@ -320,37 +320,51 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		}
 
 		/**
-		 * Determines how to handle this field's creation
-		 * either calls a callback function or runs this class' course of action
-		 * logs an error if it fails
+		 * Determines how to handle this field's creation.
+		 *
+		 * Either calls a callback function or runs this class' course of action.
+		 * Logs an error if it fails.
 		 *
 		 * @return void
 		 */
 		public function do_field() {
-
-			if ( $this->conditional ) {
-
-				if ( $this->display_callback && is_callable( $this->display_callback ) ) {
-
-					// if there's a callback, run it
-					call_user_func( $this->display_callback );
-
-				} elseif ( in_array( $this->type, $this->valid_field_types ) ) {
-
-					// the specified type exists, run the appropriate method
-					$field = call_user_func( [ $this, $this->type ] );
-
-					// filter the output
-					$field = apply_filters( 'tribe_field_output_' . $this->type, $field, $this->id, $this );
-					echo apply_filters( 'tribe_field_output_' . $this->type . '_' . $this->id, $field, $this->id, $this );
-
-				} else {
-
-					// fail, log the error
-					Tribe__Debug::debug( esc_html__( 'Invalid field type specified', 'tribe-common' ), $this->type, 'notice' );
-
-				}
+			if ( ! $this->conditional ) {
+				return;
 			}
+
+			// If there's a callback, run it.
+			if ( $this->display_callback && is_callable( $this->display_callback ) ) {
+				call_user_func( $this->display_callback );
+				return;
+			}
+
+			// If the field type is valid, call the appropriate method.
+			if ( in_array( $this->type, $this->valid_field_types ) ) {
+				$field = call_user_func( [ $this, $this->type ] );
+
+				/**
+				 * Filter the field output.
+				 *
+				 * @param string       $field        The field output.
+				 * @param string       $id           The field ID.
+				 * @param Tribe__Field $field_object The field object.
+				 */
+				$field = apply_filters( "tribe_field_output_{$this->type}", $field, $this->id, $this );
+
+				/**
+				 * Filter the field output by ID.
+				 *
+				 * @param string       $field        The field output.
+				 * @param string       $id           The field ID.
+				 * @param Tribe__Field $field_object The field object.
+				 */
+				echo apply_filters( "tribe_field_output_{$this->type}_{$this->id}", $field, $this->id, $this );
+
+				return;
+			}
+
+			// If we got to this point, fail and log the error.
+			Tribe__Debug::debug( esc_html__( 'Invalid field type specified', 'tribe-common' ), $this->type, 'notice' );
 		}
 
 		/**
