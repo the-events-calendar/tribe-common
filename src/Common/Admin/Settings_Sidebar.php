@@ -9,6 +9,8 @@ declare( strict_types=1 );
 
 namespace TEC\Common\Admin;
 
+use TEC\Common\Admin\Entities\Image;
+
 /**
  * Class Settings_Sidebar
  *
@@ -21,21 +23,14 @@ class Settings_Sidebar extends Section {
 	 *
 	 * @var Section[]
 	 */
-	private array $sections = [];
+	protected array $sections = [];
 
 	/**
 	 * Header image for the sidebar.
 	 *
-	 * @var string
+	 * @var ?Image
 	 */
-	private string $header_image_url;
-
-	/**
-	 * Alt text for the header image.
-	 *
-	 * @var string
-	 */
-	private string $header_image_alt_text = '';
+	protected ?Image $header_image = null;
 
 	/**
 	 * Render the sidebar.
@@ -63,15 +58,12 @@ class Settings_Sidebar extends Section {
 	/**
 	 * Set the header image for the sidebar.
 	 *
-	 * @param string $image_url The URL for the header image.
-	 * @param string $alt_text  The alt text for the header image. If not provided, the
-	 *                          title will be used instead.
+	 * @param Image $image The image to set.
 	 *
 	 * @return void
 	 */
-	public function set_header_image( string $image_url, string $alt_text = '' ) {
-		$this->header_image_url      = $image_url;
-		$this->header_image_alt_text = $alt_text;
+	public function set_header_image( Image $image ) {
+		$this->header_image = $image;
 	}
 
 	/**
@@ -90,15 +82,7 @@ class Settings_Sidebar extends Section {
 	 *
 	 * @return void
 	 */
-	private function render_header_image() {
-		if ( empty( $this->header_image_url ) ) {
-			return;
-		}
-
-		printf(
-			'<img src="%1$s" class="tribe-settings-sidebar__header-image" alt="%2$s">',
-			esc_url( $this->header_image_url ),
-			esc_attr( $this->header_image_alt_text ?: $this->title )
-		);
+	protected function render_header_image() {
+		$this->header_image?->render();
 	}
 }
