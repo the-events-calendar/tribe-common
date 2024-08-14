@@ -264,72 +264,46 @@ class Tribe__Settings_Tab {
 	 * @return void
 	 */
 	public function do_content(): void {
+		// If we have a display callback, use it.
 		if ( $this->display_callback && is_callable( $this->display_callback ) ) {
 			call_user_func( $this->display_callback );
 
 			return;
 		}
 
+		// Ensure we have fields before continuing.
+		if ( ! is_array( $this->fields ) || empty( $this->fields ) ) {
+			printf(
+				'<p>%s</p>',
+				esc_html__( 'There are no fields set up for this tab yet.', 'tribe-common' )
+			);
+
+			return;
+		}
+
 		$sent_data = get_option( 'tribe_settings_sent_data', [] );
 
-		if ( is_array( $this->fields ) && ! empty( $this->fields ) ) {
-			foreach ( $this->fields as $key => $field ) {
-				if ( isset( $sent_data[ $key ] ) ) {
-					// If we just saved [or attempted to], get the value that was input.
-					$value = $sent_data[ $key ];
-				} else {
-					// Some options should always be stored at network level.
-					$network_option = isset( $field['network_option'] ) ? (bool) $field['network_option'] : false;
+		foreach ( $this->fields as $key => $field ) {
+			$value = $sent_data[ $key ] ?? $this->get_field_value( $field, $key );
 
-					if ( is_network_admin() ) {
-						$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : Tribe__Main::OPTIONNAMENETWORK;
-					} else {
-						$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : Tribe__Main::OPTIONNAME;
-					}
-					// Get the field's parent_option in order to later get the field's value.
-					$parent_option = apply_filters( 'tribe_settings_do_content_parent_option', $parent_option, $key );
-					$default       = ( isset( $field['default'] ) ) ? $field['default'] : null;
-					$default       = apply_filters( 'tribe_settings_field_default', $default, $field );
-
-					if ( ! $parent_option && ( $network_option || is_network_admin() ) ) {
-						// No parent option, network admin.
-						$value = get_site_option( $key, $default );
-					} elseif ( ! $parent_option ) {
-						// No parent option.
-						$value = get_option( $key, $default );
-					} elseif ( $parent_option == Tribe__Main::OPTIONNAME ) {
-						// Get the options from Tribe__Settings_Manager if we're getting the main array.
-						$value = Tribe__Settings_Manager::get_option( $key, $default );
-					} elseif ( $parent_option == Tribe__Main::OPTIONNAMENETWORK ) {
-						// Get the network options from Tribe__Settings_Manager.
-						$value = Tribe__Settings_Manager::get_network_option( $key, $default );
-					} elseif ( is_network_admin() ) {
-						// Get the parent option for network admin.
-						$options = (array) get_site_option( $parent_option );
-						$value   = ( isset( $options[ $key ] ) ) ? $options[ $key ] : $default;
-					} else {
-						// Else, get the parent option normally.
-						$options = (array) get_option( $parent_option );
-						$value   = ( isset( $options[ $key ] ) ) ? $options[ $key ] : $default;
-					}
-				}
-
-				// Escape the value for display.
-				if ( ! empty( $field['esc_display'] ) && function_exists( $field['esc_display'] ) ) {
-					$value = $field['esc_display']( $value );
-				} elseif ( is_string( $value ) ) {
-					$value = esc_attr( stripslashes( $value ) );
-				}
-
-				// Filter the value.
-				$value = apply_filters( 'tribe_settings_get_option_value_pre_display', $value, $key, $field );
-
-				// Create the field.
-				new Tribe__Field( $key, $field, $value );
+			// Escape the value for display.
+			if ( ! empty( $field['esc_display'] ) && function_exists( $field['esc_display'] ) ) {
+				$value = $field['esc_display']( $value );
+			} elseif ( is_string( $value ) ) {
+				$value = esc_attr( stripslashes( $value ) );
 			}
-		} else {
-			// No fields setup for this tab yet.
-			echo '<p>' . esc_html__( 'There are no fields set up for this tab yet.', 'tribe-common' ) . '</p>';
+
+			/**
+			 * Filter the value of the option before it is displayed.
+			 *
+			 * @param mixed  $value The value of the option.
+			 * @param string $key   The key of the option.
+			 * @param array  $field The field array.
+			 */
+			$value = apply_filters( 'tribe_settings_get_option_value_pre_display', $value, $key, $field );
+
+			// Create the field object and run it.
+			$field_object = new Tribe__Field( $key, $field, $value );
 		}
 	}
 
@@ -406,6 +380,75 @@ class Tribe__Settings_Tab {
 	 */
 	public function get_priority(): string {
 		return $this->priority;
+	}
+
+	/**
+	 * Determine the field value.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $field The field array.
+	 * @param string $key   The field key.
+	 *
+	 * @return mixed The field value.
+	 */
+	protected function get_field_value( $field, $key ) {
+		// Some options should always be stored at network level.
+		$network_option = (bool) ( $field['network'] ?? false );
+
+		if ( is_network_admin() ) {
+			$parent_option = $field['parent_option'] ?? Tribe__Main::OPTIONNAMENETWORK;
+		} else {
+			$parent_option = $field['parent_option'] ?? Tribe__Main::OPTIONNAME;
+		}
+
+		/**
+		 * Get the field's parent_option in order to later get the field's value.
+		 *
+		 * @param string $parent_option The parent option name.
+		 * @param string $key           The field key.
+		 */
+		$parent_option = apply_filters( 'tribe_settings_do_content_parent_option', $parent_option, $key );
+
+		// Determine the default value.
+		$default ??= $field['default'];
+
+		/**
+		 * Filter the default value of the field.
+		 *
+		 * @param mixed $default The default value of the field.
+		 * @param array $field   The field array.
+		 */
+		$default = apply_filters( 'tribe_settings_field_default', $default, $field );
+
+		// If there's no parent option, get the site option (for network admin) or the option.
+		if ( ! $parent_option ) {
+			return ( $network_option || is_network_admin() )
+				? get_site_option( $key, $default )
+				: get_option( $key, $default );
+		}
+
+		// Get the options from Tribe__Settings_Manager if we're getting the main array.
+		if ( $parent_option === Tribe__Main::OPTIONNAME ) {
+			return Tribe__Settings_Manager::get_option( $key, $default );
+		}
+
+		// Get the network options from Tribe__Settings_Manager.
+		if ( $parent_option === Tribe__Main::OPTIONNAMENETWORK ) {
+			return Tribe__Settings_Manager::get_network_option( $key, $default );
+		}
+
+		// Get the parent option for network admin.
+		if ( is_network_admin() ) {
+			$options = (array) get_site_option( $parent_option );
+
+			return $options[ $key ] ?? $default;
+		}
+
+		// Else, get the parent option normally.
+		$options = (array) get_option( $parent_option );
+
+		return $options[ $key ] ?? $default;
 	}
 
 	/* Deprecated Methods */
