@@ -1,18 +1,22 @@
 <?php
 /**
+ * Paragraph element.
  *
+ * @since TBD
  */
 
 declare( strict_types=1 );
 
 namespace TEC\Common\Admin\Entities;
 
+use Tribe\Utils\Element_Classes;
+
 /**
  * Class Paragraph
  *
  * @since TBD
  */
-class Paragraph implements Element {
+class Paragraph extends Base_Entity {
 
 	/**
 	 * The paragraph content.
@@ -22,23 +26,17 @@ class Paragraph implements Element {
 	private string $content = '';
 
 	/**
-	 * @var string[]
-	 */
-	private array $classes;
-
-	/**
 	 * Paragraph constructor.
 	 *
-	 * @param string $content The content for the paragraph.
+	 * @param string           $content The content for the paragraph.
+	 * @param ?Element_Classes $classes The classes for the paragraph.
 	 */
-	public function __construct( string $content, $classes = [] ) {
+	public function __construct( string $content, ?Element_Classes $classes = null ) {
 		$this->content = $content;
-		$this->classes = array_filter(
-			$classes,
-			function( $class ) {
-				return is_string( $class );
-			}
-		);
+
+		if ( $classes ) {
+			$this->set_classes( $classes );
+		}
 	}
 
 	/**
@@ -49,7 +47,7 @@ class Paragraph implements Element {
 	public function render() {
 		printf(
 			'<p class="%s">%s</p>',
-			esc_attr( implode( ' ', $this->classes ) ),
+			esc_attr( $this->get_classes() ),
 			esc_html( $this->content )
 		);
 	}
