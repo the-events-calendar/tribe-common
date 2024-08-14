@@ -9,6 +9,8 @@ declare( strict_types=1 );
 
 namespace TEC\Common\Admin\Entities;
 
+use InvalidArgumentException;
+
 /**
  * Class Container.
  *
@@ -18,6 +20,8 @@ namespace TEC\Common\Admin\Entities;
  */
 abstract class Container extends Base_Entity {
 
+	use Validate_Elements;
+
 	/**
 	 * The children of the container.
 	 *
@@ -26,13 +30,23 @@ abstract class Container extends Base_Entity {
 	protected array $children = [];
 
 	/**
+	 * The type of child elements that the container can contain.
+	 *
+	 * @var string
+	 */
+	protected string $child_type = Element::class;
+
+	/**
 	 * Add a child to the container.
 	 *
 	 * @param Element $child The child to add.
 	 *
 	 * @return static
+	 * @throws InvalidArgumentException If the child is not an instance of the child type.
 	 */
-	public function add_child( Element $child ) {
+	public function add_child( $child ) {
+		$this->validate_instanceof( $child, $this->child_type );
+
 		$this->children[] = $child;
 
 		return $this;
