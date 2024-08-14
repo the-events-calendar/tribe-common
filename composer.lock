@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ad1bb90c6cc207e3f6eb7c74ddedcde8",
+    "content-hash": "45315962096dd7efa43a98e9b1118fad",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -729,16 +729,16 @@
         },
         {
             "name": "stellarwp/uplink",
-            "version": "dev-feat/fluent-form-builder",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/uplink.git",
-                "reference": "73b4f5ed62bfa54347875f712c27c4f0f1cab745"
+                "reference": "b82d6f43b7444c644e48b8b65a236e4dccd114c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/uplink/zipball/73b4f5ed62bfa54347875f712c27c4f0f1cab745",
-                "reference": "73b4f5ed62bfa54347875f712c27c4f0f1cab745",
+                "url": "https://api.github.com/repos/stellarwp/uplink/zipball/b82d6f43b7444c644e48b8b65a236e4dccd114c6",
+                "reference": "b82d6f43b7444c644e48b8b65a236e4dccd114c6",
                 "shasum": ""
             },
             "require": {
@@ -790,9 +790,9 @@
             "description": "A library that integrates a WordPress product with the StellarWP Licensing system.",
             "support": {
                 "issues": "https://github.com/stellarwp/uplink/issues",
-                "source": "https://github.com/stellarwp/uplink/tree/feat/fluent-form-builder"
+                "source": "https://github.com/stellarwp/uplink/tree/v2.0.0"
             },
-            "time": "2024-07-23T18:27:37+00:00"
+            "time": "2024-08-13T19:17:12+00:00"
         }
     ],
     "packages-dev": [
@@ -7114,7 +7114,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "stellarwp/models": 20,
-        "stellarwp/uplink": 20,
         "stellarwp/coding-standards": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
@@ -7125,5 +7124,5 @@
     "platform-overrides": {
         "php": "7.4.0"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
