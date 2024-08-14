@@ -155,10 +155,11 @@ class Tribe__Settings_Tab {
 
 		if ( ( isset( $this->fields ) || has_action( 'tribe_settings_content_tab_' . $this->id ) ) && ( empty( $hide_settings_tabs ) || ! in_array( $this->id, $hide_settings_tabs ) ) ) {
 			if ( ( is_network_admin() && $this->args['network_admin'] ) || ( ! is_network_admin() && ! $this->args['network_admin'] ) ) {
-				$tabs[ $this->id ] = $this;
-
 				if ( ! empty( $this->parent ) && isset( $tabs[ $this->parent ] ) ) {
 					$tabs[ $this->parent ]->add_child( $this );
+				} else {
+					// If the parent tab is not set, add it to the top level.
+					$tabs[ $this->id ] = $this;
 				}
 
 				add_filter( 'tribe_settings_fields', [ $this, 'add_fields' ] );

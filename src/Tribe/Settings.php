@@ -390,7 +390,7 @@ class Tribe__Settings {
 		 * @param string $current_tab The current tab ID.
 		 * @param string $admin_page  The admin page ID.
 		 */
-		$this->current_tab     = apply_filters( 'tribe_settings_current_tab', tribe_get_request_var( 'tab', $this->default_tab ), $admin_page );
+		$this->current_tab     = $this->get_current_tab();
 		$this->url             = $this->get_tab_url( $this->current_tab );
 
 		/**
@@ -426,7 +426,24 @@ class Tribe__Settings {
 	 * @return string
 	 */
 	public function get_current_tab(): string {
-		return $this->current_tab;
+		$admin_page  = tribe( 'admin.pages' )->get_current_page();
+		$current_tab =  apply_filters( 'tribe_settings_current_tab', tribe_get_request_var( 'tab', $this->default_tab ), $admin_page );
+
+		$tab_object = $this->tabs[ $current_tab ] ?? null;
+
+		if ( empty( $tab_object ) ) {
+			$current_tab = $this->default_tab;
+			$tab_object  = $this->tabs[ $current_tab ] ?? null;
+		}
+
+		// Parent tabs have no content! If one is selected, default to the first child.
+		if ( $tab_object->has_children() ) {
+			$current_tab = array_key_first( $tab_object->children );
+		}
+
+		$this->current_tab = $current_tab;
+
+		return $current_tab;
 	}
 
 	/**
@@ -597,13 +614,16 @@ class Tribe__Settings {
 
 		$url   = $this->get_tab_url( $tab->id );
 		$class = [ 'tec-nav__tab' ];
+		$current_tab = $this->get_current_tab();
 
-		if ( $tab->has_children() && isset( $tab->children[ $this->current_tab ] ) ) {
+		if ( $tab->has_children() && isset( $tab->children[ $current_tab ] ) ) {
+			// Current tab is a child tab of passed tab.
 			$class[] = 'tec-nav__tab--subnav-active';
-		} elseif ( $tab->has_children() && $tab->id === $this->current_tab ) {
+		} elseif ( $tab->has_children() && $tab->id === $current_tab ) {
+			// Current tab is a parent tab. Set to first child.
 			$this->current_tab = array_key_first( $tab->children );
 			$class[]           = 'tec-nav__tab--subnav-active';
-		} elseif ( $tab->id === $this->current_tab ) {
+		} elseif ( $tab->id === $current_tab ) {
 			$class[] = 'tec-nav__tab--active';
 		}
 
@@ -683,8 +703,9 @@ class Tribe__Settings {
 		do_action( 'tribe_settings_validate_before_checks', $admin_page );
 
 		// Check that the right POST && variables are set.
-		$tribe_save_settings  = tribe_get_request_var( 'tribeSaveSettings', false );
-		$current_settings_tab = tribe_get_request_var( 'current-settings-tab', false );
+		$tribe_save_settings  = tribe_get_request_var( 'tribe-save-settings', false );
+		$current_settings_tab = tribe_get_request_var( 'current-settings-tab', $this->get_current_tab() );
+		error_log( 'current tab at time of check is: ' . $current_settings_tab );
 		if ( $tribe_save_settings && $current_settings_tab ) {
 			// Check permissions.
 			if ( ! current_user_can( Admin_Pages::get_capability() ) ) {
