@@ -304,6 +304,7 @@ class Tribe__Settings_Tab {
 
 			// Create the field object and run it.
 			$field_object = new Tribe__Field( $key, $field, $value );
+			$field_object->do_field();
 		}
 	}
 

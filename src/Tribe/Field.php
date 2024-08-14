@@ -314,9 +314,6 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			foreach ( array_keys( $this->defaults ) as $key ) {
 				$this->{$key} = apply_filters( 'tribe_field_' . $key, $$key, $this->id );
 			}
-
-			// epicness
-			$this->do_field();
 		}
 
 		/**
