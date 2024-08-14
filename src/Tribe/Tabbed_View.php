@@ -129,10 +129,10 @@ class Tribe__Tabbed_View {
 	 * @return int
 	 */
 	protected function sort_by_priority( $a, $b ) {
-		$a_priority = $a->get_priority();
-		$b_priority = $b->get_priority();
+		$a_priority = (float) $a->get_priority();
+		$b_priority = (float) $b->get_priority();
 
-		if ( $a_priority == $b_priority ) {
+		if ( $a_priority === $b_priority ) {
 			return 0;
 		}
 
@@ -296,6 +296,13 @@ class Tribe__Tabbed_View {
 	 */
 	public function get_tabs() {
 		uasort( $this->items, [ $this, 'sort_by_priority' ] );
+
+		foreach( $this->items as $slug => $tab ) {
+			if ( ! $tab->has_children() ) {
+				continue;
+			}
+			uasort( $this->items[ $slug ]->children, [ $this, 'sort_by_priority' ] );
+		}
 
 		return array_values( $this->items );
 	}

@@ -158,7 +158,7 @@ class Tribe__Settings_Tab {
 				if ( ! empty( $this->parent ) && isset( $tabs[ $this->parent ] ) ) {
 					$tabs[ $this->parent ]->add_child( $this );
 				} else {
-					// If the parent tab is not set, add it to the top level.
+					// If the parent tab is not set, add  to the top level.
 					$tabs[ $this->id ] = $this;
 				}
 

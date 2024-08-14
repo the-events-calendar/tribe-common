@@ -419,6 +419,34 @@ class Tribe__Settings {
 	}
 
 	/**
+	 * Get a specific tab by slug.
+	 * If the slug is not found in the parent tabs, it will then search child tabs for it.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $id The tab ID.
+	 *
+	 * @return Tribe__Settings_Tab|null
+	 */
+	public function get_tab( $id ): ?Tribe__Settings_Tab {
+		// Find tab if a parent.
+		$tab_object = $this->tabs[ $id ] ?? null;
+
+		// Find tab if a child tab.
+		if ( empty( $tab_object ) ) {
+			foreach( $this->tabs as $tab ) {
+				if ( $tab->has_children() && isset( $tab->children[ $id ] ) ) {
+					$tab_object = $tab->children[ $id ];
+					break;
+				}
+
+			}
+		}
+
+		return $tab_object;
+	}
+
+	/**
 	 * Gets the current tab ID.
 	 *
 	 * @since TBD
@@ -429,11 +457,11 @@ class Tribe__Settings {
 		$admin_page  = tribe( 'admin.pages' )->get_current_page();
 		$current_tab =  apply_filters( 'tribe_settings_current_tab', tribe_get_request_var( 'tab', $this->default_tab ), $admin_page );
 
-		$tab_object = $this->tabs[ $current_tab ] ?? null;
+		// Find tab if a parent.
+		$tab_object = $this->get_tab( $current_tab );
 
 		if ( empty( $tab_object ) ) {
-			$current_tab = $this->default_tab;
-			$tab_object  = $this->tabs[ $current_tab ] ?? null;
+			return $this->current_tab;
 		}
 
 		// Parent tabs have no content! If one is selected, default to the first child.
@@ -705,7 +733,6 @@ class Tribe__Settings {
 		// Check that the right POST && variables are set.
 		$tribe_save_settings  = tribe_get_request_var( 'tribe-save-settings', false );
 		$current_settings_tab = tribe_get_request_var( 'current-settings-tab', $this->get_current_tab() );
-		error_log( 'current tab at time of check is: ' . $current_settings_tab );
 		if ( $tribe_save_settings && $current_settings_tab ) {
 			// Check permissions.
 			if ( ! current_user_can( Admin_Pages::get_capability() ) ) {
