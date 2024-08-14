@@ -11,7 +11,7 @@ namespace TEC\Common\Admin\Entities;
 
 use ArrayAccess;
 use Stringable;
-use TEC\Tribe\Traits\Array_Access;
+use Tribe\Traits\Array_Access;
 use Tribe\Utils\Element_Classes;
 
 /**
@@ -28,7 +28,7 @@ abstract class Base_Entity implements ArrayAccess, Element, Stringable {
 	 *
 	 * @var ?Element_Classes
 	 */
-	protected ?Element_Classes $classes;
+	protected ?Element_Classes $classes = null;
 
 	/**
 	 * Convert the entity output to a string.

@@ -7,7 +7,7 @@
 
 declare( strict_types=1 );
 
-namespace TEC\Tribe\Traits;
+namespace Tribe\Traits;
 
 /**
  * Trait Array_Access
@@ -30,7 +30,7 @@ trait Array_Access {
 	 *
 	 * @return bool
 	 */
-	public function offsetExists( $offset ) {
+	public function offsetExists( $offset ): bool {
 		return isset( $this->$data[ $offset ] );
 	}
 
@@ -41,7 +41,7 @@ trait Array_Access {
 	 *
 	 * @return mixed The offset value, or null if it does not exist.
 	 */
-	public function offsetGet( $offset ) {
+	public function offsetGet( $offset ): mixed {
 		return $this->data[ $offset ] ?? null;
 	}
 
@@ -53,7 +53,7 @@ trait Array_Access {
 	 *
 	 * @return void
 	 */
-	public function offsetSet( $offset, $value ) {
+	public function offsetSet( $offset, $value ): void {
 		$this->data[ $offset ] = $value;
 	}
 
@@ -64,7 +64,7 @@ trait Array_Access {
 	 *
 	 * @return void
 	 */
-	public function offsetUnset( $offset ) {
+	public function offsetUnset( $offset ): void {
 		unset( $this->data[ $offset ] );
 	}
 }
