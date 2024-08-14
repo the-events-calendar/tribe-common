@@ -1,18 +1,22 @@
 <?php
 /**
+ * Link element.
  *
+ * @since TBD
  */
 
 declare( strict_types=1 );
 
 namespace TEC\Common\Admin\Entities;
 
+use Tribe\Utils\Element_Classes;
+
 /**
  * Class Link
  *
  * @since TBD
  */
-class Link implements Element {
+class Link extends Base_Entity {
 
 	/**
 	 * The URL for the link.
@@ -31,12 +35,17 @@ class Link implements Element {
 	/**
 	 * Link constructor.
 	 *
-	 * @param string $url  The URL for the link.
-	 * @param string $text The text for the link.
+	 * @param string           $url     The URL for the link.
+	 * @param string           $text    The text for the link.
+	 * @param ?Element_Classes $classes The classes for the link.
 	 */
-	public function __construct( string $url, string $text ) {
+	public function __construct( string $url, string $text, ?Element_Classes $classes = null ) {
 		$this->url  = $url;
 		$this->text = $text;
+
+		if ( $classes ) {
+			$this->set_classes( $classes );
+		}
 	}
 
 	/**
@@ -50,19 +59,5 @@ class Link implements Element {
 			esc_url( $this->url ),
 			esc_html( $this->text )
 		);
-	}
-
-	/**
-	 * The __toString method allows a class to decide how it will react when it is converted to a string.
-	 *
-	 * @link https://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring
-	 *
-	 * @return string
-	 */
-	public function __toString(): string {
-		ob_start();
-		$this->render();
-
-		return ob_get_clean();
 	}
 }
