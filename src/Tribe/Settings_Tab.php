@@ -151,10 +151,21 @@ class Tribe__Settings_Tab {
 		// Parse args with defaults.
 		$this->args = wp_parse_args( $args, $this->defaults );
 
-		// Set each instance variable and filter.
+		/**
+		 * Filter the settings tab ID.
+		 *
+		 * @param string $id The tab ID.
+		 */
 		$this->id   = apply_filters( 'tribe_settings_tab_id', $id );
+
+		/**
+		 * Filter the settings tab name.
+		 *
+		 * @param string $name The tab name.
+		 */
 		$this->name = apply_filters( 'tribe_settings_tab_name', $name );
 
+		// Cycle through the defaults and set the class properties.
 		foreach ( $this->defaults as $key => $value ) {
 			/**
 			 * Filter the value of the key.
