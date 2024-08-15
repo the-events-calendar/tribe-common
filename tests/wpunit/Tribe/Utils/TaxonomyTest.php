@@ -90,6 +90,7 @@ class TaxonomyTest extends WPTestCase {
 	 * @group        utils
 	 */
 	public function it_should_normalize_to_term_ids() {
+		$term_0 = wp_insert_term( '2024', 'post_tag', [ 'slug' => '2024' ] );
 		$term_1 = wp_insert_term( 'Event Tag 4', 'post_tag', [ 'slug' => 'event-tag-4' ] );
 		$term_2 = wp_insert_term( 'Event Tag 5', 'post_tag', [ 'slug' => 'event-tag-5' ] );
 		$term_3 = wp_insert_term( 'Event Tag 6', 'post_tag', [ 'slug' => 'event-tag-6' ] );
@@ -109,12 +110,13 @@ class TaxonomyTest extends WPTestCase {
 		);
 
 		$tax_query = Taxonomy::normalize_to_term_ids( [
+			'2024',
 			$term_1['term_id'],
 			'event-tag-5',
 			'event-tag-6'
 		], 'post_tag' );
 		$this->assertEquals(
-			[ $term_1['term_id'], $term_2['term_id'], $term_3['term_id'], ],
+			[ $term_0['term_id'], $term_1['term_id'], $term_2['term_id'], $term_3['term_id'], ],
 			$tax_query
 		);
 
