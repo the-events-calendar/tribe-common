@@ -112,7 +112,13 @@ class Taxonomy {
 			$term    = get_term_by( $term_by, $param, $taxonomy );
 
 			if ( ! $term instanceof \WP_Term ) {
-				return false;
+
+				// Check if the term is a numeric string.
+				$term = get_term_by( 'slug', $param, $taxonomy );
+
+				if ( ! $term instanceof \WP_Term ) {
+					return false;
+				}
 			}
 
 			return $term->term_id;
