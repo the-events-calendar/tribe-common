@@ -41,19 +41,26 @@
 	box-sizing: border-box;
 	display: grid;
 	font-family: var(--tec-font-family-sans-serif);
-	grid-column-gap: var(--tec-spacer-8);
 	grid-row-gap: var(--tec-spacer-6);
-	grid-template-columns: 300px 510px;
+	grid-template-columns: 1fr;
 	margin-left: var(--tec-spacer-7);
 	margin-top: var(--tec-spacer-8);
 	max-width: 900px;
 	padding: var(--tec-spacer-4) var(--tec-spacer-5) var(--tec-spacer-7);
 	width: 100%;
 
+	@media (--viewport-wpadmin) {
+		grid-column-gap: var(--tec-spacer-8);
+		grid-row-gap: var(--tec-spacer-6);
+		grid-template-columns: 300px 510px;
+	}
+
 	/* Grid spacing */
 	> * {
-		grid-column: 2;
-		margin-right: var(--tec-spacer-7);
+		@media (--viewport-wpadmin) {
+			grid-column: 2;
+			margin-right: var(--tec-spacer-7);
+		}
 	}
 
 	> .tec_settings__section-header {
@@ -64,9 +71,16 @@
 		&.tec_settings__section-header--wide {
 			font-size: var(--tec-font-size-5);
 			font-weight: var(--tec-font-weight-bold);
-			grid-column: 1 / span 2;
 			line-height: var(--tec-line-height-0);
 			margin-right: var(--tec-spacer-7);
+		}
+
+		@media (--viewport-wpadmin) {
+			grid-column: 1;
+
+			&.tec_settings__section-header--wide {
+				grid-column: 1 / span 2;
+			}
 		}
 	}
 
@@ -83,10 +97,14 @@
 	.tec_settings__section-separator {
 		background-color: var(--tec-admin-core-grey-10);
 		border: 0;
-		grid-column: 1 / span 2;
+		grid-column: 1;
 		height: 1px;
-		margin: 0 calc(-1 * var(--tec-spacer-5));
-		width: calc(100% + (2 * var(--tec-spacer-5)));
+
+		@media (--viewport-wpadmin) {
+			grid-column: 1 / span 2;
+			margin: 0 calc(-1 * var(--tec-spacer-5));
+			width: calc(100% + (2 * var(--tec-spacer-5)));
+		}
 	}
 
 	.tec_settings__section-separator + .tec_settings__section-header,
@@ -200,6 +218,34 @@
 			padding-left: var(--tec-spacer-2);
 		}
 	}
+
+	&.tec-nav__tab--skip-link {
+		margin: 0;
+		padding: 0;
+	}
+
+	/* Easter Egg for Jack Kitterhing */
+	&.tec-nav__tab--duck {
+		margin-left: auto;
+
+		.screen-reader-shortcut {
+			background: var(--tec-color-background);
+			display: block;
+			height: auto;
+			left: 6px;
+			padding: 10px;
+			position: absolute;
+			top: -1000em;
+			width: auto;
+			z-index: 100000;
+		}
+
+		&:hover .screen-reader-shortcut {
+			left: auto;
+			right: 0;
+			top: 0;
+		}
+	}
 }
 
 .tec-nav__link {
@@ -256,7 +302,6 @@
 }
 
 .tec-nav__tab--subnav-active {
-	background-color: var(--tec-admin-core-grey-5);
 
 	.tec-nav__subnav {
 		border-bottom-color: var(--tec-color-background);
@@ -264,13 +309,20 @@
 	}
 
 	> .tec-nav__link {
+		background-color: var(--tec-admin-core-grey-5);
 		color: var(--tec-color-background);
+		display: inline-block;
 		font-weight: var(--tec-font-weight-bold);
+		margin-left: -12px;
+		max-width: 100%;
+		padding: var(--tec-spacer-3) var(--tec-spacer-2);
+		width: 100%;
 	}
 
 	@media (--viewport-wpadmin) {
 		background-color: var(--tec-color-background);
 		border-color: var(--tec-admin-core-blue-50);
+		display: inline;
 
 		> .tec-nav__link {
 			color: var(--tec-admin-core-blue-50);

@@ -645,6 +645,9 @@ class Tribe__Settings {
 		?>
 			<nav id="tribe-settings-tabs" class="tec-nav__wrapper">
 				<ul class="tec-nav">
+					<li class="tec-nav__tab tec-nav__tab--skip-link">
+						<a href="#tec-settings-form" class="screen-reader-shortcut"><?php esc_html_e( 'Skip to tab content', 'tribe-common' ); ?></a>
+					</li>
 				<?php
 
 				foreach ( $this->tabs as $tab ) {
@@ -727,6 +730,17 @@ class Tribe__Settings {
 				$this->generate_tab( $child );
 			}
 			?>
+
+			<li class="tec-nav__tab tec-nav__tab--duck">
+				<a class="screen-reader-shortcut" role="presentation">
+					<img
+						class="tec-nav__duck"
+						 role="presentation"
+						src="<?php echo esc_url( tribe_resource_url( 'images/icons/duck.svg', false, null, Tribe__Main::instance() ) ); ?>"
+						alt="<?php esc_attr_e( 'For you, Jack!', 'tribe-common' ); ?>"
+					/>
+				</a>
+			</li>
 		</ul>
 		<?php
 	}
