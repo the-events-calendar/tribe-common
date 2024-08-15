@@ -156,7 +156,13 @@ class Tribe__Settings_Tab {
 		$this->name = apply_filters( 'tribe_settings_tab_name', $name );
 
 		foreach ( $this->defaults as $key => $value ) {
-			$this->{$key} = apply_filters( 'tribe_settings_tab_' . $key, $this->args[ $key ], $id );
+			/**
+			 * Filter the value of the key.
+			 *
+			 * @param mixed  $value The value of the key.
+			 * @param string $id    The tab ID.
+			 */
+			$this->{$key} = apply_filters( "tribe_settings_tab_{$key}", $this->args[ $key ], $id );
 		}
 
 		// Run actions & filters.
