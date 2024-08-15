@@ -189,7 +189,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'display_callback'    => null,
 				'if_empty'            => null,
 				'can_be_empty'        => false,
-				'clear_after'         => true,
+				'clear_after'         => false,
 				'tooltip_first'       => false,
 				'allow_clear'         => false,
 				'settings'            => [],

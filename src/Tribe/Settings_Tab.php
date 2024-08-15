@@ -338,6 +338,17 @@ class Tribe__Settings_Tab {
 		return $this->children;
 	}
 
+	/**
+	 * Gets the priority of the current tab.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The priority of the tab. This ill be a float stored as a string i.e. '5' or '5.5'.
+	 */
+	public function get_priority(): string {
+		return $this->priority;
+	}
+
 	/* Deprecated Methods */
 
 	// phpcs:disable

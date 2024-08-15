@@ -451,9 +451,9 @@ class Tribe__Settings {
 	 *
 	 * @since TBD
 	 *
-	 * @return string
+	 * @return ?string
 	 */
-	public function get_current_tab(): string {
+	public function get_current_tab(): ?string {
 		$admin_page  = tribe( 'admin.pages' )->get_current_page();
 		$current_tab =  apply_filters( 'tribe_settings_current_tab', tribe_get_request_var( 'tab', $this->default_tab ), $admin_page );
 
@@ -530,6 +530,38 @@ class Tribe__Settings {
 	}
 
 	/**
+	 * Get the settings page logo.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $admin_page The admin page ID.
+	 * @return string The settings page logo.
+	 */
+	public function get_page_logo( $admin_page ) {
+		$logo_source = tribe_resource_url( 'images/logo/tec-brand.svg', false, null, Tribe__Main::instance() );
+
+		/**
+		 * Filter the tribe settings page logo source URL.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $logo_source The settings page logo resource URL.
+		 * @param string $admin_page The admin page ID.
+		 */
+		$logo_source = apply_filters( 'tec_settings_page_logo_source', $logo_source, $admin_page );
+
+		ob_start();
+		?><img
+			src="<?php echo esc_url( $logo_source ); ?>"
+			alt=""
+			role="presentation"
+			id="tec-settings-logo"
+		/>
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
 	 * Generate the main option page.
 	 * Includes the view file.
 	 *
@@ -544,7 +576,10 @@ class Tribe__Settings {
 		do_action( 'tribe_settings_top', $admin_page );
 		?>
 		<div class="tribe_settings wrap">
-			<h1><?php echo esc_html( $this->get_page_title( $admin_page ) ); ?></h1>
+			<h1>
+				<?php echo wp_kses_post( $this->get_page_logo( $admin_page ) ); ?>
+				<?php echo esc_html( $this->get_page_title( $admin_page ) ); ?>
+			</h1>
 			<?php
 			do_action( 'tribe_settings_above_tabs' );
 			$this->generate_tabs();
@@ -687,12 +722,36 @@ class Tribe__Settings {
 		?>
 		<ul class="tec-nav__subnav">
 			<?php
+			uasort( $parent_tab->children, [ $this, 'sort_by_priority' ] );
 			foreach ( $parent_tab->children as $child ) {
 				$this->generate_tab( $child );
 			}
 			?>
 		</ul>
 		<?php
+	}
+
+
+
+	/**
+	 * A method to sort tabs by priority in ascending order.
+	 *
+	 * @since TBD
+	 *
+	 * @param  object $a First tab to compare
+	 * @param  object $b Second tab to compare
+	 *
+	 * @return int
+	 */
+	protected function sort_by_priority( $a, $b ): int {
+		$a_priority = (float) $a->get_priority();
+		$b_priority = (float) $b->get_priority();
+
+		if ( $a_priority === $b_priority ) {
+			return 0;
+		}
+
+		return ( $a_priority < $b_priority ) ? -1 : 1;
 	}
 
 	/**
