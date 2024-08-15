@@ -124,7 +124,17 @@ class Tribe__Settings_Tab {
 	 *
 	 * @param string $id   The tab's id (no spaces or special characters).
 	 * @param string $name The tab's visible name.
-	 * @param array  $args Additional arguments for the tab.
+	 * @param array  $args {
+	 *     Array of arguments for the tab.
+	 *
+	 *     @type array    $fields           Array of fields for the tab.
+	 *     @type int      $priority         Priority for the tab.
+	 *     @type bool     $show_save        Whether to show the save button.
+	 *     @type callable $display_callback Display callback function.
+	 *     @type bool     $network_admin    Whether this tab is for network admin.
+	 *     @type string   $parent           Parent tab ID, if any.
+	 *     @type array    $children         Array of child tabs, if any.
+	 * }
 	 */
 	public function __construct( $id, $name, $args = [] ) {
 		// Setup the defaults.
