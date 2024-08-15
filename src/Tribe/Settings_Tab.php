@@ -412,7 +412,7 @@ class Tribe__Settings_Tab {
 		$parent_option = apply_filters( 'tribe_settings_do_content_parent_option', $parent_option, $key );
 
 		// Determine the default value.
-		$default ??= $field['default'];
+		$default = $field['default'] ?? null;
 
 		/**
 		 * Filter the default value of the field.
