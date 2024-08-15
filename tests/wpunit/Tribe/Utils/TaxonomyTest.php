@@ -105,7 +105,7 @@ class TaxonomyTest extends WPTestCase {
 			'event-category-6'
 		], 'category' );
 		$this->assertEquals(
-			[ $term_4['term_id'], $term_5['term_id'], $term_6['term_id'], ],
+			[ $term_4['term_id'], $term_5['term_id'], $term_6['term_id'] ],
 			$tax_query
 		);
 
@@ -116,7 +116,7 @@ class TaxonomyTest extends WPTestCase {
 			'event-tag-6'
 		], 'post_tag' );
 		$this->assertEquals(
-			[ $term_0['term_id'], $term_1['term_id'], $term_2['term_id'], $term_3['term_id'], ],
+			[ $term_0['term_id'], $term_1['term_id'], $term_2['term_id'], $term_3['term_id'] ],
 			$tax_query
 		);
 
