@@ -5,6 +5,8 @@
  * @since 4.0.1
  */
 
+use TEC\Common\Admin\Settings_Sidebar;
+
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -104,6 +106,18 @@ class Tribe__Settings_Tab {
 	 * @var array<string, Tribe__Settings_Tab> $children
 	 */
 	public $children = [];
+
+	/**
+	 * Settings sidebar.
+	 *
+	 * This can be a callable function that returns a Settings_Sidebar object,
+	 * an instance of Settings_Sidebar, or null.
+	 *
+	 * @since TBD
+	 *
+	 * @var callable|Settings_Sidebar|null
+	 */
+	protected $sidebar = null;
 
 	/**
 	 * Class constructor.
@@ -306,6 +320,15 @@ class Tribe__Settings_Tab {
 			$field_object = new Tribe__Field( $key, $field, $value );
 			$field_object->do_field();
 		}
+
+		if ( $this->has_sidebar() ) {
+			add_action(
+				'tribe_settings_after_form_div',
+				function () {
+					$this->get_sidebar()->render();
+				}
+			);
+		}
 	}
 
 	/**
@@ -450,6 +473,78 @@ class Tribe__Settings_Tab {
 		$options = (array) get_option( $parent_option );
 
 		return $options[ $key ] ?? $default;
+	}
+
+	/**
+	 * Adds a sidebar to the current tab.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function has_sidebar(): bool {
+		return null !== $this->sidebar;
+	}
+
+	/**
+	 * Gets the sidebar for the current tab.
+	 *
+	 * @since TBD
+	 *
+	 * @return Settings_Sidebar|null
+	 * @throws InvalidArgumentException If the sidebar is invalid.
+	 */
+	public function get_sidebar() {
+		if ( $this->sidebar instanceof Settings_Sidebar ) {
+			return $this->sidebar;
+		}
+
+		if ( is_callable( $this->sidebar ) ) {
+			$sidebar = call_user_func( $this->sidebar );
+			if ( ! $sidebar instanceof Settings_Sidebar ) {
+				throw new InvalidArgumentException(
+					esc_html__( 'The sidebar callback must return an instance of Settings_Sidebar', 'tribe-common' )
+				);
+			}
+
+			return $sidebar;
+		}
+
+		return null;
+	}
+
+	/**
+	 * Sets the sidebar for the current tab.
+	 *
+	 * @param callable|Settings_Sidebar $sidebar The sidebar to set.
+	 *
+	 * @return void
+	 */
+	public function add_sidebar( $sidebar ) {
+		$this->validate_sidebar( $sidebar );
+		$this->sidebar = $sidebar;
+	}
+
+	/**
+	 * Validates the sidebar.
+	 *
+	 * @since TBD
+	 *
+	 * @param callable|Settings_Sidebar $sidebar The sidebar to validate.
+	 *
+	 * @return void
+	 * @throws InvalidArgumentException If the sidebar is invalid.
+	 */
+	protected function validate_sidebar( $sidebar ) {
+		// If it's a callable or an instance of Settings_Sidebar, we're good.
+		if ( is_callable( $sidebar ) || $sidebar instanceof Settings_Sidebar ) {
+			return;
+		}
+
+		// Everything else is invalid.
+		throw new InvalidArgumentException(
+			esc_html__( 'The sidebar must be a callable function or an instance of Settings_Sidebar', 'tribe-common' )
+		);
 	}
 
 	/* Deprecated Methods */
