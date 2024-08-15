@@ -561,6 +561,19 @@ class Tribe__Settings {
 		return ob_get_clean();
 	}
 
+	public function do_form_attributes( $attributes ): string {
+		$string = '';
+		foreach ( $attributes as $key => $value ) {
+			if ( empty( $key ) || empty( $value )  ) {
+				continue;
+			}
+
+			$string .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
+		}
+
+		return $string;
+	}
+
 	/**
 	 * Generate the main option page.
 	 * Includes the view file.
@@ -570,7 +583,16 @@ class Tribe__Settings {
 	public function generate_page(): void {
 		$admin_pages = tribe( 'admin.pages' );
 		$admin_page  = $admin_pages->get_current_page();
-
+		$form_attributes = apply_filters(
+			'tec_settings_form_attributes',
+			[
+				'id'    => 'tec-settings-form',
+				'class' => '',
+				'method' => 'post',
+			],
+			$admin_page,
+			$this
+		);
 
 		ob_start();
 		do_action( 'tribe_settings_top', $admin_page );
@@ -591,7 +613,7 @@ class Tribe__Settings {
 				do_action( 'tribe_settings_above_form_element' );
 				do_action( 'tribe_settings_above_form_element_tab_' . $this->current_tab, $admin_page );
 				?>
-				<form id="tec-settings-form" method="post">
+				<form <?php tec_build_attributes( $form_attributes );?>>
 				<?php
 				do_action( 'tribe_settings_before_content' );
 				do_action( 'tribe_settings_before_content_tab_' . $this->current_tab );
@@ -789,7 +811,7 @@ class Tribe__Settings {
 			$wp_page
 		);
 
-		$url = apply_filters( 'tec_settings_tab_url', $url, $admin_page, $tab );
+		$url = apply_filters( 'tec_events_settings_tab_url', $url, $admin_page, $tab );
 
 		return $url;
 	}
