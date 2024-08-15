@@ -108,7 +108,7 @@ class Taxonomy {
 
 		$terms = array_map( static function ( $param ) use ( $taxonomy ) {
 			$param   = preg_replace( '/^#/', '', $param );
-			$term_by = is_numeric( $param ) ? 'ID' : 'slug';
+			$term_by = is_int( $param ) ? 'ID' : 'slug';
 			$term    = get_term_by( $term_by, $param, $taxonomy );
 
 			if ( ! $term instanceof \WP_Term ) {
