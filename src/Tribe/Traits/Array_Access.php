@@ -3,6 +3,8 @@
  * Array Access trait.
  *
  * @since TBD
+ *
+ * phpcs:disable WordPress.NamingConventions.ValidFunctionName
  */
 
 declare( strict_types=1 );
