@@ -19,10 +19,10 @@ import './style.pcss';
 
 export default class Select extends PureComponent {
 	static propTypes = {
-		options: PropTypes.shape( {
-			label: PropTypes.string,
-			value: PropTypes.any,
-		} ),
+		options: PropTypes.arrayOf( PropTypes.shape( {
+			label: PropTypes.string.isRequired,
+			value: PropTypes.any.isRequired,
+		} ) ),
 		onOptionClick: PropTypes.func.isRequired,
 		optionClassName: PropTypes.string,
 		isOpen: PropTypes.bool.isRequired,

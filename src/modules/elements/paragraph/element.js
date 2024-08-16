@@ -32,6 +32,7 @@ const Paragraph = ( { children, size, className } ) => (
 Paragraph.propTypes = {
 	children: PropTypes.node.isRequired,
 	size: PropTypes.oneOf( Object.keys( SIZES ) ),
+	className: PropTypes.string,
 };
 
 Paragraph.defaultProps = {

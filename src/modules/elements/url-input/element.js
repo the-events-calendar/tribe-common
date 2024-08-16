@@ -20,6 +20,7 @@ const UrlInput = ( { checked, className, onChange, ...rest } ) => (
 );
 
 UrlInput.propTypes = {
+	checked: PropTypes.bool,
 	className: PropTypes.string,
 	onChange: PropTypes.func,
 };
