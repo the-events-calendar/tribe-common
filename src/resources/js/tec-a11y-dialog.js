@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 (function (global) {
 	'use strict';
 
@@ -570,7 +571,6 @@
 		}
 	}
 
-	/* eslint-disable no-undef */
 	if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 		module.exports = A11yDialog;
 	} else if (typeof define === 'function' && define.amd) {
@@ -581,4 +581,3 @@
 		global.A11yDialog = A11yDialog;
 	}
 }(typeof global !== 'undefined' ? global : window));
-/* eslint-enable no-undef */
