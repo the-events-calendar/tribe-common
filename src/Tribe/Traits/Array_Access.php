@@ -11,6 +11,8 @@ declare( strict_types=1 );
 
 namespace Tribe\Traits;
 
+use ReturnTypeWillChange;
+
 /**
  * Trait Array_Access
  *
@@ -19,7 +21,7 @@ namespace Tribe\Traits;
 trait Array_Access {
 
 	/**
-	 * The data.
+	 * The data managed by this object.
 	 *
 	 * @var array
 	 */
@@ -27,6 +29,8 @@ trait Array_Access {
 
 	/**
 	 * Check if an offset exists.
+	 *
+	 * @link http://php.net/manual/en/arrayaccess.offsetexists.php
 	 *
 	 * @param mixed $offset The offset to check.
 	 *
@@ -39,16 +43,21 @@ trait Array_Access {
 	/**
 	 * Get an offset.
 	 *
+	 * @link http://php.net/manual/en/arrayaccess.offsetget.php
+	 *
 	 * @param mixed $offset The offset to get.
 	 *
 	 * @return mixed The offset value, or null if it does not exist.
 	 */
+	#[ReturnTypeWillChange]
 	public function offsetGet( $offset ): mixed {
 		return $this->data[ $offset ] ?? null;
 	}
 
 	/**
 	 * Set an offset.
+	 *
+	 * @link http://php.net/manual/en/arrayaccess.offsetset.php
 	 *
 	 * @param mixed $offset The offset to set.
 	 * @param mixed $value  The value to set.
@@ -61,6 +70,8 @@ trait Array_Access {
 
 	/**
 	 * Unset an offset.
+	 *
+	 * @link http://php.net/manual/en/arrayaccess.offsetunset.php
 	 *
 	 * @param mixed $offset The offset to unset.
 	 *
