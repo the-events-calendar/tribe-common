@@ -432,4 +432,96 @@
 		}
 	}
 
+	#tec-settings-form > .tec-settings__upsell {
+		align-items: flex-end;
+		background-color: var(--tec-admin-core-grey-0);
+		border: 1px solid var(--tec-admin-core-grey-10);
+		border-radius: var(--tec-border-radius-settings);
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column-reverse;
+		justify-content: space-between;
+		max-width: 100%;
+		padding: var(--tec-spacer-8);
+		width: 1000px;
+
+		@media (--viewport-xsmall) {
+			align-items: center;
+			flex-direction: row;
+			padding: var(--tec-spacer-8);
+		}
+
+		@media (--viewport-wpadmin) {
+			grid-column: 1 / span 2;
+			margin: 0;
+		}
+
+		.tec-settings__upsell-content {
+			p {
+				color: var(--tec-admin-core-grey-80);
+				font-size: var(--tec-font-size-7);
+				line-height: var(--tec-line-height-2);
+
+				&:last-of-type {
+					margin-bottom: 0;
+				}
+
+				@media (--viewport-xsmall) {
+					font-size: var(--tec-font-size-5);
+				}
+			}
+		}
+
+		.tec-settings__upsell-header {
+			display: flex;
+			margin-bottom: var(--tec-spacer-2);
+
+			.tec-settings__upsell-logo {
+				height: 24px;
+				object-fit: contain;
+				vertical-align: middle;
+			}
+
+			.tec-settings__upsell-title {
+				color: var(--tec-admin-core-grey-80);
+				font-size: var(--tec-font-size-7);
+				font-weight: bold;
+				line-height: 1;
+				margin: 0 var(--tec-spacer-0);
+			}
+		}
+
+		.tec-settings__upsell-image {
+			height: auto;
+			object-fit: contain;
+			width: 100px;
+
+			@media (--viewport-xsmall) {
+				margin-left: var(--tec-spacer-8);
+				width: 240px;
+			}
+		}
+
+		.tec-settings__upsell-btn {
+			background: var(--tec-color-button-primary);
+			border: 2px var(--tec-color-button-primary) solid;
+			border-radius: 5px;
+			color: var(--tec-color-background);
+			display: inline-block;
+			font-size: var(--tec-font-size-3);
+			font-weight: 500;
+			margin-top: var(--tec-spacer-5);
+			padding: var(--tec-spacer-3);
+			text-decoration: none;
+
+			&:hover,
+			&:active,
+			&:focus {
+				background: transparent;
+				box-shadow: none;
+				color: var(--tec-color-button-primary);
+				outline: none;
+			}
+		}
+	}
 }
