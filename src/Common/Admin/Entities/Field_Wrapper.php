@@ -18,7 +18,7 @@ use Tribe__Field;
  *
  * @since TBD
  */
-class FieldW_Wrapper implements Element {
+class Field_Wrapper implements Element {
 
 	/**
 	 * The field to wrap.
