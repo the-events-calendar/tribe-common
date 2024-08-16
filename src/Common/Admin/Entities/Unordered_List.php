@@ -3,6 +3,8 @@
  * Unordered list element.
  *
  * @since TBD
+ *
+ * phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod
  */
 
 declare( strict_types=1 );

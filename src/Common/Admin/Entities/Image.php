@@ -49,6 +49,11 @@ class Image extends Base_Entity {
 	/**
 	 * Get the attributes for the image element.
 	 *
+	 * The attributes retrieved from Element_Attributes::get_attributes_as_string() are already
+	 * escaped, so it is not necessary to further escape these attributes.
+	 *
+	 * @see Element_Attributes::get_attributes_as_string()
+	 *
 	 * @return string
 	 */
 	protected function get_attributes(): string {
@@ -66,7 +71,7 @@ class Image extends Base_Entity {
 		printf(
 			'<img src="%s" %s />',
 			esc_url( $this->url ),
-			$this->get_attributes() // phpcs:ignore StellarWP.XSS.EscapeOutput
+			$this->get_attributes() // phpcs:ignore StellarWP.XSS.EscapeOutput,WordPress.Security.EscapeOutput
 		);
 	}
 }

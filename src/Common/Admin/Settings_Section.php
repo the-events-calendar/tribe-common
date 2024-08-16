@@ -1,6 +1,8 @@
 <?php
 /**
+ * Settings_Section.
  *
+ * @since TBD
  */
 
 declare( strict_types=1 );
