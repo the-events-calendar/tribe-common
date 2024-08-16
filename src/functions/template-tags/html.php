@@ -298,32 +298,39 @@ function tec_build_attributes( $attributes, callable $escape = null, $echo = tru
 			}
 			continue;
 		} elseif ( is_array( $attribute_value ) ) {
-			$attribute_value = implode( ' ', array_reduce( $attribute_value, function ( $tokens, $token ) {
-				if ( is_string( $token ) ) {
-					$token = trim( $token );
+			$attribute_value = implode(
+				' ',
+				array_reduce(
+					$attribute_value,
+					function ( $tokens, $token ) {
+						if ( is_string( $token ) ) {
+							$token = trim( $token );
 
-					if ( strlen( $token ) > 0 ) {
-						$tokens[] = $token;
-					}
-				} elseif ( is_numeric( $token ) ) {
-					$tokens[] = $token;
-				}
+							if ( strlen( $token ) > 0 ) {
+								$tokens[] = $token;
+							}
+						} elseif ( is_numeric( $token ) ) {
+							$tokens[] = $token;
+						}
 
-				return $tokens;
-			}, [] ) );
+						return $tokens;
+					},
+					[]
+				)
+			);
 
 			if ( strlen( $attribute_value ) === 0 ) {
 				continue;
 			}
 		} elseif ( ! is_string( $attribute_value ) && ! is_numeric( $attribute_value ) ) {
-			$attribute_value = json_encode( $attribute_value, ( JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE ) );
+			$attribute_value = wp_json_encode( $attribute_value, ( JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) );
 		}
 
 		$html[] = sprintf(
 			'%1$s="%2$s"',
 			$attribute_name,
 			$escape( $attribute_value, $attribute_name )
-		 );
+		);
 	}
 
 	$html = implode( ' ', $html );
@@ -332,5 +339,5 @@ function tec_build_attributes( $attributes, callable $escape = null, $echo = tru
 		return $html;
 	}
 
-	echo $html;
+	echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 }

@@ -297,7 +297,7 @@ class Tribe__Tabbed_View {
 	public function get_tabs() {
 		uasort( $this->items, [ $this, 'sort_by_priority' ] );
 
-		foreach( $this->items as $slug => $tab ) {
+		foreach ( $this->items as $slug => $tab ) {
 			if ( ! $tab->has_children() ) {
 				continue;
 			}

@@ -389,8 +389,8 @@ class Tribe__Settings {
 		 * @param string $current_tab The current tab ID.
 		 * @param string $admin_page  The admin page ID.
 		 */
-		$this->current_tab     = $this->get_current_tab();
-		$this->url             = $this->get_tab_url( $this->current_tab );
+		$this->current_tab = $this->get_current_tab();
+		$this->url         = $this->get_tab_url( $this->current_tab );
 
 		/**
 		 * Filter the fields for save.
@@ -433,12 +433,11 @@ class Tribe__Settings {
 
 		// Find tab if a child tab.
 		if ( empty( $tab_object ) ) {
-			foreach( $this->tabs as $tab ) {
+			foreach ( $this->tabs as $tab ) {
 				if ( $tab->has_children() && isset( $tab->children[ $id ] ) ) {
 					$tab_object = $tab->children[ $id ];
 					break;
 				}
-
 			}
 		}
 
@@ -454,7 +453,7 @@ class Tribe__Settings {
 	 */
 	public function get_current_tab(): ?string {
 		$admin_page  = tribe( 'admin.pages' )->get_current_page();
-		$current_tab =  apply_filters( 'tribe_settings_current_tab', tribe_get_request_var( 'tab', $this->default_tab ), $admin_page );
+		$current_tab = apply_filters( 'tribe_settings_current_tab', tribe_get_request_var( 'tab', $this->default_tab ), $admin_page );
 
 		// Find tab if a parent.
 		$tab_object = $this->get_tab( $current_tab );
@@ -561,10 +560,19 @@ class Tribe__Settings {
 		return ob_get_clean();
 	}
 
+	/**
+	 * Handles the attributes for the form.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $attributes The attributes to add to the form.
+	 *
+	 * @return string The attributes string.
+	 */
 	public function do_form_attributes( $attributes ): string {
 		$string = '';
 		foreach ( $attributes as $key => $value ) {
-			if ( empty( $key ) || empty( $value )  ) {
+			if ( empty( $key ) || empty( $value ) ) {
 				continue;
 			}
 
@@ -588,8 +596,8 @@ class Tribe__Settings {
 		$form_attributes = apply_filters(
 			'tec_settings_form_attributes',
 			[
-				'id'    => 'tec-settings-form',
-				'class' => '',
+				'id'     => 'tec-settings-form',
+				'class'  => '',
 				'method' => 'post',
 			],
 			$admin_page,
@@ -617,7 +625,7 @@ class Tribe__Settings {
 				do_action( 'tribe_settings_above_form_element' );
 				do_action( 'tribe_settings_above_form_element_tab_' . $current_tab, $admin_page );
 				?>
-				<form <?php tec_build_attributes( $form_attributes );?>>
+				<form <?php tec_build_attributes( $form_attributes ); ?>>
 				<?php
 				do_action( 'tribe_settings_before_content' );
 				do_action( 'tribe_settings_before_content_tab_' . $current_tab );
@@ -642,7 +650,7 @@ class Tribe__Settings {
 					<?php
 				}
 
-				echo apply_filters( 'tribe_settings_closing_form_element', '</form>' );
+				echo apply_filters( 'tribe_settings_closing_form_element', '</form>' ); // phpcs:ignnore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 				do_action( 'tribe_settings_after_form_element' );
 				do_action( 'tribe_settings_after_form_element_tab_' . $current_tab, $admin_page );
 				?>
@@ -706,8 +714,8 @@ class Tribe__Settings {
 			return;
 		}
 
-		$url   = $this->get_tab_url( $tab->id );
-		$class = [ 'tec-nav__tab' ];
+		$url         = $this->get_tab_url( $tab->id );
+		$class       = [ 'tec-nav__tab' ];
 		$current_tab = $this->get_current_tab();
 
 		if ( $tab->has_children() && isset( $tab->children[ $current_tab ] ) ) {
@@ -763,7 +771,7 @@ class Tribe__Settings {
 				<a class="screen-reader-shortcut" role="presentation">
 					<img
 						class="tec-nav__duck"
-						 role="presentation"
+						role="presentation"
 						src="<?php echo esc_url( tribe_resource_url( 'images/icons/duck.svg', false, null, Tribe__Main::instance() ) ); ?>"
 						alt="<?php esc_attr_e( 'For you, Jack!', 'tribe-common' ); ?>"
 					/>
@@ -780,8 +788,8 @@ class Tribe__Settings {
 	 *
 	 * @since TBD
 	 *
-	 * @param  object $a First tab to compare
-	 * @param  object $b Second tab to compare
+	 * @param  object $a First tab to compare.
+	 * @param  object $b Second tab to compare.
 	 *
 	 * @return int
 	 */

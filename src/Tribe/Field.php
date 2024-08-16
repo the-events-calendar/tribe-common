@@ -177,7 +177,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			// setup the defaults
 			$this->defaults = [
 				'allow_clear'         => false,
-				'append'			  => '',
+				'append'              => '',
 				'attributes'          => [],
 				'can_be_empty'        => false,
 				'class'               => null,
@@ -370,7 +370,14 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			return apply_filters( 'tribe_field_start', $return, $this->id, $this->type, $this->error, $this->class, $this );
 		}
 
-		function do_field_append() {
+		/**
+		 * Returns the html appended to the fieldset's end
+		 *
+		 * @since TBD
+		 *
+		 * @return string the field append.
+		 */
+		public function do_field_append(): string {
 			if ( empty( $this->append ) ) {
 				return '';
 			}
@@ -379,12 +386,12 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		}
 
 		/**
-		 * returns the field's end
+		 * Returns the field's end.
 		 *
-		 * @return string the field end
+		 * @return string the field end.
 		 */
 		public function do_field_end() {
-			$return = $this->do_field_append();
+			$return  = $this->do_field_append();
 			$return .= '</fieldset>';
 			$return .= ( $this->clear_after ) ? '<div class="clear"></div>' : '';
 
