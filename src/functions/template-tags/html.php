@@ -1,6 +1,6 @@
 <?php
 /**
- * HTML functions ( template-tags ) for use in WordPress templates.
+ * HTML functions (template-tags) for use in WordPress templates.
  */
 use Tribe\Utils\Element_Attributes;
 use Tribe\Utils\Element_Classes;
@@ -74,6 +74,8 @@ function tribe_attributes() {
  * @return string|void If echo is false, returns $required_string.
  */
 function tribe_required( $required, $echo = true ) {
+	_deprecated_function( __METHOD__, '4.12.6', 'no replacement' );
+
 	if ( $required ) {
 		$required_string = 'required aria-required="true"';
 
@@ -222,122 +224,4 @@ function tribe_format_field_dependency( $deps ) {
 	}
 
 	return $dependency;
-}
-
-
-/**
- * Generate a string of HTML attributes.
- *
- * @param  array|object  $attributes Associative array or object containing properties,
- *                                   representing attribute names and values.
- *                                   Note: the "class" attribute gets passed to tribe_classes for parsing.
- * @param  callable|null $escape     Callback function to escape the values for HTML attributes.
- *                                   Accepts two parameters: 1. attribute value, 2. attribute name.
- *                                   Defaults to `esc_attr()`, if available, otherwise `htmlspecialchars()`.
- * @param  bool          $echo       Whether to echo the string or return it. Default true.
- *
- * @return string|void If echo is true (default) no return. If $echo is false, returns a string of HTML attributes
- *                 or an empty string if $attributes is invalid or empty.
- */
-function tec_build_attributes( $attributes, callable $escape = null, $echo = true ) {
-	if ( is_object( $attributes ) && ! ( $attributes instanceof \Traversable ) ) {
-		$attributes = get_object_vars( $attributes );
-	}
-
-	if ( ! is_array( $attributes ) || ! count( $attributes ) ) {
-		return '';
-	}
-
-	if ( is_null( $escape ) ) {
-		if ( function_exists( 'esc_attr' ) ) {
-			$escape = function ( $value ) {
-				return esc_attr( $value );
-			};
-		} else {
-			$escape = function ( $value ) {
-				return htmlspecialchars( $value, ENT_QUOTES, null, false );
-			};
-		}
-	}
-
-	$html = [];
-	foreach ( $attributes as $attribute_name => $attribute_value ) {
-		if ( is_string( $attribute_name ) ) {
-			$attribute_name = trim( $attribute_name );
-
-			if ( strlen( $attribute_name ) === 0 ) {
-				continue;
-			}
-
-			if ( 'class' === $attribute_name ) {
-				$html[] = tribe_classes( $attribute_value );
-
-				continue;
-			}
-		}
-
-		if ( is_object( $attribute_value ) && is_callable( $attribute_value ) ) {
-			$attribute_value = $attribute_value();
-		}
-
-		if ( is_null( $attribute_value ) ) {
-			continue;
-		}
-
-		if ( is_object( $attribute_value ) ) {
-			if ( is_callable( [ $attribute_value, 'toArray' ] ) ) {
-				$attribute_value = $attribute_value->toArray();
-			} elseif ( is_callable( [ $attribute_value, '__toString' ] ) ) {
-				$attribute_value = strval( $attribute_value );
-			}
-		}
-
-		if ( is_bool( $attribute_value ) ) {
-			if ( $attribute_value ) {
-				$html[] = $attribute_name;
-			}
-			continue;
-		} elseif ( is_array( $attribute_value ) ) {
-			$attribute_value = implode(
-				' ',
-				array_reduce(
-					$attribute_value,
-					function ( $tokens, $token ) {
-						if ( is_string( $token ) ) {
-							$token = trim( $token );
-
-							if ( strlen( $token ) > 0 ) {
-								$tokens[] = $token;
-							}
-						} elseif ( is_numeric( $token ) ) {
-							$tokens[] = $token;
-						}
-
-						return $tokens;
-					},
-					[]
-				)
-			);
-
-			if ( strlen( $attribute_value ) === 0 ) {
-				continue;
-			}
-		} elseif ( ! is_string( $attribute_value ) && ! is_numeric( $attribute_value ) ) {
-			$attribute_value = wp_json_encode( $attribute_value, ( JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) );
-		}
-
-		$html[] = sprintf(
-			'%1$s="%2$s"',
-			$attribute_name,
-			$escape( $attribute_value, $attribute_name )
-		);
-	}
-
-	$html = implode( ' ', $html );
-
-	if ( ! $echo ) {
-		return $html;
-	}
-
-	echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 }

@@ -293,6 +293,7 @@ class Tribe__Settings {
 		add_action( 'admin_init', [ $this, 'init_tabs' ] );
 		add_action( 'tribe_settings_below_tabs', [ $this, 'display_errors' ] );
 		add_action( 'tribe_settings_below_tabs', [ $this, 'display_success' ] );
+		add_action( 'tribe_settings_tab_after_link' , [ $this, 'add_child_tabs' ] );
 
 		do_action( 'tec_settings_init' );
 	}
@@ -434,8 +435,8 @@ class Tribe__Settings {
 		// Find tab if a child tab.
 		if ( empty( $tab_object ) ) {
 			foreach ( $this->tabs as $tab ) {
-				if ( $tab->has_children() && isset( $tab->children[ $id ] ) ) {
-					$tab_object = $tab->children[ $id ];
+				if ( $tab->has_child( $id ) ) {
+					$tab_object = $tab->get_child( $id );
 					break;
 				}
 			}
@@ -465,7 +466,7 @@ class Tribe__Settings {
 
 		// Parent tabs have no content! If one is selected, default to the first child.
 		if ( $tab_object->has_children() ) {
-			$current_tab = array_key_first( $tab_object->children );
+			$current_tab = array_key_first( $tab_object->get_children() );
 		}
 
 		$this->current_tab = $current_tab;
@@ -589,21 +590,9 @@ class Tribe__Settings {
 	 * @since TBD
 	 */
 	public function generate_page(): void {
-		$admin_pages = tribe( 'admin.pages' );
-		$admin_page  = $admin_pages->get_current_page();
-		$current_tab = $this->get_current_tab();
-
-		$form_attributes = apply_filters(
-			'tec_settings_form_attributes',
-			[
-				'id'     => 'tec-settings-form',
-				'class'  => '',
-				'method' => 'post',
-			],
-			$admin_page,
-			$this
-		);
-
+		$admin_pages  = tribe( 'admin.pages' );
+		$admin_page   = $admin_pages->get_current_page();
+		$current_tab  = $this->get_current_tab();
 		$wrap_classes = apply_filters( 'tribe_settings_wrap_classes', [ 'tribe_settings', 'wrap' ], $admin_page );
 
 		ob_start();
@@ -625,7 +614,7 @@ class Tribe__Settings {
 				do_action( 'tribe_settings_above_form_element' );
 				do_action( 'tribe_settings_above_form_element_tab_' . $current_tab, $admin_page );
 				?>
-				<form <?php tec_build_attributes( $form_attributes ); ?>>
+				<form id="tec-settings-form" method="post">
 				<?php
 				do_action( 'tribe_settings_before_content' );
 				do_action( 'tribe_settings_before_content_tab_' . $current_tab );
@@ -718,12 +707,12 @@ class Tribe__Settings {
 		$class       = [ 'tec-nav__tab' ];
 		$current_tab = $this->get_current_tab();
 
-		if ( $tab->has_children() && isset( $tab->children[ $current_tab ] ) ) {
+		if ( $tab->has_children() && $tab->has_child( $current_tab ) ) {
 			// Current tab is a child tab of passed tab.
 			$class[] = 'tec-nav__tab--subnav-active';
 		} elseif ( $tab->has_children() && $tab->id === $current_tab ) {
 			// Current tab is a parent tab. Set to first child.
-			$this->current_tab = array_key_first( $tab->children );
+			$this->current_tab = array_key_first( $tab->get_children() );
 			$class[]           = 'tec-nav__tab--subnav-active';
 		} elseif ( $tab->id === $current_tab ) {
 			$class[] = 'tec-nav__tab--active';
@@ -736,37 +725,37 @@ class Tribe__Settings {
 				id="<?php echo esc_attr( $tab->id ); ?>"
 				class="tec-nav__link"
 				href="<?php echo esc_url( $url ); ?>"><?php echo esc_html( $tab->name ); ?></a>
-			<?php
-			if ( $tab->has_children() ) {
-				$this->generate_subnav( $tab, $tab->children );
-			}
-			?>
+			<?php do_action( 'tribe_settings_tab_after_link', $tab ); ?>
 		</li>
 		<?php
 		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
-	/**
-	 * Generate a sub-tab navigation in the settings screen.
-	 *
-	 * Each level of the tab nav is a unordered list inside a nav element.
-	 * This function generates the structure for a subnav and
-	 * the generate_tab function creates the individual list items.
-	 *
-	 * @param Tribe__Settings_Tab $parent_tab The parent tab object.
-	 *
-	 * @since TBD
-	 */
-	public function generate_subnav( $parent_tab ) {
+
+
+	public function add_child_tabs( $tab ) {
+		if ( ! $tab->has_children() ) {
+			return;
+		}
+
 		?>
 		<ul class="tec-nav__subnav">
 			<?php
-			uasort( $parent_tab->children, [ $this, 'sort_by_priority' ] );
-			foreach ( $parent_tab->children as $child ) {
+			$child_tabs = $tab->get_children();
+			uasort( $child_tabs, [ $this, 'sort_by_priority' ] );
+
+			foreach ( $child_tabs as $child ) {
 				$this->generate_tab( $child );
 			}
-			?>
 
+			$this->get_duck_tab();
+			?>
+		</ul>
+		<?php
+	}
+
+	protected function get_duck_tab() {
+		?>
 			<li class="tec-nav__tab tec-nav__tab--duck">
 				<a class="screen-reader-shortcut" role="presentation">
 					<img
@@ -777,11 +766,8 @@ class Tribe__Settings {
 					/>
 				</a>
 			</li>
-		</ul>
 		<?php
 	}
-
-
 
 	/**
 	 * A method to sort tabs by priority in ascending order.
