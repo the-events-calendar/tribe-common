@@ -6,6 +6,7 @@
 * Fix - Stellar Sale's banner links, details, and HTML tags handling. [TEC-5121]
 * Tweak - Change setup of queues for Automator integrations to use Event Tickets Plus and Events Calendar Pro hooks instead of the core versions. [EVA-160]
 * Tweak - Move Registering of Power Automate and Zapier endpoints to Event Tickets Plus and Events Calendar Pro. [EVA-160]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [6.0.1] 2024-08-06 =
 
