@@ -293,7 +293,7 @@ class Tribe__Settings {
 		add_action( 'admin_init', [ $this, 'init_tabs' ] );
 		add_action( 'tribe_settings_below_tabs', [ $this, 'display_errors' ] );
 		add_action( 'tribe_settings_below_tabs', [ $this, 'display_success' ] );
-		add_action( 'tribe_settings_tab_after_link', [ $this, 'add_child_tabs' ] );
+		add_action( 'tribe_settings_tab_after_link', [ $this, 'add_child_tabs_to_nav' ] );
 
 		do_action( 'tec_settings_init' );
 	}
@@ -732,10 +732,10 @@ class Tribe__Settings {
 	 *
 	 * @since TBD
 	 *
-	 * @param Tribe__Settings_Tab $tab
+	 * @param Tribe__Settings_Tab $tab The parent tab object.
 	 * @return void
 	 */
-	public function add_child_tabs( Tribe__Settings_Tab $tab ) {
+	public function add_child_tabs_to_nav( Tribe__Settings_Tab $tab ) {
 		if ( ! $tab->has_children() ) {
 			return;
 		}
