@@ -369,7 +369,6 @@ class Tribe__Settings {
 			 */
 			$this->default_tab = apply_filters( 'tribe_settings_default_tab_network', 'network', $admin_page );
 		} else {
-			$tabs_keys         = array_keys( $this->tabs );
 			/**
 			 * Filter the default tab for the settings page.
 			 *
@@ -379,7 +378,7 @@ class Tribe__Settings {
 			 * @param string $admin_page  The admin page ID.
 			 */
 			$default_tab       = apply_filters( 'tribe_settings_default_tab', 'viewing', $admin_page );
-			$this->default_tab = in_array( $default_tab, $tabs_keys ) ? $default_tab : array_key_first( $tabs_keys );
+			$this->default_tab = in_array( $default_tab, $this->tabs ) ? $default_tab : array_key_first( $this->tabs );
 		}
 
 		/**
@@ -461,6 +460,7 @@ class Tribe__Settings {
 		$tab_object = $this->get_tab( $current_tab );
 
 		if ( empty( $tab_object ) ) {
+			$this->current_tab = $current_tab;
 			return $this->current_tab;
 		}
 
@@ -471,7 +471,7 @@ class Tribe__Settings {
 
 		$this->current_tab = $current_tab;
 
-		return $current_tab;
+		return $this->current_tab;
 	}
 
 	/**
@@ -583,6 +583,8 @@ class Tribe__Settings {
 	public function generate_page(): void {
 		$admin_pages = tribe( 'admin.pages' );
 		$admin_page  = $admin_pages->get_current_page();
+		$current_tab = $this->get_current_tab();
+
 		$form_attributes = apply_filters(
 			'tec_settings_form_attributes',
 			[
@@ -594,10 +596,12 @@ class Tribe__Settings {
 			$this
 		);
 
+		$wrap_classes = apply_filters( 'tribe_settings_wrap_classes', [ 'tribe_settings', 'wrap' ], $admin_page );
+
 		ob_start();
 		do_action( 'tribe_settings_top', $admin_page );
 		?>
-		<div class="tribe_settings wrap">
+		<div <?php tribe_classes( $wrap_classes ); ?>>
 			<h1>
 				<?php echo wp_kses_post( $this->get_page_logo( $admin_page ) ); ?>
 				<?php echo esc_html( $this->get_page_title( $admin_page ) ); ?>
@@ -606,39 +610,41 @@ class Tribe__Settings {
 			do_action( 'tribe_settings_above_tabs' );
 			$this->generate_tabs();
 			do_action( 'tribe_settings_below_tabs' );
-			do_action( 'tribe_settings_below_tabs_tab_' . $this->current_tab, $admin_page );
+			do_action( 'tribe_settings_below_tabs_tab_' . $current_tab, $admin_page );
 			?>
 			<div class="tribe-settings-form form">
 				<?php
 				do_action( 'tribe_settings_above_form_element' );
-				do_action( 'tribe_settings_above_form_element_tab_' . $this->current_tab, $admin_page );
+				do_action( 'tribe_settings_above_form_element_tab_' . $current_tab, $admin_page );
 				?>
 				<form <?php tec_build_attributes( $form_attributes );?>>
 				<?php
 				do_action( 'tribe_settings_before_content' );
-				do_action( 'tribe_settings_before_content_tab_' . $this->current_tab );
-				do_action( 'tribe_settings_content_tab_' . $this->current_tab );
+				do_action( 'tribe_settings_before_content_tab_' . $current_tab );
+				do_action( 'tribe_settings_content_tab_' . $current_tab );
 
-				if ( ! has_action( 'tribe_settings_content_tab_' . $this->current_tab ) ) {
+				if ( ! has_action( 'tribe_settings_content_tab_' . $current_tab ) ) {
 					?>
 					<p><?php echo esc_html__( "You've requested a non-existent tab.", 'tribe-common' ); ?></p>
 					<?php
 				}
-				do_action( 'tribe_settings_after_content_tab_' . $this->current_tab );
-				do_action( 'tribe_settings_after_content', $this->current_tab );
+				do_action( 'tribe_settings_after_content_tab_' . $current_tab );
+				do_action( 'tribe_settings_after_content', $current_tab );
 
-				if ( has_action( 'tribe_settings_content_tab_' . $this->current_tab ) && ! in_array( $this->current_tab, $this->no_save_tabs ) ) {
+				if ( has_action( 'tribe_settings_content_tab_' . $current_tab ) && ! in_array( $current_tab, $this->no_save_tabs ) ) {
 					wp_nonce_field( 'saving', 'tribe-save-settings' );
 					?>
-					<div class="clear"></div>
-					<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="<?php echo esc_attr( $this->current_tab ); ?>" />
-					<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="<?php echo esc_attr__( 'Save Changes', 'tribe-common' ); ?>" />
+					<div class="tec_settings__footer">
+						<hr class="tec_settings__separator--footer">
+						<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="<?php echo esc_attr( $this->current_tab ); ?>" />
+						<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="<?php echo esc_attr__( 'Save Changes', 'tribe-common' ); ?>" />
+					</div>
 					<?php
 				}
 
 				echo apply_filters( 'tribe_settings_closing_form_element', '</form>' );
 				do_action( 'tribe_settings_after_form_element' );
-				do_action( 'tribe_settings_after_form_element_tab_' . $this->current_tab, $admin_page );
+				do_action( 'tribe_settings_after_form_element_tab_' . $current_tab, $admin_page );
 				?>
 			</div>
 			<?php do_action( 'tribe_settings_after_form_div' ); ?>
