@@ -14,9 +14,9 @@ use Tribe\Utils\Element_Classes;
  *
  * @return array
  */
-function tribe_get_classes(  ) {
-	$element_classes = new Element_Classes( func_get_args(  )  );
-	return $element_classes->get_classes(  );
+function tribe_get_classes() {
+	$element_classes = new Element_Classes( func_get_args() );
+	return $element_classes->get_classes();
 }
 
 /**
@@ -28,9 +28,9 @@ function tribe_get_classes(  ) {
  *
  * @return void
  */
-function tribe_classes(  ) {
-	$element_classes = new Element_Classes( func_get_args(  )  );
-	echo $element_classes->get_attribute(  );
+function tribe_classes() {
+	$element_classes = new Element_Classes( func_get_args() );
+	echo $element_classes->get_attribute();
 }
 
 /**
@@ -42,9 +42,9 @@ function tribe_classes(  ) {
  *
  * @return array<string> An array of the parsed string attributes.
  */
-function tribe_get_attributes(  ) {
-	$element_attributes = new Element_Attributes( func_get_args(  )  );
-	return $element_attributes->get_attributes_array(  );
+function tribe_get_attributes() {
+	$element_attributes = new Element_Attributes( func_get_args() );
+	return $element_attributes->get_attributes_array();
 }
 
 /**
@@ -56,9 +56,9 @@ function tribe_get_attributes(  ) {
  *
  * @return void
  */
-function tribe_attributes(  ) {
-	$element_attributes = new Element_Attributes( func_get_args(  )  );
-	echo $element_attributes->get_attributes(  );
+function tribe_attributes() {
+	$element_attributes = new Element_Attributes( func_get_args() );
+	echo $element_attributes->get_attributes();
 }
 
 /**
@@ -73,11 +73,11 @@ function tribe_attributes(  ) {
  *
  * @return string|void If echo is false, returns $required_string.
  */
-function tribe_required( $required, $echo = true  ) {
-	if ( $required  ) {
+function tribe_required( $required, $echo = true ) {
+	if ( $required ) {
 		$required_string = 'required aria-required="true"';
 
-		if ( ! $echo  ) {
+		if ( ! $echo ) {
 			return $required_string;
 		} else {
 			echo $required_string;
@@ -95,13 +95,13 @@ function tribe_required( $required, $echo = true  ) {
  *
  * @return string|void If echo is false, returns $required_string.
  */
-function tribe_required_label( $required, $echo = true  ) {
-	if ( $required  ) {
+function tribe_required_label( $required, $echo = true ) {
+	if ( $required ) {
 		$required_string = '<span class="screen-reader-text">'
-			. esc_html_x( '( required )', 'The associated field is required.', 'tribe-common'  )
+			. esc_html_x( '( required )', 'The associated field is required.', 'tribe-common' )
 			. '</span><span class="tribe-required" aria-hidden="true" role="presentation">*</span>';
 
-		if ( ! $echo  ) {
+		if ( ! $echo ) {
 			return $required_string;
 		} else {
 			echo $required_string;
@@ -121,11 +121,11 @@ function tribe_required_label( $required, $echo = true  ) {
  *
  * @return string|void If echo is false, returns $disabled_string.
  */
-function tribe_disabled( $disabled, $echo = true  ) {
-	if ( $disabled  ) {
+function tribe_disabled( $disabled, $echo = true ) {
+	if ( $disabled ) {
 		$disabled_string = 'disabled aria-disabled="true"';
 
-		if ( ! $echo  ) {
+		if ( ! $echo ) {
 			return $disabled_string;
 		} else {
 			echo $disabled_string;
@@ -142,17 +142,17 @@ function tribe_disabled( $disabled, $echo = true  ) {
  *
  * @return string             $dependency The string of dependencies attributes to add to the input.
  */
-function tribe_format_field_dependency( $deps  ) {
+function tribe_format_field_dependency( $deps ) {
 	// Sanity check.
-	if ( empty( $deps  )  ) {
+	if ( empty( $deps ) ) {
 		return '';
 	}
 
 	// Let's be case-insensitive!
-	$deps = array_combine( array_map( 'strtolower', array_keys( $deps  )  ), $deps  );
+	$deps = array_combine( array_map( 'strtolower', array_keys( $deps ) ), $deps );
 
 	// No ID to hook to? Bail.
-	if ( empty( $deps['id']  )  ) {
+	if ( empty( $deps['id'] ) ) {
 		return;
 	}
 
@@ -171,16 +171,16 @@ function tribe_format_field_dependency( $deps  ) {
 		'is-not-checked',
 	];
 
-	$valid_deps = array_intersect_key( $deps, array_flip( $accepted  )  );
+	$valid_deps = array_intersect_key( $deps, array_flip( $accepted ) );
 
-	foreach ( $valid_deps as $attr => $value  ) {
+	foreach ( $valid_deps as $attr => $value ) {
 		// Attributes are always lower case.
-		$attr = strtolower( $attr  );
+		$attr = strtolower( $attr );
 
 		// Handle the ID component.
-		if ( 'id' === $attr  ) {
+		if ( 'id' === $attr ) {
 			// Prepend a hash "#" if it's missing.
-			if ( '#' !== substr( $value, 0, 1  )  ) {
+			if ( '#' !== substr( $value, 0, 1 ) ) {
 				$value = '#' . $value;
 			}
 
@@ -189,20 +189,20 @@ function tribe_format_field_dependency( $deps  ) {
 		}
 
 		// Handle the dependent parent component.
-		if ( 'parent' === $attr  ) {
+		if ( 'parent' === $attr ) {
 			$dependency .= " data-dependent-parent=\"{$value}\"";
 			continue;
 		}
 
 		// Handle boolean values.
-		if ( is_bool( $value  )  ) {
-			if ( $value  ) {
+		if ( is_bool( $value ) ) {
+			if ( $value ) {
 				$dependency .= " data-condition-{$attr}";
 			} else {
-				if ( 0 === stripos( $attr, 'is-not-'  )  ) {
-					$attr = str_replace( 'is-not-', 'is-', $attr  );
+				if ( 0 === stripos( $attr, 'is-not-' ) ) {
+					$attr = str_replace( 'is-not-', 'is-', $attr );
 				} else {
-					$attr = str_replace( 'is-', 'is-not-', $attr  );
+					$attr = str_replace( 'is-', 'is-not-', $attr );
 				}
 
 				$dependency .= " data-{$attr}";
@@ -212,11 +212,11 @@ function tribe_format_field_dependency( $deps  ) {
 		}
 
 		// Handle string and "empty" values
-		if( 0 === strlen( $value  )  ) {
+		if( 0 === strlen( $value ) ) {
 			$dependency .= " data-condition-{$attr}";
-		} else if ( 'is' === $attr  ) {
+		} else if ( 'is' === $attr ) {
 			$dependency .= " data-condition=\"{$value}\"";
-		} else if ( 'is-not' === $attr  ) {
+		} else if ( 'is-not' === $attr ) {
 			$dependency .= " data-condition-not=\"{$value}\"";
 		}
 	}
@@ -233,13 +233,13 @@ function tribe_format_field_dependency( $deps  ) {
  *                                   Note: the "class" attribute gets passed to tribe_classes for parsing.
  * @param  callable|null $escape     Callback function to escape the values for HTML attributes.
  *                                   Accepts two parameters: 1. attribute value, 2. attribute name.
- *                                   Defaults to `esc_attr(  )`, if available, otherwise `htmlspecialchars(  )`.
+ *                                   Defaults to `esc_attr()`, if available, otherwise `htmlspecialchars()`.
  * @param  bool          $echo       Whether to echo the string or return it. Default true.
  *
  * @return string|void If echo is true (default) no return. If $echo is false, returns a string of HTML attributes
  *                 or an empty string if $attributes is invalid or empty.
  */
-function tec_build_attributes( $attributes, callable $escape = null, $echo = true  ) {
+function tec_build_attributes( $attributes, callable $escape = null, $echo = true ) {
 	if ( is_object( $attributes ) && ! ( $attributes instanceof \Traversable ) ) {
 		$attributes = get_object_vars( $attributes );
 	}
@@ -262,22 +262,22 @@ function tec_build_attributes( $attributes, callable $escape = null, $echo = tru
 
 	$html = [];
 	foreach ( $attributes as $attribute_name => $attribute_value ) {
-		if ( is_string( $attribute_name  )  ) {
+		if ( is_string( $attribute_name ) ) {
 			$attribute_name = trim( $attribute_name );
 
 			if ( strlen( $attribute_name ) === 0 ) {
 				continue;
 			}
 
-			if ( 'class' === $attribute_name  ) {
-				$html[] = tribe_classes( $attribute_value  );
+			if ( 'class' === $attribute_name ) {
+				$html[] = tribe_classes( $attribute_value );
 
 				continue;
 			}
 		}
 
 		if ( is_object( $attribute_value ) && is_callable( $attribute_value ) ) {
-			$attribute_value = $attribute_value(  );
+			$attribute_value = $attribute_value();
 		}
 
 		if ( is_null( $attribute_value ) ) {
@@ -286,7 +286,7 @@ function tec_build_attributes( $attributes, callable $escape = null, $echo = tru
 
 		if ( is_object( $attribute_value ) ) {
 			if ( is_callable( [ $attribute_value, 'toArray' ] ) ) {
-				$attribute_value = $attribute_value->toArray(  );
+				$attribute_value = $attribute_value->toArray();
 			} elseif ( is_callable( [ $attribute_value, '__toString' ] ) ) {
 				$attribute_value = strval( $attribute_value );
 			}
@@ -328,7 +328,7 @@ function tec_build_attributes( $attributes, callable $escape = null, $echo = tru
 
 	$html = implode( ' ', $html );
 
-	if ( ! $echo  ) {
+	if ( ! $echo ) {
 		return $html;
 	}
 
