@@ -19,20 +19,6 @@ use InvalidArgumentException;
 trait Validate_Elements {
 
 	/**
-	 * Validate the heading level.
-	 *
-	 * @param int $level The heading level.
-	 *
-	 * @return void
-	 * @throws InvalidArgumentException If the heading level is invalid.
-	 */
-	protected function validate_level( int $level ) {
-		if ( $level < 1 || $level > 6 ) {
-			throw new InvalidArgumentException( esc_html__( 'Heading level must be between 1 and 6', 'tribe-common' ) );
-		}
-	}
-
-	/**
 	 * Validate that an object is an instance of a class.
 	 *
 	 * @param object $thing     The object to validate.

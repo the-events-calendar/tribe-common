@@ -9,6 +9,8 @@ declare( strict_types=1 );
 
 namespace TEC\Common\Admin\Entities;
 
+use InvalidArgumentException;
+use LogicException;
 use Tribe\Utils\Element_Classes;
 
 /**
@@ -25,14 +27,21 @@ class Heading extends Base_Entity {
 	 *
 	 * @var string
 	 */
-	private string $content = '';
+	protected string $content = '';
 
 	/**
 	 * The heading level.
 	 *
 	 * @var int
 	 */
-	private int $level = 1;
+	protected int $level = 1;
+
+	/**
+	 * The maximum heading level.
+	 *
+	 * @var int
+	 */
+	protected int $max_level = 6;
 
 	/**
 	 * Heading constructor.
@@ -73,5 +82,29 @@ class Heading extends Base_Entity {
 			esc_attr( $this->get_classes() ),
 			esc_html( $this->content )
 		);
+	}
+
+	/**
+	 * Validate the heading level.
+	 *
+	 * @param int $level The heading level.
+	 *
+	 * @return void
+	 * @throws InvalidArgumentException If the heading level is invalid.
+	 */
+	private function validate_level( int $level ) {
+		if ( $this->max_level > 6 ) {
+			throw new LogicException( esc_html__( 'The maximum heading level must be 6 or less', 'tribe-common' ) );
+		}
+
+		if ( $level < 1 || $level > $this->max_level ) {
+			throw new InvalidArgumentException(
+				sprintf(
+					/* translators: %d: The maximum heading level. */
+					esc_html__( 'Heading level must be between 1 and %d', 'tribe-common' ),
+					$this->max_level
+				)
+			);
+		}
 	}
 }
