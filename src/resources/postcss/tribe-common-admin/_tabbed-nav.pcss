@@ -64,24 +64,12 @@
 			}
 		}
 
-		> .tec_settings__header-block {
-			@media (--viewport-wpadmin) {
-				grid-column: 1;
-			}
-
-			&.tec_settings__header-block--horizontal {
-				@media (--viewport-wpadmin) {
-					grid-column: 1 / span 2;
-				}
-			}
-		}
-
-		> .tec_settings__section-header {
+		> .tec-settings__section-header {
 			grid-column: 1;
 			margin-right: 0;
 			margin-top: var(--tec-spacer-6);
 
-			&.tec_settings__section-header--wide {
+			&.tec-settings__section-header--wide {
 				font-size: var(--tec-font-size-5);
 				font-weight: var(--tec-font-weight-bold);
 				line-height: var(--tec-line-height-0);
@@ -91,7 +79,7 @@
 			@media (--viewport-wpadmin) {
 				grid-column: 1;
 
-				&.tec_settings__section-header--wide {
+				&.tec-settings__section-header--wide {
 					grid-column: 1 / span 2;
 				}
 			}
@@ -104,12 +92,12 @@
 			}
 		}
 
-		> .tec_settings__section-header + *,
+		> .tec-settings__section-header + *,
 		> .tec_settings__header-block + * {
 			margin-top: var(--tec-spacer-6);
 		}
 
-		.tec_settings__section-header--sub {
+		.tec-settings__section-header--sub {
 			font-size: var(--tec-font-size-3);
 			font-weight: var(--tec-font-weight-regular);
 			line-height: var(--tec-line-height-2);
@@ -128,8 +116,28 @@
 			}
 		}
 
-		.tec_settings__separator--section + .tec_settings__section-header,
-		.tec_settings__separator--section + .tec_settings__section-header + * {
+		.tec_settings__separator--section + .tec-settings__section-header,
+		.tec_settings__separator--section + .tec-settings__section-header + * {
+			margin-top: 0;
+		}
+
+		> .tec_settings__header-block {
+			@media (--viewport-wpadmin) {
+				grid-column: 1;
+			}
+
+			&.tec_settings__header-block--horizontal {
+				@media (--viewport-wpadmin) {
+					grid-column: 1 / span 2;
+
+					&:not(:first-child) {
+						margin-top: 0;
+					}
+				}
+			}
+		}
+
+		> .tec_settings__header-block--horizontal + .tec-settings__element--colspan-2 {
 			margin-top: 0;
 		}
 
@@ -523,5 +531,12 @@
 				outline: none;
 			}
 		}
+	}
+
+	/* Tab-specific styles */
+
+	/* Integrations */
+	.tec-settings__add-account-button {
+		vertical-align: middle;
 	}
 }

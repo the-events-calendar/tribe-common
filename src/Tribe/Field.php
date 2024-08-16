@@ -565,9 +565,11 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 * @return string the field
 		 */
 		public function heading() {
-			$field = '<h3>' . $this->label . '</h3>';
-
-			return $field;
+			ob_start();
+			?>
+			<h3 <?php tribe_classes( $this->class); ?>><?php echo esc_html( $this->label ); ?></h3>
+			<?php
+			return ob_get_clean();
 		}
 
 		/**

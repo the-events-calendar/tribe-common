@@ -86,10 +86,6 @@ class Abstract_Dashboard {
 		] );
 
 		$dashboard_fields = [
-			static::$option_prefix . 'wrapper_open'  => [
-				'type' => 'html',
-				'html' => '<div id="tribe-settings-' . $api_id . '-application" class="' . implode( ' ', $wrapper_classes ) . '">'
-			],
 			static::$option_prefix . 'header'        => [
 				'type' => 'html',
 				'html' => $this->get_intro_text(),
@@ -97,10 +93,6 @@ class Abstract_Dashboard {
 			static::$option_prefix . 'endpoints'     => [
 				'type' => 'html',
 				'html' => $this->get_dashboard(),
-			],
-			static::$option_prefix . 'wrapper_close' => [
-				'type' => 'html',
-				'html' => '<div class="clear"></div></div>',
 			],
 		];
 

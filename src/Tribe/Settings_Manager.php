@@ -285,19 +285,6 @@ class Tribe__Settings_Manager {
 		 * @var $licenses_tab
 		 */
 		include Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-licenses.php';
-
-		/**
-		 * Allows the fields displayed in the licenses tab to be modified.
-		 *
-		 * @var array
-		 */
-		$license_fields = apply_filters( 'tribe_license_fields', $licenses_tab );
-
-		new Tribe__Settings_Tab( 'licenses', esc_html__( 'Licenses', 'tribe-common' ), [
-			'priority'      => '40',
-			'fields'        => $license_fields,
-			'network_admin' => is_network_admin() ? true : false,
-		] );
 	}
 
 	/**

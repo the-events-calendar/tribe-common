@@ -690,7 +690,7 @@ abstract class Integration_Connections {
 		    'number' => 1000,
 		    'role__in' => [ 'Administrator', 'Editor' ],
 		];
-		$api_id = static::$api_id;;
+		$api_id = static::$api_id;
 
 		/**
 		 * Filters the argument array to query users for the connection fields user dropdown.

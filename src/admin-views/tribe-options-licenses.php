@@ -51,7 +51,7 @@ if ( is_multisite() ) {
 $html .= '</ul>';
 
 
-$licenses_tab = [
+$old_license_field_info_box = [
 	'info-start'           => [
 		'type' => 'html',
 		'html' => '<div id="modern-tribe-info">',
@@ -69,3 +69,38 @@ $licenses_tab = [
 		'html' => '</div>',
 	],
 ];
+
+$license_fields = [
+	'tec-events-pro-defaults-licenses-title'       => [
+		'type' => 'html',
+		'html' => '<div class="tec_settings__header-block tec_settings__header-block--horizontal">'
+		           . '<h3 id="tec-events-pro-defaults-licenses-title" class="tec-settings__section-header">'
+				   . _x( 'Licenses', 'Licenses section header', 'tribe-events-calendar-pro' )
+				   . '</h3>'
+				   . '<p class="tec_settings__section-description">'
+				   . esc_html__( "If you've purchased a premium add-on, you'll need to enter your license key here in order to have access to automatic updates when new versions are available.", 'tribe-common' )
+				   . '</p>'
+				   . '</div>',
+	],
+];
+
+
+/**
+ * Allows the fields displayed in the licenses tab to be modified.
+ *
+ * @var array<string,mixed> $license_fields Array of fields used to setup the Licenses Tab.
+ */
+$license_fields = apply_filters( 'tribe_license_fields', $license_fields );
+
+
+$licenses_tab = new Tribe__Settings_Tab(
+	'licenses',
+	esc_html__( 'Licenses', 'tribe-common' ),
+	[
+		'priority'      => 40,
+		'fields'        => $license_fields,
+		'network_admin' => is_network_admin() ? true : false,
+	]
+);
+
+do_action( 'tec_settings_tab_licenses', $licenses_tab );
