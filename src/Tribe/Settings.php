@@ -293,7 +293,7 @@ class Tribe__Settings {
 		add_action( 'admin_init', [ $this, 'init_tabs' ] );
 		add_action( 'tribe_settings_below_tabs', [ $this, 'display_errors' ] );
 		add_action( 'tribe_settings_below_tabs', [ $this, 'display_success' ] );
-		add_action( 'tribe_settings_tab_after_link' , [ $this, 'add_child_tabs' ] );
+		add_action( 'tribe_settings_tab_after_link', [ $this, 'add_child_tabs' ] );
 
 		do_action( 'tec_settings_init' );
 	}
@@ -639,7 +639,7 @@ class Tribe__Settings {
 					<?php
 				}
 
-				echo apply_filters( 'tribe_settings_closing_form_element', '</form>' ); // phpcs:ignnore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
+				echo apply_filters( 'tribe_settings_closing_form_element', '</form>' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 				do_action( 'tribe_settings_after_form_element' );
 				do_action( 'tribe_settings_after_form_element_tab_' . $current_tab, $admin_page );
 				?>
@@ -698,11 +698,7 @@ class Tribe__Settings {
 	 *
 	 * @param Tribe__Settings_Tab $tab The tab object.
 	 */
-	public function generate_tab( $tab ) {
-		if ( ! $tab instanceof Tribe__Settings_Tab ) {
-			return;
-		}
-
+	public function generate_tab( Tribe__Settings_Tab $tab ) {
 		$url         = $this->get_tab_url( $tab->id );
 		$class       = [ 'tec-nav__tab' ];
 		$current_tab = $this->get_current_tab();
@@ -731,9 +727,15 @@ class Tribe__Settings {
 		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
-
-
-	public function add_child_tabs( $tab ) {
+	/**
+	 * Add the current tab's children to the nav as a subnav.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__Settings_Tab $tab
+	 * @return void
+	 */
+	public function add_child_tabs( Tribe__Settings_Tab $tab ) {
 		if ( ! $tab->has_children() ) {
 			return;
 		}
@@ -754,7 +756,15 @@ class Tribe__Settings {
 		<?php
 	}
 
-	protected function get_duck_tab() {
+	/**
+	 * A little something for Jack.
+	 * Shows a duck on the far right end of a subnav on hover.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function get_duck_tab(): void {
 		?>
 			<li class="tec-nav__tab tec-nav__tab--duck">
 				<a class="screen-reader-shortcut" role="presentation">

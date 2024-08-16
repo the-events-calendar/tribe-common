@@ -130,6 +130,7 @@ class Tribe__Settings_Tab {
 		// Set each instance variable and filter.
 		$this->id   = apply_filters( 'tribe_settings_tab_id', $id );
 		$this->name = apply_filters( 'tribe_settings_tab_name', $name );
+
 		foreach ( $this->defaults as $key => $value ) {
 			$this->{$key} = apply_filters( 'tribe_settings_tab_' . $key, $this->args[ $key ], $id );
 		}
@@ -143,8 +144,18 @@ class Tribe__Settings_Tab {
 		$this->add_actions();
 	}
 
-	public function add_actions() {}
+	/**
+	 * Adds actions for the tab.
+	 *
+	 * @since TBD
+	 */
+	public function add_actions(): void {}
 
+	/**
+	 * Adds filters for the tab.
+	 *
+	 * @since TBD
+	 */
 	public function add_filters() {
 		add_filter( 'tribe_settings_tabs', [ $this, 'add_tab' ] );
 	}
