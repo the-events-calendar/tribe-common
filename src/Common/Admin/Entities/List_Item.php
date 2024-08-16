@@ -39,7 +39,7 @@ class List_Item extends Container {
 	 * @throws InvalidArgumentException If the child is another List Item.
 	 */
 	public function add_child( $child ) {
-		if ( $child instanceof static::class ) {
+		if ( $child instanceof static ) {
 			throw new InvalidArgumentException( esc_html__( 'List items cannot contain other list items.', 'tribe-common' ) );
 		}
 
