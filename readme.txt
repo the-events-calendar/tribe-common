@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [6.0.2] 2024-08-16 =
+= [6.0.2] 2024-08-19 =
 
 * Fix - Fixed attendee, updated attendee, and checkin endpoints from having invalid response for workflow operation 'id' to be of type 'Integer' but is of type 'String'. [EVA-160]
 * Fix - Stellar Sale's banner links, details, and HTML tags handling. [TEC-5121]
