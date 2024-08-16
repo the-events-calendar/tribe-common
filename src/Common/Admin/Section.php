@@ -47,7 +47,11 @@ abstract class Section {
 	 * @return void
 	 */
 	protected function render_title() {
-		$this->title?->render();
+		if ( ! $this->title ) {
+			return;
+		}
+
+		$this->title->render();
 	}
 
 	/**

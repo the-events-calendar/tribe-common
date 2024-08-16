@@ -48,7 +48,11 @@ abstract class Base_Entity implements ArrayAccess, Element, Stringable {
 	 * @return string
 	 */
 	protected function get_classes(): string {
-		return $this->classes?->get_classes_as_string() ?? '';
+		if ( ! $this->classes ) {
+			return '';
+		}
+
+		return $this->classes->get_classes_as_string();
 	}
 
 	/**

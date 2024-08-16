@@ -83,6 +83,10 @@ class Settings_Sidebar extends Section {
 	 * @return void
 	 */
 	protected function render_header_image() {
-		$this->header_image?->render();
+		if ( ! $this->header_image ) {
+			return;
+		}
+
+		$this->header_image->render();
 	}
 }

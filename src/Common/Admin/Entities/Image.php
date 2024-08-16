@@ -52,7 +52,9 @@ class Image extends Base_Entity {
 	 * @return string
 	 */
 	protected function get_attributes(): string {
-		return $this->attributes?->get_attributes_as_string() ?? '';
+		return null === $this->attributes
+			? ''
+			: $this->attributes->get_attributes_as_string();
 	}
 
 	/**
