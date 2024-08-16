@@ -605,8 +605,16 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public function do_license_key_fields( $fields ) {
 			// Common fields whether licenses should be hidden or not.
 			$to_insert = [
+				$this->pue_install_key . '-separator' => [
+					'type'  => 'html',
+					'html' => '<hr class="tec_settings__separator--section">',
+				],
 				$this->pue_install_key . '-heading' => [
 					'type'  => 'heading',
+					'class' => [
+						'tec-settings__section-header',
+						'tec-settings__section-header--sub',
+					],
 					'label' => $this->get_plugin_name(),
 				],
 			];

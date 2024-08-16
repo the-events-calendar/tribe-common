@@ -88,6 +88,24 @@ class Tribe__Settings_Tab {
 	public $priority;
 
 	/**
+	 * Parent tab ID, if any.
+	 *
+	 * @since TBD
+	 *
+	 * @var string $parent
+	 */
+	protected $parent = '';
+
+	/**
+	 * Array of child tabs, if any.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string, Tribe__Settings_Tab> $children
+	 */
+	public $children = [];
+
+	/**
 	 * Class constructor.
 	 *
 	 * @param string $id   The tab's id (no spaces or special characters).
@@ -95,7 +113,6 @@ class Tribe__Settings_Tab {
 	 * @param array  $args Additional arguments for the tab.
 	 */
 	public function __construct( $id, $name, $args = [] ) {
-
 		// Setup the defaults.
 		$this->defaults = [
 			'fields'           => [],
@@ -103,6 +120,8 @@ class Tribe__Settings_Tab {
 			'show_save'        => true,
 			'display_callback' => false,
 			'network_admin'    => false,
+			'parent'           => null,
+			'children'         => [],
 		];
 
 		// Parse args with defaults.
@@ -111,6 +130,7 @@ class Tribe__Settings_Tab {
 		// Set each instance variable and filter.
 		$this->id   = apply_filters( 'tribe_settings_tab_id', $id );
 		$this->name = apply_filters( 'tribe_settings_tab_name', $name );
+
 		foreach ( $this->defaults as $key => $value ) {
 			$this->{$key} = apply_filters( 'tribe_settings_tab_' . $key, $this->args[ $key ], $id );
 		}
@@ -119,7 +139,43 @@ class Tribe__Settings_Tab {
 		if ( ! $this->network_admin ) {
 			add_filter( 'tribe_settings_all_tabs', [ $this, 'add_all_tabs' ] );
 		}
-		add_filter( 'tribe_settings_tabs', [ $this, 'add_tab' ], $this->priority );
+
+		$this->add_filters();
+		$this->add_actions();
+	}
+
+	/**
+	 * Adds actions for the tab.
+	 *
+	 * @since TBD
+	 */
+	public function add_actions(): void {}
+
+	/**
+	 * Adds filters for the tab.
+	 *
+	 * @since TBD
+	 */
+	public function add_filters() {
+		add_filter( 'tribe_settings_tabs', [ $this, 'add_tab' ] );
+	}
+
+	/**
+	 * Gets the tab's parent ID.
+	 *
+	 * @return string The tab's parent ID.
+	 */
+	public function get_parent(): string {
+		return $this->parent;
+	}
+
+	/**
+	 * Checks if the tab has a parent.
+	 *
+	 * @return bool
+	 */
+	public function has_parent(): bool {
+		return ! empty( $this->parent );
 	}
 
 	/**
@@ -133,9 +189,16 @@ class Tribe__Settings_Tab {
 	 */
 	public function add_tab( $tabs ): array {
 		$hide_settings_tabs = Tribe__Settings_Manager::get_network_option( 'hideSettingsTabs', [] );
+
 		if ( ( isset( $this->fields ) || has_action( 'tribe_settings_content_tab_' . $this->id ) ) && ( empty( $hide_settings_tabs ) || ! in_array( $this->id, $hide_settings_tabs ) ) ) {
 			if ( ( is_network_admin() && $this->args['network_admin'] ) || ( ! is_network_admin() && ! $this->args['network_admin'] ) ) {
-				$tabs[ $this->id ] = $this->name;
+				if ( ! empty( $this->parent ) && isset( $tabs[ $this->parent ] ) ) {
+					$tabs[ $this->parent ]->add_child( $this );
+				} else {
+					// If the parent tab is not set, add  to the top level.
+					$tabs[ $this->id ] = $this;
+				}
+
 				add_filter( 'tribe_settings_fields', [ $this, 'add_fields' ] );
 				add_filter( 'tribe_settings_no_save_tabs', [ $this, 'show_save_tab' ] );
 				add_filter( 'tribe_settings_content_tab_' . $this->id, [ $this, 'do_content' ] );
@@ -268,6 +331,81 @@ class Tribe__Settings_Tab {
 			// No fields setup for this tab yet.
 			echo '<p>' . esc_html__( 'There are no fields set up for this tab yet.', 'tribe-common' ) . '</p>';
 		}
+	}
+
+	/**
+	 * Adds a child tab to the current tab.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__Settings_Tab $tab The child tab to add.
+	 */
+	public function add_child( Tribe__Settings_Tab $tab ): void {
+		$this->children[ $tab->id ] = $tab;
+		$tab->parent                = $this;
+	}
+
+	/**
+	 * Checks if the current tab has children.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function has_children(): bool {
+		return ! empty( $this->children );
+	}
+
+	/**
+	 * Checks if the current tab has a child with the given slug.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $slug The slug of the child tab to check for.
+	 *
+	 * @return bool
+	 */
+	public function has_child( $slug ): bool {
+		return ! empty( $this->children[ $slug ] );
+	}
+
+	/**
+	 * Gets the children of the current tab.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string, Tribe__Settings_Tab>
+	 */
+	public function get_children(): array {
+		return $this->children;
+	}
+
+	/**
+	 * Gets a child tab by its slug.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $slug The slug of the child tab to get.
+	 *
+	 * @return ?Tribe__Settings_Tab The child tab if it exists, otherwise null.
+	 */
+	public function get_child( $slug ): ?Tribe__Settings_Tab {
+		if ( ! $this->has_child( $slug ) ) {
+			return null;
+		}
+
+		return $this->children[ $slug ];
+	}
+
+	/**
+	 * Gets the priority of the current tab.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The priority of the tab. This will be a float stored as a string i.e. '5' or '5.5'.
+	 */
+	public function get_priority(): string {
+		return $this->priority;
 	}
 
 	/* Deprecated Methods */

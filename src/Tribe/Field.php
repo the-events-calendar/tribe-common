@@ -159,6 +159,11 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		public $allow_clear;
 
 		/**
+		 * @var string
+		 */
+		public $append;
+
+		/**
 		 * Class constructor
 		 *
 		 * @param string     $id    the field id
@@ -171,28 +176,29 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 
 			// setup the defaults
 			$this->defaults = [
-				'type'                => 'html',
-				'name'                => $id,
-				'fieldset_attributes' => [],
+				'allow_clear'         => false,
+				'append'              => '',
 				'attributes'          => [],
+				'can_be_empty'        => false,
 				'class'               => null,
-				'label'               => null,
-				'label_attributes'    => null,
-				'placeholder'         => null,
-				'tooltip'             => null,
-				'size'                => 'medium',
-				'html'                => null,
-				'error'               => false,
-				'value'               => $value,
-				'options'             => null,
+				'clear_after'         => false,
 				'conditional'         => true,
 				'display_callback'    => null,
+				'error'               => false,
+				'fieldset_attributes' => [],
+				'html'                => null,
 				'if_empty'            => null,
-				'can_be_empty'        => false,
-				'clear_after'         => true,
-				'tooltip_first'       => false,
-				'allow_clear'         => false,
+				'label_attributes'    => null,
+				'label'               => null,
+				'name'                => $id,
+				'options'             => null,
+				'placeholder'         => null,
 				'settings'            => [],
+				'size'                => 'medium',
+				'tooltip_first'       => false,
+				'tooltip'             => null,
+				'type'                => 'html',
+				'value'               => $value,
 			];
 
 			// a list of valid field types, to prevent screwy behavior
@@ -299,6 +305,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$tooltip_first    = (bool) $args['tooltip_first'];
 			$allow_clear      = (bool) $args['allow_clear'];
 			$settings         = $args['settings'];
+			$append           = $args['append'];
 
 			// set the ID
 			$this->id = apply_filters( 'tribe_field_id', $id );
@@ -364,12 +371,28 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		}
 
 		/**
-		 * returns the field's end
+		 * Returns the html appended to the fieldset's end
 		 *
-		 * @return string the field end
+		 * @since TBD
+		 *
+		 * @return string the field append.
+		 */
+		public function do_field_append(): string {
+			if ( empty( $this->append ) ) {
+				return '';
+			}
+
+			return $this->append;
+		}
+
+		/**
+		 * Returns the field's end.
+		 *
+		 * @return string the field end.
 		 */
 		public function do_field_end() {
-			$return = '</fieldset>';
+			$return  = $this->do_field_append();
+			$return .= '</fieldset>';
 			$return .= ( $this->clear_after ) ? '<div class="clear"></div>' : '';
 
 			return apply_filters( 'tribe_field_end', $return, $this->id, $this );
@@ -542,9 +565,11 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 * @return string the field
 		 */
 		public function heading() {
-			$field = '<h3>' . $this->label . '</h3>';
-
-			return $field;
+			ob_start();
+			?>
+			<h3 <?php tribe_classes( $this->class); ?>><?php echo esc_html( $this->label ); ?></h3>
+			<?php
+			return ob_get_clean();
 		}
 
 		/**

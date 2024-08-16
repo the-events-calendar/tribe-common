@@ -131,7 +131,7 @@ class Element_Attributes {
 	 *
 	 * @return void
 	 */
-	protected function parse( $arguments ) {
+	protected function parse( $arguments ): void {
 		if ( ! $arguments ) {
 			return;
 		}

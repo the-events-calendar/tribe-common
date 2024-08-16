@@ -45,18 +45,18 @@ class Tribe__Settings {
 	 * The tabs that will appear in the settings page.
 	 * Filtered on class construct.
 	 *
-	 * @var array
+	 * @var array<string, Tribe__Settings_Tab>
 	 */
-	public $tabs;
+	public $tabs = [];
 
 	/**
 	 * All the tabs registered, not just the ones that will appear.
 	 *
 	 * @since TBD
 	 *
-	 * @var array
+	 * @var array<string, Tribe__Settings_Tab>
 	 */
-	public $all_tabs;
+	public $all_tabs = [];
 
 	/**
 	 * Multidimensional array of the fields that will be generated
@@ -74,7 +74,7 @@ class Tribe__Settings {
 	 *
 	 * @var string
 	 */
-	public $default_tab;
+	public $default_tab = '';
 
 	/**
 	 * The current tab being displayed.
@@ -84,15 +84,14 @@ class Tribe__Settings {
 	 *
 	 * @var string
 	 */
-	public $current_tab;
+	public $current_tab = '';
 
 	/**
 	 * Tabs that shouldn't show the save button.
 	 *
-	 * @var array
+	 * @var array<string> $no_save_tabs
 	 */
-	public $no_save_tabs;
-
+	public $no_save_tabs = [];
 
 	/**
 	 * The slug used in the admin to generate the settings page.
@@ -269,8 +268,6 @@ class Tribe__Settings {
 
 	/**
 	 * Class constructor.
-	 *
-	 * @return void
 	 */
 	public function __construct() {
 		// Set instance variables.
@@ -296,6 +293,7 @@ class Tribe__Settings {
 		add_action( 'admin_init', [ $this, 'init_tabs' ] );
 		add_action( 'tribe_settings_below_tabs', [ $this, 'display_errors' ] );
 		add_action( 'tribe_settings_below_tabs', [ $this, 'display_success' ] );
+		add_action( 'tribe_settings_tab_after_link', [ $this, 'add_child_tabs_to_nav' ] );
 
 		do_action( 'tec_settings_init' );
 	}
@@ -303,9 +301,11 @@ class Tribe__Settings {
 	/**
 	 * Determines whether or not the full admin pages should be initialized.
 	 *
-	 * @return boolean
+	 * @since TBD
+	 *
+	 * @return bool
 	 */
-	public function should_setup_pages() {
+	public function should_setup_pages(): bool {
 		// @todo: Deprecate this and update where needed.
 		return true;
 	}
@@ -313,7 +313,7 @@ class Tribe__Settings {
 	/**
 	 * Init all the tabs.
 	 *
-	 * @return void
+	 * @since TBD
 	 */
 	public function init_tabs() {
 		$admin_pages = tribe( 'admin.pages' );
@@ -328,28 +328,150 @@ class Tribe__Settings {
 
 		do_action( 'tribe_settings_do_tabs', $admin_page ); // This is the hook used to add new tabs.
 
-		$this->tabs         = (array) apply_filters( 'tribe_settings_tabs', [], $admin_page );
-		$this->all_tabs     = (array) apply_filters( 'tribe_settings_all_tabs', [], $admin_page );
+		/**
+		 * Filter the tabs that will appear in the settings page.
+		 *
+		 * @since 4.15.0
+		 *
+		 * @param array  $tabs<string,Tribe__Settigns_Tab> The tabs that will appear in the settings page.
+		 * @param string $admin_page                       The admin page ID.
+		 */
+		$this->tabs = (array) apply_filters( 'tribe_settings_tabs', [], $admin_page );
+
+		/**
+		 * Filter the list of all tabs.
+		 *
+		 * @since 4.15.0
+		 *
+		 * @param array<string,Tribe__Settigns_Tab> $all_tabs   The list of all tabs.
+		 * @param string                            $admin_page The admin page ID.
+		 */
+		$this->all_tabs = (array) apply_filters( 'tribe_settings_all_tabs', [], $admin_page );
+
+		/**
+		 * Filter the tabs that shouldn't show the save button.
+		 *
+		 * @since 4.15.0
+		 *
+		 * @param array<string>  $no_save_tabs The tabs that shouldn't show the save button. In the format [ 'tab->id' ].
+		 * @param string         $admin_page   The admin page ID.
+		 */
 		$this->no_save_tabs = (array) apply_filters( 'tribe_settings_no_save_tabs', [], $admin_page );
 
 
 		if ( is_network_admin() ) {
+			/**
+			 * Filter the default tab for the network settings page.
+			 *
+			 * @since 4.15.0
+			 *
+			 * @param string $default_tab The default tab for the network settings page.
+			 * @param string $admin_page  The admin page ID.
+			 */
 			$this->default_tab = apply_filters( 'tribe_settings_default_tab_network', 'network', $admin_page );
 		} else {
-			$tabs_keys         = array_keys( $this->tabs );
-			$default_tab       = apply_filters( 'tribe_settings_default_tab', 'general', $admin_page );
-			$this->default_tab = in_array( $default_tab, $tabs_keys ) ? $default_tab : $tabs_keys[0];
+			/**
+			 * Filter the default tab for the settings page.
+			 *
+			 * @since 4.15.0
+			 *
+			 * @param string $default_tab The default tab for the settings page.
+			 * @param string $admin_page  The admin page ID.
+			 */
+			$default_tab       = apply_filters( 'tribe_settings_default_tab', 'viewing', $admin_page );
+			$this->default_tab = in_array( $default_tab, $this->tabs ) ? $default_tab : array_key_first( $this->tabs );
 		}
 
-		$this->current_tab     = apply_filters( 'tribe_settings_current_tab', tribe_get_request_var( 'tab', $this->default_tab ), $admin_page );
-		$this->url             = $this->get_tab_url( $this->current_tab );
+		/**
+		 * Filter the current tab.
+		 *
+		 * @since 4.15.0
+		 *
+		 * @param string $current_tab The current tab ID.
+		 * @param string $admin_page  The admin page ID.
+		 */
+		$this->current_tab = $this->get_current_tab();
+		$this->url         = $this->get_tab_url( $this->current_tab );
+
+		/**
+		 * Filter the fields for save.
+		 *
+		 * @since 4.15.0
+		 *
+		 * @param array  $fields_for_save The fields for save.
+		 * @param string $admin_page      The admin page ID.
+		 */
 		$this->fields_for_save = (array) apply_filters( 'tribe_settings_fields', [], $admin_page );
 
 		do_action( 'tribe_settings_after_do_tabs', $admin_page );
 
+		/**
+		 * Filter the fields for the settings page.
+		 *
+		 * @since 4.15.0
+		 *
+		 * @param array  $fields     The fields for the settings page.
+		 * @param string $admin_page The admin page ID.
+		 */
 		$this->fields = (array) apply_filters( 'tribe_settings_fields', [], $admin_page );
 
 		$this->validate();
+	}
+
+	/**
+	 * Get a specific tab by slug.
+	 * If the slug is not found in the parent tabs, it will then search child tabs for it.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $id The tab ID.
+	 *
+	 * @return Tribe__Settings_Tab|null
+	 */
+	public function get_tab( $id ): ?Tribe__Settings_Tab {
+		// Find tab if a parent.
+		$tab_object = $this->tabs[ $id ] ?? null;
+
+		// Find tab if a child tab.
+		if ( empty( $tab_object ) ) {
+			foreach ( $this->tabs as $tab ) {
+				if ( $tab->has_child( $id ) ) {
+					$tab_object = $tab->get_child( $id );
+					break;
+				}
+			}
+		}
+
+		return $tab_object;
+	}
+
+	/**
+	 * Gets the current tab ID.
+	 *
+	 * @since TBD
+	 *
+	 * @return ?string
+	 */
+	public function get_current_tab(): ?string {
+		$admin_page  = tribe( 'admin.pages' )->get_current_page();
+		$current_tab = apply_filters( 'tribe_settings_current_tab', tribe_get_request_var( 'tab', $this->default_tab ), $admin_page );
+
+		// Find tab if a parent.
+		$tab_object = $this->get_tab( $current_tab );
+
+		if ( empty( $tab_object ) ) {
+			$this->current_tab = $current_tab;
+			return $this->current_tab;
+		}
+
+		// Parent tabs have no content! If one is selected, default to the first child.
+		if ( $tab_object->has_children() ) {
+			$current_tab = array_key_first( $tab_object->get_children() );
+		}
+
+		$this->current_tab = $current_tab;
+
+		return $this->current_tab;
 	}
 
 	/**
@@ -408,57 +530,118 @@ class Tribe__Settings {
 	}
 
 	/**
+	 * Get the settings page logo.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $admin_page The admin page ID.
+	 * @return string The settings page logo.
+	 */
+	public function get_page_logo( $admin_page ) {
+		$logo_source = tribe_resource_url( 'images/logo/tec-brand.svg', false, null, Tribe__Main::instance() );
+
+		/**
+		 * Filter the tribe settings page logo source URL.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $logo_source The settings page logo resource URL.
+		 * @param string $admin_page The admin page ID.
+		 */
+		$logo_source = apply_filters( 'tec_settings_page_logo_source', $logo_source, $admin_page );
+
+		ob_start();
+		?><img
+			src="<?php echo esc_url( $logo_source ); ?>"
+			alt=""
+			role="presentation"
+			id="tec-settings-logo"
+		/>
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
+	 * Handles the attributes for the form.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $attributes The attributes to add to the form.
+	 *
+	 * @return string The attributes string.
+	 */
+	public function do_form_attributes( $attributes ): string {
+		$string = '';
+		foreach ( $attributes as $key => $value ) {
+			if ( empty( $key ) || empty( $value ) ) {
+				continue;
+			}
+
+			$string .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
+		}
+
+		return $string;
+	}
+
+	/**
 	 * Generate the main option page.
 	 * Includes the view file.
 	 *
 	 * @since TBD
-	 *
-	 * @return void
 	 */
 	public function generate_page(): void {
-		$admin_pages = tribe( 'admin.pages' );
-		$admin_page  = $admin_pages->get_current_page();
+		$admin_pages  = tribe( 'admin.pages' );
+		$admin_page   = $admin_pages->get_current_page();
+		$current_tab  = $this->get_current_tab();
+		$wrap_classes = apply_filters( 'tribe_settings_wrap_classes', [ 'tribe_settings', 'wrap' ], $admin_page );
 
 		ob_start();
 		do_action( 'tribe_settings_top', $admin_page );
 		?>
-		<div class="tribe_settings wrap">';
-			<h1><?php echo esc_html( $this->get_page_title( $admin_page ) ); ?></h1>
+		<div <?php tribe_classes( $wrap_classes ); ?>>
+			<h1>
+				<?php echo wp_kses_post( $this->get_page_logo( $admin_page ) ); ?>
+				<?php echo esc_html( $this->get_page_title( $admin_page ) ); ?>
+			</h1>
 			<?php
 			do_action( 'tribe_settings_above_tabs' );
-			$this->generate_tabs( $this->current_tab, $admin_page );
+			$this->generate_tabs();
 			do_action( 'tribe_settings_below_tabs' );
-			do_action( 'tribe_settings_below_tabs_tab_' . $this->current_tab, $admin_page );
+			do_action( 'tribe_settings_below_tabs_tab_' . $current_tab, $admin_page );
 			?>
 			<div class="tribe-settings-form form">
 				<?php
 				do_action( 'tribe_settings_above_form_element' );
-				do_action( 'tribe_settings_above_form_element_tab_' . $this->current_tab, $admin_page );
-				echo wp_kses_post( apply_filters( 'tribe_settings_form_element_tab_' . $this->current_tab, '<form id="tec-settings-form" method="post">' ) );
+				do_action( 'tribe_settings_above_form_element_tab_' . $current_tab, $admin_page );
+				?>
+				<form id="tec-settings-form" method="post">
+				<?php
 				do_action( 'tribe_settings_before_content' );
-				do_action( 'tribe_settings_before_content_tab_' . $this->current_tab );
-				do_action( 'tribe_settings_content_tab_' . $this->current_tab );
+				do_action( 'tribe_settings_before_content_tab_' . $current_tab );
+				do_action( 'tribe_settings_content_tab_' . $current_tab );
 
-				if ( ! has_action( 'tribe_settings_content_tab_' . $this->current_tab ) ) {
+				if ( ! has_action( 'tribe_settings_content_tab_' . $current_tab ) ) {
 					?>
 					<p><?php echo esc_html__( "You've requested a non-existent tab.", 'tribe-common' ); ?></p>
 					<?php
 				}
-				do_action( 'tribe_settings_after_content_tab_' . $this->current_tab );
-				do_action( 'tribe_settings_after_content', $this->current_tab );
+				do_action( 'tribe_settings_after_content_tab_' . $current_tab );
+				do_action( 'tribe_settings_after_content', $current_tab );
 
-				if ( has_action( 'tribe_settings_content_tab_' . $this->current_tab ) && ! in_array( $this->current_tab, $this->no_save_tabs ) ) {
+				if ( has_action( 'tribe_settings_content_tab_' . $current_tab ) && ! in_array( $current_tab, $this->no_save_tabs ) ) {
 					wp_nonce_field( 'saving', 'tribe-save-settings' );
 					?>
-					<div class="clear"></div>
-					<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="<?php echo esc_attr( $this->current_tab ); ?>" />
-					<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="<?php echo esc_attr__( 'Save Changes', 'tribe-common' ); ?>" />
+					<div class="tec_settings__footer">
+						<hr class="tec_settings__separator--footer">
+						<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="<?php echo esc_attr( $this->current_tab ); ?>" />
+						<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="<?php echo esc_attr__( 'Save Changes', 'tribe-common' ); ?>" />
+					</div>
 					<?php
 				}
 
-				echo wp_kses_post( apply_filters( 'tribe_settings_closing_form_element', '</form>' ) );
+				echo apply_filters( 'tribe_settings_closing_form_element', '</form>' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 				do_action( 'tribe_settings_after_form_element' );
-				do_action( 'tribe_settings_after_form_element_tab_' . $this->current_tab, $admin_page );
+				do_action( 'tribe_settings_after_form_element_tab_' . $current_tab, $admin_page );
 				?>
 			</div>
 			<?php do_action( 'tribe_settings_after_form_div' ); ?>
@@ -470,23 +653,151 @@ class Tribe__Settings {
 	}
 
 	/**
-	 * Generate the tabs in the settings screen.
+	 * Generate the tab navigation in the settings screen.
+	 *
+	 * Each level of the tab nav is a unordered list inside a nav element.
+	 * This function generates the structure and the generate_tab
+	 * function creates the individual list items.
+	 *
+	 * @since TBD
+	 */
+	public function generate_tabs(): void {
+		if ( ! is_array( $this->tabs ) || empty( $this->tabs ) ) {
+			return;
+		}
+
+		ob_start();
+		?>
+			<nav id="tribe-settings-tabs" class="tec-nav__wrapper">
+				<ul class="tec-nav">
+					<li class="tec-nav__tab tec-nav__tab--skip-link">
+						<a href="#tec-settings-form" class="screen-reader-shortcut"><?php esc_html_e( 'Skip to tab content', 'tribe-common' ); ?></a>
+					</li>
+				<?php
+
+				foreach ( $this->tabs as $tab ) {
+					if ( ! empty( $tab->parent ) ) {
+						// This tab belongs in the subnav!
+						continue;
+					}
+
+					$this->generate_tab( $tab );
+				}
+				?>
+				</ul>
+				<?php do_action( 'tribe_settings_after_tabs' ); ?>
+			</nav>
+		<?php
+		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Generate the content for a single specified tab.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__Settings_Tab $tab The tab object.
+	 */
+	public function generate_tab( Tribe__Settings_Tab $tab ) {
+		$url         = $this->get_tab_url( $tab->id );
+		$class       = [ 'tec-nav__tab' ];
+		$current_tab = $this->get_current_tab();
+
+		if ( $tab->has_children() && $tab->has_child( $current_tab ) ) {
+			// Current tab is a child tab of passed tab.
+			$class[] = 'tec-nav__tab--subnav-active';
+		} elseif ( $tab->has_children() && $tab->id === $current_tab ) {
+			// Current tab is a parent tab. Set to first child.
+			$this->current_tab = array_key_first( $tab->get_children() );
+			$class[]           = 'tec-nav__tab--subnav-active';
+		} elseif ( $tab->id === $current_tab ) {
+			$class[] = 'tec-nav__tab--active';
+		}
+
+		ob_start();
+		?>
+		<li <?php tribe_classes( $class ); ?>>
+			<a
+				id="<?php echo esc_attr( $tab->id ); ?>"
+				class="tec-nav__link"
+				href="<?php echo esc_url( $url ); ?>"><?php echo esc_html( $tab->name ); ?></a>
+			<?php do_action( 'tribe_settings_tab_after_link', $tab ); ?>
+		</li>
+		<?php
+		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Add the current tab's children to the nav as a subnav.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__Settings_Tab $tab The parent tab object.
+	 * @return void
+	 */
+	public function add_child_tabs_to_nav( Tribe__Settings_Tab $tab ) {
+		if ( ! $tab->has_children() ) {
+			return;
+		}
+
+		?>
+		<ul class="tec-nav__subnav">
+			<?php
+			$child_tabs = $tab->get_children();
+			uasort( $child_tabs, [ $this, 'sort_by_priority' ] );
+
+			foreach ( $child_tabs as $child ) {
+				$this->generate_tab( $child );
+			}
+
+			$this->get_duck_tab();
+			?>
+		</ul>
+		<?php
+	}
+
+	/**
+	 * A little something for Jack.
+	 * Shows a duck on the far right end of a subnav on hover.
 	 *
 	 * @since TBD
 	 *
 	 * @return void
 	 */
-	public function generate_tabs(): void {
-		if ( is_array( $this->tabs ) && ! empty( $this->tabs ) ) {
-			echo '<h2 id="tribe-settings-tabs" class="nav-tab-wrapper">';
-			foreach ( $this->tabs as $tab => $name ) {
-				$url   = $this->get_tab_url( $tab );
-				$class = ( $tab == $this->current_tab ) ? ' nav-tab-active' : '';
-				echo '<a id="' . esc_attr( $tab ) . '" class="nav-tab' . esc_attr( $class ) . '" href="' . esc_url( $url ) . '">' . esc_html( $name ) . '</a>';
-			}
-			do_action( 'tribe_settings_after_tabs' );
-			echo '</h2>';
+	protected function get_duck_tab(): void {
+		?>
+			<li class="tec-nav__tab tec-nav__tab--duck">
+				<a class="screen-reader-shortcut" role="presentation">
+					<img
+						class="tec-nav__duck"
+						role="presentation"
+						src="<?php echo esc_url( tribe_resource_url( 'images/icons/duck.svg', false, null, Tribe__Main::instance() ) ); ?>"
+						alt="<?php esc_attr_e( 'For you, Jack!', 'tribe-common' ); ?>"
+					/>
+				</a>
+			</li>
+		<?php
+	}
+
+	/**
+	 * A method to sort tabs by priority in ascending order.
+	 *
+	 * @since TBD
+	 *
+	 * @param  object $a First tab to compare.
+	 * @param  object $b Second tab to compare.
+	 *
+	 * @return int
+	 */
+	protected function sort_by_priority( $a, $b ): int {
+		$a_priority = (float) $a->get_priority();
+		$b_priority = (float) $b->get_priority();
+
+		if ( $a_priority === $b_priority ) {
+			return 0;
 		}
+
+		return ( $a_priority < $b_priority ) ? -1 : 1;
 	}
 
 	/**
@@ -510,15 +821,13 @@ class Tribe__Settings {
 			$wp_page
 		);
 
-		$url = apply_filters( 'tec_settings_tab_url', $url, $admin_page, $tab );
+		$url = apply_filters( 'tec_events_settings_tab_url', $url, $admin_page, $tab );
 
 		return $url;
 	}
 
 	/**
 	 * Validate the settings.
-	 *
-	 * @return void
 	 */
 	public function validate() {
 		$admin_pages = tribe( 'admin.pages' );
@@ -527,8 +836,8 @@ class Tribe__Settings {
 		do_action( 'tribe_settings_validate_before_checks', $admin_page );
 
 		// Check that the right POST && variables are set.
-		$tribe_save_settings  = tribe_get_request_var( 'tribeSaveSettings', false );
-		$current_settings_tab = tribe_get_request_var( 'current-settings-tab', false );
+		$tribe_save_settings  = tribe_get_request_var( 'tribe-save-settings', false );
+		$current_settings_tab = tribe_get_request_var( 'current-settings-tab', $this->get_current_tab() );
 		if ( $tribe_save_settings && $current_settings_tab ) {
 			// Check permissions.
 			if ( ! current_user_can( Admin_Pages::get_capability() ) ) {
@@ -611,8 +920,6 @@ class Tribe__Settings {
 	 * Save the settings.
 	 *
 	 * @since 4.15.0 Add the current page as parameter for the actions.
-	 *
-	 * @return void
 	 */
 	public function save() {
 		$admin_pages = tribe( 'admin.pages' );
@@ -718,8 +1025,6 @@ class Tribe__Settings {
 	 * Display errors, if any, after saving.
 	 *
 	 * @since TBD
-	 *
-	 * @return void
 	 */
 	public function display_errors(): void {
 		// Fetch the errors and filter them.
@@ -756,8 +1061,6 @@ class Tribe__Settings {
 	 * Display success message after saving.
 	 *
 	 * @since TBD
-	 *
-	 * @return void
 	 */
 	public function display_success(): void {
 		$errors = (array) apply_filters( 'tribe_settings_display_errors', $this->errors );
@@ -779,8 +1082,6 @@ class Tribe__Settings {
 	 * Delete temporary options.
 	 *
 	 * @since TBD
-	 *
-	 * @return void
 	 */
 	public function delete_options(): void {
 		delete_option( 'tribe_settings_errors' );
@@ -933,8 +1234,6 @@ class Tribe__Settings {
 	 * Init all the tabs.
 	 *
 	 * @deprecated TBD Use init_tabs
-	 *
-	 * @return void
 	 */
 	public function initTabs() {
 		_deprecated_function( __METHOD__, 'TBD', 'init_tabs' );
@@ -945,8 +1244,6 @@ class Tribe__Settings {
 	 * Create the main option page.
 	 *
 	 * @deprecated 4.15.0
-	 *
-	 * @return void
 	 */
 	public function addPage() {
 		_deprecated_function( __METHOD__, '4.15.0' );
@@ -956,8 +1253,6 @@ class Tribe__Settings {
 	 * Create the network options page.
 	 *
 	 * @deprecated 4.15.0
-	 *
-	 * @return void
 	 */
 	public function addNetworkPage() {
 		_deprecated_function( __METHOD__, '4.15.0' );
@@ -967,8 +1262,6 @@ class Tribe__Settings {
 	 * Generate the tabs in the settings screen.
 	 *
 	 * @deprecated TBD
-	 *
-	 * @return void
 	 */
 	public function generateTabs() {
 		_deprecated_function( __METHOD__, 'TBD', 'generate_tabs' );
@@ -979,8 +1272,6 @@ class Tribe__Settings {
 	 * Display errors, if any, after saving.
 	 *
 	 * @deprecated TBD
-	 *
-	 * @return void
 	 */
 	public function displayErrors() {
 		_deprecated_function( __METHOD__, 'TBD', 'display_errors' );
@@ -991,8 +1282,6 @@ class Tribe__Settings {
 	 * Display success message after saving.
 	 *
 	 * @deprecated TBD
-	 *
-	 * @return void
 	 */
 	public function displaySuccess() {
 		_deprecated_function( __METHOD__, 'TBD', 'display_success' );
@@ -1004,8 +1293,6 @@ class Tribe__Settings {
 	 * Delete temporary options.
 	 *
 	 * @deprecated TBD
-	 *
-	 * @return void
 	 */
 	public function deleteOptions() {
 		_deprecated_function( __METHOD__, 'TBD', 'delete_options' );
@@ -1019,8 +1306,6 @@ class Tribe__Settings {
 	 * @deprecated TBD
 	 *
 	 * @since 4.15.0 Add the current page as parameter for the actions.
-	 *
-	 * @return void
 	 */
 	public function generatePage() {
 		_deprecated_function( __METHOD__, 'TBD', 'generate_page' );

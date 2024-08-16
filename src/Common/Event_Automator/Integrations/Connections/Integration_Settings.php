@@ -123,10 +123,6 @@ abstract class Integration_Settings {
 		] );
 
 		$api_fields = [
-			static::$option_prefix . 'wrapper_open'  => [
-				'type' => 'html',
-				'html' => '<div id="tribe-settings-' . static::$api_id . '-application" class="' . implode( ' ', $wrapper_classes ) . '">'
-			],
 			static::$option_prefix . 'header'        => [
 				'type' => 'html',
 				'html' => $this->get_intro_text(),
@@ -134,10 +130,6 @@ abstract class Integration_Settings {
 			static::$option_prefix . 'authorize'     => [
 				'type' => 'html',
 				'html' => $this->get_all_connection_fields(),
-			],
-			static::$option_prefix . 'wrapper_close' => [
-				'type' => 'html',
-				'html' => '<div class="clear"></div></div>',
 			],
 		];
 
