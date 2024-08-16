@@ -21,7 +21,7 @@
       "!src/resources/js/**/*.min.js",
       "!src/resources/js/app/**/*.js",
       "!src/resources/js/utils/query-string.js",
-      "!src/resources/**/__tests__/**/*.js"
+      "!src/**/__tests__/**/*.js"
     ],
     "stylelint": [
       "src/resources/postcss/**/*.pcss",
