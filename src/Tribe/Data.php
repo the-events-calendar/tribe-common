@@ -57,6 +57,22 @@ class Tribe__Data implements ArrayAccess, Iterator { // phpcs:ignore TEC.Classes
 	}
 
 	/**
+	 * Offset to retrieve
+	 *
+	 * @link  http://php.net/manual/en/arrayaccess.offsetget.php
+	 *
+	 * @param mixed $offset The offset to retrieve. Will return the default if the offset isn't set.
+	 *
+	 * @return mixed Can return all value types.
+	 *
+	 * @since 4.11.0
+	 */
+	#[ReturnTypeWillChange]
+	public function offsetGet( $offset ) {
+		return $this->data[ $offset ] ?? $this->default;
+	}
+
+	/**
 	 * Gets the data this object manages.
 	 *
 	 * @return array
