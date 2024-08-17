@@ -1,10 +1,9 @@
 <?php
 
-// Don't load directly
-
 use Tribe\Admin\Settings;
 use Tribe\Admin\Wysiwyg;
 
+// Don't load directly
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
