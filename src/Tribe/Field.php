@@ -228,35 +228,13 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'value'               => $value,
 			];
 
-			// a list of valid field types, to prevent screwy behavior
-			$this->valid_field_types = [
-				'heading',
-				'html',
-				'text',
-				'textarea',
-				'wysiwyg',
-				'radio',
-				'checkbox_bool',
-				'checkbox_list',
-				'dropdown',
-				'dropdown',
-				'dropdown_select2', // Deprecated use `dropdown`
-				'dropdown_chosen', // Deprecated use `dropdown`
-				'license_key',
-				'number',
-				'wrapped_html',
-				'email',
-				'color',
-				'image',
-				'toggle',
-				'image_id',
-			];
-
-			$this->valid_field_types = apply_filters( 'tribe_valid_field_types', $this->valid_field_types );
-
-			// parse args with defaults and extract them
+			// Merge the defaults with the passed args.
 			$args = wp_parse_args( $field, $this->defaults );
 
+			// Set the valid field types.
+			$this->setup_field_types();
+
+			// todo: move this to a separate method that runs just before the field output is generated.
 			// sanitize the values just to be safe
 			$type       = is_null( $args['type'] ) ? null : esc_attr( $args['type'] );
 			$name       = is_null( $args['name'] ) ? null : esc_attr( $args['name'] );
@@ -337,6 +315,46 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			foreach ( array_keys( $this->defaults ) as $key ) {
 				$this->{$key} = apply_filters( 'tribe_field_' . $key, $$key, $this->id );
 			}
+		}
+
+		/**
+		 * Set up the valid field types.
+		 *
+		 * @since TBD
+		 *
+		 * @return void
+		 */
+		protected function setup_field_types() {
+			// Define a list of valid field types.
+			$valid_field_types = [
+				'heading',
+				'html',
+				'text',
+				'textarea',
+				'wysiwyg',
+				'radio',
+				'checkbox_bool',
+				'checkbox_list',
+				'dropdown',
+				'dropdown',
+				'dropdown_select2', // Deprecated use `dropdown`
+				'dropdown_chosen', // Deprecated use `dropdown`
+				'license_key',
+				'number',
+				'wrapped_html',
+				'email',
+				'color',
+				'image',
+				'toggle',
+				'image_id',
+			];
+
+			/**
+			 * Filter the valid field types.
+			 *
+			 * @param array $valid_field_types The valid field types.
+			 */
+			$this->valid_field_types = (array) apply_filters( 'tribe_valid_field_types', $valid_field_types );
 		}
 
 		/**
