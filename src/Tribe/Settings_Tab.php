@@ -5,6 +5,7 @@
  * @since 4.0.1
  */
 
+use TEC\Common\Admin\Entities\Element;
 use TEC\Common\Admin\Settings_Sidebar;
 
 // Don't load directly.
@@ -327,9 +328,13 @@ class Tribe__Settings_Tab {
 
 		// Loop through the fields, create and display them.
 		foreach ( $this->fields as $key => $field ) {
-			// Create the field object and run it.
-			$field_object = new Tribe__Field( $key, $field, $sent_data[ $key ] ?? null );
-			$field_object->do_field();
+			// If this field is an Element, then render it. Otherwise, create a new field object and run it.
+			if ( $field instanceof Element ) {
+				$field->render();
+			} else {
+				$field_object = new Tribe__Field( $key, $field, $sent_data[ $key ] ?? null );
+				$field_object->do_field();
+			}
 		}
 
 		// If there is a sidebar, make sure to hook it.
