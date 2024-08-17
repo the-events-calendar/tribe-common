@@ -3,7 +3,7 @@
 use Tribe\Admin\Settings;
 use Tribe\Admin\Wysiwyg;
 
-// Don't load directly
+// Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -200,7 +200,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			// Figure out the field value.
 			$value = $this->setup_field_value( $value );
 
-			// Set up the defaults
+			// Set up the defaults.
 			$this->defaults = [
 				'allow_clear'         => false,
 				'append'              => '',
@@ -335,9 +335,6 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'checkbox_bool',
 				'checkbox_list',
 				'dropdown',
-				'dropdown',
-				'dropdown_select2', // Deprecated use `dropdown`
-				'dropdown_chosen', // Deprecated use `dropdown`
 				'license_key',
 				'number',
 				'wrapped_html',
@@ -346,6 +343,10 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'image',
 				'toggle',
 				'image_id',
+
+				// Deprecated field types.
+				'dropdown_select2', // Use the 'dropdown' type.
+				'dropdown_chosen', // Use the 'dropdown' type.
 			];
 
 			/**
@@ -1246,12 +1247,13 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			];
 
 			// Helper function to prepend the class name to the method name.
-			$prepend_class = function( string $method_name ): string {
+			$prepend_class = function ( string $method_name ): string {
 				return sprintf( '%s::%s', __CLASS__, $method_name );
 			};
 
 			if ( array_key_exists( $name, $method_map ) ) {
-				_deprecated_function( $prepend_class( $name ), '4.3', $prepend_class( $method_map[ $name ] ) );
+				_deprecated_function( $prepend_class( $name ), '4.3', $prepend_class( $method_map[ $name ] ) ); // phpcs:ignore StellarWP.XSS.EscapeOutput,WordPress.Security.EscapeOutput
+
 				return $this->{$method_map[ $name ]}( ...$arguments );
 			} else {
 				throw new BadMethodCallException( "Method {$prepend_class( $name )} does not exist." );
