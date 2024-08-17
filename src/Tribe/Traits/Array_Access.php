@@ -37,7 +37,7 @@ trait Array_Access {
 	 * @return bool
 	 */
 	public function offsetExists( $offset ): bool {
-		return isset( $this->$data[ $offset ] );
+		return isset( $this->data[ $offset ] );
 	}
 
 	/**
