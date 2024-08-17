@@ -164,17 +164,33 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		public $append;
 
 		/**
+		 * The raw field data.
+		 *
+		 * @var array
+		 */
+		protected $raw_field_data;
+
+		/**
 		 * Class constructor
 		 *
-		 * @param string     $id    the field id
-		 * @param array      $field the field settings
-		 * @param null|mixed $value the field's current value
+		 * @param string     $id    The field id.
+		 * @param array      $field The field settings.
+		 * @param null|mixed $value The value passed when saving the field.
 		 *
 		 * @return void
 		 */
 		public function __construct( $id, $field, $value = null ) {
+			// Store the raw field data.
+			$this->raw_field_data = $field;
 
-			// setup the defaults
+			// Set the ID.
+			$id       = is_null( $id ) ? null : esc_attr( $id );
+			$this->id = apply_filters( 'tribe_field_id', $id );
+
+			// Figure out the field value.
+			$value = $this->setup_field_value( $value );
+
+			// Set up the defaults
 			$this->defaults = [
 				'allow_clear'         => false,
 				'append'              => '',
@@ -231,7 +247,6 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$args = wp_parse_args( $field, $this->defaults );
 
 			// sanitize the values just to be safe
-			$id         = is_null( $id ) ? null : esc_attr( $id );
 			$type       = is_null( $args['type'] ) ? null : esc_attr( $args['type'] );
 			$name       = is_null( $args['name'] ) ? null : esc_attr( $args['name'] );
 			$placeholder = is_null( $args['placeholder'] ) ? null : esc_attr( $args['placeholder'] );
@@ -306,9 +321,6 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$allow_clear      = (bool) $args['allow_clear'];
 			$settings         = $args['settings'];
 			$append           = $args['append'];
-
-			// set the ID
-			$this->id = apply_filters( 'tribe_field_id', $id );
 
 			// set each instance variable and filter
 			foreach ( array_keys( $this->defaults ) as $key ) {
@@ -986,6 +998,116 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$field .= $this->do_field_end();
 
 			return $field;
+		}
+
+		/**
+		 * Set up the field value based on submitted value or the stored value.
+		 *
+		 * @param mixed $sent_value The value submitted by the user.
+		 *
+		 * @return mixed The field value.
+		 */
+		protected function setup_field_value( $sent_value = null ) {
+			$value = $sent_value ?? $this->get_field_value();
+
+			// Escape the value for display.
+			if ( ! empty( $field['esc_display'] ) && function_exists( $field['esc_display'] ) ) {
+				$value = $field['esc_display']( $value );
+			} elseif ( is_string( $value ) ) {
+				$value = esc_attr( stripslashes( $value ) );
+			}
+
+			/**
+			 * Filter the value of the option before it is displayed.
+			 *
+			 * @param mixed  $value The value of the option.
+			 * @param string $key   The key of the option.
+			 * @param array  $field The field array.
+			 */
+			return apply_filters( 'tribe_settings_get_option_value_pre_display', $value, $this->id, $this->raw_field_data );
+		}
+
+		/**
+		 * Get the field value.
+		 *
+		 * @return mixed The field value.
+		 */
+		protected function get_field_value() {
+			// Some options should always be stored at network level.
+			$network_option = (bool) ( $this->raw_field_data['network'] ?? false );
+
+			if ( is_network_admin() ) {
+				$parent_option = $this->raw_field_data['parent_option'] ?? Tribe__Main::OPTIONNAMENETWORK;
+			} else {
+				$parent_option = $this->raw_field_data['parent_option'] ?? Tribe__Main::OPTIONNAME;
+			}
+
+			/**
+			 * Get the field's parent_option in order to later get the field's value.
+			 *
+			 * @param string $parent_option The parent option name.
+			 * @param string $key           The field key.
+			 */
+			$parent_option = apply_filters( 'tribe_settings_do_content_parent_option', $parent_option, $this->id );
+
+			// Determine the default value.
+			$default = $this->raw_field_data['default'] ?? null;
+
+			/**
+			 * Filter the default value of the field.
+			 *
+			 * @param mixed $default The default value of the field.
+			 * @param array $field   The field array.
+			 */
+			$default = apply_filters( 'tribe_settings_field_default', $default, $this->raw_field_data );
+
+			// If there's no parent option, get the site option (for network admin) or the option.
+			if ( ! $parent_option ) {
+				return ( $network_option || is_network_admin() )
+					? get_site_option( $this->id, $default )
+					: get_option( $this->id, $default );
+			}
+
+			// Get the options from Tribe__Settings_Manager if we're getting the main array.
+			if ( $parent_option === Tribe__Main::OPTIONNAME ) {
+				return Tribe__Settings_Manager::get_option( $this->id, $default );
+			}
+
+			// Get the network options from Tribe__Settings_Manager.
+			if ( $parent_option === Tribe__Main::OPTIONNAMENETWORK ) {
+				return Tribe__Settings_Manager::get_network_option( $this->id, $default );
+			}
+
+			// Get the parent option for network admin.
+			if ( is_network_admin() ) {
+				$options = (array) get_site_option( $parent_option );
+
+				return $options[ $this->id ] ?? $default;
+			}
+
+			// Else, get the parent option normally.
+			$options = (array) get_option( $parent_option );
+
+			return $options[ $this->id ] ?? $default;
+		}
+
+		/**
+		 * Whether the current field has a value.
+		 *
+		 * @return bool
+		 */
+		public function has_field_value() {
+			// Cetain "field" types have no value.
+			if ( in_array( $this->type, [ 'heading', 'html', 'wrapped_html' ], true ) ) {
+				return false;
+			}
+
+			// If the value is empty, return false.
+			if ( empty( $this->value ) ) {
+				return false;
+			}
+
+			return true;
 		}
 
 		/* deprecated camelCase methods */
