@@ -50,7 +50,7 @@ trait Array_Access {
 	 * @return mixed The offset value, or null if it does not exist.
 	 */
 	#[ReturnTypeWillChange]
-	public function offsetGet( $offset ): mixed {
+	public function offsetGet( $offset ) {
 		return $this->data[ $offset ] ?? null;
 	}
 
