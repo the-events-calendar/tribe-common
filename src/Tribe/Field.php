@@ -14,6 +14,17 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 	 * helper class that creates fields for use in Settings, MetaBoxes, Users, anywhere.
 	 * Instantiate it whenever you need a field
 	 *
+	 * @method doField()
+	 * @method doFieldStart()
+	 * @method doFieldEnd()
+	 * @method doFieldLabel()
+	 * @method doFieldDivStart()
+	 * @method doFieldDivEnd()
+	 * @method doToolTip()
+	 * @method doFieldValue()
+	 * @method doFieldName()
+	 * @method doFieldAttributes()
+	 * @method doScreenReaderLabel()
 	 */
 	class Tribe__Field {
 
@@ -1110,62 +1121,6 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			return true;
 		}
 
-		/* deprecated camelCase methods */
-		public function doField() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field' );
-			return $this->do_field();
-		}
-
-		public function doFieldStart() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_start' );
-			return $this->do_field_start();
-		}
-
-		public function doFieldEnd() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_end' );
-			return $this->do_field_end();
-		}
-
-		public function doFieldLabel() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_label' );
-			return $this->do_field_label();
-		}
-
-		public function doFieldDivStart() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_div_start' );
-			return $this->do_field_div_start();
-		}
-
-		public function doFieldDivEnd() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_div_end' );
-			return $this->do_field_div_end();
-		}
-
-		public function doToolTip() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_tool_tip' );
-			return $this->do_tool_tip();
-		}
-
-		public function doFieldValue() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_value' );
-			return $this->do_field_value();
-		}
-
-		public function doFieldName( $multi = false ) {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_name' );
-			return $this->do_field_name( $multi );
-		}
-
-		public function doFieldAttributes() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_attributes' );
-			return $this->do_field_attributes();
-		}
-
-		public function doScreenReaderLabel() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_screen_reader_label' );
-			return $this->do_screen_reader_label();
-		}
-
 		/**
 		 * Generate a wrapped html field.
 		 *
@@ -1245,5 +1200,45 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 
 			return implode( ' ', $sanitized );
 		}
-	} // end class
-} // endif class_exists
+
+		/**
+		 * Handle calls to methods that don't exist.
+		 *
+		 * This is how we handle deprecated methods.
+		 *
+		 * @param string $name The method name.
+		 * @param array  $arguments Arguments passed to the method.
+		 *
+		 * @return mixed The result of the method call.
+		 * @throws BadMethodCallException If the method does not exist.
+		 */
+		#[ReturnTypeWillChange]
+		public function __call( string $name, array $arguments ) {
+			$method_map = [
+				'doField'             => 'do_field',
+				'doFieldStart'        => 'do_field_start',
+				'doFieldEnd'          => 'do_field_end',
+				'doFieldLabel'        => 'do_field_label',
+				'doFieldDivStart'     => 'do_field_div_start',
+				'doFieldDivEnd'       => 'do_field_div_end',
+				'doToolTip'           => 'do_tool_tip',
+				'doFieldValue'        => 'do_field_value',
+				'doFieldName'         => 'do_field_name',
+				'doFieldAttributes'   => 'do_field_attributes',
+				'doScreenReaderLabel' => 'do_screen_reader_label',
+			];
+
+			// Helper function to prepend the class name to the method name.
+			$prepend_class = function( string $method_name ): string {
+				return sprintf( '%s::%s', __CLASS__, $method_name );
+			};
+
+			if ( array_key_exists( $name, $method_map ) ) {
+				_deprecated_function( $prepend_class( $name ), '4.3', $prepend_class( $method_map[ $name ] ) );
+				return $this->{$method_map[ $name ]}( ...$arguments );
+			} else {
+				throw new BadMethodCallException( "Method {$prepend_class( $name )} does not exist." );
+			}
+		}
+	}
+}
