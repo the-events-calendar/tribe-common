@@ -91,6 +91,7 @@ class Heading extends Base_Entity {
 	 *
 	 * @return void
 	 * @throws InvalidArgumentException If the heading level is invalid.
+	 * @throws LogicException If the maximum heading level is greater than 6.
 	 */
 	private function validate_level( int $level ) {
 		if ( $this->max_level > 6 ) {
