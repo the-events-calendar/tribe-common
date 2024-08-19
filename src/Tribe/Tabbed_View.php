@@ -11,7 +11,9 @@ class Tribe__Tabbed_View {
 	/**
 	 * A list of all the tabs registered for the tabbed view.
 	 *
-	 * @var array An associative array in the [<slug> => <instance>] format.
+	 * An associative array in the [<slug> => <instance>] format.
+	 *
+	 * @var Tribe__Tabbed_View__Tab[]
 	 */
 	protected $items = [];
 
@@ -296,13 +298,6 @@ class Tribe__Tabbed_View {
 	 */
 	public function get_tabs() {
 		uasort( $this->items, [ $this, 'sort_by_priority' ] );
-
-		foreach ( $this->items as $slug => $tab ) {
-			if ( ! $tab->has_children() ) {
-				continue;
-			}
-			uasort( $this->items[ $slug ]->children, [ $this, 'sort_by_priority' ] );
-		}
 
 		return array_values( $this->items );
 	}
