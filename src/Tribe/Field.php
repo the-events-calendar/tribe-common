@@ -326,23 +326,23 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		protected function setup_field_types() {
 			// Define a list of valid field types.
 			$valid_field_types = [
-				'heading',
-				'html',
-				'text',
-				'textarea',
-				'wysiwyg',
-				'radio',
 				'checkbox_bool',
 				'checkbox_list',
+				'color',
 				'dropdown',
+				'email',
+				'heading',
+				'html',
+				'image',
+				'image_id',
 				'license_key',
 				'number',
-				'wrapped_html',
-				'email',
-				'color',
-				'image',
+				'radio',
+				'text',
+				'textarea',
 				'toggle',
-				'image_id',
+				'wrapped_html',
+				'wysiwyg',
 
 				// Deprecated field types.
 				'dropdown_select2', // Use the 'dropdown' type.
