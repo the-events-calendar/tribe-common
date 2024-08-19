@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "45315962096dd7efa43a98e9b1118fad",
+    "content-hash": "f316b5d18dd516301d7476b7fb1229d3",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -729,16 +729,16 @@
         },
         {
             "name": "stellarwp/uplink",
-            "version": "v2.0.0",
+            "version": "dev-slr/sl-142",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/uplink.git",
-                "reference": "b82d6f43b7444c644e48b8b65a236e4dccd114c6"
+                "reference": "8918eea55dd6898ba8781befc57efc738243bcae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/uplink/zipball/b82d6f43b7444c644e48b8b65a236e4dccd114c6",
-                "reference": "b82d6f43b7444c644e48b8b65a236e4dccd114c6",
+                "url": "https://api.github.com/repos/stellarwp/uplink/zipball/8918eea55dd6898ba8781befc57efc738243bcae",
+                "reference": "8918eea55dd6898ba8781befc57efc738243bcae",
                 "shasum": ""
             },
             "require": {
@@ -790,9 +790,9 @@
             "description": "A library that integrates a WordPress product with the StellarWP Licensing system.",
             "support": {
                 "issues": "https://github.com/stellarwp/uplink/issues",
-                "source": "https://github.com/stellarwp/uplink/tree/v2.0.0"
+                "source": "https://github.com/stellarwp/uplink/tree/slr/sl-142"
             },
-            "time": "2024-08-13T19:17:12+00:00"
+            "time": "2024-08-19T09:26:12+00:00"
         }
     ],
     "packages-dev": [
@@ -7114,6 +7114,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "stellarwp/models": 20,
+        "stellarwp/uplink": 20,
         "stellarwp/coding-standards": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
@@ -7124,5 +7125,5 @@
     "platform-overrides": {
         "php": "7.4.0"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

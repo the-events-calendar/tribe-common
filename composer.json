@@ -33,7 +33,7 @@
     "stellarwp/schema": "^1.1.3",
     "stellarwp/telemetry": "^2.3.1",
     "stellarwp/assets": "^1.2.6",
-    "stellarwp/uplink": "^2.0.0"
+    "stellarwp/uplink": "dev-slr/sl-142"
   },
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
