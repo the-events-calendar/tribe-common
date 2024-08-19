@@ -396,7 +396,61 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				 * @param string       $id           The field ID.
 				 * @param Tribe__Field $field_object The field object.
 				 */
-				echo apply_filters( "tribe_field_output_{$this->type}_{$this->id}", $field, $this->id, $this );
+				$field = apply_filters( "tribe_field_output_{$this->type}_{$this->id}", $field, $this->id, $this );
+
+				/**
+				 * Filter the allowed tags to facilitate the wp_kses() call.
+				 *
+				 * @see wp_kses_allowed_html()
+				 *
+				 * @param array $allowedtags The allowed tags.
+				 * @param string $context The context in which the tags are being used.
+				 *
+				 * @return array The allowed tags.
+				 */
+				$kses_filter = function ( $allowedtags, $context ) {
+					// If it's not the right context, return the allowed tags as-is.
+					if ( 'tribe-field' !== $context ) {
+						return $allowedtags;
+					}
+
+					static $tags = null;
+
+					// If we've already set the tags, return them.
+					if ( null !== $tags ) {
+						return $tags;
+					}
+
+					// Ensure we have the elements we need in the allowed tags.
+					global $allowedposttags;
+					$tags = $allowedposttags;
+
+					$common_attributes = _wp_add_global_attributes(
+						[
+							'checked'  => true,
+							'disabled' => true,
+							'name'     => true,
+							'readonly' => true,
+							'selected' => true,
+							'type'     => true,
+							'value'    => true,
+						]
+					);
+
+					$tags['input']    = $common_attributes;
+					$tags['textarea'] = $common_attributes;
+					$tags['select']   = $common_attributes;
+					$tags['option']   = $common_attributes;
+					$tags['fieldset'] = [];
+
+					return $tags;
+				};
+
+				add_filter( 'wp_kses_allowed_html', $kses_filter, 10, 2 );
+
+				echo wp_kses( $field, 'tribe-field' );
+
+				remove_filter( 'wp_kses_allowed_html', $kses_filter );
 
 				return;
 			}
