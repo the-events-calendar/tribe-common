@@ -676,8 +676,8 @@ class Tribe__Settings {
 				<?php
 
 				foreach ( $this->tabs as $tab ) {
-					if ( ! empty( $tab->parent ) ) {
-						// This tab belongs in the subnav!
+					// Tabs with a parent belong in a sub-nav, so skip them here.
+					if ( $tab->has_parent() ) {
 						continue;
 					}
 
