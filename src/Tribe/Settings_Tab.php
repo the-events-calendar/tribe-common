@@ -232,12 +232,12 @@ class Tribe__Settings_Tab {
 	 *
 	 * @since TBD
 	 *
-	 * @param Tribe__Settings_Tab $parent The parent tab.
+	 * @param Tribe__Settings_Tab $tab The parent tab.
 	 *
 	 * @return void
 	 */
-	public function set_parent( Tribe__Settings_Tab $parent ) {
-		$this->parent = $parent;
+	public function set_parent( Tribe__Settings_Tab $tab ) {
+		$this->parent = $tab;
 	}
 
 	/**
