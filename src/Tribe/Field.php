@@ -441,7 +441,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 					$tags['textarea'] = $common_attributes;
 					$tags['select']   = $common_attributes;
 					$tags['option']   = $common_attributes;
-					$tags['fieldset'] = [];
+					$tags['fieldset'] = _wp_add_global_attributes( [] );
 
 					return $tags;
 				};
