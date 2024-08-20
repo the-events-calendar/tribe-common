@@ -95,9 +95,9 @@ class Tribe__Settings_Tab {
 	 *
 	 * @since TBD
 	 *
-	 * @var string $parent
+	 * @var ?Tribe__Settings_Tab $parent
 	 */
-	protected $parent = '';
+	protected ?Tribe__Settings_Tab $parent = null;
 
 	/**
 	 * Array of child tabs, if any.
@@ -133,7 +133,6 @@ class Tribe__Settings_Tab {
 	 *     @type bool     $show_save        Whether to show the save button.
 	 *     @type callable $display_callback Display callback function.
 	 *     @type bool     $network_admin    Whether this tab is for network admin.
-	 *     @type string   $parent           Parent tab ID, if any.
 	 *     @type array    $children         Array of child tabs, if any.
 	 * }
 	 */
@@ -145,7 +144,6 @@ class Tribe__Settings_Tab {
 			'show_save'        => true,
 			'display_callback' => false,
 			'network_admin'    => false,
-			'parent'           => null,
 			'children'         => [],
 		];
 
@@ -207,7 +205,16 @@ class Tribe__Settings_Tab {
 	 *
 	 * @return string The tab's parent ID.
 	 */
-	public function get_parent(): string {
+	public function get_parent_id(): string {
+		return null !== $this->parent ? $this->parent->id : '';
+	}
+
+	/**
+	 * Gets the tab's parent.
+	 *
+	 * @return ?Tribe__Settings_Tab The tab's parent.
+	 */
+	public function get_parent(): ?Tribe__Settings_Tab {
 		return $this->parent;
 	}
 
@@ -217,7 +224,20 @@ class Tribe__Settings_Tab {
 	 * @return bool
 	 */
 	public function has_parent(): bool {
-		return ! empty( $this->parent );
+		return null !== $this->parent;
+	}
+
+	/**
+	 * Sets the parent tab.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__Settings_Tab $parent The parent tab.
+	 *
+	 * @return void
+	 */
+	public function set_parent( Tribe__Settings_Tab $parent ) {
+		$this->parent = $parent;
 	}
 
 	/**
@@ -234,8 +254,8 @@ class Tribe__Settings_Tab {
 
 		if ( ( isset( $this->fields ) || has_action( 'tribe_settings_content_tab_' . $this->id ) ) && ( empty( $hide_settings_tabs ) || ! in_array( $this->id, $hide_settings_tabs ) ) ) {
 			if ( ( is_network_admin() && $this->args['network_admin'] ) || ( ! is_network_admin() && ! $this->args['network_admin'] ) ) {
-				if ( ! empty( $this->parent ) && isset( $tabs[ $this->parent ] ) ) {
-					$tabs[ $this->parent ]->add_child( $this );
+				if ( $this->has_parent() && isset( $tabs[ $this->get_parent_id() ] ) ) {
+					$tabs[ $this->get_parent_id() ]->add_child( $this );
 				} else {
 					// If the parent tab is not set, add  to the top level.
 					$tabs[ $this->id ] = $this;
@@ -356,8 +376,13 @@ class Tribe__Settings_Tab {
 	 * @param Tribe__Settings_Tab $tab The child tab to add.
 	 */
 	public function add_child( Tribe__Settings_Tab $tab ): void {
+		// Don't try to add the same child more than once.
+		if ( $this->has_child( $tab->id ) ) {
+			return;
+		}
+
 		$this->children[ $tab->id ] = $tab;
-		$tab->parent                = $this;
+		$tab->set_parent( $this );
 	}
 
 	/**
