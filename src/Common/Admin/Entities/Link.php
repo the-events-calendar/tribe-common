@@ -55,8 +55,9 @@ class Link extends Base_Entity {
 	 */
 	public function render() {
 		printf(
-			'<a href="%s">%s</a>',
+			'<a href="%s" class="%s">%s</a>',
 			esc_url( $this->url ),
+			esc_attr( $this->get_classes() ),
 			esc_html( $this->text )
 		);
 	}
