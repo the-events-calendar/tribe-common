@@ -12,7 +12,7 @@ namespace TEC\Common\Admin\Entities;
 use InvalidArgumentException;
 
 /**
- * Trait Validate_Heading_Level
+ * Trait Validate_Elements
  *
  * @since TBD
  */
