@@ -329,7 +329,7 @@ class Tribe__Settings_Tab {
 		// If there is a sidebar, make sure to hook it.
 		if ( $this->has_sidebar() ) {
 			add_action(
-				'tribe_settings_after_form_div',
+				'tribe_settings_after_form_element',
 				function () {
 					$this->get_sidebar()->render();
 				}
