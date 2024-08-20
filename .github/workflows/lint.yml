@@ -28,7 +28,6 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'npm'
           cache-dependency-path: package-lock.json
-
       - name: Install node modules
         run: npm ci
       - name: Run linting tasks
