@@ -449,7 +449,9 @@ class Tribe__Settings_Tab {
 	}
 
 	/**
-	 * Adds a sidebar to the current tab.
+	 * Whether the tab has a sidebar assigned.
+	 *
+	 * If this is a child tab, it will also check whether the parent has a sidebar.
 	 *
 	 * @since TBD
 	 *
