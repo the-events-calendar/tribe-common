@@ -1306,11 +1306,15 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			};
 
 			if ( array_key_exists( $name, $method_map ) ) {
-				_deprecated_function( $prepend_class( $name ), '4.3', $prepend_class( $method_map[ $name ] ) ); // phpcs:ignore StellarWP.XSS.EscapeOutput,WordPress.Security.EscapeOutput
+				_deprecated_function(
+					esc_html( $prepend_class( $name ) ),
+					'4.3',
+					esc_html( $prepend_class( $method_map[ $name ] ) )
+				);
 
 				return $this->{$method_map[ $name ]}( ...$arguments );
 			} else {
-				throw new BadMethodCallException( "Method {$prepend_class( $name )} does not exist." );
+				throw new BadMethodCallException( esc_html( "Method {$prepend_class( $name )} does not exist." ) );
 			}
 		}
 	}
