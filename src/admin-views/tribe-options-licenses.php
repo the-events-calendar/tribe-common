@@ -7,6 +7,7 @@
 use TEC\Common\Admin\Entities\Div;
 use TEC\Common\Admin\Entities\Heading;
 use TEC\Common\Admin\Entities\Paragraph;
+use TEC\Common\Admin\Entities\Plain_Text;
 use Tribe\Utils\Element_Classes;
 
 $html = '<p>' .
@@ -84,9 +85,10 @@ $license_title->add_child(
 	)
 );
 $license_title->add_child(
-	new Paragraph(
-		__( "If you've purchased a premium add-on, you'll need to enter your license key here in order to have access to automatic updates when new versions are available.", 'tribe-common' ),
-		new Element_Classes( 'tec_settings__section-description' )
+	( new Paragraph( new Element_Classes( 'tec_settings__section-description' ) ) )->add_children(
+		[
+			new Plain_Text( __( "If you've purchased a premium add-on, you'll need to enter your license key here in order to have access to automatic updates when new versions are available.", 'tribe-common' ) ),
+		]
 	)
 );
 

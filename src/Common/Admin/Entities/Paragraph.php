@@ -16,24 +16,14 @@ use Tribe\Utils\Element_Classes;
  *
  * @since TBD
  */
-class Paragraph extends Base_Entity {
-
-	/**
-	 * The paragraph content.
-	 *
-	 * @var string
-	 */
-	private string $content = '';
+class Paragraph extends Container {
 
 	/**
 	 * Paragraph constructor.
 	 *
-	 * @param string           $content The content for the paragraph.
 	 * @param ?Element_Classes $classes The classes for the paragraph.
 	 */
-	public function __construct( string $content, ?Element_Classes $classes = null ) {
-		$this->content = $content;
-
+	public function __construct( ?Element_Classes $classes = null ) {
 		if ( $classes ) {
 			$this->set_classes( $classes );
 		}
@@ -45,10 +35,10 @@ class Paragraph extends Base_Entity {
 	 * @return void
 	 */
 	public function render() {
-		printf(
-			'<p class="%s">%s</p>',
-			esc_attr( $this->get_classes() ),
-			esc_html( $this->content )
-		);
+		?>
+		<p class="<?php echo esc_attr( $this->get_classes() ); ?>">
+			<?php $this->render_children(); ?>
+		</p>
+		<?php
 	}
 }
