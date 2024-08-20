@@ -460,7 +460,7 @@ class Tribe__Settings_Tab {
 	public function has_sidebar(): bool {
 		$parent_has_sidebar = $this->has_parent() && $this->get_parent()->has_sidebar();
 
-		return null !== $this->sidebar|| $parent_has_sidebar;
+		return null !== $this->sidebar || $parent_has_sidebar;
 	}
 
 	/**
