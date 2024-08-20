@@ -503,7 +503,14 @@ class Tribe__Settings {
 		return apply_filters( 'tribe_settings_page_url', $url, $page, $tab );
 	}
 
-	public function do_page_header( $admin_page ) {
+	/**
+	 * Outputs the header content for the tabs page and the nav modal.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $admin_page The admin page ID.
+	 */
+	public function do_page_header( $admin_page ): void {
 		?>
 		<h1>
 			<?php echo wp_kses_post( $this->get_page_logo( $admin_page ) ); ?>
@@ -679,7 +686,7 @@ class Tribe__Settings {
 		?>
 			<nav id="<?php echo esc_attr( $nav_id ); ?>" class="tec-nav__wrapper">
 				<ul class="tec-nav">
-					<?php if ( ! $modal ): ?>
+					<?php if ( ! $modal ) : ?>
 					<li class="tec-nav__tab tec-nav__tab--skip-link">
 						<a href="#tec-settings-form" class="screen-reader-shortcut"><?php esc_html_e( 'Skip to tab content', 'tribe-common' ); ?></a>
 					</li>
@@ -705,6 +712,8 @@ class Tribe__Settings {
 	 * Output the modal navigation for the settings page.
 	 *
 	 * @since TBD
+	 *
+	 * @param string $admin_page The admin page ID.
 	 */
 	protected function generate_modal_nav( $admin_page ): void {
 		?>
@@ -716,9 +725,7 @@ class Tribe__Settings {
 						<span class="screen-reader-text"><?php esc_html_e( 'Close', 'tribe-common' ); ?></span>
 					</button>
 				</div>
-					<?php
-					$this->generate_tabs(true);
-				?>
+					<?php $this->generate_tabs( true ); ?>
 			</div>
 		</dialog>
 		<?php
@@ -804,12 +811,12 @@ class Tribe__Settings {
 	protected function get_modal_controls(): void {
 		?>
 		<div class="tec-nav__modal-controls">
-			<h3 class="tec-nav__modal-title"><?php echo $this->get_tab( $this->get_current_tab() )->get_parent(); ?></h3>
+			<h3 class="tec-nav__modal-title"><?php echo esc_html( $this->get_tab( $this->get_current_tab() )->get_parent() ); ?></h3>
 			<button
 				class="tec-modal__control tec-modal__control--open"
 				aria-controls="tec-settings__nav-modal"
 			>
-				<span><?php echo $this->get_tab( $this->get_current_tab() )->name; ?></span>
+				<span><?php echo esc_html( $this->get_tab( $this->get_current_tab() )->name ); ?></span>
 				<img
 					class="tec-modal__control-icon"
 					src="<?php echo esc_url( tribe_resource_url( 'images/icons/hamburger.svg', false, null, Tribe__Main::instance() ) ); ?>"
