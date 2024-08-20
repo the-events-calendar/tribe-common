@@ -1,12 +1,14 @@
 :root {
-	/* WP Admin colors */
+	/* WP Admin colors/new tec admin colors */
 	--tec-admin-core-grey-0: #f6f7f7;
 	--tec-admin-core-grey-5: #dcdcde;
 	--tec-admin-core-grey-10: #c3c4c7;
 	--tec-admin-core-grey-50: #646970;
 	--tec-admin-core-grey-70: #3c434a;
 	--tec-admin-core-grey-80: #2c3338;
+	--tec-admin-core-grey-90: #1d2327;
 	--tec-admin-core-blue-50: #2271b1;
+	--tec-admin-modal-backdrop: rgba(60, 67, 74, 0.8);
 
 	/** new styles to go in utilities */
 	--tec-border-radius-settings: 6px;
@@ -25,35 +27,36 @@
 	}
 
 	.tribe_settings.wrap {
-		background-color: rebeccapurple;
-		margin-top: 0;
+		margin: 0;
 		padding-bottom: var(--tec-spacer-7);
 		padding-top: var(--tec-spacer-7);
 
 		h1 {
-			background-color: var(--tec-color-background);
 			padding: var(--tec-spacer-2) var(--tec-spacer-5);
+
+			@media (--viewport-wpadmin) {
+				background-color: var(--tec-color-background);
+			}
 		}
 	}
 
 	#tec-settings-form {
-		background-color: var(--tec-color-background);
-		border-radius: var(--tec-border-radius-default);
 		box-sizing: border-box;
 		display: grid;
 		font-family: var(--tec-font-family-sans-serif);
 		grid-row-gap: var(--tec-spacer-6);
 		grid-template-columns: 1fr;
-		margin-left: var(--tec-spacer-7);
-		margin-top: var(--tec-spacer-8);
-		padding: var(--tec-spacer-8) var(--tec-spacer-5) var(--tec-spacer-3);
-		width: 100%;
+		margin: 0 var(--tec-spacer-7);
 
 		@media (--viewport-wpadmin) {
+			background-color: var(--tec-color-background);
+			border-radius: var(--tec-border-radius-default);
 			grid-column-gap: var(--tec-spacer-8);
 			grid-row-gap: var(--tec-spacer-6);
-			grid-template-columns: 300px 510px;
+			grid-template-columns: 1fr 2fr;
+			margin: var(--tec-spacer-8) var(--tec-spacer-7) 0;
 			max-width: 900px;
+			width: calc(100% - (2 * var(--tec-spacer-7)));
 		}
 
 		/* Grid spacing/layout */
@@ -65,9 +68,17 @@
 		}
 
 		> .tec-settings__section-header {
-			grid-column: 1;
+			display: none;
 			margin-right: 0;
 			margin-top: var(--tec-spacer-6);
+
+			&:first-child {
+				display: none;
+
+				@media (--viewport-wpadmin) {
+					display: block;
+				}
+			}
 
 			&.tec-settings__section-header--wide {
 				font-size: var(--tec-font-size-5);
@@ -94,7 +105,9 @@
 
 		> .tec-settings__section-header + *,
 		> .tec_settings__header-block + * {
-			margin-top: var(--tec-spacer-6);
+			@media (--viewport-wpadmin) {
+				margin-top: var(--tec-spacer-6);
+			}
 		}
 
 		.tec-settings__section-header--sub {
@@ -106,8 +119,8 @@
 		.tec_settings__separator--section {
 			background-color: var(--tec-admin-core-grey-10);
 			border: 0;
-			grid-column: 1;
 			height: 1px;
+			width: 100%;
 
 			@media (--viewport-wpadmin) {
 				grid-column: 1 / span 2;
@@ -143,14 +156,25 @@
 			margin-top: 0;
 		}
 
-		.tec_settings__separator--footer {
-			margin: calc(-1 * var(--tec-spacer-2)) calc(-1 * var(--tec-spacer-4)) var(--tec-spacer-2);
-		}
-
 		.tec_settings__footer {
-			grid-column: 1 / span 2;
+			align-items: center;
+			background-color: var(--tec-color-background);
+			border-top: 1px solid var(--tec-admin-core-grey-10);
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-between;
 			margin: 0 calc(-1 * var(--tec-spacer-5));
-			padding: var(--tec-spacer-2) var(--tec-spacer-5) 0;
+			padding: var(--tec-spacer-3) var(--tec-spacer-7);
+
+			.dashicons-editor-help {
+				text-decoration: none;
+			}
+
+			@media (--viewport-wpadmin) {
+				grid-column: 1 / span 2;
+				margin: 0;
+				padding: var(--tec-spacer-2) var(--tec-spacer-5);
+			}
 		}
 
 		.tec-settings__element--rowspan-2 {
@@ -166,8 +190,10 @@
 		}
 
 		#tribeSaveSettings {
-			grid-column: 1;
 			width: fit-content;
+			@media (--viewport-wpadmin) {
+				grid-column: 1;
+			}
 		}
 
 		/* Grid styling */
@@ -246,19 +272,28 @@
 			padding: var(--tec-spacer-4) var(--tec-spacer-2) var(--tec-spacer-4) var(--tec-spacer-4);
 
 			> * {
-				grid-column: 1;
 				padding-left: 0;
+
+				@media (--viewport-wpadmin) {
+					grid-column: 1;
+				}
 			}
 
 			.tec-settings-infobox-logo ~ * {
-				grid-column: 2;
 				margin-left: 0;
+
+				@media (--viewport-wpadmin) {
+					grid-column: 2;
+				}
 			}
 
 			.tec-settings-infobox-logo {
-				grid-column: 1;
-				grid-row: 1 / 10;
-				width: 48px;
+				width: var(--tec-spacer-9);
+
+				@media (--viewport-wpadmin) {
+					grid-column: 1;
+					grid-row: 1 / 10;
+				}
 			}
 
 			.tec-settings-infobox-title {
@@ -270,6 +305,15 @@
 			p:last-child {
 				margin-bottom: 0;
 			}
+		}
+	}
+
+	/* Navigation */
+	#tribe-settings-tabs {
+		display: none;
+
+		@media (--viewport-wpadmin) {
+			display: block;
 		}
 	}
 
@@ -298,23 +342,7 @@
 		font-size: var(--tec-font-size-3);
 		line-height: var(--tec-line-height-2);
 		padding: var(--tec-spacer-1) var(--tec-spacer-2);
-		text-align: center;
 		text-wrap: nowrap;
-
-		@media (--viewport-wpadmin) {
-			border-bottom: 4px solid transparent;
-			font-size: var(--tec-font-size-2);
-			font-weight: var(--tec-font-weight-bold);
-			line-height: var(--tec-line-height-0);
-			margin-bottom: 0;
-			margin-left: var(--tec-spacer-1);
-			padding: var(--tec-spacer-1);
-
-			/* Skip link is first child */
-			&:nth-child(2) {
-				padding-left: var(--tec-spacer-2);
-			}
-		}
 
 		&.tec-nav__tab--skip-link {
 			margin: 0;
@@ -323,14 +351,19 @@
 
 		/* Easter Egg for Jack Kitterhing */
 		&.tec-nav__tab--duck {
+			display: none;
 			margin-left: auto;
+
+			@media (--viewport-wpadmin) {
+				display: list-item;
+			}
 
 			.screen-reader-shortcut {
 				background: var(--tec-color-background);
 				display: block;
 				height: auto;
-				left: 6px;
-				padding: 10px;
+				left: var(--tec-spacer-0);
+				padding: var(--tec-spacer-1);
 				position: absolute;
 				top: -1000em;
 				width: auto;
@@ -343,11 +376,29 @@
 				top: 0;
 			}
 		}
-	}
 
-	.tec-nav__link {
-		color: var(--tec-admin-core-grey-50);
-		text-decoration: none;
+		> .tec-nav__link {
+			color: var(--tec-admin-core-grey-50);
+			display: inline-block;
+			text-decoration: none;
+			width: 100%;
+		}
+
+		@media (--viewport-wpadmin) {
+			border-bottom: 4px solid transparent;
+			font-size: var(--tec-font-size-2);
+			font-weight: var(--tec-font-weight-bold);
+			line-height: var(--tec-line-height-0);
+			margin-bottom: 0;
+			margin-left: var(--tec-spacer-1);
+			padding: var(--tec-spacer-1);
+			text-align: center;
+
+			/* Skip link is first child */
+			&:nth-child(2) {
+				padding-left: var(--tec-spacer-2);
+			}
+		}
 	}
 
 	.tec-nav__tab--active {
@@ -361,45 +412,51 @@
 		}
 	}
 
-	.tec-nav__subnav {
-		display: none;
-		flex-direction: column;
-		margin-left: var(--tec-spacer-0);
+	/* Subnav */
+	.tec-nav__tab--has-subnav {
+		> .tec-nav__link {
+			background-image: svg-inline(caret-down);
+		}
 
-		@media (--viewport-wpadmin) {
-			background-color: var(--tec-admin-core-grey-80);
-			border-top-left-radius: var(--tec-border-radius-default);
-			border-top-right-radius: var(--tec-border-radius-default);
-			flex-direction: row;
-			margin-left: 0;
-			margin-top: var(--tec-spacer-7);
-			max-width: 900px;
-			width: 100%;
+		.tec-nav__subnav {
+			display: none;
+			flex-direction: column;
+			margin-left: var(--tec-spacer-0);
 
-			> .tec-nav__tab {
-				border-bottom: 3px solid transparent;
-				margin-bottom: 0;
-				padding: var(--tec-spacer-2) var(--tec-spacer-3);
+			@media (--viewport-wpadmin) {
+				background-color: var(--tec-admin-core-grey-80);
+				border-top-left-radius: var(--tec-border-radius-default);
+				border-top-right-radius: var(--tec-border-radius-default);
+				flex-direction: row;
+				margin-left: 0;
+				margin-top: var(--tec-spacer-7);
+				max-width: 900px;
+				width: 100%;
 
-				&:first-child {
-					border-top-left-radius: var(--tec-border-radius-default);
-					margin-left: 0;
-					padding-left: var(--tec-spacer-1);
+				> .tec-nav__tab {
+					border-bottom: 3px solid transparent;
+					margin-bottom: 0;
+					padding: var(--tec-spacer-2) var(--tec-spacer-3);
+
+					&:first-child {
+						border-top-left-radius: var(--tec-border-radius-default);
+						margin-left: 0;
+						padding-left: var(--tec-spacer-1);
+					}
+
+					&:last-child {
+						border-top-right-radius: var(--tec-border-radius-default);
+					}
 				}
 
-				&:last-child {
-					border-top-right-radius: var(--tec-border-radius-default);
+				.tec-nav__link {
+					color: var(--tec-color-background);
 				}
-			}
-
-			.tec-nav__link {
-				color: var(--tec-color-background);
 			}
 		}
 	}
 
 	.tec-nav__tab--subnav-active {
-
 		.tec-nav__subnav {
 			border-bottom-color: var(--tec-color-background);
 			display: flex;
@@ -407,10 +464,11 @@
 
 		> .tec-nav__link {
 			background-color: var(--tec-admin-core-grey-5);
+			background-image: svg-inline(caret-up);
 			color: var(--tec-color-background);
 			display: inline-block;
 			font-weight: var(--tec-font-weight-bold);
-			margin-left: -12px;
+			margin-left: calc(-1 * var(--tec-spacer-2));
 			max-width: 100%;
 			padding: var(--tec-spacer-3) var(--tec-spacer-2);
 			width: 100%;
@@ -418,6 +476,7 @@
 
 		@media (--viewport-wpadmin) {
 			background-color: var(--tec-color-background);
+			background-image: none;
 			border-color: var(--tec-admin-core-blue-50);
 			display: inline;
 
@@ -442,6 +501,18 @@
 		}
 	}
 
+	.tec-nav__tab--has-subnav > .tec-nav__link,
+	.tec-nav__tab--subnav-active > .tec-nav__link {
+		background-position: center right var(--tec-spacer-2);
+		background-repeat: no-repeat;
+		background-size: var(--tec-spacer-2);
+
+		@media (--viewport-wpadmin) {
+			background-image: none;
+		}
+	}
+
+	/* Upsells */
 	#tec-settings-form > .tec-settings__upsell {
 		align-items: flex-end;
 		background-color: var(--tec-admin-core-grey-0);
@@ -487,7 +558,7 @@
 			margin-bottom: var(--tec-spacer-2);
 
 			.tec-settings__upsell-logo {
-				height: 24px;
+				height: var(--tec-spacer-5);
 				object-fit: contain;
 				vertical-align: middle;
 			}
@@ -515,7 +586,7 @@
 		.tec-settings__upsell-btn {
 			background: var(--tec-color-button-primary);
 			border: 2px var(--tec-color-button-primary) solid;
-			border-radius: 5px;
+			border-radius: var(--tec-border-radius-settings);
 			color: var(--tec-color-background);
 			display: inline-block;
 			font-size: var(--tec-font-size-3);
@@ -535,10 +606,100 @@
 		}
 	}
 
+	/* Modal Nav */
+	.tec-nav__modal-controls {
+		align-items: center;
+		display: flex;
+		flex-flow: column nowrap;
+		margin: 0;
+		padding: 0 var(--tec-spacer-7) var(--tec-spacer-5);
+
+		@media (--viewport-wpadmin) {
+			display: none;
+		}
+
+		.tec-nav__modal-title {
+			font-size: var(--tec-font-size-5);
+			font-weight: var(--tec-font-weight-bold);
+			width: 100%;
+		}
+
+		.tec-modal__control {
+			align-items: center;
+			background-color: var(--tec-color-background);
+			border: 1px solid var(--tec-admin-core-grey-10);
+			border-radius: var(--tec-border-radius-default);
+			color: var(--tec-admin-core-grey-90);
+			display: flex;
+			font-size: var(--tec-font-size-3);
+			justify-content: space-between;
+			line-height: var(--tec-line-height-2);
+			padding: var(--tec-spacer-1) var(--tec-spacer-4) var(--tec-spacer-1) var(--tec-spacer-2);
+			width: 100%;
+		}
+
+		.tec-modal__control--open .tec-modal__control-icon {
+			height: var(--tec-spacer-2);
+		}
+	}
+
+	#tec-settings__nav-modal {
+		margin: 0;
+		margin-left: auto;
+		min-height: 100vh;
+		transform: translateX(100%);
+		transition: var(--tec-transition-transform);
+	}
+
+	#tec-settings__nav-modal[open] {
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		margin: 0;
+		transform: translateX(0);
+		transition: var(--tec-transition-transform);
+		width: 100%;
+
+		&:backdrop {
+			background-color: var(--tec-admin-modal-backdrop);
+		}
+	}
+
+	.tec-modal__header {
+		align-items: center;
+		display: flex;
+		justify-content: space-between;
+
+		.tec-modal__control--close {
+			background-color: transparent;
+			background-image: svg-inline(close);
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: contain;
+			border: 0;
+			height: var(--tec-spacer-5);
+			width: var(--tec-spacer-5);
+		}
+	}
+
+	.tec-modal__content {
+		width: calc(100% - (2 * var(--tec-spacer-0)));
+
+		.tec-nav__tab--subnav-active > .tec-nav__link {
+			background-color: var(--tec-admin-core-grey-5);
+			color: var(--tec-admin-core-grey-80);
+			font-weight: var(--tec-font-weight-regular);
+		}
+	}
+
 	/* Tab-specific styles */
 
 	/* Integrations */
 	.tec-settings__add-account-button {
+		vertical-align: middle;
+	}
+
+	.button > .dashicons-plus {
 		vertical-align: middle;
 	}
 }

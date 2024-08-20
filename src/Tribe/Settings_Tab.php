@@ -120,7 +120,7 @@ class Tribe__Settings_Tab {
 			'show_save'        => true,
 			'display_callback' => false,
 			'network_admin'    => false,
-			'parent'           => null,
+			'parent'           => '',
 			'children'         => [],
 		];
 
@@ -342,7 +342,7 @@ class Tribe__Settings_Tab {
 	 */
 	public function add_child( Tribe__Settings_Tab $tab ): void {
 		$this->children[ $tab->id ] = $tab;
-		$tab->parent                = $this;
+		$tab->parent                = $this->name;
 	}
 
 	/**
