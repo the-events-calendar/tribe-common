@@ -123,6 +123,10 @@ abstract class Integration_Settings {
 		] );
 
 		$api_fields = [
+			static::$option_prefix . 'separator' => [
+				'type' => 'html',
+				'html' => '<hr class="tec_settings__separator--section">',
+			],
 			static::$option_prefix . 'header'        => [
 				'type' => 'html',
 				'html' => $this->get_intro_text(),

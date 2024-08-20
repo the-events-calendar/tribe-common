@@ -5,6 +5,9 @@
  * @since 4.0.1
  */
 
+use TEC\Common\Admin\Entities\Element;
+use TEC\Common\Admin\Settings_Sidebar;
+
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -92,9 +95,9 @@ class Tribe__Settings_Tab {
 	 *
 	 * @since TBD
 	 *
-	 * @var string $parent
+	 * @var ?Tribe__Settings_Tab $parent
 	 */
-	protected $parent = '';
+	protected ?Tribe__Settings_Tab $parent = null;
 
 	/**
 	 * Array of child tabs, if any.
@@ -106,11 +109,32 @@ class Tribe__Settings_Tab {
 	public $children = [];
 
 	/**
+	 * Settings sidebar.
+	 *
+	 * This can be a callable function that returns a Settings_Sidebar object,
+	 * an instance of Settings_Sidebar, or null.
+	 *
+	 * @since TBD
+	 *
+	 * @var callable|Settings_Sidebar|null
+	 */
+	protected $sidebar = null;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @param string $id   The tab's id (no spaces or special characters).
 	 * @param string $name The tab's visible name.
-	 * @param array  $args Additional arguments for the tab.
+	 * @param array  $args {
+	 *     Array of arguments for the tab.
+	 *
+	 *     @type array    $fields           Array of fields for the tab.
+	 *     @type int      $priority         Priority for the tab.
+	 *     @type bool     $show_save        Whether to show the save button.
+	 *     @type callable $display_callback Display callback function.
+	 *     @type bool     $network_admin    Whether this tab is for network admin.
+	 *     @type array    $children         Array of child tabs, if any.
+	 * }
 	 */
 	public function __construct( $id, $name, $args = [] ) {
 		// Setup the defaults.
@@ -120,19 +144,35 @@ class Tribe__Settings_Tab {
 			'show_save'        => true,
 			'display_callback' => false,
 			'network_admin'    => false,
-			'parent'           => null,
 			'children'         => [],
 		];
 
 		// Parse args with defaults.
 		$this->args = wp_parse_args( $args, $this->defaults );
 
-		// Set each instance variable and filter.
+		/**
+		 * Filter the settings tab ID.
+		 *
+		 * @param string $id The tab ID.
+		 */
 		$this->id   = apply_filters( 'tribe_settings_tab_id', $id );
+
+		/**
+		 * Filter the settings tab name.
+		 *
+		 * @param string $name The tab name.
+		 */
 		$this->name = apply_filters( 'tribe_settings_tab_name', $name );
 
+		// Cycle through the defaults and set the class properties.
 		foreach ( $this->defaults as $key => $value ) {
-			$this->{$key} = apply_filters( 'tribe_settings_tab_' . $key, $this->args[ $key ], $id );
+			/**
+			 * Filter the value of the key.
+			 *
+			 * @param mixed  $value The value of the key.
+			 * @param string $id    The tab ID.
+			 */
+			$this->{$key} = apply_filters( "tribe_settings_tab_{$key}", $this->args[ $key ], $id );
 		}
 
 		// Run actions & filters.
@@ -165,7 +205,16 @@ class Tribe__Settings_Tab {
 	 *
 	 * @return string The tab's parent ID.
 	 */
-	public function get_parent(): string {
+	public function get_parent_id(): string {
+		return null !== $this->parent ? $this->parent->id : '';
+	}
+
+	/**
+	 * Gets the tab's parent.
+	 *
+	 * @return ?Tribe__Settings_Tab The tab's parent.
+	 */
+	public function get_parent(): ?Tribe__Settings_Tab {
 		return $this->parent;
 	}
 
@@ -175,7 +224,20 @@ class Tribe__Settings_Tab {
 	 * @return bool
 	 */
 	public function has_parent(): bool {
-		return ! empty( $this->parent );
+		return null !== $this->parent;
+	}
+
+	/**
+	 * Sets the parent tab.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__Settings_Tab $tab The parent tab.
+	 *
+	 * @return void
+	 */
+	public function set_parent( Tribe__Settings_Tab $tab ) {
+		$this->parent = $tab;
 	}
 
 	/**
@@ -183,17 +245,17 @@ class Tribe__Settings_Tab {
 	 * and adds the current tab to it
 	 * does not add a tab if it's empty.
 	 *
-	 * @param array $tabs the $tabs from Tribe__Settings.
+	 * @param Tribe__Settings_Tab[] $tabs the $tabs from Tribe__Settings.
 	 *
-	 * @return array $tabs the filtered tabs.
+	 * @return Tribe__Settings_Tab[] $tabs the filtered tabs.
 	 */
 	public function add_tab( $tabs ): array {
 		$hide_settings_tabs = Tribe__Settings_Manager::get_network_option( 'hideSettingsTabs', [] );
 
 		if ( ( isset( $this->fields ) || has_action( 'tribe_settings_content_tab_' . $this->id ) ) && ( empty( $hide_settings_tabs ) || ! in_array( $this->id, $hide_settings_tabs ) ) ) {
 			if ( ( is_network_admin() && $this->args['network_admin'] ) || ( ! is_network_admin() && ! $this->args['network_admin'] ) ) {
-				if ( ! empty( $this->parent ) && isset( $tabs[ $this->parent ] ) ) {
-					$tabs[ $this->parent ]->add_child( $this );
+				if ( $this->has_parent() && isset( $tabs[ $this->get_parent_id() ] ) ) {
+					$tabs[ $this->get_parent_id() ]->add_child( $this );
 				} else {
 					// If the parent tab is not set, add  to the top level.
 					$tabs[ $this->id ] = $this;
@@ -264,72 +326,45 @@ class Tribe__Settings_Tab {
 	 * @return void
 	 */
 	public function do_content(): void {
+		// If there is a sidebar, make sure to hook it.
+		if ( $this->has_sidebar() ) {
+			add_action(
+				'tribe_settings_after_form_div',
+				function () {
+					$this->get_sidebar()->render();
+				}
+			);
+		}
+
+		// If we have a display callback, use it.
 		if ( $this->display_callback && is_callable( $this->display_callback ) ) {
 			call_user_func( $this->display_callback );
 
 			return;
 		}
 
+		// Ensure we have fields before continuing.
+		if ( ! is_array( $this->fields ) || empty( $this->fields ) ) {
+			printf(
+				'<p>%s</p>',
+				esc_html__( 'There are no fields set up for this tab yet.', 'tribe-common' )
+			);
+
+			return;
+		}
+
+		// Get the sent data that was stored in the options table.
 		$sent_data = get_option( 'tribe_settings_sent_data', [] );
 
-		if ( is_array( $this->fields ) && ! empty( $this->fields ) ) {
-			foreach ( $this->fields as $key => $field ) {
-				if ( isset( $sent_data[ $key ] ) ) {
-					// If we just saved [or attempted to], get the value that was input.
-					$value = $sent_data[ $key ];
-				} else {
-					// Some options should always be stored at network level.
-					$network_option = isset( $field['network_option'] ) ? (bool) $field['network_option'] : false;
-
-					if ( is_network_admin() ) {
-						$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : Tribe__Main::OPTIONNAMENETWORK;
-					} else {
-						$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : Tribe__Main::OPTIONNAME;
-					}
-					// Get the field's parent_option in order to later get the field's value.
-					$parent_option = apply_filters( 'tribe_settings_do_content_parent_option', $parent_option, $key );
-					$default       = ( isset( $field['default'] ) ) ? $field['default'] : null;
-					$default       = apply_filters( 'tribe_settings_field_default', $default, $field );
-
-					if ( ! $parent_option && ( $network_option || is_network_admin() ) ) {
-						// No parent option, network admin.
-						$value = get_site_option( $key, $default );
-					} elseif ( ! $parent_option ) {
-						// No parent option.
-						$value = get_option( $key, $default );
-					} elseif ( $parent_option == Tribe__Main::OPTIONNAME ) {
-						// Get the options from Tribe__Settings_Manager if we're getting the main array.
-						$value = Tribe__Settings_Manager::get_option( $key, $default );
-					} elseif ( $parent_option == Tribe__Main::OPTIONNAMENETWORK ) {
-						// Get the network options from Tribe__Settings_Manager.
-						$value = Tribe__Settings_Manager::get_network_option( $key, $default );
-					} elseif ( is_network_admin() ) {
-						// Get the parent option for network admin.
-						$options = (array) get_site_option( $parent_option );
-						$value   = ( isset( $options[ $key ] ) ) ? $options[ $key ] : $default;
-					} else {
-						// Else, get the parent option normally.
-						$options = (array) get_option( $parent_option );
-						$value   = ( isset( $options[ $key ] ) ) ? $options[ $key ] : $default;
-					}
-				}
-
-				// Escape the value for display.
-				if ( ! empty( $field['esc_display'] ) && function_exists( $field['esc_display'] ) ) {
-					$value = $field['esc_display']( $value );
-				} elseif ( is_string( $value ) ) {
-					$value = esc_attr( stripslashes( $value ) );
-				}
-
-				// Filter the value.
-				$value = apply_filters( 'tribe_settings_get_option_value_pre_display', $value, $key, $field );
-
-				// Create the field.
-				new Tribe__Field( $key, $field, $value );
+		// Loop through the fields, create and display them.
+		foreach ( $this->fields as $key => $field ) {
+			// If this field is an Element, then render it. Otherwise, create a new field object and run it.
+			if ( $field instanceof Element ) {
+				$field->render();
+			} else {
+				$field_object = new Tribe__Field( $key, $field, $sent_data[ $key ] ?? null );
+				$field_object->do_field();
 			}
-		} else {
-			// No fields setup for this tab yet.
-			echo '<p>' . esc_html__( 'There are no fields set up for this tab yet.', 'tribe-common' ) . '</p>';
 		}
 	}
 
@@ -341,8 +376,13 @@ class Tribe__Settings_Tab {
 	 * @param Tribe__Settings_Tab $tab The child tab to add.
 	 */
 	public function add_child( Tribe__Settings_Tab $tab ): void {
+		// Don't try to add the same child more than once.
+		if ( $this->has_child( $tab->id ) ) {
+			return;
+		}
+
 		$this->children[ $tab->id ] = $tab;
-		$tab->parent                = $this;
+		$tab->set_parent( $this );
 	}
 
 	/**
@@ -406,6 +446,87 @@ class Tribe__Settings_Tab {
 	 */
 	public function get_priority(): string {
 		return $this->priority;
+	}
+
+	/**
+	 * Whether the tab has a sidebar assigned.
+	 *
+	 * If this is a child tab, it will also check whether the parent has a sidebar.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function has_sidebar(): bool {
+		$parent_has_sidebar = $this->has_parent() && $this->get_parent()->has_sidebar();
+
+		return null !== $this->sidebar || $parent_has_sidebar;
+	}
+
+	/**
+	 * Gets the sidebar for the current tab.
+	 *
+	 * @since TBD
+	 *
+	 * @return Settings_Sidebar|null
+	 * @throws InvalidArgumentException If the sidebar is invalid.
+	 */
+	public function get_sidebar() {
+		if ( $this->sidebar instanceof Settings_Sidebar ) {
+			return $this->sidebar;
+		}
+
+		if ( is_callable( $this->sidebar ) ) {
+			$sidebar = call_user_func( $this->sidebar );
+			if ( ! $sidebar instanceof Settings_Sidebar ) {
+				throw new InvalidArgumentException(
+					esc_html__( 'The sidebar callback must return an instance of Settings_Sidebar', 'tribe-common' )
+				);
+			}
+
+			return $sidebar;
+		}
+
+		// If we have a parent, try to get the parent's sidebar.
+		if ( $this->has_parent() && $this->get_parent()->has_sidebar() ) {
+			return $this->get_parent()->get_sidebar();
+		}
+
+		return null;
+	}
+
+	/**
+	 * Sets the sidebar for the current tab.
+	 *
+	 * @param callable|Settings_Sidebar $sidebar The sidebar to set.
+	 *
+	 * @return void
+	 */
+	public function add_sidebar( $sidebar ) {
+		$this->validate_sidebar( $sidebar );
+		$this->sidebar = $sidebar;
+	}
+
+	/**
+	 * Validates the sidebar.
+	 *
+	 * @since TBD
+	 *
+	 * @param callable|Settings_Sidebar $sidebar The sidebar to validate.
+	 *
+	 * @return void
+	 * @throws InvalidArgumentException If the sidebar is invalid.
+	 */
+	protected function validate_sidebar( $sidebar ) {
+		// If it's a callable or an instance of Settings_Sidebar, we're good.
+		if ( is_callable( $sidebar ) || $sidebar instanceof Settings_Sidebar ) {
+			return;
+		}
+
+		// Everything else is invalid.
+		throw new InvalidArgumentException(
+			esc_html__( 'The sidebar must be a callable function or an instance of Settings_Sidebar', 'tribe-common' )
+		);
 	}
 
 	/* Deprecated Methods */

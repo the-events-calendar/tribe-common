@@ -504,6 +504,22 @@ class Tribe__Settings {
 	}
 
 	/**
+	 * Outputs the header content for the tabs page and the nav modal.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $admin_page The admin page ID.
+	 */
+	public function do_page_header( $admin_page ): void {
+		?>
+		<h1>
+			<?php echo wp_kses_post( $this->get_page_logo( $admin_page ) ); ?>
+			<?php echo esc_html( $this->get_page_title( $admin_page ) ); ?>
+		</h1>
+		<?php
+	}
+
+	/**
 	 * Get the settings page title.
 	 *
 	 * @since 4.15.0
@@ -599,11 +615,9 @@ class Tribe__Settings {
 		do_action( 'tribe_settings_top', $admin_page );
 		?>
 		<div <?php tribe_classes( $wrap_classes ); ?>>
-			<h1>
-				<?php echo wp_kses_post( $this->get_page_logo( $admin_page ) ); ?>
-				<?php echo esc_html( $this->get_page_title( $admin_page ) ); ?>
-			</h1>
 			<?php
+			$this->do_page_header( $admin_page );
+			$this->generate_modal_nav( $admin_page );
 			do_action( 'tribe_settings_above_tabs' );
 			$this->generate_tabs();
 			do_action( 'tribe_settings_below_tabs' );
@@ -632,9 +646,9 @@ class Tribe__Settings {
 					wp_nonce_field( 'saving', 'tribe-save-settings' );
 					?>
 					<div class="tec_settings__footer">
-						<hr class="tec_settings__separator--footer">
 						<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="<?php echo esc_attr( $this->current_tab ); ?>" />
 						<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="<?php echo esc_attr__( 'Save Changes', 'tribe-common' ); ?>" />
+						<a href="<?php echo esc_url( tribe( 'settings' )->get_url( [ 'page' => 'tec-events-help' ] ) ); ?>" class=""><?php esc_html_e( 'Help', 'tribe-common' ); ?><span class="dashicons dashicons-editor-help"></span></a>
 					</div>
 					<?php
 				}
@@ -661,34 +675,63 @@ class Tribe__Settings {
 	 *
 	 * @since TBD
 	 */
-	public function generate_tabs(): void {
+	public function generate_tabs( $modal = false ): void {
 		if ( ! is_array( $this->tabs ) || empty( $this->tabs ) ) {
 			return;
 		}
 
+		$nav_id = $modal ? 'tec-settings-modal-nav' : 'tribe-settings-tabs';
+
 		ob_start();
 		?>
-			<nav id="tribe-settings-tabs" class="tec-nav__wrapper">
+			<nav id="<?php echo esc_attr( $nav_id ); ?>" class="tec-nav__wrapper">
 				<ul class="tec-nav">
+					<?php if ( ! $modal ) : ?>
 					<li class="tec-nav__tab tec-nav__tab--skip-link">
 						<a href="#tec-settings-form" class="screen-reader-shortcut"><?php esc_html_e( 'Skip to tab content', 'tribe-common' ); ?></a>
 					</li>
-				<?php
+					<?php endif; ?>
+					<?php
+					foreach ( $this->tabs as $tab ) {
+						if ( $tab->has_parent() ) {
+							// This tab belongs in the subnav!
+							continue;
+						}
 
-				foreach ( $this->tabs as $tab ) {
-					if ( ! empty( $tab->parent ) ) {
-						// This tab belongs in the subnav!
-						continue;
+						$this->generate_tab( $tab );
 					}
-
-					$this->generate_tab( $tab );
-				}
-				?>
+					?>
 				</ul>
 				<?php do_action( 'tribe_settings_after_tabs' ); ?>
 			</nav>
 		<?php
 		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Output the modal navigation for the settings page.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $admin_page The admin page ID.
+	 */
+	protected function generate_modal_nav( $admin_page ): void {
+		?>
+		<dialog id="tec-settings__nav-modal" class="tec-modal">
+			<div class="tec-modal__content">
+				<div class="tec-modal__header">
+					<?php $this->do_page_header( $admin_page ); ?>
+					<button class="tec-modal__control tec-modal__control--close" data-modal-close>
+						<span class="screen-reader-text"><?php esc_html_e( 'Close', 'tribe-common' ); ?></span>
+					</button>
+				</div>
+					<?php $this->generate_tabs( true ); ?>
+			</div>
+		</dialog>
+		<?php
+
+
+		$this->get_modal_controls();
 	}
 
 	/**
@@ -702,6 +745,10 @@ class Tribe__Settings {
 		$url         = $this->get_tab_url( $tab->id );
 		$class       = [ 'tec-nav__tab' ];
 		$current_tab = $this->get_current_tab();
+
+		if ( $tab->has_children() ) {
+			$class[] = 'tec-nav__tab--has-subnav';
+		}
 
 		if ( $tab->has_children() && $tab->has_child( $current_tab ) ) {
 			// Current tab is a child tab of passed tab.
@@ -753,6 +800,30 @@ class Tribe__Settings {
 			$this->get_duck_tab();
 			?>
 		</ul>
+		<?php
+	}
+
+	/**
+	 * Output the modal controls
+	 *
+	 * @since TBD
+	 */
+	protected function get_modal_controls(): void {
+		?>
+		<div class="tec-nav__modal-controls">
+			<h3 class="tec-nav__modal-title"><?php echo esc_html( $this->get_tab( $this->get_current_tab() )->get_parent()->name ); ?></h3>
+			<button
+				class="tec-modal__control tec-modal__control--open"
+				aria-controls="tec-settings__nav-modal"
+			>
+				<span><?php echo esc_html( $this->get_tab( $this->get_current_tab() )->name ); ?></span>
+				<img
+					class="tec-modal__control-icon"
+					src="<?php echo esc_url( tribe_resource_url( 'images/icons/hamburger.svg', false, null, Tribe__Main::instance() ) ); ?>"
+					alt="<?php esc_attr_e( 'Open settings navigation', 'tribe-common' ); ?>"
+				>
+		</button>
+		</div>
 		<?php
 	}
 

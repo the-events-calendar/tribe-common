@@ -4,6 +4,12 @@
  */
 
 // Explanatory text about license settings for the tab information box.
+use TEC\Common\Admin\Entities\Div;
+use TEC\Common\Admin\Entities\Heading;
+use TEC\Common\Admin\Entities\Paragraph;
+use TEC\Common\Admin\Entities\Plain_Text;
+use Tribe\Utils\Element_Classes;
+
 $html = '<p>' .
 		esc_html__( 'If you\'ve purchased a premium add-on, you\'ll need to enter your license key here in order to have access to automatic updates when new versions are available.', 'tribe-common' ) .
 		'</p>';
@@ -70,18 +76,24 @@ $old_license_field_info_box = [
 	],
 ];
 
+$license_title = new Div( new Element_Classes( [ 'tec_settings__header-block', 'tec_settings__header-block--horizontal' ] ) );
+$license_title->add_child(
+	new Heading(
+		_x( 'Licenses', 'Licenses section header', 'tribe-common' ),
+		3,
+		new Element_Classes( 'tec-settings__section-header' )
+	)
+);
+$license_title->add_child(
+	( new Paragraph( new Element_Classes( 'tec_settings__section-description' ) ) )->add_children(
+		[
+			new Plain_Text( __( "If you've purchased a premium add-on, you'll need to enter your license key here in order to have access to automatic updates when new versions are available.", 'tribe-common' ) ),
+		]
+	)
+);
+
 $license_fields = [
-	'tec-events-pro-defaults-licenses-title'       => [
-		'type' => 'html',
-		'html' => '<div class="tec_settings__header-block tec_settings__header-block--horizontal">'
-		           . '<h3 id="tec-events-pro-defaults-licenses-title" class="tec-settings__section-header">'
-				   . _x( 'Licenses', 'Licenses section header', 'tribe-events-calendar-pro' )
-				   . '</h3>'
-				   . '<p class="tec_settings__section-description">'
-				   . esc_html__( "If you've purchased a premium add-on, you'll need to enter your license key here in order to have access to automatic updates when new versions are available.", 'tribe-common' )
-				   . '</p>'
-				   . '</div>',
-	],
+	'tec-events-pro-defaults-licenses-title' => $license_title,
 ];
 
 
@@ -99,7 +111,7 @@ $licenses_tab = new Tribe__Settings_Tab(
 	[
 		'priority'      => 40,
 		'fields'        => $license_fields,
-		'network_admin' => is_network_admin() ? true : false,
+		'network_admin' => is_network_admin(),
 	]
 );
 
