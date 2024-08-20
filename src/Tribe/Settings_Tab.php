@@ -245,9 +245,9 @@ class Tribe__Settings_Tab {
 	 * and adds the current tab to it
 	 * does not add a tab if it's empty.
 	 *
-	 * @param array $tabs the $tabs from Tribe__Settings.
+	 * @param Tribe__Settings_Tab[] $tabs the $tabs from Tribe__Settings.
 	 *
-	 * @return array $tabs the filtered tabs.
+	 * @return Tribe__Settings_Tab[] $tabs the filtered tabs.
 	 */
 	public function add_tab( $tabs ): array {
 		$hide_settings_tabs = Tribe__Settings_Manager::get_network_option( 'hideSettingsTabs', [] );
@@ -326,6 +326,16 @@ class Tribe__Settings_Tab {
 	 * @return void
 	 */
 	public function do_content(): void {
+		// If there is a sidebar, make sure to hook it.
+		if ( $this->has_sidebar() ) {
+			add_action(
+				'tribe_settings_after_form_div',
+				function () {
+					$this->get_sidebar()->render();
+				}
+			);
+		}
+
 		// If we have a display callback, use it.
 		if ( $this->display_callback && is_callable( $this->display_callback ) ) {
 			call_user_func( $this->display_callback );
@@ -355,16 +365,6 @@ class Tribe__Settings_Tab {
 				$field_object = new Tribe__Field( $key, $field, $sent_data[ $key ] ?? null );
 				$field_object->do_field();
 			}
-		}
-
-		// If there is a sidebar, make sure to hook it.
-		if ( $this->has_sidebar() ) {
-			add_action(
-				'tribe_settings_after_form_div',
-				function () {
-					$this->get_sidebar()->render();
-				}
-			);
 		}
 	}
 
@@ -456,7 +456,9 @@ class Tribe__Settings_Tab {
 	 * @return bool
 	 */
 	public function has_sidebar(): bool {
-		return null !== $this->sidebar;
+		$parent_has_sidebar = $this->has_parent() && $this->get_parent()->has_sidebar();
+
+		return null !== $this->sidebar|| $parent_has_sidebar;
 	}
 
 	/**
@@ -481,6 +483,11 @@ class Tribe__Settings_Tab {
 			}
 
 			return $sidebar;
+		}
+
+		// If we have a parent, try to get the parent's sidebar.
+		if ( $this->has_parent() && $this->get_parent()->has_sidebar() ) {
+			return $this->get_parent()->get_sidebar();
 		}
 
 		return null;
