@@ -14,11 +14,13 @@ use InvalidArgumentException;
 /**
  * Class Container.
  *
- * This class is a generic container for elements that contain children.
+ * This class is a generic container for elements that contain children. Using this
+ * class directly will allow for rending children without any other element
+ * wrapping them.
  *
  * @since TBD
  */
-abstract class Container extends Base_Entity {
+class Container extends Base_Entity {
 
 	use Validate_Elements;
 
@@ -76,5 +78,14 @@ abstract class Container extends Base_Entity {
 		foreach ( $this->children as $child ) {
 			$child->render();
 		}
+	}
+
+	/**
+	 * Render the element.
+	 *
+	 * @return void
+	 */
+	public function render() {
+		$this->render_children();
 	}
 }
