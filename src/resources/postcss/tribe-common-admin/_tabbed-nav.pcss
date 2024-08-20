@@ -29,10 +29,17 @@
 		margin-top: 0;
 		padding-bottom: var(--tec-spacer-7);
 		padding-top: var(--tec-spacer-7);
+		display: flex;
+		flex-flow: column nowrap;
+
+		@media (max-width: 768px) {
+			flex-flow: row wrap;
+		}
 
 		h1 {
 			background-color: var(--tec-color-background);
 			padding: var(--tec-spacer-2) var(--tec-spacer-5);
+			min-width: 100%;
 		}
 
 		.tribe-settings-form {
@@ -42,6 +49,7 @@
 			gap: 32px;
 			flex: 1 0 0;
 			align-self: stretch;
+			width: 60%;
 		}
 	}
 
@@ -552,8 +560,7 @@
 		flex-direction: column;
 		gap: 16px;
 		padding: 20px;
-		max-width: 286px;
-		width: 286px;
+		width: 40%;
 	}
 
 	/* Tab-specific styles */
