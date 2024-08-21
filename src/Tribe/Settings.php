@@ -642,28 +642,52 @@ class Tribe__Settings {
 				do_action( 'tribe_settings_after_content_tab_' . $current_tab );
 				do_action( 'tribe_settings_after_content', $current_tab );
 
-				if ( has_action( 'tribe_settings_content_tab_' . $current_tab ) && ! in_array( $current_tab, $this->no_save_tabs ) ) {
-					wp_nonce_field( 'saving', 'tribe-save-settings' );
-					?>
-					<div class="tec_settings__footer">
-						<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="<?php echo esc_attr( $this->current_tab ); ?>" />
-						<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="<?php echo esc_attr__( 'Save Changes', 'tribe-common' ); ?>" />
-						<a href="<?php echo esc_url( tribe( 'settings' )->get_url( [ 'page' => 'tec-events-help' ] ) ); ?>" class=""><?php esc_html_e( 'Help', 'tribe-common' ); ?><span class="dashicons dashicons-editor-help"></span></a>
-					</div>
-					<?php
-				}
+				$this->do_footer();
 
 				echo apply_filters( 'tribe_settings_closing_form_element', '</form>' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 				do_action( 'tribe_settings_after_form_element' );
 				do_action( 'tribe_settings_after_form_element_tab_' . $current_tab, $admin_page );
 				?>
 			</div>
-			<?php do_action( 'tribe_settings_after_form_div' ); ?>
+			<?php do_action( 'tribe_settings_after_form_div', $this ); ?>
+			<?php $this->generate_modal_sidebar(); ?>
 		</div>
 		<?php
 		do_action( 'tribe_settings_bottom' );
 
 		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Displays the page footer content, with or without the save button.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $saving Whether the footer should force include saving fields/buttons.
+	 */
+	public function do_footer( $saving = false ): void {
+		$saving = $saving
+		|| (
+			has_action( 'tribe_settings_content_tab_' . $this->get_current_tab() )
+			&& ! in_array( $this->get_current_tab(), $this->no_save_tabs )
+		);
+
+		if ( $saving ) {
+			wp_nonce_field( 'saving', 'tribe-save-settings' );
+		}
+
+		$has_sidebar = $this->get_tab( $this->get_current_tab() )->has_sidebar();
+		?>
+		<div class="tec_settings__footer">
+			<?php if ( $saving ) : ?>
+				<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="<?php echo esc_attr( $this->current_tab ); ?>" />
+				<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="<?php echo esc_attr__( 'Save Changes', 'tribe-common' ); ?>" />
+			<?php endif; ?>
+			<?php if ( $has_sidebar ) : ?>
+				<button id="tec-settings-sidebar-modal-open" class="tec-settings__sidebar-toggle"><?php esc_html_e( 'Help', 'tribe-common' ); ?><span class="dashicons dashicons-editor-help"></span></button>
+			<?php endif; ?>
+		</div>
+		<?php
 	}
 
 	/**
@@ -717,11 +741,11 @@ class Tribe__Settings {
 	 */
 	protected function generate_modal_nav( $admin_page ): void {
 		?>
-		<dialog id="tec-settings__nav-modal" class="tec-modal">
+		<dialog id="tec-settings-nav-modal" class="tec-settings__modal">
 			<div class="tec-modal__content">
 				<div class="tec-modal__header">
 					<?php $this->do_page_header( $admin_page ); ?>
-					<button class="tec-modal__control tec-modal__control--close" data-modal-close>
+					<button id="tec-settings-nav-modal-close" class="tec-modal__control tec-modal__control--close" data-modal-close>
 						<span class="screen-reader-text"><?php esc_html_e( 'Close', 'tribe-common' ); ?></span>
 					</button>
 				</div>
@@ -730,8 +754,39 @@ class Tribe__Settings {
 		</dialog>
 		<?php
 
-
 		$this->get_modal_controls();
+	}
+
+	/**
+	 * Outputs the sidebar wrapped in a modal dialog.
+	 *
+	 * @since TBD
+	 */
+	protected function generate_modal_sidebar(): void {
+		add_action( 'tec_settings_sidebar_header_start', [ $this, 'generate_sidebar_modal_close' ] );
+		?>
+		<dialog id="tec-settings__sidebar-modal" class="tec-settings__modal">
+			<div class="tec-modal__content">
+				<div class="tec-modal__body">
+					<?php do_action( 'tec_settings_render_modal_sidebar', $this ); ?>
+				</div>
+			</div>
+		</dialog>
+		<?php
+		remove_action( 'tec_settings_sidebar_header_start', [ $this, 'generate_sidebar_modal_close' ] );
+	}
+
+	/**
+	 * Generate the markup for a modal close button.
+	 *
+	 * @since TBD
+	 */
+	public function generate_sidebar_modal_close(): void {
+		?>
+		<button id="tec-settings-sidebar-modal-close" class="tec-modal__control tec-modal__control--close" data-modal-close>
+			<span class="screen-reader-text"><?php esc_html_e( 'Close', 'tribe-common' ); ?></span>
+		</button>
+		<?php
 	}
 
 	/**
@@ -813,8 +868,9 @@ class Tribe__Settings {
 		<div class="tec-nav__modal-controls">
 			<h3 class="tec-nav__modal-title"><?php echo esc_html( $this->get_tab( $this->get_current_tab() )->get_parent()->name ); ?></h3>
 			<button
+				id="tec-settings-nav-modal-open"
 				class="tec-modal__control tec-modal__control--open"
-				aria-controls="tec-settings__nav-modal"
+				aria-controls="tec-settings-nav-modal"
 			>
 				<span><?php echo esc_html( $this->get_tab( $this->get_current_tab() )->name ); ?></span>
 				<img

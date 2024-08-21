@@ -275,7 +275,7 @@ class Tribe__Main {
 				[ 'tribe-dependency-style', 'dependency.css', [ 'tribe-select2-css' ] ],
 				[ 'tribe-pue-notices', 'pue-notices.js', [ 'jquery' ] ],
 				[ 'tribe-datepicker', 'datepicker.css' ],
-				[ 'tec-nav-modal', 'admin/settings-nav-modal.js', [ 'jquery' ] ],
+				[ 'tec-nav-modal', 'admin/settings-nav-modals.js', [ 'jquery' ] ],
 			],
 			'admin_enqueue_scripts',
 			[

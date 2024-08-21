@@ -328,12 +328,8 @@ class Tribe__Settings_Tab {
 	public function do_content(): void {
 		// If there is a sidebar, make sure to hook it.
 		if ( $this->has_sidebar() ) {
-			add_action(
-				'tribe_settings_after_form_div',
-				function () {
-					$this->get_sidebar()->render();
-				}
-			);
+			add_action( 'tribe_settings_after_form_div', [ $this, 'render_sidebar' ] );
+			add_action( 'tec_settings_render_modal_sidebar', [ $this, 'render_sidebar' ] );
 		}
 
 		// If we have a display callback, use it.
@@ -366,6 +362,15 @@ class Tribe__Settings_Tab {
 				$field_object->do_field();
 			}
 		}
+	}
+
+	/**
+	 * Renders the sidebar for the tab.
+	 *
+	 * @since TBD
+	 */
+	public function render_sidebar(): void {
+		$this->get_sidebar()->render();
 	}
 
 	/**
@@ -468,23 +473,12 @@ class Tribe__Settings_Tab {
 	 *
 	 * @since TBD
 	 *
-	 * @return Settings_Sidebar|null
+	 * @return ?Settings_Sidebar
 	 * @throws InvalidArgumentException If the sidebar is invalid.
 	 */
-	public function get_sidebar() {
+	public function get_sidebar(): ?Settings_Sidebar {
 		if ( $this->sidebar instanceof Settings_Sidebar ) {
 			return $this->sidebar;
-		}
-
-		if ( is_callable( $this->sidebar ) ) {
-			$sidebar = call_user_func( $this->sidebar );
-			if ( ! $sidebar instanceof Settings_Sidebar ) {
-				throw new InvalidArgumentException(
-					esc_html__( 'The sidebar callback must return an instance of Settings_Sidebar', 'tribe-common' )
-				);
-			}
-
-			return $sidebar;
 		}
 
 		// If we have a parent, try to get the parent's sidebar.
@@ -518,8 +512,8 @@ class Tribe__Settings_Tab {
 	 * @throws InvalidArgumentException If the sidebar is invalid.
 	 */
 	protected function validate_sidebar( $sidebar ) {
-		// If it's a callable or an instance of Settings_Sidebar, we're good.
-		if ( is_callable( $sidebar ) || $sidebar instanceof Settings_Sidebar ) {
+		// If it's an instance of Settings_Sidebar, we're good.
+		if ( $sidebar instanceof Settings_Sidebar ) {
 			return;
 		}
 

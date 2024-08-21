@@ -39,18 +39,23 @@ class Settings_Sidebar extends Section {
 	 */
 	public function render() {
 		?>
-		<div class="tribe-settings-sidebar">
-			<?php
-			$this->render_header_image();
-			$this->render_title();
-
-			?>
+		<div class="tec-settings__sidebar">
+		<?php do_action( 'tec_settings_sidebar_start' ); ?>
+			<div class="tec-settings__sidebar-section tec-settings__sidebar-header">
+				<?php do_action( 'tec_settings_sidebar_header_start' ); ?>
+				<?php
+				$this->render_header_image();
+				$this->render_title();
+				?>
+				<?php do_action( 'tec_settings_sidebar_header_end' ); ?>
+			</div>
 
 			<?php foreach ( $this->sections as $section ) : ?>
-				<div class="tribe-settings-sidebar__section">
+				<div class="tec-settings__sidebar-section">
 					<?php $section->render(); ?>
 				</div>
 			<?php endforeach; ?>
+			<?php do_action( 'tec_settings_sidebar_end' ); ?>
 		</div>
 		<?php
 	}
