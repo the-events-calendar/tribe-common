@@ -1,0 +1,48 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Form
+ *
+ * This file contains styles specific to the settings form.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe_events_page_tec-events-settings {
+	#wpcontent {
+		padding-left: 0;
+	}
+
+	#wpbody-content {
+		@media (max-width: 782px) {
+			padding-bottom: 0;
+		}
+	}
+
+	#tec-settings-logo {
+		margin: var(--tec-spacer-2);
+		margin-left: var(--tec-spacer-5);
+		vertical-align: middle;
+		width: var(--tec-spacer-7);
+
+		@media (max-width: 782px) {
+			margin: var(--tec-spacer-2);
+		}
+	}
+
+	.tribe_settings.wrap {
+		display: flex;
+		flex-flow: column nowrap;
+		margin: 0;
+
+		@media (--viewport-full) {
+			column-gap: var(--tec-spacer-7);
+			flex-flow: row wrap;
+			padding-bottom: var(--tec-spacer-7);
+
+			h1 {
+				background-color: var(--tec-color-background);
+				min-width: 100%;
+				padding: var(--tec-spacer-2) var(--tec-spacer-5);
+			}
+		}
+	}
+}

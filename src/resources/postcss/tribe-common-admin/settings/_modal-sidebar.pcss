@@ -1,0 +1,41 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Modal Sidebar
+ *
+ * This file contains styles/overrides specific to the modal-sidebar.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe_events_page_tec-events-settings {
+	.tec-settings__sidebar-toggle {
+		@mixin button-link;
+
+		color: var(--tec-admin-core-blue-50);
+
+		@media (--viewport-full) {
+			display: none;
+		}
+	}
+
+	#tec-settings__sidebar-modal {
+		margin: 0 0 0 auto;
+		min-height: 100vh;
+		transform: translateX(100%);
+		transition: var(--tec-transition-transform);
+		width: calc(100vw - 40px);
+
+		@media (--viewport-full) {
+			display: none;
+		}
+	}
+
+	#tec-settings__sidebar-modal[open] {
+		margin: var(--tec-spacer-1) var(--tec-spacer-1) var(--tec-spacer-1) var(--tec-spacer-7);
+		transform: translateX(0);
+		transition: var(--tec-transition-transform);
+
+		&:backdrop {
+			background-color: var(--tec-admin-modal-backdrop);
+		}
+	}
+}

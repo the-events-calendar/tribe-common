@@ -642,16 +642,7 @@ class Tribe__Settings {
 				do_action( 'tribe_settings_after_content_tab_' . $current_tab );
 				do_action( 'tribe_settings_after_content', $current_tab );
 
-				if ( has_action( 'tribe_settings_content_tab_' . $current_tab ) && ! in_array( $current_tab, $this->no_save_tabs ) ) {
-					wp_nonce_field( 'saving', 'tribe-save-settings' );
-					?>
-					<div class="tec_settings__footer">
-						<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="<?php echo esc_attr( $this->current_tab ); ?>" />
-						<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="<?php echo esc_attr__( 'Save Changes', 'tribe-common' ); ?>" />
-						<a href="<?php echo esc_url( tribe( 'settings' )->get_url( [ 'page' => 'tec-events-help' ] ) ); ?>" class=""><?php esc_html_e( 'Help', 'tribe-common' ); ?><span class="dashicons dashicons-editor-help"></span></a>
-					</div>
-					<?php
-				}
+				$this->do_footer();
 
 				echo apply_filters( 'tribe_settings_closing_form_element', '</form>' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 				do_action( 'tribe_settings_after_form_element' );
@@ -664,6 +655,43 @@ class Tribe__Settings {
 		do_action( 'tribe_settings_bottom' );
 
 		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Displays the page footer content.
+	 * With or without the save button
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $saving Whether the footer should force include saving fields/buttons.
+	 */
+	public function do_footer( $saving = false ): void {
+		$saving = $saving
+		|| (
+			has_action( 'tribe_settings_content_tab_' . $this->get_current_tab() )
+			&& ! in_array( $this->get_current_tab(), $this->no_save_tabs )
+		);
+
+		if ( $saving ) {
+			wp_nonce_field( 'saving', 'tribe-save-settings' );
+		}
+
+		$has_sidebar = $this->get_tab( $this->get_current_tab() )->has_sidebar();
+
+		if ( $has_sidebar ) {
+			$this->generate_modal_sidebar();
+		}
+		?>
+		<div class="tec_settings__footer">
+			<?php if ( $saving ) : ?>
+				<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="<?php echo esc_attr( $this->current_tab ); ?>" />
+				<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="<?php echo esc_attr__( 'Save Changes', 'tribe-common' ); ?>" />
+			<?php endif; ?>
+			<?php if ( $has_sidebar ) : ?>
+				<button id="tec-settings__sidebar-toggle" class="tec-settings__sidebar-toggle"><?php esc_html_e( 'Help', 'tribe-common' ); ?><span class="dashicons dashicons-editor-help"></span></button>
+			<?php endif; ?>
+		</div>
+		<?php
 	}
 
 	/**
@@ -730,8 +758,19 @@ class Tribe__Settings {
 		</dialog>
 		<?php
 
-
 		$this->get_modal_controls();
+	}
+
+	protected function generate_modal_sidebar() {
+		?>
+		<dialog id="tec-settings__sidebar-modal" class="tec-modal">
+			<div class="tec-modal__content">
+				<div class="tec-modal__body">
+					<?php do_action( 'tec_settings_render_modal_sidebar' ); ?>
+				</div>
+			</div>
+		</dialog>
+		<?php
 	}
 
 	/**

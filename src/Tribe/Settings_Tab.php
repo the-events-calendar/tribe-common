@@ -189,7 +189,13 @@ class Tribe__Settings_Tab {
 	 *
 	 * @since TBD
 	 */
-	public function add_actions(): void {}
+	public function add_actions(): void {
+		// If there is a sidebar, make sure to hook it.
+		if ( $this->has_sidebar() ) {
+			add_action( 'tribe_settings_after_form_div', [ $this, 'render_sidebar' ] );
+			add_action( 'tec_settings_render_modal_sidebar', [ $this, 'render_sidebar' ] );
+		}
+	}
 
 	/**
 	 * Adds filters for the tab.
@@ -326,16 +332,6 @@ class Tribe__Settings_Tab {
 	 * @return void
 	 */
 	public function do_content(): void {
-		// If there is a sidebar, make sure to hook it.
-		if ( $this->has_sidebar() ) {
-			add_action(
-				'tribe_settings_after_form_div',
-				function () {
-					$this->get_sidebar()->render();
-				}
-			);
-		}
-
 		// If we have a display callback, use it.
 		if ( $this->display_callback && is_callable( $this->display_callback ) ) {
 			call_user_func( $this->display_callback );
@@ -366,6 +362,10 @@ class Tribe__Settings_Tab {
 				$field_object->do_field();
 			}
 		}
+	}
+
+	public function render_sidebar() {
+		$this->get_sidebar()->render();
 	}
 
 	/**
@@ -468,10 +468,10 @@ class Tribe__Settings_Tab {
 	 *
 	 * @since TBD
 	 *
-	 * @return Settings_Sidebar|null
+	 * @return ?Settings_Sidebar
 	 * @throws InvalidArgumentException If the sidebar is invalid.
 	 */
-	public function get_sidebar() {
+	public function get_sidebar(): ?Settings_Sidebar {
 		if ( $this->sidebar instanceof Settings_Sidebar ) {
 			return $this->sidebar;
 		}

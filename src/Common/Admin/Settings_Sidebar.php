@@ -39,7 +39,7 @@ class Settings_Sidebar extends Section {
 	 */
 	public function render() {
 		?>
-		<div class="tribe-settings-sidebar">
+		<div class="tec-settings__sidebar">
 			<?php
 			$this->render_header_image();
 			$this->render_title();
@@ -47,7 +47,7 @@ class Settings_Sidebar extends Section {
 			?>
 
 			<?php foreach ( $this->sections as $section ) : ?>
-				<div class="tribe-settings-sidebar__section">
+				<div class="tec-settings__sidebar-section">
 					<?php $section->render(); ?>
 				</div>
 			<?php endforeach; ?>
