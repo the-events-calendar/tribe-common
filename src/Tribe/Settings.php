@@ -659,8 +659,7 @@ class Tribe__Settings {
 	}
 
 	/**
-	 * Displays the page footer content.
-	 * With or without the save button
+	 * Displays the page footer content, with or without the save button.
 	 *
 	 * @since TBD
 	 *
