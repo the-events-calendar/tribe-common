@@ -1,0 +1,48 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Modal
+ *
+ * This file contains styles/overrides for settings modals.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe_events_page_tec-events-settings {
+
+	.tec-settings__modal {
+		box-sizing: border-box;
+		flex-direction: column;
+		height: calc(100vh - (2 * var(--tec-spacer-1)));
+		margin: 0 auto 0 0;
+		overflow-y: scroll;
+		transform: translateX(-100%);
+		transition: var(--tec-transition-transform);
+		width: calc(100vw - var(--tec-spacer-8));
+
+		&:backdrop {
+			background-color: var(--tec-admin-modal-backdrop);
+		}
+	}
+
+	.tec-settings__modal[open] {
+		display: flex;
+		margin: var(--tec-spacer-1) var(--tec-spacer-7) var(--tec-spacer-1) var(--tec-spacer-1);
+		transform: translateX(0);
+		transition: var(--tec-transition-transform);
+	}
+
+	.tec-modal__control--close {
+		background-color: transparent;
+		background-image: svg-inline(close);
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: contain;
+		border: 0;
+		height: var(--tec-spacer-5);
+		width: var(--tec-spacer-5);
+	}
+
+	.tec-modal__content {
+		overflow-y: scroll;
+		width: calc(100% - (2 * var(--tec-spacer-0)));
+	}
+}

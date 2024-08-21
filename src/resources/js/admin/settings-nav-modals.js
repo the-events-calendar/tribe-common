@@ -1,12 +1,13 @@
 ( function ($) {
 	document.addEventListener("DOMContentLoaded", function() {
-		const $dialog = $('#tec-settings__nav-modal');
-		const $buttonOpen = $('.tec-modal__control--open');
-		const $buttonClose = $('.tec-modal__control--close');
+		const $dialog = $('#tec-settings-nav-modal');
+		const $buttonOpen = $('#tec-settings-nav-modal-open');
+		const $buttonClose = $('#tec-settings-nav-modal-close');
 		const $modalNav  = $('#tec-settings-modal-nav');
 		const $subnavLinks = $modalNav.find('.tec-nav__tab--has-subnav > .tec-nav__link');
-		const $sidebarToggle = $( '#tec-settings__sidebar-toggle' );
-		const $sidebar = $( '#tec-settings__sidebar-modal' );
+		const $sidebarOpen = $( '#tec-settings-sidebar-modal-open' );
+		const $sidebarClose = $( '#tec-settings-sidebar-modal-close' );
+		const $modalSidebar = $( '#tec-settings__sidebar-modal' );
 
 		const init = () => {
 			addNavHandlers();
@@ -39,17 +40,18 @@
 		}
 
 		const addSidebarHandlers = () => {
-			$sidebarToggle.on('click', sidebarHandlers.open );
+			$sidebarOpen.on('click', sidebarHandlers.open );
+			$sidebarClose.on('click', sidebarHandlers.close );
 		}
 
 		const sidebarHandlers = {
-			open: function(event) {
+			open: function( event ) {
 				event.preventDefault();
-				$sidebar[0].showModal();
+				event.stopPropagation();
+				$modalSidebar[0].showModal();
 			},
-			close: function(event) {
-				event.preventDefault();
-				$sidebar[0].close();
+			close: function() {
+				$modalSidebar[0].close();
 			}
 		};
 

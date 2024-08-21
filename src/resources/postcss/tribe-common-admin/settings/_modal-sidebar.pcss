@@ -19,10 +19,21 @@
 
 	#tec-settings__sidebar-modal {
 		margin: 0 0 0 auto;
-		min-height: 100vh;
 		transform: translateX(100%);
-		transition: var(--tec-transition-transform);
-		width: calc(100vw - 40px);
+
+		.tec-settings__sidebar {
+			display: flex;
+			min-height: auto;
+		}
+
+		.tec-modal__control--close + img {
+			width: calc(100% - var(--tec-spacer-5));
+		}
+
+		.tec-settings__sidebar-header {
+			display: flex;
+			flex-flow: row wrap;
+		}
 
 		@media (--viewport-full) {
 			display: none;
@@ -33,9 +44,5 @@
 		margin: var(--tec-spacer-1) var(--tec-spacer-1) var(--tec-spacer-1) var(--tec-spacer-7);
 		transform: translateX(0);
 		transition: var(--tec-transition-transform);
-
-		&:backdrop {
-			background-color: var(--tec-admin-modal-backdrop);
-		}
 	}
 }

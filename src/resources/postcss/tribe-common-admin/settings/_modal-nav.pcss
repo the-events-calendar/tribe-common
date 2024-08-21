@@ -44,28 +44,9 @@
 		}
 	}
 
-	#tec-settings__nav-modal {
-		box-sizing: border-box;
-		display: flex;
-		flex-direction: column;
-		margin: 0 auto 0 0;
-		min-height: 100vh;
-		transform: translateX(-100%);
-		transition: var(--tec-transition-transform);
-		width: calc(100vw - 40px);
-
+	#tec-settings-nav-modal {
 		h1 {
 			min-width: 0;
-		}
-	}
-
-	#tec-settings__nav-modal[open] {
-		margin: var(--tec-spacer-1) var(--tec-spacer-7) var(--tec-spacer-1) var(--tec-spacer-1);
-		transform: translateX(0);
-		transition: var(--tec-transition-transform);
-
-		&:backdrop {
-			background-color: var(--tec-admin-modal-backdrop);
 		}
 	}
 
@@ -73,23 +54,9 @@
 		align-items: center;
 		display: flex;
 		justify-content: space-between;
-
-		.tec-modal__control--close {
-			background-color: transparent;
-			background-image: svg-inline(close);
-			background-position: center;
-			background-repeat: no-repeat;
-			background-size: contain;
-			border: 0;
-			height: var(--tec-spacer-5);
-			width: var(--tec-spacer-5);
-		}
 	}
 
 	.tec-modal__content {
-		overflow-y: scroll;
-		width: calc(100% - (2 * var(--tec-spacer-0)));
-
 		.tec-nav__tab--subnav-active > .tec-nav__link {
 			background-color: var(--tec-admin-core-grey-5);
 			color: var(--tec-admin-core-grey-80);

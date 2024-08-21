@@ -649,7 +649,8 @@ class Tribe__Settings {
 				do_action( 'tribe_settings_after_form_element_tab_' . $current_tab, $admin_page );
 				?>
 			</div>
-			<?php do_action( 'tribe_settings_after_form_div' ); ?>
+			<?php do_action( 'tribe_settings_after_form_div', $this ); ?>
+			<?php $this->generate_modal_sidebar(); ?>
 		</div>
 		<?php
 		do_action( 'tribe_settings_bottom' );
@@ -677,10 +678,6 @@ class Tribe__Settings {
 		}
 
 		$has_sidebar = $this->get_tab( $this->get_current_tab() )->has_sidebar();
-
-		if ( $has_sidebar ) {
-			$this->generate_modal_sidebar();
-		}
 		?>
 		<div class="tec_settings__footer">
 			<?php if ( $saving ) : ?>
@@ -688,7 +685,7 @@ class Tribe__Settings {
 				<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="<?php echo esc_attr__( 'Save Changes', 'tribe-common' ); ?>" />
 			<?php endif; ?>
 			<?php if ( $has_sidebar ) : ?>
-				<button id="tec-settings__sidebar-toggle" class="tec-settings__sidebar-toggle"><?php esc_html_e( 'Help', 'tribe-common' ); ?><span class="dashicons dashicons-editor-help"></span></button>
+				<button id="tec-settings-sidebar-modal-open" class="tec-settings__sidebar-toggle"><?php esc_html_e( 'Help', 'tribe-common' ); ?><span class="dashicons dashicons-editor-help"></span></button>
 			<?php endif; ?>
 		</div>
 		<?php
@@ -745,11 +742,11 @@ class Tribe__Settings {
 	 */
 	protected function generate_modal_nav( $admin_page ): void {
 		?>
-		<dialog id="tec-settings__nav-modal" class="tec-modal">
+		<dialog id="tec-settings-nav-modal" class="tec-settings__modal">
 			<div class="tec-modal__content">
 				<div class="tec-modal__header">
 					<?php $this->do_page_header( $admin_page ); ?>
-					<button class="tec-modal__control tec-modal__control--close" data-modal-close>
+					<button id="tec-settings-nav-modal-close" class="tec-modal__control tec-modal__control--close" data-modal-close>
 						<span class="screen-reader-text"><?php esc_html_e( 'Close', 'tribe-common' ); ?></span>
 					</button>
 				</div>
@@ -762,14 +759,31 @@ class Tribe__Settings {
 	}
 
 	protected function generate_modal_sidebar() {
+		add_action( 'tec-settings-sidebar-start', [ $this, 'generate_sidebar_modal_close' ] );
 		?>
-		<dialog id="tec-settings__sidebar-modal" class="tec-modal">
+		<dialog id="tec-settings__sidebar-modal" class="tec-settings__modal">
 			<div class="tec-modal__content">
 				<div class="tec-modal__body">
-					<?php do_action( 'tec_settings_render_modal_sidebar' ); ?>
+					<?php do_action( 'tec_settings_render_modal_sidebar', $this ); ?>
 				</div>
 			</div>
 		</dialog>
+		<?php
+		remove_action( 'tec-settings-sidebar-start', [ $this, 'generate_sidebar_modal_close' ] );
+	}
+
+	/**
+	 * Generate the markup for a modal close button.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $id The ID of the modal.
+	 */
+	public function generate_sidebar_modal_close(): void {
+		?>
+		<button id="tec-settings-sidebar-modal-close" class="tec-modal__control tec-modal__control--close" data-modal-close>
+			<span class="screen-reader-text"><?php esc_html_e( 'Close', 'tribe-common' ); ?></span>
+		</button>
 		<?php
 	}
 
@@ -852,8 +866,9 @@ class Tribe__Settings {
 		<div class="tec-nav__modal-controls">
 			<h3 class="tec-nav__modal-title"><?php echo esc_html( $this->get_tab( $this->get_current_tab() )->get_parent()->name ); ?></h3>
 			<button
+				id="tec-settings-nav-modal-open"
 				class="tec-modal__control tec-modal__control--open"
-				aria-controls="tec-settings__nav-modal"
+				aria-controls="tec-settings-nav-modal"
 			>
 				<span><?php echo esc_html( $this->get_tab( $this->get_current_tab() )->name ); ?></span>
 				<img
