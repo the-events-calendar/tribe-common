@@ -38,16 +38,16 @@ class Settings_Sidebar extends Section {
 	 * @return void
 	 */
 	public function render() {
-		error_log( 'render');
 		?>
 		<div class="tec-settings__sidebar">
-
+		<?php do_action( 'tec_settings_sidebar_start'); ?>
 			<div class="tec-settings__sidebar-section tec-settings__sidebar-header">
-			<?php do_action( 'tec-settings-sidebar-start'); ?>
+				<?php do_action( 'tec_settings_sidebar_header_start' ); ?>
 				<?php
 				$this->render_header_image();
 				$this->render_title();
 				?>
+				<?php do_action( 'tec_settings_sidebar_header_end' ); ?>
 			</div>
 
 			<?php foreach ( $this->sections as $section ) : ?>
@@ -55,7 +55,7 @@ class Settings_Sidebar extends Section {
 					<?php $section->render(); ?>
 				</div>
 			<?php endforeach; ?>
-			<?php do_action( 'tec-settings-sidebar-end'); ?>
+			<?php do_action( 'tec-settings-sidebar-end' ); ?>
 		</div>
 		<?php
 	}

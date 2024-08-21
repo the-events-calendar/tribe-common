@@ -364,7 +364,12 @@ class Tribe__Settings_Tab {
 		}
 	}
 
-	public function render_sidebar() {
+	/**
+	 * Renders the sidebar for the tab.
+	 *
+	 * @since TBD
+	 */
+	public function render_sidebar(): void {
 		$this->get_sidebar()->render();
 	}
 
@@ -507,7 +512,6 @@ class Tribe__Settings_Tab {
 	 * @throws InvalidArgumentException If the sidebar is invalid.
 	 */
 	protected function validate_sidebar( $sidebar ) {
-		error_log( print_r( $sidebar, true ) );
 		// If it's an instance of Settings_Sidebar, we're good.
 		if ( $sidebar instanceof Settings_Sidebar ) {
 			return;

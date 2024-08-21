@@ -758,8 +758,13 @@ class Tribe__Settings {
 		$this->get_modal_controls();
 	}
 
-	protected function generate_modal_sidebar() {
-		add_action( 'tec-settings-sidebar-start', [ $this, 'generate_sidebar_modal_close' ] );
+	/**
+	 * Outputs the sidebar wrapped in a modal dialog.
+	 *
+	 * @since TBD
+	 */
+	protected function generate_modal_sidebar(): void {
+		add_action( 'tec_settings_sidebar_header_start', [ $this, 'generate_sidebar_modal_close' ] );
 		?>
 		<dialog id="tec-settings__sidebar-modal" class="tec-settings__modal">
 			<div class="tec-modal__content">
@@ -769,15 +774,13 @@ class Tribe__Settings {
 			</div>
 		</dialog>
 		<?php
-		remove_action( 'tec-settings-sidebar-start', [ $this, 'generate_sidebar_modal_close' ] );
+		remove_action( 'tec_settings_sidebar_header_start', [ $this, 'generate_sidebar_modal_close' ] );
 	}
 
 	/**
 	 * Generate the markup for a modal close button.
 	 *
 	 * @since TBD
-	 *
-	 * @param string $id The ID of the modal.
 	 */
 	public function generate_sidebar_modal_close(): void {
 		?>
