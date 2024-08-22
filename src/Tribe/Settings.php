@@ -682,6 +682,7 @@ class Tribe__Settings {
 
 		$has_sidebar = $this->get_tab( $current_tab )->has_sidebar();
 		?>
+		<hr class="tec_settings__separator--section">
 		<div class="tec_settings__footer">
 			<?php if ( $saving ) : ?>
 				<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="<?php echo esc_attr( $this->current_tab ); ?>" />

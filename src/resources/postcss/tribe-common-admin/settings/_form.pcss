@@ -12,19 +12,15 @@
 		align-items: flex-start;
 		align-self: stretch;
 		box-sizing: border-box;
-		display: flex;
 		flex: 1 0 0;
-		gap: var(--tec-spacer-7);
 		margin: var(--tec-spacer-4) 0 0;
 
-		@media (--viewport-full) {
-			max-width: var(--tec-width-settings-form);
+		@media (min-width: 960px) {
 			width: 100%;
 		}
 
-		@media (--viewport-xlarge) {
-			background-color: var(--tec-color-background);
-			margin: var(--tec-spacer-4) 0 0 var(--tec-spacer-7);
+		@media (min-width: 1260px) {
+			margin: 0;
 			margin-bottom: auto;
 		}
 	}
@@ -39,41 +35,45 @@
 		grid-template-columns: 1fr;
 		margin: 0 var(--tec-spacer-7);
 
-		@media (--viewport-xsmall) {
+		@media (min-width: 500px) {
 			background-color: var(--tec-color-background);
-			margin: 0 var(--tec-spacer-5);
 			padding-left: var(--tec-spacer-7);
 			padding-right: var(--tec-spacer-7);
 			padding-top: calc(var(--tec-spacer-9) + var(--tec-spacer-6) - 2px);
 		}
 
-		@media (--viewport-xlarge) {
+		@media (min-width: 500px) and (max-width: 1260px) {
+			margin: 0 var(--tec-spacer-5);
+		}
+
+		@media (min-width: 960px) {
+			max-width: var(--tec-width-settings-form);
+		}
+
+		@media (min-width: 1260px) {
 			border-radius: var(--tec-border-radius-default);
 			grid-column-gap: var(--tec-spacer-8);
 			grid-template-columns: 1fr 2.2fr;
-			margin: var(--tec-spacer-7) var(--tec-spacer-7) 0;
-			max-width: var(--tec-width-settings-form);
+			margin: var(--tec-spacer-7) 0 0 var(--tec-spacer-7);
 			padding-top: calc(var(--tec-spacer-9) - 2px);
-			width: calc(100% - (2 * var(--tec-spacer-7)));
 		}
 
 		/* Grid spacing/layout */
 		> * {
-			@media (--viewport-xlarge) {
+			@media (min-width: 1260px) {
 				grid-column: 2;
 				margin-right: var(--tec-spacer-7);
 			}
 		}
 
 		> .tec-settings__section-header {
-			display: none;
 			margin-right: 0;
 			margin-top: var(--tec-spacer-6);
 
 			&:first-child {
 				display: none;
 
-				@media (--viewport-xlarge) {
+				@media (min-width: 500px) {
 					display: block;
 				}
 			}
@@ -85,7 +85,7 @@
 				margin-right: var(--tec-spacer-7);
 			}
 
-			@media (--viewport-xlarge) {
+			@media (min-width: 1260px) {
 				grid-column: 1;
 
 				&.tec-settings__section-header--wide {
@@ -95,7 +95,7 @@
 		}
 
 		.tec_settings__section-description {
-			@media (--viewport-xlarge) {
+			@media (min-width: 1260px) {
 				grid-column: 1;
 				margin-top: var(--tec-spacer-5);
 			}
@@ -103,7 +103,7 @@
 
 		> .tec-settings__section-header + *,
 		> .tec_settings__header-block + * {
-			@media (--viewport-xlarge) {
+			@media (min-width: 1260px) {
 				margin-top: var(--tec-spacer-6);
 			}
 		}
@@ -120,7 +120,7 @@
 			height: 1px;
 			width: 100%;
 
-			@media (--viewport-xlarge) {
+			@media (min-width: 1260px) {
 				grid-column: 1 / span 2;
 				margin: 0 calc(-1 * var(--tec-spacer-7));
 				width: calc(100% + (2 * var(--tec-spacer-7)));
@@ -135,7 +135,7 @@
 		}
 
 		> .tec_settings__header-block {
-			@media (--viewport-xlarge) {
+			@media (min-width: 1260px) {
 				grid-column: 1;
 
 				&.tec_settings__header-block--horizontal {
@@ -155,7 +155,6 @@
 		.tec_settings__footer {
 			align-items: center;
 			background-color: var(--tec-color-background);
-			border-top: 1px solid var(--tec-admin-core-grey-10);
 			display: flex;
 			flex-flow: row wrap;
 			justify-content: space-between;
@@ -166,21 +165,21 @@
 				text-decoration: none;
 			}
 
-			@media (--viewport-xlarge) {
+			@media (min-width: 1260px) {
 				grid-column: 1 / span 2;
 				margin: 0;
-				padding: var(--tec-spacer-2) var(--tec-spacer-5);
+				padding: var(--tec-spacer-2) 0;
 			}
 		}
 
 		.tec-settings__element--rowspan-2 {
-			@media (--viewport-xlarge) {
+			@media (min-width: 1260px) {
 				grid-row: span 2;
 			}
 		}
 
 		.tec-settings__element--colspan-2 {
-			@media (--viewport-xlarge) {
+			@media (min-width: 1260px) {
 				grid-column: span 2;
 			}
 		}
@@ -188,7 +187,7 @@
 		#tribeSaveSettings {
 			width: fit-content;
 
-			@media (--viewport-xlarge) {
+			@media (min-width: 1260px) {
 				grid-column: 1;
 			}
 		}
@@ -272,7 +271,7 @@
 			> * {
 				padding-left: 0;
 
-				@media (--viewport-xlarge) {
+				@media (min-width: 1260px) {
 					grid-column: 1;
 				}
 			}
@@ -280,7 +279,7 @@
 			.tec-settings-infobox-logo ~ * {
 				margin-left: 0;
 
-				@media (--viewport-xlarge) {
+				@media (min-width: 1260px) {
 					grid-column: 2;
 				}
 			}
@@ -288,7 +287,7 @@
 			.tec-settings-infobox-logo {
 				width: var(--tec-spacer-9);
 
-				@media (--viewport-xlarge) {
+				@media (min-width: 1260px) {
 					grid-column: 1;
 					grid-row: 1 / 10;
 				}

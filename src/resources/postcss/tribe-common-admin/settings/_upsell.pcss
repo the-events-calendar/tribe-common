@@ -20,13 +20,13 @@
 		padding: var(--tec-spacer-8);
 		width: var(--tec-width-settings-form);
 
-		@media (--viewport-xsmall) {
+		@media (min-width: 320px) and (max-width: 960px) {
 			align-items: center;
 			flex-direction: row;
 			padding: var(--tec-spacer-8);
 		}
 
-		@media (--viewport-full) {
+		@media (min-width: 960px) {
 			grid-column: 1 / span 2;
 			margin: 0;
 		}

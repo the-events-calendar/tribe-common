@@ -14,13 +14,13 @@
 		padding-left: var(--tec-spacer-5);
 		padding-top: 0;
 
-		@media (--viewport-xsmall) {
+		@media (min-width: 500px) {
 			box-sizing: border-box;
 			display: block;
 			overflow-x: scroll;
 		}
 
-		@media (--viewport-full) {
+		@media (min-width: 960px) {
 			min-width: 100%;
 		}
 	}
@@ -32,7 +32,7 @@
 		list-style: none;
 		margin: 0 0 0 var(--tec-spacer-0);
 
-		@media (--viewport-xsmall) {
+		@media (min-width: 500px) {
 			flex-direction: row;
 		}
 	}
@@ -57,7 +57,7 @@
 			display: none;
 			margin-left: auto;
 
-			@media (--viewport-xsmall) {
+			@media (min-width: 500px) {
 				display: list-item;
 			}
 
@@ -85,7 +85,7 @@
 			text-decoration: none;
 		}
 
-		@media (--viewport-xsmall) {
+		@media (min-width: 500px) {
 			border-bottom: 4px solid transparent;
 			font-size: var(--tec-font-size-2);
 			font-weight: var(--tec-font-weight-bold);
@@ -98,7 +98,7 @@
 
 		/* Skip link is first child */
 		&:nth-child(2) {
-			@media (--viewport-xsmall) {
+			@media (min-width: 500px) {
 				margin-left: 0;
 				padding-left: var(--tec-spacer-2);
 			}
@@ -111,7 +111,7 @@
 			font-weight: var(--tec-font-weight-bold);
 		}
 
-		@media (--viewport-xsmall) {
+		@media (min-width: 500px) {
 			border-color: var(--tec-admin-core-blue-50);
 		}
 	}
@@ -135,15 +135,13 @@
 			flex: 0 1 auto;
 		}
 
-		@media (--viewport-xsmall) {
+		@media (min-width: 500px) {
 			background-color: var(--tec-admin-core-grey-80);
 			border-top-left-radius: var(--tec-border-radius-default);
 			border-top-right-radius: var(--tec-border-radius-default);
 			flex-direction: row;
-			left: calc(var(--tec-spacer-5) + 1px);
 			margin-left: 0;
 			margin-top: calc(var(--tec-spacer-7) + 2px);
-			max-width: calc(100% - (var(--tec-spacer-5) * 2) - 1px);
 			width: 100%;
 
 			> .tec-nav__tab {
@@ -166,21 +164,25 @@
 			}
 		}
 
-		@media (--viewport-wpadmin) {
-			max-width: calc(100% - (var(--tec-spacer-5) * 2) - 1px);
+		@media (min-width: 500px) and (max-width: 783px) {
+			max-width: min(var(--tec-width-settings-form), calc(100% - (var(--tec-spacer-5) * 2) - 1px));
 		}
 
-		@media (min-width: 1024px) {
-			max-width: calc(var(--tec-width-settings-form) - (var(--tec-spacer-5) * 2) - 1px);
+		@media (min-width: 500px) and (max-width: 1260px) {
+			left: calc(var(--tec-spacer-5) + 1px);
 		}
 
-		@media (--viewport-xlarge) {
+		@media (min-width: 783px) and (max-width: 960px) {
+			max-width: min(var(--tec-width-settings-form), calc(100% - (var(--tec-spacer-5) * 2) - 1px));
+		}
+
+		@media (min-width: 960px) and (max-width: 1260px) {
+			max-width: min( var(--tec-width-settings-form), calc(100% - (2 * var(--tec-spacer-5)) - 1px));
+		}
+
+		@media (min-width: 1260px) {
 			left: calc(var(--tec-spacer-7) + 1px);
-			max-width: calc(100% - var(--tec-width-sidebar) - ( 3 * var(--tec-spacer-7) - 1px));
-		}
-
-		@media (min-width: 1456px) {
-			max-width: var(--tec-width-settings-form);
+			max-width: min(var(--tec-width-settings-form), calc(100% - var(--tec-width-sidebar) - (3 * var(--tec-spacer-7))));
 		}
 	}
 
@@ -199,7 +201,7 @@
 			padding: var(--tec-spacer-3) var(--tec-spacer-2);
 		}
 
-		@media (--viewport-xsmall) {
+		@media (min-width: 500px) {
 			background-color: var(--tec-color-background);
 			background-image: none;
 			border-color: var(--tec-admin-core-blue-50);
@@ -226,7 +228,7 @@
 		background-repeat: no-repeat;
 		background-size: var(--tec-spacer-2);
 
-		@media (--viewport-xsmall) {
+		@media (min-width: 500px) {
 			background-image: none;
 		}
 	}
