@@ -49,6 +49,25 @@
 			min-width: 0;
 		}
 
+		.tec-nav__wrapper {
+			display: block;
+		}
+
+		.tec-nav__subnav {
+			margin-top: var(--tec-spacer-1);
+			position: static;
+		}
+
+		.tec-nav__tab {
+			text-align: left;
+
+			&.tec-nav__tab--has-subnav {
+				.tec-nav__link {
+					display: block;
+				}
+			}
+		}
+
 		@media (min-width: 500px) {
 			display: none;
 		}
