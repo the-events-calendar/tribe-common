@@ -64,8 +64,10 @@
 
 			.screen-reader-shortcut {
 				background: var(--tec-color-background);
+				border-top-right-radius: var(--tec-border-radius-default);
+				box-sizing: border-box;
 				display: block;
-				height: auto;
+				height: 100%;
 				left: var(--tec-spacer-0);
 				padding: var(--tec-spacer-1);
 				position: absolute;
@@ -100,8 +102,7 @@
 		/* Skip link is first child, so we target the second child. */
 		&:nth-child(2) {
 			@media (min-width: 500px) {
-				margin-left: 0;
-				padding-left: var(--tec-spacer-3);
+				margin-left: var(--tec-spacer-1);
 			}
 		}
 	}
