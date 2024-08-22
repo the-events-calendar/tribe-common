@@ -711,11 +711,12 @@ class Tribe__Settings {
 
 		$nav_id = $modal ? 'tec-settings-modal-nav' : 'tribe-settings-tabs';
 		$wrapper_classes = [
-			'tec-nav__wrapper' => true,
+			'tec-nav__wrapper'                => true,
 			'tec-nav__wrapper--subnav-active' => false,
 		];
-		if ($this->get_tab( $this->get_current_tab() ) ->has_parent()) {
-			$wrapper_classes[ 'tec-nav__wrapper--subnav-active'  ] = true;
+
+		if ( $this->get_tab( $this->get_current_tab() )->has_parent() ) {
+			$wrapper_classes['tec-nav__wrapper--subnav-active'] = true;
 		}
 
 		ob_start();
@@ -812,7 +813,7 @@ class Tribe__Settings {
 		$url         = $this->get_tab_url( $tab->id );
 		$class       = [
 			'tec-nav__tab',
-			'tec-nav__tab--' . $tab->id,
+			"tec-nav__tab--{$tab->id}",
 		];
 		$current_tab = $this->get_current_tab();
 
@@ -880,6 +881,7 @@ class Tribe__Settings {
 	 */
 	protected function get_modal_controls(): void {
 		$current_tab = $this->get_tab( $this->get_current_tab() );
+
 		if ( empty( $current_tab ) ) {
 			return;
 		}
