@@ -802,7 +802,10 @@ class Tribe__Settings {
 	 */
 	public function generate_tab( Tribe__Settings_Tab $tab ) {
 		$url         = $this->get_tab_url( $tab->id );
-		$class       = [ 'tec-nav__tab' ];
+		$class       = [
+			'tec-nav__tab',
+			'tec-nav__tab--' . $tab->id,
+		];
 		$current_tab = $this->get_current_tab();
 
 		if ( $tab->has_children() ) {

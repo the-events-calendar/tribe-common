@@ -11,13 +11,16 @@
 	.tribe-settings-form {
 		align-items: flex-start;
 		align-self: stretch;
-		border-radius: var(--tec-border-radius-settings);
 		box-sizing: border-box;
 		display: flex;
 		flex: 1 0 0;
 		gap: var(--tec-spacer-7);
 		margin: var(--tec-spacer-4) 0 0;
-		max-width: var(--tec-width-settings-form);
+
+		@media (--viewport-full) {
+			max-width: var(--tec-width-settings-form);
+			width: 100%;
+		}
 
 		@media (--viewport-xlarge) {
 			background-color: var(--tec-color-background);
@@ -27,6 +30,8 @@
 	}
 
 	#tec-settings-form {
+		border: 1px solid var(--tec-admin-core-grey-10);
+		border-radius: var(--tec-border-radius-settings);
 		box-sizing: border-box;
 		display: grid;
 		font-family: var(--tec-font-family-sans-serif);
@@ -34,13 +39,21 @@
 		grid-template-columns: 1fr;
 		margin: 0 var(--tec-spacer-7);
 
-		@media (--viewport-xlarge) {
+		@media (--viewport-xsmall) {
 			background-color: var(--tec-color-background);
+			margin: 0 var(--tec-spacer-5);
+			padding-left: var(--tec-spacer-7);
+			padding-right: var(--tec-spacer-7);
+			padding-top: calc(var(--tec-spacer-9) + var(--tec-spacer-6) - 2px);
+		}
+
+		@media (--viewport-xlarge) {
 			border-radius: var(--tec-border-radius-default);
 			grid-column-gap: var(--tec-spacer-8);
 			grid-template-columns: 1fr 2.2fr;
-			margin: var(--tec-spacer-8) var(--tec-spacer-7) 0;
+			margin: var(--tec-spacer-7) var(--tec-spacer-7) 0;
 			max-width: var(--tec-width-settings-form);
+			padding-top: calc(var(--tec-spacer-9) - 2px);
 			width: calc(100% - (2 * var(--tec-spacer-7)));
 		}
 
