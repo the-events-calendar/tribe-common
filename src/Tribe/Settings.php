@@ -326,7 +326,7 @@ class Tribe__Settings {
 		// Load settings tab-specific helpers and enhancements.
 		Tribe__Admin__Live_Date_Preview::instance();
 
-		do_action( 'tribe_settings_do_tabs', $admin_page ); // This is the hook used to add new tabs.
+		do_action( 'tribe_settings_do_tabs', $admin_page, $this ); // This is the hook used to add new tabs.
 
 		/**
 		 * Filter the tabs that will appear in the settings page.
@@ -336,7 +336,7 @@ class Tribe__Settings {
 		 * @param array  $tabs<string,Tribe__Settigns_Tab> The tabs that will appear in the settings page.
 		 * @param string $admin_page                       The admin page ID.
 		 */
-		$this->tabs = (array) apply_filters( 'tribe_settings_tabs', [], $admin_page );
+		$this->tabs = (array) apply_filters( 'tribe_settings_tabs', [], $admin_page, $this );
 
 		/**
 		 * Filter the list of all tabs.
@@ -346,7 +346,7 @@ class Tribe__Settings {
 		 * @param array<string,Tribe__Settigns_Tab> $all_tabs   The list of all tabs.
 		 * @param string                            $admin_page The admin page ID.
 		 */
-		$this->all_tabs = (array) apply_filters( 'tribe_settings_all_tabs', [], $admin_page );
+		$this->all_tabs = (array) apply_filters( 'tribe_settings_all_tabs', [], $admin_page, $this );
 
 		/**
 		 * Filter the tabs that shouldn't show the save button.
@@ -356,7 +356,7 @@ class Tribe__Settings {
 		 * @param array<string>  $no_save_tabs The tabs that shouldn't show the save button. In the format [ 'tab->id' ].
 		 * @param string         $admin_page   The admin page ID.
 		 */
-		$this->no_save_tabs = (array) apply_filters( 'tribe_settings_no_save_tabs', [], $admin_page );
+		$this->no_save_tabs = (array) apply_filters( 'tribe_settings_no_save_tabs', [], $admin_page, $this );
 
 
 		if ( is_network_admin() ) {
@@ -378,7 +378,7 @@ class Tribe__Settings {
 			 * @param string $default_tab The default tab for the settings page.
 			 * @param string $admin_page  The admin page ID.
 			 */
-			$default_tab       = apply_filters( 'tribe_settings_default_tab', 'viewing', $admin_page );
+			$default_tab       = apply_filters( 'tribe_settings_default_tab', 'viewing', $admin_page, $this );
 			$this->default_tab = in_array( $default_tab, $this->tabs ) ? $default_tab : array_key_first( $this->tabs );
 		}
 
@@ -403,7 +403,7 @@ class Tribe__Settings {
 		 */
 		$this->fields_for_save = (array) apply_filters( 'tribe_settings_fields', [], $admin_page );
 
-		do_action( 'tribe_settings_after_do_tabs', $admin_page );
+		do_action( 'tribe_settings_after_do_tabs', $admin_page, $this );
 
 		/**
 		 * Filter the fields for the settings page.
