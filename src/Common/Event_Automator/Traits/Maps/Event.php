@@ -338,7 +338,7 @@ trait Event {
 			'state'              => $venue->state,
 			'zip'                => $venue->zip,
 			'directions_link'    => $venue->directions_link,
-			'geolocation'        => $venue->geolocation,
+			'geolocation'        => (object) $venue->geolocation,
 		];
 
 		/**
