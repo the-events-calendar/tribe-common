@@ -39,7 +39,7 @@
 			background-color: var(--tec-color-background);
 			padding-left: var(--tec-spacer-7);
 			padding-right: var(--tec-spacer-7);
-			padding-top: calc(var(--tec-spacer-9) + var(--tec-spacer-6) - 2px);
+			padding-top: 32px;
 		}
 
 		@media (min-width: 500px) and (max-width: 1260px) {
@@ -55,7 +55,6 @@
 			grid-column-gap: var(--tec-spacer-8);
 			grid-template-columns: 1fr 2.2fr;
 			margin: var(--tec-spacer-7) 0 0 var(--tec-spacer-7);
-			padding-top: calc(var(--tec-spacer-9) - 2px);
 		}
 
 		/* Grid spacing/layout */
@@ -302,6 +301,12 @@
 			p:last-child {
 				margin-bottom: 0;
 			}
+		}
+	}
+
+	.tec-nav__wrapper--subnav-active #tec-settings-form {
+		@media (min-width: 1260px) {
+			padding-top: calc(var(--tec-spacer-9) + var(--tec-spacer-6) - 2px);
 		}
 	}
 }

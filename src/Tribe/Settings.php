@@ -710,10 +710,17 @@ class Tribe__Settings {
 		}
 
 		$nav_id = $modal ? 'tec-settings-modal-nav' : 'tribe-settings-tabs';
+		$wrapper_classes = [
+			'tec-nav__wrapper' => true,
+			'tec-nav__wrapper--subnav-active' => false,
+		];
+		if ($this->get_tab( $this->get_current_tab() ) ->has_parent()) {
+			$wrapper_classes[ 'tec-nav__wrapper--subnav-active'  ] = true;
+		}
 
 		ob_start();
 		?>
-			<nav id="<?php echo esc_attr( $nav_id ); ?>" class="tec-nav__wrapper">
+			<nav id="<?php echo esc_attr( $nav_id ); ?>" <?php tribe_classes( $wrapper_classes ); ?>>
 				<ul class="tec-nav">
 					<?php if ( ! $modal ) : ?>
 					<li class="tec-nav__tab tec-nav__tab--skip-link">
