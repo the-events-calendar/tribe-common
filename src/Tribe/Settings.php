@@ -675,9 +675,14 @@ class Tribe__Settings {
 		if ( $saving ) {
 			wp_nonce_field( 'saving', 'tribe-save-settings' );
 		}
+		$current_tab = $this->get_current_tab();
+		if ( empty( $this->get_tab( $current_tab ) ) ) {
+			return;
+		}
 
-		$has_sidebar = $this->get_tab( $this->get_current_tab() )->has_sidebar();
+		$has_sidebar = $this->get_tab( $current_tab )->has_sidebar();
 		?>
+		<hr class="tec_settings__separator--section">
 		<div class="tec_settings__footer">
 			<?php if ( $saving ) : ?>
 				<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="<?php echo esc_attr( $this->current_tab ); ?>" />
@@ -705,10 +710,18 @@ class Tribe__Settings {
 		}
 
 		$nav_id = $modal ? 'tec-settings-modal-nav' : 'tribe-settings-tabs';
+		$wrapper_classes = [
+			'tec-nav__wrapper'                => true,
+			'tec-nav__wrapper--subnav-active' => false,
+		];
+
+		if ( $this->get_tab( $this->get_current_tab() )->has_parent() ) {
+			$wrapper_classes['tec-nav__wrapper--subnav-active'] = true;
+		}
 
 		ob_start();
 		?>
-			<nav id="<?php echo esc_attr( $nav_id ); ?>" class="tec-nav__wrapper">
+			<nav id="<?php echo esc_attr( $nav_id ); ?>" <?php tribe_classes( $wrapper_classes ); ?>>
 				<ul class="tec-nav">
 					<?php if ( ! $modal ) : ?>
 					<li class="tec-nav__tab tec-nav__tab--skip-link">
@@ -798,7 +811,10 @@ class Tribe__Settings {
 	 */
 	public function generate_tab( Tribe__Settings_Tab $tab ) {
 		$url         = $this->get_tab_url( $tab->id );
-		$class       = [ 'tec-nav__tab' ];
+		$class       = [
+			'tec-nav__tab',
+			"tec-nav__tab--{$tab->id}",
+		];
 		$current_tab = $this->get_current_tab();
 
 		if ( $tab->has_children() ) {
@@ -864,9 +880,17 @@ class Tribe__Settings {
 	 * @since TBD
 	 */
 	protected function get_modal_controls(): void {
+		$current_tab = $this->get_tab( $this->get_current_tab() );
+
+		if ( empty( $current_tab ) ) {
+			return;
+		}
+
+		$tab_name = $current_tab->has_parent() ? $current_tab->get_parent()->name : $current_tab->name;
+
 		?>
 		<div class="tec-nav__modal-controls">
-			<h3 class="tec-nav__modal-title"><?php echo esc_html( $this->get_tab( $this->get_current_tab() )->get_parent()->name ); ?></h3>
+			<h3 class="tec-nav__modal-title"><?php echo esc_html( $tab_name ); ?></h3>
 			<button
 				id="tec-settings-nav-modal-open"
 				class="tec-modal__control tec-modal__control--open"

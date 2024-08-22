@@ -15,7 +15,7 @@
 		margin: 0;
 		padding: 0 var(--tec-spacer-7) var(--tec-spacer-5);
 
-		@media (--viewport-full) {
+		@media (min-width: 500px) {
 			display: none;
 		}
 
@@ -47,6 +47,10 @@
 	#tec-settings-nav-modal {
 		h1 {
 			min-width: 0;
+		}
+
+		@media (min-width: 500px) {
+			display: none;
 		}
 	}
 
