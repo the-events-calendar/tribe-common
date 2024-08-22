@@ -197,7 +197,7 @@ class Tribe__Settings_Tab {
 	 * @since TBD
 	 */
 	public function add_filters() {
-		add_filter( 'tribe_settings_tabs', [ $this, 'add_tab' ] );
+		add_filter( 'tribe_settings_tabs', [ $this, 'add_tab' ], 10 );
 	}
 
 	/**

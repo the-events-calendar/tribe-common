@@ -675,8 +675,12 @@ class Tribe__Settings {
 		if ( $saving ) {
 			wp_nonce_field( 'saving', 'tribe-save-settings' );
 		}
+		$current_tab = $this->get_current_tab();
+		if ( empty( $this->get_tab( $current_tab ) ) ) {
+			return;
+		}
 
-		$has_sidebar = $this->get_tab( $this->get_current_tab() )->has_sidebar();
+		$has_sidebar = $this->get_tab( $current_tab )->has_sidebar();
 		?>
 		<div class="tec_settings__footer">
 			<?php if ( $saving ) : ?>
@@ -864,9 +868,16 @@ class Tribe__Settings {
 	 * @since TBD
 	 */
 	protected function get_modal_controls(): void {
+		$current_tab = $this->get_tab( $this->get_current_tab() );
+		if ( empty( $current_tab ) ) {
+			return;
+		}
+
+		$tab_name = $current_tab->has_parent() ? $current_tab->get_parent()->name : $current_tab->name;
+
 		?>
 		<div class="tec-nav__modal-controls">
-			<h3 class="tec-nav__modal-title"><?php echo esc_html( $this->get_tab( $this->get_current_tab() )->get_parent()->name ); ?></h3>
+			<h3 class="tec-nav__modal-title"><?php echo esc_html( $tab_name ); ?></h3>
 			<button
 				id="tec-settings-nav-modal-open"
 				class="tec-modal__control tec-modal__control--open"
