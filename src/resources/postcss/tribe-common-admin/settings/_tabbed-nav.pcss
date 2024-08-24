@@ -64,8 +64,10 @@
 
 			.screen-reader-shortcut {
 				background: var(--tec-color-background);
+				border-top-right-radius: var(--tec-border-radius-default);
+				box-sizing: border-box;
 				display: block;
-				height: auto;
+				height: 100%;
 				left: var(--tec-spacer-0);
 				padding: var(--tec-spacer-1);
 				position: absolute;
@@ -97,11 +99,10 @@
 			text-align: center;
 		}
 
-		/* Skip link is first child */
+		/* Skip link is first child, so we target the second child. */
 		&:nth-child(2) {
 			@media (min-width: 500px) {
-				margin-left: 0;
-				padding-left: var(--tec-spacer-2);
+				margin-left: var(--tec-spacer-1);
 			}
 		}
 	}
@@ -125,10 +126,12 @@
 	}
 
 	.tec-nav__subnav {
+		border-inline: 1px solid var(--tec-admin-core-grey-10);
+		border-top: 1px solid var(--tec-admin-core-grey-10);
 		box-sizing: border-box;
 		display: none;
 		flex-direction: column;
-		left: calc(var(--tec-spacer-7) + 1px);
+		left: var(--tec-spacer-7);
 		margin-left: var(--tec-spacer-0);
 		position: absolute;
 
@@ -165,24 +168,25 @@
 			}
 		}
 
-		@media (min-width: 500px) and (max-width: 783px) {
-			max-width: min(var(--tec-width-settings-form), calc(100% - (var(--tec-spacer-5) * 2) - 1px));
+		@media (min-width: 500px) and (max-width: 782px) {
+
+			max-width: min(var(--tec-width-settings-form), calc(100% - (var(--tec-spacer-5) * 2)));
 		}
 
-		@media (min-width: 500px) and (max-width: 1260px) {
-			left: calc(var(--tec-spacer-5) + 1px);
+		@media (min-width: 500px) and (max-width: 1259px) {
+			left: var(--tec-spacer-5);
 		}
 
-		@media (min-width: 783px) and (max-width: 960px) {
-			max-width: min(var(--tec-width-settings-form), calc(100% - (var(--tec-spacer-5) * 2) - 1px));
+		@media (min-width: 783px) and (max-width: 959px) {
+			max-width: min(var(--tec-width-settings-form), calc(100% - (var(--tec-spacer-5) * 2)));
 		}
 
-		@media (min-width: 960px) and (max-width: 1260px) {
-			max-width: min( var(--tec-width-settings-form), calc(100% - (2 * var(--tec-spacer-5)) - 1px));
+		@media (min-width: 960px) and (max-width: 1259px) {
+			max-width: min( var(--tec-width-settings-form), calc(100% - (2 * var(--tec-spacer-5))));
 		}
 
 		@media (min-width: 1260px) {
-			left: calc(var(--tec-spacer-7) + 1px);
+			left: var(--tec-spacer-7);
 			max-width: min(var(--tec-width-settings-form), calc(100% - var(--tec-width-sidebar) - (3 * var(--tec-spacer-7))));
 		}
 	}
@@ -198,7 +202,6 @@
 			background-image: svg-inline(caret-up);
 			color: var(--tec-color-background);
 			font-weight: var(--tec-font-weight-bold);
-			margin-left: calc(-1 * var(--tec-spacer-2));
 			padding: var(--tec-spacer-3) var(--tec-spacer-2);
 		}
 
