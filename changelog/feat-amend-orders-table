@@ -1,4 +1,4 @@
 Significance: minor
 Type: feat
 
-Adding the method `tribe_copy_to_clipboard_button` which can be used to print a button which on click would copy a text to the user's clipboard. [ET-2158]
+Adding the method `tec_copy_to_clipboard_button` which can be used to print a button which on click would copy a text to the user's clipboard. [ET-2158]

@@ -4,7 +4,7 @@ tribe.copyToClipboard = tribe.copyToClipboard || {};
 	'use strict';
 
 	obj.selectors = {
-		copyButton: '.tribe-copy-to-clipboard',
+		copyButton: '.tec-copy-to-clipboard',
 	};
 
 	/**
