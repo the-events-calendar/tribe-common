@@ -343,7 +343,7 @@ class Tribe__Settings {
 		 *
 		 * @since 4.15.0
 		 *
-		 * @param array<string,Tribe__Settigns_Tab> $all_tabs   The list of all tabs.
+		 * @param array<string,Tribe__Settings_Tab> $all_tabs   The list of all tabs.
 		 * @param string                            $admin_page The admin page ID.
 		 */
 		$this->all_tabs = (array) apply_filters( 'tribe_settings_all_tabs', [], $admin_page, $this );
