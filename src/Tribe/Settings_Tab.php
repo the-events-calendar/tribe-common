@@ -523,88 +523,44 @@ class Tribe__Settings_Tab {
 		);
 	}
 
-	/* Deprecated Methods */
-
-	// phpcs:disable
-
 	/**
-	 * Adds this tab to the list of total tabs, even if it is not displayed.
+	 * Handle calls to methods that don't exist.
 	 *
-	 * @deprecated TBD use add_all_tabs instead.
+	 * This is how we handle deprecated methods.
 	 *
-	 * @param array $all_tabs All the tabs from Tribe__Settings.
+	 * @since TBD
 	 *
-	 * @return array $all_tabs All the tabs.
+	 * @param string $name      The method name.
+	 * @param array  $arguments Arguments passed to the method.
+	 *
+	 * @return mixed The result of the method call.
+	 * @throws BadMethodCallException If the method does not exist.
 	 */
-	public function addAllTabs( $all_tabs ) {
-		_deprecated_function( __METHOD__, 'TBD', 'add_all_tabs' );
+	#[ReturnTypeWillChange]
+	public function __call( string $name, array $arguments ) {
+		$method_map = [
+			'addAllTabs'  => 'add_all_tabs',
+			'addFields'   => 'add_fields',
+			'showSaveTab' => 'show_save_tab',
+			'doContent'   => 'do_content',
+			'addTab'      => 'add_tab',
+		];
 
-		return $this->add_all_tabs( $all_tabs );
+		// Helper function to prepend the class name to the method name.
+		$prepend_class = function ( string $method_name ): string {
+			return sprintf( '%s::%s', __CLASS__, $method_name );
+		};
+
+		if ( array_key_exists( $name, $method_map ) ) {
+			_deprecated_function(
+				esc_html( $prepend_class( $name ) ),
+				'TBD',
+				esc_html( $prepend_class( $method_map[ $name ] ) )
+			);
+
+			return $this->{$method_map[ $name ]}( ...$arguments );
+		} else {
+			throw new BadMethodCallException( esc_html( "Method {$prepend_class( $name )} does not exist." ) );
+		}
 	}
-
-	/* Deprecated Methods */
-
-	/**
-	 * filters the fields array from Tribe__Settings
-	 * and adds the current tab's fields to it
-	 *
-	 * @deprecated TBD use add_fields instead.
-	 *
-	 * @param array $field the $fields from Tribe__Settings.
-	 *
-	 * @return array $fields the filtered fields
-	 */
-	public function addFields( $fields ) {
-		_deprecated_function( __METHOD__, 'TBD', 'add_fields' );
-
-		return $this->add_fields( $fields );
-	}
-
-	/**
-	 * sets whether the current tab should show the save
-	 * button or not
-	 *
-	 * @deprecated TBD use show_save_tab instead.
-	 *
-	 * @param array $no_save_tabs the $no_save_tabs from Tribe__Settings
-	 *
-	 * @return array $no_save_tabs the filtered non saving tabs
-	 */
-	public function showSaveTab( $no_save_tabs ) {
-		_deprecated_function( __METHOD__, 'TBD', 'show_save_tab' );
-
-		return $this->show_save_tab( $no_save_tabs );
-	}
-
-
-	/**
-	 * Displays the content for the tab.
-	 *
-	 * @deprecated TBD use do_content instead.
-	 *
-	 * @return void
-	 */
-	public function doContent() {
-		_deprecated_function( __METHOD__, 'TBD', 'do_content' );
-
-		$this->do_content();
-	}
-
-	/**
-	 * filters the tabs array from Tribe__Settings
-	 * and adds the current tab to it
-	 * does not add a tab if it's empty
-	 *
-	 * @deprecated TBD use add_tab instead.
-	 *
-	 * @param array $tabs the $tabs from Tribe__Settings
-	 *
-	 * @return array $tabs the filtered tabs
-	 */
-	public function addTab( $tabs ) {
-		_deprecated_function( __METHOD__, 'TBD', 'add_tab' );
-
-		return $this->add_tab( $tabs );
-	}
-	// phpcs:enable
 }
