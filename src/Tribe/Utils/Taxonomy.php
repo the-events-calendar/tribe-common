@@ -133,11 +133,10 @@ class Taxonomy {
 	 * to build the cache for all posts involved in the template rendering, it significantly reduces
 	 * the number of queries (approximately 2 queries per post).
 	 *
-	 *
 	 * @since 5.0.0
 	 *
-	 * @param array $posts An array of post objects or post IDs. If empty, the method returns an empty array.
-	 * @param array $taxonomies An array of taxonomy names to prime the cache for. Defaults to 'post_tag' and 'Tribe__Events__Main::TAXONOMY'.
+	 * @param array $posts           An array of post objects or post IDs. If empty, the method returns an empty array.
+	 * @param array $taxonomies      An array of taxonomy names to prime the cache for. Defaults to 'post_tag' and 'Tribe__Events__Main::TAXONOMY'.
 	 * @param bool  $prime_term_meta Whether to prime term meta caches. Defaults to false.
 	 *
 	 * @return array<int, array> An associative array in the format [ post_id => [taxonomy => term_ids[]] ]. Returns an empty array if no posts are passed.
