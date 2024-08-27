@@ -19,7 +19,7 @@ class Tribe__Main {
 	const OPTIONNAME        = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK = 'tribe_events_calendar_network_options';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
-	const VERSION           = '6.0.1';
+	const VERSION           = '6.0.4';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
@@ -252,20 +252,25 @@ class Tribe__Main {
 			]
 		);
 
-		Asset::add( 'tec-copy-to-clipboard', 'utils/tec-copy-to-clipboard.js' )
-		->set_dependencies( 'tribe-clipboard' )
-		->enqueue_on( 'admin_enqueue_scripts' )
-		->add_localize_script(
-			'tribeCopyToClipboard',
+		tribe_asset(
+			$this,
+			'tec-copy-to-clipboard',
+			'utils/tec-copy-to-clipboard.js',
+			'tribe-clipboard',
+			'admin_enqueue_scripts',
 			[
-				'name' => 'tribeCopyToClipboard',
-				'data' => [
-					'clipboard_copied_text' => _x( 'Copied to Clipboard!', 'Copy to clipboard success message', 'tribe-common' ),
-					'clipboard_fail_text'   => _x( 'Failed to copy.', 'Copy to clipboard failed message', 'tribe-common' ),
+				'localize' => [
+					'tribeCopyToClipboard',
+					[
+						'name' => 'tribeCopyToClipboard',
+						'data' => [
+							'clipboard_copied_text' => _x( 'Copied to Clipboard!', 'Copy to clipboard success message', 'tribe-common' ),
+							'clipboard_fail_text'   => _x( 'Failed to copy.', 'Copy to clipboard failed message', 'tribe-common' ),
+						],
+					],
 				],
 			]
-		)
-		->register();
+		);
 
 		tribe_assets(
 			$this,

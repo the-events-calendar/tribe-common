@@ -518,14 +518,14 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_print_copy_to_clipboard_button() {
 		for ( $i = 1; $i < 6; $i += 2 ) {
 			ob_start();
-			$target = tribe_copy_to_clipboard_button( 'Copy me!' );
+			$target = tec_copy_to_clipboard_button( 'Copy me!' );
 			$button = ob_get_clean();
 
 			$this->assertEquals( 'tec-copy-text-target-' . $i, $target );
 			$this->assertMatchesHtmlSnapshot( $button );
 
 			ob_start();
-			$target = tribe_copy_to_clipboard_button( 'Copy me!', false );
+			$target = tec_copy_to_clipboard_button( 'Copy me!', false );
 			$button = ob_get_clean();
 
 			$this->assertEquals( 'tec-copy-text-target-' . ( $i + 1 ), $target );

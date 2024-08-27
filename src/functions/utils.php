@@ -1331,7 +1331,7 @@ function tribe_get_next_cached_increment( $key, $expiration_trigger = '', $defau
 	return $value;
 }
 
-if ( ! function_exists( 'tribe_copy_to_clipboard_button' ) ) {
+if ( ! function_exists( 'tec_copy_to_clipboard_button' ) ) {
 	/**
 	 * Output a button to copy the content of an element to the clipboard.
 	 *
@@ -1343,7 +1343,7 @@ if ( ! function_exists( 'tribe_copy_to_clipboard_button' ) ) {
 	 *
 	 * @return string
 	 */
-	function tribe_copy_to_clipboard_button( string $content_to_copy, bool $output_button = true, string $aria_label = '' ): string {
+	function tec_copy_to_clipboard_button( string $content_to_copy, bool $output_button = true, string $aria_label = '' ): string {
 		$cache_key = 'tec_copy_to_clipboard_counter';
 		$counter   = tribe( 'cache' )->get( $cache_key, '', 1 );
 
@@ -1362,7 +1362,7 @@ if ( ! function_exists( 'tribe_copy_to_clipboard_button' ) ) {
 				data-clipboard-action="copy"
 				data-notice-target=".<?php echo esc_attr( $notice_target ); ?>"
 				data-clipboard-target=".<?php echo esc_attr( $target ); ?>"
-				class="tribe-copy-to-clipboard tribe-dashicons"
+				class="tec-copy-to-clipboard tribe-dashicons"
 				role="button"
 			>
 				<input type="text" readonly value="<?php echo esc_attr( $content_to_copy ); ?>" aria-hidden="true" />
