@@ -143,7 +143,7 @@ class Taxonomy {
 	 */
 	public static function prime_term_cache( array $posts = [], array $taxonomies = [ 'post_tag', \Tribe__Events__Main::TAXONOMY ], bool $prime_term_meta = false ): array {
 		// Early return if the $posts array is empty.
-		if (empty($posts)) {
+		if ( empty( $posts ) ) {
 			return [];
 		}
 
