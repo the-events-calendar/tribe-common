@@ -12,7 +12,6 @@ tribe.copyToClipboard = tribe.copyToClipboard || {};
 	 */
 	obj.setupCopyButton = function () {
 		const clipboard = new ClipboardJS( obj.selectors.copyButton );
-		const notice     = $( $( obj.selectors.copyButton ).data( 'notice-target' ) );
 
 		//Prevent Button From Doing Anything Else
 		$( document ).on(
@@ -25,8 +24,10 @@ tribe.copyToClipboard = tribe.copyToClipboard || {};
 
 		clipboard.on( 'success', function ( event ) {
 			event.clearSelection();
+			const notice = $( $( event.trigger ).data( 'notice-target' ) );
 			notice.html( '<span class="optin-success">' + tribeCopyToClipboard.clipboard_copied_text + '<span>' ); // eslint-disable-line max-len
 			notice.show();
+
 			window.setTimeout( function () {
 				notice.html( '' );
 				notice.hide();
@@ -34,8 +35,10 @@ tribe.copyToClipboard = tribe.copyToClipboard || {};
 		} );
 
 		clipboard.on( 'error', function ( event ) {
+			const notice = $( $( event.trigger ).data( 'notice-target' ) );
 			notice.html( '<span class="optin-fail">' + tribeCopyToClipboard.clipboard_fail_text + '<span>' ); // eslint-disable-line max-len
 			notice.show();
+
 			window.setTimeout( function () {
 				notice.html( '' );
 				notice.hide();
