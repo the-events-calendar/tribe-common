@@ -10,7 +10,6 @@ declare( strict_types=1 );
 namespace TEC\Common\Admin\Entities;
 
 use ArrayAccess;
-use Stringable;
 use Tribe\Traits\Array_Access;
 use Tribe\Utils\Element_Classes;
 
@@ -19,7 +18,7 @@ use Tribe\Utils\Element_Classes;
  *
  * @since TBD
  */
-abstract class Base_Entity implements ArrayAccess, Element, Stringable {
+abstract class Base_Entity implements ArrayAccess, Element {
 
 	use Array_Access;
 
