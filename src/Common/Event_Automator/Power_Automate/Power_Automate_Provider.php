@@ -246,7 +246,7 @@ class Power_Automate_Provider extends Service_Provider {
 	 * Registers the REST API endpoints.
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
-	 * @since TBD - Migrated all but Swagger Documentation endpoint to Event Tickets Plus and Events Calendar Pro
+	 * @since 6.6.3 - Migrated all but Swagger Documentation endpoint to Event Tickets Plus and Events Calendar Pro
 	 */
 	public function register_endpoints() {
 		$this->container->make( Swagger_Documentation::class )->register();
@@ -256,10 +256,10 @@ class Power_Automate_Provider extends Service_Provider {
 	 * Adds the endpoint to the endpoint dashboard filter.
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
-	 * @deprecated TBD - Migrated to Event Tickets Plus and Events Calendar Pro
+	 * @deprecated 6.6.2 - Migrated to Event Tickets Plus and Events Calendar Pro
 	 */
 	public function add_endpoints_to_dashboard() {
-		_deprecated_function( __METHOD__, 'TBD', 'Use Tribe\Events\Pro\Integrations\Event_Automator\Power_Automate_Provider->add_endpoints_to_dashboard or  Tribe\Tickets\Plus\Integrations\Event_Automator\Power_Automate_Provider->add_endpoints_to_dashboard instead.' );
+		_deprecated_function( __METHOD__, '6.6.2', 'Use Tribe\Events\Pro\Integrations\Event_Automator\Power_Automate_Provider->add_endpoints_to_dashboard or  Tribe\Tickets\Plus\Integrations\Event_Automator\Power_Automate_Provider->add_endpoints_to_dashboard instead.' );
 
 		$this->container->make( New_Events::class )->add_to_dashboard();
 		$this->container->make( Updated_Events::class )->add_to_dashboard();
@@ -277,14 +277,14 @@ class Power_Automate_Provider extends Service_Provider {
 	 * Filters the fields in the Events > Settings > Integrations tab to Power Automate settings.
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
-	 * @deprecated TBD Migrated to Events Calendar Pro
+	 * @deprecated 6.6.2 Migrated to Events Calendar Pro
 	 *
 	 * @param array<string,array> $fields The current fields.
 	 *
 	 * @return array<string,array> The fields, as updated by the settings.
 	 */
 	public function filter_tec_integrations_tab_fields( $fields ) {
-		_deprecated_function( __METHOD__, 'TBD', 'Use Tribe\Events\Pro\Integrations\Event_Automator\Power_Automate_Provider->filter_tec_integrations_tab_fields instead.' );
+		_deprecated_function( __METHOD__, '6.6.2', 'Use Tribe\Events\Pro\Integrations\Event_Automator\Power_Automate_Provider->filter_tec_integrations_tab_fields instead.' );
 
 		if ( ! is_array( $fields ) ) {
 			return $fields;
@@ -297,14 +297,14 @@ class Power_Automate_Provider extends Service_Provider {
 	 * Filters the fields in the Tickets > Settings > Integrations tab to Power Automate settings.
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
-	 * @deprecated TBD Migrated to Event Tickets Plus
+	 * @deprecated 6.6.2 Migrated to Event Tickets Plus
 	 *
 	 * @param array<string,array> $fields The current fields.
 	 *
 	 * @return array<string,array> The fields, as updated by the settings.
 	 */
 	public function filter_et_integrations_tab_fields( $fields ) {
-		_deprecated_function( __METHOD__, 'TBD', 'Use Tribe\Tickets\Plus\Integrations\Event_Automator\Power_Automate_Provide->filter_et_integrations_tab_fields instead.' );
+		_deprecated_function( __METHOD__, '6.6.2', 'Use Tribe\Tickets\Plus\Integrations\Event_Automator\Power_Automate_Provide->filter_et_integrations_tab_fields instead.' );
 
 		if ( ! is_array( $fields ) ) {
 			return $fields;
@@ -386,7 +386,7 @@ class Power_Automate_Provider extends Service_Provider {
 	 * Done on `rest_pre_dispatch` to be able to set current user to pass validation capability checks.
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
-	 * @deprecated TBD - Use Tribe\Events\Pro\Integrations\Event_Automator\Power_Automate_Provider->pre_dispatch_verification_for_create_events
+	 * @deprecated 6.6.2 - Use Tribe\Events\Pro\Integrations\Event_Automator\Power_Automate_Provider->pre_dispatch_verification_for_create_events
 	 *
 	 * @param mixed           $result  Response to replace the requested version with. Can be anything
 	 *                                 a normal endpoint can return, or null to not hijack the request.
@@ -396,7 +396,7 @@ class Power_Automate_Provider extends Service_Provider {
 	 * @return null With always return null, failure will happen on the can_create permission check.
 	 */
 	public function pre_dispatch_verification( $result, $server, $request ) {
-		_deprecated_function( __METHOD__, 'TBD', 'Use Tribe\Events\Pro\Integrations\Event_Automator\Power_Automate_Provider->pre_dispatch_verification_for_create_events instead.' );
+		_deprecated_function( __METHOD__, '6.6.2', 'Use Tribe\Events\Pro\Integrations\Event_Automator\Power_Automate_Provider->pre_dispatch_verification_for_create_events instead.' );
 
 		return $this->container->make( Create_Events::class )->pre_dispatch_verification( $result, $server, $request );
 	}
@@ -405,7 +405,7 @@ class Power_Automate_Provider extends Service_Provider {
 	 * Modifies REST API comma seperated  parameters before validation.
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
-	 * @deprecated TBD - Use Tribe\Events\Pro\Integrations\Event_Automator\Power_Automate_Provider->modify_rest_api_params_before_validatio_of_create_events
+	 * @deprecated 6.6.2 - Use Tribe\Events\Pro\Integrations\Event_Automator\Power_Automate_Provider->modify_rest_api_params_before_validatio_of_create_events
 	 *
 	 * @param WP_REST_Response|WP_Error $response Response to replace the requested version with. Can be anything
 	 *                                            a normal endpoint can return, or a WP_Error if replacing the
@@ -416,7 +416,7 @@ class Power_Automate_Provider extends Service_Provider {
 	 * @return WP_REST_Response|WP_Error The response.
 	 */
 	public function modify_rest_api_params_before_validation( $result, $server, $request ) {
-		_deprecated_function( __METHOD__, 'TBD', 'Use Tribe\Events\Pro\Integrations\Event_Automator\Power_Automate_Provider->modify_rest_api_params_before_validatio_of_create_events instead.' );
+		_deprecated_function( __METHOD__, '6.6.2', 'Use Tribe\Events\Pro\Integrations\Event_Automator\Power_Automate_Provider->modify_rest_api_params_before_validatio_of_create_events instead.' );
 
 		return $this->container->make( Create_Events::class )->modify_rest_api_params_before_validation( $result, $server, $request );
 	}
