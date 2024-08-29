@@ -512,6 +512,9 @@ class Tribe__Settings {
 	 */
 	public function do_page_header( $admin_page ): void {
 		?>
+		<div class="tribe-notice-wrap">
+			<div class="wp-header-end"></div>
+		</div>
 		<h1>
 			<?php echo wp_kses_post( $this->get_page_logo( $admin_page ) ); ?>
 			<?php echo esc_html( $this->get_page_title( $admin_page ) ); ?>

@@ -39,6 +39,21 @@
 			justify-content: flex-start;
 			padding-bottom: var(--tec-spacer-7);
 		}
+
+		.tribe-notice-wrap {
+			background-color: var(--tec-color-background);
+			width: 100%;
+
+			> div {
+				border-radius: var(--tec-border-radius-default);
+				box-sizing: border-box;
+				margin: var(--tec-spacer-1) var(--tec-spacer-7);
+
+				@media (min-width: 500px) and (max-width: 1259px) {
+					margin: var(--tec-spacer-1) var(--tec-spacer-5);
+				}
+			}
+		}
 	}
 
 	.tribe_settings.wrap h1 {
