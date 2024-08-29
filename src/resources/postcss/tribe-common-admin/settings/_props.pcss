@@ -19,8 +19,32 @@
 	--tec-admin-core-blue-50: #2271b1;
 	--tec-admin-modal-backdrop: rgba(60, 67, 74, 0.8);
 
-	/** new styles to go in utilities */
-	--tec-border-radius-settings: 6px;
-	--tec-width-settings-form: 900px;
+	/* Form Styles */
+	--tec-spacer-settings-form-col-gap: var(--tec-spacer-8);
+	--tec-spacer-settings-form-header-gap: var(--tec-spacer-2);
+	--tec-spacer-settings-form-label-gap: var(--tec-spacer-1);
+	--tec-spacer-settings-form-right-gap: 0;
+	--tec-spacer-settings-form-row-gap: 36px;
+	--tec-spacer-settings-form-side: var(--tec-spacer-7);
+	--tec-spacer-settings-form-top-bottom-gap: var(--tec-spacer-3);
+	--tec-spacer-settings-form-width-left-col: 200px;
+	--tec-spacer-settings-form-width: 900px;
+
+	/* Sidebar Settings */
 	--tec-width-sidebar: 300px;
+	--tec-spacer-sidebar-padding: var(--tec-spacer-4);
+	--tec-spacer-sidebar-row-gap: var(--tec-spacer-3);
+
+	/* Custom Media Queries */
+	@custom-media --settings-sidebar (min-width: 1024px);
+
+	@media (--viewport-wpadmin) {
+		--tec-spacer-settings-form-header-gap: var(--tec-spacer-5);
+		--tec-spacer-settings-form-right-gap: 128px;
+		--tec-spacer-settings-form-top-bottom-gap: var(--tec-spacer-7);
+	}
+
+	@media (--viewport-xlarge) {
+		--tec-spacer-settings-form-side: var(--tec-spacer-5);
+	}
 }

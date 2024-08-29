@@ -12,14 +12,21 @@
 
 		color: var(--tec-admin-core-blue-50);
 
-		@media (min-width: 1260px) {
+		@media (--viewport-xlarge) {
 			display: none;
 		}
 	}
 
 	#tec-settings__sidebar-modal {
 		margin: 0 0 0 auto;
+		max-width: var(--tec-width-sidebar);
+		padding: 0;
 		transform: translateX(100%);
+		width: 100%;
+
+		.tec-modal__content {
+			width: 100%;
+		}
 
 		.tec-settings__sidebar {
 			display: flex;
@@ -35,7 +42,7 @@
 			flex-flow: row wrap;
 		}
 
-		@media (min-width: 1200px) {
+		@media (--viewport-large) {
 			display: none;
 		}
 	}
