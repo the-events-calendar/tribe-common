@@ -1,0 +1,124 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Settings Form Footer
+ *
+ * This file contains styles specific to the settings form.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe_events_page_tec-events-settings #tec-settings-form {
+	h3 {
+		font-size: var(--tec-font-size-5);
+	}
+
+	> .tec-settings__section-header {
+		border-bottom: 1px solid var(--tec-admin-core-grey-10);
+		font-size: var(--tec-font-size-5);
+		padding: var(--tec-spacer-0) 0;
+
+		@media (--viewport-xsmall) {
+			margin: var(--tec-spacer-7) var(--tec-spacer-7) 0;
+			padding-bottom: var(--tec-spacer-5);
+		}
+
+		@media (--viewport-wpadmin) {
+			margin-right: calc(-1 * (var(--tec-spacer-settings-form-right-gap) - var(--tec-spacer-7)));
+		}
+
+		@media (--viewport-xlarge) {
+			border: 0;
+			padding-bottom: var(--tec-spacer-0);
+		}
+
+		&:first-child {
+			display: none;
+
+			@media (--viewport-xsmall) {
+				display: block;
+			}
+
+			+ * {
+				margin-top: calc(-1 * var(--tec-spacer-3));
+
+				@media (--viewport-xlarge) {
+					margin-top: var(--tec-spacer-6);
+				}
+			}
+		}
+
+		&.tec-settings__section-header--wide {
+			font-size: var(--tec-font-size-5);
+			font-weight: var(--tec-font-weight-bold);
+			line-height: var(--tec-line-height-0);
+			margin-right: var(--tec-spacer-7);
+		}
+
+		@media (--viewport-xlarge) {
+			grid-column: 1;
+
+			&.tec-settings__section-header--wide {
+				grid-column: 1 / span 2;
+			}
+		}
+	}
+
+	.tec_settings__section-description {
+		@media (--viewport-xlarge) {
+			grid-column: 1;
+			margin-top: var(--tec-spacer-5);
+		}
+	}
+
+	> .tec-settings__section-header + *,
+	> .tec_settings__header-block + * {
+		@media (--viewport-xlarge) {
+			margin-top: var(--tec-spacer-6);
+		}
+	}
+
+	.tec-settings__section-header--sub {
+		border: 0;
+		font-size: var(--tec-font-size-3);
+		font-weight: var(--tec-font-weight-regular);
+		line-height: var(--tec-line-height-2);
+
+		h3 {
+			margin: 0;
+		}
+	}
+
+	> .tec_settings__header-block {
+		@media (--viewport-xlarge) {
+			grid-column: 1;
+
+			&.tec_settings__header-block--horizontal {
+				grid-column: 1 / span 2;
+				margin: 0 var(--tec-spacer-7);
+
+				&:not(:first-child) {
+					margin-top: 0;
+				}
+			}
+		}
+	}
+
+	> .tec_settings__content-block {
+		@media (--viewport-xlarge) {
+			border-top: 1px solid var(--tec-admin-core-grey-10);
+			grid-column: 2;
+
+			&.tec_settings__content-block--horizontal {
+				grid-column: 1 / span 2;
+				margin: 0 var(--tec-spacer-7);
+
+				&:not(:first-child) {
+					margin-top: 0;
+				}
+			}
+		}
+	}
+
+	> .tec_settings__header-block--horizontal + .tec-settings__element--colspan-2 {
+		margin-top: 0;
+	}
+}

@@ -1,0 +1,44 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Settings Form Footer
+ *
+ * This file contains styles specific to the settings form.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe_events_page_tec-events-settings #tec-settings-form {
+	.tec_settings__footer {
+		align-items: center;
+		background-color: var(--tec-color-background);
+		border-bottom-left-radius: var(--tec-border-radius-default);
+		border-bottom-right-radius: var(--tec-border-radius-default);
+		border-top: 1px solid var(--tec-admin-core-grey-10);
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		margin: 0 calc(-1 * var(--tec-spacer-settings-form-right-gap));
+		padding: var(--tec-spacer-3) var(--tec-spacer-7);
+
+		.dashicons-editor-help {
+			text-decoration: none;
+		}
+
+		@media (--viewport-xsmall) {
+			margin: 0;
+			margin-right: calc(-1 * var(--tec-spacer-settings-form-right-gap));
+		}
+
+		@media (--viewport-xlarge) {
+			grid-column: 1 / span 2;
+			padding: var(--tec-spacer-2) var(--tec-spacer-4);
+		}
+	}
+
+	#tribeSaveSettings {
+		width: fit-content;
+
+		@media (--viewport-xlarge) {
+			grid-column: 1;
+		}
+	}
+}

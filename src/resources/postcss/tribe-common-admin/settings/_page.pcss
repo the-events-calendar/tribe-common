@@ -33,9 +33,8 @@
 		flex-flow: column nowrap;
 		margin: 0;
 
-		@media (min-width: 1260px) {
+		@media (--viewport-xlarge) {
 			flex-flow: row wrap;
-			grid-column-gap: var(--tec-spacer-7);
 			justify-content: flex-start;
 			padding-bottom: var(--tec-spacer-7);
 		}
@@ -65,7 +64,7 @@
 		padding: var(--tec-spacer-2) var(--tec-spacer-5);
 		width: auto;
 
-		@media (min-width: 1260px) {
+		@media (--viewport-xlarge) {
 			width: 100%;
 		}
 	}

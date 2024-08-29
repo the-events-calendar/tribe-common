@@ -6,8 +6,7 @@
  *
  * ----------------------------------------------------------------------------- */
 
-.tribe_events_page_tec-events-settings {
-
+.tribe_events_page_tec-events-settings .tribe_settings.wrap {
 	.tec-nav__modal-controls {
 		align-items: center;
 		display: flex;
@@ -15,7 +14,7 @@
 		margin: 0;
 		padding: 0 var(--tec-spacer-7) var(--tec-spacer-5);
 
-		@media (min-width: 500px) {
+		@media (--viewport-xsmall) {
 			display: none;
 		}
 
@@ -45,45 +44,84 @@
 	}
 
 	#tec-settings-nav-modal {
-		h1 {
-			min-width: 0;
-		}
+		background-color: var(--tec-admin-core-grey-0);
+		padding: var(--tec-spacer-3) 0;
 
 		.tec-nav__wrapper {
+			background-color: var(--tec-admin-core-grey-0);
+			border: 0;
 			display: block;
+			padding: 0 var(--tec-spacer-3);
+		}
+
+		.tec-modal__header {
+			align-items: center;
+			display: flex;
+			justify-content: space-between;
+			padding: 0 var(--tec-spacer-5) var(--tec-spacer-3) var(--tec-spacer-4);
+
+			h1 {
+				background-color: var(--tec-admin-core-grey-0);
+				min-width: 0;
+				padding: 0;
+			}
+		}
+
+		.tec-nav {
+			margin: 0;
+
+			.tec-nav__link {
+				padding: 0;
+			}
+
+			> .tec-nav__link {
+				height: var(--tec-spacer-8);
+			}
 		}
 
 		.tec-nav__subnav {
-			margin-top: var(--tec-spacer-1);
+			border: 0;
+			margin-top: 0;
 			position: static;
+
+			.tec-nav__tab {
+				padding-bottom: 0;
+
+				&:last-child {
+					padding-bottom: var(--tec-spacer-2);
+				}
+			}
+
+			.tec-nav__link {
+				font-size: var(--tec-font-size-2);
+				line-height: 2.15;
+				padding: 0 var(--tec-spacer-5) 0 var(--tec-spacer-1);
+			}
 		}
 
 		.tec-nav__tab {
+			margin: 0;
 			text-align: left;
 
-			&.tec-nav__tab--has-subnav {
-				.tec-nav__link {
-					display: block;
+			.tec-nav__link {
+				display: block;
+			}
+
+			&.tec-nav__tab--subnav-active {
+				border-bottom: 1px solid var(--tec-admin-core-grey-10);
+
+				> .tec-nav__link {
+					background-color: var(--tec-admin-core-grey-5);
+					border-radius: var(--tec-border-radius-default);
+					color: var(--tec-admin-core-grey-80);
+					font-weight: var(--tec-font-weight-regular);
+					padding: var(--tec-spacer-1) var(--tec-spacer-2);
 				}
 			}
 		}
 
-		@media (min-width: 500px) {
+		@media (--viewport-xsmall) {
 			display: none;
-		}
-	}
-
-	.tec-modal__header {
-		align-items: center;
-		display: flex;
-		justify-content: space-between;
-	}
-
-	.tec-modal__content {
-		.tec-nav__tab--subnav-active > .tec-nav__link {
-			background-color: var(--tec-admin-core-grey-5);
-			color: var(--tec-admin-core-grey-80);
-			font-weight: var(--tec-font-weight-regular);
 		}
 	}
 }

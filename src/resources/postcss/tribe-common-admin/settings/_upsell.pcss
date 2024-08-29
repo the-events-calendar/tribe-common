@@ -11,22 +11,22 @@
 		align-items: flex-end;
 		background-color: var(--tec-admin-core-grey-0);
 		border: 1px solid var(--tec-admin-core-grey-10);
-		border-radius: var(--tec-border-radius-settings);
+		border-radius: var(--tec-border-radius-default);
 		box-sizing: border-box;
 		display: flex;
 		flex-direction: column-reverse;
 		justify-content: space-between;
 		max-width: 100%;
 		padding: var(--tec-spacer-8);
-		width: var(--tec-width-settings-form);
+		width: var(--tec-spacer-settings-form-width);
 
-		@media (min-width: 320px) and (max-width: 960px) {
+		@media (--viewport-xxsmall) and (max-width: 960px) {
 			align-items: center;
 			flex-direction: row;
 			padding: var(--tec-spacer-8);
 		}
 
-		@media (min-width: 960px) {
+		@media (--viewport-full) {
 			grid-column: 1 / span 2;
 			margin: 0;
 		}
@@ -80,7 +80,7 @@
 		.tec-settings__upsell-btn {
 			background: var(--tec-color-button-primary);
 			border: 2px var(--tec-color-button-primary) solid;
-			border-radius: var(--tec-border-radius-settings);
+			border-radius: var(--tec-border-radius-default);
 			color: var(--tec-color-background);
 			display: inline-block;
 			font-size: var(--tec-font-size-3);
