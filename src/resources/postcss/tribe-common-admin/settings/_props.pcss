@@ -26,12 +26,13 @@
 	--tec-spacer-settings-form-right-gap: 0;
 	--tec-spacer-settings-form-row-gap: 36px;
 	--tec-spacer-settings-form-side: var(--tec-spacer-7);
-	--tec-spacer-settings-form-top-bottom-gap: var(--tec-spacer-3);
+	--tec-spacer-settings-form-top-gap: var(--tec-spacer-3);
+	--tec-spacer-settings-form-bottom-gap: var(--tec-spacer-3);
 	--tec-spacer-settings-form-width-left-col: 200px;
 	--tec-spacer-settings-form-width: 900px;
 
 	/* Sidebar Settings */
-	--tec-width-sidebar: 300px;
+	--tec-width-sidebar: 364px;
 	--tec-spacer-sidebar-padding: var(--tec-spacer-4);
 	--tec-spacer-sidebar-row-gap: var(--tec-spacer-3);
 
@@ -41,10 +42,12 @@
 	@media (--viewport-wpadmin) {
 		--tec-spacer-settings-form-header-gap: var(--tec-spacer-5);
 		--tec-spacer-settings-form-right-gap: 128px;
-		--tec-spacer-settings-form-top-bottom-gap: var(--tec-spacer-7);
+		--tec-spacer-settings-form-top-gap: var(--tec-spacer-7);
+		--tec-spacer-settings-form-bottom-gap: 0;
 	}
 
 	@media (--viewport-xlarge) {
+		--tec-width-sidebar: 286px;
 		--tec-spacer-settings-form-side: var(--tec-spacer-5);
 	}
 }

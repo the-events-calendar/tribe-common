@@ -58,7 +58,7 @@
 			display: none;
 			margin-left: auto;
 
-			@media (--viewport-xsmall) {
+			@media (--viewport-small) {
 				display: list-item;
 			}
 
@@ -145,8 +145,7 @@
 			border-top-right-radius: var(--tec-border-radius-default);
 			flex-direction: row;
 			margin-left: 0;
-			margin-top: calc(var(--tec-spacer-7) + 2px);
-			width: 100%;
+			margin-top: calc(var(--tec-spacer-7) + 1px);
 
 			> .tec-nav__tab {
 				border-bottom: 3px solid transparent;
@@ -168,26 +167,24 @@
 			}
 		}
 
-		@media (--viewport-xsmall) and (max-width: 782px) {
-
-			max-width: min(var(--tec-spacer-settings-form-width), calc(100% - (var(--tec-spacer-5) * 2)));
+		@media (--viewport-xsmall) and (max-width: 959px) {
+			max-width: calc(100% - (var(--tec-spacer-7) * 2));
+			width: var(--tec-spacer-settings-form-width);
 		}
 
 		@media (--viewport-xsmall) and (max-width: 1259px) {
-			left: var(--tec-spacer-5);
-		}
-
-		@media (--viewport-wpadmin) and (max-width: 959px) {
-			max-width: min(var(--tec-spacer-settings-form-width), calc(100% - (var(--tec-spacer-5) * 2)));
+			left: var(--tec-spacer-7);
+			width: 100%;
 		}
 
 		@media (--viewport-full) and (max-width: 1259px) {
-			max-width: min( var(--tec-spacer-settings-form-width), calc(100% - (2 * var(--tec-spacer-5))));
+			max-width: min(var(--tec-spacer-settings-form-width), calc(100% - (2 * var(--tec-spacer-7))));
 		}
 
 		@media (--viewport-xlarge) {
 			left: var(--tec-spacer-7);
-			max-width: min(var(--tec-spacer-settings-form-width), calc(100% - var(--tec-width-sidebar) - (3 * var(--tec-spacer-7))));
+			max-width: min(calc((100vw - 160px - var(--tec-width-sidebar)) - (var(--tec-spacer-7) * 3)), var(--tec-spacer-settings-form-width));
+			width: min(calc((100vw - 160px - var(--tec-width-sidebar)) - (var(--tec-spacer-7) * 3)), var(--tec-spacer-settings-form-width));
 		}
 	}
 

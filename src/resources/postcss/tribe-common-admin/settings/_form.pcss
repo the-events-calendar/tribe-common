@@ -17,8 +17,8 @@
 
 		@media (--viewport-xlarge) {
 			margin: 0 0 auto;
-			max-width: calc(100% - var(--tec-width-sidebar) - (2 * var(--tec-spacer-7)));
-			width: 100%;
+			max-width: calc(100vw - 160px - var(--tec-width-sidebar) - var(--tec-spacer-7));
+			width: calc(var(--tec-spacer-settings-form-width) + (2 * var(--tec-spacer-7)));
 		}
 	}
 
@@ -33,7 +33,8 @@
 		grid-template-columns: 1fr;
 		margin: 0 var(--tec-spacer-7);
 		padding-bottom: 0;
-		padding-top: var(--tec-spacer-settings-form-top-bottom-gap);
+		padding-top: var(--tec-spacer-settings-form-top-gap);
+		width: calc(100% - (2 * var(--tec-spacer-7)));
 
 		h3 {
 			font-size: var(--tec-font-size-5);
@@ -43,20 +44,20 @@
 			background-color: var(--tec-color-background);
 			border: 1px solid var(--tec-admin-core-grey-10);
 			border-radius: var(--tec-border-radius-default);
-			padding-bottom: var(--tec-spacer-settings-form-top-bottom-gap);
-		}
-
-		@media (--viewport-xsmall) and (max-width: 1259px) {
-			padding-left: var(--tec-spacer-settings-form-right-gap);
+			margin-top: var(--tec-spacer-4);
+			padding-bottom: var(--tec-spacer-settings-form-bottom-gap);
+			padding-right: var(--tec-spacer-settings-form-right-gap);
+			padding-top: var(--tec-spacer-9);
 		}
 
 		@media (--viewport-full) {
-			max-width: var(--tec-spacer-settings-form-width);
+			max-width: calc( 100% - (2 * var(--tec-spacer-7)));
+			width: var(--tec-spacer-settings-form-width);
 		}
 
 		@media (--viewport-xlarge) {
 			border-radius: var(--tec-border-radius-default);
-			column-gap: --tec-spacer-settings-form-col-gap;
+			column-gap: var(--tec-spacer-settings-form-col-gap);
 			grid-template-columns: var(--tec-spacer-settings-form-width-left-col) 1fr;
 		}
 
@@ -75,14 +76,20 @@
 		}
 
 		> .tec-settings__section-header {
-			margin-right: 0;
-			margin-top: var(--tec-spacer-6);
+			border-bottom: 1px solid var(--tec-admin-core-grey-10);
+			font-size: var(--tec-font-size-5);
+			margin: var(--tec-spacer-7) var(--tec-spacer-7) 0;
+			padding: var(--tec-spacer-0) 0 var(--tec-spacer-5);
 
 			&:first-child {
 				display: none;
 
 				@media (--viewport-xsmall) {
 					display: block;
+				}
+
+				+ * {
+					margin-top: calc(-1 * var(--tec-spacer-3));
 				}
 			}
 
@@ -91,6 +98,10 @@
 				font-weight: var(--tec-font-weight-bold);
 				line-height: var(--tec-line-height-0);
 				margin-right: var(--tec-spacer-7);
+			}
+
+			@media (--viewport-wpadmin) {
+				margin-right: calc(-1 * (var(--tec-spacer-settings-form-right-gap) - var(--tec-spacer-7)));
 			}
 
 			@media (--viewport-xlarge) {
@@ -117,6 +128,7 @@
 		}
 
 		.tec-settings__section-header--sub {
+			border: 0;
 			font-size: var(--tec-font-size-3);
 			font-weight: var(--tec-font-weight-regular);
 			line-height: var(--tec-line-height-2);
@@ -169,7 +181,6 @@
 			}
 		}
 
-
 		.tec_settings__footer {
 			align-items: center;
 			background-color: var(--tec-color-background);
@@ -179,11 +190,16 @@
 			display: flex;
 			flex-flow: row wrap;
 			justify-content: space-between;
-			margin: 0 calc(-1 * var(--tec-spacer-settings-form-side));
+			margin: 0 calc(-1 * var(--tec-spacer-settings-form-right-gap));
 			padding: var(--tec-spacer-3) var(--tec-spacer-7);
 
 			.dashicons-editor-help {
 				text-decoration: none;
+			}
+
+			@media (--viewport-xsmall) {
+				margin: 0;
+				margin-right: calc(-1 * var(--tec-spacer-settings-form-right-gap));
 			}
 
 			@media (--viewport-xlarge) {
@@ -205,7 +221,7 @@
 		}
 
 		.tec_settings__element--full-width {
-			margin: 0 calc(-1 * var(--tec-spacer-settings-form-side));
+			margin: 0 calc(-1 * var(--tec-spacer-settings-form-right-gap)) 0 0;
 
 			@media (--viewport-xlarge) {
 				grid-column: 1 / span 2;
@@ -226,6 +242,14 @@
 			margin-top: 0;
 		}
 
+		.tribe-field-checkbox_bool,
+		.tribe-field-checkbox_list,
+		.tribe-field-radio {
+			.tribe-field-wrap {
+				display: flex;
+			}
+		}
+
 		.tribe-field-label {
 			color: var(--tec-admin-core-grey-80);
 			font-size: var(--tec-font-size-2);
@@ -242,6 +266,10 @@
 		.tooltip:first-child {
 			margin-bottom: var(--tec-spacer-settings-form-label-gap);
 			margin-top: calc(-1 * var(--tec-spacer-settings-form-label-gap));
+
+			@media (--viewport-full) {
+				margin-top: 0;
+			}
 		}
 
 		.description {

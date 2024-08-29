@@ -8,25 +8,28 @@
 
 .tribe_events_page_tec-events-settings {
 
-	.tec-settings__modal {
+	dialog.tec-settings__modal {
+		border: 0;
+		border-radius: var(--tec-border-radius-default);
 		box-sizing: border-box;
 		display: none;
 		flex-direction: column;
-		height: calc(100vh - (2 * var(--tec-spacer-1)));
 		margin: 0 auto 0 0;
+		min-height: calc(100vh - (2 * var(--tec-spacer-1)));
 		overflow-y: scroll;
 		transform: translateX(-100%);
 		transition: var(--tec-transition-transform);
 		width: calc(100vw - var(--tec-spacer-8));
 
-		&:backdrop {
+		&::backdrop {
 			background-color: var(--tec-admin-modal-backdrop);
 		}
 	}
 
-	.tec-settings__modal[open] {
+	dialog.tec-settings__modal[open] {
 		display: flex;
-		margin: var(--tec-spacer-1) var(--tec-spacer-7) var(--tec-spacer-1) var(--tec-spacer-1);
+		margin: var(--tec-spacer-1);
+		margin-right: auto;
 		transform: translateX(0);
 		transition: var(--tec-transition-transform);
 	}
