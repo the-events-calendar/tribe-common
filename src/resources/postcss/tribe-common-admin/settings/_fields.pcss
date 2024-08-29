@@ -8,6 +8,12 @@
 
 .tribe_events_page_tec-events-settings {
 	#tec-settings-form {
+		fieldset {
+			@media (--viewport-xlarge) {
+				margin-left: var(--tec-spacer-7);
+			}
+		}
+
 		input[type="text"],
 		input[type="password"],
 		input[type="date"],
@@ -66,6 +72,74 @@
 		code {
 			background-color: var(--tec-admin-core-grey-2);
 			color: var(--tec-admin-core-grey-50);
+		}
+
+		.tribe-field-wrap {
+			margin-top: 0;
+		}
+
+		.tribe-field-label {
+			color: var(--tec-admin-core-grey-80);
+			font-size: var(--tec-font-size-2);
+			font-weight: var(--tec-font-weight-bold);
+			line-height: var(--tec-line-height-0);
+			padding: 0;
+		}
+
+		.tribe-field-description {
+			margin-top: var(--tec-spacer-0);
+			position: static;
+		}
+
+		.tooltip:first-child {
+			margin-bottom: var(--tec-spacer-settings-form-label-gap);
+			margin-top: calc(-1 * var(--tec-spacer-settings-form-label-gap));
+
+			@media (--viewport-full) {
+				margin-top: 0;
+			}
+		}
+
+		.description {
+			color: var(--tec-admin-core-grey-50);
+			font-size: var(--tec-font-size-2);
+			font-weight: var(--tec-font-weight-regular);
+			line-height: var(--tec-line-height-0);
+		}
+
+		label,
+		.tribe-field-radio label,
+		.tribe-field-checkbox_list label {
+			display: block;
+			font-size: var(--tec-font-size-2);
+			letter-spacing: -0.25px;
+			line-height: var(--tec-line-height-0);
+			margin: var(--tec-spacer-2) 0 0 0;
+		}
+
+		.tribe-field-radio label input,
+		.tribe-field-checkbox_list label input {
+			margin-left: var(--tec-spacer-4);
+			margin-right: var(--tec-spacer-1);
+		}
+
+		.tribe-field-radio label > .description,
+		.tribe-field-checkbox_list label > .description {
+			margin-left: var(--tec-spacer-0);
+		}
+
+		.tribe-field-checkbox_bool {
+			input[type="checkbox"] {
+				margin-right: var(--tec-spacer-1);
+			}
+
+			.description {
+				display: inline;
+			}
+		}
+
+		fieldset:last-child {
+			margin-bottom: var(--tec-spacer-7);
 		}
 	}
 
