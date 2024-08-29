@@ -11,7 +11,8 @@ namespace TEC\Common\Admin\Entities;
 
 use InvalidArgumentException;
 use LogicException;
-use Tribe\Utils\Element_Classes;
+use Tribe\Utils\Element_Attributes as Attributes;
+use Tribe\Utils\Element_Classes as Classes;
 
 /**
  * Class Heading
@@ -46,11 +47,12 @@ class Heading extends Base_Entity {
 	/**
 	 * Heading constructor.
 	 *
-	 * @param string           $content The content for the heading.
-	 * @param int              $level   The level for the heading.
-	 * @param ?Element_Classes $classes The classes for the heading.
+	 * @param string      $content    The content for the heading.
+	 * @param int         $level      The level for the heading.
+	 * @param ?Classes    $classes    The classes for the heading.
+	 * @param ?Attributes $attributes The attributes for the heading.
 	 */
-	public function __construct( string $content, int $level = 1, ?Element_Classes $classes = null ) {
+	public function __construct( string $content, int $level = 1, ?Classes $classes = null, ?Attributes $attributes = null ) {
 		$this->content = $content;
 
 		$this->validate_level( $level );
@@ -58,6 +60,10 @@ class Heading extends Base_Entity {
 
 		if ( $classes ) {
 			$this->set_classes( $classes );
+		}
+
+		if ( $attributes ) {
+			$this->set_attributes( $attributes );
 		}
 	}
 
@@ -77,9 +83,10 @@ class Heading extends Base_Entity {
 		 * 3. The tag_escape() function (which should be used for escaping HTML tags) operates on strings, not integers.
 		 */
 		printf(
-			'<h%1$d class="%2$s">%3$s</h%1$d>',
+			'<h%1$d class="%2$s" %3$s>%4$s</h%1$d>',
 			$this->level, // phpcs:ignore StellarWP.XSS.EscapeOutput,WordPress.Security.EscapeOutput.OutputNotEscaped
 			esc_attr( $this->get_classes() ),
+			$this->get_attributes(), // phpcs:ignore StellarWP.XSS.EscapeOutput,WordPress.Security.EscapeOutput
 			esc_html( $this->content )
 		);
 	}

@@ -11,7 +11,8 @@ namespace TEC\Common\Admin\Entities;
 
 use ArrayAccess;
 use Tribe\Traits\Array_Access;
-use Tribe\Utils\Element_Classes;
+use Tribe\Utils\Element_Attributes as Attributes;
+use Tribe\Utils\Element_Classes as Classes;
 
 /**
  * Class Base_Entity
@@ -23,11 +24,18 @@ abstract class Base_Entity implements ArrayAccess, Element {
 	use Array_Access;
 
 	/**
+	 * The attributes for the entity.
+	 *
+	 * @var Attributes|null
+	 */
+	protected ?Attributes $attributes = null;
+
+	/**
 	 * The classes for the entity.
 	 *
-	 * @var ?Element_Classes
+	 * @var ?Classes
 	 */
-	protected ?Element_Classes $classes = null;
+	protected ?Classes $classes = null;
 
 	/**
 	 * Convert the entity output to a string.
@@ -42,26 +50,51 @@ abstract class Base_Entity implements ArrayAccess, Element {
 	}
 
 	/**
+	 * Get the attributes for the element.
+	 *
+	 * The attributes retrieved from Element_Attributes::get_attributes_as_string() are already
+	 * escaped, so it is not necessary to further escape these attributes.
+	 *
+	 * @see Element_Attributes::get_attributes_as_string()
+	 *
+	 * @return string
+	 */
+	protected function get_attributes(): string {
+		return null === $this->attributes
+			? ''
+			: $this->attributes->get_attributes_as_string();
+	}
+
+	/**
 	 * Get the classes for the entity.
 	 *
 	 * @return string
 	 */
 	protected function get_classes(): string {
-		if ( ! $this->classes ) {
-			return '';
-		}
+		return null === $this->classes
+			? ''
+			: $this->classes->get_classes_as_string();
+	}
 
-		return $this->classes->get_classes_as_string();
+	/**
+	 * Set the attributes for the entity.
+	 *
+	 * @param Attributes $attributes
+	 *
+	 * @return void
+	 */
+	protected function set_attributes( Attributes $attributes ) {
+		$this->attributes = $attributes;
 	}
 
 	/**
 	 * Set the classes for the entity.
 	 *
-	 * @param Element_Classes $classes The classes for the entity.
+	 * @param Classes $classes The classes for the entity.
 	 *
 	 * @return void
 	 */
-	protected function set_classes( Element_Classes $classes ) {
+	protected function set_classes( Classes $classes ) {
 		$this->classes = $classes;
 	}
 }
