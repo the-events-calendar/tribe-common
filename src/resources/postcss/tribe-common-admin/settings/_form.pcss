@@ -81,6 +81,19 @@
 			margin: var(--tec-spacer-7) var(--tec-spacer-7) 0;
 			padding: var(--tec-spacer-0) 0;
 
+			@media (--viewport-xsmall) {
+				padding-bottom: var(--tec-spacer-5);
+			}
+
+			@media (--viewport-wpadmin) {
+				margin-right: calc(-1 * (var(--tec-spacer-settings-form-right-gap) - var(--tec-spacer-7)));
+			}
+
+			@media (--viewport-xlarge) {
+				border: 0;
+				padding-bottom: var(--tec-spacer-0);
+			}
+
 			&:first-child {
 				display: none;
 
@@ -90,6 +103,10 @@
 
 				+ * {
 					margin-top: calc(-1 * var(--tec-spacer-3));
+
+					@media (--viewport-xlarge) {
+						margin-top: var(--tec-spacer-6);
+					}
 				}
 			}
 
