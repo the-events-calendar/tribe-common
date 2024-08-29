@@ -111,14 +111,22 @@ class Tribe__Settings_Tab {
 	/**
 	 * Settings sidebar.
 	 *
-	 * This can be a callable function that returns a Settings_Sidebar object,
-	 * an instance of Settings_Sidebar, or null.
+	 * @since TBD
+	 *
+	 * @var ?Settings_Sidebar
+	 */
+	protected $sidebar = null;
+
+	/**
+	 * Default sidebar for tabs.
+	 *
+	 * This sidebar object is common across ALL instances of the class.
 	 *
 	 * @since TBD
 	 *
-	 * @var callable|Settings_Sidebar|null
+	 * @var ?Settings_Sidebar
 	 */
-	protected $sidebar = null;
+	protected static $default_sidebar = null;
 
 	/**
 	 * Class constructor.
@@ -463,9 +471,10 @@ class Tribe__Settings_Tab {
 	 * @return bool
 	 */
 	public function has_sidebar(): bool {
-		$parent_has_sidebar = $this->has_parent() && $this->get_parent()->has_sidebar();
+		$parent_has_sidebar  = $this->has_parent() && $this->get_parent()->has_sidebar();
+		$has_default_sidebar = null !== self::$default_sidebar;
 
-		return null !== $this->sidebar || $parent_has_sidebar;
+		return null !== $this->sidebar || $parent_has_sidebar || $has_default_sidebar;
 	}
 
 	/**
@@ -473,8 +482,7 @@ class Tribe__Settings_Tab {
 	 *
 	 * @since TBD
 	 *
-	 * @return ?Settings_Sidebar
-	 * @throws InvalidArgumentException If the sidebar is invalid.
+	 * @return ?Settings_Sidebar The sidebar for the tab.
 	 */
 	public function get_sidebar(): ?Settings_Sidebar {
 		if ( $this->sidebar instanceof Settings_Sidebar ) {
@@ -486,41 +494,43 @@ class Tribe__Settings_Tab {
 			return $this->get_parent()->get_sidebar();
 		}
 
+		// If we have a default sidebar, return it.
+		if ( null !== self::$default_sidebar ) {
+			return self::$default_sidebar;
+		}
+
 		return null;
 	}
 
 	/**
 	 * Sets the sidebar for the current tab.
 	 *
-	 * @param callable|Settings_Sidebar $sidebar The sidebar to set.
+	 * @param Settings_Sidebar $sidebar The sidebar to set.
 	 *
 	 * @return void
 	 */
-	public function add_sidebar( $sidebar ) {
-		$this->validate_sidebar( $sidebar );
+	public function add_sidebar( Settings_Sidebar $sidebar ) {
 		$this->sidebar = $sidebar;
 	}
 
 	/**
-	 * Validates the sidebar.
+	 * Sets the default sidebar for all tabs.
 	 *
-	 * @since TBD
-	 *
-	 * @param callable|Settings_Sidebar $sidebar The sidebar to validate.
+	 * @param Settings_Sidebar $sidebar The default sidebar to set.
 	 *
 	 * @return void
-	 * @throws InvalidArgumentException If the sidebar is invalid.
 	 */
-	protected function validate_sidebar( $sidebar ) {
-		// If it's an instance of Settings_Sidebar, we're good.
-		if ( $sidebar instanceof Settings_Sidebar ) {
-			return;
-		}
+	public static function set_default_sidebar( Settings_Sidebar $sidebar ) {
+		self::$default_sidebar = $sidebar;
+	}
 
-		// Everything else is invalid.
-		throw new InvalidArgumentException(
-			esc_html__( 'The sidebar must be a callable function or an instance of Settings_Sidebar', 'tribe-common' )
-		);
+	/**
+	 * Unsets the default sidebar for all tabs.
+	 *
+	 * @return void
+	 */
+	public static function unset_default_sidebar() {
+		self::$default_sidebar = null;
 	}
 
 	/**
