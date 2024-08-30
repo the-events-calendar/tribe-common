@@ -471,10 +471,19 @@ class Tribe__Settings_Tab {
 	 * @return bool
 	 */
 	public function has_sidebar(): bool {
-		$parent_has_sidebar  = $this->has_parent() && $this->get_parent()->has_sidebar();
-		$has_default_sidebar = null !== self::$default_sidebar;
+		if ( $this->sidebar instanceof Settings_Sidebar ) {
+			return true;
+		}
 
-		return null !== $this->sidebar || $parent_has_sidebar || $has_default_sidebar;
+		if ( $this->has_parent() && $this->get_parent()->has_sidebar() ) {
+			return true;
+		}
+
+		if ( self::$default_sidebar instanceof Settings_Sidebar ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
