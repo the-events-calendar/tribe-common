@@ -8,6 +8,8 @@
  * @todo switch all plugins over to use the PUE utilities here in Commons
  */
 
+use function TEC\Common\StellarWP\Uplink\get_resource;
+
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -929,6 +931,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return string
 		 */
 		public function get_key( $type = 'any', $return_type = 'key' ) {
+
+			$resource    = get_resource( $this->get_slug() );
+			$license_key = $resource ? $resource->get_license_key( $type ) : false;
+			if ( $license_key ) {
+				return $license_key;
+			}
 
 			$license_key    = '';
 			$license_origin = 'm';
