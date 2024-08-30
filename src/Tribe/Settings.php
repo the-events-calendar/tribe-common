@@ -637,7 +637,7 @@ class Tribe__Settings {
 				 *
 				 * @param array<string> $form_class The classes for the settings form.
 				 */
-				$form_class = apply_filters( 'tribe_settings_form_class', [ 'tec-settings__' .$current_tab . '-tab--active' ], $admin_page );
+				$form_class = apply_filters( 'tribe_settings_form_class', [ "tec-settings__{$current_tab}-tab--active" ], $admin_page );
 				?>
 				<form id="tec-settings-form" <?php tribe_classes( $form_class ); ?> method="post">
 				<?php
