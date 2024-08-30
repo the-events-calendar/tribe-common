@@ -77,6 +77,17 @@ abstract class Base_Entity implements ArrayAccess, Element {
 	}
 
 	/**
+	 * Get the classes as an attribute.
+	 *
+	 * @return string
+	 */
+	protected function get_class_attribute(): string {
+		return null === $this->classes
+			? ''
+			: $this->classes->get_attribute();
+	}
+
+	/**
 	 * Set the attributes for the entity.
 	 *
 	 * @param Attributes $attributes
