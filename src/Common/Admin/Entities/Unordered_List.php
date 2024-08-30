@@ -12,7 +12,8 @@ declare( strict_types=1 );
 namespace TEC\Common\Admin\Entities;
 
 use InvalidArgumentException;
-use Tribe\Utils\Element_Classes;
+use Tribe\Utils\Element_Attributes as Attributes;
+use Tribe\Utils\Element_Classes as Classes;
 
 /**
  * Class Unordered_List
@@ -33,11 +34,16 @@ class Unordered_List extends Container {
 	/**
 	 * Unordered_List constructor.
 	 *
-	 * @param ?Element_Classes $classes The classes for the unordered list.
+	 * @param ?Classes    $classes    The classes for the unordered list.
+	 * @param ?Attributes $attributes The attributes for the unordered list.
 	 */
-	public function __construct( ?Element_Classes $classes = null ) {
+	public function __construct( ?Classes $classes = null, ?Attributes $attributes = null ) {
 		if ( $classes ) {
 			$this->set_classes( $classes );
+		}
+
+		if ( $attributes ) {
+			$this->set_attributes( $attributes );
 		}
 	}
 
@@ -72,7 +78,10 @@ class Unordered_List extends Container {
 	 */
 	public function render() {
 		?>
-		<ul class="<?php echo esc_attr( $this->get_classes() ); ?>">
+		<ul
+			class="<?php echo esc_attr( $this->get_classes() ); ?>"
+			<?php echo $this->get_attributes(); // phpcs:ignore StellarWP.XSS.EscapeOutput,WordPress.Security.EscapeOutput ?>
+		>
 			<?php $this->render_children(); ?>
 		</ul>
 		<?php

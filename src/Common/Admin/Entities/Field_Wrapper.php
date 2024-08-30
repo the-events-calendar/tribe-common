@@ -11,7 +11,7 @@ declare( strict_types=1 );
 
 namespace TEC\Common\Admin\Entities;
 
-use Tribe__Field;
+use Tribe__Field as Field;
 
 /**
  * Class FieldW_Wrapper
@@ -23,16 +23,16 @@ class Field_Wrapper implements Element {
 	/**
 	 * The field to wrap.
 	 *
-	 * @var Tribe__Field
+	 * @var Field
 	 */
-	private Tribe__Field $field;
+	private Field $field;
 
 	/**
 	 * FieldW_Wrapper constructor.
 	 *
-	 * @param Tribe__Field $field The field to wrap.
+	 * @param Field $field The field to wrap.
 	 */
-	public function __construct( Tribe__Field $field ) {
+	public function __construct( Field $field ) {
 		$this->field = $field;
 	}
 
