@@ -7,33 +7,37 @@
  * ----------------------------------------------------------------------------- */
 
 .tribe_events_page_tec-events-settings {
-	#tec-settings-form > .tec-settings__upsell {
-		align-items: flex-end;
+	#tec-settings-form .tec-settings__upsell {
 		background-color: var(--tec-admin-core-grey-0);
 		border: 1px solid var(--tec-admin-core-grey-10);
 		border-radius: var(--tec-border-radius-default);
 		box-sizing: border-box;
 		display: flex;
 		flex-direction: column-reverse;
-		justify-content: space-between;
-		max-width: 100%;
-		padding: var(--tec-spacer-8);
-		width: var(--tec-spacer-settings-form-width);
+		margin: 0;
+		max-width: calc(100vw - (2 * var(--tec-spacer-7)));
+		padding: var(--tec-spacer-4);
+		width: 100%;
 
-		@media (--viewport-xxsmall) and (max-width: 960px) {
+		@media (--viewport-full) {
 			align-items: center;
 			flex-direction: row;
+			grid-column: 1 / span 2;
+			max-width: 100%;
 			padding: var(--tec-spacer-8);
 		}
 
-		@media (--viewport-full) {
-			grid-column: 1 / span 2;
-			margin: 0;
+		@media (--viewport-xlarge) {
+			margin-right: 0;
 		}
 
 		.tec-settings__upsell-content {
+			color: var(--tec-admin-core-grey-80);
+			display: flex;
+			flex-direction: column;
+			max-width: 100%;
+
 			p {
-				color: var(--tec-admin-core-grey-80);
 				font-size: var(--tec-font-size-7);
 				line-height: var(--tec-line-height-2);
 
@@ -49,6 +53,7 @@
 
 		.tec-settings__upsell-header {
 			display: flex;
+			flex-flow: row nowrap;
 			margin-bottom: var(--tec-spacer-2);
 
 			.tec-settings__upsell-logo {
@@ -62,18 +67,21 @@
 				font-size: var(--tec-font-size-7);
 				font-weight: bold;
 				line-height: 1;
-				margin: 0 var(--tec-spacer-0);
+				margin: 0 0 0 var(--tec-spacer-1);
 			}
 		}
 
 		.tec-settings__upsell-image {
+			align-self: center;
 			height: auto;
+			margin-bottom: var(--tec-spacer-5);
+			max-width: 100%;
 			object-fit: contain;
-			width: 100px;
 
-			@media (--viewport-xsmall) {
+			@media (--viewport-full) {
+				margin-bottom: 0;
 				margin-left: var(--tec-spacer-8);
-				width: 240px;
+				max-width: 240px;
 			}
 		}
 
@@ -88,6 +96,7 @@
 			margin-top: var(--tec-spacer-5);
 			padding: var(--tec-spacer-3);
 			text-decoration: none;
+			width: fit-content;
 
 			&:hover,
 			&:active,

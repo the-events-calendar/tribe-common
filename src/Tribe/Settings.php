@@ -630,8 +630,16 @@ class Tribe__Settings {
 				<?php
 				do_action( 'tribe_settings_above_form_element' );
 				do_action( 'tribe_settings_above_form_element_tab_' . $current_tab, $admin_page );
+				/**
+				 * Filter the classes for the settings form.
+				 *
+				 * @since TBD
+				 *
+				 * @param array<string> $form_class The classes for the settings form.
+				 */
+				$form_class = apply_filters( 'tribe_settings_form_class', [ "tec-settings__{$current_tab}-tab--active" ], $admin_page );
 				?>
-				<form id="tec-settings-form" method="post">
+				<form id="tec-settings-form" <?php tribe_classes( $form_class ); ?> method="post">
 				<?php
 				do_action( 'tribe_settings_before_content' );
 				do_action( 'tribe_settings_before_content_tab_' . $current_tab );
