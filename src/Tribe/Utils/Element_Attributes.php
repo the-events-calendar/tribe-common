@@ -114,8 +114,8 @@ class Element_Attributes {
 				$attributes[] = esc_attr( $key );
 			} else {
 				// Remove double quotes that might be surrounding the value.
-				trim( $val, '"' );
-				$attributes[] = esc_attr( $key ) . '="' . esc_attr( $val ) . '"';
+				$val          = trim( $val, '"' );
+				$attributes[] = tag_escape( $key ) . '="' . esc_attr( $val ) . '"';
 			}
 		}
 
