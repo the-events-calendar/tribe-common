@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Optimized prime_term_cache to return early when no posts are provided [TECTRIA-229]
