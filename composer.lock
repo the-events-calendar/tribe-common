@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f316b5d18dd516301d7476b7fb1229d3",
+    "content-hash": "27c32da62cb83909a1e27261b439b36a",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -733,12 +733,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/uplink.git",
-                "reference": "8918eea55dd6898ba8781befc57efc738243bcae"
+                "reference": "dcd6de7de68810fb74b626136cba3b7f9ba68c4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/uplink/zipball/8918eea55dd6898ba8781befc57efc738243bcae",
-                "reference": "8918eea55dd6898ba8781befc57efc738243bcae",
+                "url": "https://api.github.com/repos/stellarwp/uplink/zipball/dcd6de7de68810fb74b626136cba3b7f9ba68c4b",
+                "reference": "dcd6de7de68810fb74b626136cba3b7f9ba68c4b",
                 "shasum": ""
             },
             "require": {
@@ -792,7 +792,7 @@
                 "issues": "https://github.com/stellarwp/uplink/issues",
                 "source": "https://github.com/stellarwp/uplink/tree/slr/sl-142"
             },
-            "time": "2024-08-19T09:26:12+00:00"
+            "time": "2024-09-02T09:26:48+00:00"
         }
     ],
     "packages-dev": [
