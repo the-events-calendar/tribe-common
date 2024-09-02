@@ -614,6 +614,20 @@ class Tribe__Settings {
 		$current_tab  = $this->get_current_tab();
 		$wrap_classes = apply_filters( 'tribe_settings_wrap_classes', [ 'tribe_settings', 'wrap' ], $admin_page );
 
+		$form_classes = [ "tec-settings__{$current_tab}-tab--active" ];
+		if ( $this->get_tab( $current_tab )->has_parent() ) {
+			$form_classes[] = 'tec-settings__subnav-active';
+		}
+
+		/**
+		 * Filter the classes for the settings form.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string> $form_classes The classes for the settings form.
+		 */
+		$form_classes = apply_filters( 'tribe_settings_form_class', $form_classes, $admin_page );
+
 		ob_start();
 		do_action( 'tribe_settings_top', $admin_page );
 		?>
@@ -630,16 +644,8 @@ class Tribe__Settings {
 				<?php
 				do_action( 'tribe_settings_above_form_element' );
 				do_action( 'tribe_settings_above_form_element_tab_' . $current_tab, $admin_page );
-				/**
-				 * Filter the classes for the settings form.
-				 *
-				 * @since TBD
-				 *
-				 * @param array<string> $form_class The classes for the settings form.
-				 */
-				$form_class = apply_filters( 'tribe_settings_form_class', [ "tec-settings__{$current_tab}-tab--active" ], $admin_page );
 				?>
-				<form id="tec-settings-form" <?php tribe_classes( $form_class ); ?> method="post">
+				<form id="tec-settings-form" <?php tribe_classes( $form_classes ); ?> method="post">
 				<?php
 				do_action( 'tribe_settings_before_content' );
 				do_action( 'tribe_settings_before_content_tab_' . $current_tab );
@@ -831,6 +837,8 @@ class Tribe__Settings {
 		if ( $tab->has_children() ) {
 			$class[] = 'tec-nav__tab--has-subnav';
 		}
+
+
 
 		if ( $tab->has_children() && $tab->has_child( $current_tab ) ) {
 			// Current tab is a child tab of passed tab.
