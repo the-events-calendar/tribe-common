@@ -23,20 +23,6 @@
 		font-size: var(--tec-font-size-5);
 		padding: var(--tec-spacer-0) 0;
 
-		@media (--viewport-xsmall) {
-			margin: var(--tec-spacer-7) var(--tec-spacer-7) 0;
-			padding-bottom: var(--tec-spacer-5);
-		}
-
-		@media (--viewport-wpadmin) {
-			margin-right: calc(-1 * (var(--tec-spacer-settings-form-right-gap) - var(--tec-spacer-7)));
-		}
-
-		@media (--viewport-xlarge) {
-			border: 0;
-			padding-bottom: var(--tec-spacer-0);
-		}
-
 		&:first-child {
 			display: none;
 
@@ -60,8 +46,24 @@
 			margin-right: var(--tec-spacer-7);
 		}
 
+		@media (--viewport-xsmall) {
+			padding-bottom: var(--tec-spacer-5);
+		}
+
+		@media (--viewport-xsmall) and (max-width: 1259px) {
+			margin: var(--tec-spacer-7) var(--tec-spacer-7) 0;
+
+		}
+
+		@media (--viewport-wpadmin) {
+			margin-right: calc(-1 * (var(--tec-spacer-settings-form-right-gap) - var(--tec-spacer-7)));
+		}
+
 		@media (--viewport-xlarge) {
+			border: 0;
 			grid-column: 1;
+			margin: var(--tec-spacer-7) 0 0 var(--tec-spacer-7);
+			padding-bottom: var(--tec-spacer-0);
 
 			&.tec-settings__section-header--wide {
 				grid-column: 1 / span 2;
@@ -123,6 +125,7 @@
 
 		@media (--viewport-xlarge) {
 			grid-column: 1;
+			grid-row: span 2;
 			margin: var(--tec-spacer-2) var(--tec-spacer-7) 0;
 			padding-right: 0;
 		}
@@ -140,7 +143,7 @@
 		@media (--viewport-xsmall) {
 			border-bottom: 1px solid var(--tec-admin-core-grey-10);
 			margin: var(--tec-spacer-3) 0 0;
-			padding-bottom: var(--tec-spacer-0);
+			padding-bottom: var(--tec-spacer-4);
 		}
 
 		@media (--viewport-xlarge) {
