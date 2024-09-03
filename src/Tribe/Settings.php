@@ -1477,10 +1477,10 @@ class Tribe__Settings {
 	 * @deprecated TBD
 	 */
 	public function generateTabs() {
-		_deprecated_function( __METHOD__, 'TBD', 'generate_tabs' );
 		$admin_pages = tribe( 'admin.pages' );
 		$admin_page  = $admin_pages->get_current_page();
 		if ( $admin_page === 'tec-events-settings' ) {
+			_deprecated_function( __METHOD__, 'TBD', 'generate_tabs' );
 			$this->generate_tabs();
 		} else {
 			if ( is_array( $this->tabs ) && ! empty( $this->tabs ) ) {
