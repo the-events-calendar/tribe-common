@@ -20,14 +20,14 @@
 	--tec-admin-modal-backdrop: rgba(60, 67, 74, 0.8);
 
 	/* Form Styles */
+	--tec-spacer-settings-form-bottom-gap: var(--tec-spacer-3);
 	--tec-spacer-settings-form-col-gap: var(--tec-spacer-8);
 	--tec-spacer-settings-form-header-gap: var(--tec-spacer-2);
 	--tec-spacer-settings-form-label-gap: var(--tec-spacer-1);
-	--tec-spacer-settings-form-right-gap: 0;
-	--tec-spacer-settings-form-row-gap: 36px;
+	--tec-spacer-settings-form-right-gap: var(--tec-spacer-7);
+	--tec-spacer-settings-form-row-gap: var(--tec-spacer-6);
 	--tec-spacer-settings-form-side: var(--tec-spacer-7);
 	--tec-spacer-settings-form-top-gap: var(--tec-spacer-3);
-	--tec-spacer-settings-form-bottom-gap: var(--tec-spacer-3);
 	--tec-spacer-settings-form-width-left-col: 224px;
 	--tec-spacer-settings-form-width: 900px;
 
@@ -36,14 +36,18 @@
 	--tec-spacer-sidebar-padding: var(--tec-spacer-4);
 	--tec-spacer-sidebar-row-gap: var(--tec-spacer-3);
 
-	/* Custom Media Queries */
+	/* Custom Media Queries - not working? */
 	@custom-media --settings-sidebar (min-width: 1024px);
 
+	@media (--viewport-xsmall) {
+		--tec-spacer-settings-form-row-gap: var(--tec-spacer-7);
+	}
+
 	@media (--viewport-wpadmin) {
+		--tec-spacer-settings-form-bottom-gap: 0;
 		--tec-spacer-settings-form-header-gap: var(--tec-spacer-5);
 		--tec-spacer-settings-form-right-gap: 128px;
 		--tec-spacer-settings-form-top-gap: var(--tec-spacer-7);
-		--tec-spacer-settings-form-bottom-gap: 0;
 	}
 
 	@media (--viewport-xlarge) {

@@ -76,16 +76,16 @@ $old_license_field_info_box = [
 	],
 ];
 
-$license_title = new Div( new Element_Classes( [ 'tec_settings__header-block', 'tec_settings__header-block--horizontal' ] ) );
+$license_title = new Div( new Element_Classes( [ 'tec-settings-form__header-block', 'tec-settings-form__header-block--horizontal' ] ) );
 $license_title->add_child(
 	new Heading(
 		_x( 'Licenses', 'Licenses section header', 'tribe-common' ),
 		3,
-		new Element_Classes( 'tec-settings__section-header' )
+		new Element_Classes( 'tec-settings-form__section-header' )
 	)
 );
 $license_title->add_child(
-	( new Paragraph( new Element_Classes( 'tec_settings__section-description' ) ) )->add_children(
+	( new Paragraph( new Element_Classes( 'tec-settings-form__section-description' ) ) )->add_children(
 		[
 			new Plain_Text( __( "If you've purchased a premium add-on, you'll need to enter your license key here in order to have access to automatic updates when new versions are available.", 'tribe-common' ) ),
 		]

@@ -8,8 +8,9 @@
  * ----------------------------------------------------------------------------- */
 
 .tribe_events_page_tec-events-settings #tec-settings-form {
-	.tec_settings__content-section {
+	.tec-settings-form__content-section {
 		display: grid;
+		grid-row-gap: var(--tec-spacer-settings-form-row-gap);
 		grid-template-columns: 1fr;
 
 		@media (--viewport-xsmall) {
@@ -44,7 +45,7 @@
 			margin-top: 1em;
 		}
 
-		.tec-settings__section-header--sub {
+		.tec-settings-form__section-header--sub {
 			margin-top: 0;
 
 			@media (--viewport-xlarge) {
@@ -55,7 +56,7 @@
 
 	div:last-child,
 	div:nth-last-of-type(2) {
-		&.tec_settings__content-section {
+		&.tec-settings-form__content-section {
 			border-bottom: 0;
 
 			fieldset:last-child {
@@ -64,7 +65,7 @@
 		}
 	}
 
-	.tec_settings__header-block + .tec_settings__content-section {
+	.tec-settings-form__header-block + .tec-settings-form__content-section {
 		margin-top: 0;
 	}
 }

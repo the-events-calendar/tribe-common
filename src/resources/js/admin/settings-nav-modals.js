@@ -7,7 +7,7 @@
 		const $subnavLinks = $modalNav.find('.tec-nav__tab--has-subnav > .tec-nav__link');
 		const $sidebarOpen = $( '#tec-settings-sidebar-modal-open' );
 		const $sidebarClose = $( '#tec-settings-sidebar-modal-close' );
-		const $modalSidebar = $( '#tec-settings__sidebar-modal' );
+		const $modalSidebar = $( '#tec-settings-form__sidebar-modal' );
 
 		const init = () => {
 			addNavHandlers();

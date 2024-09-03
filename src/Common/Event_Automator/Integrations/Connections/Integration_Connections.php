@@ -789,7 +789,7 @@ abstract class Integration_Connections {
 			),
 			'id'             => "tec-settings-{$api_id}-users",
 			'classes_label'  => [ 'screen-reader-text' ],
-			'classes_select' => [ 'tec-settings__users-dropdown', "tec-settings-{$api_id}-details-api-key__users-dropdown" ],
+			'classes_select' => [ 'tec-settings-form__users-dropdown', "tec-settings-{$api_id}-details-api-key__users-dropdown" ],
 			'name'           => "tec_automator_{$api_id}[]['users']",
 			'selected'       => $current_user_id,
 			'users_count'    => count( $users ),

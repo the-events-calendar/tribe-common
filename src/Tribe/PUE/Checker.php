@@ -608,8 +608,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$this->pue_install_key . '-heading' => [
 					'type'  => 'heading',
 					'class' => [
-						'tec-settings__section-header',
-						'tec-settings__section-header--sub',
+						'tec-settings-form__section-header',
+						'tec-settings-form__section-header--sub',
 					],
 					'label' => $this->get_plugin_name(),
 				],

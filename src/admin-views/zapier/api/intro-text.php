@@ -18,12 +18,12 @@
  */
 
 ?>
-<div class="tec_settings__header-block tec_settings__header-block--horizontal">
+<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
 	<?php $this->template( '/components/loader' ); ?>
-	<h3 id="tec-zapier-application-credentials" class="tec-settings-zapier-application__title tec-settings__section-header tec-settings__section-header--sub">
+	<h3 id="tec-zapier-application-credentials" class="tec-settings-zapier-application__title tec-settings-form__section-header tec-settings-form__section-header--sub">
 		<?php echo esc_html_x( 'Zapier', 'API connection header', 'tribe-common' ); ?>
 	</h3>
-	<p class="tec-settings-zapier-application__description tec_settings__section-description">
+	<p class="tec-settings-zapier-application__description tec-settings-form__section-description">
 		<?php
 		printf(
 			/* Translators: %1$s: URL to the Zapier API documentation */
