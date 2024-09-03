@@ -42,12 +42,15 @@
 			border-radius: var(--tec-border-radius-default);
 			margin-top: var(--tec-spacer-4);
 			padding-bottom: var(--tec-spacer-settings-form-bottom-gap);
-			padding-right: var(--tec-spacer-settings-form-right-gap);
 			padding-top: var(--tec-spacer-9);
 
 			&.tec-events-settings__upsell-form {
 				border: 0;
 				padding: 0;
+			}
+
+			> *:not(.tec_settings__footer):not(.tec_settings__header-block) {
+				padding-right: var(--tec-spacer-settings-form-right-gap);
 			}
 		}
 
@@ -72,7 +75,6 @@
 
 			@media (--viewport-xlarge) {
 				grid-column: 2;
-				margin-right: var(--tec-spacer-7);
 			}
 		}
 	}

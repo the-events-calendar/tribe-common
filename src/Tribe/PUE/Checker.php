@@ -605,10 +605,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public function do_license_key_fields( $fields ) {
 			// Common fields whether licenses should be hidden or not.
 			$to_insert = [
-				$this->pue_install_key . '-separator' => [
-					'type'  => 'html',
-					'html' => '<hr class="tec_settings__separator--section">',
-				],
 				$this->pue_install_key . '-heading' => [
 					'type'  => 'heading',
 					'class' => [
@@ -694,6 +690,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'html'             => sprintf( '<p>%s</p>', $this->get_network_license_state_string() ),
 				];
 			}
+
+			$to_insert = tribe( 'settings' )->wrap_section_content( $this->pue_install_key, $to_insert );
 
 			$fields = self::array_insert_after_key( 'tribe-form-content-start', $fields, $to_insert );
 

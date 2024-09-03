@@ -84,6 +84,10 @@
 			font-weight: var(--tec-font-weight-bold);
 			line-height: var(--tec-line-height-0);
 			padding: 0;
+
+			@media (--viewport-full) {
+				margin-bottom: var(--tec-spacer-1);
+			}
 		}
 
 		.tribe-field-description {
@@ -144,6 +148,6 @@
 	}
 
 	.button > .dashicons-plus {
-		vertical-align: middle;
+		vertical-align: text-bottom;
 	}
 }

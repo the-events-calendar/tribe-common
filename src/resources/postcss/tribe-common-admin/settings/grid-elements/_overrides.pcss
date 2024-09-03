@@ -1,0 +1,61 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Settings Form Infobox
+ *
+ * This file contains styles specific to the settings form.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe_events_page_tec-events-settings #tec-settings-form {
+
+	.tec-automator-endpoint-dashboard,
+	.tribe-settings-form .tec-automator-settings,
+	.tec-automator-grid {
+		width: auto;
+	}
+
+	#tribe-settings--application,
+	#tribe-settings-power-automate-application,
+	#tribe-settings-zapier-application {
+		@media (--viewport-xlarge) {
+			border-bottom: 1px solid var(--tec-admin-core-grey-10);
+			grid-column: 1 / span 2;
+			padding-right: 0;
+
+			.tec_settings__header-block--horizontal .tec-settings__section-header,
+			.tec_settings__section-description {
+				margin: var(--tec-spacer-3) var(--tec-spacer-7) var(--tec-spacer-1);
+				padding: 0;
+			}
+
+			.tec_settings__section-description {
+				margin-bottom: var(--tec-spacer-3);
+			}
+		}
+	}
+
+	#tribe-settings-zapier-application + .tec_settings__header-block.tec_settings__header-block--horizontal {
+		@media (--viewport-xlarge) {
+			margin: 0;
+			padding-left: var(--tec-spacer-7);
+		}
+	}
+
+	.tec-automator-endpoint-dashboard .tec-automator-api-fields,
+	.tec-automator-settings .tec-automator-api-fields {
+		padding-left: 0;
+	}
+
+	.tec-automator-settings .tec-automator-settings-items__wrap {
+		margin: var(--tec-spacer-2) 0 var(--tec-spacer-3);
+		max-width: calc(var(--tec-spacer-settings-form-width) - (2 * var(--tec-spacer-7)));
+	}
+
+	.tribe-additional-fields table .tribe-field-content .tribe-field-label {
+		font-weight: var(--tec-font-weight-regular);
+
+		label {
+			color: var(--tec-admin-core-grey-80);
+		}
+	}
+}

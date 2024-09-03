@@ -1,8 +1,8 @@
 /* -----------------------------------------------------------------------------
  *
- * Settings Form Footer
+ * Settings Form Headers
  *
- * This file contains styles specific to the settings form.
+ * This file contains styles specific to the settings form headers.
  *
  * ----------------------------------------------------------------------------- */
 
@@ -25,6 +25,7 @@
 
 		@media (--viewport-xsmall) {
 			margin: var(--tec-spacer-7) var(--tec-spacer-7) 0;
+			padding-bottom: var(--tec-spacer-5);
 		}
 
 		@media (--viewport-wpadmin) {
@@ -97,10 +98,7 @@
 		font-size: var(--tec-font-size-3);
 		font-weight: var(--tec-font-weight-regular);
 		line-height: var(--tec-line-height-2);
-
-		h3 {
-			margin: 0;
-		}
+		margin-bottom: var(--tec-spacer-1);
 	}
 
 	&:not(.tec-settings__subnav-active) > .tec_settings__header-block {
@@ -119,18 +117,14 @@
 			margin: 0;
 		}
 
+		@media (--viewport-xsmall) and (max-width: 1259px) {
+			padding-right: var(--tec-spacer-settings-form-right-gap);
+		}
+
 		@media (--viewport-xlarge) {
 			grid-column: 1;
 			margin: var(--tec-spacer-2) var(--tec-spacer-7) 0;
-
-			&.tec_settings__header-block--horizontal {
-				grid-column: 1 / span 2;
-				margin: 0 var(--tec-spacer-7);
-
-				&:not(:first-child) {
-					margin-top: 0;
-				}
-			}
+			padding-right: 0;
 		}
 
 		& + .tec_settings__separator--section:first-of-type {
@@ -138,23 +132,23 @@
 		}
 	}
 
-	> .tec_settings__content-block {
+	> .tec_settings__header-block--horizontal {
+		+ .tec-settings__element--colspan-2 {
+			margin-top: 0;
+		}
+
+		@media (--viewport-xsmall) {
+			border-bottom: 1px solid var(--tec-admin-core-grey-10);
+			padding-bottom: var(--tec-spacer-0);
+		}
+
 		@media (--viewport-xlarge) {
-			border-top: 1px solid var(--tec-admin-core-grey-10);
-			grid-column: 2;
+			grid-column: 1 / span 2;
+			margin: 0 var(--tec-spacer-7);
 
-			&.tec_settings__content-block--horizontal {
-				grid-column: 1 / span 2;
-				margin: 0 var(--tec-spacer-7);
-
-				&:not(:first-child) {
-					margin-top: 0;
-				}
+			&:not(:first-child) {
+				margin-top: 0;
 			}
 		}
-	}
-
-	> .tec_settings__header-block--horizontal + .tec-settings__element--colspan-2 {
-		margin-top: 0;
 	}
 }

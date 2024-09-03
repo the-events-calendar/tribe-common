@@ -894,6 +894,34 @@ class Tribe__Settings {
 	}
 
 	/**
+	 * Wraps the section content in a "content-section" div
+	 *
+	 * @since TBD
+	 *
+	 * @param string $id A unique section ID.
+	 * @param array $content The content to wrap.
+	 *
+	 * @return array The wrapped content.
+	 */
+	public function wrap_section_content( string $id, array $content ): array {
+		$open = [
+			$id . '-section-open' => [
+				'type'             => 'html',
+				'html'             => '<div class="tec_settings__content-section">',
+			]
+		];
+
+		$close = [
+			$id . '-section-close' => [
+				'type'             => 'html',
+				'html'             => '</div>',
+			],
+		];
+
+		return $open + $content + $close;
+	}
+
+	/**
 	 * Output the modal controls
 	 *
 	 * @since TBD

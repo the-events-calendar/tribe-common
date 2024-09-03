@@ -118,14 +118,14 @@ abstract class Integration_Settings {
 		$api_id =  static::$api_id;
 
 		$wrapper_classes = tribe_get_classes( [
-			'tec-automator-settings'                               => true,
+			'tec-automator-settings'                                  => true,
 			'tec-events-settings-' . static::$api_id . '-application' => true,
 		] );
 
 		$api_fields = [
-			static::$option_prefix . 'separator' => [
+			static::$option_prefix . 'wrapper_open'  => [
 				'type' => 'html',
-				'html' => '<hr class="tec_settings__separator--section">',
+				'html' => '<div id="tribe-settings-' . static::$api_id . '-application" class="' . implode( ' ', $wrapper_classes ) . '">'
 			],
 			static::$option_prefix . 'header'        => [
 				'type' => 'html',
@@ -134,6 +134,10 @@ abstract class Integration_Settings {
 			static::$option_prefix . 'authorize'     => [
 				'type' => 'html',
 				'html' => $this->get_all_connection_fields(),
+			],
+			static::$option_prefix . 'wrapper_close' => [
+				'type' => 'html',
+				'html' => '</div>',
 			],
 		];
 
@@ -162,12 +166,7 @@ abstract class Integration_Settings {
 	public function add_fields_tec( array $fields = [] ) {
 		$api_fields = $this->get_fields();
 
-		// Insert the link after the other APIs and before the Google Maps API ones.
-		$gmaps_fields = array_splice( $fields, array_search( $this->get_integrations_fields_key(), array_keys( $fields ) ) );
-
-		$fields = array_merge( $fields, $api_fields, $gmaps_fields );
-
-		return $fields;
+		return $fields + $api_fields;
 	}
 
 	/**

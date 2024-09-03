@@ -86,9 +86,9 @@ class Abstract_Dashboard {
 		] );
 
 		$dashboard_fields = [
-			static::$option_prefix . 'separator' => [
+			self::$option_prefix . 'wrapper_open'  => [
 				'type' => 'html',
-				'html' => '<hr class="tec_settings__separator--section">',
+				'html' => '<div id="tribe-settings-' . self::$api_id . '-application" class="' . implode( ' ', $wrapper_classes ) . '">'
 			],
 			static::$option_prefix . 'header'        => [
 				'type' => 'html',
@@ -97,6 +97,10 @@ class Abstract_Dashboard {
 			static::$option_prefix . 'endpoints'     => [
 				'type' => 'html',
 				'html' => $this->get_dashboard(),
+			],
+			self::$option_prefix . 'wrapper_close' => [
+				'type' => 'html',
+				'html' => '</div>',
 			],
 		];
 
