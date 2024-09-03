@@ -512,9 +512,6 @@ class Tribe__Settings {
 	 */
 	public function do_page_header( $admin_page ): void {
 		?>
-		<div class="tribe-notice-wrap">
-			<div class="wp-header-end"></div>
-		</div>
 		<h1>
 			<?php echo wp_kses_post( $this->get_page_logo( $admin_page ) ); ?>
 			<?php echo esc_html( $this->get_page_title( $admin_page ) ); ?>
@@ -635,6 +632,7 @@ class Tribe__Settings {
 		?>
 		<div <?php tribe_classes( $wrap_classes ); ?>>
 			<?php
+			$this->output_notice_wrap();
 			$this->do_page_header( $admin_page );
 			if ( $is_tec_settings ) {
 				$this->generate_modal_nav( $admin_page );
@@ -832,6 +830,21 @@ class Tribe__Settings {
 		<button id="tec-settings-sidebar-modal-close" class="tec-modal__control tec-modal__control--close" data-modal-close>
 			<span class="screen-reader-text"><?php esc_html_e( 'Close', 'tribe-common' ); ?></span>
 		</button>
+		<?php
+	}
+
+	/**
+	 * Output the notice wrap.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function output_notice_wrap() {
+		?>
+		<div class="tribe-notice-wrap">
+			<div class="wp-header-end"></div>
+		</div>
 		<?php
 	}
 
