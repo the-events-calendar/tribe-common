@@ -37,6 +37,10 @@
 		padding-top: var(--tec-spacer-settings-form-top-gap);
 		width: calc(100% - (2 * var(--tec-spacer-7)));
 
+		&:not(.tec-settings__subnav-active) {
+			padding-top: var(--tec-spacer-3);
+		}
+
 		@media (--viewport-xsmall) {
 			background-color: var(--tec-color-background);
 			border: 1px solid var(--tec-admin-core-grey-10);

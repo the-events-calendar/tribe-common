@@ -103,11 +103,6 @@
 		margin-bottom: var(--tec-spacer-1);
 	}
 
-	&:not(.tec-settings__subnav-active) > .tec_settings__header-block {
-		.tec-settings__section-header {
-			margin-top: 0;
-		}
-	}
 
 	> .tec_settings__header-block {
 		.tec-settings__section-header {
@@ -143,16 +138,24 @@
 		@media (--viewport-xsmall) {
 			border-bottom: 1px solid var(--tec-admin-core-grey-10);
 			margin: var(--tec-spacer-3) 0 0;
-			padding-bottom: var(--tec-spacer-4);
+			padding-bottom: var(--tec-spacer-5);
 		}
 
 		@media (--viewport-xlarge) {
 			grid-column: 1 / span 2;
-			padding: 0 var(--tec-spacer-7);
+			padding: 0 var(--tec-spacer-7) var(--tec-spacer-5);
 
 			&:not(:first-child) {
 				margin-top: 0;
 			}
+		}
+	}
+
+	&:not(.tec-settings__subnav-active) > .tec_settings__header-block--horizontal {
+		padding-top: 4px;
+
+		.tec-settings__section-header {
+			margin-top: 0;
 		}
 	}
 }
