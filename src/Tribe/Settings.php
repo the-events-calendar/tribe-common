@@ -1538,7 +1538,12 @@ class Tribe__Settings {
 	 * @since 4.15.0 Add the current page as parameter for the actions.
 	 */
 	public function generatePage() {
-		_deprecated_function( __METHOD__, 'TBD', 'generate_page' );
+		$admin_pages = tribe( 'admin.pages' );
+		$admin_page  = $admin_pages->get_current_page();
+		if ( $admin_page === 'tec-events-settings' ) {
+			_deprecated_function( __METHOD__, 'TBD', 'generate_page' );
+		}
+
 		$this->generate_page();
 	}
 	// phpcs:enable WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
