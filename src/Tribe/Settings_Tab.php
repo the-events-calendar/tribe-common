@@ -471,6 +471,12 @@ class Tribe__Settings_Tab {
 	 * @return bool
 	 */
 	public function has_sidebar(): bool {
+		$admin_pages  = tribe( 'admin.pages' );
+		$admin_page   = $admin_pages->get_current_page();
+		if ( $admin_page !== 'tec-events-settings' ) {
+			return false;
+		}
+
 		if ( $this->sidebar instanceof Settings_Sidebar ) {
 			return true;
 		}
