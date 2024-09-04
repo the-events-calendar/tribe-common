@@ -34,8 +34,13 @@
 		grid-template-columns: 1fr;
 		margin: 0 var(--tec-spacer-7);
 		padding-bottom: 0;
-		padding-top: var(--tec-spacer-settings-form-top-gap);
+		padding-top: var(--tec-spacer-3);
 		width: calc(100% - (2 * var(--tec-spacer-7)));
+
+		p:last-child,
+		.tribe-field:last-child {
+			margin-bottom: 0;
+		}
 
 		@media (--viewport-xsmall) {
 			background-color: var(--tec-color-background);
@@ -43,11 +48,19 @@
 			border-radius: var(--tec-border-radius-default);
 			margin-top: var(--tec-spacer-4);
 			padding-bottom: var(--tec-spacer-settings-form-bottom-gap);
-			padding-top: var(--tec-spacer-9);
+			padding-top: 0;
+
+			&.tec-settings-form__subnav-active {
+				padding-top: var(--tec-spacer-9);
+			}
 
 			&.tec-events-settings__upsell-form {
 				border: 0;
 				padding: 0;
+			}
+
+			&.tec-settings-form__subnav-active {
+				padding-top: var(--tec-spacer-9);
 			}
 
 			> * {
@@ -72,7 +85,7 @@
 			grid-column: 1;
 
 			@media (--viewport-xsmall) and (max-width: 1259px) {
-				padding: 0 var(--tec-spacer-7);
+				padding: 0 var(--tec-spacer-7) var(--tec-spacer-7);
 			}
 
 			@media (--viewport-xlarge) {

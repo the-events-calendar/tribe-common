@@ -512,9 +512,6 @@ class Tribe__Settings {
 	 */
 	public function do_page_header( $admin_page ): void {
 		?>
-		<div class="tribe-notice-wrap">
-			<div class="wp-header-end"></div>
-		</div>
 		<h1>
 			<?php echo wp_kses_post( $this->get_page_logo( $admin_page ) ); ?>
 			<?php echo esc_html( $this->get_page_title( $admin_page ) ); ?>
@@ -615,9 +612,10 @@ class Tribe__Settings {
 		$wrap_classes = apply_filters( 'tribe_settings_wrap_classes', [ 'tribe_settings', 'wrap' ], $admin_page );
 		$is_tec_settings = $admin_page === 'tec-events-settings';
 
-		$form_classes = [ "tec-settings__{$current_tab}-tab--active" ];
+		$form_classes = [ "tec-settings-form__{$current_tab}-tab--active" ];
+
 		if ( $this->get_tab( $current_tab )->has_parent() ) {
-			$form_classes[] = 'tec-settings__subnav-active';
+			$form_classes[] = 'tec-settings-form__subnav-active';
 		}
 
 		/**
@@ -634,6 +632,7 @@ class Tribe__Settings {
 		?>
 		<div <?php tribe_classes( $wrap_classes ); ?>>
 			<?php
+			$this->output_notice_wrap();
 			$this->do_page_header( $admin_page );
 			if ( $is_tec_settings ) {
 				$this->generate_modal_nav( $admin_page );
@@ -714,13 +713,13 @@ class Tribe__Settings {
 		$has_sidebar = $this->get_tab( $current_tab )->has_sidebar();
 		?>
 
-		<div class="tec_settings__footer">
+		<div class="tec-settings-form__footer">
 			<?php if ( $saving ) : ?>
 				<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="<?php echo esc_attr( $this->current_tab ); ?>" />
 				<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="<?php echo esc_attr__( 'Save Changes', 'tribe-common' ); ?>" />
 			<?php endif; ?>
 			<?php if ( $has_sidebar ) : ?>
-				<button id="tec-settings-sidebar-modal-open" class="tec-settings__sidebar-toggle"><?php esc_html_e( 'Help', 'tribe-common' ); ?><span class="dashicons dashicons-editor-help"></span></button>
+				<button id="tec-settings-sidebar-modal-open" class="tec-settings-form__sidebar-toggle"><?php esc_html_e( 'Help', 'tribe-common' ); ?><span class="dashicons dashicons-editor-help"></span></button>
 			<?php endif; ?>
 		</div>
 		<?php
@@ -786,7 +785,7 @@ class Tribe__Settings {
 	 */
 	protected function generate_modal_nav( $admin_page ): void {
 		?>
-		<dialog id="tec-settings-nav-modal" class="tec-settings__modal">
+		<dialog id="tec-settings-nav-modal" class="tec-settings-form__modal">
 			<div class="tec-modal__content">
 				<div class="tec-modal__header">
 					<?php $this->do_page_header( $admin_page ); ?>
@@ -810,7 +809,7 @@ class Tribe__Settings {
 	protected function generate_modal_sidebar(): void {
 		add_action( 'tec_settings_sidebar_header_start', [ $this, 'generate_sidebar_modal_close' ] );
 		?>
-		<dialog id="tec-settings__sidebar-modal" class="tec-settings__modal">
+		<dialog id="tec-settings-form__sidebar-modal" class="tec-settings-form__modal">
 			<div class="tec-modal__content">
 				<div class="tec-modal__body">
 					<?php do_action( 'tec_settings_render_modal_sidebar', $this ); ?>
@@ -831,6 +830,21 @@ class Tribe__Settings {
 		<button id="tec-settings-sidebar-modal-close" class="tec-modal__control tec-modal__control--close" data-modal-close>
 			<span class="screen-reader-text"><?php esc_html_e( 'Close', 'tribe-common' ); ?></span>
 		</button>
+		<?php
+	}
+
+	/**
+	 * Output the notice wrap.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function output_notice_wrap() {
+		?>
+		<div class="tribe-notice-wrap">
+			<div class="wp-header-end"></div>
+		</div>
 		<?php
 	}
 
@@ -922,7 +936,7 @@ class Tribe__Settings {
 		$open = [
 			$id . '-section-open' => [
 				'type'             => 'html',
-				'html'             => '<div class="tec_settings__content-section">',
+				'html'             => '<div class="tec-settings-form__content-section">',
 			]
 		];
 

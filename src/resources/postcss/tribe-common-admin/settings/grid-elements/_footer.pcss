@@ -7,7 +7,7 @@
  * ----------------------------------------------------------------------------- */
 
 .tribe_events_page_tec-events-settings #tec-settings-form {
-	> .tec_settings__footer {
+	> .tec-settings-form__footer {
 		align-items: center;
 		background-color: var(--tec-color-background);
 		border-bottom-left-radius: var(--tec-border-radius-default);
@@ -16,7 +16,7 @@
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: space-between;
-		margin: 0;
+		margin: 0 calc(-1 * var(--tec-spacer-7));
 		padding: var(--tec-spacer-3) var(--tec-spacer-7);
 
 		.dashicons-editor-help {
@@ -35,7 +35,7 @@
 	}
 
 	&.tec-events-settings__upsell-form {
-		.tec_settings__footer {
+		.tec-settings-form__footer {
 			display: none;
 		}
 	}
