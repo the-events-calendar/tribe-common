@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27c32da62cb83909a1e27261b439b36a",
+    "content-hash": "fd916ff527e522c5f1b64231ebfd755f",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -729,11 +729,17 @@
         },
         {
             "name": "stellarwp/uplink",
-            "version": "dev-slr/sl-142",
+            "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "/Users/lucatume/work/stellarwp/uplink",
-                "reference": "35777250baebc8fb4b331b05bc579b7a6bce170f"
+                "url": "https://github.com/stellarwp/uplink.git",
+                "reference": "11b5e6d5d7db323f2026dcf20a397b574a8b8e3a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stellarwp/uplink/zipball/11b5e6d5d7db323f2026dcf20a397b574a8b8e3a",
+                "reference": "11b5e6d5d7db323f2026dcf20a397b574a8b8e3a",
+                "shasum": ""
             },
             "require": {
                 "ext-json": "*",
@@ -767,24 +773,12 @@
             "autoload": {
                 "psr-4": {
                     "StellarWP\\Uplink\\": "src/Uplink/",
-                    "StellarWP\\Uplink\\Admin_Views\\": "src/admin-views/",
+                    "StellarWP\\Uplink\\Views\\": "src/views/",
                     "StellarWP\\Uplink\\Assets_Dir\\": "src/assets/",
-                    "StellarWP\\Uplink\\Views\\": "src/views/"
+                    "StellarWP\\Uplink\\Admin_Views\\": "src/admin-views/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "StellarWP\\Uplink\\Tests\\": [
-                        "tests/wpunit",
-                        "tests/_support/Helper/"
-                    ]
-                }
-            },
-            "scripts": {
-                "test:analysis": [
-                    "phpstan analyse -c phpstan.neon.dist --memory-limit=-1"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-2.0-or-later"
             ],
@@ -795,7 +789,11 @@
                 }
             ],
             "description": "A library that integrates a WordPress product with the StellarWP Licensing system.",
-            "time": "2024-09-03T15:43:05+00:00"
+            "support": {
+                "issues": "https://github.com/stellarwp/uplink/issues",
+                "source": "https://github.com/stellarwp/uplink/tree/main"
+            },
+            "time": "2024-09-04T09:48:18+00:00"
         }
     ],
     "packages-dev": [
