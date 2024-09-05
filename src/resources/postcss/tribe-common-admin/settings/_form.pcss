@@ -90,6 +90,11 @@
 
 			@media (--viewport-xlarge) {
 				grid-column: 2;
+				padding-bottom: var(--tec-spacer-7);
+
+				&:nth-last-child(-n +1 of div) {
+					padding-bottom: 0;
+				}
 			}
 		}
 	}
