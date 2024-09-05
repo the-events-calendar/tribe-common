@@ -50,7 +50,7 @@
 			padding-top: var(--tec-spacer-7);
 
 			&.tec-settings-form__subnav-active {
-				padding-top: var(--tec-spacer-9);
+				padding-top: var(--tec-spacer-12);
 			}
 
 			&.tec-events-settings__upsell-form {
@@ -89,6 +89,11 @@
 
 			@media (--viewport-xlarge) {
 				grid-column: 2;
+				padding-bottom: var(--tec-spacer-7);
+
+				&:nth-last-child(-n +1 of div) {
+					padding-bottom: 0;
+				}
 			}
 		}
 	}

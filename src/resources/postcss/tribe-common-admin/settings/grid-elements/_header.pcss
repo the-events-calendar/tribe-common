@@ -10,6 +10,7 @@
 	h2,
 	h3 {
 		font-size: var(--tec-font-size-5);
+		line-height: 125%;
 	}
 
 	.tribe-additional-fields {
@@ -125,6 +126,7 @@
 
 	.tec-settings-form__section-description {
 		margin: 0;
+		font-size: var(--tec-font-size-2);
 
 		@media (--viewport-xlarge) {
 			grid-column: 1;
@@ -159,7 +161,8 @@
 
 		@media (--viewport-xlarge) {
 			grid-column: 1 / span 2;
-			padding: 0 0 var(--tec-spacer-5);
+			margin: 0;
+			padding: 0 var(--tec-spacer-7) var(--tec-spacer-5);
 
 			&:not(:first-child) {
 				margin-top: 0;
