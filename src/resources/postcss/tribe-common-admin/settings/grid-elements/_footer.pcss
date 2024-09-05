@@ -12,20 +12,34 @@
 		background-color: var(--tec-color-background);
 		border-bottom-left-radius: var(--tec-border-radius-default);
 		border-bottom-right-radius: var(--tec-border-radius-default);
-		border-top: 1px solid var(--tec-admin-core-grey-10);
+		border-color: var(--tec-admin-core-grey-10);
+		border-style: solid;
+		border-width: 0;
+		border-top-width: 1px;
+		bottom: 0;
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: space-between;
+		left: var(--tec-spacer-7);
 		margin: 0 calc(-1 * var(--tec-spacer-7));
 		padding: var(--tec-spacer-3) var(--tec-spacer-7);
+		position: sticky;
+		right: var(--tec-spacer-7);
 
 		.dashicons-editor-help {
 			text-decoration: none;
 		}
 
 		@media (--viewport-xsmall) {
+			border-width: 1px;
 			margin: 0;
 			padding-right: var(--tec-spacer-7);
+		}
+
+		@media (min-width: 1024px) {
+			border-width: 0;
+			border-top-width: 1px;
+			position: static;
 		}
 
 		@media (--viewport-xlarge) {
