@@ -141,7 +141,7 @@ class Zapier_Provider extends Service_Provider {
 		add_action( 'admin_init', [ $this, 'add_endpoints_to_dashboard' ] );
 
 		// Wait until plugins are loaded and then add queues for our various plugins.
-		add_action( 'tribe_plugins_loaded', [ $this, 'setup_add_to_queues' ] );
+		add_action( 'init', [ $this, 'setup_add_to_queues' ] );
 	}
 
 	/**
@@ -163,7 +163,7 @@ class Zapier_Provider extends Service_Provider {
 	 * @return void
 	 */
 	protected function add_tec_setup(): void {
-		if ( ! did_action( 'tribe_events_bound_implementations' ) ) {
+		if ( ! did_action( 'tec_events_pro_init' ) ) {
 			return;
 		}
 
@@ -183,7 +183,7 @@ class Zapier_Provider extends Service_Provider {
 	 * @return void
 	 */
 	protected function add_et_setup(): void {
-		if ( ! did_action( 'tribe_tickets_plugin_loaded' ) ) {
+		if ( ! did_action( 'tec_tickets_plus_attendee_bind_implementations' ) ) {
 			return;
 		}
 
@@ -761,14 +761,5 @@ class Zapier_Provider extends Service_Provider {
 		];
 
 		$this->container->make( Refunded_Orders::class )->add_to_queue( $order_id, $data );
-	}
-
-	/**
-	 * Renders the GDPR/CCPA privacy notice.
-	 *
-	 * @since 6.0.0 Migrated to Common from Event Automator
-	 */
-	public function render_privacy_notice() {
-		$this->container->make( Privacy_Notice::class )->render();
 	}
 }
