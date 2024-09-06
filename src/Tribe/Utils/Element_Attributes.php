@@ -115,7 +115,8 @@ class Element_Attributes {
 			} else {
 				// Remove double quotes that might be surrounding the value.
 				$val          = trim( $val, '"' );
-				$attributes[] = tag_escape( $key ) . '="' . esc_attr( $val ) . '"';
+				// @todo replace the first usage of esc_attr with tag_esc when our minimum WP version is 6.5.5 or greater.
+				$attributes[] = esc_attr( $key ) . '="' . esc_attr( $val ) . '"';
 			}
 		}
 

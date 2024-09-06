@@ -56,7 +56,7 @@ class Element_AttributesTest extends \Codeception\TestCase\WPTestCase {
 	 * Test with string arguments
 	 */
 	public function test_with_string_arguments() {
-		$attributes = new Element_Attributes( 'checked foo="bar" baz="woot"' );
+		$attributes = new Element_Attributes( 'checked foo="bar" baz="woot" data-foo="baz"' );
 
 		$this->assertEquals( [ 'checked', 'foo="bar"', 'baz="woot"' ], $attributes->get_attributes_array() );
 		$this->assertEquals( 'checked foo="bar" baz="woot"', $attributes->get_attributes_as_string() );
