@@ -1331,7 +1331,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @param bool                     $with_fallback Whether to return a DateTime object even when the date data is
 		 *                                                invalid or not; defaults to `true`.
 		 *
-		 * @return DateTime|false A DateTime object built using the specified date, time and timezone; if `$with_fallback`
+		 * @return DateTime|Date_i18n|false A DateTime|Date_i18n object built using the specified date, time and timezone; if `$with_fallback`
 		 *                        is set to `false` then `false` will be returned if a DateTime object could not be built.
 		 */
 		public static function build_date_object( $datetime = 'now', $timezone = null, $with_fallback = true ) {
