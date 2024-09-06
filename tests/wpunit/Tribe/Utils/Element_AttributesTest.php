@@ -60,8 +60,8 @@ class Element_AttributesTest extends \Codeception\TestCase\WPTestCase {
 		$attributes = new Element_Attributes( 'checked foo="bar" baz="woot" data-foo="baz"' );
 
 		$this->assertEquals( [ 'checked', 'foo="bar"', 'baz="woot"', 'data-foo="baz"' ], $attributes->get_attributes_array() );
-		$this->assertEquals( 'checked foo="bar" baz="woot data-foo="baz""', $attributes->get_attributes_as_string() );
-		$this->assertEquals( ' checked foo="bar" baz="woot data-foo="baz"" ', $attributes->get_attributes() );
+		$this->assertEquals( 'checked foo="bar" baz="woot" data-foo="baz"', $attributes->get_attributes_as_string() );
+		$this->assertEquals( ' checked foo="bar" baz="woot" data-foo="baz" ', $attributes->get_attributes() );
 	}
 
 	/**
