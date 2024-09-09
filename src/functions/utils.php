@@ -1335,7 +1335,7 @@ if ( ! function_exists( 'tec_copy_to_clipboard_button' ) ) {
 	/**
 	 * Output a button to copy the content of an element to the clipboard.
 	 *
-	 * @since TBD
+	 * @since 6.0.3
 	 *
 	 * @param string $content_to_copy The content to copy to the clipboard.
 	 * @param bool   $output_button   Whether to output the button or just the target element.
