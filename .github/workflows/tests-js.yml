@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1
           submodules: recursive
@@ -29,5 +29,3 @@ jobs:
         run: npm ci
       - name: Run jest task
         run: npm run jest
-
-
