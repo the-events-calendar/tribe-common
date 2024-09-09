@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Bug when term slugs were numeric.
