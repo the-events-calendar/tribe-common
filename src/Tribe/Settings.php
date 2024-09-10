@@ -333,7 +333,7 @@ class Tribe__Settings {
 		 *
 		 * @since 4.15.0
 		 *
-		 * @param array  $tabs<string,Tribe__Settigns_Tab> The tabs that will appear in the settings page.
+		 * @param array  $tabs<string,Tribe__Settings_Tab> The tabs that will appear in the settings page.
 		 * @param string $admin_page                       The admin page ID.
 		 */
 		$this->tabs = (array) apply_filters( 'tribe_settings_tabs', [], $admin_page, $this );
@@ -370,6 +370,7 @@ class Tribe__Settings {
 			 */
 			$this->default_tab = apply_filters( 'tribe_settings_default_tab_network', 'network', $admin_page );
 		} else {
+			$default_tab = $this->is_event_settings() ? 'viewing' : 'event-tickets';
 			/**
 			 * Filter the default tab for the settings page.
 			 *
@@ -378,7 +379,13 @@ class Tribe__Settings {
 			 * @param string $default_tab The default tab for the settings page.
 			 * @param string $admin_page  The admin page ID.
 			 */
-			$default_tab       = apply_filters( 'tribe_settings_default_tab', 'viewing', $admin_page, $this );
+			$default_tab       = apply_filters( 'tribe_settings_default_tab', $default_tab, $admin_page, $this );
+
+			// Can't pass a param to an in-place sort.
+			$tabs = (array) $this->tabs;
+			uasort( $tabs, [ $this, 'sort_by_priority' ] );
+			$this->tabs = $tabs;
+
 			$this->default_tab = in_array( $default_tab, $this->tabs ) ? $default_tab : array_key_first( $this->tabs );
 		}
 
@@ -416,6 +423,24 @@ class Tribe__Settings {
 		$this->fields = (array) apply_filters( 'tribe_settings_fields', [], $admin_page );
 
 		$this->validate();
+	}
+
+	/**
+	 * Determine if we are on an event settings page.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|null $admin_page The admin page ID.
+	 *
+	 * @return bool
+	 */
+	public function is_event_settings( $admin_page= null ) {
+		if ( empty( $admin_page ) ) {
+			$admin_pages = tribe( 'admin.pages' );
+			$admin_page  = $admin_pages->get_current_page();
+		}
+
+		return $admin_page === 'tec-events-settings';
 	}
 
 	/**
@@ -513,7 +538,9 @@ class Tribe__Settings {
 	public function do_page_header( $admin_page ): void {
 		?>
 		<h1>
-			<?php echo wp_kses_post( $this->get_page_logo( $admin_page ) ); ?>
+			<?php if ( $this->is_event_settings() ) : ?>
+				<?php echo wp_kses_post( $this->get_page_logo( $admin_page ) ); ?>
+			<?php endif; ?>
 			<?php echo esc_html( $this->get_page_title( $admin_page ) ); ?>
 		</h1>
 		<?php
@@ -606,13 +633,12 @@ class Tribe__Settings {
 	 * @since TBD
 	 */
 	public function generate_page(): void {
-		$admin_pages  = tribe( 'admin.pages' );
-		$admin_page   = $admin_pages->get_current_page();
-		$current_tab  = $this->get_current_tab();
-		$wrap_classes = apply_filters( 'tribe_settings_wrap_classes', [ 'tribe_settings', 'wrap' ], $admin_page );
-		$is_tec_settings = $admin_page === 'tec-events-settings';
-
-		$form_classes = [ "tec-settings-form__{$current_tab}-tab--active" ];
+		$admin_pages       = tribe( 'admin.pages' );
+		$admin_page        = $admin_pages->get_current_page();
+		$current_tab       = $this->get_current_tab();
+		$wrap_classes      = apply_filters( 'tribe_settings_wrap_classes', [ 'tribe_settings', 'wrap' ], $admin_page );
+		$is_event_settings = $this->is_event_settings( $admin_page );
+		$form_classes      = [ "tec-settings-form__{$current_tab}-tab--active" ];
 
 		if ( $this->get_tab( $current_tab )->has_parent() ) {
 			$form_classes[] = 'tec-settings-form__subnav-active';
@@ -634,12 +660,12 @@ class Tribe__Settings {
 			<?php
 			$this->output_notice_wrap();
 			$this->do_page_header( $admin_page );
-			if ( $is_tec_settings ) {
+			if ( $is_event_settings ) {
 				$this->generate_modal_nav( $admin_page );
 			}
 
 			do_action( 'tribe_settings_above_tabs' );
-			if ( $is_tec_settings ) {
+			if ( $is_event_settings ) {
 				$this->generate_tabs();
 			} else {
 				$this->generateTabs();
@@ -652,7 +678,7 @@ class Tribe__Settings {
 				<?php
 				do_action( 'tribe_settings_above_form_element' );
 				do_action( 'tribe_settings_above_form_element_tab_' . $current_tab, $admin_page );
-				$form_id = $is_tec_settings ? 'tec-settings-form' : 'tec-tickets-settings-form';
+				$form_id = $is_event_settings ? 'tec-settings-form' : 'tec-tickets-settings-form';
 				?>
 				<form id="<?php echo esc_attr( $form_id ); ?>" <?php tribe_classes( $form_classes ); ?> method="post">
 				<?php
@@ -677,7 +703,7 @@ class Tribe__Settings {
 			</div>
 			<?php
 			do_action( 'tribe_settings_after_form_div', $this );
-			if ( $is_tec_settings ) {
+			if ( $is_event_settings ) {
 				$this->generate_modal_sidebar();
 			}
 			?>
@@ -742,7 +768,7 @@ class Tribe__Settings {
 		$nav_id = $modal ? 'tec-settings-modal-nav' : 'tribe-settings-tabs';
 		$wrapper_classes = [
 			'tec-nav__wrapper'                => true,
-			'tec-settings__nav-wrapper'       => tribe( 'admin.pages' )->get_current_page() === 'tec-events-settings',
+			'tec-settings__nav-wrapper'       => $this->is_event_settings(),
 			'tec-nav__wrapper--subnav-active' => false,
 		];
 
@@ -1491,9 +1517,7 @@ class Tribe__Settings {
 	 * @deprecated TBD
 	 */
 	public function generateTabs() {
-		$admin_pages = tribe( 'admin.pages' );
-		$admin_page  = $admin_pages->get_current_page();
-		if ( $admin_page === 'tec-events-settings' ) {
+		if ( $this->is_event_settings() ) {
 			_deprecated_function( __METHOD__, 'TBD', 'generate_tabs' );
 			$this->generate_tabs();
 		} else {
@@ -1552,9 +1576,7 @@ class Tribe__Settings {
 	 * @since 4.15.0 Add the current page as parameter for the actions.
 	 */
 	public function generatePage() {
-		$admin_pages = tribe( 'admin.pages' );
-		$admin_page  = $admin_pages->get_current_page();
-		if ( $admin_page === 'tec-events-settings' ) {
+		if ( $this->is_event_settings() ) {
 			_deprecated_function( __METHOD__, 'TBD', 'generate_page' );
 		}
 
