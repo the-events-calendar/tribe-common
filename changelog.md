@@ -1,5 +1,11 @@
 # Changelog
 
+### [6.0.3] 2024-09-09
+
+* Feature - Adding the method `tec_copy_to_clipboard_button` which can be used to print a button which on click would copy a text to the user's clipboard. [ET-2158]
+* Fix - Bug when term slugs were numeric.
+* Fix - Optimized prime_term_cache to return early when no posts are provided [TECTRIA-229]
+
 ### [6.0.0.2] 2024-07-24
 
 * Fix - Stellar Sale's banner links, details, and HTML tags handling. [TEC-5121]
