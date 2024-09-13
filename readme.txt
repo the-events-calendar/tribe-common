@@ -1,5 +1,20 @@
 == Changelog ==
 
+= [6.0.3] 2024-09-11 =
+
+* Feature - Adding the method `tec_copy_to_clipboard_button` which can be used to print a button which on click would copy a text to the user's clipboard. [ET-2158]
+* Fix - Correct bug when term slugs were numeric.
+* Fix - Optimized prime_term_cache to return early when no posts are provided [TECTRIA-229]
+* Language - 2 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
+
+= [6.0.2] 2024-08-20 =
+
+* Fix - Fixed attendee, updated attendee, and checkin endpoints from having invalid response for workflow operation 'id' to be of type 'Integer' but is of type 'String'. [EVA-160]
+* Fix - Stellar Sale's banner links, details, and HTML tags handling. [TEC-5121]
+* Tweak - Change setup of queues for Automator integrations to use Event Tickets Plus and Events Calendar Pro hooks instead of the core versions. [EVA-160]
+* Tweak - Move Registering of Power Automate and Zapier endpoints to Event Tickets Plus and Events Calendar Pro. [EVA-160]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
 = [6.0.1] 2024-08-06 =
 
 * Fix - Change hook to detect if TEC is active for Automator Event Endpoints used by Power Automate and Zapier. [TEC-5123]

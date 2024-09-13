@@ -118,7 +118,7 @@ class Updated_Attendees extends Abstract_REST_Endpoint {
 			return new WP_REST_Response( $data );
 		}
 
-		$next_attendee = $this->get_mapped_attendee( $next_attendee_id, static::$service_id );
+		$next_attendee = $this->get_mapped_attendee( $next_attendee_id, false, static::$service_id );
 		if ( empty( $next_attendee ) ) {
 			$this->trigger->set_queue( $current_queue );
 			$data = [
