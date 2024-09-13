@@ -9,8 +9,10 @@ import React from 'react';
 import { TEC } from '@moderntribe/common/icons';
 import './style.pcss';
 
-export default () => (
+const BlockIcon = () => (
 	<div className="tribe-editor__icons__container tribe-editor__icons--tec">
 		<TEC />
 	</div>
 );
+
+export default BlockIcon;
