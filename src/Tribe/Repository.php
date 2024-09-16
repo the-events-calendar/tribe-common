@@ -116,6 +116,7 @@ abstract class Tribe__Repository
 		'meta_equals_regexp_or_like',
 		'meta_not_regexp_or_like',
 		'meta_not_equals_regexp_or_like',
+		'order',
 		'taxonomy_exists',
 		'taxonomy_not_exists',
 		'term_id_in',
@@ -1988,6 +1989,10 @@ abstract class Tribe__Repository
 				}
 
 				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, $compare );
+				break;
+			case 'order':
+				// Only allow ASC and DESC for order.
+				$args = [ 'order' => strtoupper( trim( $value ) ) === 'DESC' ? 'DESC' : 'ASC' ];
 				break;
 			case 'taxonomy_exists':
 				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'EXISTS' );
