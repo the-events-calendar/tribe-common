@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [6.0.3.1] 2024-09-16 =
+
+* Security - Improve general escaping for ORM queries to prevent legacy Events methods to be used for SQL injections.
+
 = [6.0.3] 2024-09-11 =
 
 * Feature - Adding the method `tec_copy_to_clipboard_button` which can be used to print a button which on click would copy a text to the user's clipboard. [ET-2158]
