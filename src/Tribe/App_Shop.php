@@ -203,27 +203,26 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 					'description' => __( 'Handle event submissions with ticket sales and everything you need to build a robust community.', 'tribe-common' ),
 					'includes'    => [
 						'event-tickets-plus',
+						'events-calendar-pro',
 						'events-community',
-						'events-community-tickets',
 						'tribe-filterbar',
 					],
 				],
 				(object) [
-					'title'       => __( 'Ultimate Bundle', 'tribe-common' ),
+					'title'       => __( 'The Complete Collection', 'tribe-common' ),
 					'logo'        => 'images/logo/bundle-ultimate.svg',
 					'link'        => 'https://evnt.is/1aj5',
 					'discount'    => __( 'Save over 20%', 'tribe-common' ), /* code review: fix this */
 					'description' => __( 'All of our premium events management plugins at a deep discount.', 'tribe-common' ),
 					'includes'    => [
-						'events-calendar-pro',
-						'event-tickets-plus',
-						//'events-virtual', // not yet added to the bundle
-						'events-community',
-						'events-community-tickets',
-						'tribe-filterbar',
 						'event-aggregator',
+						'event-schedule-manager',
+						'event-tickets-plus',
+						'events-calendar-pro',
+						'events-community',
+						'promoter',
 						'tribe-eventbrite',
-						//'promoter', // not yet added to the bundle
+						'tribe-filterbar',
 					],
 				],
 
