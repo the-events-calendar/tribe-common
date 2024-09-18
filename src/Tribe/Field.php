@@ -443,7 +443,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 					$tags['option']   = $common_attributes;
 					$tags['fieldset'] = _wp_add_global_attributes( [] );
 
-					// Allow the script tag for HTML fields (inserting script localization).
+					// Allow the script and template tags for HTML fields (inserting script localization, js templates).
 					if ( $this->type === 'html' || $this->type === 'wrapped_html' ) {
 						$tags['script']   = _wp_add_global_attributes( [ 'type' => true ] );
 						$tags['template'] = _wp_add_global_attributes( [ 'type' => true ] );
