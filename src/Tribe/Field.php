@@ -443,6 +443,11 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 					$tags['option']   = $common_attributes;
 					$tags['fieldset'] = _wp_add_global_attributes( [] );
 
+					// Allow the script tag for HTML fields (inserting script localization).
+					if ( $this->type === 'html' || $this->type === 'wrapped_html' ) {
+						$tags['script'] = true;
+					}
+
 					return $tags;
 				};
 
@@ -1180,7 +1185,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 * @return bool
 		 */
 		public function has_field_value() {
-			// Cetain "field" types have no value.
+			// Certain "field" types have no value.
 			if ( in_array( $this->type, [ 'heading', 'html', 'wrapped_html' ], true ) ) {
 				return false;
 			}
