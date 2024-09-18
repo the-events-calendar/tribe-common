@@ -124,7 +124,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		public $options;
 
 		/**
-		 * @var string
+		 * @var mixed
 		 */
 		public $value;
 
