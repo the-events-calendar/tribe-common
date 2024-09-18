@@ -445,8 +445,8 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 
 					// Allow the script tag for HTML fields (inserting script localization).
 					if ( $this->type === 'html' || $this->type === 'wrapped_html' ) {
-						$tags['script']   = $common_attributes;
-						$tags['template'] = true;
+						$tags['script']   = _wp_add_global_attributes( [ 'type' => true ] );
+						$tags['template'] = _wp_add_global_attributes( [ 'type' => true ] );
 					}
 
 					return $tags;
