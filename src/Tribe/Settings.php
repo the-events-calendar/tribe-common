@@ -1095,7 +1095,7 @@ class Tribe__Settings {
 		$current_settings_tab = tribe_get_request_var( 'current-settings-tab', $this->get_current_tab() );
 
 		// Return if we don't have POST and variables.
-		if ( ! $tribe_save_settings || ! $current_settings_tab ) {
+		if ( ! ( $tribe_save_settings && $current_settings_tab ) ) {
 			return;
 		}
 
