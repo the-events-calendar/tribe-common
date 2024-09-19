@@ -20,7 +20,7 @@ use InvalidArgumentException;
  *
  * @since TBD
  */
-class Container extends Base_Entity {
+class Container extends Base_Entity implements Element_With_Children {
 
 	use Validate_Elements;
 
@@ -67,6 +67,15 @@ class Container extends Base_Entity {
 		}
 
 		return $this;
+	}
+
+	/**
+	 * Get the children of the container.
+	 *
+	 * @return Element[]
+	 */
+	public function get_children(): array {
+		return $this->children;
 	}
 
 	/**
