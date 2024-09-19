@@ -36,6 +36,8 @@ class Link extends Base_Entity {
 	/**
 	 * Link constructor.
 	 *
+	 * @since TBD
+	 *
 	 * @param string      $url        The URL for the link.
 	 * @param string      $text       The text for the link.
 	 * @param ?Classes    $classes    The classes for the link.
@@ -56,6 +58,8 @@ class Link extends Base_Entity {
 
 	/**
 	 * Render the link.
+	 *
+	 * @since TBD
 	 *
 	 * @return void
 	 */

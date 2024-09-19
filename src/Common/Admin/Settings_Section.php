@@ -28,6 +28,8 @@ class Settings_Section extends Section {
 	/**
 	 * Add an element to the section.
 	 *
+	 * @since TBD
+	 *
 	 * @param Element $element The element to add.
 	 *
 	 * @return static
@@ -40,6 +42,8 @@ class Settings_Section extends Section {
 
 	/**
 	 * Add multiple elements to the section.
+	 *
+	 * @since TBD
 	 *
 	 * @param Element[] $elements The elements to add.
 	 *
@@ -56,6 +60,8 @@ class Settings_Section extends Section {
 	/**
 	 * Render the section content.
 	 *
+	 * @since TBD
+	 *
 	 * @return void
 	 */
 	public function render() {
@@ -69,6 +75,8 @@ class Settings_Section extends Section {
 
 	/**
 	 * Render the elements for the section.
+	 *
+	 * @since TBD
 	 *
 	 * @return void
 	 */

@@ -23,6 +23,8 @@ class List_Item extends Container {
 	/**
 	 * List_Item constructor.
 	 *
+	 * @since TBD
+	 *
 	 * @param ?Classes    $classes    The classes for the list item.
 	 * @param ?Attributes $attributes The attributes for the list item.
 	 */
@@ -39,6 +41,8 @@ class List_Item extends Container {
 	/**
 	 * Add a child to the container.
 	 *
+	 * @since TBD
+	 *
 	 * @param Element $child The child to add. Cannot be another List Item.
 	 *
 	 * @return static
@@ -54,6 +58,8 @@ class List_Item extends Container {
 
 	/**
 	 * Render the list item content.
+	 *
+	 * @since TBD
 	 *
 	 * @return void
 	 */

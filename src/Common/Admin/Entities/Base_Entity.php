@@ -40,6 +40,8 @@ abstract class Base_Entity implements ArrayAccess, Element {
 	/**
 	 * Convert the entity output to a string.
 	 *
+	 * @since TBD
+	 *
 	 * @return string
 	 */
 	public function __toString() {
@@ -56,6 +58,7 @@ abstract class Base_Entity implements ArrayAccess, Element {
 	 * escaped, so it is not necessary to further escape these attributes.
 	 *
 	 * @see Element_Attributes::get_attributes_as_string()
+	 * @since TBD
 	 *
 	 * @return string
 	 */
@@ -68,6 +71,8 @@ abstract class Base_Entity implements ArrayAccess, Element {
 	/**
 	 * Get the classes for the entity.
 	 *
+	 * @since TBD
+	 *
 	 * @return string
 	 */
 	protected function get_classes(): string {
@@ -78,6 +83,8 @@ abstract class Base_Entity implements ArrayAccess, Element {
 
 	/**
 	 * Get the classes as an attribute.
+	 *
+	 * @since TBD
 	 *
 	 * @return string
 	 */
@@ -90,6 +97,8 @@ abstract class Base_Entity implements ArrayAccess, Element {
 	/**
 	 * Set the attributes for the entity.
 	 *
+	 * @since TBD
+	 *
 	 * @param Attributes $attributes
 	 *
 	 * @return void
@@ -100,6 +109,8 @@ abstract class Base_Entity implements ArrayAccess, Element {
 
 	/**
 	 * Set the classes for the entity.
+	 *
+	 * @since TBD
 	 *
 	 * @param Classes $classes The classes for the entity.
 	 *

@@ -19,6 +19,8 @@ interface Element_With_Children extends Element {
 	/**
 	 * Get the children of the container.
 	 *
+	 * @since TBD
+	 *
 	 * @return Element[]
 	 */
 	public function get_children(): array;

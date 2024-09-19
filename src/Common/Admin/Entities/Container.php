@@ -41,6 +41,8 @@ class Container extends Base_Entity implements Element_With_Children {
 	/**
 	 * Add a child to the container.
 	 *
+	 * @since TBD
+	 *
 	 * @param Element $child The child to add.
 	 *
 	 * @return static
@@ -57,6 +59,8 @@ class Container extends Base_Entity implements Element_With_Children {
 	/**
 	 * Add multiple children to the container.
 	 *
+	 * @since TBD
+	 *
 	 * @param Element[] $children The children to add.
 	 *
 	 * @return static
@@ -72,6 +76,8 @@ class Container extends Base_Entity implements Element_With_Children {
 	/**
 	 * Get the children of the container.
 	 *
+	 * @since TBD
+	 *
 	 * @return Element[]
 	 */
 	public function get_children(): array {
@@ -80,6 +86,8 @@ class Container extends Base_Entity implements Element_With_Children {
 
 	/**
 	 * Render the children of the container.
+	 *
+	 * @since TBD
 	 *
 	 * @return void
 	 */
@@ -91,6 +99,8 @@ class Container extends Base_Entity implements Element_With_Children {
 
 	/**
 	 * Render the element.
+	 *
+	 * @since TBD
 	 *
 	 * @return void
 	 */

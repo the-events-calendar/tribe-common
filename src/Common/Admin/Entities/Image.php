@@ -28,6 +28,8 @@ class Image extends Base_Entity {
 	/**
 	 * Image constructor.
 	 *
+	 * @since TBD
+	 *
 	 * @param string      $url        The URL for the image.
 	 * @param ?Attributes $attributes The attributes for the image element.
 	 */
@@ -41,6 +43,8 @@ class Image extends Base_Entity {
 
 	/**
 	 * Render the image.
+	 *
+	 * @since TBD
 	 *
 	 * @return void
 	 */

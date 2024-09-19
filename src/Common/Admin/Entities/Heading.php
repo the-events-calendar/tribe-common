@@ -45,6 +45,8 @@ class Heading extends Base_Entity {
 	/**
 	 * Heading constructor.
 	 *
+	 * @since TBD
+	 *
 	 * @param string      $content    The content for the heading.
 	 * @param int         $level      The level for the heading.
 	 * @param ?Classes    $classes    The classes for the heading.
@@ -68,6 +70,8 @@ class Heading extends Base_Entity {
 	/**
 	 * Render the element.
 	 *
+	 * @since TBD
+	 *
 	 * @return void
 	 */
 	public function render() {
@@ -83,6 +87,8 @@ class Heading extends Base_Entity {
 
 	/**
 	 * Validate the heading level.
+	 *
+	 * @since TBD
 	 *
 	 * @param int $level The heading level.
 	 *
