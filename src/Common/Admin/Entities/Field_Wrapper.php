@@ -44,4 +44,13 @@ class Field_Wrapper implements Element {
 	public function render(): void {
 		$this->field->do_field();
 	}
+
+	/**
+	 * Get the field.
+	 *
+	 * @return Field
+	 */
+	public function get_field(): Field {
+		return $this->field;
+	}
 }
