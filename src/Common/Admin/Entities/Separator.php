@@ -22,6 +22,8 @@ class Separator extends Base_Entity {
 	/**
 	 * Separator constructor.
 	 *
+	 * @since TBD
+	 *
 	 * @param ?Classes    $classes    The classes for the separator.
 	 * @param ?Attributes $attributes The attributes for the separator.
 	 */
@@ -37,6 +39,8 @@ class Separator extends Base_Entity {
 
 	/**
 	 * Render the element.
+	 *
+	 * @since TBD
 	 *
 	 * @return void
 	 */

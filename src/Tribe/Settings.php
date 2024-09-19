@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+use TEC\Common\Admin\Entities\Element_With_Children;
+use TEC\Common\Admin\Entities\Field_Wrapper;
 use Tribe\Admin\Pages as Admin_Pages;
 
 if ( did_action( 'tec_settings_init' ) ) {
@@ -1091,80 +1093,112 @@ class Tribe__Settings {
 		// Check that the right POST && variables are set.
 		$tribe_save_settings  = tribe_get_request_var( 'tribe-save-settings', false );
 		$current_settings_tab = tribe_get_request_var( 'current-settings-tab', $this->get_current_tab() );
-		if ( $tribe_save_settings && $current_settings_tab ) {
-			// Check permissions.
-			if ( ! current_user_can( Admin_Pages::get_capability() ) ) {
-				$this->errors[]    = esc_html__( "You don't have permission to do that.", 'tribe-common' );
-				$this->major_error = true;
-			}
 
-			// Check the nonce.
-			if ( ! wp_verify_nonce( $tribe_save_settings, 'saving' ) ) {
-				$this->errors[]    = esc_html__( 'The request was sent insecurely.', 'tribe-common' );
-				$this->major_error = true;
-			}
+		// Return if we don't have POST and variables.
+		if ( ! ( $tribe_save_settings && $current_settings_tab ) ) {
+			return;
+		}
 
-			// Check that the request originated from the current tab.
-			if ( $current_settings_tab !== $this->current_tab ) {
-				$this->errors[]    = esc_html__( "The request wasn't sent from this tab.", 'tribe-common' );
-				$this->major_error = true;
-			}
+		// Check permissions.
+		if ( ! current_user_can( Admin_Pages::get_capability() ) ) {
+			$this->errors[]    = esc_html__( "You don't have permission to do that.", 'tribe-common' );
+			$this->major_error = true;
+		}
 
-			// Bail if we have errors.
-			if ( count( $this->errors ) ) {
-				remove_action( 'shutdown', [ $this, 'delete_options' ] );
-				add_option( 'tribe_settings_errors', $this->errors );
-				add_option( 'tribe_settings_major_error', $this->major_error );
-				wp_safe_redirect( $this->get_settings_page_url() );
-				exit;
-			}
+		// Check the nonce.
+		if ( ! wp_verify_nonce( $tribe_save_settings, 'saving' ) ) {
+			$this->errors[]    = esc_html__( 'The request was sent insecurely.', 'tribe-common' );
+			$this->major_error = true;
+		}
 
-			do_action( 'tribe_settings_validate', $admin_page );
-			do_action( 'tribe_settings_validate_tab_' . $this->current_tab, $admin_page );
+		// Check that the request originated from the current tab.
+		if ( $current_settings_tab !== $this->current_tab ) {
+			$this->errors[]    = esc_html__( "The request wasn't sent from this tab.", 'tribe-common' );
+			$this->major_error = true;
+		}
 
-			// Set the current fields.
-			$this->current_fields = $this->fields_for_save[ $this->current_tab ];
-			$fields               = $this->current_fields;
+		// Bail if we have errors.
+		if ( count( $this->errors ) ) {
+			remove_action( 'shutdown', [ $this, 'delete_options' ] );
+			add_option( 'tribe_settings_errors', $this->errors );
+			add_option( 'tribe_settings_major_error', $this->major_error );
+			wp_safe_redirect( $this->get_settings_page_url() );
+			exit;
+		}
 
-			if ( is_array( $fields ) ) {
-				// Loop through the fields and validate them.
-				foreach ( $fields as $field_id => $field ) {
-					// Get the value.
-					$value = tribe_get_request_var( $field_id, null );
-					$value = apply_filters( 'tribe_settings_validate_field_value', $value, $field_id, $field );
+		do_action( 'tribe_settings_validate', $admin_page );
+		do_action( 'tribe_settings_validate_tab_' . $this->current_tab, $admin_page );
 
-					// Make sure it has validation set up for it, else do nothing.
-					if (
-						( ! isset( $field['conditional'] ) || $field['conditional'] )
-						&& ( ! empty( $field['validation_type'] ) || ! empty( $field['validation_callback'] ) )
-					) {
-						do_action( 'tribe_settings_validate_field', $field_id, $value, $field );
-						do_action( 'tribe_settings_validate_field_' . $field_id, $value, $field );
+		// Set the current fields.
+		$this->current_fields = $this->fields_for_save[ $this->current_tab ];
+		$fields               = $this->current_fields;
 
-						// Validate this field.
-						$validate = new Tribe__Validate( $field_id, $field, $value );
+		if ( ! is_array( $fields ) ) {
+			return;
+		}
 
-						if ( isset( $validate->result->error ) ) {
-							// Validation failed.
-							$this->errors[ $field_id ] = $validate->result->error;
-						} elseif ( $validate->result->valid ) {
-							// Validation passed.
-							$this->validated[ $field_id ]        = new stdClass();
-							$this->validated[ $field_id ]->field = $validate->field;
-							$this->validated[ $field_id ]->value = $validate->value;
-						}
+		// Loop through the fields and validate them.
+		foreach ( $fields as $field_id => $field ) {
+			// If the field is an Element with children, check each of its children.
+			if ( $field instanceof Element_With_Children ) {
+				$children = $field->get_children();
+				foreach ( $children as $child ) {
+					if ( ! $child instanceof Field_Wrapper ) {
+						continue;
 					}
-				}
 
-				// Do not generate errors for dependent fields that should not show.
-				if ( ! empty( $this->errors ) ) {
-					$keep         = array_filter( array_keys( $this->errors ), [ $this, 'dependency_checks' ] );
-					$compare      = empty( $keep ) ? [] : array_combine( $keep, $keep );
-					$this->errors = array_intersect_key( $this->errors, $compare );
+					$this->validate_field( $child->get_field()->id, $child->get_field()->args );
 				}
+			} else {
+				$this->validate_field( $field_id, $field );
+			}
+		}
 
-				// Run the save method.
-				$this->save();
+		// Do not generate errors for dependent fields that should not show.
+		if ( ! empty( $this->errors ) ) {
+			$keep         = array_filter( array_keys( $this->errors ), [ $this, 'dependency_checks' ] );
+			$compare      = empty( $keep ) ? [] : array_combine( $keep, $keep );
+			$this->errors = array_intersect_key( $this->errors, $compare );
+		}
+
+		// Run the save method.
+		$this->save();
+	}
+
+	/**
+	 * Validate the value of a field to save.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $field_id The field ID.
+	 * @param array  $field    The field data.
+	 *
+	 * @return void
+	 */
+	protected function validate_field( $field_id, $field ) {
+		// Get the value.
+		$value = tribe_get_request_var( $field_id, null );
+		$value = apply_filters( 'tribe_settings_validate_field_value', $value, $field_id, $field );
+
+		// Make sure it has validation set up for it, else do nothing.
+		if (
+			( ! isset( $field['conditional'] ) || $field['conditional'] )
+			&& ( ! empty( $field['validation_type'] ) || ! empty( $field['validation_callback'] ) )
+		) {
+			do_action( 'tribe_settings_validate_field', $field_id, $value, $field );
+			do_action( 'tribe_settings_validate_field_' . $field_id, $value, $field );
+
+			// Validate this field.
+			$validate = new Tribe__Validate( $field_id, $field, $value );
+
+			if ( isset( $validate->result->error ) ) {
+				// Validation failed.
+				$this->errors[ $field_id ] = $validate->result->error;
+			} elseif ( $validate->result->valid ) {
+				// Validation passed.
+				$this->validated[ $field_id ]        = new stdClass();
+				$this->validated[ $field_id ]->field = $validate->field;
+				$this->validated[ $field_id ]->value = $validate->value;
 			}
 		}
 	}

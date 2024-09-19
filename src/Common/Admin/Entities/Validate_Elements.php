@@ -21,6 +21,8 @@ trait Validate_Elements {
 	/**
 	 * Validate that an object is an instance of a class.
 	 *
+	 * @since TBD
+	 *
 	 * @param object $thing     The object to validate.
 	 * @param string $classname The class name to validate against.
 	 *

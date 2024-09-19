@@ -22,6 +22,8 @@ class H3 extends Heading {
 	/**
 	 * H3 constructor.
 	 *
+	 * @since TBD
+	 *
 	 * @param string      $content    The content for the heading.
 	 * @param ?Classes    $classes    The classes for the heading.
 	 * @param ?Attributes $attributes The attributes for the heading.

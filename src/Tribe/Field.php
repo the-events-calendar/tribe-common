@@ -228,7 +228,8 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			];
 
 			// Merge the defaults with the passed args.
-			$args = wp_parse_args( $field, $this->defaults );
+			$args       = wp_parse_args( $field, $this->defaults );
+			$this->args = $args;
 
 			// Set the valid field types.
 			$this->setup_field_types();

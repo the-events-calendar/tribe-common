@@ -35,6 +35,8 @@ class Settings_Sidebar extends Section {
 	/**
 	 * Render the sidebar.
 	 *
+	 * @since TBD
+	 *
 	 * @return void
 	 */
 	public function render() {
@@ -63,6 +65,8 @@ class Settings_Sidebar extends Section {
 	/**
 	 * Set the header image for the sidebar.
 	 *
+	 * @since TBD
+	 *
 	 * @param Image $image The image to set.
 	 *
 	 * @return void
@@ -74,6 +78,8 @@ class Settings_Sidebar extends Section {
 	/**
 	 * Add a section to the sidebar.
 	 *
+	 * @since TBD
+	 *
 	 * @param Section $section The section to add.
 	 *
 	 * @return void
@@ -84,6 +90,8 @@ class Settings_Sidebar extends Section {
 
 	/**
 	 * Render the header image for the sidebar.
+	 *
+	 * @since TBD
 	 *
 	 * @return void
 	 */

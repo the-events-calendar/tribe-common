@@ -31,6 +31,8 @@ abstract class Section {
 	/**
 	 * Set the title for the sidebar.
 	 *
+	 * @since TBD
+	 *
 	 * @param Heading $heading The title for the sidebar.
 	 *
 	 * @return static
@@ -44,6 +46,8 @@ abstract class Section {
 	/**
 	 * Render the title for the sidebar.
 	 *
+	 * @since TBD
+	 *
 	 * @return void
 	 */
 	protected function render_title() {
@@ -56,6 +60,8 @@ abstract class Section {
 
 	/**
 	 * Render the section content.
+	 *
+	 * @since TBD
 	 *
 	 * @return void
 	 */

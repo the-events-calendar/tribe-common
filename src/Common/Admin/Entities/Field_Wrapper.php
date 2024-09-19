@@ -30,6 +30,8 @@ class Field_Wrapper implements Element {
 	/**
 	 * FieldW_Wrapper constructor.
 	 *
+	 * @since TBD
+	 *
 	 * @param Field $field The field to wrap.
 	 */
 	public function __construct( Field $field ) {
@@ -43,5 +45,16 @@ class Field_Wrapper implements Element {
 	 */
 	public function render(): void {
 		$this->field->do_field();
+	}
+
+	/**
+	 * Get the field.
+	 *
+	 * @since TBD
+	 *
+	 * @return Field
+	 */
+	public function get_field(): Field {
+		return $this->field;
 	}
 }

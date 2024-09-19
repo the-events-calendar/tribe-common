@@ -22,6 +22,8 @@ class Paragraph extends Container {
 	/**
 	 * Paragraph constructor.
 	 *
+	 * @since TBD
+	 *
 	 * @param ?Classes    $classes    The classes for the paragraph.
 	 * @param ?Attributes $attributes The attributes for the paragraph.
 	 */
@@ -37,6 +39,8 @@ class Paragraph extends Container {
 
 	/**
 	 * Render the paragraph content.
+	 *
+	 * @since TBD
 	 *
 	 * @return void
 	 */

@@ -26,6 +26,8 @@ class Plain_Text extends Base_Entity {
 	/**
 	 * Plain_Text constructor.
 	 *
+	 * @since TBD
+	 *
 	 * @param string $content The content for the text.
 	 */
 	public function __construct( string $content ) {
@@ -34,6 +36,8 @@ class Plain_Text extends Base_Entity {
 
 	/**
 	 * Render the text content.
+	 *
+	 * @since TBD
 	 *
 	 * @return void
 	 */
