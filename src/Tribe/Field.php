@@ -409,7 +409,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				 *
 				 * @return array The allowed tags.
 				 */
-				$kses_filter = function ( $allowedtags, $context ) {
+				$kses_allowed_html = function ( $allowedtags, $context ) {
 					// If it's not the right context, return the allowed tags as-is.
 					if ( 'tribe-field' !== $context ) {
 						return $allowedtags;
@@ -453,11 +453,11 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 					return $tags;
 				};
 
-				add_filter( 'wp_kses_allowed_html', $kses_filter, 10, 2 );
+				add_filter( 'wp_kses_allowed_html', $kses_allowed_html, 10, 2 );
 
 				echo wp_kses( $field, 'tribe-field' );
 
-				remove_filter( 'wp_kses_allowed_html', $kses_filter );
+				remove_filter( 'wp_kses_allowed_html', $kses_allowed_html );
 
 				return;
 			}
