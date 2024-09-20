@@ -455,7 +455,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 
 				add_filter( 'wp_kses_allowed_html', $kses_allowed_html, 10, 2 );
 
-				echo wp_kses( $field, 'tribe-field' );
+				echo wp_kses( $field, 'tribe-field', self::get_kses_protocols() );
 
 				remove_filter( 'wp_kses_allowed_html', $kses_allowed_html );
 
@@ -1278,6 +1278,27 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$sanitized = array_map( 'sanitize_html_class', $classes );
 
 			return implode( ' ', $sanitized );
+		}
+
+		/**
+		 * Get the allowed protocols for the field.
+		 *
+		 * This is static because it will be the same for every instance of the class, and
+		 * we only need to calculate it once.
+		 *
+		 * @since TBD
+		 *
+		 * @return array The allowed protocols.
+		 */
+		protected static function get_kses_protocols(): array {
+			static $protocols = null;
+			if ( null === $protocols ) {
+				$protocols   = wp_allowed_protocols();
+				$protocols[] = 'data';
+				$protocols   = array_unique( $protocols );
+			}
+
+			return $protocols;
 		}
 
 		/**
