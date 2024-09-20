@@ -42,8 +42,20 @@
 	}
 
 	.tec-automator-endpoint-dashboard .tec-automator-api-fields,
-	.tec-automator-settings .tec-automator-api-fields {
-		padding-left: 0;
+	.tec-automator-settings fieldset,
+	.tec-automator-dashboard fieldset {
+		margin: 0;
+		padding: var(--tec-spacer-4) var(--tec-spacer-7) 0;
+
+		legend {
+			padding-top: var(--tec-spacer-6);
+		}
+	}
+
+	.tec-automator-dashboard .tec-automator-endpoint-dashboard {
+		legend {
+			padding-top: var(--tec-spacer-6);
+		}
 	}
 
 	.tec-automator-settings .tec-automator-settings-items__wrap {
