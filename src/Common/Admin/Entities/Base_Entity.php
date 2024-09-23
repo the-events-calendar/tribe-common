@@ -99,7 +99,7 @@ abstract class Base_Entity implements ArrayAccess, Element {
 	 *
 	 * @since TBD
 	 *
-	 * @param Attributes $attributes
+	 * @param Attributes $attributes The attributes to set.
 	 *
 	 * @return void
 	 */
