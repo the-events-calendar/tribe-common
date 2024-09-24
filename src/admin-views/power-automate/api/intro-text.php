@@ -25,15 +25,17 @@
 	</h3>
 	<p class="tec-settings-power-automate-application__description tec-settings-form__section-description">
 		<?php
-		printf(
+		$echo = sprintf(
 			/* Translators: %1$s: URL to the Power Automate API documentation */
-			esc_html_x(
+			_x(
 				'Please generate a connection for each of our applications you are using with Power Automate to enable its integrations. i.e.: one connection for The Events Calendar and one connection for Event Tickets. <a href="%1$s" target="_blank">Read more about adding and managing access.</a>',
 				'Settings help text and link for Power Automate API.',
 				'tribe-common'
 			),
-			'https://evnt.is/1bc8'
+			esc_url( 'https://evnt.is/1bc8' )
 		);
+
+		echo wp_kses_post( $echo );
 		?>
 	</p>
 </div>
