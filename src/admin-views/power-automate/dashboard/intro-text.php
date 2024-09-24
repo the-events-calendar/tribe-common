@@ -22,7 +22,7 @@
 	</h3>
 	<p class="tec-settings-power-automate-application__description tec-settings-form__section-description">
 		<?php
-		printf(
+		$content = sprintf(
 			/* Translators: %1$s: URL to the Power Automate Endpoint Dashboard documentation */
 			_x(
 				'Monitor your Power Automate endpoints (triggers and actions used by your connectors). <a href="%1$s" target="_blank">Read more about the Power Automate Endpoint Dashboard.</a>',
@@ -31,6 +31,7 @@
 			),
 			'https://evnt.is/1bcx'
 		);
+		echo wp_kses_post( $content );
 		?>
 	</p>
 </div>

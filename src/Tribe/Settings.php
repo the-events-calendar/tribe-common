@@ -381,7 +381,7 @@ class Tribe__Settings {
 			 * @param string $default_tab The default tab for the settings page.
 			 * @param string $admin_page  The admin page ID.
 			 */
-			$default_tab       = apply_filters( 'tribe_settings_default_tab', $default_tab, $admin_page, $this );
+			$default_tab = apply_filters( 'tribe_settings_default_tab', $default_tab, $admin_page, $this );
 
 			// Can't pass a param to an in-place sort.
 			$tabs = (array) $this->tabs;
@@ -436,7 +436,7 @@ class Tribe__Settings {
 	 *
 	 * @return bool
 	 */
-	public function is_event_settings( $admin_page= null ) {
+	public function is_event_settings( $admin_page = null ) {
 		if ( empty( $admin_page ) ) {
 			$admin_pages = tribe( 'admin.pages' );
 			$admin_page  = $admin_pages->get_current_page();
@@ -596,7 +596,8 @@ class Tribe__Settings {
 		$logo_source = apply_filters( 'tec_settings_page_logo_source', $logo_source, $admin_page );
 
 		ob_start();
-		?><img
+		?>
+		<img
 			src="<?php echo esc_url( $logo_source ); ?>"
 			alt=""
 			role="presentation"
@@ -761,13 +762,15 @@ class Tribe__Settings {
 	 * function creates the individual list items.
 	 *
 	 * @since TBD
+	 *
+	 * @param bool $modal Whether the tabs are being generated for a modal.
 	 */
 	public function generate_tabs( $modal = false ): void {
 		if ( ! is_array( $this->tabs ) || empty( $this->tabs ) ) {
 			return;
 		}
 
-		$nav_id = $modal ? 'tec-settings-modal-nav' : 'tribe-settings-tabs';
+		$nav_id          = $modal ? 'tec-settings-modal-nav' : 'tribe-settings-tabs';
 		$wrapper_classes = [
 			'tec-nav__wrapper'                => true,
 			'tec-settings__nav-wrapper'       => $this->is_event_settings(),
@@ -955,23 +958,23 @@ class Tribe__Settings {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $id A unique section ID.
-	 * @param array $content The content to wrap.
+	 * @param string $id      A unique section ID.
+	 * @param array  $content The content to wrap.
 	 *
 	 * @return array The wrapped content.
 	 */
 	public function wrap_section_content( string $id, array $content ): array {
 		$open = [
 			$id . '-section-open' => [
-				'type'             => 'html',
-				'html'             => '<div class="tec-settings-form__content-section">',
-			]
+				'type' => 'html',
+				'html' => '<div class="tec-settings-form__content-section">',
+			],
 		];
 
 		$close = [
 			$id . '-section-close' => [
-				'type'             => 'html',
-				'html'             => '</div>',
+				'type' => 'html',
+				'html' => '</div>',
 			],
 		];
 
@@ -1554,20 +1557,17 @@ class Tribe__Settings {
 		if ( $this->is_event_settings() ) {
 			_deprecated_function( __METHOD__, 'TBD', 'generate_tabs' );
 			$this->generate_tabs();
-		} else {
-			if ( is_array( $this->tabs ) && ! empty( $this->tabs ) ) {
-				uasort( $this->tabs, [ $this, 'sort_by_priority' ] );
-				echo '<h2 id="tribe-settings-tabs" class="nav-tab-wrapper">';
-				foreach ( $this->tabs as $tab ) {
-					$url   = $this->get_tab_url( $tab->id );
-					$class = ( $tab->id == $this->current_tab ) ? ' nav-tab-active' : '';
-					echo '<a id="' . esc_attr( $tab->id ) . '" class="nav-tab' . esc_attr( $class ) . '" href="' . esc_url( $url ) . '">' . esc_html( $tab->name ) . '</a>';
-				}
-				do_action( 'tribe_settings_after_tabs' );
-				echo '</h2>';
+		} elseif ( is_array( $this->tabs ) && ! empty( $this->tabs ) ) {
+			uasort( $this->tabs, [ $this, 'sort_by_priority' ] );
+			echo '<h2 id="tribe-settings-tabs" class="nav-tab-wrapper">';
+			foreach ( $this->tabs as $tab ) {
+				$url   = $this->get_tab_url( $tab->id );
+				$class = ( $tab->id == $this->current_tab ) ? ' nav-tab-active' : '';
+				echo '<a id="' . esc_attr( $tab->id ) . '" class="nav-tab' . esc_attr( $class ) . '" href="' . esc_url( $url ) . '">' . esc_html( $tab->name ) . '</a>';
 			}
+			do_action( 'tribe_settings_after_tabs' );
+			echo '</h2>';
 		}
-
 	}
 
 	/**

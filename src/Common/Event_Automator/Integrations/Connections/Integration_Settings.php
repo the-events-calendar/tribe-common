@@ -118,7 +118,7 @@ abstract class Integration_Settings {
 		$api_id =  static::$api_id;
 
 		$wrapper_classes = tribe_get_classes( [
-			'tec-automator-settings'                                  => true,
+			'tec-automator-settings' => true,
 			'tec-events-settings-' . static::$api_id . '-application' => true,
 		] );
 
