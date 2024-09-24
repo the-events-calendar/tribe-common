@@ -163,7 +163,7 @@ class Tribe__Settings_Tab {
 		 *
 		 * @param string $id The tab ID.
 		 */
-		$this->id   = apply_filters( 'tribe_settings_tab_id', $id );
+		$this->id = apply_filters( 'tribe_settings_tab_id', $id );
 
 		/**
 		 * Filter the settings tab name.
@@ -471,8 +471,8 @@ class Tribe__Settings_Tab {
 	 * @return bool
 	 */
 	public function has_sidebar(): bool {
-		$admin_pages  = tribe( 'admin.pages' );
-		$admin_page   = $admin_pages->get_current_page();
+		$admin_pages = tribe( 'admin.pages' );
+		$admin_page  = $admin_pages->get_current_page();
 		if ( $admin_page !== 'tec-events-settings' ) {
 			return false;
 		}
