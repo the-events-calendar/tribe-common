@@ -29,7 +29,7 @@
 				'Settings help text and link for Zapier Endpoint Dashboard.',
 				'tribe-common'
 			),
-			'https://evnt.is/1bdl',
+			esc_url( 'https://evnt.is/1bdl' ),
 		);
 
 		echo wp_kses_post( $echo );
