@@ -2,7 +2,7 @@
 /**
  * Settings sidebar.
  *
- * @since TBD
+ * @since 6.1.0
  */
 
 declare( strict_types=1 );
@@ -14,7 +14,7 @@ use TEC\Common\Admin\Entities\Image;
 /**
  * Class Settings_Sidebar
  *
- * @since TBD
+ * @since 6.1.0
  */
 class Settings_Sidebar extends Section {
 
@@ -35,7 +35,7 @@ class Settings_Sidebar extends Section {
 	/**
 	 * Render the sidebar.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return void
 	 */
@@ -65,7 +65,7 @@ class Settings_Sidebar extends Section {
 	/**
 	 * Set the header image for the sidebar.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param Image $image The image to set.
 	 *
@@ -78,7 +78,7 @@ class Settings_Sidebar extends Section {
 	/**
 	 * Add a section to the sidebar.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param Section $section The section to add.
 	 *
@@ -91,7 +91,7 @@ class Settings_Sidebar extends Section {
 	/**
 	 * Render the header image for the sidebar.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return void
 	 */

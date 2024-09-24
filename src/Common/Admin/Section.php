@@ -2,7 +2,7 @@
 /**
  * Section.
  *
- * @since TBD
+ * @since 6.1.0
  */
 
 declare( strict_types=1 );
@@ -15,7 +15,7 @@ use TEC\Common\Admin\Entities\Validate_Elements;
 /**
  * Class Section
  *
- * @since TBD
+ * @since 6.1.0
  */
 abstract class Section {
 
@@ -31,7 +31,7 @@ abstract class Section {
 	/**
 	 * Set the title for the sidebar.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param Heading $heading The title for the sidebar.
 	 *
@@ -46,7 +46,7 @@ abstract class Section {
 	/**
 	 * Render the title for the sidebar.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return void
 	 */
@@ -61,7 +61,7 @@ abstract class Section {
 	/**
 	 * Render the section content.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return void
 	 */

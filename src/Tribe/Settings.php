@@ -54,7 +54,7 @@ class Tribe__Settings {
 	/**
 	 * All the tabs registered, not just the ones that will appear.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @var array<string, Tribe__Settings_Tab>
 	 */
@@ -72,7 +72,7 @@ class Tribe__Settings {
 	 * The default tab for the settings panel.
 	 * This should be a tab ID.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @var string
 	 */
@@ -82,7 +82,7 @@ class Tribe__Settings {
 	 * The current tab being displayed.
 	 * This should be a tab ID.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @var string
 	 */
@@ -194,7 +194,7 @@ class Tribe__Settings {
 	/**
 	 * Static Singleton Holder.
 	 *
-	 * @deprecated TBD use tribe( 'settings' ) instead.
+	 * @deprecated 6.1.0 use tribe( 'settings' ) instead.
 	 *
 	 * @var Tribe__Settings|null
 	 */
@@ -205,7 +205,7 @@ class Tribe__Settings {
 	/**
 	 * All the tabs registered, not just the ones that will appear.
 	 *
-	 * @deprecated TBD use $all_tabs.
+	 * @deprecated 6.1.0 use $all_tabs.
 	 *
 	 * @var array
 	 */
@@ -215,7 +215,7 @@ class Tribe__Settings {
 	 * The default tab for the settings panel.
 	 * This should be a tab ID.
 	 *
-	 * @deprecated TBD Use $default_tab.
+	 * @deprecated 6.1.0 Use $default_tab.
 	 *
 	 * @var string
 	 */
@@ -224,7 +224,7 @@ class Tribe__Settings {
 	/**
 	 * The current tab being displayed.
 	 *
-	 * @deprecated TBD Use $current_tab.
+	 * @deprecated 6.1.0 Use $current_tab.
 	 *
 	 * @var string
 	 */
@@ -233,7 +233,7 @@ class Tribe__Settings {
 	/**
 	 * Tabs that shouldn't show the save button.
 	 *
-	 * @deprecated TBD Use $no_save_tabs.
+	 * @deprecated 6.1.0 Use $no_save_tabs.
 	 *
 	 * @var array
 	 */
@@ -242,7 +242,7 @@ class Tribe__Settings {
 	/**
 	 * The slug used in the admin to generate the settings page.
 	 *
-	 * @deprecated TBD Use $admin_slug.
+	 * @deprecated 6.1.0 Use $admin_slug.
 	 *
 	 * @var string
 	 */
@@ -251,7 +251,7 @@ class Tribe__Settings {
 	/**
 	 * The menu name used for the settings page.
 	 *
-	 * @deprecated TBD Use $menu_name.
+	 * @deprecated 6.1.0 Use $menu_name.
 	 *
 	 * @var string
 	 */
@@ -260,7 +260,7 @@ class Tribe__Settings {
 	/**
 	 * The required capability for the settings page.
 	 *
-	 * @deprecated TBD Use $required_cap.
+	 * @deprecated 6.1.0 Use $required_cap.
 	 *
 	 * @var string
 	 */
@@ -303,7 +303,7 @@ class Tribe__Settings {
 	/**
 	 * Determines whether or not the full admin pages should be initialized.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return bool
 	 */
@@ -315,7 +315,7 @@ class Tribe__Settings {
 	/**
 	 * Init all the tabs.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	public function init_tabs() {
 		$admin_pages = tribe( 'admin.pages' );
@@ -430,7 +430,7 @@ class Tribe__Settings {
 	/**
 	 * Determine if we are on an event settings page.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param string|null $admin_page The admin page ID.
 	 *
@@ -449,7 +449,7 @@ class Tribe__Settings {
 	 * Get a specific tab by slug.
 	 * If the slug is not found in the parent tabs, it will then search child tabs for it.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param string $id The tab ID.
 	 *
@@ -475,7 +475,7 @@ class Tribe__Settings {
 	/**
 	 * Gets the current tab ID.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return ?string
 	 */
@@ -533,7 +533,7 @@ class Tribe__Settings {
 	/**
 	 * Outputs the header content for the tabs page and the nav modal.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param string $admin_page The admin page ID.
 	 */
@@ -577,7 +577,7 @@ class Tribe__Settings {
 	/**
 	 * Get the settings page logo.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param string $admin_page The admin page ID.
 	 * @return string The settings page logo.
@@ -588,7 +588,7 @@ class Tribe__Settings {
 		/**
 		 * Filter the tribe settings page logo source URL.
 		 *
-		 * @since TBD
+		 * @since 6.1.0
 		 *
 		 * @param string $logo_source The settings page logo resource URL.
 		 * @param string $admin_page The admin page ID.
@@ -610,7 +610,7 @@ class Tribe__Settings {
 	/**
 	 * Handles the attributes for the form.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param array<string,mixed> $attributes The attributes to add to the form.
 	 *
@@ -633,7 +633,7 @@ class Tribe__Settings {
 	 * Generate the main option page.
 	 * Includes the view file.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	public function generate_page(): void {
 		$admin_pages       = tribe( 'admin.pages' );
@@ -650,7 +650,7 @@ class Tribe__Settings {
 		/**
 		 * Filter the classes for the settings form.
 		 *
-		 * @since TBD
+		 * @since 6.1.0
 		 *
 		 * @param array<string> $form_classes The classes for the settings form.
 		 */
@@ -720,7 +720,7 @@ class Tribe__Settings {
 	/**
 	 * Displays the page footer content, with or without the save button.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param bool $saving Whether the footer should force include saving fields/buttons.
 	 */
@@ -761,7 +761,7 @@ class Tribe__Settings {
 	 * This function generates the structure and the generate_tab
 	 * function creates the individual list items.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param bool $modal Whether the tabs are being generated for a modal.
 	 */
@@ -810,7 +810,7 @@ class Tribe__Settings {
 	/**
 	 * Output the modal navigation for the settings page.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param string $admin_page The admin page ID.
 	 */
@@ -835,7 +835,7 @@ class Tribe__Settings {
 	/**
 	 * Outputs the sidebar wrapped in a modal dialog.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	protected function generate_modal_sidebar(): void {
 		add_action( 'tec_settings_sidebar_header_start', [ $this, 'generate_sidebar_modal_close' ] );
@@ -854,7 +854,7 @@ class Tribe__Settings {
 	/**
 	 * Generate the markup for a modal close button.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	public function generate_sidebar_modal_close(): void {
 		?>
@@ -867,7 +867,7 @@ class Tribe__Settings {
 	/**
 	 * Output the notice wrap.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return void
 	 */
@@ -882,7 +882,7 @@ class Tribe__Settings {
 	/**
 	 * Generate the content for a single specified tab.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param Tribe__Settings_Tab $tab The tab object.
 	 */
@@ -927,7 +927,7 @@ class Tribe__Settings {
 	/**
 	 * Add the current tab's children to the nav as a subnav.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param Tribe__Settings_Tab $tab The parent tab object.
 	 * @return void
@@ -956,7 +956,7 @@ class Tribe__Settings {
 	/**
 	 * Wraps the section content in a "content-section" div
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param string $id      A unique section ID.
 	 * @param array  $content The content to wrap.
@@ -984,7 +984,7 @@ class Tribe__Settings {
 	/**
 	 * Output the modal controls
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	protected function get_modal_controls(): void {
 		$current_tab = $this->get_tab( $this->get_current_tab() );
@@ -1018,7 +1018,7 @@ class Tribe__Settings {
 	 * A little something for Jack.
 	 * Shows a duck on the far right end of a subnav on hover.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return void
 	 */
@@ -1040,7 +1040,7 @@ class Tribe__Settings {
 	/**
 	 * A method to sort tabs by priority in ascending order.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param  object $a First tab to compare.
 	 * @param  object $b Second tab to compare.
@@ -1079,7 +1079,7 @@ class Tribe__Settings {
 			$wp_page
 		);
 
-		$url = apply_filters( 'tec_events_settings_tab_url', $url, $admin_page, $tab );
+		$url = apply_filters( 'tec_settings_tab_url', $url, $admin_page, $tab );
 
 		return $url;
 	}
@@ -1171,7 +1171,7 @@ class Tribe__Settings {
 	/**
 	 * Validate the value of a field to save.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param string $field_id The field ID.
 	 * @param array  $field    The field data.
@@ -1314,7 +1314,7 @@ class Tribe__Settings {
 	/**
 	 * Display errors, if any, after saving.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	public function display_errors(): void {
 		// Fetch the errors and filter them.
@@ -1350,7 +1350,7 @@ class Tribe__Settings {
 	/**
 	 * Display success message after saving.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	public function display_success(): void {
 		$errors = (array) apply_filters( 'tribe_settings_display_errors', $this->errors );
@@ -1371,7 +1371,7 @@ class Tribe__Settings {
 	/**
 	 * Delete temporary options.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	public function delete_options(): void {
 		delete_option( 'tribe_settings_errors' );
@@ -1511,22 +1511,22 @@ class Tribe__Settings {
 	/**
 	 * Static Singleton Factory Method.
 	 *
-	 * @deprecated TBD Use tribe( 'settings' )
+	 * @deprecated 6.1.0 Use tribe( 'settings' )
 	 *
 	 * @return Tribe__Settings
 	 */
 	public static function instance() {
-		_deprecated_function( __METHOD__, 'TBD', "tribe( 'settings' )" );
+		_deprecated_function( __METHOD__, '6.1.0', "tribe( 'settings' )" );
 		return tribe( 'settings' );
 	}
 
 	/**
 	 * Init all the tabs.
 	 *
-	 * @deprecated TBD Use init_tabs
+	 * @deprecated 6.1.0 Use init_tabs
 	 */
 	public function initTabs() {
-		_deprecated_function( __METHOD__, 'TBD', 'init_tabs' );
+		_deprecated_function( __METHOD__, '6.1.0', 'init_tabs' );
 		$this->init_tabs();
 	}
 
@@ -1551,11 +1551,11 @@ class Tribe__Settings {
 	/**
 	 * Generate the tabs in the settings screen.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.1.0
 	 */
 	public function generateTabs() {
 		if ( $this->is_event_settings() ) {
-			_deprecated_function( __METHOD__, 'TBD', 'generate_tabs' );
+			_deprecated_function( __METHOD__, '6.1.0', 'generate_tabs' );
 			$this->generate_tabs();
 		} elseif ( is_array( $this->tabs ) && ! empty( $this->tabs ) ) {
 			uasort( $this->tabs, [ $this, 'sort_by_priority' ] );
@@ -1573,20 +1573,20 @@ class Tribe__Settings {
 	/**
 	 * Display errors, if any, after saving.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.1.0
 	 */
 	public function displayErrors() {
-		_deprecated_function( __METHOD__, 'TBD', 'display_errors' );
+		_deprecated_function( __METHOD__, '6.1.0', 'display_errors' );
 		$this->display_errors();
 	}
 
 	/**
 	 * Display success message after saving.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.1.0
 	 */
 	public function displaySuccess() {
-		_deprecated_function( __METHOD__, 'TBD', 'display_success' );
+		_deprecated_function( __METHOD__, '6.1.0', 'display_success' );
 		$this->display_success();
 	}
 
@@ -1594,10 +1594,10 @@ class Tribe__Settings {
 	/**
 	 * Delete temporary options.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.1.0
 	 */
 	public function deleteOptions() {
-		_deprecated_function( __METHOD__, 'TBD', 'delete_options' );
+		_deprecated_function( __METHOD__, '6.1.0', 'delete_options' );
 		$this->delete_options();
 	}
 
@@ -1605,13 +1605,13 @@ class Tribe__Settings {
 	 * Generate the main option page.
 	 * includes the view file.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.1.0
 	 *
 	 * @since 4.15.0 Add the current page as parameter for the actions.
 	 */
 	public function generatePage() {
 		if ( $this->is_event_settings() ) {
-			_deprecated_function( __METHOD__, 'TBD', 'generate_page' );
+			_deprecated_function( __METHOD__, '6.1.0', 'generate_page' );
 		}
 
 		$this->generate_page();

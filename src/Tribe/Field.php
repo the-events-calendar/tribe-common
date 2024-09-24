@@ -320,7 +320,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		/**
 		 * Set up the valid field types.
 		 *
-		 * @since TBD
+		 * @since 6.1.0
 		 *
 		 * @return void
 		 */
@@ -488,7 +488,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		/**
 		 * Returns the html appended to the fieldset's end
 		 *
-		 * @since TBD
+		 * @since 6.1.0
 		 *
 		 * @return string the field append.
 		 */
@@ -1288,7 +1288,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 * This is static because it will be the same for every instance of the class, and
 		 * we only need to calculate it once.
 		 *
-		 * @since TBD
+		 * @since 6.1.0
 		 *
 		 * @return array The allowed protocols.
 		 */

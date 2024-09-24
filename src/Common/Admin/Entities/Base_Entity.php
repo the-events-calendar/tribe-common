@@ -2,7 +2,7 @@
 /**
  * Base Entity.
  *
- * @since TBD
+ * @since 6.1.0
  */
 
 declare( strict_types=1 );
@@ -17,7 +17,7 @@ use Tribe\Utils\Element_Classes as Classes;
 /**
  * Class Base_Entity
  *
- * @since TBD
+ * @since 6.1.0
  */
 abstract class Base_Entity implements ArrayAccess, Element {
 
@@ -40,7 +40,7 @@ abstract class Base_Entity implements ArrayAccess, Element {
 	/**
 	 * Convert the entity output to a string.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return string
 	 */
@@ -58,7 +58,7 @@ abstract class Base_Entity implements ArrayAccess, Element {
 	 * escaped, so it is not necessary to further escape these attributes.
 	 *
 	 * @see Element_Attributes::get_attributes_as_string()
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return string
 	 */
@@ -71,7 +71,7 @@ abstract class Base_Entity implements ArrayAccess, Element {
 	/**
 	 * Get the classes for the entity.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return string
 	 */
@@ -84,7 +84,7 @@ abstract class Base_Entity implements ArrayAccess, Element {
 	/**
 	 * Get the classes as an attribute.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return string
 	 */
@@ -97,7 +97,7 @@ abstract class Base_Entity implements ArrayAccess, Element {
 	/**
 	 * Set the attributes for the entity.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param Attributes $attributes The attributes to set.
 	 *
@@ -110,7 +110,7 @@ abstract class Base_Entity implements ArrayAccess, Element {
 	/**
 	 * Set the classes for the entity.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param Classes $classes The classes for the entity.
 	 *

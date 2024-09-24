@@ -2,7 +2,7 @@
 /**
  * Unordered list element.
  *
- * @since TBD
+ * @since 6.1.0
  *
  * phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod
  */
@@ -18,7 +18,7 @@ use Tribe\Utils\Element_Classes as Classes;
 /**
  * Class Unordered_List
  *
- * @since TBD
+ * @since 6.1.0
  */
 class Unordered_List extends Container {
 
@@ -34,7 +34,7 @@ class Unordered_List extends Container {
 	/**
 	 * Unordered_List constructor.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param ?Classes    $classes    The classes for the unordered list.
 	 * @param ?Attributes $attributes The attributes for the unordered list.
@@ -52,7 +52,7 @@ class Unordered_List extends Container {
 	/**
 	 * Add a child to the container.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param List_Item $child The child to add.
 	 *
@@ -66,7 +66,7 @@ class Unordered_List extends Container {
 	/**
 	 * Add multiple children to the container.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param List_Item[] $children The children to add.
 	 *
@@ -80,7 +80,7 @@ class Unordered_List extends Container {
 	/**
 	 * Render the unordered list content.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return void
 	 */

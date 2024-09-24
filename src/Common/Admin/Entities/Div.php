@@ -2,7 +2,7 @@
 /**
  * Div element.
  *
- * @since TBD
+ * @since 6.1.0
  */
 
 declare( strict_types=1 );
@@ -15,14 +15,14 @@ use Tribe\Utils\Element_Classes as Classes;
 /**
  * Class Div
  *
- * @since TBD
+ * @since 6.1.0
  */
 class Div extends Container {
 
 	/**
 	 * Div constructor.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param ?Classes    $classes    The classes for the div.
 	 * @param ?Attributes $attributes The attributes for the div.
@@ -40,7 +40,7 @@ class Div extends Container {
 	/**
 	 * Render the element.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return void
 	 */

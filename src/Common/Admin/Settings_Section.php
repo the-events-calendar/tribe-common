@@ -2,7 +2,7 @@
 /**
  * Settings_Section.
  *
- * @since TBD
+ * @since 6.1.0
  */
 
 declare( strict_types=1 );
@@ -14,7 +14,7 @@ use TEC\Common\Admin\Entities\Element;
 /**
  * Class Settings_Section
  *
- * @since TBD
+ * @since 6.1.0
  */
 class Settings_Section extends Section {
 
@@ -28,7 +28,7 @@ class Settings_Section extends Section {
 	/**
 	 * Add an element to the section.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param Element $element The element to add.
 	 *
@@ -43,7 +43,7 @@ class Settings_Section extends Section {
 	/**
 	 * Add multiple elements to the section.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param Element[] $elements The elements to add.
 	 *
@@ -60,7 +60,7 @@ class Settings_Section extends Section {
 	/**
 	 * Render the section content.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return void
 	 */
@@ -76,7 +76,7 @@ class Settings_Section extends Section {
 	/**
 	 * Render the elements for the section.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return void
 	 */

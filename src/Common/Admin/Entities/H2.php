@@ -2,7 +2,7 @@
 /**
  * H2 Entity
  *
- * @since TBD
+ * @since 6.1.0
  */
 
 declare( strict_types=1 );
@@ -15,14 +15,14 @@ use Tribe\Utils\Element_Classes as Classes;
 /**
  * Class H2
  *
- * @since TBD
+ * @since 6.1.0
  */
 class H2 extends Heading {
 
 	/**
 	 * H2 constructor.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param string      $content    The content for the heading.
 	 * @param ?Classes    $classes    The classes for the heading.

@@ -93,7 +93,7 @@ class Tribe__Settings_Tab {
 	/**
 	 * Parent tab ID, if any.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @var ?Tribe__Settings_Tab $parent
 	 */
@@ -102,7 +102,7 @@ class Tribe__Settings_Tab {
 	/**
 	 * Array of child tabs, if any.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @var array<string, Tribe__Settings_Tab> $children
 	 */
@@ -111,7 +111,7 @@ class Tribe__Settings_Tab {
 	/**
 	 * Settings sidebar.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @var ?Settings_Sidebar
 	 */
@@ -122,7 +122,7 @@ class Tribe__Settings_Tab {
 	 *
 	 * This sidebar object is common across ALL instances of the class.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @var ?Settings_Sidebar
 	 */
@@ -195,14 +195,14 @@ class Tribe__Settings_Tab {
 	/**
 	 * Adds actions for the tab.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	public function add_actions(): void {}
 
 	/**
 	 * Adds filters for the tab.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	public function add_filters() {
 		add_filter( 'tribe_settings_tabs', [ $this, 'add_tab' ] );
@@ -238,7 +238,7 @@ class Tribe__Settings_Tab {
 	/**
 	 * Sets the parent tab.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param Tribe__Settings_Tab $tab The parent tab.
 	 *
@@ -295,7 +295,7 @@ class Tribe__Settings_Tab {
 	 * Filters the fields array from Tribe__Settings
 	 * and adds the current tab's fields to it
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param array $fields the $fields from Tribe__Settings.
 	 *
@@ -375,7 +375,7 @@ class Tribe__Settings_Tab {
 	/**
 	 * Renders the sidebar for the tab.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	public function render_sidebar(): void {
 		$this->get_sidebar()->render();
@@ -384,7 +384,7 @@ class Tribe__Settings_Tab {
 	/**
 	 * Adds a child tab to the current tab.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param Tribe__Settings_Tab $tab The child tab to add.
 	 */
@@ -401,7 +401,7 @@ class Tribe__Settings_Tab {
 	/**
 	 * Checks if the current tab has children.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return bool
 	 */
@@ -412,7 +412,7 @@ class Tribe__Settings_Tab {
 	/**
 	 * Checks if the current tab has a child with the given slug.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param string $slug The slug of the child tab to check for.
 	 *
@@ -425,7 +425,7 @@ class Tribe__Settings_Tab {
 	/**
 	 * Gets the children of the current tab.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return array<string, Tribe__Settings_Tab>
 	 */
@@ -436,7 +436,7 @@ class Tribe__Settings_Tab {
 	/**
 	 * Gets a child tab by its slug.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param string $slug The slug of the child tab to get.
 	 *
@@ -453,7 +453,7 @@ class Tribe__Settings_Tab {
 	/**
 	 * Gets the priority of the current tab.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return string The priority of the tab. This will be a float stored as a string i.e. '5' or '5.5'.
 	 */
@@ -466,7 +466,7 @@ class Tribe__Settings_Tab {
 	 *
 	 * If this is a child tab, it will also check whether the parent has a sidebar.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return bool
 	 */
@@ -495,7 +495,7 @@ class Tribe__Settings_Tab {
 	/**
 	 * Gets the sidebar for the current tab.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return ?Settings_Sidebar The sidebar for the tab.
 	 */
@@ -553,7 +553,7 @@ class Tribe__Settings_Tab {
 	 *
 	 * This is how we handle deprecated methods.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param string $name      The method name.
 	 * @param array  $arguments Arguments passed to the method.
@@ -579,7 +579,7 @@ class Tribe__Settings_Tab {
 		if ( array_key_exists( $name, $method_map ) ) {
 			_deprecated_function(
 				esc_html( $prepend_class( $name ) ),
-				'TBD',
+				'6.1.0',
 				esc_html( $prepend_class( $method_map[ $name ] ) )
 			);
 

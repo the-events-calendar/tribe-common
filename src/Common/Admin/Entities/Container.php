@@ -2,7 +2,7 @@
 /**
  * Container element.
  *
- * @since TBD
+ * @since 6.1.0
  */
 
 declare( strict_types=1 );
@@ -18,7 +18,7 @@ use InvalidArgumentException;
  * class directly will allow for rending children without any other element
  * wrapping them.
  *
- * @since TBD
+ * @since 6.1.0
  */
 class Container extends Base_Entity implements Element_With_Children {
 
@@ -41,7 +41,7 @@ class Container extends Base_Entity implements Element_With_Children {
 	/**
 	 * Add a child to the container.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param Element $child The child to add.
 	 *
@@ -59,7 +59,7 @@ class Container extends Base_Entity implements Element_With_Children {
 	/**
 	 * Add multiple children to the container.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param Element[] $children The children to add.
 	 *
@@ -76,7 +76,7 @@ class Container extends Base_Entity implements Element_With_Children {
 	/**
 	 * Get the children of the container.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return Element[]
 	 */
@@ -87,7 +87,7 @@ class Container extends Base_Entity implements Element_With_Children {
 	/**
 	 * Render the children of the container.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return void
 	 */
@@ -100,7 +100,7 @@ class Container extends Base_Entity implements Element_With_Children {
 	/**
 	 * Render the element.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return void
 	 */

@@ -4,7 +4,7 @@
  *
  * Wraps a Tribe__Field object.
  *
- * @since TBD
+ * @since 6.1.0
  */
 
 declare( strict_types=1 );
@@ -16,7 +16,7 @@ use Tribe__Field as Field;
 /**
  * Class FieldW_Wrapper
  *
- * @since TBD
+ * @since 6.1.0
  */
 class Field_Wrapper implements Element {
 
@@ -30,7 +30,7 @@ class Field_Wrapper implements Element {
 	/**
 	 * FieldW_Wrapper constructor.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param Field $field The field to wrap.
 	 */
@@ -41,7 +41,7 @@ class Field_Wrapper implements Element {
 	/**
 	 * Render the field.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	public function render(): void {
 		$this->field->do_field();
@@ -50,7 +50,7 @@ class Field_Wrapper implements Element {
 	/**
 	 * Get the field.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return Field
 	 */
