@@ -25,7 +25,7 @@
 	</h3>
 	<p class="tec-settings-zapier-application__description tec-settings-form__section-description">
 		<?php
-		printf(
+		$content = sprintf(
 			/* Translators: %1$s: URL to the Zapier API documentation */
 			_x(
 				'Please generate a consumer id and secret for each of our applications you are using with Zapier to enable its integrations. i.e.: one consumer id and secret for The Events Calendar and one consumer id and secret for Event Tickets. <a href="%1$s" target="_blank">Read more about adding and managing access.</a>',
@@ -34,6 +34,7 @@
 			),
 			'https://evnt.is/1bc8'
 		);
+		echo wp_kses_post( $content );
 		?>
 	</p>
 </div>
