@@ -6,21 +6,18 @@
 
 ?>
 <div class="tribe_settings wrap tec-events-admin-settings">
-
 	<h1>
 		<img src="/wp-content/plugins/the-events-calendar/common/src/resources/images/logo/the-events-calendar.svg"
 			 alt="" role="presentation" id="tec-settings-logo">
-		Help 			</h1>
-	<nav class="tec-nav__wrapper tec-settings__nav-wrapper tec-nav__wrapper--subnav-active">
+		Help
+	</h1>
+	<nav class="tec-settings__nav-wrapper">
 		<ul class="tec-nav">
-
-			<li data-tab-target="tec-help-tab" class="tec-nav__tab tec-nav__tab--general tec-nav__tab--has-subnav tec-nav__tab--subnav-active">
+			<li data-tab-target="tec-help-tab" class="tec-nav__tab tec-nav__tab--subnav-active">
 				<a class="tec-nav__link">Support Hub</a>
-
 			</li>
-			<li data-tab-target="tec-resources-tab" class="tec-nav__tab tec-nav__tab--general tec-nav__tab--has-subnav ">
+			<li data-tab-target="tec-resources-tab" class="tec-nav__tab">
 				<a class="tec-nav__link" >Resources</a>
-
 			</li>
 		</ul>
 	</nav>
@@ -28,7 +25,7 @@
 
 
 	<div id="tec-help-tab" class="tribe-settings-form form tec-tab-container">
-		<form id="tec-settings-form" class="tec-settings-form__display-calendar-tab-tab--active tec-settings-form__subnav-active" method="post">
+		<form id="tec-settings-form" class="" method="post">
 			<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
 				<h2 class="tec-settings-form__section-header">Resources</h2>
 				<p class="tec-settings-form__section-description">
@@ -42,7 +39,7 @@
 	</div>
 
 	<div id="tec-resources-tab" class="tribe-settings-form form tec-tab-container">
-		<form id="tec-settings-form" class="tec-settings-form__display-calendar-tab-tab--active tec-settings-form__subnav-active" method="post">
+		<form id="tec-settings-form" class="" method="post">
 			<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
 				<h2 class="tec-settings-form__section-header">Support Hub</h2>
 				<p class="tec-settings-form__section-description">
