@@ -22,7 +22,7 @@
 	</h3>
 	<p class="tec-settings-zapier-application__description tec-settings-form__section-description">
 		<?php
-		printf(
+		$echo = sprintf(
 			/* translators: %1$s: URL to the Zapier Endpoint Dashboard documentation */
 			_x(
 				'Monitor your Zapier endpoints (triggers and actions used by your connectors). <a href="%1$s" target="_blank">Read more about the Zapier Endpoint Dashboard.</a>',
@@ -31,6 +31,8 @@
 			),
 			'https://evnt.is/1bdl',
 		);
+
+		echo wp_kses_post( $echo );
 		?>
 	</p>
 </div>
