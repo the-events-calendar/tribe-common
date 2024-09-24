@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [6.1.0] 2024-09-25 =
+
+* Feature - Update core settings functionality and styles to allow for new plugin settings layout. [TEC-5124]
+* Feature - Update settings field generation and add functionality to facilitate sidebars on settings pages. [TEC-5137]
+
 = [6.0.3.1] 2024-09-16 =
 
 * Security - Improve general escaping for ORM queries to prevent legacy Events methods to be used for SQL injections.
