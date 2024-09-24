@@ -428,13 +428,15 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 
 					$common_attributes = _wp_add_global_attributes(
 						[
-							'checked'  => true,
-							'disabled' => true,
-							'name'     => true,
-							'readonly' => true,
-							'selected' => true,
-							'type'     => true,
-							'value'    => true,
+							'checked'     => true,
+							'disabled'    => true,
+							'name'        => true,
+							'readonly'    => true,
+							'selected'    => true,
+							'type'        => true,
+							'value'       => true,
+							'cols'        => true,
+							'placeholder' => true,
 						]
 					);
 
