@@ -16,5 +16,3 @@ if (
 ) {
 	require_once __DIR__ . '/_support/_eva_boostrap.php';
 }
-
-require_once __DIR__ . '/_support/_eva_boostrap.php';

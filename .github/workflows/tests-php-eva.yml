@@ -292,7 +292,7 @@ jobs:
           token: ${{ secrets.GH_BOT_TOKEN }}
           path: event-tickets-plus
           submodules: recursive
-      - name: Init ET
+      - name: Init ET+
         if: steps.skip.outputs.value != 1
         run: |
           mv ${GITHUB_WORKSPACE}/event-tickets-plus ${GITHUB_WORKSPACE}/../event-tickets-plus
@@ -312,7 +312,7 @@ jobs:
           token: ${{ secrets.GH_BOT_TOKEN }}
           path: events-pro
           submodules: recursive
-      - name: Init ET
+      - name: Init Pro
         if: steps.skip.outputs.value != 1
         run: |
           mv ${GITHUB_WORKSPACE}/events-pro ${GITHUB_WORKSPACE}/../events-pro
