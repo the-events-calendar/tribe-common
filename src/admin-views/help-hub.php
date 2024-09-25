@@ -1,14 +1,20 @@
 <?php
 /**
  * The template that displays the help page.
+ *
+ * @var Tribe__Main $main The main common object.
  */
-
 
 ?>
 <div class="tribe_settings wrap tec-events-admin-settings">
 	<h1>
-		<img src="/wp-content/plugins/the-events-calendar/common/src/resources/images/logo/the-events-calendar.svg"
-			 alt="" role="presentation" id="tec-settings-logo">
+		<img
+			class="tribe-events-admin-title__logo"
+			src="<?php echo esc_url( tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, $main ) ); ?>"
+			alt="<?php esc_attr_e( 'The Events Calendar logo', 'the-events-calendar' ); ?>"
+			role="presentation"
+			id="tec-settings-logo"
+		/>
 		Help
 	</h1>
 	<nav class="tec-settings__nav-wrapper">
