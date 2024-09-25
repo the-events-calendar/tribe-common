@@ -82,7 +82,7 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
 					<a href="https://evnt.is/1apy" target="_blank" rel="noopener noreferrer">
-						<?php esc_html_e( 'Community Events', 'tribe-common' ); ?>
+						<?php esc_html_e( 'Community', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
@@ -92,12 +92,12 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 				</li>
 				<li>
 					<a href="https://evnt.is/1ary" target="_blank" rel="noopener noreferrer">
-						<?php esc_html_e( 'Community Events Shortcodes', 'tribe-common' ); ?>
+						<?php esc_html_e( 'Community Shortcodes', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
 					<a href="https://evnt.is/1arz" target="_blank" rel="noopener noreferrer">
-						<?php esc_html_e( 'Locating Links to Your Community Events Pages', 'tribe-common' ); ?>
+						<?php esc_html_e( 'Locating Links to Your Community Pages', 'tribe-common' ); ?>
 					</a>
 				</li>
 			</ul>

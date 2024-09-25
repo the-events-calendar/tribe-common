@@ -25,19 +25,19 @@
  *      $var_4 = $data['woo']; // "not found"
  */
 
+use Tribe\Traits\Array_Access;
+
 /**
  * Class Tribe__Data
  */
 class Tribe__Data implements ArrayAccess, Iterator { // phpcs:ignore TEC.Classes.ValidClassName.NotSnakeCase,WordPress.NamingConventions.ValidClassName.InvalidClassName,PEAR.NamingConventions.ValidClassName.Invalid,Generic.Classes.OpeningBraceSameLine.ContentAfterBrace
+
+	use Array_Access;
+
 	/**
 	 * @var int
 	 */
 	protected $index = 0;
-
-	/**
-	 * @var array The data managed by this object.
-	 */
-	protected $data;
 
 	/**
 	 * @var mixed The default value that will be returned when trying to get the value
@@ -57,62 +57,19 @@ class Tribe__Data implements ArrayAccess, Iterator { // phpcs:ignore TEC.Classes
 	}
 
 	/**
-	 * Whether a offset exists
-	 *
-	 * @link  http://php.net/manual/en/arrayaccess.offsetexists.php
-	 *
-	 * @param mixed $offset An offset to check for.
-	 *
-	 * @return boolean true on success or false on failure. The return value will be cast to boolean if non-boolean was returned.
-	 * @since 4.11.0
-	 */
-	public function offsetExists( $offset ): bool {
-		return isset( $this->data[ $offset ] );
-	}
-
-	/**
 	 * Offset to retrieve
 	 *
 	 * @link  http://php.net/manual/en/arrayaccess.offsetget.php
 	 *
-	 * @param mixed $offset The offset to retrieve.
+	 * @param mixed $offset The offset to retrieve. Will return the default if the offset isn't set.
 	 *
 	 * @return mixed Can return all value types.
 	 *
 	 * @since 4.11.0
 	 */
-	#[\ReturnTypeWillChange]
+	#[ReturnTypeWillChange]
 	public function offsetGet( $offset ) {
 		return $this->data[ $offset ] ?? $this->default;
-	}
-
-	/**
-	 * Offset to set
-	 *
-	 * @link  http://php.net/manual/en/arrayaccess.offsetset.php
-	 *
-	 * @param mixed $offset The offset to assign the value to.
-	 * @param mixed $value  The value to set.
-	 *
-	 * @return void
-	 * @since 4.11.0
-	 */
-	public function offsetSet( $offset, $value ): void {
-		$this->data[ $offset ] = $value;
-	}
-
-	/**
-	 * Offset to unset
-	 *
-	 * @link  http://php.net/manual/en/arrayaccess.offsetunset.php
-	 *
-	 * @param mixed $offset The offset to unset.
-	 *
-	 * @return void
-	 * @since 4.11.0
-	 */
-	public function offsetUnset( $offset ): void {
-		unset( $this->data[ $offset ] );
 	}
 
 	/**

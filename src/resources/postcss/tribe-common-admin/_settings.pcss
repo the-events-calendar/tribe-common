@@ -40,7 +40,11 @@
 		.tec-automator-api-fields {
 			margin-bottom: var(--tec-spacer-3);
 			padding-left: var(--tec-spacer-2);
-			width: 100%;
+
+			&.tec-settings-form__element--colspan-2 {
+				margin: 0;
+				padding: 0 var(--tec-spacer-2);
+			}
 
 			.tickets_page_tec-tickets-settings & {
 				margin-bottom: var(--tec-spacer-7);

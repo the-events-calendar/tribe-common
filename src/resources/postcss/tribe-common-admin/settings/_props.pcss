@@ -1,0 +1,56 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Props
+ *
+ * This file contains custom props specific to the ne settings design.
+ *
+ * ----------------------------------------------------------------------------- */
+
+:root {
+	/* WP Admin colors/new tec admin colors */
+	--tec-admin-core-grey-0: #f6f7f7;
+	--tec-admin-core-grey-2: #f0f0f1;
+	--tec-admin-core-grey-5: #dcdcde;
+	--tec-admin-core-grey-10: #c3c4c7;
+	--tec-admin-core-grey-50: #646970;
+	--tec-admin-core-grey-70: #3c434a;
+	--tec-admin-core-grey-80: #2c3338;
+	--tec-admin-core-grey-90: #1d2327;
+	--tec-admin-core-blue-50: #2271b1;
+	--tec-admin-modal-backdrop: rgba(60, 67, 74, 0.8);
+
+	/* Form Styles */
+	--tec-spacer-settings-form-col-gap: var(--tec-spacer-8);
+	--tec-spacer-settings-form-header-gap: var(--tec-spacer-2);
+	--tec-spacer-settings-form-label-gap: var(--tec-spacer-1);
+	--tec-spacer-settings-form-right-gap: var(--tec-spacer-7);
+	--tec-spacer-settings-form-row-gap: var(--tec-spacer-6);
+	--tec-spacer-settings-form-side: var(--tec-spacer-7);
+	--tec-spacer-settings-form-top-gap: var(--tec-spacer-3);
+	--tec-spacer-settings-form-width-left-col: 224px;
+	--tec-spacer-settings-form-width: 900px;
+
+	/* Sidebar Settings */
+	--tec-width-sidebar: 364px;
+	--tec-spacer-sidebar-padding: var(--tec-spacer-4);
+	--tec-spacer-sidebar-row-gap: var(--tec-spacer-3);
+
+	/* Custom Media Queries - not working? */
+	@custom-media --settings-sidebar (min-width: 1024px);
+
+	@media (--viewport-xsmall) {
+		--tec-spacer-settings-form-row-gap: var(--tec-spacer-6);
+	}
+
+	@media (--viewport-wpadmin) {
+		--tec-spacer-settings-form-header-gap: var(--tec-spacer-5);
+		--tec-spacer-settings-form-right-gap: 128px;
+		--tec-spacer-settings-form-top-gap: var(--tec-spacer-7);
+	}
+
+	@media (--viewport-xlarge) {
+		--tec-width-sidebar: 286px;
+		--tec-spacer-settings-form-side: var(--tec-spacer-5);
+		--tec-spacer-settings-form-right-gap: var(--tec-spacer-7);
+	}
+}

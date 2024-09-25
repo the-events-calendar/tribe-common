@@ -1,0 +1,100 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Form
+ *
+ * This file contains styles specific to the settings form.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe_events_page_tec-events-settings {
+	/* This is a wrapper for the form, not the form itself. */
+	.tribe-settings-form {
+		align-items: flex-start;
+		align-self: stretch;
+		box-sizing: border-box;
+		flex: 0 0 auto;
+		margin: 0;
+
+		@media (--viewport-xlarge) {
+			margin: 0 0 auto;
+			max-width: calc(100vw - 160px - var(--tec-width-sidebar) - var(--tec-spacer-7));
+			width: calc(var(--tec-spacer-settings-form-width) + (2 * var(--tec-spacer-7)));
+		}
+	}
+
+	#tec-settings-form {
+		align-items: start;
+		border: none;
+		border-radius: 0;
+		border-top: 1px solid var(--tec-admin-core-grey-10);
+		box-sizing: border-box;
+		display: grid;
+		font-family: var(--tec-font-family-sans-serif);
+		grid-row-gap: var(--tec-spacer-settings-form-row-gap);
+		grid-template-columns: 1fr;
+		margin: 0 var(--tec-spacer-7);
+		padding-bottom: 0;
+		padding-top: var(--tec-spacer-3);
+		width: calc(100% - (2 * var(--tec-spacer-7)));
+
+		p:last-child,
+		.tribe-field:last-child {
+			margin-bottom: 0;
+		}
+
+		@media (--viewport-xsmall) {
+			background-color: var(--tec-color-background);
+			border: 1px solid var(--tec-admin-core-grey-10);
+			border-radius: var(--tec-border-radius-default);
+			margin-top: var(--tec-spacer-4);
+			padding-top: var(--tec-spacer-7);
+
+			&.tec-settings-form__subnav-active {
+				padding-top: var(--tec-spacer-12);
+			}
+
+			&.tec-events-settings__upsell-form {
+				border: 0;
+				padding: 0;
+			}
+
+			> * {
+				padding-right: var(--tec-spacer-settings-form-right-gap);
+			}
+		}
+
+		@media (--viewport-full) {
+			max-width: calc(100% - (2 * var(--tec-spacer-7)));
+			width: var(--tec-spacer-settings-form-width);
+		}
+
+		@media (--viewport-xlarge) {
+			border-radius: var(--tec-border-radius-default);
+			column-gap: var(--tec-spacer-settings-form-col-gap);
+			grid-template-columns: var(--tec-spacer-settings-form-width-left-col) 1fr;
+			margin: var(--tec-spacer-7) 0 0 var(--tec-spacer-5);
+
+			&.tec-settings-form__subnav-active {
+				padding-top: calc(var(--tec-spacer-9) + var(--tec-spacer-6) - 2px);
+			}
+		}
+
+		/* Grid spacing/layout */
+		> * {
+			grid-column: 1;
+
+			@media (--viewport-xsmall) and (max-width: 1259px) {
+				padding: 0 var(--tec-spacer-settings-form-right-gap) var(--tec-spacer-7) var(--tec-spacer-7);
+			}
+
+			@media (--viewport-xlarge) {
+				grid-column: 2;
+				padding-bottom: var(--tec-spacer-7);
+
+				&:nth-last-child(-n +1 of .tec-settings-form__content-section) {
+					padding-bottom: 0;
+				}
+			}
+		}
+	}
+}

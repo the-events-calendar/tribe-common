@@ -74,6 +74,8 @@ function tribe_attributes() {
  * @return string|void If echo is false, returns $required_string.
  */
 function tribe_required( $required, $echo = true ) {
+	_deprecated_function( __METHOD__, '4.12.6', 'no replacement' );
+
 	if ( $required ) {
 		$required_string = 'required aria-required="true"';
 
@@ -98,7 +100,7 @@ function tribe_required( $required, $echo = true ) {
 function tribe_required_label( $required, $echo = true ) {
 	if ( $required ) {
 		$required_string = '<span class="screen-reader-text">'
-			. esc_html_x( '(required)', 'The associated field is required.', 'tribe-common' )
+			. esc_html_x( '( required )', 'The associated field is required.', 'tribe-common' )
 			. '</span><span class="tribe-required" aria-hidden="true" role="presentation">*</span>';
 
 		if ( ! $echo ) {

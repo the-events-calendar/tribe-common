@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e624eb39c73557010857f1f3e863eac5",
+    "content-hash": "be6d00322c83caee63872c2b0f55033d",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -295,16 +295,16 @@
         },
         {
             "name": "stellarwp/assets",
-            "version": "1.2.7",
+            "version": "1.2.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/assets.git",
-                "reference": "be4448d4e54396b1dac5c3aef87a260e2311a20e"
+                "reference": "1cd83c9799ff1e5c4b7f3c7d301f3b8b8b2d6ee4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/assets/zipball/be4448d4e54396b1dac5c3aef87a260e2311a20e",
-                "reference": "be4448d4e54396b1dac5c3aef87a260e2311a20e",
+                "url": "https://api.github.com/repos/stellarwp/assets/zipball/1cd83c9799ff1e5c4b7f3c7d301f3b8b8b2d6ee4",
+                "reference": "1cd83c9799ff1e5c4b7f3c7d301f3b8b8b2d6ee4",
                 "shasum": ""
             },
             "require-dev": {
@@ -345,9 +345,9 @@
             "description": "A library for managing asset registration and enqueuing in WordPress.",
             "support": {
                 "issues": "https://github.com/stellarwp/assets/issues",
-                "source": "https://github.com/stellarwp/assets/tree/1.2.7"
+                "source": "https://github.com/stellarwp/assets/tree/1.2.9"
             },
-            "time": "2024-07-13T22:33:19+00:00"
+            "time": "2024-08-08T20:46:30+00:00"
         },
         {
             "name": "stellarwp/container-contract",
@@ -722,16 +722,16 @@
         },
         {
             "name": "automattic/jetpack-changelogger",
-            "version": "v4.2.5",
+            "version": "v4.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-changelogger.git",
-                "reference": "72c219fa6e61bdcd760a68e8ff968a4365593f48"
+                "reference": "23b7c4b3dc98ce9c78d7c14fc8f0fd0c17f7888d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-changelogger/zipball/72c219fa6e61bdcd760a68e8ff968a4365593f48",
-                "reference": "72c219fa6e61bdcd760a68e8ff968a4365593f48",
+                "url": "https://api.github.com/repos/Automattic/jetpack-changelogger/zipball/23b7c4b3dc98ce9c78d7c14fc8f0fd0c17f7888d",
+                "reference": "23b7c4b3dc98ce9c78d7c14fc8f0fd0c17f7888d",
                 "shasum": ""
             },
             "require": {
@@ -741,7 +741,7 @@
             },
             "require-dev": {
                 "wikimedia/testing-access-wrapper": "^1.0 || ^2.0 || ^3.0",
-                "yoast/phpunit-polyfills": "1.1.0"
+                "yoast/phpunit-polyfills": "^1.1.1"
             },
             "bin": [
                 "bin/changelogger"
@@ -778,9 +778,9 @@
                 "keepachangelog"
             ],
             "support": {
-                "source": "https://github.com/Automattic/jetpack-changelogger/tree/v4.2.5"
+                "source": "https://github.com/Automattic/jetpack-changelogger/tree/v4.2.6"
             },
-            "time": "2024-06-27T12:55:08+00:00"
+            "time": "2024-08-22T11:01:24+00:00"
         },
         {
             "name": "automattic/vipwpcs",
@@ -3258,16 +3258,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.29.1",
+            "version": "1.30.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "fcaefacf2d5c417e928405b71b400d4ce10daaf4"
+                "reference": "5ceb0e384997db59f38774bf79c2a6134252c08f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/fcaefacf2d5c417e928405b71b400d4ce10daaf4",
-                "reference": "fcaefacf2d5c417e928405b71b400d4ce10daaf4",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/5ceb0e384997db59f38774bf79c2a6134252c08f",
+                "reference": "5ceb0e384997db59f38774bf79c2a6134252c08f",
                 "shasum": ""
             },
             "require": {
@@ -3299,9 +3299,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.29.1"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.30.0"
             },
-            "time": "2024-05-31T08:52:43+00:00"
+            "time": "2024-08-29T09:54:52+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -6337,16 +6337,16 @@
         },
         {
             "name": "the-events-calendar/tec-testing-facilities",
-            "version": "dev-master",
+            "version": "dev-mocker",
             "source": {
                 "type": "git",
                 "url": "https://github.com/the-events-calendar/tec-testing-facilities.git",
-                "reference": "0b5909300805b8844ce4720cee72ea7389eb2e58"
+                "reference": "f753cde5e0176ffe06de43585c7e7d139ee96119"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/the-events-calendar/tec-testing-facilities/zipball/0b5909300805b8844ce4720cee72ea7389eb2e58",
-                "reference": "0b5909300805b8844ce4720cee72ea7389eb2e58",
+                "url": "https://api.github.com/repos/the-events-calendar/tec-testing-facilities/zipball/f753cde5e0176ffe06de43585c7e7d139ee96119",
+                "reference": "f753cde5e0176ffe06de43585c7e7d139ee96119",
                 "shasum": ""
             },
             "require": {
@@ -6362,7 +6362,6 @@
                 "wordpress/wordpress": "dev-master",
                 "wp-coding-standards/wpcs": "^2.1"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "files": [
@@ -6385,9 +6384,9 @@
             "description": "Testing facilities, helpers and examples.",
             "support": {
                 "issues": "https://github.com/the-events-calendar/tec-testing-facilities/issues",
-                "source": "https://github.com/the-events-calendar/tec-testing-facilities/tree/master"
+                "source": "https://github.com/the-events-calendar/tec-testing-facilities/tree/mocker"
             },
-            "time": "2024-04-15T14:14:23+00:00"
+            "time": "2024-08-19T19:17:00+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -6795,16 +6794,16 @@
         },
         {
             "name": "wp-cli/wp-cli",
-            "version": "v2.10.0",
+            "version": "v2.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-cli/wp-cli.git",
-                "reference": "a339dca576df73c31af4b4d8054efc2dab9a0685"
+                "reference": "53f0df112901fcf95099d0f501912a209429b6a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/a339dca576df73c31af4b4d8054efc2dab9a0685",
-                "reference": "a339dca576df73c31af4b4d8054efc2dab9a0685",
+                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/53f0df112901fcf95099d0f501912a209429b6a9",
+                "reference": "53f0df112901fcf95099d0f501912a209429b6a9",
                 "shasum": ""
             },
             "require": {
@@ -6834,7 +6833,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "2.10.x-dev"
+                    "dev-main": "2.11.x-dev"
                 }
             },
             "autoload": {
@@ -6861,7 +6860,7 @@
                 "issues": "https://github.com/wp-cli/wp-cli/issues",
                 "source": "https://github.com/wp-cli/wp-cli"
             },
-            "time": "2024-02-08T16:52:43+00:00"
+            "time": "2024-08-08T03:04:55+00:00"
         },
         {
             "name": "wp-coding-standards/wpcs",

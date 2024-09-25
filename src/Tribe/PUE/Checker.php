@@ -607,6 +607,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$to_insert = [
 				$this->pue_install_key . '-heading' => [
 					'type'  => 'heading',
+					'class' => [
+						'tec-settings-form__section-header',
+						'tec-settings-form__section-header--sub',
+					],
 					'label' => $this->get_plugin_name(),
 				],
 			];
@@ -686,6 +690,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'html'             => sprintf( '<p>%s</p>', $this->get_network_license_state_string() ),
 				];
 			}
+
+			$to_insert = tribe( 'settings' )->wrap_section_content( $this->pue_install_key, $to_insert );
 
 			$fields = self::array_insert_after_key( 'tribe-form-content-start', $fields, $to_insert );
 

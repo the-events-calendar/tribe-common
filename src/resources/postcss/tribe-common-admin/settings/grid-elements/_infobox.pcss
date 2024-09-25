@@ -1,0 +1,68 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Settings Form Infobox
+ *
+ * This file contains styles specific to the settings form.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe_events_page_tec-events-settings #tec-settings-form {
+	.tec-settings-infobox {
+		align-items: center;
+		background-color: var(--tec-admin-core-grey-0);
+		border: 1px solid var(--tec-admin-core-grey-10);
+		border-radius: var(--tec-border-radius-default);
+		column-gap: var(--tec-spacer-4);
+		display: grid;
+		grid-template-columns: auto 1fr;
+		margin: 0;
+		padding: var(--tec-spacer-4) var(--tec-spacer-2) var(--tec-spacer-4) var(--tec-spacer-4);
+
+		@media (--viewport-xsmall) {
+			margin: 0 var(--tec-spacer-7);
+			margin-right: var(--tec-spacer-settings-form-right-gap);
+			padding-right: var(--tec-spacer-4);
+		}
+
+		> * {
+			padding-left: 0;
+		}
+
+		.tec-settings-infobox-logo {
+			grid-column: 1;
+			width: var(--tec-spacer-9);
+
+			@media (--viewport-xsmall) {
+				grid-row: 1 / span 10;
+			}
+		}
+
+		.tec-settings-infobox-title {
+			background-color: transparent;
+			grid-column: 2;
+			margin: 0;
+			margin-bottom: var(--tec-spacer-1);
+			padding: 0;
+		}
+
+		.tec-settings-infobox-title ~ * {
+			grid-column: 1 / span 2;
+			margin-left: 0;
+
+			@media (--viewport-xsmall) {
+				grid-column: 2;
+			}
+		}
+
+		p {
+			margin: 0;
+			margin-bottom: 1em;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+
+
+	}
+}

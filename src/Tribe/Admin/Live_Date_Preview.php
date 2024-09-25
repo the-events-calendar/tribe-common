@@ -39,7 +39,7 @@ class Tribe__Admin__Live_Date_Preview {
 	 */
 	public function listen() {
 		// We are only interested in the "Display" tab
-		if ( 'display' !== Tribe__Settings::instance()->currentTab ) {
+		if ( 'display-date-time-tab' !== tribe( 'settings' )->get_current_tab() ) {
 			return;
 		}
 

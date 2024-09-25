@@ -1,0 +1,64 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Settings Form Footer
+ *
+ * This file contains styles specific to the settings form.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe_events_page_tec-events-settings #tec-settings-form {
+	> .tec-settings-form__footer {
+		align-items: center;
+		background-color: var(--tec-color-background);
+		border-bottom-left-radius: var(--tec-border-radius-default);
+		border-bottom-right-radius: var(--tec-border-radius-default);
+		border-color: var(--tec-admin-core-grey-10);
+		border-style: solid;
+		border-width: 0;
+		border-top-width: 1px;
+		bottom: 0;
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		left: var(--tec-spacer-7);
+		margin: 0 calc(-1 * var(--tec-spacer-7));
+		padding: var(--tec-spacer-3) var(--tec-spacer-7);
+		position: sticky;
+		right: var(--tec-spacer-7);
+
+		.dashicons-editor-help {
+			text-decoration: none;
+		}
+
+		@media (--viewport-xsmall) {
+			border-width: 1px;
+			margin: 0 -1px -1px;
+			padding-right: var(--tec-spacer-7);
+		}
+
+		@media (min-width: 1024px) {
+			border-width: 0;
+			border-top-width: 1px;
+			position: static;
+		}
+
+		@media (--viewport-xlarge) {
+			grid-column: 1 / span 2;
+			padding: var(--tec-spacer-2) var(--tec-spacer-4);
+		}
+	}
+
+	&.tec-events-settings__upsell-form {
+		.tec-settings-form__footer {
+			display: none;
+		}
+	}
+
+	#tribeSaveSettings {
+		width: fit-content;
+
+		@media (--viewport-xlarge) {
+			grid-column: 1;
+		}
+	}
+}

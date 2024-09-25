@@ -37,7 +37,7 @@ tribe.events.automatorSettingsAdmin = tribe.events.automatorSettingsAdmin || {};
 		integrationList: '.tec-automator-settings-items__wrap',
 		integrationItem: '.tec-automator-settings-details__container',
 		integrationName: '.tec-automator-settings-details__name-input',
-		integrationUser: '.tec-settings__users-dropdown',
+		integrationUser: '.tec-settings-form__users-dropdown',
 		integrationGenerate: '.tec-automator-settings-details-action__generate',
 		integrationRevoke: '.tec-automator-settings-details-action__revoke',
 

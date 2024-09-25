@@ -15,34 +15,24 @@
  */
 
 ?>
-<?php $this->template( '/components/loader' ); ?>
+<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
+	<?php $this->template( '/components/loader' ); ?>
+	<h3 id="tec-zapier-endpoint-dashboard" class="tec-settings-zapier-application__title tec-settings-form__section-header tec-settings-form__section-header--sub">
+		<?php echo esc_html_x( 'Zapier Endpoint Dashboard', 'Zapier settings endpoint dashboard header', 'tribe-common' ); ?>
+	</h3>
+	<p class="tec-settings-zapier-application__description tec-settings-form__section-description">
+		<?php
+		$echo = sprintf(
+			/* translators: %1$s: URL to the Zapier Endpoint Dashboard documentation */
+			_x(
+				'Monitor your Zapier endpoints (triggers and actions used by your connectors). <a href="%1$s" target="_blank">Read more about the Zapier Endpoint Dashboard.</a>',
+				'Settings help text and link for Zapier Endpoint Dashboard.',
+				'tribe-common'
+			),
+			esc_url( 'https://evnt.is/1bdl' ),
+		);
 
-<h3 id="tec-zapier-endpoint-dashboard" class="tec-settings-zapier-application__title">
-	<?php echo esc_html_x( 'Zapier Endpoint Dashboard', 'Zapier settings endpoint dashboard header', 'tribe-common' ); ?>
-</h3>
-<p class="tec-settings-zapier-application__description">
-	<?php
-	printf(
-		'%1$s',
-		esc_html_x(
-			'Monitor your Zapier endpoints (triggers and actions used by your connectors).',
-			'Settings help text for Zapier Endpoint Dashboard.',
-			'tribe-common'
-		),
-	);
-	?>
-</p>
-<p class="tec-settings-zapier-application__description">
-	<?php
-	$url = 'https://evnt.is/1bdl';
-	printf(
-		'<a href="%1$s" target="_blank">%2$s</a>',
-		esc_url( $url ),
-		esc_html_x(
-			'Read more about the Zapier Endpoint Dashboard.',
-			'Settings link text for Zapier endpoint dashboard.',
-			'tribe-common'
-		)
-	);
-	?>
-</p>
+		echo wp_kses_post( $echo );
+		?>
+	</p>
+</div>

@@ -1,0 +1,70 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Modal Sidebar
+ *
+ * This file contains styles/overrides specific to the modal-sidebar.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe_events_page_tec-events-settings {
+	.tec-settings-form__sidebar-toggle {
+		@mixin button-link;
+
+		color: var(--tec-admin-core-blue-50);
+
+		@media (--viewport-xlarge) {
+			display: none;
+		}
+	}
+
+	#tec-settings-form__sidebar-modal {
+		margin: 0 0 0 auto;
+		max-width: var(--tec-width-sidebar);
+		padding: 0;
+		transform: translateX(100%);
+		width: 100%;
+
+		.tec-modal__content {
+			width: 100%;
+		}
+
+		.tec-settings-form__sidebar {
+			display: flex;
+			min-height: auto;
+		}
+
+		.tec-modal__control--close + img {
+			border-top-right-radius: var(--tec-border-radius-default);
+			width: calc(100% - var(--tec-spacer-5));
+		}
+
+		.tec-settings-form__sidebar-header {
+			display: flex;
+			flex-flow: row wrap;
+		}
+
+		@media (--viewport-large) {
+			display: none;
+		}
+	}
+
+	#tec-settings-form__sidebar-modal[open] {
+		margin: var(--tec-spacer-1);
+		margin-left: auto;
+		transform: translateX(0);
+		transition: var(--tec-transition-transform);
+
+		.tec-settings-form__sidebar-section > .tec-modal__control--close {
+			margin-left: var(--tec-spacer-4);
+			margin-top: var(--tec-spacer-5);
+
+			+ img {
+				width: 286px;
+			}
+		}
+
+		.tec-settings-form__sidebar-header {
+			justify-content: space-between;
+		}
+	}
+}
