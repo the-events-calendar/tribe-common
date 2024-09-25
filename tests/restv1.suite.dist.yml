@@ -50,5 +50,3 @@ modules:
             activatePlugins:
               - the-events-calendar/the-events-calendar.php
               - events-pro/events-calendar-pro.php
-            silentlyActivatePlugins:
-              - woocommerce/woocommerce.php
