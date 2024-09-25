@@ -6,9 +6,6 @@
  * @since 4.0
  */
 
-// Don't load directly.
-use TEC\Common\StellarWP\Assets\Asset;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
