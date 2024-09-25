@@ -15,7 +15,7 @@ class BaseRestETCest {
 	protected $site_url;
 
 	/**
-	 * @var string The site full URL to the REST API root for Zapier.
+	 * @var string The site full URL to the REST API root.
 	 */
 	protected $rest_url;
 
@@ -28,6 +28,46 @@ class BaseRestETCest {
 	 * @var string
 	 */
 	protected $authorize_url;
+
+	/**
+	 * @var string
+	 */
+	protected $new_events_url;
+
+	/**
+	 * @var string
+	 */
+	protected $canceled_events_url;
+
+	/**
+	 * @var string
+	 */
+	protected $updated_events_url;
+
+	/**
+	 * @var string
+	 */
+	protected $attendees_url;
+
+	/**
+	 * @var string
+	 */
+	protected $checkin_url;
+
+	/**
+	 * @var string
+	 */
+	protected $updated_attendees_url;
+
+	/**
+	 * @var string
+	 */
+	protected $orders_url;
+
+	/**
+	 * @var string
+	 */
+	protected $refunded_orders_url;
 
 	/**
 	 * @var string
@@ -81,7 +121,7 @@ class BaseRestETCest {
 	 *
 	 * @var string
 	 */
-	protected static $valid_access_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vd29yZHByZXNzLnRlc3QiLCJpYXQiOjE2ODQzMTc1OTgsIm5iZiI6MTY4NDMxNzU5OCwiZGF0YSI6eyJjb25zdW1lcl9pZCI6ImNpXzVjMmRhNDliYzU3Y2JiMjY5ZTBiYzM2MTBmOTY2MjUxMWUzNjU1MTkiLCJjb25zdW1lcl9zZWNyZXQiOiJja184ZDA0OGIzY2JiY2UwY2ZkOTUyYmVhYzgzNmM2OWJmODEzYzFjYzljIiwiYXBwX25hbWUiOiJ6YXBpZXItZXZlbnQtdGlja2V0cyJ9fQ.0BbhWHLvlrjLeBvGo5TkCGOk_8BAdYMMFwLThxGJD6I';
+	protected static $valid_access_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vd29yZHByZXNzLnRlc3QiLCJpYXQiOjE2ODQzMjEwNzIsIm5iZiI6MTY4NDMyMTA3MiwiZGF0YSI6eyJjb25zdW1lcl9pZCI6ImNpXzVjMmRhNDliYzU3Y2JiMjY5ZTBiYzM2MTBmOTY2MjUxMWUzNjU1MTkiLCJjb25zdW1lcl9zZWNyZXQiOiJja184ZDA0OGIzY2JiY2UwY2ZkOTUyYmVhYzgzNmM2OWJmODEzYzFjYzljIiwiYXBwX25hbWUiOiJ6YXBpZXItZXZlbnQtdGlja2V0cyJ9fQ.9iTb1NbVddQlKJQ_5ggozA9zm0PZ76cbnqj4xzoRCPo';
 
 	/**
 	 * Secret Key for Power Automate JWT authentication.
@@ -112,9 +152,20 @@ class BaseRestETCest {
 		$this->documentation_url = $this->rest_url . 'doc';
 		$this->factory           = $I->factory();
 		$this->authorize_url     = $this->rest_url . 'authorize';
-		//Actions
+		// Triggers.
+		$this->canceled_events_url   = $this->rest_url . 'canceled-events';
+		$this->new_events_url        = $this->rest_url . 'new-events';
+		$this->updated_events_url    = $this->rest_url . 'updated-events';
+		$this->attendees_url         = $this->rest_url . 'attendees';
+		$this->updated_attendees_url = $this->rest_url . 'updated-attendees';
+		$this->checkin_url           = $this->rest_url . 'checkin';
+		$this->orders_url            = $this->rest_url . 'orders';
+		$this->refunded_orders_url   = $this->rest_url . 'refunded-orders';
+		// Actions.
 		$this->create_events_url    = $this->rest_url . 'create-events';
+		$this->find_attendees_url   = $this->rest_url . 'find-attendees';
 		$this->find_events_url      = $this->rest_url . 'find-events';
+		$this->find_tickets_url     = $this->rest_url . 'find-tickets';
 		$this->update_events_url    = $this->rest_url . 'update-events';
 		$this->pa_create_events_url = $this->pa_rest_url . 'create-events';
 
@@ -154,18 +205,18 @@ class BaseRestETCest {
 	 */
 	protected function setup_api_key_pair( Restv1_etTester $I ) {
 		$key_pair_list = [
-		    '4689db48b24f0ac42f3f0d8fe027b8f28f63f262b9fc2f73736dfa91b4045425' => [ 'name' => 'EA Tester' ],
+			'4689db48b24f0ac42f3f0d8fe027b8f28f63f262b9fc2f73736dfa91b4045425' => [ 'name' => 'EA Tester' ],
 		];
 		$I->haveOptionInDatabase( 'tec_zapier_api_keys', $key_pair_list );
 
 		$api_key_data = [
-		'consumer_id' => '4689db48b24f0ac42f3f0d8fe027b8f28f63f262b9fc2f73736dfa91b4045425',
-		    'consumer_secret' => 'a9d247f22feb20f5ac09b839b5b3cf2ea361c1081e7e57a42ed5c1f3e7b1222e',
-		    'has_pair' => 1,
-		    'name' => 'EA Tester',
-		    'permissions' => 'read',
-		    'last_access'=> '-',
-		    'user_id' => 1,
+			'consumer_id'     => '4689db48b24f0ac42f3f0d8fe027b8f28f63f262b9fc2f73736dfa91b4045425',
+			'consumer_secret' => 'a9d247f22feb20f5ac09b839b5b3cf2ea361c1081e7e57a42ed5c1f3e7b1222e',
+			'has_pair'        => 1,
+			'name'            => 'EA Tester',
+			'permissions'     => 'read',
+			'last_access'     => '-',
+			'user_id'         => 1,
 		];
 		$I->haveOptionInDatabase( 'tec_zapier_api_key_4689db48b24f0ac42f3f0d8fe027b8f28f63f262b9fc2f73736dfa91b4045425', $api_key_data );
 	}
@@ -179,19 +230,100 @@ class BaseRestETCest {
 	 */
 	protected function setup_power_automate_connection( Restv1_etTester $I ) {
 		$key_pair_list = [
-		    '7421993746242c4cb71a3ace79a331f211a032d03e52eae63af70733d123d69d' => [ 'name' => 'EA Tester' ],
+			'7421993746242c4cb71a3ace79a331f211a032d03e52eae63af70733d123d69d' => [ 'name' => 'EA Tester' ],
 		];
 		$I->haveOptionInDatabase( 'tec_power_automate_connections', $key_pair_list );
 
 		$api_key_data = [
-		'consumer_id' => '7421993746242c4cb71a3ace79a331f211a032d03e52eae63af70733d123d69d', // ci_1c2da49bc57cbb269e0bc3610f9662511e365519
-		    'consumer_secret' => '43892a566bbbaf0bb17a24e7a085ccb15102e0ea168d67d6eb3b3ef613f16362', //ck_1d048b3cbbce0cfd952beac836c69bf813c1cc9c
-		    'has_pair' => 1,
-		    'name' => 'EA Tester',
-		    'permissions' => 'read',
-		    'last_access'=> '-',
-		    'user_id' => 1,
+			'consumer_id'     => '7421993746242c4cb71a3ace79a331f211a032d03e52eae63af70733d123d69d', // ci_1c2da49bc57cbb269e0bc3610f9662511e365519
+			'consumer_secret' => '43892a566bbbaf0bb17a24e7a085ccb15102e0ea168d67d6eb3b3ef613f16362', //ck_1d048b3cbbce0cfd952beac836c69bf813c1cc9c
+			'has_pair'        => 1,
+			'name'            => 'EA Tester',
+			'permissions'     => 'read',
+			'last_access'     => '-',
+			'user_id'         => 1,
 		];
 		$I->haveOptionInDatabase( 'tec_power_automate_connection_7421993746242c4cb71a3ace79a331f211a032d03e52eae63af70733d123d69d', $api_key_data );
+	}
+
+	/**
+	 * Setup Canceled Event Queue.
+	 *
+	 * @param \Restv1_etTester $I
+	 */
+	protected function setup_canceled_event_queue( Restv1_etTester $I, array $value = [] ) {
+		$I->haveTransientInDatabase( '_tec_zapier_queue_canceled_events', $value );
+	}
+
+	/**
+	 * Setup New Event Queue.
+	 *
+	 * @param \Restv1_etTester $I
+	 */
+	protected function setup_new_event_queue( Restv1_etTester $I, array $value = [] ) {
+		$I->haveTransientInDatabase( '_tec_zapier_queue_new_events', $value );
+	}
+
+	/**
+	 * Disable Endpoint.
+	 *
+	 * @param \Restv1_etTester $I
+	 */
+	protected function disable_endpoint( Restv1_etTester $I, $endpoint_option, $endpoint_details ) {
+		$I->haveOptionInDatabase( $endpoint_option, $endpoint_details );
+	}
+
+	/**
+	 * Setup Updated Event Queue.
+	 *
+	 * @param \Restv1_etTester $I
+	 */
+	protected function setup_updated_event_queue( Restv1_etTester $I, array $value = [] ) {
+		$I->haveTransientInDatabase( '_tec_zapier_queue_updated_events', $value );
+	}
+
+	/**
+	 * Setup Attendee Queue.
+	 *
+	 * @param \Restv1_etTester $I
+	 */
+	protected function setup_attendee_queue( Restv1_etTester $I, array $value = [] ) {
+		$I->haveTransientInDatabase( '_tec_zapier_queue_attendees', $value );
+	}
+
+	/**
+	 * Setup Updated Attendee Queue.
+	 *
+	 * @param \Restv1_etTester $I
+	 */
+	protected function setup_updated_attendees_queue( Restv1_etTester $I, array $value = [] ) {
+		$I->haveTransientInDatabase( '_tec_zapier_queue_updated_attendees', $value );
+	}
+
+	/**
+	 * Setup Checkin Queue.
+	 *
+	 * @param \Restv1_etTester $I
+	 */
+	protected function setup_checkin_queue( Restv1_etTester $I, array $value = [] ) {
+		$I->haveTransientInDatabase( '_tec_zapier_queue_checkin', $value );
+	}
+
+	/**
+	 * Setup Orders Queue.
+	 *
+	 * @param \Restv1_etTester $I
+	 */
+	protected function setup_orders_queue( Restv1_etTester $I, array $value = [] ) {
+		$I->haveTransientInDatabase( '_tec_zapier_queue_orders', $value );
+	}
+
+	/**
+	 * Setup Refunded Orders Queue.
+	 *
+	 * @param \Restv1_etTester $I
+	 */
+	protected function setup_refunded_orders_queue( Restv1_etTester $I, array $value = [] ) {
+		$I->haveTransientInDatabase( '_tec_zapier_queue_refunded_orders', $value );
 	}
 }

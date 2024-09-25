@@ -142,7 +142,7 @@ class BaseRestCest {
 	 *
 	 * @var string
 	 */
-	protected static $valid_access_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vd29yZHByZXNzLnRlc3QiLCJpYXQiOjE2ODQzMjEwNzIsIm5iZiI6MTY4NDMyMTA3MiwiZGF0YSI6eyJjb25zdW1lcl9pZCI6ImNpXzVjMmRhNDliYzU3Y2JiMjY5ZTBiYzM2MTBmOTY2MjUxMWUzNjU1MTkiLCJjb25zdW1lcl9zZWNyZXQiOiJja184ZDA0OGIzY2JiY2UwY2ZkOTUyYmVhYzgzNmM2OWJmODEzYzFjYzljIiwiYXBwX25hbWUiOiJ6YXBpZXItZXZlbnQtdGlja2V0cyJ9fQ.9iTb1NbVddQlKJQ_5ggozA9zm0PZ76cbnqj4xzoRCPo';
+	protected static $valid_access_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vd29yZHByZXNzLnRlc3QiLCJpYXQiOjE3MjcyNjcxOTgsIm5iZiI6MTcyNzI2NzE5OCwiZGF0YSI6eyJjb25zdW1lcl9pZCI6ImNpXzVjMmRhNDliYzU3Y2JiMjY5ZTBiYzM2MTBmOTY2MjUxMWUzNjU1MTkiLCJjb25zdW1lcl9zZWNyZXQiOiJja184ZDA0OGIzY2JiY2UwY2ZkOTUyYmVhYzgzNmM2OWJmODEzYzFjYzljIiwiYXBwX25hbWUiOiJ6YXBpZXItdGhlLWV2ZW50cy1jYWxlbmRhciJ9fQ.O7MUko22kQ-aHVs44e4IOBWa1k5xvryTm46ipBTdHJQ';
 
 	public function _before( Restv1Tester $I ) {
 		$this->site_url              = $I->grabSiteUrl();
@@ -208,12 +208,13 @@ class BaseRestCest {
 
 		$api_key_data = [
 			'consumer_id' => '4689db48b24f0ac42f3f0d8fe027b8f28f63f262b9fc2f73736dfa91b4045425', // ci_5c2da49bc57cbb269e0bc3610f9662511e365519
-			    'consumer_secret' => 'a9d247f22feb20f5ac09b839b5b3cf2ea361c1081e7e57a42ed5c1f3e7b1222e', // ck_8d048b3cbbce0cfd952beac836c69bf813c1cc9c
+			'consumer_secret' => 'a9d247f22feb20f5ac09b839b5b3cf2ea361c1081e7e57a42ed5c1f3e7b1222e', // ck_8d048b3cbbce0cfd952beac836c69bf813c1cc9c
 		    'has_pair' => 1,
 		    'name' => 'EA Tester',
 		    'permissions' => 'read',
 		    'last_access'=> '-',
 		    'user_id' => 1,
+			'app_name' => 'zapier-the-events-calendar',
 		];
 		$I->haveOptionInDatabase( 'tec_zapier_api_key_4689db48b24f0ac42f3f0d8fe027b8f28f63f262b9fc2f73736dfa91b4045425', $api_key_data );
 	}

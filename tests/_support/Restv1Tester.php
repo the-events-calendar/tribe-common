@@ -34,7 +34,7 @@ class Restv1Tester extends \Codeception\Actor
 	 *
 	 * @param array<string|mixed> $data An array of details for an API key pair or an endpoint.
 	 */
-	public function test_last_access( array $data = [] ) {
+	public function test_et_last_access( array $data = [] ) {
 		$this->assertArrayHasKey( 'last_access', $data );
 		$this->assertNotEquals( '-', $data['last_access'] );
 		$last_access_array = explode( '|', $data['last_access'] );
