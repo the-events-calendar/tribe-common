@@ -28,6 +28,15 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
+	 * Renders the help page template.
+	 *
+	 * @since TBD
+	 */
+	public function do_help_tab() {
+		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-hub.php';
+	}
+
+	/**
 	 * Set up hooks.
 	 *
 	 * @since 4.15.0
@@ -50,7 +59,7 @@ class Tribe__Admin__Help_Page {
 			return $classes;
 		}
 
-		$classes .= ' tribe-help tec-help';
+		$classes .= ' tribe-help tec-help tribe_events_page_tec-events-settings';
 		return $classes;
 	}
 
@@ -72,8 +81,8 @@ class Tribe__Admin__Help_Page {
 		global $current_screen;
 
 		$help_pages = [
-			'tribe_events_page_tec-events-help',
-			'tickets_page_tec-tickets-help',
+			'tribe_events_page_tec-events-help-hub',
+			'tickets_page_tec-tickets-help-hub',
 		];
 
 		return in_array( $current_screen->id, $help_pages );
@@ -95,7 +104,7 @@ class Tribe__Admin__Help_Page {
 
 		global $current_screen;
 
-		return 'tribe_events_page_tec-events-help' === $current_screen->id;
+		return 'tribe_events_page_tec-events-help-hub' === $current_screen->id;
 	}
 
 	/**
