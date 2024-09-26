@@ -75,8 +75,7 @@ class SettingsCest {
 	 */
 	public function should_see_all_settings_when_et_plus_and_pro_active( End2endTester $I ) {
 		$I->amOnPluginsPage();
-		$I->activatePlugin( [ 'event-tickets' ] );
-		$I->activatePlugin( [ 'event-tickets-plus' ] );
+		$I->activatePlugin( [ 'event-tickets', 'event-tickets-plus' ] );
 		$I->amOnAdminPage('/edit.php?page=tec-events-settings&tab=addons&post_type=tribe_events');
 		$I->canSeeInPageSource( 'Zapier' );
 		$I->canSeeInPageSource( 'Power Automate' );
