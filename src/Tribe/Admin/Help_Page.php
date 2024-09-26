@@ -6,7 +6,6 @@
  * @since 4.0
  */
 
-// Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -28,12 +27,44 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
+	 * Renders the help page template.
+	 *
+	 * @since TBD
+	 */
+	public function do_help_tab() {
+		$main = Tribe__Main::instance();
+		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-hub.php';
+	}
+
+	/**
 	 * Set up hooks.
 	 *
 	 * @since 4.15.0
 	 */
 	public function hook() {
-		add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
+		if ( is_admin() ) {
+			add_action( 'wp_loaded', [ $this, 'load_assets' ] );
+			add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
+		}
+	}
+
+	/**
+	 * Enqueue the help page assets.
+	 *
+	 * @since TBD
+	 */
+	public function load_assets() {
+		if ( ! $this->is_current_page() ) {
+			return;
+		}
+
+		tribe_asset(
+			Tribe__Main::instance(),
+			'tec-common-help-hub-style',
+			'help-hub.css',
+			null,
+			'admin_enqueue_scripts'
+		);
 	}
 
 	/**
@@ -50,7 +81,7 @@ class Tribe__Admin__Help_Page {
 			return $classes;
 		}
 
-		$classes .= ' tribe-help tec-help';
+		$classes .= ' tribe-help tec-help tribe_events_page_tec-events-settings';
 		return $classes;
 	}
 
@@ -72,8 +103,8 @@ class Tribe__Admin__Help_Page {
 		global $current_screen;
 
 		$help_pages = [
-			'tribe_events_page_tec-events-help',
-			'tickets_page_tec-tickets-help',
+			'tribe_events_page_tec-events-help-hub',
+			'tickets_page_tec-tickets-help-hub',
 		];
 
 		return in_array( $current_screen->id, $help_pages );
@@ -95,7 +126,7 @@ class Tribe__Admin__Help_Page {
 
 		global $current_screen;
 
-		return 'tribe_events_page_tec-events-help' === $current_screen->id;
+		return 'tribe_events_page_tec-events-help-hub' === $current_screen->id;
 	}
 
 	/**
