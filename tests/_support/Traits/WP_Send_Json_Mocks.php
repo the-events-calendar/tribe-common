@@ -11,6 +11,8 @@ namespace Tribe\Tests\Traits;
 
 require_once __DIR__ . '/Function_Spy.php';
 
+use Exception;
+
 class WP_Send_Json_Mock_Spy {
 	use Function_Spy;
 	use With_Uopz;
@@ -24,11 +26,7 @@ class WP_Send_Json_Mock_Spy {
 	}
 
 	public function get_pretty_arguments(): string {
-		return json_encode( [
-			$this->data,
-			$this->status_code,
-			$this->flags,
-		], JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_HEX_QUOT | JSON_UNESCAPED_SLASHES );
+		return json_encode( $this->calls, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_HEX_QUOT | JSON_UNESCAPED_SLASHES );
 	}
 
 	public function get_pretty_calls(): array {
@@ -72,6 +70,31 @@ trait WP_Send_Json_Mocks {
 			$test_case->wp_send_json_unexpected_spy->register_call( [ $response, $status_code, $flags ] );
 		};
 		$this->set_fn_return( "wp_send_json", $log_unexpected, true );
+
+		$this->set_fn_return(
+			'check_ajax_referer',
+			static function ( $action = -1, $query_arg = false, $stop = true ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+				$nonce = '';
+				// phpcs:disable WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				if ( $query_arg && isset( $_REQUEST[ $query_arg ] ) ) {
+					$nonce = $_REQUEST[ $query_arg ];
+				} elseif ( isset( $_REQUEST['_ajax_nonce'] ) ) {
+					$nonce = $_REQUEST['_ajax_nonce'];
+				} elseif ( isset( $_REQUEST['_wpnonce'] ) ) {
+					$nonce = $_REQUEST['_wpnonce'];
+				}
+				// phpcs:enable WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
+				$result = wp_verify_nonce( $nonce, $action );
+
+				if ( ! $result && $stop ) {
+					throw new Exception( 'check_ajax_referer failed and was called with stop = true' );
+				}
+
+				return $result;
+			},
+			true
+		);
 	}
 
 	protected function mock_wp_send_json_error( $value = null, $status_code = null, $flags = 0 ): WP_Send_Json_Mock_Spy {
