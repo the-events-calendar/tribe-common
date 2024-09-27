@@ -285,7 +285,7 @@ jobs:
       # ------------------------------------------------------------------------------
       # Clone and init ET+
       # ------------------------------------------------------------------------------
-      - name: Clone ET+
+      - name: Clone and init ET+
         uses: actions/checkout@v4
         if: steps.skip.outputs.value != 1
         with:
@@ -305,7 +305,7 @@ jobs:
       # --------------------------------------------------------------------------
       # Clone and init Pro
       # --------------------------------------------------------------------------
-      - name: Clone Pro
+      - name: Clone and init Pro
         uses: actions/checkout@v2
         if: steps.skip.outputs.value != 1
         with:
