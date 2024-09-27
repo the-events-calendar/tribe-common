@@ -1,10 +1,9 @@
 <?php
 
-// Don't load directly
-
 use Tribe\Admin\Settings;
 use Tribe\Admin\Wysiwyg;
 
+// Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -14,6 +13,17 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 	 * helper class that creates fields for use in Settings, MetaBoxes, Users, anywhere.
 	 * Instantiate it whenever you need a field
 	 *
+	 * @method doField()
+	 * @method doFieldStart()
+	 * @method doFieldEnd()
+	 * @method doFieldLabel()
+	 * @method doFieldDivStart()
+	 * @method doFieldDivEnd()
+	 * @method doToolTip()
+	 * @method doFieldValue()
+	 * @method doFieldName()
+	 * @method doFieldAttributes()
+	 * @method doScreenReaderLabel()
 	 */
 	class Tribe__Field {
 
@@ -114,7 +124,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		public $options;
 
 		/**
-		 * @var string
+		 * @var mixed
 		 */
 		public $value;
 
@@ -159,73 +169,73 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		public $allow_clear;
 
 		/**
+		 * @var string
+		 */
+		public $append;
+
+		/**
+		 * The raw field data.
+		 *
+		 * @var array
+		 */
+		protected $raw_field_data;
+
+		/**
 		 * Class constructor
 		 *
-		 * @param string     $id    the field id
-		 * @param array      $field the field settings
-		 * @param null|mixed $value the field's current value
+		 * @param string     $id    The field id.
+		 * @param array      $field The field settings.
+		 * @param null|mixed $value The value passed when saving the field.
 		 *
 		 * @return void
 		 */
 		public function __construct( $id, $field, $value = null ) {
+			// Store the raw field data.
+			$this->raw_field_data = $field;
 
-			// setup the defaults
+			// Set the ID.
+			$id       = is_null( $id ) ? null : esc_attr( $id );
+			$this->id = apply_filters( 'tribe_field_id', $id );
+
+			// Figure out the field value.
+			$value = $this->setup_field_value( $value );
+
+			// Set up the defaults.
 			$this->defaults = [
-				'type'                => 'html',
-				'name'                => $id,
-				'fieldset_attributes' => [],
+				'allow_clear'         => false,
+				'append'              => '',
 				'attributes'          => [],
+				'can_be_empty'        => false,
 				'class'               => null,
-				'label'               => null,
-				'label_attributes'    => null,
-				'placeholder'         => null,
-				'tooltip'             => null,
-				'size'                => 'medium',
-				'html'                => null,
-				'error'               => false,
-				'value'               => $value,
-				'options'             => null,
+				'clear_after'         => false,
 				'conditional'         => true,
 				'display_callback'    => null,
+				'error'               => false,
+				'fieldset_attributes' => [],
+				'html'                => null,
 				'if_empty'            => null,
-				'can_be_empty'        => false,
-				'clear_after'         => true,
-				'tooltip_first'       => false,
-				'allow_clear'         => false,
+				'label_attributes'    => null,
+				'label'               => null,
+				'name'                => $id,
+				'options'             => null,
+				'placeholder'         => null,
 				'settings'            => [],
+				'size'                => 'medium',
+				'tooltip_first'       => false,
+				'tooltip'             => null,
+				'type'                => 'html',
+				'value'               => $value,
 			];
 
-			// a list of valid field types, to prevent screwy behavior
-			$this->valid_field_types = [
-				'heading',
-				'html',
-				'text',
-				'textarea',
-				'wysiwyg',
-				'radio',
-				'checkbox_bool',
-				'checkbox_list',
-				'dropdown',
-				'dropdown',
-				'dropdown_select2', // Deprecated use `dropdown`
-				'dropdown_chosen', // Deprecated use `dropdown`
-				'license_key',
-				'number',
-				'wrapped_html',
-				'email',
-				'color',
-				'image',
-				'toggle',
-				'image_id',
-			];
+			// Merge the defaults with the passed args.
+			$args       = wp_parse_args( $field, $this->defaults );
+			$this->args = $args;
 
-			$this->valid_field_types = apply_filters( 'tribe_valid_field_types', $this->valid_field_types );
+			// Set the valid field types.
+			$this->setup_field_types();
 
-			// parse args with defaults and extract them
-			$args = wp_parse_args( $field, $this->defaults );
-
+			// todo: move this to a separate method that runs just before the field output is generated.
 			// sanitize the values just to be safe
-			$id         = is_null( $id ) ? null : esc_attr( $id );
 			$type       = is_null( $args['type'] ) ? null : esc_attr( $args['type'] );
 			$name       = is_null( $args['name'] ) ? null : esc_attr( $args['name'] );
 			$placeholder = is_null( $args['placeholder'] ) ? null : esc_attr( $args['placeholder'] );
@@ -299,51 +309,166 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$tooltip_first    = (bool) $args['tooltip_first'];
 			$allow_clear      = (bool) $args['allow_clear'];
 			$settings         = $args['settings'];
-
-			// set the ID
-			$this->id = apply_filters( 'tribe_field_id', $id );
+			$append           = $args['append'];
 
 			// set each instance variable and filter
 			foreach ( array_keys( $this->defaults ) as $key ) {
 				$this->{$key} = apply_filters( 'tribe_field_' . $key, $$key, $this->id );
 			}
-
-			// epicness
-			$this->do_field();
 		}
 
 		/**
-		 * Determines how to handle this field's creation
-		 * either calls a callback function or runs this class' course of action
-		 * logs an error if it fails
+		 * Set up the valid field types.
+		 *
+		 * @since 6.1.0
+		 *
+		 * @return void
+		 */
+		protected function setup_field_types() {
+			// Define a list of valid field types.
+			$valid_field_types = [
+				'checkbox_bool',
+				'checkbox_list',
+				'color',
+				'dropdown',
+				'email',
+				'heading',
+				'html',
+				'image',
+				'image_id',
+				'license_key',
+				'number',
+				'radio',
+				'text',
+				'textarea',
+				'toggle',
+				'wrapped_html',
+				'wysiwyg',
+
+				// Deprecated field types.
+				'dropdown_select2', // Use the 'dropdown' type.
+				'dropdown_chosen', // Use the 'dropdown' type.
+			];
+
+			/**
+			 * Filter the valid field types.
+			 *
+			 * @param array $valid_field_types The valid field types.
+			 */
+			$this->valid_field_types = (array) apply_filters( 'tribe_valid_field_types', $valid_field_types );
+		}
+
+		/**
+		 * Determines how to handle this field's creation.
+		 *
+		 * Either calls a callback function or runs this class' course of action.
+		 * Logs an error if it fails.
 		 *
 		 * @return void
 		 */
 		public function do_field() {
-
-			if ( $this->conditional ) {
-
-				if ( $this->display_callback && is_callable( $this->display_callback ) ) {
-
-					// if there's a callback, run it
-					call_user_func( $this->display_callback );
-
-				} elseif ( in_array( $this->type, $this->valid_field_types ) ) {
-
-					// the specified type exists, run the appropriate method
-					$field = call_user_func( [ $this, $this->type ] );
-
-					// filter the output
-					$field = apply_filters( 'tribe_field_output_' . $this->type, $field, $this->id, $this );
-					echo apply_filters( 'tribe_field_output_' . $this->type . '_' . $this->id, $field, $this->id, $this );
-
-				} else {
-
-					// fail, log the error
-					Tribe__Debug::debug( esc_html__( 'Invalid field type specified', 'tribe-common' ), $this->type, 'notice' );
-
-				}
+			if ( ! $this->conditional ) {
+				return;
 			}
+
+			// If there's a callback, run it.
+			if ( $this->display_callback && is_callable( $this->display_callback ) ) {
+				call_user_func( $this->display_callback );
+				return;
+			}
+
+			// If the field type is valid, call the appropriate method.
+			if ( in_array( $this->type, $this->valid_field_types ) ) {
+				$field = call_user_func( [ $this, $this->type ] );
+
+				/**
+				 * Filter the field output.
+				 *
+				 * @param string       $field        The field output.
+				 * @param string       $id           The field ID.
+				 * @param Tribe__Field $field_object The field object.
+				 */
+				$field = apply_filters( "tribe_field_output_{$this->type}", $field, $this->id, $this );
+
+				/**
+				 * Filter the field output by ID.
+				 *
+				 * @param string       $field        The field output.
+				 * @param string       $id           The field ID.
+				 * @param Tribe__Field $field_object The field object.
+				 */
+				$field = apply_filters( "tribe_field_output_{$this->type}_{$this->id}", $field, $this->id, $this );
+
+				/**
+				 * Filter the allowed tags to facilitate the wp_kses() call.
+				 *
+				 * @see wp_kses_allowed_html()
+				 *
+				 * @param array $allowedtags The allowed tags.
+				 * @param string $context The context in which the tags are being used.
+				 *
+				 * @return array The allowed tags.
+				 */
+				$kses_allowed_html = function ( $allowedtags, $context ) {
+					// If it's not the right context, return the allowed tags as-is.
+					if ( 'tribe-field' !== $context ) {
+						return $allowedtags;
+					}
+
+					static $tags = null;
+
+					// If we've already set the tags, return them.
+					if ( null !== $tags ) {
+						return $tags;
+					}
+
+					// Ensure we have the elements we need in the allowed tags.
+					global $allowedposttags;
+					$tags = $allowedposttags;
+
+					$common_attributes = _wp_add_global_attributes(
+						[
+							'checked'     => true,
+							'disabled'    => true,
+							'name'        => true,
+							'readonly'    => true,
+							'selected'    => true,
+							'type'        => true,
+							'value'       => true,
+							'cols'        => true,
+							'placeholder' => true,
+						]
+					);
+
+					$tags['input']    = $common_attributes;
+					$tags['textarea'] = $common_attributes;
+					$tags['select']   = $common_attributes;
+					$tags['option']   = $common_attributes;
+					$tags['fieldset'] = _wp_add_global_attributes( [] );
+					// Allow svgs and paths for icons.
+					$tags['svg']      = _wp_add_global_attributes( [ 'fill' => [], 'xmlns' => [], 'viewbox' => [] ] );
+					$tags['path']	  = [ 'd' => [], 'fill' => [] ];
+
+					// Allow the script and template tags for HTML fields (inserting script localization, js templates).
+					if ( $this->type === 'html' || $this->type === 'wrapped_html' ) {
+						$tags['script']   = _wp_add_global_attributes( [ 'type' => true ] );
+						$tags['template'] = _wp_add_global_attributes( [ 'type' => true ] );
+					}
+
+					return $tags;
+				};
+
+				add_filter( 'wp_kses_allowed_html', $kses_allowed_html, 10, 2 );
+
+				echo wp_kses( $field, 'tribe-field', self::get_kses_protocols() );
+
+				remove_filter( 'wp_kses_allowed_html', $kses_allowed_html );
+
+				return;
+			}
+
+			// If we got to this point, fail and log the error.
+			Tribe__Debug::debug( esc_html__( 'Invalid field type specified', 'tribe-common' ), $this->type, 'notice' );
 		}
 
 		/**
@@ -364,12 +489,28 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		}
 
 		/**
-		 * returns the field's end
+		 * Returns the html appended to the fieldset's end
 		 *
-		 * @return string the field end
+		 * @since 6.1.0
+		 *
+		 * @return string the field append.
+		 */
+		public function do_field_append(): string {
+			if ( empty( $this->append ) ) {
+				return '';
+			}
+
+			return $this->append;
+		}
+
+		/**
+		 * Returns the field's end.
+		 *
+		 * @return string the field end.
 		 */
 		public function do_field_end() {
-			$return = '</fieldset>';
+			$return  = $this->do_field_append();
+			$return .= '</fieldset>';
 			$return .= ( $this->clear_after ) ? '<div class="clear"></div>' : '';
 
 			return apply_filters( 'tribe_field_end', $return, $this->id, $this );
@@ -542,9 +683,11 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 * @return string the field
 		 */
 		public function heading() {
-			$field = '<h3>' . $this->label . '</h3>';
-
-			return $field;
+			ob_start();
+			?>
+			<h3 <?php tribe_classes( $this->class ); ?>><?php echo esc_html( $this->label ); ?></h3>
+			<?php
+			return ob_get_clean();
 		}
 
 		/**
@@ -952,60 +1095,114 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			return $field;
 		}
 
-		/* deprecated camelCase methods */
-		public function doField() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field' );
-			return $this->do_field();
+		/**
+		 * Set up the field value based on submitted value or the stored value.
+		 *
+		 * @param mixed $sent_value The value submitted by the user.
+		 *
+		 * @return mixed The field value.
+		 */
+		protected function setup_field_value( $sent_value = null ) {
+			$value = $sent_value ?? $this->get_field_value();
+
+			// Escape the value for display.
+			if ( ! empty( $field['esc_display'] ) && function_exists( $field['esc_display'] ) ) {
+				$value = $field['esc_display']( $value );
+			} elseif ( is_string( $value ) ) {
+				$value = esc_attr( stripslashes( $value ) );
+			}
+
+			/**
+			 * Filter the value of the option before it is displayed.
+			 *
+			 * @param mixed  $value The value of the option.
+			 * @param string $key   The key of the option.
+			 * @param array  $field The field array.
+			 */
+			return apply_filters( 'tribe_settings_get_option_value_pre_display', $value, $this->id, $this->raw_field_data );
 		}
 
-		public function doFieldStart() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_start' );
-			return $this->do_field_start();
+		/**
+		 * Get the field value.
+		 *
+		 * @return mixed The field value.
+		 */
+		protected function get_field_value() {
+			// Some options should always be stored at network level.
+			$network_option = (bool) ( $this->raw_field_data['network'] ?? false );
+
+			if ( is_network_admin() ) {
+				$parent_option = $this->raw_field_data['parent_option'] ?? Tribe__Main::OPTIONNAMENETWORK;
+			} else {
+				$parent_option = $this->raw_field_data['parent_option'] ?? Tribe__Main::OPTIONNAME;
+			}
+
+			/**
+			 * Get the field's parent_option in order to later get the field's value.
+			 *
+			 * @param string $parent_option The parent option name.
+			 * @param string $key           The field key.
+			 */
+			$parent_option = apply_filters( 'tribe_settings_do_content_parent_option', $parent_option, $this->id );
+
+			// Determine the default value.
+			$default = $this->raw_field_data['default'] ?? null;
+
+			/**
+			 * Filter the default value of the field.
+			 *
+			 * @param mixed $default The default value of the field.
+			 * @param array $field   The field array.
+			 */
+			$default = apply_filters( 'tribe_settings_field_default', $default, $this->raw_field_data );
+
+			// If there's no parent option, get the site option (for network admin) or the option.
+			if ( ! $parent_option ) {
+				return ( $network_option || is_network_admin() )
+					? get_site_option( $this->id, $default )
+					: get_option( $this->id, $default );
+			}
+
+			// Get the options from Tribe__Settings_Manager if we're getting the main array.
+			if ( $parent_option === Tribe__Main::OPTIONNAME ) {
+				return Tribe__Settings_Manager::get_option( $this->id, $default );
+			}
+
+			// Get the network options from Tribe__Settings_Manager.
+			if ( $parent_option === Tribe__Main::OPTIONNAMENETWORK ) {
+				return Tribe__Settings_Manager::get_network_option( $this->id, $default );
+			}
+
+			// Get the parent option for network admin.
+			if ( is_network_admin() ) {
+				$options = (array) get_site_option( $parent_option );
+
+				return $options[ $this->id ] ?? $default;
+			}
+
+			// Else, get the parent option normally.
+			$options = (array) get_option( $parent_option );
+
+			return $options[ $this->id ] ?? $default;
 		}
 
-		public function doFieldEnd() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_end' );
-			return $this->do_field_end();
-		}
+		/**
+		 * Whether the current field has a value.
+		 *
+		 * @return bool
+		 */
+		public function has_field_value() {
+			// Certain "field" types have no value.
+			if ( in_array( $this->type, [ 'heading', 'html', 'wrapped_html' ], true ) ) {
+				return false;
+			}
 
-		public function doFieldLabel() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_label' );
-			return $this->do_field_label();
-		}
+			// If the value is empty, return false.
+			if ( empty( $this->value ) ) {
+				return false;
+			}
 
-		public function doFieldDivStart() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_div_start' );
-			return $this->do_field_div_start();
-		}
-
-		public function doFieldDivEnd() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_div_end' );
-			return $this->do_field_div_end();
-		}
-
-		public function doToolTip() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_tool_tip' );
-			return $this->do_tool_tip();
-		}
-
-		public function doFieldValue() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_value' );
-			return $this->do_field_value();
-		}
-
-		public function doFieldName( $multi = false ) {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_name' );
-			return $this->do_field_name( $multi );
-		}
-
-		public function doFieldAttributes() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_field_attributes' );
-			return $this->do_field_attributes();
-		}
-
-		public function doScreenReaderLabel() {
-			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_screen_reader_label' );
-			return $this->do_screen_reader_label();
+			return true;
 		}
 
 		/**
@@ -1087,5 +1284,71 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 
 			return implode( ' ', $sanitized );
 		}
-	} // end class
-} // endif class_exists
+
+		/**
+		 * Get the allowed protocols for the field.
+		 *
+		 * This is static because it will be the same for every instance of the class, and
+		 * we only need to calculate it once.
+		 *
+		 * @since 6.1.0
+		 *
+		 * @return array The allowed protocols.
+		 */
+		protected static function get_kses_protocols(): array {
+			static $protocols = null;
+			if ( null === $protocols ) {
+				$protocols   = wp_allowed_protocols();
+				$protocols[] = 'data';
+				$protocols   = array_unique( $protocols );
+			}
+
+			return $protocols;
+		}
+
+		/**
+		 * Handle calls to methods that don't exist.
+		 *
+		 * This is how we handle deprecated methods.
+		 *
+		 * @param string $name The method name.
+		 * @param array  $arguments Arguments passed to the method.
+		 *
+		 * @return mixed The result of the method call.
+		 * @throws BadMethodCallException If the method does not exist.
+		 */
+		#[ReturnTypeWillChange]
+		public function __call( string $name, array $arguments ) {
+			$method_map = [
+				'doField'             => 'do_field',
+				'doFieldStart'        => 'do_field_start',
+				'doFieldEnd'          => 'do_field_end',
+				'doFieldLabel'        => 'do_field_label',
+				'doFieldDivStart'     => 'do_field_div_start',
+				'doFieldDivEnd'       => 'do_field_div_end',
+				'doToolTip'           => 'do_tool_tip',
+				'doFieldValue'        => 'do_field_value',
+				'doFieldName'         => 'do_field_name',
+				'doFieldAttributes'   => 'do_field_attributes',
+				'doScreenReaderLabel' => 'do_screen_reader_label',
+			];
+
+			// Helper function to prepend the class name to the method name.
+			$prepend_class = function ( string $method_name ): string {
+				return sprintf( '%s::%s', __CLASS__, $method_name );
+			};
+
+			if ( array_key_exists( $name, $method_map ) ) {
+				_deprecated_function(
+					esc_html( $prepend_class( $name ) ),
+					'4.3',
+					esc_html( $prepend_class( $method_map[ $name ] ) )
+				);
+
+				return $this->{$method_map[ $name ]}( ...$arguments );
+			} else {
+				throw new BadMethodCallException( esc_html( "Method {$prepend_class( $name )} does not exist." ) );
+			}
+		}
+	}
+}

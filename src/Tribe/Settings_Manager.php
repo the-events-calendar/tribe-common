@@ -58,7 +58,7 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public function init_options() {
-		Tribe__Settings::instance();
+		tribe( 'settings' );
 	}
 
 	/**
@@ -270,7 +270,7 @@ class Tribe__Settings_Manager {
 		$show_tab = ( current_user_can( 'activate_plugins' ) && $this->have_addons() );
 
 		/**
-		 * Provides an oppotunity to override the decision to show or hide the licenses tab
+		 * Provides an opportunity to override the decision to show or hide the licenses tab
 		 *
 		 * Normally it will only show if the current user has the "activate_plugins" capability
 		 * and there are some currently-activated premium plugins.
@@ -285,19 +285,6 @@ class Tribe__Settings_Manager {
 		 * @var $licenses_tab
 		 */
 		include Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-licenses.php';
-
-		/**
-		 * Allows the fields displayed in the licenses tab to be modified.
-		 *
-		 * @var array
-		 */
-		$license_fields = apply_filters( 'tribe_license_fields', $licenses_tab );
-
-		new Tribe__Settings_Tab( 'licenses', esc_html__( 'Licenses', 'tribe-common' ), [
-			'priority'      => '40',
-			'fields'        => $license_fields,
-			'network_admin' => is_network_admin() ? true : false,
-		] );
 	}
 
 	/**

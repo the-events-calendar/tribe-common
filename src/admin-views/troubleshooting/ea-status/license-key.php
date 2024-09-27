@@ -28,7 +28,7 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 		$notes  .= '</a>';
 	} else {
 		$message = __( 'Your license is invalid', 'tribe-common' );
-		$notes   = '<a href="' . esc_url( Tribe__Settings::instance()->get_url( [ 'tab' => 'licenses' ] ) ) . '">' . esc_html__( 'Check your license key', 'tribe-common' ) . '</a>';
+		$notes   = '<a href="' . esc_url( tribe( 'settings' )->get_url( [ 'tab' => 'licenses' ] ) ) . '">' . esc_html__( 'Check your license key', 'tribe-common' ) . '</a>';
 	}
 }
 ?>

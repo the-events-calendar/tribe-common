@@ -326,7 +326,7 @@ class Tribe__Admin__Help_Page {
 
 		$addons['community-events'] = [
 			'id'        => 'community-events',
-			'title'     => esc_html__( 'Community Events', 'tribe-common' ),
+			'title'     => esc_html__( 'Community', 'tribe-common' ),
 			'link'      => 'http://evnt.is/dt',
 			'plugin'    => [ 'the-events-calendar' ],
 			'is_active' => class_exists( 'Tribe__Events__Community__Main' ),
@@ -1233,13 +1233,13 @@ class Tribe__Admin__Help_Page {
 				],
 				[
 					'title'        => __( 'Hide Others’ Organizers and Venues', 'tribe-common' ),
-					'description'  => __( 'This extension allows you to hide the Organizers and Venues that a visitor has not created from the Community Events submission form.', 'tribe-common' ),
+					'description'  => __( 'This extension allows you to hide the Organizers and Venues that a visitor has not created from the Community submission form.', 'tribe-common' ),
 					'link'         => 'https://evnt.is/1aro',
 					'product-slug' => 'community-events',
 				],
 				[
 					'title'        => __( 'Display Custom HTML', 'tribe-common' ),
-					'description'  => __( 'This extension allows you to add custom HTML content to the top of the Community Events submission form.', 'tribe-common' ),
+					'description'  => __( 'This extension allows you to add custom HTML content to the top of the Community submission form.', 'tribe-common' ),
 					'link'         => 'https://evnt.is/1arp',
 					'product-slug' => 'community-events',
 				],
@@ -1259,7 +1259,6 @@ class Tribe__Admin__Help_Page {
 			'tec_help_ticketing_products',
 			[
 				'events-community',
-				'events-community-tickets',
 			]
 		);
 	}
