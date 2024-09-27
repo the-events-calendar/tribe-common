@@ -18,34 +18,24 @@
  */
 
 ?>
-<?php $this->template( '/components/loader' ); ?>
+<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
+	<?php $this->template( '/components/loader' ); ?>
+	<h3 id="tec-power-automate-application-credentials" class="tec-settings-power-automate-application__title tec-settings-form__section-header tec-settings-form__section-header--sub">
+		<?php echo esc_html_x( 'Power Automate', 'API connection header', 'tribe-common' ); ?>
+	</h3>
+	<p class="tec-settings-power-automate-application__description tec-settings-form__section-description">
+		<?php
+		$echo = sprintf(
+			/* Translators: %1$s: URL to the Power Automate API documentation */
+			_x(
+				'Please generate a connection for each of our applications you are using with Power Automate to enable its integrations. i.e.: one connection for The Events Calendar and one connection for Event Tickets. <a href="%1$s" target="_blank">Read more about adding and managing access.</a>',
+				'Settings help text and link for Power Automate API.',
+				'tribe-common'
+			),
+			esc_url( 'https://evnt.is/1bc8' )
+		);
 
-<h3 id="tec-power-automate-application-credentials" class="tec-settings-power-automate-application__title">
-	<?php echo esc_html_x( 'Power Automate', 'API connection header', 'tribe-common' ); ?>
-</h3>
-<p class="tec-settings-power-automate-application__description">
-	<?php
-	printf(
-		'%1$s',
-		esc_html_x(
-			'Please generate a connection for each of our applications you are using with Power Automate to enable its integrations. i.e.: one connection for The Events Calendar and one connection for Event Tickets.',
-			'Settings help text for Power Automate API.',
-			'tribe-common'
-		),
-	);
-	?>
-</p>
-<p class="tec-settings-power-automate-application__description">
-	<?php
-	$url = 'https://evnt.is/1bc8';
-	printf(
-		'<a href="%1$s" target="_blank">%2$s</a>',
-		esc_url( $url ),
-		esc_html_x(
-			'Read more about adding and managing access.',
-			'Settings link text for Power Automate API.',
-			'tribe-common'
-		)
-	);
-	?>
-</p>
+		echo wp_kses_post( $echo );
+		?>
+	</p>
+</div>

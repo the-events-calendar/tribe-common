@@ -15,4 +15,9 @@ if (
 	|| in_array( 'end2end', $GLOBALS['argv'] )
 ) {
 	require_once __DIR__ . '/_support/_eva_boostrap.php';
+
+	/**
+	 * This is a temporary fix to prevent deprecation notices from being triggered during the tests.
+	 */
+	function trigger_deprecation() {}
 }

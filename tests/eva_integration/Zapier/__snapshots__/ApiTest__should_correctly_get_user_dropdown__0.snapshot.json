@@ -5,7 +5,7 @@
         "screen-reader-text"
     ],
     "classes_select": [
-        "tec-settings__users-dropdown",
+        "tec-settings-form__users-dropdown",
         "tec-settings-zapier-details-api-key__users-dropdown"
     ],
     "name": "tec_automator_zapier[]['users']",

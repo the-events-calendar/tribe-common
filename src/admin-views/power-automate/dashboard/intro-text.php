@@ -15,34 +15,23 @@
  */
 
 ?>
-<?php $this->template( '/components/loader' ); ?>
-
-<h3 id="tec-power-automate-endpoint-dashboard" class="tec-settings-power-automate-application__title">
-	<?php echo esc_html_x( 'Power Automate Endpoint Dashboard', 'Power Automate settings endpoint dashboard header', 'tribe-common' ); ?>
-</h3>
-<p class="tec-settings-power-automate-application__description">
-	<?php
-	printf(
-		'%1$s',
-		esc_html_x(
-			'Monitor your Power Automate endpoints (triggers and actions used by your connectors).',
-			'Settings help text for Power Automate Endpoint Dashboard.',
-			'tribe-common'
-		),
-	);
-	?>
-</p>
-<p class="tec-settings-power-automate-application__description">
-	<?php
-	$url = 'https://evnt.is/1bcx';
-	printf(
-		'<a href="%1$s" target="_blank">%2$s</a>',
-		esc_url( $url ),
-		esc_html_x(
-			'Read more about the Power Automate Endpoint Dashboard.',
-			'Settings link text for Power Automate endpoint dashboard.',
-			'tribe-common'
-		)
-	);
-	?>
-</p>
+<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
+	<?php $this->template( '/components/loader' ); ?>
+	<h3 id="tec-power-automate-endpoint-dashboard" class="tec-settings-power-automate-application__title tec-settings-form__section-header tec-settings-form__section-header--sub">
+		<?php echo esc_html_x( 'Power Automate Endpoint Dashboard', 'Power Automate settings endpoint dashboard header', 'tribe-common' ); ?>
+	</h3>
+	<p class="tec-settings-power-automate-application__description tec-settings-form__section-description">
+		<?php
+		$content = sprintf(
+			/* Translators: %1$s: URL to the Power Automate Endpoint Dashboard documentation */
+			_x(
+				'Monitor your Power Automate endpoints (triggers and actions used by your connectors). <a href="%1$s" target="_blank">Read more about the Power Automate Endpoint Dashboard.</a>',
+				'Settings help text for Power Automate Endpoint Dashboard.',
+				'tribe-common'
+			),
+			'https://evnt.is/1bcx'
+		);
+		echo wp_kses_post( $content );
+		?>
+	</p>
+</div>

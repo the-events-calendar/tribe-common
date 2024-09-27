@@ -101,7 +101,7 @@
           "Faker"
         ]
       },
-      "delete_vendor_files": false,
+      "delete_vendor_files": true,
       "include_modified_date": false,
       "include_author": false
     },

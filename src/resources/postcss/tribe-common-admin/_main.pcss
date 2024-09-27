@@ -228,7 +228,7 @@ table.plugins {
 
 		fieldset {
 			clear: both;
-			display: inline-block;
+			display: block;
 			padding: 10px 0 10px 10px;
 
 			&.tribe-field-license_key legend {
@@ -568,28 +568,6 @@ table.plugins {
 ============================================= */
 #additional-field-table {
 	margin-bottom: 20px;
-}
-
-/* miscellaneous
-============================================= */
-.tribe-admin-box-left {
-	background-color: #f9f9f9;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	float: left;
-	margin: 20px 0;
-	padding: 0 20px 15px;
-	width: 20%;
-}
-
-.tribe-admin-box-right {
-	background-color: #f9f9f9;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	float: right;
-	margin: 20px 0;
-	padding: 0 20px 15px;
-	width: 68%;
 }
 
 .ajax-loader {
@@ -1646,7 +1624,7 @@ a.tribe-rating-link {
 	padding-right: 0;
 
 	&.tribe-notice-stellar-sale-2024 {
-		background-color: #1D202F;
+		background-color: #1d202f;
 		overflow: hidden;
 
 		@media screen and (max-width: 767px) {
@@ -1671,8 +1649,8 @@ a.tribe-rating-link {
 		.notice-dismiss {
 			&:before {
 				content: "X";
-				font-size: 30px;
 				font-family: inherit;
+				font-size: 30px;
 				font-weight: 300;
 				position: absolute;
 				right: 20px;
@@ -1698,7 +1676,8 @@ a.tribe-rating-link {
 				padding: 30px 0 10px 25px;
 			}
 
-			h3, h4 {
+			h3,
+			h4 {
 				color: #fff;
 			}
 
@@ -1724,8 +1703,8 @@ a.tribe-rating-link {
 				color: #fff;
 				font-size: 14px;
 				font-weight: 400;
-				line-height: 22px;
 				letter-spacing: 1px;
+				line-height: 22px;
 				margin: 0 0 20px;
 			}
 
@@ -1738,8 +1717,8 @@ a.tribe-rating-link {
 
 			.tribe-marketing-notice__cta-shop-now {
 				a {
-					background-color: #3849F5;
-					border: 1px solid #3849F5;
+					background-color: #3849f5;
+					border: 1px solid #3849f5;
 					border-radius: 125px;
 					color: #fff;
 					font-family: 'Inconsolata', monospace; /* todo: enqueue font */
@@ -1772,8 +1751,8 @@ a.tribe-rating-link {
 					&:focus,
 					&:focus-within,
 					&:hover {
-						color: #1c39bb;
 						box-shadow: none;
+						color: #1c39bb;
 						outline: none;
 					}
 				}

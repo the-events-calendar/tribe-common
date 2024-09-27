@@ -1,0 +1,206 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Fields
+ *
+ * This file contains field-specific styles/overrides.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe_events_page_tec-events-settings {
+	#tec-settings-form {
+		fieldset {
+			@media (--viewport-xlarge) {
+				margin-left: var(--tec-spacer-7);
+			}
+		}
+
+		input[type="text"],
+		input[type="password"],
+		input[type="date"],
+		input[type="datetime"],
+		input[type="datetime-local"],
+		input[type="email"],
+		input[type="month"],
+		input[type="number"],
+		input[type="search"],
+		input[type="tel"],
+		input[type="time"],
+		input[type="url"],
+		input[type="week"] {
+			border-color: var(--tec-admin-core-grey-30);
+			color: var(--tec-admin-core-grey-80);
+			font-size: var(--tec-font-size-2);
+			line-height: var(--tec-line-height-1);
+			min-height: var(--tec-spacer-6);
+		}
+
+		#tribe-field-donate-link {
+			legend {
+				color: var(--tec-admin-core-grey-50);
+				float: none;
+				font-size: var(--tec-font-size-2);
+				font-weight: var(--tec-font-weight-regular);
+				line-height: var(--tec-line-height-0);
+			}
+
+			.description {
+				color: var(--tec-admin-core-grey-80);
+				font-size: var(--tec-font-size-2);
+				font-weight: var(--tec-font-weight-bold);
+				line-height: var(--tec-line-height-0);
+				padding: 0;
+			}
+		}
+
+		dt {
+			color: var(--tec-admin-core-grey-80);
+			font-size: var(--tec-font-size-2);
+			font-weight: var(--tec-font-weight-bold);
+			line-height: var(--tec-line-height-1);
+		}
+
+		dd {
+			color: var(--tec-admin-core-grey-50);
+			margin-bottom: 20px;
+			margin-inline-start: 0;
+			margin-left: 0;
+			margin-top: 18px;
+		}
+
+		code {
+			background-color: var(--tec-admin-core-grey-2);
+			color: var(--tec-admin-core-grey-50);
+		}
+
+		.tribe-field-wrap {
+			margin-top: 0;
+		}
+
+		.tribe-field-label {
+			color: var(--tec-admin-core-grey-80);
+			font-size: var(--tec-font-size-2);
+			font-weight: var(--tec-font-weight-bold);
+			line-height: var(--tec-line-height-0);
+			padding: 0;
+
+			@media (--viewport-full) {
+				margin-bottom: var(--tec-spacer-1);
+			}
+	}
+
+		.tec-settings-teaser-pill {
+			background-color: var(--tec-color-border-default);
+			border-radius: var(--tec-border-radius-default);
+			color: var(--tec-color-text-primary);
+			font-size: 9px;
+			margin-left: var(--tec-spacer-0);
+			padding: calc(var(--tec-spacer-0) / 2) 5px;
+			text-transform: uppercase;
+
+			&:hover,
+			&:focus {
+				text-decoration: underline;
+			}
+		}
+
+		.tribe-field-description {
+			margin-top: var(--tec-spacer-0);
+			position: static;
+		}
+
+		.tooltip:first-child {
+			margin-bottom: var(--tec-spacer-settings-form-label-gap);
+			margin-top: calc(-1 * var(--tec-spacer-settings-form-label-gap));
+
+			@media (--viewport-full) {
+				margin-top: 0;
+			}
+		}
+
+		.description {
+			color: var(--tec-admin-core-grey-50);
+			font-size: var(--tec-font-size-2);
+			font-weight: var(--tec-font-weight-regular);
+			line-height: var(--tec-line-height-0);
+		}
+
+		label,
+		.tribe-field-radio label,
+		.tribe-field-checkbox_list label {
+			display: block;
+			font-size: var(--tec-font-size-2);
+			letter-spacing: -0.25px;
+			line-height: var(--tec-line-height-0);
+			margin: var(--tec-spacer-2) 0 0 0;
+		}
+
+		.tribe-field-radio label input,
+		.tribe-field-checkbox_list label input {
+			margin-left: var(--tec-spacer-4);
+			margin-right: var(--tec-spacer-1);
+		}
+
+		.tribe-common-switch__label {
+			margin: 0;
+		}
+
+		.tribe-field-radio label > .description {
+			margin-left: 34px;
+
+			@media screen and (--vieport-wpadmin) {
+				margin-left: var(--tec-spacer-5);
+			}
+		}
+
+		.tribe-field-checkbox_list label > .description {
+			margin-left: var(--tec-spacer-0);
+		}
+
+		.tribe-field-checkbox_bool {
+
+			.tribe-field-wrap {
+				align-items: flex-start;
+				display: grid;
+				grid-column-gap: var(--tec-spacer-1);
+				grid-template-columns: var(--tec-spacer-5) 1fr;
+
+				@media screen and (--viewport-wpadmin) {
+					grid-template-columns: var(--tec-spacer-3) 1fr;
+				}
+			}
+
+			input[type="checkbox"] {
+				grid-column: 1;
+				height: var(--tec-spacer-5);
+				margin-right: 0;
+				margin-top: var(--tec-spacer-0);
+				min-width: var(--tec-spacer-5);
+				width: var(--tec-spacer-5);
+
+				@media (--viewport-wpadmin) {
+					height: var(--tec-spacer-3);
+					min-width: var(--tec-spacer-3);
+					width: var(--tec-spacer-3);
+				}
+			}
+
+			.description {
+				display: inline;
+				grid-column: 2;
+			}
+		}
+
+		fieldset:last-child {
+			margin-bottom: var(--tec-spacer-7);
+		}
+
+		.tribe-field-text.tribe-size-medium-small input,
+		.tribe-field-license_key.tribe-size-medium-small input {
+			width: 100px;
+		}
+	}
+
+	.button > .dashicons-plus {
+		vertical-align: text-bottom;
+	}
+}
