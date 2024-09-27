@@ -511,12 +511,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/models.git",
-                "reference": "6d0d83315d760093a399ba60ff12d50400fc5ca8"
+                "reference": "ac30397971ac654278ebe2cf703524db81459630"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/models/zipball/6d0d83315d760093a399ba60ff12d50400fc5ca8",
-                "reference": "6d0d83315d760093a399ba60ff12d50400fc5ca8",
+                "url": "https://api.github.com/repos/stellarwp/models/zipball/ac30397971ac654278ebe2cf703524db81459630",
+                "reference": "ac30397971ac654278ebe2cf703524db81459630",
                 "shasum": ""
             },
             "require": {
@@ -558,9 +558,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stellarwp/models/issues",
-                "source": "https://github.com/stellarwp/models/tree/main"
+                "source": "https://github.com/stellarwp/models/tree/1.2.2"
             },
-            "time": "2024-09-09T15:26:45+00:00"
+            "time": "2024-09-26T18:03:55+00:00"
         },
         {
             "name": "stellarwp/schema",
