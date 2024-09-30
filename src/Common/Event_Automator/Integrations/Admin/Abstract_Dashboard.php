@@ -88,7 +88,7 @@ class Abstract_Dashboard {
 		$dashboard_fields = [
 			self::$option_prefix . 'wrapper_open'  => [
 				'type' => 'html',
-				'html' => '<div id="tribe-settings-' . self::$api_id . '-application" class="' . implode( ' ', $wrapper_classes ) . '">'
+				'html' => '<div id="tribe-settings-' . self::$api_id . '-application" class="' . implode( ' ', $wrapper_classes ) . '">',
 			],
 			static::$option_prefix . 'header'        => [
 				'type' => 'html',

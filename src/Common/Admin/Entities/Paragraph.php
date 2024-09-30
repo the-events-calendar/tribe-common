@@ -2,7 +2,7 @@
 /**
  * Paragraph element.
  *
- * @since TBD
+ * @since 6.1.0
  */
 
 declare( strict_types=1 );
@@ -15,12 +15,14 @@ use Tribe\Utils\Element_Classes as Classes;
 /**
  * Class Paragraph
  *
- * @since TBD
+ * @since 6.1.0
  */
 class Paragraph extends Container {
 
 	/**
 	 * Paragraph constructor.
+	 *
+	 * @since 6.1.0
 	 *
 	 * @param ?Classes    $classes    The classes for the paragraph.
 	 * @param ?Attributes $attributes The attributes for the paragraph.
@@ -37,6 +39,8 @@ class Paragraph extends Container {
 
 	/**
 	 * Render the paragraph content.
+	 *
+	 * @since 6.1.0
 	 *
 	 * @return void
 	 */

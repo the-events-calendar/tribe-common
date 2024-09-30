@@ -163,12 +163,12 @@ class Tribe__Plugins_API {
 				'active_installs' => 20000,
 			],
 			'events-community'         => [
-				'title'           => __( 'Community', 'tribe-common' ),
+				'title'            => __( 'Community', 'tribe-common' ),
 				'slug'            => 'events-community',
 				'link'            => 'https://evnt.is/19o7',
 				'plugin-dir'	  => 'the-events-calendar-community-events',
 				'main-file'       => 'tribe-community-events.php',
-				'description'     => __( 'Users submit events and sell tickets', 'tribe-common' ),
+				'description'      => __( 'Users submit events and sell tickets', 'tribe-common' ),
 				'description-help' => __( 'Enable 3rd party event submissions.', 'tribe-common' ),
 				'features'        => [
 					__( 'Publishing Control', 'tribe-common' ),

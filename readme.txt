@@ -1,5 +1,14 @@
 == Changelog ==
 
+= [6.1.0] 2024-09-26 =
+
+* Feature - Update core settings functionality and styles to allow for new plugin settings layout. [TEC-5124]
+* Feature - Update settings field generation and add functionality to facilitate sidebars on settings pages. [TEC-5137]
+* Tweak - Added filters: `tribe_field_output_{$this->type}`, `tribe_field_output_{$this->type}_{$this->id}`, `tec_settings_page_logo_source`, `tribe_settings_wrap_classes`, `tribe_settings_form_class`, `tribe_settings_tab_{$key}`
+* Tweak - Removed filters: `tribe_field_output_`, `tribe_settings_form_element_tab_`, `tribe_settings_tab_`
+* Tweak - Added actions: `tec_settings_sidebar_start`, `tec_settings_sidebar_header_start`, `tec_settings_sidebar_header_end`, `tec_settings_sidebar_end`, `tec_settings_init`, `tec_settings_render_modal_sidebar`, `tribe_settings_tab_after_link`, `tec_settings_tab_licenses`
+* Language - 16 new strings added, 138 updated, 6 fuzzied, and 18 obsoleted
+
 = [6.0.3.1] 2024-09-16 =
 
 * Security - Improve general escaping for ORM queries to prevent legacy Events methods to be used for SQL injections.

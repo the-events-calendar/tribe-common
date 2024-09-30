@@ -2,7 +2,7 @@
 /**
  * Link element.
  *
- * @since TBD
+ * @since 6.1.0
  */
 
 declare( strict_types=1 );
@@ -15,7 +15,7 @@ use Tribe\Utils\Element_Classes as Classes;
 /**
  * Class Link
  *
- * @since TBD
+ * @since 6.1.0
  */
 class Link extends Base_Entity {
 
@@ -35,6 +35,8 @@ class Link extends Base_Entity {
 
 	/**
 	 * Link constructor.
+	 *
+	 * @since 6.1.0
 	 *
 	 * @param string      $url        The URL for the link.
 	 * @param string      $text       The text for the link.
@@ -56,6 +58,8 @@ class Link extends Base_Entity {
 
 	/**
 	 * Render the link.
+	 *
+	 * @since 6.1.0
 	 *
 	 * @return void
 	 */

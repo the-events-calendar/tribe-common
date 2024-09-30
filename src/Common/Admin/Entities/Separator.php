@@ -2,7 +2,7 @@
 /**
  * Separator element.
  *
- * @since TBD
+ * @since 6.1.0
  */
 
 declare( strict_types=1 );
@@ -15,12 +15,14 @@ use Tribe\Utils\Element_Classes as Classes;
 /**
  * Class Separator
  *
- * @since TBD
+ * @since 6.1.0
  */
 class Separator extends Base_Entity {
 
 	/**
 	 * Separator constructor.
+	 *
+	 * @since 6.1.0
 	 *
 	 * @param ?Classes    $classes    The classes for the separator.
 	 * @param ?Attributes $attributes The attributes for the separator.
@@ -37,6 +39,8 @@ class Separator extends Base_Entity {
 
 	/**
 	 * Render the element.
+	 *
+	 * @since 6.1.0
 	 *
 	 * @return void
 	 */

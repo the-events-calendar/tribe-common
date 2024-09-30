@@ -2,7 +2,7 @@
 /**
  * Heading element.
  *
- * @since TBD
+ * @since 6.1.0
  */
 
 declare( strict_types=1 );
@@ -17,7 +17,7 @@ use Tribe\Utils\Element_Classes as Classes;
 /**
  * Class Heading
  *
- * @since TBD
+ * @since 6.1.0
  */
 class Heading extends Base_Entity {
 
@@ -45,6 +45,8 @@ class Heading extends Base_Entity {
 	/**
 	 * Heading constructor.
 	 *
+	 * @since 6.1.0
+	 *
 	 * @param string      $content    The content for the heading.
 	 * @param int         $level      The level for the heading.
 	 * @param ?Classes    $classes    The classes for the heading.
@@ -68,6 +70,8 @@ class Heading extends Base_Entity {
 	/**
 	 * Render the element.
 	 *
+	 * @since 6.1.0
+	 *
 	 * @return void
 	 */
 	public function render() {
@@ -83,6 +87,8 @@ class Heading extends Base_Entity {
 
 	/**
 	 * Validate the heading level.
+	 *
+	 * @since 6.1.0
 	 *
 	 * @param int $level The heading level.
 	 *
