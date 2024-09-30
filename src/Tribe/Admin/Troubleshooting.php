@@ -59,7 +59,7 @@ class Troubleshooting {
 	 *
 	 */
 	public function add_menu_page() {
-		if ( ! Tribe__Settings::instance()->should_setup_pages() ) {
+		if ( ! tribe( 'settings' )->should_setup_pages() ) {
 			return;
 		}
 
@@ -68,7 +68,7 @@ class Troubleshooting {
 
 		$capability = $this->get_required_capability();
 
-		$where = Tribe__Settings::instance()->get_parent_slug();
+		$where = tribe( 'settings' )->get_parent_slug();
 
 		$this->admin_page = add_submenu_page(
 			$where,
@@ -140,7 +140,7 @@ class Troubleshooting {
 		$wp_admin_bar->add_menu( [
 			'id'     => 'tec-troubleshooting',
 			'title'  => esc_html__( 'Troubleshooting', 'tribe-common' ),
-			'href'   => Tribe__Settings::instance()->get_url( [ 'page' => static::MENU_SLUG ] ),
+			'href'   => tribe( 'settings' )->get_url( [ 'page' => static::MENU_SLUG ] ),
 			'parent' => 'tribe-events-settings-group',
 		] );
 	}
@@ -153,7 +153,7 @@ class Troubleshooting {
 	 * @return boolean returns true if the current page is the troubleshooting page.
 	 */
 	public function is_current_page() {
-		if ( ! Tribe__Settings::instance()->should_setup_pages() || ! did_action( 'admin_menu' ) ) {
+		if ( ! tribe( 'settings' )->should_setup_pages() || ! did_action( 'admin_menu' ) ) {
 			return false;
 		}
 

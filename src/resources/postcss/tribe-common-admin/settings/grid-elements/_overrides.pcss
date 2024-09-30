@@ -1,0 +1,73 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Settings Form Infobox
+ *
+ * This file contains styles specific to the settings form.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe_events_page_tec-events-settings #tec-settings-form {
+
+	.tec-automator-endpoint-dashboard,
+	.tribe-settings-form .tec-automator-settings,
+	.tec-automator-grid {
+		width: auto;
+	}
+
+	#tribe-settings--application,
+	#tribe-settings-power-automate-application,
+	#tribe-settings-zapier-application {
+		@media (--viewport-xlarge) {
+			border-bottom: 1px solid var(--tec-admin-core-grey-10);
+			grid-column: 1 / span 2;
+			padding-right: 0;
+
+			.tec-settings-form__header-block--horizontal .tec-settings-form__section-header,
+			.tec-settings-form__section-description {
+				margin: var(--tec-spacer-3) var(--tec-spacer-7) var(--tec-spacer-1);
+				padding: 0;
+			}
+
+			.tec-settings-form__section-description {
+				margin-bottom: var(--tec-spacer-3);
+			}
+		}
+	}
+
+	#tribe-settings-zapier-application + .tec-settings-form__header-block.tec-settings-form__header-block--horizontal {
+		@media (--viewport-xlarge) {
+			margin: 0;
+			padding-left: var(--tec-spacer-7);
+		}
+	}
+
+	.tec-automator-endpoint-dashboard .tec-automator-api-fields,
+	.tec-automator-settings fieldset,
+	.tec-automator-dashboard fieldset {
+		margin: 0;
+		padding: var(--tec-spacer-4) var(--tec-spacer-7) 0;
+
+		legend {
+			padding-top: var(--tec-spacer-6);
+		}
+	}
+
+	.tec-automator-dashboard .tec-automator-endpoint-dashboard {
+		legend {
+			padding-top: var(--tec-spacer-6);
+		}
+	}
+
+	.tec-automator-settings .tec-automator-settings-items__wrap {
+		margin: var(--tec-spacer-2) 0 var(--tec-spacer-3);
+		max-width: calc(var(--tec-spacer-settings-form-width) - (2 * var(--tec-spacer-7)));
+	}
+
+	.tribe-additional-fields table .tribe-field-content .tribe-field-label {
+		font-weight: var(--tec-font-weight-regular);
+
+		label {
+			color: var(--tec-admin-core-grey-80);
+		}
+	}
+}

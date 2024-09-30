@@ -6388,7 +6388,7 @@
         },
         {
             "name": "the-events-calendar/tec-testing-facilities",
-            "version": "dev-master",
+            "version": "dev-mocker",
             "source": {
                 "type": "git",
                 "url": "https://github.com/the-events-calendar/tec-testing-facilities.git",
@@ -6413,7 +6413,6 @@
                 "wordpress/wordpress": "dev-master",
                 "wp-coding-standards/wpcs": "^2.1"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "files": [
@@ -6436,7 +6435,7 @@
             "description": "Testing facilities, helpers and examples.",
             "support": {
                 "issues": "https://github.com/the-events-calendar/tec-testing-facilities/issues",
-                "source": "https://github.com/the-events-calendar/tec-testing-facilities/tree/master"
+                "source": "https://github.com/the-events-calendar/tec-testing-facilities/tree/mocker"
             },
             "time": "2024-08-20T13:23:06+00:00"
         },

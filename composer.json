@@ -45,7 +45,7 @@
     "lucatume/function-mocker-le": "^1.0",
     "lucatume/wp-browser": "^3.0.14",
     "stellarwp/coding-standards": "dev-main",
-    "the-events-calendar/tec-testing-facilities": "dev-master",
+    "the-events-calendar/tec-testing-facilities": "dev-mocker",
     "wp-cli/checksum-command": "1.0.5",
     "wp-coding-standards/wpcs": "^3.0.0",
     "automattic/jetpack-changelogger": "^4.2"

@@ -1,0 +1,35 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Settings Form Layout Elements
+ *
+ * This file contains styles specific to the settings form.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe_events_page_tec-events-settings #tec-settings-form {
+	.tec-settings-form__element--rowspan-2 {
+		@media (--viewport-xlarge) {
+			grid-row: span 2;
+		}
+	}
+
+	.tec-settings-form__element--rowspan-3 {
+		@media (--viewport-xlarge) {
+			grid-row: span 3;
+		}
+	}
+
+	.tec-settings-form__element--colspan-2 {
+		@media (--viewport-xlarge) {
+			grid-column: 1 / span 2;
+		}
+	}
+
+	.tec-settings-form__element--full-width {
+		margin: 0 calc(-1 * var(--tec-spacer-settings-form-right-gap)) 0 0;
+
+		@media (--viewport-xlarge) {
+			grid-column: 1 / span 2;
+		}
+	}
+}
