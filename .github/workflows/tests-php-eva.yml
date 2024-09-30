@@ -368,7 +368,7 @@ jobs:
         if: ${{ steps.skip.outputs.value != 1 && failure() }}
         with:
           name: output ${{ matrix.suite }}
-          path: tests/_output/
+          path: ${{ env.GITHUB_WORKSPACE }}/../the-events-calendar/common/tests/_output/
           retention-days: 7
       # ------------------------------------------------------------------------------
       # Display current working directory and contents (On failure)
@@ -376,6 +376,7 @@ jobs:
       - name: Display current working directory and contents
         if: ${{ steps.skip.outputs.value != 1 && failure() }}
         run: |
+          echo "Current GITHUB_WORKSPACE directory: ${{ env.GITHUB_WORKSPACE }}"
           echo "Current working directory: $(pwd)"
           echo "Contents of the current directory:"
           ls -la
