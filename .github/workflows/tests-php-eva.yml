@@ -370,3 +370,29 @@ jobs:
           name: output ${{ matrix.suite }}
           path: ${GITHUB_WORKSPACE}/the-events-calendar/common/tests/_output/
           retention-days: 7
+      # ------------------------------------------------------------------------------
+      # Display current working directory and contents (On failure)
+      # ------------------------------------------------------------------------------
+      - name: Display current working directory and contents
+        if: ${{ steps.skip.outputs.value != 1 && failure() }}
+        run: |
+          echo "Current working directory: $(pwd)"
+          echo "Contents of the current directory:"
+          ls -la
+
+          echo "Listing 'tests/_output/' directories recursively:"
+          find . -type d -name '_output' -path '*/tests/_output'
+
+          echo "Contents of found '_output' directories:"
+          find . -type d -name '_output' -path '*/tests/_output' -exec ls -la {} \;
+
+          cd ../
+          echo "Current working directory1: $(pwd)"
+          echo "Contents of the current directory1:"
+          ls -la
+
+          echo "Listing 'tests/_output/' directories recursively:"
+          find . -type d -name '_output' -path '*/tests/_output'
+
+          echo "Contents of found '_output' directories:"
+          find . -type d -name '_output' -path '*/tests/_output' -exec ls -la {} \;
