@@ -298,7 +298,7 @@ jobs:
       - name: Init ET
         if: steps.skip.outputs.value != 1
         run: |
-          mv ${GITHUB_WORKSPACE}/event-tickets-plus ${GITHUB_WORKSPACE}/../event-tickets-plus
+          mv v/event-tickets-plus ${GITHUB_WORKSPACE}/../event-tickets-plus
           docker network prune -f
           ${SLIC_BIN} use event-tickets-plus
           ${SLIC_BIN} composer install --no-dev
@@ -368,22 +368,5 @@ jobs:
         if: ${{ steps.skip.outputs.value != 1 && failure() }}
         with:
           name: output ${{ matrix.suite }}
-          path: ${{ env.GITHUB_WORKSPACE }}/../the-events-calendar/common/tests/_output/
+          path: ${GITHUB_WORKSPACE}/the-events-calendar/common/tests/_output/
           retention-days: 7
-      # ------------------------------------------------------------------------------
-      # Display current working directory and contents (On failure)
-      # ------------------------------------------------------------------------------
-      - name: Display current working directory and contents
-        if: ${{ steps.skip.outputs.value != 1 && failure() }}
-        run: |
-          echo "Current GITHUB_WORKSPACE directory: ${{ env.GITHUB_WORKSPACE }}"
-          echo "Current working directory: $(pwd)"
-          echo "Contents of the current directory:"
-          ls -la
-
-          echo "Listing 'tests/_output/' directories recursively:"
-          find . -type d -name '_output' -path '*/tests/_output'
-
-          echo "Contents of found '_output' directories:"
-          find . -type d -name '_output' -path '*/tests/_output' -exec ls -la {} \;
-
