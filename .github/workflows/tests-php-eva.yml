@@ -4,7 +4,7 @@ jobs:
   test:
     strategy:
       matrix:
-        suite: [ end2end ]
+        suite: [ end2end  ]
     runs-on: ubuntu-latest
     steps:
       # ------------------------------------------------------------------------------
@@ -360,22 +360,6 @@ jobs:
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
         run: ${SLIC_BIN} run ${{ matrix.suite }} --debug
-          # ------------------------------------------------------------------------------
-          # Display current working directory and contents (On failure)
-          # ------------------------------------------------------------------------------
-          - name: Display current working directory and contents
-          if: ${{ steps.skip.outputs.value != 1 && failure() }}
-          run: |
-            echo "Current working directory: $(pwd)"
-            echo "Contents of the current directory:"
-            ls -la
-
-            echo "Listing 'tests/_output/' directories recursively:"
-            find . -type d -name '_output' -path '*/tests/_output'
-
-            echo "Contents of found '_output' directories:"
-            find . -type d -name '_output' -path '*/tests/_output' -exec ls -la {} \;
-
       # ------------------------------------------------------------------------------
       # Upload artifacts (On failure)
       # ------------------------------------------------------------------------------
