@@ -4,7 +4,7 @@ jobs:
   test:
     strategy:
       matrix:
-        suite: [ end2end  ]
+        suite: [ end2end ]
     runs-on: ubuntu-latest
     steps:
       # ------------------------------------------------------------------------------
@@ -361,6 +361,24 @@ jobs:
         if: steps.skip.outputs.value != 1
         run: ${SLIC_BIN} run ${{ matrix.suite }} --debug
       # ------------------------------------------------------------------------------
+      # Copy test outputs into workspace (On failure)
+      # ------------------------------------------------------------------------------
+      - name: Copy test outputs into workspace
+        if: ${{ steps.skip.outputs.value != 1 && failure() }}
+        run: |
+          mkdir -p "${GITHUB_WORKSPACE}/tests/_output/"
+          cp -r "${GITHUB_WORKSPACE}/../the-events-calendar/common/tests/_output/." "${GITHUB_WORKSPACE}/tests/_output/" || echo "No artifacts found to copy."
+
+      # ------------------------------------------------------------------------------
+      # Verify artifacts exist
+      # ------------------------------------------------------------------------------
+      - name: Verify artifacts exist
+        if: ${{ steps.skip.outputs.value != 1 && failure() }}
+        run: |
+          echo "Listing contents of '${GITHUB_WORKSPACE}/tests/_output/':"
+          ls -la "${GITHUB_WORKSPACE}/tests/_output/" || echo "No artifacts found."
+
+      # ------------------------------------------------------------------------------
       # Upload artifacts (On failure)
       # ------------------------------------------------------------------------------
       - name: Upload artifacts
@@ -368,7 +386,7 @@ jobs:
         if: ${{ steps.skip.outputs.value != 1 && failure() }}
         with:
           name: output ${{ matrix.suite }}
-          path: ${GITHUB_WORKSPACE}/the-events-calendar/common/tests/_output/
+          path: tests/_output/
           retention-days: 7
       # ------------------------------------------------------------------------------
       # Display current working directory and contents (On failure)
