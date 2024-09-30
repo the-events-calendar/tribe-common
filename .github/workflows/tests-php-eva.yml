@@ -298,7 +298,7 @@ jobs:
       - name: Init ET
         if: steps.skip.outputs.value != 1
         run: |
-          mv v/event-tickets-plus ${GITHUB_WORKSPACE}/../event-tickets-plus
+          mv ${GITHUB_WORKSPACE}/event-tickets-plus ${GITHUB_WORKSPACE}/../event-tickets-plus
           docker network prune -f
           ${SLIC_BIN} use event-tickets-plus
           ${SLIC_BIN} composer install --no-dev
