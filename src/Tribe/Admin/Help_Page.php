@@ -32,9 +32,18 @@ class Tribe__Admin__Help_Page {
 	 * @since TBD
 	 */
 	public function do_help_tab() {
-		$main = Tribe__Main::instance();
-		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-hub.php';
+		$main     = Tribe__Main::instance();
+		$template = new \Tribe__Template();
+
+		$template->set_values( [ 'main' => $main ] );
+		$template->set_template_origin( $main );
+		$template->set_template_folder( 'src/admin-views' );
+		$template->set_template_context_extract( true );
+		$template->set_template_folder_lookup( false );
+		$template->template( 'help-hub' );
 	}
+
+
 
 	/**
 	 * Set up hooks.
@@ -43,7 +52,7 @@ class Tribe__Admin__Help_Page {
 	 */
 	public function hook() {
 		if ( is_admin() ) {
-			add_action( 'wp_loaded', [ $this, 'load_assets' ] );
+			add_action( 'admin_enqueue_scripts', [ $this, 'load_assets' ], 1 );
 			add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
 		}
 	}

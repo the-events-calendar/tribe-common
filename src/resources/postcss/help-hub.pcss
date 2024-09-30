@@ -2,3 +2,46 @@
  Help Hub and Resources page styles.
  */
 
+li.tec-nav__tab {
+	cursor: pointer;
+}
+
+/* @todo Potential generic CSS styles - to be fully implemented elsewhere or hardened to this specific page */
+
+@media (min-width: 1400px) {
+	.tec-container, .tec-container-lg, .tec-container-md, .tec-container-sm, .tec-container-xl, .tec-container-xxl {
+		max-width: 1320px;
+
+		--bs-gutter-x: 1.5rem;
+		--bs-gutter-y: 0;
+		width: 100%;
+		padding-right: calc(1.5rem * .5);
+		padding-left: calc(1.5rem * .5);
+		margin-right: auto;
+		margin-left: auto;
+	}
+}
+
+	.tec-row {
+		--bs-gutter-x: 1.5rem;
+		--bs-gutter-y: 0;
+		display: flex;
+		flex-wrap: wrap;
+		margin-top: calc(-1* 0rem);
+		margin-right: calc(-.5* 1.5rem);
+		margin-left: calc(-.5* 1.5rem);
+	}
+
+	.tec-row > * {
+		flex-shrink: 0;
+		width: 100%;
+		max-width: 100%;
+		padding-right: calc(1.5rem * .5);
+		padding-left: calc(1.5rem * .5);
+		margin-top: 0;
+	}
+
+	.tec-col {
+		flex: 1 0 0%;
+	}
+
