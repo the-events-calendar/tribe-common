@@ -2,7 +2,7 @@
 /**
  * Array Access trait.
  *
- * @since TBD
+ * @since 6.1.0
  *
  * phpcs:disable WordPress.NamingConventions.ValidFunctionName
  */
@@ -16,7 +16,7 @@ use ReturnTypeWillChange;
 /**
  * Trait Array_Access
  *
- * @since TBD
+ * @since 6.1.0
  */
 trait Array_Access {
 

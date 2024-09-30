@@ -2,7 +2,7 @@
 /**
  * Plain text element.
  *
- * @since TBD
+ * @since 6.1.0
  */
 
 declare( strict_types=1 );
@@ -12,7 +12,7 @@ namespace TEC\Common\Admin\Entities;
 /**
  * Class Plain_Text
  *
- * @since TBD
+ * @since 6.1.0
  */
 class Plain_Text extends Base_Entity {
 
@@ -26,6 +26,8 @@ class Plain_Text extends Base_Entity {
 	/**
 	 * Plain_Text constructor.
 	 *
+	 * @since 6.1.0
+	 *
 	 * @param string $content The content for the text.
 	 */
 	public function __construct( string $content ) {
@@ -34,6 +36,8 @@ class Plain_Text extends Base_Entity {
 
 	/**
 	 * Render the text content.
+	 *
+	 * @since 6.1.0
 	 *
 	 * @return void
 	 */

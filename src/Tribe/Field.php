@@ -124,7 +124,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		public $options;
 
 		/**
-		 * @var string
+		 * @var mixed
 		 */
 		public $value;
 
@@ -228,7 +228,8 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			];
 
 			// Merge the defaults with the passed args.
-			$args = wp_parse_args( $field, $this->defaults );
+			$args       = wp_parse_args( $field, $this->defaults );
+			$this->args = $args;
 
 			// Set the valid field types.
 			$this->setup_field_types();
@@ -319,7 +320,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		/**
 		 * Set up the valid field types.
 		 *
-		 * @since TBD
+		 * @since 6.1.0
 		 *
 		 * @return void
 		 */
@@ -408,7 +409,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				 *
 				 * @return array The allowed tags.
 				 */
-				$kses_filter = function ( $allowedtags, $context ) {
+				$kses_allowed_html = function ( $allowedtags, $context ) {
 					// If it's not the right context, return the allowed tags as-is.
 					if ( 'tribe-field' !== $context ) {
 						return $allowedtags;
@@ -427,13 +428,15 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 
 					$common_attributes = _wp_add_global_attributes(
 						[
-							'checked'  => true,
-							'disabled' => true,
-							'name'     => true,
-							'readonly' => true,
-							'selected' => true,
-							'type'     => true,
-							'value'    => true,
+							'checked'     => true,
+							'disabled'    => true,
+							'name'        => true,
+							'readonly'    => true,
+							'selected'    => true,
+							'type'        => true,
+							'value'       => true,
+							'cols'        => true,
+							'placeholder' => true,
 						]
 					);
 
@@ -442,15 +445,24 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 					$tags['select']   = $common_attributes;
 					$tags['option']   = $common_attributes;
 					$tags['fieldset'] = _wp_add_global_attributes( [] );
+					// Allow svgs and paths for icons.
+					$tags['svg']      = _wp_add_global_attributes( [ 'fill' => [], 'xmlns' => [], 'viewbox' => [] ] );
+					$tags['path']	  = [ 'd' => [], 'fill' => [] ];
+
+					// Allow the script and template tags for HTML fields (inserting script localization, js templates).
+					if ( $this->type === 'html' || $this->type === 'wrapped_html' ) {
+						$tags['script']   = _wp_add_global_attributes( [ 'type' => true ] );
+						$tags['template'] = _wp_add_global_attributes( [ 'type' => true ] );
+					}
 
 					return $tags;
 				};
 
-				add_filter( 'wp_kses_allowed_html', $kses_filter, 10, 2 );
+				add_filter( 'wp_kses_allowed_html', $kses_allowed_html, 10, 2 );
 
-				echo wp_kses( $field, 'tribe-field' );
+				echo wp_kses( $field, 'tribe-field', self::get_kses_protocols() );
 
-				remove_filter( 'wp_kses_allowed_html', $kses_filter );
+				remove_filter( 'wp_kses_allowed_html', $kses_allowed_html );
 
 				return;
 			}
@@ -479,7 +491,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		/**
 		 * Returns the html appended to the fieldset's end
 		 *
-		 * @since TBD
+		 * @since 6.1.0
 		 *
 		 * @return string the field append.
 		 */
@@ -673,7 +685,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		public function heading() {
 			ob_start();
 			?>
-			<h3 <?php tribe_classes( $this->class); ?>><?php echo esc_html( $this->label ); ?></h3>
+			<h3 <?php tribe_classes( $this->class ); ?>><?php echo esc_html( $this->label ); ?></h3>
 			<?php
 			return ob_get_clean();
 		}
@@ -1180,7 +1192,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 * @return bool
 		 */
 		public function has_field_value() {
-			// Cetain "field" types have no value.
+			// Certain "field" types have no value.
 			if ( in_array( $this->type, [ 'heading', 'html', 'wrapped_html' ], true ) ) {
 				return false;
 			}
@@ -1271,6 +1283,27 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$sanitized = array_map( 'sanitize_html_class', $classes );
 
 			return implode( ' ', $sanitized );
+		}
+
+		/**
+		 * Get the allowed protocols for the field.
+		 *
+		 * This is static because it will be the same for every instance of the class, and
+		 * we only need to calculate it once.
+		 *
+		 * @since 6.1.0
+		 *
+		 * @return array The allowed protocols.
+		 */
+		protected static function get_kses_protocols(): array {
+			static $protocols = null;
+			if ( null === $protocols ) {
+				$protocols   = wp_allowed_protocols();
+				$protocols[] = 'data';
+				$protocols   = array_unique( $protocols );
+			}
+
+			return $protocols;
 		}
 
 		/**

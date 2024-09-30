@@ -115,7 +115,7 @@ class Element_Attributes {
 				$attributes[] = esc_attr( $key );
 			} else {
 				// Remove double quotes that might be surrounding the value.
-				$val          = trim( $val, '"' );
+				$val = trim( $val, '"' );
 				// @todo replace the first usage of esc_attr with tag_esc when our minimum WP version is 6.5.5 or greater.
 				global $wp_version;
 				if ( version_compare( $wp_version, '6.5.5', '<' ) ) {

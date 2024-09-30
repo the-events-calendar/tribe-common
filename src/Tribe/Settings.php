@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+use TEC\Common\Admin\Entities\Element_With_Children;
+use TEC\Common\Admin\Entities\Field_Wrapper;
 use Tribe\Admin\Pages as Admin_Pages;
 
 if ( did_action( 'tec_settings_init' ) ) {
@@ -52,7 +54,7 @@ class Tribe__Settings {
 	/**
 	 * All the tabs registered, not just the ones that will appear.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @var array<string, Tribe__Settings_Tab>
 	 */
@@ -70,7 +72,7 @@ class Tribe__Settings {
 	 * The default tab for the settings panel.
 	 * This should be a tab ID.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @var string
 	 */
@@ -80,7 +82,7 @@ class Tribe__Settings {
 	 * The current tab being displayed.
 	 * This should be a tab ID.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @var string
 	 */
@@ -192,7 +194,7 @@ class Tribe__Settings {
 	/**
 	 * Static Singleton Holder.
 	 *
-	 * @deprecated TBD use tribe( 'settings' ) instead.
+	 * @deprecated 6.1.0 use tribe( 'settings' ) instead.
 	 *
 	 * @var Tribe__Settings|null
 	 */
@@ -203,7 +205,7 @@ class Tribe__Settings {
 	/**
 	 * All the tabs registered, not just the ones that will appear.
 	 *
-	 * @deprecated TBD use $all_tabs.
+	 * @deprecated 6.1.0 use $all_tabs.
 	 *
 	 * @var array
 	 */
@@ -213,7 +215,7 @@ class Tribe__Settings {
 	 * The default tab for the settings panel.
 	 * This should be a tab ID.
 	 *
-	 * @deprecated TBD Use $default_tab.
+	 * @deprecated 6.1.0 Use $default_tab.
 	 *
 	 * @var string
 	 */
@@ -222,7 +224,7 @@ class Tribe__Settings {
 	/**
 	 * The current tab being displayed.
 	 *
-	 * @deprecated TBD Use $current_tab.
+	 * @deprecated 6.1.0 Use $current_tab.
 	 *
 	 * @var string
 	 */
@@ -231,7 +233,7 @@ class Tribe__Settings {
 	/**
 	 * Tabs that shouldn't show the save button.
 	 *
-	 * @deprecated TBD Use $no_save_tabs.
+	 * @deprecated 6.1.0 Use $no_save_tabs.
 	 *
 	 * @var array
 	 */
@@ -240,7 +242,7 @@ class Tribe__Settings {
 	/**
 	 * The slug used in the admin to generate the settings page.
 	 *
-	 * @deprecated TBD Use $admin_slug.
+	 * @deprecated 6.1.0 Use $admin_slug.
 	 *
 	 * @var string
 	 */
@@ -249,7 +251,7 @@ class Tribe__Settings {
 	/**
 	 * The menu name used for the settings page.
 	 *
-	 * @deprecated TBD Use $menu_name.
+	 * @deprecated 6.1.0 Use $menu_name.
 	 *
 	 * @var string
 	 */
@@ -258,7 +260,7 @@ class Tribe__Settings {
 	/**
 	 * The required capability for the settings page.
 	 *
-	 * @deprecated TBD Use $required_cap.
+	 * @deprecated 6.1.0 Use $required_cap.
 	 *
 	 * @var string
 	 */
@@ -301,7 +303,7 @@ class Tribe__Settings {
 	/**
 	 * Determines whether or not the full admin pages should be initialized.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return bool
 	 */
@@ -313,7 +315,7 @@ class Tribe__Settings {
 	/**
 	 * Init all the tabs.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	public function init_tabs() {
 		$admin_pages = tribe( 'admin.pages' );
@@ -379,7 +381,7 @@ class Tribe__Settings {
 			 * @param string $default_tab The default tab for the settings page.
 			 * @param string $admin_page  The admin page ID.
 			 */
-			$default_tab       = apply_filters( 'tribe_settings_default_tab', $default_tab, $admin_page, $this );
+			$default_tab = apply_filters( 'tribe_settings_default_tab', $default_tab, $admin_page, $this );
 
 			// Can't pass a param to an in-place sort.
 			$tabs = (array) $this->tabs;
@@ -428,13 +430,13 @@ class Tribe__Settings {
 	/**
 	 * Determine if we are on an event settings page.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param string|null $admin_page The admin page ID.
 	 *
 	 * @return bool
 	 */
-	public function is_event_settings( $admin_page= null ) {
+	public function is_event_settings( $admin_page = null ) {
 		if ( empty( $admin_page ) ) {
 			$admin_pages = tribe( 'admin.pages' );
 			$admin_page  = $admin_pages->get_current_page();
@@ -447,7 +449,7 @@ class Tribe__Settings {
 	 * Get a specific tab by slug.
 	 * If the slug is not found in the parent tabs, it will then search child tabs for it.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param string $id The tab ID.
 	 *
@@ -473,7 +475,7 @@ class Tribe__Settings {
 	/**
 	 * Gets the current tab ID.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return ?string
 	 */
@@ -531,7 +533,7 @@ class Tribe__Settings {
 	/**
 	 * Outputs the header content for the tabs page and the nav modal.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param string $admin_page The admin page ID.
 	 */
@@ -575,7 +577,7 @@ class Tribe__Settings {
 	/**
 	 * Get the settings page logo.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param string $admin_page The admin page ID.
 	 * @return string The settings page logo.
@@ -586,7 +588,7 @@ class Tribe__Settings {
 		/**
 		 * Filter the tribe settings page logo source URL.
 		 *
-		 * @since TBD
+		 * @since 6.1.0
 		 *
 		 * @param string $logo_source The settings page logo resource URL.
 		 * @param string $admin_page The admin page ID.
@@ -594,7 +596,8 @@ class Tribe__Settings {
 		$logo_source = apply_filters( 'tec_settings_page_logo_source', $logo_source, $admin_page );
 
 		ob_start();
-		?><img
+		?>
+		<img
 			src="<?php echo esc_url( $logo_source ); ?>"
 			alt=""
 			role="presentation"
@@ -607,7 +610,7 @@ class Tribe__Settings {
 	/**
 	 * Handles the attributes for the form.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param array<string,mixed> $attributes The attributes to add to the form.
 	 *
@@ -630,7 +633,7 @@ class Tribe__Settings {
 	 * Generate the main option page.
 	 * Includes the view file.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	public function generate_page(): void {
 		$admin_pages       = tribe( 'admin.pages' );
@@ -647,7 +650,7 @@ class Tribe__Settings {
 		/**
 		 * Filter the classes for the settings form.
 		 *
-		 * @since TBD
+		 * @since 6.1.0
 		 *
 		 * @param array<string> $form_classes The classes for the settings form.
 		 */
@@ -717,7 +720,7 @@ class Tribe__Settings {
 	/**
 	 * Displays the page footer content, with or without the save button.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param bool $saving Whether the footer should force include saving fields/buttons.
 	 */
@@ -758,14 +761,16 @@ class Tribe__Settings {
 	 * This function generates the structure and the generate_tab
 	 * function creates the individual list items.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
+	 *
+	 * @param bool $modal Whether the tabs are being generated for a modal.
 	 */
 	public function generate_tabs( $modal = false ): void {
 		if ( ! is_array( $this->tabs ) || empty( $this->tabs ) ) {
 			return;
 		}
 
-		$nav_id = $modal ? 'tec-settings-modal-nav' : 'tribe-settings-tabs';
+		$nav_id          = $modal ? 'tec-settings-modal-nav' : 'tribe-settings-tabs';
 		$wrapper_classes = [
 			'tec-nav__wrapper'                => true,
 			'tec-settings__nav-wrapper'       => $this->is_event_settings(),
@@ -805,7 +810,7 @@ class Tribe__Settings {
 	/**
 	 * Output the modal navigation for the settings page.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param string $admin_page The admin page ID.
 	 */
@@ -830,7 +835,7 @@ class Tribe__Settings {
 	/**
 	 * Outputs the sidebar wrapped in a modal dialog.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	protected function generate_modal_sidebar(): void {
 		add_action( 'tec_settings_sidebar_header_start', [ $this, 'generate_sidebar_modal_close' ] );
@@ -849,7 +854,7 @@ class Tribe__Settings {
 	/**
 	 * Generate the markup for a modal close button.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	public function generate_sidebar_modal_close(): void {
 		?>
@@ -862,7 +867,7 @@ class Tribe__Settings {
 	/**
 	 * Output the notice wrap.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return void
 	 */
@@ -877,7 +882,7 @@ class Tribe__Settings {
 	/**
 	 * Generate the content for a single specified tab.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param Tribe__Settings_Tab $tab The tab object.
 	 */
@@ -922,7 +927,7 @@ class Tribe__Settings {
 	/**
 	 * Add the current tab's children to the nav as a subnav.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param Tribe__Settings_Tab $tab The parent tab object.
 	 * @return void
@@ -951,25 +956,25 @@ class Tribe__Settings {
 	/**
 	 * Wraps the section content in a "content-section" div
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
-	 * @param string $id A unique section ID.
-	 * @param array $content The content to wrap.
+	 * @param string $id      A unique section ID.
+	 * @param array  $content The content to wrap.
 	 *
 	 * @return array The wrapped content.
 	 */
 	public function wrap_section_content( string $id, array $content ): array {
 		$open = [
 			$id . '-section-open' => [
-				'type'             => 'html',
-				'html'             => '<div class="tec-settings-form__content-section">',
-			]
+				'type' => 'html',
+				'html' => '<div class="tec-settings-form__content-section">',
+			],
 		];
 
 		$close = [
 			$id . '-section-close' => [
-				'type'             => 'html',
-				'html'             => '</div>',
+				'type' => 'html',
+				'html' => '</div>',
 			],
 		];
 
@@ -979,7 +984,7 @@ class Tribe__Settings {
 	/**
 	 * Output the modal controls
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	protected function get_modal_controls(): void {
 		$current_tab = $this->get_tab( $this->get_current_tab() );
@@ -1013,7 +1018,7 @@ class Tribe__Settings {
 	 * A little something for Jack.
 	 * Shows a duck on the far right end of a subnav on hover.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @return void
 	 */
@@ -1035,7 +1040,7 @@ class Tribe__Settings {
 	/**
 	 * A method to sort tabs by priority in ascending order.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 *
 	 * @param  object $a First tab to compare.
 	 * @param  object $b Second tab to compare.
@@ -1074,7 +1079,7 @@ class Tribe__Settings {
 			$wp_page
 		);
 
-		$url = apply_filters( 'tec_events_settings_tab_url', $url, $admin_page, $tab );
+		$url = apply_filters( 'tec_settings_tab_url', $url, $admin_page, $tab );
 
 		return $url;
 	}
@@ -1091,80 +1096,112 @@ class Tribe__Settings {
 		// Check that the right POST && variables are set.
 		$tribe_save_settings  = tribe_get_request_var( 'tribe-save-settings', false );
 		$current_settings_tab = tribe_get_request_var( 'current-settings-tab', $this->get_current_tab() );
-		if ( $tribe_save_settings && $current_settings_tab ) {
-			// Check permissions.
-			if ( ! current_user_can( Admin_Pages::get_capability() ) ) {
-				$this->errors[]    = esc_html__( "You don't have permission to do that.", 'tribe-common' );
-				$this->major_error = true;
-			}
 
-			// Check the nonce.
-			if ( ! wp_verify_nonce( $tribe_save_settings, 'saving' ) ) {
-				$this->errors[]    = esc_html__( 'The request was sent insecurely.', 'tribe-common' );
-				$this->major_error = true;
-			}
+		// Return if we don't have POST and variables.
+		if ( ! ( $tribe_save_settings && $current_settings_tab ) ) {
+			return;
+		}
 
-			// Check that the request originated from the current tab.
-			if ( $current_settings_tab !== $this->current_tab ) {
-				$this->errors[]    = esc_html__( "The request wasn't sent from this tab.", 'tribe-common' );
-				$this->major_error = true;
-			}
+		// Check permissions.
+		if ( ! current_user_can( Admin_Pages::get_capability() ) ) {
+			$this->errors[]    = esc_html__( "You don't have permission to do that.", 'tribe-common' );
+			$this->major_error = true;
+		}
 
-			// Bail if we have errors.
-			if ( count( $this->errors ) ) {
-				remove_action( 'shutdown', [ $this, 'delete_options' ] );
-				add_option( 'tribe_settings_errors', $this->errors );
-				add_option( 'tribe_settings_major_error', $this->major_error );
-				wp_safe_redirect( $this->get_settings_page_url() );
-				exit;
-			}
+		// Check the nonce.
+		if ( ! wp_verify_nonce( $tribe_save_settings, 'saving' ) ) {
+			$this->errors[]    = esc_html__( 'The request was sent insecurely.', 'tribe-common' );
+			$this->major_error = true;
+		}
 
-			do_action( 'tribe_settings_validate', $admin_page );
-			do_action( 'tribe_settings_validate_tab_' . $this->current_tab, $admin_page );
+		// Check that the request originated from the current tab.
+		if ( $current_settings_tab !== $this->current_tab ) {
+			$this->errors[]    = esc_html__( "The request wasn't sent from this tab.", 'tribe-common' );
+			$this->major_error = true;
+		}
 
-			// Set the current fields.
-			$this->current_fields = $this->fields_for_save[ $this->current_tab ];
-			$fields               = $this->current_fields;
+		// Bail if we have errors.
+		if ( count( $this->errors ) ) {
+			remove_action( 'shutdown', [ $this, 'delete_options' ] );
+			add_option( 'tribe_settings_errors', $this->errors );
+			add_option( 'tribe_settings_major_error', $this->major_error );
+			wp_safe_redirect( $this->get_settings_page_url() );
+			exit;
+		}
 
-			if ( is_array( $fields ) ) {
-				// Loop through the fields and validate them.
-				foreach ( $fields as $field_id => $field ) {
-					// Get the value.
-					$value = tribe_get_request_var( $field_id, null );
-					$value = apply_filters( 'tribe_settings_validate_field_value', $value, $field_id, $field );
+		do_action( 'tribe_settings_validate', $admin_page );
+		do_action( 'tribe_settings_validate_tab_' . $this->current_tab, $admin_page );
 
-					// Make sure it has validation set up for it, else do nothing.
-					if (
-						( ! isset( $field['conditional'] ) || $field['conditional'] )
-						&& ( ! empty( $field['validation_type'] ) || ! empty( $field['validation_callback'] ) )
-					) {
-						do_action( 'tribe_settings_validate_field', $field_id, $value, $field );
-						do_action( 'tribe_settings_validate_field_' . $field_id, $value, $field );
+		// Set the current fields.
+		$this->current_fields = $this->fields_for_save[ $this->current_tab ];
+		$fields               = $this->current_fields;
 
-						// Validate this field.
-						$validate = new Tribe__Validate( $field_id, $field, $value );
+		if ( ! is_array( $fields ) ) {
+			return;
+		}
 
-						if ( isset( $validate->result->error ) ) {
-							// Validation failed.
-							$this->errors[ $field_id ] = $validate->result->error;
-						} elseif ( $validate->result->valid ) {
-							// Validation passed.
-							$this->validated[ $field_id ]        = new stdClass();
-							$this->validated[ $field_id ]->field = $validate->field;
-							$this->validated[ $field_id ]->value = $validate->value;
-						}
+		// Loop through the fields and validate them.
+		foreach ( $fields as $field_id => $field ) {
+			// If the field is an Element with children, check each of its children.
+			if ( $field instanceof Element_With_Children ) {
+				$children = $field->get_children();
+				foreach ( $children as $child ) {
+					if ( ! $child instanceof Field_Wrapper ) {
+						continue;
 					}
-				}
 
-				// Do not generate errors for dependent fields that should not show.
-				if ( ! empty( $this->errors ) ) {
-					$keep         = array_filter( array_keys( $this->errors ), [ $this, 'dependency_checks' ] );
-					$compare      = empty( $keep ) ? [] : array_combine( $keep, $keep );
-					$this->errors = array_intersect_key( $this->errors, $compare );
+					$this->validate_field( $child->get_field()->id, $child->get_field()->args );
 				}
+			} else {
+				$this->validate_field( $field_id, $field );
+			}
+		}
 
-				// Run the save method.
-				$this->save();
+		// Do not generate errors for dependent fields that should not show.
+		if ( ! empty( $this->errors ) ) {
+			$keep         = array_filter( array_keys( $this->errors ), [ $this, 'dependency_checks' ] );
+			$compare      = empty( $keep ) ? [] : array_combine( $keep, $keep );
+			$this->errors = array_intersect_key( $this->errors, $compare );
+		}
+
+		// Run the save method.
+		$this->save();
+	}
+
+	/**
+	 * Validate the value of a field to save.
+	 *
+	 * @since 6.1.0
+	 *
+	 * @param string $field_id The field ID.
+	 * @param array  $field    The field data.
+	 *
+	 * @return void
+	 */
+	protected function validate_field( $field_id, $field ) {
+		// Get the value.
+		$value = tribe_get_request_var( $field_id, null );
+		$value = apply_filters( 'tribe_settings_validate_field_value', $value, $field_id, $field );
+
+		// Make sure it has validation set up for it, else do nothing.
+		if (
+			( ! isset( $field['conditional'] ) || $field['conditional'] )
+			&& ( ! empty( $field['validation_type'] ) || ! empty( $field['validation_callback'] ) )
+		) {
+			do_action( 'tribe_settings_validate_field', $field_id, $value, $field );
+			do_action( 'tribe_settings_validate_field_' . $field_id, $value, $field );
+
+			// Validate this field.
+			$validate = new Tribe__Validate( $field_id, $field, $value );
+
+			if ( isset( $validate->result->error ) ) {
+				// Validation failed.
+				$this->errors[ $field_id ] = $validate->result->error;
+			} elseif ( $validate->result->valid ) {
+				// Validation passed.
+				$this->validated[ $field_id ]        = new stdClass();
+				$this->validated[ $field_id ]->field = $validate->field;
+				$this->validated[ $field_id ]->value = $validate->value;
 			}
 		}
 	}
@@ -1277,7 +1314,7 @@ class Tribe__Settings {
 	/**
 	 * Display errors, if any, after saving.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	public function display_errors(): void {
 		// Fetch the errors and filter them.
@@ -1313,7 +1350,7 @@ class Tribe__Settings {
 	/**
 	 * Display success message after saving.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	public function display_success(): void {
 		$errors = (array) apply_filters( 'tribe_settings_display_errors', $this->errors );
@@ -1334,7 +1371,7 @@ class Tribe__Settings {
 	/**
 	 * Delete temporary options.
 	 *
-	 * @since TBD
+	 * @since 6.1.0
 	 */
 	public function delete_options(): void {
 		delete_option( 'tribe_settings_errors' );
@@ -1474,22 +1511,22 @@ class Tribe__Settings {
 	/**
 	 * Static Singleton Factory Method.
 	 *
-	 * @deprecated TBD Use tribe( 'settings' )
+	 * @deprecated 6.1.0 Use tribe( 'settings' )
 	 *
 	 * @return Tribe__Settings
 	 */
 	public static function instance() {
-		_deprecated_function( __METHOD__, 'TBD', "tribe( 'settings' )" );
+		_deprecated_function( __METHOD__, '6.1.0', "tribe( 'settings' )" );
 		return tribe( 'settings' );
 	}
 
 	/**
 	 * Init all the tabs.
 	 *
-	 * @deprecated TBD Use init_tabs
+	 * @deprecated 6.1.0 Use init_tabs
 	 */
 	public function initTabs() {
-		_deprecated_function( __METHOD__, 'TBD', 'init_tabs' );
+		_deprecated_function( __METHOD__, '6.1.0', 'init_tabs' );
 		$this->init_tabs();
 	}
 
@@ -1514,45 +1551,42 @@ class Tribe__Settings {
 	/**
 	 * Generate the tabs in the settings screen.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.1.0
 	 */
 	public function generateTabs() {
 		if ( $this->is_event_settings() ) {
-			_deprecated_function( __METHOD__, 'TBD', 'generate_tabs' );
+			_deprecated_function( __METHOD__, '6.1.0', 'generate_tabs' );
 			$this->generate_tabs();
-		} else {
-			if ( is_array( $this->tabs ) && ! empty( $this->tabs ) ) {
-				uasort( $this->tabs, [ $this, 'sort_by_priority' ] );
-				echo '<h2 id="tribe-settings-tabs" class="nav-tab-wrapper">';
-				foreach ( $this->tabs as $tab ) {
-					$url   = $this->get_tab_url( $tab->id );
-					$class = ( $tab->id == $this->current_tab ) ? ' nav-tab-active' : '';
-					echo '<a id="' . esc_attr( $tab->id ) . '" class="nav-tab' . esc_attr( $class ) . '" href="' . esc_url( $url ) . '">' . esc_html( $tab->name ) . '</a>';
-				}
-				do_action( 'tribe_settings_after_tabs' );
-				echo '</h2>';
+		} elseif ( is_array( $this->tabs ) && ! empty( $this->tabs ) ) {
+			uasort( $this->tabs, [ $this, 'sort_by_priority' ] );
+			echo '<h2 id="tribe-settings-tabs" class="nav-tab-wrapper">';
+			foreach ( $this->tabs as $tab ) {
+				$url   = $this->get_tab_url( $tab->id );
+				$class = ( $tab->id == $this->current_tab ) ? ' nav-tab-active' : '';
+				echo '<a id="' . esc_attr( $tab->id ) . '" class="nav-tab' . esc_attr( $class ) . '" href="' . esc_url( $url ) . '">' . esc_html( $tab->name ) . '</a>';
 			}
+			do_action( 'tribe_settings_after_tabs' );
+			echo '</h2>';
 		}
-
 	}
 
 	/**
 	 * Display errors, if any, after saving.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.1.0
 	 */
 	public function displayErrors() {
-		_deprecated_function( __METHOD__, 'TBD', 'display_errors' );
+		_deprecated_function( __METHOD__, '6.1.0', 'display_errors' );
 		$this->display_errors();
 	}
 
 	/**
 	 * Display success message after saving.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.1.0
 	 */
 	public function displaySuccess() {
-		_deprecated_function( __METHOD__, 'TBD', 'display_success' );
+		_deprecated_function( __METHOD__, '6.1.0', 'display_success' );
 		$this->display_success();
 	}
 
@@ -1560,10 +1594,10 @@ class Tribe__Settings {
 	/**
 	 * Delete temporary options.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.1.0
 	 */
 	public function deleteOptions() {
-		_deprecated_function( __METHOD__, 'TBD', 'delete_options' );
+		_deprecated_function( __METHOD__, '6.1.0', 'delete_options' );
 		$this->delete_options();
 	}
 
@@ -1571,13 +1605,13 @@ class Tribe__Settings {
 	 * Generate the main option page.
 	 * includes the view file.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.1.0
 	 *
 	 * @since 4.15.0 Add the current page as parameter for the actions.
 	 */
 	public function generatePage() {
 		if ( $this->is_event_settings() ) {
-			_deprecated_function( __METHOD__, 'TBD', 'generate_page' );
+			_deprecated_function( __METHOD__, '6.1.0', 'generate_page' );
 		}
 
 		$this->generate_page();

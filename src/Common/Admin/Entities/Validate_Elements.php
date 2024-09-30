@@ -2,7 +2,7 @@
 /**
  * Validate elements trait.
  *
- * @since TBD
+ * @since 6.1.0
  */
 
 declare( strict_types=1 );
@@ -14,12 +14,14 @@ use InvalidArgumentException;
 /**
  * Trait Validate_Elements
  *
- * @since TBD
+ * @since 6.1.0
  */
 trait Validate_Elements {
 
 	/**
 	 * Validate that an object is an instance of a class.
+	 *
+	 * @since 6.1.0
 	 *
 	 * @param object $thing     The object to validate.
 	 * @param string $classname The class name to validate against.

@@ -2,7 +2,7 @@
 /**
  * Image element.
  *
- * @since TBD
+ * @since 6.1.0
  */
 
 declare( strict_types=1 );
@@ -14,7 +14,7 @@ use Tribe\Utils\Element_Attributes as Attributes;
 /**
  * Class Image
  *
- * @since TBD
+ * @since 6.1.0
  */
 class Image extends Base_Entity {
 
@@ -27,6 +27,8 @@ class Image extends Base_Entity {
 
 	/**
 	 * Image constructor.
+	 *
+	 * @since 6.1.0
 	 *
 	 * @param string      $url        The URL for the image.
 	 * @param ?Attributes $attributes The attributes for the image element.
@@ -41,6 +43,8 @@ class Image extends Base_Entity {
 
 	/**
 	 * Render the image.
+	 *
+	 * @since 6.1.0
 	 *
 	 * @return void
 	 */
