@@ -4,7 +4,7 @@ jobs:
   test:
     strategy:
       matrix:
-        suite: [ end2end  ]
+        suite: [ end2end ]
     runs-on: ubuntu-latest
     steps:
       # ------------------------------------------------------------------------------
@@ -361,24 +361,48 @@ jobs:
         if: steps.skip.outputs.value != 1
         run: ${SLIC_BIN} run ${{ matrix.suite }} --debug
       # ------------------------------------------------------------------------------
-      # Upload artifacts (On failure)
+      # Copy artifacts from Docker container (On failure)
+      # ------------------------------------------------------------------------------
+      - name: Get Docker container ID
+        if: ${{ steps.skip.outputs.value != 1 && failure() }}
+        id: get-container-id
+        run: |
+          # List running containers
+          echo "Listing running Docker containers:"
+          docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}'
+
+          # Attempt to find the container ID of the 'slic_wp' container
+          CONTAINER_ID=$(docker ps -qf "name=slic_wp")
+          echo "Container ID: $CONTAINER_ID"
+          echo "container_id=$CONTAINER_ID" >> $GITHUB_OUTPUT
+
+      - name: Copy artifacts from Docker container
+        if: ${{ steps.skip.outputs.value != 1 && failure() }}
+        run: |
+          CONTAINER_ID=${{ steps.get-container-id.outputs.container_id }}
+          if [ -z "$CONTAINER_ID" ]; then
+            echo "No 'slic_wp' container found."
+            exit 1
+          fi
+
+          # Create directories on the host to store the artifacts
+          mkdir -p $GITHUB_WORKSPACE/test-artifacts/the-events-calendar/common/tests/
+          mkdir -p $GITHUB_WORKSPACE/test-artifacts/event-tickets/common/tests/
+
+          # Copy artifacts from the container to the host
+          docker cp $CONTAINER_ID:/var/www/html/wp-content/plugins/the-events-calendar/common/tests/_output $GITHUB_WORKSPACE/test-artifacts/the-events-calendar/common/tests/
+          docker cp $CONTAINER_ID:/var/www/html/wp-content/plugins/event-tickets/common/tests/_output $GITHUB_WORKSPACE/test-artifacts/event-tickets/common/tests/
+
+          echo "Artifacts copied to $GITHUB_WORKSPACE/test-artifacts"
+
+      # ------------------------------------------------------------------------------
+      # Upload artifacts
       # ------------------------------------------------------------------------------
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         if: ${{ steps.skip.outputs.value != 1 && failure() }}
         with:
           name: output ${{ matrix.suite }}
-          path: '**/tests/_output/**'
+          path: ${{ github.workspace }}/test-artifacts/**/*
           retention-days: 7
-      # ------------------------------------------------------------------------------
-      # Look for output directories
-      # ------------------------------------------------------------------------------
-      - name: List test output directories
-        if: steps.skip.outputs.value != 1 && failure()
-        run: |
-          echo "Searching for 'tests/_output/' directories..."
-          find $GITHUB_WORKSPACE -type d -name '_output' -path '*/tests/_output'
-          echo "Contents of found directories:"
-          find $GITHUB_WORKSPACE -type d -name '_output' -path '*/tests/_output' -exec ls -la {} \;
-
 
