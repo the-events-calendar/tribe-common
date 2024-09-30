@@ -5,8 +5,6 @@
  * @var Tribe__Main $main The main common object.
  */
 
-
-
 ?>
 <div class="tec-row">
 	<div class="tec-col">

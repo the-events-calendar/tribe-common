@@ -15,11 +15,7 @@ use TEC\Common\Telemetry\Telemetry;
 				<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
 					<h2 class="tec-settings-form__section-header">Resources</h2>
 					<p class="tec-settings-form__section-description">
-						Opted in? <b>
-							<?php
-							echo tribe(Telemetry::class)->calculate_optin_status() ? 'Yes' : 'No';
-							?>
-						</b>
+						Lorem ipsum.
 					</p>
 				</div>
 				<div class="tec-settings-form__content-section">
