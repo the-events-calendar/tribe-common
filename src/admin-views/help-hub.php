@@ -23,42 +23,19 @@
 				<a class="tec-nav__link">Support Hub</a>
 			</li>
 			<li data-tab-target="tec-resources-tab" class="tec-nav__tab">
-				<a class="tec-nav__link" >Resources</a>
+				<a class="tec-nav__link">Resources</a>
 			</li>
 		</ul>
 	</nav>
 
-
-
-	<div id="tec-help-tab" class="tribe-settings-form form tec-tab-container">
-		<form id="tec-settings-form" class="" method="post">
-			<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
-				<h2 class="tec-settings-form__section-header">Resources</h2>
-				<p class="tec-settings-form__section-description">
-					todo 1
-				</p>
-			</div>
-			<div class="tec-settings-form__content-section">
-				<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">todo</h3>
-			</div>
-		</form>
+	<div id="tec-help-tab" class="tec-tab-container">
+		<?php $this->template( 'help-hub/support-hub' ); ?>
 	</div>
 
-	<div id="tec-resources-tab" class="tribe-settings-form form tec-tab-container">
-		<form id="tec-settings-form" class="" method="post">
-			<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
-				<h2 class="tec-settings-form__section-header">Support Hub</h2>
-				<p class="tec-settings-form__section-description">
-					todo 2
-				</p>
-			</div>
-			<div class="tec-settings-form__content-section">
-				<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">todo</h3>
-			</div>
-		</form>
+	<div id="tec-resources-tab" class="tec-tab-container">
+		<?php $this->template( 'help-hub/resources' ); ?>
 	</div>
 </div>
-
 
 <script>
 	jQuery( document ).ready( function($) {
