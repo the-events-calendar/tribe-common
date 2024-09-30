@@ -21,7 +21,6 @@ class SettingsCest {
 
 	/**
 	 * @test
-	 * @skip
 	 */
 	public function should_activate_plugin( End2endTester $I ) {
 		$I->amOnPluginsPage();
@@ -35,7 +34,6 @@ class SettingsCest {
 
 	/**
 	 * @test
-	 * @skip
 	 */
 	public function should_not_see_settings_when_pro_deactivated( End2endTester $I ) {
 		$I->amOnPluginsPage();
@@ -48,7 +46,6 @@ class SettingsCest {
 
 	/**
 	 * @test
-	 * @skip
 	 */
 	public function should_not_see_settings_when_tec_deactivated_and_et_activated( End2endTester $I ) {
 		$I->amOnPluginsPage();
@@ -62,7 +59,6 @@ class SettingsCest {
 
 	/**
 	 * @test
-	 * @skip
 	 */
 	public function should_see_only_pro_settings_when_et_plus( End2endTester $I ) {
 		$I->amOnPluginsPage();
@@ -76,7 +72,6 @@ class SettingsCest {
 
 	/**
 	 * @test
-	 * @skip
 	 */
 	public function should_see_all_settings_when_et_plus_and_pro_active( End2endTester $I ) {
 		$I->amOnPluginsPage();

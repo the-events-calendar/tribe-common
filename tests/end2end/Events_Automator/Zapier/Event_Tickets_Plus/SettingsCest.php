@@ -36,7 +36,6 @@ class SettingsCest {
 
 	/**
 	 * @test
-	 * @skip
 	 */
 	public function should_not_see_settings_when_et_plus_deactivated( End2endTester $I ) {
 		$I->amOnPluginsPage();
@@ -49,7 +48,6 @@ class SettingsCest {
 
 	/**
 	 * @test
-	 * @skip
 	 */
 	public function should_not_see_settings_when_et_deactivated_and_et_activated( End2endTester $I ) {
 		$I->amOnPluginsPage();
@@ -63,7 +61,6 @@ class SettingsCest {
 
 	/**
 	 * @test
-	 * @skip
 	 */
 	public function should_see_only_et_plus_settings_when_pro_active( End2endTester $I ) {
 		$I->amOnPluginsPage();
@@ -77,7 +74,6 @@ class SettingsCest {
 
 	/**
 	 * @test
-	 * @skip
 	 */
 	public function should_see_all_settings_when_et_plus_and_pro_active( End2endTester $I ) {
 		$I->amOnPluginsPage();
