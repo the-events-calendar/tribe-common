@@ -29,6 +29,7 @@ class AttendeesTest extends \Codeception\TestCase\WPTestCase {
 		parent::setUpBeforeClass();
 
 		add_filter( 'tribe_tickets_ticket_object_is_ticket_cache_enabled', '__return_false' );
+		add_filter( 'tec_event_automator_power_automate_enable_add_to_queue', '__return_true' );
 	}
 
 	/**
