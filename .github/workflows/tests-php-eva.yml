@@ -360,49 +360,29 @@ jobs:
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
         run: ${SLIC_BIN} run ${{ matrix.suite }} --debug
-      # ------------------------------------------------------------------------------
-      # Copy artifacts from Docker container (On failure)
-      # ------------------------------------------------------------------------------
-      - name: Get Docker container ID
-        if: ${{ steps.skip.outputs.value != 1 && failure() }}
-        id: get-container-id
-        run: |
-          # List running containers
-          echo "Listing running Docker containers:"
-          docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}'
+          # ------------------------------------------------------------------------------
+          # Display current working directory and contents (On failure)
+          # ------------------------------------------------------------------------------
+          - name: Display current working directory and contents
+          if: ${{ steps.skip.outputs.value != 1 && failure() }}
+          run: |
+            echo "Current working directory: $(pwd)"
+            echo "Contents of the current directory:"
+            ls -la
 
-          # Attempt to find the container ID of the 'slic_wp' container
-          CONTAINER_ID=$(docker ps -qf "name=slic_wp")
-          echo "Container ID: $CONTAINER_ID"
-          echo "container_id=$CONTAINER_ID" >> $GITHUB_OUTPUT
+            echo "Listing 'tests/_output/' directories recursively:"
+            find . -type d -name '_output' -path '*/tests/_output'
 
-      - name: Copy artifacts from Docker container
-        if: ${{ steps.skip.outputs.value != 1 && failure() }}
-        run: |
-          CONTAINER_ID=${{ steps.get-container-id.outputs.container_id }}
-          if [ -z "$CONTAINER_ID" ]; then
-            echo "No 'slic_wp' container found."
-            exit 1
-          fi
-
-          # Create directories on the host to store the artifacts
-          mkdir -p $GITHUB_WORKSPACE/test-artifacts/the-events-calendar/common/tests/
-          mkdir -p $GITHUB_WORKSPACE/test-artifacts/event-tickets/common/tests/
-
-          # Copy artifacts from the container to the host
-          docker cp $CONTAINER_ID:/var/www/html/wp-content/plugins/the-events-calendar/common/tests/_output $GITHUB_WORKSPACE/test-artifacts/the-events-calendar/common/tests/
-          docker cp $CONTAINER_ID:/var/www/html/wp-content/plugins/event-tickets/common/tests/_output $GITHUB_WORKSPACE/test-artifacts/event-tickets/common/tests/
-
-          echo "Artifacts copied to $GITHUB_WORKSPACE/test-artifacts"
+            echo "Contents of found '_output' directories:"
+            find . -type d -name '_output' -path '*/tests/_output' -exec ls -la {} \;
 
       # ------------------------------------------------------------------------------
-      # Upload artifacts
+      # Upload artifacts (On failure)
       # ------------------------------------------------------------------------------
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         if: ${{ steps.skip.outputs.value != 1 && failure() }}
         with:
           name: output ${{ matrix.suite }}
-          path: ${{ github.workspace }}/test-artifacts/**/*
+          path: tests/_output/
           retention-days: 7
-
