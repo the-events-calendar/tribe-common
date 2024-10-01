@@ -84,7 +84,8 @@ This can include modals, toasters, confirms. alerts.
 	/* The "close" button */
 	.tribe-dialog__close-button {
 		background: var(--tec-dialog-close-background);
-		background-image: svg-inline(close-secondary);
+		/* We overwrite this for twentytwenty while we still need it. */
+		background-image: svg-inline(close-secondary) !important;
 		background-repeat: no-repeat;
 		background-size: contain;
 		cursor: pointer;

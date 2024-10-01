@@ -8,6 +8,8 @@
  * @todo switch all plugins over to use the PUE utilities here in Commons
  */
 
+use function TEC\Common\StellarWP\Uplink\get_resource;
+
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -307,7 +309,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			add_filter( 'tribe_licensable_addons', [ $this, 'build_addon_list' ] );
-			add_action( 'tribe_license_fields', [ $this, 'do_license_key_fields' ] );
+			add_filter( 'tribe_license_fields', [ $this, 'do_license_key_fields' ] );
 			add_action( 'tribe_settings_after_content_tab_licenses', [ $this, 'do_license_key_javascript' ] );
 			add_action( 'tribe_settings_success_message', [ $this, 'do_license_key_success_message' ], 10, 2 );
 			add_action( 'load-plugins.php', [ $this, 'remove_default_inline_update_msg' ], 50 );
@@ -935,6 +937,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return string
 		 */
 		public function get_key( $type = 'any', $return_type = 'key' ) {
+
+			$resource    = get_resource( $this->get_slug() );
+			$license_key = $resource ? $resource->get_license_key( $type ) : false;
+			if ( $license_key ) {
+				return $license_key;
+			}
 
 			$license_key    = '';
 			$license_origin = 'm';
