@@ -15,23 +15,54 @@ use TEC\Common\Telemetry\Telemetry;
 				<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
 					<h2 class="tec-settings-form__section-header">Resources</h2>
 					<p class="tec-settings-form__section-description">
-						Lorem ipsum.
+						Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+					</p>
+					<div class="notice notice-info inline is-dismissible">
+						<p>
+							<?php
+							printf(
+							// translators: Leave always a hint for translators to understand the placeholders.
+								esc_attr__( 'class %1$s with paragraph and %2$s class', 'WpAdminStyle' ),
+								'<code>.notice-error</code>',
+								'<code>.inline</code>'
+							);
+							?>
+						</p>
+					</div>
+				</div>
+				<div class="tec-settings-form__content-section">
+					<div class="tec-row">
+						<div class="tec-col">
+							<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">Getting started guides</h3>
+							<p>
+								Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+							</p>
+						</div>
+						<div class="tec-col">
+							<p>img <a href="todo">The Events Calendar</a></p>
+							<p>img <a href="todo">Event Aggregator</a></p>
+							<p>img <a href="todo">Filter Bar</a></p>
+
+						</div>
+					</div>
+
+				</div>
+				<div class="tec-settings-form__content-section">
+					<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">Customization guides</h3>
+					<p class="tec-settings-form__section-description">
+						Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
 					</p>
 				</div>
 				<div class="tec-settings-form__content-section">
-					<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">todo</h3>
+					<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">Common issues</h3>
+					<p class="tec-settings-form__section-description">
+						Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+					</p>
 				</div>
 				<div class="tec-settings-form__content-section">
-					<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">todo</h3>
-				</div>
-				<div class="tec-settings-form__content-section">
-					<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">todo</h3>
-				</div>
-				<div class="tec-settings-form__content-section">
-					<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">todo</h3>
-				</div>
-				<div class="tec-settings-form__content-section">
-					<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">todo</h3>
+					<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">FAQs</h3>
+					<p class="tec-settings-form__section-description">
+Accordion					</p>
 				</div>
 			</div>
 		</div>
