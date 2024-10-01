@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ae5bc47eb9353a360f97b3691e81473",
+    "content-hash": "debf13c4d057fe67d06acfa7ae9872b2",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -729,16 +729,16 @@
         },
         {
             "name": "stellarwp/uplink",
-            "version": "dev-main",
+            "version": "v2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/uplink.git",
-                "reference": "de339bfd2c81266c44140fcfd8a08c727b27d1b5"
+                "reference": "57eb6264994662cb8da368cc3a9227ec716edc70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/uplink/zipball/de339bfd2c81266c44140fcfd8a08c727b27d1b5",
-                "reference": "de339bfd2c81266c44140fcfd8a08c727b27d1b5",
+                "url": "https://api.github.com/repos/stellarwp/uplink/zipball/57eb6264994662cb8da368cc3a9227ec716edc70",
+                "reference": "57eb6264994662cb8da368cc3a9227ec716edc70",
                 "shasum": ""
             },
             "require": {
@@ -765,7 +765,6 @@
                 "symfony/string": "^5.4",
                 "szepeviktor/phpstan-wordpress": "^1.1"
             },
-            "default-branch": true,
             "bin": [
                 "bin/stellar-uplink"
             ],
@@ -791,9 +790,9 @@
             "description": "A library that integrates a WordPress product with the StellarWP Licensing system.",
             "support": {
                 "issues": "https://github.com/stellarwp/uplink/issues",
-                "source": "https://github.com/stellarwp/uplink/tree/v2.2.0"
+                "source": "https://github.com/stellarwp/uplink/tree/v2.2.1"
             },
-            "time": "2024-09-13T19:06:38+00:00"
+            "time": "2024-09-30T22:46:40+00:00"
         }
     ],
     "packages-dev": [
@@ -7104,7 +7103,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "stellarwp/models": 20,
-        "stellarwp/uplink": 20,
         "stellarwp/coding-standards": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
