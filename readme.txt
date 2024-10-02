@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [6.1.0] 2024-09-25 =
+= [6.1.0] 2024-09-26 =
 
 * Feature - Update core settings functionality and styles to allow for new plugin settings layout. [TEC-5124]
 * Feature - Update settings field generation and add functionality to facilitate sidebars on settings pages. [TEC-5137]

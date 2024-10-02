@@ -43,10 +43,11 @@
     "lucatume/function-mocker-le": "^1.0",
     "lucatume/wp-browser": "^3.0.14",
     "stellarwp/coding-standards": "dev-main",
-    "the-events-calendar/tec-testing-facilities": "dev-mocker",
+    "the-events-calendar/tec-testing-facilities": "dev-master",
     "wp-cli/checksum-command": "1.0.5",
     "wp-coding-standards/wpcs": "^3.0.0",
-    "automattic/jetpack-changelogger": "^4.2"
+    "automattic/jetpack-changelogger": "^4.2",
+    "fakerphp/faker": "^1.23"
   },
   "autoload": {
     "psr-4": {
@@ -63,7 +64,7 @@
   },
   "scripts": {
     "strauss": [
-      "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.13.0/strauss.phar",
+      "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.19.2/strauss.phar",
       "vendor/stellarwp/installer/bin/set-domain domain=tribe-common",
       "@php bin/strauss.phar"
     ],
@@ -91,10 +92,14 @@
         "monolog/monolog",
         "firebase/php-jwt",
         "psr/container",
-        "stellarwp/assets"
+        "stellarwp/assets",
+        "fakerphp/faker"
       ],
       "exclude_from_prefix": {
-        "file_patterns": []
+        "file_patterns": [],
+        "namespaces": [
+          "Faker"
+        ]
       },
       "delete_vendor_files": true,
       "include_modified_date": false,

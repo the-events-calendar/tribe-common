@@ -13,11 +13,14 @@ modules:
             title: 'EVA Integration Tests'
             plugins:
               - the-events-calendar/the-events-calendar.php
+              - events-pro/events-calendar-pro.php
               - event-tickets/event-tickets.php
               - event-tickets-plus/event-tickets-plus.php
               - easy-digital-downloads/easy-digital-downloads.php
+              - woocommerce/woocommerce.php
             activatePlugins:
               - the-events-calendar/the-events-calendar.php
+              - events-pro/events-calendar-pro.php
               - event-tickets/event-tickets.php
               - event-tickets-plus/event-tickets-plus.php
               - easy-digital-downloads/easy-digital-downloads.php

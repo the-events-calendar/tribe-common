@@ -330,6 +330,7 @@ class Tribe__Admin__Activation_Page {
 	 */
 	protected function disable_default_settings_page() {
 		remove_action( $this->args['admin_page'], [ tribe( 'settings' ), 'generate_page' ] );
+		remove_action( $this->args['admin_page'], [ tribe( 'settings' ), 'generatePage' ] );
 	}
 
 	/**

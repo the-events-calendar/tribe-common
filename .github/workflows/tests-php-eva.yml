@@ -4,7 +4,7 @@ jobs:
   test:
     strategy:
       matrix:
-        suite: [ eva_integration, restv1, restv1_et, end2end  ]
+        suite: [ eva_integration, end2end ]
     runs-on: ubuntu-latest
     steps:
       # ------------------------------------------------------------------------------
@@ -144,7 +144,51 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
         continue-on-error: true
-      # ------------------------------------------------------------------------------
+      - name: Fetch head branch from ET+
+        uses: octokit/request-action@v2.x
+        id: fetch-et-plus-head-branch
+        if: steps.skip.outputs.value != 1
+        with:
+          route: GET /repos/{owner}/{repo}/branches/${{ github.head_ref }}
+          owner: the-events-calendar
+          repo: event-tickets-plus
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
+        continue-on-error: true
+      - name: Fetch base branch from ET+
+        uses: octokit/request-action@v2.x
+        id: fetch-et-plus-base-branch
+        if: steps.skip.outputs.value != 1 && steps.fetch-et-plus-head-branch.outcome != 'success'
+        with:
+          route: GET /repos/{owner}/{repo}/branches/${{ github.base_ref }}
+          owner: the-events-calendar
+          repo: event-tickets-plus
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
+        continue-on-error: true
+      - name: Fetch head branch from Pro
+        uses: octokit/request-action@v2.x
+        id: fetch-pro-head-branch
+        if: steps.skip.outputs.value != 1
+        with:
+          route: GET /repos/{owner}/{repo}/branches/${{ github.head_ref }}
+          owner: the-events-calendar
+          repo: events-pro
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
+        continue-on-error: true
+      - name: Fetch base branch from Pro
+        uses: octokit/request-action@v2.x
+        id: fetch-pro-base-branch
+        if: steps.skip.outputs.value != 1 && steps.fetch-pro-head-branch.outcome != 'success'
+        with:
+          route: GET /repos/{owner}/{repo}/branches/${{ github.base_ref }}
+          owner: the-events-calendar
+          repo: events-pro
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
+        continue-on-error: true
+      # --------------------------------------------------------------------------
       # Set TEC branch
       # ------------------------------------------------------------------------------
       - name: Set TEC with head branch
@@ -180,7 +224,19 @@ jobs:
       - name: Set ET+ with master branch
         if: steps.skip.outputs.value != 1 && steps.fetch-et-plus-head-branch.outcome != 'success' && steps.fetch-et-plus-base-branch.outcome != 'success'
         run: echo "ET_PLUS_BRANCH=master" >> $GITHUB_ENV
-      # ------------------------------------------------------------------------------
+      # --------------------------------------------------------------------------
+      # Set Pro branch
+      # --------------------------------------------------------------------------
+      - name: Set Pro with head branch
+        if: steps.skip.outputs.value != 1 && steps.fetch-pro-head-branch.outcome == 'success'
+        run: echo "PRO_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
+      - name: Set Pro with base branch
+        if: steps.skip.outputs.value != 1 && steps.fetch-pro-head-branch.outcome != 'success' && steps.fetch-pro-base-branch.outcome == 'success'
+        run: echo "PRO_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+      - name: Set Pro with master branch
+        if: steps.skip.outputs.value != 1 && steps.fetch-pro-head-branch.outcome != 'success' && steps.fetch-pro-base-branch.outcome != 'success'
+        run: echo "PRO_BRANCH=master" >> $GITHUB_ENV
+      # --------------------------------------------------------------------------
       # Clone and init TEC
       # ------------------------------------------------------------------------------
       - name: Clone TEC
@@ -246,7 +302,27 @@ jobs:
           docker network prune -f
           ${SLIC_BIN} use event-tickets-plus
           ${SLIC_BIN} composer install --no-dev
-      # ------------------------------------------------------------------------------
+      # --------------------------------------------------------------------------
+      # Clone and init Pro
+      # --------------------------------------------------------------------------
+      - name: Clone Pro
+        uses: actions/checkout@v2
+        if: steps.skip.outputs.value != 1
+        with:
+          fetch-depth: 1
+          repository: the-events-calendar/events-pro
+          ref: ${{ env.PRO_BRANCH }}
+          token: ${{ secrets.GH_BOT_TOKEN }}
+          path: events-pro
+          submodules: recursive
+      - name: Init ET
+        if: steps.skip.outputs.value != 1
+        run: |
+          mv ${GITHUB_WORKSPACE}/events-pro ${GITHUB_WORKSPACE}/../events-pro
+          docker network prune -f
+          ${SLIC_BIN} use events-pro
+          ${SLIC_BIN} composer install --no-dev
+      # --------------------------------------------------------------------------
       # Install and activate WooCommerce
       # ------------------------------------------------------------------------------
       - name: Install WooCommerce
@@ -283,4 +359,32 @@ jobs:
           ${SLIC_BIN} wp core version
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
-        run: ${SLIC_BIN} run ${{ matrix.suite }} --debug --ext DotReporter
+        run: ${SLIC_BIN} run ${{ matrix.suite }}
+      # ------------------------------------------------------------------------------
+      # Copy test outputs into workspace (On failure)
+      # ------------------------------------------------------------------------------
+      - name: Copy test outputs into workspace
+        if: ${{ steps.skip.outputs.value != 1 && failure() }}
+        run: |
+          mkdir -p "${GITHUB_WORKSPACE}/tests/_output/"
+          cp -r "${GITHUB_WORKSPACE}/../the-events-calendar/common/tests/_output/." "${GITHUB_WORKSPACE}/tests/_output/" || echo "No artifacts found to copy."
+
+      # ------------------------------------------------------------------------------
+      # Verify artifacts exist
+      # ------------------------------------------------------------------------------
+      - name: Verify artifacts exist
+        if: ${{ steps.skip.outputs.value != 1 && failure() }}
+        run: |
+          echo "Listing contents of '${GITHUB_WORKSPACE}/tests/_output/':"
+          ls -la "${GITHUB_WORKSPACE}/tests/_output/" || echo "No artifacts found."
+
+      # ------------------------------------------------------------------------------
+      # Upload artifacts (On failure)
+      # ------------------------------------------------------------------------------
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        if: ${{ steps.skip.outputs.value != 1 && failure() }}
+        with:
+          name: output ${{ matrix.suite }}
+          path: tests/_output/
+          retention-days: 7

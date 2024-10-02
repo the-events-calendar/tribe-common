@@ -5,7 +5,8 @@ namespace Tribe\tests\eva_integration\Power_Automate;
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use TEC\Event_Automator\Power_Automate\Actions;
 use TEC\Event_Automator\Power_Automate\Admin\Endpoints_Manager;
-use TEC\Event_Automator\Power_Automate\Power_Automate_Provider;
+use Tribe\Tickets\Plus\Integrations\Event_Automator\Power_Automate_Provider as Power_Automate_Tickets_Plus_Provider;
+use Tribe\Events\Pro\Integrations\Event_Automator\Power_Automate_Provider as Power_Automate_Pro_Provider;
 use TEC\Event_Automator\Power_Automate\REST\V1\Endpoints\Abstract_REST_Endpoint;
 use TEC\Event_Automator\Power_Automate\Template_Modifications;
 use Tribe\Tests\Traits\With_Uopz;
@@ -117,7 +118,8 @@ class EndpointsManagerTest extends \Codeception\TestCase\WPAjaxTestCase {
 	public function should_correctly_handle_clearing_an_endpoint( $endpoint_id, $endpoint_details ) {
 		$this->ajax_setup();
 
-		tribe( Power_Automate_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Power_Automate_Tickets_Plus_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Power_Automate_Pro_Provider::class )->add_endpoints_to_dashboard();
 		$_REQUEST['endpoint_id'] = $endpoint_id;
 		$endpoints_manager       = new Endpoints_Manager( tribe( Actions::class ), tribe( Template_Modifications::class ) );
 		$mock_api_key_data       = file_get_contents( codecept_data_dir( "Power_Automate/Endpoints/{$endpoint_details}.json" ) );
@@ -159,7 +161,8 @@ class EndpointsManagerTest extends \Codeception\TestCase\WPAjaxTestCase {
 	public function should_correctly_handle_disabling_an_endpoint( $endpoint_id, $endpoint_details ) {
 		$this->ajax_setup();
 
-		tribe( Power_Automate_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Power_Automate_Tickets_Plus_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Power_Automate_Pro_Provider::class )->add_endpoints_to_dashboard();
 		$_REQUEST['endpoint_id'] = $endpoint_id;
 		$endpoints_manager       = new Endpoints_Manager( tribe( Actions::class ), tribe( Template_Modifications::class ) );
 		$mock_api_key_data       = file_get_contents( codecept_data_dir( "Power_Automate/Endpoints/{$endpoint_details}.json" ) );
@@ -201,7 +204,8 @@ class EndpointsManagerTest extends \Codeception\TestCase\WPAjaxTestCase {
 	public function should_correctly_handle_enabling_an_endpoint( $endpoint_id, $endpoint_details ) {
 		$this->ajax_setup();
 
-		tribe( Power_Automate_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Power_Automate_Tickets_Plus_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Power_Automate_Pro_Provider::class )->add_endpoints_to_dashboard();
 		$_REQUEST['endpoint_id']       = $endpoint_id;
 		$endpoints_manager             = new Endpoints_Manager( tribe( Actions::class ), tribe( Template_Modifications::class ) );
 		$mock_api_key_data             = file_get_contents( codecept_data_dir( "Power_Automate/Endpoints/{$endpoint_details}.json" ) );
