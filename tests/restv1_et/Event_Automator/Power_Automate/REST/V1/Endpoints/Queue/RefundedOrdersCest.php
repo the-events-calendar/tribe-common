@@ -2,13 +2,13 @@
 
 namespace TEC\Event_Automator\Power_Automate\REST\V1\Endpoints\Queue;
 
-use TEC\Event_Automator\Tests\Testcases\REST\V1\BaseRestPowerAutomateCest;
-use Restv1Tester;
+use TEC\Event_Automator\Tests\Testcases\REST\V1\BaseRestETPowerAutomateCest;
+use Restv1_etTester;
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use TEC\Event_Automator\Tests\Traits\Create_events;
 use TEC\Event_Automator\Tests\Traits\Create_attendees;
 
-class RefundedOrdersCest extends BaseRestPowerAutomateCest {
+class RefundedOrdersCest extends BaseRestETPowerAutomateCest {
 
 	use SnapshotAssertions;
 	use Create_events;
@@ -22,7 +22,7 @@ class RefundedOrdersCest extends BaseRestPowerAutomateCest {
 	/**
 	 * @test
 	 */
-	public function it_should_return_error_when_missing_token_parameters( Restv1Tester $I ) {
+	public function it_should_return_error_when_missing_token_parameters( Restv1_etTester $I ) {
 		$I->sendGET( $this->refunded_orders_url );
 		$I->seeResponseCodeIs( 401 );
 		$I->seeResponseIsJson();
@@ -34,7 +34,7 @@ class RefundedOrdersCest extends BaseRestPowerAutomateCest {
 	/**
 	 * @test
 	 */
-	public function it_should_return_invalid_when_access_token_contains_unverified_consumer_id_and_secret( Restv1Tester $I ) {
+	public function it_should_return_invalid_when_access_token_contains_unverified_consumer_id_and_secret( Restv1_etTester $I ) {
 		$I->sendGET( $this->refunded_orders_url, [ 'access_token' => static::$invalid_access_token ] );
 		$I->seeResponseCodeIs( 401 );
 		$I->seeResponseIsJson();
@@ -46,7 +46,7 @@ class RefundedOrdersCest extends BaseRestPowerAutomateCest {
 	/**
 	 * @test
 	 */
-	public function it_should_return_valid_when_access_token_contains_verified_consumer_id_and_secret_but_no_event_msg( Restv1Tester $I ) {
+	public function it_should_return_valid_when_access_token_contains_verified_consumer_id_and_secret_but_no_event_msg( Restv1_etTester $I ) {
 		$this->setup_api_key_pair( $I );
 		$I->sendGET( $this->refunded_orders_url, [ 'access_token' => static::$valid_access_token ] );
 		$I->seeResponseCodeIs( 200 );
@@ -59,7 +59,7 @@ class RefundedOrdersCest extends BaseRestPowerAutomateCest {
 	/**
 	 * @test
 	 */
-	public function it_should_return_valid_with_access_token_contains_verified_api_key_pair_and_last_access_is_updated( Restv1Tester $I ) {
+	public function it_should_return_valid_with_access_token_contains_verified_api_key_pair_and_last_access_is_updated( Restv1_etTester $I ) {
 		$this->setup_api_key_pair( $I );
 		$I->haveHttpHeader( 'eva-app-name', 'integration-event-tickets' );
 		$I->sendGET( $this->refunded_orders_url, [ 'access_token' => static::$valid_access_token ] );
@@ -68,17 +68,17 @@ class RefundedOrdersCest extends BaseRestPowerAutomateCest {
 
 		// Check Last Access is Updated.
 		$api_key_data = get_option( 'tec_power_automate_connection_6a8dc385e71764bac6b22ba6ccac07ba17e3904509f6d60f712e00ba080befd8' );
-		$I->test_last_access( $api_key_data);
+		$I->test_et_last_access( $api_key_data);
 
 		// Check Last Access is Updated for Endpoint.
 		$endpoint_details = get_option( '_tec_power_automate_endpoint_details_refunded_orders' );
-		$I->test_last_access( $endpoint_details);
+		$I->test_et_last_access( $endpoint_details);
 	}
 
 	/**
 	 * @test
 	 */
-	public function it_should_return_valid_with_access_token_but_with_invalid_order_id( Restv1Tester $I ) {
+	public function it_should_return_valid_with_access_token_but_with_invalid_order_id( Restv1_etTester $I ) {
 		$invalid_id = [ 'post_id' ];
 		$this->setup_refunded_orders_queue( $I, $invalid_id );
 		$this->setup_api_key_pair( $I );
@@ -93,7 +93,7 @@ class RefundedOrdersCest extends BaseRestPowerAutomateCest {
 	/**
 	 * @test
 	 */
-	public function it_should_return_valid_with_access_token_but_with_invalid_post_type( Restv1Tester $I ) {
+	public function it_should_return_valid_with_access_token_but_with_invalid_post_type( Restv1_etTester $I ) {
 		$I->haveManyPostsInDatabase( 1 );
 		$postsTable        = $I->grabPostsTableName();
 		$last              = $I->grabLatestEntryByFromDatabase( $postsTable, 'ID' );
@@ -114,7 +114,7 @@ class RefundedOrdersCest extends BaseRestPowerAutomateCest {
 	 * @test
 	 * @skip TC cart does not clear between tests causing, "Trying to access array offset on value of type null".
 	 */
-	public function it_should_process_tc_refunded_orders_queue( Restv1Tester $I ) {
+	public function it_should_process_tc_refunded_orders_queue( Restv1_etTester $I ) {
 		$event      = $this->generate_event( $this->mock_date_value );
 		$order_id_1 = $this->generate_tc_order_and_refund_it( $event );
 		$order_id_2 = $this->generate_tc_order_and_refund_it( $event );
@@ -140,8 +140,9 @@ class RefundedOrdersCest extends BaseRestPowerAutomateCest {
 
 	/**
 	 * @test
+	 * @skip Strauss does not update FakerPHP causing 'Psr\Container\ContainerInterface' not found
 	 */
-	public function it_should_process_edd_refunded_orders_queue( Restv1Tester $I ) {
+	public function it_should_process_edd_refunded_orders_queue( Restv1_etTester $I ) {
 		$event      = $this->generate_event( $this->mock_date_value );
 		$order_id_1 = $this->generate_edd_order_and_refund_it( $event );
 		$order_id_2 = $this->generate_edd_order_and_refund_it( $event );
@@ -167,8 +168,9 @@ class RefundedOrdersCest extends BaseRestPowerAutomateCest {
 
 	/**
 	 * @test
+	 * @skip Strauss does not update FakerPHP causing 'Psr\Container\ContainerInterface' not found
 	 */
-	public function it_should_process_woo_refunded_orders_queue( Restv1Tester $I ) {
+	public function it_should_process_woo_refunded_orders_queue( Restv1_etTester $I ) {
 		$event      = $this->generate_event( $this->mock_date_value );
 		$order_id_1 = $this->generate_woo_order( $event );
 		$order_id_2 = $this->generate_woo_order( $event );
@@ -196,7 +198,7 @@ class RefundedOrdersCest extends BaseRestPowerAutomateCest {
 	 * @test
 	 * @skip TC cart does not clear between tests causing, "Trying to access array offset on value of type null".
 	 */
-	public function it_should_process_all_provider_refunded_orders_queue( Restv1Tester $I ) {
+	public function it_should_process_all_provider_refunded_orders_queue( Restv1_etTester $I ) {
 		$event      = $this->generate_event( $this->mock_date_value );
 		$order_id_1 = $this->generate_woo_order_and_refund_it( $event );
 		$order_id_2 = $this->generate_tc_order_and_refund_it( $event );
@@ -224,7 +226,7 @@ class RefundedOrdersCest extends BaseRestPowerAutomateCest {
 	/**
 	 * @test
 	 */
-	public function it_should_return_404_when_endpoint_disabled( Restv1Tester $I ) {
+	public function it_should_return_404_when_endpoint_disabled( Restv1_etTester $I ) {
 		$endpoint = [
 			'id'           => 'refunded_orders',
 			'display_name' => 'Refunded Orders',
