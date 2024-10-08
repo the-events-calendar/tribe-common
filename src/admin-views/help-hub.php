@@ -39,17 +39,17 @@
 
 <script>
 	jQuery( document ).ready( function($) {
-		let currentTab = $( 'li.tec-nav__tab.tec-nav__tab--subnav-active' );
+		let currentTab = $( '.tec-nav__tab.tec-nav__tab--subnav-active' );
 		let tabContainer = $( '#' + currentTab.data( 'tab-target' ) );
 		$( '.tec-tab-container' ).hide();
 		tabContainer.show();
 
-		$( 'li.tec-nav__tab' ).on( 'click', function() {
+		$( '[data-tab-target]' ).on( 'click', function() {
 			let tab = $( this );
 			let tabTarget = $( '#' + tab.data( 'tab-target' ) );
 
-			$( 'li.tec-nav__tab' ).removeClass( 'tec-nav__tab--subnav-active' );
-			tab.addClass( 'tec-nav__tab--subnav-active' );
+			$( '[data-tab-target]' ).removeClass( 'tec-nav__tab--subnav-active' );
+			$( '[data-tab-target="' + tab.data( 'tab-target' ) + '"]' ).addClass( 'tec-nav__tab--subnav-active' );
 
 			tabContainer.hide();
 			tabTarget.show();

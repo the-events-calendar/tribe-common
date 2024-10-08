@@ -1,104 +1,300 @@
 <?php
 /**
- * The template that displays the resources tab on the help page.
- *
- * @var Tribe__Main $main The main common object.
- */
+* The template that displays the resources tab on the help page.
+*
+* @var Tribe__Main $main The main common object.
+*/
 
 use TEC\Common\Telemetry\Telemetry;
+$tec_icon_url     = tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, $main );
+$ea_icon_url      = tribe_resource_url( 'images/logo/event-aggregator.svg', false, null, $main );
+$fbar_icon_url    = tribe_resource_url( 'images/logo/filterbar.svg', false, null, $main );
+$article_icon_url = tribe_resource_url( 'images/icons/file-text1.svg', false, null, $main );
+$stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $main );
 
 ?>
-<div class="tec-row">
-	<div class="tec-col">
-		<div class="tribe-settings-form form">
-			<div id="tec-settings-form" method="post">
-				<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
-					<h2 class="tec-settings-form__section-header">Resources</h2>
-					<p class="tec-settings-form__section-description">
-						Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-					</p>
-					<div class="notice notice-info inline is-dismissible">
-						<p>
-							<?php
-							printf(
-							// translators: Leave always a hint for translators to understand the placeholders.
-								esc_attr__( 'class %1$s with paragraph and %2$s class', 'WpAdminStyle' ),
-								'<code>.notice-error</code>',
-								'<code>.inline</code>'
-							);
-							?>
-						</p>
-					</div>
-				</div>
-				<div class="tec-settings-form__content-section">
-					<div class="tec-row">
-						<div class="tec-col">
-							<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">Getting started guides</h3>
-							<p>
-								Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-							</p>
-						</div>
-						<div class="tec-col">
-							<p>img <a href="todo">The Events Calendar</a></p>
-							<p>img <a href="todo">Event Aggregator</a></p>
-							<p>img <a href="todo">Filter Bar</a></p>
-
-						</div>
-					</div>
-
-				</div>
-				<div class="tec-settings-form__content-section">
-					<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">Customization guides</h3>
-					<p class="tec-settings-form__section-description">
-						Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-					</p>
-				</div>
-				<div class="tec-settings-form__content-section">
-					<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">Common issues</h3>
-					<p class="tec-settings-form__section-description">
-						Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-					</p>
-				</div>
-				<div class="tec-settings-form__content-section">
-					<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">FAQs</h3>
-					<p class="tec-settings-form__section-description">
-Accordion					</p>
-				</div>
+<div class="tribe-settings-form form">
+	<div id="tec-settings-form">
+		<div class="tec-settings-form__content-section">
+			<div class="tec-settings-form__header-block">
+			<h2 class="tec-settings-form__section-header">
+				<?php
+				echo esc_html_x( 'Resources', 'Resources tab title', 'tribe-common' );
+				?>
+			</h2>
+			<p class="tec-settings-form__section-description">
+				<?php
+				echo esc_html_x(
+					'Help on setting up, customizing and troubleshooting your calendar. See our Knowledgebase for in-depth content.',
+					'Overview paragraph for Resources tab',
+					'tribe-common'
+				);
+				?>
+			</p>
+			<p>todo admin notice</p>
 			</div>
 		</div>
-	</div>
+		<div class="tec-settings-form__content-section">
+			<div class="tec-settings-form__header-block">
+				<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">
+					<?php
+					echo esc_html_x(
+						'Getting started guides',
+						'Getting started guide section title',
+						'tribe-common'
+					);
+					?>
+				</h3>
+				<p class="tec-settings-form__section-description">
+					<?php
+					echo esc_html_x(
+						'Easy to follow step-by-step instructions to make the most out of your calendar.',
+						'Getting started guide section paragraph',
+						'tribe-common'
+					);
+					?>
+				</p>
+			</div>
+			<ul class="tec-help-list__list-expanded">
+				<li>
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $tec_icon_url ); ?>" />
+					<a href="todo">
+						<?php
+						echo esc_html_x(
+							'The Events Calendar',
+							'The Events Calendar title',
+							'tribe-common'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $ea_icon_url ); ?>" />
+					<a href="todo">
+						<?php
+						echo esc_html_x(
+							'Event Aggregator',
+							'Event Aggregator title',
+							'tribe-common'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $fbar_icon_url ); ?>" />
+					<a href="todo">
+						<?php
+						echo esc_html_x(
+							'Filter Bar',
+							'Filter Bar title',
+							'tribe-common'
+						);
+						?>
+					</a>
+				</li>
+			</ul>
+		</div>
 
-	<div class="tec-col">
-		<div class="tec-settings-form__sidebar">
-			<div class="tec-settings-form__sidebar-section tec-settings-form__sidebar-header">
-				<img src="http://localhost/wp-content/plugins/the-events-calendar/src/resources/images/settings_illustration.jpg" role="presentation">		<h2 class="tec-settings-form__sidebar-header">
-					Finding and extending your calendar		</h2>
+		<div class="tec-settings-form__content-section">
+			<div class="tec-settings-form__header-block">
+				<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">
+					<?php
+					echo esc_html_x(
+						'Customization guides',
+						'Customization guides section title',
+						'tribe-common'
+					);
+					?>
+				</h3>
+				<p class="tec-settings-form__section-description">
+					<?php
+					echo esc_html_x(
+						'Tips and tricks on making your calendar just the way you want it.',
+						'Customization guides section paragraph',
+						'tribe-common'
+					);
+					?>
+				</p>
 			</div>
-
-			<div class="tec-settings-form__sidebar-section">
-				<div class="tribe-settings-section">
-					<p class="">
-						Looking for additional functionality including recurring events, custom meta, community events, ticket sales, and more?		</p>
-					<a href="http://localhost/wp-admin/edit.php?post_type=tribe_events&amp;page=tribe-app-shop" class="">Check out the available add-ons.</a>		</div>
+			<ul class="tec-help-list__list-expanded">
+				<li>
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
+					<a href="todo">
+						<?php
+						echo esc_html_x(
+							'Getting started with customization',
+							'Customization article',
+							'tribe-common'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
+					<a href="todo">
+						<?php
+						echo esc_html_x(
+							'Highlighting events',
+							'Highlighting events article',
+							'tribe-common'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
+					<a href="todo">
+						<?php
+						echo esc_html_x(
+							'Customizing template files',
+							'Customizing templates article',
+							'tribe-common'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
+					<a href="todo">
+						<?php
+						echo esc_html_x(
+							'Customizing CSS',
+							'Customizing CSS article',
+							'tribe-common'
+						);
+						?>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="tec-settings-form__content-section">
+			<div class="tec-settings-form__header-block">
+				<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">
+					<?php
+					echo esc_html_x(
+						'Common issues',
+						'Common issues section title',
+						'tribe-common'
+					);
+					?>
+				</h3>
+				<p class="tec-settings-form__section-description">
+					<?php
+					echo esc_html_x(
+						'Having trouble? Find solutions to common issues or ask our AI Chatbot.',
+						'Common issues section paragraph',
+						'tribe-common'
+					);
+					?>
+				</p>
 			</div>
-			<div class="tec-settings-form__sidebar-section">
-				<div class="tribe-settings-section">
-					<h3>
-						Documentation		</h3>
-					<a href="http://localhost/wp-admin/edit.php?page=tec-events-settings&amp;post_type=tribe_events&amp;welcome-message-the-events-calendar=1" class="">View Welcome Page</a><br><a href="https://evnt.is/1bbv" class="" target="_blank" rel="noopener">Getting started guide</a><br><a href="https://evnt.is/1bbw" class="" target="_blank" rel="noopener">Knowledgebase</a>		</div>
+			<ul class="tec-help-list__list-expanded">
+				<li>
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
+					<a href="todo">
+						<?php
+						echo esc_html_x(
+							'Known issues',
+							'Known issues article',
+							'tribe-common'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
+					<a href="todo">
+						<?php
+						echo esc_html_x(
+							'Release notes',
+							'Release notes article',
+							'tribe-common'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
+					<a href="todo">
+						<?php
+						echo esc_html_x(
+							'Integrations',
+							'Integrations article',
+							'tribe-common'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
+					<a href="todo">
+						<?php
+						echo esc_html_x(
+							'Shortcodes',
+							'Shortcodes article',
+							'tribe-common'
+						);
+						?>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="tec-settings-form__content-section">
+			<div class="tec-settings-form__header-block">
+				<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">
+					<?php
+					echo esc_html_x(
+						'FAQs',
+						'FAQs section title',
+						'tribe-common'
+					);
+					?>
+				</h3>
+				<p class="tec-settings-form__section-description">
+					<?php
+					echo esc_html_x(
+						'Get quick answers to common questions',
+						'FAQs section paragraph',
+						'tribe-common'
+					);
+					?>
+				</p>
 			</div>
-			<div class="tec-settings-form__sidebar-section">
-				<div class="tribe-settings-section">
-					<p class="">
-						Where is my calendar?		</p>
-					<a href="http://localhost/events/" class="">Right here</a>		</div>
-			</div>
-			<div class="tec-settings-form__sidebar-section">
-				<div class="tribe-settings-section">
-					<p class="">
-						Having trouble?		</p>
-					<a href="http://localhost/wp-admin/edit.php?post_type=tribe_events&amp;page=tec-events-help" class="">Help</a><br><a href="http://localhost/wp-admin/edit.php?post_type=tribe_events&amp;page=tec-troubleshooting" class="">Troubleshoot</a>		</div>
-			</div>
+		</div>
+		<div class="tec-settings-infobox">
+			<img class="tec-settings-infobox-logo" src="<?php echo esc_url( $stars_icon_url ); ?>" alt="AI Chatboat logo">
+			<h3 class="tec-settings-infobox-title">
+				<?php
+				echo esc_html_x(
+					'Our AI Chatbot is here to help you',
+					'AI Chatbot notice title',
+					'tribe-common'
+				);
+				?>
+			</h3>
+			<p>
+				<?php
+				echo esc_html_x(
+					'You have questions? The TEC Chatbot has the answers.',
+					'AI Chatbot section paragraph',
+					'tribe-common'
+				);
+				?>
+			</p>
+			<p>
+				<a data-tab-target="tec-help-tab" href="javascript:void(0)">
+					<?php
+					_ex(
+						'Talk to TEC Chatbot',
+						'Link to the Help Chatbot',
+						'tribe-common'
+					);
+					?>
+				</a>
+			</p>
 		</div>
 	</div>
 </div>
+
+<?php $this->template('help-hub/resources-sidebar') ?>
+
