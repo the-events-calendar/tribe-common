@@ -180,6 +180,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		private $validate_query = [];
 
 		/**
+		 * A unique list of instances of the PUE Checker that has been initialized.
+		 *
+		 * @since TBD
+		 *
+		 * @var Tribe__PUE__Checker[] Instances of checkers that have been registered.
+		 */
+		protected static $instances = [];
+
+		/**
 		 * Class constructor.
 		 *
 		 * @param string $pue_update_url Deprecated. The URL of the plugin's metadata file.
@@ -204,6 +213,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$this->set_options( $options );
 			$this->hooks();
 			$this->set_key_status_name();
+			// So we can reference our "registered" instances later.
+			self::$instances[ $slug ] ??= $this;
 		}
 
 		/**
@@ -220,6 +231,56 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			return 'valid' === $status;
+		}
+
+		/**
+		 * Iterate on all the registered PUE Product Licenses we have and find if any are valid.
+		 * Will revalidate the licenses if none are found to be valid.
+		 *
+		 * @since TBD
+		 *
+		 * @return bool
+		 */
+		public static function is_any_license_valid(): bool {
+			$valid_slug    = 'valid';
+			$transient_key = 'tec-any-license-valid';
+			$has_valid     = false;
+
+			// Check our transient.
+			$transient_value = get_transient( $transient_key );
+			if ( ! empty( $transient_value ) ) {
+				return $transient_value === $valid_slug;
+			}
+
+			// Check our local transient/cache first.
+			foreach ( self::$instances as $checker ) {
+				if ( $checker->is_key_valid() ) {
+					set_transient( $transient_key, $valid_slug, HOUR_IN_SECONDS );
+					$has_valid = true;
+					break;
+				}
+			}
+
+			if ( ! $has_valid ) {
+				// Revalidate if we haven't found a valid license yet.
+				foreach ( self::$instances as $checker ) {
+					$license  = get_option( $checker->get_license_option_key() );
+					$response = $checker->validate_key( $license );
+					// Is it valid?
+					if ( ! empty( $response['status'] ) ) {
+						set_transient( $transient_key, $valid_slug, HOUR_IN_SECONDS );
+						$has_valid = true;
+						break;
+					}
+				}
+			}
+
+			// We found no valid licenses above.
+			if ( ! $has_valid ) {
+				set_transient( $transient_key, 'invalid', HOUR_IN_SECONDS );
+			}
+
+			return get_transient( $transient_key ) === $valid_slug;
 		}
 
 		/**
@@ -322,6 +383,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// Package name.
 			add_filter( 'upgrader_pre_download', [ Tribe__PUE__Package_Handler::instance(), 'filter_upgrader_pre_download' ], 5, 3 );
 		}
+
+
 
 		/********************** Getter / Setter Functions **********************/
 

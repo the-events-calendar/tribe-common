@@ -6,6 +6,8 @@
  * @since 4.0
  */
 
+use TEC\Common\Telemetry\Telemetry;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -35,7 +37,36 @@ class Tribe__Admin__Help_Page {
 		$main     = Tribe__Main::instance();
 		$template = new \Tribe__Template();
 
-		$template->set_values( [ 'main' => $main ] );
+		$t = time();
+		$name = 'myslug';
+		// Our notices.
+		tribe_transient_notice(
+			$name,
+			"<p>Hello $t</p>",
+			[
+				'type'            => 'info',
+				'dismiss'         => true,
+				'priority'        => 1,
+			],
+			YEAR_IN_SECONDS
+		);
+
+		$notice = Tribe__Admin__Notices::instance()->render( $name );
+//@todo
+
+		$common_telemetry = tribe( Telemetry::class );
+		$is_opted_in      = $common_telemetry->calculate_optin_status();
+		$is_license_valid = Tribe__PUE__Checker::is_any_license_valid();
+
+		// Setup template for help page.
+		$template->set_values(
+			[
+				'main'             => $main,
+				'notice'           => $notice,
+				'is_opted_in'      => $is_opted_in,
+				'is_license_valid' => $is_license_valid,
+			]
+		);
 		$template->set_template_origin( $main );
 		$template->set_template_folder( 'src/admin-views' );
 		$template->set_template_context_extract( true );

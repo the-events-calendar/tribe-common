@@ -5,7 +5,6 @@
 * @var Tribe__Main $main The main common object.
 */
 
-use TEC\Common\Telemetry\Telemetry;
 $tec_icon_url     = tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, $main );
 $ea_icon_url      = tribe_resource_url( 'images/logo/event-aggregator.svg', false, null, $main );
 $fbar_icon_url    = tribe_resource_url( 'images/logo/filterbar.svg', false, null, $main );
