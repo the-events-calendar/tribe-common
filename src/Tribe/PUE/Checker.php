@@ -189,6 +189,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		protected static $instances = [];
 
 		/**
+		 * @var string The transient key.
+		 */
+		public const IS_ANY_LICENSE_VALID_TRANSIENT_KEY = 'IS_ANY_LICENSE_VALID_TRANSIENT';
+
+		/**
 		 * Class constructor.
 		 *
 		 * @param string $pue_update_url Deprecated. The URL of the plugin's metadata file.
@@ -242,12 +247,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return bool
 		 */
 		public static function is_any_license_valid(): bool {
-			$valid_slug    = 'valid';
-			$transient_key = 'tec-any-license-valid';
-			$has_valid     = false;
+			$valid_slug = 'valid';
+			$has_valid  = false;
 
 			// Check our transient.
-			$transient_value = get_transient( $transient_key );
+			$transient_value = get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
 			if ( ! empty( $transient_value ) ) {
 				return $transient_value === $valid_slug;
 			}
@@ -255,7 +259,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// Check our local transient/cache first.
 			foreach ( self::$instances as $checker ) {
 				if ( $checker->is_key_valid() ) {
-					set_transient( $transient_key, $valid_slug, HOUR_IN_SECONDS );
+					set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $valid_slug, HOUR_IN_SECONDS );
 					$has_valid = true;
 					break;
 				}
@@ -268,7 +272,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					$response = $checker->validate_key( $license );
 					// Is it valid?
 					if ( ! empty( $response['status'] ) ) {
-						set_transient( $transient_key, $valid_slug, HOUR_IN_SECONDS );
+						set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $valid_slug, HOUR_IN_SECONDS );
 						$has_valid = true;
 						break;
 					}
@@ -277,10 +281,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			// We found no valid licenses above.
 			if ( ! $has_valid ) {
-				set_transient( $transient_key, 'invalid', HOUR_IN_SECONDS );
+				set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, 'invalid', HOUR_IN_SECONDS );
 			}
 
-			return get_transient( $transient_key ) === $valid_slug;
+			return get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY ) === $valid_slug;
 		}
 
 		/**
