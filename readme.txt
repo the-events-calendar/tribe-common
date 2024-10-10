@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [6.1.1] 2024-10-17 =
+
+* Fix - allow more svg attributes through the fields sanitization. [BTPLAN-200]
+
 = [6.1.0] 2024-09-26 =
 
 * Feature - Update core settings functionality and styles to allow for new plugin settings layout. [TEC-5124]
