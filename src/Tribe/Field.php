@@ -470,17 +470,21 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 					$tags['select']   = $common_attributes;
 					$tags['option']   = $common_attributes;
 					$tags['fieldset'] = _wp_add_global_attributes( [] );
-					// Allow svgs and paths for icons.
+					// Allow svg and paths for icons.
 					$tags['svg']      = _wp_add_global_attributes(
 						[
 							'fill'    => [],
-							'xmlns'   => [],
+							'g'	      => [],
 							'viewbox' => [],
-							'pattern' => [],
-							'defs'    => [],
+							'xmlns'   => [],
 						]
 					);
-					$tags['path']	  = [ 'd' => [], 'fill' => [] ];
+					$tags['path']	  = [
+						'd'              => [],
+						'fill'           => [],
+						'stroke'         => [],
+						'stroke-linecap' => [],
+					];
 
 					// Allow the script and template tags for HTML fields (inserting script localization, js templates).
 					if ( $this->type === 'html' || $this->type === 'wrapped_html' ) {
