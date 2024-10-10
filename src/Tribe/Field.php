@@ -475,7 +475,9 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 						[
 							'fill'    => [],
 							'g'	      => [],
+							'height'  => [],
 							'viewbox' => [],
+							'width'   => [],
 							'xmlns'   => [],
 						]
 					);
