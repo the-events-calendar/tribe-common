@@ -34,18 +34,32 @@ class Link extends Base_Entity {
 	private string $text = '';
 
 	/**
+	 * Content for the link if not a string.
+	 *
+	 * @var ?Base_Entity
+	 */
+	private ?Base_Entity $content = null;
+
+	/**
 	 * Link constructor.
 	 *
 	 * @since 6.1.0
 	 *
-	 * @param string      $url        The URL for the link.
-	 * @param string      $text       The text for the link.
-	 * @param ?Classes    $classes    The classes for the link.
-	 * @param ?Attributes $attributes The attributes for the link.
+	 * @param string                  $url        The URL for the link.
+	 * @param string|Base_Entity      $content    The text or entity for the link.
+	 * @param ?Classes                $classes    The classes for the link.
+	 * @param ?Attributes             $attributes The attributes for the link.
 	 */
-	public function __construct( string $url, string $text, ?Classes $classes = null, ?Attributes $attributes = null ) {
+	public function __construct( string $url, $content, ?Classes $classes = null, ?Attributes $attributes = null ) {
 		$this->url  = $url;
-		$this->text = $text;
+
+		if ( is_string( $content ) ) {
+			$this->text = $content;
+		}
+
+		if ( $content instanceof Base_Entity ) {
+			$this->content = $content;
+		}
 
 		if ( $classes ) {
 			$this->set_classes( $classes );
@@ -69,7 +83,7 @@ class Link extends Base_Entity {
 			esc_url( $this->url ),
 			esc_attr( $this->get_classes() ),
 			$this->get_attributes(), // phpcs:ignore StellarWP.XSS.EscapeOutput,WordPress.Security.EscapeOutput
-			esc_html( $this->text )
+			$this->content ? (string) $this->content : esc_html( $this->text )
 		);
 	}
 }
