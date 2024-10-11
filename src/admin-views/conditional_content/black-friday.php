@@ -9,7 +9,8 @@
  */
 
 $year = date_i18n( 'Y' );
-
+/* translators: %1$s: Black Friday year */
+$a11y_text = _x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' );
 ?>
 
 <a
@@ -17,11 +18,11 @@ $year = date_i18n( 'Y' );
 	target="_blank"
 	rel="noopener nofollow"
 	style="display: block; margin: 25px 0; <?php echo $this->get( 'is_narrow' ) ? 'max-width: 1000px' : ''; ?>"
-	title="<?php echo sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), $year ); ?>"
+	title="<?php printf( esc_attr( $a11y_text ), esc_attr( $year ) ); ?>"
 >
 	<img
 		style="display: block; width: 100%; height: auto;" <?php // This is intentionally inline, don't add classes here. ?>
 		src="<?php echo esc_url( $image_src ); ?>"
-		alt="<?php echo sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), $year ); ?>"
+		alt="<?php echo printf( esc_attr( $a11y_text ), esc_attr( $year ) ); ?>"
 	/>
 </a>

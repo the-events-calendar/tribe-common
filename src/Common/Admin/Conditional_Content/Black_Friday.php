@@ -173,7 +173,8 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 								tribe_resource_url( 'images/hero-section-settings-sidebar.jpg', false, null, \Tribe__Main::instance() ),
 								new Attributes(
 									[
-										'alt'  => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), $year ),
+										/* translators: %1$s: Black Friday year */
+										'alt'  => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), esc_attr( $year ) ),
 										'role' => 'presentation',
 									]
 								)
@@ -181,7 +182,8 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 							null,
 							new Attributes(
 								[
-									'title'  => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), $year ),
+									/* translators: %1$s: Black Friday year */
+									'title'  => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), esc_attr( $year ) ),
 									'target' => '_blank',
 									'rel'    => 'noopener nofollow',
 								]
