@@ -1040,7 +1040,6 @@ S2.define('select2/results',[
 
       if (container.isOpen()) {
         self.setClasses();
-        self.highlightFirstItem();
       }
     });
 
@@ -1875,7 +1874,7 @@ S2.define('select2/selection/allowClear',[
       }
     }
 
-    // Allow clearing when the data-placeholder attribute isn't set. 
+    // Allow clearing when the data-placeholder attribute isn't set.
     if ( typeof this.placeholder !== 'undefined' ) {
       this.$element.val( this.placeholder.id ).trigger( 'change' );
     } else {
@@ -1928,7 +1927,7 @@ S2.define('select2/selection/search',[
   Search.prototype.render = function (decorated) {
     var $search = $(
       '<li class="select2-search select2-search--inline">' +
-        '<input class="select2-search__field" type="text" tabindex="-1"' +
+        '<input class="select2-search__field" type="text"' +
         ' autocomplete="off" autocorrect="off" autocapitalize="none"' +
         ' spellcheck="false" role="textbox" aria-autocomplete="list" />' +
       '</li>'
@@ -2079,7 +2078,6 @@ S2.define('select2/selection/search',[
    * @private
    */
   Search.prototype._transferTabIndex = function (decorated) {
-    this.$search.attr('tabindex', this.$selection.attr('tabindex'));
     this.$selection.attr('tabindex', '-1');
   };
 
@@ -4000,7 +3998,7 @@ S2.define('select2/dropdown/search',[
 
     var $search = $(
       '<span class="select2-search select2-search--dropdown">' +
-        '<input class="select2-search__field" type="text" tabindex="-1"' +
+        '<input class="select2-search__field" type="text"' +
         ' autocomplete="off" autocorrect="off" autocapitalize="none"' +
         ' spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="true" />' +
       '</span>'
@@ -4049,7 +4047,6 @@ S2.define('select2/dropdown/search',[
     });
 
     container.on('close', function () {
-      self.$search.attr('tabindex', -1);
       self.$search.removeAttr('aria-activedescendant');
       self.$search.removeAttr('aria-owns');
       self.$search.val('');
