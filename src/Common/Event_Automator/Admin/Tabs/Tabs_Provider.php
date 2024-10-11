@@ -5,7 +5,7 @@ namespace TEC\Event_Automator\Admin\Tabs;
 use TEC\Common\Contracts\Service_Provider;
 
 /**
- * Class Service_Provider
+ * Class Controller
  *
  * @package TEC\Event_Automator\Admin\Tabs
  *

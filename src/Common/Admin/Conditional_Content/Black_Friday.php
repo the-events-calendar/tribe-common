@@ -1,7 +1,5 @@
 <?php
-namespace Tribe\Admin\Conditional_Content;
-
-use Tribe__Date_Utils as Dates;
+namespace TEC\Common\Admin\Conditional_Content;
 
 /**
  * Set up for Black Friday promo.
@@ -68,7 +66,6 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		// Set up template variables.
 		$images_dir =  \Tribe__Main::instance()->plugin_url . 'src/resources/images/';
 		$template_args = [
-			'branding_logo' => $images_dir . 'logo/tec-brand.svg',
 			'background_image' => $images_dir . 'marketing/bf-promo.png',
 			'button_link' => 'https://evnt.is/1aqi',
 		];

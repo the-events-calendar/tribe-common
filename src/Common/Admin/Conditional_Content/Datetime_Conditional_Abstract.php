@@ -1,5 +1,5 @@
 <?php
-namespace Tribe\Admin\Conditional_Content;
+namespace TEC\Common\Admin\Conditional_Content;
 
 use Tribe__Date_Utils as Dates;
 

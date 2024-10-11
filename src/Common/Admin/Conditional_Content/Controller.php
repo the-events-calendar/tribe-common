@@ -6,7 +6,7 @@
  * @package Tribe\Admin\Conditional_Content;
  */
 
-namespace Tribe\Admin\Conditional_Content;
+namespace TEC\Common\Admin\Conditional_Content;
 
 use TEC\Common\Contracts\Service_Provider as Provider_Contract;
 
@@ -15,7 +15,7 @@ use TEC\Common\Contracts\Service_Provider as Provider_Contract;
  *
  * @since 4.14.7
  */
-class Service_Provider extends Provider_Contract {
+class Controller extends Provider_Contract {
 
 
 	/**
@@ -25,8 +25,7 @@ class Service_Provider extends Provider_Contract {
 	 */
 	public function register() {
 		$this->container->singleton(  Black_Friday::class, Black_Friday::class, [ 'hook' ] );
-        // EOY Sale disabled for 2022
-		// $this->container->singleton(  End_Of_Year_Sale::class, End_Of_Year_Sale::class, [ 'hook' ] );
+
 		$this->hooks();
 	}
 
@@ -46,7 +45,5 @@ class Service_Provider extends Provider_Contract {
 	 */
 	public function plugins_loaded() {
 		$this->container->make( Black_Friday::class );
-        // EOY Sale disabled for 2022
-		// $this->container->make( End_Of_Year_Sale::class );
 	}
 }

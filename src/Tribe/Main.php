@@ -1,9 +1,9 @@
 <?php
+
 use TEC\Common\Libraries;
 use TEC\Common\Translations_Loader;
 use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
-use TEC\Common\StellarWP\Assets\Asset;
 
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -758,7 +758,7 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Service_Providers\Widgets::class );
 		tribe_register_provider( Tribe\Service_Providers\Onboarding::class );
 		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
-		tribe_register_provider( Tribe\Admin\Conditional_Content\Service_Provider::class );
+		tribe_register_provider( \TEC\Common\Admin\Conditional_Content\Controller::class );
 		tribe_register_provider( Libraries\Provider::class );
 
 		// Load the new third-party integration system.
