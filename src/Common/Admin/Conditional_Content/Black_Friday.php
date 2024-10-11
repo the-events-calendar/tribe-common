@@ -52,8 +52,17 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		return $date;
 	}
 
+	/**
+	 * @inheritdoc
+	 */
 	protected function should_display(): bool {
-		return true;
+		return true; // Here to enable QA to test this easier.
+
+		if ( tec_should_hide_upsell( 'black-friday' ) ) {
+			return false;
+		}
+
+		return parent::should_display();
 	}
 
 	/**
