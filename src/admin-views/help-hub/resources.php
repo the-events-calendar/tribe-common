@@ -13,7 +13,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 
 ?>
 <div class="tribe-settings-form form">
-	<div id="tec-settings-form">
+	<div class="tec-settings-form">
 		<div class="tec-settings-form__content-section">
 			<div class="tec-settings-form__header-block">
 			<h2 class="tec-settings-form__section-header">
@@ -57,7 +57,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 			<ul class="tec-help-list__list-expanded">
 				<li>
 					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $tec_icon_url ); ?>" />
-					<a href="todo">
+					<a href="https://evnt.is/1ap9">
 						<?php
 						echo esc_html_x(
 							'The Events Calendar',
@@ -69,7 +69,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 				</li>
 				<li>
 					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $ea_icon_url ); ?>" />
-					<a href="todo">
+					<a href="https://evnt.is/1apc">
 						<?php
 						echo esc_html_x(
 							'Event Aggregator',
@@ -81,7 +81,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 				</li>
 				<li>
 					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $fbar_icon_url ); ?>" />
-					<a href="todo">
+					<a href="https://evnt.is/1apd">
 						<?php
 						echo esc_html_x(
 							'Filter Bar',
@@ -118,7 +118,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 			<ul class="tec-help-list__list-expanded">
 				<li>
 					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
-					<a href="todo">
+					<a href="https://evnt.is/1apf">
 						<?php
 						echo esc_html_x(
 							'Getting started with customization',
@@ -130,7 +130,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 				</li>
 				<li>
 					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
-					<a href="todo">
+					<a href="https://evnt.is/1apg">
 						<?php
 						echo esc_html_x(
 							'Highlighting events',
@@ -142,7 +142,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 				</li>
 				<li>
 					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
-					<a href="todo">
+					<a href="https://evnt.is/1aph">
 						<?php
 						echo esc_html_x(
 							'Customizing template files',
@@ -154,7 +154,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 				</li>
 				<li>
 					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
-					<a href="todo">
+					<a href="https://evnt.is/1api">
 						<?php
 						echo esc_html_x(
 							'Customizing CSS',
@@ -190,7 +190,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 			<ul class="tec-help-list__list-expanded">
 				<li>
 					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
-					<a href="todo">
+					<a href="https://evnt.is/1apj">
 						<?php
 						echo esc_html_x(
 							'Known issues',
@@ -202,7 +202,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 				</li>
 				<li>
 					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
-					<a href="todo">
+					<a href="https://evnt.is/1apk">
 						<?php
 						echo esc_html_x(
 							'Release notes',
@@ -214,7 +214,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 				</li>
 				<li>
 					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
-					<a href="todo">
+					<a href="https://evnt.is/1apl">
 						<?php
 						echo esc_html_x(
 							'Integrations',
@@ -226,7 +226,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 				</li>
 				<li>
 					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
-					<a href="todo">
+					<a href="https://evnt.is/1apm">
 						<?php
 						echo esc_html_x(
 							'Shortcodes',
@@ -258,6 +258,108 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 					);
 					?>
 				</p>
+			</div>
+			<div class="tec-ui-accordion">
+				<h4>
+					<?php
+					echo esc_html_x(
+						'Can I have more than one calendar?',
+						'FAQ more than one calendar question',
+						'tribe-common'
+					);
+					?>
+				</h4>
+				<div>
+					<p>
+						<?php
+						echo esc_html_x(
+							'No, but you can use event categories or tags to display certain events like having...',
+							'FAQ more than one calendar answer',
+							'tribe-common'
+						);
+						?>
+					</p>
+				</div>
+				<h4>
+					<?php
+					echo esc_html_x(
+						'What do I get with Events Calendar Pro?',
+						'FAQ what is in Calendar Pro question',
+						'tribe-common'
+					);
+					?>
+				</h4>
+				<div>
+					<p>
+						<?php
+						echo esc_html_x(
+							'Events Calendar Pro runs alongside The Events Calendar and enhances...',
+							'FAQ what is in Calendar Pro answer',
+							'tribe-common'
+						);
+						?>
+					</p>
+				</div>
+				<h4>
+					<?php
+					echo esc_html_x(
+						'How do I sell event tickets?',
+						'FAQ how to sell event tickets question',
+						'tribe-common'
+					);
+					?>
+				</h4>
+				<div>
+					<p>
+						<?php
+						echo esc_html_x(
+							'Use our free Event Tickets plugin to get started with tickets and RSVPs.',
+							'FAQ how to sell event tickets answer',
+							'tribe-common'
+						);
+						?>
+					</p>
+				</div>
+				<h4>
+					<?php
+					echo esc_html_x(
+						'Where can i find a list of available shortcodes?',
+						'FAQ where are the shortcodes question',
+						'tribe-common'
+					);
+					?>
+				</h4>
+				<div>
+					<p>
+						<?php
+						echo esc_html_x(
+							'Our plugins include many shortcodes that do everything from embedding the calendar...',
+							'FAQ where are the shortcodes answer',
+							'tribe-common'
+						);
+						?>
+					</p>
+				</div>
+				<h4>
+					<?php
+					echo esc_html_x(
+						'Can I have more than one calendar?',
+						'FAQ can I have multiple calendars question',
+						'tribe-common'
+					);
+					?>
+				</h4>
+				<div>
+					<p>
+						<?php
+						echo esc_html_x(
+							'Can I have more than one calendar?',
+							'FAQ can I have multiple calendars answer',
+							'tribe-common'
+						);
+						?>
+					</p>
+				</div>
 			</div>
 		</div>
 		<div class="tec-settings-infobox">

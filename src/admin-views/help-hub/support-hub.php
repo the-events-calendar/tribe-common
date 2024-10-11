@@ -7,7 +7,7 @@
 
 ?>
 <div class="tribe-settings-form form">
-	<div id="tec-settings-form">
+	<div class="tec-settings-form">
 		<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
 			<h2 class="tec-settings-form__section-header">Support Hub</h2>
 			<p class="tec-settings-form__section-description">

@@ -37,24 +37,3 @@
 	</div>
 </div>
 
-<script>
-	jQuery( document ).ready( function($) {
-		let currentTab = $( '.tec-nav__tab.tec-nav__tab--subnav-active' );
-		let tabContainer = $( '#' + currentTab.data( 'tab-target' ) );
-		$( '.tec-tab-container' ).hide();
-		tabContainer.show();
-
-		$( '[data-tab-target]' ).on( 'click', function() {
-			let tab = $( this );
-			let tabTarget = $( '#' + tab.data( 'tab-target' ) );
-
-			$( '[data-tab-target]' ).removeClass( 'tec-nav__tab--subnav-active' );
-			$( '[data-tab-target="' + tab.data( 'tab-target' ) + '"]' ).addClass( 'tec-nav__tab--subnav-active' );
-
-			tabContainer.hide();
-			tabTarget.show();
-			tabContainer = tabTarget;
-		} );
-	} );
-</script>
-

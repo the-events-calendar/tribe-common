@@ -25,7 +25,8 @@ li.tec-nav__tab {
 }
 
 @media (min-width: 1024px) {
-	.tribe_events_page_tec-events-settings #tec-settings-form .tec-settings-form__content-section {
+	.tribe_events_page_tec-events-settings #tec-settings-form .tec-settings-form__content-section,
+	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__content-section {
 		--tec-spacer-settings-form-width-left-col: 318px;
 	}
 }
@@ -57,4 +58,47 @@ li.tec-nav__tab {
 	width: 100%;
 	max-width: 100% !important;
 	font-size: var(--tec-font-size-2);
+}
+.tec-settings-form {
+	padding-bottom: var(--tec-spacer-settings-form-col-gap) !important;
+}
+.tec-ui-accordion {
+	max-width: 100% !important;
+}
+/* Accordion Style */
+.tec-ui-accordion * {
+	box-sizing: content-box;
+}
+.ui-accordion .ui-accordion-header {
+	display: block;
+	cursor: pointer;
+	position: relative;
+	margin: 0;
+	padding: var(--tec-spacer-1) var(--tec-spacer-2) var(--tec-spacer-1) var(--tec-spacer-1);
+	font-size: 100%;
+	border-bottom: 1px solid var(--tec-admin-core-grey-10);
+	font-weight: normal;
+}
+.ui-accordion .ui-accordion-content {
+	padding: 1em 2.2em;
+	border-top: 0;
+	overflow: auto;
+}
+.ui-state-active .ui-icon {
+	background-image: url(../images/icons/caret-down.svg);
+}
+.ui-icon {
+	background-image: url(../images/icons/caret-right.svg);
+	background-size: contain;
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-top: -.25em;
+	position: absolute;
+	right: 0;
+	top: 15px;
+	text-indent: -99999px;
+	overflow: hidden;
+	background-repeat: no-repeat;
 }

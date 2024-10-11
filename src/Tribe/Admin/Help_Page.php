@@ -89,7 +89,7 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-	 * Enqueue the help page assets.
+	 * Enqueue the Help page assets.
 	 *
 	 * @since TBD
 	 */
@@ -105,6 +105,9 @@ class Tribe__Admin__Help_Page {
 			null,
 			'admin_enqueue_scripts'
 		);
+
+		// Add the built-in accordion.
+		wp_enqueue_script( 'jquery-ui-accordion' );
 	}
 
 	/**
@@ -189,7 +192,7 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-	 * Register the Admin assets for the help page
+	 * Register the Admin assets for the Help and Troubleshooting pages
 	 *
 	 * @since  4.9.12
 	 *
