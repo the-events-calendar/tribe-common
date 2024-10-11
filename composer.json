@@ -66,7 +66,8 @@
     "strauss": [
       "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.19.4/strauss.phar",
       "vendor/stellarwp/installer/bin/set-domain domain=tribe-common",
-      "@php bin/strauss.phar"
+      "@php -d display_errors=on bin/strauss.phar",
+      "@composer dump-autoload --optimize"
     ],
     "post-install-cmd": [
       "@strauss"
