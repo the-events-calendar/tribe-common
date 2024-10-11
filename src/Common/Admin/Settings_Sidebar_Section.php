@@ -40,7 +40,7 @@ class Settings_Sidebar_Section extends Settings_Section {
 	 *
 	 * @param Image $image The image to set.
 	 *
-	 * @return void
+	 * @return self
 	 */
 	public function header_image( Image $image ): self {
 		$this->header_image = $image;
