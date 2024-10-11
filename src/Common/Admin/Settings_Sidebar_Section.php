@@ -81,23 +81,23 @@ class Settings_Sidebar_Section extends Settings_Section {
 	 *
 	 * @since TBD
 	 *
-     * @return void
+	 * @return void
 	 */
 	public function render(): void {
 		?>
         <div class="tec-settings-form__sidebar-section tec-settings-form__sidebar-header">
-            <?php do_action( 'tec_settings_sidebar_header_start' ); ?>
-            <?php
-            $this->render_header_image();
-            $this->render_title();
-            ?>
-            <?php do_action( 'tec_settings_sidebar_header_end' ); ?>
+			<?php do_action( 'tec_settings_sidebar_header_start' ); ?>
+			<?php
+			$this->render_header_image();
+			$this->render_title();
+			?>
+			<?php do_action( 'tec_settings_sidebar_header_end' ); ?>
         </div>
-        <?php foreach ( $this->sections as $section ) : ?>
+		<?php foreach ( $this->sections as $section ) : ?>
             <div class="tec-settings-form__sidebar-section">
-                <?php $section->render(); ?>
+				<?php $section->render(); ?>
             </div>
-        <?php endforeach; ?>
+		<?php endforeach; ?>
 		<?php
 	}
 }

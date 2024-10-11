@@ -1,4 +1,5 @@
 <?php
+
 namespace TEC\Common\Admin\Conditional_Content;
 
 use TEC\Common\Admin\Settings_Sidebar;
@@ -65,7 +66,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	protected function get_wide_banner_html(): string {
 		$template_args = [
 			'image_src' => tribe_resource_url( 'images/hero-section-wide.jpg', false, null, \Tribe__Main::instance() ),
-			'link' => 'https://evnt.is/tec-bf-2024',
+			'link'      => 'https://evnt.is/tec-bf-2024',
 		];
 
 		return $this->get_template()->template( 'black-friday', $template_args, false );
@@ -79,10 +80,10 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	 * @return void
 	 */
 	public function render_wide_banner_html(): void {
-		if ( ! $this->should_display() )  {
+		if ( ! $this->should_display() ) {
 			return;
 		}
-		echo $this->get_wide_banner_html();
+		echo $this->get_wide_banner_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -95,7 +96,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	protected function get_narrow_banner_html(): string {
 		$template_args = [
 			'image_src' => tribe_resource_url( 'images/hero-section-narrow.jpg', false, null, \Tribe__Main::instance() ),
-			'link' => 'https://evnt.is/tec-bf-2024',
+			'link'      => 'https://evnt.is/tec-bf-2024',
 			'is_narrow' => true,
 		];
 
@@ -110,14 +111,14 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	 * @return void
 	 */
 	public function render_narrow_banner_html(): void {
-		if ( ! $this->should_display() )  {
+		if ( ! $this->should_display() ) {
 			return;
 		}
-		echo $this->get_narrow_banner_html();
+		echo $this->get_narrow_banner_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	public function include_tickets_settings_section(): void {
-		if ( ! $this->should_display() )  {
+		if ( ! $this->should_display() ) {
 			return;
 		}
 
@@ -148,30 +149,30 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 
 		$sidebar->prepend_section(
 			( new Settings_Section() )
-			->add_elements(
-				[
-					new Link(
-						'https://evnt.is/tec-bf-2024',
-						new Image(
-							tribe_resource_url( 'images/hero-section-settings-sidebar.jpg', false, null, \Tribe__Main::instance() ),
+				->add_elements(
+					[
+						new Link(
+							'https://evnt.is/tec-bf-2024',
+							new Image(
+								tribe_resource_url( 'images/hero-section-settings-sidebar.jpg', false, null, \Tribe__Main::instance() ),
+								new Attributes(
+									[
+										'alt'  => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), $year ),
+										'role' => 'presentation',
+									]
+								)
+							),
+							null,
 							new Attributes(
 								[
-									'alt'  => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), $year ),
-									'role' => 'presentation',
+									'title'  => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), $year ),
+									'target' => '_blank',
+									'rel'    => 'noopener nofollow',
 								]
 							)
 						),
-						null,
-						new Attributes(
-							[
-								'title' => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), $year ),
-								'target' => '_blank',
-								'rel' => 'noopener nofollow',
-							]
-						)
-					),
-				]
-			)
+					]
+				)
 		);
 	}
 }
