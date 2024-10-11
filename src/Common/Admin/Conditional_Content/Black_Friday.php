@@ -92,7 +92,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		if ( ! $this->should_display() ) {
 			return;
 		}
-		echo $this->get_wide_banner_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped StellarWP.XSS.EscapeOutput.OutputNotEscaped
+		echo $this->get_wide_banner_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -123,7 +123,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		if ( ! $this->should_display() ) {
 			return;
 		}
-		echo $this->get_narrow_banner_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped StellarWP.XSS.EscapeOutput.OutputNotEscaped
+		echo $this->get_narrow_banner_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
