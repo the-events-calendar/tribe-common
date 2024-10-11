@@ -30,7 +30,6 @@ class Service_Provider extends Provider_Contract {
 		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
 		tribe_singleton( WP_Version::class, WP_Version::class, [ 'hook' ] );
 		tribe_singleton( 'admin.notice.php.version', \Tribe__Admin__Notice__Php_Version::class, [ 'hook' ] );
-		tribe_singleton( Marketing\Stellar_Sale::class, Marketing\Stellar_Sale::class, [ 'hook' ] );
 
 		$this->hooks();
 	}
@@ -54,24 +53,5 @@ class Service_Provider extends Provider_Contract {
 		tribe( 'pue.notices' );
 		tribe( 'admin.notice.php.version' );
 		tribe( WP_Version::class );
-
-		if ( defined( 'TRIBE_HIDE_MARKETING_NOTICES' ) ) {
-			return;
-		}
-
-		tribe( Marketing\Stellar_Sale::class );
-		tribe( Marketing\Black_Friday::class );
-        // EOY Sale disabled for 2022
-		// tribe( Marketing\End_Of_Year_Sale::class );
-	}
-
-	/**
-	 * This method is used to enqueue additional assets for the admin notices.
-	 * Each should conditionally call an internal `enqueue_additional_assets()` function to handle the enqueueing.
-	 *
-	 * @since 5.1.10
-	 */
-	public function enqueue_additional_assets() {
-		tribe( Marketing\Black_Friday::class )->enqueue_additional_assets();
 	}
 }

@@ -5,9 +5,7 @@
  * @since 4.14.2
  */
 
-namespace Tribe\Admin\Notice\Marketing;
-
-use Tribe__Date_Utils as Dates;
+namespace TEC\Common\Admin\Notices;
 
 /**
  * Class Black_Friday
@@ -36,11 +34,6 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 	 * {@inheritDoc}
 	 */
 	public $end_time = 23;
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public $icon_url = 'images/icons/horns-white.svg';
 
 	/**
 	 * {@inheritDoc}
@@ -74,25 +67,5 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 		$date = $date->modify( '-3 days' );
 
 		return $date;
-	}
-
-	/**
-	 * Enqueue additional assets for the notice.
-	 *
-	 * @since 5.1.10
-	 */
-	public function enqueue_additional_assets() {
-		// Adds the Montserrat font from Google Fonts.
-		tribe_asset(
-			\Tribe__Main::instance(),
-			'tec-black-friday-font',
-			'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700',
-			null,
-			'admin_enqueue_scripts',
-			[
-				'type' => 'css',
-				'conditionals' => [ $this, 'should_display' ]
-			]
-		);
 	}
 }

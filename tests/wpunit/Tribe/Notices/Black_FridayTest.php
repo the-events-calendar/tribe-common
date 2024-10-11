@@ -34,7 +34,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 		// Ensure we're on a good screen.
 		set_current_screen( 'tribe_events_page_tribe-common' );
 
-		$notice = tribe( Tribe\Admin\Notice\Marketing\Black_Friday::class );
+		$notice = tribe( \TEC\Common\Admin\Notices\Black_Friday::class );
 
 		$this->assertFalse( $notice->should_display() );
 	}
@@ -66,7 +66,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 		// Ensure we're on the WRONG screen.
 		set_current_screen( 'edit-post' );
 
-		$notice = tribe( Tribe\Admin\Notice\Marketing\Black_Friday::class );
+		$notice = tribe( \TEC\Common\Admin\Notices\Black_Friday::class );
 
 		$this->assertFalse( $notice->should_display() );
 	}
@@ -97,7 +97,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 		// Ensure we're on a good screen.
 		set_current_screen( 'tribe_events_page_tribe-common' );
 
-		$notice = tribe( Tribe\Admin\Notice\Marketing\Black_Friday::class );
+		$notice = tribe( \TEC\Common\Admin\Notices\Black_Friday::class );
 
 		$this->assertFalse( $notice->should_display() );
 	}
@@ -128,7 +128,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 		// Ensure we're on a good screen.
 		set_current_screen( 'tribe_events_page_tribe-common' );
 
-		$notice = tribe( Tribe\Admin\Notice\Marketing\Black_Friday::class );
+		$notice = tribe( \TEC\Common\Admin\Notices\Black_Friday::class );
 
 		$this->assertFalse( $notice->should_display() );
 	}
@@ -159,7 +159,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 		// Ensure we're on a good screen.
 		set_current_screen( 'tribe_events_page_tribe-common' );
 
-		$notice = tribe( Tribe\Admin\Notice\Marketing\Black_Friday::class );
+		$notice = tribe( \TEC\Common\Admin\Notices\Black_Friday::class );
 
 		codecept_debug( $notice );
 
