@@ -64,7 +64,7 @@
   },
   "scripts": {
     "strauss": [
-      "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.19.2/strauss.phar",
+      "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.19.4/strauss.phar",
       "vendor/stellarwp/installer/bin/set-domain domain=tribe-common",
       "@php bin/strauss.phar"
     ],
