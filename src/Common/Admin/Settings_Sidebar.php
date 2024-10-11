@@ -32,15 +32,15 @@ class Settings_Sidebar extends Section {
 	 */
 	public function render() {
 		?>
-        <div class="tec-settings-form__sidebar">
+		<div class="tec-settings-form__sidebar">
 			<?php do_action( 'tec_settings_sidebar_start', $this ); ?>
 			<?php foreach ( $this->get_sections() as $section ) : ?>
-                <div class="tec-settings-form__sidebar-section">
-				    <?php $section->render(); ?>
-                </div>
+				<div class="tec-settings-form__sidebar-section">
+					<?php $section->render(); ?>
+				</div>
 			<?php endforeach; ?>
 			<?php do_action( 'tec_settings_sidebar_end', $this ); ?>
-        </div>
+		</div>
 		<?php
 	}
 
@@ -82,7 +82,7 @@ class Settings_Sidebar extends Section {
 	 * @return void
 	 */
 	public function prepend_section( Section $section ): self {
-        array_unshift( $this->sections, $section );
+		array_unshift( $this->sections, $section );
 
 		return $this;
 	}
