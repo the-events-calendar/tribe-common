@@ -117,6 +117,13 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		echo $this->get_narrow_banner_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
+	/**
+	 * Include the Black Friday promo in the tickets settings section.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
 	public function include_tickets_settings_section(): void {
 		if ( ! $this->should_display() ) {
 			return;
