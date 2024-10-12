@@ -83,7 +83,7 @@ class Link extends Base_Entity {
 			esc_url( $this->url ),
 			esc_attr( $this->get_classes() ),
 			$this->get_attributes(), // phpcs:ignore StellarWP.XSS.EscapeOutput,WordPress.Security.EscapeOutput
-			$this->content ? (string) $this->content : esc_html( $this->text )
+			$this->content ? (string) $this->content : esc_html( $this->text ) // phpcs:ignore StellarWP.XSS.EscapeOutput,WordPress.Security.EscapeOutput
 		);
 	}
 }

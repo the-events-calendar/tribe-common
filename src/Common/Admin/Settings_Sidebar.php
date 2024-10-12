@@ -9,6 +9,8 @@ declare( strict_types=1 );
 
 namespace TEC\Common\Admin;
 
+use TEC\Common\Admin\Entities\Image;
+
 /**
  * Class Settings_Sidebar
  *
@@ -18,6 +20,8 @@ class Settings_Sidebar extends Section {
 
 	/**
 	 * Sections for the sidebar.
+     *
+     * @since 6.1.0
 	 *
 	 * @var Section[]
 	 */
@@ -51,7 +55,7 @@ class Settings_Sidebar extends Section {
 	 *
 	 * @param Section $section The section to add.
 	 *
-	 * @return void
+	 * @return self
 	 */
 	public function add_section( Section $section ): self {
 		return $this->append_section( $section );
@@ -64,7 +68,7 @@ class Settings_Sidebar extends Section {
 	 *
 	 * @param Section $section The section to add.
 	 *
-	 * @return void
+	 * @return self
 	 */
 	public function append_section( Section $section ): self {
 		$this->sections[] = $section;
@@ -79,7 +83,7 @@ class Settings_Sidebar extends Section {
 	 *
 	 * @param Section $section The section to add.
 	 *
-	 * @return void
+	 * @return self
 	 */
 	public function prepend_section( Section $section ): self {
 		array_unshift( $this->sections, $section );
@@ -105,5 +109,18 @@ class Settings_Sidebar extends Section {
 		 */
 		return apply_filters( 'tec_settings_sidebar_sections', $this->sections, $this );
 	}
+
+	/**
+	 * Set the header image for the sidebar.
+	 *
+	 * @since 6.1.0
+     * @deprecated TBD
+	 *
+	 * @param Image $deprecated Deprecated.
+	 *
+	 */
+    public function set_header_image( Image $deprecated ) {
+        _deprecated_function( __METHOD__, 'TBD', 'Sidebar no longer has headers, they can be added to individual sections.' );
+    }
 
 }
