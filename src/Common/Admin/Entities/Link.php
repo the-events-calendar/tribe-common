@@ -45,13 +45,13 @@ class Link extends Base_Entity {
 	 *
 	 * @since 6.1.0
 	 *
-	 * @param string                  $url        The URL for the link.
-	 * @param string|Base_Entity      $content    The text or entity for the link.
-	 * @param ?Classes                $classes    The classes for the link.
-	 * @param ?Attributes             $attributes The attributes for the link.
+	 * @param string             $url        The URL for the link.
+	 * @param string|Base_Entity $content    The text or entity for the link.
+	 * @param ?Classes           $classes    The classes for the link.
+	 * @param ?Attributes        $attributes The attributes for the link.
 	 */
 	public function __construct( string $url, $content, ?Classes $classes = null, ?Attributes $attributes = null ) {
-		$this->url  = $url;
+		$this->url = $url;
 
 		if ( is_string( $content ) ) {
 			$this->text = $content;
