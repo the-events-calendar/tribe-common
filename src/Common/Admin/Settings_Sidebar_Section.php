@@ -2,7 +2,7 @@
 /**
  * Settings_Section.
  *
- * @since 6.1.0
+ * @since TBD
  */
 
 declare( strict_types=1 );
@@ -20,6 +20,8 @@ class Settings_Sidebar_Section extends Settings_Section {
 
 	/**
 	 * Sections for the sidebar.
+     *
+     * @since TBD
 	 *
 	 * @var Section[]
 	 */
@@ -27,16 +29,17 @@ class Settings_Sidebar_Section extends Settings_Section {
 
 	/**
 	 * Header image for the sidebar.
+     *
+     * @since TBD
 	 *
 	 * @var ?Image
 	 */
 	protected ?Image $header_image = null;
 
-
 	/**
 	 * Set the header image for the sidebar.
 	 *
-	 * @since 6.1.0
+	 * @since TBD
 	 *
 	 * @param Image $image The image to set.
 	 *
@@ -64,7 +67,7 @@ class Settings_Sidebar_Section extends Settings_Section {
 	/**
 	 * Render the header image for the sidebar.
 	 *
-	 * @since 6.1.0
+	 * @since TBD
 	 *
 	 * @return void
 	 */
