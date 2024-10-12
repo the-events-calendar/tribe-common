@@ -5,7 +5,7 @@
  * @since TBD
  */
 
-declare( strict_types=1 );
+declare( strict_types = 1 );
 
 namespace TEC\Common\Admin;
 
@@ -20,8 +20,8 @@ class Settings_Sidebar_Section extends Settings_Section {
 
 	/**
 	 * Sections for the sidebar.
-     *
-     * @since TBD
+	 *
+	 * @since TBD
 	 *
 	 * @var Section[]
 	 */
@@ -29,8 +29,8 @@ class Settings_Sidebar_Section extends Settings_Section {
 
 	/**
 	 * Header image for the sidebar.
-     *
-     * @since TBD
+	 *
+	 * @since TBD
 	 *
 	 * @var ?Image
 	 */
@@ -54,7 +54,7 @@ class Settings_Sidebar_Section extends Settings_Section {
 	/**
 	 * Add a section to the sidebar.
 	 *
-	 * @since 6.1.0
+	 * @since TBD
 	 *
 	 * @param Section $section The section to add.
 	 *

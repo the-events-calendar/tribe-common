@@ -20,8 +20,8 @@ class Settings_Sidebar extends Section {
 
 	/**
 	 * Sections for the sidebar.
-     *
-     * @since 6.1.0
+	 *
+	 * @since 6.1.0
 	 *
 	 * @var Section[]
 	 */
@@ -114,13 +114,12 @@ class Settings_Sidebar extends Section {
 	 * Set the header image for the sidebar.
 	 *
 	 * @since 6.1.0
-     * @deprecated TBD
+	 *
+	 * @deprecated TBD
 	 *
 	 * @param Image $deprecated Deprecated.
-	 *
 	 */
-    public function set_header_image( Image $deprecated ) {
-        _deprecated_function( __METHOD__, 'TBD', 'Sidebar no longer has headers, they can be added to individual sections.' );
-    }
-
+	public function set_header_image( Image $deprecated ) {
+		_deprecated_function( __METHOD__, 'TBD', 'Sidebar no longer has headers, they can be added to individual sections.' );
+	}
 }
