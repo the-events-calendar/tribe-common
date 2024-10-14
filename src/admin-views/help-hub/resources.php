@@ -4,7 +4,7 @@
  *
  * @var Tribe__Main $main The main common object.
  * @var string $notice The admin notice HTML.
-*/
+ */
 
 $tec_icon_url     = tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, $main );
 $ea_icon_url      = tribe_resource_url( 'images/logo/event-aggregator.svg', false, null, $main );
@@ -17,21 +17,21 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 	<div class="tec-settings-form">
 		<div class="tec-settings-form__content-section">
 			<div class="tec-settings-form__header-block">
-			<h2 class="tec-settings-form__section-header">
-				<?php
-				echo esc_html_x( 'Resources', 'Resources tab title', 'tribe-common' );
-				?>
-			</h2>
-			<p class="tec-settings-form__section-description">
-				<?php
-				echo esc_html_x(
-					'Help on setting up, customizing and troubleshooting your calendar. See our Knowledgebase for in-depth content.',
-					'Overview paragraph for Resources tab',
-					'tribe-common'
-				);
-				?>
-			</p>
-			<?php echo $notice; ?>
+				<h2 class="tec-settings-form__section-header">
+					<?php
+					echo esc_html_x( 'Resources', 'Resources tab title', 'tribe-common' );
+					?>
+				</h2>
+				<p class="tec-settings-form__section-description">
+					<?php
+					echo esc_html_x(
+						'Help on setting up, customizing and troubleshooting your calendar. See our Knowledgebase for in-depth content.',
+						'Overview paragraph for Resources tab',
+						'tribe-common'
+					);
+					?>
+				</p>
+				<?php echo wp_kses( $notice, 'post' ); ?>
 			</div>
 		</div>
 		<div class="tec-settings-form__content-section">
@@ -421,6 +421,4 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 		</div>
 	</div>
 </div>
-
-<?php $this->template('help-hub/resources-sidebar') ?>
-
+<?php $this->template( 'help-hub/resources-sidebar' ); ?>

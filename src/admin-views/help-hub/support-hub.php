@@ -1,9 +1,9 @@
 <?php
 /**
-* The template that displays the help hub tab on the help page.
-*
-* @var Tribe__Main $main The main common object.
-*/
+ * The template that displays the help hub tab on the help page.
+ *
+ * @var Tribe__Main $main The main common object.
+ */
 
 ?>
 <div class="tribe-settings-form form">
@@ -50,6 +50,6 @@
 		<div class="tribe-settings-section">
 			<p class="">
 				Having trouble?		</p>
-			<a href="http://localhost/wp-admin/edit.php?post_type=tribe_events&amp;page=tec-events-help" class="">Help</a><br><a href="http://localhost/wp-admin/edit.php?post_type=tribe_events&amp;page=tec-troubleshooting" class="">Troubleshoot</a>		</div>
+			<a href="http://localhost/wp-admin/edit.php?post_type=tribe_events&page=tec-events-help" class="">Help</a><br><a href="http://localhost/wp-admin/edit.php?post_type=tribe_events&amp;page=tec-troubleshooting" class="">Troubleshoot</a>		</div>
 	</div>
 </div>
