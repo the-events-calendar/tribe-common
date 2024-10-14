@@ -10,6 +10,8 @@ namespace TEC\Common\Admin\Conditional_Content;
 
 use TEC\Common\Contracts\Service_Provider as Provider_Contract;
 
+use Tribe__Main as Common;
+
 /**
  * Conditional Content Controller.
  *

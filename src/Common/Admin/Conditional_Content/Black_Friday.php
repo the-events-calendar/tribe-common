@@ -9,8 +9,6 @@ use TEC\Common\Admin\Entities\Image;
 use TEC\Common\Admin\Settings_Section;
 use Tribe\Utils\Date_I18n;
 
-use Tribe__Main as Common;
-
 /**
  * Set up for Black Friday promo.
  *
