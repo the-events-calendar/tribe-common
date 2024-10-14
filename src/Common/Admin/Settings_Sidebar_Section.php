@@ -52,7 +52,7 @@ class Settings_Sidebar_Section extends Settings_Section {
 	}
 
 	/**
-	 * Add a section to the sidebar.
+	 * Add a sub-section to the sidebar section.
 	 *
 	 * @since TBD
 	 *
