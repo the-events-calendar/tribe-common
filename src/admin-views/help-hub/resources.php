@@ -1,8 +1,9 @@
 <?php
 /**
-* The template that displays the resources tab on the help page.
-*
-* @var Tribe__Main $main The main common object.
+ * The template that displays the resources tab on the help page.
+ *
+ * @var Tribe__Main $main The main common object.
+ * @var string $notice The admin notice HTML.
 */
 
 $tec_icon_url     = tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, $main );
@@ -30,7 +31,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 				);
 				?>
 			</p>
-			<p>todo admin notice</p>
+			<?php echo $notice; ?>
 			</div>
 		</div>
 		<div class="tec-settings-form__content-section">

@@ -37,23 +37,33 @@ class Tribe__Admin__Help_Page {
 		$main     = Tribe__Main::instance();
 		$template = new \Tribe__Template();
 
-		$t = time();
-		$name = 'myslug';
+		// Setup our admin notice.
+		$notice_slug    = 'tec-common-help-chatbot-notice';
+		$notice_content = sprintf(
+			// translators: 1: the opening tag to the chatbot link, 2: the closing tag.
+			_x(
+				'To find the answer to all your questions use the %1$sTEC Chatbot%2$s',
+				'The callout notice to try the chatbot with a link to the page',
+				'tribe-common'
+			),
+			'<a data-tab-target="tec-help-tab" href="javascript:void(0);">',
+			'</a>'
+		);
+
 		// Our notices.
 		tribe_transient_notice(
-			$name,
-			"<p>Hello $t</p>",
+			$notice_slug,
+			"<p>$notice_content</p>",
 			[
-				'type'            => 'info',
-				'dismiss'         => true,
-				'priority'        => 1,
+				'type'     => 'info',
+				'dismiss'  => true,
+				'priority' => 1,
+				'inline'   => true,
 			],
 			YEAR_IN_SECONDS
 		);
 
-		$notice = Tribe__Admin__Notices::instance()->render( $name );
-//@todo
-
+		$notice           = Tribe__Admin__Notices::instance()->render( $notice_slug );
 		$common_telemetry = tribe( Telemetry::class );
 		$is_opted_in      = $common_telemetry->calculate_optin_status();
 		$is_license_valid = Tribe__PUE__Checker::is_any_license_valid();
