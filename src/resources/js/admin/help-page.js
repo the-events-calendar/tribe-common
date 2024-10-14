@@ -168,7 +168,8 @@ tribe.helpPage = tribe.helpPage || {};
 				let tabTarget = $( '#' + tab.data( 'tab-target' ) );
 
 				$( '[data-tab-target]' ).removeClass( 'tec-nav__tab--subnav-active' );
-				$( '[data-tab-target="' + tab.data( 'tab-target' ) + '"]' ).addClass( 'tec-nav__tab--subnav-active' );
+				$( '[data-tab-target="' + tab.data( 'tab-target' ) + '"]' )
+					.addClass( 'tec-nav__tab--subnav-active' );
 
 				tabContainer.hide();
 				tabTarget.show();

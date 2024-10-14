@@ -16,7 +16,7 @@ $chat_icon_url  = tribe_resource_url( 'images/icons/chat-bubble.svg', false, nul
 	<div class="tec-settings__sidebar-inner">
 		<h2>
 			<?php
-			_ex(
+			echo esc_html_x(
 				'Our TEC support hub now offers an improved help experience',
 				'Help page resources sidebar header',
 				'tribe-common'
@@ -25,7 +25,7 @@ $chat_icon_url  = tribe_resource_url( 'images/icons/chat-bubble.svg', false, nul
 		</h2>
 		<p>
 			<?php
-			_ex(
+			echo esc_html_x(
 				'Our Help page is better than ever with the addition of:',
 				'Describes why consent is beneficial',
 				'tribe-common'
@@ -36,14 +36,14 @@ $chat_icon_url  = tribe_resource_url( 'images/icons/chat-bubble.svg', false, nul
 		<div class="tec-settings__sidebar-icon-wrap">
 			<div>
 				<img class="tec-settings-infobox-logo"
-					 src="<?php echo esc_url( $stars_icon_url ); ?>"
-					 alt="AI chat bot logo"
+					src="<?php echo esc_url( $stars_icon_url ); ?>"
+					alt="AI chat bot logo"
 				>
 			</div>
 			<div class="tec-settings__sidebar-icon-wrap-content">
 				<h3>
 					<?php
-					_ex(
+					echo esc_html_x(
 						'AI Chatbot',
 						'AI Chatbot sidebar header',
 						'tribe-common'
@@ -52,7 +52,7 @@ $chat_icon_url  = tribe_resource_url( 'images/icons/chat-bubble.svg', false, nul
 				</h3>
 				<p>
 					<?php
-					_ex(
+					echo esc_html_x(
 						'Here to provide quick answers to your questions. It’s never been easier to find the right resource.',
 						'AI Chatbot support sidebar paragraph',
 						'tribe-common'
@@ -64,14 +64,14 @@ $chat_icon_url  = tribe_resource_url( 'images/icons/chat-bubble.svg', false, nul
 		<div class="tec-settings__sidebar-icon-wrap">
 			<div>
 				<img class="tec-settings-infobox-logo"
-					 src="<?php echo esc_url( $chat_icon_url ); ?>"
-					 alt="Support chat logo"
+					src="<?php echo esc_url( $chat_icon_url ); ?>"
+					alt="Support chat logo"
 				>
 			</div>
 			<div class="tec-settings__sidebar-icon-wrap-content">
 				<h3>
 					<?php
-					_ex(
+					echo esc_html_x(
 						'Talk to our support team',
 						'Get support sidebar header',
 						'tribe-common'
@@ -80,7 +80,7 @@ $chat_icon_url  = tribe_resource_url( 'images/icons/chat-bubble.svg', false, nul
 				</h3>
 				<p>
 					<?php
-					_ex(
+					echo esc_html_x(
 						'Our Support team is available to help you out 5 days a week:',
 						'Live support sidebar paragraph',
 						'tribe-common'
@@ -90,7 +90,7 @@ $chat_icon_url  = tribe_resource_url( 'images/icons/chat-bubble.svg', false, nul
 				<p>
 					<strong>
 						<?php
-						_ex(
+						echo esc_html_x(
 							'Mon-Fri from 9:00 - 20:00 PST',
 							'Live support hours',
 							'tribe-common'

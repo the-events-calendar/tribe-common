@@ -410,7 +410,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 			<p>
 				<a data-tab-target="tec-help-tab" href="javascript:void(0)">
 					<?php
-					_ex(
+					echo esc_html_x(
 						'Talk to TEC Chatbot',
 						'Link to the Help Chatbot',
 						'tribe-common'
