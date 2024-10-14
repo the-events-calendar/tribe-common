@@ -45,7 +45,7 @@ class Settings_Sidebar_Section extends Settings_Section {
 	 *
 	 * @return self
 	 */
-	public function header_image( Image $image ): self {
+	public function set_header_image( Image $image ): self {
 		$this->header_image = $image;
 
 		return $this;
@@ -60,7 +60,7 @@ class Settings_Sidebar_Section extends Settings_Section {
 	 *
 	 * @return void
 	 */
-	public function add_section( Section $section ) {
+	public function add_section( Section $section ): void {
 		$this->sections[] = $section;
 	}
 

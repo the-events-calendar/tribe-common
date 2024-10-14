@@ -9,6 +9,8 @@ use TEC\Common\Admin\Entities\Image;
 use TEC\Common\Admin\Settings_Section;
 use Tribe\Utils\Date_I18n;
 
+use Tribe__Main as Common;
+
 /**
  * Set up for Black Friday promo.
  *
@@ -75,7 +77,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	protected function get_wide_banner_html(): string {
 		$template_args = [
 			'image_src' => tribe_resource_url( 'images/hero-section-wide.jpg', false, null, \Tribe__Main::instance() ),
-			'link'      => 'https://evnt.is/tec-bf-2024',
+			'link' => 'https://evnt.is/tec-bf-2024',
 		];
 
 		return $this->get_template()->template( 'black-friday', $template_args, false );
@@ -92,6 +94,18 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		if ( ! $this->should_display() ) {
 			return;
 		}
+
+		/**
+		 * Fires before the wide banner is rendered.
+		 * This hook is used to add additional content before the narrow banner.
+		 *
+		 * @since TBD
+		 *
+		 * @param string       $slug The slug of the conditional content.
+		 * @param Black_Friday $this The Black Friday instance.
+		 */
+		do_action( 'tec_conditional_content_black_friday', 'wide_banner', $this );
+
 		echo $this->get_wide_banner_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
@@ -105,7 +119,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	protected function get_narrow_banner_html(): string {
 		$template_args = [
 			'image_src' => tribe_resource_url( 'images/hero-section-narrow.jpg', false, null, \Tribe__Main::instance() ),
-			'link'      => 'https://evnt.is/tec-bf-2024',
+			'link' => 'https://evnt.is/tec-bf-2024',
 			'is_narrow' => true,
 		];
 
@@ -123,6 +137,17 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		if ( ! $this->should_display() ) {
 			return;
 		}
+		/**
+		 * Fires before the narrow banner is rendered.
+		 * This hook is used to add additional content before the narrow banner.
+		 *
+		 * @since TBD
+		 *
+		 * @param string       $slug The slug of the conditional content.
+		 * @param Black_Friday $this The Black Friday instance.
+		 */
+		do_action( 'tec_conditional_content_black_friday', 'narrow_banner', $this );
+
 		echo $this->get_narrow_banner_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
@@ -163,6 +188,18 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 
 		$year = date_i18n( 'Y' );
 
+		/**
+		 * Fires before the settings sidebar is rendered.
+		 * This hook is used to add additional content before the narrow banner.
+		 *
+		 * @since TBD
+		 *
+		 * @param string       $slug The slug of the conditional content.
+		 * @param Black_Friday $this The Black Friday instance.
+		 */
+		do_action( 'tec_conditional_content_black_friday', 'settings-sidebar', $this );
+
+
 		$sidebar->prepend_section(
 			( new Settings_Section() )
 				->add_elements(
@@ -174,7 +211,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 								new Attributes(
 									[
 										/* translators: %1$s: Black Friday year */
-										'alt'  => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), esc_attr( $year ) ),
+										'alt' => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), esc_attr( $year ) ),
 										'role' => 'presentation',
 									]
 								)
@@ -183,9 +220,9 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 							new Attributes(
 								[
 									/* translators: %1$s: Black Friday year */
-									'title'  => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), esc_attr( $year ) ),
+									'title' => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), esc_attr( $year ) ),
 									'target' => '_blank',
-									'rel'    => 'noopener nofollow',
+									'rel' => 'noopener nofollow',
 								]
 							)
 						),

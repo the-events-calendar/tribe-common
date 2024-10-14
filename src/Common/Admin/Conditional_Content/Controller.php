@@ -32,6 +32,18 @@ class Controller extends Provider_Contract {
 		$this->container->singleton(  Black_Friday::class, Black_Friday::class, [ 'hook' ] );
 
 		$this->hooks();
+
+		$plugin = Common::instance();
+		tribe_asset(
+			$plugin,
+			'tec-conditional-content',
+			'admin/conditional-content.js',
+			[
+				'wp-data',
+				'tribe-common',
+			],
+			'tec_conditional_content_black_friday',
+		);
 	}
 
 	/**
