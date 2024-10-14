@@ -63,7 +63,7 @@
     }
   },
   "scripts": {
-    "clean-strauss-static-function-autoload": "@php -d display_errors=on -r '$files = [\"vendor/composer/autoload_files.php\", \"vendor/composer/autoload_static.php\"]; $search = \"symfony/deprecation-contracts/function.php\"; foreach ($files as $file) { file_put_contents($file, implode(\"\", array_filter(file($file), fn($line) => strpos($line, $search) === false))); }'",
+    "clean-strauss-static-function-autoload": "bash bin/clean-composer.sh",
     "strauss": [
       "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.19.4/strauss.phar",
       "vendor/stellarwp/installer/bin/set-domain domain=tribe-common",
