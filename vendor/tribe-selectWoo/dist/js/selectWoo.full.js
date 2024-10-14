@@ -799,7 +799,7 @@ S2.define('select2/results',[
 
   Results.prototype.render = function () {
     var $results = $(
-      '<ul class="select2-results__options" role="listbox" tabindex="-1"></ul>'
+      '<ul class="select2-results__options" role="listbox"></ul>'
     );
 
     if (this.options.get('multiple')) {
@@ -958,7 +958,7 @@ S2.define('select2/results',[
     var attrs = {
       'role': 'option',
       'data-selected': 'false',
-      'tabindex': -1
+	  'tabindex':'0',
     };
 
     if (data.disabled) {
@@ -3989,8 +3989,8 @@ S2.define('select2/dropdown',[
 
 S2.define('select2/dropdown/search',[
   'jquery',
-  '../utils'
-], function ($, Utils) {
+  '../keys'
+], function ($, KEYS) {
   function Search () { }
 
   Search.prototype.render = function (decorated) {
@@ -4033,6 +4033,10 @@ S2.define('select2/dropdown/search',[
     });
 
     this.$search.on('keyup input', function (evt) {
+	  var key = evt.which;
+	  if (key === KEYS.TAB) {
+		  return;
+	  }
       self.handleSearch(evt);
     });
 
