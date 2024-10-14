@@ -274,11 +274,22 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 					<p>
 						<?php
 						echo esc_html_x(
-							'No, but you can use event categories or tags to display certain events like having...',
+							'No, but you can use event categories or tags to display certain events.',
 							'FAQ more than one calendar answer',
 							'tribe-common'
 						);
 						?>
+					</p>
+					<p>
+						<a href="https://evnt.is/1arh">
+							<?php
+							echo esc_html_x(
+								'Learn More',
+								'Link to more than one calendar article',
+								'tribe-common'
+							);
+							?>
+						</a>
 					</p>
 				</div>
 				<h4>
@@ -294,11 +305,22 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 					<p>
 						<?php
 						echo esc_html_x(
-							'Events Calendar Pro runs alongside The Events Calendar and enhances...',
+							'Events Calendar Pro enhances The Events Calendar with additional views, powerful shortcodes, and a host of premium features.',
 							'FAQ what is in Calendar Pro answer',
 							'tribe-common'
 						);
 						?>
+					</p>
+					<p>
+						<a href="https://evnt.is/1arj">
+							<?php
+							echo esc_html_x(
+								'Learn More',
+								'Link to what is in Calendar Pro article',
+								'tribe-common'
+							);
+							?>
+						</a>
 					</p>
 				</div>
 				<h4>
@@ -314,11 +336,22 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 					<p>
 						<?php
 						echo esc_html_x(
-							'Use our free Event Tickets plugin to get started with tickets and RSVPs.',
+							'Get started with tickets and RSVPs using our free Event Tickets plugin.',
 							'FAQ how to sell event tickets answer',
 							'tribe-common'
 						);
 						?>
+					</p>
+					<p>
+						<a href="https://evnt.is/1ark">
+							<?php
+							echo esc_html_x(
+								'Learn More',
+								'Link to what is in Event Tickets article',
+								'tribe-common'
+							);
+							?>
+						</a>
 					</p>
 				</div>
 				<h4>
@@ -334,31 +367,22 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 					<p>
 						<?php
 						echo esc_html_x(
-							'Our plugins include many shortcodes that do everything from embedding the calendar...',
+							'Our plugins offer a variety of shortcodes, allowing you to easily embed the calendar, display an event countdown clock, show attendee details, and much more.',
 							'FAQ where are the shortcodes answer',
 							'tribe-common'
 						);
 						?>
 					</p>
-				</div>
-				<h4>
-					<?php
-					echo esc_html_x(
-						'Can I have more than one calendar?',
-						'FAQ can I have multiple calendars question',
-						'tribe-common'
-					);
-					?>
-				</h4>
-				<div>
 					<p>
-						<?php
-						echo esc_html_x(
-							'Can I have more than one calendar?',
-							'FAQ can I have multiple calendars answer',
-							'tribe-common'
-						);
-						?>
+						<a href="https://evnt.is/1arl">
+							<?php
+							echo esc_html_x(
+								'Learn More',
+								'Link to the shortcodes article',
+								'tribe-common'
+							);
+							?>
+						</a>
 					</p>
 				</div>
 			</div>
