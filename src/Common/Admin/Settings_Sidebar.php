@@ -5,7 +5,7 @@
  * @since 6.1.0
  */
 
-declare( strict_types=1 );
+declare( strict_types = 1 );
 
 namespace TEC\Common\Admin;
 
@@ -100,7 +100,7 @@ class Settings_Sidebar extends Section {
 	/**
 	 * Set the header image for the sidebar.
 	 *
-	 * @since 6.1.0
+	 * @since      6.1.0
 	 *
 	 * @deprecated TBD
 	 *

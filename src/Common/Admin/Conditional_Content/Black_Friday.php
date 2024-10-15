@@ -87,9 +87,9 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	protected function get_wide_banner_html(): string {
 		$template_args = [
 			'image_src' => tribe_resource_url( 'images/hero-section-wide.jpg', false, null, \Tribe__Main::instance() ),
-			'link' => 'https://evnt.is/tec-bf-2024',
-			'nonce' => $this->get_nonce(),
-			'slug' => $this->slug,
+			'link'      => 'https://evnt.is/tec-bf-2024',
+			'nonce'     => $this->get_nonce(),
+			'slug'      => $this->slug,
 		];
 
 		return $this->get_template()->template( 'black-friday', $template_args, false );
@@ -131,10 +131,10 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	protected function get_narrow_banner_html(): string {
 		$template_args = [
 			'image_src' => tribe_resource_url( 'images/hero-section-narrow.jpg', false, null, \Tribe__Main::instance() ),
-			'link' => 'https://evnt.is/tec-bf-2024',
+			'link'      => 'https://evnt.is/tec-bf-2024',
 			'is_narrow' => true,
-			'nonce' => $this->get_nonce(),
-			'slug' => $this->slug,
+			'nonce'     => $this->get_nonce(),
+			'slug'      => $this->slug,
 		];
 
 		return $this->get_template()->template( 'black-friday', $template_args, false );
@@ -216,13 +216,13 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		$container = new Container();
 
 		$button = new Button( null, new Attributes( [
-			'style' => 'position: absolute; top: 0; right: 0; background: transparent; border: 0; color: #fff; padding: 0.5em; cursor: pointer;',
+			'style'                                       => 'position: absolute; top: 0; right: 0; background: transparent; border: 0; color: #fff; padding: 0.5em; cursor: pointer;',
 			'data-tec-conditional-content-dismiss-button' => true,
-			'data-tec-conditional-content-dismiss-slug' => $this->slug,
-			'data-tec-conditional-content-dismiss-nonce' => $this->get_nonce(),
+			'data-tec-conditional-content-dismiss-slug'   => $this->slug,
+			'data-tec-conditional-content-dismiss-nonce'  => $this->get_nonce(),
 		] ) );
 		$button->add_child(
-	        new Div( new Element_Classes( [ 'dashicons', 'dashicons-dismiss' ] ) )
+			new Div( new Element_Classes( [ 'dashicons', 'dashicons-dismiss' ] ) )
 		);
 
 		$container->add_child( $button );
@@ -232,7 +232,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 			new Attributes(
 				[
 					/* translators: %1$s: Black Friday year */
-					'alt' => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), esc_attr( $year ) ),
+					'alt'  => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), esc_attr( $year ) ),
 					'role' => 'presentation',
 				]
 			)
@@ -249,10 +249,10 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 							new Attributes(
 								[
 									/* translators: %1$s: Black Friday year */
-									'title' => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), esc_attr( $year ) ),
-									'target' => '_blank',
-									'rel' => 'noopener nofollow',
-									'style' => 'position: relative; display:block;',
+									'title'                                          => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), esc_attr( $year ) ),
+									'target'                                         => '_blank',
+									'rel'                                            => 'noopener nofollow',
+									'style'                                          => 'position: relative; display:block;',
 									'data-tec-conditional-content-dismiss-container' => true,
 								]
 							)

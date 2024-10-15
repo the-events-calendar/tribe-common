@@ -5,7 +5,7 @@
  * @since 6.1.0
  */
 
-declare( strict_types=1 );
+declare( strict_types = 1 );
 
 namespace TEC\Common\Admin\Entities;
 
@@ -74,10 +74,10 @@ class Link extends Base_Entity {
 	 */
 	public function render() {
 		?>
-		<a href="<?php echo esc_url( $this->url ); ?>"
-			class="<?php echo esc_attr( $this->get_classes() ); ?>"
-			<?php echo $this->get_attributes(); // phpcs:ignore StellarWP.XSS.EscapeOutput,WordPress.Security.EscapeOutput ?>>
-			<?php $this->content->render(); ?>
+	<a href="<?php echo esc_url( $this->url ); ?>"
+	   class="<?php echo esc_attr( $this->get_classes() ); ?>"
+		<?php echo $this->get_attributes(); // phpcs:ignore StellarWP.XSS.EscapeOutput,WordPress.Security.EscapeOutput ?>>
+		<?php $this->content->render(); ?>
 		<?php
 	}
 }
