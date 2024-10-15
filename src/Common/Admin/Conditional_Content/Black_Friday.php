@@ -70,8 +70,6 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 
 		$date = $date->setTime( 4, 0 );
 
-
-
 		return $date;
 	}
 
@@ -231,18 +229,20 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 			esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ),
 			esc_attr( $year )
 		);
-		
+
 		$container = new Container();
 
 		$button_attr = new Attributes(
 			[
 				'style'                                       => 'position: absolute; top: 0; right: 0; background: transparent; border: 0; color: #fff; padding: 0.5em; cursor: pointer;',
+
+				// Dismiss button attributes.
 				'data-tec-conditional-content-dismiss-button' => true,
 				'data-tec-conditional-content-dismiss-slug'   => $this->slug,
 				'data-tec-conditional-content-dismiss-nonce'  => $this->get_nonce(),
 			]
 		);
-		$button = new Button( null, $button_attr );
+		$button      = new Button( null, $button_attr );
 		$button->add_child(
 			new Div( new Element_Classes( [ 'dashicons', 'dashicons-dismiss' ] ) )
 		);
@@ -270,11 +270,13 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 							null,
 							new Attributes(
 								[
+									'title'  => $translated_title,
+									'target' => '_blank',
+									'rel'    => 'noopener nofollow',
+									'style'  => 'position: relative; display:block;',
+
+									// Dismiss container attributes.
 									'data-tec-conditional-content-dismiss-container' => true,
-									'title'                                          => $translated_title,
-									'target'                                         => '_blank',
-									'rel'                                            => 'noopener nofollow',
-									'style'                                          => 'position: relative; display:block;',
 								]
 							)
 						),
