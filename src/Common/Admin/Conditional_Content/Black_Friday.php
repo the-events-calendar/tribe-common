@@ -29,12 +29,12 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	/**
 	 * @inheritdoc
 	 */
-	protected string $start_date = 'fourth Thursday of November';
+	protected string $start_date = 'November 26th';
 
 	/**
 	 * @inheritdoc
 	 */
-	protected string $end_date = 'November 30th';
+	protected string $end_date = 'December 3rd';
 
 	/**
 	 * @inheritdoc
@@ -54,7 +54,23 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 			return null;
 		}
 
-		$date = $date->modify( '-3 days' );
+		$date = $date->setTime( 4, 0 );
+
+		return $date;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	protected function get_end_time(): ?Date_I18n {
+		$date = parent::get_end_time();
+		if ( null === $date ) {
+			return null;
+		}
+
+		$date = $date->setTime( 4, 0 );
+
+
 
 		return $date;
 	}
@@ -63,14 +79,11 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	 * @inheritdoc
 	 */
 	protected function should_display(): bool {
-
 		if ( $this->has_user_dismissed() ) {
 			return false;
 		}
 
-		return true; // Here to enable QA to test this easier.
-
-		if ( tec_should_hide_upsell( 'black-friday' ) ) {
+		if ( tec_should_hide_upsell( 'black-friday-2024' ) ) {
 			return false;
 		}
 
