@@ -34,11 +34,28 @@ class Restv1_etTester extends \Codeception\Actor {
 	 *
 	 * @param array<string|mixed> $data An array of details for an API key pair or an endpoint.
 	 */
-	public function test_last_access( array $data = [] ) {
+	public function test_et_last_access( array $data = [] ) {
 		$this->assertArrayHasKey( 'last_access', $data );
 		$this->assertNotEquals( '-', $data['last_access'] );
 		$last_access_array = explode( '|', $data['last_access'] );
 		$this->assertEquals( 'Event Tickets App', $last_access_array[0] );
-		$this->assertIsObject( new \DateTime( $last_access_array[1] ) );
+		// Disabled until updated version of codeception is used.
+		//$this->assertIsObject( new \DateTime( $last_access_array[1] ) );
+	}
+
+	/**
+	 * Test Last Access.
+	 *
+	 * @since 6.0.0
+	 *
+	 * @param array<string|mixed> $data An array of details for an API key pair or an endpoint.
+	 */
+	public function test_tec_last_access( array $data = [] ) {
+		$this->assertArrayHasKey( 'last_access', $data );
+		$this->assertNotEquals( '-', $data['last_access'] );
+		$last_access_array = explode( '|', $data['last_access'] );
+		$this->assertEquals( 'The Events Calendar App', $last_access_array[0] );
+		// Disabled until updated version of codeception is used.
+		//$this->assertIsObject( new \DateTime( $last_access_array[1] ) );
 	}
 }

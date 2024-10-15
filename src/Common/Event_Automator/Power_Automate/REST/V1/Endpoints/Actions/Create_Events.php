@@ -184,7 +184,7 @@ class Create_Events extends Abstract_REST_Endpoint {
 	 * @return WP_REST_Response The response from creating an event.
 	 */
 	public function post( WP_REST_Request $request ) {
-		// No cache headers to prevent hosting from caching the endpoint
+		// No cache headers to prevent hosting from caching the endpoint.
 		nocache_headers();
 
 		$response = $this->rest_endpoint->create( $request );

@@ -9,18 +9,18 @@
  */
 namespace TEC\Event_Automator\Zapier\REST\V1\Endpoints\Actions;
 
-use TEC\Event_Automator\Tests\Testcases\REST\V1\BaseRestCest;
-use Restv1Tester;
-use TEC\Event_Automator\Tests\Traits\Create_Attendees;
-use TEC\Event_Automator\Tests\Traits\Create_Events;
+use TEC\Event_Automator\Tests\Testcases\REST\V1\BaseRestETCest;
+use Restv1_etTester;
+use TEC\Event_Automator\Tests\Traits\Create_attendees;
+use TEC\Event_Automator\Tests\Traits\Create_events;
 
-class FindAttendeesCest extends BaseRestCest {
-	use Create_Events;
-	use Create_Attendees;
+class FindAttendeesCest extends BaseRestETCest {
+	use Create_events;
+	use Create_attendees;
 	/**
 	 * @test
 	 */
-	public function it_should_return_error_when_using_get_request( Restv1Tester $I ) {
+	public function it_should_return_error_when_using_get_request( Restv1_etTester $I ) {
 		$I->sendGET( $this->find_attendees_url );
 		$I->seeResponseCodeIs( 401 );
 		$I->seeResponseIsJson();
@@ -32,7 +32,7 @@ class FindAttendeesCest extends BaseRestCest {
 	/**
 	 * @test
 	 */
-	public function it_should_return_error_when_missing_parameters( Restv1Tester $I ) {
+	public function it_should_return_error_when_missing_parameters( Restv1_etTester $I ) {
 		$I->sendGET( $this->find_attendees_url );
 		$I->seeResponseCodeIs( 401 );
 		$I->seeResponseIsJson();
@@ -44,7 +44,7 @@ class FindAttendeesCest extends BaseRestCest {
 	/**
 	 * @test
 	 */
-	public function it_should_return_invalid_when_access_token_contains_unverified_consumer_id_and_secret( Restv1Tester $I ) {
+	public function it_should_return_invalid_when_access_token_contains_unverified_consumer_id_and_secret( Restv1_etTester $I ) {
 		$search_parameters = [
 			'access_token' => static::$invalid_access_token,
 		];
@@ -70,7 +70,7 @@ class FindAttendeesCest extends BaseRestCest {
 	 * @example ["before", "", 400]
 	 * @example ["before", "not a strtotime parsable string", 400]
 	 */
-	public function it_should_mark_bad_request_if_required_param_is_missing_or_bad( Restv1Tester $I, \Codeception\Example $data ) {
+	public function it_should_mark_bad_request_if_required_param_is_missing_or_bad( Restv1_etTester $I, \Codeception\Example $data ) {
 		$params = [
 			'access_token' => static::$valid_access_token,
 			'after'        => 'tomorrow 9am',
@@ -91,7 +91,7 @@ class FindAttendeesCest extends BaseRestCest {
 	/**
 	 * @test
 	 */
-	public function it_should_return_found_attendees( Restv1Tester $I ) {
+	public function it_should_return_found_attendees( Restv1_etTester $I ) {
 		$event             = $this->generate_event( $this->mock_date_value );
 		$created_attendees = $this->generate_multiple_rsvp_attendees( $event );
 
@@ -114,7 +114,7 @@ class FindAttendeesCest extends BaseRestCest {
 	/**
 	 * @test
 	 */
-	public function it_should_return_checkedin_attendees( Restv1Tester $I ) {
+	public function it_should_return_checkedin_attendees( Restv1_etTester $I ) {
 		$event             = $this->generate_event( $this->mock_date_value );
 		$created_attendees = $this->generate_multiple_rsvp_attendees( $event );
 		$checkedin_attendees = $this->generate_rsvp_attendee( $event, [ 'check_in' => 1 ] );
@@ -137,7 +137,7 @@ class FindAttendeesCest extends BaseRestCest {
 	/**
 	 * @test
 	 */
-	public function it_should_return_valid_with_access_token_contains_verified_api_key_pair_and_last_access_is_updated( Restv1Tester $I ) {
+	public function it_should_return_valid_with_access_token_contains_verified_api_key_pair_and_last_access_is_updated( Restv1_etTester $I ) {
 		$event             = $this->generate_event( $this->mock_date_value );
 		$created_attendees = $this->generate_multiple_rsvp_attendees( $event );
 
@@ -152,17 +152,17 @@ class FindAttendeesCest extends BaseRestCest {
 
 		// Check Last Access is Updated.
 		$api_key_data = get_option( 'tec_zapier_api_key_4689db48b24f0ac42f3f0d8fe027b8f28f63f262b9fc2f73736dfa91b4045425' );
-		$I->test_last_access( $api_key_data);
+		$I->test_et_last_access( $api_key_data);
 
 		// Check Last Access is Updated for Endpoint.
 		$endpoint_details = get_option( '_tec_zapier_endpoint_details_find_attendees' );
-		$I->test_last_access( $endpoint_details);
+		$I->test_et_last_access( $endpoint_details);
 	}
 
 	/**
 	 * @test
 	 */
-	public function it_should_return_404_when_endpoint_disabled( Restv1Tester $I ) {
+	public function it_should_return_404_when_endpoint_disabled( Restv1_etTester $I ) {
 		$endpoint = [
 			'id'           => 'find_attendees',
 			'display_name' => 'Find Attendees',
