@@ -89,12 +89,24 @@ class Settings_Sidebar_Section extends Settings_Section {
 	public function render(): void {
 		?>
 		<div class="tec-settings-form__sidebar-section tec-settings-form__sidebar-header">
-			<?php do_action( 'tec_settings_sidebar_header_start' ); ?>
 			<?php
+			/**
+			 * Fires before the sidebar header is rendered.
+			 *
+			 * @since TBD
+			 */
+			do_action( 'tec_settings_sidebar_header_start' );
+
 			$this->render_header_image();
 			$this->render_title();
+
+			/**
+			 * Fires after the sidebar header is rendered.
+			 *
+			 * @since TBD
+			 */
+			do_action( 'tec_settings_sidebar_header_end' );
 			?>
-			<?php do_action( 'tec_settings_sidebar_header_end' ); ?>
 		</div>
 		<?php foreach ( $this->sections as $section ) : ?>
 			<div class="tec-settings-form__sidebar-section">
