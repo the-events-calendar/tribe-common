@@ -1,6 +1,6 @@
 <?php
 /**
- * The template that displays the resources sidebar.
+ * The template that displays the resources and support hub sidebar.
  *
  * @var Tribe__Main $main      The main common object.
  * @var bool $is_opted_in      Whether the user has opted in to telemetry.
