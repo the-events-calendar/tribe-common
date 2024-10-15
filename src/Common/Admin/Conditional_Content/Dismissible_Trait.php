@@ -12,16 +12,6 @@ namespace TEC\Common\Admin\Conditional_Content;
  * @package TEC\Common\Admin\Conditional_Content
  */
 trait Dismissible_Trait {
-
-	/**
-	 * Slug of the dismissible content.
-	 *
-	 * @since TBD
-	 *
-	 * @var string The slug of the dismissible content.
-	 */
-	protected string $slug;
-
 	/**
 	 * User Meta Key that stores which notices have been dismissed.
 	 *

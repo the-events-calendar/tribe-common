@@ -17,7 +17,7 @@ abstract class Datetime_Conditional_Abstract {
 	 *
 	 * @since TBD
 	 */
-	protected string $slug = '';
+	protected string $slug;
 
 	/**
 	 * Start date.
