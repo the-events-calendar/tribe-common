@@ -16,63 +16,63 @@
 		dismissedContainer: '[data-tec-conditional-content-dismiss-container]',
 	};
 
-	$( document ).on(
-		'click',
-		obj.selectors.dismissButton,
-		( event ) => {
-			const $button = $( event.target );
-			const $container = $button.parents( obj.selectors.dismissedContainer ).eq( 0 );
 
-			if ( ! $container.length ) {
-				return;
-			}
+	/**
+	 * Handles the click event on the dismiss button.
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event
+	 */
+	obj.onDismissClick = ( event ) => {
+		event.preventDefault();
 
-			let id = $button.data( 'tecConditionalContentDismissId' );
-
-			if ( ! id ) {
-				id = $container.data( 'tecConditionalContentDismissId' );
-			}
-
-			let nonce = $button.data( 'tecConditionalContentDismissNonce' );
-
-			if ( ! nonce ) {
-				nonce = $container.data( 'tecConditionalContentDismissNonce' );
-			}
-
-			if ( ! id || ! nonce ) {
-				return;
-			}
-
-			wp.data
-				.dispatch( 'core/preferences' )
-				.set( 'tec/conditional-content-dismissed', id, 1 );
-
-			$.ajax( ajaxurl, {
-				dataType: 'json',
-				method: 'POST',
-				data: {
-					action: 'tec_conditional_content_dismiss',
-					id: id,
-					nonce: nonce,
-				},
-				complete: () => {
-					$container.remove();
-				},
-			} );
+		let $button = $( event.target );
+		if ( ! $button.is( obj.selectors.dismissButton ) ) {
+			$button = $button.parents( obj.selectors.dismissButton ).eq( 0 );
 		}
-	).ready(() => {
-		const preferences = wp.data.select( 'core/preferences' );
-		const dismissed = preferences.get( 'tec/conditional-content-dismissed' );
 
-		if ( ! dismissed ) {
+		const $container = $button.parents( obj.selectors.dismissedContainer ).eq( 0 );
+
+		if ( ! $container.length ) {
 			return;
 		}
 
-		dismissed.forEach( ( id ) => {
-			$( `[data-tec-conditional-content-dismiss-id="${id}"]` ).remove();
-		} );
-	});
+		let slug = $button.data( 'tecConditionalContentDismissSlug' );
 
+		if ( ! slug ) {
+			slug = $container.data( 'tecConditionalContentDismissSlug' );
+		}
+
+		let nonce = $button.data( 'tecConditionalContentDismissNonce' );
+
+		if ( ! nonce ) {
+			nonce = $container.data( 'tecConditionalContentDismissNonce' );
+		}
+
+		if ( ! slug || ! nonce ) {
+			return;
+		}
+
+		$.ajax( ajaxurl, {
+			dataType: 'json',
+			method: 'POST',
+			data: {
+				action: 'tec_conditional_content_dismiss',
+				slug: slug,
+				nonce: nonce,
+			},
+			complete: () => {
+				$container.remove();
+			},
+		} );
+	};
+
+	$( document ).on(
+		'click',
+		obj.selectors.dismissButton,
+		obj.onDismissClick
+	);
 
 	// Expose the object to the global scope.
 	tec.conditionalContent = obj;

@@ -2,12 +2,16 @@
 
 namespace TEC\Common\Admin\Conditional_Content;
 
+use TEC\Common\Admin\Entities\Container;
+use TEC\Common\Admin\Entities\Div;
+use TEC\Common\Admin\Entities\Button;
 use TEC\Common\Admin\Settings_Sidebar;
 use Tribe\Utils\Element_Attributes as Attributes;
 use TEC\Common\Admin\Entities\Link;
 use TEC\Common\Admin\Entities\Image;
 use TEC\Common\Admin\Settings_Section;
 use Tribe\Utils\Date_I18n;
+use Tribe\Utils\Element_Classes;
 
 /**
  * Set up for Black Friday promo.
@@ -15,10 +19,12 @@ use Tribe\Utils\Date_I18n;
  * @since TBD
  */
 class Black_Friday extends Datetime_Conditional_Abstract {
+	use Dismissible_Trait;
+
 	/**
 	 * @inheritdoc
 	 */
-	protected string $slug = 'black_friday';
+	protected string $slug = 'black-friday-2024';
 
 	/**
 	 * @inheritdoc
@@ -36,6 +42,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	public function hook(): void {
 		add_action( 'tec_settings_sidebar_start', [ $this, 'include_sidebar_section' ] );
 		add_action( 'tribe_settings_below_tabs', [ $this, 'include_tickets_settings_section' ] );
+		add_action( 'wp_ajax_tec_conditional_content_dismiss', [ $this, 'handle_dismiss' ] );
 	}
 
 	/**
@@ -56,6 +63,11 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	 * @inheritdoc
 	 */
 	protected function should_display(): bool {
+
+		if ( $this->has_user_dismissed() ) {
+			return false;
+		}
+
 		return true; // Here to enable QA to test this easier.
 
 		if ( tec_should_hide_upsell( 'black-friday' ) ) {
@@ -76,6 +88,8 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		$template_args = [
 			'image_src' => tribe_resource_url( 'images/hero-section-wide.jpg', false, null, \Tribe__Main::instance() ),
 			'link' => 'https://evnt.is/tec-bf-2024',
+			'nonce' => $this->get_nonce(),
+			'slug' => $this->slug,
 		];
 
 		return $this->get_template()->template( 'black-friday', $template_args, false );
@@ -119,6 +133,8 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 			'image_src' => tribe_resource_url( 'images/hero-section-narrow.jpg', false, null, \Tribe__Main::instance() ),
 			'link' => 'https://evnt.is/tec-bf-2024',
 			'is_narrow' => true,
+			'nonce' => $this->get_nonce(),
+			'slug' => $this->slug,
 		];
 
 		return $this->get_template()->template( 'black-friday', $template_args, false );
@@ -197,6 +213,30 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		 */
 		do_action( 'tec_conditional_content_black_friday', 'settings-sidebar', $this );
 
+		$container = new Container();
+
+		$button = new Button( null, new Attributes( [
+			'style' => 'position: absolute; top: 0; right: 0; background: transparent; border: 0; color: #fff; padding: 0.5em; cursor: pointer;',
+			'data-tec-conditional-content-dismiss-button' => true,
+			'data-tec-conditional-content-dismiss-slug' => $this->slug,
+			'data-tec-conditional-content-dismiss-nonce' => $this->get_nonce(),
+		] ) );
+		$button->add_child(
+	        new Div( new Element_Classes( [ 'dashicons', 'dashicons-dismiss' ] ) )
+		);
+
+		$container->add_child( $button );
+
+		$container->add_child( new Image(
+			tribe_resource_url( 'images/hero-section-settings-sidebar.jpg', false, null, \Tribe__Main::instance() ),
+			new Attributes(
+				[
+					/* translators: %1$s: Black Friday year */
+					'alt' => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), esc_attr( $year ) ),
+					'role' => 'presentation',
+				]
+			)
+		) );
 
 		$sidebar->prepend_section(
 			( new Settings_Section() )
@@ -204,16 +244,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 					[
 						new Link(
 							'https://evnt.is/tec-bf-2024',
-							new Image(
-								tribe_resource_url( 'images/hero-section-settings-sidebar.jpg', false, null, \Tribe__Main::instance() ),
-								new Attributes(
-									[
-										/* translators: %1$s: Black Friday year */
-										'alt' => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), esc_attr( $year ) ),
-										'role' => 'presentation',
-									]
-								)
-							),
+							$container,
 							null,
 							new Attributes(
 								[
@@ -221,6 +252,8 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 									'title' => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), esc_attr( $year ) ),
 									'target' => '_blank',
 									'rel' => 'noopener nofollow',
+									'style' => 'position: relative; display:block;',
+									'data-tec-conditional-content-dismiss-container' => true,
 								]
 							)
 						),

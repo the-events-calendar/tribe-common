@@ -50,7 +50,7 @@ class Controller extends Provider_Contract {
 	 *
 	 * @since TBD
 	 */
-	public function plugins_loaded() {
+	public function plugins_loaded(): void {
 		$this->container->make( Black_Friday::class );
 
 		$plugin = Common::instance();
