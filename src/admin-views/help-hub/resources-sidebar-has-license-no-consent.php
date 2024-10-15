@@ -37,8 +37,8 @@ $optin_url      = admin_url( 'edit.php?page=tec-events-settings&tab=general-debu
 		<div class="tec-settings__sidebar-icon-wrap">
 			<div>
 				<img class="tec-settings-infobox-logo"
-					 src="<?php echo esc_url( $stars_icon_url ); ?>"
-					 alt="AI chat bot logo"
+					src="<?php echo esc_url( $stars_icon_url ); ?>"
+					alt="AI chat bot logo"
 				>
 			</div>
 			<div class="tec-settings__sidebar-icon-wrap-content">
@@ -65,8 +65,8 @@ $optin_url      = admin_url( 'edit.php?page=tec-events-settings&tab=general-debu
 		<div class="tec-settings__sidebar-icon-wrap">
 			<div>
 				<img class="tec-settings-infobox-logo"
-					 src="<?php echo esc_url( $chat_icon_url ); ?>"
-					 alt="Support chat logo"
+					src="<?php echo esc_url( $chat_icon_url ); ?>"
+					alt="Support chat logo"
 				>
 			</div>
 			<div class="tec-settings__sidebar-icon-wrap-content">
@@ -88,9 +88,7 @@ $optin_url      = admin_url( 'edit.php?page=tec-events-settings&tab=general-debu
 					);
 					?>
 				</p>
-
 			</div>
-
 		</div>
 		<p>
 			<?php
