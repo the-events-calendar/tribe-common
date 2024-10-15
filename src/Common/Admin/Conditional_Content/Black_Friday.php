@@ -2,16 +2,24 @@
 
 namespace TEC\Common\Admin\Conditional_Content;
 
-use TEC\Common\Admin\Entities\Container;
-use TEC\Common\Admin\Entities\Div;
-use TEC\Common\Admin\Entities\Button;
-use TEC\Common\Admin\Settings_Sidebar;
-use Tribe\Utils\Element_Attributes as Attributes;
-use TEC\Common\Admin\Entities\Link;
-use TEC\Common\Admin\Entities\Image;
-use TEC\Common\Admin\Settings_Section;
-use Tribe\Utils\Date_I18n;
-use Tribe\Utils\Element_Classes;
+use TEC\Common\Admin\Entities\{
+	Div,
+	Container,
+	Button,
+	Link,
+	Image
+};
+
+use TEC\Common\Admin\{
+	Settings_Sidebar,
+	Settings_Section
+};
+
+use Tribe\Utils\{
+	Element_Attributes as Attributes,
+	Date_I18n,
+	Element_Classes
+};
 
 /**
  * Set up for Black Friday promo.
