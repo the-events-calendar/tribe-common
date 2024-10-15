@@ -85,8 +85,6 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	 * @inheritdoc
 	 */
 	protected function should_display(): bool {
-		return true;
-
 		if ( $this->has_user_dismissed() ) {
 			return false;
 		}
