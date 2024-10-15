@@ -5,12 +5,11 @@
  * @since 6.1.0
  */
 
-declare( strict_types = 1 );
+declare( strict_types=1 );
 
 namespace TEC\Common\Admin\Entities;
 
 use InvalidArgumentException;
-
 use Tribe\Utils\Element_Attributes as Attributes;
 use Tribe\Utils\Element_Classes as Classes;
 

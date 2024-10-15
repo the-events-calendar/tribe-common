@@ -1,4 +1,7 @@
 <?php
+
+declare( strict_types=1 );
+
 namespace TEC\Common\Admin\Conditional_Content;
 
 /**
@@ -9,6 +12,7 @@ namespace TEC\Common\Admin\Conditional_Content;
  * @package TEC\Common\Admin\Conditional_Content
  */
 trait Dismissible_Trait {
+
 	/**
 	 * User Meta Key that stores which notices have been dismissed.
 	 *
@@ -96,12 +100,12 @@ trait Dismissible_Trait {
 			wp_send_json( false );
 		}
 
-		// Send a JSON answer with the status of dismissal
+		// Send a JSON answer with the status of dismissal.
 		wp_send_json( $this->dismiss() );
 	}
 
 	/**
-	 * A Method to actually add the Meta value telling that this content has been dismissed.
+	 * A Method to actually add the Meta value recording that this content has been dismissed.
 	 *
 	 * @since TBD
 	 *
@@ -109,7 +113,7 @@ trait Dismissible_Trait {
 	 *
 	 * @return boolean
 	 */
-	public function dismiss( $user_id = null ): bool {
+	protected function dismiss( $user_id = null ): bool {
 		if ( empty( $this->slug ) ) {
 			return false;
 		}
@@ -125,7 +129,7 @@ trait Dismissible_Trait {
 
 		update_user_meta( $user_id, $this->meta_key_time_prefix . $this->slug, time() );
 
-		return add_user_meta( $user_id, $this->meta_key, $this->slug, false );
+		return add_user_meta( $user_id, $this->meta_key, $this->slug );
 	}
 
 	/**
@@ -142,12 +146,12 @@ trait Dismissible_Trait {
 			return false;
 		}
 
-		if ( is_null( $user_id ) ) {
+		if ( null === $user_id ) {
 			$user_id = get_current_user_id();
 		}
 
 		// If this user has dismissed we don't care either.
-		if ( ! $this->has_user_dismissed( $this->slug, $user_id ) ) {
+		if ( ! $this->has_user_dismissed( $user_id ) ) {
 			return false;
 		}
 
@@ -168,7 +172,7 @@ trait Dismissible_Trait {
 			return false;
 		}
 
-		if ( is_null( $user_id ) ) {
+		if ( null === $user_id ) {
 			$user_id = get_current_user_id();
 		}
 

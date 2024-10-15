@@ -20,7 +20,7 @@ use Tribe\Utils\Element_Classes as Classes;
 class Button extends Container {
 
 	/**
-	 * Div constructor.
+	 * Button constructor.
 	 *
 	 * @since TBD
 	 *

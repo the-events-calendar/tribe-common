@@ -5,7 +5,7 @@
  * @since TBD
  */
 
-declare( strict_types = 1 );
+declare( strict_types=1 );
 
 namespace TEC\Common\Admin;
 

@@ -87,7 +87,7 @@ abstract class Datetime_Conditional_Abstract {
 		 * @since TBD
 		 *
 		  * @param Date_i18n $date - Date object for the end date.
-		 * @param object    $this
+		 * @param static $this
 		 */
 		$date = apply_filters( "tec_admin_conditional_content_{$this->slug}_start_date", $date, $this );
 

@@ -224,8 +224,8 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		 */
 		do_action( 'tec_conditional_content_black_friday', 'settings-sidebar', $this );
 
-		/* translators: %1$s: Black Friday year */
 		$translated_title = sprintf(
+			/* translators: %1$s: Black Friday year */
 			esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ),
 			esc_attr( $year )
 		);
