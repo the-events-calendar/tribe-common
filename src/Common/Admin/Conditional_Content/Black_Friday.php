@@ -226,6 +226,12 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		 */
 		do_action( 'tec_conditional_content_black_friday', 'settings-sidebar', $this );
 
+		/* translators: %1$s: Black Friday year */
+		$translated_title = sprintf(
+			esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ),
+			esc_attr( $year )
+		);
+		
 		$container = new Container();
 
 		$button_attr = new Attributes(
@@ -242,14 +248,12 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		);
 
 		$container->add_child( $button );
-
 		$container->add_child(
 			new Image(
 				tribe_resource_url( 'images/hero-section-settings-sidebar.jpg', false, null, \Tribe__Main::instance() ),
 				new Attributes(
 					[
-						/* translators: %1$s: Black Friday year */
-						'alt'  => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), esc_attr( $year ) ),
+						'alt'  => $translated_title,
 						'role' => 'presentation',
 					]
 				)
@@ -267,8 +271,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 							new Attributes(
 								[
 									'data-tec-conditional-content-dismiss-container' => true,
-									/* translators: %1$s: Black Friday year */
-									'title'                                          => sprintf( esc_attr_x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' ), esc_attr( $year ) ),
+									'title'                                          => $translated_title,
 									'target'                                         => '_blank',
 									'rel'                                            => 'noopener nofollow',
 									'style'                                          => 'position: relative; display:block;',
