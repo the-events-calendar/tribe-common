@@ -78,6 +78,7 @@ class Link extends Base_Entity {
 	   class="<?php echo esc_attr( $this->get_classes() ); ?>"
 		<?php echo $this->get_attributes(); // phpcs:ignore StellarWP.XSS.EscapeOutput,WordPress.Security.EscapeOutput ?>>
 		<?php $this->content->render(); ?>
+	</a>
 		<?php
 	}
 }
