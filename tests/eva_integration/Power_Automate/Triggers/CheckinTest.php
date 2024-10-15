@@ -12,8 +12,8 @@ use Tribe__Tickets_Plus__Commerce__WooCommerce__Main as Woo_Tickets;
 
 class CheckinTest extends \Codeception\TestCase\WPTestCase {
 
-	use Create_events;
-	use Create_attendees;
+	use Create_Events;
+	use Create_Attendees;
 	use With_Uopz;
 
 	public function setUp() {

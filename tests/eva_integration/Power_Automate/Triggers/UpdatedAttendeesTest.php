@@ -9,8 +9,8 @@ use Tribe\Tests\Traits\With_Uopz;
 
 class UpdatedAttendeesTest extends \Codeception\TestCase\WPTestCase {
 
-	use Create_events;
-	use Create_attendees;
+	use Create_Events;
+	use Create_Attendees;
 	use With_Uopz;
 
 	public function setUp() {
