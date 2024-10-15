@@ -10,7 +10,7 @@
  * @var string $slug      The slug for the dismiss button.
  */
 
-$year = date_i18n( 'Y' );
+$sale_year = date_i18n( 'Y' );
 /* translators: %1$s: Black Friday year */
 $a11y_text = _x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' );
 ?>
@@ -20,7 +20,7 @@ $a11y_text = _x( '%1$s Black Friday Sale for The Events Calendar plugins, add-on
 	target="_blank"
 	rel="noopener nofollow"
 	style="display: block; margin: 25px 0; position: relative; <?php echo $this->get( 'is_narrow' ) ? 'max-width: 1000px' : ''; ?>"
-	title="<?php printf( esc_attr( $a11y_text ), esc_attr( $year ) ); ?>"
+	title="<?php printf( esc_attr( $a11y_text ), esc_attr( $sale_year ) ); ?>"
 	data-tec-conditional-content-dismiss-container
 >
 	<button
@@ -32,6 +32,6 @@ $a11y_text = _x( '%1$s Black Friday Sale for The Events Calendar plugins, add-on
 	<img
 		style="display: block; width: 100%; height: auto;" <?php // This is intentionally inline, don't add classes here. ?>
 		src="<?php echo esc_url( $image_src ); ?>"
-		alt="<?php printf( esc_attr( $a11y_text ), esc_attr( $year ) ); ?>"
+		alt="<?php printf( esc_attr( $a11y_text ), esc_attr( $sale_year ) ); ?>"
 	/>
 </a>
