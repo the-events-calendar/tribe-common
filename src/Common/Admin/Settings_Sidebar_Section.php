@@ -52,16 +52,33 @@ class Settings_Sidebar_Section extends Settings_Section {
 	}
 
 	/**
-	 * Add a sub-section to the sidebar section.
+	 * Alias to prepending a sub-section to the sidebar.
+	 *
+	 * @since 6.1.0
+	 *
+	 * @param Section $section The section to add.
+	 *
+	 * @return self
+	 */
+	public function add_section( Section $section ): self {
+		$this->sections[] = $section;
+
+		return $this;
+	}
+
+	/**
+	 * Add a sub-section to the start of the sidebar array of sections
 	 *
 	 * @since TBD
 	 *
 	 * @param Section $section The section to add.
 	 *
-	 * @return void
+	 * @return self
 	 */
-	public function add_section( Section $section ): void {
-		$this->sections[] = $section;
+	public function prepend_section( Section $section ): self {
+		array_unshift( $this->sections, $section );
+
+		return $this;
 	}
 
 	/**

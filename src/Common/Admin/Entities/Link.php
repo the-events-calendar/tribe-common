@@ -9,6 +9,8 @@ declare( strict_types=1 );
 
 namespace TEC\Common\Admin\Entities;
 
+use InvalidArgumentException;
+
 use Tribe\Utils\Element_Attributes as Attributes;
 use Tribe\Utils\Element_Classes as Classes;
 
@@ -25,13 +27,6 @@ class Link extends Base_Entity {
 	 * @var string
 	 */
 	private string $url = '';
-
-	/**
-	 * The text for the link.
-	 *
-	 * @var string
-	 */
-	private string $text = '';
 
 	/**
 	 * Content for the link if not a string.
@@ -78,12 +73,11 @@ class Link extends Base_Entity {
 	 * @return void
 	 */
 	public function render() {
-		printf(
-			'<a href="%s" class="%s" %s>%s</a>',
-			esc_url( $this->url ),
-			esc_attr( $this->get_classes() ),
-			$this->get_attributes(), // phpcs:ignore StellarWP.XSS.EscapeOutput,WordPress.Security.EscapeOutput
-			$this->content ? (string) $this->content : esc_html( $this->text ) // phpcs:ignore StellarWP.XSS.EscapeOutput,WordPress.Security.EscapeOutput
-		);
+		?>
+		<a href="<?php echo esc_url( $this->url ); ?>"
+			class="<?php echo esc_attr( $this->get_classes() ); ?>"
+			<?php echo $this->get_attributes(); // phpcs:ignore StellarWP.XSS.EscapeOutput,WordPress.Security.EscapeOutput ?>>
+			<?php $this->content->render(); ?>
+		<?php
 	}
 }

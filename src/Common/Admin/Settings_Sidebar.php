@@ -54,28 +54,10 @@ class Settings_Sidebar extends Section {
 	 * @since 6.1.0
 	 *
 	 * @param Section $section The section to add.
-	 * @param bool    $append  Whether to append the section or prepend it.
 	 *
 	 * @return self
 	 */
-	public function add_section( Section $section, bool $append = true ): self {
-		if ( $append ) {
-			return $this->append_section( $section );
-		}
-
-		return $this->prepend_section( $section );
-	}
-
-	/**
-	 * Add a section to the end of the sidebar array of sections
-	 *
-	 * @since TBD
-	 *
-	 * @param Section $section The section to add.
-	 *
-	 * @return self
-	 */
-	public function append_section( Section $section ): self {
+	public function add_section( Section $section ): self {
 		$this->sections[] = $section;
 
 		return $this;
