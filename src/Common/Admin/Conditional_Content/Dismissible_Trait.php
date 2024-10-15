@@ -122,7 +122,7 @@ trait Dismissible_Trait {
 			$user_id = get_current_user_id();
 		}
 
-		// If this user has dismissed we don't care either
+		// If this user has dismissed we don't care either.
 		if ( $this->has_user_dismissed( $user_id ) ) {
 			return true;
 		}
@@ -137,7 +137,7 @@ trait Dismissible_Trait {
 	 *
 	 * @since TBD
 	 *
-	 * @param int|null|string $user_id The user ID
+	 * @param int|null|string $user_id The user ID.
 	 *
 	 * @return boolean
 	 */
