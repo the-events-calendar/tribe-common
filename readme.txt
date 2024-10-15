@@ -3,6 +3,9 @@
 = [6.1.1] 2024-10-17 =
 
 * Fix - allow more svg attributes through the fields sanitization. [BTPLAN-200]
+* Tweak - Added filters: `tec_settings_sidebar_sections`
+* Tweak - Removed filters: `tribe_black_friday_start_time`, `tribe_black_friday_end_time`
+* Tweak - Added actions: `tec_conditional_content_black_friday`
 
 = [6.1.0] 2024-09-26 =
 

@@ -1,52 +1,25 @@
 <?php
 /**
- * Handles admin conditional content.
- *
- * @since   4.14.7
- * @package Tribe\Admin\Conditional_Content;
+ * @deprecated TBD
  */
-
 namespace Tribe\Admin\Conditional_Content;
 
-use TEC\Common\Contracts\Service_Provider as Provider_Contract;
+_deprecated_file( __FILE__, 'TBD', 'No Replacement' );
 
 /**
- * Conditional Content Provider.
+ * Class Service_Provider
  *
- * @since 4.14.7
+ * @since   4.14.7
+ * @deprecated TBD
+ *
+ * @package Tribe\Admin\Conditional_Content
  */
-class Service_Provider extends Provider_Contract {
-
-
-	/**
-	 * Registers the required objects and filters.
-	 *
-	 * @since 4.14.7
-	 */
-	public function register() {
-		$this->container->singleton(  Black_Friday::class, Black_Friday::class, [ 'hook' ] );
-        // EOY Sale disabled for 2022
-		// $this->container->singleton(  End_Of_Year_Sale::class, End_Of_Year_Sale::class, [ 'hook' ] );
-		$this->hooks();
+class Service_Provider {
+	public function __call( $name, $arguments ) {
+		_deprecated_function( __METHOD__, 'TBD', 'No replacement.' );
 	}
 
-	/**
-	 * Set up hooks for classes.
-	 *
-	 * @since 4.14.7
-	 */
-	protected function hooks() {
-		add_action( 'tribe_plugins_loaded', [ $this, 'plugins_loaded' ] );
-	}
-
-	/**
-	 * Setup for things that require plugins loaded first.
-	 *
-	 * @since 4.14.7
-	 */
-	public function plugins_loaded() {
-		$this->container->make( Black_Friday::class );
-        // EOY Sale disabled for 2022
-		// $this->container->make( End_Of_Year_Sale::class );
+	public static function __callStatic( $name, $arguments ) {
+		_deprecated_function( __METHOD__, 'TBD', 'No replacement.' );
 	}
 }

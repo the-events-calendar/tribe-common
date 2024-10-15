@@ -21,16 +21,11 @@ class Settings_Sidebar extends Section {
 	/**
 	 * Sections for the sidebar.
 	 *
+	 * @since 6.1.0
+	 *
 	 * @var Section[]
 	 */
 	protected array $sections = [];
-
-	/**
-	 * Header image for the sidebar.
-	 *
-	 * @var ?Image
-	 */
-	protected ?Image $header_image = null;
 
 	/**
 	 * Render the sidebar.
@@ -42,64 +37,76 @@ class Settings_Sidebar extends Section {
 	public function render() {
 		?>
 		<div class="tec-settings-form__sidebar">
-		<?php do_action( 'tec_settings_sidebar_start' ); ?>
-			<div class="tec-settings-form__sidebar-section tec-settings-form__sidebar-header">
-				<?php do_action( 'tec_settings_sidebar_header_start' ); ?>
-				<?php
-				$this->render_header_image();
-				$this->render_title();
-				?>
-				<?php do_action( 'tec_settings_sidebar_header_end' ); ?>
-			</div>
-
-			<?php foreach ( $this->sections as $section ) : ?>
+			<?php do_action( 'tec_settings_sidebar_start', $this ); ?>
+			<?php foreach ( $this->get_sections() as $section ) : ?>
 				<div class="tec-settings-form__sidebar-section">
 					<?php $section->render(); ?>
 				</div>
 			<?php endforeach; ?>
-			<?php do_action( 'tec_settings_sidebar_end' ); ?>
+			<?php do_action( 'tec_settings_sidebar_end', $this ); ?>
 		</div>
 		<?php
 	}
 
 	/**
-	 * Set the header image for the sidebar.
-	 *
-	 * @since 6.1.0
-	 *
-	 * @param Image $image The image to set.
-	 *
-	 * @return void
-	 */
-	public function set_header_image( Image $image ) {
-		$this->header_image = $image;
-	}
-
-	/**
-	 * Add a section to the sidebar.
+	 * Alias to prepending a section to the sidebar.
 	 *
 	 * @since 6.1.0
 	 *
 	 * @param Section $section The section to add.
 	 *
-	 * @return void
+	 * @return self
 	 */
-	public function add_section( Section $section ) {
+	public function add_section( Section $section ): self {
 		$this->sections[] = $section;
+
+		return $this;
 	}
 
 	/**
-	 * Render the header image for the sidebar.
+	 * Add a section to the start of the sidebar array of sections
 	 *
-	 * @since 6.1.0
+	 * @since TBD
 	 *
-	 * @return void
+	 * @param Section $section The section to add.
+	 *
+	 * @return self
 	 */
-	protected function render_header_image() {
-		if ( ! $this->header_image ) {
-			return;
-		}
+	public function prepend_section( Section $section ): self {
+		array_unshift( $this->sections, $section );
 
-		$this->header_image->render();
+		return $this;
+	}
+
+	/**
+	 * Get the sidebar sections.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function get_sections(): array {
+		/**
+		 * Filter the sidebar sections.
+		 *
+		 * @since TBD
+		 *
+		 * @param Section[]        $sections The sidebar sections.
+		 * @param Settings_Sidebar $sidebar  The sidebar object.
+		 */
+		return apply_filters( 'tec_settings_sidebar_sections', $this->sections, $this );
+	}
+
+	/**
+	 * Set the header image for the sidebar.
+	 *
+	 * @since      6.1.0
+	 *
+	 * @deprecated TBD
+	 *
+	 * @param Image $deprecated Deprecated.
+	 */
+	public function set_header_image( Image $deprecated ) {
+		_deprecated_function( __METHOD__, 'TBD', 'Sidebar no longer has headers, they can be added to individual sections.' );
 	}
 }

@@ -85,3 +85,14 @@ String.prototype.varName = function () {
  * @type {object}
  */
 var tribe = tribe || {}; // eslint-disable-line no-redeclare
+
+
+/**
+ * Creates a `window.tec` variable where we should start to store all the things.
+ * Eventually we will migrate all the things from `window.tribe` to `window.tec`.
+ *
+ * @since TBD
+ *
+ * @type {object}
+ */
+window.tec = window.tec || {}; // eslint-disable-line no-redeclare
