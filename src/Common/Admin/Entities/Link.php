@@ -54,11 +54,11 @@ class Link extends Base_Entity {
 		$this->url = $url;
 
 		if ( is_string( $content ) ) {
-			$this->text = $content;
-		}
-
-		if ( $content instanceof Base_Entity ) {
+			$this->content = new Plain_Text( $content );
+		} elseif ( $content instanceof Base_Entity ) {
 			$this->content = $content;
+		} else {
+			throw new InvalidArgumentException( 'Content must be a string or an instance of Base_Entity' );
 		}
 
 		if ( $classes ) {
