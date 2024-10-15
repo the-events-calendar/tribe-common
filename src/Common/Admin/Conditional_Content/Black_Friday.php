@@ -85,6 +85,8 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	 * @inheritdoc
 	 */
 	protected function should_display(): bool {
+		return true;
+
 		if ( $this->has_user_dismissed() ) {
 			return false;
 		}
@@ -214,6 +216,13 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	 * @return void
 	 */
 	public function include_sidebar_section( $sidebar ): void {
+		$cache = tribe_cache();
+		if ( $cache[ __METHOD__ ] ) {
+			return;
+		}
+
+		$cache[ __METHOD__ ] = true;
+
 		// Check if the content should currently be displayed.
 		if ( ! $this->should_display() ) {
 			return;
