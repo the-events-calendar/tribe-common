@@ -81,7 +81,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 			return false;
 		}
 
-		if ( tec_should_hide_upsell( 'black-friday-2024' ) ) {
+		if ( tec_should_hide_upsell( $this->slug ) ) {
 			return false;
 		}
 
