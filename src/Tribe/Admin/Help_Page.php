@@ -6,6 +6,7 @@
  * @since 4.0
  */
 
+use TEC\Common\Configuration\Configuration;
 use TEC\Common\Telemetry\Telemetry;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -67,6 +68,7 @@ class Tribe__Admin__Help_Page {
 		$common_telemetry = tribe( Telemetry::class );
 		$is_opted_in      = $common_telemetry->calculate_optin_status();
 		$is_license_valid = Tribe__PUE__Checker::is_any_license_valid();
+		$config           = tribe( Configuration::class );
 
 		// Setup template for help page.
 		$template->set_values(
@@ -75,8 +77,10 @@ class Tribe__Admin__Help_Page {
 				'notice'           => $notice,
 				'is_opted_in'      => $is_opted_in,
 				'is_license_valid' => $is_license_valid,
+				'docsbot_key'      => $config->get( 'docsbot_support_key' ),
 			]
 		);
+
 		$template->set_template_origin( $main );
 		$template->set_template_folder( 'src/admin-views' );
 		$template->set_template_context_extract( true );

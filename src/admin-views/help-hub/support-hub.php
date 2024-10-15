@@ -30,7 +30,10 @@
 		</div>
 		<div class="tec-settings-form__content-section">
 			<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">
-				....
+				<?php
+				$this->template( 'help-hub/support-hub-docsbot' );
+				?>
+
 			</h3>
 		</div>
 	</div>
