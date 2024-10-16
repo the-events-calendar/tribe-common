@@ -20,6 +20,29 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Tribe__Admin__Help_Page {
 	//phpcs:ignore - legacy class naming.
+
+	/**
+	 * @since TBD
+	 *
+	 * @var Configuration The configuration object.
+	 */
+	protected Configuration $config;
+
+	/**
+	 * Initialize any required vars.
+	 */
+	public function __construct() {
+		$this->config = tribe( Configuration::class );
+
+		if ( ! defined( 'DOCSBOT_SUPPORT_KEY' ) ) {
+			// @todo Need key
+			define( 'DOCSBOT_SUPPORT_KEY', '' );
+		}
+		if ( ! defined( 'ZENDESK_CHAT_KEY' ) ) {
+			define( 'ZENDESK_CHAT_KEY', '' );
+		}
+	}
+
 	/**
 	 * Static Singleton Factory Method
 	 *
@@ -68,7 +91,7 @@ class Tribe__Admin__Help_Page {
 		$common_telemetry = tribe( Telemetry::class );
 		$is_opted_in      = $common_telemetry->calculate_optin_status();
 		$is_license_valid = Tribe__PUE__Checker::is_any_license_valid();
-		$config           = tribe( Configuration::class );
+		$zendesk_chat_key = $this->config->get( 'ZENDESK_CHAT_KEY' );
 
 		// Setup template for help page.
 		$template->set_values(
@@ -77,7 +100,7 @@ class Tribe__Admin__Help_Page {
 				'notice'           => $notice,
 				'is_opted_in'      => $is_opted_in,
 				'is_license_valid' => $is_license_valid,
-				'docsbot_key'      => $config->get( 'docsbot_support_key' ),
+				'zendesk_chat_key' => $zendesk_chat_key,
 			]
 		);
 
@@ -87,8 +110,6 @@ class Tribe__Admin__Help_Page {
 		$template->set_template_folder_lookup( false );
 		$template->template( 'help-hub' );
 	}
-
-
 
 	/**
 	 * Set up hooks.
@@ -225,6 +246,7 @@ class Tribe__Admin__Help_Page {
 				'localize'     => [
 					'name' => 'tribe_system_info',
 					'data' => [
+						'docsbot_key'                => $this->config->get( 'DOCSBOT_SUPPORT_KEY' ),
 						'sysinfo_optin_nonce'        => wp_create_nonce( 'sysinfo_optin_nonce' ),
 						'clipboard_btn_text'         => _x( 'Copy to clipboard', 'Copy to clipboard button text.', 'tribe-common' ),
 						'clipboard_copied_text'      => _x( 'System info copied', 'Copy to clipboard success message', 'tribe-common' ),

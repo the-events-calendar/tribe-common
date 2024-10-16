@@ -14,7 +14,33 @@ tribe.helpPage = tribe.helpPage || {};
 		obj.setupSystemInfo();
 		obj.setupCopyButton();
 		obj.setupTabs();
+		obj.setupChat();
 	};
+
+	/**
+	 * Initializes chat widgets if on correct page.
+	 */
+	obj.setupChat = function () {
+		if ( ! zE ) {
+			return;
+		}
+
+		// On page load always close widget (it will be opened later).
+		zE( 'messenger', 'hide' );
+
+		// Initialize DocsBot.
+		DocsBotAI.init(
+			{
+				id: tribe_system_info.docsbot_key,
+				supportCallback: function (event, history) {
+					event.preventDefault(); // Prevent default behavior opening the url.
+					DocsBotAI.unmount(); // Hide the DocsBot widget.
+					// Open the Zendesk Web Widget.
+					zE( 'messenger', 'show' );
+				},
+			}
+		);
+	}
 
 	/**
 	 * Will setup any accordions that are children of the parent node.
