@@ -27,6 +27,7 @@ const Heading = ( { level, children, className } ) => {
 Heading.propTypes = {
 	children: PropTypes.node.isRequired,
 	level: PropTypes.oneOf( [ 1, 2, 3, 4, 5, 6 ] ).isRequired,
+	className: PropTypes.string,
 };
 
 export default Heading;
