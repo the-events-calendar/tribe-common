@@ -2,10 +2,12 @@
 
 = [6.1.1] 2024-10-17 =
 
-* Fix - allow more svg attributes through the fields sanitization. [BTPLAN-200]
+* Fix - Allow more svg attributes through the fields sanitization. [BTPLAN-200]
 * Tweak - Added filters: `tec_settings_sidebar_sections`
 * Tweak - Removed filters: `tribe_black_friday_start_time`, `tribe_black_friday_end_time`
 * Tweak - Added actions: `tec_conditional_content_black_friday`
+* Deprecated - Removed deprecated classes: `Tribe\Admin\Notice\Marketing`, `Tribe\Admin\Notice\Marketing\Black_Friday`, `Tribe\Admin\Notice\Marketing\End_Of_Year_Sale`, `Tribe\Admin\Notice\Marketing\Stellar_Sale`, `Tribe\Admin\Notice\Conditional_Content\`, `Tribe\Admin\Notice\Marketing\Black_Friday`, `Tribe\Admin\Notice\Marketing\End_Of_Year_Sale`, `Tribe\Admin\Notice\Marketing\Stellar_Sale`
+* Language - 1 new strings added, 44 updated, 1 fuzzied, and 22 obsoleted
 
 = [6.1.0] 2024-09-26 =
 
