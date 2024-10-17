@@ -191,7 +191,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * @var string The transient key.
 		 */
-		public const IS_ANY_LICENSE_VALID_TRANSIENT_KEY = 'IS_ANY_LICENSE_VALID_TRANSIENT';
+		public const IS_ANY_LICENSE_VALID_TRANSIENT_KEY = 'TEC_IS_ANY_LICENSE_VALID_TRANSIENT';
 
 		/**
 		 * Class constructor.
