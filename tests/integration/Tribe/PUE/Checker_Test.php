@@ -3,9 +3,12 @@
 namespace Tribe\PUE;
 
 use TEC\Common\Tests\Licensing\PUE_Service_Mock;
+use Tribe\Tests\Traits\With_Uopz;
 use Tribe__PUE__Checker as PUE_Checker;
 
 class Checker_Test extends \Codeception\TestCase\WPTestCase {
+	use With_Uopz;
+
 	/**
 	 * @var PUE_Service_Mock
 	 */
@@ -104,7 +107,31 @@ class Checker_Test extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $replacement_key, $pue_instance->get_key() );
 	}
 
-	public function test_replacemnt_key_update_in_multisite_context(): void {
+	/**
+	 * Check that the is_any_license_valid can reference the Checker instance and validate the key.
+	 *
+	 * @test
+	 */
+	public function should_validate_any_license(): void {
+		// At least one registered.
+		new PUE_Checker( 'deprecated', 'test-plugin', [], 'test-plugin/test-plugin.php' );
 
+		// Checker local valid key should precede anything else and flag valid.
+		$this->set_class_fn_return( \Tribe__PUE__Checker::class, 'is_key_valid', true );
+		$valid = PUE_Checker::is_any_license_valid();
+		$this->assertTrue( $valid );
+
+		// Checker will be invalid if the local is invalid and no valid license to use for a request.
+		delete_transient(PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+		$this->set_class_fn_return( PUE_Checker::class, 'is_key_valid', false );
+		$valid = PUE_Checker::is_any_license_valid();
+		$this->assertFalse( $valid );
+
+		// Now mock a valid response when validating a key.
+		delete_transient(PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+		$response = [ 'status' => 1 ];
+		$this->set_class_fn_return( PUE_Checker::class, 'validate_key', $response );
+		$valid = PUE_Checker::is_any_license_valid();
+		$this->assertTrue( $valid );
 	}
 }

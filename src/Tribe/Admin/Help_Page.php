@@ -6,6 +6,9 @@
  * @since 4.0
  */
 
+use TEC\Common\Configuration\Configuration;
+use TEC\Common\Telemetry\Telemetry;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -17,6 +20,29 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Tribe__Admin__Help_Page {
 	//phpcs:ignore - legacy class naming.
+
+	/**
+	 * @since TBD
+	 *
+	 * @var Configuration The configuration object.
+	 */
+	protected Configuration $config;
+
+	/**
+	 * Initialize any required vars.
+	 */
+	public function __construct() {
+		$this->config = tribe( Configuration::class );
+
+		if ( ! defined( 'DOCSBOT_SUPPORT_KEY' ) ) {
+			// @todo Need key
+			define( 'DOCSBOT_SUPPORT_KEY', '' );
+		}
+		if ( ! defined( 'ZENDESK_CHAT_KEY' ) ) {
+			define( 'ZENDESK_CHAT_KEY', '' );
+		}
+	}
+
 	/**
 	 * Static Singleton Factory Method
 	 *
@@ -35,15 +61,55 @@ class Tribe__Admin__Help_Page {
 		$main     = Tribe__Main::instance();
 		$template = new \Tribe__Template();
 
-		$template->set_values( [ 'main' => $main ] );
+		// Setup our admin notice.
+		$notice_slug    = 'tec-common-help-chatbot-notice';
+		$notice_content = sprintf(
+			// translators: 1: the opening tag to the chatbot link, 2: the closing tag.
+			_x(
+				'To find the answer to all your questions use the %1$sTEC Chatbot%2$s',
+				'The callout notice to try the chatbot with a link to the page',
+				'tribe-common'
+			),
+			'<a data-tab-target="tec-help-tab" href="javascript:void(0);">',
+			'</a>'
+		);
+
+		// Our notices.
+		tribe_transient_notice(
+			$notice_slug,
+			"<p>$notice_content</p>",
+			[
+				'type'     => 'info',
+				'dismiss'  => true,
+				'priority' => 1,
+				'inline'   => true,
+			],
+			YEAR_IN_SECONDS
+		);
+
+		$notice           = Tribe__Admin__Notices::instance()->render( $notice_slug );
+		$common_telemetry = tribe( Telemetry::class );
+		$is_opted_in      = $common_telemetry->calculate_optin_status();
+		$is_license_valid = Tribe__PUE__Checker::is_any_license_valid();
+		$zendesk_chat_key = $this->config->get( 'ZENDESK_CHAT_KEY' );
+
+		// Setup template for help page.
+		$template->set_values(
+			[
+				'main'             => $main,
+				'notice'           => $notice,
+				'is_opted_in'      => $is_opted_in,
+				'is_license_valid' => $is_license_valid,
+				'zendesk_chat_key' => $zendesk_chat_key,
+			]
+		);
+
 		$template->set_template_origin( $main );
 		$template->set_template_folder( 'src/admin-views' );
 		$template->set_template_context_extract( true );
 		$template->set_template_folder_lookup( false );
 		$template->template( 'help-hub' );
 	}
-
-
 
 	/**
 	 * Set up hooks.
@@ -58,7 +124,7 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-	 * Enqueue the help page assets.
+	 * Enqueue the Help page assets.
 	 *
 	 * @since TBD
 	 */
@@ -74,6 +140,9 @@ class Tribe__Admin__Help_Page {
 			null,
 			'admin_enqueue_scripts'
 		);
+
+		// Add the built-in accordion.
+		wp_enqueue_script( 'jquery-ui-accordion' );
 	}
 
 	/**
@@ -158,7 +227,7 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-	 * Register the Admin assets for the help page
+	 * Register the Admin assets for the Help and Troubleshooting pages
 	 *
 	 * @since  4.9.12
 	 *
@@ -177,6 +246,7 @@ class Tribe__Admin__Help_Page {
 				'localize'     => [
 					'name' => 'tribe_system_info',
 					'data' => [
+						'docsbot_key'                => $this->config->get( 'DOCSBOT_SUPPORT_KEY' ),
 						'sysinfo_optin_nonce'        => wp_create_nonce( 'sysinfo_optin_nonce' ),
 						'clipboard_btn_text'         => _x( 'Copy to clipboard', 'Copy to clipboard button text.', 'tribe-common' ),
 						'clipboard_copied_text'      => _x( 'System info copied', 'Copy to clipboard success message', 'tribe-common' ),
