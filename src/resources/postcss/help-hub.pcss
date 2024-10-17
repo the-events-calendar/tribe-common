@@ -6,42 +6,99 @@ li.tec-nav__tab {
 	cursor: pointer;
 }
 
-/* @todo Potential generic CSS styles - to be fully implemented elsewhere or hardened to this specific page */
+.tec-tab-container {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	padding-bottom: var(--tec-spacer-7);
+}
 
-@media (min-width: 1400px) {
-	.tec-container, .tec-container-lg, .tec-container-md, .tec-container-sm, .tec-container-xl, .tec-container-xxl {
-		max-width: 1320px;
+.tec-help-list__list-expanded li {
+	list-style: none;
+	height: 36px;
+	line-height: 36px;
+}
+.tec-help-list__list-expanded .tec-help-list__icon-expanded {
+	height: 24px;
+	margin-bottom: -6px;
+	margin-right: 8px;
+}
 
-		--bs-gutter-x: 1.5rem;
-		--bs-gutter-y: 0;
-		width: 100%;
-		padding-right: calc(1.5rem * .5);
-		padding-left: calc(1.5rem * .5);
-		margin-right: auto;
-		margin-left: auto;
+@media (min-width: 1024px) {
+	.tribe_events_page_tec-events-settings #tec-settings-form .tec-settings-form__content-section,
+	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__content-section {
+		--tec-spacer-settings-form-width-left-col: 318px;
 	}
 }
 
-	.tec-row {
-		--bs-gutter-x: 1.5rem;
-		--bs-gutter-y: 0;
-		display: flex;
-		flex-wrap: wrap;
-		margin-top: calc(-1* 0rem);
-		margin-right: calc(-.5* 1.5rem);
-		margin-left: calc(-.5* 1.5rem);
-	}
 
-	.tec-row > * {
-		flex-shrink: 0;
-		width: 100%;
-		max-width: 100%;
-		padding-right: calc(1.5rem * .5);
-		padding-left: calc(1.5rem * .5);
-		margin-top: 0;
-	}
+.tec-settings-form__sidebar.tec-help-resources__sidebar {
+	border: none;
+	background-color: transparent;
+}
 
-	.tec-col {
-		flex: 1 0 0%;
-	}
+.tec-settings__sidebar-inner {
+	width: 100%;
+	border: 1px solid var(--tec-admin-core-grey-10);
+	background-color: var(--tec-admin-core-grey-0);
+	border-radius: var(--tec-border-radius-default);
+	padding: var(--tec-spacer-4);
+}
 
+.tec-settings__sidebar-icon-wrap {
+	display: grid;
+	grid-template-columns: 38px 1fr;
+
+	.tec-settings__sidebar-icon-wrap-content {
+		margin-left: 12px !important;
+	}
+}
+
+.tec-help-list__list-expanded {
+	width: 100%;
+	max-width: 100% !important;
+	font-size: var(--tec-font-size-2);
+}
+.tec-settings-form {
+	padding-bottom: var(--tec-spacer-settings-form-col-gap) !important;
+}
+.tec-ui-accordion {
+	max-width: 100% !important;
+}
+/* Accordion Style */
+.tec-ui-accordion * {
+	box-sizing: content-box;
+}
+.ui-accordion .ui-accordion-header {
+	display: block;
+	cursor: pointer;
+	position: relative;
+	margin: 0;
+	padding: var(--tec-spacer-1) var(--tec-spacer-2) var(--tec-spacer-1) var(--tec-spacer-1);
+	font-size: 100%;
+	border-bottom: 1px solid var(--tec-admin-core-grey-10);
+	font-weight: normal;
+}
+.ui-accordion .ui-accordion-content {
+	padding: 1em 2.2em;
+	border-top: 0;
+	overflow: auto;
+}
+.ui-state-active .ui-icon {
+	background-image: url(../images/icons/caret-down.svg);
+}
+.ui-icon {
+	background-image: url(../images/icons/caret-right.svg);
+	background-size: contain;
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-top: -.25em;
+	position: absolute;
+	right: 0;
+	top: 15px;
+	text-indent: -99999px;
+	overflow: hidden;
+	background-repeat: no-repeat;
+}
