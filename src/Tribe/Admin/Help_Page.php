@@ -7,6 +7,8 @@
  */
 
 use TEC\Common\Configuration\Configuration;
+use TEC\Common\StellarWP\AdminNotices\AdminNotice;
+use TEC\Common\StellarWP\AdminNotices\AdminNotices;
 use TEC\Common\Telemetry\Telemetry;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -58,9 +60,6 @@ class Tribe__Admin__Help_Page {
 	 * @since TBD
 	 */
 	public function do_help_tab() {
-		$main     = Tribe__Main::instance();
-		$template = new \Tribe__Template();
-
 		// Setup our admin notice.
 		$notice_slug    = 'tec-common-help-chatbot-notice';
 		$notice_content = sprintf(
@@ -75,19 +74,16 @@ class Tribe__Admin__Help_Page {
 		);
 
 		// Our notices.
-		tribe_transient_notice(
-			$notice_slug,
-			"<p>$notice_content</p>",
-			[
-				'type'     => 'info',
-				'dismiss'  => true,
-				'priority' => 1,
-				'inline'   => true,
-			],
-			YEAR_IN_SECONDS
-		);
+		$notice_admin = ( new AdminNotice( $notice_slug, "<p>$notice_content</p>" ) )
+			->urgency( 'info' )
+			->inline()
+			->dismissible()
+			->withWrapper();
+		$notice_html  = AdminNotices::render( $notice_admin, false );
 
-		$notice           = Tribe__Admin__Notices::instance()->render( $notice_slug );
+		// Our template vars.
+		$main             = Tribe__Main::instance();
+		$template         = new \Tribe__Template();
 		$common_telemetry = tribe( Telemetry::class );
 		$is_opted_in      = $common_telemetry->calculate_optin_status();
 		$is_license_valid = Tribe__PUE__Checker::is_any_license_valid();
@@ -97,7 +93,7 @@ class Tribe__Admin__Help_Page {
 		$template->set_values(
 			[
 				'main'             => $main,
-				'notice'           => $notice,
+				'notice'           => $notice_html,
 				'is_opted_in'      => $is_opted_in,
 				'is_license_valid' => $is_license_valid,
 				'zendesk_chat_key' => $zendesk_chat_key,
