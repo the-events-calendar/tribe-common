@@ -52,7 +52,7 @@ $chat_icon_url  = tribe_resource_url( 'images/icons/chat-bubble.svg', false, nul
 					?>
 				</p>
 				<p>
-					<a href="javascript:void(0)">
+					<a data-open-support-chat="" href="javascript:void(0)">
 						<?php
 						echo esc_html_x(
 							'Contact support',
