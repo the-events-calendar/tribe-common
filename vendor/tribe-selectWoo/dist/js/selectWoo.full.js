@@ -988,10 +988,16 @@ S2.define('select2/results',[
 
       option.setAttribute(attr, val);
     }
+	var $option = $(option);
+
+    $option.on( 'blur', function() {
+	  	$option.attr( 'data-selected', 'false' );
+    });
+	$option.on( 'focus', function() {
+		$option.attr( 'data-selected', 'true' );
+	});
 
     if (data.children) {
-      var $option = $(option);
-
       var label = document.createElement('strong');
       label.className = 'select2-results__group';
 
@@ -4037,16 +4043,20 @@ S2.define('select2/dropdown/search',[
 	  if (key === KEYS.TAB) {
 		  return;
 	  }
+	  if (key === KEYS.ENTER) {
+		  console.log(container, $(container.$results).find('.select2-results__option').is(':focus'))
+		  return;
+	  }
       self.handleSearch(evt);
     });
 
     container.on('open', function () {
       self.$search.attr('tabindex', 0);
       self.$search.attr('aria-owns', resultsId);
-      self.$search.trigger( 'focus' );
+ //     self.$search.trigger( 'focus' );
 
       window.setTimeout(function () {
-        self.$search.trigger( 'focus' );
+   //     self.$search.trigger( 'focus' );
       }, 0);
     });
 
