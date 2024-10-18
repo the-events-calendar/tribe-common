@@ -295,16 +295,16 @@
         },
         {
             "name": "stellarwp/admin-notices",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/admin-notices.git",
-                "reference": "e95e6d2268316412e5d8f4b88539e3593129905e"
+                "reference": "63a51add8ebd81c4b83b8b2fb520ce5f79ce24e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/admin-notices/zipball/e95e6d2268316412e5d8f4b88539e3593129905e",
-                "reference": "e95e6d2268316412e5d8f4b88539e3593129905e",
+                "url": "https://api.github.com/repos/stellarwp/admin-notices/zipball/63a51add8ebd81c4b83b8b2fb520ce5f79ce24e4",
+                "reference": "63a51add8ebd81c4b83b8b2fb520ce5f79ce24e4",
                 "shasum": ""
             },
             "require": {
@@ -342,9 +342,9 @@
             "description": "A handy package for easily displaying admin notices in WordPress with simple to complex visibility conditions",
             "support": {
                 "issues": "https://github.com/stellarwp/admin-notices/issues",
-                "source": "https://github.com/stellarwp/admin-notices/tree/1.1.0"
+                "source": "https://github.com/stellarwp/admin-notices/tree/1.2.0"
             },
-            "time": "2024-10-16T19:05:13+00:00"
+            "time": "2024-10-17T18:29:35+00:00"
         },
         {
             "name": "stellarwp/assets",
