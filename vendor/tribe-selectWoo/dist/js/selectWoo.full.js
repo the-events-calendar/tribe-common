@@ -4043,10 +4043,6 @@ S2.define('select2/dropdown/search',[
 	  if (key === KEYS.TAB) {
 		  return;
 	  }
-	  if (key === KEYS.ENTER) {
-		  console.log(container, $(container.$results).find('.select2-results__option').is(':focus'))
-		  return;
-	  }
       self.handleSearch(evt);
     });
 
