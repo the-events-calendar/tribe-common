@@ -1,8 +1,10 @@
 == Changelog ==
 
-= [6.1.1] 2024-10-17 =
+= [6.2.0] 2024-10-17 =
 
+* Feature - New Conditional Content supporting classes with available Traits for User targeted Dismissal.
 * Fix - Allow more svg attributes through the fields sanitization. [BTPLAN-200]
+* Tweak - Remove all of the deprecated Marketing related classes and files, as they are no longer used.
 * Tweak - Added filters: `tec_settings_sidebar_sections`
 * Tweak - Removed filters: `tribe_black_friday_start_time`, `tribe_black_friday_end_time`
 * Tweak - Added actions: `tec_conditional_content_black_friday`
