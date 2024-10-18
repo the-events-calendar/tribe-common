@@ -10,6 +10,7 @@
 namespace Tribe\Admin\Notice;
 
 use TEC\Common\Contracts\Service_Provider as Provider_Contract;
+use TEC\Common\StellarWP\AdminNotices\AdminNotices;
 
 /**
  * Class Notice
@@ -31,6 +32,10 @@ class Service_Provider extends Provider_Contract {
 		tribe_singleton( WP_Version::class, WP_Version::class, [ 'hook' ] );
 		tribe_singleton( 'admin.notice.php.version', \Tribe__Admin__Notice__Php_Version::class, [ 'hook' ] );
 		tribe_singleton( Marketing\Stellar_Sale::class, Marketing\Stellar_Sale::class, [ 'hook' ] );
+		AdminNotices::initialize(
+			'tec_common',
+			plugin_dir_url( \Tribe__Main::instance()->plugin_path ) . 'common/vendor/vendor-prefixed/stellarwp/admin-notices'
+		);
 
 		$this->hooks();
 	}
