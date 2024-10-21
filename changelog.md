@@ -2,7 +2,7 @@
 
 ### [6.1.1] 2024-10-17
 
-* Fix - allow more svg attributes through the fields sanitization. [BTPLAN-200]
+* Fix - allow more svg attributes through the fields sanitization. [TEC-5282]
 
 ### [6.1.0] 2024-09-26
 
@@ -17,7 +17,7 @@
 
 * Feature - Adding the method `tec_copy_to_clipboard_button` which can be used to print a button which on click would copy a text to the user's clipboard. [ET-2158]
 * Fix - Bug when term slugs were numeric.
-* Fix - Optimized prime_term_cache to return early when no posts are provided [TECTRIA-229]
+* Fix - Optimized prime_term_cache to return early when no posts are provided [TEC-5150]
 
 ### [6.0.0.2] 2024-07-24
 
@@ -46,26 +46,26 @@
 
 ### [5.3.0.5] 2024-07-11
 
-* Fix - Ensure compatibility with WordPress 6.6 for removed polyfill `regenerator-runtime`. [TECTRIA-149]
+* Fix - Ensure compatibility with WordPress 6.6 for removed polyfill `regenerator-runtime`. [TEC-5120]
 
 ### [5.3.0.4] 2024-06-18
 
-* Fix - In installations where the plugins or wp-content directories were symbolic linked, assets would fail to be located. [TECTRIA-91]
+* Fix - In installations where the plugins or wp-content directories were symbolic linked, assets would fail to be located. [TEC-5106]
 * Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
 
 ### [5.3.0.3] 2024-06-14
 
-* Fix - Issue where scripts would not be enqueued as modules. [TECTRIA-86]
+* Fix - Issue where scripts would not be enqueued as modules. [ET-2136]
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 ### [5.3.0.2] 2024-06-14
 
-* Fix - Windows Server compatibility issues with updated Assets handling. [TECTRIA-83]
+* Fix - Windows Server compatibility issues with updated Assets handling. [TEC-5104]
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 ### [5.3.0.1] 2024-06-13
 
-* Fix - Issue on which some assets (css,js) would not be located in WP installs which could have some WP constant modified (WP_CONTENT_DIR, WP_PLUGIN_DIR)[TECTRIA-83]
+* Fix - Issue on which some assets (css,js) would not be located in WP installs which could have some WP constant modified (WP_CONTENT_DIR, WP_PLUGIN_DIR)[TEC-5104]
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 ### [5.3.0] 2024-06-11
