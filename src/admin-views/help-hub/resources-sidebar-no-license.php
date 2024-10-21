@@ -35,7 +35,7 @@ $chat_icon_url  = tribe_resource_url( 'images/icons/chat-bubble.svg', false, nul
 						?>
 					</p>
 					<p>
-						<a data-tab-target="tec-help-tab" href="javascript:void(0)">
+						<a data-tab-target="tec-help-tab" href="javascript:void(0);">
 							<?php
 							echo esc_html_x(
 								'Talk to TEC Chatbot',
