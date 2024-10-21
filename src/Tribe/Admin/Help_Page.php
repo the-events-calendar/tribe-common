@@ -69,7 +69,7 @@ class Tribe__Admin__Help_Page {
 				'The callout notice to try the chatbot with a link to the page',
 				'tribe-common'
 			),
-			'<a data-tab-target="tec-help-tab" href="javascript:void(0);">',
+			'<a data-tab-target="tec-help-tab" href="#">',
 			'</a>'
 		);
 
