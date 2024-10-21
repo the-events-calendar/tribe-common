@@ -8,7 +8,6 @@
  * @var string $zendesk_chat_key The zendesk chat ID.
  */
 
-
 ?>
 <div id="docsbot-widget-embed" style="height: 600px; max-height:100vh;"></div>
 <!-- Start of Zendesk Widget script -->

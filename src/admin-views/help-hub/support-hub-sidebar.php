@@ -2,9 +2,9 @@
 /**
  * The template that displays the support hub sidebar.
  *
- * @var Tribe__Template $this  The template object.
- * @var bool $is_opted_in      Whether the user has opted in to telemetry.
- * @var bool $is_license_valid Whether the user has any valid licenses.
+ * @var Tribe__Template $this             The template object.
+ * @var bool            $is_opted_in      Whether the user has opted in to telemetry.
+ * @var bool            $is_license_valid Whether the user has any valid licenses.
  */
 
 if ( $is_license_valid ) {

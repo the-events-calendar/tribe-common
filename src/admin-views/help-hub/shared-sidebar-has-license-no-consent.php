@@ -2,9 +2,9 @@
 /**
  * The template that displays the resources and support hub sidebar.
  *
- * @var Tribe__Main $main      The main common object.
- * @var bool $is_opted_in      Whether the user has opted in to telemetry.
- * @var bool $is_license_valid Whether the user has any valid licenses.
+ * @var Tribe__Main $main             The main common object.
+ * @var bool        $is_opted_in      Whether the user has opted in to telemetry.
+ * @var bool        $is_license_valid Whether the user has any valid licenses.
  */
 
 $stars_icon_url = tribe_resource_url( 'images/icons/stars.svg', false, null, $main );
@@ -37,8 +37,8 @@ $optin_url      = admin_url( 'edit.php?page=tec-events-settings&tab=general-debu
 		<div class="tec-settings__sidebar-icon-wrap">
 			<div>
 				<img class="tec-settings-infobox-logo"
-					 src="<?php echo esc_url( $stars_icon_url ); ?>"
-					 alt="AI chat bot logo"
+					src="<?php echo esc_url( $stars_icon_url ); ?>"
+					alt="AI chat bot logo"
 				>
 			</div>
 			<div class="tec-settings__sidebar-icon-wrap-content">
@@ -65,8 +65,8 @@ $optin_url      = admin_url( 'edit.php?page=tec-events-settings&tab=general-debu
 		<div class="tec-settings__sidebar-icon-wrap">
 			<div>
 				<img class="tec-settings-infobox-logo"
-					 src="<?php echo esc_url( $chat_icon_url ); ?>"
-					 alt="Support chat logo"
+					src="<?php echo esc_url( $chat_icon_url ); ?>"
+					alt="Support chat logo"
 				>
 			</div>
 			<div class="tec-settings__sidebar-icon-wrap-content">
