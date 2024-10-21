@@ -242,7 +242,12 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$class = empty( $args['class'] ) ? '' : $this->sanitize_class_attribute( $args['class'] );
 			$label      = is_null( $args['label'] ) ? null : wp_kses(
 				$args['label'], [
-					'a'      => [ 'href' => [], 'title' => [] ],
+					'a'      => [
+						'href' => [],
+						'title' => [],
+						'class' => [],
+						'style'  => [],
+					],
 					'br'     => [],
 					'em'     => [],
 					'strong' => [],
@@ -254,13 +259,23 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 						'src'   => [],
 						'alt'   => [],
 					],
-					'span'      => [ 'class' => [] ],
+					'span'      => [
+						'class' => [],
+						'style' => [],
+					],
 				]
 			);
 			$label_attributes = $args['label_attributes'];
 			$tooltip    = is_null( $args['tooltip'] ) ? null : wp_kses(
 				$args['tooltip'], [
-					'a'      => [  'class' => [], 'href' => [], 'title' => [], 'target' => [], 'rel' => [] ],
+					'a'      => [
+						'class'  => [],
+						'href'   => [],
+						'title'  => [],
+						'target' => [],
+						'rel'    => [],
+						'style'  => [],
+					],
 					'br'     => [],
 					'em'     => [ 'class' => [] ],
 					'strong' => [ 'class' => [] ],
@@ -272,9 +287,15 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 						'title' => [],
 						'src'   => [],
 						'alt'   => [],
+						'style' => [],
 					],
-					'code'   => [ 'span' => [] ],
-					'span'   => [ 'class' => [] ],
+					'code'   => [
+						'class' => [],
+						'style' => [],],
+					'span'   => [
+						'class' => [],
+						'style' => [],
+					],
 				]
 			);
 			$fieldset_attributes = [];
@@ -441,13 +462,31 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 					);
 
 					$tags['input']    = $common_attributes;
+					$tags['span']     = [
+						'class' => true,
+						'style' => true,
+					];
 					$tags['textarea'] = $common_attributes;
 					$tags['select']   = $common_attributes;
 					$tags['option']   = $common_attributes;
 					$tags['fieldset'] = _wp_add_global_attributes( [] );
-					// Allow svgs and paths for icons.
-					$tags['svg']      = _wp_add_global_attributes( [ 'fill' => [], 'xmlns' => [], 'viewbox' => [] ] );
-					$tags['path']	  = [ 'd' => [], 'fill' => [] ];
+					// Allow svg and paths for icons.
+					$tags['svg']      = _wp_add_global_attributes(
+						[
+							'fill'    => [],
+							'g'	      => [],
+							'height'  => [],
+							'viewbox' => [],
+							'width'   => [],
+							'xmlns'   => [],
+						]
+					);
+					$tags['path']	  = [
+						'd'              => [],
+						'fill'           => [],
+						'stroke'         => [],
+						'stroke-linecap' => [],
+					];
 
 					// Allow the script and template tags for HTML fields (inserting script localization, js templates).
 					if ( $this->type === 'html' || $this->type === 'wrapped_html' ) {

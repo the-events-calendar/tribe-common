@@ -734,6 +734,7 @@ class Tribe__Settings {
 		if ( $saving ) {
 			wp_nonce_field( 'saving', 'tribe-save-settings' );
 		}
+
 		$current_tab = $this->get_current_tab();
 		if ( empty( $this->get_tab( $current_tab ) ) ) {
 			return;
@@ -1244,8 +1245,7 @@ class Tribe__Settings {
 				// Figure out the parent option [could be set to false] and filter it.
 				if ( is_network_admin() ) {
 					$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : Tribe__Main::OPTIONNAMENETWORK;
-				}
-				if ( ! is_network_admin() ) {
+				} else {
 					$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : Tribe__Main::OPTIONNAME;
 				}
 
