@@ -19,8 +19,8 @@ $chat_icon_url  = tribe_resource_url( 'images/icons/chat-bubble.svg', false, nul
 		<div class="tec-settings__sidebar-icon-wrap">
 			<div>
 				<img class="tec-settings-infobox-logo"
-					 src="<?php echo esc_url( $stars_icon_url ); ?>"
-					 alt="AI chat bot logo"
+					src="<?php echo esc_url( $stars_icon_url ); ?>"
+					alt="AI chat bot logo"
 				>
 			</div>
 			<div class="tec-settings__sidebar-icon-wrap-content">
