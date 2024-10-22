@@ -22,7 +22,9 @@ tribe.helpPage = tribe.helpPage || {};
 	 * Initializes chat widgets if on correct page.
 	 */
 	obj.setupChat = function () {
-
+		if ( ! zE ) {
+			return;
+		}
 
 		$( obj.selectors.openSupportChat ).on(
 			'click',
@@ -32,6 +34,17 @@ tribe.helpPage = tribe.helpPage || {};
 			}
 		);
 
+		// When we close the chat, let's hide it completely until they click "support" link.
+		zE(
+			"messenger:on",
+			"close",
+			function () {
+				zE( 'messenger', 'hide' );
+			}
+		);
+
+		// On page load always close widget (it will be opened later).
+		zE( 'messenger', 'hide' );
 
 		// Initialize DocsBot.
 		DocsBotAI.init(
@@ -50,7 +63,8 @@ tribe.helpPage = tribe.helpPage || {};
 	 * Open the support chat.
 	 */
 	obj.openSupportChat = function () {
-
+		zE( 'messenger', 'show' );
+		zE( 'messenger', 'open' );
 	}
 
 	/**
