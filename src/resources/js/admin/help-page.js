@@ -9,19 +9,23 @@ tribe.helpPage = tribe.helpPage || {};
 		autoInfoOptIn: '#tribe_auto_sysinfo_opt_in',
 		accordion: '.tec-ui-accordion',
 		openSupportChat: '[data-open-support-chat]',
+		helpHubIframe: '#tec-settings__support-hub-iframe',
 	};
 
 	obj.setup = function () {
 		obj.setupSystemInfo();
 		obj.setupCopyButton();
 		obj.setupTabs();
-		obj.setupChat();
+		//obj.setupChat();
+		obj.IframeZendeskClickHandler();
 	};
 
 	/**
 	 * Initializes chat widgets if on correct page.
+	 * TODO redscar - This logic may go away.
 	 */
 	obj.setupChat = function () {
+		return;
 		if ( ! zE ) {
 			return;
 		}
@@ -61,11 +65,47 @@ tribe.helpPage = tribe.helpPage || {};
 
 	/**
 	 * Open the support chat.
+	 * TODO redscar - This logic may go away.
 	 */
 	obj.openSupportChat = function () {
 		zE( 'messenger', 'show' );
 		zE( 'messenger', 'open' );
 	}
+
+	/**
+	 * Sends a message to the iframe.
+	 *
+	 * @param {Object} message - The message object containing action and data.
+	 */
+	obj.sendMessageToIframe = function ( message ) {
+		// Ensure the iframe has been loaded and is accessible.
+		if ( document.querySelector( obj.selectors.helpHubIframe ).contentWindow ) {
+			document.querySelector( obj.selectors.helpHubIframe ).contentWindow.postMessage( message, window.origin );
+		}
+	}
+
+	/**
+	 * Event listener callback for sending messages, to open Zendesk chat.
+	 * Triggers when the specified trigger element is clicked.
+	 *
+	 * @param {Event} event - The click event object.
+	 */
+	obj.openZendeskInIframe = function ( event ) {
+		event.preventDefault();
+
+		// Example message to send to the iframe.
+		const message = { action: 'runScript', data: 'openZendesk' };
+
+		// Send the message to the iframe.
+		obj.sendMessageToIframe( message );
+	}
+
+	obj.IframeZendeskClickHandler = function () {
+		document.querySelector( obj.selectors.openSupportChat )
+			.addEventListener( 'click', ( event ) => obj.openZendeskInIframe( event ) );
+	}
+
+
 
 	/**
 	 * Will setup any accordions that are children of the parent node.

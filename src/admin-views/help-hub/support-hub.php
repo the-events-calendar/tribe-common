@@ -29,12 +29,13 @@
 			</p>
 		</div>
 		<div class="tec-settings-form__content-section">
-			<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">
+			<div>
 				<?php
-				$this->template( 'help-hub/support-hub-docsbot' );
+				//$this->template( 'help-hub/support-hub-docsbot' );
+				$this->template( 'help-hub/support-hub-iframe' );
 				?>
+			</div>
 
-			</h3>
 		</div>
 	</div>
 </div>

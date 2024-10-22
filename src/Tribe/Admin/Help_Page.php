@@ -116,8 +116,72 @@ class Tribe__Admin__Help_Page {
 		if ( is_admin() ) {
 			add_action( 'admin_enqueue_scripts', [ $this, 'load_assets' ], 1 );
 			add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
+			add_action( 'admin_init', [ $this, 'generate_iframe_content' ] );
 		}
 	}
+
+	/**
+	 * Generates and outputs the iframe content.
+	 *
+	 * This function checks if the current page is the 'tec-events-help-hub' page and if the 'embedded_content'
+	 * parameter is present. If both conditions are met, it outputs the iframe content. Otherwise, it returns early
+	 * without rendering anything.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function generate_iframe_content() {
+		$page   = tribe_get_request_var( 'page' );
+		$iframe = tribe_get_request_var( 'embedded_content' );
+
+		// Return early if $page is empty or not 'tec-events-help-hub', or if $iframe is empty.
+		if ( empty( $page ) || 'tec-events-help-hub' !== $page || empty( $iframe ) ) {
+			return;
+		}
+
+		$main              = Tribe__Main::instance();
+		$template          = new \Tribe__Template();
+		$common_telemetry  = tribe( Telemetry::class );
+		$is_opted_in       = $common_telemetry->calculate_optin_status();
+		$is_license_valid  = Tribe__PUE__Checker::is_any_license_valid();
+		$zendesk_chat_key  = $this->config->get( 'ZENDESK_CHAT_KEY' );
+		$docblock_chat_key = $this->config->get( 'DOCSBOT_SUPPORT_KEY' );
+		// Setup template for help page.
+		$template->set_values(
+			[
+				'main'              => $main,
+				'is_opted_in'       => $is_opted_in,
+				'is_license_valid'  => $is_license_valid,
+				'zendesk_chat_key'  => $zendesk_chat_key,
+				'docblock_chat_key' => $docblock_chat_key,
+			]
+		);
+
+		$template->set_template_origin( $main );
+		$template->set_template_folder( 'src/admin-views' );
+		$template->set_template_context_extract( true );
+		$template->set_template_folder_lookup( false );
+
+		// Output the content if the conditions are met.
+		?>
+		<!DOCTYPE html>
+		<html <?php language_attributes(); ?>>
+		<head>
+			<meta charset="<?php bloginfo( 'charset' ); ?>">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<title><?php esc_html_e( 'Iframe Content', 'tribe-common' ); ?></title>
+		</head>
+		<body>
+		<?php
+		$template->template( 'help-hub/support-hub-docsbot' );
+		?>
+		</body>
+		</html>
+		<?php
+		exit;
+	}
+
 
 	/**
 	 * Enqueue the Help page assets.
