@@ -156,17 +156,43 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 * The variable being tested for can be an array if you wish to find a nested value.
 	 *
 	 * @since 4.9.17 Included explicit check against $_REQUEST.
-	 * @since TBD Included a param to allow for returning the value as is, without sanitizing it.
+	 * @since TBD Renamed from `tribe_get_request_var` to `tec_get_request_var`.
 	 *
-	 * @see   Tribe__Utils__Array::get()
+	 * @see   tec_get_request_var()
 	 *
-	 * @param string|array $var        The variable to check for.
-	 * @param mixed        $default   The default value to return if the variable is not set.
-	 * @param bool         $sanitize  Whether to return the value as is, without sanitizing it.
+	 * @param string|array $var     The variable to check for.
+	 * @param mixed        $default The default value to return if the variable is not set.
 	 *
 	 * @return mixed
 	 */
-	function tribe_get_request_var( $var, $default = null, bool $sanitize = true ) {
+	function tribe_get_request_var( $var, $default = null ) {
+		return tec_get_request_var( $var, $default );
+	}
+}
+
+if ( ! function_exists( 'tec_get_request_var' ) ) {
+	/**
+	 * Tests to see if the requested variable is set either as a post field or as a URL
+	 * param and returns the value if so.
+	 *
+	 * Post data takes priority over fields passed in the URL query. If the field is not
+	 * set then $default (null unless a different value is specified) will be returned.
+	 *
+	 * The variable being tested for can be an array if you wish to find a nested value.
+	 *
+	 * This function will sanitize the value before returning it.
+	 *
+	 * @since TBD
+	 *
+	 * @see   Tribe__Utils__Array::get_in_any()
+	 * @see   tribe_sanitize_deep()
+	 *
+	 * @param string|array $var     The variable to check for.
+	 * @param mixed        $default The default value to return if the variable is not set.
+	 *
+	 * @return mixed
+	 */
+	function tec_get_request_var( $var, $default = null ) {
 		$requests = [];
 
 		// Prevent a slew of warnings every time we call this.
@@ -188,12 +214,56 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 
 		$unsafe = Tribe__Utils__Array::get_in_any( $requests, $var, $default );
 
-		// If we're not sanitizing, return the value as is.
-		if ( ! $sanitize ) {
-			return $unsafe;
+		// Sanitize and return.
+		return tribe_sanitize_deep( $unsafe );
+	}
+}
+
+if ( ! function_exists( 'tec_get_request_var_raw' ) ) {
+	/**
+	 * Tests to see if the requested variable is set either as a post field or as a URL
+	 * param and returns the value if so.
+	 *
+	 * Post data takes priority over fields passed in the URL query. If the field is not
+	 * set then $default (null unless a different value is specified) will be returned.
+	 *
+	 * The variable being tested for can be an array if you wish to find a nested value.
+	 *
+	 * This function will NOT sanitize the value before returning it.
+	 *
+	 * @since TBD
+	 *
+	 * @see   Tribe__Utils__Array::get_in_any()
+	 *
+	 * @param string|array $var        The variable to check for.
+	 * @param mixed        $default   The default value to return if the variable is not set.
+	 *
+	 * @return mixed
+	 */
+	function tec_get_request_var_raw( $var, $default = null ) {
+		$requests = [];
+
+		// Prevent a slew of warnings every time we call this.
+		if ( isset( $_REQUEST ) ) {
+			$requests[] = (array) $_REQUEST;
 		}
 
-		return tribe_sanitize_deep( $unsafe );
+		if ( isset( $_GET ) ) {
+			$requests[] = (array) $_GET;
+		}
+
+		if ( isset( $_POST ) ) {
+			$requests[] = (array) $_POST;
+		}
+
+		if ( empty( $requests ) ) {
+			return $default;
+		}
+
+		$unsafe = Tribe__Utils__Array::get_in_any( $requests, $var, $default );
+
+		// Return the value as is.
+		return $unsafe;
 	}
 }
 
