@@ -9,7 +9,6 @@
 
 $stars_icon_url = tribe_resource_url( 'images/icons/stars.svg', false, null, $main );
 $chat_icon_url  = tribe_resource_url( 'images/icons/chat-bubble.svg', false, null, $main );
-$optin_url      = admin_url( 'edit.php?page=tec-events-settings&tab=general-debugging-tab&post_type=tribe_events#tribe-field-opt-in-status' );
 
 ?>
 
@@ -88,9 +87,7 @@ $optin_url      = admin_url( 'edit.php?page=tec-events-settings&tab=general-debu
 					);
 					?>
 				</p>
-
 			</div>
-
 		</div>
 		<p>
 			<?php
@@ -102,7 +99,7 @@ $optin_url      = admin_url( 'edit.php?page=tec-events-settings&tab=general-debu
 			?>
 		</p>
 		<p>
-			<a class="button-secondary" href="<?php echo esc_url( $optin_url ); ?>">
+			<a class="button-secondary" href="javascript:void(0);">
 				<?php
 				echo esc_html_x(
 					'Manage my data sharing consent',
