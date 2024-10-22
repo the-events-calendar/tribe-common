@@ -7,12 +7,75 @@ tribe.helpPage = tribe.helpPage || {};
 		copyButton: '.system-info-copy-btn',
 		optInMsg: '.tribe-sysinfo-optin-msg',
 		autoInfoOptIn: '#tribe_auto_sysinfo_opt_in',
+		accordion: '.tec-ui-accordion',
+		openSupportChat: '[data-open-support-chat]',
 	};
 
 	obj.setup = function () {
 		obj.setupSystemInfo();
 		obj.setupCopyButton();
+		obj.setupTabs();
+		obj.setupChat();
 	};
+
+	/**
+	 * Initializes chat widgets if on correct page.
+	 */
+	obj.setupChat = function () {
+
+
+		$( obj.selectors.openSupportChat ).on(
+			'click',
+			function (e) {
+				e.preventDefault();
+				obj.openSupportChat();
+			}
+		);
+
+
+		// Initialize DocsBot.
+		DocsBotAI.init(
+			{
+				id: tribe_system_info.docsbot_key,
+				supportCallback: function (event, history) {
+					event.preventDefault();
+					// Open the Zendesk Web Widget.
+					obj.openSupportChat();
+				},
+			}
+		);
+	}
+
+	/**
+	 * Open the support chat.
+	 */
+	obj.openSupportChat = function () {
+
+	}
+
+	/**
+	 * Will setup any accordions that are children of the parent node.
+	 *
+	 * @since TBD
+	 *
+	 * @param {{object}} parent The parent jQuery node for precise filtering of accordions to target.
+	 */
+	obj.setupAccordionsFor = function ( parent ) {
+		// Just extra careful of dependency.
+		if ( ! $.fn.accordion ) {
+			console.error( 'jQuery UI Accordion library is missing.' );
+			return;
+		}
+
+		// Initialize the accordions.
+		$( parent ).find( obj.selectors.accordion ).accordion(
+			{
+				active: true,
+				collapsible: true,
+				icons: { "header": "ui-icon-plus", "activeHeader": "ui-icon-minus" }
+			}
+		);
+	}
 
 	/**
 	 * Initialize system info opt in copy
@@ -123,6 +186,40 @@ tribe.helpPage = tribe.helpPage || {};
 		);
 
 	};
+
+	/**
+	 * Initialize the page tabs and on-page navigation.
+	 *
+	 * @since TBD
+	 */
+	obj.setupTabs = function () {
+		let currentTab   = $( '.tec-nav__tab.tec-nav__tab--subnav-active' );
+		let tabContainer = $( '#' + currentTab.data( 'tab-target' ) );
+		$( '.tec-tab-container' ).hide();
+		tabContainer.show();
+
+		$( '[data-tab-target]' ).on(
+			'click',
+			function () {
+				let tab       = $( this );
+				let tabTarget = $( '#' + tab.data( 'tab-target' ) );
+
+				$( '[data-tab-target]' ).removeClass( 'tec-nav__tab--subnav-active' );
+				$( '[data-tab-target="' + tab.data( 'tab-target' ) + '"]' )
+					.addClass( 'tec-nav__tab--subnav-active' );
+
+				tabContainer.hide();
+				tabTarget.show();
+				tabContainer = tabTarget;
+
+				/**
+				 * Because the tabs are hidden, we need to delay the accordion rendering until they
+				 * are "shown" so the expander logic can size the node to the rendered height.
+				 */
+				obj.setupAccordionsFor( tabTarget );
+			}
+		);
+	}
 
 	$( obj.setup );
 
