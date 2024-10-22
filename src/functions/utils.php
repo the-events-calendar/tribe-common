@@ -193,27 +193,8 @@ if ( ! function_exists( 'tec_get_request_var' ) ) {
 	 * @return mixed
 	 */
 	function tec_get_request_var( $var, $default_value = null ) {
-		$requests = [];
+		$unsafe = tec_get_request_var_raw( $var, $default_value );
 
-		// Prevent a slew of warnings every time we call this.
-		if ( isset( $_REQUEST ) ) {
-			$requests[] = (array) $_REQUEST; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
-		}
-
-		if ( isset( $_GET ) ) {
-			$requests[] = (array) $_GET; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
-		}
-
-		if ( isset( $_POST ) ) {
-			$requests[] = (array) $_POST; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
-		}
-
-		if ( empty( $requests ) ) {
-			return $default_value;
-		}
-
-		$unsafe = Tribe__Utils__Array::get_in_any( $requests, $var, $default_value );
-return tribe_sanitize_deep( tec_get_request_var_raw( $var, $default ) );
 		// Sanitize and return.
 		return tribe_sanitize_deep( $unsafe );
 	}
