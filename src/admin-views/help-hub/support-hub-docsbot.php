@@ -10,27 +10,35 @@
  */
 
 ?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+	<meta charset="<?php bloginfo( 'charset' ); ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title><?php esc_html_e( 'Iframe Content', 'tribe-common' ); ?></title>
+	<?php
+	wp_head();
+	?>
+</head>
+<body <?php body_class(); ?>>
 <style>
 
-    /* Blackout overlay */
-    .zendesk-widget-open::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.8);
-        z-index: 9999;
-        pointer-events: none;
-    }
+	/* Blackout overlay */
+	.zendesk-widget-open::before {
+		content: '';
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background-color: rgba(0, 0, 0, 0.8);
+		z-index: 9999;
+		pointer-events: none;
+	}
 
-    iframe[name="Messaging window"] {
-        margin-right: -16px;
-        z-index: 99999999 !important; /* Make sure the Zendesk Iframe is above DocBot */
-    }
-	#launcher{
-		width:90px;
+	iframe[name="Messaging window"] {
+		margin-right: -16px;
+		z-index: 99999999 !important; /* Make sure the Zendesk Iframe is above DocBot */
 	}
 
 </style>
@@ -205,3 +213,8 @@
 </script>
 
 
+<?php
+wp_footer();
+?>
+</body>
+</html>

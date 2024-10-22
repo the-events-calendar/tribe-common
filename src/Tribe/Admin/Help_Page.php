@@ -140,7 +140,16 @@ class Tribe__Admin__Help_Page {
 			return;
 		}
 
+
+
 		$main              = Tribe__Main::instance();
+
+		tribe_asset(
+			$main,
+			'tribe-admin-help-page',
+			'admin/help-page.js',
+		);
+
 		$template          = new \Tribe__Template();
 		$common_telemetry  = tribe( Telemetry::class );
 		$is_opted_in       = $common_telemetry->calculate_optin_status();
@@ -158,27 +167,18 @@ class Tribe__Admin__Help_Page {
 			]
 		);
 
+		// Disable the admin bar for iframe requests
+		add_filter( 'show_admin_bar', '__return_false' );
+
+		// Remove admin bar-related actions and filters
+		remove_action( 'wp_footer', 'wp_admin_bar_render', 1000 );
+		remove_action( 'wp_head', '_admin_bar_bump_cb' );
+
 		$template->set_template_origin( $main );
 		$template->set_template_folder( 'src/admin-views' );
 		$template->set_template_context_extract( true );
 		$template->set_template_folder_lookup( false );
-
-		// Output the content if the conditions are met.
-		?>
-		<!DOCTYPE html>
-		<html <?php language_attributes(); ?>>
-		<head>
-			<meta charset="<?php bloginfo( 'charset' ); ?>">
-			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-			<title><?php esc_html_e( 'Iframe Content', 'tribe-common' ); ?></title>
-		</head>
-		<body>
-		<?php
 		$template->template( 'help-hub/support-hub-docsbot' );
-		?>
-		</body>
-		</html>
-		<?php
 		exit;
 	}
 
