@@ -1,0 +1,5 @@
+{
+    "title": "TEC Zapier REST API",
+    "description": "TEC Zapier REST API allows direct connections to making Zapier Zaps.",
+    "version": "1.0.0"
+}

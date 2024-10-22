@@ -719,13 +719,13 @@ trait Create_attendees {
 		// Build the user info array.
 		$user_info = [
 			'id'         => 1,
-			'first_name' => $overrides['user_first_name'] ?? $faker->firstName,
-			'last_name'  => $overrides['user_last_name'] ?? $faker->lastName,
-			'email'      => $overrides['user_email'] ?? $faker->email,
+			'first_name' => $overrides['user_first_name'] ?? $faker->firstName(),
+			'last_name'  => $overrides['user_last_name'] ?? $faker->lastName(),
+			'email'      => $overrides['user_email'] ?? $faker->email(),
 			'address'    => [
-				'country' => $faker->country,
-				'state'   => $faker->state,
-				'zip'     => $faker->postcode,
+				'country' => $faker->country(),
+				'state'   => $faker->state(),
+				'zip'     => $faker->postcode(),
 			],
 			'discount'   => 'none',
 		];
@@ -766,6 +766,13 @@ trait Create_attendees {
 
 		// Record the pending payment
 		$payment = edd_insert_payment( $purchase_data );
+
+		if ( isset( $overrides['date_created'] ) ) {
+			edd_update_order( $payment, array(
+				'date_created'   => $overrides['date_created'],
+				'date_completed' => $overrides['date_created'],
+			) );
+		}
 
 		if ( $payment ) {
 			edd_empty_cart();
