@@ -156,15 +156,17 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 * The variable being tested for can be an array if you wish to find a nested value.
 	 *
 	 * @since 4.9.17 Included explicit check against $_REQUEST.
+	 * @since TBD Included a param to allow for returning the value as is, without sanitizing it.
 	 *
 	 * @see   Tribe__Utils__Array::get()
 	 *
-	 * @param string|array $var
-	 * @param mixed        $default
+	 * @param string|array $var        The variable to check for.
+	 * @param mixed        $default   The default value to return if the variable is not set.
+	 * @param bool         $sanitize  Whether to return the value as is, without sanitizing it.
 	 *
 	 * @return mixed
 	 */
-	function tribe_get_request_var( $var, $default = null ) {
+	function tribe_get_request_var( $var, $default = null, bool $sanitize = true ) {
 		$requests = [];
 
 		// Prevent a slew of warnings every time we call this.
@@ -185,6 +187,12 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 		}
 
 		$unsafe = Tribe__Utils__Array::get_in_any( $requests, $var, $default );
+
+		// If we're not sanitizing, return the value as is.
+		if ( ! $sanitize ) {
+			return $unsafe;
+		}
+
 		return tribe_sanitize_deep( $unsafe );
 	}
 }
