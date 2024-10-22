@@ -160,13 +160,13 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 *
 	 * @see   tec_get_request_var()
 	 *
-	 * @param string|array $var           The variable to check for.
+	 * @param string|array $request_var   The variable to check for.
 	 * @param mixed        $default_value The default value to return if the variable is not set.
 	 *
 	 * @return mixed
 	 */
-	function tribe_get_request_var( $var, $default_value = null ) {
-		return tec_get_request_var( $var, $default_value );
+	function tribe_get_request_var( $request_var, $default_value = null ) {
+		return tec_get_request_var( $request_var, $default_value );
 	}
 }
 
@@ -187,13 +187,13 @@ if ( ! function_exists( 'tec_get_request_var' ) ) {
 	 * @see   Tribe__Utils__Array::get_in_any()
 	 * @see   tribe_sanitize_deep()
 	 *
-	 * @param string|array $var           The variable to check for.
+	 * @param string|array $request_var   The variable to check for.
 	 * @param mixed        $default_value The default value to return if the variable is not set.
 	 *
 	 * @return mixed
 	 */
-	function tec_get_request_var( $var, $default_value = null ) {
-		$unsafe = tec_get_request_var_raw( $var, $default_value );
+	function tec_get_request_var( $request_var, $default_value = null ) {
+		$unsafe = tec_get_request_var_raw( $request_var, $default_value );
 
 		// Sanitize and return.
 		return tribe_sanitize_deep( $unsafe );
@@ -216,12 +216,12 @@ if ( ! function_exists( 'tec_get_request_var_raw' ) ) {
 	 *
 	 * @see   Tribe__Utils__Array::get_in_any()
 	 *
-	 * @param string|array $var            The variable to check for.
+	 * @param string|array $request_var    The variable to check for.
 	 * @param mixed        $default_value  The default value to return if the variable is not set.
 	 *
 	 * @return mixed
 	 */
-	function tec_get_request_var_raw( $var, $default_value = null ) {
+	function tec_get_request_var_raw( $request_var, $default_value = null ) {
 		$requests = [];
 
 		// Prevent a slew of warnings every time we call this.
@@ -241,7 +241,7 @@ if ( ! function_exists( 'tec_get_request_var_raw' ) ) {
 			return $default_value;
 		}
 
-		$unsafe = Tribe__Utils__Array::get_in_any( $requests, $var, $default_value );
+		$unsafe = Tribe__Utils__Array::get_in_any( $requests, $request_var, $default_value );
 
 		// Return the value as is.
 		return $unsafe;
