@@ -8,13 +8,50 @@ tribe.helpPage = tribe.helpPage || {};
 		optInMsg: '.tribe-sysinfo-optin-msg',
 		autoInfoOptIn: '#tribe_auto_sysinfo_opt_in',
 		accordion: '.tec-ui-accordion',
+		openSupportChat: '[data-open-support-chat]',
 	};
 
 	obj.setup = function () {
 		obj.setupSystemInfo();
 		obj.setupCopyButton();
 		obj.setupTabs();
+		obj.setupChat();
 	};
+
+	/**
+	 * Initializes chat widgets if on correct page.
+	 */
+	obj.setupChat = function () {
+
+
+		$( obj.selectors.openSupportChat ).on(
+			'click',
+			function (e) {
+				e.preventDefault();
+				obj.openSupportChat();
+			}
+		);
+
+
+		// Initialize DocsBot.
+		DocsBotAI.init(
+			{
+				id: tribe_system_info.docsbot_key,
+				supportCallback: function (event, history) {
+					event.preventDefault();
+					// Open the Zendesk Web Widget.
+					obj.openSupportChat();
+				},
+			}
+		);
+	}
+
+	/**
+	 * Open the support chat.
+	 */
+	obj.openSupportChat = function () {
+
+	}
 
 	/**
 	 * Will setup any accordions that are children of the parent node.
