@@ -241,10 +241,8 @@ if ( ! function_exists( 'tec_get_request_var_raw' ) ) {
 			return $default_value;
 		}
 
-		$unsafe = Tribe__Utils__Array::get_in_any( $requests, $request_var, $default_value );
-
 		// Return the value as is.
-		return $unsafe;
+		return Tribe__Utils__Array::get_in_any( $requests, $request_var, $default_value );
 	}
 }
 
