@@ -89,7 +89,7 @@ tribe.settings.fields.image = {};
 		}
 
 		if ( $fieldParent.is( '[data-image-id=1]' ) ) {
-			 $fieldParent.find( obj.selectors.imgIdInput ).val( attachment.id );
+			$fieldParent.find( obj.selectors.imgIdInput ).val( attachment.id );
 		} else {
 			$fieldParent.find( obj.selectors.imgIdInput ).val( attachment.url );
 		}
