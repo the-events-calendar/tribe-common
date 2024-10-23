@@ -60,64 +60,16 @@ class Tribe__Admin__Help_Page {
 	 * @since TBD
 	 */
 	public function do_help_tab() {
-		// Setup our admin notice.
-		$notice_slug    = 'tec-common-help-chatbot-notice';
-		$notice_content = sprintf(
-			// translators: 1: the opening tag to the chatbot link, 2: the closing tag.
-			_x(
-				'To find the answer to all your questions use the %1$sTEC Chatbot%2$s',
-				'The callout notice to try the chatbot with a link to the page',
-				'tribe-common'
-			),
-			'<a data-tab-target="tec-help-tab" href="#">',
-			'</a>'
-		);
+		// Generate the admin notice HTML.
+		$notice_html = $this->generate_notice_html();
 
-		// Our notices.
-		$notice_admin = ( new AdminNotice( $notice_slug, "<p>$notice_content</p>" ) )
-			->urgency( 'info' )
-			->inline()
-			->dismissible()
-			->withWrapper();
-		$notice_html  = AdminNotices::render( $notice_admin, false );
-
-		// Our template vars.
-		$main             = Tribe__Main::instance();
-		$template         = new \Tribe__Template();
-		$common_telemetry = tribe( Telemetry::class );
-		$is_opted_in      = $common_telemetry->calculate_optin_status();
-		$is_license_valid = Tribe__PUE__Checker::is_any_license_valid();
-		$zendesk_chat_key = $this->config->get( 'ZENDESK_CHAT_KEY' );
-
-		// Setup template for help page.
-		$template->set_values(
+		// Render the help page template.
+		$this->render_template(
+			'help-hub',
 			[
-				'main'             => $main,
-				'notice'           => $notice_html,
-				'is_opted_in'      => $is_opted_in,
-				'is_license_valid' => $is_license_valid,
-				'zendesk_chat_key' => $zendesk_chat_key,
+				'notice' => $notice_html,
 			]
 		);
-
-		$template->set_template_origin( $main );
-		$template->set_template_folder( 'src/admin-views' );
-		$template->set_template_context_extract( true );
-		$template->set_template_folder_lookup( false );
-		$template->template( 'help-hub' );
-	}
-
-	/**
-	 * Set up hooks.
-	 *
-	 * @since 4.15.0
-	 */
-	public function hook() {
-		if ( is_admin() ) {
-			add_action( 'admin_enqueue_scripts', [ $this, 'load_assets' ], 1 );
-			add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
-			add_action( 'admin_init', [ $this, 'generate_iframe_content' ] );
-		}
 	}
 
 	/**
@@ -140,48 +92,167 @@ class Tribe__Admin__Help_Page {
 			return;
 		}
 
+		// Enqueue iframe-specific scripts.
+		$this->enqueue_help_page_iframe_assets();
 
+		// Disable the admin bar for iframe requests.
+		// phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
+		add_filter( 'show_admin_bar', '__return_false' );
+		remove_action( 'wp_footer', 'wp_admin_bar_render', 1000 );
+		remove_action( 'wp_head', '_admin_bar_bump_cb' );
 
-		$main              = Tribe__Main::instance();
-
-		tribe_asset(
-			$main,
-			'tribe-admin-help-page',
-			'admin/help-page.js',
+		// Render the iframe content.
+		$this->render_template(
+			'help-hub/support-hub-docsbot'
 		);
 
-		$template          = new \Tribe__Template();
-		$common_telemetry  = tribe( Telemetry::class );
-		$is_opted_in       = $common_telemetry->calculate_optin_status();
-		$is_license_valid  = Tribe__PUE__Checker::is_any_license_valid();
-		$zendesk_chat_key  = $this->config->get( 'ZENDESK_CHAT_KEY' );
-		$docblock_chat_key = $this->config->get( 'DOCSBOT_SUPPORT_KEY' );
-		// Setup template for help page.
-		$template->set_values(
+		exit;
+	}
+
+	/**
+	 * Enqueues the necessary scripts for the help page and dequeues all theme styles.
+	 *
+	 * @since TBD
+	 */
+	/**
+	 * Enqueues the necessary scripts for the help page and dequeues all non-tribe/tec and non-WordPress core theme styles.
+	 *
+	 * @since TBD
+	 */
+	/**
+	 * Enqueues the necessary scripts for the help page and dequeues all non-tribe/tec and non-WordPress core theme styles.
+	 *
+	 * @since TBD
+	 */
+	private function enqueue_help_page_iframe_assets() {
+		define( 'IFRAME_REQUEST', true );
+		// Enqueue the help page iframe script.
+		wp_enqueue_script(
+			'help-page-iframe',
+			plugin_dir_url( dirname( __DIR__, 1 ) ) . 'resources/js/admin/help-hub-iframe.js',
+			[],
+			'1.0.0',
+			true
+		);
+
+		// Pass settings to the script.
+		wp_localize_script(
+			'help-page-iframe',
+			'helpHubSettings',
+			[
+				'docsbot_key'     => $this->config->get( 'DOCSBOT_SUPPORT_KEY' ),
+				'zendeskChatKey'  => $this->config->get( 'ZENDESK_CHAT_KEY' ),
+			]
+		);
+
+		// Enqueue the help page iframe CSS.
+		wp_enqueue_style(
+			'help-page-iframe-style',
+			plugin_dir_url( dirname( __DIR__, 1 ) ) . 'resources/css/help-hub-iframe.css',
+			[],
+			'1.0.0'
+		);
+		add_action( 'wp_enqueue_scripts', function() {
+			global $wp_styles;
+
+			// Get the path to the current theme directory.
+			$theme_directory = get_template_directory_uri();
+
+			// Loop through all enqueued styles.
+			foreach ( $wp_styles->queue as $handle ) {
+				// Get the full URL of the enqueued style.
+				$src = $wp_styles->registered[ $handle ]->src;
+
+				// Check if the style is located in the theme directory.
+				if ( strpos( $src, $theme_directory ) !== false ) {
+					// Dequeue the style.
+					wp_dequeue_style( $handle );
+				}
+			}
+		}, 20 );
+	}
+
+	/**
+	 * Generates the admin notice HTML.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The HTML for the admin notice.
+	 */
+	private function generate_notice_html() {
+		$notice_slug    = 'tec-common-help-chatbot-notice';
+		$notice_content = sprintf(
+		// translators: 1: the opening tag to the chatbot link, 2: the closing tag.
+			_x(
+				'To find the answer to all your questions use the %1$sTEC Chatbot%2$s',
+				'The callout notice to try the chatbot with a link to the page',
+				'tribe-common'
+			),
+			'<a data-tab-target="tec-help-tab" href="#">',
+			'</a>'
+		);
+
+		$notice_admin = ( new AdminNotice( $notice_slug, "<p>$notice_content</p>" ) )
+			->urgency( 'info' )
+			->inline()
+			->dismissible()
+			->withWrapper();
+
+		return AdminNotices::render( $notice_admin, false );
+	}
+
+	/**
+	 * Renders the help page or iframe template.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $template_name The template file name (without .php).
+	 * @param array  $extra_values  Extra values to pass to the template.
+	 *
+	 * @return void
+	 */
+	private function render_template( $template_name, array $extra_values = [] ) {
+		$main             = Tribe__Main::instance();
+		$template         = new \Tribe__Template();
+		$common_telemetry = tribe( Telemetry::class );
+		$is_opted_in      = $common_telemetry->calculate_optin_status();
+		$is_license_valid = Tribe__PUE__Checker::is_any_license_valid();
+		$zendesk_chat_key = $this->config->get( 'ZENDESK_CHAT_KEY' );
+		$dotbot_chat_key  = $this->config->get( 'DOCSBOT_SUPPORT_KEY' );
+
+		// Merge core values with extra values passed to the method.
+		$template_values = array_merge(
 			[
 				'main'              => $main,
 				'is_opted_in'       => $is_opted_in,
 				'is_license_valid'  => $is_license_valid,
 				'zendesk_chat_key'  => $zendesk_chat_key,
-				'docblock_chat_key' => $docblock_chat_key,
-			]
+				'docblock_chat_key' => $dotbot_chat_key,
+			],
+			$extra_values
 		);
 
-		// Disable the admin bar for iframe requests
-		add_filter( 'show_admin_bar', '__return_false' );
-
-		// Remove admin bar-related actions and filters
-		remove_action( 'wp_footer', 'wp_admin_bar_render', 1000 );
-		remove_action( 'wp_head', '_admin_bar_bump_cb' );
-
+		// Setup template values and render the template.
+		$template->set_values( $template_values );
 		$template->set_template_origin( $main );
 		$template->set_template_folder( 'src/admin-views' );
 		$template->set_template_context_extract( true );
 		$template->set_template_folder_lookup( false );
-		$template->template( 'help-hub/support-hub-docsbot' );
-		exit;
+		$template->template( $template_name );
 	}
 
+	/**
+	 * Set up hooks.
+	 *
+	 * @since 4.15.0
+	 */
+	public function hook() {
+		if ( is_admin() ) {
+			add_action( 'admin_enqueue_scripts', [ $this, 'load_assets' ], 1 );
+			add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
+			add_action( 'admin_init', [ $this, 'generate_iframe_content' ] );
+		}
+	}
 
 	/**
 	 * Enqueue the Help page assets.

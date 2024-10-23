@@ -16,61 +16,8 @@ tribe.helpPage = tribe.helpPage || {};
 		obj.setupSystemInfo();
 		obj.setupCopyButton();
 		obj.setupTabs();
-		//obj.setupChat();
 		obj.IframeZendeskClickHandler();
 	};
-
-	/**
-	 * Initializes chat widgets if on correct page.
-	 * TODO redscar - This logic may go away.
-	 */
-	obj.setupChat = function () {
-		return;
-		if ( ! zE ) {
-			return;
-		}
-
-		$( obj.selectors.openSupportChat ).on(
-			'click',
-			function (e) {
-				e.preventDefault();
-				obj.openSupportChat();
-			}
-		);
-
-		// When we close the chat, let's hide it completely until they click "support" link.
-		zE(
-			"messenger:on",
-			"close",
-			function () {
-				zE( 'messenger', 'hide' );
-			}
-		);
-
-		// On page load always close widget (it will be opened later).
-		zE( 'messenger', 'hide' );
-
-		// Initialize DocsBot.
-		DocsBotAI.init(
-			{
-				id: tribe_system_info.docsbot_key,
-				supportCallback: function (event, history) {
-					event.preventDefault();
-					// Open the Zendesk Web Widget.
-					obj.openSupportChat();
-				},
-			}
-		);
-	}
-
-	/**
-	 * Open the support chat.
-	 * TODO redscar - This logic may go away.
-	 */
-	obj.openSupportChat = function () {
-		zE( 'messenger', 'show' );
-		zE( 'messenger', 'open' );
-	}
 
 	/**
 	 * Sends a message to the iframe.

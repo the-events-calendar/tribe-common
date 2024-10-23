@@ -1,0 +1,89 @@
+/**
+ Help Hub Iframe styles.
+ */
+
+/* Reset margins and padding */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.blackout {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+/* Blackout overlay */
+.blackout::before {
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, .8);
+	z-index: var(--tec-z-index-filters); /* Adapt z-index as per your layering */
+	pointer-events: none;
+	transition: var(--tec-transition-opacity);
+}
+
+.zendesk-widget-open * {
+	pointer-events: none;
+}
+
+iframe[name="Messaging window"] {
+	margin-right: -16px;
+	z-index: 99999999 !important; /* Make sure the Zendesk Iframe is above DocBot */
+}
+
+#docsbot-widget-embed {
+	height: 600px;
+	max-height: 100vh;
+
+	.hide {
+		display: none;
+	}
+}
+
+/* Main container for the opt-out message */
+.iframe-opt-out-message {
+	z-index: 100000;
+	position: relative;
+	background: var(--tec-form-color-background);
+	width: 80%;
+	margin: 0 auto;
+	padding: var(--tec-spacer-4);
+	border-radius: 6px;
+	display: flex; /* Use flexbox for layout */
+	gap: var(--tec-spacer-4); /* Gap between columns */
+	align-items: center; /* Align items vertically */
+	text-align: left; /* Ensure the text is left-aligned */
+}
+
+/* Column for the image */
+.iframe-opt-out-message__image {
+	flex-shrink: 0; /* Prevent the image from shrinking */
+}
+
+/* Make sure the image does not exceed a certain size */
+.iframe-opt-out-message__image img {
+	max-width: 100px; /* Adjust the width as necessary */
+	height: auto;
+}
+
+/* Column for the content (h3, p, a) */
+.iframe-opt-out-message__content {
+	display: flex;
+	flex-direction: column; /* Stack the content vertically */
+	gap: var(--tec-spacer-2); /* Add spacing between elements */
+}
+
+/* Link styles */
+.iframe-opt-out-message__content a {
+	margin-top: var(--tec-spacer-2); /* Add margin above the link */
+	color: var(--tec-color-link-primary);
+	text-decoration: underline;
+}
