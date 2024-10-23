@@ -1181,7 +1181,7 @@ class Tribe__Settings {
 	 */
 	protected function validate_field( $field_id, $field ) {
 		// Get the value.
-		$value = tribe_get_request_var( $field_id, null );
+		$value = tec_get_request_var_raw( $field_id, null );
 		$value = apply_filters( 'tribe_settings_validate_field_value', $value, $field_id, $field );
 
 		// Make sure it has validation set up for it, else do nothing.
