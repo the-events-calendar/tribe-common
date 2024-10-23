@@ -2,7 +2,7 @@ var tribe = tribe || {};
 tribe.helpPage = tribe.helpPage || {};
 window.DocsBotAI = window.DocsBotAI || {};
 
-( function ( $, obj ) {
+( ( $, obj ) => {
 	'use strict';
 
 	obj.selectors = {
@@ -10,126 +10,111 @@ window.DocsBotAI = window.DocsBotAI || {};
 		docsbotWidget: '#docsbot-widget-embed',
 	};
 
-	obj.setup = function () {
+	/**
+	 * Initializes the help page setup, verifying opt-in status.
+	 *
+	 * @since TBD
+	 * @return {void}
+	 */
+	obj.setup = () => {
 		const isOptedIn = obj.selectors.body.getAttribute( 'data-opted-in' ) === '1';
 		// Only run Zendesk and DocsBot setup if the user has opted-in.
 		if ( isOptedIn ) {
-			obj.setupZendesk();
+			obj.loadAndInitializeZendeskWidget();
 			obj.initializeDocsBot();
 		} else {
 			obj.selectors.body.classList.add( 'blackout' );
 		}
-	}
+	};
 
 	/**
-	 * Method to dynamically load the Zendesk Web Widget script.
+	 * Dynamically loads the Zendesk Web Widget script.
 	 *
+	 * @since TBD
 	 * @param {string} zendeskKey - The Zendesk chat key.
 	 * @returns {Promise} - A promise that resolves when the script is loaded.
 	 */
-	obj.loadZendeskWidget = function ( zendeskKey ) {
+	obj.loadZendeskWidgetScript = ( zendeskKey ) => {
 		return new Promise( ( resolve, reject ) => {
-			// Create the script element.
 			const script = document.createElement( 'script' );
 			script.id = 'ze-snippet';
 			script.src = `https://static.zdassets.com/ekr/snippet.js?key=${ zendeskKey }`;
 			script.async = true;
 
-			// Append the script to the head of the document.
 			document.head.appendChild( script );
 
-			// Resolve the promise when the script is loaded.
 			script.onload = () => resolve();
-
-			// Reject the promise on script load error.
 			script.onerror = () => reject( new Error( 'Failed to load Zendesk Web Widget' ) );
 		} );
-	}
+	};
 
 	/**
-	 * Method to check if zE (Zendesk Web Widget) is defined, then execute the provided callback.
-	 * Polls every 100ms until zE is available.
+	 * Checks if the Zendesk Web Widget is available, then runs the provided callback.
 	 *
+	 * @since TBD
 	 * @param {Function} callback - The function to execute once zE is defined.
+	 * @return {void}
 	 */
-	obj.onZendeskReady = function ( callback ) {
-		if ( typeof zE !== 'undefined' ) {
-			callback(); // zE is available, run the callback.
+	obj.onZendeskAvailable = ( callback ) => {
+		const checkZendesk = () => {
+			if ( typeof zE !== 'undefined' ) {
+				callback(); // zE is available, run the callback.
+			}
+		};
+
+		// Attach the callback directly to the script load event
+		const script = document.getElementById( 'ze-snippet' );
+		if ( script ) {
+			script.addEventListener( 'load', checkZendesk );
 		} else {
-			// Check again after a short delay.
-			setTimeout(
-				() => {
-					obj.onZendeskReady( callback );
-				}
-				, 100
-			); // Poll every 100 milliseconds.
+			setTimeout( () => obj.onZendeskAvailable( callback ), 100 ); // Poll every 100ms as fallback
 		}
 	};
 
 	/**
-	 * Method to initialize the Zendesk widget's actions, including hiding the widget and setting up event listeners.
-	 * It listens for 'open' and 'close' events to add/remove a class from the body.
+	 * Initializes the Zendesk widget, hides it initially, and sets up event listeners for open/close actions.
+	 *
+	 * @since TBD
+	 * @return {void}
 	 */
-	obj.initializeZendesk = function () {
+	obj.initializeZendesk = () => {
 		obj.isZendeskInitialized = false;
 
-		// Initially close the widget and set the initialization flag.
-		zE(
-			'messenger'
-			, 'hide'
-			, () => {
-				obj.isZendeskInitialized = true; // Set the flag after the initial hide.
-			}
-		);
+		zE( 'messenger', 'hide', () => {
+			obj.isZendeskInitialized = true;
+		} );
 
-		/**
-		 * Listen for 'open' event, but only trigger after initialization.
-		 * Adds the 'blackout' class to the body when the widget is opened.
-		 */
-		zE(
-			'messenger:on'
-			, 'open'
-			, () => {
-				if ( obj.isZendeskInitialized ) {
-					obj.selectors.body.classList.add( 'blackout' );
-				}
+		// Add 'blackout' class when the widget is opened.
+		zE( 'messenger:on', 'open', () => {
+			if ( obj.isZendeskInitialized ) {
+				obj.selectors.body.classList.add( 'blackout' );
 			}
-		);
+		} );
 
-		/**
-		 * Listen for 'close' event.
-		 * Removes the 'blackout' class from the body when the widget is closed.
-		 */
-		zE(
-			'messenger:on'
-			, 'close'
-			, () => {
-				zE( 'messenger', 'hide' );
-				obj.selectors.body.classList.remove( 'blackout' );
-			}
-		);
+		// Remove 'blackout' class when the widget is closed.
+		zE( 'messenger:on', 'close', () => {
+			zE( 'messenger', 'hide' );
+			obj.selectors.body.classList.remove( 'blackout' );
+		} );
 	};
 
 	/**
-	 * Method to handle incoming postMessage events.
-	 * It verifies the message origin and triggers actions based on the message content.
+	 * Handles incoming postMessage events, verifying origin and triggering actions based on the message.
 	 *
-	 * @param {Event} event - The postMessage event received from another window/iframe.
+	 * @since TBD
+	 * @param {Event} event - The postMessage event received.
+	 * @return {void}
 	 */
-	obj.handleMessages = function ( event ) {
-		// Security check: Ensure the message is from a trusted origin.
+	obj.handlePostMessageEvents = ( event ) => {
 		if ( event.origin !== window.location.origin ) {
 			return; // Ignore messages from untrusted origins.
 		}
 
-		// Extract message data.
-		const message = event.data;
+		const { action, data } = event.data;
 
-		// Handle different actions using a switch statement.
-		switch ( message.action ) {
+		switch ( action ) {
 			case 'runScript':
-				// Only run the script if the data is 'openZendesk'.
-				if ( message.data === 'openZendesk' ) {
+				if ( data === 'openZendesk' ) {
 					zE( 'messenger', 'show' );
 					zE( 'messenger', 'open' );
 					obj.selectors.body.classList.add( 'blackout' );
@@ -137,94 +122,95 @@ window.DocsBotAI = window.DocsBotAI || {};
 				break;
 
 			default:
-				console.warn( 'Unhandled action:', message.action );
+				console.warn( 'Unhandled action:', action );
 				break;
 		}
 	};
 
 	/**
-	 * Setup method to initialize all functionality.
-	 * It dynamically loads the Zendesk Web Widget, and sets up message listeners.
+	 * Loads and initializes the Zendesk widget, and sets up message listeners.
+	 *
+	 * @since TBD
+	 * @return {void}
 	 */
-	obj.setupZendesk = function () {
-		obj.loadZendeskWidget( helpHubSettings.zendeskChatKey )
-			.then( () => obj.onZendeskReady( obj.initializeZendesk ) )
+	obj.loadAndInitializeZendeskWidget = () => {
+		obj.loadZendeskWidgetScript( helpHubSettings.zendeskChatKey )
+			.then( () => obj.onZendeskAvailable( obj.initializeZendesk ) )
 			.catch( ( error ) => console.error( 'Zendesk Widget failed to load:', error ) );
 
 		// Listen for incoming messages.
-		window.addEventListener( 'message', ( event ) => obj.handleMessages( event ) );
+		window.addEventListener( 'message', obj.handlePostMessageEvents );
 	};
 
-	// Method to initialize DocsBotAI widget.
-	obj.initializeDocsBot = function () {
-		$( obj.selectors.docsbotWidget ).removeClass( 'hide' );
-		DocsBotAI.init = function ( e ) {
-			return new Promise(
-				(
-					resolve,
-					reject
-				) => {
-					var script = document.createElement( "script" );
-					script.type = "text/javascript";
-					script.async = true;
-					script.src = "https://widget.docsbot.ai/chat.js";
-
-					let firstScript = document.getElementsByTagName( "script" )[ 0 ];
-					firstScript.parentNode.insertBefore( script, firstScript );
-
-					script.addEventListener( "load", () => {
-						let loadPromise;
-						Promise.all( [
-								new Promise( ( res, rej ) => {
-									window.DocsBotAI.mount( Object.assign( {}, e ) )
-										.then( res )
-										.catch( rej );
-								} )
-								, (
-									loadPromise = function check( selector ) {
-										return new Promise( resolve => {
-											if ( document.querySelector( selector ) ) {
-												return resolve( document.querySelector( selector ) );
-											}
-											let observer = new MutationObserver( mutations => {
-												if ( document.querySelector( selector ) ) {
-													return resolve( document.querySelector( selector ) );
-													observer.disconnect();
-												}
-											} );
-											observer.observe( document.body, {
-												childList: true
-												, subtree: true
-											} );
-										} );
-									}
-								)( "#docsbotai-root" )
-							] )
-							.then( resolve )
-							.catch( reject );
-					} );
-
-					script.addEventListener( "error", error => {
-						reject( error.message );
-					} );
-				} );
-		};
-
-		// Initialize the DocsBotAI widget.
-		DocsBotAI.init( {
-			id: helpHubSettings.docsbot_key
-			, supportCallback: function ( event, history ) {
-				event.preventDefault(); // Prevent default behavior opening the url.
-				DocsBotAI.unmount(); // Hide the widget.
-				// Open the Zendesk Web Widget.
-				zE( 'messenger', 'show' );
-				zE( 'messenger', 'open' );
+	/**
+	 * Observes for the DocsBot element to be available in the DOM.
+	 *
+	 * @since TBD
+	 * @param {string} selector - The CSS selector of the element to observe.
+	 * @returns {Promise} - Resolves when the element becomes available.
+	 */
+	obj.observeElement = ( selector ) => {
+		return new Promise( ( resolve ) => {
+			const element = document.querySelector( selector );
+			if ( element ) {
+				return resolve( element );
 			}
-			,
+			const observer = new MutationObserver( ( mutations ) => {
+				const foundElement = document.querySelector( selector );
+				if ( foundElement ) {
+					resolve( foundElement );
+					observer.disconnect(); // Ensure the observer stops after resolving.
+				}
+			} );
+			observer.observe( document.body, { childList: true, subtree: true } );
 		} );
 	};
 
+	/**
+	 * Initializes the DocsBot widget, handling its configuration and integration with Zendesk.
+	 *
+	 * @since TBD
+	 * @return {void}
+	 */
+	obj.initializeDocsBot = () => {
+		$( obj.selectors.docsbotWidget ).removeClass( 'hide' );
+		DocsBotAI.init = ( e ) => {
+			return new Promise( ( resolve, reject ) => {
+				const script = document.createElement( 'script' );
+				script.type = 'text/javascript';
+				script.async = true;
+				script.src = 'https://widget.docsbot.ai/chat.js';
 
+				const firstScript = document.getElementsByTagName( 'script' )[ 0 ];
+				firstScript.parentNode.insertBefore( script, firstScript );
+
+				script.addEventListener( 'load', () => {
+					Promise.all( [
+									 window.DocsBotAI.mount( { ...e } ),
+									 obj.observeElement( '#docsbotai-root' ),
+								 ] )
+						.then( resolve )
+						.catch( reject );
+				} );
+
+				script.addEventListener( 'error', ( error ) => {
+					reject( error.message );
+				} );
+			} );
+		};
+
+		DocsBotAI.init( {
+							id: helpHubSettings.docsbot_key,
+							supportCallback: ( event ) => {
+								event.preventDefault();
+								DocsBotAI.unmount();
+								zE( 'messenger', 'show' );
+								zE( 'messenger', 'open' );
+							},
+						} );
+	};
+
+	// Initialize the help page.
 	$( obj.setup );
 
 } )( jQuery, tribe.helpPage );

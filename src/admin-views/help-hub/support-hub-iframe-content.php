@@ -26,6 +26,7 @@ $stars_icon_url = tribe_resource_url( 'images/icons/stars.svg', false, null, $ma
 </head>
 <body <?php body_class(); ?> data-opted-in="<?php echo esc_attr( $opted_in ); ?>">
 
+<!-- Docsbot section-->
 <div id="docsbot-widget-embed hide"></div>
 
 
