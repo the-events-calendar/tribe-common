@@ -5,6 +5,7 @@
  * @var Tribe__Main $main             The main common object.
  * @var bool        $is_opted_in      Whether the user has opted in to telemetry.
  * @var bool        $is_license_valid Whether the user has any valid licenses.
+ * @var string      $opt_in_link      The link to opt into telemetry.
  */
 
 $stars_icon_url = tribe_resource_url( 'images/icons/stars.svg', false, null, $main );
@@ -99,7 +100,7 @@ $chat_icon_url  = tribe_resource_url( 'images/icons/chat-bubble.svg', false, nul
 			?>
 		</p>
 		<p>
-			<a class="button-secondary" href="javascript:void(0);">
+			<a class="button-secondary" href="<?php echo esc_url( $opt_in_link ); ?>">
 				<?php
 				echo esc_html_x(
 					'Manage my data sharing consent',

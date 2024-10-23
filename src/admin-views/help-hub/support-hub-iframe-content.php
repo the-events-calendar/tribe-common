@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The template that displays the support hub sidebar.
  *
@@ -9,7 +8,9 @@
  * @var bool            $is_license_valid  Whether the user has any valid licenses.
  * @var string          $zendesk_chat_key  The zendesk chat ID.
  * @var string          $docblock_chat_key The Docblock AI Key.
+ * @var string          $opt_in_link       The link to opt into telemetry.
  */
+
 $opted_in       = tribe_is_truthy( $is_opted_in ) ? '1' : '0';
 $stars_icon_url = tribe_resource_url( 'images/icons/stars.svg', false, null, $main );
 ?>
@@ -33,12 +34,12 @@ $stars_icon_url = tribe_resource_url( 'images/icons/stars.svg', false, null, $ma
 		<img src="<?php echo esc_url( $stars_icon_url ); ?>" alt="Stars Icon">
 	</div>
 	<div class="iframe-opt-out-message__content">
-		<h3>Our AI Chatbot can help you find solutions quickly.</h3>
+		<h2>Our AI Chatbot can help you find solutions quickly.</h2>
 		<p>
 			To enhance your experience, we require your consent to collect and share some of your website’s data with our AI chatbot.
 			If you do not wish to consent, you could chat with the bot on The Events Calendar’s Knowledgebase.
 		</p>
-		<a href="#">Manage Consent</a>
+		<a target="_parent" href="<?php echo esc_url( $opt_in_link ); ?>" class="button-secondary">Manage Consent</a>
 	</div>
 </div>
 

@@ -73,6 +73,22 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
+	 * Get the telemetry opt in link.
+	 *
+	 * @return string
+	 */
+	public function get_telemetry_opt_in_link() {
+		return add_query_arg(
+			[
+				'page'      => 'tec-events-settings',
+				'tab'       => 'general-debugging-tab',
+				'post_type' => 'tribe_events',
+			],
+			admin_url( 'edit.php' )
+		);
+	}
+
+	/**
 	 * Generates and outputs the iframe content.
 	 *
 	 * This function checks if the current page is the 'tec-events-help-hub' page and if the 'embedded_content'
@@ -84,6 +100,9 @@ class Tribe__Admin__Help_Page {
 	 * @return void
 	 */
 	public function generate_iframe_content() {
+		$telemetry_slug = substr( basename( TRIBE_EVENTS_FILE ), 0, -4 );
+		add_action( 'tec_telemetry_modal', $telemetry_slug );
+
 		$page   = tribe_get_request_var( 'page' );
 		$iframe = tribe_get_request_var( 'embedded_content' );
 
@@ -92,18 +111,14 @@ class Tribe__Admin__Help_Page {
 			return;
 		}
 
-		// Enqueue iframe-specific scripts.
-		$this->enqueue_help_page_iframe_assets();
+		add_action( 'wp_enqueue_scripts', [$this,'enqueue_help_page_iframe_assets']);
 
 		// Disable the admin bar for iframe requests.
 		// phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
-		add_filter( 'show_admin_bar', '__return_false' );
-		remove_action( 'wp_footer', 'wp_admin_bar_render', 1000 );
-		remove_action( 'wp_head', '_admin_bar_bump_cb' );
-
+		show_admin_bar( false );
 		// Render the iframe content.
 		$this->render_template(
-			'help-hub/support-hub-docsbot'
+			'help-hub/support-hub-iframe-content'
 		);
 
 		exit;
@@ -114,62 +129,47 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since TBD
 	 */
-	/**
-	 * Enqueues the necessary scripts for the help page and dequeues all non-tribe/tec and non-WordPress core theme styles.
-	 *
-	 * @since TBD
-	 */
-	/**
-	 * Enqueues the necessary scripts for the help page and dequeues all non-tribe/tec and non-WordPress core theme styles.
-	 *
-	 * @since TBD
-	 */
-	private function enqueue_help_page_iframe_assets() {
+	public function enqueue_help_page_iframe_assets() {
 		define( 'IFRAME_REQUEST', true );
-		// Enqueue the help page iframe script.
-		wp_enqueue_script(
-			'help-page-iframe',
-			plugin_dir_url( dirname( __DIR__, 1 ) ) . 'resources/js/admin/help-hub-iframe.js',
-			[],
-			'1.0.0',
-			true
+		tribe_asset(
+			Tribe__Main::instance(),
+			'help-hub-iframe-style',
+			'help-hub-iframe.css',
+			null,
+			'wp_enqueue_scripts'
 		);
-
-		// Pass settings to the script.
-		wp_localize_script(
-			'help-page-iframe',
-			'helpHubSettings',
+		tribe_asset(
+			Tribe__Main::instance(),
+			'help-hub-iframe-js',
+			'admin/help-hub-iframe.js',
+			null,
+			'wp_enqueue_scripts',
 			[
-				'docsbot_key'     => $this->config->get( 'DOCSBOT_SUPPORT_KEY' ),
-				'zendeskChatKey'  => $this->config->get( 'ZENDESK_CHAT_KEY' ),
+				'localize' => [
+					'name' => 'tribe_system_info',
+					'data' => [
+						'docsbot_key'    => $this->config->get( 'DOCSBOT_SUPPORT_KEY' ),
+						'zendeskChatKey' => $this->config->get( 'ZENDESK_CHAT_KEY' ),
+					],
+				],
 			]
 		);
+		global $wp_styles;
 
-		// Enqueue the help page iframe CSS.
-		wp_enqueue_style(
-			'help-page-iframe-style',
-			plugin_dir_url( dirname( __DIR__, 1 ) ) . 'resources/css/help-hub-iframe.css',
-			[],
-			'1.0.0'
-		);
-		add_action( 'wp_enqueue_scripts', function() {
-			global $wp_styles;
+		// Get the path to the current theme directory.
+		$theme_directory = get_template_directory_uri();
 
-			// Get the path to the current theme directory.
-			$theme_directory = get_template_directory_uri();
+		// Loop through all enqueued styles.
+		foreach ( $wp_styles->queue as $handle ) {
+			// Get the full URL of the enqueued style.
+			$src = $wp_styles->registered[ $handle ]->src;
 
-			// Loop through all enqueued styles.
-			foreach ( $wp_styles->queue as $handle ) {
-				// Get the full URL of the enqueued style.
-				$src = $wp_styles->registered[ $handle ]->src;
-
-				// Check if the style is located in the theme directory.
-				if ( strpos( $src, $theme_directory ) !== false ) {
-					// Dequeue the style.
-					wp_dequeue_style( $handle );
-				}
+			// Check if the style is located in the theme directory.
+			if ( strpos( $src, $theme_directory ) !== false ) {
+				// Dequeue the style.
+				wp_dequeue_style( $handle );
 			}
-		}, 20 );
+		}
 	}
 
 	/**
@@ -216,6 +216,7 @@ class Tribe__Admin__Help_Page {
 		$template         = new \Tribe__Template();
 		$common_telemetry = tribe( Telemetry::class );
 		$is_opted_in      = $common_telemetry->calculate_optin_status();
+		$opt_in_link      = $this->get_telemetry_opt_in_link();
 		$is_license_valid = Tribe__PUE__Checker::is_any_license_valid();
 		$zendesk_chat_key = $this->config->get( 'ZENDESK_CHAT_KEY' );
 		$dotbot_chat_key  = $this->config->get( 'DOCSBOT_SUPPORT_KEY' );
@@ -228,6 +229,7 @@ class Tribe__Admin__Help_Page {
 				'is_license_valid'  => $is_license_valid,
 				'zendesk_chat_key'  => $zendesk_chat_key,
 				'docblock_chat_key' => $dotbot_chat_key,
+				'opt_in_link'       => $opt_in_link,
 			],
 			$extra_values
 		);

@@ -10,6 +10,7 @@ tribe.helpPage = tribe.helpPage || {};
 		accordion: '.tec-ui-accordion',
 		openSupportChat: '[data-open-support-chat]',
 		helpHubIframe: '#tec-settings__support-hub-iframe',
+		iframeLoader: '#iframe-loader',
 	};
 
 	obj.setup = function () {
@@ -17,7 +18,26 @@ tribe.helpPage = tribe.helpPage || {};
 		obj.setupCopyButton();
 		obj.setupTabs();
 		obj.IframeZendeskClickHandler();
+		obj.IframeRender();
 	};
+
+	obj.IframeRender = function () {
+		// Get the iframe and loader elements.
+		const iframe = document.querySelector( obj.selectors.helpHubIframe );
+		const loader = document.querySelector( obj.selectors.iframeLoader );
+		// Add an event listener to detect when the iframe is fully loaded.
+		if ( iframe ) {
+			iframe.addEventListener( 'load', function () {
+
+				// Hide the loader and show the iframe once loaded.
+				iframe.classList.remove( 'hidden' );
+				if ( loader ) {
+					loader.classList.add( 'hidden' );
+				}
+			} );
+		}
+	};
+
 
 	/**
 	 * Sends a message to the iframe.
@@ -48,10 +68,13 @@ tribe.helpPage = tribe.helpPage || {};
 	}
 
 	obj.IframeZendeskClickHandler = function () {
-		document.querySelector( obj.selectors.openSupportChat )
-			.addEventListener( 'click', ( event ) => obj.openZendeskInIframe( event ) );
-	}
+		const openSupportChatElement = document.querySelector( obj.selectors.openSupportChat );
 
+		// Check if the element exists before adding the event listener
+		if ( openSupportChatElement ) {
+			openSupportChatElement.addEventListener( 'click', ( event ) => obj.openZendeskInIframe( event ) );
+		}
+	};
 
 
 	/**
