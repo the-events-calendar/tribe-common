@@ -4,6 +4,9 @@ namespace Tribe\PUE;
 
 use TEC\Common\Tests\Licensing\PUE_Service_Mock;
 use Tribe__PUE__Checker as PUE_Checker;
+use Tribe__Main;
+use TEC\Common\StellarWP\Uplink\Register;
+use function TEC\Common\StellarWP\Uplink\get_resource;
 
 class Checker_Test extends \Codeception\TestCase\WPTestCase {
 	/**
@@ -102,6 +105,28 @@ class Checker_Test extends \Codeception\TestCase\WPTestCase {
 		$pue_instance->validate_key( $original_key, false );
 
 		$this->assertEquals( $replacement_key, $pue_instance->get_key() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_check_uplink_before_pue() {
+		Register::plugin(
+			'test-plugin',
+			'Test Plugin',
+			'1.0.0',
+			__DIR__,
+			tribe( Tribe__Main::class )
+		);
+
+		$key = 'license-key-for-test-plugin';
+
+		$resource = get_resource( 'test-plugin' );
+		$resource->set_license_key( $key, 'any' );
+
+		$pue_instance = new PUE_Checker( 'deprecated', 'test-plugin', [], 'test-plugin/test-plugin.php' );
+
+		$this->assertEquals( $key, $pue_instance->get_key() );
 	}
 
 	public function test_replacemnt_key_update_in_multisite_context(): void {

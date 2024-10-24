@@ -6,7 +6,7 @@ use Tribe\Events\Event_Status\Admin_Template;
 use Tribe\Events\Event_Status\Classic_Editor;
 use Tribe__Utils__Array as Arr;
 
-trait Create_events {
+trait Create_Events {
 
 	protected function generate_event( $mock_date, $overrides = [] ) {
 		$timezone_string = 'America/New_York';

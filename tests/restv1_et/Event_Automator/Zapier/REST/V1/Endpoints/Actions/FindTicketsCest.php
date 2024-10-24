@@ -17,8 +17,8 @@ use TEC\Event_Automator\Tests\Traits\Create_events;
 
 class FindTicketsCest extends BaseRestETCest {
 
-	use Create_events;
-	use Create_attendees;
+	use Create_Events;
+	use Create_Attendees;
 
 	/*
 	 * Attendee meta values.

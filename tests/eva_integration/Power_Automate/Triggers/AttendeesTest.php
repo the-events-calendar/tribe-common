@@ -3,14 +3,14 @@
 namespace Tribe\tests\eva_integration\Power_Automate\Triggers;
 
 use TEC\Event_Automator\Power_Automate\Triggers\Attendees;
-use TEC\Event_Automator\Tests\Traits\Create_events;
-use TEC\Event_Automator\Tests\Traits\Create_attendees;
+use TEC\Event_Automator\Tests\Traits\Create_Events;
+use TEC\Event_Automator\Tests\Traits\Create_Attendees;
 use Tribe\Tests\Traits\With_Uopz;
 
 class AttendeesTest extends \Codeception\TestCase\WPTestCase {
 
-	use Create_events;
-	use Create_attendees;
+	use Create_Events;
+	use Create_Attendees;
 	use With_Uopz;
 
 	public function setUp() {
