@@ -77,6 +77,8 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Get the telemetry opt in link.
 	 *
+	 * @since TBD
+	 *
 	 * @return string
 	 */
 	public function get_telemetry_opt_in_link(): string {
