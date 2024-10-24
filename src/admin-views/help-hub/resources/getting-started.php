@@ -2,20 +2,13 @@
 /**
  * The template that displays the resources tab on the help page.
  *
- * @var Tribe__Main $main              The main common object.
- * @var bool        $is_opted_in       Whether the user has opted in to telemetry.
- * @var bool        $is_license_valid  Whether the user has any valid licenses.
- * @var string      $zendesk_chat_key  The API key for the Zendesk chat integration.
- * @var string      $docblock_chat_key The API key for the DocsBot chat integration.
- * @var string      $opt_in_link       The link to the telemetry opt-in page.
- * @var string      $notice            The admin notice HTML for the chatbot callout.
- * @var string      $template_variant  The template variant, determining which template to display.
- * @var string      $stars_icon_url    The URL for the stars icon image.
- * @var string      $chat_icon_url     The URL for the chat bubble icon image.
- * @var string      $tec_icon_url      The URL for The Events Calendar logo image.
- * @var string      $ea_icon_url       The URL for the Event Aggregator logo image.
- * @var string      $fbar_icon_url     The URL for the Filter Bar logo image.
- * @var string      $article_icon_url  The URL for the article icon image.
+ * @var Tribe__Main $main             The main common object.
+ * @var array       $status           Contains the user's telemetry and license status.
+ * @var array       $keys             Contains the chat keys for support services.
+ * @var array       $icons            Contains URLs for various support hub icons.
+ * @var array       $links            Contains URLs for important links, like the telemetry opt-in link.
+ * @var string      $notice           The admin notice HTML for the chatbot callout.
+ * @var string      $template_variant The template variant, determining which template to display.
  */
 
 ?>
@@ -42,7 +35,7 @@
 	</div>
 	<ul class="tec-help-list__list-expanded">
 		<li>
-			<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $tec_icon_url ); ?>"/>
+			<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $icons['tec_icon_url'] ); ?>"/>
 			<a href="https://evnt.is/1ap9">
 				<?php
 				echo esc_html_x(
@@ -54,7 +47,7 @@
 			</a>
 		</li>
 		<li>
-			<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $ea_icon_url ); ?>"/>
+			<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $icons['ea_icon_url'] ); ?>"/>
 			<a href="https://evnt.is/1apc">
 				<?php
 				echo esc_html_x(
@@ -66,7 +59,7 @@
 			</a>
 		</li>
 		<li>
-			<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $fbar_icon_url ); ?>"/>
+			<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $icons['fbar_icon_url'] ); ?>"/>
 			<a href="https://evnt.is/1apd">
 				<?php
 				echo esc_html_x(

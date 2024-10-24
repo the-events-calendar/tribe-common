@@ -335,35 +335,17 @@ class Hub {
 	 * @return void
 	 */
 	private function render_template( $template_name, array $extra_values = [] ): void {
-		$main             = Tribe__Main::instance();
-		$template         = new Tribe__Template();
-		$opt_in_link      = $this->get_telemetry_opt_in_link();
-		$status           = $this->get_license_and_opt_in_status();
-		$is_opted_in      = $status['is_opted_in'];
-		$is_license_valid = $status['is_license_valid'];
-		$zendesk_chat_key = $this->config->get( 'ZENDESK_CHAT_KEY' );
-		$dotbot_chat_key  = $this->config->get( 'DOCSBOT_SUPPORT_KEY' );
+		$main     = Tribe__Main::instance();
+		$template = new Tribe__Template();
 
-		$tec_icon_url     = tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, $main );
-		$ea_icon_url      = tribe_resource_url( 'images/logo/event-aggregator.svg', false, null, $main );
-		$fbar_icon_url    = tribe_resource_url( 'images/logo/filterbar.svg', false, null, $main );
-		$article_icon_url = tribe_resource_url( 'images/icons/file-text1.svg', false, null, $main );
-		$stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $main );
-
-		// Merge core values with extra values passed to the method.
+		// Organize the template values.
 		$template_values = array_merge(
 			[
-				'main'              => $main,
-				'is_opted_in'       => $is_opted_in,
-				'is_license_valid'  => $is_license_valid,
-				'zendesk_chat_key'  => $zendesk_chat_key,
-				'docblock_chat_key' => $dotbot_chat_key,
-				'opt_in_link'       => $opt_in_link,
-				'tec_icon_url'     => $tec_icon_url,
-				'ea_icon_url'      => $ea_icon_url,
-				'fbar_icon_url'    => $fbar_icon_url,
-				'article_icon_url' => $article_icon_url,
-				'stars_icon_url'   => $stars_icon_url,
+				'main'          => $main,
+				'status_values' => $this->get_status_values(),
+				'keys'          => $this->get_chat_keys(),
+				'icons'         => $this->get_icon_urls( $main ),
+				'links'         => $this->get_links(),
 			],
 			$extra_values
 		);
@@ -375,5 +357,67 @@ class Hub {
 		$template->set_template_context_extract( true );
 		$template->set_template_folder_lookup( false );
 		$template->template( $template_name );
+	}
+
+	/**
+	 * Retrieves the opt in status and if your license is valid.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An associative of `status` data.
+	 */
+	protected function get_status_values(): array {
+		$status = $this->get_license_and_opt_in_status();
+
+		return [
+			'is_opted_in'      => $status['is_opted_in'],
+			'is_license_valid' => $status['is_license_valid'],
+		];
+	}
+
+	/**
+	 * Retrieves the Zendesk and Docsbot chat keys from the configuration.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An associative array containing chat keys.
+	 */
+	protected function get_chat_keys(): array {
+		return [
+			'zendesk_chat_key' => $this->config->get( 'ZENDESK_CHAT_KEY' ),
+			'docsbot_chat_key' => $this->config->get( 'DOCSBOT_SUPPORT_KEY' ),
+		];
+	}
+
+	/**
+	 * Retrieves the URLs for the necessary icons.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__Main $main The main object instance to pass for generating resource URLs.
+	 *
+	 * @return array An associative array containing the URLs for various icons.
+	 */
+	protected function get_icon_urls( Tribe__Main $main ): array {
+		return [
+			'tec_icon_url'     => tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, $main ),
+			'ea_icon_url'      => tribe_resource_url( 'images/logo/event-aggregator.svg', false, null, $main ),
+			'fbar_icon_url'    => tribe_resource_url( 'images/logo/filterbar.svg', false, null, $main ),
+			'article_icon_url' => tribe_resource_url( 'images/icons/file-text1.svg', false, null, $main ),
+			'stars_icon_url'   => tribe_resource_url( 'images/icons/stars.svg', false, null, $main ),
+		];
+	}
+
+	/**
+	 * Retrieves the relevant links used within the template.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An associative array containing the 'opt_in_link'.
+	 */
+	protected function get_links(): array {
+		return [
+			'opt_in_link' => $this->get_telemetry_opt_in_link(),
+		];
 	}
 }
