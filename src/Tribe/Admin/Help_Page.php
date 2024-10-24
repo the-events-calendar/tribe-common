@@ -89,20 +89,13 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-	 * Generates and outputs the iframe content.
-	 *
-	 * This function checks if the current page is the 'tec-events-help-hub' page and if the 'embedded_content'
-	 * parameter is present. If both conditions are met, it outputs the iframe content. Otherwise, it returns early
-	 * without rendering anything.
+	 * Generates and outputs the iframe content if the correct parameters are provided.
 	 *
 	 * @since TBD
 	 *
 	 * @return void
 	 */
 	public function generate_iframe_content() {
-		$telemetry_slug = substr( basename( TRIBE_EVENTS_FILE ), 0, -4 );
-		add_action( 'tec_telemetry_modal', $telemetry_slug );
-
 		$page   = tribe_get_request_var( 'page' );
 		$iframe = tribe_get_request_var( 'embedded_content' );
 
@@ -111,7 +104,8 @@ class Tribe__Admin__Help_Page {
 			return;
 		}
 
-		add_action( 'wp_enqueue_scripts', [$this,'enqueue_help_page_iframe_assets']);
+		// Enqueue our assets for the Iframe.
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_help_page_iframe_assets' ] );
 
 		// Disable the admin bar for iframe requests.
 		// phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
