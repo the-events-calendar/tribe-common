@@ -58,8 +58,10 @@ class Tribe__Admin__Help_Page {
 	 * Renders the help page template.
 	 *
 	 * @since TBD
+	 *
+	 * @return void
 	 */
-	public function do_help_tab() {
+	public function do_help_tab(): void {
 		// Generate the admin notice HTML.
 		$notice_html = $this->generate_notice_html();
 
@@ -77,7 +79,7 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @return string
 	 */
-	public function get_telemetry_opt_in_link() {
+	public function get_telemetry_opt_in_link(): string {
 		return add_query_arg(
 			[
 				'page'      => 'tec-events-settings',
@@ -95,7 +97,7 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @return void
 	 */
-	public function generate_iframe_content() {
+	public function generate_iframe_content(): void {
 		$page   = tribe_get_request_var( 'page' );
 		$iframe = tribe_get_request_var( 'embedded_content' );
 
@@ -122,8 +124,9 @@ class Tribe__Admin__Help_Page {
 	 * Enqueues the necessary scripts for the help page and dequeues all theme styles.
 	 *
 	 * @since TBD
+	 * @return void
 	 */
-	public function enqueue_help_page_iframe_assets() {
+	public function enqueue_help_page_iframe_assets(): void {
 		define( 'IFRAME_REQUEST', true );
 		tribe_asset(
 			Tribe__Main::instance(),
@@ -148,19 +151,24 @@ class Tribe__Admin__Help_Page {
 				],
 			]
 		);
-		global $wp_styles;
+		$this->dequeue_theme_styles();
+	}
 
-		// Get the path to the current theme directory.
+	/**
+	 * Dequeues theme-related styles to avoid conflicts within the iframe.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function dequeue_theme_styles(): void {
+		global $wp_styles;
 		$theme_directory = get_template_directory_uri();
 
-		// Loop through all enqueued styles.
+		// Dequeue only styles from the current theme.
 		foreach ( $wp_styles->queue as $handle ) {
-			// Get the full URL of the enqueued style.
 			$src = $wp_styles->registered[ $handle ]->src;
-
-			// Check if the style is located in the theme directory.
 			if ( strpos( $src, $theme_directory ) !== false ) {
-				// Dequeue the style.
 				wp_dequeue_style( $handle );
 			}
 		}
@@ -173,7 +181,7 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @return string The HTML for the admin notice.
 	 */
-	private function generate_notice_html() {
+	private function generate_notice_html(): string {
 		$notice_slug    = 'tec-common-help-chatbot-notice';
 		$notice_content = sprintf(
 		// translators: 1: the opening tag to the chatbot link, 2: the closing tag.
@@ -205,7 +213,7 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @return void
 	 */
-	private function render_template( $template_name, array $extra_values = [] ) {
+	private function render_template( $template_name, array $extra_values = [] ): void {
 		$main             = Tribe__Main::instance();
 		$template         = new \Tribe__Template();
 		$common_telemetry = tribe( Telemetry::class );
