@@ -65,10 +65,21 @@ li.tec-nav__tab {
 .tec-ui-accordion {
 	max-width: 100% !important;
 }
+
 /* Iframe Style */
-#tec-settings__support-hub-iframe {
-	height: 750px;
-	width: 100%;
+.tec-settings__support-hub-iframe-container {
+	#tec-settings__support-hub-iframe {
+		height: 750px;
+		width: 100%;
+	}
+
+	#tec-settings__support-hub-iframe-loader {
+		.spinner-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
 }
 
 /* Accordion Style */

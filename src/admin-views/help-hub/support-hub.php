@@ -31,7 +31,6 @@
 		<div class="tec-settings-form__content-section">
 			<div>
 				<?php
-				//$this->template( 'help-hub/support-hub-docsbot' );
 				$this->template( 'help-hub/support-hub-iframe' );
 				?>
 			</div>

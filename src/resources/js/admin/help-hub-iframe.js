@@ -8,6 +8,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	obj.selectors = {
 		body: document.body,
 		docsbotWidget: '#docsbot-widget-embed',
+		optOutMessage: '.iframe-opt-out-message',
 	};
 
 	/**
@@ -23,6 +24,8 @@ window.DocsBotAI = window.DocsBotAI || {};
 			obj.loadAndInitializeZendeskWidget();
 			obj.initializeDocsBot();
 		} else {
+			document.querySelector( obj.selectors.optOutMessage ).classList.remove( 'hide' );
+			document.querySelector( obj.selectors.docsbotWidget ).classList.add( 'hide' );
 			obj.selectors.body.classList.add( 'blackout' );
 		}
 	};
@@ -49,29 +52,6 @@ window.DocsBotAI = window.DocsBotAI || {};
 	};
 
 	/**
-	 * Checks if the Zendesk Web Widget is available, then runs the provided callback.
-	 *
-	 * @since TBD
-	 * @param {Function} callback - The function to execute once zE is defined.
-	 * @return {void}
-	 */
-	obj.onZendeskAvailable = ( callback ) => {
-		const checkZendesk = () => {
-			if ( typeof zE !== 'undefined' ) {
-				callback(); // zE is available, run the callback.
-			}
-		};
-
-		// Attach the callback directly to the script load event
-		const script = document.getElementById( 'ze-snippet' );
-		if ( script ) {
-			script.addEventListener( 'load', checkZendesk );
-		} else {
-			setTimeout( () => obj.onZendeskAvailable( callback ), 100 ); // Poll every 100ms as fallback
-		}
-	};
-
-	/**
 	 * Initializes the Zendesk widget, hides it initially, and sets up event listeners for open/close actions.
 	 *
 	 * @since TBD
@@ -80,22 +60,37 @@ window.DocsBotAI = window.DocsBotAI || {};
 	obj.initializeZendesk = () => {
 		obj.isZendeskInitialized = false;
 
-		zE( 'messenger', 'hide', () => {
-			obj.isZendeskInitialized = true;
-		} );
+		zE(
+			'messenger',
+			'hide',
+			() => {
+				obj.isZendeskInitialized = true;
+			}
+		);
 
 		// Add 'blackout' class when the widget is opened.
-		zE( 'messenger:on', 'open', () => {
-			if ( obj.isZendeskInitialized ) {
-				obj.selectors.body.classList.add( 'blackout' );
+		zE(
+			'messenger:on',
+			'open',
+			() => {
+				if ( obj.isZendeskInitialized ) {
+					obj.selectors.body.classList.add( 'blackout' );
+				}
 			}
-		} );
+		);
 
 		// Remove 'blackout' class when the widget is closed.
-		zE( 'messenger:on', 'close', () => {
-			zE( 'messenger', 'hide' );
-			obj.selectors.body.classList.remove( 'blackout' );
-		} );
+		zE(
+			'messenger:on',
+			'close',
+			() => {
+				zE(
+					'messenger',
+					'hide'
+				);
+				obj.selectors.body.classList.remove( 'blackout' );
+			}
+		);
 	};
 
 	/**
@@ -115,14 +110,23 @@ window.DocsBotAI = window.DocsBotAI || {};
 		switch ( action ) {
 			case 'runScript':
 				if ( data === 'openZendesk' ) {
-					zE( 'messenger', 'show' );
-					zE( 'messenger', 'open' );
+					zE(
+						'messenger',
+						'show'
+					);
+					zE(
+						'messenger',
+						'open'
+					);
 					obj.selectors.body.classList.add( 'blackout' );
 				}
 				break;
 
 			default:
-				console.warn( 'Unhandled action:', action );
+				console.warn(
+					'Unhandled action:',
+					action
+				);
 				break;
 		}
 	};
@@ -135,11 +139,17 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 */
 	obj.loadAndInitializeZendeskWidget = () => {
 		obj.loadZendeskWidgetScript( helpHubSettings.zendeskChatKey )
-			.then( () => obj.onZendeskAvailable( obj.initializeZendesk ) )
-			.catch( ( error ) => console.error( 'Zendesk Widget failed to load:', error ) );
+			.then( () => obj.initializeZendesk() )
+			.catch( ( error ) => console.error(
+				'Zendesk Widget failed to load:',
+				error
+			) );
 
 		// Listen for incoming messages.
-		window.addEventListener( 'message', obj.handlePostMessageEvents );
+		window.addEventListener(
+			'message',
+			obj.handlePostMessageEvents
+		);
 	};
 
 	/**
@@ -162,7 +172,10 @@ window.DocsBotAI = window.DocsBotAI || {};
 					observer.disconnect(); // Ensure the observer stops after resolving.
 				}
 			} );
-			observer.observe( document.body, { childList: true, subtree: true } );
+			observer.observe(
+				document.body,
+				{ childList: true, subtree: true }
+			);
 		} );
 	};
 
@@ -182,20 +195,29 @@ window.DocsBotAI = window.DocsBotAI || {};
 				script.src = 'https://widget.docsbot.ai/chat.js';
 
 				const firstScript = document.getElementsByTagName( 'script' )[ 0 ];
-				firstScript.parentNode.insertBefore( script, firstScript );
+				firstScript.parentNode.insertBefore(
+					script,
+					firstScript
+				);
 
-				script.addEventListener( 'load', () => {
-					Promise.all( [
-									 window.DocsBotAI.mount( { ...e } ),
-									 obj.observeElement( '#docsbotai-root' ),
-								 ] )
-						.then( resolve )
-						.catch( reject );
-				} );
+				script.addEventListener(
+					'load',
+					() => {
+						Promise.all( [
+										 window.DocsBotAI.mount( { ...e } ),
+										 obj.observeElement( '#docsbotai-root' ),
+									 ] )
+							.then( resolve )
+							.catch( reject );
+					}
+				);
 
-				script.addEventListener( 'error', ( error ) => {
-					reject( error.message );
-				} );
+				script.addEventListener(
+					'error',
+					( error ) => {
+						reject( error.message );
+					}
+				);
 			} );
 		};
 
@@ -204,8 +226,14 @@ window.DocsBotAI = window.DocsBotAI || {};
 							supportCallback: ( event ) => {
 								event.preventDefault();
 								DocsBotAI.unmount();
-								zE( 'messenger', 'show' );
-								zE( 'messenger', 'open' );
+								zE(
+									'messenger',
+									'show'
+								);
+								zE(
+									'messenger',
+									'open'
+								);
 							},
 						} );
 	};
@@ -213,4 +241,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	// Initialize the help page.
 	$( obj.setup );
 
-} )( jQuery, tribe.helpPage );
+} )(
+	jQuery,
+	tribe.helpPage
+);

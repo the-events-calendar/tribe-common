@@ -146,7 +146,7 @@ class Tribe__Admin__Help_Page {
 			'wp_enqueue_scripts',
 			[
 				'localize' => [
-					'name' => 'tribe_system_info',
+					'name' => 'helpHubSettings',
 					'data' => [
 						'docsbot_key'    => $this->config->get( 'DOCSBOT_SUPPORT_KEY' ),
 						'zendeskChatKey' => $this->config->get( 'ZENDESK_CHAT_KEY' ),

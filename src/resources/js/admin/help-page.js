@@ -10,7 +10,7 @@ tribe.helpPage = tribe.helpPage || {};
 		accordion: '.tec-ui-accordion',
 		openSupportChat: '[data-open-support-chat]',
 		helpHubIframe: '#tec-settings__support-hub-iframe',
-		iframeLoader: '#iframe-loader',
+		iframeLoader: '#tec-settings__support-hub-iframe-loader',
 	};
 
 	obj.setup = function () {

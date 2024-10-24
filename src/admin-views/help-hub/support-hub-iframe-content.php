@@ -27,22 +27,36 @@ $stars_icon_url = tribe_resource_url( 'images/icons/stars.svg', false, null, $ma
 <body <?php body_class(); ?> data-opted-in="<?php echo esc_attr( $opted_in ); ?>">
 
 <!-- Docsbot section-->
-<div id="docsbot-widget-embed hide"></div>
+<div id="docsbot-widget-embed"></div>
 
 
-<div class="iframe-opt-out-message">
+<div class="iframe-opt-out-message hide">
 	<div class="iframe-opt-out-message__image">
-		<img src="<?php echo esc_url( $stars_icon_url ); ?>" alt="Stars Icon">
+		<img src="<?php echo esc_url( $stars_icon_url ); ?>" alt="<?php esc_attr_e( 'Star Icon', 'tribe-common' ); ?>">
 	</div>
 	<div class="iframe-opt-out-message__content">
-		<h2>Our AI Chatbot can help you find solutions quickly.</h2>
+		<h2><?php esc_html_e( 'Our AI Chatbot can help you find solutions quickly.', 'tribe-common' ); ?></h2>
 		<p>
-			To enhance your experience, we require your consent to collect and share some of your website’s data with our AI chatbot.
-			If you do not wish to consent, you could chat with the bot on The Events Calendar’s Knowledgebase.
+			<?php esc_html_e( 'To enhance your experience, we require your consent to collect and share some of your website’s data with our AI chatbot.', 'tribe-common' ); ?>
 		</p>
-		<a target="_parent" href="<?php echo esc_url( $opt_in_link ); ?>" class="button-secondary">Manage Consent</a>
+		<p>
+			<?php
+			printf(
+			// translators: 1: the opening tag to the chatbot link, 2: the closing tag.
+				esc_html_x(
+					'If you do not wish to consent, you could chat with the bot on %1$sThe Events Calendar’s Knowledgebase%2$s.',
+					'Text for opting out of chatbot and linking to The Events Calendar’s Knowledgebase',
+					'tribe-common'
+				),
+				'<a target="_parent" href="https://theeventscalendar.com/knowledgebase/">',
+				'</a>'
+			);
+			?>
+		</p>
+		<a target="_parent" href="<?php echo esc_url( $opt_in_link ); ?>" class="button-secondary"><?php esc_html_e( 'Manage Consent', 'tribe-common' ); ?></a>
 	</div>
 </div>
+
 
 <?php
 wp_footer();
