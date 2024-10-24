@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [6.3.0] 2024-10-29 =
+
+* Feature - Added integration with new premium Seating product for Event Tickets.
+
 = [6.2.0] 2024-10-17 =
 
 * Feature - New Conditional Content supporting classes with available Traits for User targeted Dismissal.
