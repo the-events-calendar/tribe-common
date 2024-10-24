@@ -127,7 +127,7 @@ class Tribe__Log__Admin {
 	 * @return boolean True if the assets should be enqueued.
 	 */
 	public function should_enqueue_assets() {
-		return Tribe__Admin__Help_Page::instance()->is_current_page() || tribe( Troubleshooting::class )->is_current_page();
+		return tribe( Troubleshooting::class )->is_current_page();
 	}
 
 	/**

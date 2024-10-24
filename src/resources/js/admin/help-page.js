@@ -9,63 +9,73 @@ tribe.helpPage = tribe.helpPage || {};
 		autoInfoOptIn: '#tribe_auto_sysinfo_opt_in',
 		accordion: '.tec-ui-accordion',
 		openSupportChat: '[data-open-support-chat]',
+		helpHubIframe: '#tec-settings__support-hub-iframe',
+		iframeLoader: '#tec-settings__support-hub-iframe-loader',
 	};
 
 	obj.setup = function () {
 		obj.setupSystemInfo();
 		obj.setupCopyButton();
 		obj.setupTabs();
-		obj.setupChat();
+		obj.IframeZendeskClickHandler();
+		obj.IframeRender();
 	};
 
-	/**
-	 * Initializes chat widgets if on correct page.
-	 */
-	obj.setupChat = function () {
-		if ( ! zE ) {
-			return;
+	obj.IframeRender = function () {
+		// Get the iframe and loader elements.
+		const iframe = document.querySelector( obj.selectors.helpHubIframe );
+		const loader = document.querySelector( obj.selectors.iframeLoader );
+		// Add an event listener to detect when the iframe is fully loaded.
+		if ( iframe ) {
+			iframe.addEventListener( 'load', function () {
+
+				// Hide the loader and show the iframe once loaded.
+				iframe.classList.remove( 'hidden' );
+				if ( loader ) {
+					loader.classList.add( 'hidden' );
+				}
+			} );
 		}
+	};
 
-		$( obj.selectors.openSupportChat ).on(
-			'click',
-			function (e) {
-				e.preventDefault();
-				obj.openSupportChat();
-			}
-		);
 
-		// When we close the chat, let's hide it completely until they click "support" link.
-		zE(
-			"messenger:on",
-			"close",
-			function () {
-				zE( 'messenger', 'hide' );
-			}
-		);
-
-		// On page load always close widget (it will be opened later).
-		zE( 'messenger', 'hide' );
-
-		// Initialize DocsBot.
-		DocsBotAI.init(
-			{
-				id: tribe_system_info.docsbot_key,
-				supportCallback: function (event, history) {
-					event.preventDefault();
-					// Open the Zendesk Web Widget.
-					obj.openSupportChat();
-				},
-			}
-		);
+	/**
+	 * Sends a message to the iframe.
+	 *
+	 * @param {Object} message - The message object containing action and data.
+	 */
+	obj.sendMessageToIframe = function ( message ) {
+		// Ensure the iframe has been loaded and is accessible.
+		if ( document.querySelector( obj.selectors.helpHubIframe ).contentWindow ) {
+			document.querySelector( obj.selectors.helpHubIframe ).contentWindow.postMessage( message, window.origin );
+		}
 	}
 
 	/**
-	 * Open the support chat.
+	 * Event listener callback for sending messages, to open Zendesk chat.
+	 * Triggers when the specified trigger element is clicked.
+	 *
+	 * @param {Event} event - The click event object.
 	 */
-	obj.openSupportChat = function () {
-		zE( 'messenger', 'show' );
-		zE( 'messenger', 'open' );
+	obj.openZendeskInIframe = function ( event ) {
+		event.preventDefault();
+
+		// Example message to send to the iframe.
+		const message = { action: 'runScript', data: 'openZendesk' };
+
+		// Send the message to the iframe.
+		obj.sendMessageToIframe( message );
 	}
+
+	obj.IframeZendeskClickHandler = function () {
+		const openSupportChatElement = document.querySelector( obj.selectors.openSupportChat );
+
+		// Check if the element exists before adding the event listener
+		if ( openSupportChatElement ) {
+			openSupportChatElement.addEventListener( 'click', ( event ) => obj.openZendeskInIframe( event ) );
+		}
+	};
+
 
 	/**
 	 * Will setup any accordions that are children of the parent node.

@@ -50,5 +50,5 @@ $chat_icon_url  = tribe_resource_url( 'images/icons/chat-bubble.svg', false, nul
 		</div>
 	</div>
 
-	<?php $this->template( 'help-hub/shared-live-support' ); ?>
+	<?php $this->template( 'help-hub/resources/shared-live-support' ); ?>
 </div>

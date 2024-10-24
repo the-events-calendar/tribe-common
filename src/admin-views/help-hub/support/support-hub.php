@@ -2,7 +2,13 @@
 /**
  * The template that displays the help hub tab on the help page.
  *
- * @var Tribe__Main $main The main common object.
+ * @var Tribe__Main $main             The main common object.
+ * @var array       $status_values           Contains the user's telemetry and license status.
+ * @var array       $keys             Contains the chat keys for support services.
+ * @var array       $icons            Contains URLs for various support hub icons.
+ * @var array       $links            Contains URLs for important links, like the telemetry opt-in link.
+ * @var string      $notice           The admin notice HTML for the chatbot callout.
+ * @var string      $template_variant The template variant, determining which template to display.
  */
 
 ?>
@@ -29,15 +35,15 @@
 			</p>
 		</div>
 		<div class="tec-settings-form__content-section">
-			<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">
+			<div>
 				<?php
-				$this->template( 'help-hub/support-hub-docsbot' );
+				$this->template( 'help-hub/support/iframe' );
 				?>
+			</div>
 
-			</h3>
 		</div>
 	</div>
 </div>
 <?php
-$this->template( 'help-hub/support-hub-sidebar' );
+$this->template( "help-hub/support/sidebar/{$template_variant}" );
 ?>
