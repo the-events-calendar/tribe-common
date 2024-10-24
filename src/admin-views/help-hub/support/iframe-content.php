@@ -1,14 +1,17 @@
 <?php
 /**
- * The template that displays the support hub sidebar.
+ * The template that displays the support hub iframe content.
  *
- * @var Tribe__Template $this              The template object.
- * @var Tribe__Main     $main              The main class.
- * @var bool            $is_opted_in       Whether the user has opted in to telemetry.
- * @var bool            $is_license_valid  Whether the user has any valid licenses.
- * @var string          $zendesk_chat_key  The zendesk chat ID.
- * @var string          $docblock_chat_key The Docblock AI Key.
- * @var string          $opt_in_link       The link to opt into telemetry.
+ * @var Tribe__Main $main              The main common object.
+ * @var bool        $is_opted_in       Whether the user has opted in to telemetry.
+ * @var bool        $is_license_valid  Whether the user has any valid licenses.
+ * @var string      $zendesk_chat_key  The API key for the Zendesk chat integration.
+ * @var string      $docblock_chat_key The API key for the DocsBot chat integration.
+ * @var string      $opt_in_link       The link to the telemetry opt-in page.
+ * @var string      $notice            The admin notice HTML for the chatbot callout.
+ * @var string      $template_variant  The template variant, determining which template to display.
+ * @var string      $stars_icon_url    The URL for the stars icon image.
+ * @var string      $chat_icon_url     The URL for the chat bubble icon image.
  */
 
 $opted_in       = tribe_is_truthy( $is_opted_in ) ? '1' : '0';

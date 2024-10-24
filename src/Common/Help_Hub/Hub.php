@@ -59,13 +59,51 @@ class Hub {
 		// Generate the admin notice HTML.
 		$notice_html = $this->generate_notice_html();
 
+		$status           = $this->get_license_and_opt_in_status();
+		$template_variant = $this->get_template_variant( $status['is_license_valid'], $status['is_opted_in'] );
+
 		// Render the help page template.
 		$this->render_template(
 			'help-hub',
 			[
-				'notice' => $notice_html,
+				'notice'           => $notice_html,
+				'template_variant' => $template_variant,
 			]
 		);
+	}
+
+	/**
+	 * Get the license validity and telemetry opt-in status.
+	 *
+	 * @return array Contains 'is_license_valid' and 'is_opted_in' status.
+	 */
+	protected function get_license_and_opt_in_status(): array {
+		$is_license_valid = Tribe__PUE__Checker::is_any_license_valid();
+		$common_telemetry = tribe( Telemetry::class );
+		$is_opted_in      = $common_telemetry->calculate_optin_status();
+
+		return [
+			'is_license_valid' => $is_license_valid,
+			'is_opted_in'      => $is_opted_in,
+		];
+	}
+
+	/**
+	 * Determine the template variant based on the license and opt-in status.
+	 *
+	 * @param bool $is_license_valid Whether the license is valid.
+	 * @param bool $is_opted_in Whether the user has opted into telemetry.
+	 *
+	 * @return string The template variant.
+	 */
+	protected function get_template_variant( bool $is_license_valid, bool $is_opted_in ): string {
+		if ( $is_license_valid && $is_opted_in ) {
+			return 'has-license-has-consent';
+		} elseif ( $is_license_valid && ! $is_opted_in ) {
+			return 'has-license-no-consent';
+		}
+
+		return 'no-license';
 	}
 
 	/**
@@ -197,7 +235,7 @@ class Hub {
 		show_admin_bar( false );
 		// Render the iframe content.
 		$this->render_template(
-			'help-hub/support-hub-iframe-content'
+			'help-hub/support/iframe-content'
 		);
 
 		exit;
@@ -299,10 +337,10 @@ class Hub {
 	private function render_template( $template_name, array $extra_values = [] ): void {
 		$main             = Tribe__Main::instance();
 		$template         = new Tribe__Template();
-		$common_telemetry = tribe( Telemetry::class );
-		$is_opted_in      = $common_telemetry->calculate_optin_status();
 		$opt_in_link      = $this->get_telemetry_opt_in_link();
-		$is_license_valid = Tribe__PUE__Checker::is_any_license_valid();
+		$status           = $this->get_license_and_opt_in_status();
+		$is_opted_in      = $status['is_opted_in'];
+		$is_license_valid = $status['is_license_valid'];
 		$zendesk_chat_key = $this->config->get( 'ZENDESK_CHAT_KEY' );
 		$dotbot_chat_key  = $this->config->get( 'DOCSBOT_SUPPORT_KEY' );
 

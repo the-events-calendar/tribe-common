@@ -4,7 +4,6 @@
  *
  * @var Tribe__Main $main The main common object.
  */
-
 ?>
 <div class="tribe_settings wrap tec-events-admin-settings">
 	<h1>
@@ -29,11 +28,11 @@
 	</nav>
 
 	<div id="tec-help-tab" class="tec-tab-container">
-		<?php $this->template( 'help-hub/support-hub' ); ?>
+		<?php $this->template( 'help-hub/support/support-hub' ); ?>
 	</div>
 
 	<div id="tec-resources-tab" class="tec-tab-container">
-		<?php $this->template( 'help-hub/resources' ); ?>
+		<?php $this->template( 'help-hub/resources/resources' ); ?>
 	</div>
 </div>
 

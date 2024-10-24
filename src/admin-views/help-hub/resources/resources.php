@@ -2,8 +2,16 @@
 /**
  * The template that displays the resources tab on the help page.
  *
- * @var Tribe__Main $main The main common object.
- * @var string $notice The admin notice HTML.
+ * @var Tribe__Main $main              The main common object.
+ * @var bool        $is_opted_in       Whether the user has opted in to telemetry.
+ * @var bool        $is_license_valid  Whether the user has any valid licenses.
+ * @var string      $zendesk_chat_key  The API key for the Zendesk chat integration.
+ * @var string      $docblock_chat_key The API key for the DocsBot chat integration.
+ * @var string      $opt_in_link       The link to the telemetry opt-in page.
+ * @var string      $notice            The admin notice HTML for the chatbot callout.
+ * @var string      $template_variant  The template variant, determining which template to display.
+ * @var string      $stars_icon_url    The URL for the stars icon image.
+ * @var string      $chat_icon_url     The URL for the chat bubble icon image.
  */
 
 $tec_icon_url     = tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, $main );
@@ -57,7 +65,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 			</div>
 			<ul class="tec-help-list__list-expanded">
 				<li>
-					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $tec_icon_url ); ?>" />
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $tec_icon_url ); ?>"/>
 					<a href="https://evnt.is/1ap9">
 						<?php
 						echo esc_html_x(
@@ -69,7 +77,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 					</a>
 				</li>
 				<li>
-					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $ea_icon_url ); ?>" />
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $ea_icon_url ); ?>"/>
 					<a href="https://evnt.is/1apc">
 						<?php
 						echo esc_html_x(
@@ -81,7 +89,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 					</a>
 				</li>
 				<li>
-					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $fbar_icon_url ); ?>" />
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $fbar_icon_url ); ?>"/>
 					<a href="https://evnt.is/1apd">
 						<?php
 						echo esc_html_x(
@@ -118,7 +126,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 			</div>
 			<ul class="tec-help-list__list-expanded">
 				<li>
-					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>"/>
 					<a href="https://evnt.is/1apf">
 						<?php
 						echo esc_html_x(
@@ -130,7 +138,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 					</a>
 				</li>
 				<li>
-					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>"/>
 					<a href="https://evnt.is/1apg">
 						<?php
 						echo esc_html_x(
@@ -142,7 +150,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 					</a>
 				</li>
 				<li>
-					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>"/>
 					<a href="https://evnt.is/1aph">
 						<?php
 						echo esc_html_x(
@@ -154,7 +162,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 					</a>
 				</li>
 				<li>
-					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>"/>
 					<a href="https://evnt.is/1api">
 						<?php
 						echo esc_html_x(
@@ -190,7 +198,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 			</div>
 			<ul class="tec-help-list__list-expanded">
 				<li>
-					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>"/>
 					<a href="https://evnt.is/1apj">
 						<?php
 						echo esc_html_x(
@@ -202,7 +210,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 					</a>
 				</li>
 				<li>
-					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>"/>
 					<a href="https://evnt.is/1apk">
 						<?php
 						echo esc_html_x(
@@ -214,7 +222,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 					</a>
 				</li>
 				<li>
-					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>"/>
 					<a href="https://evnt.is/1apl">
 						<?php
 						echo esc_html_x(
@@ -226,7 +234,7 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 					</a>
 				</li>
 				<li>
-					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>" />
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $article_icon_url ); ?>"/>
 					<a href="https://evnt.is/1apm">
 						<?php
 						echo esc_html_x(
@@ -421,4 +429,4 @@ $stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $
 		</div>
 	</div>
 </div>
-<?php $this->template( 'help-hub/resources-sidebar' ); ?>
+<?php $this->template( "help-hub/resources/sidebar/{$template_variant}" ); ?>
