@@ -344,6 +344,12 @@ class Hub {
 		$zendesk_chat_key = $this->config->get( 'ZENDESK_CHAT_KEY' );
 		$dotbot_chat_key  = $this->config->get( 'DOCSBOT_SUPPORT_KEY' );
 
+		$tec_icon_url     = tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, $main );
+		$ea_icon_url      = tribe_resource_url( 'images/logo/event-aggregator.svg', false, null, $main );
+		$fbar_icon_url    = tribe_resource_url( 'images/logo/filterbar.svg', false, null, $main );
+		$article_icon_url = tribe_resource_url( 'images/icons/file-text1.svg', false, null, $main );
+		$stars_icon_url   = tribe_resource_url( 'images/icons/stars.svg', false, null, $main );
+
 		// Merge core values with extra values passed to the method.
 		$template_values = array_merge(
 			[
@@ -353,6 +359,11 @@ class Hub {
 				'zendesk_chat_key'  => $zendesk_chat_key,
 				'docblock_chat_key' => $dotbot_chat_key,
 				'opt_in_link'       => $opt_in_link,
+				'tec_icon_url'     => $tec_icon_url,
+				'ea_icon_url'      => $ea_icon_url,
+				'fbar_icon_url'    => $fbar_icon_url,
+				'article_icon_url' => $article_icon_url,
+				'stars_icon_url'   => $stars_icon_url,
 			],
 			$extra_values
 		);
