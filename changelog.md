@@ -1,5 +1,9 @@
 # Changelog
 
+### [6.2.1] 2024-10-24
+
+* Fix - Prevent new Settings pages to over sanitize textarea fields, thus removing HTML from before/after in the Events UI. [TEC-5283]
+
 ### [6.1.1] 2024-10-17
 
 * Fix - allow more svg attributes through the fields sanitization. [TEC-5282]
@@ -71,7 +75,7 @@
 ### [5.3.0] 2024-06-11
 
 * Feature - Refactor tribe_asset to use Stellar Assets. [TCMN-172]
-* Tweak - Remove ini_check for deprecated safe_mode. [TBD]
+* Tweak - Remove ini_check for deprecated safe_mode. [6.2.0]
 * Tweak - Added information about upcoming promotion. [ET-2113]
 * Tweak - Added filters: `tribe_asset_enqueue_{$asset->get_slug()}`
 * Tweak - Removed filters: `tribe_asset_enqueue_{$asset->slug}`, `tribe_asset_pre_register`
@@ -223,7 +227,7 @@
 * Fix - Broken UI on the WYSIWYG field in the Additional Content section of the admin display settings. [TEC-4861]
 * Fix - Resolves a plugin integration bug that happens in certain scenarios with instantiating `Firebase\JWT` library classes. In these scenarios you would see a fatal error similar to `Uncaught TypeError: TEC\Common\Firebase\JWT\JWT::getKey(): Return value must be of type TEC\Common\Firebase\JWT\Key, OpenSSLAsymmetricKey returned..` [TEC-4866]
 * Fix - WP Rewrite was being incorrectly initialized in some scenarios due to container DI, and causing some 404s. This was affecting classes that extend the `Tribe__Rewrite`. [TEC-4844]
-* Tweak - Add checks to ensure that settings don't pass null to wp_kses() or esc_attr() [TBD]
+* Tweak - Add checks to ensure that settings don't pass null to wp_kses() or esc_attr() [6.2.0]
 * Language - 0 new strings added, 6 updated, 1 fuzzied, and 0 obsoleted
 
 ### [5.1.6] 2023-08-15

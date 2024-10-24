@@ -156,7 +156,7 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 * The variable being tested for can be an array if you wish to find a nested value.
 	 *
 	 * @since 4.9.17 Included explicit check against $_REQUEST.
-	 * @since TBD Renamed from `tribe_get_request_var` to `tec_get_request_var`.
+	 * @since 6.2.1 Renamed from `tribe_get_request_var` to `tec_get_request_var`.
 	 *
 	 * @see   tec_get_request_var()
 	 *
@@ -182,7 +182,7 @@ if ( ! function_exists( 'tec_get_request_var' ) ) {
 	 *
 	 * This function will sanitize the value before returning it.
 	 *
-	 * @since TBD
+	 * @since 6.2.1
 	 *
 	 * @see   Tribe__Utils__Array::get_in_any()
 	 * @see   tribe_sanitize_deep()
@@ -212,7 +212,7 @@ if ( ! function_exists( 'tec_get_request_var_raw' ) ) {
 	 *
 	 * This function will NOT sanitize the value before returning it.
 	 *
-	 * @since TBD
+	 * @since 6.2.1
 	 *
 	 * @see   Tribe__Utils__Array::get_in_any()
 	 *
