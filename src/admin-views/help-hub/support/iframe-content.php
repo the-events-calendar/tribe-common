@@ -3,7 +3,7 @@
  * The template that displays the support hub iframe content.
  *
  * @var Tribe__Main $main             The main common object.
- * @var array       $status           Contains the user's telemetry and license status.
+ * @var array       $status_values           Contains the user's telemetry and license status.
  * @var array       $keys             Contains the chat keys for support services.
  * @var array       $icons            Contains URLs for various support hub icons.
  * @var array       $links            Contains URLs for important links, like the telemetry opt-in link.
@@ -11,8 +11,7 @@
  * @var string      $template_variant The template variant, determining which template to display.
  */
 
-$opted_in       = tribe_is_truthy( $status['is_opted_in'] ) ? '1' : '0';
-$stars_icon_url = tribe_resource_url( 'images/icons/stars.svg', false, null, $main );
+$opted_in = tribe_is_truthy( $status_values['is_opted_in'] ) ? '1' : '0';
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -32,7 +31,7 @@ $stars_icon_url = tribe_resource_url( 'images/icons/stars.svg', false, null, $ma
 
 <div class="iframe-opt-out-message hide">
 	<div class="iframe-opt-out-message__image">
-		<img src="<?php echo esc_url( $stars_icon_url ); ?>" alt="<?php esc_attr_e( 'Star Icon', 'tribe-common' ); ?>">
+		<img src="<?php echo esc_url( $icons['stars_icon_url'] ); ?>" alt="<?php esc_attr_e( 'Star Icon', 'tribe-common' ); ?>">
 	</div>
 	<div class="iframe-opt-out-message__content">
 		<h2><?php esc_html_e( 'Our AI Chatbot can help you find solutions quickly.', 'tribe-common' ); ?></h2>

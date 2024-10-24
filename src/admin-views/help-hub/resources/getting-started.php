@@ -3,7 +3,7 @@
  * The template that displays the resources tab on the help page.
  *
  * @var Tribe__Main $main             The main common object.
- * @var array       $status           Contains the user's telemetry and license status.
+ * @var array       $status_values           Contains the user's telemetry and license status.
  * @var array       $keys             Contains the chat keys for support services.
  * @var array       $icons            Contains URLs for various support hub icons.
  * @var array       $links            Contains URLs for important links, like the telemetry opt-in link.
