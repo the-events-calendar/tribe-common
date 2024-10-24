@@ -341,8 +341,8 @@ class Tribe__Admin__Help_Page {
 			'link'      => 'http://evnt.is/19mk',
 			'plugin'    => [ 'the-events-calendar' ],
 			'is_active' => class_exists( 'Tribe__Events__Aggregator' ) && tribe(
-					'events-aggregator.main'
-				)->is_service_active(),
+				'events-aggregator.main'
+			)->is_service_active(),
 		];
 
 		$addons['events-filter-bar'] = [

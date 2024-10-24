@@ -1,4 +1,10 @@
 <?php
+/**
+ * Provider for the Help Hub.
+ *
+ * @since   TBD
+ * @package TEC\Common\Help_Hub
+ */
 
 namespace TEC\Common\Help_Hub;
 

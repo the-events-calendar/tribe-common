@@ -1,4 +1,13 @@
 <?php
+/**
+ * Hub class for managing the Help Hub functionality.
+ *
+ * This class handles rendering the Help Hub page, loading necessary assets,
+ * and generating iframes and admin notices related to the Help Hub.
+ *
+ * @since   TBD
+ * @package TEC\Common\Help_Hub
+ */
 
 namespace TEC\Common\Help_Hub;
 
