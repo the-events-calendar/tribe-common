@@ -3,6 +3,7 @@
 = [6.3.0] 2024-10-29 =
 
 * Feature - Added integration with new premium Seating product for Event Tickets.
+* Language - 0 new strings added, 23 updated, 1 fuzzied, and 0 obsoleted
 
 = [6.2.0] 2024-10-17 =
 
