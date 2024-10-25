@@ -326,7 +326,8 @@ class Hub {
 	}
 
 	/**
-	 * Renders the help page or iframe template.
+	 * Renders the template pass in via $template_name.
+	 * Sets up the variables used for each template.
 	 *
 	 * @since TBD
 	 *
@@ -432,7 +433,7 @@ class Hub {
 	protected function create_resource_sections(): array {
 		$main  = Tribe__Main::instance();
 		$icons = $this->get_icon_urls( $main );
-
+h
 		// Initial data structure for resource sections.
 		$data = [
 			'getting_started' => [
