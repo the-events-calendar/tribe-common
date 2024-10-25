@@ -125,6 +125,8 @@ class Hub_Test extends WPTestCase {
 	public function it_adds_custom_body_classes_correctly() {
 		global $current_screen;
 
+		$original_current_screen = $current_screen;
+
 		// Create a mock of the current screen object
 		$mock_screen    = (object) [ 'id' => 'tribe_events_page_tec-events-help-hub' ];
 		$current_screen = $mock_screen;
@@ -135,6 +137,9 @@ class Hub_Test extends WPTestCase {
 		$this->assertStringContainsString( 'tribe-help', $classes );
 		$this->assertStringContainsString( 'tec-help', $classes );
 		$this->assertStringContainsString( 'tribe_events_page_tec-events-settings', $classes );
+
+		// Default to the original current screen.
+		$current_screen = $original_current_screen;
 	}
 
 }
