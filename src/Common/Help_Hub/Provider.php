@@ -52,8 +52,7 @@ final class Provider extends Service_Provider {
 		// Register Help Hub Factory and data classes as singletons in the DI container.
 		$this->container->bind( Help_Hub_Factory::class );
 
-		// Data classes for TEC and ET Help Hub instances.
+		// Data classes for TEC Help Hub instances.
 		$this->container->bind( TEC_Hub_Resource_Data::class );
-		$this->container->bind( ET_Hub_Resource_Data::class );
 	}
 }

@@ -1,4 +1,14 @@
 <?php
+/**
+ * TEC Hub Resource Data Class
+ *
+ * This file defines the TEC_Hub_Resource_Data class, which implements
+ * the Help_Hub_Data_Interface and provides The Events Calendar-specific
+ * resources, FAQs, and settings for the Help Hub functionality.
+ *
+ * @since   TBD
+ * @package TEC\Common\Help_Hub\Resource_Data
+ */
 
 namespace TEC\Common\Help_Hub\Resource_Data;
 
@@ -6,6 +16,15 @@ use TEC\Common\Telemetry\Telemetry;
 use Tribe__Main;
 use Tribe__PUE__Checker;
 
+/**
+ * Class TEC_Hub_Resource_Data
+ *
+ * Implements the Help_Hub_Data_Interface, offering resources specific
+ * to The Events Calendar, including FAQs, common issues, and customization guides.
+ *
+ * @since   TBD
+ * @package TEC\Common\Help_Hub\Resource_Data
+ */
 class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Creates an array of resource sections with relevant content for each section.
@@ -19,7 +38,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 		$icons = $this->get_icon_urls( $main );
 
 		// Initial data structure for resource sections.
-		$data = [
+		return [
 			'getting_started' => [
 				[
 					'icon'  => $icons['tec_icon_url'],
@@ -108,8 +127,6 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 				],
 			],
 		];
-
-		return $data;
 	}
 
 	/**

@@ -430,6 +430,7 @@ class Hub {
 	private function generate_notice_html(): string {
 		$notice_slug    = 'tec-common-help-chatbot-notice';
 		$notice_content = sprintf(
+			// translators: Placeholders are for the `a` tag that displays a link.
 			_x(
 				'To find the answer to all your questions use the %1$sTEC Chatbot%2$s',
 				'The callout notice to try the chatbot with a link to the page',

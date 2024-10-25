@@ -57,7 +57,7 @@ class Help_Hub_Factory {
 				break;
 
 			case 'event_tickets':
-				$help_hub->setup( new ET_Hub_Resource_Data() );
+				// Todo - Introduce an ET Hub_Resource_Data class in the future.
 				break;
 
 			default:
