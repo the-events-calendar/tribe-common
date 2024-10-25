@@ -288,13 +288,17 @@ class Tribe__Settings_Manager {
 	}
 
 	/**
-	 * Create the help tab
+	 * Create the help tab.
 	 *
-	 * @depecated TBD
+	 * @deprecated TBD This method is deprecated and should no longer be used. Use \TEC\Common\Help_Hub\Hub instead.
+	 *
 	 */
 	public function do_help_tab() {
-		_deprecated_function( __METHOD__, 'TBD', 'Tribe__Admin__Help_Page' );
-		tribe( Tribe__Admin__Help_Page::class )->do_help_tab();
+		/**
+		 * Include Help tab Assets here
+		 */
+
+		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help.php';
 	}
 
 	/**
