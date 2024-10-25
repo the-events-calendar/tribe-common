@@ -12,7 +12,6 @@
 
 namespace TEC\Common\Help_Hub;
 
-use TEC\Common\Help_Hub\Resource_Data\ET_Hub_Resource_Data;
 use TEC\Common\Help_Hub\Resource_Data\TEC_Hub_Resource_Data;
 use TEC\Common\Contracts\Service_Provider;
 
