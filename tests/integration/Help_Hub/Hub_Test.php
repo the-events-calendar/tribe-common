@@ -1,12 +1,12 @@
 <?php
 
-namespace TEC\Common\Help_Hub;
+namespace TEC\Common\Admin\Help_Hub;
 
 use Codeception\TestCase\WPTestCase;
 use ReflectionClass;
 use TEC\Common\Configuration\Configuration;
-use TEC\Common\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
-use TEC\Common\Help_Hub\Resource_Data\TEC_Hub_Resource_Data;
+use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
+use TEC\Common\Admin\Help_Hub\Resource_Data\TEC_Hub_Resource_Data;
 
 class Hub_Test extends WPTestCase {
 

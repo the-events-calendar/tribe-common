@@ -768,7 +768,7 @@ class Tribe__Main {
 		tribe_register_provider( TEC\Common\Telemetry\Provider::class );
 
 		// Load Help Hub.
-		tribe_register_provider( TEC\Common\Help_Hub\Provider::class );
+		tribe_register_provider( TEC\Common\Admin\Help_Hub\Provider::class );
 	}
 
 	/**

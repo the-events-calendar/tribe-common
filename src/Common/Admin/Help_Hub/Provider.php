@@ -7,12 +7,12 @@
  * data and configuration through dependency injection.
  *
  * @since   TBD
- * @package TEC\Common\Help_Hub
+ * @package TEC\Common\Admin\Help_Hub
  */
 
-namespace TEC\Common\Help_Hub;
+namespace TEC\Common\Admin\Help_Hub;
 
-use TEC\Common\Help_Hub\Resource_Data\TEC_Hub_Resource_Data;
+use TEC\Common\Admin\Help_Hub\Resource_Data\TEC_Hub_Resource_Data;
 use TEC\Common\Contracts\Service_Provider;
 
 /**
@@ -23,7 +23,7 @@ use TEC\Common\Contracts\Service_Provider;
  *
  * @since   TBD
  *
- * @package TEC\Common\Help_Hub
+ * @package TEC\Common\Admin\Help_Hub
  */
 final class Provider extends Service_Provider {
 

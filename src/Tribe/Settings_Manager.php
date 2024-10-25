@@ -290,7 +290,7 @@ class Tribe__Settings_Manager {
 	/**
 	 * Create the help tab.
 	 *
-	 * @deprecated TBD This method is deprecated and should no longer be used. Use \TEC\Common\Help_Hub\Hub instead.
+	 * @deprecated TBD This method is deprecated and should no longer be used. Use \TEC\Common\Admin\Help_Hub\Hub instead.
 	 *
 	 */
 	public function do_help_tab() {

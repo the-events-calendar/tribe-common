@@ -6,12 +6,12 @@
  * and generating iframes and admin notices related to the Help Hub.
  *
  * @since   TBD
- * @package TEC\Common\Help_Hub
+ * @package TEC\Common\Admin\Help_Hub
  */
 
-namespace TEC\Common\Help_Hub;
+namespace TEC\Common\Admin\Help_Hub;
 
-use TEC\Common\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
+use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
 use RuntimeException;
 use TEC\Common\Configuration\Configuration;
 use TEC\Common\StellarWP\AdminNotices\AdminNotice;
@@ -25,7 +25,7 @@ use Tribe__Template;
  * Manages the Help Hub functionality, including rendering templates,
  * loading assets, and managing iframe content and notices.
  *
- * @package TEC\Common\Help_Hub
+ * @package TEC\Common\Admin\Help_Hub
  */
 class Hub {
 
@@ -48,12 +48,22 @@ class Hub {
 	protected Help_Hub_Data_Interface $data;
 
 	/**
+	 * The template class.
+	 *
+	 * @since TBD
+	 *
+	 * @var Tribe__Template
+	 */
+	protected Tribe__Template $template;
+
+	/**
 	 * Initializes configuration and necessary constants for the Help Hub.
 	 *
 	 * @since TBD
 	 */
 	public function __construct() {
-		$this->config = tribe( Configuration::class );
+		$this->config   = tribe( Configuration::class );
+		$this->template = new Tribe__Template();
 	}
 
 	/**
@@ -391,8 +401,8 @@ class Hub {
 				'localize' => [
 					'name' => 'helpHubSettings',
 					'data' => [
-						'docsbot_key'    => $this->config->get( 'DOCSBOT_SUPPORT_KEY' ),
-						'zendeskChatKey' => $this->config->get( 'ZENDESK_CHAT_KEY' ),
+						'docsbot_key'    => $this->config->get( 'TEC_HELP_HUB_CHAT_DOCSBOT_SUPPORT_KEY' ),
+						'zendeskChatKey' => $this->config->get( 'TEC_HELP_HUB_CHAT_ZENDESK_CHAT_KEY' ),
 					],
 				],
 			]
@@ -461,7 +471,7 @@ class Hub {
 	 */
 	private function render_template( string $template_name, array $extra_values = [] ): void {
 		$main     = Tribe__Main::instance();
-		$template = new Tribe__Template();
+		$template = $this->template;
 
 		$template_values = array_merge(
 			[
@@ -507,8 +517,8 @@ class Hub {
 	 */
 	protected function get_chat_keys(): array {
 		return [
-			'zendesk_chat_key' => $this->config->get( 'ZENDESK_CHAT_KEY' ),
-			'docsbot_chat_key' => $this->config->get( 'DOCSBOT_SUPPORT_KEY' ),
+			'zendesk_chat_key' => $this->config->get( 'TEC_HELP_HUB_CHAT_ZENDESK_CHAT_KEY' ),
+			'docsbot_chat_key' => $this->config->get( 'TEC_HELP_HUB_CHAT_DOCSBOT_SUPPORT_KEY' ),
 		];
 	}
 

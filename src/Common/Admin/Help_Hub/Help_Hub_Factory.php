@@ -6,12 +6,12 @@
  * This class provides a standardized way to instantiate the Help Hub with the correct data configuration.
  *
  * @since   TBD
- * @package TEC\Common\Help_Hub
+ * @package TEC\Common\Admin\Help_Hub
  */
 
-namespace TEC\Common\Help_Hub;
+namespace TEC\Common\Admin\Help_Hub;
 
-use TEC\Common\Help_Hub\Resource_Data\TEC_Hub_Resource_Data;
+use TEC\Common\Admin\Help_Hub\Resource_Data\TEC_Hub_Resource_Data;
 use InvalidArgumentException;
 
 /**
@@ -21,7 +21,7 @@ use InvalidArgumentException;
  *
  * @since   TBD
  *
- * @package TEC\Common\Help_Hub
+ * @package TEC\Common\Admin\Help_Hub
  */
 class Help_Hub_Factory {
 
@@ -42,12 +42,12 @@ class Help_Hub_Factory {
 	public static function create( string $type ): Hub {
 		$help_hub = new Hub();
 
-		if ( ! defined( 'DOCSBOT_SUPPORT_KEY' ) ) {
+		if ( ! defined( 'TEC_HELP_HUB_CHAT_DOCSBOT_SUPPORT_KEY' ) ) {
 			// @todo Define the DOCSBOT support key.
-			define( 'DOCSBOT_SUPPORT_KEY', '' );
+			define( 'TEC_HELP_HUB_CHAT_DOCSBOT_SUPPORT_KEY', '' );
 		}
-		if ( ! defined( 'ZENDESK_CHAT_KEY' ) ) {
-			define( 'ZENDESK_CHAT_KEY', '' );
+		if ( ! defined( 'TEC_HELP_HUB_CHAT_ZENDESK_CHAT_KEY' ) ) {
+			define( 'TEC_HELP_HUB_CHAT_ZENDESK_CHAT_KEY', '' );
 		}
 
 		switch ( $type ) {

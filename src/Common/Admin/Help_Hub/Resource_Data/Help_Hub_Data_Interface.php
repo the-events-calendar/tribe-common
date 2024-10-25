@@ -6,10 +6,10 @@
  * It specifies the methods needed to create resource sections, retrieve icon URLs, and obtain license and telemetry statuses.
  *
  * @since   TBD
- * @package TEC\Common\Help_Hub
+ * @package TEC\Common\Admin\Help_Hub
  */
 
-namespace TEC\Common\Help_Hub\Resource_Data;
+namespace TEC\Common\Admin\Help_Hub\Resource_Data;
 
 use Tribe__Main;
 

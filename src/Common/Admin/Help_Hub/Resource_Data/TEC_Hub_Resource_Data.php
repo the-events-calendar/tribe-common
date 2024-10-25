@@ -7,10 +7,10 @@
  * resources, FAQs, and settings for the Help Hub functionality.
  *
  * @since   TBD
- * @package TEC\Common\Help_Hub\Resource_Data
+ * @package TEC\Common\Admin\Help_Hub\Resource_Data
  */
 
-namespace TEC\Common\Help_Hub\Resource_Data;
+namespace TEC\Common\Admin\Help_Hub\Resource_Data;
 
 use TEC\Common\Telemetry\Telemetry;
 use Tribe__Main;
@@ -23,7 +23,7 @@ use Tribe__PUE__Checker;
  * to The Events Calendar, including FAQs, common issues, and customization guides.
  *
  * @since   TBD
- * @package TEC\Common\Help_Hub\Resource_Data
+ * @package TEC\Common\Admin\Help_Hub\Resource_Data
  */
 class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	/**
