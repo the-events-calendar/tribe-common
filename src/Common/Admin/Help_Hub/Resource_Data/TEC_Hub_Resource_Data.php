@@ -31,6 +31,8 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	 *
 	 * Each section can be filtered independently or as a complete set.
 	 *
+	 * @since TBD
+	 *
 	 * @return array The filtered resource sections array.
 	 */
 	public function create_resource_sections(): array {
@@ -150,6 +152,8 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 
 	/**
 	 * Get the license validity and telemetry opt-in status.
+	 *
+	 * @since TBD
 	 *
 	 * @return array Contains 'is_license_valid' and 'is_opted_in' status.
 	 */
