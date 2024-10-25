@@ -433,7 +433,7 @@ class Hub {
 	protected function create_resource_sections(): array {
 		$main  = Tribe__Main::instance();
 		$icons = $this->get_icon_urls( $main );
-h
+
 		// Initial data structure for resource sections.
 		$data = [
 			'getting_started' => [
