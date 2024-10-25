@@ -2,77 +2,58 @@
 /**
  * Provider for the Help Hub.
  *
+ * Registers the required dependencies and factory for the Help Hub functionality,
+ * allowing components such as the `Hub` class to retrieve and utilize the required
+ * data and configuration through dependency injection.
+ *
  * @since   TBD
  * @package TEC\Common\Help_Hub
  */
 
 namespace TEC\Common\Help_Hub;
 
-use TEC\Common\Configuration\Configuration;
+use TEC\Common\Help_Hub\Resource_Data\ET_Hub_Resource_Data;
+use TEC\Common\Help_Hub\Resource_Data\TEC_Hub_Resource_Data;
 use TEC\Common\Contracts\Service_Provider;
 
 /**
  * Class Provider
  *
- * Registers the Help Hub logic and dependencies.
+ * Registers the Help Hub logic and dependencies, allowing for easier dependency management
+ * and a centralized setup for Help Hub-specific functionality.
  *
  * @since   TBD
  *
  * @package TEC\Common\Help_Hub
  */
-class Provider extends Service_Provider {
+final class Provider extends Service_Provider {
 
 	/**
-	 * @var Hub
-	 */
-	protected $hub;
-
-	/**
-	 * @var Configuration
-	 */
-	protected $config;
-
-	/**
-	 * Provider constructor.
-	 *
-	 * @since TBD
-	 */
-	public function __construct() {
-		// Resolve dependencies via the container.
-		$this->hub    = tribe( Hub::class );
-		$this->config = tribe( Configuration::class );
-	}
-
-	/**
-	 * Register the functionality related to this module.
+	 * Registers the functionality related to this module, including binding
+	 * the Help Hub Factory, TEC and ET data classes in the DI container.
 	 *
 	 * @since TBD
 	 *
 	 * @return void
 	 */
 	public function register(): void {
-		// Register the Hub as a singleton in the DI container.
-		tribe()->singleton(
-			Hub::class,
-			function () {
-				return new Hub();
-			}
-		);
+		// Register the provider instance as a singleton within the container.
+		$this->container->singleton( self::class, $this );
 
-		// Register hooks and filters.
-		$this->register_hooks();
-	}
+		/**
+		 * Fires when the provider is registered.
+		 *
+		 * @since TBD
+		 *
+		 * @param Provider $this The provider instance.
+		 */
+		do_action( 'tec_help_hub_registered', $this );
 
-	/**
-	 * Register the hooks and filters needed for the Help Hub.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	protected function register_hooks(): void {
-		add_action( 'admin_init', [ $this->hub, 'generate_iframe_content' ] );
-		add_action( 'admin_enqueue_scripts', [ $this->hub, 'load_assets' ], 1 );
-		add_filter( 'admin_body_class', [ $this->hub, 'add_help_page_body_class' ] );
+		// Register Help Hub Factory and data classes as singletons in the DI container.
+		$this->container->bind( Help_Hub_Factory::class );
+
+		// Data classes for TEC and ET Help Hub instances.
+		$this->container->bind( TEC_Hub_Resource_Data::class );
+		$this->container->bind( ET_Hub_Resource_Data::class );
 	}
 }

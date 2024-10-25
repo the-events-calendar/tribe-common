@@ -12,6 +12,9 @@
  * @var array       $resource_sections An array of data to display in the Resource section.
  */
 
+if ( empty( $resource_sections['common_issues'] ) ) {
+	return;
+}
 ?>
 
 <div class="tec-settings-form__content-section">

@@ -11,110 +11,206 @@
 
 namespace TEC\Common\Help_Hub;
 
+use TEC\Common\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
+use RuntimeException;
 use TEC\Common\Configuration\Configuration;
 use TEC\Common\StellarWP\AdminNotices\AdminNotice;
 use TEC\Common\StellarWP\AdminNotices\AdminNotices;
-use TEC\Common\Telemetry\Telemetry;
 use Tribe__Main;
-use Tribe__PUE__Checker;
 use Tribe__Template;
 
 /**
  * Class Hub
+ *
+ * Manages the Help Hub functionality, including rendering templates,
+ * loading assets, and managing iframe content and notices.
  *
  * @package TEC\Common\Help_Hub
  */
 class Hub {
 
 	/**
+	 * Configuration object for Help Hub setup.
+	 *
 	 * @since TBD
 	 *
-	 * @var Configuration The configuration object.
+	 * @var Configuration
 	 */
 	protected Configuration $config;
 
 	/**
-	 * Initialize any required vars.
+	 * Data object implementing Help_Hub_Data_Interface, providing necessary Help Hub resources.
+	 *
+	 * @since TBD
+	 *
+	 * @var Help_Hub_Data_Interface
+	 */
+	protected Help_Hub_Data_Interface $data;
+
+	/**
+	 * Initializes configuration and necessary constants for the Help Hub.
+	 *
+	 * @since TBD
 	 */
 	public function __construct() {
 		$this->config = tribe( Configuration::class );
-
-		if ( ! defined( 'DOCSBOT_SUPPORT_KEY' ) ) {
-			// @todo Need key
-			define( 'DOCSBOT_SUPPORT_KEY', '' );
-		}
-		if ( ! defined( 'ZENDESK_CHAT_KEY' ) ) {
-			define( 'ZENDESK_CHAT_KEY', '' );
-		}
 	}
 
 	/**
-	 * Render the Help Hub page.
+	 * Sets the data object for the Help Hub and registers hooks.
+	 *
+	 * Assigns a data object implementing Help_Hub_Data_Interface
+	 * to the $data property and registers necessary actions and filters.
+	 *
+	 * @since TBD
+	 *
+	 * @param Help_Hub_Data_Interface $data The data class instance containing Help Hub resources.
+	 *
+	 * @return self
+	 */
+	public function setup( Help_Hub_Data_Interface $data ): self {
+		$this->data = $data;
+		$this->register_hooks();
+
+		return $this;
+	}
+
+	/**
+	 * Registers the hooks and filters needed for Help Hub functionality.
+	 *
+	 * Sets up actions and filters for initializing iframe content,
+	 * loading assets, and adding custom body classes for Help Hub pages.
 	 *
 	 * @since TBD
 	 *
 	 * @return void
 	 */
+	public function register_hooks(): void {
+		add_action( 'admin_init', [ $this, 'generate_iframe_content' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'load_assets' ], 1 );
+		add_filter( 'admin_body_class', [ $this, 'add_help_page_body_class' ] );
+	}
+
+	/**
+	 * Ensures that the Help Hub data object is set.
+	 *
+	 * Verifies that the $data property has been set. Throws a RuntimeException
+	 * if the data has not been set using the setup method.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 * @throws RuntimeException If data has not been set using setup.
+	 */
+	protected function ensure_data_is_set(): void {
+		if ( empty( $this->data ) ) {
+			throw new RuntimeException( 'The HelpHub data must be set using the setup method before calling this function.' );
+		}
+	}
+
+	/**
+	 * Renders the Help Hub page.
+	 *
+	 * Generates necessary notices, retrieves data, and renders the appropriate Help Hub template.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 * @throws RuntimeException If data is not set using the setup method before rendering.
+	 */
 	public function render(): void {
-		// Generate the admin notice HTML.
-		$notice_html = $this->generate_notice_html();
+		/**
+		 * Fires before the Help Hub page is rendered.
+		 *
+		 * Use this hook to modify data or enqueue additional assets before the Help Hub template is generated.
+		 *
+		 * @since TBD
+		 *
+		 * @param Hub $this The Hub instance.
+		 */
+		do_action( 'tec_help_hub_before_render', $this );
 
-		$status           = $this->get_license_and_opt_in_status();
-		$template_variant = $this->get_template_variant( $status['is_license_valid'], $status['is_opted_in'] );
+		$this->ensure_data_is_set();
 
-		// Render the help page template.
+		$notice_html      = $this->generate_notice_html();
+		$status           = $this->data->get_license_and_opt_in_status();
+		$template_variant = self::get_template_variant( $status['is_license_valid'], $status['is_opted_in'] );
+
 		$this->render_template(
 			'help-hub',
 			[
 				'notice'            => $notice_html,
 				'template_variant'  => $template_variant,
-				'resource_sections' => $this->create_resource_sections(),
+				'resource_sections' => $this->handle_resource_sections(),
 			]
 		);
+
+		/**
+		 * Fires after the Help Hub page is rendered.
+		 *
+		 * Use this hook to perform actions or cleanup tasks after the Help Hub template is generated and displayed.
+		 *
+		 * @since TBD
+		 *
+		 * @param Hub $this The Hub instance.
+		 */
+		do_action( 'tec_help_hub_after_render', $this );
 	}
 
 	/**
-	 * Get the license validity and telemetry opt-in status.
+	 * Handles and filters the resource sections for the Help Hub.
 	 *
-	 * @return array Contains 'is_license_valid' and 'is_opted_in' status.
+	 * This method centralizes the creation and filtering of resource sections,
+	 * allowing for a single point of modification based on the data class.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The filtered resource sections.
 	 */
-	protected function get_license_and_opt_in_status(): array {
-		$is_license_valid = Tribe__PUE__Checker::is_any_license_valid();
-		$common_telemetry = tribe( Telemetry::class );
-		$is_opted_in      = $common_telemetry->calculate_optin_status();
+	public function handle_resource_sections(): array {
+		$sections        = $this->data->create_resource_sections();
+		$data_class_name = get_class( $this->data );
 
-		return [
-			'is_license_valid' => $is_license_valid,
-			'is_opted_in'      => $is_opted_in,
-		];
+		/**
+		 * Filter the Help Hub resource sections.
+		 *
+		 * Allows customization of the Help Hub resource sections by other components.
+		 *
+		 * @since TBD
+		 *
+		 * @param array                   $sections        The array of resource sections.
+		 * @param Help_Hub_Data_Interface $data            The data instance used for generating sections.
+		 * @param string                  $data_class_name The name of the data class.
+		 */
+		return apply_filters( 'tec_help_hub_resource_sections', $sections, $this->data, $data_class_name );
 	}
 
 	/**
-	 * Determine the template variant based on the license and opt-in status.
+	 * Determines the template variant based on license validity and opt-in status.
+	 *
+	 * @since TBD
 	 *
 	 * @param bool $is_license_valid Whether the license is valid.
 	 * @param bool $is_opted_in      Whether the user has opted into telemetry.
 	 *
 	 * @return string The template variant.
 	 */
-	protected function get_template_variant( bool $is_license_valid, bool $is_opted_in ): string {
-		if ( $is_license_valid && $is_opted_in ) {
-			return 'has-license-has-consent';
-		} elseif ( $is_license_valid && ! $is_opted_in ) {
-			return 'has-license-no-consent';
+	protected static function get_template_variant( bool $is_license_valid, bool $is_opted_in ): string {
+		if ( ! $is_license_valid ) {
+			return 'no-license';
 		}
 
-		return 'no-license';
+		return $is_opted_in ? 'has-license-has-consent' : 'has-license-no-consent';
 	}
 
 	/**
-	 * Checks if the current page is the Help one
+	 * Checks if the current page is a Help Hub page.
 	 *
 	 * @since TBD
 	 *
 	 * @return bool
 	 */
-	public function is_current_page(): bool {
+	public static function is_current_page(): bool {
 		global $current_screen;
 
 		$help_pages = [
@@ -122,11 +218,11 @@ class Hub {
 			'tribe_events_page_tec-events-help-hub',
 		];
 
-		return in_array( $current_screen->id, $help_pages );
+		return in_array( $current_screen->id, $help_pages, true );
 	}
 
 	/**
-	 * Adds custom body classes to the admin for the help page.
+	 * Adds custom body classes to the Help Hub page.
 	 *
 	 * @since TBD
 	 *
@@ -135,30 +231,27 @@ class Hub {
 	 * @return string Filtered list of classes.
 	 */
 	public function add_help_page_body_class( $classes ) {
-		// Early bail if we're not on the current help page.
-		if ( ! $this->is_current_page() ) {
+		if ( ! self::is_current_page() ) {
 			return $classes;
 		}
 
-		// Convert string of classes to an array.
-		$class_array = explode( ' ', $classes );
+		$class_array = array_merge( explode( ' ', $classes ), [ 'tribe-help', 'tec-help', 'tribe_events_page_tec-events-settings' ] );
 
-		// Add custom classes.
-		$class_array = array_merge( $class_array, [ 'tribe-help', 'tec-help', 'tribe_events_page_tec-events-settings' ] );
-
-		// Return the final class list as a space-separated string.
 		return implode( ' ', array_unique( $class_array ) );
 	}
 
 	/**
-	 * Enqueue the Help page assets.
+	 * Enqueues assets for the Help Hub page.
 	 *
 	 * @since TBD
+	 *
+	 * @return void
 	 */
 	public function load_assets() {
-		if ( ! $this->is_current_page() ) {
+		if ( ! self::is_current_page() ) {
 			return;
 		}
+
 		tribe_asset(
 			Tribe__Main::instance(),
 			'tec-common-help-hub-style',
@@ -174,7 +267,7 @@ class Hub {
 			[ 'tribe-clipboard', 'tribe-common' ],
 			'admin_enqueue_scripts',
 			[
-				'conditionals' => [ $this, 'is_current_page' ],
+				'conditionals' => [ self::class, 'is_current_page' ],
 				'localize'     => [
 					'name' => 'tribe_system_info',
 					'data' => [
@@ -190,18 +283,17 @@ class Hub {
 			]
 		);
 
-		// Add the built-in accordion.
 		wp_enqueue_script( 'jquery-ui-accordion' );
 	}
 
 	/**
-	 * Get the telemetry opt in link.
+	 * Generates a telemetry opt-in link.
 	 *
 	 * @since TBD
 	 *
 	 * @return string
 	 */
-	public function get_telemetry_opt_in_link(): string {
+	public static function get_telemetry_opt_in_link(): string {
 		return add_query_arg(
 			[
 				'page'      => 'tec-events-settings',
@@ -213,43 +305,63 @@ class Hub {
 	}
 
 	/**
-	 * Generates and outputs the iframe content if the correct parameters are provided.
+	 * Generates and outputs iframe content when appropriate.
 	 *
 	 * @since TBD
 	 *
 	 * @return void
+	 * @throws RuntimeException If data has not been set using setup.
 	 */
 	public function generate_iframe_content(): void {
+		$this->ensure_data_is_set();
 		$page   = tribe_get_request_var( 'page' );
 		$iframe = tribe_get_request_var( 'embedded_content' );
 
-		// Return early if $page is empty or not 'tec-events-help-hub', or if $iframe is empty.
 		if ( empty( $page ) || 'tec-events-help-hub' !== $page || empty( $iframe ) ) {
 			return;
 		}
 
-		// Enqueue our assets for the Iframe.
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_help_page_iframe_assets' ] );
+		/**
+		 * Fires before the Help Hub iframe content is rendered.
+		 *
+		 * Use this hook to enqueue additional assets, modify iframe-specific content,
+		 * or take other actions just before the iframe content is generated.
+		 *
+		 * @since TBD
+		 *
+		 * @param Hub $this The Hub instance.
+		 */
+		do_action( 'tec_help_hub_before_iframe_render', $this );
 
-		// Disable the admin bar for iframe requests.
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_help_page_iframe_assets' ] );
 		// phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
 		show_admin_bar( false );
-		// Render the iframe content.
-		$this->render_template(
-			'help-hub/support/iframe-content'
-		);
+		$this->render_template( 'help-hub/support/iframe-content' );
+
+		/**
+		 * Fires after the Help Hub iframe content has been rendered.
+		 *
+		 * Use this hook to perform actions or cleanup tasks after the iframe content
+		 * has been generated and displayed.
+		 *
+		 * @since TBD
+		 *
+		 * @param Hub $this The Hub instance.
+		 */
+		do_action( 'tec_help_hub_after_iframe_render', $this );
 
 		exit;
 	}
 
 	/**
-	 * Enqueues the necessary scripts for the help page and dequeues all theme styles.
+	 * Enqueues assets specific to the iframe content and removes theme styles.
 	 *
 	 * @since TBD
 	 * @return void
 	 */
 	public function enqueue_help_page_iframe_assets(): void {
 		define( 'IFRAME_REQUEST', true );
+
 		tribe_asset(
 			Tribe__Main::instance(),
 			'help-hub-iframe-style',
@@ -257,6 +369,7 @@ class Hub {
 			null,
 			'wp_enqueue_scripts'
 		);
+
 		tribe_asset(
 			Tribe__Main::instance(),
 			'help-hub-iframe-js',
@@ -273,21 +386,21 @@ class Hub {
 				],
 			]
 		);
-		$this->dequeue_theme_styles();
+
+		self::dequeue_theme_styles();
 	}
 
 	/**
-	 * Dequeues theme-related styles to avoid conflicts within the iframe.
+	 * Removes theme-related styles to avoid iframe conflicts.
 	 *
 	 * @since TBD
 	 *
 	 * @return void
 	 */
-	protected function dequeue_theme_styles(): void {
+	protected static function dequeue_theme_styles(): void {
 		global $wp_styles;
 		$theme_directory = get_template_directory_uri();
 
-		// Dequeue only styles from the current theme.
 		foreach ( $wp_styles->queue as $handle ) {
 			$src = $wp_styles->registered[ $handle ]->src;
 			if ( strpos( $src, $theme_directory ) !== false ) {
@@ -297,7 +410,7 @@ class Hub {
 	}
 
 	/**
-	 * Generates the admin notice HTML.
+	 * Generates HTML for the admin notice.
 	 *
 	 * @since TBD
 	 *
@@ -306,7 +419,6 @@ class Hub {
 	private function generate_notice_html(): string {
 		$notice_slug    = 'tec-common-help-chatbot-notice';
 		$notice_content = sprintf(
-		// translators: 1: the opening tag to the chatbot link, 2: the closing tag.
 			_x(
 				'To find the answer to all your questions use the %1$sTEC Chatbot%2$s',
 				'The callout notice to try the chatbot with a link to the page',
@@ -326,8 +438,7 @@ class Hub {
 	}
 
 	/**
-	 * Renders the template pass in via $template_name.
-	 * Sets up the variables used for each template.
+	 * Renders the specified template with provided variables.
 	 *
 	 * @since TBD
 	 *
@@ -336,23 +447,21 @@ class Hub {
 	 *
 	 * @return void
 	 */
-	private function render_template( $template_name, array $extra_values = [] ): void {
+	private function render_template( string $template_name, array $extra_values = [] ): void {
 		$main     = Tribe__Main::instance();
 		$template = new Tribe__Template();
 
-		// Organize the template values.
 		$template_values = array_merge(
 			[
 				'main'          => $main,
 				'status_values' => $this->get_status_values(),
 				'keys'          => $this->get_chat_keys(),
-				'icons'         => $this->get_icon_urls( $main ),
-				'links'         => $this->get_links(),
+				'icons'         => $this->data->get_icon_urls( $main ),
+				'links'         => self::get_links(),
 			],
 			$extra_values
 		);
 
-		// Setup template values and render the template.
 		$template->set_values( $template_values );
 		$template->set_template_origin( $main );
 		$template->set_template_folder( 'src/admin-views' );
@@ -362,14 +471,14 @@ class Hub {
 	}
 
 	/**
-	 * Retrieves the opt in status and if your license is valid.
+	 * Retrieves the opt-in status and license validity.
 	 *
 	 * @since TBD
 	 *
-	 * @return array An associative of `status` data.
+	 * @return array Associative array with opt-in and license status.
 	 */
 	protected function get_status_values(): array {
-		$status = $this->get_license_and_opt_in_status();
+		$status = $this->data->get_license_and_opt_in_status();
 
 		return [
 			'is_opted_in'      => $status['is_opted_in'],
@@ -378,11 +487,11 @@ class Hub {
 	}
 
 	/**
-	 * Retrieves the Zendesk and Docsbot chat keys from the configuration.
+	 * Retrieves chat keys from the configuration.
 	 *
 	 * @since TBD
 	 *
-	 * @return array An associative array containing chat keys.
+	 * @return array Associative array containing chat keys.
 	 */
 	protected function get_chat_keys(): array {
 		return [
@@ -392,158 +501,15 @@ class Hub {
 	}
 
 	/**
-	 * Retrieves the URLs for the necessary icons.
+	 * Retrieves relevant template links, including the telemetry opt-in link.
 	 *
 	 * @since TBD
 	 *
-	 * @param Tribe__Main $main The main object instance to pass for generating resource URLs.
-	 *
-	 * @return array An associative array containing the URLs for various icons.
+	 * @return array Associative array containing template links.
 	 */
-	protected function get_icon_urls( Tribe__Main $main ): array {
+	protected static function get_links(): array {
 		return [
-			'tec_icon_url'     => tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, $main ),
-			'ea_icon_url'      => tribe_resource_url( 'images/logo/event-aggregator.svg', false, null, $main ),
-			'fbar_icon_url'    => tribe_resource_url( 'images/logo/filterbar.svg', false, null, $main ),
-			'article_icon_url' => tribe_resource_url( 'images/icons/file-text1.svg', false, null, $main ),
-			'stars_icon_url'   => tribe_resource_url( 'images/icons/stars.svg', false, null, $main ),
+			'opt_in_link' => self::get_telemetry_opt_in_link(),
 		];
-	}
-
-	/**
-	 * Retrieves the relevant links used within the template.
-	 *
-	 * @since TBD
-	 *
-	 * @return array An associative array containing the 'opt_in_link'.
-	 */
-	protected function get_links(): array {
-		return [
-			'opt_in_link' => $this->get_telemetry_opt_in_link(),
-		];
-	}
-
-	/**
-	 * Creates an array of resource sections with relevant content for each section.
-	 *
-	 * Each section can be filtered independently or as a complete set.
-	 *
-	 * @return array The filtered resource sections array.
-	 */
-	protected function create_resource_sections(): array {
-		$main  = Tribe__Main::instance();
-		$icons = $this->get_icon_urls( $main );
-
-		// Initial data structure for resource sections.
-		$data = [
-			'getting_started' => [
-				[
-					'icon'  => $icons['tec_icon_url'],
-					'title' => _x( 'The Events Calendar', 'The Events Calendar title', 'tribe-common' ),
-					'link'  => 'https://evnt.is/1ap9',
-				],
-				[
-					'icon'  => $icons['ea_icon_url'],
-					'title' => _x( 'Event Aggregator', 'Event Aggregator title', 'tribe-common' ),
-					'link'  => 'https://evnt.is/1apc',
-				],
-				[
-					'icon'  => $icons['fbar_icon_url'],
-					'title' => _x( 'Filter Bar', 'Filter Bar title', 'tribe-common' ),
-					'link'  => 'https://evnt.is/1apd',
-				],
-			],
-			'customizations'  => [
-				[
-					'title' => _x( 'Getting started with customization', 'Customization article', 'tribe-common' ),
-					'link'  => 'https://evnt.is/1apf',
-					'icon'  => $icons['article_icon_url'],
-				],
-				[
-					'title' => _x( 'Highlighting events', 'Highlighting events article', 'tribe-common' ),
-					'link'  => 'https://evnt.is/1apg',
-					'icon'  => $icons['article_icon_url'],
-				],
-				[
-					'title' => _x( 'Customizing template files', 'Customizing templates article', 'tribe-common' ),
-					'link'  => 'https://evnt.is/1aph',
-					'icon'  => $icons['article_icon_url'],
-				],
-				[
-					'title' => _x( 'Customizing CSS', 'Customizing CSS article', 'tribe-common' ),
-					'link'  => 'https://evnt.is/1api',
-					'icon'  => $icons['article_icon_url'],
-				],
-			],
-			'common_issues'   => [
-				[
-					'title' => _x( 'Known issues', 'Known issues article', 'tribe-common' ),
-					'link'  => 'https://evnt.is/1apj',
-					'icon'  => $icons['article_icon_url'],
-				],
-				[
-					'title' => _x( 'Release notes', 'Release notes article', 'tribe-common' ),
-					'link'  => 'https://evnt.is/1apk',
-					'icon'  => $icons['article_icon_url'],
-				],
-				[
-					'title' => _x( 'Integrations', 'Integrations article', 'tribe-common' ),
-					'link'  => 'https://evnt.is/1apl',
-					'icon'  => $icons['article_icon_url'],
-				],
-				[
-					'title' => _x( 'Shortcodes', 'Shortcodes article', 'tribe-common' ),
-					'link'  => 'https://evnt.is/1apm',
-					'icon'  => $icons['article_icon_url'],
-				],
-			],
-			'faqs'            => [
-				[
-					'question'  => _x( 'Can I have more than one calendar?', 'FAQ more than one calendar question', 'tribe-common' ),
-					'answer'    => _x( 'No, but you can use event categories or tags to display certain events.', 'FAQ more than one calendar answer', 'tribe-common' ),
-					'link_text' => _x( 'Learn More', 'Link to more than one calendar article', 'tribe-common' ),
-					'link_url'  => 'https://evnt.is/1arh',
-				],
-				[
-					'question'  => _x( 'What do I get with Events Calendar Pro?', 'FAQ what is in Calendar Pro question', 'tribe-common' ),
-					'answer'    => _x( 'Events Calendar Pro enhances The Events Calendar with additional views, powerful shortcodes, and a host of premium features.', 'FAQ what is in Calendar Pro answer', 'tribe-common' ),
-					'link_text' => _x( 'Learn More', 'Link to what is in Calendar Pro article', 'tribe-common' ),
-					'link_url'  => 'https://evnt.is/1arj',
-				],
-				[
-					'question'  => _x( 'How do I sell event tickets?', 'FAQ how to sell event tickets question', 'tribe-common' ),
-					'answer'    => _x( 'Get started with tickets and RSVPs using our free Event Tickets plugin.', 'FAQ how to sell event tickets answer', 'tribe-common' ),
-					'link_text' => _x( 'Learn More', 'Link to what is in Event Tickets article', 'tribe-common' ),
-					'link_url'  => 'https://evnt.is/1ark',
-				],
-				[
-					'question'  => _x( 'Where can I find a list of available shortcodes?', 'FAQ where are the shortcodes question', 'tribe-common' ),
-					'answer'    => _x( 'Our plugins offer a variety of shortcodes, allowing you to easily embed the calendar, display an event countdown clock, show attendee details, and much more.', 'FAQ where are the shortcodes answer', 'tribe-common' ),
-					'link_text' => _x( 'Learn More', 'Link to the shortcodes article', 'tribe-common' ),
-					'link_url'  => 'https://evnt.is/1arl',
-				],
-			],
-		];
-
-		// Apply individual filters for each section.
-		foreach ( $data as $section => $items ) {
-			/**
-			 * Filter the specific resource section.
-			 *
-			 * @since TBD
-			 *
-			 * @param array $data The complete resource sections array.
-			 */
-			$data[ $section ] = apply_filters( "tec_help_hub_resource_section_{$section}", $items );
-		}
-
-		/**
-		 * Filter the full array of resource sections.
-		 *
-		 * @since TBD
-		 *
-		 * @param array $data The complete resource sections array.
-		 */
-		return apply_filters( 'tec_help_hub_resource_sections', $data );
 	}
 }
