@@ -76,6 +76,17 @@ class Hub {
 	}
 
 	/**
+	 * Retrieves the data object used by the Help Hub.
+	 *
+	 * @since TBD
+	 *
+	 * @return Help_Hub_Data_Interface The data object containing Help Hub resources.
+	 */
+	public function get_data(): Help_Hub_Data_Interface {
+		return $this->data;
+	}
+
+	/**
 	 * Registers the hooks and filters needed for Help Hub functionality.
 	 *
 	 * Sets up actions and filters for initializing iframe content,
