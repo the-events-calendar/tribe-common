@@ -2,32 +2,16 @@
 /**
  * The template that displays the resources tab on the help page.
  *
- * @var Tribe__Main $main             The main common object.
- * @var array       $status_values    Contains the user's telemetry and license status.
- * @var array       $keys             Contains the chat keys for support services.
- * @var array       $icons            Contains URLs for various support hub icons.
- * @var array       $links            Contains URLs for important links, like the telemetry opt-in link.
- * @var string      $notice           The admin notice HTML for the chatbot callout.
- * @var string      $template_variant The template variant, determining which template to display.
+ * @var Tribe__Main $main              The main common object.
+ * @var array       $status_values     Contains the user's telemetry and license status.
+ * @var array       $keys              Contains the chat keys for support services.
+ * @var array       $icons             Contains URLs for various support hub icons.
+ * @var array       $links             Contains URLs for important links, like the telemetry opt-in link.
+ * @var string      $notice            The admin notice HTML for the chatbot callout.
+ * @var string      $template_variant  The template variant, determining which template to display.
+ * @var array       $resource_sections An array of data to display in the Resource section.
  */
 
-$resources = [
-	[
-		'icon'  => $icons['tec_icon_url'],
-		'title' => _x( 'The Events Calendar', 'The Events Calendar title', 'tribe-common' ),
-		'link'  => 'https://evnt.is/1ap9',
-	],
-	[
-		'icon'  => $icons['ea_icon_url'],
-		'title' => _x( 'Event Aggregator', 'Event Aggregator title', 'tribe-common' ),
-		'link'  => 'https://evnt.is/1apc',
-	],
-	[
-		'icon'  => $icons['fbar_icon_url'],
-		'title' => _x( 'Filter Bar', 'Filter Bar title', 'tribe-common' ),
-		'link'  => 'https://evnt.is/1apd',
-	],
-];
 ?>
 
 <div class="tec-settings-form__content-section">
@@ -40,7 +24,7 @@ $resources = [
 		</p>
 	</div>
 	<ul class="tec-help-list__list-expanded">
-		<?php foreach ( $resources as $resource ) : ?>
+		<?php foreach ( $resource_sections['getting_started'] as $resource ) : ?>
 			<li>
 				<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $resource['icon'] ); ?>"/>
 				<a href="<?php echo esc_url( $resource['link'] ); ?>">

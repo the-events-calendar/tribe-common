@@ -66,8 +66,9 @@ class Hub {
 		$this->render_template(
 			'help-hub',
 			[
-				'notice'           => $notice_html,
-				'template_variant' => $template_variant,
+				'notice'            => $notice_html,
+				'template_variant'  => $template_variant,
+				'resource_sections' => $this->create_resource_sections(),
 			]
 		);
 	}
@@ -92,7 +93,7 @@ class Hub {
 	 * Determine the template variant based on the license and opt-in status.
 	 *
 	 * @param bool $is_license_valid Whether the license is valid.
-	 * @param bool $is_opted_in Whether the user has opted into telemetry.
+	 * @param bool $is_opted_in      Whether the user has opted into telemetry.
 	 *
 	 * @return string The template variant.
 	 */
@@ -419,5 +420,129 @@ class Hub {
 		return [
 			'opt_in_link' => $this->get_telemetry_opt_in_link(),
 		];
+	}
+
+	/**
+	 * Creates an array of resource sections with relevant content for each section.
+	 *
+	 * Each section can be filtered independently or as a complete set.
+	 *
+	 * @return array The filtered resource sections array.
+	 */
+	protected function create_resource_sections(): array {
+		$main  = Tribe__Main::instance();
+		$icons = $this->get_icon_urls( $main );
+
+		// Initial data structure for resource sections.
+		$data = [
+			'getting_started' => [
+				[
+					'icon'  => $icons['tec_icon_url'],
+					'title' => _x( 'The Events Calendar', 'The Events Calendar title', 'tribe-common' ),
+					'link'  => 'https://evnt.is/1ap9',
+				],
+				[
+					'icon'  => $icons['ea_icon_url'],
+					'title' => _x( 'Event Aggregator', 'Event Aggregator title', 'tribe-common' ),
+					'link'  => 'https://evnt.is/1apc',
+				],
+				[
+					'icon'  => $icons['fbar_icon_url'],
+					'title' => _x( 'Filter Bar', 'Filter Bar title', 'tribe-common' ),
+					'link'  => 'https://evnt.is/1apd',
+				],
+			],
+			'customizations'  => [
+				[
+					'title' => _x( 'Getting started with customization', 'Customization article', 'tribe-common' ),
+					'link'  => 'https://evnt.is/1apf',
+					'icon'  => $icons['article_icon_url'],
+				],
+				[
+					'title' => _x( 'Highlighting events', 'Highlighting events article', 'tribe-common' ),
+					'link'  => 'https://evnt.is/1apg',
+					'icon'  => $icons['article_icon_url'],
+				],
+				[
+					'title' => _x( 'Customizing template files', 'Customizing templates article', 'tribe-common' ),
+					'link'  => 'https://evnt.is/1aph',
+					'icon'  => $icons['article_icon_url'],
+				],
+				[
+					'title' => _x( 'Customizing CSS', 'Customizing CSS article', 'tribe-common' ),
+					'link'  => 'https://evnt.is/1api',
+					'icon'  => $icons['article_icon_url'],
+				],
+			],
+			'common_issues'   => [
+				[
+					'title' => _x( 'Known issues', 'Known issues article', 'tribe-common' ),
+					'link'  => 'https://evnt.is/1apj',
+					'icon'  => $icons['article_icon_url'],
+				],
+				[
+					'title' => _x( 'Release notes', 'Release notes article', 'tribe-common' ),
+					'link'  => 'https://evnt.is/1apk',
+					'icon'  => $icons['article_icon_url'],
+				],
+				[
+					'title' => _x( 'Integrations', 'Integrations article', 'tribe-common' ),
+					'link'  => 'https://evnt.is/1apl',
+					'icon'  => $icons['article_icon_url'],
+				],
+				[
+					'title' => _x( 'Shortcodes', 'Shortcodes article', 'tribe-common' ),
+					'link'  => 'https://evnt.is/1apm',
+					'icon'  => $icons['article_icon_url'],
+				],
+			],
+			'faqs'            => [
+				[
+					'question'  => _x( 'Can I have more than one calendar?', 'FAQ more than one calendar question', 'tribe-common' ),
+					'answer'    => _x( 'No, but you can use event categories or tags to display certain events.', 'FAQ more than one calendar answer', 'tribe-common' ),
+					'link_text' => _x( 'Learn More', 'Link to more than one calendar article', 'tribe-common' ),
+					'link_url'  => 'https://evnt.is/1arh',
+				],
+				[
+					'question'  => _x( 'What do I get with Events Calendar Pro?', 'FAQ what is in Calendar Pro question', 'tribe-common' ),
+					'answer'    => _x( 'Events Calendar Pro enhances The Events Calendar with additional views, powerful shortcodes, and a host of premium features.', 'FAQ what is in Calendar Pro answer', 'tribe-common' ),
+					'link_text' => _x( 'Learn More', 'Link to what is in Calendar Pro article', 'tribe-common' ),
+					'link_url'  => 'https://evnt.is/1arj',
+				],
+				[
+					'question'  => _x( 'How do I sell event tickets?', 'FAQ how to sell event tickets question', 'tribe-common' ),
+					'answer'    => _x( 'Get started with tickets and RSVPs using our free Event Tickets plugin.', 'FAQ how to sell event tickets answer', 'tribe-common' ),
+					'link_text' => _x( 'Learn More', 'Link to what is in Event Tickets article', 'tribe-common' ),
+					'link_url'  => 'https://evnt.is/1ark',
+				],
+				[
+					'question'  => _x( 'Where can I find a list of available shortcodes?', 'FAQ where are the shortcodes question', 'tribe-common' ),
+					'answer'    => _x( 'Our plugins offer a variety of shortcodes, allowing you to easily embed the calendar, display an event countdown clock, show attendee details, and much more.', 'FAQ where are the shortcodes answer', 'tribe-common' ),
+					'link_text' => _x( 'Learn More', 'Link to the shortcodes article', 'tribe-common' ),
+					'link_url'  => 'https://evnt.is/1arl',
+				],
+			],
+		];
+
+		// Apply individual filters for each section.
+		foreach ( $data as $section => $items ) {
+			/**
+			 * Filter the specific resource section.
+			 *
+			 * @since TBD
+			 *
+			 * @param array $data The complete resource sections array.
+			 */
+			$data[ $section ] = apply_filters( "tec_help_hub_resource_section_{$section}", $items );
+		}
+
+		/**
+		 * Filter the full array of resource sections.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $data The complete resource sections array.
+		 */
+		return apply_filters( 'tec_help_hub_resource_sections', $data );
 	}
 }
