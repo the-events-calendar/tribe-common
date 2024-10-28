@@ -34,13 +34,14 @@
 			</li>
 		</ul>
 	</nav>
+	<div id="tec-help-hub-tab-containers">
+		<div id="tec-help-tab" class="tec-tab-container">
+			<?php $this->template( 'help-hub/support/support-hub' ); ?>
+		</div>
 
-	<div id="tec-help-tab" class="tec-tab-container">
-		<?php $this->template( 'help-hub/support/support-hub' ); ?>
-	</div>
-
-	<div id="tec-resources-tab" class="tec-tab-container">
-		<?php $this->template( 'help-hub/resources/resources' ); ?>
+		<div id="tec-resources-tab" class="tec-tab-container">
+			<?php $this->template( 'help-hub/resources/resources' ); ?>
+		</div>
 	</div>
 </div>
 

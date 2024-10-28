@@ -217,33 +217,50 @@ tribe.helpPage = tribe.helpPage || {};
 	 * @since TBD
 	 */
 	obj.setupTabs = function () {
-		let currentTab   = $( '.tec-nav__tab.tec-nav__tab--subnav-active' );
-		let tabContainer = $( '#' + currentTab.data( 'tab-target' ) );
-		$( '.tec-tab-container' ).hide();
-		tabContainer.show();
+		const tabs = document.querySelectorAll( '[data-tab-target]' );
+		const containers = document.querySelectorAll( '.tec-tab-container' );
 
-		$( '[data-tab-target]' ).on(
-			'click',
-			function () {
-				let tab       = $( this );
-				let tabTarget = $( '#' + tab.data( 'tab-target' ) );
+		// Hide all tab containers initially and ensure they are visible.
+		containers.forEach( container => {
+			container.style.display = 'none';
+			container.style.visibility = 'visible';
+		} );
 
-				$( '[data-tab-target]' ).removeClass( 'tec-nav__tab--subnav-active' );
-				$( '[data-tab-target="' + tab.data( 'tab-target' ) + '"]' )
-					.addClass( 'tec-nav__tab--subnav-active' );
+		// Find the currently active tab and corresponding container.
+		let currentTab = document.querySelector( '.tec-nav__tab.tec-nav__tab--subnav-active' );
+		let tabContainer = currentTab ? document.getElementById( currentTab.getAttribute( 'data-tab-target' ) ) : null;
 
-				tabContainer.hide();
-				tabTarget.show();
-				tabContainer = tabTarget;
+		if ( tabContainer ) {
+			tabContainer.style.display = 'flex';
+		}
 
-				/**
-				 * Because the tabs are hidden, we need to delay the accordion rendering until they
-				 * are "shown" so the expander logic can size the node to the rendered height.
-				 */
-				obj.setupAccordionsFor( tabTarget );
-			}
-		);
+		// Add event listeners to all tabs.
+		tabs.forEach( tab => {
+			tab.addEventListener(
+				'click',
+				function () {
+					// Update active tab.
+					tabs.forEach( t => t.classList.remove( 'tec-nav__tab--subnav-active' ) );
+					tab.classList.add( 'tec-nav__tab--subnav-active' );
+
+					// Hide the current container and show the new one.
+					if ( tabContainer ) {
+						tabContainer.style.display = 'none';
+					}
+
+					tabContainer = document.getElementById( tab.getAttribute( 'data-tab-target' ) );
+					if ( tabContainer ) {
+						tabContainer.style.display    = 'flex';
+						tabContainer.style.visibility = 'visible';
+
+						// Initialize accordions for the new tab content.
+						obj.setupAccordionsFor( tabContainer );
+					}
+				}
+			);
+		} );
 	}
+
 
 	$( obj.setup );
 
