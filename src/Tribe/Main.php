@@ -766,6 +766,8 @@ class Tribe__Main {
 		// Load Site Health and Telemetry.
 		tribe_register_provider( TEC\Common\Site_Health\Provider::class );
 		tribe_register_provider( TEC\Common\Telemetry\Provider::class );
+		// Load the IAN Client provider for the notifications.
+		tribe_register_provider( TEC\Common\IAN\Provider::class );
 	}
 
 	/**
