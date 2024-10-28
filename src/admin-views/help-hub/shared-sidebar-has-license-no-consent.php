@@ -106,7 +106,7 @@ $chat_icon_url  = tribe_resource_url( 'images/icons/chat-bubble.svg', false, nul
 			?>
 		</p>
 		<p>
-			<a class="button-secondary" href="<?php echo esc_url( $opt_in_link ); ?>">
+			<a class="button-secondary" href="<?php echo esc_url( $links['opt_in_link'] ); ?>">
 				<?php
 				echo esc_html_x(
 					'Manage my data sharing consent',
