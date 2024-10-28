@@ -4,7 +4,7 @@ namespace TEC\Common\Admin\Help_Hub;
 
 use Codeception\TestCase\WPTestCase;
 use ReflectionClass;
-use TEC\Common\Configuration\Configuration;
+use RuntimeException;
 use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
 use TEC\Common\Admin\Help_Hub\Resource_Data\TEC_Hub_Resource_Data;
 
@@ -21,16 +21,13 @@ class Hub_Test extends WPTestCase {
 	protected $data;
 
 	/**
-	 * @var Configuration
+	 * Sets up the test environment before each test.
+	 *
+	 * @before
 	 */
-	protected $config;
-
-	public function setUp(): void {
-		parent::setUp();
-
+	public function setUpHub(): void {
 		// Initialize dependencies using tribe()
-		$this->config = tribe( Configuration::class );
-		$this->data   = tribe( TEC_Hub_Resource_Data::class );
+		$this->data = tribe( TEC_Hub_Resource_Data::class );
 
 		// Instantiate the Hub
 		$this->hub = tribe( Hub::class );
@@ -142,4 +139,46 @@ class Hub_Test extends WPTestCase {
 		$current_screen = $original_current_screen;
 	}
 
+	/** @test */
+	public function it_throws_exception_when_data_is_not_set() {
+		// Create a new instance of Hub without setting up data.
+		$hub_without_data = tribe( Hub::class );
+
+		$this->expectException( RuntimeException::class );
+		$this->expectExceptionMessage( 'The HelpHub data must be set using the setup method before calling this function.' );
+
+		// Attempt to render without setting up data, which should throw an exception.
+		$hub_without_data->render();
+	}
+
+	/** @test */
+	public function it_executes_hooks_during_render() {
+		// Setup to capture hooks being executed
+		add_action(
+			'tec_help_hub_before_render',
+			function ( $hub ) use ( &$before_executed ) {
+				$before_executed = true;
+				$this->assertInstanceOf( Hub::class, $hub );
+			},
+			10,
+			1
+		);
+
+		add_action(
+			'tec_help_hub_after_render',
+			function ( $hub ) use ( &$after_executed ) {
+				$after_executed = true;
+				$this->assertInstanceOf( Hub::class, $hub );
+			},
+			10,
+			1
+		);
+
+		// Call render
+		$this->hub->render();
+
+		// Assert hooks were executed
+		$this->assertTrue( $before_executed );
+		$this->assertTrue( $after_executed );
+	}
 }
