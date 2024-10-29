@@ -84,7 +84,6 @@ final class Ian_Client {
 		do_action( 'tec_common_ian_loaded', $this );
 	}
 
-
 	/**
 	 * Register the Admin assets for the IAN Client.
 	 *
@@ -102,59 +101,34 @@ final class Ian_Client {
 			'admin_enqueue_scripts',
 			[
 				'conditionals' => [ $this, 'is_ian_page' ],
+				'in_footer'    => false,
+				'localize'     => [
+					'name' => 'commonIan',
+					'data' => [
+						'ajax_url' => admin_url( 'admin-ajax.php' ),
+						'nonce'    => wp_create_nonce( 'common_ian_nonce' ),
+					],
+				],
 			]
 		);
 	}
 
 	/**
-	 * Check if the current page is an IAN page.
+	 * Define which pages will show the notification icon.
 	 *
 	 * @since TBD
 	 *
 	 * @return bool
 	 */
-	public function is_ian_page(): bool {
-		// TODO: Decide which pages display the IAN icon.
-		return true;
+	public function is_ian_page() {
+		$screen = get_current_screen();
+
+		if ( in_array( $screen->id, [ 'tribe_events', 'edit-tribe_events', 'tribe_events_page_tec-events-settings' ], true ) ) {
+			return true;
+		}
+
+		return false;
 	}
-
-
-	/**
-	 * Show our notification icon.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $slug The plugin slug for IAN.
-	 *
-	 * @return void
-	 */
-	public function show_ian_icon( $slug ): void {
-		if ( ! in_array( $slug, $this->plugin_slugs, true ) || ! $this->is_ian_page() ) {
-			return;
-		}
-
-		$optin = Conditionals::get_user_opt_in();
-
-		if ( ! $optin ) {
-			return;
-		}
-
-		/**
-		 * Filter allowing disabling of the IAN icon by returning false.
-		 *
-		 * @since TBD
-		 *
-		 * @param bool $show Whether to show the modal or not.
-		 */
-		$show = (bool) apply_filters( 'tec_common_ian_show_icon', true, $slug );
-
-		if ( ! $show ) {
-			return;
-		}
-
-		load_template( Tribe__Main::instance()->plugin_path . 'src/admin-views/ian/icon.php', true, [ 'slug' => $slug ] );
-	}
-
 
 	/**
 	 * Register the plugins that are hooked into `tec_ian_slugs`.
@@ -200,5 +174,41 @@ final class Ian_Client {
 
 		// No cached slugs, or the list has changed, or we're running manually - so (re)set the cached value.
 		tribe( 'cache' )['tec_ian_slugs'] = $tec_slugs;
+	}
+
+	/**
+	 * Show our notification icon.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $slug The plugin slug for IAN.
+	 *
+	 * @return void
+	 */
+	public function show_ian_icon( $slug ): void {
+		if ( ! in_array( $slug, $this->plugin_slugs, true ) || ! $this->is_ian_page() ) {
+			return;
+		}
+
+		$optin = Conditionals::get_user_opt_in();
+
+		if ( ! $optin ) {
+			return;
+		}
+
+		/**
+		 * Filter allowing disabling of the IAN icon by returning false.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $show Whether to show the modal or not.
+		 */
+		$show = (bool) apply_filters( 'tec_common_ian_show_icon', true, $slug );
+
+		if ( ! $show ) {
+			return;
+		}
+
+		load_template( Tribe__Main::instance()->plugin_path . 'src/admin-views/ian/icon.php', true, [ 'slug' => $slug ] );
 	}
 }
