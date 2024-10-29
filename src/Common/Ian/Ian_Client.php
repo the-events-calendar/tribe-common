@@ -86,6 +86,40 @@ final class Ian_Client {
 
 
 	/**
+	 * Register the Admin assets for the IAN Client.
+	 *
+	 * @since  TBD
+	 *
+	 * @return void
+	 */
+	public function register_ian_assets(): void {
+		tribe_assets(
+			Tribe__Main::instance(),
+			[
+				[ 'ian-client-css', 'ian-client.css' ],
+				[ 'ian-client-js', 'ian-client.js', [ 'jquery' ] ],
+			],
+			'admin_enqueue_scripts',
+			[
+				'conditionals' => [ $this, 'is_ian_page' ],
+			]
+		);
+	}
+
+	/**
+	 * Check if the current page is an IAN page.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_ian_page(): bool {
+		// TODO: Decide which pages display the IAN icon.
+		return true;
+	}
+
+
+	/**
 	 * Show our notification icon.
 	 *
 	 * @since TBD
@@ -95,11 +129,15 @@ final class Ian_Client {
 	 * @return void
 	 */
 	public function show_ian_icon( $slug ): void {
-		if ( ! in_array( $slug, $this->plugin_slugs, true ) ) {
+		if ( ! in_array( $slug, $this->plugin_slugs, true ) || ! $this->is_ian_page() ) {
 			return;
 		}
 
 		$optin = Conditionals::get_user_opt_in();
+
+		if ( ! $optin ) {
+			return;
+		}
 
 		/**
 		 * Filter allowing disabling of the IAN icon by returning false.
@@ -162,10 +200,5 @@ final class Ian_Client {
 
 		// No cached slugs, or the list has changed, or we're running manually - so (re)set the cached value.
 		tribe( 'cache' )['tec_ian_slugs'] = $tec_slugs;
-
-		foreach ( $tec_slugs as $slug ) {
-			// TODO is there different opt-in statuses for different plugins?
-		}
 	}
-
 }
