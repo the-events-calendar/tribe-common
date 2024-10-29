@@ -1,12 +1,19 @@
 # Changelog
 
-### [6.2.1] 2024-10-24
+### [6.2.1] 2024-10-31
 
 * Fix - Prevent new Settings pages to over sanitize textarea fields, thus removing HTML from before/after in the Events UI. [TEC-5283]
 
-### [6.1.1] 2024-10-17
+= [6.2.0] 2024-10-17 =
 
-* Fix - allow more svg attributes through the fields sanitization. [TEC-5282]
+* Feature - New Conditional Content supporting classes with available Traits for User targeted Dismissal.
+* Fix - Allow more svg attributes through the fields sanitization. [TEC-5282]
+* Tweak - Remove all of the deprecated Marketing related classes and files, as they are no longer used.
+* Tweak - Added filters: `tec_settings_sidebar_sections`
+* Tweak - Removed filters: `tribe_black_friday_start_time`, `tribe_black_friday_end_time`
+* Tweak - Added actions: `tec_conditional_content_black_friday`
+* Deprecated - Removed deprecated classes: `Tribe\Admin\Notice\Marketing`, `Tribe\Admin\Notice\Marketing\Black_Friday`, `Tribe\Admin\Notice\Marketing\End_Of_Year_Sale`, `Tribe\Admin\Notice\Marketing\Stellar_Sale`, `Tribe\Admin\Notice\Conditional_Content\`, `Tribe\Admin\Notice\Marketing\Black_Friday`, `Tribe\Admin\Notice\Marketing\End_Of_Year_Sale`, `Tribe\Admin\Notice\Marketing\Stellar_Sale`
+* Language - 1 new strings added, 44 updated, 1 fuzzied, and 22 obsoleted
 
 ### [6.1.0] 2024-09-26
 
