@@ -66,7 +66,7 @@ class Settings_Sidebar extends Section {
 	/**
 	 * Add a section to the start of the sidebar array of sections
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @param Section $section The section to add.
 	 *
@@ -81,7 +81,7 @@ class Settings_Sidebar extends Section {
 	/**
 	 * Get the sidebar sections.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return array
 	 */
@@ -89,7 +89,7 @@ class Settings_Sidebar extends Section {
 		/**
 		 * Filter the sidebar sections.
 		 *
-		 * @since TBD
+		 * @since 6.3.0
 		 *
 		 * @param Section[]        $sections The sidebar sections.
 		 * @param Settings_Sidebar $sidebar  The sidebar object.
@@ -102,11 +102,11 @@ class Settings_Sidebar extends Section {
 	 *
 	 * @since      6.1.0
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.3.0
 	 *
 	 * @param Image $deprecated Deprecated.
 	 */
 	public function set_header_image( Image $deprecated ) {
-		_deprecated_function( __METHOD__, 'TBD', 'Sidebar no longer has headers, they can be added to individual sections.' );
+		_deprecated_function( __METHOD__, '6.3.0', 'Sidebar no longer has headers, they can be added to individual sections.' );
 	}
 }

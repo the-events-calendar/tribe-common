@@ -7,7 +7,7 @@ namespace TEC\Common\Admin\Conditional_Content;
 /**
  * Trait Dismissible_Trait
  *
- * @since   TBD
+ * @since   6.3.0
  *
  * @package TEC\Common\Admin\Conditional_Content
  */
@@ -15,7 +15,7 @@ trait Dismissible_Trait {
 	/**
 	 * User Meta Key that stores which notices have been dismissed.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @var string
 	 */
@@ -24,7 +24,7 @@ trait Dismissible_Trait {
 	/**
 	 * Request param used to pass the nonce for dismissal.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @var string
 	 */
@@ -33,7 +33,7 @@ trait Dismissible_Trait {
 	/**
 	 * User Meta Key prefix that stores when notices have been dismissed.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @var string
 	 */
@@ -42,7 +42,7 @@ trait Dismissible_Trait {
 	/**
 	 * Get the nonce action for this dismissible content.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return string
 	 */
@@ -57,7 +57,7 @@ trait Dismissible_Trait {
 	/**
 	 * Get the nonce for this dismissible content.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return string
 	 */
@@ -72,7 +72,7 @@ trait Dismissible_Trait {
 	 * registered (via a call to exists()) for the reason that, during dismissal
 	 * ajax request, some valid notices may not have been registered yet.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return void
 	 */
@@ -106,7 +106,7 @@ trait Dismissible_Trait {
 	/**
 	 * A Method to actually add the Meta value recording that this content has been dismissed.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @param int|null|string $user_id The user ID.
 	 *
@@ -134,7 +134,7 @@ trait Dismissible_Trait {
 	/**
 	 * Removes the user meta that holds if this content has been dismissed.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @param int|null|string $user_id The user ID.
 	 *
@@ -160,7 +160,7 @@ trait Dismissible_Trait {
 	/**
 	 * Checks if a given user has dismissed a given notice.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @param int|null|string $user_id The user ID.
 	 *

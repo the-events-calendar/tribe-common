@@ -24,7 +24,7 @@ use Tribe\Utils\{
 /**
  * Set up for Black Friday promo.
  *
- * @since TBD
+ * @since 6.3.0
  */
 class Black_Friday extends Datetime_Conditional_Abstract {
 	use Dismissible_Trait;
@@ -99,7 +99,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	/**
 	 * Gets the content for the Black Friday promo.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return string
 	 */
@@ -117,7 +117,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	/**
 	 * Render the wide banner HTML.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return void
 	 */
@@ -130,7 +130,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		 * Fires before the wide banner is rendered.
 		 * This hook is used to add additional content before the narrow banner.
 		 *
-		 * @since TBD
+		 * @since 6.3.0
 		 *
 		 * @param string       $slug The slug of the conditional content.
 		 * @param Black_Friday $this The Black Friday instance.
@@ -143,7 +143,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	/**
 	 * Gets the content for the Black Friday promo.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return string
 	 */
@@ -162,7 +162,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	/**
 	 * Render the narrow banner HTML.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return void
 	 */
@@ -174,7 +174,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		 * Fires before the narrow banner is rendered.
 		 * This hook is used to add additional content before the narrow banner.
 		 *
-		 * @since TBD
+		 * @since 6.3.0
 		 *
 		 * @param string       $slug The slug of the conditional content.
 		 * @param Black_Friday $this The Black Friday instance.
@@ -187,7 +187,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	/**
 	 * Include the Black Friday promo in the tickets settings section.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return void
 	 */
@@ -207,7 +207,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	/**
 	 * Replace the opening markup for the general settings info box.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @param Settings_Sidebar $sidebar Sidebar instance.
 	 *
@@ -232,7 +232,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		 * Fires before the settings sidebar is rendered.
 		 * This hook is used to add additional content before the narrow banner.
 		 *
-		 * @since TBD
+		 * @since 6.3.0
 		 *
 		 * @param string       $slug The slug of the conditional content.
 		 * @param Black_Friday $this The Black Friday instance.

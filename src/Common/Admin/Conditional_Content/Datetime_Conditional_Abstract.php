@@ -9,48 +9,48 @@ use Tribe\Utils\Date_I18n;
 /**
  * Abstract class for conditional content.
  *
- * @since TBD
+ * @since 6.3.0
  */
 abstract class Datetime_Conditional_Abstract {
 	/**
 	 * Item slug.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 */
 	protected string $slug;
 
 	/**
 	 * Start date.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 */
 	protected string $start_date;
 
 	/**
 	 * Start time.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 */
 	protected string $start_time;
 
 	/**
 	 * End date.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 */
 	protected string $end_date;
 
 	/**
 	 * End time.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 */
 	protected string $end_time;
 
 	/**
 	 * Stores the instance of the template engine that we will use for rendering the page.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @var Template
 	 */
@@ -59,7 +59,7 @@ abstract class Datetime_Conditional_Abstract {
 	/**
 	 * Register actions and filters.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return void
 	 */
@@ -68,7 +68,7 @@ abstract class Datetime_Conditional_Abstract {
 	/**
 	 * Unix datetime for content start.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return ?Date_I18n - Date Object
 	 */
@@ -84,7 +84,7 @@ abstract class Datetime_Conditional_Abstract {
 		/**
 		 * Allow filtering of the start date for testing.
 		 *
-		 * @since TBD
+		 * @since 6.3.0
 		 *
 		  * @param Date_i18n $date - Date object for the end date.
 		 * @param static $this
@@ -101,7 +101,7 @@ abstract class Datetime_Conditional_Abstract {
 	/**
 	 * Unix datetime for content end.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return ?Date_I18n - Date Object
 	 */
@@ -117,7 +117,7 @@ abstract class Datetime_Conditional_Abstract {
 		/**
 		 * Allow filtering of the end date for testing.
 		 *
-		 * @since TBD
+		 * @since 6.3.0
 		 *
 		 * @param Date_i18n $date - Date object for the end date.
 		 * @param object    $this
@@ -134,7 +134,7 @@ abstract class Datetime_Conditional_Abstract {
 	/**
 	 * Whether the content should display.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return boolean - Whether the content should display
 	 */
@@ -153,7 +153,7 @@ abstract class Datetime_Conditional_Abstract {
 		/**
 		 * Allow filtering whether the content should display.
 		 *
-		 * @since TBD
+		 * @since 6.3.0
 		 *
 		 * @param bool   $should_display - whether the content should display
 		 * @param object $this           - the conditional content object
@@ -164,7 +164,7 @@ abstract class Datetime_Conditional_Abstract {
 	/**
 	 * Gets the instance of the template engine used for rendering the conditional template.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return Template
 	 */

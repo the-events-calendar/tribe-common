@@ -15,7 +15,7 @@ use Tribe__Main as Common;
 /**
  * Conditional Content Controller.
  *
- * @since TBD
+ * @since 6.3.0
  */
 class Controller extends Provider_Contract {
 
@@ -23,7 +23,7 @@ class Controller extends Provider_Contract {
 	/**
 	 * Registers the required objects and filters.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 */
 	public function register() {
 		// This is specifically for the admin, bail if we're not in the admin.
@@ -48,7 +48,7 @@ class Controller extends Provider_Contract {
 	/**
 	 * Setup for things that require plugins loaded first.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 */
 	public function plugins_loaded(): void {
 		$this->container->make( Black_Friday::class );

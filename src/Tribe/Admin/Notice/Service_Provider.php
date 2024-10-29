@@ -59,9 +59,9 @@ class Service_Provider extends Provider_Contract {
 	 * Each should conditionally call an internal `enqueue_additional_assets()` function to handle the enqueueing.
 	 *
 	 * @since 5.1.10
-     * @deprecated TBD
+     * @deprecated 6.3.0
 	 */
 	public function enqueue_additional_assets() {
-		_deprecated_function( __METHOD__, 'TBD', 'No replacement.' );
+		_deprecated_function( __METHOD__, '6.3.0', 'No replacement.' );
 	}
 }

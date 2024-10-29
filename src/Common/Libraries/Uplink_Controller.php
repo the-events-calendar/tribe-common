@@ -18,7 +18,7 @@ use function TEC\Common\StellarWP\Uplink\get_plugins;
 /**
  * Controller for setting up the stellarwp/uplink library.
  *
- * @since TBD
+ * @since 6.3.0
  *
  * @package TEC\Common\Libraries\Uplink
  */
@@ -26,7 +26,7 @@ class Uplink_Controller extends Controller_Contract {
 	/**
 	 * Register the controller.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 */
 	public function do_register(): void {
 		$this->add_actions();
@@ -35,7 +35,7 @@ class Uplink_Controller extends Controller_Contract {
 	/**
 	 * Unregister the controller.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return void
 	 */
@@ -46,7 +46,7 @@ class Uplink_Controller extends Controller_Contract {
 	/**
 	 * Add the action hooks.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 */
 	public function add_actions(): void {
 		add_action( 'init', [ $this, 'register_uplink' ], 8 );
@@ -57,7 +57,7 @@ class Uplink_Controller extends Controller_Contract {
 	/**
 	 * Remove the action hooks.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 */
 	public function remove_actions(): void {
 		remove_action( 'init', [ $this, 'register_uplink' ], 8 );
@@ -67,7 +67,7 @@ class Uplink_Controller extends Controller_Contract {
 	/**
 	 * Register the license fields.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @param array $fields_array The array of fields.
 	 *
@@ -132,7 +132,7 @@ class Uplink_Controller extends Controller_Contract {
 	/**
 	 * Save empty license keys.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 */
 	public function save_empty_license_keys() {
 		$plugins = get_plugins();
@@ -159,7 +159,7 @@ class Uplink_Controller extends Controller_Contract {
 	/**
 	 * Register the uplink library.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return void
 	 */
