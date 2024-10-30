@@ -453,7 +453,7 @@ class Hub {
 		$notice_admin = ( new AdminNotice( $notice_slug, "<p>$notice_content</p>" ) )
 			->urgency( 'info' )
 			->inline()
-			->dismissible()
+			->dismissible( false )
 			->withWrapper();
 
 		return AdminNotices::render( $notice_admin, false );
