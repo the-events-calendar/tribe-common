@@ -216,51 +216,59 @@ tribe.helpPage = tribe.helpPage || {};
 	 *
 	 * @since TBD
 	 */
-	obj.setupTabs = function () {
-		const tabs = document.querySelectorAll( '[data-tab-target]' );
-		const containers = document.querySelectorAll( '.tec-tab-container' );
+	obj.setupTabs = () => {
+		const tabs = document.querySelectorAll('[data-tab-target]');
+		const containers = document.querySelectorAll('.tec-tab-container');
 
 		// Hide all tab containers initially and ensure they are visible.
-		containers.forEach( container => {
+		containers.forEach(container => {
 			container.style.display = 'none';
 			container.style.visibility = 'visible';
-		} );
+		});
 
 		// Find the currently active tab and corresponding container.
-		let currentTab = document.querySelector( '.tec-nav__tab.tec-nav__tab--subnav-active' );
-		let tabContainer = currentTab ? document.getElementById( currentTab.getAttribute( 'data-tab-target' ) ) : null;
+		let currentTab = document.querySelector('.tec-nav__tab.tec-nav__tab--subnav-active');
+		let tabContainer = currentTab ? document.getElementById(currentTab.getAttribute('data-tab-target')) : null;
 
-		if ( tabContainer ) {
+		if (tabContainer) {
 			tabContainer.style.display = 'flex';
 		}
 
-		// Add event listeners to all tabs.
-		tabs.forEach( tab => {
-			tab.addEventListener(
-				'click',
-				function () {
-					// Update active tab.
-					tabs.forEach( t => t.classList.remove( 'tec-nav__tab--subnav-active' ) );
-					tab.classList.add( 'tec-nav__tab--subnav-active' );
+		// Initialize tab event listeners separately.
+		obj.setupTabEventListeners(tabs, tabContainer);
+	};
 
-					// Hide the current container and show the new one.
-					if ( tabContainer ) {
-						tabContainer.style.display = 'none';
-					}
+	/**
+	 * Sets up event listeners for each tab.
+	 *
+	 * @param {NodeList} tabs         The list of tab elements.
+	 * @param {HTMLElement} tabContainer The currently active tab container.
+	 *
+	 * @since TBD
+	 */
+	obj.setupTabEventListeners = (tabs, tabContainer) => {
+		tabs.forEach(tab => {
+			tab.addEventListener('click', () => {
+				// Update active tab.
+				tabs.forEach(t => t.classList.remove('tec-nav__tab--subnav-active'));
+				tab.classList.add('tec-nav__tab--subnav-active');
 
-					tabContainer = document.getElementById( tab.getAttribute( 'data-tab-target' ) );
-					if ( tabContainer ) {
-						tabContainer.style.display    = 'flex';
-						tabContainer.style.visibility = 'visible';
-
-						// Initialize accordions for the new tab content.
-						obj.setupAccordionsFor( tabContainer );
-					}
+				// Hide the current container and show the new one.
+				if (tabContainer) {
+					tabContainer.style.display = 'none';
 				}
-			);
-		} );
-	}
 
+				tabContainer = document.getElementById(tab.getAttribute('data-tab-target'));
+				if (tabContainer) {
+					tabContainer.style.display = 'flex';
+					tabContainer.style.visibility = 'visible';
+
+					// Initialize accordions for the new tab content.
+					obj.setupAccordionsFor(tabContainer);
+				}
+			});
+		});
+	};
 
 	$( obj.setup );
 
