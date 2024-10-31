@@ -34,7 +34,7 @@
 			</li>
 		</ul>
 	</nav>
-	<div id="tec-help-hub-tab-containers">
+	<div id="tec-help-hub-tab-containers" class="tec-tab-parent-container">
 		<div id="tec-help-tab" class="tec-tab-container">
 			<?php $this->template( 'help-hub/support/support-hub' ); ?>
 		</div>

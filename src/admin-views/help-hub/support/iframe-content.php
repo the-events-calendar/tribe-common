@@ -29,11 +29,11 @@ $opted_in = tribe_is_truthy( $status_values['is_opted_in'] ) ? '1' : '0';
 <div id="docsbot-widget-embed"></div>
 
 
-<div class="iframe-opt-out-message hide">
-	<div class="iframe-opt-out-message__image">
+<div class="tec-help-hub-iframe-opt-out-message hide">
+	<div class="tec-help-hub-iframe-opt-out-message__image">
 		<img src="<?php echo esc_url( $icons['stars_icon'] ); ?>" alt="<?php esc_attr_e( 'Star Icon', 'tribe-common' ); ?>">
 	</div>
-	<div class="iframe-opt-out-message__content">
+	<div class="tec-help-hub-iframe-opt-out-message__content">
 		<h2><?php esc_html_e( 'Our AI Chatbot can help you find solutions quickly.', 'tribe-common' ); ?></h2>
 		<p>
 			<?php esc_html_e( 'To enhance your experience, we require your consent to collect and share some of your website’s data with our AI chatbot.', 'tribe-common' ); ?>

@@ -8,7 +8,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	obj.selectors = {
 		body: document.body,
 		docsbotWidget: '#docsbot-widget-embed',
-		optOutMessage: '.iframe-opt-out-message',
+		optOutMessage: '.tec-help-hub-iframe-opt-out-message',
 	};
 
 	/**
