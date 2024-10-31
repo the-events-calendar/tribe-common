@@ -19,8 +19,8 @@ class EventTest extends \Codeception\TestCase\WPTestCase {
 
 	use SnapshotAssertions;
 	use With_Post_Remapping;
-	use Create_events;
-	use Create_attendees;
+	use Create_Events;
+	use Create_Attendees;
 	use With_Uopz;
 	use Event;
 

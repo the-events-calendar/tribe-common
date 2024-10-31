@@ -28,12 +28,15 @@ class Provider extends Service_Provider {
 		$this->container->singleton( static::class, $this );
 
 		tribe_register_provider( Installer\Provider::class );
+		tribe_register_provider( Uplink_Controller::class );
 
 		DB\Config::setHookPrefix( $this->get_hook_prefix() );
 		Assets\Config::set_hook_prefix( $this->get_hook_prefix() );
 		Assets\Config::set_path( Common::instance()->plugin_path . 'src/resources/' );
 		Assets\Config::set_version( Common::VERSION );
 		Assets\Config::set_relative_asset_path( 'src/resources/' );
+		Schema\Config::set_db( DB\DB::class );
+		Schema\Config::set_container( tribe() );
 	}
 
 	/**
