@@ -186,16 +186,16 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return array Contains 'is_license_valid' and 'is_opted_in' status.
+	 * @return array Contains 'has_valid_license' and 'is_opted_in' status.
 	 */
 	public function get_license_and_opt_in_status(): array {
-		$is_license_valid = Tribe__PUE__Checker::is_any_license_valid();
-		$common_telemetry = tribe( Telemetry::class );
-		$is_opted_in      = $common_telemetry->calculate_optin_status();
+		$has_valid_license = Tribe__PUE__Checker::is_any_license_valid();
+		$common_telemetry  = tribe( Telemetry::class );
+		$is_opted_in       = $common_telemetry->calculate_optin_status();
 
 		return [
-			'is_license_valid' => $is_license_valid,
-			'is_opted_in'      => $is_opted_in,
+			'has_valid_license' => $has_valid_license,
+			'is_opted_in'       => $is_opted_in,
 		];
 	}
 }

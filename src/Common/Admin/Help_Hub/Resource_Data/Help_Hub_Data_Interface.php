@@ -52,7 +52,7 @@ interface Help_Hub_Data_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return array An associative array with 'is_license_valid' and 'is_opted_in' status.
+	 * @return array An associative array with 'has_valid_license' and 'is_opted_in' status.
 	 */
 	public function get_license_and_opt_in_status(): array;
 }

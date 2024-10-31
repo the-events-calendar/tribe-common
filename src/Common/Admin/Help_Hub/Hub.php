@@ -158,7 +158,7 @@ class Hub {
 
 		$notice_html      = $this->generate_notice_html();
 		$status           = $this->data->get_license_and_opt_in_status();
-		$template_variant = self::get_template_variant( $status['is_license_valid'], $status['is_opted_in'] );
+		$template_variant = self::get_template_variant( $status['has_valid_license'], $status['is_opted_in'] );
 
 		$this->render_template(
 			'help-hub',
@@ -227,13 +227,13 @@ class Hub {
 	 *
 	 * @since TBD
 	 *
-	 * @param bool $is_license_valid Whether the license is valid.
+	 * @param bool $has_valid_license Whether the license is valid.
 	 * @param bool $is_opted_in      Whether the user has opted into telemetry.
 	 *
 	 * @return string The template variant.
 	 */
-	protected static function get_template_variant( bool $is_license_valid, bool $is_opted_in ): string {
-		if ( ! $is_license_valid ) {
+	protected static function get_template_variant( bool $has_valid_license, bool $is_opted_in ): string {
+		if ( ! $has_valid_license ) {
 			return 'no-license';
 		}
 
@@ -520,7 +520,7 @@ class Hub {
 
 		return [
 			'is_opted_in'      => $status['is_opted_in'],
-			'is_license_valid' => $status['is_license_valid'],
+			'has_valid_license' => $status['has_valid_license'],
 		];
 	}
 
