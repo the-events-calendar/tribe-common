@@ -127,6 +127,8 @@ class Hub {
 	 * @throws RuntimeException If data is not set using the setup method before rendering.
 	 */
 	public function render(): void {
+		$this->ensure_data_is_set();
+
 		/**
 		 * Fires before the Help Hub page is rendered.
 		 *
@@ -137,8 +139,6 @@ class Hub {
 		 * @param Hub $this The Hub instance.
 		 */
 		do_action( 'tec_help_hub_before_render', $this );
-
-		$this->ensure_data_is_set();
 
 		$notice_html      = $this->generate_notice_html();
 		$status           = $this->data->get_license_and_opt_in_status();
