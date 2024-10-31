@@ -31,7 +31,7 @@ $opted_in = tribe_is_truthy( $status_values['is_opted_in'] ) ? '1' : '0';
 
 <div class="iframe-opt-out-message hide">
 	<div class="iframe-opt-out-message__image">
-		<img src="<?php echo esc_url( $icons['stars_icon_url'] ); ?>" alt="<?php esc_attr_e( 'Star Icon', 'tribe-common' ); ?>">
+		<img src="<?php echo esc_url( $icons['stars_icon'] ); ?>" alt="<?php esc_attr_e( 'Star Icon', 'tribe-common' ); ?>">
 	</div>
 	<div class="iframe-opt-out-message__content">
 		<h2><?php esc_html_e( 'Our AI Chatbot can help you find solutions quickly.', 'tribe-common' ); ?></h2>

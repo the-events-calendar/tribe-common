@@ -11,8 +11,6 @@
 
 namespace TEC\Common\Admin\Help_Hub\Resource_Data;
 
-use Tribe__Main;
-
 /**
  * Interface Help_Hub_Data_Interface
  *
@@ -36,17 +34,15 @@ interface Help_Hub_Data_Interface {
 	public function create_resource_sections(): array;
 
 	/**
-	 * Retrieves the URLs for required icons in the Help Hub.
-	 *
-	 * Accepts a `Tribe__Main` instance to generate URLs specific to The Events Calendar plugin.
+	 * Retrieves the URL for a specified icon.
 	 *
 	 * @since TBD
 	 *
-	 * @param Tribe__Main $main The main instance used to generate resource URLs.
+	 * @param string $icon_name The name of the icon to retrieve.
 	 *
-	 * @return array An associative array of icon URLs keyed by icon type.
+	 * @return string The URL of the specified icon, or an empty string if the icon does not exist.
 	 */
-	public function get_icon_urls( Tribe__Main $main ): array;
+	public function get_icon_url( string $icon_name ): string;
 
 	/**
 	 * Gets the license validity and telemetry opt-in status.

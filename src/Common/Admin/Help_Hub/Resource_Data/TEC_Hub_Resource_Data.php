@@ -26,6 +26,35 @@ use Tribe__PUE__Checker;
  * @package TEC\Common\Admin\Help_Hub\Resource_Data
  */
 class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
+
+	/**
+	 * Holds the URLs for the necessary icons.
+	 *
+	 * @since TBD
+	 * @var array
+	 */
+	protected array $icons = [];
+
+	/**
+	 * Constructor.
+	 *
+	 * Initializes the icons array with URLs.
+	 *
+	 * @since TBD
+	 */
+	public function __construct() {
+		$origin ??= Tribe__Main::instance();
+
+		$this->icons = [
+			'tec_icon'     => tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, $origin ),
+			'ea_icon'      => tribe_resource_url( 'images/logo/event-aggregator.svg', false, null, $origin ),
+			'fbar_icon'    => tribe_resource_url( 'images/logo/filterbar.svg', false, null, $origin ),
+			'article_icon' => tribe_resource_url( 'images/icons/file-text1.svg', false, null, $origin ),
+			'stars_icon'   => tribe_resource_url( 'images/icons/stars.svg', false, null, $origin ),
+			'chat_icon'    => tribe_resource_url( 'images/icons/chat-bubble.svg', false, null, $origin ),
+		];
+	}
+
 	/**
 	 * Creates an array of resource sections with relevant content for each section.
 	 *
@@ -36,24 +65,21 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	 * @return array The filtered resource sections array.
 	 */
 	public function create_resource_sections(): array {
-		$main  = Tribe__Main::instance();
-		$icons = $this->get_icon_urls( $main );
-
 		// Initial data structure for resource sections.
 		return [
 			'getting_started' => [
 				[
-					'icon'  => $icons['tec_icon_url'],
+					'icon'  => $this->get_icon_url( 'tec_icon' ),
 					'title' => _x( 'The Events Calendar', 'The Events Calendar title', 'tribe-common' ),
 					'link'  => 'https://evnt.is/1ap9',
 				],
 				[
-					'icon'  => $icons['ea_icon_url'],
+					'icon'  => $this->get_icon_url( 'ea_icon' ),
 					'title' => _x( 'Event Aggregator', 'Event Aggregator title', 'tribe-common' ),
 					'link'  => 'https://evnt.is/1apc',
 				],
 				[
-					'icon'  => $icons['fbar_icon_url'],
+					'icon'  => $this->get_icon_url( 'fbar_icon' ),
 					'title' => _x( 'Filter Bar', 'Filter Bar title', 'tribe-common' ),
 					'link'  => 'https://evnt.is/1apd',
 				],
@@ -62,44 +88,44 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 				[
 					'title' => _x( 'Getting started with customization', 'Customization article', 'tribe-common' ),
 					'link'  => 'https://evnt.is/1apf',
-					'icon'  => $icons['article_icon_url'],
+					'icon'  => $this->get_icon_url( 'article_icon' ),
 				],
 				[
 					'title' => _x( 'Highlighting events', 'Highlighting events article', 'tribe-common' ),
 					'link'  => 'https://evnt.is/1apg',
-					'icon'  => $icons['article_icon_url'],
+					'icon'  => $this->get_icon_url( 'article_icon' ),
 				],
 				[
 					'title' => _x( 'Customizing template files', 'Customizing templates article', 'tribe-common' ),
 					'link'  => 'https://evnt.is/1aph',
-					'icon'  => $icons['article_icon_url'],
+					'icon'  => $this->get_icon_url( 'article_icon' ),
 				],
 				[
 					'title' => _x( 'Customizing CSS', 'Customizing CSS article', 'tribe-common' ),
 					'link'  => 'https://evnt.is/1api',
-					'icon'  => $icons['article_icon_url'],
+					'icon'  => $this->get_icon_url( 'article_icon' ),
 				],
 			],
 			'common_issues'   => [
 				[
 					'title' => _x( 'Known issues', 'Known issues article', 'tribe-common' ),
 					'link'  => 'https://evnt.is/1apj',
-					'icon'  => $icons['article_icon_url'],
+					'icon'  => $this->get_icon_url( 'article_icon' ),
 				],
 				[
 					'title' => _x( 'Release notes', 'Release notes article', 'tribe-common' ),
 					'link'  => 'https://evnt.is/1apk',
-					'icon'  => $icons['article_icon_url'],
+					'icon'  => $this->get_icon_url( 'article_icon' ),
 				],
 				[
 					'title' => _x( 'Integrations', 'Integrations article', 'tribe-common' ),
 					'link'  => 'https://evnt.is/1apl',
-					'icon'  => $icons['article_icon_url'],
+					'icon'  => $this->get_icon_url( 'article_icon' ),
 				],
 				[
 					'title' => _x( 'Shortcodes', 'Shortcodes article', 'tribe-common' ),
 					'link'  => 'https://evnt.is/1apm',
-					'icon'  => $icons['article_icon_url'],
+					'icon'  => $this->get_icon_url( 'article_icon' ),
 				],
 			],
 			'faqs'            => [
@@ -132,22 +158,27 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	}
 
 	/**
-	 * Retrieves the URLs for the necessary icons.
+	 * Retrieves the URL for a specified icon.
 	 *
 	 * @since TBD
 	 *
-	 * @param Tribe__Main $main The main object instance to pass for generating resource URLs.
+	 * @param string $icon_name The name of the icon to retrieve.
 	 *
-	 * @return array An associative array containing the URLs for various icons.
+	 * @return string The URL of the specified icon, or an empty string if the icon does not exist.
 	 */
-	public function get_icon_urls( Tribe__Main $main ): array {
-		return [
-			'tec_icon_url'     => tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, $main ),
-			'ea_icon_url'      => tribe_resource_url( 'images/logo/event-aggregator.svg', false, null, $main ),
-			'fbar_icon_url'    => tribe_resource_url( 'images/logo/filterbar.svg', false, null, $main ),
-			'article_icon_url' => tribe_resource_url( 'images/icons/file-text1.svg', false, null, $main ),
-			'stars_icon_url'   => tribe_resource_url( 'images/icons/stars.svg', false, null, $main ),
-		];
+	public function get_icon_url( string $icon_name ): string {
+		return $this->icons[ $icon_name ] ?? '';
+	}
+
+	/**
+	 * Retrieves all icon URLs.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The array of icon URLs.
+	 */
+	public function get_icon_urls(): array {
+		return $this->icons;
 	}
 
 	/**

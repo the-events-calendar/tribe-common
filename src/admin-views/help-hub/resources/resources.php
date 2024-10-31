@@ -45,7 +45,7 @@
 
 
 		<div class="tec-settings-infobox">
-			<img class="tec-settings-infobox-logo" src="<?php echo esc_url( $icons['stars_icon_url'] ); ?>" alt="AI Chatboat logo">
+			<img class="tec-settings-infobox-logo" src="<?php echo esc_url( $icons['stars_icon'] ); ?>" alt="AI Chatboat logo">
 			<h3 class="tec-settings-infobox-title">
 				<?php
 				echo esc_html_x(

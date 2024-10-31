@@ -4,25 +4,20 @@
  * The template that displays the support hub sidebar.
  *
  * @var Tribe__Main $main             The main common object.
- * @var array       $status_values           Contains the user's telemetry and license status.
+ * @var array       $status_values    Contains the user's telemetry and license status.
  * @var array       $keys             Contains the chat keys for support services.
  * @var array       $icons            Contains URLs for various support hub icons.
  * @var array       $links            Contains URLs for important links, like the telemetry opt-in link.
  * @var string      $notice           The admin notice HTML for the chatbot callout.
  * @var string      $template_variant The template variant, determining which template to display.
- * @var string      $stars_icon_url   The URL for the stars icon image.
- * @var string      $chat_icon_url    The URL for the chat bubble icon image.
  */
-
-$stars_icon_url = tribe_resource_url( 'images/icons/stars.svg', false, null, $main );
-$chat_icon_url  = tribe_resource_url( 'images/icons/chat-bubble.svg', false, null, $main );
 
 ?>
 <div class="tec-settings__sidebar-inner">
 	<div class="tec-settings__sidebar-icon-wrap">
 		<div>
 			<img class="tec-settings-infobox-logo"
-				src="<?php echo esc_url( $chat_icon_url ); ?>"
+				src="<?php echo esc_url( $icons['chat_icon'] ); ?>"
 				alt="Support chat logo"
 			>
 		</div>
