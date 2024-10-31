@@ -4,6 +4,11 @@
 
 * Fix - Prevent new Settings pages to over sanitize textarea fields, thus removing HTML from before/after in the Events UI. [TEC-5283]
 
+= [6.3.0] 2024-10-30 =
+
+* Feature - Added integration with new premium Seating product for Event Tickets.
+* Language - 0 new strings added, 23 updated, 1 fuzzied, and 0 obsoleted
+
 = [6.2.0] 2024-10-17 =
 
 * Feature - New Conditional Content supporting classes with available Traits for User targeted Dismissal.

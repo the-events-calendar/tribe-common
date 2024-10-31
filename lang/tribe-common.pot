@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 6.2.0\n"
+"Project-Id-Version: Tribe Common 6.3.0\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-10-16T10:07:57-07:00\n"
-"PO-Revision-Date: 2024-10-16 17:08\n"
+"POT-Creation-Date: 2024-10-25T08:33:12-07:00\n"
+"PO-Revision-Date: 2024-10-25 15:33\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: tribe-common\n"
 
@@ -999,8 +999,8 @@ msgid "License & Usage"
 msgstr ""
 
 #: src/admin-views/troubleshooting/ea-status/license-key.php:43
-#: src/Tribe/PUE/Checker.php:634
-#: src/Tribe/PUE/Checker.php:645
+#: src/Tribe/PUE/Checker.php:636
+#: src/Tribe/PUE/Checker.php:647
 msgid "License Key"
 msgstr ""
 
@@ -4800,102 +4800,102 @@ msgstr ""
 msgid "Promoter Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:618
+#: src/Tribe/PUE/Checker.php:620
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:622
+#: src/Tribe/PUE/Checker.php:624
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:654
-#: src/Tribe/PUE/Checker.php:688
+#: src/Tribe/PUE/Checker.php:656
+#: src/Tribe/PUE/Checker.php:690
 msgid "License Key Status:"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:663
+#: src/Tribe/PUE/Checker.php:665
 msgid "Override network license key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:664
+#: src/Tribe/PUE/Checker.php:666
 msgid "Check this box if you wish to override the network license key with your own"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:675
+#: src/Tribe/PUE/Checker.php:677
 msgid "Site License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:776
+#: src/Tribe/PUE/Checker.php:778
 msgid "License key(s) updated."
 msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1027
+#: src/Tribe/PUE/Checker.php:1035
 msgid "Hmmm... something's wrong with this validator. Please contact %1$ssupport%2$s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1046
+#: src/Tribe/PUE/Checker.php:1054
 msgid "unknown date"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1052
+#: src/Tribe/PUE/Checker.php:1060
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
 #. Translators: %s is the expiration date.
-#: src/Tribe/PUE/Checker.php:1081
+#: src/Tribe/PUE/Checker.php:1089
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
 #. Translators: %s is the expiration date.
-#: src/Tribe/PUE/Checker.php:1092
+#: src/Tribe/PUE/Checker.php:1100
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1130
+#: src/Tribe/PUE/Checker.php:1138
 #: src/Tribe/PUE/Notices.php:360
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1132
+#: src/Tribe/PUE/Checker.php:1140
 #: src/Tribe/PUE/Notices.php:362
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1149
+#: src/Tribe/PUE/Checker.php:1157
 msgid "Please refresh the page and try your request again."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1170
+#: src/Tribe/PUE/Checker.php:1178
 msgid "There is an update for %1$s. You'll need to %2$scheck your license%3$s to have access to updates, downloads, and support."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1234
+#: src/Tribe/PUE/Checker.php:1242
 msgid "There is an update for %1$s. %2$sRenew your license%3$s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
 #. Translators: %s is the plugin version number.
-#: src/Tribe/PUE/Checker.php:1266
+#: src/Tribe/PUE/Checker.php:1274
 msgid "Update now to version %s."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s is the update now link.
-#: src/Tribe/PUE/Checker.php:1281
+#: src/Tribe/PUE/Checker.php:1289
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1897
+#: src/Tribe/PUE/Checker.php:1905
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1898
+#: src/Tribe/PUE/Checker.php:1906
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1899
+#: src/Tribe/PUE/Checker.php:1907
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 

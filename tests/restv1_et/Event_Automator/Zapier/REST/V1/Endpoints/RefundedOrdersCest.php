@@ -5,14 +5,14 @@ namespace TEC\Event_Automator\Zapier\REST\V1\Endpoints;
 use TEC\Event_Automator\Tests\Testcases\REST\V1\BaseRestETCest;
 use Restv1_etTester;
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
-use TEC\Event_Automator\Tests\Traits\Create_events;
-use TEC\Event_Automator\Tests\Traits\Create_attendees;
+use TEC\Event_Automator\Tests\Traits\Create_Events;
+use TEC\Event_Automator\Tests\Traits\Create_Attendees;
 
 class RefundedOrdersCest extends BaseRestETCest {
 
 	use SnapshotAssertions;
-	use Create_events;
-	use Create_attendees;
+	use Create_Events;
+	use Create_Attendees;
 
 	/**
 	 * @inheritdoc

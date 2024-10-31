@@ -2,7 +2,7 @@
 /**
  * Black Friday Conditional template.
  *
- * @since 6.2.0
+ * @since 6.3.0
  *
  * @var string $image_src Where the image is located.
  * @var string $link      Where the image should link to.

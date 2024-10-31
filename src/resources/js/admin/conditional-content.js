@@ -7,7 +7,7 @@
 	/**
 	 * Selectors used for configuration and setup.
 	 *
-	 * @since 6.2.0
+	 * @since 6.3.0
 	 *
 	 * @type {{}}
 	 */
@@ -20,7 +20,7 @@
 	/**
 	 * Handles the click event on the dismiss button.
 	 *
-	 * @since 6.2.0
+	 * @since 6.3.0
 	 *
 	 * @param {Event} event
 	 */
