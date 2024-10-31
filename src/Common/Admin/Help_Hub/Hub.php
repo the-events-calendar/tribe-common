@@ -251,7 +251,7 @@ class Hub {
 	 *
 	 * @return string Filtered list of classes.
 	 */
-	public function add_help_page_body_class( $classes ) {
+	public function add_help_page_body_class( string $classes ): string {
 		if ( ! self::is_current_page() ) {
 			return $classes;
 		}
