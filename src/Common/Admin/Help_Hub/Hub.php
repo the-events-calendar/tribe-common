@@ -61,31 +61,15 @@ class Hub {
 	 *
 	 * @since TBD
 	 *
-	 * @param Configuration   $config   The Zendesk support key.
-	 * @param Tribe__Template $template The template class.
+	 * @param Help_Hub_Data_Interface $data     The data class instance containing Help Hub resources.
+	 * @param Configuration           $config   The Zendesk support key.
+	 * @param Tribe__Template         $template The template class.
 	 */
-	public function __construct( Configuration $config, Tribe__Template $template ) {
+	public function __construct( Help_Hub_Data_Interface $data, Configuration $config, Tribe__Template $template ) {
 		$this->config   = $config;
 		$this->template = $template;
-	}
-
-	/**
-	 * Sets the data object for the Help Hub and registers hooks.
-	 *
-	 * Assigns a data object implementing Help_Hub_Data_Interface
-	 * to the $data property and registers necessary actions and filters.
-	 *
-	 * @since TBD
-	 *
-	 * @param Help_Hub_Data_Interface $data The data class instance containing Help Hub resources.
-	 *
-	 * @return self
-	 */
-	public function setup( Help_Hub_Data_Interface $data ): self {
-		$this->data = $data;
+		$this->data     = $data;
 		$this->register_hooks();
-
-		return $this;
 	}
 
 	/**
@@ -503,15 +487,15 @@ class Hub {
 		$main     = Tribe__Main::instance();
 		$template = $this->template;
 
-		$template_values = array_merge(
+		$template_values = wp_parse_args(
+			$extra_values,
 			[
 				'main'          => $main,
-				'status_values' => $this->get_status_values(),
+				'status_values' => $this->data->get_license_and_opt_in_status(),
 				'keys'          => $this->get_chat_keys(),
 				'icons'         => $this->data->get_icon_urls( $main ),
 				'links'         => self::get_links(),
-			],
-			$extra_values
+			]
 		);
 
 		$template->set_values( $template_values );
@@ -520,22 +504,6 @@ class Hub {
 		$template->set_template_context_extract( true );
 		$template->set_template_folder_lookup( false );
 		$template->template( $template_name );
-	}
-
-	/**
-	 * Retrieves the opt-in status and license validity.
-	 *
-	 * @since TBD
-	 *
-	 * @return array Associative array with opt-in and license status.
-	 */
-	protected function get_status_values(): array {
-		$status = $this->data->get_license_and_opt_in_status();
-
-		return [
-			'is_opted_in'      => $status['is_opted_in'],
-			'has_valid_license' => $status['has_valid_license'],
-		];
 	}
 
 	/**

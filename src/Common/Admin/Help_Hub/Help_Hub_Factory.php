@@ -73,12 +73,9 @@ class Help_Hub_Factory {
 	 * @throws InvalidArgumentException If an unknown type is provided.
 	 */
 	public function create( string $type ): Hub {
-		// Now that `create` is an instance method, we can access instance properties with `$this`.
-		$help_hub = new Hub( $this->config, $this->template );
-
 		switch ( $type ) {
 			case 'tec_events':
-				$help_hub->setup( new TEC_Hub_Resource_Data() );
+				$help_hub = new Hub( new TEC_Hub_Resource_Data(), $this->config, $this->template );
 				break;
 
 			case 'event_tickets':
