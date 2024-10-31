@@ -43,6 +43,9 @@ class Provider extends Service_Provider {
 		add_action( 'tec_common_ian_preload', [ $this, 'hook_ian_init' ], 5 );
 		add_action( 'tec_ian_icon', [ $this, 'show_ian_icon' ] );
 		add_action( 'tec_common_ian_loaded', [ $this, 'maybe_enqueue_admin_assets' ] );
+
+		add_action( 'wp_ajax_optin_ian', [ $this, 'ajax_optin_ian' ] );
+		add_action( 'wp_ajax_get_ian', [ $this, 'ajax_get_ian' ] );
 	}
 
 	/**
@@ -89,7 +92,6 @@ class Provider extends Service_Provider {
 		$this->container->make( Ian_Client::class )->show_ian_icon( $slug );
 	}
 
-
 	/**
 	 * Ensure the assets for the modal are enqueued, if needed.
 	 *
@@ -97,5 +99,23 @@ class Provider extends Service_Provider {
 	 */
 	public function maybe_enqueue_admin_assets(): void {
 		$this->container->make( Ian_Client::class )->register_ian_assets();
+	}
+
+	/**
+	 * AJAX handler for opting in to IAN.
+	 *
+	 * @since TBD
+	 */
+	public function ajax_optin_ian() {
+		$this->container->make( Ian_Client::class )->ajax_optin_ian();
+	}
+
+	/**
+	 * AJAX handler for getting IAN notifications.
+	 *
+	 * @since TBD
+	 */
+	public function ajax_get_ian() {
+		$this->container->make( Ian_Client::class )->ajax_get_ian();
 	}
 }

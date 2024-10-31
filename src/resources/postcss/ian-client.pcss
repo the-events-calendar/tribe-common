@@ -1,7 +1,7 @@
 .ian-client {
   position: absolute;
-  top: var(--tec-spacer-8);
-  left: calc(100% - var(--tec-spacer-8));
+  top: var(--tec-spacer-6);
+  left: calc(100% - var(--tec-spacer-12));
 
   width: 40px;
 
@@ -25,18 +25,18 @@
     }
   }
 
-  @media screen and (min-width: 1400px) {
-    left: calc(1400px - var(--tec-spacer-8));
+  @media screen and (min-width: 1600px) {
+    left: calc(1600px - var(--tec-spacer-12));
   }
 
   @media screen and (max-width: 600px) {
-    top: calc(2 * var(--tec-spacer-8));
+    top: calc(1.75 * var(--tec-spacer-8));
   }
 }
 
 .ian-sidebar {
-  position: absolute;
-  top: 134px;
+  position: fixed;
+  top: 165px;
   right: 0;
 
   z-index: 1000;
@@ -72,5 +72,76 @@
     img {
       cursor: pointer;
     }
+  }
+
+  &__content {
+    height: 100%;
+    background: var(--tec-admin-core-grey-0);
+  }
+
+  &__optin {
+    text-align: center;
+    padding: 40% 16px 16px;
+
+    &--title {
+      font-size: var(--tec-font-size-4);
+      font-weight: var(--tec-font-weight-bold);
+    }
+
+    &--description {
+      max-width: 320px;
+      margin: 0 auto;
+      p {
+        font-size: var(--tec-font-size-2);
+        margin-bottom: 10px;
+      }
+    }
+
+    &--button {
+      padding: 8px 10px;
+
+      color: var(--tec-admin-core-blue-50);
+
+      border: 1px solid var(--tec-admin-core-blue-50);
+      border-radius: 3px;
+
+      width: max-content;
+      margin: 16px auto;
+
+      &:hover {
+        cursor: pointer;
+        background-color: var(--tec-admin-core-blue-50);
+        color: var(--tec-admin-core-grey-0);
+      }
+    }
+
+    &.disable {
+      pointer-events: none;
+      opacity: 0.35;
+    }
+  }
+
+  &__loader {
+    display: none;
+    position: fixed;
+    top: 50%;
+    right: 164px;
+    width: 90px;
+    height: 14px;
+    background: radial-gradient(circle closest-side,var(--tec-admin-core-blue-50) 92%,#0000) calc(100%/3) 0/calc(100%/4) 100%;
+    animation: ian-loader 0.5s infinite linear;
+
+    &.show {
+      display: block;
+    }
+  }
+  @keyframes ian-loader {
+      100% {background-position: 0 0}
+  }
+
+  &__notifications {
+    padding: 16px;
+    height: 100%;
+    background: var(--tec-color-background);
   }
 }

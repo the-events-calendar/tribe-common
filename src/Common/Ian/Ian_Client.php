@@ -11,6 +11,7 @@ namespace TEC\Common\Ian;
 
 use Tribe__Container as Container;
 use Tribe__Main;
+use TEC\Common\Telemetry\Telemetry;
 
 /**
  * Class Ian_Client
@@ -190,12 +191,6 @@ final class Ian_Client {
 			return;
 		}
 
-		$optin = Conditionals::get_user_opt_in();
-
-		if ( ! $optin ) {
-			return;
-		}
-
 		/**
 		 * Filter allowing disabling of the IAN icon by returning false.
 		 *
@@ -209,6 +204,62 @@ final class Ian_Client {
 			return;
 		}
 
-		load_template( Tribe__Main::instance()->plugin_path . 'src/admin-views/ian/icon.php', true, [ 'slug' => $slug ] );
+		$optin = Conditionals::get_ian_opt_in();
+		$main  = Tribe__Main::instance();
+		$url   = Telemetry::get_permissions_url();
+
+		load_template( $main->plugin_path . 'src/admin-views/ian/icon.php', true, [ 'slug' => $slug, 'optin' => $optin, 'main' => $main, 'url' => $url ] );
+	}
+
+	/**
+	 * Optin to IAN notifications.
+	 *
+	 * @since TBD
+	 */
+	public function ajax_optin_ian() {
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+
+		if ( wp_verify_nonce( $nonce, 'common_ian_nonce' ) ) {
+
+			tribe_update_option( 'ian-client-opt-in', 1 );
+
+			wp_send_json_success( 'IAN opt-in successful', 200 );
+		} else {
+			wp_send_json_error( 'Invalid nonce', 403 );
+		}
+	}
+
+	/**
+	 * Get the IAN notifications.
+	 *
+	 * @since TBD
+	 */
+	public function ajax_get_ian() {
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+
+		if ( wp_verify_nonce( $nonce, 'common_ian_nonce' ) ) {
+
+			// TODO: The call to Laravel side to get the notifications.
+
+			wp_send_json_success( [
+				[
+					'title'   => 'New update available',
+					'content' => 'A new update is available for The Events Calendar. Click here to update now.',
+					'link'    => 'https://theeventscalendar.com',
+				],
+				[
+					'title'   => 'New feature available',
+					'content' => 'A new feature is available for The Events Calendar. Click here to learn more.',
+					'link'    => 'https://theeventscalendar.com',
+				],
+				[
+					'title'   => 'Please update your PHP version',
+					'content' => 'A new feature is available for The Events Calendar. Click here to learn more.',
+					'link'    => 'https://theeventscalendar.com',
+				],
+			], 200 );
+		} else {
+			wp_send_json_error( 'Invalid nonce', 403 );
+		}
 	}
 }
