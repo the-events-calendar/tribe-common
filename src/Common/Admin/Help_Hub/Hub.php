@@ -370,7 +370,8 @@ class Hub {
 		 */
 		do_action( 'tec_help_hub_before_iframe_render', $this );
 
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_help_page_iframe_assets' ] );
+		$this->register_iframe_hooks();
+
 		// phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
 		show_admin_bar( false );
 		$this->render_template( 'help-hub/support/iframe-content' );
@@ -388,6 +389,21 @@ class Hub {
 		do_action( 'tec_help_hub_after_iframe_render', $this );
 
 		exit;
+	}
+
+	/**
+	 * Registers the hooks and filters needed for Help Hub Iframe functionality.
+	 *
+	 * Sets up actions and filters for initializing iframe content,
+	 * loading assets, and adding custom body classes for Help Hub pages.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function register_iframe_hooks() {
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_help_page_iframe_assets' ] );
+		add_action( 'wp_enqueue_scripts', [ __CLASS__, 'dequeue_theme_styles' ] );
 	}
 
 	/**
@@ -423,8 +439,6 @@ class Hub {
 				],
 			]
 		);
-
-		self::dequeue_theme_styles();
 	}
 
 	/**
@@ -434,7 +448,7 @@ class Hub {
 	 *
 	 * @return void
 	 */
-	protected static function dequeue_theme_styles(): void {
+	public static function dequeue_theme_styles(): void {
 		global $wp_styles;
 		$theme_directory = get_template_directory_uri();
 
