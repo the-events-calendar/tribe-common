@@ -27,7 +27,7 @@ use TEC\Common\Configuration\Configuration;
  *
  * @package TEC\Common\Admin\Help_Hub
  */
-final class Provider extends Service_Provider {
+class Provider extends Service_Provider {
 
 	/**
 	 * Registers the functionality related to this module, including binding
