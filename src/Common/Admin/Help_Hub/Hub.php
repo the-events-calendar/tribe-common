@@ -196,6 +196,19 @@ class Hub {
 		$data_class_name = get_class( $this->data );
 
 		/**
+		 * Filter the Help Hub resource sections for a specific data class.
+		 *
+		 * This dynamic filter allows customization of the Help Hub resource sections specific
+		 * to a given data class, enabling more granular control over section customization.
+		 *
+		 * @since TBD
+		 *
+		 * @param array                   $sections        The array of resource sections.
+		 * @param Help_Hub_Data_Interface $data            The data instance used for generating sections.
+		 */
+		$sections = apply_filters( "tec_help_hub_resource_sections{$data_class_name}", $sections, $this->data );
+
+		/**
 		 * Filter the Help Hub resource sections.
 		 *
 		 * Allows customization of the Help Hub resource sections by other components.
