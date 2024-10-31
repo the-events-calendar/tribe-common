@@ -13,6 +13,8 @@ namespace TEC\Common\Admin\Help_Hub;
 
 use TEC\Common\Admin\Help_Hub\Resource_Data\TEC_Hub_Resource_Data;
 use InvalidArgumentException;
+use Tribe__Template;
+use TEC\Common\Configuration\Configuration;
 
 /**
  * Class Help_Hub_Factory
@@ -24,6 +26,37 @@ use InvalidArgumentException;
  * @package TEC\Common\Admin\Help_Hub
  */
 class Help_Hub_Factory {
+
+	/**
+	 * The template class.
+	 *
+	 * @since TBD
+	 *
+	 * @var Tribe__Template
+	 */
+	protected Tribe__Template $template;
+
+	/**
+	 * The configuration object.
+	 *
+	 * @since TBD
+	 *
+	 * @var Configuration
+	 */
+	protected Configuration $config;
+
+	/**
+	 * Constructor.
+	 *
+	 * @since TBD
+	 *
+	 * @param Configuration   $config   The Zendesk support key.
+	 * @param Tribe__Template $template The template class.
+	 */
+	public function __construct( Configuration $config, Tribe__Template $template ) {
+		$this->config   = $config;
+		$this->template = $template;
+	}
 
 	/**
 	 * Creates a new Help Hub instance configured with the appropriate data.
@@ -39,16 +72,9 @@ class Help_Hub_Factory {
 	 * @return Hub Configured instance of Help Hub.
 	 * @throws InvalidArgumentException If an unknown type is provided.
 	 */
-	public static function create( string $type ): Hub {
-		$help_hub = new Hub();
-
-		if ( ! defined( 'TEC_HELP_HUB_CHAT_DOCSBOT_SUPPORT_KEY' ) ) {
-			// @todo Define the DOCSBOT support key.
-			define( 'TEC_HELP_HUB_CHAT_DOCSBOT_SUPPORT_KEY', '' );
-		}
-		if ( ! defined( 'TEC_HELP_HUB_CHAT_ZENDESK_CHAT_KEY' ) ) {
-			define( 'TEC_HELP_HUB_CHAT_ZENDESK_CHAT_KEY', '' );
-		}
+	public function create( string $type ): Hub {
+		// Now that `create` is an instance method, we can access instance properties with `$this`.
+		$help_hub = new Hub( $this->config, $this->template );
 
 		switch ( $type ) {
 			case 'tec_events':

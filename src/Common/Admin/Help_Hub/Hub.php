@@ -13,11 +13,11 @@ namespace TEC\Common\Admin\Help_Hub;
 
 use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
 use RuntimeException;
-use TEC\Common\Configuration\Configuration;
 use TEC\Common\StellarWP\AdminNotices\AdminNotice;
 use TEC\Common\StellarWP\AdminNotices\AdminNotices;
 use Tribe__Main;
 use Tribe__Template;
+use TEC\Common\Configuration\Configuration;
 
 /**
  * Class Hub
@@ -28,15 +28,6 @@ use Tribe__Template;
  * @package TEC\Common\Admin\Help_Hub
  */
 class Hub {
-
-	/**
-	 * Configuration object for Help Hub setup.
-	 *
-	 * @since TBD
-	 *
-	 * @var Configuration
-	 */
-	protected Configuration $config;
 
 	/**
 	 * Data object implementing Help_Hub_Data_Interface, providing necessary Help Hub resources.
@@ -57,13 +48,25 @@ class Hub {
 	protected Tribe__Template $template;
 
 	/**
-	 * Initializes configuration and necessary constants for the Help Hub.
+	 * The configuration object.
 	 *
 	 * @since TBD
+	 *
+	 * @var Configuration
 	 */
-	public function __construct() {
-		$this->config   = tribe( Configuration::class );
-		$this->template = new Tribe__Template();
+	protected Configuration $config;
+
+	/**
+	 * Constructor.
+	 *
+	 * @since TBD
+	 *
+	 * @param Configuration   $config   The Zendesk support key.
+	 * @param Tribe__Template $template The template class.
+	 */
+	public function __construct( Configuration $config, Tribe__Template $template ) {
+		$this->config   = $config;
+		$this->template = $template;
 	}
 
 	/**

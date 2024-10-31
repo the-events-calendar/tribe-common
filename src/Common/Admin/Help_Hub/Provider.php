@@ -14,6 +14,8 @@ namespace TEC\Common\Admin\Help_Hub;
 
 use TEC\Common\Admin\Help_Hub\Resource_Data\TEC_Hub_Resource_Data;
 use TEC\Common\Contracts\Service_Provider;
+use Tribe__Template;
+use TEC\Common\Configuration\Configuration;
 
 /**
  * Class Provider
@@ -39,6 +41,9 @@ final class Provider extends Service_Provider {
 		// Register the provider instance as a singleton within the container.
 		$this->container->singleton( self::class, $this );
 
+		$template = new Tribe__Template();
+		$config   = tribe( Configuration::class );
+
 		/**
 		 * Fires when the provider is registered.
 		 *
@@ -52,5 +57,8 @@ final class Provider extends Service_Provider {
 		$this->container->bind( Hub::class );
 		// Data classes for TEC Help Hub instances.
 		$this->container->bind( TEC_Hub_Resource_Data::class );
+
+		$this->container->when( Help_Hub_Factory::class )->needs( '$config' )->give( $config );
+		$this->container->when( Help_Hub_Factory::class )->needs( '$template' )->give( $template );
 	}
 }
