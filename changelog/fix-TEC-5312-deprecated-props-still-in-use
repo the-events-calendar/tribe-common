@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Include backwards compatibility for deprecated proprieties in the Settings class used in The Events Calendar and Event Tickets [TEC-5312]

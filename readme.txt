@@ -1,8 +1,9 @@
 == Changelog ==
 
-= [6.3.1] 2024-10-31 =
+= [6.3.1] 2024-11-04 =
 
 * Fix - Prevent new Settings pages to over sanitize textarea fields, thus removing HTML from before/after in the Events UI. [TEC-5283]
+* Fix - Include backwards compatibility for deprecated proprieties in the Settings class used in The Events Calendar and Event Tickets [TEC-5312]
 
 = [6.3.0] 2024-10-30 =
 
