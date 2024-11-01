@@ -22,6 +22,17 @@ namespace TEC\Common\Admin\Help_Hub\Resource_Data;
 interface Help_Hub_Data_Interface {
 
 	/**
+	 * Registers hooks for the Help Hub Resource Data class.
+	 *
+	 * This method registers filters and actions required for the Help Hub.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function add_hooks(): void;
+
+	/**
 	 * Creates and returns an array of resource sections for the Help Hub.
 	 *
 	 * Each section includes relevant links and content for users, helping organize

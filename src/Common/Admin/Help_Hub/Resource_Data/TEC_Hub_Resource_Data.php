@@ -36,6 +36,13 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	protected array $icons = [];
 
 	/**
+	 * The body class array that styles the admin page.
+	 *
+	 * @var array
+	 */
+	protected array $admin_page_body_classes = [ 'tribe_events_page_tec-events-settings' ];
+
+	/**
 	 * Constructor.
 	 *
 	 * Initializes the icons array with URLs.
@@ -53,6 +60,38 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 			'stars_icon'   => tribe_resource_url( 'images/icons/stars.svg', false, null, $origin ),
 			'chat_icon'    => tribe_resource_url( 'images/icons/chat-bubble.svg', false, null, $origin ),
 		];
+
+		$this->add_hooks();
+	}
+
+	/**
+	 * Registers hooks for the Help Hub Resource Data class.
+	 *
+	 * This method registers filters and actions required for the Help Hub,
+	 * such as adding custom body classes to the Help Hub page.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function add_hooks(): void {
+		add_filter( 'tec_help_hub_body_classes', [ $this, 'add_admin_body_classes' ] );
+	}
+
+	/**
+	 * Adds custom body classes for the Help Hub page.
+	 *
+	 * This method allows the addition of `$admin_page_body_classes` to
+	 * the list of body classes for the Help Hub page.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $classes The current array of body classes.
+	 *
+	 * @return array Modified array of body classes.
+	 */
+	public function add_admin_body_classes( array $classes ): array {
+		return array_merge( $classes, $this->admin_page_body_classes );
 	}
 
 	/**
@@ -168,17 +207,6 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	 */
 	public function get_icon_url( string $icon_name ): string {
 		return $this->icons[ $icon_name ] ?? '';
-	}
-
-	/**
-	 * Retrieves all icon URLs.
-	 *
-	 * @since TBD
-	 *
-	 * @return array The array of icon URLs.
-	 */
-	public function get_icon_urls(): array {
-		return $this->icons;
 	}
 
 	/**

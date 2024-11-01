@@ -242,6 +242,9 @@ class Hub {
 	/**
 	 * Adds custom body classes to the Help Hub page.
 	 *
+	 * This method adds default classes to the Help Hub page, with an option
+	 * to customize or add additional classes via the `tec_help_hub_body_classes` filter.
+	 *
 	 * @since TBD
 	 *
 	 * @param string $classes Space-separated string of classes for the body tag.
@@ -253,7 +256,23 @@ class Hub {
 			return $classes;
 		}
 
-		$class_array = array_merge( explode( ' ', $classes ), [ 'tribe-help', 'tec-help', 'tribe_events_page_tec-events-settings' ] );
+		// Default classes for Help Hub.
+		$default_classes = [ 'tribe-help', 'tec-help' ];
+
+		/**
+		 * Filters the list of body classes for the Help Hub page.
+		 *
+		 * This filter allows customization of the body classes applied to the Help Hub page,
+		 * enabling the addition or removal of classes as needed.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $class_array The default array of body classes.
+		 */
+		$class_array = apply_filters( 'tec_help_hub_body_classes', array_merge( $default_classes ) );
+
+		// Merge filtered classes with the existing $classes argument.
+		$class_array = array_merge( explode( ' ', $classes ), $class_array );
 
 		return implode( ' ', array_unique( $class_array ) );
 	}
