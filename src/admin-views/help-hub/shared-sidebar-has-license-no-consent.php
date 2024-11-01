@@ -4,13 +4,11 @@
  * The template that displays the resources and support hub sidebar.
  *
  * @var Tribe__Main $main             The main common object.
- * @var array       $status_values    Contains the user's telemetry and license status.
- * @var array       $keys             Contains the chat keys for support services.
- * @var array       $icons            Contains URLs for various support hub icons.
- * @var array       $links            Contains URLs for important links, like the telemetry opt-in link.
- * @var string      $notice           The admin notice HTML for the chatbot callout.
+ * @var Hub         $help_hub         The Help Hub class.
  * @var string      $template_variant The template variant, determining which template to display.
  */
+
+use TEC\Common\Admin\Help_Hub\Hub;
 
 ?>
 
@@ -38,7 +36,7 @@
 		<div class="tec-settings__sidebar-icon-wrap">
 			<div>
 				<img class="tec-settings-infobox-logo"
-					src="<?php echo esc_url( $icons['stars_icon'] ); ?>"
+					src="<?php echo esc_url( $help_hub->get_icon_url( 'stars_icon' ) ); ?>"
 					alt="AI chat bot logo"
 				>
 			</div>
@@ -66,7 +64,7 @@
 		<div class="tec-settings__sidebar-icon-wrap">
 			<div>
 				<img class="tec-settings-infobox-logo"
-					src="<?php echo esc_url( $icons['chat_icon'] ); ?>"
+					src="<?php echo esc_url( $help_hub->get_icon_url( 'chat_icon' ) ); ?>"
 					alt="Support chat logo"
 				>
 			</div>
@@ -101,7 +99,7 @@
 			?>
 		</p>
 		<p>
-			<a class="button-secondary" href="<?php echo esc_url( $links['opt_in_link'] ); ?>">
+			<a class="button-secondary" href="<?php echo esc_url( $help_hub::get_telemetry_opt_in_link() ); ?>">
 				<?php
 				echo esc_html_x(
 					'Manage my data sharing consent',

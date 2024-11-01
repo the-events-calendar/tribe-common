@@ -2,15 +2,12 @@
 /**
  * The template that displays the resources tab on the help page.
  *
- * @var Tribe__Main $main              The main common object.
- * @var array       $status_values     Contains the user's telemetry and license status.
- * @var array       $keys              Contains the chat keys for support services.
- * @var array       $icons             Contains URLs for various support hub icons.
- * @var array       $links             Contains URLs for important links, like the telemetry opt-in link.
- * @var string      $notice            The admin notice HTML for the chatbot callout.
- * @var string      $template_variant  The template variant, determining which template to display.
- * @var array       $resource_sections An array of data to display in the Resource section.
+ * @var Tribe__Main $main             The main common object.
+ * @var Hub         $help_hub         The Help Hub class.
+ * @var string      $template_variant The template variant, determining which template to display.
  */
+
+use TEC\Common\Admin\Help_Hub\Hub;
 
 ?>
 <div class="tribe-settings-form form">
@@ -31,7 +28,21 @@
 					);
 					?>
 				</p>
-				<?php echo wp_kses( $notice, 'post' ); ?>
+				<?php
+				$notice_content = sprintf(
+				// translators: Placeholders are for the `a` tag that displays a link.
+					_x(
+						'To find the answer to all your questions use the %1$sTEC Chatbot%2$s',
+						'The callout notice to try the chatbot with a link to the page',
+						'tribe-common'
+					),
+					'<a data-tab-target="tec-help-tab" href="#">',
+					'</a>'
+				);
+
+				echo wp_kses( $help_hub->generate_notice_html( $notice_content, 'tec-common-help-chatbot-notice' ), 'post' );
+
+				?>
 			</div>
 		</div>
 
@@ -45,7 +56,7 @@
 
 
 		<div class="tec-settings-infobox">
-			<img class="tec-settings-infobox-logo" src="<?php echo esc_url( $icons['stars_icon'] ); ?>" alt="AI Chatboat logo">
+			<img class="tec-settings-infobox-logo" src="<?php echo esc_url( $help_hub->get_icon_url( 'stars_icon' ) ); ?>" alt="AI Chatboat logo">
 			<h3 class="tec-settings-infobox-title">
 				<?php
 				echo esc_html_x(

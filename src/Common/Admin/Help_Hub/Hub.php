@@ -140,16 +140,13 @@ class Hub {
 		 */
 		do_action( 'tec_help_hub_before_render', $this );
 
-		$notice_html      = $this->generate_notice_html();
-		$status           = $this->data->get_license_and_opt_in_status();
+		$status           = $this->get_license_and_opt_in_status();
 		$template_variant = self::get_template_variant( $status['has_valid_license'], $status['is_opted_in'] );
 
 		$this->render_template(
 			'help-hub',
 			[
-				'notice'            => $notice_html,
 				'template_variant'  => $template_variant,
-				'resource_sections' => $this->handle_resource_sections(),
 			]
 		);
 
@@ -449,28 +446,43 @@ class Hub {
 	 *
 	 * @since TBD
 	 *
+	 * @param string $text The text to display.
+	 * @param string $slug Slug for the notice.
+	 *
 	 * @return string The HTML for the admin notice.
 	 */
-	private function generate_notice_html(): string {
-		$notice_slug    = 'tec-common-help-chatbot-notice';
-		$notice_content = sprintf(
-			// translators: Placeholders are for the `a` tag that displays a link.
-			_x(
-				'To find the answer to all your questions use the %1$sTEC Chatbot%2$s',
-				'The callout notice to try the chatbot with a link to the page',
-				'tribe-common'
-			),
-			'<a data-tab-target="tec-help-tab" href="#">',
-			'</a>'
-		);
-
-		$notice_admin = ( new AdminNotice( $notice_slug, "<p>$notice_content</p>" ) )
+	public function generate_notice_html( string $text, string $slug ): string {
+		$notice_admin = ( new AdminNotice( $slug, "<p>$text</p>" ) )
 			->urgency( 'info' )
 			->inline()
 			->dismissible( false )
 			->withWrapper();
 
 		return AdminNotices::render( $notice_admin, false );
+	}
+
+	/**
+	 * Wrapper to get the license validity and telemetry opt-in status.
+	 *
+	 * @since TBD
+	 *
+	 * @return array Contains 'has_valid_license' and 'is_opted_in' status.
+	 */
+	public function get_license_and_opt_in_status(): array {
+		return $this->data->get_license_and_opt_in_status();
+	}
+
+	/**
+	 * Wrapper to retrieve the URL for a specified icon.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $icon_name The name of the icon to retrieve.
+	 *
+	 * @return string The URL of the specified icon, or an empty string if the icon does not exist.
+	 */
+	public function get_icon_url( string $icon_name ): string {
+		return $this->data->get_icon_url( $icon_name );
 	}
 
 	/**
@@ -490,11 +502,8 @@ class Hub {
 		$template_values = wp_parse_args(
 			$extra_values,
 			[
-				'main'          => $main,
-				'status_values' => $this->data->get_license_and_opt_in_status(),
-				'keys'          => $this->get_chat_keys(),
-				'icons'         => $this->data->get_icon_urls( $main ),
-				'links'         => self::get_links(),
+				'main'     => $main,
+				'help_hub' => $this,
 			]
 		);
 
@@ -528,6 +537,7 @@ class Hub {
 	 * @return array Associative array containing template links.
 	 */
 	protected static function get_links(): array {
+		// @todo - remove this method.
 		return [
 			'opt_in_link' => self::get_telemetry_opt_in_link(),
 		];

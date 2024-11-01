@@ -2,17 +2,16 @@
 /**
  * The template that displays the resources tab on the help page.
  *
- * @var Tribe__Main $main              The main common object.
- * @var array       $status_values     Contains the user's telemetry and license status.
- * @var array       $keys              Contains the chat keys for support services.
- * @var array       $icons             Contains URLs for various support hub icons.
- * @var array       $links             Contains URLs for important links, like the telemetry opt-in link.
- * @var string      $notice            The admin notice HTML for the chatbot callout.
- * @var string      $template_variant  The template variant, determining which template to display.
- * @var array       $resource_sections An array of data to display in the Resource section.
+ * @var Tribe__Main $main             The main common object.
+ * @var Hub         $help_hub         The Help Hub class.
+ * @var string      $template_variant The template variant, determining which template to display.
  */
 
-if ( empty( $resource_sections['customizations'] ) ) {
+use TEC\Common\Admin\Help_Hub\Hub;
+
+$section = $help_hub->handle_resource_sections();
+
+if ( empty( $section['customizations'] ) ) {
 	return;
 }
 ?>
@@ -27,7 +26,7 @@ if ( empty( $resource_sections['customizations'] ) ) {
 		</p>
 	</div>
 	<ul class="tec-help-list__list-expanded">
-		<?php foreach ( $resource_sections['customizations'] as $guide ) : ?>
+		<?php foreach ( $section['customizations'] as $guide ) : ?>
 			<li>
 				<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $guide['icon'] ); ?>"/>
 				<a href="<?php echo esc_url( $guide['link'] ); ?>">

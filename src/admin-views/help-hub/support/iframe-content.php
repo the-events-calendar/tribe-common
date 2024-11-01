@@ -3,15 +3,14 @@
  * The template that displays the support hub iframe content.
  *
  * @var Tribe__Main $main             The main common object.
- * @var array       $status_values           Contains the user's telemetry and license status.
- * @var array       $keys             Contains the chat keys for support services.
- * @var array       $icons            Contains URLs for various support hub icons.
- * @var array       $links            Contains URLs for important links, like the telemetry opt-in link.
- * @var string      $notice           The admin notice HTML for the chatbot callout.
+ * @var Hub         $help_hub         The Help Hub class.
  * @var string      $template_variant The template variant, determining which template to display.
  */
 
-$opted_in = tribe_is_truthy( $status_values['is_opted_in'] ) ? '1' : '0';
+use TEC\Common\Admin\Help_Hub\Hub;
+
+$opted_in = tribe_is_truthy( $help_hub->get_license_and_opt_in_status()['is_opted_in'] ) ? '1' : '0';
+
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -31,7 +30,7 @@ $opted_in = tribe_is_truthy( $status_values['is_opted_in'] ) ? '1' : '0';
 
 <div class="tec-help-hub-iframe-opt-out-message hide">
 	<div class="tec-help-hub-iframe-opt-out-message__image">
-		<img src="<?php echo esc_url( $icons['stars_icon'] ); ?>" alt="<?php esc_attr_e( 'Star Icon', 'tribe-common' ); ?>">
+		<img src="<?php echo esc_url( $help_hub->get_icon_url( 'stars_icon' ) ); ?>" alt="<?php esc_attr_e( 'Star Icon', 'tribe-common' ); ?>">
 	</div>
 	<div class="tec-help-hub-iframe-opt-out-message__content">
 		<h2><?php esc_html_e( 'Our AI Chatbot can help you find solutions quickly.', 'tribe-common' ); ?></h2>
@@ -52,7 +51,7 @@ $opted_in = tribe_is_truthy( $status_values['is_opted_in'] ) ? '1' : '0';
 			);
 			?>
 		</p>
-		<a target="_parent" href="<?php echo esc_url( $links['opt_in_link'] ); ?>" class="button-secondary"><?php esc_html_e( 'Manage Consent', 'tribe-common' ); ?></a>
+		<a target="_parent" href="<?php echo esc_url( $help_hub::get_telemetry_opt_in_link() ); ?>" class="button-secondary"><?php esc_html_e( 'Manage Consent', 'tribe-common' ); ?></a>
 	</div>
 </div>
 
