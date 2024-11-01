@@ -306,7 +306,7 @@ class Tribe__Settings {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $name
+	 * @param string $name The property name we are looking for.
 	 *
 	 * @return mixed
 	 */
@@ -322,9 +322,9 @@ class Tribe__Settings {
 			'adminSlug'   => 'admin_slug',
 		];
 
-		// Check if the requested property exists in the map
+		// Check if the requested property exists in the map.
 		if ( isset( $properties[ $name ] ) ) {
-			// Trigger deprecation notice for camel-case property names
+			// Trigger deprecation notice for camel-case property names.
 			trigger_deprecation(
 				__CLASS__,
 				'6.1.0',
