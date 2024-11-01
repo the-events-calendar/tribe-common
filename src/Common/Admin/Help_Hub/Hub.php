@@ -146,7 +146,7 @@ class Hub {
 		$this->render_template(
 			'help-hub',
 			[
-				'template_variant'  => $template_variant,
+				'template_variant' => $template_variant,
 			]
 		);
 
