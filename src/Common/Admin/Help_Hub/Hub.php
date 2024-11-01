@@ -187,7 +187,7 @@ class Hub {
 		 * @param array                   $sections        The array of resource sections.
 		 * @param Help_Hub_Data_Interface $data            The data instance used for generating sections.
 		 */
-		$sections = apply_filters( "tec_help_hub_resource_sections{$data_class_name}", $sections, $this->data );
+		$sections = apply_filters( "tec_help_hub_resource_sections_{$data_class_name}", $sections, $this->data );
 
 		/**
 		 * Filter the Help Hub resource sections.
