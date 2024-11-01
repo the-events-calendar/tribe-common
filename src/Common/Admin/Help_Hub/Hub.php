@@ -269,7 +269,7 @@ class Hub {
 		 *
 		 * @param array $class_array The default array of body classes.
 		 */
-		$class_array = apply_filters( 'tec_help_hub_body_classes', array_merge( $default_classes ) );
+		$class_array = (array) apply_filters( 'tec_help_hub_body_classes', array_merge( $default_classes ) );
 
 		// Merge filtered classes with the existing $classes argument.
 		$class_array = array_merge( explode( ' ', $classes ), $class_array );
