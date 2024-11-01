@@ -1,10 +1,16 @@
 # Changelog
 
-### [6.2.1] 2024-10-31
+### [6.3.1] 2024-11-04
 
 * Fix - Prevent new Settings pages to over sanitize textarea fields, thus removing HTML from before/after in the Events UI. [TEC-5283]
+* Fix - Include backwards compatibility for deprecated proprieties in the Settings class used in The Events Calendar and Event Tickets [TEC-5312]
 
-= [6.2.0] 2024-10-17 =
+### [6.3.0] 2024-10-30
+
+* Feature - Added integration with new premium Seating product for Event Tickets.
+* Language - 0 new strings added, 23 updated, 1 fuzzied, and 0 obsoleted
+
+### [6.2.0] 2024-10-17
 
 * Feature - New Conditional Content supporting classes with available Traits for User targeted Dismissal.
 * Fix - Allow more svg attributes through the fields sanitization. [TEC-5282]
@@ -24,11 +30,29 @@
 * Tweak - Added actions: `tec_settings_sidebar_start`, `tec_settings_sidebar_header_start`, `tec_settings_sidebar_header_end`, `tec_settings_sidebar_end`, `tec_settings_init`, `tec_settings_render_modal_sidebar`, `tribe_settings_tab_after_link`, `tec_settings_tab_licenses`
 * Language - 16 new strings added, 138 updated, 6 fuzzied, and 18 obsoleted
 
+### [6.0.3.1] 2024-09-16
+
+* Security - Improve general escaping for ORM queries to prevent legacy Events methods to be used for SQL injections.
+
 ### [6.0.3] 2024-09-09
 
 * Feature - Adding the method `tec_copy_to_clipboard_button` which can be used to print a button which on click would copy a text to the user's clipboard. [ET-2158]
 * Fix - Bug when term slugs were numeric.
 * Fix - Optimized prime_term_cache to return early when no posts are provided [TEC-5150]
+
+### [6.0.2] 2024-08-20
+
+* Fix - Fixed attendee, updated attendee, and checkin endpoints from having invalid response for workflow operation 'id' to be of type 'Integer' but is of type 'String'. [EVA-160]
+* Fix - Stellar Sale's banner links, details, and HTML tags handling. [TEC-5121]
+* Tweak - Change setup of queues for Automator integrations to use Event Tickets Plus and Events Calendar Pro hooks instead of the core versions. [EVA-160]
+* Tweak - Move Registering of Power Automate and Zapier endpoints to Event Tickets Plus and Events Calendar Pro. [EVA-160]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+### [6.0.1] 2024-08-06
+
+* Fix - Change hook to detect if TEC is active for Automator Event Endpoints used by Power Automate and Zapier. [TEC-5123]
+* Fix - Move action pre-dispatch filters for Zapier to Event Tickets Plus and Events Calendar Pro to fix not authorized errors. [TEC-5123]
+* Language - 0 new strings added, 10 updated, 1 fuzzied, and 1 obsoleted
 
 ### [6.0.0.2] 2024-07-24
 
