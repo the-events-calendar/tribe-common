@@ -130,3 +130,12 @@ function dismissNotification(id) {
 		el.parentNode.removeChild(el);
 	}, 400);
 }
+
+
+(function($){
+	$(function() {
+		$(".edit-php.post-type-tribe_events h1.wp-heading-inline, .post-php.post-type-tribe_events h1.wp-heading-inline").each(function(index) {
+			$(this).next("a.page-title-action").andSelf().wrapAll("<div class='ian-header' />")
+		});
+	});
+})(jQuery);

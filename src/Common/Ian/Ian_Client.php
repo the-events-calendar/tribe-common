@@ -228,18 +228,16 @@ final class Ian_Client {
 			return;
 		}
 
-		$optin = Conditionals::get_ian_opt_in();
 		$main  = Tribe__Main::instance();
-		$url   = Telemetry::get_permissions_url();
 
 		load_template(
 			$main->plugin_path . 'src/admin-views/ian/icon.php',
 			true,
 			[
 				'slug'  => $slug,
-				'optin' => $optin,
 				'main'  => $main,
-				'url'   => $url,
+				'optin' => Conditionals::get_ian_opt_in(),
+				'url'   => Telemetry::get_permissions_url(),
 			]
 		);
 	}
@@ -320,6 +318,11 @@ final class Ian_Client {
 						'slug'        => 'event-tickets-upsell',
 						'title'       => 'Sell Tickets & Collect RSVPs with Event Tickets',
 						'content'     => '<p>Sell tickets, collect RSVPs and manage attendees for free.</p>',
+						'cta'         => [
+							'text'   => 'Learn More',
+							'link'   => 'https://evnt.is/1aj1',
+							'target' => '_blank',
+						],
 						'dismissible' => true,
 					],
 					[
@@ -328,6 +331,11 @@ final class Ian_Client {
 						'slug'        => 'fbar-upgrade-556',
 						'title'       => 'Filter Bar 5.5.6 Security Update',
 						'content'     => '<p>Get the latest version of Filter Bar for important security updates.</p>',
+						'cta'         => [
+							'text'   => 'Update',
+							'link'   => '/wp-admin/plugins.php?plugin_status=upgrade',
+							'target' => '_self',
+						],
 						'dismissible' => false,
 					],
 				],
