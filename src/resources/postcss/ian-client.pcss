@@ -144,4 +144,63 @@
     height: 100%;
     background: var(--tec-color-background);
   }
+
+  &__notification {
+    position: relative;
+    padding: 24px;
+
+    border: 1px solid var(--tec-admin-core-grey-10);
+    border-radius: 4px;
+
+    margin-bottom: 16px;
+
+    &--update {
+      border-left: 5px solid var(--tec-admin-core-blue-50);
+    }
+
+    &--warning {
+      border-left: 5px solid var(--tec-error-border-color);
+    }
+
+    &--notice {
+      border-left: 5px solid var(--tec-success-border-color);
+    }
+
+    &-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+
+      color: var(--tec-admin-core-grey-50);
+
+      cursor: pointer;
+    }
+
+    &-title {
+      font-family: var(--tec-font-family-sans-serif);
+      font-size: var(--tec-font-size-4);
+      font-weight: var(--tec-font-weight-bold);
+      color: var(--tec-admin-core-grey-80);
+
+      margin-bottom: 8px;
+    }
+
+    &-content {
+      font-family: 'Arial', sans-serif;
+      font-size: var(--tec-font-size-2);
+      font-weight: var(--tec-font-weight-normal);
+      color: var(--tec-admin-core-grey-80);
+
+      margin-bottom: 12px;
+    }
+
+    &-link {
+      font-family: var(--tec-font-family-sans-serif);
+      font-size: var(--tec-font-size-2);
+
+      a:first-of-type {
+        margin-right: 8px;
+      }
+    }
+  }
 }

@@ -43,9 +43,18 @@ final class Ian_Client {
 	 */
 	private $ian_server = '';
 
+	/**
+	 * The IAN API URL.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	private $api_url = '';
+
 
 	/**
-	 *
+	 * Boot the IAN Client.
 	 *
 	 * @since TBD
 	 *
@@ -57,6 +66,7 @@ final class Ian_Client {
 		$this->ian_server = ! defined( 'STELLARWP_IAN_SERVER' ) ? 'https://ian.stellarwp.com/feed/' : STELLARWP_IAN_SERVER;
 
 		// TODO - Get the organization, brand, and product from... where?
+		$organization = $brand = $product = '';
 		$this->api_url = $this->ian_server . $organization . '/' . $brand . '/' . $product . '.json';
 
 		/**
@@ -121,6 +131,7 @@ final class Ian_Client {
 					'data' => [
 						'ajax_url' => admin_url( 'admin-ajax.php' ),
 						'nonce'    => wp_create_nonce( 'common_ian_nonce' ),
+						'dismiss'  => esc_html__( 'Dismiss', 'tribe-common' ),
 					],
 				],
 			]
@@ -305,28 +316,18 @@ final class Ian_Client {
 					],
 					[
 						'id'          => '102',
-						'type'        => 'warning',
-						'slug'        => 'fbar-upgrade-556',
-						'title'       => 'Filter Bar 5.5.6 Security Update',
-						'content'     => '<p>Get the latest version of Filter Bar for important security updates.</p>',
-						'cta'         => [
-							'text'   => 'Update',
-							'link'   => '/wp-admin/plugins.php?plugin_status=upgrade',
-							'target' => '_self',
-						],
-						'dismissible' => false,
-					],
-					[
-						'id'          => '103',
 						'type'        => 'notice',
 						'slug'        => 'event-tickets-upsell',
 						'title'       => 'Sell Tickets & Collect RSVPs with Event Tickets',
 						'content'     => '<p>Sell tickets, collect RSVPs and manage attendees for free.</p>',
-						'cta'         => [
-							'text'   => 'Learn More',
-							'link'   => 'https://evnt.is/1aj1',
-							'target' => '_blank',
-						],
+						'dismissible' => true,
+					],
+					[
+						'id'          => '103',
+						'type'        => 'warning',
+						'slug'        => 'fbar-upgrade-556',
+						'title'       => 'Filter Bar 5.5.6 Security Update',
+						'content'     => '<p>Get the latest version of Filter Bar for important security updates.</p>',
 						'dismissible' => false,
 					],
 				],

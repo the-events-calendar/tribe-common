@@ -54,7 +54,7 @@ class Conditionals {
 	 *
 	 * @return array The notifications that meet the conditions.
 	 */
-	public function filter_ian_feed( $feed ): array {
+	public static function filter_ian_feed( $feed ): array {
 		$notifications = array_filter(
 			$feed,
 			function ( $item ) {

@@ -10,28 +10,29 @@
 
 		document.addEventListener("click", function(e) {
 			if (e.target.dataset.trigger == "iconIan") {
-				iconIan.classList.toggle("active");
 				sideIan.classList.toggle("is-hidden");
 			}
 
 			if (e.target.dataset.trigger == "closeIan") {
-				iconIan.classList.remove("active");
 				sideIan.classList.add("is-hidden");
 			}
 
 			if (!e.composedPath().includes(sideIan) && !e.composedPath().includes(iconIan)) {
-				iconIan.classList.remove("active");
 				sideIan.classList.add("is-hidden");
 			}
 
 			if (e.target.dataset.trigger == "optinIan") {
 				optinIanAjax();
 			}
+
+			if (e.target.dataset.trigger == "dismissIan") {
+				e.preventDefault();
+				dismissNotification(e.target.dataset.id);
+			}
 		});
 
 		document.addEventListener("keydown", function(e) {
 			if (e.key === "Escape" || e.key === "Esc" || e.keyCode === 27) {
-				iconIan.classList.remove("active");
 				sideIan.classList.add("is-hidden");
 			}
 		});
@@ -39,8 +40,8 @@
 })();
 
 function optinIanAjax() {
-	document.querySelector('.ian-sidebar__optin').classList.add("disable");
-	document.querySelector('.ian-sidebar__loader').classList.add("show");
+	document.querySelector(".ian-sidebar__optin").classList.add("disable");
+	document.querySelector(".ian-sidebar__loader").classList.add("show");
 
 	const data = new FormData();
 	data.append("action", "optin_ian");
@@ -75,23 +76,57 @@ function getIanAjax() {
 		.then(response => response.json())
 		.then(response => {
 			if (response.success) {
-				const optin = document.querySelector('.ian-sidebar__optin')
+				const optin = document.querySelector(".ian-sidebar__optin");
 				if (optin) optin.remove();
-				const loader = document.querySelector('.ian-sidebar__loader')
+				const loader = document.querySelector(".ian-sidebar__loader");
 				if (loader) loader.classList.remove("show");
 
-				let notifications = '';
-				for(const n of response.data) {
-					notifications += `<div class="ian-sidebar__notification">
-						<div class="ian-sidebar__notification__title">${n.title}</div>
-						<div class="ian-sidebar__notification__content">${n.content}</div>
-					</div>`;
+				let notifications = "";
+				for (const n of response.data) {
+					notifications += `<div class="ian-sidebar__notification ian-sidebar__notification--${n.type} ${n.slug}" id="notification_${n.id}">`;
+					if (n.dismissible) {
+						notifications += `<div class="ian-sidebar__notification-close dashicons dashicons-dismiss" data-trigger="dismissIan" data-id="${n.id}"></div>`;
+					}
+					notifications += `<div class="ian-sidebar__notification-title">${n.title}</div>`;
+					notifications += `<div class="ian-sidebar__notification-content">${n.content}</div>`;
+					if (n.cta !== undefined || n.dismissible) {
+						notifications += `<div class="ian-sidebar__notification-link">`;
+						if (n.cta !== undefined) notifications += `<a href="${n.cta.link}" target="${n.cta.target}">${n.cta.text}</a>`;
+						if (n.dismissible) notifications += `<a href="#" data-trigger="dismissIan" data-id="${n.id}">${window.commonIan.dismiss}</a>`;
+						notifications += `</div>`;
+					}
+					notifications += `</div>`;
 				}
 
-				document.querySelector('.ian-sidebar__content').innerHTML = `<div class="ian-sidebar__notifications">${notifications}</div>`;
+				document.querySelector(".ian-sidebar__content").innerHTML = `<div class="ian-sidebar__notifications">${notifications}</div>`;
 			}
+
+			getIanBubble();
 		})
 		.catch(err => {
 			console.error(err);
 		});
+}
+
+function getIanBubble() {
+	const container = document.querySelector(".ian-sidebar__notifications");
+	const notifications = container.querySelectorAll(".ian-sidebar__notification");
+	const iconIan = document.querySelector('[data-trigger="iconIan"]');
+
+	if (notifications.length > 0) {
+		iconIan.classList.add("active");
+	} else {
+		iconIan.classList.remove("active");
+	}
+}
+
+function dismissNotification(id) {
+	const el = document.getElementById("notification_" + id);
+
+	el.style.transition = "opacity 0.5s ease";
+	el.style.opacity = 0;
+
+	setTimeout(function() {
+		el.parentNode.removeChild(el);
+	}, 400);
 }
