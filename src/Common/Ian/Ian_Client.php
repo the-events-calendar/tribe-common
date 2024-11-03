@@ -35,6 +35,16 @@ final class Ian_Client {
 	];
 
 	/**
+	 * The IAN server URL.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	private $ian_server = '';
+
+
+	/**
 	 *
 	 *
 	 * @since TBD
@@ -44,7 +54,10 @@ final class Ian_Client {
 	public function boot(): void {
 		$container = Container::init();
 
-		$ian_server = ! defined( 'STELLARWP_IAN_SERVER' ) ? 'https://ian.stellarwp.com/api/v1' : STELLARWP_IAN_SERVER;
+		$this->ian_server = ! defined( 'STELLARWP_IAN_SERVER' ) ? 'https://ian.stellarwp.com/feed/' : STELLARWP_IAN_SERVER;
+
+		// TODO - Get the organization, brand, and product from... where?
+		$this->api_url = $this->ian_server . $organization . '/' . $brand . '/' . $product . '.json';
 
 		/**
 		 * Allow plugins to hook in and add themselves,
@@ -208,7 +221,16 @@ final class Ian_Client {
 		$main  = Tribe__Main::instance();
 		$url   = Telemetry::get_permissions_url();
 
-		load_template( $main->plugin_path . 'src/admin-views/ian/icon.php', true, [ 'slug' => $slug, 'optin' => $optin, 'main' => $main, 'url' => $url ] );
+		load_template(
+			$main->plugin_path . 'src/admin-views/ian/icon.php',
+			true,
+			[
+				'slug'  => $slug,
+				'optin' => $optin,
+				'main'  => $main,
+				'url'   => $url,
+			]
+		);
 	}
 
 	/**
@@ -239,25 +261,77 @@ final class Ian_Client {
 
 		if ( wp_verify_nonce( $nonce, 'common_ian_nonce' ) ) {
 
-			// TODO: The call to Laravel side to get the notifications.
+			// TODO: The call to Laravel. GET or POST? Do we need to send any data? Auth?
+			$response = wp_remote_request(
+				$this->ian_server,
+				[
+					'method'    => 'POST',
+					'headers'   => [ 'Content-Type' => 'application/json; charset=utf-8' ],
+					'timeout'   => 15, // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout
+					'sslverify' => false, // we trust our server.
+					'body'      => wp_json_encode(
+						[
+							'param1' => '',
+							'param2' => '',
+							'token'  => '??',
+						]
+					),
+				]
+			);
 
-			wp_send_json_success( [
+			if ( ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) === 200 ) {
+				$body = json_decode( wp_remote_retrieve_body( $response ), true );
+			} else {
+				wp_send_json_error( wp_remote_retrieve_response_message( $response ), wp_remote_retrieve_response_code( $response ) );
+			}
+
+			$notifications = Conditionals::filter_ian_feed( $body['notifications'] );
+
+			// TODO: Below is an example notifications array. Send the real one.
+			wp_send_json_success(
 				[
-					'title'   => 'New update available',
-					'content' => 'A new update is available for The Events Calendar. Click here to update now.',
-					'link'    => 'https://theeventscalendar.com',
+					[
+						'id'          => '101',
+						'type'        => 'update',
+						'slug'        => 'tec-update-664',
+						'title'       => 'The Events Calendar 6.6.4 Update',
+						'content'     => '<p>The latest update of The Events Calendar adds an option to allow for duplicate Venue creation, updates custom table query logic to avoid DB error, and logic that displays the “REST API blocked” banner to prevent false positives.</p>',
+						'cta'         => [
+							'text'   => 'See Details',
+							'link'   => 'https://evnt.is/1ai-',
+							'target' => '_blank',
+						],
+						'dismissible' => true,
+					],
+					[
+						'id'          => '102',
+						'type'        => 'warning',
+						'slug'        => 'fbar-upgrade-556',
+						'title'       => 'Filter Bar 5.5.6 Security Update',
+						'content'     => '<p>Get the latest version of Filter Bar for important security updates.</p>',
+						'cta'         => [
+							'text'   => 'Update',
+							'link'   => '/wp-admin/plugins.php?plugin_status=upgrade',
+							'target' => '_self',
+						],
+						'dismissible' => false,
+					],
+					[
+						'id'          => '103',
+						'type'        => 'notice',
+						'slug'        => 'event-tickets-upsell',
+						'title'       => 'Sell Tickets & Collect RSVPs with Event Tickets',
+						'content'     => '<p>Sell tickets, collect RSVPs and manage attendees for free.</p>',
+						'cta'         => [
+							'text'   => 'Learn More',
+							'link'   => 'https://evnt.is/1aj1',
+							'target' => '_blank',
+						],
+						'dismissible' => false,
+					],
 				],
-				[
-					'title'   => 'New feature available',
-					'content' => 'A new feature is available for The Events Calendar. Click here to learn more.',
-					'link'    => 'https://theeventscalendar.com',
-				],
-				[
-					'title'   => 'Please update your PHP version',
-					'content' => 'A new feature is available for The Events Calendar. Click here to learn more.',
-					'link'    => 'https://theeventscalendar.com',
-				],
-			], 200 );
+				200
+			);
 		} else {
 			wp_send_json_error( 'Invalid nonce', 403 );
 		}
