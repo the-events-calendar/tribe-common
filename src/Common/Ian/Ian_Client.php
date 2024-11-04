@@ -305,10 +305,17 @@ final class Ian_Client {
 						'slug'        => 'tec-update-664',
 						'title'       => 'The Events Calendar 6.6.4 Update',
 						'content'     => '<p>The latest update of The Events Calendar adds an option to allow for duplicate Venue creation, updates custom table query logic to avoid DB error, and logic that displays the “REST API blocked” banner to prevent false positives.</p>',
-						'cta'         => [
-							'text'   => 'See Details',
-							'link'   => 'https://evnt.is/1ai-',
-							'target' => '_blank',
+						'actions'     => [
+							[
+								'text'   => 'See Details',
+								'link'   => 'https://evnt.is/1ai-',
+								'target' => '_blank',
+							],
+							[
+								'text'   => 'Update Now',
+								'link'   => '/wp-admin/update-core.php',
+								'target' => '_self',
+							],
 						],
 						'dismissible' => true,
 					],
@@ -318,10 +325,12 @@ final class Ian_Client {
 						'slug'        => 'event-tickets-upsell',
 						'title'       => 'Sell Tickets & Collect RSVPs with Event Tickets',
 						'content'     => '<p>Sell tickets, collect RSVPs and manage attendees for free.</p>',
-						'cta'         => [
-							'text'   => 'Learn More',
-							'link'   => 'https://evnt.is/1aj1',
-							'target' => '_blank',
+						'actions'     => [
+							[
+								'text'   => 'Learn More',
+								'link'   => 'https://evnt.is/1aj1',
+								'target' => '_blank',
+							],
 						],
 						'dismissible' => true,
 					],
@@ -331,10 +340,12 @@ final class Ian_Client {
 						'slug'        => 'fbar-upgrade-556',
 						'title'       => 'Filter Bar 5.5.6 Security Update',
 						'content'     => '<p>Get the latest version of Filter Bar for important security updates.</p>',
-						'cta'         => [
-							'text'   => 'Update',
-							'link'   => '/wp-admin/plugins.php?plugin_status=upgrade',
-							'target' => '_self',
+						'actions'     => [
+							[
+								'text'   => 'Update',
+								'link'   => '/wp-admin/plugins.php?plugin_status=upgrade',
+								'target' => '_self',
+							],
 						],
 						'dismissible' => false,
 					],

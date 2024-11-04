@@ -89,9 +89,11 @@ function getIanAjax() {
 					}
 					notifications += `<div class="ian-sidebar__notification-title">${n.title}</div>`;
 					notifications += `<div class="ian-sidebar__notification-content">${n.content}</div>`;
-					if (n.cta !== undefined || n.dismissible) {
+					if (n.actions !== undefined || n.dismissible) {
 						notifications += `<div class="ian-sidebar__notification-link">`;
-						if (n.cta !== undefined) notifications += `<a href="${n.cta.link}" target="${n.cta.target}">${n.cta.text}</a>`;
+						for (const a of n.actions) {
+							notifications += `<a href="${a.link}" target="${a.target}">${a.text}</a>`;
+						}
 						if (n.dismissible) notifications += `<a href="#" data-trigger="dismissIan" data-id="${n.id}">${window.commonIan.dismiss}</a>`;
 						notifications += `</div>`;
 					}
