@@ -271,30 +271,30 @@ final class Ian_Client {
 		if ( wp_verify_nonce( $nonce, 'common_ian_nonce' ) ) {
 
 			// TODO: The call to Laravel. GET or POST? Do we need to send any data? Auth?
-			$response = wp_remote_request(
-				$this->ian_server,
-				[
-					'method'    => 'POST',
-					'headers'   => [ 'Content-Type' => 'application/json; charset=utf-8' ],
-					'timeout'   => 15, // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout
-					'sslverify' => false, // we trust our server.
-					'body'      => wp_json_encode(
-						[
-							'param1' => '',
-							'param2' => '',
-							'token'  => '??',
-						]
-					),
-				]
-			);
+			// $response = wp_remote_request(
+			// 	$this->ian_server,
+			// 	[
+			// 		'method'    => 'POST',
+			// 		'headers'   => [ 'Content-Type' => 'application/json; charset=utf-8' ],
+			// 		'timeout'   => 15, // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout
+			// 		'sslverify' => false, // we trust our server.
+			// 		'body'      => wp_json_encode(
+			// 			[
+			// 				'param1' => '',
+			// 				'param2' => '',
+			// 				'token'  => '??',
+			// 			]
+			// 		),
+			// 	]
+			// );
 
-			if ( ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) === 200 ) {
-				$body = json_decode( wp_remote_retrieve_body( $response ), true );
-			} else {
-				wp_send_json_error( wp_remote_retrieve_response_message( $response ), wp_remote_retrieve_response_code( $response ) );
-			}
+			// if ( ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) === 200 ) {
+			// 	$body = json_decode( wp_remote_retrieve_body( $response ), true );
+			// } else {
+			// 	wp_send_json_error( wp_remote_retrieve_response_message( $response ), wp_remote_retrieve_response_code( $response ) );
+			// }
 
-			$notifications = Conditionals::filter_ian_feed( $body['notifications'] );
+			// $notifications = Conditionals::filter_ian_feed( $body['notifications'] );
 
 			// TODO: Below is an example notifications array. Send the real one.
 			wp_send_json_success(
