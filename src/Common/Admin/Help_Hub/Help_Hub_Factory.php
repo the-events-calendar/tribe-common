@@ -11,9 +11,8 @@
 
 namespace TEC\Common\Admin\Help_Hub;
 
-use WP_Error;
+use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
 use TEC\Common\Configuration\Configuration;
-use TEC\Events\Admin\Notice\Help_Hub\TEC_Hub_Resource_Data;
 use Tribe__Template;
 
 /**
@@ -61,31 +60,19 @@ class Help_Hub_Factory {
 	}
 
 	/**
-	 * Creates a new Help Hub instance configured with the appropriate data.
+	 * Creates a new Help Hub instance configured with the provided resource data.
 	 *
-	 * This method initializes a new `Hub` instance and applies the relevant data configuration
-	 * based on the provided `$type`. Returns a WP_Error for unrecognized types.
+	 * This method initializes a new `Hub` instance using the provided resource data,
+	 * configuration, and template.
 	 *
 	 * @since TBD
 	 *
-	 * @param string $type The type of data configuration needed for the Help Hub.
-	 *                     Accepts 'tec_events' or 'event_tickets'.
+	 * @param Help_Hub_Data_Interface $resource_data An instance of the resource data class.
 	 *
-	 * @return Hub|WP_Error Configured instance of Help Hub or WP_Error if an unknown type is provided.
+	 * @return Hub Configured instance of Help Hub or WP_Error if an invalid class is provided.
 	 */
-	public function create( string $type ) {
-		switch ( $type ) {
-			case 'tec_events':
-				$help_hub = new Hub( new TEC_Hub_Resource_Data(), $this->config, $this->template );
-				break;
-			default:
-				return new WP_Error(
-					'invalid_help_hub_type',
-					// translators: %s is the help hub type passed.
-					sprintf( __( 'Unknown Help Hub type: %s', 'tribe-common' ), $type )
-				);
-		}
-
-		return $help_hub;
+	public function create( Help_Hub_Data_Interface $resource_data ) {
+		// Create and return the Hub instance with the provided resource data.
+		return new Hub( $resource_data, $this->config, $this->template );
 	}
 }
