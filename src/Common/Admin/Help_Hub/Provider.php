@@ -27,8 +27,7 @@ use TEC\Common\Contracts\Service_Provider;
 class Provider extends Service_Provider {
 
 	/**
-	 * Registers the functionality related to this module, including binding
-	 * the Help Hub Factory, TEC and ET data classes in the DI container.
+	 * Registers the functionality related to the Help Hub.
 	 *
 	 * @since TBD
 	 *

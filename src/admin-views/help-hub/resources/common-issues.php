@@ -22,7 +22,7 @@ if ( empty( $section['common_issues'] ) ) {
 			<?php echo esc_html_x( 'Common issues', 'Common issues section title', 'tribe-common' ); ?>
 		</h3>
 		<p class="tec-settings-form__section-description">
-			<?php echo esc_html_x( 'Having trouble? Find solutions to common issues or ask our AI Chatbot.', 'Common issues section paragraph', 'tribe-common' ); ?>
+			<?php echo esc_html_x( 'Having trouble? Find solutions to common issues or ask our AI Chatbot.', 'Common issues section description', 'tribe-common' ); ?>
 		</p>
 	</div>
 	<ul class="tec-help-list__list-expanded">
