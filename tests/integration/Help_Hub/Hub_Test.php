@@ -27,7 +27,7 @@ class Hub_Test extends WPTestCase {
 	 */
 	public function setUpHub(): void {
 		// Initialize dependencies using tribe()
-		$this->data = tribe( Resource_Data_Mock::class );
+		$this->data = new Resource_Data_Mock();
 
 		// Instantiate the Hub
 		$this->hub = tribe( Hub::class );
