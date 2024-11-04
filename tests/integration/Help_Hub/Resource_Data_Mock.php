@@ -9,7 +9,7 @@
  * @package TEC\Common\Admin\Help_Hub\Resource_Data
  */
 
-namespace TEC\Events\Admin\Help_Hub;
+namespace TEC\Common\Admin\Help_Hub;
 
 use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
 
@@ -50,6 +50,20 @@ class Resource_Data_Mock implements Help_Hub_Data_Interface {
 	 */
 	public function add_admin_body_classes( array $classes ): array {
 		return array_merge( $classes, $this->admin_page_body_classes );
+	}
+
+	/**
+	 * Registers hooks for the Help Hub Resource Data class.
+	 *
+	 * This method registers filters and actions required for the Help Hub,
+	 * such as adding custom body classes to the Help Hub page.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function add_hooks(): void {
+		add_filter( 'tec_help_hub_body_classes', [ $this, 'add_admin_body_classes' ] );
 	}
 
 	/**

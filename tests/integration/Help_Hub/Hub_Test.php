@@ -6,8 +6,7 @@ use Codeception\TestCase\WPTestCase;
 use ReflectionClass;
 use RuntimeException;
 use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
-use TEC\Events\Admin\Help_Hub\Resource_Data_Mock;
-use TEC\Events\Admin\Help_Hub\TEC_Hub_Resource_Data;
+use TEC\Common\Admin\Help_Hub\Resource_Data_Mock;
 use Tribe__Template;
 use TEC\Common\Configuration\Configuration;
 
