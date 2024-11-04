@@ -12,10 +12,7 @@
 
 namespace TEC\Common\Admin\Help_Hub;
 
-use TEC\Common\Configuration\Configuration;
 use TEC\Common\Contracts\Service_Provider;
-use TEC\Events\Admin\Help_Hub\TEC_Hub_Resource_Data;
-use Tribe__Template;
 
 /**
  * Class Provider
