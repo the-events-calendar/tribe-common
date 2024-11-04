@@ -533,32 +533,4 @@ class Hub {
 		$template->set_template_folder_lookup( false );
 		$template->template( $template_name );
 	}
-
-	/**
-	 * Retrieves chat keys from the configuration.
-	 *
-	 * @since TBD
-	 *
-	 * @return array Associative array containing chat keys.
-	 */
-	protected function get_chat_keys(): array {
-		return [
-			'zendesk_chat_key' => $this->config->get( 'TEC_HELP_HUB_CHAT_ZENDESK_CHAT_KEY' ),
-			'docsbot_chat_key' => $this->config->get( 'TEC_HELP_HUB_CHAT_DOCSBOT_SUPPORT_KEY' ),
-		];
-	}
-
-	/**
-	 * Retrieves relevant template links, including the telemetry opt-in link.
-	 *
-	 * @since TBD
-	 *
-	 * @return array Associative array containing template links.
-	 */
-	protected static function get_links(): array {
-		// @todo - remove this method.
-		return [
-			'opt_in_link' => self::get_telemetry_opt_in_link(),
-		];
-	}
 }
