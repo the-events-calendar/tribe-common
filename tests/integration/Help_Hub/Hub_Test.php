@@ -7,6 +7,9 @@ use ReflectionClass;
 use RuntimeException;
 use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
 use TEC\Events\Admin\Help_Hub\Resource_Data_Mock;
+use TEC\Events\Admin\Help_Hub\TEC_Hub_Resource_Data;
+use Tribe__Template;
+use TEC\Common\Configuration\Configuration;
 
 class Hub_Test extends WPTestCase {
 
@@ -29,8 +32,12 @@ class Hub_Test extends WPTestCase {
 		// Initialize dependencies using tribe()
 		$this->data = new Resource_Data_Mock();
 
-		// Instantiate the Hub
-		$this->hub = tribe( Hub::class );
+		// Instantiate necessary dependencies for the Help Hub.
+		$template = tribe( Tribe__Template::class );
+		$config   = tribe( Configuration::class );
+
+		// Instantiate the Hub instance with all dependencies.
+		$this->hub = new Hub( $this->data, $config, $template );
 
 		// Set up the Hub with the data interface
 		$this->hub->setup( $this->data );
