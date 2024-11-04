@@ -9,7 +9,6 @@
 
 namespace TEC\Common\Ian;
 
-use Tribe__Container as Container;
 use Tribe__Main;
 use TEC\Common\Telemetry\Telemetry;
 use TEC\Common\Admin\Conditional_Content\Dismissible_Trait;
@@ -52,7 +51,6 @@ final class Ian_Client {
 	 */
 	protected string $slug = '';
 
-
 	/**
 	 * Boot the IAN Client.
 	 *
@@ -61,7 +59,6 @@ final class Ian_Client {
 	 * @return void
 	 */
 	public function boot(): void {
-
 		// TODO - Get the organization, brand, and product from... where?
 		$this->api_url = 'https://ian.stellarwp.com/feed/organization/brand/product.json';
 
@@ -224,7 +221,7 @@ final class Ian_Client {
 			return;
 		}
 
-		$main  = Tribe__Main::instance();
+		$main = Tribe__Main::instance();
 
 		load_template(
 			$main->plugin_path . 'src/admin-views/ian/icon.php',

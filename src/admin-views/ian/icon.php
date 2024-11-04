@@ -28,7 +28,7 @@
 					$agreement = '<a href="' . $args['url'] . '" target="_blank">' . esc_html__( 'data sharing agreement', 'tribe-common' ) . '</a>';
 					/* translators: %s: data sharing agreement */
 					?>
-					<p><?php echo sprintf( esc_html__( 'To receive notifications you need to agree to our %s.', 'tribe-common' ), $agreement ); ?></p>
+					<p><?php printf( esc_html__( 'To receive notifications you need to agree to our %s.', 'tribe-common' ), $agreement ); ?></p>
 				</div>
 				<div class="ian-sidebar__optin--button" data-trigger="optinIan"><?php esc_html_e( 'Opt-in to notifications', 'tribe-common' ); ?></div>
 			</div>
