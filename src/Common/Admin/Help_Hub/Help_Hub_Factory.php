@@ -11,10 +11,10 @@
 
 namespace TEC\Common\Admin\Help_Hub;
 
-use TEC\Common\Admin\Help_Hub\Resource_Data\TEC_Hub_Resource_Data;
-use InvalidArgumentException;
-use Tribe__Template;
+use WP_Error;
 use TEC\Common\Configuration\Configuration;
+use TEC\Events\Admin\Notice\Help_Hub\TEC_Hub_Resource_Data;
+use Tribe__Template;
 
 /**
  * Class Help_Hub_Factory
@@ -48,9 +48,11 @@ class Help_Hub_Factory {
 	/**
 	 * Constructor.
 	 *
+	 * Sets the configuration and template dependencies.
+	 *
 	 * @since TBD
 	 *
-	 * @param Configuration   $config   The Zendesk support key.
+	 * @param Configuration   $config   The configuration object.
 	 * @param Tribe__Template $template The template class.
 	 */
 	public function __construct( Configuration $config, Tribe__Template $template ) {
@@ -62,28 +64,26 @@ class Help_Hub_Factory {
 	 * Creates a new Help Hub instance configured with the appropriate data.
 	 *
 	 * This method initializes a new `Hub` instance and applies the relevant data configuration
-	 * based on the provided `$type`. Throws an exception for unrecognized types.
+	 * based on the provided `$type`. Returns a WP_Error for unrecognized types.
 	 *
 	 * @since TBD
 	 *
 	 * @param string $type The type of data configuration needed for the Help Hub.
 	 *                     Accepts 'tec_events' or 'event_tickets'.
 	 *
-	 * @return Hub Configured instance of Help Hub.
-	 * @throws InvalidArgumentException If an unknown type is provided.
+	 * @return Hub|WP_Error Configured instance of Help Hub or WP_Error if an unknown type is provided.
 	 */
-	public function create( string $type ): Hub {
+	public function create( string $type ) {
 		switch ( $type ) {
 			case 'tec_events':
 				$help_hub = new Hub( new TEC_Hub_Resource_Data(), $this->config, $this->template );
 				break;
-
-			case 'event_tickets':
-				// Todo - Introduce an ET Hub_Resource_Data class in the future.
-				break;
-
 			default:
-				throw new InvalidArgumentException( "Unknown HelpHub type: {$type}" );
+				return new WP_Error(
+					'invalid_help_hub_type',
+					// translators: %s is the help hub type passed.
+					sprintf( __( 'Unknown Help Hub type: %s', 'tribe-common' ), $type )
+				);
 		}
 
 		return $help_hub;

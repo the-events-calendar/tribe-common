@@ -6,7 +6,7 @@ use Codeception\TestCase\WPTestCase;
 use ReflectionClass;
 use RuntimeException;
 use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
-use TEC\Common\Admin\Help_Hub\Resource_Data\TEC_Hub_Resource_Data;
+use TEC\Events\Admin\Notice\Help_Hub\TEC_Hub_Resource_Data;
 
 class Hub_Test extends WPTestCase {
 

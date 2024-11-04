@@ -12,10 +12,10 @@
 
 namespace TEC\Common\Admin\Help_Hub;
 
-use TEC\Common\Admin\Help_Hub\Resource_Data\TEC_Hub_Resource_Data;
-use TEC\Common\Contracts\Service_Provider;
-use Tribe__Template;
 use TEC\Common\Configuration\Configuration;
+use TEC\Common\Contracts\Service_Provider;
+use TEC\Events\Admin\Notice\Help_Hub\TEC_Hub_Resource_Data;
+use Tribe__Template;
 
 /**
  * Class Provider
@@ -44,6 +44,13 @@ class Provider extends Service_Provider {
 		$template = new Tribe__Template();
 		$config   = tribe( Configuration::class );
 
+		$this->container->bind( Hub::class );
+		// Data classes for TEC Help Hub instances.
+		$this->container->bind( TEC_Hub_Resource_Data::class );
+		$this->container->bind( Help_Hub_Factory::class );
+		$this->container->when( Help_Hub_Factory::class )->needs( '$config' )->give( $config );
+		$this->container->when( Help_Hub_Factory::class )->needs( '$template' )->give( $template );
+
 		/**
 		 * Fires when the provider is registered.
 		 *
@@ -52,13 +59,5 @@ class Provider extends Service_Provider {
 		 * @param Provider $this The provider instance.
 		 */
 		do_action( 'tec_help_hub_registered', $this );
-
-		$this->container->bind( Help_Hub_Factory::class );
-		$this->container->bind( Hub::class );
-		// Data classes for TEC Help Hub instances.
-		$this->container->bind( TEC_Hub_Resource_Data::class );
-
-		$this->container->when( Help_Hub_Factory::class )->needs( '$config' )->give( $config );
-		$this->container->when( Help_Hub_Factory::class )->needs( '$template' )->give( $template );
 	}
 }
