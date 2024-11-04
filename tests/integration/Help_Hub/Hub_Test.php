@@ -6,7 +6,7 @@ use Codeception\TestCase\WPTestCase;
 use ReflectionClass;
 use RuntimeException;
 use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
-use TEC\Events\Admin\Help_Hub\TEC_Hub_Resource_Data;
+use TEC\Events\Admin\Help_Hub\Resource_Data_Mock;
 
 class Hub_Test extends WPTestCase {
 
@@ -27,7 +27,7 @@ class Hub_Test extends WPTestCase {
 	 */
 	public function setUpHub(): void {
 		// Initialize dependencies using tribe()
-		$this->data = tribe( TEC_Hub_Resource_Data::class );
+		$this->data = tribe( Resource_Data_Mock::class );
 
 		// Instantiate the Hub
 		$this->hub = tribe( Hub::class );
