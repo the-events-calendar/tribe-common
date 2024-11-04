@@ -27,7 +27,7 @@
 
 			if (e.target.dataset.trigger == "dismissIan") {
 				e.preventDefault();
-				dismissNotification(e.target.dataset.id);
+				dismissNotification(e.target.dataset.id, e.target.dataset.slug);
 			}
 		});
 
@@ -83,9 +83,9 @@ function getIanAjax() {
 
 				let notifications = "";
 				for (const n of response.data) {
-					notifications += `<div class="ian-sidebar__notification ian-sidebar__notification--${n.type} ${n.slug}" id="notification_${n.id}">`;
+					notifications += `<div class="ian-sidebar__notification ian-sidebar__notification--${n.type}" id="notification_${n.id}">`;
 					if (n.dismissible) {
-						notifications += `<div class="ian-sidebar__notification-close dashicons dashicons-dismiss" data-trigger="dismissIan" data-id="${n.id}"></div>`;
+						notifications += `<div class="dashicons dashicons-dismiss" data-trigger="dismissIan" data-id="${n.id}" data-slug="${n.slug}"></div>`;
 					}
 					notifications += `<div class="ian-sidebar__notification-title">${n.title}</div>`;
 					notifications += `<div class="ian-sidebar__notification-content">${n.content}</div>`;
@@ -94,7 +94,7 @@ function getIanAjax() {
 						for (const a of n.actions) {
 							notifications += `<a href="${a.link}" target="${a.target}">${a.text}</a>`;
 						}
-						if (n.dismissible) notifications += `<a href="#" data-trigger="dismissIan" data-id="${n.id}">${window.commonIan.dismiss}</a>`;
+						if (n.dismissible) notifications += `<a href="#" data-trigger="dismissIan" data-id="${n.id}" data-slug="${n.slug}">${window.commonIan.dismiss}</a>`;
 						notifications += `</div>`;
 					}
 					notifications += `</div>`;
@@ -122,15 +122,32 @@ function getIanBubble() {
 	}
 }
 
-function dismissNotification(id) {
+function dismissNotification(id, slug) {
 	const el = document.getElementById("notification_" + id);
 
 	el.style.transition = "opacity 0.5s ease";
 	el.style.opacity = 0;
 
-	setTimeout(function() {
-		el.parentNode.removeChild(el);
-	}, 400);
+	const data = new FormData();
+	data.append("action", "ian_notification_dismiss");
+	data.append("slug", slug);
+	data.append("nonce", window.commonIan.nonce);
+
+	fetch(window.commonIan.ajax_url, {
+		method: "POST",
+		credentials: "same-origin",
+		body: data
+	})
+		.then(response => response.json())
+		.then(response => {
+			if (response.success) {
+				el.parentNode.removeChild(el);
+				getIanBubble();
+			}
+		})
+		.catch(err => {
+			console.error(err);
+		});
 }
 
 

@@ -46,6 +46,8 @@ class Provider extends Service_Provider {
 
 		add_action( 'wp_ajax_optin_ian', [ $this, 'ajax_optin_ian' ] );
 		add_action( 'wp_ajax_get_ian', [ $this, 'ajax_get_ian' ] );
+
+		add_action( 'wp_ajax_ian_notification_dismiss', [ $this, 'handle_dismiss' ] );
 	}
 
 	/**
@@ -117,5 +119,14 @@ class Provider extends Service_Provider {
 	 */
 	public function ajax_get_ian() {
 		$this->container->make( Ian_Client::class )->ajax_get_ian();
+	}
+
+	/**
+	 * AJAX handler for dismissing IAN notifications.
+	 *
+	 * @since TBD
+	 */
+	public function handle_dismiss() {
+		$this->container->make( Ian_Client::class )->handle_dismiss();
 	}
 }

@@ -12,6 +12,7 @@ namespace TEC\Common\Ian;
 use Tribe__Container as Container;
 use Tribe__Main;
 use TEC\Common\Telemetry\Telemetry;
+use TEC\Common\Admin\Conditional_Content\Dismissible_Trait;
 
 /**
  * Class Ian_Client
@@ -21,6 +22,7 @@ use TEC\Common\Telemetry\Telemetry;
  * @package TEC\Common\Ian
  */
 final class Ian_Client {
+	use Dismissible_Trait;
 
 	/**
 	 * The slugs for plugins that support IAN.
@@ -35,15 +37,6 @@ final class Ian_Client {
 	];
 
 	/**
-	 * The IAN server URL.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	private $ian_server = '';
-
-	/**
 	 * The IAN API URL.
 	 *
 	 * @since TBD
@@ -51,6 +44,13 @@ final class Ian_Client {
 	 * @var string
 	 */
 	private $api_url = '';
+
+	/**
+	 * Notification slug for dismissible content.
+	 *
+	 * @var string
+	 */
+	protected string $slug = '';
 
 
 	/**
@@ -61,13 +61,9 @@ final class Ian_Client {
 	 * @return void
 	 */
 	public function boot(): void {
-		$container = Container::init();
-
-		$this->ian_server = ! defined( 'STELLARWP_IAN_SERVER' ) ? 'https://ian.stellarwp.com/feed/' : STELLARWP_IAN_SERVER;
 
 		// TODO - Get the organization, brand, and product from... where?
-		$organization = $brand = $product = '';
-		$this->api_url = $this->ian_server . $organization . '/' . $brand . '/' . $product . '.json';
+		$this->api_url = 'https://ian.stellarwp.com/feed/organization/brand/product.json';
 
 		/**
 		 * Allow plugins to hook in and add themselves,
@@ -296,6 +292,14 @@ final class Ian_Client {
 
 			// $notifications = Conditionals::filter_ian_feed( $body['notifications'] );
 
+			// $this->slug = $slug;
+			// $this->has_user_dismissed( get_current_user_id() )
+
+			// If we want to reset all dismissible content for testing.
+			// delete_user_meta( get_current_user_id(), 'tec-dismissible-content' );
+			// or just one
+			// $this->undismiss( get_current_user_id() )
+
 			// TODO: Below is an example notifications array. Send the real one.
 			wp_send_json_success(
 				[
@@ -352,6 +356,32 @@ final class Ian_Client {
 				],
 				200
 			);
+		} else {
+			wp_send_json_error( 'Invalid nonce', 403 );
+		}
+	}
+
+	/**
+	 * AJAX handler for dismissing IAN notifications.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function handle_dismiss(): void {
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+
+		if ( wp_verify_nonce( $nonce, 'common_ian_nonce' ) ) {
+
+			$slug = isset( $_POST['slug'] ) ? sanitize_key( $_POST['slug'] ) : '';
+
+			if ( empty( $slug ) ) {
+				wp_send_json_error( 'Invalid slug', 403 );
+			}
+
+			$this->slug = $slug;
+
+			wp_send_json_success( $this->dismiss(), 200 );
 		} else {
 			wp_send_json_error( 'Invalid nonce', 403 );
 		}
