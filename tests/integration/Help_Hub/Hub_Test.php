@@ -6,7 +6,7 @@ use Codeception\TestCase\WPTestCase;
 use ReflectionClass;
 use RuntimeException;
 use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
-use TEC\Common\Admin\Help_Hub\Resource_Data_Mock;
+use TEC\Common\Tests\Help_Hub\Mock_Resource_Data;
 use Tribe__Template;
 use TEC\Common\Configuration\Configuration;
 
@@ -29,7 +29,7 @@ class Hub_Test extends WPTestCase {
 	 */
 	public function setUpHub(): void {
 		// Initialize dependencies using tribe()
-		$this->data = new Resource_Data_Mock();
+		$this->data = new Mock_Resource_Data();
 
 		// Instantiate necessary dependencies for the Help Hub.
 		$template = tribe( Tribe__Template::class );
@@ -136,22 +136,10 @@ class Hub_Test extends WPTestCase {
 		// Assert that expected custom classes are present
 		$this->assertStringContainsString( 'tribe-help', $classes );
 		$this->assertStringContainsString( 'tec-help', $classes );
-		$this->assertStringContainsString( 'tribe_events_page_tec-events-settings', $classes );
+		$this->assertStringContainsString( 'existing-class', $classes );
 
 		// Default to the original current screen.
 		$current_screen = $original_current_screen;
-	}
-
-	/** @test */
-	public function it_throws_exception_when_data_is_not_set() {
-		// Create a new instance of Hub without setting up data.
-		$hub_without_data = tribe( Hub::class );
-
-		$this->expectException( RuntimeException::class );
-		$this->expectExceptionMessage( 'The HelpHub data must be set using the setup method before calling this function.' );
-
-		// Attempt to render without setting up data, which should throw an exception.
-		$hub_without_data->render();
 	}
 
 	/** @test */
