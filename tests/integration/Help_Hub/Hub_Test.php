@@ -38,9 +38,6 @@ class Hub_Test extends WPTestCase {
 
 		// Instantiate the Hub instance with all dependencies.
 		$this->hub = new Hub( $this->data, $config, $template );
-
-		// Set up the Hub with the data interface
-		$this->hub->setup( $this->data );
 	}
 
 	/** @test */
