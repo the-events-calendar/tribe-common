@@ -2,7 +2,14 @@
 /**
  * The template that displays the help page.
  *
- * @var Tribe__Main $main The main common object.
+ * @var Tribe__Main $main              The main common object.
+ * @var array       $status            Contains the user's telemetry and license status.
+ * @var array       $keys              Contains the chat keys for support services.
+ * @var array       $icons             Contains URLs for various support hub icons.
+ * @var array       $links             Contains URLs for important links, like the telemetry opt-in link.
+ * @var string      $notice            The admin notice HTML for the chatbot callout.
+ * @var string      $template_variant  The template variant, determining which template to display.
+ * @var array       $resource_sections An array of data to display in the Resource section.
  */
 
 ?>
@@ -27,13 +34,14 @@
 			</li>
 		</ul>
 	</nav>
+	<div id="tec-help-hub-tab-containers" class="tec-tab-parent-container">
+		<div id="tec-help-tab" class="tec-tab-container">
+			<?php $this->template( 'help-hub/support/support-hub' ); ?>
+		</div>
 
-	<div id="tec-help-tab" class="tec-tab-container">
-		<?php $this->template( 'help-hub/support-hub' ); ?>
-	</div>
-
-	<div id="tec-resources-tab" class="tec-tab-container">
-		<?php $this->template( 'help-hub/resources' ); ?>
+		<div id="tec-resources-tab" class="tec-tab-container">
+			<?php $this->template( 'help-hub/resources/resources' ); ?>
+		</div>
 	</div>
 </div>
 

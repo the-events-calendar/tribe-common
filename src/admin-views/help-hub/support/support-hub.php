@@ -2,8 +2,12 @@
 /**
  * The template that displays the help hub tab on the help page.
  *
- * @var Tribe__Main $main The main common object.
+ * @var Tribe__Main $main             The main common object.
+ * @var Hub         $help_hub         The Help Hub class.
+ * @var string      $template_variant The template variant, determining which template to display.
  */
+
+use TEC\Common\Admin\Help_Hub\Hub;
 
 ?>
 <div class="tribe-settings-form form">
@@ -29,15 +33,15 @@
 			</p>
 		</div>
 		<div class="tec-settings-form__content-section">
-			<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">
+			<div>
 				<?php
-				$this->template( 'help-hub/support-hub-docsbot' );
+				$this->template( 'help-hub/support/iframe' );
 				?>
+			</div>
 
-			</h3>
 		</div>
 	</div>
 </div>
 <?php
-$this->template( 'help-hub/support-hub-sidebar' );
+$this->template( "help-hub/support/sidebar/{$template_variant}" );
 ?>

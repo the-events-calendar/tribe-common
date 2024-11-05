@@ -4,13 +4,10 @@
  * Administration Help Page
  *
  * @since 4.0
+ * @deprecated TBD This class is deprecated and should no longer be used. Use \TEC\Common\Admin\Help_Hub\Hub instead.
  */
 
-use TEC\Common\Configuration\Configuration;
-use TEC\Common\StellarWP\AdminNotices\AdminNotice;
-use TEC\Common\StellarWP\AdminNotices\AdminNotices;
-use TEC\Common\Telemetry\Telemetry;
-
+// Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -19,92 +16,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class with a few helpers for the Administration Pages
  *
  * @since  4.0
+ * @deprecated TBD This class is deprecated. Use \TEC\Common\Admin\Help_Hub\Hub instead.
  */
 class Tribe__Admin__Help_Page {
 	//phpcs:ignore - legacy class naming.
-
-	/**
-	 * @since TBD
-	 *
-	 * @var Configuration The configuration object.
-	 */
-	protected Configuration $config;
-
-	/**
-	 * Initialize any required vars.
-	 */
-	public function __construct() {
-		$this->config = tribe( Configuration::class );
-
-		if ( ! defined( 'DOCSBOT_SUPPORT_KEY' ) ) {
-			// @todo Need key
-			define( 'DOCSBOT_SUPPORT_KEY', '' );
-		}
-		if ( ! defined( 'ZENDESK_CHAT_KEY' ) ) {
-			define( 'ZENDESK_CHAT_KEY', '' );
-		}
-	}
-
 	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return Tribe__Admin__Help_Page
 	 */
 	public static function instance() {
+		_deprecated_function( __METHOD__, 'TBD', '\TEC\Common\Admin\Help_Hub\Hub' );
 		return tribe( static::class );
-	}
-
-	/**
-	 * Renders the help page template.
-	 *
-	 * @since TBD
-	 */
-	public function do_help_tab() {
-		// Setup our admin notice.
-		$notice_slug    = 'tec-common-help-chatbot-notice';
-		$notice_content = sprintf(
-			// translators: 1: the opening tag to the chatbot link, 2: the closing tag.
-			_x(
-				'To find the answer to all your questions use the %1$sTEC Chatbot%2$s',
-				'The callout notice to try the chatbot with a link to the page',
-				'tribe-common'
-			),
-			'<a data-tab-target="tec-help-tab" href="#">',
-			'</a>'
-		);
-
-		// Our notices.
-		$notice_admin = ( new AdminNotice( $notice_slug, "<p>$notice_content</p>" ) )
-			->urgency( 'info' )
-			->inline()
-			->dismissible()
-			->withWrapper();
-		$notice_html  = AdminNotices::render( $notice_admin, false );
-
-		// Our template vars.
-		$main             = Tribe__Main::instance();
-		$template         = new \Tribe__Template();
-		$common_telemetry = tribe( Telemetry::class );
-		$is_opted_in      = $common_telemetry->calculate_optin_status();
-		$is_license_valid = Tribe__PUE__Checker::is_any_license_valid();
-		$zendesk_chat_key = $this->config->get( 'ZENDESK_CHAT_KEY' );
-
-		// Setup template for help page.
-		$template->set_values(
-			[
-				'main'             => $main,
-				'notice'           => $notice_html,
-				'is_opted_in'      => $is_opted_in,
-				'is_license_valid' => $is_license_valid,
-				'zendesk_chat_key' => $zendesk_chat_key,
-			]
-		);
-
-		$template->set_template_origin( $main );
-		$template->set_template_folder( 'src/admin-views' );
-		$template->set_template_context_extract( true );
-		$template->set_template_folder_lookup( false );
-		$template->template( 'help-hub' );
 	}
 
 	/**
@@ -113,32 +36,7 @@ class Tribe__Admin__Help_Page {
 	 * @since 4.15.0
 	 */
 	public function hook() {
-		if ( is_admin() ) {
-			add_action( 'admin_enqueue_scripts', [ $this, 'load_assets' ], 1 );
-			add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
-		}
-	}
-
-	/**
-	 * Enqueue the Help page assets.
-	 *
-	 * @since TBD
-	 */
-	public function load_assets() {
-		if ( ! $this->is_current_page() ) {
-			return;
-		}
-
-		tribe_asset(
-			Tribe__Main::instance(),
-			'tec-common-help-hub-style',
-			'help-hub.css',
-			null,
-			'admin_enqueue_scripts'
-		);
-
-		// Add the built-in accordion.
-		wp_enqueue_script( 'jquery-ui-accordion' );
+		add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
 	}
 
 	/**
@@ -155,7 +53,7 @@ class Tribe__Admin__Help_Page {
 			return $classes;
 		}
 
-		$classes .= ' tribe-help tec-help tribe_events_page_tec-events-settings';
+		$classes .= ' tribe-help tec-help';
 		return $classes;
 	}
 
@@ -177,8 +75,8 @@ class Tribe__Admin__Help_Page {
 		global $current_screen;
 
 		$help_pages = [
-			'tribe_events_page_tec-events-help-hub',
-			'tickets_page_tec-tickets-help-hub',
+			'tribe_events_page_tec-events-help',
+			'tickets_page_tec-tickets-help',
 		];
 
 		return in_array( $current_screen->id, $help_pages );
@@ -200,7 +98,7 @@ class Tribe__Admin__Help_Page {
 
 		global $current_screen;
 
-		return 'tribe_events_page_tec-events-help-hub' === $current_screen->id;
+		return 'tribe_events_page_tec-events-help' === $current_screen->id;
 	}
 
 	/**
@@ -223,7 +121,7 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-	 * Register the Admin assets for the Help and Troubleshooting pages
+	 * Register the Admin assets for the help page
 	 *
 	 * @since  4.9.12
 	 *
@@ -242,7 +140,6 @@ class Tribe__Admin__Help_Page {
 				'localize'     => [
 					'name' => 'tribe_system_info',
 					'data' => [
-						'docsbot_key'                => $this->config->get( 'DOCSBOT_SUPPORT_KEY' ),
 						'sysinfo_optin_nonce'        => wp_create_nonce( 'sysinfo_optin_nonce' ),
 						'clipboard_btn_text'         => _x( 'Copy to clipboard', 'Copy to clipboard button text.', 'tribe-common' ),
 						'clipboard_copied_text'      => _x( 'System info copied', 'Copy to clipboard success message', 'tribe-common' ),

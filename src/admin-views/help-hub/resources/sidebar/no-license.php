@@ -2,13 +2,12 @@
 /**
  * The template that displays the resources sidebar.
  *
- * @var Tribe__Main $main      The main common object.
- * @var bool $is_opted_in      Whether the user has opted in to telemetry.
- * @var bool $is_license_valid Whether the user has any valid licenses.
+ * @var Tribe__Main $main             The main common object.
+ * @var Hub         $help_hub         The Help Hub class.
+ * @var string      $template_variant The template variant, determining which template to display.
  */
 
-$stars_icon_url = tribe_resource_url( 'images/icons/stars.svg', false, null, $main );
-$chat_icon_url  = tribe_resource_url( 'images/icons/chat-bubble.svg', false, null, $main );
+use TEC\Common\Admin\Help_Hub\Hub;
 
 ?>
 
@@ -17,7 +16,7 @@ $chat_icon_url  = tribe_resource_url( 'images/icons/chat-bubble.svg', false, nul
 		<div class="tec-settings__sidebar-icon-wrap">
 			<div>
 				<img class="tec-settings-infobox-logo"
-					src="<?php echo esc_url( $stars_icon_url ); ?>"
+					src="<?php echo esc_url( $help_hub->get_icon_url( 'stars_icon' ) ); ?>"
 					alt="AI Chatbot logo"
 				>
 			</div>
@@ -50,5 +49,5 @@ $chat_icon_url  = tribe_resource_url( 'images/icons/chat-bubble.svg', false, nul
 		</div>
 	</div>
 
-	<?php $this->template( 'help-hub/shared-live-support' ); ?>
+	<?php $this->template( 'help-hub/resources/shared-live-support' ); ?>
 </div>
