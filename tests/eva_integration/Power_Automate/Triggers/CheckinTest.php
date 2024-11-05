@@ -2,6 +2,7 @@
 
 namespace Tribe\tests\eva_integration\Power_Automate\Triggers;
 
+use TEC\Event_Automator\Power_Automate\Triggers\Checkin;
 use TEC\Event_Automator\Tests\Traits\Create_events;
 use TEC\Event_Automator\Tests\Traits\Create_attendees;
 use Tribe\Tests\Traits\With_Uopz;
@@ -11,8 +12,8 @@ use Tribe__Tickets_Plus__Commerce__WooCommerce__Main as Woo_Tickets;
 
 class CheckinTest extends \Codeception\TestCase\WPTestCase {
 
-	use Create_events;
-	use Create_attendees;
+	use Create_Events;
+	use Create_Attendees;
 	use With_Uopz;
 
 	public function setUp() {
@@ -22,6 +23,7 @@ class CheckinTest extends \Codeception\TestCase\WPTestCase {
 		// Clear Queue.
 		$queue = tribe( Checkin::class );
 		$queue->set_queue( [] );
+		add_filter( 'tec_event_automator_power_automate_enable_add_to_queue', '__return_true' );
 	}
 
 	/**

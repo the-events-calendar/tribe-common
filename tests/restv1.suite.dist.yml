@@ -2,7 +2,7 @@ class_name: Restv1Tester
 modules:
     enabled:
         - \Helper\Restv1
-        - \Helper\TribeDb
+        - \Helper\TECDb
         - REST
         - WPDb
         - WPBrowser
@@ -46,13 +46,7 @@ modules:
             dbPassword: '%WP_DB_PASSWORD%'
             plugins:
               - the-events-calendar/the-events-calendar.php
-              - event-tickets/event-tickets.php
-              - event-tickets-plus/event-tickets-plus.php
-              - easy-digital-downloads/easy-digital-downloads.php
+              - events-pro/events-calendar-pro.php
             activatePlugins:
               - the-events-calendar/the-events-calendar.php
-              - event-tickets/event-tickets.php
-              - event-tickets-plus/event-tickets-plus.php
-              - easy-digital-downloads/easy-digital-downloads.php
-            silentlyActivatePlugins:
-              - woocommerce/woocommerce.php
+              - events-pro/events-calendar-pro.php

@@ -1,4 +1,7 @@
 <?php
+
+use TEC\Common\Admin\Conditional_Content\Black_Friday;
+
 /**
  * The template for the App Shop page.
  *
@@ -51,6 +54,9 @@ use Tribe\Admin\Troubleshooting;
 			alt="<?php esc_attr_e( 'Shapes and lines for visual interest', 'tribe-common' ); ?>"
 		/>
 		<div class="content-wrapper">
+
+			<?php tribe( Black_Friday::class )->render_wide_banner_html(); ?>
+
 			<div class="addon-grid">
 				<?php foreach ( $all_products as $pr_status => $some_products ) : ?>
 					<?php if ( 'for-sale' == $pr_status ) : ?>

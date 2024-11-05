@@ -2,12 +2,13 @@
 
 namespace Tribe\tests\eva_integration\Power_Automate\Triggers;
 
+use TEC\Event_Automator\Power_Automate\Triggers\Updated_Events;
 use TEC\Event_Automator\Tests\Traits\Create_events;
 use Tribe\Tests\Traits\With_Uopz;
 
 class UpdatedEventTest extends \Codeception\TestCase\WPTestCase {
 
-	use Create_events;
+	use Create_Events;
 	use With_Uopz;
 
 	public function setUp() {
@@ -17,6 +18,7 @@ class UpdatedEventTest extends \Codeception\TestCase\WPTestCase {
 		// Clear Queue.
 		$queue = tribe( Updated_Events::class );
 		$queue->set_queue( [] );
+		add_filter( 'tec_event_automator_power_automate_enable_add_to_queue', '__return_true' );
 	}
 
 	/**

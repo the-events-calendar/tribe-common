@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5d508c9305a35df512e6fea911de6b77",
+    "content-hash": "9d1601ad2c6f1297f56369fe4d0031d2",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -295,16 +295,16 @@
         },
         {
             "name": "stellarwp/admin-notices",
-            "version": "1.2.0",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/admin-notices.git",
-                "reference": "63a51add8ebd81c4b83b8b2fb520ce5f79ce24e4"
+                "reference": "219e081167a347f80e7eca62d41eac06e5f58dc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/admin-notices/zipball/63a51add8ebd81c4b83b8b2fb520ce5f79ce24e4",
-                "reference": "63a51add8ebd81c4b83b8b2fb520ce5f79ce24e4",
+                "url": "https://api.github.com/repos/stellarwp/admin-notices/zipball/219e081167a347f80e7eca62d41eac06e5f58dc3",
+                "reference": "219e081167a347f80e7eca62d41eac06e5f58dc3",
                 "shasum": ""
             },
             "require": {
@@ -342,22 +342,79 @@
             "description": "A handy package for easily displaying admin notices in WordPress with simple to complex visibility conditions",
             "support": {
                 "issues": "https://github.com/stellarwp/admin-notices/issues",
-                "source": "https://github.com/stellarwp/admin-notices/tree/1.2.0"
+                "source": "https://github.com/stellarwp/admin-notices/tree/1.2.2"
             },
-            "time": "2024-10-17T18:29:35+00:00"
+            "time": "2024-10-29T14:53:11+00:00"
         },
         {
-            "name": "stellarwp/assets",
-            "version": "1.3.1",
+            "name": "stellarwp/arrays",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/stellarwp/assets.git",
-                "reference": "dd6e75c8ef04296ae7970ee6a5eb103889a2823e"
+                "url": "https://github.com/stellarwp/arrays.git",
+                "reference": "fe0a4cec1a299c196cc89bdba18ac99dea6bf5a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/assets/zipball/dd6e75c8ef04296ae7970ee6a5eb103889a2823e",
-                "reference": "dd6e75c8ef04296ae7970ee6a5eb103889a2823e",
+                "url": "https://api.github.com/repos/stellarwp/arrays/zipball/fe0a4cec1a299c196cc89bdba18ac99dea6bf5a2",
+                "reference": "fe0a4cec1a299c196cc89bdba18ac99dea6bf5a2",
+                "shasum": ""
+            },
+            "require-dev": {
+                "codeception/module-asserts": "^1.0",
+                "codeception/module-cli": "^1.0",
+                "codeception/module-db": "^1.0",
+                "codeception/module-filesystem": "^1.0",
+                "codeception/module-phpbrowser": "^1.0",
+                "codeception/module-rest": "^1.0",
+                "codeception/module-webdriver": "^1.0",
+                "codeception/util-universalframework": "^1.0",
+                "lucatume/wp-browser": "^3.0.14",
+                "phpunit/phpunit": "~6.0",
+                "saggre/phpdocumentor-markdown": "^0.1.3",
+                "symfony/event-dispatcher-contracts": "^2.5.1",
+                "symfony/string": "^5.4",
+                "szepeviktor/phpstan-wordpress": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "StellarWP\\Arrays\\": "src/Arrays/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "StellarWP",
+                    "email": "dev@stellarwp.com"
+                },
+                {
+                    "name": "Matthew Batchelder",
+                    "email": "matt.batchelder@stellarwp.com"
+                }
+            ],
+            "description": "A library for array manipulation.",
+            "support": {
+                "issues": "https://github.com/stellarwp/arrays/issues",
+                "source": "https://github.com/stellarwp/arrays/tree/1.2.2"
+            },
+            "time": "2023-11-14T12:48:06+00:00"
+        },
+        {
+            "name": "stellarwp/assets",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stellarwp/assets.git",
+                "reference": "c35ada807f60b94a72aff27f2b27411f40b83371"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stellarwp/assets/zipball/c35ada807f60b94a72aff27f2b27411f40b83371",
+                "reference": "c35ada807f60b94a72aff27f2b27411f40b83371",
                 "shasum": ""
             },
             "require-dev": {
@@ -398,9 +455,9 @@
             "description": "A library for managing asset registration and enqueuing in WordPress.",
             "support": {
                 "issues": "https://github.com/stellarwp/assets/issues",
-                "source": "https://github.com/stellarwp/assets/tree/1.3.1"
+                "source": "https://github.com/stellarwp/assets/tree/1.4.0"
             },
-            "time": "2024-09-28T18:20:48+00:00"
+            "time": "2024-10-22T16:47:34+00:00"
         },
         {
             "name": "stellarwp/container-contract",
@@ -722,6 +779,73 @@
                 "source": "https://github.com/stellarwp/telemetry/tree/2.3.2"
             },
             "time": "2024-01-08T18:55:26+00:00"
+        },
+        {
+            "name": "stellarwp/uplink",
+            "version": "v2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stellarwp/uplink.git",
+                "reference": "57eb6264994662cb8da368cc3a9227ec716edc70"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stellarwp/uplink/zipball/57eb6264994662cb8da368cc3a9227ec716edc70",
+                "reference": "57eb6264994662cb8da368cc3a9227ec716edc70",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.1",
+                "stellarwp/container-contract": "^1.0"
+            },
+            "require-dev": {
+                "codeception/module-asserts": "^1.0",
+                "codeception/module-cli": "^1.0",
+                "codeception/module-db": "^1.0",
+                "codeception/module-filesystem": "^1.0",
+                "codeception/module-phpbrowser": "^1.0",
+                "codeception/module-rest": "^1.0",
+                "codeception/module-webdriver": "^1.0",
+                "codeception/util-universalframework": "^1.0",
+                "lucatume/codeception-snapshot-assertions": "^0.4.0",
+                "lucatume/di52": "^3.0",
+                "lucatume/wp-browser": "^3.0.14",
+                "phpspec/prophecy": "^1.0",
+                "phpspec/prophecy-phpunit": "^1.0|^2.0",
+                "phpunit/phpunit": "^6.0|^7.0|^8.0|^9.0",
+                "symfony/event-dispatcher-contracts": "^2.5.1",
+                "symfony/string": "^5.4",
+                "szepeviktor/phpstan-wordpress": "^1.1"
+            },
+            "bin": [
+                "bin/stellar-uplink"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "StellarWP\\Uplink\\": "src/Uplink/",
+                    "StellarWP\\Uplink\\Views\\": "src/views/",
+                    "StellarWP\\Uplink\\Assets_Dir\\": "src/assets/",
+                    "StellarWP\\Uplink\\Admin_Views\\": "src/admin-views/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "StellarWP",
+                    "homepage": "https://stellarwp.com"
+                }
+            ],
+            "description": "A library that integrates a WordPress product with the StellarWP Licensing system.",
+            "support": {
+                "issues": "https://github.com/stellarwp/uplink/issues",
+                "source": "https://github.com/stellarwp/uplink/tree/v2.2.1"
+            },
+            "time": "2024-09-30T22:46:40+00:00"
         }
     ],
     "packages-dev": [
@@ -775,16 +899,16 @@
         },
         {
             "name": "automattic/jetpack-changelogger",
-            "version": "v4.2.6",
+            "version": "v4.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-changelogger.git",
-                "reference": "23b7c4b3dc98ce9c78d7c14fc8f0fd0c17f7888d"
+                "reference": "81a4c2beba9df2b8f1907b52c4b71ce152067e2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-changelogger/zipball/23b7c4b3dc98ce9c78d7c14fc8f0fd0c17f7888d",
-                "reference": "23b7c4b3dc98ce9c78d7c14fc8f0fd0c17f7888d",
+                "url": "https://api.github.com/repos/Automattic/jetpack-changelogger/zipball/81a4c2beba9df2b8f1907b52c4b71ce152067e2e",
+                "reference": "81a4c2beba9df2b8f1907b52c4b71ce152067e2e",
                 "shasum": ""
             },
             "require": {
@@ -831,9 +955,9 @@
                 "keepachangelog"
             ],
             "support": {
-                "source": "https://github.com/Automattic/jetpack-changelogger/tree/v4.2.6"
+                "source": "https://github.com/Automattic/jetpack-changelogger/tree/v4.2.8"
             },
-            "time": "2024-08-22T11:01:24+00:00"
+            "time": "2024-11-04T09:23:29+00:00"
         },
         {
             "name": "automattic/vipwpcs",
@@ -891,25 +1015,25 @@
         },
         {
             "name": "behat/gherkin",
-            "version": "v4.9.0",
+            "version": "v4.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Behat/Gherkin.git",
-                "reference": "0bc8d1e30e96183e4f36db9dc79caead300beff4"
+                "reference": "cbb83c4c435dd8d05a161f2a5ae322e61b2f4db6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/Gherkin/zipball/0bc8d1e30e96183e4f36db9dc79caead300beff4",
-                "reference": "0bc8d1e30e96183e4f36db9dc79caead300beff4",
+                "url": "https://api.github.com/repos/Behat/Gherkin/zipball/cbb83c4c435dd8d05a161f2a5ae322e61b2f4db6",
+                "reference": "cbb83c4c435dd8d05a161f2a5ae322e61b2f4db6",
                 "shasum": ""
             },
             "require": {
                 "php": "~7.2|~8.0"
             },
             "require-dev": {
-                "cucumber/cucumber": "dev-gherkin-22.0.0",
+                "cucumber/cucumber": "dev-gherkin-24.1.0",
                 "phpunit/phpunit": "~8|~9",
-                "symfony/yaml": "~3|~4|~5"
+                "symfony/yaml": "~3|~4|~5|~6|~7"
             },
             "suggest": {
                 "symfony/yaml": "If you want to parse features, represented in YAML files"
@@ -948,9 +1072,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Behat/Gherkin/issues",
-                "source": "https://github.com/Behat/Gherkin/tree/v4.9.0"
+                "source": "https://github.com/Behat/Gherkin/tree/v4.10.0"
             },
-            "time": "2021-10-12T13:05:09+00:00"
+            "time": "2024-10-19T14:46:06+00:00"
         },
         {
             "name": "bordoni/phpass",
@@ -1645,6 +1769,69 @@
             },
             "abandoned": "php-webdriver/webdriver",
             "time": "2019-06-13T08:02:18+00:00"
+        },
+        {
+            "name": "fakerphp/faker",
+            "version": "v1.23.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FakerPHP/Faker.git",
+                "reference": "bfb4fe148adbf78eff521199619b93a52ae3554b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/bfb4fe148adbf78eff521199619b93a52ae3554b",
+                "reference": "bfb4fe148adbf78eff521199619b93a52ae3554b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0",
+                "psr/container": "^1.0 || ^2.0",
+                "symfony/deprecation-contracts": "^2.2 || ^3.0"
+            },
+            "conflict": {
+                "fzaninotto/faker": "*"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4.1",
+                "doctrine/persistence": "^1.3 || ^2.0",
+                "ext-intl": "*",
+                "phpunit/phpunit": "^9.5.26",
+                "symfony/phpunit-bridge": "^5.4.16"
+            },
+            "suggest": {
+                "doctrine/orm": "Required to use Faker\\ORM\\Doctrine",
+                "ext-curl": "Required by Faker\\Provider\\Image to download images.",
+                "ext-dom": "Required by Faker\\Provider\\HtmlLorem for generating random HTML.",
+                "ext-iconv": "Required by Faker\\Provider\\ru_RU\\Text::realText() for generating real Russian text.",
+                "ext-mbstring": "Required for multibyte Unicode string functionality."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Faker\\": "src/Faker/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Zaninotto"
+                }
+            ],
+            "description": "Faker is a PHP library that generates fake data for you.",
+            "keywords": [
+                "data",
+                "faker",
+                "fixtures"
+            ],
+            "support": {
+                "issues": "https://github.com/FakerPHP/Faker/issues",
+                "source": "https://github.com/FakerPHP/Faker/tree/v1.23.1"
+            },
+            "time": "2024-01-02T13:46:09+00:00"
         },
         {
             "name": "gajus/dindent",
@@ -3120,16 +3307,16 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "5.4.1",
+            "version": "5.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "9d07b3f7fdcf5efec5d1609cba3c19c5ea2bdc9c"
+                "reference": "54e10d44fc1a84e2598d26f70d4f6f1f233e228a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/9d07b3f7fdcf5efec5d1609cba3c19c5ea2bdc9c",
-                "reference": "9d07b3f7fdcf5efec5d1609cba3c19c5ea2bdc9c",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/54e10d44fc1a84e2598d26f70d4f6f1f233e228a",
+                "reference": "54e10d44fc1a84e2598d26f70d4f6f1f233e228a",
                 "shasum": ""
             },
             "require": {
@@ -3142,13 +3329,13 @@
                 "webmozart/assert": "^1.9.1"
             },
             "require-dev": {
-                "mockery/mockery": "~1.3.5",
+                "mockery/mockery": "~1.3.5 || ~1.6.0",
                 "phpstan/extension-installer": "^1.1",
                 "phpstan/phpstan": "^1.8",
                 "phpstan/phpstan-mockery": "^1.1",
                 "phpstan/phpstan-webmozart-assert": "^1.2",
                 "phpunit/phpunit": "^9.5",
-                "vimeo/psalm": "^5.13"
+                "psalm/phar": "^5.26"
             },
             "type": "library",
             "extra": {
@@ -3178,29 +3365,29 @@
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
             "support": {
                 "issues": "https://github.com/phpDocumentor/ReflectionDocBlock/issues",
-                "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/5.4.1"
+                "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/5.5.0"
             },
-            "time": "2024-05-21T05:55:05+00:00"
+            "time": "2024-11-04T21:26:31+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "1.8.2",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "153ae662783729388a584b4361f2545e4d841e3c"
+                "reference": "1fb5ba8d045f5dd984ebded5b1cc66f29459422d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/153ae662783729388a584b4361f2545e4d841e3c",
-                "reference": "153ae662783729388a584b4361f2545e4d841e3c",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/1fb5ba8d045f5dd984ebded5b1cc66f29459422d",
+                "reference": "1fb5ba8d045f5dd984ebded5b1cc66f29459422d",
                 "shasum": ""
             },
             "require": {
                 "doctrine/deprecations": "^1.0",
                 "php": "^7.3 || ^8.0",
                 "phpdocumentor/reflection-common": "^2.0",
-                "phpstan/phpdoc-parser": "^1.13"
+                "phpstan/phpdoc-parser": "^1.18"
             },
             "require-dev": {
                 "ext-tokenizer": "*",
@@ -3236,9 +3423,9 @@
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
             "support": {
                 "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
-                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.8.2"
+                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.9.0"
             },
-            "time": "2024-02-23T11:10:43+00:00"
+            "time": "2024-11-03T20:11:34+00:00"
         },
         {
             "name": "phpspec/prophecy",
@@ -6979,5 +7166,5 @@
     "platform-overrides": {
         "php": "7.4.0"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }

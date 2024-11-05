@@ -156,36 +156,93 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 * The variable being tested for can be an array if you wish to find a nested value.
 	 *
 	 * @since 4.9.17 Included explicit check against $_REQUEST.
+	 * @since 6.2.1 Renamed from `tribe_get_request_var` to `tec_get_request_var`.
 	 *
-	 * @see   Tribe__Utils__Array::get()
+	 * @see   tec_get_request_var()
 	 *
-	 * @param string|array $var
-	 * @param mixed        $default
+	 * @param string|array $request_var   The variable to check for.
+	 * @param mixed        $default_value The default value to return if the variable is not set.
 	 *
 	 * @return mixed
 	 */
-	function tribe_get_request_var( $var, $default = null ) {
+	function tribe_get_request_var( $request_var, $default_value = null ) {
+		return tec_get_request_var( $request_var, $default_value );
+	}
+}
+
+if ( ! function_exists( 'tec_get_request_var' ) ) {
+	/**
+	 * Tests to see if the requested variable is set either as a post field or as a URL
+	 * param and returns the value if so.
+	 *
+	 * Post data takes priority over fields passed in the URL query. If the field is not
+	 * set then $default (null unless a different value is specified) will be returned.
+	 *
+	 * The variable being tested for can be an array if you wish to find a nested value.
+	 *
+	 * This function will sanitize the value before returning it.
+	 *
+	 * @since 6.2.1
+	 *
+	 * @see   Tribe__Utils__Array::get_in_any()
+	 * @see   tribe_sanitize_deep()
+	 *
+	 * @param string|array $request_var   The variable to check for.
+	 * @param mixed        $default_value The default value to return if the variable is not set.
+	 *
+	 * @return mixed
+	 */
+	function tec_get_request_var( $request_var, $default_value = null ) {
+		$unsafe = tec_get_request_var_raw( $request_var, $default_value );
+
+		// Sanitize and return.
+		return tribe_sanitize_deep( $unsafe );
+	}
+}
+
+if ( ! function_exists( 'tec_get_request_var_raw' ) ) {
+	/**
+	 * Tests to see if the requested variable is set either as a post field or as a URL
+	 * param and returns the value if so.
+	 *
+	 * Post data takes priority over fields passed in the URL query. If the field is not
+	 * set then $default (null unless a different value is specified) will be returned.
+	 *
+	 * The variable being tested for can be an array if you wish to find a nested value.
+	 *
+	 * This function will NOT sanitize the value before returning it.
+	 *
+	 * @since 6.2.1
+	 *
+	 * @see   Tribe__Utils__Array::get_in_any()
+	 *
+	 * @param string|array $request_var    The variable to check for.
+	 * @param mixed        $default_value  The default value to return if the variable is not set.
+	 *
+	 * @return mixed
+	 */
+	function tec_get_request_var_raw( $request_var, $default_value = null ) {
 		$requests = [];
 
 		// Prevent a slew of warnings every time we call this.
 		if ( isset( $_REQUEST ) ) {
-			$requests[] = (array) $_REQUEST;
+			$requests[] = (array) $_REQUEST; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
 		}
 
 		if ( isset( $_GET ) ) {
-			$requests[] = (array) $_GET;
+			$requests[] = (array) $_GET; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
 		}
 
 		if ( isset( $_POST ) ) {
-			$requests[] = (array) $_POST;
+			$requests[] = (array) $_POST; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
 		}
 
 		if ( empty( $requests ) ) {
-			return $default;
+			return $default_value;
 		}
 
-		$unsafe = Tribe__Utils__Array::get_in_any( $requests, $var, $default );
-		return tribe_sanitize_deep( $unsafe );
+		// Return the value as is.
+		return Tribe__Utils__Array::get_in_any( $requests, $request_var, $default_value );
 	}
 }
 

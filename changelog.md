@@ -1,5 +1,26 @@
 # Changelog
 
+### [6.3.1] 2024-11-04
+
+* Fix - Prevent new Settings pages to over sanitize textarea fields, thus removing HTML from before/after in the Events UI. [TEC-5283]
+* Fix - Include backwards compatibility for deprecated proprieties in the Settings class used in The Events Calendar and Event Tickets [TEC-5312]
+
+### [6.3.0] 2024-10-30
+
+* Feature - Added integration with new premium Seating product for Event Tickets.
+* Language - 0 new strings added, 23 updated, 1 fuzzied, and 0 obsoleted
+
+### [6.2.0] 2024-10-17
+
+* Feature - New Conditional Content supporting classes with available Traits for User targeted Dismissal.
+* Fix - Allow more svg attributes through the fields sanitization. [TEC-5282]
+* Tweak - Remove all of the deprecated Marketing related classes and files, as they are no longer used.
+* Tweak - Added filters: `tec_settings_sidebar_sections`
+* Tweak - Removed filters: `tribe_black_friday_start_time`, `tribe_black_friday_end_time`
+* Tweak - Added actions: `tec_conditional_content_black_friday`
+* Deprecated - Removed deprecated classes: `Tribe\Admin\Notice\Marketing`, `Tribe\Admin\Notice\Marketing\Black_Friday`, `Tribe\Admin\Notice\Marketing\End_Of_Year_Sale`, `Tribe\Admin\Notice\Marketing\Stellar_Sale`, `Tribe\Admin\Notice\Conditional_Content\`, `Tribe\Admin\Notice\Marketing\Black_Friday`, `Tribe\Admin\Notice\Marketing\End_Of_Year_Sale`, `Tribe\Admin\Notice\Marketing\Stellar_Sale`
+* Language - 1 new strings added, 44 updated, 1 fuzzied, and 22 obsoleted
+
 ### [6.1.0] 2024-09-26
 
 * Feature - Update core settings functionality and styles to allow for new plugin settings layout. [TEC-5124]
@@ -9,11 +30,29 @@
 * Tweak - Added actions: `tec_settings_sidebar_start`, `tec_settings_sidebar_header_start`, `tec_settings_sidebar_header_end`, `tec_settings_sidebar_end`, `tec_settings_init`, `tec_settings_render_modal_sidebar`, `tribe_settings_tab_after_link`, `tec_settings_tab_licenses`
 * Language - 16 new strings added, 138 updated, 6 fuzzied, and 18 obsoleted
 
+### [6.0.3.1] 2024-09-16
+
+* Security - Improve general escaping for ORM queries to prevent legacy Events methods to be used for SQL injections.
+
 ### [6.0.3] 2024-09-09
 
 * Feature - Adding the method `tec_copy_to_clipboard_button` which can be used to print a button which on click would copy a text to the user's clipboard. [ET-2158]
 * Fix - Bug when term slugs were numeric.
-* Fix - Optimized prime_term_cache to return early when no posts are provided [TECTRIA-229]
+* Fix - Optimized prime_term_cache to return early when no posts are provided [TEC-5150]
+
+### [6.0.2] 2024-08-20
+
+* Fix - Fixed attendee, updated attendee, and checkin endpoints from having invalid response for workflow operation 'id' to be of type 'Integer' but is of type 'String'. [EVA-160]
+* Fix - Stellar Sale's banner links, details, and HTML tags handling. [TEC-5121]
+* Tweak - Change setup of queues for Automator integrations to use Event Tickets Plus and Events Calendar Pro hooks instead of the core versions. [EVA-160]
+* Tweak - Move Registering of Power Automate and Zapier endpoints to Event Tickets Plus and Events Calendar Pro. [EVA-160]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+### [6.0.1] 2024-08-06
+
+* Fix - Change hook to detect if TEC is active for Automator Event Endpoints used by Power Automate and Zapier. [TEC-5123]
+* Fix - Move action pre-dispatch filters for Zapier to Event Tickets Plus and Events Calendar Pro to fix not authorized errors. [TEC-5123]
+* Language - 0 new strings added, 10 updated, 1 fuzzied, and 1 obsoleted
 
 ### [6.0.0.2] 2024-07-24
 
@@ -42,32 +81,32 @@
 
 ### [5.3.0.5] 2024-07-11
 
-* Fix - Ensure compatibility with WordPress 6.6 for removed polyfill `regenerator-runtime`. [TECTRIA-149]
+* Fix - Ensure compatibility with WordPress 6.6 for removed polyfill `regenerator-runtime`. [TEC-5120]
 
 ### [5.3.0.4] 2024-06-18
 
-* Fix - In installations where the plugins or wp-content directories were symbolic linked, assets would fail to be located. [TECTRIA-91]
+* Fix - In installations where the plugins or wp-content directories were symbolic linked, assets would fail to be located. [TEC-5106]
 * Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
 
 ### [5.3.0.3] 2024-06-14
 
-* Fix - Issue where scripts would not be enqueued as modules. [TECTRIA-86]
+* Fix - Issue where scripts would not be enqueued as modules. [ET-2136]
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 ### [5.3.0.2] 2024-06-14
 
-* Fix - Windows Server compatibility issues with updated Assets handling. [TECTRIA-83]
+* Fix - Windows Server compatibility issues with updated Assets handling. [TEC-5104]
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 ### [5.3.0.1] 2024-06-13
 
-* Fix - Issue on which some assets (css,js) would not be located in WP installs which could have some WP constant modified (WP_CONTENT_DIR, WP_PLUGIN_DIR)[TECTRIA-83]
+* Fix - Issue on which some assets (css,js) would not be located in WP installs which could have some WP constant modified (WP_CONTENT_DIR, WP_PLUGIN_DIR)[TEC-5104]
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 ### [5.3.0] 2024-06-11
 
 * Feature - Refactor tribe_asset to use Stellar Assets. [TCMN-172]
-* Tweak - Remove ini_check for deprecated safe_mode. [TBD]
+* Tweak - Remove ini_check for deprecated safe_mode. [6.2.0]
 * Tweak - Added information about upcoming promotion. [ET-2113]
 * Tweak - Added filters: `tribe_asset_enqueue_{$asset->get_slug()}`
 * Tweak - Removed filters: `tribe_asset_enqueue_{$asset->slug}`, `tribe_asset_pre_register`
@@ -219,7 +258,7 @@
 * Fix - Broken UI on the WYSIWYG field in the Additional Content section of the admin display settings. [TEC-4861]
 * Fix - Resolves a plugin integration bug that happens in certain scenarios with instantiating `Firebase\JWT` library classes. In these scenarios you would see a fatal error similar to `Uncaught TypeError: TEC\Common\Firebase\JWT\JWT::getKey(): Return value must be of type TEC\Common\Firebase\JWT\Key, OpenSSLAsymmetricKey returned..` [TEC-4866]
 * Fix - WP Rewrite was being incorrectly initialized in some scenarios due to container DI, and causing some 404s. This was affecting classes that extend the `Tribe__Rewrite`. [TEC-4844]
-* Tweak - Add checks to ensure that settings don't pass null to wp_kses() or esc_attr() [TBD]
+* Tweak - Add checks to ensure that settings don't pass null to wp_kses() or esc_attr() [6.2.0]
 * Language - 0 new strings added, 6 updated, 1 fuzzied, and 0 obsoleted
 
 ### [5.1.6] 2023-08-15
