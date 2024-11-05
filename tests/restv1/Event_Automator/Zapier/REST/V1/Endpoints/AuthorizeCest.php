@@ -48,7 +48,7 @@ class AuthorizeCest extends BaseRestCest {
 	 */
 	public function it_should_return_access_token_when_sending_valid_consumer_pair( Restv1Tester $I ) {
 		$this->setup_api_key_pair( $I );
-		$I->sendGET( $this->authorize_url, [ 'consumer_id' => 'ci_5c2da49bc57cbb269e0bc3610f9662511e365519', 'consumer_secret' => 'ck_8d048b3cbbce0cfd952beac836c69bf813c1cc9c', 'app_name' => 'zapier-event-tickets' ] );
+		$I->sendGET( $this->authorize_url, [ 'consumer_id' => 'ci_5c2da49bc57cbb269e0bc3610f9662511e365519', 'consumer_secret' => 'ck_8d048b3cbbce0cfd952beac836c69bf813c1cc9c', 'app_name' => 'zapier-the-events-calendar' ] );
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
@@ -56,11 +56,11 @@ class AuthorizeCest extends BaseRestCest {
 
 		// Check Last Access is Updated for API Key.
 		$api_key_data = get_option( 'tec_zapier_api_key_4689db48b24f0ac42f3f0d8fe027b8f28f63f262b9fc2f73736dfa91b4045425' );
-		$I->test_last_access( $api_key_data);
+		$I->test_tec_last_access( $api_key_data);
 
 		// Check Last Access is Updated for Endpoint.
 		$endpoint_details = get_option( '_tec_zapier_endpoint_details_authorize' );
-		$I->test_last_access( $endpoint_details);
+		$I->test_tec_last_access( $endpoint_details);
 	}
 
 	/**

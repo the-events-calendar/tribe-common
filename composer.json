@@ -25,6 +25,7 @@
     "lucatume/di52": "^3.3.7",
     "monolog/monolog": "1.24.*",
     "psr/container": "1.1.1",
+    "stellarwp/arrays": "1.2.2",
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
     "stellarwp/installer": "^1.1.0",
@@ -32,7 +33,8 @@
     "stellarwp/schema": "^1.1.3",
     "stellarwp/telemetry": "^2.3.1",
     "stellarwp/assets": "^1.2.6",
-    "stellarwp/admin-notices": "^1.1"
+    "stellarwp/admin-notices": "^1.1",
+    "stellarwp/uplink": "2.2.1"
   },
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
@@ -47,7 +49,8 @@
     "the-events-calendar/tec-testing-facilities": "dev-master",
     "wp-cli/checksum-command": "1.0.5",
     "wp-coding-standards/wpcs": "^3.0.0",
-    "automattic/jetpack-changelogger": "^4.2"
+    "automattic/jetpack-changelogger": "^4.2",
+    "fakerphp/faker": "^1.23"
   },
   "autoload": {
     "psr-4": {
@@ -63,16 +66,24 @@
     }
   },
   "scripts": {
+    "clean-strauss-static-function-autoload": "bash bin/clean-composer.sh",
     "strauss": [
-      "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.13.0/strauss.phar",
+      "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.19.4/strauss.phar",
       "vendor/stellarwp/installer/bin/set-domain domain=tribe-common",
-      "@php bin/strauss.phar"
+      "@php -d display_errors=on bin/strauss.phar",
+      "@composer dump-autoload",
+      "@clean-strauss-static-function-autoload"
     ],
     "post-install-cmd": [
-      "@strauss"
+      "@strauss",
+      "@stellar-uplink"
     ],
     "post-update-cmd": [
-      "@strauss"
+      "@strauss",
+      "@stellar-uplink"
+    ],
+    "stellar-uplink": [
+      "vendor/bin/stellar-uplink domain=tribe-common"
     ]
   },
   "extra": {
@@ -82,18 +93,22 @@
       "classmap_prefix": "TEC__Common__",
       "constant_prefix": "TEC_COMMON_",
       "packages": [
+        "stellarwp/arrays",
+        "stellarwp/assets",
         "stellarwp/container-contract",
         "stellarwp/db",
         "stellarwp/models",
         "stellarwp/schema",
         "stellarwp/installer",
         "stellarwp/telemetry",
+        "stellarwp/uplink",
         "lucatume/di52",
         "monolog/monolog",
         "firebase/php-jwt",
         "psr/container",
         "stellarwp/assets",
-        "stellarwp/admin-notices"
+        "stellarwp/admin-notices",
+        "fakerphp/faker"
       ],
       "exclude_from_prefix": {
         "file_patterns": []

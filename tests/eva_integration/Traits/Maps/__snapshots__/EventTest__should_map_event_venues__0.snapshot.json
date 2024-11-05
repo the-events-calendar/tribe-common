@@ -14,7 +14,13 @@
         "state_province": "DC",
         "state": "DC",
         "zip": "20001",
-        "directions_link": "https:\/\/maps.google.com\/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=801+Mt+Vernon+Pl+NW+Washington+DC+20001+United+States",
-        "geolocation": ""
+        "directions_link": "https:\/\/www.google.com\/maps\/search\/?api=1&#038;query=38.90514%2C-77.02314",
+        "geolocation": {
+            "overwrite_coordinates": false,
+            "latitude": "38.905140",
+            "longitude": "-77.023140",
+            "address": "801 Mt Vernon Pl NW, Washington, DC 20001",
+            "distance": false
+        }
     }
 ]

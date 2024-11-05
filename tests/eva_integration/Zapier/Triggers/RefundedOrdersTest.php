@@ -2,15 +2,15 @@
 
 namespace Tribe\tests\eva_integration\Zapier\Triggers;
 
-use TEC\Event_Automator\Tests\Traits\Create_events;
-use TEC\Event_Automator\Tests\Traits\Create_attendees;
+use TEC\Event_Automator\Tests\Traits\Create_Events;
+use TEC\Event_Automator\Tests\Traits\Create_Attendees;
 use TEC\Event_Automator\Zapier\Triggers\Refunded_Orders;
 use Tribe\Tests\Traits\With_Uopz;
 
 class RefundedOrdersTest extends \Codeception\TestCase\WPTestCase {
 
-	use Create_events;
-	use Create_attendees;
+	use Create_Events;
+	use Create_Attendees;
 	use With_Uopz;
 
 	public function setUp() {
@@ -20,6 +20,7 @@ class RefundedOrdersTest extends \Codeception\TestCase\WPTestCase {
 		// Clear Queue.
 		$queue = tribe( Refunded_Orders::class );
 		$queue->set_queue( [] );
+		add_filter( 'tec_event_automator_zapier_enable_add_to_queue', '__return_true' );
 	}
 
 	/**

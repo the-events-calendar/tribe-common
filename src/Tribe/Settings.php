@@ -284,7 +284,57 @@ class Tribe__Settings {
 		$this->default_tab  = null;
 		$this->current_tab  = null;
 
+		/**
+		 * Once we remove our last usage these internally in Event Tickets and Event Tickets Plus we can
+		 * remove these from our code and keep the magic getter to be able to catch any other usage.
+		 *
+		 * @deprecated 6.1.0
+		 */
+		$this->menuName    = $this->menu_name;
+		$this->requiredCap = $this->required_cap;
+		$this->allTabs     = $this->all_tabs;
+		$this->defaultTab  = $this->default_tab;
+		$this->currentTab  = $this->current_tab;
+		$this->noSaveTabs  = $this->no_save_tabs;
+		$this->adminSlug   = $this->admin_slug;
+
 		$this->hook();
+	}
+
+	/**
+	 * Magic getter for deprecated properties.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $name The property name we are looking for.
+	 *
+	 * @return mixed
+	 */
+	public function __get( $name ) {
+		// Map of deprecated properties and their respective actual property names.
+		$properties = [
+			'menuName'    => 'menu_name',
+			'requiredCap' => 'required_cap',
+			'allTabs'     => 'all_tabs',
+			'defaultTab'  => 'default_tab',
+			'currentTab'  => 'current_tab',
+			'noSaveTabs'  => 'no_save_tabs',
+			'adminSlug'   => 'admin_slug',
+		];
+
+		// Check if the requested property exists in the map.
+		if ( isset( $properties[ $name ] ) ) {
+			// Trigger deprecation notice for camel-case property names.
+			trigger_deprecation(
+				__CLASS__,
+				'6.1.0',
+				'Replace the use of ' . $name . ' with ' . $properties[ $name ] . ' in your code.'
+			);
+
+			return $this->{$properties[ $name ]};
+		}
+
+		return null;
 	}
 
 	/**
@@ -734,6 +784,7 @@ class Tribe__Settings {
 		if ( $saving ) {
 			wp_nonce_field( 'saving', 'tribe-save-settings' );
 		}
+
 		$current_tab = $this->get_current_tab();
 		if ( empty( $this->get_tab( $current_tab ) ) ) {
 			return;
@@ -1180,7 +1231,7 @@ class Tribe__Settings {
 	 */
 	protected function validate_field( $field_id, $field ) {
 		// Get the value.
-		$value = tribe_get_request_var( $field_id, null );
+		$value = tec_get_request_var_raw( $field_id, null );
 		$value = apply_filters( 'tribe_settings_validate_field_value', $value, $field_id, $field );
 
 		// Make sure it has validation set up for it, else do nothing.
@@ -1244,8 +1295,7 @@ class Tribe__Settings {
 				// Figure out the parent option [could be set to false] and filter it.
 				if ( is_network_admin() ) {
 					$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : Tribe__Main::OPTIONNAMENETWORK;
-				}
-				if ( ! is_network_admin() ) {
+				} else {
 					$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : Tribe__Main::OPTIONNAME;
 				}
 

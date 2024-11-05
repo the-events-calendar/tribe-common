@@ -35,7 +35,7 @@
 	};
 
 	/**
-	 * Replacemente for jQuery $.isNumeric that was deprecated on version 5.7 of WP.
+	 * Replacement for jQuery $.isNumeric that was deprecated on version 5.7 of WP.
 	 *
 	 * @param {string|int} number
 	 *
