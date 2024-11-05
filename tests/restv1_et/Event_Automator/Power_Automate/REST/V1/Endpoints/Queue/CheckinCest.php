@@ -11,8 +11,8 @@ use TEC\Event_Automator\Tests\Traits\Create_attendees;
 class CheckinCest extends BaseRestETPowerAutomateCest {
 
 	use SnapshotAssertions;
-	use Create_events;
-	use Create_attendees;
+	use Create_Events;
+	use Create_Attendees;
 
 	/**
 	 * @test

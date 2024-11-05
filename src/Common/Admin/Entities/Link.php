@@ -9,6 +9,7 @@ declare( strict_types=1 );
 
 namespace TEC\Common\Admin\Entities;
 
+use InvalidArgumentException;
 use Tribe\Utils\Element_Attributes as Attributes;
 use Tribe\Utils\Element_Classes as Classes;
 
@@ -27,25 +28,32 @@ class Link extends Base_Entity {
 	private string $url = '';
 
 	/**
-	 * The text for the link.
+	 * Content for the link if not a string.
 	 *
-	 * @var string
+	 * @var ?Base_Entity
 	 */
-	private string $text = '';
+	private ?Base_Entity $content = null;
 
 	/**
 	 * Link constructor.
 	 *
 	 * @since 6.1.0
 	 *
-	 * @param string      $url        The URL for the link.
-	 * @param string      $text       The text for the link.
-	 * @param ?Classes    $classes    The classes for the link.
-	 * @param ?Attributes $attributes The attributes for the link.
+	 * @param string             $url        The URL for the link.
+	 * @param string|Base_Entity $content    The text or entity for the link.
+	 * @param ?Classes           $classes    The classes for the link.
+	 * @param ?Attributes        $attributes The attributes for the link.
 	 */
-	public function __construct( string $url, string $text, ?Classes $classes = null, ?Attributes $attributes = null ) {
-		$this->url  = $url;
-		$this->text = $text;
+	public function __construct( string $url, $content, ?Classes $classes = null, ?Attributes $attributes = null ) {
+		$this->url = $url;
+
+		if ( is_string( $content ) ) {
+			$this->content = new Plain_Text( $content );
+		} elseif ( $content instanceof Base_Entity ) {
+			$this->content = $content;
+		} else {
+			throw new InvalidArgumentException( 'Content must be a string or an instance of Base_Entity' );
+		}
 
 		if ( $classes ) {
 			$this->set_classes( $classes );
@@ -64,12 +72,14 @@ class Link extends Base_Entity {
 	 * @return void
 	 */
 	public function render() {
-		printf(
-			'<a href="%s" class="%s" %s>%s</a>',
-			esc_url( $this->url ),
-			esc_attr( $this->get_classes() ),
-			$this->get_attributes(), // phpcs:ignore StellarWP.XSS.EscapeOutput,WordPress.Security.EscapeOutput
-			esc_html( $this->text )
-		);
+		?>
+	<a
+		href="<?php echo esc_url( $this->url ); ?>"
+		class="<?php echo esc_attr( $this->get_classes() ); ?>"
+		<?php echo $this->get_attributes(); // phpcs:ignore StellarWP.XSS.EscapeOutput,WordPress.Security.EscapeOutput ?>
+	>
+		<?php $this->content->render(); ?>
+	</a>
+		<?php
 	}
 }

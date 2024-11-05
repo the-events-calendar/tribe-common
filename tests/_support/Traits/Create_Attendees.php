@@ -24,8 +24,7 @@ use WC_Order_Refund;
 use WC_Product_Simple;
 use WP_Post;
 
-trait Create_attendees {
-
+trait Create_Attendees {
 	use RSVP_Ticket_Maker;
 	use TC_Ticket_Maker;
 	use TC_Order_Maker;
