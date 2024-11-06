@@ -70,7 +70,6 @@ ul.tec-help-list__list-expanded {
 }
 
 .tribe_events_page_tec-events-settings .tec-settings-form__sidebar {
-	min-height: inherit;
 	border: 1px solid var(--tec-color-border-default);
 	border-radius: var(--tec-border-radius-default);
 }
@@ -137,9 +136,49 @@ ul.tec-help-list__list-expanded {
 	}
 }
 
-/* Media Queries */
-/* Large screen adjustments (1260px and up) */
+.tec-tab-parent-container {
+	.tribe-settings-form,
+	.tec-settings-form {
+		padding-bottom: calc(var(--tec-spacer-settings-form-col-gap) / 2);
+	}
+
+	.tec-settings-form__sidebar {
+		display: flex;
+		max-width: calc(100% - var(--tec-spacer-7) * 2);
+		width: var(--tec-spacer-settings-form-width);
+		margin-top: var(--tec-spacer-3);
+		margin-left: var(--tec-spacer-7);
+		min-height: auto;
+	}
+}
+
+/* Medium screen adjustments (500px to 1260px) */
+@media (--viewport-xsmall) {
+	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox {
+		margin-bottom: var(--tec-spacer-5);
+		margin-right: var(--tec-spacer-7);
+	}
+}
+
+/* Medium screen adjustments (500px to 1260px) */
+@media (--viewport-full) {
+	.tribe_events_page_tec-events-settings {
+		.tec-settings-form {
+			max-width: calc(100% - var(--tec-spacer-7)*2);
+			width: var(--tec-spacer-settings-form-width);
+		}
+	}
+}
+
 @media (--viewport-xlarge) {
+	.tec-tab-parent-container {
+		.tec-settings-form__sidebar {
+			max-width: var(--tec-width-sidebar);
+			margin-top: var(--tec-spacer-5);
+			margin-left: var(--tec-spacer-4);
+		}
+	}
+
 	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__section-description {
 		margin-top: var(--tec-spacer-2);
 	}
@@ -149,42 +188,10 @@ ul.tec-help-list__list-expanded {
 		margin-left: calc(var(--tec-spacer-5) * -1);
 		margin-top: calc(var(--tec-spacer-6) * -1);
 	}
-}
 
-/* Medium screen adjustments (500px to 1260px) */
-@media (--viewport-xsmall) and (max-width: 1260px) {
-	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox {
-		margin-bottom: var(--tec-spacer-5);
-		margin-right: var(--tec-spacer-7);
-	}
-}
 
-/* Small screen adjustments (below 1260px) */
-@media (max-width: 1260px) {
-	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox {
-		display: none;
-	}
-}
-
-@media screen and (max-width: 1260px) {
-	.tec-tab-parent-container {
-		.tribe-settings-form,
-		.tec-settings-form {
-			max-width: calc(100% - var(--tec-spacer-3) * 2);
-			width: var(--tec-spacer-settings-form-width);
-			padding-bottom: var(--tec-spacer-settings-form-col-gap);
-		}
-
-		.tec-settings-form__sidebar {
-			display: flex;
-			max-width: calc(100% - var(--tec-spacer-7) * 2);
-			width: var(--tec-spacer-settings-form-width);
-			margin-top: var(--tec-spacer-3);
-			margin-left: var(--tec-spacer-7);
-
-			.tec-settings__sidebar-inner {
-				max-width: calc(100% - var(--tec-spacer-3) * 2);
-			}
-		}
+	.tec-settings-form {
+		max-width: var(--tec-spacer-settings-form-width);
+		width: auto;
 	}
 }
