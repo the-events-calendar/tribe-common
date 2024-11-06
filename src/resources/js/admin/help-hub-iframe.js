@@ -225,13 +225,13 @@ window.DocsBotAI = window.DocsBotAI || {};
 							id: helpHubSettings.docsbot_key,
 							supportCallback: ( event ) => {
 								event.preventDefault();
-								DocsBotAI.unmount();
+								obj.selectors.body.classList.add( 'blackout' );
 								zE(
-									'messenger',
+									'webWidget',
 									'show'
 								);
 								zE(
-									'messenger',
+									'webWidget',
 									'open'
 								);
 							},
