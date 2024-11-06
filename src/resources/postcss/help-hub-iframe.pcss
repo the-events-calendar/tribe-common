@@ -1,5 +1,5 @@
 /**
- Help Hub Iframe styles.
+ * Help Hub Iframe styles (Mobile-First).
  */
 
 /* Reset margins and padding */
@@ -18,6 +18,7 @@ body {
 	display: none !important;
 }
 
+/* Overlay styles */
 .blackout {
 	display: flex;
 	justify-content: center;
@@ -25,7 +26,6 @@ body {
 	height: 100vh;
 }
 
-/* Blackout overlay */
 .blackout::before {
 	content: '';
 	position: fixed;
@@ -34,20 +34,50 @@ body {
 	width: 100vw;
 	height: 100vh;
 	background-color: rgba(0, 0, 0, .8);
-	z-index: 999999; /* Must be higher than DocBots z-index */
+	z-index: 999999;
 	pointer-events: none;
 	transition: var(--tec-transition-opacity);
 }
 
+/**
+ * Zendesk Styles
+ */
+
+/* Disable pointer events for child elements */
 .zendesk-widget-open * {
 	pointer-events: none;
 }
 
-iframe[name="Messaging window"] {
-	margin-right: -16px;
-	z-index: 99999999 !important; /* Make sure the Zendesk Iframe is above DocBot */
+/* Overwrite inline Iframe styles for the Zendesk widget */
+#webWidget {
+	height: 100% !important;
+	width: 100% !important; /* Default to full width on the smallest screens */
+	max-width: 100% !important; /* Ensure full width */
+	min-width: 33vw !important;
+	z-index: 99999999 !important;
+	margin: 0 auto !important;
 }
 
+/* Small screens and up: 80% width with 10% margins */
+@media (--viewport-xxsmall) {
+	#webWidget {
+		width: 80% !important;
+		margin-left: 10% !important;
+		margin-right: 10% !important;
+	}
+}
+
+/* Medium screens and up: 50% width, centered */
+@media (--viewport-medium) {
+	#webWidget {
+		width: 50% !important;
+		margin: 0 auto !important;
+	}
+}
+
+/**
+ * Docsbot Styles
+ */
 #docsbot-widget-embed {
 	height: 600px;
 	max-height: 100vh;
@@ -57,6 +87,10 @@ iframe[name="Messaging window"] {
 		display: none;
 	}
 }
+
+/**
+ * Opt-Out Message Container Styles
+ */
 
 /* Main container for the opt-out message */
 .tec-help-hub-iframe-opt-out-message {
@@ -73,25 +107,24 @@ iframe[name="Messaging window"] {
 	text-align: left;
 }
 
-/* Column for the image */
+/* Image Column */
 .tec-help-hub-iframe-opt-out-message__image {
 	flex-shrink: 0;
 }
 
-/* Make sure the image does not exceed a certain size */
 .tec-help-hub-iframe-opt-out-message__image img {
 	max-width: 100px;
 	height: auto;
 }
 
-/* Column for the content (h3, p, a) */
+/* Content Column */
 .tec-help-hub-iframe-opt-out-message__content {
 	display: flex;
 	flex-direction: column;
 	gap: var(--tec-spacer-2);
 }
 
-/* Link styles */
+/* Link Styles */
 .tec-help-hub-iframe-opt-out-message__content a {
 	margin-top: var(--tec-spacer-2);
 	color: var(--tec-color-link-primary);

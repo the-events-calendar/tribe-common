@@ -22,8 +22,15 @@ if ( empty( $section['common_issues'] ) ) {
 			<?php echo esc_html_x( 'Common issues', 'Common issues section title', 'tribe-common' ); ?>
 		</h3>
 		<p class="tec-settings-form__section-description">
-			<?php echo esc_html_x( 'Having trouble? Find solutions to common issues or ask our AI Chatbot.', 'Common issues section description', 'tribe-common' ); ?>
+			<?php
+			printf(
+			/* translators: %s is the link to the AI Chatbot */
+				esc_html__( 'Having trouble? Find solutions to common issues or ask our %s.', 'tribe-common' ),
+				'<a href="javascript:void(0)" data-tab-target="tec-help-tab">' . esc_html__( 'AI Chatbot', 'tribe-common' ) . '</a>'
+			);
+			?>
 		</p>
+
 	</div>
 	<ul class="tec-help-list__list-expanded">
 		<?php foreach ( $section['common_issues'] as $issue ) : ?>
