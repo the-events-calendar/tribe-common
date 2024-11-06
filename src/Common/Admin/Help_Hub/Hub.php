@@ -69,7 +69,33 @@ class Hub {
 		$this->config   = $config;
 		$this->template = $template;
 		$this->data     = $data;
+
+		$this->setup_support_keys();
 		$this->register_hooks();
+	}
+
+	/**
+	 * Sets up support keys for embedding the chat widgets.
+	 *
+	 * @since TBD
+	 *
+	 * @link  https://docsbot.ai/documentation/developer/embeddable-chat-widget Docsbot Embeddable Chat Widget Documentation
+	 * @link  https://support.zendesk.com/hc/en-us/articles/4408836216218-Using-Web-Widget-Classic-to-embed-customer-service-in-your-website Zendesk Classic Chat Widget Documentation
+	 */
+	protected function setup_support_keys() {
+		if ( ! defined( 'TEC_HELP_HUB_CHAT_DOCSBOT_SUPPORT_KEY' ) ) {
+			/**
+			 * Docsbot key for embedding the bot iframe.
+			 */
+			define( 'TEC_HELP_HUB_CHAT_DOCSBOT_SUPPORT_KEY', 'yes2mjAljn0V5ndsWaOi/VhpexdT7TZTckW7FLyN7' );
+		}
+
+		if ( ! defined( 'TEC_HELP_HUB_CHAT_ZENDESK_CHAT_KEY' ) ) {
+			/**
+			 * Zendesk key for embedding the classic chat widget.
+			 */
+			define( 'TEC_HELP_HUB_CHAT_ZENDESK_CHAT_KEY', 'd8e5e319-c54b-4da9-9d7d-e984cc3c4900' );
+		}
 	}
 
 	/**
@@ -474,7 +500,7 @@ class Hub {
 		$notice_admin = ( new AdminNotice( $slug, "<p>$text</p>" ) )
 			->urgency( 'info' )
 			->inline()
-			->dismissible( false )
+			->dismissible( true )
 			->withWrapper();
 
 		return AdminNotices::render( $notice_admin, false );
