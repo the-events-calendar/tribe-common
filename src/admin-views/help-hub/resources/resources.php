@@ -20,10 +20,10 @@ use TEC\Common\Admin\Help_Hub\Hub;
 			</h2>
 			<p class="tec-settings-form__section-description">
 				<?php
-				echo esc_html_x(
-					'Help on setting up, customizing and troubleshooting your calendar. See our Knowledgebase for in-depth content.',
-					'Overview paragraph for Resources tab',
-					'tribe-common'
+				printf(
+				/* translators: %1$s is the link to the Knowledgebase. */
+					esc_html__( 'Help on setting up, customizing, and troubleshooting your calendar. See our %1$s for in-depth content.', 'tribe-common' ),
+					'<a href="https://evnt.is/1bbw" rel="noopener noreferrer" target="_blank">' . esc_html__( 'Knowledgebase', 'tribe-common' ) . '</a>'
 				);
 				?>
 			</p>
