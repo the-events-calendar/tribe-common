@@ -12,48 +12,41 @@ use TEC\Common\Admin\Help_Hub\Hub;
 ?>
 <div class="tribe-settings-form form">
 	<div class="tec-settings-form">
-		<div class="tec-settings-form__content-section">
-			<div class="tec-settings-form__header-block">
-				<h2 class="tec-settings-form__section-header">
-					<?php
-					echo esc_html_x( 'Resources', 'Resources tab title', 'tribe-common' );
-					?>
-				</h2>
-				<p class="tec-settings-form__section-description">
-					<?php
-					echo esc_html_x(
-						'Help on setting up, customizing and troubleshooting your calendar. See our Knowledgebase for in-depth content.',
-						'Overview paragraph for Resources tab',
-						'tribe-common'
-					);
-					?>
-				</p>
+		<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
+			<h2 class="tec-settings-form__section-header">
 				<?php
-				$notice_content = sprintf(
-				// translators: Placeholders are for the `a` tag that displays a link.
-					_x(
-						'To find the answer to all your questions use the %1$sTEC Chatbot%2$s',
-						'The callout notice to try the chatbot with a link to the page',
-						'tribe-common'
-					),
-					'<a data-tab-target="tec-help-tab" href="#">',
-					'</a>'
-				);
-
-				echo wp_kses( $help_hub->generate_notice_html( $notice_content, 'tec-common-help-chatbot-notice' ), 'post' );
-
+				echo esc_html_x( 'Resources', 'Resources tab title', 'tribe-common' );
 				?>
-			</div>
+			</h2>
+			<p class="tec-settings-form__section-description">
+				<?php
+				echo esc_html_x(
+					'Help on setting up, customizing and troubleshooting your calendar. See our Knowledgebase for in-depth content.',
+					'Overview paragraph for Resources tab',
+					'tribe-common'
+				);
+				?>
+			</p>
+			<?php
+			$notice_content = sprintf(
+			// translators: Placeholders are for the `a` tag that displays a link.
+				_x(
+					'To find the answer to all your questions use the %1$sTEC Chatbot%2$s',
+					'The callout notice to try the chatbot with a link to the page',
+					'tribe-common'
+				),
+				'<a data-tab-target="tec-help-tab" href="#">',
+				'</a>'
+			);
+
+			echo wp_kses( $help_hub->generate_notice_html( $notice_content, 'tec-common-help-chatbot-notice' ), 'post' );
+
+			?>
 		</div>
-
 		<?php $this->template( 'help-hub/resources/getting-started' ); ?>
-
 		<?php $this->template( 'help-hub/resources/customization' ); ?>
-
 		<?php $this->template( 'help-hub/resources/common-issues' ); ?>
-
 		<?php $this->template( 'help-hub/resources/faqs' ); ?>
-
 
 		<div class="tec-settings-infobox">
 			<img class="tec-settings-infobox-logo" src="<?php echo esc_url( $help_hub->get_icon_url( 'stars_icon' ) ); ?>" alt="AI Chatboat logo">
