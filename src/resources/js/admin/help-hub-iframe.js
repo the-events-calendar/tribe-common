@@ -61,7 +61,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 		obj.isZendeskInitialized = false;
 
 		zE(
-			'messenger',
+			'webWidget',
 			'hide',
 			() => {
 				obj.isZendeskInitialized = true;
@@ -70,7 +70,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 
 		// Add 'blackout' class when the widget is opened.
 		zE(
-			'messenger:on',
+			'webWidget:on',
 			'open',
 			() => {
 				if ( obj.isZendeskInitialized ) {
@@ -81,11 +81,11 @@ window.DocsBotAI = window.DocsBotAI || {};
 
 		// Remove 'blackout' class when the widget is closed.
 		zE(
-			'messenger:on',
+			'webWidget:on',
 			'close',
 			() => {
 				zE(
-					'messenger',
+					'webWidget',
 					'hide'
 				);
 				obj.selectors.body.classList.remove( 'blackout' );
@@ -111,11 +111,11 @@ window.DocsBotAI = window.DocsBotAI || {};
 			case 'runScript':
 				if ( data === 'openZendesk' ) {
 					zE(
-						'messenger',
+						'webWidget',
 						'show'
 					);
 					zE(
-						'messenger',
+						'webWidget',
 						'open'
 					);
 					obj.selectors.body.classList.add( 'blackout' );
