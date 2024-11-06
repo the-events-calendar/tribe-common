@@ -1,7 +1,8 @@
 /**
- Help Hub and Resources page styles.
+ * Help Hub and Resources page styles.
  */
 
+/* Navigation and Tab Styles */
 li.tec-nav__tab {
 	cursor: pointer;
 }
@@ -11,6 +12,13 @@ li.tec-nav__tab {
 	flex-flow: row wrap;
 	justify-content: flex-start;
 	padding-bottom: var(--tec-spacer-7);
+}
+
+/* Help List Styles */
+.tec-help-list__list-expanded {
+	width: 100%;
+	max-width: 100% !important;
+	font-size: var(--tec-font-size-2);
 }
 
 .tec-help-list__list-expanded li {
@@ -25,68 +33,54 @@ li.tec-nav__tab {
 	margin-right: 8px;
 }
 
-@media (min-width: 1024px) {
-	.tribe_events_page_tec-events-settings #tec-settings-form .tec-settings-form__content-section,
-	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__content-section {
-		--tec-spacer-settings-form-width-left-col: 318px;
-	}
-}
-
-
-.tec-settings-form__sidebar.tec-help-resources__sidebar {
-	border: none;
-	background-color: transparent;
-	margin: var(--tec-spacer-3) auto auto 0;
-}
-
+/* Sidebar Styles */
 .tec-settings__sidebar-inner {
-	width: 100%;
-	border: 1px solid var(--tec-admin-core-grey-10);
-	background-color: var(--tec-admin-core-grey-0);
-	border-radius: var(--tec-border-radius-default);
 	padding: var(--tec-spacer-4);
 }
 
 .tec-settings__sidebar-icon-wrap {
 	display: grid;
 	grid-template-columns: 38px 1fr;
+}
 
-	.tec-settings__sidebar-icon-wrap-content {
-		margin-left: 12px !important;
+.tec-settings__sidebar-icon-wrap .tec-settings__sidebar-icon-wrap-content {
+	margin-left: 12px !important;
+}
+
+/* Tab Parent Container */
+.tec-tab-parent-container {
+	.tec-tab-container {
+		display: none;
+		visibility: hidden; /* Hide initially to avoid flickering */
 	}
 }
 
-.tec-help-list__list-expanded {
-	width: 100%;
-	max-width: 100% !important;
-	font-size: var(--tec-font-size-2);
+/* Content Section Styling */
+.tec-settings-form__content-section {
+	padding-right: var(--tec-spacer-7);
+	width: calc(100% - var(--tec-spacer-3) * 2);
 }
 
-.tec-settings-form {
-	padding-bottom: var(--tec-spacer-settings-form-col-gap) !important;
+.tribe_events_page_tec-events-settings #tec-settings-form > *,
+.tribe_events_page_tec-events-settings .tec-settings-form > * {
+	padding: 0 var(--tec-spacer-3);
 }
 
+.tribe_events_page_tec-events-settings .tribe-settings-form {
+	flex: auto;
+}
+
+.tribe_events_page_tec-events-settings .tec-settings-form__sidebar {
+	min-height: inherit;
+	border: 1px solid var(--tec-color-border-default);
+	border-radius: var(--tec-border-radius-default);
+}
+
+/* Accordion Styles */
 .tec-ui-accordion {
 	max-width: 100% !important;
 }
 
-/* Iframe Style */
-.tec-settings__support-hub-iframe-container {
-	#tec-settings__support-hub-iframe {
-		height: 750px;
-		width: calc(100% - var(--tec-spacer-3) * 2);
-	}
-
-	#tec-settings__support-hub-iframe-loader {
-		.spinner-container {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-	}
-}
-
-/* Accordion Style */
 .tec-ui-accordion * {
 	box-sizing: content-box;
 }
@@ -128,43 +122,67 @@ li.tec-nav__tab {
 	background-repeat: no-repeat;
 }
 
-.tec-tab-parent-container {
-	.tec-tab-container {
-		display: none;
-		visibility: hidden; /* Hide initially to avoid flickering */
+/* Iframe Container Styles */
+.tec-settings__support-hub-iframe-container {
+	#tec-settings__support-hub-iframe {
+		height: 750px;
+		width: calc(100% - var(--tec-spacer-3) * 2);
+	}
+
+	#tec-settings__support-hub-iframe-loader {
+		.spinner-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
 	}
 }
 
-.tec-settings-form__content-section {
-	padding-right: var(--tec-spacer-7);
-	width: calc(100% - var(--tec-spacer-3) * 2);
+/* Media Queries */
+/* Large screen adjustments (1260px and up) */
+@media (min-width: 1260px) {
+	.tribe_events_page_tec-events-settings .tec-settings-form__sidebar {
+		margin: var(--tec-spacer-7) auto auto 0;
+	}
+
+	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__section-description {
+		margin-top: var(--tec-spacer-2);
+	}
+
+	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox {
+		margin-bottom: var(--tec-spacer-5);
+		margin-left: calc(var(--tec-spacer-5) * -1);
+		margin-top: calc(var(--tec-spacer-6) * -1);
+	}
 }
 
-.tribe_events_page_tec-events-settings #tec-settings-form > *, .tribe_events_page_tec-events-settings .tec-settings-form > * {
-	padding: 0 var(--tec-spacer-3);
+/* Medium screen adjustments (500px to 1260px) */
+@media (min-width: 500px) and (max-width: 1260px) {
+	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox {
+		margin-bottom: var(--tec-spacer-5);
+		margin-right: var(--tec-spacer-7);
+	}
 }
 
-.tribe_events_page_tec-events-settings .tribe-settings-form {
-	flex: auto;
-}
-.tribe_events_page_tec-events-settings .tec-settings-form__sidebar {
-	min-height: inherit;
-}
-
+/* Small screen adjustments (below 1260px) */
 @media (max-width: 1260px) {
 	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox {
 		display: none;
 	}
+}
 
+@media screen and (max-width: 1260px) {
 	.tec-tab-parent-container {
-		.tribe-settings-form, .tec-settings-form {
+		.tribe-settings-form,
+		.tec-settings-form {
 			max-width: calc(100% - var(--tec-spacer-3) * 2);
 			width: var(--tec-spacer-settings-form-width);
+			padding-bottom: var(--tec-spacer-settings-form-col-gap);
 		}
 
 		.tec-settings-form__sidebar {
 			display: flex;
-			max-width: calc(100% - var(--tec-spacer-8) * 2);
+			max-width: calc(100% - var(--tec-spacer-7) * 2);
 			width: var(--tec-spacer-settings-form-width);
 			margin-top: var(--tec-spacer-3);
 			margin-left: var(--tec-spacer-7);
@@ -174,27 +192,4 @@ li.tec-nav__tab {
 			}
 		}
 	}
-}
-
-@media screen and (max-width: 782px) {
-	.tec-tab-parent-container {
-		.tribe-settings-form, .tec-settings-form {
-			max-width: calc(100% - var(--tec-spacer-3) * 2);
-			width: var(--tec-spacer-settings-form-width);
-		}
-
-		.tec-settings-form__sidebar {
-			display: flex;
-			max-width: calc(100% - var(--tec-spacer-6) * 2);
-			width: var(--tec-spacer-settings-form-width);
-			margin-top: var(--tec-spacer-3);
-			margin-left: var(--tec-spacer-3);
-
-			.tec-settings__sidebar-inner {
-				max-width: calc(100% - var(--tec-spacer-3) * 2);
-			}
-		}
-	}
-
-
 }

@@ -39,15 +39,52 @@ body {
 	transition: var(--tec-transition-opacity);
 }
 
+/**
+Zendesk Styles
+ */
 .zendesk-widget-open * {
 	pointer-events: none;
 }
 
-iframe[name="Messaging window"] {
-	margin-right: -16px;
-	z-index: 99999999 !important; /* Make sure the Zendesk Iframe is above DocBot */
+/* Overwrite inline Iframe styles from Zendesk */
+#webWidget {
+	height: 100% !important;
+	max-width: 95% !important;
+	min-width: 33vw !important;
+	z-index: 99999999 !important;
+	margin: 0 auto !important;
+	width: 50% !important; /* Default width */
 }
 
+/* Above 700px: 50% width, centered */
+@media (min-width: 700px) {
+	#webWidget {
+		width: 50% !important;
+		margin: 0 auto !important;
+	}
+}
+
+/* Between 350px and 700px: 80% width with 10% margins */
+@media (max-width: 700px) and (min-width: 351px) {
+	#webWidget {
+		width: 80% !important;
+		margin-left: 10% !important;
+		margin-right: 10% !important;
+	}
+}
+
+/* 300px or less: 100% width, no side margins */
+@media (max-width: 350px) {
+	#webWidget {
+		width: 100% !important;
+		max-width: 100% !important; /* Ensure full width */
+		margin: 0 !important; /* Remove any side margins */
+	}
+}
+
+/**
+Docsbot Styles
+ */
 #docsbot-widget-embed {
 	height: 600px;
 	max-height: 100vh;
