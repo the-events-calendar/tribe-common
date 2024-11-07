@@ -244,6 +244,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Iterate on all the registered PUE Product Licenses we have and find if any are valid.
 		 * Will revalidate the licenses if none are found to be valid.
 		 *
+		 * @todo In scenarios where a user goes from a Free license to an active license the transient may give a false positive.
+		 *
 		 * @since TBD
 		 *
 		 * @return bool
@@ -687,7 +689,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$no_license_tooltip = esc_html__( 'A valid license key is required for support and updates', 'tribe-common' );
 			if ( 'event-aggregator' === $this->get_slug() ) {
 				$no_license_tooltip = sprintf(
-				/* Translators: %1$s and %2$s are opening and closing <a> tags, respectively. */
+					/* Translators: %1$s and %2$s are opening and closing <a> tags, respectively. */
 					esc_html__( '%1$sBuy a license%2$s for the Event Aggregator service to access additional import features.', 'tribe-common' ),
 					'<a href="https://evnt.is/196y" target="_blank">',
 					'</a>'
@@ -1098,7 +1100,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			if ( ! $key ) {
 				$response['message'] = sprintf(
-				/* Translators: %1$s and %2$s are opening and closing <a> tags, respectively. */
+					/* Translators: %1$s and %2$s are opening and closing <a> tags, respectively. */
 					esc_html__(
 						'Hmmm... something\'s wrong with this validator. Please contact %1$ssupport%2$s.',
 						'tribe-common'
@@ -1152,7 +1154,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				if ( $current_install_key && $current_install_key === $replacement_key ) {
 					$default_success_msg = esc_html(
 						sprintf(
-						/* Translators: %s is the expiration date. */
+							/* Translators: %s is the expiration date. */
 							__( 'Valid Key! Expires on %s', 'tribe-common' ),
 							$expiration
 						)
@@ -1163,7 +1165,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 					$default_success_msg = esc_html(
 						sprintf(
-						/* Translators: %s is the expiration date. */
+							/* Translators: %s is the expiration date. */
 							__(
 								'Thanks for setting up a valid key. It will expire on %s',
 								'tribe-common'
@@ -1202,10 +1204,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function get_license_expired_message() {
 			return '<a href="https://evnt.is/195y" target="_blank" class="button button-primary">' .
-				   __( 'Renew Your License Now', 'tribe-common' ) .
-				   '<span class="screen-reader-text">' .
-				   __( ' (opens in a new window)', 'tribe-common' ) .
-				   '</span></a>';
+				__( 'Renew Your License Now', 'tribe-common' ) .
+				'<span class="screen-reader-text">' .
+				__( ' (opens in a new window)', 'tribe-common' ) .
+				'</span></a>';
 		}
 
 		/**
@@ -1241,7 +1243,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		private function get_api_message( $info ) {
 			// this default message should never show, but is here as a fallback just in case.
 			$message = sprintf(
-			/* Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively. */
+				/* Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively. */
 				esc_html__(
 					'There is an update for %1$s. You\'ll need to %2$scheck your license%3$s to have access to updates, downloads, and support.',
 					'tribe-common'
@@ -1305,7 +1307,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			return sprintf(
-			/* Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively. */
+				/* Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively. */
 				esc_html__(
 					'There is an update for %1$s. %2$sRenew your license%3$s to get access to bug fixes, security updates, and new features.',
 					'tribe-common'
@@ -1337,7 +1339,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			} elseif ( $update_available && current_user_can( 'update_plugins' ) ) {
 				// A plugin update is available.
 				$update_now = sprintf(
-				/* Translators: %s is the plugin version number. */
+					/* Translators: %s is the plugin version number. */
 					esc_html__(
 						'Update now to version %s.',
 						'tribe-common'
@@ -1352,7 +1354,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				);
 
 				$update_message = sprintf(
-				/* Translators: %1$s is the plugin name. %2$s is the update now link. */
+					/* Translators: %1$s is the plugin name. %2$s is the update now link. */
 					esc_html__( 'There is a new version of %1$s available. %2$s', 'tribe-common' ),
 					$this->plugin_name,
 					$update_now_link
@@ -1532,9 +1534,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$plugin_info = null;
 
 			if ( ! is_wp_error( $result )
-				 && isset( $result['response']['code'] )
-				 && ( 200 === (int) $result['response']['code'] )
-				 && ! empty( $result['body'] )
+				&& isset( $result['response']['code'] )
+				&& ( 200 === (int) $result['response']['code'] )
+				&& ! empty( $result['body'] )
 			) {
 				$plugin_info = Tribe__PUE__Plugin_Info::from_json( $result['body'] );
 			}
