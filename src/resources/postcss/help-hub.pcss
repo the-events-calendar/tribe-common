@@ -121,10 +121,6 @@ ul.tec-help-list__list-expanded {
 	background-repeat: no-repeat;
 }
 
-.tec-settings__sidebar-inner {
-	background: var(--tec-color-background)
-}
-
 /* Iframe Container Styles */
 .tec-settings__support-hub-iframe-container {
 	#tec-settings__support-hub-iframe {
@@ -149,32 +145,56 @@ ul.tec-help-list__list-expanded {
 
 	.tec-settings-form__sidebar {
 		display: flex;
-		max-width: calc(100% - var(--tec-spacer-7) * 2);
-		width: var(--tec-spacer-settings-form-width);
+		max-width: calc(100% - var(--tec-spacer-4) * 2);
+		width: calc(100% - var(--tec-spacer-7) * 2);
 		margin-top: var(--tec-spacer-3);
 		margin-left: var(--tec-spacer-7);
 		min-height: auto;
 	}
 }
 
-/* Medium screen adjustments (500px to 1260px) */
+/* Small screen adjustments */
 @media (--viewport-xsmall) {
+	.tec-tab-parent-container .tec-settings-form__sidebar {
+		background: var(--tec-color-background)
+	}
+
 	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox {
 		margin-bottom: var(--tec-spacer-5);
 		margin-right: var(--tec-spacer-7);
 	}
 }
 
-/* Medium screen adjustments (500px to 1260px) */
+/* Medium screen adjustments */
 @media (--viewport-full) {
+
 	.tribe_events_page_tec-events-settings {
 		.tec-settings-form {
-			max-width: calc(100% - var(--tec-spacer-7)*2);
-			width: var(--tec-spacer-settings-form-width);
+			max-width: calc(100% - var(--tec-spacer-7) * 2);
+			width: calc(100% - var(--tec-spacer-7) * 2);
 		}
 	}
 }
 
+/* Large screen adjustments */
+@media (--viewport-large ) {
+	.tribe_events_page_tec-events-settings {
+		.tec-settings-form {
+			max-width: calc(100% - var(--tec-spacer-7) * 2);
+			width: var(--tec-spacer-settings-form-width);
+		}
+	}
+
+	.tec-tab-parent-container {
+		.tec-settings-form__sidebar {
+			max-width: calc(100% - var(--tec-spacer-7) * 2);
+			width: var(--tec-spacer-settings-form-width);
+		}
+	}
+
+}
+
+/* X-Large screen adjustments */
 @media (--viewport-xlarge) {
 	.tec-tab-parent-container {
 		.tec-tab-container {
@@ -205,8 +225,9 @@ ul.tec-help-list__list-expanded {
 		max-width: var(--tec-spacer-settings-form-width);
 		width: auto;
 	}
+
 	.tribe_events_page_tec-events-settings .tribe-settings-form {
-		width: calc(var(--tec-spacer-settings-form-width) + var(--tec-spacer-4)*2);
+		width: calc(var(--tec-spacer-settings-form-width) + var(--tec-spacer-4) * 2);
 	}
 
 }
