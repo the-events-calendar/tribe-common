@@ -9,7 +9,4 @@
 
 use TEC\Common\Admin\Help_Hub\Hub;
 
-?>
-<div class="tec-settings-form__sidebar tec-help-resources__sidebar">
-	<?php $this->template( 'help-hub/shared-sidebar-has-license-no-consent' ); ?>
-</div>
+$this->template( 'help-hub/shared-sidebar-has-license-no-consent' );

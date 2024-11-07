@@ -244,6 +244,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Iterate on all the registered PUE Product Licenses we have and find if any are valid.
 		 * Will revalidate the licenses if none are found to be valid.
 		 *
+		 * @todo In scenarios where a user goes from a Free license to an active license the transient may give a false positive.
+		 *
 		 * @since TBD
 		 *
 		 * @return bool
