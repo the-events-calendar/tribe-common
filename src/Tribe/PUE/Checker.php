@@ -191,11 +191,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		protected static $instances = [];
 
 		/**
-		 * @var string The transient key.
-		 */
-		public const IS_ANY_LICENSE_VALID_TRANSIENT_KEY = 'TEC_IS_ANY_LICENSE_VALID_TRANSIENT';
-
-		/**
 		 * Class constructor.
 		 *
 		 * @param string $pue_update_url Deprecated. The URL of the plugin's metadata file.
@@ -241,52 +236,38 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-		 * Iterate on all the registered PUE Product Licenses we have and find if any are valid.
-		 * Will revalidate the licenses if none are found to be valid.
+		 * Determines if any registered PUE Product License is valid.
+		 *
+		 * This method checks all registered licenses in real-time without caching.
+		 *
+		 * - It loops over each registered license instance and checks if it is valid.
+		 * - Returns `true` as soon as a valid license is found, optimizing for minimal processing.
+		 * - If no valid licenses are found, it performs a final revalidation of all keys to confirm.
 		 *
 		 * @since TBD
 		 *
-		 * @return bool
+		 * @return bool True if at least one valid license is found; otherwise, false.
 		 */
 		public static function is_any_license_valid(): bool {
-			$valid_slug = 'valid';
-			$has_valid  = false;
-
-			// Check our transient.
-			$transient_value = get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
-			if ( ! empty( $transient_value ) ) {
-				return $transient_value === $valid_slug;
-			}
-
-			// Check our local transient/cache first.
+			// First pass: Check if any license is already validated as valid.
 			foreach ( self::$instances as $checker ) {
 				if ( $checker->is_key_valid() ) {
-					set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $valid_slug, HOUR_IN_SECONDS );
-					$has_valid = true;
-					break;
+					return true;
 				}
 			}
 
-			if ( ! $has_valid ) {
-				// Revalidate if we haven't found a valid license yet.
-				foreach ( self::$instances as $checker ) {
-					$license  = get_option( $checker->get_license_option_key() );
-					$response = $checker->validate_key( $license );
-					// Is it valid?
-					if ( ! empty( $response['status'] ) ) {
-						set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $valid_slug, HOUR_IN_SECONDS );
-						$has_valid = true;
-						break;
-					}
+			// Second pass: Revalidate all licenses if no valid license was found in the first pass.
+			foreach ( self::$instances as $checker ) {
+				$license  = get_option( $checker->get_license_option_key() );
+				$response = $checker->validate_key( $license );
+
+				if ( ! empty( $response['status'] ) ) {
+					return true;
 				}
 			}
 
-			// We found no valid licenses above.
-			if ( ! $has_valid ) {
-				set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, 'invalid', HOUR_IN_SECONDS );
-			}
-
-			return get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY ) === $valid_slug;
+			// Return false if no valid licenses are found after revalidation.
+			return false;
 		}
 
 		/**
