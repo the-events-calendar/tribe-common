@@ -191,6 +191,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		protected static $instances = [];
 
 		/**
+		 * @var string The transient key.
+		 */
+		public const IS_ANY_LICENSE_VALID_TRANSIENT_KEY = 'TEC_IS_ANY_LICENSE_VALID_TRANSIENT';
+
+		/**
 		 * Class constructor.
 		 *
 		 * @param string $pue_update_url Deprecated. The URL of the plugin's metadata file.
@@ -236,38 +241,54 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-		 * Determines if any registered PUE Product License is valid.
+		 * Iterate on all the registered PUE Product Licenses we have and find if any are valid.
+		 * Will revalidate the licenses if none are found to be valid.
 		 *
-		 * This method checks all registered licenses in real-time without caching.
-		 *
-		 * - It loops over each registered license instance and checks if it is valid.
-		 * - Returns `true` as soon as a valid license is found, optimizing for minimal processing.
-		 * - If no valid licenses are found, it performs a final revalidation of all keys to confirm.
+		 * @todo In the scenario a user has no licenses, and then adds a license the transient will report back a false positive.
 		 *
 		 * @since TBD
 		 *
-		 * @return bool True if at least one valid license is found; otherwise, false.
+		 * @return bool
 		 */
 		public static function is_any_license_valid(): bool {
-			// First pass: Check if any license is already validated as valid.
+			$valid_slug = 'valid';
+			$has_valid  = false;
+
+			// Check our transient.
+			$transient_value = get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+			if ( ! empty( $transient_value ) ) {
+				return $transient_value === $valid_slug;
+			}
+
+			// Check our local transient/cache first.
 			foreach ( self::$instances as $checker ) {
 				if ( $checker->is_key_valid() ) {
-					return true;
+					set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $valid_slug, HOUR_IN_SECONDS );
+					$has_valid = true;
+					break;
 				}
 			}
 
-			// Second pass: Revalidate all licenses if no valid license was found in the first pass.
-			foreach ( self::$instances as $checker ) {
-				$license  = get_option( $checker->get_license_option_key() );
-				$response = $checker->validate_key( $license );
-
-				if ( ! empty( $response['status'] ) ) {
-					return true;
+			if ( ! $has_valid ) {
+				// Revalidate if we haven't found a valid license yet.
+				foreach ( self::$instances as $checker ) {
+					$license  = get_option( $checker->get_license_option_key() );
+					$response = $checker->validate_key( $license );
+					// Is it valid?
+					if ( ! empty( $response['status'] ) ) {
+						set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $valid_slug, HOUR_IN_SECONDS );
+						$has_valid = true;
+						break;
+					}
 				}
 			}
 
-			// Return false if no valid licenses are found after revalidation.
-			return false;
+			// We found no valid licenses above.
+			if ( ! $has_valid ) {
+				set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, 'invalid', HOUR_IN_SECONDS );
+			}
+
+			return get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY ) === $valid_slug;
 		}
 
 		/**
@@ -668,7 +689,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$no_license_tooltip = esc_html__( 'A valid license key is required for support and updates', 'tribe-common' );
 			if ( 'event-aggregator' === $this->get_slug() ) {
 				$no_license_tooltip = sprintf(
-					/* Translators: %1$s and %2$s are opening and closing <a> tags, respectively. */
+				/* Translators: %1$s and %2$s are opening and closing <a> tags, respectively. */
 					esc_html__( '%1$sBuy a license%2$s for the Event Aggregator service to access additional import features.', 'tribe-common' ),
 					'<a href="https://evnt.is/196y" target="_blank">',
 					'</a>'
@@ -1079,7 +1100,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			if ( ! $key ) {
 				$response['message'] = sprintf(
-					/* Translators: %1$s and %2$s are opening and closing <a> tags, respectively. */
+				/* Translators: %1$s and %2$s are opening and closing <a> tags, respectively. */
 					esc_html__(
 						'Hmmm... something\'s wrong with this validator. Please contact %1$ssupport%2$s.',
 						'tribe-common'
@@ -1133,7 +1154,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				if ( $current_install_key && $current_install_key === $replacement_key ) {
 					$default_success_msg = esc_html(
 						sprintf(
-							/* Translators: %s is the expiration date. */
+						/* Translators: %s is the expiration date. */
 							__( 'Valid Key! Expires on %s', 'tribe-common' ),
 							$expiration
 						)
@@ -1144,7 +1165,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 					$default_success_msg = esc_html(
 						sprintf(
-							/* Translators: %s is the expiration date. */
+						/* Translators: %s is the expiration date. */
 							__(
 								'Thanks for setting up a valid key. It will expire on %s',
 								'tribe-common'
@@ -1183,10 +1204,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function get_license_expired_message() {
 			return '<a href="https://evnt.is/195y" target="_blank" class="button button-primary">' .
-				__( 'Renew Your License Now', 'tribe-common' ) .
-				'<span class="screen-reader-text">' .
-				__( ' (opens in a new window)', 'tribe-common' ) .
-				'</span></a>';
+				   __( 'Renew Your License Now', 'tribe-common' ) .
+				   '<span class="screen-reader-text">' .
+				   __( ' (opens in a new window)', 'tribe-common' ) .
+				   '</span></a>';
 		}
 
 		/**
@@ -1222,7 +1243,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		private function get_api_message( $info ) {
 			// this default message should never show, but is here as a fallback just in case.
 			$message = sprintf(
-				/* Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively. */
+			/* Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively. */
 				esc_html__(
 					'There is an update for %1$s. You\'ll need to %2$scheck your license%3$s to have access to updates, downloads, and support.',
 					'tribe-common'
@@ -1286,7 +1307,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			return sprintf(
-				/* Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively. */
+			/* Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively. */
 				esc_html__(
 					'There is an update for %1$s. %2$sRenew your license%3$s to get access to bug fixes, security updates, and new features.',
 					'tribe-common'
@@ -1318,7 +1339,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			} elseif ( $update_available && current_user_can( 'update_plugins' ) ) {
 				// A plugin update is available.
 				$update_now = sprintf(
-					/* Translators: %s is the plugin version number. */
+				/* Translators: %s is the plugin version number. */
 					esc_html__(
 						'Update now to version %s.',
 						'tribe-common'
@@ -1333,7 +1354,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				);
 
 				$update_message = sprintf(
-					/* Translators: %1$s is the plugin name. %2$s is the update now link. */
+				/* Translators: %1$s is the plugin name. %2$s is the update now link. */
 					esc_html__( 'There is a new version of %1$s available. %2$s', 'tribe-common' ),
 					$this->plugin_name,
 					$update_now_link
@@ -1513,9 +1534,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$plugin_info = null;
 
 			if ( ! is_wp_error( $result )
-				&& isset( $result['response']['code'] )
-				&& ( 200 === (int) $result['response']['code'] )
-				&& ! empty( $result['body'] )
+				 && isset( $result['response']['code'] )
+				 && ( 200 === (int) $result['response']['code'] )
+				 && ! empty( $result['body'] )
 			) {
 				$plugin_info = Tribe__PUE__Plugin_Info::from_json( $result['body'] );
 			}
