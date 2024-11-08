@@ -252,8 +252,9 @@ tribe.helpPage = tribe.helpPage || {};
 
 		// Hide all tab containers initially and ensure they are visible.
 		containers.forEach( container => {
-			container.style.display = 'none';
-			container.style.visibility = 'visible';
+			container.classList.add('hidden');
+			//container.style.display = 'none';
+			//container.style.visibility = 'visible';
 		} );
 
 		// Find the currently active tab and corresponding container.
@@ -261,7 +262,8 @@ tribe.helpPage = tribe.helpPage || {};
 		let tabContainer = currentTab ? document.getElementById( currentTab.getAttribute( 'data-tab-target' ) ) : null;
 
 		if ( tabContainer ) {
-			tabContainer.style.display = 'flex';
+			//tabContainer.style.display = 'block';
+			tabContainer.classList.remove('hidden');
 		}
 
 		// Initialize tab event listeners separately.
@@ -290,13 +292,15 @@ tribe.helpPage = tribe.helpPage || {};
 
 					// Hide the current container and show the new one.
 					if ( tabContainer ) {
-						tabContainer.style.display = 'none';
+						tabContainer.classList.add('hidden');
+						//tabContainer.style.display = 'none';
 					}
 
 					tabContainer = document.getElementById( tab.getAttribute( 'data-tab-target' ) );
 					if ( tabContainer ) {
-						tabContainer.style.display = 'flex';
-						tabContainer.style.visibility = 'visible';
+						tabContainer.classList.remove('hidden');
+						//tabContainer.style.display = 'block';
+						//tabContainer.style.visibility = 'visible';
 
 						// Initialize accordions for the new tab content.
 						obj.setupAccordionsFor( tabContainer );

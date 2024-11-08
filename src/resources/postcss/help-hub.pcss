@@ -8,10 +8,7 @@ li.tec-nav__tab {
 }
 
 .tec-tab-container {
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: flex-start;
-	padding-bottom: var(--tec-spacer-7);
+	padding: var(--tec-spacer-7);
 }
 
 /* Help List Styles */
@@ -32,8 +29,25 @@ ul.tec-help-list__list-expanded {
 	margin-right: 8px;
 }
 
+.tribe_events_page_tec-events-settings .tec-settings-form {
+	margin: 0;
+}
+
 /* Sidebar Styles */
-.tec-settings__sidebar-inner {
+.tribe_events_page_tec-events-settings .tec-settings-form__sidebar > .tec-settings-form__sidebar-section {
+	margin: 0 auto auto 0;
+	border: 1px solid var(--tec-color-border-default);
+	width: calc(100% - var(--tec-spacer-7) * 2);
+}
+
+.tribe_events_page_tec-events-settings .tec-settings-form__sidebar {
+	display: flex;
+	max-width: calc(100% - var(--tec-spacer-4) * 2);
+	width: calc(100% - var(--tec-spacer-7) * 2);
+	min-height: auto;
+}
+
+.tec-settings-form__sidebar-section {
 	padding: var(--tec-spacer-4);
 }
 
@@ -42,37 +56,8 @@ ul.tec-help-list__list-expanded {
 	grid-template-columns: 38px 1fr;
 }
 
-.tec-settings__sidebar-icon-wrap .tec-settings__sidebar-icon-wrap-content {
-	margin-left: 12px;
-}
-
-/* Tab Parent Container */
-.tec-tab-parent-container {
-	.tec-tab-container {
-		display: none;
-		visibility: hidden; /* Hide initially to avoid flickering */
-		flex-flow: row wrap;
-	}
-}
-
-/* Content Section Styling */
-.tec-settings-form__content-section {
-	padding-right: var(--tec-spacer-7);
-	width: calc(100% - var(--tec-spacer-3) * 2);
-}
-
-.tribe_events_page_tec-events-settings #tec-settings-form > *,
-.tribe_events_page_tec-events-settings .tec-settings-form > * {
-	padding: 0 var(--tec-spacer-3);
-}
-
-.tribe_events_page_tec-events-settings .tribe-settings-form {
-	flex: auto;
-}
-
-.tribe_events_page_tec-events-settings .tec-settings-form__sidebar {
-	border: 1px solid var(--tec-color-border-default);
-	border-radius: var(--tec-border-radius-default);
+.tec-settings__sidebar-icon-wrap-content {
+	margin-left: var(--tec-spacer-2);
 }
 
 /* Accordion Styles */
@@ -137,97 +122,44 @@ ul.tec-help-list__list-expanded {
 	}
 }
 
-.tec-tab-parent-container {
-	.tribe-settings-form,
-	.tec-settings-form {
-		padding-bottom: calc(var(--tec-spacer-settings-form-col-gap) / 2);
-	}
+.tec-tab-container {
+	display: flex;
+	flex-direction: column;
+	gap: var(--tec-spacer-3);
 
-	.tec-settings-form__sidebar {
-		display: flex;
-		max-width: calc(100% - var(--tec-spacer-4) * 2);
-		width: calc(100% - var(--tec-spacer-7) * 2);
-		margin-top: var(--tec-spacer-3);
-		margin-left: var(--tec-spacer-7);
-		min-height: auto;
+	&.hidden {
+		display: none;
 	}
 }
 
-/* Small screen adjustments */
-@media (--viewport-xsmall) {
-	.tec-tab-parent-container .tec-settings-form__sidebar {
-		background: var(--tec-color-background);
-	}
-
-	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox {
-		margin-bottom: var(--tec-spacer-5);
-		margin-right: var(--tec-spacer-7);
-	}
-}
-
-/* Medium screen adjustments */
-@media (--viewport-full) {
-
-	.tribe_events_page_tec-events-settings {
-		.tec-settings-form {
-			max-width: calc(100% - var(--tec-spacer-7) * 2);
-			width: calc(100% - var(--tec-spacer-7) * 2);
-		}
-	}
-}
-
-/* Large screen adjustments */
-@media (--viewport-large ) {
-	.tribe_events_page_tec-events-settings {
-		.tec-settings-form {
-			max-width: calc(100% - var(--tec-spacer-7) * 2);
-			width: var(--tec-spacer-settings-form-width);
-		}
-	}
-
-	.tec-tab-parent-container {
-		.tec-settings-form__sidebar {
-			max-width: calc(100% - var(--tec-spacer-7) * 2);
-			width: var(--tec-spacer-settings-form-width);
-		}
-	}
-
-}
-
-/* X-Large screen adjustments */
 @media (--viewport-xlarge) {
-	.tec-tab-parent-container {
-		.tec-tab-container {
-			flex-flow: nowrap;
-		}
+	.tec-tab-container {
+		flex-direction: row;
 	}
-
-	.tec-tab-parent-container {
-		.tec-settings-form__sidebar {
-			max-width: var(--tec-width-sidebar);
-			margin-top: var(--tec-spacer-5);
-			margin-left: var(--tec-spacer-3);
-		}
-	}
-
-	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__section-description {
-		margin-top: var(--tec-spacer-2);
-	}
-
-	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox {
-		margin-bottom: var(--tec-spacer-5);
-		margin-left: calc(var(--tec-spacer-5) * -1);
-		margin-top: calc(var(--tec-spacer-6) * -1);
-	}
-
-
-	.tec-settings-form {
-		max-width: var(--tec-spacer-settings-form-width);
-		width: auto;
-	}
-
-	.tribe_events_page_tec-events-settings .tribe-settings-form {
-		width: calc(var(--tec-spacer-settings-form-width) + var(--tec-spacer-4) * 2);
-	}
-
 }
+
+/*
+@media (--viewport-large) {
+	.tec-tab-container {
+		display: flex !important;
+	}
+
+	.tribe_events_page_tec-events-settings .tec-settings-form__sidebar {
+		max-width: calc(100% - var(--tec-spacer-11) * 2);
+	}
+}
+
+@media (--viewport-xlarge) {
+	.tribe_events_page_tec-events-settings .tec-settings-form__sidebar {
+		display: flex;
+		margin: var(--tec-spacer-5) auto auto 0;
+		min-height: fit-content;
+		max-width: var(--tec-width-sidebar);
+	}
+
+	.tribe_events_page_tec-events-settings .tec-settings-form__sidebar > .tec-settings-form__sidebar-section {
+		margin: 0 auto auto 0;
+		border: 1px solid var(--tec-color-border-default);
+	}
+}
+*/
