@@ -47,8 +47,8 @@ ul.tec-help-list__list-expanded {
 
 .tribe_events_page_tec-events-settings .tec-settings-form__sidebar {
 	display: flex;
-	max-width: calc(100% - var(--tec-spacer-4) * 2);
-	width: calc(100% - var(--tec-spacer-7) * 2);
+	max-width: 100%;
+	width: 100%;
 	min-height: auto;
 }
 
@@ -139,20 +139,13 @@ ul.tec-help-list__list-expanded {
 }
 
 .tribe-settings-form {
-	max-width: calc(100% - var(--tec-spacer-4) * 2);
-	width: calc(100% - var(--tec-spacer-7) * 2);
 	padding-bottom: var(--tec-spacer-4);
-}
-
-.tribe_events_page_tec-events-settings .tec-settings-form > .tec-settings-form__content-section {
-	padding: var(--tec-spacer-5) var(--tec-spacer-8);
 }
 
 .tribe_events_page_tec-events-settings .tec-settings-form > * {
 	padding-left: 0;
 	padding-right: initial;
 }
-
 
 @media (--viewport-full) {
 	.tribe_events_page_tec-events-settings .tec-settings-form {
@@ -163,6 +156,14 @@ ul.tec-help-list__list-expanded {
 }
 
 @media (--viewport-xsmall) {
+	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox {
+		margin-right: var(--tec-spacer-7);
+		padding-right: initial;
+	}
+	.tribe_events_page_tec-events-settings .tec-settings-form > .tec-settings-form__content-section {
+		padding: 0 var(--tec-spacer-5) var(--tec-spacer-8) var(--tec-spacer-5);
+	}
+
 	.tribe_events_page_tec-events-settings .tec-settings-form > * {
 		padding-right: initial;
 	}
