@@ -11,6 +11,10 @@ li.tec-nav__tab {
 	padding: var(--tec-spacer-7);
 }
 
+.tribe_events_page_tec-events-settings .tec-settings-form {
+	margin: 0;
+}
+
 /* Help List Styles */
 ul.tec-help-list__list-expanded {
 	width: 100%;
@@ -37,7 +41,7 @@ ul.tec-help-list__list-expanded {
 .tribe_events_page_tec-events-settings .tec-settings-form__sidebar > .tec-settings-form__sidebar-section {
 	margin: 0 auto auto 0;
 	border: 1px solid var(--tec-color-border-default);
-	width: calc(100% - var(--tec-spacer-7) * 2);
+	width: calc(100% - var(--tec-spacer-4) * 2);
 }
 
 .tribe_events_page_tec-events-settings .tec-settings-form__sidebar {
@@ -133,11 +137,16 @@ ul.tec-help-list__list-expanded {
 	}
 }
 
-@media (--viewport-xlarge) {
-	.tec-tab-container {
-		flex-direction: row;
-	}
+.tribe-settings-form {
+	max-width: calc(100% - var(--tec-spacer-4) * 2);
+	width: calc(100% - var(--tec-spacer-7) * 2);
 }
+
+.tribe_events_page_tec-events-settings .tec-settings-form > * {
+	padding-left: 0;
+	padding-right: initial;
+}
+
 
 @media (--viewport-full) {
 	.tribe_events_page_tec-events-settings .tec-settings-form {
@@ -146,30 +155,27 @@ ul.tec-help-list__list-expanded {
 		flex-grow: 1;
 	}
 }
+
 @media (--viewport-xsmall) {
 	.tribe_events_page_tec-events-settings .tec-settings-form > * {
 		padding-right: initial;
 	}
 }
+
 @media (--viewport-xlarge) {
+	.tec-tab-container {
+		flex-direction: row;
+	}
 	.tribe_events_page_tec-events-settings .tec-settings-form__sidebar {
 		flex-basis: var(--tec-width-sidebar);
 		flex-shrink: 0;
 	}
-	/*
-	.tribe_events_page_tec-events-settings .tec-settings-form__sidebar {
-		display: flex;
-		margin: var(--tec-spacer-5) auto auto 0;
-		min-height: fit-content;
-		max-width: var(--tec-width-sidebar);
-	}
-
-	.tribe_events_page_tec-events-settings .tec-settings-form__sidebar > .tec-settings-form__sidebar-section {
-		margin: 0 auto auto 0;
-		border: 1px solid var(--tec-color-border-default);
-	}
 
 	.tribe_events_page_tec-events-settings .tec-settings-form__sidebar {
 		margin: 0;
-	}*/
+	}
+
+	.tribe_events_page_tec-events-settings .tec-settings-form__sidebar > .tec-settings-form__sidebar-section {
+		width: calc(100% - var(--tec-spacer-8) * 2)
+	}
 }
