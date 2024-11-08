@@ -32,7 +32,7 @@
     "stellarwp/models": "dev-main",
     "stellarwp/schema": "^1.1.3",
     "stellarwp/telemetry": "^2.3.1",
-    "stellarwp/assets": "^1.2.6",
+    "stellarwp/assets": "1.4",
     "stellarwp/uplink": "2.2.1"
   },
   "require-dev": {
