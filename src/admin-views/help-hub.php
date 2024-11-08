@@ -12,6 +12,18 @@
  * @var array       $resource_sections An array of data to display in the Resource section.
  */
 
+$hub_tabs = [
+	[
+		'target' => 'tec-help-tab',
+		'class'  => 'tec-nav__tab--subnav-active',
+		'label'  => __( 'Support Hub', 'the-events-calendar' ),
+	],
+	[
+		'target' => 'tec-resources-tab',
+		'class'  => '',
+		'label'  => __( 'Resources', 'the-events-calendar' ),
+	],
+];
 ?>
 <div class="tribe_settings wrap tec-events-admin-settings">
 	<h1>
@@ -24,14 +36,46 @@
 		/>
 		Help
 	</h1>
+	<dialog id="tec-settings-nav-modal" class="tec-settings-form__modal">
+		<div class="tec-modal__content">
+			<div class="tec-modal__header">
+				<button id="tec-settings-nav-modal-close" class="tec-modal__control tec-modal__control--close" data-modal-close>
+					<span class="screen-reader-text"><?php esc_html_e( 'Close', 'tribe-common' ); ?></span>
+				</button>
+			</div>
+			<nav class="tec-settings__nav-wrapper">
+				<ul class="tec-nav">
+					<?php foreach ( $hub_tabs as $hub_tab ) : ?>
+						<li data-tab-target="<?php echo esc_attr( $hub_tab['target'] ); ?>" class="tec-nav__tab <?php echo esc_attr( $hub_tab['class'] ); ?>">
+							<a class="tec-nav__link"><?php echo esc_html( $hub_tab['label'] ); ?></a>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</nav>
+		</div>
+	</dialog>
+	<div class="tec-nav__modal-controls">
+		<h3 class="tec-nav__modal-title">&nbsp;</h3>
+		<button
+			id="tec-settings-nav-modal-open"
+			class="tec-modal__control tec-modal__control--open"
+			aria-controls="tec-settings-nav-modal"
+		>
+			<span><?php echo esc_html( $hub_tabs[0]['label'] ); ?></span>
+			<img
+				class="tec-modal__control-icon"
+				src="<?php echo esc_url( tribe_resource_url( 'images/icons/hamburger.svg', false, null, Tribe__Main::instance() ) ); ?>"
+				alt="<?php esc_attr_e( 'Open settings navigation', 'tribe-common' ); ?>"
+			>
+		</button>
+	</div>
 	<nav class="tec-settings__nav-wrapper">
 		<ul class="tec-nav">
-			<li data-tab-target="tec-help-tab" class="tec-nav__tab tec-nav__tab--subnav-active">
-				<a class="tec-nav__link">Support Hub</a>
-			</li>
-			<li data-tab-target="tec-resources-tab" class="tec-nav__tab">
-				<a class="tec-nav__link">Resources</a>
-			</li>
+			<?php foreach ( $hub_tabs as $hub_tab ) : ?>
+				<li data-tab-target="<?php echo esc_attr( $hub_tab['target'] ); ?>" class="tec-nav__tab <?php echo esc_attr( $hub_tab['class'] ); ?>">
+					<a class="tec-nav__link"><?php echo esc_html( $hub_tab['label'] ); ?></a>
+				</li>
+			<?php endforeach; ?>
 		</ul>
 	</nav>
 	<div id="tec-help-hub-tab-containers" class="tec-tab-parent-container">
