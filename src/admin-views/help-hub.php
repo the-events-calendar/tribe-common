@@ -39,7 +39,7 @@
 			<?php $this->template( 'help-hub/support/support-hub' ); ?>
 		</div>
 
-		<div id="tec-resources-tab" class="tec-tab-container">
+		<div id="tec-resources-tab" class="tec-tab-container hidden">
 			<?php $this->template( 'help-hub/resources/resources' ); ?>
 		</div>
 	</div>
