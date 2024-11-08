@@ -10,7 +10,6 @@
 namespace TEC\Common\Notifications;
 
 use Tribe__Main;
-use TEC\Common\Telemetry\Telemetry;
 use TEC\Common\Admin\Conditional_Content\Dismissible_Trait;
 
 /**
@@ -234,18 +233,8 @@ final class Notifications {
 			return;
 		}
 
-		$main = Tribe__Main::instance();
-
-		load_template(
-			$main->plugin_path . 'src/admin-views/notifications/icon.php',
-			true,
-			[
-				'slug'  => $slug,
-				'main'  => $main,
-				'optin' => Conditionals::get_opt_in(),
-				'url'   => Telemetry::get_permissions_url(),
-			]
-		);
+		$template = new Template();
+		$template->render_icon( [ 'slug' => $slug ], true );
 	}
 
 	/**
