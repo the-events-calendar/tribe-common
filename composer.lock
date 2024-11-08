@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6c72a372c4c239efc9c44e0027963d4d",
+    "content-hash": "0bd5f0d7faabe7120b3a6223ef1dd6bd",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -352,16 +352,16 @@
         },
         {
             "name": "stellarwp/assets",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/assets.git",
-                "reference": "c35ada807f60b94a72aff27f2b27411f40b83371"
+                "reference": "b6efe53189b446b5cf612d4bd9d8bbbbeb65ee59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/assets/zipball/c35ada807f60b94a72aff27f2b27411f40b83371",
-                "reference": "c35ada807f60b94a72aff27f2b27411f40b83371",
+                "url": "https://api.github.com/repos/stellarwp/assets/zipball/b6efe53189b446b5cf612d4bd9d8bbbbeb65ee59",
+                "reference": "b6efe53189b446b5cf612d4bd9d8bbbbeb65ee59",
                 "shasum": ""
             },
             "require-dev": {
@@ -402,9 +402,9 @@
             "description": "A library for managing asset registration and enqueuing in WordPress.",
             "support": {
                 "issues": "https://github.com/stellarwp/assets/issues",
-                "source": "https://github.com/stellarwp/assets/tree/1.4.0"
+                "source": "https://github.com/stellarwp/assets/tree/1.4.1"
             },
-            "time": "2024-10-22T16:47:34+00:00"
+            "time": "2024-11-08T23:04:35+00:00"
         },
         {
             "name": "stellarwp/container-contract",
