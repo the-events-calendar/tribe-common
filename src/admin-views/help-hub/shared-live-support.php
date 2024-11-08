@@ -12,7 +12,7 @@ use TEC\Common\Admin\Help_Hub\Hub;
 
 ?>
 <div class="tec-settings-form__sidebar tec-help-resources__sidebar">
-	<div class="tec-settings__sidebar-inner">
+	<div class="tec-settings-form__sidebar-section">
 		<div class="tec-settings__sidebar-icon-wrap">
 			<div>
 				<img class="tec-settings-infobox-logo"
