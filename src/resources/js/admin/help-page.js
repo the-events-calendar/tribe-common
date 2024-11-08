@@ -317,7 +317,6 @@ tribe.helpPage = tribe.helpPage || {};
 
 						// Get the text from the clicked link inside the tab.
 						const tabText = tab.querySelector(obj.selectors.navLinkText).textContent.trim();
-						console.log(tabText, 'tab text');
 
 						// Set the text of the span inside the button with the id 'tec-settings-nav-modal-open'
 						const modalButtonSpan = document.querySelector( obj.selectors.modalButtonSpan );
