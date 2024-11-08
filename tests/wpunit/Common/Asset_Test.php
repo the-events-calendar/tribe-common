@@ -20,10 +20,19 @@ class Asset_Test extends WPTestCase {
 
 	protected $request_args = [];
 
+	protected static array $back_up = [];
+
 	/**
 	 * @before
 	 */
-	public function set_up() {
+	public function backup_and_set_up() {
+		self::$back_up = [
+			'hook_prefix' => Config::get_hook_prefix(),
+			'version'     => Config::get_version(),
+			'path'        => Config::get_path(),
+			'relative'    => Config::get_relative_asset_path(),
+		];
+
 		Config::set_hook_prefix( 'bork' );
 		Config::set_version( '1.0.0' );
 		Config::set_path( dirname( __DIR__, 3 ) );
@@ -33,9 +42,14 @@ class Asset_Test extends WPTestCase {
 	/**
 	 * @after
 	 */
-	public function after() {
+	public function restore_backup() {
 		array_map( [ $this, 'remove_assets' ], range( 1, 3 ) );
 		Config::reset();
+
+		Config::set_hook_prefix( self::$back_up['hook_prefix'] );
+		Config::set_version( self::$back_up['version'] );
+		Config::set_path( self::$back_up['path'] );
+		Config::set_relative_asset_path( self::$back_up['relative'] );
 	}
 
 	public function add_assets( $slug ) {
