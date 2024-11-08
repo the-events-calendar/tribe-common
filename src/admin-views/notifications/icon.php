@@ -1,6 +1,6 @@
 <?php
 /**
- * IAN Icon Template
+ * In-App Notifications Icon Template
  *
  * @since TBD
  */

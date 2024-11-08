@@ -44,7 +44,7 @@ function optinIanAjax() {
 	document.querySelector(".ian-sidebar__loader").classList.add("show");
 
 	const data = new FormData();
-	data.append("action", "optin_ian");
+	data.append("action", "ian_optin");
 	data.append("nonce", window.commonIan.nonce);
 
 	fetch(window.commonIan.ajax_url, {
@@ -65,7 +65,7 @@ function optinIanAjax() {
 
 function getIanAjax() {
 	const data = new FormData();
-	data.append("action", "get_ian");
+	data.append("action", "ian_get_feed");
 	data.append("nonce", window.commonIan.nonce);
 
 	fetch(window.commonIan.ajax_url, {
@@ -129,7 +129,7 @@ function dismissNotification(id, slug) {
 	el.style.opacity = 0;
 
 	const data = new FormData();
-	data.append("action", "ian_notification_dismiss");
+	data.append("action", "ian_dismiss");
 	data.append("slug", slug);
 	data.append("nonce", window.commonIan.nonce);
 

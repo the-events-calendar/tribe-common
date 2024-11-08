@@ -1,30 +1,30 @@
 <?php
 /**
- * Handles IAN Client setup and actions.
+ * Handles In-App Notifications setup and actions.
  *
  * @since   TBD
  *
- * @package TEC\Common\Ian
+ * @package TEC\Common\Notifications
  */
 
-namespace TEC\Common\Ian;
+namespace TEC\Common\Notifications;
 
 use Tribe__Main;
 use TEC\Common\Telemetry\Telemetry;
 use TEC\Common\Admin\Conditional_Content\Dismissible_Trait;
 
 /**
- * Class Ian_Client
+ * Class Notifications
  *
  * @since   TBD
 
- * @package TEC\Common\Ian
+ * @package TEC\Common\Notifications
  */
-final class Ian_Client {
+final class Notifications {
 	use Dismissible_Trait;
 
 	/**
-	 * The slugs for plugins that support IAN.
+	 * The slugs for plugins that support In-App Notifications.
 	 *
 	 * @since TBD
 	 *
@@ -36,7 +36,7 @@ final class Ian_Client {
 	];
 
 	/**
-	 * The IAN API URL.
+	 * The Notifications API URL.
 	 *
 	 * @since TBD
 	 *
@@ -52,7 +52,7 @@ final class Ian_Client {
 	protected string $slug = '';
 
 	/**
-	 * Boot the IAN Client.
+	 * Boot the in-App Notifications
 	 *
 	 * @since TBD
 	 *
@@ -64,11 +64,11 @@ final class Ian_Client {
 
 		/**
 		 * Allow plugins to hook in and add themselves,
-		 * running their own actions once IAN Client is initiated.
+		 * running their own actions once In-App Notifications is initiated.
 		 *
 		 * @since TBD
 		 *
-		 * @param self $ian The IAN Client instance.
+		 * @param self $ian The In-App Notifications instance.
 		 */
 		do_action( 'tec_common_ian_preload', $this );
 	}
@@ -81,6 +81,8 @@ final class Ian_Client {
 	 * @return void
 	 */
 	public function init(): void {
+		$this->register_plugins();
+
 		/**
 		 * Filter the base parent slugs for IAN.
 		 *
@@ -102,13 +104,13 @@ final class Ian_Client {
 	}
 
 	/**
-	 * Register the Admin assets for the IAN Client.
+	 * Register the Admin assets for the In-App Notifications.
 	 *
 	 * @since  TBD
 	 *
 	 * @return void
 	 */
-	public function register_ian_assets(): void {
+	public function register_assets(): void {
 		tribe_assets(
 			Tribe__Main::instance(),
 			[
@@ -141,7 +143,18 @@ final class Ian_Client {
 	public function is_ian_page() {
 		$screen = get_current_screen();
 
-		if ( in_array( $screen->id, [ 'tribe_events', 'edit-tribe_events', 'tribe_events_page_tec-events-settings' ], true ) ) {
+		$allowed = [ 'tribe_events', 'edit-tribe_events', 'tribe_events_page_tec-events-settings' ];
+
+		/**
+		 * Filter the allowed pages for the Notifications icon.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string> $allowed The allowed pages for the Notifications icon.
+		 */
+		$allowed = apply_filters( 'tec_common_ian_allowed_pages', $allowed );
+
+		if ( in_array( $screen->id, $allowed, true ) ) {
 			return true;
 		}
 
@@ -158,7 +171,7 @@ final class Ian_Client {
 	 *
 	 * @return void
 	 */
-	public function register_tec_ian_plugins( $opted = null ) {
+	public function register_plugins( $opted = null ) {
 		// Let's reduce the amount this triggers.
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			return;
@@ -203,17 +216,17 @@ final class Ian_Client {
 	 *
 	 * @return void
 	 */
-	public function show_ian_icon( $slug ): void {
+	public function show_icon( $slug ): void {
 		if ( ! in_array( $slug, $this->plugin_slugs, true ) || ! $this->is_ian_page() ) {
 			return;
 		}
 
 		/**
-		 * Filter allowing disabling of the IAN icon by returning false.
+		 * Filter allowing disabling of the Notifications icon by returning false.
 		 *
 		 * @since TBD
 		 *
-		 * @param bool $show Whether to show the modal or not.
+		 * @param bool $show Whether to show the icon or not.
 		 */
 		$show = (bool) apply_filters( 'tec_common_ian_show_icon', true, $slug );
 
@@ -224,12 +237,12 @@ final class Ian_Client {
 		$main = Tribe__Main::instance();
 
 		load_template(
-			$main->plugin_path . 'src/admin-views/ian/icon.php',
+			$main->plugin_path . 'src/admin-views/notifications/icon.php',
 			true,
 			[
 				'slug'  => $slug,
 				'main'  => $main,
-				'optin' => Conditionals::get_ian_opt_in(),
+				'optin' => Conditionals::get_opt_in(),
 				'url'   => Telemetry::get_permissions_url(),
 			]
 		);
@@ -240,7 +253,7 @@ final class Ian_Client {
 	 *
 	 * @since TBD
 	 */
-	public function ajax_optin_ian() {
+	public function opt_in() {
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 
 		if ( wp_verify_nonce( $nonce, 'common_ian_nonce' ) ) {
@@ -258,7 +271,7 @@ final class Ian_Client {
 	 *
 	 * @since TBD
 	 */
-	public function ajax_get_ian() {
+	public function get_feed() {
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 
 		if ( wp_verify_nonce( $nonce, 'common_ian_nonce' ) ) {
@@ -287,7 +300,7 @@ final class Ian_Client {
 			// 	wp_send_json_error( wp_remote_retrieve_response_message( $response ), wp_remote_retrieve_response_code( $response ) );
 			// }
 
-			// $notifications = Conditionals::filter_ian_feed( $body['notifications'] );
+			// $notifications = Conditionals::filter_feed( $body['notifications'] );
 
 			// $this->slug = $slug;
 			// $this->has_user_dismissed( get_current_user_id() )

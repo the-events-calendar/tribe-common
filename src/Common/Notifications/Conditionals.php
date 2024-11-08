@@ -1,13 +1,13 @@
 <?php
 /**
- * Handles IAN Client notifications display logic.
+ * Handles In-App Notifications display logic.
  *
  * @since   TBD
  *
- * @package TEC\Common\Ian
+ * @package TEC\Common\Notifications
  */
 
-namespace TEC\Common\Ian;
+namespace TEC\Common\Notifications;
 
 use TEC\Common\StellarWP\Telemetry\Config;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
@@ -18,7 +18,7 @@ use TEC\Common\Telemetry\Telemetry as Common_Telemetry;
  *
  * @since   TBD
 
- * @package TEC\Common\Ian
+ * @package TEC\Common\Notifications
  */
 class Conditionals {
 	/**
@@ -28,7 +28,7 @@ class Conditionals {
 	 *
 	 * @return bool
 	 */
-	public static function get_ian_opt_in(): bool {
+	public static function get_opt_in(): bool {
 		// Trigger this before we try use the Telemetry value.
 		tribe( Common_Telemetry::class )->normalize_optin_status();
 
@@ -50,11 +50,11 @@ class Conditionals {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $feed The feed of notifications from the IAN server.
+	 * @param array $feed The feed of notifications from the server.
 	 *
 	 * @return array The notifications that meet the conditions.
 	 */
-	public static function filter_ian_feed( $feed ): array {
+	public static function filter_feed( $feed ): array {
 		$notifications = array_filter(
 			$feed,
 			function ( $item ) {
