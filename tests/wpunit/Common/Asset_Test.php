@@ -24,7 +24,6 @@ class Asset_Test extends WPTestCase {
 	 * @before
 	 */
 	public function set_up() {
-		Config::reset();
 		Config::set_hook_prefix( 'bork' );
 		Config::set_version( '1.0.0' );
 		Config::set_path( dirname( __DIR__, 2 ) );
@@ -91,7 +90,7 @@ class Asset_Test extends WPTestCase {
 
 		foreach ( range( 1, 3 ) as $i ) {
 			$this->assertEquals(
-				plugins_url( 'common/tests/_data/stellar-resources/test-' . $i . '.js', \Tribe__Events__Main::instance()->plugin_file ),
+				str_replace( 'the-events-calendar.php/', '', plugins_url( 'common/tests/_data/stellar-resources/test-' . $i . '.js', \Tribe__Events__Main::instance()->plugin_file ) ),
 				Assets::init()->get( 'test-' . $i )->get_url()
 			);
 
@@ -101,7 +100,7 @@ class Asset_Test extends WPTestCase {
 			);
 
 			$this->assertEquals(
-				plugins_url( 'common/tests/_data/stellar-resources/test-' . $i . '.css', \Tribe__Events__Main::instance()->plugin_file ),
+				str_replace( 'the-events-calendar.php/', '', plugins_url( 'common/tests/_data/stellar-resources/test-' . $i . '.css', \Tribe__Events__Main::instance()->plugin_file ) ),
 				Assets::init()->get( 'test-' . $i . '-style' )->get_url()
 			);
 
