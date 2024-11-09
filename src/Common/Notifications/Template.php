@@ -74,4 +74,32 @@ class Template {
 		$template = $this->get_template();
 		return $template->template( 'icon', $args, $output );
 	}
+
+	/**
+	 * Render the notification.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $args Array of arguments that will ultimately be sent to the template.
+	 * @param bool  $output Whether or not to echo the HTML. Defaults to true.
+	 *
+	 * @return string HTML of notification.
+	 */
+	public function render_notification( $args, $output = true ) {
+		$args = wp_parse_args(
+			$args,
+			[
+				'type'        => $args['type'],
+				'id'          => $args['id'],
+				'dismissible' => $args['dismissible'],
+				'slug'        => $args['slug'],
+				'title'       => $args['title'],
+				'content'     => $args['content'],
+				'actions'     => $args['actions'],
+			]
+		);
+
+		$template = $this->get_template();
+		return $template->template( 'notification', $args, $output );
+	}
 }

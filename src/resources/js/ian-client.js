@@ -83,21 +83,7 @@ function getIanAjax() {
 
 				let notifications = "";
 				for (const n of response.data) {
-					notifications += `<div class="ian-sidebar__notification ian-sidebar__notification--${n.type}" id="notification_${n.id}">`;
-					if (n.dismissible) {
-						notifications += `<div class="dashicons dashicons-dismiss" data-trigger="dismissIan" data-id="${n.id}" data-slug="${n.slug}"></div>`;
-					}
-					notifications += `<div class="ian-sidebar__notification-title">${n.title}</div>`;
-					notifications += `<div class="ian-sidebar__notification-content">${n.content}</div>`;
-					if (n.actions !== undefined || n.dismissible) {
-						notifications += `<div class="ian-sidebar__notification-link">`;
-						for (const a of n.actions) {
-							notifications += `<a href="${a.link}" target="${a.target}">${a.text}</a>`;
-						}
-						if (n.dismissible) notifications += `<a href="#" data-trigger="dismissIan" data-id="${n.id}" data-slug="${n.slug}">${window.commonIan.dismiss}</a>`;
-						notifications += `</div>`;
-					}
-					notifications += `</div>`;
+					notifications += n.html;
 				}
 
 				document.querySelector(".ian-sidebar__content").innerHTML = `<div class="ian-sidebar__notifications">${notifications}</div>`;

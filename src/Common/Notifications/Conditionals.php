@@ -42,7 +42,7 @@ class Conditionals {
 		}
 
 		// If Telemetry is off, return the IAN opt-in value.
-		return tribe_is_truthy( tribe_get_option( 'ian-client-opt-in', false ) );
+		return tribe_is_truthy( tribe_get_option( 'ian-notifications-opt-in', false ) );
 	}
 
 	/**
