@@ -15,7 +15,7 @@
 
 ?>
 
-<div class="ian-sidebar__notification ian-sidebar__notification--<?php echo esc_attr( $type ); ?>" id="notification_<?php echo esc_attr( $id ); ?>">
+<div class="ian-sidebar__notification ian-sidebar__notification--<?php echo esc_attr( $type ); ?>" id="notification_<?php echo esc_attr( $id ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'ian_nonce_' . $id ) ); ?>">
 	<?php if ( $dismissible ) : ?>
 	<div class="dashicons dashicons-dismiss" data-trigger="dismissIan" data-id="<?php echo esc_attr( $id ); ?>" data-slug="<?php echo esc_attr( $slug ); ?>"></div>
 	<?php endif; ?>
@@ -24,10 +24,10 @@
 	<?php if ( ! empty( $actions ) || $dismissible ) : ?>
 	<div class="ian-sidebar__notification-link">
 		<?php foreach ( $actions as $a ) : ?>
-			<a href="<?php echo esc_url( $a['url'] ); ?>" target="<?php echo esc_attr( $a['target'] ); ?>"><?php echo esc_html( $a['text'] ); ?></a>
+			<a href="<?php echo esc_url( $a['link'] ); ?>" target="<?php echo esc_attr( $a['target'] ); ?>"><?php echo esc_html( $a['text'] ); ?></a>
 		<?php endforeach; ?>
 		<?php if ( $dismissible ) : ?>
-			<a href="#" data-trigger="dismissIan" data-id="<?php echo esc_attr( $id ); ?>" data-slug="<?php echo esc_attr( $slug ); ?>">${window.commonIan.dismiss}</a>
+			<a href="#" data-trigger="dismissIan" data-id="<?php echo esc_attr( $id ); ?>" data-slug="<?php echo esc_attr( $slug ); ?>"><?php esc_html_e( 'Dismiss', 'tribe-common' ); ?></a>
 		<?php endif; ?>
 	</div>
 	<?php endif; ?>

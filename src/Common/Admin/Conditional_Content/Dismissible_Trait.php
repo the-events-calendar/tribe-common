@@ -128,7 +128,7 @@ trait Dismissible_Trait {
 
 		update_user_meta( $user_id, $this->meta_key_time_prefix . $this->slug, time() );
 
-		return add_user_meta( $user_id, $this->meta_key, $this->slug );
+		return (bool) add_user_meta( $user_id, $this->meta_key, $this->slug );
 	}
 
 	/**

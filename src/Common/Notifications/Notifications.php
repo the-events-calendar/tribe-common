@@ -111,7 +111,6 @@ final class Notifications {
 					'data' => [
 						'ajax_url' => admin_url( 'admin-ajax.php' ),
 						'nonce'    => wp_create_nonce( 'common_ian_nonce' ),
-						'dismiss'  => esc_html__( 'Dismiss', 'tribe-common' ),
 					],
 				],
 			]
@@ -299,10 +298,17 @@ final class Notifications {
 
 			$template = new Template();
 			foreach ( $notifications as $k => $notification ) {
+				$this->slug = $notification['slug'];
+				if ( $this->has_user_dismissed() ) {
+					unset( $notifications[ $k ] );
+					continue;
+				}
 				$html = $template->render_notification( $notification, false );
 
 				$notifications[ $k ]['html'] = $html;
 			}
+
+			array_values( $notifications );
 
 			wp_send_json_success( $notifications, 200 );
 		} else {
@@ -318,17 +324,20 @@ final class Notifications {
 	 * @return void
 	 */
 	public function handle_dismiss(): void {
-		if ( wp_verify_nonce( tribe_get_request_var( 'nonce' ), 'common_ian_nonce' ) ) {
+		$id = tribe_get_request_var( 'id' );
+
+		if ( wp_verify_nonce( tribe_get_request_var( 'nonce' ), 'ian_nonce_' . $id ) ) {
 
 			$slug = tribe_get_request_var( 'slug' );
 
 			if ( empty( $slug ) ) {
-				wp_send_json_error( esc_html__( 'Invalid plugin slug', 'tribe-common' ), 403 );
+				wp_send_json_error( esc_html__( 'Invalid notification slug', 'tribe-common' ), 403 );
 			}
 
 			$this->slug = $slug;
+			$this->dismiss();
 
-			wp_send_json_success( $this->dismiss(), 200 );
+			wp_send_json_success( esc_html__( 'Notification dismissed', 'tribe-common' ), 200 );
 		} else {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'tribe-common' ), 403 );
 		}

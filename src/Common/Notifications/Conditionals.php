@@ -62,45 +62,93 @@ class Conditionals {
 					return true;
 				}
 
-				foreach ( $item['conditions'] as $condition ) {
-					$wp_version  = $condition['wp_version'] ?? null;
-					$php_version = $condition['php_version'] ?? null;
-					$plugins     = $condition['plugin_version'] ?? [];
-
-					if ( ! empty( $wp_version ) ) {
-						$version = preg_split( '/(?=\d)/', $wp_version, 2 );
-						if ( ! version_compare( get_bloginfo( 'version' ), $version[1], $version[0] ?? '>=' ) ) {
-							return false;
-						}
-					}
-
-					if ( ! empty( $php_version ) ) {
-						$version = preg_split( '/(?=\d)/', $php_version, 2 );
-						if ( ! version_compare( phpversion(), $version[1], $version[0] ?? '>=' ) ) {
-							return false;
-						}
-					}
-
-					if ( ! empty( $plugins ) ) {
-						foreach ( $plugins as $plugin ) {
-							$pieces = explode( '@', $plugin );
-
-							if ( ! is_plugin_active( $pieces[0] . '/' . $pieces[0] . '.php' ) ) {
-								return false;
-							}
-
-							$version = preg_split( '/(?=\d)/', $pieces[1], 2 );
-							if ( ! version_compare( get_plugin_data( $pieces[0] . '/' . $pieces[0] . '.php' )['Version'], $version[1], $version[0] ?? '>=' ) ) {
-								return false;
-							}
-						}
+				$matches = [];
+				foreach ( $item['conditions'] as $k => $condition ) {
+					switch ( $k ) {
+						case 'php_version':
+							$matches['php_version'] = self::check_php_version( $condition['php_version'] );
+							break;
+						case 'wp_version':
+							$matches['wp_version'] = self::check_wp_version( $condition['wp_version'] );
+							break;
+						case 'plugin_version':
+							$matches['plugin_version'] = self::check_plugin_version( $condition['plugin_version'] );
+							break;
 					}
 				}
 
-				return true;
+				return ! in_array( false, $matches, true );
 			}
 		);
 
 		return array_values( $notifications );
+	}
+
+	/**
+	 * Check if the PHP version is correct.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $version The version to check against.
+	 *
+	 * @return bool
+	 */
+	public function check_php_version( $version ): bool {
+		if ( ! empty( $php_version ) ) {
+			$version = preg_split( '/(?=\d)/', $php_version, 2 );
+			if ( ! version_compare( phpversion(), $version[1], $version[0] ?? '>=' ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Check if the WP version is correct.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $version The version to check against.
+	 *
+	 * @return bool
+	 */
+	public function check_wp_version( $version ): bool {
+		if ( ! empty( $wp_version ) ) {
+			$version = preg_split( '/(?=\d)/', $wp_version, 2 );
+			if ( ! version_compare( get_bloginfo( 'version' ), $version[1], $version[0] ?? '>=' ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Check if the plugin version is correct.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $plugins The plugins to check against.
+	 *
+	 * @return bool
+	 */
+	public function check_plugin_version( $plugins ): bool {
+		if ( ! empty( $plugins ) ) {
+			foreach ( $plugins as $plugin ) {
+				$pieces = explode( '@', $plugin );
+
+				if ( ! is_plugin_active( $pieces[0] . '/' . $pieces[0] . '.php' ) ) {
+					return false;
+				}
+
+				$version = preg_split( '/(?=\d)/', $pieces[1], 2 );
+				if ( ! version_compare( get_plugin_data( $pieces[0] . '/' . $pieces[0] . '.php' )['Version'], $version[1], $version[0] ?? '>=' ) ) {
+					return false;
+				}
+			}
+		}
+
+		return true;
 	}
 }

@@ -82,9 +82,9 @@ function getIanAjax() {
 				if (loader) loader.classList.remove("show");
 
 				let notifications = "";
-				for (const n of response.data) {
-					notifications += n.html;
-				}
+				Object.entries(response.data).forEach(([key, value]) => {
+					notifications += value.html;
+				});
 
 				document.querySelector(".ian-sidebar__content").innerHTML = `<div class="ian-sidebar__notifications">${notifications}</div>`;
 			}
@@ -117,7 +117,8 @@ function dismissNotification(id, slug) {
 	const data = new FormData();
 	data.append("action", "ian_dismiss");
 	data.append("slug", slug);
-	data.append("nonce", window.commonIan.nonce);
+	data.append("id", id);
+	data.append("nonce", el.dataset.nonce);
 
 	fetch(window.commonIan.ajax_url, {
 		method: "POST",

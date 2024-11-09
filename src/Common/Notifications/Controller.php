@@ -9,7 +9,7 @@
 
 namespace TEC\Common\Notifications;
 
-use TEC\Common\Contracts\Service_Provider;
+use TEC\Common\Contracts\Service_Provider as Provider_Contract;
 
 /**
  * Class Provider
@@ -18,7 +18,7 @@ use TEC\Common\Contracts\Service_Provider;
 
  * @package TEC\Common\Notifications
  */
-class Provider extends Service_Provider {
+class Controller extends Provider_Contract {
 
 	/**
 	 * Registers actions and filters.
@@ -29,7 +29,7 @@ class Provider extends Service_Provider {
 		$this->container->bind( Notifications::class, Notifications::class );
 		$this->container->singleton( Conditionals::class, Conditionals::class );
 
-		$this->add_actions();
+		$this->hooks();
 	}
 
 	/**
@@ -37,7 +37,7 @@ class Provider extends Service_Provider {
 	 *
 	 * @since TBD
 	 */
-	public function add_actions() {
+	public function hooks() {
 		add_action( 'tribe_plugins_loaded', [ $this, 'boot' ], 50 );
 
 		add_action( 'tec_common_ian_preload', [ $this, 'hook_init' ], 5 );
