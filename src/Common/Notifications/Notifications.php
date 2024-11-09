@@ -243,7 +243,7 @@ final class Notifications {
 		if ( wp_verify_nonce( tribe_get_request_var( 'nonce' ), 'common_ian_nonce' ) ) {
 
 			// TODO: Below is an example notifications array. Send the real one from Laravel.
-			$notifications = [
+			$feed = [
 				[
 					'id'          => '101',
 					'type'        => 'update',
@@ -295,6 +295,8 @@ final class Notifications {
 					'dismissible' => false,
 				],
 			];
+
+			$notifications = Conditionals::filter_feed( $feed );
 
 			$template = new Template();
 			foreach ( $notifications as $k => $notification ) {
