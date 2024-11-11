@@ -182,8 +182,15 @@ class Tribe__Template {
 			$folder = (array) explode( '/', $folder );
 		}
 
-		// Cast as Array and save
-		$this->folder = (array) $folder;
+		/**
+		 * Cast as array and filter removing potentially empty values.
+		 *
+		 * Filtering can forgive small issues where a leading or trailing slash has been specified
+		 * while it shouldn't.
+		 *
+		 * @see [ECP-1477] https://github.com/the-events-calendar/events-pro/pull/2609
+		 */
+		$this->folder = array_filter( (array) ( $folder ) );
 
 		return $this;
 	}
@@ -785,6 +792,9 @@ class Tribe__Template {
 	 * @return string|false Either the final content HTML or `false` if no template could be found.
 	 */
 	public function template( $name, $context = [], $echo = true ) {
+		if ( "components/icons/series" === $name ) {
+			$im_the_breakpoint = true;
+		}
 		static $file_exists    = [];
 		static $files          = [];
 		static $template_names = [];
