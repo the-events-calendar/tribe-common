@@ -792,9 +792,6 @@ class Tribe__Template {
 	 * @return string|false Either the final content HTML or `false` if no template could be found.
 	 */
 	public function template( $name, $context = [], $echo = true ) {
-		if ( "components/icons/series" === $name ) {
-			$im_the_breakpoint = true;
-		}
 		static $file_exists    = [];
 		static $files          = [];
 		static $template_names = [];
