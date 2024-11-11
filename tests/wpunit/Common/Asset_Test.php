@@ -35,7 +35,7 @@ class Asset_Test extends WPTestCase {
 
 		Config::set_hook_prefix( 'bork' );
 		Config::set_version( '1.0.0' );
-		Config::set_path( dirname( __DIR__, 3 ) );
+		Config::set_path( codecept_root_dir( '/' ) );
 		Config::set_relative_asset_path( 'tests/_data/stellar-resources' );
 	}
 
@@ -94,12 +94,13 @@ class Asset_Test extends WPTestCase {
 	}
 
 	/**
+	 * The test is that the plugins directory is actually in the path ABSPATH . 'foo/'.
+	 * But in the location ABSPATH . 'wp-content/' user has created a symlink named plugins which points to ABSPATH . 'foo/'.
+	 * Our implementation should return a URL inside the wp-content directory while the asset one should return the true URL outside the plugins directory.
+	 *
 	 * @test
 	 */
 	public function it_should_not_return_the_same_thing_when_symlinks() {
-		// The test is that the plugins directory is actually in the path ABSPATH . 'foo/'.
-		// But in the location ABSPATH . 'wp-content/' user has created a symlink named plugins which points to ABSPATH . 'foo/'.
-		// Our implementation should return a URL inside the wp-content directory while the asset one should return the true URL outside the plugins directory.
 		Config::set_path( ABSPATH . 'foo/the-events-calendar/common/' );
 		$this->set_fn_return( 'dirname', static fn( $dir, $level = 1 ) => $level !== 4 ? $dir : ABSPATH . 'foo/', true );
 
