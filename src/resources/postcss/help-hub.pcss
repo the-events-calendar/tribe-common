@@ -131,7 +131,7 @@ ul.tec-help-list__list-expanded {
 .tec-tab-container {
 	display: flex;
 	flex-direction: column;
-	gap: var(--tec-spacer-3);
+	gap: var(--tec-spacer-7);
 
 	&.hidden {
 		display: none;
@@ -140,14 +140,24 @@ ul.tec-help-list__list-expanded {
 
 .tribe-settings-form {
 	padding-bottom: var(--tec-spacer-4);
+	max-width: initial;
+}
+
+.tec-settings-form__sidebar {
+	margin-top: calc(var(--tec-spacer-6) * -1);
 }
 
 .tribe_events_page_tec-events-settings .tec-settings-form > * {
 	padding-left: 0;
 	padding-right: initial;
 }
+
 .tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block--horizontal {
 	padding: 0 var(--tec-spacer-7) var(--tec-spacer-2);
+}
+
+.tribe_events_page_tec-events-settings .tec-settings-form {
+	padding-top: var(--tec-spacer-3);
 }
 
 @media (--viewport-full) {
@@ -160,9 +170,11 @@ ul.tec-help-list__list-expanded {
 
 @media (--viewport-xsmall) {
 	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox {
-		margin-right: var(--tec-spacer-7);
+		margin-left: var(--tec-spacer-4);
+		margin-right: var(--tec-spacer-4);
 		padding-right: initial;
 	}
+
 	.tribe_events_page_tec-events-settings .tec-settings-form > .tec-settings-form__content-section {
 		padding: 0 var(--tec-spacer-5) var(--tec-spacer-8) var(--tec-spacer-5);
 	}
@@ -173,6 +185,12 @@ ul.tec-help-list__list-expanded {
 }
 
 @media (--viewport-xlarge) {
+	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox {
+		margin-left: calc(var(--tec-spacer-3) * -1);
+		margin-right: var(--tec-spacer-4);
+		margin-top: calc(var(--tec-spacer-7) * -1);
+	}
+
 	.tec-tab-container {
 		flex-direction: row;
 	}
@@ -189,7 +207,8 @@ ul.tec-help-list__list-expanded {
 	.tribe_events_page_tec-events-settings .tec-settings-form__sidebar > .tec-settings-form__sidebar-section {
 		width: initial;
 	}
+
 	.tribe_events_page_tec-events-settings .tribe-settings-form {
-		max-width: calc(100vw - 160px - var(--tec-width-sidebar) - var(--tec-spacer-10));
+		max-width: calc(100vw - 200px - var(--tec-width-sidebar) - var(--tec-spacer-10));
 	}
 }
