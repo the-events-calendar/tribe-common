@@ -17,14 +17,14 @@ li.tec-nav__tab {
 
 /* Help List Styles */
 ul.tec-help-list__list-expanded {
-	width: 100%;
 	font-size: var(--tec-font-size-2);
+	width: 100%;
 }
 
 .tec-help-list__list-expanded li {
-	list-style: none;
 	height: 36px;
 	line-height: 36px;
+	list-style: none;
 }
 
 .tec-help-list__list-expanded .tec-help-list__icon-expanded {
@@ -34,22 +34,22 @@ ul.tec-help-list__list-expanded {
 }
 
 .tribe_events_page_tec-events-settings .tec-settings-form {
-	width: auto;
 	padding-bottom: var(--tec-spacer-4);
+	width: auto;
 }
 
 /* Sidebar Styles */
 .tribe_events_page_tec-events-settings .tec-settings-form__sidebar > .tec-settings-form__sidebar-section {
-	margin: 0 auto auto 0;
 	border: 1px solid var(--tec-color-border-default);
+	margin: 0 auto auto 0;
 	width: calc(100% - var(--tec-spacer-4) * 2);
 }
 
 .tribe_events_page_tec-events-settings .tec-settings-form__sidebar {
 	display: flex;
 	max-width: 100%;
-	width: 100%;
 	min-height: auto;
+	width: 100%;
 }
 
 .tec-settings-form__sidebar-section {
@@ -75,20 +75,20 @@ ul.tec-help-list__list-expanded {
 }
 
 .ui-accordion .ui-accordion-header {
-	display: block;
+	border-bottom: 1px solid var(--tec-admin-core-grey-10);
 	cursor: pointer;
-	position: relative;
+	display: block;
+	font-size: 100%;
+	font-weight: normal;
 	margin: 0;
 	padding: var(--tec-spacer-1) var(--tec-spacer-2) var(--tec-spacer-1) var(--tec-spacer-1);
-	font-size: 100%;
-	border-bottom: 1px solid var(--tec-admin-core-grey-10);
-	font-weight: normal;
+	position: relative;
 }
 
 .ui-accordion .ui-accordion-content {
-	padding: 1em 2.2em;
 	border-top: 0;
 	overflow: auto;
+	padding: 1em 2.2em;
 }
 
 .ui-state-active .ui-icon {
@@ -97,33 +97,33 @@ ul.tec-help-list__list-expanded {
 
 .ui-icon {
 	background-image: url(../images/icons/caret-right.svg);
+	background-repeat: no-repeat;
 	background-size: contain;
-	width: 10px;
-	height: 10px;
 	display: inline-block;
-	vertical-align: middle;
+	height: 10px;
 	margin-top: -.25em;
+	overflow: hidden;
 	position: absolute;
 	right: 0;
-	top: 15px;
 	text-indent: -99999px;
-	overflow: hidden;
-	background-repeat: no-repeat;
+	top: 15px;
+	vertical-align: middle;
+	width: 10px;
 }
 
 /* Iframe Container Styles */
 .tec-settings__support-hub-iframe-container {
 	#tec-settings__support-hub-iframe {
 		height: 750px;
-		width: calc(100% - var(--tec-spacer-3) * 2);
 		margin: 0 var(--tec-spacer-3);
+		width: calc(100% - var(--tec-spacer-3) * 2);
 	}
 
 	#tec-settings__support-hub-iframe-loader {
 		.spinner-container {
+			align-items: center;
 			display: flex;
 			justify-content: center;
-			align-items: center;
 		}
 	}
 }
@@ -149,9 +149,9 @@ ul.tec-help-list__list-expanded {
 
 @media (--viewport-full) {
 	.tribe_events_page_tec-events-settings .tec-settings-form {
+		flex-grow: 1;
 		max-width: initial;
 		width: auto;
-		flex-grow: 1;
 	}
 }
 
