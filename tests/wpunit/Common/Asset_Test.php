@@ -81,14 +81,14 @@ class Asset_Test extends WPTestCase {
 		$this->add_assets( 'feature-editor' );
 		$this->add_assets( 'feature-frontend' );
 
-		foreach ( range( 1, 3 ) as $i ) {
+		foreach ( [ 'feature-base', 'feature-editor', 'feature-frontend' ] as $slug ) {
 			$this->assertEquals(
-				Assets::init()->get( 'test-' . $i )->get_url(),
-				Assets::init()->get( 'stellar-test-' . $i )->get_url()
+				Assets::init()->get( $slug )->get_url(),
+				Assets::init()->get( 'stellar-' . $slug )->get_url()
 			);
 			$this->assertEquals(
-				Assets::init()->get( 'test-' . $i . '-style' )->get_url(),
-				Assets::init()->get( 'stellar-test-' . $i . '-style' )->get_url()
+				Assets::init()->get( $slug . '-style' )->get_url(),
+				Assets::init()->get( 'stellar-' . $slug . '-style' )->get_url()
 			);
 		}
 	}
@@ -111,25 +111,25 @@ class Asset_Test extends WPTestCase {
 		$this->add_assets( 'feature-editor' );
 		$this->add_assets( 'feature-frontend' );
 
-		foreach ( range( 1, 3 ) as $i ) {
+		foreach ( [ 'feature-base', 'feature-editor', 'feature-frontend' ] as $slug ) {
 			$this->assertEquals(
-				home_url( '/wp-content/plugins/the-events-calendar/common/tests/_data/stellar-resources/test-' . $i . '.js' ),
-				Assets::init()->get( 'test-' . $i )->get_url( false )
+				home_url( '/wp-content/plugins/the-events-calendar/common/tests/_data/stellar-resources/' . $slug . '.js' ),
+				Assets::init()->get( $slug )->get_url( false )
 			);
 
 			$this->assertEquals(
-				'/var/www/html/foo/the-events-calendar/common/tests/_data/stellar-resources/test-' . $i . '.js',
-				Assets::init()->get( 'stellar-test-' . $i )->get_url( false )
+				'/var/www/html/foo/the-events-calendar/common/tests/_data/stellar-resources/' . $slug . '.js',
+				Assets::init()->get( 'stellar-' . $slug )->get_url( false )
 			);
 
 			$this->assertEquals(
-				home_url( '/wp-content/plugins/the-events-calendar/common/tests/_data/stellar-resources/test-' . $i . '.css' ),
-				Assets::init()->get( 'test-' . $i . '-style' )->get_url( false )
+				home_url( '/wp-content/plugins/the-events-calendar/common/tests/_data/stellar-resources/' . $slug . '.css' ),
+				Assets::init()->get( $slug. '-style' )->get_url( false )
 			);
 
 			$this->assertEquals(
-				'/var/www/html/foo/the-events-calendar/common/tests/_data/stellar-resources/test-' . $i . '.css',
-				Assets::init()->get( 'stellar-test-' . $i . '-style' )->get_url( false )
+				'/var/www/html/foo/the-events-calendar/common/tests/_data/stellar-resources/' . $slug . '.css',
+				Assets::init()->get( 'stellar-' . $slug . '-style' )->get_url( false )
 			);
 		}
 	}
