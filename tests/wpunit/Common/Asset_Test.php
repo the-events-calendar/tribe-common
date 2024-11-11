@@ -133,4 +133,54 @@ class Asset_Test extends WPTestCase {
 			);
 		}
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_work_on_windows_servers_and_should_return_the_same() {
+		$constants = [
+			'ABSPATH'        => 'C:\\xampp\\htdocs\\wordpress',
+			'WP_CONTENT_DIR' => 'C:\\xampp\\htdocs\\wordpress\\wp-content',
+			'WP_CONTENT_URL' => 'http://wordpress.test/wp-content',
+			'WP_PLUGIN_DIR'  => 'C:\\xampp\\htdocs\\wordpress\\wp-content\\plugins',
+			'WP_PLUGIN_URL'  => 'http://wordpress.test/wp-content/plugins',
+		];
+
+		foreach ( $constants as $constant => $value ) {
+			$this->set_const_value( $constant, $value );
+			$this->assertEquals( $value, constant( $constant ) );
+		}
+
+		Config::set_path( constant( 'WP_PLUGIN_DIR' ) . '/the-events-calendar/common' );
+		$this->set_fn_return( 'dirname', static fn( $dir, $level = 1 ) => $level !== 4 ? $dir : ABSPATH . 'foo/', true );
+
+		Assets::init();
+
+		// Add assets.
+		$this->add_assets( 'feature-base' );
+		$this->add_assets( 'feature-editor' );
+		$this->add_assets( 'feature-frontend' );
+
+		foreach ( [ 'feature-base', 'feature-editor', 'feature-frontend' ] as $slug ) {
+			$this->assertEquals(
+				home_url( '/wp-content/plugins/the-events-calendar/common/tests/_data/stellar-resources/' . $slug . '.js' ),
+				Assets::init()->get( $slug )->get_url( false )
+			);
+
+			$this->assertEquals(
+				Assets::init()->get( $slug )->get_url( false ),
+				Assets::init()->get( 'stellar-' . $slug )->get_url( false )
+			);
+
+			$this->assertEquals(
+				home_url( '/wp-content/plugins/the-events-calendar/common/tests/_data/stellar-resources/' . $slug . '.css' ),
+				Assets::init()->get( $slug. '-style' )->get_url( false )
+			);
+
+			$this->assertEquals(
+				Assets::init()->get( $slug. '-style' )->get_url( false ),
+				Assets::init()->get( 'stellar-' . $slug . '-style' )->get_url( false )
+			);
+		}
+	}
 }
