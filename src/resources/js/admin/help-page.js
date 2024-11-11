@@ -11,6 +11,8 @@ tribe.helpPage = tribe.helpPage || {};
 		openSupportChat: '[data-open-support-chat]',
 		helpHubIframe: '#tec-settings__support-hub-iframe',
 		iframeLoader: '#tec-settings__support-hub-iframe-loader',
+		modalButtonSpan: '#tec-settings-nav-modal-open span',
+		navLinkText: '.tec-nav__link',
 	};
 
 	obj.setup = () => {
@@ -252,16 +254,24 @@ tribe.helpPage = tribe.helpPage || {};
 
 		// Hide all tab containers initially and ensure they are visible.
 		containers.forEach( container => {
-			container.style.display = 'none';
-			container.style.visibility = 'visible';
+			container.classList.add('hidden');
 		} );
 
 		// Find the currently active tab and corresponding container.
 		let currentTab = document.querySelector( '.tec-nav__tab.tec-nav__tab--subnav-active' );
 		let tabContainer = currentTab ? document.getElementById( currentTab.getAttribute( 'data-tab-target' ) ) : null;
 
+		// Update modal button span text to the active tab’s text by default.
+		if (currentTab) {
+			const tabText = currentTab.querySelector(obj.selectors.navLinkText).textContent.trim();
+			const modalButtonSpan = document.querySelector(obj.selectors.modalButtonSpan);
+			if (modalButtonSpan) {
+				modalButtonSpan.textContent = tabText;
+			}
+		}
+
 		if ( tabContainer ) {
-			tabContainer.style.display = 'flex';
+			tabContainer.classList.remove('hidden');
 		}
 
 		// Initialize tab event listeners separately.
@@ -284,19 +294,35 @@ tribe.helpPage = tribe.helpPage || {};
 			tab.addEventListener(
 				'click',
 				() => {
-					// Update active tab.
+					// Get the data-tab-target of the clicked tab.
+					const target = tab.getAttribute( 'data-tab-target' );
+
+					// Remove the active class from all tabs.
 					tabs.forEach( t => t.classList.remove( 'tec-nav__tab--subnav-active' ) );
-					tab.classList.add( 'tec-nav__tab--subnav-active' );
+
+					// Find and activate all tabs with the same data-tab-target.
+					document.querySelectorAll(`[data-tab-target="${target}"]`).forEach( matchingTab => {
+						matchingTab.classList.add( 'tec-nav__tab--subnav-active' );
+					});
 
 					// Hide the current container and show the new one.
 					if ( tabContainer ) {
-						tabContainer.style.display = 'none';
+						tabContainer.classList.add('hidden');
 					}
 
-					tabContainer = document.getElementById( tab.getAttribute( 'data-tab-target' ) );
+					// Update the active tab container.
+					tabContainer = document.getElementById( target );
 					if ( tabContainer ) {
-						tabContainer.style.display = 'flex';
-						tabContainer.style.visibility = 'visible';
+						tabContainer.classList.remove('hidden');
+
+						// Get the text from the clicked link inside the tab.
+						const tabText = tab.querySelector(obj.selectors.navLinkText).textContent.trim();
+
+						// Set the text of the span inside the button with the id 'tec-settings-nav-modal-open'
+						const modalButtonSpan = document.querySelector( obj.selectors.modalButtonSpan );
+						if ( modalButtonSpan ) {
+							modalButtonSpan.textContent = tabText;
+						}
 
 						// Initialize accordions for the new tab content.
 						obj.setupAccordionsFor( tabContainer );
@@ -305,6 +331,7 @@ tribe.helpPage = tribe.helpPage || {};
 			);
 		} );
 	};
+
 
 	$( obj.setup );
 

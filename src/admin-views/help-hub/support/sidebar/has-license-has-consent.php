@@ -12,16 +12,12 @@ use TEC\Common\Admin\Help_Hub\Hub;
 ?>
 
 <div class="tec-settings-form__sidebar tec-help-resources__sidebar">
-	<div class="tec-settings__sidebar-inner">
-
-
+	<div class="tec-settings-form__sidebar-section">
 		<div class="tec-settings__sidebar-icon-wrap">
-			<div>
-				<img class="tec-settings-infobox-logo"
-					src="<?php echo esc_url( $help_hub->get_icon_url( 'stars_icon' ) ); ?>"
-					alt="AI chat bot logo"
-				>
-			</div>
+			<img class="tec-settings-infobox-logo"
+				src="<?php echo esc_url( $help_hub->get_icon_url( 'stars_icon' ) ); ?>"
+				alt="AI chat bot logo"
+			>
 			<div class="tec-settings__sidebar-icon-wrap-content">
 				<h2>
 					<?php

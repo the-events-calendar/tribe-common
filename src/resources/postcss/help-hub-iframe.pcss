@@ -4,14 +4,14 @@
 
 /* Reset margins and padding */
 * {
+	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-	box-sizing: border-box;
 }
 
 body {
-	overflow: hidden;
 	font-family: var(--tec-font-family-sans-serif);
+	overflow: hidden;
 }
 
 .hide {
@@ -20,23 +20,23 @@ body {
 
 /* Overlay styles */
 .blackout {
-	display: flex;
-	justify-content: center;
 	align-items: center;
+	display: flex;
 	height: 100vh;
+	justify-content: center;
 }
 
 .blackout::before {
+	background-color: rgba(0, 0, 0, .8);
 	content: '';
+	height: 100vh;
+	left: 0;
+	pointer-events: none;
 	position: fixed;
 	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	background-color: rgba(0, 0, 0, .8);
-	z-index: 999999;
-	pointer-events: none;
 	transition: var(--tec-transition-opacity);
+	width: 100vw;
+	z-index: 999999;
 }
 
 /**
@@ -51,27 +51,27 @@ body {
 /* Overwrite inline Iframe styles for the Zendesk widget */
 #webWidget {
 	height: 100% !important;
-	width: 100% !important; /* Default to full width on the smallest screens */
+	margin: 0 auto !important;
 	max-width: 100% !important; /* Ensure full width */
 	min-width: 33vw !important;
+	width: 100% !important; /* Default to full width on the smallest screens */
 	z-index: 99999999 !important;
-	margin: 0 auto !important;
 }
 
 /* Small screens and up: 80% width with 10% margins */
 @media (--viewport-xxsmall) {
 	#webWidget {
-		width: 80% !important;
 		margin-left: 10% !important;
 		margin-right: 10% !important;
+		width: 80% !important;
 	}
 }
 
 /* Medium screens and up: 50% width, centered */
 @media (--viewport-medium) {
 	#webWidget {
-		width: 50% !important;
 		margin: 0 auto !important;
+		width: 50% !important;
 	}
 }
 
@@ -94,17 +94,17 @@ body {
 
 /* Main container for the opt-out message */
 .tec-help-hub-iframe-opt-out-message {
-	z-index: 9999999;
-	position: relative;
+	align-items: center;
 	background: var(--tec-form-color-background);
-	width: 80%;
-	margin: 0 auto;
-	padding: var(--tec-spacer-4);
 	border-radius: 6px;
 	display: flex;
 	gap: var(--tec-spacer-4);
-	align-items: center;
+	margin: 0 auto;
+	padding: var(--tec-spacer-4);
+	position: relative;
 	text-align: left;
+	width: 80%;
+	z-index: 9999999;
 }
 
 /* Image Column */
@@ -126,7 +126,7 @@ body {
 
 /* Link Styles */
 .tec-help-hub-iframe-opt-out-message__content a {
-	margin-top: var(--tec-spacer-2);
 	color: var(--tec-color-link-primary);
+	margin-top: var(--tec-spacer-2);
 	text-decoration: underline;
 }
