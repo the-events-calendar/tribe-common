@@ -36,17 +36,24 @@ $hub_tabs = [
 		/>
 		Help
 	</h1>
-	<dialog id="tec-settings-nav-modal" class="tec-settings-form__modal">
+	<dialog id="tec-settings-nav-modal" class="tec-settings-form__modal" aria-labelledby="tec-settings-nav-modal-title" aria-modal="true" role="dialog">
 		<div class="tec-modal__content">
 			<div class="tec-modal__header">
-				<button id="tec-settings-nav-modal-close" class="tec-modal__control tec-modal__control--close" data-modal-close>
+				<h2 id="tec-settings-nav-modal-title" class="screen-reader-text"><?php esc_html_e( 'Settings Navigation', 'tribe-common' ); ?></h2>
+				<button id="tec-settings-nav-modal-close" class="tec-modal__control tec-modal__control--close" data-modal-close aria-label="<?php esc_attr_e( 'Close settings navigation', 'tribe-common' ); ?>">
 					<span class="screen-reader-text"><?php esc_html_e( 'Close', 'tribe-common' ); ?></span>
 				</button>
 			</div>
-			<nav class="tec-settings__nav-wrapper">
-				<ul class="tec-nav">
-					<?php foreach ( $hub_tabs as $hub_tab ) : ?>
-						<li data-tab-target="<?php echo esc_attr( $hub_tab['target'] ); ?>" class="tec-nav__tab <?php echo esc_attr( $hub_tab['class'] ); ?>">
+			<nav class="tec-settings__nav-wrapper" aria-label="<?php esc_attr_e( 'Help Hub Navigation', 'tribe-common' ); ?>">
+				<ul class="tec-nav" role="tablist">
+					<?php foreach ( $hub_tabs as $index => $hub_tab ) : ?>
+						<li
+							data-tab-target="<?php echo esc_attr( $hub_tab['target'] ); ?>"
+							class="tec-nav__tab <?php echo esc_attr( $hub_tab['class'] ); ?>"
+							role="tab"
+							id="tab-<?php echo esc_attr( $index ); ?>"
+							aria-controls="<?php echo esc_attr( $hub_tab['target'] ); ?>"
+						>
 							<a class="tec-nav__link"><?php echo esc_html( $hub_tab['label'] ); ?></a>
 						</li>
 					<?php endforeach; ?>
@@ -60,6 +67,8 @@ $hub_tabs = [
 			id="tec-settings-nav-modal-open"
 			class="tec-modal__control tec-modal__control--open"
 			aria-controls="tec-settings-nav-modal"
+			aria-expanded="false"
+			aria-label="<?php esc_attr_e( 'Open settings navigation', 'tribe-common' ); ?>"
 		>
 			<span><?php echo esc_html( $hub_tabs[0]['label'] ); ?></span>
 			<img
@@ -69,21 +78,27 @@ $hub_tabs = [
 			>
 		</button>
 	</div>
-	<nav class="tec-settings__nav-wrapper">
-		<ul class="tec-nav">
-			<?php foreach ( $hub_tabs as $hub_tab ) : ?>
-				<li data-tab-target="<?php echo esc_attr( $hub_tab['target'] ); ?>" class="tec-nav__tab <?php echo esc_attr( $hub_tab['class'] ); ?>">
+	<nav class="tec-settings__nav-wrapper" aria-label="<?php esc_attr_e( 'Main Help Hub Navigation', 'tribe-common' ); ?>">
+		<ul class="tec-nav" role="tablist">
+			<?php foreach ( $hub_tabs as $index => $hub_tab ) : ?>
+				<li
+					data-tab-target="<?php echo esc_attr( $hub_tab['target'] ); ?>"
+					class="tec-nav__tab <?php echo esc_attr( $hub_tab['class'] ); ?>"
+					role="tab"
+					id="tab-main-<?php echo esc_attr( $index ); ?>"
+					aria-controls="<?php echo esc_attr( $hub_tab['target'] ); ?>"
+				>
 					<a class="tec-nav__link"><?php echo esc_html( $hub_tab['label'] ); ?></a>
 				</li>
 			<?php endforeach; ?>
 		</ul>
 	</nav>
 	<div id="tec-help-hub-tab-containers" class="tec-tab-parent-container">
-		<div id="tec-help-tab" class="tec-tab-container">
+		<div id="tec-help-tab" class="tec-tab-container" role="tabpanel" aria-labelledby="tab-0">
 			<?php $this->template( 'help-hub/support/support-hub' ); ?>
 		</div>
 
-		<div id="tec-resources-tab" class="tec-tab-container hidden">
+		<div id="tec-resources-tab" class="tec-tab-container hidden" role="tabpanel" aria-labelledby="tab-1">
 			<?php $this->template( 'help-hub/resources/resources' ); ?>
 		</div>
 	</div>
