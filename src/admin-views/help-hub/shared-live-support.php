@@ -40,7 +40,7 @@ use TEC\Common\Admin\Help_Hub\Hub;
 					?>
 				</p>
 				<p>
-					<a href="todo">
+					<a href="https://theeventscalendar.com/knowledgebase/priority-support-through-the-tec-support-hub" target="_blank" rel="noopener noreferrer">
 						<?php
 						echo esc_html_x(
 							'Learn how to get live support',
