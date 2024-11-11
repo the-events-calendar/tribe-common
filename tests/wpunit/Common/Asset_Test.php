@@ -18,8 +18,6 @@ use Tribe\Tests\Traits\With_Uopz;
 class Asset_Test extends WPTestCase {
 	use With_Uopz;
 
-	protected $request_args = [];
-
 	protected static array $back_up = [];
 
 	/**
@@ -43,7 +41,9 @@ class Asset_Test extends WPTestCase {
 	 * @after
 	 */
 	public function restore_backup() {
-		array_map( [ $this, 'remove_assets' ], range( 1, 3 ) );
+		$this->remove_assets( 'feature-base' );
+		$this->remove_assets( 'feature-editor' );
+		$this->remove_assets( 'feature-frontend' );
 		Config::reset();
 
 		Config::set_hook_prefix( self::$back_up['hook_prefix'] );
@@ -52,8 +52,7 @@ class Asset_Test extends WPTestCase {
 		Config::set_relative_asset_path( self::$back_up['relative'] );
 	}
 
-	public function add_assets( $slug ) {
-		$slug = 'test-' . $slug;
+	protected function add_assets( $slug ) {
 		Asset::add( $slug, $slug . '.js' )
 			->prefix_asset_directory( false );
 		Asset::add( $slug . '-style', $slug . '.css' )
@@ -64,8 +63,7 @@ class Asset_Test extends WPTestCase {
 			->prefix_asset_directory( false );
 	}
 
-	public function remove_assets( $slug ) {
-		$slug = 'test-' . $slug;
+	protected function remove_assets( $slug ) {
 		Assets::init()->remove( $slug );
 		Assets::init()->remove( $slug . '-style' );
 		Assets::init()->remove( 'stellar-' . $slug );
@@ -79,7 +77,9 @@ class Asset_Test extends WPTestCase {
 		Assets::init();
 
 		// Add assets.
-		array_map( [ $this, 'add_assets' ], range( 1, 3 ) );
+		$this->add_assets( 'feature-base' );
+		$this->add_assets( 'feature-editor' );
+		$this->add_assets( 'feature-frontend' );
 
 		foreach ( range( 1, 3 ) as $i ) {
 			$this->assertEquals(
@@ -107,7 +107,9 @@ class Asset_Test extends WPTestCase {
 		Assets::init();
 
 		// Add assets.
-		array_map( [ $this, 'add_assets' ], range( 1, 3 ) );
+		$this->add_assets( 'feature-base' );
+		$this->add_assets( 'feature-editor' );
+		$this->add_assets( 'feature-frontend' );
 
 		foreach ( range( 1, 3 ) as $i ) {
 			$this->assertEquals(
