@@ -164,6 +164,10 @@ ul.tec-help-list__list-expanded {
 	display: none;
 }
 
+.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block{
+	padding-right: 0;
+}
+
 @media (--viewport-xsmall) {
 	.tec-tab-container {
 		padding: var(--tec-spacer-7);
@@ -206,9 +210,15 @@ ul.tec-help-list__list-expanded {
 		max-width: initial;
 		width: auto;
 	}
+	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block{
+		padding-right: var(--tec-spacer-4);
+	}
 }
 
 @media (--viewport-xlarge) {
+	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block {
+		padding-right: 0;
+	}
 	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox {
 		display: grid;
 		margin-left: calc(var(--tec-spacer-3) * -1);
