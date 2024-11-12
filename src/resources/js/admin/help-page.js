@@ -282,56 +282,81 @@ tribe.helpPage = tribe.helpPage || {};
 	};
 
 	/**
-	 * Sets up event listeners for each tab.
+	 * Sets up event listeners and observers for tab navigation.
 	 *
-	 * @param {NodeList} tabs         The list of tab elements.
-	 * @param {HTMLElement} tabContainer The currently active tab container.
+	 * @param {NodeList} tabs The list of tab elements.
+	 * @param {HTMLElement} initialTabContainer The initial active tab container.
 	 *
 	 * @since TBD
 	 */
-	obj.setupTabEventListeners = ( tabs, tabContainer ) => {
-		tabs.forEach( tab => {
-			tab.addEventListener(
-				'click',
-				() => {
-					// Get the data-tab-target of the clicked tab.
-					const target = tab.getAttribute( 'data-tab-target' );
+	obj.setupTabEventListeners = (tabs, initialTabContainer) => {
+		// Set the initial active tab container in obj to track the currently visible tab content
+		obj.activeTabContainer = initialTabContainer;
 
-					// Remove the active class from all tabs.
-					tabs.forEach( t => t.classList.remove( 'tec-nav__tab--subnav-active' ) );
+		// Centralized click event listener for tabs
+		document.addEventListener('click', (event) => {
+			// Check if the clicked element is a tab with data-tab-target
+			const tab = event.target.closest('[data-tab-target]');
+			if (!tab) return;
 
-					// Find and activate all tabs with the same data-tab-target.
-					document.querySelectorAll(`[data-tab-target="${target}"]`).forEach( matchingTab => {
-						matchingTab.classList.add( 'tec-nav__tab--subnav-active' );
-					});
+			// Retrieve the target container ID from the data-tab-target attribute
+			const target = tab.getAttribute('data-tab-target');
 
-					// Hide the current container and show the new one.
-					if ( tabContainer ) {
-						tabContainer.classList.add('hidden');
-					}
-
-					// Update the active tab container.
-					tabContainer = document.getElementById( target );
-					if ( tabContainer ) {
-						tabContainer.classList.remove('hidden');
-
-						// Get the text from the clicked link inside the tab.
-						const tabText = tab.querySelector(obj.selectors.navLinkText).textContent.trim();
-
-						// Set the text of the span inside the button with the id 'tec-settings-nav-modal-open'
-						const modalButtonSpan = document.querySelector( obj.selectors.modalButtonSpan );
-						if ( modalButtonSpan ) {
-							modalButtonSpan.textContent = tabText;
-						}
-
-						// Initialize accordions for the new tab content.
-						obj.setupAccordionsFor( tabContainer );
-					}
-				}
-			);
-		} );
+			// Update the active tab class and visible content
+			obj.updateActiveTab(tabs, target);
+			obj.updateActiveContent(tab, target);
+		});
 	};
 
+	/**
+	 * Updates the active tab by toggling the active class based on the target.
+	 *
+	 * @param {NodeList} tabs The list of tab elements.
+	 * @param {string} target The target data-tab-target attribute value.
+	 */
+	obj.updateActiveTab = (tabs, target) => {
+		// Remove the active class from all tabs
+		tabs.forEach((t) => t.classList.remove('tec-nav__tab--subnav-active'));
+
+		// Find and activate all tabs with the same data-tab-target
+		document.querySelectorAll(`[data-tab-target="${target}"]`).forEach((matchingTab) => {
+			matchingTab.classList.add('tec-nav__tab--subnav-active');
+		});
+	};
+
+	/**
+	 * Updates the active content container, showing the target container and updating modal button text.
+	 *
+	 * @param {HTMLElement} tab The current active tab element.
+	 * @param {string} target The target data-tab-target attribute value.
+	 */
+	obj.updateActiveContent = (tab, target) => {
+		// Hide the currently active container if it exists
+		if (obj.activeTabContainer) {
+			obj.activeTabContainer.classList.add('hidden');
+		}
+
+		// Select the new target container and update obj.activeTabContainer to it
+		const newTabContainer = document.getElementById(target);
+		if (newTabContainer) {
+			// Show the new container by removing the 'hidden' class
+			newTabContainer.classList.remove('hidden');
+			// Update the activeTabContainer to the newly visible container
+			obj.activeTabContainer = newTabContainer;
+
+			// Retrieve the text content from the data-link-title attribute for the modal button
+			const tabText = newTabContainer.getAttribute('data-link-title');
+
+			// Update the text of the modal button span
+			const modalButtonSpan = document.querySelector(obj.selectors.modalButtonSpan);
+			if (modalButtonSpan && tabText) {
+				modalButtonSpan.textContent = tabText;
+			}
+
+			// Initialize accordions for the new tab content if necessary
+			obj.setupAccordionsFor(obj.activeTabContainer);
+		}
+	};
 
 	$( obj.setup );
 

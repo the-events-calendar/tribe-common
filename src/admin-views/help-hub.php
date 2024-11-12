@@ -14,14 +14,18 @@
 
 $hub_tabs = [
 	[
-		'target' => 'tec-help-tab',
-		'class'  => 'tec-nav__tab--subnav-active',
-		'label'  => __( 'Support Hub', 'the-events-calendar' ),
+		'target'   => 'tec-help-tab',
+		'class'    => 'tec-nav__tab--subnav-active',
+		'label'    => __( 'Support Hub', 'the-events-calendar' ),
+		'id'       => 'tec-help-tab',
+		'template' => 'help-hub/support/support-hub',
 	],
 	[
-		'target' => 'tec-resources-tab',
-		'class'  => '',
-		'label'  => __( 'Resources', 'the-events-calendar' ),
+		'target'   => 'tec-resources-tab',
+		'class'    => '',
+		'label'    => __( 'Resources', 'the-events-calendar' ),
+		'id'       => 'tec-resources-tab',
+		'template' => 'help-hub/resources/resources',
 	],
 ];
 ?>
@@ -62,7 +66,6 @@ $hub_tabs = [
 		</div>
 	</dialog>
 	<div class="tec-nav__modal-controls">
-		<h3 class="tec-nav__modal-title">&nbsp;</h3>
 		<button
 			id="tec-settings-nav-modal-open"
 			class="tec-modal__control tec-modal__control--open"
@@ -94,13 +97,17 @@ $hub_tabs = [
 		</ul>
 	</nav>
 	<div id="tec-help-hub-tab-containers" class="tec-tab-parent-container">
-		<div id="tec-help-tab" class="tec-tab-container" role="tabpanel" aria-labelledby="tab-0">
-			<?php $this->template( 'help-hub/support/support-hub' ); ?>
-		</div>
-
-		<div id="tec-resources-tab" class="tec-tab-container hidden" role="tabpanel" aria-labelledby="tab-1">
-			<?php $this->template( 'help-hub/resources/resources' ); ?>
-		</div>
+		<?php foreach ( $hub_tabs as $index => $hub_tab ) : ?>
+			<div
+				id="<?php echo esc_attr( $hub_tab['id'] ); ?>"
+				class="tec-tab-container <?php echo 0 === $index ? '' : 'hidden'; ?>"
+				role="tabpanel"
+				aria-labelledby="tab-<?php echo esc_attr( $index ); ?>"
+				data-link-title="<?php echo esc_attr( $hub_tab['label'] ); ?>"
+			>
+				<?php $this->template( $hub_tab['template'] ); ?>
+			</div>
+		<?php endforeach; ?>
 	</div>
 </div>
 
