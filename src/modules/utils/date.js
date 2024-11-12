@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { identity } from 'lodash';
-import * as chrono from 'chrono-node';
+import { parse } from 'chrono-node';
 
 /**
  * Wordpress dependencies
@@ -137,7 +137,7 @@ export const rangeToNaturalLanguage = ( start = '', end = '', separators = {} ) 
 };
 
 export const labelToDate = ( label ) => {
-	const [ parsed ] = chrono.parse( label );
+	const [ parsed ] = parse( label );
 	const dates = {
 		start: null,
 		end: null,
