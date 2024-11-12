@@ -81,14 +81,18 @@ ul.tec-help-list__list-expanded {
 	font-size: 100%;
 	font-weight: normal;
 	margin: 0;
-	padding: var(--tec-spacer-1) var(--tec-spacer-2) var(--tec-spacer-1) var(--tec-spacer-1);
+	padding: var(--tec-spacer-1) var(--tec-spacer-3) var(--tec-spacer-1) 0;
 	position: relative;
+
+	&:last-of-type {
+		border-bottom: none;
+	}
 }
 
 .ui-accordion .ui-accordion-content {
 	border-top: 0;
 	overflow: auto;
-	padding: 1em 2.2em;
+	padding: var(--tec-spacer-1) var(--tec-spacer-3) 0 0;
 }
 
 .ui-state-active .ui-icon {
@@ -156,6 +160,10 @@ ul.tec-help-list__list-expanded {
 	padding-top: var(--tec-spacer-3);
 }
 
+.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox{
+	display: none;
+}
+
 .tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block{
 	padding-right: 0;
 }
@@ -212,6 +220,7 @@ ul.tec-help-list__list-expanded {
 		padding-right: 0;
 	}
 	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox {
+		display: grid;
 		margin-left: calc(var(--tec-spacer-3) * -1);
 		margin-right: var(--tec-spacer-4);
 		margin-top: calc(var(--tec-spacer-7) * -1);
