@@ -190,7 +190,7 @@ class Tribe__Template {
 		 *
 		 * @see [ECP-1477] https://github.com/the-events-calendar/events-pro/pull/2609
 		 */
-		$this->folder = array_filter( (array) ( $folder ) );
+		$this->folder = array_values( array_filter( (array) ( $folder ) ) );
 
 		return $this;
 	}
