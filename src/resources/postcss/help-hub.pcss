@@ -8,7 +8,7 @@ li.tec-nav__tab {
 }
 
 .tec-tab-container {
-	padding: var(--tec-spacer-7);
+	padding: 0 var(--tec-spacer-7) var(--tec-spacer-7) var(--tec-spacer-7);
 }
 
 .tribe_events_page_tec-events-settings .tec-settings-form {
@@ -19,6 +19,7 @@ li.tec-nav__tab {
 ul.tec-help-list__list-expanded {
 	font-size: var(--tec-font-size-2);
 	width: 100%;
+	margin-top: 0;
 }
 
 .tec-help-list__list-expanded li {
@@ -34,7 +35,6 @@ ul.tec-help-list__list-expanded {
 }
 
 .tribe_events_page_tec-events-settings .tec-settings-form {
-	padding-bottom: var(--tec-spacer-4);
 	width: auto;
 }
 
@@ -116,6 +116,7 @@ ul.tec-help-list__list-expanded {
 	#tec-settings__support-hub-iframe {
 		height: 750px;
 		width: 100%;
+		min-width: 250px;
 	}
 
 	#tec-settings__support-hub-iframe-loader {
@@ -151,23 +152,23 @@ ul.tec-help-list__list-expanded {
 	padding-right: initial;
 }
 
-.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block--horizontal {
-	padding: 0 var(--tec-spacer-7) var(--tec-spacer-2);
-}
-
 .tribe_events_page_tec-events-settings .tec-settings-form {
 	padding-top: var(--tec-spacer-3);
 }
 
-@media (--viewport-full) {
-	.tribe_events_page_tec-events-settings .tec-settings-form {
-		flex-grow: 1;
-		max-width: initial;
-		width: auto;
-	}
-}
-
 @media (--viewport-xsmall) {
+	.tec-tab-container {
+		padding: var(--tec-spacer-7);
+	}
+
+	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block--horizontal {
+		padding: 0 var(--tec-spacer-7) var(--tec-spacer-2);
+	}
+
+	.tribe_events_page_tec-events-settings .tec-settings-form {
+		padding-bottom: var(--tec-spacer-4);
+	}
+
 	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox {
 		margin-left: var(--tec-spacer-4);
 		margin-right: var(--tec-spacer-4);
@@ -181,12 +182,21 @@ ul.tec-help-list__list-expanded {
 	.tribe_events_page_tec-events-settings .tec-settings-form > * {
 		padding-right: initial;
 	}
+
 	.tec-settings__support-hub-iframe-container {
 		#tec-settings__support-hub-iframe {
 			height: 750px;
 			margin: 0 var(--tec-spacer-3);
 			width: calc(100% - var(--tec-spacer-3) * 2);
 		}
+	}
+}
+
+@media (--viewport-full) {
+	.tribe_events_page_tec-events-settings .tec-settings-form {
+		flex-grow: 1;
+		max-width: initial;
+		width: auto;
 	}
 }
 
@@ -215,6 +225,7 @@ ul.tec-help-list__list-expanded {
 	}
 
 	.tribe_events_page_tec-events-settings .tribe-settings-form {
-		max-width: calc(100vw - 200px - var(--tec-width-sidebar) - var(--tec-spacer-10));
+		max-width: 898px;
+		width: calc(100vw - 200px - var(--tec-width-sidebar) - var(--tec-spacer-10));
 	}
 }

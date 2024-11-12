@@ -12,6 +12,7 @@
 body {
 	font-family: var(--tec-font-family-sans-serif);
 	overflow: hidden;
+	background: transparent!important;
 }
 
 .hide {
@@ -61,17 +62,16 @@ body {
 /* Small screens and up: 80% width with 10% margins */
 @media (--viewport-xxsmall) {
 	#webWidget {
-		margin-left: 10% !important;
-		margin-right: 10% !important;
-		width: 80% !important;
+		width:100vw !important;
 	}
 }
 
 /* Medium screens and up: 50% width, centered */
 @media (--viewport-medium) {
 	#webWidget {
-		margin: 0 auto !important;
 		width: 50% !important;
+		margin: 0 auto!important;
+		max-height: 100vh !important
 	}
 }
 

@@ -66,7 +66,6 @@ $hub_tabs = [
 		</div>
 	</dialog>
 	<div class="tec-nav__modal-controls">
-		<h3 class="tec-nav__modal-title">&nbsp;</h3>
 		<button
 			id="tec-settings-nav-modal-open"
 			class="tec-modal__control tec-modal__control--open"

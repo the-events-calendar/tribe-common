@@ -12,6 +12,79 @@ window.DocsBotAI = window.DocsBotAI || {};
 	};
 
 	/**
+	 * Custom CSS for Docsbot.
+	 * Note that you may need to use !important to override some element styles.
+	 *
+	 * @link https://docsbot.ai/documentation/developer/embeddable-chat-widget#custom-css
+	 *
+	 * @since TBD
+	 *
+	 * @type {string}
+	 */
+	obj.DocsBotAIcss = `
+						/* DocsBot iframe box dimensions */
+						.docsbot-iframe-box {
+							height: 740px;
+							max-height: 740px;
+						}
+
+						/* Container styling */
+						.docsbot-chat-container {
+							font-family: Arial, Helvetica, sans-serif;
+						}
+
+						/* Inner container styling */
+						.docsbot-chat-inner-container {
+							border-radius: 0;
+							background-color: #ffffff !important;
+						}
+
+						/* Bot message styling */
+						.docsbot-chat-bot-message {
+							border-color: #334aff;
+							background: #E6E9FF !important;
+							color: #000000 !important;
+						}
+
+						/* User message styling */
+						.docsbot-user-chat-message {
+							color: #000000 !important;
+						}
+
+						/* Header styling */
+						.docsbot-chat-header {
+							background-color: #ffffff !important;
+							color: #000000 !important;
+							border-bottom: solid 1px #C3C4C7;
+						}
+
+						/* Header content styling */
+						.docsbot-chat-header-content h1 {
+							text-align: left;
+						}
+						.docsbot-chat-header-content span {
+							display: none;
+						}
+
+						/* Header button positioning */
+						.docsbot-chat-header button {
+							top: 14px !important;
+						}
+
+						/* Suggested questions container styling */
+						.docsbot-chat-suggested-questions-container button {
+							background-color: #F6F7F7 !important;
+							border: solid 1px #C3C4C7 !important;
+							border-radius: 3px;
+							color: #000000 !important;
+						}
+						.docsbot-chat-suggested-questions-container span {
+							color: #000000 !important;
+						}
+					`;
+
+
+	/**
 	 * Initializes the help page setup, verifying opt-in status.
 	 *
 	 * @since TBD
@@ -53,6 +126,8 @@ window.DocsBotAI = window.DocsBotAI || {};
 
 	/**
 	 * Initializes the Zendesk widget, hides it initially, and sets up event listeners for open/close actions.
+	 *
+	 * @link https://support.zendesk.com/hc/en-us/articles/4408836216218-Using-Web-Widget-Classic-to-embed-customer-service-in-your-website
 	 *
 	 * @since TBD
 	 * @return {void}
@@ -182,6 +257,8 @@ window.DocsBotAI = window.DocsBotAI || {};
 	/**
 	 * Initializes the DocsBot widget, handling its configuration and integration with Zendesk.
 	 *
+	 * @link https://docsbot.ai/documentation/developer/embeddable-chat-widget
+	 *
 	 * @since TBD
 	 * @return {void}
 	 */
@@ -223,6 +300,9 @@ window.DocsBotAI = window.DocsBotAI || {};
 
 		DocsBotAI.init( {
 							id: helpHubSettings.docsbot_key,
+							options: {
+								customCSS: obj.DocsBotAIcss,
+							},
 							supportCallback: ( event ) => {
 								event.preventDefault();
 								obj.selectors.body.classList.add( 'blackout' );
