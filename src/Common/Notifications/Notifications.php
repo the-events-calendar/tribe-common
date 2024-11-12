@@ -206,7 +206,7 @@ final class Notifications {
 	 * @since TBD
 	 */
 	public function opt_in() {
-		if ( wp_verify_nonce( tribe_get_request_var( 'nonce' ), 'common_ian_nonce' ) ) {
+		if ( wp_verify_nonce( tec_get_request_var( 'nonce' ), 'common_ian_nonce' ) ) {
 
 			tribe_update_option( 'ian-notifications-opt-in', 1 );
 
@@ -222,7 +222,7 @@ final class Notifications {
 	 * @since TBD
 	 */
 	public function get_feed() {
-		if ( ! wp_verify_nonce( tribe_get_request_var( 'nonce' ), 'common_ian_nonce' ) ) {
+		if ( ! wp_verify_nonce( tec_get_request_var( 'nonce' ), 'common_ian_nonce' ) ) {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'tribe-common' ), 403 );
 		}
 
@@ -307,13 +307,13 @@ final class Notifications {
 	 * @return void
 	 */
 	public function handle_dismiss(): void {
-		$id = tribe_get_request_var( 'id' );
+		$id = tec_get_request_var( 'id' );
 
-		if ( ! wp_verify_nonce( tribe_get_request_var( 'nonce' ), 'ian_nonce_' . $id ) ) {
+		if ( ! wp_verify_nonce( tec_get_request_var( 'nonce' ), 'ian_nonce_' . $id ) ) {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'tribe-common' ), 403 );
 		}
 
-		$slug = tribe_get_request_var( 'slug' );
+		$slug = tec_get_request_var( 'slug' );
 
 		if ( empty( $slug ) ) {
 			wp_send_json_error( esc_html__( 'Invalid notification slug', 'tribe-common' ), 403 );
