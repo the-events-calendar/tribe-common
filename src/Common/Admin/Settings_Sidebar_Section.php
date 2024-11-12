@@ -2,7 +2,7 @@
 /**
  * Settings_Section.
  *
- * @since TBD
+ * @since 6.3.0
  */
 
 declare( strict_types=1 );
@@ -14,14 +14,14 @@ use TEC\Common\Admin\Entities\Image;
 /**
  * Class Settings_Sidebar_Section
  *
- * @since TBD
+ * @since 6.3.0
  */
 class Settings_Sidebar_Section extends Settings_Section {
 
 	/**
 	 * Sections for the sidebar.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @var Section[]
 	 */
@@ -30,7 +30,7 @@ class Settings_Sidebar_Section extends Settings_Section {
 	/**
 	 * Header image for the sidebar.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @var ?Image
 	 */
@@ -39,7 +39,7 @@ class Settings_Sidebar_Section extends Settings_Section {
 	/**
 	 * Set the header image for the sidebar.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @param Image $image The image to set.
 	 *
@@ -69,7 +69,7 @@ class Settings_Sidebar_Section extends Settings_Section {
 	/**
 	 * Add a sub-section to the start of the sidebar array of sections
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @param Section $section The section to add.
 	 *
@@ -84,7 +84,7 @@ class Settings_Sidebar_Section extends Settings_Section {
 	/**
 	 * Render the header image for the sidebar.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return void
 	 */
@@ -99,7 +99,7 @@ class Settings_Sidebar_Section extends Settings_Section {
 	/**
 	 * Render the sidebar Section.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return void
 	 */
@@ -110,7 +110,7 @@ class Settings_Sidebar_Section extends Settings_Section {
 			/**
 			 * Fires before the sidebar header is rendered.
 			 *
-			 * @since TBD
+			 * @since 6.3.0
 			 */
 			do_action( 'tec_settings_sidebar_header_start' );
 
@@ -120,7 +120,7 @@ class Settings_Sidebar_Section extends Settings_Section {
 			/**
 			 * Fires after the sidebar header is rendered.
 			 *
-			 * @since TBD
+			 * @since 6.3.0
 			 */
 			do_action( 'tec_settings_sidebar_header_end' );
 			?>

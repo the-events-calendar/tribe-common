@@ -15,14 +15,14 @@ use Tribe\Utils\Element_Classes as Classes;
 /**
  * Class Button
  *
- * @since TBD
+ * @since 6.3.0
  */
 class Button extends Container {
 
 	/**
 	 * Button constructor.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @param ?Classes    $classes    The classes for the div.
 	 * @param ?Attributes $attributes The attributes for the div.
@@ -40,7 +40,7 @@ class Button extends Container {
 	/**
 	 * Render the element.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return void
 	 */

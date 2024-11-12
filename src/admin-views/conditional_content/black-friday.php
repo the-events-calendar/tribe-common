@@ -2,7 +2,7 @@
 /**
  * Black Friday Conditional template.
  *
- * @since TBD
+ * @since 6.3.0
  *
  * @var string $image_src Where the image is located.
  * @var string $link      Where the image should link to.
@@ -11,7 +11,6 @@
  */
 
 $sale_year = date_i18n( 'Y' );
-/* translators: %1$s: Black Friday year */
 /* translators: %1$s: Black Friday sale year (numeric) */
 $a11y_text = _x( '%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Black Friday Ad', 'tribe-common' );
 ?>

@@ -8,7 +8,7 @@ use Tribe\Tests\Traits\With_Uopz;
 
 class NewEventTest extends \Codeception\TestCase\WPTestCase {
 
-	use Create_events;
+	use Create_Events;
 	use With_Uopz;
 
 	public function setUp() {

@@ -2,8 +2,8 @@
 
 namespace Tribe\tests\eva_integration\Traits\Maps\Commerce;
 
-use TEC\Event_Automator\Tests\Traits\Create_events;
-use TEC\Event_Automator\Tests\Traits\Create_attendees;
+use TEC\Event_Automator\Tests\Traits\Create_Events;
+use TEC\Event_Automator\Tests\Traits\Create_Attendees;
 use TEC\Event_Automator\Traits\Maps\Commerce\Tickets_Commerce;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
@@ -13,8 +13,8 @@ class TicketsCommerceTest extends \Codeception\TestCase\WPTestCase {
 
 	use SnapshotAssertions;
 	use With_Post_Remapping;
-	use Create_events;
-	use Create_attendees;
+	use Create_Events;
+	use Create_Attendees;
 	use With_Uopz;
 	use Tickets_Commerce;
 
