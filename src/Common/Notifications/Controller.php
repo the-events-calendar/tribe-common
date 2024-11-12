@@ -1,6 +1,6 @@
 <?php
 /**
- * Service Provider for In-App Notifications.
+ * Controller for In-App Notifications.
  *
  * @since   TBD
  *
@@ -9,27 +9,31 @@
 
 namespace TEC\Common\Notifications;
 
-use TEC\Common\Contracts\Service_Provider as Provider_Contract;
+use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 
 /**
- * Class Provider
+ * Class Controller
  *
  * @since   TBD
 
  * @package TEC\Common\Notifications
  */
-class Controller extends Provider_Contract {
+class Controller extends Controller_Contract {
 
 	/**
 	 * Registers actions and filters.
 	 *
 	 * @since TBD
 	 */
-	public function register() {
-		$this->container->bind( Notifications::class, Notifications::class );
-		$this->container->singleton( Conditionals::class, Conditionals::class );
+	public function do_register(): void {
+		$this->add_actions();
+	}
 
-		$this->hooks();
+	/**
+	 * Unhooks actions and filters.
+	 */
+	public function unregister(): void {
+		$this->remove_actions();
 	}
 
 	/**
@@ -37,16 +41,29 @@ class Controller extends Provider_Contract {
 	 *
 	 * @since TBD
 	 */
-	public function hooks() {
+	public function add_actions() {
 		add_action( 'tribe_plugins_loaded', [ $this, 'boot' ], 50 );
 
-		add_action( 'tec_common_ian_preload', [ $this, 'hook_init' ], 5 );
 		add_action( 'tec_ian_icon', [ $this, 'show_icon' ] );
-		add_action( 'tec_common_ian_loaded', [ $this, 'register_assets' ] );
 
 		add_action( 'wp_ajax_ian_optin', [ $this, 'opt_in' ] );
 		add_action( 'wp_ajax_ian_get_feed', [ $this, 'get_feed' ] );
 		add_action( 'wp_ajax_ian_dismiss', [ $this, 'handle_dismiss' ] );
+	}
+
+	/**
+	 * Remove the action hooks.
+	 *
+	 * @since TBD
+	 */
+	public function remove_actions() {
+		remove_action( 'tribe_plugins_loaded', [ $this, 'boot' ], 50 );
+
+		remove_action( 'tec_ian_icon', [ $this, 'show_icon' ] );
+
+		remove_action( 'wp_ajax_ian_optin', [ $this, 'opt_in' ] );
+		remove_action( 'wp_ajax_ian_get_feed', [ $this, 'get_feed' ] );
+		remove_action( 'wp_ajax_ian_dismiss', [ $this, 'handle_dismiss' ] );
 	}
 
 	/**
@@ -66,18 +83,7 @@ class Controller extends Provider_Contract {
 	 * @return void
 	 */
 	public function boot() {
-		$this->container->make( Notifications::class )->boot();
-	}
-
-	/**
-	 * Initialize our internal IAN code.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function initialize() {
-		$this->container->make( Notifications::class )->init();
+		$this->container->make( Notifications::class );
 	}
 
 	/**
@@ -91,15 +97,6 @@ class Controller extends Provider_Contract {
 	 */
 	public function show_icon( $slug ) {
 		$this->container->make( Notifications::class )->show_icon( $slug );
-	}
-
-	/**
-	 * Ensure the assets for the modal are enqueued, if needed.
-	 *
-	 * @since TBD
-	 */
-	public function register_assets(): void {
-		$this->container->make( Notifications::class )->register_assets();
 	}
 
 	/**

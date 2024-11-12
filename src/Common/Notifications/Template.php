@@ -20,7 +20,7 @@ use TEC\Common\Telemetry\Telemetry;
  *
  * @package TEC\Common\Notifications
  */
-class Template {
+class Template extends Tribe__Template {
 
 	/**
 	 * Stores the instance of the template engine that we will use for rendering the page.
@@ -89,13 +89,13 @@ class Template {
 		$args = wp_parse_args(
 			$args,
 			[
-				'type'        => $args['type'],
-				'id'          => $args['id'],
-				'dismissible' => $args['dismissible'],
-				'slug'        => $args['slug'],
-				'title'       => $args['title'],
-				'content'     => $args['content'],
-				'actions'     => $args['actions'],
+				'type'        => $args['type'] ?? 'notice',
+				'id'          => $args['id'] ?? '',
+				'dismissible' => $args['dismissible'] ?? true,
+				'slug'        => $args['slug'] ?? '',
+				'title'       => $args['title'] ?? '',
+				'content'     => $args['content'] ?? '',
+				'actions'     => $args['actions'] ?? [],
 			]
 		);
 

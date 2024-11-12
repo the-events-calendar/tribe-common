@@ -48,38 +48,19 @@ final class Notifications {
 	protected string $slug = '';
 
 	/**
-	 * Boot the in-App Notifications
+	 * Constructor.
 	 *
 	 * @since TBD
-	 *
-	 * @return void
 	 */
-	public function boot(): void {
+	public function __construct() {
+		$this->register_assets();
+
 		$this->api_url = $this->get_api_url();
 		$this->slugs   = $this->get_plugins();
 
 		/**
 		 * Allow plugins to hook in and add themselves,
-		 * running their own actions once In-App Notifications is initiated.
-		 *
-		 * @since TBD
-		 *
-		 * @param self $ian The In-App Notifications instance.
-		 */
-		do_action( 'tec_common_ian_preload', $this );
-	}
-
-	/**
-	 * Initializes the plugins and triggers the "loaded" action.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function init(): void {
-		/**
-		 * Allow plugins to hook in and add themselves,
-		 * running their own actions once IAN is initiated.
+		 * running their own actions after IAN is initiated.
 		 *
 		 * @since TBD
 		 *
@@ -87,6 +68,7 @@ final class Notifications {
 		 */
 		do_action( 'tec_common_ian_loaded', $this );
 	}
+
 
 	/**
 	 * Register the Admin assets for the In-App Notifications.
@@ -134,7 +116,7 @@ final class Notifications {
 		 *
 		 * @param string $api The API URL for the In-App Notifications.
 		 */
-		$api = apply_filters( 'tec_common_ian_api_url', $api );
+		$api = apply_filters( 'tec_common_ian_api_url', $api, $this );
 
 		return $api;
 	}
@@ -240,82 +222,81 @@ final class Notifications {
 	 * @since TBD
 	 */
 	public function get_feed() {
-		if ( wp_verify_nonce( tribe_get_request_var( 'nonce' ), 'common_ian_nonce' ) ) {
-
-			// TODO: Below is an example notifications array. Send the real one from Laravel.
-			$feed = [
-				[
-					'id'          => '101',
-					'type'        => 'update',
-					'slug'        => 'tec-update-664',
-					'title'       => 'The Events Calendar 6.6.4 Update',
-					'content'     => '<p>The latest update of The Events Calendar adds an option to allow for duplicate Venue creation, updates custom table query logic to avoid DB error, and logic that displays the “REST API blocked” banner to prevent false positives.</p>',
-					'actions'     => [
-						[
-							'text'   => 'See Details',
-							'link'   => 'https://evnt.is/1ai-',
-							'target' => '_blank',
-						],
-						[
-							'text'   => 'Update Now',
-							'link'   => '/wp-admin/update-core.php',
-							'target' => '_self',
-						],
-					],
-					'dismissible' => true,
-				],
-				[
-					'id'          => '102',
-					'type'        => 'notice',
-					'slug'        => 'event-tickets-upsell',
-					'title'       => 'Sell Tickets & Collect RSVPs with Event Tickets',
-					'content'     => '<p>Sell tickets, collect RSVPs and manage attendees for free.</p>',
-					'actions'     => [
-						[
-							'text'   => 'Learn More',
-							'link'   => 'https://evnt.is/1aj1',
-							'target' => '_blank',
-						],
-					],
-					'dismissible' => true,
-				],
-				[
-					'id'          => '103',
-					'type'        => 'warning',
-					'slug'        => 'fbar-upgrade-556',
-					'title'       => 'Filter Bar 5.5.6 Security Update',
-					'content'     => '<p>Get the latest version of Filter Bar for important security updates.</p>',
-					'actions'     => [
-						[
-							'text'   => 'Update',
-							'link'   => '/wp-admin/plugins.php?plugin_status=upgrade',
-							'target' => '_self',
-						],
-					],
-					'dismissible' => false,
-				],
-			];
-
-			$notifications = Conditionals::filter_feed( $feed );
-
-			$template = new Template();
-			foreach ( $notifications as $k => $notification ) {
-				$this->slug = $notification['slug'];
-				if ( $this->has_user_dismissed() ) {
-					unset( $notifications[ $k ] );
-					continue;
-				}
-				$html = $template->render_notification( $notification, false );
-
-				$notifications[ $k ]['html'] = $html;
-			}
-
-			array_values( $notifications );
-
-			wp_send_json_success( $notifications, 200 );
-		} else {
+		if ( ! wp_verify_nonce( tribe_get_request_var( 'nonce' ), 'common_ian_nonce' ) ) {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'tribe-common' ), 403 );
 		}
+
+		// TODO: Below is an example notifications array. Send the real one from Laravel.
+		$feed = [
+			[
+				'id'          => '101',
+				'type'        => 'update',
+				'slug'        => 'tec-update-664',
+				'title'       => 'The Events Calendar 6.6.4 Update',
+				'content'     => '<p>The latest update of The Events Calendar adds an option to allow for duplicate Venue creation, updates custom table query logic to avoid DB error, and logic that displays the “REST API blocked” banner to prevent false positives.</p>',
+				'actions'     => [
+					[
+						'text'   => 'See Details',
+						'link'   => 'https://evnt.is/1ai-',
+						'target' => '_blank',
+					],
+					[
+						'text'   => 'Update Now',
+						'link'   => '/wp-admin/update-core.php',
+						'target' => '_self',
+					],
+				],
+				'dismissible' => true,
+			],
+			[
+				'id'          => '102',
+				'type'        => 'notice',
+				'slug'        => 'event-tickets-upsell',
+				'title'       => 'Sell Tickets & Collect RSVPs with Event Tickets',
+				'content'     => '<p>Sell tickets, collect RSVPs and manage attendees for free.</p>',
+				'actions'     => [
+					[
+						'text'   => 'Learn More',
+						'link'   => 'https://evnt.is/1aj1',
+						'target' => '_blank',
+					],
+				],
+				'dismissible' => true,
+			],
+			[
+				'id'          => '103',
+				'type'        => 'warning',
+				'slug'        => 'fbar-upgrade-556',
+				'title'       => 'Filter Bar 5.5.6 Security Update',
+				'content'     => '<p>Get the latest version of Filter Bar for important security updates.</p>',
+				'actions'     => [
+					[
+						'text'   => 'Update',
+						'link'   => '/wp-admin/plugins.php?plugin_status=upgrade',
+						'target' => '_self',
+					],
+				],
+				'dismissible' => false,
+			],
+		];
+
+		$notifications = Conditionals::filter_feed( $feed );
+
+		$template = new Template();
+		foreach ( $notifications as $k => $notification ) {
+			$this->slug = $notification['slug'];
+			if ( $this->has_user_dismissed() ) {
+				unset( $notifications[ $k ] );
+				continue;
+			}
+			$html = $template->render_notification( $notification, false );
+
+			$notifications[ $k ]['html'] = $html;
+		}
+
+		array_values( $notifications );
+
+		wp_send_json_success( $notifications, 200 );
 	}
 
 	/**
@@ -328,20 +309,19 @@ final class Notifications {
 	public function handle_dismiss(): void {
 		$id = tribe_get_request_var( 'id' );
 
-		if ( wp_verify_nonce( tribe_get_request_var( 'nonce' ), 'ian_nonce_' . $id ) ) {
-
-			$slug = tribe_get_request_var( 'slug' );
-
-			if ( empty( $slug ) ) {
-				wp_send_json_error( esc_html__( 'Invalid notification slug', 'tribe-common' ), 403 );
-			}
-
-			$this->slug = $slug;
-			$this->dismiss();
-
-			wp_send_json_success( esc_html__( 'Notification dismissed', 'tribe-common' ), 200 );
-		} else {
+		if ( ! wp_verify_nonce( tribe_get_request_var( 'nonce' ), 'ian_nonce_' . $id ) ) {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'tribe-common' ), 403 );
 		}
+
+		$slug = tribe_get_request_var( 'slug' );
+
+		if ( empty( $slug ) ) {
+			wp_send_json_error( esc_html__( 'Invalid notification slug', 'tribe-common' ), 403 );
+		}
+
+		$this->slug = $slug;
+		$this->dismiss();
+
+		wp_send_json_success( esc_html__( 'Notification dismissed', 'tribe-common' ), 200 );
 	}
 }

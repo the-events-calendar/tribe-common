@@ -89,16 +89,18 @@ class Conditionals {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $version The version to check against.
+	 * @param string $php_version The version to check against.
 	 *
 	 * @return bool
 	 */
-	public function check_php_version( $version ): bool {
-		if ( ! empty( $php_version ) ) {
-			$version = preg_split( '/(?=\d)/', $php_version, 2 );
-			if ( ! version_compare( phpversion(), $version[1], $version[0] ?? '>=' ) ) {
-				return false;
-			}
+	public static function check_php_version( $php_version ): bool {
+		if ( empty( $php_version ) ) {
+			return true;
+		}
+
+		$version = preg_split( '/(?=\d)/', $php_version, 2 );
+		if ( ! version_compare( PHP_VERSION, $version[1], $version[0] ?? '>=' ) ) {
+			return false;
 		}
 
 		return true;
@@ -109,16 +111,18 @@ class Conditionals {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $version The version to check against.
+	 * @param string $wp_version The version to check against.
 	 *
 	 * @return bool
 	 */
-	public function check_wp_version( $version ): bool {
-		if ( ! empty( $wp_version ) ) {
-			$version = preg_split( '/(?=\d)/', $wp_version, 2 );
-			if ( ! version_compare( get_bloginfo( 'version' ), $version[1], $version[0] ?? '>=' ) ) {
-				return false;
-			}
+	public static function check_wp_version( $wp_version ): bool {
+		if ( empty( $wp_version ) ) {
+			return true;
+		}
+
+		$version = preg_split( '/(?=\d)/', $wp_version, 2 );
+		if ( ! version_compare( get_bloginfo( 'version' ), $version[1], $version[0] ?? '>=' ) ) {
+			return false;
 		}
 
 		return true;
@@ -133,19 +137,21 @@ class Conditionals {
 	 *
 	 * @return bool
 	 */
-	public function check_plugin_version( $plugins ): bool {
-		if ( ! empty( $plugins ) ) {
-			foreach ( $plugins as $plugin ) {
-				$pieces = explode( '@', $plugin );
+	public static function check_plugin_version( array $plugins ): bool {
+		if ( empty( $plugins ) ) {
+			return true;
+		}
 
-				if ( ! is_plugin_active( $pieces[0] . '/' . $pieces[0] . '.php' ) ) {
-					return false;
-				}
+		foreach ( $plugins as $plugin ) {
+			$pieces = explode( '@', $plugin );
 
-				$version = preg_split( '/(?=\d)/', $pieces[1], 2 );
-				if ( ! version_compare( get_plugin_data( $pieces[0] . '/' . $pieces[0] . '.php' )['Version'], $version[1], $version[0] ?? '>=' ) ) {
-					return false;
-				}
+			if ( ! is_plugin_active( $pieces[0] . '/' . $pieces[0] . '.php' ) ) {
+				return false;
+			}
+
+			$version = preg_split( '/(?=\d)/', $pieces[1], 2 );
+			if ( ! version_compare( get_plugin_data( $pieces[0] . '/' . $pieces[0] . '.php' )['Version'], $version[1], $version[0] ?? '>=' ) ) {
+				return false;
 			}
 		}
 
