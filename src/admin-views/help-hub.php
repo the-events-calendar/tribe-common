@@ -30,6 +30,9 @@ $hub_tabs = [
 ];
 ?>
 <div class="tribe_settings wrap tec-events-admin-settings">
+	<div class="tribe-notice-wrap">
+		<div class="wp-header-end"></div>
+	</div>
 	<h1>
 		<img
 			class="tribe-events-admin-title__logo"
