@@ -64,6 +64,8 @@ function optinIanAjax() {
 }
 
 function getIanAjax() {
+	const loader = document.querySelector(".ian-sidebar__loader");
+	loader.classList.add("show");
 	const data = new FormData();
 	data.append("action", "ian_get_feed");
 	data.append("nonce", window.commonIan.nonce);
@@ -78,8 +80,8 @@ function getIanAjax() {
 			if (response.success) {
 				const optin = document.querySelector(".ian-sidebar__optin");
 				if (optin) optin.remove();
-				const loader = document.querySelector(".ian-sidebar__loader");
-				if (loader) loader.classList.remove("show");
+
+				loader.classList.remove("show");
 
 				if ( response.data.length === 0 ) {
 					document.querySelector(".ian-sidebar__notifications").classList.add("is-hidden");

@@ -216,7 +216,6 @@ final class Notifications {
 		tribe_update_option( 'ian-notifications-opt-in', 1 );
 
 		wp_send_json_success( esc_html__( 'Notifications opt-in successful', 'tribe-common' ), 200 );
-		return; // phpcs:ignore Squiz.PHP.NonExecutableCode.ReturnNotRequired
 	}
 
 	/**
@@ -231,8 +230,16 @@ final class Notifications {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'tribe-common' ), 403 );
 			return;
 		}
-		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.wp_remote_get_wp_remote_get
-		$response = wp_remote_get( $this->api_url );
+
+		$cache    = tribe_cache();
+		$response = $cache->get( 'ian_api_feed_response' );
+
+		if ( false === $response ) {
+			// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.wp_remote_get_wp_remote_get
+			$response = wp_remote_get( $this->api_url );
+			$cache->set( 'ian_api_feed_response', $response, 15 * MINUTE_IN_SECONDS );
+		}
+
 		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
 			wp_send_json_error( wp_remote_retrieve_response_message( $response ), wp_remote_retrieve_response_code( $response ) );
 			return;
@@ -253,7 +260,6 @@ final class Notifications {
 		array_values( $feed );
 
 		wp_send_json_success( $feed, 200 );
-		return; // phpcs:ignore Squiz.PHP.NonExecutableCode.ReturnNotRequired
 	}
 
 	/**
@@ -282,6 +288,5 @@ final class Notifications {
 		$this->dismiss();
 
 		wp_send_json_success( esc_html__( 'Notification dismissed', 'tribe-common' ), 200 );
-		return; // phpcs:ignore Squiz.PHP.NonExecutableCode.ReturnNotRequired
 	}
 }
