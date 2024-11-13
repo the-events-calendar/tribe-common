@@ -12,7 +12,7 @@
 body {
 	font-family: var(--tec-font-family-sans-serif);
 	overflow: hidden;
-	background: transparent!important;
+	background: transparent !important;
 }
 
 .hide {
@@ -62,7 +62,7 @@ body {
 /* Small screens and up: 80% width with 10% margins */
 @media (--viewport-xxsmall) {
 	#webWidget {
-		width:100vw !important;
+		width: 100vw !important;
 	}
 }
 
@@ -70,7 +70,7 @@ body {
 @media (--viewport-medium) {
 	#webWidget {
 		width: 50% !important;
-		margin: 0 auto!important;
+		margin: 0 auto !important;
 		max-height: 100vh !important
 	}
 }
@@ -122,13 +122,48 @@ body {
 	display: flex;
 	flex-direction: column;
 	gap: var(--tec-spacer-2);
-}
 
-/* Link Styles */
-.tec-help-hub-iframe-opt-out-message__content a {
-	color: var(--tec-color-link-primary);
-	margin-top: var(--tec-spacer-2);
-	text-decoration: underline;
+	/* Button Styles */
+	.button {
+		-webkit-appearance: none;
+		border-radius: 3px;
+		border-style: solid;
+		border-width: 1px;
+		box-sizing: border-box;
+		cursor: pointer;
+		display: inline-block;
+		font-size: 13px;
+		line-height: 2.15384615;
+		margin: 0;
+		min-height: 30px;
+		padding: 0 10px;
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	/* Secondary Button Styles */
+	.button-secondary {
+		background: #f6f7f7;
+		border-color: #2271b1;
+		color: #2271b1;
+		vertical-align: top;
+	}
+
+	/* Anchor Tags Styled as Buttons */
+	a.button {
+		max-width: fit-content;
+	}
+
+	/* Link Styles */
+	a {
+		color: #2271b1;
+		margin-top: var(--tec-spacer-2);
+		text-decoration: underline;
+
+		&:hover {
+			color: #135e96;
+		}
+	}
 }
 
 @media screen {
