@@ -65,7 +65,7 @@ class Controller extends Controller_Contract {
 			],
 			'admin_enqueue_scripts',
 			[
-				'conditionals' => [$this, 'is_ian_page'],
+				'conditionals' => [ $this, 'is_ian_page' ],
 				'in_footer'    => false,
 				'localize'     => [
 					'name' => 'commonIan',
