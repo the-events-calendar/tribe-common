@@ -3,17 +3,6 @@
   "version": "6.3.1",
   "repository": "git@github.com:the-events-calendar/tribe-common.git",
   "_resourcepath": "src/resources",
-  "_domainPath": "lang",
-  "_textDomain": "tribe-common",
-  "_glotPressUrl": "https://translations.theeventscalendar.com",
-  "_glotPressSlug": "tribe-common",
-  "_glotPressFileFormat": "%textdomain%-%wp_locale%.%format%",
-  "_glotPressFormats": ["po", "mo"],
-  "_glotPressFilter": {
-    "translation_sets": false,
-    "minimum_percentage": 30,
-    "waiting_strings": false
-  },
   "_filePath": {
     "eslint": [
       "src/modules/**/*.js",
@@ -49,7 +38,6 @@
     "lint:stylelint": "gulp stylelint",
     "jest": "TZ=UTC gulp jest",
     "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js",
-    "glotpress": "gulp glotpress",
     "changelog": "./vendor/bin/changelogger add"
   },
   "dependencies": {
