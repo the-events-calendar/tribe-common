@@ -9,7 +9,6 @@
 
 namespace TEC\Common\Notifications;
 
-use Tribe__Main;
 use TEC\Common\Admin\Conditional_Content\Dismissible_Trait;
 
 /**
@@ -53,8 +52,6 @@ final class Notifications {
 	 * @since TBD
 	 */
 	public function __construct() {
-		$this->register_assets();
-
 		$this->api_url = $this->get_api_url();
 		$this->slugs   = $this->get_plugins();
 
@@ -67,36 +64,6 @@ final class Notifications {
 		 * @param self $ian The IAN instance.
 		 */
 		do_action( 'tec_common_ian_loaded', $this );
-	}
-
-
-	/**
-	 * Register the Admin assets for the In-App Notifications.
-	 *
-	 * @since  TBD
-	 *
-	 * @return void
-	 */
-	public function register_assets(): void {
-		tribe_assets(
-			Tribe__Main::instance(),
-			[
-				[ 'ian-client-css', 'ian-client.css' ],
-				[ 'ian-client-js', 'ian-client.js', [ 'jquery' ] ],
-			],
-			'admin_enqueue_scripts',
-			[
-				'conditionals' => [ $this, 'is_ian_page' ],
-				'in_footer'    => false,
-				'localize'     => [
-					'name' => 'commonIan',
-					'data' => [
-						'ajax_url' => admin_url( 'admin-ajax.php' ),
-						'nonce'    => wp_create_nonce( 'common_ian_nonce' ),
-					],
-				],
-			]
-		);
 	}
 
 	/**
@@ -115,38 +82,11 @@ final class Notifications {
 		 * @since TBD
 		 *
 		 * @param string $api The API URL for the In-App Notifications.
+		 * @param object $this The current instance of the class.
 		 */
 		$api = apply_filters( 'tec_common_ian_api_url', $api, $this );
 
 		return $api;
-	}
-
-	/**
-	 * Define which pages will show the notification icon.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool
-	 */
-	public function is_ian_page() {
-		$screen = get_current_screen();
-
-		$allowed = [ 'tribe_events', 'edit-tribe_events', 'tribe_events_page_tec-events-settings' ];
-
-		/**
-		 * Filter the allowed pages for the Notifications icon.
-		 *
-		 * @since TBD
-		 *
-		 * @param array<string> $allowed The allowed pages for the Notifications icon.
-		 */
-		$allowed = apply_filters( 'tec_common_ian_allowed_pages', $allowed );
-
-		if ( in_array( $screen->id, $allowed, true ) ) {
-			return true;
-		}
-
-		return false;
 	}
 
 	/**
@@ -179,7 +119,7 @@ final class Notifications {
 	 * @return void
 	 */
 	public function show_icon( $slug ): void {
-		if ( ! in_array( $slug, $this->get_plugins(), true ) || ! $this->is_ian_page() ) {
+		if ( ! in_array( $slug, $this->get_plugins(), true ) ) {
 			return;
 		}
 

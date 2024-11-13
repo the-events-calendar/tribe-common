@@ -10,6 +10,7 @@
 namespace TEC\Common\Notifications;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use Tribe__Main;
 
 /**
  * Class Controller
@@ -26,7 +27,7 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
-		add_action( 'tribe_plugins_loaded', [ $this, 'boot' ], 50 );
+		add_action( 'tribe_plugins_loaded', [ $this, 'register_ian' ], 50 );
 
 		add_action( 'tec_ian_icon', [ $this, 'show_icon' ] );
 
@@ -49,23 +50,62 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
-	 * Hook the IAN initialization.
-	 *
-	 * @since TBD
-	 */
-	public function hook_init(): void {
-		add_action( 'admin_init', [ $this, 'initialize' ], 5 );
-	}
-
-	/**
-	 * Boot our internal IAN code.
+	 * Register the In-App Notifications assets.
 	 *
 	 * @since TBD
 	 *
 	 * @return void
 	 */
-	public function boot() {
-		$this->container->make( Notifications::class );
+	public function register_ian() {
+		tribe_assets(
+			Tribe__Main::instance(),
+			[
+				[ 'ian-client-css', 'ian-client.css' ],
+				[ 'ian-client-js', 'ian-client.js', [ 'jquery' ] ],
+			],
+			'admin_enqueue_scripts',
+			[
+				'conditionals' => [$this, 'is_ian_page'],
+				'in_footer'    => false,
+				'localize'     => [
+					'name' => 'commonIan',
+					'data' => [
+						'ajax_url' => admin_url( 'admin-ajax.php' ),
+						'nonce'    => wp_create_nonce( 'common_ian_nonce' ),
+					],
+				],
+			]
+		);
+	}
+
+	/**
+	 * Define which pages will show the notification icon.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_ian_page() {
+		$screen  = get_current_screen();
+		$allowed = [ 'tribe_events', 'edit-tribe_events', 'tribe_events_page_tec-events-settings' ];
+
+		/**
+		 * Filter the allowed pages for the Notifications icon.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string> $allowed The allowed pages for the Notifications icon.
+		 */
+		$allowed = apply_filters( 'tec_common_ian_allowed_pages', $allowed );
+
+		/**
+		 * Filter the showing of the Notifications icon.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool Whether to show the icon or not.
+		 */
+		return apply_filters( 'tec_common_ian_show_icon', in_array( $screen->id, $allowed, true ) );
 	}
 
 	/**
@@ -78,7 +118,9 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function show_icon( $slug ) {
-		$this->container->make( Notifications::class )->show_icon( $slug );
+		if ( self::is_ian_page() ) {
+			$this->container->make( Notifications::class )->show_icon( $slug );
+		}
 	}
 
 	/**
