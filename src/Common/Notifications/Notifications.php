@@ -204,35 +204,42 @@ final class Notifications {
 	 * Optin to IAN notifications.
 	 *
 	 * @since TBD
+	 *
+	 * @return void
 	 */
 	public function opt_in() {
-		if ( wp_verify_nonce( tec_get_request_var( 'nonce' ), 'common_ian_nonce' ) ) {
-
-			tribe_update_option( 'ian-notifications-opt-in', 1 );
-
-			wp_send_json_success( esc_html__( 'Notifications opt-in successful', 'tribe-common' ), 200 );
-		} else {
+		if ( ! wp_verify_nonce( tec_get_request_var( 'nonce' ), 'common_ian_nonce' ) ) {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'tribe-common' ), 403 );
+			return;
 		}
+
+		tribe_update_option( 'ian-notifications-opt-in', 1 );
+
+		wp_send_json_success( esc_html__( 'Notifications opt-in successful', 'tribe-common' ), 200 );
+		return; // phpcs:ignore Squiz.PHP.NonExecutableCode.ReturnNotRequired
 	}
 
 	/**
 	 * Get the IAN notifications.
 	 *
 	 * @since TBD
+	 *
+	 * @return void
 	 */
 	public function get_feed() {
 		if ( ! wp_verify_nonce( tec_get_request_var( 'nonce' ), 'common_ian_nonce' ) ) {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'tribe-common' ), 403 );
+			return;
 		}
 		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.wp_remote_get_wp_remote_get
 		$response = wp_remote_get( $this->api_url );
 		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
 			wp_send_json_error( wp_remote_retrieve_response_message( $response ), wp_remote_retrieve_response_code( $response ) );
+			return;
 		}
 
 		$body = json_decode( wp_remote_retrieve_body( $response ), true );
-		$feed = Conditionals::filter_feed( $body['notifications_by_area']['general-tec'] );
+		$feed = Conditionals::filter_feed( $body['notifications_by_area']['general-tec'] ?? [] );
 
 		$template = new Template();
 		foreach ( $feed as $k => $notification ) {
@@ -246,6 +253,7 @@ final class Notifications {
 		array_values( $feed );
 
 		wp_send_json_success( $feed, 200 );
+		return; // phpcs:ignore Squiz.PHP.NonExecutableCode.ReturnNotRequired
 	}
 
 	/**
@@ -260,17 +268,20 @@ final class Notifications {
 
 		if ( ! wp_verify_nonce( tec_get_request_var( 'nonce' ), 'ian_nonce_' . $id ) ) {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'tribe-common' ), 403 );
+			return;
 		}
 
 		$slug = tec_get_request_var( 'slug' );
 
 		if ( empty( $slug ) ) {
 			wp_send_json_error( esc_html__( 'Invalid notification slug', 'tribe-common' ), 403 );
+			return;
 		}
 
 		$this->slug = $slug;
 		$this->dismiss();
 
 		wp_send_json_success( esc_html__( 'Notification dismissed', 'tribe-common' ), 200 );
+		return; // phpcs:ignore Squiz.PHP.NonExecutableCode.ReturnNotRequired
 	}
 }

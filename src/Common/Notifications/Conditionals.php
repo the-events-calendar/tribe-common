@@ -33,16 +33,11 @@ class Conditionals {
 		tribe( Common_Telemetry::class )->normalize_optin_status();
 
 		// We don't care what the value stored in tribe_options is - give us Telemetry's Opt_In\Status value.
-		$status = Config::get_container()->get( Status::class );
-		$value  = $status->get() === $status::STATUS_ACTIVE;
+		$status    = Config::get_container()->get( Status::class );
+		$telemetry = $status->get() === $status::STATUS_ACTIVE;
 
-		// First check if the user has opted in to telemetry.
-		if ( tribe_is_truthy( $value ) ) {
-			return true;
-		}
-
-		// If Telemetry is off, return the IAN opt-in value.
-		return tribe_is_truthy( tribe_get_option( 'ian-notifications-opt-in', false ) );
+		// Check if the user has opted in to telemetry, then If Telemetry is off, return the IAN opt-in value.
+		return apply_filters( 'tec_common_ian_opt_in', tribe_is_truthy( $telemetry ) || tribe_is_truthy( tribe_get_option( 'ian-notifications-opt-in', false ) ) );
 	}
 
 	/**
@@ -89,21 +84,18 @@ class Conditionals {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $php_version The version to check against.
+	 * @param string $version The version to check against.
 	 *
 	 * @return bool
 	 */
-	public static function check_php_version( $php_version ): bool {
-		if ( empty( $php_version ) ) {
+	public static function check_php_version( $version ): bool {
+		if ( empty( $version ) ) {
 			return true;
 		}
 
-		$version = preg_split( '/(?=\d)/', $php_version, 2 );
-		if ( ! version_compare( PHP_VERSION, $version[1], $version[0] ?? '>=' ) ) {
-			return false;
-		}
+		$version = preg_split( '/(?=\d)/', $version, 2 );
 
-		return true;
+		return apply_filters( 'tec_common_ian_conditional_php', version_compare( PHP_VERSION, $version[1], $version[0] ?? '>=' ) );
 	}
 
 	/**
@@ -111,21 +103,19 @@ class Conditionals {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $wp_version The version to check against.
+	 * @param string $version The version to check against.
 	 *
 	 * @return bool
 	 */
-	public static function check_wp_version( $wp_version ): bool {
-		if ( empty( $wp_version ) ) {
+	public static function check_wp_version( $version ): bool {
+		if ( empty( $version ) ) {
 			return true;
 		}
 
-		$version = preg_split( '/(?=\d)/', $wp_version, 2 );
-		if ( ! version_compare( get_bloginfo( 'version' ), $version[1], $version[0] ?? '>=' ) ) {
-			return false;
-		}
+		global $wp_version;
+		$version = preg_split( '/(?=\d)/', $version, 2 );
 
-		return true;
+		return apply_filters( 'tec_common_ian_conditional_wp', version_compare( $wp_version, $version[1], $version[0] ?? '>=' ) );
 	}
 
 	/**

@@ -26,22 +26,6 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
-		$this->add_actions();
-	}
-
-	/**
-	 * Unhooks actions and filters.
-	 */
-	public function unregister(): void {
-		$this->remove_actions();
-	}
-
-	/**
-	 * Add the action hooks.
-	 *
-	 * @since TBD
-	 */
-	public function add_actions() {
 		add_action( 'tribe_plugins_loaded', [ $this, 'boot' ], 50 );
 
 		add_action( 'tec_ian_icon', [ $this, 'show_icon' ] );
@@ -52,12 +36,10 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
-	 * Remove the action hooks.
-	 *
-	 * @since TBD
+	 * Unhooks actions and filters.
 	 */
-	public function remove_actions() {
-		remove_action( 'tribe_plugins_loaded', [ $this, 'boot' ], 50 );
+	public function unregister(): void {
+		remove_action( 'tribe_plugins_loaded', [ $this, 'register_ian' ], 50 );
 
 		remove_action( 'tec_ian_icon', [ $this, 'show_icon' ] );
 
