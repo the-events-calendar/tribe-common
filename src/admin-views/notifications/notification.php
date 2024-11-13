@@ -9,7 +9,7 @@
  * @var boolean $dismissible Whether the notification is dismissible.
  * @var string $slug The slug of the plugin.
  * @var string $title The title of the notification.
- * @var string $content The content of the notification.
+ * @var string $html The content of the notification.
  * @var array $actions The action links.
  */
 
@@ -20,7 +20,7 @@
 	<div class="dashicons dashicons-dismiss" data-trigger="dismissIan" data-id="<?php echo esc_attr( $id ); ?>" data-slug="<?php echo esc_attr( $slug ); ?>"></div>
 	<?php endif; ?>
 	<div class="ian-sidebar__notification-title"><?php echo esc_html( $title ); ?></div>
-	<div class="ian-sidebar__notification-content"><?php echo wp_kses_post( $content ); ?></div>
+	<div class="ian-sidebar__notification-content"><?php echo wp_kses_post( $html ); ?></div>
 	<?php if ( ! empty( $actions ) || $dismissible ) : ?>
 	<div class="ian-sidebar__notification-link">
 		<?php foreach ( $actions as $a ) : ?>

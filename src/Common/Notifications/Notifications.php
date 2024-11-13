@@ -107,7 +107,7 @@ final class Notifications {
 	 * @return string
 	 */
 	public function get_api_url() {
-		$api = 'https://ian.stellarwp.com/feed/organization/brand/product.json';
+		$api = defined( 'TEC_COMMON_IAN_API_URL' ) ? TEC_COMMON_IAN_API_URL : 'https://ian.stellarwp.com/feed/stellar/tec/plugins.json';
 
 		/**
 		 * Filter the API URL for the In-App Notifications.
@@ -226,77 +226,26 @@ final class Notifications {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'tribe-common' ), 403 );
 		}
 
-		// TODO: Below is an example notifications array. Send the real one from Laravel.
-		$feed = [
-			[
-				'id'          => '101',
-				'type'        => 'update',
-				'slug'        => 'tec-update-664',
-				'title'       => 'The Events Calendar 6.6.4 Update',
-				'content'     => '<p>The latest update of The Events Calendar adds an option to allow for duplicate Venue creation, updates custom table query logic to avoid DB error, and logic that displays the “REST API blocked” banner to prevent false positives.</p>',
-				'actions'     => [
-					[
-						'text'   => 'See Details',
-						'link'   => 'https://evnt.is/1ai-',
-						'target' => '_blank',
-					],
-					[
-						'text'   => 'Update Now',
-						'link'   => '/wp-admin/update-core.php',
-						'target' => '_self',
-					],
-				],
-				'dismissible' => true,
-			],
-			[
-				'id'          => '102',
-				'type'        => 'notice',
-				'slug'        => 'event-tickets-upsell',
-				'title'       => 'Sell Tickets & Collect RSVPs with Event Tickets',
-				'content'     => '<p>Sell tickets, collect RSVPs and manage attendees for free.</p>',
-				'actions'     => [
-					[
-						'text'   => 'Learn More',
-						'link'   => 'https://evnt.is/1aj1',
-						'target' => '_blank',
-					],
-				],
-				'dismissible' => true,
-			],
-			[
-				'id'          => '103',
-				'type'        => 'warning',
-				'slug'        => 'fbar-upgrade-556',
-				'title'       => 'Filter Bar 5.5.6 Security Update',
-				'content'     => '<p>Get the latest version of Filter Bar for important security updates.</p>',
-				'actions'     => [
-					[
-						'text'   => 'Update',
-						'link'   => '/wp-admin/plugins.php?plugin_status=upgrade',
-						'target' => '_self',
-					],
-				],
-				'dismissible' => false,
-			],
-		];
-
-		$notifications = Conditionals::filter_feed( $feed );
-
-		$template = new Template();
-		foreach ( $notifications as $k => $notification ) {
-			$this->slug = $notification['slug'];
-			if ( $this->has_user_dismissed() ) {
-				unset( $notifications[ $k ] );
-				continue;
-			}
-			$html = $template->render_notification( $notification, false );
-
-			$notifications[ $k ]['html'] = $html;
+		$response = wp_remote_get( $this->api_url	);
+		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
+			wp_send_json_error( wp_remote_retrieve_response_message( $response ), wp_remote_retrieve_response_code( $response ) );
 		}
 
-		array_values( $notifications );
+		$body = json_decode( wp_remote_retrieve_body( $response ), true );
+		$feed = Conditionals::filter_feed( $body['notifications_by_area']['general-tec'] );
 
-		wp_send_json_success( $notifications, 200 );
+		$template = new Template();
+		foreach ( $feed as $k => $notification ) {
+			$this->slug = $notification['slug'];
+			if ( $this->has_user_dismissed() ) {
+				unset( $feed[ $k ] );
+				continue;
+			}
+			$feed[ $k ]['html'] = $template->render_notification( $notification, false );
+		}
+		array_values( $feed );
+
+		wp_send_json_success( $feed, 200 );
 	}
 
 	/**

@@ -94,7 +94,7 @@ class Template extends Tribe__Template {
 				'dismissible' => $args['dismissible'] ?? true,
 				'slug'        => $args['slug'] ?? '',
 				'title'       => $args['title'] ?? '',
-				'content'     => $args['content'] ?? '',
+				'html'        => $args['html'] ?? '',
 				'actions'     => $args['actions'] ?? [],
 			]
 		);
