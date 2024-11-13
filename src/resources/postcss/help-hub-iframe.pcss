@@ -25,6 +25,7 @@ body {
 	display: flex;
 	height: 100vh;
 	justify-content: center;
+	pointer-events: none;
 }
 
 .blackout::before {
@@ -32,13 +33,59 @@ body {
 	content: '';
 	height: 100vh;
 	left: 0;
-	pointer-events: none;
 	position: fixed;
 	top: 0;
 	transition: var(--tec-transition-opacity);
 	width: 100vw;
 	z-index: 999999;
 }
+
+.docsbot-widget-background {
+	display: none;
+}
+
+body[data-opted-in="0"].blackout {
+	display: initial;
+}
+
+/* Remove background-color from .blackout::before when opted-in is 0 */
+body[data-opted-in="0"].blackout::before {
+	background-color: transparent;
+}
+
+/* Add background image to #docsbot-widget-embed when opted-in is 0 */
+body[data-opted-in="0"] .docsbot-widget-background {
+	align-items: center;
+	background-image: url('../images/help-hub/docsbot-background.png');
+	background-position: left top;
+	background-repeat: no-repeat;
+	background-size: 815px 740px;
+	display: flex;
+	filter: blur(5px);
+	height: 100vh;
+	justify-content: center;
+	position: relative;
+	width: 100vw;
+
+	> * {
+		position: relative;
+		z-index: 1;
+	}
+
+	/* Black overlay */
+	&::before {
+		background-color: rgba(0, 0, 0, 0.5);
+		content: '';
+		height: 100%;
+		left: 0;
+		pointer-events: none;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		z-index: 0;
+	}
+}
+
 
 /**
  * Zendesk Styles
@@ -97,14 +144,18 @@ body {
 	align-items: center;
 	background: var(--tec-form-color-background);
 	border-radius: 6px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	display: flex;
 	gap: var(--tec-spacer-4);
-	margin: 0 auto;
+	left: 50%;
+	margin: auto;
 	padding: var(--tec-spacer-4);
-	position: relative;
+	position: fixed; /* Fixes it at the top center of the screen */
 	text-align: left;
-	width: 80%;
-	z-index: 9999999;
+	top: 20%;
+	transform: translateX(-50%); /* Centers it horizontally */
+	width: 98%;
+	z-index: 9999999; /* Ensures it is above other content */
 }
 
 /* Image Column */
@@ -163,6 +214,12 @@ body {
 		&:hover {
 			color: #135e96;
 		}
+	}
+}
+
+@media (--viewport-xsmall) {
+	.tec-help-hub-iframe-opt-out-message {
+		width: 80%;
 	}
 }
 

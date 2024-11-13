@@ -25,6 +25,7 @@ $opted_in = tribe_is_truthy( $help_hub->get_license_and_opt_in_status()['is_opte
 <body <?php body_class(); ?> data-opted-in="<?php echo esc_attr( $opted_in ); ?>">
 
 <!-- Docsbot section-->
+<div class="docsbot-widget-background"></div>
 <div id="docsbot-widget-embed"></div>
 
 
