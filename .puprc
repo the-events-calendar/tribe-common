@@ -15,15 +15,17 @@
 	],
 	"checks": {
 		"tbd": {
-			"dirs": [ "src" ]
+			"dirs": [
+				"src"
+			]
 		},
 		"version-conflict": {}
 	},
 	"i18n": [
 		{
+			"slug": "tribe-common",
 			"textdomain": "tribe-common",
-			"url": "https://translations.theeventscalendar.com",
-			"slug": "tribe-common"
+			"url": "https://translations.stellarwp.com/glotpress/"
 		}
 	],
 	"paths": {
@@ -53,7 +55,9 @@
 				"regex": "(\"version\": ?\")([^\"]+)"
 			}
 		],
-		"views": [ "src/views" ]
+		"views": [
+			"src/views"
+		]
 	},
 	"zip_name": "tribe-common"
 }
