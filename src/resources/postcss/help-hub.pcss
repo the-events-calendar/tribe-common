@@ -160,11 +160,11 @@ ul.tec-help-list__list-expanded {
 	padding-top: var(--tec-spacer-3);
 }
 
-.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox{
+.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox {
 	display: none;
 }
 
-.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block{
+.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block {
 	padding-right: 0;
 }
 
@@ -210,15 +210,17 @@ ul.tec-help-list__list-expanded {
 		max-width: initial;
 		width: auto;
 	}
-	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block{
-		padding-right: var(--tec-spacer-4);
+
+	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block {
+		padding-right: var(--tec-spacer-7);
 	}
 }
 
 @media (--viewport-xlarge) {
-	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block {
+	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__content-section .tec-settings-form__header-block {
 		padding-right: 0;
 	}
+
 	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox {
 		display: grid;
 		margin-left: calc(var(--tec-spacer-3) * -1);
@@ -246,5 +248,9 @@ ul.tec-help-list__list-expanded {
 	.tribe_events_page_tec-events-settings .tribe-settings-form {
 		max-width: 898px;
 		width: calc(100vw - 200px - var(--tec-width-sidebar) - var(--tec-spacer-10));
+	}
+
+	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__section-description {
+		margin-top: var(--tec-spacer-2);
 	}
 }

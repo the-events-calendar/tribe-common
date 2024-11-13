@@ -12,7 +12,7 @@
 body {
 	font-family: var(--tec-font-family-sans-serif);
 	overflow: hidden;
-	background: transparent!important;
+	background: transparent !important;
 }
 
 .hide {
@@ -25,6 +25,7 @@ body {
 	display: flex;
 	height: 100vh;
 	justify-content: center;
+	pointer-events: none;
 }
 
 .blackout::before {
@@ -32,13 +33,59 @@ body {
 	content: '';
 	height: 100vh;
 	left: 0;
-	pointer-events: none;
 	position: fixed;
 	top: 0;
 	transition: var(--tec-transition-opacity);
 	width: 100vw;
 	z-index: 999999;
 }
+
+.docsbot-widget-background {
+	display: none;
+}
+
+body[data-opted-in="0"].blackout {
+	display: initial;
+}
+
+/* Remove background-color from .blackout::before when opted-in is 0 */
+body[data-opted-in="0"].blackout::before {
+	background-color: transparent;
+}
+
+/* Add background image to #docsbot-widget-embed when opted-in is 0 */
+body[data-opted-in="0"] .docsbot-widget-background {
+	align-items: center;
+	background-image: url('../images/help-hub/docsbot-background.png');
+	background-position: left top;
+	background-repeat: no-repeat;
+	background-size: 815px 740px;
+	display: flex;
+	filter: blur(5px);
+	height: 100vh;
+	justify-content: center;
+	position: relative;
+	width: 100vw;
+
+	> * {
+		position: relative;
+		z-index: 1;
+	}
+
+	/* Black overlay */
+	&::before {
+		background-color: rgba(0, 0, 0, 0.5);
+		content: '';
+		height: 100%;
+		left: 0;
+		pointer-events: none;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		z-index: 0;
+	}
+}
+
 
 /**
  * Zendesk Styles
@@ -53,16 +100,16 @@ body {
 #webWidget {
 	height: 100% !important;
 	margin: 0 auto !important;
-	max-width: 100% !important; /* Ensure full width */
+	max-width: 100% !important;
 	min-width: 33vw !important;
-	width: 100% !important; /* Default to full width on the smallest screens */
+	width: 100% !important;
 	z-index: 99999999 !important;
 }
 
 /* Small screens and up: 80% width with 10% margins */
 @media (--viewport-xxsmall) {
 	#webWidget {
-		width:100vw !important;
+		width: 100vw !important;
 	}
 }
 
@@ -70,7 +117,7 @@ body {
 @media (--viewport-medium) {
 	#webWidget {
 		width: 50% !important;
-		margin: 0 auto!important;
+		margin: 0 auto !important;
 		max-height: 100vh !important
 	}
 }
@@ -99,11 +146,14 @@ body {
 	border-radius: 6px;
 	display: flex;
 	gap: var(--tec-spacer-4);
-	margin: 0 auto;
+	left: 50%;
+	margin: auto;
 	padding: var(--tec-spacer-4);
-	position: relative;
+	position: fixed;
 	text-align: left;
-	width: 80%;
+	top: 20%;
+	transform: translateX(-50%);
+	width: 98%;
 	z-index: 9999999;
 }
 
@@ -122,13 +172,54 @@ body {
 	display: flex;
 	flex-direction: column;
 	gap: var(--tec-spacer-2);
+
+	/* Button Styles */
+	.button {
+		-webkit-appearance: none;
+		border-radius: 3px;
+		border-style: solid;
+		border-width: 1px;
+		box-sizing: border-box;
+		cursor: pointer;
+		display: inline-block;
+		font-size: 13px;
+		line-height: 2.15384615;
+		margin: 0;
+		min-height: 30px;
+		padding: 0 10px;
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	/* Secondary Button Styles */
+	.button-secondary {
+		background: #f6f7f7;
+		border-color: #2271b1;
+		color: #2271b1;
+		vertical-align: top;
+	}
+
+	/* Anchor Tags Styled as Buttons */
+	a.button {
+		max-width: fit-content;
+	}
+
+	/* Link Styles */
+	a {
+		color: #2271b1;
+		margin-top: var(--tec-spacer-2);
+		text-decoration: underline;
+
+		&:hover {
+			color: #135e96;
+		}
+	}
 }
 
-/* Link Styles */
-.tec-help-hub-iframe-opt-out-message__content a {
-	color: var(--tec-color-link-primary);
-	margin-top: var(--tec-spacer-2);
-	text-decoration: underline;
+@media (--viewport-xsmall) {
+	.tec-help-hub-iframe-opt-out-message {
+		width: 80%;
+	}
 }
 
 @media screen {
