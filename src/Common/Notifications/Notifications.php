@@ -225,8 +225,8 @@ final class Notifications {
 		if ( ! wp_verify_nonce( tec_get_request_var( 'nonce' ), 'common_ian_nonce' ) ) {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'tribe-common' ), 403 );
 		}
-
-		$response = wp_remote_get( $this->api_url	);
+		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.wp_remote_get_wp_remote_get
+		$response = wp_remote_get( $this->api_url );
 		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
 			wp_send_json_error( wp_remote_retrieve_response_message( $response ), wp_remote_retrieve_response_code( $response ) );
 		}

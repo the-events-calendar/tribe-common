@@ -81,12 +81,16 @@ function getIanAjax() {
 				const loader = document.querySelector(".ian-sidebar__loader");
 				if (loader) loader.classList.remove("show");
 
-				let notifications = "";
-				Object.entries(response.data).forEach(([key, value]) => {
-					notifications += value.html;
-				});
-
-				document.querySelector(".ian-sidebar__content").innerHTML = `<div class="ian-sidebar__notifications">${notifications}</div>`;
+				if ( response.data.length === 0 ) {
+					document.querySelector(".ian-sidebar__notifications").classList.add("is-hidden");
+					document.querySelector(".ian-sidebar__empty").classList.remove("is-hidden");
+				} else {
+					let notifications = "";
+					Object.entries(response.data).forEach(([key, value]) => {
+						notifications += value.html;
+					});
+					document.querySelector(".ian-sidebar__notifications").innerHTML = notifications;
+				}
 			}
 
 			getIanBubble();
