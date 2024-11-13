@@ -51,7 +51,7 @@ $opted_in = tribe_is_truthy( $help_hub->get_license_and_opt_in_status()['is_opte
 			);
 			?>
 		</p>
-		<a target="_parent" href="<?php echo esc_url( $help_hub::get_telemetry_opt_in_link() ); ?>" class="button button-secondary"><?php esc_html_e( 'Manage Consent', 'tribe-common' ); ?></a>
+		<a target="_parent" href="<?php echo esc_url( $help_hub::get_telemetry_opt_in_link() ); ?>" class="button button-secondary"><?php esc_html_e( 'Manage my data sharing consent', 'tribe-common' ); ?></a>
 	</div>
 </div>
 
