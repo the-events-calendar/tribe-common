@@ -39,6 +39,7 @@
     "bootstrap": "./scripts/linkDependencies",
     "build:webpack": "export NODE_OPTIONS=--openssl-legacy-provider && cross-env NODE_ENV=production webpack -p",
     "build:gulp": "cross-env NODE_ENV=production gulp",
+    "prebuild": "npm install",
     "build": "export NODE_OPTIONS=--openssl-legacy-provider && npm run build:webpack && npm run build:gulp",
     "rebuild": "rm -rf node_modules && npm install && npm run build",
     "dev": "export NODE_OPTIONS=--openssl-legacy-provider && cross-env NODE_ENV=development webpack -d --watch",
