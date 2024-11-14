@@ -118,7 +118,7 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function show_icon( $slug ) {
-		if ( self::is_ian_page() ) {
+		if ( self::is_ian_page() && current_user_can( 'manage_options' ) ) {
 			$this->container->make( Notifications::class )->show_icon( $slug );
 		}
 	}

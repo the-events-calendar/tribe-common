@@ -119,32 +119,55 @@ class Conditionals {
 	}
 
 	/**
-	 * Check if the plugin version is correct.
+	 * Check if the plugin version matches requirements.
 	 *
 	 * @since TBD
 	 *
-	 * @param array $plugins The plugins to check against.
+	 * @param array $plugins The required plugins to check.
 	 *
 	 * @return bool
 	 */
 	public static function check_plugin_version( array $plugins ): bool {
+		// If no plugins are specified as a condition, we can assume the condition is met.
 		if ( empty( $plugins ) ) {
 			return true;
 		}
 
+		// Get all installed plugins data, keyed by plugin file name.
+		$all_plugins = get_plugins();
+
 		foreach ( $plugins as $plugin ) {
 			$pieces = explode( '@', $plugin );
 
-			if ( ! is_plugin_active( $pieces[0] . '/' . $pieces[0] . '.php' ) ) {
+			// Find the actual plugin directory/file from the list.
+			$plugin_file = '';
+			foreach ( $all_plugins as $k => $data ) {
+				// If the plugin directory/file_name contains the required slug.
+				if ( strpos( $k, $pieces[0] ) !== false ) {
+					$plugin_file = $k;
+					$installed   = $data['Version'];
+					break;
+				}
+			}
+
+			// We didn't find the plugin in the list of installed plugins.
+			if ( empty( $plugin_file ) ) {
 				return false;
 			}
 
+			// If the plugin is not active, the condition is not met.
+			if ( ! is_plugin_active( $plugin_file ) ) {
+				return false;
+			}
+
+			// Plugin is installed and active so compare its version to the required.
 			$version = preg_split( '/(?=\d)/', $pieces[1], 2 );
-			if ( ! version_compare( get_plugin_data( $pieces[0] . '/' . $pieces[0] . '.php' )['Version'], $version[1], $version[0] ?? '>=' ) ) {
+			if ( ! version_compare( $installed, $version[1], $version[0] ?: '>=' ) ) {
 				return false;
 			}
 		}
 
+		// All plugins met the conditions.
 		return true;
 	}
 }
