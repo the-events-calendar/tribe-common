@@ -60,10 +60,11 @@
     "changelog": "./vendor/bin/changelogger add"
   },
   "dependencies": {
-    "@the-events-calendar/product-taskmaster": "github:the-events-calendar/product-taskmaster#fix/TEC-5322-wp-67-packages",
     "@babel/runtime": "^7.15.3",
     "@moderntribe/common": "file:src/modules",
     "@nfen/redux-reducer-injector": "0.0.3",
+    "@redux-devtools/extension": "^3.3.0",
+    "@the-events-calendar/product-taskmaster": "github:the-events-calendar/product-taskmaster#fix/TEC-5322-wp-67-packages",
     "@wordpress/a11y": "^4.11.0",
     "@wordpress/data": "^10.11.0",
     "@wordpress/i18n": "^5.11.0",
