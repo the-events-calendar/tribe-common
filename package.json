@@ -47,7 +47,6 @@
     "bootstrap": "./scripts/linkDependencies",
     "build:webpack": "export NODE_OPTIONS=--openssl-legacy-provider && cross-env NODE_ENV=production webpack -p",
     "build:gulp": "cross-env NODE_ENV=production gulp",
-    "prebuild": "npm install",
     "build": "export NODE_OPTIONS=--openssl-legacy-provider && npm run build:webpack && npm run build:gulp",
     "rebuild": "rm -rf node_modules && npm install && npm run build",
     "dev": "export NODE_OPTIONS=--openssl-legacy-provider && cross-env NODE_ENV=development webpack -d --watch",
@@ -61,6 +60,7 @@
     "changelog": "./vendor/bin/changelogger add"
   },
   "dependencies": {
+    "@the-events-calendar/product-taskmaster": "github:the-events-calendar/product-taskmaster#fix/TEC-5322-wp-67-packages",
     "@babel/runtime": "^7.15.3",
     "@moderntribe/common": "file:src/modules",
     "@nfen/redux-reducer-injector": "0.0.3",
