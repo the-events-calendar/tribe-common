@@ -109,6 +109,7 @@ tribe.helpPage = tribe.helpPage || {};
 			{
 				active: true,
 				collapsible: true,
+				heightStyle: "content",
 				icons: { "header": "ui-icon-plus", "activeHeader": "ui-icon-minus" }
 			}
 		);

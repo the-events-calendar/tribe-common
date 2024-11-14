@@ -93,6 +93,20 @@ ul.tec-help-list__list-expanded {
 	border-top: 0;
 	overflow: auto;
 	padding: var(--tec-spacer-1) var(--tec-spacer-3) 0 0;
+	border-bottom: 1px solid var(--tec-admin-core-grey-10);
+}
+
+.tribe_events_page_tec-events-settings .ui-accordion .ui-accordion-content p {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.ui-accordion .ui-accordion-header:last-of-type.ui-state-active.ui-accordion-header-active {
+	border-bottom: 1px solid var(--tec-admin-core-grey-10);
+}
+
+.ui-accordion .ui-accordion-content:last-of-type.ui-accordion-content-active, .ui-accordion-header-active {
+	border-bottom: 1px solid var(--tec-admin-core-grey-10);
 }
 
 .ui-state-active .ui-icon {
@@ -168,6 +182,10 @@ ul.tec-help-list__list-expanded {
 	padding-right: 0;
 }
 
+.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block:first-child .tec-settings-form__section-header {
+	display: block;
+}
+
 @media (--viewport-xsmall) {
 	.tec-tab-container {
 		padding: var(--tec-spacer-7);
@@ -214,11 +232,20 @@ ul.tec-help-list__list-expanded {
 	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block {
 		padding-right: var(--tec-spacer-7);
 	}
+
+	.tribe_events_page_tec-events-settings .tec-settings-form > .tec-settings-form__content-section {
+		column-gap: 40px;
+	}
 }
 
 @media (--viewport-xlarge) {
-	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__content-section .tec-settings-form__header-block {
-		padding-right: 0;
+	.tribe_events_page_tec-events-settings #tec-settings-form .tec-settings-form__header-block, .tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block {
+		padding: var(--tec-spacer-0) var(--tec-spacer-1);
+		margin: 0;
+	}
+
+	.tribe_events_page_tec-events-settings #tec-settings-form .tec-settings-form__header-block, .tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block--horizontal {
+		margin: initial;
 	}
 
 	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox {
