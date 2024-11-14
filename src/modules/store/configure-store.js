@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
+import { composeWithDevTools } from '@redux-devtools/extension';
 import { augmentStore } from '@nfen/redux-reducer-injector';
 import { thunk } from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
