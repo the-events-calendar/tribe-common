@@ -259,7 +259,7 @@ tribe.helpPage = tribe.helpPage || {};
 		} );
 
 		// Find the currently active tab and corresponding container.
-		let currentTab = document.querySelector( '.tec-nav__tab.tec-nav__tab--subnav-active' );
+		let currentTab = document.querySelector( '.tec-nav__tab.tec-nav__tab--active' );
 		let tabContainer = currentTab ? document.getElementById( currentTab.getAttribute( 'data-tab-target' ) ) : null;
 
 		// Update modal button span text to the active tab’s text by default.
@@ -317,11 +317,11 @@ tribe.helpPage = tribe.helpPage || {};
 	 */
 	obj.updateActiveTab = (tabs, target) => {
 		// Remove the active class from all tabs
-		tabs.forEach((t) => t.classList.remove('tec-nav__tab--subnav-active'));
+		tabs.forEach((t) => t.classList.remove('tec-nav__tab--active'));
 
 		// Find and activate all tabs with the same data-tab-target
 		document.querySelectorAll(`[data-tab-target="${target}"]`).forEach((matchingTab) => {
-			matchingTab.classList.add('tec-nav__tab--subnav-active');
+			matchingTab.classList.add('tec-nav__tab--active');
 		});
 	};
 
