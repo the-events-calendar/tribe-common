@@ -15,7 +15,7 @@
 $hub_tabs = [
 	[
 		'target'   => 'tec-help-tab',
-		'class'    => 'tec-nav__tab--subnav-active',
+		'class'    => 'tec-nav__tab--active',
 		'label'    => __( 'Support Hub', 'the-events-calendar' ),
 		'id'       => 'tec-help-tab',
 		'template' => 'help-hub/support/support-hub',
