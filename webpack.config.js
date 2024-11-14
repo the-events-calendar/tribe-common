@@ -51,6 +51,17 @@ const modulesConfig = merge.strategy( {
 			library: [ 'tribe', 'modules' ],
 		},
 		optimization: {},
+		module: {
+			rules: [
+				{
+					test: /\.js$/,
+					include: resolve( __dirname, 'node_modules/chrono-node' ),
+					use: {
+						loader: 'babel-loader',
+					}
+				}
+			]
+		}
 	},
 );
 
