@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d1601ad2c6f1297f56369fe4d0031d2",
+    "content-hash": "c62c55b2f96b21c6942947c11925cc1f",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -405,16 +405,16 @@
         },
         {
             "name": "stellarwp/assets",
-            "version": "1.4.0",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/assets.git",
-                "reference": "c35ada807f60b94a72aff27f2b27411f40b83371"
+                "reference": "6c26d088dcf940234c57185218258dc909be657d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/assets/zipball/c35ada807f60b94a72aff27f2b27411f40b83371",
-                "reference": "c35ada807f60b94a72aff27f2b27411f40b83371",
+                "url": "https://api.github.com/repos/stellarwp/assets/zipball/6c26d088dcf940234c57185218258dc909be657d",
+                "reference": "6c26d088dcf940234c57185218258dc909be657d",
                 "shasum": ""
             },
             "require-dev": {
@@ -455,9 +455,9 @@
             "description": "A library for managing asset registration and enqueuing in WordPress.",
             "support": {
                 "issues": "https://github.com/stellarwp/assets/issues",
-                "source": "https://github.com/stellarwp/assets/tree/1.4.0"
+                "source": "https://github.com/stellarwp/assets/tree/1.4.2"
             },
-            "time": "2024-10-22T16:47:34+00:00"
+            "time": "2024-11-11T15:52:51+00:00"
         },
         {
             "name": "stellarwp/container-contract",
@@ -7155,16 +7155,16 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "stellarwp/models": 20,
         "stellarwp/coding-standards": 20,
+        "stellarwp/models": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
+    "platform": {},
+    "platform-dev": {},
     "platform-overrides": {
         "php": "7.4.0"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
