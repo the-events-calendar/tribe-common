@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import classNames from 'classnames';
-// import 'react-day-picker/lib/style.css'; // @todo this should become something else to make sure _some_ style is applied.
+import "react-day-picker/style.css";
 import {DayPicker} from 'react-day-picker';
 
 /**
