@@ -15,6 +15,10 @@ trait With_Uopz {
 	private static array $uopz_set_properties = [];
 	private static array $uopz_add_class_fns = [];
 	private static array $uopz_del_functions = [];
+	/**
+	 * @var array<class-string>
+	 */
+	private static array $uopz_class_mocks = [];
 
 	/**
 	 * @after
@@ -80,6 +84,18 @@ trait With_Uopz {
 		}
 
 		self::$uopz_del_functions = [];
+	}
+
+	/**
+	 * @after
+	 */
+	public function unset_uopz_class_mocks():void {
+		if(function_exists( 'uopz_unset_mock' ) ) {
+			foreach ( self::$uopz_class_mocks as $class ) {
+				uopz_unset_mock( $class );
+			}
+		}
+		self::$uopz_class_mocks = [];
 	}
 
 	/**
@@ -218,5 +234,19 @@ trait With_Uopz {
 		}
 		uopz_add_function( $function, $handler );
 		self::$uopz_del_functions[] = $function;
+	}
+
+	/**
+	 * Replaces the return value of `new` calls for the class to return the mock.
+	 *
+	 * @since TBD
+	 *
+	 * @param string        $class       The class to replace with the mock. It will only apply to new instances.
+	 * @param string|object $mock        Either the name of the class to mock the original with, or the object that
+	 *                                   will be returned in place of any new instances.
+	 */
+	protected function set_class_mock( string $class, $mock ): void {
+		self::$uopz_class_mocks[] = $class;
+		uopz_set_mock( $class, $mock );
 	}
 }
