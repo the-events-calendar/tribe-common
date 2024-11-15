@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The template that displays the support hub sidebar.
  *
