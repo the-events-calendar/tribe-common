@@ -32,18 +32,18 @@ import {
 import './style.pcss';
 
 const TimePicker = ( {
-	allDay,
+	allDay = false,
 	current,
 	disabled,
 	end,
-	onBlur,
-	onChange,
-	onClick,
-	onFocus,
+	onBlur = noop,
+	onChange = noop,
+	onClick = noop,
+	onFocus = noop,
 	showAllDay,
 	start,
-	step,
-	timeFormat,
+	step = timeUtil.HALF_HOUR_IN_SECONDS,
+	timeFormat = dateUtil.FORMATS.WP.time,
 } ) => {
 	const renderLabel = ( onAllDayClick ) => {
 		if ( allDay ) {
@@ -111,7 +111,7 @@ const TimePicker = ( {
 
 			items.push( {
 				value: time,
-				text: formatLabel( time ),
+				text : formatLabel( time ),
 				isCurrent,
 			} );
 		}
@@ -121,7 +121,7 @@ const TimePicker = ( {
 
 	const renderItem = ( item, onClose ) => {
 		const itemClasses = {
-			'tribe-editor__timepicker__item': true,
+			'tribe-editor__timepicker__item'         : true,
 			'tribe-editor__timepicker__item--current': item.isCurrent && ! allDay,
 		};
 
@@ -172,33 +172,23 @@ const TimePicker = ( {
 	);
 };
 
-TimePicker.defaultProps = {
-	allDay: false,
-	onBlur: noop,
-	onChange: noop,
-	onClick: noop,
-	onFocus: noop,
-	step: timeUtil.HALF_HOUR_IN_SECONDS,
-	timeFormat: dateUtil.FORMATS.WP.time,
-};
-
 TimePicker.propTypes = {
 	/**
 	 * TribePropTypes.timeFormat check for string formatted as a time
 	 * using 24h clock in hh:mm format
 	 * e.g. 00:24, 03:57, 21:12
 	 */
-	allDay: PropTypes.bool,
-	current: PropTypes.string,
-	disabled: PropTypes.bool,
-	end: TribePropTypes.timeFormat.isRequired,
-	onBlur: PropTypes.func,
-	onChange: PropTypes.func,
-	onClick: PropTypes.func,
-	onFocus: PropTypes.func,
+	allDay    : PropTypes.bool,
+	current   : PropTypes.string,
+	disabled  : PropTypes.bool,
+	end       : TribePropTypes.timeFormat.isRequired,
+	onBlur    : PropTypes.func,
+	onChange  : PropTypes.func,
+	onClick   : PropTypes.func,
+	onFocus   : PropTypes.func,
 	showAllDay: PropTypes.bool,
-	start: TribePropTypes.timeFormat.isRequired,
-	step: PropTypes.number,
+	start     : TribePropTypes.timeFormat.isRequired,
+	step      : PropTypes.number,
 	timeFormat: PropTypes.string,
 };
 
