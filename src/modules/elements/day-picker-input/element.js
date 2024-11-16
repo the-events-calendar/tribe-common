@@ -3,8 +3,8 @@
  */
 import React from 'react';
 import classNames from 'classnames';
-import "react-day-picker/style.css";
-import {DayPicker} from 'react-day-picker';
+import "react-day-picker/src/style.css";
+import { DayPicker } from 'react-day-picker';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ import './style.pcss';
 const DayPickerInput = ( props ) => (
 	<DayPicker
 		classNames={ {
-			container: classNames(
+			container     : classNames(
 				'tribe-editor__day-picker-input',
 				'DayPickerInput',
 			),
@@ -22,7 +22,7 @@ const DayPickerInput = ( props ) => (
 				'tribe-editor__day-picker-input__overlay-wrapper',
 				'DayPickerInput-OverlayWrapper',
 			),
-			overlay: classNames(
+			overlay       : classNames(
 				'tribe-editor__day-picker-input__overlay',
 				'DayPickerInput-Overlay',
 			),
