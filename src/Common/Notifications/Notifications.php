@@ -171,22 +171,20 @@ final class Notifications {
 			return;
 		}
 
-		$cache    = tribe_cache();
-		$response = $cache->get( 'ian_api_feed_response' );
-
-		if ( false === $response ) {
+		$cache = tribe_cache();
+		$feed  = $cache->get_transient( 'tec_ian_api_feed' );
+		if ( false === $feed || ! is_array( $feed ) ) {
 			// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.wp_remote_get_wp_remote_get
 			$response = wp_remote_get( $this->api_url );
-			$cache->set( 'ian_api_feed_response', $response, 15 * MINUTE_IN_SECONDS );
+			if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
+				$cache->set_transient( 'tec_ian_api_feed', [], 15 * MINUTE_IN_SECONDS );
+				wp_send_json_error( wp_remote_retrieve_response_message( $response ), wp_remote_retrieve_response_code( $response ) );
+				return;
+			}
+			$body = json_decode( wp_remote_retrieve_body( $response ), true );
+			$feed = Conditionals::filter_feed( $body['notifications_by_area']['general-tec'] ?? [] );
+			$cache->set_transient( 'tec_ian_api_feed', $feed, 15 * MINUTE_IN_SECONDS );
 		}
-
-		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
-			wp_send_json_error( wp_remote_retrieve_response_message( $response ), wp_remote_retrieve_response_code( $response ) );
-			return;
-		}
-
-		$body = json_decode( wp_remote_retrieve_body( $response ), true );
-		$feed = Conditionals::filter_feed( $body['notifications_by_area']['general-tec'] ?? [] );
 
 		$template = new Template();
 		foreach ( $feed as $k => $notification ) {
