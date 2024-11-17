@@ -20,6 +20,7 @@ use TEC\Common\Admin\Conditional_Content\Dismissible_Trait;
  */
 final class Notifications {
 	use Dismissible_Trait;
+	use Readable_Trait;
 
 	/**
 	 * The slugs for plugins that support In-App Notifications.
@@ -193,7 +194,11 @@ final class Notifications {
 				unset( $feed[ $k ] );
 				continue;
 			}
+
+			$notification['read'] = $this->has_user_read();
+
 			$feed[ $k ]['html'] = $template->render_notification( $notification, false );
+			$feed[ $k ]['read'] = $notification['read'] ?? false;
 		}
 		array_values( $feed );
 
@@ -226,5 +231,33 @@ final class Notifications {
 		$this->dismiss();
 
 		wp_send_json_success( esc_html__( 'Notification dismissed', 'tribe-common' ), 200 );
+	}
+
+	/**
+	 * AJAX handler for marking IAN notifications as read.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function handle_read(): void {
+		$id = tec_get_request_var( 'id' );
+
+		if ( ! wp_verify_nonce( tec_get_request_var( 'nonce' ), 'ian_nonce_' . $id ) ) {
+			wp_send_json_error( esc_html__( 'Invalid nonce', 'tribe-common' ), 403 );
+			return;
+		}
+
+		$slug = tec_get_request_var( 'slug' );
+
+		if ( empty( $slug ) ) {
+			wp_send_json_error( esc_html__( 'Invalid notification slug', 'tribe-common' ), 403 );
+			return;
+		}
+
+		$this->slug = $slug;
+		$this->read();
+
+		wp_send_json_success( esc_html__( 'Notification marked as read', 'tribe-common' ), 200 );
 	}
 }

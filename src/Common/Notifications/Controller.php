@@ -34,6 +34,7 @@ class Controller extends Controller_Contract {
 		add_action( 'wp_ajax_ian_optin', [ $this, 'opt_in' ] );
 		add_action( 'wp_ajax_ian_get_feed', [ $this, 'get_feed' ] );
 		add_action( 'wp_ajax_ian_dismiss', [ $this, 'handle_dismiss' ] );
+		add_action( 'wp_ajax_ian_read', [ $this, 'handle_read' ] );
 	}
 
 	/**
@@ -47,6 +48,7 @@ class Controller extends Controller_Contract {
 		remove_action( 'wp_ajax_ian_optin', [ $this, 'opt_in' ] );
 		remove_action( 'wp_ajax_ian_get_feed', [ $this, 'get_feed' ] );
 		remove_action( 'wp_ajax_ian_dismiss', [ $this, 'handle_dismiss' ] );
+		remove_action( 'wp_ajax_ian_read', [ $this, 'handle_read' ] );
 	}
 
 	/**
@@ -70,8 +72,13 @@ class Controller extends Controller_Contract {
 				'localize'     => [
 					'name' => 'commonIan',
 					'data' => [
-						'ajax_url' => admin_url( 'admin-ajax.php' ),
-						'nonce'    => wp_create_nonce( 'common_ian_nonce' ),
+						'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+						'nonce'   => wp_create_nonce( 'common_ian_nonce' ),
+						'readTxt' => esc_html__( 'Read notifications', 'tribe-common' ),
+						'feed'    => (object) [
+							'read'   => [],
+							'unread' => [],
+						],
 					],
 				],
 			]
@@ -148,5 +155,14 @@ class Controller extends Controller_Contract {
 	 */
 	public function handle_dismiss() {
 		$this->container->make( Notifications::class )->handle_dismiss();
+	}
+
+	/**
+	 * AJAX handler for marking notifications as read.
+	 *
+	 * @since TBD
+	 */
+	public function handle_read() {
+		$this->container->make( Notifications::class )->handle_read();
 	}
 }

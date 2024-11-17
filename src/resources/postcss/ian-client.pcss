@@ -1,4 +1,3 @@
-
 .ian-client {
   position: absolute;
   top: var(--tec-spacer-6);
@@ -24,10 +23,6 @@
     &:hover {
       background-image: url('../images/icons/bell-on-hover.svg');
     }
-  }
-
-  @media screen and (min-width: 1600px) {
-    left: calc(1600px - var(--tec-spacer-12));
   }
 
   @media screen and (max-width: 600px) {
@@ -136,7 +131,7 @@
   }
 
   &__loader {
-    display: none;
+    display: block;
     position: absolute;
     top: 25%;
     right: 164px;
@@ -144,10 +139,6 @@
     height: 14px;
     background: radial-gradient(circle closest-side,var(--tec-admin-core-blue-50) 92%,#0000) calc(100%/3) 0/calc(100%/4) 100%;
     animation: ian-loader 0.5s infinite linear;
-
-    &.show {
-      display: block;
-    }
   }
   @keyframes ian-loader {
       100% {background-position: 0 0}
@@ -157,6 +148,7 @@
     padding: 16px;
     height: 100%;
     background: var(--tec-color-background);
+    overflow: auto;
   }
 
   &__notification {
@@ -187,7 +179,10 @@
 
       color: var(--tec-admin-core-grey-50);
 
-      cursor: pointer;
+      pointer-events: none;
+
+      transition: opacity 0.5s ease-in-out;
+      opacity: 0;
     }
 
     &-title {
@@ -216,6 +211,10 @@
     }
 
     &-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
       font-family: var(--tec-font-family-sans-serif);
       font-size: var(--tec-font-size-2);
 
@@ -225,6 +224,43 @@
         &:last-of-type {
           margin-right: 0;
         }
+      }
+    }
+
+    &:hover {
+      .dashicons-dismiss {
+        cursor: pointer;
+        pointer-events: all;
+        opacity: 1;
+      }
+    }
+
+    &.fade-out {
+      opacity: 0;
+      transition: opacity 0.4s ease-in-out 0.2s;
+    }
+  }
+
+  &__separator {
+    display: flex;
+    margin: 16px 0;
+    position: relative;
+
+    div {
+      background: white;
+      padding-right: 8px;
+      z-index: 1;
+    }
+
+    span {
+      &:after {
+        content: '';
+        width: 100%;
+        height: 1px;
+        background: var(--tec-admin-core-grey-10);
+        position: absolute;
+        bottom: calc(50% - 2px);
+        right: 0;
       }
     }
   }

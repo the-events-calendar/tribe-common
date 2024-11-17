@@ -79,6 +79,7 @@ class Template extends Tribe__Template {
 				'title'       => $args['title'] ?? '',
 				'html'        => $args['html'] ?? '',
 				'actions'     => $args['actions'] ?? [],
+				'read'        => $args['read'] ?? false,
 			]
 		);
 
