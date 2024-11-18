@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Added actions: `tec_help_hub_before_render`, `tec_help_hub_after_render`, `tec_help_hub_before_iframe_render`, `tec_help_hub_after_iframe_render`, `tec_help_hub_registered`
