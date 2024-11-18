@@ -120,7 +120,7 @@ class Tribe__Settings_Manager {
 	 * @param array $options formatted the same as from get_options()
 	 * @param bool  $apply_filters
 	 *
-	 * @return bool
+	 * @return bool True if the value was updated, false otherwise.
 	 */
 	public static function set_options( $options, $apply_filters = true ) {
 		if ( ! is_array( $options ) ) {
@@ -144,7 +144,7 @@ class Tribe__Settings_Manager {
 	 * @param string $name The option key or 'name'.
 	 * @param mixed  $value The value we want to set.
 	 *
-	 * @return bool
+	 * @return bool True if the value was updated, false otherwise.
 	 */
 	public static function set_option( $name, $value ) {
 		$options          = self::get_options();
