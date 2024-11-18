@@ -9,20 +9,23 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-11-18T12:43:19-08:00\n"
-"PO-Revision-Date: 2024-11-18 20:43\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"POT-Creation-Date: 2024-11-18T21:34:19+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: tribe-common\n"
 
 #. Plugin Name of the plugin
+#: tribe-common.php
 msgid "Tribe Common"
 msgstr ""
 
 #. Description of the plugin
+#: tribe-common.php
 msgid "An event settings framework for managing shared options."
 msgstr ""
 
 #. Author of the plugin
+#: tribe-common.php
 #: src/admin-views/help-calendar.php:105
 #: src/Tribe/Admin/Help_Page.php:171
 #: src/Tribe/Customizer.php:664
@@ -31,6 +34,7 @@ msgid "The Events Calendar"
 msgstr ""
 
 #. Author URI of the plugin
+#: tribe-common.php
 msgid "http://evnt.is/1x"
 msgstr ""
 
