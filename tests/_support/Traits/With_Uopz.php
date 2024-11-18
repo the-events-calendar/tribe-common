@@ -239,7 +239,7 @@ trait With_Uopz {
 	/**
 	 * Replaces the return value of `new` calls for the class to return the mock.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @param string        $class       The class to replace with the mock. It will only apply to new instances.
 	 * @param string|object $mock        Either the name of the class to mock the original with, or the object that
