@@ -5,7 +5,7 @@
  * This interface defines methods that are required for classes supplying data to the Help Hub.
  * It specifies the methods needed to create resource sections, retrieve icon URLs, and obtain license and telemetry statuses.
  *
- * @since   TBD
+ * @since   6.3.2
  * @package TEC\Common\Admin\Help_Hub
  */
 
@@ -17,7 +17,7 @@ namespace TEC\Common\Admin\Help_Hub\Resource_Data;
  * Defines the methods required for Help Hub data handling, ensuring consistent structure
  * for data retrieval, icons, and license status information within the Help Hub.
  *
- * @since TBD
+ * @since 6.3.2
  */
 interface Help_Hub_Data_Interface {
 
@@ -26,7 +26,7 @@ interface Help_Hub_Data_Interface {
 	 *
 	 * This method registers filters and actions required for the Help Hub.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return void
 	 */
@@ -38,7 +38,7 @@ interface Help_Hub_Data_Interface {
 	 * Each section includes relevant links and content for users, helping organize
 	 * resources based on topics such as "Getting Started" or "Customizations."
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return array An array of associative arrays, each representing a resource section.
 	 */
@@ -47,7 +47,7 @@ interface Help_Hub_Data_Interface {
 	/**
 	 * Retrieves the URL for a specified icon.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @param string $icon_name The name of the icon to retrieve.
 	 *
@@ -61,7 +61,7 @@ interface Help_Hub_Data_Interface {
 	 * Provides an associative array indicating whether a license is valid and
 	 * if the user has opted into telemetry, used for determining Help Hub access level.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return array An associative array with 'has_valid_license' and 'is_opted_in' status.
 	 */

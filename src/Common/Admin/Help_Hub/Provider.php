@@ -6,7 +6,7 @@
  * allowing components such as the `Hub` class to retrieve and utilize the required
  * data and configuration through dependency injection.
  *
- * @since   TBD
+ * @since   6.3.2
  * @package TEC\Common\Admin\Help_Hub
  */
 
@@ -20,7 +20,7 @@ use TEC\Common\Contracts\Service_Provider;
  * Registers the Help Hub logic and dependencies, allowing for easier dependency management
  * and a centralized setup for Help Hub-specific functionality.
  *
- * @since   TBD
+ * @since   6.3.2
  *
  * @package TEC\Common\Admin\Help_Hub
  */
@@ -29,7 +29,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Registers the functionality related to the Help Hub.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return void
 	 */
@@ -41,7 +41,7 @@ class Provider extends Service_Provider {
 		/**
 		 * Fires when the provider is registered.
 		 *
-		 * @since TBD
+		 * @since 6.3.2
 		 *
 		 * @param Provider $this The provider instance.
 		 */

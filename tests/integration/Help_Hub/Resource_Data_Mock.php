@@ -5,7 +5,7 @@
  * A lightweight mock implementation of the TEC_Hub_Resource_Data class,
  * used for testing the Help Hub without relying on external resources or dependencies.
  *
- * @since   TBD
+ * @since   6.3.2
  * @package TEC\Common\Admin\Help_Hub\Resource_Data
  */
 
@@ -18,7 +18,7 @@ use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
  *
  * Provides mock data for testing the Help Hub's functionality.
  *
- * @since   TBD
+ * @since   6.3.2
  * @package TEC\Common\Admin\Help_Hub\Resource_Data
  */
 class Resource_Data_Mock implements Help_Hub_Data_Interface {
@@ -58,7 +58,7 @@ class Resource_Data_Mock implements Help_Hub_Data_Interface {
 	 * This method registers filters and actions required for the Help Hub,
 	 * such as adding custom body classes to the Help Hub page.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return void
 	 */

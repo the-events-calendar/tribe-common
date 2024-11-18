@@ -93,7 +93,7 @@ tribe.helpPage = tribe.helpPage || {};
 	/**
 	 * Will setup any accordions that are children of the parent node.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @param {{object}} parent The parent jQuery node for precise filtering of accordions to target.
 	 */
@@ -247,7 +247,7 @@ tribe.helpPage = tribe.helpPage || {};
 	/**
 	 * Initialize the page tabs and on-page navigation.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 */
 	obj.setupTabs = () => {
 		const tabs = document.querySelectorAll( '[data-tab-target]' );
@@ -288,7 +288,7 @@ tribe.helpPage = tribe.helpPage || {};
 	 * @param {NodeList} tabs The list of tab elements.
 	 * @param {HTMLElement} initialTabContainer The initial active tab container.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 */
 	obj.setupTabEventListeners = (tabs, initialTabContainer) => {
 		// Set the initial active tab container in obj to track the currently visible tab content

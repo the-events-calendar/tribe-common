@@ -5,7 +5,7 @@
  * This class handles rendering the Help Hub page, loading necessary assets,
  * and generating iframes and admin notices related to the Help Hub.
  *
- * @since   TBD
+ * @since   6.3.2
  * @package TEC\Common\Admin\Help_Hub
  */
 
@@ -32,7 +32,7 @@ class Hub {
 	/**
 	 * Data object implementing Help_Hub_Data_Interface, providing necessary Help Hub resources.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @var Help_Hub_Data_Interface
 	 */
@@ -41,7 +41,7 @@ class Hub {
 	/**
 	 * The template class.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @var Tribe__Template
 	 */
@@ -50,7 +50,7 @@ class Hub {
 	/**
 	 * The configuration object.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @var Configuration
 	 */
@@ -59,7 +59,7 @@ class Hub {
 	/**
 	 * Constructor.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @param Help_Hub_Data_Interface $data     The data class instance containing Help Hub resources.
 	 * @param Configuration           $config   The Zendesk support key.
@@ -77,7 +77,7 @@ class Hub {
 	/**
 	 * Sets up support keys for embedding the chat widgets.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @link  https://docsbot.ai/documentation/developer/embeddable-chat-widget Docsbot Embeddable Chat Widget Documentation
 	 * @link  https://support.zendesk.com/hc/en-us/articles/4408836216218-Using-Web-Widget-Classic-to-embed-customer-service-in-your-website Zendesk Classic Chat Widget Documentation
@@ -101,7 +101,7 @@ class Hub {
 	/**
 	 * Retrieves the data object used by the Help Hub.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return Help_Hub_Data_Interface The data object containing Help Hub resources.
 	 */
@@ -115,7 +115,7 @@ class Hub {
 	 * Sets up actions and filters for initializing iframe content,
 	 * loading assets, and adding custom body classes for Help Hub pages.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return void
 	 */
@@ -131,7 +131,7 @@ class Hub {
 	 * Verifies that the $data property has been set. Throws a RuntimeException
 	 * if the data has not been set using the setup method.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return void
 	 * @throws RuntimeException If data has not been set using setup.
@@ -147,7 +147,7 @@ class Hub {
 	 *
 	 * Generates necessary notices, retrieves data, and renders the appropriate Help Hub template.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return void
 	 * @throws RuntimeException If data is not set using the setup method before rendering.
@@ -160,7 +160,7 @@ class Hub {
 		 *
 		 * Use this hook to modify data or enqueue additional assets before the Help Hub template is generated.
 		 *
-		 * @since TBD
+		 * @since 6.3.2
 		 *
 		 * @param Hub $this The Hub instance.
 		 */
@@ -181,7 +181,7 @@ class Hub {
 		 *
 		 * Use this hook to perform actions or cleanup tasks after the Help Hub template is generated and displayed.
 		 *
-		 * @since TBD
+		 * @since 6.3.2
 		 *
 		 * @param Hub $this The Hub instance.
 		 */
@@ -194,7 +194,7 @@ class Hub {
 	 * This method centralizes the creation and filtering of resource sections,
 	 * allowing for a single point of modification based on the data class.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return array The filtered resource sections.
 	 */
@@ -208,7 +208,7 @@ class Hub {
 		 * This dynamic filter allows customization of the Help Hub resource sections specific
 		 * to a given data class, enabling more granular control over section customization.
 		 *
-		 * @since TBD
+		 * @since 6.3.2
 		 *
 		 * @param array                   $sections        The array of resource sections.
 		 * @param Help_Hub_Data_Interface $data            The data instance used for generating sections.
@@ -220,7 +220,7 @@ class Hub {
 		 *
 		 * Allows customization of the Help Hub resource sections by other components.
 		 *
-		 * @since TBD
+		 * @since 6.3.2
 		 *
 		 * @param array                   $sections        The array of resource sections.
 		 * @param Help_Hub_Data_Interface $data            The data instance used for generating sections.
@@ -232,7 +232,7 @@ class Hub {
 	/**
 	 * Determines the template variant based on license validity and opt-in status.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @param bool $has_valid_license Whether the license is valid.
 	 * @param bool $is_opted_in      Whether the user has opted into telemetry.
@@ -250,7 +250,7 @@ class Hub {
 	/**
 	 * Checks if the current page is a Help Hub page.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return bool
 	 */
@@ -271,7 +271,7 @@ class Hub {
 	 * This method adds default classes to the Help Hub page, with an option
 	 * to customize or add additional classes via the `tec_help_hub_body_classes` filter.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @param string $classes Space-separated string of classes for the body tag.
 	 *
@@ -291,7 +291,7 @@ class Hub {
 		 * This filter allows customization of the body classes applied to the Help Hub page,
 		 * enabling the addition or removal of classes as needed.
 		 *
-		 * @since TBD
+		 * @since 6.3.2
 		 *
 		 * @param array $class_array The default array of body classes.
 		 */
@@ -306,7 +306,7 @@ class Hub {
 	/**
 	 * Enqueues assets for the Help Hub page.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return void
 	 */
@@ -352,7 +352,7 @@ class Hub {
 	/**
 	 * Generates a telemetry opt-in link.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return string
 	 */
@@ -370,7 +370,7 @@ class Hub {
 	/**
 	 * Generates and outputs iframe content when appropriate.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return void
 	 * @throws RuntimeException If data has not been set using setup.
@@ -390,7 +390,7 @@ class Hub {
 		 * Use this hook to enqueue additional assets, modify iframe-specific content,
 		 * or take other actions just before the iframe content is generated.
 		 *
-		 * @since TBD
+		 * @since 6.3.2
 		 *
 		 * @param Hub $this The Hub instance.
 		 */
@@ -408,7 +408,7 @@ class Hub {
 		 * Use this hook to perform actions or cleanup tasks after the iframe content
 		 * has been generated and displayed.
 		 *
-		 * @since TBD
+		 * @since 6.3.2
 		 *
 		 * @param Hub $this The Hub instance.
 		 */
@@ -423,7 +423,7 @@ class Hub {
 	 * Sets up actions and filters for initializing iframe content,
 	 * loading assets, and adding custom body classes for Help Hub pages.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return void
 	 */
@@ -435,7 +435,7 @@ class Hub {
 	/**
 	 * Enqueues assets specific to the iframe content and removes theme styles.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 * @return void
 	 */
 	public function enqueue_help_page_iframe_assets(): void {
@@ -470,7 +470,7 @@ class Hub {
 	/**
 	 * Removes theme-related styles to avoid iframe conflicts.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return void
 	 */
@@ -489,7 +489,7 @@ class Hub {
 	/**
 	 * Generates HTML for the admin notice.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @param string $text The text to display.
 	 * @param string $slug Slug for the notice.
@@ -509,7 +509,7 @@ class Hub {
 	/**
 	 * Wrapper to get the license validity and telemetry opt-in status.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return array Contains 'has_valid_license' and 'is_opted_in' status.
 	 */
@@ -520,7 +520,7 @@ class Hub {
 	/**
 	 * Wrapper to retrieve the URL for a specified icon.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @param string $icon_name The name of the icon to retrieve.
 	 *
@@ -533,7 +533,7 @@ class Hub {
 	/**
 	 * Renders the specified template with provided variables.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @param string $template_name The template file name (without .php).
 	 * @param array  $extra_values  Extra values to pass to the template.

@@ -184,7 +184,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * A unique list of instances of the PUE Checker that has been initialized.
 		 *
-		 * @since TBD
+		 * @since 6.3.2
 		 *
 		 * @var Tribe__PUE__Checker[] Instances of checkers that have been registered.
 		 */
@@ -246,7 +246,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @todo In scenarios where a user goes from a Free license to an active license the transient may give a false positive.
 		 *
-		 * @since TBD
+		 * @since 6.3.2
 		 *
 		 * @return bool
 		 */

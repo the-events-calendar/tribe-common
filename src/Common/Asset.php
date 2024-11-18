@@ -2,7 +2,7 @@
 /**
  * TEC Implementation of StellarWP Asset.
  *
- * @since TBD
+ * @since 6.3.2
  *
  * @package TEC\Common;
  */
@@ -16,14 +16,14 @@ use TEC\Common\StellarWP\Assets\Assets;
  * Extending TEC\Common\StellarWP\Assets\Asset in order to allow following
  * possible symlinks in an asset's path.
  *
- * @since TBD
+ * @since 6.3.2
  */
 class Asset extends Stellar_Asset {
 	/**
 	 * Gets the root path for the resource considering the resource is inside a PLUGIN
 	 * and that it could be a symlink.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return ?string
 	 */

@@ -4,7 +4,7 @@
  * Administration Help Page
  *
  * @since 4.0
- * @deprecated TBD This class is deprecated and should no longer be used. Use \TEC\Common\Admin\Help_Hub\Hub instead.
+ * @deprecated 6.3.2 This class is deprecated and should no longer be used. Use \TEC\Common\Admin\Help_Hub\Hub instead.
  */
 
 // Don't load directly.
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class with a few helpers for the Administration Pages
  *
  * @since  4.0
- * @deprecated TBD This class is deprecated. Use \TEC\Common\Admin\Help_Hub\Hub instead.
+ * @deprecated 6.3.2 This class is deprecated. Use \TEC\Common\Admin\Help_Hub\Hub instead.
  */
 class Tribe__Admin__Help_Page {
 	//phpcs:ignore - legacy class naming.
@@ -26,7 +26,7 @@ class Tribe__Admin__Help_Page {
 	 * @return Tribe__Admin__Help_Page
 	 */
 	public static function instance() {
-		_deprecated_function( __METHOD__, 'TBD', '\TEC\Common\Admin\Help_Hub\Hub' );
+		_deprecated_function( __METHOD__, '6.3.2', '\TEC\Common\Admin\Help_Hub\Hub' );
 		return tribe( static::class );
 	}
 

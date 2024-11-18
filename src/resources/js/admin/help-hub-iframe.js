@@ -17,7 +17,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 *
 	 * @link https://docsbot.ai/documentation/developer/embeddable-chat-widget#custom-css
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @type {string}
 	 */
@@ -87,7 +87,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	/**
 	 * Initializes the help page setup, verifying opt-in status.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 * @return {void}
 	 */
 	obj.setup = () => {
@@ -106,7 +106,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	/**
 	 * Dynamically loads the Zendesk Web Widget script.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 * @param {string} zendeskKey - The Zendesk chat key.
 	 * @returns {Promise} - A promise that resolves when the script is loaded.
 	 */
@@ -129,7 +129,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 *
 	 * @link https://support.zendesk.com/hc/en-us/articles/4408836216218-Using-Web-Widget-Classic-to-embed-customer-service-in-your-website
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 * @return {void}
 	 */
 	obj.initializeZendesk = () => {
@@ -171,7 +171,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	/**
 	 * Handles incoming postMessage events, verifying origin and triggering actions based on the message.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 * @param {Event} event - The postMessage event received.
 	 * @return {void}
 	 */
@@ -209,7 +209,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	/**
 	 * Loads and initializes the Zendesk widget, and sets up message listeners.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 * @return {void}
 	 */
 	obj.loadAndInitializeZendeskWidget = () => {
@@ -230,7 +230,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	/**
 	 * Observes for the DocsBot element to be available in the DOM.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 * @param {string} selector - The CSS selector of the element to observe.
 	 * @returns {Promise} - Resolves when the element becomes available.
 	 */
@@ -259,7 +259,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 *
 	 * @link https://docsbot.ai/documentation/developer/embeddable-chat-widget
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 * @return {void}
 	 */
 	obj.initializeDocsBot = () => {
