@@ -16,8 +16,13 @@
 
 <div class="ian-sidebar is-hidden" data-trigger="sideIan">
 	<div class="ian-sidebar__title">
-	<div><?php esc_html_e( 'Notifications', 'tribe-common' ); ?></div>
-	<img src="<?php echo esc_url( tribe_resource_url( 'images/icons/close.svg', false, null, $main ) ); ?>" alt="<?php esc_attr_e( 'Close icon', 'tribe-common' ); ?>" width="20" height="20" data-trigger="closeIan">
+		<div class="ian-sidebar__title--left">
+			<?php esc_html_e( 'Notifications', 'tribe-common' ); ?>
+		</div>
+		<div class="ian-sidebar__title--right">
+			<a href="#" data-trigger="readAllIan" class="is-hidden"><?php esc_html_e( 'Mark all as read', 'tribe-common' ); ?></a>
+			<img src="<?php echo esc_url( tribe_resource_url( 'images/icons/close.svg', false, null, $main ) ); ?>" alt="<?php esc_attr_e( 'Close icon', 'tribe-common' ); ?>" width="20" height="20" data-trigger="closeIan" title="<?php esc_attr_e( 'Close sidebar', 'tribe-common' ); ?>">
+		</div>
 	</div>
 	<div class="ian-sidebar__content" data-trigger="contentIan">
 		<div class="ian-sidebar__loader is-hidden" data-trigger="loaderIan"></div>

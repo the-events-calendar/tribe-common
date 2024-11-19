@@ -49,6 +49,7 @@ class Controller extends Controller_Contract {
 		remove_action( 'wp_ajax_ian_get_feed', [ $this, 'get_feed' ] );
 		remove_action( 'wp_ajax_ian_dismiss', [ $this, 'handle_dismiss' ] );
 		remove_action( 'wp_ajax_ian_read', [ $this, 'handle_read' ] );
+		remove_action( 'wp_ajax_ian_read_all', [ $this, 'handle_read_all' ] );
 	}
 
 	/**
@@ -164,5 +165,14 @@ class Controller extends Controller_Contract {
 	 */
 	public function handle_read() {
 		$this->container->make( Notifications::class )->handle_read();
+	}
+
+	/**
+	 * AJAX handler for marking all notifications as read.
+	 *
+	 * @since TBD
+	 */
+	public function handle_read_all() {
+		$this->container->make( Notifications::class )->handle_read_all();
 	}
 }

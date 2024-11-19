@@ -260,4 +260,22 @@ final class Notifications {
 
 		wp_send_json_success( esc_html__( 'Notification marked as read', 'tribe-common' ), 200 );
 	}
+
+	/**
+	 * AJAX handler for marking all IAN notifications as read.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function handle_read_all(): void {
+		if ( ! wp_verify_nonce( tec_get_request_var( 'nonce' ), 'common_ian_nonce' ) ) {
+			wp_send_json_error( esc_html__( 'Invalid nonce', 'tribe-common' ), 403 );
+			return;
+		}
+
+
+
+		wp_send_json_success( esc_html__( 'All notifications marked as read', 'tribe-common' ), 200 );
+	}
 }

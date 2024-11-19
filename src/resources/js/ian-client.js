@@ -3,6 +3,7 @@
 		Ian.icon = document.querySelector('[data-trigger="iconIan"]');
 		Ian.sidebar = document.querySelector('[data-trigger="sideIan"]');
 		Ian.notifications = document.querySelector('[data-trigger="notifications"]');
+		Ian.readAll = document.querySelector('[data-trigger="readAllIan"]');
 		Ian.optin = document.querySelector('[data-trigger="optinIan"]');
 		Ian.close = document.querySelector('[data-trigger="closeIan"]');
 		Ian.empty = document.querySelector('[data-trigger="emptyIan"]');
@@ -56,6 +57,11 @@
 				case "readIan":
 					e.preventDefault();
 					readIan(e.target.dataset.id, e.target.dataset.slug);
+					break;
+
+				case "readAllIan":
+					e.preventDefault();
+					readAllIan();
 					break;
 
 				default:
@@ -225,12 +231,47 @@
 			}
 		};
 
+		const readAllIan = async () => {
+			Ian.loader.classList.remove("is-hidden");
+
+			const data = new FormData();
+			data.append("action", "ian_read_all");
+			data.append("nonce", Ian.nonce);
+
+			try {
+				const response = await fetch(Ian.ajaxUrl, {
+					method: "POST",
+					credentials: "same-origin",
+					body: data
+				}).then(res => res.json());
+
+				Ian.loader.classList.add("is-hidden");
+
+				if (response.success) {
+					Ian.feed.read = [...Ian.feed.read, ...Ian.feed.unread];
+					Ian.feed.unread = [];
+					const read = Ian.feed.read.map(item => item.html).join("");
+					const separator = `<div class="ian-sidebar__separator"><div>${Ian.readTxt}</div><span></span></div>`;
+					Ian.notifications.innerHTML = separator + read;
+					document.querySelectorAll('.ian-sidebar__notification-link--right').forEach(el => el.remove());
+					updateIan();
+				} else {
+					console.error("Failed to read all notifications:", response.message || "Unknown error");
+				}
+			} catch (err) {
+				console.error("Error reading all notifications:", err);
+			} finally {
+				Ian.loader.classList.add("is-hidden");
+			}
+		};
+
 		const updateIan = () => {
 			const hasRead = window.commonIan.feed.read.length > 0;
 			const hasUnread = window.commonIan.feed.unread.length > 0;
 			const isFeedEmpty = !hasUnread && !hasRead;
 
 			Ian.icon.classList.toggle("active", hasUnread);
+			Ian.readAll.classList.toggle("is-hidden", !hasUnread);
 			Ian.notifications.classList.toggle("is-hidden", isFeedEmpty);
 			Ian.empty.classList.toggle("is-hidden", !isFeedEmpty);
 
