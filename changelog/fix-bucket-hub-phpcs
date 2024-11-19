@@ -1,4 +1,0 @@
-Significance: minor
-Type: feat
-
-Implemented the core Help Hub logic, providing a flexible framework for managing support integrations, resource templates, and plugin-specific customization.

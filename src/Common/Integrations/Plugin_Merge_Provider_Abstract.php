@@ -94,7 +94,7 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 			}
 
 			// Get plugin data.
-			$plugin_data = get_plugin_data( $plugin_file_path );
+			$plugin_data = get_plugin_data( $plugin_file_path, true, false );
 
 			// Check for TextDomain and match.
 			if ( isset( $plugin_data['TextDomain'] ) && $plugin_data['TextDomain'] === $text_domain ) {
