@@ -1,4 +1,0 @@
-Significance: minor
-Type: feat
-
-Introduced Asset interface which accounts for symlinks, while still provides a fluent api. [SL-246]
