@@ -3,14 +3,14 @@
 		"rm -rf vendor",
 		"git checkout -- vendor",
 		"composer install --no-dev",
-		"npm ci",
+		"npm ci --no-audit --no-fund",
 		"npm run build"
 	],
 	"build_dev": [
 		"rm -rf vendor",
 		"git checkout -- vendor",
 		"composer install",
-		"npm ci",
+		"npm ci --no-audit --no-fund",
 		"npm run build"
 	],
 	"checks": {
@@ -21,9 +21,9 @@
 	},
 	"i18n": [
 		{
+			"slug": "tribe-common",
 			"textdomain": "tribe-common",
-			"url": "https://translations.theeventscalendar.com",
-			"slug": "tribe-common"
+			"url": "https://translations.stellarwp.com/glotpress/"
 		}
 	],
 	"paths": {
