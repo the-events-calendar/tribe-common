@@ -25,7 +25,11 @@
 		{
 			"slug": "tribe-common",
 			"textdomain": "tribe-common",
+<<<<<<< HEAD
 			"url": "https://translations.stellarwp.com/glotpress/"
+=======
+			"url": "https://translations.stellarwp.com/"
+>>>>>>> master
 		}
 	],
 	"paths": {

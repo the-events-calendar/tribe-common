@@ -2,7 +2,7 @@
 /**
  * Wraps the Clock Mock library for easier use in testing.
  *
- * @since 6.3.0
+ * @since   6.3.2
  *
  * @package Traits;
  */
@@ -14,7 +14,7 @@ use SlopeIt\ClockMock\ClockMock;
 /**
  * Class With_Clock_Mock.
  *
- * @since 6.3.0
+ * @since   6.3.2
  *
  * @package Traits;
  */
@@ -22,7 +22,7 @@ trait With_Clock_Mock {
 	/**
 	 * Whether the clock mock library was used to freeze the time.
 	 *
-	 * @since 6.3.0
+	 * @since 6.3.2
 	 *
 	 * @var bool
 	 */
@@ -42,7 +42,7 @@ trait With_Clock_Mock {
 	/**
 	 * Using the clock mock library, set the current PHP time and date functions to a specific time.
 	 *
-	 * @since 6.3.0
+	 * @since 6.3.2
 	 *
 	 * @param \DateTimeInterface $datetime The datetime to freeze the clock to.
 	 *
@@ -56,7 +56,7 @@ trait With_Clock_Mock {
 	/**
 	 * Unfreeze the time.
 	 *
-	 * @since 6.3.0
+	 * @since 6.3.2
 	 *
 	 * @return void Time is unfrozen.
 	 */
