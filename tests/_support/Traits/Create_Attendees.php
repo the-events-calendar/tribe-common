@@ -18,6 +18,7 @@ use Tribe\Tickets_Plus\Test\Commerce\EDD\Order_Maker as EDD_Order_Maker;
 use Tribe\Tickets_Plus\Test\Commerce\WooCommerce\Ticket_Maker as Woo_Ticket_Maker;
 use Tribe\Tickets_Plus\Test\Commerce\WooCommerce\Order_Maker as Woo_Order_Maker;
 use Tribe\Tickets\Test\Commerce\Attendee_Maker as Attendee_Maker;
+use TEC\Common\Faker;
 use EDD_Payment;
 use EDD_Download;
 use WC_Order_Refund;
@@ -705,8 +706,8 @@ trait Create_Attendees {
 		$this->suspend_edd_emails();
 
 		$factory = $this->factory ?? $this->factory();
-		$faker   = \Faker\Factory::create();
-		$faker->addProvider( new \Faker\Provider\en_US\Address( $faker ) );
+		$faker   = Faker\Factory::create();
+		$faker->addProvider( new Faker\Provider\en_US\Address( $faker ) );
 
 		$create_user = $overrides['create_users'] ?? false;
 		$user_id     = $overrides['user_id'] ?? 0;
