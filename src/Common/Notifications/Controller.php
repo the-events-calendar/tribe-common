@@ -35,6 +35,7 @@ class Controller extends Controller_Contract {
 		add_action( 'wp_ajax_ian_get_feed', [ $this, 'get_feed' ] );
 		add_action( 'wp_ajax_ian_dismiss', [ $this, 'handle_dismiss' ] );
 		add_action( 'wp_ajax_ian_read', [ $this, 'handle_read' ] );
+		add_action( 'wp_ajax_ian_read_all', [ $this, 'handle_read_all' ] );
 	}
 
 	/**
