@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-Added filters: `tec_help_hub_resource_sections_{$data_class_name}`, `tec_help_hub_resource_sections`, `tec_help_hub_body_classes`
