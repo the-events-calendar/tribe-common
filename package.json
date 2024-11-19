@@ -8,7 +8,10 @@
   "_glotPressUrl": "https://translations.theeventscalendar.com",
   "_glotPressSlug": "tribe-common",
   "_glotPressFileFormat": "%textdomain%-%wp_locale%.%format%",
-  "_glotPressFormats": ["po", "mo"],
+  "_glotPressFormats": [
+    "po",
+    "mo"
+  ],
   "_glotPressFilter": {
     "translation_sets": false,
     "minimum_percentage": 30,
@@ -31,9 +34,14 @@
       "!src/resources/postcss/datepicker.pcss",
       "!src/resources/postcss/tribe-ui.pcss"
     ],
-    "jest": ["src/modules/**/__tests__/**/*.js"]
+    "jest": [
+      "src/modules/**/__tests__/**/*.js"
+    ]
   },
-  "engines": { "node": "18.13.0", "npm": "8.19.3" },
+  "engines": {
+    "node": "18.13.0",
+    "npm": "8.19.3"
+  },
   "scripts": {
     "analyze": "webpack-bundle-analyzer -m static stats.json",
     "bootstrap": "./scripts/linkDependencies",
@@ -107,5 +115,9 @@
     "webpack-cli": "^3.1.2",
     "webpack-merge": "^4.1.4"
   },
-  "overrides": { "babel-plugin-lodash": { "@babel/types": "~7.20.0" } }
+  "overrides": {
+    "babel-plugin-lodash": {
+      "@babel/types": "~7.20.0"
+    }
+  }
 }
