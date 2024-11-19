@@ -5,8 +5,8 @@
 * Feature - Implemented the core Help Hub logic, providing a flexible framework for managing support integrations, resource templates, and plugin-specific customization.
 * Feature - Introduced Asset interface which accounts for symlinks, while still provides a fluent api. [SL-246]
 * Feature - Update stellarwp/assets to version 1.4.2. [SL-246]
-* Tweak - Added actions: `tec_help_hub_before_render`, `tec_help_hub_after_render`, `tec_help_hub_before_iframe_render`, `tec_help_hub_after_iframe_render`, `tec_help_hub_registered`
-* Tweak - Added filters: `tec_help_hub_resource_sections_{$data_class_name}`, `tec_help_hub_resource_sections`, `tec_help_hub_body_classes`
+* Tweak - Added actions: `tec_help_hub_before_render`, `tec_help_hub_after_render`, `tec_help_hub_before_iframe_render`, `tec_help_hub_after_iframe_render`, `tec_help_hub_registered`.
+* Tweak - Added filters: `tec_help_hub_resource_sections_{$data_class_name}`, `tec_help_hub_resource_sections`, `tec_help_hub_body_classes`.
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
 
 ### [6.3.1] 2024-11-04
