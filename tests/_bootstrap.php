@@ -3,6 +3,11 @@
 
 use Codeception\Util\Autoload;
 
+// Ensure the prefixed interface exists
+if ( interface_exists( 'TEC\Common\Psr\Container\ContainerInterface' ) && ! interface_exists( 'Psr\Container\ContainerInterface' ) ) {
+	class_alias( 'TEC\Common\Psr\Container\ContainerInterface', 'Psr\Container\ContainerInterface' );
+}
+
 require_once dirname( __DIR__, 1 ) . '/tribe-autoload.php';
 Autoload::addNamespace( 'Tribe\\Tests', __DIR__ . '/_support' );
 // Silence the logger in the tests.
