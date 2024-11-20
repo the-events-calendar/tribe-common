@@ -237,6 +237,7 @@
 			const data = new FormData();
 			data.append("action", "ian_read_all");
 			data.append("nonce", Ian.nonce);
+			data.append("unread", JSON.stringify(Ian.feed.unread.map(item => item.slug)));
 
 			try {
 				const response = await fetch(Ian.ajaxUrl, {

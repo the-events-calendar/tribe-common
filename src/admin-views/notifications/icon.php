@@ -42,7 +42,7 @@
 				<p>
 				<?php
 				/* translators: %s: data sharing agreement */
-				printf( esc_html__( 'To receive notifications you need to agree to our %s.', 'tribe-common' ), $agreement );
+				printf( esc_html__( 'To receive notifications you need to agree to our %s.', 'tribe-common' ), wp_kses_post( $agreement ) );
 				?>
 				</p>
 			</div>

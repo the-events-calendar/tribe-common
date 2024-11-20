@@ -274,7 +274,12 @@ final class Notifications {
 			return;
 		}
 
+		$unread = json_decode( stripslashes( tec_get_request_var( 'unread' ) ), true );
 
+		foreach ( $unread as $slug ) {
+			$this->slug = $slug;
+			$this->read();
+		}
 
 		wp_send_json_success( esc_html__( 'All notifications marked as read', 'tribe-common' ), 200 );
 	}
