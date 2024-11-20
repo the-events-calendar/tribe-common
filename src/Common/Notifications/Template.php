@@ -35,16 +35,16 @@ class Template extends Tribe__Template {
 	}
 
 	/**
-	 * Render the notification icon.
+	 * Render the notification sidebar.
 	 *
 	 * @since TBD
 	 *
 	 * @param array $args Array of arguments that will ultimately be sent to the template.
 	 * @param bool  $output Whether or not to echo the HTML. Defaults to true.
 	 *
-	 * @return string HTML of notification icon.
+	 * @return string HTML of notification sidebar.
 	 */
-	public function render_icon( $args, $output = true ) {
+	public function render_sidebar( $args, $output = true ) {
 		$args = wp_parse_args(
 			$args,
 			[
@@ -55,7 +55,7 @@ class Template extends Tribe__Template {
 			]
 		);
 
-		return $this->template( 'icon', $args, $output );
+		return $this->template( 'sidebar', $args, $output );
 	}
 
 	/**

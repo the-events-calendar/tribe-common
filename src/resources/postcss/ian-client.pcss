@@ -1,10 +1,5 @@
 .ian-client {
-  position: absolute;
-  top: var(--tec-spacer-6);
-  left: calc(100% - var(--tec-spacer-12));
-
   width: 40px;
-
   height: 40px;
 
   background-image: url('../images/icons/bell.svg');
@@ -31,8 +26,8 @@
 }
 
 .ian-sidebar {
-  position: fixed;
-  top: 165px;
+  position: absolute;
+  top: 125px;
   right: 0;
 
   z-index: 1000;
@@ -47,12 +42,8 @@
 
   transition: right 0.5s ease-in-out;
 
-  @media screen and (max-width: 782px) {
-    top: 180px;
-  }
-
   @media screen and (max-width: 500px) {
-    top: 140px;
+    top: 86px;
   }
 
   &.is-hidden {
@@ -281,37 +272,67 @@
   }
 }
 
+.tec-events-admin-settings {
+
+  h1 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
 .post-php.post-type-tribe_events,
 .edit-php.post-type-tribe_events {
   .ian-header {
     height: 60px;
     background: #fff;
-    width: calc(100% + 40px);
+    width: 100%;
     margin-left: -20px;
     margin-top: -10px;
     margin-bottom: 16px;
-    padding: 36px 0 0 20px;
-  }
-
-  .ian-sidebar {
-    top: 130px;
+    padding: 36px 20px 0 20px;
 
     @media screen and (max-width: 782px) {
-      top: 144px;
-      right: 24px;
+      height: 80px;
+    }
+  }
 
-      &.is-hidden {
-        right: -100%;
+  .ian-inner-wrapper {
+    clear: both;
+
+    h1.wp-heading-inline {
+      padding: 4px 0;
+
+      @media screen and (max-width: 782px) {
+        margin-bottom: 0;
       }
     }
   }
 
   .ian-client {
-    left: calc(100% - var(--tec-spacer-12));
-    top: var(--tec-spacer-8);
+    float: right;
+  }
+
+  .ian-sidebar {
+    top: 98px;
+
+    @media (min-width: 600px) and (max-width: 782px) {
+      top: 118px;
+      right: 4px;
+
+      &.is-hidden {
+        right: -100%;
+      }
+    }
 
     @media screen and (max-width: 600px) {
-      top: calc(var(--tec-spacer-8)*2.25);
+      top: 164px;
+      right: 4px;
+
+      &.is-hidden {
+        right: -100%;
+      }
     }
   }
 

@@ -11,9 +11,6 @@
  */
 
 ?>
-
-<div class="ian-client" data-trigger="iconIan"></div>
-
 <div class="ian-sidebar is-hidden" data-trigger="sideIan">
 	<div class="ian-sidebar__title">
 		<div class="ian-sidebar__title--left">
