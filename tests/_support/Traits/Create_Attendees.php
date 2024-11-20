@@ -18,7 +18,7 @@ use Tribe\Tickets_Plus\Test\Commerce\EDD\Order_Maker as EDD_Order_Maker;
 use Tribe\Tickets_Plus\Test\Commerce\WooCommerce\Ticket_Maker as Woo_Ticket_Maker;
 use Tribe\Tickets_Plus\Test\Commerce\WooCommerce\Order_Maker as Woo_Order_Maker;
 use Tribe\Tickets\Test\Commerce\Attendee_Maker as Attendee_Maker;
-use TEC\Common\Faker;
+use Faker;
 use EDD_Payment;
 use EDD_Download;
 use WC_Order_Refund;
