@@ -153,4 +153,31 @@ class NotificationsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertArrayHasKey( 'title', $notifications[0], 'Notification should have a title' );
 		$this->assertArrayHasKey( 'html', $notifications[0], 'Notification should have content' );
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_match_php_version() {
+		$version = '>=7';
+		$matches = Conditionals::check_php_version( $version );
+		$this->assertTrue( $matches, 'PHP requirement should be met' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_match_wp_version() {
+		$version = '>=5';
+		$matches = Conditionals::check_wp_version( $version );
+		$this->assertTrue( $matches, 'WP requirement should be met' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_match_plugin_version() {
+		$plugins = [ 'the-events-calendar@>=6.0.0' ];
+		$matches = Conditionals::check_plugin_version( $plugins );
+		$this->assertTrue( $matches, 'Plugin requirement should be met' );
+	}
 }
