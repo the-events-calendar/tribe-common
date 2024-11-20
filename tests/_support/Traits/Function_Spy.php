@@ -2,7 +2,7 @@
 /**
  * The trait implemented by function spies to provide assertions and set expectations.
  *
- * @since   TBD
+ * @since   6.3.2
  *
  * @package Tribe\Tests\Traits;
  */
@@ -12,7 +12,7 @@ namespace Tribe\Tests\Traits;
 /**
  * Trait Function_Spy.
  *
- * @since   TBD
+ * @since   6.3.2
  *
  * @package Tribe\Tests\Traits;
  */
@@ -68,7 +68,7 @@ trait Function_Spy {
 	/**
 	 * Sets whether the function is expected to be called or not.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return void
 	 */
@@ -79,7 +79,7 @@ trait Function_Spy {
 	/**
 	 * Sets whether the function is not expected to be called or not.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @return void
 	 */

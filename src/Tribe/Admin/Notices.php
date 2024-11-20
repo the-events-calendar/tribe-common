@@ -292,6 +292,8 @@ class Tribe__Admin__Notices {
 			$classes[] = 'inline';
 		}
 
+		$content ??= $notice->content;
+
 		// Prevents Empty Notices
 		if ( empty( $content ) ) {
 			return false;
