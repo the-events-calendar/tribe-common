@@ -15,21 +15,26 @@
 	}
 }
 
+.tribe-editor__date-input__popover {
+	margin-top: 10px;
+
+	.components-popover__content {
+		padding: 15px;
+		width: 300px;
+	}
+}
+
 /* -----------------------------------------------------------
    DayPicker Input Calender Styles
    ----------------------------------------------------------- */
 
-.tribe-editor__calendars {
+.tribe-editor__calendars,
+.tribe-editor__date-input__popover {
 
 	.rdp-root {
 		--rdp-day-height: 37px;
 		--rdp-day-width: 37px;
 		--rdp-accent-color: #007bb4;
-	}
-
-	.DayPickerInput-Overlay {
-		padding: 20px;
-		z-index: 10;
 	}
 
 	.rdp {
@@ -47,8 +52,6 @@
 			justify-items: center;
 		}
 	}
-
-
 
 	.rdp-caption > div,
 	.rdp-weekday,
