@@ -249,6 +249,7 @@ class Tribe__Main {
 				[ 'tribe-attrchange', 'vendor/attrchange/js/attrchange.js' ],
 				[ 'tec-ky-module', 'vendor/ky/ky.js', [], null, [ 'module' => true ] ],
 				[ 'tec-ky', 'vendor/ky/tec-ky.js', [ 'tec-ky-module' ], null, [ 'module' => true ] ],
+				[ 'tec-common-php-date-formatter', 'node_modules/php-date-formatter/js/php-date-formatter.js' ],
 			]
 		);
 

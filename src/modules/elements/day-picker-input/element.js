@@ -7,7 +7,6 @@ import "react-day-picker/src/style.css";
 import { DayPicker } from 'react-day-picker';
 import { Popover } from '@wordpress/components';
 import { getSettings as getDateSettings } from '@wordpress/date';
-import 'php-date-formatter';
 
 /**
  * Internal dependencies
