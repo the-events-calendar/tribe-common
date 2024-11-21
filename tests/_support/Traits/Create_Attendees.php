@@ -707,6 +707,8 @@ trait Create_Attendees {
 
 		$factory = $this->factory ?? $this->factory();
 		$faker   = Faker\Factory::create();
+		// Set a seed to generate consistent results.
+		$faker->seed(592);
 		$faker->addProvider( new Faker\Provider\en_US\Address( $faker ) );
 
 		$create_user = $overrides['create_users'] ?? false;
