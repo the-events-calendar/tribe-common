@@ -1,11 +1,13 @@
 /**
  * External dependencies
  */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo, useCallback } from 'react';
 import classNames from 'classnames';
 import "react-day-picker/src/style.css";
 import { DayPicker } from 'react-day-picker';
 import { Popover } from '@wordpress/components';
+import { getSettings as getDateSettings } from '@wordpress/date';
+import 'php-date-formatter';
 
 /**
  * Internal dependencies
@@ -36,6 +38,13 @@ const DayPickerInput = ( props ) => {
 	const popoverAnchor = useRef( null ); // Ref for the Popover anchor
 	const inputRef = useRef( null ); // Ref for the input field
 	const [ isVisible, setIsVisible ] = useState( false );
+	// Do not memoize this: it could be changed in the context of the Block Editor elsewhere.
+	const phpDateFormat = getDateSettings()?.formats?.date ?? 'MMMM d, y';
+	const dateFormatter = useMemo(() => new DateFormatter(), []);
+	const parsePhpDate  = useCallback(
+		function(value) { return dateFormatter.parseDate(value, phpDateFormat); },
+		[phpDateFormat]
+	);
 
 	const toggleVisible = () => {
 		setIsVisible( ( state ) => ! state );
@@ -43,7 +52,7 @@ const DayPickerInput = ( props ) => {
 
 	const { value, onDayChange, formatDate, format } = props;
 	const [ selectedDate, setSelectedDate ] = useState(
-		value ? new Date( value ) : new Date()
+		value ? new Date( parsePhpDate(value) ) : new Date()
 	);
 
 	const datepickerFormat = 'MMMM d, y';
