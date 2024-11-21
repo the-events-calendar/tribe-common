@@ -12,12 +12,12 @@
 		Ian.feed = { read: [], unread: [] };
 
 		const init = () => {
+			wrapHeadings();
+
 			document.addEventListener("click", handleClick);
 			document.addEventListener("keydown", handleKeydown);
 
 			if (Ian.consent == "true") getIan();
-
-			wrapHeadings();
 		};
 
 		const wrapHeadings = () => {
@@ -28,11 +28,25 @@
 					const wrapper = document.createElement("div");
 					wrapper.className = "ian-header";
 
+					const innerWrapper = document.createElement("div");
+					innerWrapper.className = "ian-inner-wrapper";
+
+					const clientDiv = document.createElement("div");
+					clientDiv.className = "ian-client";
+					clientDiv.setAttribute("data-trigger", "iconIan");
+
 					heading.parentNode.insertBefore(wrapper, heading);
-					wrapper.appendChild(heading);
-					wrapper.appendChild(pageAction);
+					wrapper.appendChild(innerWrapper);
+					innerWrapper.appendChild(heading);
+					innerWrapper.appendChild(pageAction);
+					innerWrapper.appendChild(clientDiv);
 				}
 			});
+			Ian.icon = document.querySelector('[data-trigger="iconIan"]');
+			const settingsHeading = document.querySelector('.tribe_events_page_tec-events-settings h1');
+			if (settingsHeading) {
+				settingsHeading.appendChild(Ian.sidebar);
+			}
 		};
 
 		const handleClick = e => {

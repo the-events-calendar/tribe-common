@@ -125,20 +125,20 @@ final class Notifications {
 		}
 
 		/**
-		 * Filter allowing disabling of the Notifications icon by returning false.
+		 * Filter allowing disabling of the Notifications by returning false.
 		 *
 		 * @since TBD
 		 *
-		 * @param bool $show Whether to show the icon or not.
+		 * @param bool $show Whether to render the IAN sidebar or not.
 		 */
-		$show = (bool) apply_filters( 'tec_common_ian_show_icon', true, $slug );
+		$show = (bool) apply_filters( 'tec_common_ian_render', true, $slug );
 
 		if ( ! $show ) {
 			return;
 		}
 
 		$template = new Template();
-		$template->render_icon( [ 'slug' => $slug ], true );
+		$template->render_sidebar( [ 'slug' => $slug ], true );
 	}
 
 	/**
