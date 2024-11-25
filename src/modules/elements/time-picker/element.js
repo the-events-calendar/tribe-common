@@ -66,7 +66,7 @@ const TimePicker = ( {
 				onChange={ onChange }
 				onFocus={ onFocus }
 				type="text"
-				value={ current }
+				value={ current ?? '' }
 			/>
 		);
 	};

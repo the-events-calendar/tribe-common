@@ -39,7 +39,7 @@ const LabeledItem = ( {
 
 LabeledItem.propTypes = {
 	className: PropTypes.string,
-	isLabel: PropTypes.bool.isRequired,
+	isLabel: PropTypes.bool,
 	forId: PropTypes.string,
 	label: PropTypes.node,
 	children: PropTypes.node,
