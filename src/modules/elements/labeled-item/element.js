@@ -8,7 +8,7 @@ import classNames from 'classnames';
 const LabeledItem = ( {
 	className,
 	forId,
-	isLabel,
+	isLabel = false,
 	label,
 	children,
 } ) => {
@@ -35,10 +35,6 @@ const LabeledItem = ( {
 			{ children }
 		</div>
 	);
-};
-
-LabeledItem.defaultProps = {
-	isLabel: false,
 };
 
 LabeledItem.propTypes = {
