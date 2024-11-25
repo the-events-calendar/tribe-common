@@ -164,7 +164,7 @@ const TimePicker = ( {
 			<Dropdown
 				className="tribe-editor__timepicker__toggle"
 				contentClassName="tribe-editor__timepicker__content"
-				position="bottom center"
+				placement="bottom center"
 				renderToggle={ renderToggle }
 				renderContent={ renderContent }
 			/>
