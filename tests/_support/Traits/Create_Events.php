@@ -33,7 +33,7 @@ trait Create_Events {
 		return tribe_events()->set_args( $args )->create();
 	}
 
-	protected function generate_multiple_events( $mock_date ) {
+	protected function generate_multiple_events( $mock_date, int $how_many = 3 ) {
 		$timezone_string = 'America/New_York';
 		$timezone        = new \DateTimeZone( $timezone_string );
 		update_option( 'timezone_string', $timezone_string );
@@ -50,7 +50,7 @@ trait Create_Events {
 					]
 				)->create();
 			},
-			range( 1, 3 )
+			range( 1, $how_many )
 		);
 	}
 
