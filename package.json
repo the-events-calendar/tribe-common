@@ -56,7 +56,6 @@
     "lint:eslint": "gulp eslint",
     "lint:stylelint": "gulp stylelint",
     "jest": "TZ=UTC gulp jest",
-    "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js",
     "glotpress": "gulp glotpress",
     "changelog": "./vendor/bin/changelogger add"
   },
