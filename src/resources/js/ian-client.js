@@ -1,5 +1,5 @@
-(function(Ian) {
-	window.addEventListener("load", function(event) {
+(function (Ian) {
+	window.addEventListener("load", function (event) {
 		Ian.icon = document.querySelector('[data-trigger="iconIan"]');
 		Ian.sidebar = document.querySelector('[data-trigger="sideIan"]');
 		Ian.notifications = document.querySelector('[data-trigger="notifications"]');
@@ -20,7 +20,7 @@
 			document.addEventListener("click", handleClick);
 			document.addEventListener("keydown", handleKeydown);
 			window.addEventListener("resize", calculateSidebarPosition);
-			window.addEventListener('scroll', onScroll);
+			window.addEventListener("scroll", onScroll);
 
 			if (Ian.consent == "true") getIan();
 		};
@@ -103,19 +103,17 @@
 		const calculateSidebarPosition = () => {
 			const bar = document.getElementById("wpadminbar");
 			const wrapper = document.querySelector(".wrap .ian-header");
-			if ( wrapper ) {
+			if (wrapper) {
 				const rect = wrapper.getBoundingClientRect();
-				const bottomPosition = rect.top + rect.height - ( window.innerWidth > 600 ? bar.clientHeight : 0 );
+				const bottomPosition = rect.top + rect.height - (window.innerWidth > 600 ? bar.clientHeight : 0);
 				Ian.sidebar.style.top = `${bottomPosition}px`;
 			}
 
 			let settingstabs = document.getElementById("tribe-settings-tabs");
-			if ( settingstabs ) {
-				console.log(11);
+			if (settingstabs) {
 				settingstabs = window.innerWidth > 500 ? settingstabs : document.querySelector('.tec-settings-header-wrap');
-				console.log(22);
 				const rect = settingstabs.getBoundingClientRect();
-				const bottomPosition = rect.top + rect.height - ( window.innerWidth > 600 ? bar.clientHeight : 0 );
+				const bottomPosition = rect.top + rect.height - (window.innerWidth > 600 ? bar.clientHeight : 0);
 				Ian.sidebar.style.top = `${bottomPosition}px`;
 			}
 		};
@@ -131,11 +129,11 @@
 			const offset = window.innerWidth > 782 ? 32 : window.innerWidth > 600 ? 46 : 0;
 			const scrollY = window.scrollY;
 			if (scrollY >= (initialTop - offset)) {
-					Ian.sidebar.style.position = 'fixed';
-					Ian.sidebar.style.top = offset + 'px';
+				Ian.sidebar.style.position = 'fixed';
+				Ian.sidebar.style.top = offset + 'px';
 			} else {
-					Ian.sidebar.style.position = 'absolute';
-					calculateSidebarPosition();
+				Ian.sidebar.style.position = 'absolute';
+				calculateSidebarPosition();
 			}
 
 			ticking = false;
@@ -247,7 +245,7 @@
 					Ian.feed.unread = filterFeed(unread);
 					updateIan();
 				} else {
-					console.error("Failed to dismiss notification:",	response.message || "Unknown error");
+					console.error("Failed to dismiss notification:", response.message || "Unknown error");
 				}
 			} catch (err) {
 				console.error("Error dismissing notification:", err);
