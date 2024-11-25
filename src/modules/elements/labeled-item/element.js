@@ -42,7 +42,7 @@ LabeledItem.propTypes = {
 	isLabel: PropTypes.bool.isRequired,
 	forId: PropTypes.string,
 	label: PropTypes.node,
-	children: PropTypes.node.isRequired,
+	children: PropTypes.node,
 };
 
 export default LabeledItem;
