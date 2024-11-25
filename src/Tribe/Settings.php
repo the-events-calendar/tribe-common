@@ -590,17 +590,17 @@ class Tribe__Settings {
 	 */
 	public function do_page_header( $admin_page ): void {
 		?>
-		<h1>
-			<span>
-			<?php if ( $this->is_event_settings() ) : ?>
-				<?php echo wp_kses_post( $this->get_page_logo( $admin_page ) ); ?>
-			<?php endif; ?>
-			<?php echo esc_html( $this->get_page_title( $admin_page ) ); ?>
-			</span>
+		<div class="tec-settings-header-wrap">
+			<h1>
+				<?php if ( $this->is_event_settings() ) : ?>
+					<?php echo wp_kses_post( $this->get_page_logo( $admin_page ) ); ?>
+				<?php endif; ?>
+				<?php echo esc_html( $this->get_page_title( $admin_page ) ); ?>
+			</h1>
 			<?php if ( tribe( Controller::class )->is_ian_page() ) : ?>
 				<div class="ian-client" data-trigger="iconIan"></div>
 			<?php endif; ?>
-		</h1>
+		</div>
 		<?php
 	}
 
