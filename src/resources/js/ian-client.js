@@ -1,5 +1,5 @@
-(function(Ian) {
-	window.addEventListener("load", function(event) {
+(function (Ian) {
+	window.addEventListener("load", function (event) {
 		Ian.icon = document.querySelector('[data-trigger="iconIan"]');
 		Ian.sidebar = document.querySelector('[data-trigger="sideIan"]');
 		Ian.notifications = document.querySelector('[data-trigger="notifications"]');
@@ -10,12 +10,17 @@
 		Ian.loader = document.querySelector('[data-trigger="loaderIan"]');
 		Ian.consent = Ian.notifications.dataset.consent;
 		Ian.feed = { read: [], unread: [] };
+		let ticking = false;
+		const initialTop = Ian.sidebar.getBoundingClientRect().top + window.scrollY;
 
 		const init = () => {
 			wrapHeadings();
+			calculateSidebarPosition();
 
 			document.addEventListener("click", handleClick);
 			document.addEventListener("keydown", handleKeydown);
+			window.addEventListener("resize", calculateSidebarPosition);
+			window.addEventListener("scroll", onScroll);
 
 			if (Ian.consent == "true") getIan();
 		};
@@ -43,13 +48,15 @@
 				}
 			});
 			Ian.icon = document.querySelector('[data-trigger="iconIan"]');
-			const settingsHeading = document.querySelector('.tribe_events_page_tec-events-settings h1');
+			const settingsHeading = document.querySelector('.tec-settings-header-wrap');
 			if (settingsHeading) {
-				settingsHeading.appendChild(Ian.sidebar);
+				settingsHeading.insertAdjacentElement("afterend", Ian.sidebar);
 			}
 		};
 
 		const handleClick = e => {
+			calculateSidebarPosition();
+
 			switch (e.target.dataset.trigger) {
 				case "iconIan":
 					Ian.sidebar.classList.toggle("is-hidden");
@@ -82,14 +89,55 @@
 					if (!e.composedPath().includes(Ian.sidebar) && !e.composedPath().includes(Ian.icon)) {
 						Ian.sidebar.classList.add("is-hidden");
 					}
+					break;
 			}
 		};
 
 		const handleKeydown = e => {
 			if (["Escape", "Esc"].includes(e.key) || e.keyCode === 27) {
 				Ian.sidebar.classList.add("is-hidden");
+				calculateSidebarPosition();
 			}
 		};
+
+		const calculateSidebarPosition = () => {
+			const bar = document.getElementById("wpadminbar");
+			const wrapper = document.querySelector(".wrap .ian-header");
+			if (wrapper) {
+				const rect = wrapper.getBoundingClientRect();
+				const bottomPosition = rect.top + rect.height - (window.innerWidth > 600 ? bar.clientHeight : 0);
+				Ian.sidebar.style.top = `${bottomPosition}px`;
+			}
+
+			let settingstabs = document.getElementById("tribe-settings-tabs");
+			if (settingstabs) {
+				settingstabs = window.innerWidth > 500 ? settingstabs : document.querySelector('.tec-settings-header-wrap');
+				const rect = settingstabs.getBoundingClientRect();
+				const bottomPosition = rect.top + rect.height - (window.innerWidth > 600 ? bar.clientHeight : 0);
+				Ian.sidebar.style.top = `${bottomPosition}px`;
+			}
+		};
+
+		const onScroll = () => {
+			if (!ticking) {
+				requestAnimationFrame(updatePosition);
+				ticking = true;
+			}
+		}
+
+		const updatePosition = () => {
+			const offset = window.innerWidth > 782 ? 32 : window.innerWidth > 600 ? 46 : 0;
+			const scrollY = window.scrollY;
+			if (scrollY >= (initialTop - offset)) {
+				Ian.sidebar.style.position = 'fixed';
+				Ian.sidebar.style.top = offset + 'px';
+			} else {
+				Ian.sidebar.style.position = 'absolute';
+				calculateSidebarPosition();
+			}
+
+			ticking = false;
+		}
 
 		const optinIan = async () => {
 			Ian.optin.classList.add("disable");
@@ -197,7 +245,7 @@
 					Ian.feed.unread = filterFeed(unread);
 					updateIan();
 				} else {
-					console.error("Failed to dismiss notification:",	response.message || "Unknown error");
+					console.error("Failed to dismiss notification:", response.message || "Unknown error");
 				}
 			} catch (err) {
 				console.error("Error dismissing notification:", err);
