@@ -428,8 +428,10 @@ class Hub {
 	 * @return void
 	 */
 	public function register_iframe_hooks() {
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_help_page_iframe_assets' ] );
-		add_action( 'wp_enqueue_scripts', [ __CLASS__, 'dequeue_theme_styles' ] );
+		add_action( 'tec_help_hub_iframe_header', [ $this, 'enqueue_help_page_iframe_assets' ] );
+		add_filter( 'emoji_svg_url', '__return_false' );
+		remove_action( 'wp_print_styles', 'print_emoji_styles' );
+		remove_action( 'wp_head', 'print_emoji_styles' );
 	}
 
 	/**
@@ -446,7 +448,7 @@ class Hub {
 			'help-hub-iframe-style',
 			'help-hub-iframe.css',
 			null,
-			'wp_enqueue_scripts'
+			null,
 		);
 
 		tribe_asset(
@@ -454,7 +456,7 @@ class Hub {
 			'help-hub-iframe-js',
 			'admin/help-hub-iframe.js',
 			null,
-			'wp_enqueue_scripts',
+			null,
 			[
 				'localize' => [
 					'name' => 'helpHubSettings',
@@ -465,6 +467,10 @@ class Hub {
 				],
 			]
 		);
+
+		tribe_asset_enqueue( 'help-hub-iframe-style' );
+		tribe_asset_enqueue( 'help-hub-iframe-js' );
+		tribe_asset_enqueue( 'tribe-common-full-style' );
 	}
 
 	/**

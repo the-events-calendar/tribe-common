@@ -6,7 +6,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	'use strict';
 
 	obj.selectors = {
-		body: document.body,
+		body: 'body',
 		docsbotWidget: '#docsbot-widget-embed',
 		optOutMessage: '.tec-help-hub-iframe-opt-out-message',
 	};
@@ -91,7 +91,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @return {void}
 	 */
 	obj.setup = () => {
-		const isOptedIn = obj.selectors.body.getAttribute( 'data-opted-in' ) === '1';
+		const isOptedIn = document.querySelector( obj.selectors.body ).getAttribute( 'data-opted-in' ) === '1';
 		// Only run Zendesk and DocsBot setup if the user has opted-in.
 		if ( isOptedIn ) {
 			obj.loadAndInitializeZendeskWidget();
@@ -99,7 +99,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 		} else {
 			document.querySelector( obj.selectors.optOutMessage ).classList.remove( 'hide' );
 			document.querySelector( obj.selectors.docsbotWidget ).classList.add( 'hide' );
-			obj.selectors.body.classList.add( 'blackout' );
+			document.querySelector( obj.selectors.body ).classList.add( 'blackout' );
 		}
 	};
 
@@ -149,7 +149,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 			'open',
 			() => {
 				if ( obj.isZendeskInitialized ) {
-					obj.selectors.body.classList.add( 'blackout' );
+					document.querySelector( obj.selectors.body ).classList.add( 'blackout' );
 				}
 			}
 		);
@@ -163,7 +163,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 					'webWidget',
 					'hide'
 				);
-				obj.selectors.body.classList.remove( 'blackout' );
+				document.querySelector( obj.selectors.body ).classList.remove( 'blackout' );
 			}
 		);
 	};
@@ -193,7 +193,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 						'webWidget',
 						'open'
 					);
-					obj.selectors.body.classList.add( 'blackout' );
+					document.querySelector( obj.selectors.body ).classList.add( 'blackout' );
 				}
 				break;
 
@@ -305,7 +305,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 							},
 							supportCallback: ( event ) => {
 								event.preventDefault();
-								obj.selectors.body.classList.add( 'blackout' );
+								document.querySelector( obj.selectors.body ).classList.add( 'blackout' );
 								zE(
 									'webWidget',
 									'show'
