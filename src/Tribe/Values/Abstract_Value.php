@@ -450,6 +450,6 @@ abstract class Abstract_Value implements Value_Interface {
 	 * @return bool
 	 */
 	private function is_character_block( $block ) {
-		return empty( preg_replace( '/\D/', '', $block ) );
+		return empty( preg_replace( '/\D/', '', (string) $block ) );
 	}
 }
