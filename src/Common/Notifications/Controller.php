@@ -10,6 +10,9 @@
 namespace TEC\Common\Notifications;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Common\Telemetry\Telemetry;
+use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
+use TEC\Events\Telemetry\Telemetry as TEC_Telemetry;
 use Tribe__Main;
 
 /**
@@ -36,6 +39,8 @@ class Controller extends Controller_Contract {
 		add_action( 'wp_ajax_ian_dismiss', [ $this, 'handle_dismiss' ] );
 		add_action( 'wp_ajax_ian_read', [ $this, 'handle_read' ] );
 		add_action( 'wp_ajax_ian_read_all', [ $this, 'handle_read_all' ] );
+
+		add_filter( 'tribe_general_settings_debugging_section', [ $this, 'filter_tribe_general_settings_debugging_section' ], 11 );
 	}
 
 	/**
@@ -51,6 +56,8 @@ class Controller extends Controller_Contract {
 		remove_action( 'wp_ajax_ian_dismiss', [ $this, 'handle_dismiss' ] );
 		remove_action( 'wp_ajax_ian_read', [ $this, 'handle_read' ] );
 		remove_action( 'wp_ajax_ian_read_all', [ $this, 'handle_read_all' ] );
+
+		remove_filter( 'tribe_general_settings_debugging_section', [ $this, 'filter_tribe_general_settings_debugging_section' ] );
 	}
 
 	/**
@@ -175,5 +182,44 @@ class Controller extends Controller_Contract {
 	 */
 	public function handle_read_all() {
 		$this->container->make( Notifications::class )->handle_read_all();
+	}
+
+	/**
+	 * Adds the opt in/out control to the general tab debug section.
+	 *
+	 * @since 6.1.1
+	 *
+	 * @param array<string|mixed> $fields The fields for the general tab Debugging section.
+	 *
+	 * @return array<string|mixed> The fields, with the optin control appended.
+	 */
+	public function filter_tribe_general_settings_debugging_section( $fields ): array {
+		$telemetry = tribe( Telemetry::class );
+		$telemetry->init();
+		$status = $telemetry::get_status_object();
+		$opted  = $status->get( TEC_Telemetry::get_plugin_slug() );
+
+		switch ( $opted ) {
+			case Status::STATUS_ACTIVE:
+				$attributes = [
+					'disabled' => 'disabled',
+					'checked'  => 'checked',
+				];
+				break;
+			default:
+				$attributes = [];
+				break;
+		}
+
+		$fields['ian-notifications-opt-in'] = [
+			'type'            => 'checkbox_bool',
+			'label'           => esc_html__( 'In-App Notifications', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'Enable this option to receive notifications about The Events Calendar, including updates, fixes, and features. This is enabled if you have opted in to Telemetry.', 'the-events-calendar' ),
+			'default'         => false,
+			'validation_type' => 'boolean',
+			'attributes'      => $attributes,
+		];
+
+		return $fields;
 	}
 }
