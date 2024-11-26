@@ -12,7 +12,6 @@ namespace TEC\Common\Notifications;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\Telemetry\Telemetry;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
-use TEC\Events\Telemetry\Telemetry as TEC_Telemetry;
 use Tribe__Main;
 
 /**
@@ -197,7 +196,7 @@ class Controller extends Controller_Contract {
 		$telemetry = tribe( Telemetry::class );
 		$telemetry->init();
 		$status = $telemetry::get_status_object();
-		$opted  = $status->get( TEC_Telemetry::get_plugin_slug() );
+		$opted  = $status->get( Telemetry::get_plugin_slug() );
 
 		switch ( $opted ) {
 			case Status::STATUS_ACTIVE:
@@ -211,10 +210,19 @@ class Controller extends Controller_Contract {
 				break;
 		}
 
+		$tooltip = esc_html__( 'Enable this option to receive notifications about The Events Calendar, including updates, fixes, and features. This is enabled if you have opted in to Telemetry.', 'tribe-common' );
+
+		/**
+		 * Filter the tooltip text for the IAN opt-in setting.
+		 *
+		 * @since TBD
+		 */
+		$tooltip = apply_filters( 'tec_common_ian_setting_optin_tooltip', $tooltip );
+
 		$fields['ian-notifications-opt-in'] = [
 			'type'            => 'checkbox_bool',
-			'label'           => esc_html__( 'In-App Notifications', 'the-events-calendar' ),
-			'tooltip'         => esc_html__( 'Enable this option to receive notifications about The Events Calendar, including updates, fixes, and features. This is enabled if you have opted in to Telemetry.', 'the-events-calendar' ),
+			'label'           => esc_html__( 'In-App Notifications', 'tribe-common' ),
+			'tooltip'         => $tooltip,
 			'default'         => false,
 			'validation_type' => 'boolean',
 			'attributes'      => $attributes,
