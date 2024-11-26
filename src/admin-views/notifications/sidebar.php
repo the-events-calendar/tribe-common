@@ -24,10 +24,10 @@
 	<div class="ian-sidebar__content" data-trigger="contentIan">
 		<div class="ian-sidebar__loader is-hidden" data-trigger="loaderIan"></div>
 		<div class="ian-sidebar__notifications is-hidden" data-trigger="notifications" data-consent="<?php echo esc_attr( $optin ? 'true' : 'false' ); ?>"></div>
-		<div class="ian-sidebar__empty is-hidden" data-trigger="emptyIan">
-				<div class="ian-sidebar__empty--icon"><img src="<?php echo esc_url( tribe_resource_url( 'images/icons/bell.svg', false, null, $main ) ); ?>" alt="<?php esc_attr_e( 'Notifications icon', 'tribe-common' ); ?>" width="60" height="60"></div>
-				<div class="ian-sidebar__empty--title"><?php esc_html_e( 'There are no notifications', 'tribe-common' ); ?></div>
-				<div class="ian-sidebar__empty--description"><p><?php esc_html_e( 'Congratulations! You are up to date.', 'tribe-common' ); ?></p></div>
+		<div class="ian-sidebar__optin is-hidden" data-trigger="emptyIan">
+				<div class="ian-sidebar__optin--icon"><img src="<?php echo esc_url( tribe_resource_url( 'images/icons/bell.svg', false, null, $main ) ); ?>" alt="<?php esc_attr_e( 'Notifications icon', 'tribe-common' ); ?>" width="60" height="60"></div>
+				<div class="ian-sidebar__optin--title"><?php esc_html_e( 'There are no notifications', 'tribe-common' ); ?></div>
+				<div class="ian-sidebar__optin--description"><p><?php esc_html_e( 'Congratulations! You are up to date.', 'tribe-common' ); ?></p></div>
 			</div>
 		<?php if ( ! tribe_is_truthy( $optin ) ) : ?>
 			<div class="ian-sidebar__optin" data-trigger="optinIan">

@@ -876,7 +876,12 @@ class Tribe__Settings {
 		<dialog id="tec-settings-nav-modal" class="tec-settings-form__modal">
 			<div class="tec-modal__content">
 				<div class="tec-modal__header">
-					<?php $this->do_page_header( $admin_page ); ?>
+					<h1>
+						<?php if ( $this->is_event_settings() ) : ?>
+							<?php echo wp_kses_post( $this->get_page_logo( $admin_page ) ); ?>
+						<?php endif; ?>
+						<?php echo esc_html( $this->get_page_title( $admin_page ) ); ?>
+					</h1>
 					<button id="tec-settings-nav-modal-close" class="tec-modal__control tec-modal__control--close" data-modal-close>
 						<span class="screen-reader-text"><?php esc_html_e( 'Close', 'tribe-common' ); ?></span>
 					</button>
