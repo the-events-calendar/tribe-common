@@ -8,6 +8,7 @@
 		"npm run build"
 	],
 	"build_dev": [
+		"composer -- pup",
 		"rm -rf vendor",
 		"git checkout -- vendor",
 		"composer install",
