@@ -1,5 +1,6 @@
 {
 	"build": [
+		"composer -- pup",
 		"rm -rf vendor",
 		"git checkout -- vendor",
 		"composer install --no-dev",
