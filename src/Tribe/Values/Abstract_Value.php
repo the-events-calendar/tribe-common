@@ -444,6 +444,7 @@ abstract class Abstract_Value implements Value_Interface {
 	 * Tests if a string is composed entirely of non-digit characters
 	 *
 	 * @since 4.14.9
+	 * @since TBD Casted $block to string to avoid PHP 8.0 deprecation notice.
 	 *
 	 * @param string $block the string to check
 	 *

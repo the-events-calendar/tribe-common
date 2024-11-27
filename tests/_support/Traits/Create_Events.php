@@ -33,6 +33,14 @@ trait Create_Events {
 		return tribe_events()->set_args( $args )->create();
 	}
 
+	/**
+	 * Generate multiple test events.
+	 *
+	 * @param string $mock_date A date string to use to create an event.
+	 * @param int    $how_many  The number of events to generate.
+	 *
+	 * @return array An array of event post objects, as decorated by the `tribe_get_event` function.
+	 */
 	protected function generate_multiple_events( $mock_date, int $how_many = 3 ) {
 		$timezone_string = 'America/New_York';
 		$timezone        = new \DateTimeZone( $timezone_string );
