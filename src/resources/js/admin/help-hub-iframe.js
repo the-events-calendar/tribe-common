@@ -92,14 +92,17 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 */
 	obj.setup = () => {
 		const isOptedIn = document.querySelector( obj.selectors.body ).getAttribute( 'data-opted-in' ) === '1';
+		const bodyElement = document.querySelector( obj.selectors.body );
+		const optOutMessageElement = document.querySelector( obj.selectors.optOutMessage );
+		const docsbotElement = document.querySelector( obj.selectors.docsbotWidget );
 		// Only run Zendesk and DocsBot setup if the user has opted-in.
 		if ( isOptedIn ) {
 			obj.loadAndInitializeZendeskWidget();
 			obj.initializeDocsBot();
 		} else {
-			document.querySelector( obj.selectors.optOutMessage ).classList.remove( 'hide' );
-			document.querySelector( obj.selectors.docsbotWidget ).classList.add( 'hide' );
-			document.querySelector( obj.selectors.body ).classList.add( 'blackout' );
+			optOutMessageElement.classList.remove( 'hide' );
+			docsbotElement.classList.add( 'hide' );
+			bodyElement.classList.add( 'blackout' );
 		}
 	};
 
@@ -134,7 +137,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 */
 	obj.initializeZendesk = () => {
 		obj.isZendeskInitialized = false;
-		const bodySelector = document.querySelector( obj.selectors.body );
+		const bodyElement = document.querySelector( obj.selectors.body );
 
 		zE(
 			'webWidget',
@@ -150,7 +153,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 			'open',
 			() => {
 				if ( obj.isZendeskInitialized ) {
-					bodySelector.classList.add( 'blackout' );
+					bodyElement.classList.add( 'blackout' );
 				}
 			}
 		);
@@ -164,7 +167,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 					'webWidget',
 					'hide'
 				);
-				bodySelector.classList.remove( 'blackout' );
+				bodyElement.classList.remove( 'blackout' );
 			}
 		);
 	};
@@ -177,6 +180,8 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @return {void}
 	 */
 	obj.handlePostMessageEvents = ( event ) => {
+		const bodyElement = document.querySelector( obj.selectors.body );
+
 		if ( event.origin !== window.location.origin ) {
 			return; // Ignore messages from untrusted origins.
 		}
@@ -194,7 +199,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 						'webWidget',
 						'open'
 					);
-					document.querySelector( obj.selectors.body ).classList.add( 'blackout' );
+					bodyElement.classList.add( 'blackout' );
 				}
 				break;
 
@@ -264,6 +269,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @return {void}
 	 */
 	obj.initializeDocsBot = () => {
+		const bodyElement = document.querySelector( obj.selectors.body );
 		$( obj.selectors.docsbotWidget ).removeClass( 'hide' );
 		DocsBotAI.init = ( e ) => {
 			return new Promise( ( resolve, reject ) => {
@@ -306,7 +312,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 							},
 							supportCallback: ( event ) => {
 								event.preventDefault();
-								document.querySelector( obj.selectors.body ).classList.add( 'blackout' );
+								bodyElement.classList.add( 'blackout' );
 								zE(
 									'webWidget',
 									'show'
