@@ -54,6 +54,21 @@ const DayPickerInput = ( props ) => {
 		value ? new Date( parsePhpDate(value) ) : new Date()
 	);
 
+	let parsedValue = null
+	try {
+		parsedValue = parsePhpDate(value);
+	} catch  {
+		// Ok, the value is in the JS date picker format.
+	}
+
+	/* The value property can have one of two formats:
+	 * 1. The PHP date picker format.
+	 * 2. This JS element date picker format (see below).
+	 * In case n. 1 that value should be used.
+	 * In case n. 2 the selected value, likely set from the `setSelectedDate` state setter, should be used.
+	 */
+	const datepickerValueDate = parsedValue ? new Date( parsedValue ) : selectedDate;
+
 	const datepickerFormat = 'MMMM d, y';
 	const formatDatepickerValue = ( date ) => {
 		return date ? formatDate( date, datepickerFormat ) : '';
@@ -65,7 +80,7 @@ const DayPickerInput = ( props ) => {
 				setPopoverAnchor={ popoverAnchor }
 				inputRef={ inputRef } // Pass the ref to DatePickerInput
 				onClick={ toggleVisible }
-				value={ formatDatepickerValue( selectedDate ) }
+				value={ formatDatepickerValue( datepickerValueDate ) }
 				onDayChange={ onDayChange }
 			/>
 			{ isVisible && (
@@ -78,7 +93,7 @@ const DayPickerInput = ( props ) => {
 					>
 						<DayPicker
 							mode="single"
-							selected={ selectedDate }
+							selected={ datepickerValueDate }
 							onSelect={ ( date ) => {
 								onDayChange( date, {}, formatDatepickerValue( date ) );
 								setSelectedDate( date );
