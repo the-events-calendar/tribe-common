@@ -32,7 +32,7 @@ $opted_in = tribe_is_truthy( $help_hub->get_license_and_opt_in_status()['is_opte
 	wp_print_scripts();
 	?>
 </head>
-<body data-opted-in="<?php echo esc_attr( $opted_in ); ?>">
+<body id="help-hub-page" data-opted-in="<?php echo esc_attr( $opted_in ); ?>">
 
 <!-- Docsbot section-->
 <div class="docsbot-widget-background"></div>

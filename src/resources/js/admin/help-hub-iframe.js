@@ -7,7 +7,8 @@ window.DocsBotAI = window.DocsBotAI || {};
 
 	obj.selectors = {
 		body: 'body',
-		docsbotWidget: '#docsbot-widget-embed',
+		helpHubPageID: 'help-hub-page',
+		docsbotWidget: 'docsbot-widget-embed',
 		optOutMessage: '.tec-help-hub-iframe-opt-out-message',
 	};
 
@@ -91,10 +92,10 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @return {void}
 	 */
 	obj.setup = () => {
-		const isOptedIn = document.querySelector( obj.selectors.body ).getAttribute( 'data-opted-in' ) === '1';
-		const bodyElement = document.querySelector( obj.selectors.body );
+		const bodyElement = document.getElementById( obj.selectors.helpHubPageID );
+		const isOptedIn = bodyElement.getAttribute( 'data-opted-in' ) === '1';
 		const optOutMessageElement = document.querySelector( obj.selectors.optOutMessage );
-		const docsbotElement = document.querySelector( obj.selectors.docsbotWidget );
+		const docsbotElement = document.getElementById( obj.selectors.docsbotWidget );
 		// Only run Zendesk and DocsBot setup if the user has opted-in.
 		if ( isOptedIn ) {
 			obj.loadAndInitializeZendeskWidget();
@@ -137,7 +138,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 */
 	obj.initializeZendesk = () => {
 		obj.isZendeskInitialized = false;
-		const bodyElement = document.querySelector( obj.selectors.body );
+		const bodyElement = document.getElementById( obj.selectors.helpHubPageID );
 
 		zE(
 			'webWidget',
@@ -180,7 +181,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @return {void}
 	 */
 	obj.handlePostMessageEvents = ( event ) => {
-		const bodyElement = document.querySelector( obj.selectors.body );
+		const bodyElement = document.getElementById( obj.selectors.helpHubPageID );
 
 		if ( event.origin !== window.location.origin ) {
 			return; // Ignore messages from untrusted origins.
@@ -269,8 +270,8 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @return {void}
 	 */
 	obj.initializeDocsBot = () => {
-		const bodyElement = document.querySelector( obj.selectors.body );
-		$( obj.selectors.docsbotWidget ).removeClass( 'hide' );
+		const bodyElement = document.getElementById( obj.selectors.helpHubPageID );
+		document.getElementById(obj.selectors.docsbotWidget).classList.remove( 'hide' );
 		DocsBotAI.init = ( e ) => {
 			return new Promise( ( resolve, reject ) => {
 				const script = document.createElement( 'script' );
