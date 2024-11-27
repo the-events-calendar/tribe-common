@@ -10,8 +10,6 @@
 		Ian.loader = document.querySelector('[data-trigger="loaderIan"]');
 		Ian.consent = Ian.notifications.dataset.consent;
 		Ian.feed = { read: [], unread: [] };
-		let ticking = false;
-		const initialTop = Ian.sidebar.getBoundingClientRect().top + window.scrollY;
 
 		const init = () => {
 			wrapHeadings();
@@ -100,24 +98,28 @@
 			}
 		};
 
-		const calculateSidebarPosition = () => {
-			const bar = document.getElementById("wpadminbar");
+		const getParentPosition = () => {
 			const wrapper = document.querySelector(".wrap .ian-header");
+			let rect = { top: 0, height: 0 };
 			if (wrapper) {
-				const rect = wrapper.getBoundingClientRect();
-				const bottomPosition = rect.top + rect.height - (window.innerWidth > 600 ? bar.clientHeight : 0);
-				Ian.sidebar.style.top = `${bottomPosition}px`;
+				rect = wrapper.getBoundingClientRect();
 			}
 
 			let settingstabs = document.getElementById("tribe-settings-tabs");
 			if (settingstabs) {
 				settingstabs = window.innerWidth > 500 ? settingstabs : document.querySelector('.tec-settings-header-wrap');
-				const rect = settingstabs.getBoundingClientRect();
-				const bottomPosition = rect.top + rect.height - (window.innerWidth > 600 ? bar.clientHeight : 0);
-				Ian.sidebar.style.top = `${bottomPosition}px`;
+				rect = settingstabs.getBoundingClientRect();
 			}
+
+			return rect.top + rect.height;
+		}
+
+		const calculateSidebarPosition = () => {
+			const bottomPosition = getParentPosition();
+			Ian.sidebar.style.top = `${bottomPosition}px`;
 		};
 
+		let ticking = false;
 		const onScroll = () => {
 			if (!ticking) {
 				requestAnimationFrame(updatePosition);
@@ -128,11 +130,10 @@
 		const updatePosition = () => {
 			const offset = window.innerWidth > 782 ? 32 : window.innerWidth > 600 ? 46 : 0;
 			const scrollY = window.scrollY;
-			if (scrollY >= (initialTop - offset)) {
-				Ian.sidebar.style.position = 'fixed';
+			const initialTop = getParentPosition();
+			if (initialTop <= offset) {
 				Ian.sidebar.style.top = offset + 'px';
 			} else {
-				Ian.sidebar.style.position = 'absolute';
 				calculateSidebarPosition();
 			}
 

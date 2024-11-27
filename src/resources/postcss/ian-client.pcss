@@ -26,7 +26,7 @@
 }
 
 .ian-sidebar {
-  position: absolute;
+  position: fixed;
   top: calc(2 * var(--tec-spacer-11));
   right: 0;
   bottom: 0;
@@ -52,7 +52,8 @@
     align-items: center;
     justify-content: space-between;
 
-    padding: var(--tec-spacer-3) var(--tec-spacer-5);
+    padding: 0 var(--tec-spacer-5);
+    height: var(--tec-spacer-10);
 
     border-bottom: 1px solid var(--tec-admin-core-grey-10);
 
@@ -82,7 +83,7 @@
   &__content {
     position: relative;
 
-    height: 100%;
+    display: inline;
 
     background: var(--tec-admin-core-grey-0);
   }
@@ -156,10 +157,12 @@
 
   &__notifications {
     padding: var(--tec-spacer-3);;
-    height: 100%;
+    height: calc(100% - var(--tec-spacer-10));
 
     background: var(--tec-color-background);
     overflow: auto;
+
+    box-sizing: border-box;
   }
 
   &__notification {
