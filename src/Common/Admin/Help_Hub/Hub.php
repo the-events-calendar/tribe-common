@@ -445,7 +445,7 @@ class Hub {
 
 		tribe_asset(
 			Tribe__Main::instance(),
-			'help-hub-iframe-style',
+			'tec-help-hub-iframe-style',
 			'help-hub-iframe.css',
 			null,
 			[],
@@ -453,7 +453,7 @@ class Hub {
 
 		tribe_asset(
 			Tribe__Main::instance(),
-			'help-hub-iframe-js',
+			'tec-help-hub-iframe-js',
 			'admin/help-hub-iframe.js',
 			null,
 			[],
@@ -468,8 +468,8 @@ class Hub {
 			]
 		);
 
-		tribe_asset_enqueue( 'help-hub-iframe-style' );
-		tribe_asset_enqueue( 'help-hub-iframe-js' );
+		tribe_asset_enqueue( 'tec-help-hub-iframe-style' );
+		tribe_asset_enqueue( 'tec-help-hub-iframe-js' );
 		tribe_asset_enqueue( 'tribe-common-full-style' );
 	}
 
