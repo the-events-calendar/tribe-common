@@ -12,7 +12,7 @@
 		Ian.feed = { read: [], unread: [] };
 
 		/**
-		 * Initialize the Ian client
+		 * Initialize the Ian client.
 		 *
 		 * @since TBD
 		 *
@@ -31,7 +31,7 @@
 		};
 
 		/**
-		 * Wrap the headings with a div to allow for positioning of the sidebar
+		 * Wrap the headings with a div to allow for positioning of the sidebar.
 		 *
 		 * @since TBD
 		 *
@@ -67,7 +67,7 @@
 		};
 
 		/**
-		 * Handle the click events on the Ian client
+		 * Handle the click events on the Ian client.
 		 *
 		 * @since TBD
 		 *
@@ -113,7 +113,7 @@
 		};
 
 		/**
-		 * Handle the keydown events on the Ian client
+		 * Handle the keydown events on the Ian client.
 		 *
 		 * @since TBD
 		 *
@@ -127,7 +127,7 @@
 		};
 
 		/**
-		 * Get the top position of the parent element
+		 * Get the top position of the parent element.
 		 *
 		 * @since TBD
 		 *
@@ -150,7 +150,7 @@
 		}
 
 		/**
-		 * Calculate the position of the sidebar
+		 * Calculate the position of the sidebar.
 		 *
 		 * @since TBD
 		 *
@@ -164,7 +164,7 @@
 		let ticking = false;
 
 		/**
-		 * Handle the scroll event
+		 * Handle the scroll event.
 		 *
 		 * @since TBD
 		 *
@@ -178,7 +178,7 @@
 		}
 
 		/**
-		 * Update the position of the sidebar
+		 * Update the position of the sidebar.
 		 *
 		 * @since TBD
 		 *
@@ -198,7 +198,7 @@
 		}
 
 		/**
-		 * Opt-in to notifications
+		 * Opt-in to notifications.
 		 *
 		 * @since TBD
 		 *
@@ -231,7 +231,7 @@
 		};
 
 		/**
-		 * Get the notifications feed
+		 * Get the notifications feed.
 		 *
 		 * @since TBD
 		 *
@@ -289,7 +289,7 @@
 		};
 
 		/**
-		 * Dismiss a notification
+		 * Dismiss a notification.
 		 *
 		 * @since TBD
 		 *
@@ -337,7 +337,7 @@
 		};
 
 		/**
-		 * Mark a notification as read
+		 * Mark a notification as read.
 		 *
 		 * @since TBD
 		 *
@@ -386,7 +386,7 @@
 		};
 
 		/**
-		 * Mark all notifications as read
+		 * Mark all notifications as read.
 		 *
 		 * @since TBD
 		 *
@@ -428,7 +428,7 @@
 		};
 
 		/**
-		 * Update the notifications view
+		 * Update the notifications view.
 		 *
 		 * @since TBD
 		 *
