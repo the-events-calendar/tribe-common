@@ -134,6 +134,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 */
 	obj.initializeZendesk = () => {
 		obj.isZendeskInitialized = false;
+		const bodySelector = document.querySelector( obj.selectors.body );
 
 		zE(
 			'webWidget',
@@ -149,7 +150,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 			'open',
 			() => {
 				if ( obj.isZendeskInitialized ) {
-					document.querySelector( obj.selectors.body ).classList.add( 'blackout' );
+					bodySelector.classList.add( 'blackout' );
 				}
 			}
 		);
@@ -163,7 +164,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 					'webWidget',
 					'hide'
 				);
-				document.querySelector( obj.selectors.body ).classList.remove( 'blackout' );
+				bodySelector.classList.remove( 'blackout' );
 			}
 		);
 	};

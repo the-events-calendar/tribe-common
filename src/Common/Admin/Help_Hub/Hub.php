@@ -448,7 +448,7 @@ class Hub {
 			'help-hub-iframe-style',
 			'help-hub-iframe.css',
 			null,
-			null,
+			[],
 		);
 
 		tribe_asset(
@@ -456,7 +456,7 @@ class Hub {
 			'help-hub-iframe-js',
 			'admin/help-hub-iframe.js',
 			null,
-			null,
+			[],
 			[
 				'localize' => [
 					'name' => 'helpHubSettings',
