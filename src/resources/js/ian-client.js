@@ -117,7 +117,7 @@
 		 *
 		 * @since TBD
 		 *
-		 * @param {Event} e The keydown event
+		 * @param {Event} e The keydown event.
 		 */
 		const handleKeydown = e => {
 			if (["Escape", "Esc"].includes(e.key) || e.keyCode === 27) {
@@ -131,7 +131,7 @@
 		 *
 		 * @since TBD
 		 *
-		 * @return {number} The top position of the parent element
+		 * @return {number} The top position of the parent element.
 		 */
 		const getParentPosition = () => {
 			const wrapper = document.querySelector(".wrap .ian-header");
@@ -293,8 +293,8 @@
 		 *
 		 * @since TBD
 		 *
-		 * @param {number} id The notification ID
-		 * @param {string} slug The notification slug
+		 * @param {number} id The notification ID.
+		 * @param {string} slug The notification slug.
 		 *
 		 * @return {void}
 		 */
@@ -341,8 +341,8 @@
 		 *
 		 * @since TBD
 		 *
-		 * @param {number} id The notification ID
-		 * @param {string} slug The notification slug
+		 * @param {number} id The notification ID.
+		 * @param {string} slug The notification slug.
 		 *
 		 * @return {void}
 		 */
