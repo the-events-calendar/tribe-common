@@ -71,7 +71,7 @@
 		 *
 		 * @since TBD
 		 *
-		 * @param {Event} e The click event
+		 * @param {Event} e The click event.
 		 */
 		const handleClick = e => {
 			calculateSidebarPosition();
