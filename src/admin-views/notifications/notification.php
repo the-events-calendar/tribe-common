@@ -25,7 +25,7 @@
 	<div class="ian-sidebar__notification-link">
 		<div class="ian-sidebar__notification-link--left">
 			<?php foreach ( $actions as $a ) : ?>
-				<a href="<?php echo esc_url( $a['link'] ); ?>" target="<?php echo esc_attr( $a['target'] ); ?>"><?php echo esc_html( $a['text'] ); ?></a>
+				<a href="<?php echo esc_url( $a['url'] ); ?>" target="<?php echo esc_attr( $a['target'] ); ?>"><?php echo esc_html( $a['text'] ); ?></a>
 			<?php endforeach; ?>
 		</div>
 		<div class="ian-sidebar__notification-link--right">

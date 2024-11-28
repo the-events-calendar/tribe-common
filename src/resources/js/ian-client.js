@@ -11,6 +11,13 @@
 		Ian.consent = Ian.notifications.dataset.consent;
 		Ian.feed = { read: [], unread: [] };
 
+		/**
+		 * Initialize the Ian client.
+		 *
+		 * @since TBD
+		 *
+		 * @return {void}
+		 */
 		const init = () => {
 			wrapHeadings();
 			calculateSidebarPosition();
@@ -23,6 +30,13 @@
 			if (Ian.consent == "true") getIan();
 		};
 
+		/**
+		 * Wrap the headings with a div to allow for positioning of the sidebar.
+		 *
+		 * @since TBD
+		 *
+		 * @return {void}
+		 */
 		const wrapHeadings = () => {
 			const headings = document.querySelectorAll(".edit-php.post-type-tribe_events h1, .post-php.post-type-tribe_events h1");
 			headings.forEach(heading => {
@@ -52,6 +66,13 @@
 			}
 		};
 
+		/**
+		 * Handle the click events on the Ian client.
+		 *
+		 * @since TBD
+		 *
+		 * @param {Event} e The click event.
+		 */
 		const handleClick = e => {
 			calculateSidebarPosition();
 
@@ -91,6 +112,13 @@
 			}
 		};
 
+		/**
+		 * Handle the keydown events on the Ian client.
+		 *
+		 * @since TBD
+		 *
+		 * @param {Event} e The keydown event.
+		 */
 		const handleKeydown = e => {
 			if (["Escape", "Esc"].includes(e.key) || e.keyCode === 27) {
 				Ian.sidebar.classList.add("is-hidden");
@@ -98,6 +126,13 @@
 			}
 		};
 
+		/**
+		 * Get the top position of the parent element.
+		 *
+		 * @since TBD
+		 *
+		 * @return {number} The top position of the parent element.
+		 */
 		const getParentPosition = () => {
 			const wrapper = document.querySelector(".wrap .ian-header");
 			let rect = { top: 0, height: 0 };
@@ -114,12 +149,27 @@
 			return rect.top + rect.height;
 		}
 
+		/**
+		 * Calculate the position of the sidebar.
+		 *
+		 * @since TBD
+		 *
+		 * @return {void}
+		 */
 		const calculateSidebarPosition = () => {
 			const bottomPosition = getParentPosition();
 			Ian.sidebar.style.top = `${bottomPosition}px`;
 		};
 
 		let ticking = false;
+
+		/**
+		 * Handle the scroll event.
+		 *
+		 * @since TBD
+		 *
+		 * @return {void}
+		 */
 		const onScroll = () => {
 			if (!ticking) {
 				requestAnimationFrame(updatePosition);
@@ -127,6 +177,13 @@
 			}
 		}
 
+		/**
+		 * Update the position of the sidebar.
+		 *
+		 * @since TBD
+		 *
+		 * @return {void}
+		 */
 		const updatePosition = () => {
 			const offset = window.innerWidth > 782 ? 32 : window.innerWidth > 600 ? 46 : 0;
 			const scrollY = window.scrollY;
@@ -140,6 +197,13 @@
 			ticking = false;
 		}
 
+		/**
+		 * Opt-in to notifications.
+		 *
+		 * @since TBD
+		 *
+		 * @return {void}
+		 */
 		const optinIan = async () => {
 			Ian.optin.classList.add("disable");
 			Ian.loader.classList.remove("is-hidden");
@@ -166,6 +230,13 @@
 			}
 		};
 
+		/**
+		 * Get the notifications feed.
+		 *
+		 * @since TBD
+		 *
+		 * @return {void}
+		 */
 		const getIan = async () => {
 			Ian.notifications.classList.remove("is-hidden");
 			Ian.loader.classList.remove("is-hidden");
@@ -217,6 +288,16 @@
 			}
 		};
 
+		/**
+		 * Dismiss a notification.
+		 *
+		 * @since TBD
+		 *
+		 * @param {number} id The notification ID.
+		 * @param {string} slug The notification slug.
+		 *
+		 * @return {void}
+		 */
 		const dismissIan = async (id, slug) => {
 			Ian.loader.classList.remove("is-hidden");
 
@@ -255,6 +336,16 @@
 			}
 		};
 
+		/**
+		 * Mark a notification as read.
+		 *
+		 * @since TBD
+		 *
+		 * @param {number} id The notification ID.
+		 * @param {string} slug The notification slug.
+		 *
+		 * @return {void}
+		 */
 		const readIan = async (id, slug) => {
 			Ian.reading = id;
 			Ian.loader.classList.remove("is-hidden");
@@ -294,6 +385,13 @@
 			}
 		};
 
+		/**
+		 * Mark all notifications as read.
+		 *
+		 * @since TBD
+		 *
+		 * @return {void}
+		 */
 		const readAllIan = async () => {
 			Ian.loader.classList.remove("is-hidden");
 
@@ -329,6 +427,13 @@
 			}
 		};
 
+		/**
+		 * Update the notifications view.
+		 *
+		 * @since TBD
+		 *
+		 * @return {void}
+		 */
 		const updateIan = () => {
 			const hasRead = window.commonIan.feed.read.length > 0;
 			const hasUnread = window.commonIan.feed.unread.length > 0;
