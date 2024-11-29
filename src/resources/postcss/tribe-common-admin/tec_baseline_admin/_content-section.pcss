@@ -1,0 +1,19 @@
+.tec-admin-page__content-section {
+	background-color: var(--tec-color-background);
+	border: 1px solid var(--tec-color-border-default);
+	border-radius: var(--tec-border-radius-default);
+	grid-column: 1;
+	padding: 0;
+
+	~ .tec-admin-page__content-section {
+		padding: var(--tec-spacer-4) 0;
+	}
+
+	@media (--viewport-wpadmin) {
+		padding: var(--tec-spacer-4);
+
+		~ .tec-admin-page__content-section {
+			padding: var(--tec-spacer-4);
+		}
+	}
+}
