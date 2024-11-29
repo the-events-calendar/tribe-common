@@ -639,7 +639,7 @@ class Tribe__Settings {
 	 * @return string The settings page logo.
 	 */
 	public function get_page_logo( $admin_page ) {
-		$logo_source = tribe_resource_url( 'images/logo/tec-brand.svg', false, null, Tribe__Main::instance() );
+		$logo_source = tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, Tribe__Main::instance() );
 
 		/**
 		 * Filter the tribe settings page logo source URL.
