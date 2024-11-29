@@ -8,14 +8,14 @@
   background-size: auto;
   cursor: pointer;
 
-  &:hover, &.hover {
+  &:hover, &.active {
     background-image: url('../images/icons/bell-hover.svg');
   }
 
-  &.active {
+  &.unread {
     background-image: url('../images/icons/bell-on.svg');
 
-    &:hover, &.hover {
+    &:hover, &.active {
       background-image: url('../images/icons/bell-on-hover.svg');
     }
   }
