@@ -27,7 +27,7 @@
 			window.addEventListener("resize", calculateSidebarPosition);
 			window.addEventListener("scroll", onScroll);
 
-			if (Ian.consent == "true") getIan();
+			if (Ian.consent == "true") getIan(true);
 		};
 
 		/**
@@ -79,10 +79,12 @@
 			switch (e.target.dataset.trigger) {
 				case "iconIan":
 					Ian.sidebar.classList.toggle("is-hidden");
+					Ian.icon.classList.toggle("active");
 					break;
 
 				case "closeIan":
 					Ian.sidebar.classList.add("is-hidden");
+					Ian.icon.classList.remove("active");
 					break;
 
 				case "optinIan":
@@ -107,6 +109,7 @@
 				default:
 					if (!e.composedPath().includes(Ian.sidebar) && !e.composedPath().includes(Ian.icon)) {
 						Ian.sidebar.classList.add("is-hidden");
+						Ian.icon.classList.remove("active");
 					}
 					break;
 			}
@@ -122,6 +125,7 @@
 		const handleKeydown = e => {
 			if (["Escape", "Esc"].includes(e.key) || e.keyCode === 27) {
 				Ian.sidebar.classList.add("is-hidden");
+				Ian.icon.classList.remove("active");
 				calculateSidebarPosition();
 			}
 		};
@@ -237,9 +241,9 @@
 		 *
 		 * @return {void}
 		 */
-		const getIan = async () => {
+		const getIan = async (init) => {
 			Ian.notifications.classList.remove("is-hidden");
-			Ian.loader.classList.remove("is-hidden");
+			if (!init) Ian.loader.classList.remove("is-hidden");
 
 			const data = new FormData();
 			data.append("action", "ian_get_feed");
@@ -439,7 +443,7 @@
 			const hasUnread = window.commonIan.feed.unread.length > 0;
 			const isFeedEmpty = !hasUnread && !hasRead;
 
-			Ian.icon.classList.toggle("active", hasUnread);
+			Ian.icon.classList.toggle("unread", hasUnread);
 			Ian.readAll.classList.toggle("is-hidden", !hasUnread);
 			Ian.notifications.classList.toggle("is-hidden", isFeedEmpty);
 			Ian.empty.classList.toggle("is-hidden", !isFeedEmpty);
