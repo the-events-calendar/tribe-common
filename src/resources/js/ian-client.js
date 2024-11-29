@@ -27,7 +27,7 @@
 			window.addEventListener("resize", calculateSidebarPosition);
 			window.addEventListener("scroll", onScroll);
 
-			if (Ian.consent == "true") getIan();
+			if (Ian.consent == "true") getIan(true);
 		};
 
 		/**
@@ -241,9 +241,9 @@
 		 *
 		 * @return {void}
 		 */
-		const getIan = async () => {
+		const getIan = async (init) => {
 			Ian.notifications.classList.remove("is-hidden");
-			Ian.loader.classList.remove("is-hidden");
+			if (!init) Ian.loader.classList.remove("is-hidden");
 
 			const data = new FormData();
 			data.append("action", "ian_get_feed");

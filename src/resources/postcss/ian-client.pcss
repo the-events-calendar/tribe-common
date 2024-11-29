@@ -138,8 +138,8 @@
   }
 
   &__loader {
-    position: absolute;
-    top: calc(2 * var(--tec-spacer-13));
+    position: fixed;
+    top: 50%;
     right: var(--tec-spacer-14);
     z-index: 1;
 
@@ -327,22 +327,6 @@
 
   .ian-sidebar {
     top: var(--tec-spacer-13);
-
-    @media (min-width: 600px) and (max-width: 782px) {
-      right: var(--tec-spacer-0);
-
-      &.is-hidden {
-        right: -100%;
-      }
-    }
-
-    @media screen and (max-width: 600px) {
-      right: var(--tec-spacer-0);
-
-      &.is-hidden {
-        right: -100%;
-      }
-    }
   }
 
   #wpwrap {
