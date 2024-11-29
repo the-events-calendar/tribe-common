@@ -79,10 +79,12 @@
 			switch (e.target.dataset.trigger) {
 				case "iconIan":
 					Ian.sidebar.classList.toggle("is-hidden");
+					Ian.icon.classList.toggle("hover");
 					break;
 
 				case "closeIan":
 					Ian.sidebar.classList.add("is-hidden");
+					Ian.icon.classList.remove("hover");
 					break;
 
 				case "optinIan":
@@ -107,6 +109,7 @@
 				default:
 					if (!e.composedPath().includes(Ian.sidebar) && !e.composedPath().includes(Ian.icon)) {
 						Ian.sidebar.classList.add("is-hidden");
+						Ian.icon.classList.remove("hover");
 					}
 					break;
 			}
@@ -122,6 +125,7 @@
 		const handleKeydown = e => {
 			if (["Escape", "Esc"].includes(e.key) || e.keyCode === 27) {
 				Ian.sidebar.classList.add("is-hidden");
+				Ian.icon.classList.remove("hover");
 				calculateSidebarPosition();
 			}
 		};

@@ -95,7 +95,7 @@ class Conditionals {
 
 		$version = preg_split( '/(?=\d)/', $version, 2 );
 
-		return apply_filters( 'tec_common_ian_conditional_php', version_compare( PHP_VERSION, $version[1], $version[0] ?? '>=' ) );
+		return (bool) apply_filters( 'tec_common_ian_conditional_php', version_compare( PHP_VERSION, $version[1], $version[0] ?? '>=' ) );
 	}
 
 	/**
@@ -115,7 +115,7 @@ class Conditionals {
 		global $wp_version;
 		$version = preg_split( '/(?=\d)/', $version, 2 );
 
-		return apply_filters( 'tec_common_ian_conditional_wp', version_compare( $wp_version, $version[1], $version[0] ?? '>=' ) );
+		return (bool) apply_filters( 'tec_common_ian_conditional_wp', version_compare( $wp_version, $version[1], $version[0] ?? '>=' ) );
 	}
 
 	/**
