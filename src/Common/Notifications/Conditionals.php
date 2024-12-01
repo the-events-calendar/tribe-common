@@ -61,13 +61,13 @@ class Conditionals {
 				foreach ( $item['conditions'] as $k => $condition ) {
 					switch ( $k ) {
 						case 'php_version':
-							$matches['php_version'] = self::check_php_version( $condition['php_version'] );
+							$matches['php_version'] = self::check_php_version( $condition );
 							break;
 						case 'wp_version':
-							$matches['wp_version'] = self::check_wp_version( $condition['wp_version'] );
+							$matches['wp_version'] = self::check_wp_version( $condition );
 							break;
 						case 'plugin_version':
-							$matches['plugin_version'] = self::check_plugin_version( $condition['plugin_version'] );
+							$matches['plugin_version'] = self::check_plugin_version( (array) $condition );
 							break;
 					}
 				}

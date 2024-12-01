@@ -16,8 +16,6 @@ class NotificationsTest extends \Codeception\TestCase\WPTestCase {
 
 	protected $ian_optin_key = 'ian-notifications-opt-in';
 
-	protected $ian_api_url = 'https://ian.stellarwp.com/feed/stellar/tec/plugins.json';
-
 	/**
 	 * @before
 	 */
@@ -32,14 +30,14 @@ class NotificationsTest extends \Codeception\TestCase\WPTestCase {
 		delete_option( $this->ian_optin_key );
 	}
 
-	private function get_known_feed() {
+	private function get_mocked_feed() {
 		$feed = [
 			[
 				'id'          => '101',
 				'type'        => 'update',
 				'slug'        => 'tec-update-664',
 				'title'       => 'The Events Calendar 6.6.4 Update',
-				'content'     => '<p>The latest update of The Events Calendar adds an option to allow for duplicate Venue creation, updates custom table query logic to avoid DB error, and logic that displays the “REST API blocked” banner to prevent false positives.</p>',
+				'html'        => '<p>The latest update of The Events Calendar adds an option to allow for duplicate Venue creation, updates custom table query logic to avoid DB error, and logic that displays the “REST API blocked” banner to prevent false positives.</p>',
 				'actions'     => [
 					[
 						'text'   => 'See Details',
@@ -53,13 +51,14 @@ class NotificationsTest extends \Codeception\TestCase\WPTestCase {
 					],
 				],
 				'dismissible' => true,
+				'conditions'  => [],
 			],
 			[
 				'id'          => '102',
 				'type'        => 'notice',
 				'slug'        => 'event-tickets-upsell',
 				'title'       => 'Sell Tickets & Collect RSVPs with Event Tickets',
-				'content'     => '<p>Sell tickets, collect RSVPs and manage attendees for free.</p>',
+				'html'        => '<p>Sell tickets, collect RSVPs and manage attendees for free.</p>',
 				'actions'     => [
 					[
 						'text'   => 'Learn More',
@@ -68,13 +67,14 @@ class NotificationsTest extends \Codeception\TestCase\WPTestCase {
 					],
 				],
 				'dismissible' => true,
+				'conditions'  => [],
 			],
 			[
 				'id'          => '103',
 				'type'        => 'warning',
 				'slug'        => 'fbar-upgrade-556',
 				'title'       => 'Filter Bar 5.5.6 Security Update',
-				'content'     => '<p>Get the latest version of Filter Bar for important security updates.</p>',
+				'html'        => '<p>Get the latest version of Filter Bar for important security updates.</p>',
 				'actions'     => [
 					[
 						'text'   => 'Update',
@@ -83,6 +83,7 @@ class NotificationsTest extends \Codeception\TestCase\WPTestCase {
 					],
 				],
 				'dismissible' => false,
+				'conditions'  => [],
 			],
 		];
 
@@ -119,44 +120,6 @@ class NotificationsTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
-	public function it_should_get_a_response_from_the_api() {
-		$response = wp_remote_get( $this->ian_api_url );
-		$this->assertIsArray( $response, 'API should return a response' );
-		$this->assertEquals( 200, wp_remote_retrieve_response_code( $response ), 'API should return a 200 response' );
-	}
-
-	/**
-	 * @test
-	 */
-	public function it_should_get_a_feed_from_the_api() {
-		$feed = wp_remote_retrieve_body( wp_remote_get( $this->ian_api_url ) );
-		$this->assertIsString( $feed, 'API should return a feed' );
-
-		$feed = json_decode( $feed );
-		$this->assertIsObject( $feed, 'Feed should be a JSON object' );
-	}
-
-	/**
-	 * @test
-	 */
-	public function it_should_get_a_feed_with_notifications() {
-		$body = wp_remote_retrieve_body( wp_remote_get( $this->ian_api_url ) );
-		$feed = json_decode( $body, true );
-		$this->assertIsArray( $feed, 'Feed should be an array' );
-
-		$notifications = $feed['notifications_by_area']['general-tec'];
-		$this->assertIsArray( $notifications, 'Feed should have notifications' );
-
-		$this->assertArrayHasKey( 'id', $notifications[0], 'Notification should have an ID' );
-		$this->assertArrayHasKey( 'type', $notifications[0], 'Notification should have a type' );
-		$this->assertArrayHasKey( 'slug', $notifications[0], 'Notification should have a slug' );
-		$this->assertArrayHasKey( 'title', $notifications[0], 'Notification should have a title' );
-		$this->assertArrayHasKey( 'html', $notifications[0], 'Notification should have content' );
-	}
-
-	/**
-	 * @test
-	 */
 	public function it_should_match_php_version() {
 		$version = '>=7';
 		$matches = Conditionals::check_php_version( $version );
@@ -179,5 +142,68 @@ class NotificationsTest extends \Codeception\TestCase\WPTestCase {
 		$plugins = [ 'the-events-calendar@>=6.0.0' ];
 		$matches = Conditionals::check_plugin_version( $plugins );
 		$this->assertTrue( $matches, 'Plugin requirement should be met' );
+	}
+
+		/**
+	 * @test
+	 */
+	public function it_should_return_the_full_feed() {
+		$feed = $this->get_mocked_feed();
+		$filtered_feed = Conditionals::filter_feed( $feed );
+		$this->assertIsArray( $filtered_feed, 'Filtered feed should be an array' );
+		$this->assertCount( 3, $filtered_feed, 'Filtered feed should have one item' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_hide_notification_for_unmet_php_version() {
+		$feed = $this->get_mocked_feed();
+
+		// Add a condition that will never be met.
+		$feed[0]['conditions'] = [
+			'php_version' => '>=8.5',
+		];
+
+		$filtered_feed = Conditionals::filter_feed( $feed );
+		$this->assertCount( 2, $filtered_feed, 'Filtered feed should have two items' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_hide_notification_for_unmet_wp_version() {
+		$feed = $this->get_mocked_feed();
+
+		// Add conditions that will never be met.
+		$feed[0]['conditions'] = [
+			'wp_version' => '>=8',
+		];
+
+		$feed[1]['conditions'] = [
+			'wp_version' => '<=4',
+		];
+
+		$filtered_feed = Conditionals::filter_feed( $feed );
+		$this->assertCount( 1, $filtered_feed, 'Filtered feed should have one item' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_hide_notification_for_unmet_plugin_version() {
+		$feed = $this->get_mocked_feed();
+
+		// Add conditions that will never be met.
+		$feed[0]['conditions'] = [
+			'plugin_version' => [ 'the-events-calendar@>=7.0.0' ],
+		];
+
+		$feed[1]['conditions'] = [
+			'plugin_version' => [ 'woocommerce@>=5.0.0' ],
+		];
+
+		$filtered_feed = Conditionals::filter_feed( $feed );
+		$this->assertCount( 1, $filtered_feed, 'Filtered feed should have one item' );
 	}
 }
