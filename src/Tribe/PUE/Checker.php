@@ -245,6 +245,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Will revalidate the licenses if none are found to be valid.
 		 *
 		 * @since 6.3.2
+		 * @since TBD Refactored logic to take into account the transient.
 		 *
 		 * @return bool
 		 */
@@ -265,6 +266,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return false;
 			}
 
+			// Ensure instances exist.
+			if ( empty( self::$instances ) ) {
+				set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $invalid_slug, HOUR_IN_SECONDS );
+				return false;
+			}
+
 			// Transient is missing or unexpected, revalidate licenses.
 			foreach ( self::$instances as $checker ) {
 				if ( $checker->is_key_valid() ) {
@@ -273,6 +280,18 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					return true;
 				}
 			}
+
+			// Revalidate if we haven't found a valid license yet.
+			foreach ( self::$instances as $checker ) {
+				$license  = get_option( $checker->get_license_option_key() );
+				$response = $checker->validate_key( $license );
+				// Is it valid?
+				if ( ! empty( $response['status'] ) ) {
+					set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $valid_slug, HOUR_IN_SECONDS );
+					return true;
+				}
+			}
+
 
 			// No valid licenses found; mark as invalid and return false.
 			set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $invalid_slug, HOUR_IN_SECONDS );
@@ -322,6 +341,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Sets the key status based on the key validation check results.
 		 *
 		 * @since 4.14.9
+		 * @since TBD Clear `self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY` when a key is checked.
 		 *
 		 * @param int $valid 0 for invalid, 1 or 2 for valid.
 		 */
