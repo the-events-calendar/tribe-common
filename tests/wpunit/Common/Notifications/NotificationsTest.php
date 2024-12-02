@@ -177,7 +177,7 @@ class NotificationsTest extends \Codeception\TestCase\WPTestCase {
 
 		// Add conditions that will never be met.
 		$feed[0]['conditions'] = [
-			'php_version>=8.8',
+			'php_version<=1.8',
 		];
 
 		$feed[1]['conditions'] = [
