@@ -68,7 +68,7 @@ class Conditionals {
 
 						$matches['php_version'] = self::check_php_version( $version );
 					} elseif ( 0 === strpos( $condition, 'plugin_version' ) ) {
-						$split   = explode( '=>', $condition );
+						$split   = explode( ':', $condition );
 						$plugins = explode( ',', $split[1] );
 
 						$matches['plugin_version'] = self::check_plugin_version( (array) $plugins );
