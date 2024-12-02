@@ -151,7 +151,7 @@ class NotificationsTest extends \Codeception\TestCase\WPTestCase {
 		$feed = $this->get_mocked_feed();
 		$filtered_feed = Conditionals::filter_feed( $feed );
 		$this->assertIsArray( $filtered_feed, 'Filtered feed should be an array' );
-		$this->assertCount( 3, $filtered_feed, 'Filtered feed should have one item' );
+		$this->assertCount( 3, $filtered_feed, 'Filtered feed should have three items' );
 	}
 
 	/**
