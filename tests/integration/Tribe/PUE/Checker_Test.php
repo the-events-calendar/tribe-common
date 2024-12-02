@@ -132,4 +132,123 @@ class Checker_Test extends \Codeception\TestCase\WPTestCase {
 	public function test_replacemnt_key_update_in_multisite_context(): void {
 
 	}
+
+	/**
+	 * It should correctly determine license validity across different scenarios.
+	 *
+	 * @test
+	 */
+	public function should_correctly_determine_is_any_license_valid_across_scenarios(): void {
+		// Clean up before starting.
+		delete_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+		delete_option( 'pue_install_key_test_plugin_1' );
+		delete_option( 'pue_install_key_test_plugin_2' );
+
+		// Scenario 1: Initially unlicensed.
+		$this->assertFalse( PUE_Checker::is_any_license_valid(), 'Initially unlicensed should return invalid.' );
+
+		// Scenario 2: Initially unlicensed, then license a plugin.
+		$validated_key_1 = md5( microtime() );
+		update_option( 'pue_install_key_test_plugin_1', $validated_key_1 );
+		$pue_instance_1 = new PUE_Checker( 'deprecated', 'test-plugin-1', [], 'test-plugin-1/test-plugin.php' );
+		$pue_instance_1->set_key_status( 1 ); // Set valid status.
+		$this->assertTrue( PUE_Checker::is_any_license_valid(), 'Licensing a plugin should make is_any_license_valid return valid.' );
+
+		// Scenario 3: Initially licensed.
+		delete_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY ); // Reset transient.
+		$this->assertTrue( PUE_Checker::is_any_license_valid(), 'Initially licensed should return valid.' );
+
+		// Scenario 4: Initially unlicensed, license a plugin, then unlicense.
+		delete_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY ); // Reset transient.
+		delete_option( 'pue_install_key_test_plugin_1' );
+		$pue_instance_1->set_key_status( 0 ); // Set invalid status.
+		$this->assertFalse( PUE_Checker::is_any_license_valid(), 'Initially unlicensed should return invalid.' );
+
+		// Re-license the plugin.
+		update_option( 'pue_install_key_test_plugin_1', $validated_key_1 );
+		$pue_instance_1->set_key_status( 1 ); // Set valid status.
+		$this->assertTrue( PUE_Checker::is_any_license_valid(), 'Licensing the plugin again should make is_any_license_valid return valid.' );
+
+		// Unlicense the plugin.
+		$pue_instance_1->set_key_status( 0 ); // Set invalid status.
+		$this->assertFalse( PUE_Checker::is_any_license_valid(), 'Unlicensing the only valid plugin should make is_any_license_valid return invalid.' );
+	}
+
+	/**
+	 * It should handle edge cases for multiple licenses and transient behavior.
+	 *
+	 * @test
+	 */
+	public function should_handle_edge_cases_for_is_any_license_valid_and_transient_behavior(): void {
+		// Clean up before starting.
+		delete_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+		delete_option( 'pue_install_key_test_plugin_1' );
+		delete_option( 'pue_install_key_test_plugin_2' );
+
+		// Scenario 1: Multiple plugins, one licensed, one unlicensed.
+		$validated_key_1 = md5( microtime() );
+		update_option( 'pue_install_key_test_plugin_1', $validated_key_1 );
+		$pue_instance_1 = new PUE_Checker( 'deprecated', 'test-plugin-1', [], 'test-plugin-1/test-plugin.php' );
+		$pue_instance_1->set_key_status( 1 ); // Set valid status for first plugin.
+
+		$validated_key_2 = md5( microtime() );
+		update_option( 'pue_install_key_test_plugin_2', $validated_key_2 );
+		$pue_instance_2 = new PUE_Checker( 'deprecated', 'test-plugin-2', [], 'test-plugin-2/test-plugin.php' );
+		$pue_instance_2->set_key_status( 0 ); // Set invalid status for second plugin.
+
+		$this->assertTrue( PUE_Checker::is_any_license_valid(), 'At least one valid license should make is_any_license_valid return valid.' );
+
+		// Scenario 2: All plugins unlicensed.
+		$pue_instance_1->set_key_status( 0 ); // Unlicense first plugin.
+		$this->assertFalse( PUE_Checker::is_any_license_valid(), 'When all plugins are unlicensed, is_any_license_valid should return invalid.' );
+
+		// Scenario 3: Transient manually deleted.
+		delete_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+		$this->assertFalse( PUE_Checker::is_any_license_valid(), 'Deleting transient should trigger revalidation and return invalid if all plugins are unlicensed.' );
+
+		// Scenario 4: Invalid transient value.
+		set_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, 'unknown', HOUR_IN_SECONDS );
+		$this->assertFalse( PUE_Checker::is_any_license_valid(), 'An invalid transient value should trigger revalidation and return invalid if no licenses are valid.' );
+
+		// Scenario 5: Revalidate licenses after invalid transient.
+		$pue_instance_1->set_key_status( 1 ); // License the first plugin.
+		$this->assertTrue( PUE_Checker::is_any_license_valid(), 'Revalidating after an invalid transient should return valid if at least one license is valid.' );
+	}
+
+	/**
+	 * It should validate licenses correctly across multiple plugins
+	 *
+	 * @test
+	 */
+	public function should_validate_is_any_license_valid_across_multiple_plugins(): void {
+		// Clean up any existing transient or options.
+		delete_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+		delete_option( 'pue_install_key_test_plugin_1' );
+		delete_option( 'pue_install_key_test_plugin_2' );
+
+		// Step 1: No license, validate `is_any_license_valid` is false.
+		$is_valid = PUE_Checker::is_any_license_valid();
+		$this->assertFalse( $is_valid, 'Initially, no licenses should be valid.' );
+
+		// Step 2: Install a plugin with a valid license.
+		$validated_key_1 = md5( microtime() );
+		update_option( 'pue_install_key_test_plugin_1', $validated_key_1 );
+		$pue_instance_1 = new PUE_Checker( 'deprecated', 'test-plugin-1', [], 'test-plugin-1/test-plugin.php' );
+		$pue_instance_1->set_key_status( 1 ); // Set valid status.
+
+		// Validate that `is_any_license_valid` is true.
+		$is_valid = PUE_Checker::is_any_license_valid();
+		$this->assertTrue( $is_valid, 'After licensing one plugin, `is_any_license_valid` should return true.' );
+
+		// Step 3: Install another plugin with an invalid license.
+		$validated_key_2 = md5( microtime() );
+		update_option( 'pue_install_key_test_plugin_2', $validated_key_2 );
+		$pue_instance_2 = new PUE_Checker( 'deprecated', 'test-plugin-2', [], 'test-plugin-2/test-plugin.php' );
+		$pue_instance_2->set_key_status( 0 ); // Set invalid status.
+
+		// Validate that `is_any_license_valid` is still true.
+		$is_valid = PUE_Checker::is_any_license_valid();
+		$this->assertTrue( $is_valid, 'After adding a plugin with an invalid license, `is_any_license_valid` should still return true as one plugin is valid.' );
+	}
+
 }

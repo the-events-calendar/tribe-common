@@ -244,51 +244,39 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Iterate on all the registered PUE Product Licenses we have and find if any are valid.
 		 * Will revalidate the licenses if none are found to be valid.
 		 *
-		 * @todo In scenarios where a user goes from a Free license to an active license the transient may give a false positive.
-		 *
 		 * @since 6.3.2
 		 *
 		 * @return bool
 		 */
 		public static function is_any_license_valid(): bool {
 			$valid_slug = 'valid';
-			$has_valid  = false;
+			$invalid_slug = 'invalid';
 
-			// Check our transient.
+			// Check the transient value first.
 			$transient_value = get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
-			if ( ! empty( $transient_value ) ) {
-				return $transient_value === $valid_slug;
+
+			if ( $transient_value === $valid_slug ) {
+				// Transient explicitly marked as valid.
+				return true;
 			}
 
-			// Check our local transient/cache first.
+			if ( $transient_value === $invalid_slug ) {
+				// Transient explicitly marked as invalid, no recheck.
+				return false;
+			}
+
+			// Transient is missing or unexpected, revalidate licenses.
 			foreach ( self::$instances as $checker ) {
 				if ( $checker->is_key_valid() ) {
+					// Found a valid license; update transient and return true.
 					set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $valid_slug, HOUR_IN_SECONDS );
-					$has_valid = true;
-					break;
+					return true;
 				}
 			}
 
-			if ( ! $has_valid ) {
-				// Revalidate if we haven't found a valid license yet.
-				foreach ( self::$instances as $checker ) {
-					$license  = get_option( $checker->get_license_option_key() );
-					$response = $checker->validate_key( $license );
-					// Is it valid?
-					if ( ! empty( $response['status'] ) ) {
-						set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $valid_slug, HOUR_IN_SECONDS );
-						$has_valid = true;
-						break;
-					}
-				}
-			}
-
-			// We found no valid licenses above.
-			if ( ! $has_valid ) {
-				set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, 'invalid', HOUR_IN_SECONDS );
-			}
-
-			return get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY ) === $valid_slug;
+			// No valid licenses found; mark as invalid and return false.
+			set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $invalid_slug, HOUR_IN_SECONDS );
+			return false;
 		}
 
 		/**
@@ -345,6 +333,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// We set a transient in addition to an option for compatibility reasons.
 			// @todo remove transient in a major feature release where we release all plugins.
 			set_transient( $this->pue_key_status_transient_name, $status, $this->check_period * HOUR_IN_SECONDS );
+
+			delete_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
 		}
 
 		/**
