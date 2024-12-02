@@ -58,17 +58,20 @@ class Conditionals {
 				}
 
 				$matches = [];
-				foreach ( $item['conditions'] as $k => $condition ) {
-					switch ( $k ) {
-						case 'php_version':
-							$matches['php_version'] = self::check_php_version( $condition );
-							break;
-						case 'wp_version':
-							$matches['wp_version'] = self::check_wp_version( $condition );
-							break;
-						case 'plugin_version':
-							$matches['plugin_version'] = self::check_plugin_version( (array) $condition );
-							break;
+				foreach ( $item['conditions'] as $condition ) {
+					if ( 0 === strpos( $condition, 'wp_version' ) ) {
+						$version = substr( $condition, strlen( 'wp_version' ) );
+
+						$matches['wp_version'] = self::check_wp_version( $version );
+					} elseif ( 0 === strpos( $condition, 'php_version' ) ) {
+						$version = substr( $condition, strlen( 'php_version' ) );
+
+						$matches['php_version'] = self::check_php_version( $version );
+					} elseif ( 0 === strpos( $condition, 'plugin_version' ) ) {
+						$split   = explode( '=>', $condition );
+						$plugins = explode( ',', $split[1] );
+
+						$matches['plugin_version'] = self::check_plugin_version( (array) $plugins );
 					}
 				}
 

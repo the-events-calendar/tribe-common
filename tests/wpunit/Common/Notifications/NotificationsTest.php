@@ -51,7 +51,7 @@ class NotificationsTest extends \Codeception\TestCase\WPTestCase {
 					],
 				],
 				'dismissible' => true,
-				'conditions'  => [],
+				'conditions'  => [ 'wp_version>=5.8', 'php_version>=7.0' ],
 			],
 			[
 				'id'          => '102',
@@ -67,7 +67,7 @@ class NotificationsTest extends \Codeception\TestCase\WPTestCase {
 					],
 				],
 				'dismissible' => true,
-				'conditions'  => [],
+				'conditions'  => [ 'plugin_version=>the-events-calendar@>=5.0.0' ],
 			],
 			[
 				'id'          => '103',
@@ -162,7 +162,7 @@ class NotificationsTest extends \Codeception\TestCase\WPTestCase {
 
 		// Add a condition that will never be met.
 		$feed[0]['conditions'] = [
-			'php_version' => '>=8.5',
+			'php_version>=8.8',
 		];
 
 		$filtered_feed = Conditionals::filter_feed( $feed );
@@ -177,11 +177,11 @@ class NotificationsTest extends \Codeception\TestCase\WPTestCase {
 
 		// Add conditions that will never be met.
 		$feed[0]['conditions'] = [
-			'wp_version' => '>=8',
+			'php_version>=8.8',
 		];
 
 		$feed[1]['conditions'] = [
-			'wp_version' => '<=4',
+			'wp_version<=4',
 		];
 
 		$filtered_feed = Conditionals::filter_feed( $feed );
@@ -196,11 +196,11 @@ class NotificationsTest extends \Codeception\TestCase\WPTestCase {
 
 		// Add conditions that will never be met.
 		$feed[0]['conditions'] = [
-			'plugin_version' => [ 'the-events-calendar@>=7.0.0' ],
+			'plugin_version=>events-calendar-pro@>=7.0.0',
 		];
 
 		$feed[1]['conditions'] = [
-			'plugin_version' => [ 'woocommerce@>=5.0.0' ],
+			'plugin_version=>woocommerce@>=5.0.0',
 		];
 
 		$filtered_feed = Conditionals::filter_feed( $feed );
