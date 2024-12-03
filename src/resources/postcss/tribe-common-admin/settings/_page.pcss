@@ -6,7 +6,7 @@
  *
  * ----------------------------------------------------------------------------- */
 
-.tribe_events_page_tec-events-settings {
+ .tribe_events_page_tec-events-settings {
 	#wpcontent {
 		padding-left: 0;
 	}
@@ -19,9 +19,9 @@
 
 	#tec-settings-logo {
 		margin: var(--tec-spacer-2);
-		margin-left: var(--tec-spacer-5);
-		vertical-align: middle;
 		width: var(--tec-spacer-7);
+
+		vertical-align: middle;
 
 		@media (max-width: 782px) {
 			margin: var(--tec-spacer-2);
@@ -40,13 +40,15 @@
 		}
 
 		.tribe-notice-wrap {
-			background-color: var(--tec-color-background);
 			width: 100%;
 
+			background-color: var(--tec-color-background);
+
 			> div {
-				border-radius: var(--tec-border-radius-default);
-				box-sizing: border-box;
 				margin: var(--tec-spacer-1) var(--tec-spacer-7);
+				box-sizing: border-box;
+
+				border-radius: var(--tec-border-radius-default);
 
 				@media (min-width: 500px) and (max-width: 1259px) {
 					margin: var(--tec-spacer-1) var(--tec-spacer-5);
@@ -55,17 +57,28 @@
 		}
 	}
 
-	.tribe_settings.wrap h1 {
+	.tribe_settings.wrap .tec-settings-header-wrap {
+		position: relative;
+
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: var(--tec-spacer-2) var(--tec-spacer-5);
+		box-sizing: border-box;
+		width: 100%;
+
 		background-color: var(--tec-color-background);
+	}
+
+	.tribe_settings.wrap h1 {
+		padding: 0;
+		width: auto;
+		max-width: 100%;
+
+		background-color: var(--tec-color-background);
+
 		font-family: var(--tec-font-family-sans-serif);
 		font-size: var(--tec-font-size-7);
 		font-weight: var(--tec-font-weight-regular);
-		max-width: 100%;
-		padding: var(--tec-spacer-2) var(--tec-spacer-5);
-		width: auto;
-
-		@media (--viewport-xlarge) {
-			width: 100%;
-		}
 	}
 }
