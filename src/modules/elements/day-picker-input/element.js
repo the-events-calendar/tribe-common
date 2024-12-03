@@ -7,6 +7,7 @@ import "react-day-picker/src/style.css";
 import { DayPicker } from 'react-day-picker';
 import { Popover } from '@wordpress/components';
 import { getSettings as getDateSettings } from '@wordpress/date';
+import { parse as parseDate } from 'date-fns';
 
 /**
  * Internal dependencies
@@ -33,6 +34,23 @@ const DatePickerInput = ( props ) => {
 	);
 };
 
+/**
+ * Converts the date format from moment.js to the Unicode one used in date-fns.
+ *
+ * @see https://github.com/date-fns/date-fns/blob/main/docs/unicodeTokens.md
+ *
+ * @param {string} momentFormat The moment.js format string to convert.
+ *
+ * @returns {string} The converted format string.
+ */
+const momentToDateFnsFormatter = (momentFormat) => {
+	return momentFormat
+	.replace('DD', 'dd')
+	.replace('D', 'd')
+	.replace('YYYY', 'yyyy')
+	.replace('YY', 'yy');
+};
+
 const DayPickerInput = ( props ) => {
 	const popoverAnchor = useRef( null ); // Ref for the Popover anchor
 	const inputRef = useRef( null ); // Ref for the input field
@@ -41,7 +59,11 @@ const DayPickerInput = ( props ) => {
 	const phpDateFormat = getDateSettings()?.formats?.date ?? 'MMMM d, y';
 	const dateFormatter = useMemo(() => new DateFormatter(), []);
 	const parsePhpDate  = useCallback(
-		function(value) { return dateFormatter.parseDate(value, phpDateFormat); },
+		value => dateFormatter.parseDate(value, phpDateFormat),
+		[phpDateFormat]
+	)
+	const formatPhpDate = useCallback(
+		date => dateFormatter.formatDate(date, phpDateFormat),
 		[phpDateFormat]
 	);
 
@@ -50,28 +72,36 @@ const DayPickerInput = ( props ) => {
 	};
 
 	const { value, onDayChange, formatDate, format } = props;
-	const [ selectedDate, setSelectedDate ] = useState(
-		value ? new Date( parsePhpDate(value) ) : new Date()
-	);
 
-	let parsedValue = null
-	try {
-		parsedValue = parsePhpDate(value);
-	} catch  {
-		// Ok, the value is in the JS date picker format.
-	}
+	// Convert the format from the moment.js one to date-fns one using Unicode characters.
+	const dateFnsFormat = momentToDateFnsFormatter(format);
 
-	/* The value property can have one of two formats:
-	 * 1. The PHP date picker format.
-	 * 2. This JS element date picker format (see below).
-	 * In case n. 1 that value should be used.
-	 * In case n. 2 the selected value, likely set from the `setSelectedDate` state setter, should be used.
+	const getSelectedDateInitialState = useCallback((value) => {
+		// Try and parse the value using teh date-fns format.
+		const d = parseDate(value, dateFnsFormat, new Date());
+
+		if (d instanceof Date && !isNaN(d)) {
+			return d;
+		}
+
+		// Try and parse the value using the PHP date format.
+		const parsed = parsePhpDate(value);
+
+		return parsed;
+	}, [dateFnsFormat, parsePhpDate]);
+
+	const [selectedDate, setSelectedDate] = useState(value ? getSelectedDateInitialState(value) : new Date());
+
+	/**
+	 * Formats the datepicker Date object to the datepicker format.
+	 *
+	 * @param {Date|null} date The date to format to the datepicker format.
+	 *
+	 * @returns {string} The formatted date.
 	 */
-	const datepickerValueDate = parsedValue ? new Date( parsedValue ) : selectedDate;
-
-	const datepickerFormat = 'MMMM d, y';
 	const formatDatepickerValue = ( date ) => {
-		return date ? formatDate( date, datepickerFormat ) : '';
+		// return date ? formatDate( date, 'MMMM d, y', new Date() ) : '';
+		return date ? formatPhpDate(date) : '';
 	};
 
 	return (
@@ -80,7 +110,7 @@ const DayPickerInput = ( props ) => {
 				setPopoverAnchor={ popoverAnchor }
 				inputRef={ inputRef } // Pass the ref to DatePickerInput
 				onClick={ toggleVisible }
-				value={ formatDatepickerValue( datepickerValueDate ) }
+				value={ formatDatepickerValue( selectedDate ) }
 				onDayChange={ onDayChange }
 			/>
 			{ isVisible && (
@@ -93,12 +123,13 @@ const DayPickerInput = ( props ) => {
 					>
 						<DayPicker
 							mode="single"
-							selected={ datepickerValueDate }
+							selected={ selectedDate }
 							onSelect={ ( date ) => {
 								onDayChange( date, {}, formatDatepickerValue( date ) );
 								setSelectedDate( date );
 								toggleVisible();
 							} }
+							isSelected={true}
 						/>
 					</Popover>
 				</>
