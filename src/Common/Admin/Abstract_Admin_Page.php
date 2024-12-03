@@ -8,6 +8,7 @@
  */
 
 namespace TEC\Common\Admin;
+
 use Tribe__Main;
 
 /**
@@ -47,6 +48,15 @@ abstract class Abstract_Admin_Page {
 	public static bool $is_dismissed = false;
 
 	/**
+	 * Whether the page is dismissible.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @var bool
+	 */
+	public static bool $is_dismissible = false;
+
+	/**
 	 * Whether the page has a sidebar.
 	 *
 	 * @since 7.0.0
@@ -63,15 +73,6 @@ abstract class Abstract_Admin_Page {
 	 * @var bool
 	 */
 	public static bool $has_footer = false;
-
-	/**
-	 * Whether the page is dismissible.
-	 *
-	 * @since 7.0.0
-	 *
-	 * @var bool
-	 */
-	public static bool $is_dismissible = false;
 
 	/**
 	 * Get the page slug.
@@ -113,7 +114,7 @@ abstract class Abstract_Admin_Page {
 			return false;
 		}
 
-		return  static::$is_dismissed;
+		return static::$is_dismissed;
 	}
 
 	/**
@@ -124,7 +125,7 @@ abstract class Abstract_Admin_Page {
 	 * @return string The logo source URL.
 	 */
 	public function get_logo_source(): string {
-		$logo_source = tribe_resource_url( "images/logo/tec-brand.svg", false, null, Tribe__Main::instance() );
+		$logo_source = tribe_resource_url( 'images/logo/tec-brand.svg', false, null, Tribe__Main::instance() );
 
 		$admin_page = static::get_page_slug();
 
@@ -144,8 +145,6 @@ abstract class Abstract_Admin_Page {
 	 *
 	 * @since 7.0.0
 	 *
-	 * @param string $admin_page The admin page ID.
-	 *
 	 * @return void Echos the admin page logo.
 	 */
 	public function do_page_logo(): void {
@@ -158,7 +157,7 @@ abstract class Abstract_Admin_Page {
 			id="tec-admin-logo"
 		/>
 		<?php
-		echo ob_get_clean();
+		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -229,13 +228,13 @@ abstract class Abstract_Admin_Page {
 		ob_start();
 		?>
 		<div id="tec-admin-page" class="tec-admin wrap">
-			<?php do_action( 'tec-admin-header-before-header'); ?>
+			<?php do_action( 'tec_admin_header_before_header' ); ?>
 			<header id="tec-admin__header">
 				<?php $this->admin_page_header(); ?>
 			</header>
-			<?php do_action( 'tec-admin-header-after-header'); ?>
+			<?php do_action( 'tec_admin_header_after_header' ); ?>
 
-			<?php do_action( 'tec-admin-header-before-content'); ?>
+			<?php do_action( 'tec_admin_header_before_content' ); ?>
 			<main id="tec-admin__content" <?php tribe_classes( $this->content_wrapper_classes() ); ?>>
 				<?php $this->admin_page_main(); ?>
 			</main>
@@ -249,10 +248,10 @@ abstract class Abstract_Admin_Page {
 					<?php $this->admin_page_footer(); ?>
 				</footer>
 			<?php endif; ?>
-			<?php do_action( 'tec-admin-header-after-content'); ?>
+			<?php do_action( 'tec_admin_header_after_content' ); ?>
 		</div>
 		<?php
-		echo ob_get_clean();
+		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -267,11 +266,11 @@ abstract class Abstract_Admin_Page {
 		ob_start();
 		?>
 			<?php $this->do_page_logo(); ?>
-			<?php do_action( 'tec-admin-header-before-title'); ?>
+			<?php do_action( 'tec-admin-header-before-title' ); ?>
 			<?php $this->admin_page_title(); ?>
-			<?php do_action( 'tec-admin-header-after-title'); ?>
+			<?php do_action( 'tec-admin-header-after-title' ); ?>
 		<?php
-		echo ob_get_clean();
+		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -287,7 +286,7 @@ abstract class Abstract_Admin_Page {
 		?>
 			<h1 class="tec-admin__header-title"><?php esc_html_e( 'The Events Calendar', 'the-events-calendar' ); ?></h1>
 		<?php
-		echo ob_get_clean();
+		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**

@@ -25,6 +25,8 @@ trait Is_Events_Page {
 	 * The slug for the parent page.
 	 *
 	 * @since 7.0.0
+	 *
+	 * @var string
 	 */
 	public static string $parent_slug = 'tec_events_page_';
 
@@ -47,11 +49,9 @@ trait Is_Events_Page {
 	 * Get the logo source URL.
 	 *
 	 * @since 7.0.0
-	 *
-	 * @return string The logo source URL.
 	 */
 	public function get_logo_source(): string {
-		$logo_source = tribe_resource_url( "images/logo/the-events-calendar.svg", false, null, Tribe__Main::instance() );
+		$logo_source = tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, Tribe__Main::instance() );
 
 		$admin_page = static::get_page_slug();
 
