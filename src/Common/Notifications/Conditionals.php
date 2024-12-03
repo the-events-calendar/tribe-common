@@ -79,6 +79,16 @@ class Conditionals {
 			}
 		);
 
+		// Ensure slugs are always unique.
+		$notifications = array_map(
+			function ( $item ) {
+				$item['slug'] = $item['id'] . '_' . $item['slug'];
+
+				return $item;
+			},
+			$notifications
+		);
+
 		return array_values( $notifications );
 	}
 
