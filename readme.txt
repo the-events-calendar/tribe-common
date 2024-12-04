@@ -3,6 +3,7 @@
 = [6.4.0] 2024-12-05 =
 
 * Feature - In-App Notifications system. [TEC-5165]
+* Language - 22 new strings added, 15 updated, 1 fuzzied, and 0 obsoleted.
 
 = [6.3.2] 2024-11-19 =
 
