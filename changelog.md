@@ -3,6 +3,8 @@
 ### [6.4.0] 2024-12-05
 
 * Feature - In-App Notifications system. [TEC-5165]
+* Tweak - Added filters: `tec_common_ian_opt_in`, `tec_common_ian_conditional_php`, `tec_common_ian_conditional_wp`, `tec_common_ian_allowed_pages`, `tec_common_ian_show_icon`, `tec_common_ian_setting_optin_tooltip`, `tec_common_ian_api_url`, `tec_common_ian_slugs`, `tec_common_ian_render`
+* Tweak - Added actions: `tec_common_ian_loaded`
 * Language - 22 new strings added, 15 updated, 1 fuzzied, and 0 obsoleted.
 
 ### [6.3.2] 2024-11-19
