@@ -2,7 +2,7 @@
 /**
  * Notifications Template
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @var string $type The type of notification.
  * @var string $id The ID of the notification.

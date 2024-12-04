@@ -2,7 +2,7 @@
 /**
  * Handles In-App Notifications setup and actions.
  *
- * @since   TBD
+ * @since   6.4.0
  *
  * @package TEC\Common\Notifications
  */
@@ -14,7 +14,7 @@ use TEC\Common\Admin\Conditional_Content\Dismissible_Trait;
 /**
  * Class Notifications
  *
- * @since   TBD
+ * @since   6.4.0
 
  * @package TEC\Common\Notifications
  */
@@ -25,7 +25,7 @@ final class Notifications {
 	/**
 	 * The slugs for plugins that support In-App Notifications.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var array
 	 */
@@ -34,7 +34,7 @@ final class Notifications {
 	/**
 	 * The Notifications API URL.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -50,7 +50,7 @@ final class Notifications {
 	/**
 	 * Constructor.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function __construct() {
 		$this->api_url = $this->get_api_url();
@@ -60,7 +60,7 @@ final class Notifications {
 		 * Allow plugins to hook in and add themselves,
 		 * running their own actions after IAN is initiated.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param self $ian The IAN instance.
 		 */
@@ -70,7 +70,7 @@ final class Notifications {
 	/**
 	 * Get the API URL for the In-App Notifications.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -80,7 +80,7 @@ final class Notifications {
 		/**
 		 * Filter the API URL for the In-App Notifications.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $api The API URL for the In-App Notifications.
 		 * @param object $this The current instance of the class.
@@ -93,7 +93,7 @@ final class Notifications {
 	/**
 	 * Register the plugins that support In-App Notifications.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array<string> The slugs for plugins that support IAN.
 	 */
@@ -103,7 +103,7 @@ final class Notifications {
 		/**
 		 * Filter the plugin slugs for the In-App Notifications.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param array<string> $slugs The slugs for plugins that support IAN.
 		 */
@@ -113,7 +113,7 @@ final class Notifications {
 	/**
 	 * Show our notification icon.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $slug The plugin slug for IAN.
 	 *
@@ -127,7 +127,7 @@ final class Notifications {
 		/**
 		 * Filter allowing disabling of the Notifications by returning false.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param bool $show Whether to render the IAN sidebar or not.
 		 */
@@ -144,7 +144,7 @@ final class Notifications {
 	/**
 	 * Optin to IAN notifications.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */
@@ -162,7 +162,7 @@ final class Notifications {
 	/**
 	 * Get the IAN notifications.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */
@@ -208,7 +208,7 @@ final class Notifications {
 	/**
 	 * AJAX handler for dismissing IAN notifications.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */
@@ -236,7 +236,7 @@ final class Notifications {
 	/**
 	 * AJAX handler for marking IAN notifications as read.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */
@@ -264,7 +264,7 @@ final class Notifications {
 	/**
 	 * AJAX handler for marking all IAN notifications as read.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */

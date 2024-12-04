@@ -7,7 +7,7 @@ use Tribe\Tests\Traits\With_Uopz;
 /**
  * Class NotificationsTest
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @package TEC\Common\Notifications
  */

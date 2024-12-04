@@ -2,7 +2,7 @@
 /**
  * Notifications Template
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @package TEC\Common\Notifications
  */
@@ -16,7 +16,7 @@ use TEC\Common\Telemetry\Telemetry;
 /**
  * Class Template
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @package TEC\Common\Notifications
  */
@@ -25,7 +25,7 @@ class Template extends Tribe__Template {
 	/**
 	 * Notifications Template Constructor
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function __construct() {
 		$this->set_template_origin( Tribe__Main::instance() );
@@ -37,7 +37,7 @@ class Template extends Tribe__Template {
 	/**
 	 * Render the notification sidebar.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param array $args Array of arguments that will ultimately be sent to the template.
 	 * @param bool  $output Whether or not to echo the HTML. Defaults to true.
@@ -61,7 +61,7 @@ class Template extends Tribe__Template {
 	/**
 	 * Render the notification.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param array $args Array of arguments that will ultimately be sent to the template.
 	 * @param bool  $output Whether or not to echo the HTML. Defaults to true.

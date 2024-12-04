@@ -2,7 +2,7 @@
 /**
  * In-App Notifications Template
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @var string $slug  The slug of the plugin.
  * @var string $main  The main instance of the plugin.

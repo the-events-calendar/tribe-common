@@ -2,7 +2,7 @@
 /**
  * Handles In-App Notifications display logic.
  *
- * @since   TBD
+ * @since   6.4.0
  *
  * @package TEC\Common\Notifications
  */
@@ -16,7 +16,7 @@ use TEC\Common\Telemetry\Telemetry as Common_Telemetry;
 /**
  * Class Conditionals
  *
- * @since   TBD
+ * @since   6.4.0
 
  * @package TEC\Common\Notifications
  */
@@ -24,7 +24,7 @@ class Conditionals {
 	/**
 	 * Get the current user status based on Telemetry and IAN opt-in.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return bool
 	 */
@@ -43,7 +43,7 @@ class Conditionals {
 	/**
 	 * Check if the conditions are met for the notifications.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param array $feed The feed of notifications from the server.
 	 *
@@ -95,7 +95,7 @@ class Conditionals {
 	/**
 	 * Check if the PHP version is correct.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $version The version to check against.
 	 *
@@ -114,7 +114,7 @@ class Conditionals {
 	/**
 	 * Check if the WP version is correct.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $version The version to check against.
 	 *
@@ -134,7 +134,7 @@ class Conditionals {
 	/**
 	 * Check if the plugin version matches requirements.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param array $plugins The required plugins to check.
 	 *

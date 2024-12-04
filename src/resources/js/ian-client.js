@@ -14,7 +14,7 @@
 		/**
 		 * Initialize the Ian client.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @return {void}
 		 */
@@ -33,7 +33,7 @@
 		/**
 		 * Wrap the headings with a div to allow for positioning of the sidebar.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @return {void}
 		 */
@@ -69,7 +69,7 @@
 		/**
 		 * Handle the click events on the Ian client.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param {Event} e The click event.
 		 */
@@ -118,7 +118,7 @@
 		/**
 		 * Handle the keydown events on the Ian client.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param {Event} e The keydown event.
 		 */
@@ -133,7 +133,7 @@
 		/**
 		 * Get the top position of the parent element.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @return {number} The top position of the parent element.
 		 */
@@ -156,7 +156,7 @@
 		/**
 		 * Calculate the position of the sidebar.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @return {void}
 		 */
@@ -170,7 +170,7 @@
 		/**
 		 * Handle the scroll event.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @return {void}
 		 */
@@ -184,7 +184,7 @@
 		/**
 		 * Update the position of the sidebar.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @return {void}
 		 */
@@ -204,7 +204,7 @@
 		/**
 		 * Opt-in to notifications.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @return {void}
 		 */
@@ -237,7 +237,7 @@
 		/**
 		 * Get the notifications feed.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @return {void}
 		 */
@@ -295,7 +295,7 @@
 		/**
 		 * Dismiss a notification.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param {number} id The notification ID.
 		 * @param {string} slug The notification slug.
@@ -343,7 +343,7 @@
 		/**
 		 * Mark a notification as read.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param {number} id The notification ID.
 		 * @param {string} slug The notification slug.
@@ -392,7 +392,7 @@
 		/**
 		 * Mark all notifications as read.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @return {void}
 		 */
@@ -434,7 +434,7 @@
 		/**
 		 * Update the notifications view.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @return {void}
 		 */

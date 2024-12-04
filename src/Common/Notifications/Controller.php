@@ -2,7 +2,7 @@
 /**
  * Controller for In-App Notifications.
  *
- * @since   TBD
+ * @since   6.4.0
  *
  * @package TEC\Common\Notifications
  */
@@ -17,7 +17,7 @@ use Tribe__Main;
 /**
  * Class Controller
  *
- * @since   TBD
+ * @since   6.4.0
 
  * @package TEC\Common\Notifications
  */
@@ -26,7 +26,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Registers actions and filters.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function do_register(): void {
 		add_action( 'tribe_plugins_loaded', [ $this, 'register_ian' ], 50 );
@@ -62,7 +62,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register the In-App Notifications assets.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */
@@ -96,7 +96,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Define which pages will show the notification icon.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return bool
 	 */
@@ -107,7 +107,7 @@ class Controller extends Controller_Contract {
 		/**
 		 * Filter the allowed pages for the Notifications icon.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param array<string> $allowed The allowed pages for the Notifications icon.
 		 */
@@ -116,7 +116,7 @@ class Controller extends Controller_Contract {
 		/**
 		 * Filter the showing of the Notifications icon.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param bool Whether to show the icon or not.
 		 */
@@ -126,7 +126,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Logic for if the Notifications icon should be shown.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $slug The slug of the plugin to show the notifications in.
 	 *
@@ -141,7 +141,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * AJAX handler for opting in to Notifications.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function opt_in() {
 		$this->container->make( Notifications::class )->opt_in();
@@ -150,7 +150,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * AJAX handler for getting notifications.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function get_feed() {
 		$this->container->make( Notifications::class )->get_feed();
@@ -159,7 +159,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * AJAX handler for dismissing notifications.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function handle_dismiss() {
 		$this->container->make( Notifications::class )->handle_dismiss();
@@ -168,7 +168,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * AJAX handler for marking notifications as read.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function handle_read() {
 		$this->container->make( Notifications::class )->handle_read();
@@ -177,7 +177,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * AJAX handler for marking all notifications as read.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function handle_read_all() {
 		$this->container->make( Notifications::class )->handle_read_all();
@@ -215,7 +215,7 @@ class Controller extends Controller_Contract {
 		/**
 		 * Filter the tooltip text for the IAN opt-in setting.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 */
 		$tooltip = apply_filters( 'tec_common_ian_setting_optin_tooltip', $tooltip );
 

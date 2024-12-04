@@ -2,7 +2,7 @@
 /**
  * Handles the Read/Unread state of notifications.
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @package TEC\Common\Notifications
  */
@@ -12,13 +12,13 @@ namespace TEC\Common\Notifications;
 /**
  * Trait Readable_Trait
  *
- * @since   TBD
+ * @since   6.4.0
  */
 trait Readable_Trait {
 	/**
 	 * User Meta Key that stores which notifications have been read.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -27,7 +27,7 @@ trait Readable_Trait {
 	/**
 	 * Request param used to pass the nonce for reading.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -36,7 +36,7 @@ trait Readable_Trait {
 	/**
 	 * User Meta Key prefix that stores when notifications have been read.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -45,7 +45,7 @@ trait Readable_Trait {
 	/**
 	 * Get the nonce action for this readable content.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -60,7 +60,7 @@ trait Readable_Trait {
 	/**
 	 * Get the nonce for this readable content.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -71,7 +71,7 @@ trait Readable_Trait {
 	/**
 	 * This will allow the user to read the notification using JS.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */
@@ -105,7 +105,7 @@ trait Readable_Trait {
 	/**
 	 * A Method to add the Meta value that this notification has been read.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param int|null|string $user_id The user ID.
 	 *
@@ -133,7 +133,7 @@ trait Readable_Trait {
 	/**
 	 * Removes the user meta that holds if this content has been read.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param int|null|string $user_id The user ID.
 	 *
@@ -159,7 +159,7 @@ trait Readable_Trait {
 	/**
 	 * Checks if a given user has read a given notification.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param int|null|string $user_id The user ID.
 	 *
