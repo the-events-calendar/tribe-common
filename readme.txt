@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [6.4.0] 2024-12-05 =
+
+* Feature - In-App Notifications system. [TEC-5165]
+
 = [6.3.2] 2024-11-19 =
 
 * Feature - Implemented the core Help Hub logic, providing a flexible framework for managing support integrations, resource templates, and plugin-specific customization.
