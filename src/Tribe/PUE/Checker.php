@@ -351,7 +351,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// @todo remove transient in a major feature release where we release all plugins.
 			set_transient( $this->pue_key_status_transient_name, $status, $this->check_period * HOUR_IN_SECONDS );
 
-			delete_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+			if ( ! tribe_is_truthy( $valid ) ) {
+				delete_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+			}
 		}
 
 		/**
