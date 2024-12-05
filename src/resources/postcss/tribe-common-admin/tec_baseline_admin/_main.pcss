@@ -1,0 +1,20 @@
+#tec-admin-page {
+	background: none;
+	display: grid;
+	grid-template-areas:
+		"header"
+		"content"
+		"sidebar"
+		"footer";
+	margin: 0;
+	margin-left: -10px;
+
+	@media (--viewport-wpadmin) {
+		grid-template-areas:
+			"header header"
+			"content sidebar"
+			"footer footer";
+		grid-template-columns: 1fr auto;
+		margin-left: -20px;
+	}
+}
