@@ -404,7 +404,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'admin_enqueue_scripts', [ $this, 'maybe_display_json_error_on_plugins_page' ], 1 );
 			add_action( 'admin_init', [ $this, 'general_notifications' ] );
 
-			add_action( 'tribe_common_loaded', [ $this, 'monitor_uplink_actions' ] );
+			add_action( 'wp_loaded', [ $this, 'monitor_uplink_actions' ] );
 
 			// Package name.
 			add_filter( 'upgrader_pre_download', [ Tribe__PUE__Package_Handler::instance(), 'filter_upgrader_pre_download' ], 5, 3 );
@@ -2100,18 +2100,19 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * This method loops through the registered Uplink plugins and hooks into the
 		 * 'stellarwp/uplink/{slug}/connected' action for each plugin resource.
 		 *
-		 * @since 2.2.1
+		 * @since TBD
 		 */
 		public function monitor_uplink_actions() {
-			$plugins = uplink_get_plugins();
+			static $has_run = false;
 
-			// Early return if resources are not valid.
-			if ( empty( $plugins['resources'] ) || ! is_array( $plugins['resources'] ) ) {
+			// Check if the method has already run.
+			if ( $has_run ) {
 				return;
 			}
+			$plugins = uplink_get_plugins();
 
 			// Loop through plugin resources and add actions.
-			foreach ( $plugins['resources'] as $resource ) {
+			foreach ( $plugins as $resource ) {
 				if ( ! $resource instanceof Plugin ) {
 					continue; // Skip non-Plugin resources.
 				}
@@ -2121,13 +2122,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				// Hook into the existing 'connected' action for the specific plugin slug.
 				add_action(
 					'stellarwp/uplink/' . Config::get_hook_prefix() . '/' . $slug . '/connected',
-					function ( $plugin ) use ( $slug ) {
-						// Add logic for `IS_ANY_LICENSE_VALID_TRANSIENT_KEY`.
+					function () use ( $slug ) {
+						set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, 'valid', HOUR_IN_SECONDS );
 					},
 					10,
 					1
 				);
 			}
+
+			$has_run = true;
 		}
 	}
 }

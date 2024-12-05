@@ -9,6 +9,9 @@ use TEC\Common\StellarWP\Uplink\Register;
 use TEC\Common\Tests\Licensing\PUE_Service_Mock;
 use Tribe__Main;
 use Tribe__PUE__Checker as PUE_Checker;
+use TEC\Common\StellarWP\Uplink\Auth\Token\Contracts\Token_Manager;
+use TEC\Common\StellarWP\Uplink\Resources\Collection;
+use TEC\Common\StellarWP\Uplink\Storage\Contracts\Storage;
 
 use function TEC\Common\StellarWP\Uplink\get_resource;
 
@@ -251,6 +254,25 @@ class Checker_Test extends WPTestCase {
 			},
 			false,
 			'When all plugins are invalid, is_any_license_valid should return false.',
+		];
+
+		yield 'Testing Uplink' => [
+			function () {
+				$key = 'license-key-for-test-plugin';
+				$collection    = tribe( Collection::class );
+				$resource      = $collection->get( 'test-plugin' );
+				$token_manager = tribe( Token_Manager::class );
+				$storage       = tribe( Storage::class );
+				$resource->set_license_key( $key );
+				$this->assertEquals( $key, $resource->get_license_key() );
+				$storage->set(
+					'stellarwp_auth_url_tec_seating',
+					'https://my.theeventscalendar.com/account-auth/?uplink_callback=aHR0cHM6Ly90ZWNkZXYubG5kby5zaXRlL3dwLWFkbWluL2FkbWluLnBocD9wYWdlPXRlYy10aWNrZXRzLXNldHRpbmdzJnRhYj1saWNlbnNlcyZ1cGxpbmtfc2x1Zz10ZWMtc2VhdGluZyZfdXBsaW5rX25vbmNlPU1zb3ptQlZJVUp4aFh6c0Q%3D'
+				);
+				$token_manager->store( $key, $resource );
+			},
+			true,
+			'Testing uplink',
 		];
 	}
 }
