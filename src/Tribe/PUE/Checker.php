@@ -358,6 +358,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			if ( ! tribe_is_truthy( $valid ) ) {
 				delete_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+			} else {
+				set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $status, HOUR_IN_SECONDS );
 			}
 		}
 
