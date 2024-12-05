@@ -5,13 +5,16 @@ namespace Tribe\PUE;
 use Closure;
 use Codeception\TestCase\WPTestCase;
 use Generator;
+use TEC\Common\StellarWP\Uplink\Auth\Action_Manager;
+use TEC\Common\StellarWP\Uplink\Auth\Admin\Connect_Controller;
+use TEC\Common\StellarWP\Uplink\Auth\Nonce;
+use TEC\Common\StellarWP\Uplink\Auth\Token\Contracts\Token_Manager;
+use TEC\Common\StellarWP\Uplink\Config;
 use TEC\Common\StellarWP\Uplink\Register;
 use TEC\Common\Tests\Licensing\PUE_Service_Mock;
 use Tribe__Main;
 use Tribe__PUE__Checker as PUE_Checker;
-use TEC\Common\StellarWP\Uplink\Auth\Token\Contracts\Token_Manager;
-use TEC\Common\StellarWP\Uplink\Resources\Collection;
-use TEC\Common\StellarWP\Uplink\Storage\Contracts\Storage;
+use WP_Screen;
 
 use function TEC\Common\StellarWP\Uplink\get_resource;
 
@@ -25,6 +28,25 @@ class Checker_Test extends WPTestCase {
 	 * @var array
 	 */
 	protected $temp_pue_plugin = [];
+
+
+	/**
+	 * @var Token_Manager
+	 */
+	private $token_manager;
+
+	/**
+	 * The sample plugin slug
+	 *
+	 * @var string
+	 */
+	private $slug = 'sample';
+
+	/**
+	 * @var Resource
+	 */
+	private $plugin;
+
 
 	/**
 	 * @before
@@ -256,23 +278,108 @@ class Checker_Test extends WPTestCase {
 			'When all plugins are invalid, is_any_license_valid should return false.',
 		];
 
-		yield 'Testing Uplink' => [
+		yield 'Uplink, valid license' => [
 			function () {
-				$key = 'license-key-for-test-plugin';
-				$collection    = tribe( Collection::class );
-				$resource      = $collection->get( 'test-plugin' );
-				$token_manager = tribe( Token_Manager::class );
-				$storage       = tribe( Storage::class );
-				$resource->set_license_key( $key );
-				$this->assertEquals( $key, $resource->get_license_key() );
-				$storage->set(
-					'stellarwp_auth_url_tec_seating',
-					'https://my.theeventscalendar.com/account-auth/?uplink_callback=aHR0cHM6Ly90ZWNkZXYubG5kby5zaXRlL3dwLWFkbWluL2FkbWluLnBocD9wYWdlPXRlYy10aWNrZXRzLXNldHRpbmdzJnRhYj1saWNlbnNlcyZ1cGxpbmtfc2x1Zz10ZWMtc2VhdGluZyZfdXBsaW5rX25vbmNlPU1zb3ptQlZJVUp4aFh6c0Q%3D'
+				global $_GET;
+
+				$this->plugin = Register::plugin(
+					$this->slug,
+					'Sample Plugin',
+					'1.0.10',
+					__DIR__,
+					tribe( Tribe__Main::class )
 				);
-				$token_manager->store( $key, $resource );
+
+				wp_set_current_user( 1 );
+
+				$this->token_manager = tribe( Token_Manager::class );
+				$this->assertNull( $this->token_manager->get( $this->plugin ) );
+
+				$nonce = ( tribe( Nonce::class ) )->create();
+				$token = '53ca40ab-c6c7-4482-a1eb-14c56da31015';
+
+				// Mock these were passed via the query string.
+				$_GET[ Connect_Controller::TOKEN ] = $token;
+				$_GET[ Connect_Controller::NONCE ] = $nonce;
+				$_GET[ Connect_Controller::SLUG ]  = $this->slug;
+
+				// Mock we're an admin inside the dashboard.
+				$this->admin_init();
+
+				// Fire off the specification action tied to this slug.
+				do_action( tribe( Action_Manager::class )->get_hook_name( $this->slug ) );
+
+				$this->assertSame( $token, $this->token_manager->get( $this->plugin ) );
+				$this->assertEquals( 1, did_action( 'stellarwp/uplink/' . Config::get_hook_prefix() . '/' . $this->slug . '/connected' ) );
+				$this->assertEquals( 1, did_action( 'stellarwp/uplink/' . Config::get_hook_prefix() . '/connected' ) );
 			},
 			true,
-			'Testing uplink',
+			'When an Uplink license is valid, is_any_license_valid should return true. ',
 		];
+
+		yield 'Uplink, valid license, with invalid pue plugin' => [
+			function () {
+
+				for ( $i = 1; $i <= 10; $i++ ) {
+					$validated_key           = md5( microtime() . $i );
+					$plugin_name             = "test-plugin-{$i}";
+					$this->temp_pue_plugin[] = $plugin_name;
+					update_option( "pue_install_key_{$plugin_name}", $validated_key );
+
+					$pue_instance = new PUE_Checker( 'deprecated', $plugin_name, [], "{$plugin_name}/{$plugin_name}.php" );
+					// All plugins are set as invalid.
+					$pue_instance->set_key_status( 0 );
+				}
+
+				global $_GET;
+
+
+				wp_set_current_user( 1 );
+
+				$this->token_manager = tribe( Token_Manager::class );
+				$this->assertNull( $this->token_manager->get( $this->plugin ) );
+
+				$nonce = ( tribe( Nonce::class ) )->create();
+				$token = '53ca40ab-c6c7-4482-a1eb-14c56da31015';
+
+				// Mock these were passed via the query string.
+				$_GET[ Connect_Controller::TOKEN ] = $token;
+				$_GET[ Connect_Controller::NONCE ] = $nonce;
+				$_GET[ Connect_Controller::SLUG ]  = $this->slug;
+
+				// Mock we're an admin inside the dashboard.
+				$this->admin_init();
+
+				// Fire off the specification action tied to this slug.
+				do_action( tribe( Action_Manager::class )->get_hook_name( $this->slug ) );
+
+				$this->assertSame( $token, $this->token_manager->get( $this->plugin ) );
+				$this->assertEquals( 1, did_action( 'stellarwp/uplink/' . Config::get_hook_prefix() . '/' . $this->slug . '/connected' ) );
+				$this->assertEquals( 1, did_action( 'stellarwp/uplink/' . Config::get_hook_prefix() . '/connected' ) );
+			},
+			true,
+			'When an Uplink license is valid, and old licenses are invalid, is_any_license_valid should return true. ',
+		];
+	}
+
+	/**
+	 * Mock we're inside the wp-admin dashboard and fire off the admin_init hook.
+	 *
+	 * @param bool $network Whether we're in the network dashboard.
+	 *
+	 * @return void
+	 */
+	protected function admin_init( bool $network = false ): void {
+		$screen                    = WP_Screen::get( $network ? 'dashboard-network' : 'dashboard' );
+		$GLOBALS['current_screen'] = $screen;
+
+		if ( $network ) {
+			$this->assertTrue( $screen->in_admin( 'network' ) );
+		}
+
+		$this->assertTrue( $screen->in_admin() );
+
+		// Fire off admin_init to run any of our events hooked into this action.
+		do_action( 'admin_init' );
 	}
 }

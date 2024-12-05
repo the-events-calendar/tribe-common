@@ -404,7 +404,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'admin_enqueue_scripts', [ $this, 'maybe_display_json_error_on_plugins_page' ], 1 );
 			add_action( 'admin_init', [ $this, 'general_notifications' ] );
 
-			add_action( 'wp_loaded', [ $this, 'monitor_uplink_actions' ] );
+			add_action( 'init', [ $this, 'monitor_uplink_actions' ], 1000 );
 
 			// Package name.
 			add_filter( 'upgrader_pre_download', [ Tribe__PUE__Package_Handler::instance(), 'filter_upgrader_pre_download' ], 5, 3 );
@@ -2109,26 +2109,16 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			if ( $has_run ) {
 				return;
 			}
-			$plugins = uplink_get_plugins();
 
-			// Loop through plugin resources and add actions.
-			foreach ( $plugins as $resource ) {
-				if ( ! $resource instanceof Plugin ) {
-					continue; // Skip non-Plugin resources.
-				}
-
-				$slug = $resource->get_slug();
-
-				// Hook into the existing 'connected' action for the specific plugin slug.
-				add_action(
-					'stellarwp/uplink/' . Config::get_hook_prefix() . '/' . $slug . '/connected',
-					function () use ( $slug ) {
-						set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, 'valid', HOUR_IN_SECONDS );
-					},
-					10,
-					1
-				);
-			}
+			// Hook into the existing 'connected' action for the specific plugin slug.
+			add_action(
+				'stellarwp/uplink/' . Config::get_hook_prefix() . '/connected',
+				function () {
+					set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, 'valid', HOUR_IN_SECONDS );
+				},
+				10,
+				1
+			);
 
 			$has_run = true;
 		}
