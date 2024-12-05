@@ -274,24 +274,21 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			// Transient is missing or unexpected, revalidate licenses.
 			foreach ( self::$instances as $checker ) {
+				// First, check if the key is already valid.
 				if ( $checker->is_key_valid() ) {
 					// Found a valid license; update transient and return true.
 					set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $valid_slug, HOUR_IN_SECONDS );
 					return true;
 				}
-			}
 
-			// Revalidate if we haven't found a valid license yet.
-			foreach ( self::$instances as $checker ) {
+				// If not valid, attempt to revalidate the license.
 				$license  = get_option( $checker->get_license_option_key() );
 				$response = $checker->validate_key( $license );
-				// Is it valid?
 				if ( ! empty( $response['status'] ) ) {
 					set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $valid_slug, HOUR_IN_SECONDS );
 					return true;
 				}
 			}
-
 
 			// No valid licenses found; mark as invalid and return false.
 			set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $invalid_slug, HOUR_IN_SECONDS );
