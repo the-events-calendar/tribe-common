@@ -236,7 +236,7 @@ abstract class Abstract_Admin_Page {
 
 			<?php do_action( 'tec_admin_header_before_content' ); ?>
 			<main id="tec-admin__content" <?php tribe_classes( $this->content_wrapper_classes() ); ?>>
-				<?php $this->admin_page_main(); ?>
+				<?php $this->admin_page_main_content(); ?>
 			</main>
 			<?php if ( static::$has_sidebar ) : ?>
 				<aside id="tec-admin__sidebar" <?php tribe_classes( $this->content_wrapper_classes() ); ?>>
@@ -266,9 +266,9 @@ abstract class Abstract_Admin_Page {
 		ob_start();
 		?>
 			<?php $this->do_page_logo(); ?>
-			<?php do_action( 'tec-admin-header-before-title' ); ?>
+			<?php do_action( 'tec_admin_header_before_title' ); ?>
 			<?php $this->admin_page_title(); ?>
-			<?php do_action( 'tec-admin-header-after-title' ); ?>
+			<?php do_action( 'tec_admin_header_after_title' ); ?>
 		<?php
 		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
@@ -297,7 +297,7 @@ abstract class Abstract_Admin_Page {
 	 *
 	 * @return void Renders the admin page main content.
 	 */
-	abstract public function admin_page_main(): void;
+	abstract public function admin_page_main_content(): void;
 
 	/**
 	 * Render the admin page sidebar content.
