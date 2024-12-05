@@ -8,7 +8,12 @@
  * @todo switch all plugins over to use the PUE utilities here in Commons
  */
 
+use TEC\Common\StellarWP\Uplink\Resources\Plugin;
+use TEC\Common\StellarWP\Uplink\Config;
+
 use function TEC\Common\StellarWP\Uplink\get_resource;
+use function TEC\Common\StellarWP\Uplink\get_plugins as uplink_get_plugins;
+
 
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -396,6 +401,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_filter( 'tribe-pue-install-keys', [ $this, 'return_install_key' ] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'maybe_display_json_error_on_plugins_page' ], 1 );
 			add_action( 'admin_init', [ $this, 'general_notifications' ] );
+
+			add_action( 'tribe_common_loaded', [ $this, 'monitor_uplink_actions' ] );
 
 			// Package name.
 			add_filter( 'upgrader_pre_download', [ Tribe__PUE__Package_Handler::instance(), 'filter_upgrader_pre_download' ], 5, 3 );
@@ -2083,6 +2090,42 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			return true;
+		}
+
+		/**
+		 * Monitors Uplink and hooks into the plugin connected action.
+		 *
+		 * This method loops through the registered Uplink plugins and hooks into the
+		 * 'stellarwp/uplink/{slug}/connected' action for each plugin resource.
+		 *
+		 * @since 2.2.1
+		 */
+		public function monitor_uplink_actions() {
+			$plugins = uplink_get_plugins();
+
+			// Early return if resources are not valid.
+			if ( empty( $plugins['resources'] ) || ! is_array( $plugins['resources'] ) ) {
+				return;
+			}
+
+			// Loop through plugin resources and add actions.
+			foreach ( $plugins['resources'] as $resource ) {
+				if ( ! $resource instanceof Plugin ) {
+					continue; // Skip non-Plugin resources.
+				}
+
+				$slug = $resource->get_slug();
+
+				// Hook into the existing 'connected' action for the specific plugin slug.
+				add_action(
+					'stellarwp/uplink/' . Config::get_hook_prefix() . '/' . $slug . '/connected',
+					function ( $plugin ) use ( $slug ) {
+						// Add logic for `IS_ANY_LICENSE_VALID_TRANSIENT_KEY`.
+					},
+					10,
+					1
+				);
+			}
 		}
 	}
 }
