@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 use TEC\Common\Admin\Entities\Element_With_Children;
 use TEC\Common\Admin\Entities\Field_Wrapper;
 use Tribe\Admin\Pages as Admin_Pages;
+use TEC\Common\Notifications\Controller;
 
 if ( did_action( 'tec_settings_init' ) ) {
 	return;
@@ -589,12 +590,17 @@ class Tribe__Settings {
 	 */
 	public function do_page_header( $admin_page ): void {
 		?>
-		<h1>
-			<?php if ( $this->is_event_settings() ) : ?>
-				<?php echo wp_kses_post( $this->get_page_logo( $admin_page ) ); ?>
+		<div class="tec-settings-header-wrap">
+			<h1>
+				<?php if ( $this->is_event_settings() ) : ?>
+					<?php echo wp_kses_post( $this->get_page_logo( $admin_page ) ); ?>
+				<?php endif; ?>
+				<?php echo esc_html( $this->get_page_title( $admin_page ) ); ?>
+			</h1>
+			<?php if ( tribe( Controller::class )->is_ian_page() ) : ?>
+				<div class="ian-client" data-trigger="iconIan"></div>
 			<?php endif; ?>
-			<?php echo esc_html( $this->get_page_title( $admin_page ) ); ?>
-		</h1>
+		</div>
 		<?php
 	}
 
@@ -870,7 +876,12 @@ class Tribe__Settings {
 		<dialog id="tec-settings-nav-modal" class="tec-settings-form__modal">
 			<div class="tec-modal__content">
 				<div class="tec-modal__header">
-					<?php $this->do_page_header( $admin_page ); ?>
+					<h1>
+						<?php if ( $this->is_event_settings() ) : ?>
+							<?php echo wp_kses_post( $this->get_page_logo( $admin_page ) ); ?>
+						<?php endif; ?>
+						<?php echo esc_html( $this->get_page_title( $admin_page ) ); ?>
+					</h1>
 					<button id="tec-settings-nav-modal-close" class="tec-modal__control tec-modal__control--close" data-modal-close>
 						<span class="screen-reader-text"><?php esc_html_e( 'Close', 'tribe-common' ); ?></span>
 					</button>
