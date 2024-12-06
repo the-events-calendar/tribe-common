@@ -10,10 +10,9 @@
 
 use TEC\Common\StellarWP\Uplink\Resources\Plugin;
 use TEC\Common\StellarWP\Uplink\Config;
+use Tribe\Admin\Pages;
 
 use function TEC\Common\StellarWP\Uplink\get_resource;
-use function TEC\Common\StellarWP\Uplink\get_plugins as uplink_get_plugins;
-
 
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -404,7 +403,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'admin_enqueue_scripts', [ $this, 'maybe_display_json_error_on_plugins_page' ], 1 );
 			add_action( 'admin_init', [ $this, 'general_notifications' ] );
 
-			add_action( 'init', [ $this, 'monitor_uplink_actions' ], 1000 );
+			add_action( 'admin_init', [ $this, 'monitor_uplink_actions' ], 1000 );
 
 			// Package name.
 			add_filter( 'upgrader_pre_download', [ Tribe__PUE__Package_Handler::instance(), 'filter_upgrader_pre_download' ], 5, 3 );
@@ -2105,8 +2104,20 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public function monitor_uplink_actions() {
 			static $has_run = false;
 
-			// Check if the method has already run.
 			if ( $has_run ) {
+				return;
+			}
+
+			if ( ! is_admin() ) {
+				return;
+			}
+
+			// Check that we are on an admin page.
+			/** @var Tribe\Admin\Pages */
+			$admin_pages = tribe( 'admin.pages' );
+			$admin_page  = $admin_pages->get_current_page();
+
+			if ( empty( $admin_page ) ) {
 				return;
 			}
 
