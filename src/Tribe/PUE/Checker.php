@@ -8,9 +8,7 @@
  * @todo switch all plugins over to use the PUE utilities here in Commons
  */
 
-use TEC\Common\StellarWP\Uplink\Resources\Plugin;
 use TEC\Common\StellarWP\Uplink\Config;
-use Tribe\Admin\Pages;
 
 use function TEC\Common\StellarWP\Uplink\get_resource;
 
