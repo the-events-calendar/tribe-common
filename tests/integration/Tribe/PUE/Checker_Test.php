@@ -384,7 +384,7 @@ class Checker_Test extends WPTestCase {
 		$this->assertSame( $token, $this->token_manager->get( $plugin ) );
 
 		// Verify that the general 'connected' action fires.
-		$this->assertEquals( 1, did_action( 'stellarwp/uplink/' . Config::get_hook_prefix() . '/connected' ) );
+		$this->assertEquals( 1, did_action( 'stellarwp/uplink/' . Config::get_hook_prefix() . '/connected' ) ,'Hook should only run once');
 
 		return $token;
 	}
