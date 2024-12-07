@@ -4,6 +4,9 @@ namespace TEC\Common\Notifications;
 
 use Codeception\TestCase\WPTestCase;
 use Tribe\Tests\Traits\With_Uopz;
+use Tribe\Tests\Traits\WP_Send_Json_Mocks;
+use TEC\Common\Notifications\Readable_Trait;
+use TEC\Common\Admin\Conditional_Content\Dismissible_Trait;
 
 /**
  * Class Notifications_Test
@@ -14,6 +17,9 @@ use Tribe\Tests\Traits\With_Uopz;
  */
 class Notifications_Test extends WPTestCase {
 	use With_Uopz;
+	use WP_Send_JSON_Mocks;
+	use Readable_Trait;
+	use Dismissible_Trait;
 
 	protected $ian_optin_key = 'ian-notifications-opt-in';
 
@@ -42,12 +48,12 @@ class Notifications_Test extends WPTestCase {
 				'actions'     => [
 					[
 						'text'   => 'See Details',
-						'link'   => 'https://evnt.is/1ai-',
+						'url'    => 'https://evnt.is/1ai-',
 						'target' => '_blank',
 					],
 					[
 						'text'   => 'Update Now',
-						'link'   => '/wp-admin/update-core.php',
+						'url'    => '/wp-admin/update-core.php',
 						'target' => '_self',
 					],
 				],
@@ -63,7 +69,7 @@ class Notifications_Test extends WPTestCase {
 				'actions'     => [
 					[
 						'text'   => 'Learn More',
-						'link'   => 'https://evnt.is/1aj1',
+						'url'    => 'https://evnt.is/1aj1',
 						'target' => '_blank',
 					],
 				],
@@ -79,7 +85,7 @@ class Notifications_Test extends WPTestCase {
 				'actions'     => [
 					[
 						'text'   => 'Update',
-						'link'   => '/wp-admin/plugins.php?plugin_status=upgrade',
+						'url'    => '/wp-admin/plugins.php?plugin_status=upgrade',
 						'target' => '_self',
 					],
 				],
@@ -92,7 +98,12 @@ class Notifications_Test extends WPTestCase {
 	/**
 	 * Setup AJAX Test.
 	 */
-	private function ajax_setup() {
+	private function ajax_setup( int $user_id = null ) {
+		if ( null === $user_id ) {
+			$user_id = self::factory()->user->create( [ 'role' => 'administrator' ] );
+			wp_set_current_user( $user_id );
+		}
+
 		$this->set_fn_return( 'wp_create_nonce', 'common_ian_nonce' );
 		$this->set_fn_return( 'check_ajax_referer', true );
 		$this->set_fn_return( 'wp_doing_ajax', true );
@@ -147,10 +158,10 @@ class Notifications_Test extends WPTestCase {
 	 * @test
 	 */
 	public function it_should_return_the_full_feed() {
-		$feed = $this->get_mocked_feed();
-		$filtered_feed = Conditionals::filter_feed( $feed );
-		$this->assertIsArray( $filtered_feed, 'Filtered feed should be an array' );
-		$this->assertCount( 3, $filtered_feed, 'Filtered feed should have three items' );
+		$feed     = $this->get_mocked_feed();
+		$filtered = Conditionals::filter_feed( $feed );
+		$this->assertIsArray( $filtered, 'Filtered feed should be an array' );
+		$this->assertCount( 3, $filtered, 'Filtered feed should have three items' );
 	}
 
 	/**
@@ -164,8 +175,8 @@ class Notifications_Test extends WPTestCase {
 			'php_version<=1.8',
 		];
 
-		$filtered_feed = Conditionals::filter_feed( $feed );
-		$this->assertCount( 2, $filtered_feed, 'Filtered feed should have two items' );
+		$filtered = Conditionals::filter_feed( $feed );
+		$this->assertCount( 2, $filtered, 'Filtered feed should have two items' );
 	}
 
 	/**
@@ -183,8 +194,8 @@ class Notifications_Test extends WPTestCase {
 			'wp_version<=4',
 		];
 
-		$filtered_feed = Conditionals::filter_feed( $feed );
-		$this->assertCount( 1, $filtered_feed, 'Filtered feed should have one item' );
+		$filtered = Conditionals::filter_feed( $feed );
+		$this->assertCount( 1, $filtered, 'Filtered feed should have one item' );
 	}
 
 	/**
@@ -202,7 +213,156 @@ class Notifications_Test extends WPTestCase {
 			'plugin_version:woocommerce@<=2.0.0',
 		];
 
-		$filtered_feed = Conditionals::filter_feed( $feed );
-		$this->assertCount( 1, $filtered_feed, 'Filtered feed should have one item' );
+		$filtered = Conditionals::filter_feed( $feed );
+		$this->assertCount( 1, $filtered, 'Filtered feed should have one item' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_dismiss_notification() {
+		$this->ajax_setup();
+
+		$user_dismissed = get_user_meta( get_current_user_id(), $this->meta_key );
+		$this->assertEmpty( $user_dismissed, 'User should not have dismissed any notifications yet' );
+
+		$feed = $this->get_mocked_feed();
+		$slug = $feed[0]['slug'];
+		$id   = $feed[0]['id'];
+
+		$this->slug = $slug;
+		$this->assertFalse( $this->has_user_dismissed(), 'Dismissible trait should show user has not dismissed this' );
+
+		$this->set_fn_return( 'wp_create_nonce', 'ian_nonce_' . $id );
+
+		$_REQUEST['slug'] = $slug;
+		$_REQUEST['id']   = $id;
+
+		$wp_send_json_success = $this->mock_wp_send_json_success();
+
+		do_action( 'wp_ajax_ian_dismiss' );
+
+		$this->assertTrue( $wp_send_json_success->was_called(), 'wp_send_json_success should be called' );
+		$this->assertTrue( $wp_send_json_success->was_verified(), 'wp_send_json_success should be verified' );
+
+		$response = $wp_send_json_success->get_calls()[0][0];
+		$this->assertEquals( 'Notification dismissed', $response, 'Response should be "Notification dismissed"' );
+
+		$status = $wp_send_json_success->get_calls()[0][1];
+		$this->assertEquals( 200, $status, 'Status should be 200' );
+
+		$user_dismissed = get_user_meta( get_current_user_id(), $this->meta_key );
+		$this->assertContains( $slug, $user_dismissed, 'User meta should contain the notification slug as read' );
+
+		$this->assertTrue( $this->has_user_dismissed(), 'Dismissible trait should show user has read the notification' );
+
+		$this->reset_wp_send_json_mocks();
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_mark_notification_as_read() {
+		$this->ajax_setup();
+
+		$user_has_read = get_user_meta( get_current_user_id(), $this->read_meta_key );
+		$this->assertEmpty( $user_has_read, 'User should not have read any notifications yet' );
+
+		$feed = $this->get_mocked_feed();
+		$slug = $feed[0]['slug'];
+		$id   = $feed[0]['id'];
+
+		$this->slug = $slug;
+		$this->assertFalse( $this->has_user_read(), 'Readable trait should show user has not read the notification yet' );
+
+		$this->set_fn_return( 'wp_create_nonce', 'ian_nonce_' . $id );
+
+		$_REQUEST['slug'] = $slug;
+		$_REQUEST['id']   = $id;
+
+		$wp_send_json_success = $this->mock_wp_send_json_success();
+
+		do_action( 'wp_ajax_ian_read' );
+
+		$this->assertTrue( $wp_send_json_success->was_called(), 'wp_send_json_success should be called' );
+		$this->assertTrue( $wp_send_json_success->was_verified(), 'wp_send_json_success should be verified' );
+
+		$response = $wp_send_json_success->get_calls()[0][0];
+		$this->assertEquals( 'Notification marked as read', $response, 'Response should be "Notification marked as read"' );
+
+		$status = $wp_send_json_success->get_calls()[0][1];
+		$this->assertEquals( 200, $status, 'Status should be 200' );
+
+		$user_has_read = get_user_meta( get_current_user_id(), $this->read_meta_key );
+		$this->assertContains( $slug, $user_has_read, 'User meta should contain the notification slug as read' );
+
+		$this->assertTrue( $this->has_user_read(), 'Readable trait should show user has read the notification' );
+
+		$this->reset_wp_send_json_mocks();
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_mark_all_notifications_as_read() {
+		$this->ajax_setup();
+
+		$user_has_read = get_user_meta( get_current_user_id(), $this->read_meta_key );
+		$this->assertEmpty( $user_has_read, 'User should not have read any notifications yet' );
+
+		$feed = $this->get_mocked_feed();
+
+		$slugs = array_map(
+			function ( $item ) {
+				return $item['slug'];
+			},
+			$feed
+		);
+
+		$_REQUEST['unread'] = wp_json_encode( $slugs );
+
+		$wp_send_json_success = $this->mock_wp_send_json_success();
+
+		do_action( 'wp_ajax_ian_read_all' );
+
+		$this->assertTrue( $wp_send_json_success->was_called(), 'wp_send_json_success should be called' );
+		$this->assertTrue( $wp_send_json_success->was_verified(), 'wp_send_json_success should be verified' );
+
+		$response = $wp_send_json_success->get_calls()[0][0];
+		$this->assertEquals( 'All notifications marked as read', $response, 'Response should be "All notifications marked as read"' );
+
+		$status = $wp_send_json_success->get_calls()[0][1];
+		$this->assertEquals( 200, $status, 'Status should be 200' );
+
+		$user_has_read = get_user_meta( get_current_user_id(), $this->read_meta_key );
+		$this->assertCount( count( $feed ), $user_has_read, 'User meta should contain all notification slugs as read' );
+
+		$this->reset_wp_send_json_mocks();
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_get_cached_feed_via_ajax() {
+		$this->ajax_setup();
+
+		$feed  = $this->get_mocked_feed();
+		$cache = tribe_cache();
+		$cache->set_transient( 'tec_ian_api_feed', $feed, 15 * MINUTE_IN_SECONDS );
+
+		$wp_send_json_success = $this->mock_wp_send_json_success();
+
+		do_action( 'wp_ajax_ian_get_feed' );
+
+		$this->assertTrue( $wp_send_json_success->was_called(), 'wp_send_json_success should be called' );
+		$this->assertTrue( $wp_send_json_success->was_verified(), 'wp_send_json_success should be verified' );
+
+		$status = $wp_send_json_success->get_calls()[0][1];
+		$this->assertEquals( 200, $status, 'Status should be 200' );
+
+		$response = $wp_send_json_success->get_calls()[0][0];
+		$this->assertCount( count( $feed ), $response, 'Response should be the feed' );
+
+		$this->reset_wp_send_json_mocks();
 	}
 }

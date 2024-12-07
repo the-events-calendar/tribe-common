@@ -22,7 +22,7 @@ trait Readable_Trait {
 	 *
 	 * @var string
 	 */
-	protected string $read_get_read_nonce = 'tec-readable-content';
+	protected string $read_meta_key = 'tec-readable-content';
 
 	/**
 	 * Request param used to pass the nonce for reading.
@@ -40,7 +40,7 @@ trait Readable_Trait {
 	 *
 	 * @var string
 	 */
-	protected string $read_get_read_nonce_time_prefix = 'tec-readable-content-time-';
+	protected string $read_meta_key_time_prefix = 'tec-readable-content-time-';
 
 	/**
 	 * Get the nonce action for this readable content.
@@ -125,9 +125,9 @@ trait Readable_Trait {
 			return true;
 		}
 
-		update_user_meta( $user_id, $this->read_get_read_nonce_time_prefix . $this->slug, time() );
+		update_user_meta( $user_id, $this->read_meta_key_time_prefix . $this->slug, time() );
 
-		return (bool) add_user_meta( $user_id, $this->read_get_read_nonce, $this->slug );
+		return (bool) add_user_meta( $user_id, $this->read_meta_key, $this->slug );
 	}
 
 	/**
@@ -153,7 +153,7 @@ trait Readable_Trait {
 			return false;
 		}
 
-		return delete_user_meta( $user_id, $this->read_get_read_nonce, $this->slug );
+		return delete_user_meta( $user_id, $this->read_meta_key, $this->slug );
 	}
 
 	/**
@@ -174,7 +174,7 @@ trait Readable_Trait {
 			$user_id = get_current_user_id();
 		}
 
-		$read_notifications = get_user_meta( $user_id, $this->read_get_read_nonce );
+		$read_notifications = get_user_meta( $user_id, $this->read_meta_key );
 
 		if ( ! is_array( $read_notifications ) ) {
 			return false;

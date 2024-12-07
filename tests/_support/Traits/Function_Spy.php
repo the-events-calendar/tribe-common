@@ -55,6 +55,15 @@ trait Function_Spy {
 	}
 
 	/**
+	 * Returns the calls that have been made to the function.
+	 *
+	 * @return array
+	 */
+	public function get_calls(): array {
+		return $this->calls;
+	}
+
+	/**
 	 * Registers a call to the function.
 	 *
 	 * @param array<int,mixed> $args
