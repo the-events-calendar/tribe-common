@@ -2,16 +2,17 @@
 
 namespace TEC\Common\Notifications;
 
+use Codeception\TestCase\WPTestCase;
 use Tribe\Tests\Traits\With_Uopz;
 
 /**
- * Class NotificationsTest
+ * Class Notifications_Test
  *
  * @since 6.4.0
  *
  * @package TEC\Common\Notifications
  */
-class NotificationsTest extends \Codeception\TestCase\WPTestCase {
+class Notifications_Test extends WPTestCase {
 	use With_Uopz;
 
 	protected $ian_optin_key = 'ian-notifications-opt-in';
@@ -31,7 +32,7 @@ class NotificationsTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	private function get_mocked_feed() {
-		$feed = [
+		return [
 			[
 				'id'          => '101',
 				'type'        => 'update',
@@ -86,8 +87,6 @@ class NotificationsTest extends \Codeception\TestCase\WPTestCase {
 				'conditions'  => [],
 			],
 		];
-
-		return $feed;
 	}
 
 	/**
