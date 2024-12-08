@@ -21,13 +21,13 @@ class Notifications_Test extends WPTestCase {
 	use Readable_Trait;
 	use Dismissible_Trait;
 
-	protected $ian_optin_key = 'ian-notifications-opt-in';
+	protected $optin_key = 'ian-notifications-opt-in';
 
 	protected $main_nonce = 'common_ian_nonce';
 
 	protected $nonce_prefix = 'ian_nonce_';
 
-	protected $ajax_actions = [
+	protected $actions = [
 		'optin'    => 'wp_ajax_ian_optin',
 		'dismiss'  => 'wp_ajax_ian_dismiss',
 		'read'     => 'wp_ajax_ian_read',
@@ -39,14 +39,14 @@ class Notifications_Test extends WPTestCase {
 	 * @before
 	 */
 	public function init_notifications() {
-		tribe_update_option( $this->ian_optin_key, false );
+		tribe_update_option( $this->optin_key, false );
 	}
 
 	/**
 	 * @after
 	 */
 	public function deinit_notifications() {
-		delete_option( $this->ian_optin_key );
+		delete_option( $this->optin_key );
 	}
 
 	private function get_mocked_feed() {
@@ -56,7 +56,7 @@ class Notifications_Test extends WPTestCase {
 				'type'        => 'update',
 				'slug'        => 'tec-update-664',
 				'title'       => 'The Events Calendar 6.6.4 Update',
-				'html'        => '<p>The latest update of The Events Calendar adds an option to allow for duplicate Venue creation, updates custom table query logic to avoid DB error, and logic that displays the “REST API blocked” banner to prevent false positives.</p>',
+				'html'        => '<p>The latest update of The Events Calendar adds exiting new features!</p>',
 				'actions'     => [
 					[
 						'text'   => 'See Details',
@@ -126,7 +126,7 @@ class Notifications_Test extends WPTestCase {
 	 * @test
 	 */
 	public function it_should_return_true_for_opt_in() {
-		tribe_update_option( $this->ian_optin_key, true );
+		tribe_update_option( $this->optin_key, true );
 		$optin = Conditionals::get_opt_in();
 		$this->assertTrue( $optin, 'Opt-in check should be true' );
 	}
@@ -240,7 +240,7 @@ class Notifications_Test extends WPTestCase {
 
 		$wp_send_json_success = $this->mock_wp_send_json_success();
 
-		do_action( $this->ajax_actions['optin'] );
+		do_action( $this->actions['optin'] );
 
 		$this->assertTrue( $wp_send_json_success->was_called(), 'wp_send_json_success should be called' );
 		$this->assertTrue( $wp_send_json_success->was_verified(), 'wp_send_json_success should be verified' );
@@ -269,7 +269,7 @@ class Notifications_Test extends WPTestCase {
 
 		$wp_send_json_success = $this->mock_wp_send_json_success();
 
-		do_action( $this->ajax_actions['get_feed'] );
+		do_action( $this->actions['get_feed'] );
 
 		$this->assertTrue( $wp_send_json_success->was_called(), 'wp_send_json_success should be called' );
 		$this->assertTrue( $wp_send_json_success->was_verified(), 'wp_send_json_success should be verified' );
@@ -306,7 +306,7 @@ class Notifications_Test extends WPTestCase {
 
 		$wp_send_json_success = $this->mock_wp_send_json_success();
 
-		do_action( $this->ajax_actions['dismiss'] );
+		do_action( $this->actions['dismiss'] );
 
 		$this->assertTrue( $wp_send_json_success->was_called(), 'wp_send_json_success should be called' );
 		$this->assertTrue( $wp_send_json_success->was_verified(), 'wp_send_json_success should be verified' );
@@ -348,7 +348,7 @@ class Notifications_Test extends WPTestCase {
 
 		$wp_send_json_success = $this->mock_wp_send_json_success();
 
-		do_action( $this->ajax_actions['read'] );
+		do_action( $this->actions['read'] );
 
 		$this->assertTrue( $wp_send_json_success->was_called(), 'wp_send_json_success should be called' );
 		$this->assertTrue( $wp_send_json_success->was_verified(), 'wp_send_json_success should be verified' );
@@ -389,7 +389,7 @@ class Notifications_Test extends WPTestCase {
 
 		$wp_send_json_success = $this->mock_wp_send_json_success();
 
-		do_action( $this->ajax_actions['read_all'] );
+		do_action( $this->actions['read_all'] );
 
 		$this->assertTrue( $wp_send_json_success->was_called(), 'wp_send_json_success should be called' );
 		$this->assertTrue( $wp_send_json_success->was_verified(), 'wp_send_json_success should be verified' );
