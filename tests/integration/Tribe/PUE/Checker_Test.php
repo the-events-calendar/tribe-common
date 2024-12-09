@@ -154,15 +154,25 @@ class Checker_Test extends WPTestCase {
 	 * @test
 	 * @dataProvider license_validation_data_provider
 	 */
-	public function should_is_any_license_valid_return_correctly( Closure $setup_closure, $expected_result, $message, $plugins_names ): void {
-		// Clean up before each scenario.
-		$this->clean_up_test_options( $plugins_names );
+	public function should_is_any_license_valid_return_correctly( Closure $setup_closure, $expected_result, $message ): void {
 		// Run the setup closure to configure the test scenario.
-		$setup_closure();
+		$plugins_names = $setup_closure();
 
 		// Assert the expected outcome.
 		$this->assertEquals( $expected_result, PUE_Checker::is_any_license_valid(), $message );
 
+		$transient = get_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+
+		// Assert that all plugin names are present in the transient.
+		foreach ( $plugins_names as $plugin_name ) {
+			$this->assertArrayHasKey(
+				$plugin_name,
+				$transient['plugins'],
+				sprintf( 'The plugin "%s" should exist in the transient.', $plugin_name )
+			);
+		}
+		// Clean up before each scenario.
+		$this->clean_up_test_options( $plugins_names );
 	}
 
 	/**
@@ -190,11 +200,11 @@ class Checker_Test extends WPTestCase {
 		yield 'initially_unlicensed' => [
 			function () use ( &$plugin_names ) {
 				$plugin_names = [];
+				return $plugin_names;
 				// No setup needed, all licenses are invalid initially.
 			},
 			false,
 			'Initially unlicensed should return invalid.',
-			[],
 		];
 
 		yield 'license_a_plugin' => [
@@ -206,10 +216,10 @@ class Checker_Test extends WPTestCase {
 				update_option( "pue_install_key_{$plugin_name}", $validated_key );
 				$pue_instance = new PUE_Checker( 'deprecated', $plugin_name, [], "{$plugin_name}/{$plugin_name}.php" );
 				$pue_instance->set_key_status( 1 ); // Set valid status.
+				return $plugin_names;
 			},
 			true,
 			'Licensing a plugin should make is_any_license_valid return valid.',
-			&$plugin_names,
 		];
 
 		yield 'transient_deleted' => [
@@ -222,14 +232,14 @@ class Checker_Test extends WPTestCase {
 				$pue_instance = new PUE_Checker( 'deprecated', $plugin_name, [], "{$plugin_name}/{$plugin_name}.php" );
 				$pue_instance->set_key_status( 1 ); // Set valid status.
 				delete_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY ); // Simulate transient deletion.
+				return $plugin_names;
 			},
 			true,
 			'Deleting transient should trigger revalidation and return valid if at least one license is valid.',
-			&$plugin_names,
 		];
 
 		yield 'multiple_plugins_with_even_valid' => [
-			function () use ( &$plugin_names ) {
+			function () {
 				$plugin_names = [];
 				for ( $i = 1; $i <= 10; $i++ ) {
 					$validated_key  = md5( microtime() . $i );
@@ -246,14 +256,14 @@ class Checker_Test extends WPTestCase {
 						$pue_instance->set_key_status( 0 );
 					}
 				}
+				return $plugin_names;
 			},
 			true,
 			'At least one valid license (even-numbered plugins) should make is_any_license_valid return valid.',
-			&$plugin_names,
 		];
 
 		yield 'all_plugins_invalid' => [
-			function () use ( &$plugin_names ) {
+			function () {
 				$plugin_names = [];
 				for ( $i = 1; $i <= 10; $i++ ) {
 					$validated_key  = md5( microtime() . $i );
@@ -265,26 +275,26 @@ class Checker_Test extends WPTestCase {
 					// All plugins are set as invalid.
 					$pue_instance->set_key_status( 0 );
 				}
+				return $plugin_names;
 			},
 			false,
 			'When all plugins are invalid, is_any_license_valid should return false.',
-			&$plugin_names,
 		];
 
 		yield 'Uplink, valid license' => [
-			function () use ( &$plugin_names ) {
+			function () {
 				$plugin_names   = [];
 				$slug           = 'valid-plugin-1';
 				$plugin_names[] = $slug;
 				$this->create_valid_uplink_license( $slug );
+				return $plugin_names;
 			},
 			true,
 			'When an Uplink license is valid, is_any_license_valid should return true.',
-			&$plugin_names,
 		];
 
 		yield 'Uplink, valid license, with invalid PUE plugin' => [
-			function () use ( &$plugin_names ) {
+			function () {
 				$plugin_names   = [];
 				$slug           = 'valid-plugin-2';
 				$plugin_names[] = $slug;
@@ -293,15 +303,16 @@ class Checker_Test extends WPTestCase {
 				for ( $i = 1; $i <= 10; $i++ ) {
 					$validated_key           = md5( microtime() . $i );
 					$plugin_name             = "test-plugin-{$i}";
+					$plugin_names[] = $plugin_name;
 					update_option( "pue_install_key_{$plugin_name}", $validated_key );
 
 					$pue_instance = new PUE_Checker( 'deprecated', $plugin_name, [], "{$plugin_name}/{$plugin_name}.php" );
 					$pue_instance->set_key_status( 0 ); // All plugins are invalid.
 				}
+				return $plugin_names;
 			},
 			true,
 			'When an Uplink license is valid, and old licenses are invalid, is_any_license_valid should return true.',
-			&$plugin_names,
 		];
 	}
 
