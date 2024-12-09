@@ -2098,7 +2098,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Checks if a valid Uplink license exists.
 		 *
 		 * This method confirms if the 'stellarwp/uplink/{prefix}/connected' action
-		 * has been fired, which indicates a valid license.
+		 * has been fired, which indicates at least one valid license.
+		 *
+		 * @since TBD
 		 *
 		 * @return bool True if at least one license is valid, false otherwise.
 		 */
