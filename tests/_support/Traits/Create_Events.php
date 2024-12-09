@@ -91,13 +91,12 @@ trait Create_Events {
 	 * @since 6.0.0
 	 *
 	 * @param string        $mock_date A date string to use to create an event.
-	 * @param array<string> $overrides An optional array of overrides to generate events.
 	 * @param string        $status    An event status to set the event to, default is canceled.
 	 *
 	 * @return array<\WP_Post> An array of event post objects, as decorated by the `tribe_get_event` function.
 	 */
-	protected function generate_multiple_events_and_update_event_status( $mock_date, $overrides = [], $status = 'canceled' ) {
-		$events = $this->generate_multiple_events( $mock_date, $overrides );
+	protected function generate_multiple_events_and_update_event_status( $mock_date, $status = 'canceled' ) {
+		$events = $this->generate_multiple_events( $mock_date );
 		$data   = [
 			'status'        => $status,
 			'status-reason' => 'Because Test',
@@ -158,13 +157,11 @@ trait Create_Events {
 	 * @since 6.0.0
 	 *
 	 * @param string        $mock_date A date string to use to create an event.
-	 * @param array<string> $overrides An optional array of overrides to generate events.
-	 * @param string        $status    An event status to set the event to, default is canceled.
 	 *
 	 * @return array<\WP_Post> An array of event post objects, as decorated by the `tribe_get_event` function.
 	 */
-	protected function generate_multiple_events_and_update_them( $mock_date, $overrides = [], $status = 'canceled' ) {
-		$events = $this->generate_multiple_events( $mock_date, $overrides );
+	protected function generate_multiple_events_and_update_them( $mock_date ) {
+		$events = $this->generate_multiple_events( $mock_date );
 		list( $start_date, $end_date ) = $this->get_update_event_details();
 
 		foreach ( $events as $key => $event ) {
