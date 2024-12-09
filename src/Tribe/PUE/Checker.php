@@ -251,7 +251,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @return bool True if a valid license is found, otherwise false.
 		 */
-		protected static function has_valid_license_in_transient( ?array $transient_value ): bool {
+		protected static function transient_contains_valid_license( ?array $transient_value ): bool {
 			if ( ! is_array( $transient_value ) || ! isset( $transient_value['plugins'] ) ) {
 				return false;
 			}
@@ -299,7 +299,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			// Check if the transient has a valid license.
-			if ( self::has_valid_license_in_transient( $transient_value ) ) {
+			if ( self::transient_contains_valid_license( $transient_value ) ) {
 				return true;
 			}
 
@@ -410,7 +410,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Install the hooks required to run periodic update checks and inject update info
 		 * into WP data structures.
-		 * Also other hooks related to the automatic updates (such as checking agains API and what not (@from Darren)
+		 * Also other hooks related to the automatic updates (such as checking against API and what not (@from Darren)
 		 */
 		public function hooks() {
 			// Override requests for plugin information.
@@ -2138,12 +2138,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// Hook into the existing 'connected' action for the specific plugin slug.
 			add_action(
 				'stellarwp/uplink/' . Config::get_hook_prefix() . '/connected',
-				function ($plugin) {
-					//set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, 'valid', HOUR_IN_SECONDS );
+				function ( $plugin ) {
 					self::update_any_license_valid_transient( $plugin->get_slug(), true );
 				},
-				10,
-				1
 			);
 		}
 	}
