@@ -270,6 +270,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		protected static function update_any_license_valid_transient( string $plugin_slug, bool $status ): void {
 			$transient_value = get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY ) ?: [ 'plugins' => [] ];
 
+			// If the transient value is false or a string, initialize it as an empty array with the 'plugins' key.
+			if ( ! is_array( $transient_value ) ) {
+				$transient_value = [ 'plugins' => [] ];
+			}
+
 			$transient_value['plugins'][ $plugin_slug ] = $status;
 
 			set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $transient_value, HOUR_IN_SECONDS );
@@ -286,7 +291,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public static function is_any_license_valid(): bool {
 			$transient_value = get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
-			$transient_value = $transient_value !== false ? $transient_value : [];
+			$transient_value = false !== $transient_value ? $transient_value : [];
+
+			// If the transient value is a string, convert it to an empty array.
+			if ( ! is_array( $transient_value ) ) {
+				$transient_value = [];
+			}
 
 			// Check if the transient has a valid license.
 			if ( self::has_valid_license_in_transient( $transient_value ) ) {

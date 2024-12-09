@@ -222,6 +222,38 @@ class Checker_Test extends WPTestCase {
 			'Licensing a plugin should make is_any_license_valid return valid.',
 		];
 
+		yield 'license_a_plugin_old_transient_valid' => [
+			function () {
+				$plugin_names   = [];
+				$validated_key  = md5( microtime() );
+				$plugin_name    = 'test-plugin-1';
+				$plugin_names[] = $plugin_name;
+				update_option( "pue_install_key_{$plugin_name}", $validated_key );
+				$pue_instance = new PUE_Checker( 'deprecated', $plugin_name, [], "{$plugin_name}/{$plugin_name}.php" );
+				$pue_instance->set_key_status( 1 ); // Set valid status.
+				set_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, 'valid', HOUR_IN_SECONDS );
+				return $plugin_names;
+			},
+			true,
+			'Licensing a plugin should make is_any_license_valid return valid.',
+		];
+
+		yield 'invalid_license_old_transient' => [
+			function () {
+				$plugin_names   = [];
+				$validated_key  = md5( microtime() );
+				$plugin_name    = 'test-plugin-1';
+				$plugin_names[] = $plugin_name;
+				update_option( "pue_install_key_{$plugin_name}", $validated_key );
+				$pue_instance = new PUE_Checker( 'deprecated', $plugin_name, [], "{$plugin_name}/{$plugin_name}.php" );
+				$pue_instance->set_key_status( 0 ); // Set valid status.
+				set_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, 'invalid', HOUR_IN_SECONDS );
+				return $plugin_names;
+			},
+			false,
+			'Licensing a plugin should make is_any_license_valid return valid.',
+		];
+
 		yield 'transient_deleted' => [
 			function () use ( &$plugin_names ) {
 				$plugin_names   = [];
