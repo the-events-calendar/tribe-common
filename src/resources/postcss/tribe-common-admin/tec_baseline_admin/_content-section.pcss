@@ -1,0 +1,37 @@
+.tec-admin-page__content-section {
+	grid-column: 1;
+	padding: 0;
+
+	~ .tec-admin-page__content-section {
+		padding: var(--tec-spacer-4) 0;
+	}
+
+	a {
+		color: var(--tec-admin-core-blue-50);
+	}
+
+	@media (--viewport-wpadmin) {
+		background-color: var(--tec-color-background);
+		border: 1px solid var(--tec-color-border-default);
+		border-radius: var(--tec-border-radius-default);
+		padding: var(--tec-spacer-4);
+
+		~ .tec-admin-page__content-section {
+			padding: var(--tec-spacer-4);
+		}
+	}
+}
+
+.tec-admin-page__content-header {
+	color: var(--tec-admin-core-grey-80);
+	font-size: var(--tec-font-size-5);
+	font-weight: var(--tec-font-weight-bold);
+	line-height: var(--tec-line-height-0);
+}
+
+.tec-admin-page__content-subheader {
+	color: var(--tec-admin-core-grey-80);
+	font-size: var(--tec-font-size-3);
+	font-weight: var(--tec-font-weight-regular);
+	line-height: var(--tec-line-height-2);
+}
