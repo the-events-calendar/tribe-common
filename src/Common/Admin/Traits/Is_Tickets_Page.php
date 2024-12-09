@@ -11,15 +11,15 @@ namespace TEC\Common\Admin\Traits;
 
 use Tribe__Main;
 
-trait Is_TEC_Page {
+trait Is_Ticket_Page {
 	/**
-	 * Whether the page is an Event Tickets page.
+	 * The page type for the page.
 	 *
 	 * @since 7.0.0
 	 *
 	 * @var bool
 	 */
-	public static $is_tickets_page = true;
+	public static $page_type = 'tickets';
 
 	/**
 	 * The slug for the parent page.
@@ -31,20 +31,13 @@ trait Is_TEC_Page {
 	public static string $parent_slug = 'tec_tickets_page_';
 
 	/**
-	 * Get the page slug.
+	 * Get the parent page slug.
 	 *
 	 * @since 7.0.0
 	 */
-	public static function get_page_slug(): string {
-		if ( ! empty( static::$page_slug ) ) {
-			return static::$page_slug;
-		}
-
-		static::$page_slug = static::$parent_slug . static::$slug;
-
-		return static::$page_slug;
+	public function get_parent_page_slug(): string {
+		return 'tec-tickets';
 	}
-
 
 	/**
 	 * Get the logo source URL.
@@ -54,16 +47,14 @@ trait Is_TEC_Page {
 	public function get_logo_source(): string {
 		$logo_source = tribe_resource_url( 'images/logo/event-tickets.svg', false, null, Tribe__Main::instance() );
 
-		$admin_page = static::get_page_slug();
-
 		/**
 		 * Filter the admin page logo source URL.
 		 *
 		 * @since 7.0.0
 		 *
 		 * @param string $logo_source The settings page logo resource URL.
-		 * @param string $admin_page The admin page ID.
+		 * @param object $this The current admin page object.
 		 */
-		return (string) apply_filters( 'tec_tickets_settings_page_logo_source', $logo_source, $admin_page );
+		return (string) apply_filters( 'tec_tickets_settings_page_logo_source', $logo_source, $this );
 	}
 }

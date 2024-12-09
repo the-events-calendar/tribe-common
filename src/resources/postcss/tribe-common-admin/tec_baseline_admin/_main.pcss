@@ -1,20 +1,106 @@
-#tec-admin-page {
+.tec-admin-page {
 	background: none;
 	display: grid;
+	grid-template-areas: "content";
+	grid-template-columns: 100%;
+	margin: 0;
+	margin-left: -10px;
+
+	.tec-admin-page__link,
+	a.tec-admin-page__link,
+	.tec-admin-page__link a {
+		color: var(--tec-admin-core-blue-50);
+
+		&:hover,
+		&:focus {
+			color: var(--tec-admin-core-blue-50);
+		}
+	}
+
+	.tec-admin-page__link--external {
+		&:after {
+			color: var(--tec-admin-core-blue-50);
+			content: "\f504";
+			font-family: "dashicons";
+			margin-left: 4px;
+			text-decoration-color: transparent;
+		}
+	}
+
+	@media (--viewport-wpadmin) {
+		background-image: url('../images/onboarding-background.svg');
+		background-position: top right;
+		background-repeat: no-repeat;
+		background-size: 240px;
+		grid-template-areas: "content content";
+		grid-template-columns: minmax(min-content, 800px) auto;
+		margin-left: -20px;
+	}
+}
+
+.tec-admin-page.tec-admin-page--header {
+	grid-template-areas:
+		"header"
+		"content";
+
+	@media (--viewport-wpadmin) {
+		grid-template-areas:
+			"header header"
+			"content content";
+	}
+}
+
+.tec-admin-page.tec-admin-page--header.tec-admin-page--footer {
+	grid-template-areas:
+		"header"
+		"content"
+		"footer";
+
+	@media (--viewport-wpadmin) {
+		grid-template-areas:
+			"header header"
+			"content content"
+			"footer footer";
+	}
+}
+
+.tec-admin-page.tec-admin-page--header.tec-admin-page--sidebar {
+	grid-template-areas:
+		"header"
+		"content"
+		"sidebar";
+
+	@media (--viewport-wpadmin) {
+		grid-template-areas:
+			"header header"
+			"content sidebar";
+	}
+}
+
+.tec-admin-page.tec-admin-page--footer.tec-admin-page--sidebar {
+	grid-template-areas:
+		"content"
+		"sidebar"
+		"footer";
+
+	@media (--viewport-wpadmin) {
+		grid-template-areas:
+			"content sidebar"
+			"footer footer";
+	}
+}
+
+.tec-admin-page.tec-admin-page--header.tec-admin-page--footer.tec-admin-page--sidebar {
 	grid-template-areas:
 		"header"
 		"content"
 		"sidebar"
 		"footer";
-	margin: 0;
-	margin-left: -10px;
 
 	@media (--viewport-wpadmin) {
 		grid-template-areas:
 			"header header"
 			"content sidebar"
 			"footer footer";
-		grid-template-columns: 1fr auto;
-		margin-left: -20px;
 	}
 }

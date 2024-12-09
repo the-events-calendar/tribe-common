@@ -57,6 +57,15 @@ abstract class Abstract_Admin_Page {
 	public static bool $is_dismissible = false;
 
 	/**
+	 * Whether the page has a header.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @var bool
+	 */
+	public static bool $has_header = true;
+
+	/**
 	 * Whether the page has a sidebar.
 	 *
 	 * @since 7.0.0
@@ -75,6 +84,41 @@ abstract class Abstract_Admin_Page {
 	public static bool $has_footer = false;
 
 	/**
+	 * Add the settings page.
+	 *
+	 * @since 7.0.0
+	 */
+	public function admin_page() {
+		if ( static::$is_dismissed ) {
+			return;
+		}
+
+		$parent_slug = $this->get_parent_page_slug();
+
+		if ( ! empty( $parent_slug ) ) {
+			add_submenu_page(
+				$parent_slug,
+				$this->get_the_page_title(),
+				$this->get_the_menu_title(),
+				$this->required_capability(),
+				static::get_page_slug(),
+				[ $this, 'admin_page_content' ],
+				$this->get_position()
+			);
+		} else {
+			add_menu_page(
+				$this->get_the_page_title(),
+				$this->get_the_menu_title(),
+				$this->required_capability(),
+				static::get_page_slug(),
+				[ $this, 'admin_page_content' ],
+				$this->get_page_icon_url(),
+				$this->get_position()
+			);
+		}
+	}
+
+	/**
 	 * Get the page slug.
 	 *
 	 * @since 7.0.0
@@ -87,6 +131,16 @@ abstract class Abstract_Admin_Page {
 		static::$page_slug = static::$slug;
 
 		return static::$page_slug;
+	}
+
+	/**
+	 * Get the page type.
+	 *
+	 * @since 7.0.0
+	 */
+	public function get_page_type(): string {
+		// Defined in the traits, or redefined in an extending class.
+		return static::$page_type;
 	}
 
 	/**
@@ -148,16 +202,24 @@ abstract class Abstract_Admin_Page {
 	 * @return void Echos the admin page logo.
 	 */
 	public function do_page_logo(): void {
+		// Only run once to avoid duplicating IDs.
+		if( did_action( 'tribe_admin_page_after_logo' ) ) {
+			return;
+		}
+
 		ob_start();
 		?>
 		<img
 			src="<?php echo esc_url( $this->get_logo_source() ); ?>"
 			alt=""
 			role="presentation"
-			id="tec-admin-logo"
+			id="tec-admin-page-logo"
+			<?php tribe_classes( $this->logo_classes() ); ?>
 		/>
 		<?php
 		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
+
+		do_action( 'tribe_admin_page_after_logo' );
 	}
 
 	/**
@@ -184,24 +246,55 @@ abstract class Abstract_Admin_Page {
 	}
 
 	/**
-	 * Add the settings page.
+	 * Get the parent page slug.
 	 *
 	 * @since 7.0.0
 	 */
-	public function admin_page() {
-		if ( static::$is_dismissed ) {
-			return;
-		}
+	abstract public function get_parent_page_slug(): string;
 
-		add_submenu_page(
-			'edit.php?post_type=tribe_events',
-			$this->get_the_page_title(),
-			$this->get_the_menu_title(),
-			$this->required_capability(),
-			static::get_page_slug(),
-			[ $this, 'admin_page_content' ],
-			0
-		);
+	/**
+	 * Get the icon url for the menu.
+	 * Can be a URL to a custom file or a dashicon class.
+	 *
+	 * @since 7.0.0
+	 */
+	public function get_page_icon_url(): ?string {
+		return '';
+	}
+
+	/**
+	 * Get the menu position of the page.
+	 *
+	 * @since 7.0.0
+	 */
+	public function get_position(): ?int {
+		return $this->menu_position ?? null;
+	}
+
+	/**
+	 * Get the classes for the header.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return array<string> The classes for the header.
+	 */
+	public function header_classes(): array {
+		$classes = [ 'tec-admin-page__header' ];
+
+		return (array) apply_filters( 'tec_admin_page_header_classes', $classes );
+	}
+
+	/**
+	 * Get the classes for the logo.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return array<string> The classes for the logo.
+	 */
+	public function logo_classes(): array {
+		$classes = [ 'tec-admin-page__logo' ];
+
+		return (array) apply_filters( 'tec_admin_page_logo_classes', $classes );
 	}
 
 	/**
@@ -211,8 +304,54 @@ abstract class Abstract_Admin_Page {
 	 *
 	 * @return array<string> The classes for the content wrapper.
 	 */
-	public function content_wrapper_classes(): array {
-		return [ 'tec-admin__content' ];
+	public function content_classes(): array {
+		$classes = [ 'tec-admin-page__content' ];
+
+		return (array) apply_filters( 'tec_admin_page_content_classes', $classes );
+	}
+
+	/**
+	 * Get the classes for the sidebar.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return array<string> The classes for the sidebar.
+	 */
+	public function sidebar_classes(): array {
+		$classes = [ 'tec-admin-page__sidebar' ];
+
+		return (array) apply_filters( 'tec_admin_page_sidebar_classes', $classes );
+	}
+
+	/**
+	 * Get the classes for the footer.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return array<string> The classes for the footer.
+	 */
+	public function footer_classes(): array {
+		$classes = [ 'tec-admin-page__footer' ];
+
+		return (array) apply_filters( 'tec_admin_page_footer_classes', $classes );
+	}
+
+	public function wrapper_classes(): array {
+		$classes = [ 'tec-admin-page', 'tec-admin', 'wrap' ];
+
+		if ( static::$has_header ) {
+			$classes[] = 'tec-admin-page--header';
+		}
+
+		if ( static::$has_sidebar ) {
+			$classes[] = 'tec-admin-page--sidebar';
+		}
+
+		if ( static::$has_footer ) {
+			$classes[] = 'tec-admin-page--footer';
+		}
+
+		return (array) apply_filters( 'tec_admin_page_wrapper_classes', $classes );
 	}
 
 	/**
@@ -220,37 +359,35 @@ abstract class Abstract_Admin_Page {
 	 * Relies on extending classes overriding the admin_page_header,
 	 * admin_page_title, and admin_page_main functions.
 	 *
+	 * HTML wrapper are used to layout of the page.
+	 *
 	 * @since 7.0.0
 	 *
 	 * @return void Renders the entire admin page content.
 	 */
 	public function admin_page_content(): void {
 		ob_start();
-		?>
-		<div id="tec-admin-page" class="tec-admin wrap">
-			<?php do_action( 'tec_admin_header_before_header' ); ?>
-			<header id="tec-admin__header">
-				<?php $this->admin_page_header(); ?>
-			</header>
-			<?php do_action( 'tec_admin_header_after_header' ); ?>
 
-			<?php do_action( 'tec_admin_header_before_content' ); ?>
-			<main id="tec-admin__content" <?php tribe_classes( $this->content_wrapper_classes() ); ?>>
-				<?php $this->admin_page_main_content(); ?>
-			</main>
-			<?php if ( static::$has_sidebar ) : ?>
-				<aside id="tec-admin__sidebar" <?php tribe_classes( $this->content_wrapper_classes() ); ?>>
-					<?php $this->admin_page_sidebar(); ?>
-				</aside>
-			<?php endif; ?>
-			<?php if ( static::$has_footer ) : ?>
-				<footer id="tec-admin__footer">
-					<?php $this->admin_page_footer(); ?>
-				</footer>
-			<?php endif; ?>
-			<?php do_action( 'tec_admin_header_after_content' ); ?>
+		do_action( 'tec_admin_page_before_wrap_start' ); ?>
+
+		<div id="tec-admin-page" <?php tribe_classes( $this->wrapper_classes() ); ?> >
+			<?php do_action( 'tec_admin_page_after_wrap_start' ); ?>
+
+			<?php $this->admin_page_header(); ?>
+
+			<?php $this->admin_page_main_content_wrapper(); ?>
+
+			<?php do_action( 'tec_admin_page_after_content' ); ?>
+
+			<?php $this->admin_page_sidebar_wrapper(); ?>
+
+			<?php $this->admin_page_footer_wrapper(); ?>
+
+			<?php do_action( 'tec_admin_page_before_wrap_end' ); ?>
 		</div>
-		<?php
+
+		<?php do_action( 'tec_admin_page_after_wrap_end' );
+
 		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
@@ -263,12 +400,17 @@ abstract class Abstract_Admin_Page {
 	 * @return void Renders the admin page header.
 	 */
 	public function admin_page_header(): void {
+		if ( ! static::$has_header ) {
+			return;
+		}
 		ob_start();
 		?>
-			<?php $this->do_page_logo(); ?>
-			<?php do_action( 'tec_admin_header_before_title' ); ?>
-			<?php $this->admin_page_title(); ?>
-			<?php do_action( 'tec_admin_header_after_title' ); ?>
+			<header id="tec-admin-page-header" <?php tribe_classes( $this->header_classes() ); ?>>
+				<?php $this->do_page_logo(); ?>
+				<?php do_action( 'tec_admin_header_before_title' ); ?>
+				<?php $this->admin_page_title(); ?>
+				<?php do_action( 'tec_admin_header_after_title' ); ?>
+			</header>
 		<?php
 		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
@@ -284,7 +426,7 @@ abstract class Abstract_Admin_Page {
 	public function admin_page_title(): void {
 		ob_start();
 		?>
-			<h1 class="tec-admin__header-title"><?php esc_html_e( 'The Events Calendar', 'the-events-calendar' ); ?></h1>
+			<h1 class="tec-admin__header-title"><?php esc_html_e( 'The Events Calendar', 'tribe-common' ); ?></h1>
 		<?php
 		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
@@ -292,6 +434,24 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Render the admin page main content.
 	 * This will be wrapped in a #tec-admin__content HTML section element.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return void Renders the admin page main content.
+	 */
+	public function admin_page_main_content_wrapper(): void {
+		ob_start();
+		?>
+		<main id="tec-admin-page-content" <?php tribe_classes( $this->content_classes() ); ?>>
+			<?php $this->admin_page_main_content(); ?>
+		</main>
+		<?php
+		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Render the admin page main content.
+	 * This will be wrapped in a #tec-admin-content HTML section element.
 	 *
 	 * @since 7.0.0
 	 *
@@ -307,7 +467,28 @@ abstract class Abstract_Admin_Page {
 	 *
 	 * @return void Renders the admin page sidebar content.
 	 */
-	abstract public function admin_page_sidebar(): void;
+	public function admin_page_sidebar_wrapper(): void {
+		if ( ! static::$has_sidebar ) {
+			return;
+		}
+		ob_start();
+		?>
+		<aside id="tec-admin-page-sidebar" <?php tribe_classes( $this->sidebar_classes() ); ?>>
+			<?php $this->admin_page_sidebar_content(); ?>
+		</aside>
+		<?php
+		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Render the admin page sidebar content.
+	 * This will be wrapped in a #tec-admin-sidebar HTML aside element.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return void Renders the admin page sidebar content.
+	 */
+	abstract public function admin_page_sidebar_content(): void;
 
 	/**
 	 * Render the admin page footer content.
@@ -317,5 +498,27 @@ abstract class Abstract_Admin_Page {
 	 *
 	 * @return void Renders the admin page footer content.
 	 */
-	abstract public function admin_page_footer(): void;
+	public function admin_page_footer_wrapper(): void {
+		if ( ! static::$has_footer ) {
+			return;
+		}
+
+		ob_start();
+		?>
+		<footer id="tec-admin-page-footer" <?php tribe_classes( $this->footer_classes() ); ?>>
+			<?php do_action( 'tec_admin_page_footer_content' ); ?>
+		</footer>
+		<?php
+		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Render the admin page footer content.
+	 * This will be wrapped in a #tec-admin-footer HTML footer element.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return void Renders the admin page footer content.
+	 */
+	abstract public function admin_page_footer_content(): void;
 }

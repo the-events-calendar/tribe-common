@@ -8,18 +8,27 @@ li.tec-nav__tab {
 }
 
 .tec-tab-container {
+	display: flex;
+	flex-direction: column;
+	gap: var(--tec-spacer-7);
 	padding: 0 var(--tec-spacer-7) var(--tec-spacer-7) var(--tec-spacer-7);
+
+	&.hidden {
+		display: none;
+	}
 }
 
 .tribe_events_page_tec-events-settings .tec-settings-form {
 	margin: 0;
+	padding-top: var(--tec-spacer-3);
+	width: auto;
 }
 
 /* Help List Styles */
 ul.tec-help-list__list-expanded {
 	font-size: var(--tec-font-size-2);
-	width: 100%;
 	margin-top: 0;
+	width: 100%;
 }
 
 .tec-help-list__list-expanded li {
@@ -32,10 +41,6 @@ ul.tec-help-list__list-expanded {
 	height: 24px;
 	margin-bottom: -6px;
 	margin-right: 8px;
-}
-
-.tribe_events_page_tec-events-settings .tec-settings-form {
-	width: auto;
 }
 
 /* Sidebar Styles */
@@ -90,36 +95,37 @@ ul.tec-help-list__list-expanded {
 }
 
 .ui-accordion .ui-accordion-content {
+	border-bottom: 1px solid var(--tec-admin-core-grey-10);
 	border-top: 0;
 	overflow: auto;
 	padding: var(--tec-spacer-1) var(--tec-spacer-3) 0 0;
-	border-bottom: 1px solid var(--tec-admin-core-grey-10);
 }
 
 .tribe_events_page_tec-events-settings .ui-accordion .ui-accordion-content p {
-	margin-top: 1em;
 	margin-bottom: 1em;
+	margin-top: 1em;
 }
 
 .ui-accordion .ui-accordion-header:last-of-type.ui-state-active.ui-accordion-header-active {
 	border-bottom: 1px solid var(--tec-admin-core-grey-10);
 }
 
-.ui-accordion .ui-accordion-content:last-of-type.ui-accordion-content-active, .ui-accordion-header-active {
+.ui-accordion .ui-accordion-content:last-of-type.ui-accordion-content-active,
+.ui-accordion-header-active {
 	border-bottom: 1px solid var(--tec-admin-core-grey-10);
 }
 
 .ui-state-active .ui-icon {
-	background-image: url(../images/icons/caret-down.svg);
+	background-image: url('../images/icons/caret-down.svg');
 }
 
 .ui-icon {
-	background-image: url(../images/icons/caret-right.svg);
+	background-image: url('../images/icons/caret-right.svg');
 	background-repeat: no-repeat;
 	background-size: contain;
 	display: inline-block;
 	height: 10px;
-	margin-top: -.25em;
+	margin-top: -0.25em;
 	overflow: hidden;
 	position: absolute;
 	right: 0;
@@ -133,8 +139,8 @@ ul.tec-help-list__list-expanded {
 .tec-settings__support-hub-iframe-container {
 	#tec-settings__support-hub-iframe {
 		height: 750px;
-		width: 100%;
 		min-width: 250px;
+		width: 100%;
 	}
 
 	#tec-settings__support-hub-iframe-loader {
@@ -146,19 +152,9 @@ ul.tec-help-list__list-expanded {
 	}
 }
 
-.tec-tab-container {
-	display: flex;
-	flex-direction: column;
-	gap: var(--tec-spacer-7);
-
-	&.hidden {
-		display: none;
-	}
-}
-
 .tribe-settings-form {
-	padding-bottom: var(--tec-spacer-4);
 	max-width: initial;
+	padding-bottom: var(--tec-spacer-4);
 }
 
 .tec-settings-form__sidebar {
@@ -168,10 +164,6 @@ ul.tec-help-list__list-expanded {
 .tribe_events_page_tec-events-settings .tec-settings-form > * {
 	padding-left: 0;
 	padding-right: initial;
-}
-
-.tribe_events_page_tec-events-settings .tec-settings-form {
-	padding-top: var(--tec-spacer-3);
 }
 
 .tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-infobox {
@@ -243,12 +235,14 @@ ul.tec-help-list__list-expanded {
 }
 
 @media (--viewport-xlarge) {
-	.tribe_events_page_tec-events-settings #tec-settings-form .tec-settings-form__header-block, .tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block {
-		padding: var(--tec-spacer-0) var(--tec-spacer-1);
+	.tribe_events_page_tec-events-settings #tec-settings-form .tec-settings-form__header-block,
+	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block {
 		margin: 0;
+		padding: var(--tec-spacer-0) var(--tec-spacer-1);
 	}
 
-	.tribe_events_page_tec-events-settings #tec-settings-form .tec-settings-form__header-block, .tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block--horizontal {
+	.tribe_events_page_tec-events-settings #tec-settings-form .tec-settings-form__header-block,
+	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block--horizontal {
 		margin: initial;
 	}
 
@@ -266,9 +260,6 @@ ul.tec-help-list__list-expanded {
 	.tribe_events_page_tec-events-settings .tec-settings-form__sidebar {
 		flex-basis: var(--tec-width-sidebar);
 		flex-shrink: 0;
-	}
-
-	.tribe_events_page_tec-events-settings .tec-settings-form__sidebar {
 		margin: 0;
 	}
 
