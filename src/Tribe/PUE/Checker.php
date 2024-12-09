@@ -268,11 +268,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return false;
 			}
 
-			if ( self::has_valid_uplink_license() ) {
-				set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $valid_slug, HOUR_IN_SECONDS );
-				return true;
-			}
-
 			// Ensure instances exist.
 			if ( empty( self::$instances ) ) {
 				set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $invalid_slug, HOUR_IN_SECONDS );
@@ -408,6 +403,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			// Package name.
 			add_filter( 'upgrader_pre_download', [ Tribe__PUE__Package_Handler::instance(), 'filter_upgrader_pre_download' ], 5, 3 );
+
+			add_action( 'admin_init', [ $this, 'monitor_uplink_actions' ], 1000 );
 		}
 
 
@@ -2095,17 +2092,23 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-		 * Checks if a valid Uplink license exists.
+		 * Monitors Uplink and hooks into the plugin connected action.
 		 *
-		 * This method confirms if the 'stellarwp/uplink/{prefix}/connected' action
-		 * has been fired, which indicates at least one valid license.
+		 * This method loops through the registered Uplink plugins and hooks into the
+		 * 'stellarwp/uplink/{slug}/connected' action for each plugin resource.
 		 *
 		 * @since TBD
-		 *
-		 * @return bool True if at least one license is valid, false otherwise.
 		 */
-		protected static function has_valid_uplink_license(): bool {
-			return did_action( 'stellarwp/uplink/' . Config::get_hook_prefix() . '/connected' ) > 0;
+		public static function monitor_uplink_actions(): void {
+			// Hook into the existing 'connected' action for the specific plugin slug.
+			add_action(
+				'stellarwp/uplink/' . Config::get_hook_prefix() . '/connected',
+				function () {
+					set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, 'valid', HOUR_IN_SECONDS );
+				},
+				10,
+				1
+			);
 		}
 	}
 }
