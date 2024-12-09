@@ -6,7 +6,7 @@
  *
  * ----------------------------------------------------------------------------- */
 
-#tec-admin__sidebar {
+.tec-admin-page__sidebar {
 	align-items: flex-start;
 	align-self: stretch;
 	box-sizing: border-box;
@@ -28,36 +28,5 @@
 	img {
 		display: block;
 		width: 100%;
-	}
-
-	> .tec-admin-page__sidebar-section {
-		background-color: var(--tec-color-background);
-		border-radius: var(--tec-border-radius-default);
-		display: flex;
-		flex-direction: column;
-		gap: var(--tec-spacer-3);
-		overflow: hidden;
-
-		.tec-admin-page__sidebar-section {
-			margin: 0 var(--tec-spacer-4);
-
-			&:last-child {
-				margin-bottom: var(--tec-spacer-4);
-			}
-
-			&.tec-admin-page__sidebar-header {
-				margin: 0;
-
-				img {
-					border-top-left-radius: var(--tec-border-radius-default);
-					border-top-right-radius: var(--tec-border-radius-default);
-				}
-			}
-		}
-
-		@media (--viewport-xlarge) {
-			border: 1px solid var(--tec-color-border-default);
-			margin: 0 auto auto 0;
-		}
 	}
 }
