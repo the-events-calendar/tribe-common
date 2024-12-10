@@ -146,8 +146,6 @@ class Checker_Test extends WPTestCase {
 		$this->assertEquals( $key, $pue_instance->get_key() );
 	}
 
-	public function test_replacemnt_key_update_in_multisite_context(): void {}
-
 	/**
 	 * It should validate licenses correctly across various scenarios.
 	 *
