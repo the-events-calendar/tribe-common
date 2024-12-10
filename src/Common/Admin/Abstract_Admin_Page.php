@@ -89,7 +89,7 @@ abstract class Abstract_Admin_Page {
 	 * @since 7.0.0
 	 */
 	public function admin_page() {
-		if ( static::$is_dismissed ) {
+		if ( static::is_dismissed() ) {
 			return;
 		}
 
@@ -207,7 +207,6 @@ abstract class Abstract_Admin_Page {
 			return;
 		}
 
-		ob_start();
 		?>
 		<img
 			src="<?php echo esc_url( $this->get_logo_source() ); ?>"
@@ -217,7 +216,6 @@ abstract class Abstract_Admin_Page {
 			<?php tribe_classes( $this->logo_classes() ); ?>
 		/>
 		<?php
-		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 
 		do_action( 'tribe_admin_page_after_logo' );
 	}
@@ -373,8 +371,6 @@ abstract class Abstract_Admin_Page {
 	 * @return void Renders the entire admin page content.
 	 */
 	public function admin_page_content(): void {
-		ob_start();
-
 		do_action( 'tec_admin_page_before_wrap_start' );
 		?>
 
@@ -396,8 +392,6 @@ abstract class Abstract_Admin_Page {
 
 		<?php
 		do_action( 'tec_admin_page_after_wrap_end' );
-
-		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -412,7 +406,7 @@ abstract class Abstract_Admin_Page {
 		if ( ! static::$has_header ) {
 			return;
 		}
-		ob_start();
+
 		?>
 			<header id="tec-admin-page-header" <?php tribe_classes( $this->header_classes() ); ?>>
 				<?php $this->do_page_logo(); ?>
@@ -421,7 +415,6 @@ abstract class Abstract_Admin_Page {
 				<?php do_action( 'tec_admin_header_after_title' ); ?>
 			</header>
 		<?php
-		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -433,11 +426,9 @@ abstract class Abstract_Admin_Page {
 	 * @return void Renders the admin page title.
 	 */
 	public function admin_page_title(): void {
-		ob_start();
 		?>
 			<h1 class="tec-admin__header-title"><?php esc_html_e( 'The Events Calendar', 'tribe-common' ); ?></h1>
 		<?php
-		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -449,13 +440,11 @@ abstract class Abstract_Admin_Page {
 	 * @return void Renders the admin page main content.
 	 */
 	public function admin_page_main_content_wrapper(): void {
-		ob_start();
 		?>
 		<main id="tec-admin-page-content" <?php tribe_classes( $this->content_classes() ); ?>>
 			<?php $this->admin_page_main_content(); ?>
 		</main>
 		<?php
-		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -480,13 +469,12 @@ abstract class Abstract_Admin_Page {
 		if ( ! static::$has_sidebar ) {
 			return;
 		}
-		ob_start();
+
 		?>
 		<aside id="tec-admin-page-sidebar" <?php tribe_classes( $this->sidebar_classes() ); ?>>
 			<?php $this->admin_page_sidebar_content(); ?>
 		</aside>
 		<?php
-		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -512,13 +500,11 @@ abstract class Abstract_Admin_Page {
 			return;
 		}
 
-		ob_start();
 		?>
 		<footer id="tec-admin-page-footer" <?php tribe_classes( $this->footer_classes() ); ?>>
 			<?php do_action( 'tec_admin_page_footer_content' ); ?>
 		</footer>
 		<?php
-		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
