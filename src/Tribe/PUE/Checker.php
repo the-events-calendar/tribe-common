@@ -2127,12 +2127,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-		 * Monitors Uplink and hooks into the plugin connected action.
+		 * Hooks into the Uplink plugin's 'connected' action for the current plugin.
 		 *
-		 * This method loops through the registered Uplink plugins and hooks into the
-		 * 'stellarwp/uplink/{slug}/connected' action for each plugin resource.
+		 * This method registers a callback for the 'stellarwp/uplink/{slug}/connected' action.
+		 * When the action is triggered, it updates the license validity transient for the plugin.
 		 *
 		 * @since TBD
+		 *
+		 * @return void
 		 */
 		public static function monitor_uplink_actions(): void {
 			// Hook into the existing 'connected' action for the specific plugin slug.
