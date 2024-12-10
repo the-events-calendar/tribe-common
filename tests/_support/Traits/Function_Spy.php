@@ -2,7 +2,7 @@
 /**
  * The trait implemented by function spies to provide assertions and set expectations.
  *
- * @since   6.3.2
+ * @since 6.3.0
  *
  * @package Tribe\Tests\Traits;
  */
@@ -12,7 +12,7 @@ namespace Tribe\Tests\Traits;
 /**
  * Trait Function_Spy.
  *
- * @since   6.3.2
+ * @since 6.3.0
  *
  * @package Tribe\Tests\Traits;
  */

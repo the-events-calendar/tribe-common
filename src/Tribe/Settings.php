@@ -305,7 +305,7 @@ class Tribe__Settings {
 	/**
 	 * Magic getter for deprecated properties.
 	 *
-	 * @since 6.3.2
+	 * @since 6.3.1
 	 *
 	 * @param string $name The property name we are looking for.
 	 *

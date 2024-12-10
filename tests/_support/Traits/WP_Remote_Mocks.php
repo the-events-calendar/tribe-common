@@ -2,7 +2,7 @@
 /**
  * Provides methods to mock `wp_remove_` functions in tests using the `uopz` extension.
  *
- * @since   6.3.2
+ * @since   6.3.0
  *
  * @package Traits;
  */
@@ -20,7 +20,7 @@ class WP_Remote_Mock_Spy {
 	/**
 	 * The HTTP method being mocked.
 	 *
-	 * @since 6.3.2
+	 * @since 6.3.0
 	 *
 	 * @var string
 	 */
@@ -29,7 +29,7 @@ class WP_Remote_Mock_Spy {
 	/**
 	 * The URL being mocked.
 	 *
-	 * @since 6.3.2
+	 * @since 6.3.0
 	 *
 	 * @var string
 	 */
@@ -58,7 +58,7 @@ class WP_Remote_Mock_Spy {
 /**
  * Class WP_Request_Mocking.
  *
- * @since   6.3.2
+ * @since 6.3.0
  *
  * @package Traits;
  */
@@ -75,7 +75,7 @@ trait WP_Remote_Mocks {
 	 *
 	 * Note this function will not throw an exception if the mock is never called.
 	 *
-	 * @since 6.3.2
+	 * @since 6.3.0
 	 *
 	 * @param string                       $type                    The type of function to mock, e.g. `post` will mock `wp_remote_post`.
 	 * @param string                       $mock_url                The URL to mock requests for; requests that do not match this will not
