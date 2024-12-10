@@ -33,7 +33,15 @@ trait Create_Events {
 		return tribe_events()->set_args( $args )->create();
 	}
 
-	protected function generate_multiple_events( $mock_date ) {
+	/**
+	 * Generate multiple test events.
+	 *
+	 * @param string $mock_date A date string to use to create an event.
+	 * @param int    $how_many  The number of events to generate.
+	 *
+	 * @return array An array of event post objects, as decorated by the `tribe_get_event` function.
+	 */
+	protected function generate_multiple_events( $mock_date, int $how_many = 3 ) {
 		$timezone_string = 'America/New_York';
 		$timezone        = new \DateTimeZone( $timezone_string );
 		update_option( 'timezone_string', $timezone_string );
@@ -50,7 +58,7 @@ trait Create_Events {
 					]
 				)->create();
 			},
-			range( 1, 3 )
+			range( 1, $how_many )
 		);
 	}
 
@@ -83,13 +91,12 @@ trait Create_Events {
 	 * @since 6.0.0
 	 *
 	 * @param string        $mock_date A date string to use to create an event.
-	 * @param array<string> $overrides An optional array of overrides to generate events.
 	 * @param string        $status    An event status to set the event to, default is canceled.
 	 *
 	 * @return array<\WP_Post> An array of event post objects, as decorated by the `tribe_get_event` function.
 	 */
-	protected function generate_multiple_events_and_update_event_status( $mock_date, $overrides = [], $status = 'canceled' ) {
-		$events = $this->generate_multiple_events( $mock_date, $overrides );
+	protected function generate_multiple_events_and_update_event_status( $mock_date, $status = 'canceled' ) {
+		$events = $this->generate_multiple_events( $mock_date );
 		$data   = [
 			'status'        => $status,
 			'status-reason' => 'Because Test',
@@ -150,13 +157,11 @@ trait Create_Events {
 	 * @since 6.0.0
 	 *
 	 * @param string        $mock_date A date string to use to create an event.
-	 * @param array<string> $overrides An optional array of overrides to generate events.
-	 * @param string        $status    An event status to set the event to, default is canceled.
 	 *
 	 * @return array<\WP_Post> An array of event post objects, as decorated by the `tribe_get_event` function.
 	 */
-	protected function generate_multiple_events_and_update_them( $mock_date, $overrides = [], $status = 'canceled' ) {
-		$events = $this->generate_multiple_events( $mock_date, $overrides );
+	protected function generate_multiple_events_and_update_them( $mock_date ) {
+		$events = $this->generate_multiple_events( $mock_date );
 		list( $start_date, $end_date ) = $this->get_update_event_details();
 
 		foreach ( $events as $key => $event ) {

@@ -546,7 +546,7 @@ class Tribe__Admin__Help_Page {
 
 			if ( ! is_wp_error( $data ) ) {
 				// Format Downloaded Infomation.
-				$data->downloaded = $data->downloaded ? number_format( $data->downloaded ) : _x( 'n/a', 'not available', 'tribe-common' );
+				$data->downloaded = $data->downloaded ? number_format( (float) $data->downloaded ) : _x( 'n/a', 'not available', 'tribe-common' );
 			} else {
 				// If there was a bug on the Current Request just leave.
 				return false;
@@ -969,7 +969,7 @@ class Tribe__Admin__Help_Page {
 					<dd><?php echo esc_html__( 'WordPress ', 'tribe-common' ) . esc_html( $api_data->requires ); ?>+</dd>
 
 					<dt><?php esc_html_e( 'Active Users:', 'tribe-common' ); ?></dt>
-					<dd><?php echo esc_html( number_format( $api_data->active_installs ) ); ?>+</dd>
+					<dd><?php echo esc_html( number_format( (float) $api_data->active_installs ) ); ?>+</dd>
 
 					<dt><?php esc_html_e( 'Rating:', 'tribe-common' ); ?></dt>
 					<dd>
