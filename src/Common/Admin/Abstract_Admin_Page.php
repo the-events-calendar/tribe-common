@@ -203,7 +203,7 @@ abstract class Abstract_Admin_Page {
 	 */
 	public function do_page_logo(): void {
 		// Only run once to avoid duplicating IDs.
-		if( did_action( 'tribe_admin_page_after_logo' ) ) {
+		if ( did_action( 'tribe_admin_page_after_logo' ) ) {
 			return;
 		}
 
@@ -336,6 +336,13 @@ abstract class Abstract_Admin_Page {
 		return (array) apply_filters( 'tec_admin_page_footer_classes', $classes );
 	}
 
+	/**
+	 * Get the classes for the wrapper.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
 	public function wrapper_classes(): array {
 		$classes = [ 'tec-admin-page', 'tec-admin', 'wrap' ];
 
@@ -368,7 +375,8 @@ abstract class Abstract_Admin_Page {
 	public function admin_page_content(): void {
 		ob_start();
 
-		do_action( 'tec_admin_page_before_wrap_start' ); ?>
+		do_action( 'tec_admin_page_before_wrap_start' );
+		?>
 
 		<div id="tec-admin-page" <?php tribe_classes( $this->wrapper_classes() ); ?> >
 			<?php do_action( 'tec_admin_page_after_wrap_start' ); ?>
@@ -386,7 +394,8 @@ abstract class Abstract_Admin_Page {
 			<?php do_action( 'tec_admin_page_before_wrap_end' ); ?>
 		</div>
 
-		<?php do_action( 'tec_admin_page_after_wrap_end' );
+		<?php
+		do_action( 'tec_admin_page_after_wrap_end' );
 
 		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
