@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Correctly identify licenses using uplink, like Event Tickets Plus. [n/a]
