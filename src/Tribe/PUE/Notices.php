@@ -41,7 +41,9 @@ class Tribe__PUE__Notices {
 	 *
 	 * @since TBD
 	 *
-	 * @param Validation_Response $plugin
+	 * @param Validation_Response $results The validation results from uplink.
+	 *
+	 * @return Validation_Response
 	 */
 	public function clear_notices_after_uplink_connect( Validation_Response $results ): Validation_Response {
 		if ( ! $results->is_valid() ) {
