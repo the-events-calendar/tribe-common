@@ -2,7 +2,7 @@
 /**
  * An abstract admin page to centralize some elements and functionality.
  *
- * @since 7.0.0
+ * @since 6.4.1
  *
  * @package TEC\Admin
  */
@@ -14,7 +14,7 @@ use Tribe__Main;
 /**
  * Class Admin_Page
  *
- * @since 7.0.0
+ * @since 6.4.1
  *
  * @package TEC\Admin
  */
@@ -23,7 +23,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * The slug for the admin menu.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @var string
 	 */
@@ -32,7 +32,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * The slug for the admin page
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @var string
 	 */
@@ -41,7 +41,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Whether the page has been dismissed.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @var bool
 	 */
@@ -50,7 +50,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Whether the page is dismissible.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @var bool
 	 */
@@ -59,7 +59,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Whether the page has a header.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @var bool
 	 */
@@ -68,7 +68,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Whether the page has a sidebar.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @var bool
 	 */
@@ -77,7 +77,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Whether the page has a footer.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @var bool
 	 */
@@ -86,7 +86,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Add the settings page.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 */
 	public function admin_page() {
 		if ( static::is_dismissed() ) {
@@ -121,7 +121,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Get the page slug.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 */
 	public static function get_page_slug(): string {
 		if ( ! empty( static::$page_slug ) ) {
@@ -136,7 +136,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Get the page type.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 */
 	public function get_page_type(): string {
 		// Defined in the traits, or redefined in an extending class.
@@ -146,7 +146,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Defines wether the current page is the correct page.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 */
 	public static function is_on_page(): bool {
 		$admin_pages = tribe( 'admin.pages' );
@@ -159,7 +159,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Has the page been dismissed?
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @return bool
 	 */
@@ -174,7 +174,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Get the logo source URL.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @return string The logo source URL.
 	 */
@@ -186,7 +186,7 @@ abstract class Abstract_Admin_Page {
 		/**
 		 * Filter the admin page logo source URL.
 		 *
-		 * @since 7.0.0
+		 * @since 6.4.1
 		 *
 		 * @param string $logo_source The settings page logo resource URL.
 		 * @param string $admin_page The admin page ID.
@@ -197,7 +197,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Get the admin page logo.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @return void Echos the admin page logo.
 	 */
@@ -223,21 +223,21 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Get the page title.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 */
 	abstract public function get_the_page_title(): string;
 
 	/**
 	 * Get the menu title.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 */
 	abstract public function get_the_menu_title(): string;
 
 	/**
 	 * Get the capability required to access the page.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 */
 	public function required_capability() {
 		return 'manage_options';
@@ -246,7 +246,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Get the parent page slug.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 */
 	abstract public function get_parent_page_slug(): string;
 
@@ -254,7 +254,7 @@ abstract class Abstract_Admin_Page {
 	 * Get the icon url for the menu.
 	 * Can be a URL to a custom file or a dashicon class.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 */
 	public function get_page_icon_url(): ?string {
 		return '';
@@ -263,7 +263,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Get the menu position of the page.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 */
 	public function get_position(): ?int {
 		return $this->menu_position ?? null;
@@ -272,7 +272,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Get the classes for the header.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @return array<string> The classes for the header.
 	 */
@@ -285,7 +285,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Get the classes for the logo.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @return array<string> The classes for the logo.
 	 */
@@ -298,7 +298,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Get the classes for the content wrapper.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @return array<string> The classes for the content wrapper.
 	 */
@@ -311,7 +311,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Get the classes for the sidebar.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @return array<string> The classes for the sidebar.
 	 */
@@ -324,7 +324,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Get the classes for the footer.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @return array<string> The classes for the footer.
 	 */
@@ -366,7 +366,7 @@ abstract class Abstract_Admin_Page {
 	 *
 	 * HTML wrapper are used to layout of the page.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @return void Renders the entire admin page content.
 	 */
@@ -398,7 +398,7 @@ abstract class Abstract_Admin_Page {
 	 * Render the admin page header.
 	 * This will be wrapped in a #tec-admin__header HTML header element.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @return void Renders the admin page header.
 	 */
@@ -421,7 +421,7 @@ abstract class Abstract_Admin_Page {
 	 * Render the admin page title.
 	 * In the header.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @return void Renders the admin page title.
 	 */
@@ -435,7 +435,7 @@ abstract class Abstract_Admin_Page {
 	 * Render the admin page main content.
 	 * This will be wrapped in a #tec-admin__content HTML section element.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @return void Renders the admin page main content.
 	 */
@@ -451,7 +451,7 @@ abstract class Abstract_Admin_Page {
 	 * Render the admin page main content.
 	 * This will be wrapped in a #tec-admin-content HTML section element.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @return void Renders the admin page main content.
 	 */
@@ -461,7 +461,7 @@ abstract class Abstract_Admin_Page {
 	 * Render the admin page sidebar content.
 	 * This will be wrapped in a #tec-admin__sidebar HTML aside element.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @return void Renders the admin page sidebar content.
 	 */
@@ -481,7 +481,7 @@ abstract class Abstract_Admin_Page {
 	 * Render the admin page sidebar content.
 	 * This will be wrapped in a #tec-admin-sidebar HTML aside element.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @return void Renders the admin page sidebar content.
 	 */
@@ -491,7 +491,7 @@ abstract class Abstract_Admin_Page {
 	 * Render the admin page footer content.
 	 * This will be wrapped in a #tec-admin__footer HTML footer element.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @return void Renders the admin page footer content.
 	 */
@@ -511,7 +511,7 @@ abstract class Abstract_Admin_Page {
 	 * Render the admin page footer content.
 	 * This will be wrapped in a #tec-admin-footer HTML footer element.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @return void Renders the admin page footer content.
 	 */

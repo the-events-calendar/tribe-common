@@ -2,7 +2,7 @@
 /**
  * Is TEC Page.
  *
- * @since 7.0.0
+ * @since 6.4.1
  *
  * @package TEC
  */
@@ -15,7 +15,7 @@ trait Is_Events_Page {
 	/**
 	 * The page type for the page.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @var bool
 	 */
@@ -24,7 +24,7 @@ trait Is_Events_Page {
 	/**
 	 * The slug for the parent page.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 *
 	 * @var string
 	 */
@@ -33,7 +33,7 @@ trait Is_Events_Page {
 	/**
 	 * Get the parent page slug.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 */
 	public function get_parent_page_slug(): string {
 		return 'edit.php?post_type=tribe_events';
@@ -42,7 +42,7 @@ trait Is_Events_Page {
 	/**
 	 * Get the logo source URL.
 	 *
-	 * @since 7.0.0
+	 * @since 6.4.1
 	 */
 	public function get_logo_source(): string {
 		$logo_source = tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, Tribe__Main::instance() );
@@ -50,7 +50,7 @@ trait Is_Events_Page {
 		/**
 		 * Filter the admin page logo source URL.
 		 *
-		 * @since 7.0.0
+		 * @since 6.4.1
 		 *
 		 * @param string $logo_source The settings page logo resource URL.
 		 * @param object $this The current admin page object.
