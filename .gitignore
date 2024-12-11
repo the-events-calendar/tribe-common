@@ -48,6 +48,8 @@ lang/*.mo
 
 # Local packaging files
 .pup-*
+.pup-zip
+pup.phar
 
 # Strauss
 bin/strauss.phar

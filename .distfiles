@@ -28,6 +28,7 @@
 /vendor/datatables/**/*.png
 /vendor/datatables/datatables*.css
 /vendor/datatables/datatables*.js
+/vendor/dayjs/**/*.min.js
 /vendor/firebase/php-jwt/src/*.php
 /vendor/handlebars/*.js
 /vendor/jquery-tribe-timepicker/**/*.css
