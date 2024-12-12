@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Prevent fatal on ET integration page when used with Events Pro but without Event Tickets Plus. [n/a]
