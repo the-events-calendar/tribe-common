@@ -77,12 +77,12 @@
       "@clean-strauss-static-function-autoload"
     ],
     "post-install-cmd": [
-      "@strauss",
-      "@stellar-uplink"
+      "@stellar-uplink",
+      "@strauss"
     ],
     "post-update-cmd": [
-      "@strauss",
-      "@stellar-uplink"
+      "@stellar-uplink",
+      "@strauss"
     ],
     "stellar-uplink": [
       "vendor/bin/stellar-uplink domain=tribe-common"
