@@ -1,4 +1,4 @@
 Significance: minor
 Type: fix
 
-Ensure we get an object to test for subnav. Pass tba object to class filter for more context. [n/a]
+Ensure we get an object to test for subnav. Pass the object to class filter for more context. [n/a]
