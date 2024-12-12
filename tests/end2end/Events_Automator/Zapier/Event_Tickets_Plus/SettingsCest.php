@@ -104,6 +104,6 @@ class SettingsCest {
 		$I->amOnAdminPage('/admin.php?page=tec-tickets-settings&tab=integrations');
 		$I->dontSeeInPageSource( 'Zapier' );
 		$I->dontSeeInPageSource( 'Power Automate' );
-		$I->canSeeInPageSource("You've requested a non-existent tab.");
+		$I->canSeeInPageSource('You\'ve requested a non-existent tab.');
 	}
 }
