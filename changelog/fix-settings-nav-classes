@@ -1,4 +1,4 @@
 Significance: minor
 Type: fix
 
-Correctly identify licenses using uplink, like Event Tickets Plus. [n/a]
+Ensure we get an object to test for subnav. Pass tba object to class filter for more context. [n/a]
