@@ -690,6 +690,7 @@ class Tribe__Settings {
 	 * Includes the view file.
 	 *
 	 * @since 6.1.0
+	 * @since TBD Avoid Fatal error when the current tab is not an object.
 	 */
 	public function generate_page(): void {
 		$admin_pages       = tribe( 'admin.pages' );
@@ -699,7 +700,7 @@ class Tribe__Settings {
 		$is_event_settings = $this->is_event_settings( $admin_page );
 		$form_classes      = [ "tec-settings-form__{$current_tab}-tab--active" ];
 
-		if ( $this->get_tab( $current_tab )->has_parent() ) {
+		if ( is_object( $current_tab ) && $current_tab->has_parent() ) {
 			$form_classes[] = 'tec-settings-form__subnav-active';
 		}
 
