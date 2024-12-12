@@ -26,7 +26,7 @@ class Tabs_Provider extends Service_Provider {
 		}
 
 		// If Event Tickets Plus is Active, do not add the Integrations tab as it will do it.
-		if ( ! class_exists('TEC\Tickets_Plus\Admin\Tabs\Provider', false ) ) {
+		if ( ! class_exists( 'TEC\Tickets_Plus\Admin\Tabs\Provider', false ) ) {
 			return;
 		}
 
