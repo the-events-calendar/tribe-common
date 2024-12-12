@@ -698,20 +698,22 @@ class Tribe__Settings {
 		$current_tab       = $this->get_current_tab();
 		$wrap_classes      = apply_filters( 'tribe_settings_wrap_classes', [ 'tribe_settings', 'wrap' ], $admin_page );
 		$is_event_settings = $this->is_event_settings( $admin_page );
-		$form_classes      = [ "tec-settings-form__{$current_tab}-tab--active" ];
-
-		if ( is_object( $current_tab ) && $current_tab->has_parent() ) {
-			$form_classes[] = 'tec-settings-form__subnav-active';
-		}
+		$tab_object        = $this->get_tab( $current_tab );
+		$form_classes      = [
+			"tec-settings-form__{$current_tab}-tab--active" => true,
+			'tec-settings-form__subnav-active'              => ( $tab_object && $tab_object->has_parent() ),
+		];
 
 		/**
 		 * Filter the classes for the settings form.
 		 *
 		 * @since 6.1.0
 		 *
-		 * @param array<string> $form_classes The classes for the settings form.
+		 * @param array<string>            $form_classes The classes for the settings form.
+		 * @param string                   $admin_page   The admin page ID.
+		 * @param Tribe__Settings_Tab|null $tab_object   The current tab object.
 		 */
-		$form_classes = apply_filters( 'tribe_settings_form_class', $form_classes, $admin_page );
+		$form_classes = apply_filters( 'tribe_settings_form_class', $form_classes, $admin_page, $tab_object );
 
 		ob_start();
 		do_action( 'tribe_settings_top', $admin_page );
@@ -829,15 +831,12 @@ class Tribe__Settings {
 		}
 
 		$nav_id          = $modal ? 'tec-settings-modal-nav' : 'tribe-settings-tabs';
+		$tab_object      = $this->get_tab( $this->get_current_tab() );
 		$wrapper_classes = [
 			'tec-nav__wrapper'                => true,
-			'tec-settings__nav-wrapper'       => $this->is_event_settings(),
-			'tec-nav__wrapper--subnav-active' => false,
+			'tec-settings__nav-wrapper'       => (bool) $this->is_event_settings(),
+			'tec-nav__wrapper--subnav-active' => (bool) ( $tab_object && $tab_object->has_parent() ),
 		];
-
-		if ( $this->get_tab( $this->get_current_tab() )->has_parent() ) {
-			$wrapper_classes['tec-nav__wrapper--subnav-active'] = true;
-		}
 
 		ob_start();
 		?>
