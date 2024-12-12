@@ -699,7 +699,7 @@ class Tribe__Settings {
 		$is_event_settings = $this->is_event_settings( $admin_page );
 		$form_classes      = [ "tec-settings-form__{$current_tab}-tab--active" ];
 
-		if ( $this->get_tab( $current_tab )->has_parent() ) {
+		if ( is_object( $current_tab ) && $current_tab->has_parent() ) {
 			$form_classes[] = 'tec-settings-form__subnav-active';
 		}
 
