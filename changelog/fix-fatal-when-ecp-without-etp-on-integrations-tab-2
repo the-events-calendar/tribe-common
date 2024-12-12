@@ -1,0 +1,4 @@
+Significance: minor
+Type: deprecated
+
+Integrations Tab registration in Event Ticket Settings from common. These will be registered from Event Tickets Plus only instead. [TCMN-174]
