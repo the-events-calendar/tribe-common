@@ -97,6 +97,7 @@ class SettingsCest {
 				'event-tickets-plus',
 			]
 		);
+
 		$I->amOnPluginsPage();
 		$I->seePluginActivated( 'event-tickets' );
 		$I->seePluginDeactivated( 'event-tickets-plus' );
