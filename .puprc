@@ -61,6 +61,5 @@
 			"src/views"
 		]
 	},
-	"zip_use_default_ignore": false,
 	"zip_name": "tribe-common"
 }
