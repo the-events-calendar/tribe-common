@@ -228,7 +228,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Gets whether the license key is valid or not.
 		 *
 		 * @since 4.14.9
-		 * @since TBD Added uplink resource check.
+		 * @since 6.4.1 Added uplink resource check.
 		 */
 		public function is_key_valid() {
 			$uplink_resource = get_resource( $this->get_slug() );

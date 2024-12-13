@@ -61,9 +61,9 @@ class Hooks extends Service_Provider {
 	 * Register providers at admin_init, so dependencies are loaded.
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
-	 * @deprecated TBD
+	 * @deprecated 6.4.1
 	 */
 	public function admin_register() {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '6.4.1' );
 	}
 }

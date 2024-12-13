@@ -11,7 +11,7 @@ use TEC\Common\Contracts\Service_Provider;
  *
  * @since 6.0.0 Migrated to Common from Event Automator
  *
- * @deprecated TBD
+ * @deprecated 6.4.1
  */
 class Tabs_Provider extends Service_Provider {
 
@@ -20,10 +20,10 @@ class Tabs_Provider extends Service_Provider {
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.4.1
 	 */
 	public function register() {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '6.4.1' );
 	}
 
 	/**
@@ -31,10 +31,10 @@ class Tabs_Provider extends Service_Provider {
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.4.1
 	 */
 	public function add_actions() {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '6.4.1' );
 	}
 
 	/**
@@ -42,10 +42,10 @@ class Tabs_Provider extends Service_Provider {
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.4.1
 	 */
 	public function add_filters() {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '6.4.1' );
 	}
 
 	/**
@@ -53,14 +53,14 @@ class Tabs_Provider extends Service_Provider {
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.4.1
 	 *
 	 * @param string Admin page id.
 	 *
 	 * @return void
 	 */
 	public function add_tabs( $admin_page ) {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '6.4.1' );
 	}
 
 	/**
@@ -68,14 +68,14 @@ class Tabs_Provider extends Service_Provider {
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.4.1
 	 *
 	 * @param array<string> $tabs Array of tabs IDs for the Events settings page.
 	 *
 	 * @return array<string> The filtered list of tab ids.
 	 */
 	public function filter_include_integrations_tab_id( array $tabs ): array {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '6.4.1' );
 		return [];
 	}
 }

@@ -690,7 +690,7 @@ class Tribe__Settings {
 	 * Includes the view file.
 	 *
 	 * @since 6.1.0
-	 * @since TBD Avoid Fatal error when the current tab is not an object.
+	 * @since 6.4.1 Avoid Fatal error when the current tab is not an object.
 	 */
 	public function generate_page(): void {
 		$admin_pages       = tribe( 'admin.pages' );

@@ -39,7 +39,7 @@ class Tribe__PUE__Notices {
 	/**
 	 * Clears any license key notices for the specified plugin.
 	 *
-	 * @since TBD
+	 * @since 6.4.1
 	 *
 	 * @param Validation_Response $results The validation results from uplink.
 	 *

@@ -337,7 +337,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Get the classes for the wrapper.
 	 *
-	 * @since TBD
+	 * @since 6.4.1
 	 *
 	 * @return array
 	 */
