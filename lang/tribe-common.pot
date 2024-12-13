@@ -2,31 +2,29 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 6.4.0\n"
+"Project-Id-Version: Tribe Common 6.4.1\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-12-04T14:31:49+00:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"POT-Creation-Date: 2024-12-13T11:30:04-08:00\n"
+"PO-Revision-Date: 2024-12-13 19:30\n"
+"X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: tribe-common\n"
 
 #. Plugin Name of the plugin
-#: tribe-common.php
 msgid "Tribe Common"
 msgstr ""
 
 #. Description of the plugin
-#: tribe-common.php
 msgid "An event settings framework for managing shared options."
 msgstr ""
 
 #. Author of the plugin
-#: tribe-common.php
 #: src/admin-views/help-calendar.php:105
+#: src/Common/Admin/Abstract_Admin_Page.php:430
 #: src/Tribe/Admin/Help_Page.php:171
 #: src/Tribe/Customizer.php:664
 #: src/Tribe/Plugins_API.php:25
@@ -34,7 +32,6 @@ msgid "The Events Calendar"
 msgstr ""
 
 #. Author URI of the plugin
-#: tribe-common.php
 msgid "http://evnt.is/1x"
 msgstr ""
 
@@ -426,7 +423,6 @@ msgstr ""
 #: src/admin-views/help-calendar.php:168
 #: src/admin-views/help-community.php:153
 #: src/admin-views/help-ticketing.php:186
-#: src/Common/Event_Automator/Admin/Tabs/Integrations.php:52
 msgid "Integrations"
 msgstr ""
 
@@ -834,7 +830,7 @@ msgid "(Event Tickets Plus)"
 msgstr ""
 
 #: src/admin-views/help.php:38
-#: src/Tribe/Settings.php:808
+#: src/Tribe/Settings.php:811
 msgid "Help"
 msgstr ""
 
@@ -1303,8 +1299,8 @@ msgid "License & Usage"
 msgstr ""
 
 #: src/admin-views/troubleshooting/ea-status/license-key.php:43
-#: src/Tribe/PUE/Checker.php:705
-#: src/Tribe/PUE/Checker.php:716
+#: src/Tribe/PUE/Checker.php:712
+#: src/Tribe/PUE/Checker.php:723
 msgid "License Key"
 msgstr ""
 
@@ -5151,129 +5147,129 @@ msgstr ""
 msgid "Promoter Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:689
+#: src/Tribe/PUE/Checker.php:696
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:693
+#: src/Tribe/PUE/Checker.php:700
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:725
-#: src/Tribe/PUE/Checker.php:759
+#: src/Tribe/PUE/Checker.php:732
+#: src/Tribe/PUE/Checker.php:766
 msgid "License Key Status:"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:734
+#: src/Tribe/PUE/Checker.php:741
 msgid "Override network license key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:735
+#: src/Tribe/PUE/Checker.php:742
 msgid "Check this box if you wish to override the network license key with your own"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:746
+#: src/Tribe/PUE/Checker.php:753
 msgid "Site License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:847
+#: src/Tribe/PUE/Checker.php:854
 msgid "License key(s) updated."
 msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1104
+#: src/Tribe/PUE/Checker.php:1117
 msgid "Hmmm... something's wrong with this validator. Please contact %1$ssupport%2$s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1123
+#: src/Tribe/PUE/Checker.php:1136
 msgid "unknown date"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1129
+#: src/Tribe/PUE/Checker.php:1142
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
 #. Translators: %s is the expiration date.
-#: src/Tribe/PUE/Checker.php:1158
+#: src/Tribe/PUE/Checker.php:1171
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
 #. Translators: %s is the expiration date.
-#: src/Tribe/PUE/Checker.php:1169
+#: src/Tribe/PUE/Checker.php:1182
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1207
-#: src/Tribe/PUE/Notices.php:360
+#: src/Tribe/PUE/Checker.php:1220
+#: src/Tribe/PUE/Notices.php:396
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1209
-#: src/Tribe/PUE/Notices.php:362
+#: src/Tribe/PUE/Checker.php:1222
+#: src/Tribe/PUE/Notices.php:398
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1226
+#: src/Tribe/PUE/Checker.php:1239
 msgid "Please refresh the page and try your request again."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1247
+#: src/Tribe/PUE/Checker.php:1260
 msgid "There is an update for %1$s. You'll need to %2$scheck your license%3$s to have access to updates, downloads, and support."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1311
+#: src/Tribe/PUE/Checker.php:1324
 msgid "There is an update for %1$s. %2$sRenew your license%3$s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
 #. Translators: %s is the plugin version number.
-#: src/Tribe/PUE/Checker.php:1343
+#: src/Tribe/PUE/Checker.php:1356
 msgid "Update now to version %s."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s is the update now link.
-#: src/Tribe/PUE/Checker.php:1358
+#: src/Tribe/PUE/Checker.php:1371
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1974
+#: src/Tribe/PUE/Checker.php:1987
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1975
+#: src/Tribe/PUE/Checker.php:1988
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1976
+#: src/Tribe/PUE/Checker.php:1989
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Notices.php:293
+#: src/Tribe/PUE/Notices.php:329
 msgid "It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s."
 msgid_plural "It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/PUE/Notices.php:347
+#: src/Tribe/PUE/Notices.php:383
 msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
 msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/PUE/Notices.php:388
+#: src/Tribe/PUE/Notices.php:424
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/PUE/Notices.php:430
+#: src/Tribe/PUE/Notices.php:466
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
 msgstr ""
 
-#: src/Tribe/PUE/Notices.php:485
-#: src/Tribe/PUE/Notices.php:528
+#: src/Tribe/PUE/Notices.php:521
+#: src/Tribe/PUE/Notices.php:564
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
 msgstr ""
@@ -5299,11 +5295,11 @@ msgstr ""
 msgid "%s Settings"
 msgstr ""
 
-#: src/Tribe/Settings.php:750
+#: src/Tribe/Settings.php:753
 msgid "You've requested a non-existent tab."
 msgstr ""
 
-#: src/Tribe/Settings.php:805
+#: src/Tribe/Settings.php:808
 msgid "Save Changes"
 msgstr ""
 
