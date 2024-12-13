@@ -9,6 +9,7 @@
 * Fix - Ensure we get an object to test for subnav. Pass the object to class filter for more context. [n/a]
 * Fix - Prevent fatal on ET integration page when used with Events Pro but without Event Tickets Plus. [TCMN-174]
 * Deprecated - Integrations Tab registration in Event Ticket Settings from common. These will be registered from Event Tickets Plus only instead. [TCMN-174]
+* Language - 0 new strings added, 33 updated, 1 fuzzied, and 0 obsoleted.
 
 = [6.4.1]  =
 
