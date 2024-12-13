@@ -1,4 +1,0 @@
-Significance: minor
-Type: feat
-
-Add an abstract admin page to start consolidating how we do admin pages. See the "First Time Setup" page (onboarding wizard) for an example. [TEC-5294]

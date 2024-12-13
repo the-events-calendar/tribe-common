@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Cast `$block` argument to string to avoid PHP 8+ deprecation notice when non string (or array) variables are passed as the 3rd argument of `preg_replace`.

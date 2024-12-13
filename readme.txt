@@ -1,5 +1,22 @@
 == Changelog ==
 
+= [6.4.1]  =
+
+* Feature - Add an abstract admin page to start consolidating how we do admin pages. See the "First Time Setup" page (onboarding wizard) for an example. [TEC-5294]
+* Fix - Cast `$block` argument to string to avoid PHP 8+ deprecation notice when non string (or array) variables are passed as the 3rd argument of `preg_replace`.
+* Fix - Correctly identify licenses using uplink, like Event Tickets Plus. [n/a]
+* Fix - Ensure that number_format is used with a float value to prevent issues with PHP 8.0+. [ETP-962]
+* Fix - Ensure we get an object to test for subnav. Pass the object to class filter for more context. [n/a]
+* Fix - Prevent fatal on ET integration page when used with Events Pro but without Event Tickets Plus. [TCMN-174]
+* Deprecated - Integrations Tab registration in Event Ticket Settings from common. These will be registered from Event Tickets Plus only instead. [TCMN-174]
+
+= [6.4.1]  =
+
+* Feature - In-App Notifications system. [TEC-5165]
+* Tweak - Added filters: `tec_common_ian_opt_in`, `tec_common_ian_conditional_php`, `tec_common_ian_conditional_wp`, `tec_common_ian_allowed_pages`, `tec_common_ian_show_icon`, `tec_common_ian_setting_optin_tooltip`, `tec_common_ian_api_url`, `tec_common_ian_slugs`, `tec_common_ian_render`
+* Tweak - Added actions: `tec_common_ian_loaded`
+* Language - 22 new strings added, 15 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.4.0] 2024-12-05 =
 
 * Feature - In-App Notifications system. [TEC-5165]
