@@ -968,3 +968,59 @@ if ( ! function_exists( 'tec_asset' ) ) {
 		return $asset;
 	}
 }
+
+if ( ! function_exists( 'tec_assets' ) ) {
+	/**
+	 * Function to include more the one asset, based on `tribe_asset`
+	 *
+	 * @since TBD
+	 *
+	 * @param  object $origin     The main Object for the plugin you are enqueueing the script/style for.
+	 * @param  array  $assets     {
+	 *      Indexed array, don't use any associative key.
+	 *      E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ]
+	 *
+	 *        @type  string   $slug       Slug to save the asset.
+	 *        @type  string   $file       Which file will be loaded, either CSS or JS.
+	 *        @type  array    $deps       (optional) Dependencies
+	 *     }
+	 * @param  string $action     A WordPress hook that will automatically enqueue this asset once fired.
+	 * @param  array  $arguments  Look at `Tribe__Assets::register()` for more info.
+	 *
+	 * @return array<Asset|bool>      Which Assets were registered.
+	 */
+	function tec_assets($origin, $assets, $action = null, $arguments = []){
+		$registered = [];
+
+		// Build the group name from the plugin class name.
+		$build_group_name = is_object( $origin ) ? get_class( $origin ) : (string) $origin;
+
+		foreach ( $assets as $asset ) {
+			if ( ! is_array( $asset ) ) {
+				continue;
+			}
+
+			$slug = reset( $asset );
+			if ( empty( $asset[1] ) ) {
+				continue;
+			}
+
+			$file = $asset[1];
+			$deps = ! empty( $asset[2] ) ? $asset[2] : [];
+
+			// Support the asset having a custom action.
+			$asset_action = ! empty( $asset[3] ) ? $asset[3] : $action;
+
+			// Support the asset having custom arguments and merge them with the original ones.
+			$asset_arguments = ! empty( $asset[4] ) ? array_merge( $arguments, $asset[4] ) : $arguments;
+
+			$asset = Tribe__Assets::instance()->register( $origin, $slug, $file, $deps, $asset_action, $asset_arguments );
+
+			$asset->add_to_group_path( $build_group_name );
+
+			$registered[] = $asset;
+		}
+
+		return $registered;
+	}
+}
