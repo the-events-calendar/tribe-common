@@ -227,7 +227,7 @@ class Tribe__Main {
 			[
 				[ 'tribe-accessibility-css', 'accessibility.css' ],
 				[ 'tribe-query-string', 'utils/query-string.js' ],
-				[ 'tribe-clipboard', 'node_modules/clipboard/dist/clipboard.min.js' ],
+				[ 'tribe-clipboard', 'utils/tribe-clipboard.js' ],
 				[ 'datatables', 'vendor/datatables/datatables.js', [ 'jquery' ] ],
 				[ 'tribe-select2', 'vendor/tribe-selectWoo/dist/js/selectWoo.full.js', [ 'jquery' ] ],
 				[ 'tribe-select2-css', 'vendor/tribe-selectWoo/dist/css/selectWoo.css' ],
