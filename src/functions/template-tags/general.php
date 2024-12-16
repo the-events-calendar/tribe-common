@@ -911,29 +911,30 @@ if ( ! function_exists( 'tec_asset' ) ) {
 	 *
 	 * The asset will be added to a group named after the origin class name. The group
 	 * must have been registered using the `TEC\Common\StellarWP\Assets\Config::add_group_path` method.
-	 *
 	 * Example:
 	 * ```php
 	 * <?php
 	 * Config::add_group_path( Plugin::class, Plugin::instance()->plugin_path . 'build/', '/', true );
 	 * ```
+	 * Files built with the `wp-scripts` binary wil produce a PHP assets file: that will be loaded automatically,
+	 * dependencies will be merged with the ones explicitly defined in the `$dependencies` argument.
 	 *
 	 * @since TBD
 	 *
-	 * @param object|string          $origin The origin of the asset, either a class or a string.
-	 * @param string                 $slug The handle of the asset.
-	 * @param string                 $file The file of the asset.
-	 * @param array<string>|callable $deps The dependencies of the asset; either an array of dependencies or a callable
+	 * @param object|string          $origin       The origin of the asset, either a class or a string.
+	 * @param string                 $slug         The handle of the asset.
+	 * @param string                 $file         The file of the asset.
+	 * @param array<string>|callable $dependencies The dependencies of the asset; either an array of dependencies or a callable
 	 *                                      that returns an array of dependencies.
-	 * @param string|string[]|null   $action The action(s) to enqueue the asset on; either a string or an array of strings.
-	 * @param array                  $arguments {
+	 * @param string|string[]|null   $action       The action(s) to enqueue the asset on; either a string or an array of strings.
+	 * @param array                  $arguments    {
 	 *                      The arguments to pass to the asset.
 	 *
-	 *     @type string $type The type of the asset.
-	 *     @type string $media The media type of the asset.
-	 *     @type string|array $conditionals The conditionals to use for the asset.
-	 *     @type string|array $groups The groups to add the asset to.
-	 *     @type string|array $print_before The print_before to use for the asset.
+	 *     @type string              $type         The type of the asset.
+	 *     @type string              $media        The media type of the asset.
+	 *     @type string|array        $conditionals The conditionals to use for the asset.
+	 *     @type string|array        $groups       The groups to add the asset to.
+	 *     @type string|array        $print_before The print_before to use for the asset.
 	 *     @type string|array $print_after The print_after to use for the asset.
 	 *     @type array $localize {
 	 *         The localization data for the asset. One or more of the following:
@@ -957,9 +958,9 @@ if ( ! function_exists( 'tec_asset' ) ) {
 	 *
 	 * @return Asset|false The asset that was registered or `false` on error.
 	 */
-	function tec_asset( $origin, $slug, $file, $deps = [], $action = null, $arguments = [] ) {
+	function tec_asset( $origin, $slug, $file, $dependencies = [], $action = null, $arguments = [] ) {
 		/** @var Asset $asset */
-		$asset = Tribe__Assets::instance()->register( $origin, $slug, $file, $deps, $action, $arguments );
+		$asset = Tribe__Assets::instance()->register( $origin, $slug, $file, $dependencies, $action, $arguments );
 		// Build the group name from the plugin class name.
 		$build_group_name = is_object( $origin ) ? get_class( $origin ) : (string) $origin;
 		$asset->add_to_group_path( $build_group_name );
