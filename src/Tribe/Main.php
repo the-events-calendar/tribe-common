@@ -4,6 +4,7 @@ use TEC\Common\Libraries;
 use TEC\Common\Translations_Loader;
 use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
+use TEC\Common\Asset;
 
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -221,13 +222,21 @@ class Tribe__Main {
 	 * Registers resources that can/should be enqueued
 	 */
 	public function load_assets() {
+		Asset::add(
+			'tribe-clipboard',
+			'vendor/clipboard.min.js',
+			self::VERSION
+		)
+		->prefix_asset_directory( false )
+		->use_asset_file( false )
+		->register();
+
 		// These ones are only registered
 		tribe_assets(
 			$this,
 			[
 				[ 'tribe-accessibility-css', 'accessibility.css' ],
 				[ 'tribe-query-string', 'utils/query-string.js' ],
-				[ 'tribe-clipboard', 'node_modules/clipboard/dist/clipboard.min.js' ],
 				[ 'datatables', 'vendor/datatables/datatables.js', [ 'jquery' ] ],
 				[ 'tribe-select2', 'vendor/tribe-selectWoo/dist/js/selectWoo.full.js', [ 'jquery' ] ],
 				[ 'tribe-select2-css', 'vendor/tribe-selectWoo/dist/css/selectWoo.css' ],

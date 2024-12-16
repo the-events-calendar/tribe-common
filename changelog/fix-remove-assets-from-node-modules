@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Ensure we are not loading any assets from node_modules. Include anything we need as a 3rd party code in our plugin. [TCMN-175]
