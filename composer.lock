@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "8b37793ba0049f278402d119e0a1cce7",
+=======
+    "content-hash": "2d4720f49c2e102fef9820e0997bd46c",
+>>>>>>> 007a9e832 (build(composer.json) stellarwp/assets:^1.4.3)
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -405,6 +409,7 @@
         },
         {
             "name": "stellarwp/assets",
+<<<<<<< HEAD
             "version": "dev-main",
             "source": {
                 "type": "git",
@@ -415,6 +420,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/stellarwp/assets/zipball/2ddd4370c9b0f391592de0d46137886ca4bcb15f",
                 "reference": "2ddd4370c9b0f391592de0d46137886ca4bcb15f",
+=======
+            "version": "1.4.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stellarwp/assets.git",
+                "reference": "b0432d149bc02810423388f01fcf6cd383906746"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stellarwp/assets/zipball/b0432d149bc02810423388f01fcf6cd383906746",
+                "reference": "b0432d149bc02810423388f01fcf6cd383906746",
+>>>>>>> 007a9e832 (build(composer.json) stellarwp/assets:^1.4.3)
                 "shasum": ""
             },
             "require": {
@@ -459,9 +476,15 @@
             "description": "A library for managing asset registration and enqueuing in WordPress.",
             "support": {
                 "issues": "https://github.com/stellarwp/assets/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/stellarwp/assets/tree/main"
             },
             "time": "2025-02-12T16:23:27+00:00"
+=======
+                "source": "https://github.com/stellarwp/assets/tree/1.4.3"
+            },
+            "time": "2024-12-17T09:19:56+00:00"
+>>>>>>> 007a9e832 (build(composer.json) stellarwp/assets:^1.4.3)
         },
         {
             "name": "stellarwp/container-contract",
@@ -7544,7 +7567,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "stellarwp/assets": 20,
         "stellarwp/coding-standards": 20,
         "stellarwp/models": 20,
         "the-events-calendar/tec-testing-facilities": 20
