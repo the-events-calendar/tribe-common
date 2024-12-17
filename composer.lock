@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "862f9276ddfbec6d99ef48a2feb6b3a3",
+    "content-hash": "2d4720f49c2e102fef9820e0997bd46c",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -405,16 +405,16 @@
         },
         {
             "name": "stellarwp/assets",
-            "version": "dev-feat/add-to-group-path",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/assets.git",
-                "reference": "c97cd03ebea4dc98317b9e0a5998aae2b297bdcc"
+                "reference": "b0432d149bc02810423388f01fcf6cd383906746"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/assets/zipball/c97cd03ebea4dc98317b9e0a5998aae2b297bdcc",
-                "reference": "c97cd03ebea4dc98317b9e0a5998aae2b297bdcc",
+                "url": "https://api.github.com/repos/stellarwp/assets/zipball/b0432d149bc02810423388f01fcf6cd383906746",
+                "reference": "b0432d149bc02810423388f01fcf6cd383906746",
                 "shasum": ""
             },
             "require-dev": {
@@ -455,9 +455,9 @@
             "description": "A library for managing asset registration and enqueuing in WordPress.",
             "support": {
                 "issues": "https://github.com/stellarwp/assets/issues",
-                "source": "https://github.com/stellarwp/assets/tree/feat/add-to-group-path"
+                "source": "https://github.com/stellarwp/assets/tree/1.4.3"
             },
-            "time": "2024-12-16T12:37:51+00:00"
+            "time": "2024-12-17T09:19:56+00:00"
         },
         {
             "name": "stellarwp/container-contract",
@@ -7154,7 +7154,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "stellarwp/assets": 20,
         "stellarwp/coding-standards": 20,
         "stellarwp/models": 20,
         "the-events-calendar/tec-testing-facilities": 20
