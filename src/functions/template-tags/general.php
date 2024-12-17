@@ -963,6 +963,12 @@ if ( ! function_exists( 'tec_asset' ) ) {
 		$asset = Tribe__Assets::instance()->register( $origin, $slug, $file, $dependencies, $action, $arguments );
 		// Build the group name from the plugin class name.
 		$build_group_name = is_object( $origin ) ? get_class( $origin ) : (string) $origin;
+
+		if ( str_starts_with( $file, 'vendor' ) ) {
+			// Vendor files should be loaded from `/vendor` directly, they are not built.
+			return $asset;
+		}
+
 		$asset->add_to_group_path( $build_group_name );
 
 		return $asset;
@@ -1016,7 +1022,10 @@ if ( ! function_exists( 'tec_assets' ) ) {
 
 			$asset = Tribe__Assets::instance()->register( $origin, $slug, $file, $deps, $asset_action, $asset_arguments );
 
-			$asset->add_to_group_path( $build_group_name );
+			// Vendor assests are not built, they should not be loaded from the `/build` directory.
+			if ( ! str_starts_with( $file, 'vendor' ) ) {
+				$asset->add_to_group_path( $build_group_name );
+			}
 
 			$registered[] = $asset;
 		}
