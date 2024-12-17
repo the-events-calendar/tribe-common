@@ -1,8 +1,9 @@
 == Changelog ==
 
-= [6.4.1] 2024-12-16  =
+= [6.4.1] 2024-12-17 =
 
 * Feature - Add an abstract admin page to start consolidating how we do admin pages. See the "First Time Setup" page (onboarding wizard) for an example. [TEC-5294]
+* Tweak - Ensure we are not loading any assets from node_modules. Include anything we need as a 3rd party code in our plugin. [TCMN-175]
 * Fix - Cast `$block` argument to string to avoid PHP 8+ deprecation notice when non string (or array) variables are passed as the 3rd argument of `preg_replace`.
 * Fix - Correctly identify licenses using uplink, like Event Tickets Plus. [n/a]
 * Fix - Ensure that number_format is used with a float value to prevent issues with PHP 8.0+. [ETP-962]
