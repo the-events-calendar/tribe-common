@@ -7,6 +7,7 @@ use Restv1_etTester;
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use TEC\Event_Automator\Tests\Traits\Create_Events;
 use TEC\Event_Automator\Tests\Traits\Create_Attendees;
+use TEC\Common\StellarWP\Schema\Builder;
 
 class OrdersCest extends BaseRestETCest {
 
@@ -113,6 +114,7 @@ class OrdersCest extends BaseRestETCest {
 	 * @test
 	 */
 	public function it_should_process_tc_orders_queue( Restv1_etTester $I ) {
+		tribe( Builder::class )->update_blog_tables( true );
 		$event      = $this->generate_event( $this->mock_date_value );
 		$order_id_1 = $this->generate_tc_order( $event );
 		$order_id_2 = $this->generate_tc_order( $event );
