@@ -16,6 +16,7 @@
       "php": "7.4.0"
     },
     "allow-plugins": {
+      "cweagans/composer-patches": true,
       "dealerdirect/phpcodesniffer-composer-installer": true,
       "phpstan/extension-installer": true
     }
@@ -24,7 +25,7 @@
     "firebase/php-jwt": "~6.3.0",
     "lucatume/di52": "^3.3.7",
     "monolog/monolog": "1.24.*",
-    "psr/container": "^1.0.0",
+    "psr/container": "1.1.1",
     "stellarwp/arrays": "1.2.2",
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
@@ -32,15 +33,18 @@
     "stellarwp/models": "dev-main",
     "stellarwp/schema": "^1.1.3",
     "stellarwp/telemetry": "^2.3.1",
-    "stellarwp/assets": "^1.2.6",
-    "stellarwp/uplink": "2.2.1"
+    "stellarwp/assets": "1.4.2",
+    "stellarwp/admin-notices": "^1.1",
+    "stellarwp/uplink": "2.2.2"
   },
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
     "wp-cli/wp-cli": ">=2.0 <3.0.0",
     "bordoni/phpass": "0.3.5",
     "codeception/codeception": "^2.5.5",
+    "cweagans/composer-patches": "^1.7",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+    "fakerphp/faker": "^1.23",
     "lucatume/codeception-snapshot-assertions": "^0.2.4",
     "lucatume/function-mocker-le": "^1.0",
     "lucatume/wp-browser": "^3.0.14",
@@ -48,8 +52,7 @@
     "the-events-calendar/tec-testing-facilities": "dev-master",
     "wp-cli/checksum-command": "1.0.5",
     "wp-coding-standards/wpcs": "^3.0.0",
-    "automattic/jetpack-changelogger": "^4.2",
-    "fakerphp/faker": "^1.23"
+    "automattic/jetpack-changelogger": "^4.2"
   },
   "autoload": {
     "psr-4": {
@@ -70,19 +73,22 @@
       "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.19.4/strauss.phar",
       "vendor/stellarwp/installer/bin/set-domain domain=tribe-common",
       "@php -d display_errors=on bin/strauss.phar",
-      "@composer dump-autoload",
-      "@clean-strauss-static-function-autoload"
+      "@composer dump-autoload"
     ],
     "post-install-cmd": [
-      "@strauss",
-      "@stellar-uplink"
+      "@stellar-uplink",
+      "@strauss"
     ],
     "post-update-cmd": [
-      "@strauss",
-      "@stellar-uplink"
+      "@stellar-uplink",
+      "@strauss"
     ],
     "stellar-uplink": [
       "vendor/bin/stellar-uplink domain=tribe-common"
+    ],
+    "pup": [
+      "test -f ./bin/pup.phar || curl -o ./bin/pup.phar -L -C - https://github.com/stellarwp/pup/releases/download/1.3.7/pup.phar",
+      "@php bin/pup.phar"
     ]
   },
   "extra": {
@@ -106,13 +112,10 @@
         "firebase/php-jwt",
         "psr/container",
         "stellarwp/assets",
-        "fakerphp/faker"
+        "stellarwp/admin-notices"
       ],
       "exclude_from_prefix": {
-        "file_patterns": [],
-        "namespaces": [
-          "Faker"
-        ]
+        "file_patterns": []
       },
       "delete_vendor_files": true,
       "include_modified_date": false,
@@ -139,6 +142,11 @@
         "filename": "bin/ModifiedSemverVersioning.php"
       },
       "changes-dir": "changelog"
+    },
+    "patches": {
+      "fakerphp/faker": {
+        "Use prefixed Psr\\Container\\ContainerInterface": "tests/_patches/faker-use-prefixed-containerinterface.patch"
+      }
     }
   }
 }
