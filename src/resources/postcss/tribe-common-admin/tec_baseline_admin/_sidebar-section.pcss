@@ -1,0 +1,46 @@
+.tec-admin-page__sidebar-section {
+	background-color: var(--tec-color-background);
+	border-radius: var(--tec-border-radius-default);
+	display: flex;
+	flex-direction: column;
+	gap: var(--tec-spacer-3);
+	margin: 0 var(--tec-spacer-4);
+	overflow: hidden;
+	padding: var(--tec-spacer-4) var(--tec-spacer-2) var(--tec-spacer-4) var(--tec-spacer-4);
+
+	&:last-child {
+		margin-bottom: var(--tec-spacer-4);
+	}
+
+	.tec-admin-page__sidebar-header:first-child {
+		margin-top: 0;
+	}
+
+	&.has-icon {
+		flex-direction: row;
+		gap: var(--tec-spacer-2);
+
+		.tec-admin-page__icon {
+			background-size: 48px;
+			flex: 0 0 48px;
+			height: 48px;
+			margin-right: 0;
+			width: 48px;
+		}
+	}
+
+	@media (--viewport-xlarge) {
+		display: flex;
+	}
+
+	.tec-admin-page__sidebar-section {
+
+
+
+	}
+
+	@media (--viewport-xlarge) {
+		border: 1px solid var(--tec-color-border-default);
+		margin: 0 auto auto 0;
+	}
+}

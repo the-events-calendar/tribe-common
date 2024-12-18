@@ -8,8 +8,7 @@ trait Value_Update {
 	 * @inheritDoc
 	 */
 	public function get_setters() {
-
-		if ( Abstract_Value::class !== get_class() ) {
+		if ( Abstract_Value::class !== __CLASS__ ) {
 			$setters = parent::get_setters();
 		}
 

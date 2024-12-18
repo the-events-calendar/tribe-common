@@ -228,8 +228,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Gets whether the license key is valid or not.
 		 *
 		 * @since 4.14.9
+		 * @since 6.4.1 Added uplink resource check.
 		 */
 		public function is_key_valid() {
+			$uplink_resource = get_resource( $this->get_slug() );
+
+			if ( $uplink_resource ) {
+				return $uplink_resource->has_valid_license();
+			}
+
 			// @todo remove transient in a major feature release where we release all plugins.
 			$status = get_transient( $this->pue_key_status_transient_name );
 
@@ -1097,6 +1104,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public function validate_key( $key, $network = false ) {
 			$response           = [];
 			$response['status'] = 0;
+
+			$uplink_resource = get_resource( $this->get_slug() );
+
+			if ( $uplink_resource ) {
+				$key = $uplink_resource->get_license_key();
+			}
 
 			if ( ! $key ) {
 				$response['message'] = sprintf(

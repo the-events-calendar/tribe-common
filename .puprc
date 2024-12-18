@@ -1,5 +1,6 @@
 {
 	"build": [
+		"composer -- pup",
 		"rm -rf vendor",
 		"git checkout -- vendor",
 		"composer install --no-dev",
@@ -7,6 +8,7 @@
 		"npm run build"
 	],
 	"build_dev": [
+		"composer -- pup",
 		"rm -rf vendor",
 		"git checkout -- vendor",
 		"composer install",
@@ -15,7 +17,9 @@
 	],
 	"checks": {
 		"tbd": {
-			"dirs": [ "src" ]
+			"dirs": [
+				"src"
+			]
 		},
 		"version-conflict": {}
 	},
@@ -23,7 +27,7 @@
 		{
 			"slug": "tribe-common",
 			"textdomain": "tribe-common",
-			"url": "https://translations.stellarwp.com/"
+			"url": "https://translations.stellarwp.com/glotpress/"
 		}
 	],
 	"paths": {
@@ -53,7 +57,9 @@
 				"regex": "(\"version\": ?\")([^\"]+)"
 			}
 		],
-		"views": [ "src/views" ]
+		"views": [
+			"src/views"
+		]
 	},
 	"zip_name": "tribe-common"
 }

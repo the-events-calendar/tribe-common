@@ -86,4 +86,25 @@ class SettingsCest {
 		// 25 instances of dashboard rows with 11 for PA and 14 for Zapier, includes the header.
 		$I->canSeeNumberOfElementsInDOM('//div[contains(@class, "tec-automator-grid-row")]', 25);
 	}
+
+	/**
+	 * @test
+	 */
+	public function should_see_warning_when_etp_is_inactive_and_on_integrations_page( End2endTester $I ) {
+		$I->amOnPluginsPage();
+		$I->deactivatePlugin(
+			[
+				'event-tickets-plus',
+			]
+		);
+
+		$I->amOnPluginsPage();
+		$I->seePluginActivated( 'event-tickets' );
+		$I->seePluginDeactivated( 'event-tickets-plus' );
+
+		$I->amOnAdminPage('/admin.php?page=tec-tickets-settings&tab=integrations');
+		$I->dontSeeInPageSource( 'Zapier' );
+		$I->dontSeeInPageSource( 'Power Automate' );
+		$I->canSeeInPageSource('You\'ve requested a non-existent tab.');
+	}
 }
