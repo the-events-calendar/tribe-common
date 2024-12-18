@@ -2,7 +2,7 @@
 /**
  * The trait implemented by function spies to provide assertions and set expectations.
  *
- * @since   6.3.2
+ * @since 6.3.0
  *
  * @package Tribe\Tests\Traits;
  */
@@ -12,7 +12,7 @@ namespace Tribe\Tests\Traits;
 /**
  * Trait Function_Spy.
  *
- * @since   6.3.2
+ * @since 6.3.0
  *
  * @package Tribe\Tests\Traits;
  */
@@ -52,6 +52,15 @@ trait Function_Spy {
 	 */
 	public function get_name(): string {
 		return $this->name;
+	}
+
+	/**
+	 * Returns the calls that have been made to the function.
+	 *
+	 * @return array
+	 */
+	public function get_calls(): array {
+		return $this->calls;
 	}
 
 	/**

@@ -1,0 +1,40 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Tribe Common Admin Header
+ *
+ * This is the header of the entire page - not be confused with the headers in the content.
+ *
+ * -----------------------------------------------------------------------------
+ */
+.tec-admin-page__header {
+	background: none;
+	background-color: transparent;
+	column-gap: var(--tec-spacer-1);
+	display: flex;
+	flex-flow: row nowrap;
+	grid-area: header;
+	padding: var(--tec-spacer-5) var(--tec-spacer-7) 0;
+	position: relative;
+
+	@media (--viewport-wpadmin) {
+		background: #fff;
+		border-bottom: 1px solid var(--tec-admin-core-grey-10);
+		padding: var(--tec-spacer-3) var(--tec-spacer-5);
+	}
+}
+
+.tec-admin-page__logo {
+	margin: 0;
+	padding: var(--tec-spacer-1);
+	vertical-align: middle;
+	width: var(--tec-spacer-7);
+}
+
+.tec-admin-page__header-title {
+	color: #000;
+	font-size: var(--tec-font-size-7);
+	font-weight: var(--tec-font-weight-regular);
+	line-height: var(--tec-line-height-0);
+	margin: 0;
+	padding: 0;
+}
