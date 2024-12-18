@@ -107,7 +107,7 @@ export default class Select extends PureComponent {
 					'tribe-common-form-select',
 					this.props.className,
 				) }
-				position="bottom center"
+				placement="bottom center"
 				contentClassName="tribe-common-form-select__content"
 				renderToggle={ this.renderToggle }
 				renderContent={ this.renderContent }

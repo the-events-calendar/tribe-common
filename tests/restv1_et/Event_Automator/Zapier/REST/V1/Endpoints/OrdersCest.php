@@ -159,7 +159,6 @@ class OrdersCest extends BaseRestETCest {
 
 	/**
 	 * @test
-	 * @skip Strauss does not update FakerPHP causing 'Psr\Container\ContainerInterface' not found
 	 */
 	public function it_should_process_edd_orders_queue( Restv1_etTester $I ) {
 		$event      = $this->generate_event( $this->mock_date_value );
@@ -206,7 +205,6 @@ class OrdersCest extends BaseRestETCest {
 
 	/**
 	 * @test
-	 * @skip Strauss does not update FakerPHP causing 'Psr\Container\ContainerInterface' not found
 	 */
 	public function it_should_process_woo_orders_queue( Restv1_etTester $I ) {
 		$event      = $this->generate_event( $this->mock_date_value );

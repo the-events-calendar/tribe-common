@@ -15,7 +15,7 @@ export const SIZES = {
 	small: 'small',
 };
 
-const Paragraph = ( { children, size, className } ) => (
+const Paragraph = ( { children, size = SIZES.medium, className } ) => (
 	<p
 		className={
 			classNames(
@@ -32,10 +32,6 @@ const Paragraph = ( { children, size, className } ) => (
 Paragraph.propTypes = {
 	children: PropTypes.node.isRequired,
 	size: PropTypes.oneOf( Object.keys( SIZES ) ),
-};
-
-Paragraph.defaultProps = {
-	size: SIZES.medium,
 };
 
 export default Paragraph;
