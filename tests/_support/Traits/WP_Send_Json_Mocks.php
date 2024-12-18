@@ -2,7 +2,7 @@
 /**
  * Provides methods to mock `wp_send_json` functions in tests using the `uopz` extension.
  *
- * @since   TBD
+ * @since 6.3.0
  *
  * @package Traits;
  */
@@ -43,7 +43,7 @@ class WP_Send_Json_Mock_Spy {
 /**
  * Class WP_Send_Json_Mocks.
  *
- * @since   TBD
+ * @since 6.3.0
  *
  * @package Traits;
  */

@@ -41,7 +41,6 @@ class Hooks extends Service_Provider {
 		$this->container->singleton( 'event-automator.hooks', $this );
 
 		add_action( 'admin_init', [ $this, 'run_updates' ], 10, 0 );
-		add_action( 'admin_init', [ $this, 'admin_register' ], 0 );
 	}
 
 	/**
@@ -62,8 +61,9 @@ class Hooks extends Service_Provider {
 	 * Register providers at admin_init, so dependencies are loaded.
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
+	 * @deprecated 6.4.1
 	 */
 	public function admin_register() {
-		$this->container->register( Tabs_Provider::class );
+		_deprecated_function( __METHOD__, '6.4.1' );
 	}
 }

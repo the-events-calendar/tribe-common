@@ -2,35 +2,40 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 6.3.1\n"
+"Project-Id-Version: Tribe Common 6.4.1\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-11-04T06:44:43-08:00\n"
-"PO-Revision-Date: 2024-11-04 14:44\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"POT-Creation-Date: 2024-12-13T19:57:48+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: tribe-common\n"
 
 #. Plugin Name of the plugin
+#: tribe-common.php
 msgid "Tribe Common"
 msgstr ""
 
 #. Description of the plugin
+#: tribe-common.php
 msgid "An event settings framework for managing shared options."
 msgstr ""
 
 #. Author of the plugin
+#: tribe-common.php
 #: src/admin-views/help-calendar.php:105
-#: src/Tribe/Admin/Help_Page.php:168
+#: src/Common/Admin/Abstract_Admin_Page.php:430
+#: src/Tribe/Admin/Help_Page.php:171
 #: src/Tribe/Customizer.php:664
 #: src/Tribe/Plugins_API.php:25
 msgid "The Events Calendar"
 msgstr ""
 
 #. Author URI of the plugin
+#: tribe-common.php
 msgid "http://evnt.is/1x"
 msgstr ""
 
@@ -374,13 +379,13 @@ msgid "Getting Started Guides"
 msgstr ""
 
 #: src/admin-views/help-calendar.php:110
-#: src/Tribe/Admin/Help_Page.php:337
+#: src/Tribe/Admin/Help_Page.php:340
 #: src/Tribe/Plugins_API.php:45
 msgid "Event Aggregator"
 msgstr ""
 
 #: src/admin-views/help-calendar.php:115
-#: src/Tribe/Admin/Help_Page.php:347
+#: src/Tribe/Admin/Help_Page.php:350
 #: src/Tribe/Plugins_API.php:146
 msgid "Filter Bar"
 msgstr ""
@@ -422,7 +427,6 @@ msgstr ""
 #: src/admin-views/help-calendar.php:168
 #: src/admin-views/help-community.php:153
 #: src/admin-views/help-ticketing.php:186
-#: src/Common/Event_Automator/Admin/Tabs/Integrations.php:52
 msgid "Integrations"
 msgstr ""
 
@@ -478,13 +482,13 @@ msgstr ""
 
 #: src/admin-views/help-community.php:85
 #: src/admin-views/help.php:54
-#: src/Tribe/Admin/Help_Page.php:329
+#: src/Tribe/Admin/Help_Page.php:332
 #: src/Tribe/Plugins_API.php:166
 msgid "Community"
 msgstr ""
 
 #: src/admin-views/help-community.php:90
-#: src/Tribe/Admin/Help_Page.php:372
+#: src/Tribe/Admin/Help_Page.php:375
 msgid "Community Tickets"
 msgstr ""
 
@@ -536,13 +540,263 @@ msgstr ""
 msgid "Automatic Updates"
 msgstr ""
 
+#: src/admin-views/help-hub.php:49
+msgid "Settings Navigation"
+msgstr ""
+
+#: src/admin-views/help-hub.php:50
+msgid "Close settings navigation"
+msgstr ""
+
+#: src/admin-views/help-hub.php:51
+#: src/Tribe/Settings.php:886
+#: src/Tribe/Settings.php:924
+msgid "Close"
+msgstr ""
+
+#: src/admin-views/help-hub.php:54
+msgid "Help Hub Navigation"
+msgstr ""
+
+#: src/admin-views/help-hub.php:77
+#: src/admin-views/help-hub.php:83
+#: src/Tribe/Settings.php:1072
+msgid "Open settings navigation"
+msgstr ""
+
+#: src/admin-views/help-hub.php:87
+msgid "Main Help Hub Navigation"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/common-issues.php:22
+msgctxt "Common issues section title"
+msgid "Common issues"
+msgstr ""
+
+#. translators: %s is the link to the AI Chatbot
+#: src/admin-views/help-hub/resources/common-issues.php:28
+msgid "Having trouble? Find solutions to common issues or ask our %s."
+msgstr ""
+
+#: src/admin-views/help-hub/resources/common-issues.php:29
+msgid "AI Chatbot"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/customization.php:22
+msgctxt "Customization guides section title"
+msgid "Customization guides"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/customization.php:25
+msgctxt "Customization guides section paragraph"
+msgid "Tips and tricks on making your calendar just the way you want it."
+msgstr ""
+
+#: src/admin-views/help-hub/resources/faqs.php:22
+msgctxt "FAQs section title"
+msgid "FAQs"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/faqs.php:25
+msgctxt "FAQs section paragraph"
+msgid "Get quick answers to common questions"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/getting-started.php:22
+msgctxt "Getting started guide section title"
+msgid "Getting started guides"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/getting-started.php:25
+msgctxt "Getting started guide section paragraph"
+msgid "Easy to follow step-by-step instructions to make the most out of your calendar."
+msgstr ""
+
+#: src/admin-views/help-hub/resources/resources.php:18
+msgctxt "Resources tab title"
+msgid "Resources"
+msgstr ""
+
+#. translators: %1$s is the link to the Knowledgebase.
+#: src/admin-views/help-hub/resources/resources.php:25
+msgid "Help on setting up, customizing, and troubleshooting your calendar. See our %1$s for in-depth content."
+msgstr ""
+
+#. translators: %s: Knowledgebase
+#: src/admin-views/help-hub/resources/resources.php:26
+#: src/admin-views/tribe-options-help.php:21
+msgid "Knowledgebase"
+msgstr ""
+
+#. translators: Placeholders are for the `a` tag that displays a link.
+#: src/admin-views/help-hub/resources/resources.php:33
+msgctxt "The callout notice to try the chatbot with a link to the page"
+msgid "To find the answer to all your questions use the %1$sTEC Chatbot%2$s"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/resources.php:55
+msgctxt "AI Chatbot notice title"
+msgid "Our AI Chatbot is here to help you"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/resources.php:64
+msgctxt "AI Chatbot section paragraph"
+msgid "You have questions? The TEC Chatbot has the answers."
+msgstr ""
+
+#: src/admin-views/help-hub/resources/resources.php:74
+#: src/admin-views/help-hub/resources/sidebar/no-license.php:39
+msgctxt "Link to the Help Chatbot"
+msgid "Talk to TEC Chatbot"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:18
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:18
+msgctxt "Help page resources sidebar header"
+msgid "Our TEC support hub now offers an improved help experience"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:27
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:27
+msgctxt "Describes why consent is beneficial"
+msgid "Our Help page is better than ever with the addition of:"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:45
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:45
+msgctxt "AI Chatbot sidebar header"
+msgid "AI Chatbot"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:54
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:54
+msgctxt "AI Chatbot support sidebar paragraph"
+msgid "Here to provide quick answers to your questions. It’s never been easier to find the right resource."
+msgstr ""
+
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:73
+msgctxt "Get support sidebar header"
+msgid "Talk to our support team"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:82
+msgctxt "Live support sidebar paragraph"
+msgid "Our Support team is available to help you out 5 days a week:"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:92
+msgctxt "Live support hours"
+msgid "Mon-Fri from 9:00 - 20:00 PST"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/sidebar/no-license.php:25
+msgctxt "Help page resources sidebar header"
+msgid "Our AI Chatbot is here to help you"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/sidebar/no-license.php:29
+msgctxt "Call to action to use The Events Calendar Help Chatbot."
+msgid "You have questions? The TEC Chatbot has the answers."
+msgstr ""
+
+#: src/admin-views/help-hub/shared-live-support.php:25
+msgctxt "Get support sidebar header"
+msgid "Get priority live support"
+msgstr ""
+
+#: src/admin-views/help-hub/shared-live-support.php:34
+msgctxt "Live support sidebar paragraph"
+msgid "You can get live support from The Events Calendar team if you have an active license for one of our products."
+msgstr ""
+
+#: src/admin-views/help-hub/shared-live-support.php:44
+msgctxt "Live support sidebar link to article"
+msgid "Learn how to get live support"
+msgstr ""
+
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:73
+msgctxt "Get support sidebar header"
+msgid "In-app priority live support"
+msgstr ""
+
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:82
+msgctxt "Live support sidebar paragraph"
+msgid "Get access to our agents or generate a support ticket from right here."
+msgstr ""
+
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:93
+msgctxt "Opt in sidebar paragraph"
+msgid "To enhance your experience, we require your consent to collect and share some of your website’s data with our AI chatbot. "
+msgstr ""
+
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:103
+msgctxt "Button to manage opt in status"
+msgid "Manage my data sharing consent"
+msgstr ""
+
+#: src/admin-views/help-hub/support/iframe-content.php:20
+msgid "Iframe Content"
+msgstr ""
+
+#: src/admin-views/help-hub/support/iframe-content.php:34
+msgid "Star Icon"
+msgstr ""
+
+#: src/admin-views/help-hub/support/iframe-content.php:37
+msgid "Our AI Chatbot can help you find solutions quickly."
+msgstr ""
+
+#: src/admin-views/help-hub/support/iframe-content.php:39
+msgid "To enhance your experience, we require your consent to collect and share some of your website’s data with our AI chatbot."
+msgstr ""
+
+#. translators: 1: the opening tag to the chatbot link, 2: the closing tag.
+#: src/admin-views/help-hub/support/iframe-content.php:45
+msgctxt "Text for opting out of chatbot and linking to The Events Calendar’s Knowledgebase"
+msgid "If you do not wish to consent, you could chat with the bot on %1$sThe Events Calendar’s Knowledgebase%2$s."
+msgstr ""
+
+#: src/admin-views/help-hub/support/iframe-content.php:55
+msgid "Manage my data sharing consent"
+msgstr ""
+
+#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:24
+msgctxt "Talk to support sidebar header"
+msgid "Talk to our support team"
+msgstr ""
+
+#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:33
+msgctxt "Contact support paragraph"
+msgid "If you still need help contact us. Our Support team is available to help you out 5 days a week:"
+msgstr ""
+
+#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:42
+msgctxt "Support hours"
+msgid "Mon-Fri from 9:00 - 20:00 PST"
+msgstr ""
+
+#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:52
+msgctxt "Contact support link"
+msgid "Contact support"
+msgstr ""
+
+#: src/admin-views/help-hub/support/support-hub.php:18
+msgctxt "Help page Support Hub title"
+msgid "TEC Support Hub"
+msgstr ""
+
+#: src/admin-views/help-hub/support/support-hub.php:27
+msgctxt "Help page Support Hub header paragraph"
+msgid "Help on setting up, customizing and troubleshooting your calendar."
+msgstr ""
+
 #: src/admin-views/help-ticketing.php:106
 #: src/admin-views/help-ticketing.php:168
 msgid "book with The Events ticketing logo"
 msgstr ""
 
 #: src/admin-views/help-ticketing.php:114
-#: src/Tribe/Admin/Help_Page.php:187
+#: src/Tribe/Admin/Help_Page.php:190
 #: src/Tribe/Plugins_API.php:86
 msgid "Event Tickets"
 msgstr ""
@@ -580,7 +834,7 @@ msgid "(Event Tickets Plus)"
 msgstr ""
 
 #: src/admin-views/help.php:38
-#: src/Tribe/Settings.php:802
+#: src/Tribe/Settings.php:811
 msgid "Help"
 msgstr ""
 
@@ -611,6 +865,61 @@ msgstr ""
 
 #: src/admin-views/notices/upsell/icon.php:18
 msgid "The Events Calendar important notice icon"
+msgstr ""
+
+#: src/admin-views/notifications/notification.php:20
+msgid "Dismiss"
+msgstr ""
+
+#: src/admin-views/notifications/notification.php:33
+msgid "Mark as read"
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:17
+msgid "Notifications"
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:20
+msgid "Mark all as read"
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:21
+msgid "Close icon"
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:21
+msgid "Close sidebar"
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:28
+#: src/admin-views/notifications/sidebar.php:34
+msgid "Notifications icon"
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:29
+#: src/admin-views/notifications/sidebar.php:35
+msgid "There are no notifications"
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:30
+msgid "Congratulations! You are up to date."
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:37
+msgid "Be up to date with the latest updates, fixes and features for The Events Calendar."
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:38
+msgid "data sharing agreement"
+msgstr ""
+
+#. translators: %s: data sharing agreement
+#: src/admin-views/notifications/sidebar.php:42
+msgid "To receive notifications you need to agree to our %s."
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:46
+msgid "Opt-in to notifications"
 msgstr ""
 
 #: src/admin-views/power-automate/api/components/access.php:22
@@ -752,11 +1061,6 @@ msgstr ""
 #. translators: %s: Knowledgebase
 #: src/admin-views/tribe-options-help.php:21
 msgid "Our website’s %s is a great place to find tips and tricks for using and customizing our plugins."
-msgstr ""
-
-#. translators: %s: Knowledgebase
-#: src/admin-views/tribe-options-help.php:21
-msgid "Knowledgebase"
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:26
@@ -999,8 +1303,8 @@ msgid "License & Usage"
 msgstr ""
 
 #: src/admin-views/troubleshooting/ea-status/license-key.php:43
-#: src/Tribe/PUE/Checker.php:636
-#: src/Tribe/PUE/Checker.php:647
+#: src/Tribe/PUE/Checker.php:712
+#: src/Tribe/PUE/Checker.php:723
 msgid "License Key"
 msgstr ""
 
@@ -1391,6 +1695,42 @@ msgstr ""
 
 #: src/Common/Admin/Entities/Validate_Elements.php:34
 msgid "Invalid class instance."
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:338
+#: src/Tribe/Admin/Help_Page.php:144
+msgctxt "Copy to clipboard button text."
+msgid "Copy to clipboard"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:339
+#: src/Tribe/Admin/Help_Page.php:145
+msgctxt "Copy to clipboard success message"
+msgid "System info copied"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:340
+#: src/Tribe/Admin/Help_Page.php:146
+msgctxt "Copy to clipboard instructions"
+msgid "Press \"Cmd + C\" to copy"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:341
+#: src/Tribe/Admin/Help_Page.php:147
+msgctxt "Default error message for system info optin"
+msgid "Something has gone wrong!"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:342
+#: src/Tribe/Admin/Help_Page.php:148
+msgctxt "Error code label for system info optin"
+msgid "Code:"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:343
+#: src/Tribe/Admin/Help_Page.php:149
+msgctxt "Error status label for system info optin"
+msgid "Status:"
 msgstr ""
 
 #: src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:171
@@ -2255,6 +2595,47 @@ msgctxt "Notice message after updating plugins to the merged version."
 msgid "Thanks for upgrading %1$s now with even more value! Learn more about the latest changes %2$shere%3$s."
 msgstr ""
 
+#: src/Common/Notifications/Controller.php:85
+msgid "Read notifications"
+msgstr ""
+
+#: src/Common/Notifications/Controller.php:213
+msgid "Enable this option to receive notifications about The Events Calendar, including updates, fixes, and features. This is enabled if you have opted in to Telemetry."
+msgstr ""
+
+#: src/Common/Notifications/Controller.php:224
+msgid "In-App Notifications"
+msgstr ""
+
+#: src/Common/Notifications/Notifications.php:153
+#: src/Common/Notifications/Notifications.php:171
+#: src/Common/Notifications/Notifications.php:219
+#: src/Common/Notifications/Notifications.php:247
+#: src/Common/Notifications/Notifications.php:273
+msgid "Invalid nonce"
+msgstr ""
+
+#: src/Common/Notifications/Notifications.php:159
+msgid "Notifications opt-in successful"
+msgstr ""
+
+#: src/Common/Notifications/Notifications.php:226
+#: src/Common/Notifications/Notifications.php:254
+msgid "Invalid notification slug"
+msgstr ""
+
+#: src/Common/Notifications/Notifications.php:233
+msgid "Notification dismissed"
+msgstr ""
+
+#: src/Common/Notifications/Notifications.php:261
+msgid "Notification marked as read"
+msgstr ""
+
+#: src/Common/Notifications/Notifications.php:284
+msgid "All notifications marked as read"
+msgstr ""
+
 #. Translators: %1$s the post type label.
 #: src/Common/Site_Health/Fields/Post_Status_Count_Field.php:54
 msgid "%1$s counts"
@@ -2314,301 +2695,271 @@ msgstr ""
 msgid "Go to WordPress Updates page"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:141
-msgctxt "Copy to clipboard button text."
-msgid "Copy to clipboard"
-msgstr ""
-
-#: src/Tribe/Admin/Help_Page.php:142
-msgctxt "Copy to clipboard success message"
-msgid "System info copied"
-msgstr ""
-
-#: src/Tribe/Admin/Help_Page.php:143
-msgctxt "Copy to clipboard instructions"
-msgid "Press \"Cmd + C\" to copy"
-msgstr ""
-
-#: src/Tribe/Admin/Help_Page.php:144
-msgctxt "Default error message for system info optin"
-msgid "Something has gone wrong!"
-msgstr ""
-
-#: src/Tribe/Admin/Help_Page.php:145
-msgctxt "Error code label for system info optin"
-msgid "Code:"
-msgstr ""
-
-#: src/Tribe/Admin/Help_Page.php:146
-msgctxt "Error status label for system info optin"
-msgid "Status:"
-msgstr ""
-
-#: src/Tribe/Admin/Help_Page.php:172
+#: src/Tribe/Admin/Help_Page.php:175
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:191
+#: src/Tribe/Admin/Help_Page.php:194
 msgid "Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:206
+#: src/Tribe/Admin/Help_Page.php:209
 msgid "Advanced Post Manager"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:210
+#: src/Tribe/Admin/Help_Page.php:213
 msgid "Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:288
+#: src/Tribe/Admin/Help_Page.php:291
 msgid " and "
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:312
+#: src/Tribe/Admin/Help_Page.php:315
 msgid "Events Calendar PRO"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:321
+#: src/Tribe/Admin/Help_Page.php:324
 #: src/Tribe/Plugins_API.php:187
 msgid "Eventbrite Tickets"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:355
+#: src/Tribe/Admin/Help_Page.php:358
 msgid "Virtual Events"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:363
+#: src/Tribe/Admin/Help_Page.php:366
 #: src/Tribe/Plugins_API.php:106
 msgid "Event Tickets Plus"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:546
+#: src/Tribe/Admin/Help_Page.php:549
 msgctxt "not available"
 msgid "n/a"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:554
+#: src/Tribe/Admin/Help_Page.php:557
 msgid "You need to upgrade!"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:554
-#: src/Tribe/Admin/Help_Page.php:930
+#: src/Tribe/Admin/Help_Page.php:557
+#: src/Tribe/Admin/Help_Page.php:933
 msgid "You are up to date!"
 msgstr ""
 
 #. translators: %s: Plugin Name
-#: src/Tribe/Admin/Help_Page.php:920
+#: src/Tribe/Admin/Help_Page.php:923
 msgid "Activate %s"
 msgstr ""
 
 #. translators: %s: Plugin Name
-#: src/Tribe/Admin/Help_Page.php:920
+#: src/Tribe/Admin/Help_Page.php:923
 msgid "Activate Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:928
+#: src/Tribe/Admin/Help_Page.php:931
 msgid "Upgrade Plugin"
 msgstr ""
 
 #. translators: %s: Plugin Name
-#: src/Tribe/Admin/Help_Page.php:945
+#: src/Tribe/Admin/Help_Page.php:948
 msgid "Install %s"
 msgstr ""
 
 #. translators: %s: Plugin Name
-#: src/Tribe/Admin/Help_Page.php:945
+#: src/Tribe/Admin/Help_Page.php:948
 msgid "Install Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:962
+#: src/Tribe/Admin/Help_Page.php:965
 msgid "Latest Version:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:965
+#: src/Tribe/Admin/Help_Page.php:968
 msgid "Requires:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:966
+#: src/Tribe/Admin/Help_Page.php:969
 msgid "WordPress "
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:968
+#: src/Tribe/Admin/Help_Page.php:971
 msgid "Active Users:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:971
+#: src/Tribe/Admin/Help_Page.php:974
 msgid "Rating:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:996
+#: src/Tribe/Admin/Help_Page.php:999
 msgid "Premium Add-Ons"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1003
+#: src/Tribe/Admin/Help_Page.php:1006
 msgid "Plugin Active"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1005
+#: src/Tribe/Admin/Help_Page.php:1008
 msgid "Plugin Inactive"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1010
+#: src/Tribe/Admin/Help_Page.php:1013
 msgid "Visit the Add-on Page"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1037
+#: src/Tribe/Admin/Help_Page.php:1040
 msgid "Can I have more than one calendar?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1038
+#: src/Tribe/Admin/Help_Page.php:1041
 msgid "No, but you can use event categories or tags to display certain events like having..."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1042
+#: src/Tribe/Admin/Help_Page.php:1045
 msgid "What do I get with Events Calendar Pro?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1047
+#: src/Tribe/Admin/Help_Page.php:1050
 msgid "How do I sell tickets to events?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1048
+#: src/Tribe/Admin/Help_Page.php:1051
 msgid "Use our free Event Tickets plugin to get started with tickets and RSVPs."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1052
+#: src/Tribe/Admin/Help_Page.php:1055
 msgid "Where can I find a list of available shortcodes?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1053
+#: src/Tribe/Admin/Help_Page.php:1056
 msgid "Our plugins include many shortcodes that do everything from embedding the calendar..."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1072
+#: src/Tribe/Admin/Help_Page.php:1075
 msgid "Calendar widget areas"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1073
+#: src/Tribe/Admin/Help_Page.php:1076
 msgid "This extension creates a useful variety of WordPress widget areas (a.k.a. sidebars)."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1078
+#: src/Tribe/Admin/Help_Page.php:1081
 msgid "Event block patterns"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1079
+#: src/Tribe/Admin/Help_Page.php:1082
 msgid "This extension adds a set of block patterns for events to the WordPress block editor."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1084
+#: src/Tribe/Admin/Help_Page.php:1087
 msgid "Alternative photo view"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1085
+#: src/Tribe/Admin/Help_Page.php:1088
 msgid "This extension replaces photo view with a tiled grid of cards featuring event images."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1090
+#: src/Tribe/Admin/Help_Page.php:1093
 msgid "The Events Calendar Tweaks"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1091
+#: src/Tribe/Admin/Help_Page.php:1094
 msgid "This extension is a collection of tweaks and snippets for The Events Calendar."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1130
+#: src/Tribe/Admin/Help_Page.php:1133
 msgid "How Do I create events with Tickets or RSVP’s?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1131
+#: src/Tribe/Admin/Help_Page.php:1134
 msgid "We’ve put together a video tutorial showing how to create events with Tickets using our plugins. Click on the link in the link in the title to learn more."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1135
+#: src/Tribe/Admin/Help_Page.php:1138
 msgid "How Do I Set Up E-Commerce Plugins for Selling Tickets?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1136
+#: src/Tribe/Admin/Help_Page.php:1139
 msgid "You can sell tickets using our built-in e-commerce option, or upgrade to Event Tickets Plus to use ecommerce plugins such as WooCommerce."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1140
+#: src/Tribe/Admin/Help_Page.php:1143
 msgid "Can I have a seating chart associated with my tickets?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1141
+#: src/Tribe/Admin/Help_Page.php:1144
 msgid "Yes! You can easily accomplish this task using the stock options and multiple ticket types available with Event Tickets."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1145
+#: src/Tribe/Admin/Help_Page.php:1148
 msgid "How do I process refunds for tickets?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1146
+#: src/Tribe/Admin/Help_Page.php:1149
 msgid "When it comes to paid tickets, these orders can be refunded through the e-commerce platform in use."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1165
+#: src/Tribe/Admin/Help_Page.php:1168
 msgid "Ticket Email Settings"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1166
+#: src/Tribe/Admin/Help_Page.php:1169
 msgid "Adds a new settings panel in Events > Settings that gives more control over the ticket and rsvp emails that are sent to attendees after registration."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1171
+#: src/Tribe/Admin/Help_Page.php:1174
 msgid "Per Event Check In API"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1172
+#: src/Tribe/Admin/Help_Page.php:1175
 msgid "This extension shows a meta box with an API key on each Event with Ticket/RSVP."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1177
+#: src/Tribe/Admin/Help_Page.php:1180
 msgid "Add Event & Attendee Info to WooCommerce Order Details"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1178
+#: src/Tribe/Admin/Help_Page.php:1181
 msgid "Displays the information collected by “attendee meta fields” in the WooCommerce order screens as well."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1183
+#: src/Tribe/Admin/Help_Page.php:1186
 msgid "Organizer Notification Email"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1184
+#: src/Tribe/Admin/Help_Page.php:1187
 msgid "This extension will send an email to event organizers whenever a user registers for their event."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1223
+#: src/Tribe/Admin/Help_Page.php:1226
 msgid "Add Cost Currency Symbol"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1224
+#: src/Tribe/Admin/Help_Page.php:1227
 msgid "This extension allows you to set default currency symbols for your users to choose from instead of having a plain text field."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1229
+#: src/Tribe/Admin/Help_Page.php:1232
 msgid "Add Google Maps Display and Link Options"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1230
+#: src/Tribe/Admin/Help_Page.php:1233
 msgid "This extension adds the “Show Google Maps” and “Show Google Maps Link” checkboxes when creating a new Venue."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1235
+#: src/Tribe/Admin/Help_Page.php:1238
 msgid "Hide Others’ Organizers and Venues"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1236
+#: src/Tribe/Admin/Help_Page.php:1239
 msgid "This extension allows you to hide the Organizers and Venues that a visitor has not created from the Community submission form."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1241
+#: src/Tribe/Admin/Help_Page.php:1244
 msgid "Display Custom HTML"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1242
+#: src/Tribe/Admin/Help_Page.php:1245
 msgid "This extension allows you to add custom HTML content to the top of the Community submission form."
 msgstr ""
 
@@ -4800,129 +5151,129 @@ msgstr ""
 msgid "Promoter Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:620
+#: src/Tribe/PUE/Checker.php:696
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:624
+#: src/Tribe/PUE/Checker.php:700
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:656
-#: src/Tribe/PUE/Checker.php:690
+#: src/Tribe/PUE/Checker.php:732
+#: src/Tribe/PUE/Checker.php:766
 msgid "License Key Status:"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:665
+#: src/Tribe/PUE/Checker.php:741
 msgid "Override network license key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:666
+#: src/Tribe/PUE/Checker.php:742
 msgid "Check this box if you wish to override the network license key with your own"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:677
+#: src/Tribe/PUE/Checker.php:753
 msgid "Site License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:778
+#: src/Tribe/PUE/Checker.php:854
 msgid "License key(s) updated."
 msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1035
+#: src/Tribe/PUE/Checker.php:1117
 msgid "Hmmm... something's wrong with this validator. Please contact %1$ssupport%2$s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1054
+#: src/Tribe/PUE/Checker.php:1136
 msgid "unknown date"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1060
+#: src/Tribe/PUE/Checker.php:1142
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
 #. Translators: %s is the expiration date.
-#: src/Tribe/PUE/Checker.php:1089
+#: src/Tribe/PUE/Checker.php:1171
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
 #. Translators: %s is the expiration date.
-#: src/Tribe/PUE/Checker.php:1100
+#: src/Tribe/PUE/Checker.php:1182
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1138
-#: src/Tribe/PUE/Notices.php:360
+#: src/Tribe/PUE/Checker.php:1220
+#: src/Tribe/PUE/Notices.php:396
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1140
-#: src/Tribe/PUE/Notices.php:362
+#: src/Tribe/PUE/Checker.php:1222
+#: src/Tribe/PUE/Notices.php:398
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1157
+#: src/Tribe/PUE/Checker.php:1239
 msgid "Please refresh the page and try your request again."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1178
+#: src/Tribe/PUE/Checker.php:1260
 msgid "There is an update for %1$s. You'll need to %2$scheck your license%3$s to have access to updates, downloads, and support."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1242
+#: src/Tribe/PUE/Checker.php:1324
 msgid "There is an update for %1$s. %2$sRenew your license%3$s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
 #. Translators: %s is the plugin version number.
-#: src/Tribe/PUE/Checker.php:1274
+#: src/Tribe/PUE/Checker.php:1356
 msgid "Update now to version %s."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s is the update now link.
-#: src/Tribe/PUE/Checker.php:1289
+#: src/Tribe/PUE/Checker.php:1371
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1905
+#: src/Tribe/PUE/Checker.php:1987
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1906
+#: src/Tribe/PUE/Checker.php:1988
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1907
+#: src/Tribe/PUE/Checker.php:1989
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Notices.php:293
+#: src/Tribe/PUE/Notices.php:329
 msgid "It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s."
 msgid_plural "It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/PUE/Notices.php:347
+#: src/Tribe/PUE/Notices.php:383
 msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
 msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/PUE/Notices.php:388
+#: src/Tribe/PUE/Notices.php:424
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/PUE/Notices.php:430
+#: src/Tribe/PUE/Notices.php:466
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
 msgstr ""
 
-#: src/Tribe/PUE/Notices.php:485
-#: src/Tribe/PUE/Notices.php:528
+#: src/Tribe/PUE/Notices.php:521
+#: src/Tribe/PUE/Notices.php:564
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
 msgstr ""
@@ -4939,63 +5290,54 @@ msgstr ""
 msgid "Got it"
 msgstr ""
 
-#: src/Tribe/Settings.php:276
+#: src/Tribe/Settings.php:277
 msgid "Events"
 msgstr ""
 
 #. Translators: %s is the name of the menu item.
-#: src/Tribe/Settings.php:612
+#: src/Tribe/Settings.php:618
 msgid "%s Settings"
 msgstr ""
 
-#: src/Tribe/Settings.php:744
+#: src/Tribe/Settings.php:753
 msgid "You've requested a non-existent tab."
 msgstr ""
 
-#: src/Tribe/Settings.php:799
+#: src/Tribe/Settings.php:808
 msgid "Save Changes"
 msgstr ""
 
-#: src/Tribe/Settings.php:841
+#: src/Tribe/Settings.php:847
 msgid "Skip to tab content"
 msgstr ""
 
-#: src/Tribe/Settings.php:875
-#: src/Tribe/Settings.php:913
-msgid "Close"
-msgstr ""
-
-#: src/Tribe/Settings.php:1061
-msgid "Open settings navigation"
-msgstr ""
-
-#: src/Tribe/Settings.php:1084
+#: src/Tribe/Settings.php:1095
 msgid "For you, Jack!"
 msgstr ""
 
-#: src/Tribe/Settings.php:1158
+#: src/Tribe/Settings.php:1169
 msgid "You don't have permission to do that."
 msgstr ""
 
-#: src/Tribe/Settings.php:1164
+#: src/Tribe/Settings.php:1175
 msgid "The request was sent insecurely."
 msgstr ""
 
-#: src/Tribe/Settings.php:1170
+#: src/Tribe/Settings.php:1181
 msgid "The request wasn't sent from this tab."
 msgstr ""
 
-#: src/Tribe/Settings.php:1380
+#: src/Tribe/Settings.php:1391
 msgid "Your form had the following errors:"
 msgstr ""
 
-#: src/Tribe/Settings.php:1391
+#: src/Tribe/Settings.php:1402
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Settings.php:1412
+#: src/Tribe/Settings.php:1423
 msgid "Settings saved."
 msgstr ""
 

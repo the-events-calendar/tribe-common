@@ -1,5 +1,33 @@
 # Changelog
 
+### [6.4.1] 2024-12-17
+
+* Feature - Add an abstract admin page to start consolidating how we do admin pages. See the "First Time Setup" page (onboarding wizard) for an example. [TEC-5294]
+* Tweak - Ensure we are not loading any assets from node_modules. Include anything we need as a 3rd party code in our plugin. [TCMN-175]
+* Fix - Cast `$block` argument to string to avoid PHP 8+ deprecation notice when non string (or array) variables are passed as the 3rd argument of `preg_replace`.
+* Fix - Correctly identify licenses using uplink, like Event Tickets Plus. [n/a]
+* Fix - Ensure that number_format is used with a float value to prevent issues with PHP 8.0+. [ETP-962]
+* Fix - Ensure we get an object to test for subnav. Pass the object to class filter for more context. [n/a]
+* Fix - Prevent fatal on ET integration page when used with Events Pro but without Event Tickets Plus. [TCMN-174]
+* Deprecated - Integrations Tab registration in Event Ticket Settings from common. These will be registered from Event Tickets Plus only instead. [TCMN-174]
+* Language - 0 new strings added, 33 updated, 1 fuzzied, and 0 obsoleted.
+
+### [6.4.0] 2024-12-05
+
+* Feature - In-App Notifications system. [TEC-5165]
+* Tweak - Added filters: `tec_common_ian_opt_in`, `tec_common_ian_conditional_php`, `tec_common_ian_conditional_wp`, `tec_common_ian_allowed_pages`, `tec_common_ian_show_icon`, `tec_common_ian_setting_optin_tooltip`, `tec_common_ian_api_url`, `tec_common_ian_slugs`, `tec_common_ian_render`
+* Tweak - Added actions: `tec_common_ian_loaded`
+* Language - 22 new strings added, 15 updated, 1 fuzzied, and 0 obsoleted.
+
+### [6.3.2] 2024-11-19
+
+* Feature - Implemented the core Help Hub logic, providing a flexible framework for managing support integrations, resource templates, and plugin-specific customization.
+* Feature - Introduced Asset interface which accounts for symlinks, while still provides a fluent api. [SL-246]
+* Feature - Update stellarwp/assets to version 1.4.2. [SL-246]
+* Tweak - Added actions: `tec_help_hub_before_render`, `tec_help_hub_after_render`, `tec_help_hub_before_iframe_render`, `tec_help_hub_after_iframe_render`, `tec_help_hub_registered`.
+* Tweak - Added filters: `tec_help_hub_resource_sections_{$data_class_name}`, `tec_help_hub_resource_sections`, `tec_help_hub_body_classes`.
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
 ### [6.3.1] 2024-11-04
 
 * Fix - Prevent new Settings pages to over sanitize textarea fields, thus removing HTML from before/after in the Events UI. [TEC-5283]
