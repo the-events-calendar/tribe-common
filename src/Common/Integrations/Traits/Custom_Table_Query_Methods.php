@@ -11,8 +11,6 @@ namespace TEC\Common\Integrations\Traits;
 
 use Generator;
 use TEC\Common\StellarWP\DB\DB;
-use Tribe__Cache as Cache;
-use Tribe__Cache_Listener as Cache_Listener;
 
 /**
  * Trait Custom_Table_Query_Methods.
