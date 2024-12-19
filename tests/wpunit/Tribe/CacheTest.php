@@ -109,8 +109,8 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 
 		foreach ( $key_values as $key => $value ) {
 			// Attempt to add a longer cache key to trigger the md5() cache key logic.
-			$key                                                   .= __METHOD__ . '-' . $key;
-			$expected[ substr( $key, 0, 6 ) . '... => ' . $value ] = [ $key, $value ];
+			$key                                                                      .= __METHOD__ . '-' . $key;
+			$expected[ substr( $key, 0, 6 ) . '... => ' . var_export( $value, true ) ] = [ $key, $value ];
 		}
 
 		// Generate long keys with variety of values.
