@@ -222,8 +222,33 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$this->set_options( $options );
 			$this->hooks();
 			$this->set_key_status_name();
+			$this->init( $slug );
 			// So we can reference our "registered" instances later.
 			self::$instances[ $slug ] ??= $this;
+		}
+
+		/**
+		 * Initializes the PUE checker and fires the appropriate action if not already initialized.
+		 *
+		 * This method ensures that the `tec_pue_checker_init` action is fired only once per unique slug.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $slug The unique slug for the plugin being initialized.
+		 */
+		public function init( $slug ) {
+			if ( isset( self::$instances[ $slug ] ) ) {
+				return;
+			}
+
+			/**
+			 * Fires when initializing the PUE checker.
+			 *
+			 * @since TBD
+			 *
+			 * @param Tribe__PUE__Checker $checker An instance of the PUE Checker being initialized.
+			 */
+			do_action( 'tec_pue_checker_init', $this );
 		}
 
 		/**
@@ -447,6 +472,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_filter( 'upgrader_pre_download', [ Tribe__PUE__Package_Handler::instance(), 'filter_upgrader_pre_download' ], 5, 3 );
 
 			add_action( 'admin_init', [ $this, 'monitor_uplink_actions' ], 1000 );
+			add_action( 'tec_pue_checker_init', [ __CLASS__, 'monitor_active_plugins' ] );
 		}
 
 
@@ -2157,6 +2183,29 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					self::update_any_license_valid_transient( $plugin->get_slug(), true );
 				},
 			);
+		}
+
+		/**
+		 * Monitor active plugins and validate the transient for the given slug.
+		 *
+		 * @param Tribe__PUE__Checker $checker An instance of the PUE Checker.
+		 */
+		public static function monitor_active_plugins( Tribe__PUE__Checker $checker ) {
+			$slug = $checker->get_slug();
+
+			if ( empty( $slug ) ) {
+				return;
+			}
+
+			$transient_data = get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+
+			$plugins = $transient_data['plugins'] ?? null;
+
+			if ( ! is_array( $plugins ) || array_key_exists( $slug, $plugins ) ) {
+				return;
+			}
+
+			delete_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
 		}
 	}
 }
