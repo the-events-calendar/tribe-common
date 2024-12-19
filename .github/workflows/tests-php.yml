@@ -178,9 +178,11 @@ jobs:
         run: |
           ${SLIC_BIN} up wordpress
           ${SLIC_BIN} wp core version
+          ${SLIC_BIN} airplane-mode off
           ${SLIC_BIN} wp core update
           ${SLIC_BIN} wp core version
           ${SLIC_BIN} wp core update-db
+          ${SLIC_BIN} airplane-mode on
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
         run: ${SLIC_BIN} run ${{ matrix.suite }}
