@@ -20,9 +20,4 @@ use TEC\Common\StellarWP\Schema\Tables\Contracts\Table;
  */
 abstract class Custom_Table_Abstract extends Table {
 	use Traits\Custom_Table_Query_Methods;
-
-	/**
-	 * @inheritDoc
-	 */
-	abstract protected function get_definition();
 }
