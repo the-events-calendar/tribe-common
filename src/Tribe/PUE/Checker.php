@@ -2198,14 +2198,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			$transient_data = get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
-
-			$plugins = $transient_data['plugins'] ?? null;
-
-			if ( ! is_array( $plugins ) || array_key_exists( $slug, $plugins ) ) {
-				return;
+			if ( ! is_array( $transient_data['plugins'] ) ) {
+				$transient_data['plugins'] = [];
 			}
 
-			delete_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+			$transient_data['plugins'][ $slug ] = $checker->is_key_valid();
+
+			$transient_data['plugins'] = array_filter( $transient_data['plugins'] );
+			set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $transient_data );
 		}
 	}
 }
