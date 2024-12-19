@@ -21,26 +21,6 @@ use TEC\Common\StellarWP\DB\DB;
  */
 trait Custom_Table_Query_Methods {
 	/**
-	 * Truncates the table.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool|int The number of rows affected, or `false` on failure.
-	 */
-	public static function truncate() {
-		DB::query( 'SET FOREIGN_KEY_CHECKS = 0;' );
-		$deleted = DB::query(
-			DB::prepare(
-				'DELETE FROM %i',
-				static::table_name( true )
-			)
-		);
-		DB::query( 'SET FOREIGN_KEY_CHECKS = 1;' );
-
-		return $deleted;
-	}
-
-	/**
 	 * Fetches all the rows from the table using a batched query.
 	 *
 	 * @since TBD
