@@ -1,4 +1,5 @@
 <?php
+use TEC\Common\StellarWP\Uplink\API\Validation_Response;
 /**
  * Facilitates storage and display of license key warning notices.
  *
