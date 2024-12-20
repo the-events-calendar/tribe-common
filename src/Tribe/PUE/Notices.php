@@ -86,6 +86,8 @@ class Tribe__PUE__Notices {
 	/**
 	 * Restores plugins added on previous requests to the relevant notification
 	 * groups.
+	 *
+	 * @sice TBD Switched from array`array_merge_recursive` to `wp_parse_args` to fix an issue with data duplication
 	 */
 	protected function populate() {
 		$this->saved_notices = (array) get_option( self::STORE_KEY, [] );
@@ -93,7 +95,6 @@ class Tribe__PUE__Notices {
 		if ( empty( $this->saved_notices ) ) {
 			return;
 		}
-
 
 		$this->notices = wp_parse_args( $this->notices, $this->saved_notices );
 
