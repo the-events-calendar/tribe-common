@@ -246,7 +246,7 @@ class Notices_Test extends WPTestCase {
 
 		// Ensure there are no unexpected nesting or duplicates
 		foreach ( $invalid_key_plugins as $plugin => $value ) {
-			$this->assertNotIsArray(
+			$this->assertIsNotArray(
 				$value,
 				"The value for {$plugin} under 'invalid_key' should not be an array."
 			);
