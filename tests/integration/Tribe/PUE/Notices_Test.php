@@ -108,7 +108,7 @@ class Notices_Test extends WPTestCase {
 		$data = $setup_closure();
 
 		// Retrieve the options after setup
-		$options = get_option( 'tribe_pue_key_notices' );
+		$options = get_option( Tribe__PUE__Notices::STORE_KEY );
 
 		// Iterate through each status in the expected options
 		foreach ( $data['expected_options'] as $status => $expected_plugins ) {
@@ -150,62 +150,180 @@ class Notices_Test extends WPTestCase {
 		);
 	}
 
-	public function test_merge_recursive_bug_with_same_plugin(): void {
-		// Plugin name to test
+	/**
+	 * @test
+	 */
+	public function recursive_bug_with_same_plugin(): void {
 		$plugin_name = 'plugin-merge-test';
 
-		// Pre-set the option to simulate existing saved notices
-		$initial_saved_notices = [
-			Tribe__PUE__Notices::INVALID_KEY => [
-				$plugin_name => [true],
-			],
-		];
-		update_option('tribe_pue_key_notices', $initial_saved_notices);
+		$pue_notices_initial = tribe( 'pue.notices' );
 
-		for ($i = 0; $i < 5; $i++) {
-			// Recreate the tribe instance to simulate typical usage
-			$pue_notices = tribe('pue.notices');
+		// Add initial notices to different keys
+		$pue_notices_initial->add_notice( Tribe__PUE__Notices::UPGRADE_KEY, 'initial_plugin1' );
+		$pue_notices_initial->add_notice( Tribe__PUE__Notices::EXPIRED_KEY, 'initial_plugin2' );
 
-			// Add the same notice repeatedly
-			$pue_notices->add_notice(Tribe__PUE__Notices::INVALID_KEY, $plugin_name);
+		// Simulate repeated usage of the same plugin name with different instances
+		for ( $j = 0; $j < 5; $j++ ) {
+			for ( $i = 0; $i < 5; $i++ ) {
+				$temp_plugin_name = $plugin_name . $j;
+				tribe( 'pue.notices' )->register_name( $temp_plugin_name );
 
-			// Save notices to trigger merging in the next call
-			$pue_notices->save_notices();
+				// Recreate the tribe instance to simulate typical usage
+				$pue_notices = tribe( 'pue.notices' );
+
+				// Add the same notice repeatedly
+				$pue_notices->add_notice( Tribe__PUE__Notices::INVALID_KEY, $temp_plugin_name );
+
+				unset( $pue_notices ); // Clear instance to simulate separate requests
+			}
 		}
 
+		$pue_notices_initial->save_notices();
+
 		// Retrieve the final notices from the database
-		$options = get_option('tribe_pue_key_notices');
+		$options = get_option( Tribe__PUE__Notices::STORE_KEY );
 
-		codecept_debug($options);
-		return;
 
-		// Assertions to check if the plugin is duplicated
+		// Check UPGRADE_KEY contains only the initial plugin
+		$this->assertArrayHasKey(
+			Tribe__PUE__Notices::UPGRADE_KEY,
+			$options,
+			'The "upgrade_key" key should exist in the options array.'
+		);
+
+		$this->assertArrayHasKey(
+			'initial_plugin1',
+			$options[ Tribe__PUE__Notices::UPGRADE_KEY ],
+			'initial_plugin1 should exist under "upgrade_key".'
+		);
+
+		$this->assertTrue(
+			$options[ Tribe__PUE__Notices::UPGRADE_KEY ]['initial_plugin1'],
+			'initial_plugin1 should have a value of true under "upgrade_key".'
+		);
+
+		// Check EXPIRED_KEY contains only the initial plugin
+		$this->assertArrayHasKey(
+			Tribe__PUE__Notices::EXPIRED_KEY,
+			$options,
+			'The "expired_key" key should exist in the options array.'
+		);
+
+		$this->assertArrayHasKey(
+			'initial_plugin2',
+			$options[ Tribe__PUE__Notices::EXPIRED_KEY ],
+			'initial_plugin2 should exist under "expired_key".'
+		);
+
+		$this->assertTrue(
+			$options[ Tribe__PUE__Notices::EXPIRED_KEY ]['initial_plugin2'],
+			'initial_plugin2 should have a value of true under "expired_key".'
+		);
+
+		// Check INVALID_KEY contains all plugins from the loop
 		$this->assertArrayHasKey(
 			Tribe__PUE__Notices::INVALID_KEY,
 			$options,
 			'The "invalid_key" key should exist in the options array.'
 		);
 
-		$invalid_key_plugins = $options[Tribe__PUE__Notices::INVALID_KEY];
+		$invalid_key_plugins = $options[ Tribe__PUE__Notices::INVALID_KEY ];
 
-		$this->assertArrayHasKey(
-			$plugin_name,
+		for ( $j = 0; $j < 5; $j++ ) {
+			$temp_plugin_name = $plugin_name . $j;
+
+			$this->assertArrayHasKey(
+				$temp_plugin_name,
+				$invalid_key_plugins,
+				"{$temp_plugin_name} should exist under 'invalid_key'."
+			);
+
+			$this->assertTrue(
+				$invalid_key_plugins[ $temp_plugin_name ],
+				"{$temp_plugin_name} should have a value of true under 'invalid_key'."
+			);
+		}
+
+		// Ensure there are no unexpected nesting or duplicates
+		foreach ( $invalid_key_plugins as $plugin => $value ) {
+			$this->assertNotIsArray(
+				$value,
+				"The value for {$plugin} under 'invalid_key' should not be an array."
+			);
+		}
+
+		// Ensure the counts match expectations
+		$this->assertCount(
+			5,
 			$invalid_key_plugins,
-			"The plugin {$plugin_name} should exist under 'invalid_key'."
-		);
-
-		// Ensure the value is not duplicated (array_merge_recursive bug can cause this)
-		$this->assertIsBool(
-			$invalid_key_plugins[$plugin_name],
-			"The plugin {$plugin_name} should not be duplicated or stored as an array."
-		);
-
-		$this->assertTrue(
-			$invalid_key_plugins[$plugin_name],
-			"The plugin {$plugin_name} should be set to true in 'invalid_key'."
+			'There should be exactly 5 plugins under "invalid_key".'
 		);
 	}
 
+	/**
+	 * @test
+	 */
+	public function option_has_partial_serialization_corruption(): void {
+		// Insert corrupted serialized data directly
+		$corrupted_data = 'a:1:{s:11:"invalid_key";a:1:{s:17:"plugin-early-init1";a:8388608:{i:0;b:1;i:1;b:1;i:2;b:1;}}';
+		update_option( Tribe__PUE__Notices::STORE_KEY, $corrupted_data );
 
+		// Attempt to load notices
+		$pue_notices = new Tribe__PUE__Notices();
+
+		$pue_notices->save_notices();
+
+		// Retrieve and debug the final notices
+		$options = get_option( Tribe__PUE__Notices::STORE_KEY );
+
+		$this->assertEmpty( $options, 'Corrupted notices should of been cleared.' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function option_has_serialization_corruption(): void {
+		// Insert corrupted serialized data directly into the option
+		$corrupted_data = 'a:1:{s:11:"invalid_key";a:1:{s:17:"plugin-early-init1";a:8388608:{i:0;b:1;i:1;b:1;i:2;b:1;}}';
+		update_option( Tribe__PUE__Notices::STORE_KEY, $corrupted_data );
+
+		// Initialize the PUE Notices class
+		$pue_notices = new Tribe__PUE__Notices();
+
+		// Add three plugins to the INVALID_KEY notice
+		$pue_notices->add_notice( Tribe__PUE__Notices::INVALID_KEY, 'plugin-early-init1' );
+		$pue_notices->add_notice( Tribe__PUE__Notices::INVALID_KEY, 'plugin-early-init2' );
+		$pue_notices->add_notice( Tribe__PUE__Notices::INVALID_KEY, 'plugin-early-init3' );
+
+		// Save the notices to persist them
+		$pue_notices->save_notices();
+
+		// Retrieve the final notices from the database
+		$options = get_option( Tribe__PUE__Notices::STORE_KEY );
+
+		// Assertions
+		$this->assertArrayHasKey(
+			Tribe__PUE__Notices::INVALID_KEY,
+			$options,
+			'The "invalid_key" notice should exist in the options.'
+		);
+
+		$invalid_key_notices = $options[ Tribe__PUE__Notices::INVALID_KEY ];
+
+		// Ensure all three plugins are correctly stored
+		$this->assertArrayHasKey( 'plugin-early-init1', $invalid_key_notices, 'plugin-early-init1 should exist in invalid_key.' );
+		$this->assertArrayHasKey( 'plugin-early-init2', $invalid_key_notices, 'plugin-early-init2 should exist in invalid_key.' );
+		$this->assertArrayHasKey( 'plugin-early-init3', $invalid_key_notices, 'plugin-early-init3 should exist in invalid_key.' );
+
+		// Ensure their values are correctly set to true
+		$this->assertTrue( $invalid_key_notices['plugin-early-init1'], 'plugin-early-init1 should have a value of true.' );
+		$this->assertTrue( $invalid_key_notices['plugin-early-init2'], 'plugin-early-init2 should have a value of true.' );
+		$this->assertTrue( $invalid_key_notices['plugin-early-init3'], 'plugin-early-init3 should have a value of true.' );
+
+		// Ensure no unexpected nesting or corruption
+		foreach ( $invalid_key_notices as $plugin => $value ) {
+			$this->assertIsNotArray( $value, "The value for {$plugin} under invalid_key should not be an array." );
+		}
+	}
 }
 

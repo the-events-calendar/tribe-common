@@ -94,14 +94,8 @@ class Tribe__PUE__Notices {
 			return;
 		}
 
-		/**
-		 * @todo - redscar
-		 * Potentially change with -
-		 * wp_parse_args or array_merge
-		 */
-		$this->notices = array_merge_recursive( $this->notices, $this->saved_notices );
 
-		//$this->notices = array_merge($this->notices, $this->saved_notices );
+		$this->notices = wp_parse_args( $this->notices, $this->saved_notices );
 
 		// Cleanup.
 		foreach ( $this->notices as $key => &$plugin_lists ) {
