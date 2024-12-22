@@ -1641,6 +1641,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$all_plugins = get_plugins();
 				if ( array_key_exists( $this->get_plugin_file(), $all_plugins ) && array_key_exists( 'Version', $all_plugins[ $this->get_plugin_file() ] ) ) {
 					return $all_plugins[ $this->get_plugin_file() ]['Version'];
+				} else {
+					return '';
 				}
 			}
 		}
