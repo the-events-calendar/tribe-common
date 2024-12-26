@@ -963,7 +963,7 @@ if ( ! function_exists( 'tec_asset' ) ) {
 		$build_group_name = is_object( $origin ) ? get_class( $origin ) : (string) $origin;
 
 		// Vendor files should be loaded from `/vendor` directly, they are not built.
-		if ( !str_starts_with( $file, 'vendor' ) ) {
+		if ( ! str_starts_with( $file, 'vendor' ) ) {
 			$arguments['group_path'] = $build_group_name;
 		}
 
