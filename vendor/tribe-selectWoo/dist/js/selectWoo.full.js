@@ -958,7 +958,7 @@ S2.define('select2/results',[
     var attrs = {
       'role': 'option',
       'data-selected': 'false',
-	  'tabindex':'0',
+      'tabindex':'0',
     };
 
     if (data.disabled) {
@@ -988,14 +988,15 @@ S2.define('select2/results',[
 
       option.setAttribute(attr, val);
     }
-	var $option = $(option);
+    var $option = $(option);
 
     $option.on( 'blur', function() {
-	  	$option.attr( 'data-selected', 'false' );
+          $option.attr( 'data-selected', 'false' );
     });
-	$option.on( 'focus', function() {
-		$option.attr( 'data-selected', 'true' );
-	});
+
+    $option.on( 'focus', function() {
+        $option.attr( 'data-selected', 'true' );
+    });
 
     if (data.children) {
       var label = document.createElement('strong');
@@ -3701,9 +3702,9 @@ S2.define('select2/data/tags',[
   };
 
   Tags.prototype.createTag = function (decorated, params) {
-  	if ( 'string' !== typeof params.term ) {
-  		return null;
-	}
+      if ( 'string' !== typeof params.term ) {
+          return null;
+    }
 
     var term = params.term.trim();
 
@@ -4039,10 +4040,10 @@ S2.define('select2/dropdown/search',[
     });
 
     this.$search.on('keyup input', function (evt) {
-	  var key = evt.which;
-	  if (key === KEYS.TAB) {
-		  return;
-	  }
+      var key = evt.which;
+      if (key === KEYS.TAB) {
+          return;
+      }
       self.handleSearch(evt);
     });
 
