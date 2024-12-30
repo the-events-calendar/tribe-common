@@ -3,7 +3,6 @@
  * View: Troubleshooting - EA Status Table License Key Section
  *
  * @since 4.14.2
- *
  */
 
 $message   = '&nbsp;';
@@ -12,7 +11,7 @@ $notes     = '&nbsp;';
 
 if ( ! tribe()->offsetExists( 'events-aggregator.main' ) ) {
 	return;
-};
+}
 
 if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 	$icon      = 'success';
@@ -29,7 +28,7 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 		$notes  .= '</a>';
 	} else {
 		$message = __( 'Your license is invalid', 'tribe-common' );
-		$notes   = '<a href="' . esc_url( Tribe__Settings::instance()->get_url( [ 'tab' => 'licenses' ] ) ) . '">' . esc_html__( 'Check your license key', 'tribe-common' ) . '</a>';
+		$notes   = '<a href="' . esc_url( tribe( 'settings' )->get_url( [ 'tab' => 'licenses' ] ) ) . '">' . esc_html__( 'Check your license key', 'tribe-common' ) . '</a>';
 	}
 }
 ?>
@@ -50,5 +49,5 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 		/>
 		<?php echo esc_html( $message ); ?>
 	</td>
-	<td><?php echo $notes; // Escaping handled above. ?></td>
+	<td><?php echo $notes; // phpcs:ignore WordPress.Security.EscapeOutput,StellarWP.XSS.EscapeOutput ?></td>
 </tr>

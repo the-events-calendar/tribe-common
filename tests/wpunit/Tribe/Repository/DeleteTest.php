@@ -18,6 +18,30 @@ class DeleteTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * Validate the pre check hook will bypass the normal delete() operations.
+	 *
+	 * @test
+	 */
+	public function should_run_pre_check_filter() {
+		list( $john ) = $this->create_books_by_authors();
+
+		// Add hooks to track pre check works.
+		add_filter( "tribe_repository_books_before_delete", function () {
+			return [];
+		} );
+		$delete_filter_ran = false;
+		add_filter( "tribe_repository_books_delete", function () use ( &$delete_filter_ran ) {
+			$delete_filter_ran = true;
+		} );
+
+		// Run delete and verify hooks run.
+		$deleted = $this->repository()->where( 'author', $john )->delete();
+
+		$this->assertFalse( $delete_filter_ran );
+		$this->assertEquals( [], $deleted );
+	}
+
+	/**
 	 * It should allow deleting a set of posts
 	 *
 	 * @test

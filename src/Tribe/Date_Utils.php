@@ -246,14 +246,14 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Returns the date only.
 		 *
-		 * @param int|string $date        The date (timestamp or string).
-		 * @param bool       $isTimestamp Is $date in timestamp format?
-		 * @param string|null $format The format used
+		 * @param int|string  $date         The date (timestamp or string). If an empty or null date is provided it will default to 'now'.
+		 * @param bool        $is_timestamp Whether or not $date is in timestamp format.
+		 * @param string|null $format       The format used.
 		 *
 		 * @return string The date only in DB format.
 		 */
-		public static function date_only( $date, $isTimestamp = false, $format = null ) {
-			$date = $isTimestamp ? $date : strtotime( $date );
+		public static function date_only( $date, $is_timestamp = false, $format = null ) {
+			$date = $is_timestamp ? $date : strtotime( $date ?? 'now' );
 
 			if ( is_null( $format ) ) {
 				$format = self::DBDATEFORMAT;
@@ -400,7 +400,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return int The timestamp of the date that fits the qualifications.
 		 */
 		public static function get_last_day_of_week_in_month( $curdate, $day_of_week ) {
-			$nextdate = mktime( date( 'H', $curdate ), date( 'i', $curdate ), date( 's', $curdate ), date( 'n', $curdate ), self::get_last_day_of_month( $curdate ), date( 'Y', $curdate ) );;
+			$nextdate = mktime( date( 'H', $curdate ), date( 'i', $curdate ), date( 's', $curdate ), date( 'n', $curdate ), self::get_last_day_of_month( $curdate ), date( 'Y', $curdate ) );// phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
 
 			while ( date( 'N', $nextdate ) != $day_of_week && $day_of_week != - 1 ) {
 				$nextdate = strtotime( date( self::DBDATETIMEFORMAT, $nextdate ) . ' - 1 day' );
@@ -463,17 +463,25 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * the specified format, returning an empty string if this is not possible.
 		 *
 		 * @since 5.1.5 Make use of `wp_date` for i18n.
+		 * @since 5.2.2 Adding timezone param.
 		 *
-		 * @param $dt_string
-		 * @param $new_format
+		 * @param string|int  $dt_string  The date or timestamp to be converted.
+		 * @param string      $new_format The date format to convert to.
+		 * @param null|string $timezone   Optional timezone the date string is in.
 		 *
 		 * @return string
 		 */
-		public static function reformat( $dt_string, $new_format ) {
-			$timestamp = self::is_timestamp( $dt_string ) ? $dt_string : strtotime( $dt_string );
-			$revised   = wp_date( $new_format, $timestamp );
+		public static function reformat( $dt_string, $new_format, $timezone = null ): string {
+			$timestamp = $dt_string;
+			$timezone  = $timezone ? new DateTimeZone( $timezone ) : wp_timezone();
+			if ( ! self::is_timestamp( $timestamp ) ) {
+				$date = new DateTime( $timestamp, $timezone );
+			} else {
+				$date = DateTime::createFromFormat( 'U', $timestamp );
+				$date->setTimezone( $timezone );
+			}
 
-			return $revised ? $revised : '';
+			return $date->format( $new_format );
 		}
 
 		/**
@@ -1323,7 +1331,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @param bool                     $with_fallback Whether to return a DateTime object even when the date data is
 		 *                                                invalid or not; defaults to `true`.
 		 *
-		 * @return DateTime|false A DateTime object built using the specified date, time and timezone; if `$with_fallback`
+		 * @return DateTime|Date_i18n|false A DateTime|Date_i18n object built using the specified date, time and timezone; if `$with_fallback`
 		 *                        is set to `false` then `false` will be returned if a DateTime object could not be built.
 		 */
 		public static function build_date_object( $datetime = 'now', $timezone = null, $with_fallback = true ) {

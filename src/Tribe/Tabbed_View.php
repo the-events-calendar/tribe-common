@@ -11,7 +11,9 @@ class Tribe__Tabbed_View {
 	/**
 	 * A list of all the tabs registered for the tabbed view.
 	 *
-	 * @var array An associative array in the [<slug> => <instance>] format.
+	 * An associative array in the [<slug> => <instance>] format.
+	 *
+	 * @var Tribe__Tabbed_View__Tab[]
 	 */
 	protected $items = [];
 
@@ -129,10 +131,10 @@ class Tribe__Tabbed_View {
 	 * @return int
 	 */
 	protected function sort_by_priority( $a, $b ) {
-		$a_priority = $a->get_priority();
-		$b_priority = $b->get_priority();
+		$a_priority = (float) $a->get_priority();
+		$b_priority = (float) $b->get_priority();
 
-		if ( $a_priority == $b_priority ) {
+		if ( $a_priority === $b_priority ) {
 			return 0;
 		}
 

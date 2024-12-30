@@ -1,0 +1,64 @@
+.tec-admin-page__content-step-list {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: auto;
+
+	.step-list__item {
+		align-items: center;
+		border-bottom: 1px solid var(--tec-admin-core-grey-10);
+		color: var(--tec-admin-core-grey-80);
+		display: flex;
+		flex-flow: row nowrap;
+		font-size: var(--tec-font-size-2);
+		font-weight: var(--tec-font-weight-regular);
+		justify-content: space-between;
+		line-height: var(--tec-line-height-1);
+		margin: 0;
+		padding: var(--tec-spacer-2) 0;
+
+		&:last-of-type {
+			border-bottom: none;
+		}
+
+		/* Internals */
+
+		/* Icon. */
+		&-icon {
+			border: 1px solid var(--tec-admin-core-grey-10);
+			border-radius: var(--tec-border-radius-round);
+			display: inline-block;
+			height: 24px;
+			margin-right: var(--tec-spacer-1);
+			width: 24px;
+		}
+
+		/* Left-aligned section. */
+		&-left {
+			align-items: center;
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: flex-start;
+			text-align: left;
+		}
+
+		/* Right-aligned section. */
+		&-right {
+			align-items: center;
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: flex-end;
+			text-align: right;
+		}
+	}
+
+	/* Completed Steps */
+	.tec-admin-page__onboarding-step--completed {
+		.step-list__item-icon {
+			background-image: url('../images/icons/green-check.svg');
+			background-repeat: no-repeat;
+			background-size: 20px;
+			border: 0;
+			margin: 1px var(--tec-spacer-1) 1px 1px;
+		}
+	}
+}

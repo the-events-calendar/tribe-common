@@ -3,6 +3,8 @@
 namespace PHPSTORM_META {
 
 	// Allow PhpStorm IDE to resolve return types when calling tribe( Object_Type::class ) or tribe( `Object_Type` )
+	use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
+
 	override(
 		\tribe(),
 		map( [
@@ -35,7 +37,6 @@ namespace PHPSTORM_META {
 			'callback'                              => \Tribe__Utils__Callback::class,
 			'pue.notices'                           => \Tribe__PUE__Notices::class,
 			'admin.notice.php.version'              => \Tribe__Admin__Notice__Php_Version::class,
-			'admin.notice.marketing'                => \Tribe__Admin__Notice__Marketing::class,
 
 			// Custom alias with tribe namespace.
 			'tooltip.view'                          => \Tribe\Tooltip\View::class,
@@ -49,4 +50,6 @@ namespace PHPSTORM_META {
 			''                                      => '@class',
 		] )
 	);
+
+	override( ContainerInterface::get( 0 ), type( 0 ) );
 }

@@ -1,0 +1,127 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Modal Nav
+ *
+ * This file contains styles/overrides specific to the modal-nav.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe_events_page_tec-events-settings .tribe_settings.wrap {
+	.tec-nav__modal-controls {
+		align-items: center;
+		display: flex;
+		flex-flow: column nowrap;
+		margin: 0;
+		padding: 0 var(--tec-spacer-7) var(--tec-spacer-5);
+
+		@media (--viewport-xsmall) {
+			display: none;
+		}
+
+		.tec-nav__modal-title {
+			font-size: var(--tec-font-size-5);
+			font-weight: var(--tec-font-weight-bold);
+			width: 100%;
+		}
+
+		.tec-modal__control {
+			align-items: center;
+			background-color: var(--tec-color-background);
+			border: 1px solid var(--tec-admin-core-grey-10);
+			border-radius: var(--tec-border-radius-default);
+			color: var(--tec-admin-core-grey-90);
+			display: flex;
+			font-size: var(--tec-font-size-3);
+			justify-content: space-between;
+			line-height: var(--tec-line-height-2);
+			padding: var(--tec-spacer-1) var(--tec-spacer-4) var(--tec-spacer-1) var(--tec-spacer-2);
+			width: 100%;
+		}
+
+		.tec-modal__control--open .tec-modal__control-icon {
+			height: var(--tec-spacer-2);
+		}
+	}
+
+	#tec-settings-nav-modal {
+		background-color: var(--tec-admin-core-grey-0);
+		padding: var(--tec-spacer-3) 0;
+
+		.tec-settings__nav-wrapper {
+			background-color: var(--tec-admin-core-grey-0);
+			border: 0;
+			display: block;
+			padding: 0 var(--tec-spacer-3);
+		}
+
+		.tec-modal__header {
+			align-items: center;
+			display: flex;
+			justify-content: space-between;
+			padding: 0 var(--tec-spacer-5) var(--tec-spacer-3) var(--tec-spacer-4);
+
+			h1 {
+				background-color: var(--tec-admin-core-grey-0);
+				min-width: 0;
+				padding: 0;
+			}
+		}
+
+		.tec-nav {
+			margin: 0;
+
+			.tec-nav__link {
+				padding: 0;
+			}
+
+			> .tec-nav__link {
+				height: var(--tec-spacer-8);
+			}
+		}
+
+		.tec-nav__subnav {
+			border: 0;
+			margin-top: 0;
+			position: static;
+
+			.tec-nav__tab {
+				padding-bottom: 0;
+
+				&:last-child {
+					padding-bottom: var(--tec-spacer-2);
+				}
+			}
+
+			.tec-nav__link {
+				font-size: var(--tec-font-size-2);
+				line-height: 2.15;
+				padding: 0 var(--tec-spacer-5) 0 var(--tec-spacer-1);
+			}
+		}
+
+		.tec-nav__tab {
+			margin: 0;
+			text-align: left;
+
+			.tec-nav__link {
+				display: block;
+			}
+
+			&.tec-nav__tab--subnav-active {
+				border-bottom: 1px solid var(--tec-admin-core-grey-10);
+
+				> .tec-nav__link {
+					background-color: var(--tec-admin-core-grey-5);
+					border-radius: var(--tec-border-radius-default);
+					color: var(--tec-admin-core-grey-80);
+					font-weight: var(--tec-font-weight-regular);
+					padding: var(--tec-spacer-1) var(--tec-spacer-2);
+				}
+			}
+		}
+
+		@media (--viewport-xsmall) {
+			display: none;
+		}
+	}
+}

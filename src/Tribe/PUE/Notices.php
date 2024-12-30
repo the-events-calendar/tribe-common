@@ -1,4 +1,5 @@
 <?php
+use TEC\Common\StellarWP\Uplink\API\Validation_Response;
 /**
  * Facilitates storage and display of license key warning notices.
  *
@@ -32,6 +33,41 @@ class Tribe__PUE__Notices {
 		$this->populate();
 		add_action( 'current_screen', [ $this, 'setup_notices' ] );
 		add_action( 'tribe_pue_notices_save_notices', [ $this, 'maybe_undismiss_notices' ] );
+		add_filter( 'stellarwp/uplink/tec/client_validate_license', [ $this, 'clear_notices_after_uplink_connect' ] );
+	}
+
+	/**
+	 * Clears any license key notices for the specified plugin.
+	 *
+	 * @since 6.4.1
+	 *
+	 * @param Validation_Response $results The validation results from uplink.
+	 *
+	 * @return Validation_Response
+	 */
+	public function clear_notices_after_uplink_connect( Validation_Response $results ): Validation_Response {
+		if ( ! $results->is_valid() ) {
+			return $results;
+		}
+
+		$this->populate();
+		if ( empty( $this->notices ) || ! is_array( $this->notices ) ) {
+			return $results;
+		}
+
+		foreach ( $this->notices as $key => $data ) {
+			if ( isset( $results->slug ) ) {
+				unset( $this->notices[ $key ][ $results->slug ] );
+			}
+
+			if ( isset( $results->name ) ) {
+				unset( $this->notices[ $key ][ $results->name ] );
+			}
+		}
+
+		$this->save_notices();
+
+		return $results;
 	}
 
 	/**

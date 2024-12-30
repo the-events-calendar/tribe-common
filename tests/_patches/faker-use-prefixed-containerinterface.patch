@@ -1,0 +1,10 @@
+--- a/src/Faker/Container/ContainerInterface.php
++++ b/src/Faker/Container/ContainerInterface.php
+@@ -3,7 +3,7 @@
+ namespace Faker\Container;
+
+-use Psr\Container\ContainerInterface as BaseContainerInterface;
++use TEC\Common\Psr\Container\ContainerInterface as BaseContainerInterface;
+
+ interface ContainerInterface extends BaseContainerInterface
+ {

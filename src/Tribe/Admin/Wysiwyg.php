@@ -49,14 +49,14 @@ class Wysiwyg {
 	 * @return void
 	 */
 	function __construct( $name, $value = '', $args = [] ) {
-		$this->name = $name;
-		$this->value = $value;
+		$this->name   = $name;
+		$this->value  = (string) $value;
 		$default_args = [
-			'teeny'   => true,
-			'wpautop' => true,
+			'teeny'         => true,
+			'wpautop'       => true,
 			'textarea_name' => $name,
 		];
-		$this->args = wp_parse_args( $args, $default_args );
+		$this->args   = wp_parse_args( $args, $default_args );
 	}
 
 	/**

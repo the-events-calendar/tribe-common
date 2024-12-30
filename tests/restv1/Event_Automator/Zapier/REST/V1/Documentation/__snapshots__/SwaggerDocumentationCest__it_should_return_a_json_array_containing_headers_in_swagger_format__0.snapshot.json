@@ -1,0 +1,74 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "TEC Zapier REST API",
+        "description": "TEC Zapier REST API allows direct connections to making Zapier Zaps.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http:\/\/wordpress.test\/wp-json\/tribe\/events\/v1\/"
+        }
+    ],
+    "paths": {
+        "\/doc": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Returns the documentation for TEC REST API in Swagger consumable format."
+                    }
+                }
+            }
+        },
+        "\/authorize": {
+            "post": {
+                "consumes": [
+                    "application\/x-www-form-urlencoded"
+                ],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The consumer id to authorize Zapier connection.",
+                        "required": true,
+                        "name": "consumer_id"
+                    },
+                    {
+                        "in": "formData",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The consumer secret to authorize Zapier connection.",
+                        "required": true,
+                        "name": "consumer_secret"
+                    },
+                    {
+                        "in": "formData",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The app name of the Zapier connection.",
+                        "required": false,
+                        "name": "app_name"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns successful authentication",
+                        "schema": {
+                            "$ref": "#\/definitions\/Zapier"
+                        }
+                    },
+                    "400": {
+                        "description": "A required authentication parameter is missing or an input parameter is in the wrong format"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": []
+    }
+}

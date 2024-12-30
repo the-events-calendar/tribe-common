@@ -94,8 +94,8 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function all() {
-		return $this->decorated->all();
+	public function all( $return_generator = false, int $batch_size = 50 ) {
+		return $this->decorated->all( $return_generator, $batch_size );
 	}
 
 	/**
@@ -212,6 +212,13 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	public function first_id(): ?int {
+		return $this->decorated->first_id();
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function last() {
@@ -268,35 +275,35 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 * {@inheritdoc}
 	 */
 	public function save( $return_promise = true ) {
-		$this->decorated->save( $return_promise );
+		return $this->decorated->save( $return_promise );
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function set_formatter( Tribe__Repository__Formatter_Interface $formatter ) {
-		$this->decorated->set_formatter( $formatter );
+		return $this->decorated->set_formatter( $formatter );
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function join_clause( $join ) {
-		$this->decorated->join_clause( $join );
+		return $this->decorated->join_clause( $join );
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function where_clause( $where ) {
-		$this->decorated->where_clause( $where );
+		return $this->decorated->where_clause( $where );
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function set_query_builder( $query_builder ) {
-		$this->decorated->set_query_builder( $query_builder );
+		return $this->decorated->set_query_builder( $query_builder );
 	}
 
 	/**
@@ -380,15 +387,15 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get_ids() {
-		return $this->decorated->get_ids();
+	public function get_ids( $return_generator = false, int $batch_size = 50 ) {
+		return $this->decorated->get_ids( $return_generator, $batch_size );
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function add_schema_entry( $key, $callback ) {
-		$this->decorated->add_schema_entry( $key, $callback );
+		return $this->decorated->add_schema_entry( $key, $callback );
 	}
 
 	/**
@@ -416,7 +423,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 * {@inheritdoc}
 	 */
 	public function add_update_field_alias( $alias, $field_name ) {
-		$this->decorated->add_update_field_alias( $alias, $field_name );
+		return $this->decorated->add_update_field_alias( $alias, $field_name );
 	}
 
 	/**
@@ -437,7 +444,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 * {@inheritdoc}
 	 */
 	public function set_update_fields_aliases( array $update_fields_aliases ) {
-		$this->decorated->set_update_fields_aliases( $update_fields_aliases );
+		return $this->decorated->set_update_fields_aliases( $update_fields_aliases );
 	}
 
 	/**
@@ -479,7 +486,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 * {@inheritdoc}
 	 */
 	public function set_create_args( array $create_args ) {
-		$this->decorated->set_create_args( $create_args );
+		return $this->decorated->set_create_args( $create_args );
 	}
 
 	/**
@@ -700,5 +707,21 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 */
 	public function get_last_sql(): ?string {
 		return $this->decorated->get_last_sql();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_request_context(): ?string {
+		return $this->decorated->get_request_context();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function set_request_context( string $context = null ): self {
+		$this->decorated->set_request_context( $context );
+
+		return $this;
 	}
 }

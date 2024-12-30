@@ -1,0 +1,17 @@
+[
+    {
+        "name": "test-1",
+        "slug": "cat-1",
+        "description": "description-test-1"
+    },
+    {
+        "name": "test-2",
+        "slug": "cat-2",
+        "description": "description-test-2",
+        "parent": {
+            "name": "test-parent",
+            "slug": "cat-parent",
+            "description": "description-test-parent"
+        }
+    }
+]

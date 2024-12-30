@@ -3,8 +3,8 @@
  * View: Troubleshooting - Support Call To Action
  *
  * @since 4.14.2
- *
  */
+
 ?>
 <div class="tribe-events-admin-cta">
 	<img

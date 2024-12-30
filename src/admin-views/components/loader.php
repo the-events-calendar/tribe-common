@@ -12,8 +12,8 @@
  * @since 4.14.9
  *
  * @version 4.14.9
- *
  */
+
 if ( empty( $text ) ) {
 	$text = $this->get( 'text' ) ?: __( 'Loading...', 'tribe-common' );
 }

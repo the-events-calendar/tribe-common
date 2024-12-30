@@ -156,36 +156,93 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 * The variable being tested for can be an array if you wish to find a nested value.
 	 *
 	 * @since 4.9.17 Included explicit check against $_REQUEST.
+	 * @since 6.2.1 Renamed from `tribe_get_request_var` to `tec_get_request_var`.
 	 *
-	 * @see   Tribe__Utils__Array::get()
+	 * @see   tec_get_request_var()
 	 *
-	 * @param string|array $var
-	 * @param mixed        $default
+	 * @param string|array $request_var   The variable to check for.
+	 * @param mixed        $default_value The default value to return if the variable is not set.
 	 *
 	 * @return mixed
 	 */
-	function tribe_get_request_var( $var, $default = null ) {
+	function tribe_get_request_var( $request_var, $default_value = null ) {
+		return tec_get_request_var( $request_var, $default_value );
+	}
+}
+
+if ( ! function_exists( 'tec_get_request_var' ) ) {
+	/**
+	 * Tests to see if the requested variable is set either as a post field or as a URL
+	 * param and returns the value if so.
+	 *
+	 * Post data takes priority over fields passed in the URL query. If the field is not
+	 * set then $default (null unless a different value is specified) will be returned.
+	 *
+	 * The variable being tested for can be an array if you wish to find a nested value.
+	 *
+	 * This function will sanitize the value before returning it.
+	 *
+	 * @since 6.2.1
+	 *
+	 * @see   Tribe__Utils__Array::get_in_any()
+	 * @see   tribe_sanitize_deep()
+	 *
+	 * @param string|array $request_var   The variable to check for.
+	 * @param mixed        $default_value The default value to return if the variable is not set.
+	 *
+	 * @return mixed
+	 */
+	function tec_get_request_var( $request_var, $default_value = null ) {
+		$unsafe = tec_get_request_var_raw( $request_var, $default_value );
+
+		// Sanitize and return.
+		return tribe_sanitize_deep( $unsafe );
+	}
+}
+
+if ( ! function_exists( 'tec_get_request_var_raw' ) ) {
+	/**
+	 * Tests to see if the requested variable is set either as a post field or as a URL
+	 * param and returns the value if so.
+	 *
+	 * Post data takes priority over fields passed in the URL query. If the field is not
+	 * set then $default (null unless a different value is specified) will be returned.
+	 *
+	 * The variable being tested for can be an array if you wish to find a nested value.
+	 *
+	 * This function will NOT sanitize the value before returning it.
+	 *
+	 * @since 6.2.1
+	 *
+	 * @see   Tribe__Utils__Array::get_in_any()
+	 *
+	 * @param string|array $request_var    The variable to check for.
+	 * @param mixed        $default_value  The default value to return if the variable is not set.
+	 *
+	 * @return mixed
+	 */
+	function tec_get_request_var_raw( $request_var, $default_value = null ) {
 		$requests = [];
 
 		// Prevent a slew of warnings every time we call this.
 		if ( isset( $_REQUEST ) ) {
-			$requests[] = (array) $_REQUEST;
+			$requests[] = (array) $_REQUEST; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
 		}
 
 		if ( isset( $_GET ) ) {
-			$requests[] = (array) $_GET;
+			$requests[] = (array) $_GET; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
 		}
 
 		if ( isset( $_POST ) ) {
-			$requests[] = (array) $_POST;
+			$requests[] = (array) $_POST; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
 		}
 
 		if ( empty( $requests ) ) {
-			return $default;
+			return $default_value;
 		}
 
-		$unsafe = Tribe__Utils__Array::get_in_any( $requests, $var, $default );
-		return tribe_sanitize_deep( $unsafe );
+		// Return the value as is.
+		return Tribe__Utils__Array::get_in_any( $requests, $request_var, $default_value );
 	}
 }
 
@@ -1329,4 +1386,56 @@ function tribe_get_next_cached_increment( $key, $expiration_trigger = '', $defau
 	$cache->set( $key, $value, \Tribe__Cache::NON_PERSISTENT, $expiration_trigger );
 
 	return $value;
+}
+
+if ( ! function_exists( 'tec_copy_to_clipboard_button' ) ) {
+	/**
+	 * Output a button to copy the content of an element to the clipboard.
+	 *
+	 * @since 6.0.3
+	 *
+	 * @param string $content_to_copy The content to copy to the clipboard.
+	 * @param bool   $output_button   Whether to output the button or just the target element.
+	 * @param string $aria_label      The aria-label attribute for the button.
+	 *
+	 * @return string
+	 */
+	function tec_copy_to_clipboard_button( string $content_to_copy, bool $output_button = true, string $aria_label = '' ): string {
+		$cache_key = 'tec_copy_to_clipboard_counter';
+		$counter   = tribe( 'cache' )->get( $cache_key, '', 1 );
+
+		$target        = 'tec-copy-text-target-' . $counter;
+		$notice_target = 'tec-copy-to-clipboard-notice-content-' . $counter;
+
+		$aria_label = $aria_label ? $aria_label : __( 'Copy to clipboard', 'the-events-calendar' );
+		tribe( 'cache' )->set( $cache_key, ++$counter, Tribe__Cache::NON_PERSISTENT );
+		if ( $output_button ) :
+			?>
+			<a
+				title="<?php echo esc_attr( $aria_label ); ?>"
+				href="javascript:void(0)"
+				aria-label="<?php echo esc_attr( $aria_label ); ?>"
+				aria-describedby="<?php echo esc_attr( $notice_target ); ?>"
+				data-clipboard-action="copy"
+				data-notice-target=".<?php echo esc_attr( $notice_target ); ?>"
+				data-clipboard-target=".<?php echo esc_attr( $target ); ?>"
+				class="tec-copy-to-clipboard tribe-dashicons"
+				role="button"
+			>
+				<input type="text" readonly value="<?php echo esc_attr( $content_to_copy ); ?>" aria-hidden="true" />
+				<span class="dashicons dashicons-admin-page" aria-hidden="true"></span>
+			</a>
+			<?php
+		endif;
+		?>
+			<span class="screen-reader-text <?php echo esc_attr( $target ); ?>"><?php echo esc_html( $content_to_copy ); ?></span>
+			<div class="tec-copy-to-clipboard-notice">
+				<div class="tec-copy-to-clipboard-notice-content <?php echo esc_attr( $notice_target ); ?>" aria-live="polite">
+				</div>
+			</div>
+		<?php
+
+		// When they want to print the button outside of this function they need to be aware of the target.
+		return $target;
+	}
 }

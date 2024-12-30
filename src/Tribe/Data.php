@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class Tribe__Data
  *
@@ -24,18 +23,21 @@
  *      $data->set_default( 'not found' );
  *
  *      $var_4 = $data['woo']; // "not found"
- *
  */
-class Tribe__Data implements ArrayAccess, Iterator {
+
+use Tribe\Traits\Array_Access;
+
+/**
+ * Class Tribe__Data
+ */
+class Tribe__Data implements ArrayAccess, Iterator { // phpcs:ignore TEC.Classes.ValidClassName.NotSnakeCase,WordPress.NamingConventions.ValidClassName.InvalidClassName,PEAR.NamingConventions.ValidClassName.Invalid,Generic.Classes.OpeningBraceSameLine.ContentAfterBrace
+
+	use Array_Access;
+
 	/**
 	 * @var int
 	 */
 	protected $index = 0;
-
-	/**
-	 * @var array The data managed by this object.
-	 */
-	protected $data;
 
 	/**
 	 * @var mixed The default value that will be returned when trying to get the value
@@ -46,76 +48,28 @@ class Tribe__Data implements ArrayAccess, Iterator {
 	/**
 	 * Tribe__Data constructor.
 	 *
-	 * @param array|object $data    An array or object of data.
-	 * @param mixed        $default The default value that should be returned if a key is not set
+	 * @param array|object $data          An array or object of data.
+	 * @param mixed        $default_value The default value that should be returned if a key is not set.
 	 */
-	public function __construct( $data = [], $default = false ) {
-		$this->data = (array) $data;
-		$this->default = $default;
-	}
-
-	/**
-	 * Whether a offset exists
-	 *
-	 * @link  http://php.net/manual/en/arrayaccess.offsetexists.php
-	 * @param mixed $offset <p>
-	 *                      An offset to check for.
-	 *                      </p>
-	 * @return boolean true on success or false on failure.
-	 *                      </p>
-	 *                      <p>
-	 *                      The return value will be casted to boolean if non-boolean was returned.
-	 * @since 4.11.0
-	 */
-	public function offsetExists( $offset ): bool {
-		return isset( $this->data[ $offset ] );
+	public function __construct( $data = [], $default_value = false ) {
+		$this->data    = (array) $data;
+		$this->default = $default_value;
 	}
 
 	/**
 	 * Offset to retrieve
 	 *
 	 * @link  http://php.net/manual/en/arrayaccess.offsetget.php
-	 * @param mixed $offset <p>
-	 *                      The offset to retrieve.
-	 *                      </p>
+	 *
+	 * @param mixed $offset The offset to retrieve. Will return the default if the offset isn't set.
+	 *
 	 * @return mixed Can return all value types.
+	 *
 	 * @since 4.11.0
 	 */
+	#[ReturnTypeWillChange]
 	public function offsetGet( $offset ) {
-		return isset( $this->data[ $offset ] )
-			? $this->data[ $offset ]
-			: $this->default;
-	}
-
-	/**
-	 * Offset to set
-	 *
-	 * @link  http://php.net/manual/en/arrayaccess.offsetset.php
-	 * @param mixed $offset <p>
-	 *                      The offset to assign the value to.
-	 *                      </p>
-	 * @param mixed $value  <p>
-	 *                      The value to set.
-	 *                      </p>
-	 * @return void
-	 * @since 4.11.0
-	 */
-	public function offsetSet( $offset, $value ) {
-		$this->data[ $offset ] = $value;
-	}
-
-	/**
-	 * Offset to unset
-	 *
-	 * @link  http://php.net/manual/en/arrayaccess.offsetunset.php
-	 * @param mixed $offset <p>
-	 *                      The offset to unset.
-	 *                      </p>
-	 * @return void
-	 * @since 4.11.0
-	 */
-	public function offsetUnset( $offset ) {
-		unset( $this->data[ $offset ] );
+		return $this->data[ $offset ] ?? $this->default;
 	}
 
 	/**
@@ -130,7 +84,7 @@ class Tribe__Data implements ArrayAccess, Iterator {
 	/**
 	 * Sets the data this object will manage.
 	 *
-	 * @param array $data
+	 * @param array $data The data this object will manage.
 	 */
 	public function set_data( array $data ) {
 		$this->data = $data;
@@ -148,19 +102,22 @@ class Tribe__Data implements ArrayAccess, Iterator {
 	/**
 	 * Sets the default value that should be returned when a key is not set.
 	 *
-	 * @param mixed $default
+	 * @param mixed $default_value The default value that should be returned if a key is not set.
 	 */
-	public function set_default( $default ) {
-		$this->default = $default;
+	public function set_default( $default_value ) {
+		$this->default = $default_value;
 	}
 
 	/**
 	 * Return the current element
 	 *
 	 * @link  http://php.net/manual/en/iterator.current.php
+	 *
 	 * @return mixed Can return any type.
+	 *
 	 * @since 4.11.0
 	 */
+	#[\ReturnTypeWillChange]
 	public function current() {
 		$keys = array_keys( $this->data );
 
@@ -174,23 +131,20 @@ class Tribe__Data implements ArrayAccess, Iterator {
 	 * @return void Any returned value is ignored.
 	 * @since 4.11.0
 	 */
-	public function next() {
-		$keys = array_keys( $this->data );
-
-		if ( isset( $keys[ ++ $this->index ] ) ) {
-			return $this->data[ $keys[ $this->index ] ];
-		}
-
-		return false;
+	public function next(): void {
+		++$this->index;
 	}
 
 	/**
 	 * Return the key of the current element
 	 *
 	 * @link  http://php.net/manual/en/iterator.key.php
+	 *
 	 * @return mixed scalar on success, or null on failure.
+	 *
 	 * @since 4.11.0
 	 */
+	#[\ReturnTypeWillChange]
 	public function key() {
 		$keys = array_keys( $this->data );
 
@@ -205,7 +159,7 @@ class Tribe__Data implements ArrayAccess, Iterator {
 	 * Returns true on success or false on failure.
 	 * @since 4.11.0
 	 */
-	public function valid() {
+	public function valid(): bool {
 		$keys = array_keys( $this->data );
 
 		return isset( $keys[ $this->index ] );
@@ -218,7 +172,7 @@ class Tribe__Data implements ArrayAccess, Iterator {
 	 * @return void Any returned value is ignored.
 	 * @since 4.11.0
 	 */
-	public function rewind() {
+	public function rewind(): void {
 		$this->index = 0;
 	}
 
@@ -229,7 +183,7 @@ class Tribe__Data implements ArrayAccess, Iterator {
 	 *
 	 * @since 4.6
 	 */
-	public function to_array() {
+	public function to_array(): array {
 		return $this->get_data();
 	}
 }

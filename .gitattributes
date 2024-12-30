@@ -4,6 +4,3 @@
 tests/_support/_generated/* linguist-generated=true
 */__snapshots__/* linguist-generated=true
 */__mocks__/* linguist-generated=true
-
-readme.txt export-ignore
-tribe-common.php export-ignore

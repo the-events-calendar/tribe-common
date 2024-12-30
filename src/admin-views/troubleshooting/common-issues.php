@@ -3,10 +3,9 @@
  * View: Troubleshooting - Common Issues
  *
  * @since 4.14.2
- *
  */
 
-use \Tribe\Admin\Troubleshooting;
+use Tribe\Admin\Troubleshooting;
 $common_issues = tribe( Troubleshooting::class )->get_common_issues();
 ?>
 <div class="tribe-events-admin-section-header">
@@ -31,7 +30,7 @@ $common_issues = tribe( Troubleshooting::class )->get_common_issues();
 				<div class="tribe-events-admin-faq__answer">
 					<?php
 						$label = '<a href="' . esc_url( $common_issue['link'] ) . '" target="_blank" rel="noopener noreferrer">' . esc_html( $common_issue['link_label'] ) . '</a>';
-						echo sprintf( $common_issue['solution'], $label );
+						printf( esc_html( $common_issue['solution'] ), $label ); // phpcs:ignore WordPress.Security.EscapeOutput,StellarWP.XSS.EscapeOutput
 					?>
 				</div>
 			</div>

@@ -58,7 +58,7 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public function init_options() {
-		Tribe__Settings::instance();
+		tribe( 'settings' );
 	}
 
 	/**
@@ -120,7 +120,7 @@ class Tribe__Settings_Manager {
 	 * @param array $options formatted the same as from get_options()
 	 * @param bool  $apply_filters
 	 *
-	 * @return bool
+	 * @return bool True if the value was updated, false otherwise.
 	 */
 	public static function set_options( $options, $apply_filters = true ) {
 		if ( ! is_array( $options ) ) {
@@ -144,7 +144,7 @@ class Tribe__Settings_Manager {
 	 * @param string $name The option key or 'name'.
 	 * @param mixed  $value The value we want to set.
 	 *
-	 * @return bool
+	 * @return bool True if the value was updated, false otherwise.
 	 */
 	public static function set_option( $name, $value ) {
 		$options          = self::get_options();
@@ -270,7 +270,7 @@ class Tribe__Settings_Manager {
 		$show_tab = ( current_user_can( 'activate_plugins' ) && $this->have_addons() );
 
 		/**
-		 * Provides an oppotunity to override the decision to show or hide the licenses tab
+		 * Provides an opportunity to override the decision to show or hide the licenses tab
 		 *
 		 * Normally it will only show if the current user has the "activate_plugins" capability
 		 * and there are some currently-activated premium plugins.
@@ -285,23 +285,13 @@ class Tribe__Settings_Manager {
 		 * @var $licenses_tab
 		 */
 		include Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-licenses.php';
-
-		/**
-		 * Allows the fields displayed in the licenses tab to be modified.
-		 *
-		 * @var array
-		 */
-		$license_fields = apply_filters( 'tribe_license_fields', $licenses_tab );
-
-		new Tribe__Settings_Tab( 'licenses', esc_html__( 'Licenses', 'tribe-common' ), [
-			'priority'      => '40',
-			'fields'        => $license_fields,
-			'network_admin' => is_network_admin() ? true : false,
-		] );
 	}
 
 	/**
-	 * Create the help tab
+	 * Create the help tab.
+	 *
+	 * @deprecated 6.3.2 This method is deprecated and should no longer be used. Use \TEC\Common\Admin\Help_Hub\Hub instead.
+	 *
 	 */
 	public function do_help_tab() {
 		/**

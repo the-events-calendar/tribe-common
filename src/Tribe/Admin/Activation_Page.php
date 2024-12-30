@@ -187,7 +187,7 @@ class Tribe__Admin__Activation_Page {
 
 		delete_transient( $this->args['activation_transient'] );
 
-		if ( ! current_user_can( Tribe__Settings::instance()->requiredCap ) ) {
+		if ( ! current_user_can( tribe( 'settings' )->required_cap ) ) {
 			return;
 		}
 
@@ -286,7 +286,7 @@ class Tribe__Admin__Activation_Page {
 	 * @return string
 	 */
 	protected function get_message_page_url( $slug ) {
-		$settings = Tribe__Settings::instance();
+		$settings = tribe( 'settings' );
 
 		$url = ! empty( $this->args['admin_url'] ) ? $this->args['admin_url'] : $settings->get_url();
 
@@ -329,7 +329,8 @@ class Tribe__Admin__Activation_Page {
 	 * in the Events > Settings slot instead, for this request only).
 	 */
 	protected function disable_default_settings_page() {
-		remove_action( $this->args['admin_page'], [ Tribe__Settings::instance(), 'generatePage' ] );
+		remove_action( $this->args['admin_page'], [ tribe( 'settings' ), 'generate_page' ] );
+		remove_action( $this->args['admin_page'], [ tribe( 'settings' ), 'generatePage' ] );
 	}
 
 	/**

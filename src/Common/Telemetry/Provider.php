@@ -62,7 +62,8 @@ class Provider extends Service_Provider {
 	 * @since 5.1.0
 	 */
 	public function add_filters() {
-		add_filter( 'stellarwp/telemetry/optin_args', [ $this, 'filter_optin_args' ] );
+		add_filter( 'stellarwp/telemetry/the-events-calendar/optin_args', [ $this, 'filter_tec_optin_args' ], 10 );
+		add_filter( 'stellarwp/telemetry/event-tickets/optin_args', [ $this, 'filter_et_optin_args' ], 10 );
 		add_filter( 'stellarwp/telemetry/exit_interview_args', [ $this, 'filter_exit_interview_args' ] );
 		add_filter( 'http_request_args', [ $this, 'filter_telemetry_http_request_args' ], 10, 2 );
 	}
@@ -129,7 +130,7 @@ class Provider extends Service_Provider {
 	 * @since 5.1.13 Added filter of send_data_args to include opt-in data.
 	 */
 	public function hook_telemetry_init(): void {
-		add_filter( "stellarwp/telemetry/tec/send_data_args", [ $this, 'filter_send_data_args' ] );
+		add_filter( 'stellarwp/telemetry/tec/send_data_args', [ $this, 'filter_send_data_args' ] );
 		add_action( 'admin_init', [ $this, 'initialize_telemetry' ], 5 );
 	}
 
@@ -173,6 +174,8 @@ class Provider extends Service_Provider {
 	 *
 	 * @since 5.1.0
 	 *
+	 * @param string $slug The slug of the plugin to show the opt-in modal for.
+	 *
 	 * @return void
 	 */
 	public function show_optin_modal( $slug ) {
@@ -183,13 +186,41 @@ class Provider extends Service_Provider {
 	 * Filters the default opt-in modal args.
 	 *
 	 * @since 5.1.0
+	 * @deprecated 5.2.2 Use the slug-specific filters instead.
+	 *
+	 * @param array<string|mixed> $args The current optin modal args.
+	 * @param string|null         $slug The slug of the plugin to show the opt-in modal for.
+	 *
+	 * @return array<string|mixed>
+	 */
+	public function filter_optin_args( $args, $slug = null ): array {
+		return $this->container->make( Telemetry::class )->filter_optin_args( $args, $slug );
+	}
+
+	/**
+	 * Filters the TEC opt-in modal args, passing the correct slug.
+	 *
+	 * @since 5.2.2
 	 *
 	 * @param array<string|mixed> $args The current optin modal args.
 	 *
 	 * @return array<string|mixed>
 	 */
-	public function filter_optin_args( $args ): array  {
-		return $this->container->make( Telemetry::class )->filter_optin_args( $args );
+	public function filter_tec_optin_args( $args ): array {
+		return $this->container->make( Telemetry::class )->filter_optin_args( $args, 'the-events-calendar' );
+	}
+
+	/**
+	 * Filters the ET opt-in modal args, passing the correct slug.
+	 *
+	 * @since 5.2.2
+	 *
+	 * @param array<string|mixed> $args The current optin modal args.
+	 *
+	 * @return array<string|mixed>
+	 */
+	public function filter_et_optin_args( $args ): array {
+		return $this->container->make( Telemetry::class )->filter_optin_args( $args, 'event-tickets' );
 	}
 
 	/**

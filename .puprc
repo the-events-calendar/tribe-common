@@ -1,0 +1,65 @@
+{
+	"build": [
+		"composer -- pup",
+		"rm -rf vendor",
+		"git checkout -- vendor",
+		"composer install --no-dev",
+		"npm ci --no-audit --no-fund",
+		"npm run build"
+	],
+	"build_dev": [
+		"composer -- pup",
+		"rm -rf vendor",
+		"git checkout -- vendor",
+		"composer install",
+		"npm ci --no-audit --no-fund",
+		"npm run build"
+	],
+	"checks": {
+		"tbd": {
+			"dirs": [
+				"src"
+			]
+		},
+		"version-conflict": {}
+	},
+	"i18n": [
+		{
+			"slug": "tribe-common",
+			"textdomain": "tribe-common",
+			"url": "https://translations.stellarwp.com/glotpress/"
+		}
+	],
+	"paths": {
+		"changelog": "readme.txt",
+		"css": [
+			"src/resources/postcss"
+		],
+		"js": [
+			"src/resources/js",
+			"src/modules"
+		],
+		"sync_files": [
+			".distfiles",
+			".gitattributes"
+		],
+		"versions": [
+			{
+				"file": "src/Tribe/Main.php",
+				"regex": "(const VERSION += ')([^']+)"
+			},
+			{
+				"file": "tribe-common.php",
+				"regex": "(Version: )(.+)"
+			},
+			{
+				"file": "package.json",
+				"regex": "(\"version\": ?\")([^\"]+)"
+			}
+		],
+		"views": [
+			"src/views"
+		]
+	},
+	"zip_name": "tribe-common"
+}

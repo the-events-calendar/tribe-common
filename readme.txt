@@ -1,8 +1,207 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [6.4.1] 2024-12-17 =
 
-* Fix - Correct `tribe_get_end_date` to return dates in the correct time zone. [BTRIA-2100]
+* Feature - Add an abstract admin page to start consolidating how we do admin pages. See the "First Time Setup" page (onboarding wizard) for an example. [TEC-5294]
+* Tweak - Ensure we are not loading any assets from node_modules. Include anything we need as a 3rd party code in our plugin. [TCMN-175]
+* Fix - Cast `$block` argument to string to avoid PHP 8+ deprecation notice when non string (or array) variables are passed as the 3rd argument of `preg_replace`.
+* Fix - Correctly identify licenses using uplink, like Event Tickets Plus. [n/a]
+* Fix - Ensure that number_format is used with a float value to prevent issues with PHP 8.0+. [ETP-962]
+* Fix - Ensure we get an object to test for subnav. Pass the object to class filter for more context. [n/a]
+* Fix - Prevent fatal on ET integration page when used with Events Pro but without Event Tickets Plus. [TCMN-174]
+* Deprecated - Integrations Tab registration in Event Ticket Settings from common. These will be registered from Event Tickets Plus only instead. [TCMN-174]
+* Language - 0 new strings added, 33 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.4.0] 2024-12-05 =
+
+* Feature - In-App Notifications system. [TEC-5165]
+* Tweak - Added filters: `tec_common_ian_opt_in`, `tec_common_ian_conditional_php`, `tec_common_ian_conditional_wp`, `tec_common_ian_allowed_pages`, `tec_common_ian_show_icon`, `tec_common_ian_setting_optin_tooltip`, `tec_common_ian_api_url`, `tec_common_ian_slugs`, `tec_common_ian_render`
+* Tweak - Added actions: `tec_common_ian_loaded`
+* Language - 22 new strings added, 15 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.3.2] 2024-11-19 =
+
+* Feature - Implemented the core Help Hub logic, providing a flexible framework for managing support integrations, resource templates, and plugin-specific customization.
+* Feature - Introduced Asset interface which accounts for symlinks, while still provides a fluent api. [SL-246]
+* Feature - Update stellarwp/assets to version 1.4.2. [SL-246]
+* Tweak - Added actions: `tec_help_hub_before_render`, `tec_help_hub_after_render`, `tec_help_hub_before_iframe_render`, `tec_help_hub_after_iframe_render`, `tec_help_hub_registered`.
+* Tweak - Added filters: `tec_help_hub_resource_sections_{$data_class_name}`, `tec_help_hub_resource_sections`, `tec_help_hub_body_classes`.
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.3.1] 2024-11-04 =
+
+* Fix - Prevent new Settings pages to over sanitize textarea fields, thus removing HTML from before/after in the Events UI. [TEC-5283]
+* Fix - Include backwards compatibility for deprecated proprieties in the Settings class used in The Events Calendar and Event Tickets [TEC-5312]
+
+= [6.3.0] 2024-10-30 =
+
+* Feature - Added integration with new premium Seating product for Event Tickets.
+* Language - 0 new strings added, 23 updated, 1 fuzzied, and 0 obsoleted
+
+= [6.2.0] 2024-10-17 =
+
+* Feature - New Conditional Content supporting classes with available Traits for User targeted Dismissal.
+* Fix - Allow more svg attributes through the fields sanitization. [TEC-5282]
+* Tweak - Remove all of the deprecated Marketing related classes and files, as they are no longer used.
+* Tweak - Added filters: `tec_settings_sidebar_sections`
+* Tweak - Removed filters: `tribe_black_friday_start_time`, `tribe_black_friday_end_time`
+* Tweak - Added actions: `tec_conditional_content_black_friday`
+* Deprecated - Removed deprecated classes: `Tribe\Admin\Notice\Marketing`, `Tribe\Admin\Notice\Marketing\Black_Friday`, `Tribe\Admin\Notice\Marketing\End_Of_Year_Sale`, `Tribe\Admin\Notice\Marketing\Stellar_Sale`, `Tribe\Admin\Notice\Conditional_Content\`, `Tribe\Admin\Notice\Marketing\Black_Friday`, `Tribe\Admin\Notice\Marketing\End_Of_Year_Sale`, `Tribe\Admin\Notice\Marketing\Stellar_Sale`
+* Language - 1 new strings added, 44 updated, 1 fuzzied, and 22 obsoleted
+
+= [6.1.0] 2024-09-26 =
+
+* Feature - Update core settings functionality and styles to allow for new plugin settings layout. [TEC-5124]
+* Feature - Update settings field generation and add functionality to facilitate sidebars on settings pages. [TEC-5137]
+* Tweak - Added filters: `tribe_field_output_{$this->type}`, `tribe_field_output_{$this->type}_{$this->id}`, `tec_settings_page_logo_source`, `tribe_settings_wrap_classes`, `tribe_settings_form_class`, `tribe_settings_tab_{$key}`
+* Tweak - Removed filters: `tribe_field_output_`, `tribe_settings_form_element_tab_`, `tribe_settings_tab_`
+* Tweak - Added actions: `tec_settings_sidebar_start`, `tec_settings_sidebar_header_start`, `tec_settings_sidebar_header_end`, `tec_settings_sidebar_end`, `tec_settings_init`, `tec_settings_render_modal_sidebar`, `tribe_settings_tab_after_link`, `tec_settings_tab_licenses`
+* Language - 16 new strings added, 138 updated, 6 fuzzied, and 18 obsoleted
+
+= [6.0.3.1] 2024-09-16 =
+
+* Security - Improve general escaping for ORM queries to prevent legacy Events methods to be used for SQL injections.
+
+= [6.0.3] 2024-09-11 =
+
+* Feature - Adding the method `tec_copy_to_clipboard_button` which can be used to print a button which on click would copy a text to the user's clipboard. [ET-2158]
+* Fix - Correct bug when term slugs were numeric.
+* Fix - Optimized prime_term_cache to return early when no posts are provided [TEC-5150]
+* Language - 2 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
+
+= [6.0.2] 2024-08-20 =
+
+* Fix - Fixed attendee, updated attendee, and checkin endpoints from having invalid response for workflow operation 'id' to be of type 'Integer' but is of type 'String'. [EVA-160]
+* Fix - Stellar Sale's banner links, details, and HTML tags handling. [TEC-5121]
+* Tweak - Change setup of queues for Automator integrations to use Event Tickets Plus and Events Calendar Pro hooks instead of the core versions. [EVA-160]
+* Tweak - Move Registering of Power Automate and Zapier endpoints to Event Tickets Plus and Events Calendar Pro. [EVA-160]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [6.0.1] 2024-08-06 =
+
+* Fix - Change hook to detect if TEC is active for Automator Event Endpoints used by Power Automate and Zapier. [TEC-5123]
+* Fix - Move action pre-dispatch filters for Zapier to Event Tickets Plus and Events Calendar Pro to fix not authorized errors. [TEC-5123]
+* Language - 0 new strings added, 10 updated, 1 fuzzied, and 1 obsoleted
+
+= [6.0.0.2] 2024-07-24 =
+
+* Fix - Stellar Sale's banner links, details, and HTML tags handling. [TEC-5121]
+
+= [6.0.0.1] 2024-07-23 =
+
+* Fix - Prevent fatal on WooCommerce Order transition when Event Tickets plugin is not present. [EVA-166]
+* Language - 0 new strings added, 2 updated, 3 fuzzied, and 0 obsoleted
+
+= [6.0.0] 2024-07-22 =
+
+* Feature - Included compatibility with Events Calendar Pro 7.0.0 for integrations with Zapier and Power Automate.
+* Feature - Included compatibility with Events Tickets Plus 6.0.0 for integrations with Zapier and Power Automate.
+* Fix - Fixed an issue where admin transient notices with the dismiss flag not persisting passed the first page load. [ECP-1808]
+* Fix - The Decorated repository was not returning values from `save()` and other methods. Now they return as expected. [BTRIA-2310]
+* Fix - Resolved an issue where transient notices would disappear given a certain order of operations. [ECP-1804]
+* Tweak - Added a new action hook `tec_event_automator_zapier_provider_registered` to fire after the Zapier service has successfully registered. [EVA-159]
+* Tweak - Added filters: `tec_event_automator_integrations_tab_settings`, `tec_tickets_plus_integrations_tab_fields`, `tec_event_automator_{$api_id}_dashboard_fields`, `tec_event_automator_{$api_id}_api_get_user_arguments`, `tec_event_automator_{$api_id}_settings_fields`, `tec_event_automator_{$api_id}_settings_field_placement_key`, `tec_event_automator_rest_swagger_documentation`, `tec_event_automator_{$api_id}_endpoint_details`, `tec_event_automator_{$api_id}_add_to_queue_data`, `tec_event_automator_{$api_id}_add_to_queue_data_{$endpoint_id}`, `tec_event_automator_{$api_id}_is_rest_request`, `tec_event_automator_{$api_id}_enable_add_to_queues`, `tec_event_automator_{$api_id}_add_to_queue`, `tec_event_automator_{$api_id}_max_queue_items`, `tec_event_automator_{$api_id}_max_queue_items_{$queue_name}`, `tec_event_automator_power_automate_admin_ajax_capability`, `tec_event_automator_power_automate_enabled`, `tec_event_automator_power_automate_enable_add_to_queue`, `tec_event_automator_integration_app_name`, `tec_automator_map_attendee_details`, `tec_automator_map_edd_order_details`, `tec_automator_map_tickets_commerce_order_details`, `tec_automator_map_woo_order_details`, `tec_automator_map_event_details`, `tec_automator_map_all_organizers`, `tec_automator_map_organizer_details`, `tec_automator_map_all_venues`, `tec_automator_map_venue_details`, `tec_automator_map_ticket_details`, `tec_event_automator_zapier_app_name`, `tec_event_automator_zapier_admin_ajax_capability`, `tec_event_automator_zapier_enabled`, `tec_event_automator_zapier_enable_add_to_queue`
+* Tweak - Added actions: `tec_automator_before_update_{$api_id}_api_keys`, `tec_automator_before_update_zapier_api_keys`, `tec_event_automator_zapier_provider_registered`
+* Language - 271 new strings added, 313 updated, 1 fuzzied, and 25 obsoleted
+
+= [5.3.1] 2024-07-18 =
+
+* Tweak - Support additional select2 attributes in order to improve search performance in select2 fields.
+* Language - 0 new strings added, 31 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.3.0.5] 2024-07-11 =
+
+* Fix - Ensure compatibility with WordPress 6.6 for removed polyfill `regenerator-runtime`. [TEC-5120]
+
+= [5.3.0.4] 2024-06-18 =
+
+* Fix - In installations where the plugins or wp-content directories were symbolic linked, assets would fail to be located. [TEC-5106]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
+
+= [5.3.0.3] 2024-06-14 =
+
+* Fix - Issue where scripts would not be enqueued as modules. [ET-2136]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.3.0.2] 2024-06-14 =
+
+* Fix - Windows Server compatibility issues with updated Assets handling. [TEC-5104]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.3.0.1] 2024-06-13 =
+
+* Fix - Issue on which some assets (css,js) would not be located in WP installs which could have some WP constant modified (WP_CONTENT_DIR, WP_PLUGIN_DIR)[TEC-5104]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.3.0] 2024-06-11 =
+
+* Feature - Refactor tribe_asset to use Stellar Assets. [TCMN-172]
+* Tweak - Remove ini_check for deprecated safe_mode. [6.2.0]
+* Tweak - Added information about upcoming promotion. [ET-2113]
+* Tweak - Added filters: `tribe_asset_enqueue_{$asset->get_slug()}`
+* Tweak - Removed filters: `tribe_asset_enqueue_{$asset->slug}`, `tribe_asset_pre_register`
+* Language - 7 new strings added, 5 updated, 2 fuzzied, and 0 obsoleted
+
+= [5.2.7] 2024-05-14 =
+
+* Fix - Add dir/filename of `event-automator` in the Plugins_API to fix CTA button text/links in the Help section. [TEC-5071]
+* Tweak - Add `aria-hidden="true"` to icons so screen readers ignore it. [TEC-5019]
+* Tweak - Updated our `query-string` javascript library to version 6.12. [TEC-5075]
+* Tweak - Add Events Schedule Manager cards in the Help and App Shop admin pages to promote. [TEC-5058]
+* Tweak - Prevent potential conflict by changing all calls to select2 to our internal select2TEC version. [TCMN-170]
+* Tweak - Removed filters: `tec_help_calendar_faqs`, `tec_help_calendar_extensions`, `tec_help_calendar_products`, `tec_help_ticketing_faqs`, `tec_help_ticketing_extensions`, `tec_help_ticketing_products`
+* Tweak - Changed views: `v2/components/icons/arrow-right`, `v2/components/icons/caret-down`, `v2/components/icons/caret-left`, `v2/components/icons/caret-right`, `v2/components/icons/search`
+* Language - 6 new strings added, 161 updated, 2 fuzzied, and 0 obsoleted
+
+= [5.2.6] 2024-04-18 =
+
+* Tweak - Added the `position` parameter for submenu pages on the admin pages class. [ET-1707]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.2.5] 2024-04-09 =
+
+* Tweak - Improve compatibility with some theme styling re: calendar buttons. [TEC-5047]
+* Tweak - Rename the `Controller_Test_Case` `setUp` and `tearDown` methods and annotate them with `@before` and `@after` annotations to improve PHPUnit version cross-compat.
+
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
+= [5.2.4] 2024-03-20 =
+
+* Fix - Resolves a PHP 8.2 deprecation error on `Date_Utils` - `PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in /.../wp-content/plugins/the-events-calendar/common/src/Tribe/Date_Utils.php on line 256`. [ECP-1620]
+* Fix - This fixes an issue where a template with a duplicate name but located in different folders is called it would always reference the first file. Updated the key to be unique by folder as well. [ECP-1627]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.2.3] 2024-02-19 =
+
+* Tweak - Refactor JS logic to prevent ticketing of recurring events. [ET-1936]
+* Fix - Better clean up of global space in Controller test case. [ET-1936]
+
+= [5.2.2] 2024-02-19 =
+
+* Tweak - Added timezone param to our date utility function `Date_Utils::reformat`. [TEC-5042]
+* Language - 1 new strings added, 4 updated, 6 fuzzied, and 0 obsoleted
+
+= [5.2.1] 2024-01-24 =
+
+* Feature - Add the `get_country_based_on_code` method to the `Tribe__Languages__Locations` class. [EA-469]
+* Feature - Enable auto-updates for premium plugins.
+* Fix - Correct some signatures in the Tribe__Data class so they conform to the classes it implements, avoiding deprecation notices. [TEC-4992]
+* Fix - Fix PHP 8.2 deprecation errors `PHP Deprecated:  html_entity_decode(): Passing null to parameter #1 ($string) of type string is deprecated`. [ECP-1603]
+* Tweak - Update the DataTables library used by Event Aggregator. [EA-479]
+* Tweak - Improve the notice dismissal logic with more modern JavaScript and PHP.
+* Tweak - Added filters: `tec_dialog_id`, `tribe_repository_{$this->filter_name}_before_delete`
+* Language - 0 new strings added, 20 updated, 4 fuzzied, and 0 obsoleted
+
+= [5.2.0] 2024-01-22 =
+
+* Feature - Add the `Tribe__Repository::first_id` method to fetch the first ID of a query. [ET-1490]
+* Feature - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
+* Feature - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
+* Feature - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
+* Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
+* Tweak - Add the `set_request_context( ?string $context)` and `get_request_context(): ?string` methods to the `Tribe__Repository__Interface` and classes. [ET-1813]
+* Tweak - Ticketing & RSVP tab selected by default when clicking Help from the Tickets menu. [ET-1837]
+* Language - 0 new strings added, 8 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.1.17] 2023-12-14 =
 
@@ -31,6 +230,7 @@
 
 = [5.1.14] 2023-11-13 =
 
+* Tweak - Added pre-check filter `tribe_repository_{$this->filter_name}_before_delete` to enable overriding the `Repository` delete operation. [TEC-4935]
 * Fix - Resolved several `Deprecated: Creation of dynamic property` warnings on: `\Tribe__Field::$allow_clear, $type, $class, $label, $label_attributes, $error, $tooltip, $size, $html, $options, $value, $conditional, $placeholder, $display_callback, $if_empty, $can_be_empty, $clear_after, $tooltip_first` and `\Tribe__Settings_Tab::$priority, public $fields, $show_save, $display_callback, $network_admin` [BTRIA-2088]
 * Language - 2 new strings added, 9 updated, 1 fuzzied, and 2 obsoleted.
 
@@ -81,18 +281,24 @@
 
 * Tweak - Compress the size of all images used by the Common module, to reduce the size of the plugin
 * Tweak - Set background image to none on the button element to prevent general button styling overrides. [ET-1815]
+* Tweak - Add the `set_request_context( ?string $context)` and `get_request_context(): ?string` methods to the `Tribe__Repository__Interface` and classes. [ET-1813]
+* Tweak - Ticketing & RSVP tab selected by default when clicking Help from the Tickets menu. [ET-1837]
 
 = [5.1.7] 2023-09-05 =
 
 * Fix - Broken UI on the WYSIWYG field in the Additional Content section of the admin display settings. [TEC-4861]
 * Fix - Resolves a plugin integration bug that happens in certain scenarios with instantiating `Firebase\JWT` library classes. In these scenarios you would see a fatal error similar to `Uncaught TypeError: TEC\Common\Firebase\JWT\JWT::getKey(): Return value must be of type TEC\Common\Firebase\JWT\Key, OpenSSLAsymmetricKey returned..` [TEC-4866]
 * Fix - WP Rewrite was being incorrectly initialized in some scenarios due to container DI, and causing some 404s. This was affecting classes that extend the `Tribe__Rewrite`. [TEC-4844]
-* Tweak - Add checks to ensure that settings don't pass null to wp_kses() or esc_attr() [TBD]
+* Tweak - Add checks to ensure that settings don't pass null to wp_kses() or esc_attr() [6.2.0]
 * Language - 0 new strings added, 6 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.1.6] 2023-08-15 =
 
 * Feature - Add the 'Tribe__Repository__Query_Filters::meta_not' method to work around costly meta queries.
+
+= [5.1.5] 2023-08-15 =
+
+* Feature - Fire an action on Service Provider registration; register Service Providers on action with `Container::register_on_action`.
 * Tweak - Added filters: `tec_block_has_block`, `tec_block_{$block_name}_has_block`, `tec_common_rewrite_dynamic_matchers`, `tec_shortcode_aliased_arguments`, `tec_shortcode_{$registration_slug}_aliased_arguments`
 * Language - 0 new strings added, 23 updated, 1 fuzzied, and 0 obsoleted
 

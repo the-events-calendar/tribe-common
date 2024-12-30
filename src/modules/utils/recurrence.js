@@ -25,8 +25,20 @@ export const hasRecurrenceRules = ( state ) => {
  * Returns whether tickets are allowed on Recurring events or not.
  *
  * @since 5.0.0
+ *
  * @returns {boolean} Whether tickets are allowed on Recurring events or not.
  */
 export const noTicketsOnRecurring = () => {
 	return document.body.classList.contains( 'tec-no-tickets-on-recurring' );
+};
+
+/**
+ * Returns whether RSVPs are allowed on Recurring events or not.
+ *
+ * @since 5.8.0
+ *
+ * @returns {boolean} Whether RSVPs are allowed on Recurring events or not.
+ */
+export const noRsvpsOnRecurring = () => {
+	return document.body.classList.contains( 'tec-no-rsvp-on-recurring' )
 };

@@ -284,7 +284,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		if ( $select.is( '[data-freeform]' ) ) {
 			args.createTag = obj.freefrom_create_search_choice;
 			args.tags = true;
-			$select.data( 'tags', true );
 		}
 
 		if ( $select.is( '[multiple]' ) ) {
@@ -326,18 +325,22 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 
 		// Select also allows Tags, so we go with that too
 		if ( $select.is( '[data-tags]' ) ) {
-			args.tags = $select.data( 'tags' );
+			const selectTags = $select.data( 'tags' );
+			args.tags = 1 === selectTags || '1' === selectTags || 'true' === selectTags;
 
-			args.createSearchChoice = function( term, data ) { // eslint-disable-line no-unused-vars
-				if ( term.match( args.regexToken ) ) {
-					return { id: term, text: term };
-				}
-			};
-
-			if ( 0 === args.tags.length ) {
-				args.formatNoMatches = function() {
-					return $select.attr( 'placeholder' );
+			// Don't force tags!
+			if ( args.tags ) {
+				args.createSearchChoice = function( term, data ) { // eslint-disable-line no-unused-vars
+					if ( term.match( args.regexToken ) ) {
+						return { id: term, text: term };
+					}
 				};
+
+				if ( 0 === args.tags.length ) {
+					args.formatNoMatches = function() {
+						return $select.attr( 'placeholder' );
+					};
+				}
 			}
 		}
 
@@ -364,7 +367,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 				url: obj.ajaxurl(),
 
 				// parse the results into the format expected by Select2.
-				processResults: function ( response, page, query ) { // eslint-disable-line no-unused-vars
+				processResults: function ( response, params ) { // eslint-disable-line no-unused-vars
 					if ( ! $.isPlainObject( response ) || 'undefined' === typeof response.success ) {
 						console.error( 'We received a malformed Object, could not complete the Select2 Search.' ); // eslint-disable-line max-len
 						return { results: [] };
@@ -391,6 +394,20 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 				},
 			};
 
+
+			if ( $select.is( '[data-ajax-delay]' ) ) {
+				args.ajax.delay = $select.data( 'ajax-delay' );
+			}
+
+			if ( $select.is( '[data-ajax-cache]' ) ) {
+				const ajaxCache = $select.data( 'ajax-cache' );
+				args.ajax.cache = 1 === ajaxCache || '1' === ajaxCache || 'true' === ajaxCache;
+			}
+
+			if ( $select.is( '[data-minimum-input-length]' ) ) {
+				args.minimumInputLength = parseInt( $select.data( 'minimum-input-length' ) );
+			}
+
 			// By default only send the source
 			args.ajax.data = function( search, page ) {
 				return {
@@ -399,6 +416,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 					search: search,
 					page: page,
 					args: $select.data( 'source-args' ),
+					nonce: $select.data( 'source-nonce' ),
 				};
 			};
 		}
@@ -449,6 +467,42 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		$select.data( 'dropdown', args );
 
 		$container = $select.select2TEC( args );
+
+		// If data-clear-to-value is set, on clear, set the value to the specified value.
+		if ( $select.is( '[data-clear-to-value]' ) ){
+			/*
+			 * Unlike setting `allowClear` to `false`, this will allow the user to clear the dropdown,
+			 * but will then immediately set the value to the specified value.
+			 */
+			$container
+				.on( 'select2:unselect', function(  ) {
+				/*
+			   * Flag the dropdown to expect the opening event that would allow the user to pick
+			   * a new value, or none, after clearing.
+				 */
+				var $select = $( this );
+				$select.data('openingAfterUnselect', 1);
+			} )
+				.on('select2:opening',function(event){
+					/*
+					 * If the dropdown is expecting the opening event, then prevent it from opening
+					 * and instead set the value to the specified value.
+					 */
+					var $select = $( this );
+
+					if( ! $select.data( 'openingAfterUnselect' ) ){
+						return;
+					}
+
+					$select.data( 'openingAfterUnselect', 0 );
+
+					var value = $select.data( 'clear-to-value' );
+					$select.val( value ).trigger( 'change' );
+
+					// Do not open the dropdown.
+					event.preventDefault()
+			});
+		}
 
 		// Propagating original input classes to the select2 container.
 		var originalClasses = obj.getSelectClasses( $select ).join( ' ' );
