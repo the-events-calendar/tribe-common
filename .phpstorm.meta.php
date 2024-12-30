@@ -37,7 +37,6 @@ namespace PHPSTORM_META {
 			'callback'                              => \Tribe__Utils__Callback::class,
 			'pue.notices'                           => \Tribe__PUE__Notices::class,
 			'admin.notice.php.version'              => \Tribe__Admin__Notice__Php_Version::class,
-			'admin.notice.marketing'                => \Tribe__Admin__Notice__Marketing::class,
 
 			// Custom alias with tribe namespace.
 			'tooltip.view'                          => \Tribe\Tooltip\View::class,

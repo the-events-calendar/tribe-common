@@ -8,6 +8,8 @@
  * @todo switch all plugins over to use the PUE utilities here in Commons
  */
 
+use function TEC\Common\StellarWP\Uplink\get_resource;
+
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -180,6 +182,20 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		private $validate_query = [];
 
 		/**
+		 * A unique list of instances of the PUE Checker that has been initialized.
+		 *
+		 * @since 6.3.2
+		 *
+		 * @var Tribe__PUE__Checker[] Instances of checkers that have been registered.
+		 */
+		protected static $instances = [];
+
+		/**
+		 * @var string The transient key.
+		 */
+		public const IS_ANY_LICENSE_VALID_TRANSIENT_KEY = 'TEC_IS_ANY_LICENSE_VALID_TRANSIENT';
+
+		/**
 		 * Class constructor.
 		 *
 		 * @param string $pue_update_url Deprecated. The URL of the plugin's metadata file.
@@ -204,14 +220,23 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$this->set_options( $options );
 			$this->hooks();
 			$this->set_key_status_name();
+			// So we can reference our "registered" instances later.
+			self::$instances[ $slug ] ??= $this;
 		}
 
 		/**
 		 * Gets whether the license key is valid or not.
 		 *
 		 * @since 4.14.9
+		 * @since 6.4.1 Added uplink resource check.
 		 */
 		public function is_key_valid() {
+			$uplink_resource = get_resource( $this->get_slug() );
+
+			if ( $uplink_resource ) {
+				return $uplink_resource->has_valid_license();
+			}
+
 			// @todo remove transient in a major feature release where we release all plugins.
 			$status = get_transient( $this->pue_key_status_transient_name );
 
@@ -220,6 +245,57 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			return 'valid' === $status;
+		}
+
+		/**
+		 * Iterate on all the registered PUE Product Licenses we have and find if any are valid.
+		 * Will revalidate the licenses if none are found to be valid.
+		 *
+		 * @todo In scenarios where a user goes from a Free license to an active license the transient may give a false positive.
+		 *
+		 * @since 6.3.2
+		 *
+		 * @return bool
+		 */
+		public static function is_any_license_valid(): bool {
+			$valid_slug = 'valid';
+			$has_valid  = false;
+
+			// Check our transient.
+			$transient_value = get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+			if ( ! empty( $transient_value ) ) {
+				return $transient_value === $valid_slug;
+			}
+
+			// Check our local transient/cache first.
+			foreach ( self::$instances as $checker ) {
+				if ( $checker->is_key_valid() ) {
+					set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $valid_slug, HOUR_IN_SECONDS );
+					$has_valid = true;
+					break;
+				}
+			}
+
+			if ( ! $has_valid ) {
+				// Revalidate if we haven't found a valid license yet.
+				foreach ( self::$instances as $checker ) {
+					$license  = get_option( $checker->get_license_option_key() );
+					$response = $checker->validate_key( $license );
+					// Is it valid?
+					if ( ! empty( $response['status'] ) ) {
+						set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $valid_slug, HOUR_IN_SECONDS );
+						$has_valid = true;
+						break;
+					}
+				}
+			}
+
+			// We found no valid licenses above.
+			if ( ! $has_valid ) {
+				set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, 'invalid', HOUR_IN_SECONDS );
+			}
+
+			return get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY ) === $valid_slug;
 		}
 
 		/**
@@ -307,7 +383,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			add_filter( 'tribe_licensable_addons', [ $this, 'build_addon_list' ] );
-			add_action( 'tribe_license_fields', [ $this, 'do_license_key_fields' ] );
+			add_filter( 'tribe_license_fields', [ $this, 'do_license_key_fields' ] );
 			add_action( 'tribe_settings_after_content_tab_licenses', [ $this, 'do_license_key_javascript' ] );
 			add_action( 'tribe_settings_success_message', [ $this, 'do_license_key_success_message' ], 10, 2 );
 			add_action( 'load-plugins.php', [ $this, 'remove_default_inline_update_msg' ], 50 );
@@ -322,6 +398,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// Package name.
 			add_filter( 'upgrader_pre_download', [ Tribe__PUE__Package_Handler::instance(), 'filter_upgrader_pre_download' ], 5, 3 );
 		}
+
+
 
 		/********************** Getter / Setter Functions **********************/
 
@@ -936,6 +1014,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function get_key( $type = 'any', $return_type = 'key' ) {
 
+			$resource    = get_resource( $this->get_slug() );
+			$license_key = $resource ? $resource->get_license_key( $type ) : false;
+			if ( $license_key ) {
+				return $license_key;
+			}
+
 			$license_key    = '';
 			$license_origin = 'm';
 
@@ -1020,6 +1104,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public function validate_key( $key, $network = false ) {
 			$response           = [];
 			$response['status'] = 0;
+
+			$uplink_resource = get_resource( $this->get_slug() );
+
+			if ( $uplink_resource ) {
+				$key = $uplink_resource->get_license_key();
+			}
 
 			if ( ! $key ) {
 				$response['message'] = sprintf(

@@ -109,7 +109,7 @@ class Tribe__Cost_Utils {
 
 		if (
 			is_numeric( $cost_with_period )
-			&& '0.00' === number_format( $cost_with_period, 2, '.', ',' )
+			&& '0.00' === number_format( (float) $cost_with_period, 2, '.', ',' )
 		) {
 			return esc_html__( 'Free', 'tribe-common' );
 		}
@@ -353,7 +353,7 @@ class Tribe__Cost_Utils {
 
 			if ( is_numeric( $numeric_cost ) ) {
 				// Creates a Well Balanced Index that will perform good on a Key Sorting method
-				$index = str_replace( [ '.', ',' ], '', number_format( $numeric_cost, $max ) );
+				$index = str_replace( [ '.', ',' ], '', number_format( (float) $numeric_cost, $max ) );
 			} else {
 				// Makes sure that we have "index-safe" string
 				$index = sanitize_title( $numeric_cost );

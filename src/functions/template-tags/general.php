@@ -23,8 +23,9 @@ if ( ! function_exists( 'tribe_get_option' ) ) {
 	 * Retrieve specific key from options array, optionally provide a default return value
 	 *
 	 * @category Events
+	 *
 	 * @param string $optionName Name of the option to retrieve.
-	 * @param string $default    Value to return if no such option is found.
+	 * @param mixed  $default    Value to return if no such option is found.
 	 *
 	 * @return mixed Value of the option if found.
 	 * @todo Abstract this function out of template tags or otherwise secure it from other namespace conflicts.
@@ -54,7 +55,7 @@ if ( ! function_exists( 'tribe_get_option' ) ) {
 		 */
 		return apply_filters( "tribe_get_option_{$optionName}", $value, $optionName, $default );
 	}
-}//end if
+}
 
 if ( ! function_exists( 'tribe_update_option' ) ) {
 	/**
@@ -63,15 +64,16 @@ if ( ! function_exists( 'tribe_update_option' ) ) {
 	 * Set specific key from options array, optionally provide a default return value
 	 *
 	 * @category Events
+	 *
 	 * @param string $optionName Name of the option to retrieve.
-	 * @param string $value      Value to save
+	 * @param mixed  $value      Value to save
 	 *
 	 * @return bool
 	 */
 	function tribe_update_option( $optionName, $value ) {
 		return Tribe__Settings_Manager::set_option( $optionName, $value );
 	}
-}//end if
+}
 
 if ( ! function_exists( 'tribe_remove_option' ) ) {
 	/**
@@ -88,7 +90,7 @@ if ( ! function_exists( 'tribe_remove_option' ) ) {
 	function tribe_remove_option( $optionName ) {
 		return Tribe__Settings_Manager::remove_option( $optionName );
 	}
-}//end if
+}
 
 if ( ! function_exists( 'tribe_get_network_option' ) ) {
 	/**
@@ -97,8 +99,9 @@ if ( ! function_exists( 'tribe_get_network_option' ) ) {
 	 * Retrieve specific key from options array, optionally provide a default return value
 	 *
 	 * @category Events
+	 *
 	 * @param string $optionName Name of the option to retrieve.
-	 * @param string $default    Value to return if no such option is found.
+	 * @param mixed  $default    Value to return if no such option is found.
 	 *
 	 * @return mixed Value of the option if found.
 	 * @todo Abstract this function out of template tags or otherwise secure it from other namespace conflicts.

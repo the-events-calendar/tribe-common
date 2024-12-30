@@ -5,107 +5,116 @@
  * This file contains styles/overrides specific to the upsell tabs.
  *
  * ----------------------------------------------------------------------------- */
+.tec-admin__upsell-container {
+	margin: var(--tec-spacer-4) var(--tec-spacer-7) 0 var(--tec-spacer-1);
+	max-width: 1000px;
+}
 
-.tribe_events_page_tec-events-settings {
-	#tec-settings-form .tec-settings-form__upsell {
-		background-color: var(--tec-admin-core-grey-0);
-		border: 1px solid var(--tec-admin-core-grey-10);
-		border-radius: var(--tec-border-radius-default);
-		box-sizing: border-box;
+.tec-admin__upsell-banner,
+.tribe_events_page_tec-events-settings #tec-settings-form .tec-settings-form__upsell {
+	background-color: var(--tec-admin-core-grey-0);
+	border: 1px solid var(--tec-admin-core-grey-10);
+	border-radius: var(--tec-border-radius-default);
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column-reverse;
+	margin: 0;
+	max-width: calc(100vw - (2 * var(--tec-spacer-7)));
+	padding: var(--tec-spacer-4);
+	width: 100%;
+
+	@media (--viewport-full) {
+		align-items: center;
+		flex-direction: row;
+		grid-column: 1 / span 2;
+		max-width: 100%;
+		padding: var(--tec-spacer-8);
+	}
+
+	@media (--viewport-xlarge) {
+		margin-right: 0;
+	}
+
+	.tec-admin__upsell-banner-content,
+	.tec-settings-form__upsell-content {
+		color: var(--tec-admin-core-grey-80);
 		display: flex;
-		flex-direction: column-reverse;
-		margin: 0;
-		max-width: calc(100vw - (2 * var(--tec-spacer-7)));
-		padding: var(--tec-spacer-4);
-		width: 100%;
+		flex-direction: column;
+		max-width: 100%;
+
+		p {
+			font-size: var(--tec-font-size-7);
+			line-height: var(--tec-line-height-2);
+
+			&:last-of-type {
+				margin-bottom: 0;
+			}
+
+			@media (--viewport-xsmall) {
+				font-size: var(--tec-font-size-5);
+			}
+		}
+	}
+
+	.tec-admin__upsell-banner-header,
+	.tec-settings-form__upsell-header {
+		display: flex;
+		flex-flow: row nowrap;
+		margin-bottom: var(--tec-spacer-2);
+
+		.tec-admin__upsell-banner-logo,
+		.tec-settings-form__upsell-logo {
+			height: var(--tec-spacer-5);
+			object-fit: contain;
+			vertical-align: middle;
+		}
+
+		.tec-admin__upsell-banner-title,
+		.tec-settings-form__upsell-title {
+			color: var(--tec-admin-core-grey-80);
+			font-size: var(--tec-font-size-7);
+			font-weight: bold;
+			line-height: 1;
+			margin: 0 0 0 var(--tec-spacer-1);
+		}
+	}
+
+	.tec-admin__upsell-banner-image,
+	.tec-settings-form__upsell-image {
+		align-self: center;
+		height: auto;
+		margin-bottom: var(--tec-spacer-5);
+		max-width: 100%;
+		object-fit: contain;
 
 		@media (--viewport-full) {
-			align-items: center;
-			flex-direction: row;
-			grid-column: 1 / span 2;
-			max-width: 100%;
-			padding: var(--tec-spacer-8);
+			margin-bottom: 0;
+			margin-left: var(--tec-spacer-8);
+			max-width: 240px;
 		}
+	}
 
-		@media (--viewport-xlarge) {
-			margin-right: 0;
-		}
+	.tec-admin__upsell-banner-btn,
+	.tec-settings-form__upsell-btn {
+		background: var(--tec-color-button-primary);
+		border: 2px var(--tec-color-button-primary) solid;
+		border-radius: var(--tec-border-radius-default);
+		color: var(--tec-color-background);
+		display: inline-block;
+		font-size: var(--tec-font-size-3);
+		font-weight: 500;
+		margin-top: var(--tec-spacer-5);
+		padding: var(--tec-spacer-3);
+		text-decoration: none;
+		width: fit-content;
 
-		.tec-settings-form__upsell-content {
-			color: var(--tec-admin-core-grey-80);
-			display: flex;
-			flex-direction: column;
-			max-width: 100%;
-
-			p {
-				font-size: var(--tec-font-size-7);
-				line-height: var(--tec-line-height-2);
-
-				&:last-of-type {
-					margin-bottom: 0;
-				}
-
-				@media (--viewport-xsmall) {
-					font-size: var(--tec-font-size-5);
-				}
-			}
-		}
-
-		.tec-settings-form__upsell-header {
-			display: flex;
-			flex-flow: row nowrap;
-			margin-bottom: var(--tec-spacer-2);
-
-			.tec-settings-form__upsell-logo {
-				height: var(--tec-spacer-5);
-				object-fit: contain;
-				vertical-align: middle;
-			}
-
-			.tec-settings-form__upsell-title {
-				color: var(--tec-admin-core-grey-80);
-				font-size: var(--tec-font-size-7);
-				font-weight: bold;
-				line-height: 1;
-				margin: 0 0 0 var(--tec-spacer-1);
-			}
-		}
-
-		.tec-settings-form__upsell-image {
-			align-self: center;
-			height: auto;
-			margin-bottom: var(--tec-spacer-5);
-			max-width: 100%;
-			object-fit: contain;
-
-			@media (--viewport-full) {
-				margin-bottom: 0;
-				margin-left: var(--tec-spacer-8);
-				max-width: 240px;
-			}
-		}
-
-		.tec-settings-form__upsell-btn {
-			background: var(--tec-color-button-primary);
-			border: 2px var(--tec-color-button-primary) solid;
-			border-radius: var(--tec-border-radius-default);
-			color: var(--tec-color-background);
-			display: inline-block;
-			font-size: var(--tec-font-size-3);
-			font-weight: 500;
-			margin-top: var(--tec-spacer-5);
-			padding: var(--tec-spacer-3);
-			text-decoration: none;
-			width: fit-content;
-
-			&:hover,
-			&:active,
-			&:focus {
-				background: transparent;
-				box-shadow: none;
-				color: var(--tec-color-button-primary);
-				outline: none;
-			}
+		&:hover,
+		&:active,
+		&:focus {
+			background: transparent;
+			box-shadow: none;
+			color: var(--tec-color-button-primary);
+			outline: none;
 		}
 	}
 }

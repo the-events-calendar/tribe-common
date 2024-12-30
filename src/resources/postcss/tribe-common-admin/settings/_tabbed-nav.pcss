@@ -18,6 +18,11 @@
 			box-sizing: border-box;
 			display: block;
 			overflow-x: scroll;
+			scrollbar-width: none; /* Firefox 64 */
+
+			&::-webkit-scrollbar {
+				display: none;
+			}
 		}
 
 		@media (--viewport-full) {
@@ -145,7 +150,7 @@
 			border-top-right-radius: var(--tec-border-radius-default);
 			flex-direction: row;
 			margin-left: 0;
-			margin-top: calc(var(--tec-spacer-7) + 1px);
+			margin-top: calc(var(--tec-spacer-7) + 5px);
 			overflow: hidden;
 
 			> .tec-nav__tab {
@@ -183,7 +188,7 @@
 		}
 
 		@media (--viewport-xlarge) {
-			left: var(--tec-spacer-5);
+			left: var(--tec-spacer-7);
 			max-width: min(calc((100vw - 160px - var(--tec-width-sidebar)) - (var(--tec-spacer-7) * 3)), var(--tec-spacer-settings-form-width));
 			width: min(calc((100vw - 160px - var(--tec-width-sidebar)) - (var(--tec-spacer-7) * 3)), var(--tec-spacer-settings-form-width));
 		}

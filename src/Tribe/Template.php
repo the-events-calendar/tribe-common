@@ -182,8 +182,15 @@ class Tribe__Template {
 			$folder = (array) explode( '/', $folder );
 		}
 
-		// Cast as Array and save
-		$this->folder = (array) $folder;
+		/**
+		 * Cast as array and filter removing potentially empty values.
+		 *
+		 * Filtering can forgive small issues where a leading or trailing slash has been specified
+		 * while it shouldn't.
+		 *
+		 * @see [ECP-1477] https://github.com/the-events-calendar/events-pro/pull/2609
+		 */
+		$this->folder = array_values( array_filter( (array) ( $folder ) ) );
 
 		return $this;
 	}

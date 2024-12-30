@@ -48,6 +48,14 @@ lang/*.mo
 
 # Local packaging files
 .pup-*
+.pup-zip
+pup.phar
 
 # Strauss
 bin/strauss.phar
+
+# GitHub Actions
+DOCKER_ENV
+docker_tag
+output.log
+Dockerfile-php-build
