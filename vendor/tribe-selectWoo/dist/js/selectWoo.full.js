@@ -4050,11 +4050,6 @@ S2.define('select2/dropdown/search',[
     container.on('open', function () {
       self.$search.attr('tabindex', 0);
       self.$search.attr('aria-owns', resultsId);
- //     self.$search.trigger( 'focus' );
-
-      window.setTimeout(function () {
-   //     self.$search.trigger( 'focus' );
-      }, 0);
     });
 
     container.on('close', function () {
