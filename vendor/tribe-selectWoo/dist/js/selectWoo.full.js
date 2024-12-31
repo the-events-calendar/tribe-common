@@ -991,11 +991,11 @@ S2.define('select2/results',[
     var $option = $(option);
 
     $option.on( 'blur', function() {
-          $option.attr( 'data-selected', 'false' );
+      $option.attr( 'data-selected', 'false' );
     });
 
     $option.on( 'focus', function() {
-        $option.attr( 'data-selected', 'true' );
+      $option.attr( 'data-selected', 'true' );
     });
 
     if (data.children) {
