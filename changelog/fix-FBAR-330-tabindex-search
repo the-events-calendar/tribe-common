@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Improves accessibility of select2 component, allowing tabbing into elements.
