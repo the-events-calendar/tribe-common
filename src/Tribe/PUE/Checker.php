@@ -231,12 +231,16 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @since 4.14.9
 		 * @since 6.4.1 Added uplink resource check.
+		 * @since TBD Added check for valid plugin.
 		 */
 		public function is_key_valid() {
 			$uplink_resource = get_resource( $this->get_slug() );
 
 			if ( $uplink_resource ) {
-				return $uplink_resource->has_valid_license();
+				$uplink_status = $uplink_resource->has_valid_license();
+				$this->update_any_license_valid_transient( $this->get_slug(), tribe_is_truthy( $uplink_status ) );
+
+				return $uplink_status;
 			}
 
 			// @todo remove transient in a major feature release where we release all plugins.
@@ -245,6 +249,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			if ( empty( $status ) ) {
 				$status = get_option( $this->pue_key_status_option_name, 'invalid' );
 			}
+
+			$this->update_any_license_valid_transient( $this->get_slug(), 'valid' === $status );
 
 			return 'valid' === $status;
 		}
@@ -1351,7 +1357,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-		 * Returns tet name of the option that stores the license key.
+		 * Returns the name of the option that stores the license key.
 		 *
 		 * @return string
 		 */

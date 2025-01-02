@@ -17,6 +17,7 @@ use TEC\Common\Tests\Licensing\PUE_Service_Mock;
 use Tribe__Main;
 use Tribe__PUE__Checker as PUE_Checker;
 use WP_Screen;
+
 use function TEC\Common\StellarWP\Uplink\get_resource;
 
 class Checker_Test extends WPTestCase {
@@ -197,6 +198,7 @@ class Checker_Test extends WPTestCase {
 		yield 'initially_unlicensed' => [
 			function () use ( &$plugin_names ) {
 				$plugin_names = [];
+
 				return $plugin_names;
 				// No setup needed, all licenses are invalid initially.
 			},
@@ -213,6 +215,7 @@ class Checker_Test extends WPTestCase {
 				update_option( "pue_install_key_{$plugin_name}", $validated_key );
 				$pue_instance = new PUE_Checker( 'deprecated', $plugin_name, [], "{$plugin_name}/{$plugin_name}.php" );
 				$pue_instance->set_key_status( 1 ); // Set valid status.
+
 				return $plugin_names;
 			},
 			true,
@@ -229,6 +232,7 @@ class Checker_Test extends WPTestCase {
 				$pue_instance = new PUE_Checker( 'deprecated', $plugin_name, [], "{$plugin_name}/{$plugin_name}.php" );
 				$pue_instance->set_key_status( 1 ); // Set valid status.
 				set_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, 'valid', HOUR_IN_SECONDS );
+
 				return $plugin_names;
 			},
 			true,
@@ -245,6 +249,7 @@ class Checker_Test extends WPTestCase {
 				$pue_instance = new PUE_Checker( 'deprecated', $plugin_name, [], "{$plugin_name}/{$plugin_name}.php" );
 				$pue_instance->set_key_status( 0 ); // Set valid status.
 				set_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, 'invalid', HOUR_IN_SECONDS );
+
 				return $plugin_names;
 			},
 			false,
@@ -261,6 +266,7 @@ class Checker_Test extends WPTestCase {
 				$pue_instance = new PUE_Checker( 'deprecated', $plugin_name, [], "{$plugin_name}/{$plugin_name}.php" );
 				$pue_instance->set_key_status( 1 ); // Set valid status.
 				delete_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY ); // Simulate transient deletion.
+
 				return $plugin_names;
 			},
 			true,
@@ -285,6 +291,7 @@ class Checker_Test extends WPTestCase {
 						$pue_instance->set_key_status( 0 );
 					}
 				}
+
 				return $plugin_names;
 			},
 			true,
@@ -304,6 +311,7 @@ class Checker_Test extends WPTestCase {
 					// All plugins are set as invalid.
 					$pue_instance->set_key_status( 0 );
 				}
+
 				return $plugin_names;
 			},
 			false,
@@ -316,6 +324,7 @@ class Checker_Test extends WPTestCase {
 				$slug           = 'valid-plugin-1';
 				$plugin_names[] = $slug;
 				$this->create_valid_uplink_license( $slug );
+
 				return $plugin_names;
 			},
 			true,
@@ -330,14 +339,15 @@ class Checker_Test extends WPTestCase {
 				$this->create_valid_uplink_license( $slug );
 
 				for ( $i = 1; $i <= 10; $i++ ) {
-					$validated_key           = md5( microtime() . $i );
-					$plugin_name             = "test-plugin-{$i}";
+					$validated_key  = md5( microtime() . $i );
+					$plugin_name    = "test-plugin-{$i}";
 					$plugin_names[] = $plugin_name;
 					update_option( "pue_install_key_{$plugin_name}", $validated_key );
 
 					$pue_instance = new PUE_Checker( 'deprecated', $plugin_name, [], "{$plugin_name}/{$plugin_name}.php" );
 					$pue_instance->set_key_status( 0 ); // All plugins are invalid.
 				}
+
 				return $plugin_names;
 			},
 			true,
@@ -424,7 +434,7 @@ class Checker_Test extends WPTestCase {
 		$this->assertSame( $token, $this->token_manager->get( $plugin ) );
 
 		// Verify that the general 'connected' action fires.
-		$this->assertEquals( 1, did_action( 'stellarwp/uplink/' . Config::get_hook_prefix() . '/connected' ) ,'Hook should only run once');
+		$this->assertEquals( 1, did_action( 'stellarwp/uplink/' . Config::get_hook_prefix() . '/connected' ), 'Hook should only run once' );
 
 		return $token;
 	}
@@ -603,127 +613,107 @@ class Checker_Test extends WPTestCase {
 	}
 
 	/**
-	 * Mock we're inside the wp-admin dashboard and fire off the admin_init hook.
+	 * It should correctly update the transient in is_key_valid for different scenarios.
 	 *
-	 * @param bool $network Whether we're in the network dashboard.
-	 *
-	 * @return void
+	 * @test
+	 * @dataProvider is_key_valid_scenarios_data_provider
 	 */
-	protected function admin_init( bool $network = false ): void {
-		$screen                    = WP_Screen::get( $network ? 'dashboard-network' : 'dashboard' );
-		$GLOBALS['current_screen'] = $screen;
+	public function is_key_valid_should_update_transient_correctly_with_scenarios(
+		Closure $setup_closure,
+		bool $expected_valid,
+		string $scenario
+	): void {
+		$transient_key = PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY;
 
-		if ( $network ) {
-			$this->assertTrue( $screen->in_admin( 'network' ) );
-		}
+		// Run the setup closure to configure the test case.
+		[ $plugin_slug, $pue_instance ] = $setup_closure();
 
-		$this->assertTrue( $screen->in_admin() );
+		// Assert the transient is initially empty.
+		$this->assertFalse( get_transient( $transient_key ), 'Transient should be empty initially.' );
 
-		// Fire off admin_init to run any of our events hooked into this action.
-		do_action( 'admin_init' );
-	}
+		// Call is_key_valid and verify the return value.
+		$is_valid = $pue_instance->is_key_valid();
+		$this->assertSame( $expected_valid, $is_valid, $scenario );
 
-	/**
-	 * Helper to register a new plugin for Uplink testing.
-	 *
-	 * @param string $slug    The slug of the plugin.
-	 * @param string $name    The name of the plugin.
-	 * @param string $version The version of the plugin.
-	 *
-	 * @return Resource
-	 */
-	private function register_new_uplink_plugin( string $slug, string $name = 'Sample Plugin', string $version = '1.0.10' ): Resource {
-		return Register::plugin(
-			$slug,
-			$name,
-			$version,
-			__DIR__,
-			tribe( Tribe__Main::class )
+		// Retrieve the transient and verify its structure.
+		$transient = get_transient( $transient_key );
+		$this->assertIsArray( $transient, 'Transient should be an array.' );
+		$this->assertArrayHasKey( 'plugins', $transient, 'Transient should have a "plugins" key.' );
+		$this->assertArrayHasKey( $plugin_slug, $transient['plugins'], "Transient should contain the plugin slug: {$plugin_slug}." );
+
+		// Verify the plugin status in the transient matches the expected validity.
+		$this->assertSame(
+			$expected_valid,
+			$transient['plugins'][ $plugin_slug ],
+			"Transient should reflect the expected validity for plugin slug: {$plugin_slug}."
 		);
 	}
 
 	/**
-	 * Creates a valid Uplink license for testing.
+	 * Data provider for is_key_valid scenarios.
 	 *
-	 * @param string $slug The slug of the plugin to create a license for.
-	 *
-	 * @return string The generated token for the Uplink license.
+	 * @return Generator
 	 */
-	private function create_valid_uplink_license( string $slug ): string {
-		$plugin = $this->register_new_uplink_plugin( $slug );
+	public function is_key_valid_scenarios_data_provider(): Generator {
+		yield 'Valid transient, valid option' => [
+			function () {
+				$plugin_slug  = 'test-plugin-valid-both';
+				$pue_instance = new PUE_Checker( 'deprecated', $plugin_slug, [], "{$plugin_slug}/{$plugin_slug}.php" );
 
-		// Set the current user to an admin.
-		wp_set_current_user( 1 );
+				// Mock the transient and option to simulate a valid state.
+				set_transient( $pue_instance->pue_key_status_transient_name, 'valid', HOUR_IN_SECONDS );
+				update_option( $pue_instance->pue_key_status_option_name, 'valid' );
 
-		// Initialize the token manager.
-		$this->token_manager = tribe( Token_Manager::class );
+				return [ $plugin_slug, $pue_instance ];
+			},
+			true,
+			'A valid transient and a valid option should return true.',
+		];
 
-		// Ensure no token exists for the plugin initially.
-		$this->assertNull( $this->token_manager->get( $plugin ) );
+		yield 'Empty transient, valid option' => [
+			function () {
+				$plugin_slug  = 'test-plugin-empty-transient-valid-option';
+				$pue_instance = new PUE_Checker( 'deprecated', $plugin_slug, [], "{$plugin_slug}/{$plugin_slug}.php" );
 
-		// Generate a nonce and a token.
-		$nonce = ( tribe( Nonce::class ) )->create();
-		$token = '53ca40ab-c6c7-4482-a1eb-14c56da31015';
+				// Mock only the option as valid.
+				delete_transient( $pue_instance->pue_key_status_transient_name );
+				update_option( $pue_instance->pue_key_status_option_name, 'valid' );
 
-		// Mock these were passed via the query string.
-		global $_GET;
-		$_GET[ Connect_Controller::TOKEN ] = $token;
-		$_GET[ Connect_Controller::NONCE ] = $nonce;
-		$_GET[ Connect_Controller::SLUG ]  = $slug;
+				return [ $plugin_slug, $pue_instance ];
+			},
+			true,
+			'An empty transient with a valid option should return true.',
+		];
 
-		// Mock we're an admin inside the dashboard.
-		$this->admin_init();
+		yield 'Valid transient, invalid option' => [
+			function () {
+				$plugin_slug  = 'test-plugin-valid-transient-invalid-option';
+				$pue_instance = new PUE_Checker( 'deprecated', $plugin_slug, [], "{$plugin_slug}/{$plugin_slug}.php" );
 
-		// Fire off the specification action tied to this slug.
-		do_action( tribe( Action_Manager::class )->get_hook_name( $slug ) );
+				// Mock a valid transient and an invalid option.
+				set_transient( $pue_instance->pue_key_status_transient_name, 'valid', HOUR_IN_SECONDS );
+				update_option( $pue_instance->pue_key_status_option_name, 'invalid' );
 
-		// Verify that the token was assigned correctly.
-		$this->assertSame( $token, $this->token_manager->get( $plugin ) );
+				return [ $plugin_slug, $pue_instance ];
+			},
+			true,
+			'A valid transient with an invalid option should return true.',
+		];
 
-		// Verify that the general 'connected' action fires.
-		$this->assertEquals( 1, did_action( 'stellarwp/uplink/' . Config::get_hook_prefix() . '/connected' ) ,'Hook should only run once');
+		yield 'Empty transient, invalid option' => [
+			function () {
+				$plugin_slug  = 'test-plugin-empty-transient-invalid-option';
+				$pue_instance = new PUE_Checker( 'deprecated', $plugin_slug, [], "{$plugin_slug}/{$plugin_slug}.php" );
 
-		return $token;
-	}
+				// Mock only the option as invalid.
+				delete_transient( $pue_instance->pue_key_status_transient_name );
+				update_option( $pue_instance->pue_key_status_option_name, 'invalid' );
 
-	/**
-	 * Helper to disconnect an Uplink plugin.
-	 *
-	 * @param string $slug The slug of the plugin to disconnect.
-	 */
-	private function disconnect_uplink_plugin( string $slug ): void {
-		$plugin = get_resource( $slug );
-		if ( empty( $plugin ) ) {
-			return;
-		}
-
-		if ( empty( $this->token_manager ) ) {
-			return;
-		}
-
-		global $_GET;
-		wp_set_current_user( 1 );
-
-		$token = $this->token_manager->get( $plugin );
-		$this->assertNotNull( $token );
-
-		// Mock these were passed via the query string.
-		$_GET[ Disconnect_Controller::ARG ]       = 1;
-		$_GET[ Disconnect_Controller::CACHE_KEY ] = 'nada';
-		$_GET[ Disconnect_Controller::SLUG ]      = $slug;
-		$_GET['_wpnonce']                         = wp_create_nonce( Disconnect_Controller::ARG );
-
-		// Mock we're an admin inside the dashboard.
-		$this->admin_init();
-
-		// Fire off the specification action tied to this slug.
-		do_action( tribe( Action_Manager::class )->get_hook_name( $slug ) );
-
-		// Assert that the token is removed.
-		$this->assertNull( $this->token_manager->get( $plugin ) );
-
-		// Verify that the disconnected action fires.
-		$this->assertEquals( 1, did_action( 'stellarwp/uplink/' . Config::get_hook_prefix() . '/disconnected' ) );
+				return [ $plugin_slug, $pue_instance ];
+			},
+			false,
+			'An empty transient with an invalid option should return false.',
+		];
 	}
 
 }
