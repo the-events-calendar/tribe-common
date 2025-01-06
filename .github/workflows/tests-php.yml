@@ -178,7 +178,7 @@ jobs:
         run: |
           ${SLIC_BIN} up wordpress
           ${SLIC_BIN} wp core version
-          ${SLIC_BIN} wp core update --force --version=6.4.1
+          ${SLIC_BIN} wp core update --force --version=6.5
           ${SLIC_BIN} wp core version
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
