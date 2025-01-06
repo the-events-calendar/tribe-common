@@ -259,7 +259,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @since TBD Added check for valid plugin.
 		 */
 		public function is_key_valid() {
-			$uplink_resource = get_resource( $this->get_slug() );
+			$uplink_resource = $this->get_uplink_resource( $this->get_slug() );
 
 			if ( $uplink_resource ) {
 				$uplink_status = $uplink_resource->has_valid_license();
@@ -1096,7 +1096,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function get_key( $type = 'any', $return_type = 'key' ) {
 
-			$resource    = get_resource( $this->get_slug() );
+			$resource    = $this->get_uplink_resource( $this->get_slug() );
 			$license_key = $resource ? $resource->get_license_key( $type ) : false;
 			if ( $license_key ) {
 				return $license_key;
@@ -1187,7 +1187,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$response           = [];
 			$response['status'] = 0;
 
-			$uplink_resource = get_resource( $this->get_slug() );
+			$uplink_resource = $this->get_uplink_resource( $this->get_slug() );
 
 			if ( $uplink_resource ) {
 				$key = $uplink_resource->get_license_key();
@@ -2204,14 +2204,35 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			$transient_data = get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
-			if ( ! is_array( $transient_data['plugins'] ) ) {
-				$transient_data['plugins'] = [];
+			if ( empty( $transient_data['plugins'] ) || ! is_array( $transient_data['plugins'] ) ) {
+				$transient_data = [
+					'plugins' => [],
+				];
 			}
 
 			$transient_data['plugins'][ $slug ] = $checker->is_key_valid();
 
 			$transient_data['plugins'] = array_filter( $transient_data['plugins'] );
 			set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $transient_data );
+		}
+
+		/**
+		 * Retrieves the uplink resource for the given slug, if available.
+		 *
+		 * Ensures the `get_resource()` function exists before calling it.
+		 *
+		 * @param string $slug The slug of the resource to retrieve.
+		 *
+		 * @return mixed The resource object if available, or `null` if the function does not exist or fails to retrieve the resource.
+		 */
+		public function get_uplink_resource( string $slug ) {
+			try {
+				$resource = get_resource( $slug );
+			} catch ( Throwable $e ) {
+				return null;
+			}
+
+			return $resource;
 		}
 	}
 }
