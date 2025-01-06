@@ -28,20 +28,34 @@ abstract class Controller extends Service_Provider {
 	 * Registers the filters and actions hooks added by the controller if the controller has not registered yet.
 	 *
 	 * @since 5.0.17
+	 * @since TBD Now throws a `AlreadyRegisteredException` exception if the controller has already been
+	 *            registered or an `ControllerInactiveException` if the controller is inactive.
 	 *
 	 * @return void
+	 * @throws AlreadyRegisteredException  If the controller has already been registered.
+	 * @throws ControllerInactiveException If the controller is inactive.
 	 */
-	public function register() {
+	final public function register() {
 		/*
 		 * Look up and set the value in the container request cache to allow building the same Controller
 		 * with a **different** container. (e.g. in tests).
 		 */
 		if ( static::is_registered() ) {
-			return;
+			throw new AlreadyRegisteredException(
+				sprintf(
+					'The controller %s has already been registered.',
+					static::class
+				)
+			);
 		}
 
 		if ( ! $this->is_active() ) {
-			return;
+			throw new ControllerInactiveException(
+				sprintf(
+					'The controller %s is inactive.',
+					static::class
+				)
+			);
 		}
 
 		$this->container->setVar( static::class . '_registered', true );

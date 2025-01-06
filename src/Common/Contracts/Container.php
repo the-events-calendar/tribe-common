@@ -6,6 +6,8 @@ use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
 use TEC\Common\Exceptions\Not_Bound_Exception;
 
 use TEC\Common\lucatume\DI52\Container as DI52_Container;
+use TEC\Common\Contracts\Provider\AlreadyRegisteredException;
+use TEC\Common\Contracts\Provider\ControllerInactiveException;
 
 class Container extends DI52_Container implements ContainerInterface {
 	/**
@@ -32,6 +34,7 @@ class Container extends DI52_Container implements ContainerInterface {
 	 * Overrides the parent method to fire an action when a service provider is registered.
 	 *
 	 * @since 5.1.4
+	 * @since TBD - Ensure registration actions are fired only once and ONLY for active controllers.
 	 *
 	 * @param string $serviceProviderClass The service provider class name.
 	 * @param string ...$alias             Optional. The alias(es) to register the service provider with.
@@ -42,43 +45,51 @@ class Container extends DI52_Container implements ContainerInterface {
 	 *                                                      does not provide a set of deferred registrations.
 	 */
 	public function register( $serviceProviderClass, ...$alias ) {
-		// Register the provider with the parent container.
-		parent::register( $serviceProviderClass, ...$alias );
+		try {
+			// Register the provider with the parent container.
+			parent::register( $serviceProviderClass, ...$alias );
 
-		/**
-		 * Fires when a service provider is registered by the container.
-		 *
-		 * @since 5.1.4
-		 *
-		 * @param string        $serviceProviderClass The service provider class name.
-		 * @param array<string> $alias                The alias(es) the service provider was registered with.
-		 */
-		do_action( 'tec_container_registered_provider', $serviceProviderClass, $alias );
+			/**
+			 * Fires when a service provider is registered by the container.
+			 *
+			 * @since 5.1.4
+			 *
+			 * @param string        $serviceProviderClass The service provider class name.
+			 * @param array<string> $alias                The alias(es) the service provider was registered with.
+			 */
+			do_action( 'tec_container_registered_provider', $serviceProviderClass, $alias );
 
-		/**
-		 * Fires a class-specific action when a service provider is registered by the container.
-		 *
-		 * @since 5.1.4
-		 *
-		 * @param array<string> $alias The alias(es) the service provider was registered with.
-		 */
-		do_action( 'tec_container_registered_provider_' . $serviceProviderClass, $alias );
+			/**
+			 * Fires a class-specific action when a service provider is registered by the container.
+			 *
+			 * @since 5.1.4
+			 *
+			 * @param array<string> $alias The alias(es) the service provider was registered with.
+			 */
+			do_action( 'tec_container_registered_provider_' . $serviceProviderClass, $alias );
 
-		if (
-			// Back compat with older definition of Service Provider.
-			! property_exists( $serviceProviderClass, 'registration_action' )
-			// New definition of Service Provider: default action is empty.
-			|| empty( $serviceProviderClass::$registration_action )
-		) {
+			if (
+				// Back compat with older definition of Service Provider.
+				! property_exists( $serviceProviderClass, 'registration_action' )
+				// New definition of Service Provider: default action is empty.
+				|| empty( $serviceProviderClass::$registration_action )
+			) {
+				return;
+			}
+
+			/**
+			 * Fires a custom action defined by the Service Provider when it's registered.
+			 *
+			 * @since 5.1.4
+			 */
+			do_action( $serviceProviderClass::$registration_action, $serviceProviderClass, $alias );
+		} catch ( AlreadyRegisteredException $registered_exception ) {
+			// If the container is registered already, DO NOT fire registration actions again. Instead silently return.
+			return;
+		} catch ( ControllerInactiveException $inactive_exception ) {
+			// If the controller is inactive, DO NOT fire registration actions AT ALL. Instead silently return.
 			return;
 		}
-
-		/**
-		 * Fires a custom action defined by the Service Provider when it's registered.
-		 *
-		 * @since 5.1.4
-		 */
-		do_action( $serviceProviderClass::$registration_action, $serviceProviderClass, $alias );
 	}
 
 	/**
