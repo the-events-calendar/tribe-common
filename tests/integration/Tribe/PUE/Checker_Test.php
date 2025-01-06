@@ -273,13 +273,14 @@ class Checker_Test extends WPTestCase {
 				for ( $i = 1; $i <= 10; $i++ ) {
 					$validated_key  = md5( microtime() . $i );
 					$plugin_name    = "test-plugin-{$i}";
-					$plugin_names[] = $plugin_name;
+
 					update_option( "pue_install_key_{$plugin_name}", $validated_key );
 
 					$pue_instance = new PUE_Checker( 'deprecated', $plugin_name, [], "{$plugin_name}/{$plugin_name}.php" );
 					if ( 0 === $i % 2 ) {
 						// Even plugins are valid.
 						$pue_instance->set_key_status( 1 );
+						$plugin_names[] = $plugin_name;
 					} else {
 						// Odd plugins are invalid.
 						$pue_instance->set_key_status( 0 );
