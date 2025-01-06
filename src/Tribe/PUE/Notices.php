@@ -88,31 +88,51 @@ class Tribe__PUE__Notices {
 	 * Restores plugins added on previous requests to the relevant notification
 	 * groups.
 	 *
-	 * @sice TBD Switched from array`array_merge_recursive` to `wp_parse_args` to fix an issue with data duplication
+	 * @sice TBD Switched from array`array_merge_recursive` to `wp_parse_args` to fix an issue with data duplication.
 	 */
 	protected function populate() {
-		$this->saved_notices = (array) get_option( self::STORE_KEY, [] );
+		// Retrieve saved notices and ensure it's an array.
+		$saved_notices = get_option( self::STORE_KEY, [] );
 
-		if ( empty( $this->saved_notices ) ) {
-			return;
+		if ( ! is_array( $saved_notices ) ) {
+			$saved_notices = [];
+			update_option( self::STORE_KEY, $saved_notices );
 		}
 
-		$this->notices = wp_parse_args( $this->notices, $this->saved_notices );
+		$this->saved_notices = $saved_notices;
 
-		// Cleanup.
-		foreach ( $this->notices as $key => &$plugin_lists ) {
-			// Purge any elements that are not arrays.
-			if ( ! is_array( $plugin_lists ) ) {
-				unset( $this->notices[ $key ] );
-				continue;
-			}
-			$plugin_lists = array_unique( $plugin_lists );
-			foreach ( $plugin_lists as $plugin => $data ) {
-				$this->notices[ $key ][ $plugin ] = is_array( $data ) ? array_unique( $data ) : $data;
-			}
+		// Sanitize and merge notices.
+		$this->notices = $this->sanitize_notices( wp_parse_args( $this->notices, $this->saved_notices ) );
+
+		// Update the sanitized notices back to the database if they differ.
+		if ( $this->notices !== $this->saved_notices ) {
+			update_option( self::STORE_KEY, $this->notices );
 		}
 	}
 
+	/**
+	 * Recursively sanitizes notices to prevent nesting and ensure data integrity.
+	 *
+	 * @param array $notices The array of notices to sanitize.
+	 *
+	 * @return array Sanitized notices.
+	 */
+	protected function sanitize_notices( array $notices ): array {
+		foreach ( $notices as $key => &$plugin_list ) {
+			// Ensure the value is an array; otherwise, reset it.
+			if ( ! is_array( $plugin_list ) ) {
+				$plugin_list = [];
+				continue;
+			}
+
+			foreach ( $plugin_list as $plugin => $data ) {
+				// Flatten deeply nested arrays and set the value to `true`.
+				$plugin_list[ $plugin ] = true;
+			}
+		}
+
+		return $notices;
+	}
 	/**
 	 * Saves any license key notices already added.
 	 */

@@ -183,7 +183,6 @@ class Notices_Test extends WPTestCase {
 		// Retrieve the final notices from the database
 		$options = get_option( Tribe__PUE__Notices::STORE_KEY );
 
-
 		// Check UPGRADE_KEY contains only the initial plugin
 		$this->assertArrayHasKey(
 			Tribe__PUE__Notices::UPGRADE_KEY,
@@ -263,67 +262,209 @@ class Notices_Test extends WPTestCase {
 	/**
 	 * @test
 	 */
-	public function option_has_partial_serialization_corruption(): void {
-		// Insert corrupted serialized data directly
-		$corrupted_data = 'a:1:{s:11:"invalid_key";a:1:{s:17:"plugin-early-init1";a:8388608:{i:0;b:1;i:1;b:1;i:2;b:1;}}';
-		update_option( Tribe__PUE__Notices::STORE_KEY, $corrupted_data );
+	public function handles_large_notice_data(): void {
+		$large_data = [];
+		for ( $i = 0; $i < 10000; $i++ ) {
+			$large_data[ Tribe__PUE__Notices::INVALID_KEY ]["plugin-$i"] = true;
+		}
 
-		// Attempt to load notices
+		// Save the large dataset as an option
+		update_option( Tribe__PUE__Notices::STORE_KEY, $large_data );
+
+		// Instantiate the class to trigger `populate()`
 		$pue_notices = new Tribe__PUE__Notices();
 
-		$pue_notices->save_notices();
-
-		// Retrieve and debug the final notices
+		// Retrieve notices after `populate()` runs
 		$options = get_option( Tribe__PUE__Notices::STORE_KEY );
 
-		$this->assertEmpty( $options, 'Corrupted notices should of been cleared.' );
+		// Assert the data remains consistent
+		$this->assertArrayHasKey( Tribe__PUE__Notices::INVALID_KEY, $options );
+		$this->assertCount( 10000, $options[ Tribe__PUE__Notices::INVALID_KEY ], 'The large dataset should have 10,000 entries.' );
 	}
 
 	/**
 	 * @test
 	 */
-	public function option_has_serialization_corruption(): void {
-		// Insert corrupted serialized data directly into the option
-		$corrupted_data = 'a:1:{s:11:"invalid_key";a:1:{s:17:"plugin-early-init1";a:8388608:{i:0;b:1;i:1;b:1;i:2;b:1;}}';
-		update_option( Tribe__PUE__Notices::STORE_KEY, $corrupted_data );
+	public function handles_invalid_option_values(): void {
+		// Save invalid data as an option
+		$invalid_data = 'corrupted_string_instead_of_array';
+		update_option( Tribe__PUE__Notices::STORE_KEY, $invalid_data );
 
-		// Initialize the PUE Notices class
+		// Instantiate the class to trigger `populate()`
 		$pue_notices = new Tribe__PUE__Notices();
 
-		// Add three plugins to the INVALID_KEY notice
-		$pue_notices->add_notice( Tribe__PUE__Notices::INVALID_KEY, 'plugin-early-init1' );
-		$pue_notices->add_notice( Tribe__PUE__Notices::INVALID_KEY, 'plugin-early-init2' );
-		$pue_notices->add_notice( Tribe__PUE__Notices::INVALID_KEY, 'plugin-early-init3' );
+		// Retrieve notices after `populate()` runs
+		$options = get_option( Tribe__PUE__Notices::STORE_KEY );
 
-		// Save the notices to persist them
-		$pue_notices->save_notices();
+		// Assert the option was reset to an empty array
+		$this->assertEmpty( $options, 'Invalid data should be cleared from the option.' );
+	}
 
-		// Retrieve the final notices from the database
+	/**
+	 * @test
+	 */
+	public function fixes_corrupted_notices_data(): void {
+		// Simulate corrupted data that our clients had.
+		$corrupted_data = [
+			Tribe__PUE__Notices::INVALID_KEY => [
+				'Promoter' => array_fill( 0, 100, [ true ] ),
+			],
+		];
+
+		// Save the corrupted data directly into the database.
+		update_option( Tribe__PUE__Notices::STORE_KEY, $corrupted_data );
+
+		// Instantiate the class to trigger `populate()`.
+		$pue_notices = new Tribe__PUE__Notices();
+
+		// Retrieve notices after `populate()` runs.
 		$options = get_option( Tribe__PUE__Notices::STORE_KEY );
 
 		// Assertions
+		$this->assertIsArray( $options, 'The notices option should be an array.' );
+
+		// Ensure `INVALID_KEY` exists.
 		$this->assertArrayHasKey(
 			Tribe__PUE__Notices::INVALID_KEY,
 			$options,
-			'The "invalid_key" notice should exist in the options.'
+			'The "invalid_key" should exist in the notices.'
 		);
 
-		$invalid_key_notices = $options[ Tribe__PUE__Notices::INVALID_KEY ];
+		// Ensure `Promoter` exists under `invalid_key`.
+		$this->assertArrayHasKey(
+			'Promoter',
+			$options[ Tribe__PUE__Notices::INVALID_KEY ],
+			'The "Promoter" key should exist under "invalid_key".'
+		);
 
-		// Ensure all three plugins are correctly stored
-		$this->assertArrayHasKey( 'plugin-early-init1', $invalid_key_notices, 'plugin-early-init1 should exist in invalid_key.' );
-		$this->assertArrayHasKey( 'plugin-early-init2', $invalid_key_notices, 'plugin-early-init2 should exist in invalid_key.' );
-		$this->assertArrayHasKey( 'plugin-early-init3', $invalid_key_notices, 'plugin-early-init3 should exist in invalid_key.' );
+		// Ensure `Promoter` value is true.
+		$this->assertTrue(
+			$options[ Tribe__PUE__Notices::INVALID_KEY ]['Promoter'],
+			'The "Promoter" key should have a value of true.'
+		);
 
-		// Ensure their values are correctly set to true
-		$this->assertTrue( $invalid_key_notices['plugin-early-init1'], 'plugin-early-init1 should have a value of true.' );
-		$this->assertTrue( $invalid_key_notices['plugin-early-init2'], 'plugin-early-init2 should have a value of true.' );
-		$this->assertTrue( $invalid_key_notices['plugin-early-init3'], 'plugin-early-init3 should have a value of true.' );
+		// Ensure no unexpected keys exist in the root array.
+		$this->assertCount(
+			1,
+			$options,
+			'The root notices array should only contain "invalid_key".'
+		);
 
-		// Ensure no unexpected nesting or corruption
-		foreach ( $invalid_key_notices as $plugin => $value ) {
-			$this->assertIsNotArray( $value, "The value for {$plugin} under invalid_key should not be an array." );
+		// Ensure no unexpected keys exist under `invalid_key`.
+		$this->assertCount(
+			1,
+			$options[ Tribe__PUE__Notices::INVALID_KEY ],
+			'The "invalid_key" array should only contain "Promoter".'
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function handles_mixed_valid_and_invalid_data(): void {
+		$mixed_data = [
+			Tribe__PUE__Notices::INVALID_KEY => [
+				'ValidPlugin'     => true,
+				'CorruptedPlugin' => array_fill( 0, 10, [ true ] ),
+			],
+			'CustomKey'                      => 'not_an_array',
+		];
+
+		update_option( Tribe__PUE__Notices::STORE_KEY, $mixed_data );
+
+		$pue_notices = new Tribe__PUE__Notices();
+		$options     = get_option( Tribe__PUE__Notices::STORE_KEY );
+
+		// Ensure `INVALID_KEY` exists.
+		$this->assertArrayHasKey( Tribe__PUE__Notices::INVALID_KEY, $options );
+
+		// Ensure valid data is retained.
+		$this->assertArrayHasKey(
+			'ValidPlugin',
+			$options[ Tribe__PUE__Notices::INVALID_KEY ],
+			'ValidPlugin should be retained under INVALID_KEY.'
+		);
+
+		$this->assertTrue(
+			$options[ Tribe__PUE__Notices::INVALID_KEY ]['ValidPlugin'],
+			'ValidPlugin should have a value of true.'
+		);
+
+		// Make sure `CorruptedPlugin` is no longer corrupted.
+
+		$this->assertArrayHasKey(
+			'CorruptedPlugin',
+			$options[ Tribe__PUE__Notices::INVALID_KEY ],
+			'CorruptedPlugin should not be removed from INVALID_KEY.'
+		);
+
+		$this->assertTrue(
+			$options[ Tribe__PUE__Notices::INVALID_KEY ]['CorruptedPlugin'],
+			'CorruptedPlugin should have a value of true under INVALID_KEY.'
+		);
+
+		$this->assertIsNotArray(
+			$options[ Tribe__PUE__Notices::INVALID_KEY ]['CorruptedPlugin'],
+			'CorruptedPlugin should not be an array under INVALID_KEY.'
+		);
+
+		$this->assertArrayHasKey(
+			'CustomKey',
+			$options,
+			'CustomKey should not be removed from the root array.'
+		);
+
+		$this->assertIsArray(
+			$options['CustomKey'],
+			'CustomKey should be an array in the root array.'
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function prevent_duplicates_for_same_plugin(): void {
+		$plugin_name = 'DuplicatePlugin';
+		$status = Tribe__PUE__Notices::INVALID_KEY;
+
+		$pue_notices = tribe( 'pue.notices' );
+
+		// Add the same notice 50 times.
+		for ( $i = 0; $i < 50; $i++ ) {
+			$pue_notices->add_notice( $status, $plugin_name );
 		}
+
+		// Save notices to persist the data.
+		$pue_notices->save_notices();
+
+		// Retrieve the final notices from the database.
+		$options = get_option( Tribe__PUE__Notices::STORE_KEY );
+
+		// Assert that the status exists.
+		$this->assertArrayHasKey(
+			$status,
+			$options,
+			"The status $status should exist in the notices."
+		);
+
+		// Assert that the plugin exists under the status.
+		$this->assertArrayHasKey(
+			$plugin_name,
+			$options[ $status ],
+			"The plugin $plugin_name should exist under $status."
+		);
+
+		// Assert that the plugin's value is true.
+		$this->assertTrue(
+			$options[ $status ][ $plugin_name ],
+			"The plugin $plugin_name should have a value of true under $status."
+		);
+
+		// Ensure no duplicates exist.
+		$this->assertCount(
+			1,
+			$options[ $status ],
+			"There should be exactly 1 entry for $status."
+		);
 	}
 }
-
