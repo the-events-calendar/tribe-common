@@ -351,13 +351,14 @@ jobs:
         run: |
           ${SLIC_BIN} use the-events-calendar/common
           ${SLIC_BIN} composer install
-      - name: Init the WordPress container
+      - name: Init the WordPress container and Set up a theme
         if: steps.skip.outputs.value != 1
         run: |
           ${SLIC_BIN} up wordpress
           ${SLIC_BIN} wp core version
           ${SLIC_BIN} wp core update --force --version=6.5
           ${SLIC_BIN} wp core version
+          ${SLIC_BIN} wp theme install twentytwenty --activate
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
         run: ${SLIC_BIN} run ${{ matrix.suite }}
