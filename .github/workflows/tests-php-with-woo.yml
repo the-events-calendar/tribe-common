@@ -1,11 +1,11 @@
-name: 'EVA Codeception Tests'
+name: 'EVA Codeception + Woo Tests'
 on: [ pull_request ]
 jobs:
   test:
     strategy:
       fail-fast: false
       matrix:
-        suite: [ eva_integration, restv1, restv1_et, end2end ]
+        suite: [ eva_integration, restv1_et ]
     runs-on: ubuntu-latest
     steps:
       # ------------------------------------------------------------------------------
@@ -323,6 +323,12 @@ jobs:
           docker network prune -f
           ${SLIC_BIN} use events-pro
           ${SLIC_BIN} composer install --no-dev
+      # --------------------------------------------------------------------------
+      # Install and activate WooCommerce
+      # ------------------------------------------------------------------------------
+      - name: Install WooCommerce
+        if: steps.skip.outputs.value != 1
+        run: ${SLIC_BIN} site-cli plugin install woocommerce --version='8.2.2'
       # ------------------------------------------------------------------------------
       # Install and activate Easy Digital Downloads
       # ------------------------------------------------------------------------------
