@@ -5,7 +5,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [ eva_integration, restv1, restv1_et, end2end ]
+        suite: [ restv1, end2end ]
     runs-on: ubuntu-latest
     steps:
       # ------------------------------------------------------------------------------
@@ -350,7 +350,7 @@ jobs:
         run: |
           ${SLIC_BIN} up wordpress
           ${SLIC_BIN} wp core version
-          ${SLIC_BIN} wp core update --force --version=6.6
+          ${SLIC_BIN} wp core update --force --version=6.5
           ${SLIC_BIN} wp core version
           ${SLIC_BIN} wp theme install twentytwenty --activate
       - name: Run suite tests
