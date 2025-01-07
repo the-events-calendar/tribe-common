@@ -323,18 +323,6 @@ jobs:
           docker network prune -f
           ${SLIC_BIN} use events-pro
           ${SLIC_BIN} composer install --no-dev
-      # --------------------------------------------------------------------------
-      # Install and activate WooCommerce
-      # ------------------------------------------------------------------------------
-      - name: Install WooCommerce
-        if: steps.skip.outputs.value != 1
-        run: ${SLIC_BIN} site-cli plugin install woocommerce --version='9.5.1'
-      # ------------------------------------------------------------------------------
-      # Install and activate Easy Digital Downloads
-      # ------------------------------------------------------------------------------
-      - name: Install Easy Digital Downloads
-        if: steps.skip.outputs.value != 1
-        run: ${SLIC_BIN} site-cli plugin install easy-digital-downloads
       # ------------------------------------------------------------------------------
       # Set up Common
       # ------------------------------------------------------------------------------
@@ -359,6 +347,18 @@ jobs:
           ${SLIC_BIN} wp core update --force --version=6.6
           ${SLIC_BIN} wp core version
           ${SLIC_BIN} wp theme install twentytwenty --activate
+      # --------------------------------------------------------------------------
+      # Install and activate WooCommerce
+      # ------------------------------------------------------------------------------
+      - name: Install WooCommerce
+        if: steps.skip.outputs.value != 1
+        run: ${SLIC_BIN} site-cli plugin install woocommerce --version='9.5.1'
+      # ------------------------------------------------------------------------------
+      # Install and activate Easy Digital Downloads
+      # ------------------------------------------------------------------------------
+      - name: Install Easy Digital Downloads
+        if: steps.skip.outputs.value != 1
+        run: ${SLIC_BIN} site-cli plugin install easy-digital-downloads
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
         run: ${SLIC_BIN} run ${{ matrix.suite }}
