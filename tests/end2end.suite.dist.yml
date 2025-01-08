@@ -33,7 +33,7 @@ modules:
       dsn: 'mysql:host=%WP_DB_HOST%;dbname=%WP_DB_NAME%'
       user: %WP_DB_USER%
       password: %WP_DB_PASSWORD%
-      dump: 'tests/_data/dump.sql'
+      dump: 'tests/_data/end2end.sql'
       populate: true
       waitlock: 10
       cleanup: true
