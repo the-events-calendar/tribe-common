@@ -46,7 +46,7 @@
     "cweagans/composer-patches": "^1.7",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
     "fakerphp/faker": "^1.23",
-    "lucatume/codeception-snapshot-assertions": "^0.2.4",
+    "lucatume/codeception-snapshot-assertions": "^0.4.0",
     "lucatume/function-mocker-le": "^1.0",
     "lucatume/wp-browser": "^3.5.0",
     "stellarwp/coding-standards": "dev-main",
