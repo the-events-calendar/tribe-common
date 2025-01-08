@@ -164,6 +164,6 @@ class ApiTest extends \Codeception\TestCase\WPTestCase {
 		$api = new Api( tribe( Actions::class ), tribe( Template_Modifications::class ) );
 		$user_dropdown = $api->get_users_dropdown( true );
 
-		$this->assertMatchesJsonSnapshot( json_encode( $user_dropdown, JSON_PRETTY_PRINT ) );
+		$this->assertMatchesJsonSnapshot( preg_replace( '#User \d+#', '{USERNAME}', json_encode( $user_dropdown, JSON_PRETTY_PRINT ) ) );
 	}
 }
