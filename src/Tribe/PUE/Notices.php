@@ -11,8 +11,36 @@ class Tribe__PUE__Notices {
 	const EXPIRED_KEY = 'expired_key';
 	const STORE_KEY   = 'tribe_pue_key_notices';
 
+	/**
+	 * List of registered plugin names for use in notifications.
+	 *
+	 * Holds an array of plugin names that are registered during
+	 * a request. Only registered plugins will appear in notifications.
+	 *
+	 * @var string[]
+	 */
 	protected $registered = [];
+
+	/**
+	 * Notices previously saved in the database.
+	 *
+	 * Holds the saved notices retrieved from the database,
+	 * typically via the `get_option` function. It serves as a reference for
+	 * comparing or merging with current notices.
+	 *
+	 * @var array<string, array<string, bool>>
+	 */
 	protected $saved_notices = [];
+
+	/**
+	 * Notices to be displayed or processed during the current request.
+	 *
+	 * Contains the current set of notices, which may include
+	 * notices added during the current request. It is merged with
+	 * `$saved_notices` to ensure consistency.
+	 *
+	 * @var array<string, array<string, bool>>
+	 */
 	protected $notices = [];
 
 	protected $plugin_names = [
@@ -85,29 +113,49 @@ class Tribe__PUE__Notices {
 	}
 
 	/**
-	 * Restores plugins added on previous requests to the relevant notification
-	 * groups.
+	 * Restores and sanitizes plugin notices to ensure data integrity and prevent memory issues.
 	 *
-	 * @sice TBD Switched from array`array_merge_recursive` to `wp_parse_args` to fix an issue with data duplication.
+	 * Retrieves saved notices from the database, validates and sanitizes them,
+	 * and merges them with the current request's notices. If discrepancies or corrupted data
+	 * are detected, it updates the database to reflect the corrected state.
+	 *
+	 * @since TBD Switched from `array_merge_recursive` to `wp_parse_args` to fix data duplication issues. Added additional sanitation and memory safeguards to handle large data sets effectively.
+	 *
+	 * @return void
 	 */
 	protected function populate() {
-		// Retrieve saved notices and ensure it's an array.
 		$saved_notices = get_option( self::STORE_KEY, [] );
 
-		if ( ! is_array( $saved_notices ) ) {
-			$saved_notices = [];
-			update_option( self::STORE_KEY, $saved_notices );
+		// If $saved_notices is not an array, reset it to an empty array.
+		$original_saved_notices = is_array( $saved_notices ) ? $saved_notices : [];
+
+		// Sanitize $saved_notices.
+		$sanitized_saved_notices = $this->sanitize_notices( $original_saved_notices );
+
+		// Update the option if sanitized data differs or the original data was not an array.
+		if ( $saved_notices !== $sanitized_saved_notices ) {
+			update_option( self::STORE_KEY, $sanitized_saved_notices );
 		}
 
-		$this->saved_notices = $saved_notices;
+		unset( $saved_notices );
 
-		// Sanitize and merge notices.
-		$this->notices = $this->sanitize_notices( wp_parse_args( $this->notices, $this->saved_notices ) );
+		// Set the sanitized saved notices to the class property.
+		$this->saved_notices = $sanitized_saved_notices;
 
-		// Update the sanitized notices back to the database if they differ.
-		if ( $this->notices !== $this->saved_notices ) {
+		// Unset $sanitized_saved_notices to free memory.
+		unset( $sanitized_saved_notices, $original_saved_notices );
+
+		// Merge and sanitize notices with the saved notices.
+		$this->notices = $this->sanitize_notices(
+			wp_parse_args( $this->notices, $this->saved_notices )
+		);
+
+		// Save the final sanitized and merged notices back to the database if they differ.
+		if ( $this->saved_notices !== $this->notices ) {
 			update_option( self::STORE_KEY, $this->notices );
 		}
+
+
 	}
 
 	/**
