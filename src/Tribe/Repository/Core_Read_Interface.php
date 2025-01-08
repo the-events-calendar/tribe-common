@@ -55,9 +55,12 @@ interface Core_Read_Interface {
 	 * Just an alias of the `by` method to allow for easier reading.
 	 *
 	 * @since 4.7.19
+	 * @since TBD Added optional param of comma separated args that can be passed to the schema.
 	 *
 	 * @param string $key
 	 * @param mixed  $value
+	 * @param mixed  ...$args Additional, optional, call arguments that will be passed to
+	 *                         the schema.
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
@@ -109,13 +112,14 @@ interface Core_Read_Interface {
 	 *
 	 * @since 4.1.3
 	 * @since 5.2.0 Added the `$return_generator` and `$batch_size` parameters.
+	 * @since TBD Updated `return` to more accurately reflect what can be returned.
 	 *
 	 * @param bool $return_generator Whether to return a generator of post IDs instead of an array of post IDs.
 	 * @param int  $batch_size       The number of post IDs to fetch at a time when using a generator; ignored
 	 *                               if `$return_generator` is false.
 	 *
-	 * @return array<int>|Generator<int> An array of all the matching post IDs, or a generator of them
-	 *                                   if `$return_generator` is true.
+	 * @return array<int|WP_Post|object>|Generator<int|WP_Post|object> An array of all the matching post IDs, or a generator of them
+	 *                                                                 if `$return_generator` is true.
 	 */
 	public function all( $return_generator = false, int $batch_size = 50 );
 
