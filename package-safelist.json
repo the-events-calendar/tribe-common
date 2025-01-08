@@ -16,6 +16,7 @@
   "src/resources/js/utils/*",
   "src/resources/vendor/*.min.js",
   "src/resources/vendor/*.min.css",
+  "src/vendor/woocommerce/action-scheduler/action-scheduler.php",
   "src/Tribe/**/*",
   "src/views/**/*",
   "tribe-autoload.php",
