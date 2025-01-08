@@ -1,11 +1,11 @@
-name: 'EVA Codeception Tests'
+name: 'EVA Codeception + Woo Tests'
 on: [ pull_request ]
 jobs:
   test:
     strategy:
       fail-fast: false
       matrix:
-        suite: [ restv1, end2end ]
+        suite: [ eva_integration, restv1_et ]
     runs-on: ubuntu-latest
     steps:
       # ------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ jobs:
         if: steps.skip.outputs.value != 1
         with:
           repository: stellarwp/slic
-          ref: 1.8.0
+          ref: main
           path: slic
           fetch-depth: 1
       # ------------------------------------------------------------------------------
@@ -324,12 +324,6 @@ jobs:
           ${SLIC_BIN} use events-pro
           ${SLIC_BIN} composer install --no-dev
       # ------------------------------------------------------------------------------
-      # Install and activate Easy Digital Downloads
-      # ------------------------------------------------------------------------------
-      - name: Install Easy Digital Downloads
-        if: steps.skip.outputs.value != 1
-        run: ${SLIC_BIN} site-cli plugin install easy-digital-downloads
-      # ------------------------------------------------------------------------------
       # Set up Common
       # ------------------------------------------------------------------------------
       - name: Move Common inside TEC
@@ -350,9 +344,21 @@ jobs:
         run: |
           ${SLIC_BIN} up wordpress
           ${SLIC_BIN} wp core version
-          ${SLIC_BIN} wp core update --force --version=6.6.1
+          ${SLIC_BIN} wp core update --force --version=6.6
           ${SLIC_BIN} wp core version
-          ${SLIC_BIN} wp core update-db
+          ${SLIC_BIN} wp theme install twentytwenty --activate
+      # --------------------------------------------------------------------------
+      # Install and activate WooCommerce
+      # ------------------------------------------------------------------------------
+      - name: Install WooCommerce
+        if: steps.skip.outputs.value != 1
+        run: ${SLIC_BIN} site-cli plugin install woocommerce --version='9.5.1'
+      # ------------------------------------------------------------------------------
+      # Install and activate Easy Digital Downloads
+      # ------------------------------------------------------------------------------
+      - name: Install Easy Digital Downloads
+        if: steps.skip.outputs.value != 1
+        run: ${SLIC_BIN} site-cli plugin install easy-digital-downloads
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
         run: ${SLIC_BIN} run ${{ matrix.suite }}
