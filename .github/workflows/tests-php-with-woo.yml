@@ -98,7 +98,7 @@ jobs:
           ${SLIC_BIN} debug on
           ${SLIC_BIN} info
           ${SLIC_BIN} config
-          ${SLIC_BIN} airplane-mode on
+          ${SLIC_BIN} airplane-mode off
       # ------------------------------------------------------------------------------
       # Fetch branches for dependent repos
       # ------------------------------------------------------------------------------
