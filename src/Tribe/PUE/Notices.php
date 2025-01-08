@@ -154,8 +154,6 @@ class Tribe__PUE__Notices {
 		if ( $this->saved_notices !== $this->notices ) {
 			update_option( self::STORE_KEY, $this->notices );
 		}
-
-
 	}
 
 	/**
