@@ -22,7 +22,7 @@ class EDDTest extends \Codeception\TestCase\WPTestCase {
 		parent::setUp();
 
 		// To support taxonomy term creation and assignment.
-		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		wp_set_current_user( 1 );
 
 		tribe( 'cache' )->reset();
 

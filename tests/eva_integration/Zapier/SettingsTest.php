@@ -48,7 +48,7 @@ class SettingsTest extends \Codeception\TestCase\WPTestCase {
 		$fields   = $settings->get_fields( [] );
 		$fields   = array_diff_key( $fields, array_flip( $this->get_field_keys_to_remove() ) );
 
-		$this->assertMatchesJsonSnapshot( json_encode( $fields, JSON_PRETTY_PRINT ) );
+		$this->assertMatchesJsonSnapshot( preg_replace( '#User \d+#', '{USERNAME}', json_encode( $fields, JSON_PRETTY_PRINT ) ) );
 	}
 
 	/**

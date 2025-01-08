@@ -164,6 +164,26 @@ class ApiTest extends \Codeception\TestCase\WPTestCase {
 		$api = new Api( tribe( Actions::class ), tribe( Template_Modifications::class ) );
 		$user_dropdown = $api->get_users_dropdown( true );
 
-		$this->assertMatchesJsonSnapshot( json_encode( $user_dropdown, JSON_PRETTY_PRINT ) );
+		$users_arr  = $user_dropdown['users_arr'];
+		$user_count = $user_dropdown['users_count'];
+
+		unset( $user_dropdown['users_arr'], $user_dropdown['user_count'] );
+
+		$this->assertNotEmpty( $users_arr );
+		$this->assertCount( $user_count, $users_arr );
+
+		foreach ( $users_arr as $user ) {
+			$this->assertArrayHasKey( 'text', $user );
+			$this->assertArrayHasKey( 'sort', $user );
+			$this->assertArrayHasKey( 'id', $user );
+			$this->assertArrayHasKey( 'value', $user );
+			$this->assertArrayHasKey( 'selected', $user );
+
+			$this->assertFalse( $user['selected'] );
+			$this->assertEquals( $user['text'], $user['sort'] );
+			$this->assertEquals( $user['id'], $user['value'] );
+		}
+
+		$this->assertMatchesJsonSnapshot( preg_replace( '#User \d+#', '{USERNAME}', json_encode( $user_dropdown, JSON_PRETTY_PRINT ) ) );
 	}
 }
