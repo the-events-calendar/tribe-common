@@ -16,7 +16,6 @@
   "src/resources/js/utils/*",
   "src/resources/vendor/*.min.js",
   "src/resources/vendor/*.min.css",
-  "src/vendor/woocommerce/action-scheduler/**/*.php",
   "src/Tribe/**/*",
   "src/views/**/*",
   "tribe-autoload.php",
@@ -50,5 +49,6 @@
   "vendor/vendor-prefixed/**/*.php",
   "vendor/vendor-prefixed/autoload-classmap.php",
   "vendor/vendor-prefixed/autoload.php",
-  "vendor/vendor-prefixed/stellarwp/**/*"
+  "vendor/vendor-prefixed/stellarwp/**/*",
+  "vendor/woocommerce/action-scheduler/**/*.php"
 ]

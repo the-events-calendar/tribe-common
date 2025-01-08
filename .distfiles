@@ -14,7 +14,6 @@
 /src/resources/js/app/main.min.js
 /src/resources/js/app/modules.min.js
 /src/resources/js/app/vendor.min.js
-/src/vendor/woocommerce/action-scheduler/**/*.php
 /src/resources/js/utils/*.js
 /src/resources/vendor/*.min.js
 /src/resources/vendor/*.min.css
@@ -52,3 +51,4 @@
 /vendor/vendor-prefixed/autoload-classmap.php
 /vendor/vendor-prefixed/autoload.php
 /vendor/vendor-prefixed/stellarwp/**/*
+/vendor/woocommerce/action-scheduler/**/*.php
