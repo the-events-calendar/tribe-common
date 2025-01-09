@@ -329,9 +329,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public static function is_any_license_valid(): bool {
 			$transient_value = get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
-			$transient_value = false !== $transient_value ? $transient_value : [];
 
-			// If the transient value is a string, convert it to an empty array.
 			if ( ! is_array( $transient_value ) ) {
 				$transient_value = [];
 			}
