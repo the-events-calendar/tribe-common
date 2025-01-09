@@ -65,7 +65,7 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 
 		$user = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user );
-		
+
 		$sut  = $this->make_instance();
 		$data = $sut->get_data( $post );
 		$this->assertInternalType( 'array', $data );
@@ -167,12 +167,12 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 		);
 
 		$this->assertFalse(
-			current_user_can( 'read', $post_id ),
+			current_user_can( 'read_post', $post_id ),
 			'A visitor user will not have the read capability for posts.'
 		);
 
 		$this->assertFalse(
-			current_user_can( 'read', $event->ID ),
+			current_user_can( 'read_post', $event->ID ),
 			'A visitor user will not have the read capability for events.'
 		);
 
@@ -248,12 +248,12 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 		);
 
 		$this->assertTrue(
-			current_user_can( 'read', $post_id ),
+			current_user_can( 'read_post', $post_id ),
 			'A subscriber user will have the read capability for posts.'
 		);
 
 		$this->assertTrue(
-			current_user_can( 'read', $event->ID ),
+			current_user_can( 'read_post', $event->ID ),
 			'A subscriber user will have the read capability for events.'
 		);
 
