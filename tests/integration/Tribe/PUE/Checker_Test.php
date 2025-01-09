@@ -5,6 +5,7 @@ namespace Tribe\PUE;
 use Closure;
 use Codeception\TestCase\WPTestCase;
 use Generator;
+use ReflectionClass;
 use TEC\Common\StellarWP\Uplink\Auth\Action_Manager;
 use TEC\Common\StellarWP\Uplink\Auth\Admin\Connect_Controller;
 use TEC\Common\StellarWP\Uplink\Auth\Admin\Disconnect_Controller;
@@ -601,5 +602,100 @@ class Checker_Test extends WPTestCase {
 
 		// Fire off admin_init to run any of our events hooked into this action.
 		do_action( 'admin_init' );
+	}
+
+	/**
+	 * It should monitor active plugins through constructor and update transient correctly
+	 *
+	 * @test
+	 */
+	public function should_monitor_active_plugins_through_constructor_and_update_transient(): void {
+		// Use reflection to access the protected $instances property.
+		$reflection         = new ReflectionClass( PUE_Checker::class );
+		$instances_property = $reflection->getProperty( 'instances' );
+		$instances_property->setAccessible( true );
+
+		// Clear the $instances property.
+		$instances_property->setValue( [] );
+		// Clear transient to ensure a clean test environment.
+		delete_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+
+		// Create mock plugin instances through constructor.
+		$plugin_1 = new PUE_Checker( 'deprecated', 'plugin-1', [], 'plugin-1/plugin-1.php' );
+		$plugin_1->set_key_status( 1 ); // Plugin 1 is valid.
+
+		$plugin_2 = new PUE_Checker( 'deprecated', 'plugin-2', [], 'plugin-2/plugin-2.php' );
+		$plugin_2->set_key_status( 0 ); // Plugin 2 is invalid.
+
+		// Retrieve the transient data.
+		$transient_data = get_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+
+		// Assert that the transient data contains the monitored plugins.
+		$this->assertArrayHasKey( 'plugin-1', $transient_data['plugins'], 'Plugin 1 should exist in the transient.' );
+		$this->assertArrayHasKey( 'plugin-2', $transient_data['plugins'], 'Plugin 2 should exist in the transient.' );
+
+		// Assert the license status of each plugin.
+		$this->assertTrue( $transient_data['plugins']['plugin-1'], 'Plugin 1 should have a valid license.' );
+		$this->assertFalse( $transient_data['plugins']['plugin-2'], 'Plugin 2 should not have a valid license.' );
+
+		// Add a new plugin through the constructor.
+		$plugin_3 = new PUE_Checker( 'deprecated', 'plugin-3', [], 'plugin-3/plugin-3.php' );
+		$plugin_3->set_key_status( 1 ); // Plugin 3 is valid.
+
+		// Retrieve updated transient data.
+		$transient_data = get_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+
+		// Assert the new plugin is added to the transient data.
+		$this->assertArrayHasKey( 'plugin-3', $transient_data['plugins'], 'Plugin 3 should exist in the transient.' );
+		$this->assertTrue( $transient_data['plugins']['plugin-3'], 'Plugin 3 should have a valid license.' );
+	}
+
+	/**
+	 * It should handle monitor_active_plugins correctly directly.
+	 *
+	 * @test
+	 */
+	public function should_handle_monitor_active_plugins_directly(): void {
+		// Use reflection to access the protected $instances property.
+		$reflection         = new ReflectionClass( PUE_Checker::class );
+		$instances_property = $reflection->getProperty( 'instances' );
+		$instances_property->setAccessible( true );
+
+		// Clear the $instances property.
+		$instances_property->setValue( [] );
+		// Clear transient to ensure a clean test environment.
+		delete_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+
+		// Assert that no transient data exists since no plugins are being monitored.
+		$this->assertFalse(
+			get_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY ),
+			'Transient should not exist when no checker is provided.'
+		);
+
+		// Create a mock plugin instance.
+		$plugin_1 = new PUE_Checker( 'deprecated', 'plugin-1', [], 'plugin-1/plugin-1.php' );
+		$plugin_1->set_key_status( 1 ); // Plugin 1 is valid.
+
+		// Call monitor_active_plugins with a checker instance.
+		PUE_Checker::monitor_active_plugins( $plugin_1 );
+
+		// Retrieve the transient data.
+		$transient_data = get_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+
+		// Assert that the transient data contains the monitored plugin.
+		$this->assertArrayHasKey( 'plugin-1', $transient_data['plugins'], 'Plugin 1 should be monitored.' );
+		$this->assertTrue( $transient_data['plugins']['plugin-1'], 'Plugin 1 should have a valid license.' );
+
+		// Add another plugin and monitor it directly.
+		$plugin_2 = new PUE_Checker( 'deprecated', 'plugin-2', [], 'plugin-2/plugin-2.php' );
+		$plugin_2->set_key_status( 0 ); // Plugin 2 is invalid.
+		PUE_Checker::monitor_active_plugins( $plugin_2 );
+
+		// Retrieve the updated transient data.
+		$transient_data = get_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+
+		// Assert the new plugin is added to the transient data.
+		$this->assertArrayHasKey( 'plugin-2', $transient_data['plugins'], 'Plugin 2 should be monitored.' );
+		$this->assertFalse( $transient_data['plugins']['plugin-2'], 'Plugin 2 should not have a valid license.' );
 	}
 }
