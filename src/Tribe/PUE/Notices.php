@@ -623,6 +623,8 @@ class Tribe__PUE__Notices {
 	 * Note: This does not persist changes to the database. To save changes,
 	 * ensure `save_notices()` is called after invoking this method.
 	 *
+	 * @since TBD
+	 * 
 	 * @return void
 	 */
 	public function clear_all_notices() {
