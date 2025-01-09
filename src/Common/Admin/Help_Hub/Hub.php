@@ -447,7 +447,7 @@ class Hub {
 			Tribe__Main::instance(),
 			'tec-help-hub-iframe-style',
 			'help-hub-iframe.css',
-			null,
+			[],
 			[],
 		);
 
@@ -455,7 +455,7 @@ class Hub {
 			Tribe__Main::instance(),
 			'tec-help-hub-iframe-js',
 			'admin/help-hub-iframe.js',
-			null,
+			[],
 			[],
 			[
 				'localize' => [
