@@ -11,8 +11,36 @@ class Tribe__PUE__Notices {
 	const EXPIRED_KEY = 'expired_key';
 	const STORE_KEY   = 'tribe_pue_key_notices';
 
+	/**
+	 * List of registered plugin names for use in notifications.
+	 *
+	 * Holds an array of plugin names that are registered during
+	 * a request. Only registered plugins will appear in notifications.
+	 *
+	 * @var string[]
+	 */
 	protected $registered = [];
+
+	/**
+	 * Notices previously saved in the database.
+	 *
+	 * Holds the saved notices retrieved from the database,
+	 * typically via the `get_option` function. It serves as a reference for
+	 * comparing or merging with current notices.
+	 *
+	 * @var array<string, array<string, bool>>
+	 */
 	protected $saved_notices = [];
+
+	/**
+	 * Notices to be displayed or processed during the current request.
+	 *
+	 * Contains the current set of notices, which may include
+	 * notices added during the current request. It is merged with
+	 * `$saved_notices` to ensure consistency.
+	 *
+	 * @var array<string, array<string, bool>>
+	 */
 	protected $notices = [];
 
 	protected $plugin_names = [
@@ -85,32 +113,55 @@ class Tribe__PUE__Notices {
 	}
 
 	/**
-	 * Restores plugins added on previous requests to the relevant notification
-	 * groups.
+	 * Restores and sanitizes plugin notices to ensure data integrity and prevent memory issues.
+	 *
+	 * Retrieves saved notices from the database, validates and sanitizes them,
+	 * and sets them as the current request's notices.
+	 *
+	 * @since TBD Switched from `array_merge_recursive` to `wp_parse_args` to fix data duplication issues. Added additional sanitation and memory safeguards to handle large data sets effectively.
+	 *
+	 * @return void
 	 */
 	protected function populate() {
-		$this->saved_notices = (array) get_option( self::STORE_KEY, [] );
+		$this->saved_notices = $this->sanitize_notices( (array) get_option( self::STORE_KEY, [] ) );
 
-		if ( empty( $this->saved_notices ) ) {
-			return;
-		}
-
-		$this->notices = array_merge_recursive( $this->notices, $this->saved_notices );
-
-		// Cleanup
-		foreach ( $this->notices as $key => &$plugin_lists ) {
-			// Purge any elements that are not arrays
-			if ( ! is_array( $plugin_lists ) ) {
-				unset( $this->notices[ $key ] );
-				continue;
-			}
-		}
+		// Init the notices as the saved notices.
+		$this->notices = $this->saved_notices;
 	}
 
 	/**
+	 * Recursively sanitizes notices to prevent nesting and ensure data integrity.
+	 *
+	 * @param array $notices The array of notices to sanitize.
+	 *
+	 * @since TBD
+	 *
+	 * @return array Sanitized notices.
+	 */
+	protected function sanitize_notices( array $notices ): array {
+		foreach ( $notices as $key => &$plugin_list ) {
+			// Ensure the value is an array; otherwise, reset it.
+			if ( ! is_array( $plugin_list ) ) {
+				$plugin_list = [];
+				continue;
+			}
+
+			foreach ( $plugin_list as $plugin => $data ) {
+				// Flatten deeply nested arrays and set the value to `true`.
+				$plugin_list[ $plugin ] = true;
+			}
+		}
+
+		return array_filter( $notices );
+	}
+	/**
 	 * Saves any license key notices already added.
+	 *
+	 * @since TBD Sanitize notices prior to storing them.
 	 */
 	public function save_notices() {
+		$this->notices = $this->sanitize_notices( (array) $this->notices );
+
 		update_option( self::STORE_KEY, $this->notices );
 
 		/**
