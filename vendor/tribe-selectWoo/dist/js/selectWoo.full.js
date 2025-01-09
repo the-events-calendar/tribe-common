@@ -799,7 +799,7 @@ S2.define('select2/results',[
 
   Results.prototype.render = function () {
     var $results = $(
-      '<ul class="select2-results__options" role="listbox" tabindex="-1"></ul>'
+      '<ul class="select2-results__options" role="listbox"></ul>'
     );
 
     if (this.options.get('multiple')) {
@@ -958,7 +958,7 @@ S2.define('select2/results',[
     var attrs = {
       'role': 'option',
       'data-selected': 'false',
-      'tabindex': -1
+      'tabindex':'0',
     };
 
     if (data.disabled) {
@@ -988,10 +988,17 @@ S2.define('select2/results',[
 
       option.setAttribute(attr, val);
     }
+    var $option = $(option);
+
+    $option.on( 'blur', function() {
+      $option.attr( 'data-selected', 'false' );
+    });
+
+    $option.on( 'focus', function() {
+      $option.attr( 'data-selected', 'true' );
+    });
 
     if (data.children) {
-      var $option = $(option);
-
       var label = document.createElement('strong');
       label.className = 'select2-results__group';
 
@@ -1040,7 +1047,6 @@ S2.define('select2/results',[
 
       if (container.isOpen()) {
         self.setClasses();
-        self.highlightFirstItem();
       }
     });
 
@@ -1875,7 +1881,7 @@ S2.define('select2/selection/allowClear',[
       }
     }
 
-    // Allow clearing when the data-placeholder attribute isn't set. 
+    // Allow clearing when the data-placeholder attribute isn't set.
     if ( typeof this.placeholder !== 'undefined' ) {
       this.$element.val( this.placeholder.id ).trigger( 'change' );
     } else {
@@ -1928,7 +1934,7 @@ S2.define('select2/selection/search',[
   Search.prototype.render = function (decorated) {
     var $search = $(
       '<li class="select2-search select2-search--inline">' +
-        '<input class="select2-search__field" type="text" tabindex="-1"' +
+        '<input class="select2-search__field" type="text"' +
         ' autocomplete="off" autocorrect="off" autocapitalize="none"' +
         ' spellcheck="false" role="textbox" aria-autocomplete="list" />' +
       '</li>'
@@ -2079,7 +2085,6 @@ S2.define('select2/selection/search',[
    * @private
    */
   Search.prototype._transferTabIndex = function (decorated) {
-    this.$search.attr('tabindex', this.$selection.attr('tabindex'));
     this.$selection.attr('tabindex', '-1');
   };
 
@@ -3697,9 +3702,9 @@ S2.define('select2/data/tags',[
   };
 
   Tags.prototype.createTag = function (decorated, params) {
-  	if ( 'string' !== typeof params.term ) {
-  		return null;
-	}
+      if ( 'string' !== typeof params.term ) {
+          return null;
+    }
 
     var term = params.term.trim();
 
@@ -3991,8 +3996,8 @@ S2.define('select2/dropdown',[
 
 S2.define('select2/dropdown/search',[
   'jquery',
-  '../utils'
-], function ($, Utils) {
+  '../keys'
+], function ($, KEYS) {
   function Search () { }
 
   Search.prototype.render = function (decorated) {
@@ -4000,7 +4005,7 @@ S2.define('select2/dropdown/search',[
 
     var $search = $(
       '<span class="select2-search select2-search--dropdown">' +
-        '<input class="select2-search__field" type="text" tabindex="-1"' +
+        '<input class="select2-search__field" type="text"' +
         ' autocomplete="off" autocorrect="off" autocapitalize="none"' +
         ' spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="true" />' +
       '</span>'
@@ -4035,21 +4040,19 @@ S2.define('select2/dropdown/search',[
     });
 
     this.$search.on('keyup input', function (evt) {
+      var key = evt.which;
+      if (key === KEYS.TAB) {
+          return;
+      }
       self.handleSearch(evt);
     });
 
     container.on('open', function () {
       self.$search.attr('tabindex', 0);
       self.$search.attr('aria-owns', resultsId);
-      self.$search.trigger( 'focus' );
-
-      window.setTimeout(function () {
-        self.$search.trigger( 'focus' );
-      }, 0);
     });
 
     container.on('close', function () {
-      self.$search.attr('tabindex', -1);
       self.$search.removeAttr('aria-activedescendant');
       self.$search.removeAttr('aria-owns');
       self.$search.val('');

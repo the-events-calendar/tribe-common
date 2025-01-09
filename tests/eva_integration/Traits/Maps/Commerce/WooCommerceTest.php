@@ -8,8 +8,9 @@ use TEC\Event_Automator\Traits\Maps\Commerce\WooCommerce;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
+use Codeception\TestCase\WPTestCase;
 
-class WooCommerceTest extends \Codeception\TestCase\WPTestCase {
+class WooCommerceTest extends WPTestCase {
 
 	use SnapshotAssertions;
 	use With_Post_Remapping;
@@ -22,7 +23,7 @@ class WooCommerceTest extends \Codeception\TestCase\WPTestCase {
 		parent::setUp();
 
 		// To support taxonomy term creation and assignment.
-		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		wp_set_current_user( 1 );
 
 		tribe( 'cache' )->reset();
 	}
