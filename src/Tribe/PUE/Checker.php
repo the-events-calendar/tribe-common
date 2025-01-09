@@ -222,8 +222,33 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$this->set_options( $options );
 			$this->hooks();
 			$this->set_key_status_name();
+			$this->init( $slug );
 			// So we can reference our "registered" instances later.
 			self::$instances[ $slug ] ??= $this;
+		}
+
+		/**
+		 * Initializes the PUE checker and fires the appropriate action if not already initialized.
+		 *
+		 * This method ensures that the `tec_pue_checker_init` action is fired only once per unique slug.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $slug The unique slug for the plugin being initialized.
+		 */
+		public function init( $slug ) {
+			if ( isset( self::$instances[ $slug ] ) ) {
+				return;
+			}
+
+			/**
+			 * Fires when initializing the PUE checker.
+			 *
+			 * @since TBD
+			 *
+			 * @param Tribe__PUE__Checker $checker An instance of the PUE Checker being initialized.
+			 */
+			do_action( 'tec_pue_checker_init', $this );
 		}
 
 		/**
@@ -231,12 +256,16 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @since 4.14.9
 		 * @since 6.4.1 Added uplink resource check.
+		 * @since TBD Added check for valid plugin.
 		 */
 		public function is_key_valid() {
-			$uplink_resource = get_resource( $this->get_slug() );
+			$uplink_resource = $this->get_uplink_resource( $this->get_slug() );
 
 			if ( $uplink_resource ) {
-				return $uplink_resource->has_valid_license();
+				$uplink_status = $uplink_resource->has_valid_license();
+				$this->update_any_license_valid_transient( $this->get_slug(), tribe_is_truthy( $uplink_status ) );
+
+				return $uplink_status;
 			}
 
 			// @todo remove transient in a major feature release where we release all plugins.
@@ -245,6 +274,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			if ( empty( $status ) ) {
 				$status = get_option( $this->pue_key_status_option_name, 'invalid' );
 			}
+
+			$this->update_any_license_valid_transient( $this->get_slug(), 'valid' === $status );
 
 			return 'valid' === $status;
 		}
@@ -447,6 +478,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_filter( 'upgrader_pre_download', [ Tribe__PUE__Package_Handler::instance(), 'filter_upgrader_pre_download' ], 5, 3 );
 
 			add_action( 'admin_init', [ $this, 'monitor_uplink_actions' ], 1000 );
+			add_action( 'tec_pue_checker_init', [ __CLASS__, 'monitor_active_plugins' ] );
 		}
 
 
@@ -1064,7 +1096,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function get_key( $type = 'any', $return_type = 'key' ) {
 
-			$resource    = get_resource( $this->get_slug() );
+			$resource    = $this->get_uplink_resource( $this->get_slug() );
 			$license_key = $resource ? $resource->get_license_key( $type ) : false;
 			if ( $license_key ) {
 				return $license_key;
@@ -1155,7 +1187,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$response           = [];
 			$response['status'] = 0;
 
-			$uplink_resource = get_resource( $this->get_slug() );
+			$uplink_resource = $this->get_uplink_resource( $this->get_slug() );
 
 			if ( $uplink_resource ) {
 				$key = $uplink_resource->get_license_key();
@@ -2157,6 +2189,50 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					self::update_any_license_valid_transient( $plugin->get_slug(), true );
 				},
 			);
+		}
+
+		/**
+		 * Monitor active plugins and validate the transient for the given slug.
+		 *
+		 * @param Tribe__PUE__Checker $checker An instance of the PUE Checker.
+		 */
+		public static function monitor_active_plugins( Tribe__PUE__Checker $checker ) {
+			$slug = $checker->get_slug();
+
+			if ( empty( $slug ) ) {
+				return;
+			}
+
+			$transient_data = get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+			if ( empty( $transient_data['plugins'] ) || ! is_array( $transient_data['plugins'] ) ) {
+				$transient_data = [
+					'plugins' => [],
+				];
+			}
+
+			$transient_data['plugins'][ $slug ] = $checker->is_key_valid();
+
+			$transient_data['plugins'] = array_filter( $transient_data['plugins'] );
+			set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $transient_data );
+		}
+
+		/**
+		 * Retrieves the uplink resource for the given slug, if available.
+		 *
+		 * Ensures the `get_resource()` function exists before calling it.
+		 *
+		 * @param string $slug The slug of the resource to retrieve.
+		 *
+		 * @return mixed The resource object if available, or `null` if the function does not exist or fails to retrieve the resource.
+		 */
+		public function get_uplink_resource( string $slug ) {
+			try {
+				$resource = get_resource( $slug );
+			} catch ( Throwable $e ) {
+				return null;
+			}
+
+			return $resource;
 		}
 	}
 }
