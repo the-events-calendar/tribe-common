@@ -347,27 +347,6 @@ class Checker_Test extends WPTestCase {
 	}
 
 	/**
-	 * Mock we're inside the wp-admin dashboard and fire off the admin_init hook.
-	 *
-	 * @param bool $network Whether we're in the network dashboard.
-	 *
-	 * @return void
-	 */
-	protected function admin_init( bool $network = false ): void {
-		$screen                    = WP_Screen::get( $network ? 'dashboard-network' : 'dashboard' );
-		$GLOBALS['current_screen'] = $screen;
-
-		if ( $network ) {
-			$this->assertTrue( $screen->in_admin( 'network' ) );
-		}
-
-		$this->assertTrue( $screen->in_admin() );
-
-		// Fire off admin_init to run any of our events hooked into this action.
-		do_action( 'admin_init' );
-	}
-
-	/**
 	 * Helper to register a new plugin for Uplink testing.
 	 *
 	 * @param string $slug    The slug of the plugin.
@@ -601,5 +580,26 @@ class Checker_Test extends WPTestCase {
 			false,
 			'A transient marked invalid should return false.',
 		];
+	}
+
+	/**
+	 * Mock we're inside the wp-admin dashboard and fire off the admin_init hook.
+	 *
+	 * @param bool $network Whether we're in the network dashboard.
+	 *
+	 * @return void
+	 */
+	protected function admin_init( bool $network = false ): void {
+		$screen                    = WP_Screen::get( $network ? 'dashboard-network' : 'dashboard' );
+		$GLOBALS['current_screen'] = $screen;
+
+		if ( $network ) {
+			$this->assertTrue( $screen->in_admin( 'network' ) );
+		}
+
+		$this->assertTrue( $screen->in_admin() );
+
+		// Fire off admin_init to run any of our events hooked into this action.
+		do_action( 'admin_init' );
 	}
 }
