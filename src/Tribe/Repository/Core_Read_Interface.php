@@ -54,13 +54,14 @@ interface Core_Read_Interface {
 	/**
 	 * Just an alias of the `by` method to allow for easier reading.
 	 *
-	 * @since 4.7.19
-	 * @since TBD Added optional param of comma separated args that can be passed to the schema.
+	 * This method can accept additional arguments as individual, comma-separated
+	 * parameters, which will be passed to the schema.
 	 *
-	 * @param string $key
-	 * @param mixed  $value
-	 * @param mixed  ...$args Additional, optional, call arguments that will be passed to
-	 *                         the schema.
+	 * @since 4.7.19
+	 * @since TBD Added clarification about format for optional additional arguments.
+	 *
+	 * @param string $key   The key to query by.
+	 * @param mixed  $value The value associated with the key.
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
