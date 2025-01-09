@@ -8,6 +8,8 @@
  * @todo switch all plugins over to use the PUE utilities here in Commons
  */
 
+use TEC\Common\StellarWP\Uplink\Config;
+
 use function TEC\Common\StellarWP\Uplink\get_resource;
 
 // Don't load directly.
@@ -220,8 +222,33 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$this->set_options( $options );
 			$this->hooks();
 			$this->set_key_status_name();
+			$this->init( $slug );
 			// So we can reference our "registered" instances later.
 			self::$instances[ $slug ] ??= $this;
+		}
+
+		/**
+		 * Initializes the PUE checker and fires the appropriate action if not already initialized.
+		 *
+		 * This method ensures that the `tec_pue_checker_init` action is fired only once per unique slug.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $slug The unique slug for the plugin being initialized.
+		 */
+		public function init( $slug ) {
+			if ( isset( self::$instances[ $slug ] ) ) {
+				return;
+			}
+
+			/**
+			 * Fires when initializing the PUE checker.
+			 *
+			 * @since TBD
+			 *
+			 * @param Tribe__PUE__Checker $checker An instance of the PUE Checker being initialized.
+			 */
+			do_action( 'tec_pue_checker_init', $this );
 		}
 
 		/**
@@ -229,12 +256,16 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @since 4.14.9
 		 * @since 6.4.1 Added uplink resource check.
+		 * @since TBD Added check for valid plugin.
 		 */
 		public function is_key_valid() {
-			$uplink_resource = get_resource( $this->get_slug() );
+			$uplink_resource = $this->get_uplink_resource( $this->get_slug() );
 
 			if ( $uplink_resource ) {
-				return $uplink_resource->has_valid_license();
+				$uplink_status = $uplink_resource->has_valid_license();
+				$this->update_any_license_valid_transient( $this->get_slug(), tribe_is_truthy( $uplink_status ) );
+
+				return $uplink_status;
 			}
 
 			// @todo remove transient in a major feature release where we release all plugins.
@@ -244,58 +275,100 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$status = get_option( $this->pue_key_status_option_name, 'invalid' );
 			}
 
+			$this->update_any_license_valid_transient( $this->get_slug(), 'valid' === $status );
+
 			return 'valid' === $status;
+		}
+
+		/**
+		 * Helper function to check the transient structure and if any plugin is valid.
+		 *
+		 * @since TBD
+		 *
+		 * @param array|null $transient_value The current transient value.
+		 *
+		 * @return bool True if a valid license is found, otherwise false.
+		 */
+		protected static function transient_contains_valid_license( ?array $transient_value ): bool {
+			if ( ! is_array( $transient_value ) || ! isset( $transient_value['plugins'] ) ) {
+				return false;
+			}
+
+			return in_array( true, $transient_value['plugins'] );
+		}
+
+		/**
+		 * Updates the license status in the global transient.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $plugin_slug The slug of the plugin being updated.
+		 * @param bool   $status      The license status.
+		 */
+		protected static function update_any_license_valid_transient( string $plugin_slug, bool $status ): void {
+			$transient_value = get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY ) ?: [ 'plugins' => [] ];
+
+			// If the transient value is false or a string, initialize it as an empty array with the 'plugins' key.
+			if ( ! is_array( $transient_value ) ) {
+				$transient_value = [ 'plugins' => [] ];
+			}
+
+			$transient_value['plugins'][ $plugin_slug ] = $status;
+
+			set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $transient_value, HOUR_IN_SECONDS );
 		}
 
 		/**
 		 * Iterate on all the registered PUE Product Licenses we have and find if any are valid.
 		 * Will revalidate the licenses if none are found to be valid.
 		 *
-		 * @todo In scenarios where a user goes from a Free license to an active license the transient may give a false positive.
-		 *
 		 * @since 6.3.2
+		 * @since TBD Refactored logic to account for the transient structure.
 		 *
 		 * @return bool
 		 */
 		public static function is_any_license_valid(): bool {
-			$valid_slug = 'valid';
-			$has_valid  = false;
-
-			// Check our transient.
 			$transient_value = get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
-			if ( ! empty( $transient_value ) ) {
-				return $transient_value === $valid_slug;
+
+			if ( ! is_array( $transient_value ) ) {
+				$transient_value = [];
 			}
 
-			// Check our local transient/cache first.
-			foreach ( self::$instances as $checker ) {
+			// Check if the transient has a valid license.
+			if ( self::transient_contains_valid_license( $transient_value ) ) {
+				return true;
+			}
+
+			// Ensure instances exist.
+			if ( empty( self::$instances ) ) {
+				set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, [ 'plugins' => [] ], HOUR_IN_SECONDS );
+
+				return false;
+			}
+
+			// Revalidate licenses.
+			foreach ( self::$instances as $plugin_slug => $checker ) {
+				// First, check if the key is already valid.
 				if ( $checker->is_key_valid() ) {
-					set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $valid_slug, HOUR_IN_SECONDS );
-					$has_valid = true;
-					break;
+					self::update_any_license_valid_transient( $plugin_slug, true );
+
+					return true;
+				}
+
+				// If not valid, attempt to revalidate the license.
+				$license  = get_option( $checker->get_license_option_key() );
+				$response = $checker->validate_key( $license );
+
+				if ( ! empty( $response['status'] ) ) {
+					self::update_any_license_valid_transient( $plugin_slug, true );
+
+					return true;
+				} else {
+					self::update_any_license_valid_transient( $plugin_slug, false );
 				}
 			}
 
-			if ( ! $has_valid ) {
-				// Revalidate if we haven't found a valid license yet.
-				foreach ( self::$instances as $checker ) {
-					$license  = get_option( $checker->get_license_option_key() );
-					$response = $checker->validate_key( $license );
-					// Is it valid?
-					if ( ! empty( $response['status'] ) ) {
-						set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $valid_slug, HOUR_IN_SECONDS );
-						$has_valid = true;
-						break;
-					}
-				}
-			}
-
-			// We found no valid licenses above.
-			if ( ! $has_valid ) {
-				set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, 'invalid', HOUR_IN_SECONDS );
-			}
-
-			return get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY ) === $valid_slug;
+			return false;
 		}
 
 		/**
@@ -341,6 +414,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Sets the key status based on the key validation check results.
 		 *
 		 * @since 4.14.9
+		 * @since TBD Clear `self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY` when a key is checked.
 		 *
 		 * @param int $valid 0 for invalid, 1 or 2 for valid.
 		 */
@@ -352,6 +426,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// We set a transient in addition to an option for compatibility reasons.
 			// @todo remove transient in a major feature release where we release all plugins.
 			set_transient( $this->pue_key_status_transient_name, $status, $this->check_period * HOUR_IN_SECONDS );
+
+			// Update the global license transient.
+			self::update_any_license_valid_transient( $this->get_slug(), tribe_is_truthy( $valid ) );
 		}
 
 		/**
@@ -369,7 +446,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Install the hooks required to run periodic update checks and inject update info
 		 * into WP data structures.
-		 * Also other hooks related to the automatic updates (such as checking agains API and what not (@from Darren)
+		 * Also other hooks related to the automatic updates (such as checking against API and what not (@from Darren)
 		 */
 		public function hooks() {
 			// Override requests for plugin information.
@@ -397,6 +474,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			// Package name.
 			add_filter( 'upgrader_pre_download', [ Tribe__PUE__Package_Handler::instance(), 'filter_upgrader_pre_download' ], 5, 3 );
+
+			add_action( 'admin_init', [ $this, 'monitor_uplink_actions' ], 1000 );
+			add_action( 'tec_pue_checker_init', [ __CLASS__, 'monitor_active_plugins' ] );
 		}
 
 
@@ -1014,7 +1094,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function get_key( $type = 'any', $return_type = 'key' ) {
 
-			$resource    = get_resource( $this->get_slug() );
+			$resource    = $this->get_uplink_resource( $this->get_slug() );
 			$license_key = $resource ? $resource->get_license_key( $type ) : false;
 			if ( $license_key ) {
 				return $license_key;
@@ -1105,7 +1185,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$response           = [];
 			$response['status'] = 0;
 
-			$uplink_resource = get_resource( $this->get_slug() );
+			$uplink_resource = $this->get_uplink_resource( $this->get_slug() );
 
 			if ( $uplink_resource ) {
 				$key = $uplink_resource->get_license_key();
@@ -2089,6 +2169,70 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			return true;
+		}
+
+		/**
+		 * Hooks into the Uplink plugin's 'connected' action for the current plugin.
+		 *
+		 * This method registers a callback for the 'stellarwp/uplink/{slug}/connected' action.
+		 * When the action is triggered, it updates the license validity transient for the plugin.
+		 *
+		 * @since TBD
+		 *
+		 * @return void
+		 */
+		public static function monitor_uplink_actions(): void {
+			// Hook into the existing 'connected' action for the specific plugin slug.
+			add_action(
+				'stellarwp/uplink/' . Config::get_hook_prefix() . '/connected',
+				function ( $plugin ) {
+					self::update_any_license_valid_transient( $plugin->get_slug(), true );
+				},
+			);
+		}
+
+		/**
+		 * Monitor active plugins and validate the transient for the given slug.
+		 *
+		 * @param Tribe__PUE__Checker $checker An instance of the PUE Checker.
+		 */
+		public static function monitor_active_plugins( Tribe__PUE__Checker $checker ) {
+			$slug = $checker->get_slug();
+
+			if ( empty( $slug ) ) {
+				return;
+			}
+
+			$transient_data = get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+			if ( empty( $transient_data['plugins'] ) || ! is_array( $transient_data['plugins'] ) ) {
+				$transient_data = [
+					'plugins' => [],
+				];
+			}
+
+			$transient_data['plugins'][ $slug ] = $checker->is_key_valid();
+
+			$transient_data['plugins'] = array_filter( $transient_data['plugins'] );
+			set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $transient_data );
+		}
+
+		/**
+		 * Retrieves the uplink resource for the given slug, if available.
+		 *
+		 * Ensures the `get_resource()` function exists before calling it.
+		 *
+		 * @param string $slug The slug of the resource to retrieve.
+		 *
+		 * @return mixed The resource object if available, or `null` if the function does not exist or fails to retrieve the resource.
+		 */
+		public function get_uplink_resource( string $slug ) {
+			try {
+				$resource = get_resource( $slug );
+			} catch ( Throwable $e ) {
+				return null;
+			}
+
+			return $resource;
 		}
 	}
 }
