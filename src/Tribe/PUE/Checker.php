@@ -2201,13 +2201,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$transient_data            = get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY ) ?: [ 'plugins' => [] ];
 			$transient_data['plugins'] = is_array( $transient_data['plugins'] ) ? $transient_data['plugins'] : [];
 
-			// Check if the msising plugins are valid, which adds the transients automatically.
+			// Check if the missing plugins are valid, which adds the transients automatically.
 			foreach ( $current_plugin_list as $plugin_slug ) {
 				if ( ! isset( $transient_data['plugins'][ $plugin_slug ] ) ) {
 					$transient_data['plugins'][ $plugin_slug ] = $checker->is_key_valid();
 				}
 			}
-
 
 		}
 
