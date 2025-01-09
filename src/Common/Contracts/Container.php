@@ -48,41 +48,6 @@ class Container extends DI52_Container implements ContainerInterface {
 		try {
 			// Register the provider with the parent container.
 			parent::register( $service_provider_class, ...$alias );
-
-			/**
-			 * Fires when a service provider is registered by the container.
-			 *
-			 * @since 5.1.4
-			 *
-			 * @param string        $service_provider_class The service provider class name.
-			 * @param array<string> $alias                  The alias(es) the service provider was registered with.
-			 */
-			do_action( 'tec_container_registered_provider', $service_provider_class, $alias );
-
-			/**
-			 * Fires a class-specific action when a service provider is registered by the container.
-			 *
-			 * @since 5.1.4
-			 *
-			 * @param array<string> $alias The alias(es) the service provider was registered with.
-			 */
-			do_action( 'tec_container_registered_provider_' . $service_provider_class, $alias );
-
-			if (
-				// Back compat with older definition of Service Provider.
-				! property_exists( $service_provider_class, 'registration_action' )
-				// New definition of Service Provider: default action is empty.
-				|| empty( $service_provider_class::$registration_action )
-			) {
-				return;
-			}
-
-			/**
-			 * Fires a custom action defined by the Service Provider when it's registered.
-			 *
-			 * @since 5.1.4
-			 */
-			do_action( $service_provider_class::$registration_action, $service_provider_class, $alias );
 		} catch ( AlreadyRegisteredException $registered_exception ) {
 			// If the container is registered already, DO NOT fire registration actions again. Instead silently return.
 			return;
@@ -90,6 +55,41 @@ class Container extends DI52_Container implements ContainerInterface {
 			// If the controller is inactive, DO NOT fire registration actions AT ALL. Instead silently return.
 			return;
 		}
+
+		/**
+		 * Fires when a service provider is registered by the container.
+		 *
+		 * @since 5.1.4
+		 *
+		 * @param string        $service_provider_class The service provider class name.
+		 * @param array<string> $alias                  The alias(es) the service provider was registered with.
+		 */
+		do_action( 'tec_container_registered_provider', $service_provider_class, $alias );
+
+		/**
+		 * Fires a class-specific action when a service provider is registered by the container.
+		 *
+		 * @since 5.1.4
+		 *
+		 * @param array<string> $alias The alias(es) the service provider was registered with.
+		 */
+		do_action( 'tec_container_registered_provider_' . $service_provider_class, $alias );
+
+		if (
+			// Back compat with older definition of Service Provider.
+			! property_exists( $service_provider_class, 'registration_action' )
+			// New definition of Service Provider: default action is empty.
+			|| empty( $service_provider_class::$registration_action )
+		) {
+			return;
+		}
+
+		/**
+		 * Fires a custom action defined by the Service Provider when it's registered.
+		 *
+		 * @since 5.1.4
+		 */
+		do_action( $service_provider_class::$registration_action, $service_provider_class, $alias );
 	}
 
 	/**
