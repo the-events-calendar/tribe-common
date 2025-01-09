@@ -116,44 +116,17 @@ class Tribe__PUE__Notices {
 	 * Restores and sanitizes plugin notices to ensure data integrity and prevent memory issues.
 	 *
 	 * Retrieves saved notices from the database, validates and sanitizes them,
-	 * and merges them with the current request's notices. If discrepancies or corrupted data
-	 * are detected, it updates the database to reflect the corrected state.
+	 * and sets them as the current request's notices.
 	 *
 	 * @since TBD Switched from `array_merge_recursive` to `wp_parse_args` to fix data duplication issues. Added additional sanitation and memory safeguards to handle large data sets effectively.
 	 *
 	 * @return void
 	 */
 	protected function populate() {
-		$saved_notices = get_option( self::STORE_KEY, [] );
+		$this->saved_notices = $this->sanitize_notices( (array) get_option( self::STORE_KEY, [] ) );
 
-		// If $saved_notices is not an array, reset it to an empty array.
-		$original_saved_notices = is_array( $saved_notices ) ? $saved_notices : [];
-
-		// Sanitize $saved_notices.
-		$sanitized_saved_notices = $this->sanitize_notices( $original_saved_notices );
-
-		// Update the option if sanitized data differs or the original data was not an array.
-		if ( $saved_notices !== $sanitized_saved_notices ) {
-			update_option( self::STORE_KEY, $sanitized_saved_notices );
-		}
-
-		unset( $saved_notices );
-
-		// Set the sanitized saved notices to the class property.
-		$this->saved_notices = $sanitized_saved_notices;
-
-		// Unset $sanitized_saved_notices to free memory.
-		unset( $sanitized_saved_notices, $original_saved_notices );
-
-		// Merge and sanitize notices with the saved notices.
-		$this->notices = $this->sanitize_notices(
-			wp_parse_args( $this->notices, $this->saved_notices )
-		);
-
-		// Save the final sanitized and merged notices back to the database if they differ.
-		if ( $this->saved_notices !== $this->notices ) {
-			update_option( self::STORE_KEY, $this->notices );
-		}
+		// Init the notices as the saved notices.
+		$this->notices = $this->saved_notices;
 	}
 
 	/**
@@ -183,6 +156,8 @@ class Tribe__PUE__Notices {
 	 * Saves any license key notices already added.
 	 */
 	public function save_notices() {
+		$this->notices = $this->sanitize_notices( (array) $this->notices );
+
 		update_option( self::STORE_KEY, $this->notices );
 
 		/**
