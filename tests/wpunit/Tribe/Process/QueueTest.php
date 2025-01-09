@@ -156,7 +156,7 @@ class QueueTest extends WPTestCase {
 
 		global $wpdb;
         $query = $wpdb->prepare(
-            "SELECT option_id FROM {$wpdb->options} WHERE option_name LIKE %s AND autoload = 'off'",
+            "SELECT option_id FROM {$wpdb->options} WHERE option_name LIKE %s AND autoload = 'no'",
             $wpdb->esc_like($queue_id) . '%'
         );
 		$this->assertCount( 4, $wpdb->get_col( $query ) );
