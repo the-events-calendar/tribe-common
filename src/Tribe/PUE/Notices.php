@@ -617,22 +617,4 @@ class Tribe__PUE__Notices {
 
 		return '<span class="plugin-list">' . $html . '</span>';
 	}
-
-	/**
-	 * Clears all stored and saved notices.
-	 *
-	 * This method resets both the `notices` and `saved_notices` properties to empty arrays,
-	 * effectively removing all license key notifications from memory.
-	 *
-	 * Note: This does not persist changes to the database. To save changes,
-	 * ensure `save_notices()` is called after invoking this method.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function clear_all_notices() {
-		$this->notices       = [];
-		$this->saved_notices = [];
-	}
 }

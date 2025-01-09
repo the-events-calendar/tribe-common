@@ -10,29 +10,6 @@ use Tribe__PUE__Notices;
 class Notices_Test extends WPTestCase {
 
 	/**
-	 * Runs before each test.
-	 *
-	 * @before
-	 */
-	public function initialize_notices(): void {
-		$notices = tribe( 'pue.notices' );
-		$notices->clear_all_notices();
-		$notices->save_notices();
-	}
-
-	/**
-	 * Runs after each test.
-	 *
-	 * @after
-	 */
-	public function cleanup_notices(): void {
-		// Use the class method to clear all notices
-		$notices = tribe( 'pue.notices' );
-		$notices->clear_all_notices();
-		$notices->save_notices();
-	}
-
-	/**
 	 * Data provider for test_notice_with_all_statuses.
 	 *
 	 * @return Generator
@@ -48,7 +25,7 @@ class Notices_Test extends WPTestCase {
 		foreach ( $statuses as $status ) {
 			yield "Multiple plugins, single status ($status)" => [
 				function () use ( $status ) {
-					$pue_notices      = tribe( 'pue.notices' );
+					$pue_notices      = new Tribe__PUE__Notices();
 					$expected_options = [ $status => [] ];
 
 					foreach ( range( 1, 5 ) as $index ) {
@@ -73,7 +50,7 @@ class Notices_Test extends WPTestCase {
 				$expected_options = [];
 				$plugin_names     = [];
 
-				$pue_notices = tribe( 'pue.notices' );
+				$pue_notices = new Tribe__PUE__Notices();
 				foreach ( $statuses as $status ) {
 					$expected_options[ $status ] = [];
 
@@ -156,7 +133,7 @@ class Notices_Test extends WPTestCase {
 	public function recursive_bug_with_same_plugin(): void {
 		$plugin_name = 'plugin-merge-test';
 
-		$pue_notices_initial = tribe( 'pue.notices' );
+		$pue_notices_initial = new Tribe__PUE__Notices();
 
 		// Add initial notices to different keys
 		$pue_notices_initial->add_notice( Tribe__PUE__Notices::UPGRADE_KEY, 'initial_plugin1' );
@@ -165,16 +142,14 @@ class Notices_Test extends WPTestCase {
 		// Simulate repeated usage of the same plugin name with different instances
 		for ( $j = 0; $j < 5; $j++ ) {
 			for ( $i = 0; $i < 5; $i++ ) {
-				$temp_plugin_name = $plugin_name . $j;
-				tribe( 'pue.notices' )->register_name( $temp_plugin_name );
-
-				// Recreate the tribe instance to simulate typical usage
-				$pue_notices = tribe( 'pue.notices' );
+				$temp_plugin_name     = $plugin_name . $j;
+				$pue_notices_internal = new Tribe__PUE__Notices();
+				$pue_notices_internal->register_name( $temp_plugin_name );
 
 				// Add the same notice repeatedly
-				$pue_notices->add_notice( Tribe__PUE__Notices::INVALID_KEY, $temp_plugin_name );
+				$pue_notices_initial->add_notice( Tribe__PUE__Notices::INVALID_KEY, $temp_plugin_name );
 
-				unset( $pue_notices ); // Clear instance to simulate separate requests
+				unset( $pue_notices_internal ); // Clear instance to simulate separate requests
 			}
 		}
 
@@ -462,7 +437,7 @@ class Notices_Test extends WPTestCase {
 		$plugin_name = 'DuplicatePlugin';
 		$status = Tribe__PUE__Notices::INVALID_KEY;
 
-		$pue_notices = tribe( 'pue.notices' );
+		$pue_notices = new Tribe__PUE__Notices();
 
 		// Add the same notice 50 times.
 		for ( $i = 0; $i < 50; $i++ ) {
