@@ -156,6 +156,8 @@ class Tribe__PUE__Notices {
 	}
 	/**
 	 * Saves any license key notices already added.
+	 *
+	 * @since TBD Sanitize notices prior to storing them.
 	 */
 	public function save_notices() {
 		$this->notices = $this->sanitize_notices( (array) $this->notices );
@@ -626,7 +628,7 @@ class Tribe__PUE__Notices {
 	 * ensure `save_notices()` is called after invoking this method.
 	 *
 	 * @since TBD
-	 * 
+	 *
 	 * @return void
 	 */
 	public function clear_all_notices() {
