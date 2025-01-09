@@ -293,6 +293,9 @@ class Notices_Test extends WPTestCase {
 		// Instantiate the class to trigger `populate()`
 		$pue_notices = new Tribe__PUE__Notices();
 
+		// The cleaning in the DB should be done just prior saving.
+		$pue_notices->save_notices();
+
 		// Retrieve notices after `populate()` runs
 		$options = get_option( Tribe__PUE__Notices::STORE_KEY );
 
@@ -316,6 +319,9 @@ class Notices_Test extends WPTestCase {
 
 		// Instantiate the class to trigger `populate()`.
 		$pue_notices = new Tribe__PUE__Notices();
+
+		// The cleaning in the DB should be done just prior saving.
+		$pue_notices->save_notices();
 
 		// Retrieve notices after `populate()` runs.
 		$options = get_option( Tribe__PUE__Notices::STORE_KEY );
@@ -368,12 +374,20 @@ class Notices_Test extends WPTestCase {
 				'CorruptedPlugin' => array_fill( 0, 10, [ true ] ),
 			],
 			'CustomKey'                      => 'not_an_array',
+			'CustomKeyButArray'              => [
+				'key1' => 'value1',
+				'key2' => 'value2',
+			],
 		];
 
 		update_option( Tribe__PUE__Notices::STORE_KEY, $mixed_data );
 
 		$pue_notices = new Tribe__PUE__Notices();
-		$options     = get_option( Tribe__PUE__Notices::STORE_KEY );
+
+		// The cleaning in the DB should be done just prior saving.
+		$pue_notices->save_notices();
+
+		$options = get_option( Tribe__PUE__Notices::STORE_KEY );
 
 		// Ensure `INVALID_KEY` exists.
 		$this->assertArrayHasKey( Tribe__PUE__Notices::INVALID_KEY, $options );
@@ -408,15 +422,36 @@ class Notices_Test extends WPTestCase {
 			'CorruptedPlugin should not be an array under INVALID_KEY.'
 		);
 
-		$this->assertArrayHasKey(
+		$this->assertArrayNotHasKey(
 			'CustomKey',
 			$options,
 			'CustomKey should not be removed from the root array.'
 		);
 
+		$this->assertArrayHasKey(
+			'CustomKeyButArray',
+			$options,
+			'CustomKeyButArray should not be removed from the root array.'
+		);
+
 		$this->assertIsArray(
-			$options['CustomKey'],
-			'CustomKey should be an array in the root array.'
+			$options['CustomKeyButArray'],
+			'CustomKeyButArray should be an array in the root array.'
+		);
+
+		$this->assertCount(
+			2,
+			$options,
+			'The root array should only contain INVALID_KEY and CustomKeyButArray.'
+		);
+
+		$this->assertEquals(
+			[
+				'key1' => true,
+				'key2' => true,
+			],
+			$options['CustomKeyButArray'],
+			'CustomKeyButArray should have the expected values.'
 		);
 	}
 

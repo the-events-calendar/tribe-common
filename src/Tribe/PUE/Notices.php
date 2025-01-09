@@ -150,7 +150,7 @@ class Tribe__PUE__Notices {
 			}
 		}
 
-		return $notices;
+		return array_filter( $notices );
 	}
 	/**
 	 * Saves any license key notices already added.
