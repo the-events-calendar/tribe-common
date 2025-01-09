@@ -134,6 +134,8 @@ class Tribe__PUE__Notices {
 	 *
 	 * @param array $notices The array of notices to sanitize.
 	 *
+	 * @since TBD
+	 *
 	 * @return array Sanitized notices.
 	 */
 	protected function sanitize_notices( array $notices ): array {
