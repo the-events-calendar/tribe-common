@@ -502,4 +502,42 @@ class Notices_Test extends WPTestCase {
 			"There should be exactly 1 entry for $status."
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_exhaust_memory() {
+		// For the sake of testing we assume memory limit 2M => so in bytes 2 * 1024 * 1024
+		$test_memory_limit = 2 * 1024 * 1024;
+
+		$initial_memory_usage = memory_get_usage();
+
+		// We'll increase the memory limit by the initial used memory.
+		$test_memory_limit += $initial_memory_usage;
+
+		// we'll create a large array about 3/4 of the memory limit.
+		$data = [
+			Tribe__PUE__Notices::INVALID_KEY => [],
+		];
+
+		while ( memory_get_usage() < $test_memory_limit * 0.75 ) {
+			$data[ Tribe__PUE__Notices::INVALID_KEY ][] = 'plugin-' . count( $data[ Tribe__PUE__Notices::INVALID_KEY ] );
+		}
+
+		// Save the large dataset as an option
+		update_option( Tribe__PUE__Notices::STORE_KEY, $data );
+
+		unset( $data );
+
+		$this->assertGreaterThan( memory_get_usage(), $test_memory_limit, 'Memory usage should not exceed the memory limit.' );
+
+		$pue_notices = new Tribe__PUE__Notices();
+
+		$this->assertGreaterThan( memory_get_usage(), $test_memory_limit, 'Memory usage should not exceed the memory limit.' );
+
+		// The cleaning in the DB should be done just prior saving.
+		$pue_notices->save_notices();
+
+		$this->assertGreaterThan( memory_get_usage(), $test_memory_limit, 'Memory usage should not exceed the memory limit.' );
+	}
 }
