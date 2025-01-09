@@ -2194,23 +2194,26 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @param Tribe__PUE__Checker $checker An instance of the PUE Checker.
 		 */
-		public static function monitor_active_plugins( Tribe__PUE__Checker $checker ) {
-			$slug = $checker->get_slug();
+		public static function monitor_active_plugins( Tribe__PUE__Checker $checker ): void {
+			$current_plugin_list = array_unique( array_merge( array_keys( self::$instances ), [ $checker->get_slug() ] ) );
 
-			if ( empty( $slug ) ) {
+			// Retrieve or initialize transient data.
+			$transient_data            = get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY ) ?: [ 'plugins' => [] ];
+			$transient_data['plugins'] = is_array( $transient_data['plugins'] ) ? $transient_data['plugins'] : [];
+
+			// Add missing plugins and update transient data.
+			$changes_detected = false;
+			foreach ( $current_plugin_list as $plugin_slug ) {
+				if ( ! isset( $transient_data['plugins'][ $plugin_slug ] ) ) {
+					$transient_data['plugins'][ $plugin_slug ] = $checker->is_key_valid();
+					$changes_detected                          = true;
+				}
+			}
+
+			if ( ! $changes_detected ) {
 				return;
 			}
 
-			$transient_data = get_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
-			if ( empty( $transient_data['plugins'] ) || ! is_array( $transient_data['plugins'] ) ) {
-				$transient_data = [
-					'plugins' => [],
-				];
-			}
-
-			$transient_data['plugins'][ $slug ] = $checker->is_key_valid();
-
-			$transient_data['plugins'] = array_filter( $transient_data['plugins'] );
 			set_transient( self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, $transient_data );
 		}
 
