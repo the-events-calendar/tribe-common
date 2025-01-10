@@ -66,7 +66,7 @@ class ApiAJAXTest extends \Codeception\TestCase\WPAjaxTestCase {
 		}
 
 		$this->assertTrue( isset( $e ) );
-		$html = $this->_last_response;
+		$html = preg_replace( '#User \d+#', '{USERNAME}', $this->_last_response );
 
 		$this->assertMatchesHtmlSnapshot( $html );
 	}
