@@ -26,7 +26,7 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 	 *
 	 * @param string $date         String representing the datetime, assumed to be UTC (relevant if timezone conversion is used)
 	 * @param bool   $display_time If true shows date and time, if false only shows date
-	 * @param string $date_format  Allows date and time formatting using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @param string $date_format  Allows date and time formatting using standard php syntax (http://php.net/manual/en/function.date.php).
 	 *
 	 * @return string
 	 */
@@ -128,7 +128,7 @@ if ( ! function_exists( 'tribe_end_of_day' ) ) {
 	 * @category Events
 	 *
 	 * @param string $date   The date to find the end of the day, defaults to today
-	 * @param string $format Allows date and time formatting using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @param string $format Allows date and time formatting using standard php syntax (http://php.net/manual/en/function.date.php).
 	 *
 	 * @return string
 	 */
