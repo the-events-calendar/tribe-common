@@ -6,8 +6,9 @@ window.DocsBotAI = window.DocsBotAI || {};
 	'use strict';
 
 	obj.selectors = {
-		body: document.body,
-		docsbotWidget: '#docsbot-widget-embed',
+		body: 'body',
+		helpHubPageID: 'help-hub-page',
+		docsbotWidget: 'docsbot-widget-embed',
 		optOutMessage: '.tec-help-hub-iframe-opt-out-message',
 	};
 
@@ -91,15 +92,18 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @return {void}
 	 */
 	obj.setup = () => {
-		const isOptedIn = obj.selectors.body.getAttribute( 'data-opted-in' ) === '1';
+		const bodyElement = document.getElementById( obj.selectors.helpHubPageID );
+		const isOptedIn = bodyElement.getAttribute( 'data-opted-in' ) === '1';
+		const optOutMessageElement = document.querySelector( obj.selectors.optOutMessage );
+		const docsbotElement = document.getElementById( obj.selectors.docsbotWidget );
 		// Only run Zendesk and DocsBot setup if the user has opted-in.
 		if ( isOptedIn ) {
 			obj.loadAndInitializeZendeskWidget();
 			obj.initializeDocsBot();
 		} else {
-			document.querySelector( obj.selectors.optOutMessage ).classList.remove( 'hide' );
-			document.querySelector( obj.selectors.docsbotWidget ).classList.add( 'hide' );
-			obj.selectors.body.classList.add( 'blackout' );
+			optOutMessageElement.classList.remove( 'hide' );
+			docsbotElement.classList.add( 'hide' );
+			bodyElement.classList.add( 'blackout' );
 		}
 	};
 
@@ -134,6 +138,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 */
 	obj.initializeZendesk = () => {
 		obj.isZendeskInitialized = false;
+		const bodyElement = document.getElementById( obj.selectors.helpHubPageID );
 
 		zE(
 			'webWidget',
@@ -149,7 +154,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 			'open',
 			() => {
 				if ( obj.isZendeskInitialized ) {
-					obj.selectors.body.classList.add( 'blackout' );
+					bodyElement.classList.add( 'blackout' );
 				}
 			}
 		);
@@ -163,7 +168,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 					'webWidget',
 					'hide'
 				);
-				obj.selectors.body.classList.remove( 'blackout' );
+				bodyElement.classList.remove( 'blackout' );
 			}
 		);
 	};
@@ -176,6 +181,8 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @return {void}
 	 */
 	obj.handlePostMessageEvents = ( event ) => {
+		const bodyElement = document.getElementById( obj.selectors.helpHubPageID );
+
 		if ( event.origin !== window.location.origin ) {
 			return; // Ignore messages from untrusted origins.
 		}
@@ -193,7 +200,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 						'webWidget',
 						'open'
 					);
-					obj.selectors.body.classList.add( 'blackout' );
+					bodyElement.classList.add( 'blackout' );
 				}
 				break;
 
@@ -263,7 +270,8 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @return {void}
 	 */
 	obj.initializeDocsBot = () => {
-		$( obj.selectors.docsbotWidget ).removeClass( 'hide' );
+		const bodyElement = document.getElementById( obj.selectors.helpHubPageID );
+		document.getElementById(obj.selectors.docsbotWidget).classList.remove( 'hide' );
 		DocsBotAI.init = ( e ) => {
 			return new Promise( ( resolve, reject ) => {
 				const script = document.createElement( 'script' );
@@ -305,7 +313,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 							},
 							supportCallback: ( event ) => {
 								event.preventDefault();
-								obj.selectors.body.classList.add( 'blackout' );
+								bodyElement.classList.add( 'blackout' );
 								zE(
 									'webWidget',
 									'show'
