@@ -28,7 +28,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @return void
+	 * @var string
 	 */
 	public static string $registration_action = 'tec_common_ian_loaded';
 
