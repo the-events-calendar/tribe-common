@@ -91,6 +91,16 @@ class Controller extends Controller_Contract {
 				],
 			]
 		);
+
+		/**
+		 * Allow plugins to hook in and add themselves,
+		 * running their own actions after IAN is initiated.
+		 *
+		 * @since 6.4.0
+		 *
+		 * @param self $ian The IAN instance.
+		 */
+		do_action( 'tec_common_ian_loaded', $this );
 	}
 
 	/**
