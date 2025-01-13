@@ -24,6 +24,15 @@ use Tribe__Main;
 class Controller extends Controller_Contract {
 
 	/**
+	 * The custom action that will be fired when the controller registers.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public static string $registration_action = 'tec_common_ian_loaded';
+
+	/**
 	 * Registers actions and filters.
 	 *
 	 * @since 6.4.0
@@ -91,16 +100,6 @@ class Controller extends Controller_Contract {
 				],
 			]
 		);
-
-		/**
-		 * Allow plugins to hook in and add themselves,
-		 * running their own actions after IAN is initiated.
-		 *
-		 * @since 6.4.0
-		 *
-		 * @param self $ian The IAN instance.
-		 */
-		do_action( 'tec_common_ian_loaded', $this );
 	}
 
 	/**
