@@ -1200,7 +1200,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// rather than license_key_status() as at this stage invalid or missing keys should
 			// not result in admin notices being generated.
 			$plugin_info = $this->request_info( $query_args );
-			$expiration  = isset( $plugin_info->expiration ) ? $plugin_info->expiration : __( 'unknown date', 'tribe-common' );
+			$expiration  = $plugin_info->expiration ?? __( 'unknown date', 'tribe-common' );
 
 			$pue_notices = tribe( 'pue.notices' );
 			$plugin_name = $this->get_plugin_name();
@@ -1283,11 +1283,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Get the message for an expired license.
 		 */
 		public function get_license_expired_message(): string {
-			return '<a href="https://evnt.is/195y" target="_blank" class="button button-primary">' .
-				   __( 'Renew Your License Now', 'tribe-common' ) .
-				   '<span class="screen-reader-text">' .
-				   __( ' (opens in a new window)', 'tribe-common' ) .
-				   '</span></a>';
+			return '<a href="https://evnt.is/195y" target="_blank" class="button button-primary">'
+				   . __( 'Renew Your License Now', 'tribe-common' )
+				   . '<span class="screen-reader-text">'
+				   . __( ' (opens in a new window)', 'tribe-common' )
+				   . '</span></a>';
 		}
 
 		/**
@@ -1614,10 +1614,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// Try to parse the response.
 			$plugin_info = null;
 
-			if ( ! is_wp_error( $result )
-				 && isset( $result['response']['code'] )
-				 && ( 200 === (int) $result['response']['code'] )
-				 && ! empty( $result['body'] )
+			if (
+				! is_wp_error( $result )
+				&& isset( $result['response']['code'] )
+				&& ( 200 === (int) $result['response']['code'] )
+				&& ! empty( $result['body'] )
 			) {
 				$plugin_info = Tribe__PUE__Plugin_Info::from_json( $result['body'] );
 			}
@@ -1646,7 +1647,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Retrieve the latest update (if any) from the configured API endpoint.
 		 *
-		 * @return Tribe__PUE__Utility An instance of Tribe__PUE__Utility, or NULL when no updates are available.
+		 * @return ?Tribe__PUE__Utility An instance of Tribe__PUE__Utility, or NULL when no updates are available.
 		 * @uses Tribe__PUE__Checker::request_info()
 		 *
 		 */
