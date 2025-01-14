@@ -1284,10 +1284,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function get_license_expired_message(): string {
 			return '<a href="https://evnt.is/195y" target="_blank" class="button button-primary">'
-				   . __( 'Renew Your License Now', 'tribe-common' )
-				   . '<span class="screen-reader-text">'
-				   . __( ' (opens in a new window)', 'tribe-common' )
-				   . '</span></a>';
+				. __( 'Renew Your License Now', 'tribe-common' )
+				. '<span class="screen-reader-text">'
+				. __( ' (opens in a new window)', 'tribe-common' )
+				. '</span></a>';
 		}
 
 		/**
