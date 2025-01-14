@@ -927,4 +927,17 @@ class Checker_Test extends WPTestCase {
 		];
 	}
 
+	/**
+	 * @test
+	 */
+	public function it_should_handle_missing_plugin_file_gracefully(): void {
+		$plugin_slug = 'missing-plugin';
+		$plugin_file = "{$plugin_slug}/{$plugin_slug}.php";
+
+		// Instantiate the PUE_Checker with a non-existent plugin file.
+		$pue_checker = new PUE_Checker( 'deprecated', $plugin_slug, [], $plugin_file );
+
+		// Assert the plugin name remains null.
+		$this->assertEmpty( $pue_checker->get_plugin_name(), 'It should use the plugin slug when the file name is missing.' );
+	}
 }
