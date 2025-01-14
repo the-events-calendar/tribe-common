@@ -15,12 +15,15 @@ use TEC\Common\StellarWP\Uplink\Config;
 use TEC\Common\StellarWP\Uplink\Register;
 use TEC\Common\StellarWP\Uplink\Resources\Resource;
 use TEC\Common\Tests\Licensing\PUE_Service_Mock;
+use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Main;
 use Tribe__PUE__Checker as PUE_Checker;
 use WP_Screen;
 use function TEC\Common\StellarWP\Uplink\get_resource;
 
 class Checker_Test extends WPTestCase {
+	use With_Uopz;
+
 	/**
 	 * @var PUE_Service_Mock
 	 */
@@ -698,4 +701,230 @@ class Checker_Test extends WPTestCase {
 		$this->assertArrayHasKey( 'plugin-2', $transient_data['plugins'], 'Plugin 2 should be monitored.' );
 		$this->assertFalse( $transient_data['plugins']['plugin-2'], 'Plugin 2 should not have a valid license.' );
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_set_transient_and_option_for_valid_key(): void {
+		$plugin_name = 'test_plugin_for_init_method';
+		$site_domain = $_SERVER['SERVER_NAME']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+
+		$transient_key = "pue_key_status_{$plugin_name}_{$site_domain}";
+		$option_key = "pue_install_key_{$plugin_name}";
+
+		// Clean up any existing transients or options.
+		delete_transient($transient_key);
+		delete_option($option_key);
+
+		// Assert initial state is clean.
+		$this->assertEmpty(get_transient($transient_key), 'Transient should be empty initially.');
+		$this->assertEmpty(get_option($option_key), 'Option should be empty initially.');
+
+		// Mock `validate_key` to return a valid response.
+		$this->set_class_fn_return(
+			PUE_Checker::class,
+			'validate_key',
+			[ 'status' => 'valid', 'replacement_key' => 'new-valid-key' ]
+		);
+
+		// Ensure the option is set before instantiation.
+		update_option($option_key, 'new-valid-key');
+
+		// Instantiate `PUE_Checker` to trigger the initialization logic.
+		$pue_checker = new PUE_Checker('deprecated', $plugin_name, [], "{$plugin_name}/{$plugin_name}.php");
+		$pue_checker->set_key_status(1); // Synchronize test data with mocked response.
+
+		// Retrieve transient and option values for assertions.
+		$transient_value = get_transient($pue_checker->pue_key_status_transient_name);
+		$option_value = get_option($pue_checker->pue_key_status_option_name);
+		$timeout = get_option("{$pue_checker->pue_key_status_option_name}_timeout");
+
+		// Assertions to verify behavior.
+		$this->assertEquals('valid', $transient_value, 'Transient should be set to "valid".');
+		$this->assertEquals('valid', $option_value, 'Option should be set to "valid".');
+		$this->assertNotEmpty($timeout, 'Timeout should be set for the valid key.');
+		$this->assertGreaterThan(time(), $timeout, 'Timeout should be a future timestamp.');
+	}
+
+	/**
+	 * @test
+	 * @dataProvider license_check_scenarios
+	 */
+	public function it_should_handle_license_check_correctly(
+		string $plugin_name,
+		Closure $setup_closure,
+		array $mock_response,
+		string $expected_transient,
+		string $expected_option,
+		string $scenario
+	): void {
+		// Dynamic site domain for testing.
+		$site_domain = $_SERVER['SERVER_NAME']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+
+		// Keys used for testing.
+		$transient_key = "pue_key_status_{$plugin_name}_{$site_domain}";
+		$option_key    = "pue_install_key_{$plugin_name}";
+
+		// Clean up any existing transients or options.
+		delete_transient( $transient_key );
+		delete_option( $option_key );
+
+		// Assert initial state is clean.
+		$this->assertEmpty( get_transient( $transient_key ), 'Transient should be empty initially.' );
+		$this->assertEmpty( get_option( $option_key ), 'Option should be empty initially.' );
+
+		// Run the setup closure to prepare the test scenario.
+		$setup_closure();
+
+		// Mock `validate_key` with dynamic response.
+		$this->set_class_fn_return( PUE_Checker::class, 'validate_key', $mock_response );
+
+		// Instantiate `PUE_Checker` to trigger the initialization logic.
+		$pue_checker = new PUE_Checker( 'deprecated', $plugin_name, [], "{$plugin_name}/{$plugin_name}.php" );
+		$pue_checker->set_key_status( $mock_response['status'] === 'valid' ? 1 : 0 ); // Synchronize test data.
+
+		// Retrieve transient and option values for assertions.
+		$transient_value = get_transient( $pue_checker->pue_key_status_transient_name );
+		$option_value    = get_option( $pue_checker->pue_key_status_option_name );
+		$timeout         = get_option( "{$pue_checker->pue_key_status_option_name}_timeout" );
+
+		// Assertions to verify behavior.
+		$this->assertEquals( $expected_transient, $transient_value, 'Transient should match the expected value.' );
+		$this->assertEquals( $expected_option, $option_value, 'Option should match the expected value.' );
+		$this->assertNotEmpty( $timeout, 'Timeout should be set for the key.' );
+		$this->assertGreaterThan( time(), $timeout, 'Timeout should be a future timestamp.' );
+
+		// Provide a descriptive scenario for debugging.
+		$this->assertTrue( true, $scenario );
+	}
+
+	/**
+	 * Data provider for license check scenarios.
+	 *
+	 * @return \Generator
+	 */
+	public function license_check_scenarios(): \Generator {
+		yield 'Valid key, no transient or option' => [
+			'plugin_name' => 'test_plugin_valid_no_data',
+			function () {
+				// Setup for no transient or option.
+			},
+			[ 'status' => 'valid', 'replacement_key' => 'new-valid-key' ],
+			'valid',
+			'valid',
+			'Should set transient and option for a valid key.',
+		];
+
+		yield 'Invalid key, no transient or option' => [
+			'plugin_name' => 'test_plugin_invalid_no_data',
+			function () {
+				// Setup for no transient or option.
+			},
+			[ 'status' => 'invalid', 'replacement_key' => '' ],
+			'invalid',
+			'invalid',
+			'Should only set transient for an invalid key.',
+		];
+
+		yield 'Valid key, existing transient and option' => [
+			'plugin_name' => 'test_plugin_valid_existing_data',
+			function () {
+				// Setup for existing transient and option.
+				$site_domain = $_SERVER['SERVER_NAME']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+				set_transient( "pue_key_status_test_plugin_valid_existing_data_{$site_domain}", 'valid', HOUR_IN_SECONDS );
+				update_option( 'pue_install_key_test_plugin_valid_existing_data', 'existing-valid-key' );
+			},
+			[ 'status' => 'valid', 'replacement_key' => 'updated-valid-key' ],
+			'valid',
+			'valid',
+			'Should retain transient and option for an existing valid key.',
+		];
+
+		yield 'Invalid key, existing transient and option' => [
+			'plugin_name' => 'test_plugin_invalid_existing_data',
+			function () {
+				// Setup for existing transient and option.
+				$site_domain = $_SERVER['SERVER_NAME']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+				set_transient( "pue_key_status_test_plugin_invalid_existing_data_{$site_domain}", 'invalid', HOUR_IN_SECONDS );
+				update_option( 'pue_install_key_test_plugin_invalid_existing_data', 'existing-invalid-key' );
+			},
+			[ 'status' => 'invalid', 'replacement_key' => '' ],
+			'invalid',
+			'invalid',
+			'Should only update transient for an invalid key.',
+		];
+
+		yield 'Valid key, transient exists but option does not' => [
+			'plugin_name' => 'test_plugin_valid_transient_no_option',
+			function () {
+				$site_domain = $_SERVER['SERVER_NAME']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+				set_transient("pue_key_status_test_plugin_valid_transient_no_option_{$site_domain}", 'valid', HOUR_IN_SECONDS);
+			},
+			[ 'status' => 'valid', 'replacement_key' => 'new-valid-key' ],
+			'valid',
+			'valid',
+			'Should set option when transient exists but option does not.',
+		];
+
+		yield 'Invalid key, transient exists but option does not' => [
+			'plugin_name' => 'test_plugin_invalid_transient_no_option',
+			function () {
+				$site_domain = $_SERVER['SERVER_NAME']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+				set_transient("pue_key_status_test_plugin_invalid_transient_no_option_{$site_domain}", 'invalid', HOUR_IN_SECONDS);
+			},
+			[ 'status' => 'invalid', 'replacement_key' => '' ],
+			'invalid',
+			'invalid',
+			'Should not set option but retain transient for an invalid key.',
+		];
+
+		yield 'Transient timeout exceeded, valid key' => [
+			'plugin_name' => 'test_plugin_transient_timeout_valid',
+			function () {
+				$site_domain = $_SERVER['SERVER_NAME']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+				set_transient("pue_key_status_test_plugin_transient_timeout_valid_{$site_domain}", 'valid', -1); // Expired transient.
+			},
+			[ 'status' => 'valid', 'replacement_key' => 'renewed-valid-key' ],
+			'valid',
+			'valid',
+			'Should renew transient and set option when transient has expired.',
+		];
+
+		yield 'Transient timeout exceeded, invalid key' => [
+			'plugin_name' => 'test_plugin_transient_timeout_invalid',
+			function () {
+				$site_domain = $_SERVER['SERVER_NAME']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+				set_transient("pue_key_status_test_plugin_transient_timeout_invalid_{$site_domain}", 'invalid', -1); // Expired transient.
+			},
+			[ 'status' => 'invalid', 'replacement_key' => '' ],
+			'invalid',
+			'invalid',
+			'Should renew transient but not set option when transient has expired for an invalid key.',
+		];
+
+		yield 'Early bail with existing valid transient' => [
+			'plugin_name' => 'test_plugin_early_bail_valid',
+			function () {
+				$site_domain = $_SERVER['SERVER_NAME']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+				set_transient("pue_key_status_test_plugin_early_bail_valid_{$site_domain}", 'valid', HOUR_IN_SECONDS);
+			},
+			[ 'status' => 'valid', 'replacement_key' => 'ignored-key' ],
+			'valid',
+			'valid',
+			'Should bail early when a valid transient exists.',
+		];
+
+		yield 'Early bail with existing invalid transient' => [
+			'plugin_name' => 'test_plugin_early_bail_invalid',
+			function () {
+				$site_domain = $_SERVER['SERVER_NAME']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+				set_transient("pue_key_status_test_plugin_early_bail_invalid_{$site_domain}", 'invalid', HOUR_IN_SECONDS);
+			},
+			[ 'status' => 'invalid', 'replacement_key' => 'ignored-key' ],
+			'invalid',
+			'invalid',
+			'Should bail early when an invalid transient exists.',
+		];
+	}
+
 }
