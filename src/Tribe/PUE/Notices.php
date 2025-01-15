@@ -181,7 +181,6 @@ class Tribe__PUE__Notices {
 		];
 
 		foreach ( $required_keys as $key ) {
-			// Use ternary to simplify the logic
 			$notices[ $key ] = isset( $notices[ $key ] ) ? (array) $notices[ $key ] : [];
 		}
 
