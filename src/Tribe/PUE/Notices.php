@@ -152,7 +152,18 @@ class Tribe__PUE__Notices {
 			}
 		}
 
-		return array_filter( $notices );
+		// Remove empty elements from the notices.
+		$notices = array_filter( $notices );
+
+		if ( ! isset( $notices ['invalid_key'] ) ) {
+			// Ensure the key will exist, some methods will assume the key exists.
+			$notices['invalid_key'] = [];
+		} else {
+			// If the value exists, ensure it's an array.
+			$notices['invalid_key'] = (array) $notices['invalid_key'];
+		}
+
+		return $notices;
 	}
 	/**
 	 * Saves any license key notices already added.
