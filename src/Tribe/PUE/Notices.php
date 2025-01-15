@@ -152,8 +152,41 @@ class Tribe__PUE__Notices {
 			}
 		}
 
-		return array_filter( $notices );
+		// Remove numeric keys to ensure the notices array only contains valid string keys.
+		$notices = array_filter( $notices, fn( $key ) => ! is_numeric( $key ), ARRAY_FILTER_USE_KEY );
+
+		return $this->setup_notice_structure( $notices );
 	}
+
+	/**
+	 * Ensures the required notice keys exist in the notices array and initializes them as arrays.
+	 *
+	 * This method guarantees that the notice structure includes specific predefined keys
+	 * (e.g., `invalid_key`, `upgrade_key`, `expired_key`). If a required key is missing,
+	 * it will be added with an empty array as its value. If a key exists but is not an array,
+	 * it will be converted to an array.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $notices The array of notices to check and modify.
+	 *                       Keys are expected to be predefined constants.
+	 *
+	 * @return array The updated notices array with required keys initialized.
+	 */
+	protected function setup_notice_structure( array $notices ): array {
+		$required_keys = [
+			self::INVALID_KEY,
+			self::UPGRADE_KEY,
+			self::EXPIRED_KEY,
+		];
+
+		foreach ( $required_keys as $key ) {
+			$notices[ $key ] = isset( $notices[ $key ] ) ? (array) $notices[ $key ] : [];
+		}
+
+		return $notices;
+	}
+
 	/**
 	 * Saves any license key notices already added.
 	 *
