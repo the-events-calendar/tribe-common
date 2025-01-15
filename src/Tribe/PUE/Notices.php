@@ -155,7 +155,7 @@ class Tribe__PUE__Notices {
 		// Remove empty elements from the notices.
 		$notices = array_filter( $notices );
 
-		if ( ! isset( $notices ['invalid_key'] ) ) {
+		if ( ! isset( $notices['invalid_key'] ) ) {
 			// Ensure the key will exist, some methods will assume the key exists.
 			$notices['invalid_key'] = [];
 		} else {
