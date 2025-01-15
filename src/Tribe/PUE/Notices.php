@@ -181,13 +181,8 @@ class Tribe__PUE__Notices {
 		];
 
 		foreach ( $required_keys as $key ) {
-			if ( ! isset( $notices[ $key ] ) ) {
-				// Ensure the key will exist, some methods will assume the key exists.
-				$notices[ $key ] = [];
-			} else {
-				// If the value exists, ensure it's an array.
-				$notices[ $key ] = (array) $notices[ $key ];
-			}
+			// Use ternary to simplify the logic
+			$notices[ $key ] = isset( $notices[ $key ] ) ? (array) $notices[ $key ] : [];
 		}
 
 		return $notices;
