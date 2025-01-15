@@ -203,7 +203,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @param string $plugin_file             Fully qualified path to the main plugin file.
 		 */
-		public function __construct( $pue_update_url, $slug = '', $options = [], $plugin_file = '' ) {
+		public function __construct( $pue_update_url, string $slug = '', $options = [], $plugin_file = '' ) {
 			$this->set_slug( $slug );
 			$this->set_plugin_file( $plugin_file );
 			$this->set_options( $options );
@@ -458,6 +458,13 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return string The slug for the plugin.
 		 */
 		public function get_slug(): string {
+			/**
+			 * Filters the slug for the plugin.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $slug The default slug for the plugin.
+			 */
 			return apply_filters( 'pue_get_slug', $this->slug );
 		}
 
@@ -485,6 +492,16 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$pue_update_url = PUE_UPDATE_URL;
 			}
 
+			/**
+			 * Filters the PUE update URL.
+			 *
+			 * This filter allows developers to modify the PUE update URL dynamically based on the slug or other context.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $pue_update_url The default PUE update URL.
+			 * @param string $slug           The slug of the plugin being updated.
+			 */
 			$pue_update_url = apply_filters( 'pue_get_update_url', $pue_update_url, $this->get_slug() );
 
 			$pue_update_url = untrailingslashit( $pue_update_url );
@@ -566,6 +583,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$this->set_plugin_name();
 			}
 
+			/**
+			 * Filters the plugin name.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $plugin_name The current plugin name.
+			 * @param string $slug        The slug of the plugin.
+			 */
 			return apply_filters( 'pue_get_plugin_name', $this->plugin_name, $this->get_slug() );
 		}
 
@@ -636,6 +661,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$this->set_download_query();
 			}
 
+			/**
+			 * Filters the download query arguments.
+			 *
+			 * @since TBD
+			 *
+			 * @param array  $download_query The current download query arguments.
+			 * @param string $slug           The slug of the plugin.
+			 */
 			return apply_filters( 'pue_get_download_query', $this->download_query, $this->get_slug() );
 		}
 
@@ -683,6 +716,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$this->set_validate_query();
 			}
 
+			/**
+			 * Filters the validate query arguments.
+			 *
+			 * @since TBD
+			 *
+			 * @param array  $validate_query The current validate query arguments.
+			 * @param string $slug           The slug of the plugin.
+			 */
 			return apply_filters( 'pue_get_validate_query', $this->validate_query, $this->get_slug() );
 		}
 
@@ -1574,6 +1615,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @uses wp_remote_get()
 		 */
 		public function request_info( $query_args = [] ) {
+			/**
+			 * Filters the query arguments used to request plugin info from the API endpoint.
+			 *
+			 * @since TBD
+			 *
+			 * @param array  $query_args The current query arguments for the request.
+			 * @param string $slug       The slug of the plugin.
+			 */
 			$query_args = apply_filters( 'tribe_puc_request_info_query_args-' . $this->get_slug(), $query_args );
 
 			// Cache the API call so it only needs to be made once per plugin per page load.
@@ -1602,6 +1651,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'Accept' => 'application/json',
 				],
 			];
+
+			/**
+			 * Filters the options used in the wp_remote_get() call to request plugin info.
+			 *
+			 * @since TBD
+			 *
+			 * @param array  $options The options for the wp_remote_get() call.
+			 * @param string $slug    The slug of the plugin.
+			 */
 			$options = apply_filters( 'tribe_puc_request_info_options-' . $this->get_slug(), $options );
 
 			$url = sprintf( '%s/api/plugins/v2/license/validate', $this->get_pue_update_url() );
@@ -1623,6 +1681,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$plugin_info = Tribe__PUE__Plugin_Info::from_json( $result['body'] );
 			}
 
+			/**
+			 * Filters the plugin info retrieved from the API request.
+			 *
+			 * @since TBD
+			 *
+			 * @param Tribe__PUE__Plugin_Info|string|null $plugin_info The plugin info object or null if unavailable.
+			 * @param array                                $result      The result of the wp_remote_get() call.
+			 */
 			$plugin_info = apply_filters( 'tribe_puc_request_info_result-' . $this->get_slug(), $plugin_info, $result );
 
 			$plugin_info_cache[ $key ] = $plugin_info;
