@@ -223,7 +223,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @param string $slug The unique slug for the plugin being initialized.
 		 */
-		public function init( $slug ) {
+		public function init( string $slug ) {
 			if ( isset( self::$instances[ $slug ] ) ) {
 				return;
 			}
