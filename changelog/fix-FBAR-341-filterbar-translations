@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Fix how translations are loaded for Filter Bar. [FBAR-341]
