@@ -573,7 +573,7 @@ class Tribe__Main {
 		}
 
 		$locale = get_locale();
-		$plugin_rel_path = WP_LANG_DIR . '/plugins/';
+		$plugin_rel_path = $dir;
 
 		/**
 		 * Allows users to filter the file location for a given text domain..
