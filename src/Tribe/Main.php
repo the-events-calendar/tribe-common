@@ -567,7 +567,7 @@ class Tribe__Main {
 	 * @return bool  If it was able to load the text domain.
 	 */
 	public function load_text_domain( $domain, $dir = false ) {
-		// Added safety just in case this runs twice...
+		// Added safety just in case this runs twice.
 		if ( is_textdomain_loaded( $domain ) && ! $GLOBALS['l10n'][ $domain ] instanceof NOOP_Translations ) {
 			return true;
 		}
@@ -576,23 +576,23 @@ class Tribe__Main {
 		$plugin_rel_path = $dir;
 
 		/**
-		 * Allows users to filter the file location for a given text domain..
-		 * Be careful when using this filter, it will apply across the whole plugin suite.
+		 * Allows users to filter the file location for a given text domain.
+		 * Be careful when using this filter, it will apply across the whole plugin suite when not checking $domain.
 		 *
 		 * @param string      $plugin_rel_path The relative path for the language files.
-		 * @param string      $domain Which plugin domain we are trying to load.
-		 * @param string      $locale Which Language we will load.
-		 * @param string|bool $dir    If there was a custom directory passed on the method call.
+		 * @param string      $domain          The plugin domain we are trying to load.
+		 * @param string      $locale          The language we will load.
+		 * @param string|bool $dir             If there was a custom directory passed on the method call.
 		 */
 		$plugin_rel_path = apply_filters( 'tribe_load_text_domain', $plugin_rel_path, $domain, $locale, $dir );
 
-		// Try to load translations from the plugin folder
+		// Try to load translations from the plugin's language folder or a custom folder.
 		$loaded = load_plugin_textdomain( $domain, false, $plugin_rel_path );
 
-		// If translation files are not found in wp-content/languages/plugins, then load from the plugin's language folder.
 		$filename = $domain . '-' . $locale . '.mo';
 		$file     = $plugin_rel_path . $filename;
 
+		// If translation files are not found in the custom folder, then load from the plugin's language folder.
 		if (
 			! file_exists( $file )
 			&& $dir !== false
