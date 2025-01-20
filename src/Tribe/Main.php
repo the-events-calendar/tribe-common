@@ -586,14 +586,18 @@ class Tribe__Main {
 		 */
 		$plugin_rel_path = apply_filters( 'tribe_load_text_domain', $plugin_rel_path, $domain, $locale, $dir );
 
-		// Try to load translations from wp-content/languages/plugins
+		// Try to load translations from the plugin folder
 		$loaded = load_plugin_textdomain( $domain, false, $plugin_rel_path );
 
 		// If translation files are not found in wp-content/languages/plugins, then load from the plugin's language folder.
 		$filename = $domain . '-' . $locale . '.mo';
 		$file     = $plugin_rel_path . $filename;
 
-		if ( ! file_exists( $file ) && $dir !== false ) {
+		if (
+			! file_exists( $file )
+			&& $dir !== false
+			&& $plugin_rel_path !== $dir
+		) {
 			return load_plugin_textdomain( $domain, false, $dir );
 		}
 
