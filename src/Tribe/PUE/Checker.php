@@ -232,7 +232,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * This method ensures that the `tec_pue_checker_init` action is fired only once per unique slug.
 		 *
-		 * @since TBD
+		 * @since 6.4.2
 		 *
 		 * @param string $slug The unique slug for the plugin being initialized.
 		 */
@@ -244,7 +244,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			/**
 			 * Fires when initializing the PUE checker.
 			 *
-			 * @since TBD
+			 * @since 6.4.2
 			 *
 			 * @param Tribe__PUE__Checker $checker An instance of the PUE Checker being initialized.
 			 */
@@ -256,7 +256,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @since 4.14.9
 		 * @since 6.4.1 Added uplink resource check.
-		 * @since TBD Added check for valid plugin.
+		 * @since 6.4.2 Added check for valid plugin.
 		 */
 		public function is_key_valid() {
 			$uplink_resource = $this->get_uplink_resource( $this->get_slug() );
@@ -283,7 +283,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Helper function to check the transient structure and if any plugin is valid.
 		 *
-		 * @since TBD
+		 * @since 6.4.2
 		 *
 		 * @param array|null $transient_value The current transient value.
 		 *
@@ -300,7 +300,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Updates the license status in the global transient.
 		 *
-		 * @since TBD
+		 * @since 6.4.2
 		 *
 		 * @param string $plugin_slug The slug of the plugin being updated.
 		 * @param bool   $status      The license status.
@@ -323,7 +323,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Will revalidate the licenses if none are found to be valid.
 		 *
 		 * @since 6.3.2
-		 * @since TBD Refactored logic to account for the transient structure.
+		 * @since 6.4.2 Refactored logic to account for the transient structure.
 		 *
 		 * @return bool
 		 */
@@ -414,7 +414,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Sets the key status based on the key validation check results.
 		 *
 		 * @since 4.14.9
-		 * @since TBD Clear `self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY` when a key is checked.
+		 * @since 6.4.2 Clear `self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY` when a key is checked.
 		 *
 		 * @param int $valid 0 for invalid, 1 or 2 for valid.
 		 */
@@ -2177,7 +2177,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * This method registers a callback for the 'stellarwp/uplink/{slug}/connected' action.
 		 * When the action is triggered, it updates the license validity transient for the plugin.
 		 *
-		 * @since TBD
+		 * @since 6.4.2
 		 *
 		 * @return void
 		 */

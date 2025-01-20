@@ -57,7 +57,7 @@ if ( ! class_exists( 'Tribe__PUE__Utility' ) ) {
 		/**
 		 * A list of fields that will be copied from the Plugin Info object to this.
 		 *
-		 * @since TBD
+		 * @since 6.4.2
 		 *
 		 * @var string[]
 		 */
@@ -101,7 +101,7 @@ if ( ! class_exists( 'Tribe__PUE__Utility' ) ) {
 		 * Create a new instance of Tribe__PUE__Utility based on an instance of Tribe__PUE__Plugin_Info.
 		 * Basically, this just copies a subset of fields from one object to another.
 		 *
-		 * @since TBD Refactored to extract the copy fields to a static property.
+		 * @since 6.4.2 Refactored to extract the copy fields to a static property.
 		 *
 		 * @param Tribe__PUE__Plugin_Info $info
 		 *

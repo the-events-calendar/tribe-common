@@ -118,7 +118,7 @@ class Tribe__PUE__Notices {
 	 * Retrieves saved notices from the database, validates and sanitizes them,
 	 * and sets them as the current request's notices.
 	 *
-	 * @since TBD Switched from `array_merge_recursive` to `wp_parse_args` to fix data duplication issues. Added additional sanitation and memory safeguards to handle large data sets effectively.
+	 * @since 6.4.2 Switched from `array_merge_recursive` to `wp_parse_args` to fix data duplication issues. Added additional sanitation and memory safeguards to handle large data sets effectively.
 	 *
 	 * @return void
 	 */
@@ -134,7 +134,7 @@ class Tribe__PUE__Notices {
 	 *
 	 * @param array $notices The array of notices to sanitize.
 	 *
-	 * @since TBD
+	 * @since 6.4.2
 	 *
 	 * @return array Sanitized notices.
 	 */
@@ -166,7 +166,7 @@ class Tribe__PUE__Notices {
 	 * it will be added with an empty array as its value. If a key exists but is not an array,
 	 * it will be converted to an array.
 	 *
-	 * @since TBD
+	 * @since 6.4.2
 	 *
 	 * @param array $notices The array of notices to check and modify.
 	 *                       Keys are expected to be predefined constants.
@@ -190,7 +190,7 @@ class Tribe__PUE__Notices {
 	/**
 	 * Saves any license key notices already added.
 	 *
-	 * @since TBD Sanitize notices prior to storing them.
+	 * @since 6.4.2 Sanitize notices prior to storing them.
 	 */
 	public function save_notices() {
 		$this->notices = $this->sanitize_notices( (array) $this->notices );

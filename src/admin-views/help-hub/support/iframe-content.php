@@ -25,7 +25,7 @@ $opted_in = tribe_is_truthy( $help_hub->get_license_and_opt_in_status()['is_opte
 	 * This action allows developers to hook into the iframe's header and add additional styles, scripts,
 	 * or metadata specific to the Help Hub iframe content.
 	 *
-	 * @since TBD
+	 * @since 6.4.2
 	 */
 	do_action( 'tec_help_hub_iframe_header' );
 	wp_print_styles();
