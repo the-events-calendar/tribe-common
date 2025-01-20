@@ -555,7 +555,7 @@ class Tribe__Main {
 
 	/**
 	 * A helper method to load text domain.
-	 * First, it tries to load language files from wp-content/languages. If it fails it will try to load from $dir.
+	 * First, it tries to load language files from a custom folder when set. If it fails it falls back to load from $dir.
 	 *
 	 * @since  4.0.1 Introduced.
 	 * @since  4.2   Included $domain and $dir params.
