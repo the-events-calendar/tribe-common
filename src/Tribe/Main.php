@@ -559,7 +559,7 @@ class Tribe__Main {
 	 *
 	 * @since  4.0.1 Introduced.
 	 * @since  4.2   Included $domain and $dir params.
-	 * @since  TBD   Handle if translation files don't exist in the WP languages folder correctly.
+	 * @since  TBD   Fix text domain loading logic after changes in WordPress 6.7.
 	 *
 	 * @param string       $domain The text domain that will be loaded.
 	 * @param string|false $dir    What directory should be used to try to load if the default doesn't work.
