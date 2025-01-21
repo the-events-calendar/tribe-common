@@ -9,6 +9,26 @@ use Tribe__PUE__Notices;
 
 class Notices_Test extends WPTestCase {
 
+	public function setup_notice_structure( $notices ) {
+		$required_keys = [
+			Tribe__PUE__Notices::INVALID_KEY,
+			Tribe__PUE__Notices::UPGRADE_KEY,
+			Tribe__PUE__Notices::EXPIRED_KEY,
+		];
+
+		foreach ( $required_keys as $key ) {
+			if ( ! isset( $notices[ $key ] ) ) {
+				// Ensure the key will exist, some methods will assume the key exists.
+				$notices[ $key ] = [];
+			} else {
+				// If the value exists, ensure it's an array.
+				$notices[ $key ] = (array) $notices[ $key ];
+			}
+		}
+
+		return $notices;
+	}
+
 	/**
 	 * Data provider for test_notice_with_all_statuses.
 	 *
@@ -26,7 +46,7 @@ class Notices_Test extends WPTestCase {
 			yield "Multiple plugins, single status ($status)" => [
 				function () use ( $status ) {
 					$pue_notices      = new Tribe__PUE__Notices();
-					$expected_options = [ $status => [] ];
+					$expected_options = $this->setup_notice_structure( [] );
 
 					foreach ( range( 1, 5 ) as $index ) {
 						$plugin_name = "{$status}-plugin-{$index}";
@@ -47,7 +67,7 @@ class Notices_Test extends WPTestCase {
 		// Multiple plugins with multiple statuses
 		yield 'Multiple plugins, multiple statuses' => [
 			function () use ( $statuses ) {
-				$expected_options = [];
+				$expected_options = $this->setup_notice_structure( [] );
 				$plugin_names     = [];
 
 				$pue_notices = new Tribe__PUE__Notices();
@@ -274,8 +294,10 @@ class Notices_Test extends WPTestCase {
 		// Retrieve notices after `populate()` runs
 		$options = get_option( Tribe__PUE__Notices::STORE_KEY );
 
-		// Assert the option was reset to an empty array
-		$this->assertEmpty( $options, 'Invalid data should be cleared from the option.' );
+		// Assert that the options match the expected prepopulated structure
+		$expected = $this->setup_notice_structure( [] );
+
+		$this->assertEquals( $expected, $options, 'The options should be reset to the prepopulated notice structure.' );
 	}
 
 	/**
@@ -324,11 +346,11 @@ class Notices_Test extends WPTestCase {
 			'The "Promoter" key should have a value of true.'
 		);
 
-		// Ensure no unexpected keys exist in the root array.
+		// Ensure no unexpected keys exist in the root array besides the expected.
 		$this->assertCount(
-			1,
+			3,
 			$options,
-			'The root notices array should only contain "invalid_key".'
+			'The root notices array should include the default keys.'
 		);
 
 		// Ensure no unexpected keys exist under `invalid_key`.
@@ -397,7 +419,7 @@ class Notices_Test extends WPTestCase {
 			'CorruptedPlugin should not be an array under INVALID_KEY.'
 		);
 
-		$this->assertArrayNotHasKey(
+		$this->assertArrayHasKey(
 			'CustomKey',
 			$options,
 			'CustomKey should not be removed from the root array.'
@@ -415,9 +437,9 @@ class Notices_Test extends WPTestCase {
 		);
 
 		$this->assertCount(
-			2,
+			5,
 			$options,
-			'The root array should only contain INVALID_KEY and CustomKeyButArray.'
+			'The root array should only contain the default keys and CustomKeyButArray.'
 		);
 
 		$this->assertEquals(
