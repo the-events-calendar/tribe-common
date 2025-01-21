@@ -1,5 +1,14 @@
 == Changelog ==
 
+= [6.4.2] 2025-01-22 =
+
+* Tweak - Move Action Scheduler into Common instead of TEC. [TEC-5345]
+* Tweak - When installing new plugins `TEC_IS_ANY_LICENSE_VALID_TRANSIENT` will update correctly. [TEC-5332]
+* Fix - Fix fatals due to undefined properties [TCMN-179]
+* Fix - Improved data sanitization for tribe_pue_key_notices to prevent memory exhaustion errors caused by corrupted data. [ET-2277]
+* Fix - Resolve warning about deprecation of passing null to version_compare function.
+* Language - 0 new strings added, 57 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.4.1] 2024-12-17 =
 
 * Feature - Add an abstract admin page to start consolidating how we do admin pages. See the "First Time Setup" page (onboarding wizard) for an example. [TEC-5294]
