@@ -1,0 +1,9 @@
+parameters:
+  bootstrapFiles:
+    - %currentWorkingDirectory%/tests/_bootstrap.php
+  level: 0
+  paths:
+    - src
+    - tribe-common.php
+    - tests
+

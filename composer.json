@@ -54,7 +54,9 @@
     "wp-cli/checksum-command": "2.0.0",
     "wp-coding-standards/wpcs": "^3.0.0",
     "automattic/jetpack-changelogger": "^4.2",
-    "codeception/module-rest": "^2.0"
+    "codeception/module-rest": "^2.0",
+    "phpstan/phpstan": "^2.1",
+    "php-stubs/wordpress-stubs": "^6.7"
   },
   "autoload": {
     "psr-4": {
