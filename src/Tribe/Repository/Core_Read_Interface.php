@@ -113,7 +113,7 @@ interface Core_Read_Interface {
 	 *
 	 * @since 4.1.3
 	 * @since 5.2.0 Added the `$return_generator` and `$batch_size` parameters.
-	 * @since TBD Updated `return` to more accurately reflect what can be returned.
+	 * @since TBD   Updated `return` to more accurately reflect what can be returned.
 	 *
 	 * @param bool $return_generator Whether to return a generator of post IDs instead of an array of post IDs.
 	 * @param int  $batch_size       The number of post IDs to fetch at a time when using a generator; ignored
