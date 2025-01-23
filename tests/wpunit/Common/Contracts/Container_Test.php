@@ -35,57 +35,96 @@ class Container_Test extends WPTestCase {
 	 * @test
 	 */
 	public function it_should_fire_registration_actions_only_once() {
-		$provider_class_name = Fake_Test_Controller::class;
+		$provider = new class( $this->cloned_container ) extends Controller_Contract {
+			public static string $registration_action = 'foo_test_action';
+
+			protected function do_register(): void {}
+
+			public function unregister(): void {}
+
+			public function is_active(): bool {
+				return true;
+			}
+		};
+
+		$provider_class_name = $provider::class;
 
 		$this->assertEquals( 0, did_action( 'tec_container_registered_provider_' . $provider_class_name ) );
-		$this->assertEquals( 0, did_action( Fake_Test_Controller::$registration_action ) );
+		$this->assertEquals( 0, did_action( $provider::$registration_action ) );
 
 		$this->cloned_container->register( $provider_class_name );
 
 		$this->assertEquals( 1, did_action( 'tec_container_registered_provider_' . $provider_class_name ) );
-		$this->assertEquals( 1, did_action( Fake_Test_Controller::$registration_action ) );
+		$this->assertEquals( 1, did_action( $provider::$registration_action ) );
 
 		$this->cloned_container->register( $provider_class_name );
 
 		$this->assertEquals( 1, did_action( 'tec_container_registered_provider_' . $provider_class_name ) );
-		$this->assertEquals( 1, did_action( Fake_Test_Controller::$registration_action ) );
+		$this->assertEquals( 1, did_action( $provider::$registration_action ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_fire_registration_actions_only_once_even_after_unregistration() {
+		$provider = new class( $this->cloned_container ) extends Controller_Contract {
+			public static string $registration_action = 'foo_test_action';
+
+			protected function do_register(): void {}
+
+			public function unregister(): void {}
+
+			public function is_active(): bool {
+				return true;
+			}
+		};
+
+		$provider_class_name = $provider::class;
+
+		$this->assertEquals( 0, did_action( 'tec_container_registered_provider_' . $provider_class_name ) );
+		$this->assertEquals( 0, did_action( $provider::$registration_action ) );
+
+		$this->cloned_container->register( $provider_class_name );
+
+		$this->assertEquals( 1, did_action( 'tec_container_registered_provider_' . $provider_class_name ) );
+		$this->assertEquals( 1, did_action( $provider::$registration_action ) );
+
+		$provider->unregister();
+		$this->cloned_container->register( $provider_class_name );
+
+		$this->assertEquals( 1, did_action( 'tec_container_registered_provider_' . $provider_class_name ) );
+		$this->assertEquals( 1, did_action( $provider::$registration_action ) );
 	}
 
 	/**
 	 * @test
 	 */
 	public function it_should_not_fire_registration_actions_for_inactive() {
-		$provider_class_name = Fake_Test_Inactive_Controller::class;
+		$provider = new class( $this->cloned_container ) extends Controller_Contract {
+			public static string $registration_action = 'foo_test_action';
+
+			protected function do_register(): void {}
+
+			public function unregister(): void {}
+
+			public function is_active(): bool {
+				return false;
+			}
+		};
+
+		$provider_class_name = $provider::class;
 
 		$this->assertEquals( 0, did_action( 'tec_container_registered_provider_' . $provider_class_name ) );
-		$this->assertEquals( 0, did_action( Fake_Test_Inactive_Controller::$registration_action ) );
+		$this->assertEquals( 0, did_action( $provider::$registration_action ) );
 
 		$this->cloned_container->register( $provider_class_name );
 
 		$this->assertEquals( 0, did_action( 'tec_container_registered_provider_' . $provider_class_name ) );
-		$this->assertEquals( 0, did_action( Fake_Test_Inactive_Controller::$registration_action ) );
+		$this->assertEquals( 0, did_action( $provider::$registration_action ) );
 
 		$this->cloned_container->register( $provider_class_name );
 
 		$this->assertEquals( 0, did_action( 'tec_container_registered_provider_' . $provider_class_name ) );
-		$this->assertEquals( 0, did_action( Fake_Test_Inactive_Controller::$registration_action ) );
-	}
-}
-
-class Fake_Test_Controller extends Controller_Contract {
-	public static string $registration_action = 'foo_test_action';
-
-	protected function do_register(): void {}
-
-	public function unregister(): void {}
-
-	public function is_active(): bool {
-		return true;
-	}
-}
-
-class Fake_Test_Inactive_Controller extends Fake_Test_Controller {
-	public function is_active(): bool {
-		return false;
+		$this->assertEquals( 0, did_action( $provider::$registration_action ) );
 	}
 }
