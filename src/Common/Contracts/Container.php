@@ -44,7 +44,8 @@ class Container extends DI52_Container implements ContainerInterface {
 	 *                                                      does not provide a set of deferred registrations.
 	 */
 	public function register( $service_provider_class, ...$alias ) {
-		$is_controller = is_a( $service_provider_class, Controller::class, true );
+		// Function is_a can be used with strings but instanceof only with objects!
+		$is_controller = is_a( $service_provider_class, Controller::class, true ); // phpcs:ignore StellarWP.PHP.IsAFunction.Found
 
 		if ( $is_controller && $this->getVar( $service_provider_class . '_registered', false ) ) {
 			// If the controller is already registered, bail.
