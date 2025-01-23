@@ -4,6 +4,7 @@ namespace TEC\Common\Contracts;
 
 use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
 use TEC\Common\Exceptions\Not_Bound_Exception;
+use TEC\Common\Contracts\Provider\Controller;
 
 use TEC\Common\lucatume\DI52\Container as DI52_Container;
 
@@ -43,11 +44,18 @@ class Container extends DI52_Container implements ContainerInterface {
 	 *                                                      does not provide a set of deferred registrations.
 	 */
 	public function register( $service_provider_class, ...$alias ) {
+		$is_controller = is_a( $service_provider_class, Controller::class, true );
+
+		if ( $is_controller && $this->getVar( $service_provider_class . '_registered', false ) ) {
+			// If the controller is already registered, bail.
+			return;
+		}
+
 		// Register the provider with the parent container.
 		parent::register( $service_provider_class, ...$alias );
 
-		if ( ! $this->getVar( $service_provider_class . '_registered' ) ) {
-			// If the controller is not registered, DO NOT fire registration actions AT ALL. Instead silently return.
+		if ( $is_controller && ! $this->getVar( $service_provider_class . '_registered', false ) ) {
+			// If the controller did not register, DO NOT fire registration actions AT ALL. Instead silently return.
 			return;
 		}
 
