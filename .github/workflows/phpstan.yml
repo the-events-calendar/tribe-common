@@ -44,4 +44,4 @@ jobs:
       # Run phpstan
       # ------------------------------------------------------------------------------
       - name: Run phpstan
-        run: ./vendor/bin/phpstan analyse -c phpstan.neon.dist --memory-limit=1024M --error-format=table
+        run: ./vendor/bin/phpstan analyse -c phpstan.neon.dist --memory-limit=512M --error-format=table

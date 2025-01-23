@@ -95,7 +95,7 @@
       "@php bin/pup.phar"
     ],
     "analyze": [
-      "phpstan analyse -c phpstan.neon.dist --memory-limit=1024M"
+      "phpstan analyse -c phpstan.neon.dist --memory-limit=512M"
     ]
   },
   "extra": {
