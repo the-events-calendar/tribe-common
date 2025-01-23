@@ -6,8 +6,6 @@ use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
 use TEC\Common\Exceptions\Not_Bound_Exception;
 
 use TEC\Common\lucatume\DI52\Container as DI52_Container;
-use TEC\Common\Contracts\Provider\AlreadyRegisteredException;
-use TEC\Common\Contracts\Provider\ControllerInactiveException;
 
 class Container extends DI52_Container implements ContainerInterface {
 	/**
@@ -45,14 +43,11 @@ class Container extends DI52_Container implements ContainerInterface {
 	 *                                                      does not provide a set of deferred registrations.
 	 */
 	public function register( $service_provider_class, ...$alias ) {
-		try {
-			// Register the provider with the parent container.
-			parent::register( $service_provider_class, ...$alias );
-		} catch ( AlreadyRegisteredException $registered_exception ) {
-			// If the container is registered already, DO NOT fire registration actions again. Instead silently return.
-			return;
-		} catch ( ControllerInactiveException $inactive_exception ) {
-			// If the controller is inactive, DO NOT fire registration actions AT ALL. Instead silently return.
+		// Register the provider with the parent container.
+		parent::register( $service_provider_class, ...$alias );
+
+		if ( ! $this->getVar( $service_provider_class . '_registered' ) ) {
+			// If the controller is not registered, DO NOT fire registration actions AT ALL. Instead silently return.
 			return;
 		}
 
