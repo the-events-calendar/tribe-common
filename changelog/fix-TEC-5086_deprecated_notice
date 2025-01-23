@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Resolve warning about deprecation of passing null to version_compare function.
