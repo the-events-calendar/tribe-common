@@ -31,7 +31,7 @@ abstract class Controller extends Service_Provider {
 	 *
 	 * @return void
 	 */
-	final public function register() {
+	public function register() {
 		/*
 		 * Look up and set the value in the container request cache to allow building the same Controller
 		 * with a **different** container. (e.g. in tests).
