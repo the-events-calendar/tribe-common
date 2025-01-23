@@ -47,7 +47,7 @@ class Container_Test extends WPTestCase {
 			}
 		};
 
-		$provider_class_name = $provider::class;
+		$provider_class_name = get_class( $provider );
 
 		$this->assertEquals( 0, did_action( 'tec_container_registered_provider_' . $provider_class_name ) );
 		$this->assertEquals( 0, did_action( $provider::$registration_action ) );
@@ -79,7 +79,7 @@ class Container_Test extends WPTestCase {
 			}
 		};
 
-		$provider_class_name = $provider::class;
+		$provider_class_name = get_class( $provider );
 
 		$this->assertEquals( 0, did_action( 'tec_container_registered_provider_' . $provider_class_name ) );
 		$this->assertEquals( 0, did_action( $provider::$registration_action ) );
@@ -112,7 +112,7 @@ class Container_Test extends WPTestCase {
 			}
 		};
 
-		$provider_class_name = $provider::class;
+		$provider_class_name = get_class( $provider );
 
 		$this->assertEquals( 0, did_action( 'tec_container_registered_provider_' . $provider_class_name ) );
 		$this->assertEquals( 0, did_action( $provider::$registration_action ) );
