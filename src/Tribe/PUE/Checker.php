@@ -220,7 +220,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * This method ensures that the `tec_pue_checker_init` action is fired only once per unique slug.
 		 *
-		 * @since TBD
+		 * @since 6.4.2
 		 *
 		 * @param string $slug The unique slug for the plugin being initialized.
 		 */
@@ -465,7 +465,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			 *
 			 * @param string $slug The default slug for the plugin.
 			 */
-			return apply_filters( 'pue_get_slug', $this->slug );
+			return (string) apply_filters( 'pue_get_slug', $this->slug );
 		}
 
 		/**
@@ -497,12 +497,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			 *
 			 * This filter allows developers to modify the PUE update URL dynamically based on the slug or other context.
 			 *
-			 * @since TBD
+			 * @since 5.2.0
 			 *
 			 * @param string $pue_update_url The default PUE update URL.
 			 * @param string $slug           The slug of the plugin being updated.
 			 */
-			$pue_update_url = apply_filters( 'pue_get_update_url', $pue_update_url, $this->get_slug() );
+			$pue_update_url = (string) apply_filters( 'pue_get_update_url', $pue_update_url, $this->get_slug() );
 
 			$pue_update_url = untrailingslashit( $pue_update_url );
 
@@ -518,12 +518,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			/**
 			 * Filters the plugin file path for the current plugin.
 			 *
-			 * @since TBD
+			 * @since 5.2.0
 			 *
 			 * @param string $plugin_file The default plugin file path.
 			 * @param string $slug        The slug of the current plugin.
 			 */
-			return apply_filters( 'pue_get_plugin_file', $this->plugin_file, $this->get_slug() );
+			return (string) apply_filters( 'pue_get_plugin_file', $this->plugin_file, $this->get_slug() );
 		}
 
 		/**
@@ -591,7 +591,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			 * @param string $plugin_name The current plugin name.
 			 * @param string $slug        The slug of the plugin.
 			 */
-			return apply_filters( 'pue_get_plugin_name', $this->plugin_name, $this->get_slug() );
+			return (string) apply_filters( 'pue_get_plugin_name', $this->plugin_name, $this->get_slug() );
 		}
 
 		/**
@@ -664,12 +664,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			/**
 			 * Filters the download query arguments.
 			 *
-			 * @since TBD
+			 * @since 5.2.0
 			 *
 			 * @param array  $download_query The current download query arguments.
 			 * @param string $slug           The slug of the plugin.
 			 */
-			return apply_filters( 'pue_get_download_query', $this->download_query, $this->get_slug() );
+			return (array) apply_filters( 'pue_get_download_query', $this->download_query, $this->get_slug() );
 		}
 
 		/**
@@ -724,7 +724,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			 * @param array  $validate_query The current validate query arguments.
 			 * @param string $slug           The slug of the plugin.
 			 */
-			return apply_filters( 'pue_get_validate_query', $this->validate_query, $this->get_slug() );
+			return (array) apply_filters( 'pue_get_validate_query', $this->validate_query, $this->get_slug() );
 		}
 
 		/**
@@ -762,7 +762,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @param array $addons List of addons.
 		 *
-		 * @return array List of compiled addons.
+		 * @return array List of addons.
 		 */
 		public function build_addon_list( array $addons = [] ): array {
 			$addons[] = $this->get_plugin_name();
@@ -1085,9 +1085,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			 *
 			 * @since 4.5.1
 			 *
-			 * @param boolean $use_full_stats Whether to send full stats
+			 * @param boolean $use_full_stats Whether to send full stats.
 			 */
-			$use_full_stats = apply_filters( 'pue_use_full_stats', false );
+			$use_full_stats = (bool) apply_filters( 'pue_use_full_stats', false );
 
 			if ( $use_full_stats ) {
 				$stats_full = self::$stats_full;
@@ -1103,12 +1103,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			 *
 			 * @since 4.5.1
 			 *
-			 * @param boolean              $use_full_stats Whether to send full stats.
-			 * @param \Tribe__PUE__Checker $checker        PUE Checker class object.
-			 *
 			 * @param array                $stats          Stats gathered by PUE Checker class.
+			 * @param boolean              $use_full_stats Whether to send full stats.
+			 * @param Tribe__PUE__Checker $checker        PUE Checker class object.
 			 */
-			$stats = apply_filters( 'pue_stats', $stats, $use_full_stats, $this );
+			$stats = (array) apply_filters( 'pue_stats', $stats, $use_full_stats, $this );
 
 			return $stats;
 		}
@@ -1618,12 +1617,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			/**
 			 * Filters the query arguments used to request plugin info from the API endpoint.
 			 *
-			 * @since TBD
+			 * @since 5.2.0
 			 *
 			 * @param array  $query_args The current query arguments for the request.
-			 * @param string $slug       The slug of the plugin.
 			 */
-			$query_args = apply_filters( 'tribe_puc_request_info_query_args-' . $this->get_slug(), $query_args );
+			$query_args = (array) apply_filters( 'tribe_puc_request_info_query_args-' . $this->get_slug(), $query_args );
 
 			// Cache the API call so it only needs to be made once per plugin per page load.
 			static $plugin_info_cache;
@@ -1655,12 +1653,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			/**
 			 * Filters the options used in the wp_remote_get() call to request plugin info.
 			 *
-			 * @since TBD
+			 * @since 5.2.0
 			 *
 			 * @param array  $options The options for the wp_remote_get() call.
-			 * @param string $slug    The slug of the plugin.
 			 */
-			$options = apply_filters( 'tribe_puc_request_info_options-' . $this->get_slug(), $options );
+			$options = (array) apply_filters( 'tribe_puc_request_info_options-' . $this->get_slug(), $options );
 
 			$url = sprintf( '%s/api/plugins/v2/license/validate', $this->get_pue_update_url() );
 
@@ -1714,11 +1711,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Retrieve the latest update (if any) from the configured API endpoint.
 		 *
 		 * @return ?Tribe__PUE__Utility An instance of Tribe__PUE__Utility, or NULL when no updates are available.
-		 * @uses Tribe__PUE__Checker::request_info()
+		 * @uses Tribe__PUE__Checker::get_validate_query()
 		 *
 		 */
 		public function request_update(): ?Tribe__PUE__Utility {
-			// For the sake of simplicity, this function just calls request_info()
+			// For the sake of simplicity, this function just calls get_validate_query()
 			// and transforms the result accordingly.
 			$query_args = $this->get_validate_query();
 
@@ -1984,9 +1981,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			 *
 			 * Plugins can hook into this filter to modify the query parameters sent to the API.
 			 *
-			 * @since TBD
+			 * @since 5.2.0
 			 *
-			 * @param array $query_args The query arguments to be sent to the API.
+			 * @param array $callback The query arguments to be sent to the API.
 			 */
 			add_filter( 'tribe_puc_request_info_query_args-' . $this->get_slug(), $callback );
 		}
