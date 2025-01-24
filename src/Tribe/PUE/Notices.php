@@ -118,7 +118,7 @@ class Tribe__PUE__Notices {
 	 * Retrieves saved notices from the database, validates and sanitizes them,
 	 * and sets them as the current request's notices.
 	 *
-	 * @since TBD Switched from `array_merge_recursive` to `wp_parse_args` to fix data duplication issues. Added additional sanitation and memory safeguards to handle large data sets effectively.
+	 * @since 6.4.2 Switched from `array_merge_recursive` to `wp_parse_args` to fix data duplication issues. Added additional sanitation and memory safeguards to handle large data sets effectively.
 	 *
 	 * @return void
 	 */
@@ -134,7 +134,7 @@ class Tribe__PUE__Notices {
 	 *
 	 * @param array $notices The array of notices to sanitize.
 	 *
-	 * @since TBD
+	 * @since 6.4.2
 	 *
 	 * @return array Sanitized notices.
 	 */
@@ -152,12 +152,45 @@ class Tribe__PUE__Notices {
 			}
 		}
 
-		return array_filter( $notices );
+		// Remove numeric keys to ensure the notices array only contains valid string keys.
+		$notices = array_filter( $notices, fn( $key ) => ! is_numeric( $key ), ARRAY_FILTER_USE_KEY );
+
+		return $this->setup_notice_structure( $notices );
 	}
+
+	/**
+	 * Ensures the required notice keys exist in the notices array and initializes them as arrays.
+	 *
+	 * This method guarantees that the notice structure includes specific predefined keys
+	 * (e.g., `invalid_key`, `upgrade_key`, `expired_key`). If a required key is missing,
+	 * it will be added with an empty array as its value. If a key exists but is not an array,
+	 * it will be converted to an array.
+	 *
+	 * @since 6.4.2
+	 *
+	 * @param array $notices The array of notices to check and modify.
+	 *                       Keys are expected to be predefined constants.
+	 *
+	 * @return array The updated notices array with required keys initialized.
+	 */
+	protected function setup_notice_structure( array $notices ): array {
+		$required_keys = [
+			self::INVALID_KEY,
+			self::UPGRADE_KEY,
+			self::EXPIRED_KEY,
+		];
+
+		foreach ( $required_keys as $key ) {
+			$notices[ $key ] = isset( $notices[ $key ] ) ? (array) $notices[ $key ] : [];
+		}
+
+		return $notices;
+	}
+
 	/**
 	 * Saves any license key notices already added.
 	 *
-	 * @since TBD Sanitize notices prior to storing them.
+	 * @since 6.4.2 Sanitize notices prior to storing them.
 	 */
 	public function save_notices() {
 		$this->notices = $this->sanitize_notices( (array) $this->notices );

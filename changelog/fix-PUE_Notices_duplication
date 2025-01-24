@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Improved data sanitization for tribe_pue_key_notices to prevent memory exhaustion errors caused by corrupted data. [ET-2277]

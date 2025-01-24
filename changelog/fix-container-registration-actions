@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Providers will fire their registration action only once and only if they are active. [TCMN-178]

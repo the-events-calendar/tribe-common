@@ -41,6 +41,42 @@ if ( ! class_exists( 'Tribe__PUE__Utility' ) ) {
 		 * @var bool
 		 */
 		public $api_upgrade;
+		/**
+		 * @var bool
+		 */
+		public $api_invalid;
+		/**
+		 * @var string
+		 */
+		public $api_invalid_message;
+		/**
+		 * @var string
+		 */
+		public $api_inline_invalid_message;
+
+		/**
+		 * A list of fields that will be copied from the Plugin Info object to this.
+		 *
+		 * @since 6.4.2
+		 *
+		 * @var string[]
+		 */
+		private static array $copy_fields = [
+			'id',
+			'slug',
+			'version',
+			'homepage',
+			'download_url',
+			'upgrade_notice',
+			'sections',
+			'plugin',
+			'api_expired',
+			'api_upgrade',
+			'api_invalid',
+			'api_invalid_message',
+			'api_inline_invalid_message',
+			'custom_update',
+		];
 
 		/**
 		 * Create a new instance of Tribe__PUE__Utility from its JSON-encoded representation.
@@ -65,30 +101,16 @@ if ( ! class_exists( 'Tribe__PUE__Utility' ) ) {
 		 * Create a new instance of Tribe__PUE__Utility based on an instance of Tribe__PUE__Plugin_Info.
 		 * Basically, this just copies a subset of fields from one object to another.
 		 *
+		 * @since 6.4.2 Refactored to extract the copy fields to a static property.
+		 *
 		 * @param Tribe__PUE__Plugin_Info $info
 		 *
 		 * @return Tribe__PUE__Utility
 		 */
 		public static function from_plugin_info( $info ) {
 			$update     = new Tribe__PUE__Utility();
-			$copyFields = [
-				'id',
-				'slug',
-				'version',
-				'homepage',
-				'download_url',
-				'upgrade_notice',
-				'sections',
-				'plugin',
-				'api_expired',
-				'api_upgrade',
-				'api_invalid',
-				'api_invalid_message',
-				'api_inline_invalid_message',
-				'custom_update',
-			];
 
-			foreach ( $copyFields as $field ) {
+			foreach ( self::$copy_fields as $field ) {
 				if ( ! isset( $info->$field ) ) {
 					continue;
 				}
