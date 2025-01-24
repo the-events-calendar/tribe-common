@@ -1621,7 +1621,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			 *
 			 * @param array  $query_args The current query arguments for the request.
 			 */
-			$query_args = (array) apply_filters( 'tribe_puc_request_info_query_args-' . $this->get_slug(), $query_args );
+			$query_args = (array) apply_filters( 'tribe_puc_request_info_query_args-' . $this->get_slug(), $query_args ); //phpcs:ignore WordPress.NamingConventions.ValidHookName
 
 			// Cache the API call so it only needs to be made once per plugin per page load.
 			static $plugin_info_cache;
@@ -1657,7 +1657,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			 *
 			 * @param array  $options The options for the wp_remote_get() call.
 			 */
-			$options = (array) apply_filters( 'tribe_puc_request_info_options-' . $this->get_slug(), $options );
+			$options = (array) apply_filters( 'tribe_puc_request_info_options-' . $this->get_slug(), $options ); //phpcs:ignore WordPress.NamingConventions.ValidHookName
 
 			$url = sprintf( '%s/api/plugins/v2/license/validate', $this->get_pue_update_url() );
 
