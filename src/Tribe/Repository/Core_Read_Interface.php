@@ -38,14 +38,14 @@ interface Core_Read_Interface {
 	 * Applies a filter to the query.
 	 *
 	 * While the signature only shows 2 arguments additional arguments will be passed
-	 * to the schema filters.
+	 * to the schema filters. These additional arguments can be passed as individual, comma-separated
+	 * parameters, which will be passed to the schema.
 	 *
 	 * @since 4.7.19
+	 * @since TBD Moved optional `$args` param to an explanation in the description.
 	 *
 	 * @param string $key
 	 * @param mixed  $value
-	 * @param mixed  ...$args Additional, optional, call arguments that will be passed to
-	 *                        the schema.
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
@@ -119,7 +119,7 @@ interface Core_Read_Interface {
 	 * @param int  $batch_size       The number of post IDs to fetch at a time when using a generator; ignored
 	 *                               if `$return_generator` is false.
 	 *
-	 * @return array<int|WP_Post|object>|Generator<int|WP_Post|object> An array of all the matching post IDs, or a generator of them
+	 * @return array<int|WP_Post|object>|\Generator<int|WP_Post|object> An array of all the matching post IDs, or a generator of them
 	 *                                                                 if `$return_generator` is true.
 	 */
 	public function all( $return_generator = false, int $batch_size = 50 );
@@ -416,7 +416,7 @@ interface Core_Read_Interface {
 	 * @param int  $batch_size       The number of post IDs to fetch at a time when using a generator; ignored
 	 *                               if `$return_generator` is false.
 	 *
-	 * @return array<int>|Generator<int> An array of all the matching post IDs, or a generator of them
+	 * @return array<int>|\Generator<int> An array of all the matching post IDs, or a generator of them
 	 *                                   if `$return_generator` is true.
 	 */
 	public function get_ids( $return_generator = false, int $batch_size = 50 );
