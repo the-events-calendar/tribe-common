@@ -1,4 +1,4 @@
-/*M!999999\- enable the sandbox mode */ 
+/*M!999999\- enable the sandbox mode */
 -- MariaDB dump 10.19  Distrib 10.5.26-MariaDB, for debian-linux-gnu (aarch64)
 --
 -- Host: db    Database: test
@@ -1190,6 +1190,82 @@ CREATE TABLE `wp_tec_occurrences` (
 LOCK TABLES `wp_tec_occurrences` WRITE;
 /*!40000 ALTER TABLE `wp_tec_occurrences` DISABLE KEYS */;
 /*!40000 ALTER TABLE `wp_tec_occurrences` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `wp_tec_posts_and_ticket_groups`
+--
+
+DROP TABLE IF EXISTS `wp_tec_posts_and_ticket_groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wp_tec_posts_and_ticket_groups` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `post_id` bigint(20) unsigned NOT NULL,
+  `group_id` bigint(20) unsigned NOT NULL,
+  `type` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `wp_tec_posts_and_ticket_groups`
+--
+
+LOCK TABLES `wp_tec_posts_and_ticket_groups` WRITE;
+/*!40000 ALTER TABLE `wp_tec_posts_and_ticket_groups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `wp_tec_posts_and_ticket_groups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `wp_tec_series_relationships`
+--
+
+DROP TABLE IF EXISTS `wp_tec_series_relationships`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wp_tec_series_relationships` (
+  `relationship_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `series_post_id` bigint(20) unsigned NOT NULL,
+  `event_id` bigint(20) unsigned NOT NULL,
+  `event_post_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`relationship_id`),
+  KEY `series_post_id` (`series_post_id`),
+  KEY `event_post_id` (`event_post_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `wp_tec_series_relationships`
+--
+
+LOCK TABLES `wp_tec_series_relationships` WRITE;
+/*!40000 ALTER TABLE `wp_tec_series_relationships` DISABLE KEYS */;
+/*!40000 ALTER TABLE `wp_tec_series_relationships` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `wp_tec_ticket_groups`
+--
+
+DROP TABLE IF EXISTS `wp_tec_ticket_groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wp_tec_ticket_groups` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `slug` varchar(255) NOT NULL DEFAULT '',
+  `data` text NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `wp_tec_ticket_groups`
+--
+
+LOCK TABLES `wp_tec_ticket_groups` WRITE;
+/*!40000 ALTER TABLE `wp_tec_ticket_groups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `wp_tec_ticket_groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
