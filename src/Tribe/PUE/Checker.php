@@ -2209,7 +2209,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					$transient_data['plugins'][ $plugin_slug ] = $checker->is_key_valid();
 				}
 			}
-
 		}
 
 		/**
