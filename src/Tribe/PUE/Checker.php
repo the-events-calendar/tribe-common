@@ -392,7 +392,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Sets the key status based on the key validation check results.
 		 *
 		 * @since 4.14.9
-		 * @since TBD Clear `self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY` when a key is checked.
+		 * @since 6.4.2 Clear `self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY` when a key is checked.
 		 * @since TBD Updated the value of `{$this->pue_key_status_option_name}_timeout` to be the expiration date of when we should recheck the license.
 		 *
 		 * @param int $valid 0 for invalid, 1 or 2 for valid.
@@ -461,7 +461,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			/**
 			 * Filters the slug for the plugin.
 			 *
-			 * @since TBD
+			 * @since 5.2.0
 			 *
 			 * @param string $slug The default slug for the plugin.
 			 */
@@ -586,7 +586,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			/**
 			 * Filters the plugin name.
 			 *
-			 * @since TBD
+			 * @since 5.2.0
 			 *
 			 * @param string $plugin_name The current plugin name.
 			 * @param string $slug        The slug of the plugin.
@@ -719,7 +719,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			/**
 			 * Filters the validate query arguments.
 			 *
-			 * @since TBD
+			 * @since 5.2.0
 			 *
 			 * @param array  $validate_query The current validate query arguments.
 			 * @param string $slug           The slug of the plugin.
@@ -1681,12 +1681,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			/**
 			 * Filters the plugin info retrieved from the API request.
 			 *
-			 * @since TBD
+			 * @since 5.2.0
 			 *
 			 * @param Tribe__PUE__Plugin_Info|string|null $plugin_info The plugin info object or null if unavailable.
 			 * @param array                                $result      The result of the wp_remote_get() call.
 			 */
-			$plugin_info = apply_filters( 'tribe_puc_request_info_result-' . $this->get_slug(), $plugin_info, $result );
+			$plugin_info = apply_filters( 'tribe_puc_request_info_result-' . $this->get_slug(), $plugin_info, $result ); //phpcs:ignore WordPress.NamingConventions.ValidHookName
 
 			$plugin_info_cache[ $key ] = $plugin_info;
 
