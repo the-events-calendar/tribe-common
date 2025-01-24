@@ -13,6 +13,7 @@ namespace Tribe\Repository;
 
 use Tribe__Repository__Read_Interface;
 use WP_Post;
+use Generator;
 
 /**
  * Class Core_Read_Interface
@@ -119,7 +120,7 @@ interface Core_Read_Interface {
 	 * @param int  $batch_size       The number of post IDs to fetch at a time when using a generator; ignored
 	 *                               if `$return_generator` is false.
 	 *
-	 * @return array<int|WP_Post|object>|\Generator<int|WP_Post|object> An array of all the matching post IDs, or a generator of them
+	 * @return array<int|WP_Post|object>|Generator<int|WP_Post|object> An array of all the matching post IDs, or a generator of them
 	 *                                                                 if `$return_generator` is true.
 	 */
 	public function all( $return_generator = false, int $batch_size = 50 );
@@ -416,7 +417,7 @@ interface Core_Read_Interface {
 	 * @param int  $batch_size       The number of post IDs to fetch at a time when using a generator; ignored
 	 *                               if `$return_generator` is false.
 	 *
-	 * @return array<int>|\Generator<int> An array of all the matching post IDs, or a generator of them
+	 * @return array<int>|Generator<int> An array of all the matching post IDs, or a generator of them
 	 *                                   if `$return_generator` is true.
 	 */
 	public function get_ids( $return_generator = false, int $batch_size = 50 );
