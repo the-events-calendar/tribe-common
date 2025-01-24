@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+License validation now runs consistently during plugin activation, ensuring licenses are recognized earlier. [TEC-5351]
