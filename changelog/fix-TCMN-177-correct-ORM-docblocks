@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Added more details to `Core_Read_Interface` methods' docblocks to avoid errors in PHPStan. [TCMN-177]
