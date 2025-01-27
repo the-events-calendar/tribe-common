@@ -599,10 +599,10 @@ class Tribe__Main {
 		$plugin_rel_path = apply_filters( 'tribe_load_text_domain', $plugin_rel_path, $domain, $locale, $dir );
 
 		// Try to load translations from the plugin's language folder or a custom folder.
-		$loaded = load_plugin_textdomain( $domain, false, $plugin_rel_path );
+		load_plugin_textdomain( $domain, false, $plugin_rel_path );
 
 		$filename = $domain . '-' . $locale . '.mo';
-		$file     = $plugin_rel_path . $filename;
+		$file     = trailingslashit( WP_PLUGIN_DIR ) . $plugin_rel_path . $filename;
 
 		// If translation files are not found in the custom folder, then load from the plugin's language folder.
 		if (
