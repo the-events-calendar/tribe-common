@@ -8,10 +8,8 @@ use MO;
 use PO;
 use Tribe__Main;
 use Tribe__Events__Main;
-use Tribe\Tests\Traits\With_Uopz;
 
 class Language_Test extends WPTestCase {
-	use With_Uopz;
 
 	/**
 	 * @dataProvider load_text_domain_data_provider
@@ -47,6 +45,11 @@ class Language_Test extends WPTestCase {
 
 				// Ensure the .pot file exists.
 				$this->assertFileExists( $pot_file, 'Expected .pot file to exist for the text domain.' );
+
+				// Pre-cleanup: Delete the .mo file if it already exists.
+				if ( file_exists( $mo_file ) ) {
+					unlink( $mo_file );
+				}
 
 				// Compile the .pot file into a .mo file.
 				$this->create_mo_file_from_existing_pot( $pot_file, $locale, $mo_file );
@@ -84,6 +87,11 @@ class Language_Test extends WPTestCase {
 
 				// Simulate WP_LANG_DIR with a temporary directory.
 				$mocked_wp_lang_dir = sys_get_temp_dir() . '/wp-languages';
+
+				// Pre-cleanup: Delete the .mo file if it already exists.
+				if ( file_exists( $mo_file ) ) {
+					unlink( $mo_file );
+				}
 
 				// Ensure the temporary directory and MO file are created.
 				if ( ! is_dir( $temp_dir ) ) {
