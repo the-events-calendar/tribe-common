@@ -1974,8 +1974,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * It should return a modified array of query arguments.
 		 *
 		 * @param callback $callback The callback function.
+		 *
+		 * @deprecated TBD This method is deprecated and will be removed in a future release. Use the 'tribe_puc_request_info_query_args-<slug>' filter directly.
 		 */
 		public function add_query_arg_filter( $callback ) {
+			_deprecated_function( __METHOD__, 'TBD', 'add_filter(\'tribe_puc_request_info_query_args-<slug>\', $callback);' );
+
 			/**
 			 * Filters the query arguments passed to the API request.
 			 *
@@ -1997,9 +2001,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @param callback $callback The callback function.
 		 *
-		 * @uses add_filter() This method is a convenience wrapper for add_filter().
+		 * @uses       add_filter() This method is a convenience wrapper for add_filter().
+		 * @deprecated TBD This method is deprecated and will be removed in a future release. Use the 'tribe_puc_request_info_options-<slug>' filter directly.
 		 */
 		public function add_http_request_arg_filter( $callback ) {
+			_deprecated_function( __METHOD__, 'TBD', 'add_filter(\'tribe_puc_request_info_options-<slug>\', $callback);' );
+
 			add_filter( 'tribe_puc_request_info_options-' . $this->get_slug(), $callback );
 		}
 
@@ -2015,10 +2022,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @param callback $callback The callback function.
 		 *
-		 * @uses add_filter() This method is a convenience wrapper for add_filter().
-		 *
+		 * @uses       add_filter() This method is a convenience wrapper for add_filter().
+		 * @deprecated TBD This method is deprecated and will be removed in a future release. Use the 'tribe_puc_request_info_result-<slug>' filter directly.
 		 */
 		public function add_result_filter( $callback ) {
+			_deprecated_function( __METHOD__, 'TBD', 'add_filter(\'tribe_puc_request_info_result-<slug>\', $callback, 10, 2);' );
+
 			add_filter( 'tribe_puc_request_info_result-' . $this->get_slug(), $callback, 10, 2 );
 		}
 
