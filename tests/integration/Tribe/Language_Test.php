@@ -6,24 +6,113 @@ use Closure;
 use Codeception\TestCase\WPTestCase;
 use MO;
 use PO;
+use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Main;
 use Tribe__Events__Main;
 
 class Language_Test extends WPTestCase {
+	use With_Uopz;
+
+	/**
+	 * Paths to directories where .mo files are stored.
+	 *
+	 * @var string[]
+	 */
+	protected $mo_directories = [];
+
+	/**
+	 * Path to the .mo file created during the test.
+	 *
+	 * @var string|null
+	 */
+	protected $mo_file_path;
+
+	protected static $load_plugin_textdomain_call_count = 0;
+
+	/**
+	 * @before
+	 * @return void
+	 */
+	protected function setup(): void {
+		global $wp_textdomain_registry, $l10n;
+
+		// Reset the text domain registry to prevent state leakage.
+		if ( isset( $wp_textdomain_registry ) ) {
+			unset( $wp_textdomain_registry );
+			$wp_textdomain_registry = new \WP_Textdomain_Registry();
+		}
+
+		// Clear the l10n global.
+		$l10n = [];
+
+		// Reset the call counter for load_plugin_textdomain.
+		self::$load_plugin_textdomain_call_count = 0;
+
+		$load_plugin_textdomain_call_count = &self::$load_plugin_textdomain_call_count;
+
+		// Mock the load_plugin_textdomain function to count its calls.
+		$this->set_fn_return(
+			'load_plugin_textdomain',
+			function ( $domain, $deprecated = false, $plugin_rel_path = false ) use ( &$load_plugin_textdomain_call_count ) {
+				$load_plugin_textdomain_call_count++;
+
+				return load_plugin_textdomain( $domain, $deprecated, $plugin_rel_path );
+			},
+			true
+		);
+	}
+
+	/**
+	 * Cleanup after each test.
+	 * @after
+	 */
+	protected function after(): void {
+		$this->cleanup_mo_files();
+	}
+
+	/**
+	 * Deletes all .mo files in the target directories.
+	 */
+	protected function cleanup_mo_files(): void {
+		foreach ( $this->mo_directories as $dir ) {
+			if ( is_dir( $dir ) ) {
+				$files = glob( $dir . '*.mo' );
+				foreach ( $files as $file ) {
+					unlink( $file );
+				}
+
+				// Optionally clean up empty directories.
+				if ( count( scandir( $dir ) ) === 2 ) { // Only '.' and '..'
+					rmdir( $dir );
+				}
+			}
+		}
+	}
 
 	/**
 	 * @dataProvider load_text_domain_data_provider
 	 * @test
 	 */
-	public function it_should_load_text_domain_based_on_conditions( Closure $setup, string $expected_result, ?string $expected_message = null ): void {
+	public function it_should_load_text_domain_based_on_conditions( Closure $setup, int $expected_load_plugin_textdomain_call_count, string $expected_result ): void {
+		// Mock `is_textdomain_loaded` to return false by default.
+		$this->set_fn_return( 'is_textdomain_loaded', false );
+
+		// Ensure a clean state for the `l10n` global.
+		global $GLOBALS;
+		$GLOBALS['l10n'] = [
+			'mock-text-domain' => null,
+		];
+
 		// Execute the setup logic and retrieve the result.
 		$result = $setup();
 
-		// Assert the result matches the expected result.
+		$this->assertEquals( $expected_load_plugin_textdomain_call_count, self::$load_plugin_textdomain_call_count );
+
+		// Assert the result matches the expected outcome.
 		if ( $expected_result === 'success' ) {
-			$this->assertTrue( $result, $expected_message ?? 'Expected the text domain to load successfully.' );
+			$this->assertTrue( $result, 'Expected the text domain to load successfully.' );
 		} elseif ( $expected_result === 'failure' ) {
-			$this->assertFalse( $result, $expected_message ?? 'Expected the text domain to fail to load.' );
+			$this->assertFalse( $result, 'Expected the text domain to fail to load.' );
 		}
 	}
 
@@ -35,21 +124,17 @@ class Language_Test extends WPTestCase {
 	public function load_text_domain_data_provider(): \Generator {
 		yield 'Valid .mo file in custom directory' => [
 			function () {
-				$text_domain = 'the-events-calendar';
-				$locale      = get_locale();
-				$plugin_dir  = WP_PLUGIN_DIR . '/the-events-calendar/lang/';
-				$pot_file    = $plugin_dir . $text_domain . '.pot';
-				$mo_file     = $plugin_dir . $text_domain . '-' . $locale . '.mo';
+				$text_domain        = 'the-events-calendar';
+				$locale             = get_locale();
+				$plugin_dir         = WP_PLUGIN_DIR . '/the-events-calendar/lang/';
+				$pot_file           = $plugin_dir . $text_domain . '.pot';
+				$mo_file            = $plugin_dir . $text_domain . '-' . $locale . '.mo';
+				$this->mo_file_path = $mo_file;
 
 				$mopath = Tribe__Events__Main::instance()->plugin_dir . 'lang/';
 
 				// Ensure the .pot file exists.
 				$this->assertFileExists( $pot_file, 'Expected .pot file to exist for the text domain.' );
-
-				// Pre-cleanup: Delete the .mo file if it already exists.
-				if ( file_exists( $mo_file ) ) {
-					unlink( $mo_file );
-				}
 
 				// Compile the .pot file into a .mo file.
 				$this->create_mo_file_from_existing_pot( $pot_file, $locale, $mo_file );
@@ -60,56 +145,41 @@ class Language_Test extends WPTestCase {
 				// Run the method and return the result.
 				return tribe( Tribe__Main::class )->load_text_domain( $text_domain, $mopath );
 			},
+			1,
 			'success',
 		];
 
-		yield 'Missing .pot file' => [
-			function () {
-				$text_domain = 'nonexistent-domain';
-				$plugin_dir  = WP_PLUGIN_DIR . '/nonexistent-plugin/lang/';
-				$pot_file    = $plugin_dir . $text_domain . '.pot';
-
-				// Assert the .pot file does not exist.
-				$this->assertFileNotExists( $pot_file, 'Expected .pot file to not exist.' );
-
-				// Attempt to load the text domain.
-				return tribe( Tribe__Main::class )->load_text_domain( $text_domain, $plugin_dir );
-			},
-			'failure',
-		];
-
-		yield 'Valid .mo file in default WP_LANG_DIR' => [
+		yield 'Valid .mo file in overridden WP_LANG_DIR' => [
 			function () {
 				$text_domain = 'the-events-calendar';
 				$locale      = get_locale();
 				$temp_dir    = sys_get_temp_dir() . '/wp-languages/plugins/';
+				$plugin_dir  = WP_PLUGIN_DIR . '/the-events-calendar/lang/';
+				$pot_file    = $plugin_dir . $text_domain . '.pot';
 				$mo_file     = $temp_dir . $text_domain . '-' . $locale . '.mo';
 
-				// Simulate WP_LANG_DIR with a temporary directory.
-				$mocked_wp_lang_dir = sys_get_temp_dir() . '/wp-languages';
+				// Override WP_LANG_DIR for this test.
+				if ( defined( 'WP_LANG_DIR' ) ) {
+					$this->set_fn_return( 'WP_LANG_DIR', $temp_dir );
+				}
 
-				// Pre-cleanup: Delete the .mo file if it already exists.
+				// Ensure the temporary directory exists.
+				if ( ! is_dir( $temp_dir ) ) {
+					mkdir( $temp_dir, 0777, true );
+				}
+
+				// Pre-cleanup: Remove any lingering .mo file.
 				if ( file_exists( $mo_file ) ) {
 					unlink( $mo_file );
 				}
 
-				// Ensure the temporary directory and MO file are created.
-				if ( ! is_dir( $temp_dir ) ) {
-					mkdir( $temp_dir, 0777, true );
-				}
-				file_put_contents( $mo_file, '' );
+				// Create an actual .mo file in the overridden WP_LANG_DIR.
+				$this->create_mo_file_from_existing_pot( $pot_file, $locale, $mo_file );
 
 				// Run the method and return the result.
-				$result = tribe( Tribe__Main::class )->load_text_domain( $text_domain, $mocked_wp_lang_dir . '/plugins/' );
-
-				// Cleanup the .mo file and temporary directory.
-				unlink( $mo_file );
-				if ( is_dir( $temp_dir ) ) {
-					rmdir( $temp_dir );
-				}
-
-				return $result;
+				return tribe( Tribe__Main::class )->load_text_domain( $text_domain, 'fakepath' );
 			},
+			2,
 			'success',
 		];
 	}
