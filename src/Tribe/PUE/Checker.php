@@ -1950,7 +1950,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @return mixed
 		 */
-		public function inject_info( $result, string $action = null, $args = null ) {
+		public function inject_info( $result, ?string $action = null, $args = null ) {
 			$relevant = ( 'plugin_information' === $action ) && isset( $args->slug ) && ( $args->slug === $this->slug );
 			if ( ! $relevant ) {
 				return $result;
