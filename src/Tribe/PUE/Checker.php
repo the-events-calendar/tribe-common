@@ -446,6 +446,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			add_action( 'admin_init', [ $this, 'monitor_uplink_actions' ], 1000 );
 			add_action( 'tec_pue_checker_init', [ __CLASS__, 'monitor_active_plugins' ] );
+			add_action( 'tec_pue_checker_init', [ __CLASS__, 'initialize_license_check' ] );
 		}
 
 
