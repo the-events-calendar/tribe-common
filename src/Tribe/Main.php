@@ -584,7 +584,7 @@ class Tribe__Main {
 			return true;
 		}
 
-		$locale = get_locale();
+		$locale          = get_locale();
 		$plugin_rel_path = $dir;
 
 		/**
@@ -599,22 +599,19 @@ class Tribe__Main {
 		 */
 		$plugin_rel_path = apply_filters( 'tribe_load_text_domain', $plugin_rel_path, $domain, $locale, $dir );
 
-		// Load textdomain from a custom folder or the plugin's language folder.
-		load_plugin_textdomain( $domain, false, $plugin_rel_path );
-
 		$filename       = $domain . '-' . $locale . '.mo';
 		$file           = trailingslashit( WP_PLUGIN_DIR ) . trailingslashit( $plugin_rel_path ) . $filename;
 		$mo_file_exists = file_exists( $file );
 
-		// If translation files are not found in the custom folder, then load textdomain from the plugin's language folder.
-		if ( ! $mo_file_exists ) {
-
-			load_plugin_textdomain( $domain );
-			return true;
-
+		// Load textdomain from a custom folder or the plugin's language folder.
+		if ( $mo_file_exists ) {
+			return load_plugin_textdomain( $domain, false, $plugin_rel_path );
 		}
 
-		return $mo_file_exists;
+		// If translation files are not found in the custom folder, then load textdomain from the plugin's language folder.
+		load_plugin_textdomain( $domain, false, $dir );
+
+		return true;
 	}
 
 	/**

@@ -179,7 +179,7 @@ class Language_Test extends WPTestCase {
 				// Run the method and return the result.
 				return tribe( Tribe__Main::class )->load_text_domain( $text_domain, 'fakepath' );
 			},
-			2,
+			1,
 			'success',
 		];
 	}
