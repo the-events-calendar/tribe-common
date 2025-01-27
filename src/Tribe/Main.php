@@ -589,6 +589,7 @@ class Tribe__Main {
 
 		/**
 		 * Allows users to filter the file location for a given text domain.
+		 * The path has to be relative to wp-content/plugins/.
 		 * Be careful when using this filter, it will apply across the whole plugin suite when not checking $domain.
 		 *
 		 * @param string      $plugin_rel_path The relative path for the language files.
@@ -598,17 +599,17 @@ class Tribe__Main {
 		 */
 		$plugin_rel_path = apply_filters( 'tribe_load_text_domain', $plugin_rel_path, $domain, $locale, $dir );
 
-		// Try to load translations from the plugin's language folder or a custom folder.
+		// Load textdomain from a custom folder or the plugin's language folder.
 		load_plugin_textdomain( $domain, false, $plugin_rel_path );
 
 		$filename = $domain . '-' . $locale . '.mo';
 		$file     = trailingslashit( WP_PLUGIN_DIR ) . $plugin_rel_path . $filename;
 
-		// If translation files are not found in the custom folder, then load from the plugin's language folder.
+		// If translation files are not found in the custom folder, then load textdomain from the plugin's language folder.
 		if (
-			! file_exists( $file )
-			&& $dir !== false
+			$dir !== false
 			&& $plugin_rel_path !== $dir
+			&& ! file_exists( $file )
 		) {
 			return load_plugin_textdomain( $domain, false, $dir );
 		}
