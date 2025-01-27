@@ -602,19 +602,19 @@ class Tribe__Main {
 		// Load textdomain from a custom folder or the plugin's language folder.
 		load_plugin_textdomain( $domain, false, $plugin_rel_path );
 
-		$filename = $domain . '-' . $locale . '.mo';
-		$file     = trailingslashit( WP_PLUGIN_DIR ) . $plugin_rel_path . $filename;
+		$filename       = $domain . '-' . $locale . '.mo';
+		$file           = trailingslashit( WP_PLUGIN_DIR ) . trailingslashit( $plugin_rel_path ) . $filename;
+		$mo_file_exists = file_exists( $file );
 
 		// If translation files are not found in the custom folder, then load textdomain from the plugin's language folder.
-		if (
-			$dir !== false
-			&& $plugin_rel_path !== $dir
-			&& ! file_exists( $file )
-		) {
-			return load_plugin_textdomain( $domain, false, $dir );
+		if ( ! $mo_file_exists ) {
+
+			load_plugin_textdomain( $domain );
+			return true;
+
 		}
 
-		return $loaded;
+		return $mo_file_exists;
 	}
 
 	/**
