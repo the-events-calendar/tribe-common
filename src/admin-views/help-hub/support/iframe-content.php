@@ -19,10 +19,20 @@ $opted_in = tribe_is_truthy( $help_hub->get_license_and_opt_in_status()['is_opte
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title><?php esc_html_e( 'Iframe Content', 'tribe-common' ); ?></title>
 	<?php
-	wp_head();
+	/**
+	 * Fires in the <head> section of the Help Hub iframe template.
+	 *
+	 * This action allows developers to hook into the iframe's header and add additional styles, scripts,
+	 * or metadata specific to the Help Hub iframe content.
+	 *
+	 * @since 6.4.2
+	 */
+	do_action( 'tec_help_hub_iframe_header' );
+	wp_print_styles();
+	wp_print_scripts();
 	?>
 </head>
-<body <?php body_class(); ?> data-opted-in="<?php echo esc_attr( $opted_in ); ?>">
+<body id="help-hub-page" data-opted-in="<?php echo esc_attr( $opted_in ); ?>">
 
 <!-- Docsbot section-->
 <div class="docsbot-widget-background"></div>
@@ -55,10 +65,6 @@ $opted_in = tribe_is_truthy( $help_hub->get_license_and_opt_in_status()['is_opte
 		<a target="_parent" href="<?php echo esc_url( $help_hub::get_telemetry_opt_in_link() ); ?>" class="button button-secondary"><?php esc_html_e( 'Manage my data sharing consent', 'tribe-common' ); ?></a>
 	</div>
 </div>
-
-
-<?php
-wp_footer();
-?>
+<?php wp_print_footer_scripts(); ?>
 </body>
 </html>

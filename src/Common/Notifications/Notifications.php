@@ -55,16 +55,6 @@ final class Notifications {
 	public function __construct() {
 		$this->api_url = $this->get_api_url();
 		$this->slugs   = $this->get_plugins();
-
-		/**
-		 * Allow plugins to hook in and add themselves,
-		 * running their own actions after IAN is initiated.
-		 *
-		 * @since 6.4.0
-		 *
-		 * @param self $ian The IAN instance.
-		 */
-		do_action( 'tec_common_ian_loaded', $this );
 	}
 
 	/**
