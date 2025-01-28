@@ -36,6 +36,10 @@ class Language_Test extends WPTestCase {
 
 	protected static $load_plugin_textdomain_call_count = 0;
 
+	protected $original_wp_locale_switcher;
+
+	protected $original_wp_textdomain_registry;
+
 	/**
 	 * Set up the test environment before each test.
 	 *
@@ -48,6 +52,8 @@ class Language_Test extends WPTestCase {
 		if ( ! isset( $wp_locale_switcher ) ) {
 			$wp_locale_switcher = new \WP_Locale_Switcher();
 		}
+
+		$this->original_wp_locale_switcher = $wp_locale_switcher;
 
 		// Reset for tests.
 		self::$load_plugin_textdomain_call_count = 0;
@@ -71,11 +77,14 @@ class Language_Test extends WPTestCase {
 	 * @after
 	 */
 	protected function cleanup(): void {
+		global $wp_locale_switcher, $wp_textdomain_registry;
 		// Unset UOPZ returns to ensure no leakage.
 		$this->unset_uopz_returns();
 
 		// Switch back to the default locale.
 		switch_to_locale( 'en_US' );
+		$wp_locale_switcher     = $this->original_wp_locale_switcher;
+		$wp_textdomain_registry = $this->original_wp_textdomain_registry;
 	}
 
 	/**
@@ -85,6 +94,7 @@ class Language_Test extends WPTestCase {
 	 */
 	public function it_should_look_in_the_wp_lang_directory(): void {
 		global $wp_textdomain_registry;
+		$this->original_wp_textdomain_registry = $wp_textdomain_registry;
 
 		// Set up the registry to use the temporary directory.
 		$this->set_class_fn_return( WP_Textdomain_Registry::class, 'get', $this->temp_dir );
@@ -115,6 +125,7 @@ class Language_Test extends WPTestCase {
 	 */
 	public function it_should_look_in_the_custom_lang_directory(): void {
 		global $wp_textdomain_registry;
+		$this->original_wp_textdomain_registry = $wp_textdomain_registry;
 
 		$plugin_dir       = WP_PLUGIN_DIR . "/{$this->text_domain}/lang/";
 		$mo_file_location = $plugin_dir . $this->text_domain . '-' . $this->locale . '.mo';
