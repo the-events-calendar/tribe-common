@@ -2308,6 +2308,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @param Tribe__PUE__Checker $checker An instance of the PUE Checker.
 		 */
 		public function initialize_license_check( Tribe__PUE__Checker $checker ): void {
+			if ( ! is_admin() ) {
+				return;
+			}
 			// Check Transient.
 			$pue_transient_status = get_transient( $this->pue_key_status_transient_name );
 			if ( ! empty( $pue_transient_status ) ) {
