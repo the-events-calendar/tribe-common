@@ -79,49 +79,48 @@ if ( ! class_exists( 'Tribe__PUE__Plugin_Info' ) ) {
 		 * @return Tribe__PUE__Plugin_Info New instance of Tribe__PUE__Plugin_Info, or NULL on error.
 		 */
 		public static function from_json( $json ) {
-			// phpcs:disable WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
-			$apiResponse = json_decode( $json );
+			// Decode the JSON response.
+			$api_response = json_decode( $json );
 
-			// Get first item of the response array.
-			if ( $apiResponse && ! empty( $apiResponse->results ) ) {
-				$apiResponse = current( $apiResponse->results );
+			// Get the first item of the response array.
+			if ( $api_response && ! empty( $api_response->results ) ) {
+				$api_response = current( $api_response->results );
 			}
 
-			if ( empty( $apiResponse ) || ! is_object( $apiResponse ) ) {
+			if ( empty( $api_response ) || ! is_object( $api_response ) ) {
 				return null;
 			}
 
-			// Normalize keys by stripping "plugin_" prefix.
-			$normalizedResponse = [];
-			foreach ( get_object_vars( $apiResponse ) as $key => $value ) {
+			// Normalize keys by stripping the "plugin_" prefix.
+			$normalized_response = [];
+			foreach ( get_object_vars( $api_response ) as $key => $value ) {
 				if ( strpos( $key, 'plugin_' ) === 0 ) {
-					$normalizedKey = substr( $key, strlen( 'plugin_' ) );
+					$normalized_key = substr( $key, strlen( 'plugin_' ) );
 				} else {
-					$normalizedKey = $key;
+					$normalized_key = $key;
 				}
-				$normalizedResponse[ $normalizedKey ] = $value;
+				$normalized_response[ $normalized_key ] = $value;
 			}
 
 			// Basic validation after normalization.
-			$valid = ( ! empty( $normalizedResponse['name'] )
-					&& ! empty( $normalizedResponse['version'] ) )
-					|| ( isset( $normalizedResponse['api_invalid'] )
-					|| isset( $normalizedResponse['no_api'] )
-					);
-			if ( ! $valid ) {
+			$is_valid = ( ! empty( $normalized_response['name'] )
+						&& ! empty( $normalized_response['version'] ) )
+						|| ( isset( $normalized_response['api_invalid'] )
+						|| isset( $normalized_response['no_api'] )
+						);
+			if ( ! $is_valid ) {
 				return null;
 			}
 
 			// Populate the object.
-			$info = new self();
-			foreach ( $normalizedResponse as $key => $value ) {
-				if ( $info->check_whitelisted_keys( $key ) ) {
-					$info->$key = $value;
+			$plugin_info = new self();
+			foreach ( $normalized_response as $key => $value ) {
+				if ( $plugin_info->check_whitelisted_keys( $key ) ) {
+					$plugin_info->$key = $value;
 				}
 			}
 
-			return $info;
-			// phpcs:enable WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+			return $plugin_info;
 		}
 
 		/**
