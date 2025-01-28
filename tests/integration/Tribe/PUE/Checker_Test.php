@@ -940,4 +940,33 @@ class Checker_Test extends WPTestCase {
 		// Assert the plugin name remains null.
 		$this->assertEmpty( $pue_checker->get_plugin_name(), 'It should use the plugin slug when the file name is missing.' );
 	}
+
+	/**
+	 * @test
+	 * @return void
+	 */
+	public function it_should_get_the_installed_version() {
+		$validated_key = md5( microtime() );
+		$plugin_name   = 'the-events-calendar';
+		update_option( "pue_install_key_{$plugin_name}", $validated_key );
+		$pue_instance   = new PUE_Checker( 'deprecated', $plugin_name, [], "{$plugin_name}/{$plugin_name}.php" );
+		$version_number = $pue_instance->get_installed_version();
+
+		$this->assertNotEmpty( $version_number, 'Version should come back for the-events-calendar' );
+	}
+
+	/**
+	 * @test
+	 * @return void
+	 */
+	public function it_should_not_get_the_installed_version() {
+		$validated_key = md5( microtime() );
+		$plugin_name   = 'fake-plugin-not-installed';
+		update_option( "pue_install_key_{$plugin_name}", $validated_key );
+		$pue_instance = new PUE_Checker( 'deprecated', $plugin_name, [], "{$plugin_name}/{$plugin_name}.php" );
+
+		$version_number = $pue_instance->get_installed_version();
+
+		$this->assertEmpty( $version_number, 'Version number should be empty for fake plugin.' );
+	}
 }
