@@ -61,25 +61,28 @@ if ( ! class_exists( 'Tribe__PUE__Plugin_Info' ) ) {
 		public $api_invalid_message;
 
 		public $license_error;
+		public $license_key;
 
 		public $new_install_key;
 		public $replacement_key;
 
 		public $id = 0; // The native WP.org API returns numeric plugin IDs, but they're not used for anything.
 
-
 		/**
 		 * Create a new instance of Tribe__PUE__Plugin_Info from JSON-encoded plugin info
 		 * returned by an external update API.
 		 *
+		 * @since TBD Added whitelist for checking $key.
+		 *
 		 * @param string $json Valid JSON string representing plugin info.
 		 *
-		 *@return Tribe__PUE__Plugin_Info New instance of Tribe__PUE__Plugin_Info, or NULL on error.
+		 * @return Tribe__PUE__Plugin_Info New instance of Tribe__PUE__Plugin_Info, or NULL on error.
 		 */
 		public static function from_json( $json ) {
+			// phpcs:disable WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 			$apiResponse = json_decode( $json );
 
-			// Get first item of the response array
+			// Get first item of the response array.
 			if ( $apiResponse && ! empty( $apiResponse->results ) ) {
 				$apiResponse = current( $apiResponse->results );
 			}
@@ -88,20 +91,59 @@ if ( ! class_exists( 'Tribe__PUE__Plugin_Info' ) ) {
 				return null;
 			}
 
-			//Very, very basic validation.
-			$valid = ( isset( $apiResponse->name ) && ! empty( $apiResponse->name ) && isset( $apiResponse->version ) && ! empty( $apiResponse->version ) ) || ( isset( $apiResponse->api_invalid ) || isset( $apiResponse->no_api ) );
+			// Normalize keys by stripping "plugin_" prefix.
+			$normalizedResponse = [];
+			foreach ( get_object_vars( $apiResponse ) as $key => $value ) {
+				$normalizedKey                        = str_replace( 'plugin_', '', $key );
+				$normalizedResponse[ $normalizedKey ] = $value;
+			}
+
+			// Basic validation after normalization.
+			$valid = ( ! empty( $normalizedResponse['name'] )
+					&& ! empty( $normalizedResponse['version'] ) )
+					|| ( isset( $normalizedResponse['api_invalid'] )
+					|| isset( $normalizedResponse['no_api'] )
+					);
 			if ( ! $valid ) {
 				return null;
 			}
 
-			$info = new Tribe__PUE__Plugin_Info();
-
-			foreach ( get_object_vars( $apiResponse ) as $key => $value ) {
-				$key = str_replace( 'plugin_', '', $key ); // let's strip out the "plugin_" prefix we've added in plugin-updater-classes.
-				$info->$key = $value;
+			// Populate the object.
+			$info = new self();
+			foreach ( $normalizedResponse as $key => $value ) {
+				if ( $info->check_whitelisted_keys( $key ) ) {
+					$info->$key = $value;
+				}
 			}
 
 			return $info;
+			// phpcs:enable WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+		}
+
+		/**
+		 * Get the whitelist of valid keys (class properties).
+		 *
+		 * @since TBD
+		 *
+		 * @return array List of valid property names.
+		 */
+		public function get_whitelisted_keys(): array {
+			return array_keys( get_class_vars( __CLASS__ ) );
+		}
+
+		/**
+		 * Check if a given key is in the whitelist.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $key The key to check.
+		 *
+		 * @return bool True if the key is whitelisted, false otherwise.
+		 */
+		public function check_whitelisted_keys( string $key ): bool {
+			$valid_keys = $this->get_whitelisted_keys();
+
+			return in_array( $key, $valid_keys, true );
 		}
 
 		/**
