@@ -3,6 +3,7 @@
 namespace Tribe;
 
 use Codeception\TestCase\WPTestCase;
+use Translation_Entry;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Events__Main;
 use Tribe__Main;
@@ -153,22 +154,42 @@ class Language_Test extends WPTestCase {
 	 * @param string $mo_file  The path where the .mo file will be saved.
 	 */
 	private function create_mo_file_from_existing_pot( string $pot_file, string $locale, string $mo_file ): void {
-		if ( ! class_exists( PO::class ) ) {
+		// Ensure the directory for the .mo file exists.
+		if ( ! file_exists( dirname( $mo_file ) ) ) {
+			mkdir( dirname( $mo_file ), 0777, true );
+		}
+
+		if ( ! class_exists( \PO::class ) ) {
 			require_once ABSPATH . 'wp-includes/pomo/po.php';
 		}
-		if ( ! class_exists( MO::class ) ) {
+		if ( ! class_exists( \MO::class ) ) {
 			require_once ABSPATH . 'wp-includes/pomo/mo.php';
 		}
 
-		$po = new PO();
-		// For testing, skip loading the .pot file if it doesn't exist.
-		if ( $pot_file ) {
+		$po = new \PO();
+
+		// Skip importing from .pot file if it is empty or doesn't exist.
+		if ( $pot_file && file_exists( $pot_file ) ) {
 			$po->import_from_file( $pot_file );
+		} else {
+			// Add a default translation entry for testing.
+			$po->add_entry(
+				new Translation_Entry(
+					[
+						'singular'     => 'test',
+						'translations' => [ 'essai' ],
+					]
+				)
+			);
 		}
 
-		$mo          = new MO();
+		// Export to .mo file.
+		$mo          = new \MO();
 		$mo->entries = $po->entries;
 		$mo->export_to_file( $mo_file );
+
+		// Assert that the file was created.
+		$this->assertFileExists( $mo_file, "The .mo file was not created at the expected location: {$mo_file}" );
 	}
 
 	/**
