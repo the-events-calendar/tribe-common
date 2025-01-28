@@ -94,7 +94,7 @@ if ( ! class_exists( 'Tribe__PUE__Plugin_Info' ) ) {
 			// Normalize keys by stripping "plugin_" prefix.
 			$normalizedResponse = [];
 			foreach ( get_object_vars( $apiResponse ) as $key => $value ) {
-				$normalizedKey = preg_replace('/\bplugin_/', '', $key);
+				$normalizedKey                        = preg_replace( '/\bplugin_/', '', $key );
 				$normalizedResponse[ $normalizedKey ] = $value;
 			}
 
