@@ -171,6 +171,7 @@ class Plugin_Info_Test extends WPTestCase {
 			[
 				'plugin_name'    => 'Valid Plugin',
 				'plugin_version' => '1.2.3',
+				'tec_plugin_version' => '1.2.3',
 			]
 		);
 
@@ -179,6 +180,7 @@ class Plugin_Info_Test extends WPTestCase {
 		$this->assertInstanceOf( Tribe__PUE__Plugin_Info::class, $plugin_info, 'from_json should create an instance when `name` and `version` are set.' );
 		$this->assertEquals( 'Valid Plugin', $plugin_info->name, 'Property "name" was not set correctly.' );
 		$this->assertEquals( '1.2.3', $plugin_info->version, 'Property "version" was not set correctly.' );
+		$this->assertObjectNotHasAttribute( 'tec_plugin_version', $plugin_info, 'Non-whitelisted prefixed key should not be added to the object.' );
 	}
 
 	/**
