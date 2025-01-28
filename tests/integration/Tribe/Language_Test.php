@@ -65,7 +65,7 @@ class Language_Test extends WPTestCase {
 		$this->set_fn_return( 'determine_locale', $this->locale );
 
 		// Set up the temporary directory for .mo files and override WP_LANG_DIR.
-		$this->temp_dir = sys_get_temp_dir() . '/wp-languages/plugins/';
+		$this->temp_dir = codecept_data_dir() . '/wp-languages/plugins/';
 		$this->set_const_value( 'WP_LANG_DIR', $this->temp_dir );
 
 		// Assert WP_LANG_DIR has been correctly set.
