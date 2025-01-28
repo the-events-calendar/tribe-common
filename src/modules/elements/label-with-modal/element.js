@@ -23,9 +23,9 @@ const LabelWithModal = ( {
 	modalContent,
 	modalOverlayClassName,
 	modalTitle,
-	onClick,
-	onClose,
-	onOpen,
+	onClick = noop,
+	onClose = noop,
+	onOpen = noop,
 	...restProps
 } ) => (
 	<LabeledItem
@@ -48,12 +48,6 @@ const LabelWithModal = ( {
 		/>
 	</LabeledItem>
 );
-
-LabelWithModal.defaultProps = {
-	onClick: noop,
-	onClose: noop,
-	onOpen: noop,
-};
 
 LabelWithModal.propTypes = {
 	className: PropTypes.string,

@@ -13,8 +13,8 @@ import './style.pcss';
 
 const Accordion = ( {
 	className,
-	containerAttrs,
-	rows,
+	containerAttrs = {},
+	rows = [],
 } ) => (
 	rows.length
 		? (
@@ -34,11 +34,6 @@ const Accordion = ( {
 		)
 		: null
 );
-
-Accordion.defaultProps = {
-	containerAttrs: {},
-	rows: [],
-};
 
 Accordion.propTypes = {
 	className: PropTypes.string,

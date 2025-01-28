@@ -8,7 +8,7 @@ import classNames from 'classnames';
 const LabeledItem = ( {
 	className,
 	forId,
-	isLabel,
+	isLabel = false,
 	label,
 	children,
 } ) => {
@@ -37,16 +37,12 @@ const LabeledItem = ( {
 	);
 };
 
-LabeledItem.defaultProps = {
-	isLabel: false,
-};
-
 LabeledItem.propTypes = {
 	className: PropTypes.string,
-	isLabel: PropTypes.bool.isRequired,
+	isLabel: PropTypes.bool,
 	forId: PropTypes.string,
 	label: PropTypes.node,
-	children: PropTypes.node.isRequired,
+	children: PropTypes.node,
 };
 
 export default LabeledItem;
