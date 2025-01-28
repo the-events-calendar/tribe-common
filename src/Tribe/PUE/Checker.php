@@ -141,11 +141,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public $plugin_info;
 
 		/**
-		 * Storing the `plugin_notice` message.
+		 * Storing the `plugin_notice` messages.
 		 *
-		 * @var string
+		 * @var array
 		 */
-		public string $plugin_notice;
+		public array $plugin_notice;
 
 		/**
 		 * Stats
@@ -1767,17 +1767,33 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Get the currently installed version of the plugin.
 		 *
+		 * @since TBD Refactored logic to better catch different scenarios.
+		 *
 		 * @return string Version number.
 		 */
 		public function get_installed_version(): string {
-			if ( function_exists( 'get_plugins' ) ) {
-				$all_plugins = get_plugins();
-				if ( array_key_exists( $this->get_plugin_file(), $all_plugins ) && array_key_exists( 'Version', $all_plugins[ $this->get_plugin_file() ] ) ) {
-					return $all_plugins[ $this->get_plugin_file() ]['Version'];
-				} else {
-					return '';
-				}
+			if ( ! function_exists( 'get_plugins' ) ) {
+				include_once ABSPATH . 'wp-admin/includes/plugin.php';
 			}
+
+			if ( ! function_exists( 'get_plugins' ) ) {
+				return '';
+			}
+
+			$all_plugins = get_plugins();
+			$plugin_file = $this->get_plugin_file();
+
+			if ( ! array_key_exists( $plugin_file, $all_plugins ) ) {
+				return '';
+			}
+
+			$plugin_data = $all_plugins[ $plugin_file ];
+
+			if ( ! array_key_exists( 'Version', $plugin_data ) ) {
+				return '';
+			}
+
+			return $plugin_data['Version'];
 		}
 
 		/**
