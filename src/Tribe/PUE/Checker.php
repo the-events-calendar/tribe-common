@@ -435,7 +435,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'load-plugins.php', [ $this, 'remove_default_inline_update_msg' ], 50 );
 
 			// Key validation.
-			add_filter( 'tribe_settings_save_field_value', [ $this, 'check_for_api_key_error' ], 10, 3 );
+			add_action( 'tribe_settings_save_field', [ $this, 'check_for_api_key_error_on_action' ], 10, 2 );
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), [ $this, 'ajax_validate_key' ] );
 			add_filter( 'tribe-pue-install-keys', [ $this, 'return_install_key' ] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'maybe_display_json_error_on_plugins_page' ], 1 );
@@ -1912,35 +1912,23 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Clears out the site external site option and re-checks the license key
 		 *
-		 * @param string $value           The value of the option.
-		 * @param string $field_id        The ID of the field.
-		 * @param object $validated_field The validated field.
+		 * @since TBD
 		 *
-		 * @return string
+		 * @param string|null $field_id        The ID of the field.
+		 * @param mixed       $value           The value of the option.
+		 *
+		 * @return void
+		 * @internal
 		 */
-		public function check_for_api_key_error( string $value, string $field_id, object $validated_field ): string {
+		public function check_for_api_key_error_on_action( ?string $field_id, $value ): void {
 			// Only hook into our option.
 			if ( $this->pue_install_key !== $field_id ) {
-				return $value;
+				return;
 			}
 
 			if ( 'service' !== $this->context ) {
 				$this->check_for_updates( [], true );
 			}
-
-			$network_option = false;
-
-			if ( ! empty( $validated_field->field['network_option'] ) ) {
-				$network_option = (bool) $validated_field->field['network_option'];
-			}
-
-			$key_type = 'local';
-
-			if ( $network_option ) {
-				$key_type = 'network';
-			}
-
-			$current_key = $this->get_key( $key_type );
 
 			// if we are saving this PUE key, we need to make sure we update the license key notices
 			// appropriately. Otherwise, we could have an invalid license key in place but the notices
@@ -1951,6 +1939,23 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$query_args['key'] = sanitize_text_field( $value );
 
 			$this->license_key_status( $query_args );
+		}
+
+		/**
+		 * Clears out the site external site option and re-checks the license key
+		 *
+		 * @param mixed  $value           The value of the option.
+		 * @param string $field_id        The ID of the field.
+		 * @param object $validated_field The validated field.
+		 *
+		 * @return mixed returns $value
+		 * @deprecated TBD Updated to be passthrough method to `check_for_api_key_error_on_action`.
+		 *
+		 * @internal
+		 */
+		public function check_for_api_key_error( $value, string $field_id, object $validated_field ) {
+			_deprecated_function( __METHOD__, 'TBD', 'check_for_api_key_error_on_action' );
+			$this->check_for_api_key_error_on_action( $field_id, $value );
 
 			return $value;
 		}
