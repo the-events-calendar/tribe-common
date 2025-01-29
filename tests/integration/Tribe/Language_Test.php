@@ -33,7 +33,7 @@ class Language_Test extends WPTestCase {
 	 *
 	 * @var string
 	 */
-	protected $locale = 'fr_FR';
+	protected $locale = 'el_GR';
 
 	protected static $load_plugin_textdomain_call_count = 0;
 
@@ -65,7 +65,7 @@ class Language_Test extends WPTestCase {
 		$this->set_fn_return( 'determine_locale', $this->locale );
 
 		// Set up the temporary directory for .mo files and override WP_LANG_DIR.
-		$this->temp_dir = sys_get_temp_dir() . '/wp-languages/plugins/';
+		$this->temp_dir = codecept_data_dir( 'lang/' );
 		$this->set_const_value( 'WP_LANG_DIR', $this->temp_dir );
 
 		// Assert WP_LANG_DIR has been correctly set.
@@ -99,6 +99,8 @@ class Language_Test extends WPTestCase {
 
 		// Set up the registry to use the temporary directory.
 		$this->set_class_fn_return( WP_Textdomain_Registry::class, 'get', $this->temp_dir );
+
+		$this->set_fn_return( 'is_textdomain_loaded', false, false );
 
 		$temp_mo_file = $this->temp_dir . $this->text_domain . '-' . $this->locale . '.mo';
 
@@ -203,6 +205,6 @@ class Language_Test extends WPTestCase {
 	 * @return string The overridden path to the language directory.
 	 */
 	public function override_tribe_text_domain( $plugin_rel_path, $domain, $locale, $dir ) {
-		return "{$this->text_domain}/lang/";
+		return str_replace( WP_PLUGIN_DIR, '', $this->temp_dir );
 	}
 }
