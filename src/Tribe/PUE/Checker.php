@@ -1912,13 +1912,13 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Clears out the site external site option and re-checks the license key
 		 *
-		 * @param string $value           The value of the option.
+		 * @param mixed  $value           The value of the option.
 		 * @param string $field_id        The ID of the field.
 		 * @param object $validated_field The validated field.
 		 *
-		 * @return string
+		 * @return mixed returns $value
 		 */
-		public function check_for_api_key_error( string $value, string $field_id, object $validated_field ): string {
+		public function check_for_api_key_error( $value, string $field_id, object $validated_field ) {
 			// Only hook into our option.
 			if ( $this->pue_install_key !== $field_id ) {
 				return $value;
