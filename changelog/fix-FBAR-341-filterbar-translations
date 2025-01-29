@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Changed the way how translations are loaded to work with the latest WordPress language changes. [FBAR-341][CE-252]
