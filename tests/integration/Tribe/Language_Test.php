@@ -78,6 +78,8 @@ class Language_Test extends WPTestCase {
 	 * @after
 	 */
 	protected function cleanup(): void {
+		remove_filter( 'tribe_load_text_domain', [ $this, 'override_tribe_text_domain' ], 10 );
+
 		global $wp_locale_switcher, $wp_textdomain_registry;
 		// Unset UOPZ returns to ensure no leakage.
 		$this->unset_uopz_returns();
@@ -133,6 +135,8 @@ class Language_Test extends WPTestCase {
 		$plugin_dir       = WP_PLUGIN_DIR . "/{$this->text_domain}/lang/";
 		$mo_file_location = $plugin_dir . $this->text_domain . '-' . $this->locale . '.mo';
 		$mopath           = Tribe__Events__Main::instance()->plugin_dir . 'lang/';
+
+		$this->set_fn_return( 'is_textdomain_loaded', false, false );
 
 		// Create a dummy .mo file in the plugin's language directory.
 		$this->create_mo_file_from_existing_pot( '', $this->locale, $mo_file_location );
