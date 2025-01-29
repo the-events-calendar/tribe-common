@@ -188,13 +188,13 @@ class Tribe__Main {
 	 */
 	public function init_early_libraries() {
 		require_once $this->plugin_path . 'src/functions/editor.php';
-		require_once $this->plugin_path . 'src/functions/utils.php';
 	}
 
 	/**
 	 * initializes all required libraries
 	 */
 	public function init_libraries() {
+		require_once $this->plugin_path . 'src/functions/utils.php';
 		require_once $this->plugin_path . 'src/functions/conditionals.php';
 		require_once $this->plugin_path . 'src/functions/transient.php';
 		require_once $this->plugin_path . 'src/functions/url.php';
@@ -772,16 +772,16 @@ class Tribe__Main {
 		tribe_singleton( Translations_Loader::class, Translations_Loader::class );
 
 		tribe_register_provider( Tribe__Editor__Provider::class );
-		tribe_register_provider( Tribe\Service_Providers\PUE::class );
-		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
 		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
-		tribe_register_provider( Tribe__Service_Providers__Promoter::class );
 		tribe_register_provider( Tribe\Service_Providers\Tooltip::class );
 		tribe_register_provider( Tribe\Service_Providers\Dialog::class );
+		tribe_register_provider( Tribe\Service_Providers\PUE::class );
 		tribe_register_provider( Tribe\Service_Providers\Shortcodes::class );
 		tribe_register_provider( Tribe\Service_Providers\Body_Classes::class );
 		tribe_register_provider( Tribe\Log\Service_Provider::class );
 		tribe_register_provider( Tribe\Service_Providers\Crons::class );
+		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
+		tribe_register_provider( Tribe__Service_Providers__Promoter::class );
 		tribe_register_provider( Tribe\Service_Providers\Widgets::class );
 		tribe_register_provider( Tribe\Service_Providers\Onboarding::class );
 		tribe_register_provider( \TEC\Common\Admin\Conditional_Content\Controller::class );
