@@ -773,7 +773,6 @@ class Tribe__Main {
 
 		tribe_register_provider( Tribe__Editor__Provider::class );
 		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
-		tribe_register_provider( Tribe__Service_Providers__Promoter::class );
 		tribe_register_provider( Tribe\Service_Providers\Tooltip::class );
 		tribe_register_provider( Tribe\Service_Providers\Dialog::class );
 		tribe_register_provider( Tribe\Service_Providers\PUE::class );
@@ -781,9 +780,10 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Service_Providers\Body_Classes::class );
 		tribe_register_provider( Tribe\Log\Service_Provider::class );
 		tribe_register_provider( Tribe\Service_Providers\Crons::class );
+		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
+		tribe_register_provider( Tribe__Service_Providers__Promoter::class );
 		tribe_register_provider( Tribe\Service_Providers\Widgets::class );
 		tribe_register_provider( Tribe\Service_Providers\Onboarding::class );
-		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
 		tribe_register_provider( \TEC\Common\Admin\Conditional_Content\Controller::class );
 		tribe_register_provider( \TEC\Common\Notifications\Controller::class );
 		tribe_register_provider( Libraries\Provider::class );
