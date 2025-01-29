@@ -435,7 +435,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'load-plugins.php', [ $this, 'remove_default_inline_update_msg' ], 50 );
 
 			// Key validation.
-			add_filter( 'tribe_settings_save_field_value', [ $this, 'check_for_api_key_error' ], 10, 3 );
+			add_action( 'tribe_settings_save_field', [ $this, 'check_for_api_key_error_on_action' ], 10, 3 );
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), [ $this, 'ajax_validate_key' ] );
 			add_filter( 'tribe-pue-install-keys', [ $this, 'return_install_key' ] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'maybe_display_json_error_on_plugins_page' ], 1 );
@@ -1912,16 +1912,24 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Clears out the site external site option and re-checks the license key
 		 *
-		 * @param mixed  $value           The value of the option.
+		 * @since TBD
+		 *
 		 * @param string $field_id        The ID of the field.
+		 * @param mixed  $value           The value of the option.
 		 * @param object $validated_field The validated field.
 		 *
-		 * @return mixed returns $value
+		 * @return void
+		 * @internal
+		 *
 		 */
-		public function check_for_api_key_error( $value, string $field_id, object $validated_field ) {
+		public function check_for_api_key_error_on_action( ?string $field_id, $value, object $validated_field ): void {
 			// Only hook into our option.
 			if ( $this->pue_install_key !== $field_id ) {
-				return $value;
+				return;
+			}
+
+			if ( empty( $value ) ) {
+				return;
 			}
 
 			if ( 'service' !== $this->context ) {
@@ -1951,6 +1959,24 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$query_args['key'] = sanitize_text_field( $value );
 
 			$this->license_key_status( $query_args );
+		}
+
+		/**
+		 * Clears out the site external site option and re-checks the license key
+		 *
+		 * @since TBD Updated to be pass through method to `check_for_api_key_error_on_action`.
+		 *
+		 * @param mixed  $value           The value of the option.
+		 * @param string $field_id        The ID of the field.
+		 * @param object $validated_field The validated field.
+		 *
+		 * @return mixed returns $value
+		 * @internal
+		 *
+		 */
+		public function check_for_api_key_error( $value, string $field_id, object $validated_field ) {
+			_deprecated_function( __METHOD__, 'TBD', 'check_for_api_key_error_on_action' );
+			$this->check_for_api_key_error_on_action( $field_id, $value, $validated_field );
 
 			return $value;
 		}
