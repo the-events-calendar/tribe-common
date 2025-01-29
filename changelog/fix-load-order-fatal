@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Tweak load order to prevent Promoter fatal. Ensure PUE gets loaded first.
