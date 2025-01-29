@@ -1945,15 +1945,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Clears out the site external site option and re-checks the license key
 		 *
-		 * @since TBD Updated to be passthrough method to `check_for_api_key_error_on_action`.
-		 *
 		 * @param mixed  $value           The value of the option.
 		 * @param string $field_id        The ID of the field.
 		 * @param object $validated_field The validated field.
 		 *
 		 * @return mixed returns $value
+		 * @deprecated TBD Updated to be passthrough method to `check_for_api_key_error_on_action`.
+		 *
 		 * @internal
-		 * @deprecated
 		 */
 		public function check_for_api_key_error( $value, string $field_id, object $validated_field ) {
 			_deprecated_function( __METHOD__, 'TBD', 'check_for_api_key_error_on_action' );
