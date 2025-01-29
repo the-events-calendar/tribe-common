@@ -1927,27 +1927,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return;
 			}
 
-			if ( empty( $value ) ) {
-				return;
-			}
-
 			if ( 'service' !== $this->context ) {
 				$this->check_for_updates( [], true );
 			}
-
-			$network_option = false;
-
-			if ( ! empty( $validated_field->field['network_option'] ) ) {
-				$network_option = (bool) $validated_field->field['network_option'];
-			}
-
-			$key_type = 'local';
-
-			if ( $network_option ) {
-				$key_type = 'network';
-			}
-
-			$current_key = $this->get_key( $key_type );
 
 			// if we are saving this PUE key, we need to make sure we update the license key notices
 			// appropriately. Otherwise, we could have an invalid license key in place but the notices
