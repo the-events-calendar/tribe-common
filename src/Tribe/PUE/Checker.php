@@ -435,7 +435,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'load-plugins.php', [ $this, 'remove_default_inline_update_msg' ], 50 );
 
 			// Key validation.
-			add_action( 'tribe_settings_save_field', [ $this, 'check_for_api_key_error_on_action' ], 10, 3 );
+			add_action( 'tribe_settings_save_field', [ $this, 'check_for_api_key_error_on_action' ], 10, 2 );
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), [ $this, 'ajax_validate_key' ] );
 			add_filter( 'tribe-pue-install-keys', [ $this, 'return_install_key' ] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'maybe_display_json_error_on_plugins_page' ], 1 );
@@ -1921,7 +1921,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return void
 		 * @internal
 		 */
-		public function check_for_api_key_error_on_action( ?string $field_id, $value, object $validated_field ): void {
+		public function check_for_api_key_error_on_action( ?string $field_id, $value ): void {
 			// Only hook into our option.
 			if ( $this->pue_install_key !== $field_id ) {
 				return;
@@ -1953,10 +1953,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @return mixed returns $value
 		 * @internal
+		 * @deprecated
 		 */
 		public function check_for_api_key_error( $value, string $field_id, object $validated_field ) {
 			_deprecated_function( __METHOD__, 'TBD', 'check_for_api_key_error_on_action' );
-			$this->check_for_api_key_error_on_action( $field_id, $value, $validated_field );
+			$this->check_for_api_key_error_on_action( $field_id, $value );
 
 			return $value;
 		}
