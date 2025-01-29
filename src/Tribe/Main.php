@@ -571,12 +571,12 @@ class Tribe__Main {
 	 *
 	 * @since  4.0.1 Introduced.
 	 * @since  4.2   Included $domain and $dir params.
-	 * @since  TBD   Fix text domain loading logic after changes in WordPress 6.7.
+	 * @since  TBD   Refactored logic to better handle `load_plugin_textdomain` changes introduced by WordPress 6.7.
 	 *
 	 * @param string       $domain The text domain that will be loaded.
-	 * @param string|false $dir    What directory should be used to try to load if the default doesn't work.
+	 * @param string|false $dir    What directory should be used to try to register if the default doesn't work.
 	 *
-	 * @return bool  If it was able to load the text domain.
+	 * @return bool  If it was able to register the text domain.
 	 */
 	public function load_text_domain( $domain, $dir = false ) {
 		// Added safety just in case this runs twice.
