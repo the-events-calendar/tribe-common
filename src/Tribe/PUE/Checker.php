@@ -1916,7 +1916,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @param string|null $field_id        The ID of the field.
 		 * @param mixed       $value           The value of the option.
-		 * @param object      $validated_field The validated field.
 		 *
 		 * @return void
 		 * @internal
