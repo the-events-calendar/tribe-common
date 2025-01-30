@@ -219,7 +219,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	 * @throws RuntimeException If the table is being prepared too late.
 	 */
 	public function prepare_items(): void {
-		if ( did_action( 'tribe_admin_headers_about_to_be_sent' ) ) {
+		if ( did_action( 'tec_admin_headers_about_to_be_sent' ) ) {
 			throw new RuntimeException( 'You are not Prepared! You need to prepare before any headers have been sent!' );
 		}
 

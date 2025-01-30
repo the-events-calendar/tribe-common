@@ -112,7 +112,7 @@ class Tribe__Main {
 				 *
 				 * @since TBD
 				 */
-				do_action( 'tribe_admin_headers_about_to_be_sent' );
+				do_action( 'tec_admin_headers_about_to_be_sent' );
 			},
 			PHP_INT_MAX
 		);
