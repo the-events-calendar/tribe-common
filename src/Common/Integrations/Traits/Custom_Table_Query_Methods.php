@@ -155,9 +155,11 @@ trait Custom_Table_Query_Methods {
 			$order = 'ASC';
 		}
 
+		$where = self::build_where_from_args( $args );
+
 		return DB::get_results(
 			DB::prepare(
-				"SELECT * FROM %i ORDER BY {$orderby} {$order} LIMIT %d, %d",
+				"SELECT * FROM %i {$where} ORDER BY {$orderby} {$order} LIMIT %d, %d",
 				static::table_name( true ),
 				$offset,
 				$per_page
@@ -176,11 +178,78 @@ trait Custom_Table_Query_Methods {
 	 * @return int The total number of items in the table.
 	 */
 	public static function get_total_items( array $args = [] ): int {
+		$where = self::build_where_from_args( $args );
+
 		return (int) DB::get_var(
 			DB::prepare(
-				'SELECT COUNT(*) FROM %i',
+				"SELECT COUNT(*) FROM %i {$where}",
 				static::table_name( true )
 			)
 		);
+	}
+
+	/**
+	 * Builds a WHERE clause from the provided arguments.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $args The query arguments.
+	 *
+	 * @return string The WHERE clause.
+	 */
+	protected static function build_where_from_args( array $args = [] ): string {
+		$query_operator = $args['query_operator'] ?? 'AND';
+
+		unset( $args['order'], $args['orderby'], $args['query_operator'] );
+
+		if ( empty( $args ) ) {
+			return '';
+		}
+
+		$where = [];
+
+		$columns = static::get_columns();
+
+		foreach ( $args as $arg ) {
+			if ( ! is_array( $arg ) ) {
+				continue;
+			}
+
+			if ( empty( $arg['column'] ) ) {
+				continue;
+			}
+
+			if ( ! in_array( $arg['column'], $columns, true ) ) {
+				continue;
+			}
+
+			if ( empty( $arg['value'] ) ) {
+				// We check that the column has any value then.
+				$args['value']    = '';
+				$args['operator'] = '!=';
+			}
+
+			if ( empty( $args['operator'] ) ) {
+				$args['operator'] = '=';
+			}
+
+			// For anything else, you should build your own query!
+			if ( ! in_array( $args['operator'], [ '=', '!=', '>', '<', '>=', '<=' ], true ) ) {
+				$args['operator'] = '=';
+			}
+
+			$column      = $arg['column'];
+			$operator    = $args['operator'];
+			$value       = $args['value'];
+			$placeholder = is_numeric( $value ) ? '%d' : '%s'; // Only integers and strings are supported currently.
+
+			$where[] = DB::prepare( "{$column} {$operator} {$placeholder}", $value );
+		}
+
+		if ( empty( $where ) ) {
+			return '';
+		}
+
+		$where = 'WHERE ' . implode( " {$query_operator} ", $where );
 	}
 }

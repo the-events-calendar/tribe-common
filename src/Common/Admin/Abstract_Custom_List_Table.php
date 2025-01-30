@@ -109,8 +109,6 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	 * It should echo the output.
 	 *
 	 * @since TBD
-	 *
-	 * @return string
 	 */
 	public function do_top_tablename_filters(): void {}
 
