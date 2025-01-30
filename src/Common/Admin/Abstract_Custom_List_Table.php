@@ -41,7 +41,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	 *
 	 * @var string
 	 */
-	protected const PLURAL   = '';
+	protected const PLURAL = '';
 
 	/**
 	 * Table ID.
@@ -68,12 +68,39 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 				'singular' => static::SINGULAR,
 				'plural'   => static::PLURAL,
 				'ajax'     => false,
-				'screen'   => get_current_screen(),
+				'screen'   => null,
 			]
 		);
 
 		parent::__construct( $args );
-		add_filter( 'manage_' . $this->screen->id . '_columns', [ $this, 'get_columns' ], PHP_INT_MAX );
+
+		$this->screen->add_option(
+			'per_page',
+			[
+				'label'  => __( 'Number of entries per page:', 'tribe-common' ),
+				'option' => str_replace( '-', '_', static::TABLE_ID . '_per_page' ),
+			]
+		);
+	}
+
+	/**
+	 * Store the custom per page option.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed  $screen_option The value to save instead of the option value.
+	 *                              Default false (to skip saving the current option).
+	 * @param string $option        The option name.
+	 * @param int    $value         The option value.
+	 *
+	 * @return array An associative array in the format [ <slug> => <title> ]
+	 */
+	public static function store_custom_per_page_option( $screen_option, string $option, int $value ) {
+		if ( str_replace( '-', '_', static::TABLE_ID . '_per_page' ) === $option ) {
+			return $value;
+		}
+
+		return $screen_option;
 	}
 
 	/**
@@ -106,9 +133,6 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	 * @return array
 	 */
 	abstract protected function get_items( int $per_page ): array;
-
-	// public function no_items() {
-	// }
 
 	/**
 	 * Prints the extra table controls.
@@ -166,8 +190,8 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	 *
 	 * @since TBD
 	 *
-	 * @param object $item         The current object.
-	 * @param string  $column_name The current column name.
+	 * @param object $item        The current object.
+	 * @param string $column_name The current column name.
 	 */
 	public function column_default( $item, $column_name ) {
 		$value = null;
@@ -191,10 +215,15 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Prepares the list of items for displaying.
 	 *
+	 * You should be initializing and preparing items in the `current_screen` hook. So that the screen is set up properly.
+	 *
+	 * The screen is set up in the constructor!!
+	 *
 	 * @since TBD
+	 * @throws RuntimeException If the table is being prepared too late.
 	 */
 	public function prepare_items(): void {
-		if ( did_action( 'wp_loaded' ) ) {
+		if ( did_action( 'load-' . $this->screen->id ) ) {
 			throw new RuntimeException( 'You are not Prepared! You need to prepare before any headers have been sent!' );
 		}
 
@@ -210,7 +239,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 		 */
 		$per_page = (int) apply_filters(
 			'edit_posts_per_page',
-			$this->get_items_per_page( 'edit_' . static::TABLE_ID . '_per_page' ),
+			$this->get_items_per_page( str_replace( '-', '_', static::TABLE_ID . '_per_page' ) ),
 			static::TABLE_ID
 		);
 
@@ -218,10 +247,10 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 		$total_items = $per_page > count( $this->items ) ? count( $this->items ) : $this->get_total_items();
 
 		$this->set_pagination_args(
-			array(
+			[
 				'total_items' => $total_items,
 				'per_page'    => $per_page,
-			)
+			]
 		);
 	}
 
@@ -232,8 +261,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	 *
 	 * @param object $item The current item.
 	 */
-
-	 public function single_row( $item ): void {
+	public function single_row( $item ): void {
 		?>
 		<tr class="iedit level-0">
 			<?php $this->single_row_columns( $item ); ?>
@@ -246,32 +274,32 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $text The search button text
-	 * @param string $input_id The search input id
+	 * @param string $text     The search button text.
+	 * @param string $input_id The search input id.
 	 */
 	public function search_box( $text, $input_id ) {
-		if ( empty( $_REQUEST['s'] ) && !$this->has_items() ) {
+		if ( ! tec_get_request_var_raw( 's' ) && ! $this->has_items() ) {
 			return;
 		}
 
 		$input_id = $input_id . '-search-input';
 
-		if ( ! empty( $_REQUEST['orderby'] ) ) {
-			echo '<input type="hidden" name="orderby" value="' . esc_attr( $_REQUEST['orderby'] ) . '" />';
+		if ( ! empty( tec_get_request_var( 'orderby' ) ) ) {
+			echo '<input type="hidden" name="orderby" value="' . esc_attr( tec_get_request_var( 'orderby' ) ) . '" />';
 		}
 
-		if ( ! empty( $_REQUEST['order'] ) ) {
-			echo '<input type="hidden" name="order" value="' . esc_attr( $_REQUEST['order'] ) . '" />';
+		if ( ! empty( tec_get_request_var( 'order' ) ) ) {
+			echo '<input type="hidden" name="order" value="' . esc_attr( tec_get_request_var( 'order' ) ) . '" />';
 		}
 
-		if ( ! empty( $_REQUEST['page'] ) ) {
-			echo '<input type="hidden" name="page" value="' . esc_attr( $_REQUEST['page'] ) . '" />';
+		if ( ! empty( tec_get_request_var( 'page' ) ) ) {
+			echo '<input type="hidden" name="page" value="' . esc_attr( tec_get_request_var( 'page' ) ) . '" />';
 		}
 		?>
 		<p class="search-box">
-			<label class="screen-reader-text" for="<?php echo $input_id ?>"><?php echo $text; ?>:</label>
-			<input type="search" id="<?php echo $input_id ?>" name="s" value="<?php _admin_search_query(); ?>" />
-			<?php submit_button( $text, 'button', false, false, array('id' => 'search-submit') ); ?>
+			<label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_html( $text ); ?>:</label>
+			<input type="search" id="<?php echo esc_attr( $input_id ); ?>" name="s" value="<?php _admin_search_query(); ?>" />
+			<?php submit_button( $text, 'button', false, false, [ 'id' => 'search-submit' ] ); ?>
 		</p>
 		<?php
 	}
