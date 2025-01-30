@@ -128,4 +128,135 @@ trait Custom_Table_Query_Methods {
 			$output
 		);
 	}
+
+	/**
+	 * Method used to paginate the results of a query.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $args     The query arguments.
+	 * @param int    $per_page The number of items to display per page.
+	 * @param int    $page     The current page number.
+	 * @param string $output   The output type of the query, one of OBJECT, ARRAY_A, or ARRAY_N.
+	 *
+	 * @return array The items.
+	 */
+	public static function paginate( array $args, int $per_page = 20, int $page = 1, string $output = OBJECT ): array {
+		$per_page = min( max( 1, $per_page ), 200 );
+		$page     = max( 1, $page );
+
+		$offset = ( $page - 1 ) * $per_page;
+
+		$orderby = $args['orderby'] ?? self::uid_column();
+		$order   = strtoupper( $args['order'] ?? 'ASC' );
+
+		if ( ! in_array( $orderby, static::get_columns(), true ) ) {
+			$orderby = self::uid_column();
+		}
+
+		if ( ! in_array( $order, [ 'ASC', 'DESC' ], true ) ) {
+			$order = 'ASC';
+		}
+
+		$where = self::build_where_from_args( $args );
+
+		return DB::get_results(
+			DB::prepare(
+				"SELECT * FROM %i {$where} ORDER BY {$orderby} {$order} LIMIT %d, %d",
+				static::table_name( true ),
+				$offset,
+				$per_page
+			),
+			$output
+		);
+	}
+
+	/**
+	 * Gets the total number of items in the table.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $args The query arguments.
+	 *
+	 * @return int The total number of items in the table.
+	 */
+	public static function get_total_items( array $args = [] ): int {
+		$where = self::build_where_from_args( $args );
+
+		return (int) DB::get_var(
+			DB::prepare(
+				"SELECT COUNT(*) FROM %i {$where}",
+				static::table_name( true )
+			)
+		);
+	}
+
+	/**
+	 * Builds a WHERE clause from the provided arguments.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $args The query arguments.
+	 *
+	 * @return string The WHERE clause.
+	 */
+	protected static function build_where_from_args( array $args = [] ): string {
+		$query_operator = strtoupper( $args['query_operator'] ?? 'AND' );
+
+		if ( ! in_array( $query_operator, [ 'AND', 'OR' ], true ) ) {
+			$query_operator = 'AND';
+		}
+
+		unset( $args['order'], $args['orderby'], $args['query_operator'] );
+
+		if ( empty( $args ) ) {
+			return '';
+		}
+
+		$where = [];
+
+		$columns = static::get_columns();
+
+		foreach ( $args as $arg ) {
+			if ( ! is_array( $arg ) ) {
+				continue;
+			}
+
+			if ( empty( $arg['column'] ) ) {
+				continue;
+			}
+
+			if ( ! in_array( $arg['column'], $columns, true ) ) {
+				continue;
+			}
+
+			if ( empty( $arg['value'] ) ) {
+				// We check that the column has any value then.
+				$arg['value']    = '';
+				$arg['operator'] = '!=';
+			}
+
+			if ( empty( $arg['operator'] ) ) {
+				$arg['operator'] = '=';
+			}
+
+			// For anything else, you should build your own query!
+			if ( ! in_array( $arg['operator'], [ '=', '!=', '>', '<', '>=', '<=' ], true ) ) {
+				$arg['operator'] = '=';
+			}
+
+			$column      = $arg['column'];
+			$operator    = $arg['operator'];
+			$value       = $arg['value'];
+			$placeholder = is_numeric( $value ) ? '%d' : '%s'; // Only integers and strings are supported currently.
+
+			$where[] = DB::prepare( "{$column} {$operator} {$placeholder}", $value );
+		}
+
+		if ( empty( $where ) ) {
+			return '';
+		}
+
+		return 'WHERE ' . implode( " {$query_operator} ", $where );
+	}
 }

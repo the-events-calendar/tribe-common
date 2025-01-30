@@ -23,6 +23,15 @@ abstract class Custom_Table_Abstract extends Table {
 	use Traits\Custom_Table_Query_Methods;
 
 	/**
+	 * An array of all the columns in the table.
+	 *
+	 * @since TBD
+	 *
+	 * @var string[]
+	 */
+	abstract public static function get_columns(): array;
+
+	/**
 	 * Helper method to check and add an index to a table.
 	 *
 	 * @since TBD
