@@ -201,7 +201,11 @@ trait Custom_Table_Query_Methods {
 	 * @return string The WHERE clause.
 	 */
 	protected static function build_where_from_args( array $args = [] ): string {
-		$query_operator = $args['query_operator'] ?? 'AND';
+		$query_operator = strtoupper( $args['query_operator'] ?? 'AND' );
+
+		if ( ! in_array( $query_operator, [ 'AND', 'OR' ], true ) ) {
+			$query_operator = 'AND';
+		}
 
 		unset( $args['order'], $args['orderby'], $args['query_operator'] );
 
