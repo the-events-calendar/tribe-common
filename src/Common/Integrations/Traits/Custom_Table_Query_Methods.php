@@ -128,4 +128,59 @@ trait Custom_Table_Query_Methods {
 			$output
 		);
 	}
+
+	/**
+	 * Method used to paginate the results of a query.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $args     The query arguments.
+	 * @param int    $per_page The number of items to display per page.
+	 * @param int    $page     The current page number.
+	 * @param string $output   The output type of the query, one of OBJECT, ARRAY_A, or ARRAY_N.
+	 *
+	 * @return array The items.
+	 */
+	public static function paginate( array $args, int $per_page, int $page, string $output = OBJECT ): array {
+		$offset = ( $page - 1 ) * $per_page;
+
+		$orderby = $args['orderby'] ?? self::uid_column();
+		$order   = strtoupper( $args['order'] ) ?? 'ASC';
+
+		if ( ! in_array( $orderby, static::get_columns(), true ) ) {
+			$orderby = self::uid_column();
+		}
+
+		if ( ! in_array( $order, [ 'ASC', 'DESC' ], true ) ) {
+			$order = 'ASC';
+		}
+
+		return DB::get_results(
+			DB::prepare(
+				"SELECT * FROM %i ORDER BY {$orderby} {$order} LIMIT %d, %d",
+				static::table_name( true ),
+				$offset,
+				$per_page
+			),
+			$output
+		);
+	}
+
+	/**
+	 * Gets the total number of items in the table.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $args The query arguments.
+	 *
+	 * @return int The total number of items in the table.
+	 */
+	public static function get_total_items( array $args = [] ): int {
+		return (int) DB::get_var(
+			DB::prepare(
+				'SELECT COUNT(*) FROM %i',
+				static::table_name( true )
+			)
+		);
+	}
 }
