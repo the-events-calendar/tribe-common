@@ -99,6 +99,10 @@ class Tribe__Main {
 		add_action( 'tribe_common_loaded', [ $this, 'tribe_common_app_store' ], 10 );
 		add_action( 'customize_controls_print_styles', [ $this, 'load_tec_variables' ], 10 );
 
+		add_action( 'current_screen', function () {
+			do_action( 'tribe_admin_headers_about_to_be_sent' );
+		}, PHP_INT_MAX );
+
 		if ( did_action( 'plugins_loaded' ) && ! doing_action( 'plugins_loaded' ) ) {
 			/*
 			 * This might happen in the context of a plugin activation.
