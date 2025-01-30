@@ -145,7 +145,7 @@ trait Custom_Table_Query_Methods {
 		$offset = ( $page - 1 ) * $per_page;
 
 		$orderby = $args['orderby'] ?? self::uid_column();
-		$order   = strtoupper( $args['order'] ) ?? 'ASC';
+		$order   = strtoupper( $args['order'] ?? 'ASC' );
 
 		if ( ! in_array( $orderby, static::get_columns(), true ) ) {
 			$orderby = self::uid_column();
@@ -225,22 +225,22 @@ trait Custom_Table_Query_Methods {
 
 			if ( empty( $arg['value'] ) ) {
 				// We check that the column has any value then.
-				$args['value']    = '';
-				$args['operator'] = '!=';
+				$arg['value']    = '';
+				$arg['operator'] = '!=';
 			}
 
-			if ( empty( $args['operator'] ) ) {
-				$args['operator'] = '=';
+			if ( empty( $arg['operator'] ) ) {
+				$arg['operator'] = '=';
 			}
 
 			// For anything else, you should build your own query!
-			if ( ! in_array( $args['operator'], [ '=', '!=', '>', '<', '>=', '<=' ], true ) ) {
-				$args['operator'] = '=';
+			if ( ! in_array( $arg['operator'], [ '=', '!=', '>', '<', '>=', '<=' ], true ) ) {
+				$arg['operator'] = '=';
 			}
 
 			$column      = $arg['column'];
-			$operator    = $args['operator'];
-			$value       = $args['value'];
+			$operator    = $arg['operator'];
+			$value       = $arg['value'];
 			$placeholder = is_numeric( $value ) ? '%d' : '%s'; // Only integers and strings are supported currently.
 
 			$where[] = DB::prepare( "{$column} {$operator} {$placeholder}", $value );
@@ -250,6 +250,6 @@ trait Custom_Table_Query_Methods {
 			return '';
 		}
 
-		$where = 'WHERE ' . implode( " {$query_operator} ", $where );
+		return 'WHERE ' . implode( " {$query_operator} ", $where );
 	}
 }
