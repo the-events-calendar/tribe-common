@@ -176,7 +176,7 @@ trait Custom_Table_Query_Methods {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $args The query arguments.
+	 * @param array<string,mixed> $args The query arguments.
 	 *
 	 * @return int The total number of items in the table.
 	 */
