@@ -141,7 +141,10 @@ trait Custom_Table_Query_Methods {
 	 *
 	 * @return array The items.
 	 */
-	public static function paginate( array $args, int $per_page, int $page, string $output = OBJECT ): array {
+	public static function paginate( array $args, int $per_page = 20, int $page = 1, string $output = OBJECT ): array {
+		$per_page = min( max( 1, $per_page ), 200 );
+		$page     = max( 1, $page );
+
 		$offset = ( $page - 1 ) * $per_page;
 
 		$orderby = $args['orderby'] ?? self::uid_column();
