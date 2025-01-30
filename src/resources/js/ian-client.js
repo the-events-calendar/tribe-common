@@ -130,7 +130,7 @@
 		 *
 		 * This function will close the IAN sidebar when capturing an event outside of the IAN sidebar or icon.
 		 *
-		 * @since TBD
+		 * @since 6.5.0
 		 *
 		 * @param {Event} e The click event.
 		 */
