@@ -196,7 +196,7 @@ trait Custom_Table_Query_Methods {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $args The query arguments.
+	 * @param array $args<string,mixed> The query arguments.
 	 *
 	 * @return string The WHERE clause.
 	 */
