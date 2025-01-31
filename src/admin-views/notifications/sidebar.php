@@ -11,26 +11,26 @@
  */
 
 ?>
-<div class="ian-sidebar is-hidden" data-trigger="sideIan">
+<div class="ian-sidebar is-hidden" data-tec-ian-trigger="sideIan">
 	<div class="ian-sidebar__title">
 		<div class="ian-sidebar__title--left">
 			<?php esc_html_e( 'Notifications', 'tribe-common' ); ?>
 		</div>
 		<div class="ian-sidebar__title--right">
-			<a href="#" data-trigger="readAllIan" class="is-hidden"><?php esc_html_e( 'Mark all as read', 'tribe-common' ); ?></a>
-			<img src="<?php echo esc_url( tribe_resource_url( 'images/icons/close.svg', false, null, $main ) ); ?>" alt="<?php esc_attr_e( 'Close icon', 'tribe-common' ); ?>" width="20" height="20" data-trigger="closeIan" title="<?php esc_attr_e( 'Close sidebar', 'tribe-common' ); ?>">
+			<a href="#" data-tec-ian-trigger="readAllIan" class="is-hidden"><?php esc_html_e( 'Mark all as read', 'tribe-common' ); ?></a>
+			<img src="<?php echo esc_url( tribe_resource_url( 'images/icons/close.svg', false, null, $main ) ); ?>" alt="<?php esc_attr_e( 'Close icon', 'tribe-common' ); ?>" width="20" height="20" data-tec-ian-trigger="closeIan" title="<?php esc_attr_e( 'Close sidebar', 'tribe-common' ); ?>">
 		</div>
 	</div>
-	<div class="ian-sidebar__content" data-trigger="contentIan">
-		<div class="ian-sidebar__loader is-hidden" data-trigger="loaderIan"></div>
-		<div class="ian-sidebar__notifications is-hidden" data-trigger="notifications" data-consent="<?php echo esc_attr( $optin ? 'true' : 'false' ); ?>"></div>
-		<div class="ian-sidebar__optin is-hidden" data-trigger="emptyIan">
+	<div class="ian-sidebar__content" data-tec-ian-trigger="contentIan">
+		<div class="ian-sidebar__loader is-hidden" data-tec-ian-trigger="loaderIan"></div>
+		<div class="ian-sidebar__notifications is-hidden" data-tec-ian-trigger="notifications" data-consent="<?php echo esc_attr( $optin ? 'true' : 'false' ); ?>"></div>
+		<div class="ian-sidebar__optin is-hidden" data-tec-ian-trigger="emptyIan">
 				<div class="ian-sidebar__optin--icon"><img src="<?php echo esc_url( tribe_resource_url( 'images/icons/bell.svg', false, null, $main ) ); ?>" alt="<?php esc_attr_e( 'Notifications icon', 'tribe-common' ); ?>" width="60" height="60"></div>
 				<div class="ian-sidebar__optin--title"><?php esc_html_e( 'There are no notifications', 'tribe-common' ); ?></div>
 				<div class="ian-sidebar__optin--description"><p><?php esc_html_e( 'Congratulations! You are up to date.', 'tribe-common' ); ?></p></div>
 			</div>
 		<?php if ( ! tribe_is_truthy( $optin ) ) : ?>
-			<div class="ian-sidebar__optin" data-trigger="optinIan">
+			<div class="ian-sidebar__optin" data-tec-ian-trigger="optinIan">
 			<div class="ian-sidebar__optin--icon"><img src="<?php echo esc_url( tribe_resource_url( 'images/icons/bell.svg', false, null, $main ) ); ?>" alt="<?php esc_attr_e( 'Notifications icon', 'tribe-common' ); ?>" width="60" height="60"></div>
 			<div class="ian-sidebar__optin--title"><?php esc_html_e( 'There are no notifications', 'tribe-common' ); ?></div>
 			<div class="ian-sidebar__optin--description">
@@ -43,7 +43,7 @@
 				?>
 				</p>
 			</div>
-			<div class="ian-sidebar__optin--button" data-trigger="optinIan"><?php esc_html_e( 'Opt-in to notifications', 'tribe-common' ); ?></div>
+			<div class="ian-sidebar__optin--button" data-tec-ian-trigger="optinIan"><?php esc_html_e( 'Opt-in to notifications', 'tribe-common' ); ?></div>
 			</div>
 		<?php endif; ?>
 	</div>

@@ -50,5 +50,7 @@
   "vendor/vendor-prefixed/autoload-classmap.php",
   "vendor/vendor-prefixed/autoload.php",
   "vendor/vendor-prefixed/stellarwp/**/*",
+  "node_modules/php-date-formatter/js/php-date-formatter.js",
+  "node_modules/php-date-formatter/js/php-date-formatter.min.js",
   "vendor/woocommerce/action-scheduler/**/*.php"
 ]
