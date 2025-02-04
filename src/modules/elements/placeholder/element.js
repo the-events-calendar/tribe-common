@@ -18,6 +18,7 @@ const Placeholder = ( { children, className } ) => (
 
 Placeholder.propTypes = {
 	children: PropTypes.node.isRequired,
+	className: PropTypes.string,
 };
 
 export default Placeholder;

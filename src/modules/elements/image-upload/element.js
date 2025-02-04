@@ -21,6 +21,7 @@ import { wpEditor } from '@moderntribe/common/utils/globals';
 import './style.pcss';
 const { MediaUpload } = wpEditor;
 
+// eslint-disable-next-line react/display-name, react/prop-types
 export const renderImageUploadButton = ( disabled, label ) => ( { open } ) => (
 	<Button
 		onClick={ open }
