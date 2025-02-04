@@ -26,7 +26,7 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 	 *
 	 * @param string $date         String representing the datetime, assumed to be UTC (relevant if timezone conversion is used)
 	 * @param bool   $display_time If true shows date and time, if false only shows date
-	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @param string $date_format  Allows date and time formatting using standard php syntax (http://php.net/manual/en/function.date.php).
 	 *
 	 * @return string
 	 */
@@ -128,7 +128,7 @@ if ( ! function_exists( 'tribe_end_of_day' ) ) {
 	 * @category Events
 	 *
 	 * @param string $date   The date to find the end of the day, defaults to today
-	 * @param string $format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @param string $format Allows date and time formatting using standard php syntax (http://php.net/manual/en/function.date.php).
 	 *
 	 * @return string
 	 */
@@ -160,7 +160,7 @@ if ( ! function_exists( 'tribe_end_of_day' ) ) {
 
 if ( ! function_exists( 'tribe_get_datetime_separator' ) ) {
 	/**
-	 * Get the datetime saparator from the database option with escaped characters or not ;)
+	 * Get the datetime separator from the database option with escaped characters or not ;)
 	 *
 	 * @param string $default Default Separator if it's blank on the Database
 	 * @param bool   $esc     If it's going to be used on a `date` function or method it needs to be escaped
@@ -189,8 +189,8 @@ if ( ! function_exists( 'tribe_get_start_time' ) ) {
 	 * @category Events
 	 *
 	 * @param int    $event       (optional)
-	 * @param string $date_format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
-	 * @param string $timezone    Timezone in which to present the date/time (or default behaviour if not set)
+	 * @param string $date_format Allows date and time formatting using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @param string $timezone    Timezone in which to present the date/time (or default behavior if not set)
 	 *
 	 * @return string|null Time
 	 */
@@ -240,8 +240,8 @@ if ( ! function_exists( 'tribe_get_end_time' ) ) {
 	 * @category Events
 	 *
 	 * @param int    $event       (optional)
-	 * @param string $date_format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
-	 * @param string $timezone    Timezone in which to present the date/time (or default behaviour if not set)
+	 * @param string $date_format Allows date and time formatting using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @param string $timezone    Timezone in which to present the date/time (or default behavior if not set)
 	 *
 	 * @return string|null Time
 	 */
@@ -295,8 +295,8 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 	 *
 	 * @param int    $event        (optional)
 	 * @param bool   $display_time If true shows date and time, if false only shows date
-	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
-	 * @param string $timezone     Deprecated. Timezone in which to present the date/time (or default behaviour if not set)
+	 * @param string $date_format  Allows date and time formatting using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @param string $timezone     Deprecated. Timezone in which to present the date/time (or default behavior if not set)
 	 *
 	 * @return string|null Date
 	 */
@@ -361,8 +361,8 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 	 *
 	 * @param int    $event        (optional)
 	 * @param bool   $display_time If true shows date and time, if false only shows date
-	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
-	 * @param string $timezone     Deprecated. Timezone in which to present the date/time (or default behaviour if not set)
+	 * @param string $date_format  Allows date and time formatting using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @param string $timezone     Deprecated. Timezone in which to present the date/time (or default behavior if not set)
 	 *
 	 * @return string|null Date
 	 */
@@ -391,7 +391,7 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 
 			// @todo [BTRIA-584]: Move timezones to Common.
 			if ( class_exists( 'Tribe__Events__Timezones' ) ) {
-				$end_date = Tribe__Events__Timezones::event_end_timestamp( $event->ID );
+				$end_date = Tribe__Events__Timezones::event_end_timestamp( $event->ID, $timezone );
 			} else {
 				return null;
 			}
