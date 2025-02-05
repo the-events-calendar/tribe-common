@@ -11,6 +11,7 @@ namespace TEC\Common\Integrations\Traits;
 
 use Generator;
 use TEC\Common\StellarWP\DB\DB;
+use InvalidArgumentException;
 
 /**
  * Trait Custom_Table_Query_Methods.
@@ -172,6 +173,88 @@ trait Custom_Table_Query_Methods {
 	}
 
 	/**
+	 * Method used to paginate the results of a query using JOIN.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $args           The query arguments.
+	 * @param string $join_table     The table to join.
+	 * @param string $join_condition The condition to join on.
+	 * @param int    $per_page       The number of items to display per page.
+	 * @param int    $page           The current page number.
+	 * @param string $output         The output type of the query, one of OBJECT, ARRAY_A, or ARRAY_N.
+	 *
+	 * @return array The items.
+	 * @throws InvalidArgumentException If the table to join is the same as the current table.
+	 *                                  If the join condition does not contain an equal sign.
+	 *                                  If the join condition does not contain valid columns.
+	 */
+	public static function joined_paginate( array $args, string $join_table, string $join_condition, array $selectable_joined_columns = [], int $per_page = 20, int $page = 1, string $output = OBJECT ): array {
+		if ( static::table_name( true ) === $join_table::table_name( true ) ) {
+			throw new InvalidArgumentException( 'The table to join must be different from the current table.' );
+		}
+
+		$per_page = min( max( 1, $per_page ), 200 );
+		$page     = max( 1, $page );
+
+		$offset = ( $page - 1 ) * $per_page;
+
+		$orderby = $args['orderby'] ?? self::uid_column();
+		$order   = strtoupper( $args['order'] ?? 'ASC' );
+
+		$primary_table_columns = static::get_columns();
+
+		if ( ! in_array( $orderby, $primary_table_columns, true ) ) {
+			$orderby = self::uid_column();
+		}
+
+		if ( ! in_array( $order, [ 'ASC', 'DESC' ], true ) ) {
+			$order = 'ASC';
+		}
+
+		$where = self::build_where_from_args( $args, true );
+
+		if ( ! strstr( $join_condition, '=' ) ) {
+			throw new InvalidArgumentException( 'The join condition must contain an equal sign.' );
+		}
+
+		$join_condition = array_map( 'trim', explode( '=', $join_condition, 2 ) );
+
+		$secondary_table_columns = $join_table::get_columns();
+
+		$both_table_columns = array_merge( $primary_table_columns, $secondary_table_columns );
+
+		if ( ! in_array( $join_condition[0], $both_table_columns, true ) || ! in_array( $join_condition[1], $both_table_columns, true ) ) {
+			throw new InvalidArgumentException( 'The join condition must contain valid columns.' );
+		}
+
+		$join_condition = 'a.' . str_replace( [ 'a.', 'b.' ], '', $join_condition[0] ) . ' = b.' . str_replace( [ 'a.', 'b.' ], '', $join_condition[1] );
+
+		$clean_secondary_columns = [];
+
+		foreach ( array_map( 'trim', $selectable_joined_columns ) as $column ) {
+			if ( ! in_array( $column, $secondary_table_columns, true ) ) {
+				continue;
+			}
+
+			$clean_secondary_columns[] = 'b.' . $column;
+		}
+
+		$clean_secondary_columns = $clean_secondary_columns ? ', ' . implode( ', ', $clean_secondary_columns ) : '';
+
+		return DB::get_results(
+			DB::prepare(
+				"SELECT a.*{$clean_secondary_columns} FROM %i a JOIN %i b ON {$join_condition} {$where} ORDER BY a.{$orderby} {$order} LIMIT %d, %d",
+				static::table_name( true ),
+				$join_table::table_name( true ),
+				$offset,
+				$per_page
+			),
+			$output
+		);
+	}
+
+	/**
 	 * Gets the total number of items in the table.
 	 *
 	 * @since TBD
@@ -196,11 +279,12 @@ trait Custom_Table_Query_Methods {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string,mixed> $args The query arguments.
+	 * @param array<string,mixed> $args   The query arguments.
+	 * @param bool                $joined Whether the WHERE clause is for a joined query.
 	 *
 	 * @return string The WHERE clause.
 	 */
-	protected static function build_where_from_args( array $args = [] ): string {
+	protected static function build_where_from_args( array $args = [], bool $joined = false ): string {
 		$query_operator = strtoupper( $args['query_operator'] ?? 'AND' );
 
 		if ( ! in_array( $query_operator, [ 'AND', 'OR' ], true ) ) {
@@ -212,8 +296,24 @@ trait Custom_Table_Query_Methods {
 		if ( empty( $args ) ) {
 			return '';
 		}
+		$joined_prefix = $joined ? 'a.' : '';
 
 		$where = [];
+
+		$search = $args['term'] ?? '';
+		if ( $search ) {
+			$searchable_columns = static::get_searchable_columns();
+
+			if ( ! empty( $searchable_columns ) ) {
+				$search_where = [];
+
+				foreach ( $searchable_columns as $column ) {
+					$search_where[] = DB::prepare( "{$joined_prefix}{$column} LIKE %s", '%' . DB::esc_like( $search ) . '%' );
+				}
+
+				$where[] = '(' . implode( ' OR ', $search_where ) . ')';
+			}
+		}
 
 		$columns = static::get_columns();
 
@@ -250,7 +350,7 @@ trait Custom_Table_Query_Methods {
 			$value       = $arg['value'];
 			$placeholder = is_numeric( $value ) ? '%d' : '%s'; // Only integers and strings are supported currently.
 
-			$where[] = DB::prepare( "{$column} {$operator} {$placeholder}", $value );
+			$where[] = DB::prepare( "{$joined_prefix}{$column} {$operator} {$placeholder}", $value );
 		}
 
 		if ( empty( $where ) ) {
