@@ -570,9 +570,9 @@ class Tribe__Main {
 	 * A helper method to load text domain.
 	 * First, it tries to load language files from a custom folder when set. If it fails it falls back to load from $dir.
 	 *
-	 * @since  4.0.1 Introduced.
-	 * @since  4.2   Included $domain and $dir params.
-	 * @since  TBD   Refactored logic to better handle `load_plugin_textdomain` changes introduced by WordPress 6.7.
+	 * @since 4.0.1 Introduced.
+	 * @since 4.2   Included $domain and $dir params.
+	 * @since 6.5.1 Refactored logic to better handle `load_plugin_textdomain` changes introduced by WordPress 6.7.
 	 *
 	 * @param string       $domain The text domain that will be loaded.
 	 * @param string|false $dir    What directory should be used to try to register if the default doesn't work.

@@ -362,7 +362,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Gets whether the PUE key validation check is expired.
 		 *
 		 * @since 4.14.9
-		 * @since TBD Updated `$option_expiration` logic.
+		 * @since 6.5.1 Updated `$option_expiration` logic.
 		 */
 		public function is_key_validation_expired(): bool {
 			// Check if a transient exists; if so, the key is not expired.
@@ -393,7 +393,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @since 4.14.9
 		 * @since 6.4.2 Clear `self::IS_ANY_LICENSE_VALID_TRANSIENT_KEY` when a key is checked.
-		 * @since TBD Updated the value of `{$this->pue_key_status_option_name}_timeout` to be the expiration date of when we should recheck the license.
+		 * @since 6.5.1 Updated the value of `{$this->pue_key_status_option_name}_timeout` to be the expiration date of when we should recheck the license.
 		 *
 		 * @param int $valid 0 for invalid, 1 or 2 for valid.
 		 */
@@ -415,7 +415,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * into WP data structures.
 		 * Also, other hooks related to the automatic updates (such as checking against API and what not (@from Darren)
 		 *
-		 * @since TBD Added `initialize_license_check` action.
+		 * @since 6.5.1 Added `initialize_license_check` action.
 		 */
 		public function hooks(): void {
 			// Override requests for plugin information.
@@ -548,7 +548,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Set the plugin name.
 		 *
-		 * @since TBD Switched to early bail.
+		 * @since 6.5.1 Switched to early bail.
 		 *
 		 * @param string $plugin_name The plugin name.
 		 */
@@ -1767,7 +1767,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Get the currently installed version of the plugin.
 		 *
-		 * @since TBD Refactored logic to better catch different scenarios.
+		 * @since 6.5.1 Refactored logic to better catch different scenarios.
 		 *
 		 * @return string Version number.
 		 */
@@ -1912,7 +1912,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Clears out the site external site option and re-checks the license key
 		 *
-		 * @since TBD
+		 * @since 6.5.1
 		 *
 		 * @param string|null $field_id        The ID of the field.
 		 * @param mixed       $value           The value of the option.
@@ -1949,7 +1949,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @param object $validated_field The validated field.
 		 *
 		 * @return mixed returns $value
-		 * @deprecated TBD Updated to be passthrough method to `check_for_api_key_error_on_action`.
+		 * @deprecated 6.5.1 Updated to be passthrough method to `check_for_api_key_error_on_action`.
 		 *
 		 * @internal
 		 */
@@ -1997,7 +1997,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @param callback $callback The callback function.
 		 *
-		 * @deprecated TBD This method is deprecated and will be removed in a future release. Use the 'tribe_puc_request_info_query_args-<slug>' filter directly.
+		 * @deprecated 6.5.1 This method is deprecated and will be removed in a future release. Use the 'tribe_puc_request_info_query_args-<slug>' filter directly.
 		 */
 		public function add_query_arg_filter( $callback ) {
 			_deprecated_function( __METHOD__, 'TBD', 'add_filter(\'tribe_puc_request_info_query_args-<slug>\', $callback);' );
@@ -2024,7 +2024,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @param callback $callback The callback function.
 		 *
 		 * @uses       add_filter() This method is a convenience wrapper for add_filter().
-		 * @deprecated TBD This method is deprecated and will be removed in a future release. Use the 'tribe_puc_request_info_options-<slug>' filter directly.
+		 * @deprecated 6.5.1 This method is deprecated and will be removed in a future release. Use the 'tribe_puc_request_info_options-<slug>' filter directly.
 		 */
 		public function add_http_request_arg_filter( $callback ) {
 			_deprecated_function( __METHOD__, 'TBD', 'add_filter(\'tribe_puc_request_info_options-<slug>\', $callback);' );
@@ -2045,7 +2045,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @param callback $callback The callback function.
 		 *
 		 * @uses       add_filter() This method is a convenience wrapper for add_filter().
-		 * @deprecated TBD This method is deprecated and will be removed in a future release. Use the 'tribe_puc_request_info_result-<slug>' filter directly.
+		 * @deprecated 6.5.1 This method is deprecated and will be removed in a future release. Use the 'tribe_puc_request_info_result-<slug>' filter directly.
 		 */
 		public function add_result_filter( $callback ) {
 			_deprecated_function( __METHOD__, 'TBD', 'add_filter(\'tribe_puc_request_info_result-<slug>\', $callback, 10, 2);' );

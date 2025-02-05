@@ -33,7 +33,7 @@ class Container extends DI52_Container implements ContainerInterface {
 	 * Overrides the parent method to fire an action when a service provider is registered.
 	 *
 	 * @since 5.1.4
-	 * @since TBD - Ensure registration actions are fired only once and ONLY for active controllers.
+	 * @since 6.5.1 - Ensure registration actions are fired only once and ONLY for active controllers.
 	 *
 	 * @param string $service_provider_class The service provider class name.
 	 * @param string ...$alias               Optional. The alias(es) to register the service provider with.

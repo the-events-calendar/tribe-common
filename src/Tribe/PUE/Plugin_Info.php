@@ -72,7 +72,7 @@ if ( ! class_exists( 'Tribe__PUE__Plugin_Info' ) ) {
 		 * Create a new instance of Tribe__PUE__Plugin_Info from JSON-encoded plugin info
 		 * returned by an external update API.
 		 *
-		 * @since TBD Added whitelist for checking $key.
+		 * @since 6.5.1 Added whitelist for checking $key.
 		 *
 		 * @param string $json Valid JSON string representing plugin info.
 		 *
@@ -126,7 +126,7 @@ if ( ! class_exists( 'Tribe__PUE__Plugin_Info' ) ) {
 		/**
 		 * Get the whitelist of valid keys (class properties).
 		 *
-		 * @since TBD
+		 * @since 6.5.1
 		 *
 		 * @return array List of valid property names.
 		 */
@@ -137,7 +137,7 @@ if ( ! class_exists( 'Tribe__PUE__Plugin_Info' ) ) {
 		/**
 		 * Check if a given key is in the whitelist.
 		 *
-		 * @since TBD
+		 * @since 6.5.1
 		 *
 		 * @param string $key The key to check.
 		 *

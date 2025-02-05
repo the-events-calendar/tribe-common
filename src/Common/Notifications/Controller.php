@@ -26,7 +26,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * The custom action that will be fired when the controller registers.
 	 *
-	 * @since TBD
+	 * @since 6.5.1
 	 *
 	 * @var string
 	 */
