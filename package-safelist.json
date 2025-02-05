@@ -52,6 +52,6 @@
   "vendor/vendor-prefixed/stellarwp/**/*",
   "node_modules/php-date-formatter/js/php-date-formatter.js",
   "node_modules/php-date-formatter/js/php-date-formatter.min.js",
-  "node_modules/react-day-picker/moment/*",
+  "node_modules/react-day-picker/**/*.js",
   "vendor/woocommerce/action-scheduler/**/*.php"
 ]
