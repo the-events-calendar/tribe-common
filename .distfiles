@@ -54,3 +54,4 @@
 /vendor/woocommerce/action-scheduler/**/*.php
 /node_modules/php-date-formatter/js/php-date-formatter.js
 /node_modules/php-date-formatter/js/php-date-formatter.min.js
+/node_modules/react-day-picker/moment/*.js
