@@ -299,9 +299,13 @@ trait Custom_Table_Query_Methods {
 	 *
 	 * @since TBD
 	 *
+	 * @param string $join_table                The table to join.
+	 * @param string $join_condition            The condition to join on.
+	 * @param array  $selectable_joined_columns The columns from the joined table to select.
+	 *
 	 * @return array<string> The JOIN statement and the secondary columns to select.
 	 * @throws InvalidArgumentException If the join condition does not contain an equal sign.
-	 * 									If the join condition does not contain valid columns.
+	 *                                  If the join condition does not contain valid columns.
 	 */
 	protected static function get_join_parts( string $join_table, string $join_condition, array $selectable_joined_columns = [] ): array {
 		if ( ! strstr( $join_condition, '=' ) ) {
