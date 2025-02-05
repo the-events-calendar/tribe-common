@@ -177,12 +177,13 @@ trait Custom_Table_Query_Methods {
 	 *
 	 * @since TBD
 	 *
-	 * @param array  $args           The query arguments.
-	 * @param string $join_table     The table to join.
-	 * @param string $join_condition The condition to join on.
-	 * @param int    $per_page       The number of items to display per page.
-	 * @param int    $page           The current page number.
-	 * @param string $output         The output type of the query, one of OBJECT, ARRAY_A, or ARRAY_N.
+	 * @param array  $args                      The query arguments.
+	 * @param string $join_table                The table to join.
+	 * @param string $join_condition            The condition to join on.
+	 * @param array  $selectable_joined_columns The columns from the joined table to select.
+	 * @param int    $per_page                  The number of items to display per page.
+	 * @param int    $page                      The current page number.
+	 * @param string $output                    The output type of the query, one of OBJECT, ARRAY_A, or ARRAY_N.
 	 *
 	 * @return array The items.
 	 * @throws InvalidArgumentException If the table to join is the same as the current table.

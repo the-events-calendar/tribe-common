@@ -86,7 +86,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 
 		$this->display_tablenav( 'top' );
 		?>
-		<table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>" cellspacing="0">
+		<table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>" cellspacing="0">
 			<thead>
 				<tr>
 					<?php $this->print_column_headers(); ?>
@@ -405,7 +405,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	 *
 	 * @return array<string,string>
 	 */
-	public function get_date_range(): array{
+	public function get_date_range(): array {
 		$date_from = sanitize_text_field( tec_get_request_var( 'tec_tc_date_range_from', '' ) );
 		$date_to   = sanitize_text_field( tec_get_request_var( 'tec_tc_date_range_to', '' ) );
 
