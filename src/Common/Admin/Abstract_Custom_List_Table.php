@@ -84,25 +84,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 			return;
 		}
 
-		$this->display_tablenav( 'top' );
-		?>
-		<table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>" cellspacing="0">
-			<thead>
-				<tr>
-					<?php $this->print_column_headers(); ?>
-				</tr>
-			</thead>
-			<tfoot>
-				<tr>
-					<?php $this->print_column_headers( false ); ?>
-				</tr>
-			</tfoot>
-			<tbody id="the-list">
-				<?php $this->display_rows_or_placeholder(); ?>
-			</tbody>
-		</table>
-		<?php
-		$this->display_tablenav( 'bottom' );
+		parent::display();
 	}
 
 	/**
