@@ -117,6 +117,25 @@ class Tribe__Main {
 			PHP_INT_MAX
 		);
 
+		add_action(
+			'shutdown',
+			function () {
+				/**
+				 * Fires during the shutdown action.
+				 *
+				 * This is mostly useful for testing code. We can trigger this action
+				 * instead of triggering the whole shutdown.
+				 *
+				 * In production code, it can help us only in the sense of adding our own
+				 * actions in a specific order.
+				 *
+				 * @since TBD
+				 */
+				do_action( 'tec_shutdown' );
+			},
+			0
+		);
+
 		if ( did_action( 'plugins_loaded' ) && ! doing_action( 'plugins_loaded' ) ) {
 			/*
 			 * This might happen in the context of a plugin activation.
