@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Corrected an issue where editing an event after updating Event Tickets could cause a block editor error due to a missing dependency in react-day-picker. [ET-2293]
