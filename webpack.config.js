@@ -46,16 +46,6 @@ const modulesConfig = merge.strategy( {
 		entry: {
 			modules: resolve( __dirname, './src/modules/modules.js' ),
 		},
-		resolve: {
-			...common.resolve,
-			alias: {
-				...common.resolve?.alias,
-				'react-day-picker/moment': resolve(
-					__dirname,
-					'node_modules/moment'
-				),
-			},
-		},
 		output: {
 			path: __dirname,
 			library: [ 'tribe', 'modules' ],
