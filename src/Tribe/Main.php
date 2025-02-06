@@ -774,7 +774,10 @@ class Tribe__Main {
 		tribe_singleton( 'admin.activation.page', 'Tribe__Admin__Activation_Page' );
 		tribe_singleton( Translations_Loader::class, Translations_Loader::class );
 
-		tribe_register_provider( Tribe__Editor__Provider::class );
+		if ( !tec_using_new_editor() ) {
+			tribe_register_provider( Tribe__Editor__Provider::class );
+		}
+
 		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
 		tribe_register_provider( Tribe\Service_Providers\Tooltip::class );
 		tribe_register_provider( Tribe\Service_Providers\Dialog::class );
