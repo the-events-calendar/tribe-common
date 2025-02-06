@@ -20,7 +20,7 @@ class Tribe__Main {
 	const OPTIONNAME        = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK = 'tribe_events_calendar_network_options';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
-	const VERSION           = '6.4.2';
+	const VERSION           = '6.5.1';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
@@ -567,44 +567,49 @@ class Tribe__Main {
 	}
 
 	/**
-	 * A Helper method to load text domain
-	 * First it tries to load the wp-content/languages translation then if falls to the try to load $dir language files.
+	 * A helper method to load text domain.
+	 * First, it tries to load language files from a custom folder when set. If it fails it falls back to load from $dir.
 	 *
-	 * @since  4.0.1 Introduced.
-	 * @since  4.2   Included $domain and $dir params.
+	 * @since 4.0.1 Introduced.
+	 * @since 4.2   Included $domain and $dir params.
+	 * @since 6.5.1 Refactored logic to better handle `load_plugin_textdomain` changes introduced by WordPress 6.7.
 	 *
 	 * @param string       $domain The text domain that will be loaded.
-	 * @param string|false $dir    What directory should be used to try to load if the default doesn't work.
+	 * @param string|false $dir    What directory should be used to try to register if the default doesn't work.
 	 *
-	 * @return bool  If it was able to load the text domain.
+	 * @return bool  If it was able to register the text domain.
 	 */
 	public function load_text_domain( $domain, $dir = false ) {
-		// Added safety just in case this runs twice...
+		// Added safety just in case this runs twice.
 		if ( is_textdomain_loaded( $domain ) && ! $GLOBALS['l10n'][ $domain ] instanceof NOOP_Translations ) {
 			return true;
 		}
 
-		$locale = get_locale();
-		$plugin_rel_path = WP_LANG_DIR . '/plugins/';
+		$locale          = get_locale();
+		$plugin_rel_path = $dir;
 
 		/**
-		 * Allows users to filter the file location for a given text domain..
-		 * Be careful when using this filter, it will apply across the whole plugin suite.
+		 * Allows users to filter the file location for a given text domain.
+		 * The path has to be relative to wp-content/plugins/.
+		 * Be careful when using this filter, it will apply across the whole plugin suite when not checking $domain.
 		 *
 		 * @param string      $plugin_rel_path The relative path for the language files.
-		 * @param string      $domain Which plugin domain we are trying to load.
-		 * @param string      $locale Which Language we will load.
-		 * @param string|bool $dir    If there was a custom directory passed on the method call.
+		 * @param string      $domain          The plugin domain we are trying to load.
+		 * @param string      $locale          The language we will load.
+		 * @param string|bool $dir             If there was a custom directory passed on the method call.
 		 */
 		$plugin_rel_path = apply_filters( 'tribe_load_text_domain', $plugin_rel_path, $domain, $locale, $dir );
 
-		$loaded = load_plugin_textdomain( $domain, false, $plugin_rel_path );
+		$filename = $domain . '-' . $locale . '.mo';
+		$file     = trailingslashit( WP_PLUGIN_DIR ) . trailingslashit( $plugin_rel_path ) . $filename;
 
-		if ( $dir !== false && ! $loaded ) {
-			return load_plugin_textdomain( $domain, false, $dir );
+		// Load textdomain from a custom folder or the plugin's language folder.
+		if ( file_exists( $file ) ) {
+			return load_plugin_textdomain( $domain, false, $plugin_rel_path );
 		}
 
-		return $loaded;
+		// If translation files are not found in the custom folder, then load textdomain from the plugin's language folder.
+		return $dir !== $plugin_rel_path && load_plugin_textdomain( $domain, false, $dir );
 	}
 
 	/**
@@ -769,7 +774,6 @@ class Tribe__Main {
 
 		tribe_register_provider( Tribe__Editor__Provider::class );
 		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
-		tribe_register_provider( Tribe__Service_Providers__Promoter::class );
 		tribe_register_provider( Tribe\Service_Providers\Tooltip::class );
 		tribe_register_provider( Tribe\Service_Providers\Dialog::class );
 		tribe_register_provider( Tribe\Service_Providers\PUE::class );
@@ -777,9 +781,10 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Service_Providers\Body_Classes::class );
 		tribe_register_provider( Tribe\Log\Service_Provider::class );
 		tribe_register_provider( Tribe\Service_Providers\Crons::class );
+		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
+		tribe_register_provider( Tribe__Service_Providers__Promoter::class );
 		tribe_register_provider( Tribe\Service_Providers\Widgets::class );
 		tribe_register_provider( Tribe\Service_Providers\Onboarding::class );
-		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
 		tribe_register_provider( \TEC\Common\Admin\Conditional_Content\Controller::class );
 		tribe_register_provider( \TEC\Common\Notifications\Controller::class );
 		tribe_register_provider( Libraries\Provider::class );

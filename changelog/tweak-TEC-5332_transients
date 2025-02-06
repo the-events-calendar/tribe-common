@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-When installing new plugins `TEC_IS_ANY_LICENSE_VALID_TRANSIENT` will update correctly. [TEC-5332]
