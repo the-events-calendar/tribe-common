@@ -1954,7 +1954,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @internal
 		 */
 		public function check_for_api_key_error( $value, string $field_id, object $validated_field ) {
-			_deprecated_function( __METHOD__, 'TBD', 'check_for_api_key_error_on_action' );
+			_deprecated_function( __METHOD__, '6.5.1', 'check_for_api_key_error_on_action' );
 			$this->check_for_api_key_error_on_action( $field_id, $value );
 
 			return $value;
@@ -2000,7 +2000,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @deprecated 6.5.1 This method is deprecated and will be removed in a future release. Use the 'tribe_puc_request_info_query_args-<slug>' filter directly.
 		 */
 		public function add_query_arg_filter( $callback ) {
-			_deprecated_function( __METHOD__, 'TBD', 'add_filter(\'tribe_puc_request_info_query_args-<slug>\', $callback);' );
+			_deprecated_function( __METHOD__, '6.5.1', 'add_filter(\'tribe_puc_request_info_query_args-<slug>\', $callback);' );
 
 			/**
 			 * Filters the query arguments passed to the API request.
@@ -2027,7 +2027,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @deprecated 6.5.1 This method is deprecated and will be removed in a future release. Use the 'tribe_puc_request_info_options-<slug>' filter directly.
 		 */
 		public function add_http_request_arg_filter( $callback ) {
-			_deprecated_function( __METHOD__, 'TBD', 'add_filter(\'tribe_puc_request_info_options-<slug>\', $callback);' );
+			_deprecated_function( __METHOD__, '6.5.1', 'add_filter(\'tribe_puc_request_info_options-<slug>\', $callback);' );
 
 			add_filter( 'tribe_puc_request_info_options-' . $this->get_slug(), $callback );
 		}
@@ -2048,7 +2048,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @deprecated 6.5.1 This method is deprecated and will be removed in a future release. Use the 'tribe_puc_request_info_result-<slug>' filter directly.
 		 */
 		public function add_result_filter( $callback ) {
-			_deprecated_function( __METHOD__, 'TBD', 'add_filter(\'tribe_puc_request_info_result-<slug>\', $callback, 10, 2);' );
+			_deprecated_function( __METHOD__, '6.5.1', 'add_filter(\'tribe_puc_request_info_result-<slug>\', $callback, 10, 2);' );
 
 			add_filter( 'tribe_puc_request_info_result-' . $this->get_slug(), $callback, 10, 2 );
 		}
