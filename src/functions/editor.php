@@ -18,3 +18,18 @@ if ( ! function_exists( 'tec_is_full_site_editor' ) ) {
 		return false;
 	}
 }
+
+if ( ! function_exists( 'tec_using_new_editor' ) ) {
+	function tec_using_new_editor(): bool {
+		/**
+		 * Filters whether the new editor experience is being used or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $using_new_editor Whether the new editor experience is being used or not.
+		 */
+		$using_new_editor = apply_filters( 'tec_using_new_editor', false );
+
+		return (bool) $using_new_editor;
+	}
+}
