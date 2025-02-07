@@ -32,6 +32,17 @@ abstract class Custom_Table_Abstract extends Table {
 	abstract public static function get_columns(): array;
 
 	/**
+	 * An array of all the columns that are searchable.
+	 *
+	 * @since TBD
+	 *
+	 * @return string[]
+	 */
+	public static function get_searchable_columns(): array {
+		return [];
+	}
+
+	/**
 	 * Helper method to check and add an index to a table.
 	 *
 	 * @since TBD
