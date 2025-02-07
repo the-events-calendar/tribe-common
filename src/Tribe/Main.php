@@ -99,43 +99,6 @@ class Tribe__Main {
 		add_action( 'tribe_common_loaded', [ $this, 'tribe_common_app_store' ], 10 );
 		add_action( 'customize_controls_print_styles', [ $this, 'load_tec_variables' ], 10 );
 
-		add_action(
-			'current_screen',
-			function () {
-				/**
-				 * Fires just before headers are sent.
-				 *
-				 * We can use this action instead of headers_sent().
-				 *
-				 * Especially where a functionality would trigger a fatal error if headers are
-				 * sent using an action is more forgiving.
-				 *
-				 * @since TBD
-				 */
-				do_action( 'tec_admin_headers_about_to_be_sent' );
-			},
-			PHP_INT_MAX
-		);
-
-		add_action(
-			'shutdown',
-			function () {
-				/**
-				 * Fires during the shutdown action.
-				 *
-				 * This is mostly useful for testing code. We can trigger this action
-				 * instead of triggering the whole shutdown.
-				 *
-				 * In production code, it can help us only in the sense of adding our own
-				 * actions in a specific order.
-				 *
-				 * @since TBD
-				 */
-				do_action( 'tec_shutdown' );
-			},
-			0
-		);
-
 		if ( did_action( 'plugins_loaded' ) && ! doing_action( 'plugins_loaded' ) ) {
 			/*
 			 * This might happen in the context of a plugin activation.
@@ -828,6 +791,9 @@ class Tribe__Main {
 
 		// Load Help Hub.
 		tribe_register_provider( TEC\Common\Admin\Help_Hub\Provider::class );
+
+		// Load the common hooks.
+		tribe_register_provider( TEC\Common\Hooks::class );
 	}
 
 	/**
