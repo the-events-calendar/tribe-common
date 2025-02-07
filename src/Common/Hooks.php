@@ -25,7 +25,6 @@ class Hooks extends Controller_Contract {
 	 */
 	public function do_register(): void {
 		add_action( 'current_screen', [ $this, 'admin_headers_about_to_be_sent' ], PHP_INT_MAX );
-
 		add_action( 'shutdown', [ $this, 'tec_shutdown' ], 0 );
 	}
 
@@ -34,7 +33,10 @@ class Hooks extends Controller_Contract {
 	 *
 	 * @since TBD
 	 */
-	public function unregister(): void {}
+	public function unregister(): void {
+		remove_action( 'current_screen', [ $this, 'admin_headers_about_to_be_sent' ], PHP_INT_MAX );
+		remove_action( 'shutdown', [ $this, 'tec_shutdown' ], 0 );
+	}
 
 	/**
 	 * Fires an action just before headers are sent.
