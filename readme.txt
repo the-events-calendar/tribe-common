@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [6.5.1] 2025-02-06 =
+= [6.5.1] 2025-02-10 =
 
 * Tweak - License validation now runs consistently during plugin activation, ensuring licenses are recognized earlier. [TEC-5351]
 * Fix - Added more details to `Core_Read_Interface` methods' docblocks to avoid errors in PHPStan. [TCMN-177]
