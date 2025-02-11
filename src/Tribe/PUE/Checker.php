@@ -416,7 +416,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Also, other hooks related to the automatic updates (such as checking against API and what not (@from Darren)
 		 *
 		 * @since 6.5.1 Added `initialize_license_check` action.
-		 * @since 6.5.2.1 Moved `monitor_active_plugins` and `initialize_license_check` to `setup_pue_license_hooks`, and run on `admin_init`.
+		 * @since 6.5.1.1 Moved `monitor_active_plugins` and `initialize_license_check` to `setup_pue_license_hooks`, and run on `admin_init`.
 		 */
 		public function hooks(): void {
 			// Override requests for plugin information.
@@ -451,7 +451,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Initializes and registers the PUE license check and active plugin monitoring.
 		 * This method is triggered on `admin_init`.
 		 *
-		 * @since 6.5.2.1
+		 * @since 6.5.1.1
 		 * @return void
 		 */
 		public function setup_admin_init_pue_license_hooks() {
