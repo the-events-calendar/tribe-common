@@ -440,26 +440,25 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), [ $this, 'ajax_validate_key' ] );
 			add_filter( 'tribe-pue-install-keys', [ $this, 'return_install_key' ] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'maybe_display_json_error_on_plugins_page' ], 1 );
-			add_action( 'admin_init', [ $this, 'general_notifications' ] );
 
 			// Package name.
 			add_filter( 'upgrader_pre_download', [ Tribe__PUE__Package_Handler::instance(), 'filter_upgrader_pre_download' ], 5, 3 );
 
-			add_action( 'admin_init', [ $this, 'monitor_uplink_actions' ], 1000 );
 			add_action( 'admin_init', [ $this, 'setup_admin_init_pue_license_hooks' ] );
 		}
 
 		/**
 		 * Initializes and registers the PUE license check and active plugin monitoring.
-		 * This method is triggered on `admin_init`, ensuring that the PUE license check
-		 * and active plugin monitoring occur only when the admin environment is ready.
+		 * This method is triggered on `admin_init`.
 		 *
 		 * @since TBD
 		 * @return void
 		 */
 		public function setup_admin_init_pue_license_hooks() {
 			self::monitor_active_plugins( $this );
+			$this->general_notifications();
 			$this->initialize_license_check( $this );
+			$this->monitor_uplink_actions( $this );
 		}
 
 		/********************** Getter / Setter Functions **********************/
