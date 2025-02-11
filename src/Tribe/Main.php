@@ -84,14 +84,16 @@ class Tribe__Main {
 		require_once dirname( __FILE__ ) . '/Container.php';
 
 		if ( is_object( $context ) ) {
-			$this->plugin_context = $context;
+			$this->plugin_context       = $context;
 			$this->plugin_context_class = get_class( $context );
 		}
 
-		$this->plugin_path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
-		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
+		$this->plugin_path       = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
+		$this->plugin_dir        = trailingslashit( basename( $this->plugin_path ) );
 		$this->parent_plugin_dir = trailingslashit( plugin_basename( $this->plugin_path ) );
-		$this->plugin_url  = plugins_url( $this->parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $this->parent_plugin_dir );
+		$this->plugin_url        = plugins_url( $this->parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $this->parent_plugin_dir );
+
+		require_once $this->plugin_path . 'src/functions/utils.php';
 
 		$this->promoter_connector();
 
@@ -187,6 +189,7 @@ class Tribe__Main {
 	 * @since 4.14.18
 	 */
 	public function init_early_libraries() {
+		require_once $this->plugin_path . 'src/functions/tec-utils.php';
 		require_once $this->plugin_path . 'src/functions/editor.php';
 	}
 
@@ -194,7 +197,6 @@ class Tribe__Main {
 	 * initializes all required libraries
 	 */
 	public function init_libraries() {
-		require_once $this->plugin_path . 'src/functions/utils.php';
 		require_once $this->plugin_path . 'src/functions/conditionals.php';
 		require_once $this->plugin_path . 'src/functions/transient.php';
 		require_once $this->plugin_path . 'src/functions/url.php';
