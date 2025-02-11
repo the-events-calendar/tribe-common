@@ -458,7 +458,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			self::monitor_active_plugins( $this );
 			$this->general_notifications();
 			$this->initialize_license_check( $this );
-			$this->monitor_uplink_actions( $this );
+			$this->monitor_uplink_actions();
 		}
 
 		/********************** Getter / Setter Functions **********************/
