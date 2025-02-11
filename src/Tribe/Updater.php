@@ -90,7 +90,9 @@ class Tribe__Updater {
 	 * @return array
 	 */
 	public function get_update_callbacks() {
-		return [];
+		return [
+			'6.5.1.1' => [ $this, 'reset_pue_notices' ],
+		];
 	}
 
 	/**
@@ -177,4 +179,12 @@ class Tribe__Updater {
 		$this->update_version_option( $this->reset_version );
 	}
 
+	/**
+	 * Resets the tribe_pue_key_notices option.
+	 * 
+	 * @since 6.5.1.1
+	 */
+	public function reset_pue_notices(): void {
+		delete_option( 'tribe_pue_key_notices' );
+	}
 }
