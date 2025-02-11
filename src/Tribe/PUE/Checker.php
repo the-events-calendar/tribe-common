@@ -1868,6 +1868,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			if ( empty( $this->get_key() ) ) {
 				return $updates;
 			}
+
 			$state = $this->get_state( $force_recheck );
 
 			$state->lastCheck      = time();
@@ -2359,7 +2360,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// Retrieve the license.
 			$license = get_option( $checker->get_license_option_key() );
 			if ( empty( $license ) ) {
-				// An empty license doesn't mean an invalid plugin. So skip it.
+				// An empty license doesn't always mean an invalid plugin. So skip it.
 				return;
 			}
 
