@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-Add a callback to remove the `tribe_pue_key_notices` once on upgrade to version 6.5.1.1 [TBD]
+Add a callback to remove the `tribe_pue_key_notices` once on upgrade to version 6.5.1.1 [TEC-5384]
