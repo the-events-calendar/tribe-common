@@ -44,7 +44,7 @@ class Tribe__Service_Providers__Promoter extends Service_Provider {
 	 * license key. If a key is found, it registers the authentication setting
 	 * via the 'init' action.
 	 *
-	 * @since TBD
+	 * @since 6.5.1.1
 	 *
 	 * @return void
 	 */
