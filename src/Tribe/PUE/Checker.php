@@ -416,6 +416,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Also, other hooks related to the automatic updates (such as checking against API and what not (@from Darren)
 		 *
 		 * @since 6.5.1 Added `initialize_license_check` action.
+		 * @since TBD Moved `monitor_active_plugins` and `initialize_license_check` to `admin_init`.
 		 */
 		public function hooks(): void {
 			// Override requests for plugin information.
@@ -445,11 +446,21 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_filter( 'upgrader_pre_download', [ Tribe__PUE__Package_Handler::instance(), 'filter_upgrader_pre_download' ], 5, 3 );
 
 			add_action( 'admin_init', [ $this, 'monitor_uplink_actions' ], 1000 );
+			add_action( 'tribe_common_loaded', [ $this, 'setup_pue_license_hooks' ] );
+		}
+
+		/**
+		 * Registers hooks to initialize the PUE license check and monitor active plugins.
+		 * This method adds actions to handle the PUE license check
+		 * and monitor active plugins when the `tec_pue_checker_init` action is triggered.
+		 *
+		 * @since TBD
+		 * @return void
+		 */
+		public function setup_pue_license_hooks() {
 			add_action( 'tec_pue_checker_init', [ __CLASS__, 'monitor_active_plugins' ] );
 			add_action( 'tec_pue_checker_init', [ $this, 'initialize_license_check' ] );
 		}
-
-
 
 		/********************** Getter / Setter Functions **********************/
 
