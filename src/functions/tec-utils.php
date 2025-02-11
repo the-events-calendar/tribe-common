@@ -61,11 +61,11 @@ if ( ! function_exists( 'tribe_register_plugin' ) ) {
 	/**
 	 * Checks if this plugin has permission to run, if not it notifies the admin
 	 *
-	 * @param string $file_path    Full file path to the base plugin file
-	 * @param string $main_class   The Main/base class for this plugin
-	 * @param string $version      The version
-	 * @param array  $classes_req  Any Main class files/tribe plugins required for this to run
-	 * @param array  $dependencies an array of dependencies to check
+	 * @param string $file_path    Full file path to the base plugin file.
+	 * @param string $main_class   The Main/base class for this plugin.
+	 * @param string $version      The version.
+	 * @param array  $classes_req  Any Main class files/tribe plugins required for this to run.
+	 * @param array  $dependencies an array of dependencies to check.
 	 */
 	function tribe_register_plugin( $file_path, $main_class, $version, $classes_req = [], $dependencies = [] ) {
 		$tribe_dependency = tribe( Tribe__Dependency::class );
@@ -121,14 +121,14 @@ if ( ! function_exists( 'tribe_get_class_instance' ) ) {
  *
  * @param string $key Cache key for the incrementor.
  * @param string $expiration_trigger The trigger that causes the cache key to expire.
- * @param int $default The default value of the incrementor.
+ * @param int    $default The default value of the incrementor.
  *
  * @return int
  **/
 function tribe_get_next_cached_increment( $key, $expiration_trigger = '', $default = 0 ) {
 	$cache = tribe( 'cache' );
 	$value = (int) $cache->get( $key, $expiration_trigger, $default );
-	$value++;
+	++$value;
 	$cache->set( $key, $value, \Tribe__Cache::NON_PERSISTENT, $expiration_trigger );
 
 	return $value;
@@ -140,7 +140,7 @@ if ( ! function_exists( 'tribe_check_plugin' ) ) {
 	 *
 	 * @since 4.9
 	 *
-	 * @param string $main_class The Main/base class for this plugin
+	 * @param string $main_class The Main/base class for this plugin.
 	 *
 	 * @return bool Indicates if plugin should continue initialization
 	 */
@@ -149,6 +149,5 @@ if ( ! function_exists( 'tribe_check_plugin' ) ) {
 		$tribe_dependency = tribe( Tribe__Dependency::class );
 
 		return $tribe_dependency->check_plugin( $main_class );
-
 	}
 }
