@@ -1572,7 +1572,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			// Check for expired keys.
 			if ( empty( $install_key ) ) {
-				return $plugin_info;
+				// Return null on empty license keys.
+				return null;
 			} elseif ( ! empty( $plugin_info->api_expired ) ) {
 				$pue_notices->add_notice( Tribe__PUE__Notices::EXPIRED_KEY, $plugin_name );
 			} elseif ( ! empty( $plugin_info->api_upgrade ) ) {
