@@ -7,7 +7,7 @@
  * @since 4.9.4
  *
  */
-class Tribe__Updater {
+abstract class Tribe__Updater {
 
 	protected $version_option  = 'schema-version';
 	protected $reset_version   = '3.9'; // when a reset() is called, go to this version
@@ -176,5 +176,4 @@ class Tribe__Updater {
 	public function reset() {
 		$this->update_version_option( $this->reset_version );
 	}
-
 }
