@@ -65,21 +65,19 @@ class Updater extends Tribe__Updater {
 	public function hook(): void {
 		// Only run once.
 		if ( did_action( 'tec_did_updates' ) ) {
+			error_log('did updates');
 			return;
 		}
 
 		// Dom't run on AJAX requests.
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			error_log('ajax');
 			return;
 		}
 
 		// Don't run on autosaves.
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-			return;
-		}
-
-		// Never run on new install.
-		if ( $this->is_new_install() ) {
+			error_log('autosave');
 			return;
 		}
 
@@ -126,8 +124,7 @@ class Updater extends Tribe__Updater {
 	/**
 	 * Returns an array of callbacks with version strings as keys.
 	 * Any key higher than the version recorded in the DB
-	 * and lower than $this->current_version will have its
-	 * callback called.
+	 * and lower than $this->current_version will have its callback called.
 	 *
 	 * @since 5.6.1.1
 	 *
