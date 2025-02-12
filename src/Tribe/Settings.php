@@ -598,7 +598,7 @@ class Tribe__Settings {
 				<?php echo esc_html( $this->get_page_title( $admin_page ) ); ?>
 			</h1>
 			<?php if ( tribe( Controller::class )->is_ian_page() ) : ?>
-				<div class="ian-client" data-trigger="iconIan"></div>
+				<div class="ian-client" data-tec-ian-trigger="iconIan"></div>
 			<?php endif; ?>
 		</div>
 		<?php

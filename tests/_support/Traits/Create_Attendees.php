@@ -2,6 +2,7 @@
 
 namespace TEC\Event_Automator\Tests\Traits;
 
+use Faker\Factory;
 use TEC\Tickets\Commerce\Cart;
 use TEC\Tickets\Commerce\Gateways\PayPal\Gateway;
 use TEC\Tickets\Commerce\Module;
@@ -706,10 +707,10 @@ trait Create_Attendees {
 		$this->suspend_edd_emails();
 
 		$factory = $this->factory ?? $this->factory();
-		$faker   = Faker\Factory::create();
+		$faker   = Factory::create();
 		// Set a seed to generate consistent results.
 		$faker->seed(592);
-		$faker->addProvider( new Faker\Provider\en_US\Address( $faker ) );
+		$faker->addProvider( new \Faker\Provider\en_US\Address( $faker ) );
 
 		$create_user = $overrides['create_users'] ?? false;
 		$user_id     = $overrides['user_id'] ?? 0;

@@ -24,6 +24,15 @@ use Tribe__Main;
 class Controller extends Controller_Contract {
 
 	/**
+	 * The custom action that will be fired when the controller registers.
+	 *
+	 * @since 6.5.1
+	 *
+	 * @var string
+	 */
+	public static string $registration_action = 'tec_common_ian_loaded';
+
+	/**
 	 * Registers actions and filters.
 	 *
 	 * @since 6.4.0

@@ -38,7 +38,11 @@ const modulesConfig = merge.strategy( {
 } )(
 	common,
 	{
-		externals: [],
+		externals: [
+			wpExternals,
+			vendor,
+			lodash
+		],
 		entry: {
 			modules: resolve( __dirname, './src/modules/modules.js' ),
 		},
