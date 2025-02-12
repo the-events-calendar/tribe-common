@@ -416,6 +416,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Also, other hooks related to the automatic updates (such as checking against API and what not (@from Darren)
 		 *
 		 * @since 6.5.1 Added `initialize_license_check` action.
+		 * @since 6.5.1.1 Moved `monitor_active_plugins` and `initialize_license_check` to `setup_pue_license_hooks`, and run on `admin_init`.
 		 */
 		public function hooks(): void {
 			// Override requests for plugin information.
@@ -439,17 +440,26 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), [ $this, 'ajax_validate_key' ] );
 			add_filter( 'tribe-pue-install-keys', [ $this, 'return_install_key' ] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'maybe_display_json_error_on_plugins_page' ], 1 );
-			add_action( 'admin_init', [ $this, 'general_notifications' ] );
 
 			// Package name.
 			add_filter( 'upgrader_pre_download', [ Tribe__PUE__Package_Handler::instance(), 'filter_upgrader_pre_download' ], 5, 3 );
 
-			add_action( 'admin_init', [ $this, 'monitor_uplink_actions' ], 1000 );
-			add_action( 'tec_pue_checker_init', [ __CLASS__, 'monitor_active_plugins' ] );
-			add_action( 'tec_pue_checker_init', [ $this, 'initialize_license_check' ] );
+			add_action( 'admin_init', [ $this, 'setup_admin_init_pue_license_hooks' ] );
 		}
 
-
+		/**
+		 * Initializes and registers the PUE license check and active plugin monitoring.
+		 * This method is triggered on `admin_init`.
+		 *
+		 * @since 6.5.1.1
+		 * @return void
+		 */
+		public function setup_admin_init_pue_license_hooks() {
+			self::monitor_active_plugins( $this );
+			$this->general_notifications();
+			$this->initialize_license_check( $this );
+			$this->monitor_uplink_actions();
+		}
 
 		/********************** Getter / Setter Functions **********************/
 
@@ -1203,6 +1213,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Checks for the license key status with MT servers.
 		 *
+		 * @since 6.5.1.1 Bail early if no license key is found.
+		 *
 		 * @param string $key     The license key to check.
 		 * @param bool   $network Whether the key to check for is a network one or not.
 		 *
@@ -1211,6 +1223,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public function validate_key( string $key, bool $network = false ): array {
 			$response           = [];
 			$response['status'] = 0;
+
+			if ( empty( $key ) ) {
+				return [];
+			}
 
 			$uplink_resource = $this->get_uplink_resource( $this->get_slug() );
 
@@ -1555,7 +1571,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$install_key = $this->get_key();
 
 			// Check for expired keys.
-			if ( ! empty( $plugin_info->api_expired ) ) {
+			if ( empty( $install_key ) ) {
+				// Return null on empty license keys.
+				return null;
+			} elseif ( ! empty( $plugin_info->api_expired ) ) {
 				$pue_notices->add_notice( Tribe__PUE__Notices::EXPIRED_KEY, $plugin_name );
 			} elseif ( ! empty( $plugin_info->api_upgrade ) ) {
 				// Check for keys that are out of installs (*must* happen before the api_invalid test).
@@ -1837,8 +1856,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 		/**
 		 * Check for plugin updates.
-		 *
 		 * The results are stored in the DB option specified in $pue_option_name.
+		 *
+		 * @since 6.5.1.1 Bail early if no license key is found.
 		 *
 		 * @param array|object $updates       Existing updates.
 		 * @param boolean      $force_recheck Whether to force a recheck of the update status.
@@ -1846,6 +1866,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return array|object
 		 */
 		public function check_for_updates( $updates = [], bool $force_recheck = false ) {
+			if ( empty( $this->get_key() ) ) {
+				return $updates;
+			}
+
 			$state = $this->get_state( $force_recheck );
 
 			$state->lastCheck      = time();
@@ -2310,6 +2334,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Initializes a license check during PUE Checker initialization.
 		 *
+		 * @since 6.5.1.1 Bail early if no license key is found.
+		 *
 		 * @param Tribe__PUE__Checker $checker An instance of the PUE Checker.
 		 */
 		public function initialize_license_check( Tribe__PUE__Checker $checker ): void {
@@ -2335,9 +2361,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// Retrieve the license.
 			$license = get_option( $checker->get_license_option_key() );
 			if ( empty( $license ) ) {
-				// Set transient for invalid status to avoid repeated checks.
-				set_transient( $this->pue_key_status_transient_name, 'invalid', HOUR_IN_SECONDS );
-
+				// An empty license doesn't always mean an invalid plugin. So skip it.
 				return;
 			}
 
