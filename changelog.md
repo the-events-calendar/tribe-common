@@ -9,7 +9,7 @@
 ### [6.5.1] 2025-02-10
 
 * Fix - Added more details to `Core_Read_Interface` methods' docblocks to avoid errors in PHPStan. [TCMN-177]
-* Fix - Changed the way how translations are loaded to work with the latest WordPress language changes. [FBAR-341][CE-252]
+* Fix - Changed the way translations are loaded to work with the latest WordPress language changes. [FBAR-341][CE-252]
 * Fix - Providers will fire their registration action only once and only if they are active. [TCMN-178]
 * Fix - Tweak load order to prevent Promoter fatal. Ensure PUE gets loaded first.
 * Tweak - License validation now runs consistently during plugin activation, ensuring licenses are recognized earlier. [TEC-5351]
