@@ -21,6 +21,8 @@ class Updater extends Tribe__Updater {
 	/**
 	 * The key used to hold the TCMN version in the database.
 	 * 
+	 * @since 5.6.1.1
+	 * 
 	 * @var string
 	 */
 	protected $version_option = 'tec-schema-version';
@@ -32,7 +34,7 @@ class Updater extends Tribe__Updater {
 	 * 
 	 * @var string
 	 */
-	protected $reset_version   = '3.9';
+	protected $reset_version = '3.9';
 
 	/**
 	 * The current version of the plugin. As recorded in the database.
@@ -49,13 +51,18 @@ class Updater extends Tribe__Updater {
 	 * 
 	 * @since 5.6.1.1
 	 * 
-	 * @param ?string $current_version
+	 * @param ?string $current_version The current version of the plugin. Passed or provided from the Main class.
 	 */
-	public function __construct( $current_version = null) {
+	public function __construct( $current_version = null ) {
 		$this->current_version = ! empty( $current_version ) ? $current_version : Tribe__Main::VERSION;
 	}
 
-	public function hook() {
+	/**
+	 * Hook into admin init and run the update process.
+	 * 
+	 * @since 5.6.1.1
+	 */
+	public function hook(): void {
 		// Only run once.
 		if ( did_action( 'tec_did_updates' ) ) {
 			return;
@@ -72,7 +79,7 @@ class Updater extends Tribe__Updater {
 		}
 
 		// Never run on new install.
-		if ( $this->is_new_install()) {
+		if ( $this->is_new_install() ) {
 			return;
 		}
 
@@ -92,9 +99,10 @@ class Updater extends Tribe__Updater {
 
 		uksort( $updates, 'version_compare' );
 
+		// phpcs:disable Generic.CodeAnalysis.EmptyStatement.DetectedCatchEmpty
 		try {
 			foreach ( $updates as $version => $callback ) {
-				if (  
+				if (
 					version_compare( $version, $this->current_version, '<=' ) 
 					&& $this->is_version_in_db_less_than( $version ) 
 				) {
@@ -108,8 +116,9 @@ class Updater extends Tribe__Updater {
 
 			$this->update_version_option( $this->current_version );
 		} catch ( \Exception $e ) {
-			// fail silently, but it should try again next time.
+			// We want fail silently, but it should try again next time.
 		}
+		// phpcs:enable Generic.CodeAnalysis.EmptyStatement.DetectedCatchEmpty
 
 		do_action( 'tec_did_updates' );
 	}
