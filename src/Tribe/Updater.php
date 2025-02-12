@@ -7,7 +7,7 @@
  * @since 4.9.4
  *
  */
-class Tribe__Updater {
+abstract class Tribe__Updater {
 
 	protected $version_option  = 'schema-version';
 	protected $reset_version   = '3.9'; // when a reset() is called, go to this version
@@ -24,6 +24,7 @@ class Tribe__Updater {
 	 */
 	public function __construct( $current_version ) {
 		$this->current_version = $current_version;
+		error_log('TCMN UPDATER');
 	}
 
 	/**
@@ -90,9 +91,7 @@ class Tribe__Updater {
 	 * @return array
 	 */
 	public function get_update_callbacks() {
-		return [
-			'6.5.1.1' => [ $this, 'reset_pue_notices' ],
-		];
+		return [];
 	}
 
 	/**
@@ -177,14 +176,5 @@ class Tribe__Updater {
 	 */
 	public function reset() {
 		$this->update_version_option( $this->reset_version );
-	}
-
-	/**
-	 * Resets the tribe_pue_key_notices option.
-	 * 
-	 * @since 6.5.1.1
-	 */
-	public function reset_pue_notices(): void {
-		delete_option( 'tribe_pue_key_notices' );
 	}
 }

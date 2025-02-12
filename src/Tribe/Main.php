@@ -209,6 +209,7 @@ class Tribe__Main {
 		Tribe__Debug::instance();
 		tec_timed_option();
 
+		tribe( 'updater' )->do_updates();
 		tribe( 'assets' );
 		tribe( 'assets.pipeline' );
 		tribe( 'settings.manager' );
@@ -741,6 +742,7 @@ class Tribe__Main {
 	 * @return void Implementation of components loader doesn't return anything.
 	 */
 	public function bind_implementations() {
+		tribe_singleton( 'updater', 'TEC\Common\Updater' );
 		tribe_singleton( \TEC\Common\Storage\Timed_Option::class, \TEC\Common\Storage\Timed_Option::class );
 		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
 		tribe_singleton( 'settings', 'Tribe__Settings', [ 'hook' ] );
