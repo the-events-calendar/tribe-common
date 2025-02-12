@@ -24,7 +24,6 @@ abstract class Tribe__Updater {
 	 */
 	public function __construct( $current_version ) {
 		$this->current_version = $current_version;
-		error_log('TCMN UPDATER');
 	}
 
 	/**
