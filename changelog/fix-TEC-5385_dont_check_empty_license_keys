@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Update the license checker to ignore empty licenses. [TEC-5385]

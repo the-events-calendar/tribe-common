@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Adjustments were made to prevent a fatal error when tec_pue_checker_init was triggered too early, attempting to call tribe_is_truthy() before it was available. The license check and active plugin monitoring now run on admin_init to ensure proper loading. [TEC-5384]
