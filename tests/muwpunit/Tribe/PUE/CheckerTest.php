@@ -331,6 +331,6 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 	 * @return Checker
 	 */
 	private function make_instance() {
-		return new Checker( $this->pue_update_url, $this->slug, $this->plugin_file );
+		return new Checker( $this->pue_update_url, $this->slug, [], $this->plugin_file );
 	}
 }

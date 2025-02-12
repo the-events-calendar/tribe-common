@@ -11,7 +11,7 @@ import { noop } from 'lodash';
  */
 import { RadioInput } from '@moderntribe/common/elements';
 
-const Radio = ( { checked, className, disabled, id, label, onChange, name, value } ) => (
+const Radio = ( { checked = false, className, disabled, id, label, onChange = noop, name, value } ) => (
 	<div className={ classNames( 'tribe-editor__radio', className ) }>
 		<RadioInput
 			checked={ checked }
@@ -30,11 +30,6 @@ const Radio = ( { checked, className, disabled, id, label, onChange, name, value
 		</label>
 	</div>
 );
-
-Radio.defaultProps = {
-	checked: false,
-	onChange: noop,
-};
 
 Radio.propTypes = {
 	checked: PropTypes.bool.isRequired,

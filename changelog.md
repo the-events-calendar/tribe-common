@@ -1,5 +1,20 @@
 # Changelog
 
+### [6.5.1] 2025-02-10
+
+* Fix - Added more details to `Core_Read_Interface` methods' docblocks to avoid errors in PHPStan. [TCMN-177]
+* Fix - Changed the way how translations are loaded to work with the latest WordPress language changes. [FBAR-341][CE-252]
+* Fix - Providers will fire their registration action only once and only if they are active. [TCMN-178]
+* Fix - Tweak load order to prevent Promoter fatal. Ensure PUE gets loaded first.
+* Tweak - License validation now runs consistently during plugin activation, ensuring licenses are recognized earlier. [TEC-5351]
+* Tweak - Removed actions: `tec_common_ian_loaded`
+* Language - 0 new strings added, 32 updated, 1 fuzzied, and 0 obsoleted.
+
+### [6.5.0] 2025-01-30
+
+* Fix - Update asset, dependencies, customizations to align with WordPress 6.7 and React 18. [TEC-5322]
+* Language - 0 new strings added, 23 updated, 1 fuzzied, and 0 obsoleted.
+
 ### [6.4.2] 2025-01-22
 
 * Tweak - Move Action Scheduler into Common instead of TEC. [TEC-5345]

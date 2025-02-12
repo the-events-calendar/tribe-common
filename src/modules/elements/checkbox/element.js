@@ -12,12 +12,12 @@ import { noop } from 'lodash';
 import CheckboxInput from '@moderntribe/common/elements/checkbox-input';
 
 const Checkbox = ( {
-	checked,
+	checked = false,
 	className,
 	disabled,
 	id,
 	label,
-	onChange,
+	onChange = noop,
 	name,
 	value,
 } ) => {
@@ -40,11 +40,6 @@ const Checkbox = ( {
 			</label>
 		</div>
 	);
-};
-
-Checkbox.defaultProps = {
-	checked: false,
-	onChange: noop,
 };
 
 Checkbox.propTypes = {

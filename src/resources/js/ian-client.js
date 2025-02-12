@@ -1,13 +1,13 @@
 (function (Ian) {
 	window.addEventListener("load", function (event) {
-		Ian.icon = document.querySelector('[data-trigger="iconIan"]');
-		Ian.sidebar = document.querySelector('[data-trigger="sideIan"]');
-		Ian.notifications = document.querySelector('[data-trigger="notifications"]');
-		Ian.readAll = document.querySelector('[data-trigger="readAllIan"]');
-		Ian.optin = document.querySelector('[data-trigger="optinIan"]');
-		Ian.close = document.querySelector('[data-trigger="closeIan"]');
-		Ian.empty = document.querySelector('[data-trigger="emptyIan"]');
-		Ian.loader = document.querySelector('[data-trigger="loaderIan"]');
+		Ian.icon = document.querySelector('[data-tec-ian-trigger="iconIan"]');
+		Ian.sidebar = document.querySelector('[data-tec-ian-trigger="sideIan"]');
+		Ian.notifications = document.querySelector('[data-tec-ian-trigger="notifications"]');
+		Ian.readAll = document.querySelector('[data-tec-ian-trigger="readAllIan"]');
+		Ian.optin = document.querySelector('[data-tec-ian-trigger="optinIan"]');
+		Ian.close = document.querySelector('[data-tec-ian-trigger="closeIan"]');
+		Ian.empty = document.querySelector('[data-tec-ian-trigger="emptyIan"]');
+		Ian.loader = document.querySelector('[data-tec-ian-trigger="loaderIan"]');
 		Ian.consent = Ian.notifications.dataset.consent;
 		Ian.feed = { read: [], unread: [] };
 
@@ -22,7 +22,9 @@
 			wrapHeadings();
 			calculateSidebarPosition();
 
-			document.addEventListener("click", handleClick);
+			document.querySelectorAll('[data-tec-ian-trigger]')
+				.forEach((element) => element.addEventListener('click', handleElementClick))
+			document.addEventListener("click", handleDocumentClick);
 			document.addEventListener("keydown", handleKeydown);
 			window.addEventListener("resize", calculateSidebarPosition);
 			window.addEventListener("scroll", onScroll);
@@ -50,7 +52,7 @@
 
 					const clientDiv = document.createElement("div");
 					clientDiv.className = "ian-client";
-					clientDiv.setAttribute("data-trigger", "iconIan");
+					clientDiv.setAttribute("data-tec-ian-trigger", "iconIan");
 
 					heading.parentNode.insertBefore(wrapper, heading);
 					wrapper.appendChild(innerWrapper);
@@ -59,7 +61,7 @@
 					innerWrapper.appendChild(clientDiv);
 				}
 			});
-			Ian.icon = document.querySelector('[data-trigger="iconIan"]');
+			Ian.icon = document.querySelector('[data-tec-ian-trigger="iconIan"]');
 			const settingsHeading = document.querySelector('.tec-settings-header-wrap');
 			if (settingsHeading) {
 				settingsHeading.insertAdjacentElement("afterend", Ian.sidebar);
@@ -73,61 +75,101 @@
 		 *
 		 * @param {Event} e The click event.
 		 */
-		const handleClick = e => {
+		const handleElementClick = e => {
 			calculateSidebarPosition();
 
-			switch (e.target.dataset.trigger) {
+			switch (e.target.dataset.tecIanTrigger) {
 				case "iconIan":
+					e.preventDefault();
+					e.stopPropagation();
 					Ian.sidebar.classList.toggle("is-hidden");
 					Ian.icon.classList.toggle("active");
 					break;
 
 				case "closeIan":
+					e.preventDefault();
+					e.stopPropagation();
 					Ian.sidebar.classList.add("is-hidden");
 					Ian.icon.classList.remove("active");
 					break;
 
 				case "optinIan":
+					e.preventDefault();
+					e.stopPropagation();
 					optinIan();
 					break;
 
 				case "dismissIan":
 					e.preventDefault();
+					e.stopPropagation();
 					dismissIan(e.target.dataset.id, e.target.dataset.slug);
 					break;
 
 				case "readIan":
 					e.preventDefault();
+					e.stopPropagation();
+					event.stopPropagation();
 					readIan(e.target.dataset.id, e.target.dataset.slug);
 					break;
 
 				case "readAllIan":
 					e.preventDefault();
+					e.stopPropagation();
 					readAllIan();
 					break;
 
 				default:
-					if (!e.composedPath().includes(Ian.sidebar) && !e.composedPath().includes(Ian.icon)) {
-						Ian.sidebar.classList.add("is-hidden");
-						Ian.icon.classList.remove("active");
-					}
+					console.log('e.composedPath', e.composedPath());
+					// Not an event we care about.
 					break;
 			}
 		};
 
 		/**
-		 * Handle the keydown events on the Ian client.
+		 * Handles a click in the whole document; outside of IAN elements.
+		 *
+		 * This function will close the IAN sidebar when capturing an event outside of the IAN sidebar or icon.
+		 *
+		 * @since 6.5.0
+		 *
+		 * @param {Event} e The click event.
+		 */
+		const handleDocumentClick = e => {
+			const composedPath = e.composedPath();
+
+			if (composedPath.includes(Ian.sidebar) || e.composedPath().includes(Ian.icon)) {
+				// Not a click outside of the IAN element.
+				return;
+			}
+
+			if(Ian.sidebar){
+				Ian.sidebar.classList.add("is-hidden");
+			}
+			if(Ian.icon){
+				Ian.icon.classList.remove("active");
+			}
+		}
+
+		/**
+		 * Handle the keydown events inside or outside of the IAN elements.
 		 *
 		 * @since 6.4.0
 		 *
 		 * @param {Event} e The keydown event.
 		 */
 		const handleKeydown = e => {
-			if (["Escape", "Esc"].includes(e.key) || e.keyCode === 27) {
-				Ian.sidebar.classList.add("is-hidden");
-				Ian.icon.classList.remove("active");
-				calculateSidebarPosition();
+			if (!(["Escape", "Esc"].includes(e.key) || e.keyCode === 27)) {
+				// Not a key press we should handle.
+				return;
 			}
+
+			if (Ian.sidebar) {
+				Ian.sidebar.classList.add('is-hidden');
+			}
+			if (Ian.icon) {
+				Ian.icon.classList.remove('active');
+			}
+			calculateSidebarPosition();
 		};
 
 		/**
