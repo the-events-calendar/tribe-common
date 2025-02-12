@@ -209,7 +209,7 @@ class Tribe__Main {
 		Tribe__Debug::instance();
 		tec_timed_option();
 
-		tribe( 'updater' )->do_updates();
+		tribe( 'updater' )->hook();
 		tribe( 'assets' );
 		tribe( 'assets.pipeline' );
 		tribe( 'settings.manager' );

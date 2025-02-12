@@ -16,7 +16,6 @@ use Tribe__Main;
  * Class Updater
  *
  * @since 5.6.1.1
- *
  */
 class Updater extends Tribe__Updater {
 	/**
@@ -56,20 +55,49 @@ class Updater extends Tribe__Updater {
 		$this->current_version = ! empty( $current_version ) ? $current_version : Tribe__Main::VERSION;
 	}
 
+	public function hook() {
+		// Only run once.
+		if ( did_action( 'tec_did_updates' ) ) {
+			return;
+		}
+
+		// Dom't run on AJAX requests.
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			return;
+		}
+
+		// Don't run on autosaves.
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
+		// Never run on new install.
+		if ( $this->is_new_install()) {
+			return;
+		}
+
+		add_action( 'admin_init', [ $this, 'do_updates' ] );
+	}
+
 	/**
-	 * Run Updates for a Plugin
+	 * Run Updates for a Plugin.
+	 * This is slighty modified from the parent to simplify a bit and to run a custom hook at the end.
 	 *
 	 * @since 5.6.1.1
-	 *
 	 */
-	public function do_updates() {
+	public function do_updates(): void {
 		$this->clear_option_caches();
+
 		$updates = $this->get_update_callbacks();
+
 		uksort( $updates, 'version_compare' );
 
 		try {
 			foreach ( $updates as $version => $callback ) {
-				if (  ! $this->is_new_install() && $this->is_version_in_db_less_than( $version ) ) {
+				if (  
+					version_compare( $version, $this->current_version, '<=' ) 
+					&& $this->is_version_in_db_less_than( $version ) 
+				) {
 					call_user_func( $callback );
 				}
 			}
@@ -82,6 +110,8 @@ class Updater extends Tribe__Updater {
 		} catch ( \Exception $e ) {
 			// fail silently, but it should try again next time.
 		}
+
+		do_action( 'tec_did_updates' );
 	}
 
 	/**
