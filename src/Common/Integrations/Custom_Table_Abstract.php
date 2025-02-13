@@ -69,28 +69,4 @@ abstract class Custom_Table_Abstract extends Table {
 
 		return $results;
 	}
-
-	/**
-	 * Empties the custom table in a way that is not causing an implicit commit.
-	 *
-	 * Even though the method is called truncate it doesn't use TRUNCATE.
-	 * Thats because we want to avoid implicit commits in the DB making this method suitable for using during a testcase.
-	 * If you want to use TRUNCATE you can use the `empty_table` method instead.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool|int Whether it was emptied or not.
-	 */
-	public function truncate() {
-		DB::query( 'SET FOREIGN_KEY_CHECKS = 0;' );
-		$deleted = DB::query(
-			DB::prepare(
-				'DELETE FROM %i',
-				static::table_name( true )
-			)
-		);
-		DB::query( 'SET FOREIGN_KEY_CHECKS = 1;' );
-
-		return is_numeric( $deleted );
-	}
 }
