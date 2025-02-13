@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d34ed5899218cfb511d9033c2f1a48ce",
+    "content-hash": "956b3e8feda4b5c337d3b015c1ab5f1c",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -674,16 +674,16 @@
         },
         {
             "name": "stellarwp/schema",
-            "version": "1.1.7",
+            "version": "1.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/schema.git",
-                "reference": "4dc49390f9c9babedb85f70574603c8a3971edd7"
+                "reference": "979344c46d9c54a7891a27e7399fd391fa51b755"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/schema/zipball/4dc49390f9c9babedb85f70574603c8a3971edd7",
-                "reference": "4dc49390f9c9babedb85f70574603c8a3971edd7",
+                "url": "https://api.github.com/repos/stellarwp/schema/zipball/979344c46d9c54a7891a27e7399fd391fa51b755",
+                "reference": "979344c46d9c54a7891a27e7399fd391fa51b755",
                 "shasum": ""
             },
             "require": {
@@ -727,9 +727,9 @@
             "description": "A library for simplifying the creation and updates of custom tables within WordPress.",
             "support": {
                 "issues": "https://github.com/stellarwp/schema/issues",
-                "source": "https://github.com/stellarwp/schema/tree/1.1.7"
+                "source": "https://github.com/stellarwp/schema/tree/1.1.8"
             },
-            "time": "2024-06-06T17:01:03+00:00"
+            "time": "2025-01-10T19:40:08+00:00"
         },
         {
             "name": "stellarwp/telemetry",
