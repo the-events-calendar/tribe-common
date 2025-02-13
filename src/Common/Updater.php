@@ -60,7 +60,9 @@ class Updater extends Tribe__Updater {
 	/**
 	 * Allows setting the version we are using for running tasks.
 	 * 
-	 * @param string $version
+	 * @since TBD
+	 * 
+	 * @param string $version The version we want to use.
 	 */
 	public function set_version( string $version ) {
 		$this->current_version = $version;
@@ -68,6 +70,8 @@ class Updater extends Tribe__Updater {
 
 	/**
 	 * Gets the current version we are using for running tasks.
+	 * 
+	 * @since TBD
 	 * 
 	 * @return string The current version we are using.
 	 */
