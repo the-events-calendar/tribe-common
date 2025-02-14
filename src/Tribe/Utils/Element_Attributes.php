@@ -106,6 +106,7 @@ class Element_Attributes {
 		$this->parse_array( $this->arguments );
 
 		foreach ( $this->results as $key => $val ) {
+
 			if ( ! $val && '0' !== $val ) {
 				continue;
 			}
@@ -114,8 +115,15 @@ class Element_Attributes {
 				$attributes[] = esc_attr( $key );
 			} else {
 				// Remove double quotes that might be surrounding the value.
-				trim( $val, '"' );
-				$attributes[] = esc_attr( $key ) . '="' . esc_attr( $val ) . '"';
+				$val = trim( $val, '"' );
+				// @todo replace the first usage of esc_attr with tag_esc when our minimum WP version is 6.5.5 or greater.
+				global $wp_version;
+				if ( version_compare( $wp_version, '6.5.5', '<' ) ) {
+					$attributes[] = esc_attr( $key ) . '="' . esc_attr( $val ) . '"';
+				} else {
+					$attributes[] = tag_escape( $key ) . '="' . esc_attr( $val ) . '"';
+
+				}
 			}
 		}
 
@@ -131,7 +139,7 @@ class Element_Attributes {
 	 *
 	 * @return void
 	 */
-	protected function parse( $arguments ) {
+	protected function parse( $arguments ): void {
 		if ( ! $arguments ) {
 			return;
 		}

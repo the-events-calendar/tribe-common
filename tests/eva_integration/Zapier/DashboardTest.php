@@ -5,6 +5,8 @@ namespace Tribe\tests\eva_integration\Zapier;
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use TEC\Event_Automator\Zapier\Admin\Dashboard;
 use Tribe\Tests\Traits\With_Uopz;
+use Tribe\Tickets\Plus\Integrations\Event_Automator\Zapier_Provider as Zapier_Tickets_Plus_Provider;
+use Tribe\Events\Pro\Integrations\Event_Automator\Zapier_Provider as Zapier_Pro_Provider;
 
 class DashboardTest extends \Codeception\TestCase\WPTestCase {
 
@@ -22,10 +24,10 @@ class DashboardTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
-	public function should_correctly_render_dashboard_fields_initial_state() {
+	public function should_correctly_render_tickets_plus_dashboard_fields_initial_state() {
 		$this->set_fn_return( 'wp_create_nonce', '123123' );
 		$dashboard = tribe( Dashboard::class );
-		tribe( Zapier_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Zapier_Tickets_Plus_Provider::class )->add_endpoints_to_dashboard();
 		$fields   = $dashboard->add_fields( [] );
 
 		$this->assertMatchesJsonSnapshot( json_encode( $fields, JSON_PRETTY_PRINT ) );
@@ -34,10 +36,37 @@ class DashboardTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
+	public function should_correctly_render_pro_dashboard_fields_initial_state() {
+		$this->set_fn_return( 'wp_create_nonce', '123123' );
+		$dashboard = tribe( Dashboard::class );
+		tribe( Zapier_Pro_Provider::class )->add_endpoints_to_dashboard();
+		$fields   = $dashboard->add_fields( [] );
+
+		$this->assertMatchesJsonSnapshot( json_encode( $fields, JSON_PRETTY_PRINT ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_correctly_render_all_dashboard_fields_initial_state() {
+		$this->set_fn_return( 'wp_create_nonce', '123123' );
+		$dashboard = tribe( Dashboard::class );
+		tribe( Zapier_Tickets_Plus_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Zapier_Pro_Provider::class )->add_endpoints_to_dashboard();
+		$fields   = $dashboard->add_fields( [] );
+
+		$this->assertMatchesJsonSnapshot( json_encode( $fields, JSON_PRETTY_PRINT ) );
+	}
+
+
+	/**
+	 * @test
+	 */
 	public function should_correctly_render_dashboard_fields_disabled() {
 		$this->set_fn_return( 'wp_create_nonce', '123123' );
 		$dashboard = tribe( Dashboard::class );
-		tribe( Zapier_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Zapier_Tickets_Plus_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Zapier_Pro_Provider::class )->add_endpoints_to_dashboard();
 		add_filter( 'tec_event_automator_zapier_endpoints', function( $endpoints ) {
 			$endpoints['TEC\Event_Automator\Zapier\REST\V1\Endpoints\New_Events']['enabled'] = false;
 			$endpoints['TEC\Event_Automator\Zapier\REST\V1\Endpoints\Attendees']['enabled']  = false;
@@ -57,7 +86,8 @@ class DashboardTest extends \Codeception\TestCase\WPTestCase {
 	public function should_correctly_render_dashboard_fields_queue_counts() {
 		$this->set_fn_return( 'wp_create_nonce', '123123' );
 		$dashboard = tribe( Dashboard::class );
-		tribe( Zapier_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Zapier_Tickets_Plus_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Zapier_Pro_Provider::class )->add_endpoints_to_dashboard();
 		add_filter( 'tec_event_automator_zapier_endpoints', function( $endpoints ) {
 			$endpoints['TEC\Event_Automator\Zapier\REST\V1\Endpoints\Canceled_Events']['count'] = 4646;
 			$endpoints['TEC\Event_Automator\Zapier\REST\V1\Endpoints\Updated_Events']['count']  = 588;
@@ -77,7 +107,8 @@ class DashboardTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_correctly_get_all_endpoint_details() {
 		$dashboard = tribe( Dashboard::class );
-		tribe( Zapier_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Zapier_Tickets_Plus_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Zapier_Pro_Provider::class )->add_endpoints_to_dashboard();
 		$endpoints = $dashboard->get_endpoints();
 
 		$this->assertMatchesJsonSnapshot( json_encode( $endpoints, JSON_PRETTY_PRINT ) );

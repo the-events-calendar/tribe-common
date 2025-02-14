@@ -18,34 +18,23 @@
  */
 
 ?>
-<?php $this->template( '/components/loader' ); ?>
-
-<h3 id="tec-zapier-application-credentials" class="tec-settings-zapier-application__title">
-	<?php echo esc_html_x( 'Zapier', 'API connection header', 'tribe-common' ); ?>
-</h3>
-<p class="tec-settings-zapier-application__description">
-	<?php
-	printf(
-		'%1$s',
-		esc_html_x(
-			'Please generate a consumer id and secret for each of our applications you are using with Zapier to enable its integrations. i.e.: one consumer id and secret for The Events Calendar and one consumer id and secret for Event Tickets.',
-			'Settings help text for Zapier API.',
-			'tribe-common'
-		),
-	);
-	?>
-</p>
-<p class="tec-settings-zapier-application__description">
-	<?php
-	$url = 'https://evnt.is/1bc8';
-	printf(
-		'<a href="%1$s" target="_blank">%2$s</a>',
-		esc_url( $url ),
-		esc_html_x(
-			'Read more about adding and managing access.',
-			'Settings link text for Zapier API.',
-			'tribe-common'
-		)
-	);
-	?>
-</p>
+<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
+	<?php $this->template( '/components/loader' ); ?>
+	<h3 id="tec-zapier-application-credentials" class="tec-settings-zapier-application__title tec-settings-form__section-header tec-settings-form__section-header--sub">
+		<?php echo esc_html_x( 'Zapier', 'API connection header', 'tribe-common' ); ?>
+	</h3>
+	<p class="tec-settings-zapier-application__description tec-settings-form__section-description">
+		<?php
+		$content = sprintf(
+			/* Translators: %1$s: URL to the Zapier API documentation */
+			_x(
+				'Please generate a consumer id and secret for each of our applications you are using with Zapier to enable its integrations. i.e.: one consumer id and secret for The Events Calendar and one consumer id and secret for Event Tickets. <a href="%1$s" target="_blank">Read more about adding and managing access.</a>',
+				'Settings help text and link for Zapier API.',
+				'tribe-common'
+			),
+			'https://evnt.is/1bc8'
+		);
+		echo wp_kses_post( $content );
+		?>
+	</p>
+</div>

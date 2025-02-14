@@ -1,0 +1,28 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Settings Form Separator Elements
+ *
+ * This file contains styles specific to the settings form.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe_events_page_tec-events-settings #tec-settings-form, .tribe_events_page_tec-events-settings .tec-settings-form {
+	.tec-settings-form__separator--section {
+		background-color: var(--tec-admin-core-grey-10);
+		border: 0;
+		height: 1px;
+		padding: 0;
+		width: 100%;
+
+		@media (--viewport-xlarge) {
+			grid-column: 1 / span 2;
+		}
+	}
+
+	.tec-settings-form__separator--section + .tec-settings-form__section-header,
+	.tec-settings-form__separator--section + .tec-settings-form__header-block,
+	.tec-settings-form__separator--section + .tec-settings-form__section-header + *,
+	.tec-settings-form__separator--section + .tec-settings-form__header-block + * {
+		margin-top: 0;
+	}
+}

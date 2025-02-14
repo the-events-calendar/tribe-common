@@ -2,7 +2,7 @@ class_name: Restv1_etTester
 modules:
     enabled:
         - \Helper\Restv1_et
-        - \Helper\TribeDb
+        - \Helper\TECDb
         - REST
         - WPDb
         - WPBrowser
@@ -49,10 +49,10 @@ modules:
               - event-tickets/event-tickets.php
               - event-tickets-plus/event-tickets-plus.php
               - easy-digital-downloads/easy-digital-downloads.php
+              - woocommerce/woocommerce.php
             activatePlugins:
               - the-events-calendar/the-events-calendar.php
               - event-tickets/event-tickets.php
               - event-tickets-plus/event-tickets-plus.php
               - easy-digital-downloads/easy-digital-downloads.php
-            silentlyActivatePlugins:
               - woocommerce/woocommerce.php

@@ -14,6 +14,7 @@ jobs:
   check-changelog:
     name:    Check changelog
     runs-on: ubuntu-latest
+    if: "!contains(github.event.pull_request.body, '[skip-changelog]')"
     steps:
       # clone the repository
       - uses: actions/checkout@v4
@@ -34,7 +35,7 @@ jobs:
           tools: composer
           coverage: none
       # Install composer packages.
-      - run: composer self-update && composer install --no-progress
+      - run: composer self-update && composer install --no-progress --ignore-platform-reqs
       # Fetch the target branch before running the check.
       - name: Fetch the target origin branch
         run: git fetch origin $GITHUB_BASE_REF

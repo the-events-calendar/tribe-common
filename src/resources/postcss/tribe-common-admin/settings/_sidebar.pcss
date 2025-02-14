@@ -1,0 +1,96 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Sidebar
+ *
+ * This file contains styles specific to the settings sidebar.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe_events_page_tec-events-settings {
+	.tec-settings-form__sidebar {
+		align-items: flex-start;
+		align-self: stretch;
+		box-sizing: border-box;
+		display: none;
+		flex-direction: column;
+		gap: var(--tec-spacer-3);
+		max-width: var(--tec-width-sidebar);
+		min-height: 100vh;
+		width: 100%;
+
+		@media (--viewport-xlarge) {
+			display: flex;
+			margin: var(--tec-spacer-5) auto auto 0;
+			min-height: fit-content;
+
+			> .tec-settings-form__sidebar-section {
+				border: 1px solid var(--tec-color-border-default);
+				margin: 0 auto auto 0;
+			}
+		}
+
+		h2,
+		h3 {
+			line-height: 150%;
+			margin: 0;
+		}
+
+		h2 {
+			font-size: var(--tec-font-size-5);
+		}
+
+		h3 {
+			font-size: var(--tec-font-size-3);
+		}
+
+		img {
+			display: block;
+			width: 100%;
+		}
+
+		> .tec-settings-form__sidebar-section {
+			background-color: var(--tec-color-background);
+			border-radius: var(--tec-border-radius-default);
+			display: flex;
+			flex-direction: column;
+			gap: var(--tec-spacer-3);
+			overflow: hidden;
+
+			.tec-settings-form__sidebar-section {
+				margin: 0 var(--tec-spacer-4);
+
+				&:last-child {
+					margin-bottom: var(--tec-spacer-4);
+				}
+
+				&.tec-settings-form__sidebar-header {
+					margin: 0;
+
+					h2 {
+						margin: 0 var(--tec-spacer-4);
+					}
+
+					img {
+						border-top-left-radius: var(--tec-border-radius-default);
+						border-top-right-radius: var(--tec-border-radius-default);
+					}
+				}
+
+				> * {
+					letter-spacing: -0.28px;
+					line-height: 150%;
+					margin: 0;
+				}
+
+				a,
+				p {
+					font-size: var(--tec-font-size-2);
+				}
+
+				p {
+					margin: 0;
+				}
+			}
+		}
+	}
+}

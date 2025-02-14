@@ -4,6 +4,7 @@
  * Administration Help Page
  *
  * @since 4.0
+ * @deprecated 6.3.2 This class is deprecated and should no longer be used. Use \TEC\Common\Admin\Help_Hub\Hub instead.
  */
 
 // Don't load directly.
@@ -15,6 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class with a few helpers for the Administration Pages
  *
  * @since  4.0
+ * @deprecated 6.3.2 This class is deprecated. Use \TEC\Common\Admin\Help_Hub\Hub instead.
  */
 class Tribe__Admin__Help_Page {
 	//phpcs:ignore - legacy class naming.
@@ -24,6 +26,7 @@ class Tribe__Admin__Help_Page {
 	 * @return Tribe__Admin__Help_Page
 	 */
 	public static function instance() {
+		_deprecated_function( __METHOD__, '6.3.2', '\TEC\Common\Admin\Help_Hub\Hub' );
 		return tribe( static::class );
 	}
 
@@ -326,7 +329,7 @@ class Tribe__Admin__Help_Page {
 
 		$addons['community-events'] = [
 			'id'        => 'community-events',
-			'title'     => esc_html__( 'Community Events', 'tribe-common' ),
+			'title'     => esc_html__( 'Community', 'tribe-common' ),
 			'link'      => 'http://evnt.is/dt',
 			'plugin'    => [ 'the-events-calendar' ],
 			'is_active' => class_exists( 'Tribe__Events__Community__Main' ),
@@ -543,7 +546,7 @@ class Tribe__Admin__Help_Page {
 
 			if ( ! is_wp_error( $data ) ) {
 				// Format Downloaded Infomation.
-				$data->downloaded = $data->downloaded ? number_format( $data->downloaded ) : _x( 'n/a', 'not available', 'tribe-common' );
+				$data->downloaded = $data->downloaded ? number_format( (float) $data->downloaded ) : _x( 'n/a', 'not available', 'tribe-common' );
 			} else {
 				// If there was a bug on the Current Request just leave.
 				return false;
@@ -966,7 +969,7 @@ class Tribe__Admin__Help_Page {
 					<dd><?php echo esc_html__( 'WordPress ', 'tribe-common' ) . esc_html( $api_data->requires ); ?>+</dd>
 
 					<dt><?php esc_html_e( 'Active Users:', 'tribe-common' ); ?></dt>
-					<dd><?php echo esc_html( number_format( $api_data->active_installs ) ); ?>+</dd>
+					<dd><?php echo esc_html( number_format( (float) $api_data->active_installs ) ); ?>+</dd>
 
 					<dt><?php esc_html_e( 'Rating:', 'tribe-common' ); ?></dt>
 					<dd>
@@ -1233,13 +1236,13 @@ class Tribe__Admin__Help_Page {
 				],
 				[
 					'title'        => __( 'Hide Others’ Organizers and Venues', 'tribe-common' ),
-					'description'  => __( 'This extension allows you to hide the Organizers and Venues that a visitor has not created from the Community Events submission form.', 'tribe-common' ),
+					'description'  => __( 'This extension allows you to hide the Organizers and Venues that a visitor has not created from the Community submission form.', 'tribe-common' ),
 					'link'         => 'https://evnt.is/1aro',
 					'product-slug' => 'community-events',
 				],
 				[
 					'title'        => __( 'Display Custom HTML', 'tribe-common' ),
-					'description'  => __( 'This extension allows you to add custom HTML content to the top of the Community Events submission form.', 'tribe-common' ),
+					'description'  => __( 'This extension allows you to add custom HTML content to the top of the Community submission form.', 'tribe-common' ),
 					'link'         => 'https://evnt.is/1arp',
 					'product-slug' => 'community-events',
 				],
@@ -1259,7 +1262,6 @@ class Tribe__Admin__Help_Page {
 			'tec_help_ticketing_products',
 			[
 				'events-community',
-				'events-community-tickets',
 			]
 		);
 	}

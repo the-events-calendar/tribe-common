@@ -516,21 +516,27 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_print_copy_to_clipboard_button() {
+		$allButtons = ''; // Initialize a variable to collect all buttons' HTML outputs
+
 		for ( $i = 1; $i < 6; $i += 2 ) {
 			ob_start();
-			$target = tec_copy_to_clipboard_button( 'Copy me!' );
-			$button = ob_get_clean();
+			$target1 = tec_copy_to_clipboard_button( 'Copy me!' );
+			$button1 = ob_get_clean();
 
-			$this->assertEquals( 'tec-copy-text-target-' . $i, $target );
-			$this->assertMatchesHtmlSnapshot( $button );
+			$this->assertEquals( 'tec-copy-text-target-' . $i, $target1 );
 
 			ob_start();
-			$target = tec_copy_to_clipboard_button( 'Copy me!', false );
-			$button = ob_get_clean();
+			$target2 = tec_copy_to_clipboard_button( 'Copy me!', false );
+			$button2 = ob_get_clean();
 
-			$this->assertEquals( 'tec-copy-text-target-' . ( $i + 1 ), $target );
-			$this->assertMatchesHtmlSnapshot( $button );
+			$this->assertEquals( 'tec-copy-text-target-' . ( $i + 1 ), $target2 );
+
+			// Collect the outputs of both buttons
+			$allButtons .= $button1 . "\n" . $button2 . "\n";
 		}
+
+		// Perform a single snapshot assertion after the loop or the 2nd snapshot will overwrite the 1st.
+		$this->assertMatchesHtmlSnapshot( $allButtons );
 	}
 
 	public function tec_sanitize_string_data_set() {

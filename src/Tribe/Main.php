@@ -1,9 +1,10 @@
 <?php
+
 use TEC\Common\Libraries;
 use TEC\Common\Translations_Loader;
 use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
-use TEC\Common\StellarWP\Assets\Asset;
+use TEC\Common\Asset;
 
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -19,7 +20,7 @@ class Tribe__Main {
 	const OPTIONNAME        = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK = 'tribe_events_calendar_network_options';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
-	const VERSION           = '6.0.3';
+	const VERSION           = '6.5.1.1';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
@@ -208,6 +209,7 @@ class Tribe__Main {
 		Tribe__Debug::instance();
 		tec_timed_option();
 
+		tribe( 'updater' )->hook();
 		tribe( 'assets' );
 		tribe( 'assets.pipeline' );
 		tribe( 'settings.manager' );
@@ -221,13 +223,21 @@ class Tribe__Main {
 	 * Registers resources that can/should be enqueued
 	 */
 	public function load_assets() {
+		Asset::add(
+			'tribe-clipboard',
+			'vendor/clipboard.min.js',
+			self::VERSION
+		)
+		->prefix_asset_directory( false )
+		->use_asset_file( false )
+		->register();
+
 		// These ones are only registered
 		tribe_assets(
 			$this,
 			[
 				[ 'tribe-accessibility-css', 'accessibility.css' ],
 				[ 'tribe-query-string', 'utils/query-string.js' ],
-				[ 'tribe-clipboard', 'node_modules/clipboard/dist/clipboard.min.js' ],
 				[ 'datatables', 'vendor/datatables/datatables.js', [ 'jquery' ] ],
 				[ 'tribe-select2', 'vendor/tribe-selectWoo/dist/js/selectWoo.full.js', [ 'jquery' ] ],
 				[ 'tribe-select2-css', 'vendor/tribe-selectWoo/dist/css/selectWoo.css' ],
@@ -249,6 +259,7 @@ class Tribe__Main {
 				[ 'tribe-attrchange', 'vendor/attrchange/js/attrchange.js' ],
 				[ 'tec-ky-module', 'vendor/ky/ky.js', [], null, [ 'module' => true ] ],
 				[ 'tec-ky', 'vendor/ky/tec-ky.js', [ 'tec-ky-module' ], null, [ 'module' => true ] ],
+				[ 'tec-common-php-date-formatter', 'node_modules/php-date-formatter/js/php-date-formatter.js' ],
 			]
 		);
 
@@ -289,13 +300,14 @@ class Tribe__Main {
 			[
 				[ 'tribe-ui', 'tribe-ui.css', [ 'tec-variables-full' ] ],
 				[ 'tribe-buttonset', 'buttonset.js', [ 'jquery', 'underscore' ] ],
-				[ 'tribe-common-admin', 'tribe-common-admin.css', [ 'tec-variables-skeleton', 'tec-variables-full', 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ] ],
+				[ 'tribe-common-admin', 'tribe-common-admin.css', [ 'editor-buttons', 'tec-variables-skeleton', 'tec-variables-full', 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ] ],
 				[ 'tribe-validation', 'validation.js', [ 'jquery', 'underscore', 'tribe-common', 'tribe-utils-camelcase', 'tribe-tooltipster', 'tec-dayjs', 'tec-dayjs-customparseformat' ] ],
 				[ 'tribe-validation-style', 'validation.css', [ 'tec-variables-full', 'tribe-tooltipster-css' ] ],
 				[ 'tribe-dependency', 'dependency.js', [ 'jquery', 'underscore', 'tribe-common' ] ],
 				[ 'tribe-dependency-style', 'dependency.css', [ 'tribe-select2-css' ] ],
 				[ 'tribe-pue-notices', 'pue-notices.js', [ 'jquery' ] ],
 				[ 'tribe-datepicker', 'datepicker.css' ],
+				[ 'tec-nav-modal', 'admin/settings-nav-modals.js', [ 'jquery' ] ],
 			],
 			'admin_enqueue_scripts',
 			[
@@ -475,6 +487,18 @@ class Tribe__Main {
 
 		add_filter( 'body_class', [ $this, 'add_js_class' ] );
 		add_action( 'wp_footer', [ $this, 'toggle_js_class' ] );
+
+		add_action( 'init', [ $this, 'load_action_scheduler' ], - 99999 );
+	}
+
+	/**
+	 * Load the Action Scheduler library.
+	 *
+	 * @since TDB
+	 */
+	public function load_action_scheduler(): void {
+		// Load the Action Scheduler library.
+		require_once $this->plugin_path . 'vendor/woocommerce/action-scheduler/action-scheduler.php';
 	}
 
 	/**
@@ -544,44 +568,49 @@ class Tribe__Main {
 	}
 
 	/**
-	 * A Helper method to load text domain
-	 * First it tries to load the wp-content/languages translation then if falls to the try to load $dir language files.
+	 * A helper method to load text domain.
+	 * First, it tries to load language files from a custom folder when set. If it fails it falls back to load from $dir.
 	 *
-	 * @since  4.0.1 Introduced.
-	 * @since  4.2   Included $domain and $dir params.
+	 * @since 4.0.1 Introduced.
+	 * @since 4.2   Included $domain and $dir params.
+	 * @since 6.5.1 Refactored logic to better handle `load_plugin_textdomain` changes introduced by WordPress 6.7.
 	 *
 	 * @param string       $domain The text domain that will be loaded.
-	 * @param string|false $dir    What directory should be used to try to load if the default doesn't work.
+	 * @param string|false $dir    What directory should be used to try to register if the default doesn't work.
 	 *
-	 * @return bool  If it was able to load the text domain.
+	 * @return bool  If it was able to register the text domain.
 	 */
 	public function load_text_domain( $domain, $dir = false ) {
-		// Added safety just in case this runs twice...
+		// Added safety just in case this runs twice.
 		if ( is_textdomain_loaded( $domain ) && ! $GLOBALS['l10n'][ $domain ] instanceof NOOP_Translations ) {
 			return true;
 		}
 
-		$locale = get_locale();
-		$plugin_rel_path = WP_LANG_DIR . '/plugins/';
+		$locale          = get_locale();
+		$plugin_rel_path = $dir;
 
 		/**
-		 * Allows users to filter the file location for a given text domain..
-		 * Be careful when using this filter, it will apply across the whole plugin suite.
+		 * Allows users to filter the file location for a given text domain.
+		 * The path has to be relative to wp-content/plugins/.
+		 * Be careful when using this filter, it will apply across the whole plugin suite when not checking $domain.
 		 *
 		 * @param string      $plugin_rel_path The relative path for the language files.
-		 * @param string      $domain Which plugin domain we are trying to load.
-		 * @param string      $locale Which Language we will load.
-		 * @param string|bool $dir    If there was a custom directory passed on the method call.
+		 * @param string      $domain          The plugin domain we are trying to load.
+		 * @param string      $locale          The language we will load.
+		 * @param string|bool $dir             If there was a custom directory passed on the method call.
 		 */
 		$plugin_rel_path = apply_filters( 'tribe_load_text_domain', $plugin_rel_path, $domain, $locale, $dir );
 
-		$loaded = load_plugin_textdomain( $domain, false, $plugin_rel_path );
+		$filename = $domain . '-' . $locale . '.mo';
+		$file     = trailingslashit( WP_PLUGIN_DIR ) . trailingslashit( $plugin_rel_path ) . $filename;
 
-		if ( $dir !== false && ! $loaded ) {
-			return load_plugin_textdomain( $domain, false, $dir );
+		// Load textdomain from a custom folder or the plugin's language folder.
+		if ( file_exists( $file ) ) {
+			return load_plugin_textdomain( $domain, false, $plugin_rel_path );
 		}
 
-		return $loaded;
+		// If translation files are not found in the custom folder, then load textdomain from the plugin's language folder.
+		return $dir !== $plugin_rel_path && load_plugin_textdomain( $domain, false, $dir );
 	}
 
 	/**
@@ -713,6 +742,7 @@ class Tribe__Main {
 	 * @return void Implementation of components loader doesn't return anything.
 	 */
 	public function bind_implementations() {
+		tribe_singleton( 'updater', 'TEC\Common\Updater' );
 		tribe_singleton( \TEC\Common\Storage\Timed_Option::class, \TEC\Common\Storage\Timed_Option::class );
 		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
 		tribe_singleton( 'settings', 'Tribe__Settings', [ 'hook' ] );
@@ -746,7 +776,6 @@ class Tribe__Main {
 
 		tribe_register_provider( Tribe__Editor__Provider::class );
 		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
-		tribe_register_provider( Tribe__Service_Providers__Promoter::class );
 		tribe_register_provider( Tribe\Service_Providers\Tooltip::class );
 		tribe_register_provider( Tribe\Service_Providers\Dialog::class );
 		tribe_register_provider( Tribe\Service_Providers\PUE::class );
@@ -754,10 +783,12 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Service_Providers\Body_Classes::class );
 		tribe_register_provider( Tribe\Log\Service_Provider::class );
 		tribe_register_provider( Tribe\Service_Providers\Crons::class );
+		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
+		tribe_register_provider( Tribe__Service_Providers__Promoter::class );
 		tribe_register_provider( Tribe\Service_Providers\Widgets::class );
 		tribe_register_provider( Tribe\Service_Providers\Onboarding::class );
-		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
-		tribe_register_provider( Tribe\Admin\Conditional_Content\Service_Provider::class );
+		tribe_register_provider( \TEC\Common\Admin\Conditional_Content\Controller::class );
+		tribe_register_provider( \TEC\Common\Notifications\Controller::class );
 		tribe_register_provider( Libraries\Provider::class );
 
 		// Load the new third-party integration system.
@@ -765,6 +796,9 @@ class Tribe__Main {
 		// Load Site Health and Telemetry.
 		tribe_register_provider( TEC\Common\Site_Health\Provider::class );
 		tribe_register_provider( TEC\Common\Telemetry\Provider::class );
+
+		// Load Help Hub.
+		tribe_register_provider( TEC\Common\Admin\Help_Hub\Provider::class );
 	}
 
 	/**

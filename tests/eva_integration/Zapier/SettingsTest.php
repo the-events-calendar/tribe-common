@@ -3,8 +3,11 @@
 namespace Tribe\tests\eva_integration\Zapier;
 
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
+use TEC\Event_Automator\Zapier\Actions;
 use TEC\Event_Automator\Zapier\Api;
 use TEC\Event_Automator\Zapier\Settings;
+use TEC\Event_Automator\Zapier\Template_Modifications;
+use TEC\Event_Automator\Zapier\Url;
 use Tribe\Tests\Traits\With_Uopz;
 
 class SettingsTest extends \Codeception\TestCase\WPTestCase {
@@ -45,7 +48,7 @@ class SettingsTest extends \Codeception\TestCase\WPTestCase {
 		$fields   = $settings->get_fields( [] );
 		$fields   = array_diff_key( $fields, array_flip( $this->get_field_keys_to_remove() ) );
 
-		$this->assertMatchesJsonSnapshot( json_encode( $fields, JSON_PRETTY_PRINT ) );
+		$this->assertMatchesJsonSnapshot( preg_replace( '#User \d+#', '{USERNAME}', json_encode( $fields, JSON_PRETTY_PRINT ) ) );
 	}
 
 	/**

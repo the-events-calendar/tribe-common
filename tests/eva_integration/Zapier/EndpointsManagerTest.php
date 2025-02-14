@@ -4,8 +4,12 @@ namespace Tribe\tests\eva_integration\Zapier;
 
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use Tribe\Tests\Traits\With_Uopz;
+use TEC\Event_Automator\Zapier\Actions;
 use TEC\Event_Automator\Zapier\Admin\Endpoints_Manager;
+use TEC\Event_Automator\Zapier\Template_Modifications;
 use TEC\Event_Automator\Zapier\REST\V1\Endpoints\Abstract_REST_Endpoint;
+use Tribe\Tickets\Plus\Integrations\Event_Automator\Zapier_Provider as Zapier_Tickets_Plus_Provider;
+use Tribe\Events\Pro\Integrations\Event_Automator\Zapier_Provider as Zapier_Pro_Provider;
 
 class EndpointsManagerTest extends \Codeception\TestCase\WPAjaxTestCase {
 
@@ -118,7 +122,8 @@ class EndpointsManagerTest extends \Codeception\TestCase\WPAjaxTestCase {
 	public function should_correctly_handle_clearing_an_endpoint( $endpoint_id, $endpoint_details ) {
 		$this->ajax_setup();
 
-		tribe( Zapier_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Zapier_Tickets_Plus_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Zapier_Pro_Provider::class )->add_endpoints_to_dashboard();
 		$_REQUEST['endpoint_id'] = $endpoint_id;
 		$endpoints_manager       = new Endpoints_Manager( tribe( Actions::class ), tribe( Template_Modifications::class ) );
 		$mock_api_key_data       = file_get_contents( codecept_data_dir( "Zapier/Endpoints/{$endpoint_details}.json" ) );
@@ -160,7 +165,8 @@ class EndpointsManagerTest extends \Codeception\TestCase\WPAjaxTestCase {
 	public function should_correctly_handle_disabling_an_endpoint( $endpoint_id, $endpoint_details ) {
 		$this->ajax_setup();
 
-		tribe( Zapier_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Zapier_Tickets_Plus_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Zapier_Pro_Provider::class )->add_endpoints_to_dashboard();
 		$_REQUEST['endpoint_id'] = $endpoint_id;
 		$endpoints_manager       = new Endpoints_Manager( tribe( Actions::class ), tribe( Template_Modifications::class ) );
 		$mock_api_key_data       = file_get_contents( codecept_data_dir( "Zapier/Endpoints/{$endpoint_details}.json" ) );
@@ -202,7 +208,8 @@ class EndpointsManagerTest extends \Codeception\TestCase\WPAjaxTestCase {
 	public function should_correctly_handle_enabling_an_endpoint( $endpoint_id, $endpoint_details ) {
 		$this->ajax_setup();
 
-		tribe( Zapier_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Zapier_Tickets_Plus_Provider::class )->add_endpoints_to_dashboard();
+		tribe( Zapier_Pro_Provider::class )->add_endpoints_to_dashboard();
 		$_REQUEST['endpoint_id']       = $endpoint_id;
 		$endpoints_manager             = new Endpoints_Manager( tribe( Actions::class ), tribe( Template_Modifications::class ) );
 		$mock_api_key_data             = file_get_contents( codecept_data_dir( "Zapier/Endpoints/{$endpoint_details}.json" ) );

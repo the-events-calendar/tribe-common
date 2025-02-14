@@ -1,0 +1,172 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Settings Form Headers
+ *
+ * This file contains styles specific to the settings form headers.
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe_events_page_tec-events-settings #tec-settings-form, .tribe_events_page_tec-events-settings .tec-settings-form {
+	h2,
+	h3 {
+		font-size: var(--tec-font-size-5);
+		line-height: 125%;
+	}
+
+	.tribe-additional-fields {
+		h3 {
+			font-size: var(--tec-font-size-2);
+		}
+	}
+
+	> .tec-settings-form__section-header {
+		border-bottom: 1px solid var(--tec-admin-core-grey-10);
+		box-sizing: border-box;
+		font-size: var(--tec-font-size-5);
+		padding: var(--tec-spacer-0) 0;
+		width: 100%;
+
+		&:first-child {
+			display: none;
+
+			@media (--viewport-xsmall) {
+				display: block;
+			}
+
+			+ * {
+				@media (--viewport-xsmall) {
+					margin-top: calc(-1 * var(--tec-spacer-3));
+				}
+
+				@media (--viewport-xlarge) {
+					margin-top: var(--tec-spacer-6);
+				}
+			}
+		}
+
+		@media (--viewport-xsmall) {
+			margin: var(--tec-spacer-4) var(--tec-spacer-7);
+			padding: var(--tec-spacer-0) 0 var(--tec-spacer-5);
+			width: calc(100% - (2 * var(--tec-spacer-7)));
+		}
+
+		@media (--viewport-xsmall) and (max-width: 1259px) {
+			padding: 0 var(--tec-spacer-7) var(--tec-spacer-5);
+		}
+
+		@media (--viewport-wpadmin) {
+			margin-right: calc(-1 * (var(--tec-spacer-settings-form-right-gap) - var(--tec-spacer-7)));
+		}
+
+		@media (--viewport-xlarge) {
+			border: 0;
+			grid-column: 1;
+			margin: 0 0 0 var(--tec-spacer-7);
+			padding-bottom: var(--tec-spacer-0);
+		}
+	}
+
+	div.tec-settings-form__section-header {
+		@media (--viewport-xsmall) {
+			margin-left: var(--tec-spacer-7);
+		}
+
+		.tec-settings-form__section-header {
+			margin-top: 0;
+		}
+	}
+
+	.tec-settings-form__section-header--sub {
+		border: 0;
+		font-size: var(--tec-font-size-3);
+		font-weight: var(--tec-font-weight-regular);
+		line-height: var(--tec-line-height-2);
+		margin: 0 0 var(--tec-spacer-1);
+
+		@media (--viewport-xsmall) {
+			margin: 0 0 var(--tec-spacer-1);
+		}
+	}
+
+	.tec-settings-form__header-block {
+		.tec-settings-form__section-header {
+			font-size: var(--tec-font-size-5);
+			margin: 0 0 var(--tec-spacer-1);
+		}
+
+		.tec-settings-form__section-header--sub {
+			font-size: var(--tec-font-size-3);
+		}
+
+		&:first-child {
+			.tec-settings-form__section-header {
+				display: none;
+
+				@media (--viewport-xsmall) {
+					display: block;
+				}
+			}
+		}
+
+		@media (--viewport-xsmall) and (max-width: 1259px) {
+			padding-right: var(--tec-spacer-settings-form-right-gap);
+		}
+
+		@media (--viewport-xlarge) {
+			grid-column: 1;
+			grid-row: span 2;
+			margin: 0 var(--tec-spacer-7) 0;
+			padding-right: 0;
+		}
+
+		& + .tec-settings-form__separator--section:first-of-type {
+			margin-top: 0;
+		}
+	}
+
+	.tec-settings-form__section-description {
+		margin: 0;
+		font-size: var(--tec-font-size-2);
+
+		@media (--viewport-xlarge) {
+			grid-column: 1;
+			margin-top: var(--tec-spacer-5);
+		}
+	}
+
+	> .tec-settings-form__section-header:first-child,
+	> .tec-settings-form__header-block:first-child {
+		+ * {
+			@media (--viewport-xlarge) {
+				margin-top: 0;
+			}
+		}
+	}
+
+	.tec-settings-form__header-block--horizontal {
+		+ .tec-settings-form__element--colspan-2 {
+			margin-top: 0;
+		}
+
+		@media (--viewport-xsmall) {
+			border-bottom: 1px solid var(--tec-admin-core-grey-10);
+			margin: var(--tec-spacer-3) 0 0;
+			padding-bottom: var(--tec-spacer-5);
+			padding-top: var(--tec-spacer-0);
+		}
+
+		@media (--viewport-xsmall) and (max-width: 1259px) {
+			padding: 0 var(--tec-spacer-7) var(--tec-spacer-5);
+		}
+
+		@media (--viewport-xlarge) {
+			grid-column: 1 / span 2;
+			margin: 0;
+			padding: 0 var(--tec-spacer-7) var(--tec-spacer-5);
+
+			&:not(:first-child) {
+				margin-top: 0;
+			}
+		}
+	}
+}

@@ -58,8 +58,8 @@ const ImageUpload = ( {
 	className,
 	description,
 	image,
-	onRemove,
-	onSelect,
+	onRemove = noop,
+	onSelect = noop,
 	removeButtonDisabled,
 	title,
 } ) => {
@@ -107,11 +107,6 @@ ImageUpload.propTypes = {
 	onSelect: PropTypes.func.isRequired,
 	removeButtonDisabled: PropTypes.bool,
 	title: PropTypes.string,
-};
-
-ImageUpload.defaultProps = {
-	onRemove: noop,
-	onSelect: noop,
 };
 
 export default ImageUpload;

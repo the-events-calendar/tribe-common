@@ -16,7 +16,7 @@ $disabled = tribe_get_option( 'tribe_aggregator_disable', false );
 if ( $disabled ) {
 	$icon         = 'error';
 	$message      = _x( 'Imports disabled in Settings', '', 'tribe-common' );
-	$settings_url = Tribe__Settings::instance()->get_url( [ 'tab' => 'imports' ] );
+	$settings_url = tribe( 'settings' )->get_url( [ 'tab' => 'imports' ] );
 	$notes        = sprintf(
 		'<a href="%1$s">%2$s</a>',
 		esc_url( $settings_url ),

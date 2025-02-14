@@ -5,39 +5,16 @@
         "screen-reader-text"
     ],
     "classes_select": [
-        "tec-settings__users-dropdown",
+        "tec-settings-form__users-dropdown",
         "tec-settings-zapier-details-api-key__users-dropdown"
     ],
     "name": "tec_automator_zapier[]['users']",
     "selected": 0,
-    "users_count": 3,
-    "users_arr": [
-        {
-            "text": "User 227",
-            "sort": "User 227",
-            "id": "2",
-            "value": "2",
-            "selected": false
-        },
-        {
-            "text": "User 229",
-            "sort": "User 229",
-            "id": "3",
-            "value": "3",
-            "selected": false
-        },
-        {
-            "text": "admin",
-            "sort": "admin",
-            "id": "1",
-            "value": "1",
-            "selected": false
-        }
-    ],
+    "users_count": 1,
     "attrs": {
         "placeholder": "Select a User",
         "data-prevent-clear": true,
         "data-force-search": true,
-        "data-options": "[{\"text\":\"User 227\",\"sort\":\"User 227\",\"id\":\"2\",\"value\":\"2\",\"selected\":false},{\"text\":\"User 229\",\"sort\":\"User 229\",\"id\":\"3\",\"value\":\"3\",\"selected\":false},{\"text\":\"admin\",\"sort\":\"admin\",\"id\":\"1\",\"value\":\"1\",\"selected\":false}]"
+        "data-options": "[{\"text\":\"admin\",\"sort\":\"admin\",\"id\":\"1\",\"value\":\"1\",\"selected\":false}]"
     }
 }

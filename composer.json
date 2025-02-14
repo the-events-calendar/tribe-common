@@ -16,6 +16,7 @@
       "php": "7.4.0"
     },
     "allow-plugins": {
+      "cweagans/composer-patches": true,
       "dealerdirect/phpcodesniffer-composer-installer": true,
       "phpstan/extension-installer": true
     }
@@ -24,29 +25,38 @@
     "firebase/php-jwt": "~6.3.0",
     "lucatume/di52": "^3.3.7",
     "monolog/monolog": "1.24.*",
-    "psr/container": "^1.0.0",
+    "psr/container": "1.1.1",
+    "stellarwp/arrays": "1.2.2",
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
     "stellarwp/installer": "^1.1.0",
     "stellarwp/models": "dev-main",
     "stellarwp/schema": "^1.1.3",
     "stellarwp/telemetry": "^2.3.1",
-    "stellarwp/assets": "^1.2.6"
+    "stellarwp/assets": "1.4.2",
+    "stellarwp/admin-notices": "^1.1",
+    "stellarwp/uplink": "2.2.2",
+    "woocommerce/action-scheduler": "3.8.1"
   },
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
     "wp-cli/wp-cli": ">=2.0 <3.0.0",
     "bordoni/phpass": "0.3.5",
-    "codeception/codeception": "^2.5.5",
+    "codeception/codeception": "^4.0.0",
+    "cweagans/composer-patches": "^1.7",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
-    "lucatume/codeception-snapshot-assertions": "^0.2.4",
+    "fakerphp/faker": "^1.23",
+    "lucatume/codeception-snapshot-assertions": "^0.4.0",
     "lucatume/function-mocker-le": "^1.0",
-    "lucatume/wp-browser": "^3.0.14",
+    "lucatume/wp-browser": "^3.5.0",
     "stellarwp/coding-standards": "dev-main",
     "the-events-calendar/tec-testing-facilities": "dev-master",
-    "wp-cli/checksum-command": "1.0.5",
+    "wp-cli/checksum-command": "2.0.0",
     "wp-coding-standards/wpcs": "^3.0.0",
-    "automattic/jetpack-changelogger": "^4.2"
+    "automattic/jetpack-changelogger": "^4.2",
+    "codeception/module-rest": "^2.0",
+    "php-stubs/wordpress-stubs": "^6.7",
+    "szepeviktor/phpstan-wordpress": "^1.1"
   },
   "autoload": {
     "psr-4": {
@@ -62,16 +72,30 @@
     }
   },
   "scripts": {
+    "clean-strauss-static-function-autoload": "bash bin/clean-composer.sh",
     "strauss": [
-      "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.13.0/strauss.phar",
+      "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.20.1/strauss.phar",
       "vendor/stellarwp/installer/bin/set-domain domain=tribe-common",
-      "@php bin/strauss.phar"
+      "@php -d display_errors=on bin/strauss.phar",
+      "@composer dump-autoload"
     ],
     "post-install-cmd": [
+      "@stellar-uplink",
       "@strauss"
     ],
     "post-update-cmd": [
+      "@stellar-uplink",
       "@strauss"
+    ],
+    "stellar-uplink": [
+      "vendor/bin/stellar-uplink domain=tribe-common"
+    ],
+    "pup": [
+      "test -f ./bin/pup.phar || curl -o ./bin/pup.phar -L -C - https://github.com/stellarwp/pup/releases/download/1.3.8/pup.phar",
+      "@php bin/pup.phar"
+    ],
+    "analyze": [
+      "phpstan analyse -c phpstan.neon.dist --memory-limit=512M"
     ]
   },
   "extra": {
@@ -81,17 +105,21 @@
       "classmap_prefix": "TEC__Common__",
       "constant_prefix": "TEC_COMMON_",
       "packages": [
+        "stellarwp/arrays",
+        "stellarwp/assets",
         "stellarwp/container-contract",
         "stellarwp/db",
         "stellarwp/models",
         "stellarwp/schema",
         "stellarwp/installer",
         "stellarwp/telemetry",
+        "stellarwp/uplink",
         "lucatume/di52",
         "monolog/monolog",
         "firebase/php-jwt",
         "psr/container",
-        "stellarwp/assets"
+        "stellarwp/assets",
+        "stellarwp/admin-notices"
       ],
       "exclude_from_prefix": {
         "file_patterns": []
@@ -121,6 +149,11 @@
         "filename": "bin/ModifiedSemverVersioning.php"
       },
       "changes-dir": "changelog"
+    },
+    "patches": {
+      "fakerphp/faker": {
+        "Use prefixed Psr\\Container\\ContainerInterface": "tests/_patches/faker-use-prefixed-containerinterface.patch"
+      }
     }
   }
 }

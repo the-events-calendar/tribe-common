@@ -162,11 +162,11 @@ class FindEventCest extends BaseRestCest {
 
 		// Check Last Access is Updated.
 		$api_key_data = get_option( 'tec_zapier_api_key_4689db48b24f0ac42f3f0d8fe027b8f28f63f262b9fc2f73736dfa91b4045425' );
-		$I->test_last_access( $api_key_data);
+		$I->test_tec_last_access( $api_key_data);
 
 		// Check Last Access is Updated for Endpoint.
 		$endpoint_details = get_option( '_tec_zapier_endpoint_details_find_events' );
-		$I->test_last_access( $endpoint_details);
+		$I->test_tec_last_access( $endpoint_details);
 	}
 
 	/**

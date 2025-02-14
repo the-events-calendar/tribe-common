@@ -2,13 +2,13 @@
 
 namespace Tribe\tests\eva_integration\Zapier\Triggers;
 
-use TEC\Event_Automator\Tests\Traits\Create_events;
+use TEC\Event_Automator\Tests\Traits\Create_Events;
 use TEC\Event_Automator\Zapier\Triggers\New_Events;
 use Tribe\Tests\Traits\With_Uopz;
 
 class NewEventTest extends \Codeception\TestCase\WPTestCase {
 
-	use Create_events;
+	use Create_Events;
 	use With_Uopz;
 
 	public function setUp() {
@@ -18,6 +18,7 @@ class NewEventTest extends \Codeception\TestCase\WPTestCase {
 		// Clear Queue.
 		$queue = tribe( New_Events::class );
 		$queue->set_queue( [] );
+		add_filter( 'tec_event_automator_zapier_enable_add_to_queue', '__return_true' );
 	}
 
 	/**

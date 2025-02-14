@@ -21,7 +21,7 @@
 
 $keys = $api->get_list_of_api_keys( true );
 ?>
-<fieldset id="tec-field-power_automate_token" class="tec-automator-api-fields tribe-field tribe-field-text tribe-size-medium">
+<fieldset id="tec-field-power_automate_token" class="tec-automator-api-fields tribe-field tribe-field-text tribe-size-medium tec-settings-form__element--colspan-2">
 	<legend class="tribe-field-label"><?php esc_html_e( 'API Keys', 'tribe-common' ); ?></legend>
 	<div class="tec-automator-settings-message__wrap tec-power-automate-api-keys-messages">
 		<?php
@@ -30,7 +30,7 @@ $keys = $api->get_list_of_api_keys( true );
 			[
 				'message' => $message,
 				'type'    => 'standard',
-			] 
+			]
 		);
 		?>
 	</div>
@@ -43,7 +43,7 @@ $keys = $api->get_list_of_api_keys( true );
 				'url'         => $url,
 				'connections' => $keys,
 				'users'       => $users,
-			] 
+			]
 		);
 		?>
 	</div>
@@ -54,7 +54,7 @@ $keys = $api->get_list_of_api_keys( true );
 			[
 				'api' => $api,
 				'url' => $url,
-			] 
+			]
 		);
 		?>
 	</div>
