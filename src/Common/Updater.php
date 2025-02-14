@@ -58,6 +58,28 @@ class Updater extends Tribe__Updater {
 	}
 
 	/**
+	 * Allows setting the version we are using for running tasks.
+	 * 
+	 * @since TBD
+	 * 
+	 * @param string $version The version we want to use.
+	 */
+	public function set_version( string $version ) {
+		$this->current_version = $version;
+	}
+
+	/**
+	 * Gets the current version we are using for running tasks.
+	 * 
+	 * @since TBD
+	 * 
+	 * @return string The current version we are using.
+	 */
+	public function get_version(): string {
+		return $this->current_version;
+	}
+
+	/**
 	 * Hook into admin init and run the update process.
 	 * 
 	 * @since 5.6.1.1
