@@ -11,6 +11,7 @@ import { noop } from 'lodash';
  */
 import { RadioInput } from '@moderntribe/common/elements';
 
+// eslint-disable-next-line max-len
 const Radio = ( { checked = false, className, disabled, id, label, onChange = noop, name, value } ) => (
 	<div className={ classNames( 'tribe-editor__radio', className ) }>
 		<RadioInput

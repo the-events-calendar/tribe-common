@@ -1,4 +1,3 @@
-/* eslint-disable wpcalypso/import-docblock */
 export { default as Accordion } from './accordion';
 export { default as BlockIcon } from './block-icon';
 export { default as Button } from './button';

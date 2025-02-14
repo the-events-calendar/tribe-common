@@ -4,8 +4,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { components } from 'react-select';
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 import { Dashicon } from '@wordpress/components';
 
 /**

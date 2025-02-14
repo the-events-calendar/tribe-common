@@ -111,7 +111,7 @@ const TimePicker = ( {
 
 			items.push( {
 				value: time,
-				text : formatLabel( time ),
+				text: formatLabel( time ),
 				isCurrent,
 			} );
 		}
@@ -121,7 +121,7 @@ const TimePicker = ( {
 
 	const renderItem = ( item, onClose ) => {
 		const itemClasses = {
-			'tribe-editor__timepicker__item'         : true,
+			'tribe-editor__timepicker__item': true,
 			'tribe-editor__timepicker__item--current': item.isCurrent && ! allDay,
 		};
 
@@ -178,17 +178,17 @@ TimePicker.propTypes = {
 	 * using 24h clock in hh:mm format
 	 * e.g. 00:24, 03:57, 21:12
 	 */
-	allDay    : PropTypes.bool,
-	current   : PropTypes.string,
-	disabled  : PropTypes.bool,
-	end       : TribePropTypes.timeFormat.isRequired,
-	onBlur    : PropTypes.func,
-	onChange  : PropTypes.func,
-	onClick   : PropTypes.func,
-	onFocus   : PropTypes.func,
+	allDay: PropTypes.bool,
+	current: PropTypes.string,
+	disabled: PropTypes.bool,
+	end: TribePropTypes.timeFormat.isRequired,
+	onBlur: PropTypes.func,
+	onChange: PropTypes.func,
+	onClick: PropTypes.func,
+	onFocus: PropTypes.func,
 	showAllDay: PropTypes.bool,
-	start     : TribePropTypes.timeFormat.isRequired,
-	step      : PropTypes.number,
+	start: TribePropTypes.timeFormat.isRequired,
+	step: PropTypes.number,
 	timeFormat: PropTypes.string,
 };
 
