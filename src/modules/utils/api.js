@@ -11,7 +11,7 @@ import { rest } from '@moderntribe/common/utils/globals';
 /**
  * Send a request into a wp-json endpoint
  *
- * @param {object} params An object with the following properties:
+ * @param {Object} params An object with the following properties:
  * - path: Path for the endpoint
  * - headers: Array of extra headers for the request
  * - initParams: Params send into the fetch along with headers and credentials
