@@ -61,7 +61,6 @@
 					innerWrapper.appendChild(clientDiv);
 				}
 			});
-			Ian.icon = document.querySelector('[data-tec-ian-trigger="iconIan"]');
 			const settingsHeading = document.querySelector('.tec-settings-header-wrap');
 			if (settingsHeading) {
 				settingsHeading.insertAdjacentElement("afterend", Ian.sidebar);
@@ -290,6 +289,7 @@
 			const data = new FormData();
 			data.append("action", "ian_get_feed");
 			data.append("nonce", Ian.nonce);
+			data.append("plugin", whichPlugin());
 
 			try {
 				const response = await fetch(Ian.ajaxUrl, {
@@ -495,6 +495,8 @@
 				separator.classList.toggle("is-hidden", !hasRead);
 			}
 		};
+
+		const whichPlugin = () => document.body.classList.contains('tickets_page_tec-tickets-settings') ? 'et' : 'tec';
 
 		init();
 	});
