@@ -481,8 +481,8 @@
 		 * @return {void}
 		 */
 		const updateIan = () => {
-			const hasRead = window.commonIan.feed.read.length > 0;
-			const hasUnread = window.commonIan.feed.unread.length > 0;
+			const hasRead = Ian.feed.read.length > 0;
+			const hasUnread = Ian.feed.unread.length > 0;
 			const isFeedEmpty = !hasUnread && !hasRead;
 
 			Ian.icon.classList.toggle("unread", hasUnread);
