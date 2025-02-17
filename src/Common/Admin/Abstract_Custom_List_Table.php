@@ -56,9 +56,9 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 		$args = wp_parse_args(
 			$args,
 			[
-				'plural'   => static::PLURAL,
-				'ajax'     => false,
-				'screen'   => null,
+				'plural' => static::PLURAL,
+				'ajax'   => false,
+				'screen' => null,
 			]
 		);
 
