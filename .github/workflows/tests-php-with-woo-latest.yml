@@ -166,14 +166,11 @@ jobs:
           git config --global user.name "github-actions"
           git checkout -b "$HEAD_BRANCH"
           echo "Created branch $HEAD_BRANCH"
-          ${SLIC_BIN} interactive on
-          ${SLIC_BIN} ssh
-          wp plugin activate woocommerce
-          wp eval 'do_action( "plugins_loaded" ); echo ActionScheduler_Versions::instance()->latest_version();' > as_version.txt
-          exit
-          ${SLIC_BIN} interactive off
-          WC_AS_VERSION=$(cat as_version.txt)
-          rm as_version.txt
+          echo "<?php do_action( 'plugins_loaded' ); echo ActionScheduler_Versions::instance()->latest_version();" > as_version.php
+          ${SLIC_BIN} site-cli plugin activate woocommerce
+          ${SLIC_BIN} site-cli eval-file as_version.php > as_version.txt
+          WC_AS_VERSION=$(grep -E '^[0-9]+\.[0-9]+\.[0-9]+' as_version.txt)
+          rm as_version.php as_version.txt
           echo "Updating Action Scheduler to $WC_AS_VERSION"
           ${SLIC_BIN} composer require woocommerce/action-scheduler:$WC_AS_VERSION
           sed -i -E "s/[0-9]+\.[0-9]+\.[0-9]+/${WC_AS_VERSION}/g" tests/as_integration/Ensure_Latest_AS_Test.php
