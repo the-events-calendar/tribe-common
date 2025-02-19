@@ -161,7 +161,7 @@ jobs:
         if: ${{ failure() }}
         run: |
           cd ${GITHUB_WORKSPACE}/../the-events-calendar/common
-          HEAD_BRANCH="task/update-as-${{ github.ref_name }}"
+          HEAD_BRANCH="task/update-as-for/${{ github.head_ref }}"
           git config --global user.email "actions@github.com"
           git config --global user.name "github-actions"
           git checkout -b "$HEAD_BRANCH"
@@ -185,7 +185,7 @@ jobs:
         run: |
           echo "Creating PR using gh CLI..."
           # Define the head branch name for the PR.
-          HEAD_BRANCH="task/update-as-${{ github.ref_name }}"
+          HEAD_BRANCH="task/update-as-for/${{ github.head_ref }}"
 
           # Create the PR and capture JSON output.
           PR_URL=$(gh pr create \
@@ -196,4 +196,4 @@ jobs:
             --assignee "${{ github.actor }}" \
             --label "automation")
 
-          echo "pr_url=${PR_URL}" >> $GITHUB_OUTPUT
+          gh pr comment ${{ github.event.pull_request.number }} --body "PR to update AS version to match WC version has been created: $PR_URL"
