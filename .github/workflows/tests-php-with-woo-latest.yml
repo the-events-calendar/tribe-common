@@ -173,7 +173,8 @@ jobs:
           rm as_version.txt
           echo "Updating Action Scheduler to $WC_AS_VERSION"
           ${SLIC_BIN} composer require woocommerce/action-scheduler:$WC_AS_VERSION
-          git add composer.json composer.lock
+          sed -i -E "s/[0-9]+\.[0-9]+\.[0-9]+/${WC_AS_VERSION}/g" tests/as_integration/Ensure_Latest_AS_Test.php
+          git add composer.json composer.lock tests/as_integration/Ensure_Latest_AS_Test.php
           git commit -m "Update Action Scheduler to $WC_AS_VERSION"
           git push origin "$HEAD_BRANCH"
       - name: Create Pull Request using GitHub CLI
