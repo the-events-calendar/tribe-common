@@ -165,10 +165,13 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "github-actions"
           git checkout -b "$HEAD_BRANCH"
+          echo "Created branch $HEAD_BRANCH"
+          ${SLIC_BIN} interactive on
           ${SLIC_BIN} ssh
           wp plugin activate woocommerce
           wp eval 'do_action( "plugins_loaded" ); echo ActionScheduler_Versions::instance()->latest_version();' > as_version.txt
           exit
+          ${SLIC_BIN} interactive off
           WC_AS_VERSION=$(cat as_version.txt)
           rm as_version.txt
           echo "Updating Action Scheduler to $WC_AS_VERSION"
