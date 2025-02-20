@@ -196,4 +196,4 @@ jobs:
             --assignee "${{ github.actor }}" \
             --label "automation")
 
-          gh pr comment ${{ github.event.pull_request.number }} --body "PR to update AS version to match WC version has been created: $PR_URL"
+          gh pr comment ${{ github.event.pull_request.number }} --body "PR to update Action Scheduler version to match WooCommerce version has been created: $PR_URL"
