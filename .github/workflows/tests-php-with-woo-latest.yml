@@ -194,8 +194,8 @@ jobs:
             --base "${{ github.head_ref }}" \
             --head "$HEAD_BRANCH" \
             --title "[BOT] Update AS Version to match WC" \
-            --body $PR_BODY \
+            --label "automation" \
             --assignee "${{ github.actor }}" \
-            --label "automation")
+            --body-file - <<< "$PR_BODY" )
 
           gh pr comment ${{ github.event.pull_request.number }} --body "PR to update Action Scheduler version to match WooCommerce version has been created: $PR_URL"
