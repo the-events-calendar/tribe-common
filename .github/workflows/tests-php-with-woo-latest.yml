@@ -180,7 +180,7 @@ jobs:
       - name: Create Pull Request using GitHub CLI
         if: ${{ failure() }}
         env:
-          # Use GITHUB_TOKEN so that gh automatically authenticates.
+          # Use GITHUB_TOKEN so that GitHub automatically authenticates.
           GITHUB_TOKEN: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
         run: |
           echo "Creating PR using gh CLI..."
