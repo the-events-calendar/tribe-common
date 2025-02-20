@@ -36,7 +36,7 @@
     "stellarwp/assets": "1.4.2",
     "stellarwp/admin-notices": "^1.1",
     "stellarwp/uplink": "2.2.2",
-    "woocommerce/action-scheduler": "3.9.0"
+    "woocommerce/action-scheduler": "3.7.0"
   },
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
