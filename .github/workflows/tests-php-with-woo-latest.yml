@@ -183,7 +183,7 @@ jobs:
           # Use GITHUB_TOKEN so that GitHub automatically authenticates.
           GITHUB_TOKEN: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
         run: |
-          echo "Creating PR using gh CLI..."
+          echo "Creating PR using GitHub CLI..."
           # Define the head branch name for the PR.
           HEAD_BRANCH="task/update-as-for/${{ github.head_ref }}"
 
