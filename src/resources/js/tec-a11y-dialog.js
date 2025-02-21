@@ -367,8 +367,9 @@
 		}, 50);
 		if (this.options.effect === 'fade') {
 			this.node.style.opacity = '0';
-			this.node.style.transition = 'opacity ' + this.options.effectSpeed +
-				'ms ' + this.options.effectEasing;
+			this.node.style.transition = 'opacity ' +
+				this.options.effectSpeed + 'ms ' +
+				this.options.effectEasing;
 			setTimeout(function() {
 				_this.node.style.opacity = '1';
 			}, 50);
