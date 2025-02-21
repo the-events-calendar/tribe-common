@@ -1,3 +1,5 @@
+/* global tribeCopyToClipboard */
+
 tribe.copyToClipboard = tribe.copyToClipboard || {};
 
 ( function ( $, obj ) {

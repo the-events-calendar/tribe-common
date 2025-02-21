@@ -22,24 +22,25 @@ export default class Select extends PureComponent {
 		options: PropTypes.shape( {
 			label: PropTypes.string,
 			value: PropTypes.any,
+			map: PropTypes.func,
 		} ),
 		onOptionClick: PropTypes.func.isRequired,
 		optionClassName: PropTypes.string,
 		isOpen: PropTypes.bool.isRequired,
 		value: PropTypes.any,
 		className: PropTypes.string,
-	}
+	};
 
 	static defaultProps = {
 		onOptionClick: noop,
 		isOpen: true,
 		optionClassName: '',
-	}
+	};
 
 	_onOptionClick = ( onClose, value, e ) => {
 		this.props.onOptionClick( value, e );
 		onClose();
-	}
+	};
 
 	get selected() {
 		return find( this.props.options, option => option.value === this.props.value );
@@ -66,7 +67,7 @@ export default class Select extends PureComponent {
 				{ option.label }
 			</button>
 		) )
-	)
+	);
 
 	renderToggle = ( { onToggle, isOpen } ) => (
 		<div className="tribe-common-form-select__toggle">
@@ -82,7 +83,7 @@ export default class Select extends PureComponent {
 				/>
 			</button>
 		</div>
-	)
+	);
 
 	renderContent = ( { onClose } ) => (
 		<ScrollTo>

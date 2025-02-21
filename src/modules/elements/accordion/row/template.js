@@ -23,6 +23,7 @@ class Row extends PureComponent {
 		onClick: PropTypes.func,
 		onClose: PropTypes.func,
 		onOpen: PropTypes.func,
+		contentId: PropTypes.string,
 	};
 
 	static defaultProps = {

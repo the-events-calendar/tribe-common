@@ -1,15 +1,28 @@
-/* global NodeList, Element, define */
-
+/* eslint-disable no-undef */
 (function (global) {
 	'use strict';
 
-	var FOCUSABLE_ELEMENTS = ['a[href]', 'area[href]', 'input:not([disabled])', 'select:not([disabled])', 'textarea:not([disabled])', 'button:not([disabled])', 'iframe', 'object', 'embed', '[contenteditable]', '[tabindex]:not([tabindex^="-"])'];
+	var FOCUSABLE_ELEMENTS = [
+		'a[href]',
+		'area[href]',
+		'input:not([disabled])',
+		'select:not([disabled])',
+		'textarea:not([disabled])',
+		'button:not([disabled])',
+		'iframe',
+		'object',
+		'embed',
+		'[contenteditable]',
+		'[tabindex]:not([tabindex^="-"])',
+	];
 	var TAB_KEY = 9;
 	var ESCAPE_KEY = 27;
 	var focusedBeforeDialog;
 	var browser = browserTests();
 	var scroll = 0;
-	var scroller = browser.ie || browser.firefox || (browser.chrome && !browser.edge) ? document.documentElement : document.body;
+	var scroller = browser.ie || browser.firefox || (browser.chrome && !browser.edge)
+		? document.documentElement
+		: document.body;
 
 	/**
 	 * Define the constructor to instantiate a dialog
@@ -43,7 +56,9 @@
 		this._maintainFocus = this._maintainFocus.bind(this);
 		this._bindKeypress = this._bindKeypress.bind(this);
 
-		this.trigger = isString(this.options.trigger) ? getNodes(this.options.trigger, true, document, true) : this.options.trigger;
+		this.trigger = isString(this.options.trigger)
+			? getNodes(this.options.trigger, true, document, true)
+			: this.options.trigger;
 		this.node = null;
 
 		if (!this.trigger) {
@@ -88,14 +103,24 @@
 		if (!contentNode) {
 			return this;
 		}
-		var ariaDescribedBy = this.options.ariaDescribedBy ? 'aria-describedby="' + this.options.ariaDescribedBy + '" ' : '';
+		var ariaDescribedBy = this.options.ariaDescribedBy ?
+			'aria-describedby="' + this.options.ariaDescribedBy + '" '
+			: '';
 		var ariaLabel = this.options.ariaLabel ? 'aria-label="' + this.options.ariaLabel + '"' : '';
-		var ariaLabelledBy = this.options.ariaLabelledBy ? 'aria-labelledby="' + this.options.ariaLabelledBy + '"' : '';
+		var ariaLabelledBy = this.options.ariaLabelledBy ?
+			'aria-labelledby="' + this.options.ariaLabelledBy + '"'
+			: '';
 		var node = document.createElement('div');
 		node.setAttribute('aria-hidden', 'true');
 		node.classList.add(this.options.wrapperClasses);
-		node.innerHTML = '<div data-js="a11y-overlay" tabindex="-1" class="' + this.options.overlayClasses + '"></div>\n' +
-			'  <div class="' + this.options.contentClasses + '" role="dialog" aria-modal="true" ' + ariaLabelledBy + ariaDescribedBy + ariaLabel + '>\n' +
+		node.innerHTML = '<div ' +
+			'data-js="a11y-overlay" ' +
+			'tabindex="-1" ' +
+			'class="' + this.options.overlayClasses + '"></div>\n' +
+			'  <div ' +
+			'    class="' + this.options.contentClasses + '" ' +
+			'    role="dialog" ' +
+			'    aria-modal="true" ' + ariaLabelledBy + ariaDescribedBy + ariaLabel + '>\n' +
 			'    <div role="document">\n' +
 			'      <button ' +
 			'           data-js="a11y-close-button"' +
@@ -342,7 +367,9 @@
 		}, 50);
 		if (this.options.effect === 'fade') {
 			this.node.style.opacity = '0';
-			this.node.style.transition = 'opacity ' + this.options.effectSpeed + 'ms ' + this.options.effectEasing;
+			this.node.style.transition = 'opacity ' +
+				this.options.effectSpeed + 'ms ' +
+				this.options.effectEasing;
 			setTimeout(function() {
 				_this.node.style.opacity = '1';
 			}, 50);
@@ -387,10 +414,13 @@
 	}
 
 	/**
-	 * Should be used at all times for getting nodes throughout our app. Please use the data-js attribute whenever possible
+	 * Should be used at all times for getting nodes throughout our app. Please use the data-js
+	 * attribute whenever possible.
 	 *
-	 * @param selector The selector string to search for. If arg 4 is false (default) then we search for [data-js="selector"]
-	 * @param convert Convert the NodeList to an array? Then we can Array.forEach directly. Uses convertElements from above
+	 * @param selector The selector string to search for. If arg 4 is false (default) then we
+	 *                 search for [data-js="selector"]
+	 * @param convert Convert the NodeList to an array? Then we can Array.forEach directly.
+	 *                Uses convertElements from above
 	 * @param node Parent node to search from. Defaults to document
 	 * @param custom Is this a custom selector where we don't want to use the data-js attribute?
 	 * @returns {NodeList}

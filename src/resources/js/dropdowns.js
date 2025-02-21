@@ -1,4 +1,4 @@
-var tribe_dropdowns = window.tribe_dropdowns || {};
+window.tribe_dropdowns = window.tribe_dropdowns || {};
 
 ( function( $, obj, _ ) {
 	'use strict';
@@ -609,4 +609,4 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		$( obj.selector.dropdown ).tribe_dropdowns();
 	});
 
-} )( jQuery, tribe_dropdowns, window.underscore || window._ );
+} )( jQuery, window.tribe_dropdowns, window.underscore || window._ );
