@@ -7,7 +7,7 @@ import { plugins } from '@moderntribe/common/data';
  * Returns whether the Event has at least one recurrence rule or not.
  *
  * @since 5.0.0
- * @param {object} state The current container state.
+ * @param {Object} state The current container state.
  * @returns {boolean} Whether the Event has at least one recurrence rule or not.
  */
 export const hasRecurrenceRules = ( state ) => {
@@ -25,7 +25,6 @@ export const hasRecurrenceRules = ( state ) => {
  * Returns whether tickets are allowed on Recurring events or not.
  *
  * @since 5.0.0
- *
  * @returns {boolean} Whether tickets are allowed on Recurring events or not.
  */
 export const noTicketsOnRecurring = () => {
@@ -36,9 +35,8 @@ export const noTicketsOnRecurring = () => {
  * Returns whether RSVPs are allowed on Recurring events or not.
  *
  * @since 5.8.0
- *
  * @returns {boolean} Whether RSVPs are allowed on Recurring events or not.
  */
 export const noRsvpsOnRecurring = () => {
-	return document.body.classList.contains( 'tec-no-rsvp-on-recurring' )
+	return document.body.classList.contains( 'tec-no-rsvp-on-recurring' );
 };

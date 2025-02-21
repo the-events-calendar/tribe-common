@@ -23,6 +23,11 @@ export default ( getName = noop ) => ( WrappedComponent ) => {
 		static propTypes = {
 			registerForm: PropTypes.func,
 			postType: PropTypes.string,
+			createDraft: PropTypes.func,
+			sendForm: PropTypes.func,
+			setSubmit: PropTypes.func,
+			editEntry: PropTypes.func,
+			maybeRemoveEntry: PropTypes.func,
 		};
 
 		componentDidMount() {

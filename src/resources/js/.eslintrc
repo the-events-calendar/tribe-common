@@ -5,10 +5,17 @@
 		"browser": true,
 		"es6": true
 	},
+	"parserOptions": {
+		"ecmaVersion": 2018
+	},
 	"rules": {
 		"es5/no-block-scoping": 0,
 		"es5/no-template-literals": 0,
-		"es5/no-arrow-functions": 0
+		"es5/no-arrow-functions": 0,
+		"es5/no-shorthand-properties": 0,
+		"es5/no-destructuring": 0,
+		"es5/no-es6-methods": 0,
+		"es5/no-spread": 0
 	},
 	"globals": {
 		"_": true,
@@ -27,6 +34,7 @@
 		"TribeOnboardingHints": true,
 		"TribeOnboardingTour": true,
 		"tec_automator": true,
-		"tribe_dropdowns": true
+		"tribe_dropdowns": true,
+		"commonIan": true
 	}
 }

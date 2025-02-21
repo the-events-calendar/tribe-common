@@ -30,7 +30,7 @@ export const HOUR_IN_MS = HOUR_IN_SECONDS * SECOND_IN_MS;
 /**
  * Formats time object to time string in the format provided
  *
- * @param {object} time Time object to format from
+ * @param {Object} time Time object to format from
  * @param {string} format Format of time to format to
  * @returns {string} Time string in format provided
  */

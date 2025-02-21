@@ -29,7 +29,7 @@
 			window.addEventListener("resize", calculateSidebarPosition);
 			window.addEventListener("scroll", onScroll);
 
-			if (Ian.consent == "true") getIan(true);
+			if (Ian.consent === "true") getIan(true);
 		};
 
 		/**
@@ -40,7 +40,9 @@
 		 * @return {void}
 		 */
 		const wrapHeadings = () => {
-			const headings = document.querySelectorAll(".edit-php.post-type-tribe_events h1, .post-php.post-type-tribe_events h1");
+			const headings = document.querySelectorAll(
+				".edit-php.post-type-tribe_events h1, .post-php.post-type-tribe_events h1"
+			);
 			headings.forEach(heading => {
 				const pageAction = heading.nextElementSibling;
 				if (pageAction) {
@@ -119,6 +121,7 @@
 					break;
 
 				default:
+					// eslint-disable-next-line no-console
 					console.log('e.composedPath', e.composedPath());
 					// Not an event we care about.
 					break;
@@ -188,7 +191,9 @@
 
 			let settingstabs = document.getElementById("tribe-settings-tabs");
 			if (settingstabs) {
-				settingstabs = window.innerWidth > 500 ? settingstabs : document.querySelector('.tec-settings-header-wrap');
+				settingstabs = window.innerWidth > 500
+					? settingstabs
+					: document.querySelector('.tec-settings-header-wrap');
 				rect = settingstabs.getBoundingClientRect();
 			}
 
@@ -232,7 +237,6 @@
 		 */
 		const updatePosition = () => {
 			const offset = window.innerWidth > 782 ? 32 : window.innerWidth > 600 ? 46 : 0;
-			const scrollY = window.scrollY;
 			const initialTop = getParentPosition();
 			if (initialTop <= offset) {
 				Ian.sidebar.style.top = offset + 'px';
@@ -311,6 +315,7 @@
 						let read = "";
 						let unread = "";
 
+						// eslint-disable-next-line es5/no-destructuring, no-unused-vars
 						Object.entries(response.data).forEach(([key, item]) => {
 							if (item.read) {
 								read += item.html;
@@ -321,6 +326,7 @@
 							}
 						});
 
+						// eslint-disable-next-line max-len
 						const separator = `<div class="ian-sidebar__separator"><div>${Ian.readTxt}</div><span></span></div>`;
 						Ian.notifications.innerHTML = unread + separator + read;
 					}
@@ -456,12 +462,16 @@
 				Ian.loader.classList.add("is-hidden");
 
 				if (response.success) {
+					// eslint-disable-next-line es5/no-spread
 					Ian.feed.read = [...Ian.feed.read, ...Ian.feed.unread];
 					Ian.feed.unread = [];
 					const read = Ian.feed.read.map(item => item.html).join("");
+					// eslint-disable-next-line max-len
 					const separator = `<div class="ian-sidebar__separator"><div>${Ian.readTxt}</div><span></span></div>`;
 					Ian.notifications.innerHTML = separator + read;
-					document.querySelectorAll('.ian-sidebar__notification-link--right').forEach(el => el.remove());
+					document
+						.querySelectorAll('.ian-sidebar__notification-link--right')
+						.forEach(el => el.remove());
 					updateIan();
 				} else {
 					console.error("Failed to read all notifications:", response.message || "Unknown error");

@@ -1,9 +1,13 @@
+/* eslint-disable max-len */
+// eslint-disable-next-line no-redeclare
 var tribe = tribe || {};
 tribe.helpPage = tribe.helpPage || {};
 window.DocsBotAI = window.DocsBotAI || {};
 
 ( ( $, obj ) => {
 	'use strict';
+
+	/* global zE, helpHubSettings */
 
 	obj.selectors = {
 		body: 'body',
@@ -247,7 +251,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 			if ( element ) {
 				return resolve( element );
 			}
-			const observer = new MutationObserver( ( mutations ) => {
+			const observer = new MutationObserver( () => {
 				const foundElement = document.querySelector( selector );
 				if ( foundElement ) {
 					resolve( foundElement );
@@ -272,7 +276,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	obj.initializeDocsBot = () => {
 		const bodyElement = document.getElementById( obj.selectors.helpHubPageID );
 		document.getElementById(obj.selectors.docsbotWidget).classList.remove( 'hide' );
-		DocsBotAI.init = ( e ) => {
+		window.DocsBotAI.init = ( e ) => {
 			return new Promise( ( resolve, reject ) => {
 				const script = document.createElement( 'script' );
 				script.type = 'text/javascript';
@@ -289,9 +293,9 @@ window.DocsBotAI = window.DocsBotAI || {};
 					'load',
 					() => {
 						Promise.all( [
-										 window.DocsBotAI.mount( { ...e } ),
-										 obj.observeElement( '#docsbotai-root' ),
-									 ] )
+										window.DocsBotAI.mount( { ...e } ),
+										obj.observeElement( '#docsbotai-root' ),
+									] )
 							.then( resolve )
 							.catch( reject );
 					}
@@ -306,7 +310,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 			} );
 		};
 
-		DocsBotAI.init( {
+		window.DocsBotAI.init( {
 							id: helpHubSettings.docsbot_key,
 							options: {
 								customCSS: obj.DocsBotAIcss,

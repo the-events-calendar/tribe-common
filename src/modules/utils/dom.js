@@ -31,7 +31,7 @@ export const isRootNode = ( node ) => node === window.top.document;
  * Utility to search the parent of a node looking from the current node Up to the highest
  * node on the DOM Tree
  *
- * @param {(HTMLElement|object)} node - The DOM node where the search starts
+ * @param {(HTMLElement | Object)} node - The DOM node where the search starts
  * @param {Function} callback - Is executed on every iteration, it should return a boolean
  * @returns {boolean} Returns tre if the callback returns true with any of the parents.
  */

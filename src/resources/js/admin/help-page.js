@@ -260,7 +260,9 @@ tribe.helpPage = tribe.helpPage || {};
 
 		// Find the currently active tab and corresponding container.
 		let currentTab = document.querySelector( '.tec-nav__tab.tec-nav__tab--active' );
-		let tabContainer = currentTab ? document.getElementById( currentTab.getAttribute( 'data-tab-target' ) ) : null;
+		let tabContainer = currentTab
+			? document.getElementById( currentTab.getAttribute( 'data-tab-target' ) )
+			: null;
 
 		// Update modal button span text to the active tab’s text by default.
 		if (currentTab) {
