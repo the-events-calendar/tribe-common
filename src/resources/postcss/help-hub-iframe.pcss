@@ -10,9 +10,9 @@
 }
 
 body {
+	background: transparent !important;
 	font-family: var(--tec-font-family-sans-serif);
 	overflow: hidden;
-	background: transparent !important;
 }
 
 .hide {
@@ -27,8 +27,8 @@ body {
 	justify-content: center;
 }
 
-.blackout::before {
-	background-color: rgba(0, 0, 0, .8);
+.blackout:before {
+	background-color: rgba(0, 0, 0, 0.8);
 	content: '';
 	height: 100vh;
 	left: 0;
@@ -48,7 +48,7 @@ body[data-opted-in="0"].blackout {
 }
 
 /* Remove background-color from .blackout::before when opted-in is 0 */
-body[data-opted-in="0"].blackout::before {
+body[data-opted-in="0"].blackout:before {
 	background-color: transparent;
 }
 
@@ -72,7 +72,7 @@ body[data-opted-in="0"] .docsbot-widget-background {
 	}
 
 	/* Black overlay */
-	&::before {
+	&:before {
 		background-color: rgba(0, 0, 0, 0.5);
 		content: '';
 		height: 100%;
@@ -83,7 +83,6 @@ body[data-opted-in="0"] .docsbot-widget-background {
 		z-index: 0;
 	}
 }
-
 
 /**
  * Zendesk Styles
@@ -114,9 +113,9 @@ body[data-opted-in="0"] .docsbot-widget-background {
 /* Medium screens and up: 50% width, centered */
 @media (--viewport-medium) {
 	#webWidget {
-		width: 50% !important;
 		margin: 0 auto !important;
-		max-height: 100vh !important
+		max-height: 100vh !important;
+		width: 50% !important;
 	}
 }
 
@@ -161,8 +160,8 @@ body[data-opted-in="0"] .docsbot-widget-background {
 }
 
 .tec-help-hub-iframe-opt-out-message__image img {
-	max-width: 100px;
 	height: auto;
+	max-width: 100px;
 }
 
 /* Content Column */

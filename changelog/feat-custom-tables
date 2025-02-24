@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Moved abstract class for custom tables used accross multiple features into Common.

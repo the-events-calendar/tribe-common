@@ -799,6 +799,9 @@ class Tribe__Main {
 
 		// Load Help Hub.
 		tribe_register_provider( TEC\Common\Admin\Help_Hub\Provider::class );
+
+		// Load the common hooks.
+		tribe_register_provider( TEC\Common\Hooks::class );
 	}
 
 	/**
