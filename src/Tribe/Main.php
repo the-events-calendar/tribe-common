@@ -20,7 +20,7 @@ class Tribe__Main {
 	const OPTIONNAME        = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK = 'tribe_events_calendar_network_options';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
-	const VERSION           = '6.5.1.1';
+	const VERSION           = '7.0.0';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
@@ -774,7 +774,10 @@ class Tribe__Main {
 		tribe_singleton( 'admin.activation.page', 'Tribe__Admin__Activation_Page' );
 		tribe_singleton( Translations_Loader::class, Translations_Loader::class );
 
-		tribe_register_provider( Tribe__Editor__Provider::class );
+		if ( !tec_using_new_editor() ) {
+			tribe_register_provider( Tribe__Editor__Provider::class );
+		}
+
 		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
 		tribe_register_provider( Tribe\Service_Providers\Tooltip::class );
 		tribe_register_provider( Tribe\Service_Providers\Dialog::class );
