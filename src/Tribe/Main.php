@@ -194,6 +194,7 @@ class Tribe__Main {
 	 * initializes all required libraries
 	 */
 	public function init_libraries() {
+		require_once $this->plugin_path . 'src/functions/time.php';
 		require_once $this->plugin_path . 'src/functions/utils.php';
 		require_once $this->plugin_path . 'src/functions/conditionals.php';
 		require_once $this->plugin_path . 'src/functions/transient.php';
