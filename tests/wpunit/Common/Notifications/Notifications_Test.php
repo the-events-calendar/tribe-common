@@ -263,9 +263,11 @@ class Notifications_Test extends WPTestCase {
 	public function it_should_get_cached_feed_via_ajax() {
 		$this->ajax_setup();
 
+		$_REQUEST['plugin'] = 'tec';
+
 		$feed  = $this->get_mocked_feed();
 		$cache = tribe_cache();
-		$cache->set_transient( 'tec_ian_api_feed', $feed, 15 * MINUTE_IN_SECONDS );
+		$cache->set_transient( 'tec_ian_api_feed_tec', $feed, 15 * MINUTE_IN_SECONDS );
 
 		$wp_send_json_success = $this->mock_wp_send_json_success();
 

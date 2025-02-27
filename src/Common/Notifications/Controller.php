@@ -111,7 +111,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function is_ian_page() {
 		$screen  = get_current_screen();
-		$allowed = [ 'tribe_events', 'edit-tribe_events', 'tribe_events_page_tec-events-settings' ];
+		$allowed = [];
 
 		/**
 		 * Filter the allowed pages for the Notifications icon.
