@@ -19,17 +19,17 @@ if ( ! function_exists( 'tec_is_full_site_editor' ) ) {
 	}
 }
 
-if ( ! function_exists( 'tec_using_new_editor' ) ) {
-	function tec_using_new_editor(): bool {
+if ( ! function_exists( 'tec_using_classy_editor' ) ) {
+	function tec_using_classy_editor(): bool {
 		/**
-		 * Filters whether the new editor experience is being used or not.
+		 * Filters whether the Classy experience is being used or not.
 		 *
 		 * @since TBD
 		 *
-		 * @param bool $using_new_editor Whether the new editor experience is being used or not.
+		 * @param bool $using_classy_editor Whether the Classy experience is being used or not.
 		 */
-		$using_new_editor = apply_filters( 'tec_using_new_editor', false );
+		$using_classy_editor = apply_filters( 'tec_using_classy_editor', false );
 
-		return (bool) $using_new_editor;
+		return (bool) $using_classy_editor;
 	}
 }
