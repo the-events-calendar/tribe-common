@@ -1,12 +1,21 @@
 # Changelog
 
-### [6.5.1] 2025-02-06
+### [6.5.1.1] 2025-02-12
 
-* Tweak - License validation now runs consistently during plugin activation, ensuring licenses are recognized earlier. [TEC-5351]
+* Fix - Add a callback to remove the `tribe_pue_key_notices` once on upgrade to version 6.5.1.1 [TEC-5384]
+* Fix - Adjustments were made to prevent a fatal error when tec_pue_checker_init was triggered too early, attempting to call tribe_is_truthy() before it was available. The license check and active plugin monitoring now run on admin_init to ensure proper loading. [TEC-5384]
+* Fix - Update the license checker to ignore empty licenses. [TEC-5385]
+* Language - 0 new strings added, 46 updated, 1 fuzzied, and 0 obsoleted.
+
+### [6.5.1] 2025-02-10
+
 * Fix - Added more details to `Core_Read_Interface` methods' docblocks to avoid errors in PHPStan. [TCMN-177]
-* Fix - Changed the way how translations are loaded to work with the latest WordPress language changes. [FBAR-341][CE-252]
+* Fix - Changed the way translations are loaded to work with the latest WordPress language changes. [FBAR-341][CE-252]
 * Fix - Providers will fire their registration action only once and only if they are active. [TCMN-178]
 * Fix - Tweak load order to prevent Promoter fatal. Ensure PUE gets loaded first.
+* Tweak - License validation now runs consistently during plugin activation, ensuring licenses are recognized earlier. [TEC-5351]
+* Tweak - Removed actions: `tec_common_ian_loaded`
+* Language - 0 new strings added, 32 updated, 1 fuzzied, and 0 obsoleted.
 
 ### [6.5.0] 2025-01-30
 

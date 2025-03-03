@@ -30,21 +30,37 @@ class Tribe__Service_Providers__Promoter extends Service_Provider {
 	private function hook() {
 		add_action( 'template_redirect', tribe_callback( 'promoter.view', 'display_auth_check_view' ), 10, 0 );
 		add_action( 'init', tribe_callback( 'promoter.view', 'add_rewrites' ) );
+		add_action( 'tribe_common_loaded', [ $this, 'add_auth_setting' ] );
 
+		// The usage of a high priority so we can push the icon to the end.
+		add_action( 'admin_bar_menu', [ $this, 'add_promoter_logo_on_admin_bar' ], 1000 );
+		add_action( 'tribe_common_loaded', [ $this, 'add_promoter_assets' ] );
+	}
+
+	/**
+	 * Adds the Promoter authentication setting if a valid license key is present.
+	 *
+	 * This method checks if the Promoter PUE has a valid
+	 * license key. If a key is found, it registers the authentication setting
+	 * via the 'init' action.
+	 *
+	 * @since 6.5.1.1
+	 *
+	 * @return void
+	 */
+	public function add_auth_setting() {
 		/** @var Tribe__Promoter__PUE $pue */
 		$pue = tribe( 'promoter.pue' );
 
-		// Only add the setting if a promoter key is present.
-		if ( $pue->has_license_key() ) {
-			add_action(
-				'init',
-				tribe_callback( 'promoter.auth', 'register_setting' )
-			);
+		if ( ! $pue->has_license_key() ) {
+			return;
 		}
 
-		// The usage of a high priority so we can push the icon to the end
-		add_action( 'admin_bar_menu', [ $this, 'add_promoter_logo_on_admin_bar' ], 1000 );
-		add_action( 'tribe_common_loaded', [ $this, 'add_promoter_assets' ] );
+		// Only add the setting if a promoter key is present.
+		add_action(
+			'init',
+			tribe_callback( 'promoter.auth', 'register_setting' )
+		);
 	}
 
 	/**
