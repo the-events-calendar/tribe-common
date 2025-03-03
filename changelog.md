@@ -1,5 +1,11 @@
 # Changelog
 
+### [6.5.2] 2025-03-03
+
+* Feature - Add In-App Notifications for Event Tickets [ET-2294]
+* Tweak - Added the `set_version` and `get_version` methods to the new TEC\Common\Updater class. [TCMN-181]
+* Language - 0 new strings added, 5 updated, 1 fuzzied, and 0 obsoleted.
+
 ### [6.5.1.1] 2025-02-12
 
 * Fix - Add a callback to remove the `tribe_pue_key_notices` once on upgrade to version 6.5.1.1 [TEC-5384]
