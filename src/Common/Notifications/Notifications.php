@@ -163,18 +163,19 @@ final class Notifications {
 		}
 
 		$cache = tribe_cache();
-		$feed  = $cache->get_transient( 'tec_ian_api_feed' );
+		$slug  = tec_get_request_var( 'plugin' );
+		$feed  = $cache->get_transient( 'tec_ian_api_feed_' . $slug );
 		if ( false === $feed || ! is_array( $feed ) ) {
 			// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.wp_remote_get_wp_remote_get
 			$response = wp_remote_get( $this->api_url );
 			if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
-				$cache->set_transient( 'tec_ian_api_feed', [], 15 * MINUTE_IN_SECONDS );
+				$cache->set_transient( 'tec_ian_api_feed_' . $slug, [], 15 * MINUTE_IN_SECONDS );
 				wp_send_json_error( wp_remote_retrieve_response_message( $response ), wp_remote_retrieve_response_code( $response ) );
 				return;
 			}
 			$body = json_decode( wp_remote_retrieve_body( $response ), true );
-			$feed = Conditionals::filter_feed( $body['notifications_by_area']['general-tec'] ?? [] );
-			$cache->set_transient( 'tec_ian_api_feed', $feed, 15 * MINUTE_IN_SECONDS );
+			$feed = Conditionals::filter_feed( $body['notifications_by_area'][ 'general-' . $slug ] ?? [] );
+			$cache->set_transient( 'tec_ian_api_feed_' . $slug, $feed, 15 * MINUTE_IN_SECONDS );
 		}
 
 		$template = new Template();
