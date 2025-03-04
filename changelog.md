@@ -1,6 +1,6 @@
 # Changelog
 
-### [6.5.2] 2025-03-03
+### [6.5.2] 2025-03-04
 
 * Feature - Add In-App Notifications for Event Tickets [ET-2294]
 * Tweak - Added the `set_version` and `get_version` methods to the new TEC\Common\Updater class. [TCMN-181]
