@@ -7,7 +7,7 @@
  * @var string $type The type of notification.
  * @var string $id The ID of the notification.
  * @var boolean $dismissible Whether the notification is dismissible.
- * @var string $slug The slug of the plugin.
+ * @var string $slug The slug of the notification.
  * @var string $title The title of the notification.
  * @var string $html The content of the notification.
  * @var array $actions The action links.

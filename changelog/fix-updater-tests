@@ -1,4 +1,0 @@
-Significance: minor
-Type: tweak
-
-Added the `set_version` and `get_version` methods to the new TEC\Common\Updater class. [TCMN-181]
