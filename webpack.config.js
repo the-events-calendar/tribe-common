@@ -63,6 +63,11 @@ customEntryPoints['app/main'] = exposeEntry('tec.common.app.main', __dirname + '
 customEntryPoints['app/modules'] = exposeEntry('tec.common.app.modules', __dirname + '/src/modules/modules.js');
 
 /**
+ * Build a `vendor` bundle, used by the `tribe-common-gutenberg-vendor` bundle
+ */
+customEntryPoints['app/vendor'] = exposeEntry('tec.common.app.vendor', __dirname + '/src/modules/vendor.js');
+
+/**
  * Prepends a loader for SVG files that will be applied after the default one. Loaders are applied
  * in a LIFO queue in WebPack.
  * By default `@wordpress/scripts` uses `@svgr/webpack` to handle SVG files and, together with it,
