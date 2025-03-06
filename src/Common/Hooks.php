@@ -2,7 +2,7 @@
 /**
  * TEC Common Hooks
  *
- * @since TBD
+ * @since 6.5.3
  *
  * @package TEC\Common;
  */
@@ -14,14 +14,14 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 /**
  * Class Hooks
  *
- * @since TBD
+ * @since 6.5.3
  */
 class Hooks extends Controller_Contract {
 
 	/**
 	 * Registers the hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 */
 	public function do_register(): void {
 		add_action( 'current_screen', [ $this, 'admin_headers_about_to_be_sent' ], PHP_INT_MAX );
@@ -31,7 +31,7 @@ class Hooks extends Controller_Contract {
 	/**
 	 * Removes hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 */
 	public function unregister(): void {
 		remove_action( 'current_screen', [ $this, 'admin_headers_about_to_be_sent' ], PHP_INT_MAX );
@@ -41,7 +41,7 @@ class Hooks extends Controller_Contract {
 	/**
 	 * Fires an action just before headers are sent.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 */
 	public function admin_headers_about_to_be_sent() {
 		/**
@@ -52,7 +52,7 @@ class Hooks extends Controller_Contract {
 		 * Especially where a functionality would trigger a fatal error if headers are
 		 * sent using an action is more forgiving.
 		 *
-		 * @since TBD
+		 * @since 6.5.3
 		 */
 		do_action( 'tec_admin_headers_about_to_be_sent' );
 	}
@@ -60,7 +60,7 @@ class Hooks extends Controller_Contract {
 	/**
 	 * Fires an action during the shutdown action.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 */
 	public function tec_shutdown() {
 		/**
@@ -72,7 +72,7 @@ class Hooks extends Controller_Contract {
 		 * In production code, it can help us only in the sense of adding our own
 		 * actions in a specific order.
 		 *
-		 * @since TBD
+		 * @since 6.5.3
 		 */
 		do_action( 'tec_shutdown' );
 	}

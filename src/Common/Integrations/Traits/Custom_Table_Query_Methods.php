@@ -2,7 +2,7 @@
 /**
  * Provides query methods common to all custom tables.
  *
- * @since TBD
+ * @since 6.5.3
  *
  * @package TEC\Controller\Tables;
  */
@@ -16,7 +16,7 @@ use InvalidArgumentException;
 /**
  * Trait Custom_Table_Query_Methods.
  *
- * @since TBD
+ * @since 6.5.3
  *
  * @package TEC\Controller\Tables;
  */
@@ -24,7 +24,7 @@ trait Custom_Table_Query_Methods {
 	/**
 	 * Fetches all the rows from the table using a batched query.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @param int    $batch_size   The number of rows to fetch per batch.
 	 * @param string $output       The output type of the query, one of OBJECT, ARRAY_A, or ARRAY_N.
@@ -62,7 +62,7 @@ trait Custom_Table_Query_Methods {
 	/**
 	 * Inserts multiple rows into the table.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @param array<mixed> $entries The entries to insert.
 	 *
@@ -98,7 +98,7 @@ trait Custom_Table_Query_Methods {
 	/**
 	 * Fetches all the rows from the table using a batched query and a WHERE clause.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @param string $where_clause The WHERE clause to use.
 	 * @param int    $batch_size   The number of rows to fetch per batch.
@@ -113,7 +113,7 @@ trait Custom_Table_Query_Methods {
 	/**
 	 * Fetches the first row from the table using a WHERE clause.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @param string $where_clause The prepared WHERE clause to use.
 	 * @param string $output       The output type of the query, one of OBJECT, ARRAY_A, or ARRAY_N.
@@ -135,7 +135,7 @@ trait Custom_Table_Query_Methods {
 	 *
 	 * Also supports joining another table.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @param array  $args                      The query arguments.
 	 * @param int    $per_page                  The number of items to display per page.
@@ -191,7 +191,7 @@ trait Custom_Table_Query_Methods {
 	/**
 	 * Gets the total number of items in the table.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @param array<string,mixed> $args The query arguments.
 	 *
@@ -211,7 +211,7 @@ trait Custom_Table_Query_Methods {
 	/**
 	 * Builds a WHERE clause from the provided arguments.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @param array<string,mixed> $args   The query arguments.
 	 *
@@ -297,7 +297,7 @@ trait Custom_Table_Query_Methods {
 	/**
 	 * Gets the JOIN parts of the query.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @param string $join_table                The table to join.
 	 * @param string $join_condition            The condition to join on.

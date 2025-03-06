@@ -15,7 +15,7 @@ use TEC\Common\StellarWP\DB\DB;
 /**
  * Class Integration_Abstract
  *
- * @since TBD
+ * @since 6.5.3
  *
  * @package TEC\Common\Integrations
  */
@@ -25,7 +25,7 @@ abstract class Custom_Table_Abstract extends Table {
 	/**
 	 * An array of all the columns in the table.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @var string[]
 	 */
@@ -34,7 +34,7 @@ abstract class Custom_Table_Abstract extends Table {
 	/**
 	 * An array of all the columns that are searchable.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @return string[]
 	 */
@@ -45,7 +45,7 @@ abstract class Custom_Table_Abstract extends Table {
 	/**
 	 * Helper method to check and add an index to a table.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @param array  $results    The results array to track changes.
 	 * @param string $index_name The name of the index.

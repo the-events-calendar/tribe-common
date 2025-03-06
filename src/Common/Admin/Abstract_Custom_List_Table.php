@@ -2,7 +2,7 @@
 /**
  * An abstract admin list table for custom tables.
  *
- * @since TBD
+ * @since 6.5.3
  *
  * @package TEC\Admin
  */
@@ -22,13 +22,13 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 /**
  * Abstract_Custom_List_Table class.
  *
- * @since TBD
+ * @since 6.5.3
  */
 abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Plural name for the table. Non translatable.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @var string
 	 */
@@ -37,7 +37,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Table ID.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @var string
 	 */
@@ -46,7 +46,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Constructor.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @see WP_List_Table::__construct() for more information on default arguments.
 	 *
@@ -76,7 +76,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Display the table
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 */
 	public function display(): void {
 		if ( $this->is_empty() ) {
@@ -90,7 +90,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Store the custom per page option.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @param mixed  $screen_option The value to save instead of the option value.
 	 *                              Default false (to skip saving the current option).
@@ -112,14 +112,14 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	 *
 	 * It should echo the output.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 */
 	public function do_top_tablename_filters(): void {}
 
 	/**
 	 * Returns the total number of items in the table.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @return int
 	 */
@@ -128,7 +128,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Returns the list of items for the table.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @param int $per_page The number of items to display per page.
 	 *
@@ -139,7 +139,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Returns whether the list is completely empty.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @return bool
 	 */
@@ -150,14 +150,14 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Outputs the content to display when the list is completely empty.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 */
 	public function empty_content(): void {}
 
 	/**
 	 * Prints the extra table controls.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @param string $which The location of the extra controls: 'top' or 'bottom'.
 	 */
@@ -191,7 +191,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Returns the list of table classes.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @return array
 	 */
@@ -208,7 +208,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Handles the default column output.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @param object $item        The current object.
 	 * @param string $column_name The current column name.
@@ -239,7 +239,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	 *
 	 * The screen is set up in the constructor!!
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 * @throws RuntimeException If the table is being prepared too late.
 	 */
 	public function prepare_items(): void {
@@ -252,7 +252,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 		 *
 		 * Core Filter.
 		 *
-		 * @since TBD
+		 * @since 6.5.3
 		 *
 		 * @param int    $per_page Number of items to be displayed.
 		 * @param string $table_id The table ID.
@@ -277,7 +277,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Generates the columns for a single row of the table.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @param object $item The current item.
 	 */
@@ -292,7 +292,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Display the search box.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @param string $text     The search button text.
 	 * @param string $input_id The search input id.
@@ -327,7 +327,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Returns the search placeholder.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @return string
 	 */
@@ -338,7 +338,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Displays a dropdown for filtering items in the list table by date range.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @return void
 	 */
@@ -383,7 +383,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Returns the selected date range.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @return array<string,string>
 	 */
@@ -403,7 +403,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Displays a dropdown for filtering items in the list table by month.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @return void
 	 */
@@ -448,7 +448,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Formats a date for display.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @param string $dt The date to format in format accepted by `strtotime` or EPOCH.
 	 *
@@ -487,7 +487,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Returns the selected from the events dropdown.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @return int
 	 */
@@ -500,7 +500,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Returns the selected search term.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @return string
 	 */
@@ -513,7 +513,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	/**
 	 * Returns the selected orderby.
 	 *
-	 * @since TBD
+	 * @since 6.5.3
 	 *
 	 * @return string
 	 */
