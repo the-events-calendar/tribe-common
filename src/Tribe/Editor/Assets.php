@@ -32,7 +32,7 @@ class Tribe__Editor__Assets {
 		/**
 		 * Block editor JS.
 		 */
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-common-gutenberg-vendor',
 			'app/vendor.js',
@@ -44,7 +44,7 @@ class Tribe__Editor__Assets {
 				'priority'  => 10,
 			]
 		);
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-common-gutenberg-modules',
 			'app/modules.js',
@@ -56,7 +56,7 @@ class Tribe__Editor__Assets {
 				'priority'  => 11,
 			]
 		);
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-common-gutenberg-main',
 			'app/main.js',
@@ -84,7 +84,7 @@ class Tribe__Editor__Assets {
 		/**
 		 * Block editor CSS.
 		 */
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-common-gutenberg-vendor-styles',
 			'app/vendor.css',
@@ -94,10 +94,10 @@ class Tribe__Editor__Assets {
 				'in_footer' => false,
 			]
 		);
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-common-gutenberg-main-styles',
-			'app/main.css',
+			'app/style-main.css',
 			[],
 			'enqueue_block_editor_assets',
 			[

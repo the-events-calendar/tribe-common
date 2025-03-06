@@ -83,7 +83,7 @@ class Onboarding extends Service_Provider {
 		->register();
 
 
-		tribe_asset(
+		tec_asset(
 			$main,
 			'tec-onboarding-styles',
 			'onboarding.css',
@@ -95,7 +95,7 @@ class Onboarding extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$main,
 			'tec-onboarding-js',
 			'onboarding.js',
