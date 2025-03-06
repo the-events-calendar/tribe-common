@@ -11,7 +11,9 @@ const {
 	compileCustomEntryPoints,
 	exposeEntry,
 	doNotPrefixSVGIdsClasses,
-	WindowAssignPropertiesPlugin
+	WindowAssignPropertiesPlugin,
+	preprocessPostcssWithPlugins,
+	modifyRulesInConfig, ruleUsesLoader, usesLoader
 } = require('@stellarwp/tyson');
 
 /**
@@ -68,31 +70,19 @@ customEntryPoints['app/main'] = exposeEntry('tec.common.app.main', __dirname + '
 doNotPrefixSVGIdsClasses(defaultConfig);
 
 /**
- * Prepend a loader for the PostCSS files that processes them using the postcss-custom-media plugins.
+ * By default, `@wordpress/scripts` would first process PostCSS files using the `autoprefixer` plugin.
+ * This will fail if the PostCSS has not been already pre-processed with this two plugins specific to
+ * Common:
+ * - postcss-nested to resolve nesting the PostCSS way (including media queries).
+ * - postcss-custom-media to allow custom media queries to correctly unroll.
  */
-defaultConfig.module.rules = [
-	...defaultConfig.module.rules,
-	{
-		test: /\.pcss$/,
-		use: [
-			{
-				loader: 'postcss-loader',
-				options: {
-					postcssOptions: {
-						plugins: [
-							[
-								require('postcss-custom-media'),
-								{
-									preserve: false,
-								},
-							],
-						],
-					},
-				},
-			},
-		],
-	},
-];
+preprocessPostcssWithPlugins(
+	defaultConfig,
+	[
+		require('postcss-nested'),
+		require('postcss-custom-media')
+	]
+);
 
 /**
  * Finally the customizations are merged with the default WebPack configuration.
