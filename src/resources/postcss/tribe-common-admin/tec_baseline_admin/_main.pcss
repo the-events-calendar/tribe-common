@@ -21,14 +21,14 @@
 		&:after {
 			color: var(--tec-admin-core-blue-50);
 			content: "\f504";
-			font-family: "dashicons";
+			font-family: dashicons; /* stylelint-disable font-family-no-missing-generic-family-keyword */
 			margin-left: 4px;
 			text-decoration-color: transparent;
 		}
 	}
 
 	@media (--viewport-wpadmin) {
-		background-image: url('../images/onboarding-background.svg');
+		background-image: url('../../../images/onboarding-background.svg');
 		background-position: top right;
 		background-repeat: no-repeat;
 		background-size: 240px;

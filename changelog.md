@@ -1,5 +1,17 @@
 # Changelog
 
+### [6.5.3] 2025-03-06
+
+* Version - Update Action Scheduler to 3.9.0
+* Tweak - Moved abstract class for custom tables used accross multiple features into Common.
+* Language - 7 new strings added, 1 updated, 1 fuzzied, and 0 obsoleted.
+
+### [6.5.2] 2025-03-04
+
+* Feature - Add In-App Notifications for Event Tickets [ET-2294]
+* Tweak - Added the `set_version` and `get_version` methods to the new TEC\Common\Updater class. [TCMN-181]
+* Language - 0 new strings added, 5 updated, 1 fuzzied, and 0 obsoleted.
+
 ### [6.5.1.1] 2025-02-12
 
 * Fix - Add a callback to remove the `tribe_pue_key_notices` once on upgrade to version 6.5.1.1 [TEC-5384]
