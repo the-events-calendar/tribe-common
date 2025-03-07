@@ -69,6 +69,9 @@ customEntryPoints['app/modules'] = exposeEntry('tec.common.app.modules', __dirna
  */
 customEntryPoints['app/vendor'] = exposeEntry('tec.common.app.vendor', __dirname + '/src/modules/vendor/index.js');
 
+customEntryPoints['vendor/clipboard'] = __dirname + '/src/resources/vendor/clipboard.min.js'
+customEntryPoints['vendor/intro'] = __dirname + '/src/resources/vendor/intro/index.js'
+
 /**
  * Prepends a loader for SVG files that will be applied after the default one. Loaders are applied
  * in a LIFO queue in WebPack.

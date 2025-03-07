@@ -249,7 +249,7 @@ class Tribe__Main {
 	public function load_assets() {
 		Asset::add(
 			'tribe-clipboard',
-			'vendor/clipboard.min.js',
+			'vendor/clipboard.js',
 			self::VERSION
 		)
 		->prefix_asset_directory( false )
