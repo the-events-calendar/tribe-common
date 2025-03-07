@@ -198,9 +198,9 @@ jobs:
       - name: Set TEC with base branch
         if: steps.skip.outputs.value != 1 && steps.fetch-tec-head-branch.outcome != 'success' && steps.fetch-tec-base-branch.outcome == 'success'
         run: echo "TEC_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
-      - name: Set TEC with master branch
+      - name: Set TEC with main branch
         if: steps.skip.outputs.value != 1 && steps.fetch-tec-head-branch.outcome != 'success' && steps.fetch-tec-base-branch.outcome != 'success'
-        run: echo "TEC_BRANCH=master" >> $GITHUB_ENV
+        run: echo "TEC_BRANCH=main" >> $GITHUB_ENV
       # ------------------------------------------------------------------------------
       # Set ET branch
       # ------------------------------------------------------------------------------
@@ -210,9 +210,9 @@ jobs:
       - name: Set ET with base branch
         if: steps.skip.outputs.value != 1 && steps.fetch-et-head-branch.outcome != 'success' && steps.fetch-et-base-branch.outcome == 'success'
         run: echo "ET_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
-      - name: Set ET with master branch
+      - name: Set ET with main branch
         if: steps.skip.outputs.value != 1 && steps.fetch-et-head-branch.outcome != 'success' && steps.fetch-et-base-branch.outcome != 'success'
-        run: echo "ET_BRANCH=master" >> $GITHUB_ENV
+        run: echo "ET_BRANCH=main" >> $GITHUB_ENV
       # ------------------------------------------------------------------------------
       # Set ET+ branch
       # ------------------------------------------------------------------------------
@@ -222,9 +222,9 @@ jobs:
       - name: Set ET+ with base branch
         if: steps.skip.outputs.value != 1 && steps.fetch-et-plus-head-branch.outcome != 'success' && steps.fetch-et-plus-base-branch.outcome == 'success'
         run: echo "ET_PLUS_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
-      - name: Set ET+ with master branch
+      - name: Set ET+ with main branch
         if: steps.skip.outputs.value != 1 && steps.fetch-et-plus-head-branch.outcome != 'success' && steps.fetch-et-plus-base-branch.outcome != 'success'
-        run: echo "ET_PLUS_BRANCH=master" >> $GITHUB_ENV
+        run: echo "ET_PLUS_BRANCH=main" >> $GITHUB_ENV
       # --------------------------------------------------------------------------
       # Set Pro branch
       # --------------------------------------------------------------------------
@@ -234,9 +234,9 @@ jobs:
       - name: Set Pro with base branch
         if: steps.skip.outputs.value != 1 && steps.fetch-pro-head-branch.outcome != 'success' && steps.fetch-pro-base-branch.outcome == 'success'
         run: echo "PRO_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
-      - name: Set Pro with master branch
+      - name: Set Pro with main branch
         if: steps.skip.outputs.value != 1 && steps.fetch-pro-head-branch.outcome != 'success' && steps.fetch-pro-base-branch.outcome != 'success'
-        run: echo "PRO_BRANCH=master" >> $GITHUB_ENV
+        run: echo "PRO_BRANCH=main" >> $GITHUB_ENV
       # --------------------------------------------------------------------------
       # Clone and init TEC
       # ------------------------------------------------------------------------------
