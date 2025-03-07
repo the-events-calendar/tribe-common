@@ -63,9 +63,11 @@ customEntryPoints['app/main'] = exposeEntry('tec.common.app.main', __dirname + '
 customEntryPoints['app/modules'] = exposeEntry('tec.common.app.modules', __dirname + '/src/modules/modules.js');
 
 /**
- * Build a `vendor` bundle, used by the `tribe-common-gutenberg-vendor` bundle
+ * Build the `vendor` bundles: `tribe-common-gutenberg-vendor` and `tribe-common-gutenberg-vendor-styles`.
+ * This is built for back-compatibility purposes, and it's little more than a pass-thru of the files originally
+ * compiled by the legacy Block Editor system based on WebPack 4.
  */
-customEntryPoints['app/vendor'] = exposeEntry('tec.common.app.vendor', __dirname + '/src/modules/vendor.js');
+customEntryPoints['app/vendor'] = exposeEntry('tec.common.app.vendor', __dirname + '/src/modules/vendor/index.js');
 
 /**
  * Prepends a loader for SVG files that will be applied after the default one. Loaders are applied
