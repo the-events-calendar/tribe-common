@@ -101,7 +101,7 @@ class Tribe__Log__Admin {
 	 * Register our script early.
 	 */
 	public function register_script() {
-		tribe_asset(
+		tec_asset(
 			Tribe__Main::instance(),
 			'tribe-common-logging-controls',
 			'admin-log-controls.js',

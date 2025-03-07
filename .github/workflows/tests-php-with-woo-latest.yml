@@ -1,0 +1,201 @@
+name: 'Action Scheduler Tests'
+on: [ pull_request ]
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [ as_integration ]
+    runs-on: ubuntu-latest
+    steps:
+      # ------------------------------------------------------------------------------
+      # Checkout the repo
+      # ------------------------------------------------------------------------------
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1000
+          token: ${{ secrets.GH_BOT_TOKEN }}
+          submodules: recursive
+      # ------------------------------------------------------------------------------
+      # Checkout slic
+      # ------------------------------------------------------------------------------
+      - name: Checkout slic
+        uses: actions/checkout@v4
+        with:
+          repository: stellarwp/slic
+          ref: main
+          path: slic
+          fetch-depth: 1
+      # ------------------------------------------------------------------------------
+      # Prepare our composer cache directory
+      # ------------------------------------------------------------------------------
+      - name: Get Composer Cache Directory
+        id: get-composer-cache-dir
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - uses: actions/cache@v4
+        id: composer-cache
+        with:
+          path: ${{ steps.get-composer-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      # ------------------------------------------------------------------------------
+      # Initialize slic
+      # ------------------------------------------------------------------------------
+      - name: Move slic directory up
+        run: |
+          mv slic ./../slic
+      - name: Set up slic env vars
+        run: |
+          echo "SLIC_COMPOSER_VERSION=2" >> $GITHUB_ENV
+          echo "SLIC_BIN=${GITHUB_WORKSPACE}/../slic/slic" >> $GITHUB_ENV
+          echo "SLIC_WP_DIR=${GITHUB_WORKSPACE}/../slic/_wordpress" >> $GITHUB_ENV
+      - name: Set run context for slic
+        run: echo "SLIC=1" >> $GITHUB_ENV && echo "CI=1" >> $GITHUB_ENV
+      - name: Start ssh-agent
+        run: |
+          mkdir -p "${HOME}/.ssh";
+          ssh-agent -a /tmp/ssh_agent.sock;
+      - name: Export SSH_AUTH_SOCK env var
+        run: echo "SSH_AUTH_SOCK=/tmp/ssh_agent.sock" >> $GITHUB_ENV
+      - name: Set up slic for CI
+        run: |
+          cd ${GITHUB_WORKSPACE}/..
+          ${SLIC_BIN} here
+          ${SLIC_BIN} interactive off
+          ${SLIC_BIN} build-prompt off
+          ${SLIC_BIN} build-subdir off
+          ${SLIC_BIN} xdebug off
+          ${SLIC_BIN} composer-cache set /home/runner/.cache/composer
+          ${SLIC_BIN} debug on
+          ${SLIC_BIN} info
+          ${SLIC_BIN} config
+      # ------------------------------------------------------------------------------
+      # Fetch branches for dependent repos
+      # ------------------------------------------------------------------------------
+      - name: Fetch head branch from TEC
+        uses: octokit/request-action@v2.x
+        id: fetch-tec-head-branch
+        with:
+          route: GET /repos/{owner}/{repo}/branches/${{ github.head_ref }}
+          owner: the-events-calendar
+          repo: the-events-calendar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
+        continue-on-error: true
+      - name: Fetch base branch from TEC
+        uses: octokit/request-action@v2.x
+        id: fetch-tec-base-branch
+        if: steps.fetch-tec-head-branch.outcome != 'success'
+        with:
+          route: GET /repos/{owner}/{repo}/branches/${{ github.base_ref }}
+          owner: the-events-calendar
+          repo: the-events-calendar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
+        continue-on-error: true
+
+      # --------------------------------------------------------------------------
+      # Set TEC branch
+      # ------------------------------------------------------------------------------
+      - name: Set TEC with head branch
+        if: steps.fetch-tec-head-branch.outcome == 'success'
+        run: echo "TEC_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
+      - name: Set TEC with base branch
+        if: steps.fetch-tec-head-branch.outcome != 'success' && steps.fetch-tec-base-branch.outcome == 'success'
+        run: echo "TEC_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+      - name: Set TEC with master branch
+        if: steps.fetch-tec-head-branch.outcome != 'success' && steps.fetch-tec-base-branch.outcome != 'success'
+        run: echo "TEC_BRANCH=master" >> $GITHUB_ENV
+      # --------------------------------------------------------------------------
+      # Clone and init TEC
+      # ------------------------------------------------------------------------------
+      - name: Clone TEC
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          repository: the-events-calendar/the-events-calendar
+          ref: ${{ env.TEC_BRANCH }}
+          token: ${{ secrets.GH_BOT_TOKEN }}
+          path: the-events-calendar
+          submodules: recursive
+      - name: Init TEC
+        run: |
+          mv ${GITHUB_WORKSPACE}/the-events-calendar ${GITHUB_WORKSPACE}/../the-events-calendar
+          docker network prune -f
+          ${SLIC_BIN} use the-events-calendar
+          ${SLIC_BIN} composer install --no-dev
+
+      # ------------------------------------------------------------------------------
+      # Set up Common
+      # ------------------------------------------------------------------------------
+      - name: Move Common inside TEC
+        run: |
+          rm -rf ${GITHUB_WORKSPACE}/../the-events-calendar/common
+          cp -r ${GITHUB_WORKSPACE} ${GITHUB_WORKSPACE}/../the-events-calendar/common
+      # ------------------------------------------------------------------------------
+      # Set up Common and run tests
+      # ------------------------------------------------------------------------------
+      - name: Set up Common
+        run: |
+          ${SLIC_BIN} use the-events-calendar/common
+          ${SLIC_BIN} composer install
+      - name: Init the WordPress container and Set up a theme
+        run: |
+          ${SLIC_BIN} up wordpress
+          ${SLIC_BIN} wp core version
+          ${SLIC_BIN} wp core update --force --version=6.6
+          ${SLIC_BIN} wp core version
+          ${SLIC_BIN} wp theme install twentytwenty --activate
+      # --------------------------------------------------------------------------
+      # Install and activate WooCommerce
+      # ------------------------------------------------------------------------------
+      - name: Install WooCommerce
+        run: ${SLIC_BIN} site-cli plugin install woocommerce
+      - name: Run suite tests
+        run: ${SLIC_BIN} run ${{ matrix.suite }}
+
+      - name: create new branch from forward branch and merge ref branch.
+        if: ${{ failure() }}
+        run: |
+          cd ${GITHUB_WORKSPACE}/../the-events-calendar/common
+          HEAD_BRANCH="task/update-as-for/${{ github.head_ref }}"
+          git config --global user.email "actions@github.com"
+          git config --global user.name "github-actions"
+          git checkout -b "$HEAD_BRANCH"
+          echo "Created branch $HEAD_BRANCH"
+          echo "<?php do_action( 'plugins_loaded' ); echo ActionScheduler_Versions::instance()->latest_version();" > as_version.php
+          ${SLIC_BIN} site-cli plugin activate woocommerce
+          ${SLIC_BIN} site-cli eval-file as_version.php > as_version.txt
+          WC_AS_VERSION=$(grep -E '^[0-9]+\.[0-9]+\.[0-9]+' as_version.txt)
+          rm as_version.php as_version.txt
+          echo "Updating Action Scheduler to $WC_AS_VERSION"
+          ${SLIC_BIN} composer require woocommerce/action-scheduler:$WC_AS_VERSION
+          sed -i -E "s/[0-9]+\.[0-9]+\.[0-9]+/${WC_AS_VERSION}/g" tests/as_integration/Ensure_Latest_AS_Test.php
+          git add composer.json composer.lock tests/as_integration/Ensure_Latest_AS_Test.php
+          git commit -m "Update Action Scheduler to $WC_AS_VERSION"
+          git push origin "$HEAD_BRANCH"
+      - name: Create Pull Request using GitHub CLI
+        if: ${{ failure() }}
+        env:
+          # Use GITHUB_TOKEN so that GitHub automatically authenticates.
+          GITHUB_TOKEN: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
+        run: |
+          echo "Creating PR using GitHub CLI..."
+          # Define the head branch name for the PR.
+          HEAD_BRANCH="task/update-as-for/${{ github.head_ref }}"
+
+          PR_BODY=$(printf "This is an automated PR created by ${{ github.actor }} for [PR](${{ github.event.pull_request.html_url }}). It was generated by [this GitHub Action](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) \n[skip-changelog] [skip-lint] [skip-phpcs]")
+
+          # Create the PR and capture JSON output.
+          PR_URL=$(gh pr create \
+            --base "${{ github.head_ref }}" \
+            --head "$HEAD_BRANCH" \
+            --title "[BOT] Update AS Version to match WC" \
+            --label "automation" \
+            --assignee "${{ github.actor }}" \
+            --body-file - <<< "$PR_BODY" )
+
+          gh pr comment ${{ github.event.pull_request.number }} --body "PR to update Action Scheduler version to match WooCommerce version has been created: $PR_URL"

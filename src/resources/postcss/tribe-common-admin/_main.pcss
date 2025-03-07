@@ -1033,7 +1033,7 @@ table.plugins {
 }
 
 #tribe-loading span {
-	background: url('../images/tribe-loading.gif') 0 0 no-repeat;
+	background: url('../../images/tribe-loading.gif') 0 0 no-repeat;
 	background-size: 32px 32px;
 	height: 32px;
 	left: 50%;
@@ -1052,7 +1052,7 @@ table.plugins {
 	only screen and (min-device-pixel-ratio: 2) {
 	/* stylelint-enable media-feature-name-no-unknown */
 	#tribe-loading span {
-		background-image: url('../images/tribe-loading@2x.gif');
+		background-image: url('../../images/tribe-loading@2x.gif');
 	}
 }
 
@@ -1120,7 +1120,7 @@ p.tribe-update-message {
 
 .tribe_update_page h4:before {
 	content: '\f145';
-	font-family: dashicons;
+	font-family: dashicons; /* stylelint-disable font-family-no-missing-generic-family-keyword */
 	font-size: 34px;
 	line-height: 1;
 	margin-right: 5px;
@@ -2771,7 +2771,7 @@ input[type="checkbox"].tribe-common-switch__input {
 
 .tribe-events-admin-card--promo-blue {
 	background-color: #3d54ff;
-	background-image: url("../images/welcome/promo.jpg");
+	background-image: url("../../images/welcome/promo.jpg");
 
 	@media screen and (min-width: 710px) {
 		display: block;
@@ -2895,35 +2895,25 @@ input[type="email"].tribe-events-admin-card__input {
 .tribe-events-admin-2col-grid {
 	display: grid;
 	gap: 15px 30px;
-	grid-template-areas: ". .";
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-	grid-template-rows: 1fr;
+	grid-template-columns: repeat(1, minmax(0, 1fr));
 
-	@media screen and (max-width: 768px) {
-		grid-template-areas: ".";
-		grid-template-columns: repeat(1, minmax(0, 1fr));
-	}
-
-	@media screen and (max-width: 480px) {
-		grid-template-areas: ".";
-		grid-template-columns: repeat(1, minmax(0, 1fr));
+	@media screen and (min-width: 769px) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-rows: 1fr;
 	}
 }
 
 .tribe-events-admin-3col-grid {
 	display: grid;
 	gap: 30px;
-	grid-template-areas: ". . .";
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 	grid-template-rows: 1fr;
 
 	@media screen and (max-width: 768px) {
-		grid-template-areas: ". .";
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
 	@media screen and (max-width: 480px) {
-		grid-template-areas: ".";
 		grid-template-columns: repeat(1, minmax(0, 1fr));
 	}
 }
@@ -2931,17 +2921,14 @@ input[type="email"].tribe-events-admin-card__input {
 .tribe-events-admin-4col-grid {
 	display: grid;
 	gap: 30px;
-	grid-template-areas: ". . . .";
 	grid-template-columns: repeat(4, minmax(0, 1fr));
 	grid-template-rows: 1fr;
 
 	@media screen and (min-width: 500px) and (max-width: 1080px) {
-		grid-template-areas: ". .";
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
 	@media screen and (max-width: 480px) {
-		grid-template-areas: ".";
 		grid-template-columns: repeat(1, minmax(0, 1fr));
 	}
 }
@@ -3525,20 +3512,17 @@ input[type="email"].tribe-events-admin-card__input {
 .tribe-events-admin__system-information {
 	display: grid;
 	gap: 15px 30px;
-	grid-template-areas: ". .";
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 	grid-template-rows: 1fr;
 	margin: 100px 0;
 	position: relative;
 
 	@media screen and (max-width: 768px) {
-		grid-template-areas: ".";
 		grid-template-columns: repeat(1, minmax(0, 1fr));
 		margin: 50px 0;
 	}
 
 	@media screen and (max-width: 480px) {
-		grid-template-areas: ".";
 		grid-template-columns: repeat(1, minmax(0, 1fr));
 		margin: 50px 0;
 	}
@@ -3763,7 +3747,7 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__recent-log-filters-select-wrapper:after {
-	content: url("../images/help/polygon.svg");
+	content: url("../../images/help/polygon.svg");
 	height: 13px;
 	pointer-events: none;
 	position: absolute;
@@ -3879,7 +3863,7 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__issues-found-card-title i {
-	background-image: url("../images/help/arrow-down.svg");
+	background-image: url("../../images/help/arrow-down.svg");
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -3897,7 +3881,7 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__issues-found-card-title.active i {
-	background-image: url("../images/help/arrow-up.svg");
+	background-image: url("../../images/help/arrow-up.svg");
 	background-repeat: no-repeat;
 	top: 5px;
 }
