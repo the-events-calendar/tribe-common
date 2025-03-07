@@ -21,7 +21,7 @@ class Tribe__Main {
 	const OPTIONNAME        = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK = 'tribe_events_calendar_network_options';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
-	const VERSION           = '6.5.2';
+	const VERSION           = '6.5.3';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
@@ -823,6 +823,9 @@ class Tribe__Main {
 
 		// Load Help Hub.
 		tribe_register_provider( TEC\Common\Admin\Help_Hub\Provider::class );
+
+		// Load the common hooks.
+		tribe_register_provider( TEC\Common\Hooks::class );
 	}
 
 	/**
