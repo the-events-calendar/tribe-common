@@ -225,3 +225,45 @@ function tribe_format_field_dependency( $deps ) {
 
 	return $dependency;
 }
+
+if ( ! function_exists( 'tec_embed_header' ) ) {
+	/**
+	 * Generic Iframe header for frontend use.
+	 *
+	 * @since TBD
+	 */
+	function tec_embed_header(): void {
+		show_admin_bar( false );
+
+		header( 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option( 'blog_charset' ) );
+		?>
+		<!DOCTYPE html>
+		<html <?php language_attributes(); ?>>
+			<head>
+				<meta charset="<?php bloginfo( 'charset' ); ?>">
+				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+				<link rel="profile" href="https://gmpg.org/xfn/11">
+
+				<?php wp_head(); ?>
+			</head>
+			<body <?php body_class(); ?>>
+				<?php wp_body_open(); ?>
+		<?php
+	}
+}
+
+if ( ! function_exists( 'tec_embed_footer' ) ) {
+	/**
+	 * Generic Iframe footer for frontend use.
+	 *
+	 * @since TBD
+	 */
+	function tec_embed_footer(): void {
+		?>
+					<?php wp_footer(); ?>
+				</body>
+			</html>
+		<?php
+	}
+}
