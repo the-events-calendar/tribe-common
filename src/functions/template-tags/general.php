@@ -1028,6 +1028,9 @@ if ( ! function_exists( 'tec_assets' ) ) {
 
 			$asset = Tribe__Assets::instance()->register( $origin, $slug, $file, $deps, $asset_action, $asset_arguments );
 
+			$prefix_asset_directory = $asset_arguments['prefix_asset_directory'] ?? true;
+			$asset->prefix_asset_directory( $prefix_asset_directory );
+
 			// Assets from either `vendor` or `node_modules` are should be loaded from their current location.
 			if (
 				! isset( $arguments['group_path'] )
