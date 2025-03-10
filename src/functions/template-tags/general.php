@@ -1033,7 +1033,7 @@ if ( ! function_exists( 'tec_assets' ) ) {
 			// Assets from either `vendor` or `node_modules` are should be loaded from their current location.
 			if (
 				! isset( $arguments['group_path'] )
-			     && ! ( str_starts_with( $file, 'vendor' ) || str_starts_with( $file, 'node_modules' ) )
+				&& ! ( str_starts_with( $file, 'vendor' ) || str_starts_with( $file, 'node_modules' ) )
 			) {
 				$asset->add_to_group_path( $build_group_name );
 			}
