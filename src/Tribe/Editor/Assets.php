@@ -42,6 +42,7 @@ class Tribe__Editor__Assets {
 				'in_footer' => false,
 				'localize'  => [],
 				'priority'  => 10,
+				'prefix_asset_directory' => false,
 			]
 		);
 		tec_asset(
@@ -54,6 +55,7 @@ class Tribe__Editor__Assets {
 				'in_footer' => false,
 				'localize'  => [],
 				'priority'  => 11,
+				'prefix_asset_directory' => false,
 			]
 		);
 		tec_asset(
@@ -78,6 +80,7 @@ class Tribe__Editor__Assets {
 					],
 				],
 				'priority'  => 12,
+				'prefix_asset_directory' => false,
 			]
 		);
 
@@ -91,7 +94,8 @@ class Tribe__Editor__Assets {
 			[],
 			'enqueue_block_editor_assets',
 			[
-				'in_footer' => false,
+				'prefix_asset_directory' => false,
+				'in_footer'              => false,
 			]
 		);
 		tec_asset(
@@ -101,7 +105,8 @@ class Tribe__Editor__Assets {
 			[],
 			'enqueue_block_editor_assets',
 			[
-				'in_footer' => false,
+				'prefix_asset_directory' => false,
+				'in_footer'              => false,
 			]
 		);
 	}

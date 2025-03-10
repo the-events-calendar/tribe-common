@@ -960,14 +960,22 @@ if ( ! function_exists( 'tec_asset' ) ) {
 	 */
 	function tec_asset( $origin, $slug, $file, $dependencies = [], $action = null, $arguments = [] ) {
 		// Vendor files should be loaded from `/vendor` directly, they are not built.
-		if ( ! str_starts_with( $file, 'vendor' ) && ! isset( $arguments['group_path'] ) ) {
+		if (
+			! isset( $arguments['group_path'] )
+			&& ! ( str_starts_with( $file, 'vendor' ) || str_starts_with( $file, 'node_modules' ) )
+		) {
 			// Build the group name from the plugin class name.
-			$build_group_name = is_object( $origin ) ? get_class( $origin ) : (string) $origin;
+			$build_group_name        = is_object( $origin ) ? get_class( $origin ) : (string) $origin;
 			$arguments['group_path'] = $build_group_name;
 		}
 
 		/** @var Asset $asset */
 		$asset = Tribe__Assets::instance()->register( $origin, $slug, $file, $dependencies, $action, $arguments );
+
+		$prefix_asset_directory = $arguments['prefix_asset_directory'] ?? true;
+		$asset->prefix_asset_directory( $prefix_asset_directory );
+
+		$asset->get_url();
 
 		return $asset;
 	}
@@ -1020,8 +1028,14 @@ if ( ! function_exists( 'tec_assets' ) ) {
 
 			$asset = Tribe__Assets::instance()->register( $origin, $slug, $file, $deps, $asset_action, $asset_arguments );
 
-			// Vendor assests are not built, they should not be loaded from the `/build` directory.
-			if ( ! str_starts_with( $file, 'vendor' ) && ! isset( $arguments['group_path'] ) ) {
+			$prefix_asset_directory = $asset_arguments['prefix_asset_directory'] ?? true;
+			$asset->prefix_asset_directory( $prefix_asset_directory );
+
+			// Assets from either `vendor` or `node_modules` are should be loaded from their current location.
+			if (
+				! isset( $arguments['group_path'] )
+			     && ! (str_starts_with( $file, 'vendor' ) || str_starts_with($file,'node_modules'))
+			) {
 				$asset->add_to_group_path( $build_group_name );
 			}
 
