@@ -84,7 +84,7 @@ String.prototype.varName = function () {
  * Creates a global Tribe Variable where we should start to store all the things
  * @type {object}
  */
-var tribe = tribe || {}; // eslint-disable-line no-redeclare
+window.tribe = window.tribe || {}; // eslint-disable-line no-redeclare
 
 
 /**
