@@ -960,9 +960,12 @@ if ( ! function_exists( 'tec_asset' ) ) {
 	 */
 	function tec_asset( $origin, $slug, $file, $dependencies = [], $action = null, $arguments = [] ) {
 		// Vendor files should be loaded from `/vendor` directly, they are not built.
-		if ( ! str_starts_with( $file, 'vendor' ) && ! isset( $arguments['group_path'] ) ) {
+		if (
+			! isset( $arguments['group_path'] )
+			&& ! ( str_starts_with( $file, 'vendor' ) || str_starts_with( $file, 'node_modules' ) )
+		) {
 			// Build the group name from the plugin class name.
-			$build_group_name = is_object( $origin ) ? get_class( $origin ) : (string) $origin;
+			$build_group_name        = is_object( $origin ) ? get_class( $origin ) : (string) $origin;
 			$arguments['group_path'] = $build_group_name;
 		}
 
