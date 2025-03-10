@@ -60,7 +60,7 @@ class Onboarding extends Service_Provider {
 
 		Asset::add(
 			'tec-intro-js',
-			'vendor/intro.min.js',
+			'vendor/intro.js',
 			\Tribe__Main::VERSION
 		)
 		->add_to_group( self::$group_key )
@@ -72,7 +72,7 @@ class Onboarding extends Service_Provider {
 
 		Asset::add(
 			'tec-intro-styles',
-			'vendor/introjs.min.css',
+			'vendor/intro.css',
 			\Tribe__Main::VERSION
 		)
 		->add_to_group( self::$group_key )
@@ -83,7 +83,7 @@ class Onboarding extends Service_Provider {
 		->register();
 
 
-		tribe_asset(
+		tec_asset(
 			$main,
 			'tec-onboarding-styles',
 			'onboarding.css',
@@ -95,7 +95,7 @@ class Onboarding extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$main,
 			'tec-onboarding-js',
 			'onboarding.js',
