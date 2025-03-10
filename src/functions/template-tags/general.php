@@ -972,6 +972,11 @@ if ( ! function_exists( 'tec_asset' ) ) {
 		/** @var Asset $asset */
 		$asset = Tribe__Assets::instance()->register( $origin, $slug, $file, $dependencies, $action, $arguments );
 
+		$prefix_asset_directory = $arguments['prefix_asset_directory'] ?? true;
+		$asset->prefix_asset_directory( $prefix_asset_directory );
+
+		$asset->get_url();
+
 		return $asset;
 	}
 }
