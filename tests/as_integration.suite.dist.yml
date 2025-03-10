@@ -1,0 +1,24 @@
+actor: As_integrationTester
+bootstrap: _bootstrap.php
+modules:
+    enabled:
+        - \Helper\As_integration
+        - WPLoader
+    config:
+      WPLoader:
+          wpRootFolder: "%WP_ROOT_FOLDER%"
+          dbName: "%TEST_DB_NAME%"
+          dbHost: "%TEST_DB_HOST%"
+          dbUser: "%TEST_DB_USER%"
+          dbPassword: "%TEST_DB_PASSWORD%"
+          tablePrefix: test_
+          domain: "%WP_DOMAIN%"
+          adminEmail: admin@%WP_DOMAIN%
+          title: 'AS Integration Test'
+          plugins:
+            - the-events-calendar/the-events-calendar.php
+            - woocommerce/woocommerce.php
+          activatePlugins:
+            - the-events-calendar/the-events-calendar.php
+          activatePluginsSilently:
+            - woocommerce/woocommerce.php # To avoid a doing_it_wrong call that would kill the plugin activation.
