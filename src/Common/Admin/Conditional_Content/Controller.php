@@ -55,7 +55,7 @@ class Controller extends Provider_Contract {
 
 		$plugin = Common::instance();
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tec-conditional-content',
 			'admin/conditional-content.js',
