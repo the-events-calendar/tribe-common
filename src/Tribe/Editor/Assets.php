@@ -91,7 +91,8 @@ class Tribe__Editor__Assets {
 			[],
 			'enqueue_block_editor_assets',
 			[
-				'in_footer' => false,
+				'prefix_asset_directory' => false,
+				'in_footer'              => false,
 			]
 		);
 		tec_asset(
@@ -101,7 +102,8 @@ class Tribe__Editor__Assets {
 			[],
 			'enqueue_block_editor_assets',
 			[
-				'in_footer' => false,
+				'prefix_asset_directory' => false,
+				'in_footer'              => false,
 			]
 		);
 	}
