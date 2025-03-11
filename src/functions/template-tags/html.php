@@ -233,7 +233,7 @@ if ( ! function_exists( 'tec_embed_header' ) ) {
 	 * @since TBD
 	 */
 	function tec_embed_header(): void {
-		show_admin_bar( false );
+		show_admin_bar( false ); //phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
 
 		header( 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option( 'blog_charset' ) );
 		?>
