@@ -68,33 +68,33 @@ namespace TEC\Common\phpqrcode;
         public function identifyMode($pos)
         {
             if ($pos >= strlen($this->dataStr))
-                return TEC_COMMON_QR_MODE_NUL;
+                return TEC_QR_MODE_NUL;
 
             $c = $this->dataStr[$pos];
 
             if(self::isdigitat($this->dataStr, $pos)) {
-                return TEC_COMMON_QR_MODE_NUM;
+                return TEC_QR_MODE_NUM;
             } else if(self::isalnumat($this->dataStr, $pos)) {
-                return TEC_COMMON_QR_MODE_AN;
-            } else if($this->modeHint == TEC_COMMON_QR_MODE_KANJI) {
+                return TEC_QR_MODE_AN;
+            } else if($this->modeHint == TEC_QR_MODE_KANJI) {
 
                 if ($pos+1 < strlen($this->dataStr))
                 {
                     $d = $this->dataStr[$pos+1];
                     $word = (ord($c) << 8) | ord($d);
                     if(($word >= 0x8140 && $word <= 0x9ffc) || ($word >= 0xe040 && $word <= 0xebbf)) {
-                        return TEC_COMMON_QR_MODE_KANJI;
+                        return TEC_QR_MODE_KANJI;
                     }
                 }
             }
 
-            return TEC_COMMON_QR_MODE_8;
+            return TEC_QR_MODE_8;
         }
 
         //----------------------------------------------------------------------
         public function eatNum()
         {
-            $ln = QRspec::lengthIndicator(TEC_COMMON_QR_MODE_NUM, $this->input->getVersion());
+            $ln = QRspec::lengthIndicator(TEC_QR_MODE_NUM, $this->input->getVersion());
 
             $p = 0;
             while(self::isdigitat($this->dataStr, $p)) {
@@ -104,7 +104,7 @@ namespace TEC\Common\phpqrcode;
             $run = $p;
             $mode = $this->identifyMode($p);
 
-            if($mode == TEC_COMMON_QR_MODE_8) {
+            if($mode == TEC_QR_MODE_8) {
                 $dif = QRinput::estimateBitsModeNum($run) + 4 + $ln
                      + QRinput::estimateBitsMode8(1)         // + 4 + l8
                      - QRinput::estimateBitsMode8($run + 1); // - 4 - l8
@@ -112,7 +112,7 @@ namespace TEC\Common\phpqrcode;
                     return $this->eat8();
                 }
             }
-            if($mode == TEC_COMMON_QR_MODE_AN) {
+            if($mode == TEC_QR_MODE_AN) {
                 $dif = QRinput::estimateBitsModeNum($run) + 4 + $ln
                      + QRinput::estimateBitsModeAn(1)        // + 4 + la
                      - QRinput::estimateBitsModeAn($run + 1);// - 4 - la
@@ -121,7 +121,7 @@ namespace TEC\Common\phpqrcode;
                 }
             }
 
-            $ret = $this->input->append(TEC_COMMON_QR_MODE_NUM, $run, str_split($this->dataStr));
+            $ret = $this->input->append(TEC_QR_MODE_NUM, $run, str_split($this->dataStr));
             if($ret < 0)
                 return -1;
 
@@ -131,8 +131,8 @@ namespace TEC\Common\phpqrcode;
         //----------------------------------------------------------------------
         public function eatAn()
         {
-            $la = QRspec::lengthIndicator(TEC_COMMON_QR_MODE_AN,  $this->input->getVersion());
-            $ln = QRspec::lengthIndicator(TEC_COMMON_QR_MODE_NUM, $this->input->getVersion());
+            $la = QRspec::lengthIndicator(TEC_QR_MODE_AN,  $this->input->getVersion());
+            $ln = QRspec::lengthIndicator(TEC_QR_MODE_NUM, $this->input->getVersion());
 
             $p = 0;
 
@@ -168,7 +168,7 @@ namespace TEC\Common\phpqrcode;
                 }
             }
 
-            $ret = $this->input->append(TEC_COMMON_QR_MODE_AN, $run, str_split($this->dataStr));
+            $ret = $this->input->append(TEC_QR_MODE_AN, $run, str_split($this->dataStr));
             if($ret < 0)
                 return -1;
 
@@ -180,11 +180,11 @@ namespace TEC\Common\phpqrcode;
         {
             $p = 0;
 
-            while($this->identifyMode($p) == TEC_COMMON_QR_MODE_KANJI) {
+            while($this->identifyMode($p) == TEC_QR_MODE_KANJI) {
                 $p += 2;
             }
 
-            $ret = $this->input->append(TEC_COMMON_QR_MODE_KANJI, $p, str_split($this->dataStr));
+            $ret = $this->input->append(TEC_QR_MODE_KANJI, $p, str_split($this->dataStr));
             if($ret < 0)
                 return -1;
 
@@ -194,8 +194,8 @@ namespace TEC\Common\phpqrcode;
         //----------------------------------------------------------------------
         public function eat8()
         {
-            $la = QRspec::lengthIndicator(TEC_COMMON_QR_MODE_AN, $this->input->getVersion());
-            $ln = QRspec::lengthIndicator(TEC_COMMON_QR_MODE_NUM, $this->input->getVersion());
+            $la = QRspec::lengthIndicator(TEC_QR_MODE_AN, $this->input->getVersion());
+            $ln = QRspec::lengthIndicator(TEC_QR_MODE_NUM, $this->input->getVersion());
 
             $p = 1;
             $dataStrLen = strlen($this->dataStr);
@@ -203,10 +203,10 @@ namespace TEC\Common\phpqrcode;
             while($p < $dataStrLen) {
 
                 $mode = $this->identifyMode($p);
-                if($mode == TEC_COMMON_QR_MODE_KANJI) {
+                if($mode == TEC_QR_MODE_KANJI) {
                     break;
                 }
-                if($mode == TEC_COMMON_QR_MODE_NUM) {
+                if($mode == TEC_QR_MODE_NUM) {
                     $q = $p;
                     while(self::isdigitat($this->dataStr, $q)) {
                         $q++;
@@ -219,7 +219,7 @@ namespace TEC\Common\phpqrcode;
                     } else {
                         $p = $q;
                     }
-                } else if($mode == TEC_COMMON_QR_MODE_AN) {
+                } else if($mode == TEC_QR_MODE_AN) {
                     $q = $p;
                     while(self::isalnumat($this->dataStr, $q)) {
                         $q++;
@@ -238,7 +238,7 @@ namespace TEC\Common\phpqrcode;
             }
 
             $run = $p;
-            $ret = $this->input->append(TEC_COMMON_QR_MODE_8, $run, str_split($this->dataStr));
+            $ret = $this->input->append(TEC_QR_MODE_8, $run, str_split($this->dataStr));
 
             if($ret < 0)
                 return -1;
@@ -257,10 +257,10 @@ namespace TEC\Common\phpqrcode;
                 $mode = $this->identifyMode(0);
 
                 switch ($mode) {
-                    case TEC_COMMON_QR_MODE_NUM: $length = $this->eatNum(); break;
-                    case TEC_COMMON_QR_MODE_AN:  $length = $this->eatAn(); break;
-                    case TEC_COMMON_QR_MODE_KANJI:
-                        if ($hint == TEC_COMMON_QR_MODE_KANJI)
+                    case TEC_QR_MODE_NUM: $length = $this->eatNum(); break;
+                    case TEC_QR_MODE_AN:  $length = $this->eatAn(); break;
+                    case TEC_QR_MODE_KANJI:
+                        if ($hint == TEC_QR_MODE_KANJI)
                                 $length = $this->eatKanji();
                         else    $length = $this->eat8();
                         break;
@@ -283,7 +283,7 @@ namespace TEC\Common\phpqrcode;
 
             while ($p<$stringLen) {
                 $mode = self::identifyMode(substr($this->dataStr, $p), $this->modeHint);
-                if($mode == TEC_COMMON_QR_MODE_KANJI) {
+                if($mode == TEC_QR_MODE_KANJI) {
                     $p += 2;
                 } else {
                     if (ord($this->dataStr[$p]) >= ord('a') && ord($this->dataStr[$p]) <= ord('z')) {

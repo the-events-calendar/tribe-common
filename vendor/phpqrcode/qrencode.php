@@ -168,7 +168,7 @@ namespace TEC\Common\phpqrcode;
             if($input->getVersion() < 0 || $input->getVersion() > TEC_COMMON_QRSPEC_VERSION_MAX) {
                 throw new Exception('wrong version');
             }
-            if($input->getErrorCorrectionLevel() > TEC_COMMON_QR_ECLEVEL_H) {
+            if($input->getErrorCorrectionLevel() > TEC_QR_ECLEVEL_H) {
                 throw new Exception('wrong level');
             }
 
@@ -215,10 +215,10 @@ namespace TEC\Common\phpqrcode;
             $maskObj = new QRmask();
             if($mask < 0) {
 
-                if (TEC_COMMON_QR_FIND_BEST_MASK) {
+                if (TEC_QR_FIND_BEST_MASK) {
                     $masked = $maskObj->mask($width, $frame, $input->getErrorCorrectionLevel());
                 } else {
-                    $masked = $maskObj->makeMask($width, $frame, (intval(TEC_COMMON_QR_DEFAULT_MASK) % 8), $input->getErrorCorrectionLevel());
+                    $masked = $maskObj->makeMask($width, $frame, (intval(TEC_QR_DEFAULT_MASK) % 8), $input->getErrorCorrectionLevel());
                 }
             } else {
                 $masked = $maskObj->makeMask($width, $frame, $mask, $input->getErrorCorrectionLevel());
@@ -254,7 +254,7 @@ namespace TEC\Common\phpqrcode;
             $input = new QRinput($version, $level);
             if($input == NULL) return NULL;
 
-            $ret = $input->append($input, TEC_COMMON_QR_MODE_8, strlen($string), str_split($string));
+            $ret = $input->append($input, TEC_QR_MODE_8, strlen($string), str_split($string));
             if($ret < 0) {
                 unset($input);
                 return NULL;
@@ -266,7 +266,7 @@ namespace TEC\Common\phpqrcode;
         public function encodeString($string, $version, $level, $hint, $casesensitive)
         {
 
-            if($hint != TEC_COMMON_QR_MODE_8 && $hint != TEC_COMMON_QR_MODE_KANJI) {
+            if($hint != TEC_QR_MODE_8 && $hint != TEC_QR_MODE_KANJI) {
                 throw new Exception('bad hint');
                 return NULL;
             }
@@ -283,21 +283,21 @@ namespace TEC\Common\phpqrcode;
         }
 
         //----------------------------------------------------------------------
-        public static function png($text, $outfile = false, $level = TEC_COMMON_QR_ECLEVEL_L, $size = 3, $margin = 4, $saveandprint=false)
+        public static function png($text, $outfile = false, $level = TEC_QR_ECLEVEL_L, $size = 3, $margin = 4, $saveandprint=false)
         {
             $enc = QRencode::factory($level, $size, $margin);
             return $enc->encodePNG($text, $outfile, $saveandprint=false);
         }
 
         //----------------------------------------------------------------------
-        public static function text($text, $outfile = false, $level = TEC_COMMON_QR_ECLEVEL_L, $size = 3, $margin = 4)
+        public static function text($text, $outfile = false, $level = TEC_QR_ECLEVEL_L, $size = 3, $margin = 4)
         {
             $enc = QRencode::factory($level, $size, $margin);
             return $enc->encode($text, $outfile);
         }
 
         //----------------------------------------------------------------------
-        public static function raw($text, $outfile = false, $level = TEC_COMMON_QR_ECLEVEL_L, $size = 3, $margin = 4)
+        public static function raw($text, $outfile = false, $level = TEC_QR_ECLEVEL_L, $size = 3, $margin = 4)
         {
             $enc = QRencode::factory($level, $size, $margin);
             return $enc->encodeRAW($text, $outfile);
@@ -407,11 +407,11 @@ namespace TEC\Common\phpqrcode;
 
         public $structured = 0; // not supported yet
 
-        public $level = TEC_COMMON_QR_ECLEVEL_L;
-        public $hint = TEC_COMMON_QR_MODE_8;
+        public $level = TEC_QR_ECLEVEL_L;
+        public $hint = TEC_QR_MODE_8;
 
         //----------------------------------------------------------------------
-        public static function factory($level = TEC_COMMON_QR_ECLEVEL_L, $size = 3, $margin = 4)
+        public static function factory($level = TEC_QR_ECLEVEL_L, $size = 3, $margin = 4)
         {
             $enc = new QRencode();
             $enc->size = $size;
@@ -426,19 +426,19 @@ namespace TEC\Common\phpqrcode;
                     break;
                 case 'l':
                 case 'L':
-                        $enc->level = TEC_COMMON_QR_ECLEVEL_L;
+                        $enc->level = TEC_QR_ECLEVEL_L;
                     break;
                 case 'm':
                 case 'M':
-                        $enc->level = TEC_COMMON_QR_ECLEVEL_M;
+                        $enc->level = TEC_QR_ECLEVEL_M;
                     break;
                 case 'q':
                 case 'Q':
-                        $enc->level = TEC_COMMON_QR_ECLEVEL_Q;
+                        $enc->level = TEC_QR_ECLEVEL_Q;
                     break;
                 case 'h':
                 case 'H':
-                        $enc->level = TEC_COMMON_QR_ECLEVEL_H;
+                        $enc->level = TEC_QR_ECLEVEL_H;
                     break;
             }
 
@@ -492,7 +492,7 @@ namespace TEC\Common\phpqrcode;
                 if ($err != '')
                     QRtools::log($outfile, $err);
 
-                $maxSize = (int)(TEC_COMMON_QR_PNG_MAXIMUM_SIZE / (count($tab)+2*$this->margin));
+                $maxSize = (int)(TEC_QR_PNG_MAXIMUM_SIZE / (count($tab)+2*$this->margin));
 
                 QRimage::png($tab, $outfile, min(max(1, $this->size), $maxSize), $this->margin,$saveandprint);
 

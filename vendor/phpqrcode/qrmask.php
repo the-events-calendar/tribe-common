@@ -145,15 +145,15 @@ namespace TEC\Common\phpqrcode;
             $b = 0;
             $bitMask = array();
 
-            $fileName = TEC_COMMON_QR_CACHE_DIR.'mask_'.$maskNo.DIRECTORY_SEPARATOR.'mask_'.$width.'_'.$maskNo.'.dat';
+            $fileName = TEC_QR_CACHE_DIR.'mask_'.$maskNo.DIRECTORY_SEPARATOR.'mask_'.$width.'_'.$maskNo.'.dat';
 
-            if (TEC_COMMON_QR_CACHEABLE) {
+            if (TEC_QR_CACHEABLE) {
                 if (file_exists($fileName)) {
                     $bitMask = self::unserial(file_get_contents($fileName));
                 } else {
                     $bitMask = $this->generateMaskNo($maskNo, $width, $s, $d);
-                    if (!file_exists(TEC_COMMON_QR_CACHE_DIR.'mask_'.$maskNo))
-                        mkdir(TEC_COMMON_QR_CACHE_DIR.'mask_'.$maskNo);
+                    if (!file_exists(TEC_QR_CACHE_DIR.'mask_'.$maskNo))
+                        mkdir(TEC_QR_CACHE_DIR.'mask_'.$maskNo);
                     file_put_contents($fileName, self::serial($bitMask));
                 }
             } else {
@@ -292,9 +292,9 @@ namespace TEC\Common\phpqrcode;
 
             $checked_masks = array(0,1,2,3,4,5,6,7);
 
-            if (TEC_COMMON_QR_FIND_FROM_RANDOM !== false) {
+            if (TEC_QR_FIND_FROM_RANDOM !== false) {
 
-                $howManuOut = 8-(TEC_COMMON_QR_FIND_FROM_RANDOM % 9);
+                $howManuOut = 8-(TEC_QR_FIND_FROM_RANDOM % 9);
                 for ($i = 0; $i <  $howManuOut; $i++) {
                     $remPos = rand (0, count($checked_masks)-1);
                     unset($checked_masks[$remPos]);

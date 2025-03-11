@@ -136,7 +136,7 @@ namespace TEC\Common\phpqrcode;
         //----------------------------------------------------------------------
         public static function lengthIndicator($mode, $version)
         {
-            if ($mode == TEC_COMMON_QR_MODE_STRUCTURE)
+            if ($mode == TEC_QR_MODE_STRUCTURE)
                 return 0;
 
             if ($version <= 9) {
@@ -153,7 +153,7 @@ namespace TEC\Common\phpqrcode;
         //----------------------------------------------------------------------
         public static function maximumWords($mode, $version)
         {
-            if($mode == TEC_COMMON_QR_MODE_STRUCTURE)
+            if($mode == TEC_QR_MODE_STRUCTURE)
                 return 3;
 
             if($version <= 9) {
@@ -167,7 +167,7 @@ namespace TEC\Common\phpqrcode;
             $bits = self::$lengthTableBits[$mode][$l];
             $words = (1 << $bits) - 1;
 
-            if($mode == TEC_COMMON_QR_MODE_KANJI) {
+            if($mode == TEC_QR_MODE_KANJI) {
                 $words *= 2; // the number of bytes is required
             }
 
@@ -560,9 +560,9 @@ namespace TEC\Common\phpqrcode;
 
             if(!isset(self::$frames[$version])) {
 
-                $fileName = TEC_COMMON_QR_CACHE_DIR.'frame_'.$version.'.dat';
+                $fileName = TEC_QR_CACHE_DIR.'frame_'.$version.'.dat';
 
-                if (TEC_COMMON_QR_CACHEABLE) {
+                if (TEC_QR_CACHEABLE) {
                     if (file_exists($fileName)) {
                         self::$frames[$version] = self::unserial(file_get_contents($fileName));
                     } else {
