@@ -6,8 +6,8 @@
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 
 const {
-	TECLegacyJs,
-	TECPostCss,
+	createTECLegacyJs,
+	createTECPostCss,
 	compileCustomEntryPoints,
 	exposeEntry,
 	doNotPrefixSVGIdsClasses,
@@ -30,7 +30,7 @@ const customEntryPoints = compileCustomEntryPoints({
 	 * E.g. the `src/resources/js/admin-ignored-events.js` file will be compiled to
 	 * `/build/js/admin-ignored-events.js` and exposed on `window.tec.common.adminIgnoredEvents`.
 	 */
-	'/src/resources/js': TECLegacyJs,
+	'/src/resources/js': createTECLegacyJs('tec.common'),
 
 	/**
 	 * Compile, recursively, the PostCSS file using PostCSS nesting rules.
@@ -41,7 +41,7 @@ const customEntryPoints = compileCustomEntryPoints({
 	 * Handling this correctly requires adding a PostCSS processor specific to the PostCSS files that
 	 * will handle the nesting correctly.
 	 */
-	'/src/resources/postcss': TECPostCss,
+	'/src/resources/postcss': createTECPostCss('tec.common'),
 }, defaultConfig);
 
 /**
