@@ -12,8 +12,7 @@ const {
 	exposeEntry,
 	doNotPrefixSVGIdsClasses,
 	WindowAssignPropertiesPlugin,
-	preprocessPostcssWithPlugins,
-	modifyRulesInConfig, ruleUsesLoader, usesLoader
+	preprocessPostcssWithPlugins
 } = require('@stellarwp/tyson');
 
 /**
