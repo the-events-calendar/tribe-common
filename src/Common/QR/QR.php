@@ -133,9 +133,8 @@ class QR {
 	public function get_png_as_string( string $data ): string {
 		ob_start();
 		QRcode::png( $data, false, $this->get_level(), $this->get_size(), $this->get_margin() );
-		$png_string = ob_get_clean();
 
-		return $png_string;
+		return ob_get_clean();
 	}
 
 	/**
@@ -150,7 +149,7 @@ class QR {
 	public function get_png_as_base64( string $data ): string {
 		$src = base64_encode( $this->get_png_as_string( $data ) );
 
-		return "data:image/png;base64," . $src;
+		return 'data:image/png;base64,' . $src;
 	}
 
 	/**
@@ -165,11 +164,11 @@ class QR {
 	 * @return array{file: string, url: string, type: string, error: string|false} The QR uploaded file information.
 	 */
 	public function get_png_as_file( string $data, string $name, string $folder = 'tec-qr-codes' ): array {
-		$folder = '/' . ltrim( $folder, '/' );
+		$folder        = '/' . ltrim( $folder, '/' );
 		$png_as_string = $this->get_png_as_string( $data );
 
 		// Filters the upload directory but still use `wp_upload_bits` to create the file.
-		$upload_bits_filter = static function( $arr ) use ( $folder ) {
+		$upload_bits_filter = static function ( $arr ) use ( $folder ) {
 			$arr['url']    = str_replace( $arr['subdir'], $folder, $arr['url'] );
 			$arr['path']   = str_replace( $arr['subdir'], $folder, $arr['path'] );
 			$arr['subdir'] = $folder;

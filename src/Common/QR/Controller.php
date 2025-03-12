@@ -56,7 +56,7 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	protected function add_actions(): void {
-		add_action( 'tribe_plugins_loaded', [ $this, 'plugins_loaded'] );
+		add_action( 'tribe_plugins_loaded', [ $this, 'plugins_loaded' ] );
 	}
 
 	/**
