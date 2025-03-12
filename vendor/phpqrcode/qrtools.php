@@ -85,8 +85,8 @@ namespace TEC\Common\phpqrcode;
 			$mask = new QRmask();
             for ($a=1; $a <= TEC_COMMON_QRSPEC_VERSION_MAX; $a++) {
                 $frame = QRspec::newFrame($a);
-                if (TEC_COMMON_QR_IMAGE) {
-                    $fileName = TEC_COMMON_QR_CACHE_DIR.'frame_'.$a.'.png';
+                if (TEC_QR_IMAGE) {
+                    $fileName = TEC_QR_CACHE_DIR.'frame_'.$a.'.png';
                     QRimage::png(self::binarize($frame), $fileName, 1, 0);
                 }
 
@@ -102,12 +102,12 @@ namespace TEC\Common\phpqrcode;
         //----------------------------------------------------------------------
         public static function log($outfile, $err)
         {
-            if (TEC_COMMON_QR_LOG_DIR !== false) {
+            if (TEC_QR_LOG_DIR !== false) {
                 if ($err != '') {
                     if ($outfile !== false) {
-                        file_put_contents(TEC_COMMON_QR_LOG_DIR.basename($outfile).'-errors.txt', date('Y-m-d H:i:s').': '.$err, FILE_APPEND);
+                        file_put_contents(TEC_QR_LOG_DIR.basename($outfile).'-errors.txt', date('Y-m-d H:i:s').': '.$err, FILE_APPEND);
                     } else {
-                        file_put_contents(TEC_COMMON_QR_LOG_DIR.'errors.txt', date('Y-m-d H:i:s').': '.$err, FILE_APPEND);
+                        file_put_contents(TEC_QR_LOG_DIR.'errors.txt', date('Y-m-d H:i:s').': '.$err, FILE_APPEND);
                     }
                 }
             }
