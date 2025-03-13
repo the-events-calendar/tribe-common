@@ -1977,7 +1977,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @internal
 		 */
-		public function check_for_api_key_error( $value, string $field_id, object $validated_field ) {
+		public function check_for_api_key_error( $value, string $field_id, object $validated_field ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 			_deprecated_function( __METHOD__, '6.5.1', 'check_for_api_key_error_on_action' );
 			$this->check_for_api_key_error_on_action( $field_id, $value );
 
