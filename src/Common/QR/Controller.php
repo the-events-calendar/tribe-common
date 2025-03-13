@@ -15,7 +15,7 @@ use Tribe__Main;
 /**
  * Class Controller.
  *
- * @since   TBD
+ * @since  TBD
  *
  * @package TEC\Common\QR
  */
@@ -23,7 +23,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * The custom action that will be fired when the controller registers.
 	 *
-	 * @since 6.5.1
+	 * @since TBD
 	 *
 	 * @var string
 	 */
@@ -32,7 +32,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register the controller.
 	 *
-	 * @since   TBD
+	 * @since  TBD
 	 *
 	 * @uses  Notices::register_admin_notices()
 	 *
@@ -48,12 +48,12 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unregister the controller.
 	 *
-	 * @since   5.6.
+	 * @since TBD
 	 *
 	 * @return void
 	 */
 	public function unregister(): void {
-		// Nothing to do here yet.
+		$this->remove_actions();
 	}
 
 	/**
@@ -65,6 +65,17 @@ class Controller extends Controller_Contract {
 	 */
 	protected function add_actions(): void {
 		add_action( 'tribe_plugins_loaded', [ $this, 'plugins_loaded' ] );
+	}
+
+	/**
+	 * Removes the actions required by the controller.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function remove_actions(): void {
+		remove_action( 'tribe_plugins_loaded', [ $this, 'plugins_loaded' ] );
 	}
 
 	/**
@@ -136,7 +147,7 @@ class Controller extends Controller_Contract {
 		 *
 		 * @param bool $can_use Whether the QR code can be used based on the current environment.
 		 */
-		$can_use = apply_filters( 'tec_tickets_qr_code_can_use', $can_use );
+		$can_use = apply_filters_deprecated( 'tec_tickets_qr_code_can_use', $can_use, 'TBD' );
 
 		/**
 		 * Filter to determine if the QR code can be used.

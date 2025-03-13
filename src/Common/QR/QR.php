@@ -14,7 +14,7 @@ use TEC\Common\phpqrcode\QRcode;
 /**
  * A Facade for the QR code generator.
  *
- * @since   TBD
+ * @since  TBD
  *
  * @package TEC\Common\QR
  */
