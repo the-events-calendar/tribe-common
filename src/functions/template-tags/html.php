@@ -4,6 +4,7 @@
  */
 use Tribe\Utils\Element_Attributes;
 use Tribe\Utils\Element_Classes;
+use TEC\Common\Template;
 
 /**
  * Parse input values into a valid array of classes to be used in the templates.
@@ -235,22 +236,11 @@ if ( ! function_exists( 'tec_embed_header' ) ) {
 	function tec_embed_header(): void {
 		show_admin_bar( false ); //phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
 
-		header( 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option( 'blog_charset' ) );
-		?>
-		<!DOCTYPE html>
-		<html <?php language_attributes(); ?>>
-			<head>
-				<title><?php wp_title(); ?></title>
-				<meta charset="<?php bloginfo( 'charset' ); ?>">
-				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		if ( ! headers_sent() ) {
+			header( 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option( 'blog_charset' ) );
+		}
 
-				<link rel="profile" href="https://gmpg.org/xfn/11">
-
-				<?php wp_head(); ?>
-			</head>
-			<body <?php body_class(); ?>>
-				<?php wp_body_open(); ?>
-		<?php
+		tribe( Template::class )->template( 'embed/header' );
 	}
 }
 
@@ -261,10 +251,6 @@ if ( ! function_exists( 'tec_embed_footer' ) ) {
 	 * @since TBD
 	 */
 	function tec_embed_footer(): void {
-		?>
-					<?php wp_footer(); ?>
-				</body>
-			</html>
-		<?php
+		tribe( Template::class )->template( 'embed/footer' );
 	}
 }
