@@ -13,6 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+// phpcs:disable Squiz.Commenting.VariableComment.Missing
+
 if ( ! class_exists( 'Tribe__PUE__Plugin_Info' ) ) {
 	/**
 	 * A container class for holding and transforming various plugin metadata.
