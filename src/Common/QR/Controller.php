@@ -20,6 +20,14 @@ use Tribe__Main;
  * @package TEC\Common\QR
  */
 class Controller extends Controller_Contract {
+	/**
+	 * The custom action that will be fired when the controller registers.
+	 *
+	 * @since 6.5.1
+	 *
+	 * @var string
+	 */
+	public static string $registration_action = 'tec_qr_code_loaded';
 
 	/**
 	 * Register the controller.
