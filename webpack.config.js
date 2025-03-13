@@ -87,21 +87,6 @@ customEntryPoints['vendor/intro'] = __dirname + '/src/resources/vendor/intro/ind
 doNotPrefixSVGIdsClasses(defaultConfig);
 
 /**
- * By default, `@wordpress/scripts` would first process PostCSS files using the `autoprefixer` plugin.
- * This will fail if the PostCSS has not been already pre-processed with this two plugins specific to
- * Common:
- * - postcss-nested to resolve nesting the PostCSS way (including media queries).
- * - postcss-custom-media to allow custom media queries to correctly unroll.
- */
-preprocessPostcssWithPlugins(
-	defaultConfig,
-	[
-		require('postcss-nested'),
-		require('postcss-custom-media')
-	]
-);
-
-/**
  * Finally the customizations are merged with the default WebPack configuration.
  */
 module.exports = {
