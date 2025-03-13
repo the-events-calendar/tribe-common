@@ -5166,12 +5166,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/coding-standards.git",
-                "reference": "bdf05c1ebfef736c75f94bad78df690550f1a241"
+                "reference": "5e2f42d323e24c5aaccafeaf2b878c02ef20f9b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/coding-standards/zipball/bdf05c1ebfef736c75f94bad78df690550f1a241",
-                "reference": "bdf05c1ebfef736c75f94bad78df690550f1a241",
+                "url": "https://api.github.com/repos/stellarwp/coding-standards/zipball/5e2f42d323e24c5aaccafeaf2b878c02ef20f9b1",
+                "reference": "5e2f42d323e24c5aaccafeaf2b878c02ef20f9b1",
                 "shasum": ""
             },
             "require": {
@@ -5213,7 +5213,7 @@
             "support": {
                 "source": "https://github.com/stellarwp/coding-standards/tree/main"
             },
-            "time": "2024-10-11T17:05:07+00:00"
+            "time": "2025-02-14T22:48:50+00:00"
         },
         {
             "name": "symfony/browser-kit",
@@ -7191,8 +7191,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "stellarwp/coding-standards": 20,
         "stellarwp/models": 20,
+        "stellarwp/coding-standards": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
     "prefer-stable": true,
