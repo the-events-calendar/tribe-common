@@ -147,7 +147,7 @@ class Controller extends Controller_Contract {
 		 *
 		 * @param bool $can_use Whether the QR code can be used based on the current environment.
 		 */
-		$can_use = apply_filters_deprecated( 'tec_tickets_qr_code_can_use', [$can_use], '5.7.0', 'tec_qr_code_can_use' );
+		$can_use = apply_filters_deprecated( 'tec_tickets_qr_code_can_use', [ $can_use ], '5.7.0', 'tec_qr_code_can_use' );
 
 		/**
 		 * Filter to determine if the QR code can be used.
