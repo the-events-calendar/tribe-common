@@ -143,7 +143,7 @@ trait Tabbed_View {
 		// Filter visible tabs.
 		$visible_tabs = array_filter(
 			$this->tabs,
-			function( $tab ) {
+			function ( $tab ) {
 				return $tab['visible'] && current_user_can( $tab['capability'] );
 			}
 		);
