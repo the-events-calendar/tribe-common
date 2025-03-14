@@ -53,11 +53,14 @@ trait Tabbed_View {
 	 * }
 	 */
 	protected function register_tab( string $slug, string $label, array $args = [] ): void {
-		$args = wp_parse_args( $args, [
-			'visible'    => true,
-			'capability' => 'manage_options',
-			'active'     => false,
-		] );
+		$args = wp_parse_args(
+			$args,
+			[
+				'visible'    => true,
+				'capability' => 'manage_options',
+				'active'     => false,
+			]
+		);
 
 		$this->tabs[ $slug ] = [
 			'label'      => $label,
@@ -102,7 +105,7 @@ trait Tabbed_View {
 		if ( ! isset( $this->current_tab ) ) {
 			$tab = tribe_get_request_var( 'tab', $this->get_default_tab() );
 
-			// Make sure the requested tab exists and user has access
+			// Make sure the requested tab exists and user has access.
 			if ( ! isset( $this->tabs[ $tab ] ) || ! current_user_can( $this->tabs[ $tab ]['capability'] ) ) {
 				$tab = $this->get_default_tab();
 			}
@@ -137,12 +140,15 @@ trait Tabbed_View {
 			return;
 		}
 
-		// Filter visible tabs
-		$visible_tabs = array_filter( $this->tabs, function( $tab ) {
-			return $tab['visible'] && current_user_can( $tab['capability'] );
-		} );
+		// Filter visible tabs.
+		$visible_tabs = array_filter(
+			$this->tabs,
+			function( $tab ) {
+				return $tab['visible'] && current_user_can( $tab['capability'] );
+			}
+		);
 
-		// If only one tab is visible, don't show the navigation
+		// If only one tab is visible, don't show the navigation.
 		if ( count( $visible_tabs ) <= 1 ) {
 			return;
 		}
