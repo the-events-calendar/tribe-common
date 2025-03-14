@@ -103,7 +103,7 @@ trait Tabbed_View {
 	 */
 	protected function get_current_tab(): string {
 		if ( ! isset( $this->current_tab ) ) {
-			$tab = tribe_get_request_var( 'tab', $this->get_default_tab() );
+			$tab = tec_get_request_var( 'tab', $this->get_default_tab() );
 
 			// Make sure the requested tab exists and user has access.
 			if ( ! isset( $this->tabs[ $tab ] ) || ! current_user_can( $this->tabs[ $tab ]['capability'] ) ) {
