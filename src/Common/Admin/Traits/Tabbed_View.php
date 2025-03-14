@@ -129,6 +129,41 @@ trait Tabbed_View {
 	}
 
 	/**
+	 * Check if a tab is visible.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $tab The tab slug.
+	 *
+	 * @return bool Whether the tab is visible.
+	 */
+	public function is_visible_tab( string $tab ): bool {
+		if ( ! isset( $this->tabs[ $tab ]['visible'] ) ) {
+			return false;
+		}
+
+		return (bool) $this->tabs[ $tab ]['visible'];
+	}
+
+	/**
+	 * Check if the user has permission to view the tab.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $tab The tab slug.
+	 *
+	 * @return bool Whether the user has permission to view the tab.
+	 */
+	public function has_permission_to_view_tab( string $tab ): bool {
+		// No required permissions.
+		if ( ! isset( $this->tabs[ $tab ]['capability'] ) ) {
+			return true;
+		}
+
+		return current_user_can( $this->tabs[ $tab ]['capability'] );
+	}
+
+	/**
 	 * Render the tabs navigation.
 	 *
 	 * @since TBD
@@ -143,9 +178,10 @@ trait Tabbed_View {
 		// Filter visible tabs.
 		$visible_tabs = array_filter(
 			$this->tabs,
-			function ( $tab ) {
-				return $tab['visible'] && current_user_can( $tab['capability'] );
-			}
+			function ( string $slug ) {
+				return $this->is_visible_tab( $slug ) && $this->has_permission_to_view_tab( $slug );
+			},
+			ARRAY_FILTER_USE_KEY
 		);
 
 		// If only one tab is visible, don't show the navigation.
@@ -154,11 +190,7 @@ trait Tabbed_View {
 		}
 
 		echo '<div class="nav-tab-wrapper">';
-		foreach ( $this->tabs as $slug => $tab ) {
-			if ( ! $tab['visible'] || ! current_user_can( $tab['capability'] ) ) {
-				continue;
-			}
-
+		foreach ( $visible_tabs as $slug => $tab ) {
 			$class = [ 'nav-tab' ];
 			if ( $this->get_current_tab() === $slug ) {
 				$class[] = 'nav-tab-active';
