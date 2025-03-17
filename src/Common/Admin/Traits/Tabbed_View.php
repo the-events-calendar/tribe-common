@@ -105,8 +105,8 @@ trait Tabbed_View {
 		if ( ! isset( $this->current_tab ) ) {
 			$tab = tec_get_request_var( 'tab', $this->get_default_tab() );
 
-			// Make sure the requested tab exists and user has access.
-			if ( ! isset( $this->tabs[ $tab ] ) || ! current_user_can( $this->tabs[ $tab ]['capability'] ) ) {
+			// Make sure the requested tab exists and user has access. Else return the default tab.
+			if ( ! $this->is_visible_tab( $tab ) || ! $this->has_permission_to_view_tab( $tab ) ) {
 				$tab = $this->get_default_tab();
 			}
 

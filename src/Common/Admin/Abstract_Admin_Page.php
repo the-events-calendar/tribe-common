@@ -404,11 +404,14 @@ abstract class Abstract_Admin_Page {
 	 */
 	public function admin_page_header(): void {
 		if ( ! static::$has_header ) {
-			?> <header id="tec-admin-page-header" <?php tribe_classes( $this->header_classes() ); ?>><?php
-			do_action( 'tec_admin_header_before_title' );
-				$this->admin_page_title();
-			do_action( 'tec_admin_header_after_title' );
-			?> </header> <?php
+			?>
+			<header id="tec-admin-page-header" <?php tribe_classes( $this->header_classes() ); ?>><?php
+				do_action( 'tec_admin_header_before_title' );
+					$this->admin_page_title();
+				do_action( 'tec_admin_header_after_title' );
+				?>
+			</header>
+			<?php
 			return;
 		}
 
