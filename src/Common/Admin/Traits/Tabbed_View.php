@@ -219,23 +219,6 @@ trait Tabbed_View {
 	 */
 	protected function render_tab_content(): void {
 		$current_tab = $this->get_current_tab();
-		$class_name = static::class;
-
-		// Get the class base name for more specific hooks
-		$parts = explode('\\', $class_name);
-		$base_name = strtolower(end($parts));
-
-		// Extract portion of namespace for more specific hooks
-		$namespace_parts = explode('\\', $class_name);
-		$is_tickets = false;
-		$is_tickets_admin = false;
-
-		if (count($namespace_parts) >= 3) {
-			// Check if this is in the Tickets namespace
-			$is_tickets = ($namespace_parts[0] === 'TEC' && $namespace_parts[1] === 'Tickets');
-			// Check if this is in the Tickets Admin namespace
-			$is_tickets_admin = $is_tickets && isset($namespace_parts[2]) && $namespace_parts[2] === 'Admin';
-		}
 
 		/**
 		 * Action that fires before rendering the tab content.
@@ -246,32 +229,6 @@ trait Tabbed_View {
 		 * @param object $this        The current page instance.
 		 */
 		do_action( 'tec_common_admin_before_tab_content', $current_tab, $this );
-
-		// Allow for namespaced hooks based on the class name
-		if ($base_name) {
-			/**
-			 * Action that fires before rendering the tab content for a specific page.
-			 *
-			 * @since TBD
-			 *
-			 * @param string $current_tab The current tab slug.
-			 * @param object $this        The current page instance.
-			 */
-			do_action( "tec_{$base_name}_before_tab_content", $current_tab, $this );
-		}
-
-		// Compatibility for Tickets Admin specific hooks
-		if ($is_tickets_admin) {
-			/**
-			 * Action that fires before rendering the tab content on the Tickets admin page.
-			 *
-			 * @since TBD
-			 *
-			 * @param string $current_tab The current tab slug.
-			 * @param object $this        The current page instance.
-			 */
-			do_action( 'tec_tickets_admin_tickets_page_before_tab_content', $current_tab, $this );
-		}
 
 		// Check if the tab has a render callback.
 		if ( ! empty( $this->tabs[ $current_tab ]['render_callback'] ) && is_callable( $this->tabs[ $current_tab ]['render_callback'] ) ) {
@@ -292,32 +249,6 @@ trait Tabbed_View {
 				 * @param object $this        The current page instance.
 				 */
 				do_action( 'tec_common_admin_custom_tab_content', $current_tab, $this );
-
-				// Allow for namespaced hooks based on the class name
-				if ($base_name) {
-					/**
-					 * Action that fires for rendering custom tab content for a specific page.
-					 *
-					 * @since TBD
-					 *
-					 * @param string $current_tab The current tab slug.
-					 * @param object $this        The current page instance.
-					 */
-					do_action( "tec_{$base_name}_custom_tab_content", $current_tab, $this );
-				}
-
-				// Compatibility for Tickets Admin specific hooks
-				if ($is_tickets_admin) {
-					/**
-					 * Action that fires to render content for custom tabs on the Tickets admin page.
-					 *
-					 * @since TBD
-					 *
-					 * @param string $current_tab The current tab slug.
-					 * @param object $this        The current page instance.
-					 */
-					do_action( 'tec_tickets_admin_tickets_page_custom_tab_content', $current_tab, $this );
-				}
 			}
 		}
 
@@ -330,32 +261,6 @@ trait Tabbed_View {
 		 * @param object $this        The current page instance.
 		 */
 		do_action( 'tec_common_admin_after_tab_content', $current_tab, $this );
-
-		// Allow for namespaced hooks based on the class name
-		if ($base_name) {
-			/**
-			 * Action that fires after rendering the tab content for a specific page.
-			 *
-			 * @since TBD
-			 *
-			 * @param string $current_tab The current tab slug.
-			 * @param object $this        The current page instance.
-			 */
-			do_action( "tec_{$base_name}_after_tab_content", $current_tab, $this );
-		}
-
-		// Compatibility for Tickets Admin specific hooks
-		if ($is_tickets_admin) {
-			/**
-			 * Action that fires after rendering the tab content on the Tickets admin page.
-			 *
-			 * @since TBD
-			 *
-			 * @param string $current_tab The current tab slug.
-			 * @param object $this        The current page instance.
-			 */
-			do_action( 'tec_tickets_admin_tickets_page_after_tab_content', $current_tab, $this );
-		}
 	}
 
 	/**
