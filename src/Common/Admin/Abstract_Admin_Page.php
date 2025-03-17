@@ -403,24 +403,17 @@ abstract class Abstract_Admin_Page {
 	 * @return void Renders the admin page header.
 	 */
 	public function admin_page_header(): void {
-		if ( ! static::$has_header ) {
-			?>
-			<header id="tec-admin-page-header" <?php tribe_classes( $this->header_classes() ); ?>><?php
-				do_action( 'tec_admin_header_before_title' );
-					$this->admin_page_title();
-				do_action( 'tec_admin_header_after_title' );
-				?>
-			</header>
-			<?php
-			return;
-		}
-
 		?>
 			<header id="tec-admin-page-header" <?php tribe_classes( $this->header_classes() ); ?>>
-				<?php $this->do_page_logo(); ?>
-				<?php do_action( 'tec_admin_header_before_title' ); ?>
-				<?php $this->admin_page_title(); ?>
-				<?php do_action( 'tec_admin_header_after_title' ); ?>
+				<?php
+				if ( static::$has_header ) {
+					// "Simple" pages don't show the logo.
+					$this->do_page_logo();
+				}
+				do_action( 'tec_admin_header_before_title' );
+				$this->admin_page_title();
+				do_action( 'tec_admin_header_after_title' );
+				?>
 			</header>
 		<?php
 	}
