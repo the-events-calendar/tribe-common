@@ -32,7 +32,8 @@ trait Tabbed_View {
 	 *     url: string,
 	 *     active: bool,
 	 *     visible: bool,
-	 *     capability: string
+	 *     capability: string,
+	 *     render_callback: callable|null
 	 * }>
 	 */
 	protected $tabs = [];
@@ -47,27 +48,30 @@ trait Tabbed_View {
 	 * @param array  $args       {
 	 *     Optional. Array of tab arguments.
 	 *
-	 *     @type bool   $visible    Whether the tab should be visible. Default true.
-	 *     @type string $capability The capability required to see this tab. Default 'manage_options'.
-	 *     @type bool   $active     Whether this is the active tab. Default false.
+	 *     @type bool     $visible         Whether the tab should be visible. Default true.
+	 *     @type string   $capability      The capability required to see this tab. Default 'manage_options'.
+	 *     @type bool     $active          Whether this is the active tab. Default false.
+	 *     @type callable $render_callback Callback function to render the tab content. Default null.
 	 * }
 	 */
 	protected function register_tab( string $slug, string $label, array $args = [] ): void {
 		$args = wp_parse_args(
 			$args,
 			[
-				'visible'    => true,
-				'capability' => 'manage_options',
-				'active'     => false,
+				'visible'         => true,
+				'capability'      => 'manage_options',
+				'active'          => false,
+				'render_callback' => null,
 			]
 		);
 
 		$this->tabs[ $slug ] = [
-			'label'      => $label,
-			'url'        => $this->get_tab_url( $slug ),
-			'active'     => $args['active'],
-			'visible'    => $args['visible'],
-			'capability' => $args['capability'],
+			'label'           => $label,
+			'url'             => $this->get_tab_url( $slug ),
+			'active'          => $args['active'],
+			'visible'         => $args['visible'],
+			'capability'      => $args['capability'],
+			'render_callback' => $args['render_callback'],
 		];
 	}
 
@@ -101,7 +105,7 @@ trait Tabbed_View {
 	 *
 	 * @return string The current tab's slug.
 	 */
-	protected function get_current_tab(): string {
+	public function get_current_tab(): string {
 		if ( ! isset( $this->current_tab ) ) {
 			$tab = tec_get_request_var( 'tab', $this->get_default_tab() );
 
@@ -204,6 +208,154 @@ trait Tabbed_View {
 			);
 		}
 		echo '</div>';
+	}
+
+	/**
+	 * Render the content for the current tab.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function render_tab_content(): void {
+		$current_tab = $this->get_current_tab();
+		$class_name = static::class;
+
+		// Get the class base name for more specific hooks
+		$parts = explode('\\', $class_name);
+		$base_name = strtolower(end($parts));
+
+		// Extract portion of namespace for more specific hooks
+		$namespace_parts = explode('\\', $class_name);
+		$is_tickets = false;
+		$is_tickets_admin = false;
+
+		if (count($namespace_parts) >= 3) {
+			// Check if this is in the Tickets namespace
+			$is_tickets = ($namespace_parts[0] === 'TEC' && $namespace_parts[1] === 'Tickets');
+			// Check if this is in the Tickets Admin namespace
+			$is_tickets_admin = $is_tickets && isset($namespace_parts[2]) && $namespace_parts[2] === 'Admin';
+		}
+
+		/**
+		 * Action that fires before rendering the tab content.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $current_tab The current tab slug.
+		 * @param object $this        The current page instance.
+		 */
+		do_action( 'tec_common_admin_before_tab_content', $current_tab, $this );
+
+		// Allow for namespaced hooks based on the class name
+		if ($base_name) {
+			/**
+			 * Action that fires before rendering the tab content for a specific page.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $current_tab The current tab slug.
+			 * @param object $this        The current page instance.
+			 */
+			do_action( "tec_{$base_name}_before_tab_content", $current_tab, $this );
+		}
+
+		// Compatibility for Tickets Admin specific hooks
+		if ($is_tickets_admin) {
+			/**
+			 * Action that fires before rendering the tab content on the Tickets admin page.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $current_tab The current tab slug.
+			 * @param object $this        The current page instance.
+			 */
+			do_action( 'tec_tickets_admin_tickets_page_before_tab_content', $current_tab, $this );
+		}
+
+		// Check if the tab has a render callback.
+		if ( ! empty( $this->tabs[ $current_tab ]['render_callback'] ) && is_callable( $this->tabs[ $current_tab ]['render_callback'] ) ) {
+			// Call the render callback.
+			call_user_func( $this->tabs[ $current_tab ]['render_callback'], $current_tab, $this );
+		} else {
+			// Otherwise, try to call a method based on the tab slug.
+			$method = 'render_' . str_replace( '-', '_', $current_tab ) . '_tab_content';
+			if ( method_exists( $this, $method ) ) {
+				$this->$method();
+			} else {
+				/**
+				 * Action that fires for rendering custom tab content.
+				 *
+				 * @since TBD
+				 *
+				 * @param string $current_tab The current tab slug.
+				 * @param object $this        The current page instance.
+				 */
+				do_action( 'tec_common_admin_custom_tab_content', $current_tab, $this );
+
+				// Allow for namespaced hooks based on the class name
+				if ($base_name) {
+					/**
+					 * Action that fires for rendering custom tab content for a specific page.
+					 *
+					 * @since TBD
+					 *
+					 * @param string $current_tab The current tab slug.
+					 * @param object $this        The current page instance.
+					 */
+					do_action( "tec_{$base_name}_custom_tab_content", $current_tab, $this );
+				}
+
+				// Compatibility for Tickets Admin specific hooks
+				if ($is_tickets_admin) {
+					/**
+					 * Action that fires to render content for custom tabs on the Tickets admin page.
+					 *
+					 * @since TBD
+					 *
+					 * @param string $current_tab The current tab slug.
+					 * @param object $this        The current page instance.
+					 */
+					do_action( 'tec_tickets_admin_tickets_page_custom_tab_content', $current_tab, $this );
+				}
+			}
+		}
+
+		/**
+		 * Action that fires after rendering the tab content.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $current_tab The current tab slug.
+		 * @param object $this        The current page instance.
+		 */
+		do_action( 'tec_common_admin_after_tab_content', $current_tab, $this );
+
+		// Allow for namespaced hooks based on the class name
+		if ($base_name) {
+			/**
+			 * Action that fires after rendering the tab content for a specific page.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $current_tab The current tab slug.
+			 * @param object $this        The current page instance.
+			 */
+			do_action( "tec_{$base_name}_after_tab_content", $current_tab, $this );
+		}
+
+		// Compatibility for Tickets Admin specific hooks
+		if ($is_tickets_admin) {
+			/**
+			 * Action that fires after rendering the tab content on the Tickets admin page.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $current_tab The current tab slug.
+			 * @param object $this        The current page instance.
+			 */
+			do_action( 'tec_tickets_admin_tickets_page_after_tab_content', $current_tab, $this );
+		}
 	}
 
 	/**
