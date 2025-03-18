@@ -140,7 +140,7 @@ abstract class Abstract_Admin_Page {
 	 */
 	public function get_page_type(): string {
 		// Defined in the traits, or redefined in an extending class.
-		return static::$page_type;
+		return static::$page_type ?? '';
 	}
 
 	/**
@@ -403,16 +403,17 @@ abstract class Abstract_Admin_Page {
 	 * @return void Renders the admin page header.
 	 */
 	public function admin_page_header(): void {
-		if ( ! static::$has_header ) {
-			return;
-		}
-
 		?>
 			<header id="tec-admin-page-header" <?php tribe_classes( $this->header_classes() ); ?>>
-				<?php $this->do_page_logo(); ?>
-				<?php do_action( 'tec_admin_header_before_title' ); ?>
-				<?php $this->admin_page_title(); ?>
-				<?php do_action( 'tec_admin_header_after_title' ); ?>
+				<?php
+				if ( static::$has_header ) {
+					// "Simple" pages don't show the logo.
+					$this->do_page_logo();
+				}
+				do_action( 'tec_admin_header_before_title' );
+				$this->admin_page_title();
+				do_action( 'tec_admin_header_after_title' );
+				?>
 			</header>
 		<?php
 	}
@@ -427,7 +428,7 @@ abstract class Abstract_Admin_Page {
 	 */
 	public function admin_page_title(): void {
 		?>
-			<h1 class="tec-admin__header-title"><?php esc_html_e( 'The Events Calendar', 'tribe-common' ); ?></h1>
+			<h1 class="tec-admin__header-title"><?php echo esc_html( $this->get_the_page_title() ); ?></h1>
 		<?php
 	}
 
