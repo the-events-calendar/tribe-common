@@ -59,7 +59,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Whether the page has a header.
 	 *
-	 * @since 6.4.1
+	 * @since TBD
 	 *
 	 * @var bool
 	 */
@@ -82,6 +82,15 @@ abstract class Abstract_Admin_Page {
 	 * @var bool
 	 */
 	public static bool $has_footer = false;
+
+	/**
+	 * Whether the page has a logo.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	public static bool $has_logo = true;
 
 	/**
 	 * Add the settings page.
@@ -202,11 +211,18 @@ abstract class Abstract_Admin_Page {
 	 * @return void Echos the admin page logo.
 	 */
 	public function do_page_logo(): void {
+		if ( ! static::$has_logo ) {
+			return;
+		}
+
 		// Only run once to avoid duplicating IDs.
 		if ( did_action( 'tribe_admin_page_after_logo' ) ) {
 			return;
 		}
 
+		if ( empty( $this->get_logo_source() ) ) {
+			return;
+		}
 		?>
 		<img
 			src="<?php echo esc_url( $this->get_logo_source() ); ?>"
@@ -403,13 +419,14 @@ abstract class Abstract_Admin_Page {
 	 * @return void Renders the admin page header.
 	 */
 	public function admin_page_header(): void {
+		if ( ! static::$has_header ) {
+			return;
+		}
+
 		?>
 			<header id="tec-admin-page-header" <?php tribe_classes( $this->header_classes() ); ?>>
 				<?php
-				if ( static::$has_header ) {
-					// "Simple" pages don't show the logo.
-					$this->do_page_logo();
-				}
+				$this->do_page_logo();
 				do_action( 'tec_admin_header_before_title' );
 				$this->admin_page_title();
 				do_action( 'tec_admin_header_after_title' );
