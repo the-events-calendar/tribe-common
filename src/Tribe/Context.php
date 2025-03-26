@@ -207,13 +207,13 @@ class Tribe__Context {
 	protected static $did_populate_locations = false;
 
 	/**
-	 * Whether to prepoulate the locations.
+	 * Whether to prepopulate the locations.
 	 * 
 	 * @since TBD
 	 *
 	 * @var bool
 	 */
-	protected $prepoulate_locations = false;
+	protected $prepopulate_locations = false;
 
 	/**
 	 * A list of override locations to read and write from.
@@ -259,14 +259,14 @@ class Tribe__Context {
 	 * Tribe__Context constructor.
 	 *
 	 * @since 5.0.13
-	 * @since TBD Add the $prepoulate_locations parameter.
+	 * @since TBD Add the $prepopulate_locations parameter.
 	 *
-	 * @param Post_Request_Type|null $post_state           An instance of the post state handler.
-	 * @param bool                   $prepoulate_locations Whether to prepoulate the locations.
+	 * @param Post_Request_Type|null $post_state            An instance of the post state handler.
+	 * @param bool                   $prepopulate_locations Whether to prepoulate the locations.
 	 */
-	public function __construct( ?Post_Request_Type $post_state = null, bool $prepoulate_locations = true ) {
+	public function __construct( ?Post_Request_Type $post_state = null, bool $prepopulate_locations = true ) {
 		$this->post_state           = $post_state ?: tribe( Post_Request_Type::class );
-		$this->prepoulate_locations = $prepoulate_locations;
+		$this->prepopulate_locations = $prepopulate_locations;
 	}
 
 	/**
@@ -446,7 +446,26 @@ class Tribe__Context {
 	 */
 	public function get_locations() {
 		$this->populate_locations();
-		return array_merge( self::$locations, $this->override_locations );
+
+		$locations = array_merge( self::$locations, $this->override_locations );
+
+		if ( has_filter( 'tribe_context_locations' ) ) {
+			/**
+			 * Filters the locations registered in the Context.
+			 *
+			 * @since 4.10.2
+			 *
+			 * @param $locations array           An array of read and write location in the shape of the `Tribe__Context::$locations` one,
+			 *                                   `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
+			 * @param $context   Tribe__Context  Current instance of the context.
+			 */
+			$locations = apply_filters( 'tribe_context_locations', $locations, $this );
+
+			// Remove all filters everytime it runs.
+			remove_all_filters( 'tribe_context_locations' );
+		}
+
+		return $locations;
 	}
 
 	/**
@@ -1268,7 +1287,7 @@ class Tribe__Context {
 	 */
 	protected function populate_locations() {
 		// In this instance we don't want to prepoulate the locations.
-		if ( ! $this->prepoulate_locations ) {
+		if ( ! $this->prepopulate_locations ) {
 			return;
 		}
 
@@ -1305,22 +1324,6 @@ class Tribe__Context {
 	public function dangerously_repopulate_locations() {
 		static::$did_populate_locations = false;
 		$this->populate_locations();
-	}
-
-	/**
-	 * Just dont...
-	 * Unless you very specifically know what you are doing **DO NOT USE THIS METHOD**!
-	 *
-	 * Please keep in mind this will set force the context to repopulate all locations for the whole request, expensive
-	 * and very dangerous overall since it could affect all this things we hold dear in the request.
-	 *
-	 * With great power comes great responsibility: think a lot before using this.
-	 *
-	 * @since TBD
-	 */
-	public function dangerously_reset_state(): void {
-		static::$did_populate_locations = false;
-		static::$locations              = [];
 	}
 
 	/**
