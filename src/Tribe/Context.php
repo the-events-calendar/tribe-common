@@ -207,6 +207,15 @@ class Tribe__Context {
 	protected static $did_populate_locations = false;
 
 	/**
+	 * Whether to prevent the default locations from being used.
+	 * 
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected $prevent_default_locations = false;
+
+	/**
 	 * A list of override locations to read and write from.
 	 *
 	 * This list has the same format and options as the static `$locations` property
@@ -250,11 +259,14 @@ class Tribe__Context {
 	 * Tribe__Context constructor.
 	 *
 	 * @since 5.0.13
+	 * @since TBD Add the $prevent_default_locations parameter.
 	 *
 	 * @param Post_Request_Type|null $post_state An instance of the post state handler.
+	 * @param bool $prevent_default_locations Whether to prevent the default locations from being used.
 	 */
-	public function __construct( ?Post_Request_Type $post_state = null ) {
+	public function __construct( ?Post_Request_Type $post_state = null, bool $prevent_default_locations = false ) {
 		$this->post_state = $post_state ?: tribe( Post_Request_Type::class );
+		$this->prevent_default_locations = $prevent_default_locations;
 	}
 
 	/**
@@ -1258,8 +1270,10 @@ class Tribe__Context {
 			return;
 		}
 
-		// To improve the class readability, and as a small optimization, locations are loaded from a file.
-		static::$locations = include __DIR__ . '/Context/locations.php';
+		if ( ! $this->prevent_default_locations ) {
+			// To improve the class readability, and as a small optimization, locations are loaded from a file.
+			static::$locations = include __DIR__ . '/Context/locations.php';
+		}
 
 		/**
 		 * Filters the locations registered in the Context.

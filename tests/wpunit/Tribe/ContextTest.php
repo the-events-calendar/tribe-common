@@ -871,7 +871,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_getting_an_array_representation_of_the_context() {
-		$context = (new Context())->set_locations( [
+		$context = (new Context( null, true ))->set_locations( [
 			'foo' => [
 				'read' => [
 					Context::FUNC => function () {
@@ -995,7 +995,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_filtering_out_args_from_orm_args() {
-		$context = (new Context)->set_locations( [
+		$context = (new Context( null, true ))->set_locations( [
 			'one' => [
 				'read' => [
 					Context::FUNC => function () {
