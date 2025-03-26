@@ -207,13 +207,13 @@ class Tribe__Context {
 	protected static $did_populate_locations = false;
 
 	/**
-	 * Whether to prevent the default locations from being used.
+	 * Whether to prepoulate the locations.
 	 * 
 	 * @since TBD
 	 *
 	 * @var bool
 	 */
-	protected $prevent_default_locations = false;
+	protected $prepoulate_locations = false;
 
 	/**
 	 * A list of override locations to read and write from.
@@ -259,14 +259,14 @@ class Tribe__Context {
 	 * Tribe__Context constructor.
 	 *
 	 * @since 5.0.13
-	 * @since TBD Add the $prevent_default_locations parameter.
+	 * @since TBD Add the $prepoulate_locations parameter.
 	 *
-	 * @param Post_Request_Type|null $post_state                An instance of the post state handler.
-	 * @param bool                   $prevent_default_locations Whether to prevent the default locations from being used.
+	 * @param Post_Request_Type|null $post_state           An instance of the post state handler.
+	 * @param bool                   $prepoulate_locations Whether to prepoulate the locations.
 	 */
-	public function __construct( ?Post_Request_Type $post_state = null, bool $prevent_default_locations = false ) {
-		$this->post_state                = $post_state ?: tribe( Post_Request_Type::class );
-		$this->prevent_default_locations = $prevent_default_locations;
+	public function __construct( ?Post_Request_Type $post_state = null, bool $prepoulate_locations = true ) {
+		$this->post_state           = $post_state ?: tribe( Post_Request_Type::class );
+		$this->prepoulate_locations = $prepoulate_locations;
 	}
 
 	/**
@@ -1266,14 +1266,17 @@ class Tribe__Context {
 	 * @since 4.9.8
 	 */
 	protected function populate_locations() {
+		// in this instance we don't want to prepoulate the locations.
+		if ( ! $this->prepoulate_locations ) {
+			return;
+		}
+
 		if ( static::$did_populate_locations ) {
 			return;
 		}
 
-		if ( ! $this->prevent_default_locations ) {
-			// To improve the class readability, and as a small optimization, locations are loaded from a file.
-			static::$locations = include __DIR__ . '/Context/locations.php';
-		}
+		// To improve the class readability, and as a small optimization, locations are loaded from a file.
+		static::$locations = include __DIR__ . '/Context/locations.php';
 
 		/**
 		 * Filters the locations registered in the Context.

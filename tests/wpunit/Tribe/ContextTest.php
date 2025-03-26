@@ -871,7 +871,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_getting_an_array_representation_of_the_context() {
-		$context = (new Context( null, true ))->set_locations( [
+		$context = (new Context( null, false ))->set_locations( [
 			'foo' => [
 				'read' => [
 					Context::FUNC => function () {
@@ -908,7 +908,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_producing_orm_arguments() {
-		$context = (new Context)->set_locations( [
+		$context = (new Context( null, false ))->set_locations( [
 			'one' => [
 				'read' => [
 					Context::FUNC => function () {
@@ -948,7 +948,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_getting_a_subset_of_orm_args() {
-		$context = (new Context)->set_locations( [
+		$context = (new Context( null, false ))->set_locations( [
 			'one' => [
 				'read' => [
 					Context::FUNC => function () {
@@ -995,7 +995,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_filtering_out_args_from_orm_args() {
-		$context = (new Context( null, true ))->set_locations( [
+		$context = (new Context( null, false ))->set_locations( [
 			'one' => [
 				'read' => [
 					Context::FUNC => function () {
@@ -1037,7 +1037,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_transforming_orm_arguments_before_returning_them() {
-		$context = (new Context)->set_locations( [
+		$context = (new Context( null, false ))->set_locations( [
 			'one' => [
 				'read'          => [
 					Context::FUNC => function () {
@@ -1073,7 +1073,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_whitelisting_the_state_values_to_produce() {
-		$context = (new Context)->set_locations( [
+		$context = (new Context( null, false ))->set_locations( [
 			'one' => [
 				'read'          => [
 					Context::FUNC => function () {
@@ -1111,7 +1111,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_blacklisting_the_state_values_to_produce() {
-		$context = (new Context)->set_locations( [
+		$context = (new Context( null, false ))->set_locations( [
 			'one' => [
 				'read'          => [
 					Context::FUNC => function () {
@@ -1149,7 +1149,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_whitelisting_the_global_context_keys_to_write() {
-		$context = (new Context)->set_locations( [
+		$context = (new Context( null, false ))->set_locations( [
 			'one'   => [
 				'read'  => [
 					Context::FUNC => function () {
@@ -1201,7 +1201,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_blacklisting_the_global_context_keys_to_write() {
-		$context = (new Context)->set_locations( [
+		$context = (new Context( null, false ))->set_locations( [
 			'one'   => [
 				'read'  => [
 					Context::FUNC => function () {
@@ -1253,7 +1253,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_reading_a_value_by_applying_a_filter() {
-		$context = (new Context)->set_locations( [
+		$context = (new Context( null, false ))->set_locations( [
 			'one' => [
 				'read' => [
 					Context::FILTER => '__test_filter__',
@@ -1273,7 +1273,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_return_the_first_non_default_value_when_reading_from_a_filter_() {
-		$context = (new Context)->set_locations( [
+		$context = (new Context( null, false ))->set_locations( [
 			'one' => [
 				'read' => [
 					Context::FILTER => [
@@ -1303,7 +1303,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_return_the_default_value_if_no_function_if_filtering_a_filter_location() {
-		$context = (new Context)->set_locations( [
+		$context = (new Context( null, false ))->set_locations( [
 			'one' => [
 				'read' => [
 					Context::FILTER => [
@@ -1324,7 +1324,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_mapping_locations_to_read() {
-		$context = (new Context)->set_locations( [
+		$context = (new Context( null, false ))->set_locations( [
 			'bar' => [
 				'read'  => [
 					Context::CONSTANT => 'r_two',
