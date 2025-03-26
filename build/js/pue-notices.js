@@ -1,1 +1,0 @@
-(()=>{var t=t||{};!function(o,n){"use strict";n.init=function(){for(var n in t)if(t.hasOwnProperty(n)){var i=o(t[n].message_row_html);o('tr[data-plugin="'+n+'"].active').addClass("update").after(i)}},o((function(){"object"==typeof t&&n.init()}))}(jQuery,t),window.tec=window.tec||{},window.tec.common=window.tec.common||{},window.tec.common.pueNotices={}})();
