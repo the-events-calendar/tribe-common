@@ -262,7 +262,7 @@ class Tribe__Context {
 	 *
 	 * @param Post_Request_Type|null $post_state An instance of the post state handler.
 	 */
-	public function __construct( Post_Request_Type $post_state = null ) {
+	public function __construct( ?Post_Request_Type $post_state = null ) {
 		$this->post_state = $post_state ?: tribe( Post_Request_Type::class );
 	}
 
@@ -827,7 +827,7 @@ class Tribe__Context {
 	 *
 	 * @since 4.9.5
 	 */
-	public function dangerously_set_global_context( array $fields = null, $whitelist = true ) {
+	public function dangerously_set_global_context( ?array $fields = null, $whitelist = true ) {
 		$locations = $this->get_locations();
 
 		if ( null !== $fields ) {
@@ -1160,7 +1160,7 @@ class Tribe__Context {
 	 *
 	 * @return array
 	 */
-	public function get_state( array $fields = null, $whitelist = true ) {
+	public function get_state( ?array $fields = null, $whitelist = true ) {
 		$state             = $this->to_array();
 		$is_global_context = tribe_context() === $this;
 
@@ -1214,7 +1214,7 @@ class Tribe__Context {
 	 *
 	 * @return array A map of ORM fields produced from the context current values.
 	 */
-	public function get_orm_args( array $fields = null, $whitelist = true ) {
+	public function get_orm_args( ?array $fields = null, $whitelist = true ) {
 		$locations         = $this->get_locations();
 		$dump              = $this->to_array();
 		$orm_args          = [];
