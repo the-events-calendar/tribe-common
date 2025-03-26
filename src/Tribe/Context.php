@@ -459,7 +459,7 @@ class Tribe__Context {
 			 *                                   `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
 			 * @param $context   Tribe__Context  Current instance of the context.
 			 */
-			$locations = apply_filters( 'tribe_context_locations', $locations, $this );
+			self::$locations = apply_filters( 'tribe_context_locations', $locations, $this );
 
 			// Remove all filters everytime it runs.
 			remove_all_filters( 'tribe_context_locations' );
