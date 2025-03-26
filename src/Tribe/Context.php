@@ -265,7 +265,7 @@ class Tribe__Context {
 	 * @param bool                   $prepopulate_locations Whether to prepoulate the locations.
 	 */
 	public function __construct( ?Post_Request_Type $post_state = null, bool $prepopulate_locations = true ) {
-		$this->post_state           = $post_state ?: tribe( Post_Request_Type::class );
+		$this->post_state            = $post_state ?: tribe( Post_Request_Type::class );
 		$this->prepopulate_locations = $prepopulate_locations;
 	}
 
