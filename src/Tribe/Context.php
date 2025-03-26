@@ -1095,9 +1095,9 @@ class Tribe__Context {
 	 * @return \Tribe__Context A clone of the current context with modified locations.
 	 */
 	public function set_locations( array $locations ) {
-		$clone                        = clone $this;
-		$clone::$locations            = [];
-		$clone->override_locations    = $locations;
+		$clone                     = clone $this;
+		$clone::$locations         = [];
+		$clone->override_locations = $locations;
 
 		return $clone;
 	}
@@ -1322,7 +1322,7 @@ class Tribe__Context {
 	 */
 	public function dangerously_reset_static_properties() {
 		static::$did_populate_locations = false;
-		static::$locations = [];
+		static::$locations              = [];
 	}
 
 	/**
