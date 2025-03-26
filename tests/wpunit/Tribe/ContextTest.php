@@ -893,7 +893,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 					},
 				],
 			],
-		], false );
+		] );
 
 		$this->assertEquals( [
 			'foo' => 'bar',
@@ -932,7 +932,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 				],
 				'orm_arg' => false
 			],
-		], false );
+		] );
 
 		$orm_args = $context->get_orm_args();
 
@@ -979,7 +979,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 					}
 				]
 			]
-		], false );
+		] );
 
 		$orm_args = $context->get_orm_args( [ 'one', 'alias_of_two', 'three' ] );
 
@@ -1022,7 +1022,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 			'four' => [
 				'read' => [Context::FUNC => function(){return 23;}]
 			]
-		], false );
+		] );
 
 		$orm_args = $context->get_orm_args( [ 'one', 'alias_of_two', 'three' ], false );
 
@@ -1057,7 +1057,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 				],
 				'orm_transform' => '__return_false',
 			],
-		], false );
+		] );
 
 		$orm_args = $context->get_orm_args();
 
@@ -1095,7 +1095,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 					},
 				],
 			],
-		], false );
+		] );
 
 		$state = $context->get_state( [ 'one', 'three' ] );
 
@@ -1133,7 +1133,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 					},
 				],
 			],
-		], false );
+		] );
 
 		$state = $context->get_state( [ 'two' ], false );
 
@@ -1180,7 +1180,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 					Context::GLOBAL_VAR => 'global_three',
 				],
 			],
-		], false );
+		] );
 
 		$context->alter( [
 			'one'   => 23,
@@ -1232,7 +1232,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 					Context::GLOBAL_VAR => 'global_three',
 				],
 			],
-		], false );
+		] );
 
 		$context->alter( [
 			'one'   => 23,
@@ -1259,8 +1259,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 					Context::FILTER => '__test_filter__',
 				],
 			],
-		],
-			false );
+		] );
 		add_filter( '__test_filter__', static function () {
 			return 23;
 		} );
@@ -1284,8 +1283,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 					],
 				],
 			],
-		],
-			false );
+		] );
 		add_filter( '__test_filter_one__', static function () {
 			return '__default_value__';
 		} );
@@ -1315,8 +1313,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 					],
 				],
 			],
-		],
-			false );
+		] );
 
 		$this->assertEquals( '__default_value__', $context->get( 'one', '__default_value__' ) );
 	}
@@ -1353,7 +1350,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 					Context::REQUEST_VAR => 'r_three',
 				],
 			],
-		], false );
+		] );
 
 		$mapped = $context->map_to_read( [ 'foo' => 23, 'baz' => 89, 'someOther' => 2389 ], null, true );
 
@@ -1425,7 +1422,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 					Context::WP_PARSED => $locations,
 				],
 			],
-		], false );
+		] );
 		global $wp;
 		$wp->public_query_vars = array_merge([
 			'animal',
@@ -1463,7 +1460,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 					Context::WP_MATCHED_QUERY => $locations,
 				],
 			],
-		], false );
+		] );
 		global $wp;
 		$wp->public_query_vars = array_merge( [
 			'animal',
@@ -1487,7 +1484,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 					Context::QUERY_VAR => [ 'car', 'vehicle', 'transport_mean' ],
 				],
 			],
-		], false );
+		] );
 
 		$this->expectException( \InvalidArgumentException::class );
 
@@ -1528,7 +1525,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 					Context::QUERY_VAR => [ 'carriage', 'vehicle', 'transport_mean' ],
 				],
 			],
-		], false );
+		] );
 
 		$populated = $context->translate_sub_locations( $values, Context::QUERY_VAR, 'read' );
 

@@ -238,15 +238,6 @@ class Tribe__Context {
 	protected $request_cache = [];
 
 	/**
-	 * Whether this context should use the default locations or not.
-	 * This flag property is set to `false` when a context is obtained using
-	 * the `set_locations` method; it will otherwise be set to `true`.
-	 *
-	 * @var bool
-	 */
-	protected $use_default_locations = true;
-
-	/**
 	 * An instance of the post state handler.
 	 *
 	 * @since 5.0.13
@@ -258,7 +249,7 @@ class Tribe__Context {
 	/**
 	 * Tribe__Context constructor.
 	 *
-	 * since 5.0.13
+	 * @since 5.0.13
 	 *
 	 * @param Post_Request_Type|null $post_state An instance of the post state handler.
 	 */
@@ -444,22 +435,7 @@ class Tribe__Context {
 	public function get_locations() {
 		$this->populate_locations();
 
-		$locations = $this->use_default_locations
-			? array_merge( self::$locations, $this->override_locations )
-			: $this->override_locations;
-
-		if ( $this->use_default_locations ) {
-			/**
-			 * Filters the locations registered in the Context.
-			 *
-			 * @since 4.10.2
-			 *
-			 * @param $locations array           An array of read and write location in the shape of the `Tribe__Context::$locations` one,
-			 *                                   `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
-			 * @param $context   Tribe__Context  Current instance of the context.
-			 */
-			$locations = apply_filters( 'tribe_context_locations', $locations, $this );
-		}
+		$locations = array_merge( self::$locations, $this->override_locations );
 
 		return $locations;
 	}
@@ -1100,20 +1076,16 @@ class Tribe__Context {
 	/**
 	 * Sets, replacing them, the locations used by this context.
 	 *
-	 *
 	 * @since 4.9.5
+	 * @since TBD Remove the $use_default_locations parameter.
 	 *
 	 * @param array $locations An array of locations to replace the current ones.
-	 * @param bool  $use_default_locations Whether the context should use the default
-	 *                                     locations defined in the static `$locations`
-	 *                                     property or not.
 	 *
 	 * @return \Tribe__Context A clone of the current context with modified locations.
 	 */
-	public function set_locations( array $locations, $use_default_locations = true ) {
+	public function set_locations( array $locations ) {
 		$clone                        = clone $this;
 		$clone->override_locations    = $locations;
-		$clone->use_default_locations = (bool) $use_default_locations;
 
 		return $clone;
 	}
