@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Added functions `tec_embed_header` and `tec_embed_footer` that can be used for header/footer in embed context.
