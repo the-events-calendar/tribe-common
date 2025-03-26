@@ -265,7 +265,7 @@ class Tribe__Context {
 	 * @param bool                   $prevent_default_locations Whether to prevent the default locations from being used.
 	 */
 	public function __construct( ?Post_Request_Type $post_state = null, bool $prevent_default_locations = false ) {
-		$this->post_state = $post_state ?: tribe( Post_Request_Type::class );
+		$this->post_state                = $post_state ?: tribe( Post_Request_Type::class );
 		$this->prevent_default_locations = $prevent_default_locations;
 	}
 
