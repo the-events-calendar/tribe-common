@@ -915,6 +915,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_producing_orm_arguments() {
+		$this->reset_context_state();
 		$context = (new Context( null, false ))->set_locations( [
 			'one' => [
 				'read' => [
@@ -1763,7 +1764,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 
 		// For locations added with `add_locations` should not be affected by the repopulation.
 		$this->assertEquals( '__value_before_repopulate__', $value_overwrite_before_reset );
-		$this->assertEquals( '__value_after_repopulate__', $value_overwrite_after_reset );
+		$this->assertEquals( '__value_before_repopulate__', $value_overwrite_after_reset );
 	}
 
 	public function is_editing_posts_list_data_provider(): Generator {

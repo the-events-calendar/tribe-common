@@ -449,7 +449,7 @@ class Tribe__Context {
 
 		$locations = array_merge( self::$locations, $this->override_locations );
 
-		if ( has_filter( 'tribe_context_locations' ) ) {
+		if ( has_filter( 'tribe_context_locations' ) && $this->prepopulate_locations ) {
 			/**
 			 * Filters the locations registered in the Context.
 			 *
