@@ -261,8 +261,8 @@ class Tribe__Context {
 	 * @since 5.0.13
 	 * @since TBD Add the $prevent_default_locations parameter.
 	 *
-	 * @param Post_Request_Type|null $post_state An instance of the post state handler.
-	 * @param bool $prevent_default_locations Whether to prevent the default locations from being used.
+	 * @param Post_Request_Type|null $post_state                An instance of the post state handler.
+	 * @param bool                   $prevent_default_locations Whether to prevent the default locations from being used.
 	 */
 	public function __construct( ?Post_Request_Type $post_state = null, bool $prevent_default_locations = false ) {
 		$this->post_state = $post_state ?: tribe( Post_Request_Type::class );
