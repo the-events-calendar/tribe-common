@@ -392,6 +392,8 @@ class Tribe__Context {
 		// Only cache if the value was found.
 		if ( $found ) {
 			$this->request_cache[ $key ] = $value;
+			codecept_debug( 'context cache' );
+			codecept_debug( $this->request_cache );
 		}
 
 		return $value;
@@ -1094,6 +1096,7 @@ class Tribe__Context {
 	 */
 	public function set_locations( array $locations ) {
 		$clone                        = clone $this;
+		$clone::$locations            = [];
 		$clone->override_locations    = $locations;
 
 		return $clone;
@@ -1304,6 +1307,22 @@ class Tribe__Context {
 	public function dangerously_repopulate_locations() {
 		static::$did_populate_locations = false;
 		$this->populate_locations();
+	}
+
+	/**
+	 * Just dont...
+	 * Unless you very specifically know what you are doing **DO NOT USE THIS METHOD**!
+	 *
+	 * Please keep in mind this will set force the context to repopulate all locations for the whole request, expensive
+	 * and very dangerous overall since it could affect all this things we hold dear in the request.
+	 *
+	 * With great power comes great responsibility: think a lot before using this.
+	 *
+	 * @since TBD
+	 */
+	public function dangerously_reset_static_properties() {
+		static::$did_populate_locations = false;
+		static::$locations = [];
 	}
 
 	/**
