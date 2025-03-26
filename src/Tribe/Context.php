@@ -392,8 +392,6 @@ class Tribe__Context {
 		// Only cache if the value was found.
 		if ( $found ) {
 			$this->request_cache[ $key ] = $value;
-			codecept_debug( 'context cache' );
-			codecept_debug( $this->request_cache );
 		}
 
 		return $value;
@@ -1144,7 +1142,7 @@ class Tribe__Context {
 	 *
 	 * @return array
 	 */
-	public function get_state( ?array $fields = null, $whitelist = true ) {
+	public function get_state( ?array $fields = null, $whitelist = true ): array {
 		$state             = $this->to_array();
 		$is_global_context = tribe_context() === $this;
 
@@ -1269,7 +1267,7 @@ class Tribe__Context {
 	 * @since 4.9.8
 	 */
 	protected function populate_locations() {
-		// in this instance we don't want to prepoulate the locations.
+		// In this instance we don't want to prepoulate the locations.
 		if ( ! $this->prepoulate_locations ) {
 			return;
 		}
@@ -1320,7 +1318,7 @@ class Tribe__Context {
 	 *
 	 * @since TBD
 	 */
-	public function dangerously_reset_static_properties() {
+	public function dangerously_reset_state(): void {
 		static::$did_populate_locations = false;
 		static::$locations              = [];
 	}

@@ -1621,10 +1621,9 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 
 		$context = new Context;
 		// This is to ensure the static properties are reset so the test before does not affect the test after.
-		$context->dangerously_reset_static_properties();
+		$context->dangerously_reset_state();
 
 		add_filter( 'tribe_context_locations', static function( $locations ) use ( $context_key ) {
-			codecept_debug( 'static filter one' );
 			$locations[ $context_key( '__closure__' ) ] = [
 				'read' => [
 					Context::TRIBE_OPTION => [ '__before_repopulate__' ]
@@ -1636,7 +1635,6 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$value_before_reset = $context->get( $context_key( '__closure__' ) );
 
 		add_filter( 'tribe_context_locations', static function( $locations ) use ( $context_key ) {
-			codecept_debug( 'static filter two' );
 			$locations[ $context_key( '__closure__' ) ] = [
 				'read' => [
 					Context::TRIBE_OPTION => [ '__after_repopulate__' ]
@@ -1667,10 +1665,9 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 
 		$context = new Context;
 		// This is to ensure the static properties are reset so the test before does not affect the test after.
-		$context->dangerously_reset_static_properties();
+		$context->dangerously_reset_state();
 
 		add_filter( 'tribe_context_locations', static function( $locations ) use ( $context_key ) {
-			codecept_debug( 'static filter one' );
 			$locations[ $context_key( '__closure__' ) ] = [
 				'read' => [
 					Context::TRIBE_OPTION => [ '__before_repopulate__' ]
@@ -1682,7 +1679,6 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$value_before_reset = $context->get( $context_key( '__closure__' ) );
 
 		add_filter( 'tribe_context_locations', static function( $locations ) use ( $context_key ) {
-			codecept_debug( 'static filter two' );
 			$locations[ $context_key( '__closure__' ) ] = [
 				'read' => [
 					Context::TRIBE_OPTION => [ '__after_repopulate__' ]
@@ -1712,7 +1708,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		tribe_update_option( '__before_repopulate__', '__value_before_repopulate__' );
 		tribe_update_option( '__after_repopulate__', '__value_after_repopulate__' );
 
-		tribe_context()->dangerously_reset_static_properties();
+		tribe_context()->dangerously_reset_state();
 
 		$context = tribe_context()->add_locations( [
 			$context_key('__closure_overwrite__' ) => [
@@ -1736,8 +1732,6 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 
 		$value_overwrite_before_reset = $context->get( $context_key( '__closure_overwrite__' ) );
 		$value_before_reset = $context->get( $context_key( '__closure__' ) );
-		codecept_debug( 'value before reset' );
-		codecept_debug( $value_before_reset );
 
 		add_filter( 'tribe_context_locations', static function( $locations ) use ( $context_key ) {
 			$locations[ $context_key( '__closure__' ) ] = [
