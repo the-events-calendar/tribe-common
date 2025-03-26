@@ -434,10 +434,7 @@ class Tribe__Context {
 	 */
 	public function get_locations() {
 		$this->populate_locations();
-
-		$locations = array_merge( self::$locations, $this->override_locations );
-
-		return $locations;
+		return array_merge( self::$locations, $this->override_locations );
 	}
 
 	/**
