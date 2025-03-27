@@ -14,6 +14,7 @@
  * @var string                      $value      Value for the dropdown.
  * @var string                      $id         ID of the dropdown.
  * @var string                      $name       Name attribute for the dropdown.
+ * @var string                      $classes    Classes to add to the dropdown.
  * @var string                      $dependency The dependency attributes for the control wrapper.
  * @var array<array<string,string>> $options    An array of options in the format
  *                                              [
@@ -21,6 +22,10 @@
  *                                                  'text' => string
  *                                              ]
  */
+
+use Tribe__Utils__Array as Arr;
+
+$select_classes = array_merge( [ 'tribe-widget-form-control__input', ' widefat' ], Arr::list_to_array( $classes, ' ' ) );
 
 ?>
 <div
@@ -39,7 +44,7 @@
 	<select
 		id="<?php echo esc_attr( $id ); ?>"
 		name="<?php echo esc_attr( $name ); ?>"
-		class="tribe-widget-form-control__input widefat"
+		<?php tribe_classes( $select_classes ); ?>
 	>
 		<?php foreach ( $options as $option ) { ?>
 			<option
