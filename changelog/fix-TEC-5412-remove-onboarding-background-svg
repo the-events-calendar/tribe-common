@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Removed background image for Onboarding Wizard to avoid confusion. [TEC_5412]
