@@ -207,6 +207,15 @@ class Tribe__Context {
 	protected static $did_populate_locations = false;
 
 	/**
+	 * Whether to prepopulate the locations.
+	 * 
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected $prepopulate_locations = false;
+
+	/**
 	 * A list of override locations to read and write from.
 	 *
 	 * This list has the same format and options as the static `$locations` property
@@ -238,15 +247,6 @@ class Tribe__Context {
 	protected $request_cache = [];
 
 	/**
-	 * Whether this context should use the default locations or not.
-	 * This flag property is set to `false` when a context is obtained using
-	 * the `set_locations` method; it will otherwise be set to `true`.
-	 *
-	 * @var bool
-	 */
-	protected $use_default_locations = true;
-
-	/**
 	 * An instance of the post state handler.
 	 *
 	 * @since 5.0.13
@@ -258,12 +258,15 @@ class Tribe__Context {
 	/**
 	 * Tribe__Context constructor.
 	 *
-	 * since 5.0.13
+	 * @since 5.0.13
+	 * @since TBD Add the $prepopulate_locations parameter.
 	 *
-	 * @param Post_Request_Type|null $post_state An instance of the post state handler.
+	 * @param Post_Request_Type|null $post_state            An instance of the post state handler.
+	 * @param bool                   $prepopulate_locations Whether to prepoulate the locations.
 	 */
-	public function __construct( Post_Request_Type $post_state = null ) {
-		$this->post_state = $post_state ?: tribe( Post_Request_Type::class );
+	public function __construct( ?Post_Request_Type $post_state = null, bool $prepopulate_locations = true ) {
+		$this->post_state            = $post_state ?: tribe( Post_Request_Type::class );
+		$this->prepopulate_locations = $prepopulate_locations;
 	}
 
 	/**
@@ -444,11 +447,9 @@ class Tribe__Context {
 	public function get_locations() {
 		$this->populate_locations();
 
-		$locations = $this->use_default_locations
-			? array_merge( self::$locations, $this->override_locations )
-			: $this->override_locations;
+		$locations = array_merge( self::$locations, $this->override_locations );
 
-		if ( $this->use_default_locations ) {
+		if ( has_filter( 'tribe_context_locations' ) && $this->prepopulate_locations ) {
 			/**
 			 * Filters the locations registered in the Context.
 			 *
@@ -458,7 +459,10 @@ class Tribe__Context {
 			 *                                   `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
 			 * @param $context   Tribe__Context  Current instance of the context.
 			 */
-			$locations = apply_filters( 'tribe_context_locations', $locations, $this );
+			self::$locations = apply_filters( 'tribe_context_locations', $locations, $this );
+
+			// Remove all filters everytime it runs.
+			remove_all_filters( 'tribe_context_locations' );
 		}
 
 		return $locations;
@@ -827,7 +831,7 @@ class Tribe__Context {
 	 *
 	 * @since 4.9.5
 	 */
-	public function dangerously_set_global_context( array $fields = null, $whitelist = true ) {
+	public function dangerously_set_global_context( ?array $fields = null, $whitelist = true ) {
 		$locations = $this->get_locations();
 
 		if ( null !== $fields ) {
@@ -1100,20 +1104,17 @@ class Tribe__Context {
 	/**
 	 * Sets, replacing them, the locations used by this context.
 	 *
-	 *
 	 * @since 4.9.5
+	 * @since TBD Remove the $use_default_locations parameter.
 	 *
 	 * @param array $locations An array of locations to replace the current ones.
-	 * @param bool  $use_default_locations Whether the context should use the default
-	 *                                     locations defined in the static `$locations`
-	 *                                     property or not.
 	 *
 	 * @return \Tribe__Context A clone of the current context with modified locations.
 	 */
-	public function set_locations( array $locations, $use_default_locations = true ) {
-		$clone                        = clone $this;
-		$clone->override_locations    = $locations;
-		$clone->use_default_locations = (bool) $use_default_locations;
+	public function set_locations( array $locations ) {
+		$clone                     = clone $this;
+		$clone::$locations         = [];
+		$clone->override_locations = $locations;
 
 		return $clone;
 	}
@@ -1160,7 +1161,7 @@ class Tribe__Context {
 	 *
 	 * @return array
 	 */
-	public function get_state( array $fields = null, $whitelist = true ) {
+	public function get_state( ?array $fields = null, $whitelist = true ): array {
 		$state             = $this->to_array();
 		$is_global_context = tribe_context() === $this;
 
@@ -1214,7 +1215,7 @@ class Tribe__Context {
 	 *
 	 * @return array A map of ORM fields produced from the context current values.
 	 */
-	public function get_orm_args( array $fields = null, $whitelist = true ) {
+	public function get_orm_args( ?array $fields = null, $whitelist = true ) {
 		$locations         = $this->get_locations();
 		$dump              = $this->to_array();
 		$orm_args          = [];
@@ -1285,6 +1286,11 @@ class Tribe__Context {
 	 * @since 4.9.8
 	 */
 	protected function populate_locations() {
+		// In this instance we don't want to prepoulate the locations.
+		if ( ! $this->prepopulate_locations ) {
+			return;
+		}
+
 		if ( static::$did_populate_locations ) {
 			return;
 		}
