@@ -216,6 +216,15 @@ class Tribe__Context {
 	protected $prepopulate_locations = false;
 
 	/**
+	 * The hooks in the cache.
+	 * 
+	 * @since TBD
+	 * 
+	 * @var array
+	 */
+	protected $locations_callbacks = [];
+
+	/**
 	 * A list of override locations to read and write from.
 	 *
 	 * This list has the same format and options as the static `$locations` property
@@ -450,6 +459,9 @@ class Tribe__Context {
 		$locations = array_merge( self::$locations, $this->override_locations );
 
 		if ( has_filter( 'tribe_context_locations' ) && $this->prepopulate_locations ) {
+			// Store a local cache of the hooks.
+			$this->save_location_hooks();
+
 			/**
 			 * Filters the locations registered in the Context.
 			 *
@@ -466,6 +478,47 @@ class Tribe__Context {
 		}
 
 		return $locations;
+	}
+
+	/**
+	 * Stores the hooks in the cache.
+	 * 
+	 * @since TBD
+	 */
+	protected function save_location_hooks() {
+		global $wp_filter;
+		if ( ! isset( $wp_filter['tribe_context_locations'] ) ) {
+			return;
+		}
+
+		foreach ( $wp_filter['tribe_context_locations']->callbacks as $priority => $callbacks ) {
+			foreach ( $callbacks as $idx => $callback ) {
+				$this->locations_callbacks[] = [
+					'priority'      => $priority,
+					'accepted_args' => $callback['accepted_args'],
+					'function'      => $callback['function'],
+					'idx'           => $idx,
+				];
+			}
+		}
+
+		return;
+	}
+
+	/**
+	 * Re-hooks the locations callbacks.
+	 * 
+	 * @since TBD
+	 */
+	public function hook_locations_callbacks() {
+		foreach ( $this->locations_callbacks as $hook ) {
+			// Ignore back hooks.
+			if ( ! isset( $hook['function'], $hook['priority'], $hook['accepted_args'] ) ) {
+				continue;
+			}
+
+			add_filter( 'tribe_context_locations', $hook['function'], $hook['priority'], $hook['accepted_args'] );
+		}
 	}
 
 	/**
