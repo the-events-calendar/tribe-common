@@ -2895,35 +2895,25 @@ input[type="email"].tribe-events-admin-card__input {
 .tribe-events-admin-2col-grid {
 	display: grid;
 	gap: 15px 30px;
-	grid-template-areas: ". .";
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-	grid-template-rows: 1fr;
+	grid-template-columns: repeat(1, minmax(0, 1fr));
 
-	@media screen and (max-width: 768px) {
-		grid-template-areas: ".";
-		grid-template-columns: repeat(1, minmax(0, 1fr));
-	}
-
-	@media screen and (max-width: 480px) {
-		grid-template-areas: ".";
-		grid-template-columns: repeat(1, minmax(0, 1fr));
+	@media screen and (min-width: 769px) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-rows: 1fr;
 	}
 }
 
 .tribe-events-admin-3col-grid {
 	display: grid;
 	gap: 30px;
-	grid-template-areas: ". . .";
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 	grid-template-rows: 1fr;
 
 	@media screen and (max-width: 768px) {
-		grid-template-areas: ". .";
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
 	@media screen and (max-width: 480px) {
-		grid-template-areas: ".";
 		grid-template-columns: repeat(1, minmax(0, 1fr));
 	}
 }
@@ -2931,17 +2921,14 @@ input[type="email"].tribe-events-admin-card__input {
 .tribe-events-admin-4col-grid {
 	display: grid;
 	gap: 30px;
-	grid-template-areas: ". . . .";
 	grid-template-columns: repeat(4, minmax(0, 1fr));
 	grid-template-rows: 1fr;
 
 	@media screen and (min-width: 500px) and (max-width: 1080px) {
-		grid-template-areas: ". .";
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
 	@media screen and (max-width: 480px) {
-		grid-template-areas: ".";
 		grid-template-columns: repeat(1, minmax(0, 1fr));
 	}
 }
@@ -3525,20 +3512,17 @@ input[type="email"].tribe-events-admin-card__input {
 .tribe-events-admin__system-information {
 	display: grid;
 	gap: 15px 30px;
-	grid-template-areas: ". .";
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 	grid-template-rows: 1fr;
 	margin: 100px 0;
 	position: relative;
 
 	@media screen and (max-width: 768px) {
-		grid-template-areas: ".";
 		grid-template-columns: repeat(1, minmax(0, 1fr));
 		margin: 50px 0;
 	}
 
 	@media screen and (max-width: 480px) {
-		grid-template-areas: ".";
 		grid-template-columns: repeat(1, minmax(0, 1fr));
 		margin: 50px 0;
 	}
