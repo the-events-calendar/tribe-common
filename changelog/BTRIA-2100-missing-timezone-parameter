@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Correct `tribe_get_end_date` to return dates in the correct time zone. [BTRIA-2100]
