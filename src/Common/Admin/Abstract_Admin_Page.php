@@ -66,6 +66,15 @@ abstract class Abstract_Admin_Page {
 	public static bool $has_header = true;
 
 	/**
+	 * Whether the page has a logo.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	public static bool $has_logo = true;
+
+	/**
 	 * Whether the page has a sidebar.
 	 *
 	 * @since 6.4.1
@@ -406,7 +415,7 @@ abstract class Abstract_Admin_Page {
 		?>
 			<header id="tec-admin-page-header" <?php tribe_classes( $this->header_classes() ); ?>>
 				<?php
-				if ( static::$has_header ) {
+				if ( static::$has_header && static::$has_logo ) {
 					// "Simple" pages don't show the logo.
 					$this->do_page_logo();
 				}
