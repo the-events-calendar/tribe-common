@@ -1,4 +1,0 @@
-Significance: minor
-Type: fix
-
-Added CSS that will hide the Install Event Tickets button following completing the Onboarding Wizard. [TEC-5410]

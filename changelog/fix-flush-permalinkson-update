@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-Make sure update callbacks are executed prior `wp_loaded` action. [TEC-5436]
