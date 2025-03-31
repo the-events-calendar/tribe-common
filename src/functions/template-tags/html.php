@@ -231,7 +231,7 @@ if ( ! function_exists( 'tec_embed_header' ) ) {
 	/**
 	 * Generic Iframe header for frontend use.
 	 *
-	 * @since TBD
+	 * @since 6.5.4
 	 */
 	function tec_embed_header(): void {
 		show_admin_bar( false ); //phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
@@ -248,7 +248,7 @@ if ( ! function_exists( 'tec_embed_footer' ) ) {
 	/**
 	 * Generic Iframe footer for frontend use.
 	 *
-	 * @since TBD
+	 * @since 6.5.4
 	 */
 	function tec_embed_footer(): void {
 		tribe( Template::class )->template( 'embed/footer' );

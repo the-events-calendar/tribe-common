@@ -2,7 +2,7 @@
 /**
  * TEC Common Controller - For all new sub-controllers.
  *
- * @since TBD
+ * @since 6.5.4
  *
  * @package TEC\Common;
  */
@@ -14,14 +14,14 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 /**
  * Class Controller
  *
- * @since TBD
+ * @since 6.5.4
  */
 class Controller extends Controller_Contract {
 
 	/**
 	 * Registers the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.5.4
 	 *
 	 * @return void
 	 */
@@ -33,7 +33,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Removes the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.5.4
 	 *
 	 * @return void Filters and actions hooks added by the controller are be removed.
 	 */

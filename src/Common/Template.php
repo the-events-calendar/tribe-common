@@ -2,7 +2,7 @@
 /**
  * TEC Common Template - Can be used with ALL Common Views.
  *
- * @since TBD
+ * @since 6.5.4
  *
  * @package TEC\Common;
  */
@@ -15,7 +15,7 @@ use Tribe__Main as Common_Plugin;
 /**
  * Class Template
  *
- * @since TBD
+ * @since 6.5.4
  */
 class Template extends Base_Template {
 
