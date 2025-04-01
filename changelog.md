@@ -1,5 +1,13 @@
 # Changelog
 
+### [6.5.4] 2025-03-31
+
+* Tweak - Added functions `tec_embed_header` and `tec_embed_footer` that can be used for header/footer in embed context.
+* Tweak - Make sure update callbacks are executed prior `wp_loaded` action. [TEC-5436]
+* Tweak - Removed background image for Onboarding Wizard to avoid confusion. [TEC_5412]
+* Fix - Added CSS that will hide the Install Event Tickets button following completing the Onboarding Wizard. [TEC-5410]
+* Language - 0 new strings added, 24 updated, 1 fuzzied, and 0 obsoleted.
+
 ### [6.5.3] 2025-03-06
 
 * Version - Update Action Scheduler to 3.9.0
