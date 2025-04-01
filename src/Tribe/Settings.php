@@ -696,7 +696,7 @@ class Tribe__Settings {
 		$admin_pages       = tribe( 'admin.pages' );
 		$admin_page        = $admin_pages->get_current_page();
 		$current_tab       = $this->get_current_tab();
-		$wrap_classes      = apply_filters( 'tribe_settings_wrap_classes', [ 'tribe_settings', 'wrap' ], $admin_page );
+		$wrap_classes      = apply_filters( 'tribe_settings_wrap_classes', [ 'tribe_settings', 'wrap' , 'tec-events-admin-settings' ], $admin_page );
 		$is_event_settings = $this->is_event_settings( $admin_page );
 		$tab_object        = $this->get_tab( $current_tab );
 		$form_classes      = [
@@ -722,16 +722,10 @@ class Tribe__Settings {
 			<?php
 			$this->output_notice_wrap();
 			$this->do_page_header( $admin_page );
-			if ( $is_event_settings ) {
 				$this->generate_modal_nav( $admin_page );
-			}
 
 			do_action( 'tribe_settings_above_tabs' );
-			if ( $is_event_settings ) {
-				$this->generate_tabs();
-			} else {
-				$this->generateTabs();
-			}
+			$this->generate_tabs();
 
 			do_action( 'tribe_settings_below_tabs' );
 			do_action( 'tribe_settings_below_tabs_tab_' . $current_tab, $admin_page );
@@ -765,9 +759,7 @@ class Tribe__Settings {
 			</div>
 			<?php
 			do_action( 'tribe_settings_after_form_div', $this );
-			if ( $is_event_settings ) {
 				$this->generate_modal_sidebar();
-			}
 			?>
 		</div>
 		<?php
@@ -834,7 +826,7 @@ class Tribe__Settings {
 		$tab_object      = $this->get_tab( $this->get_current_tab() );
 		$wrapper_classes = [
 			'tec-nav__wrapper'                => true,
-			'tec-settings__nav-wrapper'       => (bool) $this->is_event_settings(),
+			'tec-settings__nav-wrapper'       => true,
 			'tec-nav__wrapper--subnav-active' => (bool) ( $tab_object && $tab_object->has_parent() ),
 		];
 
