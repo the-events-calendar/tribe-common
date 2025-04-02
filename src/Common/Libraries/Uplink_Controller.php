@@ -112,13 +112,13 @@ class Uplink_Controller extends Controller_Contract {
 				unset( $fields_array[ 'pue_install_key_' . $legacy_slug ] );
 			}
 
-			// Create a single wrapped field containing both the heading and the license field
-			$wrapped_html = '<div class="tec-settings-form__content-section">';
+			// Create a single wrapped field containing both the heading and the license field.
+			$wrapped_html  = '<div class="tec-settings-form__content-section">';
 			$wrapped_html .= '<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">' . $plugin->get_name() . '</h3>';
 			$wrapped_html .= $field_html;
 			$wrapped_html .= '</div>';
 
-			// Add as a single HTML field instead of separate heading and HTML fields
+			// Add as a single HTML field instead of separate heading and HTML fields.
 			$fields_to_inject[ 'stellarwp-uplink_' . $plugin->get_slug() ] = [
 				'type'  => 'html',
 				'label' => '',
