@@ -1736,6 +1736,8 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		// Both are diff context instances, locations are one and the same.
 		$this->assertNotSame( $context, tribe_context() );
 
+		$context->dangerously_repopulate_locations();
+
 		$value_overwrite_before_reset = $context->get( $context_key( '__closure_overwrite__' ) );
 		$value_before_reset = $context->get( $context_key( '__closure__' ) );
 
