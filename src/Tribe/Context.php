@@ -454,10 +454,6 @@ class Tribe__Context {
 	 *               `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
 	 */
 	public function get_locations() {
-		if ( static::$did_populate_locations && ! empty( static::$locations ) && is_array( static::$locations ) ) {
-			return static::$locations;
-		}
-
 		$this->populate_locations();
 
 		static::$locations = array_merge( static::$locations, $this->override_locations );
