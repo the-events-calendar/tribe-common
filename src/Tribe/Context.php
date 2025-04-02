@@ -144,7 +144,7 @@ class Tribe__Context {
 	 */
 	const LOCATION_FUNC = 'location_func';
 
-	/*
+	/**
 	 *
 	 * An array defining the properties the context will be able to read and (dangerously) write.
 	 *
@@ -208,7 +208,7 @@ class Tribe__Context {
 
 	/**
 	 * Whether to prepopulate the locations.
-	 * 
+	 *
 	 * @since TBD
 	 *
 	 * @var bool
@@ -217,9 +217,9 @@ class Tribe__Context {
 
 	/**
 	 * The hooks in the cache.
-	 * 
+	 *
 	 * @since TBD
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $locations_callbacks = [];
@@ -454,9 +454,13 @@ class Tribe__Context {
 	 *               `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
 	 */
 	public function get_locations() {
+		if ( static::$did_populate_locations && ! empty( static::$locations ) && is_array( static::$locations ) ) {
+			return static::$locations;
+		}
+
 		$this->populate_locations();
 
-		$locations = array_merge( self::$locations, $this->override_locations );
+		static::$locations = array_merge( static::$locations, $this->override_locations );
 
 		if ( has_filter( 'tribe_context_locations' ) && $this->prepopulate_locations ) {
 			// Store a local cache of the hooks.
@@ -471,21 +475,21 @@ class Tribe__Context {
 			 *                                   `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
 			 * @param $context   Tribe__Context  Current instance of the context.
 			 */
-			self::$locations = apply_filters( 'tribe_context_locations', $locations, $this );
+			static::$locations = apply_filters( 'tribe_context_locations', static::$locations, $this );
 
 			// Remove all filters everytime it runs.
 			remove_all_filters( 'tribe_context_locations' );
 		}
 
-		return $locations;
+		return static::$locations;
 	}
 
 	/**
 	 * Stores the hooks in the cache.
-	 * 
+	 *
 	 * @since TBD
 	 */
-	protected function save_location_hooks() {
+	protected function save_location_hooks(): void {
 		global $wp_filter;
 		if ( ! isset( $wp_filter['tribe_context_locations'] ) ) {
 			return;
@@ -501,13 +505,11 @@ class Tribe__Context {
 				];
 			}
 		}
-
-		return;
 	}
 
 	/**
 	 * Re-hooks the locations callbacks.
-	 * 
+	 *
 	 * @since TBD
 	 */
 	public function hook_locations_callbacks() {
@@ -1338,7 +1340,7 @@ class Tribe__Context {
 	 *
 	 * @since 4.9.8
 	 */
-	protected function populate_locations() {
+	protected function populate_locations(): void {
 		// In this instance we don't want to prepoulate the locations.
 		if ( ! $this->prepopulate_locations ) {
 			return;
@@ -1376,6 +1378,7 @@ class Tribe__Context {
 	 */
 	public function dangerously_repopulate_locations() {
 		static::$did_populate_locations = false;
+		$this->prepopulate_locations    = true;
 		$this->populate_locations();
 	}
 
