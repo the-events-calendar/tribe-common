@@ -1517,6 +1517,32 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$context->translate_sub_locations( [ 'vehicle' => 'hyunday' ], Context::QUERY_VAR, 'not-supported' );
 	}
 
+	public function test_disable_read_from_locations() {
+		$this->reset_context_state();
+		$_REQUEST['vehicle'] = 'audi';
+		$this->set_class_fn_return( Context::class, 'populate_locations', true );
+		remove_all_filters( 'tribe_context_locations' );
+		/** @var Context $context */
+		$context = (new Context)->set_locations( [
+			'car' => [
+				'read' => [
+					Context::REQUEST_VAR => [ 'car', 'vehicle', 'transport_mean' ],
+				],
+			],
+		] );
+
+		$this->assertEquals( 'audi', $context->get( 'car' ) );
+		$context = (new Context)->set_locations( [
+			'car' => [
+				'read' => [
+					Context::REQUEST_VAR => [ 'car', 'vehicle', 'transport_mean' ],
+				],
+			],
+		] );
+		$context->disable_read_from( [ Context::REQUEST_VAR ] );
+		$this->assertEquals( null, $context->get( 'car' ) );
+	}
+
 	public function translate_sub_locations_data_set() {
 		return [
 			'empty_values'         => [ [], [] ],
