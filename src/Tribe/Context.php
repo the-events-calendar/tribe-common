@@ -207,22 +207,11 @@ class Tribe__Context {
 	protected static $did_populate_locations = false;
 
 	/**
-	 * Whether to prepopulate the locations.
-	 *
-	 * @since TBD
-	 *
-	 * @var bool
-	 */
-	protected $prepopulate_locations = false;
-
-	/**
-	 * The hooks in the cache.
-	 *
-	 * @since TBD
+	 * A list of locations to disable reading from.
 	 *
 	 * @var array
 	 */
-	protected $locations_callbacks = [];
+	protected array $disable_read_from = [];
 
 	/**
 	 * A list of override locations to read and write from.
@@ -268,14 +257,11 @@ class Tribe__Context {
 	 * Tribe__Context constructor.
 	 *
 	 * @since 5.0.13
-	 * @since TBD Add the $prepopulate_locations parameter.
 	 *
-	 * @param Post_Request_Type|null $post_state            An instance of the post state handler.
-	 * @param bool                   $prepopulate_locations Whether to prepoulate the locations.
+	 * @param Post_Request_Type|null $post_state An instance of the post state handler.
 	 */
-	public function __construct( ?Post_Request_Type $post_state = null, bool $prepopulate_locations = true ) {
-		$this->post_state            = $post_state ?: tribe( Post_Request_Type::class );
-		$this->prepopulate_locations = $prepopulate_locations;
+	public function __construct( ?Post_Request_Type $post_state = null ) {
+		$this->post_state = $post_state ?: tribe( Post_Request_Type::class );
 	}
 
 	/**
@@ -456,12 +442,7 @@ class Tribe__Context {
 	public function get_locations() {
 		$this->populate_locations();
 
-		static::$locations = array_merge( static::$locations, $this->override_locations );
-
-		if ( has_filter( 'tribe_context_locations' ) && $this->prepopulate_locations ) {
-			// Store a local cache of the hooks.
-			$this->save_location_hooks();
-
+		if ( has_filter( 'tribe_context_locations' ) ) {
 			/**
 			 * Filters the locations registered in the Context.
 			 *
@@ -477,46 +458,26 @@ class Tribe__Context {
 			remove_all_filters( 'tribe_context_locations' );
 		}
 
-		return static::$locations;
+		$new_locations = array_merge( static::$locations, $this->override_locations );
+
+		foreach ( array_keys( $new_locations ) as $key ) {
+			foreach ( $this->disable_read_from as $disable_read_from ) {
+				unset( $new_locations[ $key ]['read'][ $disable_read_from ] );
+			}
+		}
+
+		return $new_locations;
 	}
 
 	/**
-	 * Stores the hooks in the cache.
+	 * Disable reading from specific locations.
 	 *
 	 * @since TBD
-	 */
-	protected function save_location_hooks(): void {
-		global $wp_filter;
-		if ( ! isset( $wp_filter['tribe_context_locations'] ) ) {
-			return;
-		}
-
-		foreach ( $wp_filter['tribe_context_locations']->callbacks as $priority => $callbacks ) {
-			foreach ( $callbacks as $idx => $callback ) {
-				$this->locations_callbacks[] = [
-					'priority'      => $priority,
-					'accepted_args' => $callback['accepted_args'],
-					'function'      => $callback['function'],
-					'idx'           => $idx,
-				];
-			}
-		}
-	}
-
-	/**
-	 * Re-hooks the locations callbacks.
 	 *
-	 * @since TBD
+	 * @param array $locations The locations to disable reading from.
 	 */
-	public function hook_locations_callbacks() {
-		foreach ( $this->locations_callbacks as $hook ) {
-			// Ignore back hooks.
-			if ( ! isset( $hook['function'], $hook['priority'], $hook['accepted_args'] ) ) {
-				continue;
-			}
-
-			add_filter( 'tribe_context_locations', $hook['function'], $hook['priority'], $hook['accepted_args'] );
-		}
+	public function disable_read_from( array $locations ): void {
+		$this->disable_read_from = $locations;
 	}
 
 	/**
@@ -1337,26 +1298,12 @@ class Tribe__Context {
 	 * @since 4.9.8
 	 */
 	protected function populate_locations(): void {
-		// In this instance we don't want to prepoulate the locations.
-		if ( ! $this->prepopulate_locations ) {
-			return;
-		}
-
 		if ( static::$did_populate_locations ) {
 			return;
 		}
 
 		// To improve the class readability, and as a small optimization, locations are loaded from a file.
 		static::$locations = include __DIR__ . '/Context/locations.php';
-
-		/**
-		 * Filters the locations registered in the Context.
-		 *
-		 * @since 4.9.8
-		 *
-		 * @param  array  $locations  An array of locations registered on the Context object.
-		 */
-		static::$locations = apply_filters( 'tribe_context_locations', static::$locations, $this );
 
 		static::$did_populate_locations = true;
 	}
@@ -1374,8 +1321,7 @@ class Tribe__Context {
 	 */
 	public function dangerously_repopulate_locations() {
 		static::$did_populate_locations = false;
-		$this->prepopulate_locations    = true;
-		$this->populate_locations();
+		$this->get_locations();
 	}
 
 	/**

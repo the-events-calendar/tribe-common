@@ -902,6 +902,9 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 			],
 		] );
 
+		$this->set_class_fn_return( Context::class, 'populate_locations', true );
+		remove_all_filters( 'tribe_context_locations' );
+
 		$this->assertEquals( [
 			'foo' => 'bar',
 			'bar' => 'baz',
@@ -941,6 +944,9 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 				'orm_arg' => false
 			],
 		] );
+
+		$this->set_class_fn_return( Context::class, 'populate_locations', true );
+		remove_all_filters( 'tribe_context_locations' );
 
 		$orm_args = $context->get_orm_args();
 
@@ -1003,6 +1009,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_filtering_out_args_from_orm_args() {
+		$this->reset_context_state();
 		$context = (new Context( null, false ))->set_locations( [
 			'one' => [
 				'read' => [
@@ -1032,6 +1039,9 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 			]
 		] );
 
+		$this->set_class_fn_return( Context::class, 'populate_locations', true );
+		remove_all_filters( 'tribe_context_locations' );
+
 		$orm_args = $context->get_orm_args( [ 'one', 'alias_of_two', 'three' ], false );
 
 		$this->assertEqualSets( [
@@ -1045,6 +1055,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_transforming_orm_arguments_before_returning_them() {
+		$this->reset_context_state();
 		$context = (new Context( null, false ))->set_locations( [
 			'one' => [
 				'read'          => [
@@ -1066,6 +1077,9 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 				'orm_transform' => '__return_false',
 			],
 		] );
+
+		$this->set_class_fn_return( Context::class, 'populate_locations', true );
+		remove_all_filters( 'tribe_context_locations' );
 
 		$orm_args = $context->get_orm_args();
 
@@ -1119,6 +1133,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_blacklisting_the_state_values_to_produce() {
+		$this->reset_context_state();
 		$context = (new Context( null, false ))->set_locations( [
 			'one' => [
 				'read'          => [
@@ -1142,6 +1157,9 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 				],
 			],
 		] );
+
+		$this->set_class_fn_return( Context::class, 'populate_locations', true );
+		remove_all_filters( 'tribe_context_locations' );
 
 		$state = $context->get_state( [ 'two' ], false );
 
@@ -1499,6 +1517,32 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$context->translate_sub_locations( [ 'vehicle' => 'hyunday' ], Context::QUERY_VAR, 'not-supported' );
 	}
 
+	public function test_disable_read_from_locations() {
+		$this->reset_context_state();
+		$_REQUEST['vehicle'] = 'audi';
+		$this->set_class_fn_return( Context::class, 'populate_locations', true );
+		remove_all_filters( 'tribe_context_locations' );
+		/** @var Context $context */
+		$context = (new Context)->set_locations( [
+			'car' => [
+				'read' => [
+					Context::REQUEST_VAR => [ 'car', 'vehicle', 'transport_mean' ],
+				],
+			],
+		] );
+
+		$this->assertEquals( 'audi', $context->get( 'car' ) );
+		$context = (new Context)->set_locations( [
+			'car' => [
+				'read' => [
+					Context::REQUEST_VAR => [ 'car', 'vehicle', 'transport_mean' ],
+				],
+			],
+		] );
+		$context->disable_read_from( [ Context::REQUEST_VAR ] );
+		$this->assertEquals( null, $context->get( 'car' ) );
+	}
+
 	public function translate_sub_locations_data_set() {
 		return [
 			'empty_values'         => [ [], [] ],
@@ -1764,7 +1808,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 
 		// For locations added with `add_locations` should not be affected by the repopulation.
 		$this->assertEquals( '__value_before_repopulate__', $value_overwrite_before_reset );
-		$this->assertEquals( '__value_after_repopulate__', $value_overwrite_after_reset );
+		$this->assertEquals( '__value_before_repopulate__', $value_overwrite_after_reset );
 	}
 
 	public function is_editing_posts_list_data_provider(): Generator {
