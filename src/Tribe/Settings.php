@@ -1648,8 +1648,6 @@ class Tribe__Settings {
 	 */
 	public function generatePage() {
 			_deprecated_function( __METHOD__, '6.1.0', 'generate_page' );
-
-
 		$this->generate_page();
 	}
 	// phpcs:enable WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
