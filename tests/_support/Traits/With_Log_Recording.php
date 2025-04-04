@@ -65,6 +65,10 @@ trait With_Log_Recording {
 				public function get_records() {
 					return $this->log_records;
 				}
+
+				public function close(): void {
+					// No-op.
+				}
 			};
 
 			static::$log_recorder_subscribe = static function () {
