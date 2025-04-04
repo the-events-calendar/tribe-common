@@ -34,6 +34,8 @@ trait With_Log_Recording {
 
 				public function handle( array $record ): bool {
 					$this->log_records[] = $record;
+
+					return true;
 				}
 
 				public function handleBatch( array $records ): void {
