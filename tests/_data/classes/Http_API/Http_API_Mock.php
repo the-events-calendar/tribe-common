@@ -8,6 +8,17 @@ use WpOrg\Requests\Response\Headers;
 
 abstract class Http_API_Mock {
 	/**
+	 * Whether this mock should fake all requests to the specified URL, or only the mocked ones.
+	 * By default, all requests to the specified URL will be mocked; if a mock response it not
+	 * available for a request the class will throw an exception.
+	 *
+	 * @see  Http_API_Mock::block()
+	 *
+	 * @var bool
+	 */
+	private bool $blocking = false;
+
+	/**
 	 * A map from status codes to the HTTP standard status description.
 	 *
 	 * @see https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
@@ -237,7 +248,35 @@ $body",
 		$key = "$method $uri";
 
 		if ( ! isset( $this->mock_responses[ $key ] ) ) {
-			// We do not have a mock for this, let the HTTP API run its course.
+			$mocked_url = $this->get_url();
+			if ( $this->blocking && str_starts_with( $url, $mocked_url ) ) {
+				// We're blocking all requests for the URL and there is no mock response for this request: throw.
+				$create_mock_response_code = <<< MOCK
+				\$http_api_mock->will_reply_to_request(
+					'$method',
+					'$uri',
+					\$http_api_mock->make_response(
+						200,
+						json_encode( [ 'success' => true ] )
+					)
+				);
+				MOCK;
+				$message                   = sprintf(
+					"HTTP requests to %s are being blocked and no mock response was found for " .
+					"the following request:\n%s %s\n%s\n\nYou can create a mock response with this code:\n%s",
+					$mocked_url,
+					$method,
+					$uri,
+					json_encode(
+						$parsed_args,
+						JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_HEX_QUOT
+					),
+					$create_mock_response_code
+				);
+				throw new \LogicException( $message );
+			}
+
+			// We do not have a mock for this and we're not blocking, let the HTTP API run its course.
 			return false;
 		}
 
@@ -248,6 +287,24 @@ $body",
 		}
 
 		return $mock_response;
+	}
+
+	/**
+	 * Controls whether the HTTP mock should operate in block mode or not.
+	 *
+	 * When in blocking mode any request to the specified URL that is not mocked will raise an exception.
+	 * When not in blocking mode any request to the specified URL that is not mocked will be passed through to the
+	 * HTTP API as normal.
+	 *
+	 * @param bool $block Whether the HTTP mock should operate in block mode.
+	 *
+	 * @return void The HTTP mock will operate in block mode if $block is true, otherwise it will not.
+	 */
+	public function block( bool $block ): void {
+		$this->blocking = $block;
+		if ( ! has_filter( 'pre_http_request', [ $this, 'mock_http_response' ] ) ) {
+			add_filter( 'pre_http_request', [ $this, 'mock_http_response' ], 10, 3 );
+		}
 	}
 
 	/**
