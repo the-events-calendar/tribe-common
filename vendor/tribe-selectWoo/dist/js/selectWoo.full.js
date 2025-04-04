@@ -1928,7 +1928,7 @@ S2.define('select2/selection/search',[
   Search.prototype.render = function (decorated) {
     var $search = $(
       '<li class="select2-search select2-search--inline">' +
-        '<input class="select2-search__field" type="text"' +
+        '<input class="select2-search__field" type="text" tabindex="-1"' +
         ' autocomplete="off" autocorrect="off" autocapitalize="none"' +
         ' spellcheck="false" role="textbox" aria-autocomplete="list" />' +
       '</li>'
@@ -4000,7 +4000,7 @@ S2.define('select2/dropdown/search',[
 
     var $search = $(
       '<span class="select2-search select2-search--dropdown">' +
-        '<input class="select2-search__field" type="text"' +
+        '<input class="select2-search__field" type="text" tabindex="-1"' +
         ' autocomplete="off" autocorrect="off" autocapitalize="none"' +
         ' spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="true" />' +
       '</span>'
