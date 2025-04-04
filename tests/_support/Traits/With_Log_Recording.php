@@ -28,15 +28,15 @@ trait With_Log_Recording {
 			static::$test_log_recorder = new class implements HandlerInterface {
 				private $log_records = [];
 
-				public function isHandling( array $record ) {
+				public function isHandling( array $record ): bool {
 					return true;
 				}
 
-				public function handle( array $record ) {
+				public function handle( array $record ): bool {
 					$this->log_records[] = $record;
 				}
 
-				public function handleBatch( array $records ) {
+				public function handleBatch( array $records ): void {
 					array_push( $this->log_records, ... $records );
 				}
 
