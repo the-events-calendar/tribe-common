@@ -124,7 +124,7 @@ abstract class Abstract_Admin_Page {
 	 * @since 6.4.1
 	 */
 	public static function get_page_slug(): string {
-		if ( ! empty( static::$page_slug ) ) {
+		if ( ! empty( static::$page_slug ) && static::$page_slug === static::$slug ) {
 			return static::$page_slug;
 		}
 
