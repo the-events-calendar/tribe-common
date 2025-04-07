@@ -472,7 +472,7 @@ class Tribe__Context {
 	/**
 	 * Disable reading from specific locations.
 	 *
-	 * @since TBD
+	 * @since 6.5.5
 	 *
 	 * @param array $locations The locations to disable reading from.
 	 */
@@ -1117,7 +1117,7 @@ class Tribe__Context {
 	 * Sets, replacing them, the locations used by this context.
 	 *
 	 * @since 4.9.5
-	 * @since TBD Remove the $use_default_locations parameter.
+	 * @since 6.5.5 Remove the $use_default_locations parameter.
 	 *
 	 * @param array $locations An array of locations to replace the current ones.
 	 *
