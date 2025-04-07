@@ -1,4 +1,0 @@
-Significance: minor
-Type: tweak
-
-Modified how tribe_context() function and class handle populating locations, prevents `tribe_context_locations` filter from happening 500x per pageload.
