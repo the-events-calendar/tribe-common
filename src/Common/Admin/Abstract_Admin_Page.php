@@ -26,7 +26,7 @@ abstract class Abstract_Admin_Page {
 	 *
 	 * @var string
 	 */
-	const DISMISS_ONBOARDING_OPTION = 'tec_onboarding_page_dismissed';
+	const DISMISS_PAGE_OPTION = 'tec_onboarding_page_dismissed';
 
 	/**
 	 * The slug for the admin menu.

@@ -43,14 +43,14 @@ abstract class Abstract_API {
 	 */
 	protected const ROOT_NAMESPACE = 'tec/onboarding';
 
-    /**
-     * The data object.
-     *
-     * @since TBD
-     *
-     * @var Abstract_Data
-     */
-    protected Abstract_Data $data;
+	/**
+	 * The data object.
+	 *
+	 * @since TBD
+	 *
+	 * @var Abstract_Data
+	 */
+	protected Abstract_Data $data;
 
 	/**
 	 * Register the endpoint.
@@ -79,20 +79,20 @@ abstract class Abstract_API {
 		);
 	}
 
-    /**
-     * Set the data object.
-     *
-     * @since TBD
-     *
-     * @param Abstract_Data $data The data object.
-     */
-    public function set_data( Abstract_Data $data ): void {
-        if ( ! $data instanceof Abstract_Data ) {
-            throw new \InvalidArgumentException( 'Data must be an instance of Abstract_Data' );
-        }
+	/**
+	 * Set the data object.
+	 *
+	 * @since TBD
+	 *
+	 * @param Abstract_Data $data The data object.
+	 */
+	public function set_data( Abstract_Data $data ): void {
+		if ( ! $data instanceof Abstract_Data ) {
+			throw new \InvalidArgumentException( 'Data must be an instance of Abstract_Data' );
+		}
 
-        $this->data = $data;
-    }
+		$this->data = $data;
+	}
 
 	/**
 	 * Check the nonce.
@@ -200,29 +200,29 @@ abstract class Abstract_API {
 		$settings['completed_tabs'] = $this->normalize_tabs( $complete );
 		$settings['skipped_tabs']   = $this->normalize_tabs( $skipped );
 
-        // Stuff we don't want/need to store in the settings.
-        $do_not_save = [
-            'timezones',
-            'countries',
-            'currencies',
-            'action_nonce',
-            '_wpnonce'
-        ];
+		// Stuff we don't want/need to store in the settings.
+		$do_not_save = [
+			'timezones',
+			'countries',
+			'currencies',
+			'action_nonce',
+			'_wpnonce'
+		];
 
-        /**
-         * Allows filtering of the keys that should not be saved.
-         *
-         * @since TBD
-         *
-         * @param array<string> $do_not_save The keys that should not be saved.
-         *
-         * @return array<string> The keys that should not be saved.
-         */
-        $do_not_save = apply_filters( 'tec_onboarding_wizard_do_not_save', $do_not_save );
+		/**
+		 * Allows filtering of the keys that should not be saved.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string> $do_not_save The keys that should not be saved.
+		 *
+		 * @return array<string> The keys that should not be saved.
+		 */
+		$do_not_save = apply_filters( 'tec_onboarding_wizard_do_not_save', $do_not_save );
 
-        foreach ( $do_not_save as $key ) {
-            unset( $params[$key] );
-        }
+		foreach ( $do_not_save as $key ) {
+			unset( $params[$key] );
+		}
 
 
 		// Add a snapshot of the data from the last request.
@@ -235,7 +235,7 @@ abstract class Abstract_API {
 		return new WP_REST_Response(
 			[
 				'success' => true,
-				    'message' => $updated ? [ __( 'Onboarding wizard step completed successfully.', 'tribe-common' ) ] : [ __( 'Failed to update wizard settings.', 'tribe-common' ) ],
+					'message' => $updated ? [ __( 'Onboarding wizard step completed successfully.', 'tribe-common' ) ] : [ __( 'Failed to update wizard settings.', 'tribe-common' ) ],
 			],
 			200
 		);
