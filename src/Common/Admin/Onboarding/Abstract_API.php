@@ -85,6 +85,8 @@ abstract class Abstract_API {
 	 * @since TBD
 	 *
 	 * @param Abstract_Data $data The data object.
+	 *
+	 * @throws \InvalidArgumentException If the data is not an instance of Abstract_Data.
 	 */
 	public function set_data( Abstract_Data $data ): void {
 		if ( ! $data instanceof Abstract_Data ) {
@@ -175,7 +177,7 @@ abstract class Abstract_API {
 	protected function set_tab_records( $request ): WP_REST_Response {
 		$params   = $request->get_params();
 		$begun    = $params['begun'] ?? false;
-		$finished  = $params['finished'] ?? false;
+		$finished = $params['finished'] ?? false;
 		$skipped  = $params['skippedTabs'] ?? [];
 		$complete = $params['completedTabs'] ?? [];
 
@@ -195,7 +197,7 @@ abstract class Abstract_API {
 		// Set up our data for a single save.
 		$settings                   = $this->data->get_wizard_settings();
 		$settings['begun']          = $begun;
-		$settings['finished']        = $finished;
+		$settings['finished']       = $finished;
 		$settings['current_tab']    = $params['currentTab'] ?? 0;
 		$settings['completed_tabs'] = $this->normalize_tabs( $complete );
 		$settings['skipped_tabs']   = $this->normalize_tabs( $skipped );
@@ -206,7 +208,7 @@ abstract class Abstract_API {
 			'countries',
 			'currencies',
 			'action_nonce',
-			'_wpnonce'
+			'_wpnonce',
 		];
 
 		/**
@@ -221,7 +223,7 @@ abstract class Abstract_API {
 		$do_not_save = apply_filters( 'tec_onboarding_wizard_do_not_save', $do_not_save );
 
 		foreach ( $do_not_save as $key ) {
-			unset( $params[$key] );
+			unset( $params[ $key ] );
 		}
 
 
@@ -235,7 +237,7 @@ abstract class Abstract_API {
 		return new WP_REST_Response(
 			[
 				'success' => true,
-					'message' => $updated ? [ __( 'Onboarding wizard step completed successfully.', 'tribe-common' ) ] : [ __( 'Failed to update wizard settings.', 'tribe-common' ) ],
+				'message' => $updated ? [ __( 'Onboarding wizard step completed successfully.', 'tribe-common' ) ] : [ __( 'Failed to update wizard settings.', 'tribe-common' ) ],
 			],
 			200
 		);

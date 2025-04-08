@@ -91,6 +91,13 @@ abstract class Abstract_Admin_Page {
 	 */
 	public static bool $has_footer = false;
 
+	/**
+	 * Whether the page has a logo.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
 	public static bool $has_logo = true;
 
 	/**

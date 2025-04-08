@@ -18,14 +18,14 @@ namespace TEC\Common\Admin\Onboarding;
  */
 abstract class Abstract_Data {
 
-    /**
-     * The option name for the wizard settings.
-     *
-     * @since TBD
-     *
-     * @var string
-     */
-    protected const OPTION_NAME = 'tec_onboarding_wizard_data';
+	/**
+	 * The option name for the wizard settings.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected const OPTION_NAME = 'tec_onboarding_wizard_data';
 
 	/**
 	 * Get the saved wizard settings.
