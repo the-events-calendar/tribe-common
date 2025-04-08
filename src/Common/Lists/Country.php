@@ -1,4 +1,11 @@
 <?php
+/**
+ * Country list.
+ *
+ * @since TBD
+ *
+ * @package TEC\Common\Lists
+ */
 
 namespace TEC\Common\Lists;
 
@@ -321,5 +328,4 @@ class Country {
 
 		return null;
 	}
-
 }

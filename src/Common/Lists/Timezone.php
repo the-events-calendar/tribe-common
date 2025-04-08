@@ -1,4 +1,11 @@
 <?php
+/**
+ * Timezone list.
+ *
+ * @since TBD
+ *
+ * @package TEC\Common\Lists
+ */
 
 namespace TEC\Common\Lists;
 
