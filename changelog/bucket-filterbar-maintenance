@@ -1,4 +1,0 @@
-Significance: minor
-Type: accessibility
-
-Add empty alt tag to no events icon so screen readers will skip. [FBAR-332]
