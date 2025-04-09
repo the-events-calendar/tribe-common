@@ -18,7 +18,8 @@
 	}
 
 	.tec-admin-page__link--external {
-		&:after {
+
+		&::after {
 			color: var(--tec-admin-core-blue-50);
 			content: "\f504";
 			font-family: dashicons; /* stylelint-disable font-family-no-missing-generic-family-keyword */
@@ -28,7 +29,7 @@
 	}
 
 	@media (--viewport-wpadmin) {
-		background-image: url('../images/onboarding-background.svg');
+		background-image: url(../images/onboarding-background.svg);
 		background-position: top right;
 		background-repeat: no-repeat;
 		background-size: 240px;
