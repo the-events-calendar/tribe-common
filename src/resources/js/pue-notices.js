@@ -5,27 +5,30 @@ var tribe_plugin_notices = tribe_plugin_notices || {};
  *
  * This is done via JS because the options for achieving the same things
  * server-side are currently limited.
+ * @param $
+ * @param my
  */
-(function( $, my ) {
+( function ( $, my ) {
 	'use strict';
 
-	my.init = function() {
-		for ( var plugin_file in tribe_plugin_notices ) {
-			if ( ! tribe_plugin_notices.hasOwnProperty( plugin_file ) ) { // eslint-disable-line no-prototype-builtins,max-len
+	my.init = function () {
+		for ( const plugin_file in tribe_plugin_notices ) {
+			if ( ! tribe_plugin_notices.hasOwnProperty( plugin_file ) ) {
+				// eslint-disable-line no-prototype-builtins,max-len
 				continue;
 			}
 
-			var $row = $( tribe_plugin_notices[ plugin_file ].message_row_html );
-			var $active_plugin_row = $( 'tr[data-plugin="' + plugin_file + '"].active' );
+			const $row = $( tribe_plugin_notices[ plugin_file ].message_row_html );
+			const $active_plugin_row = $( 'tr[data-plugin="' + plugin_file + '"].active' );
 
 			// Add the .update class to the plugin row and append our new row with the update message
 			$active_plugin_row.addClass( 'update' ).after( $row );
 		}
 	};
 
-	$( function() {
+	$( function () {
 		if ( 'object' === typeof tribe_plugin_notices ) {
 			my.init();
 		}
-	});
-})( jQuery, tribe_plugin_notices );
+	} );
+} )( jQuery, tribe_plugin_notices );
