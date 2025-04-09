@@ -18,22 +18,6 @@
     "waiting_strings": false
   },
   "_filePath": {
-    "eslint": [
-      "src/modules/**/*.js",
-      "src/resources/js/**/*.js",
-      "!src/resources/js/**/*.min.js",
-      "!src/resources/js/app/**/*.js",
-      "!src/resources/js/utils/query-string.js"
-    ],
-    "stylelint": [
-      "src/resources/postcss/**/*.pcss",
-      "!src/resources/postcss/app-shop.pcss",
-      "!src/resources/postcss/bumpdown.pcss",
-      "!src/resources/postcss/buttonset.pcss",
-      "!src/resources/postcss/datatables.pcss",
-      "!src/resources/postcss/datepicker.pcss",
-      "!src/resources/postcss/tribe-ui.pcss"
-    ],
     "jest": [
       "src/modules/**/__tests__/**/*.js"
     ]
@@ -43,6 +27,11 @@
     "npm": "9.6.7"
   },
   "scripts": {
+    "lint:js": "wp-scripts lint-js src/",
+    "lint:css": "wp-scripts lint-style",
+    "lint": "npm run lint:js && npm run lint:css",
+    "format:css": "wp-scripts lint-style --fix",
+    "format:js": "wp-scripts lint-js src/ --fix",
     "build": "wp-scripts build",
     "start": "wp-scripts start",
     "test": "jest",
@@ -101,6 +90,7 @@
     "postcss-nested": "^7.0.2",
     "postcss-preset-env": "^10.1.5",
     "redux-mock-store": "^1.5.3",
+    "stylelint-order": "^6.0.4",
     "webpack-merge": "^4.1.4"
   },
   "overrides": {
