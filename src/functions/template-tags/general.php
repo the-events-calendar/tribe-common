@@ -972,7 +972,7 @@ if ( ! function_exists( 'tec_asset' ) ) {
 		/** @var Asset $asset */
 		$asset = Tribe__Assets::instance()->register( $origin, $slug, $file, $dependencies, $action, $arguments );
 
-		$prefix_asset_directory = $arguments['prefix_asset_directory'] ?? true;
+		$prefix_asset_directory = $arguments['prefix_asset_directory'] ?? ( empty( $arguments['group_path'] ) || ! str_ends_with( $arguments['group_path'], '-packages' ) );
 		$asset->prefix_asset_directory( $prefix_asset_directory );
 
 		$asset->get_url();
