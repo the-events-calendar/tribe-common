@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9edc7eaf3ea1058acb5a0271a3dba910",
+    "content-hash": "928e7fe7005559816f5edd1644ff79d0",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -849,16 +849,16 @@
         },
         {
             "name": "woocommerce/action-scheduler",
-            "version": "3.9.0",
+            "version": "3.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/action-scheduler.git",
-                "reference": "90b98e6fe97d455679b1d288f050cad8f6f79771"
+                "reference": "efbb7953f72a433086335b249292f280dd43ddfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/90b98e6fe97d455679b1d288f050cad8f6f79771",
-                "reference": "90b98e6fe97d455679b1d288f050cad8f6f79771",
+                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/efbb7953f72a433086335b249292f280dd43ddfe",
+                "reference": "efbb7953f72a433086335b249292f280dd43ddfe",
                 "shasum": ""
             },
             "require": {
@@ -886,9 +886,9 @@
             "homepage": "https://actionscheduler.org/",
             "support": {
                 "issues": "https://github.com/woocommerce/action-scheduler/issues",
-                "source": "https://github.com/woocommerce/action-scheduler/tree/3.9.0"
+                "source": "https://github.com/woocommerce/action-scheduler/tree/3.9.2"
             },
-            "time": "2024-11-15T00:11:39+00:00"
+            "time": "2025-02-03T09:09:30+00:00"
         }
     ],
     "packages-dev": [
