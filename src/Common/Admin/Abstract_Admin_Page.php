@@ -20,13 +20,13 @@ use Tribe__Main;
  */
 abstract class Abstract_Admin_Page {
 	/**
-	 * The option to dismiss the onboarding page.
+	 * The option to dismiss the admin page.
 	 *
 	 * @since TBD
 	 *
 	 * @var string
 	 */
-	const DISMISS_PAGE_OPTION = 'tec_onboarding_page_dismissed';
+	const DISMISS_PAGE_OPTION = 'tec_admin_page_dismissed';
 
 	/**
 	 * The slug for the admin menu.
