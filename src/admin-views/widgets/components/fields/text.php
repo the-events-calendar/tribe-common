@@ -14,12 +14,17 @@
  * @var string $value      Value for the text input.
  * @var string $id         ID of the text input.
  * @var string $name       Name attribute for the text input.
+ * @var string $classes    Classes to add to the text input.
  * @var string $dependency The dependency attributes for the control wrapper.
  */
 
+use Tribe__Utils__Array as Arr;
+
+$text_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-form-control--text' ], Arr::list_to_array( $classes, ' ' ) );
+
 ?>
 <div
-	class="tribe-widget-form-control tribe-widget-form-control--text"
+	<?php tribe_classes( $text_classes ); ?>
 	<?php
 	// Not escaped - contains html (data-attr="value").
 	echo $dependency; // phpcs:ignore
