@@ -11,12 +11,7 @@ import classNames from 'classnames';
 import Input from '@moderntribe/common/elements/input';
 import './style.pcss';
 
-const CheckboxInput = ( {
-	checked,
-	className,
-	onChange,
-	...rest
-} ) => (
+const CheckboxInput = ( { checked, className, onChange, ...rest } ) => (
 	<Input
 		checked={ checked }
 		className={ classNames( 'tribe-editor__input--checkbox', className ) }

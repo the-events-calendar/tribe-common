@@ -12,16 +12,8 @@ import './style.pcss';
 
 const Heading = ( { level, children, className } ) => {
 	const HeadingLevel = `h${ level }`;
-	const headingClassName = classNames(
-		'tribe-editor__heading',
-		`tribe-editor__heading--h${ level }`,
-		className,
-	);
-	return (
-		<HeadingLevel className={ headingClassName }>
-			{ children }
-		</HeadingLevel>
-	);
+	const headingClassName = classNames( 'tribe-editor__heading', `tribe-editor__heading--h${ level }`, className );
+	return <HeadingLevel className={ headingClassName }>{ children }</HeadingLevel>;
 };
 
 Heading.propTypes = {
