@@ -191,7 +191,7 @@ abstract class Abstract_Admin_Page {
 			return false;
 		}
 
-		return static::$is_dismissed;
+		return (bool) tribe_get_option( static::DISMISS_PAGE_OPTION, false );
 	}
 
 	/**
