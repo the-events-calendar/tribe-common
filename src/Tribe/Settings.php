@@ -694,7 +694,7 @@ class Tribe__Settings {
 		$admin_pages       = tribe( 'admin.pages' );
 		$admin_page        = $admin_pages->get_current_page();
 		$current_tab       = $this->get_current_tab();
-		$wrap_classes      = apply_filters( 'tribe_settings_wrap_classes', [ 'tribe_settings', 'wrap' , 'tec-events-admin-settings' ], $admin_page );
+		$wrap_classes      = apply_filters( 'tribe_settings_wrap_classes', [ 'tribe_settings', 'wrap' ], $admin_page );
 		$is_event_settings = $this->is_event_settings( $admin_page );
 		$tab_object        = $this->get_tab( $current_tab );
 		$form_classes = [
@@ -733,7 +733,7 @@ class Tribe__Settings {
 				<?php
 				do_action( 'tribe_settings_above_form_element' );
 				do_action( 'tribe_settings_above_form_element_tab_' . $current_tab, $admin_page );
-				$form_id = $is_event_settings ? 'tec-settings-form' : 'tec-tickets-settings-form';
+				$form_id = 'tec-settings-form';
 				?>
 				<form id="<?php echo esc_attr( $form_id ); ?>" <?php tribe_classes( $form_classes ); ?> method="post">
 				<?php
@@ -1669,8 +1669,6 @@ class Tribe__Settings {
 	 */
 	public function generatePage() {
 			_deprecated_function( __METHOD__, '6.1.0', 'generate_page' );
-
-
 		$this->generate_page();
 	}
 	// phpcs:enable WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
