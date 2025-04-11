@@ -793,9 +793,29 @@ class Tribe__Settings {
 		?>
 
 		<div class="tec-settings-form__footer">
+			<?php
+			/**
+			 * Fires at the start of the settings footer, before any content is output.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $current_tab The current tab ID.
+			 */
+			do_action( "tec_settings_footer_start_tab_{$current_tab}" );
+			?>
 			<?php if ( $saving ) : ?>
 				<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="<?php echo esc_attr( $this->current_tab ); ?>" />
 				<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="<?php echo esc_attr__( 'Save Changes', 'tribe-common' ); ?>" />
+				<?php
+				/**
+				 * Fires after the save fields are output in the settings footer.
+				 *
+				 * @since TBD
+				 *
+				 * @param string $current_tab The current tab ID.
+				 */
+				do_action( "tec_settings_footer_after_save_fields_tab_{$current_tab}" );
+				?>
 			<?php endif; ?>
 			<?php if ( $has_sidebar ) : ?>
 				<button id="tec-settings-sidebar-modal-open" class="tec-settings-form__sidebar-toggle"><?php esc_html_e( 'Help', 'tribe-common' ); ?><span class="dashicons dashicons-editor-help"></span></button>
