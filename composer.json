@@ -33,7 +33,7 @@
     "stellarwp/models": "dev-main",
     "stellarwp/schema": "^1.1.8",
     "stellarwp/telemetry": "^2.3.1",
-    "stellarwp/assets": "^1.4.6",
+    "stellarwp/assets": "^1.4.8",
     "stellarwp/admin-notices": "^1.1",
     "stellarwp/uplink": "2.2.2",
     "woocommerce/action-scheduler": "3.9.0"
