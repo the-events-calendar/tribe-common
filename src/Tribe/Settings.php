@@ -697,10 +697,10 @@ class Tribe__Settings {
 		$wrap_classes      = apply_filters( 'tribe_settings_wrap_classes', [ 'tribe_settings', 'wrap' ], $admin_page );
 		$is_event_settings = $this->is_event_settings( $admin_page );
 		$tab_object        = $this->get_tab( $current_tab );
-		$form_classes = [
+		$form_classes      = [
 			"tec-settings-form__{$current_tab}-tab--active" => true,
 			'tec-settings-form__subnav-active'              => ( $tab_object && $tab_object->has_parent() ),
-			'tec-settings-form'                             => true,
+			'tec-settings-form'                => true,
 		];
 
 		/**
