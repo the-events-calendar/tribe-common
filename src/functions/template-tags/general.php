@@ -1000,7 +1000,7 @@ if ( ! function_exists( 'tec_assets' ) ) {
 	 *
 	 * @return array<Asset|bool>      Which Assets were registered.
 	 */
-	function tec_assets( $origin, $assets, $action = null, $arguments = [] ){
+	function tec_assets( $origin, $assets, $action = null, $arguments = [] ) {
 		$registered = [];
 
 		// Build the group name from the plugin class name.
@@ -1025,18 +1025,19 @@ if ( ! function_exists( 'tec_assets' ) ) {
 			// Support the asset having custom arguments and merge them with the original ones.
 			$asset_arguments = ! empty( $asset[4] ) ? array_merge( $arguments, $asset[4] ) : $arguments;
 
-			$asset = Tribe__Assets::instance()->register( $origin, $slug, $file, $deps, $asset_action, $asset_arguments );
-
-			$prefix_asset_directory = $asset_arguments['prefix_asset_directory'] ?? true;
-			$asset->prefix_asset_directory( $prefix_asset_directory );
-
-			// Assets from either `vendor` or `node_modules` are should be loaded from their current location.
 			if (
-				! isset( $arguments['group_path'] )
+				! isset( $asset_arguments['group_path'] )
 				&& ! ( str_starts_with( $file, 'vendor' ) || str_starts_with( $file, 'node_modules' ) )
 			) {
-				$asset->add_to_group_path( $build_group_name );
+				// Build the group name from the plugin class name.
+				$build_group_name              = is_object( $origin ) ? get_class( $origin ) : (string) $origin;
+				$asset_arguments['group_path'] = $build_group_name;
 			}
+
+			$asset = Tribe__Assets::instance()->register( $origin, $slug, $file, $deps, $asset_action, $asset_arguments );
+
+			$prefix_asset_directory = $asset_arguments['prefix_asset_directory'] ?? ( empty( $asset_arguments['group_path'] ) || ! str_ends_with( $asset_arguments['group_path'], '-packages' ) );
+			$asset->prefix_asset_directory( $prefix_asset_directory );
 
 			$registered[] = $asset;
 		}
