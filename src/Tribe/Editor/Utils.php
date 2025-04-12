@@ -55,9 +55,9 @@ class Tribe__Editor__Utils {
 	 *
 	 * @since 4.8.2
 	 *
-	 * @param        $post_id
-	 * @param        $block_name The name of the block
-	 * @param string $replacement The string used to replace the value of the searched block
+	 * @param int    $post_id     The post ID.
+	 * @param string $block_name  The name of the block.
+	 * @param string $replacement The string used to replace the value of the searched block.
 	 *
 	 * @return bool
 	 */
@@ -72,9 +72,9 @@ class Tribe__Editor__Utils {
 	 *
 	 * @since 4.8.2
 	 *
-	 * @param        $post_id
-	 * @param        $pattern
-	 * @param string $replacement The string used to replace the value of the searched block
+	 * @param int    $post_id     The post ID.
+	 * @param string $pattern     The pattern used to search the content.
+	 * @param string $replacement The string used to replace the value of the searched block.
 	 *
 	 * @return bool
 	 */
