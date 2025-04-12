@@ -1,11 +1,16 @@
 <?php
 
-use TEC\Common\Libraries;
-use TEC\Common\Translations_Loader;
-use Tribe\Admin\Settings;
-use Tribe\DB_Lock;
+use TEC\Common\Admin\Conditional_Content\Controller as Conditional_Content;
 use TEC\Common\Asset;
+use TEC\Common\Libraries;
+use TEC\Common\Notifications\Controller as Notifications;
 use TEC\Common\StellarWP\Assets\Config as Assets_Config;
+use TEC\Common\Storage\Timed_Option;
+use TEC\Common\Translations_Loader;
+use Tribe\Admin\Pages;
+use Tribe\Admin\Settings;
+use Tribe\Admin\Troubleshooting;
+use Tribe\DB_Lock;
 
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -748,7 +753,7 @@ class Tribe__Main {
 		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
 
 		tribe( \Tribe\Admin\Notice\WP_Version::class );
-		tribe( \Tribe\Admin\Troubleshooting::class );
+		tribe( Troubleshooting::class );
 
 		/**
 		 * Runs after all plugins including Tribe ones have loaded
@@ -766,36 +771,36 @@ class Tribe__Main {
 	 * @return void Implementation of components loader doesn't return anything.
 	 */
 	public function bind_implementations() {
-		tribe_singleton( 'updater', 'TEC\Common\Updater' );
-		tribe_singleton( \TEC\Common\Storage\Timed_Option::class, \TEC\Common\Storage\Timed_Option::class );
-		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
-		tribe_singleton( 'settings', 'Tribe__Settings', [ 'hook' ] );
-		tribe_singleton( 'ajax.dropdown', 'Tribe__Ajax__Dropdown', [ 'hook' ] );
-		tribe_singleton( 'assets', 'Tribe__Assets', [ 'hook' ] );
-		tribe_singleton( 'assets.pipeline', 'Tribe__Assets_Pipeline', [ 'hook' ] );
-		tribe_singleton( 'asset.data', 'Tribe__Asset__Data', [ 'hook' ] );
-		tribe_singleton( 'admin.helpers', 'Tribe__Admin__Helpers' );
-		tribe_singleton( 'tracker', 'Tribe__Tracker', [ 'hook' ] );
-		tribe_singleton( 'chunker', 'Tribe__Meta__Chunker', [ 'set_post_types', 'hook' ] );
-		tribe_singleton( 'cache', 'Tribe__Cache', [ 'hook' ] );
-		tribe_singleton( 'languages.locations', 'Tribe__Languages__Locations' );
+		tribe_singleton( 'updater', TEC\Common\Updater::class );
+		tribe_singleton( Timed_Option::class, Timed_Option::class );
+		tribe_singleton( 'settings.manager', Tribe__Settings_Manager::class );
+		tribe_singleton( 'settings', Tribe__Settings::class, [ 'hook' ] );
+		tribe_singleton( 'ajax.dropdown', Tribe__Ajax__Dropdown::class, [ 'hook' ] );
+		tribe_singleton( 'assets', Tribe__Assets::class, [ 'hook' ] );
+		tribe_singleton( 'assets.pipeline', Tribe__Assets_Pipeline::class, [ 'hook' ] );
+		tribe_singleton( 'asset.data', Tribe__Asset__Data::class, [ 'hook' ] );
+		tribe_singleton( 'admin.helpers', Tribe__Admin__Helpers::class );
+		tribe_singleton( 'tracker', Tribe__Tracker::class, [ 'hook' ] );
+		tribe_singleton( 'chunker', Tribe__Meta__Chunker::class, [ 'set_post_types', 'hook' ] );
+		tribe_singleton( 'cache', Tribe__Cache::class, [ 'hook' ] );
+		tribe_singleton( 'languages.locations', Tribe__Languages__Locations::class );
 		tribe_singleton( 'plugins.api', new Tribe__Plugins_API );
-		tribe_singleton( 'logger', 'Tribe__Log' );
+		tribe_singleton( 'logger', Tribe__Log::class );
 		tribe_singleton( 'cost-utils', [ 'Tribe__Cost_Utils', 'instance' ] );
-		tribe_singleton( 'post-duplicate.strategy-factory', 'Tribe__Duplicate__Strategy_Factory' );
-		tribe_singleton( 'post-duplicate', 'Tribe__Duplicate__Post' );
-		tribe_singleton( 'context', 'Tribe__Context' );
-		tribe_singleton( 'post-transient', 'Tribe__Post_Transient' );
-		tribe_singleton( 'db', 'Tribe__Db' );
+		tribe_singleton( 'post-duplicate.strategy-factory', Tribe__Duplicate__Strategy_Factory::class );
+		tribe_singleton( 'post-duplicate', Tribe__Duplicate__Post::class );
+		tribe_singleton( 'context', Tribe__Context::class );
+		tribe_singleton( 'post-transient', Tribe__Post_Transient::class );
+		tribe_singleton( 'db', Tribe__Db::class );
 		tribe_singleton( 'db-lock', DB_Lock::class );
-		tribe_singleton( 'customizer', 'Tribe__Customizer' );
+		tribe_singleton( 'customizer', Tribe__Customizer::class );
 		tribe_singleton( Tribe__Dependency::class, Tribe__Dependency::class );
-		tribe_singleton( \Tribe\Admin\Troubleshooting::class, \Tribe\Admin\Troubleshooting::class, [ 'hook' ] );
+		tribe_singleton( Troubleshooting::class, Troubleshooting::class, [ 'hook' ] );
 
-		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
+		tribe_singleton( 'callback', Tribe__Utils__Callback::class );
 		tribe_singleton( Tribe__Admin__Help_Page::class, Tribe__Admin__Help_Page::class, [ 'hook' ] );
-		tribe_singleton( 'admin.pages', '\Tribe\Admin\Pages' );
-		tribe_singleton( 'admin.activation.page', 'Tribe__Admin__Activation_Page' );
+		tribe_singleton( 'admin.pages', Pages::class );
+		tribe_singleton( 'admin.activation.page', Tribe__Admin__Activation_Page::class );
 		tribe_singleton( Translations_Loader::class, Translations_Loader::class );
 
 		if ( !tec_using_classy_editor() ) {
@@ -814,8 +819,8 @@ class Tribe__Main {
 		tribe_register_provider( Tribe__Service_Providers__Promoter::class );
 		tribe_register_provider( Tribe\Service_Providers\Widgets::class );
 		tribe_register_provider( Tribe\Service_Providers\Onboarding::class );
-		tribe_register_provider( \TEC\Common\Admin\Conditional_Content\Controller::class );
-		tribe_register_provider( \TEC\Common\Notifications\Controller::class );
+		tribe_register_provider( Conditional_Content::class );
+		tribe_register_provider( Notifications::class );
 		tribe_register_provider( Libraries\Provider::class );
 
 		// Load the new third-party integration system.
@@ -841,7 +846,7 @@ class Tribe__Main {
 	 * @return void  Internal method without any return.
 	 */
 	public function promoter_connector() {
-		tribe_singleton( 'promoter.connector', 'Tribe__Promoter__Connector' );
+		tribe_singleton( 'promoter.connector', Tribe__Promoter__Connector::class );
 
 		add_filter(
 			'determine_current_user',
