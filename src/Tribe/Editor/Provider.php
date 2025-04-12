@@ -5,6 +5,33 @@ use TEC\Common\Contracts\Service_Provider;
 class Tribe__Editor__Provider extends Service_Provider {
 
 	/**
+	 * Whether the service provider will be a deferred one or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function isDeferred() {
+		return true;
+	}
+
+	/**
+	 * Returns an array of the class or interfaces bound and provided by the service provider.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string> A list of fully-qualified implementations provided by the service provider.
+	 */
+	public function provides() {
+		return [
+			'editor',
+			'editor.utils',
+			'common.editor.configuration',
+			'editor.assets',
+		];
+	}
+
+	/**
 	 * Binds and sets up implementations.
 	 *
 	 * @since 4.8
