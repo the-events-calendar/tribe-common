@@ -11,6 +11,7 @@ declare( strict_types=1 );
 
 namespace TEC\Common\Editor;
 
+use Exception;
 use TEC\Common\Contracts\Provider\Controller;
 use WP_Screen;
 
@@ -124,5 +125,69 @@ class Block_Logic extends Controller {
 		 * @param WP_Screen $screen      The current screen object.
 		 */
 		return (bool) apply_filters( 'tec_common_should_load_blocks', $should_load, $reason, $this->screen );
+	}
+
+	/**
+	 * Determine if blocks should be loaded for a specific post type.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $post_type The post type to check.
+	 *
+	 * @return bool
+	 */
+	public function should_load_blocks_for_post_type( string $post_type = '' ): bool {
+		// Set up a static variable to ensure we don't check the same post type multiple times.
+		static $checked_post_types = [];
+
+		// If we weren't provided a post type, try to determine the current post type.
+		if ( empty( $post_type ) ) {
+			try {
+				$post_type = $this->determine_current_post_type();
+			} catch ( Exception $e ) {
+				return false;
+			}
+		}
+
+		// If we have already checked this post type, return the cached value.
+		if ( isset( $checked_post_types[ $post_type ] ) ) {
+			return $checked_post_types[ $post_type ];
+		}
+
+		/**
+		 * Filter to determine what post types should have blocks loaded.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $load_blocks_post_types The post types that should have blocks loaded.
+		 */
+		$load_blocks_post_types = (array) apply_filters( 'tec_common_load_blocks_post_types', [] );
+
+		// Store the post type in the static variable to avoid checking it again.
+		$checked_post_types[ $post_type ] = in_array( $post_type, $load_blocks_post_types, true );
+
+		return $checked_post_types[ $post_type ];
+	}
+
+	/**
+	 * Determine the current post type.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The current post type.
+	 * @throws Exception If the current post type cannot be determined.
+	 */
+	private function determine_current_post_type(): string {
+		// If we have the screen object, use its post type.
+		if ( null !== $this->screen ) {
+			return $this->screen->post_type;
+		}
+
+		// Try to use the global post object.
+		if ( isset( $GLOBALS['post']->post_type ) ) {
+			return $GLOBALS['post']->post_type;
+		}
+
+		throw new Exception( 'Unable to determine current post type.' );
 	}
 }
