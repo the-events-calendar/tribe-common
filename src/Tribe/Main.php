@@ -2,6 +2,7 @@
 
 use TEC\Common\Admin\Conditional_Content\Controller as Conditional_Content;
 use TEC\Common\Asset;
+use TEC\Common\Editor\Block_Logic;
 use TEC\Common\Libraries;
 use TEC\Common\Notifications\Controller as Notifications;
 use TEC\Common\StellarWP\Assets\Config as Assets_Config;
@@ -803,7 +804,9 @@ class Tribe__Main {
 		tribe_singleton( 'admin.activation.page', Tribe__Admin__Activation_Page::class );
 		tribe_singleton( Translations_Loader::class, Translations_Loader::class );
 
-		if ( !tec_using_classy_editor() ) {
+		tribe_register_provider( Block_Logic::class );
+
+		if ( ! tec_using_classy_editor() ) {
 			tribe_register_provider( Tribe__Editor__Provider::class );
 		}
 
