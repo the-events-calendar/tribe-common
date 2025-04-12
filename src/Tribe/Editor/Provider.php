@@ -82,13 +82,4 @@ class Tribe__Editor__Provider extends Service_Provider {
 		 */
 		do_action( 'tribe_editor_register_blocks' );
 	}
-
-	/**
-	 * Binds and sets up implementations at boot time.
-	 *
-	 * @since 4.8
-	 */
-	public function boot() {
-		// no ops
-	}
 }
