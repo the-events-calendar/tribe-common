@@ -46,7 +46,7 @@ class Tribe__Editor__Utils {
 	 * @return bool
 	 */
 	public function remove_block( $post_id, $block_name = '', $replacement = '' ) {
-		$patttern = '/^\s*<!-- ' . $block_name . '.*\/-->\s*$/im';
+		$patttern = '#^\s*<!-- ' . $block_name . '.*/-->\s*$#im';
 		return $this->update_post_content( $post_id, $patttern, $replacement );
 	}
 
@@ -130,8 +130,7 @@ class Tribe__Editor__Utils {
 	 * @return string
 	 */
 	public function exclude_tribe_blocks( $content = '' ) {
-
-		$match_blocks_exp = '/\<\!\-\- \/?wp\:tribe.*\/?-->/i';
+		$match_blocks_exp = '#<!-- /?wp:tribe.*/?-->#i';
 
 		if ( ! preg_match( $match_blocks_exp, $content ) ) {
 			return $content;
