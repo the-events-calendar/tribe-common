@@ -1,7 +1,6 @@
 <?php
 
-abstract class Tribe__Editor__Blocks__Abstract
-implements Tribe__Editor__Blocks__Interface {
+abstract class Tribe__Editor__Blocks__Abstract implements Tribe__Editor__Blocks__Interface {
 
 	/**
 	 * Namespace for Blocks from tribe
@@ -250,7 +249,7 @@ implements Tribe__Editor__Blocks__Interface {
 	}
 
 	/**
-	 * Attach any particular hook for the specif block.
+	 * Attach any particular hook for the specific block.
 	 *
 	 * @since 4.8
 	 */
