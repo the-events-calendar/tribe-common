@@ -31,7 +31,7 @@ abstract class Tribe__Editor__Blocks__Abstract implements Tribe__Editor__Blocks_
 	 */
 	public function name() {
 		if ( false === strpos( $this->slug(), $this->namespace . '/' ) ) {
-			return $this->namespace . '/' . $this->slug();
+			return "{$this->namespace}/{$this->slug()}";
 		} else {
 			return $this->slug();
 		}
@@ -58,7 +58,6 @@ abstract class Tribe__Editor__Blocks__Abstract implements Tribe__Editor__Blocks_
 	 * @return array
 	*/
 	public function attributes( $params = [] ) {
-
 		// get the default attributes
 		$default_attributes = $this->default_attributes();
 
@@ -74,9 +73,7 @@ abstract class Tribe__Editor__Blocks__Abstract implements Tribe__Editor__Blocks_
 		 * @param array  $attributes    The attributes
 		 * @param object $this      The current object
 		 */
-		$attributes = apply_filters( 'tribe_block_attributes_defaults_' . $this->slug(), $attributes, $this );
-
-		return $attributes;
+		return apply_filters( "tribe_block_attributes_defaults_{$this->slug()}", $attributes, $this );
 	}
 
 	/**
@@ -89,18 +86,13 @@ abstract class Tribe__Editor__Blocks__Abstract implements Tribe__Editor__Blocks_
 	 * @return array
 	*/
 	public function default_attributes() {
-
-		$attributes = [];
-
 		/**
 		 * Filters the default attributes
 		 *
 		 * @param array  $params    The attributes
 		 * @param object $this      The current object
 		 */
-		$attributes = apply_filters( 'tribe_block_attributes_defaults', $attributes, $this );
-
-		return $attributes;
+		return apply_filters( 'tribe_block_attributes_defaults', [], $this );
 	}
 
 	/**
@@ -160,7 +152,7 @@ abstract class Tribe__Editor__Blocks__Abstract implements Tribe__Editor__Blocks_
 	 * @since 4.14.13
 	 */
 	public function load() {
-		add_action( 'wp_ajax_' . $this->get_ajax_action(), [ $this, 'ajax' ] );
+		add_action( "wp_ajax_{$this->get_ajax_action()}", [ $this, 'ajax' ] );
 
 		$this->assets();
 		$this->hook();
@@ -286,7 +278,7 @@ abstract class Tribe__Editor__Blocks__Abstract implements Tribe__Editor__Blocks_
 		 * @param array  $block_data The block data.
 		 * @param object $this       The current object.
 		 */
-		$block_data = apply_filters( 'tribe_block_block_data_' . $this->slug(), $block_data, $this );
+		$block_data = apply_filters( "tribe_block_block_data_{$this->slug()}", $block_data, $this );
 
 		return $block_data;
 	}
