@@ -111,13 +111,9 @@ class Tribe__Editor__Utils {
 	 * @return string
 	 */
 	public function strip_dynamic_blocks( $content = '' ) {
-
-		if ( ! function_exists( 'strip_dynamic_blocks' ) ) {
-			return $content;
-		}
-
-		return strip_dynamic_blocks( $content );
-
+		return function_exists( 'strip_dynamic_blocks' )
+			? strip_dynamic_blocks( $content )
+			: $content;
 	}
 
 	/**
