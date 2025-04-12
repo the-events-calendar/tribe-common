@@ -2,7 +2,7 @@
  * @todo Move this to use the new `tribe` object, tribe.timepicker
  * @type {Object}
  */
-var tribe_timepickers = tribe_timepickers || {};
+window.tribe_timepickers = window.tribe_timepickers || {};
 
 ( function ( $, obj ) {
 	'use strict';
@@ -113,4 +113,4 @@ var tribe_timepickers = tribe_timepickers || {};
 	};
 
 	$( obj.init );
-} )( jQuery, tribe_timepickers );
+} )( jQuery, window.tribe_timepickers );
