@@ -27,7 +27,7 @@ tribe.settings.fields.color = {};
  * @param {PlainObject} $   jQuery
  * @param {PlainObject} obj tribe.settings.fields.color
  */
-( function( $, obj ) {
+( function ( $, obj ) {
 	'use strict';
 
 	/**
@@ -53,5 +53,4 @@ tribe.settings.fields.color = {};
 	};
 
 	$( obj.init );
-
 } )( jQuery, tribe.settings.fields.color );

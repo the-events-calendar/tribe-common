@@ -22,10 +22,7 @@ const Radio = ( { checked = false, className, disabled, id, label, onChange = no
 			onChange={ onChange }
 			value={ value }
 		/>
-		<label
-			className="tribe-editor__radio_label"
-			htmlFor={ id }
-		>
+		<label className="tribe-editor__radio_label" htmlFor={ id }>
 			{ label }
 		</label>
 	</div>

@@ -1,6 +1,6 @@
-var tribe_dropdowns = window.tribe_dropdowns || {};
+window.tribe_dropdowns = window.tribe_dropdowns || {};
 
-( function( $, obj, _ ) {
+( function ( $, obj, _ ) {
 	'use strict';
 
 	obj.selector = {
@@ -10,40 +10,34 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	};
 
 	// Setup a Dependent
-	$.fn.tribe_dropdowns = function() {
+	$.fn.tribe_dropdowns = function () {
 		obj.dropdown( this, {} );
 
 		return this;
 	};
 
-	obj.freefrom_create_search_choice = function( params ) {
+	obj.freefrom_create_search_choice = function ( params ) {
 		if ( 'string' !== typeof params.term ) {
 			return null;
 		}
 
-		var term = params.term.trim();
+		const term = params.term.trim();
 
 		if ( '' === term ) {
 			return null;
 		}
 
-		var args = this.options.options;
-		var $select = args.$select;
+		const args = this.options.options;
+		const $select = args.$select;
 
 		if (
-			term.match( args.regexToken )
-			&& (
-				! $select.is( '[data-int]' )
-				|| (
-					$select.is( '[data-int]' )
-					&& term.match( /\d+/ )
-				)
-			)
+			term.match( args.regexToken ) &&
+			( ! $select.is( '[data-int]' ) || ( $select.is( '[data-int]' ) && term.match( /\d+/ ) ) )
 		) {
-			var choice = { id: term, text: term, new: true };
+			const choice = { id: term, text: term, new: true };
 
 			if ( $select.is( '[data-create-choice-template]' ) ) {
-				choice.text = _.template( $select.data( 'createChoiceTemplate' ) )( { term: term } );
+				choice.text = _.template( $select.data( 'createChoiceTemplate' ) )( { term } );
 			}
 
 			return choice;
@@ -55,11 +49,11 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	/**
 	 * Better Search ID for Select2, compatible with WordPress ID from WP_Query
 	 *
-	 * @param  {object|string} e Searched object or the actual ID
+	 * @param {object|string} e Searched object or the actual ID
 	 * @return {string}   ID of the object
 	 */
-	obj.search_id = function( e ) {
-		var id = undefined;
+	obj.search_id = function ( e ) {
+		let id;
 
 		if ( 'undefined' !== typeof e.id ) {
 			id = e.id;
@@ -74,13 +68,15 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	/**
 	 * Better way of matching results
 	 *
-	 * @param  {string} term Which term we are searching for
-	 * @param  {string} text Search here
+	 * @param {string} term   Which term we are searching for
+	 * @param {string} text   Search here
+	 * @param          params
+	 * @param          data
 	 * @return {boolean}
 	 */
-	obj.matcher = function( params, data ) {
+	obj.matcher = function ( params, data ) {
 		// If there are no search terms, return all of the data
-		if ( 'string' !== typeof params.term || params.term.trim() === '') {
+		if ( 'string' !== typeof params.term || params.term.trim() === '' ) {
 			return data;
 		}
 
@@ -89,16 +85,16 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 			return null;
 		}
 
-		var term = params.term.trim();
-		var text = data.text;
-		var $select = $( data.element ).closest( 'select' );
-		var args = $select.data( 'dropdown' );
-		var result = text.toUpperCase().indexOf( term.toUpperCase() ) !== -1;
+		const term = params.term.trim();
+		const text = data.text;
+		const $select = $( data.element ).closest( 'select' );
+		const args = $select.data( 'dropdown' );
+		let result = text.toUpperCase().indexOf( term.toUpperCase() ) !== -1;
 
-		if ( ! result && 'undefined' !== typeof args.tags ){
-			var possible = _.where( args.tags, { text: text } );
-			if ( args.tags.length > 0  && _.isObject( possible ) ){
-				var test_value = obj.search_id( possible[0] );
+		if ( ! result && 'undefined' !== typeof args.tags ) {
+			const possible = _.where( args.tags, { text } );
+			if ( args.tags.length > 0 && _.isObject( possible ) ) {
+				const test_value = obj.search_id( possible[ 0 ] );
 				result = test_value.toUpperCase().indexOf( term.toUpperCase() ) !== -1;
 			}
 		}
@@ -110,19 +106,20 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	 * If the element used as the basis of a dropdown specifies one or more numeric/text
 	 * identifiers in its val attribute, then use those to preselect the appropriate options.
 	 *
-	 * @param {object}   $select
-	 * @param {function} make_selection
+	 * @param {Object}   $select
+	 * @param {Function} make_selection
 	 */
-	obj.init_selection = function( $select, make_selection ) {
-		var isMultiple = $select.is( '[multiple]' );
-		var options = $select.data( 'dropdown' );
-		var currentValues = $select.val().split( options.regexSplit );
-		var selectedItems = [];
+	obj.init_selection = function ( $select, make_selection ) {
+		const isMultiple = $select.is( '[multiple]' );
+		const options = $select.data( 'dropdown' );
+		const currentValues = $select.val().split( options.regexSplit );
+		const selectedItems = [];
 
-		$( currentValues ).each( function( index, value ) { // eslint-disable-line no-unused-vars
-			var searchFor = { id: this, text: this };
-			var data = options.ajax ? $select.data( 'options' ) : options.data;
-			var locatedItem = find_item( searchFor, data );
+		$( currentValues ).each( function ( index, value ) {
+			// eslint-disable-line no-unused-vars
+			const searchFor = { id: this, text: this };
+			const data = options.ajax ? $select.data( 'options' ) : options.data;
+			const locatedItem = find_item( searchFor, data );
 
 			if ( locatedItem && locatedItem.selected ) {
 				selectedItems.push( locatedItem );
@@ -135,7 +132,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 			make_selection( selectedItems[ 0 ] );
 		} else {
 			make_selection( false );
-			return;
 		}
 	};
 
@@ -157,19 +153,22 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 			return false;
 		}
 
-		for ( var index in haystack ) {
-			var possible_match = haystack[ index ];
+		for ( const index in haystack ) {
+			const possible_match = haystack[ index ];
 
-			if ( possible_match.hasOwnProperty( 'id' ) && possible_match.id == description.id ) { // eslint-disable-line no-prototype-builtins,eqeqeq,max-len
+			if ( possible_match.hasOwnProperty( 'id' ) && possible_match.id == description.id ) {
+				// eslint-disable-line no-prototype-builtins,eqeqeq,max-len
 				return possible_match;
 			}
 
-			if ( possible_match.hasOwnProperty( 'text' ) && possible_match.text == description.text ) { // eslint-disable-line no-prototype-builtins,eqeqeq,max-len
+			if ( possible_match.hasOwnProperty( 'text' ) && possible_match.text == description.text ) {
+				// eslint-disable-line no-prototype-builtins,eqeqeq,max-len
 				return possible_match;
 			}
 
-			if ( possible_match.hasOwnProperty( 'children' ) && _.isArray( possible_match.children ) ) { // eslint-disable-line no-prototype-builtins,max-len
-				var subsearch = find_item( description, possible_match.children );
+			if ( possible_match.hasOwnProperty( 'children' ) && _.isArray( possible_match.children ) ) {
+				// eslint-disable-line no-prototype-builtins,max-len
+				const subsearch = find_item( description, possible_match.children );
 
 				if ( subsearch ) {
 					return subsearch;
@@ -180,19 +179,17 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		return false;
 	}
 
-	obj.getSelectClasses = function( $select ) {
-		var classesToRemove = [
-			'select2-hidden-accessible',
-			'hide-before-select2-init',
-		];
-		var originalClasses = $select.attr( 'class' ).split( /\s+/ );
+	obj.getSelectClasses = function ( $select ) {
+		const classesToRemove = [ 'select2-hidden-accessible', 'hide-before-select2-init' ];
+		const originalClasses = $select.attr( 'class' ).split( /\s+/ );
 		return _.difference( originalClasses, classesToRemove );
 	};
 
-	obj.element = function( field, args ) {
-		var $select = $( field );
+	obj.element = function ( field, args ) {
+		const $select = $( field );
 		var args = $.extend( {}, args ); // eslint-disable-line no-redeclare
-		var carryOverData = [ // eslint-disable-line no-unused-vars
+		const carryOverData = [
+			// eslint-disable-line no-unused-vars
 			'depends',
 			'condition',
 			'conditionNot',
@@ -209,7 +206,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 			'condition-is-checked',
 		];
 
-		var $container;
+		let $container;
 
 		// Add a class for dropdown created
 		$select.addClass( obj.selector.created.className() );
@@ -221,14 +218,14 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 
 		// Auto define the Width of the Select2.
 		args.dropdownAutoWidth = true;
-		args.width             = 'resolve';
+		args.width = 'resolve';
 
 		// CSS for the container
 		args.containerCss = {};
 
 		// Only apply visibility when it's a Visible Select2.
 		if ( $select.is( ':visible' ) ) {
-			args.containerCss.display  = 'inline-block';
+			args.containerCss.display = 'inline-block';
 			args.containerCss.position = 'relative';
 		}
 
@@ -330,14 +327,15 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 
 			// Don't force tags!
 			if ( args.tags ) {
-				args.createSearchChoice = function( term, data ) { // eslint-disable-line no-unused-vars
+				args.createSearchChoice = function ( term, data ) {
+					// eslint-disable-line no-unused-vars
 					if ( term.match( args.regexToken ) ) {
 						return { id: term, text: term };
 					}
 				};
 
 				if ( 0 === args.tags.length ) {
-					args.formatNoMatches = function() {
+					args.formatNoMatches = function () {
 						return $select.attr( 'placeholder' );
 					};
 				}
@@ -346,13 +344,14 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 
 		// When we have a source, we do an AJAX call
 		if ( $select.is( '[data-source]' ) ) {
-			var source = $select.data( 'source' );
+			const source = $select.data( 'source' );
 
 			// For AJAX we reset the data
 			args.data = { results: [] };
 
 			// Format for Parents breadcrumbs
-			args.formatResult = function ( item, container, query ) { // eslint-disable-line no-unused-vars,max-len
+			args.formatResult = function ( item, container, query ) {
+				// eslint-disable-line no-unused-vars,max-len
 				if ( 'undefined' !== typeof item.breadcrumbs ) {
 					return $.merge( item.breadcrumbs, [ item.text ] ).join( ' &#187; ' );
 				}
@@ -367,17 +366,17 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 				url: obj.ajaxurl(),
 
 				// parse the results into the format expected by Select2.
-				processResults: function ( response, params ) { // eslint-disable-line no-unused-vars
+				processResults( response, params ) {
+					// eslint-disable-line no-unused-vars
 					if ( ! $.isPlainObject( response ) || 'undefined' === typeof response.success ) {
 						console.error( 'We received a malformed Object, could not complete the Select2 Search.' ); // eslint-disable-line max-len
 						return { results: [] };
 					}
 
-					if (
-						! $.isPlainObject( response.data )
-						|| 'undefined' === typeof response.data.results
-					) {
-						console.error( 'We received a malformed results array, could not complete the Select2 Search.' ); // eslint-disable-line max-len
+					if ( ! $.isPlainObject( response.data ) || 'undefined' === typeof response.data.results ) {
+						console.error(
+							'We received a malformed results array, could not complete the Select2 Search.'
+						); // eslint-disable-line max-len
 						return { results: [] };
 					}
 
@@ -394,7 +393,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 				},
 			};
 
-
 			if ( $select.is( '[data-ajax-delay]' ) ) {
 				args.ajax.delay = $select.data( 'ajax-delay' );
 			}
@@ -409,12 +407,12 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 			}
 
 			// By default only send the source
-			args.ajax.data = function( search, page ) {
+			args.ajax.data = function ( search, page ) {
 				return {
 					action: 'tribe_dropdown',
-					source: source,
-					search: search,
-					page: page,
+					source,
+					search,
+					page,
 					args: $select.data( 'source-args' ),
 					nonce: $select.data( 'source-nonce' ),
 				};
@@ -423,24 +421,19 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 
 		// Attach dropdown to container in DOM.
 		if ( $select.is( '[data-attach-container]' ) ) {
-
 			// If multiple, attach container without search.
 			if ( $select.is( '[multiple]' ) ) {
 				$.fn.select2.amd.define(
 					'AttachedDropdownAdapter',
-					[
-						'select2/utils',
-						'select2/dropdown',
-						'select2/dropdown/attachContainer',
-					],
-					function( utils, dropdown, attachContainer ) {
+					[ 'select2/utils', 'select2/dropdown', 'select2/dropdown/attachContainer' ],
+					function ( utils, dropdown, attachContainer ) {
 						return utils.Decorate( dropdown, attachContainer );
 					}
 				);
 
 				args.dropdownAdapter = $.fn.select2.amd.require( 'AttachedDropdownAdapter' );
 
-			// If not multiple, attach container with search.
+				// If not multiple, attach container with search.
 			} else {
 				$.fn.select2.amd.define(
 					'AttachedWithSearchDropdownAdapter',
@@ -451,8 +444,8 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 						'select2/dropdown/minimumResultsForSearch',
 						'select2/dropdown/attachContainer',
 					],
-					function( utils, dropdown, search, minimumResultsForSearch, attachContainer ) {
-						var adapter = utils.Decorate( dropdown, attachContainer );
+					function ( utils, dropdown, search, minimumResultsForSearch, attachContainer ) {
+						let adapter = utils.Decorate( dropdown, attachContainer );
 						adapter = utils.Decorate( adapter, search );
 						adapter = utils.Decorate( adapter, minimumResultsForSearch );
 						return adapter;
@@ -469,43 +462,43 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		$container = $select.select2TEC( args );
 
 		// If data-clear-to-value is set, on clear, set the value to the specified value.
-		if ( $select.is( '[data-clear-to-value]' ) ){
+		if ( $select.is( '[data-clear-to-value]' ) ) {
 			/*
 			 * Unlike setting `allowClear` to `false`, this will allow the user to clear the dropdown,
 			 * but will then immediately set the value to the specified value.
 			 */
 			$container
-				.on( 'select2:unselect', function(  ) {
-				/*
-			   * Flag the dropdown to expect the opening event that would allow the user to pick
-			   * a new value, or none, after clearing.
-				 */
-				var $select = $( this );
-				$select.data('openingAfterUnselect', 1);
-			} )
-				.on('select2:opening',function(event){
+				.on( 'select2:unselect', function () {
+					/*
+					 * Flag the dropdown to expect the opening event that would allow the user to pick
+					 * a new value, or none, after clearing.
+					 */
+					const $select = $( this );
+					$select.data( 'openingAfterUnselect', 1 );
+				} )
+				.on( 'select2:opening', function ( event ) {
 					/*
 					 * If the dropdown is expecting the opening event, then prevent it from opening
 					 * and instead set the value to the specified value.
 					 */
-					var $select = $( this );
+					const $select = $( this );
 
-					if( ! $select.data( 'openingAfterUnselect' ) ){
+					if ( ! $select.data( 'openingAfterUnselect' ) ) {
 						return;
 					}
 
 					$select.data( 'openingAfterUnselect', 0 );
 
-					var value = $select.data( 'clear-to-value' );
+					const value = $select.data( 'clear-to-value' );
 					$select.val( value ).trigger( 'change' );
 
 					// Do not open the dropdown.
-					event.preventDefault()
-			});
+					event.preventDefault();
+				} );
 		}
 
 		// Propagating original input classes to the select2 container.
-		var originalClasses = obj.getSelectClasses( $select ).join( ' ' );
+		const originalClasses = obj.getSelectClasses( $select ).join( ' ' );
 		$container.data( 'select2' ).$container.addClass( originalClasses );
 
 		// Propagating original input classes to the select2 container.
@@ -516,22 +509,22 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		/**
 		 * @todo @bordoni Investigate how and if we should be doing this.
 		 *
-		if ( carryOverData.length > 0 ) {
-			carryOverData.map( function( dataKey ) {
-				var attr = 'data-' + dataKey;
-				var val = $select.attr( attr );
-
-				if ( ! val ) {
-					return;
-				}
-
-				this.attr( attr, val );
-			}, $container );
-		}
+		  if ( carryOverData.length > 0 ) {
+		  carryOverData.map( function( dataKey ) {
+		  var attr = 'data-' + dataKey;
+		  var val = $select.attr( attr );
+		 
+		  if ( ! val ) {
+		  return;
+		  }
+		 
+		  this.attr( attr, val );
+		  }, $container );
+		  }
 		 */
 	};
 
-	obj.ajaxurl = function() {
+	obj.ajaxurl = function () {
 		if ( 'undefined' !== typeof window.ajaxurl ) {
 			return window.ajaxurl;
 		}
@@ -540,27 +533,28 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 			return TEC.ajaxurl;
 		}
 
-		console.error( 'Dropdowns framework cannot properly do an AJAX request without the WordPress `ajaxurl` variable setup.' ); // eslint-disable-line max-len
+		console.error(
+			'Dropdowns framework cannot properly do an AJAX request without the WordPress `ajaxurl` variable setup.'
+		); // eslint-disable-line max-len
 	};
 
-	obj.action_select2_open = function( event ) { // eslint-disable-line no-unused-vars
-		var $select = $( this );
-		var select2Data = $select.data( 'select2' );
-		var $search = select2Data.$dropdown.find( obj.selector.searchField ); // eslint-disable-line es5/no-es6-methods,max-len
+	obj.action_select2_open = function ( event ) {
+		// eslint-disable-line no-unused-vars
+		const $select = $( this );
+		const select2Data = $select.data( 'select2' );
+		const $search = select2Data.$dropdown.find( obj.selector.searchField ); // eslint-disable-line es5/no-es6-methods,max-len
 
-		var originalClasses = obj.getSelectClasses( select2Data.$element ).reduce(
-			function ( prev, curr ) {
-				if( 'hide-if-js' === curr ) {
-					return prev;
-				}
-
-				if ( 'tribe-dropdown-created' === curr ) {
-					return prev;
-				}
-
-				return prev + ' ' + curr;
+		const originalClasses = obj.getSelectClasses( select2Data.$element ).reduce( function ( prev, curr ) {
+			if ( 'hide-if-js' === curr ) {
+				return prev;
 			}
-		);
+
+			if ( 'tribe-dropdown-created' === curr ) {
+				return prev;
+			}
+
+			return prev + ' ' + curr;
+		} );
 
 		select2Data.$dropdown.addClass( originalClasses );
 
@@ -573,13 +567,13 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	/**
 	 * Configure the Drop Down Fields
 	 *
-	 * @param  {jQuery} $fields All the fields from the page
-	 * @param  {array}  args    Allow extending the arguments
+	 * @param {jQuery} $fields All the fields from the page
+	 * @param {Array}  args    Allow extending the arguments
 	 *
 	 * @return {jQuery}         Affected fields
 	 */
-	obj.dropdown = function( $fields, args ) {
-		var $elements = $fields.not( '.select2-offscreen, .select2-container, ' + obj.selector.created.className() ); // eslint-disable-line max-len
+	obj.dropdown = function ( $fields, args ) {
+		const $elements = $fields.not( '.select2-offscreen, .select2-container, ' + obj.selector.created.className() ); // eslint-disable-line max-len
 
 		if ( 0 === $elements.length ) {
 			return $elements;
@@ -590,23 +584,21 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 			args = {};
 		}
 
-		$elements
-			.each( function( index, element ) {
-				// Apply element to all given items and pass args
-				obj.element( element, args );
-			} );
+		$elements.each( function ( index, element ) {
+			// Apply element to all given items and pass args
+			obj.element( element, args );
+		} );
 
 		// return to be able to chain jQuery calls
 		return $elements;
 	};
 
-	$( function() {
+	$( function () {
 		$( obj.selector.dropdown ).tribe_dropdowns();
 	} );
 
 	// Addresses some problems with Select2 inputs not being initialized when using a browser's "Back" button.
-	$( window ).on( 'unload', function() {
+	$( window ).on( 'unload', function () {
 		$( obj.selector.dropdown ).tribe_dropdowns();
-	});
-
-} )( jQuery, tribe_dropdowns, window.underscore || window._ );
+	} );
+} )( jQuery, window.tribe_dropdowns, window.underscore || window._ );

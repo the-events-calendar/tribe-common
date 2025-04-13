@@ -904,3 +904,144 @@ if ( ! function_exists( 'tribe_doing_shortcode' ) ) {
 		return tribe( 'shortcode.manager' )->is_doing_shortcode( $tag );
 	}
 }
+
+if ( ! function_exists( 'tec_asset' ) ) {
+	/**
+	 * Registers an asset to be loaded from the `/build` directory of a plugin.
+	 *
+	 * The asset will be added to a group named after the origin class name. The group
+	 * must have been registered using the `TEC\Common\StellarWP\Assets\Config::add_group_path` method.
+	 * Example:
+	 * ```php
+	 * <?php
+	 * Config::add_group_path( Plugin::class, Plugin::instance()->plugin_path . 'build/', '/', true );
+	 * ```
+	 * Files built with the `wp-scripts` binary wil produce a PHP assets file: that will be loaded automatically,
+	 * dependencies will be merged with the ones explicitly defined in the `$dependencies` argument.
+	 *
+	 * @since TBD
+	 *
+	 * @param object|string          $origin       The origin of the asset, either a class or a string.
+	 * @param string                 $slug         The handle of the asset.
+	 * @param string                 $file         The file of the asset.
+	 * @param array<string>|callable $dependencies The dependencies of the asset; either an array of dependencies or a callable
+	 *                                      that returns an array of dependencies.
+	 * @param string|string[]|null   $action       The action(s) to enqueue the asset on; either a string or an array of strings.
+	 * @param array                  $arguments    {
+	 *                      The arguments to pass to the asset.
+	 *
+	 *     @type string              $type         The type of the asset.
+	 *     @type string              $media        The media type of the asset.
+	 *     @type string|array        $conditionals The conditionals to use for the asset.
+	 *     @type string|array        $groups       The groups to add the asset to.
+	 *     @type string|array        $print_before The print_before to use for the asset.
+	 *     @type string|array $print_after The print_after to use for the asset.
+	 *     @type array $localize {
+	 *         The localization data for the asset. One or more of the following:
+	 *
+	 *         @type string $name The name of the localization data.
+	 *         @type array|callable $data The data to use for the localization.
+	 *     }
+	 *     @type array $translations {
+	 *         The translations to use for the asset.
+	 *
+	 *         @type string $domain The domain to use for the translations.
+	 *         @type string $path The path to use for the translations.
+	 *     }
+	 *     @type bool $after_enqueue Whether to call a callback after enqueuing the asset.
+	 *     @type bool $in_footer Whether to enqueue the asset in the footer.
+	 *     @type bool $module Whether to set the asset as a module.
+	 *     @type bool $defer Whether to set the asset as deferred.
+	 *     @type bool $async Whether to set the asset as asynchronous.
+	 *     @type bool $print Whether to print the asset.
+	 * }
+	 *
+	 * @return Asset|false The asset that was registered or `false` on error.
+	 */
+	function tec_asset( $origin, $slug, $file, $dependencies = [], $action = null, $arguments = [] ) {
+		// Vendor files should be loaded from `/vendor` directly, they are not built.
+		if (
+			! isset( $arguments['group_path'] )
+			&& ! ( str_starts_with( $file, 'vendor' ) || str_starts_with( $file, 'node_modules' ) )
+		) {
+			// Build the group name from the plugin class name.
+			$build_group_name        = is_object( $origin ) ? get_class( $origin ) : (string) $origin;
+			$arguments['group_path'] = $build_group_name;
+		}
+
+		/** @var Asset $asset */
+		$asset = Tribe__Assets::instance()->register( $origin, $slug, $file, $dependencies, $action, $arguments );
+
+		$prefix_asset_directory = $arguments['prefix_asset_directory'] ?? ( empty( $arguments['group_path'] ) || ! str_ends_with( $arguments['group_path'], '-packages' ) );
+		$asset->prefix_asset_directory( $prefix_asset_directory );
+
+		$asset->get_url();
+
+		return $asset;
+	}
+}
+
+if ( ! function_exists( 'tec_assets' ) ) {
+	/**
+	 * Function to include more the one asset, based on `tribe_asset`
+	 *
+	 * @since TBD
+	 *
+	 * @param  object $origin     The main Object for the plugin you are enqueueing the script/style for.
+	 * @param  array  $assets     { Indexed array, don't use any associative key.
+	 *      E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ]
+	 *
+	 *        @type  string   $slug       Slug to save the asset.
+	 *        @type  string   $file       Which file will be loaded, either CSS or JS.
+	 *        @type  array    $deps       (optional) Dependencies
+	 *     }
+	 * @param  string $action     A WordPress hook that will automatically enqueue this asset once fired.
+	 * @param  array  $arguments  Look at `Tribe__Assets::register()` for more info.
+	 *
+	 * @return array<Asset|bool>      Which Assets were registered.
+	 */
+	function tec_assets( $origin, $assets, $action = null, $arguments = [] ) {
+		$registered = [];
+
+		// Build the group name from the plugin class name.
+		$build_group_name = is_object( $origin ) ? get_class( $origin ) : (string) $origin;
+
+		foreach ( $assets as $asset ) {
+			if ( ! is_array( $asset ) ) {
+				continue;
+			}
+
+			$slug = reset( $asset );
+			if ( empty( $asset[1] ) ) {
+				continue;
+			}
+
+			$file = $asset[1];
+			$deps = ! empty( $asset[2] ) ? $asset[2] : [];
+
+			// Support the asset having a custom action.
+			$asset_action = ! empty( $asset[3] ) ? $asset[3] : $action;
+
+			// Support the asset having custom arguments and merge them with the original ones.
+			$asset_arguments = ! empty( $asset[4] ) ? array_merge( $arguments, $asset[4] ) : $arguments;
+
+			if (
+				! isset( $asset_arguments['group_path'] )
+				&& ! ( str_starts_with( $file, 'vendor' ) || str_starts_with( $file, 'node_modules' ) )
+			) {
+				// Build the group name from the plugin class name.
+				$build_group_name              = is_object( $origin ) ? get_class( $origin ) : (string) $origin;
+				$asset_arguments['group_path'] = $build_group_name;
+			}
+
+			$asset = Tribe__Assets::instance()->register( $origin, $slug, $file, $deps, $asset_action, $asset_arguments );
+
+			$prefix_asset_directory = $asset_arguments['prefix_asset_directory'] ?? ( empty( $asset_arguments['group_path'] ) || ! str_ends_with( $asset_arguments['group_path'], '-packages' ) );
+			$asset->prefix_asset_directory( $prefix_asset_directory );
+
+			$registered[] = $asset;
+		}
+
+		return $registered;
+	}
+}
