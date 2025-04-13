@@ -1,5 +1,5 @@
-var tribe = tribe || {}; // eslint-disable-line no-redeclare
-tribe.dialogs = tribe.dialogs || {};
+window.tribe = window.tribe || {}; // eslint-disable-line no-redeclare
+window.tribe.dialogs = window.tribe.dialogs || {};
 
 ( function ( $, obj ) {
 	'use strict';
@@ -30,7 +30,7 @@ tribe.dialogs = tribe.dialogs || {};
 	obj.init = function () {
 		obj.dialogs.forEach( function ( dialog ) {
 			const objName = obj.getDialogName( dialog );
-			const a11yInstance = new window.A11yDialog( {
+			const a11yInstance = new window.tec.common.tecA11yDialog( {
 				appendTarget: dialog.appendTarget,
 				bodyLock: dialog.bodyLock,
 				closeButtonAriaLabel: dialog.closeButtonAriaLabel,
@@ -69,4 +69,4 @@ tribe.dialogs = tribe.dialogs || {};
 	};
 
 	$( obj.init );
-} )( jQuery, tribe.dialogs );
+} )( jQuery, window.tribe.dialogs );
