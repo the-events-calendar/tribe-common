@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5eed86a816ca138d6b26c873a6dcf30f",
+    "content-hash": "5ad906837bf1372f7d54f4886736a480",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -7212,14 +7212,14 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "stellarwp/models": 20,
         "stellarwp/coding-standards": 20,
+        "stellarwp/models": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
+    "platform": {},
+    "platform-dev": {},
     "platform-overrides": {
         "php": "7.4.0"
     },
