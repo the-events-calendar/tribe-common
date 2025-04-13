@@ -4,6 +4,7 @@
  */
 use Tribe\Utils\Element_Attributes;
 use Tribe\Utils\Element_Classes;
+use TEC\Common\Template;
 
 /**
  * Parse input values into a valid array of classes to be used in the templates.
@@ -224,4 +225,32 @@ function tribe_format_field_dependency( $deps ) {
 	}
 
 	return $dependency;
+}
+
+if ( ! function_exists( 'tec_embed_header' ) ) {
+	/**
+	 * Generic Iframe header for frontend use.
+	 *
+	 * @since 6.5.4
+	 */
+	function tec_embed_header(): void {
+		show_admin_bar( false ); //phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
+
+		if ( ! headers_sent() ) {
+			header( 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option( 'blog_charset' ) );
+		}
+
+		tribe( Template::class )->template( 'embed/header' );
+	}
+}
+
+if ( ! function_exists( 'tec_embed_footer' ) ) {
+	/**
+	 * Generic Iframe footer for frontend use.
+	 *
+	 * @since 6.5.4
+	 */
+	function tec_embed_footer(): void {
+		tribe( Template::class )->template( 'embed/footer' );
+	}
 }
