@@ -17,7 +17,16 @@ namespace TEC\Common\Lists;
  * @package TEC\Common\Lists
  */
 class Country {
-			$this->data = [
+
+	/**
+	 * Get the list of countries.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The list of countries.
+	 */
+	public function get_country_list(): array {
+			$countries = [
 				'Africa'     => [
 					'AO' => [
 						'code' => 'AO',
@@ -907,7 +916,7 @@ class Country {
 	 *
 	 * @return ?array The country data array if found, null otherwise.
 	 */
-	private function get_country_by_key( string $key, string $value ): ?array {
+	public function get_country_by_key( string $key, string $value ): ?array {
 		foreach ( $this->get_country_list() as $continent => $countries ) {
 			foreach ( $countries as $country_data ) {
 				if ( isset( $country_data[ $key ] ) && $country_data[ $key ] === $value ) {
