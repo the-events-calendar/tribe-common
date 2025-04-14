@@ -694,12 +694,13 @@ class Tribe__Settings {
 		$admin_pages       = tribe( 'admin.pages' );
 		$admin_page        = $admin_pages->get_current_page();
 		$current_tab       = $this->get_current_tab();
-		$wrap_classes      = apply_filters( 'tribe_settings_wrap_classes', [ 'tribe_settings', 'wrap' , 'tec-events-admin-settings' ], $admin_page );
+		$wrap_classes      = apply_filters( 'tribe_settings_wrap_classes', [ 'tribe_settings', 'wrap' ], $admin_page );
 		$is_event_settings = $this->is_event_settings( $admin_page );
 		$tab_object        = $this->get_tab( $current_tab );
 		$form_classes      = [
 			"tec-settings-form__{$current_tab}-tab--active" => true,
 			'tec-settings-form__subnav-active'              => ( $tab_object && $tab_object->has_parent() ),
+			'tec-settings-form'                => true,
 		];
 
 		/**
@@ -732,7 +733,7 @@ class Tribe__Settings {
 				<?php
 				do_action( 'tribe_settings_above_form_element' );
 				do_action( 'tribe_settings_above_form_element_tab_' . $current_tab, $admin_page );
-				$form_id = $is_event_settings ? 'tec-settings-form' : 'tec-tickets-settings-form';
+				$form_id = 'tec-settings-form';
 				?>
 				<form id="<?php echo esc_attr( $form_id ); ?>" <?php tribe_classes( $form_classes ); ?> method="post">
 				<?php
@@ -793,9 +794,29 @@ class Tribe__Settings {
 		?>
 
 		<div class="tec-settings-form__footer">
+			<?php
+			/**
+			 * Fires at the start of the settings footer, before any content is output.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $current_tab The current tab ID.
+			 */
+			do_action( "tec_settings_footer_start_tab_{$current_tab}" );
+			?>
 			<?php if ( $saving ) : ?>
 				<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="<?php echo esc_attr( $this->current_tab ); ?>" />
 				<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="<?php echo esc_attr__( 'Save Changes', 'tribe-common' ); ?>" />
+				<?php
+				/**
+				 * Fires after the save fields are output in the settings footer.
+				 *
+				 * @since TBD
+				 *
+				 * @param string $current_tab The current tab ID.
+				 */
+				do_action( "tec_settings_footer_after_save_fields_tab_{$current_tab}" );
+				?>
 			<?php endif; ?>
 			<?php if ( $has_sidebar ) : ?>
 				<button id="tec-settings-sidebar-modal-open" class="tec-settings-form__sidebar-toggle"><?php esc_html_e( 'Help', 'tribe-common' ); ?><span class="dashicons dashicons-editor-help"></span></button>
@@ -1648,8 +1669,6 @@ class Tribe__Settings {
 	 */
 	public function generatePage() {
 			_deprecated_function( __METHOD__, '6.1.0', 'generate_page' );
-
-
 		$this->generate_page();
 	}
 	// phpcs:enable WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
