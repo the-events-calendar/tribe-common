@@ -71,83 +71,88 @@ export const removeVolatile = ( id ) => ( {
 	},
 } );
 
-export const sendForm = ( id, fields = {}, completed ) => ( dispatch, getState ) => {
-	const state = getState();
-	const props = { name: id };
-	const type = selectors.getFormType( state, props );
-	const create = selectors.getFormCreate( state, props );
-	const details = selectors.getFormFields( state, props );
-	const saving = selectors.getFormSaving( state, props );
+export const sendForm =
+	( id, fields = {}, completed ) =>
+	( dispatch, getState ) => {
+		const state = getState();
+		const props = { name: id };
+		const type = selectors.getFormType( state, props );
+		const create = selectors.getFormCreate( state, props );
+		const details = selectors.getFormFields( state, props );
+		const saving = selectors.getFormSaving( state, props );
 
-	if ( saving ) {
-		return;
-	}
+		if ( saving ) {
+			return;
+		}
 
-	const path = create
-		? `${ type }`
-		: `${ type }/${ details.id }`;
+		const path = create ? `${ type }` : `${ type }/${ details.id }`;
 
-	const options = {
-		path,
-		params: {
-			method: create ? 'POST' : 'PUT',
-			body: JSON.stringify( fields ),
-		},
-		actions: {
-			start: () => dispatch( setSaving( id, true ) ),
-			success: ( { body } ) => {
-				const postID = get( body, 'id', '' );
-
-				if ( create && postID ) {
-					dispatch( addVolatile( postID ) );
-				}
-				completed( body );
-				dispatch( clearForm( id ) );
-				dispatch( setSaving( id, false ) );
+		const options = {
+			path,
+			params: {
+				method: create ? 'POST' : 'PUT',
+				body: JSON.stringify( fields ),
 			},
-			error: () => {
-				dispatch( clearForm( id ) );
-				dispatch( setSaving( id, false ) );
+			actions: {
+				start: () => dispatch( setSaving( id, true ) ),
+				success: ( { body } ) => {
+					const postID = get( body, 'id', '' );
+
+					if ( create && postID ) {
+						dispatch( addVolatile( postID ) );
+					}
+					completed( body );
+					dispatch( clearForm( id ) );
+					dispatch( setSaving( id, false ) );
+				},
+				error: () => {
+					dispatch( clearForm( id ) );
+					dispatch( setSaving( id, false ) );
+				},
 			},
-		},
+		};
+		dispatch( requestActions.wpRequest( options ) );
 	};
-	dispatch( requestActions.wpRequest( options ) );
-};
 
-export const deleteEntry = ( dispatch ) => ( path ) => ( { body } ) => {
-	const { id, status } = body;
+export const deleteEntry =
+	( dispatch ) =>
+	( path ) =>
+	( { body } ) => {
+		const { id, status } = body;
 
-	if ( 'draft' !== status ) {
-		dispatch( removeVolatile( id ) );
-		return;
-	}
+		if ( 'draft' !== status ) {
+			dispatch( removeVolatile( id ) );
+			return;
+		}
 
-	const options = {
-		path,
-		params: {
-			method: 'DELETE',
-		},
-		actions: {
-			success: () => dispatch( removeVolatile( id ) ),
-		},
+		const options = {
+			path,
+			params: {
+				method: 'DELETE',
+			},
+			actions: {
+				success: () => dispatch( removeVolatile( id ) ),
+			},
+		};
+		dispatch( requestActions.wpRequest( options ) );
 	};
-	dispatch( requestActions.wpRequest( options ) );
-};
 
-export const maybeRemoveEntry = ( id, details = {} ) => ( dispatch, getState ) => {
-	const state = getState();
-	const type = selectors.getFormType( state, { name: id } );
+export const maybeRemoveEntry =
+	( id, details = {} ) =>
+	( dispatch, getState ) => {
+		const state = getState();
+		const type = selectors.getFormType( state, { name: id } );
 
-	if ( isEmpty( details ) ) {
-		return;
-	}
+		if ( isEmpty( details ) ) {
+			return;
+		}
 
-	const path = `${ type }/${ details.id }`;
-	const options = {
-		path,
-		actions: {
-			success: deleteEntry( dispatch )( path ),
-		},
+		const path = `${ type }/${ details.id }`;
+		const options = {
+			path,
+			actions: {
+				success: deleteEntry( dispatch )( path ),
+			},
+		};
+		dispatch( requestActions.wpRequest( options ) );
 	};
-	dispatch( requestActions.wpRequest( options ) );
-};

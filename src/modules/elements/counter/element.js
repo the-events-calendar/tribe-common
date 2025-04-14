@@ -10,21 +10,10 @@ import classNames from 'classnames';
  */
 import './style.pcss';
 
-const Counter = ( {
-	className,
-	count,
-	label,
-} ) => (
-	<div className={ classNames(
-		'tribe-editor__counter',
-		className,
-	) }>
-		<span className="tribe-editor__counter__count">
-			{ count }
-		</span>
-		<span className="tribe-editor__counter__label">
-			{ label }
-		</span>
+const Counter = ( { className, count, label } ) => (
+	<div className={ classNames( 'tribe-editor__counter', className ) }>
+		<span className="tribe-editor__counter__count">{ count }</span>
+		<span className="tribe-editor__counter__label">{ label }</span>
 	</div>
 );
 

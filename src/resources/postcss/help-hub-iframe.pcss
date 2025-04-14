@@ -27,9 +27,9 @@ body {
 	justify-content: center;
 }
 
-.blackout:before {
+.blackout::before {
 	background-color: rgba(0, 0, 0, 0.8);
-	content: '';
+	content: "";
 	height: 100vh;
 	left: 0;
 	position: fixed;
@@ -48,14 +48,14 @@ body[data-opted-in="0"].blackout {
 }
 
 /* Remove background-color from .blackout::before when opted-in is 0 */
-body[data-opted-in="0"].blackout:before {
+body[data-opted-in="0"].blackout::before {
 	background-color: transparent;
 }
 
 /* Add background image to #docsbot-widget-embed when opted-in is 0 */
 body[data-opted-in="0"] .docsbot-widget-background {
 	align-items: center;
-	background-image: url('../images/help-hub/docsbot-background.png');
+	background-image: url(../images/help-hub/docsbot-background.png);
 	background-position: left top;
 	background-repeat: no-repeat;
 	background-size: 815px 740px;
@@ -72,9 +72,9 @@ body[data-opted-in="0"] .docsbot-widget-background {
 	}
 
 	/* Black overlay */
-	&:before {
+	&::before {
 		background-color: rgba(0, 0, 0, 0.5);
-		content: '';
+		content: "";
 		height: 100%;
 		left: 0;
 		position: absolute;
@@ -105,6 +105,7 @@ body[data-opted-in="0"] .docsbot-widget-background {
 
 /* Small screens and up: 80% width with 10% margins */
 @media (--viewport-xxsmall) {
+
 	#webWidget {
 		width: 100vw !important;
 	}
@@ -112,6 +113,7 @@ body[data-opted-in="0"] .docsbot-widget-background {
 
 /* Medium screens and up: 50% width, centered */
 @media (--viewport-medium) {
+
 	#webWidget {
 		margin: 0 auto !important;
 		max-height: 100vh !important;
@@ -214,12 +216,14 @@ body[data-opted-in="0"] .docsbot-widget-background {
 }
 
 @media (--viewport-xsmall) {
+
 	.tec-help-hub-iframe-opt-out-message {
 		width: 80%;
 	}
 }
 
 @media screen {
+
 	html {
 		margin-top: 0 !important;
 	}

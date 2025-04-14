@@ -14,21 +14,22 @@ tribe.utils = tribe.utils || {};
  * This module was heavily based on Sindresorhus work.
  * Only converted to play nicely on WordPress Plugin Env
  *
+ * @param obj
+ * @param _
  * @see https://github.com/sindresorhus/camelcase
  *
  * @since  4.7
- *
  */
-( function( obj, _ ) {
+( function ( obj, _ ) {
 	'use strict';
 
 	function preserveCamelCase( str ) {
-		var isLastCharLower = false;
-		var isLastCharUpper = false;
-		var isLastLastCharUpper = false;
+		let isLastCharLower = false;
+		let isLastCharUpper = false;
+		let isLastLastCharUpper = false;
 
-		for ( var i = 0; i < str.length; i++ ) {
-			var char = str[ i ];
+		for ( let i = 0; i < str.length; i++ ) {
+			const char = str[ i ];
 
 			if ( isLastCharLower && /[a-zA-Z]/.test( char ) && char.toUpperCase() === char ) {
 				str = str.substr( 0, i ) + '-' + str.substr( i );
@@ -63,22 +64,24 @@ tribe.utils = tribe.utils || {};
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {string} str String to be converted
+	 * @param {string} str String to be converted
 	 *
 	 * @return {string}
 	 */
-	obj.camelCase = function( str ) {
+	obj.camelCase = function ( str ) {
 		// Makes sure we deal with strings only
 		if ( arguments.length > 1 ) {
 			// Remove any Empty Spaces
-			str = _.map( arguments, function( val ) {
+			str = _.map( arguments, function ( val ) {
 				return val.trim();
 			} );
 
 			// Remove any empty Entries and Join by `-`
-			str = str.filter( str, function( val ){
-				return 0 !== val.length;
-			} ).join( '-' );
+			str = str
+				.filter( str, function ( val ) {
+					return 0 !== val.length;
+				} )
+				.join( '-' );
 		} else {
 			str = str.trim();
 		}
@@ -96,7 +99,7 @@ tribe.utils = tribe.utils || {};
 			return str;
 		}
 
-		var hasUpperCase = str !== str.toLowerCase();
+		const hasUpperCase = str !== str.toLowerCase();
 
 		if ( hasUpperCase ) {
 			str = preserveCamelCase( str );
@@ -105,8 +108,8 @@ tribe.utils = tribe.utils || {};
 		return str
 			.replace( /^[_.\- ]+/, '' )
 			.toLowerCase()
-			.replace( /[_.\- ]+(\w|$)/g, function ( m, p1 ){
+			.replace( /[_.\- ]+(\w|$)/g, function ( m, p1 ) {
 				return p1.toUpperCase();
 			} );
 	};
-}( tribe.utils, window.underscore || _ ) );
+} )( tribe.utils, window.underscore || _ );
