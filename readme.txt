@@ -1,5 +1,12 @@
 == Changelog ==
 
+= [6.5.5] 2025-04-07 =
+
+* Fix - Prevents logging while common hasn't fully loaded yet.
+* Tweak - Compatibility update for Stellar Telemetry library.
+* Tweak - Modified how tribe_context() function and class handle populating locations, prevents `tribe_context_locations` filter from happening 500x per pageload.
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.5.4] 2025-03-31 =
 
 * Tweak - Added functions `tec_embed_header` and `tec_embed_footer` that can be used for header/footer in embed context.
