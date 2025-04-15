@@ -34,6 +34,7 @@ class Country {
 				],
 				'BJ' => [
 					'code' => 'BJ',
+					'name' => 'Benin',
 				],
 				'BW' => [
 					'code' => 'BW',
@@ -444,10 +445,6 @@ class Country {
 				'CC' => [
 					'code' => 'CC',
 					'name' => 'Cocos [Keeling] Islands',
-				],
-				'CY' => [
-					'code' => 'CY',
-					'name' => 'Cyprus',
 				],
 				'GE' => [
 					'code' => 'GE',
@@ -919,7 +916,7 @@ class Country {
 
 		foreach ( $countries as $continent => $continent_countries ) {
 			foreach ( $continent_countries as $country_code => $country_data ) {
-				$country_names[$continent][$country_code] = $country_data['name'];
+				$country_names[ $continent ][ $country_code ] = $country_data['name'];
 			}
 		}
 
@@ -931,24 +928,24 @@ class Country {
 	 *
 	 * @since TBD
 	 *
-	 * @param string      $key    The key to get the countries for.
-	 * @param bool       $sorted  Whether to keep the countries sorted by continent.
-	 * @param mixed|null $value   Optional value to match against the key.
+	 * @param string $key    The key to get the countries for.
+	 * @param bool   $sorted  Whether to keep the countries sorted by continent.
+	 * @param ?mixed $value   Optional value to match against the key.
 	 *
 	 * @return array<string,array<string,mixed>> The list of countries by continent and key.
 	 */
 	public function get_country_list_by_key( string $key, bool $sorted = true, $value = null ): array {
 		$countries = $this->get_country_list();
-		$filtered = [];
+		$filtered   = [];
 
 		foreach ( $countries as $continent => $continent_countries ) {
 			foreach ( $continent_countries as $country_code => $country_data ) {
-				// Skip if the key doesn't exist
+				// Skip if the key doesn't exist.
 				if ( ! isset( $country_data[ $key ] ) ) {
 					continue;
 				}
 
-				// Skip if a value was provided and it doesn't match
+				// Skip if a value was provided and it doesn't match.
 				if ( null !== $value && $country_data[ $key ] !== $value ) {
 					continue;
 				}
