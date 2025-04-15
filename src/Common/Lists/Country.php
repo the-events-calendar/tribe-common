@@ -19,21 +19,21 @@ namespace TEC\Common\Lists;
 class Country {
 
 	/**
-	 * Get the list of countries.
+	 * Get a list of countries. Grouped by continent/region.
 	 *
 	 * @since TBD
 	 *
-	 * @return array The list of countries.
+	 * @return array<string,array<string,string>> The list of countries.
 	 */
 	public function get_country_list(): array {
-			$countries = [
-				'Africa'     => [
-					'AO' => [
-						'code' => 'AO',
-						'name' => 'Angola',
-					],
-					'BJ' => [
-						'code' => 'BJ',
+		$countries = [
+			'Africa'     => [
+				'AO' => [
+					'code' => 'AO',
+					'name' => 'Angola',
+				],
+				'BJ' => [
+					'code' => 'BJ',
 				],
 				'BW' => [
 					'code' => 'BW',
@@ -904,6 +904,64 @@ class Country {
 	 */
 	public function get_country_list_by_continent( $continent ): array {
 		return $this->get_country_list()[ $continent ] ?? [];
+	}
+
+	/**
+	 * Get a list of countries with their names. Organized by continent and country code.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,array<string,string>> The list of countries with their names.
+	 */
+	public function get_country_name_list() {
+		$countries = $this->get_country_list();
+		$country_names = [];
+
+		foreach ( $countries as $continent => $continent_countries ) {
+			foreach ( $continent_countries as $country_code => $country_data ) {
+				$country_names[$continent][$country_code] = $country_data['name'];
+			}
+		}
+
+		return $country_names;
+	}
+
+	/**
+	 * Get a list of countries that have a specific key.
+	 *
+	 * @since TBD
+	 *
+	 * @param string      $key    The key to get the countries for.
+	 * @param bool       $sorted  Whether to keep the countries sorted by continent.
+	 * @param mixed|null $value   Optional value to match against the key.
+	 *
+	 * @return array<string,array<string,mixed>> The list of countries by continent and key.
+	 */
+	public function get_country_list_by_key( string $key, bool $sorted = true, $value = null ): array {
+		$countries = $this->get_country_list();
+		$filtered = [];
+
+		foreach ( $countries as $continent => $continent_countries ) {
+			foreach ( $continent_countries as $country_code => $country_data ) {
+				// Skip if the key doesn't exist
+				if ( ! isset( $country_data[ $key ] ) ) {
+					continue;
+				}
+
+				// Skip if a value was provided and it doesn't match
+				if ( null !== $value && $country_data[ $key ] !== $value ) {
+					continue;
+				}
+
+				if ( $sorted ) {
+					$filtered[ $continent ][ $country_code ] = $country_data;
+				} else {
+					$filtered[ $country_code ] = $country_data;
+				}
+			}
+		}
+
+		return $filtered;
 	}
 
 	/**
