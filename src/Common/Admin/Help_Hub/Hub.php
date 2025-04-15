@@ -262,6 +262,18 @@ class Hub {
 			'tribe_events_page_tec-events-help-hub',
 		];
 
+		/**
+		 * Filter the list of help pages.
+		 *
+		 * Allows extending the list of pages that are considered Help Hub pages.
+         * Mainly used to enqueue assets on the Help Hub page.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $help_pages Array of page IDs that are considered Help Hub pages.
+		 */
+		$help_pages = (array) apply_filters( 'tec_help_hub_pages', $help_pages );
+
 		return in_array( $current_screen->id, $help_pages, true );
 	}
 
