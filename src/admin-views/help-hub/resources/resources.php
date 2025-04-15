@@ -49,7 +49,7 @@ use TEC\Common\Admin\Help_Hub\Hub;
 		<?php $this->template( 'help-hub/resources/faqs' ); ?>
 
 		<div class="tec-settings-infobox">
-			<img class="tec-settings-infobox-logo" src="<?php echo esc_url( $help_hub->get_icon_url( 'stars_icon' ) ); ?>" alt="AI Chatboat logo">
+			<img class="tec-settings-infobox-logo" src="<?php echo esc_url( $help_hub->get_icon_url( 'stars_icon' ) ); ?>" alt="AI Chatbot logo">
 			<h3 class="tec-settings-infobox-title">
 				<?php
 				echo esc_html_x(
