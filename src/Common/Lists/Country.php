@@ -386,6 +386,10 @@ class Country {
 					'code' => 'TC',
 					'name' => 'Turks and Caicos Islands',
 				],
+				'US' => [
+					'code' => 'US',
+					'name' => 'United States',
+				],
 				'UY' => [
 					'code' => 'UY',
 					'name' => 'Uruguay',
