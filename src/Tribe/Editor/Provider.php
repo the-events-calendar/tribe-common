@@ -39,13 +39,13 @@ class Tribe__Editor__Provider extends Service_Provider {
 	 */
 	public function register() {
 		// Setup to check if gutenberg is active
-		$this->container->singleton( 'editor', 'Tribe__Editor' );
-		$this->container->singleton( 'editor.utils', 'Tribe__Editor__Utils' );
-		$this->container->singleton( 'common.editor.configuration', 'Tribe__Editor__Configuration' );
+		$this->container->singleton( 'editor', Tribe__Editor::class );
+		$this->container->singleton( 'editor.utils', Tribe__Editor__Utils::class );
+		$this->container->singleton( 'common.editor.configuration', Tribe__Editor__Configuration::class );
 
 		tribe_register_provider( Tribe\Editor\Compatibility::class );
 
-		$this->container->singleton( 'editor.assets', 'Tribe__Editor__Assets', [ 'hook' ] );
+		$this->container->singleton( 'editor.assets', Tribe__Editor__Assets::class, [ 'hook' ] );
 
 		$this->hook();
 
