@@ -33,7 +33,7 @@ class Block_Logic extends Controller {
 	 * @return void
 	 */
 	protected function do_register(): void {
-		add_action( 'current_screen', [ $this, 'store_screen' ] );
+		add_action( 'current_screen', [ $this, 'store_screen' ], 1 );
 	}
 
 	/**
@@ -47,7 +47,7 @@ class Block_Logic extends Controller {
 	 */
 	public function unregister(): void {
 		$this->screen = null;
-		remove_action( 'current_screen', [ $this, 'store_screen' ] );
+		remove_action( 'current_screen', [ $this, 'store_screen' ], 1 );
 	}
 
 	/**
