@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Added filters: `tec_qr_code_can_use`, `tec_qr_notice_valid_pages`, `tec_qr_notice_valid_post_types`
