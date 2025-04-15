@@ -1,5 +1,14 @@
 # Changelog
 
+### [6.6.0] 2025-04-15
+
+* Feature - Add a QR code Widget [TEC-5396]
+* Feature - Move QR-Related code from ET to Common [TEC-5426]
+* Feature - Move QR code library to Common [TEC-5403]
+* Fix - Resolve a console error about IAN loading [TCMN-184]
+* Tweak - Added filters: `tec_qr_code_can_use`, `tec_qr_notice_valid_pages`, `tec_qr_notice_valid_post_types`
+* Language - 4 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
 ### [6.5.5] 2025-04-07
 
 * Fix - Prevents logging while common hasn't fully loaded yet.
