@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Resolve a console error about IAN loading [TCMN-184]
