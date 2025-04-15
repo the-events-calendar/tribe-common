@@ -8,9 +8,9 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.6.0
  *
- * @since TBD Added the parent_classes var and code to handle it.
+ * @since 6.6.0 Added the parent_classes var and code to handle it.
  * @since 4.12.18
  * @var string                      $label          Label for the dropdown.
  * @var string                      $value          Value for the dropdown.

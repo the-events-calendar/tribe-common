@@ -2,7 +2,7 @@
 /**
  * The Notices class for the QR module.
  *
- * @since TBD
+ * @since 6.6.0
  *
  * @package TEC\Common\QR
  */
@@ -12,7 +12,7 @@ namespace TEC\Common\QR;
 /**
  * Class Notices
  *
- * @since  TBD
+ * @since  6.6.0
  *
  * @package TEC\Common\QR
  */
@@ -21,7 +21,7 @@ class Notices {
 	/**
 	 * Registers the notices for the QR code handling.
 	 *
-	 * @since TBD
+	 * @since 6.6.0
 	 *
 	 * @return void
 	 */
@@ -41,7 +41,7 @@ class Notices {
 	/**
 	 * Determines if the Notice for QR code dependencies should be visible
 	 *
-	 * @since TBD
+	 * @since 6.6.0
 	 *
 	 * @return bool
 	 */
@@ -59,7 +59,7 @@ class Notices {
 			/**
 			 * Filter the valid pages for the QR code dependency notice.
 			 *
-			 * @since TBD
+			 * @since 6.6.0
 			 *
 			 * @param array<string> $valid_pages The valid pages for the QR code notice.
 			 */
@@ -78,7 +78,7 @@ class Notices {
 			/**
 			 * Filter the valid post types for the QR code dependency notice.
 			 *
-			 * @since TBD
+			 * @since 6.6.0
 			 *
 			 * @param array<string> $valid_post_types The valid post types for the QR code notice.
 			 */
@@ -95,7 +95,7 @@ class Notices {
 	/**
 	 * Gets the notice for the QR code dependency.
 	 *
-	 * @since TBD
+	 * @since 6.6.0
 	 *
 	 * @return string
 	 */
