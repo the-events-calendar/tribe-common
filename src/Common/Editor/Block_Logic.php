@@ -72,11 +72,6 @@ class Block_Logic extends Controller {
 	 * @return bool
 	 */
 	public function should_load_blocks(): bool {
-		// When not in the admin area, allow anything to load blocks for rendering.
-		if ( ! is_admin() ) {
-			return $this->return_should_load_blocks( true, 'not_admin' );
-		}
-
 		/**
 		 * Filter to determine if blocks should be loaded by default.
 		 *
@@ -85,6 +80,11 @@ class Block_Logic extends Controller {
 		 * @param bool $default Default value.
 		 */
 		$default = (bool) apply_filters( 'tec_common_should_load_blocks_default', true );
+
+		// When not in the admin area, allow anything to load blocks for rendering.
+		if ( ! is_admin() ) {
+			return $this->return_should_load_blocks( $default, 'not_admin' );
+		}
 
 		// If we don't have the screen object set, we can't determine if we should load blocks.
 		if ( null === $this->screen ) {
