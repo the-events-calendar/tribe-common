@@ -130,9 +130,9 @@ class Block_Logic extends Controller {
 		 *
 		 * @since TBD
 		 *
-		 * @param bool      $should_load Whether blocks should be loaded.
-		 * @param string    $reason      The reason why we are returning this value.
-		 * @param WP_Screen $screen      The current screen object.
+		 * @param bool       $should_load Whether blocks should be loaded.
+		 * @param string     $reason      The reason why we are returning this value.
+		 * @param ?WP_Screen $screen      The current screen object, if it has been set.
 		 */
 		return (bool) apply_filters( 'tec_common_should_load_blocks', $should_load, $reason, $this->screen );
 	}
