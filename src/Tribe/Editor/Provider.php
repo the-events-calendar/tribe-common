@@ -62,8 +62,11 @@ class Tribe__Editor__Provider extends Service_Provider {
 	 *
 	 */
 	protected function hook() {
-		// Setup the registration of Blocks
-		add_action( 'init', [ $this, 'register_blocks' ], 20 );
+		if ( is_admin() ) {
+			add_action( 'current_screen', [ $this, 'register_blocks' ], 20 );
+		} else {
+			add_action( 'init', [ $this, 'register_blocks' ], 20 );
+		}
 	}
 
 	/**
