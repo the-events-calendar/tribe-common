@@ -101,6 +101,11 @@ class Block_Logic extends Controller {
 			return $this->return_should_load_blocks( false, 'not_block_editor' );
 		}
 
+		// If this isn't a supported post type, we don't need to load blocks.
+		if ( ! $this->should_load_blocks_for_post_type( $this->screen->post_type ) ) {
+			return $this->return_should_load_blocks( false, 'not_supported_post_type' );
+		}
+
 		return $this->return_should_load_blocks( true, 'block_editor' );
 	}
 
