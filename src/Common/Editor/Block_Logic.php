@@ -72,6 +72,11 @@ class Block_Logic extends Controller {
 	 * @return bool
 	 */
 	public function should_load_blocks(): bool {
+		// When not in the admin area, allow anything to load blocks for rendering.
+		if ( ! is_admin() ) {
+			return $this->return_should_load_blocks( true, 'not_admin' );
+		}
+
 		/**
 		 * Filter to determine if blocks should be loaded by default.
 		 *
