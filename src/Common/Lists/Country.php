@@ -69,7 +69,7 @@ class Country {
 				],
 				'CI' => [
 					'code' => 'CI',
-					'name' => 'Côte d’Ivoire',
+					'name' => "Côte d’Ivoire",
 				],
 				'DJ' => [
 					'code' => 'DJ',
