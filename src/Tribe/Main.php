@@ -805,10 +805,7 @@ class Tribe__Main {
 		tribe_singleton( Translations_Loader::class, Translations_Loader::class );
 
 		tribe_register_provider( Block_Logic::class );
-
-		if ( ! tec_using_classy_editor() ) {
-			tribe_register_provider( Tribe__Editor__Provider::class );
-		}
+		tribe_register_provider( Tribe__Editor__Provider::class );
 
 		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
 		tribe_register_provider( Tribe\Service_Providers\Tooltip::class );
