@@ -55,12 +55,12 @@ class Tribe__Editor__Provider extends Service_Provider {
 	}
 
 	/**
-	 * Any hooking any class needs happen here.
+	 * Any class hooking needs happen here.
 	 *
 	 * In place of delegating the hooking responsibility to the single classes they are all hooked here.
 	 *
 	 * @since 4.8
-	 *
+	 * @since TBD Updated to change the block hooking.
 	 */
 	protected function hook() {
 		if ( is_admin() ) {
