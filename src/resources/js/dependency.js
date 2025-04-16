@@ -335,6 +335,6 @@
 	$window.on( 'load', obj.setup );
 
 	// Re-run the setup when the widgets are toggled
-	$( document.body ).on( 'click.widgets-toggle', obj.setup );
+	$(document).on('widget-updated widget-added', obj.setup);
 
 }( jQuery, window.underscore || window._, {} ) );
