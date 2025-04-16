@@ -1,7 +1,6 @@
 <?php
 
-abstract class Tribe__Editor__Blocks__Abstract
-implements Tribe__Editor__Blocks__Interface {
+abstract class Tribe__Editor__Blocks__Abstract implements Tribe__Editor__Blocks__Interface {
 
 	/**
 	 * Namespace for Blocks from tribe
@@ -32,7 +31,7 @@ implements Tribe__Editor__Blocks__Interface {
 	 */
 	public function name() {
 		if ( false === strpos( $this->slug(), $this->namespace . '/' ) ) {
-			return $this->namespace . '/' . $this->slug();
+			return "{$this->namespace}/{$this->slug()}";
 		} else {
 			return $this->slug();
 		}
@@ -54,12 +53,11 @@ implements Tribe__Editor__Blocks__Interface {
 	 *
 	 * @since 4.8
 	 *
-	 * @param  array $attributes
+	 * @param array $attributes
 	 *
 	 * @return array
-	*/
+	 */
 	public function attributes( $params = [] ) {
-
 		// get the default attributes
 		$default_attributes = $this->default_attributes();
 
@@ -72,12 +70,10 @@ implements Tribe__Editor__Blocks__Interface {
 		/**
 		 * Filters the default attributes for the block
 		 *
-		 * @param array  $attributes    The attributes
-		 * @param object $this      The current object
+		 * @param array  $attributes The attributes
+		 * @param object $this       The current object
 		 */
-		$attributes = apply_filters( 'tribe_block_attributes_defaults_' . $this->slug(), $attributes, $this );
-
-		return $attributes;
+		return apply_filters( "tribe_block_attributes_defaults_{$this->slug()}", $attributes, $this );
 	}
 
 	/**
@@ -85,23 +81,16 @@ implements Tribe__Editor__Blocks__Interface {
 	 *
 	 * @since 4.8
 	 *
-	 * @param  array $attributes
-	 *
 	 * @return array
-	*/
+	 */
 	public function default_attributes() {
-
-		$attributes = [];
-
 		/**
 		 * Filters the default attributes
 		 *
-		 * @param array  $params    The attributes
-		 * @param object $this      The current object
+		 * @param array  $params The attributes
+		 * @param object $this   The current object
 		 */
-		$attributes = apply_filters( 'tribe_block_attributes_defaults', $attributes, $this );
-
-		return $attributes;
+		return apply_filters( 'tribe_block_attributes_defaults', [], $this );
 	}
 
 	/**
@@ -109,7 +98,7 @@ implements Tribe__Editor__Blocks__Interface {
 	 *
 	 * @since 4.8
 	 *
-	 * @param  array $attributes
+	 * @param array $attributes
 	 *
 	 * @return string
 	 */
@@ -117,10 +106,10 @@ implements Tribe__Editor__Blocks__Interface {
 		$json_string = json_encode( $attributes, JSON_PRETTY_PRINT );
 
 		return
-		'<pre class="tribe-placeholder-text-' . $this->name() . '">' .
+			'<pre class="tribe-placeholder-text-' . $this->name() . '">' .
 			'Block Name: ' . $this->name() . "\n" .
 			'Block Attributes: ' . "\n" . $json_string .
-		'</pre>';
+			'</pre>';
 	}
 
 	/**
@@ -143,9 +132,11 @@ implements Tribe__Editor__Blocks__Interface {
 	 * @return void
 	 */
 	public function register() {
-		$block_args = $this->get_registration_args( [
-			'render_callback' => [ $this, 'render' ],
-		] );
+		$block_args = $this->get_registration_args(
+			[
+				'render_callback' => [ $this, 'render' ],
+			]
+		);
 
 		// Prevents a block from being registered twice.
 		if ( ! class_exists( 'WP_Block_Type_Registry' ) || WP_Block_Type_Registry::get_instance()->is_registered( $this->name() ) ) {
@@ -161,7 +152,7 @@ implements Tribe__Editor__Blocks__Interface {
 	 * @since 4.14.13
 	 */
 	public function load() {
-		add_action( 'wp_ajax_' . $this->get_ajax_action(), [ $this, 'ajax' ] );
+		add_action( "wp_ajax_{$this->get_ajax_action()}", [ $this, 'ajax' ] );
 
 		$this->assets();
 		$this->hook();
@@ -174,10 +165,11 @@ implements Tribe__Editor__Blocks__Interface {
 	 * the pattern of a block but not validating its structure. For strict accuracy
 	 * you should use the block parser on post content.
 	 *
-	 * @since 4.8
+	 * @see   gutenberg_parse_blocks()
+	 *
 	 * @since 5.1.5 Added a has_block filter.
 	 *
-	 * @see gutenberg_parse_blocks()
+	 * @since 4.8
 	 *
 	 * @param int|string|WP_Post|null $post Optional. Post content, post ID, or post object. Defaults to global $post.
 	 *
@@ -205,13 +197,13 @@ implements Tribe__Editor__Blocks__Interface {
 		 *
 		 * @since 5.1.5
 		 *
-		 * @param bool $has_block Whether the post has this block.
-		 * @param WP_Post|null $wp_post The post object.
-		 * @param int|null $post_id The post ID.
-		 * @param string $block_name The block name.
-		 * @param Tribe__Editor__Blocks__Abstract $this The block object.
+		 * @param bool                            $has_block  Whether the post has this block.
+		 * @param WP_Post|null                    $wp_post    The post object.
+		 * @param int|null                        $post_id    The post ID.
+		 * @param string                          $block_name The block name.
+		 * @param Tribe__Editor__Blocks__Abstract $this       The block object.
 		 */
-		$has_block = (bool) apply_filters( 'tec_block_has_block', $has_block, $wp_post, $post_id, $this->name(), $this );
+		$has_block  = (bool) apply_filters( 'tec_block_has_block', $has_block, $wp_post, $post_id, $this->name(), $this );
 		$block_name = $this->name();
 
 		/**
@@ -219,10 +211,10 @@ implements Tribe__Editor__Blocks__Interface {
 		 *
 		 * @since 5.1.5
 		 *
-		 * @param bool $has_block Whether the post has this block.
-		 * @param WP_Post|null $wp_post The post object.
-		 * @param int|null $post_id The post ID.
-		 * @param Tribe__Editor__Blocks__Abstract $this The block object.
+		 * @param bool                            $has_block Whether the post has this block.
+		 * @param WP_Post|null                    $wp_post   The post object.
+		 * @param int|null                        $post_id   The post ID.
+		 * @param Tribe__Editor__Blocks__Abstract $this      The block object.
 		 */
 		return (bool) apply_filters( "tec_block_{$block_name}_has_block", $has_block, $wp_post, $post_id, $this );
 	}
@@ -246,16 +238,14 @@ implements Tribe__Editor__Blocks__Interface {
 	 *
 	 * @return void
 	 */
-	public function assets() {
-	}
+	public function assets() {}
 
 	/**
-	 * Attach any particular hook for the specif block.
+	 * Attach any particular hook for the specific block.
 	 *
 	 * @since 4.8
 	 */
-	public function hook() {
-	}
+	public function hook() {}
 
 	/**
 	 * Returns the block data for the block editor.
@@ -287,7 +277,7 @@ implements Tribe__Editor__Blocks__Interface {
 		 * @param array  $block_data The block data.
 		 * @param object $this       The current object.
 		 */
-		$block_data = apply_filters( 'tribe_block_block_data_' . $this->slug(), $block_data, $this );
+		$block_data = apply_filters( "tribe_block_block_data_{$this->slug()}", $block_data, $this );
 
 		return $block_data;
 	}

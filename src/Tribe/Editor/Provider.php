@@ -1,8 +1,36 @@
 <?php
 
 use TEC\Common\Contracts\Service_Provider;
+use TEC\Common\Editor\Block_Logic;
 
 class Tribe__Editor__Provider extends Service_Provider {
+
+	/**
+	 * Whether the service provider will be a deferred one or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function isDeferred() {
+		return true;
+	}
+
+	/**
+	 * Returns an array of the class or interfaces bound and provided by the service provider.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string> A list of fully-qualified implementations provided by the service provider.
+	 */
+	public function provides() {
+		return [
+			'editor',
+			'editor.utils',
+			'common.editor.configuration',
+			'editor.assets',
+		];
+	}
 
 	/**
 	 * Binds and sets up implementations.
@@ -12,13 +40,13 @@ class Tribe__Editor__Provider extends Service_Provider {
 	 */
 	public function register() {
 		// Setup to check if gutenberg is active
-		$this->container->singleton( 'editor', 'Tribe__Editor' );
-		$this->container->singleton( 'editor.utils', 'Tribe__Editor__Utils' );
-		$this->container->singleton( 'common.editor.configuration', 'Tribe__Editor__Configuration' );
+		$this->container->singleton( 'editor', Tribe__Editor::class );
+		$this->container->singleton( 'editor.utils', Tribe__Editor__Utils::class );
+		$this->container->singleton( 'common.editor.configuration', Tribe__Editor__Configuration::class );
 
 		tribe_register_provider( Tribe\Editor\Compatibility::class );
 
-		$this->container->singleton( 'editor.assets', 'Tribe__Editor__Assets', [ 'hook' ] );
+		$this->container->singleton( 'editor.assets', Tribe__Editor__Assets::class, [ 'hook' ] );
 
 		$this->hook();
 
@@ -27,16 +55,19 @@ class Tribe__Editor__Provider extends Service_Provider {
 	}
 
 	/**
-	 * Any hooking any class needs happen here.
+	 * Any class hooking needs happen here.
 	 *
 	 * In place of delegating the hooking responsibility to the single classes they are all hooked here.
 	 *
 	 * @since 4.8
-	 *
+	 * @since TBD Updated to change the block hooking.
 	 */
 	protected function hook() {
-		// Setup the registration of Blocks
-		add_action( 'init', [ $this, 'register_blocks' ], 20 );
+		if ( is_admin() ) {
+			add_action( 'current_screen', [ $this, 'register_blocks' ], 20 );
+		} else {
+			add_action( 'init', [ $this, 'register_blocks' ], 20 );
+		}
 	}
 
 	/**
@@ -48,20 +79,18 @@ class Tribe__Editor__Provider extends Service_Provider {
 	 * @return void
 	 */
 	public function register_blocks() {
+		/** @var Block_Logic $block_logic */
+		$block_logic = $this->container->get( Block_Logic::class );
+
+		if ( ! $block_logic->should_load_blocks() ) {
+			return;
+		}
+
 		/**
 		 * Internal Action used to register blocks for Events
 		 *
 		 * @since 4.8.2
 		 */
 		do_action( 'tribe_editor_register_blocks' );
-	}
-
-	/**
-	 * Binds and sets up implementations at boot time.
-	 *
-	 * @since 4.8
-	 */
-	public function boot() {
-		// no ops
 	}
 }
