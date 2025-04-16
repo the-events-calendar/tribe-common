@@ -1,6 +1,7 @@
 <?php
 
 use TEC\Common\Contracts\Service_Provider;
+use TEC\Common\Editor\Block_Logic;
 
 class Tribe__Editor__Provider extends Service_Provider {
 
@@ -78,6 +79,13 @@ class Tribe__Editor__Provider extends Service_Provider {
 	 * @return void
 	 */
 	public function register_blocks() {
+		/** @var Block_Logic $block_logic */
+		$block_logic = $this->container->get( Block_Logic::class );
+
+		if ( ! $block_logic->should_load_blocks() ) {
+			return;
+		}
+
 		/**
 		 * Internal Action used to register blocks for Events
 		 *
