@@ -111,33 +111,21 @@ abstract class Integration_Settings {
 	 * Get the integration connection fields to the ones in the Integrations tab.
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
+	 * @since TBD Updated HTML.
 	 *
 	 * @return array<string,array> The fields, as updated by the settings.
 	 */
 	public function get_fields() {
-		$api_id =  static::$api_id;
-
-		$wrapper_classes = tribe_get_classes( [
-			'tec-automator-settings' => true,
-			'tec-events-settings-' . static::$api_id . '-application' => true,
-		] );
+		$api_id = static::$api_id;
 
 		$api_fields = [
-			static::$option_prefix . 'wrapper_open'  => [
-				'type' => 'html',
-				'html' => '<div id="tribe-settings-' . static::$api_id . '-application" class="' . implode( ' ', $wrapper_classes ) . '">'
-			],
-			static::$option_prefix . 'header'        => [
+			static::$option_prefix . 'header'    => [
 				'type' => 'html',
 				'html' => $this->get_intro_text(),
 			],
-			static::$option_prefix . 'authorize'     => [
+			static::$option_prefix . 'authorize' => [
 				'type' => 'html',
 				'html' => $this->get_all_connection_fields(),
-			],
-			static::$option_prefix . 'wrapper_close' => [
-				'type' => 'html',
-				'html' => '</div>',
 			],
 		];
 
