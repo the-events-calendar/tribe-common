@@ -135,7 +135,7 @@ class Uplink_Controller extends Controller_Contract {
 			];
 		}
 
-		// Only inject fields if we have some to inject.
+		// Only inject fields if we have something to inject.
 		if ( ! empty( $fields_to_inject ) ) {
 			$fields_array = Arr::insert_after_key( 'tribe-form-content-start', $fields_array, $fields_to_inject );
 		}
