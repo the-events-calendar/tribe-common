@@ -72,6 +72,7 @@ class Abstract_Dashboard {
 	 * Get the integration endpoint dashboard fields to display on the Integrations tab.
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
+	 * @since TBD Updated HTML.
 	 *
 	 * @param array<string,array> $fields The current fields.
 	 *
@@ -80,28 +81,17 @@ class Abstract_Dashboard {
 	public function add_fields( array $fields = [] ) {
 		$api_id = static::$api_id;
 
-		$wrapper_classes = tribe_get_classes( [
-			'tec-automator-dashboard'                       => true,
-			'tec-events-settings-' . $api_id . '-dashboard' => true,
-		] );
-
 		$dashboard_fields = [
-			self::$option_prefix . 'wrapper_open'  => [
-				'type' => 'html',
-				'html' => '<div id="tribe-settings-' . self::$api_id . '-application" class="' . implode( ' ', $wrapper_classes ) . '">',
-			],
-			static::$option_prefix . 'header'        => [
+
+			static::$option_prefix . 'header'    => [
 				'type' => 'html',
 				'html' => $this->get_intro_text(),
 			],
-			static::$option_prefix . 'endpoints'     => [
+			static::$option_prefix . 'endpoints' => [
 				'type' => 'html',
 				'html' => $this->get_dashboard(),
 			],
-			self::$option_prefix . 'wrapper_close' => [
-				'type' => 'html',
-				'html' => '</div>',
-			],
+
 		];
 
 		$fields = array_merge( $fields, $dashboard_fields );
