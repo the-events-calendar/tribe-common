@@ -142,7 +142,6 @@ class Country {
 				'CN' => 'China',
 				'CX' => 'Christmas Island',
 				'CC' => 'Cocos [Keeling] Islands',
-				'CY' => 'Cyprus',
 				'GE' => 'Georgia',
 				'HK' => 'Hong Kong',
 				'IN' => 'India',
