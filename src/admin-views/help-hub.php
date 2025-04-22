@@ -11,23 +11,6 @@
  * @var string      $template_variant  The template variant, determining which template to display.
  * @var array       $resource_sections An array of data to display in the Resource section.
  */
-
-$hub_tabs = [
-	[
-		'target'   => 'tec-help-tab',
-		'class'    => 'tec-nav__tab--active',
-		'label'    => __( 'Support Hub', 'the-events-calendar' ),
-		'id'       => 'tec-help-tab',
-		'template' => 'help-hub/support/support-hub',
-	],
-	[
-		'target'   => 'tec-resources-tab',
-		'class'    => '',
-		'label'    => __( 'Resources', 'the-events-calendar' ),
-		'id'       => 'tec-resources-tab',
-		'template' => 'help-hub/resources/resources',
-	],
-];
 ?>
 <div class="tribe_settings wrap tec-events-admin-settings">
 	<div class="tribe-notice-wrap">
@@ -53,7 +36,7 @@ $hub_tabs = [
 			</div>
 			<nav class="tec-settings__nav-wrapper" aria-label="<?php esc_attr_e( 'Help Hub Navigation', 'tribe-common' ); ?>">
 				<ul class="tec-nav" role="tablist">
-					<?php foreach ( $hub_tabs as $index => $hub_tab ) : ?>
+					<?php foreach ( $tabs as $index => $hub_tab ) : ?>
 						<li
 							data-tab-target="<?php echo esc_attr( $hub_tab['target'] ); ?>"
 							class="tec-nav__tab <?php echo esc_attr( $hub_tab['class'] ); ?>"
@@ -76,7 +59,7 @@ $hub_tabs = [
 			aria-expanded="false"
 			aria-label="<?php esc_attr_e( 'Open settings navigation', 'tribe-common' ); ?>"
 		>
-			<span><?php echo esc_html( $hub_tabs[0]['label'] ); ?></span>
+			<span><?php echo esc_html( reset( $tabs )['label'] ); ?></span>
 			<img
 				class="tec-modal__control-icon"
 				src="<?php echo esc_url( tribe_resource_url( 'images/icons/hamburger.svg', false, null, Tribe__Main::instance() ) ); ?>"
@@ -86,7 +69,7 @@ $hub_tabs = [
 	</div>
 	<nav class="tec-settings__nav-wrapper" aria-label="<?php esc_attr_e( 'Main Help Hub Navigation', 'tribe-common' ); ?>">
 		<ul class="tec-nav" role="tablist">
-			<?php foreach ( $hub_tabs as $index => $hub_tab ) : ?>
+			<?php foreach ( $tabs as $index => $hub_tab ) : ?>
 				<li
 					data-tab-target="<?php echo esc_attr( $hub_tab['target'] ); ?>"
 					class="tec-nav__tab <?php echo esc_attr( $hub_tab['class'] ); ?>"
@@ -100,7 +83,7 @@ $hub_tabs = [
 		</ul>
 	</nav>
 	<div id="tec-help-hub-tab-containers" class="tec-tab-parent-container">
-		<?php foreach ( $hub_tabs as $index => $hub_tab ) : ?>
+		<?php foreach ( $tabs as $index => $hub_tab ) : ?>
 			<div
 				id="<?php echo esc_attr( $hub_tab['id'] ); ?>"
 				class="tec-tab-container <?php echo 0 === $index ? '' : 'hidden'; ?>"

@@ -43,10 +43,20 @@ use TEC\Common\Admin\Help_Hub\Hub;
 
 			?>
 		</div>
-		<?php $this->template( 'help-hub/resources/getting-started' ); ?>
-		<?php $this->template( 'help-hub/resources/customization' ); ?>
-		<?php $this->template( 'help-hub/resources/common-issues' ); ?>
-		<?php $this->template( 'help-hub/resources/faqs' ); ?>
+		<?php
+		$sections = $help_hub->handle_resource_sections();
+		foreach ( $sections as $slug => $section ) {
+			// Determine which template to use based on section type.
+			$template_name = 'help-hub/resources/resource_template';
+
+			// Check if this is a FAQ section.
+			if ( isset( $section['type'] ) && 'faq' === $section['type'] ) {
+				$template_name = 'help-hub/resources/faq_template';
+			}
+
+			$this->template( $template_name, [ 'section' => $section ] );
+		}
+		?>
 
 		<div class="tec-settings-infobox">
 			<img class="tec-settings-infobox-logo" src="<?php echo esc_url( $help_hub->get_icon_url( 'stars_icon' ) ); ?>" alt="AI Chatboat logo">
