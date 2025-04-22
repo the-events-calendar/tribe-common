@@ -1,0 +1,34 @@
+{
+    "getting_started": {
+        "title": "Getting Started",
+        "slug": "getting_started",
+        "description": "Learn the basics of The Events Calendar.",
+        "type": "default",
+        "links": [
+            {
+                "title": "The Events Calendar",
+                "url": "#",
+                "icon": "\/path\/to\/tec-icon.svg"
+            },
+            {
+                "title": "Event Aggregator",
+                "url": "#",
+                "icon": "\/path\/to\/ea-icon.svg"
+            }
+        ]
+    },
+    "faqs": {
+        "title": "Frequently Asked Questions",
+        "slug": "faqs",
+        "description": "Get quick answers to common questions.",
+        "type": "faq",
+        "faqs": [
+            {
+                "question": "Can I have more than one calendar?",
+                "answer": "Yes, you can use this feature in the mock environment.",
+                "link_text": "Learn More",
+                "link_url": "#"
+            }
+        ]
+    }
+}
