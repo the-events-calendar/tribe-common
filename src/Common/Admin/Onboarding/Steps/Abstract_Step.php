@@ -39,18 +39,18 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public static function handle( $response, $request ): WP_REST_Response {
+	public function handle( $response, $request ): WP_REST_Response {
 		// If it's already an error, bail.
 		if ( $response->is_error() ) {
 			return $response;
 		}
 
 		// Ensure we should be processing this step.
-		if ( ! static::should_process( $request ) ) {
+		if ( ! $this->should_process( $request ) ) {
 			return $response;
 		}
 
-		return static::process( $response, $request );
+		return $this->process( $response, $request );
 	}
 
 	/**
@@ -62,8 +62,8 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 *
 	 * @return bool
 	 */
-	public static function should_process( $request ): bool {
-		return static::tab_check( $request );
+	public function should_process( $request ): bool {
+		return $this->tab_check( $request );
 	}
 
 	/**
@@ -75,7 +75,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 *
 	 * @return bool
 	 */
-	public static function tab_check( $request ): bool {
+	public function tab_check( $request ): bool {
 		$params = $request->get_params();
 		// If the current tab is less than this tab, we don't need to do anything yet.
 		return isset( $params['currentTab'] ) && absint( $params['currentTab'] ) >= static::TAB_NUMBER;
@@ -92,7 +92,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public static function add_message( $response, $message, ?int $status = null ): WP_REST_Response {
+	public function add_message( $response, $message, ?int $status = null ): WP_REST_Response {
 		$data            = $response->get_data();
 		$data['message'] = array_merge( (array) $data['message'], [ $message ] );
 
@@ -114,8 +114,8 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public static function add_fail_message( $response, $message ): WP_REST_Response {
-		return static::add_message( $response, $message, 500 );
+	public function add_fail_message( $response, $message ): WP_REST_Response {
+		return $this->add_message( $response, $message, 500 );
 	}
 
 	/**
@@ -128,5 +128,5 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 *
 	 * @return WP_REST_Response
 	 */
-	abstract public static function process( $response, $request ): WP_REST_Response;
+	abstract public function process( $response, $request ): WP_REST_Response;
 }

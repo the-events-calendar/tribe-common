@@ -33,7 +33,7 @@ interface Step_Interface {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public static function handle( $response, $request ): WP_REST_Response;
+	public function handle( $response, $request ): WP_REST_Response;
 
 	/**
 	 * Process the step data.
@@ -45,5 +45,5 @@ interface Step_Interface {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public static function process( $response, $request ): WP_REST_Response;
+	public function process( $response, $request ): WP_REST_Response;
 }
