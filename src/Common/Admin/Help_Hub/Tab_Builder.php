@@ -180,7 +180,7 @@ class Tab_Builder {
 		 * @param array  $tab The tab data.
 		 * @param string $id  The tab ID.
 		 */
-		$tab = apply_filters( "tec_help_hub_tab_{$this->id}", $tab, $this->id );
+		$tab = (array) apply_filters( "tec_help_hub_tab_{$this->id}", $tab, $this->id );
 
 		// Store the tab.
 		self::$tabs[ $this->id ] = $tab;

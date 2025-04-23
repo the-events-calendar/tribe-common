@@ -1,25 +1,26 @@
 <?php
+
 /**
- * Section Builder for the Help Hub.
+ * Abstract Section Builder for the Help Hub.
  *
- * Provides a fluent interface for building consistent Help Hub sections with proper
+ * Provides a base class for building consistent Help Hub sections with proper
  * structure and type safety, and stores built sections for later retrieval.
  *
  * @since   TBD
  * @package TEC\Common\Admin\Help_Hub
  */
 
-namespace TEC\Common\Admin\Help_Hub;
+namespace TEC\Common\Admin\Help_Hub\Section_Builder;
 
 /**
- * Class Section_Builder
+ * Abstract class Abstract_Section_Builder
  *
- * Helper class to build and store consistent Help Hub sections with proper structure and type safety.
+ * Base class to build and store consistent Help Hub sections with proper structure and type safety.
  *
  * @since   TBD
  * @package TEC\Common\Admin\Help_Hub
  */
-class Section_Builder {
+abstract class Abstract_Section_Builder {
 	/**
 	 * The section title.
 	 *
@@ -27,7 +28,7 @@ class Section_Builder {
 	 *
 	 * @var string
 	 */
-	private string $title;
+	protected string $title;
 
 	/**
 	 * The section identifier/slug.
@@ -36,7 +37,7 @@ class Section_Builder {
 	 *
 	 * @var string
 	 */
-	private string $slug;
+	protected string $slug;
 
 	/**
 	 * The section description.
@@ -45,25 +46,16 @@ class Section_Builder {
 	 *
 	 * @var string
 	 */
-	private string $description = '';
+	protected string $description = '';
 
 	/**
-	 * The section type.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	private string $type = 'default';
-
-	/**
-	 * The section links or FAQ items.
+	 * The section items.
 	 *
 	 * @since TBD
 	 *
 	 * @var array
 	 */
-	private array $items = [];
+	protected array $items = [];
 
 	/**
 	 * Static storage for all built sections.
@@ -81,15 +73,13 @@ class Section_Builder {
 	 *
 	 * @param string $title The section title.
 	 * @param string $slug  The section identifier/slug.
-	 * @param string $type  Optional. The section type ('default' or 'faq').
 	 *
 	 * @return static
 	 */
-	public static function make( string $title, string $slug, string $type = 'default' ): self {
-		$instance        = new self();
+	public static function make( string $title, string $slug ): self {
+		$instance        = new static();
 		$instance->title = $title;
 		$instance->slug  = $slug;
-		$instance->type  = $type;
 
 		return $instance;
 	}
@@ -110,58 +100,16 @@ class Section_Builder {
 	}
 
 	/**
-	 * Add a link to the section (for default sections).
+	 * Add an item to the section.
 	 *
 	 * @since TBD
 	 *
-	 * @param string $title The link title.
-	 * @param string $url   The link URL.
-	 * @param string $icon  Optional. The icon URL.
+	 * @param array $item The item to add.
 	 *
 	 * @return $this
 	 */
-	public function add_link( string $title, string $url, string $icon = '' ): self {
-		if ( $this->type !== 'default' ) {
-			return $this;
-		}
-
-		$this->items[] = [
-			'title' => $title,
-			'url'   => $url,
-			'icon'  => $icon,
-		];
-
-		return $this;
-	}
-
-	/**
-	 * Add a FAQ item to the section (for FAQ sections).
-	 *
-	 * @since TBD
-	 *
-	 * @param string $question  The FAQ question.
-	 * @param string $answer    The FAQ answer.
-	 * @param string $link_text Optional. The "Learn More" link text.
-	 * @param string $link_url  Optional. The "Learn More" link URL.
-	 *
-	 * @return $this
-	 */
-	public function add_faq( string $question, string $answer, string $link_text = '', string $link_url = '' ): self {
-		if ( $this->type !== 'faq' ) {
-			return $this;
-		}
-
-		$faq = [
-			'question' => $question,
-			'answer'   => $answer,
-		];
-
-		if ( $link_text && $link_url ) {
-			$faq['link_text'] = $link_text;
-			$faq['link_url']  = $link_url;
-		}
-
-		$this->items[] = $faq;
+	protected function add_item( array $item ): self {
+		$this->items[] = $item;
 
 		return $this;
 	}
@@ -178,15 +126,11 @@ class Section_Builder {
 			'title'       => $this->title,
 			'slug'        => $this->slug,
 			'description' => $this->description,
-			'type'        => $this->type,
+			'type'        => $this->get_type(),
 		];
 
 		// Add items based on section type.
-		if ( $this->type === 'faq' ) {
-			$section['faqs'] = $this->items;
-		} else {
-			$section['links'] = $this->items;
-		}
+		$section[ $this->get_items_key() ] = $this->items;
 
 		/**
 		 * Filter the section data.
@@ -238,4 +182,22 @@ class Section_Builder {
 	public static function clear_sections(): void {
 		self::$sections = [];
 	}
+
+	/**
+	 * Get the section type.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The section type.
+	 */
+	abstract protected function get_type(): string;
+
+	/**
+	 * Get the items array key.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The items array key.
+	 */
+	abstract protected function get_items_key(): string;
 }
