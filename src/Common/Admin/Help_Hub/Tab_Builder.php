@@ -1,0 +1,186 @@
+<?php
+/**
+ * Tab Builder for the Help Hub.
+ *
+ * Provides a fluent interface for building consistent Help Hub tabs with proper
+ * structure and type safety, and stores built tabs for later retrieval.
+ *
+ * @since   TBD
+ * @package TEC\Common\Admin\Help_Hub
+ */
+
+namespace TEC\Common\Admin\Help_Hub;
+
+/**
+ * Class Tab_Builder
+ *
+ * Helper class to build and store consistent Help Hub tabs with proper structure and type safety.
+ *
+ * @since   TBD
+ * @package TEC\Common\Admin\Help_Hub
+ */
+class Tab_Builder {
+	/**
+	 * The tab target.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	private string $target;
+
+	/**
+	 * The tab CSS class.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	private string $class = '';
+
+	/**
+	 * The tab label.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	private string $label;
+
+	/**
+	 * The tab ID.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	private string $id;
+
+	/**
+	 * The tab template.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	private string $template;
+
+	/**
+	 * Static storage for all built tabs.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string, array>
+	 */
+	private static array $tabs = [];
+
+	/**
+	 * Create a new tab instance.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $target   The tab target.
+	 * @param string $label    The tab label.
+	 * @param string $id       The tab ID.
+	 * @param string $template The tab template.
+	 *
+	 * @return static
+	 */
+	public static function make( string $target, string $label, string $id, string $template ): self {
+		$instance           = new self();
+		$instance->target   = $target;
+		$instance->label    = $label;
+		$instance->id       = $id;
+		$instance->template = $template;
+
+		return $instance;
+	}
+
+	/**
+	 * Set the tab CSS class.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $class_name The tab CSS class.
+	 *
+	 * @return $this
+	 */
+	public function set_class( string $class_name ): self {
+		$this->class = $class_name;
+
+		return $this;
+	}
+
+	/**
+	 * Build the tab array and store it.
+	 *
+	 * @since TBD
+	 *
+	 * @return array{
+	 *     target: string,
+	 *     class: string,
+	 *     label: string,
+	 *     id: string,
+	 *     template: string
+	 * } The built tab.
+	 */
+	public function build(): array {
+		$tab = [
+			'target'   => $this->target,
+			'class'    => $this->class,
+			'label'    => $this->label,
+			'id'       => $this->id,
+			'template' => $this->template,
+		];
+
+		/**
+		 * Filter a specific Help Hub tab.
+		 *
+		 * @since TBD
+		 *
+		 * @param array  $tab The tab data.
+		 * @param string $id  The tab ID.
+		 */
+		$tab = apply_filters( "tec_help_hub_tab_{$this->id}", $tab, $this->id );
+
+		// Store the tab.
+		self::$tabs[ $this->id ] = $tab;
+
+		return $tab;
+	}
+
+	/**
+	 * Get all stored tabs.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string, array> All stored tabs.
+	 */
+	public static function get_all_tabs(): array {
+		return self::$tabs;
+	}
+
+	/**
+	 * Get a specific tab by ID.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $id The tab ID.
+	 *
+	 * @return array|null The tab data or null if not found.
+	 */
+	public static function get_tab( string $id ): ?array {
+		return self::$tabs[ $id ] ?? null;
+	}
+
+	/**
+	 * Clear all stored tabs.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public static function clear_tabs(): void {
+		self::$tabs = [];
+	}
+}

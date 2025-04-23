@@ -18,6 +18,7 @@ use TEC\Common\StellarWP\AdminNotices\AdminNotices;
 use Tribe__Main;
 use Tribe__Template;
 use TEC\Common\Configuration\Configuration;
+use TEC\Common\Admin\Help_Hub\Tab_Builder;
 
 /**
  * Class Hub
@@ -169,10 +170,31 @@ class Hub {
 		$status           = $this->get_license_and_opt_in_status();
 		$template_variant = self::get_template_variant( $status['has_valid_license'], $status['is_opted_in'] );
 
+		// Build the tabs.
+		$builder = tribe( Tab_Builder::class );
+
+		$builder::make(
+			'tec-help-tab',
+			__( 'Support Hub', 'tribe-common' ),
+			'tec-help-tab',
+			'help-hub/support/support-hub'
+		)
+			->set_class( 'tec-nav__tab--active' )
+			->build();
+
+		$builder::make(
+			'tec-resources-tab',
+			__( 'Resources', 'tribe-common' ),
+			'tec-resources-tab',
+			'help-hub/resources/resources'
+		)
+			->build();
+
 		$this->render_template(
 			'help-hub',
 			[
 				'template_variant' => $template_variant,
+				'tabs'             => $builder::get_all_tabs(),
 			]
 		);
 

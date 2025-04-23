@@ -37,7 +37,8 @@ class Provider extends Service_Provider {
 		// Register the provider instance as a singleton within the container.
 		$this->container->singleton( self::class, $this );
 		$this->container->bind( Hub::class );
-
+		$this->container->bind( Section_Builder::class );
+		$this->container->bind( Tab_Builder::class );
 		/**
 		 * Fires when the provider is registered.
 		 *

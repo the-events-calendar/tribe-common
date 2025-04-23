@@ -12,9 +12,10 @@
 namespace TEC\Common\Admin\Help_Hub;
 
 use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
+use TEC\Common\Admin\Help_Hub\Section_Builder;
 
 /**
- * Class Mock_TEC_Hub_Resource_Data
+ * Class Resource_Data_Mock
  *
  * Provides mock data for testing the Help Hub's functionality.
  *
@@ -67,33 +68,39 @@ class Resource_Data_Mock implements Help_Hub_Data_Interface {
 	}
 
 	/**
-	 * Creates a mock array of resource sections.
+	 * Creates a mock array of resource sections using Section_Builder.
 	 *
 	 * @return array Mock data for resource sections, including titles and icons.
 	 */
 	public function create_resource_sections(): array {
-		return [
-			'getting_started' => [
-				[
-					'icon'  => $this->get_icon_url( 'tec_icon' ),
-					'title' => 'Mock The Events Calendar',
-					'link'  => '#',
-				],
-				[
-					'icon'  => $this->get_icon_url( 'ea_icon' ),
-					'title' => 'Mock Event Aggregator',
-					'link'  => '#',
-				],
-			],
-			'faqs'            => [
-				[
-					'question'  => 'Can I have more than one calendar?',
-					'answer'    => 'Yes, you can use this feature in the mock environment.',
-					'link_text' => 'Learn More',
-					'link_url'  => '#',
-				],
-			],
-		];
+		// Clear any existing sections
+		Section_Builder::clear_sections();
+
+		// Create Getting Started section
+		Section_Builder::make( 'Getting Started', 'getting_started', 'default' )
+			->set_description( 'Learn the basics of The Events Calendar.' )
+			->add_link( 'Mock The Events Calendar', '#', $this->get_icon_url( 'tec_icon' ) )
+			->add_link( 'Mock Event Aggregator', '#', $this->get_icon_url( 'ea_icon' ) )
+			->build();
+
+		// Create FAQs section
+		Section_Builder::make( 'Frequently Asked Questions', 'faqs', 'faq' )
+			->set_description( 'Get quick answers to common questions.' )
+			->add_faq(
+				'Can I have more than one calendar?',
+				'Yes, you can use this feature in the mock environment.',
+				'Learn More',
+				'#'
+			)
+			->add_faq(
+				'How do I customize my calendar?',
+				'You can customize your calendar through the settings panel.',
+				'View Settings',
+				'#'
+			)
+			->build();
+
+		return Section_Builder::get_all_sections();
 	}
 
 	/**

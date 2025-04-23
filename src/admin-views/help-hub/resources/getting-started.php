@@ -7,6 +7,13 @@
  * @var string      $template_variant The template variant, determining which template to display.
  */
 
+_deprecated_file(
+	esc_html( basename( __FILE__ ) ),
+	'TBD',
+	'',
+	'This template is deprecated. The functionality has been moved to the Section_Builder class.'
+);
+
 use TEC\Common\Admin\Help_Hub\Hub;
 
 $section = $help_hub->handle_resource_sections();
