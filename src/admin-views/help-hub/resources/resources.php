@@ -50,7 +50,7 @@ $description = apply_filters(
 $notice_content = apply_filters(
 	'tec_help_hub_resources_notice',
 	sprintf(
-	// translators: Placeholders are for the `a` tag that displays a link.
+	// translators: Placeholders are for the opening and closing anchor tags.
 		_x(
 			'To find the answer to all your questions use the %1$sTEC Chatbot%2$s',
 			'The callout notice to try the chatbot with a link to the page',
