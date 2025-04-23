@@ -8,17 +8,8 @@
  * @var array       $section          The current section.
  */
 
-// Ensure we have valid input data.
-if ( ! isset( $section ) || ! is_array( $section ) ) {
-	return;
-}
-
-if ( ! isset( $section['faqs'] ) || ! is_array( $section['faqs'] ) ) {
-	return;
-}
-
-// Ensure we have at least one FAQ.
-if ( empty( $section['faqs'] ) ) {
+// Ensure we have valid input data and at least one FAQ.
+if ( empty( $section['faqs'] ) || ! is_array( $section['faqs'] ) ) {
 	return;
 }
 ?>
@@ -60,8 +51,8 @@ if ( empty( $section['faqs'] ) ) {
 					&& ! empty( $faq['link_text'] )
 				) :
 					?>
-						<p><a href="<?php echo esc_url( $faq['link_url'] ); ?>" rel="noopener" target="_blank"><?php echo esc_html( $faq['link_text'] ); ?></a></p>
-						<?php
+					<p><a href="<?php echo esc_url( $faq['link_url'] ); ?>" rel="noopener" target="_blank"><?php echo esc_html( $faq['link_text'] ); ?></a></p>
+					<?php
 				endif;
 				?>
 			</div>

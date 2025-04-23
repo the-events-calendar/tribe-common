@@ -5,13 +5,14 @@
  * @var Tribe__Main $main             The main common object.
  * @var Hub         $help_hub         The Help Hub class.
  * @var string      $template_variant The template variant, determining which template to display.
+ * @var array       $sections          The sections to display.
  */
 
 use TEC\Common\Admin\Help_Hub\Hub;
 
 $template_map = [
-	'default' => 'help-hub/resources/resource_template',
-	'faq'     => 'help-hub/resources/faq_template',
+	'link' => 'help-hub/resources/link_template',
+	'faq'  => 'help-hub/resources/faq_template',
 ];
 
 /**
@@ -59,62 +60,31 @@ $notice_content = apply_filters(
 		'</a>'
 	)
 );
+
 ?>
 <div class="tribe-settings-form form">
 	<div class="tec-settings-form">
-		<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
-			<h2 class="tec-settings-form__section-header">
-				<?php echo esc_html( $hub_title ); ?>
-			</h2>
-			<p class="tec-settings-form__section-description">
-				<?php echo wp_kses_post( $description ); ?>
-			</p>
-			<?php
-			echo wp_kses( $help_hub->generate_notice_html( $notice_content, 'tec-common-help-chatbot-notice' ), 'post' );
-
-			?>
-		</div>
 		<?php
+
+		$template_values = [
+			'hub_title'      => $hub_title,
+			'description'    => $description,
+			'notice_content' => $notice_content,
+			'help_hub'       => $help_hub,
+		];
+
+		$this->set_values( (array) $template_values ?? [] );
+		$this->template( 'help-hub/resources/resource-heading' );
+
 		foreach ( $sections as $slug => $section ) {
-			$template_type = $section['type'] ?? 'default';
-			$template_name = $template_map[ $template_type ] ?? $template_map['default'];
+			$template_type = $section['type'] ?? 'link';
+			$template_name = $template_map[ $template_type ] ?? $template_map['link'];
 
 			$this->template( $template_name, [ 'section' => $section ] );
 		}
-		?>
+		$this->template( 'help-hub/resources/settings-infobox' );
 
-		<div class="tec-settings-infobox">
-			<img class="tec-settings-infobox-logo" src="<?php echo esc_url( $help_hub->get_icon_url( 'stars_icon' ) ); ?>" alt="AI Chatboat logo">
-			<h3 class="tec-settings-infobox-title">
-				<?php
-				echo esc_html_x(
-					'Our AI Chatbot is here to help you',
-					'AI Chatbot notice title',
-					'tribe-common'
-				);
-				?>
-			</h3>
-			<p>
-				<?php
-				echo esc_html_x(
-					'You have questions? The TEC Chatbot has the answers.',
-					'AI Chatbot section paragraph',
-					'tribe-common'
-				);
-				?>
-			</p>
-			<p>
-				<a data-tab-target="tec-help-tab" href="javascript:void(0)">
-					<?php
-					echo esc_html_x(
-						'Talk to TEC Chatbot',
-						'Link to the Help Chatbot',
-						'tribe-common'
-					);
-					?>
-				</a>
-			</p>
-		</div>
+		?>
 	</div>
 </div>
 <?php $this->template( "help-hub/resources/sidebar/{$template_variant}" ); ?>
