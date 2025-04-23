@@ -9,6 +9,12 @@
 
 use TEC\Common\Admin\Help_Hub\Hub;
 
+$template_map = [
+	'default' => 'help-hub/resources/resource_template',
+	'faq'     => 'help-hub/resources/faq_template',
+];
+
+
 /**
  * Filter the resources tab title
  *
@@ -70,15 +76,9 @@ $notice_content = apply_filters(
 			?>
 		</div>
 		<?php
-		$sections = $help_hub->handle_resource_sections();
 		foreach ( $sections as $slug => $section ) {
-			// Determine which template to use based on section type.
-			$template_name = 'help-hub/resources/resource_template';
-
-			// Check if this is a FAQ section.
-			if ( isset( $section['type'] ) && 'faq' === $section['type'] ) {
-				$template_name = 'help-hub/resources/faq_template';
-			}
+			$template_type = $section['type'] ?? 'default';
+			$template_name = $template_map[ $template_type ] ?? $template_map['default'];
 
 			$this->template( $template_name, [ 'section' => $section ] );
 		}

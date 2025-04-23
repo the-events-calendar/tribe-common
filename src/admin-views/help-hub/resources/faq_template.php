@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Template for displaying FAQ sections in the help hub.
  *
@@ -7,7 +6,6 @@
  * @var Hub         $help_hub         The Help Hub class.
  * @var string      $template_variant The template variant, determining which template to display.
  * @var array       $section          The current section.
- *
  */
 
 // Ensure we have valid input data.

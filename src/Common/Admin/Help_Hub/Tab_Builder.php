@@ -66,6 +66,15 @@ class Tab_Builder {
 	private string $template;
 
 	/**
+	 * The tab arguments.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string, mixed>
+	 */
+	private array $args = [];
+
+	/**
 	 * Static storage for all built tabs.
 	 *
 	 * @since TBD
@@ -83,15 +92,17 @@ class Tab_Builder {
 	 * @param string $label    The tab label.
 	 * @param string $id       The tab ID.
 	 * @param string $template The tab template.
+	 * @param array<string, mixed> $args Optional arguments for the tab.
 	 *
 	 * @return static
 	 */
-	public static function make( string $target, string $label, string $id, string $template ): self {
+	public static function make( string $target, string $label, string $id, string $template, array $args = [] ): self {
 		$instance           = new self();
 		$instance->target   = $target;
 		$instance->label    = $label;
 		$instance->id       = $id;
 		$instance->template = $template;
+		$instance->args     = $args;
 
 		return $instance;
 	}
@@ -112,6 +123,32 @@ class Tab_Builder {
 	}
 
 	/**
+	 * Set the tab arguments.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string, mixed> $args The tab arguments.
+	 *
+	 * @return $this
+	 */
+	public function set_arguments( array $args ): self {
+		$this->args = $args;
+
+		return $this;
+	}
+
+	/**
+	 * Get the tab arguments.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string, mixed> The tab arguments.
+	 */
+	public function get_arguments(): array {
+		return $this->args;
+	}
+
+	/**
 	 * Build the tab array and store it.
 	 *
 	 * @since TBD
@@ -121,7 +158,8 @@ class Tab_Builder {
 	 *     class: string,
 	 *     label: string,
 	 *     id: string,
-	 *     template: string
+	 *     template: string,
+	 *     args: array<string, mixed>
 	 * } The built tab.
 	 */
 	public function build(): array {
@@ -131,6 +169,7 @@ class Tab_Builder {
 			'label'    => $this->label,
 			'id'       => $this->id,
 			'template' => $this->template,
+			'args'     => $this->args,
 		];
 
 		/**

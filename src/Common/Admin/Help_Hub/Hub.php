@@ -186,16 +186,22 @@ class Hub {
 			'tec-resources-tab',
 			__( 'Resources', 'tribe-common' ),
 			'tec-resources-tab',
-			'help-hub/resources/resources'
+			'help-hub/resources/resources',
+			[ 'sections' => $this->handle_resource_sections() ]
 		)
 			->build();
 
-		$this->render_template(
-			'help-hub',
+		$template_args = wp_parse_args(
+			$builder->get_arguments(),
 			[
 				'template_variant' => $template_variant,
 				'tabs'             => $builder::get_all_tabs(),
 			]
+		);
+
+		$this->render_template(
+			'help-hub',
+			(array) $template_args
 		);
 
 		/**

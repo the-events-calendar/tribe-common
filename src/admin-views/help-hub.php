@@ -11,6 +11,7 @@
  * @var string      $template_variant  The template variant, determining which template to display.
  * @var array       $resource_sections An array of data to display in the Resource section.
  */
+
 ?>
 <div class="tribe_settings wrap tec-events-admin-settings">
 	<div class="tribe-notice-wrap">
@@ -20,7 +21,7 @@
 		<img
 			class="tribe-events-admin-title__logo"
 			src="<?php echo esc_url( tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, $main ) ); ?>"
-			alt="<?php esc_attr_e( 'The Events Calendar logo', 'the-events-calendar' ); ?>"
+			alt="<?php esc_attr_e( 'The Events Calendar logo', 'tribe-common' ); ?>"
 			role="presentation"
 			id="tec-settings-logo"
 		/>
@@ -91,7 +92,10 @@
 				aria-labelledby="tab-<?php echo esc_attr( $index ); ?>"
 				data-link-title="<?php echo esc_attr( $hub_tab['label'] ); ?>"
 			>
-				<?php $this->template( $hub_tab['template'] ); ?>
+				<?php
+				$this->set_values( (array) $hub_tab['args'] ?? [] );
+				$this->template( $hub_tab['template'] );
+				?>
 			</div>
 		<?php endforeach; ?>
 	</div>
