@@ -37,7 +37,7 @@ class Country {
 				'KM' => 'Comoros',
 				'CG' => 'Congo - Brazzaville',
 				'CD' => 'Congo - Kinshasa',
-				'CI' => 'Côte d’Ivoire',
+				'CI' => 'Côte d\'Ivoire',
 				'DJ' => 'Djibouti',
 				'GQ' => 'Equatorial Guinea',
 				'ER' => 'Eritrea',
@@ -326,5 +326,78 @@ class Country {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Get a list of countries with Payment Gateways support information.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,array<string,mixed>> The list of countries with Payment Gateways support information.
+	 */
+	public function get_gateway_countries(): array {
+		$cache     = tribe( 'cache' );
+		$cache_key = 'paymentgateway_enabled_countries';
+
+		// Try to get from cache first.
+		$cached_data = $cache->get( $cache_key );
+		if ( false !== $cached_data ) {
+			return $cached_data;
+		}
+
+		// Get the base country list.
+		$base_countries = $this->get_country_list();
+
+		// Initialize the result array.
+		$result = [];
+
+		// Get Stripe API data.
+		$stripe_api_url = 'https://whodatdev.theeventscalendar.com/commerce/v1/stripe/countries';
+		$response       = wp_remote_get( $stripe_api_url );
+
+		$stripe_data = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		// If API error or invalid response, return all countries with default values.
+		if ( is_wp_error( $response ) || ! isset( $stripe_data['countries'] ) ) {
+			foreach ( $base_countries as $continent => $countries ) {
+				foreach ( $countries as $code => $name ) {
+					$result[ $code ] = [
+						'name'       => $name,
+						'group'      => $continent,
+						'has_paypal' => true,
+						'has_stripe' => true,
+						'has_square' => true,
+					];
+				}
+			}
+
+			$cache->set( $cache_key, $result, 4 * HOUR_IN_SECONDS );
+			return $result;
+		}
+
+		// TODO: Check for other payment gateways, Square/PayPal/etc.
+		// TODO: Load translations for countries. What textdomain?
+		// Process all countries from the base list.
+		foreach ( $base_countries as $continent => $countries ) {
+			foreach ( $countries as $code => $name ) {
+				$result[ $code ] = [
+					'name'       => __( $name ),
+					'group'      => $continent,
+					'has_paypal' => true,
+					'has_stripe' => false,
+					'has_square' => true,
+				];
+
+				// Check if this country exists in Stripe data and is active.
+				if ( isset( $stripe_data['countries'][ $code ] ) &&
+					isset( $stripe_data['countries'][ $code ]['is_active'] ) &&
+					$stripe_data['countries'][ $code ]['is_active'] === true ) {
+					$result[ $code ]['has_stripe'] = true;
+				}
+			}
+		}
+
+		$cache->set( $cache_key, $result, 4 * HOUR_IN_SECONDS );
+		return $result;
 	}
 }
