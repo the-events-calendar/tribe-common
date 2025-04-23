@@ -175,7 +175,7 @@ class Hub {
 
 		$builder::make(
 			'tec-help-tab',
-			__( 'Support Hub', 'the-events-calendar' ),
+			__( 'Support Hub', 'tribe-common' ),
 			'tec-help-tab',
 			'help-hub/support/support-hub'
 		)
@@ -184,7 +184,7 @@ class Hub {
 
 		$builder::make(
 			'tec-resources-tab',
-			__( 'Resources', 'the-events-calendar' ),
+			__( 'Resources', 'tribe-common' ),
 			'tec-resources-tab',
 			'help-hub/resources/resources'
 		)
