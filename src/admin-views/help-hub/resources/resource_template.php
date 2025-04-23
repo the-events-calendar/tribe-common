@@ -8,16 +8,16 @@
  * @var array       $section          The section to display.
  */
 
-// Skip FAQ sections and sections without required data
-if ( 
-    empty( $section ) || 
-    ! is_array( $section ) || 
-    empty( $section['title'] ) || 
-    empty( $section['links'] ) || 
-    ! is_array( $section['links'] ) ||
-    strtolower( $section['title'] ) === 'faq'
+// Skip FAQ sections and sections without required data.
+if (
+	empty( $section ) ||
+	! is_array( $section ) ||
+	empty( $section['title'] ) ||
+	empty( $section['links'] ) ||
+	! is_array( $section['links'] ) ||
+	strtolower( $section['title'] ) === 'faq'
 ) {
-    return;
+	return;
 }
 
 ?>
@@ -40,9 +40,9 @@ if (
 			<?php endif; ?>
 			<li>
 				<?php if ( ! empty( $resource['icon'] ) ) : ?>
-					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $resource['icon'] ); ?>"/>
+					<img class="tec-help-list__icon-expanded" src="<?php echo esc_url( $resource['icon'] ); ?>" alt="<?php echo esc_attr__( 'Product Icon', 'tribe_common' ); ?>"/>
 				<?php endif; ?>
-				<a href="<?php echo esc_url( $resource['url'] ); ?>">
+				<a href="<?php echo esc_url( $resource['url'] ); ?>" rel="noopener" target="_blank">
 					<?php echo esc_html( $resource['title'] ); ?>
 				</a>
 			</li>

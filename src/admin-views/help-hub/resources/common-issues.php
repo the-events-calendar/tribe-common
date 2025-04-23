@@ -4,11 +4,16 @@
  *             See TEC\Events\Admin\Help_Hub\TEC_Hub_Resource_Data for the new implementation.
  */
 
-_deprecated_file( basename( __FILE__ ), 'TBD', null, 'This template is deprecated. The functionality has been moved to the Section_Builder class.' );
+_deprecated_file(
+	esc_html( basename( __FILE__ ) ),
+	'TBD',
+	'',
+	'This template is deprecated. The functionality has been moved to the Section_Builder class.'
+);
 
 /**
  * The template that displays the resources tab on the help page.
- *
+ *`
  * @var Tribe__Main $main             The main common object.
  * @var Hub         $help_hub         The Help Hub class.
  * @var string      $template_variant The template variant, determining which template to display.
