@@ -53,4 +53,7 @@ namespace PHPSTORM_META {
 	);
 
 	override( ContainerInterface::get( 0 ), type( 0 ) );
+
+	// Mark tribe_exit() as an exit point.
+	exitPoint( \tribe_exit() );
 }
