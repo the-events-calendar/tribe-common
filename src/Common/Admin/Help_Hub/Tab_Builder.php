@@ -88,11 +88,11 @@ class Tab_Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $target   The tab target.
-	 * @param string $label    The tab label.
-	 * @param string $id       The tab ID.
-	 * @param string $template The tab template.
-	 * @param array<string, mixed> $args Optional arguments for the tab.
+	 * @param string               $target   The tab target.
+	 * @param string               $label    The tab label.
+	 * @param string               $id       The tab ID.
+	 * @param string               $template The tab template.
+	 * @param array<string, mixed> $args     Optional arguments for the tab.
 	 *
 	 * @return static
 	 */

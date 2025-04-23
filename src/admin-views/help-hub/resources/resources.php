@@ -14,7 +14,6 @@ $template_map = [
 	'faq'     => 'help-hub/resources/faq_template',
 ];
 
-
 /**
  * Filter the resources tab title
  *
