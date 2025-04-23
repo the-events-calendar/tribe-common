@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Abstract Section Builder for the Help Hub.
  *
@@ -7,7 +6,8 @@
  * structure and type safety, and stores built sections for later retrieval.
  *
  * @since   TBD
- * @package TEC\Common\Admin\Help_Hub
+ *
+ * @var array $section The section data containing links to render.
  */
 
 namespace TEC\Common\Admin\Help_Hub\Section_Builder;
