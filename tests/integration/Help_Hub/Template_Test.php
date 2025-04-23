@@ -50,7 +50,7 @@ class Template_Test extends WPTestCase {
 
 		// Instantiate the Hub instance with all dependencies
 		$this->hub = new Hub( $this->mock_data, $config, $template );
-		$this->set_fn_return('tribe_resource_url','http://example.com/');
+		$this->set_fn_return( 'tribe_resource_url', 'http://example.com/' );
 	}
 
 	/**
@@ -67,31 +67,48 @@ class Template_Test extends WPTestCase {
 	/**
 	 * @test
 	 */
-	public function section_builder(): void {
-		// Clear any existing sections
-		Section_Builder::clear_sections();
+	public function section_rendering(): void {
+		// Get the sections from the mock data
+		$sections = $this->mock_data->create_resource_sections();
 
-		// Test default section
-		Section_Builder::make( 'Getting Started', 'getting_started', 'default' )
-			->set_description( 'Learn the basics of The Events Calendar.' )
-			->add_link( 'The Events Calendar', '#', '/path/to/tec-icon.svg' )
-			->add_link( 'Event Aggregator', '#', '/path/to/ea-icon.svg' )
-			->build();
+		// Test that sections are properly structured
+		$this->assertIsArray( $sections );
+		$this->assertNotEmpty( $sections );
 
-		// Test FAQ section
-		Section_Builder::make( 'Frequently Asked Questions', 'faqs', 'faq' )
-			->set_description( 'Get quick answers to common questions.' )
-			->add_faq(
-				'Can I have more than one calendar?',
-				'Yes, you can use this feature in the mock environment.',
-				'Learn More',
-				'#'
-			)
-			->build();
+		// Test that each section has required fields
+		foreach ( $sections as $slug => $section ) {
+			$this->assertArrayHasKey( 'title', $section );
+			$this->assertArrayHasKey( 'slug', $section );
+			$this->assertArrayHasKey( 'type', $section );
+			$this->assertArrayHasKey( 'description', $section );
 
-		// Get all sections and assert against JSON snapshot
-		$sections = Section_Builder::get_all_sections();
-		$this->assertMatchesJsonSnapshot( json_encode( $sections, JSON_PRETTY_PRINT ) );
+			// Validate content based on section type
+			if ( $section['type'] === 'faq' ) {
+				$this->assertArrayHasKey( 'faqs', $section );
+				$this->assertIsArray( $section['faqs'] );
+				foreach ( $section['faqs'] as $faq ) {
+					$this->assertArrayHasKey( 'question', $faq );
+					$this->assertArrayHasKey( 'answer', $faq );
+					$this->assertArrayHasKey( 'link_text', $faq );
+					$this->assertArrayHasKey( 'link_url', $faq );
+				}
+			} else {
+				$this->assertArrayHasKey( 'links', $section );
+				$this->assertIsArray( $section['links'] );
+				foreach ( $section['links'] as $link ) {
+					$this->assertArrayHasKey( 'title', $link );
+					$this->assertArrayHasKey( 'url', $link );
+					$this->assertArrayHasKey( 'icon', $link );
+				}
+			}
+		}
+
+		// Test that sections are properly rendered
+		ob_start();
+		$this->hub->render();
+		$output = ob_get_clean();
+
+		$this->assertMatchesHtmlSnapshot( $output );
 	}
 
 	/**
