@@ -13,12 +13,12 @@ namespace TEC\Common\Admin\Help_Hub;
 
 use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
 use RuntimeException;
+use TEC\Common\Admin\Help_Hub\Section_Builder\Section_Helper;
 use TEC\Common\StellarWP\AdminNotices\AdminNotice;
 use TEC\Common\StellarWP\AdminNotices\AdminNotices;
 use Tribe__Main;
 use Tribe__Template;
 use TEC\Common\Configuration\Configuration;
-use TEC\Common\Admin\Help_Hub\Tab_Builder;
 
 /**
  * Class Hub
@@ -134,8 +134,8 @@ class Hub {
 	 *
 	 * @since 6.3.2
 	 *
-	 * @return void
 	 * @throws RuntimeException If data has not been set using setup.
+	 * @return void
 	 */
 	protected function ensure_data_is_set(): void {
 		if ( empty( $this->data ) ) {
@@ -150,8 +150,8 @@ class Hub {
 	 *
 	 * @since 6.3.2
 	 *
-	 * @return void
 	 * @throws RuntimeException If data is not set using the setup method before rendering.
+	 * @return void
 	 */
 	public function render(): void {
 		$this->ensure_data_is_set();
@@ -227,34 +227,10 @@ class Hub {
 	 * @return array The filtered resource sections.
 	 */
 	public function handle_resource_sections(): array {
-		$sections        = $this->data->create_resource_sections();
-		$data_class_name = get_class( $this->data );
+		$sections = $this->data->create_resource_sections();
 
-		/**
-		 * Filter the Help Hub resource sections for a specific data class.
-		 *
-		 * This dynamic filter allows customization of the Help Hub resource sections specific
-		 * to a given data class, enabling more granular control over section customization.
-		 *
-		 * @since 6.3.2
-		 *
-		 * @param array                   $sections        The array of resource sections.
-		 * @param Help_Hub_Data_Interface $data            The data instance used for generating sections.
-		 */
-		$sections = apply_filters( "tec_help_hub_resource_sections_{$data_class_name}", $sections, $this->data );
-
-		/**
-		 * Filter the Help Hub resource sections.
-		 *
-		 * Allows customization of the Help Hub resource sections by other components.
-		 *
-		 * @since 6.3.2
-		 *
-		 * @param array                   $sections        The array of resource sections.
-		 * @param Help_Hub_Data_Interface $data            The data instance used for generating sections.
-		 * @param string                  $data_class_name The name of the data class.
-		 */
-		return apply_filters( 'tec_help_hub_resource_sections', $sections, $this->data, $data_class_name );
+		return Section_Helper::from_array( $sections, $this->data )
+			->to_array();
 	}
 
 	/**
@@ -263,7 +239,7 @@ class Hub {
 	 * @since 6.3.2
 	 *
 	 * @param bool $has_valid_license Whether the license is valid.
-	 * @param bool $is_opted_in      Whether the user has opted into telemetry.
+	 * @param bool $is_opted_in       Whether the user has opted into telemetry.
 	 *
 	 * @return string The template variant.
 	 */
@@ -289,6 +265,18 @@ class Hub {
 			'tribe_events_page_tec-events-help',
 			'tribe_events_page_tec-events-help-hub',
 		];
+
+		/**
+		 * Filter the list of help pages.
+		 *
+		 * Allows extending the list of pages that are considered Help Hub pages.
+		 * Mainly used to enqueue assets on the Help Hub page.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $help_pages Array of page IDs that are considered Help Hub pages.
+		 */
+		$help_pages = (array) apply_filters( 'tec_help_hub_pages', $help_pages );
 
 		return in_array( $current_screen->id, $help_pages, true );
 	}
@@ -400,8 +388,8 @@ class Hub {
 	 *
 	 * @since 6.3.2
 	 *
-	 * @return void
 	 * @throws RuntimeException If data has not been set using setup.
+	 * @return void
 	 */
 	public function generate_iframe_content(): void {
 		$this->ensure_data_is_set();
