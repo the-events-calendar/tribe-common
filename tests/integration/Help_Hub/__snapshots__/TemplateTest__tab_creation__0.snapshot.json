@@ -4,6 +4,7 @@
         "class": "tec-nav__tab--active",
         "label": "Support Hub",
         "id": "tec-help-tab",
-        "template": "help-hub\/support\/support-hub"
+        "template": "help-hub\/support\/support-hub",
+        "args": []
     }
 }
