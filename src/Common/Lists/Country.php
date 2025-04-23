@@ -384,15 +384,9 @@ class Country {
 					'name'       => __( $name ),
 					'group'      => $continent,
 					'has_paypal' => true,
-					'has_stripe' => false,
+					'has_stripe' => $stripe_data['countries'][ $code ]['is_active'] ?? false,
 					'has_square' => true,
 				];
-
-				// Check if this country exists in Stripe data and is active.
-				if ( isset( $stripe_data['countries'][ $code ] ) &&
-					! empty( $stripe_data['countries'][ $code ]['is_active'] ) {
-					$result[ $code ]['has_stripe'] = true;
-				}
 			}
 		}
 
