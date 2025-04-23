@@ -13,7 +13,7 @@ _deprecated_file(
 
 /**
  * The template that displays the resources tab on the help page.
- *`
+ *
  * @var Tribe__Main $main             The main common object.
  * @var Hub         $help_hub         The Help Hub class.
  * @var string      $template_variant The template variant, determining which template to display.
