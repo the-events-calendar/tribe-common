@@ -46,6 +46,12 @@ class Currency {
 				'symbol' => '£',
 				'entity' => '&pound;',
 			],
+			'bgn'     => [
+				'code'   => 'BGN',
+				'name'   => __( 'Bulgarian Lev', 'event-tickets' ),
+				'symbol' => 'лв',
+				'entity' => '&#1083;&#1074;',
+			],
 			'cad'     => [
 				'code'   => 'CAD',
 				'name'   => __( 'Canadian Dollar', 'event-tickets' ),
@@ -63,6 +69,12 @@ class Currency {
 				'name'   => __( 'Chinese Yuan (元)', 'event-tickets' ),
 				'symbol' => '元',
 				'entity' => '&#20803;',
+			],
+			'hrk'     => [
+				'code'   => 'HRK',
+				'name'   => __( 'Croatian Kuna', 'event-tickets' ),
+				'symbol' => 'kn',
+				'entity' => 'kn',
 			],
 			'czk'     => [
 				'code'   => 'CZK',
@@ -136,17 +148,17 @@ class Currency {
 				'symbol' => '$',
 				'entity' => '&#36;',
 			],
-			'ngn'     => [
-				'code'   => 'NGN',
-				'name'   => __( 'Nigerian Naira', 'event-tickets' ),
-				'symbol' => '₦',
-				'entity' => '&#8358;',
-			],
 			'nzd'     => [
 				'code'   => 'NZD',
 				'name'   => __( 'New Zealand Dollar', 'event-tickets' ),
 				'symbol' => '$',
 				'entity' => '&#36;',
+			],
+			'ngn'     => [
+				'code'   => 'NGN',
+				'name'   => __( 'Nigerian Naira', 'event-tickets' ),
+				'symbol' => '₦',
+				'entity' => '&#8358;',
 			],
 			'nok'     => [
 				'code'   => 'NOK',
@@ -166,17 +178,23 @@ class Currency {
 				'symbol' => 'zł',
 				'entity' => 'z&#x142;',
 			],
+			'ron'     => [
+				'code'   => 'RON',
+				'name'   => __( 'Romanian Leu', 'event-tickets' ),
+				'symbol' => 'lei',
+				'entity' => 'lei',
+			],
 			'rub'     => [
 				'code'   => 'RUB',
 				'name'   => __( 'Russian Ruble', 'event-tickets' ),
 				'symbol' => '₽',
 				'entity' => '&#8381;',
 			],
-			'sek'     => [
-				'code'   => 'SEK',
-				'name'   => __( 'Swedish Krona', 'event-tickets' ),
-				'symbol' => 'kr',
-				'entity' => 'kr',
+			'sar'     => [
+				'code'   => 'SAR',
+				'name'   => __( 'Saudi Riyal', 'event-tickets' ),
+				'symbol' => 'ر.س',
+				'entity' => '&#x631;.&#x633;',
 			],
 			'sgd'     => [
 				'code'   => 'SGD',
@@ -189,6 +207,12 @@ class Currency {
 				'name'   => __( 'South African Rand', 'event-tickets' ),
 				'symbol' => 'R',
 				'entity' => 'R',
+			],
+			'sek'     => [
+				'code'   => 'SEK',
+				'name'   => __( 'Swedish Krona', 'event-tickets' ),
+				'symbol' => 'kr',
+				'entity' => 'kr',
 			],
 			'chf'     => [
 				'code'   => 'CHF',
@@ -213,6 +237,12 @@ class Currency {
 				'name'   => __( 'Turkish Lira', 'event-tickets' ),
 				'symbol' => '₺',
 				'entity' => '&#8378;',
+			],
+			'aed'     => [
+				'code'   => 'AED',
+				'name'   => __( 'United Arab Emirates Dirham', 'event-tickets' ),
+				'symbol' => 'د.إ',
+				'entity' => '&#x62f;.&#x625;',
 			],
 			'usd'     => [
 				'code'   => 'USD',
