@@ -390,8 +390,7 @@ class Country {
 
 				// Check if this country exists in Stripe data and is active.
 				if ( isset( $stripe_data['countries'][ $code ] ) &&
-					isset( $stripe_data['countries'][ $code ]['is_active'] ) &&
-					$stripe_data['countries'][ $code ]['is_active'] === true ) {
+					! empty( $stripe_data['countries'][ $code ]['is_active'] ) {
 					$result[ $code ]['has_stripe'] = true;
 				}
 			}
