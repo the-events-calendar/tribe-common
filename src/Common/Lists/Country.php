@@ -337,7 +337,7 @@ class Country {
 	 */
 	public function get_gateway_countries(): array {
 		$cache     = tribe( 'cache' );
-		$cache_key = 'paymentgateway_enabled_countries';
+		$cache_key = 'payment_gateway_enabled_countries';
 
 		// Try to get from cache first.
 		$cached_data = $cache->get( $cache_key );
@@ -351,14 +351,14 @@ class Country {
 		// Initialize the result array.
 		$result = [];
 
-		// Get Stripe API data.
-		$stripe_api_url = 'https://whodatdev.theeventscalendar.com/commerce/v1/stripe/countries';
-		$response       = wp_remote_get( $stripe_api_url );
-
-		$stripe_data = json_decode( wp_remote_retrieve_body( $response ), true );
+		// Get Country API data.
+		$country_api = 'https://whodatdev.theeventscalendar.com/commerce/v1/countries/';
+		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.wp_remote_get_wp_remote_get
+		$response = wp_remote_get( $country_api );
+		$api_data = json_decode( wp_remote_retrieve_body( $response ), true );
 
 		// If API error or invalid response, return all countries with default values.
-		if ( is_wp_error( $response ) || ! isset( $stripe_data['countries'] ) ) {
+		if ( is_wp_error( $response ) || ! isset( $api_data['countries'] ) ) {
 			foreach ( $base_countries as $continent => $countries ) {
 				foreach ( $countries as $code => $name ) {
 					$result[ $code ] = [
@@ -375,8 +375,11 @@ class Country {
 			return $result;
 		}
 
-		// TODO: Check for other payment gateways, Square and PayPal.
-		// TODO: Load translations for countries. What textdomain?
+		$api_countries = [];
+		foreach ( $api_data['countries'] as $country ) {
+			$api_countries[ $country['id'] ] = $country;
+		}
+
 		// Process all countries from the base list.
 		foreach ( $base_countries as $continent => $countries ) {
 			foreach ( $countries as $code => $name ) {
@@ -384,7 +387,7 @@ class Country {
 					'name'       => __( $name ),
 					'group'      => $continent,
 					'has_paypal' => false,
-					'has_stripe' => $stripe_data['countries'][ $code ]['is_active'] ?? false,
+					'has_stripe' => $api_countries[ $code ]['stripe']['is_active'] ?? false,
 					'has_square' => false,
 				];
 			}
