@@ -148,7 +148,6 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 	 * @param array $item The item to validate.
 	 *
 	 * @return void
-	 *
 	 */
 	protected function validate_item( array $item ): void {
 		if ( empty( $item ) ) {
