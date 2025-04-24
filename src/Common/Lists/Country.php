@@ -37,7 +37,7 @@ class Country {
 				'KM' => 'Comoros',
 				'CG' => 'Congo - Brazzaville',
 				'CD' => 'Congo - Kinshasa',
-				'CI' => 'Côte d’Ivoire',
+				'CI' => 'Côte d\'Ivoire',
 				'DJ' => 'Djibouti',
 				'GQ' => 'Equatorial Guinea',
 				'ER' => 'Eritrea',
@@ -326,5 +326,74 @@ class Country {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Get a list of countries with Payment Gateways support information.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,array<string,mixed>> The list of countries with Payment Gateways support information.
+	 */
+	public function get_gateway_countries(): array {
+		$cache     = tribe( 'cache' );
+		$cache_key = 'payment_gateway_enabled_countries';
+
+		// Try to get from cache first.
+		$cached_data = $cache->get( $cache_key );
+		if ( false !== $cached_data ) {
+			return $cached_data;
+		}
+
+		// Get the base country list.
+		$base_countries = $this->get_country_list();
+
+		// Initialize the result array.
+		$result = [];
+
+		// Get Country API data.
+		$country_api = 'https://whodatdev.theeventscalendar.com/commerce/v1/countries/';
+		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.wp_remote_get_wp_remote_get
+		$response = wp_remote_get( $country_api );
+		$api_data = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		// If API error or invalid response, return all countries with default values.
+		if ( is_wp_error( $response ) || ! isset( $api_data['countries'] ) ) {
+			foreach ( $base_countries as $continent => $countries ) {
+				foreach ( $countries as $code => $name ) {
+					$result[ $code ] = [
+						'name'       => $name,
+						'group'      => $continent,
+						'has_paypal' => false,
+						'has_stripe' => false,
+						'has_square' => false,
+					];
+				}
+			}
+
+			$cache->set( $cache_key, $result, 4 * HOUR_IN_SECONDS );
+			return $result;
+		}
+
+		$api_countries = [];
+		foreach ( $api_data['countries'] as $country ) {
+			$api_countries[ $country['id'] ] = $country;
+		}
+
+		// Process all countries from the base list and add the Payment Gateways support information.
+		foreach ( $base_countries as $continent => $countries ) {
+			foreach ( $countries as $code => $name ) {
+				$result[ $code ] = [
+					'name'       => $name,
+					'group'      => $continent,
+					'has_paypal' => $api_countries[ $code ]['paypal']['is_active'] ?? false,
+					'has_stripe' => $api_countries[ $code ]['stripe']['is_active'] ?? false,
+					'has_square' => false,
+				];
+			}
+		}
+
+		$cache->set( $cache_key, $result, 4 * HOUR_IN_SECONDS );
+		return $result;
 	}
 }
