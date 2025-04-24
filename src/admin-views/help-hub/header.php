@@ -33,6 +33,7 @@ $logo_alt = apply_filters( 'tec_help_hub_header_logo_alt', __( 'The Events Calen
 <div class="tribe-notice-wrap">
 	<div class="wp-header-end"></div>
 </div>
+<div class="tec-settings-header-wrap">
 <h1>
 	<img
 		class="tribe-events-admin-title__logo"
@@ -43,3 +44,4 @@ $logo_alt = apply_filters( 'tec_help_hub_header_logo_alt', __( 'The Events Calen
 	/>
 	Help
 </h1>
+</div>

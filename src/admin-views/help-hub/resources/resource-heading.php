@@ -23,4 +23,4 @@
 	<?php
 	echo wp_kses( $help_hub->generate_notice_html( $notice_content, 'tec-common-help-chatbot-notice' ), 'post' );
 	?>
-</div> 
+</div>
