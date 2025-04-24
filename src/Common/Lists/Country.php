@@ -380,13 +380,13 @@ class Country {
 			$api_countries[ $country['id'] ] = $country;
 		}
 
-		// Process all countries from the base list.
+		// Process all countries from the base list and add the Payment Gateways support information.
 		foreach ( $base_countries as $continent => $countries ) {
 			foreach ( $countries as $code => $name ) {
 				$result[ $code ] = [
-					'name'       => __( $name ),
+					'name'       => $name,
 					'group'      => $continent,
-					'has_paypal' => false,
+					'has_paypal' => $api_countries[ $code ]['paypal']['is_active'] ?? false,
 					'has_stripe' => $api_countries[ $code ]['stripe']['is_active'] ?? false,
 					'has_square' => false,
 				];
