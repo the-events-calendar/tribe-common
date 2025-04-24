@@ -10,6 +10,8 @@
 
 namespace TEC\Common\Admin\Help_Hub\Section_Builder;
 
+use InvalidArgumentException;
+
 /**
  * Class FAQ_Section_Builder
  *
@@ -19,6 +21,16 @@ namespace TEC\Common\Admin\Help_Hub\Section_Builder;
  * @package TEC\Common\Admin\Help_Hub
  */
 class FAQ_Section_Builder extends Abstract_Section_Builder {
+
+	/**
+	 * The items array key.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected const ITEMS_KEY = 'faqs';
+
 	/**
 	 * Add a FAQ item to the section.
 	 *
@@ -46,24 +58,29 @@ class FAQ_Section_Builder extends Abstract_Section_Builder {
 	}
 
 	/**
-	 * Get the section type.
+	 * Validate an item before adding it to the section.
 	 *
 	 * @since TBD
 	 *
-	 * @return string The section type.
+	 * @throws InvalidArgumentException If the item is invalid.
+	 *
+	 * @param array $item The item to validate.
+	 *
+	 * @return void
 	 */
-	protected function get_type(): string {
-		return 'faq';
-	}
+	protected function validate_item( array $item ): void {
+		parent::validate_item( $item );
 
-	/**
-	 * Get the items array key.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The items array key.
-	 */
-	protected function get_items_key(): string {
-		return 'faqs';
+		if ( empty( $item['question'] ) ) {
+			throw new InvalidArgumentException( 'FAQ question cannot be empty' );
+		}
+
+		if ( empty( $item['answer'] ) ) {
+			throw new InvalidArgumentException( 'FAQ answer cannot be empty' );
+		}
+
+		if ( empty( $item['link_text'] ) xor empty( $item['link_url'] ) ) {
+			throw new InvalidArgumentException( 'FAQ link must have both text and URL or neither' );
+		}
 	}
 }

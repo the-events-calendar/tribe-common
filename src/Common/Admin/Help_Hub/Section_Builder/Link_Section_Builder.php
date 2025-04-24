@@ -10,6 +10,8 @@
 
 namespace TEC\Common\Admin\Help_Hub\Section_Builder;
 
+use InvalidArgumentException;
+
 /**
  * Class Link_Section_Builder
  *
@@ -19,6 +21,16 @@ namespace TEC\Common\Admin\Help_Hub\Section_Builder;
  * @package TEC\Common\Admin\Help_Hub
  */
 class Link_Section_Builder extends Abstract_Section_Builder {
+
+	/**
+	 * The items array key.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected const ITEMS_KEY = 'links';
+
 	/**
 	 * Add a link to the section.
 	 *
@@ -31,34 +43,43 @@ class Link_Section_Builder extends Abstract_Section_Builder {
 	 * @return $this
 	 */
 	public function add_link( string $title, string $url, string $icon = '' ): self {
-		return $this->add_item(
-			[
-				'title' => $title,
-				'url'   => $url,
-				'icon'  => $icon,
-			]
-		);
+		$link = [
+			'title' => $title,
+			'url'   => $url,
+		];
+
+		if ( $icon ) {
+			$link['icon'] = $icon;
+		}
+
+		return $this->add_item( $link );
 	}
 
 	/**
-	 * Get the section type.
+	 * Validate an item before adding it to the section.
 	 *
 	 * @since TBD
 	 *
-	 * @return string The section type.
+	 * @throws InvalidArgumentException If the item is invalid.
+	 *
+	 * @param array $item The item to validate.
+	 *
+	 * @return void
+	 *
 	 */
-	protected function get_type(): string {
-		return 'link';
-	}
+	protected function validate_item( array $item ): void {
+		parent::validate_item( $item );
 
-	/**
-	 * Get the items array key.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The items array key.
-	 */
-	protected function get_items_key(): string {
-		return 'links';
+		if ( empty( $item['title'] ) ) {
+			throw new InvalidArgumentException( 'Link title cannot be empty' );
+		}
+
+		if ( empty( $item['url'] ) ) {
+			throw new InvalidArgumentException( 'Link URL cannot be empty' );
+		}
+
+		if ( ! filter_var( $item['url'], FILTER_VALIDATE_URL ) ) {
+			throw new InvalidArgumentException( 'Link URL must be a valid URL' );
+		}
 	}
 }

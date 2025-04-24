@@ -12,6 +12,8 @@
 
 namespace TEC\Common\Admin\Help_Hub\Section_Builder;
 
+use InvalidArgumentException;
+
 /**
  * Abstract class Abstract_Section_Builder
  *
@@ -20,7 +22,7 @@ namespace TEC\Common\Admin\Help_Hub\Section_Builder;
  * @since   TBD
  * @package TEC\Common\Admin\Help_Hub
  */
-abstract class Abstract_Section_Builder {
+abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 	/**
 	 * The section title.
 	 *
@@ -67,6 +69,15 @@ abstract class Abstract_Section_Builder {
 	private static array $sections = [];
 
 	/**
+	 * The items array key.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected const ITEMS_KEY = '';
+
+	/**
 	 * Create a new section instance.
 	 *
 	 * @since TBD
@@ -108,10 +119,38 @@ abstract class Abstract_Section_Builder {
 	 *
 	 * @return $this
 	 */
-	protected function add_item( array $item ): self {
-		$this->items[] = $item;
+	public function add_item( array $item ): self {
+		$this->validate_item( $item );
 
+		/**
+		 * Filter the item before it's added to the section.
+		 *
+		 * @since TBD
+		 *
+		 * @param array  $item The item to add.
+		 * @param string $slug The section slug.
+		 */
+		$item = apply_filters( "tec_help_hub_section_{$this->slug}_item", $item, $this->slug );
+
+		$this->items[] = $item;
 		return $this;
+	}
+
+	/**
+	 * Validate an item before adding it to the section.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $item The item to validate.
+	 *
+	 * @return void
+	 *
+	 * @throws InvalidArgumentException If the item is invalid.
+	 */
+	protected function validate_item( array $item ): void {
+		if ( empty( $item ) ) {
+			throw new InvalidArgumentException( 'Item cannot be empty' );
+		}
 	}
 
 	/**
@@ -122,18 +161,32 @@ abstract class Abstract_Section_Builder {
 	 * @return array The section array.
 	 */
 	public function build(): array {
+		if ( empty( static::ITEMS_KEY ) ) {
+			throw new \RuntimeException( 'Items key must be defined in the concrete class' );
+		}
+
 		$section = [
 			'title'       => $this->title,
 			'slug'        => $this->slug,
 			'description' => $this->description,
-			'type'        => $this->get_type(),
+			'type'        => static::ITEMS_KEY,
 		];
 
+		/**
+		 * Filter the items array before it's added to the section.
+		 *
+		 * @since TBD
+		 *
+		 * @param array  $items The items array.
+		 * @param string $slug  The section slug.
+		 */
+		$items = apply_filters( "tec_help_hub_section_{$this->slug}_items", $this->items, $this->slug );
+
 		// Add items based on section type.
-		$section[ $this->get_items_key() ] = $this->items;
+		$section[ static::ITEMS_KEY ] = $items;
 
 		/**
-		 * Filter the section data.
+		 * Filter the section data before it's stored.
 		 *
 		 * @since TBD
 		 *
@@ -141,6 +194,16 @@ abstract class Abstract_Section_Builder {
 		 * @param string $slug    The section slug.
 		 */
 		$section = apply_filters( "tec_help_hub_section_{$this->slug}", $section, $this->slug );
+
+		/**
+		 * Filter the section data after it's built.
+		 *
+		 * @since TBD
+		 *
+		 * @param array  $section The section data.
+		 * @param string $slug    The section slug.
+		 */
+		$section = apply_filters( 'tec_help_hub_section', $section, $this->slug );
 
 		// Store the section.
 		self::$sections[ $this->slug ] = $section;
@@ -182,22 +245,4 @@ abstract class Abstract_Section_Builder {
 	public static function clear_sections(): void {
 		self::$sections = [];
 	}
-
-	/**
-	 * Get the section type.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The section type.
-	 */
-	abstract protected function get_type(): string;
-
-	/**
-	 * Get the items array key.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The items array key.
-	 */
-	abstract protected function get_items_key(): string;
 }

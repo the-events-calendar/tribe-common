@@ -19,21 +19,7 @@
 				<span class="screen-reader-text"><?php esc_html_e( 'Close', 'tribe-common' ); ?></span>
 			</button>
 		</div>
-		<nav class="tec-settings__nav-wrapper" aria-label="<?php esc_attr_e( 'Help Hub Navigation', 'tribe-common' ); ?>">
-			<ul class="tec-nav" role="tablist">
-				<?php foreach ( $tabs as $index => $hub_tab ) : ?>
-					<li
-						data-tab-target="<?php echo esc_attr( $hub_tab['target'] ); ?>"
-						class="tec-nav__tab <?php echo esc_attr( $hub_tab['class'] ); ?>"
-						role="tab"
-						id="tab-<?php echo esc_attr( $index ); ?>"
-						aria-controls="<?php echo esc_attr( $hub_tab['target'] ); ?>"
-					>
-						<a class="tec-nav__link"><?php echo esc_html( $hub_tab['label'] ); ?></a>
-					</li>
-				<?php endforeach; ?>
-			</ul>
-		</nav>
+		<?php $this->template( 'help-hub/navigation-links' ); ?>
 	</div>
 </dialog>
 <div class="tec-nav__modal-controls">
@@ -52,18 +38,4 @@
 		>
 	</button>
 </div>
-<nav class="tec-settings__nav-wrapper" aria-label="<?php esc_attr_e( 'Main Help Hub Navigation', 'tribe-common' ); ?>">
-	<ul class="tec-nav" role="tablist">
-		<?php foreach ( $tabs as $index => $hub_tab ) : ?>
-			<li
-				data-tab-target="<?php echo esc_attr( $hub_tab['target'] ); ?>"
-				class="tec-nav__tab <?php echo esc_attr( $hub_tab['class'] ); ?>"
-				role="tab"
-				id="tab-main-<?php echo esc_attr( $index ); ?>"
-				aria-controls="<?php echo esc_attr( $hub_tab['target'] ); ?>"
-			>
-				<a class="tec-nav__link"><?php echo esc_html( $hub_tab['label'] ); ?></a>
-			</li>
-		<?php endforeach; ?>
-	</ul>
-</nav>
+<?php $this->template( 'help-hub/navigation-links' ); ?>

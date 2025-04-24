@@ -45,10 +45,13 @@ if ( empty( $section['faqs'] ) || ! is_array( $section['faqs'] ) ) {
 				<p><?php echo esc_html( $answer ); ?></p>
 				<?php
 				// Only show link if both URL and text are valid strings.
-				if ( is_string( $faq['link_url'] )
-					&& is_string( $faq['link_text'] )
-					&& ! empty( $faq['link_url'] )
-					&& ! empty( $faq['link_text'] )
+				if (
+					! empty( $faq['link_url'] )
+					&& ! empty(
+						$faq['link_text']
+						&& is_string( $faq['link_url'] )
+						&& is_string( $faq['link_text'] )
+					)
 				) :
 					?>
 					<p><a href="<?php echo esc_url( $faq['link_url'] ); ?>" rel="noopener" target="_blank"><?php echo esc_html( $faq['link_text'] ); ?></a></p>
