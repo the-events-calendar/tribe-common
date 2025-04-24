@@ -154,17 +154,17 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 			->set_description( _x( 'Learn the basics of The Events Calendar.', 'Section description', 'event-tickets' ) )
 			->add_link(
 				_x( 'Mock The Events Calendar', 'The Events Calendar title', 'event-tickets' ),
-				'#',
+				'https://example.com/tec',
 				$this->get_icon_url( 'tec_icon' )
 			)
 			->add_link(
 				_x( 'Mock Event Aggregator', 'Event Aggregator title', 'event-tickets' ),
-				'#',
+				'https://example.com/ea',
 				$this->get_icon_url( 'ea_icon' )
 			)
 			->add_link(
 				_x( 'Mock Filter Bar', 'Filter Bar title', 'event-tickets' ),
-				'#',
+				'https://example.com/fbar',
 				$this->get_icon_url( 'fbar_icon' )
 			)
 			->build();
@@ -187,12 +187,12 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 			->set_description( _x( 'Tips and tricks on making your calendar just the way you want it.', 'Section description', 'event-tickets' ) )
 			->add_link(
 				_x( 'Mock Getting started with customization', 'Customization article', 'event-tickets' ),
-				'#',
+				'https://example.com/customization',
 				$this->get_icon_url( 'article_icon' )
 			)
 			->add_link(
 				_x( 'Mock Highlighting events', 'Highlighting events article', 'event-tickets' ),
-				'#',
+				'https://example.com/highlighting',
 				$this->get_icon_url( 'article_icon' )
 			)
 			->build();
@@ -221,12 +221,12 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 			)
 			->add_link(
 				_x( 'Mock Known issues', 'Known issues article', 'event-tickets' ),
-				'#',
+				'https://example.com/issues',
 				$this->get_icon_url( 'article_icon' )
 			)
 			->add_link(
 				_x( 'Mock Release notes', 'Release notes article', 'event-tickets' ),
-				'#',
+				'https://example.com/releases',
 				$this->get_icon_url( 'article_icon' )
 			)
 			->build();
@@ -248,13 +248,13 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 				_x( 'Can I have more than one calendar?', 'FAQ more than one calendar question', 'event-tickets' ),
 				_x( 'Yes, you can use this feature in the mock environment.', 'FAQ more than one calendar answer', 'event-tickets' ),
 				_x( 'Learn More', 'Link to more than one calendar article', 'event-tickets' ),
-				'#'
+				'https://example.com/multiple-calendars'
 			)
 			->add_faq(
 				_x( 'What do I get with Events Calendar Pro?', 'FAQ what is in Calendar Pro question', 'event-tickets' ),
 				_x( 'Events Calendar Pro enhances The Events Calendar with additional views, powerful shortcodes, and a host of premium features.', 'FAQ what is in Calendar Pro answer', 'event-tickets' ),
 				_x( 'Learn More', 'Link to what is in Calendar Pro article', 'event-tickets' ),
-				'#'
+				'https://example.com/calendar-pro'
 			)
 			->build();
 	}

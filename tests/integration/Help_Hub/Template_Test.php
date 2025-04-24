@@ -50,7 +50,7 @@ class Template_Test extends WPTestCase {
 
 		// Instantiate the Hub instance with all dependencies
 		$this->hub = new Hub( $this->mock_data, $config, $template );
-		$this->set_fn_return( 'tribe_resource_url', 'http://example.com/' );
+		$this->set_fn_return( 'tribe_resource_url', 'https://example.com/' );
 	}
 
 	/**
@@ -83,7 +83,7 @@ class Template_Test extends WPTestCase {
 			$this->assertArrayHasKey( 'description', $section );
 
 			// Validate content based on section type
-			if ( $section['type'] === 'faq' ) {
+			if ( $section['type'] === 'faqs' ) {
 				$this->assertArrayHasKey( 'faqs', $section );
 				$this->assertIsArray( $section['faqs'] );
 				foreach ( $section['faqs'] as $faq ) {
@@ -91,14 +91,17 @@ class Template_Test extends WPTestCase {
 					$this->assertArrayHasKey( 'answer', $faq );
 					$this->assertArrayHasKey( 'link_text', $faq );
 					$this->assertArrayHasKey( 'link_url', $faq );
+					$this->assertTrue( filter_var( $faq['link_url'], FILTER_VALIDATE_URL ) !== false, 'FAQ link URL must be valid' );
 				}
 			} else {
-				$this->assertArrayHasKey( 'links', $section );
-				$this->assertIsArray( $section['links'] );
-				foreach ( $section['links'] as $link ) {
-					$this->assertArrayHasKey( 'title', $link );
-					$this->assertArrayHasKey( 'url', $link );
-					$this->assertArrayHasKey( 'icon', $link );
+				// For non-FAQ sections, check for the items key that matches the section type
+				$this->assertArrayHasKey( $section['type'], $section );
+				$this->assertIsArray( $section[ $section['type'] ] );
+				foreach ( $section[ $section['type'] ] as $item ) {
+					$this->assertArrayHasKey( 'title', $item );
+					$this->assertArrayHasKey( 'url', $item );
+					$this->assertArrayHasKey( 'icon', $item );
+					$this->assertTrue( filter_var( $item['url'], FILTER_VALIDATE_URL ) !== false, 'Link URL must be valid' );
 				}
 			}
 		}
