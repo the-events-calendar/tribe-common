@@ -13,6 +13,7 @@
 namespace TEC\Common\Admin\Help_Hub\Section_Builder;
 
 use InvalidArgumentException;
+use RuntimeException;
 
 /**
  * Abstract class Abstract_Section_Builder
@@ -133,6 +134,7 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 		$item = apply_filters( "tec_help_hub_section_{$this->slug}_item", $item, $this->slug );
 
 		$this->items[] = $item;
+
 		return $this;
 	}
 
@@ -141,11 +143,12 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 	 *
 	 * @since TBD
 	 *
+	 * @throws InvalidArgumentException If the item is invalid.
+	 *
 	 * @param array $item The item to validate.
 	 *
 	 * @return void
 	 *
-	 * @throws InvalidArgumentException If the item is invalid.
 	 */
 	protected function validate_item( array $item ): void {
 		if ( empty( $item ) ) {
@@ -158,11 +161,12 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 	 *
 	 * @since TBD
 	 *
+	 * @throws RuntimeException If the concrete class doesn't implement ITEMS_KEY.
 	 * @return array The section array.
 	 */
 	public function build(): array {
 		if ( empty( static::ITEMS_KEY ) ) {
-			throw new \RuntimeException( 'Items key must be defined in the concrete class' );
+			throw new RuntimeException( 'Items key must be defined in the concrete class' );
 		}
 
 		$section = [

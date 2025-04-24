@@ -65,7 +65,6 @@ class Link_Section_Builder extends Abstract_Section_Builder {
 	 * @param array $item The item to validate.
 	 *
 	 * @return void
-	 *
 	 */
 	protected function validate_item( array $item ): void {
 		parent::validate_item( $item );

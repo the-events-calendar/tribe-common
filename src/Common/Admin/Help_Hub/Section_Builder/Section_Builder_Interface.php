@@ -85,4 +85,4 @@ interface Section_Builder_Interface {
 	 * @return void
 	 */
 	public static function clear_sections(): void;
-} 
+}
