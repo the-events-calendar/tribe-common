@@ -51,6 +51,30 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 	protected array $admin_page_body_classes = [ 'mock_tribe_events_page' ];
 
 	/**
+	 * Whether the class has been initialized.
+	 *
+	 * @since TBD
+	 * @var bool
+	 */
+	protected bool $initialized = false;
+
+	/**
+	 * Initializes the Help Hub Resource Data.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function initialize(): void {
+		if ( $this->initialized ) {
+			return;
+		}
+
+		$this->add_hooks();
+		$this->initialized = true;
+	}
+
+	/**
 	 * Registers hooks for the Help Hub Resource Data class.
 	 *
 	 * This method registers filters and actions required for the Help Hub,

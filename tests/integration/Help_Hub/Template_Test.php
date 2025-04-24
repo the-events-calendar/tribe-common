@@ -54,6 +54,64 @@ class Template_Test extends WPTestCase {
 	}
 
 	/**
+	 * Test that the Help Hub initialization works correctly.
+	 *
+	 * @test
+	 */
+	public function initialization_works(): void {
+		// Initialize the mock data
+		$this->mock_data->initialize();
+
+		// Verify that hooks are properly registered
+		$this->assertTrue( has_filter( 'tec_help_hub_body_classes' ) );
+		$this->assertTrue( has_filter( 'tec_help_hub_resources_description' ) );
+		$this->assertTrue( has_filter( 'tec_help_hub_support_title' ) );
+
+		// Verify that the hooks return expected values
+		$body_classes = apply_filters( 'tec_help_hub_body_classes', [] );
+		$this->assertContains( 'mock_tribe_events_page', $body_classes );
+
+		$resources_desc = apply_filters( 'tec_help_hub_resources_description', '' );
+		$this->assertStringContainsString( 'Mock help resources', $resources_desc );
+
+		$support_title = apply_filters( 'tec_help_hub_support_title', '' );
+		$this->assertStringContainsString( 'Mock support resources', $support_title );
+	}
+
+	/**
+	 * Test that initialization only happens once.
+	 *
+	 * @test
+	 */
+	public function initialization_happens_once(): void {
+		// First initialization
+		$this->mock_data->initialize();
+		$initial_hooks = [
+			'tec_help_hub_body_classes',
+			'tec_help_hub_resources_description',
+			'tec_help_hub_support_title'
+		];
+
+		// Count initial hooks
+		$initial_hook_count = 0;
+		foreach ( $initial_hooks as $hook ) {
+			$initial_hook_count += has_filter( $hook );
+		}
+
+		// Try to initialize again
+		$this->mock_data->initialize();
+
+		// Count hooks after second initialization
+		$final_hook_count = 0;
+		foreach ( $initial_hooks as $hook ) {
+			$final_hook_count += has_filter( $hook );
+		}
+
+		// Verify hook count hasn't changed
+		$this->assertEquals( $initial_hook_count, $final_hook_count );
+	}
+
+	/**
 	 * @test
 	 */
 	public function overall_template(): void {
