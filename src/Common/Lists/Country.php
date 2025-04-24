@@ -364,9 +364,9 @@ class Country {
 					$result[ $code ] = [
 						'name'       => $name,
 						'group'      => $continent,
-						'has_paypal' => true,
-						'has_stripe' => true,
-						'has_square' => true,
+						'has_paypal' => false,
+						'has_stripe' => false,
+						'has_square' => false,
 					];
 				}
 			}
@@ -375,7 +375,7 @@ class Country {
 			return $result;
 		}
 
-		// TODO: Check for other payment gateways, Square/PayPal/etc.
+		// TODO: Check for other payment gateways, Square and PayPal.
 		// TODO: Load translations for countries. What textdomain?
 		// Process all countries from the base list.
 		foreach ( $base_countries as $continent => $countries ) {
@@ -383,9 +383,9 @@ class Country {
 				$result[ $code ] = [
 					'name'       => __( $name ),
 					'group'      => $continent,
-					'has_paypal' => true,
+					'has_paypal' => false,
 					'has_stripe' => $stripe_data['countries'][ $code ]['is_active'] ?? false,
-					'has_square' => true,
+					'has_square' => false,
 				];
 			}
 		}
