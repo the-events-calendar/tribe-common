@@ -126,13 +126,35 @@ class Tribe__Settings_Manager {
 		if ( ! is_array( $options ) ) {
 			return false;
 		}
+		$old_options = self::get_options();
 		if ( true === $apply_filters ) {
 			$options = apply_filters( 'tribe-events-save-options', $options );
 		}
+
+		/**
+		 * Fires before the options are set.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $options     The new options.
+		 * @param array $old_options The old options.
+		 */
+		do_action( 'tec_common_settings_manager_pre_set_options', $options, $old_options );
+
 		$updated = update_option( Tribe__Main::OPTIONNAME, $options );
 
 		if ( $updated ) {
 			tribe_set_var( self::OPTION_CACHE_VAR_NAME, $options );
+
+			/**
+			 * Fires after the options are set.
+			 *
+			 * @since TBD
+			 *
+			 * @param array $options     The new options.
+			 * @param array $old_options The old options.
+			 */
+			do_action( 'tec_common_settings_manager_post_set_options', $options, $old_options );
 		}
 
 		return $updated;
