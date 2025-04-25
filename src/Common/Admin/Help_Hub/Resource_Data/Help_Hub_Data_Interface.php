@@ -66,4 +66,16 @@ interface Help_Hub_Data_Interface {
 	 * @return array An associative array with 'has_valid_license' and 'is_opted_in' status.
 	 */
 	public function get_license_and_opt_in_status(): array;
+
+	/**
+	 * Initializes the Help Hub data.
+	 *
+	 * This method should be called after the page is loaded to ensure all necessary
+	 * dependencies are available and the page is ready for initialization.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function initialize(): void;
 }
