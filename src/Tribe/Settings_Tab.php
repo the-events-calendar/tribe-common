@@ -473,7 +473,17 @@ class Tribe__Settings_Tab {
 	public function has_sidebar(): bool {
 		$admin_pages = tribe( 'admin.pages' );
 		$admin_page  = $admin_pages->get_current_page();
-		if ( $admin_page !== 'tec-events-settings' ) {
+
+		/**
+		 * Filter the allowed admin page for displaying the sidebar.
+		 *
+		 * Developers can override this value to display the sidebar on different admin pages.
+		 *
+		 * @param string $default_admin_page The default admin page where the sidebar is shown. Default 'tec-events-settings'.
+		 */
+		$allowed_admin_page = apply_filters( 'tec_sidebar_allowed_admin_page', 'tec-events-settings' );
+
+		if ( $admin_page !== $allowed_admin_page ) {
 			return false;
 		}
 
