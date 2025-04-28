@@ -1,5 +1,9 @@
 # Changelog
 
+### [6.5.5.1] 2025-04-28
+
+* Security - Added more safety checks to telemetry opt-ins/opt-outs. [TBD]
+
 ### [6.5.5] 2025-04-07
 
 * Fix - Prevents logging while common hasn't fully loaded yet.
