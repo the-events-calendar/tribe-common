@@ -122,7 +122,7 @@ class Block_Logic extends Controller {
 	 * @param bool   $should_load The value of should_load_blocks.
 	 * @param string $reason      The reason why we are returning this value.
 	 *
-	 * @return bool
+	 * @return bool Whether blocks should be loaded.
 	 */
 	private function filter_should_load_blocks( bool $should_load, string $reason ): bool {
 		/**
