@@ -163,7 +163,13 @@ implements Tribe__Editor__Blocks__Interface {
 	public function load() {
 		add_action( 'wp_ajax_' . $this->get_ajax_action(), [ $this, 'ajax' ] );
 
-		$this->assets();
+		// Assets can contain translations, we can't load them before init.
+		if ( did_action( 'init' ) ) {
+			$this->assets();
+		} else {
+			add_action( 'init', [ $this, 'assets' ] );
+		}
+
 		$this->hook();
 	}
 
