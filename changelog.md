@@ -1,5 +1,10 @@
 # Changelog
 
+### [6.5.5.1] 2025-04-28
+
+* Security - Added more safety checks to telemetry opt-ins/opt-outs. [TCMN-186]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 4 obsoleted.
+
 ### [6.5.5] 2025-04-07
 
 * Fix - Prevents logging while common hasn't fully loaded yet.
