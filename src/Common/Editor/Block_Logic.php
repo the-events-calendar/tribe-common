@@ -22,7 +22,12 @@ use WP_Screen;
  */
 class Block_Logic extends Controller {
 
-	/** @var ?WP_Screen */
+	/**
+	 * The current screen object.
+	 *
+	 * @since TBD
+	 * @var ?WP_Screen
+	 */
 	private ?WP_Screen $screen = null;
 
 	/**
