@@ -15,8 +15,7 @@
 		border-bottom-right-radius: var(--tec-border-radius-default);
 		border-color: var(--tec-admin-core-grey-10);
 		border-style: solid;
-		border-width: 0;
-		border-top-width: 1px;
+		border-width: 1px;
 		bottom: 0;
 		display: flex;
 		flex-flow: row wrap;
@@ -38,14 +37,13 @@
 		}
 
 		@media (min-width: 1024px) {
-			border-width: 0;
-			border-top-width: 1px;
+			border-width: 1px;
 			position: static;
 		}
 
 		@media (--viewport-xlarge) {
 			grid-column: 1 / span 2;
-			padding: var(--tec-spacer-2) var(--tec-spacer-4);
+			padding: var(--tec-spacer-4);
 		}
 	}
 
