@@ -36,11 +36,13 @@ class Assets {
 				],
 				'localize' => [
 					'name' => 'tec_automator',
-					'data' => [
-						'clipboard_btn_text'         => _x( 'Copy', 'Copy to api key clipboard button text.', 'tribe-common' ),
-						'clipboard_copied_text'      => _x( 'Copied', 'Copy api key to clipboard success message', 'tribe-common' ),
-						'clipboard_fail_text'        => _x( 'Press "Cmd + C" to copy', 'Copy api key to clipboard instructions', 'tribe-common' ),
-					],
+					'data' => static function() {
+						return [
+							'clipboard_btn_text'         => _x( 'Copy', 'Copy to api key clipboard button text.', 'tribe-common' ),
+							'clipboard_copied_text'      => _x( 'Copied', 'Copy api key to clipboard success message', 'tribe-common' ),
+							'clipboard_fail_text'        => _x( 'Press "Cmd + C" to copy', 'Copy api key to clipboard instructions', 'tribe-common' ),
+						];
+					},
 				],
 			]
 		);
