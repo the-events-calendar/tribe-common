@@ -1,5 +1,6 @@
 <?php
 
+// phpcs:ignore StellarWP.Classes.ValidClassName.NotSnakeCase,Squiz.Commenting.ClassComment.Missing,PEAR.NamingConventions.ValidClassName.Invalid
 abstract class Tribe__Editor__Blocks__Abstract implements Tribe__Editor__Blocks__Interface {
 
 	/**
@@ -53,7 +54,7 @@ abstract class Tribe__Editor__Blocks__Abstract implements Tribe__Editor__Blocks_
 	 *
 	 * @since 4.8
 	 *
-	 * @param array $attributes
+	 * @param array $params The attributes to parse.
 	 *
 	 * @return array
 	 */
@@ -98,7 +99,7 @@ abstract class Tribe__Editor__Blocks__Abstract implements Tribe__Editor__Blocks_
 	 *
 	 * @since 4.8
 	 *
-	 * @param array $attributes
+	 * @param array $attributes The attributes to render.
 	 *
 	 * @return string
 	 */
@@ -165,7 +166,7 @@ abstract class Tribe__Editor__Blocks__Abstract implements Tribe__Editor__Blocks_
 	 * the pattern of a block but not validating its structure. For strict accuracy
 	 * you should use the block parser on post content.
 	 *
-	 * @see   gutenberg_parse_blocks()
+	 * @see gutenberg_parse_blocks()
 	 *
 	 * @since 5.1.5 Added a has_block filter.
 	 *
