@@ -116,6 +116,11 @@ class Block_Logic extends Controller {
 			return $this->filter_should_load_blocks( $default, 'not_admin' );
 		}
 
+		// Allow for loading blocks in AJAX requests, in case some functionality depends on it.
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			return $this->filter_should_load_blocks( true, 'admin_ajax_request' );
+		}
+
 		// If we don't have the screen object set, we can't determine if we should load blocks.
 		if ( null === $this->screen ) {
 			return $this->filter_should_load_blocks( $default, 'no_screen' );
