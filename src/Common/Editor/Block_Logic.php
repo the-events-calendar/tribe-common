@@ -13,6 +13,8 @@ namespace TEC\Common\Editor;
 
 use Exception;
 use TEC\Common\Contracts\Provider\Controller;
+use TEC\Common\lucatume\DI52\Container;
+use Tribe__Cache;
 use WP_Screen;
 
 /**
@@ -23,12 +25,35 @@ use WP_Screen;
 class Block_Logic extends Controller {
 
 	/**
+	 * The cache instance.
+	 *
+	 * @since TBD
+	 *
+	 * @var Tribe__Cache
+	 */
+	private Tribe__Cache $cache;
+
+	/**
 	 * The current screen object.
 	 *
 	 * @since TBD
 	 * @var ?WP_Screen
 	 */
 	private ?WP_Screen $screen = null;
+
+	/**
+	 * Block_Logic constructor.
+	 *
+	 * @since TBD
+	 *
+	 * @param Container     $container The DI container.
+	 * @param ?Tribe__Cache $cache     The cache instance.
+	 */
+	public function __construct( Container $container, ?Tribe__Cache $cache = null ) {
+		parent::__construct( $container );
+		$cache     ??= tribe_cache();
+		$this->cache = $cache;
+	}
 
 	/**
 	 * Registers the filters and actions hooks added by the controller.
@@ -152,9 +177,6 @@ class Block_Logic extends Controller {
 	 * @return bool
 	 */
 	public function should_load_blocks_for_post_type( string $post_type = '' ): bool {
-		// Set up a static variable to ensure we don't check the same post type multiple times.
-		static $checked_post_types = [];
-
 		// If we weren't provided a post type, try to determine the current post type.
 		if ( empty( $post_type ) ) {
 			try {
@@ -165,8 +187,10 @@ class Block_Logic extends Controller {
 		}
 
 		// If we have already checked this post type, return the cached value.
-		if ( isset( $checked_post_types[ $post_type ] ) ) {
-			return $checked_post_types[ $post_type ];
+		$cache_key    = "tec_common_should_load_blocks_for_post_type_{$post_type}";
+		$cache_result = $this->cache->get( $cache_key, '', null );
+		if ( false !== $cache_result ) {
+			return (bool) $cache_result;
 		}
 
 		/**
@@ -178,10 +202,11 @@ class Block_Logic extends Controller {
 		 */
 		$load_blocks_post_types = (array) apply_filters( 'tec_common_load_blocks_post_types', [] );
 
-		// Store the post type in the static variable to avoid checking it again.
-		$checked_post_types[ $post_type ] = in_array( $post_type, $load_blocks_post_types, true );
+		// Cache the post type in the static variable to avoid checking it again.
+		$result = in_array( $post_type, $load_blocks_post_types, true );
+		$this->cache->set( $cache_key, $result ?: null );
 
-		return $checked_post_types[ $post_type ];
+		return $result;
 	}
 
 	/**
