@@ -88,30 +88,30 @@ class Block_Logic extends Controller {
 
 		// When not in the admin area, allow anything to load blocks for rendering.
 		if ( ! is_admin() ) {
-			return $this->return_should_load_blocks( $default, 'not_admin' );
+			return $this->filter_should_load_blocks( $default, 'not_admin' );
 		}
 
 		// If we don't have the screen object set, we can't determine if we should load blocks.
 		if ( null === $this->screen ) {
-			return $this->return_should_load_blocks( $default, 'no_screen' );
+			return $this->filter_should_load_blocks( $default, 'no_screen' );
 		}
 
 		// If this isn't an editor screen, we don't need to load blocks.
 		if ( 'edit' !== $this->screen->base ) {
-			return $this->return_should_load_blocks( false, 'not_editor' );
+			return $this->filter_should_load_blocks( false, 'not_editor' );
 		}
 
 		// If this is an editor screen, but not a block editor screen, we don't need to load blocks.
 		if ( ! $this->screen->is_block_editor() ) {
-			return $this->return_should_load_blocks( false, 'not_block_editor' );
+			return $this->filter_should_load_blocks( false, 'not_block_editor' );
 		}
 
 		// If this isn't a supported post type, we don't need to load blocks.
 		if ( ! $this->should_load_blocks_for_post_type( $this->screen->post_type ) ) {
-			return $this->return_should_load_blocks( false, 'not_supported_post_type' );
+			return $this->filter_should_load_blocks( false, 'not_supported_post_type' );
 		}
 
-		return $this->return_should_load_blocks( true, 'block_editor' );
+		return $this->filter_should_load_blocks( true, 'block_editor' );
 	}
 
 	/**
@@ -124,7 +124,7 @@ class Block_Logic extends Controller {
 	 *
 	 * @return bool
 	 */
-	private function return_should_load_blocks( bool $should_load, string $reason ): bool {
+	private function filter_should_load_blocks( bool $should_load, string $reason ): bool {
 		/**
 		 * Filter to determine if blocks should be loaded.
 		 *
