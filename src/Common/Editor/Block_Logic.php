@@ -127,7 +127,7 @@ class Block_Logic extends Controller {
 		}
 
 		// If this isn't an editor screen, we don't need to load blocks.
-		if ( 'edit' !== $this->screen->base ) {
+		if ( ! $this->is_editor() ) {
 			return $this->filter_should_load_blocks( false, 'not_editor' );
 		}
 
@@ -234,5 +234,22 @@ class Block_Logic extends Controller {
 		}
 
 		throw new Exception( 'Unable to determine current post type.' );
+	}
+
+	/**
+	 * Check if the current screen is an editor screen.
+	 *
+	 * Valid editor screens are:
+	 * - edit
+	 * - post
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the current screen is an editor screen.
+	 */
+	private function is_editor(): bool {
+		$base = $this->screen->base;
+
+		return 'edit' === $base || 'post' === $base;
 	}
 }
