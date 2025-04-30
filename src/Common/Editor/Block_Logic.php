@@ -193,7 +193,7 @@ class Block_Logic extends Controller {
 
 		// If we have already checked this post type, return the cached value.
 		$cache_key    = "tec_common_should_load_blocks_for_post_type_{$post_type}";
-		$cache_result = $this->cache->get( $cache_key, '', null );
+		$cache_result = $this->cache->get( $cache_key );
 		if ( false !== $cache_result ) {
 			return (bool) $cache_result;
 		}
