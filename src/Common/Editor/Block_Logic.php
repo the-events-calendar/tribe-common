@@ -1,0 +1,255 @@
+<?php
+/**
+ * Block_Logic controller.
+ *
+ * @since TBD
+ *
+ * @package TEC\Common\Editor
+ */
+
+declare( strict_types=1 );
+
+namespace TEC\Common\Editor;
+
+use Exception;
+use TEC\Common\Contracts\Provider\Controller;
+use TEC\Common\lucatume\DI52\Container;
+use Tribe__Cache;
+use WP_Screen;
+
+/**
+ * Class Block_Logic
+ *
+ * @since TBD
+ */
+class Block_Logic extends Controller {
+
+	/**
+	 * The cache instance.
+	 *
+	 * @since TBD
+	 *
+	 * @var Tribe__Cache
+	 */
+	private Tribe__Cache $cache;
+
+	/**
+	 * The current screen object.
+	 *
+	 * @since TBD
+	 * @var ?WP_Screen
+	 */
+	private ?WP_Screen $screen = null;
+
+	/**
+	 * Block_Logic constructor.
+	 *
+	 * @since TBD
+	 *
+	 * @param Container     $container The DI container.
+	 * @param ?Tribe__Cache $cache     The cache instance.
+	 */
+	public function __construct( Container $container, ?Tribe__Cache $cache = null ) {
+		parent::__construct( $container );
+		$cache     ??= tribe_cache();
+		$this->cache = $cache;
+	}
+
+	/**
+	 * Registers the filters and actions hooks added by the controller.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function do_register(): void {
+		add_action( 'current_screen', [ $this, 'store_screen' ], 1 );
+	}
+
+	/**
+	 * Removes the filters and actions hooks added by the controller.
+	 *
+	 * Bound implementations should not be removed in this method!
+	 *
+	 * @since TBD
+	 *
+	 * @return void Filters and actions hooks added by the controller are be removed.
+	 */
+	public function unregister(): void {
+		$this->screen = null;
+		remove_action( 'current_screen', [ $this, 'store_screen' ], 1 );
+	}
+
+	/**
+	 * Store the current screen object.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Screen $screen The current screen object.
+	 *
+	 * @return void
+	 */
+	public function store_screen( WP_Screen $screen ): void {
+		// Store the current screen object as a clone to prevent any side effects.
+		$this->screen = clone $screen;
+	}
+
+	/**
+	 * Determine if blocks should be loaded.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function should_load_blocks(): bool {
+		/**
+		 * Filter to determine if blocks should be loaded by default.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $default Default value.
+		 */
+		$default = (bool) apply_filters( 'tec_common_should_load_blocks_default', true );
+
+		// When not in the admin area, allow anything to load blocks for rendering.
+		if ( ! is_admin() ) {
+			return $this->filter_should_load_blocks( $default, 'not_admin' );
+		}
+
+		// Allow for loading blocks in AJAX requests, in case some functionality depends on it.
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			return $this->filter_should_load_blocks( true, 'admin_ajax_request' );
+		}
+
+		// If we don't have the screen object set, we can't determine if we should load blocks.
+		if ( null === $this->screen ) {
+			return $this->filter_should_load_blocks( $default, 'no_screen' );
+		}
+
+		// If this isn't an editor screen, we don't need to load blocks.
+		if ( ! $this->is_editor() ) {
+			return $this->filter_should_load_blocks( false, 'not_editor' );
+		}
+
+		// If this is an editor screen, but not a block editor screen, we don't need to load blocks.
+		if ( ! $this->screen->is_block_editor() ) {
+			return $this->filter_should_load_blocks( false, 'not_block_editor' );
+		}
+
+		// If this isn't a supported post type, we don't need to load blocks.
+		if ( ! $this->should_load_blocks_for_post_type( $this->screen->post_type ) ) {
+			return $this->filter_should_load_blocks( false, 'not_supported_post_type' );
+		}
+
+		return $this->filter_should_load_blocks( true, 'block_editor' );
+	}
+
+	/**
+	 * Return the value of should_load_blocks passed through a filter.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool   $should_load The value of should_load_blocks.
+	 * @param string $reason      The reason why we are returning this value.
+	 *
+	 * @return bool Whether blocks should be loaded.
+	 */
+	private function filter_should_load_blocks( bool $should_load, string $reason ): bool {
+		/**
+		 * Filter to determine if blocks should be loaded.
+		 *
+		 * This filter is used to determine if blocks should be loaded in the editor. The
+		 * $reason parameter can be used to determine why we are returning this value.
+		 *
+		 * @see self::should_load_blocks() for the reasons.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool       $should_load Whether blocks should be loaded.
+		 * @param string     $reason      The reason why we are returning this value.
+		 * @param ?WP_Screen $screen      The current screen object, if it has been set.
+		 */
+		return (bool) apply_filters( 'tec_common_should_load_blocks', $should_load, $reason, $this->screen );
+	}
+
+	/**
+	 * Determine if blocks should be loaded for a specific post type.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $post_type The post type to check.
+	 *
+	 * @return bool
+	 */
+	public function should_load_blocks_for_post_type( string $post_type = '' ): bool {
+		// If we weren't provided a post type, try to determine the current post type.
+		if ( empty( $post_type ) ) {
+			try {
+				$post_type = $this->determine_current_post_type();
+			} catch ( Exception $e ) {
+				return false;
+			}
+		}
+
+		// If we have already checked this post type, return the cached value.
+		$cache_key    = "tec_common_should_load_blocks_for_post_type_{$post_type}";
+		$cache_result = $this->cache->get( $cache_key );
+		if ( false !== $cache_result ) {
+			return (bool) $cache_result;
+		}
+
+		/**
+		 * Filter to determine what post types should have blocks loaded.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $load_blocks_post_types The post types that should have blocks loaded.
+		 */
+		$load_blocks_post_types = (array) apply_filters( 'tec_common_load_blocks_post_types', [] );
+
+		// Cache the post type in the static variable to avoid checking it again.
+		$result = in_array( $post_type, $load_blocks_post_types, true );
+		$this->cache->set( $cache_key, $result ?: null );
+
+		return $result;
+	}
+
+	/**
+	 * Determine the current post type.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The current post type.
+	 * @throws Exception If the current post type cannot be determined.
+	 */
+	private function determine_current_post_type(): string {
+		// If we have the screen object, use its post type.
+		if ( null !== $this->screen ) {
+			return $this->screen->post_type;
+		}
+
+		// Try to use the global post object.
+		if ( isset( $GLOBALS['post']->post_type ) ) {
+			return $GLOBALS['post']->post_type;
+		}
+
+		throw new Exception( 'Unable to determine current post type.' );
+	}
+
+	/**
+	 * Check if the current screen is an editor screen.
+	 *
+	 * Valid editor screens are:
+	 * - edit
+	 * - post
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the current screen is an editor screen.
+	 */
+	private function is_editor(): bool {
+		$base = $this->screen->base;
+
+		return 'edit' === $base || 'post' === $base;
+	}
+}

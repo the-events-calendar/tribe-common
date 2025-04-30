@@ -46,7 +46,7 @@ class Tribe__Editor__Utils {
 	 * @return bool
 	 */
 	public function remove_block( $post_id, $block_name = '', $replacement = '' ) {
-		$patttern = '/^\s*<!-- ' . $block_name . '.*\/-->\s*$/im';
+		$patttern = '#^\s*<!-- ' . $block_name . '.*/-->\s*$#im';
 		return $this->update_post_content( $post_id, $patttern, $replacement );
 	}
 
@@ -55,9 +55,9 @@ class Tribe__Editor__Utils {
 	 *
 	 * @since 4.8.2
 	 *
-	 * @param        $post_id
-	 * @param        $block_name The name of the block
-	 * @param string $replacement The string used to replace the value of the searched block
+	 * @param int    $post_id     The post ID.
+	 * @param string $block_name  The name of the block.
+	 * @param string $replacement The string used to replace the value of the searched block.
 	 *
 	 * @return bool
 	 */
@@ -72,9 +72,9 @@ class Tribe__Editor__Utils {
 	 *
 	 * @since 4.8.2
 	 *
-	 * @param        $post_id
-	 * @param        $pattern
-	 * @param string $replacement The string used to replace the value of the searched block
+	 * @param int    $post_id     The post ID.
+	 * @param string $pattern     The pattern used to search the content.
+	 * @param string $replacement The string used to replace the value of the searched block.
 	 *
 	 * @return bool
 	 */
@@ -111,13 +111,9 @@ class Tribe__Editor__Utils {
 	 * @return string
 	 */
 	public function strip_dynamic_blocks( $content = '' ) {
-
-		if ( ! function_exists( 'strip_dynamic_blocks' ) ) {
-			return $content;
-		}
-
-		return strip_dynamic_blocks( $content );
-
+		return function_exists( 'strip_dynamic_blocks' )
+			? strip_dynamic_blocks( $content )
+			: $content;
 	}
 
 	/**
@@ -130,8 +126,7 @@ class Tribe__Editor__Utils {
 	 * @return string
 	 */
 	public function exclude_tribe_blocks( $content = '' ) {
-
-		$match_blocks_exp = '/\<\!\-\- \/?wp\:tribe.*\/?-->/i';
+		$match_blocks_exp = '#<!-- /?wp:tribe.*/?-->#i';
 
 		if ( ! preg_match( $match_blocks_exp, $content ) ) {
 			return $content;
