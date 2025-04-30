@@ -120,14 +120,14 @@ abstract class Integration_Settings {
 
 		$wrapper_classes = tribe_get_classes(
 			[
-				'tec-automator-settings' => true,
+				'tec-automator-settings'                 => true,
 				'tec-events-settings-' . static::$api_id . '-application' => true,
 				'tec-settings-form__element--full-width' => true,
 			]
 		);
 
 		$api_fields = [
-			static::$option_prefix . 'header'        => [
+			static::$option_prefix . 'header'              => [
 				'type' => 'html',
 				'html' => $this->get_intro_text(),
 			],
@@ -135,19 +135,19 @@ abstract class Integration_Settings {
 				'type' => 'html',
 				'html' => '<div class="tec-settings-form__content-section">',
 			],
-			static::$option_prefix . 'wrapper_open'  => [
+			static::$option_prefix . 'wrapper_open'        => [
 				'type' => 'html',
 				'html' => '<div id="tribe-settings-' . static::$api_id . '-application" class="' . implode( ' ', $wrapper_classes ) . '">',
 			],
-			static::$option_prefix . 'authorize'     => [
+			static::$option_prefix . 'authorize'           => [
 				'type' => 'html',
 				'html' => $this->get_all_connection_fields(),
 			],
-			static::$option_prefix . 'section-wrapper-end'   => [
+			static::$option_prefix . 'section-wrapper-end' => [
 				'type' => 'html',
 				'html' => '</div>',
 			],
-			static::$option_prefix . 'wrapper_close' => [
+			static::$option_prefix . 'wrapper_close'       => [
 				'type' => 'html',
 				'html' => '</div>',
 			],
