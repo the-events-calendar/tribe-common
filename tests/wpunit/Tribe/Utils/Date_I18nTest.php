@@ -19,7 +19,7 @@ class Date_I18n_Test extends WPTestCase {
 		static::$date_default_timezone_backup = date_default_timezone_get();
 	}
 
-	public static function tearDownAfterClass() {
+	public static function tearDownAfterClass(): void {
 		date_default_timezone_set( static::$date_default_timezone_backup );
 		parent::tearDownAfterClass();
 	}

@@ -14,13 +14,13 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	public static function setUpBeforeClass(): void {
 		self::$tz_backup = date_default_timezone_get();
 
-		return parent::setUpBeforeClass();
+		parent::setUpBeforeClass();
 	}
 
-	public static function tearDownAfterClass() {
+	public static function tearDownAfterClass(): void {
 		date_default_timezone_set( self::$tz_backup );
 
-		return parent::tearDownAfterClass();
+		parent::tearDownAfterClass();
 	}
 
 	public function setUp(): void {
