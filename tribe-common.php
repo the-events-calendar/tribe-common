@@ -2,7 +2,11 @@
 /**
  * Plugin Name: Tribe Common
  * Description: An event settings framework for managing shared options.
+<<<<<<< HEAD
  * Version: 6.6.0
+=======
+ * Version: 6.5.5.1
+>>>>>>> 872710883748c32f0ac23ae6495be41305ec202a
  * Requires at least: 6.5
  * Requires PHP: 7.4
  * Author: The Events Calendar
