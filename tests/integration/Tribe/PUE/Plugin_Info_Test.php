@@ -50,7 +50,7 @@ class Plugin_Info_Test extends WPTestCase {
 		$this->assertEquals( 'Sample Plugin', $plugin_info->name, 'Property "name" was not set correctly.' );
 		$this->assertEquals( '1.0.0', $plugin_info->version, 'Property "version" was not set correctly.' );
 		$this->assertEquals( 'https://example.com', $plugin_info->homepage, 'Property "homepage" was not set correctly after prefix removal.' );
-		$this->assertObjectNotHasAttribute( 'non_whitelisted_key', $plugin_info, 'Non-whitelisted key should not be added to the object.' );
+		$this->assertObjectNotHasProperty( 'non_whitelisted_key', $plugin_info, 'Non-whitelisted key should not be added to the object.' );
 	}
 
 	/**
@@ -109,7 +109,7 @@ class Plugin_Info_Test extends WPTestCase {
 		$this->assertInstanceOf( Tribe__PUE__Plugin_Info::class, $plugin_info, 'from_json did not return an instance for nested JSON.' );
 		$this->assertEquals( 'Nested Plugin', $plugin_info->name, 'Property "name" in nested JSON was not set correctly.' );
 		$this->assertEquals( '2.0.0', $plugin_info->version, 'Property "version" in nested JSON was not set correctly.' );
-		$this->assertObjectNotHasAttribute( 'non_whitelisted_key', $plugin_info, 'Non-whitelisted key in nested JSON should not be added.' );
+		$this->assertObjectNotHasProperty( 'non_whitelisted_key', $plugin_info, 'Non-whitelisted key in nested JSON should not be added.' );
 	}
 
 	/**
@@ -129,7 +129,7 @@ class Plugin_Info_Test extends WPTestCase {
 		$this->assertInstanceOf( Tribe__PUE__Plugin_Info::class, $plugin_info, 'from_json did not return an instance for prefixed JSON keys.' );
 		$this->assertEquals( 'Prefixed Plugin', $plugin_info->name, 'Property "name" was not set correctly from prefixed JSON key.' );
 		$this->assertEquals( '3.1.4', $plugin_info->version, 'Property "version" was not set correctly from prefixed JSON key.' );
-		$this->assertObjectNotHasAttribute( 'plugin_extra', $plugin_info, 'Non-whitelisted prefixed key should not be added to the object.' );
+		$this->assertObjectNotHasProperty( 'plugin_extra', $plugin_info, 'Non-whitelisted prefixed key should not be added to the object.' );
 	}
 
 	/**
@@ -180,7 +180,7 @@ class Plugin_Info_Test extends WPTestCase {
 		$this->assertInstanceOf( Tribe__PUE__Plugin_Info::class, $plugin_info, 'from_json should create an instance when `name` and `version` are set.' );
 		$this->assertEquals( 'Valid Plugin', $plugin_info->name, 'Property "name" was not set correctly.' );
 		$this->assertEquals( '1.2.3', $plugin_info->version, 'Property "version" was not set correctly.' );
-		$this->assertObjectNotHasAttribute( 'tec_plugin_version', $plugin_info, 'Non-whitelisted prefixed key should not be added to the object.' );
+		$this->assertObjectNotHasProperty( 'tec_plugin_version', $plugin_info, 'Non-whitelisted prefixed key should not be added to the object.' );
 	}
 
 	/**

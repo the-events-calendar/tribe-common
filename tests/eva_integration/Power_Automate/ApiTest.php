@@ -104,9 +104,9 @@ class ApiTest extends \Codeception\TestCase\WPTestCase {
 		$consumer_id     = $api->get_random_hash( 'ci_', 128 );
 		$consumer_secret = $api->get_random_hash( 'ck_', 128 );
 
-		$this->assertContains( 'ci_', $consumer_id );
+		$this->assertMatchesRegularExpression('/ci_/', $consumer_id);
 		$this->assertEquals( 259, strlen( $consumer_id ) );
-		$this->assertContains( 'ck_', $consumer_secret );
+		$this->assertMatchesRegularExpression('/ck_/', $consumer_secret);
 		$this->assertEquals( 259, strlen( $consumer_secret ) );
 	}
 
