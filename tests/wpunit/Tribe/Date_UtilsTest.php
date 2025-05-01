@@ -335,7 +335,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 			'2019-12-01 08:00:00',
 			$timezone_obj,
 		];
-		yield '2019-12-01 08:00:00 DateTime w/timezone' => [
+		yield '2019-12-01 08:00:00 DateTime w/timezone obj' => [
 			new DateTime( '2019-12-01 08:00:00', $timezone_obj ),
 			'2019-12-01 08:00:00',
 			$timezone_obj,

@@ -56,7 +56,8 @@
     "automattic/jetpack-changelogger": "^4.2",
     "codeception/module-rest": "^2.0",
     "php-stubs/wordpress-stubs": "^6.7",
-    "szepeviktor/phpstan-wordpress": "^1.1"
+    "szepeviktor/phpstan-wordpress": "^1.1",
+    "phpspec/prophecy": "^1.22"
   },
   "autoload": {
     "psr-4": {

@@ -59,7 +59,7 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertInstanceOf( Tribe__PUE__Checker::class, $pue );
 
 		$this->assertEquals( $pue->get_slug(), $expected['pue_slug'] );
-		$this->assertContains( $pue->get_plugin_file(), $expected['plugin_file'] );
+		$this->assertMatchesRegularExpression( $expected['plugin_file'], $pue->get_plugin_file() );
 	}
 
 	public function invalidClassToPueProvider() {
