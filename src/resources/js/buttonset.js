@@ -1,6 +1,7 @@
 var tribe_buttonset = tribe_buttonset || {};
 
-( function( $, obj, _ ) { // eslint-disable-line no-unused-vars
+( function ( $, obj, _ ) {
+	// eslint-disable-line no-unused-vars
 	'use strict';
 
 	obj.$body;
@@ -9,28 +10,30 @@ var tribe_buttonset = tribe_buttonset || {};
 		buttonset: '.tribe-buttonset',
 		button: '.tribe-button-field',
 		input: '.tribe-button-input',
-		active: '.tribe-active'
+		active: '.tribe-active',
 	};
 
-	obj.ready = function( event ) { // eslint-disable-line no-unused-vars
+	obj.ready = function ( event ) {
+		// eslint-disable-line no-unused-vars
 		obj.$body = $( 'body' );
 		obj.$body.on( 'click.tribe_buttonset', obj.selector.button, obj.click );
-		obj.$body.on( 'change.tribe_buttonset', obj.selector.input, obj.change )
-			.find( obj.selector.input ).trigger( 'change' ); // eslint-disable-line es5/no-es6-methods
+		obj.$body
+			.on( 'change.tribe_buttonset', obj.selector.input, obj.change )
+			.find( obj.selector.input )
+			.trigger( 'change' ); // eslint-disable-line es5/no-es6-methods
 	};
 
-	obj.change = function( event ) { // eslint-disable-line no-unused-vars
-		var $input = $( this ),
+	obj.change = function ( event ) {
+		// eslint-disable-line no-unused-vars
+		const $input = $( this ),
 			value = $input.val(),
 			$group = $input.parents( obj.selector.buttonset ).eq( 0 );
 
-		$group
-			.find( '[data-value="' + value + '"]' )
-			.addClass( obj.selector.active.replace( '.', '' ) );
+		$group.find( '[data-value="' + value + '"]' ).addClass( obj.selector.active.replace( '.', '' ) );
 	};
 
-	obj.click = function( event ) {
-		var $button = $( this ),
+	obj.click = function ( event ) {
+		let $button = $( this ),
 			$group,
 			$input;
 
@@ -40,7 +43,7 @@ var tribe_buttonset = tribe_buttonset || {};
 			$group = $button.parents( obj.selector.buttonset );
 		}
 
-		var has_group = $group.length > 0,
+		let has_group = $group.length > 0,
 			input_selector = $group.data( 'input' ) ? $group.data( 'input' ) : obj.selector.input,
 			value = $button.data( 'value' ),
 			is_multiple = $group.is( '[data-multiple]' );

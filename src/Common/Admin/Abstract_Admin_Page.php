@@ -19,6 +19,14 @@ use Tribe__Main;
  * @package TEC\Admin
  */
 abstract class Abstract_Admin_Page {
+	/**
+	 * The option to dismiss the admin page.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	const DISMISS_PAGE_OPTION = 'tec_admin_page_dismissed';
 
 	/**
 	 * The slug for the admin menu.
@@ -84,6 +92,15 @@ abstract class Abstract_Admin_Page {
 	public static bool $has_footer = false;
 
 	/**
+	 * Whether the page has a logo.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	public static bool $has_logo = true;
+
+	/**
 	 * Add the settings page.
 	 *
 	 * @since 6.4.1
@@ -122,9 +139,11 @@ abstract class Abstract_Admin_Page {
 	 * Get the page slug.
 	 *
 	 * @since 6.4.1
+	 *
+	 * @return string The page slug.
 	 */
 	public static function get_page_slug(): string {
-		if ( ! empty( static::$page_slug ) ) {
+		if ( ! empty( static::$page_slug ) && static::$page_slug === static::$slug ) {
 			return static::$page_slug;
 		}
 
@@ -137,6 +156,8 @@ abstract class Abstract_Admin_Page {
 	 * Get the page type.
 	 *
 	 * @since 6.4.1
+	 *
+	 * @return string The page type.
 	 */
 	public function get_page_type(): string {
 		// Defined in the traits, or redefined in an extending class.
@@ -147,6 +168,8 @@ abstract class Abstract_Admin_Page {
 	 * Defines wether the current page is the correct page.
 	 *
 	 * @since 6.4.1
+	 *
+	 * @return bool Whether the current page is the correct page.
 	 */
 	public static function is_on_page(): bool {
 		$admin_pages = tribe( 'admin.pages' );
@@ -161,14 +184,14 @@ abstract class Abstract_Admin_Page {
 	 *
 	 * @since 6.4.1
 	 *
-	 * @return bool
+	 * @return bool Whether the page has been dismissed.
 	 */
 	public static function is_dismissed(): bool {
 		if ( ! static::$is_dismissible ) {
 			return false;
 		}
 
-		return static::$is_dismissed;
+		return (bool) tribe_get_option( static::DISMISS_PAGE_OPTION, false );
 	}
 
 	/**
@@ -195,35 +218,11 @@ abstract class Abstract_Admin_Page {
 	}
 
 	/**
-	 * Get the admin page logo.
-	 *
-	 * @since 6.4.1
-	 *
-	 * @return void Echos the admin page logo.
-	 */
-	public function do_page_logo(): void {
-		// Only run once to avoid duplicating IDs.
-		if ( did_action( 'tribe_admin_page_after_logo' ) ) {
-			return;
-		}
-
-		?>
-		<img
-			src="<?php echo esc_url( $this->get_logo_source() ); ?>"
-			alt=""
-			role="presentation"
-			id="tec-admin-page-logo"
-			<?php tribe_classes( $this->logo_classes() ); ?>
-		/>
-		<?php
-
-		do_action( 'tribe_admin_page_after_logo' );
-	}
-
-	/**
 	 * Get the page title.
 	 *
 	 * @since 6.4.1
+	 *
+	 * @return string The page title.
 	 */
 	abstract public function get_the_page_title(): string;
 
@@ -238,6 +237,8 @@ abstract class Abstract_Admin_Page {
 	 * Get the capability required to access the page.
 	 *
 	 * @since 6.4.1
+	 *
+	 * @return string The capability required to access the page.
 	 */
 	public function required_capability() {
 		return 'manage_options';
@@ -247,6 +248,8 @@ abstract class Abstract_Admin_Page {
 	 * Get the parent page slug.
 	 *
 	 * @since 6.4.1
+	 *
+	 * @return string The parent page slug.
 	 */
 	abstract public function get_parent_page_slug(): string;
 
@@ -255,6 +258,8 @@ abstract class Abstract_Admin_Page {
 	 * Can be a URL to a custom file or a dashicon class.
 	 *
 	 * @since 6.4.1
+	 *
+	 * @return string|null The icon url for the menu.
 	 */
 	public function get_page_icon_url(): ?string {
 		return '';
@@ -392,6 +397,36 @@ abstract class Abstract_Admin_Page {
 
 		<?php
 		do_action( 'tec_admin_page_after_wrap_end' );
+	}
+
+	/**
+	 * Get the admin page logo.
+	 *
+	 * @since 6.4.1
+	 *
+	 * @return void Echos the admin page logo.
+	 */
+	public function do_page_logo(): void {
+		if ( ! static::$has_logo ) {
+			return;
+		}
+
+		// Only run once to avoid duplicating IDs.
+		if ( did_action( 'tribe_admin_page_after_logo' ) ) {
+			return;
+		}
+
+		?>
+		<img
+			src="<?php echo esc_url( $this->get_logo_source() ); ?>"
+			alt=""
+			role="presentation"
+			id="tec-admin-page-logo"
+			<?php tribe_classes( $this->logo_classes() ); ?>
+		/>
+		<?php
+
+		do_action( 'tribe_admin_page_after_logo' );
 	}
 
 	/**
