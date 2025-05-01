@@ -691,15 +691,14 @@ class Tribe__Settings {
 	 * @since 6.4.1 Avoid Fatal error when the current tab is not an object.
 	 */
 	public function generate_page(): void {
-		$admin_pages       = tribe( 'admin.pages' );
-		$admin_page        = $admin_pages->get_current_page();
-		$current_tab       = $this->get_current_tab();
-		$wrap_classes      = apply_filters( 'tribe_settings_wrap_classes', [ 'tribe_settings', 'wrap' ], $admin_page );
-		$is_event_settings = $this->is_event_settings( $admin_page );
-		$tab_object        = $this->get_tab( $current_tab );
-		$form_classes      = [
+		$admin_pages  = tribe( 'admin.pages' );
+		$admin_page   = $admin_pages->get_current_page();
+		$current_tab  = $this->get_current_tab();
+		$wrap_classes = apply_filters( 'tribe_settings_wrap_classes', [ 'tribe_settings', 'wrap' ], $admin_page );
+		$tab_object   = $this->get_tab( $current_tab );
+		$form_classes = [
 			"tec-settings-form__{$current_tab}-tab--active" => true,
-			'tec-settings-form__subnav-active'              => ( $tab_object && $tab_object->has_parent() ),
+			'tec-settings-form__subnav-active' => ( $tab_object && $tab_object->has_parent() ),
 			'tec-settings-form'                => true,
 		];
 
@@ -721,7 +720,7 @@ class Tribe__Settings {
 			<?php
 			$this->output_notice_wrap();
 			$this->do_page_header( $admin_page );
-				$this->generate_modal_nav( $admin_page );
+			$this->generate_modal_nav( $admin_page );
 
 			do_action( 'tribe_settings_above_tabs' );
 			$this->generate_tabs();
@@ -757,7 +756,7 @@ class Tribe__Settings {
 				?>
 			</div>
 			<?php
-			do_action( 'tribe_settings_after_form_div', $this );
+				do_action( 'tribe_settings_after_form_div', $this );
 				$this->generate_modal_sidebar();
 			?>
 		</div>
