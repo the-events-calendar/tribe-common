@@ -18,7 +18,7 @@ class TicketsCommerceTest extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
 	use Tickets_Commerce;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		// To support taxonomy term creation and assignment.

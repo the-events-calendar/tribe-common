@@ -8,14 +8,14 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 
 	public $post_types = [ 'post' ];
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
 		// your set up methods here
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then
@@ -929,7 +929,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 	     $this->assertEquals( 'bar', get_post_meta( $id, 'foo', true ) );
 	     delete_post_meta( $id, 'foo' );
      }
-     
+
      /**
       * It should not hit the filtering functions when handling meta for non registered posts and meta ids
       * @test
@@ -965,7 +965,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 	      $this->assertEquals( 'bar', get_post_meta( $id, 'foo', true ) );
 	      delete_post_meta( $id, 'foo' );
       }
-      
+
       /**
        * It should hit the cache when getting same post meta
        * @test

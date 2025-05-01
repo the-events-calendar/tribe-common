@@ -18,7 +18,7 @@ class EDDTest extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
 	use EDD;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		// To support taxonomy term creation and assignment.

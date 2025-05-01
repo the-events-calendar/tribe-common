@@ -11,7 +11,7 @@ class UpdatedEventTest extends \Codeception\TestCase\WPTestCase {
 	use Create_Events;
 	use With_Uopz;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 

@@ -19,7 +19,7 @@ class WooCommerceTest extends WPTestCase {
 	use With_Uopz;
 	use WooCommerce;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		// To support taxonomy term creation and assignment.

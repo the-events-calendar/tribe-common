@@ -24,7 +24,7 @@ class Logging_Test extends WPTestCase {
 	 */
 	protected $test_dates = array();
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->use_test_prefix();

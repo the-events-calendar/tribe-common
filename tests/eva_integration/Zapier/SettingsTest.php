@@ -15,7 +15,7 @@ class SettingsTest extends \Codeception\TestCase\WPTestCase {
 	use SnapshotAssertions;
 	use With_Uopz;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 

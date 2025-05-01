@@ -13,7 +13,7 @@ class ReadTestBase extends WPTestCase
 	 */
 	protected $class;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		register_post_type( 'book' );
 		register_post_type( 'review' );

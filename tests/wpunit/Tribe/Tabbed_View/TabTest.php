@@ -11,7 +11,7 @@ class TabTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $tabbed_view;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -19,7 +19,7 @@ class TabTest extends \Codeception\TestCase\WPTestCase {
 		$this->tabbed_view = $this->prophesize( \Tribe__Tabbed_View::class );
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

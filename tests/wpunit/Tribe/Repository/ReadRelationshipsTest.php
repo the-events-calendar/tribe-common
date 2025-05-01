@@ -10,7 +10,7 @@ class ReadRelationshipsTest extends ReadTestBase {
 
 	public $reviews;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->books = $this->factory()->post->create_many( 5, [ 'post_type' => 'book' ] );

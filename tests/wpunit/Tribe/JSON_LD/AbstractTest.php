@@ -9,14 +9,14 @@ use Tribe__JSON_LD__Test_Class as Jsonld;
 
 class AbstractTest extends \Codeception\TestCase\WPTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
 		// your set up methods here
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 		\Tribe__JSON_LD__Abstract::unregister_all();
 

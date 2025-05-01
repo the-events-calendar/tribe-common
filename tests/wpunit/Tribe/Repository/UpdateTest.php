@@ -9,7 +9,7 @@ use Tribe__Repository__Decorator as Decorator;
 class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	protected $class;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		register_post_type( 'book' );
 		register_taxonomy( 'genre', 'book' );

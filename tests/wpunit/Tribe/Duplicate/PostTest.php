@@ -11,7 +11,7 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $factory;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -19,7 +19,7 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory = new \Tribe__Duplicate__Strategy_Factory();
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

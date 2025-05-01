@@ -24,7 +24,7 @@ class EventTest extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
 	use Event;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		// To support taxonomy term creation and assignment.

@@ -13,7 +13,7 @@ class UpdatedAttendeesTest extends \Codeception\TestCase\WPTestCase {
 	use Create_Attendees;
 	use With_Uopz;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 

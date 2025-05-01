@@ -39,7 +39,7 @@ class TicketsTest extends \Codeception\TestCase\WPTestCase {
 		'date-field'                                      => '2023-07-26',
 	];
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		// To support taxonomy term creation and assignment.

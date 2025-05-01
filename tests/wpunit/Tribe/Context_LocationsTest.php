@@ -13,13 +13,13 @@ class Context_LocationsTest extends \Codeception\TestCase\WPTestCase {
 
 	public $global_vars = [];
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->global_vars['wp_query']     = $GLOBALS['wp_query'] ?? null;
 		$this->global_vars['wp_the_query'] = $GLOBALS['wp_the_query'] ?? null;
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 
 		$GLOBALS['wp_query']     = $this->global_vars['wp_query'];

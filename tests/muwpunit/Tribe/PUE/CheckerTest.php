@@ -38,7 +38,7 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $network_plugin_file = 'the-events-calendar/the-events-calendar.php';
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -50,7 +50,7 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 		$this->main_site = $current_site->blog_id;
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

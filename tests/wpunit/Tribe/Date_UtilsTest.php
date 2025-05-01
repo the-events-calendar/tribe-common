@@ -23,7 +23,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		return parent::tearDownAfterClass();
 	}
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -33,7 +33,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		date_default_timezone_set( 'UTC' );
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

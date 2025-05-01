@@ -11,7 +11,7 @@ class Package_HandlerTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $filesystem;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -22,7 +22,7 @@ class Package_HandlerTest extends \Codeception\TestCase\WPTestCase {
 		$this->filesystem = $this->prophesize( \WP_Filesystem_Base::class );
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

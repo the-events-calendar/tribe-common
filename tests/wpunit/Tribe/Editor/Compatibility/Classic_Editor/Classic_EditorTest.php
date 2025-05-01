@@ -26,7 +26,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @since 4.15.1
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		// Set options back to defaults (nothing set).
 		$this->clear_all();
 

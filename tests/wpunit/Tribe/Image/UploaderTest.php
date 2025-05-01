@@ -6,7 +6,7 @@ use Tribe__Image__Uploader as Image_Uploader;
 
 class Tribe__Image__UploaderTest extends \Codeception\TestCase\WPTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -22,7 +22,7 @@ class Tribe__Image__UploaderTest extends \Codeception\TestCase\WPTestCase {
 		return codecept_data_dir( 'images/featured-image.' . $extension );
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

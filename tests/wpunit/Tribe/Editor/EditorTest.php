@@ -13,7 +13,7 @@ class EditorTest extends \Codeception\TestCase\WPTestCase {
 		$this->editor = $this->make_instance();
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		unset( $this->editor );
 
 		// then
