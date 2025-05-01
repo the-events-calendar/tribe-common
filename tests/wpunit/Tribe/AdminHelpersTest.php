@@ -10,7 +10,7 @@ use Tribe__Admin__Helpers as Admin_Helpers;
 
 class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 
-	function setUp() {
+	function setUp(): void {
 		parent::setUp();
 
 		global $pagenow;

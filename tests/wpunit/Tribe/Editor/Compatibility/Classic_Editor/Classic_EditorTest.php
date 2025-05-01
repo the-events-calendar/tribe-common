@@ -14,7 +14,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @since 4.15.1
 	 */
-	function setUp() {
+	function setUp(): void {
 		parent::setUp();
 
 		$this->classic_editor = $this->make_instance();

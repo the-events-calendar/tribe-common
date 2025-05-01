@@ -8,7 +8,7 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 
 	protected $class_object;
 
-	function setUp() {
+	function setUp(): void {
 		parent::setUp();
 
 

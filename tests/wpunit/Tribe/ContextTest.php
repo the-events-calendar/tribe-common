@@ -186,7 +186,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $sut->is_new_post( array( $post_id, $second_post_id ) ) );
 	}
 
-	function setUp() {
+	function setUp(): void {
 		parent::setUp();
 		global $pagenow;
 		$pagenow = null;

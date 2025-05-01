@@ -75,7 +75,7 @@ class Post_Thumbnail_SetterTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $attachment_id, $thumbnails[0] );
 	}
 
-	function setUp() {
+	function setUp(): void {
 		parent::setUp();
 		unset( $_POST['post_id'], $_POST['post_thumbnail'] );
 	}

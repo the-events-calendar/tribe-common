@@ -10,7 +10,7 @@ include_once codecept_data_dir( 'test-functions.php' );
 
 class PromiseTest extends \Codeception\TestCase\WPTestCase {
 
-	function setUp() {
+	function setUp(): void {
 		parent::setUp();
 		add_filter( 'tribe_supports_async_process', '__return_true' );
 	}

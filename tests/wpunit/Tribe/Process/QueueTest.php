@@ -10,7 +10,7 @@ use Tribe__Process__Queue as Process;
 
 class QueueTest extends WPTestCase {
 
-	function setUp() {
+	function setUp(): void {
 		parent::setUp();
 		$this->clear_queues();
 		add_filter( 'tribe_supports_async_process', '__return_true' );
@@ -22,7 +22,7 @@ class QueueTest extends WPTestCase {
 
 	}
 
-	function tearDown() {
+	function tearDown(): void {
 		$this->clear_queues();
 		parent::tearDown();
 	}

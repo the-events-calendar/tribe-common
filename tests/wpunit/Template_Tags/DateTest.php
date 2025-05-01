@@ -6,7 +6,7 @@ use Tribe__Date_Utils;
 
 class DateTest extends \Codeception\TestCase\WPTestCase {
 
-	protected function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 	}
 
@@ -48,4 +48,3 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 		switch_to_locale( 'en_US' );
 	}
 }
-

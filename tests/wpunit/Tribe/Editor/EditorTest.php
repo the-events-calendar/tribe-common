@@ -6,7 +6,7 @@ use Tribe__Editor as Editor;
 
 class EditorTest extends \Codeception\TestCase\WPTestCase {
 
-	function setUp() {
+	function setUp(): void {
 		parent::setUp();
 		tribe( 'cache' )->reset();
 
