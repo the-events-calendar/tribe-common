@@ -14,7 +14,7 @@ class Date_I18n_Test extends WPTestCase {
 	 */
 	protected static $date_default_timezone_backup;
 
-	public static function setUpBeforeClass() {
+	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
 		static::$date_default_timezone_backup = date_default_timezone_get();
 	}

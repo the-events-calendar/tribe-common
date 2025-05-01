@@ -26,7 +26,7 @@ class  OrdersTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @inheritDoc
 	 */
-	public static function setUpBeforeClass() {
+	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
 
 		add_filter( 'tribe_tickets_ticket_object_is_ticket_cache_enabled', '__return_false' );
