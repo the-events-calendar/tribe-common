@@ -9,25 +9,48 @@
 #tec-settings-form,
 .tec-settings-form {
 	.tec-settings-form__element--rowspan-2 {
+
 		@media (--viewport-xlarge) {
 			grid-row: span 2;
 		}
 	}
 
 	.tec-settings-form__element--rowspan-3 {
+
 		@media (--viewport-xlarge) {
 			grid-row: span 3;
 		}
 	}
 
 	.tec-settings-form__element--colspan-2 {
+
 		@media (--viewport-xlarge) {
 			grid-column: 1 / span 2;
 		}
 	}
 
 	.tec-settings-form__element--full-width {
-		margin: 0 calc(-1 * var(--tec-spacer-settings-form-right-gap)) 0 0;
+		margin: 0;
+
+		&.tec-settings-form__element--with-border-bottom {
+			border-bottom: 1px solid var(--tec-admin-core-grey-10);
+		}
+
+		&.tec-settings-form__element--no-row-gap {
+			margin-top: calc(var(--tec-spacer-7) * -1);
+			margin-bottom: calc(var(--tec-spacer-7) * -1 + -1px);
+			padding-bottom: 0;
+		}
+
+		&.tec-settings-form__element--no-spacing {
+			margin-top: calc(var(--tec-spacer-7) * -1);
+			margin-bottom: 0;
+			padding-bottom: 0;
+		}
+
+		fieldset.tribe-field-wrapped_html {
+			margin: 0;
+		}
 
 		@media (--viewport-xlarge) {
 			grid-column: 1 / span 2;

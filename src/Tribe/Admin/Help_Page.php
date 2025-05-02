@@ -129,7 +129,7 @@ class Tribe__Admin__Help_Page {
 	 */
 	public function register_assets() {
 		$plugin = Tribe__Main::instance();
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-admin-help-page',
 			'admin/help-page.js',

@@ -26,9 +26,9 @@ tribe.settings.fields.image = {};
  * @param {PlainObject} $   jQuery
  * @param {PlainObject} obj tribe.settings.fields.image
  */
-( function( $, obj ) {
+( function ( $, obj ) {
 	'use strict';
-	var $document = $( document );
+	const $document = $( document );
 
 	/**
 	 * Store the frame object globally.
@@ -63,11 +63,11 @@ tribe.settings.fields.image = {};
 	 *
 	 * @return {void}
 	 */
-	obj.hideElements = function( $fieldParent ) {
+	obj.hideElements = function ( $fieldParent ) {
 		const imageIsSet = $fieldParent.find( obj.selectors.imgIdInput ).val() !== '';
 		$fieldParent.find( obj.selectors.addImgLink ).toggleClass( 'hidden', imageIsSet );
-		$fieldParent.find( obj.selectors.removeImgLink ).toggleClass( 'hidden', !imageIsSet );
-		$fieldParent.find( obj.selectors.imgContainer ).toggleClass( 'hidden', !imageIsSet );
+		$fieldParent.find( obj.selectors.removeImgLink ).toggleClass( 'hidden', ! imageIsSet );
+		$fieldParent.find( obj.selectors.imgContainer ).toggleClass( 'hidden', ! imageIsSet );
 	};
 
 	/**
@@ -79,8 +79,8 @@ tribe.settings.fields.image = {};
 	 *
 	 * @return {void}
 	 */
-	obj.onImageSelect = function( $fieldParent ) {
-		const attachment = obj.frame.state().get('selection').first().toJSON();
+	obj.onImageSelect = function ( $fieldParent ) {
+		const attachment = obj.frame.state().get( 'selection' ).first().toJSON();
 		const $imgContainer = $fieldParent.find( obj.selectors.imgContainer );
 		if ( $imgContainer.find( 'img' ).length > 0 ) {
 			$imgContainer.find( 'img' ).attr( 'src', attachment.url );
@@ -89,7 +89,7 @@ tribe.settings.fields.image = {};
 		}
 
 		if ( $fieldParent.is( '[data-image-id=1]' ) ) {
-			 $fieldParent.find( obj.selectors.imgIdInput ).val( attachment.id );
+			$fieldParent.find( obj.selectors.imgIdInput ).val( attachment.id );
 		} else {
 			$fieldParent.find( obj.selectors.imgIdInput ).val( attachment.url );
 		}
@@ -105,7 +105,7 @@ tribe.settings.fields.image = {};
 	 *
 	 * @return {void}
 	 */
-	obj.addImage = function( e ) {
+	obj.addImage = function ( e ) {
 		e.preventDefault();
 		const $target = $( e.target );
 		const $fieldParent = $target.closest( obj.selectors.imageFieldContainer );
@@ -113,17 +113,18 @@ tribe.settings.fields.image = {};
 		if ( obj.frame ) {
 			obj.frame.open();
 		} else {
-			obj.frame = wp.media({ // eslint-disable-line no-undef
+			obj.frame = wp.media( {
+				// eslint-disable-line no-undef
 				title: $fieldParent.data( 'select-image-text' ),
 				button: {
-					text: $fieldParent.data( 'use-image-text' )
+					text: $fieldParent.data( 'use-image-text' ),
 				},
-				multiple: false
-			});
+				multiple: false,
+			} );
 			obj.frame.open();
 		}
 
-		obj.frame.off( 'select' ).on( 'select', function() {
+		obj.frame.off( 'select' ).on( 'select', function () {
 			obj.onImageSelect( $fieldParent );
 		} );
 	};
@@ -137,7 +138,7 @@ tribe.settings.fields.image = {};
 	 *
 	 * @return {void}
 	 */
-	obj.removeImage = function( e ) {
+	obj.removeImage = function ( e ) {
 		e.preventDefault();
 		const $target = $( e.target );
 		const $fieldParent = $target.closest( obj.selectors.imageFieldContainer );
@@ -153,7 +154,7 @@ tribe.settings.fields.image = {};
 	 *
 	 * @return {void}
 	 */
-	obj.bindEvents = function() {
+	obj.bindEvents = function () {
 		$document.on( 'click', obj.selectors.addImgLink, obj.addImage );
 		$document.on( 'click', obj.selectors.removeImgLink, obj.removeImage );
 	};
@@ -165,13 +166,12 @@ tribe.settings.fields.image = {};
 	 *
 	 * @return {void}
 	 */
-	obj.init = function() {
-		$( obj.selectors.imageFieldContainer ).each( function( x, elm ) {
+	obj.init = function () {
+		$( obj.selectors.imageFieldContainer ).each( function ( x, elm ) {
 			obj.hideElements( $( elm ) );
 		} );
 		obj.bindEvents();
 	};
 
 	$( obj.init );
-
 } )( jQuery, tribe.settings.fields.image );

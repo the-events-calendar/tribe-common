@@ -13,16 +13,12 @@ import { Dashicon } from '@wordpress/components';
  */
 import './style.pcss';
 
-const DropdownIndicator = ( props ) => (
+const DropdownIndicator = ( props ) =>
 	components.DropdownIndicator && (
 		<components.DropdownIndicator { ...props }>
-			<Dashicon
-				className="tribe-editor__creatable-select__dropdown-indicator"
-				icon={ 'arrow-down' }
-			/>
+			<Dashicon className="tribe-editor__creatable-select__dropdown-indicator" icon={ 'arrow-down' } />
 		</components.DropdownIndicator>
-	)
-);
+	);
 
 const IndicatorSeparator = () => null;
 
