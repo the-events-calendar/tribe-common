@@ -25,6 +25,7 @@ trait Custom_Table_Query_Methods {
 	 * Fetches all the rows from the table using a batched query.
 	 *
 	 * @since 6.5.3
+	 * @since TBD Referenced the `uid_column` property in the ORDER BY clause.
 	 *
 	 * @param int    $batch_size   The number of rows to fetch per batch.
 	 * @param string $output       The output type of the query, one of OBJECT, ARRAY_A, or ARRAY_N.
@@ -41,9 +42,11 @@ trait Custom_Table_Query_Methods {
 			// On first iteration, we need to set the SQL_CALC_FOUND_ROWS flag.
 			$sql_calc_found_rows = 0 === $fetched ? 'SQL_CALC_FOUND_ROWS' : '';
 
+			$uid_column = self::uid_column();
+
 			$batch = DB::get_results(
 				DB::prepare(
-					"SELECT {$sql_calc_found_rows} * FROM %i {$where_clause} ORDER BY id LIMIT %d, %d",
+					"SELECT {$sql_calc_found_rows} * FROM %i {$where_clause} ORDER BY {$uid_column} LIMIT %d, %d",
 					static::table_name( true ),
 					$offset,
 					$batch_size
@@ -63,12 +66,80 @@ trait Custom_Table_Query_Methods {
 	 * Inserts multiple rows into the table.
 	 *
 	 * @since 6.5.3
+	 * @since TBD Moved statement preparation to a helper method.
 	 *
 	 * @param array<mixed> $entries The entries to insert.
 	 *
 	 * @return bool|int The number of rows affected, or `false` on failure.
 	 */
 	public static function insert_many( array $entries ) {
+		[ $prepared_columns, $prepared_values ] = self::prepare_statements_values( $entries );
+
+		return DB::query(
+			DB::prepare(
+				"INSERT INTO %i ({$prepared_columns}) VALUES {$prepared_values}",
+				static::table_name( true ),
+			)
+		);
+	}
+
+	/**
+	 * Updates multiple rows into the table.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<mixed> $entries The entries to update.
+	 *
+	 * @return bool|int The number of rows affected, or `false` on failure.
+	 */
+	public static function update_many( array $entries ) {
+		[ $prepared_columns, $prepared_values ] = self::prepare_statements_values( $entries );
+
+		return DB::query(
+			DB::prepare(
+				"REPLACE INTO %i ({$prepared_columns}) VALUES {$prepared_values}",
+				static::table_name( true ),
+			)
+		);
+	}
+
+	/**
+	 * Deletes multiple rows from the table.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<int> $ids The IDs of the rows to delete.
+	 *
+	 * @return bool|int The number of rows affected, or `false` on failure.
+	 */
+	public static function delete_many( array $ids ) {
+		$ids = array_filter( array_map( 'intval', $ids ) );
+
+		if ( empty( $ids ) ) {
+			return false;
+		}
+
+		$prepared_ids = implode( ', ', $ids );
+
+		$uid_column = self::uid_column();
+
+		return DB::query(
+			DB::prepare(
+				"DELETE FROM %i WHERE {$uid_column} IN ({$prepared_ids})",
+				static::table_name( true ),
+			)
+		);
+	}
+	/**
+	 * Prepares the statements and values for the insert and update queries.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<mixed> $entries The entries to prepare.
+	 *
+	 * @return array<string> The prepared statements and values.
+	 */
+	protected static function prepare_statements_values( array $entries ): array {
 		$columns          = array_keys( $entries[0] );
 		$prepared_columns = implode(
 			', ',
@@ -87,12 +158,7 @@ trait Custom_Table_Query_Methods {
 			)
 		);
 
-		return DB::query(
-			DB::prepare(
-				"INSERT INTO %i ({$prepared_columns}) VALUES {$prepared_values}",
-				static::table_name( true ),
-			)
-		);
+		return [ $prepared_columns, $prepared_values ];
 	}
 
 	/**
