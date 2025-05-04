@@ -108,7 +108,8 @@ trait Custom_Table_Query_Methods {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<int> $ids The IDs of the rows to delete.
+	 * @param array<int> $ids    The IDs of the rows to delete.
+	 * @param string     $column The column to use for the delete query.
 	 *
 	 * @return bool|int The number of rows affected, or `false` on failure.
 	 */
