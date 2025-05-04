@@ -112,8 +112,13 @@ trait Custom_Table_Query_Methods {
 	 *
 	 * @return bool|int The number of rows affected, or `false` on failure.
 	 */
-	public static function delete_many( array $ids ) {
-		$ids = array_filter( array_map( 'intval', $ids ) );
+	public static function delete_many( array $ids, string $column = '' ) {
+		$ids = array_filter(
+			array_map(
+				fn( $id ) => is_numeric( $id ) ? (int) $id : "'{$id}'",
+				$ids
+			)
+		);
 
 		if ( empty( $ids ) ) {
 			return false;
@@ -121,11 +126,11 @@ trait Custom_Table_Query_Methods {
 
 		$prepared_ids = implode( ', ', $ids );
 
-		$uid_column = self::uid_column();
+		$column = $column ?: self::uid_column();
 
 		return DB::query(
 			DB::prepare(
-				"DELETE FROM %i WHERE {$uid_column} IN ({$prepared_ids})",
+				"DELETE FROM %i WHERE {$column} IN ({$prepared_ids})",
 				static::table_name( true ),
 			)
 		);
