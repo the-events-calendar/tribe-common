@@ -1,4 +1,3 @@
-
 ( function ( Ian ) {
 	window.addEventListener( 'load', function ( event ) {
 		Ian.icon = document.querySelector( '[data-tec-ian-trigger="iconIan"]' );
