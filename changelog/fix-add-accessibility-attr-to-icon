@@ -1,0 +1,4 @@
+Significance: minor
+Type: accessibility
+
+Added proper accessibility attributes to the no results icon to ensure screen readers skip over it. [FBAR-332]

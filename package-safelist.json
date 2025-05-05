@@ -36,6 +36,7 @@
   "vendor/dayjs/**/*.min.js",
   "vendor/monolog/monolog/src/*.php",
   "vendor/monolog/monolog/src/**/*.php",
+  "vendor/phpqrcode/**/*",
   "vendor/psr/log/Psr/Log/*.php",
   "vendor/tooltipster/**/*.min.*",
   "vendor/tribe-select2/*.css",
