@@ -273,8 +273,12 @@ abstract class Abstract_Admin_Page {
 	 * Get the menu position of the page.
 	 *
 	 * @since 6.4.1
+	 *
+	 * @since TBD Updated the return type to be null|int|float, to avoid php 8+ deprecation warnings.
+	 *
+	 * @return null|int|float The menu position of the page.
 	 */
-	public function get_position(): ?int {
+	public function get_position() {
 		return $this->menu_position ?? null;
 	}
 
