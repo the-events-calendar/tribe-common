@@ -798,6 +798,9 @@ class Tribe__Main {
 		tribe_singleton( 'admin.activation.page', 'Tribe__Admin__Activation_Page' );
 		tribe_singleton( Translations_Loader::class, Translations_Loader::class );
 
+		// Register the Classy controller; it will filter the following `tec_using_classy_editor` call.
+		tribe_register_provider( \TEC\Common\Classy\Controller::class);
+
 		if ( !tec_using_classy_editor() ) {
 			tribe_register_provider( Tribe__Editor__Provider::class );
 		}
