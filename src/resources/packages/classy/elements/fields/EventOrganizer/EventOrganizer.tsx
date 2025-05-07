@@ -57,7 +57,7 @@ export function EventOrganizer( props: { title: string } ) {
 		// @ts-ignore
 		return ( selector.getEditedPostAttribute( 'meta' ) || {} )?.[
 			METADATA_EVENT_ORGANIZER_ID
-		].map( ( id: string ): number => parseInt( id, 10 ) );
+		]?.map( ( id: string ): number => parseInt( id, 10 ) ) || [];
 	}, [] );
 
 	const { editPost } = useDispatch( 'core/editor' );

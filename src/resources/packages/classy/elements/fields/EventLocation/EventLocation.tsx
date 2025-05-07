@@ -58,7 +58,7 @@ export function EventLocation( props: { title: string } ) {
 		// @ts-ignore
 		return ( selector.getEditedPostAttribute( 'meta' ) || [] )?.[
 			METADATA_EVENT_VENUE_ID
-		].map( ( id: string ): number => parseInt( id, 10 ) );
+		]?.map( ( id: string ): number => parseInt( id, 10 ) ) || [];
 	}, [] );
 
 	const { editPost } = useDispatch( 'core/editor' );
