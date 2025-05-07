@@ -3924,7 +3924,7 @@ abstract class Tribe__Repository
 		 * @param array             $schema     The schema.
 		 * @param Tribe__Repository $repository The repository.
 		 */
-		$schema = apply_filters( "tribe_repository_{$this->filter_name}", $this->schema, $this );
+		$schema = apply_filters( "tec_repository_{$this->filter_name}", $this->schema, $this );
 
 		/**
 		 * Filters the schema for the repository.
