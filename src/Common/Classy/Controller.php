@@ -11,7 +11,7 @@ namespace TEC\Common\Classy;
 
 use TEC\Common\Classy\Back_Compatibility\Editor;
 use TEC\Common\Classy\Back_Compatibility\Editor_Utils;
-use TEC\Common\Contracts\Provider\Controller as ControllerContract;
+use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\StellarWP\Assets\Asset;
 use Tribe__Date_Utils as Date_Utils;
 use Tribe__Events__Main as TEC;
@@ -26,7 +26,7 @@ use WP_Post;
  *
  * @package TEC\Common\Classy;
  */
-class Controller extends ControllerContract {
+class Controller extends Controller_Contract {
 
 	/**
 	 * The name of the constant that will be used to disable the feature.
@@ -128,8 +128,6 @@ class Controller extends ControllerContract {
 
 		add_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100, 2 );
 
-		add_action( 'init', [ $this, 'register_post_meta' ] );
-
 		// Register the main assets entry point.
 		if ( did_action( 'tec_common_assets_loaded' ) ) {
 			$this->register_assets();
@@ -163,7 +161,6 @@ class Controller extends ControllerContract {
 		remove_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100 );
 		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
-		remove_action( 'init', [ $this, 'register_post_meta' ] );
 		remove_action( 'tec_common_assets_loaded', [ $this, 'register_assets' ] );
 	}
 
@@ -179,21 +176,21 @@ class Controller extends ControllerContract {
 			'tec-classy',
 			'classy.js'
 		)->add_to_group_path( Common::class . '-packages' )
-			->add_to_group( 'tec-classy' )
-			->add_dependency( 'wp-tinymce' )
-			->enqueue_on( 'enqueue_block_editor_assets' )
-			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
-			->add_localize_script( 'tec.events.classy.data', [ $this, 'get_data' ] )
-			->register();
+		     ->add_to_group( 'tec-classy' )
+		     ->add_dependency( 'wp-tinymce' )
+		     ->enqueue_on( 'enqueue_block_editor_assets' )
+		     ->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
+		     ->add_localize_script( 'tec.events.classy.data', [ $this, 'get_data' ] )
+		     ->register();
 
 		Asset::add(
 			'tec-classy-style',
 			'style-classy.css'
 		)->add_to_group_path( Common::class . '-packages' )
-			->add_to_group( 'tec-classy' )
-			->enqueue_on( 'enqueue_block_editor_assets' )
-			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
-			->register();
+		     ->add_to_group( 'tec-classy' )
+		     ->enqueue_on( 'enqueue_block_editor_assets' )
+		     ->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
+		     ->register();
 	}
 
 	/**
@@ -265,10 +262,21 @@ class Controller extends ControllerContract {
 	 *
 	 * @return array{
 	 *     settings: array{
-	 *         endOfDayCutoff: array{
-	 *              hours: int<0,23>,
-	 *              minutes: int<0,59>
-	 *          }
+	 *          compactDateFormat: string,
+	 *          dateTimeSeparator: string,
+	 *          dateWithYearFormat: string,
+	 *          dateWithoutYearFormat: string,
+	 *          endOfDayCutoff: array {
+	 *              hours: int,
+	 *              minutes: int,
+	 *          },
+	 *          monthAndYearFormat: string,
+	 *          startOfWeek: int,
+	 *          timeFormat: string,
+	 *          timeInterval: int,
+	 *          timeRangeSeparator: string,
+	 *          timezoneChoice: string,
+	 *          timezoneString: string
 	 *      }
 	 * } The data that is localized on the page for the Classy app.
 	 */
@@ -280,14 +288,14 @@ class Controller extends ControllerContract {
 			[ 0, 0 ],
 			explode( ':', $multi_day_cutoff, 2 )
 		);
-		$date_with_year_format                                 = tribe_get_option( 'dateWithYearFormat', 'F j, Y' );
-		$date_without_year_format                              = tribe_get_option( 'dateWithoutYearFormat', 'F j' );
-		$month_and_year_format                                 = tribe_get_option( 'monthAndYearFormat', 'F Y' );
-		$compact_date_format                                   = Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat', 1 ) );
-		$data_time_separator                                   = tribe_get_option( 'dateTimeSeparator', ' @ ' );
-		$time_range_separator                                  = tribe_get_option( 'timeRangeSeparator', ' - ' );
-		$time_format     = tribe_get_option( 'time_format', 'g:i a' );
-		$timezone_choice = wp_timezone_choice( $timezone_string );
+		$date_with_year_format    = tribe_get_option( 'dateWithYearFormat', 'F j, Y' );
+		$date_without_year_format = tribe_get_option( 'dateWithoutYearFormat', 'F j' );
+		$month_and_year_format    = tribe_get_option( 'monthAndYearFormat', 'F Y' );
+		$compact_date_format      = Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat', 1 ) );
+		$data_time_separator      = tribe_get_option( 'dateTimeSeparator', ' @ ' );
+		$time_range_separator     = tribe_get_option( 'timeRangeSeparator', ' - ' );
+		$time_format              = tribe_get_option( 'time_format', 'g:i a' );
+		$timezone_choice          = wp_timezone_choice( $timezone_string );
 
 		/**
 		 * The time interval in minutes to use when populating the time picker options.
@@ -300,74 +308,22 @@ class Controller extends ControllerContract {
 
 		return [
 			'settings' => [
-				'timezoneString'        => $timezone_string,
-				'timezoneChoice'        => $timezone_choice,
-				'startOfWeek'           => $start_of_week,
+				'compactDateFormat'     => $compact_date_format,
+				'dataTimeSeparator'     => $data_time_separator,
+				'dateWithYearFormat'    => $date_with_year_format,
+				'dateWithoutYearFormat' => $date_without_year_format,
 				'endOfDayCutoff'        => [
 					'hours'   => min( 23, (int) $multi_day_cutoff_hours ),
 					'minutes' => min( 59, (int) $multi_day_cutoff_minutes ),
 				],
-				'dateWithYearFormat'    => $date_with_year_format,
-				'dateWithoutYearFormat' => $date_without_year_format,
 				'monthAndYearFormat'    => $month_and_year_format,
-				'compactDateFormat'     => $compact_date_format,
-				'dataTimeSeparator'     => $data_time_separator,
-				'timeRangeSeparator'    => $time_range_separator,
+				'startOfWeek'           => $start_of_week,
 				'timeFormat'            => $time_format,
 				'timeInterval'          => $time_interval,
+				'timeRangeSeparator'    => $time_range_separator,
+				'timezoneChoice'        => $timezone_choice,
+				'timezoneString'        => $timezone_string,
 			],
 		];
-	}
-
-	/**
-	 * Registers the meta fields for the Classy app.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function register_post_meta(): void {
-		/* Move to TEC.
-		foreach (
-			[
-				'_EventURL',
-				'_EventStartDate',
-				'_EventEndDate',
-				'_EventAllDay',
-				'_EventTimezone',
-			] as $meta_key
-		) {
-			register_post_meta(
-				TEC::POSTTYPE,
-				$meta_key,
-				[
-					'show_in_rest'  => true,
-					'single'        => true,
-					'type'          => 'string',
-					'auth_callback' => static function () {
-						return current_user_can( 'edit_posts' );
-					},
-				]
-			);
-		}
-
-		foreach ( [
-			'_EventOrganizerID',
-			'_EventVenueID',
-		] as $meta_key ) {
-			register_post_meta(
-				TEC::POSTTYPE,
-				$meta_key,
-				[
-					'show_in_rest'  => true,
-					'single'        => false,
-					'type'          => 'integer',
-					'auth_callback' => static function () {
-						return current_user_can( 'edit_posts' );
-					},
-				]
-			);
-		}
-		*/
 	}
 }

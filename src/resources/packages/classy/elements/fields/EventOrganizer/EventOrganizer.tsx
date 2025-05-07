@@ -55,9 +55,11 @@ export function EventOrganizer( props: { title: string } ) {
 	const organizerIds = useSelect( ( select ): number[] => {
 		const selector = select( 'core/editor' );
 		// @ts-ignore
-		return ( selector.getEditedPostAttribute( 'meta' ) || {} )?.[
-			METADATA_EVENT_ORGANIZER_ID
-		]?.map( ( id: string ): number => parseInt( id, 10 ) ) || [];
+		return (
+			( selector.getEditedPostAttribute( 'meta' ) || {} )?.[
+				METADATA_EVENT_ORGANIZER_ID
+			]?.map( ( id: string ): number => parseInt( id, 10 ) ) || []
+		);
 	}, [] );
 
 	const { editPost } = useDispatch( 'core/editor' );
@@ -250,7 +252,10 @@ export function EventOrganizer( props: { title: string } ) {
 		.map( ( id: number ) =>
 			fetched.current.find( ( organizer ) => organizer.id === id )
 		)
-		.filter( ( organizer: FetchedOrganizer | undefined ) => organizer !== undefined );
+		.filter(
+			( organizer: FetchedOrganizer | undefined ) =>
+				organizer !== undefined
+		);
 
 	/**
 	 * Upserts an organizer by either updating an existing one or creating a new one based on the provided data.

@@ -47,7 +47,11 @@
     "start": "wp-scripts start",
     "dev": "WP_DEVTOOL=eval-source-map wp-scripts start",
     "test": "jest",
-    "changelog": "./vendor/bin/changelogger add"
+    "changelog": "./vendor/bin/changelogger add",
+    "classy:format": "wp-scripts format src/resources/packages/classy tests/classy_jest && composer run classy:format",
+    "classy:jest": "jest --config tests/classy_jest/jest.config.js tests/classy_jest",
+    "classy:test": "npm run classy:jest && slic run classy_integration",
+    "classy:pre-commit": "npm run classy:format && npm run classy:test"
   },
   "dependencies": {
     "@babel/runtime": "^7.15.3",

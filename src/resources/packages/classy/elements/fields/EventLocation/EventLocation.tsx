@@ -3,13 +3,8 @@ import { Button, CustomSelectControl } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { _x } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
-import React, {
-	useCallback,
-	useEffect,
-	useRef,
-	useState,
-	Fragment,
-} from 'react';
+import * as React from 'react';
+import { useCallback, useEffect, useRef, useState, Fragment } from 'react';
 import { METADATA_EVENT_VENUE_ID } from '../../../constants';
 import AddIcon from '../../../elements/components/Icons/Add';
 import VideoCameraIcon from '../../components/Icons/VideoCamera';
@@ -56,9 +51,11 @@ export function EventLocation( props: { title: string } ) {
 	const venueIds = useSelect( ( select ): number[] => {
 		const selector = select( 'core/editor' );
 		// @ts-ignore
-		return ( selector.getEditedPostAttribute( 'meta' ) || [] )?.[
-			METADATA_EVENT_VENUE_ID
-		]?.map( ( id: string ): number => parseInt( id, 10 ) ) || [];
+		return (
+			( selector.getEditedPostAttribute( 'meta' ) || [] )?.[
+				METADATA_EVENT_VENUE_ID
+			]?.map( ( id: string ): number => parseInt( id, 10 ) ) || []
+		);
 	}, [] );
 
 	const { editPost } = useDispatch( 'core/editor' );
@@ -237,7 +234,7 @@ export function EventLocation( props: { title: string } ) {
 									) }
 									onChange={ onVenueSelect }
 									options={ options }
-									value={ 0 }
+									value={ placeholderOption }
 								/>
 							</div>
 
