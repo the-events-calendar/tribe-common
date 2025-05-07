@@ -367,6 +367,7 @@ class Country {
 						'has_paypal' => false,
 						'has_stripe' => false,
 						'has_square' => false,
+						'currencies' => [],
 					];
 				}
 			}
@@ -386,6 +387,7 @@ class Country {
 				$result[ $code ] = [
 					'name'       => $name,
 					'group'      => $continent,
+					'currency'   => $api_countries[ $code ]['currencies'][0] ?? [],
 					'has_paypal' => $api_countries[ $code ]['paypal']['is_active'] ?? false,
 					'has_stripe' => $api_countries[ $code ]['stripe']['is_active'] ?? false,
 					'has_square' => false,
