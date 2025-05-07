@@ -6,13 +6,13 @@
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 
 const {
-	createTECLegacyJs,
-	createTECPostCss,
 	compileCustomEntryPoints,
-	exposeEntry,
+	createTECLegacyJs,
+	createTECPackage,
+	createTECPostCss,
 	doNotPrefixSVGIdsClasses,
+	exposeEntry,
 	WindowAssignPropertiesPlugin,
-	preprocessPostcssWithPlugins
 } = require('@stellarwp/tyson');
 
 /**
@@ -41,6 +41,15 @@ const customEntryPoints = compileCustomEntryPoints({
 	 * will handle the nesting correctly.
 	 */
 	'/src/resources/postcss': createTECPostCss('tec.common'),
+
+	/**
+	 * This deals with packages written following modern module-based approaches.
+	 * These packages are usually not Blocks and require `@wordpress/scripts` to be explicitly
+	 * instructed about them to compile correctly.
+	 * To avoid having to list each package, here the configuration schema is used to recursively
+	 * pick them up and namespace them.
+	 */
+	'/src/resources/packages': createTECPackage('tec.common'),
 }, defaultConfig);
 
 /**
