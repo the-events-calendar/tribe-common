@@ -9,16 +9,15 @@
 
 namespace TEC\Common\Classy;
 
-use TEC\Common\Contracts\Provider\Controller as ControllerContract;
-use TEC\Common\StellarWP\Assets\Asset;
 use TEC\Common\Classy\Back_Compatibility\Editor;
 use TEC\Common\Classy\Back_Compatibility\Editor_Utils;
-use TEC\Common\Custom_Tables\V1\Models\Event;
-use TEC\Common\Custom_Tables\V1\Models\Occurrence;
+use TEC\Common\Contracts\Provider\Controller as ControllerContract;
+use TEC\Common\StellarWP\Assets\Asset;
+use Tribe__Date_Utils as Date_Utils;
 use Tribe__Events__Main as TEC;
+use Tribe__Main as Common;
 use WP_Block_Editor_Context;
 use WP_Post;
-use Tribe__Date_Utils as Date_Utils;
 
 /**
  * Class Controller.
@@ -38,40 +37,6 @@ class Controller extends ControllerContract {
 	 * @var string
 	 */
 	public const DISABLED = 'TEC_CLASSY_EDITOR_DISABLED';
-
-	/**
-	 * Detects, based on constants, environment variables whether the feature is active or not.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool Whether the feature is active or not.
-	 */
-	private static function is_feature_active(): bool {
-		// The constant to disable the feature is defined and it's truthy.
-		if ( defined( self::DISABLED ) && constant( self::DISABLED ) ) {
-			return false;
-		}
-
-		// The environment variable to disable the feature is truthy.
-		if ( getenv( self::DISABLED ) ) {
-			return false;
-		}
-
-		// Read an option value to determine if the feature should be active or not.
-		$active = (bool) get_option( 'tec_events_classy_editor_enabled', true );
-
-		/**
-		 * Allows filtering whether the whole Classy feature should be activated or not.
-		 *
-		 * Note: this filter will only apply if the disable constant or env var
-		 * are not set or are set to falsy values.
-		 *
-		 * @since TBD
-		 *
-		 * @param bool $active Defaults to `true`.
-		 */
-		return (bool) apply_filters( 'tec_events_classy_editor_enabled', $active );
-	}
 
 	/**
 	 * Returns true.
@@ -104,28 +69,6 @@ class Controller extends ControllerContract {
 	}
 
 	/**
-	 * Registers required filters early, before other plugins load.
-	 *
-	 * The main function of this code is to filter the template tag that lets other plugins
-	 * and controllers know whether the Classy editor is being used or not.
-	 * This function is used in the `Tribe__Events__Main::plugins_loaded` method.
-	 *
-	 * @since TBD
-	 *
-	 * @return void The Classy template tag is filtered accordingly.
-	 * @see   \Tribe__Events__Main::plugins_loaded()
-	 */
-	public static function early_register(): void {
-		if ( ! self::is_feature_active() ) {
-			add_filter( 'tec_using_classy_editor', [ self::class, 'return_false' ] );
-
-			return;
-		}
-
-		add_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
-	}
-
-	/**
 	 * Determines if the feature is enabled or not.
 	 *
 	 * Since this class `early_register` method is already filtering the `tec_using_classy_editor` template
@@ -136,7 +79,30 @@ class Controller extends ControllerContract {
 	 * @return bool Whether the feature is enabled or not.
 	 */
 	public function is_active(): bool {
-		return tec_using_classy_editor();
+		// The constant to disable the feature is defined and it's truthy.
+		if ( defined( self::DISABLED ) && constant( self::DISABLED ) ) {
+			return false;
+		}
+
+		// The environment variable to disable the feature is truthy.
+		if ( getenv( self::DISABLED ) ) {
+			return false;
+		}
+
+		// Read an option value to determine if the feature should be active or not.
+		$active = (bool) get_option( 'tec_events_classy_editor_enabled', true );
+
+		/**
+		 * Allows filtering whether the whole Classy feature should be activated or not.
+		 *
+		 * Note: this filter will only apply if the disable constant or env var
+		 * are not set or are set to falsy values.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $active Defaults to `true`.
+		 */
+		return (bool) apply_filters( 'tec_events_classy_editor_enabled', $active );
 	}
 
 	/**
@@ -165,55 +131,11 @@ class Controller extends ControllerContract {
 		add_action( 'init', [ $this, 'register_post_meta' ] );
 
 		// Register the main assets entry point.
-		$this->register_assets();
-
-		// TESTING
-		if ( str_starts_with( $_SERVER['REQUEST_URI'] ?? '', '/wp-admin/post-new.php' ) ) {
-			add_filter( 'save_post_' . TEC::POSTTYPE, [ $this, 'test_filter_post_data' ], 0, 2 );
+		if ( did_action( 'tec_common_assets_loaded' ) ) {
+			$this->register_assets();
+		} else {
+			add_action( 'tec_common_assets_loaded', [ $this, 'register_assets' ] );
 		}
-		// END TESTING
-	}
-
-	/**
-	 *
-	 * Filters the data that is passed to the `wp_insert_post` function to add missing fields to an Event saved from
-	 * the Classy Editor context while the feature and fields are developed.
-	 *
-	 * @param int     $post_id The ID of the post being saved.
-	 * @param WP_Post $post    The post object.
-	 *
-	 * @return void The post is updated with the missing fields.
-	 */
-	public function test_filter_post_data( $post_id, $post ): void {
-		if ( $post->post_type !== TEC::POSTTYPE ) {
-			return;
-		}
-
-		$occurrence_count = Occurrence::where( 'post_id', '=', $post_id )->count();
-
-		if ( $occurrence_count > 0 ) {
-			return;
-		}
-
-		$meta = [
-			'_EventStartDate'    => '2025-09-14 10:00:00',
-			'_EventDuration'     => '7200',
-			'_EventStartDateUTC' => '2025-09-14 08:00:00',
-			'_EventEndDate'      => '2025-09-14 12:00:00',
-			'_EventEndDateUTC'   => '2025-09-14 10:00:00',
-			'_EventTimezoneAbbr' => 'CEST',
-			'_EventTimezone'     => 'Europe/Paris',
-		];
-
-		foreach ( $meta as $meta_key => $meta_value ) {
-			update_post_meta( $post_id, $meta_key, $meta_value );
-		}
-
-		$event_data = Event::data_from_post( $post_id );
-		Event::upsert( [ 'post_id' ], $event_data );
-		$event = Event::where( 'post_id', '=', $post_id )->first();
-		/** @var Event $event */
-		$event->occurrences()->save_occurrences();
 	}
 
 	/**
@@ -241,12 +163,8 @@ class Controller extends ControllerContract {
 		remove_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100 );
 		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
-
 		remove_action( 'init', [ $this, 'register_post_meta' ] );
-
-		// TESTING
-		remove_filter( 'wp_insert_post_data', [ $this, 'test_filter_post_data' ], 0 );
-		// END TESTING
+		remove_action( 'tec_common_assets_loaded', [ $this, 'register_assets' ] );
 	}
 
 	/**
@@ -256,11 +174,11 @@ class Controller extends ControllerContract {
 	 *
 	 * @return void
 	 */
-	protected function register_assets() {
+	public function register_assets() {
 		Asset::add(
 			'tec-classy',
 			'classy.js'
-		)->add_to_group_path( TEC::class . '-packages' )
+		)->add_to_group_path( Common::class . '-packages' )
 			->add_to_group( 'tec-classy' )
 			->add_dependency( 'wp-tinymce' )
 			->enqueue_on( 'enqueue_block_editor_assets' )
@@ -271,7 +189,7 @@ class Controller extends ControllerContract {
 		Asset::add(
 			'tec-classy-style',
 			'style-classy.css'
-		)->add_to_group_path( TEC::class . '-packages' )
+		)->add_to_group_path( Common::class . '-packages' )
 			->add_to_group( 'tec-classy' )
 			->enqueue_on( 'enqueue_block_editor_assets' )
 			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
@@ -409,6 +327,7 @@ class Controller extends ControllerContract {
 	 * @return void
 	 */
 	public function register_post_meta(): void {
+		/* Move to TEC.
 		foreach (
 			[
 				'_EventURL',
@@ -449,5 +368,6 @@ class Controller extends ControllerContract {
 				]
 			);
 		}
+		*/
 	}
 }
