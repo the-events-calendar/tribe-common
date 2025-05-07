@@ -5,7 +5,8 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import { useCallback, useEffect, useState } from '@wordpress/element';
 import { _x } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
-import React, { Fragment, MouseEventHandler, useRef } from 'react';
+import * as React from 'react';
+import { Fragment, MouseEventHandler, useRef } from 'react';
 import { METADATA_EVENT_ORGANIZER_ID } from '../../../constants';
 import AddIcon from '../../../elements/components/Icons/Add';
 import { sortOptionsForDisplay } from '../../../functions/sortOptionsForDisplay';
@@ -245,11 +246,11 @@ export function EventOrganizer( props: { title: string } ) {
 	};
 
 	// Display the selected organizers in the order set by the user in their selection.
-	const orderedOrganizers = currentOrganizerIds
+	const orderedOrganizers: FetchedOrganizer[] = currentOrganizerIds
 		.map( ( id: number ) =>
 			fetched.current.find( ( organizer ) => organizer.id === id )
 		)
-		.filter( ( organizer: FetchedOrganizer ) => organizer !== undefined );
+		.filter( ( organizer: FetchedOrganizer | undefined ) => organizer !== undefined );
 
 	/**
 	 * Upserts an organizer by either updating an existing one or creating a new one based on the provided data.
@@ -326,7 +327,7 @@ export function EventOrganizer( props: { title: string } ) {
 				} else {
 					// An organizer has been updated: update it in the set of fetched organizers.
 					fetched.current[ index ] = data;
-					// Update the optons to the new set; this will trigger a re-render.
+					// Update the options to the new set; this will trigger a re-render.
 					setOptions(
 						getUpdatedOptions(
 							fetched.current,
@@ -381,7 +382,7 @@ export function EventOrganizer( props: { title: string } ) {
 									) }
 									onChange={ onOrganizerSelect }
 									options={ options }
-									value={ 0 }
+									value={ placeholderOption }
 								/>
 							</div>
 
