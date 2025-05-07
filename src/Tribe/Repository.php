@@ -1769,7 +1769,7 @@ abstract class Tribe__Repository
 	 * @param callable $callback The function that should be called to apply this filter.
 	 */
 	public function add_schema_entry( $key, $callback ) {
-		$this->get_schema()[ $key ] = $callback;
+		$this->set_schema( $key, $callback );
 	}
 
 	/**
@@ -1782,7 +1782,7 @@ abstract class Tribe__Repository
 	 * @param string|null  $by       The ->by() lookup to use (defaults to meta_regexp_or_like).
 	 */
 	public function add_simple_meta_schema_entry( $key, $meta_key, $by = null ) {
-		$this->get_schema()[ $key ] = [ $this, 'filter_by_simple_meta_schema' ];
+		$this->set_schema( $key, [ $this, 'filter_by_simple_meta_schema' ] );
 
 		$this->simple_meta_schema[ $key ] = [
 			'meta_key' => $meta_key,
@@ -1800,7 +1800,7 @@ abstract class Tribe__Repository
 	 * @param string|null  $by       The ->by() lookup to use (defaults to term_in).
 	 */
 	public function add_simple_tax_schema_entry( $key, $taxonomy, $by = null ) {
-		$this->get_schema()[ $key ] = [ $this, 'filter_by_simple_tax_schema' ];
+		$this->set_schema( $key, [ $this, 'filter_by_simple_tax_schema' ] );
 
 		$this->simple_tax_schema[ $key ] = [
 			'taxonomy' => $taxonomy,
@@ -3924,7 +3924,7 @@ abstract class Tribe__Repository
 		 * @param array             $schema     The schema.
 		 * @param Tribe__Repository $repository The repository.
 		 */
-		$schema = apply_filters( "tec_repository_{$this->filter_name}", $this->schema, $this );
+		$schema = apply_filters( "tec_repository_schema_{$this->filter_name}", $this->schema, $this );
 
 		/**
 		 * Filters the schema for the repository.
@@ -3935,6 +3935,20 @@ abstract class Tribe__Repository
 		 * @param Tribe__Repository $repository The repository.
 		 */
 		return apply_filters( 'tec_repository_schema', $schema, $this );
+	}
+
+	/**
+	 * Set the schema.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $key      The key.
+	 * @param callable $callback The callback.
+	 */
+	protected function set_schema( string $key, callable $callback ): void {
+		$this->schema[ $key ] = $callback;
+		// Trigger the hooks.
+		$this->get_schema();
 	}
 
 	/**
