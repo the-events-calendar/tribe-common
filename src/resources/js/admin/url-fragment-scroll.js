@@ -3,7 +3,7 @@ tribe.urlFragmentScroll = tribe.urlFragmentScroll || {};
 ( function ( $, obj ) {
 	'use strict';
 
-	var $document = $( document );
+	const $document = $( document );
 
 	/**
 	 * Sets up listeners and callbacks to handle navigation to page #elements
@@ -32,8 +32,8 @@ tribe.urlFragmentScroll = tribe.urlFragmentScroll || {};
 	 *
 	 * @return {void}
 	 */
-	obj.onClick = function( event ) {
-		var link = $( event.target ).attr( 'href' );
+	obj.onClick = function ( event ) {
+		const link = $( event.target ).attr( 'href' );
 
 		// If we couldn't determine the URL, bail
 		if ( 'undefined' === typeof link ) {
@@ -41,19 +41,19 @@ tribe.urlFragmentScroll = tribe.urlFragmentScroll || {};
 		}
 
 		obj.navigateToFragment( link );
-	}
+	};
 
 	/**
 	 * Will atempt to navigate to a given Fragment based on a URL.
 	 *
 	 * @since  4.9.12
 	 *
-	 * @param  {String} link Which link target we are trying to navigate to.
+	 * @param {string} link Which link target we are trying to navigate to.
 	 *
 	 * @return {void}
 	 */
-	obj.navigateToFragment = function( link ) {
-		var fragment = obj.getUrlFragment( link );
+	obj.navigateToFragment = function ( link ) {
+		const fragment = obj.getUrlFragment( link );
 
 		// No ID/fragment in the URL? Bail
 		if ( ! fragment ) {
@@ -70,17 +70,17 @@ tribe.urlFragmentScroll = tribe.urlFragmentScroll || {};
 	 * @since 4.5.6
 	 * @since 4.9.12   Moved from tribe-common.js to a more specific file
 	 *
-	 * @param {String} id
+	 * @param {string} id
 	 *
 	 * @return {void}
 	 */
-	obj.adjustScrollPosition = function( id ) {
+	obj.adjustScrollPosition = function ( id ) {
 		// No toolbar, no problem
 		if ( ! $( '#wpadminbar' ).length ) {
 			return;
 		}
 
-		var elementPosition = $( '#' + id ).position();
+		const elementPosition = $( '#' + id ).position();
 
 		// Bail if the element doesn't actually exist
 		if ( ! elementPosition ) {
@@ -88,7 +88,7 @@ tribe.urlFragmentScroll = tribe.urlFragmentScroll || {};
 		}
 
 		// A fractional delay is needed to ensure our adjustment sticks
-		setTimeout( function() {
+		setTimeout( function () {
 			window.scroll( window.scrollX, elementPosition.top );
 		} );
 	};
@@ -99,21 +99,20 @@ tribe.urlFragmentScroll = tribe.urlFragmentScroll || {};
 	 *
 	 * @since 4.5.6
 	 *
-	 * @param {String} url
+	 * @param {string} url
 	 *
-	 * @returns {String}
+	 * @return {string}
 	 */
-	obj.getUrlFragment = function( url ) {
-		var fragment = url.match( /#([a-z0-9_-]+)$/i )
+	obj.getUrlFragment = function ( url ) {
+		const fragment = url.match( /#([a-z0-9_-]+)$/i );
 
 		if ( null === fragment ) {
 			return '';
 		}
 
 		// Return the first captured group
-		return fragment[1];
+		return fragment[ 1 ];
 	};
 
 	$( obj.setup );
-
 } )( jQuery, tribe.urlFragmentScroll );

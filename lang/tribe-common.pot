@@ -2669,6 +2669,22 @@ msgstr ""
 msgid "All notifications marked as read"
 msgstr ""
 
+#: src/Common/QR/Controller.php:101
+msgid "The QR code cannot be used, please contact your host and ask for `gzip` and `gd` support."
+msgstr ""
+
+#: src/Common/QR/Notices.php:103
+msgid "QR codes for events/tickets not available."
+msgstr ""
+
+#: src/Common/QR/Notices.php:104
+msgid "In order to have QR codes for your events and/or tickets you will need to have both the `php_gd2` and `gzuncompress` PHP extensions installed on your server. Please contact your hosting provider."
+msgstr ""
+
+#: src/Common/QR/Notices.php:105
+msgid "Learn more."
+msgstr ""
+
 #. Translators: %1$s the post type label.
 #: src/Common/Site_Health/Fields/Post_Status_Count_Field.php:54
 msgid "%1$s counts"

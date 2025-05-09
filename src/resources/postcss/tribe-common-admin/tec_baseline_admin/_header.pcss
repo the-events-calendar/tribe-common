@@ -13,6 +13,7 @@
 	display: flex;
 	flex-flow: row nowrap;
 	grid-area: header;
+	max-width: 100%;
 	padding: var(--tec-spacer-5) var(--tec-spacer-7) 0;
 	position: relative;
 
@@ -37,4 +38,16 @@
 	line-height: var(--tec-line-height-0);
 	margin: 0;
 	padding: 0;
+}
+
+.tec-dismiss-admin-page {
+	align-self: center;
+	display: none;
+	margin-left: auto;
+}
+
+@media (--viewport-wpadmin) {
+	.tec-dismiss-admin-page {
+		display: inline-block;
+	}
 }

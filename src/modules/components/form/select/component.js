@@ -5,10 +5,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { noop, partial, find } from 'lodash';
 import classnames from 'classnames';
-import {
-	Dropdown,
-	Dashicon,
-} from '@wordpress/components';
+import { Dropdown, Dashicon } from '@wordpress/components';
 import { ScrollTo, ScrollArea } from 'react-scroll-to';
 
 /**
@@ -28,21 +25,21 @@ export default class Select extends PureComponent {
 		isOpen: PropTypes.bool.isRequired,
 		value: PropTypes.any,
 		className: PropTypes.string,
-	}
+	};
 
 	static defaultProps = {
 		onOptionClick: noop,
 		isOpen: true,
 		optionClassName: '',
-	}
+	};
 
 	_onOptionClick = ( onClose, value, e ) => {
 		this.props.onOptionClick( value, e );
 		onClose();
-	}
+	};
 
 	get selected() {
-		return find( this.props.options, option => option.value === this.props.value );
+		return find( this.props.options, ( option ) => option.value === this.props.value );
 	}
 
 	get label() {
@@ -50,13 +47,10 @@ export default class Select extends PureComponent {
 		return selected && selected.label;
 	}
 
-	renderOptions = ( onClose ) => (
+	renderOptions = ( onClose ) =>
 		this.props.options.map( ( option ) => (
 			<button
-				className={ classnames(
-					'tribe-common-form-select__options__option',
-					this.props.optionClassName,
-				) }
+				className={ classnames( 'tribe-common-form-select__options__option', this.props.optionClassName ) }
 				key={ option.value }
 				onClick={ partial( this._onOptionClick, onClose, option.value ) }
 				role="menuitem"
@@ -65,48 +59,33 @@ export default class Select extends PureComponent {
 			>
 				{ option.label }
 			</button>
-		) )
-	)
+		) );
 
 	renderToggle = ( { onToggle, isOpen } ) => (
 		<div className="tribe-common-form-select__toggle">
-			<button
-				type="button"
-				aria-expanded={ isOpen }
-				onClick={ onToggle }
-			>
+			<button type="button" aria-expanded={ isOpen } onClick={ onToggle }>
 				<span>{ this.label }</span>
-				<Dashicon
-					className="btn--icon"
-					icon={ isOpen ? 'arrow-up' : 'arrow-down' }
-				/>
+				<Dashicon className="btn--icon" icon={ isOpen ? 'arrow-up' : 'arrow-down' } />
 			</button>
 		</div>
-	)
+	);
 
 	renderContent = ( { onClose } ) => (
 		<ScrollTo>
 			{ () => (
 				<PreventBlockClose>
-					<ScrollArea
-						role="menu"
-						className={ classnames( 'tribe-common-form-select__options' ) }
-					>
+					<ScrollArea role="menu" className={ classnames( 'tribe-common-form-select__options' ) }>
 						{ this.renderOptions( onClose ) }
 					</ScrollArea>
 				</PreventBlockClose>
 			) }
 		</ScrollTo>
-
 	);
 
 	render() {
 		return (
 			<Dropdown
-				className={ classnames(
-					'tribe-common-form-select',
-					this.props.className,
-				) }
+				className={ classnames( 'tribe-common-form-select', this.props.className ) }
 				placement="bottom center"
 				contentClassName="tribe-common-form-select__content"
 				renderToggle={ this.renderToggle }

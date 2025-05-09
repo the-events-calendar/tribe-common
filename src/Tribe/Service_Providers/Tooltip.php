@@ -43,7 +43,7 @@ class Tooltip extends Service_Provider {
 		$main    = \Tribe__Main::instance();
 		$helpers = \Tribe__Admin__Helpers::instance();
 
-		tribe_asset(
+		tec_asset(
 			$main,
 			'tribe-tooltip',
 			'tooltip.css',
@@ -57,7 +57,7 @@ class Tooltip extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$main,
 			'tribe-tooltip-js',
 			'tooltip.js',

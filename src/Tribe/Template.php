@@ -137,7 +137,7 @@ class Tribe__Template {
 		if (
 			empty( $origin->plugin_path )
 			&& empty( $origin->pluginPath )
-			&& ! is_dir( $origin )
+			&& ( is_string( $origin ) && ! is_dir( $origin ) )
 		) {
 			throw new InvalidArgumentException( 'Invalid Origin Class for Template Instance' );
 		}

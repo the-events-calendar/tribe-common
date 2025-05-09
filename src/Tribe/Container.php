@@ -296,7 +296,7 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 			 * @todo: Remove this after TEC 7.5 after enough time has passed.
 			 */
 			add_action(
-				'tribe_tickets_plugin_loaded',
+				'tec_tickets_fully_loaded',
 				static function() use ( $container ) {
 					$container->register( Tribe\Tickets\Admin\Home\Service_Provider::class );
 				}

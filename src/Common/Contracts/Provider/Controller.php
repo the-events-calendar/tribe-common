@@ -11,7 +11,6 @@
 namespace TEC\Common\Contracts\Provider;
 
 use TEC\Common\Contracts\Service_Provider;
-use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
 use Tribe__Log as Log;
 
 /**
@@ -21,7 +20,7 @@ use Tribe__Log as Log;
  *
  * @package TEC\Common\Provider;
  *
- * @property ContainerInterface $container
+ * @property Container $container
  */
 abstract class Controller extends Service_Provider {
 	/**
@@ -93,9 +92,17 @@ abstract class Controller extends Service_Provider {
 	 * @return void The message is logged.
 	 */
 	protected function debug( string $message, array $context = [] ): void {
-		do_action( 'tribe_log', Log::DEBUG, $message, array_merge( [
-			'controller' => static::class,
-		], $context ) );
+		do_action(
+			'tribe_log',
+			Log::DEBUG,
+			$message,
+			array_merge(
+				[
+					'controller' => static::class,
+				],
+				$context
+			)
+		);
 	}
 
 	/**
@@ -109,9 +116,17 @@ abstract class Controller extends Service_Provider {
 	 * @return void The message is logged.
 	 */
 	protected function warning( string $message, array $context = [] ): void {
-		do_action( 'tribe_log', Log::WARNING, $message, array_merge( [
-			'controller' => static::class,
-		], $context ) );
+		do_action(
+			'tribe_log',
+			Log::WARNING,
+			$message,
+			array_merge(
+				[
+					'controller' => static::class,
+				],
+				$context
+			)
+		);
 	}
 
 	/**
@@ -125,9 +140,17 @@ abstract class Controller extends Service_Provider {
 	 * @return void The message is logged.
 	 */
 	protected function error( string $message, array $context = [] ): void {
-		do_action( 'tribe_log', Log::ERROR, $message, array_merge( [
-			'controller' => static::class,
-		], $context ) );
+		do_action(
+			'tribe_log',
+			Log::ERROR,
+			$message,
+			array_merge(
+				[
+					'controller' => static::class,
+				],
+				$context
+			)
+		);
 	}
 
 	/**

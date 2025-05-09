@@ -12,7 +12,7 @@ import { intercept, EVENT_NAMESPACE } from '@moderntribe/common/hoc/with-block-c
 export default class PreventBlockClose extends PureComponent {
 	static propTypes = {
 		children: PropTypes.node.isRequired,
-	}
+	};
 
 	nodeRef = React.createRef();
 
@@ -29,10 +29,6 @@ export default class PreventBlockClose extends PureComponent {
 	}
 
 	render() {
-		return (
-			<div ref={ this.nodeRef }>
-				{ this.props.children }
-			</div>
-		);
+		return <div ref={ this.nodeRef }>{ this.props.children }</div>;
 	}
 }

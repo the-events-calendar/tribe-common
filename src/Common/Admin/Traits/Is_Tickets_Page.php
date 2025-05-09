@@ -11,7 +11,7 @@ namespace TEC\Common\Admin\Traits;
 
 use Tribe__Main;
 
-trait Is_Ticket_Page {
+trait Is_Tickets_Page {
 	/**
 	 * The page type for the page.
 	 *
