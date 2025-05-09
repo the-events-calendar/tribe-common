@@ -11,16 +11,16 @@
 				max-width: 100% !important;
 				padding: 0;
 
-				&.is-selected > .editor-block-list__block-edit:before,
-				&.is-selected-parent > .editor-block-list__block-edit:before,
-				&.is-hovered > .editor-block-list__block-edit:before {
+				&.is-selected > .editor-block-list__block-edit::before,
+				&.is-selected-parent > .editor-block-list__block-edit::before,
+				&.is-hovered > .editor-block-list__block-edit::before {
 					outline: none;
 				}
 
 				& .editor-block-list__block-edit {
 					margin: 0;
 
-					&:before {
+					&::before {
 						outline: none;
 					}
 
@@ -29,7 +29,7 @@
 					}
 				}
 
-				{
+				 {
 					outline: none;
 				}
 			}

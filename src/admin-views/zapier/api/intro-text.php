@@ -18,7 +18,7 @@
  */
 
 ?>
-<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
+<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal tec-settings-form__header-block--no-border">
 	<?php $this->template( '/components/loader' ); ?>
 	<h3 id="tec-zapier-application-credentials" class="tec-settings-zapier-application__title tec-settings-form__section-header tec-settings-form__section-header--sub">
 		<?php echo esc_html_x( 'Zapier', 'API connection header', 'tribe-common' ); ?>

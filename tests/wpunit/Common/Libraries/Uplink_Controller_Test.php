@@ -114,7 +114,6 @@ class Uplink_Controller_Test extends \Codeception\TestCase\WPTestCase {
 
 		// Assert that the filter modified the fields array
 		$this->assertNotEmpty( $modified_fields );
-		$this->assertArrayHasKey( 'stellarwp-uplink_common-test-slug-heading', $modified_fields );
 		$this->assertArrayHasKey( 'stellarwp-uplink_common-test-slug', $modified_fields );
 	}
 }

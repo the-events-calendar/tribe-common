@@ -19,7 +19,7 @@
  */
 
 ?>
-<fieldset id="tec-field-integration_token" class="tec-automator-endpoint-dashboard tribe-field tribe-field-text tribe-size-medium tec-settings-form__element--colspan-2">
+<fieldset id="tec-field-integration_token" class="tec-automator-endpoint-dashboard tribe-field tribe-field-text tribe-size-medium">
 	<legend class="tribe-field-label"><?php echo esc_html_x( 'Endpoint Dashboard', 'The legend for the integration endpoint dashboard.', 'tribe-common' ); ?></legend>
 	<?php if ( $manager::$api_id === 'zapier' ) { ?>
 		<p class="tec-settings-zapier-application__description">
