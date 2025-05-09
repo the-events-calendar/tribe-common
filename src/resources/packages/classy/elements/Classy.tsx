@@ -12,7 +12,7 @@ import {
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 import ErrorBoundary from './components/ErrorBoundary';
 import ErrorDisplay from './components/ErrorDisplay';
-import {RegistryProvider} from "@wordpress/data";
+import { RegistryProvider } from '@wordpress/data';
 
 function ClassyApplication() {
 	return (
