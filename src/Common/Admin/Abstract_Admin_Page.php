@@ -133,6 +133,16 @@ abstract class Abstract_Admin_Page {
 				$this->get_position()
 			);
 		}
+
+		add_filter( 'admin_body_class', [ $this, 'add_admin_body_class' ] );
+	}
+
+	public function add_admin_body_class( $classes ) {
+		if ( static::is_on_page() ) {
+			$classes .= ' tec-admin';
+		}
+
+		return $classes;
 	}
 
 	/**
