@@ -329,6 +329,21 @@ class Country {
 	}
 
 	/**
+	 * Get a country by its currency.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $currency The currency.
+	 *
+	 * @return array|null The country or null if not found.
+	 */
+	public function get_country_by_currency( $currency ): ?array {
+		$countries = $this->get_gateway_countries();
+		$filtered = array_filter( $countries, fn( $country ) => in_array( $currency, $country['currencies'] ) );
+		return reset( $filtered );
+	}
+
+	/**
 	 * Get a list of countries with Payment Gateways support information.
 	 *
 	 * @since TBD
@@ -390,7 +405,7 @@ class Country {
 					'currency'   => $api_countries[ $code ]['currencies'][0] ?? [],
 					'has_paypal' => $api_countries[ $code ]['paypal']['is_active'] ?? false,
 					'has_stripe' => $api_countries[ $code ]['stripe']['is_active'] ?? false,
-					'has_square' => false,
+					'has_square' => $api_countries[ $code ]['square']['is_active'] ?? false,
 				];
 			}
 		}
