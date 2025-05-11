@@ -197,6 +197,11 @@
 				rect = settingstabs.getBoundingClientRect();
 			}
 
+			const adminHeader = document.getElementById( 'tec-admin-page-header' );
+			if ( adminHeader ) {
+				rect = adminHeader.getBoundingClientRect();
+			}
+
 			return rect.top + rect.height;
 		};
 

@@ -7,47 +7,37 @@
  * -----------------------------------------------------------------------------
  */
 .tec-admin-page__header {
+	align-items: center;
 	background: none;
 	background-color: transparent;
-	column-gap: var(--tec-spacer-1);
+	column-gap: var( --tec-spacer-1 );
 	display: flex;
 	flex-flow: row nowrap;
 	grid-area: header;
+	justify-content: flex-start;
 	max-width: 100%;
-	padding: var(--tec-spacer-5) var(--tec-spacer-7) 0;
+	padding: var( --tec-spacer-5 ) var( --tec-spacer-7 ) 0;
 	position: relative;
 
-	@media (--viewport-wpadmin) {
+	@media ( --viewport-wpadmin ) {
 		background: #fff;
-		border-bottom: 1px solid var(--tec-admin-core-grey-10);
-		padding: var(--tec-spacer-3) var(--tec-spacer-5);
+		border-bottom: 1px solid var( --tec-admin-core-grey-10 );
+		padding: var( --tec-spacer-3 ) var( --tec-spacer-5 );
 	}
 }
 
 .tec-admin-page__logo {
-	height: var(--tec-spacer-8);
-	margin-left: var(--tec-spacer-0);
-	padding: var(--tec-spacer-0);
-	width: var(--tec-spacer-8);
+	height: var( --tec-spacer-8 );
+	margin-left: var( --tec-spacer-0 );
+	padding: var( --tec-spacer-0 );
+	width: var( --tec-spacer-8 );
 }
 
-.tec-admin-page__header-title {
+h1.tec-admin-page__header-title {
 	color: #000;
-	font-size: var(--tec-font-size-7);
-	font-weight: var(--tec-font-weight-regular);
-	line-height: var(--tec-line-height-0);
+	font-size: var( --tec-font-size-7 );
+	font-weight: var( --tec-font-weight-regular );
+	line-height: var( --tec-line-height-0 );
 	margin: 0;
 	padding: 0;
-}
-
-.tec-dismiss-admin-page {
-	align-self: center;
-	display: none;
-	margin-left: auto;
-}
-
-@media (--viewport-wpadmin) {
-	.tec-dismiss-admin-page {
-		display: inline-block;
-	}
 }

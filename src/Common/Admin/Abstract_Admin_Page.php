@@ -10,6 +10,7 @@
 namespace TEC\Common\Admin;
 
 use Tribe__Main;
+use TEC\Common\Notifications\Controller as IAN_Controller;
 
 /**
  * Class Admin_Page
@@ -389,7 +390,7 @@ abstract class Abstract_Admin_Page {
 		do_action( 'tec_admin_page_before_wrap_start' );
 		?>
 
-		<div id="tec-admin-page" <?php tribe_classes( $this->wrapper_classes() ); ?> >
+		<div id="tec-admin-page" <?php tec_classes( $this->wrapper_classes() ); ?> >
 			<?php do_action( 'tec_admin_page_after_wrap_start' ); ?>
 
 			<?php $this->admin_page_header(); ?>
@@ -432,7 +433,7 @@ abstract class Abstract_Admin_Page {
 			alt=""
 			role="presentation"
 			id="tec-admin-page-logo"
-			<?php tribe_classes( $this->logo_classes() ); ?>
+			<?php tec_classes( $this->logo_classes() ); ?>
 		/>
 		<?php
 
@@ -453,11 +454,14 @@ abstract class Abstract_Admin_Page {
 		}
 
 		?>
-			<header id="tec-admin-page-header" <?php tribe_classes( $this->header_classes() ); ?>>
+			<header id="tec-admin-page-header" <?php tec_classes( $this->header_classes() ); ?>>
 				<?php $this->do_page_logo(); ?>
 				<?php do_action( 'tec_admin_header_before_title' ); ?>
 				<?php $this->admin_page_title(); ?>
 				<?php do_action( 'tec_admin_header_after_title' ); ?>
+				<?php if ( tribe( IAN_Controller::class )->is_ian_page() ) : ?>
+					<div class="ian-client" data-tec-ian-trigger="iconIan"></div>
+				<?php endif; ?>
 			</header>
 		<?php
 	}
@@ -472,7 +476,7 @@ abstract class Abstract_Admin_Page {
 	 */
 	public function admin_page_title(): void {
 		?>
-			<h1 class="tec-admin__header-title"><?php esc_html_e( 'The Events Calendar', 'tribe-common' ); ?></h1>
+			<h1 class="tec-admin-page__header-title"><?php esc_html_e( 'The Events Calendar', 'tribe-common' ); ?></h1>
 		<?php
 	}
 
@@ -486,7 +490,7 @@ abstract class Abstract_Admin_Page {
 	 */
 	public function admin_page_main_content_wrapper(): void {
 		?>
-		<main id="tec-admin-page-content" <?php tribe_classes( $this->content_classes() ); ?>>
+		<main id="tec-admin-page-content" <?php tec_classes( $this->content_classes() ); ?>>
 			<?php $this->admin_page_main_content(); ?>
 		</main>
 		<?php
@@ -516,7 +520,7 @@ abstract class Abstract_Admin_Page {
 		}
 
 		?>
-		<aside id="tec-admin-page-sidebar" <?php tribe_classes( $this->sidebar_classes() ); ?>>
+		<aside id="tec-admin-page-sidebar" <?php tec_classes( $this->sidebar_classes() ); ?>>
 			<?php $this->admin_page_sidebar_content(); ?>
 		</aside>
 		<?php
@@ -546,7 +550,7 @@ abstract class Abstract_Admin_Page {
 		}
 
 		?>
-		<footer id="tec-admin-page-footer" <?php tribe_classes( $this->footer_classes() ); ?>>
+		<footer id="tec-admin-page-footer" <?php tec_classes( $this->footer_classes() ); ?>>
 			<?php do_action( 'tec_admin_page_footer_content' ); ?>
 		</footer>
 		<?php
