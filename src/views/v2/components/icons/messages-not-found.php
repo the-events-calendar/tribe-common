@@ -12,7 +12,7 @@
  * @var array<string> $classes Additional classes to add to the svg icon.
  *
  * @version 4.12.14
- * @since TBD Added accessibility attributes to make icon decorative.
+ * @since 6.6.0 Added accessibility attributes to make icon decorative.
  *
  */
 $svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--messages-not-found' ];
