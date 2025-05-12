@@ -311,7 +311,7 @@ class Country {
 	 *
 	 * @return array<string,array<string,mixed>> The formatted list of countries.
 	 */
-	public function get_country_list_formatted(): array {
+	public function get_country_list_with_data(): array {
 		$cache_key   = 'tec_common_country_list_formatted';
 		$cached_data = $this->cache->get( $cache_key );
 
@@ -354,7 +354,7 @@ class Country {
 			return null;
 		}
 
-		return $this->get_country_list_formatted()[ $key ]['name'] ?? null;
+		return $this->get_country_list_with_data()[ $key ]['name'] ?? null;
 	}
 
 	/**
@@ -408,7 +408,7 @@ class Country {
 		}
 
 		// Get the base country list.
-		$base_countries = $this->get_country_list_formatted();
+		$base_countries = $this->get_country_list_with_data();
 
 		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.wp_remote_get_wp_remote_get
 		$response = wp_remote_get( 'https://whodatdev.theeventscalendar.com/commerce/v1/countries/' );
