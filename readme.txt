@@ -9,8 +9,7 @@
 * Tweak - Added filters: `tec_qr_code_can_use`, `tec_qr_notice_valid_pages`, `tec_qr_notice_valid_post_types`
 * Accessibility - Added proper accessibility attributes to the no results icon to ensure screen readers skip over it. [FBAR-332]
 * Accessibility - Improve accessibility of select2 component, allowing tabbing into elements. [FBAR-330]
-* Language - 0 new strings added, 4 updated, 1 fuzzied, and 0 obsoleted.
-* Language - 4 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+* Language - 4 new strings added, 2 updated, 1 fuzzied, and 0 obsoleted.
 
 = [6.5.5.1] 2025-04-28 =
 
