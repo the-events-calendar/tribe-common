@@ -298,7 +298,7 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 			 */
 			add_action(
 				'tec_tickets_fully_loaded',
-				static function() use ( $container, &$tec_common_et_registered ) {
+				static function () use ( $container, &$tec_common_et_registered ) {
 					if ( ! empty( $tec_common_et_registered ) ) {
 						return;
 					}
@@ -309,7 +309,7 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 
 			add_action(
 				'tribe_tickets_plugin_loaded',
-				static function() use ( $container, &$tec_common_et_registered ) {
+				static function () use ( $container, &$tec_common_et_registered ) {
 					if ( ! empty( $tec_common_et_registered ) ) {
 						return;
 					}
