@@ -31,6 +31,15 @@ use TEC\Common\Configuration\Configuration;
 class Hub {
 
 	/**
+	 * The Help Hub page slug.
+	 *
+	 * @since 6.3.2
+	 *
+	 * @var string
+	 */
+	const IFRAME_PAGE_SLUG = 'tec-help-hub';
+
+	/**
 	 * Data object implementing Help_Hub_Data_Interface, providing necessary Help Hub resources.
 	 *
 	 * @since 6.3.2
@@ -73,6 +82,7 @@ class Hub {
 
 		$this->setup_support_keys();
 		$this->register_hooks();
+		$this->register_hidden_page();
 	}
 
 	/**
@@ -124,6 +134,30 @@ class Hub {
 		add_action( 'admin_init', [ $this, 'generate_iframe_content' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'load_assets' ], 1 );
 		add_filter( 'admin_body_class', [ $this, 'add_help_page_body_class' ] );
+	}
+
+	/**
+	 * Registers the hidden admin page for the Help Hub.
+	 *
+	 * @since 6.3.2
+	 *
+	 * @return void
+	 */
+	protected function register_hidden_page(): void {
+		add_action(
+			'admin_menu',
+			function () {
+				add_submenu_page(
+					null, // Make the page hidden.
+					__( 'Help Hub', 'tribe-common' ),
+					__( 'Help Hub', 'tribe-common' ),
+					'manage_options',
+					self::IFRAME_PAGE_SLUG,
+					[ $this, 'render' ]
+				);
+			},
+			999
+		);
 	}
 
 	/**
@@ -396,7 +430,7 @@ class Hub {
 		$page   = tribe_get_request_var( 'page' );
 		$iframe = tribe_get_request_var( 'embedded_content' );
 
-		if ( empty( $page ) || 'tec-events-help-hub' !== $page || empty( $iframe ) ) {
+		if ( empty( $page ) || self::IFRAME_PAGE_SLUG !== $page || $iframe !== 'true' ) {
 			return;
 		}
 
