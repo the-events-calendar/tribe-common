@@ -361,4 +361,8 @@
 
 	// Configure on Window Load again
 	$window.on( 'load', obj.setup );
-} )( jQuery, window.underscore || window._, {} );
+
+	// Re-run the setup when the widgets are toggled
+	$(document).on('widget-updated widget-added', obj.setup);
+
+}( jQuery, window.underscore || window._, {} ) );
