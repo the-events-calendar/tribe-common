@@ -1,5 +1,1 @@
-<svg viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="icon-check">
-<path id="&#239;&#133;&#135;" d="M16.2028 3L18.3332 4.50628L8.99733 18H6.86701L1.6665 10.7197L3.79683 8.7113L7.93217 12.5397L16.2028 3Z" fill="#00A32A"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 21"><path fill="#00A32A" d="m16.203 3 2.13 1.506L8.997 18h-2.13l-5.2-7.28 2.13-2.009 4.135 3.829L16.202 3Z"/></svg>
