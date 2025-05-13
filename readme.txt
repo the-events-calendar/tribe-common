@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [6.6.0] 2025-05-12 =
+= [6.6.0] 2025-05-13 =
 
 * Feature - Add a QR code Widget [TEC-5396]
 * Feature - Move QR-Related code from ET to Common [TEC-5426]
