@@ -1,3 +1,4 @@
+/build/**/*
 /lang/*.mo
 /lang/*.pot
 /lang/*.txt
