@@ -335,17 +335,10 @@
 						Object.entries( response.data ).forEach( ( [ key, item ] ) => {
 							if ( item.read ) {
 								read += item.html;
-<<<<<<< HEAD
 								commonIan.feed.read.push( item );
 							} else {
 								unread += item.html;
 								commonIan.feed.unread.push( item );
-=======
-								Ian.feed.read.push(item);
-							} else {
-								unread += item.html;
-								Ian.feed.unread.push(item);
->>>>>>> master
 							}
 						} );
 
