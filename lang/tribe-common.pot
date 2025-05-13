@@ -2,16 +2,16 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 6.5.5.1\n"
+"Project-Id-Version: Tribe Common 6.6.0\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-04-28T18:06:34+00:00\n"
+"POT-Creation-Date: 2025-05-12T13:44:04+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: tribe-common\n"
 
 #. Plugin Name of the plugin
@@ -150,6 +150,7 @@ msgstr ""
 
 #. translators: %s is the coupon code
 #: src/admin-views/app-shop.php:226
+#, php-format
 msgid "$25 towards any Stellar product using code <u>%s</u>"
 msgstr ""
 
@@ -181,6 +182,7 @@ msgstr ""
 #. translators: %1$s: Black Friday year
 #: src/admin-views/conditional_content/black-friday.php:15
 #: src/Common/Admin/Conditional_Content/Black_Friday.php:244
+#, php-format
 msgctxt "Alt text for the Black Friday Ad"
 msgid "%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles."
 msgstr ""
@@ -307,6 +309,7 @@ msgstr ""
 
 #. Translators: 1: Opening anchor tag, 2: Closing anchor tag.
 #: src/admin-views/dashboard/table.php:29
+#, php-format
 msgctxt "The Zapier endpoint dashboard description."
 msgid "The Zapier queue is currently limited to 15 items for each endpoint on your site. To increase that limit, check out the %1$sIncreasing the Zapier Queue Limit knowledgebase article%2$s."
 msgstr ""
@@ -575,6 +578,7 @@ msgstr ""
 
 #. translators: %s is the link to the AI Chatbot
 #: src/admin-views/help-hub/resources/common-issues.php:28
+#, php-format
 msgid "Having trouble? Find solutions to common issues or ask our %s."
 msgstr ""
 
@@ -619,6 +623,7 @@ msgstr ""
 
 #. translators: %1$s is the link to the Knowledgebase.
 #: src/admin-views/help-hub/resources/resources.php:25
+#, php-format
 msgid "Help on setting up, customizing, and troubleshooting your calendar. See our %1$s for in-depth content."
 msgstr ""
 
@@ -630,6 +635,7 @@ msgstr ""
 
 #. translators: Placeholders are for the `a` tag that displays a link.
 #: src/admin-views/help-hub/resources/resources.php:33
+#, php-format
 msgctxt "The callout notice to try the chatbot with a link to the page"
 msgid "To find the answer to all your questions use the %1$sTEC Chatbot%2$s"
 msgstr ""
@@ -752,6 +758,7 @@ msgstr ""
 
 #. translators: 1: the opening tag to the chatbot link, 2: the closing tag.
 #: src/admin-views/help-hub/support/iframe-content.php:55
+#, php-format
 msgctxt "Text for opting out of chatbot and linking to The Events Calendar’s Knowledgebase"
 msgid "If you do not wish to consent, you could chat with the bot on %1$sThe Events Calendar’s Knowledgebase%2$s."
 msgstr ""
@@ -915,6 +922,7 @@ msgstr ""
 
 #. translators: %s: data sharing agreement
 #: src/admin-views/notifications/sidebar.php:42
+#, php-format
 msgid "To receive notifications you need to agree to our %s."
 msgstr ""
 
@@ -956,6 +964,7 @@ msgstr ""
 
 #. Translators: %1$s: URL to the Power Automate API documentation
 #: src/admin-views/power-automate/api/intro-text.php:30
+#, php-format
 msgctxt "Settings help text and link for Power Automate API."
 msgid "Please generate a connection for each of our applications you are using with Power Automate to enable its integrations. i.e.: one connection for The Events Calendar and one connection for Event Tickets. <a href=\"%1$s\" target=\"_blank\">Read more about adding and managing access.</a>"
 msgstr ""
@@ -1045,12 +1054,14 @@ msgstr ""
 
 #. Translators: %1$s: URL to the Power Automate Endpoint Dashboard documentation
 #: src/admin-views/power-automate/dashboard/intro-text.php:27
+#, php-format
 msgctxt "Settings help text for Power Automate Endpoint Dashboard."
 msgid "Monitor your Power Automate endpoints (triggers and actions used by your connectors). <a href=\"%1$s\" target=\"_blank\">Read more about the Power Automate Endpoint Dashboard.</a>"
 msgstr ""
 
 #. translators: %s: Plugin name
 #: src/admin-views/tribe-options-help.php:16
+#, php-format
 msgid "Thank you for using %s! All of us at The Events Calendar sincerely appreciate your support and we’re excited to see you using our plugins."
 msgstr ""
 
@@ -1060,6 +1071,7 @@ msgstr ""
 
 #. translators: %s: Knowledgebase
 #: src/admin-views/tribe-options-help.php:21
+#, php-format
 msgid "Our website’s %s is a great place to find tips and tricks for using and customizing our plugins."
 msgstr ""
 
@@ -1069,6 +1081,7 @@ msgstr ""
 
 #. translators: %s: Link to list of available functions
 #: src/admin-views/tribe-options-help.php:29
+#, php-format
 msgid "Check out our %s for developers."
 msgstr ""
 
@@ -1086,6 +1099,7 @@ msgstr ""
 
 #. translators: %s: Link to Knowledgebase
 #: src/admin-views/tribe-options-help.php:45
+#, php-format
 msgid "%s. All of the common (and not-so-common) answers to questions we see are here. It’s often the fastest path to finding an answer!"
 msgstr ""
 
@@ -1095,6 +1109,7 @@ msgstr ""
 
 #. translators: %s: Link to Test for a theme or plugin conflict
 #: src/admin-views/tribe-options-help.php:56
+#, php-format
 msgid "%s. Testing for an existing conflict is the best start for in-depth troubleshooting. We will often ask you to follow these steps when opening a new thread, so doing this ahead of time will be super helpful."
 msgstr ""
 
@@ -1104,6 +1119,7 @@ msgstr ""
 
 #. translators: %s: Link to Search our support help desk
 #: src/admin-views/tribe-options-help.php:67
+#, php-format
 msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the help desk is open only to paid customers, they are open for anyone to search and review."
 msgstr ""
 
@@ -1156,6 +1172,7 @@ msgstr ""
 
 #. translators: %1$s and %2$s are placeholders for the opening and closing <a> tags, %3$s and %4$s are placeholders for the opening and closing <a> tags
 #: src/admin-views/tribe-options-licenses.php:20
+#, php-format
 msgid "In order to register a plugin license, you'll first need to %1$sdownload and install%2$s the plugin you purchased. You can download the latest version of your plugin(s) from %3$syour account's downloads page%4$s. Once the plugin is installed and activated on this site, the license key field will appear below."
 msgstr ""
 
@@ -1243,6 +1260,7 @@ msgstr ""
 
 #. translators: %1$d: import count, %2$d: import limit
 #: src/admin-views/troubleshooting/ea-status/current-usage.php:25
+#, php-format
 msgid "%1$d import used out of %2$d available today"
 msgid_plural "%1$d imports used out of %2$d available today"
 msgstr[0] ""
@@ -1348,6 +1366,7 @@ msgstr ""
 #. translators: %s: Event Aggregator Server URL
 #: src/admin-views/troubleshooting/ea-status/server-connection.php:24
 #: src/admin-views/troubleshooting/ea-status/server-connection.php:32
+#, php-format
 msgid "Not connected to %s"
 msgstr ""
 
@@ -1361,6 +1380,7 @@ msgstr ""
 
 #. translators: %s: Event Aggregator Server URL
 #: src/admin-views/troubleshooting/ea-status/server-connection.php:39
+#, php-format
 msgid "Connected to %s"
 msgstr ""
 
@@ -1387,6 +1407,7 @@ msgstr ""
 
 #. translators: %s: link to the article
 #: src/admin-views/troubleshooting/first-steps.php:31
+#, php-format
 msgid "Most issues are caused by conflicts with the theme or other plugins. Follow these steps as a first point of action. %s"
 msgstr ""
 
@@ -1396,6 +1417,7 @@ msgstr ""
 
 #. translators: %s: link to the article
 #: src/admin-views/troubleshooting/first-steps.php:52
+#, php-format
 msgid "Providing the details of your calendar plugin and settings (located below) helps our support team troubleshoot an issue faster. %s"
 msgstr ""
 
@@ -1416,6 +1438,7 @@ msgstr ""
 
 #. translators: %s: link to the help page
 #: src/admin-views/troubleshooting/notice.php:18
+#, php-format
 msgid "Hey there... did you check out the %s"
 msgstr ""
 
@@ -1494,6 +1517,7 @@ msgstr ""
 
 #. Translators: %1$s: URL to the Zapier API documentation
 #: src/admin-views/zapier/api/intro-text.php:30
+#, php-format
 msgctxt "Settings help text and link for Zapier API."
 msgid "Please generate a consumer id and secret for each of our applications you are using with Zapier to enable its integrations. i.e.: one consumer id and secret for The Events Calendar and one consumer id and secret for Event Tickets. <a href=\"%1$s\" target=\"_blank\">Read more about adding and managing access.</a>"
 msgstr ""
@@ -1671,6 +1695,7 @@ msgstr ""
 
 #. translators: %1$s: URL to the Zapier Endpoint Dashboard documentation
 #: src/admin-views/zapier/dashboard/intro-text.php:27
+#, php-format
 msgctxt "Settings help text and link for Zapier Endpoint Dashboard."
 msgid "Monitor your Zapier endpoints (triggers and actions used by your connectors). <a href=\"%1$s\" target=\"_blank\">Read more about the Zapier Endpoint Dashboard.</a>"
 msgstr ""
@@ -1719,6 +1744,7 @@ msgstr ""
 
 #. translators: %d: The maximum heading level.
 #: src/Common/Admin/Entities/Heading.php:108
+#, php-format
 msgid "Heading level must be between 1 and %d"
 msgstr ""
 
@@ -2301,6 +2327,7 @@ msgstr ""
 
 #. Translators:KB article link.
 #: src/Common/Event_Automator/Zapier/Privacy_Notice.php:74
+#, php-format
 msgctxt "The dismissible privacy message."
 msgid "Congratulations on installing Event Automator! Please read our %1$sPrivacy vs Data Automation: What You Need to Know%2$s knowledgebase article."
 msgstr ""
@@ -2618,12 +2645,14 @@ msgstr ""
 
 #. Translators: %1$s is the list of plugins except the last, %2$s is the last plugin name. i.e "one and two" or "one, two and three"
 #: src/Common/Integrations/Plugin_Merge_Provider_Abstract.php:368
+#, php-format
 msgctxt "Joined plugin list, last after the \"and\" separator."
 msgid "%1$s and %2$s"
 msgstr ""
 
 #. Translators: %1$s is the plugin name(s) and version(s), %2$s and %3$s are the opening and closing anchor tags.
 #: src/Common/Integrations/Plugin_Merge_Provider_Abstract.php:380
+#, php-format
 msgctxt "Notice message after updating plugins to the merged version."
 msgid "Thanks for upgrading %1$s now with even more value! Learn more about the latest changes %2$shere%3$s."
 msgstr ""
@@ -2669,8 +2698,25 @@ msgstr ""
 msgid "All notifications marked as read"
 msgstr ""
 
+#: src/Common/QR/Controller.php:101
+msgid "The QR code cannot be used, please contact your host and ask for `gzip` and `gd` support."
+msgstr ""
+
+#: src/Common/QR/Notices.php:103
+msgid "QR codes for events/tickets not available."
+msgstr ""
+
+#: src/Common/QR/Notices.php:104
+msgid "In order to have QR codes for your events and/or tickets you will need to have both the `php_gd2` and `gzuncompress` PHP extensions installed on your server. Please contact your hosting provider."
+msgstr ""
+
+#: src/Common/QR/Notices.php:105
+msgid "Learn more."
+msgstr ""
+
 #. Translators: %1$s the post type label.
 #: src/Common/Site_Health/Fields/Post_Status_Count_Field.php:54
+#, php-format
 msgid "%1$s counts"
 msgstr ""
 
@@ -2684,6 +2730,7 @@ msgstr ""
 
 #. Translators: %s is the current user's display name.
 #: src/Common/Telemetry/Telemetry.php:277
+#, php-format
 msgid "Hi, %1$s! This is an invitation to help our StellarWP community. If you opt-in, some data about your usage of TEC Common and future StellarWP Products will be shared with our teams (so they can work their butts off to improve). We will also share some helpful info on WordPress, and our products from time to time. And if you skip this, that's okay! Our products still work just fine."
 msgstr ""
 
@@ -2782,6 +2829,7 @@ msgstr ""
 
 #. translators: %s: Plugin Name
 #: src/Tribe/Admin/Help_Page.php:923
+#, php-format
 msgid "Activate %s"
 msgstr ""
 
@@ -2796,6 +2844,7 @@ msgstr ""
 
 #. translators: %s: Plugin Name
 #: src/Tribe/Admin/Help_Page.php:948
+#, php-format
 msgid "Install %s"
 msgstr ""
 
@@ -3010,11 +3059,13 @@ msgstr ""
 
 #. Translators: %1$s list of plugins, %2$s current PHP version, %3$s open anchor html link for read more, %4$s open anchor html link for read more
 #: src/Tribe/Admin/Notice/Php_Version.php:96
+#, php-format
 msgctxt "Message notifying users they need to upgrade PHP"
 msgid "Starting February 2023, %1$s will require PHP 7.4 or later. Currently, your site is using PHP version %2$s. Please update to a newer version. %3$sRead more%4$s."
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Plugin_Download.php:120
+#, php-format
 msgid "To begin using %2$s, please install (or upgrade) and activate %3$s."
 msgstr ""
 
@@ -3024,6 +3075,7 @@ msgid "Read more"
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Plugin_Download.php:123
+#, php-format
 msgid "There’s a new version of %1$s available, but your license is expired. You’ll need to renew your license to get access to the latest version. If you plan to continue using your current version of the plugin(s), be sure to use a compatible version of The Events Calendar. %2$s"
 msgstr ""
 
@@ -3092,6 +3144,7 @@ msgid "Common Error Messages"
 msgstr ""
 
 #: src/Tribe/Admin/Troubleshooting.php:344
+#, php-format
 msgid "Here’s an overview of %s and what they mean."
 msgstr ""
 
@@ -3104,6 +3157,7 @@ msgid "I installed the calendar and it crashed my site."
 msgstr ""
 
 #: src/Tribe/Admin/Troubleshooting.php:356
+#, php-format
 msgid "%s and other common installation issues."
 msgstr ""
 
@@ -3112,6 +3166,7 @@ msgid "I keep getting “Page Not Found” on events."
 msgstr ""
 
 #: src/Tribe/Admin/Troubleshooting.php:362
+#, php-format
 msgid "There are a few %s to resolve and prevent 404 errors."
 msgstr ""
 
@@ -3129,6 +3184,7 @@ msgstr ""
 
 #. Translators: %1$s is the name of the source, %2$s is the class name
 #: src/Tribe/Ajax/Dropdown.php:355
+#, php-format
 msgid "The \"%1$s\" source is invalid and cannot be reached on \"%2$s\" instance."
 msgstr ""
 
@@ -3311,10 +3367,12 @@ msgid "This calendar is powered by The Events Calendar."
 msgstr ""
 
 #: src/Tribe/Credits.php:48
+#, php-format
 msgid "Rate %1$sThe Events Calendar%2$s %3$s"
 msgstr ""
 
 #: src/Tribe/Credits.php:51
+#, php-format
 msgid "If you like %1$sEvent Tickets%2$s please leave us a %3$s. It takes a minute and it helps a lot."
 msgstr ""
 
@@ -3342,6 +3400,7 @@ msgstr ""
 
 #. translators: %1$s: opening anchor tag; %2$s: closing anchor tag
 #: src/Tribe/Customizer.php:1062
+#, php-format
 msgctxt "Link text added to the TEC->Settings->Display tab."
 msgid "%1$sCustomize The Events Calendar%2$s"
 msgstr ""
@@ -4766,6 +4825,7 @@ msgid "Wyoming"
 msgstr ""
 
 #: src/Tribe/Log.php:288
+#, php-format
 msgid "Cannot set %s as the current logging engine"
 msgstr ""
 
@@ -4883,6 +4943,7 @@ msgid "Previous"
 msgstr ""
 
 #: src/Tribe/Main.php:452
+#, php-format
 msgid ": Selected %d rows"
 msgstr ""
 
@@ -5177,6 +5238,7 @@ msgid "Shortcodes and blocks"
 msgstr ""
 
 #: src/Tribe/Process/Queue.php:1024
+#, php-format
 msgid "Every %d Minutes"
 msgstr ""
 
@@ -5190,6 +5252,7 @@ msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
 #: src/Tribe/PUE/Checker.php:808
+#, php-format
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
 msgstr ""
 
@@ -5216,6 +5279,7 @@ msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
 #: src/Tribe/PUE/Checker.php:1240
+#, php-format
 msgid "Hmmm... something's wrong with this validator. Please contact %1$ssupport%2$s."
 msgstr ""
 
@@ -5229,11 +5293,13 @@ msgstr ""
 
 #. Translators: %s is the expiration date.
 #: src/Tribe/PUE/Checker.php:1295
+#, php-format
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
 #. Translators: %s is the expiration date.
 #: src/Tribe/PUE/Checker.php:1306
+#, php-format
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
@@ -5253,21 +5319,25 @@ msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
 #: src/Tribe/PUE/Checker.php:1385
+#, php-format
 msgid "There is an update for %1$s. You'll need to %2$scheck your license%3$s to have access to updates, downloads, and support."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
 #: src/Tribe/PUE/Checker.php:1449
+#, php-format
 msgid "There is an update for %1$s. %2$sRenew your license%3$s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
 #. Translators: %s is the plugin version number.
 #: src/Tribe/PUE/Checker.php:1481
+#, php-format
 msgid "Update now to version %s."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s is the update now link.
 #: src/Tribe/PUE/Checker.php:1496
+#, php-format
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
@@ -5284,34 +5354,40 @@ msgid "Expired license. Consult your network administrator."
 msgstr ""
 
 #: src/Tribe/PUE/Notices.php:413
+#, php-format
 msgid "It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s."
 msgid_plural "It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s."
 msgstr[0] ""
 msgstr[1] ""
 
 #: src/Tribe/PUE/Notices.php:467
+#, php-format
 msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
 msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
 msgstr[0] ""
 msgstr[1] ""
 
 #: src/Tribe/PUE/Notices.php:508
+#, php-format
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
 msgstr[0] ""
 msgstr[1] ""
 
 #: src/Tribe/PUE/Notices.php:550
+#, php-format
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
 msgstr ""
 
 #: src/Tribe/PUE/Notices.php:605
 #: src/Tribe/PUE/Notices.php:648
+#, php-format
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
 msgstr ""
 
 #: src/Tribe/PUE/Update_Prevention.php:184
+#, php-format
 msgid "Your update failed due to an incompatibility between the version (%1$s) of the %2$s you tried to update to and the version of %3$s that you are using. %4$s"
 msgstr ""
 
@@ -5329,6 +5405,7 @@ msgstr ""
 
 #. Translators: %s is the name of the menu item.
 #: src/Tribe/Settings.php:618
+#, php-format
 msgid "%s Settings"
 msgstr ""
 
@@ -5418,6 +5495,7 @@ msgid "No notable changes detected"
 msgstr ""
 
 #: src/Tribe/Support/Template_Checker_Report.php:82
+#, php-format
 msgid "Templates introduced or updated with this release (%s):"
 msgstr ""
 
@@ -5430,6 +5508,7 @@ msgid "version data missing from override"
 msgstr ""
 
 #: src/Tribe/Support/Template_Checker_Report.php:97
+#, php-format
 msgid "based on %s version"
 msgstr ""
 
@@ -5463,39 +5542,48 @@ msgstr ""
 
 #: src/Tribe/Validate.php:118
 #: src/Tribe/Validate.php:132
+#, php-format
 msgid "%s must contain numbers and letters only"
 msgstr ""
 
 #: src/Tribe/Validate.php:146
+#, php-format
 msgid "%s must contain numbers, letters and dots only"
 msgstr ""
 
 #: src/Tribe/Validate.php:160
+#, php-format
 msgid "%s must contain numbers, letters, dashes and undescores only"
 msgstr ""
 
 #: src/Tribe/Validate.php:174
+#, php-format
 msgid "%s must not be empty"
 msgstr ""
 
 #: src/Tribe/Validate.php:188
 #: src/Tribe/Validate.php:212
+#, php-format
 msgid "%s must be a positive number."
 msgstr ""
 
 #: src/Tribe/Validate.php:200
+#, php-format
 msgid "%s must be a positive number or percent."
 msgstr ""
 
 #: src/Tribe/Validate.php:230
+#, php-format
 msgid "%s must be a whole number."
 msgstr ""
 
 #: src/Tribe/Validate.php:250
+#, php-format
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
 msgstr ""
 
 #: src/Tribe/Validate.php:263
+#, php-format
 msgid "%s must be a valid URL."
 msgstr ""
 
@@ -5503,42 +5591,52 @@ msgstr ""
 #: src/Tribe/Validate.php:289
 #: src/Tribe/Validate.php:302
 #: src/Tribe/Validate.php:322
+#, php-format
 msgid "%s must have a value that's part of its options."
 msgstr ""
 
 #: src/Tribe/Validate.php:334
+#, php-format
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr ""
 
 #: src/Tribe/Validate.php:341
+#, php-format
 msgid "%s cannot be the same as %s."
 msgstr ""
 
 #: src/Tribe/Validate.php:343
+#, php-format
 msgid "%s cannot be a duplicate"
 msgstr ""
 
 #: src/Tribe/Validate.php:357
+#, php-format
 msgid "%s must be a number or percentage."
 msgstr ""
 
 #: src/Tribe/Validate.php:401
+#, php-format
 msgid "%s must be a number between 0 and 21."
 msgstr ""
 
 #: src/Tribe/Validate.php:415
+#, php-format
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr ""
 
 #: src/Tribe/Validate.php:429
+#, php-format
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr ""
 
 #: src/Tribe/Validate.php:441
+#, php-format
 msgid "%s must consist of 5 numbers."
 msgstr ""
 
 #: src/Tribe/Validate.php:453
+#, php-format
 msgid "%s must be a phone number."
 msgstr ""
 
@@ -5547,15 +5645,18 @@ msgid "Country List must be formatted as one country per line in the following f
 msgstr ""
 
 #: src/Tribe/Validate.php:496
+#, php-format
 msgid "%s must be an email address."
 msgstr ""
 
 #. Translators: %s - Label of the form input field.
 #: src/Tribe/Validate.php:534
+#, php-format
 msgid "%s must be a list of valid email addresses separated by commas or semicolons."
 msgstr ""
 
 #: src/Tribe/Validate.php:552
+#, php-format
 msgid "%s must be a valid HTML color code."
 msgstr ""
 

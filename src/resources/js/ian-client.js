@@ -20,6 +20,16 @@
 		 */
 		const init = () => {
 			wrapHeadings();
+
+			Ian.icon = document.querySelector('[data-tec-ian-trigger="iconIan"]');
+			Ian.notifications = document.querySelector('[data-tec-ian-trigger="notifications"]');
+			Ian.readAll = document.querySelector('[data-tec-ian-trigger="readAllIan"]');
+			Ian.optin = document.querySelector('[data-tec-ian-trigger="optinIan"]');
+			Ian.close = document.querySelector('[data-tec-ian-trigger="closeIan"]');
+			Ian.empty = document.querySelector('[data-tec-ian-trigger="emptyIan"]');
+			Ian.loader = document.querySelector('[data-tec-ian-trigger="loaderIan"]');
+			Ian.consent = Ian.notifications ? Ian.notifications.dataset.consent : null;
+
 			calculateSidebarPosition();
 
 			document
@@ -325,10 +335,17 @@
 						Object.entries( response.data ).forEach( ( [ key, item ] ) => {
 							if ( item.read ) {
 								read += item.html;
+<<<<<<< HEAD
 								commonIan.feed.read.push( item );
 							} else {
 								unread += item.html;
 								commonIan.feed.unread.push( item );
+=======
+								Ian.feed.read.push(item);
+							} else {
+								unread += item.html;
+								Ian.feed.unread.push(item);
+>>>>>>> master
 							}
 						} );
 

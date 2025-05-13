@@ -519,14 +519,15 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 */
 	public function get_admin_data( $arguments, $field_name, $field ) {
 		$data = [
-			'classes'     => Arr::get( $field, 'classes', '' ),
-			'dependency'  => $this->format_dependency( $field ),
-			'id'          => $this->get_field_id( $field_name ),
-			'label'       => Arr::get( $field, 'label', '' ),
-			'name'        => $this->get_field_name( $field_name ),
-			'options'     => Arr::get( $field, 'options', [] ),
-			'placeholder' => Arr::get( $field, 'placeholder', '' ),
-			'value'       => Arr::get( $arguments, $field_name ),
+			'parent_classes' => Arr::get( $field, 'parent_classes', '' ),
+			'classes'        => Arr::get( $field, 'classes', '' ),
+			'dependency'     => $this->format_dependency( $field ),
+			'id'             => $this->get_field_id( $field_name ),
+			'label'          => Arr::get( $field, 'label', '' ),
+			'name'           => $this->get_field_name( $field_name ),
+			'options'        => Arr::get( $field, 'options', [] ),
+			'placeholder'    => Arr::get( $field, 'placeholder', '' ),
+			'value'          => Arr::get( $arguments, $field_name ),
 		];
 
 		$children = Arr::get( $field, 'children', [] );
