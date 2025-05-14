@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Prevetn a fatal when calling undefined should_register_assets upline.

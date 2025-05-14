@@ -309,16 +309,4 @@ implements Tribe__Editor__Blocks__Interface {
 	public function get_registration_args( array $args ): array {
 		return $args;
 	}
-
-	/**
-	 * Whether the block should register assets. Default is true.
-	 * Override in child classes to conditionally prevent assets from being registered.
-	 *
-	 * @since 5.2.0
-	 *
-	 * @return bool Whether the block should register assets.
-	 */
-	public function should_register_assets(): bool {
-		return true;
-	}
 }
