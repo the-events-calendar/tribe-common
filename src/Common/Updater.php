@@ -90,6 +90,10 @@ class Updater extends Tribe__Updater {
 			return;
 		}
 
+		if ( ! is_admin() ) {
+			return;
+		}
+
 		// Dom't run on AJAX requests.
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			return;
@@ -100,7 +104,11 @@ class Updater extends Tribe__Updater {
 			return;
 		}
 
-		add_action( 'admin_init', [ $this, 'do_updates' ] );
+		if ( ! $this->update_required() ) {
+			return;
+		}
+
+		$this->do_updates();
 	}
 
 	/**

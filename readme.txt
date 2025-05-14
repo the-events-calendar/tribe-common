@@ -1,5 +1,38 @@
 == Changelog ==
 
+= [6.6.0] 2025-05-13 =
+
+* Feature - Add a QR code Widget [TEC-5396]
+* Feature - Move QR-Related code from ET to Common [TEC-5426]
+* Feature - Move QR code library to Common [TEC-5403]
+* Fix - Resolve a console error about IAN loading [TCMN-184]
+* Tweak - Added filters: `tec_qr_code_can_use`, `tec_qr_notice_valid_pages`, `tec_qr_notice_valid_post_types`
+* Tweak - Removed actions: `tribe_log`
+* Tweak - Changed views: `v2/components/icons/messages-not-found`
+* Accessibility - Added proper accessibility attributes to the no results icon to ensure screen readers skip over it. [FBAR-332]
+* Accessibility - Improve accessibility of select2 component, allowing tabbing into elements. [FBAR-330]
+* Language - 4 new strings added, 2 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.5.5.1] 2025-04-28 =
+
+* Security - Added more safety checks to telemetry opt-ins/opt-outs. [TCMN-186]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 4 obsoleted.
+
+= [6.5.5] 2025-04-07 =
+
+* Fix - Prevents logging while common hasn't fully loaded yet.
+* Tweak - Compatibility update for Stellar Telemetry library.
+* Tweak - Modified how tribe_context() function and class handle populating locations, prevents `tribe_context_locations` filter from happening 500x per pageload.
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.5.4] 2025-03-31 =
+
+* Tweak - Added functions `tec_embed_header` and `tec_embed_footer` that can be used for header/footer in embed context.
+* Tweak - Make sure update callbacks are executed prior `wp_loaded` action. [TEC-5436]
+* Tweak - Removed background image for Onboarding Wizard to avoid confusion. [TEC_5412]
+* Fix - Added CSS that will hide the Install Event Tickets button following completing the Onboarding Wizard. [TEC-5410]
+* Language - 0 new strings added, 24 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.5.3] 2025-03-06 =
 
 * Version - Update Action Scheduler to 3.9.0
