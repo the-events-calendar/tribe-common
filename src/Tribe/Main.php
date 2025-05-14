@@ -5,6 +5,7 @@ use TEC\Common\Translations_Loader;
 use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
 use TEC\Common\Asset;
+use TEC\Common\Controller as Common_Controller;
 use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 
 // Don't load directly.
@@ -819,6 +820,7 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Service_Providers\Onboarding::class );
 		tribe_register_provider( \TEC\Common\Admin\Conditional_Content\Controller::class );
 		tribe_register_provider( \TEC\Common\Notifications\Controller::class );
+		tribe_register_provider( \TEC\Common\QR\Controller::class );
 		tribe_register_provider( Libraries\Provider::class );
 
 		// Load the new third-party integration system.
@@ -830,8 +832,8 @@ class Tribe__Main {
 		// Load Help Hub.
 		tribe_register_provider( TEC\Common\Admin\Help_Hub\Provider::class );
 
-		// Load the common hooks.
-		tribe_register_provider( TEC\Common\Hooks::class );
+		// Redirect all new registrations forward to this controller!
+		tribe_register_provider( Common_Controller::class );
 	}
 
 	/**
