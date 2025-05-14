@@ -29,6 +29,13 @@ class Controller extends Controller_Contract {
 	 */
 	public static string $registration_action = 'tec_qr_code_loaded';
 
+	/**
+	 * Whether the controller is active or not.
+	 *
+	 * @since 6.6.0
+	 *
+	 * @return bool Whether the controller is active or not.
+	 */
 	public function is_active(): bool {
 		return $this->can_use();
 	}
@@ -141,5 +148,23 @@ class Controller extends Controller_Contract {
 		 * @param bool $can_use Whether the QR code can be used based on the current environment.
 		 */
 		return apply_filters( 'tec_qr_code_can_use', $can_use );
+	}
+
+	/**
+	 * Binds the facade or throws an error.
+	 *
+	 * @since 6.6.0
+	 *
+	 * @deprecated TBD
+	 *
+	 * @return ?QR Either the build QR facade or null.
+	 */
+	public function bind_facade_or_error(): ?QR {
+		_deprecated_function( __METHOD__, 'TBD' );
+		if ( ! $this->is_active() ) {
+			return null;
+		}
+
+		return $this->container->get( QR::class );
 	}
 }
