@@ -32,7 +32,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Whether the controller is active or not.
 	 *
-	 * @since 6.6.0
+	 * @since TBD
 	 *
 	 * @return bool Whether the controller is active or not.
 	 */
