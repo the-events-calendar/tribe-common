@@ -29,7 +29,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-// The main plugin class.
+// The main plugin class. -- added to change the file.
 require_once dirname( __FILE__ ) . '/src/Tribe/Main.php';
 
 Tribe__Main::instance();
