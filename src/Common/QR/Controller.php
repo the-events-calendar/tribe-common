@@ -32,7 +32,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Whether the controller is active or not.
 	 *
-	 * @since TBD
+	 * @since 6.6.0.1
 	 *
 	 * @return bool Whether the controller is active or not.
 	 */
@@ -155,12 +155,12 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 6.6.0
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.6.0.1
 	 *
 	 * @return ?QR Either the build QR facade or null.
 	 */
 	public function bind_facade_or_error(): ?QR {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '6.6.0.1' );
 		if ( ! $this->is_active() ) {
 			return null;
 		}
