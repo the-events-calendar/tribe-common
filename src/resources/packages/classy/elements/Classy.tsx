@@ -12,7 +12,18 @@ import {
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 import ErrorBoundary from './components/ErrorBoundary';
 import ErrorDisplay from './components/ErrorDisplay';
-import { RegistryProvider } from '@wordpress/data';
+import { RegistryProvider, useSelect } from '@wordpress/data';
+
+function TestingComponent(){
+	const postTitle = useSelect((select)=>{
+		// @ts-ignore
+		return select('core/editor').getEditedPostAttribute('title');
+	}, []);
+
+	return (
+		<p>{postTitle}</p>
+	)
+}
 
 function ClassyApplication() {
 	return (
@@ -30,45 +41,7 @@ function ClassyApplication() {
 			}
 
 			<div className="classy-container">
-				<EventTitle
-					title={ _x(
-						'Event Title',
-						'The title of the event title field.',
-						'the-events-calendar'
-					) }
-				/>
-
-				<EventDateTime
-					title={ _x(
-						'Date and Time',
-						'The title of the event date and time field.',
-						'the-events-calendar'
-					) }
-				/>
-
-				<EventDetails
-					title={ _x(
-						'Event Details',
-						'The title of the event details field.',
-						'the-events-calendar'
-					) }
-				/>
-
-				<EventLocation
-					title={ _x(
-						'Location',
-						'The title of the event location field.',
-						'the-events-calendar'
-					) }
-				/>
-
-				<EventOrganizer
-					title={ _x(
-						'Event Organizer',
-						'The title of the event organizer field.',
-						'the-events-calendar'
-					) }
-				/>
+				<TestingComponent/>
 
 				<Slot name="classy.fields" />
 			</div>
