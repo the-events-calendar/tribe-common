@@ -5,6 +5,7 @@ import {
 	toggleVisibility as toggleVisualEditorVisibility,
 } from './visualEditor';
 import { createRegistry as createClassyRegistry } from '../store';
+import {WPDataRegistry} from "@wordpress/data/build-types/registry";
 
 /**
  * Cached instance of the classy element.
@@ -113,6 +114,7 @@ export function toggleElementVisibility(
 export function initApp( document: Document | null = null ): void {
 	document = document ?? window.document;
 	const classyRoot = createRoot( getOrCreateElement( document ) );
-	const registry = createClassyRegistry();
-	classyRoot.render( Classy( { registry } ) );
+	const registry = createClassyRegistry().then((registry: WPDataRegistry)=>{
+		classyRoot.render( Classy( { registry } ) );
+	});
 }
