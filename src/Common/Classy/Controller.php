@@ -178,6 +178,7 @@ class Controller extends Controller_Contract {
 		)->add_to_group_path( Common::class . '-packages' )
 			->add_to_group( 'tec-classy' )
 			->add_dependency( 'wp-tinymce' )
+			// @todo this should be dynamic depending on the loading context.
 			->enqueue_on( 'enqueue_block_editor_assets' )
 			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
 			->add_localize_script( 'tec.events.classy.data', [ $this, 'get_data' ] )
@@ -188,6 +189,7 @@ class Controller extends Controller_Contract {
 			'style-classy.css'
 		)->add_to_group_path( Common::class . '-packages' )
 			->add_to_group( 'tec-classy' )
+			// @todo this should be dynamic depending on the loading context.
 			->enqueue_on( 'enqueue_block_editor_assets' )
 			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
 			->register();
