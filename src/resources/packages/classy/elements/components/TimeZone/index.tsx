@@ -1,3 +1,1 @@
-import { default as TimeZone } from './TimeZone';
-
-export default TimeZone;
+export { default as TimeZone } from './TimeZone';

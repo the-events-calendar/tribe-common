@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 import { MouseEventHandler } from 'react';
-import DatePicker from '../../components/DatePicker';
 import { StartOfWeek } from '../../../types/StartOfWeek';
 import { RefObject, useRef } from '@wordpress/element';
 import { format } from '@wordpress/date';
 import { localizedData } from '../../../localized-data';
 import { _x } from '@wordpress/i18n';
-import TimePicker from '../../components/TimePicker';
+import { DatePicker } from '../../components/DatePicker';
+import { TimePicker } from '../../components/TimePicker';
 
 // @todo get this from the tec/classy store.
 const timeInterval = localizedData?.settings?.timeInterval ?? 15;

@@ -20,9 +20,9 @@ import { format, getDate } from '@wordpress/date';
 import { Hours } from '../../../types/Hours';
 import { Minutes } from '../../../types/Minutes';
 import StartSelector from './StartSelector';
-import EndSelector from './EndSelector';
-import TimeZone from '../../components/TimeZone';
+import { default as EndSelector } from './EndSelector';
 import { FieldProps } from '../../../types/FieldProps';
+import { TimeZone } from '../../components/TimeZone';
 
 type DateTimeRefs = {
 	endTimeHours: number;

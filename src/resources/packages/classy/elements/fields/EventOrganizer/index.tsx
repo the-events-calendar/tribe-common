@@ -1,1 +1,1 @@
-export { default } from './EventOrganizer';
+export { default as EventOrganizer } from './EventOrganizer';

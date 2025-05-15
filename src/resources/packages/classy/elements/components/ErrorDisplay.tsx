@@ -18,25 +18,27 @@ export default function ErrorDisplay( {
 		<div
 			className="classy-root classy-root--error"
 			style={ {
-				padding: '20px',
+				alignItems: 'center',
 				backgroundColor: '#fdd',
-				color: '#a94442',
 				border: '1px solid #d6e9c6',
+				color: '#a94442',
 				display: 'flex',
 				flexDirection: 'column',
-				alignItems: 'center',
-				justifyContent: 'center',
 				gap: '20px',
+				justifyContent: 'center',
 				overflow: 'scroll',
+				padding: '20px',
 			} }
 		>
 			<h2>An error occurred in the Classy application:</h2>
 			<pre
 				style={ {
-					marginTop: '20px',
 					backgroundColor: '#eee',
-					padding: '15px',
 					borderRadius: '4px',
+					marginTop: '20px',
+					maxWidth: '100%',
+					padding: '15px',
+					textWrap: 'pretty',
 				} }
 			>
 				{ error.stack }
