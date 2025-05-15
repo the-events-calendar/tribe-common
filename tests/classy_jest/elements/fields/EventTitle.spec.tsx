@@ -7,7 +7,7 @@ import {
 	jest,
 	test,
 } from '@jest/globals';
-import { EventTitle } from '../../../../src/resources/packages/classy/elements';
+import { PostTitle } from '../../../../src/resources/packages/classy/elements';
 import { render } from '@testing-library/react';
 import { dispatch } from '@wordpress/data';
 import {
@@ -42,7 +42,7 @@ describe( 'EventTitle ', () => {
 				},
 			} );
 
-			const { container } = render( <EventTitle title="Event Title" /> );
+			const { container } = render( <PostTitle title="Event Title" /> );
 
 			expect( container ).toMatchSnapshot();
 		} );
@@ -70,7 +70,7 @@ describe( 'EventTitle ', () => {
 				},
 			} );
 
-			const { container } = render( <EventTitle title="Event Title" /> );
+			const { container } = render( <PostTitle title="Event Title" /> );
 
 			expect( container ).toMatchSnapshot();
 		} );
@@ -89,7 +89,7 @@ describe( 'EventTitle ', () => {
 				meta: {},
 			} );
 
-			const { container } = render( <EventTitle title="Event Title" /> );
+			const { container } = render( <PostTitle title="Event Title" /> );
 
 			expect( container ).toMatchSnapshot();
 		} );
@@ -104,7 +104,7 @@ describe( 'EventTitle ', () => {
 				},
 			} );
 
-			const { container } = render( <EventTitle title="Event Title" /> );
+			const { container } = render( <PostTitle title="Event Title" /> );
 
 			expect( container ).toMatchSnapshot();
 		} );

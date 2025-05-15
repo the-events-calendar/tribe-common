@@ -5,7 +5,7 @@
  * This is used by the feature to replace the legacy `editor`, `events.editor` and `events.editor.compatibility`
  * bindings in the container.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\Classy;
  */
@@ -15,7 +15,7 @@ namespace TEC\Common\Classy\Back_Compatibility;
 /**
  * Class Back_Compatible_Editor.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\Classy;
  */

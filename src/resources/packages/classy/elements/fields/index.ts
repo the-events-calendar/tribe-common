@@ -1,4 +1,4 @@
-export * from './EventTitle';
+export * from './PostTitle';
 export * from './EventDetails';
 export * from './EventDateTime';
 export * from './EventOrganizer';

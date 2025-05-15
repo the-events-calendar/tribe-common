@@ -4,7 +4,7 @@ import { doAction } from '@wordpress/hooks';
 import { _x } from '@wordpress/i18n';
 import {
 	EventDetails,
-	EventTitle,
+	PostTitle,
 	EventDateTime,
 	EventOrganizer,
 	EventLocation,
@@ -30,7 +30,7 @@ function ClassyApplication() {
 			}
 
 			<div className="classy-container">
-				<EventTitle
+				<PostTitle
 					title={ _x(
 						'Event Title',
 						'The title of the event title field.',

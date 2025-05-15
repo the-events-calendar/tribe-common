@@ -2,7 +2,7 @@
 /**
  * The main controller responsible for the New Editor feature.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\Classy;
  */
@@ -22,7 +22,7 @@ use WP_Post;
 /**
  * Class Controller.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\Classy;
  */
@@ -176,21 +176,21 @@ class Controller extends Controller_Contract {
 			'tec-classy',
 			'classy.js'
 		)->add_to_group_path( Common::class . '-packages' )
-		     ->add_to_group( 'tec-classy' )
-		     ->add_dependency( 'wp-tinymce' )
-		     ->enqueue_on( 'enqueue_block_editor_assets' )
-		     ->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
-		     ->add_localize_script( 'tec.events.classy.data', [ $this, 'get_data' ] )
-		     ->register();
+			->add_to_group( 'tec-classy' )
+			->add_dependency( 'wp-tinymce' )
+			->enqueue_on( 'enqueue_block_editor_assets' )
+			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
+			->add_localize_script( 'tec.events.classy.data', [ $this, 'get_data' ] )
+			->register();
 
 		Asset::add(
 			'tec-classy-style',
 			'style-classy.css'
 		)->add_to_group_path( Common::class . '-packages' )
-		     ->add_to_group( 'tec-classy' )
-		     ->enqueue_on( 'enqueue_block_editor_assets' )
-		     ->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
-		     ->register();
+			->add_to_group( 'tec-classy' )
+			->enqueue_on( 'enqueue_block_editor_assets' )
+			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
+			->register();
 	}
 
 	/**
@@ -288,14 +288,14 @@ class Controller extends Controller_Contract {
 			[ 0, 0 ],
 			explode( ':', $multi_day_cutoff, 2 )
 		);
-		$date_with_year_format    = tribe_get_option( 'dateWithYearFormat', 'F j, Y' );
-		$date_without_year_format = tribe_get_option( 'dateWithoutYearFormat', 'F j' );
-		$month_and_year_format    = tribe_get_option( 'monthAndYearFormat', 'F Y' );
-		$compact_date_format      = Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat', 1 ) );
-		$data_time_separator      = tribe_get_option( 'dateTimeSeparator', ' @ ' );
-		$time_range_separator     = tribe_get_option( 'timeRangeSeparator', ' - ' );
-		$time_format              = tribe_get_option( 'time_format', 'g:i a' );
-		$timezone_choice          = wp_timezone_choice( $timezone_string );
+		$date_with_year_format                                 = tribe_get_option( 'dateWithYearFormat', 'F j, Y' );
+		$date_without_year_format                              = tribe_get_option( 'dateWithoutYearFormat', 'F j' );
+		$month_and_year_format                                 = tribe_get_option( 'monthAndYearFormat', 'F Y' );
+		$compact_date_format                                   = Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat', 1 ) );
+		$data_time_separator                                   = tribe_get_option( 'dateTimeSeparator', ' @ ' );
+		$time_range_separator                                  = tribe_get_option( 'timeRangeSeparator', ' - ' );
+		$time_format     = tribe_get_option( 'time_format', 'g:i a' );
+		$timezone_choice = wp_timezone_choice( $timezone_string );
 
 		/**
 		 * The time interval in minutes to use when populating the time picker options.

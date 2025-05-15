@@ -3,7 +3,7 @@ import { __experimentalInputControl as InputControl } from '@wordpress/component
 import { useState, useEffect } from 'react';
 import { useSelect, useDispatch } from '@wordpress/data';
 
-export function EventTitle( props: EventTitleProps ) {
+export function PostTitle(props: EventTitleProps ) {
 	// @todo in a component like this one: dispatch to the `tec/classy` store directly or to the `core/editor` registry?
 	const postTitle = useSelect( ( select ) => {
 		const { getEditedPostAttribute }: { getEditedPostAttribute: Function } =
