@@ -456,7 +456,7 @@ trait Create_Attendees {
 		$ticket_id = $this->create_tc_ticket( $event->ID, 8 );
 
 		$cart = new Cart();
-		$cart->get_repository()->add_item( $ticket_id, 5 );
+		$cart->get_repository()->upsert_item( $ticket_id, 5 );
 
 		$purchaser = [
 			'purchaser_user_id'    => 0,

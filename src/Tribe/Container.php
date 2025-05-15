@@ -289,6 +289,7 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 		$container = Tribe__Container::init();
 
 		if ( $provider_class === 'Tribe\Tickets\Admin\Home\Service_Provider' ) {
+			static $tec_common_et_registered = false;
 			/**
 			 * Prevent binding a poorly located service provider registration in ET pre 5.6.0
 			 * and places it after ET Main::bind_implementations().
@@ -296,9 +297,24 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 			 * @todo: Remove this after TEC 7.5 after enough time has passed.
 			 */
 			add_action(
-				'tribe_tickets_plugin_loaded',
-				static function() use ( $container ) {
+				'tec_tickets_fully_loaded',
+				static function () use ( $container, &$tec_common_et_registered ) {
+					if ( ! empty( $tec_common_et_registered ) ) {
+						return;
+					}
 					$container->register( Tribe\Tickets\Admin\Home\Service_Provider::class );
+					$tec_common_et_registered = true;
+				}
+			);
+
+			add_action(
+				'tribe_tickets_plugin_loaded',
+				static function () use ( $container, &$tec_common_et_registered ) {
+					if ( ! empty( $tec_common_et_registered ) ) {
+						return;
+					}
+					$container->register( Tribe\Tickets\Admin\Home\Service_Provider::class );
+					$tec_common_et_registered = true;
 				}
 			);
 		} else {
