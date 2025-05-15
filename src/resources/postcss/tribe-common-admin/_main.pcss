@@ -177,6 +177,22 @@ table.plugins {
 		border: 1px solid #f00;
 	}
 
+	.notice {
+		/**
+		 * Base tooltip styles for admin notices.
+		 *
+		 * This class should be used alongside `.notice`. You may also apply WordPress core
+		 * modifiers like `.notice-error`, `.notice-warning`, etc.
+		 */
+		&.tec-tooltip-notice {
+			padding: var(--tec-spacer-1) var(--tec-spacer-2);
+
+			&.tec-tooltip-notice--inline {
+				display: inline-block;
+			}
+		}
+	}
+
 	.tribe-field-description {
 		margin-bottom: 0;
 		position: relative;

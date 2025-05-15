@@ -127,11 +127,16 @@
 
 			@media (--viewport-xlarge) {
 				grid-column: 2;
-				padding-bottom: var(--tec-spacer-7);
 
 				&:nth-last-child(-n +1 of .tec-settings-form__content-section) {
 					padding-bottom: 0;
 				}
+			}
+		}
+
+		> div {
+			@media (--viewport-xlarge) {
+				padding-bottom: var(--tec-spacer-7);
 			}
 		}
 	}
