@@ -109,14 +109,11 @@ export function toggleElementVisibility(
  * @param {Document|null} document - The document to use for element creation.
  *	 If null, the global document will be used.
  *
- * @returns {void}
+ * @returns {Promise<void>} A promise that will resolve once the application is initialized.
  */
-export function initApp( document: Document | null = null ): void {
+export async function initApp( document: Document | null = null ): Promise<void> {
 	document = document ?? window.document;
 	const classyRoot = createRoot( getOrCreateElement( document ) );
-	const registry = createClassyRegistry().then(
-		( registry: WPDataRegistry ) => {
-			classyRoot.render( Classy( { registry } ) );
-		}
-	);
+	const registry = await createClassyRegistry();
+	classyRoot.render( Classy( { registry } ) );
 }
