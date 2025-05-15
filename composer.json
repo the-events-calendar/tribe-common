@@ -101,7 +101,8 @@
     ],
     "analyze": [
       "phpstan analyse -c phpstan.neon.dist --memory-limit=512M"
-    ]
+    ],
+    "classy:format": "vendor/bin/phpcbf src/Common/Classy"
   },
   "extra": {
     "strauss": {

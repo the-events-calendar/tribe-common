@@ -34,11 +34,19 @@ class Tribe__Assets {
 	 * Hooks the filters used to register the assets.
 	 *
 	 * @since 5.3.0
+	 * @since TBD   Fire the `tec_common_assets_loaded` action after the class was built and hooked.
 	 *
 	 * @return void
 	 */
 	public function hook(): void {
 		add_filter( 'stellarwp/assets/tec/enqueue', [ $this, 'proxy_enqueue_filter' ], 10, 2 );
+
+		/**
+		 * Fires after the `Tribe__Assets` class was built and hooked.
+		 *
+		 * @since TBD
+		 */
+		do_action( 'tec_common_assets_loaded' );
 	}
 
 	/**
@@ -444,6 +452,10 @@ class Tribe__Assets {
 			foreach ( (array) $arguments['groups'] as $group ) {
 				$asset->add_to_group( $group );
 			}
+		}
+
+		if ( isset( $arguments['group_path'] ) && is_string( $arguments['group_path'] ) ) {
+			$asset->add_to_group_path( $arguments['group_path'] );
 		}
 
 		if ( isset( $arguments['print_before'] ) ) {
