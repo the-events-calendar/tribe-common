@@ -10,9 +10,8 @@ import {
 	EventLocation,
 } from './fields';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
-import ErrorBoundary from './components/ErrorBoundary';
-import ErrorDisplay from './components/ErrorDisplay';
 import { RegistryProvider } from '@wordpress/data';
+import {ErrorBoundary} from "./components/ErrorBoundary";
 
 function ClassyApplication() {
 	return (
@@ -78,9 +77,7 @@ function ClassyApplication() {
 
 export function Classy( { registry }: { registry: WPDataRegistry } ) {
 	return (
-		<ErrorBoundary
-			fallback={ ( error: Error ) => <ErrorDisplay error={ error } /> }
-		>
+	<ErrorBoundary >
 			<RegistryProvider value={ registry }>
 				<ClassyApplication />
 			</RegistryProvider>

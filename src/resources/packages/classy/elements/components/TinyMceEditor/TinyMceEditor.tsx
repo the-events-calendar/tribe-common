@@ -8,7 +8,7 @@ import { TinyMceEditorProps } from '../../types/EditorComponentProps';
  *
  * @return {JSX.Element} The rendered editor.
  */
-export function TinyMceEditor( { content, onChange, id }: TinyMceEditorProps ) {
+export default function TinyMceEditor( { content, onChange, id }: TinyMceEditorProps ) {
 	const [ value, setValue ] = useState( content );
 	const [ , setEditor ] = useState< any >( null );
 

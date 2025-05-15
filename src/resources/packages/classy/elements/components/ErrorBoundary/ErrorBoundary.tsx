@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-
-type FallbackComponentType = ( error: Error ) => React.ReactNode;
+import ErrorDisplay from "./ErrorDisplay";
 
 type ErrorBoundaryProps = {
 	children: React.ReactNode;
-	fallback: FallbackComponentType;
 };
 
 type ErrorBoundaryState = {
@@ -68,7 +66,7 @@ export default class ErrorBoundary extends Component<
 	 */
 	render() {
 		if ( this.state.error !== null ) {
-			return this.props.fallback( this.state.error );
+			return (<ErrorDisplay error={this.state.error}/>)
 		}
 
 		return this.props.children;
