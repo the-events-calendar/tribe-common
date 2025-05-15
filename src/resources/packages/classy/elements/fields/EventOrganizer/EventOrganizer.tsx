@@ -14,6 +14,7 @@ import { FetchedOrganizer } from '../../../types/FetchedOrganizer';
 import OrganizerCards from './OrganizerCards';
 import OrganizerUpsertModal from './OrganizerUpsertModal';
 import { OrganizerData } from '../../../types/OrganizerData';
+import { FieldProps } from '../../../types/FieldProps';
 
 function buildOptionFromFetchedOrganizer(
 	organizer: FetchedOrganizer
@@ -48,7 +49,7 @@ function getUpdatedOptions(
 		.sort( sortOptionsForDisplay );
 }
 
-export function EventOrganizer( props: { title: string } ) {
+export default function EventOrganizer( props: FieldProps ) {
 	// Initially set the options to an array that only contains the placeholder.
 	const [ options, setOptions ] = useState( [ placeholderOption ] );
 

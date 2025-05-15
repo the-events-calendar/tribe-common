@@ -12,6 +12,7 @@ import { FetchedVenue } from '../../../types/FetchedVenue';
 import VenueCards from './VenueCards';
 import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
 import { sortOptionsForDisplay } from '../../../functions/sortOptionsForDisplay';
+import { FieldProps } from '../../../types/FieldProps';
 
 function buildOptionFromFetchedVenue(
 	venue: FetchedVenue
@@ -44,7 +45,7 @@ function getUpdatedOptions(
 		.sort( sortOptionsForDisplay );
 }
 
-export function EventLocation( props: { title: string } ) {
+export default function EventLocation( props: FieldProps ) {
 	// Initially set the options to an array that only contains the placeholder.
 	const [ options, setOptions ] = useState( [ placeholderOption ] );
 

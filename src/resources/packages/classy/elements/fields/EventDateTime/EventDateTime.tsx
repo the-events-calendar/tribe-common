@@ -22,10 +22,7 @@ import { Minutes } from '../../../types/Minutes';
 import StartSelector from './StartSelector';
 import EndSelector from './EndSelector';
 import TimeZone from '../../components/TimeZone';
-
-type DateTimeProps = {
-	title: string;
-};
+import { FieldProps } from '../../../types/FieldProps';
 
 type DateTimeRefs = {
 	endTimeHours: number;
@@ -193,10 +190,10 @@ function getAllDayNewDates(
  *
  * @since TBD
  *
- * @param {DateTimeProps} props Component properties including title.
+ * @param {FieldProps} props Component properties including title.
  * @return {JSX.Element} The rendered EventDateTime component.
  */
-export default function EventDateTime( props: DateTimeProps ) {
+export default function EventDateTime( props: FieldProps ) {
 	const {
 		eventStart,
 		eventEnd,

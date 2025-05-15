@@ -1,14 +1,14 @@
 import React from 'react';
 import { _x } from '@wordpress/i18n';
-import { EventDetailsProps } from '../../types/FieldProps';
 import { __experimentalInputControl as InputControl } from '@wordpress/components';
 import { useEffect, useState } from 'react';
-import { METADATA_EVENT_URL } from '../../constants';
 import { PostFeaturedImage } from '@wordpress/editor';
-import { TinyMceEditor } from '../components/TinyMceEditor';
 import { useDispatch, useSelect } from '@wordpress/data';
+import { TinyMceEditor } from '../../components/TinyMceEditor';
+import { METADATA_EVENT_URL } from '../../../constants';
+import { FieldProps } from '../../../types/FieldProps';
 
-export function EventDetails( props: EventDetailsProps ) {
+export default function EventDetails( props: FieldProps ) {
 	const { postContent, meta } = useSelect( ( select ) => {
 		const selector = select( 'core/editor' );
 		return {

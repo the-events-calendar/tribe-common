@@ -1,5 +1,5 @@
-export * from './PostTitle';
-export * from './EventDetails';
-export * from './EventDateTime';
-export * from './EventOrganizer';
-export * from './EventLocation';
+export { default as PostTitle } from './PostTitle';
+export { default as EventDetails } from './EventDetails';
+export { default as EventDateTime } from './EventDateTime';
+export { default as EventOrganizer } from './EventOrganizer';
+export { default as EventLocation } from './EventLocation';

@@ -1,1 +1,1 @@
-export { default as EventDateTime } from './EventDateTime';
+export { default } from './EventDateTime';

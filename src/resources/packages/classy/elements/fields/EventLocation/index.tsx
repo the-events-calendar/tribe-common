@@ -1,1 +1,1 @@
-export * from './EventLocation';
+export { default } from './EventLocation';
