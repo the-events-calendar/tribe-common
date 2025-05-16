@@ -322,15 +322,18 @@ class Hub {
 	 * to customize or add additional classes via the `tec_help_hub_body_classes` filter.
 	 *
 	 * @since 6.3.2
+	 * @since TBD removed type hinting.
 	 *
 	 * @param string $classes Space-separated string of classes for the body tag.
 	 *
 	 * @return string Filtered list of classes.
 	 */
-	public function add_help_page_body_class( string $classes ): string {
+	public function add_help_page_body_class( $classes ) {
 		if ( ! self::is_current_page() ) {
 			return $classes;
 		}
+
+		$classes = (string) $classes;
 
 		// Default classes for Help Hub.
 		$default_classes = [ 'tribe-help', 'tec-help' ];
