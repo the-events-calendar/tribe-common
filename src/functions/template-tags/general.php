@@ -735,7 +735,7 @@ function tribe_asset_enqueue_group( $group, $force = true ) {
  *
  * @param object $origin    The main object for the plugin you are enqueueing the script/style for.
  * @param array  $assets    Indexed array, don't use any associative key.
- *                          E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ].
+ *                          E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ]
  *     {
  *
  *        @type string   $slug       The slug to save the asset.
@@ -982,6 +982,7 @@ if ( ! function_exists( 'tec_asset' ) ) {
 	}
 }
 
+//phpcs:disable Squiz.Commenting.FunctionComment.ParamCommentFullStop
 if ( ! function_exists( 'tec_assets' ) ) {
 	/**
 	 * Function to include more the one asset, based on `tribe_asset`
@@ -989,9 +990,9 @@ if ( ! function_exists( 'tec_assets' ) ) {
 	 * @since TBD
 	 *
 	 * @param object $origin    The main object for the plugin you are enqueueing the script/style for.
-	 * @param array  $assets    { Indexed array, don't use any associative key.
+	 * @param array  $assets    Indexed array, don't use any associative key.
 	 *      E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ]
-	 *
+	 *     {
 	 *        @type string   $slug       The slug to save the asset.
 	 *        @type string   $file       Which file will be loaded, either CSS or JS.
 	 *        @type array    $deps       (optional) Dependencies.
@@ -1045,4 +1046,5 @@ if ( ! function_exists( 'tec_assets' ) ) {
 
 		return $registered;
 	}
+	//phpcs:enable Squiz.Commenting.FunctionComment.ParamCommentFullStop
 }
