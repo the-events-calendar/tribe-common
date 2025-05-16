@@ -76,9 +76,7 @@ class Row extends PureComponent {
 		const parent = e.currentTarget.parentNode;
 		const content = e.currentTarget.nextElementSibling;
 
-		this.state.isActive
-			? parent.classList.add( 'closing' )
-			: parent.classList.add( 'opening' );
+		this.state.isActive ? parent.classList.add( 'closing' ) : parent.classList.add( 'opening' );
 		this.state.isActive
 			? slide.up( content, contentId, 200, this.onClose( parent, e ) )
 			: slide.down( content, contentId, 200, this.onOpen( parent, e ) );
@@ -88,35 +86,19 @@ class Row extends PureComponent {
 	};
 
 	render() {
-		const {
-			content,
-			contentClassName,
-			header,
-			headerClassName,
-		} = this.props;
+		const { content, contentClassName, header, headerClassName } = this.props;
 
 		return (
-			<article
-				className={ classNames(
-					'tribe-editor__accordion__row',
-					{ active: this.state.isActive },
-				) }
-			>
+			<article className={ classNames( 'tribe-editor__accordion__row', { active: this.state.isActive } ) }>
 				<Button
-					className={ classNames(
-						'tribe-editor__accordion__row-header',
-						headerClassName,
-					) }
+					className={ classNames( 'tribe-editor__accordion__row-header', headerClassName ) }
 					onClick={ ( e ) => this.onClick( e ) }
 					{ ...this.getHeaderAttrs() }
 				>
 					{ header }
 				</Button>
 				<div
-					className={ classNames(
-						'tribe-editor__accordion__row-content',
-						contentClassName,
-					) }
+					className={ classNames( 'tribe-editor__accordion__row-content', contentClassName ) }
 					{ ...this.getContentAttrs() }
 				>
 					{ content }

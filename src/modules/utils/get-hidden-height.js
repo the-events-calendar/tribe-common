@@ -1,6 +1,6 @@
 /**
  * @function getHiddenHeight
- * @desc gets the height of hidden objects.
+ * @description gets the height of hidden objects.
  */
 
 const getHiddenHeight = ( el ) => {

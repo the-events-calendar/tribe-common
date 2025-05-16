@@ -4,7 +4,7 @@ tribe.tooltip = tribe.tooltip || {};
 ( function ( $, obj ) {
 	'use strict';
 
-	var $document = $( document );
+	const $document = $( document );
 
 	/**
 	 * Object containing the relevant selectors
@@ -29,8 +29,8 @@ tribe.tooltip = tribe.tooltip || {};
 	obj.setup = function () {
 		$document.on( 'click', obj.selectors.tooltip, obj.onClick );
 
-		$document.on( 'click', function( event ) {
-			var tooltip = event.target.closest( obj.selectors.tooltip );
+		$document.on( 'click', function ( event ) {
+			const tooltip = event.target.closest( obj.selectors.tooltip );
 			if ( ! tooltip ) {
 				$( obj.selectors.tooltip ).each( function () {
 					$( this ).removeClass( obj.selectors.active ).attr( 'aria-expanded', false );
@@ -47,8 +47,8 @@ tribe.tooltip = tribe.tooltip || {};
 	 * @return {void}
 	 */
 	obj.onClick = function () {
-		var $tooltip = $( this ).closest( obj.selectors.tooltip );
-		var add = ! $tooltip.hasClass( obj.selectors.active );
+		const $tooltip = $( this ).closest( obj.selectors.tooltip );
+		const add = ! $tooltip.hasClass( obj.selectors.active );
 
 		$( obj.selectors.tooltip ).each( function () {
 			$( this ).removeClass( obj.selectors.active ).attr( 'aria-expanded', false );
@@ -60,5 +60,4 @@ tribe.tooltip = tribe.tooltip || {};
 	};
 
 	$( obj.setup );
-
 } )( jQuery, tribe.tooltip );

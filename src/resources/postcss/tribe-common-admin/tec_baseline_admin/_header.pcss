@@ -7,12 +7,15 @@
  * -----------------------------------------------------------------------------
  */
 .tec-admin-page__header {
+	align-items: center;
 	background: none;
 	background-color: transparent;
 	column-gap: var(--tec-spacer-1);
 	display: flex;
 	flex-flow: row nowrap;
 	grid-area: header;
+	justify-content: flex-start;
+	max-width: 100%;
 	padding: var(--tec-spacer-5) var(--tec-spacer-7) 0;
 	position: relative;
 
@@ -24,13 +27,13 @@
 }
 
 .tec-admin-page__logo {
-	margin: 0;
-	padding: var(--tec-spacer-1);
-	vertical-align: middle;
-	width: var(--tec-spacer-7);
+	height: 40px;
+	margin-left: var(--tec-spacer-0);
+	padding: var(--tec-spacer-0);
+	width: 40px;
 }
 
-.tec-admin-page__header-title {
+h1.tec-admin-page__header-title {
 	color: #000;
 	font-size: var(--tec-font-size-7);
 	font-weight: var(--tec-font-weight-regular);

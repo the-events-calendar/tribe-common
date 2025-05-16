@@ -90,7 +90,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		 * Registers the plugin assets
 		 */
 		protected function register_assets() {
-			tribe_assets(
+			tec_assets(
 				Tribe__Main::instance(),
 				[
 					[ 'tribe-app-shop-css', 'app-shop.css' ],

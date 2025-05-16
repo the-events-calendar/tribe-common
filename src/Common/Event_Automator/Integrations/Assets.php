@@ -24,7 +24,7 @@ class Assets {
 	 * @since 6.0.0 Migrated to Common from Event Automator
 	 */
 	public function register_admin_assets() {
-		tribe_asset(
+		tec_asset(
 			\Tribe__Main::instance(),
 			'tec-event-automator-js',
 			'tec-event-automator.js',
