@@ -566,7 +566,7 @@ if ( ! function_exists( 'tribe_get_date_option' ) ) {
 	 * Retrieve an option value taking care to escape it to preserve date format slashes.
 	 *
 	 * @category Events
-	 * @param  string $optionName Name of the option to retrieve.
+	 * @param string $optionName Name of the option to retrieve.
 	 * @param string $default    Value to return if no such option is found.
 	 *
 	 * @return mixed Value of the option if found
@@ -581,9 +581,9 @@ if ( ! function_exists( 'tribe_get_date_option' ) ) {
 /**
  * Shortcut for Tribe__Admin__Notices::register(), create a Admin Notice easily
  *
- * @param  string          $slug      Slug to save the notice
- * @param  callable|string $callback  A callable Method/Function to actually display the notice
- * @param  array           $arguments Arguments to Setup a notice
+ * @param string          $slug      Slug to save the notice
+ * @param callable|string $callback  A callable Method/Function to actually display the notice
+ * @param array           $arguments Arguments to Setup a notice
  * @param callable|null   $active_callback An optional callback that should return bool values
  *                                         to indicate whether the notice should display or not.
  *
@@ -599,9 +599,9 @@ function tribe_notice( $slug, $callback, $arguments = [], $active_callback = nul
  * A transient admin notice is a "fire-and-forget" admin notice that will display once registered and
  * until dismissed (if dismissible) without need, on the side of the source code, to register it on each request.
  *
- * @param  string $slug      Slug to save the notice
- * @param  string $html      The notice output HTML code
- * @param  array  $arguments Arguments to Setup a notice
+ * @param string $slug      Slug to save the notice
+ * @param string $html      The notice output HTML code
+ * @param array  $arguments Arguments to Setup a notice
  * @param int    $expire    After how much time (in seconds) the notice will stop showing.
  *
  * @return stdClass Which notice was registered
@@ -626,9 +626,9 @@ function tribe_transient_notice_remove( $slug ) {
 /**
  * A quick internal way of sending errors using WP_Error
  *
- * @param  string|array $indexes Which Error we are looking for
- * @param  array        $context Gives the Error context
- * @param  array        $sprintf Allows variables on the message
+ * @param string|array $indexes Which Error we are looking for
+ * @param array        $context Gives the Error context
+ * @param array        $sprintf Allows variables on the message
  *
  * @return WP_Error
  */
@@ -639,8 +639,8 @@ function tribe_error( $indexes, $context = [], $sprintf = [] ) {
 /**
  * Register a new error based on a Namespace
  *
- * @param  string|array $indexes  A list of the namespaces and last item should be the error name.
- * @param  string       $message  What is going to be the message associate with this indexes.
+ * @param string|array $indexes  A list of the namespaces and last item should be the error name.
+ * @param string       $message  What is going to be the message associate with this indexes.
  *
  * @return boolean Whether the error was registered or not.
  */
@@ -732,17 +732,17 @@ function tribe_asset_enqueue_group( $group, $force = true ) {
  * @since 4.3
  * @since 4.12.10 Added support for overriding arguments for individual assets.
  *
- * @param  object $origin     The main Object for the plugin you are enqueueing the script/style for.
- * @param  array  $assets     {
+ * @param object $origin     The main Object for the plugin you are enqueueing the script/style for.
+ * @param array  $assets     {
  *      Indexed array, don't use any associative key.
  *      E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ]
  *
- *        @type  string   $slug       Slug to save the asset.
- *        @type  string   $file       Which file will be loaded, either CSS or JS.
- *        @type  array    $deps       (optional) Dependencies
+ *        @type string   $slug       Slug to save the asset.
+ *        @type string   $file       Which file will be loaded, either CSS or JS.
+ *        @type array    $deps       (optional) Dependencies
  *     }
- * @param  string $action     A WordPress hook that will automatically enqueue this asset once fired.
- * @param  array  $arguments  Look at `Tribe__Assets::register()` for more info.
+ * @param string $action     A WordPress hook that will automatically enqueue this asset once fired.
+ * @param array  $arguments  Look at `Tribe__Assets::register()` for more info.
  *
  * @return array<Asset|bool>      Which Assets were registered.
  */
@@ -987,16 +987,16 @@ if ( ! function_exists( 'tec_assets' ) ) {
 	 *
 	 * @since TBD
 	 *
-	 * @param  object $origin     The main Object for the plugin you are enqueueing the script/style for.
-	 * @param  array  $assets     { Indexed array, don't use any associative key.
+	 * @param object $origin     The main Object for the plugin you are enqueueing the script/style for.
+	 * @param array  $assets     { Indexed array, don't use any associative key.
 	 *      E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ]
 	 *
-	 *        @type  string   $slug       Slug to save the asset.
-	 *        @type  string   $file       Which file will be loaded, either CSS or JS.
-	 *        @type  array    $deps       (optional) Dependencies
+	 *        @type string   $slug       Slug to save the asset.
+	 *        @type string   $file       Which file will be loaded, either CSS or JS.
+	 *        @type array    $deps       (optional) Dependencies
 	 *     }
-	 * @param  string $action     A WordPress hook that will automatically enqueue this asset once fired.
-	 * @param  array  $arguments  Look at `Tribe__Assets::register()` for more info.
+	 * @param string $action     A WordPress hook that will automatically enqueue this asset once fired.
+	 * @param array  $arguments  Look at `Tribe__Assets::register()` for more info.
 	 *
 	 * @return array<Asset|bool>      Which Assets were registered.
 	 */
