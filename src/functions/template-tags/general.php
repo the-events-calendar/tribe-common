@@ -726,6 +726,7 @@ function tribe_asset_enqueue_group( $group, $force = true ) {
 	Tribe__Assets::instance()->enqueue_group( $group, $force );
 }
 
+//phpcs:disable Squiz.Commenting.FunctionComment.ParamCommentFullStop
 /**
  * Function to include more the one asset, based on `tribe_asset`
  *
@@ -773,6 +774,7 @@ function tribe_assets( $origin, $assets, $action = null, $arguments = [] ) {
 
 	return $registered;
 }
+//phpcs:enable Squiz.Commenting.FunctionComment.ParamCommentFullStop
 
 if ( ! function_exists( 'tribe_doing_frontend' ) ) {
 	/**
