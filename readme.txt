@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [6.6.0.1] 2025-05-14 =
+
+* Fix - Prevents fatal if QR library in common has not loaded. [TEC-5497]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 1 obsoleted.
+
 = [6.6.0] 2025-05-13 =
 
 * Feature - Add a QR code Widget [TEC-5396]
