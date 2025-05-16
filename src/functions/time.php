@@ -1,5 +1,11 @@
 <?php
 /**
+ * Time functions.
+ *
+ * @since TBD
+ */
+
+/**
  * Gets the current time in the format Y-m-d H:i:s.u rounded to 4 decimals.
  * This function specifically has no dependencies any other code.
  *
@@ -11,7 +17,6 @@
  *                                    Defaults to null.
  * @param DateTimeZone|null $timezone The timezone to use. Defaults to null.
  *
- *
  * @return string
  */
 function tec_get_current_milliseconds( ?DateInterval $add = null, ?DateInterval $sub = null, ?DateTimeZone $timezone = null ): string {
@@ -22,7 +27,7 @@ function tec_get_current_milliseconds( ?DateInterval $add = null, ?DateInterval 
 	if ( $sub ) {
 		$time = $time->sub( $sub );
 	}
-	return $time->format( 'Y-m-d H:i:s' ) . '.' . str_pad( substr( microtime( true ), 11,4 ), 4, '0', STR_PAD_RIGHT );
+	return $time->format( 'Y-m-d H:i:s' ) . '.' . str_pad( substr( microtime( true ), 11, 4 ), 4, '0', STR_PAD_RIGHT );
 }
 
 /**
@@ -40,6 +45,6 @@ function tec_from_milliseconds_to_timestamp( ?string $milliseconds = null ): ?in
 	}
 
 	[$datetime,] = explode( '.', $milliseconds );
-	$time = DateTimeImmutable::createFromFormat( 'Y-m-d H:i:s', $datetime );
+	$time        = DateTimeImmutable::createFromFormat( 'Y-m-d H:i:s', $datetime );
 	return $time->getTimestamp();
 }
