@@ -435,7 +435,7 @@ if ( ! function_exists( 'tribe_count_hierarchical_keys' ) ) {
 	/**
 	 * Count keys in a hierarchical array.
 	 *
-	 * @param mixed $value The value to count.
+	 * @param mixed  $value The value to count.
 	 * @param string $key   The key to count.
 	 * @todo - remove, only used in the meta walker.
 	 */
@@ -735,7 +735,7 @@ function tribe_asset_enqueue_group( $group, $force = true ) {
  * @param object $origin    The main object for the plugin you are enqueueing the script/style for.
  * @param array  $assets    Indexed array, don't use any associative key.
  *                          E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ].
- * {
+ *     {
  *
  *        @type string   $slug       The slug to save the asset.
  *        @type string   $file       Which file will be loaded, either CSS or JS.
