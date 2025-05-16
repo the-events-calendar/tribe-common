@@ -59,11 +59,11 @@ class Controller_Test extends Controller_Test_Case {
 		$controller = $this->make_controller();
 		$controller->register();
 
-		$this->assertTrue( $controller->post_uses_new_editor( TEC::POSTTYPE ) );
-		$this->assertTrue( $controller->post_uses_new_editor( 'page' ) );
-		$this->assertFalse( $controller->post_uses_new_editor( 'post' ) );
-		$this->assertFalse( $controller->post_uses_new_editor( TEC::VENUE_POST_TYPE ) );
-		$this->assertFalse( $controller->post_uses_new_editor( TEC::ORGANIZER_POST_TYPE ) );
+		$this->assertTrue( $controller->post_uses_classy( TEC::POSTTYPE ) );
+		$this->assertTrue( $controller->post_uses_classy( 'page' ) );
+		$this->assertFalse( $controller->post_uses_classy( 'post' ) );
+		$this->assertFalse( $controller->post_uses_classy( TEC::VENUE_POST_TYPE ) );
+		$this->assertFalse( $controller->post_uses_classy( TEC::ORGANIZER_POST_TYPE ) );
 	}
 
 	public static function block_editor_settings_provider(): array {
