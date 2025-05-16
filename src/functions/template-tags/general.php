@@ -317,7 +317,7 @@ if ( ! function_exists( 'tribe_prepare_for_json' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param $string The string to prepare.
+	 * @param string $string The string to prepare.
 	 *
 	 * @return string The prepared string.
 	 */
@@ -393,7 +393,7 @@ if ( ! function_exists( 'tribe_the_notices' ) ) {
 
 if ( ! function_exists( 'tribe_is_bot' ) ) {
 	/**
-	 * tribe_is_bot checks if the visitor is a bot and returns status.
+	 * The tribe_is_bot checks if the visitor is a bot and returns status.
 	 *
 	 * @category Events
 	 *
@@ -435,8 +435,8 @@ if ( ! function_exists( 'tribe_count_hierarchical_keys' ) ) {
 	/**
 	 * Count keys in a hierarchical array.
 	 *
-	 * @param $value The value to count.
-	 * @param $key   The key to count.
+	 * @param mixed $value The value to count.
+	 * @param string $key   The key to count.
 	 * @todo - remove, only used in the meta walker.
 	 */
 	function tribe_count_hierarchical_keys( $value, $key ) {
@@ -733,9 +733,9 @@ function tribe_asset_enqueue_group( $group, $force = true ) {
  * @since 4.12.10 Added support for overriding arguments for individual assets.
  *
  * @param object $origin    The main object for the plugin you are enqueueing the script/style for.
- * @param array  $assets    {
- *      Indexed array, don't use any associative key.
- *      E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ]
+ * @param array  $assets    Indexed array, don't use any associative key.
+ *                          E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ].
+ * {
  *
  *        @type string   $slug       The slug to save the asset.
  *        @type string   $file       Which file will be loaded, either CSS or JS.
