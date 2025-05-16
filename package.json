@@ -80,6 +80,7 @@
   },
   "devDependencies": {
     "@stellarwp/tyson": "*",
+    "@wordpress/date": "^5.23.0",
     "@wordpress/hooks": "^1.3.2",
     "@wordpress/scripts": "^30.14.1",
     "cross-env": "^5.2.0",
