@@ -1,6 +1,6 @@
 <?php
 /**
- * The main controller responsible for the New Editor feature.
+ * The main controller responsible for the Classy editor feature.
  *
  * @since TBD
  *
@@ -123,7 +123,7 @@ class Controller extends Controller_Contract {
 		// Tell Common, TEC, ET and so on NOT to load blocks.
 		add_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
 
-		// We're using TEC new editor.
+		// We're using Classy editor.
 		add_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 
 		add_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100, 2 );
@@ -172,6 +172,8 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function register_assets() {
+		$post_uses_classy = fn() => $this->post_uses_classy( get_post_type() );
+
 		Asset::add(
 			'tec-classy',
 			'classy.js'
@@ -180,7 +182,7 @@ class Controller extends Controller_Contract {
 			->add_dependency( 'wp-tinymce' )
 			// @todo this should be dynamic depending on the loading context.
 			->enqueue_on( 'enqueue_block_editor_assets' )
-			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
+			->set_condition( $post_uses_classy )
 			->add_localize_script( 'tec.events.classy.data', [ $this, 'get_data' ] )
 			->register();
 
@@ -191,20 +193,20 @@ class Controller extends Controller_Contract {
 			->add_to_group( 'tec-classy' )
 			// @todo this should be dynamic depending on the loading context.
 			->enqueue_on( 'enqueue_block_editor_assets' )
-			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
+			->set_condition( $post_uses_classy )
 			->register();
 	}
 
 	/**
-	 * Returns whether the given Post uses the New Editor.
+	 * Returns whether the given Post uses the Classy editor.
 	 *
 	 * @since TBD
 	 *
 	 * @param string $post_type The post type to check.
 	 *
-	 * @return bool Whether the given Post uses the New Editor.
+	 * @return bool Whether the given Post uses the Classy editor.
 	 */
-	public function post_uses_new_editor( string $post_type ): bool {
+	public function post_uses_classy( string $post_type ): bool {
 		$supported_post_types = $this->get_supported_post_types();
 
 		return in_array( $post_type, $supported_post_types, true );
@@ -223,7 +225,7 @@ class Controller extends Controller_Contract {
 	public function filter_block_editor_settings( array $settings, WP_Block_Editor_Context $context ) {
 		if ( ! (
 			$context->post instanceof WP_Post
-			&& $this->post_uses_new_editor( $context->post->post_type )
+			&& $this->post_uses_classy( $context->post->post_type )
 		) ) {
 			return $settings;
 		}
@@ -235,19 +237,19 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
-	 * Returns the filtered list of Post Types that should be using the New Editor.
+	 * Returns the filtered list of Post Types that should be using the Classy editor.
 	 *
 	 * @since TBD
 	 *
-	 * @return list<string> The filtered list of Post Types that should be using the New Editor.
+	 * @return list<string> The filtered list of Post Types that should be using the Classy editor.
 	 */
 	private function get_supported_post_types(): array {
 		/**
-		 * Filters the list of post types that use the new editor.
+		 * Filters the list of post types that use the Classy editor.
 		 *
 		 * @since TBD
 		 *
-		 * @param array<string> $supported_post_types The list of post types that use the new editor.
+		 * @param array<string> $supported_post_types The list of post types that use the Classy editor.
 		 */
 		$supported_post_types = apply_filters(
 			'tec_events_classy_post_types',

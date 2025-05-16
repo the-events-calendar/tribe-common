@@ -111,7 +111,9 @@ export function toggleElementVisibility(
  *
  * @returns {Promise<void>} A promise that will resolve once the application is initialized.
  */
-export async function initApp( document: Document | null = null ): Promise<void> {
+export async function initApp(
+	document: Document | null = null
+): Promise< void > {
 	document = document ?? window.document;
 	const classyRoot = createRoot( getOrCreateElement( document ) );
 	const registry = await createClassyRegistry();

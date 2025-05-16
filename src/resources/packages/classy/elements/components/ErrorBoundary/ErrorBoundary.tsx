@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ErrorDisplay from "./ErrorDisplay";
+import ErrorDisplay from './ErrorDisplay';
 
 type ErrorBoundaryProps = {
 	children: React.ReactNode;
@@ -66,7 +66,7 @@ export default class ErrorBoundary extends Component<
 	 */
 	render() {
 		if ( this.state.error !== null ) {
-			return (<ErrorDisplay error={this.state.error}/>)
+			return <ErrorDisplay error={ this.state.error } />;
 		}
 
 		return this.props.children;

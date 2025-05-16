@@ -11,7 +11,7 @@ import {
 } from './fields';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 import { RegistryProvider } from '@wordpress/data';
-import {ErrorBoundary} from "./components/ErrorBoundary";
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 function ClassyApplication() {
 	return (
@@ -77,7 +77,7 @@ function ClassyApplication() {
 
 export function Classy( { registry }: { registry: WPDataRegistry } ) {
 	return (
-	<ErrorBoundary >
+		<ErrorBoundary>
 			<RegistryProvider value={ registry }>
 				<ClassyApplication />
 			</RegistryProvider>

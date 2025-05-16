@@ -14,8 +14,8 @@ import './style.pcss';
 whenEditorIsReady().then( () => {
 	hideZoomOutButton();
 	hideInserterToggle();
-	initClassyApp().then(()=>{
+	initClassyApp().then( () => {
 		insertClassyElement();
 		addEditorTools( () => toggleClassyElementVisibility() );
-	});
+	} );
 } );
