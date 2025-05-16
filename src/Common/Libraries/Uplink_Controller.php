@@ -102,29 +102,43 @@ class Uplink_Controller extends Controller_Contract {
 
 			$field_html = $field->get_render_html();
 
-			// Remove duplicate entries of plugins migrated to uplink.
-			if ( isset( $fields_array[ 'pue_install_key_' . $legacy_slug . '-heading' ] ) ) {
-				unset( $fields_array[ 'pue_install_key_' . $legacy_slug . '-heading' ] );
+			// Skip if the field HTML is empty to prevent empty containers.
+			if ( empty( trim( $field_html ) ) ) {
+				continue;
 			}
 
-			// Remove duplicate entries of plugins migrated to uplink.
-			if ( isset( $fields_array[ 'pue_install_key_' . $legacy_slug ] ) ) {
-				unset( $fields_array[ 'pue_install_key_' . $legacy_slug ] );
-			}
-
-			$fields_to_inject[ 'stellarwp-uplink_' . $plugin->get_slug() . '-heading' ] = [
-				'type'  => 'heading',
-				'label' => $plugin->get_name(),
+			// Remove all related entries for a plugin migrated to uplink.
+			$keys_to_check = [
+				'pue_install_key_' . $legacy_slug . '-heading',
+				'pue_install_key_' . $legacy_slug,
+				'pue_install_key_' . $legacy_slug . '-section-open',
+				'pue_install_key_' . $legacy_slug . '-section-close',
 			];
 
+			foreach ( $keys_to_check as $key ) {
+				if ( isset( $fields_array[ $key ] ) ) {
+					unset( $fields_array[ $key ] );
+				}
+			}
+
+			// Create a single wrapped field containing both the heading and the license field.
+			$wrapped_html  = '<div class="tec-settings-form__content-section">';
+			$wrapped_html .= '<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">' . $plugin->get_name() . '</h3>';
+			$wrapped_html .= $field_html;
+			$wrapped_html .= '</div>';
+
+			// Add as a single HTML field instead of separate heading and HTML fields.
 			$fields_to_inject[ 'stellarwp-uplink_' . $plugin->get_slug() ] = [
 				'type'  => 'html',
 				'label' => '',
-				'html'  => $field_html,
+				'html'  => $wrapped_html,
 			];
 		}
 
-		$fields_array = Arr::insert_after_key( 'tribe-form-content-start', $fields_array, $fields_to_inject );
+		// Only inject fields if we have something to inject.
+		if ( ! empty( $fields_to_inject ) ) {
+			$fields_array = Arr::insert_after_key( 'tribe-form-content-start', $fields_array, $fields_to_inject );
+		}
 
 		return $fields_array;
 	}

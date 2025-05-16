@@ -18,11 +18,7 @@ class Button extends PureComponent {
 	};
 
 	static propTypes = {
-		className: PropTypes.oneOfType( [
-			PropTypes.string,
-			PropTypes.arrayOf( PropTypes.string ),
-			PropTypes.object,
-		] ),
+		className: PropTypes.oneOfType( [ PropTypes.string, PropTypes.arrayOf( PropTypes.string ), PropTypes.object ] ),
 		isDisabled: PropTypes.bool,
 		children: PropTypes.node,
 		onClick: PropTypes.func,
@@ -30,14 +26,7 @@ class Button extends PureComponent {
 	};
 
 	render() {
-		const {
-			children,
-			className,
-			isDisabled,
-			onClick,
-			type,
-			...rest
-		} = this.props;
+		const { children, className, isDisabled, onClick, type, ...rest } = this.props;
 
 		return (
 			<button

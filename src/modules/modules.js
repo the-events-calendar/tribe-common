@@ -10,13 +10,4 @@ import * as redux from 'redux';
 import * as reduxSaga from 'redux-saga';
 import * as reselect from 'reselect';
 
-export {
-	classnames,
-	propTypes,
-	reactInputAutosize,
-	reactDayPicker,
-	reactRedux,
-	redux,
-	reduxSaga,
-	reselect,
-};
+export { classnames, propTypes, reactInputAutosize, reactDayPicker, reactRedux, redux, reduxSaga, reselect };

@@ -6,14 +6,14 @@ tribe.onboarding = {};
 
 /**
  *
- * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.onboarding
+ * @param {PlainObject} $   jQuery
+ * @param {PlainObject} obj tribe.onboarding
  *
  * @return {void}
  */
-( function( $, obj ) {
+( function ( $, obj ) {
 	'use strict';
-	var $document = $( document );
+	const $document = $( document );
 
 	/**
 	 * Selectors used for configuration and setup
@@ -28,13 +28,13 @@ tribe.onboarding = {};
 	 * Concatenate the CSS classes for the tooltip.
 	 *
 	 * @param {Array} classes
-	 * @returns {String} String containing the classes for the tooltip.
+	 * @return {string} String containing the classes for the tooltip.
 	 */
-	obj.getTooltipClasses = function( classes ) {
+	obj.getTooltipClasses = function ( classes ) {
 		const defaultClasses = [ 'tribe-onboarding__tooltip' ];
 
 		return defaultClasses.concat( classes ).join( ' ' );
-	}
+	};
 
 	/**
 	 * Init onboarding steps.
@@ -43,7 +43,7 @@ tribe.onboarding = {};
 	 *
 	 * @return void
 	 */
-	obj.initTour = function() {
+	obj.initTour = function () {
 		const steps = TribeOnboardingTour.steps;
 		const classes = TribeOnboardingTour.classes || [];
 
@@ -55,20 +55,22 @@ tribe.onboarding = {};
 			return;
 		}
 
-		introJs().setOptions( {
-			tooltipClass: obj.getTooltipClasses( classes ),
-			steps: steps
-		} ).start();
+		introJs()
+			.setOptions( {
+				tooltipClass: obj.getTooltipClasses( classes ),
+				steps,
+			} )
+			.start();
 	};
 
 	/**
-	* Init hints.
+	 * Init hints.
 	 *
 	 * @since 4.14.9
 	 *
 	 * @return void
 	 */
-	obj.initHints = function() {
+	obj.initHints = function () {
 		const hints = TribeOnboardingHints.hints;
 		const classes = TribeOnboardingHints.classes || [];
 
@@ -76,13 +78,15 @@ tribe.onboarding = {};
 			return;
 		}
 
-		introJs().setOptions( {
-			tooltipClass: obj.getTooltipClasses( classes ),
-			hintButtonLabel: TribeOnboarding.hintButtonLabel,
-			hintPosition: 'middle-right',
-			hintAnimation: true,
-			hints: hints,
-		} ).addHints();
+		introJs()
+			.setOptions( {
+				tooltipClass: obj.getTooltipClasses( classes ),
+				hintButtonLabel: TribeOnboarding.hintButtonLabel,
+				hintPosition: 'middle-right',
+				hintAnimation: true,
+				hints,
+			} )
+			.addHints();
 	};
 
 	/**
@@ -92,7 +96,7 @@ tribe.onboarding = {};
 	 *
 	 * @return {void}
 	 */
-	obj.ready = function() {
+	obj.ready = function () {
 		// Init Tour.
 		obj.initTour();
 
@@ -102,5 +106,4 @@ tribe.onboarding = {};
 
 	// Configure on document ready.
 	$document.ready( obj.ready );
-
 } )( jQuery, tribe.onboarding );

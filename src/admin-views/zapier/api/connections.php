@@ -21,7 +21,7 @@
 
 $keys = $api->get_list_of_api_keys( true );
 ?>
-<fieldset id="tec-field-zapier_token" class="tec-automator-api-fields tribe-field tribe-field-text tribe-size-medium tec-settings-form__element--colspan-2">
+<fieldset id="tec-field-zapier_token" class="tec-automator-api-fields tribe-field tribe-field-text tribe-size-medium">
 	<legend class="tribe-field-label"><?php esc_html_e( 'API Keys', 'tribe-common' ); ?></legend>
 	<div class="tec-automator-settings-message__wrap tec-zapier-api-keys-messages">
 		<?php

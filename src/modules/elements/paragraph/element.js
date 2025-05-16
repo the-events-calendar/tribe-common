@@ -16,15 +16,7 @@ export const SIZES = {
 };
 
 const Paragraph = ( { children, size = SIZES.medium, className } ) => (
-	<p
-		className={
-			classNames(
-				'tribe-editor__paragraph',
-				`tribe-editor__paragraph--${ size }`,
-				className,
-			)
-		}
-	>
+	<p className={ classNames( 'tribe-editor__paragraph', `tribe-editor__paragraph--${ size }`, className ) }>
 		{ children }
 	</p>
 );

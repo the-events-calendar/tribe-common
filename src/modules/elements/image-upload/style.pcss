@@ -4,19 +4,19 @@
 
 	/* extra classes to override gutenberg styles for h3 */
 	.edit-post-visual-editor .editor-block-list__block & {
-		padding: 0;
-		margin: 0 0 12px;
-		color: #000000;
+		color: #000;
 		font-size: 15px;
-		font-weight: bold;
+		font-weight: 700;
 		line-height: 18px;
+		margin: 0 0 12px;
+		padding: 0;
 	}
 }
 
 .tribe-editor__image-upload__content {
+	align-items: center;
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
 
 	.tribe-editor__image-upload--has-image & {
 		align-items: flex-start;
@@ -26,13 +26,13 @@
 p.tribe-editor__image-upload__description {
 
 	.tribe-editor__image-upload__content & {
+		color: #545d66;
 		flex: none;
-		width: 52%;
 		font-family: Helvetica, sans-serif, arial;
 		font-size: 14px;
-		color: #545D66;
 		line-height: 18px;
 		margin: 0;
+		width: 52%;
 	}
 }
 
@@ -43,27 +43,27 @@ p.tribe-editor__image-upload__description {
 
 .tribe-editor__image-upload__image-wrapper {
 	flex: none;
-	width: 42%;
 	max-width: 325px;
 	padding-left: 25px;
 	position: relative;
+	width: 42%;
 }
 
 .tribe-editor__image-upload__remove-button {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	width: 32px;
+	background-color: #f8f9fb;
+	border-radius: 50%;
 	height: 32px;
 	padding: 8px;
-	border-radius: 50%;
-	background-color: #F8F9FB;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	width: 32px;
 
 	& > svg {
 
 		&,
 		& path {
-			fill: #545D66;
+			fill: #545d66;
 		}
 	}
 
@@ -74,7 +74,7 @@ p.tribe-editor__image-upload__description {
 
 			&,
 			& path {
-				fill: #009FD4;
+				fill: #009fd4;
 			}
 		}
 	}
@@ -89,7 +89,7 @@ p.tribe-editor__image-upload__description {
 
 				&,
 				& path {
-					fill: #AEB4BB;
+					fill: #aeb4bb;
 				}
 			}
 		}

@@ -446,6 +446,10 @@ class Tribe__Assets {
 			}
 		}
 
+		if ( isset( $arguments['group_path'] ) && is_string( $arguments['group_path'] ) ) {
+			$asset->add_to_group_path( $arguments['group_path'] );
+		}
+
 		if ( isset( $arguments['print_before'] ) ) {
 			$asset->print_before( $arguments['print_before'] );
 		}
