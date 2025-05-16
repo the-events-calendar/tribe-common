@@ -289,18 +289,19 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 		$container = Tribe__Container::init();
 
 		if ( $provider_class === 'Tribe\Tickets\Admin\Home\Service_Provider' ) {
+			$callback = static function () use ( $container, &$callback ): void {
+				$container->register( Tribe\Tickets\Admin\Home\Service_Provider::class );
+				remove_action( 'tribe_tickets_plugin_loaded', $callback );
+			};
+
 			/**
 			 * Prevent binding a poorly located service provider registration in ET pre 5.6.0
 			 * and places it after ET Main::bind_implementations().
 			 *
 			 * @todo: Remove this after TEC 7.5 after enough time has passed.
 			 */
-			add_action(
-				'tribe_tickets_plugin_loaded',
-				static function() use ( $container ) {
-					$container->register( Tribe\Tickets\Admin\Home\Service_Provider::class );
-				}
-			);
+			add_action( 'tec_tickets_fully_loaded', $callback );
+			add_action( 'tribe_tickets_plugin_loaded', $callback );
 		} else {
 			$container->register( $provider_class );
 		}

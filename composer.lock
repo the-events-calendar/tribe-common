@@ -753,16 +753,16 @@
         },
         {
             "name": "stellarwp/telemetry",
-            "version": "2.3.3",
+            "version": "2.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/telemetry.git",
-                "reference": "cb302096350b047ab203367c8198bd0c5d1805cc"
+                "reference": "74c7b819d574aa5fc1392f982fb32cedc18d4c6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/cb302096350b047ab203367c8198bd0c5d1805cc",
-                "reference": "cb302096350b047ab203367c8198bd0c5d1805cc",
+                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/74c7b819d574aa5fc1392f982fb32cedc18d4c6f",
+                "reference": "74c7b819d574aa5fc1392f982fb32cedc18d4c6f",
                 "shasum": ""
             },
             "require": {
@@ -796,9 +796,9 @@
             "description": "Telemetry library for StellarWP plugins.",
             "support": {
                 "issues": "https://github.com/stellarwp/telemetry/issues",
-                "source": "https://github.com/stellarwp/telemetry/tree/2.3.3"
+                "source": "https://github.com/stellarwp/telemetry/tree/2.3.4"
             },
-            "time": "2025-01-28T21:13:55+00:00"
+            "time": "2025-04-25T18:58:09+00:00"
         },
         {
             "name": "stellarwp/uplink",
@@ -5186,12 +5186,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/coding-standards.git",
-                "reference": "bdf05c1ebfef736c75f94bad78df690550f1a241"
+                "reference": "5e2f42d323e24c5aaccafeaf2b878c02ef20f9b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/coding-standards/zipball/bdf05c1ebfef736c75f94bad78df690550f1a241",
-                "reference": "bdf05c1ebfef736c75f94bad78df690550f1a241",
+                "url": "https://api.github.com/repos/stellarwp/coding-standards/zipball/5e2f42d323e24c5aaccafeaf2b878c02ef20f9b1",
+                "reference": "5e2f42d323e24c5aaccafeaf2b878c02ef20f9b1",
                 "shasum": ""
             },
             "require": {
@@ -5233,7 +5233,7 @@
             "support": {
                 "source": "https://github.com/stellarwp/coding-standards/tree/main"
             },
-            "time": "2024-10-11T17:05:07+00:00"
+            "time": "2025-02-14T22:48:50+00:00"
         },
         {
             "name": "symfony/browser-kit",
