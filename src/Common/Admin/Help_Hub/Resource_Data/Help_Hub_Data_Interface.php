@@ -90,4 +90,18 @@ interface Help_Hub_Data_Interface {
 	 * @return bool True if the current page is the Help Hub, false otherwise.
 	 */
 	public function is_help_hub_page(): bool;
+
+	/**
+	 * Get the Help Hub slug.
+	 *
+	 * @return string
+	 */
+	public function get_help_hub_slug(): string;
+
+	/**
+	 * Get the Help Hub ID.
+	 *
+	 * @return string
+	 */
+	public function get_help_hub_id(): string;
 }

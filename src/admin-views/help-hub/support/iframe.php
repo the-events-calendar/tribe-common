@@ -11,13 +11,16 @@ use TEC\Common\Admin\Help_Hub\Hub;
 
 // Define the query arguments to pass to the iframe URL.
 $query_args = [
-	'page'             => Hub::IFRAME_PAGE_SLUG,  // The page identifier for Help Hub.
+	'page'             => tec_get_request_var( 'page' ),  // The page identifier for Help Hub.
+	'help_hub'         => Hub::IFRAME_PAGE_SLUG,
 	'embedded_content' => 'true',                   // Flag to indicate this is embedded content.
 ];
 
+if ( empty( $query_args['page'] ) ) {
+	return;
+}
 // Generate the iframe URL by appending query arguments to the admin URL.
 $iframe_url = add_query_arg( $query_args, admin_url( 'admin.php' ) );
-
 ?>
 <div class="tec-settings__support-hub-iframe-container">
 	<!-- Loading spinner displayed while iframe content is loading -->

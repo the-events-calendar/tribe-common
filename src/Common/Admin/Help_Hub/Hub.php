@@ -67,6 +67,13 @@ class Hub {
 	protected Configuration $config;
 
 	/**
+	 * @since TBD
+	 *
+	 * @var array<string, Help_Hub_Data_Interface>
+	 */
+	protected static array $all_data_instances = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 6.3.2
@@ -79,10 +86,11 @@ class Hub {
 		$this->config   = $config;
 		$this->template = $template;
 		$this->data     = $data;
+		// Store the data class in the static array.
+		static::$all_data_instances[ $data->get_help_hub_slug() ] = $data;
 
 		$this->setup_support_keys();
 		$this->register_hooks();
-		$this->register_hidden_page();
 	}
 
 	/**
@@ -117,6 +125,28 @@ class Hub {
 	 * @return Help_Hub_Data_Interface The data object containing Help Hub resources.
 	 */
 	public function get_data(): Help_Hub_Data_Interface {
+		if ( $this->data ) {
+			return $this->data;
+		}
+
+		$page = tec_get_request_var( 'page' );
+
+		if ( empty( $page ) ) {
+			throw new RuntimeException( 'Unable to resolve Help Hub data class for an empty page. ' );
+		}
+
+		if ( isset( $this->data_classes[ $page ] ) ) {
+			$class = $this->data_classes[ $page ];
+
+			if ( class_exists( $class, false ) ) {
+				$this->data = new $class();
+			}
+		}
+
+		if ( ! $this->data instanceof Help_Hub_Data_Interface ) {
+			throw new RuntimeException( 'Unable to resolve Help Hub data class for page: ' . esc_html( $page ) );
+		}
+
 		return $this->data;
 	}
 
@@ -137,30 +167,6 @@ class Hub {
 	}
 
 	/**
-	 * Registers the hidden admin page for the Help Hub.
-	 *
-	 * @since 6.3.2
-	 *
-	 * @return void
-	 */
-	protected function register_hidden_page(): void {
-		add_action(
-			'admin_menu',
-			function () {
-				add_submenu_page(
-					null, // Make the page hidden.
-					__( 'Help Hub', 'tribe-common' ),
-					__( 'Help Hub', 'tribe-common' ),
-					'manage_options',
-					self::IFRAME_PAGE_SLUG,
-					[ $this, 'render' ]
-				);
-			},
-			999
-		);
-	}
-
-	/**
 	 * Ensures that the Help Hub data object is set.
 	 *
 	 * Verifies that the $data property has been set. Throws a RuntimeException
@@ -172,10 +178,29 @@ class Hub {
 	 * @return void
 	 */
 	protected function ensure_data_is_set(): void {
+		$page = tec_get_request_var( 'page' );
+
+		// Attempt to find a matching data instance by suffix.
+		foreach ( self::$all_data_instances as $key => $instance ) {
+			if ( $this->data->get_help_hub_slug() === $page ) {
+				$this->data = $instance;
+				$this->data->initialize();
+
+				break;
+			}
+		}
+
 		if ( empty( $this->data ) ) {
-			throw new RuntimeException( 'The HelpHub data must be set using the setup method before calling this function.' );
+			throw new RuntimeException(
+				sprintf(
+					'The HelpHub data could not be resolved for page [%s]. Registered keys: %s',
+					$page,
+					implode( ', ', array_keys( self::$all_data_instances ) )
+				)
+			);
 		}
 	}
+
 
 	/**
 	 * Renders the Help Hub page.
@@ -429,13 +454,20 @@ class Hub {
 	 * @return void
 	 */
 	public function generate_iframe_content(): void {
-		$this->ensure_data_is_set();
-		$page   = tribe_get_request_var( 'page' );
-		$iframe = tribe_get_request_var( 'embedded_content' );
+		$page          = tribe_get_request_var( 'page' );
+		$iframe        = (bool) tribe_get_request_var( 'embedded_content' );
+		$help_hub_page = tribe_get_request_var( 'help_hub' );
 
-		if ( empty( $page ) || self::IFRAME_PAGE_SLUG !== $page || $iframe !== 'true' ) {
+
+		if ( self::IFRAME_PAGE_SLUG !== $help_hub_page && ( empty( $page ) || ! $iframe ) ) {
 			return;
 		}
+
+		$this->ensure_data_is_set();
+
+		define( 'IFRAME_REQUEST', true );
+		// phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
+		show_admin_bar( false );
 
 		/**
 		 * Fires before the Help Hub iframe content is rendered.
@@ -451,8 +483,7 @@ class Hub {
 
 		$this->register_iframe_hooks();
 
-		// phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
-		show_admin_bar( false );
+
 		$this->render_template( 'help-hub/support/iframe-content' );
 
 		/**
