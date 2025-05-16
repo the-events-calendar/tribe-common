@@ -138,6 +138,15 @@ abstract class Abstract_Admin_Page {
 		add_filter( 'admin_body_class', [ $this, 'add_admin_body_class' ] );
 	}
 
+	/**
+	 * Add the admin body class.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $classes The admin body classes.
+	 *
+	 * @return string The admin body classes.
+	 */
 	public function add_admin_body_class( $classes ) {
 		if ( static::is_on_page() ) {
 			$classes .= ' tec-admin';
