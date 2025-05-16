@@ -31,6 +31,15 @@ use TEC\Common\Configuration\Configuration;
 class Hub {
 
 	/**
+	 * The Help Hub page slug.
+	 *
+	 * @since 6.3.2
+	 *
+	 * @var string
+	 */
+	const IFRAME_PAGE_SLUG = 'tec-help-hub';
+
+	/**
 	 * Data object implementing Help_Hub_Data_Interface, providing necessary Help Hub resources.
 	 *
 	 * @since 6.3.2
@@ -58,6 +67,13 @@ class Hub {
 	protected Configuration $config;
 
 	/**
+	 * @since TBD
+	 *
+	 * @var array<string, Help_Hub_Data_Interface>
+	 */
+	protected static array $all_data_instances = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 6.3.2
@@ -70,6 +86,8 @@ class Hub {
 		$this->config   = $config;
 		$this->template = $template;
 		$this->data     = $data;
+		// Store the data class in the static array.
+		static::$all_data_instances[ $data->get_help_hub_slug() ] = $data;
 
 		$this->setup_support_keys();
 		$this->register_hooks();
@@ -107,6 +125,28 @@ class Hub {
 	 * @return Help_Hub_Data_Interface The data object containing Help Hub resources.
 	 */
 	public function get_data(): Help_Hub_Data_Interface {
+		if ( $this->data ) {
+			return $this->data;
+		}
+
+		$page = tec_get_request_var( 'page' );
+
+		if ( empty( $page ) ) {
+			throw new RuntimeException( 'Unable to resolve Help Hub data class for an empty page. ' );
+		}
+
+		if ( isset( $this->data_classes[ $page ] ) ) {
+			$class = $this->data_classes[ $page ];
+
+			if ( class_exists( $class, false ) ) {
+				$this->data = new $class();
+			}
+		}
+
+		if ( ! $this->data instanceof Help_Hub_Data_Interface ) {
+			throw new RuntimeException( 'Unable to resolve Help Hub data class for page: ' . esc_html( $page ) );
+		}
+
 		return $this->data;
 	}
 
@@ -138,10 +178,29 @@ class Hub {
 	 * @return void
 	 */
 	protected function ensure_data_is_set(): void {
+		$page = tec_get_request_var( 'page' );
+
+		// Attempt to find a matching data instance by suffix.
+		foreach ( self::$all_data_instances as $key => $instance ) {
+			if ( $this->data->get_help_hub_slug() === $page ) {
+				$this->data = $instance;
+				$this->data->initialize();
+
+				break;
+			}
+		}
+
 		if ( empty( $this->data ) ) {
-			throw new RuntimeException( 'The HelpHub data must be set using the setup method before calling this function.' );
+			throw new RuntimeException(
+				sprintf(
+					'The HelpHub data could not be resolved for page [%s]. Registered keys: %s',
+					$page,
+					implode( ', ', array_keys( self::$all_data_instances ) )
+				)
+			);
 		}
 	}
+
 
 	/**
 	 * Renders the Help Hub page.
@@ -288,15 +347,18 @@ class Hub {
 	 * to customize or add additional classes via the `tec_help_hub_body_classes` filter.
 	 *
 	 * @since 6.3.2
+	 * @since TBD removed type hinting.
 	 *
 	 * @param string $classes Space-separated string of classes for the body tag.
 	 *
 	 * @return string Filtered list of classes.
 	 */
-	public function add_help_page_body_class( string $classes ): string {
+	public function add_help_page_body_class( $classes ) {
 		if ( ! self::is_current_page() ) {
 			return $classes;
 		}
+
+		$classes = (string) $classes;
 
 		// Default classes for Help Hub.
 		$default_classes = [ 'tribe-help', 'tec-help' ];
@@ -392,13 +454,20 @@ class Hub {
 	 * @return void
 	 */
 	public function generate_iframe_content(): void {
-		$this->ensure_data_is_set();
-		$page   = tribe_get_request_var( 'page' );
-		$iframe = tribe_get_request_var( 'embedded_content' );
+		$page          = tribe_get_request_var( 'page' );
+		$iframe        = (bool) tribe_get_request_var( 'embedded_content' );
+		$help_hub_page = tribe_get_request_var( 'help_hub' );
 
-		if ( empty( $page ) || 'tec-events-help-hub' !== $page || empty( $iframe ) ) {
+
+		if ( self::IFRAME_PAGE_SLUG !== $help_hub_page && ( empty( $page ) || ! $iframe ) ) {
 			return;
 		}
+
+		$this->ensure_data_is_set();
+
+		define( 'IFRAME_REQUEST', true );
+		// phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
+		show_admin_bar( false );
 
 		/**
 		 * Fires before the Help Hub iframe content is rendered.
@@ -414,8 +483,7 @@ class Hub {
 
 		$this->register_iframe_hooks();
 
-		// phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
-		show_admin_bar( false );
+
 		$this->render_template( 'help-hub/support/iframe-content' );
 
 		/**
