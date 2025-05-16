@@ -1,5 +1,5 @@
 import { createRoot } from '@wordpress/element';
-import { Classy } from '../elements';
+import { Classy } from '../components/Classy';
 import {
 	getElement as getVisualEditorElement,
 	toggleVisibility as toggleVisualEditorVisibility,

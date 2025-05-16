@@ -1,4 +1,3 @@
-import apiFetch from '@wordpress/api-fetch';
 import { Button, CustomSelectControl } from '@wordpress/components';
 import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
 import { useDispatch, useSelect } from '@wordpress/data';
@@ -7,14 +6,15 @@ import { _x } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
 import * as React from 'react';
 import { Fragment, MouseEventHandler, useRef } from 'react';
-import { METADATA_EVENT_ORGANIZER_ID } from '../../../constants';
-import AddIcon from '../../../elements/components/Icons/Add';
-import { sortOptionsForDisplay } from '../../../functions/sortOptionsForDisplay';
-import { FetchedOrganizer } from '../../../types/FetchedOrganizer';
+import { METADATA_EVENT_ORGANIZER_ID } from '../../constants';
+import { IconAdd } from '../../components/Icons';
 import OrganizerCards from './OrganizerCards';
 import OrganizerUpsertModal from './OrganizerUpsertModal';
-import { OrganizerData } from '../../../types/OrganizerData';
-import { FieldProps } from '../../../types/FieldProps';
+import { FieldProps } from '../../types/FieldProps';
+import { OrganizerData } from '../../types/OrganizerData';
+import { FetchedOrganizer } from '../../types/FetchedOrganizer';
+import { sortOptionsForDisplay } from '../../functions/sortOptionsForDisplay';
+import apiFetch from '@wordpress/api-fetch';
 
 function buildOptionFromFetchedOrganizer(
 	organizer: FetchedOrganizer
@@ -55,8 +55,8 @@ export default function EventOrganizer( props: FieldProps ) {
 
 	const organizerIds = useSelect( ( select ): number[] => {
 		const selector = select( 'core/editor' );
-		// @ts-ignore
 		return (
+			// @ts-ignore
 			( selector.getEditedPostAttribute( 'meta' ) || {} )?.[
 				METADATA_EVENT_ORGANIZER_ID
 			]?.map( ( id: string ): number => parseInt( id, 10 ) ) || []
@@ -427,7 +427,7 @@ export default function EventOrganizer( props: FieldProps ) {
 								className="classy-field__control classy-field__control--cta"
 								onClick={ () => setIsAdding( true ) }
 							>
-								<AddIcon />
+								<IconAdd />
 								{ _x(
 									'Add another organizer',
 									'Call-to-action to add another organizer',

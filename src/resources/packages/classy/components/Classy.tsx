@@ -8,10 +8,10 @@ import {
 	EventDateTime,
 	EventOrganizer,
 	EventLocation,
-} from './fields';
+} from '../fields';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 import { RegistryProvider } from '@wordpress/data';
-import { ErrorBoundary } from './components/ErrorBoundary';
+import { ErrorBoundary } from './ErrorBoundary';
 
 function ClassyApplication() {
 	return (

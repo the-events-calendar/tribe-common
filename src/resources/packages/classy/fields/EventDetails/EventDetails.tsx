@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 import { PostFeaturedImage } from '@wordpress/editor';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { TinyMceEditor } from '../../components/TinyMceEditor';
-import { METADATA_EVENT_URL } from '../../../constants';
-import { FieldProps } from '../../../types/FieldProps';
+import { METADATA_EVENT_URL } from '../../constants';
+import { FieldProps } from '../../types/FieldProps';
 
 export default function EventDetails( props: FieldProps ) {
 	const { postContent, meta } = useSelect( ( select ) => {

@@ -15,13 +15,13 @@ import {
 	METADATA_EVENT_END_DATE,
 	METADATA_EVENT_START_DATE,
 	METADATA_EVENT_TIMEZONE,
-} from '../../../constants';
+} from '../../constants';
 import { format, getDate } from '@wordpress/date';
-import { Hours } from '../../../types/Hours';
-import { Minutes } from '../../../types/Minutes';
+import { Hours } from '../../types/Hours';
+import { Minutes } from '../../types/Minutes';
 import StartSelector from './StartSelector';
 import { default as EndSelector } from './EndSelector';
-import { FieldProps } from '../../../types/FieldProps';
+import { FieldProps } from '../../types/FieldProps';
 import { TimeZone } from '../../components/TimeZone';
 
 type DateTimeRefs = {

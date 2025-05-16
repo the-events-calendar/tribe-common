@@ -3,8 +3,8 @@ import { VirtualElement } from '@wordpress/components/build-types/popover/types'
 import { Popover, SelectControl, Button } from '@wordpress/components';
 import { useMemo } from '@wordpress/element';
 import { _x } from '@wordpress/i18n';
-import CloseIcon from '../Icons/Close';
-import { localizedData } from '../../../localized-data';
+import { IconClose } from '../Icons';
+import { localizedData } from '../../localized-data';
 import { parse as hpqParse } from 'hpq';
 
 // @see `wp_timezone_choice`.
@@ -77,7 +77,7 @@ export default function TimezoneSelectionPopover( props: {
 					onClick={ onClose }
 					className="classy-component__popover-close"
 				>
-					<CloseIcon />
+					<IconClose />
 				</Button>
 
 				<h4 className="classy-component-popover__title">

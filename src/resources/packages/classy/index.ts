@@ -19,3 +19,9 @@ whenEditorIsReady().then( () => {
 		addEditorTools( () => toggleClassyElementVisibility() );
 	} );
 } );
+
+// Re-exports that will appear under `window.tec.common.classy.<re-export>`.
+export * as dateUtils from './functions/dateUtils';
+export * as constants from './constants';
+export * as components from './components';
+export * as fields from './fields';

@@ -5,14 +5,13 @@ import { _x } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
 import * as React from 'react';
 import { useCallback, useEffect, useRef, useState, Fragment } from 'react';
-import { METADATA_EVENT_VENUE_ID } from '../../../constants';
-import AddIcon from '../../../elements/components/Icons/Add';
-import VideoCameraIcon from '../../components/Icons/VideoCamera';
-import { FetchedVenue } from '../../../types/FetchedVenue';
+import { METADATA_EVENT_VENUE_ID } from '../../constants';
+import { IconAdd, IconVideoCamera } from '../../components/Icons';
+import { FetchedVenue } from '../../types/FetchedVenue';
 import VenueCards from './VenueCards';
 import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
-import { sortOptionsForDisplay } from '../../../functions/sortOptionsForDisplay';
-import { FieldProps } from '../../../types/FieldProps';
+import { sortOptionsForDisplay } from '../../functions/sortOptionsForDisplay';
+import { FieldProps } from '../../types/FieldProps';
 
 function buildOptionFromFetchedVenue(
 	venue: FetchedVenue
@@ -278,7 +277,7 @@ export default function EventLocation( props: FieldProps ) {
 								className="classy-field__control classy-field__control--cta"
 								onClick={ () => setIsAdding( true ) }
 							>
-								<AddIcon />
+								<IconAdd />
 								{ _x(
 									'Add another venue',
 									'Call-to-action to add another venue',
@@ -315,7 +314,7 @@ export default function EventLocation( props: FieldProps ) {
 							)
 						}
 					>
-						<VideoCameraIcon />
+						<IconVideoCamera />
 						{ _x(
 							'Add virtual event details',
 							'Cancel the venue selection',
