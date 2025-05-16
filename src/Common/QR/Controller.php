@@ -30,6 +30,17 @@ class Controller extends Controller_Contract {
 	public static string $registration_action = 'tec_qr_code_loaded';
 
 	/**
+	 * Whether the controller is active or not.
+	 *
+	 * @since 6.6.0.1
+	 *
+	 * @return bool Whether the controller is active or not.
+	 */
+	public function is_active(): bool {
+		return $this->can_use();
+	}
+
+	/**
 	 * Register the controller.
 	 *
 	 * @since  6.6.0
@@ -39,7 +50,8 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function do_register(): void {
-		$this->container->bind( QR::class, [ $this, 'bind_facade_or_error' ] );
+		$this->load_library();
+		$this->container->singleton( QR::class );
 		$this->container->singleton( Notices::class );
 
 		$this->add_actions();
@@ -85,27 +97,6 @@ class Controller extends Controller_Contract {
 	 */
 	public function plugins_loaded() {
 		$this->container->make( Notices::class )->register_admin_notices();
-	}
-
-	/**
-	 * Binds the facade or throws an error.
-	 *
-	 * @since 6.6.0
-	 *
-	 * @return \WP_Error|QR Either the build QR façade, or an error to detail the failure.
-	 */
-	public function bind_facade_or_error() {
-		if ( ! $this->can_use() ) {
-			return new \WP_Error(
-				'tec_tickets_qr_code_cannot_use',
-				__( 'The QR code cannot be used, please contact your host and ask for `gzip` and `gd` support.', 'tribe-common' )
-			);
-		}
-
-		// Load the library if it's not loaded already.
-		$this->load_library();
-
-		return new QR();
 	}
 
 	/**
@@ -157,5 +148,23 @@ class Controller extends Controller_Contract {
 		 * @param bool $can_use Whether the QR code can be used based on the current environment.
 		 */
 		return apply_filters( 'tec_qr_code_can_use', $can_use );
+	}
+
+	/**
+	 * Binds the facade or throws an error.
+	 *
+	 * @since 6.6.0
+	 *
+	 * @deprecated 6.6.0.1
+	 *
+	 * @return ?QR Either the build QR facade or null.
+	 */
+	public function bind_facade_or_error(): ?QR {
+		_deprecated_function( __METHOD__, '6.6.0.1' );
+		if ( ! $this->is_active() ) {
+			return null;
+		}
+
+		return $this->container->get( QR::class );
 	}
 }
