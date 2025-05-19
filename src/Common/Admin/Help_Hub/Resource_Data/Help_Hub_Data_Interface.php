@@ -11,6 +11,8 @@
 
 namespace TEC\Common\Admin\Help_Hub\Resource_Data;
 
+use TEC\Common\Admin\Help_Hub\Hub;
+
 /**
  * Interface Help_Hub_Data_Interface
  *
@@ -104,4 +106,15 @@ interface Help_Hub_Data_Interface {
 	 * @return string
 	 */
 	public function get_help_hub_id(): string;
+
+	/**
+	 * Registers this data instance with the Help Hub.
+	 *
+	 * @since TBD
+	 *
+	 * @param Hub $help_hub The current Help Hub instance to register with.
+	 *
+	 * @return void
+	 */
+	public function register_with_hub( Hub $help_hub ): void;
 }

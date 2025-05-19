@@ -29,7 +29,7 @@ class FAQ_Section_Builder extends Abstract_Section_Builder {
 	 *
 	 * @var string
 	 */
-	protected const ITEMS_KEY = 'faqs';
+	protected const ITEMS_KEY = 'faq';
 
 	/**
 	 * Add a FAQ item to the section.

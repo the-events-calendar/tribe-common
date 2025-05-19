@@ -9,7 +9,7 @@
  */
 
 // Ensure we have valid input data and at least one FAQ.
-if ( empty( $section['faqs'] ) || ! is_array( $section['faqs'] ) ) {
+if ( empty( $section['faq'] ) || ! is_array( $section['faq'] ) ) {
 	return;
 }
 ?>
@@ -25,7 +25,7 @@ if ( empty( $section['faqs'] ) || ! is_array( $section['faqs'] ) ) {
 	</div>
 	<div class="tec-ui-accordion">
 		<?php
-		foreach ( $section['faqs'] as $faq ) :
+		foreach ( $section['faq'] as $faq ) :
 			// Skip invalid FAQ entries.
 			if ( ! is_array( $faq ) || empty( $faq['question'] ) || empty( $faq['answer'] ) ) {
 				continue;

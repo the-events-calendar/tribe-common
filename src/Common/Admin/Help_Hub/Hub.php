@@ -67,13 +67,6 @@ class Hub {
 	protected Configuration $config;
 
 	/**
-	 * @since TBD
-	 *
-	 * @var array<string, Help_Hub_Data_Interface>
-	 */
-	protected static array $all_data_instances = [];
-
-	/**
 	 * Constructor.
 	 *
 	 * @since 6.3.2
@@ -85,12 +78,29 @@ class Hub {
 	public function __construct( Help_Hub_Data_Interface $data, Configuration $config, Tribe__Template $template ) {
 		$this->config   = $config;
 		$this->template = $template;
-		$this->data     = $data;
-		// Store the data class in the static array.
-		static::$all_data_instances[ $data->get_help_hub_slug() ] = $data;
+		$this->set_data( $data );
 
 		$this->setup_support_keys();
 		$this->register_hooks();
+	}
+
+	/**
+	 * Sets or replaces the Help Hub data object.
+	 *
+	 * This method assigns the provided data instance to the Hub. It may be called multiple times,
+	 * such as during construction or later via a hook (e.g., `tec_help_hub_before_iframe_render`)
+	 * to override an initial default.
+	 *
+	 * This method will overwrite any previously set data instance.
+	 *
+	 * @since TBD
+	 *
+	 * @param Help_Hub_Data_Interface $data The Help Hub data instance to use.
+	 *
+	 * @return void
+	 */
+	public function set_data( Help_Hub_Data_Interface $data ) {
+		$this->data = $data;
 	}
 
 	/**
@@ -126,27 +136,11 @@ class Hub {
 	 */
 	public function get_data(): Help_Hub_Data_Interface {
 		if ( $this->data ) {
+			$this->data->initialize();
 			return $this->data;
 		}
 
-		$page = tec_get_request_var( 'page' );
-
-		if ( empty( $page ) ) {
-			throw new RuntimeException( 'Unable to resolve Help Hub data class for an empty page. ' );
-		}
-
-		if ( isset( $this->data_classes[ $page ] ) ) {
-			$class = $this->data_classes[ $page ];
-
-			if ( class_exists( $class, false ) ) {
-				$this->data = new $class();
-			}
-		}
-
-		if ( ! $this->data instanceof Help_Hub_Data_Interface ) {
-			throw new RuntimeException( 'Unable to resolve Help Hub data class for page: ' . esc_html( $page ) );
-		}
-
+		$this->ensure_data_is_set();
 		return $this->data;
 	}
 
@@ -167,38 +161,31 @@ class Hub {
 	}
 
 	/**
-	 * Ensures that the Help Hub data object is set.
+	 * Ensures that the Help Hub data object is set and initialized.
 	 *
-	 * Verifies that the $data property has been set. Throws a RuntimeException
-	 * if the data has not been set using the setup method.
+	 * This should be called before rendering or accessing data-dependent methods.
+	 * It expects that the data has been injected either via constructor or through a hook.
 	 *
 	 * @since 6.3.2
+	 * @since TBD Refactored.
 	 *
-	 * @throws RuntimeException If data has not been set using setup.
+	 * @throws RuntimeException If the data has not been set by the time this method runs.
+	 *
 	 * @return void
 	 */
 	protected function ensure_data_is_set(): void {
-		$page = tec_get_request_var( 'page' );
-
-		// Attempt to find a matching data instance by suffix.
-		foreach ( self::$all_data_instances as $key => $instance ) {
-			if ( $this->data->get_help_hub_slug() === $page ) {
-				$this->data = $instance;
-				$this->data->initialize();
-
-				break;
-			}
+		if ( isset( $this->data ) && $this->data instanceof Help_Hub_Data_Interface ) {
+			$this->data->initialize();
+			return;
 		}
 
-		if ( empty( $this->data ) ) {
-			throw new RuntimeException(
-				sprintf(
-					'The HelpHub data could not be resolved for page [%s]. Registered keys: %s',
-					$page,
-					implode( ', ', array_keys( self::$all_data_instances ) )
-				)
-			);
-		}
+		$page = tribe_get_request_var( 'page' );
+		throw new RuntimeException(
+			sprintf(
+				'Help Hub data was not set for page [%s]. Ensure your resource data class calls $hub->set_data() before render.',
+				esc_html( $page )
+			)
+		);
 	}
 
 
@@ -449,6 +436,7 @@ class Hub {
 	 * Generates and outputs iframe content when appropriate.
 	 *
 	 * @since 6.3.2
+	 * @since TBD Moved `tec_help_hub_before_iframe_render` to trigger sooner.
 	 *
 	 * @throws RuntimeException If data has not been set using setup.
 	 * @return void
@@ -463,12 +451,6 @@ class Hub {
 			return;
 		}
 
-		$this->ensure_data_is_set();
-
-		define( 'IFRAME_REQUEST', true );
-		// phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
-		show_admin_bar( false );
-
 		/**
 		 * Fires before the Help Hub iframe content is rendered.
 		 *
@@ -481,8 +463,13 @@ class Hub {
 		 */
 		do_action( 'tec_help_hub_before_iframe_render', $this );
 
-		$this->register_iframe_hooks();
+		$this->ensure_data_is_set();
 
+		define( 'IFRAME_REQUEST', true );
+		// phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
+		show_admin_bar( false );
+
+		$this->register_iframe_hooks();
 
 		$this->render_template( 'help-hub/support/iframe-content' );
 
