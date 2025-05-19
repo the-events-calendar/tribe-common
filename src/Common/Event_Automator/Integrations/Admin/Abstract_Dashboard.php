@@ -72,7 +72,7 @@ class Abstract_Dashboard {
 	 * Get the integration endpoint dashboard fields to display on the Integrations tab.
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
-	 * @since TBD Updated HTML.
+	 * @since 6.7.0 Updated HTML.
 	 *
 	 * @param array<string,array> $fields The current fields.
 	 *

@@ -2,7 +2,7 @@
 /**
  * Currency list.
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @package TEC\Common\Lists
  */
@@ -12,7 +12,7 @@ namespace TEC\Common\Lists;
 /**
  * Class Currency
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @package TEC\Common\Lists
  */
@@ -22,7 +22,7 @@ class Currency {
 	 * Get a list of currencies.
 	 * Note: we don't currently use "code" or "entity", but they are included for future use.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @return array
 	 */

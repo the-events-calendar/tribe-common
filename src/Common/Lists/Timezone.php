@@ -2,7 +2,7 @@
 /**
  * Timezone list.
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @package TEC\Common\Lists
  */
@@ -12,7 +12,7 @@ namespace TEC\Common\Lists;
 /**
  * Class Timezone
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @package TEC\Common\Lists
  */
@@ -26,7 +26,7 @@ class Timezone {
 	 *
 	 * @todo Move this somewhere for reuse!
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @return array<string,string> The list of timezones.
 	 */
