@@ -2,7 +2,7 @@
 /**
  * Abstract step-handler class for the onboarding wizard.
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @package TEC\Common\Admin\Onboarding\Steps
  */
@@ -15,7 +15,7 @@ use WP_REST_Response;
 /**
  * Class Abstract_Step
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @package TEC\Common\Admin\Onboarding\Steps
  */
@@ -23,7 +23,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	/**
 	 * The tab number for this step.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @var int
 	 */
@@ -32,7 +32,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	/**
 	 * Passes the request and data to the handler.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param WP_REST_Request  $request  The request object.
@@ -56,7 +56,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	/**
 	 * Check if the current tab is one we should be processing.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -69,7 +69,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	/**
 	 * Check if the current tab is the one we should be processing.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -84,7 +84,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	/**
 	 * Add a message to the response.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param string           $message  The message to add.
@@ -107,7 +107,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	/**
 	 * Add a message to the response.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param string           $message  The message to add.
@@ -121,7 +121,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	/**
 	 * Process the step.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param WP_REST_Request  $request  The request object.

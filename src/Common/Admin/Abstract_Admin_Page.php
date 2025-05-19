@@ -23,7 +23,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * The option to dismiss the admin page.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @var string
 	 */
@@ -95,7 +95,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Whether the page has a logo.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @var bool
 	 */
@@ -141,7 +141,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Add the admin body class.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param string $classes The admin body classes.
 	 *

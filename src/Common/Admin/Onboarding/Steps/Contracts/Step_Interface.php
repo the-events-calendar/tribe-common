@@ -2,7 +2,7 @@
 /**
  * Contract for Wizard step processors..
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @package TEC\Common\Admin\Onboarding\Steps
  */
@@ -17,7 +17,7 @@ use WP_REST_Request;
  *
  * @todo Move to common.
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @package TEC\Common\Admin\Onboarding\Steps
  */
@@ -26,7 +26,7 @@ interface Step_Interface {
 	 * Handles extracting and processing the pertinent data
 	 * for this step from the wizard request.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param WP_REST_Request  $request  The request object.
@@ -38,7 +38,7 @@ interface Step_Interface {
 	/**
 	 * Process the step data.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param WP_REST_Request  $response The request object.
 	 * @param WP_REST_Response $request The response to be altered and returned.

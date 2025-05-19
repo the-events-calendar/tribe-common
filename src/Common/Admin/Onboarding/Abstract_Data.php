@@ -2,7 +2,7 @@
 /**
  * Class that holds some data functions for the Wizard.
  *
- * @since TBD
+ * @since 6.7.0
  */
 
 namespace TEC\Common\Admin\Onboarding;
@@ -13,7 +13,7 @@ namespace TEC\Common\Admin\Onboarding;
  * This class is used to store and retrieve the wizard settings.
  * These work much the same as tribe_settings(), but are specifically for the onboarding wizard.
  *
- * @since TBD
+ * @since 6.7.0
  * @package TEC\Common\Admin\Onboarding
  */
 abstract class Abstract_Data {
@@ -21,7 +21,7 @@ abstract class Abstract_Data {
 	/**
 	 * The option name for the wizard settings.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @var string
 	 */
@@ -30,7 +30,7 @@ abstract class Abstract_Data {
 	/**
 	 * Get the saved wizard settings.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @return array
 	 */
@@ -41,7 +41,7 @@ abstract class Abstract_Data {
 	/**
 	 * Update the wizard settings.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param array $settings The settings to update.
 	 */
@@ -52,7 +52,7 @@ abstract class Abstract_Data {
 	/**
 	 * Get a specific wizard setting by key.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param string $key           The setting key.
 	 * @param mixed  $default_value The default value.
@@ -68,7 +68,7 @@ abstract class Abstract_Data {
 	/**
 	 * Update a specific wizard setting.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param string $key   The setting key.
 	 * @param mixed  $value The setting value.

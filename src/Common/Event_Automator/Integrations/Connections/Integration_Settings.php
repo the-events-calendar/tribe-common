@@ -111,7 +111,7 @@ abstract class Integration_Settings {
 	 * Get the integration connection fields to the ones in the Integrations tab.
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
-	 * @since TBD Updated HTML.
+	 * @since 6.7.0 Updated HTML.
 	 *
 	 * @return array<string,array> The fields, as updated by the settings.
 	 */
