@@ -39,7 +39,7 @@ abstract class Abstract_API {
 	 *
 	 * @since TBD
 	 *
-	 * @var  string
+	 * @var string
 	 */
 	protected const ROOT_NAMESPACE = 'tec/onboarding';
 
