@@ -4,9 +4,10 @@ import { Popover, SelectControl, Button } from '@wordpress/components';
 import { useMemo } from '@wordpress/element';
 import { _x } from '@wordpress/i18n';
 import { IconClose } from '../Icons';
-import { localizedData } from '../../localized-data';
+import { localizedData } from '../../localizedData';
 import { parse as hpqParse } from 'hpq';
 
+// @todo pull this from the store.
 // @see `wp_timezone_choice`.
 const timezoneChoice = localizedData.settings.timezoneChoice;
 

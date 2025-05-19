@@ -3,7 +3,7 @@ import { format } from '@wordpress/date';
 import { useState, useMemo, useCallback, useRef } from '@wordpress/element';
 import { ComboboxControl } from '@wordpress/components';
 import { ComboboxControlOption } from '@wordpress/components/build-types/combobox-control/types';
-import { getValidDateOrNull } from '../../functions/dateUtils';
+import { getValidDateOrNull } from '../../functions';
 
 function getTimeOptions(
 	currentDate: Date,

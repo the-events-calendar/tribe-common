@@ -3,72 +3,19 @@ import { StoreState } from '../types/StoreState';
 import { EventDateTimeDetails } from '../types/EventDateTimeDetails';
 import { EventMeta } from '../types/EventMeta';
 import { getDate } from '@wordpress/date';
-import { localizedData } from '../localized-data';
+import { localizedData } from '../localizedData';
 import { Settings } from '../types/LocalizedData';
 import {
 	METADATA_EVENT_ORGANIZER_ID,
 	METADATA_EVENT_VENUE_ID,
 } from '../constants';
 
-/**
- * Returns an attribute of the currently edited post.
- *
- * @since TBD
- *
- * @param {StoreState} state The current store state.
- * @param {string}     attribute The attribute to fetch from the store.
- *
- * @return {string} The attribute value fetched from the `core/editor` store if available, else the `tec/classy` store.
- */
-export function getEditedPostAttribute(
-	state: StoreState,
-	attribute: string
-): string {
-	const coreEditor = select( 'core/editor' );
-
-	if ( coreEditor ) {
-		// @ts-ignore
-		return coreEditor.getEditedPostAttribute( attribute ) ?? '';
-	}
-
-	return state?.[ attribute ] ?? '';
+export function getTimeInterval(): number {
+	const settings = localizedData.settings;
+	return settings.timeInterval;
 }
 
-/**
- * Returns the content of the currently edited post.
- *
- * @since TBD
- *
- * @param {StoreState} state The current store state.
- *
- * @returns {string} The content of the currently edited post.
- */
-export function getEditedPostContent( state: StoreState ): string {
-	const coreEditor = select( 'core/editor' );
-
-	if ( coreEditor ) {
-		// @ts-ignore
-		return coreEditor.getEditedPostContent() ?? '';
-	} else return state?.content ?? '';
-}
-
-/**
- * Returns the ID of the currently edited post.
- *
- * @since TBD
- *
- * @param {StoreState} state The current store state.
- *
- * @returns {number} The ID of the currently edited post.
- */
-export function getCurrentPostId( state: StoreState ): number {
-	const coreEditor = select( 'core/editor' );
-
-	if ( coreEditor ) {
-		// @ts-ignore
-		return coreEditor.getCurrentPostId() ?? 0;
-	} else return state?.currentPostId ?? 0;
-}
+// @todo move all below to TEC
 
 /**
  * Returns the event date and time details, read from its meta. If the meta is not set

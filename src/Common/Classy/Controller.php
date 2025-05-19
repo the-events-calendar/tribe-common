@@ -90,7 +90,7 @@ class Controller extends Controller_Contract {
 		}
 
 		// Read an option value to determine if the feature should be active or not.
-		$active = (bool) get_option( 'tec_events_classy_editor_enabled', true );
+		$active = (bool) get_option( 'tec_common_classy_editor_enabled', true );
 
 		/**
 		 * Allows filtering whether the whole Classy feature should be activated or not.
@@ -102,7 +102,7 @@ class Controller extends Controller_Contract {
 		 *
 		 * @param bool $active Defaults to `true`.
 		 */
-		return (bool) apply_filters( 'tec_events_classy_editor_enabled', $active );
+		return (bool) apply_filters( 'tec_common_classy_editor_enabled', $active );
 	}
 
 	/**
@@ -116,6 +116,7 @@ class Controller extends Controller_Contract {
 		// Register the `editor` binding replacement for back-compatibility purposes.
 		$back_compatible_editor = new Editor();
 		$this->container->singleton( 'editor', $back_compatible_editor );
+		// @todo move this to TEC.
 		$this->container->singleton( 'events.editor', $back_compatible_editor );
 		$this->container->singleton( 'events.editor.compatibility', $back_compatible_editor );
 		$this->container->singleton( 'editor.utils', new Editor_Utils() );
@@ -147,6 +148,7 @@ class Controller extends Controller_Contract {
 		// Unregister the back-compat editor and utils.
 		if ( $this->container->has( 'editor' ) && $this->container->get( 'editor' ) instanceof Editor ) {
 			unset( $this->container['editor'] );
+			// @todo move this to TEC.
 			unset( $this->container['events.editor'] );
 			unset( $this->container['events.editor.compatibility'] );
 		}
@@ -183,7 +185,7 @@ class Controller extends Controller_Contract {
 			// @todo this should be dynamic depending on the loading context.
 			->enqueue_on( 'enqueue_block_editor_assets' )
 			->set_condition( $post_uses_classy )
-			->add_localize_script( 'tec.events.classy.data', [ $this, 'get_data' ] )
+			->add_localize_script( 'tec.common.classy.data', [ $this, 'get_data' ] )
 			->register();
 
 		Asset::add(
@@ -252,7 +254,7 @@ class Controller extends Controller_Contract {
 		 * @param array<string> $supported_post_types The list of post types that use the Classy editor.
 		 */
 		$supported_post_types = apply_filters(
-			'tec_events_classy_post_types',
+			'tec_classy_post_types',
 			[ TEC::POSTTYPE ]
 		);
 
@@ -308,9 +310,9 @@ class Controller extends Controller_Contract {
 		 *
 		 * @param int $time_interval The time interval in minutes; defaults to 15 minutes.
 		 */
-		$time_interval = apply_filters( 'tec_events_time_picker_interval', 15 );
+		$time_interval = apply_filters( 'tec_classy_time_picker_interval', 15 );
 
-		return [
+		$default_data = [
 			'settings' => [
 				'compactDateFormat'     => $compact_date_format,
 				'dataTimeSeparator'     => $data_time_separator,
@@ -329,5 +331,20 @@ class Controller extends Controller_Contract {
 				'timezoneString'        => $timezone_string,
 			],
 		];
+
+		/**
+		 * Filter the data that will be localized on the page for the Classy application.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,mixed> $data The localized data for Classy.
+		 */
+		$filtered_data = apply_filters( 'tec_classy_localized_data', $default_data );
+
+		if ( ! is_array( $filtered_data ) ) {
+			return $default_data;
+		}
+
+		return $filtered_data;
 	}
 }

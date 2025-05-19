@@ -2,13 +2,6 @@ import React from 'react';
 import { Slot, SlotFillProvider } from '@wordpress/components';
 import { applyFilters } from '@wordpress/hooks';
 import { _x } from '@wordpress/i18n';
-import {
-	EventDetails,
-	PostTitle,
-	EventDateTime,
-	EventOrganizer,
-	EventLocation,
-} from '../fields';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 import { RegistryProvider } from '@wordpress/data';
 import { ErrorBoundary } from './ErrorBoundary';
@@ -100,46 +93,6 @@ function ClassyApplication() {
 			}
 
 			<div className="classy-container">
-				<PostTitle
-					title={ _x(
-						'Event Title',
-						'The title of the event title field.',
-						'the-events-calendar'
-					) }
-				/>
-
-				<EventDateTime
-					title={ _x(
-						'Date and Time',
-						'The title of the event date and time field.',
-						'the-events-calendar'
-					) }
-				/>
-
-				<EventDetails
-					title={ _x(
-						'Event Details',
-						'The title of the event details field.',
-						'the-events-calendar'
-					) }
-				/>
-
-				<EventLocation
-					title={ _x(
-						'Location',
-						'The title of the event location field.',
-						'the-events-calendar'
-					) }
-				/>
-
-				<EventOrganizer
-					title={ _x(
-						'Event Organizer',
-						'The title of the event organizer field.',
-						'the-events-calendar'
-					) }
-				/>
-
 				{
 					/**
 					 * Renders in the Classy container, before the fields.

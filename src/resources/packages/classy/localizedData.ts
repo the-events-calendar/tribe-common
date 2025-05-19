@@ -3,7 +3,7 @@ import { LocalizedData } from './types/LocalizedData';
 declare global {
 	interface Window {
 		tec: {
-			events: {
+			common: {
 				classy: {
 					data: LocalizedData;
 				};
@@ -12,7 +12,7 @@ declare global {
 	}
 }
 
-export const localizedData: LocalizedData = window?.tec?.events?.classy
+export const localizedData: LocalizedData = window?.tec?.common?.classy
 	?.data ?? {
 	settings: {
 		timezoneString: 'UTC',
