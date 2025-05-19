@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { plugins } from '@moderntribe/common/data';
+import { plugins } from '../data';
 
 /**
  * Returns whether the Event has at least one recurrence rule or not.
@@ -11,14 +11,14 @@ import { plugins } from '@moderntribe/common/data';
  * @return {boolean} Whether the Event has at least one recurrence rule or not.
  */
 export const hasRecurrenceRules = ( state ) => {
-	let hasRules = false;
 	try {
-		hasRules =
-			window.tribe[ plugins.constants.EVENTS_PRO_PLUGIN ].data.blocks.recurring.selectors.hasRules( state );
+		const pluginOffset = plugins.constants.EVENTS_PRO_PLUGIN;
+		const globalObject = window.tribe?.[ pluginOffset ] || window.tec?.[ pluginOffset ]?.app?.main;
+		return globalObject.data.blocks.recurring.selectors.hasRules( state );
 	} catch ( e ) {
-		// ¯\_(ツ)_/¯
+		console.error( e );
+		return false;
 	}
-	return hasRules;
 };
 
 /**
