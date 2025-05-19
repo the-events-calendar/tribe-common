@@ -10,9 +10,6 @@ describe( 'Plugin constants', () => {
 	test( 'Events pro plugin', () => {
 		expect( constants.EVENTS_PRO_PLUGIN ).toMatchSnapshot();
 	} );
-	test( 'Events virtual plugin', () => {
-		expect( constants.EVENTS_VIRTUAL_PLUGIN ).toMatchSnapshot();
-	} );
 	test( 'Tickets plugin', () => {
 		expect( constants.TICKETS ).toMatchSnapshot();
 	} );
