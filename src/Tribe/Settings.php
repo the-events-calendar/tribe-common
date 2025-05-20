@@ -797,7 +797,7 @@ class Tribe__Settings {
 			/**
 			 * Fires at the start of the settings footer, before any content is output.
 			 *
-			 * @since TBD
+			 * @since 6.7.0
 			 *
 			 * @param string $current_tab The current tab ID.
 			 */
@@ -810,7 +810,7 @@ class Tribe__Settings {
 				/**
 				 * Fires after the save fields are output in the settings footer.
 				 *
-				 * @since TBD
+				 * @since 6.7.0
 				 *
 				 * @param string $current_tab The current tab ID.
 				 */

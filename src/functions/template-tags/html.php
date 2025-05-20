@@ -10,7 +10,7 @@ use TEC\Common\Template;
  * Parse input values into a valid array of classes to be used in the templates.
  *
  * @since 4.9.13
- * @deprecated TBD In favor of tec_get_classes().
+ * @deprecated 6.7.0 In favor of tec_get_classes().
  *
  * @param mixed $classes,... unlimited Any amount of params to be rendered as classes.
  *
@@ -37,7 +37,7 @@ function tec_get_classes() {
 /**
  * Parse input values into a valid array of classes to be used in the templates.
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @param mixed $classes,... unlimited Any amount of params to be rendered as classes.
  *
@@ -52,7 +52,7 @@ function tec_get_classes_attr() {
  * Parses input values into a valid class html attribute to be used in the templates.
  *
  * @since 4.9.13
- * @deprecated TBD In favor of tec_classes().
+ * @deprecated 6.7.0 In favor of tec_classes().
  *
  * @param mixed $classes,... unlimited Any amount of params to be rendered as classes.
  *
@@ -65,7 +65,7 @@ function tribe_classes() {
 /**
  * Parses input values into a valid class html attribute to be used in the templates.
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @param mixed $classes,... unlimited Any amount of params to be rendered as classes.
  *

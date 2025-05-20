@@ -2,7 +2,7 @@
 /**
  * Country list.
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @package TEC\Common\Lists
  */
@@ -14,7 +14,7 @@ use Tribe__Cache as Cache;
 /**
  * Class Country
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @package TEC\Common\Lists
  */
@@ -289,7 +289,7 @@ class Country {
 	/**
 	 * Get a list of countries. Grouped by continent/region.
 	 *
-	 * @since TBD.
+	 * @since 6.7.0.
 	 *
 	 * @return array<string,array<string,string>> The list of countries.
 	 */
@@ -297,7 +297,7 @@ class Country {
 		/**
 		 * Filter the list of countries.
 		 *
-		 * @since TBD
+		 * @since 6.7.0
 		 *
 		 * @param array $countries The list of countries. Grouped by continent/region.
 		 */
@@ -343,7 +343,7 @@ class Country {
 	/**
 	 * Find a country in the list by its key.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param string $key The country key.
 	 *
@@ -360,7 +360,7 @@ class Country {
 	/**
 	 * Find a country key in the list by its value.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param string $value The country value.
 	 *
@@ -394,7 +394,7 @@ class Country {
 	/**
 	 * Get a list of countries with Payment Gateways support information.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @return array<string,array<string,mixed>> The list of countries with Payment Gateways support information.
 	 */

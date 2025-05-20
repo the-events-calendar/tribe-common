@@ -1,5 +1,5 @@
-var tribe = tribe || {}; // eslint-disable-line no-redeclare
-tribe.tooltip = tribe.tooltip || {};
+window.tribe = window.tribe || {}; // eslint-disable-line no-redeclare
+window.tribe.tooltip = window.tribe.tooltip || {};
 
 ( function ( $, obj ) {
 	'use strict';
@@ -60,4 +60,4 @@ tribe.tooltip = tribe.tooltip || {};
 	};
 
 	$( obj.setup );
-} )( jQuery, tribe.tooltip );
+} )( jQuery, window.tribe.tooltip );

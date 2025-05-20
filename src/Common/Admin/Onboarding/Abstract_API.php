@@ -3,7 +3,7 @@
  * The REST API handler for the Onboarding Wizard.
  * Cleverly named...API.
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @package TEC\Common\Admin\Onboarding
  */
@@ -19,7 +19,7 @@ use TEC\Common\Admin\Onboarding\Data;
 /**
  * Class API
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @package TEC\Common\Admin\Onboarding
  */
@@ -28,7 +28,7 @@ abstract class Abstract_API {
 	/**
 	 * The action for this nonce.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @var string
 	 */
@@ -37,7 +37,7 @@ abstract class Abstract_API {
 	/**
 	 * Rest Endpoint namespace
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @var string
 	 */
@@ -46,7 +46,7 @@ abstract class Abstract_API {
 	/**
 	 * The data object.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @var Abstract_Data
 	 */
@@ -55,7 +55,7 @@ abstract class Abstract_API {
 	/**
 	 * Register the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @return bool If we registered the endpoint.
 	 */
@@ -82,7 +82,7 @@ abstract class Abstract_API {
 	/**
 	 * Set the data object.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param Abstract_Data $data The data object.
 	 *
@@ -99,7 +99,7 @@ abstract class Abstract_API {
 	/**
 	 * Check the nonce.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param string $nonce The nonce.
 	 *
@@ -122,7 +122,7 @@ abstract class Abstract_API {
 	/**
 	 * Check the permissions.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @return bool If the user has the correct permissions.
 	 */
@@ -132,7 +132,7 @@ abstract class Abstract_API {
 		/**
 		 * Filter the required permission for the onboarding wizard.
 		 *
-		 * @since TBD
+		 * @since 6.7.0
 		 *
 		 * @param string $required_permission The required permission.
 		 * @param Abstract_API    $api The api object.
@@ -147,7 +147,7 @@ abstract class Abstract_API {
 	/**
 	 * Handle the request.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -157,7 +157,7 @@ abstract class Abstract_API {
 		/**
 		 * Each step hooks in here and potentially modifies the response.
 		 *
-		 * @since TBD
+		 * @since 6.7.0
 		 *
 		 * @param WP_REST_Response $response The response object.
 		 * @param WP_REST_Request  $request  The request object.
@@ -168,7 +168,7 @@ abstract class Abstract_API {
 	/**
 	 * Passes the request and data to the handler.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -214,7 +214,7 @@ abstract class Abstract_API {
 		/**
 		 * Allows filtering of the keys that should not be saved.
 		 *
-		 * @since TBD
+		 * @since 6.7.0
 		 *
 		 * @param array<string> $do_not_save The keys that should not be saved.
 		 *
@@ -246,7 +246,7 @@ abstract class Abstract_API {
 	/**
 	 * Normalize the tabs. Remove duplicates
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param array<int> $tabs An array of tab indexes (int).
 	 *

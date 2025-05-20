@@ -1,4 +1,4 @@
-var tribe_plugin_notices = tribe_plugin_notices || {};
+window.tribe_plugin_notices = window.tribe_plugin_notices || {};
 
 /**
  * Appends license key notifications inline within the plugin table.
@@ -31,4 +31,4 @@ var tribe_plugin_notices = tribe_plugin_notices || {};
 			my.init();
 		}
 	} );
-} )( jQuery, tribe_plugin_notices );
+} )( jQuery, window.tribe_plugin_notices );

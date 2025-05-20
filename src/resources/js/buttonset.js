@@ -1,4 +1,4 @@
-var tribe_buttonset = tribe_buttonset || {};
+window.tribe_buttonset = window.tribe_buttonset || {};
 
 ( function ( $, obj, _ ) {
 	// eslint-disable-line no-unused-vars
@@ -94,4 +94,4 @@ var tribe_buttonset = tribe_buttonset || {};
 	};
 
 	$( obj.ready );
-} )( jQuery, tribe_buttonset, window.underscore || window._ );
+} )( jQuery, window.tribe_buttonset, window.underscore || window._ );

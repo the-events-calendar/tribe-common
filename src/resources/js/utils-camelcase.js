@@ -5,7 +5,7 @@
  *
  * @type   {Object}
  */
-tribe.utils = tribe.utils || {};
+window.tribe.utils = window.tribe.utils || {};
 
 /**
  * A Module that allows one to convert a dash/dot/underscore/space separated
@@ -112,4 +112,4 @@ tribe.utils = tribe.utils || {};
 				return p1.toUpperCase();
 			} );
 	};
-} )( tribe.utils, window.underscore || _ );
+} )( window.tribe.utils, window.underscore || _ );

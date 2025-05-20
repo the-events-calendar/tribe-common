@@ -920,7 +920,7 @@ if ( ! function_exists( 'tec_asset' ) ) {
 	 * Files built with the `wp-scripts` binary wil produce a PHP assets file: that will be loaded automatically,
 	 * dependencies will be merged with the ones explicitly defined in the `$dependencies` argument.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param object|string          $origin       The origin of the asset, either a class or a string.
 	 * @param string                 $slug         The handle of the asset.
@@ -987,7 +987,7 @@ if ( ! function_exists( 'tec_assets' ) ) {
 	/**
 	 * Function to include more the one asset, based on `tribe_asset`
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param object $origin    The main Object for the plugin you are enqueueing the script/style for.
 	 * @param array  $assets    Not associative array.
