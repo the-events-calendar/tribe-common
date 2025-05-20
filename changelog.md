@@ -1,7 +1,18 @@
 # Changelog
 
-### [6.7.0] 2025-05-19
+### [6.7.0] 2025-05-20
 
+* Feature - Add `Abstract_API` and `Abstract_Data` classes for Onboarding functionality.
+* Feature - Add `Abstract_Step` and `Step_Interface` for Onboarding steps.
+* Feature - New Lists namespace with Country, Currency, and Timezone classes for standardized data handling.
+* Tweak - Improved In-App Notifications (IAN) integration with admin pages.
+* Tweak - Change `tribe_classes()` function to `tec_classes()` function for HTML class attribute handling.
+* Tweak - Change `tribe_asset()` function to `tec_asset()` function for asset loading.
+* Tweak - Add `$has_logo` property to Abstract_Admin_Page and refactor logo functionality.
+* Tweak - Add `DISMISS_PAGE_OPTION` constant to `Abstract_Admin_Page` for dismissible pages.
+* Tweak - Add admin body class for admin pages through the `Abstract_Admin_Page` class.
+* Tweak - Update docblocks with proper return types in `Abstract_Admin_Page` class.
+* Tweak - Added filters: `tec_timezone_list`, `tec_currencies_list`
 * Language - 4 new strings added, 42 updated, 1 fuzzied, and 0 obsoleted.
 
 ### [6.6.0.1] 2025-05-14
