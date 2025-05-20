@@ -313,4 +313,52 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 			'is_opted_in'       => $is_opted_in,
 		];
 	}
+
+	/**
+	 * Checks if the current page is a Help Hub page.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the current page is a Help Hub page.
+	 */
+	public function is_help_hub_page(): bool {
+		global $current_screen;
+		return $current_screen && $current_screen->id === $this->get_help_hub_id();
+	}
+
+	/**
+	 * Gets the Help Hub page slug.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The Help Hub page slug.
+	 */
+	public function get_help_hub_slug(): string {
+		return 'tec-events-help-hub';
+	}
+
+	/**
+	 * Gets the Help Hub page ID.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The Help Hub page ID.
+	 */
+	public function get_help_hub_id(): string {
+		return 'tribe_events_page_' . $this->get_help_hub_slug();
+	}
+
+	/**
+	 * Registers the resource data with the Help Hub.
+	 *
+	 * @since TBD
+	 *
+	 * @param Hub $hub The Help Hub instance.
+	 *
+	 * @return void
+	 */
+	public function register_with_hub( Hub $hub ): void {
+		$this->initialize();
+		$hub->set_data( $this );
+	}
 }

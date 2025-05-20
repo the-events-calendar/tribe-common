@@ -141,10 +141,10 @@ class Template_Test extends WPTestCase {
 			$this->assertArrayHasKey( 'description', $section );
 
 			// Validate content based on section type
-			if ( $section['type'] === 'faqs' ) {
-				$this->assertArrayHasKey( 'faqs', $section );
-				$this->assertIsArray( $section['faqs'] );
-				foreach ( $section['faqs'] as $faq ) {
+			if ( $section['type'] === 'faq' ) {
+				$this->assertArrayHasKey( 'faq', $section );
+				$this->assertIsArray( $section['faq'] );
+				foreach ( $section['faq'] as $faq ) {
 					$this->assertArrayHasKey( 'question', $faq );
 					$this->assertArrayHasKey( 'answer', $faq );
 					$this->assertArrayHasKey( 'link_text', $faq );
