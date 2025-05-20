@@ -1,4 +1,5 @@
 import { LocalizedData } from './types/LocalizedData';
+import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 
 declare global {
 	interface Window {
@@ -6,6 +7,7 @@ declare global {
 			common: {
 				classy: {
 					data: LocalizedData;
+					registry: WPDataRegistry;
 				};
 			};
 		};

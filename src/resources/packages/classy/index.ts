@@ -21,8 +21,7 @@ whenEditorIsReady().then( () => {
 } );
 
 // Re-exports that will appear under `window.tec.common.classy.<re-export>`.
-export * as functions from './functions';
-export * as constants from './constants';
 export * as components from './components';
 export * as fields from './fields';
+export * as functions from './functions';
 export * as store from './store';

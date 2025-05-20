@@ -1,8 +1,5 @@
-import { EventMeta } from './EventMeta';
+import { Settings } from './LocalizedData';
 
 export type StoreState = {
-	title?: string;
-	content?: string;
-	currentPostId?: number;
-	meta?: EventMeta;
+	settings: Settings;
 };
