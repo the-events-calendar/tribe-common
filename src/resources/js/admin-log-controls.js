@@ -1,5 +1,5 @@
-var tribe_logger_admin = tribe_logger_admin || {};
-var tribe_logger_data = tribe_logger_data || {};
+window.tribe_logger_admin = window.tribe_logger_admin || {};
+window.tribe_logger_data = window.tribe_logger_data || {};
 
 ( function ( $, obj ) {
 	/* eslint-disable-line no-unused-vars */
@@ -175,4 +175,4 @@ var tribe_logger_data = tribe_logger_data || {};
 
 	update_download_link();
 	$options.on( 'change', update );
-} )( jQuery, tribe_logger_admin );
+} )( jQuery, window.tribe_logger_admin );

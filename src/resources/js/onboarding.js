@@ -2,12 +2,12 @@
  *
  * @type {PlainObject}
  */
-tribe.onboarding = {};
+window.tribe.onboarding = {};
 
 /**
  *
  * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.onboarding
+ * @param {PlainObject} obj window.tribe.onboarding
  *
  * @return {void}
  */
@@ -106,4 +106,4 @@ tribe.onboarding = {};
 
 	// Configure on document ready.
 	$document.ready( obj.ready );
-} )( jQuery, tribe.onboarding );
+} )( jQuery, window.tribe.onboarding );

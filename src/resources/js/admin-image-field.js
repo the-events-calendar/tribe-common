@@ -6,8 +6,8 @@
  *
  * @type {PlainObject}
  */
-tribe.settings = tribe.settings || {};
-tribe.settings.fields = tribe.settings.fields || {};
+window.tribe.settings = window.tribe.settings || {};
+window.tribe.settings.fields = window.tribe.settings.fields || {};
 
 /**
  * Configure image field for settings in global Tribe variable.
@@ -16,7 +16,7 @@ tribe.settings.fields = tribe.settings.fields || {};
  *
  * @type {PlainObject}
  */
-tribe.settings.fields.image = {};
+window.tribe.settings.fields.image = {};
 
 /**
  * Intializes the image field for settings.
@@ -24,7 +24,7 @@ tribe.settings.fields.image = {};
  * @since 5.0.0
  *
  * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.settings.fields.image
+ * @param {PlainObject} obj window.tribe.settings.fields.image
  */
 ( function ( $, obj ) {
 	'use strict';
@@ -174,4 +174,4 @@ tribe.settings.fields.image = {};
 	};
 
 	$( obj.init );
-} )( jQuery, tribe.settings.fields.image );
+} )( jQuery, window.tribe.settings.fields.image );

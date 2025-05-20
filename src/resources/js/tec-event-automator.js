@@ -6,7 +6,7 @@
  *
  * @type {PlainObject}
  */
-tribe.events = tribe.events || {};
+window.tribe.events = window.tribe.events || {};
 
 /**
  * Configures Event Automator Admin Object on the Global Tribe variable
@@ -446,4 +446,4 @@ tribe.events.automatorSettingsAdmin = tribe.events.automatorSettingsAdmin || {};
 
 	// Configure on document ready
 	$( obj.ready );
-} )( jQuery, tribe.events.automatorSettingsAdmin, tribe_dropdowns );
+} )( jQuery, window.tribe.events.automatorSettingsAdmin, window.tribe_dropdowns );
