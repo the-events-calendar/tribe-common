@@ -5,7 +5,7 @@
  *
  * @type   {Object}
  */
-tribe.validation = {};
+window.tribe.validation = {};
 
 dayjs.extend( window.dayjs_plugin_customParseFormat );
 
@@ -832,4 +832,4 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	 * @since  4.7
 	 */
 	$( obj.onReady );
-} )( tribe.validation, jQuery, window.underscore || window._ );
+} )( window.tribe.validation, jQuery, window.underscore || window._ );
