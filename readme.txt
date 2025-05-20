@@ -2,6 +2,7 @@
 
 = [6.7.0] 2025-05-20 =
 
+* Feature - Moved the JavaScript and CSS building to use `@wordpress/scripts` for improved compatibility.
 * Feature - Add `Abstract_API` and `Abstract_Data` classes for Onboarding functionality.
 * Feature - Add `Abstract_Step` and `Step_Interface` for Onboarding steps.
 * Feature - New Lists namespace with Country, Currency, and Timezone classes for standardized data handling.
