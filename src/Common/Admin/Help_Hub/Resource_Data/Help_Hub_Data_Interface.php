@@ -11,6 +11,8 @@
 
 namespace TEC\Common\Admin\Help_Hub\Resource_Data;
 
+use TEC\Common\Admin\Help_Hub\Hub;
+
 /**
  * Interface Help_Hub_Data_Interface
  *

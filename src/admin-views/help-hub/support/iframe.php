@@ -15,6 +15,9 @@ $query_args = [
 	'embedded_content' => 'true',                   // Flag to indicate this is embedded content.
 ];
 
+if ( empty( $query_args['page'] ) ) {
+	return;
+}
 // Generate the iframe URL by appending query arguments to the admin URL.
 $iframe_url = add_query_arg( $query_args, admin_url( 'admin.php' ) );
 

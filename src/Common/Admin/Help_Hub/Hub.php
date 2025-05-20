@@ -78,11 +78,30 @@ class Hub {
 	public function __construct( Help_Hub_Data_Interface $data, Configuration $config, Tribe__Template $template ) {
 		$this->config   = $config;
 		$this->template = $template;
-		$this->data     = $data;
+		$this->set_data( $data );
 
 		$this->setup_support_keys();
 		$this->register_hooks();
 		$this->register_hidden_page();
+	}
+
+	/**
+	 * Sets or replaces the Help Hub data object.
+	 *
+	 * This method assigns the provided data instance to the Hub. It may be called multiple times,
+	 * such as during construction or later via a hook (e.g., `tec_help_hub_before_iframe_render`)
+	 * to override an initial default.
+	 *
+	 * This method will overwrite any previously set data instance.
+	 *
+	 * @since TBD
+	 *
+	 * @param Help_Hub_Data_Interface $data The Help Hub data instance to use.
+	 *
+	 * @return void
+	 */
+	public function set_data( Help_Hub_Data_Interface $data ) {
+		$this->data = $data;
 	}
 
 	/**
@@ -117,6 +136,12 @@ class Hub {
 	 * @return Help_Hub_Data_Interface The data object containing Help Hub resources.
 	 */
 	public function get_data(): Help_Hub_Data_Interface {
+		if ( $this->data ) {
+			$this->data->initialize();
+			return $this->data;
+		}
+
+		$this->ensure_data_is_set();
 		return $this->data;
 	}
 
@@ -163,19 +188,31 @@ class Hub {
 	/**
 	 * Ensures that the Help Hub data object is set.
 	 *
-	 * Verifies that the $data property has been set. Throws a RuntimeException
-	 * if the data has not been set using the setup method.
+	 * This should be called before rendering or accessing data-dependent methods.
+	 * It expects that the data has been injected either via constructor or through a hook.
 	 *
 	 * @since 6.3.2
+	 * @since TBD Refactored.
 	 *
-	 * @throws RuntimeException If data has not been set using setup.
+	 * @throws RuntimeException If the data has not been set by the time this method runs.
+	 *
 	 * @return void
 	 */
 	protected function ensure_data_is_set(): void {
-		if ( empty( $this->data ) ) {
-			throw new RuntimeException( 'The HelpHub data must be set using the setup method before calling this function.' );
+		if ( isset( $this->data ) && $this->data instanceof Help_Hub_Data_Interface ) {
+			$this->data->initialize();
+			return;
 		}
+
+		$page = tribe_get_request_var( 'page' );
+		throw new RuntimeException(
+			sprintf(
+				'Help Hub data was not set for page [%s]. Ensure your resource data class calls $hub->set_data() before render.',
+				esc_html( $page )
+			)
+		);
 	}
+
 
 	/**
 	 * Renders the Help Hub page.
@@ -424,14 +461,16 @@ class Hub {
 	 * Generates and outputs iframe content when appropriate.
 	 *
 	 * @since 6.3.2
+	 * @since TBD Moved `tec_help_hub_before_iframe_render` to trigger sooner.
 	 *
 	 * @throws RuntimeException If data has not been set using setup.
 	 * @return void
 	 */
 	public function generate_iframe_content(): void {
-		$this->ensure_data_is_set();
-		$page   = tribe_get_request_var( 'page' );
-		$iframe = tribe_get_request_var( 'embedded_content' );
+		$page          = tribe_get_request_var( 'page' );
+		$iframe        = (bool) tribe_get_request_var( 'embedded_content' );
+		$help_hub_page = tribe_get_request_var( 'help_hub' );
+
 
 		if ( empty( $page ) || self::IFRAME_PAGE_SLUG !== $page || $iframe !== 'true' ) {
 			return;
@@ -449,10 +488,14 @@ class Hub {
 		 */
 		do_action( 'tec_help_hub_before_iframe_render', $this );
 
-		$this->register_iframe_hooks();
+		$this->ensure_data_is_set();
 
+		define( 'IFRAME_REQUEST', true );
 		// phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
 		show_admin_bar( false );
+
+		$this->register_iframe_hooks();
+
 		$this->render_template( 'help-hub/support/iframe-content' );
 
 		/**
