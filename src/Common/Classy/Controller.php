@@ -27,6 +27,14 @@ use WP_Post;
  * @package TEC\Common\Classy;
  */
 class Controller extends Controller_Contract {
+	/**
+	 * The name of the action that will be fired when this controller has registered.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static string $registration_action = 'tec_classy_registered';
 
 	/**
 	 * The name of the constant that will be used to disable the feature.
