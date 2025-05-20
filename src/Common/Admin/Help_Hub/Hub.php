@@ -467,12 +467,16 @@ class Hub {
 	 * @return void
 	 */
 	public function generate_iframe_content(): void {
+
 		$page          = tribe_get_request_var( 'page' );
 		$iframe        = (bool) tribe_get_request_var( 'embedded_content' );
 		$help_hub_page = tribe_get_request_var( 'help_hub' );
 
-
-		if ( empty( $page ) || self::IFRAME_PAGE_SLUG !== $page || $iframe !== 'true' ) {
+		if (
+			empty( $page )
+			|| self::IFRAME_PAGE_SLUG !== $help_hub_page
+			|| ! $iframe
+		) {
 			return;
 		}
 
