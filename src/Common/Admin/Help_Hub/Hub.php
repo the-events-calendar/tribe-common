@@ -82,6 +82,7 @@ class Hub {
 
 		$this->setup_support_keys();
 		$this->register_hooks();
+		$this->register_hidden_page();
 	}
 
 	/**
@@ -161,7 +162,31 @@ class Hub {
 	}
 
 	/**
-	 * Ensures that the Help Hub data object is set and initialized.
+	 * Registers the hidden admin page for the Help Hub.
+	 *
+	 * @since 6.3.2
+	 *
+	 * @return void
+	 */
+	protected function register_hidden_page(): void {
+		add_action(
+			'admin_menu',
+			function () {
+				add_submenu_page(
+					null, // Make the page hidden.
+					__( 'Help Hub', 'tribe-common' ),
+					__( 'Help Hub', 'tribe-common' ),
+					'manage_options',
+					self::IFRAME_PAGE_SLUG,
+					[ $this, 'render' ]
+				);
+			},
+			999
+		);
+	}
+
+	/**
+	 * Ensures that the Help Hub data object is set.
 	 *
 	 * This should be called before rendering or accessing data-dependent methods.
 	 * It expects that the data has been injected either via constructor or through a hook.
@@ -447,7 +472,7 @@ class Hub {
 		$help_hub_page = tribe_get_request_var( 'help_hub' );
 
 
-		if ( self::IFRAME_PAGE_SLUG !== $help_hub_page && ( empty( $page ) || ! $iframe ) ) {
+		if ( empty( $page ) || self::IFRAME_PAGE_SLUG !== $page || $iframe !== 'true' ) {
 			return;
 		}
 
