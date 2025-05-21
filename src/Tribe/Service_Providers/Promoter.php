@@ -102,7 +102,7 @@ class Tribe__Service_Providers__Promoter extends Service_Provider {
 	 * @since 4.9.2
 	 */
 	public function add_promoter_assets() {
-		tribe_asset(
+		tec_asset(
 			Tribe__Main::instance(),
 			'promoter',
 			'promoter.css',

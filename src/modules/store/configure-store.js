@@ -20,11 +20,7 @@ export default () => {
 		return window.__tribe_common_store__;
 	}
 
-	const middlewares = [
-		thunk,
-		sagaMiddleware,
-		wpRequest,
-	];
+	const middlewares = [ thunk, sagaMiddleware, wpRequest ];
 
 	const composeEnhancers = composeWithDevTools( { name: 'tribe/common' } );
 

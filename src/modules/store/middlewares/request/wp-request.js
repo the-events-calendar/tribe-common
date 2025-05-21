@@ -17,10 +17,7 @@ export default () => ( next ) => async ( action ) => {
 
 	const { meta = {} } = action;
 
-	const {
-		path = '',
-		params = {},
-	} = meta;
+	const { path = '', params = {} } = meta;
 
 	next( action );
 
