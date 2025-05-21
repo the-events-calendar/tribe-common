@@ -27,7 +27,7 @@ export type DatePickerProps = {
 	currentDate: Date;
 };
 
-export default function DatePicker( props:DatePickerProps  ) {
+export default function DatePicker( props: DatePickerProps ) {
 	const {
 		anchor,
 		dateWithYearFormat,
