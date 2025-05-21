@@ -1,7 +1,11 @@
 ( ( $, obj ) => {
 	'use strict';
-	const obj = window.tribe.helpPage || {};
-	windowDocsBotAI = window.DocsBotAI || {};
+	window.tribe = window.tribe || {};
+	window.tribe.helpPage = window.tribe.helpPage || {};
+	window.DocsBotAI = window.DocsBotAI || {};
+
+	const obj = window.tribe.helpPage;
+	const DocsBotAI = window.DocsBotAI;
 
 	obj.selectors = {
 		body: 'body',
@@ -21,66 +25,66 @@
 	 * @type {string}
 	 */
 	obj.DocsBotAIcss = `
-						/* DocsBot iframe box dimensions */
-						.docsbot-iframe-box {
-							height: 740px;
-							max-height: 740px;
-						}
+		/* DocsBot iframe box dimensions */
+		.docsbot-iframe-box {
+			height: 740px;
+			max-height: 740px;
+		}
 
-						/* Container styling */
-						.docsbot-chat-container {
-							font-family: Arial, Helvetica, sans-serif;
-						}
+		/* Container styling */
+		.docsbot-chat-container {
+			font-family: Arial, Helvetica, sans-serif;
+		}
 
-						/* Inner container styling */
-						.docsbot-chat-inner-container {
-							border-radius: 0;
-							background-color: #ffffff !important;
-						}
+		/* Inner container styling */
+		.docsbot-chat-inner-container {
+			border-radius: 0;
+			background-color: #ffffff !important;
+		}
 
-						/* Bot message styling */
-						.docsbot-chat-bot-message {
-							border-color: #334aff;
-							background: #E6E9FF !important;
-							color: #000000 !important;
-						}
+		/* Bot message styling */
+		.docsbot-chat-bot-message {
+			border-color: #334aff;
+			background: #E6E9FF !important;
+			color: #000000 !important;
+		}
 
-						/* User message styling */
-						.docsbot-user-chat-message {
-							color: #000000 !important;
-						}
+		/* User message styling */
+		.docsbot-user-chat-message {
+			color: #000000 !important;
+		}
 
-						/* Header styling */
-						.docsbot-chat-header {
-							background-color: #ffffff !important;
-							color: #000000 !important;
-							border-bottom: solid 1px #C3C4C7;
-						}
+		/* Header styling */
+		.docsbot-chat-header {
+			background-color: #ffffff !important;
+			color: #000000 !important;
+			border-bottom: solid 1px #C3C4C7;
+		}
 
-						/* Header content styling */
-						.docsbot-chat-header-content h1 {
-							text-align: left;
-						}
-						.docsbot-chat-header-content span {
-							display: none;
-						}
+		/* Header content styling */
+		.docsbot-chat-header-content h1 {
+			text-align: left;
+		}
+		.docsbot-chat-header-content span {
+			display: none;
+		}
 
-						/* Header button positioning */
-						.docsbot-chat-header button {
-							top: 14px !important;
-						}
+		/* Header button positioning */
+		.docsbot-chat-header button {
+			top: 14px !important;
+		}
 
-						/* Suggested questions container styling */
-						.docsbot-chat-suggested-questions-container button {
-							background-color: #F6F7F7 !important;
-							border: solid 1px #C3C4C7 !important;
-							border-radius: 3px;
-							color: #000000 !important;
-						}
-						.docsbot-chat-suggested-questions-container span {
-							color: #000000 !important;
-						}
-					`;
+		/* Suggested questions container styling */
+		.docsbot-chat-suggested-questions-container button {
+			background-color: #F6F7F7 !important;
+			border: solid 1px #C3C4C7 !important;
+			border-radius: 3px;
+			color: #000000 !important;
+		}
+		.docsbot-chat-suggested-questions-container span {
+			color: #000000 !important;
+		}
+	`;
 
 	/**
 	 * Initializes the help page setup, verifying opt-in status.
