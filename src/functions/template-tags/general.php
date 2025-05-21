@@ -989,14 +989,12 @@ if ( ! function_exists( 'tec_assets' ) ) {
 	 *
 	 * @since 6.7.0
 	 *
-	 * @param object $origin    The main object for the plugin you are enqueueing the script/style for.
-	 * @param array  $assets    Indexed array, don't use any associative key.
-	 *      E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ]
-	 *     {
-	 *        @type string   $slug       The slug to save the asset.
-	 *        @type string   $file       Which file will be loaded, either CSS or JS.
-	 *        @type array    $deps       (optional) Dependencies.
-	 *     }
+	 * @param object $origin    The main Object for the plugin you are enqueueing the script/style for.
+	 * @param array  $assets    Not associative array.
+	 *                          E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ].
+	 *                                @type string $slug  Slug to save the asset.
+	 *                                @type string $file  Which file will be loaded, either CSS or JS.
+	 *                                @type array  $deps  (optional) Dependencies.
 	 * @param string $action    A WordPress hook that will automatically enqueue this asset once fired.
 	 * @param array  $arguments Look at `Tribe__Assets::register()` for more info.
 	 *
