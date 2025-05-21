@@ -1,4 +1,4 @@
-( ( $, obj ) => {
+( ( $ ) => {
 	'use strict';
 	window.tribe = window.tribe || {};
 	window.tribe.helpPage = window.tribe.helpPage || {};

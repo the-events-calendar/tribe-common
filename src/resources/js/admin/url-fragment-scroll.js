@@ -1,9 +1,10 @@
-tribe.urlFragmentScroll = tribe.urlFragmentScroll || {};
 
-( function ( $, obj ) {
+( function ( $ ) {
 	'use strict';
 
 	const $document = $( document );
+	window.tribe.urlFragmentScroll = window.tribe.urlFragmentScroll || {};
+	const obj = window.tribe.urlFragmentScroll;
 
 	/**
 	 * Sets up listeners and callbacks to handle navigation to page #elements
@@ -115,4 +116,4 @@ tribe.urlFragmentScroll = tribe.urlFragmentScroll || {};
 	};
 
 	$( obj.setup );
-} )( jQuery, tribe.urlFragmentScroll );
+} )( jQuery );

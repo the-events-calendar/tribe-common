@@ -1,7 +1,8 @@
-tribe.helpPage = tribe.helpPage || {};
-
-( function ( $, obj ) {
+( function ( $ ) {
 	'use strict';
+
+	window.tribe.helpPage = window.tribe.helpPage || {};
+	const obj = window.tribe.helpPage;
 
 	obj.selectors = {
 		copyButton: '.system-info-copy-btn',
@@ -309,4 +310,4 @@ tribe.helpPage = tribe.helpPage || {};
 	};
 
 	$( obj.setup );
-} )( jQuery, tribe.helpPage );
+} )( jQuery );
