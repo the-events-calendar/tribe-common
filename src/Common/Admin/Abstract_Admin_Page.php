@@ -102,15 +102,6 @@ abstract class Abstract_Admin_Page {
 	public static bool $has_footer = false;
 
 	/**
-	 * Whether the page has a logo.
-	 *
-	 * @since 6.7.0
-	 *
-	 * @var bool
-	 */
-	public static bool $has_logo = true;
-
-	/**
 	 * Add the settings page.
 	 *
 	 * @since 6.4.1
@@ -482,10 +473,12 @@ abstract class Abstract_Admin_Page {
 				$this->admin_page_title();
 				do_action( 'tec_admin_header_after_title' );
 				
-				if ( tribe( IAN_Controller::class )->is_ian_page() ) : ?>
+				if ( tribe( IAN_Controller::class )->is_ian_page() ) :
+					?>
 					<div class="ian-client" data-tec-ian-trigger="iconIan"></div>
 				<?php endif; ?>
 			</header>
+		
 		<?php
 	}
 
