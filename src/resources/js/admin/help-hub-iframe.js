@@ -75,7 +75,6 @@ window.DocsBotAI = window.DocsBotAI || {};
 						}
 					`;
 
-
 	/**
 	 * Initializes the help page setup, verifying opt-in status.
 	 *
@@ -103,7 +102,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 *
 	 * @since 6.3.2
 	 * @param {string} zendeskKey - The Zendesk chat key.
-	 * @returns {Promise} - A promise that resolves when the script is loaded.
+	 * @return {Promise} - A promise that resolves when the script is loaded.
 	 */
 	obj.loadZendeskWidgetScript = ( zendeskKey ) => {
 		return new Promise( ( resolve, reject ) => {
@@ -131,37 +130,22 @@ window.DocsBotAI = window.DocsBotAI || {};
 		obj.isZendeskInitialized = false;
 		const bodyElement = document.getElementById( obj.selectors.helpHubPageID );
 
-		zE(
-			'webWidget',
-			'hide',
-			() => {
-				obj.isZendeskInitialized = true;
-			}
-		);
+		zE( 'webWidget', 'hide', () => {
+			obj.isZendeskInitialized = true;
+		} );
 
 		// Add 'blackout' class when the widget is opened.
-		zE(
-			'webWidget:on',
-			'open',
-			() => {
-				if ( obj.isZendeskInitialized ) {
-					bodyElement.classList.add( 'blackout' );
-				}
+		zE( 'webWidget:on', 'open', () => {
+			if ( obj.isZendeskInitialized ) {
+				bodyElement.classList.add( 'blackout' );
 			}
-		);
+		} );
 
 		// Remove 'blackout' class when the widget is closed.
-		zE(
-			'webWidget:on',
-			'close',
-			() => {
-				zE(
-					'webWidget',
-					'hide'
-				);
-				bodyElement.classList.remove( 'blackout' );
-			}
-		);
+		zE( 'webWidget:on', 'close', () => {
+			zE( 'webWidget', 'hide' );
+			bodyElement.classList.remove( 'blackout' );
+		} );
 	};
 
 	/**
@@ -183,23 +167,14 @@ window.DocsBotAI = window.DocsBotAI || {};
 		switch ( action ) {
 			case 'runScript':
 				if ( data === 'openZendesk' ) {
-					zE(
-						'webWidget',
-						'show'
-					);
-					zE(
-						'webWidget',
-						'open'
-					);
+					zE( 'webWidget', 'show' );
+					zE( 'webWidget', 'open' );
 					bodyElement.classList.add( 'blackout' );
 				}
 				break;
 
 			default:
-				console.warn(
-					'Unhandled action:',
-					action
-				);
+				console.warn( 'Unhandled action:', action );
 				break;
 		}
 	};
@@ -213,16 +188,10 @@ window.DocsBotAI = window.DocsBotAI || {};
 	obj.loadAndInitializeZendeskWidget = () => {
 		obj.loadZendeskWidgetScript( helpHubSettings.zendeskChatKey )
 			.then( () => obj.initializeZendesk() )
-			.catch( ( error ) => console.error(
-				'Zendesk Widget failed to load:',
-				error
-			) );
+			.catch( ( error ) => console.error( 'Zendesk Widget failed to load:', error ) );
 
 		// Listen for incoming messages.
-		window.addEventListener(
-			'message',
-			obj.handlePostMessageEvents
-		);
+		window.addEventListener( 'message', obj.handlePostMessageEvents );
 	};
 
 	/**
@@ -230,7 +199,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 *
 	 * @since 6.3.2
 	 * @param {string} selector - The CSS selector of the element to observe.
-	 * @returns {Promise} - Resolves when the element becomes available.
+	 * @return {Promise} - Resolves when the element becomes available.
 	 */
 	obj.observeElement = ( selector ) => {
 		return new Promise( ( resolve ) => {
@@ -245,10 +214,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 					observer.disconnect(); // Ensure the observer stops after resolving.
 				}
 			} );
-			observer.observe(
-				document.body,
-				{ childList: true, subtree: true }
-			);
+			observer.observe( document.body, { childList: true, subtree: true } );
 		} );
 	};
 
@@ -262,7 +228,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 */
 	obj.initializeDocsBot = () => {
 		const bodyElement = document.getElementById( obj.selectors.helpHubPageID );
-		document.getElementById(obj.selectors.docsbotWidget).classList.remove( 'hide' );
+		document.getElementById( obj.selectors.docsbotWidget ).classList.remove( 'hide' );
 		DocsBotAI.init = ( e ) => {
 			return new Promise( ( resolve, reject ) => {
 				const script = document.createElement( 'script' );
@@ -271,56 +237,34 @@ window.DocsBotAI = window.DocsBotAI || {};
 				script.src = 'https://widget.docsbot.ai/chat.js';
 
 				const firstScript = document.getElementsByTagName( 'script' )[ 0 ];
-				firstScript.parentNode.insertBefore(
-					script,
-					firstScript
-				);
+				firstScript.parentNode.insertBefore( script, firstScript );
 
-				script.addEventListener(
-					'load',
-					() => {
-						Promise.all( [
-										 window.DocsBotAI.mount( { ...e } ),
-										 obj.observeElement( '#docsbotai-root' ),
-									 ] )
-							.then( resolve )
-							.catch( reject );
-					}
-				);
+				script.addEventListener( 'load', () => {
+					Promise.all( [ window.DocsBotAI.mount( { ...e } ), obj.observeElement( '#docsbotai-root' ) ] )
+						.then( resolve )
+						.catch( reject );
+				} );
 
-				script.addEventListener(
-					'error',
-					( error ) => {
-						reject( error.message );
-					}
-				);
+				script.addEventListener( 'error', ( error ) => {
+					reject( error.message );
+				} );
 			} );
 		};
 
 		DocsBotAI.init( {
-							id: helpHubSettings.docsbot_key,
-							options: {
-								customCSS: obj.DocsBotAIcss,
-							},
-							supportCallback: ( event ) => {
-								event.preventDefault();
-								bodyElement.classList.add( 'blackout' );
-								zE(
-									'webWidget',
-									'show'
-								);
-								zE(
-									'webWidget',
-									'open'
-								);
-							},
-						} );
+			id: helpHubSettings.docsbot_key,
+			options: {
+				customCSS: obj.DocsBotAIcss,
+			},
+			supportCallback: ( event ) => {
+				event.preventDefault();
+				bodyElement.classList.add( 'blackout' );
+				zE( 'webWidget', 'show' );
+				zE( 'webWidget', 'open' );
+			},
+		} );
 	};
 
 	// Initialize the help page.
 	$( obj.setup );
-
-} )(
-	jQuery,
-	tribe.helpPage
-);
+} )( jQuery, tribe.helpPage );
