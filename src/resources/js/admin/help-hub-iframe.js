@@ -1,8 +1,7 @@
 ( ( $, obj ) => {
 	'use strict';
-	const tribe = window.tribe || {};
-	const obj = tribe.helpPage || {};
-	const DocsBotAI = window.DocsBotAI || {};
+	const obj = window.tribe.helpPage || {};
+	windowDocsBotAI = window.DocsBotAI || {};
 
 	obj.selectors = {
 		body: 'body',
