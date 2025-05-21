@@ -1,0 +1,441 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DatePicker Component isMultiday property renders correctly when isMultiday is false 1`] = `
+<div
+  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+>
+  <div
+    class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+  >
+    <div
+      class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+      data-wp-c16t="true"
+      data-wp-component="InputBase"
+    >
+      <div
+        class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+      >
+        <input
+          class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+          id="inspector-input-control-5"
+          value="2025-05-21"
+        />
+        <span
+          class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
+        >
+          <div
+            class="components-input-control-suffix-wrapper css-o1g5i8-PrefixSuffixWrapper-prefixSuffixWrapperStyles em5sgkm0"
+            data-wp-c16t="true"
+            data-wp-component="InputControlSuffixWrapper"
+          >
+            <svg
+              class="classy-suffix-icon classy-suffix-icon--calendar"
+              fill="none"
+              height="19"
+              viewBox="0 0 18 19"
+              width="18"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M14.625 5.70367H3.375V14.7037C3.375 14.9108 3.54289 15.0787 3.75 15.0787H14.25C14.4571 15.0787 14.625 14.9108 14.625 14.7037V5.70367ZM2.25 5.70367V4.70367V4.20367C2.25 3.37525 2.92157 2.70367 3.75 2.70367H4.25H13.75H14.25C15.0784 2.70367 15.75 3.37525 15.75 4.20367V4.70367V5.70367V14.7037C15.75 15.5321 15.0784 16.2037 14.25 16.2037H3.75C2.92157 16.2037 2.25 15.5321 2.25 14.7037V5.70367ZM5.25 7.95367H6.75V9.45367H5.25V7.95367ZM6.75 10.9537H5.25V12.4537H6.75V10.9537ZM8.25 7.95367H9.75V9.45367H8.25V7.95367ZM12.75 7.95367H11.25V9.45367H12.75V7.95367ZM8.25 10.9537H9.75V12.4537H8.25V10.9537ZM12.75 10.9537H11.25V12.4537H12.75V10.9537Z"
+                fill="#1E1E1E"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </span>
+        <div
+          aria-hidden="true"
+          class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component isMultiday property renders correctly when isMultiday is true 1`] = `
+<div
+  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+>
+  <div
+    class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+  >
+    <div
+      class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+      data-wp-c16t="true"
+      data-wp-component="InputBase"
+    >
+      <div
+        class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+      >
+        <input
+          class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+          id="inspector-input-control-4"
+          value="2025-05-21"
+        />
+        <span
+          class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
+        >
+          <div
+            class="components-input-control-suffix-wrapper css-o1g5i8-PrefixSuffixWrapper-prefixSuffixWrapperStyles em5sgkm0"
+            data-wp-c16t="true"
+            data-wp-component="InputControlSuffixWrapper"
+          >
+            <svg
+              class="classy-suffix-icon classy-suffix-icon--calendar"
+              fill="none"
+              height="19"
+              viewBox="0 0 18 19"
+              width="18"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M14.625 5.70367H3.375V14.7037C3.375 14.9108 3.54289 15.0787 3.75 15.0787H14.25C14.4571 15.0787 14.625 14.9108 14.625 14.7037V5.70367ZM2.25 5.70367V4.70367V4.20367C2.25 3.37525 2.92157 2.70367 3.75 2.70367H4.25H13.75H14.25C15.0784 2.70367 15.75 3.37525 15.75 4.20367V4.70367V5.70367V14.7037C15.75 15.5321 15.0784 16.2037 14.25 16.2037H3.75C2.92157 16.2037 2.25 15.5321 2.25 14.7037V5.70367ZM5.25 7.95367H6.75V9.45367H5.25V7.95367ZM6.75 10.9537H5.25V12.4537H6.75V10.9537ZM8.25 7.95367H9.75V9.45367H8.25V7.95367ZM12.75 7.95367H11.25V9.45367H12.75V7.95367ZM8.25 10.9537H9.75V12.4537H8.25V10.9537ZM12.75 10.9537H11.25V12.4537H12.75V10.9537Z"
+                fill="#1E1E1E"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </span>
+        <div
+          aria-hidden="true"
+          class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component isSelectingDate property selecting end date 1`] = `
+<div
+  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+>
+  <div
+    class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+  >
+    <div
+      class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+      data-wp-c16t="true"
+      data-wp-component="InputBase"
+    >
+      <div
+        class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+      >
+        <input
+          class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+          id="inspector-input-control-2"
+          value="2025-05-21"
+        />
+        <span
+          class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
+        >
+          <div
+            class="components-input-control-suffix-wrapper css-o1g5i8-PrefixSuffixWrapper-prefixSuffixWrapperStyles em5sgkm0"
+            data-wp-c16t="true"
+            data-wp-component="InputControlSuffixWrapper"
+          >
+            <svg
+              class="classy-suffix-icon classy-suffix-icon--calendar"
+              fill="none"
+              height="19"
+              viewBox="0 0 18 19"
+              width="18"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M14.625 5.70367H3.375V14.7037C3.375 14.9108 3.54289 15.0787 3.75 15.0787H14.25C14.4571 15.0787 14.625 14.9108 14.625 14.7037V5.70367ZM2.25 5.70367V4.70367V4.20367C2.25 3.37525 2.92157 2.70367 3.75 2.70367H4.25H13.75H14.25C15.0784 2.70367 15.75 3.37525 15.75 4.20367V4.70367V5.70367V14.7037C15.75 15.5321 15.0784 16.2037 14.25 16.2037H3.75C2.92157 16.2037 2.25 15.5321 2.25 14.7037V5.70367ZM5.25 7.95367H6.75V9.45367H5.25V7.95367ZM6.75 10.9537H5.25V12.4537H6.75V10.9537ZM8.25 7.95367H9.75V9.45367H8.25V7.95367ZM12.75 7.95367H11.25V9.45367H12.75V7.95367ZM8.25 10.9537H9.75V12.4537H8.25V10.9537ZM12.75 10.9537H11.25V12.4537H12.75V10.9537Z"
+                fill="#1E1E1E"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </span>
+        <div
+          aria-hidden="true"
+          class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component isSelectingDate property selecting neither start nor end date 1`] = `
+<div
+  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+>
+  <div
+    class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+  >
+    <div
+      class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+      data-wp-c16t="true"
+      data-wp-component="InputBase"
+    >
+      <div
+        class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+      >
+        <input
+          class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+          id="inspector-input-control-3"
+          value="2025-05-21"
+        />
+        <span
+          class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
+        >
+          <div
+            class="components-input-control-suffix-wrapper css-o1g5i8-PrefixSuffixWrapper-prefixSuffixWrapperStyles em5sgkm0"
+            data-wp-c16t="true"
+            data-wp-component="InputControlSuffixWrapper"
+          >
+            <svg
+              class="classy-suffix-icon classy-suffix-icon--calendar"
+              fill="none"
+              height="19"
+              viewBox="0 0 18 19"
+              width="18"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M14.625 5.70367H3.375V14.7037C3.375 14.9108 3.54289 15.0787 3.75 15.0787H14.25C14.4571 15.0787 14.625 14.9108 14.625 14.7037V5.70367ZM2.25 5.70367V4.70367V4.20367C2.25 3.37525 2.92157 2.70367 3.75 2.70367H4.25H13.75H14.25C15.0784 2.70367 15.75 3.37525 15.75 4.20367V4.70367V5.70367V14.7037C15.75 15.5321 15.0784 16.2037 14.25 16.2037H3.75C2.92157 16.2037 2.25 15.5321 2.25 14.7037V5.70367ZM5.25 7.95367H6.75V9.45367H5.25V7.95367ZM6.75 10.9537H5.25V12.4537H6.75V10.9537ZM8.25 7.95367H9.75V9.45367H8.25V7.95367ZM12.75 7.95367H11.25V9.45367H12.75V7.95367ZM8.25 10.9537H9.75V12.4537H8.25V10.9537ZM12.75 10.9537H11.25V12.4537H12.75V10.9537Z"
+                fill="#1E1E1E"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </span>
+        <div
+          aria-hidden="true"
+          class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component isSelectingDate property selecting start date 1`] = `
+<div
+  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+>
+  <div
+    class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+  >
+    <div
+      class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+      data-wp-c16t="true"
+      data-wp-component="InputBase"
+    >
+      <div
+        class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+      >
+        <input
+          class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+          id="inspector-input-control-1"
+          value="2025-05-21"
+        />
+        <span
+          class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
+        >
+          <div
+            class="components-input-control-suffix-wrapper css-o1g5i8-PrefixSuffixWrapper-prefixSuffixWrapperStyles em5sgkm0"
+            data-wp-c16t="true"
+            data-wp-component="InputControlSuffixWrapper"
+          >
+            <svg
+              class="classy-suffix-icon classy-suffix-icon--calendar"
+              fill="none"
+              height="19"
+              viewBox="0 0 18 19"
+              width="18"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M14.625 5.70367H3.375V14.7037C3.375 14.9108 3.54289 15.0787 3.75 15.0787H14.25C14.4571 15.0787 14.625 14.9108 14.625 14.7037V5.70367ZM2.25 5.70367V4.70367V4.20367C2.25 3.37525 2.92157 2.70367 3.75 2.70367H4.25H13.75H14.25C15.0784 2.70367 15.75 3.37525 15.75 4.20367V4.70367V5.70367V14.7037C15.75 15.5321 15.0784 16.2037 14.25 16.2037H3.75C2.92157 16.2037 2.25 15.5321 2.25 14.7037V5.70367ZM5.25 7.95367H6.75V9.45367H5.25V7.95367ZM6.75 10.9537H5.25V12.4537H6.75V10.9537ZM8.25 7.95367H9.75V9.45367H8.25V7.95367ZM12.75 7.95367H11.25V9.45367H12.75V7.95367ZM8.25 10.9537H9.75V12.4537H8.25V10.9537ZM12.75 10.9537H11.25V12.4537H12.75V10.9537Z"
+                fill="#1E1E1E"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </span>
+        <div
+          aria-hidden="true"
+          class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component renders correctly with default props 1`] = `
+<div
+  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+>
+  <div
+    class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+  >
+    <div
+      class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+      data-wp-c16t="true"
+      data-wp-component="InputBase"
+    >
+      <div
+        class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+      >
+        <input
+          class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+          id="inspector-input-control-0"
+          value="2025-05-21"
+        />
+        <span
+          class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
+        >
+          <div
+            class="components-input-control-suffix-wrapper css-o1g5i8-PrefixSuffixWrapper-prefixSuffixWrapperStyles em5sgkm0"
+            data-wp-c16t="true"
+            data-wp-component="InputControlSuffixWrapper"
+          >
+            <svg
+              class="classy-suffix-icon classy-suffix-icon--calendar"
+              fill="none"
+              height="19"
+              viewBox="0 0 18 19"
+              width="18"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M14.625 5.70367H3.375V14.7037C3.375 14.9108 3.54289 15.0787 3.75 15.0787H14.25C14.4571 15.0787 14.625 14.9108 14.625 14.7037V5.70367ZM2.25 5.70367V4.70367V4.20367C2.25 3.37525 2.92157 2.70367 3.75 2.70367H4.25H13.75H14.25C15.0784 2.70367 15.75 3.37525 15.75 4.20367V4.70367V5.70367V14.7037C15.75 15.5321 15.0784 16.2037 14.25 16.2037H3.75C2.92157 16.2037 2.25 15.5321 2.25 14.7037V5.70367ZM5.25 7.95367H6.75V9.45367H5.25V7.95367ZM6.75 10.9537H5.25V12.4537H6.75V10.9537ZM8.25 7.95367H9.75V9.45367H8.25V7.95367ZM12.75 7.95367H11.25V9.45367H12.75V7.95367ZM8.25 10.9537H9.75V12.4537H8.25V10.9537ZM12.75 10.9537H11.25V12.4537H12.75V10.9537Z"
+                fill="#1E1E1E"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </span>
+        <div
+          aria-hidden="true"
+          class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component showPopover property renders correctly when showPopover is false 1`] = `
+<div
+  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+>
+  <div
+    class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+  >
+    <div
+      class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+      data-wp-c16t="true"
+      data-wp-component="InputBase"
+    >
+      <div
+        class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+      >
+        <input
+          class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+          id="inspector-input-control-7"
+          value="2025-05-21"
+        />
+        <span
+          class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
+        >
+          <div
+            class="components-input-control-suffix-wrapper css-o1g5i8-PrefixSuffixWrapper-prefixSuffixWrapperStyles em5sgkm0"
+            data-wp-c16t="true"
+            data-wp-component="InputControlSuffixWrapper"
+          >
+            <svg
+              class="classy-suffix-icon classy-suffix-icon--calendar"
+              fill="none"
+              height="19"
+              viewBox="0 0 18 19"
+              width="18"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M14.625 5.70367H3.375V14.7037C3.375 14.9108 3.54289 15.0787 3.75 15.0787H14.25C14.4571 15.0787 14.625 14.9108 14.625 14.7037V5.70367ZM2.25 5.70367V4.70367V4.20367C2.25 3.37525 2.92157 2.70367 3.75 2.70367H4.25H13.75H14.25C15.0784 2.70367 15.75 3.37525 15.75 4.20367V4.70367V5.70367V14.7037C15.75 15.5321 15.0784 16.2037 14.25 16.2037H3.75C2.92157 16.2037 2.25 15.5321 2.25 14.7037V5.70367ZM5.25 7.95367H6.75V9.45367H5.25V7.95367ZM6.75 10.9537H5.25V12.4537H6.75V10.9537ZM8.25 7.95367H9.75V9.45367H8.25V7.95367ZM12.75 7.95367H11.25V9.45367H12.75V7.95367ZM8.25 10.9537H9.75V12.4537H8.25V10.9537ZM12.75 10.9537H11.25V12.4537H12.75V10.9537Z"
+                fill="#1E1E1E"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </span>
+        <div
+          aria-hidden="true"
+          class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component showPopover property renders correctly when showPopover is true 1`] = `
+<div
+  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+>
+  <div
+    class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+  >
+    <div
+      class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+      data-wp-c16t="true"
+      data-wp-component="InputBase"
+    >
+      <div
+        class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+      >
+        <input
+          class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+          id="inspector-input-control-6"
+          value="2025-05-21"
+        />
+        <span
+          class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
+        >
+          <div
+            class="components-input-control-suffix-wrapper css-o1g5i8-PrefixSuffixWrapper-prefixSuffixWrapperStyles em5sgkm0"
+            data-wp-c16t="true"
+            data-wp-component="InputControlSuffixWrapper"
+          >
+            <svg
+              class="classy-suffix-icon classy-suffix-icon--calendar"
+              fill="none"
+              height="19"
+              viewBox="0 0 18 19"
+              width="18"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M14.625 5.70367H3.375V14.7037C3.375 14.9108 3.54289 15.0787 3.75 15.0787H14.25C14.4571 15.0787 14.625 14.9108 14.625 14.7037V5.70367ZM2.25 5.70367V4.70367V4.20367C2.25 3.37525 2.92157 2.70367 3.75 2.70367H4.25H13.75H14.25C15.0784 2.70367 15.75 3.37525 15.75 4.20367V4.70367V5.70367V14.7037C15.75 15.5321 15.0784 16.2037 14.25 16.2037H3.75C2.92157 16.2037 2.25 15.5321 2.25 14.7037V5.70367ZM5.25 7.95367H6.75V9.45367H5.25V7.95367ZM6.75 10.9537H5.25V12.4537H6.75V10.9537ZM8.25 7.95367H9.75V9.45367H8.25V7.95367ZM12.75 7.95367H11.25V9.45367H12.75V7.95367ZM8.25 10.9537H9.75V12.4537H8.25V10.9537ZM12.75 10.9537H11.25V12.4537H12.75V10.9537Z"
+                fill="#1E1E1E"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </span>
+        <div
+          aria-hidden="true"
+          class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -4,8 +4,8 @@ import {
 	getElement as getVisualEditorElement,
 	toggleVisibility as toggleVisualEditorVisibility,
 } from './visualEditor';
-import { createRegistry as createClassyRegistry } from '../store';
-import { WPDataRegistry } from '@wordpress/data/build-types/registry';
+import { createRegistry as createClassyRegistry, setRegistry } from '../store';
+import { doAction } from '@wordpress/hooks';
 
 /**
  * Cached instance of the classy element.
@@ -117,5 +117,18 @@ export async function initApp(
 	document = document ?? window.document;
 	const classyRoot = createRoot( getOrCreateElement( document ) );
 	const registry = await createClassyRegistry();
+
+	// Set the module registry instance.
+	setRegistry( registry );
+
 	classyRoot.render( Classy( { registry } ) );
+
+	/**
+	 * Firean action when the Classy application has initialized.
+	 *
+	 * @since TBD
+	 *
+	 * @param {ClassyRegistry} registry The Classy registry instance.
+	 */
+	doAction( 'tec.classy.initialized', registry );
 }

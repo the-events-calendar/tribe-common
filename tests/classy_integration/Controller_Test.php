@@ -2,10 +2,9 @@
 
 namespace TEC\Tests\Events\Classy;
 
+use TEC\Common\Classy\Controller;
 use TEC\Common\Tests\Provider\Controller_Test_Case;
-use TEC\Events\Classy\Controller;
 use Tribe\Tests\Traits\With_Uopz;
-use Tribe__Events__Main as TEC;
 
 class Controller_Test extends Controller_Test_Case {
 	use With_Uopz;
@@ -13,159 +12,190 @@ class Controller_Test extends Controller_Test_Case {
 	protected $controller_class = Controller::class;
 
 	/**
-	 * @covers \TEC\Events\Classy\Controller::early_register
+	 * @var array<string, mixed>
 	 */
-	public function test_early_register_when_feature_active(): void {
-		// The controller unregister function already ran.
-		$controller = $this->make_controller();
-		// Define the constant that will disable the feature.
-		$this->set_const_value( Controller::DISABLED, false );
+	private array $set_env_vars = [];
 
-		Controller::early_register();
-
-		$this->assertEquals(
-			10,
-			has_filter( 'tec_using_classy_editor', [ Controller::class, 'return_true' ] )
-		);
-		$this->assertFalse( has_action( 'tec_using_classy_editor', [ Controller::class, 'return_false' ] ) );
+	/**
+	 * @after
+	 */
+	public function reset_env_var(): void {
+		$key = Controller::DISABLED;
+		putenv( "$key=0" );
 	}
 
 	/**
-	 * @covers \TEC\Events\Classy\Controller::early_register
+	 * @covers Controller::is_active
 	 */
-	public function test_early_register_with_feature_inactive(): void {
-		// The controller unregister function already ran.
+	public function test_is_active_by_default(): void {
 		$controller = $this->make_controller();
-		// Define the constant that will disable the feature.
+
+		$this->assertTrue( $controller->is_active() );
+	}
+
+	/**
+	 * @covers Controller::is_active
+	 */
+	public function test_is_not_active_when_disabled_constant_true(): void {
 		$this->set_const_value( Controller::DISABLED, true );
 
-		Controller::early_register();
+		$controller = $this->make_controller();
+
+		$this->assertFalse( $controller->is_active() );
+	}
+
+	/**
+	 * @covers Controller::is_active
+	 */
+	public function test_is_active_when_disabled_constant_false(): void {
+		$this->set_const_value( Controller::DISABLED, false );
+
+		$controller = $this->make_controller();
+
+		$this->assertTrue( $controller->is_active() );
+	}
+
+	/**
+	 * @covers Controller::is_active
+	 */
+	public function test_is_not_active_if_disabled_env_var_set(): void {
+		putenv( Controller::DISABLED . '=1' );
+
+		$controller = $this->make_controller();
+
+		$this->assertFalse( $controller->is_active() );
+	}
+
+	/**
+	 * @covers Controller::is_active
+	 */
+	public function test_is_active_if_enabled_option_set_true(): void {
+		update_option( 'tec_common_classy_editor_enabled', '1' );
+
+		$controller = $this->make_controller();
+
+		$this->assertTrue( $controller->is_active() );
+	}
+
+	/**
+	 * @covers Controller::is_active
+	 */
+	public function test_is_not_active_if_enabled_option_set_false(): void {
+		update_option( 'tec_common_classy_editor_enabled', '0' );
+
+		$controller = $this->make_controller();
+
+		$this->assertFalse( $controller->is_active() );
+	}
+
+	/**
+	 * @covers Controller::is_active
+	 */
+	public function test_is_active_if_enabled_filter_set_true(): void {
+		add_filter( 'tec_common_classy_editor_enabled', '__return_true' );
+
+		$controller = $this->make_controller();
+
+		$this->assertTrue( $controller->is_active() );
+	}
+
+	/**
+	 * @covers Controller::is_active
+	 */
+	public function test_is_not_active_if_enabled_filter_set_false(): void {
+		add_filter( 'tec_common_classy_editor_enabled', '__return_false' );
+
+		$controller = $this->make_controller();
+
+		$this->assertFalse( $controller->is_active() );
+	}
+
+	/**
+	 * @covers Controller::post_uses_classy
+	 */
+	public function test_post_uses_classy(): void {
+		$controller = $this->make_controller();
+
+		$this->assertFalse( $controller->post_uses_classy( 'post' ) );
+
+		add_filter( 'tec_classy_post_types', static fn( array $post_types ): array => [ 'post' ] );
+
+		$this->assertTrue( $controller->post_uses_classy( 'post' ) );
+	}
+
+	/**
+	 * @covers Controller::filter_block_editor_settings
+	 */
+	public function test_filter_block_editor_settings(): void {
+		$context       = new \WP_Block_Editor_Context();
+		$context->post = static::factory()->post->create_and_get();
+
+		$controller = $this->make_controller();
 
 		$this->assertEquals(
-			10,
-			has_filter( 'tec_using_classy_editor', [ Controller::class, 'return_false' ] )
+			[],
+			$controller->filter_block_editor_settings( [], $context )
 		);
-		$this->assertFalse(
-			has_action( 'tec_using_classy_editor', [ Controller::class, 'return_true' ] )
+
+		add_filter( 'tec_classy_post_types', static fn( array $post_types ): array => [ 'post' ] );
+
+		$this->assertEquals(
+			[ 'templateLock' => true ],
+			$controller->filter_block_editor_settings( [], $context )
 		);
 	}
 
 	/**
-	 * @covers \TEC\Events\Classy\Controller::post_uses_new_editor
-	 */
-	public function test_post_uses_new_editor(): void {
-		add_filter( 'tec_events_classy_post_types', fn() => [ 'page', TEC::POSTTYPE ] );
-
-		$controller = $this->make_controller();
-		$controller->register();
-
-		$this->assertTrue( $controller->post_uses_classy( TEC::POSTTYPE ) );
-		$this->assertTrue( $controller->post_uses_classy( 'page' ) );
-		$this->assertFalse( $controller->post_uses_classy( 'post' ) );
-		$this->assertFalse( $controller->post_uses_classy( TEC::VENUE_POST_TYPE ) );
-		$this->assertFalse( $controller->post_uses_classy( TEC::ORGANIZER_POST_TYPE ) );
-	}
-
-	public static function block_editor_settings_provider(): array {
-		return [
-			'no post'                  => [
-				function (): \WP_Block_Editor_Context {
-					return new \WP_Block_Editor_Context( [
-						'name' => 'some-context',
-						'post' => null,
-					] );
-				},
-				[]
-			],
-			'post of unsupported type' => [
-				function (): \WP_Block_Editor_Context {
-					return new \WP_Block_Editor_Context( [
-						'name' => 'some-context',
-						'post' => static::factory()->post->create_and_get(),
-					] );
-				},
-				[]
-			],
-			'post of supported type'   => [
-				function (): \WP_Block_Editor_Context {
-					return new \WP_Block_Editor_Context( [
-						'name' => 'some-context',
-						'post' => static::factory()->post->create_and_get( [ 'post_type' => 'page' ] ),
-					] );
-				},
-				[ 'templateLock' => true ]
-			],
-			'event post'               => [
-				function (): \WP_Block_Editor_Context {
-					return new \WP_Block_Editor_Context( [
-						'name' => 'some-context',
-						'post' => tribe_events()->set_args( [
-							'title'      => 'Test Event',
-							'status'     => 'publish',
-							'start_date' => 'tomorrow 10am',
-							'duration'   => 4 * HOUR_IN_SECONDS
-						] )->create(),
-					] );
-				},
-				[ 'templateLock' => true ]
-			]
-		];
-	}
-
-	/**
-	 * @dataProvider block_editor_settings_provider
-	 * @covers       \TEC\Events\Classy\Controller::early_register
-	 * @covers       \TEC\Events\Classy\Controller::filter_block_editor_settings
-	 */
-	public function test_filter_block_editor_settings( \Closure $fixture, array $expected ): void {
-		// Become a user that can edit posts.
-		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
-		add_filter( 'tec_events_classy_post_types', fn() => [ 'page', TEC::POSTTYPE ] );
-
-		// Run the controller early registration now: it would have run at the request start.
-		Controller::early_register();
-		// Register the controller before setting up the fixture to ensure bindings are in place for TEC APIs using them.
-		$controller = $this->make_controller();
-		$controller->register();
-
-		/** @var \WP_Block_Editor_Context $context */
-		$context = $fixture();
-
-		$this->assertEquals( $expected, $controller->filter_block_editor_settings( [], $context ) );
-	}
-
-	/**
-	 * @covers \TEC\Events\Classy\Controller::get_data
+	 * @covers Controller::get_data
 	 */
 	public function test_get_data(): void {
 		$controller = $this->make_controller();
 
+		add_filter( 'tec_classy_localized_data', function ( array $data ): array {
+			$data['my_key'] = 'my_value';
+
+			return $data;
+		} );
+
 		$data = $controller->get_data();
 
+		// Pluck the settings.timezoneChoice key, it's really long.
 		$this->assertArrayHasKey( 'settings', $data );
-		// Verify the `settings.timezoneChoice` entry, then remove it from the array to avoid noise.
 		$this->assertArrayHasKey( 'timezoneChoice', $data['settings'] );
-		$this->assertStringStartsWith( '<option', $data['settings']['timezoneChoice'] );
-		unset($data['settings']['timezoneChoice']);
-		$this->assertEquals( [
-			'settings' =>
-				[
-					'timezoneString'        => '',
-					'startOfWeek'           => '1',
-					'endOfDayCutoff'        =>
-						[
-							'hours'   => 0,
-							'minutes' => 0,
-						],
-					'dateWithYearFormat'    => 'F j, Y',
-					'dateWithoutYearFormat' => 'F j',
-					'monthAndYearFormat'    => 'F Y',
-					'compactDateFormat'     => 'n/j/Y',
-					'dataTimeSeparator'     => ' @ ',
-					'timeRangeSeparator'    => ' - ',
-					'timeFormat'            => 'g:i a',
-					'timeInterval'          => 15,
-				],
-		], $data );
+		$timezone_choice = $data['settings']['timezoneChoice'];
+		// The timezone choice options are controlled by WordPress, we do no particularly care about their shape.
+		$this->assertTrue( str_starts_with( $timezone_choice, '<option' ) );
+		unset( $data['settings']['timezoneChoice'] );
+
+		$this->assertEquals(
+			[
+				'settings'       =>
+					[
+						'compactDateFormat'     => 'n/j/Y',
+						'dataTimeSeparator'     => ' @ ',
+						'dateWithYearFormat'    => 'F j, Y',
+						'dateWithoutYearFormat' => 'F j',
+						'endOfDayCutoff'        =>
+							[
+								'hours'   => 0,
+								'minutes' => 0,
+							],
+						'monthAndYearFormat'    => 'F Y',
+						'startOfWeek'           => '1',
+						'timeFormat'            => 'g:i a',
+						'timeInterval'          => 15,
+						'timeRangeSeparator'    => ' - ',
+						'timezoneString'        => '',
+					],
+				'endOfDayCutoff' =>
+					[
+						'hours'   => 0,
+						'minutes' => 0,
+					],
+				'my_key'         => 'my_value',
+			]
+			,
+			$data
+		);
 	}
 }

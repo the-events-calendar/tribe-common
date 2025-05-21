@@ -1,25 +1,23 @@
-import { ACTION_CLASSY_EDIT_POST } from './constants';
 import { StoreState } from '../types/StoreState';
-import { Action, EditPostAction } from '../types/Actions';
+import { Action } from '../types/Actions';
+import { localizedData } from '../localizedData';
+
+// The store default state is read from the Classy application localized data.
+const defaultState = {
+	settings: localizedData.settings,
+};
 
 /**
- * Updates the store when receiving a post update action.
+ * Store reducer; returns the new store date following an action.
  *
- * @param {StoreState} state The current store state.
+ * @param {StoreState|null} state The current store state, or the defaul state if the state is not set.
  * @param {Action}    action The dispatched action.
  *
- * @return {StoreState} The updated store state.
+ * @return {StoreState} The new store state.
  */
 export const reducer = (
-	state: StoreState = {},
+	state: StoreState = defaultState,
 	action: Action
 ): StoreState => {
-	if ( action.type === ACTION_CLASSY_EDIT_POST ) {
-		return {
-			...state,
-			...( action as EditPostAction ).updates,
-		};
-	}
-
 	return state;
 };
