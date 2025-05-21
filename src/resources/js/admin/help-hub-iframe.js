@@ -1,9 +1,8 @@
-var tribe = tribe || {};
-tribe.helpPage = tribe.helpPage || {};
-window.DocsBotAI = window.DocsBotAI || {};
-
 ( ( $, obj ) => {
 	'use strict';
+	const tribe = window.tribe || {};
+	const obj = tribe.helpPage || {};
+	const DocsBotAI = window.DocsBotAI || {};
 
 	obj.selectors = {
 		body: 'body',
@@ -276,4 +275,4 @@ window.DocsBotAI = window.DocsBotAI || {};
 
 	// Initialize the help page.
 	$( obj.setup );
-} )( jQuery, tribe.helpPage );
+} )( jQuery );
