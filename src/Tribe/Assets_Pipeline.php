@@ -34,8 +34,9 @@ class Tribe__Assets_Pipeline {
 		}
 
 		if ( 'underscore' === $handle ) {
-			$dir = Tribe__Main::instance()->plugin_url . 'src/resources/js';
-			$tag = "<script src='{$dir}/underscore-before.js'></script>\n"
+			$path = file_exists( Tribe__Main::instance()->plugin_path . 'src/resources/js/underscore-before.js' ) ? 'src/resources/js' : 'build/js';
+			$dir  = Tribe__Main::instance()->plugin_url . $path;
+			$tag  = "<script src='{$dir}/underscore-before.js'></script>\n"
 			       . $tag
 			       . "<script src='{$dir}/underscore-after.js'></script>\n";
 		}
@@ -63,7 +64,8 @@ class Tribe__Assets_Pipeline {
 			return $tag;
 		}
 
-		$dir = Tribe__Main::instance()->plugin_url . 'src/resources/js';
+		$path = file_exists( Tribe__Main::instance()->plugin_path . 'src/resources/js/select2-after.js' ) ? 'src/resources/js' : 'build/js';
+		$dir  = Tribe__Main::instance()->plugin_url . $path;
 		$tag .= "<script src='{$dir}/select2-after.js'></script>\n";
 
 		return $tag;

@@ -6,6 +6,7 @@ use End2endTester;
 
 class SettingsCest {
 	public function _before( End2endTester $I ) {
+		add_filter( 'tec_tickets_onboarding_is_active', '__return_false' );
 		// Log in as an admin.
 		$I->loginAsAdmin();
 

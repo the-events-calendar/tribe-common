@@ -5,6 +5,7 @@ use TEC\Common\Translations_Loader;
 use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
 use TEC\Common\Asset;
+use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 use TEC\Common\Controller as Common_Controller;
 use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 

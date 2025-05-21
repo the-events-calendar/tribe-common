@@ -15,7 +15,7 @@ implements Tribe__Editor__Blocks__Interface {
 	/**
 	 * Whether the block should register assets
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @return bool
 	 */

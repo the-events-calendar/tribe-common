@@ -3,7 +3,7 @@
  */
 import React, { useState, useRef, useMemo, useCallback } from 'react';
 import classNames from 'classnames';
-import "react-day-picker/src/style.css";
+import 'react-day-picker/src/style.css';
 import { DayPicker } from 'react-day-picker';
 import { Popover } from '@wordpress/components';
 import { getSettings as getDateSettings } from '@wordpress/date';
@@ -18,16 +18,11 @@ const DatePickerInput = ( props ) => {
 	const { setPopoverAnchor, inputRef, onDayChange, ...inputProps } = props;
 
 	return (
-		<div
-			ref={ setPopoverAnchor }
-			className={ classNames( 'tribe-editor__date-input__container' ) }
-		>
+		<div ref={ setPopoverAnchor } className={ classNames( 'tribe-editor__date-input__container' ) }>
 			<input
 				ref={ inputRef } // Attach the ref to the input element
 				className={ classNames( 'tribe-editor__date-input' ) }
-				onChange={ ( event ) => {
-
-				} }
+				onChange={ ( event ) => {} }
 				{ ...inputProps }
 			/>
 		</div>
@@ -41,14 +36,10 @@ const DatePickerInput = ( props ) => {
  *
  * @param {string} momentFormat The moment.js format string to convert.
  *
- * @returns {string} The converted format string.
+ * @return {string} The converted format string.
  */
-const momentToDateFnsFormatter = (momentFormat) => {
-	return momentFormat
-	.replace('DD', 'dd')
-	.replace('D', 'd')
-	.replace('YYYY', 'yyyy')
-	.replace('YY', 'yy');
+const momentToDateFnsFormatter = ( momentFormat ) => {
+	return momentFormat.replace( 'DD', 'dd' ).replace( 'D', 'd' ).replace( 'YYYY', 'yyyy' ).replace( 'YY', 'yy' );
 };
 
 const DayPickerInput = ( props ) => {
@@ -57,15 +48,9 @@ const DayPickerInput = ( props ) => {
 	const [ isVisible, setIsVisible ] = useState( false );
 	// Do not memoize this: it could be changed in the context of the Block Editor elsewhere.
 	const phpDateFormat = getDateSettings()?.formats?.date ?? 'MMMM d, y';
-	const dateFormatter = useMemo(() => new DateFormatter(), []);
-	const parsePhpDate  = useCallback(
-		value => dateFormatter.parseDate(value, phpDateFormat),
-		[phpDateFormat]
-	)
-	const formatPhpDate = useCallback(
-		date => dateFormatter.formatDate(date, phpDateFormat),
-		[phpDateFormat]
-	);
+	const dateFormatter = useMemo( () => new DateFormatter(), [] );
+	const parsePhpDate = useCallback( ( value ) => dateFormatter.parseDate( value, phpDateFormat ), [ phpDateFormat ] );
+	const formatPhpDate = useCallback( ( date ) => dateFormatter.formatDate( date, phpDateFormat ), [ phpDateFormat ] );
 
 	const toggleVisible = () => {
 		setIsVisible( ( state ) => ! state );
@@ -74,34 +59,37 @@ const DayPickerInput = ( props ) => {
 	const { value, onDayChange, formatDate, format } = props;
 
 	// Convert the format from the moment.js one to date-fns one using Unicode characters.
-	const dateFnsFormat = momentToDateFnsFormatter(format);
+	const dateFnsFormat = momentToDateFnsFormatter( format );
 
-	const getSelectedDateInitialState = useCallback((value) => {
-		// Try and parse the value using teh date-fns format.
-		const d = parseDate(value, dateFnsFormat, new Date());
+	const getSelectedDateInitialState = useCallback(
+		( value ) => {
+			// Try and parse the value using teh date-fns format.
+			const d = parseDate( value, dateFnsFormat, new Date() );
 
-		if (d instanceof Date && !isNaN(d)) {
-			return d;
-		}
+			if ( d instanceof Date && ! isNaN( d ) ) {
+				return d;
+			}
 
-		// Try and parse the value using the PHP date format.
-		const parsed = parsePhpDate(value);
+			// Try and parse the value using the PHP date format.
+			const parsed = parsePhpDate( value );
 
-		return parsed;
-	}, [dateFnsFormat, parsePhpDate]);
+			return parsed;
+		},
+		[ dateFnsFormat, parsePhpDate ]
+	);
 
-	const [selectedDate, setSelectedDate] = useState(value ? getSelectedDateInitialState(value) : new Date());
+	const [ selectedDate, setSelectedDate ] = useState( value ? getSelectedDateInitialState( value ) : new Date() );
 
 	/**
 	 * Formats the datepicker Date object to the datepicker format.
 	 *
 	 * @param {Date|null} date The date to format to the datepicker format.
 	 *
-	 * @returns {string} The formatted date.
+	 * @return {string} The formatted date.
 	 */
 	const formatDatepickerValue = ( date ) => {
 		// return date ? formatDate( date, 'MMMM d, y', new Date() ) : '';
-		return date ? formatPhpDate(date) : '';
+		return date ? formatPhpDate( date ) : '';
 	};
 
 	return (
@@ -115,7 +103,7 @@ const DayPickerInput = ( props ) => {
 			/>
 			{ isVisible && (
 				<>
-					<Popover.Slot/>
+					<Popover.Slot />
 					<Popover
 						className={ classNames( 'tribe-editor__date-input__popover' ) }
 						anchor={ popoverAnchor.current }
@@ -129,7 +117,7 @@ const DayPickerInput = ( props ) => {
 								setSelectedDate( date );
 								toggleVisible();
 							} }
-							isSelected={true}
+							isSelected={ true }
 						/>
 					</Popover>
 				</>
