@@ -14,7 +14,6 @@ use TEC\Common\Classy\Back_Compatibility\Editor_Utils;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\StellarWP\Assets\Asset;
 use Tribe__Date_Utils as Date_Utils;
-use Tribe__Events__Main as TEC;
 use Tribe__Main as Common;
 use WP_Block_Editor_Context;
 use WP_Post;
@@ -261,10 +260,7 @@ class Controller extends Controller_Contract {
 		 *
 		 * @param array<string> $supported_post_types The list of post types that use the Classy editor.
 		 */
-		$supported_post_types = apply_filters(
-			'tec_classy_post_types',
-			[ TEC::POSTTYPE ]
-		);
+		$supported_post_types = apply_filters( 'tec_classy_post_types', [] );
 
 		return (array) $supported_post_types;
 	}
