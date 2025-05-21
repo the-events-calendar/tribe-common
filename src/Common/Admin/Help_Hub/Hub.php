@@ -82,7 +82,6 @@ class Hub {
 
 		$this->setup_support_keys();
 		$this->register_hooks();
-		$this->register_hidden_page();
 	}
 
 	/**
@@ -159,29 +158,24 @@ class Hub {
 		add_action( 'admin_init', [ $this, 'generate_iframe_content' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'load_assets' ], 1 );
 		add_filter( 'admin_body_class', [ $this, 'add_help_page_body_class' ] );
+		add_action( 'admin_menu', [ $this, 'register_hidden_page' ], 999 );
 	}
 
 	/**
 	 * Registers the hidden admin page for the Help Hub.
 	 *
-	 * @since 6.3.2
+	 * @since TBD
 	 *
 	 * @return void
 	 */
-	protected function register_hidden_page(): void {
-		add_action(
-			'admin_menu',
-			function () {
-				add_submenu_page(
-					null, // Make the page hidden.
-					__( 'Help Hub', 'tribe-common' ),
-					__( 'Help Hub', 'tribe-common' ),
-					'manage_options',
-					self::IFRAME_PAGE_SLUG,
-					[ $this, 'render' ]
-				);
-			},
-			999
+	public function register_hidden_page(): void {
+		add_submenu_page(
+			null, // Make the page hidden.
+			__( 'Help Hub', 'tribe-common' ),
+			__( 'Help Hub', 'tribe-common' ),
+			'manage_options',
+			self::IFRAME_PAGE_SLUG,
+			[ $this, 'render' ]
 		);
 	}
 
