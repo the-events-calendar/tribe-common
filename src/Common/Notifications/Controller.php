@@ -76,7 +76,7 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function register_ian() {
-		tribe_assets(
+		tec_assets(
 			Tribe__Main::instance(),
 			[
 				[ 'ian-client-css', 'ian-client.css' ],
