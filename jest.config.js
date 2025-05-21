@@ -1,8 +1,15 @@
-var sharedConfig = require( '@the-events-calendar/product-taskmaster/config/jest.config.js' );
-var pkg = require( './package.json' );
+const pkg = require( './package.json' );
 
 module.exports = {
-	...sharedConfig,
 	displayName: 'common',
 	testMatch: pkg._filePath.jest.map( ( path ) => `<rootDir>/${ path }` ),
+	verbose: true,
+	setupFiles: [
+		'<rootDir>/jest.setup.js',
+	],
+	moduleNameMapper: {
+		'\\.(css|pcss)$': 'identity-obj-proxy',
+		'\\.(svg)$': '<rootDir>/__mocks__/icons.js',
+	},
+	testEnvironment: 'jest-environment-jsdom-global',
 };

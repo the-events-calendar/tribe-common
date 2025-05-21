@@ -111,31 +111,43 @@ abstract class Integration_Settings {
 	 * Get the integration connection fields to the ones in the Integrations tab.
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
+	 * @since 6.7.0 Updated HTML.
 	 *
 	 * @return array<string,array> The fields, as updated by the settings.
 	 */
 	public function get_fields() {
-		$api_id =  static::$api_id;
+		$api_id = static::$api_id;
 
-		$wrapper_classes = tribe_get_classes( [
-			'tec-automator-settings' => true,
-			'tec-events-settings-' . static::$api_id . '-application' => true,
-		] );
+		$wrapper_classes = tribe_get_classes(
+			[
+				'tec-automator-settings'                 => true,
+				'tec-events-settings-' . static::$api_id . '-application' => true,
+				'tec-settings-form__element--full-width' => true,
+			]
+		);
 
 		$api_fields = [
-			static::$option_prefix . 'wrapper_open'  => [
-				'type' => 'html',
-				'html' => '<div id="tribe-settings-' . static::$api_id . '-application" class="' . implode( ' ', $wrapper_classes ) . '">'
-			],
-			static::$option_prefix . 'header'        => [
+			static::$option_prefix . 'header'              => [
 				'type' => 'html',
 				'html' => $this->get_intro_text(),
 			],
-			static::$option_prefix . 'authorize'     => [
+			static::$option_prefix . 'section-wrapper-start' => [
+				'type' => 'html',
+				'html' => '<div class="tec-settings-form__content-section">',
+			],
+			static::$option_prefix . 'wrapper_open'        => [
+				'type' => 'html',
+				'html' => '<div id="tribe-settings-' . static::$api_id . '-application" class="' . implode( ' ', $wrapper_classes ) . '">',
+			],
+			static::$option_prefix . 'authorize'           => [
 				'type' => 'html',
 				'html' => $this->get_all_connection_fields(),
 			],
-			static::$option_prefix . 'wrapper_close' => [
+			static::$option_prefix . 'section-wrapper-end' => [
+				'type' => 'html',
+				'html' => '</div>',
+			],
+			static::$option_prefix . 'wrapper_close'       => [
 				'type' => 'html',
 				'html' => '</div>',
 			],

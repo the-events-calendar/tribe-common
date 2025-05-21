@@ -5,13 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const Link = ( {
-	children,
-	className,
-	href,
-	target,
-	...props
-} ) => {
+const Link = ( { children, className, href, target, ...props } ) => {
 	const getProps = () => {
 		const elemProps = { ...props };
 

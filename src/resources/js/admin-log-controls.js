@@ -1,16 +1,17 @@
-var tribe_logger_admin = tribe_logger_admin || {};
-var tribe_logger_data  = tribe_logger_data || {};
+window.tribe_logger_admin = window.tribe_logger_admin || {};
+window.tribe_logger_data = window.tribe_logger_data || {};
 
-( function( $, obj ) { /* eslint-disable-line no-unused-vars */
-	var working        = false;
-	var current_view   = '';
-	var current_engine = '';
-	var view_changed   = false;
-	var $controls      = $( '#tribe-log-controls' );
-	var $options       = $controls.find( 'select' );
-	var $spinner       = $controls.find( '.working' );
-	var $viewer        = $( '#tribe-log-viewer' );
-	var $download_link = $( 'a.download_log' );
+( function ( $, obj ) {
+	/* eslint-disable-line no-unused-vars */
+	let working = false;
+	let current_view = '';
+	let current_engine = '';
+	let view_changed = false;
+	const $controls = $( '#tribe-log-controls' );
+	const $options = $controls.find( 'select' );
+	const $spinner = $controls.find( '.working' );
+	const $viewer = $( '#tribe-log-viewer' );
+	const $download_link = $( 'a.download_log' );
 
 	/**
 	 * Update the log view based on changes to the various selectors.
@@ -31,23 +32,23 @@ var tribe_logger_data  = tribe_logger_data || {};
 	 * to display to the user.
 	 */
 	function request() {
-		var data = {
-			'action':     'tribe_logging_controls',
-			'check':      tribe_logger_data.check,
-			'log-level':  $( '#log-level' ).find( ':selected' ).attr( 'name' ),
-			'log-engine': $( '#log-engine' ).find( ':selected' ).attr( 'name' )
+		const data = {
+			action: 'tribe_logging_controls',
+			check: tribe_logger_data.check,
+			'log-level': $( '#log-level' ).find( ':selected' ).attr( 'name' ),
+			'log-engine': $( '#log-engine' ).find( ':selected' ).attr( 'name' ),
 		};
 
 		if ( view_changed ) {
-			data['log-view'] = current_view;
+			data[ 'log-view' ] = current_view;
 		}
 
 		$.ajax( ajaxurl, {
-			'method':   'POST',
-			'success':  on_success,
-			'error':    on_error,
-			'dataType': 'json',
-			'data':     data
+			method: 'POST',
+			success: on_success,
+			error: on_error,
+			dataType: 'json',
+			data,
 		} );
 	}
 
@@ -68,15 +69,16 @@ var tribe_logger_data  = tribe_logger_data || {};
 	/**
 	 * Converts data_array, which is expected to be an array of
 	 * arrays, into an HTML table.
+	 * @param data_array
 	 */
 	function to_table( data_array ) {
-		var html = '<table>';
+		let html = '<table>';
 
-		for ( var row in data_array ) {
+		for ( const row in data_array ) {
 			html += '<tr>';
 
-			for ( var cell in data_array[row] ) {
-				html += '<td>' + data_array[row][cell] + '</td>';
+			for ( const cell in data_array[ row ] ) {
+				html += '<td>' + data_array[ row ][ cell ] + '</td>';
 			}
 
 			html += '</tr>';
@@ -95,13 +97,13 @@ var tribe_logger_data  = tribe_logger_data || {};
 			return;
 		}
 
-		var url = $download_link.attr( 'href' );
-		var log = encodeURI( get_current_view() );
-		var matches = url.match(/&log=([a-z0-9\-]+)/i); /* eslint-disable-line no-useless-escape */
+		let url = $download_link.attr( 'href' );
+		const log = encodeURI( get_current_view() );
+		const matches = url.match( /&log=([a-z0-9\-]+)/i ); /* eslint-disable-line no-useless-escape */
 
 		// Update or add the log parameter
 		if ( Array.isArray( matches ) && 2 === matches.length ) {
-			url = url.replace( matches[0], '&log=' + log );
+			url = url.replace( matches[ 0 ], '&log=' + log );
 		} else if ( url.indexOf( '?' ) ) {
 			url = url + '&log=' + log;
 		} else {
@@ -147,8 +149,8 @@ var tribe_logger_data  = tribe_logger_data || {};
 	 * not count.
 	 */
 	function detect_view_change() {
-		var new_view = get_current_view();
-		var new_engine = get_current_engine();
+		const new_view = get_current_view();
+		const new_engine = get_current_engine();
 
 		if ( new_view !== current_view || new_engine !== current_engine ) {
 			view_changed = true;
@@ -173,4 +175,4 @@ var tribe_logger_data  = tribe_logger_data || {};
 
 	update_download_link();
 	$options.on( 'change', update );
-} )( jQuery, tribe_logger_admin );
+} )( jQuery, window.tribe_logger_admin );
