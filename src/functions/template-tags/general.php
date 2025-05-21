@@ -117,10 +117,10 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param string $resource the filename of the resource
-	 * @param bool   $echo     whether or not to echo the url
-	 * @param string $root_dir directory to hunt for resource files (null or the actual path)
-	 * @param object $origin   Which plugin we are dealing with
+	 * @param string $resource The filename of the resource.
+	 * @param bool   $echo     Whether or not to echo the url.
+	 * @param string $root_dir Directory to hunt for resource files (null or the actual path).
+	 * @param object $origin   Which plugin we are dealing with.
 	 *
 	 * @return string
 	 **/
@@ -184,14 +184,14 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 
 if ( ! function_exists( 'tribe_multi_line_remove_empty_lines' ) ) {
 	/**
-	 * helper function to remove empty lines from multi-line strings
+	 * Helper function to remove empty lines from multi-line strings.
 	 *
 	 * @category Events
 	 * @link http://stackoverflow.com/questions/709669/how-do-i-remove-blank-lines-from-text-in-php
 	 *
-	 * @param string $multi_line_string a multiline string
+	 * @param string $multi_line_string A multiline string.
 	 *
-	 * @return string the same string without empty lines
+	 * @return string The same string without empty lines.
 	 */
 	function tribe_multi_line_remove_empty_lines( $multi_line_string ) {
 		return preg_replace( "/^\n+|^[\t\s]*\n+/m", '', $multi_line_string );
@@ -200,7 +200,7 @@ if ( ! function_exists( 'tribe_multi_line_remove_empty_lines' ) ) {
 
 if ( ! function_exists( 'tribe_get_date_format' ) ) {
 	/**
-	 * Get the date format specified in the tribe options
+	 * Get the date format specified in the tribe options.
 	 *
 	 * @category Events
 	 * @param bool $with_year
@@ -220,11 +220,11 @@ if ( ! function_exists( 'tribe_get_date_format' ) ) {
 
 if ( ! function_exists( 'tribe_get_datetime_format' ) ) {
 	/**
-	 * Get the Datetime Format
+	 * Get the datetime format.
 	 *
 	 * @category Events
 	 *
-	 * @param bool $with_year
+	 * @param bool $with_year Whether to include the year in the format.
 	 *
 	 * @return mixed|void
 	 */
@@ -258,7 +258,7 @@ if ( ! function_exists( 'tribe_get_time_format' ) ) {
 	/**
 	 * Get the time format
 	 *
-	 * @category Events
+	 * @category Events.
 	 *
 	 * @return mixed|void
 	 */
@@ -278,13 +278,13 @@ if ( ! function_exists( 'tribe_get_time_format' ) ) {
 
 if ( ! function_exists( 'tribe_get_days_between' ) ) {
 	/**
-	 * Accepts two dates and returns the number of days between them
+	 * Accepts two dates and returns the number of days between them.
 	 *
 	 * @category Events
 	 *
-	 * @param string      $start_date
-	 * @param string      $end_date
-	 * @param string|bool $day_cutoff
+	 * @param string      $start_date  The start date.
+	 * @param string      $end_date    The end date.
+	 * @param string|bool $day_cutoff  The day cutoff.
 	 *
 	 * @return int
 	 * @see Tribe__Date_Utils::date_diff()
@@ -317,9 +317,9 @@ if ( ! function_exists( 'tribe_prepare_for_json' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param $string
+	 * @param string $string The string to prepare.
 	 *
-	 * @return string
+	 * @return string The prepared string.
 	 */
 	function tribe_prepare_for_json( $string ) {
 		$value = trim( htmlspecialchars( $string, ENT_QUOTES, 'UTF-8' ) );
@@ -334,12 +334,12 @@ if ( ! function_exists( 'tribe_prepare_for_json' ) ) {
 
 if ( ! function_exists( 'tribe_prepare_for_json_deep' ) ) {
 	/**
-	 * Recursively iterate through an nested structure, calling
-	 * tribe_prepare_for_json() on all scalar values
+	 * Recursively iterate through a nested structure, calling
+	 * tribe_prepare_for_json() on all scalar values.
 	 *
 	 * @category Events
 	 *
-	 * @param mixed $value The data to be cleaned
+	 * @param mixed $value The data to be cleaned.
 	 *
 	 * @return mixed The clean data
 	 */
@@ -360,11 +360,11 @@ if ( ! function_exists( 'tribe_prepare_for_json_deep' ) ) {
 
 if ( ! function_exists( 'tribe_the_notices' ) ) {
 	/**
-	 * Generates html for any notices that have been queued on the current view
+	 * Generates html for any notices that have been queued on the current view.
 	 *
 	 * @category Events
 	 *
-	 * @param bool $echo Whether or not to echo the notices html
+	 * @param bool $echo Whether or not to echo the notices html.
 	 *
 	 * @return void | string
 	 * @see Tribe__Notices::get()
@@ -393,7 +393,7 @@ if ( ! function_exists( 'tribe_the_notices' ) ) {
 
 if ( ! function_exists( 'tribe_is_bot' ) ) {
 	/**
-	 * tribe_is_bot checks if the visitor is a bot and returns status
+	 * The tribe_is_bot checks if the visitor is a bot and returns status.
 	 *
 	 * @category Events
 	 *
@@ -433,11 +433,11 @@ if ( ! function_exists( 'tribe_is_bot' ) ) {
 
 if ( ! function_exists( 'tribe_count_hierarchical_keys' ) ) {
 	/**
-	 * Count keys in a hierarchical array
+	 * Count keys in a hierarchical array.
 	 *
-	 * @param $value
-	 * @param $key
-	 * @todo - remove, only used in the meta walker
+	 * @param mixed  $value The value to count.
+	 * @param string $key   The key to count.
+	 * @todo - remove, only used in the meta walker.
 	 */
 	function tribe_count_hierarchical_keys( $value, $key ) {
 		global $tribe_count_hierarchical_increment;
@@ -447,12 +447,12 @@ if ( ! function_exists( 'tribe_count_hierarchical_keys' ) ) {
 
 if ( ! function_exists( 'tribe_count_hierarchical' ) ) {
 	/**
-	 * Count items in a hierarchical array
+	 * Count items in a hierarchical array.
 	 *
-	 * @param array $walk
+	 * @param array $walk The array to count.
 	 *
 	 * @return int
-	 * @todo - remove, only used in the meta walker
+	 * @todo - remove, only used in the meta walker.
 	 */
 	function tribe_count_hierarchical( array $walk ) {
 		global $tribe_count_hierarchical_increment;
@@ -482,12 +482,12 @@ if ( ! function_exists( 'tribe_get_mobile_breakpoint' ) ) {
 
 if ( ! function_exists( 'tribe_format_currency' ) ) {
 	/**
-	 * Receives a float and formats it with a currency symbol
+	 * Receives a float and formats it with a currency symbol.
 	 *
 	 * @category Cost
-	 * @param string      $cost pricing to format.
-	 * @param null|int    $post_id Post ID.
-	 * @param null|string $currency_symbol Currency symbol.
+	 * @param string      $cost             Pricing to format.
+	 * @param null|int    $post_id          Post ID.
+	 * @param null|string $currency_symbol  Currency symbol.
 	 * @param null|bool   $reverse_position Reverse position.
 	 *
 	 * @return string Formatted currency.
@@ -566,7 +566,7 @@ if ( ! function_exists( 'tribe_get_date_option' ) ) {
 	 * Retrieve an option value taking care to escape it to preserve date format slashes.
 	 *
 	 * @category Events
-	 * @param  string $optionName Name of the option to retrieve.
+	 * @param string $optionName Name of the option to retrieve.
 	 * @param string $default    Value to return if no such option is found.
 	 *
 	 * @return mixed Value of the option if found
@@ -581,9 +581,9 @@ if ( ! function_exists( 'tribe_get_date_option' ) ) {
 /**
  * Shortcut for Tribe__Admin__Notices::register(), create a Admin Notice easily
  *
- * @param  string          $slug      Slug to save the notice
- * @param  callable|string $callback  A callable Method/Function to actually display the notice
- * @param  array           $arguments Arguments to Setup a notice
+ * @param string          $slug            Slug to save the notice.
+ * @param callable|string $callback        A callable Method/Function to actually display the notice.
+ * @param array           $arguments       Arguments to set up a notice.
  * @param callable|null   $active_callback An optional callback that should return bool values
  *                                         to indicate whether the notice should display or not.
  *
@@ -599,9 +599,9 @@ function tribe_notice( $slug, $callback, $arguments = [], $active_callback = nul
  * A transient admin notice is a "fire-and-forget" admin notice that will display once registered and
  * until dismissed (if dismissible) without need, on the side of the source code, to register it on each request.
  *
- * @param  string $slug      Slug to save the notice
- * @param  string $html      The notice output HTML code
- * @param  array  $arguments Arguments to Setup a notice
+ * @param string $slug      Slug to save the notice.
+ * @param string $html      The notice output HTML code.
+ * @param array  $arguments Arguments to set up a notice.
  * @param int    $expire    After how much time (in seconds) the notice will stop showing.
  *
  * @return stdClass Which notice was registered
@@ -626,9 +626,9 @@ function tribe_transient_notice_remove( $slug ) {
 /**
  * A quick internal way of sending errors using WP_Error
  *
- * @param  string|array $indexes Which Error we are looking for
- * @param  array        $context Gives the Error context
- * @param  array        $sprintf Allows variables on the message
+ * @param string|array $indexes Which error we are looking for.
+ * @param array        $context Gives the error context.
+ * @param array        $sprintf Allows variables on the message.
  *
  * @return WP_Error
  */
@@ -639,8 +639,8 @@ function tribe_error( $indexes, $context = [], $sprintf = [] ) {
 /**
  * Register a new error based on a Namespace
  *
- * @param  string|array $indexes  A list of the namespaces and last item should be the error name.
- * @param  string       $message  What is going to be the message associate with this indexes.
+ * @param string|array $indexes A list of the namespaces and last item should be the error name.
+ * @param string       $message What is going to be the message associate with this indexes.
  *
  * @return boolean Whether the error was registered or not.
  */
@@ -654,22 +654,22 @@ function tribe_register_error( $indexes, $message ) {
  * @since 4.3
  * @since 5.3.0 Replaced the function internals with calls to the stellarwp/assets library.
  *
- * @param object|string          $origin The origin of the asset, either a class or a string.
- * @param string                 $slug The handle of the asset.
- * @param string                 $file The file of the asset.
- * @param array<string>|callable $deps The dependencies of the asset; either an array of dependencies or a callable
- *                                      that returns an array of dependencies.
- * @param string|string[]|null   $action The action(s) to enqueue the asset on; either a string or an array of strings.
+ * @param object|string          $origin     The origin of the asset, either a class or a string.
+ * @param string                 $slug       The handle of the asset.
+ * @param string                 $file       The file of the asset.
+ * @param array<string>|callable $deps       The dependencies of the asset; either an array of dependencies or a callable
+ *                                           that returns an array of dependencies.
+ * @param string|string[]|null   $action     The action(s) to enqueue the asset on; either a string or an array of strings.
  * @param array                  $arguments {
  *                      The arguments to pass to the asset.
  *
- *     @type string $type The type of the asset.
- *     @type string $media The media type of the asset.
+ *     @type string       $type         The type of the asset.
+ *     @type string       $media        The media type of the asset.
  *     @type string|array $conditionals The conditionals to use for the asset.
- *     @type string|array $groups The groups to add the asset to.
+ *     @type string|array $groups       The groups to add the asset to.
  *     @type string|array $print_before The print_before to use for the asset.
- *     @type string|array $print_after The print_after to use for the asset.
- *     @type array $localize {
+ *     @type string|array $print_after  The print_after to use for the asset.
+ *     @type array        $localize     {
  *         The localization data for the asset. One or more of the following:
  *
  *         @type string $name The name of the localization data.
@@ -682,11 +682,11 @@ function tribe_register_error( $indexes, $message ) {
  *         @type string $path The path to use for the translations.
  *     }
  *     @type bool $after_enqueue Whether to call a callback after enqueuing the asset.
- *     @type bool $in_footer Whether to enqueue the asset in the footer.
- *     @type bool $module Whether to set the asset as a module.
- *     @type bool $defer Whether to set the asset as deferred.
- *     @type bool $async Whether to set the asset as asynchronous.
- *     @type bool $print Whether to print the asset.
+ *     @type bool $in_footer     Whether to enqueue the asset in the footer.
+ *     @type bool $module        Whether to set the asset as a module.
+ *     @type bool $defer         Whether to set the asset as deferred.
+ *     @type bool $async         Whether to set the asset as asynchronous.
+ *     @type bool $print         Whether to print the asset.
  * }
  *
  * @return Asset|false The asset that was registered or `false` on error.
@@ -704,7 +704,7 @@ function tribe_asset( $origin, $slug, $file, $deps = [], $action = null, $argume
  * @since 4.7
  * @since 5.3.0 Refactored to use the `stellarwp/assets` library.
  *
- * @param string|array $slug Slug to enqueue
+ * @param string|array $slug  The slug to enqueue.
  * @param bool         $force Whether to force the enqueue or not.
  */
 function tribe_asset_enqueue( $slug, $force = true ) {
@@ -720,29 +720,30 @@ function tribe_asset_enqueue( $slug, $force = true ) {
  * @since 4.7
  * @since 5.3.0 Refactored to use the `stellarwp/assets` library.
  *
- * @param string|array $group  Which group(s) should be enqueued.
+ * @param string|array $group Which group(s) should be enqueued.
  */
 function tribe_asset_enqueue_group( $group, $force = true ) {
 	Tribe__Assets::instance()->enqueue_group( $group, $force );
 }
 
+//phpcs:disable Squiz.Commenting.FunctionComment.ParamCommentFullStop
 /**
  * Function to include more the one asset, based on `tribe_asset`
  *
  * @since 4.3
  * @since 4.12.10 Added support for overriding arguments for individual assets.
  *
- * @param  object $origin     The main Object for the plugin you are enqueueing the script/style for.
- * @param  array  $assets     {
- *      Indexed array, don't use any associative key.
- *      E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ]
+ * @param object $origin    The main object for the plugin you are enqueueing the script/style for.
+ * @param array  $assets    Indexed array, don't use any associative key.
+ *                          E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ]
+ *     {
  *
- *        @type  string   $slug       Slug to save the asset.
- *        @type  string   $file       Which file will be loaded, either CSS or JS.
- *        @type  array    $deps       (optional) Dependencies
+ *        @type string   $slug       The slug to save the asset.
+ *        @type string   $file       Which file will be loaded, either CSS or JS.
+ *        @type array    $deps       (optional) Dependencies.
  *     }
- * @param  string $action     A WordPress hook that will automatically enqueue this asset once fired.
- * @param  array  $arguments  Look at `Tribe__Assets::register()` for more info.
+ * @param string $action    A WordPress hook that will automatically enqueue this asset once fired.
+ * @param array  $arguments Look at `Tribe__Assets::register()` for more info.
  *
  * @return array<Asset|bool>      Which Assets were registered.
  */
@@ -773,6 +774,7 @@ function tribe_assets( $origin, $assets, $action = null, $arguments = [] ) {
 
 	return $registered;
 }
+//phpcs:enable Squiz.Commenting.FunctionComment.ParamCommentFullStop
 
 if ( ! function_exists( 'tribe_doing_frontend' ) ) {
 	/**
@@ -813,7 +815,7 @@ if ( ! function_exists( 'tribe_is_frontend' ) ) {
 
 if ( ! function_exists( 'tribe_set_time_limit' ) ) {
 	/**
-	 * Wrapper for set_time_limit to suppress errors
+	 * Wrapper for set_time_limit to suppress errors.
 	 *
 	 * @since 4.7.12
 	 *
@@ -903,4 +905,146 @@ if ( ! function_exists( 'tribe_doing_shortcode' ) ) {
 	function tribe_doing_shortcode( $tag = null ) {
 		return tribe( 'shortcode.manager' )->is_doing_shortcode( $tag );
 	}
+}
+
+if ( ! function_exists( 'tec_asset' ) ) {
+	/**
+	 * Registers an asset to be loaded from the `/build` directory of a plugin.
+	 *
+	 * The asset will be added to a group named after the origin class name. The group
+	 * must have been registered using the `TEC\Common\StellarWP\Assets\Config::add_group_path` method.
+	 * Example:
+	 * ```php
+	 * Config::add_group_path( Plugin::class, Plugin::instance()->plugin_path . 'build/', '/', true );
+	 * ```
+	 * Files built with the `wp-scripts` binary wil produce a PHP assets file: that will be loaded automatically,
+	 * dependencies will be merged with the ones explicitly defined in the `$dependencies` argument.
+	 *
+	 * @since 6.7.0
+	 *
+	 * @param object|string          $origin       The origin of the asset, either a class or a string.
+	 * @param string                 $slug         The handle of the asset.
+	 * @param string                 $file         The file of the asset.
+	 * @param array<string>|callable $dependencies The dependencies of the asset; either an array of dependencies or a callable
+	 *                                      that returns an array of dependencies.
+	 * @param string|string[]|null   $action       The action(s) to enqueue the asset on; either a string or an array of strings.
+	 * @param array                  $arguments    {
+	 *                      The arguments to pass to the asset.
+	 *
+	 *     @type string              $type         The type of the asset.
+	 *     @type string              $media        The media type of the asset.
+	 *     @type string|array        $conditionals The conditionals to use for the asset.
+	 *     @type string|array        $groups       The groups to add the asset to.
+	 *     @type string|array        $print_before The print_before to use for the asset.
+	 *     @type string|array $print_after The print_after to use for the asset.
+	 *     @type array $localize {
+	 *         The localization data for the asset. One or more of the following:
+	 *
+	 *         @type string $name The name of the localization data.
+	 *         @type array|callable $data The data to use for the localization.
+	 *     }
+	 *     @type array $translations {
+	 *         The translations to use for the asset.
+	 *
+	 *         @type string $domain The domain to use for the translations.
+	 *         @type string $path The path to use for the translations.
+	 *     }
+	 *     @type bool $after_enqueue Whether to call a callback after enqueuing the asset.
+	 *     @type bool $in_footer     Whether to enqueue the asset in the footer.
+	 *     @type bool $module        Whether to set the asset as a module.
+	 *     @type bool $defer         Whether to set the asset as deferred.
+	 *     @type bool $async         Whether to set the asset as asynchronous.
+	 *     @type bool $print         Whether to print the asset.
+	 * }
+	 *
+	 * @return Asset|false The asset that was registered or `false` on error.
+	 */
+	function tec_asset( $origin, $slug, $file, $dependencies = [], $action = null, $arguments = [] ) {
+		// Vendor files should be loaded from `/vendor` directly, they are not built.
+		if (
+			! isset( $arguments['group_path'] )
+			&& ! ( str_starts_with( $file, 'vendor' ) || str_starts_with( $file, 'node_modules' ) )
+		) {
+			// Build the group name from the plugin class name.
+			$build_group_name        = is_object( $origin ) ? get_class( $origin ) : (string) $origin;
+			$arguments['group_path'] = $build_group_name;
+		}
+
+		/** @var Asset $asset */
+		$asset = Tribe__Assets::instance()->register( $origin, $slug, $file, $dependencies, $action, $arguments );
+
+		$prefix_asset_directory = $arguments['prefix_asset_directory'] ?? ( empty( $arguments['group_path'] ) || ! str_ends_with( $arguments['group_path'], '-packages' ) );
+		$asset->prefix_asset_directory( $prefix_asset_directory );
+
+		$asset->get_url();
+
+		return $asset;
+	}
+}
+
+//phpcs:disable Squiz.Commenting.FunctionComment.ParamCommentFullStop
+if ( ! function_exists( 'tec_assets' ) ) {
+	/**
+	 * Function to include more the one asset, based on `tribe_asset`
+	 *
+	 * @since 6.7.0
+	 *
+	 * @param object $origin    The main object for the plugin you are enqueueing the script/style for.
+	 * @param array  $assets    Indexed array, don't use any associative key.
+	 *      E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ]
+	 *     {
+	 *        @type string   $slug       The slug to save the asset.
+	 *        @type string   $file       Which file will be loaded, either CSS or JS.
+	 *        @type array    $deps       (optional) Dependencies.
+	 *     }
+	 * @param string $action    A WordPress hook that will automatically enqueue this asset once fired.
+	 * @param array  $arguments Look at `Tribe__Assets::register()` for more info.
+	 *
+	 * @return array<Asset|bool>      Which Assets were registered.
+	 */
+	function tec_assets( $origin, $assets, $action = null, $arguments = [] ) {
+		$registered = [];
+
+		// Build the group name from the plugin class name.
+		$build_group_name = is_object( $origin ) ? get_class( $origin ) : (string) $origin;
+
+		foreach ( $assets as $asset ) {
+			if ( ! is_array( $asset ) ) {
+				continue;
+			}
+
+			$slug = reset( $asset );
+			if ( empty( $asset[1] ) ) {
+				continue;
+			}
+
+			$file = $asset[1];
+			$deps = ! empty( $asset[2] ) ? $asset[2] : [];
+
+			// Support the asset having a custom action.
+			$asset_action = ! empty( $asset[3] ) ? $asset[3] : $action;
+
+			// Support the asset having custom arguments and merge them with the original ones.
+			$asset_arguments = ! empty( $asset[4] ) ? array_merge( $arguments, $asset[4] ) : $arguments;
+
+			if (
+				! isset( $asset_arguments['group_path'] )
+				&& ! ( str_starts_with( $file, 'vendor' ) || str_starts_with( $file, 'node_modules' ) )
+			) {
+				// Build the group name from the plugin class name.
+				$build_group_name              = is_object( $origin ) ? get_class( $origin ) : (string) $origin;
+				$asset_arguments['group_path'] = $build_group_name;
+			}
+
+			$asset = Tribe__Assets::instance()->register( $origin, $slug, $file, $deps, $asset_action, $asset_arguments );
+
+			$prefix_asset_directory = $asset_arguments['prefix_asset_directory'] ?? ( empty( $asset_arguments['group_path'] ) || ! str_ends_with( $asset_arguments['group_path'], '-packages' ) );
+			$asset->prefix_asset_directory( $prefix_asset_directory );
+
+			$registered[] = $asset;
+		}
+
+		return $registered;
+	}
+	//phpcs:enable Squiz.Commenting.FunctionComment.ParamCommentFullStop
 }

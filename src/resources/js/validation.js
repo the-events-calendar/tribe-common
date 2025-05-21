@@ -5,20 +5,20 @@
  *
  * @type   {Object}
  */
-tribe.validation = {};
+window.tribe.validation = {};
 
-dayjs.extend(window.dayjs_plugin_customParseFormat);
+dayjs.extend( window.dayjs_plugin_customParseFormat );
 
-( function( obj, $, _ ) {
+( function ( obj, $, _ ) {
 	'use strict';
-	var $document = $( document );
+	const $document = $( document );
 
 	/**
 	 * Object containing all the selectors for Validation
 	 *
 	 * @since  4.7.1
 	 *
-	 * @type   {object}
+	 * @type   {Object}
 	 */
 	obj.selectors = {
 		item: '.tribe-validation',
@@ -38,14 +38,14 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @since  4.7
 	 *
-	 * @type   {object}
+	 * @type   {Object}
 	 */
 	obj.conditions = {
-		isRequired: function( value ) {
+		isRequired( value ) {
 			return '' != value; // eslint-disable-line eqeqeq
 		},
-		isGreaterThan: function( value, constraint, $field ) {
-			var condition = obj.parseCondition( 'isGreaterThan', value, constraint, $field );
+		isGreaterThan( value, constraint, $field ) {
+			const condition = obj.parseCondition( 'isGreaterThan', value, constraint, $field );
 
 			// If we failed to parse Condition we don't check
 			if ( false === condition ) {
@@ -54,8 +54,8 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 
 			return condition.constraint < condition.value;
 		},
-		isGreaterOrEqualTo: function( value, constraint, $field ) {
-			var condition = obj.parseCondition( 'isGreaterOrEqualTo', value, constraint, $field );
+		isGreaterOrEqualTo( value, constraint, $field ) {
+			const condition = obj.parseCondition( 'isGreaterOrEqualTo', value, constraint, $field );
 
 			// If we failed to parse Condition we don't check
 			if ( false === condition ) {
@@ -64,8 +64,8 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 
 			return condition.constraint <= condition.value;
 		},
-		isLessThan: function( value, constraint, $field ) {
-			var condition = obj.parseCondition( 'isLessThan', value, constraint, $field );
+		isLessThan( value, constraint, $field ) {
+			const condition = obj.parseCondition( 'isLessThan', value, constraint, $field );
 
 			// If we failed to parse Condition we don't check
 			if ( false === condition ) {
@@ -74,8 +74,8 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 
 			return condition.constraint > condition.value;
 		},
-		isLessOrEqualTo: function( value, constraint, $field ) {
-			var condition = obj.parseCondition( 'isLessOrEqualTo', value, constraint, $field );
+		isLessOrEqualTo( value, constraint, $field ) {
+			const condition = obj.parseCondition( 'isLessOrEqualTo', value, constraint, $field );
 
 			// If we failed to parse Condition we don't check
 			if ( false === condition ) {
@@ -84,8 +84,8 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 
 			return condition.constraint >= condition.value;
 		},
-		isEqualTo: function( value, constraint, $field ) {
-			var condition = obj.parseCondition( 'isEqualTo', value, constraint, $field );
+		isEqualTo( value, constraint, $field ) {
+			const condition = obj.parseCondition( 'isEqualTo', value, constraint, $field );
 
 			// If we failed to parse Condition we don't check
 			if ( false === condition ) {
@@ -94,8 +94,8 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 
 			return condition.constraint == condition.value; // eslint-disable-line eqeqeq
 		},
-		isNotEqualTo: function( value, constraint, $field ) {
-			var condition = obj.parseCondition( 'isNotEqualTo', value, constraint, $field );
+		isNotEqualTo( value, constraint, $field ) {
+			const condition = obj.parseCondition( 'isNotEqualTo', value, constraint, $field );
 
 			// If we failed to parse Condition we don't check
 			if ( false === condition ) {
@@ -104,18 +104,20 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 
 			return condition.constraint != condition.value; // eslint-disable-line eqeqeq
 		},
-		matchRegExp: function( value, constraint, $field ) { // eslint-disable-line no-unused-vars
-			var exp = new RegExp( constraint, 'g' );
-			var match = exp.exec( value );
+		matchRegExp( value, constraint, $field ) {
+			// eslint-disable-line no-unused-vars
+			const exp = new RegExp( constraint, 'g' );
+			const match = exp.exec( value );
 
 			return null !== match;
 		},
-		notMatchRegExp: function( value, constraint, $field ) { // eslint-disable-line no-unused-vars
-			var exp = new RegExp( constraint, 'g' );
-			var match = exp.exec( value );
+		notMatchRegExp( value, constraint, $field ) {
+			// eslint-disable-line no-unused-vars
+			const exp = new RegExp( constraint, 'g' );
+			const match = exp.exec( value );
 
 			return null === match;
-		}
+		},
 	};
 
 	/**
@@ -123,11 +125,12 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @since  4.7
 	 *
-	 * @type   {object}
+	 * @type   {Object}
 	 */
 	obj.parseType = {
-		datepicker: function( value, $constraint, $field ) { // eslint-disable-line no-unused-vars
-			var formats = [
+		datepicker( value, $constraint, $field ) {
+			// eslint-disable-line no-unused-vars
+			const formats = [
 				'yyyy-mm-dd',
 				'm/d/yyyy',
 				'mm/dd/yyyy',
@@ -143,35 +146,33 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 			];
 
 			// Default Format Key
-			var formatKey = 0;
+			let formatKey = 0;
 
 			if ( $constraint.length && $constraint.attr( 'data-datepicker_format' ) ) {
 				formatKey = $constraint.attr( 'data-datepicker_format' );
 			} else if ( _.isString( formats[ $constraint ] ) ) {
 				formatKey = formats[ $constraint ];
 			} else if ( $constraint.parents( '[data-datepicker_format]' ).length ) {
-				formatKey = $constraint
-					.parents( '[data-datepicker_format]' )
-					.eq( 0 )
-					.data( 'datepicker_format' );
+				formatKey = $constraint.parents( '[data-datepicker_format]' ).eq( 0 ).data( 'datepicker_format' );
 			}
 
 			if ( 'undefined' === typeof formats[ formatKey ] || ! formats[ formatKey ] ) {
 				formatKey = 0;
 			}
 
-			var format = formats[ formatKey ].toUpperCase();
+			const format = formats[ formatKey ].toUpperCase();
 			value = dayjs( value, format ).valueOf();
 
 			return value;
 		},
-		default: function( value, $constraint, $field ) { // eslint-disable-line no-unused-vars
+		default( value, $constraint, $field ) {
+			// eslint-disable-line no-unused-vars
 			if ( $.isNumeric( value ) ) {
 				value = parseFloat( value, 10 );
 			}
 
 			return value;
-		}
+		},
 	};
 
 	/**
@@ -180,14 +181,14 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @since  4.7
 	 *
-	 * @type   {function}
+	 * @type   {Function}
 	 *
-	 * @return {object}
+	 * @return {Object}
 	 */
-	obj.parseCondition = function( conditional, value, constraint, $field ) {
-		var type = $field.data( 'validationType' );
-		var $constraint = null;
-		var condition = { value: value, constraint: constraint };
+	obj.parseCondition = function ( conditional, value, constraint, $field ) {
+		let type = $field.data( 'validationType' );
+		let $constraint = null;
+		const condition = { value, constraint };
 
 		// When we don't have type we assume default
 		if ( ! type && ! _.isFunction( obj.parseType[ type ] ) ) {
@@ -222,18 +223,17 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 		return condition;
 	};
 
-
 	/**
 	 * Object containing all the constraints for the Fields
 	 *
 	 * @since  4.7
 	 *
-	 * @type   {object}
+	 * @type   {Object}
 	 */
 	obj.constraints = {
-		isRequired: function( $field ) {
+		isRequired( $field ) {
 			// Default to Null to prevent Conflicts
-			var value = null;
+			let value = null;
 
 			// Verify by Data value
 			value = $field.data( 'required' ) || value;
@@ -248,9 +248,9 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 
 			return value;
 		},
-		isGreaterThan: function( $field ) {
+		isGreaterThan( $field ) {
 			// Default to Null to prevent Conflicts
-			var value = null;
+			let value = null;
 
 			// If we have attribute, fetch the data value
 			if ( $field.is( '[data-validation-is-greater-than]' ) ) {
@@ -259,9 +259,9 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 
 			return value;
 		},
-		isGreaterOrEqualTo: function( $field ) {
+		isGreaterOrEqualTo( $field ) {
 			// Default to Null to prevent Conflicts
-			var value = null;
+			let value = null;
 
 			// If we have attribute, fetch the data value
 			if ( $field.is( '[data-validation-is-greater-or-equal-to]' ) ) {
@@ -270,9 +270,9 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 
 			return value;
 		},
-		isLessThan: function( $field ) {
+		isLessThan( $field ) {
 			// Default to Null to prevent Conflicts
-			var value = null;
+			let value = null;
 
 			// If we have attribute, fetch the data value
 			if ( $field.is( '[data-validation-is-less-than]' ) ) {
@@ -281,9 +281,9 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 
 			return value;
 		},
-		isLessOrEqualTo: function( $field ) {
+		isLessOrEqualTo( $field ) {
 			// Default to Null to prevent Conflicts
-			var value = null;
+			let value = null;
 
 			// If we have attribute, fetch the data value
 			if ( $field.is( '[data-validation-is-less-or-equal-to]' ) ) {
@@ -292,9 +292,9 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 
 			return value;
 		},
-		isEqualTo: function( $field ) {
+		isEqualTo( $field ) {
 			// Default to Null to prevent Conflicts
-			var value = null;
+			let value = null;
 
 			// If we have attribute, fetch the data value
 			if ( $field.is( '[data-validation-is-equal-to]' ) ) {
@@ -303,9 +303,9 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 
 			return value;
 		},
-		isNotEqualTo: function( $field ) {
+		isNotEqualTo( $field ) {
 			// Default to Null to prevent Conflicts
-			var value = null;
+			let value = null;
 
 			// If we have attribute, fetch the data value
 			if ( $field.is( '[data-validation-is-not-equal-to]' ) ) {
@@ -314,9 +314,9 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 
 			return value;
 		},
-		matchRegExp: function( $field ) {
+		matchRegExp( $field ) {
 			// Default to Null to prevent Conflicts
-			var value = null;
+			let value = null;
 
 			// If we have attribute, fetch the data value
 			if ( $field.is( '[data-validation-match-regexp]' ) ) {
@@ -325,9 +325,9 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 
 			return value;
 		},
-		notMatchRegExp: function( $field ) {
+		notMatchRegExp( $field ) {
 			// Default to Null to prevent Conflicts
-			var value = null;
+			let value = null;
 
 			// If we have attribute, fetch the data value
 			if ( $field.is( '[data-validation-not-match-regexp]' ) ) {
@@ -343,9 +343,9 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @since  4.7
 	 *
-	 * @type   {function}
+	 * @type   {Function}
 	 */
-	obj.fn = function() {
+	obj.fn = function () {
 		return this.each( obj.setup );
 	};
 
@@ -354,19 +354,19 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {int}  i     Field Index
-	 * @param  {DOM}  item  DOM element for the item
+	 * @param {int} i    Field Index
+	 * @param {DOM} item DOM element for the item
 	 *
-	 * @type   {function}
+	 * @type   {Function}
 	 */
-	obj.setup = function( i, item ) {
-		var $item = $( item );
+	obj.setup = function ( i, item ) {
+		const $item = $( item );
 
 		// First we add the Class for the Form
 		$item.addClass( obj.selectors.item.className() );
 
 		// Make the Submit buttons have the required class for The Click
-		$item.find( obj.selectors.submitButtons ).addClass( obj.selectors.submit.className() )
+		$item.find( obj.selectors.submitButtons ).addClass( obj.selectors.submit.className() );
 
 		// On Form Submit
 		$item.on( 'submit.tribe', obj.onSubmit );
@@ -389,14 +389,15 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {int}  index  Field Index
-	 * @param  {DOM}  item   DOM element for the field
+	 * @param {int} index Field Index
+	 * @param       field
+	 * @param {DOM} item  DOM element for the field
 	 *
 	 * @return {void}
 	 */
-	obj.validate = function( index, field ) {
-		var $field = $( field );
-		var isValid = obj.isValid( $field );
+	obj.validate = function ( index, field ) {
+		const $field = $( field );
+		const isValid = obj.isValid( $field );
 
 		// If it's valid we bail
 		if ( isValid ) {
@@ -412,19 +413,19 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {object}  $field  jQuery Object for the field
+	 * @param {Object} $field jQuery Object for the field
 	 *
 	 * @return {bool}
 	 */
-	obj.isValid = function( $field ) {
-		var constraints = obj.getConstraints( $field );
+	obj.isValid = function ( $field ) {
+		const constraints = obj.getConstraints( $field );
 
 		if ( ! _.isObject( constraints ) ) {
 			return constraints;
 		}
 
 		// It needs to be valid on all to be valid
-		var valid = _.every( constraints );
+		const valid = _.every( constraints );
 
 		return valid;
 	};
@@ -434,12 +435,13 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {object}  $field  jQuery Object for the Section been validated
+	 * @param          $item
+	 * @param {Object} $field jQuery Object for the Section been validated
 	 *
 	 * @return {boolean}
 	 */
-	obj.hasErrors = function( $item ) {
-		var $errors = $item.find( obj.selectors.error ).not( ':disabled' );
+	obj.hasErrors = function ( $item ) {
+		const $errors = $item.find( obj.selectors.error ).not( ':disabled' );
 
 		return 0 !== $errors.length;
 	};
@@ -449,21 +451,21 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {object}  $field  jQuery Object for the field.
+	 * @param {Object} $field jQuery Object for the field.
 	 *
-	 * @return {object} Constraints that have passed.
+	 * @return {Object} Constraints that have passed.
 	 */
-	obj.getConstraints = function( $field ) {
-		var isDisabled = $field.is( ':disabled' );
-		var valid = true;
+	obj.getConstraints = function ( $field ) {
+		const isDisabled = $field.is( ':disabled' );
+		const valid = true;
 
 		// Bail if it's a disabled field.
 		if ( isDisabled ) {
 			return valid;
 		}
 
-		var constraints = obj.getConstraintsValue( $field );
-		var value = $field.val();
+		let constraints = obj.getConstraintsValue( $field );
+		const value = $field.val();
 
 		// When we don't have constrains it's always valid.
 		if ( _.isEmpty( constraints ) ) {
@@ -471,7 +473,7 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 		}
 
 		// Verifies if we have a valid set of constraints.
-		constraints = _.mapObject( constraints, function( constraint, key ) {
+		constraints = _.mapObject( constraints, function ( constraint, key ) {
 			return obj.conditions[ key ]( value, constraint, $field );
 		} );
 
@@ -483,13 +485,13 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {object}  $field  Object with all the values for the constraints of a field.
+	 * @param {Object} $field Object with all the values for the constraints of a field.
 	 *
-	 * @return {object}  Specific constraint value.
+	 * @return {Object}  Specific constraint value.
 	 */
-	obj.getConstraintsValue = function( $field ) {
-		var isDisabled = $field.is( ':disabled' );
-		var constraints = {};
+	obj.getConstraintsValue = function ( $field ) {
+		const isDisabled = $field.is( ':disabled' );
+		let constraints = {};
 
 		// Bail if it's a disabled field
 		if ( isDisabled ) {
@@ -500,12 +502,12 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 		constraints = obj.constraints;
 
 		// Fetch the values for each one of these
-		constraints = _.mapObject( constraints, function( isApplicable ) {
+		constraints = _.mapObject( constraints, function ( isApplicable ) {
 			return isApplicable( $field );
 		} );
 
 		// Check which ones of these are not null
-		constraints = _.pick( constraints, function( value ) {
+		constraints = _.pick( constraints, function ( value ) {
 			return null !== value;
 		} );
 
@@ -517,16 +519,16 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {object}  $field  jQuery Object for the fields
+	 * @param {Object} $field jQuery Object for the fields
 	 *
-	 * @return {object} Constraints for validation.
+	 * @return {Object} Constraints for validation.
 	 */
-	obj.getConstraintsFields = function( $field ) {
-		var constraints = obj.getConstraintsValue( $field );
+	obj.getConstraintsFields = function ( $field ) {
+		let constraints = obj.getConstraintsValue( $field );
 
 		// Fetch the values for each one of these
-		constraints = _.mapObject( constraints, function( constraint ) {
-			var $constraint = null;
+		constraints = _.mapObject( constraints, function ( constraint ) {
+			let $constraint = null;
 			if ( ! _.isNumber( constraint ) && ! _.isBoolean( constraint ) ) {
 				$constraint = $( constraint );
 			}
@@ -535,7 +537,7 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 		} );
 
 		// Check which ones of these are not null.
-		constraints = _.pick( constraints, function( value ) {
+		constraints = _.pick( constraints, function ( value ) {
 			return value instanceof jQuery;
 		} );
 
@@ -546,7 +548,7 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 		constraints.unshift( $field );
 
 		// Convert to jQuery collection.
-		constraints = $( constraints ).map( function() {
+		constraints = $( constraints ).map( function () {
 			return this.get();
 		} );
 
@@ -558,13 +560,14 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {object} event JQuery Event
+	 * @param {Object} event JQuery Event
 	 *
 	 * @return {void}
 	 */
-	obj.onValidation = function( event ) { // eslint-disable-line no-unused-vars
-		var $item = $( this );
-		var $fields = $item.find( obj.selectors.fields );
+	obj.onValidation = function ( event ) {
+		// eslint-disable-line no-unused-vars
+		const $item = $( this );
+		const $fields = $item.find( obj.selectors.fields );
 
 		// Before Validation remove all Errors
 		$fields.removeClass( obj.selectors.error.className() );
@@ -572,7 +575,7 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 		// Validate all Fields
 		$fields.each( obj.validate );
 
-		var $errors = $item.find( obj.selectors.error ).not( ':disabled' );
+		const $errors = $item.find( obj.selectors.error ).not( ':disabled' );
 
 		// if there are errors we show the message and bail
 		if ( 0 !== $errors.length ) {
@@ -589,38 +592,39 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {object} event JQuery Event
+	 * @param {Object} event JQuery Event
 	 *
 	 * @return {void}
 	 */
-	obj.onDisplayErrors = function( event ) { // eslint-disable-line no-unused-vars
-		var $item = $( this );
-		var $errors = $item.find( obj.selectors.error ).not( ':disabled' );
-		var $list = $( '<ul>' );
-		var $dismiss = $( '<span>' ).addClass( obj.selectors.noticeDismiss.className() );
+	obj.onDisplayErrors = function ( event ) {
+		// eslint-disable-line no-unused-vars
+		const $item = $( this );
+		const $errors = $item.find( obj.selectors.error ).not( ':disabled' );
+		const $list = $( '<ul>' );
+		const $dismiss = $( '<span>' ).addClass( obj.selectors.noticeDismiss.className() );
 
 		// Tries to fetch if we have a given notice
-		var $notice = $document.find( obj.selectors.notice );
-		var $newNotice = $( '<div>' )
+		const $notice = $document.find( obj.selectors.notice );
+		const $newNotice = $( '<div>' )
 			.addClass( 'notice notice-error is-dismissible tribe-notice' )
 			.addClass( obj.selectors.notice.className() )
 			.append( $dismiss );
 
 		// Builds based on the errors found in the form
-		$errors.each( function( i, field ) {
-			var $field = $( field );
-			var message = $field.data( 'validationError' );
+		$errors.each( function ( i, field ) {
+			const $field = $( field );
+			const message = $field.data( 'validationError' );
 
 			if ( _.isObject( message ) ) {
-				var messages = {};
-				var failed = obj.getConstraints( $field, false );
+				const messages = {};
+				const failed = obj.getConstraints( $field, false );
 
 				// Maps the new Keys with CamelCase
-				_.each( message, function( value, key ) {
+				_.each( message, function ( value, key ) {
 					messages[ tribe.utils.camelCase( key ) ] = value;
 				} );
 
-				_.each( failed, function( value, key ) {
+				_.each( failed, function ( value, key ) {
 					// Only add error if this validation failed
 					if ( value ) {
 						return;
@@ -638,13 +642,13 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 
 		// Verify if we need to add to the page or replace the existing
 		if ( 0 === $notice.length ) {
-			var $wpHeaderEnd = $document.find( obj.selectors.noticeAfter );
+			let $wpHeaderEnd = $document.find( obj.selectors.noticeAfter );
 
 			if ( 0 === $wpHeaderEnd.length ) {
 				$wpHeaderEnd = $document.find( obj.selectors.noticeFallback );
 			}
 			$wpHeaderEnd.after( $newNotice );
-		} else{
+		} else {
 			$notice.replaceWith( $newNotice );
 		}
 	};
@@ -654,14 +658,14 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {string}  message  Message to be Attached.
-	 * @param  {object}  $field   jQuery Object for the field.
-	 * @param  {object}  $list    jQuery Object for list of Errors.
+	 * @param {string} message Message to be Attached.
+	 * @param {Object} $field  jQuery Object for the field.
+	 * @param {Object} $list   jQuery Object for list of Errors.
 	 *
 	 * @return {void} No return.
 	 */
-	obj.addErrorLine = function( message, $field, $list ) {
-		var $listItem = $( '<li>' ).text( message );
+	obj.addErrorLine = function ( message, $field, $list ) {
+		const $listItem = $( '<li>' ).text( message );
 
 		// Add which field has thrown the error
 		$listItem.data( 'validationField', $field );
@@ -677,16 +681,16 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {object} event JQuery Event.
+	 * @param {Object} event JQuery Event.
 	 *
 	 * @return {void|boolean}  When invalid it prevent bubble.
 	 */
-	obj.onSubmit = function( event ) {
-		var $item = $( this );
+	obj.onSubmit = function ( event ) {
+		const $item = $( this );
 
 		$item.trigger( 'validation.tribe' );
 
-		var isValid = $item.is( obj.selectors.valid );
+		const isValid = $item.is( obj.selectors.valid );
 
 		// When Invalid we prevents submit from completing
 		if ( ! isValid ) {
@@ -707,13 +711,14 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @uses   obj.onInvalidField
 	 *
-	 * @param  {object} event JQuery Event
+	 * @param {Object} event JQuery Event
 	 *
 	 * @return {void} No return.
 	 */
-	obj.onClickSubmitButtons = function( event ) { // eslint-disable-line no-unused-vars
-		var $submit = $( this );
-		var $item = $submit.parents( obj.selectors.item );
+	obj.onClickSubmitButtons = function ( event ) {
+		// eslint-disable-line no-unused-vars
+		const $submit = $( this );
+		const $item = $submit.parents( obj.selectors.item );
 
 		// If we are not inside of the Validation just bail
 		if ( 0 === $item.length ) {
@@ -723,7 +728,7 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 		// Triggers our validation also on the click of submit
 		$item.trigger( 'validation.tribe' );
 
-		var $fields = $item.find( obj.selectors.fields );
+		const $fields = $item.find( obj.selectors.fields );
 
 		// Makes sure we don't have any invalid event on any fields.
 		$fields.off( 'invalid.tribe' );
@@ -740,13 +745,13 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @uses obj.onChangeFieldRemoveError
 	 *
-	 * @param  {Event} event JQuery Event.
+	 * @param {Event} event JQuery Event.
 	 *
 	 * @return {boolean} Return false to avoid bubble up.
 	 */
-	obj.onInvalidField = function( event ) {
-		var $field = $( this );
-		var $item = $field.parents( obj.selectors.item );
+	obj.onInvalidField = function ( event ) {
+		const $field = $( this );
+		const $item = $field.parents( obj.selectors.item );
 
 		// Adds the Class for marking the field with an error
 		$field.addClass( obj.selectors.error.className() );
@@ -766,13 +771,14 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {Event} event JQuery Event.
+	 * @param {Event} event JQuery Event.
 	 *
 	 * @return {void} No return.
 	 */
-	obj.onChangeFieldRemoveError = function( event ) { // eslint-disable-line no-unused-vars
-		var $field = $( this );
-		var $relatedFields = obj.getConstraintsFields( $field );
+	obj.onChangeFieldRemoveError = function ( event ) {
+		// eslint-disable-line no-unused-vars
+		const $field = $( this );
+		const $relatedFields = obj.getConstraintsFields( $field );
 
 		if ( 0 !== $relatedFields.filter( obj.selectors.error ).length ) {
 			$relatedFields.removeClass( obj.selectors.error.className() );
@@ -784,13 +790,14 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {Event} event JQuery Event.
+	 * @param {Event} event JQuery Event.
 	 *
 	 * @return {void} No return.
 	 */
-	obj.onClickDismissNotice = function( event ) { // eslint-disable-line no-unused-vars
-		var $dismiss = $( this );
-		var $notice = $dismiss.parents( obj.selectors.notice );
+	obj.onClickDismissNotice = function ( event ) {
+		// eslint-disable-line no-unused-vars
+		const $dismiss = $( this );
+		const $notice = $dismiss.parents( obj.selectors.notice );
 
 		// Deletes the Notice
 		$notice.remove();
@@ -801,11 +808,12 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {Event} event JQuery Event.
+	 * @param {Event} event JQuery Event.
 	 *
 	 * @return {void} No return.
 	 */
-	obj.onReady = function( event ) { // eslint-disable-line no-unused-vars
+	obj.onReady = function ( event ) {
+		// eslint-disable-line no-unused-vars
 		$( obj.selectors.item ).validation();
 	};
 
@@ -824,4 +832,4 @@ dayjs.extend(window.dayjs_plugin_customParseFormat);
 	 * @since  4.7
 	 */
 	$( obj.onReady );
-}( tribe.validation, jQuery, window.underscore || window._ ) );
+} )( window.tribe.validation, jQuery, window.underscore || window._ );

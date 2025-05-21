@@ -6,12 +6,13 @@
  *
  * ----------------------------------------------------------------------------- */
 
-.tribe_events_page_tec-events-settings {
+.tribe_events_page_tec-events-settings,
+.tickets_page_tec-tickets-settings {
 	.tec-settings__nav-wrapper {
 		background-color: var(--tec-color-background);
 		border-bottom: 1px solid var(--tec-admin-core-grey-10);
 		display: none;
-		padding-left: var(--tec-spacer-5);
+		padding-left: var(--tec-spacer-7);
 		padding-top: 0;
 
 		@media (--viewport-xsmall) {
@@ -35,11 +36,17 @@
 		flex-direction: column;
 		flex-wrap: nowrap;
 		list-style: none;
-		margin: 0 0 0 var(--tec-spacer-0);
+		margin: 0;
 
 		@media (--viewport-xsmall) {
 			column-gap: 8px;
 			flex-direction: row;
+		}
+
+		&:not(.tec-nav__subnav) {
+			> .tec-nav__tab:not(.tec-nav__tab--subnav-active):hover {
+				border-bottom: 4px solid var(--tec-admin-core-grey-10);
+			}
 		}
 	}
 
@@ -48,13 +55,14 @@
 		font-family: var(--tec-font-family-sans-serif);
 		font-size: var(--tec-font-size-3);
 		font-style: normal;
-		line-height: var(--tec-line-height-2);
-		padding: var(--tec-spacer-1) var(--tec-spacer-2);
 		text-align: center;
 		text-wrap: nowrap;
+		padding-top: 2px;
+		pointer-events: none;
+		margin-left: 0;
 
 		&.tec-nav__tab--skip-link {
-			margin: 0 0 0 calc(-1 * var(--tec-spacer-0));
+			margin: 0;
 			padding: 0;
 		}
 
@@ -91,28 +99,34 @@
 		> .tec-nav__link {
 			color: var(--tec-admin-core-grey-50);
 			text-decoration: none;
+			line-height: var(--tec-line-height-2);
+			padding: var(--tec-spacer-1) var(--tec-spacer-2);
+			display: block;
+			pointer-events: auto;
+
+			&:hover {
+				background-color: var(--tec-admin-core-grey-0);
+			}
+
+			/* Skip link is first child, so we target the second child. */
+			&:nth-child(2) {
+				@media (--viewport-xsmall) {
+					margin-left: calc(-1 * var(--tec-spacer-1));
+				}
+			}
 		}
 
 		@media (--viewport-xsmall) {
 			border-bottom: 4px solid transparent;
 			font-size: var(--tec-font-size-2);
 			font-weight: var(--tec-font-weight-bold);
-			line-height: var(--tec-line-height-0);
 			margin-bottom: 0;
-			margin-left: var(--tec-spacer-1);
-			padding: var(--tec-spacer-1);
 			text-align: center;
-		}
-
-		/* Skip link is first child, so we target the second child. */
-		&:nth-child(2) {
-			@media (--viewport-xsmall) {
-				margin-left: var(--tec-spacer-1);
-			}
 		}
 	}
 
 	.tec-nav__tab--active {
+
 		> .tec-nav__link {
 			color: var(--tec-admin-core-blue-50);
 			font-weight: var(--tec-font-weight-bold);
@@ -125,6 +139,7 @@
 
 	/* Subnav */
 	.tec-nav__tab--has-subnav {
+
 		> .tec-nav__link {
 			background-image: svg-inline(caret-down);
 		}
@@ -154,9 +169,9 @@
 			overflow: hidden;
 
 			> .tec-nav__tab {
-				border-bottom: 3px solid transparent;
+				border-bottom: 0;
 				margin-bottom: 0;
-				padding: var(--tec-spacer-2) var(--tec-spacer-3);
+				padding: 0;
 
 				&:first-child {
 					border-top-left-radius: var(--tec-border-radius-default);
@@ -169,7 +184,12 @@
 			}
 
 			.tec-nav__link {
+				padding: var(--tec-spacer-2) var(--tec-spacer-2);
 				color: var(--tec-color-background);
+
+				&:hover {
+					background-color: var(--tec-admin-core-grey-70);
+				}
 			}
 		}
 
@@ -195,6 +215,7 @@
 	}
 
 	.tec-nav__tab--subnav-active {
+
 		.tec-nav__subnav {
 			border-bottom-color: var(--tec-color-background);
 			display: flex;
@@ -205,7 +226,6 @@
 			background-image: svg-inline(caret-up);
 			color: var(--tec-color-background);
 			font-weight: var(--tec-font-weight-bold);
-			padding: var(--tec-spacer-3) var(--tec-spacer-2);
 		}
 
 		@media (--viewport-xsmall) {
@@ -216,7 +236,6 @@
 			> .tec-nav__link {
 				background-color: var(--tec-color-background);
 				color: var(--tec-admin-core-blue-50);
-				padding: 0;
 			}
 
 			.tec-nav__tab--active {
@@ -224,6 +243,10 @@
 
 				> .tec-nav__link {
 					color: var(--tec-admin-core-grey-80);
+
+					&:hover {
+						background-color: white;
+					}
 				}
 			}
 		}

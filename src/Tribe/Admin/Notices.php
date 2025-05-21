@@ -113,7 +113,7 @@ class Tribe__Admin__Notices {
 		add_action( 'current_screen', [ $this, 'hook' ], 20 );
 
 		// Add our notice dismissal script
-		tribe_asset(
+		tec_asset(
 			Tribe__Main::instance(),
 			'tribe-notice-dismiss',
 			'notice-dismiss.js',

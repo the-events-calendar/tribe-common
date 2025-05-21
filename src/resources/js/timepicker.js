@@ -1,25 +1,25 @@
 /**
  * @todo Move this to use the new `tribe` object, tribe.timepicker
- * @type {object}
+ * @type {Object}
  */
-var tribe_timepickers = tribe_timepickers || {};
+window.tribe_timepickers = window.tribe_timepickers || {};
 
 ( function ( $, obj ) {
 	'use strict';
 
 	obj.selector = {
-		container  : '.tribe-datetime-block',
-		timepicker : '.tribe-timepicker',
-		all_day    : '#allDayCheckbox',
-		timezone   : '.tribe-field-timezone',
-		input      : 'select, input',
+		container: '.tribe-datetime-block',
+		timepicker: '.tribe-timepicker',
+		all_day: '#allDayCheckbox',
+		timezone: '.tribe-field-timezone',
+		input: 'select, input',
 	};
 
 	obj.timepicker = {
 		opts: {
 			forceRoundTime: false,
 			step: 30,
-		}
+		},
 	};
 
 	obj.timezone = {
@@ -28,32 +28,36 @@ var tribe_timepickers = tribe_timepickers || {};
 
 	obj.$ = {};
 
-	obj.container = function( k, container ) {
-		var $container  = $( container );
-		var $allDay     = $container.find( obj.selector.all_day );
-		var $timepicker = $container.find( obj.selector.timepicker );
-		var $timezone   = $container.find( obj.selector.timezone ).not( obj.selector.input );
-		var $input      = $container.find( obj.selector.timezone ).filter( obj.selector.input );
+	obj.container = function ( k, container ) {
+		const $container = $( container );
+		const $allDay = $container.find( obj.selector.all_day );
+		const $timepicker = $container.find( obj.selector.timepicker );
+		let $timezone = $container.find( obj.selector.timezone ).not( obj.selector.input );
+		const $input = $container.find( obj.selector.timezone ).filter( obj.selector.input );
 
 		// Create the Link
-		var $timezoneLink = $( obj.timezone.link( {
-			label: $input.data( 'timezoneLabel' ),
-			timezone: $input.data( 'timezoneValue' ),
-		} ) );
+		const $timezoneLink = $(
+			obj.timezone.link( {
+				label: $input.data( 'timezoneLabel' ),
+				timezone: $input.data( 'timezoneValue' ),
+			} )
+		);
 
 		// Toggle Timepickers on All Day change
-		$allDay.on( 'change', function() {
-			if ( true === $allDay.prop( 'checked' ) ) {
-				$timepicker.hide();
-			} else {
-				$timepicker.show();
-			}
-		} ).trigger( 'change' );
+		$allDay
+			.on( 'change', function () {
+				if ( true === $allDay.prop( 'checked' ) ) {
+					$timepicker.hide();
+				} else {
+					$timepicker.show();
+				}
+			} )
+			.trigger( 'change' );
 
 		obj.setup_timepickers( $timepicker );
 
 		// Attach a Click action the Timezone Link
-		$timezoneLink.on( 'click', function( e ) {
+		$timezoneLink.on( 'click', function ( e ) {
 			$timezone = $container.find( obj.selector.timezone ).filter( '.select2-container' );
 			e.preventDefault();
 
@@ -65,19 +69,20 @@ var tribe_timepickers = tribe_timepickers || {};
 		$input.before( $timezoneLink );
 	};
 
-	obj.init = function() {
+	obj.init = function () {
 		obj.$.containers = $( obj.selector.container );
 		obj.$.containers.each( obj.container );
 	};
 
 	/**
 	 * Initializes timepickers
+	 * @param $timepickers
 	 */
-	obj.setup_timepickers = function( $timepickers ) {
+	obj.setup_timepickers = function ( $timepickers ) {
 		// Setup all Timepickers
-		$timepickers.each( function() {
-			var $item = $( this );
-			var opts  = $.extend( {}, obj.timepicker.opts );
+		$timepickers.each( function () {
+			const $item = $( this );
+			const opts = $.extend( {}, obj.timepicker.opts );
 
 			if ( $item.data( 'format' ) ) {
 				opts.timeFormat = $item.data( 'format' );
@@ -89,7 +94,7 @@ var tribe_timepickers = tribe_timepickers || {};
 			}
 
 			// Passing anything but 0 or 'false' will make it round to the nearest step
-			var round = $item.data( 'round' );
+			const round = $item.data( 'round' );
 			if (
 				round &&
 				0 != round && // eslint-disable-line eqeqeq
@@ -108,4 +113,4 @@ var tribe_timepickers = tribe_timepickers || {};
 	};
 
 	$( obj.init );
-} ( jQuery, tribe_timepickers ) );
+} )( jQuery, window.tribe_timepickers );
