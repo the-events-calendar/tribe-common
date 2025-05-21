@@ -13,42 +13,23 @@ import LabeledItem from '@moderntribe/common/elements/labeled-item';
 import Link from '@moderntribe/common/elements/link';
 import './style.pcss';
 
-const LabelWithLink = ( {
-	className,
-	label,
-	linkDisabled,
-	linkHref,
-	linkTarget,
-	linkText,
-} ) => {
+const LabelWithLink = ( { className, label, linkDisabled, linkHref, linkTarget, linkText } ) => {
 	const getLink = () => {
 		const linkClass = 'tribe-editor__label-with-link__link';
 
-		return linkDisabled
-			? (
-				<Button
-					className={ classNames( linkClass, `${ linkClass }--disabled` ) }
-					disabled={ true }
-				>
-					{ linkText }
-				</Button>
-			)
-			: (
-				<Link
-					className={ linkClass }
-					href={ linkHref }
-					target={ linkTarget }
-				>
-					{ linkText }
-				</Link>
-			);
+		return linkDisabled ? (
+			<Button className={ classNames( linkClass, `${ linkClass }--disabled` ) } disabled={ true }>
+				{ linkText }
+			</Button>
+		) : (
+			<Link className={ linkClass } href={ linkHref } target={ linkTarget }>
+				{ linkText }
+			</Link>
+		);
 	};
 
 	return (
-		<LabeledItem
-			className={ classNames( 'tribe-editor__label-with-link', className ) }
-			label={ label }
-		>
+		<LabeledItem className={ classNames( 'tribe-editor__label-with-link', className ) } label={ label }>
 			{ getLink() }
 		</LabeledItem>
 	);

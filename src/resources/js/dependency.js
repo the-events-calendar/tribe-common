@@ -10,11 +10,14 @@
  * selector   = the css selector for the dependency, must be an ID, includes the hash "#"
  * linked     = data attribute for linked dependents mainly for radio buttons to
  *                  ensure they all get triggered together
+ * @param $
+ * @param _
+ * @param obj
  */
-( function( $, _, obj ) {
+( function ( $, _, obj ) {
 	'use strict';
-	var $document = $( document );
-	var $window = $( window );
+	const $document = $( document );
+	const $window = $( window );
 
 	/**
 	 * Store all selectors used to setup and properly use Dependency
@@ -31,7 +34,7 @@
 		dependencyManualControl: '[data-dependency-manual-control]',
 		fields: 'input, select, textarea',
 		advanced_fields: '.select2-container',
-		linked: '.tribe-dependent-linked'
+		linked: '.tribe-dependent-linked',
 	};
 
 	/**
@@ -39,9 +42,9 @@
 	 *
 	 * @param {string|int} number
 	 *
-	 * @returns {boolean}
+	 * @return {boolean}
 	 */
-	obj.isNumeric = function( number ) {
+	obj.isNumeric = function ( number ) {
 		return ! isNaN( parseFloat( number ) ) && isFinite( number );
 	};
 
@@ -54,34 +57,30 @@
 	 * @type  {Object}
 	 */
 	obj.constraintConditions = {
-		'condition': function ( val, constraint ) {
+		condition( val, constraint ) {
 			return _.isArray( constraint ) ? -1 !== constraint.indexOf( val ) : val == constraint; // eslint-disable-line eqeqeq,max-len
 		},
-		'not_condition': function ( val, constraint ) {
+		not_condition( val, constraint ) {
 			return _.isArray( constraint ) ? -1 === constraint.indexOf( val ) : val != constraint; // eslint-disable-line eqeqeq,max-len
 		},
-		'is_not_empty': function ( val ) {
+		is_not_empty( val ) {
 			return '' != val; // eslint-disable-line eqeqeq
 		},
-		'is_empty': function ( val ) {
+		is_empty( val ) {
 			return '' === val;
 		},
-		'is_numeric': function ( val ) {
+		is_numeric( val ) {
 			return obj.isNumeric( val );
 		},
-		'is_not_numeric': function ( val ) {
+		is_not_numeric( val ) {
 			return ! obj.isNumeric( val );
 		},
-		'is_checked': function ( _, __, $field ) {
-			return ( $field.is( ':checkbox' ) || $field.is( ':radio' ) )
-				? $field.is( ':checked' )
-				: false;
+		is_checked( _, __, $field ) {
+			return $field.is( ':checkbox' ) || $field.is( ':radio' ) ? $field.is( ':checked' ) : false;
 		},
-		'is_not_checked': function ( _, __, $field ) {
-			return ( $field.is( ':checkbox' ) || $field.is( ':radio' ) )
-				? ! $field.is( ':checked' )
-				: false;
-		}
+		is_not_checked( _, __, $field ) {
+			return $field.is( ':checkbox' ) || $field.is( ':radio' ) ? ! $field.is( ':checked' ) : false;
+		},
 	};
 
 	/**
@@ -91,10 +90,11 @@
 	 *
 	 * @type  {Function}
 	 */
-	obj.verify = function( e ) { // eslint-disable-line no-unused-vars
-		var $field = $( this );
-		var selector = '#' + $field.attr( 'id' );
-		var value = $field.val();
+	obj.verify = function ( e ) {
+		// eslint-disable-line no-unused-vars
+		const $field = $( this );
+		const selector = '#' + $field.attr( 'id' );
+		const value = $field.val();
 
 		// We need an ID to make something depend on this
 		if ( ! selector ) {
@@ -109,27 +109,28 @@
 		 * @since 4.5.8
 		 */
 		if ( $field.is( ':radio' ) ) {
-			var $radios = $( "[name='" + $field.attr( 'name' ) + "']" );
+			const $radios = $( "[name='" + $field.attr( 'name' ) + "']" );
 
-			$radios.not( obj.selectors.linked ).on( 'change', function() {
-				$radios.trigger( 'verify.dependency' );
-			} ).addClass( obj.selectors.linked.replace( '.', '' ) );
+			$radios
+				.not( obj.selectors.linked )
+				.on( 'change', function () {
+					$radios.trigger( 'verify.dependency' );
+				} )
+				.addClass( obj.selectors.linked.replace( '.', '' ) );
 		}
 
 		// Fetch dependent elements
-		var $dependents = $document
-			.find( '[data-depends="' + selector + '"]' )
-			.not( '.select2-container' );
+		const $dependents = $document.find( '[data-depends="' + selector + '"]' ).not( '.select2-container' );
 		if ( 0 === $dependents.length ) {
 			return;
 		}
 
-		$dependents.each( function( k, dependent ) {
-			var $dependent = $( dependent );
+		$dependents.each( function ( k, dependent ) {
+			let $dependent = $( dependent );
 
 			if ( $dependent.is( '[data-dependent-parent]' ) ) {
-				var dependentParent  = $dependent.data( 'dependent-parent' );
-				var $dependentParent = $dependent.closest( dependentParent );
+				const dependentParent = $dependent.data( 'dependent-parent' );
+				const $dependentParent = $dependent.closest( dependentParent );
 
 				if ( 0 === $dependentParent.length ) {
 					console.warn( 'Dependency: `data-dependent-parent` has bad selector', $dependent );
@@ -140,42 +141,71 @@
 			}
 
 			/* eslint-disable max-len */
-			var constraints = {
+			let constraints = {
 				condition: $dependent.is( '[data-condition]' ) ? $dependent.data( 'condition' ) : false,
 				not_condition: $dependent.is( '[data-condition-not]' ) ? $dependent.data( 'conditionNot' ) : false,
-				is_not_empty: $dependent.data( 'conditionIsNotEmpty' ) || $dependent.is( '[data-condition-is-not-empty]' ) || $dependent.data( 'conditionNotEmpty' ) || $dependent.is( '[data-condition-not-empty]' ),
-				is_empty: $dependent.data( 'conditionIsEmpty' ) || $dependent.is( '[data-condition-is-empty]' ) || $dependent.data( 'conditionEmpty' ) || $dependent.is( '[data-condition-empty]' ),
-				is_numeric: $dependent.data( 'conditionIsNumeric' ) || $dependent.is( '[data-condition-is-numeric]' ) || $dependent.data( 'conditionNumeric' ) || $dependent.is( '[data-condition-numeric]' ),
-				is_not_numeric: $dependent.data( 'conditionIsNotNumeric' ) || $dependent.is( '[data-condition-is-not-numeric]' ),
-				is_checked: $dependent.data( 'conditionIsChecked' ) || $dependent.is( '[data-condition-is-checked]' ) || $dependent.data( 'conditionChecked' ) || $dependent.is( '[data-condition-checked]' ),
-				is_not_checked: $dependent.data( 'conditionIsNotChecked' ) || $dependent.is( '[data-condition-is-not-checked]' ) || $dependent.data( 'conditionNotChecked' ) || $dependent.is( '[data-condition-not-checked]' ),
+				is_not_empty:
+					$dependent.data( 'conditionIsNotEmpty' ) ||
+					$dependent.is( '[data-condition-is-not-empty]' ) ||
+					$dependent.data( 'conditionNotEmpty' ) ||
+					$dependent.is( '[data-condition-not-empty]' ),
+				is_empty:
+					$dependent.data( 'conditionIsEmpty' ) ||
+					$dependent.is( '[data-condition-is-empty]' ) ||
+					$dependent.data( 'conditionEmpty' ) ||
+					$dependent.is( '[data-condition-empty]' ),
+				is_numeric:
+					$dependent.data( 'conditionIsNumeric' ) ||
+					$dependent.is( '[data-condition-is-numeric]' ) ||
+					$dependent.data( 'conditionNumeric' ) ||
+					$dependent.is( '[data-condition-numeric]' ),
+				is_not_numeric:
+					$dependent.data( 'conditionIsNotNumeric' ) || $dependent.is( '[data-condition-is-not-numeric]' ),
+				is_checked:
+					$dependent.data( 'conditionIsChecked' ) ||
+					$dependent.is( '[data-condition-is-checked]' ) ||
+					$dependent.data( 'conditionChecked' ) ||
+					$dependent.is( '[data-condition-checked]' ),
+				is_not_checked:
+					$dependent.data( 'conditionIsNotChecked' ) ||
+					$dependent.is( '[data-condition-is-not-checked]' ) ||
+					$dependent.data( 'conditionNotChecked' ) ||
+					$dependent.is( '[data-condition-not-checked]' ),
 			};
 			/* eslint-enable max-len */
 
-			var activeClass       = obj.selectors.active.replace( '.', '' );
+			const activeClass = obj.selectors.active.replace( '.', '' );
 
 			// Allows us to check a disabled dependency
-			var allowDisabled     = $dependent.is( '[data-dependency-check-disabled]' );
-			var alwaysVisible     = $dependent.is( '[data-dependency-always-visible]' );
+			const allowDisabled = $dependent.is( '[data-dependency-check-disabled]' );
+			const alwaysVisible = $dependent.is( '[data-dependency-always-visible]' );
 
 			// If allowDisabled, then false - we don't care!
-			var isDisabled        = allowDisabled ? false : $field.is( ':disabled' );
-			var conditionRelation = $dependent.data( 'condition-relation' ) || 'or';
-			var passes;
+			const isDisabled = allowDisabled ? false : $field.is( ':disabled' );
+			const conditionRelation = $dependent.data( 'condition-relation' ) || 'or';
+			let passes;
 
 			constraints = _.pick( constraints, function ( isApplicable ) {
 				return false !== isApplicable;
 			} );
 
 			if ( 'or' === conditionRelation ) {
-				passes = _.reduce( constraints, function ( passes, constraint, key ) {
-					return passes || obj.constraintConditions[ key ]( value, constraint, $field );
-				}, false );
+				passes = _.reduce(
+					constraints,
+					function ( passes, constraint, key ) {
+						return passes || obj.constraintConditions[ key ]( value, constraint, $field );
+					},
+					false
+				);
 			} else {
 				// There is no "and"!
-				passes = _.reduce( constraints, function ( passes, constraint, key ) {
-					return passes && obj.constraintConditions[ key ]( value, constraint, $field );
-				}, true );
+				passes = _.reduce(
+					constraints,
+					function ( passes, constraint, key ) {
+						return passes && obj.constraintConditions[ key ]( value, constraint, $field );
+					},
+					true
+				);
 			}
 
 			if ( passes && ! isDisabled ) {
@@ -205,10 +235,7 @@
 					.prop( 'disabled', false );
 
 				if ( 'undefined' !== typeof $().select2 ) {
-					$dependent
-						.find( '.tribe-dropdown, .tribe-ea-dropdown' )
-						.select2TEC()
-						.prop( 'disabled', false );
+					$dependent.find( '.tribe-dropdown, .tribe-ea-dropdown' ).select2TEC().prop( 'disabled', false );
 				}
 			} else {
 				$dependent.removeClass( activeClass );
@@ -226,10 +253,7 @@
 				}
 
 				if ( 'undefined' !== typeof $().select2 ) {
-					$dependent
-						.find( '.tribe-dropdown, .tribe-ea-dropdown' )
-						.select2TEC()
-						.prop( 'disabled', true );
+					$dependent.find( '.tribe-dropdown, .tribe-ea-dropdown' ).select2TEC().prop( 'disabled', true );
 				}
 
 				if ( $dependent.is( '.tribe-dropdown, .tribe-ea-dropdown' ) ) {
@@ -247,7 +271,7 @@
 				}
 			}
 
-			var $dependentChildren = $dependent.find( obj.selectors.dependency );
+			const $dependentChildren = $dependent.find( obj.selectors.dependency );
 			if ( $dependentChildren.length > 0 ) {
 				// Checks if any child elements have dependencies
 				$dependentChildren.trigger( 'change' );
@@ -265,9 +289,10 @@
 	 *
 	 * @type  {Function}
 	 */
-	obj.setup = function ( event ) { // eslint-disable-line no-unused-vars
+	obj.setup = function ( event ) {
+		// eslint-disable-line no-unused-vars
 		// Fetch all dependents
-		var $dependents = $( obj.selectors.dependent );
+		const $dependents = $( obj.selectors.dependent );
 
 		if ( $dependents.length ) {
 			// Trigger Dependency Configuration on all of these
@@ -275,7 +300,7 @@
 		}
 
 		// Fetch all Dependencies
-		var $dependencies = $( obj.selectors.dependency );
+		const $dependencies = $( obj.selectors.dependency );
 
 		if ( $dependencies.not( obj.selectors.dependencyVerified ).length ) {
 			// Now verify all the Dependencies
@@ -291,10 +316,10 @@
 	 * @type  {Function}
 	 */
 	$.fn.dependency = function () {
-		return this.each( function() {
-			var $el = $( this );
-			var selector = $el.data( 'depends' );
-			var $selector = $( selector );
+		return this.each( function () {
+			const $el = $( this );
+			const selector = $el.data( 'depends' );
+			const $selector = $( selector );
 
 			// Block any fails from valid selectors
 			if ( ! $selector.length ) {
@@ -323,10 +348,13 @@
 	/**
 	 * Add the Dependency check on the correct elements
 	 */
-	$document.on( {
-		'verify.dependency': obj.verify,
-		'change.dependency': obj.verify,
-	}, obj.selectors.dependency );
+	$document.on(
+		{
+			'verify.dependency': obj.verify,
+			'change.dependency': obj.verify,
+		},
+		obj.selectors.dependency
+	);
 
 	// Configure on Document ready for the default trigger
 	$( obj.setup );
