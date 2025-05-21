@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { render } from '@testing-library/react';
-import { describe, expect, it, jest } from '@jest/globals';
-import { DatePicker } from '../../../src/resources/packages/classy/components';
-import { DatePickerProps } from '../../../src/resources/packages/classy/components/DatePicker/DatePicker';
+import {fireEvent, render} from '@testing-library/react';
+import {describe, expect, it, jest} from '@jest/globals';
+import {DatePicker} from '../../../src/resources/packages/classy/components';
+import {DatePickerProps} from '../../../src/resources/packages/classy/components/DatePicker/DatePicker';
 
 describe( 'DatePicker Component', () => {
 	const defaultProps = {
@@ -117,5 +117,79 @@ describe( 'DatePicker Component', () => {
 
 			expect( container.firstChild ).toMatchSnapshot();
 		} );
+	} );
+
+	describe( 'date selection', () => {
+		it( 'handles picking new start date', () => {
+			const props = {
+				...defaultProps,
+				currentDate: new Date( '2023-12-23 10:00:00' ),
+				startDate: new Date( '2023-12-23 10:00:00' ),
+				endDate: new Date( '2023-12-23 13:30:00' ),
+				// The user is selecting the start date.
+				isSelectingDate: 'start',
+				// Show the popover, we start from the state where the user has clicked the date picker to pick a date.
+				showPopover: true,
+				onChange: jest.fn(),
+				onClick: jest.fn(),
+				onClose: jest.fn(),
+				onFocusOutside: jest.fn(),
+			} as DatePickerProps;
+
+			const {getByText} = render(<DatePicker {...props} />);
+
+			// The user picks a new start date: 2023-12-21.
+			fireEvent.click( getByText( '21' ) );
+
+			expect(props.onChange).toHaveBeenCalledWith(
+				'start',
+				'2023-12-21T10:00:00'
+			);
+			expect(props.onClick).not.toHaveBeenCalled();
+			expect(props.onClose).not.toHaveBeenCalled();
+			expect(props.onFocusOutside).not.toHaveBeenCalled();
+		} );
+
+		it('handles closing the new date selection modal', ()=>{
+			const baseElement = document.createElement('div');
+			const props = {
+				...defaultProps,
+				anchor: baseElement,
+				currentDate: new Date( '2023-12-23 10:00:00' ),
+				startDate: new Date( '2023-12-23 10:00:00' ),
+				endDate: new Date( '2023-12-23 13:30:00' ),
+				// The user is selecting the start date.
+				isSelectingDate: 'start',
+				// Show the popover, we start from the state where the user has clicked the date picker to pick a date.
+				showPopover: true,
+				onChange: jest.fn(),
+				onClick: jest.fn(),
+				onClose: jest.fn(),
+				onFocusOutside: jest.fn(),
+			} as DatePickerProps;
+
+			const { container,asFragment} = render(<DatePicker {...props} />, {
+				baseElement
+			});
+
+			const initialRender = asFragment();
+
+			// The user closes the modal by pressing Escape.
+			const element = container.querySelector('.classy-component__popover');
+			fireEvent.keyDown(element, new KeyboardEvent('keydown', {
+				key: 'Escape',
+			}));
+
+			// @TODO for some reason the popover is not attached to either teh baseElement or container. Why?
+
+			expect(props.onChange).not.toHaveBeenCalled( );
+			expect(props.onClick).not.toHaveBeenCalled();
+			expect(props.onClose).toHaveBeenCalledTimes(1);
+			expect(props.onFocusOutside).not.toHaveBeenCalled();
+
+			// Additional check to ensure the modal is closed
+			const finalRender = asFragment();
+			expect(finalRender).not.toEqual(initialRender); // Assuming the modal's presence changes the render output
+		});
 	} );
 } );
