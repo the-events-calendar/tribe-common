@@ -1,9 +1,9 @@
-import React from 'react';
-import { StartOfWeek } from '../../../types/StartOfWeek';
+import * as React from 'react';
 import { DatePicker, Popover } from '@wordpress/components';
 import { DatePickerEvent } from '@wordpress/components/build-types/date-time/types';
 import { VirtualElement } from '@wordpress/components/build-types/popover/types';
 import { SyntheticEvent } from '@wordpress/element';
+import { StartOfWeek } from '../../types/StartOfWeek';
 
 function getDatePickerEventsBetweenDates(
 	start: Date,

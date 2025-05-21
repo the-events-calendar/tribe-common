@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import CalendarPopover from './CalendarPopover';
 import {
 	__experimentalInputControl as InputControl,
@@ -6,12 +6,12 @@ import {
 } from '@wordpress/components';
 import CalendarIcon from './CalendarIcon';
 import { format } from '@wordpress/date';
-import { Fragment, MouseEventHandler, MutableRefObject } from 'react';
-import { SyntheticEvent, useRef } from '@wordpress/element';
+import { Fragment, MouseEventHandler } from 'react';
+import { SyntheticEvent } from '@wordpress/element';
 import { VirtualElement } from '@wordpress/components/build-types/popover/types';
 import { StartOfWeek } from '../../types/StartOfWeek';
 
-export default function DatePicker( props: {
+export type DatePickerProps = {
 	anchor: Element | VirtualElement | null;
 	dateWithYearFormat: string;
 	endDate: Date;
@@ -25,7 +25,9 @@ export default function DatePicker( props: {
 	startDate: Date;
 	startOfWeek: StartOfWeek;
 	currentDate: Date;
-} ) {
+};
+
+export default function DatePicker( props:DatePickerProps  ) {
 	const {
 		anchor,
 		dateWithYearFormat,

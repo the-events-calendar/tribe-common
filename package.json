@@ -96,6 +96,7 @@
   },
   "devDependencies": {
     "@stellarwp/tyson": "*",
+    "@wordpress/components": "^29.9.0",
     "@wordpress/hooks": "^1.3.2",
     "@wordpress/scripts": "^30.14.1",
     "cross-env": "^5.2.0",
