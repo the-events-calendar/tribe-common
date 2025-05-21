@@ -13,6 +13,17 @@ implements Tribe__Editor__Blocks__Interface {
 	protected $namespace = 'tribe';
 
 	/**
+	 * Whether the block should register assets
+	 *
+	 * @since 6.7.0
+	 *
+	 * @return bool
+	 */
+	public function should_register_assets(): bool {
+		return true;
+	}
+
+	/**
 	 * Builds the name of the Block
 	 *
 	 * @since 4.8

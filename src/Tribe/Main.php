@@ -5,6 +5,7 @@ use TEC\Common\Translations_Loader;
 use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
 use TEC\Common\Asset;
+use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 use TEC\Common\Controller as Common_Controller;
 
 // Don't load directly.
@@ -21,7 +22,7 @@ class Tribe__Main {
 	const OPTIONNAME        = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK = 'tribe_events_calendar_network_options';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
-	const VERSION           = '6.6.0.1';
+	const VERSION           = '6.7.0';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
@@ -218,6 +219,29 @@ class Tribe__Main {
 		tribe( 'plugins.api' );
 		tribe( 'ajax.dropdown' );
 		tribe( 'logger' );
+
+		/*
+		 * Register the `/build` directory assets as a different group to ensure back-compatibility.
+		 * This needs to happen early in the plugin bootstrap routine.
+		 */
+		Assets_Config::add_group_path(
+			self::class,
+			self::instance()->plugin_path,
+			'build/',
+			true
+		);
+
+		/*
+		 * Register the `/build` directory as root for packages.
+		 * The difference from the group registration above is that packages are not expected to use prefix directories
+		 * like `/js` or `/css`.
+		 */
+		Assets_Config::add_group_path(
+			self::class . '-packages',
+			self::instance()->plugin_path,
+			'build/',
+			false
+		);
 	}
 
 	/**
@@ -226,7 +250,7 @@ class Tribe__Main {
 	public function load_assets() {
 		Asset::add(
 			'tribe-clipboard',
-			'vendor/clipboard.min.js',
+			'vendor/clipboard.js',
 			self::VERSION
 		)
 		->prefix_asset_directory( false )
@@ -234,7 +258,7 @@ class Tribe__Main {
 		->register();
 
 		// These ones are only registered
-		tribe_assets(
+		tec_assets(
 			$this,
 			[
 				[ 'tribe-accessibility-css', 'accessibility.css' ],
@@ -264,7 +288,7 @@ class Tribe__Main {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$this,
 			'tec-copy-to-clipboard',
 			'utils/tec-copy-to-clipboard.js',
@@ -284,7 +308,7 @@ class Tribe__Main {
 			]
 		);
 
-		tribe_assets(
+		tec_assets(
 			$this,
 			[
 				[ 'tec-variables-skeleton', 'variables-skeleton.css', ],
@@ -296,7 +320,7 @@ class Tribe__Main {
 		);
 
 		// These ones will be enqueued on `admin_enqueue_scripts` if the conditional method on filter is met
-		tribe_assets(
+		tec_assets(
 			$this,
 			[
 				[ 'tribe-ui', 'tribe-ui.css', [ 'tec-variables-full' ] ],
@@ -317,7 +341,7 @@ class Tribe__Main {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$this,
 			'tribe-common',
 			'tribe-common.js',
@@ -328,7 +352,7 @@ class Tribe__Main {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$this,
 			'tribe-admin-url-fragment-scroll',
 			'admin/url-fragment-scroll.js',
@@ -340,7 +364,7 @@ class Tribe__Main {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$this,
 			'tec-admin-settings-image-field',
 			'admin-image-field.js',
@@ -352,7 +376,7 @@ class Tribe__Main {
 		);
 
 		// Register the asset for Customizer controls.
-		tribe_asset(
+		tec_asset(
 			$this,
 			'tribe-customizer-controls',
 			'customizer-controls.css',
@@ -361,7 +385,7 @@ class Tribe__Main {
 		);
 
 		// Register the asset for color fields.
-		tribe_asset(
+		tec_asset(
 			$this,
 			'tec-settings-color-field',
 			'admin-color-field.js',

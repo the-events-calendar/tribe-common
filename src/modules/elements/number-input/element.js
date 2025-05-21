@@ -10,14 +10,7 @@ import classNames from 'classnames';
  */
 import Input from '@moderntribe/common/elements/input';
 
-const NumberInput = ( {
-	className,
-	max,
-	min,
-	onChange,
-	step,
-	...rest
-} ) => (
+const NumberInput = ( { className, max, min, onChange, step, ...rest } ) => (
 	<Input
 		className={ classNames( 'tribe-editor__input--number', className ) }
 		max={ max }
