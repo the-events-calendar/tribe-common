@@ -6,10 +6,10 @@ import {
 } from '@wordpress/components';
 import CalendarIcon from './CalendarIcon';
 import { format } from '@wordpress/date';
-import { StartOfWeek } from '../../../types/StartOfWeek';
 import { Fragment, MouseEventHandler, MutableRefObject } from 'react';
 import { SyntheticEvent, useRef } from '@wordpress/element';
 import { VirtualElement } from '@wordpress/components/build-types/popover/types';
+import { StartOfWeek } from '../../types/StartOfWeek';
 
 export default function DatePicker( props: {
 	anchor: Element | VirtualElement | null;
