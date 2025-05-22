@@ -90,7 +90,7 @@ class Hooks extends Controller_Contract {
 	 */
 	public function group_paths_should_follow_symlinks( array $group_path_data ): array {
 		// Follow symlinks.
-		$group_path_data['root'] = str_replace( trailingslashit( dirname( dirname( dirname( __DIR__ ) ) ) ), trailingslashit( WP_PLUGIN_DIR ), $group_path_data['root'] ?? '' );
+		$group_path_data['root'] = str_replace( trailingslashit( dirname( __DIR__, 4 ) ), trailingslashit( WP_PLUGIN_DIR ), $group_path_data['root'] ?? '' );
 
 		return $group_path_data;
 	}
