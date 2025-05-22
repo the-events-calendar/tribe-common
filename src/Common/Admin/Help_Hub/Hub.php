@@ -437,11 +437,12 @@ class Hub {
 	 * Generates a telemetry opt-in link.
 	 *
 	 * @since 6.3.2
+	 * @since TBD Added filter.
 	 *
 	 * @return string
 	 */
 	public static function get_telemetry_opt_in_link(): string {
-		return add_query_arg(
+		$default_url = add_query_arg(
 			[
 				'page'      => 'tec-events-settings',
 				'tab'       => 'general-debugging-tab',
@@ -449,6 +450,18 @@ class Hub {
 			],
 			admin_url( 'edit.php' )
 		);
+
+		/**
+		 * Filters the telemetry opt-in link.
+		 *
+		 * Allows customization of the link used for the telemetry opt-in location.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $default_url The default URL to the telemetry opt-in settings tab.
+		 * @param Hub $this The Hub instance.
+		 */
+		return apply_filters( 'tec_help_hub_telemetry_opt_in_link', $default_url );
 	}
 
 	/**
