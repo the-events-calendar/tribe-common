@@ -163,13 +163,11 @@ abstract class Abstract_Admin_Page {
 	 * @return string The page slug.
 	 */
 	public static function get_page_slug(): string {
-		if ( ! empty( static::$page_slug ) && static::$page_slug === static::$slug ) {
+		if ( ! empty( static::$page_slug ) ) {
 			return static::$page_slug;
 		}
 
-		static::$page_slug = static::$slug;
-
-		return static::$page_slug;
+		return static::$slug;
 	}
 
 	/**
