@@ -51,6 +51,7 @@ class Template_Test extends WPTestCase {
 		// Instantiate the Hub instance with all dependencies
 		$this->hub = new Hub( $this->mock_data, $config, $template );
 		$this->set_fn_return( 'tribe_resource_url', 'https://example.com/' );
+		$this->set_fn_return('wp_create_nonce', '123456789');
 	}
 
 	/**
@@ -141,10 +142,10 @@ class Template_Test extends WPTestCase {
 			$this->assertArrayHasKey( 'description', $section );
 
 			// Validate content based on section type
-			if ( $section['type'] === 'faqs' ) {
-				$this->assertArrayHasKey( 'faqs', $section );
-				$this->assertIsArray( $section['faqs'] );
-				foreach ( $section['faqs'] as $faq ) {
+			if ( $section['type'] === 'faq' ) {
+				$this->assertArrayHasKey( 'faq', $section );
+				$this->assertIsArray( $section['faq'] );
+				foreach ( $section['faq'] as $faq ) {
 					$this->assertArrayHasKey( 'question', $faq );
 					$this->assertArrayHasKey( 'answer', $faq );
 					$this->assertArrayHasKey( 'link_text', $faq );

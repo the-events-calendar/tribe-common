@@ -78,4 +78,16 @@ interface Help_Hub_Data_Interface {
 	 * @return void
 	 */
 	public function initialize(): void;
+
+	/**
+	 * Determines if the current admin page is the Help Hub page.
+	 *
+	 * Checks the 'page' request variable against the Help Hub settings slug to confirm
+	 * if the user is currently viewing the Help Hub admin page.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if the current page is the Help Hub, false otherwise.
+	 */
+	public function is_help_hub_page(): bool;
 }
