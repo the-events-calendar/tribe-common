@@ -576,7 +576,7 @@ class View extends \Tribe__Template {
 			window.tribe.dialogs = window.tribe.dialogs || [];
 			window.tribe.dialogs.dialogs = window.tribe.dialogs.dialogs || [];
 
-			window.tribe.dialogs.dialogs.push( <?php echo json_encode( $args ); ?> );
+			window.tribe.dialogs.dialogs.push( <?php echo wp_json_encode( $args ); ?> );
 
 			<?php
 			/**
