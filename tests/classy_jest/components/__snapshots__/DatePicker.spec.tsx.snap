@@ -18,7 +18,7 @@ exports[`DatePicker Component isMultiday property renders correctly when isMulti
         <input
           class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
           id="inspector-input-control-5"
-          value="2025-05-21"
+          value="2023-12-23"
         />
         <span
           class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
@@ -73,7 +73,7 @@ exports[`DatePicker Component isMultiday property renders correctly when isMulti
         <input
           class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
           id="inspector-input-control-4"
-          value="2025-05-21"
+          value="2023-12-23"
         />
         <span
           class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
@@ -128,7 +128,7 @@ exports[`DatePicker Component isSelectingDate property selecting end date 1`] = 
         <input
           class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
           id="inspector-input-control-2"
-          value="2025-05-21"
+          value="2023-12-23"
         />
         <span
           class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
@@ -183,7 +183,7 @@ exports[`DatePicker Component isSelectingDate property selecting neither start n
         <input
           class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
           id="inspector-input-control-3"
-          value="2025-05-21"
+          value="2023-12-23"
         />
         <span
           class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
@@ -238,7 +238,7 @@ exports[`DatePicker Component isSelectingDate property selecting start date 1`] 
         <input
           class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
           id="inspector-input-control-1"
-          value="2025-05-21"
+          value="2023-12-23"
         />
         <span
           class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
@@ -293,7 +293,7 @@ exports[`DatePicker Component renders correctly with default props 1`] = `
         <input
           class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
           id="inspector-input-control-0"
-          value="2025-05-21"
+          value="2023-12-23"
         />
         <span
           class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
@@ -348,7 +348,7 @@ exports[`DatePicker Component showPopover property renders correctly when showPo
         <input
           class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
           id="inspector-input-control-7"
-          value="2025-05-21"
+          value="2023-12-23"
         />
         <span
           class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
@@ -403,7 +403,7 @@ exports[`DatePicker Component showPopover property renders correctly when showPo
         <input
           class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
           id="inspector-input-control-6"
-          value="2025-05-21"
+          value="2023-12-23"
         />
         <span
           class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
