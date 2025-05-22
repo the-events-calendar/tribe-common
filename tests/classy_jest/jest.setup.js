@@ -22,6 +22,10 @@ global.window.matchMedia = () => ( {
 	removeEventListener: () => {},
 } );
 
+// Mocking the `scrollIntoView` function; it's not implemented in JSDOM.
+// @see: https://github.com/jsdom/jsdom/issues/1695
+window.Element.prototype.scrollIntoView = function () {};
+
 /**
  * Here we selectively silence some warnings coming from external (e.g. WordPress) components.
  * This should not be abused: legitimate warnings coming from code that is part of the Classy package should

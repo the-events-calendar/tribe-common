@@ -1,0 +1,253 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimePicker Component renders correctly with default values 1`] = `
+<div>
+  <div
+    class="components-base-control classy-field__control classy-field__control--input classy-field__control--time-picker components-combobox-control css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+  >
+    <div
+      class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+    >
+      <div
+        class="components-combobox-control__suggestions-container"
+        tabindex="-1"
+      >
+        <div
+          class="components-flex evuatpg0 css-c78xi4-PolymorphicDiv-Flex-base-ItemsRow-InputWrapperFlex e19lxcc00"
+          data-wp-c16t="true"
+          data-wp-component="Flex"
+        >
+          <div
+            class="components-flex-item components-flex-block css-1mqm1jz-PolymorphicDiv-Item-sx-Base-block e19lxcc00"
+            data-wp-c16t="true"
+            data-wp-component="FlexBlock"
+          >
+            <input
+              aria-autocomplete="list"
+              aria-describedby="components-form-token-suggestions-howto-combobox-control-0"
+              aria-expanded="false"
+              autocomplete="off"
+              class="components-combobox-control__input components-form-token-field__input"
+              id="components-form-token-input-combobox-control-0"
+              role="combobox"
+              size="9"
+              type="text"
+              value="10:00 am"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`TimePicker Component renders correctly with highlight false 1`] = `
+<div>
+  <div
+    class="components-base-control classy-field__control classy-field__control--input classy-field__control--time-picker components-combobox-control css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+  >
+    <div
+      class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+    >
+      <div
+        class="components-combobox-control__suggestions-container"
+        tabindex="-1"
+      >
+        <div
+          class="components-flex evuatpg0 css-c78xi4-PolymorphicDiv-Flex-base-ItemsRow-InputWrapperFlex e19lxcc00"
+          data-wp-c16t="true"
+          data-wp-component="Flex"
+        >
+          <div
+            class="components-flex-item components-flex-block css-1mqm1jz-PolymorphicDiv-Item-sx-Base-block e19lxcc00"
+            data-wp-c16t="true"
+            data-wp-component="FlexBlock"
+          >
+            <input
+              aria-autocomplete="list"
+              aria-describedby="components-form-token-suggestions-howto-combobox-control-5"
+              aria-expanded="false"
+              autocomplete="off"
+              class="components-combobox-control__input components-form-token-field__input"
+              id="components-form-token-input-combobox-control-5"
+              role="combobox"
+              size="9"
+              type="text"
+              value="10:00 am"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`TimePicker Component renders correctly with highlight true 1`] = `
+<div>
+  <div
+    class="components-base-control classy-field__control classy-field__control--input classy-field__control--time-picker components-combobox-control css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+  >
+    <div
+      class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+    >
+      <div
+        class="components-combobox-control__suggestions-container"
+        tabindex="-1"
+      >
+        <div
+          class="components-flex evuatpg0 css-c78xi4-PolymorphicDiv-Flex-base-ItemsRow-InputWrapperFlex e19lxcc00"
+          data-wp-c16t="true"
+          data-wp-component="Flex"
+        >
+          <div
+            class="components-flex-item components-flex-block css-1mqm1jz-PolymorphicDiv-Item-sx-Base-block e19lxcc00"
+            data-wp-c16t="true"
+            data-wp-component="FlexBlock"
+          >
+            <input
+              aria-autocomplete="list"
+              aria-describedby="components-form-token-suggestions-howto-combobox-control-4"
+              aria-expanded="false"
+              autocomplete="off"
+              class="components-combobox-control__input components-form-token-field__input"
+              id="components-form-token-input-combobox-control-4"
+              role="combobox"
+              size="9"
+              type="text"
+              value="10:00 am"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`TimePicker Component renders correctly with no endDate, startDate eq currentDate 1`] = `
+<div>
+  <div
+    class="components-base-control classy-field__control classy-field__control--input classy-field__control--time-picker components-combobox-control css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+  >
+    <div
+      class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+    >
+      <div
+        class="components-combobox-control__suggestions-container"
+        tabindex="-1"
+      >
+        <div
+          class="components-flex evuatpg0 css-c78xi4-PolymorphicDiv-Flex-base-ItemsRow-InputWrapperFlex e19lxcc00"
+          data-wp-c16t="true"
+          data-wp-component="Flex"
+        >
+          <div
+            class="components-flex-item components-flex-block css-1mqm1jz-PolymorphicDiv-Item-sx-Base-block e19lxcc00"
+            data-wp-c16t="true"
+            data-wp-component="FlexBlock"
+          >
+            <input
+              aria-autocomplete="list"
+              aria-describedby="components-form-token-suggestions-howto-combobox-control-3"
+              aria-expanded="false"
+              autocomplete="off"
+              class="components-combobox-control__input components-form-token-field__input"
+              id="components-form-token-input-combobox-control-3"
+              role="combobox"
+              size="9"
+              type="text"
+              value="10:00 am"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`TimePicker Component renders correctly with no startDate, endDate eq currentDate 1`] = `
+<div>
+  <div
+    class="components-base-control classy-field__control classy-field__control--input classy-field__control--time-picker components-combobox-control css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+  >
+    <div
+      class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+    >
+      <div
+        class="components-combobox-control__suggestions-container"
+        tabindex="-1"
+      >
+        <div
+          class="components-flex evuatpg0 css-c78xi4-PolymorphicDiv-Flex-base-ItemsRow-InputWrapperFlex e19lxcc00"
+          data-wp-c16t="true"
+          data-wp-component="Flex"
+        >
+          <div
+            class="components-flex-item components-flex-block css-1mqm1jz-PolymorphicDiv-Item-sx-Base-block e19lxcc00"
+            data-wp-c16t="true"
+            data-wp-component="FlexBlock"
+          >
+            <input
+              aria-autocomplete="list"
+              aria-describedby="components-form-token-suggestions-howto-combobox-control-2"
+              aria-expanded="false"
+              autocomplete="off"
+              class="components-combobox-control__input components-form-token-field__input"
+              id="components-form-token-input-combobox-control-2"
+              role="combobox"
+              size="9"
+              type="text"
+              value="10:00 am"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`TimePicker Component renders correctly with same startDate, endDate, currentDate 1`] = `
+<div>
+  <div
+    class="components-base-control classy-field__control classy-field__control--input classy-field__control--time-picker components-combobox-control css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+  >
+    <div
+      class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+    >
+      <div
+        class="components-combobox-control__suggestions-container"
+        tabindex="-1"
+      >
+        <div
+          class="components-flex evuatpg0 css-c78xi4-PolymorphicDiv-Flex-base-ItemsRow-InputWrapperFlex e19lxcc00"
+          data-wp-c16t="true"
+          data-wp-component="Flex"
+        >
+          <div
+            class="components-flex-item components-flex-block css-1mqm1jz-PolymorphicDiv-Item-sx-Base-block e19lxcc00"
+            data-wp-c16t="true"
+            data-wp-component="FlexBlock"
+          >
+            <input
+              aria-autocomplete="list"
+              aria-describedby="components-form-token-suggestions-howto-combobox-control-1"
+              aria-expanded="false"
+              autocomplete="off"
+              class="components-combobox-control__input components-form-token-field__input"
+              id="components-form-token-input-combobox-control-1"
+              role="combobox"
+              size="9"
+              type="text"
+              value="10:00 am"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
