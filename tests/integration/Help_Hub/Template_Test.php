@@ -86,6 +86,7 @@ class Template_Test extends WPTestCase {
 	 */
 	public function initialization_happens_once(): void {
 		// First initialization
+		$_GET['page'] = 'tec-help-hub';
 		$this->mock_data->initialize();
 		$initial_hooks = [
 			'tec_help_hub_body_classes',
@@ -116,6 +117,7 @@ class Template_Test extends WPTestCase {
 	 * @test
 	 */
 	public function overall_template(): void {
+		$_GET['page'] = 'tec-help-hub';
 		ob_start();
 		$this->hub->render();
 		$output = ob_get_clean();
@@ -127,6 +129,7 @@ class Template_Test extends WPTestCase {
 	 * @test
 	 */
 	public function section_rendering(): void {
+		$_GET['page'] = 'tec-help-hub';
 		// Get the sections from the mock data
 		$sections = $this->mock_data->create_resource_sections();
 
