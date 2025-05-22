@@ -1,4 +1,5 @@
-tribe.urlFragmentScroll = tribe.urlFragmentScroll || {};
+window.tribe = window.tribe || {};
+window.tribe.urlFragmentScroll = window.tribe.urlFragmentScroll || {};
 
 ( function ( $, obj ) {
 	'use strict';
@@ -115,4 +116,4 @@ tribe.urlFragmentScroll = tribe.urlFragmentScroll || {};
 	};
 
 	$( obj.setup );
-} )( jQuery, tribe.urlFragmentScroll );
+} )( jQuery, window.tribe.urlFragmentScroll );

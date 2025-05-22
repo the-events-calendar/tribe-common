@@ -1,5 +1,5 @@
-var tribe = tribe || {};
-tribe.helpPage = tribe.helpPage || {};
+window.tribe = window.tribe || {};
+window.tribe.helpPage = window.tribe.helpPage || {};
 window.DocsBotAI = window.DocsBotAI || {};
 
 ( ( $, obj ) => {
@@ -238,7 +238,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	obj.initializeDocsBot = () => {
 		const bodyElement = document.getElementById( obj.selectors.helpHubPageID );
 		document.getElementById( obj.selectors.docsbotWidget ).classList.remove( 'hide' );
-		DocsBotAI.init = ( e ) => {
+		window.DocsBotAI.init = ( e ) => {
 			return new Promise( ( resolve, reject ) => {
 				const script = document.createElement( 'script' );
 				script.type = 'text/javascript';
@@ -260,7 +260,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 			} );
 		};
 
-		DocsBotAI.init( {
+		window.DocsBotAI.init( {
 			id: helpHubSettings.docsbot_key,
 			options: {
 				customCSS: obj.DocsBotAIcss,
@@ -276,4 +276,4 @@ window.DocsBotAI = window.DocsBotAI || {};
 
 	// Initialize the help page.
 	$( obj.setup );
-} )( jQuery, tribe.helpPage );
+} )( jQuery, window.tribe.helpPage );

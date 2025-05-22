@@ -1,4 +1,5 @@
-tribe.helpPage = tribe.helpPage || {};
+window.tribe = window.tribe || {};
+window.tribe.helpPage = window.tribe.helpPage || {};
 
 ( function ( $, obj ) {
 	'use strict';
@@ -309,4 +310,4 @@ tribe.helpPage = tribe.helpPage || {};
 	};
 
 	$( obj.setup );
-} )( jQuery, tribe.helpPage );
+} )( jQuery, window.tribe.helpPage );
