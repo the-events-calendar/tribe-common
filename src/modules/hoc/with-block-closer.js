@@ -11,7 +11,7 @@ export const EVENT_NAMESPACE = 'tribe:click:proxy';
 export const dispatch = ( e ) => {
 	e.target.dispatchEvent( new CustomEvent( EVENT_NAMESPACE, { bubbles: true } ) );
 };
-export const intercept = e => e.stopPropagation();
+export const intercept = ( e ) => e.stopPropagation();
 
 export default ( WrappedComponent ) => {
 	/**
@@ -19,22 +19,24 @@ export default ( WrappedComponent ) => {
 	 * from closing the block
 	 *
 	 * @class WithBlockCloser
-	 * @extends {PureComponent}
+	 * @augments {PureComponent}
 	 */
 	class WithBlockCloser extends PureComponent {
-		static displayName = `WithBlockCloser( ${ WrappedComponent.displayName || WrappedComponent.name || 'Component ' }` // eslint-disable-line max-len
+		static displayName = `WithBlockCloser( ${
+			WrappedComponent.displayName || WrappedComponent.name || 'Component '
+		}`; // eslint-disable-line max-len
 
 		static propTypes = {
 			onClose: PropTypes.func,
 			onOpen: PropTypes.func,
 			classNameClickBlacklist: PropTypes.arrayOf( PropTypes.string ).isRequired,
-		}
+		};
 
 		static defaultProps = {
 			classNameClickBlacklist: [ '.edit-post-sidebar' ],
 			onClose: noop,
 			onOpen: noop,
-		}
+		};
 
 		nodeRef = React.createRef();
 		_eventNamespace = EVENT_NAMESPACE;
@@ -58,7 +60,7 @@ export default ( WrappedComponent ) => {
 		open = () => {
 			this.setState( { isOpen: true } );
 			this.props.onOpen();
-		}
+		};
 
 		/**
 		 * keydown handler
@@ -71,18 +73,16 @@ export default ( WrappedComponent ) => {
 				this.setState( { isOpen: false } );
 				this.props.onClose();
 			}
-		}
+		};
 
 		handleClick = () => {
 			this.setState( { isOpen: false } );
 			this.props.onClose();
-		}
+		};
 
 		componentDidUpdate( prevProps, prevState ) {
 			if ( prevState.isOpen !== this.state.isOpen ) {
-				this.state.isOpen
-					? this._addEventListeners()
-					: this._removeEventListeners();
+				this.state.isOpen ? this._addEventListeners() : this._removeEventListeners();
 			}
 		}
 
@@ -101,15 +101,9 @@ export default ( WrappedComponent ) => {
 
 		_addEventListeners() {
 			// Intercept custom events bubbled in block or blacklisted nodes
-			this.node.addEventListener(
-				this._eventNamespace,
-				this._interceptClickProxyEvent,
-			);
-			this.blacklistedNodes.forEach(
-				node => node.addEventListener(
-					this._eventNamespace,
-					this._interceptClickProxyEvent,
-				),
+			this.node.addEventListener( this._eventNamespace, this._interceptClickProxyEvent );
+			this.blacklistedNodes.forEach( ( node ) =>
+				node.addEventListener( this._eventNamespace, this._interceptClickProxyEvent )
 			);
 
 			// Wait to receive custom events, if not intercepted, then go to click handler
@@ -122,15 +116,9 @@ export default ( WrappedComponent ) => {
 		}
 
 		_removeEventListeners() {
-			this.node.removeEventListener(
-				this._eventNamespace,
-				this._interceptClickProxyEvent,
-			);
-			this.blacklistedNodes.forEach(
-				node => node.removeEventListener(
-					this._eventNamespace,
-					this._interceptClickProxyEvent,
-				),
+			this.node.removeEventListener( this._eventNamespace, this._interceptClickProxyEvent );
+			this.blacklistedNodes.forEach( ( node ) =>
+				node.removeEventListener( this._eventNamespace, this._interceptClickProxyEvent )
 			);
 
 			document.removeEventListener( 'keydown', this.handleKeyDown );
@@ -143,10 +131,7 @@ export default ( WrappedComponent ) => {
 
 			return (
 				<div ref={ this.nodeRef }>
-					<WrappedComponent
-						{ ...this.props }
-						{ ...additionalProps }
-					/>
+					<WrappedComponent { ...this.props } { ...additionalProps } />
 				</div>
 			);
 		}
