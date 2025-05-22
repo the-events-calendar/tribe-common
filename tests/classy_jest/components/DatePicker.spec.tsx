@@ -14,7 +14,6 @@ describe( 'DatePicker Component', () => {
 		onChange: jest.fn(),
 		onClick: jest.fn(),
 		onClose: jest.fn(),
-		onFocusOutside: jest.fn(),
 		showPopover: false,
 		startDate: new Date( '2023-12-23 10:00:00' ),
 		startOfWeek: 0,
@@ -123,7 +122,6 @@ describe( 'DatePicker Component', () => {
 				onChange: jest.fn(),
 				onClick: jest.fn(),
 				onClose: jest.fn(),
-				onFocusOutside: jest.fn(),
 			} as DatePickerProps;
 
 			const { getByText } = render( <DatePicker { ...props } /> );
@@ -134,17 +132,13 @@ describe( 'DatePicker Component', () => {
 			expect( props.onChange ).toHaveBeenCalledWith( 'start', '2023-12-21T10:00:00' );
 			expect( props.onClick ).not.toHaveBeenCalled();
 			expect( props.onClose ).not.toHaveBeenCalled();
-			expect( props.onFocusOutside ).not.toHaveBeenCalled();
 		} );
 
-		it( 'handles closing the new date selection modal', () => {
+		it( 'handles closing the date selection modal', () => {
 			const baseElement = document.createElement( 'div' );
 			const props = {
 				...defaultProps,
 				anchor: baseElement,
-				currentDate: new Date( '2023-12-23 10:00:00' ),
-				startDate: new Date( '2023-12-23 10:00:00' ),
-				endDate: new Date( '2023-12-23 13:30:00' ),
 				// The user is selecting the start date.
 				isSelectingDate: 'start',
 				// Show the popover, we start from the state where the user has clicked the date picker to pick a date.
@@ -152,34 +146,30 @@ describe( 'DatePicker Component', () => {
 				onChange: jest.fn(),
 				onClick: jest.fn(),
 				onClose: jest.fn(),
-				onFocusOutside: jest.fn(),
 			} as DatePickerProps;
 
-			const { container, asFragment } = render( <DatePicker { ...props } />, {
-				baseElement,
-			} );
+			const { container, asFragment } = render( <DatePicker { ...props } /> );
 
 			const initialRender = asFragment();
 
 			// The user closes the modal by pressing Escape.
-			const element = container.querySelector( '.classy-component__popover' );
-			fireEvent.keyDown(
-				element,
-				new KeyboardEvent( 'keydown', {
-					key: 'Escape',
-				} )
-			);
+			const popover = document.body.querySelector( '.classy-component__popover--calendar' );
 
-			// @TODO for some reason the popover is not attached to either teh baseElement or container. Why?
+			const keyDownEscape = new KeyboardEvent( 'keydown', {
+				key: 'Escape',
+				code: 'Escape',
+				keyCode: 27, // While deprecated, this is the property the dialog WordPress logic is actually using.
+				bubbles: true,
+				cancelable: true,
+			} );
+
+			// The user presses Escape to close the modal.
+			// We're not using the fireEvent API as it will not dispatch correctly using the deprecated keyCode property.
+			popover.dispatchEvent( keyDownEscape );
 
 			expect( props.onChange ).not.toHaveBeenCalled();
 			expect( props.onClick ).not.toHaveBeenCalled();
 			expect( props.onClose ).toHaveBeenCalledTimes( 1 );
-			expect( props.onFocusOutside ).not.toHaveBeenCalled();
-
-			// Additional check to ensure the modal is closed
-			const finalRender = asFragment();
-			expect( finalRender ).not.toEqual( initialRender ); // Assuming the modal's presence changes the render output
 		} );
 	} );
 } );

@@ -20,7 +20,6 @@ export type DatePickerProps = {
 	onChange: ( selecting: 'start' | 'end', newDate: string ) => void;
 	onClick: MouseEventHandler< HTMLInputElement >;
 	onClose: () => void;
-	onFocusOutside: ( event: SyntheticEvent ) => void;
 	showPopover: boolean;
 	startDate: Date;
 	startOfWeek: StartOfWeek;
@@ -37,7 +36,6 @@ export default function DatePicker( props: DatePickerProps ) {
 		onChange,
 		onClick,
 		onClose,
-		onFocusOutside,
 		showPopover,
 		startDate,
 		startOfWeek,
@@ -73,7 +71,6 @@ export default function DatePicker( props: DatePickerProps ) {
 					startOfWeek={ startOfWeek }
 					onChange={ onChange }
 					onClose={ onClose }
-					onFocusOutside={ onFocusOutside }
 				/>
 			) }
 		</Fragment>

@@ -28,20 +28,8 @@ export default function CalendarPopover( props: {
 	endDate: Date;
 	onClose: () => void;
 	onChange: ( selecting: 'start' | 'end', date: string ) => void;
-	onFocusOutside: ( event: SyntheticEvent ) => void;
 } ) {
-	const {
-		anchor,
-		startOfWeek,
-		isSelectingDate,
-		isMultiday,
-		date,
-		startDate,
-		endDate,
-		onClose,
-		onChange,
-		onFocusOutside,
-	} = props;
+	const { anchor, startOfWeek, isSelectingDate, isMultiday, date, startDate, endDate, onClose, onChange } = props;
 
 	const events = getDatePickerEventsBetweenDates( startDate, endDate );
 
@@ -72,7 +60,6 @@ export default function CalendarPopover( props: {
 			noArrow={ false }
 			offset={ 4 }
 			onClose={ onClose }
-			onFocusOutside={ onFocusOutside }
 		>
 			<DatePicker
 				startOfWeek={ startOfWeek }
