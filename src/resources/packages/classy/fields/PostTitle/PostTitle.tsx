@@ -17,8 +17,7 @@ export default function PostTitle( props: FieldProps ) {
 	// Fetch the post title from the core/editor store.
 	// This will also subscribe to changes in the core/editor store.
 	const postTitle = useSelect( ( select ) => {
-		const { getEditedPostAttribute }: { getEditedPostAttribute: Function } =
-			select( 'core/editor' );
+		const { getEditedPostAttribute }: { getEditedPostAttribute: Function } = select( 'core/editor' );
 		return getEditedPostAttribute( 'title' );
 	}, [] );
 

@@ -15,9 +15,6 @@ const defaultState = {
  *
  * @return {StoreState} The new store state.
  */
-export const reducer = (
-	state: StoreState = defaultState,
-	action: Action
-): StoreState => {
+export const reducer = ( state: StoreState = defaultState, action: Action ): StoreState => {
 	return state;
 };

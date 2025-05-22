@@ -3,13 +3,7 @@ import React from 'react';
 export default function () {
 	return (
 		<span className="classy-icon classy-icon--new">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="24"
-				height="24"
-				viewBox="0 0 24 24"
-				fill="none"
-			>
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 				<path d="M14.5 5.5H7.5V7H14.5V5.5Z" fill="#3858E9" />
 				<path d="M7.5 9H14.5V10.5H7.5V9Z" fill="#3858E9" />
 				<path d="M14.5 12.5H7.5V14H14.5V12.5Z" fill="#3858E9" />

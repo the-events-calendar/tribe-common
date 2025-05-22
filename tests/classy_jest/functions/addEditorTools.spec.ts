@@ -31,46 +31,29 @@ describe( 'addEditorTools', () => {
 		addEditorTools( onClick, mockDocument );
 
 		expect( onClick ).not.toHaveBeenCalled();
-		expect(
-			mockDocument.querySelectorAll(
-				'.editor-document-tools__left .tec-editor-tool'
-			).length
-		).toBe( 0 );
+		expect( mockDocument.querySelectorAll( '.editor-document-tools__left .tec-editor-tool' ).length ).toBe( 0 );
 		expect( registerPlugin ).toHaveBeenCalledWith( 'tec-editor-tools', {
 			render: expect.any( Function ),
 		} );
 
 		const registerPluginMock = registerPlugin as jest.Mock;
-		const registerPluginMockCallSettings = registerPluginMock.mock
-			.calls[ 0 ][ 1 ] as { render: Function };
+		const registerPluginMockCallSettings = registerPluginMock.mock.calls[ 0 ][ 1 ] as { render: Function };
 		const renderEditorTools = registerPluginMockCallSettings.render;
 
 		const renderedEditorTools = renderEditorTools();
 
 		expect( renderedEditorTools ).toBeNull();
+		expect( mockDocument.querySelectorAll( '.editor-document-tools__left .tec-editor-tool' ).length ).toBe( 1 );
 		expect(
-			mockDocument.querySelectorAll(
-				'.editor-document-tools__left .tec-editor-tool'
-			).length
-		).toBe( 1 );
-		expect(
-			mockDocument.querySelector(
-				'.editor-document-tools__left .tec-editor-tool'
-			).outerHTML
+			mockDocument.querySelector( '.editor-document-tools__left .tec-editor-tool' ).outerHTML
 		).toMatchSnapshot();
 
 		const secondRenderedEditorTools = renderEditorTools();
 
 		expect( secondRenderedEditorTools ).toBeNull();
-		expect(
-			mockDocument.querySelectorAll(
-				'.editor-document-tools__left .tec-editor-tool'
-			).length
-		).toBe( 1 );
+		expect( mockDocument.querySelectorAll( '.editor-document-tools__left .tec-editor-tool' ).length ).toBe( 1 );
 
-		const button = mockDocument.querySelector(
-			'.editor-document-tools__left .tec-editor-tool'
-		) as HTMLElement;
+		const button = mockDocument.querySelector( '.editor-document-tools__left .tec-editor-tool' ) as HTMLElement;
 		button.click();
 		expect( onClick ).toHaveBeenCalledTimes( 1 );
 	} );
@@ -88,27 +71,18 @@ describe( 'addEditorTools', () => {
 		addEditorTools( onClick, mockDocument );
 
 		expect( onClick ).not.toHaveBeenCalled();
-		expect(
-			mockDocument.querySelectorAll(
-				'.editor-document-tools__left .tec-editor-tool'
-			).length
-		).toBe( 0 );
+		expect( mockDocument.querySelectorAll( '.editor-document-tools__left .tec-editor-tool' ).length ).toBe( 0 );
 		expect( registerPlugin ).toHaveBeenCalledWith( 'tec-editor-tools', {
 			render: expect.any( Function ),
 		} );
 
 		const registerPluginMock = registerPlugin as jest.Mock;
-		const registerPluginMockCallSettings = registerPluginMock.mock
-			.calls[ 0 ][ 1 ] as { render: Function };
+		const registerPluginMockCallSettings = registerPluginMock.mock.calls[ 0 ][ 1 ] as { render: Function };
 		const renderEditorTools = registerPluginMockCallSettings.render;
 
 		const renderedEditorTools = renderEditorTools();
 
 		expect( renderedEditorTools ).toBeNull();
-		expect(
-			mockDocument.querySelectorAll(
-				'.editor-document-tools .tec-editor-tool'
-			).length
-		).toBe( 0 );
+		expect( mockDocument.querySelectorAll( '.editor-document-tools .tec-editor-tool' ).length ).toBe( 0 );
 	} );
 } );

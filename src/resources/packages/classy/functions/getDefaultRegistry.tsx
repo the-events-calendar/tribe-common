@@ -34,11 +34,7 @@ export default async function getDefaultRegistry(): Promise< WPDataRegistry > {
 	} );
 
 	// Create a React component that will capture the registry and resolve the promise.
-	const RegistryFetcher = function ( {
-		registry,
-	}: {
-		registry: WPDataRegistry;
-	} ) {
+	const RegistryFetcher = function ( { registry }: { registry: WPDataRegistry } ) {
 		if ( registry ) {
 			// Store the reference to avoid running this code twice.
 			defaultRegistry = registry;

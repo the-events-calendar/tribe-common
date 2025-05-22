@@ -1,8 +1,5 @@
 import { STORE_NAME, storeConfig } from '../store';
-import {
-	createRegistry as wpDataCreateRegistry,
-	StoreDescriptor,
-} from '@wordpress/data';
+import { createRegistry as wpDataCreateRegistry, StoreDescriptor } from '@wordpress/data';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 import getDefaultRegistry from '../../functions/getDefaultRegistry';
 
@@ -50,10 +47,7 @@ export async function createRegistry(): Promise< WPDataRegistry > {
 	if ( window?.wp?.data?.select( 'core/block-editor' ) ) {
 		// We're in Blocks Editor context.
 		const defaultRegistry = await getDefaultRegistry();
-		classyRegistry = wpDataCreateRegistry(
-			{ [ STORE_NAME ]: storeConfig },
-			defaultRegistry
-		);
+		classyRegistry = wpDataCreateRegistry( { [ STORE_NAME ]: storeConfig }, defaultRegistry );
 	} else {
 		// Not in Block Editor context.
 		// @todo here register the core stores.
@@ -135,8 +129,6 @@ export function select( storeDescriptor: StoreDescriptor ): Object | undefined {
  *
  * @return {Object|undefined} The registered store instance action creators; undefined if the store is not registered.
  */
-export function dispatch(
-	storeDescriptor: StoreDescriptor
-): Object | undefined {
+export function dispatch( storeDescriptor: StoreDescriptor ): Object | undefined {
 	return registry.dispatch( storeDescriptor );
 }

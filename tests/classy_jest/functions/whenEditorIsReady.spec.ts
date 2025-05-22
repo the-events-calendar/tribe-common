@@ -23,12 +23,10 @@ describe( 'whenEditorIsReady', () => {
 		mockUnsubscribe = jest.fn();
 
 		// Capture the callback passed to subscribe.
-		( subscribe as jest.Mock ).mockImplementation(
-			( callback: SubscribeCallback ) => {
-				subscribeCallback = callback;
-				return mockUnsubscribe;
-			}
-		);
+		( subscribe as jest.Mock ).mockImplementation( ( callback: SubscribeCallback ) => {
+			subscribeCallback = callback;
+			return mockUnsubscribe;
+		} );
 	} );
 
 	it( 'should resolve when __unstableIsEditorReady returns true', async () => {
@@ -69,9 +67,7 @@ describe( 'whenEditorIsReady', () => {
 		expect(
 			Promise.race( [
 				readyPromise,
-				new Promise( ( resolve ) =>
-					setTimeout( () => resolve( 'not-ready' ), 50 )
-				),
+				new Promise( ( resolve ) => setTimeout( () => resolve( 'not-ready' ), 50 ) ),
 			] )
 		).resolves.toBe( 'not-ready' );
 		expect( mockCoreEditor.__unstableIsEditorReady ).toHaveBeenCalled();
@@ -102,9 +98,7 @@ describe( 'whenEditorIsReady', () => {
 		// Wait for promise to resolve.
 		await readyPromise;
 
-		expect( mockCoreEditor.__unstableIsEditorReady ).toHaveBeenCalledTimes(
-			2
-		);
+		expect( mockCoreEditor.__unstableIsEditorReady ).toHaveBeenCalledTimes( 2 );
 		expect( mockUnsubscribe ).toHaveBeenCalledTimes( 1 );
 	} );
 } );

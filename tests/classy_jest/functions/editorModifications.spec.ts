@@ -31,18 +31,10 @@ describe( 'hideZoomOutButton', () => {
 		const hidden = hideZoomOutButton( mockDocument );
 
 		expect( hidden ).toBe( 2 );
-		expect( mockDocument.getElementById( 'button1' ).style.display ).toBe(
-			'none'
-		);
-		expect( mockDocument.getElementById( 'button2' ).style.display ).toBe(
-			''
-		);
-		expect( mockDocument.getElementById( 'button3' ).style.display ).toBe(
-			'none'
-		);
-		expect( mockDocument.getElementById( 'button4' ).style.display ).toBe(
-			''
-		);
+		expect( mockDocument.getElementById( 'button1' ).style.display ).toBe( 'none' );
+		expect( mockDocument.getElementById( 'button2' ).style.display ).toBe( '' );
+		expect( mockDocument.getElementById( 'button3' ).style.display ).toBe( 'none' );
+		expect( mockDocument.getElementById( 'button4' ).style.display ).toBe( '' );
 	} );
 
 	it( 'should return 0 when there are no buttons to hide', () => {
@@ -62,15 +54,9 @@ describe( 'hideZoomOutButton', () => {
 		const hidden = hideZoomOutButton( mockDocument );
 
 		expect( hidden ).toBe( 0 );
-		expect( mockDocument.getElementById( 'button1' ).style.display ).toBe(
-			''
-		);
-		expect( mockDocument.getElementById( 'button2' ).style.display ).toBe(
-			''
-		);
-		expect( mockDocument.getElementById( 'button3' ).style.display ).toBe(
-			''
-		);
+		expect( mockDocument.getElementById( 'button1' ).style.display ).toBe( '' );
+		expect( mockDocument.getElementById( 'button2' ).style.display ).toBe( '' );
+		expect( mockDocument.getElementById( 'button3' ).style.display ).toBe( '' );
 	} );
 } );
 
@@ -96,15 +82,9 @@ describe( 'hideInserterToggle', () => {
 		const hidden = hideInserterToggle( mockDocument );
 
 		expect( hidden ).toBe( 2 );
-		expect( mockDocument.getElementById( 'button1' ).style.display ).toBe(
-			'none'
-		);
-		expect( mockDocument.getElementById( 'button2' ).style.display ).toBe(
-			'none'
-		);
-		expect( mockDocument.getElementById( 'button3' ).style.display ).toBe(
-			''
-		);
+		expect( mockDocument.getElementById( 'button1' ).style.display ).toBe( 'none' );
+		expect( mockDocument.getElementById( 'button2' ).style.display ).toBe( 'none' );
+		expect( mockDocument.getElementById( 'button3' ).style.display ).toBe( '' );
 	} );
 
 	it( 'should return 0 when there are no buttons to hide', () => {
@@ -123,11 +103,7 @@ describe( 'hideInserterToggle', () => {
 		const hidden = hideInserterToggle( mockDocument );
 
 		expect( hidden ).toBe( 0 );
-		expect( mockDocument.getElementById( 'button1' ).style.display ).toBe(
-			''
-		);
-		expect( mockDocument.getElementById( 'button2' ).style.display ).toBe(
-			''
-		);
+		expect( mockDocument.getElementById( 'button1' ).style.display ).toBe( '' );
+		expect( mockDocument.getElementById( 'button2' ).style.display ).toBe( '' );
 	} );
 } );

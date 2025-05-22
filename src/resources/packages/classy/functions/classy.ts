@@ -1,9 +1,6 @@
 import { createRoot } from '@wordpress/element';
 import { Classy } from '../components/Classy';
-import {
-	getElement as getVisualEditorElement,
-	toggleVisibility as toggleVisualEditorVisibility,
-} from './visualEditor';
+import { getElement as getVisualEditorElement, toggleVisibility as toggleVisualEditorVisibility } from './visualEditor';
 import { createRegistry as createClassyRegistry, setRegistry } from '../store';
 import { doAction } from '@wordpress/hooks';
 
@@ -29,9 +26,7 @@ let classyElement: HTMLElement | null = null;
  *     If null, the global document will be used.
  * @returns {HTMLElement} The existing or newly created Classy element.
  */
-export function getOrCreateElement(
-	document: Document | null = null
-): HTMLElement {
+export function getOrCreateElement( document: Document | null = null ): HTMLElement {
 	document = document ?? window.document;
 
 	if ( classyElement !== null ) {
@@ -89,9 +84,7 @@ export function insertElement( document: Document | null = null ): boolean {
  *
  * @returns {void}
  */
-export function toggleElementVisibility(
-	document: Document | null = null
-): void {
+export function toggleElementVisibility( document: Document | null = null ): void {
 	document = document ?? window.document;
 	getOrCreateElement().classList.toggle( 'classy-root--hidden' );
 	toggleVisualEditorVisibility( document );
@@ -111,9 +104,7 @@ export function toggleElementVisibility(
  *
  * @returns {Promise<void>} A promise that will resolve once the application is initialized.
  */
-export async function initApp(
-	document: Document | null = null
-): Promise< void > {
+export async function initApp( document: Document | null = null ): Promise< void > {
 	document = document ?? window.document;
 	const classyRoot = createRoot( getOrCreateElement( document ) );
 	const registry = await createClassyRegistry();

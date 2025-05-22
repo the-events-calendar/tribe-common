@@ -19,9 +19,7 @@ export function hideZoomOutButton( document: Document | null = null ): number {
 	const zoomOutAriaLabel = __( 'Zoom Out' );
 	let hidden = 0;
 	document
-		.querySelectorAll(
-			`.components-button[aria-label="${ zoomOutAriaLabel }"]`
-		)
+		.querySelectorAll( `.components-button[aria-label="${ zoomOutAriaLabel }"]` )
 		.forEach( ( el: HTMLElement ) => {
 			hidden++;
 			return ( el.style.display = 'none' );
@@ -43,12 +41,10 @@ export function hideInserterToggle( document: Document | null = null ): number {
 	document = document || window.document;
 
 	let hidden = 0;
-	document
-		.querySelectorAll( '.editor-document-tools__inserter-toggle' )
-		.forEach( ( button: HTMLElement ) => {
-			hidden++;
-			return ( button.style.display = 'none' );
-		} );
+	document.querySelectorAll( '.editor-document-tools__inserter-toggle' ).forEach( ( button: HTMLElement ) => {
+		hidden++;
+		return ( button.style.display = 'none' );
+	} );
 
 	return hidden;
 }

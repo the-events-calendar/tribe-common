@@ -65,11 +65,7 @@ function getTimeOptions(
 	return times;
 }
 
-function getOptions(
-	currentDate: Date,
-	timeFormat: string,
-	timeOptions: ComboboxControlOption[]
-) {
+function getOptions( currentDate: Date, timeFormat: string, timeOptions: ComboboxControlOption[] ) {
 	const formattedCurrentDate = format( 'H:i:s', currentDate );
 	const filteredtOptions = timeOptions.filter( ( option ) => {
 		return option.value === formattedCurrentDate;
@@ -97,23 +93,13 @@ export default function TimePicker( props: {
 	timeFormat: string;
 	timeInterval: number; // In minutes.
 } ) {
-	const {
-		currentDate,
-		endDate = null,
-		highlight,
-		onChange,
-		startDate = null,
-		timeFormat,
-		timeInterval,
-	} = props;
+	const { currentDate, endDate = null, highlight, onChange, startDate = null, timeFormat, timeInterval } = props;
 
 	// Keep a reference to the start and end date to spot changes coming from the parent component.
 	const dateRef = useRef( { startDate, endDate } );
 
 	// Did either date change?
-	const datesChanged =
-		dateRef.current.startDate !== startDate ||
-		dateRef.current.endDate !== endDate;
+	const datesChanged = dateRef.current.startDate !== startDate || dateRef.current.endDate !== endDate;
 
 	if ( datesChanged ) {
 		dateRef.current = { startDate, endDate };
@@ -121,9 +107,7 @@ export default function TimePicker( props: {
 
 	const currenDateYearMonthDayPrefix = format( 'Y-m-d ', currentDate );
 
-	let [ selectedTime, setSelectedTime ] = useState( () =>
-		format( 'H:i:s', currentDate )
-	);
+	let [ selectedTime, setSelectedTime ] = useState( () => format( 'H:i:s', currentDate ) );
 
 	if ( datesChanged ) {
 		// Start or end date changed: use a new value.
@@ -132,19 +116,11 @@ export default function TimePicker( props: {
 
 	// Calculate all the available time options.
 	const timeOptions = useMemo( (): ComboboxControlOption[] => {
-		return getTimeOptions(
-			currentDate,
-			startDate,
-			endDate,
-			timeInterval,
-			timeFormat
-		);
+		return getTimeOptions( currentDate, startDate, endDate, timeInterval, timeFormat );
 	}, [ currentDate, timeFormat, timeInterval, startDate, endDate ] );
 
 	// Set the initial options to all available time options.
-	let [ options, setOptions ] = useState( () =>
-		getOptions( currentDate, timeFormat, timeOptions )
-	);
+	let [ options, setOptions ] = useState( () => getOptions( currentDate, timeFormat, timeOptions ) );
 
 	if ( datesChanged ) {
 		// Start or end date changed: use a new set of options.
@@ -157,9 +133,7 @@ export default function TimePicker( props: {
 				return;
 			}
 
-			const date = getValidDateOrNull(
-				currenDateYearMonthDayPrefix + value
-			);
+			const date = getValidDateOrNull( currenDateYearMonthDayPrefix + value );
 
 			if ( date === null ) {
 				return;
@@ -178,9 +152,7 @@ export default function TimePicker( props: {
 			}
 
 			// Reduce the options to only those whose label start with the value.
-			const newOptions = timeOptions.filter( ( option ) =>
-				option.label.startsWith( value )
-			);
+			const newOptions = timeOptions.filter( ( option ) => option.label.startsWith( value ) );
 
 			if ( newOptions.length > 0 ) {
 				// There are still matching options.
@@ -200,8 +172,7 @@ export default function TimePicker( props: {
 		[ timeOptions, currenDateYearMonthDayPrefix, startDate, endDate ]
 	);
 
-	let className =
-		'classy-field__control classy-field__control--input classy-field__control--time-picker';
+	let className = 'classy-field__control classy-field__control--input classy-field__control--time-picker';
 
 	// This is a hack to make the component highlight again on successive renders when the dates changed.
 	const highlightKey = useRef< number >( Math.random() );
@@ -221,9 +192,7 @@ export default function TimePicker( props: {
 			options={ options }
 			onChange={ onChangeProxy }
 			onFilterValueChange={ onFilterValueChange }
-			expandOnFocus={
-				! ( options.length === 1 && options[ 0 ].isCustom )
-			}
+			expandOnFocus={ ! ( options.length === 1 && options[ 0 ].isCustom ) }
 		/>
 	);
 }

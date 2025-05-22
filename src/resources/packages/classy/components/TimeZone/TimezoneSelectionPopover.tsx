@@ -21,41 +21,28 @@ export default function TimezoneSelectionPopover( props: {
 	const eventUsesUtc = timezone.startsWith( 'UTC' );
 
 	const timezoneOptions = useMemo( () => {
-		const parsedOptions: HTMLCollection = hpqParse(
-			timezoneChoice,
-			( h ) => h
-		).children;
+		const parsedOptions: HTMLCollection = hpqParse( timezoneChoice, ( h ) => h ).children;
 
 		return ( Array.from( parsedOptions ) as HTMLOptGroupElement[] ).map(
 			( optgroup: HTMLOptGroupElement, index ) => {
-				const options = Array.from(
-					optgroup.children
-				) as HTMLOptionElement[];
+				const options = Array.from( optgroup.children ) as HTMLOptionElement[];
 
 				if ( options.length === 0 ) {
 					return null;
 				}
 
-				if (
-					options[ 0 ].value.startsWith( 'UTC' ) &&
-					! eventUsesUtc
-				) {
+				if ( options[ 0 ].value.startsWith( 'UTC' ) && ! eventUsesUtc ) {
 					// If the event does not use a UTC timezone, then do not show UTC timezone options.
 					return null;
 				}
 
 				return (
 					<optgroup key={ index } label={ optgroup.label }>
-						{ options.map(
-							( option: HTMLOptionElement, optionIndex ) => (
-								<option
-									key={ optionIndex }
-									value={ option.value }
-								>
-									{ option.label }
-								</option>
-							)
-						) }
+						{ options.map( ( option: HTMLOptionElement, optionIndex ) => (
+							<option key={ optionIndex } value={ option.value }>
+								{ option.label }
+							</option>
+						) ) }
 					</optgroup>
 				);
 			}
@@ -73,20 +60,12 @@ export default function TimezoneSelectionPopover( props: {
 			onClose={ onClose }
 		>
 			<div className="classy-component__popover-content classy-component__popover-content--timezone">
-				<Button
-					variant="link"
-					onClick={ onClose }
-					className="classy-component__popover-close"
-				>
+				<Button variant="link" onClick={ onClose } className="classy-component__popover-close">
 					<IconClose />
 				</Button>
 
 				<h4 className="classy-component-popover__title">
-					{ _x(
-						'Event Time Zone',
-						'Timezone selector popover title',
-						'the-events-calendar'
-					) }
+					{ _x( 'Event Time Zone', 'Timezone selector popover title', 'the-events-calendar' ) }
 				</h4>
 
 				<p className="classy-component__popover-description">

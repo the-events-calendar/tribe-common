@@ -25,20 +25,12 @@ export function addEditorTools(
 
 	// 2. The function _should_ render a React component, but won't. It will insert a button.
 	function EditorTools() {
-		const editorDocumentTools = document.querySelector(
-			'.editor-document-tools .editor-document-tools__left'
-		);
-		const previewButton = document.querySelector(
-			'.tec-editor-tool--preview'
-		);
+		const editorDocumentTools = document.querySelector( '.editor-document-tools .editor-document-tools__left' );
+		const previewButton = document.querySelector( '.tec-editor-tool--preview' );
 
 		if ( editorDocumentTools && previewButton === null ) {
 			const previewButton = document.createElement( 'button' );
-			previewButton.classList.add(
-				'tec-editor-tool',
-				'tec-editor-tool--preview',
-				'button'
-			);
+			previewButton.classList.add( 'tec-editor-tool', 'tec-editor-tool--preview', 'button' );
 			previewButton.type = 'button';
 			previewButton.dataset.toolbarItem = 'true';
 			previewButton.innerHTML = `<span class="dashicons dashicons-visibility"></span>${ __(

@@ -1,8 +1,5 @@
 import { whenEditorIsReady } from './functions/whenEditorIsReady';
-import {
-	hideInserterToggle,
-	hideZoomOutButton,
-} from './functions/editorModifications';
+import { hideInserterToggle, hideZoomOutButton } from './functions/editorModifications';
 import { addEditorTools } from './functions/addEditorTools';
 import {
 	initApp as initClassyApp,

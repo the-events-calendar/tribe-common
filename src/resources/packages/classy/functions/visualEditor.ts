@@ -15,13 +15,9 @@ let originalVisualEditorHeight: string | null = null;
  *
  * @return {HTMLElement|null} The visual editor element or null if it could not be found.
  */
-export function getElement(
-	document: Document | null = null
-): HTMLElement | null {
+export function getElement( document: Document | null = null ): HTMLElement | null {
 	document = document ?? window.document;
-	return document.querySelector(
-		'.editor-visual-editor.edit-post-visual-editor'
-	) as HTMLElement | null;
+	return document.querySelector( '.editor-visual-editor.edit-post-visual-editor' ) as HTMLElement | null;
 }
 
 /**
@@ -44,8 +40,7 @@ export function toggleVisibility( document: Document | null = null ): boolean {
 		return false;
 	}
 
-	originalVisualEditorHeight =
-		originalVisualEditorHeight ?? visualEditor.style.height;
+	originalVisualEditorHeight = originalVisualEditorHeight ?? visualEditor.style.height;
 
 	if ( visualEditor.style.height === originalVisualEditorHeight ) {
 		visualEditor.style.height = '0';

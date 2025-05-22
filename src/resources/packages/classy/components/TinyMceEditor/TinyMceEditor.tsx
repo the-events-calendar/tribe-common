@@ -8,11 +8,7 @@ import { TinyMceEditorProps } from '../../types/EditorComponentProps';
  *
  * @return {JSX.Element} The rendered editor.
  */
-export default function TinyMceEditor( {
-	content,
-	onChange,
-	id,
-}: TinyMceEditorProps ) {
+export default function TinyMceEditor( { content, onChange, id }: TinyMceEditorProps ) {
 	const [ value, setValue ] = useState( content );
 	const [ , setEditor ] = useState< any >( null );
 
@@ -27,8 +23,7 @@ export default function TinyMceEditor( {
 		window.wp.oldEditor.initialize( id, {
 			tinymce: {
 				wpautop: true,
-				toolbar1:
-					'bold italic formatselect | blockquote bullist numlist link',
+				toolbar1: 'bold italic formatselect | blockquote bullist numlist link',
 				toolbar2: '',
 			},
 			quicktags: false, // Do not show the "Visual / Text" tabs.
@@ -53,10 +48,7 @@ export default function TinyMceEditor( {
 		// Cleanup function to remove event listeners
 		return () => {
 			if ( editor ) {
-				editor.off(
-					'NodeChange',
-					debounce( triggerChangeIfDirty, 250 )
-				);
+				editor.off( 'NodeChange', debounce( triggerChangeIfDirty, 250 ) );
 			}
 		};
 	}, [ id ] );

@@ -11,9 +11,7 @@ type ErrorDisplayProps = {
  *
  * @param {Error} error The error object to display.
  */
-export default function ErrorDisplay( {
-	error,
-}: ErrorDisplayProps ): React.ReactNode {
+export default function ErrorDisplay( { error }: ErrorDisplayProps ): React.ReactNode {
 	return (
 		<div
 			className="classy-root classy-root--error"

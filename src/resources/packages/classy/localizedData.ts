@@ -14,8 +14,7 @@ declare global {
 	}
 }
 
-export const localizedData: LocalizedData = window?.tec?.common?.classy
-	?.data ?? {
+export const localizedData: LocalizedData = window?.tec?.common?.classy?.data ?? {
 	settings: {
 		timezoneString: 'UTC',
 		timezoneChoice: '',

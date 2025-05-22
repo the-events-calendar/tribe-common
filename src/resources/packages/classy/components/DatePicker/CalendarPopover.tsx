@@ -5,10 +5,7 @@ import { VirtualElement } from '@wordpress/components/build-types/popover/types'
 import { SyntheticEvent } from '@wordpress/element';
 import { StartOfWeek } from '../../types/StartOfWeek';
 
-function getDatePickerEventsBetweenDates(
-	start: Date,
-	end: Date
-): DatePickerEvent[] {
+function getDatePickerEventsBetweenDates( start: Date, end: Date ): DatePickerEvent[] {
 	const dateArray: Date[] = [];
 	let currentDate = new Date( start );
 	while ( currentDate <= end ) {
@@ -80,9 +77,7 @@ export default function CalendarPopover( props: {
 			<DatePicker
 				startOfWeek={ startOfWeek }
 				currentDate={ date }
-				onChange={ ( newDate: string ): void =>
-					onChange( isSelectingDate as 'start' | 'end', newDate )
-				}
+				onChange={ ( newDate: string ): void => onChange( isSelectingDate as 'start' | 'end', newDate ) }
 				events={ events }
 				isInvalidDate={ isInvalidDate }
 			/>
