@@ -28,7 +28,7 @@
     "psr/container": "1.1.1",
     "stellarwp/admin-notices": "^1.1",
     "stellarwp/arrays": "1.2.2",
-    "stellarwp/assets": "^1.4.8",
+    "stellarwp/assets": "dev-feat/allow-group-path-to-be-filtered",
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
     "stellarwp/installer": "^1.1.0",

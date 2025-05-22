@@ -26,6 +26,7 @@ class Hooks extends Controller_Contract {
 	public function do_register(): void {
 		add_action( 'current_screen', [ $this, 'admin_headers_about_to_be_sent' ], PHP_INT_MAX );
 		add_action( 'shutdown', [ $this, 'tec_shutdown' ], 0 );
+		add_filter( 'stellarwp/assets/group_path', [ $this, 'group_paths_should_follow_symlinks'] );
 	}
 
 	/**
@@ -36,6 +37,7 @@ class Hooks extends Controller_Contract {
 	public function unregister(): void {
 		remove_action( 'current_screen', [ $this, 'admin_headers_about_to_be_sent' ], PHP_INT_MAX );
 		remove_action( 'shutdown', [ $this, 'tec_shutdown' ], 0 );
+		remove_filter( 'stellarwp/assets/group_path', [ $this, 'group_paths_should_follow_symlinks'] );
 	}
 
 	/**
@@ -75,5 +77,21 @@ class Hooks extends Controller_Contract {
 		 * @since 6.5.3
 		 */
 		do_action( 'tec_shutdown' );
+	}
+
+	/**
+	 * Ensure we follow symlinks for the group paths.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $group_path_data The group path data.
+	 *
+	 * @return array The group path data.
+	 */
+	public function group_paths_should_follow_symlinks( array $group_path_data ): array {
+		// Follow symlinks.
+		$group_path_data['root'] = str_replace( trailingslashit( dirname( dirname( dirname( __DIR__ ) ) ) ), trailingslashit( WP_PLUGIN_DIR ), $group_path_data['root'] ?? '' );
+
+		return $group_path_data;
 	}
 }
