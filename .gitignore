@@ -5,6 +5,9 @@ node_modules
 .vscode
 bun.lockb
 
+# build files for deployment
+build
+
 # Tests - local config files
 codeception.yml
 tests/*.suite.yml
@@ -38,7 +41,7 @@ vendor/*
 !vendor/phpqrcode
 vendor/freemius/languages/*.po
 
-# Resources Ignoring
+# Ignored Resources
 src/resources/**/app
 src/resources/css
 src/resources/js/**/*.min.js
