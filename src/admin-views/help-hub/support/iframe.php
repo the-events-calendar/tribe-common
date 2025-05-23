@@ -12,7 +12,7 @@ use TEC\Common\Admin\Help_Hub\Hub;
 // Define the query arguments to pass to the iframe URL.
 $query_args = [
 	'help_hub'         => Hub::IFRAME_PAGE_SLUG,
-	'page'             => Hub::IFRAME_PAGE_SLUG,
+	'page'             => tec_get_request_var( 'page' ),
 	'embedded_content' => 'true',
 	'_cb'              => wp_create_nonce( 'tec_help_hub_iframe' ),
 ];
