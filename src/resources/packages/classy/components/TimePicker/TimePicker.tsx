@@ -142,7 +142,7 @@ export default function TimePicker( props: {
 			setSelectedTime( value );
 			onChange( date );
 		},
-		[ currenDateYearMonthDayPrefix, startDate, endDate, onChange ]
+		[ currenDateYearMonthDayPrefix, onChange ]
 	);
 
 	const onFilterValueChange = useCallback(
@@ -162,14 +162,14 @@ export default function TimePicker( props: {
 				setOptions( [
 					{
 						label: value,
-						value: value,
+						value,
 						isCustom: true,
 					},
 				] );
 				setSelectedTime( value );
 			}
 		},
-		[ timeOptions, currenDateYearMonthDayPrefix, startDate, endDate ]
+		[ timeOptions ]
 	);
 
 	let className = 'classy-field__control classy-field__control--input classy-field__control--time-picker';

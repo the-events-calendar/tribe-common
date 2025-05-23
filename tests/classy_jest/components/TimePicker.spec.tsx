@@ -1,7 +1,14 @@
 import * as React from 'react';
 import { act, fireEvent, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { describe, expect, it, jest } from '@jest/globals';
 import TimePicker from '../../../src/resources/packages/classy/components/TimePicker/TimePicker';
+
+function getSuggestions( container: HTMLElement ) {
+	return Array.from( container.querySelectorAll( '.components-form-token-field__suggestion [aria-label]' ) ).map(
+		( element: Element ) => element.getAttribute( 'aria-label' )
+	);
+}
 
 describe( 'TimePicker Component', () => {
 	const defaultProps = {
@@ -105,7 +112,7 @@ describe( 'TimePicker Component', () => {
 		// Following the input, the options will be filtered down.
 		const suggestions = Array.from(
 			asFragment().querySelectorAll( '.components-form-token-field__suggestion' )
-		).map( ( option: HTMLElement ) => option.innerHTML );
+		).map( ( option: Element ) => option.innerHTML );
 
 		expect( suggestions ).toEqual( [
 			'10:00 am',
@@ -140,6 +147,8 @@ describe( 'TimePicker Component', () => {
 	} );
 
 	it( 'handles user input as filtering value', async () => {
+		const user = userEvent.setup();
+
 		const props = {
 			...defaultProps,
 			startDate: new Date( '2023-12-23 10:00:00' ),
@@ -154,41 +163,21 @@ describe( 'TimePicker Component', () => {
 		// Get hold of the input the user would use to input times.
 		let input = container.querySelector( '.components-combobox-control__input' ) as Element;
 
-		await act( async () => {
-			// Focus on the input as a user would with a click or tabbing.
-			// This will open the suggestions list.
-			fireEvent.focus( input );
-			// Simulate the user entering a time.
-			fireEvent.change( input, { target: { value: '11' } } );
-		} );
+		// The user types in a time. This should filter the list of times shown.
+		await user.click( input );
+		await user.type( input, '11' );
 
-		// Following the input, the options will be filtered down.
-		const selectors = '.components-form-token-field__suggestion [aria-label]';
-		const suggestions = Array.from( asFragment().querySelectorAll( selectors ) ).map( ( element: HTMLElement ) =>
-			element.getAttribute( 'aria-label' )
-		);
-
-		expect( suggestions ).toEqual( [ '11:00 am', '11:30 am', '11:00 pm', '11:30 pm' ] );
-
+		expect( getSuggestions( container ) ).toEqual( [ '11:00 am', '11:30 am', '11:00 pm', '11:30 pm' ] );
 		expect( props.onChange ).not.toHaveBeenCalled();
 
-		const keyDownEnter = new KeyboardEvent( 'keydown', {
-			key: 'Enter',
-			code: 'Enter',
-			keyCode: 13, // While deprecated, this is the property the dialog WordPress logic is actually using.
-			bubbles: true,
-			cancelable: true,
-		} );
+		// The user keeps typing to complete to "11:23 am".
+		await user.type( input, ':23 am' );
 
-		input = asFragment().querySelector( '.components-combobox-control__input' ) as Element;
-		await act( async () => {
-			// Simulate the user entering a time that is among the options and submitting.
-			fireEvent.change( input, { target: { value: '11:30 am' } } );
+		expect( getSuggestions( container ) ).toEqual( [ '11:23 am' ] );
 
-			// @TODO this should  trigger the onChange of the combobox, but does not. Why?
-			fireEvent.keyDown( input, keyDownEnter );
-		} );
+		// The user presses Enter.
+		await user.type( input, '{Enter}' );
 
-		expect( props.onChange ).toHaveBeenCalled();
+		expect( props.onChange ).toHaveBeenCalledWith( new Date( '2023-12-23 11:23:00' ) );
 	} );
 } );
