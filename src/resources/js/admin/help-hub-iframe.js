@@ -73,6 +73,9 @@ window.DocsBotAI = window.DocsBotAI || {};
 						.docsbot-chat-suggested-questions-container span {
 							color: #000000 !important;
 						}
+						.docsbot-user-chat-message {
+							background-color: #0057C7;
+						}
 					`;
 
 	/**
