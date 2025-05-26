@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { act, fireEvent, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, jest } from '@jest/globals';
 import TimePicker from '../../../src/resources/packages/classy/components/TimePicker/TimePicker';
@@ -84,6 +84,7 @@ describe( 'TimePicker Component', () => {
 	} );
 
 	it( 'displays correct options when start, end date on same day', async () => {
+		const user = userEvent.setup();
 		const props = {
 			...defaultProps,
 			startDate: new Date( '2023-12-23 10:00:00' ),
@@ -98,16 +99,8 @@ describe( 'TimePicker Component', () => {
 		// Get hold of the input the user would use to input times.
 		const input = container.querySelector( '.components-combobox-control__input' ) as Element;
 
-		await act( async () => {
-			// Focus on the input as a user would with a click or tabbing.
-			// This will open the suggestions list.
-			fireEvent.focus( input );
-		} );
-
-		// await act(async () => {
-		// 	// Simulate the user entering a time.
-		// 	fireEvent.change(input, { target: { value: '11' } });
-		// });
+		// Focus, clicking on it, on the input. This will open the suggestions list.
+		await user.click( input );
 
 		// Following the input, the options will be filtered down.
 		const suggestions = Array.from(
@@ -148,7 +141,6 @@ describe( 'TimePicker Component', () => {
 
 	it( 'handles user input as filtering value', async () => {
 		const user = userEvent.setup();
-
 		const props = {
 			...defaultProps,
 			startDate: new Date( '2023-12-23 10:00:00' ),
@@ -158,7 +150,7 @@ describe( 'TimePicker Component', () => {
 			onChange: jest.fn(),
 		};
 
-		const { container, asFragment } = render( <TimePicker { ...props } /> );
+		const { container } = render( <TimePicker { ...props } /> );
 
 		// Get hold of the input the user would use to input times.
 		let input = container.querySelector( '.components-combobox-control__input' ) as Element;
@@ -176,7 +168,7 @@ describe( 'TimePicker Component', () => {
 		expect( getSuggestions( container ) ).toEqual( [ '11:23 am' ] );
 
 		// The user presses Enter.
-		await user.type( input, '{Enter}' );
+		await user.type( input, '{enter}' );
 
 		expect( props.onChange ).toHaveBeenCalledWith( new Date( '2023-12-23 11:23:00' ) );
 	} );

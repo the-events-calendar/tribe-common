@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { fireEvent, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import { describe, expect, it, jest } from '@jest/globals';
 import { DatePicker } from '../../../src/resources/packages/classy/components';
 import { DatePickerProps } from '../../../src/resources/packages/classy/components/DatePicker/DatePicker';
+import { keyDownEscape } from '../_support/userEvents';
 
 describe( 'DatePicker Component', () => {
 	const defaultProps = {
@@ -117,7 +119,8 @@ describe( 'DatePicker Component', () => {
 			[ 'end', defaultProps.endDate, '25', '2023-12-25T13:00:00' ],
 		] )(
 			'handles picking new %s date',
-			( isSelectingDate: string, currentDate: Date, selectionText: string, expected: string ) => {
+			async ( isSelectingDate: string, currentDate: Date, selectionText: string, expected: string ) => {
+				const user = userEvent.setup();
 				const props = {
 					...defaultProps,
 					// The user is selecting the end date.
@@ -133,7 +136,7 @@ describe( 'DatePicker Component', () => {
 				const { getByText } = render( <DatePicker { ...props } /> );
 
 				// The user picks a new end date: 2023-12-25.
-				fireEvent.click( getByText( selectionText ) );
+				await user.click( getByText( selectionText ) );
 
 				expect( props.onChange ).toHaveBeenCalledWith( isSelectingDate, expected );
 				expect( props.onClick ).not.toHaveBeenCalled();
@@ -143,7 +146,8 @@ describe( 'DatePicker Component', () => {
 
 		it.each( [ 'start', 'end' ] )(
 			'handles closing the date selection modal while selecting %s',
-			( isSelectingDate: string ) => {
+			async ( isSelectingDate: string ) => {
+				const user = userEvent.setup();
 				const baseElement = document.createElement( 'div' );
 				const props = {
 					...defaultProps,
@@ -157,25 +161,15 @@ describe( 'DatePicker Component', () => {
 					onClose: jest.fn(),
 				} as DatePickerProps;
 
-				const { container, asFragment } = render( <DatePicker { ...props } /> );
-
-				const initialRender = asFragment();
+				const { asFragment } = render( <DatePicker { ...props } /> );
 
 				// Select the popover element from the document, it will not be attached to the component.
 				const popover = document.body.querySelector( '.classy-component__popover--calendar' );
 
-				// The user closes the modal by pressing Escape.
-				const keyDownEscape = new KeyboardEvent( 'keydown', {
-					key: 'Escape',
-					code: 'Escape',
-					keyCode: 27, // While deprecated, this is the property the dialog WordPress logic is actually using.
-					bubbles: true,
-					cancelable: true,
-				} );
+				expect( popover ).not.toBeNull();
 
 				// The user presses Escape to close the modal.
-				// We're not using the fireEvent API as it will not dispatch correctly using the deprecated keyCode property.
-				popover.dispatchEvent( keyDownEscape );
+				await keyDownEscape( popover );
 
 				expect( props.onChange ).not.toHaveBeenCalled();
 				expect( props.onClick ).not.toHaveBeenCalled();
