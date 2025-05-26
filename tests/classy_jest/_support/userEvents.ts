@@ -24,7 +24,7 @@ import { act } from '@testing-library/react';
  *
  * @return Promise<boolean> A promise that resolves to the result of the `dispatchEvent` call.
  */
-export async function keyDownEscape( element ) {
+export async function keyDownEscape( element:Element ):Promise<boolean> {
 	const keyDownEscapeEvent = new KeyboardEvent( 'keydown', {
 		key: 'Escape',
 		code: 'Escape',
