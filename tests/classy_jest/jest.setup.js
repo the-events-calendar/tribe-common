@@ -60,3 +60,29 @@ global.window.wp = {
 		getContent: () => '<p>Initial content</p>',
 	},
 };
+
+// Setup the localized data for the store.
+global.window.tec = global.window.tec || {};
+global.window.tec.common = global.window.tec.common || {};
+global.window.tec.common.classy = global.window.tec.common.classy || {};
+global.window.tec.common.classy.data = global.window.tec.common.classy.data || {
+	settings: {
+		timezoneString: 'UTC',
+		timezoneChoice: '<optgroup label="Africa"><option value="Africa/Abidjan">Abidjan</option></optgroup>' +
+			'<optgroup label="Europe"><option value"Europe/Paris">Paris</optionvalue></optgroup>' +
+		'<optgroup label="North America"><option value="America/New_York">New York</option></optgroup>',
+		startOfWeek: 0,
+		endOfDayCutoff: {
+			hours: 0,
+			minutes: 0,
+		},
+		dateWithYearFormat: 'F j, Y',
+		dateWithoutYearFormat: 'F j',
+		monthAndYearFormat: 'F Y',
+		compactDateFormat: 'n/j/Y',
+		dataTimeSeparator: ' @ ',
+		timeRangeSeparator: ' - ',
+		timeFormat: 'g:i A',
+		timeInterval: 15,
+	},
+};
