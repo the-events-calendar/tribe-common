@@ -14,34 +14,72 @@ describe('TimeZone Component', () => {
 		jest.clearAllMocks()
 	});
 
-	it('renders correctly with default props', () => {
+	it('renders correctly with default props', async () => {
+		const user = userEvent.setup();
 		const {container} = render(<TimeZone{...defaultProps} />);
 
+		// To start, there should not be a timezone selection popover open.
+		let popover = document.querySelector('.classy-component__popover--timezone');
+		expect(popover).toBeNull();
+
 		expect(container).toMatchSnapshot();
+
+		const button = container.querySelector('.is-link.classy-field__timezone-value');
+		expect(button).toBeDefined();
+
+		// Click the timezone selection button to open the timezone selection popover.
+		await user.click(button);
+
+		// Grab the popover from the document.
+		popover = document.querySelector('.classy-component__popover--timezone');
+
+		expect(popover).toMatchSnapshot();
 	});
+
+	it('renders the UTC timezone choice if the timezone string is UTC', async ()=>{
+		const user = userEvent.setup();
+		const {container} = render(<TimeZone{...defaultProps} timezone='UTC+1' />);
+
+		// To start, there should not be a timezone selection popover open.
+		let popover = document.querySelector('.classy-component__popover--timezone');
+		expect(popover).toBeNull();
+
+		expect(container).toMatchSnapshot();
+
+		const button = container.querySelector('.is-link.classy-field__timezone-value');
+		expect(button).toBeDefined();
+
+		// Click the timezone selection button to open the timezone selection popover.
+		await user.click(button);
+
+		// Grab the popover from the document.
+		popover = document.querySelector('.classy-component__popover--timezone');
+
+		expect(popover).toMatchSnapshot();
+	})
 
 	it('allows selecting a new timezone', async () => {
 		const user = userEvent.setup();
-		const {container, getByText, asFragment} = render(<TimeZone{...defaultProps} />);
+		const {container, asFragment} = render(<TimeZone{...defaultProps} />);
 
-		const timezoneButton = container.querySelector('.classy-field__timezone-value');
+		// To start, there should not be a timezone selection popover open.
+		let popover = document.querySelector('.classy-component__popover--timezone');
+		expect(popover).toBeNull();
 
-		expect(timezoneButton).not.toBeNull();
+		expect(container).toMatchSnapshot();
 
-		// To start, the popover for the timezone selection should not be there.
-		expect(container.querySelector('.classy-component__popover--timezone')).toBeNull();
+		const button = container.querySelector('.is-link.classy-field__timezone-value');
+		expect(button).toBeDefined();
 
-		await userEvent.click(timezoneButton);
+		// Click the timezone selection button to open the timezone selection popover.
+		await user.click(button);
 
-		const timezoneSelectionPopoverOpenRender = asFragment();
+		// In the popover select Abidjan (Africa/Abidjan).
+		popover = document.querySelector('.classy-component__popover--timezone');
+		const timezoneOptions = popover.querySelector('.classy-component__popover-input--timezone select');
+		await user.selectOptions(timezoneOptions, ['Africa/Abidjan']);
 
-		expect(timezoneSelectionPopoverOpenRender).toMatchSnapshot('timezone selection popover open');
-
-		// The timezone selection popover should be open now.
-		const timezoneSelectionPopover = timezoneSelectionPopoverOpenRender.querySelector('.classy-component__popover--timezone');
-		expect(timezoneSelectionPopover).not.toBeNull();
-
-		// Pick Africa/Abidjan from the list of timezones.
-		await user.click(getByText('Abidjan'));
+		// The popover should have closed and the new timezone should have been selected.
+		expect(asFragment()).toMatchSnapshot();
 	});
 });

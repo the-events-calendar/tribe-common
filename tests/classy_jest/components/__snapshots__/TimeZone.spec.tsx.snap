@@ -1,6 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TimeZone Component allows selecting a new timezone: timezone selection popover open 1`] = `
+exports[`TimeZone Component allows selecting a new timezone 1`] = `
+<div>
+  <div
+    class="classy-field__control classy-field__control--timezone"
+  >
+    <span
+      class="classy-field__timezone-label"
+    >
+      Time Zone:
+    </span>
+     
+    <button
+      class="components-button is-link classy-field__timezone-value is-link"
+      type="button"
+    >
+      Europe/Paris
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TimeZone Component allows selecting a new timezone 2`] = `
 <DocumentFragment>
   <div
     class="classy-field__control classy-field__control--timezone"
@@ -38,6 +59,298 @@ exports[`TimeZone Component renders correctly with default props 1`] = `
     >
       Europe/Paris
     </button>
+  </div>
+</div>
+`;
+
+exports[`TimeZone Component renders correctly with default props 2`] = `
+<div
+  class="components-popover classy-component__popover classy-component__popover--timezone"
+  data-wp-c16t="true"
+  data-wp-component="Popover"
+  style="position: absolute; top: 0px; left: 0px; opacity: 0.5777216819988098; transform: translateY(4px) translateY(-0.84456em) scale(0.5777216819988098); transform-origin: 100% 0% 0;"
+  tabindex="-1"
+>
+  <div
+    class="components-popover__content"
+    style="max-height: 0px; overflow: auto;"
+  >
+    <div
+      class="classy-component__popover-content classy-component__popover-content--timezone"
+    >
+      <button
+        class="components-button classy-component__popover-close is-link"
+        type="button"
+      >
+        <span
+          class="classy-icon classy-icon--close"
+        >
+          <svg
+            fill="none"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 13.0602L15.7123 16.7725L16.773 15.7118L13.0607 11.9995L16.773 8.28723L15.7123 7.22657L12 10.9389L8.28771 7.22656L7.22705 8.28722L10.9394 11.9995L7.22706 15.7119L8.28772 16.7725L12 13.0602Z"
+              fill="#1E1E1E"
+            />
+          </svg>
+        </span>
+      </button>
+      <h4
+        class="classy-component-popover__title"
+      >
+        Event Time Zone
+      </h4>
+      <p
+        class="classy-component__popover-description"
+      >
+        Choose a different time zone than your default for this event.
+      </p>
+      <div
+        class="components-base-control cfb-cde-d-bec-abfb-fothu4-Wrapper-boxSizingReset ej5x27r4"
+      >
+        <div
+          class="components-base-control__field cfb-cde-d-bec-abfb-2txpkp-StyledField ej5x27r3"
+        >
+          <div
+            class="components-flex components-input-base components-select-control classy-component__popover-input classy-component__popover-input--select classy-component__popover-input--timezone e1mv6sxx3 em5sgkm5 cfb-cde-d-bec-abfb-1r6j0ln-PolymorphicDiv-Flex-base-ItemsColumn-Root-StyledInputBase e19lxcc00"
+            data-wp-c16t="true"
+            data-wp-component="InputBase"
+          >
+            <div
+              class="components-input-control__container cfb-cde-d-bec-abfb-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+            >
+              <select
+                class="components-select-control__input cfb-cde-d-bec-abfb-clzyyl-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2"
+                id="inspector-select-control-0"
+              >
+                <optgroup
+                  label="Africa"
+                >
+                  <option
+                    value="Africa/Abidjan"
+                  >
+                    Abidjan
+                  </option>
+                </optgroup>
+                <optgroup
+                  label="Europe"
+                >
+                  <option
+                    value="Paris"
+                  >
+                    Paris
+                  </option>
+                </optgroup>
+                <optgroup
+                  label="North America"
+                >
+                  <option
+                    value="America/New_York"
+                  >
+                    New York
+                  </option>
+                </optgroup>
+              </select>
+              <span
+                class="components-input-control__suffix cfb-cde-d-bec-abfb-oobb1x-Suffix em5sgkm7"
+              >
+                <div
+                  class="components-input-control-suffix-wrapper e1mv6sxx0 cfb-cde-d-bec-abfb-xr40ho-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"
+                  data-wp-c16t="true"
+                  data-wp-component="InputControlSuffixWrapper"
+                >
+                  <div
+                    class="cfb-cde-d-bec-abfb-di1hl1-DownArrowWrapper e1mv6sxx1"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      focusable="false"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      width="18"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </span>
+              <div
+                aria-hidden="true"
+                class="components-input-control__backdrop cfb-cde-d-bec-abfb-13crio-BackdropUI-rtl em5sgkm6"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`TimeZone Component renders the UTC timezone choice if the timezone string is UTC 1`] = `
+<div>
+  <div
+    class="classy-field__control classy-field__control--timezone"
+  >
+    <span
+      class="classy-field__timezone-label"
+    >
+      Time Zone:
+    </span>
+     
+    <button
+      class="components-button is-link classy-field__timezone-value is-link"
+      type="button"
+    >
+      UTC+1
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TimeZone Component renders the UTC timezone choice if the timezone string is UTC 2`] = `
+<div
+  class="components-popover classy-component__popover classy-component__popover--timezone"
+  data-wp-c16t="true"
+  data-wp-component="Popover"
+  style="position: absolute; top: 0px; left: 0px; opacity: 0.36987685758504085; transform: translateY(4px) translateY(-1.26025em) scale(0.36987685758504085); transform-origin: 100% 0% 0;"
+  tabindex="-1"
+>
+  <div
+    class="components-popover__content"
+    style="max-height: 0px; overflow: auto;"
+  >
+    <div
+      class="classy-component__popover-content classy-component__popover-content--timezone"
+    >
+      <button
+        class="components-button classy-component__popover-close is-link"
+        type="button"
+      >
+        <span
+          class="classy-icon classy-icon--close"
+        >
+          <svg
+            fill="none"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 13.0602L15.7123 16.7725L16.773 15.7118L13.0607 11.9995L16.773 8.28723L15.7123 7.22657L12 10.9389L8.28771 7.22656L7.22705 8.28722L10.9394 11.9995L7.22706 15.7119L8.28772 16.7725L12 13.0602Z"
+              fill="#1E1E1E"
+            />
+          </svg>
+        </span>
+      </button>
+      <h4
+        class="classy-component-popover__title"
+      >
+        Event Time Zone
+      </h4>
+      <p
+        class="classy-component__popover-description"
+      >
+        Choose a different time zone than your default for this event.
+      </p>
+      <div
+        class="components-base-control cfb-cde-d-bec-abfb-fothu4-Wrapper-boxSizingReset ej5x27r4"
+      >
+        <div
+          class="components-base-control__field cfb-cde-d-bec-abfb-2txpkp-StyledField ej5x27r3"
+        >
+          <div
+            class="components-flex components-input-base components-select-control classy-component__popover-input classy-component__popover-input--select classy-component__popover-input--timezone e1mv6sxx3 em5sgkm5 cfb-cde-d-bec-abfb-1r6j0ln-PolymorphicDiv-Flex-base-ItemsColumn-Root-StyledInputBase e19lxcc00"
+            data-wp-c16t="true"
+            data-wp-component="InputBase"
+          >
+            <div
+              class="components-input-control__container cfb-cde-d-bec-abfb-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+            >
+              <select
+                class="components-select-control__input cfb-cde-d-bec-abfb-clzyyl-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2"
+                id="inspector-select-control-1"
+              >
+                <optgroup
+                  label="Africa"
+                >
+                  <option
+                    value="Africa/Abidjan"
+                  >
+                    Abidjan
+                  </option>
+                </optgroup>
+                <optgroup
+                  label="Europe"
+                >
+                  <option
+                    value="Paris"
+                  >
+                    Paris
+                  </option>
+                </optgroup>
+                <optgroup
+                  label="North America"
+                >
+                  <option
+                    value="America/New_York"
+                  >
+                    New York
+                  </option>
+                </optgroup>
+                <optgroup
+                  label="UTC"
+                >
+                  <option
+                    value="UTC+0"
+                  >
+                    UTC
+                  </option>
+                </optgroup>
+              </select>
+              <span
+                class="components-input-control__suffix cfb-cde-d-bec-abfb-oobb1x-Suffix em5sgkm7"
+              >
+                <div
+                  class="components-input-control-suffix-wrapper e1mv6sxx0 cfb-cde-d-bec-abfb-xr40ho-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"
+                  data-wp-c16t="true"
+                  data-wp-component="InputControlSuffixWrapper"
+                >
+                  <div
+                    class="cfb-cde-d-bec-abfb-di1hl1-DownArrowWrapper e1mv6sxx1"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      focusable="false"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      width="18"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </span>
+              <div
+                aria-hidden="true"
+                class="components-input-control__backdrop cfb-cde-d-bec-abfb-13crio-BackdropUI-rtl em5sgkm6"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
