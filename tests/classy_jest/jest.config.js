@@ -17,7 +17,7 @@ module.exports = {
 					allowSyntheticDefaultImports: true,
 					allowUmdGlobalAccess: true,
 					esModuleInterop: true,
-					jsx: 'react-jsx',
+					jsx: 'react-jsx't ,
 					sourceMap: true,
 				},
 			},
