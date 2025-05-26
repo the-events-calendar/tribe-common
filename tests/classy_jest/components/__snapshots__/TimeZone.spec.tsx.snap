@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimeZone Component allows selecting a new timezone: timezone selection popover open 1`] = `
+<DocumentFragment>
+  <div
+    class="classy-field__control classy-field__control--timezone"
+  >
+    <span
+      class="classy-field__timezone-label"
+    >
+      Time Zone:
+    </span>
+     
+    <button
+      class="components-button is-link classy-field__timezone-value is-link"
+      type="button"
+    >
+      Europe/Paris
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`TimeZone Component renders correctly with default props 1`] = `
+<div>
+  <div
+    class="classy-field__control classy-field__control--timezone"
+  >
+    <span
+      class="classy-field__timezone-label"
+    >
+      Time Zone:
+    </span>
+     
+    <button
+      class="components-button is-link classy-field__timezone-value is-link"
+      type="button"
+    >
+      Europe/Paris
+    </button>
+  </div>
+</div>
+`;
