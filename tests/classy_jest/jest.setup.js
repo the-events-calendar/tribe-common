@@ -70,7 +70,8 @@ global.window.tec.common.classy.data = global.window.tec.common.classy.data || {
 		timezoneString: 'UTC',
 		timezoneChoice: '<optgroup label="Africa"><option value="Africa/Abidjan">Abidjan</option></optgroup>' +
 			'<optgroup label="Europe"><option value"Europe/Paris">Paris</optionvalue></optgroup>' +
-		'<optgroup label="North America"><option value="America/New_York">New York</option></optgroup>',
+		'<optgroup label="North America"><option value="America/New_York">New York</option></optgroup>' +
+		'<optgroup label="UTC"><option value="UTC+0">UTC</option></optgroup>',
 		startOfWeek: 0,
 		endOfDayCutoff: {
 			hours: 0,
