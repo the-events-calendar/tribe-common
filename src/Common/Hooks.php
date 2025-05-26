@@ -22,7 +22,7 @@ class Hooks extends Controller_Contract {
 	/**
 	 * The hook prefix.
 	 *
-	 * @since TBD
+	 * @since 6.7.1
 	 *
 	 * @var string
 	 */
@@ -31,7 +31,7 @@ class Hooks extends Controller_Contract {
 	/**
 	 * Constructor.
 	 *
-	 * @since TBD
+	 * @since 6.7.1
 	 *
 	 * @param Container        $container The container.
 	 * @param Library_Provider $library_provider The library provider.
@@ -45,7 +45,7 @@ class Hooks extends Controller_Contract {
 	 * Registers the hooks added by the controller.
 	 *
 	 * @since 6.5.3
-	 * @since TBD Added hook for group paths to follow symlinks.
+	 * @since 6.7.1 Added hook for group paths to follow symlinks.
 	 */
 	public function do_register(): void {
 		add_action( 'current_screen', [ $this, 'admin_headers_about_to_be_sent' ], PHP_INT_MAX );
@@ -57,7 +57,7 @@ class Hooks extends Controller_Contract {
 	 * Removes hooks added by the controller.
 	 *
 	 * @since 6.5.3
-	 * @since TBD Removed hook for group paths to follow symlinks.
+	 * @since 6.7.1 Removed hook for group paths to follow symlinks.
 	 */
 	public function unregister(): void {
 		remove_action( 'current_screen', [ $this, 'admin_headers_about_to_be_sent' ], PHP_INT_MAX );
@@ -107,7 +107,7 @@ class Hooks extends Controller_Contract {
 	/**
 	 * Ensure we follow symlinks for the group paths.
 	 *
-	 * @since TBD
+	 * @since 6.7.1
 	 *
 	 * @param array $group_path_data The group path data.
 	 *
