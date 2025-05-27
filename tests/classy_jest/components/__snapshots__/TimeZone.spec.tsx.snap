@@ -21,27 +21,6 @@ exports[`TimeZone Component allows selecting a new timezone 1`] = `
 </div>
 `;
 
-exports[`TimeZone Component allows selecting a new timezone 2`] = `
-<DocumentFragment>
-  <div
-    class="classy-field__control classy-field__control--timezone"
-  >
-    <span
-      class="classy-field__timezone-label"
-    >
-      Time Zone:
-    </span>
-     
-    <button
-      class="components-button is-link classy-field__timezone-value is-link"
-      type="button"
-    >
-      Europe/Paris
-    </button>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`TimeZone Component renders correctly with default props 1`] = `
 <div>
   <div
@@ -64,11 +43,165 @@ exports[`TimeZone Component renders correctly with default props 1`] = `
 `;
 
 exports[`TimeZone Component renders correctly with default props 2`] = `
+.emotion-0 {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.emotion-0 *,
+.emotion-0 *::before,
+.emotion-0 *::after {
+  box-sizing: inherit;
+}
+
+.components-panel__row .emotion-2 {
+  margin-bottom: inherit;
+}
+
+.emotion-6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: normal;
+  -webkit-box-align: normal;
+  -ms-flex-align: normal;
+  align-items: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: calc(4px * 2);
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 2px;
+  padding-top: 0;
+  color: var(--wp-components-color-foreground, #1e1e1e);
+  cursor: pointer;
+}
+
+.emotion-6>* {
+  min-height: 0;
+}
+
+.emotion-6:focus-within:not( :has( :is( .em5sgkm8, .emotion-13 ):focus-within ) ) .emotion-20 {
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.emotion-8 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: inherit;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  background-color: var(--wp-components-color-background, #fff);
+  width: 100%;
+}
+
+.emotion-10.emotion-10.emotion-10 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  background: transparent;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none!important;
+  color: currentColor;
+  cursor: inherit;
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  width: 100%;
+  max-width: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  height: 40px;
+  min-height: 40px;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 12px;
+  padding-right: 30px;
+  overflow: hidden;
+}
+
+@media ( min-width: 600px ) {
+  .emotion-10.emotion-10.emotion-10 {
+    font-size: 13px;
+  }
+}
+
+.emotion-12 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-15 {
+  -webkit-padding-end: 12px;
+  padding-inline-end: 12px;
+  position: absolute;
+  pointer-events: none;
+  right: 0;
+}
+
+.emotion-17 {
+  -webkit-margin-end: calc(4px * -1);
+  margin-inline-end: calc(4px * -1);
+  line-height: 0;
+}
+
+.emotion-17 path {
+  fill: currentColor;
+}
+
+.emotion-19.emotion-19.emotion-19 {
+  box-sizing: border-box;
+  border-color: var(--wp-components-color-gray-600, #949494);
+  border-radius: inherit;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 2px;
+}
+
 <div
-  class="components-popover classy-component__popover classy-component__popover--timezone"
+  class="components-popover classy-component__popover classy-component__popover--timezone is-positioned"
   data-wp-c16t="true"
   data-wp-component="Popover"
-  style="position: absolute; top: 0px; left: 0px; opacity: 0.5777216819988098; transform: translateY(4px) translateY(-0.84456em) scale(0.5777216819988098); transform-origin: 100% 0% 0;"
+  style="position: absolute; top: 0px; left: 0px; opacity: 1; transform: translateY(4px); transform-origin: 100% 0% 0;"
   tabindex="-1"
 >
   <div
@@ -110,21 +243,21 @@ exports[`TimeZone Component renders correctly with default props 2`] = `
         Choose a different time zone than your default for this event.
       </p>
       <div
-        class="components-base-control cfb-cde-d-bec-abfb-fothu4-Wrapper-boxSizingReset ej5x27r4"
+        class="components-base-control emotion-0 emotion-1"
       >
         <div
-          class="components-base-control__field cfb-cde-d-bec-abfb-2txpkp-StyledField ej5x27r3"
+          class="components-base-control__field emotion-2 emotion-3"
         >
           <div
-            class="components-flex components-input-base components-select-control classy-component__popover-input classy-component__popover-input--select classy-component__popover-input--timezone e1mv6sxx3 em5sgkm5 cfb-cde-d-bec-abfb-1r6j0ln-PolymorphicDiv-Flex-base-ItemsColumn-Root-StyledInputBase e19lxcc00"
+            class="components-flex components-input-base components-select-control classy-component__popover-input classy-component__popover-input--select classy-component__popover-input--timezone emotion-4 emotion-5 emotion-6 emotion-7"
             data-wp-c16t="true"
             data-wp-component="InputBase"
           >
             <div
-              class="components-input-control__container cfb-cde-d-bec-abfb-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+              class="components-input-control__container emotion-8 emotion-9"
             >
               <select
-                class="components-select-control__input cfb-cde-d-bec-abfb-clzyyl-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2"
+                class="components-select-control__input emotion-10 emotion-11"
                 id="inspector-select-control-0"
               >
                 <optgroup
@@ -156,15 +289,15 @@ exports[`TimeZone Component renders correctly with default props 2`] = `
                 </optgroup>
               </select>
               <span
-                class="components-input-control__suffix cfb-cde-d-bec-abfb-oobb1x-Suffix em5sgkm7"
+                class="components-input-control__suffix emotion-12 emotion-13"
               >
                 <div
-                  class="components-input-control-suffix-wrapper e1mv6sxx0 cfb-cde-d-bec-abfb-xr40ho-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"
+                  class="components-input-control-suffix-wrapper emotion-14 emotion-15 emotion-16"
                   data-wp-c16t="true"
                   data-wp-component="InputControlSuffixWrapper"
                 >
                   <div
-                    class="cfb-cde-d-bec-abfb-di1hl1-DownArrowWrapper e1mv6sxx1"
+                    class="emotion-17 emotion-18"
                   >
                     <svg
                       aria-hidden="true"
@@ -183,7 +316,7 @@ exports[`TimeZone Component renders correctly with default props 2`] = `
               </span>
               <div
                 aria-hidden="true"
-                class="components-input-control__backdrop cfb-cde-d-bec-abfb-13crio-BackdropUI-rtl em5sgkm6"
+                class="components-input-control__backdrop emotion-19 emotion-20"
               />
             </div>
           </div>
@@ -216,11 +349,165 @@ exports[`TimeZone Component renders the UTC timezone choice if the timezone stri
 `;
 
 exports[`TimeZone Component renders the UTC timezone choice if the timezone string is UTC 2`] = `
+.emotion-0 {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.emotion-0 *,
+.emotion-0 *::before,
+.emotion-0 *::after {
+  box-sizing: inherit;
+}
+
+.components-panel__row .emotion-2 {
+  margin-bottom: inherit;
+}
+
+.emotion-6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: normal;
+  -webkit-box-align: normal;
+  -ms-flex-align: normal;
+  align-items: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: calc(4px * 2);
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 2px;
+  padding-top: 0;
+  color: var(--wp-components-color-foreground, #1e1e1e);
+  cursor: pointer;
+}
+
+.emotion-6>* {
+  min-height: 0;
+}
+
+.emotion-6:focus-within:not( :has( :is( .em5sgkm8, .emotion-13 ):focus-within ) ) .emotion-20 {
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.emotion-8 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: inherit;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  background-color: var(--wp-components-color-background, #fff);
+  width: 100%;
+}
+
+.emotion-10.emotion-10.emotion-10 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  background: transparent;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none!important;
+  color: currentColor;
+  cursor: inherit;
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  width: 100%;
+  max-width: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  height: 40px;
+  min-height: 40px;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 12px;
+  padding-right: 30px;
+  overflow: hidden;
+}
+
+@media ( min-width: 600px ) {
+  .emotion-10.emotion-10.emotion-10 {
+    font-size: 13px;
+  }
+}
+
+.emotion-12 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-15 {
+  -webkit-padding-end: 12px;
+  padding-inline-end: 12px;
+  position: absolute;
+  pointer-events: none;
+  right: 0;
+}
+
+.emotion-17 {
+  -webkit-margin-end: calc(4px * -1);
+  margin-inline-end: calc(4px * -1);
+  line-height: 0;
+}
+
+.emotion-17 path {
+  fill: currentColor;
+}
+
+.emotion-19.emotion-19.emotion-19 {
+  box-sizing: border-box;
+  border-color: var(--wp-components-color-gray-600, #949494);
+  border-radius: inherit;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 2px;
+}
+
 <div
-  class="components-popover classy-component__popover classy-component__popover--timezone"
+  class="components-popover classy-component__popover classy-component__popover--timezone is-positioned"
   data-wp-c16t="true"
   data-wp-component="Popover"
-  style="position: absolute; top: 0px; left: 0px; opacity: 0.36987685758504085; transform: translateY(4px) translateY(-1.26025em) scale(0.36987685758504085); transform-origin: 100% 0% 0;"
+  style="position: absolute; top: 0px; left: 0px; opacity: 1; transform: translateY(4px); transform-origin: 100% 0% 0;"
   tabindex="-1"
 >
   <div
@@ -262,21 +549,21 @@ exports[`TimeZone Component renders the UTC timezone choice if the timezone stri
         Choose a different time zone than your default for this event.
       </p>
       <div
-        class="components-base-control cfb-cde-d-bec-abfb-fothu4-Wrapper-boxSizingReset ej5x27r4"
+        class="components-base-control emotion-0 emotion-1"
       >
         <div
-          class="components-base-control__field cfb-cde-d-bec-abfb-2txpkp-StyledField ej5x27r3"
+          class="components-base-control__field emotion-2 emotion-3"
         >
           <div
-            class="components-flex components-input-base components-select-control classy-component__popover-input classy-component__popover-input--select classy-component__popover-input--timezone e1mv6sxx3 em5sgkm5 cfb-cde-d-bec-abfb-1r6j0ln-PolymorphicDiv-Flex-base-ItemsColumn-Root-StyledInputBase e19lxcc00"
+            class="components-flex components-input-base components-select-control classy-component__popover-input classy-component__popover-input--select classy-component__popover-input--timezone emotion-4 emotion-5 emotion-6 emotion-7"
             data-wp-c16t="true"
             data-wp-component="InputBase"
           >
             <div
-              class="components-input-control__container cfb-cde-d-bec-abfb-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+              class="components-input-control__container emotion-8 emotion-9"
             >
               <select
-                class="components-select-control__input cfb-cde-d-bec-abfb-clzyyl-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2"
+                class="components-select-control__input emotion-10 emotion-11"
                 id="inspector-select-control-1"
               >
                 <optgroup
@@ -317,15 +604,15 @@ exports[`TimeZone Component renders the UTC timezone choice if the timezone stri
                 </optgroup>
               </select>
               <span
-                class="components-input-control__suffix cfb-cde-d-bec-abfb-oobb1x-Suffix em5sgkm7"
+                class="components-input-control__suffix emotion-12 emotion-13"
               >
                 <div
-                  class="components-input-control-suffix-wrapper e1mv6sxx0 cfb-cde-d-bec-abfb-xr40ho-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"
+                  class="components-input-control-suffix-wrapper emotion-14 emotion-15 emotion-16"
                   data-wp-c16t="true"
                   data-wp-component="InputControlSuffixWrapper"
                 >
                   <div
-                    class="cfb-cde-d-bec-abfb-di1hl1-DownArrowWrapper e1mv6sxx1"
+                    class="emotion-17 emotion-18"
                   >
                     <svg
                       aria-hidden="true"
@@ -344,7 +631,7 @@ exports[`TimeZone Component renders the UTC timezone choice if the timezone stri
               </span>
               <div
                 aria-hidden="true"
-                class="components-input-control__backdrop cfb-cde-d-bec-abfb-13crio-BackdropUI-rtl em5sgkm6"
+                class="components-input-control__backdrop emotion-19 emotion-20"
               />
             </div>
           </div>

@@ -1,30 +1,180 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DatePicker Component isMultiday property renders correctly when isMultiday is false 1`] = `
+.emotion-0 {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.emotion-0 *,
+.emotion-0 *::before,
+.emotion-0 *::after {
+  box-sizing: inherit;
+}
+
+.components-panel__row .emotion-2 {
+  margin-bottom: inherit;
+}
+
+.emotion-5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: normal;
+  -webkit-box-align: normal;
+  -ms-flex-align: normal;
+  align-items: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: calc(4px * 2);
+  -webkit-box-pack: left;
+  -ms-flex-pack: left;
+  -webkit-justify-content: left;
+  justify-content: left;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 2px;
+  padding-top: 0;
+}
+
+.emotion-5>* {
+  min-height: 0;
+}
+
+.emotion-5:focus-within:not( :has( :is( .em5sgkm8, .emotion-12 ):focus-within ) ) .emotion-16 {
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.emotion-7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: inherit;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  background-color: var(--wp-components-color-background, #fff);
+  width: 100%;
+}
+
+.emotion-9.emotion-9.emotion-9 {
+  background-color: transparent;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none!important;
+  color: var(--wp-components-color-foreground, #1e1e1e);
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  height: 40px;
+  line-height: 1;
+  min-height: 40px;
+  padding-left: 12px;
+  padding-right: 12px;
+  -webkit-padding-end: calc(4px * 1);
+  padding-inline-end: calc(4px * 1);
+}
+
+@media ( min-width: 600px ) {
+  .emotion-9.emotion-9.emotion-9 {
+    font-size: 13px;
+  }
+}
+
+.emotion-9.emotion-9.emotion-9::-webkit-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9::-moz-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9:-ms-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9[type='email'],
+.emotion-9.emotion-9.emotion-9[type='url'] {
+  direction: ltr;
+}
+
+.emotion-11 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-13 {
+  -webkit-padding-end: 12px;
+  padding-inline-end: 12px;
+}
+
+.emotion-15.emotion-15.emotion-15 {
+  box-sizing: border-box;
+  border-color: var(--wp-components-color-gray-600, #949494);
+  border-radius: inherit;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 2px;
+}
+
 <div
-  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker emotion-0 emotion-1"
 >
   <div
-    class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+    class="components-base-control__field emotion-2 emotion-3"
   >
     <div
-      class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+      class="components-flex components-input-base emotion-4 emotion-5 emotion-6"
       data-wp-c16t="true"
       data-wp-component="InputBase"
     >
       <div
-        class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+        class="components-input-control__container emotion-7 emotion-8"
       >
         <input
-          class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+          class="components-input-control__input emotion-9 emotion-10"
           id="inspector-input-control-5"
           value="2023-12-23"
         />
         <span
-          class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
+          class="components-input-control__suffix emotion-11 emotion-12"
         >
           <div
-            class="components-input-control-suffix-wrapper css-o1g5i8-PrefixSuffixWrapper-prefixSuffixWrapperStyles em5sgkm0"
+            class="components-input-control-suffix-wrapper emotion-13 emotion-14"
             data-wp-c16t="true"
             data-wp-component="InputControlSuffixWrapper"
           >
@@ -47,7 +197,7 @@ exports[`DatePicker Component isMultiday property renders correctly when isMulti
         </span>
         <div
           aria-hidden="true"
-          class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+          class="components-input-control__backdrop emotion-15 emotion-16"
         />
       </div>
     </div>
@@ -56,30 +206,180 @@ exports[`DatePicker Component isMultiday property renders correctly when isMulti
 `;
 
 exports[`DatePicker Component isMultiday property renders correctly when isMultiday is true 1`] = `
+.emotion-0 {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.emotion-0 *,
+.emotion-0 *::before,
+.emotion-0 *::after {
+  box-sizing: inherit;
+}
+
+.components-panel__row .emotion-2 {
+  margin-bottom: inherit;
+}
+
+.emotion-5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: normal;
+  -webkit-box-align: normal;
+  -ms-flex-align: normal;
+  align-items: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: calc(4px * 2);
+  -webkit-box-pack: left;
+  -ms-flex-pack: left;
+  -webkit-justify-content: left;
+  justify-content: left;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 2px;
+  padding-top: 0;
+}
+
+.emotion-5>* {
+  min-height: 0;
+}
+
+.emotion-5:focus-within:not( :has( :is( .em5sgkm8, .emotion-12 ):focus-within ) ) .emotion-16 {
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.emotion-7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: inherit;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  background-color: var(--wp-components-color-background, #fff);
+  width: 100%;
+}
+
+.emotion-9.emotion-9.emotion-9 {
+  background-color: transparent;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none!important;
+  color: var(--wp-components-color-foreground, #1e1e1e);
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  height: 40px;
+  line-height: 1;
+  min-height: 40px;
+  padding-left: 12px;
+  padding-right: 12px;
+  -webkit-padding-end: calc(4px * 1);
+  padding-inline-end: calc(4px * 1);
+}
+
+@media ( min-width: 600px ) {
+  .emotion-9.emotion-9.emotion-9 {
+    font-size: 13px;
+  }
+}
+
+.emotion-9.emotion-9.emotion-9::-webkit-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9::-moz-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9:-ms-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9[type='email'],
+.emotion-9.emotion-9.emotion-9[type='url'] {
+  direction: ltr;
+}
+
+.emotion-11 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-13 {
+  -webkit-padding-end: 12px;
+  padding-inline-end: 12px;
+}
+
+.emotion-15.emotion-15.emotion-15 {
+  box-sizing: border-box;
+  border-color: var(--wp-components-color-gray-600, #949494);
+  border-radius: inherit;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 2px;
+}
+
 <div
-  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker emotion-0 emotion-1"
 >
   <div
-    class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+    class="components-base-control__field emotion-2 emotion-3"
   >
     <div
-      class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+      class="components-flex components-input-base emotion-4 emotion-5 emotion-6"
       data-wp-c16t="true"
       data-wp-component="InputBase"
     >
       <div
-        class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+        class="components-input-control__container emotion-7 emotion-8"
       >
         <input
-          class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+          class="components-input-control__input emotion-9 emotion-10"
           id="inspector-input-control-4"
           value="2023-12-23"
         />
         <span
-          class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
+          class="components-input-control__suffix emotion-11 emotion-12"
         >
           <div
-            class="components-input-control-suffix-wrapper css-o1g5i8-PrefixSuffixWrapper-prefixSuffixWrapperStyles em5sgkm0"
+            class="components-input-control-suffix-wrapper emotion-13 emotion-14"
             data-wp-c16t="true"
             data-wp-component="InputControlSuffixWrapper"
           >
@@ -102,7 +402,7 @@ exports[`DatePicker Component isMultiday property renders correctly when isMulti
         </span>
         <div
           aria-hidden="true"
-          class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+          class="components-input-control__backdrop emotion-15 emotion-16"
         />
       </div>
     </div>
@@ -111,30 +411,180 @@ exports[`DatePicker Component isMultiday property renders correctly when isMulti
 `;
 
 exports[`DatePicker Component isSelectingDate property selecting end date 1`] = `
+.emotion-0 {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.emotion-0 *,
+.emotion-0 *::before,
+.emotion-0 *::after {
+  box-sizing: inherit;
+}
+
+.components-panel__row .emotion-2 {
+  margin-bottom: inherit;
+}
+
+.emotion-5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: normal;
+  -webkit-box-align: normal;
+  -ms-flex-align: normal;
+  align-items: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: calc(4px * 2);
+  -webkit-box-pack: left;
+  -ms-flex-pack: left;
+  -webkit-justify-content: left;
+  justify-content: left;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 2px;
+  padding-top: 0;
+}
+
+.emotion-5>* {
+  min-height: 0;
+}
+
+.emotion-5:focus-within:not( :has( :is( .em5sgkm8, .emotion-12 ):focus-within ) ) .emotion-16 {
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.emotion-7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: inherit;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  background-color: var(--wp-components-color-background, #fff);
+  width: 100%;
+}
+
+.emotion-9.emotion-9.emotion-9 {
+  background-color: transparent;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none!important;
+  color: var(--wp-components-color-foreground, #1e1e1e);
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  height: 40px;
+  line-height: 1;
+  min-height: 40px;
+  padding-left: 12px;
+  padding-right: 12px;
+  -webkit-padding-end: calc(4px * 1);
+  padding-inline-end: calc(4px * 1);
+}
+
+@media ( min-width: 600px ) {
+  .emotion-9.emotion-9.emotion-9 {
+    font-size: 13px;
+  }
+}
+
+.emotion-9.emotion-9.emotion-9::-webkit-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9::-moz-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9:-ms-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9[type='email'],
+.emotion-9.emotion-9.emotion-9[type='url'] {
+  direction: ltr;
+}
+
+.emotion-11 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-13 {
+  -webkit-padding-end: 12px;
+  padding-inline-end: 12px;
+}
+
+.emotion-15.emotion-15.emotion-15 {
+  box-sizing: border-box;
+  border-color: var(--wp-components-color-gray-600, #949494);
+  border-radius: inherit;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 2px;
+}
+
 <div
-  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker emotion-0 emotion-1"
 >
   <div
-    class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+    class="components-base-control__field emotion-2 emotion-3"
   >
     <div
-      class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+      class="components-flex components-input-base emotion-4 emotion-5 emotion-6"
       data-wp-c16t="true"
       data-wp-component="InputBase"
     >
       <div
-        class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+        class="components-input-control__container emotion-7 emotion-8"
       >
         <input
-          class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+          class="components-input-control__input emotion-9 emotion-10"
           id="inspector-input-control-2"
           value="2023-12-23"
         />
         <span
-          class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
+          class="components-input-control__suffix emotion-11 emotion-12"
         >
           <div
-            class="components-input-control-suffix-wrapper css-o1g5i8-PrefixSuffixWrapper-prefixSuffixWrapperStyles em5sgkm0"
+            class="components-input-control-suffix-wrapper emotion-13 emotion-14"
             data-wp-c16t="true"
             data-wp-component="InputControlSuffixWrapper"
           >
@@ -157,7 +607,7 @@ exports[`DatePicker Component isSelectingDate property selecting end date 1`] = 
         </span>
         <div
           aria-hidden="true"
-          class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+          class="components-input-control__backdrop emotion-15 emotion-16"
         />
       </div>
     </div>
@@ -166,30 +616,180 @@ exports[`DatePicker Component isSelectingDate property selecting end date 1`] = 
 `;
 
 exports[`DatePicker Component isSelectingDate property selecting neither start nor end date 1`] = `
+.emotion-0 {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.emotion-0 *,
+.emotion-0 *::before,
+.emotion-0 *::after {
+  box-sizing: inherit;
+}
+
+.components-panel__row .emotion-2 {
+  margin-bottom: inherit;
+}
+
+.emotion-5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: normal;
+  -webkit-box-align: normal;
+  -ms-flex-align: normal;
+  align-items: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: calc(4px * 2);
+  -webkit-box-pack: left;
+  -ms-flex-pack: left;
+  -webkit-justify-content: left;
+  justify-content: left;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 2px;
+  padding-top: 0;
+}
+
+.emotion-5>* {
+  min-height: 0;
+}
+
+.emotion-5:focus-within:not( :has( :is( .em5sgkm8, .emotion-12 ):focus-within ) ) .emotion-16 {
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.emotion-7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: inherit;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  background-color: var(--wp-components-color-background, #fff);
+  width: 100%;
+}
+
+.emotion-9.emotion-9.emotion-9 {
+  background-color: transparent;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none!important;
+  color: var(--wp-components-color-foreground, #1e1e1e);
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  height: 40px;
+  line-height: 1;
+  min-height: 40px;
+  padding-left: 12px;
+  padding-right: 12px;
+  -webkit-padding-end: calc(4px * 1);
+  padding-inline-end: calc(4px * 1);
+}
+
+@media ( min-width: 600px ) {
+  .emotion-9.emotion-9.emotion-9 {
+    font-size: 13px;
+  }
+}
+
+.emotion-9.emotion-9.emotion-9::-webkit-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9::-moz-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9:-ms-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9[type='email'],
+.emotion-9.emotion-9.emotion-9[type='url'] {
+  direction: ltr;
+}
+
+.emotion-11 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-13 {
+  -webkit-padding-end: 12px;
+  padding-inline-end: 12px;
+}
+
+.emotion-15.emotion-15.emotion-15 {
+  box-sizing: border-box;
+  border-color: var(--wp-components-color-gray-600, #949494);
+  border-radius: inherit;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 2px;
+}
+
 <div
-  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker emotion-0 emotion-1"
 >
   <div
-    class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+    class="components-base-control__field emotion-2 emotion-3"
   >
     <div
-      class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+      class="components-flex components-input-base emotion-4 emotion-5 emotion-6"
       data-wp-c16t="true"
       data-wp-component="InputBase"
     >
       <div
-        class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+        class="components-input-control__container emotion-7 emotion-8"
       >
         <input
-          class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+          class="components-input-control__input emotion-9 emotion-10"
           id="inspector-input-control-3"
           value="2023-12-23"
         />
         <span
-          class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
+          class="components-input-control__suffix emotion-11 emotion-12"
         >
           <div
-            class="components-input-control-suffix-wrapper css-o1g5i8-PrefixSuffixWrapper-prefixSuffixWrapperStyles em5sgkm0"
+            class="components-input-control-suffix-wrapper emotion-13 emotion-14"
             data-wp-c16t="true"
             data-wp-component="InputControlSuffixWrapper"
           >
@@ -212,7 +812,7 @@ exports[`DatePicker Component isSelectingDate property selecting neither start n
         </span>
         <div
           aria-hidden="true"
-          class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+          class="components-input-control__backdrop emotion-15 emotion-16"
         />
       </div>
     </div>
@@ -221,30 +821,180 @@ exports[`DatePicker Component isSelectingDate property selecting neither start n
 `;
 
 exports[`DatePicker Component isSelectingDate property selecting start date 1`] = `
+.emotion-0 {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.emotion-0 *,
+.emotion-0 *::before,
+.emotion-0 *::after {
+  box-sizing: inherit;
+}
+
+.components-panel__row .emotion-2 {
+  margin-bottom: inherit;
+}
+
+.emotion-5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: normal;
+  -webkit-box-align: normal;
+  -ms-flex-align: normal;
+  align-items: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: calc(4px * 2);
+  -webkit-box-pack: left;
+  -ms-flex-pack: left;
+  -webkit-justify-content: left;
+  justify-content: left;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 2px;
+  padding-top: 0;
+}
+
+.emotion-5>* {
+  min-height: 0;
+}
+
+.emotion-5:focus-within:not( :has( :is( .em5sgkm8, .emotion-12 ):focus-within ) ) .emotion-16 {
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.emotion-7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: inherit;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  background-color: var(--wp-components-color-background, #fff);
+  width: 100%;
+}
+
+.emotion-9.emotion-9.emotion-9 {
+  background-color: transparent;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none!important;
+  color: var(--wp-components-color-foreground, #1e1e1e);
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  height: 40px;
+  line-height: 1;
+  min-height: 40px;
+  padding-left: 12px;
+  padding-right: 12px;
+  -webkit-padding-end: calc(4px * 1);
+  padding-inline-end: calc(4px * 1);
+}
+
+@media ( min-width: 600px ) {
+  .emotion-9.emotion-9.emotion-9 {
+    font-size: 13px;
+  }
+}
+
+.emotion-9.emotion-9.emotion-9::-webkit-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9::-moz-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9:-ms-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9[type='email'],
+.emotion-9.emotion-9.emotion-9[type='url'] {
+  direction: ltr;
+}
+
+.emotion-11 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-13 {
+  -webkit-padding-end: 12px;
+  padding-inline-end: 12px;
+}
+
+.emotion-15.emotion-15.emotion-15 {
+  box-sizing: border-box;
+  border-color: var(--wp-components-color-gray-600, #949494);
+  border-radius: inherit;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 2px;
+}
+
 <div
-  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker emotion-0 emotion-1"
 >
   <div
-    class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+    class="components-base-control__field emotion-2 emotion-3"
   >
     <div
-      class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+      class="components-flex components-input-base emotion-4 emotion-5 emotion-6"
       data-wp-c16t="true"
       data-wp-component="InputBase"
     >
       <div
-        class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+        class="components-input-control__container emotion-7 emotion-8"
       >
         <input
-          class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+          class="components-input-control__input emotion-9 emotion-10"
           id="inspector-input-control-1"
           value="2023-12-23"
         />
         <span
-          class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
+          class="components-input-control__suffix emotion-11 emotion-12"
         >
           <div
-            class="components-input-control-suffix-wrapper css-o1g5i8-PrefixSuffixWrapper-prefixSuffixWrapperStyles em5sgkm0"
+            class="components-input-control-suffix-wrapper emotion-13 emotion-14"
             data-wp-c16t="true"
             data-wp-component="InputControlSuffixWrapper"
           >
@@ -267,7 +1017,7 @@ exports[`DatePicker Component isSelectingDate property selecting start date 1`] 
         </span>
         <div
           aria-hidden="true"
-          class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+          class="components-input-control__backdrop emotion-15 emotion-16"
         />
       </div>
     </div>
@@ -276,30 +1026,180 @@ exports[`DatePicker Component isSelectingDate property selecting start date 1`] 
 `;
 
 exports[`DatePicker Component renders correctly with default props 1`] = `
+.emotion-0 {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.emotion-0 *,
+.emotion-0 *::before,
+.emotion-0 *::after {
+  box-sizing: inherit;
+}
+
+.components-panel__row .emotion-2 {
+  margin-bottom: inherit;
+}
+
+.emotion-5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: normal;
+  -webkit-box-align: normal;
+  -ms-flex-align: normal;
+  align-items: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: calc(4px * 2);
+  -webkit-box-pack: left;
+  -ms-flex-pack: left;
+  -webkit-justify-content: left;
+  justify-content: left;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 2px;
+  padding-top: 0;
+}
+
+.emotion-5>* {
+  min-height: 0;
+}
+
+.emotion-5:focus-within:not( :has( :is( .em5sgkm8, .emotion-12 ):focus-within ) ) .emotion-16 {
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.emotion-7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: inherit;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  background-color: var(--wp-components-color-background, #fff);
+  width: 100%;
+}
+
+.emotion-9.emotion-9.emotion-9 {
+  background-color: transparent;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none!important;
+  color: var(--wp-components-color-foreground, #1e1e1e);
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  height: 40px;
+  line-height: 1;
+  min-height: 40px;
+  padding-left: 12px;
+  padding-right: 12px;
+  -webkit-padding-end: calc(4px * 1);
+  padding-inline-end: calc(4px * 1);
+}
+
+@media ( min-width: 600px ) {
+  .emotion-9.emotion-9.emotion-9 {
+    font-size: 13px;
+  }
+}
+
+.emotion-9.emotion-9.emotion-9::-webkit-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9::-moz-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9:-ms-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9[type='email'],
+.emotion-9.emotion-9.emotion-9[type='url'] {
+  direction: ltr;
+}
+
+.emotion-11 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-13 {
+  -webkit-padding-end: 12px;
+  padding-inline-end: 12px;
+}
+
+.emotion-15.emotion-15.emotion-15 {
+  box-sizing: border-box;
+  border-color: var(--wp-components-color-gray-600, #949494);
+  border-radius: inherit;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 2px;
+}
+
 <div
-  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker emotion-0 emotion-1"
 >
   <div
-    class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+    class="components-base-control__field emotion-2 emotion-3"
   >
     <div
-      class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+      class="components-flex components-input-base emotion-4 emotion-5 emotion-6"
       data-wp-c16t="true"
       data-wp-component="InputBase"
     >
       <div
-        class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+        class="components-input-control__container emotion-7 emotion-8"
       >
         <input
-          class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+          class="components-input-control__input emotion-9 emotion-10"
           id="inspector-input-control-0"
           value="2023-12-23"
         />
         <span
-          class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
+          class="components-input-control__suffix emotion-11 emotion-12"
         >
           <div
-            class="components-input-control-suffix-wrapper css-o1g5i8-PrefixSuffixWrapper-prefixSuffixWrapperStyles em5sgkm0"
+            class="components-input-control-suffix-wrapper emotion-13 emotion-14"
             data-wp-c16t="true"
             data-wp-component="InputControlSuffixWrapper"
           >
@@ -322,7 +1222,7 @@ exports[`DatePicker Component renders correctly with default props 1`] = `
         </span>
         <div
           aria-hidden="true"
-          class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+          class="components-input-control__backdrop emotion-15 emotion-16"
         />
       </div>
     </div>
@@ -331,30 +1231,180 @@ exports[`DatePicker Component renders correctly with default props 1`] = `
 `;
 
 exports[`DatePicker Component showPopover property renders correctly when showPopover is false 1`] = `
+.emotion-0 {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.emotion-0 *,
+.emotion-0 *::before,
+.emotion-0 *::after {
+  box-sizing: inherit;
+}
+
+.components-panel__row .emotion-2 {
+  margin-bottom: inherit;
+}
+
+.emotion-5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: normal;
+  -webkit-box-align: normal;
+  -ms-flex-align: normal;
+  align-items: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: calc(4px * 2);
+  -webkit-box-pack: left;
+  -ms-flex-pack: left;
+  -webkit-justify-content: left;
+  justify-content: left;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 2px;
+  padding-top: 0;
+}
+
+.emotion-5>* {
+  min-height: 0;
+}
+
+.emotion-5:focus-within:not( :has( :is( .em5sgkm8, .emotion-12 ):focus-within ) ) .emotion-16 {
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.emotion-7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: inherit;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  background-color: var(--wp-components-color-background, #fff);
+  width: 100%;
+}
+
+.emotion-9.emotion-9.emotion-9 {
+  background-color: transparent;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none!important;
+  color: var(--wp-components-color-foreground, #1e1e1e);
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  height: 40px;
+  line-height: 1;
+  min-height: 40px;
+  padding-left: 12px;
+  padding-right: 12px;
+  -webkit-padding-end: calc(4px * 1);
+  padding-inline-end: calc(4px * 1);
+}
+
+@media ( min-width: 600px ) {
+  .emotion-9.emotion-9.emotion-9 {
+    font-size: 13px;
+  }
+}
+
+.emotion-9.emotion-9.emotion-9::-webkit-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9::-moz-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9:-ms-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9[type='email'],
+.emotion-9.emotion-9.emotion-9[type='url'] {
+  direction: ltr;
+}
+
+.emotion-11 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-13 {
+  -webkit-padding-end: 12px;
+  padding-inline-end: 12px;
+}
+
+.emotion-15.emotion-15.emotion-15 {
+  box-sizing: border-box;
+  border-color: var(--wp-components-color-gray-600, #949494);
+  border-radius: inherit;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 2px;
+}
+
 <div
-  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker emotion-0 emotion-1"
 >
   <div
-    class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+    class="components-base-control__field emotion-2 emotion-3"
   >
     <div
-      class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+      class="components-flex components-input-base emotion-4 emotion-5 emotion-6"
       data-wp-c16t="true"
       data-wp-component="InputBase"
     >
       <div
-        class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+        class="components-input-control__container emotion-7 emotion-8"
       >
         <input
-          class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+          class="components-input-control__input emotion-9 emotion-10"
           id="inspector-input-control-7"
           value="2023-12-23"
         />
         <span
-          class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
+          class="components-input-control__suffix emotion-11 emotion-12"
         >
           <div
-            class="components-input-control-suffix-wrapper css-o1g5i8-PrefixSuffixWrapper-prefixSuffixWrapperStyles em5sgkm0"
+            class="components-input-control-suffix-wrapper emotion-13 emotion-14"
             data-wp-c16t="true"
             data-wp-component="InputControlSuffixWrapper"
           >
@@ -377,7 +1427,7 @@ exports[`DatePicker Component showPopover property renders correctly when showPo
         </span>
         <div
           aria-hidden="true"
-          class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+          class="components-input-control__backdrop emotion-15 emotion-16"
         />
       </div>
     </div>
@@ -386,30 +1436,180 @@ exports[`DatePicker Component showPopover property renders correctly when showPo
 `;
 
 exports[`DatePicker Component showPopover property renders correctly when showPopover is true 1`] = `
+.emotion-0 {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.emotion-0 *,
+.emotion-0 *::before,
+.emotion-0 *::after {
+  box-sizing: inherit;
+}
+
+.components-panel__row .emotion-2 {
+  margin-bottom: inherit;
+}
+
+.emotion-5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: normal;
+  -webkit-box-align: normal;
+  -ms-flex-align: normal;
+  align-items: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: calc(4px * 2);
+  -webkit-box-pack: left;
+  -ms-flex-pack: left;
+  -webkit-justify-content: left;
+  justify-content: left;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 2px;
+  padding-top: 0;
+}
+
+.emotion-5>* {
+  min-height: 0;
+}
+
+.emotion-5:focus-within:not( :has( :is( .em5sgkm8, .emotion-12 ):focus-within ) ) .emotion-16 {
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.emotion-7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: inherit;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  background-color: var(--wp-components-color-background, #fff);
+  width: 100%;
+}
+
+.emotion-9.emotion-9.emotion-9 {
+  background-color: transparent;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none!important;
+  color: var(--wp-components-color-foreground, #1e1e1e);
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  height: 40px;
+  line-height: 1;
+  min-height: 40px;
+  padding-left: 12px;
+  padding-right: 12px;
+  -webkit-padding-end: calc(4px * 1);
+  padding-inline-end: calc(4px * 1);
+}
+
+@media ( min-width: 600px ) {
+  .emotion-9.emotion-9.emotion-9 {
+    font-size: 13px;
+  }
+}
+
+.emotion-9.emotion-9.emotion-9::-webkit-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9::-moz-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9:-ms-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9[type='email'],
+.emotion-9.emotion-9.emotion-9[type='url'] {
+  direction: ltr;
+}
+
+.emotion-11 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-13 {
+  -webkit-padding-end: 12px;
+  padding-inline-end: 12px;
+}
+
+.emotion-15.emotion-15.emotion-15 {
+  box-sizing: border-box;
+  border-color: var(--wp-components-color-gray-600, #949494);
+  border-radius: inherit;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 2px;
+}
+
 <div
-  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+  class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker emotion-0 emotion-1"
 >
   <div
-    class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+    class="components-base-control__field emotion-2 emotion-3"
   >
     <div
-      class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+      class="components-flex components-input-base emotion-4 emotion-5 emotion-6"
       data-wp-c16t="true"
       data-wp-component="InputBase"
     >
       <div
-        class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+        class="components-input-control__container emotion-7 emotion-8"
       >
         <input
-          class="components-input-control__input css-v5t7oe-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+          class="components-input-control__input emotion-9 emotion-10"
           id="inspector-input-control-6"
           value="2023-12-23"
         />
         <span
-          class="components-input-control__suffix css-oobb1x-Suffix em5sgkm7"
+          class="components-input-control__suffix emotion-11 emotion-12"
         >
           <div
-            class="components-input-control-suffix-wrapper css-o1g5i8-PrefixSuffixWrapper-prefixSuffixWrapperStyles em5sgkm0"
+            class="components-input-control-suffix-wrapper emotion-13 emotion-14"
             data-wp-c16t="true"
             data-wp-component="InputControlSuffixWrapper"
           >
@@ -432,7 +1632,7 @@ exports[`DatePicker Component showPopover property renders correctly when showPo
         </span>
         <div
           aria-hidden="true"
-          class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+          class="components-input-control__backdrop emotion-15 emotion-16"
         />
       </div>
     </div>

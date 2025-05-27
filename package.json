@@ -84,6 +84,7 @@
     "zero-fill": "^2.2.3"
   },
   "devDependencies": {
+    "@emotion/jest": "^11.13.0",
     "@jest/globals": "^29.7.0",
     "@stellarwp/tyson": "*",
     "@testing-library/jest-dom": "^6.6.3",
