@@ -46,18 +46,25 @@ console.warn = ( msg ) => {
  */
 global.window.tinymce = {
 	get: () => ( {
-		on: () => null,
-		off: () => null,
 		initialized: true,
+		on: jest.fn(),
+		off: jest.fn(),
+		initialization: false,
+		init: jest.fn( ( config, callback ) => {
+			callback();
+		} ),
 	} ),
+	EditorManager: {
+		editors: [],
+	},
 };
 
 global.window.wp = {
 	...( global.window.wp || {} ),
 	oldEditor: {
-		remove: () => null,
-		initialize: () => null,
-		getContent: () => '<p>Initial content</p>',
+		remove: jest.fn(),
+		initialize: jest.fn(),
+		getContent: jest.fn().mockReturnValue( '<p>Initial content</p>' ),
 	},
 };
 
