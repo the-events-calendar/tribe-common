@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [6.7.1] 2025-05-27 =
+
+* Fix - Ensures symbolic links are followed on Assets Group Paths. [TCMN-187]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.7.0] 2025-05-20 =
 
 * Feature - Moved the JavaScript and CSS building to use `@wordpress/scripts` for improved compatibility.
