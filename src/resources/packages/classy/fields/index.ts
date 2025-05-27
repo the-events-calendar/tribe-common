@@ -1,0 +1,1 @@
+export { PostTitle } from './PostTitle';
