@@ -92,15 +92,44 @@ trait Custom_Table_Query_Methods {
 	 *
 	 * @return bool|int The number of rows affected, or `false` on failure.
 	 */
-	public static function update_many( array $entries ) {
+	public static function update_many( array $entries ): bool {
 		[ $prepared_columns, $prepared_values ] = self::prepare_statements_values( $entries );
 
-		return DB::query(
-			DB::prepare(
-				"REPLACE INTO %i ({$prepared_columns}) VALUES {$prepared_values}",
+		$uid_column = self::uid_column();
+
+		$queries = [];
+		$columns = static::get_columns();
+		foreach ( $entries as $entry ) {
+			$uid = $entry[ $uid_column ] ?? '';
+
+			if ( ! $uid ) {
+				continue;
+			}
+
+			$set_statement = [];
+
+			foreach ( $entry as $column => $value ) {
+				if ( $column === $uid_column ) {
+					continue;
+				}
+
+				if ( ! in_array( $column, $columns, true ) ) {
+					continue;
+				}
+
+				$set_statement[] = DB::prepare( "`{$column}` = %s", $value );
+			}
+
+			$set_statement = implode( ', ', $set_statement );
+
+			$queries[] = DB::prepare(
+				"UPDATE %i SET {$set_statement} WHERE {$uid_column} = %s;",
 				static::table_name( true ),
-			)
-		);
+				$uid
+			);
+		}
+
+		return (bool) DB::query( implode( '', $queries ) );
 	}
 
 	/**
