@@ -12,7 +12,7 @@ import { createRoot } from '@wordpress/element';
 let defaultRegistry: WPDataRegistry | null = null;
 
 /**
- * Returns the deafult WordPress registry.
+ * Returns the default WordPress registry.
  *
  * This is a hack. The Block Editor API does not expose the default registry object directly,
  * but provides access to it using the `withRegistry` higher-order component.

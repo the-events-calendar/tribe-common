@@ -3,6 +3,7 @@ import { Classy } from '../components/Classy';
 import { getElement as getVisualEditorElement, toggleVisibility as toggleVisualEditorVisibility } from './visualEditor';
 import { createRegistry as createClassyRegistry, setRegistry } from '../store';
 import { doAction } from '@wordpress/hooks';
+import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 
 /**
  * Cached instance of the classy element.
@@ -107,7 +108,7 @@ export function toggleElementVisibility( document: Document | null = null ): voi
 export async function initApp( document: Document | null = null ): Promise< void > {
 	document = document ?? window.document;
 	const classyRoot = createRoot( getOrCreateElement( document ) );
-	const registry = await createClassyRegistry();
+	const registry: WPDataRegistry = await createClassyRegistry();
 
 	// Set the module registry instance.
 	setRegistry( registry );
@@ -119,7 +120,7 @@ export async function initApp( document: Document | null = null ): Promise< void
 	 *
 	 * @since TBD
 	 *
-	 * @param {ClassyRegistry} registry The Classy registry instance.
+	 * @param {WPDataRegistry} registry The Classy registry instance.
 	 */
 	doAction( 'tec.classy.initialized', registry );
 }

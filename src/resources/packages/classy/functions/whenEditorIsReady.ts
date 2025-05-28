@@ -1,7 +1,7 @@
 import { select, subscribe } from '@wordpress/data';
 
 /**
- * Subscribes to the editor state and resolves when the Block Editor is considered  ready.
+ * Subscribes to the editor state and resolves when the Block Editor is considered ready.
  *
  * @since TBD
  *

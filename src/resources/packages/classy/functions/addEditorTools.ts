@@ -15,7 +15,7 @@ import { registerPlugin } from '@wordpress/plugins';
  *     button.
  * @param {Document|null} document The document to work on, or `null` to work on `window.document`.
  *
- * @return {void} The Editor tools are added to the tools bar.
+ * @return {void} The Editor tools are added to the toolbar.
  */
 export function addEditorTools(
 	onClick: ( this: GlobalEventHandlers, ev: MouseEvent ) => void,

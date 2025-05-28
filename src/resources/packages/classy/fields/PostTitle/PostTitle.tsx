@@ -2,7 +2,7 @@ import * as React from 'react';
 import { __experimentalInputControl as InputControl } from '@wordpress/components';
 import { useState, useEffect } from 'react';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { FieldProps } from '../../../types/FieldProps';
+import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
 
 /**
  * PostTitle component for rendering and handling the post title input field.

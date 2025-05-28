@@ -2,21 +2,7 @@ import { STORE_NAME, storeConfig } from '../store';
 import { createRegistry as wpDataCreateRegistry, StoreDescriptor } from '@wordpress/data';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 import getDefaultRegistry from '../../functions/getDefaultRegistry';
-
-/**
- * Extend the global to let TypeScript know about the global window object.
- */
-declare global {
-	interface Window {
-		wp?: {
-			data?: {
-				select: Function;
-				dispatch: Function;
-				subscribe: Function;
-			};
-		};
-	}
-}
+import '../../types/global.d.ts';
 
 /**
  * The module Classy registry instance.
@@ -30,7 +16,7 @@ let registry: WPDataRegistry;
 /**
  * Creates the Classy registry.
  *
- * Depending on the running context (in Block Editor or not) the registry will behave
+ * Depending on the running context (in Block Editor or not), the registry will behave
  * differently. In Block Editor context, the registry will have the WordPress default
  * registry as its parent; stores that are not defined in the Classy registry will be
  * searched in the WordPress registry. Outside the Block Editor context, the registry
