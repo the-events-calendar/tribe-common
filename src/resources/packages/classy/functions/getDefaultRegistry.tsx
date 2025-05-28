@@ -21,7 +21,7 @@ let defaultRegistry: WPDataRegistry | null = null;
  *
  * @return {Promise<WPDataRegistry>} A promise that will resolve to the default WordPress registry.
  */
-export default async function getDefaultRegistry(): Promise< WPDataRegistry > {
+export async function getDefaultRegistry(): Promise< WPDataRegistry > {
 	if ( defaultRegistry ) {
 		// Already resolved, return it.
 		return defaultRegistry;
@@ -57,4 +57,16 @@ export default async function getDefaultRegistry(): Promise< WPDataRegistry > {
 
 	// Return the promise to allow thenable chaining.
 	return promise;
+}
+
+/**
+ * Set a custom registry as the default one. This is useful for testing purposes or when you want to use a different
+ * registry than the global one.
+ *
+ * @since TBD
+ *
+ * @param {WPDataRegistry} registry The custom registry to be used as default.
+ */
+export function setDefaultRegistry( registry: WPDataRegistry ): void {
+	defaultRegistry = registry;
 }

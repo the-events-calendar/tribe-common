@@ -1,3 +1,3 @@
 export * from './dateUtils';
-export { default as getDefaultRegistry } from './getDefaultRegistry';
+export { getDefaultRegistry, setDefaultRegistry } from './getDefaultRegistry';
 export { sortOptionsForDisplay } from './sortOptionsForDisplay';
