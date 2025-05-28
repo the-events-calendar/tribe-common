@@ -5,7 +5,7 @@
 
 namespace TEC\Common\Tests\Provider;
 
-use Codeception\TestCase\WPTestCase;
+use lucatume\WPBrowser\TestCase\WPTestCase as WPBrowserTestCase;
 use RuntimeException;
 use TEC\Common\Contracts\Provider\Controller;
 use Tribe\Tests\Traits\With_Uopz;
@@ -23,7 +23,7 @@ use WP_Hook;
  *
  * @package TEC\Common\Tests\Provider;
  */
-class Controller_Test_Case extends WPTestCase {
+class Controller_Test_Case extends WPBrowserTestCase {
 	use With_Uopz;
 
 	/**
