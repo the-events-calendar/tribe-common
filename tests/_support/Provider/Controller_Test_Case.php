@@ -177,7 +177,7 @@ class Controller_Test_Case extends WPBrowserTestCase {
 	 *
 	 * @return Controller The controller instance, built on a dedicated testing Service Locator.
 	 */
-	protected function make_controller( string $controller_class = null ): Controller {
+	protected function make_controller( ?string $controller_class = null ): Controller {
 		$controller_class = $controller_class ?: $this->controller_class;
 
 		// From now on, ingest all logging.
