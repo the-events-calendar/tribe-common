@@ -3,6 +3,8 @@ import { createRegistry as wpDataCreateRegistry, StoreDescriptor } from '@wordpr
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 import { getDefaultRegistry, setDefaultRegistry } from '../../functions/getDefaultRegistry';
 import '../../types/global.d.ts';
+import { storeConfig as coreEditorStoreConfig } from '@wordpress/editor';
+import { store as coreDataStore } from '@wordpress/core-data';
 
 /**
  * The module Classy registry instance.
@@ -36,7 +38,15 @@ export async function createRegistry(): Promise< WPDataRegistry > {
 	} else {
 		// Not in Block Editor context; build the core registry now.
 		wpCoreRegistry = wpDataCreateRegistry();
-		// @todo register the core stores here?
+
+		// For the `core` store we do not get a store configuration but an instantiated store.
+		// Add the `core` store the default registry stores by simply setting the key.
+		// @ts-ignore
+		wpCoreRegistry.stores[ 'core' ] = coreDataStore.instantiate( wpCoreRegistry );
+
+		// Register other stores that have, instead, a store configuration available.
+		wpCoreRegistry.registerStore( 'core/editor', coreEditorStoreConfig );
+
 		setDefaultRegistry( wpCoreRegistry );
 	}
 
