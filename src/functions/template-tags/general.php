@@ -593,6 +593,19 @@ function tribe_notice( $slug, $callback, $arguments = [], $active_callback = nul
 	return Tribe__Admin__Notices::instance()->register( $slug, $callback, $arguments, $active_callback );
 }
 
+if ( ! function_exists( 'tec_remove_notice' ) ) {
+	/**
+	 * Remove a notice based on its slug.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $slug The slug of the notice to remove.
+	 */
+	function tec_remove_notice( string $slug ): void {
+		Tribe__Admin__Notices::instance()->remove( $slug );
+	}
+}
+
 /**
  * Shortcut for Tribe__Admin__Notices::register_transient(), create a transient Admin Notice easily.
  *
