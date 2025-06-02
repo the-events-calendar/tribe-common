@@ -540,22 +540,31 @@
 	}
 }
 
-.components-button.classy-button {
+
+.components-button {
+	&.classy-button {
 		font-size: var(--classy-font-size-15);
 		font-weight: var(--tec-font-weight-regular);
 		height: var(--tec-spacer-9);
 		padding: var(--tec-spacer-2) var(--tec-spacer-3);
 
-	&.is-primary {
-		background-color: var(--tec-color-accent-primary-active);
-		border-radius: var(--tec-spacer-0);
-		color: var(--tec-color-gutenberg-white);
+		&.is-primary {
+			background-color: var(--tec-color-accent-primary-active);
+			border-radius: var(--tec-spacer-0);
+			color: var(--tec-color-gutenberg-white);
+		}
+
+		.classy-icon {
+			&.classy-icon--prefix {
+				margin-right: var(--tec-spacer-1);
+			}
+		}
 	}
 
-	.classy-icon {
-		&.classy-icon--prefix{
-			margin-right: var(--tec-spacer-1);
-		}
+	&.is-link--dark {
+		font-weight: var(--tec-font-weight-regular);
+		text-decoration: underline;
+		color: var(--tec-color-gutenberg-grey-900);
 	}
 }
 
