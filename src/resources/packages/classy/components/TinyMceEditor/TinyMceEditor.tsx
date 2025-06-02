@@ -1,10 +1,21 @@
+import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { debounce } from 'lodash';
-import { TinyMceEditorProps } from '../../types/EditorComponentProps';
+import '../../types/global.d.ts';
+
+type TinyMceEditorProps = {
+	content: string;
+	onChange: ( value: string ) => void;
+	id: string;
+};
 
 /**
- * Editor component that initializes and manages a TinyMCE editor. * * @since TBD * * @param {TinyMceEditorProps} props - The component props. * @param {string} props.content - The current content of the editor. * @param {(value: string) => void} props.onChange - Callback function to update the content.
- * @param {string} props.id - The ID attribute for the editor component.
+ * Editor component that initializes and manages a TinyMCE editor.
+ * @since TBD
+ *
+ * @param {TinyMceEditorProps} props - The component props.
+ * @param {string} props.content The current content of the editor.
+ * @param {(value: string) => void} props.onChange - Callback function to update the content.
  *
  * @return {JSX.Element} The rendered editor.
  */

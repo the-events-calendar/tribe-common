@@ -1,22 +1,10 @@
 import { STORE_NAME, storeConfig } from '../store';
 import { createRegistry as wpDataCreateRegistry, StoreDescriptor } from '@wordpress/data';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
-import getDefaultRegistry from '../../functions/getDefaultRegistry';
-
-/**
- * Extend the global to let TypeScript know about the global window object.
- */
-declare global {
-	interface Window {
-		wp?: {
-			data?: {
-				select: Function;
-				dispatch: Function;
-				subscribe: Function;
-			};
-		};
-	}
-}
+import { getDefaultRegistry, setDefaultRegistry } from '../../functions/getDefaultRegistry';
+import '../../types/global.d.ts';
+import { storeConfig as coreEditorStoreConfig } from '@wordpress/editor';
+import { store as coreDataStore } from '@wordpress/core-data';
 
 /**
  * The module Classy registry instance.
@@ -30,11 +18,10 @@ let registry: WPDataRegistry;
 /**
  * Creates the Classy registry.
  *
- * Depending on the running context (in Block Editor or not) the registry will behave
- * differently. In Block Editor context, the registry will have the WordPress default
- * registry as its parent; stores that are not defined in the Classy registry will be
- * searched in the WordPress registry. Outside the Block Editor context, the registry
- * will register the default core Stores itself and will not have any parent registry.
+ * The Classy registry is always created as a sub-registry of the WordPress
+ * core registry. In contexts where the WordPress Core registry is not already
+ * registered (e.g. outside of the Block Editor), the function will register
+ * it first, then create the Classy registry as a sub-registry.
  *
  * @since TBD
  *
@@ -42,19 +29,29 @@ let registry: WPDataRegistry;
  */
 export async function createRegistry(): Promise< WPDataRegistry > {
 	let classyRegistry: WPDataRegistry;
+	let wpCoreRegistry: WPDataRegistry;
 
 	// Try and select from the WordPress data component a Block Editor store.
 	if ( window?.wp?.data?.select( 'core/block-editor' ) ) {
 		// We're in Blocks Editor context.
-		const defaultRegistry = await getDefaultRegistry();
-		classyRegistry = wpDataCreateRegistry( { [ STORE_NAME ]: storeConfig }, defaultRegistry );
+		wpCoreRegistry = await getDefaultRegistry();
 	} else {
-		// Not in Block Editor context.
-		// @todo here register the core stores.
-		classyRegistry = wpDataCreateRegistry( {
-			[ STORE_NAME ]: storeConfig,
-		} );
+		// Not in Block Editor context; build the core registry now.
+		wpCoreRegistry = wpDataCreateRegistry();
+
+		// For the `core` store we do not get a store configuration but an instantiated store.
+		// Add the `core` store the default registry stores by simply setting the key.
+		// @ts-ignore
+		wpCoreRegistry.stores[ 'core' ] = coreDataStore.instantiate( wpCoreRegistry );
+
+		// Register other stores that have, instead, a store configuration available.
+		wpCoreRegistry.registerStore( 'core/editor', coreEditorStoreConfig );
+
+		setDefaultRegistry( wpCoreRegistry );
 	}
+
+	// Create the Classy registry as a sub-registry of the WordPress core registry.
+	classyRegistry = wpDataCreateRegistry( { [ STORE_NAME ]: storeConfig }, wpCoreRegistry );
 
 	return classyRegistry;
 }

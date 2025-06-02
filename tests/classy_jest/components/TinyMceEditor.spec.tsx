@@ -4,23 +4,6 @@ import { beforeEach, afterEach, describe, expect, it, jest } from '@jest/globals
 import TinyMceEditor from '../../../src/resources/packages/classy/components/TinyMceEditor/TinyMceEditor';
 import { userEvent } from '@testing-library/user-event';
 
-declare global {
-	interface Window {
-		wp: {
-			oldEditor: {
-				initialize: jest.Mock;
-				getContent: jest.Mock;
-				remove: jest.Mock;
-			};
-		};
-		tinymce: {
-			get: ( id: string ) => {
-				on: jest.Mock;
-			};
-		};
-	}
-}
-
 describe( 'TinyMceEditor Component', () => {
 	const defaultProps = {
 		content: '<p>Initial content</p>',
@@ -45,6 +28,7 @@ describe( 'TinyMceEditor Component', () => {
 	it( 'initializes the editor on mount', () => {
 		render( <TinyMceEditor { ...defaultProps } /> );
 
+		// @ts-ignore
 		expect( global.window.wp.oldEditor.initialize ).toHaveBeenCalledWith( defaultProps.id, expect.any( Object ) );
 	} );
 

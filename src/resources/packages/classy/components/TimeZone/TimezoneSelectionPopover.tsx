@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { VirtualElement } from '@wordpress/components/build-types/popover/types';
 import { Popover, SelectControl, Button } from '@wordpress/components';
 import { useMemo } from '@wordpress/element';

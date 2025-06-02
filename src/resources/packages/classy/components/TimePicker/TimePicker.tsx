@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { format } from '@wordpress/date';
 import { useState, useMemo, useCallback, useRef } from '@wordpress/element';
 import { ComboboxControl } from '@wordpress/components';
