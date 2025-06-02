@@ -9,6 +9,8 @@
 	--classy-color-footer: rgba(30, 30, 30, 0.03);
 	--classy-padding-vertical: var(--tec-spacer-7);
 	--classy-padding-horizontal: var(--tec-spacer-6);
+	--classy-height-100: 32px;
+	--classy-height-75: 24px;
 }
 
 .block-editor__container {
@@ -77,6 +79,7 @@
 		flex-wrap: nowrap;
 		gap: var(--tec-spacer-2);
 		justify-content: flex-start;
+		align-items: flex-end;
 
 		&:has(.classy-field__subgroup) {
 			justify-content: space-between;
@@ -106,6 +109,12 @@
 		flex: 1 0 0;
 	}
 
+	.classy-field__input-title {
+		font-size: var(--classy-font-size-15);
+		font-weight: var(--tec-font-weight-regular);
+		text-transform: none;
+	}
+
 	.classy-field__title,
 	.classy-field__input-title {
 		h2,
@@ -119,7 +128,7 @@
 			font-weight: var(--tec-font-weight-regular);
 		}
 
-		h4 {
+		h4, span {
 			font-size: var(--classy-font-size-15);
 			font-weight: var(--tec-font-weight-regular);
 		}
@@ -149,7 +158,7 @@
 
 		.classy_section-separator {
 			border-top: 1px solid var(--tec-color-gutenberg-grey-300);
-			height: 0px;
+			height: 0;
 			transform: translateX(calc(var(--classy-padding-horizontal) * -1));
 			width: calc-size(auto, size + 2 * var(--classy-padding-horizontal));
 		}
@@ -171,6 +180,12 @@
 				width: calc-size(auto, size + 2 * var(--classy-padding-horizontal));
 				padding: var(--tec-spacer-3) var(--tec-spacer-6);
 			}
+		}
+
+		.classy-field__input-note {
+			color: var(--tec-color-gutenberg-grey-600);
+			font-size: var(--classy-font-size-13);
+			font-weight: var(--tec-font-weight-regular);
 		}
 	}
 
@@ -199,14 +214,20 @@
 			margin: 0;
 		}
 
-		.classy-field__input-note {
-			color: var(--tec-color-gutenberg-grey-600);
-			font-size: var(--classy-font-size-13);
-			font-weight: var(--tec-font-weight-regular);
-		}
-
 		&.classy-field__input--grow {
 			flex-grow: 1;
+		}
+
+		&.classy-field__input--unit {
+			width: 307px;
+		}
+
+		&.classy-field__input--height-100{
+			height: var(--classy-height-100);
+		}
+
+		&.classy-field__input--height-75{
+			height: var(--classy-height-75) ;
 		}
 	}
 
@@ -342,12 +363,6 @@
 				font-weight: var(--tec-font-weight-regular);
 				color: var(--tec-color-gutenberg-grey-700);
 			}
-
-			.classy-field__timezone-value {
-				font-weight: var(--tec-font-weight-regular);
-				text-decoration: underline;
-				color: var(--tec-color-gutenberg-grey-900);
-			}
 		}
 
 		&.classy-field__control--select {
@@ -443,11 +458,29 @@
 		}
 	}
 
-	&.classy-component__popover--timezone {
+	&.classy-component__popover--choice {
 		.components-popover__content {
 			/* @todo is this really different from the calendar selector one? */
 			padding: var(--tec-spacer-3);
 			min-width: 284px;
+
+			.classy-component__popover-content {
+				display: flex;
+				flex-direction: column;
+				gap: var(--tec-spacer-3);
+
+				.classy-component__popover-title {
+					margin: 0;
+					font-size: var(--tec-font-size-3);
+					line-height: 24px;
+					font-weight: 600;
+					color: var(--tec-color-gutenberg-grey-900);
+				}
+
+				.classy-component__popover-description {
+					margin: 0;
+				}
+			}
 
 			.classy-component__popover-close {
 				position: absolute;
@@ -456,18 +489,6 @@
 				right: var(--tec-spacer-3);
 			}
 
-			.classy-component__popover-title {
-				margin-top: 0;
-				margin-bottom: var(--tec-spacer-3);
-				font-size: var(--tec-font-size-3);
-				line-height: 24px;
-				font-weight: 600;
-				color: var(--tec-color-gutenberg-grey-900);
-			}
-
-			.classy-component__popover-description {
-				margin-bottom: var(--tec-spacer-2);
-			}
 		}
 	}
 }
@@ -495,7 +516,7 @@
 		.classy-field__separator {
 			display: block;
 			height: 0;
-			border-top: 1px solid var(--tec-color-gutenberg-grey-200);
+			border-top: 1px solid var(--tec-color-gutenberg-grey-300);
 		}
 
 		.classy-modal__content {
@@ -519,15 +540,37 @@
 	}
 }
 
-.components-button.classy-button {
+
+.components-button {
+	&.classy-button {
 		font-size: var(--classy-font-size-15);
 		font-weight: var(--tec-font-weight-regular);
 		height: var(--tec-spacer-9);
 		padding: var(--tec-spacer-2) var(--tec-spacer-3);
 
-	&.is-primary {
-		background-color: var(--tec-color-accent-primary-active);
-		border-radius: var(--tec-spacer-0);
-		color: var(--tec-color-gutenberg-white);
+		&.is-primary {
+			background-color: var(--tec-color-accent-primary-active);
+			border-radius: var(--tec-spacer-0);
+			color: var(--tec-color-gutenberg-white);
+		}
+
+		.classy-icon {
+			&.classy-icon--prefix {
+				margin-right: var(--tec-spacer-1);
+			}
+		}
 	}
+
+	&.is-link--dark {
+		font-weight: var(--tec-font-weight-regular);
+		text-decoration: underline;
+		color: var(--tec-color-gutenberg-grey-900);
+	}
+}
+
+.components-button-group.components-button-group--classy{
+	display: flex;
+	flex-direction: row;
+	gap: var(--tec-spacer-1);
+	/* @todo Here color the button that is not selected white, the other black.*/
 }

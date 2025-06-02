@@ -22,7 +22,7 @@ export default function TimeZone( props: { onTimezoneChange: ( timezone: string 
 			</span>{ ' ' }
 			<Button
 				variant="link"
-				className="is-link classy-field__timezone-value"
+				className="is-link is-link--dark classy-field__timezone-value"
 				onClick={ () => setIsSelecting( true ) }
 			>
 				{ timezone }
