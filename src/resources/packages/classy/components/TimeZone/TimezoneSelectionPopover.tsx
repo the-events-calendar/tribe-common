@@ -59,12 +59,12 @@ export default function TimezoneSelectionPopover( props: {
 			offset={ 4 }
 			onClose={ onClose }
 		>
-			<div className="classy-component__popover-content classy-component__popover-content--timezone">
+			<div className="classy-component__popover-content">
 				<Button variant="link" onClick={ onClose } className="classy-component__popover-close">
 					<IconClose />
 				</Button>
 
-				<h4 className="classy-component-popover__title">
+				<h4 className="classy-component__popover-title">
 					{ _x( 'Event Time Zone', 'Timezone selector popover title', 'the-events-calendar' ) }
 				</h4>
 
