@@ -4,7 +4,7 @@
  *
  * Concrete implementation for building FAQ sections.
  *
- * @since   TBD
+ * @since TBD
  * @package TEC\Common\Admin\Help_Hub
  */
 
@@ -17,7 +17,7 @@ use InvalidArgumentException;
  *
  * Concrete implementation for building FAQ sections.
  *
- * @since   TBD
+ * @since TBD
  * @package TEC\Common\Admin\Help_Hub
  */
 class FAQ_Section_Builder extends Abstract_Section_Builder {

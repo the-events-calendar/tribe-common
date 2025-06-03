@@ -5,7 +5,7 @@
  * This class provides helper methods for managing resource sections
  * in the Help Hub.
  *
- * @since   TBD
+ * @since TBD
  * @package TEC\Common\Admin\Help_Hub
  */
 
@@ -18,7 +18,7 @@ use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
  *
  * Provides helper methods for managing and filtering resource sections.
  *
- * @since   TBD
+ * @since TBD
  * @package TEC\Common\Admin\Help_Hub
  */
 class Section_Helper {

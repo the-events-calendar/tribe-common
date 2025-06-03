@@ -5,7 +5,7 @@
  * Provides a base class for building consistent Help Hub sections with proper
  * structure and type safety, and stores built sections for later retrieval.
  *
- * @since   TBD
+ * @since TBD
  *
  * @var array $section The section data containing links to render.
  */
@@ -20,7 +20,7 @@ use RuntimeException;
  *
  * Base class to build and store consistent Help Hub sections with proper structure and type safety.
  *
- * @since   TBD
+ * @since TBD
  * @package TEC\Common\Admin\Help_Hub
  */
 abstract class Abstract_Section_Builder implements Section_Builder_Interface {

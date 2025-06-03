@@ -4,7 +4,7 @@
  *
  * Concrete implementation for building sections with links.
  *
- * @since   TBD
+ * @since TBD
  * @package TEC\Common\Admin\Help_Hub
  */
 
@@ -17,7 +17,7 @@ use InvalidArgumentException;
  *
  * Concrete implementation for building sections with links.
  *
- * @since   TBD
+ * @since TBD
  * @package TEC\Common\Admin\Help_Hub
  */
 class Link_Section_Builder extends Abstract_Section_Builder {

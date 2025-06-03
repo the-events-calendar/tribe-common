@@ -5,7 +5,7 @@
  * Provides a fluent interface for building consistent Help Hub tabs with proper
  * structure and type safety, and stores built tabs for later retrieval.
  *
- * @since   TBD
+ * @since TBD
  * @package TEC\Common\Admin\Help_Hub
  */
 
@@ -16,7 +16,7 @@ namespace TEC\Common\Admin\Help_Hub;
  *
  * Helper class to build and store consistent Help Hub tabs with proper structure and type safety.
  *
- * @since   TBD
+ * @since TBD
  * @package TEC\Common\Admin\Help_Hub
  */
 class Tab_Builder {
