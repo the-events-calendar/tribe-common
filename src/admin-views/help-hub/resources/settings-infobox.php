@@ -4,7 +4,7 @@
  *
  * This template displays the AI Chatbot infobox in the Help Hub.
  *
- * @since TBD
+ * @since 6.8.0
  *
  * @var Hub $help_hub The Help Hub class.
  */

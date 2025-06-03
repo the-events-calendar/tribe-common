@@ -18,7 +18,7 @@ $template_map = [
 /**
  * Filter the resources tab title
  *
- * @since TBD
+ * @since 6.8.0
  *
  * @param string $hub_title The default resources tab title
  */
@@ -27,7 +27,7 @@ $hub_title = apply_filters( 'tec_help_hub_resources_title', _x( 'Resources', 'Re
 /**
  * Filter the resources tab description
  *
- * @since TBD
+ * @since 6.8.0
  *
  * @param string $description The default resources tab description
  */
@@ -43,7 +43,7 @@ $description = apply_filters(
 /**
  * Filter the resources tab notice content
  *
- * @since TBD
+ * @since 6.8.0
  *
  * @param string $notice_content The default notice content
  */

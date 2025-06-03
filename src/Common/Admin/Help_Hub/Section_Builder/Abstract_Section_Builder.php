@@ -5,7 +5,7 @@
  * Provides a base class for building consistent Help Hub sections with proper
  * structure and type safety, and stores built sections for later retrieval.
  *
- * @since TBD
+ * @since 6.8.0
  *
  * @var array $section The section data containing links to render.
  */
@@ -20,14 +20,14 @@ use RuntimeException;
  *
  * Base class to build and store consistent Help Hub sections with proper structure and type safety.
  *
- * @since TBD
+ * @since 6.8.0
  * @package TEC\Common\Admin\Help_Hub
  */
 abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 	/**
 	 * The section title.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @var string
 	 */
@@ -36,7 +36,7 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 	/**
 	 * The section identifier/slug.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @var string
 	 */
@@ -45,7 +45,7 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 	/**
 	 * The section description.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @var string
 	 */
@@ -54,7 +54,7 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 	/**
 	 * The section items.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @var array
 	 */
@@ -63,7 +63,7 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 	/**
 	 * Static storage for all built sections.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @var array<string, array>
 	 */
@@ -72,7 +72,7 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 	/**
 	 * The items array key.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @var string
 	 */
@@ -81,7 +81,7 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 	/**
 	 * Create a new section instance.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param string $title The section title.
 	 * @param string $slug  The section identifier/slug.
@@ -99,7 +99,7 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 	/**
 	 * Set the section description.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param string $description The section description.
 	 *
@@ -114,7 +114,7 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 	/**
 	 * Add an item to the section.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param array $item The item to add.
 	 *
@@ -126,7 +126,7 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 		/**
 		 * Filter the item before it's added to the section.
 		 *
-		 * @since TBD
+		 * @since 6.8.0
 		 *
 		 * @param array  $item The item to add.
 		 * @param string $slug The section slug.
@@ -141,7 +141,7 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 	/**
 	 * Validate an item before adding it to the section.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @throws InvalidArgumentException If the item is invalid.
 	 *
@@ -158,7 +158,7 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 	/**
 	 * Build the section array.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @throws RuntimeException If the concrete class doesn't implement ITEMS_KEY.
 	 * @return array The section array.
@@ -178,7 +178,7 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 		/**
 		 * Filter the items array before it's added to the section.
 		 *
-		 * @since TBD
+		 * @since 6.8.0
 		 *
 		 * @param array  $items The items array.
 		 * @param string $slug  The section slug.
@@ -191,7 +191,7 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 		/**
 		 * Filter the section data before it's stored.
 		 *
-		 * @since TBD
+		 * @since 6.8.0
 		 *
 		 * @param array  $section The section data.
 		 * @param string $slug    The section slug.
@@ -201,7 +201,7 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 		/**
 		 * Filter the section data after it's built.
 		 *
-		 * @since TBD
+		 * @since 6.8.0
 		 *
 		 * @param array  $section The section data.
 		 * @param string $slug    The section slug.
@@ -217,7 +217,7 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 	/**
 	 * Get all built sections.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return array All built sections.
 	 */
@@ -228,7 +228,7 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 	/**
 	 * Get a specific section by slug.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param string $slug The section slug.
 	 *
@@ -241,7 +241,7 @@ abstract class Abstract_Section_Builder implements Section_Builder_Interface {
 	/**
 	 * Clear all stored sections.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return void
 	 */

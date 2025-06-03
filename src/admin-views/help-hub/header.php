@@ -2,7 +2,7 @@
 /**
  * Template for the Help Hub header section.
  *
- * @since TBD
+ * @since 6.8.0
  *
  * @var Tribe__Main $main The main common object.
  */
@@ -10,7 +10,7 @@
 /**
  * Filter the logo source URL for the Help Hub header.
  *
- * @since TBD
+ * @since 6.8.0
  *
  * @param string $src The default logo source URL.
  *
@@ -21,7 +21,7 @@ $logo_src = apply_filters( 'tec_help_hub_header_logo_src', tribe_resource_url( '
 /**
  * Filter the logo alt text for the Help Hub header.
  *
- * @since TBD
+ * @since 6.8.0
  *
  * @param string $alt The default logo alt text.
  *

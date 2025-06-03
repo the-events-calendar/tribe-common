@@ -25,7 +25,7 @@ trait Custom_Table_Query_Methods {
 	 * Fetches all the rows from the table using a batched query.
 	 *
 	 * @since 6.5.3
-	 * @since TBD Referenced the `uid_column` property in the ORDER BY clause.
+	 * @since 6.8.0 Referenced the `uid_column` property in the ORDER BY clause.
 	 *
 	 * @param int    $batch_size   The number of rows to fetch per batch.
 	 * @param string $output       The output type of the query, one of OBJECT, ARRAY_A, or ARRAY_N.
@@ -66,7 +66,7 @@ trait Custom_Table_Query_Methods {
 	 * Inserts multiple rows into the table.
 	 *
 	 * @since 6.5.3
-	 * @since TBD Moved statement preparation to a helper method.
+	 * @since 6.8.0 Moved statement preparation to a helper method.
 	 *
 	 * @param array<mixed> $entries The entries to insert.
 	 *
@@ -86,7 +86,7 @@ trait Custom_Table_Query_Methods {
 	/**
 	 * Updates multiple rows into the table.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param array<mixed> $entries The entries to update.
 	 *
@@ -135,7 +135,7 @@ trait Custom_Table_Query_Methods {
 	/**
 	 * Deletes multiple rows from the table.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param array<int> $ids    The IDs of the rows to delete.
 	 * @param string     $column The column to use for the delete query.
@@ -168,7 +168,7 @@ trait Custom_Table_Query_Methods {
 	/**
 	 * Prepares the statements and values for the insert and update queries.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param array<mixed> $entries The entries to prepare.
 	 *

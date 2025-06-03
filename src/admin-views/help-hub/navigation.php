@@ -2,7 +2,7 @@
 /**
  * Template for the Help Hub navigation.
  *
- * @since TBD
+ * @since 6.8.0
  *
  * @var array $tabs The array of tab data containing:
  *                  - target: The tab target

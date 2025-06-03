@@ -9,7 +9,7 @@
 
 _deprecated_file(
 	esc_html( basename( __FILE__ ) ),
-	'TBD',
+	'6.8.0',
 	'',
 	'This template is deprecated. The functionality has been moved to the Section_Builder class.'
 );

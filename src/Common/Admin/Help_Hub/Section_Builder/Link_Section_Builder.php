@@ -4,7 +4,7 @@
  *
  * Concrete implementation for building sections with links.
  *
- * @since TBD
+ * @since 6.8.0
  * @package TEC\Common\Admin\Help_Hub
  */
 
@@ -17,7 +17,7 @@ use InvalidArgumentException;
  *
  * Concrete implementation for building sections with links.
  *
- * @since TBD
+ * @since 6.8.0
  * @package TEC\Common\Admin\Help_Hub
  */
 class Link_Section_Builder extends Abstract_Section_Builder {
@@ -25,7 +25,7 @@ class Link_Section_Builder extends Abstract_Section_Builder {
 	/**
 	 * The items array key.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @var string
 	 */
@@ -34,7 +34,7 @@ class Link_Section_Builder extends Abstract_Section_Builder {
 	/**
 	 * Add a link to the section.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param string $title The link title.
 	 * @param string $url   The link URL.
@@ -58,7 +58,7 @@ class Link_Section_Builder extends Abstract_Section_Builder {
 	/**
 	 * Validate an item before adding it to the section.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @throws InvalidArgumentException If the item is invalid.
 	 *

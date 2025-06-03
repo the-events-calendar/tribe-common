@@ -5,7 +5,7 @@
  * A lightweight mock implementation of the Help_Hub_Data_Interface,
  * used for testing the Help Hub without relying on external resources or dependencies.
  *
- * @since   TBD
+ * @since   6.8.0
  * @package TEC\Common\Tests\Help_Hub
  */
 
@@ -22,7 +22,7 @@ use Tribe__PUE__Checker;
  *
  * Provides mock data for testing the Help Hub's functionality.
  *
- * @since   TBD
+ * @since   6.8.0
  * @package TEC\Common\Tests\Help_Hub
  */
 class Mock_Resource_Data implements Help_Hub_Data_Interface {
@@ -30,7 +30,7 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Mock icons array for testing.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 * @var array
 	 */
 	protected array $icons = [
@@ -45,7 +45,7 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Body class array for testing the admin page styling.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 * @var array
 	 */
 	protected array $admin_page_body_classes = [ 'mock_tribe_events_page' ];
@@ -53,7 +53,7 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Whether the class has been initialized.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 * @var bool
 	 */
 	protected bool $initialized = false;
@@ -61,7 +61,7 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Initializes the Help Hub Resource Data.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return void
 	 */
@@ -80,7 +80,7 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 	 * This method registers filters and actions required for the Help Hub,
 	 * such as adding custom body classes to the Help Hub page.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return void
 	 */
@@ -93,7 +93,7 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Add resources description
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param string $description The default resources description.
 	 *
@@ -106,7 +106,7 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Add support description
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param string $title The default support title.
 	 *
@@ -122,7 +122,7 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 	 * This method allows the addition of `$admin_page_body_classes` to
 	 * the list of body classes for the Help Hub page.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param array $classes The current array of body classes.
 	 *
@@ -137,7 +137,7 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 	 *
 	 * Each section can be filtered independently or as a complete set.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return array The filtered resource sections array.
 	 */
@@ -164,7 +164,7 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Builds the Getting Started section.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param Link_Section_Builder $builder The section builder instance.
 	 *
@@ -197,7 +197,7 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Builds the Customizations section.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param Link_Section_Builder $builder The section builder instance.
 	 *
@@ -225,7 +225,7 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Builds the Common Issues section.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param Link_Section_Builder $builder The section builder instance.
 	 *
@@ -259,7 +259,7 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Builds the FAQ section.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param FAQ_Section_Builder $builder The section builder instance.
 	 *
@@ -286,7 +286,7 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Retrieves the URL for a specified icon.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param string $icon_name The name of the icon to retrieve.
 	 *
@@ -299,7 +299,7 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Get the license validity and telemetry opt-in status.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return array Contains 'has_valid_license' and 'is_opted_in' status.
 	 */
@@ -320,7 +320,7 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 	 * Checks the 'page' request variable against the Help Hub settings slug to confirm
 	 * if the user is currently viewing the Help Hub admin page.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return bool True if the current page is the Help Hub, false otherwise.
 	 */

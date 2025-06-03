@@ -4,7 +4,7 @@
  *
  * This template displays the heading section of the Help Hub resources.
  *
- * @since TBD
+ * @since 6.8.0
  *
  * @var string $hub_title    The title of the resources section.
  * @var string $description  The description of the resources section.

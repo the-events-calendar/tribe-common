@@ -597,7 +597,7 @@ if ( ! function_exists( 'tec_remove_notice' ) ) {
 	/**
 	 * Remove a notice based on its slug.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param string $slug The slug of the notice to remove.
 	 */

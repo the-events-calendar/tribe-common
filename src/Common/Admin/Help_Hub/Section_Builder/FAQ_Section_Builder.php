@@ -4,7 +4,7 @@
  *
  * Concrete implementation for building FAQ sections.
  *
- * @since TBD
+ * @since 6.8.0
  * @package TEC\Common\Admin\Help_Hub
  */
 
@@ -17,7 +17,7 @@ use InvalidArgumentException;
  *
  * Concrete implementation for building FAQ sections.
  *
- * @since TBD
+ * @since 6.8.0
  * @package TEC\Common\Admin\Help_Hub
  */
 class FAQ_Section_Builder extends Abstract_Section_Builder {
@@ -25,7 +25,7 @@ class FAQ_Section_Builder extends Abstract_Section_Builder {
 	/**
 	 * The items array key.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @var string
 	 */
@@ -34,7 +34,7 @@ class FAQ_Section_Builder extends Abstract_Section_Builder {
 	/**
 	 * Add a FAQ item to the section.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param string $question  The FAQ question.
 	 * @param string $answer    The FAQ answer.
@@ -60,7 +60,7 @@ class FAQ_Section_Builder extends Abstract_Section_Builder {
 	/**
 	 * Validate an item before adding it to the section.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @throws InvalidArgumentException If the item is invalid.
 	 *

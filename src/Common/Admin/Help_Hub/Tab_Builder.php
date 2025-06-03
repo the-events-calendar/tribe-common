@@ -5,7 +5,7 @@
  * Provides a fluent interface for building consistent Help Hub tabs with proper
  * structure and type safety, and stores built tabs for later retrieval.
  *
- * @since TBD
+ * @since 6.8.0
  * @package TEC\Common\Admin\Help_Hub
  */
 
@@ -16,14 +16,14 @@ namespace TEC\Common\Admin\Help_Hub;
  *
  * Helper class to build and store consistent Help Hub tabs with proper structure and type safety.
  *
- * @since TBD
+ * @since 6.8.0
  * @package TEC\Common\Admin\Help_Hub
  */
 class Tab_Builder {
 	/**
 	 * The tab target.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @var string
 	 */
@@ -32,7 +32,7 @@ class Tab_Builder {
 	/**
 	 * The tab CSS class.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @var string
 	 */
@@ -41,7 +41,7 @@ class Tab_Builder {
 	/**
 	 * The tab label.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @var string
 	 */
@@ -50,7 +50,7 @@ class Tab_Builder {
 	/**
 	 * The tab ID.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @var string
 	 */
@@ -59,7 +59,7 @@ class Tab_Builder {
 	/**
 	 * The tab template.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @var string
 	 */
@@ -68,7 +68,7 @@ class Tab_Builder {
 	/**
 	 * The tab arguments.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @var array<string, mixed>
 	 */
@@ -77,7 +77,7 @@ class Tab_Builder {
 	/**
 	 * Static storage for all built tabs.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @var array<string, array>
 	 */
@@ -86,7 +86,7 @@ class Tab_Builder {
 	/**
 	 * Create a new tab instance.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param string               $target   The tab target.
 	 * @param string               $label    The tab label.
@@ -110,7 +110,7 @@ class Tab_Builder {
 	/**
 	 * Set the tab CSS class.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param string $class_name The tab CSS class.
 	 *
@@ -125,7 +125,7 @@ class Tab_Builder {
 	/**
 	 * Set the tab arguments.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param array<string, mixed> $args The tab arguments.
 	 *
@@ -140,7 +140,7 @@ class Tab_Builder {
 	/**
 	 * Get the tab arguments.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return array<string, mixed> The tab arguments.
 	 */
@@ -151,7 +151,7 @@ class Tab_Builder {
 	/**
 	 * Build the tab array and store it.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return array{
 	 *     target: string,
@@ -175,7 +175,7 @@ class Tab_Builder {
 		/**
 		 * Filter a specific Help Hub tab.
 		 *
-		 * @since TBD
+		 * @since 6.8.0
 		 *
 		 * @param array  $tab The tab data.
 		 * @param string $id  The tab ID.
@@ -191,7 +191,7 @@ class Tab_Builder {
 	/**
 	 * Get all stored tabs.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return array<string, array> All stored tabs.
 	 */
@@ -202,7 +202,7 @@ class Tab_Builder {
 	/**
 	 * Get a specific tab by ID.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param string $id The tab ID.
 	 *
@@ -215,7 +215,7 @@ class Tab_Builder {
 	/**
 	 * Clear all stored tabs.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return void
 	 */

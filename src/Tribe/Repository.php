@@ -3911,7 +3911,7 @@ abstract class Tribe__Repository
 	/**
 	 * Get the schema.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return array
 	 */
@@ -3919,7 +3919,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the schema for the repository takes into account the filter name.
 		 *
-		 * @since TBD
+		 * @since 6.8.0
 		 *
 		 * @param array             $schema     The schema.
 		 * @param Tribe__Repository $repository The repository.
@@ -3929,7 +3929,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the schema for the repository.
 		 *
-		 * @since TBD
+		 * @since 6.8.0
 		 *
 		 * @param array             $schema     The schema.
 		 * @param Tribe__Repository $repository The repository.
@@ -3940,7 +3940,7 @@ abstract class Tribe__Repository
 	/**
 	 * Set the schema.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param string   $key      The key.
 	 * @param callable $callback The callback.

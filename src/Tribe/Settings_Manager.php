@@ -134,7 +134,7 @@ class Tribe__Settings_Manager {
 		/**
 		 * Fires before the options are set.
 		 *
-		 * @since TBD
+		 * @since 6.8.0
 		 *
 		 * @param array $options     The new options.
 		 * @param array $old_options The old options.
@@ -149,7 +149,7 @@ class Tribe__Settings_Manager {
 			/**
 			 * Fires after the options are set.
 			 *
-			 * @since TBD
+			 * @since 6.8.0
 			 *
 			 * @param array $options     The new options.
 			 * @param array $old_options The old options.
@@ -175,7 +175,7 @@ class Tribe__Settings_Manager {
 		/**
 		 * Filters the value of an option before it is set.
 		 *
-		 * @since TBD
+		 * @since 6.8.0
 		 *
 		 * @param mixed  $value          The value we want to set.
 		 * @param string $name           The option key.
@@ -187,7 +187,7 @@ class Tribe__Settings_Manager {
 		/**
 		 * Fires when an option is set.
 		 *
-		 * @since TBD
+		 * @since 6.8.0
 		 *
 		 * @param string $name           The option key.
 		 * @param mixed  $value          The option value.
@@ -214,7 +214,7 @@ class Tribe__Settings_Manager {
 		/**
 		 * Fires when an option is removed.
 		 *
-		 * @since TBD
+		 * @since 6.8.0
 		 *
 		 * @param string $name The option key.
 		 * @param mixed  $value The option value.

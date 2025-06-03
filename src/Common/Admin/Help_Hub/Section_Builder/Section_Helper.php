@@ -5,7 +5,7 @@
  * This class provides helper methods for managing resource sections
  * in the Help Hub.
  *
- * @since TBD
+ * @since 6.8.0
  * @package TEC\Common\Admin\Help_Hub
  */
 
@@ -18,14 +18,14 @@ use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
  *
  * Provides helper methods for managing and filtering resource sections.
  *
- * @since TBD
+ * @since 6.8.0
  * @package TEC\Common\Admin\Help_Hub
  */
 class Section_Helper {
 	/**
 	 * The sections array.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 * @var array
 	 */
 	private array $sections;
@@ -33,7 +33,7 @@ class Section_Helper {
 	/**
 	 * The data instance used for generating sections.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 * @var Help_Hub_Data_Interface
 	 */
 	private Help_Hub_Data_Interface $data;
@@ -41,7 +41,7 @@ class Section_Helper {
 	/**
 	 * Constructor.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param array                   $sections The sections array.
 	 * @param Help_Hub_Data_Interface $data     The data instance.
@@ -56,7 +56,7 @@ class Section_Helper {
 	/**
 	 * Creates a new instance from an array of sections.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param array                   $sections The sections array.
 	 * @param Help_Hub_Data_Interface $data     The data instance.
@@ -70,7 +70,7 @@ class Section_Helper {
 	/**
 	 * Gets the sections as an array.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return array
 	 */
@@ -81,7 +81,7 @@ class Section_Helper {
 	/**
 	 * Applies filters to the sections.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return void
 	 */
@@ -118,7 +118,7 @@ class Section_Helper {
 	/**
 	 * Filters sections using a callback.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param callable $filter The filter callback.
 	 *
@@ -133,7 +133,7 @@ class Section_Helper {
 	/**
 	 * Gets the number of sections.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return int
 	 */
@@ -144,7 +144,7 @@ class Section_Helper {
 	/**
 	 * Checks if there are any sections.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return bool
 	 */

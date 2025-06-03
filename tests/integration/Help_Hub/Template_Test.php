@@ -2,7 +2,7 @@
 /**
  * Tests for Help Hub Templates
  *
- * @since   TBD
+ * @since   6.8.0
  * @package TEC\Common\Admin\Help_Hub
  */
 
@@ -18,7 +18,7 @@ use Tribe__Template;
 /**
  * Class TemplateTest
  *
- * @since   TBD
+ * @since   6.8.0
  * @package TEC\Common\Admin\Help_Hub
  */
 class Template_Test extends WPTestCase {

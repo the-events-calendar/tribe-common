@@ -22,7 +22,7 @@ class Country {
 	/**
 	 * The list of countries.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @var array<string,array<string,string>>
 	 */
@@ -269,7 +269,7 @@ class Country {
 	/**
 	 * The cache instance.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @var Cache
 	 */
@@ -278,7 +278,7 @@ class Country {
 	/**
 	 * Constructor.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param Cache $cache The cache instance.
 	 */
@@ -307,7 +307,7 @@ class Country {
 	/**
 	 * Get a formatted list of countries.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return array<string,array<string,mixed>> The formatted list of countries.
 	 */
@@ -379,7 +379,7 @@ class Country {
 	/**
 	 * Get a country by its currency.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param string $currency The currency.
 	 *

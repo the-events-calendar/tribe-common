@@ -2,7 +2,7 @@
 /**
  * Interface for Section Builders.
  *
- * @since TBD
+ * @since 6.8.0
  */
 
 namespace TEC\Common\Admin\Help_Hub\Section_Builder;
@@ -10,14 +10,14 @@ namespace TEC\Common\Admin\Help_Hub\Section_Builder;
 /**
  * Interface Section_Builder_Interface
  *
- * @since TBD
+ * @since 6.8.0
  * @package TEC\Common\Admin\Help_Hub
  */
 interface Section_Builder_Interface {
 	/**
 	 * Create a new section instance.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param string $title The section title.
 	 * @param string $slug  The section identifier/slug.
@@ -29,7 +29,7 @@ interface Section_Builder_Interface {
 	/**
 	 * Set the section description.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param string $description The section description.
 	 *
@@ -40,7 +40,7 @@ interface Section_Builder_Interface {
 	/**
 	 * Add an item to the section.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param array $item The item to add.
 	 *
@@ -51,7 +51,7 @@ interface Section_Builder_Interface {
 	/**
 	 * Build the section array.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return array The section array.
 	 */
@@ -60,7 +60,7 @@ interface Section_Builder_Interface {
 	/**
 	 * Get all built sections.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return array All built sections.
 	 */
@@ -69,7 +69,7 @@ interface Section_Builder_Interface {
 	/**
 	 * Get a specific section by slug.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param string $slug The section slug.
 	 *
@@ -80,7 +80,7 @@ interface Section_Builder_Interface {
 	/**
 	 * Clear all stored sections.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return void
 	 */

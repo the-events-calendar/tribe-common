@@ -2,7 +2,7 @@
 /**
  * Template for rendering section links in the Help Hub.
  *
- * @since TBD
+ * @since 6.8.0
  *
  * @var array $section The section data containing links to render.
  */

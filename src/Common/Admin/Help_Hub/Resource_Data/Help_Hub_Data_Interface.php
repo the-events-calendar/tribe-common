@@ -73,7 +73,7 @@ interface Help_Hub_Data_Interface {
 	 * This method should be called after the page is loaded to ensure all necessary
 	 * dependencies are available and the page is ready for initialization.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return void
 	 */
@@ -85,7 +85,7 @@ interface Help_Hub_Data_Interface {
 	 * Checks the 'page' request variable against the Help Hub settings slug to confirm
 	 * if the user is currently viewing the Help Hub admin page.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return bool True if the current page is the Help Hub, false otherwise.
 	 */

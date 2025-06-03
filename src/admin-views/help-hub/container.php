@@ -2,7 +2,7 @@
 /**
  * Template for the Help Hub tab containers.
  *
- * @since TBD
+ * @since 6.8.0
  *
  * @var array $tabs The array of tab data containing:
  *                  - id: The tab container ID

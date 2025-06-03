@@ -93,7 +93,7 @@ class Hub {
 	 *
 	 * This method will overwrite any previously set data instance.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @param Help_Hub_Data_Interface $data The Help Hub data instance to use.
 	 *
@@ -164,7 +164,7 @@ class Hub {
 	/**
 	 * Registers the hidden admin page for the Help Hub.
 	 *
-	 * @since TBD
+	 * @since 6.8.0
 	 *
 	 * @return void
 	 */
@@ -186,7 +186,7 @@ class Hub {
 	 * It expects that the data has been injected either via constructor or through a hook.
 	 *
 	 * @since 6.3.2
-	 * @since TBD Refactored.
+	 * @since 6.8.0 Refactored.
 	 *
 	 * @throws RuntimeException If the data has not been set by the time this method runs.
 	 *
@@ -337,7 +337,7 @@ class Hub {
 		 * Allows extending the list of pages that are considered Help Hub pages.
 		 * Mainly used to enqueue assets on the Help Hub page.
 		 *
-		 * @since TBD
+		 * @since 6.8.0
 		 *
 		 * @param array $help_pages Array of page IDs that are considered Help Hub pages.
 		 */
@@ -353,7 +353,7 @@ class Hub {
 	 * to customize or add additional classes via the `tec_help_hub_body_classes` filter.
 	 *
 	 * @since 6.3.2
-	 * @since TBD removed type hinting.
+	 * @since 6.8.0 removed type hinting.
 	 *
 	 * @param string $classes Space-separated string of classes for the body tag.
 	 *
@@ -437,7 +437,7 @@ class Hub {
 	 * Generates a telemetry opt-in link.
 	 *
 	 * @since 6.3.2
-	 * @since TBD Added filter.
+	 * @since 6.8.0 Added filter.
 	 *
 	 * @return string
 	 */
@@ -456,7 +456,7 @@ class Hub {
 		 *
 		 * Allows customization of the link used for the telemetry opt-in location.
 		 *
-		 * @since TBD
+		 * @since 6.8.0
 		 *
 		 * @param string $default_url The default URL to the telemetry opt-in settings tab.
 		 * @param Hub $this The Hub instance.
@@ -468,7 +468,7 @@ class Hub {
 	 * Generates and outputs iframe content when appropriate.
 	 *
 	 * @since 6.3.2
-	 * @since TBD Moved `tec_help_hub_before_iframe_render` to trigger sooner.
+	 * @since 6.8.0 Moved `tec_help_hub_before_iframe_render` to trigger sooner.
 	 *
 	 * @throws RuntimeException If data has not been set using setup.
 	 * @return void

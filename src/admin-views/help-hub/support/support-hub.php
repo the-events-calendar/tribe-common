@@ -13,7 +13,7 @@ use TEC\Common\Admin\Help_Hub\Hub;
 /**
  * Filters the Support Hub title text.
  *
- * @since TBD
+ * @since 6.8.0
  *
  * @param string $title The Support Hub title text.
  */
@@ -29,7 +29,7 @@ $hub_title = apply_filters(
 /**
  * Filters the Support Hub description text.
  *
- * @since TBD
+ * @since 6.8.0
  *
  * @param string $description The Support Hub description text.
  */

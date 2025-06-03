@@ -2,14 +2,14 @@
 /**
  * Time functions.
  *
- * @since TBD
+ * @since 6.8.0
  */
 
 /**
  * Gets the current time in the format Y-m-d H:i:s.u rounded to 4 decimals.
  * This function specifically has no dependencies any other code.
  *
- * @since TBD
+ * @since 6.8.0
  *
  * @param DateInterval|null $add      An interval to add to the current time.
  *                                    Defaults to null.
@@ -33,7 +33,7 @@ function tec_get_current_milliseconds( ?DateInterval $add = null, ?DateInterval 
 /**
  * Given a tec_get_current_milliseconds() millisecond datetime, convert it to a timestamp.
  *
- * @since TBD
+ * @since 6.8.0
  *
  * @param ?string $milliseconds The milliseconds to convert to a timestamp.
  *
