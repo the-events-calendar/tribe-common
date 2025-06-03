@@ -1,0 +1,4 @@
+Significance: major
+Type: tweak
+
+Refactored Help Hub to improve extensibility and testing capabilities. [ET-2375]
