@@ -1,6 +1,6 @@
 <?php
 
-namespace TEC\Tests\Events\Classy;
+namespace TEC\Tests\Common\Classy;
 
 use TEC\Common\Classy\Controller;
 use TEC\Common\Tests\Provider\Controller_Test_Case;
