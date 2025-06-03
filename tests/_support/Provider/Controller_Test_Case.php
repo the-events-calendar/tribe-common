@@ -12,6 +12,11 @@ use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Container as Container;
 use TEC\Common\lucatume\DI52\Container as DI52_Container;
 use WP_Hook;
+use Codeception\TestCase\WPTestCase;
+
+if ( ! class_exists( WPBrowserTestCase::class ) ) {
+	class_alias( WPBrowserTestCase::class, WPTestCase::class );
+}
 
 /**
  * Class Controller_Test_Case.
