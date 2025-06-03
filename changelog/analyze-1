@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Added filters: `tec_help_hub_pages`, `tec_help_hub_telemetry_opt_in_link`, `tec_help_hub_section_{$this->slug}_item`, `tec_help_hub_section_{$this->slug}_items`, `tec_help_hub_section_{$this->slug}`, `tec_help_hub_section`, `tec_help_hub_tab_{$this->id}`, `tec_common_country_list`, `tec_repository_schema_{$this->filter_name}`, `tec_repository_schema`, `tec_common_settings_manager_set_option`, `tec_help_hub_header_logo_src`, `tec_help_hub_header_logo_alt`, `tec_help_hub_resources_title`
