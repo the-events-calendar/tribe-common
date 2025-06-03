@@ -1,0 +1,4 @@
+Significance: minor
+Type: feat
+
+Introduced milliseconds methods and improved Custom Table methods, as part of supporting ET's Square integration. [ET-2383]
