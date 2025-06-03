@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-Added actions: `tec_common_settings_manager_pre_set_options`, `tec_common_settings_manager_post_set_options`, `tec_common_settings_manager_set_option`, `tec_common_settings_manager_remove_option`
