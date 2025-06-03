@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Implemented new functionality to Help Hub to make it more extensible. [ET-2375]
