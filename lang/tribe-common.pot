@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 6.7.1\n"
+"Project-Id-Version: Tribe Common 6.8.0\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-05-26T17:20:47+00:00\n"
+"POT-Creation-Date: 2025-06-03T21:14:54+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: tribe-common\n"
@@ -543,114 +543,114 @@ msgstr ""
 msgid "Automatic Updates"
 msgstr ""
 
-#: src/admin-views/help-hub.php:49
+#: src/admin-views/help-hub/header.php:30
+msgid "The Events Calendar logo"
+msgstr ""
+
+#: src/admin-views/help-hub/navigation-links.php:14
+msgid "Main Help Hub Navigation"
+msgstr ""
+
+#: src/admin-views/help-hub/navigation.php:17
 msgid "Settings Navigation"
 msgstr ""
 
-#: src/admin-views/help-hub.php:50
+#: src/admin-views/help-hub/navigation.php:18
 msgid "Close settings navigation"
 msgstr ""
 
-#: src/admin-views/help-hub.php:51
+#: src/admin-views/help-hub/navigation.php:19
 #: src/Tribe/Settings.php:894
 #: src/Tribe/Settings.php:932
 msgid "Close"
 msgstr ""
 
-#: src/admin-views/help-hub.php:54
-msgid "Help Hub Navigation"
-msgstr ""
-
-#: src/admin-views/help-hub.php:77
-#: src/admin-views/help-hub.php:83
+#: src/admin-views/help-hub/navigation.php:31
+#: src/admin-views/help-hub/navigation.php:37
 #: src/Tribe/Settings.php:1080
 msgid "Open settings navigation"
 msgstr ""
 
-#: src/admin-views/help-hub.php:87
-msgid "Main Help Hub Navigation"
-msgstr ""
-
-#: src/admin-views/help-hub/resources/common-issues.php:22
+#: src/admin-views/help-hub/resources/common-issues.php:34
 msgctxt "Common issues section title"
 msgid "Common issues"
 msgstr ""
 
 #. translators: %s is the link to the AI Chatbot
-#: src/admin-views/help-hub/resources/common-issues.php:28
+#: src/admin-views/help-hub/resources/common-issues.php:40
 #, php-format
 msgid "Having trouble? Find solutions to common issues or ask our %s."
 msgstr ""
 
-#: src/admin-views/help-hub/resources/common-issues.php:29
+#: src/admin-views/help-hub/resources/common-issues.php:41
 msgid "AI Chatbot"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/customization.php:22
+#: src/admin-views/help-hub/resources/customization.php:33
 msgctxt "Customization guides section title"
 msgid "Customization guides"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/customization.php:25
+#: src/admin-views/help-hub/resources/customization.php:36
 msgctxt "Customization guides section paragraph"
 msgid "Tips and tricks on making your calendar just the way you want it."
 msgstr ""
 
-#: src/admin-views/help-hub/resources/faqs.php:22
+#: src/admin-views/help-hub/resources/faqs.php:33
 msgctxt "FAQs section title"
 msgid "FAQs"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/faqs.php:25
+#: src/admin-views/help-hub/resources/faqs.php:36
 msgctxt "FAQs section paragraph"
 msgid "Get quick answers to common questions"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/getting-started.php:22
+#: src/admin-views/help-hub/resources/getting-started.php:29
 msgctxt "Getting started guide section title"
 msgid "Getting started guides"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/getting-started.php:25
+#: src/admin-views/help-hub/resources/getting-started.php:32
 msgctxt "Getting started guide section paragraph"
 msgid "Easy to follow step-by-step instructions to make the most out of your calendar."
 msgstr ""
 
-#: src/admin-views/help-hub/resources/resources.php:18
+#: src/admin-views/help-hub/resources/resources.php:25
 msgctxt "Resources tab title"
 msgid "Resources"
 msgstr ""
 
 #. translators: %1$s is the link to the Knowledgebase.
-#: src/admin-views/help-hub/resources/resources.php:25
+#: src/admin-views/help-hub/resources/resources.php:38
 #, php-format
 msgid "Help on setting up, customizing, and troubleshooting your calendar. See our %1$s for in-depth content."
 msgstr ""
 
 #. translators: %s: Knowledgebase
-#: src/admin-views/help-hub/resources/resources.php:26
+#: src/admin-views/help-hub/resources/resources.php:39
 #: src/admin-views/tribe-options-help.php:21
 msgid "Knowledgebase"
 msgstr ""
 
-#. translators: Placeholders are for the `a` tag that displays a link.
-#: src/admin-views/help-hub/resources/resources.php:33
+#. translators: Placeholders are for the opening and closing anchor tags.
+#: src/admin-views/help-hub/resources/resources.php:54
 #, php-format
 msgctxt "The callout notice to try the chatbot with a link to the page"
 msgid "To find the answer to all your questions use the %1$sTEC Chatbot%2$s"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/resources.php:55
+#: src/admin-views/help-hub/resources/settings-infobox.php:17
 msgctxt "AI Chatbot notice title"
 msgid "Our AI Chatbot is here to help you"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/resources.php:64
+#: src/admin-views/help-hub/resources/settings-infobox.php:26
 msgctxt "AI Chatbot section paragraph"
 msgid "You have questions? The TEC Chatbot has the answers."
 msgstr ""
 
-#: src/admin-views/help-hub/resources/resources.php:74
+#: src/admin-views/help-hub/resources/settings-infobox.php:36
 #: src/admin-views/help-hub/resources/sidebar/no-license.php:39
 msgctxt "Link to the Help Chatbot"
 msgid "Talk to TEC Chatbot"
@@ -787,14 +787,14 @@ msgctxt "Contact support link"
 msgid "Contact support"
 msgstr ""
 
-#: src/admin-views/help-hub/support/support-hub.php:18
+#: src/admin-views/help-hub/support/support-hub.php:22
 msgctxt "Help page Support Hub title"
 msgid "TEC Support Hub"
 msgstr ""
 
-#: src/admin-views/help-hub/support/support-hub.php:27
+#: src/admin-views/help-hub/support/support-hub.php:38
 msgctxt "Help page Support Hub header paragraph"
-msgid "Help on setting up, customizing and troubleshooting your calendar."
+msgid "Help on setting up, customizing, and troubleshooting your calendar."
 msgstr ""
 
 #: src/admin-views/help-ticketing.php:106
@@ -1756,37 +1756,50 @@ msgstr ""
 msgid "Invalid class instance."
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:338
+#: src/Common/Admin/Help_Hub/Hub.php:174
+#: src/Common/Admin/Help_Hub/Hub.php:175
+msgid "Help Hub"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:243
+msgid "Support Hub"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:252
+msgid "Resources"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:422
 #: src/Tribe/Admin/Help_Page.php:144
 msgctxt "Copy to clipboard button text."
 msgid "Copy to clipboard"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:339
+#: src/Common/Admin/Help_Hub/Hub.php:423
 #: src/Tribe/Admin/Help_Page.php:145
 msgctxt "Copy to clipboard success message"
 msgid "System info copied"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:340
+#: src/Common/Admin/Help_Hub/Hub.php:424
 #: src/Tribe/Admin/Help_Page.php:146
 msgctxt "Copy to clipboard instructions"
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:341
+#: src/Common/Admin/Help_Hub/Hub.php:425
 #: src/Tribe/Admin/Help_Page.php:147
 msgctxt "Default error message for system info optin"
 msgid "Something has gone wrong!"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:342
+#: src/Common/Admin/Help_Hub/Hub.php:426
 #: src/Tribe/Admin/Help_Page.php:148
 msgctxt "Error code label for system info optin"
 msgid "Code:"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:343
+#: src/Common/Admin/Help_Hub/Hub.php:427
 #: src/Tribe/Admin/Help_Page.php:149
 msgctxt "Error status label for system info optin"
 msgid "Status:"
@@ -4883,100 +4896,100 @@ msgstr ""
 msgid "Null logger (will log nothing)"
 msgstr ""
 
-#: src/Tribe/Main.php:303
+#: src/Tribe/Main.php:304
 msgctxt "Copy to clipboard success message"
 msgid "Copied to Clipboard!"
 msgstr ""
 
-#: src/Tribe/Main.php:304
+#: src/Tribe/Main.php:305
 msgctxt "Copy to clipboard failed message"
 msgid "Failed to copy."
 msgstr ""
 
-#: src/Tribe/Main.php:455
+#: src/Tribe/Main.php:456
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:456
+#: src/Tribe/Main.php:457
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:458
+#: src/Tribe/Main.php:459
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:459
+#: src/Tribe/Main.php:460
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:460
+#: src/Tribe/Main.php:461
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:461
+#: src/Tribe/Main.php:462
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:462
+#: src/Tribe/Main.php:463
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:463
+#: src/Tribe/Main.php:464
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:464
+#: src/Tribe/Main.php:465
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:465
+#: src/Tribe/Main.php:466
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:466
+#: src/Tribe/Main.php:467
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:467
+#: src/Tribe/Main.php:468
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:469
+#: src/Tribe/Main.php:470
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:470
-#: src/Tribe/Main.php:487
+#: src/Tribe/Main.php:471
+#: src/Tribe/Main.php:488
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:471
+#: src/Tribe/Main.php:472
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:476
+#: src/Tribe/Main.php:477
 #, php-format
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:477
+#: src/Tribe/Main.php:478
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:488
+#: src/Tribe/Main.php:489
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:489
-#: src/Tribe/Main.php:491
+#: src/Tribe/Main.php:490
+#: src/Tribe/Main.php:492
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:490
+#: src/Tribe/Main.php:491
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:492
+#: src/Tribe/Main.php:493
 msgid "Clear"
 msgstr ""
 
