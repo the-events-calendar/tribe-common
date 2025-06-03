@@ -15,7 +15,7 @@ use WP_Hook;
 use Codeception\TestCase\WPTestCase;
 
 if ( ! class_exists( WPBrowserTestCase::class ) ) {
-	class_alias( WPBrowserTestCase::class, WPTestCase::class );
+	class_alias( WPTestCase::class, WPBrowserTestCase::class );
 }
 
 /**
