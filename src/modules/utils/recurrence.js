@@ -14,9 +14,9 @@ export const hasRecurrenceRules = ( state ) => {
 	try {
 		const pluginOffset = plugins.constants.EVENTS_PRO_PLUGIN;
 		const globalObject = window.tribe?.[ pluginOffset ] || window.tec?.[ pluginOffset ]?.app?.main;
-		return globalObject.data.blocks.recurring.selectors.hasRules( state );
+		return globalObject.data?.blocks?.recurring?.selectors?.hasRules( state );
 	} catch ( e ) {
-		console.error( e );
+		console.warn( e );
 		return false;
 	}
 };
