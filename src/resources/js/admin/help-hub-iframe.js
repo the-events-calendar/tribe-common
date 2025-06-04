@@ -112,6 +112,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 *
 	 * @since TBD
 	 * @class
+	 * @link https://developer.helpscout.com/beacon-2/web/javascript-api
 	 */
 	function HelpScoutManager(beaconKey, userIdentifiers) {
 		this.beaconKey = beaconKey;
@@ -119,8 +120,6 @@ window.DocsBotAI = window.DocsBotAI || {};
 		this.scriptLoaded = false;
 		this.beaconReady = false;
 		this.initPromise = null;
-		console.log('[HelpScoutManager] Constructed with beaconKey:', beaconKey);
-		console.log('[HelpScoutManager] userIdentifiers:', userIdentifiers);
 	}
 
 	/**
@@ -139,21 +138,17 @@ window.DocsBotAI = window.DocsBotAI || {};
 				window.Beacon.readyQueue.push({ method, options, data });
 			};
 			window.Beacon.readyQueue = [];
-			console.log('[HelpScoutManager] Beacon stub defined.');
 		}
 
-		console.log('[HelpScoutManager] Loading Help Scout Beacon script...');
 		return new Promise((resolve, reject) => {
 			const script = document.createElement('script');
 			script.src = 'https://beacon-v2.helpscout.net';
 			script.async = true;
 			script.onload = () => {
 				self.scriptLoaded = true;
-				console.log('[HelpScoutManager] Help Scout Beacon script loaded.');
 				resolve();
 			};
 			script.onerror = () => {
-				console.error('[HelpScoutManager] Failed to load Help Scout Beacon script.');
 				reject(new Error('Failed to load Help Scout Beacon script.'));
 			};
 			// Insert into <head> for best compatibility
@@ -174,7 +169,6 @@ window.DocsBotAI = window.DocsBotAI || {};
 			window.Beacon = window.Beacon || function() {
 				(window.Beacon.q = window.Beacon.q || []).push(arguments);
 			};
-			console.log('[HelpScoutManager] Calling Beacon(\'init\') with key:', self.beaconKey);
 			Beacon('init', self.beaconKey);
 			// Set z-index, manual style, and enable chat & ticket history
 			Beacon('config', {
@@ -187,7 +181,6 @@ window.DocsBotAI = window.DocsBotAI || {};
 					}
 				}
 			});
-			console.log('[HelpScoutManager] Beacon config set: zIndex 1000000, style manual');
 			// Listen for open/close events to manage blackout UI.
 			Beacon('on', 'open', function() {
 				obj.toggleBlackout(true);
@@ -197,9 +190,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 			});
 			Beacon('on', 'ready', function() {
 				self.beaconReady = true;
-				console.log('[HelpScoutManager] Beacon is ready.');
 				if (self.userIdentifiers && self.userIdentifiers.name && self.userIdentifiers.email) {
-					console.log('[HelpScoutManager] Identifying user:', self.userIdentifiers);
 					Beacon('identify', {
 						name: self.userIdentifiers.name,
 						email: self.userIdentifiers.email
@@ -242,7 +233,6 @@ window.DocsBotAI = window.DocsBotAI || {};
 			// Initialize Help Scout Beacon
 			const beaconKey = helpHubSettings.helpScoutBeaconKey;
 			const userIdentifiers = helpHubSettings.userIdentifiers || null;
-			console.log('[HelpScoutManager] userIdentifiers:', userIdentifiers);
 			obj.helpScoutManager = new HelpScoutManager(beaconKey, userIdentifiers);
 			obj.helpScoutManager.loadScript()
 				.then(function() {
@@ -364,13 +354,13 @@ window.DocsBotAI = window.DocsBotAI || {};
 	// Initialize the help page.
 	$( obj.setup );
 
-	// For legacy compatibility: open Beacon when asked to open Zendesk (from old help-page.js postMessage)
+	// For legacy compatibility: open Beacon when asked to open Livechat (from old help-page.js postMessage)
 	window.addEventListener('message', (event) => {
 		// Only accept messages from the same origin
 		if (event.origin !== window.location.origin) return;
 		const { action, data } = event.data || {};
-		// For legacy compatibility: open Beacon when asked to open Zendesk
-		if (action === 'runScript' && data === 'openZendesk') {
+		// For legacy compatibility: open Beacon when asked to open Livechat
+		if (action === 'runScript' && data === 'openLivechat') {
 			if (typeof obj.openBeacon === 'function') {
 				obj.openBeacon();
 			}

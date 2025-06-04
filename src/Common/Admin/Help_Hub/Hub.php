@@ -559,20 +559,6 @@ class Hub {
 
 		$status = $this->get_license_and_opt_in_status();
 
-		// Default to null
-		$user_identifiers = null;
-
-		if ( ! empty( $status['is_opted_in'] ) && $status['is_opted_in'] ) {
-			$current_user = wp_get_current_user();
-			if ( $current_user && $current_user->exists() ) {
-				$user_identifiers = [
-					'name'  => $current_user->display_name,
-					'email' => $current_user->user_email,
-				];
-			}
-		}
-        printr($user_identifiers,'User identifiers');
-
 		tec_asset(
 			Tribe__Main::instance(),
 			'tec-help-hub-iframe-style',
@@ -594,7 +580,8 @@ class Hub {
 						'docsbot_key'        => $this->config->get( 'TEC_HELP_HUB_CHAT_DOCSBOT_SUPPORT_KEY' ),
 						'zendeskChatKey'     => $this->config->get( 'TEC_HELP_HUB_CHAT_ZENDESK_CHAT_KEY' ),
 						'helpScoutBeaconKey' => $this->config->get( 'TEC_HELP_HUB_CHAT_HELPSCOUT_BEACON_CHAT_KEY' ),
-						'userIdentifiers'    => $user_identifiers,
+						// Pass userIdentifiers as an array if you want to prefill the Help Scout form.
+						'userIdentifiers'    => null,
 					],
 				],
 			]

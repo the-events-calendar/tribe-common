@@ -53,14 +53,14 @@ tribe.helpPage = tribe.helpPage || {};
 
 	/**
 	 * Event listener callback for sending messages to open support chat in the iframe.
-	 * For legacy support, this sends a postMessage with action 'runScript' and data 'openZendesk'.
+	 * For legacy support, this sends a postMessage with action 'runScript' and data 'openLivechat'.
 	 *
 	 * @param {Event} event - The click event object.
 	 */
 	obj.openSupportChatInIframe = ( event ) => {
 		event.preventDefault();
-		// For legacy support, keep the message as 'openZendesk'
-		const message = { action: 'runScript', data: 'openZendesk' };
+		// For legacy support, keep the message as 'openLivechat'
+		const message = { action: 'runScript', data: 'openLivechat' };
 		obj.sendMessageToIframe( message );
 	};
 
