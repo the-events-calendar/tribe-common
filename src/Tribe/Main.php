@@ -22,7 +22,11 @@ class Tribe__Main {
 	const OPTIONNAME        = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK = 'tribe_events_calendar_network_options';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
+<<<<<<< HEAD
 	const VERSION           = '6.8.1';
+=======
+	const VERSION           = '6.8.0';
+>>>>>>> master
 
 	protected $plugin_context;
 	protected $plugin_context_class;
@@ -196,6 +200,7 @@ class Tribe__Main {
 	 * initializes all required libraries
 	 */
 	public function init_libraries() {
+		require_once $this->plugin_path . 'src/functions/time.php';
 		require_once $this->plugin_path . 'src/functions/utils.php';
 		require_once $this->plugin_path . 'src/functions/conditionals.php';
 		require_once $this->plugin_path . 'src/functions/transient.php';

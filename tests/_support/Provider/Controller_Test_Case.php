@@ -5,13 +5,18 @@
 
 namespace TEC\Common\Tests\Provider;
 
-use Codeception\TestCase\WPTestCase;
+use lucatume\WPBrowser\TestCase\WPTestCase as WPBrowserTestCase;
 use RuntimeException;
 use TEC\Common\Contracts\Provider\Controller;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Container as Container;
 use TEC\Common\lucatume\DI52\Container as DI52_Container;
 use WP_Hook;
+use Codeception\TestCase\WPTestCase;
+
+if ( ! class_exists( WPBrowserTestCase::class ) ) {
+	class_alias( WPTestCase::class, WPBrowserTestCase::class );
+}
 
 /**
  * Class Controller_Test_Case.
@@ -23,7 +28,7 @@ use WP_Hook;
  *
  * @package TEC\Common\Tests\Provider;
  */
-class Controller_Test_Case extends WPTestCase {
+class Controller_Test_Case extends WPBrowserTestCase {
 	use With_Uopz;
 
 	/**
@@ -177,7 +182,7 @@ class Controller_Test_Case extends WPTestCase {
 	 *
 	 * @return Controller The controller instance, built on a dedicated testing Service Locator.
 	 */
-	protected function make_controller( string $controller_class = null ): Controller {
+	protected function make_controller( ?string $controller_class = null ): Controller {
 		$controller_class = $controller_class ?: $this->controller_class;
 
 		// From now on, ingest all logging.

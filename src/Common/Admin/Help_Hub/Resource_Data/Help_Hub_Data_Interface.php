@@ -66,4 +66,28 @@ interface Help_Hub_Data_Interface {
 	 * @return array An associative array with 'has_valid_license' and 'is_opted_in' status.
 	 */
 	public function get_license_and_opt_in_status(): array;
+
+	/**
+	 * Initializes the Help Hub data.
+	 *
+	 * This method should be called after the page is loaded to ensure all necessary
+	 * dependencies are available and the page is ready for initialization.
+	 *
+	 * @since 6.8.0
+	 *
+	 * @return void
+	 */
+	public function initialize(): void;
+
+	/**
+	 * Determines if the current admin page is the Help Hub page.
+	 *
+	 * Checks the 'page' request variable against the Help Hub settings slug to confirm
+	 * if the user is currently viewing the Help Hub admin page.
+	 *
+	 * @since 6.8.0
+	 *
+	 * @return bool True if the current page is the Help Hub, false otherwise.
+	 */
+	public function is_help_hub_page(): bool;
 }

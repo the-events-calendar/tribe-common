@@ -126,13 +126,35 @@ class Tribe__Settings_Manager {
 		if ( ! is_array( $options ) ) {
 			return false;
 		}
+		$old_options = self::get_options();
 		if ( true === $apply_filters ) {
 			$options = apply_filters( 'tribe-events-save-options', $options );
 		}
+
+		/**
+		 * Fires before the options are set.
+		 *
+		 * @since 6.8.0
+		 *
+		 * @param array $options     The new options.
+		 * @param array $old_options The old options.
+		 */
+		do_action( 'tec_common_settings_manager_pre_set_options', $options, $old_options );
+
 		$updated = update_option( Tribe__Main::OPTIONNAME, $options );
 
 		if ( $updated ) {
 			tribe_set_var( self::OPTION_CACHE_VAR_NAME, $options );
+
+			/**
+			 * Fires after the options are set.
+			 *
+			 * @since 6.8.0
+			 *
+			 * @param array $options     The new options.
+			 * @param array $old_options The old options.
+			 */
+			do_action( 'tec_common_settings_manager_post_set_options', $options, $old_options );
 		}
 
 		return $updated;
@@ -147,8 +169,32 @@ class Tribe__Settings_Manager {
 	 * @return bool True if the value was updated, false otherwise.
 	 */
 	public static function set_option( $name, $value ) {
-		$options          = self::get_options();
-		$options[ $name ] = $value;
+		$options        = self::get_options();
+		$previous_value = $options[ $name ] ?? null;
+
+		/**
+		 * Filters the value of an option before it is set.
+		 *
+		 * @since 6.8.0
+		 *
+		 * @param mixed  $value          The value we want to set.
+		 * @param string $name           The option key.
+		 * @param mixed  $previous_value The previous option value.
+		 * @param array  $options        The options array.
+		 */
+		$options[ $name ] = apply_filters( 'tec_common_settings_manager_set_option', $value, $name, $previous_value, $options );
+
+		/**
+		 * Fires when an option is set.
+		 *
+		 * @since 6.8.0
+		 *
+		 * @param string $name           The option key.
+		 * @param mixed  $value          The option value.
+		 * @param mixed  $previous_value The previous option value.
+		 * @param array  $options        The options array.
+		 */
+		do_action( 'tec_common_settings_manager_set_option', $name, $value, $previous_value, $options );
 
 		return static::set_options( $options );
 	}
@@ -163,7 +209,19 @@ class Tribe__Settings_Manager {
 	 * @return bool
 	 */
 	public static function remove_option( $name ) {
-		$options          = self::get_options();
+		$options = self::get_options();
+
+		/**
+		 * Fires when an option is removed.
+		 *
+		 * @since 6.8.0
+		 *
+		 * @param string $name The option key.
+		 * @param mixed  $value The option value.
+		 * @param array  $options The options array.
+		 */
+		do_action( 'tec_common_settings_manager_remove_option', $name, $options[ $name ] ?? null, $options );
+
 		unset( $options[ $name ] );
 
 		return static::set_options( $options );
