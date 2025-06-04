@@ -125,6 +125,13 @@ class Hub {
 			 */
 			define( 'TEC_HELP_HUB_CHAT_ZENDESK_CHAT_KEY', 'd8e5e319-c54b-4da9-9d7d-e984cc3c4900' );
 		}
+
+		if ( ! defined( 'TEC_HELP_HUB_CHAT_HELPSCOUT_BEACON_CHAT_KEY' ) ) {
+			/**
+			 * Help Scout Beacon key for embedding the beacon widget.
+			 */
+			define( 'TEC_HELP_HUB_CHAT_HELPSCOUT_BEACON_CHAT_KEY', '9bb4e819-f901-45b4-9616-abe17a460fc2' );
+		}
 	}
 
 	/**
@@ -550,6 +557,22 @@ class Hub {
 	public function enqueue_help_page_iframe_assets(): void {
 		define( 'IFRAME_REQUEST', true );
 
+		$status = $this->get_license_and_opt_in_status();
+
+		// Default to null
+		$user_identifiers = null;
+
+		if ( ! empty( $status['is_opted_in'] ) && $status['is_opted_in'] ) {
+			$current_user = wp_get_current_user();
+			if ( $current_user && $current_user->exists() ) {
+				$user_identifiers = [
+					'name'  => $current_user->display_name,
+					'email' => $current_user->user_email,
+				];
+			}
+		}
+        printr($user_identifiers,'User identifiers');
+
 		tec_asset(
 			Tribe__Main::instance(),
 			'tec-help-hub-iframe-style',
@@ -568,8 +591,10 @@ class Hub {
 				'localize' => [
 					'name' => 'helpHubSettings',
 					'data' => [
-						'docsbot_key'    => $this->config->get( 'TEC_HELP_HUB_CHAT_DOCSBOT_SUPPORT_KEY' ),
-						'zendeskChatKey' => $this->config->get( 'TEC_HELP_HUB_CHAT_ZENDESK_CHAT_KEY' ),
+						'docsbot_key'        => $this->config->get( 'TEC_HELP_HUB_CHAT_DOCSBOT_SUPPORT_KEY' ),
+						'zendeskChatKey'     => $this->config->get( 'TEC_HELP_HUB_CHAT_ZENDESK_CHAT_KEY' ),
+						'helpScoutBeaconKey' => $this->config->get( 'TEC_HELP_HUB_CHAT_HELPSCOUT_BEACON_CHAT_KEY' ),
+						'userIdentifiers'    => $user_identifiers,
 					],
 				],
 			]

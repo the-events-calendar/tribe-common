@@ -85,43 +85,6 @@ body[data-opted-in="0"] .docsbot-widget-background {
 }
 
 /**
- * Zendesk Styles
- */
-
-/* Disable pointer events for child elements */
-.zendesk-widget-open * {
-	pointer-events: none;
-}
-
-/* Overwrite inline Iframe styles for the Zendesk widget */
-#webWidget {
-	height: 100% !important;
-	margin: 0 auto !important;
-	max-width: 100% !important;
-	min-width: 33vw !important;
-	width: 100% !important;
-	z-index: 99999999 !important;
-}
-
-/* Small screens and up: 80% width with 10% margins */
-@media (--viewport-xxsmall) {
-
-	#webWidget {
-		width: 100vw !important;
-	}
-}
-
-/* Medium screens and up: 50% width, centered */
-@media (--viewport-medium) {
-
-	#webWidget {
-		margin: 0 auto !important;
-		max-height: 100vh !important;
-		width: 50% !important;
-	}
-}
-
-/**
  * Docsbot Styles
  */
 #docsbot-widget-embed {
@@ -226,5 +189,25 @@ body[data-opted-in="0"] .docsbot-widget-background {
 
 	html {
 		margin-top: 0 !important;
+	}
+}
+
+/* Force Help Scout Beacon to fill the viewport responsively */
+.BeaconContainer {
+    width: 80vw !important;
+    height: 80vh !important;
+    max-width: 80vw !important;
+    max-height: 80vh !important;
+	z-index: 1000000 !important;
+    margin: 0 auto !important;
+}
+
+/* Medium screens and up: 90% width/height */
+@media (--viewport-medium) {
+	.BeaconContainer {
+		width: 90vw !important;
+		height: 80vh !important;
+		max-width: 90vw !important;
+		max-height: 80vh !important;
 	}
 }

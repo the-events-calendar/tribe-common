@@ -19,7 +19,7 @@ tribe.helpPage = tribe.helpPage || {};
 		obj.setupSystemInfo();
 		obj.setupCopyButton();
 		obj.setupTabs();
-		obj.IframeZendeskClickHandler();
+		obj.IframeSupportChatClickHandler();
 		obj.IframeRender();
 	};
 
@@ -52,27 +52,24 @@ tribe.helpPage = tribe.helpPage || {};
 	};
 
 	/**
-	 * Event listener callback for sending messages, to open Zendesk chat.
-	 * Triggers when the specified trigger element is clicked.
+	 * Event listener callback for sending messages to open support chat in the iframe.
+	 * For legacy support, this sends a postMessage with action 'runScript' and data 'openZendesk'.
 	 *
 	 * @param {Event} event - The click event object.
 	 */
-	obj.openZendeskInIframe = ( event ) => {
+	obj.openSupportChatInIframe = ( event ) => {
 		event.preventDefault();
-
-		// Example message to send to the iframe.
+		// For legacy support, keep the message as 'openZendesk'
 		const message = { action: 'runScript', data: 'openZendesk' };
-
-		// Send the message to the iframe.
 		obj.sendMessageToIframe( message );
 	};
 
-	obj.IframeZendeskClickHandler = () => {
+	obj.IframeSupportChatClickHandler = () => {
 		const openSupportChatElement = document.querySelector( obj.selectors.openSupportChat );
 
 		// Check if the element exists before adding the event listener
 		if ( openSupportChatElement ) {
-			openSupportChatElement.addEventListener( 'click', ( event ) => obj.openZendeskInIframe( event ) );
+			openSupportChatElement.addEventListener( 'click', ( event ) => obj.openSupportChatInIframe( event ) );
 		}
 	};
 
@@ -212,7 +209,7 @@ tribe.helpPage = tribe.helpPage || {};
 			? document.getElementById( currentTab.getAttribute( 'data-tab-target' ) )
 			: null;
 
-		// Update modal button span text to the active tab’s text by default.
+		// Update modal button span text to the active tab's text by default.
 		if ( currentTab ) {
 			const tabText = currentTab.querySelector( obj.selectors.navLinkText ).textContent.trim();
 			const modalButtonSpan = document.querySelector( obj.selectors.modalButtonSpan );
