@@ -80,7 +80,7 @@
     "zero-fill": "^2.2.3"
   },
   "devDependencies": {
-    "@stellarwp/tyson": "^0.0.10",
+    "@stellarwp/tyson": "*",
     "@wordpress/date": "^5.23.0",
     "@wordpress/hooks": "^1.3.2",
     "@wordpress/scripts": "^30.14.1",
