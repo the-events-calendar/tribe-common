@@ -1,5 +1,16 @@
 <?php
 /**
+ * @deprecated 6.8.0 This template is deprecated. The functionality has been moved to the Section_Builder class.
+ *             See TEC\Events\Admin\Help_Hub\TEC_Hub_Resource_Data for the new implementation.
+ */
+
+_deprecated_file(
+	esc_html( basename( __FILE__ ) ),
+	'6.8.0',
+	'',
+	'This template is deprecated. The functionality has been moved to the Section_Builder class.'
+);
+/**
  * The template that displays the resources tab on the help page.
  *
  * @var Tribe__Main $main             The main common object.

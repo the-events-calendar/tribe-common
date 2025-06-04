@@ -13,6 +13,7 @@ namespace TEC\Common\Admin\Help_Hub;
 
 use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
 use RuntimeException;
+use TEC\Common\Admin\Help_Hub\Section_Builder\Section_Helper;
 use TEC\Common\StellarWP\AdminNotices\AdminNotice;
 use TEC\Common\StellarWP\AdminNotices\AdminNotices;
 use Tribe__Main;
@@ -28,6 +29,15 @@ use TEC\Common\Configuration\Configuration;
  * @package TEC\Common\Admin\Help_Hub
  */
 class Hub {
+
+	/**
+	 * The Help Hub page slug.
+	 *
+	 * @since 6.3.2
+	 *
+	 * @var string
+	 */
+	const IFRAME_PAGE_SLUG = 'tec-help-hub';
 
 	/**
 	 * Data object implementing Help_Hub_Data_Interface, providing necessary Help Hub resources.
@@ -68,10 +78,29 @@ class Hub {
 	public function __construct( Help_Hub_Data_Interface $data, Configuration $config, Tribe__Template $template ) {
 		$this->config   = $config;
 		$this->template = $template;
-		$this->data     = $data;
+		$this->set_data( $data );
 
 		$this->setup_support_keys();
 		$this->register_hooks();
+	}
+
+	/**
+	 * Sets or replaces the Help Hub data object.
+	 *
+	 * This method assigns the provided data instance to the Hub. It may be called multiple times,
+	 * such as during construction or later via a hook (e.g., `tec_help_hub_before_iframe_render`)
+	 * to override an initial default.
+	 *
+	 * This method will overwrite any previously set data instance.
+	 *
+	 * @since 6.8.0
+	 *
+	 * @param Help_Hub_Data_Interface $data The Help Hub data instance to use.
+	 *
+	 * @return void
+	 */
+	public function set_data( Help_Hub_Data_Interface $data ) {
+		$this->data = $data;
 	}
 
 	/**
@@ -106,6 +135,12 @@ class Hub {
 	 * @return Help_Hub_Data_Interface The data object containing Help Hub resources.
 	 */
 	public function get_data(): Help_Hub_Data_Interface {
+		if ( $this->data ) {
+			$this->data->initialize();
+			return $this->data;
+		}
+
+		$this->ensure_data_is_set();
 		return $this->data;
 	}
 
@@ -123,24 +158,55 @@ class Hub {
 		add_action( 'admin_init', [ $this, 'generate_iframe_content' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'load_assets' ], 1 );
 		add_filter( 'admin_body_class', [ $this, 'add_help_page_body_class' ] );
+		add_action( 'admin_menu', [ $this, 'register_hidden_page' ], 999 );
+	}
+
+	/**
+	 * Registers the hidden admin page for the Help Hub.
+	 *
+	 * @since 6.8.0
+	 *
+	 * @return void
+	 */
+	public function register_hidden_page(): void {
+		add_submenu_page(
+			null, // Make the page hidden.
+			__( 'Help Hub', 'tribe-common' ),
+			__( 'Help Hub', 'tribe-common' ),
+			'manage_options',
+			self::IFRAME_PAGE_SLUG,
+			[ $this, 'render' ]
+		);
 	}
 
 	/**
 	 * Ensures that the Help Hub data object is set.
 	 *
-	 * Verifies that the $data property has been set. Throws a RuntimeException
-	 * if the data has not been set using the setup method.
+	 * This should be called before rendering or accessing data-dependent methods.
+	 * It expects that the data has been injected either via constructor or through a hook.
 	 *
 	 * @since 6.3.2
+	 * @since 6.8.0 Refactored.
+	 *
+	 * @throws RuntimeException If the data has not been set by the time this method runs.
 	 *
 	 * @return void
-	 * @throws RuntimeException If data has not been set using setup.
 	 */
 	protected function ensure_data_is_set(): void {
-		if ( empty( $this->data ) ) {
-			throw new RuntimeException( 'The HelpHub data must be set using the setup method before calling this function.' );
+		if ( isset( $this->data ) && $this->data instanceof Help_Hub_Data_Interface ) {
+			$this->data->initialize();
+			return;
 		}
+
+		$page = tribe_get_request_var( 'page' );
+		throw new RuntimeException(
+			sprintf(
+				'Help Hub data was not set for page [%s]. Ensure your resource data class calls $hub->set_data() before render.',
+				esc_html( $page )
+			)
+		);
 	}
+
 
 	/**
 	 * Renders the Help Hub page.
@@ -149,8 +215,8 @@ class Hub {
 	 *
 	 * @since 6.3.2
 	 *
-	 * @return void
 	 * @throws RuntimeException If data is not set using the setup method before rendering.
+	 * @return void
 	 */
 	public function render(): void {
 		$this->ensure_data_is_set();
@@ -169,11 +235,38 @@ class Hub {
 		$status           = $this->get_license_and_opt_in_status();
 		$template_variant = self::get_template_variant( $status['has_valid_license'], $status['is_opted_in'] );
 
-		$this->render_template(
-			'help-hub',
+		// Build the tabs.
+		$builder = tribe( Tab_Builder::class );
+
+		$builder::make(
+			'tec-help-tab',
+			__( 'Support Hub', 'tribe-common' ),
+			'tec-help-tab',
+			'help-hub/support/support-hub'
+		)
+			->set_class( 'tec-nav__tab--active' )
+			->build();
+
+		$builder::make(
+			'tec-resources-tab',
+			__( 'Resources', 'tribe-common' ),
+			'tec-resources-tab',
+			'help-hub/resources/resources',
+			[ 'sections' => $this->handle_resource_sections() ]
+		)
+			->build();
+
+		$template_args = wp_parse_args(
+			$builder->get_arguments(),
 			[
 				'template_variant' => $template_variant,
+				'tabs'             => $builder::get_all_tabs(),
 			]
+		);
+
+		$this->render_template(
+			'help-hub',
+			(array) $template_args
 		);
 
 		/**
@@ -199,34 +292,10 @@ class Hub {
 	 * @return array The filtered resource sections.
 	 */
 	public function handle_resource_sections(): array {
-		$sections        = $this->data->create_resource_sections();
-		$data_class_name = get_class( $this->data );
+		$sections = $this->data->create_resource_sections();
 
-		/**
-		 * Filter the Help Hub resource sections for a specific data class.
-		 *
-		 * This dynamic filter allows customization of the Help Hub resource sections specific
-		 * to a given data class, enabling more granular control over section customization.
-		 *
-		 * @since 6.3.2
-		 *
-		 * @param array                   $sections        The array of resource sections.
-		 * @param Help_Hub_Data_Interface $data            The data instance used for generating sections.
-		 */
-		$sections = apply_filters( "tec_help_hub_resource_sections_{$data_class_name}", $sections, $this->data );
-
-		/**
-		 * Filter the Help Hub resource sections.
-		 *
-		 * Allows customization of the Help Hub resource sections by other components.
-		 *
-		 * @since 6.3.2
-		 *
-		 * @param array                   $sections        The array of resource sections.
-		 * @param Help_Hub_Data_Interface $data            The data instance used for generating sections.
-		 * @param string                  $data_class_name The name of the data class.
-		 */
-		return apply_filters( 'tec_help_hub_resource_sections', $sections, $this->data, $data_class_name );
+		return Section_Helper::from_array( $sections, $this->data )
+			->to_array();
 	}
 
 	/**
@@ -235,7 +304,7 @@ class Hub {
 	 * @since 6.3.2
 	 *
 	 * @param bool $has_valid_license Whether the license is valid.
-	 * @param bool $is_opted_in      Whether the user has opted into telemetry.
+	 * @param bool $is_opted_in       Whether the user has opted into telemetry.
 	 *
 	 * @return string The template variant.
 	 */
@@ -262,6 +331,18 @@ class Hub {
 			'tribe_events_page_tec-events-help-hub',
 		];
 
+		/**
+		 * Filter the list of help pages.
+		 *
+		 * Allows extending the list of pages that are considered Help Hub pages.
+		 * Mainly used to enqueue assets on the Help Hub page.
+		 *
+		 * @since 6.8.0
+		 *
+		 * @param array $help_pages Array of page IDs that are considered Help Hub pages.
+		 */
+		$help_pages = (array) apply_filters( 'tec_help_hub_pages', $help_pages );
+
 		return in_array( $current_screen->id, $help_pages, true );
 	}
 
@@ -272,15 +353,18 @@ class Hub {
 	 * to customize or add additional classes via the `tec_help_hub_body_classes` filter.
 	 *
 	 * @since 6.3.2
+	 * @since 6.8.0 removed type hinting.
 	 *
 	 * @param string $classes Space-separated string of classes for the body tag.
 	 *
 	 * @return string Filtered list of classes.
 	 */
-	public function add_help_page_body_class( string $classes ): string {
+	public function add_help_page_body_class( $classes ) {
 		if ( ! self::is_current_page() ) {
 			return $classes;
 		}
+
+		$classes = (string) $classes;
 
 		// Default classes for Help Hub.
 		$default_classes = [ 'tribe-help', 'tec-help' ];
@@ -353,11 +437,12 @@ class Hub {
 	 * Generates a telemetry opt-in link.
 	 *
 	 * @since 6.3.2
+	 * @since 6.8.0 Added filter.
 	 *
 	 * @return string
 	 */
 	public static function get_telemetry_opt_in_link(): string {
-		return add_query_arg(
+		$default_url = add_query_arg(
 			[
 				'page'      => 'tec-events-settings',
 				'tab'       => 'general-debugging-tab',
@@ -365,22 +450,40 @@ class Hub {
 			],
 			admin_url( 'edit.php' )
 		);
+
+		/**
+		 * Filters the telemetry opt-in link.
+		 *
+		 * Allows customization of the link used for the telemetry opt-in location.
+		 *
+		 * @since 6.8.0
+		 *
+		 * @param string $default_url The default URL to the telemetry opt-in settings tab.
+		 * @param Hub $this The Hub instance.
+		 */
+		return apply_filters( 'tec_help_hub_telemetry_opt_in_link', $default_url );
 	}
 
 	/**
 	 * Generates and outputs iframe content when appropriate.
 	 *
 	 * @since 6.3.2
+	 * @since 6.8.0 Moved `tec_help_hub_before_iframe_render` to trigger sooner.
 	 *
-	 * @return void
 	 * @throws RuntimeException If data has not been set using setup.
+	 * @return void
 	 */
 	public function generate_iframe_content(): void {
-		$this->ensure_data_is_set();
-		$page   = tribe_get_request_var( 'page' );
-		$iframe = tribe_get_request_var( 'embedded_content' );
 
-		if ( empty( $page ) || 'tec-events-help-hub' !== $page || empty( $iframe ) ) {
+		$page          = tribe_get_request_var( 'page' );
+		$iframe        = (bool) tribe_get_request_var( 'embedded_content' );
+		$help_hub_page = tribe_get_request_var( 'help_hub' );
+
+		if (
+			empty( $page )
+			|| self::IFRAME_PAGE_SLUG !== $help_hub_page
+			|| ! $iframe
+		) {
 			return;
 		}
 
@@ -396,10 +499,14 @@ class Hub {
 		 */
 		do_action( 'tec_help_hub_before_iframe_render', $this );
 
-		$this->register_iframe_hooks();
+		$this->ensure_data_is_set();
 
+		define( 'IFRAME_REQUEST', true );
 		// phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
 		show_admin_bar( false );
+
+		$this->register_iframe_hooks();
+
 		$this->render_template( 'help-hub/support/iframe-content' );
 
 		/**

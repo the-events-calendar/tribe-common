@@ -47,16 +47,12 @@ window.DocsBotAI = window.DocsBotAI || {};
 							color: #000000 !important;
 						}
 
-						/* User message styling */
-						.docsbot-user-chat-message {
-							color: #000000 !important;
-						}
-
 						/* Header styling */
 						.docsbot-chat-header {
 							background-color: #ffffff !important;
-							color: #000000 !important;
 							border-bottom: solid 1px #C3C4C7;
+							color: #000000 !important;
+							padding: 10px 24px;
 						}
 
 						/* Header content styling */
@@ -65,11 +61,6 @@ window.DocsBotAI = window.DocsBotAI || {};
 						}
 						.docsbot-chat-header-content span {
 							display: none;
-						}
-
-						/* Header button positioning */
-						.docsbot-chat-header button {
-							top: 14px !important;
 						}
 
 						/* Suggested questions container styling */
@@ -81,6 +72,9 @@ window.DocsBotAI = window.DocsBotAI || {};
 						}
 						.docsbot-chat-suggested-questions-container span {
 							color: #000000 !important;
+						}
+						.docsbot-user-chat-message {
+							background-color: #0057C7;
 						}
 					`;
 

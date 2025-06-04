@@ -1,5 +1,15 @@
 == Changelog ==
 
+= [6.8.0] 2025-06-03 =
+
+* Feature - Introduced milliseconds methods and improved Custom Table methods, as part of supporting ET's Square integration. [ET-2383]
+* Tweak - Added actions: `tec_common_settings_manager_pre_set_options`, `tec_common_settings_manager_post_set_options`, `tec_common_settings_manager_set_option`, `tec_common_settings_manager_remove_option`
+* Tweak - Added filters: `tec_help_hub_pages`, `tec_help_hub_telemetry_opt_in_link`, `tec_help_hub_section_{$this->slug}_item`, `tec_help_hub_section_{$this->slug}_items`, `tec_help_hub_section_{$this->slug}`, `tec_help_hub_section`, `tec_help_hub_tab_{$this->id}`, `tec_common_country_list`, `tec_repository_schema_{$this->filter_name}`, `tec_repository_schema`, `tec_common_settings_manager_set_option`, `tec_help_hub_header_logo_src`, `tec_help_hub_header_logo_alt`, `tec_help_hub_resources_title`
+* Tweak - Implemented new functionality to Help Hub to make it more extensible. [ET-2375]
+* Tweak - Refactored Help Hub to improve extensibility and testing capabilities. [ET-2375]
+* Tweak - Removed filters: `tec_country_list`
+* Language - 4 new strings added, 51 updated, 2 fuzzied, and 1 obsoleted.
+
 = [6.7.1] 2025-05-27 =
 
 * Fix - Ensures symbolic links are followed on Assets Group Paths. [TCMN-187]

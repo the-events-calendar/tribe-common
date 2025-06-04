@@ -12,6 +12,8 @@
 
 namespace TEC\Common\Admin\Help_Hub;
 
+use TEC\Common\Admin\Help_Hub\Section_Builder\FAQ_Section_Builder;
+use TEC\Common\Admin\Help_Hub\Section_Builder\Link_Section_Builder;
 use TEC\Common\Contracts\Service_Provider;
 
 /**
@@ -37,7 +39,9 @@ class Provider extends Service_Provider {
 		// Register the provider instance as a singleton within the container.
 		$this->container->singleton( self::class, $this );
 		$this->container->bind( Hub::class );
-
+		$this->container->bind( Link_Section_Builder::class );
+		$this->container->bind( FAQ_Section_Builder::class );
+		$this->container->bind( Tab_Builder::class );
 		/**
 		 * Fires when the provider is registered.
 		 *
