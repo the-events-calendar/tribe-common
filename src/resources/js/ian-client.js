@@ -28,7 +28,7 @@
 			Ian.close = document.querySelector('[data-tec-ian-trigger="closeIan"]');
 			Ian.empty = document.querySelector('[data-tec-ian-trigger="emptyIan"]');
 			Ian.loader = document.querySelector('[data-tec-ian-trigger="loaderIan"]');
-			Ian.consent = Ian.notifications ? Ian.notifications.dataset.consent : null;
+			Ian.consent = Ian.notifications?.dataset?.consent ?? null;
 
 			calculateSidebarPosition();
 
