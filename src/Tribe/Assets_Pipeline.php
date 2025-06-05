@@ -5,6 +5,8 @@
  *
  * @since 4.7.7
  */
+
+use Tribe__Main;
 class Tribe__Assets_Pipeline {
 
 	/**
@@ -34,9 +36,10 @@ class Tribe__Assets_Pipeline {
 		}
 
 		if ( 'underscore' === $handle ) {
-			$tag = "<script src='build/js/underscore-before.js'></script>\n"
+			$path = Tribe__Main::instance()->plugin_path;
+			$tag = "<script src='{$path}build/js/underscore-before.js'></script>\n"
 				. $tag
-				. "<script src='build/js/underscore-after.js'></script>\n";
+				. "<script src='{$path}build/js/underscore-after.js'></script>\n";
 		}
 
 		return $tag;
@@ -62,7 +65,8 @@ class Tribe__Assets_Pipeline {
 			return $tag;
 		}
 
-		$tag .= "<script src='build/js/select2-after.js'></script>\n";
+		$path = Tribe__Main::instance()->plugin_path;
+		$tag .= "<script src='{$path}build/js/select2-after.js'></script>\n";
 
 		return $tag;
 	}
