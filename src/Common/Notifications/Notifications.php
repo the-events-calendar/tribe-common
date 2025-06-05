@@ -265,7 +265,7 @@ final class Notifications {
 			return;
 		}
 
-		$unread = json_decode( stripslashes( tec_get_request_var( 'unread' ) ), true );
+		$unread = json_decode( stripslashes( tec_get_request_var( 'unread', '' ) ), true );
 
 		foreach ( $unread as $slug ) {
 			$this->slug = $slug;
