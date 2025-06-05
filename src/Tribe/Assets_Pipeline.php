@@ -6,7 +6,6 @@
  * @since 4.7.7
  */
 
-use Tribe__Main;
 class Tribe__Assets_Pipeline {
 
 	/**
