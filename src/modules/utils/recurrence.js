@@ -14,9 +14,18 @@ export const hasRecurrenceRules = ( state ) => {
 	try {
 		const pluginOffset = plugins.constants.EVENTS_PRO_PLUGIN;
 		const globalObject = window.tribe?.[ pluginOffset ] || window.tec?.[ pluginOffset ]?.app?.main;
-		return globalObject.data?.blocks?.recurring?.selectors?.hasRules( state );
+		if ( ! globalObject ) {
+			return false;
+		}
+
+		const selectors = globalObject.data?.blocks?.recurring?.selectors;
+		if ( ! selectors ) {
+			return false;
+		}
+
+		return selectors.hasRules( state );
 	} catch ( e ) {
-		console.warn( e );
+		console.error( e );
 		return false;
 	}
 };
