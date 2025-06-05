@@ -34,9 +34,9 @@ class Tribe__Assets_Pipeline {
 		}
 
 		if ( 'underscore' === $handle ) {
-			$tag  = "<script src='build/js/underscore-before.js'></script>\n"
-			       . $tag
-			       . "<script src='build/js/underscore-after.js'></script>\n";
+			$tag = "<script src='build/js/underscore-before.js'></script>\n"
+				. $tag
+				. "<script src='build/js/underscore-after.js'></script>\n";
 		}
 
 		return $tag;
