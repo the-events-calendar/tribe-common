@@ -110,7 +110,12 @@ class Controller extends Controller_Contract {
 	 * @return bool
 	 */
 	public function is_ian_page() {
-		$screen  = get_current_screen();
+		$screen = get_current_screen();
+		
+		if ( ! $screen ) {
+			return false;
+		}
+		
 		$allowed = [];
 
 		/**

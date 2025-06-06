@@ -75,6 +75,15 @@ abstract class Abstract_Admin_Page {
 	public static bool $has_header = true;
 
 	/**
+	 * Whether the page has a logo.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	public static bool $has_logo = true;
+
+	/**
 	 * Whether the page has a sidebar.
 	 *
 	 * @since 6.4.1
@@ -91,15 +100,6 @@ abstract class Abstract_Admin_Page {
 	 * @var bool
 	 */
 	public static bool $has_footer = false;
-
-	/**
-	 * Whether the page has a logo.
-	 *
-	 * @since 6.7.0
-	 *
-	 * @var bool
-	 */
-	public static bool $has_logo = true;
 
 	/**
 	 * Add the settings page.
@@ -163,13 +163,11 @@ abstract class Abstract_Admin_Page {
 	 * @return string The page slug.
 	 */
 	public static function get_page_slug(): string {
-		if ( ! empty( static::$page_slug ) && static::$page_slug === static::$slug ) {
+		if ( ! empty( static::$page_slug ) ) {
 			return static::$page_slug;
 		}
 
-		static::$page_slug = static::$slug;
-
-		return static::$page_slug;
+		return static::$slug;
 	}
 
 	/**
@@ -181,7 +179,7 @@ abstract class Abstract_Admin_Page {
 	 */
 	public function get_page_type(): string {
 		// Defined in the traits, or redefined in an extending class.
-		return static::$page_type;
+		return static::$page_type ?? '';
 	}
 
 	/**
@@ -289,8 +287,12 @@ abstract class Abstract_Admin_Page {
 	 * Get the menu position of the page.
 	 *
 	 * @since 6.4.1
+	 *
+	 * @since TBD Updated the return type to be null|int|float, to avoid php 8+ deprecation warnings.
+	 *
+	 * @return null|int|float The menu position of the page.
 	 */
-	public function get_position(): ?int {
+	public function get_position() {
 		return $this->menu_position ?? null;
 	}
 
@@ -458,20 +460,23 @@ abstract class Abstract_Admin_Page {
 	 * @return void Renders the admin page header.
 	 */
 	public function admin_page_header(): void {
-		if ( ! static::$has_header ) {
-			return;
-		}
-
 		?>
-			<header id="tec-admin-page-header" <?php tec_classes( $this->header_classes() ); ?>>
-				<?php $this->do_page_logo(); ?>
-				<?php do_action( 'tec_admin_header_before_title' ); ?>
-				<?php $this->admin_page_title(); ?>
-				<?php do_action( 'tec_admin_header_after_title' ); ?>
-				<?php if ( tribe( IAN_Controller::class )->is_ian_page() ) : ?>
+			<header id="tec-admin-page-header" <?php tribe_classes( $this->header_classes() ); ?>>
+				<?php
+				if ( static::$has_header && static::$has_logo ) {
+					// "Simple" pages don't show the logo.
+					$this->do_page_logo();
+				}
+				do_action( 'tec_admin_header_before_title' );
+				$this->admin_page_title();
+				do_action( 'tec_admin_header_after_title' );
+				
+				if ( tribe( IAN_Controller::class )->is_ian_page() ) :
+					?>
 					<div class="ian-client" data-tec-ian-trigger="iconIan"></div>
 				<?php endif; ?>
 			</header>
+		
 		<?php
 	}
 
@@ -485,7 +490,7 @@ abstract class Abstract_Admin_Page {
 	 */
 	public function admin_page_title(): void {
 		?>
-			<h1 class="tec-admin-page__header-title"><?php esc_html_e( 'The Events Calendar', 'tribe-common' ); ?></h1>
+			<h1 class="tec-admin__header-title"><?php echo esc_html( $this->get_the_page_title() ); ?></h1>
 		<?php
 	}
 
