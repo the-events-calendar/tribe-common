@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [6.8.0.1] 2025-06-05 =
+
+* Fix - Correct some hardcoded asset paths. [TEC-5523]
+* Fix - Utilize the newer version of our build process to ensure inline svgs are being handled properly. [TCMN-188]
+
 = [6.8.0] 2025-06-03 =
 
 * Feature - Introduced milliseconds methods and improved Custom Table methods, as part of supporting ET's Square integration. [ET-2383]
