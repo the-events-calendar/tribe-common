@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [6.8.0.1] 2025-06-06 =
+= [6.8.0.1] 2025-06-05 =
 
 * Fix - Correct some hardcoded asset paths. [TEC-5523]
 * Fix - Utilize the newer version of our build process to ensure inline svgs are being handled properly. [TCMN-188]
