@@ -1,8 +1,10 @@
+import { Currency } from './Currency';
 import { Hours } from './Hours';
 import { Minutes } from './Minutes';
 import { StartOfWeek } from './StartOfWeek';
 
 export type Settings = {
+	defaultCurrency: Currency;
 	timezoneString: string;
 	timezoneChoice: string;
 	startOfWeek: StartOfWeek;
