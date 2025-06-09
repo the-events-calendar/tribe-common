@@ -6,14 +6,14 @@
 /**
  * Handles common AJAX operations.
  *
- * @since  4.6
+ * @since 4.6
  */
 class Tribe__Ajax__Dropdown { // phpcs:ignore-next-line  PEAR.NamingConventions.ValidClassName.Invalid
 
 	/**
 	 * Hooks the AJAX for Select2 Dropdowns
 	 *
-	 * @since  4.6
+	 * @since 4.6
 	 *
 	 * @return void
 	 */
@@ -25,7 +25,7 @@ class Tribe__Ajax__Dropdown { // phpcs:ignore-next-line  PEAR.NamingConventions.
 	/**
 	 * Search for Terms using Select2
 	 *
-	 * @since  4.6
+	 * @since 4.6
 	 *
 	 * @param string|array<string|mixed> $search Search string from Select2.
 	 * @param int                        $page   When we deal with pagination.
@@ -104,7 +104,7 @@ class Tribe__Ajax__Dropdown { // phpcs:ignore-next-line  PEAR.NamingConventions.
 	/**
 	 * Search for Posts using Select2
 	 *
-	 * @since  4.12.17
+	 * @since 4.12.17
 	 *
 	 * @param string|array<string,mixed> $search   Search string from Select2.
 	 * @param int                        $page     Page we want when we're dealing with pagination.
@@ -181,7 +181,7 @@ class Tribe__Ajax__Dropdown { // phpcs:ignore-next-line  PEAR.NamingConventions.
 	/**
 	 * Sorts all the Terms for Select2 hierarchically.
 	 *
-	 * @since  4.6
+	 * @since 4.6
 	 *
 	 * @param array<int|object>   $terms  Array of Terms from `get_terms`.
 	 * @param array<string|mixed> $into   Variable where we will store the.
@@ -208,7 +208,7 @@ class Tribe__Ajax__Dropdown { // phpcs:ignore-next-line  PEAR.NamingConventions.
 	/**
 	 * Makes sure we have arrays for the JS data for Select2
 	 *
-	 * @since  4.6
+	 * @since 4.6
 	 *
 	 * @param object|array<string|mixed> $results The Select2 results.
 	 *
@@ -236,7 +236,7 @@ class Tribe__Ajax__Dropdown { // phpcs:ignore-next-line  PEAR.NamingConventions.
 	/**
 	 * Parses the Params coming from Select2 Search box.
 	 *
-	 * @since  4.6
+	 * @since 4.6
 	 * @since 5.1.17 Added an allow list of params to restrict the shape of the database queries.
 	 *
 	 * @param array<string|mixed> $params Params to overwrite the defaults.
@@ -266,7 +266,7 @@ class Tribe__Ajax__Dropdown { // phpcs:ignore-next-line  PEAR.NamingConventions.
 	 * The default Method that will route all the AJAX calls from our Dropdown AJAX requests
 	 * It is like a Catch All on `wp_ajax_tribe_dropdown` and `wp_ajax_nopriv_tribe_dropdown`
 	 *
-	 * @since  4.6
+	 * @since 4.6
 	 * @since 5.1.17 Adding more sanitization to the request params.
 	 *
 	 * @return void
@@ -327,7 +327,7 @@ class Tribe__Ajax__Dropdown { // phpcs:ignore-next-line  PEAR.NamingConventions.
 	/**
 	 * Prints an error message and ensures that we don't hit bugs on Select2
 	 *
-	 * @since  4.6
+	 * @since 4.6
 	 *
 	 * @param string $message The error message.
 	 *
@@ -345,7 +345,7 @@ class Tribe__Ajax__Dropdown { // phpcs:ignore-next-line  PEAR.NamingConventions.
 	/**
 	 * Avoid throwing fatals or notices on sources that are invalid
 	 *
-	 * @since  4.6
+	 * @since 4.6
 	 *
 	 * @param string $name      The name of the method.
 	 * @param mixed  $arguments The arguments passed to the method.

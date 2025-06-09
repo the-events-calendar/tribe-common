@@ -7,7 +7,7 @@ use RuntimeException;
 /**
  * Class Container_Exception.
  *
- * @since   5.1.1.2
+ * @since 5.1.1.2
  *
  * @package TEC\Common\Exceptions
  */

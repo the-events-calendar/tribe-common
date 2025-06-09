@@ -203,7 +203,7 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 		/**
 		 * Sanitize a multidimensional array.
 		 *
-		 * @since   4.7.18
+		 * @since 4.7.18
 		 *
 		 * @param array $data The array to sanitize.
 		 *

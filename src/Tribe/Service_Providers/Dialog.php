@@ -56,7 +56,7 @@ class Dialog extends Service_Provider {
 	/**
 	  * {@inheritdoc}
 	 *
-	 * @since  4.10.0
+	 * @since 4.10.0
 	 */
 	public function template_public_namespace( $namespace, $obj ) {
 		if ( ! empty( $obj->template_namespace ) && 'dialog' === $obj->template_namespace ) {

@@ -353,7 +353,7 @@ class Tribe__Rewrite {
 	/**
 	 * A way to replace an Array key without destroying the array ordering
 	 *
-	 * @since  4.0.6
+	 * @since 4.0.6
 	 *
 	 * @param array  &$array   The Rules Array should be used here
 	 * @param string  $search  Search for this Key
@@ -671,7 +671,7 @@ class Tribe__Rewrite {
 		/**
 		 * Filters the list of rewrite rules handled by our code to add or remove some as required.
 		 *
-		 * @since  4.9.18
+		 * @since 4.9.18
 		 *
 		 * @param array                $our_rules An array of rewrite rules handled by our code, in the shape
 		 *                                        `[ <rewrite_rule_regex_pattern> => <query_string> ]`.
@@ -900,7 +900,7 @@ class Tribe__Rewrite {
 	 * Most of this functionality was copied from `WP::parse_request()` method
 	 * with some changes to avoid conflicts and removing non-required behaviors.
 	 *
-	 * @since  4.9.11
+	 * @since 4.9.11
 	 *
 	 * @param string $url              The URLto parse.
 	 * @param array  $extra_query_vars An associative array of extra query vars to use for the parsing. These vars will

@@ -2,7 +2,7 @@
 /**
  * Handles admin conditional content.
  *
- * @since   4.14.7
+ * @since 4.14.7
  * @package Tribe\Admin\Conditional_Content;
  */
 

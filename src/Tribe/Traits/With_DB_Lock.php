@@ -2,7 +2,7 @@
 /**
  * Provides methods to acquire and release a database (SQL) lock using the `Tribe\DB_Lock` class.
  *
- * @since   4.12.6
+ * @since 4.12.6
  *
  * @package Tribe\Traits
  */
@@ -12,7 +12,7 @@ namespace Tribe\Traits;
 /**
  * Trait With_Db_Lock
  *
- * @since   4.12.6
+ * @since 4.12.6
  *
  * @package Tribe\Traits
  */

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class with a few helpers for the Administration Pages
  *
- * @since  4.0
+ * @since 4.0
  * @deprecated 6.3.2 This class is deprecated. Use \TEC\Common\Admin\Help_Hub\Hub instead.
  */
 class Tribe__Admin__Help_Page {
@@ -123,7 +123,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Register the Admin assets for the help page
 	 *
-	 * @since  4.9.12
+	 * @since 4.9.12
 	 *
 	 * @return void
 	 */
@@ -156,7 +156,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Get the list of plugins
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @param  string  $plugin_name    If we should get only one plugin.
 	 * @param  boolean $is_active If we only get active plugins.
@@ -249,7 +249,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Get the formatted links of the possible plugins
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @param  boolean $is_active Filter only active plugins.
 	 * @return array
@@ -268,7 +268,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Get the formatted text of the possible plugins
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @param  boolean $is_active Filter only active plugins.
 	 * @return string
@@ -300,7 +300,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Get the Addons
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @param  string $plugin Plugin Name to filter.
 	 * @param  string $is_active Filter if it's active.
@@ -422,7 +422,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Check if a Plugin is active
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @param  string|array $should_be_active The Plugin Name or an array of Plugin Names.
 	 *
@@ -447,7 +447,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * From a Given link returns it with a GA arguments
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @param  string  $link     An absolute or a Relative link.
 	 * @param  boolean $relative Is the Link absolute or relative.
@@ -470,7 +470,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Gets the Feed items from The Events Calendar's Blog
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @return array Feed Title and Link.
 	 */
@@ -503,7 +503,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Get the information from the Plugin API data
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @param  object $plugin Plugin Object to be used.
 	 * @return object         An object with the API data.
@@ -571,7 +571,7 @@ class Tribe__Admin__Help_Page {
 	 * It is the responsibility of code calling this function to ensure proper escaping
 	 * within any HTML.
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @param  string|array $mixed The mixed value to create the HTML from
 	 * @return string
@@ -672,7 +672,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Adds a new section to the Help Page
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @param string  $id       HTML like ID.
 	 * @param string  $title    The Title of the section, doesn't allow HTML.
@@ -721,7 +721,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Add a New content Item to a Help page Section
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @param string       $section_id Which section this content should be assigned to.
 	 * @param string|array $content    Item text or array of items, will be passed to `$this->get_content_html`.
@@ -809,7 +809,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Based on an Array of sections it render the Help Page contents
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @param  boolean $print    Return or Print the HTML after.
 	 * @return void|string
@@ -891,7 +891,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Prints the Plugin box for the given plugin
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @param  string $plugin Plugin Name key.
 	 * @return void

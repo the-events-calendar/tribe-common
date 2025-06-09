@@ -2,7 +2,7 @@
 /**
  * Handles Telemetry setup and actions.
  *
- * @since   5.1.0
+ * @since 5.1.0
  *
  * @package TEC\Common\Telemetry
  */
@@ -19,7 +19,7 @@ use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Subscriber;
 /**
  * Class Telemetry
  *
- * @since   5.1.0
+ * @since 5.1.0
 
  * @package TEC\Common\Telemetry
  */

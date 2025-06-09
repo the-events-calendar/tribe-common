@@ -92,7 +92,7 @@ function tribe_get_attributes() {
 /**
  * Parse input values into a valid html attributes to be used in the templates.
  *
- * @since  4.12.3
+ * @since 4.12.3
  *
  * @param  mixed $attributes,... unlimited Any amount of params to be rendered as attributes.
  *

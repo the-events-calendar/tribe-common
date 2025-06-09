@@ -4,14 +4,14 @@ _deprecated_file( __FILE__, '5.1.0', 'No direct replacement, we now use StellarW
 /**
  * Class Tribe__Freemius
  *
- * @since     4.9.5
+ * @since 4.9.5
  * @depecated 5.1.0
  */
 class Tribe__Freemius {
 	/**
 	 * Store all instances of Freemius that we would use
 	 *
-	 * @since     4.9.5
+	 * @since 4.9.5
 	 * @depecated 5.1.0
 	 *
 	 * @var  array
@@ -23,7 +23,7 @@ class Tribe__Freemius {
 	 *
 	 * Freemius class should only be loaded once since it will be registered as a Singleton.
 	 *
-	 * @since     4.9.5
+	 * @since 4.9.5
 	 * @depecated 5.1.0
 	 */
 	public function __construct() {
@@ -33,7 +33,7 @@ class Tribe__Freemius {
 	/**
 	 * Initialize the Fremius instance using their methods
 	 *
-	 * @since     4.9.5
+	 * @since 4.9.5
 	 * @depecated 5.1.0
 	 *
 	 * @param string $slug Slug of the plugin

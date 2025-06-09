@@ -5,7 +5,7 @@ namespace Tribe\Widget;
 /**
  * Interface Widget_Interface
  *
- * @since   4.12.12
+ * @since 4.12.12
  *
  * @package Tribe\Widget
  *

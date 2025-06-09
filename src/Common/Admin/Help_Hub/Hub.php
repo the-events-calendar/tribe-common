@@ -5,7 +5,7 @@
  * This class handles rendering the Help Hub page, loading necessary assets,
  * and generating iframes and admin notices related to the Help Hub.
  *
- * @since   6.3.2
+ * @since 6.3.2
  * @package TEC\Common\Admin\Help_Hub
  */
 

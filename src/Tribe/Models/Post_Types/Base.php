@@ -2,7 +2,7 @@
 /**
  * The base, abstract, class modeling a post.
  *
- * @since   4.9.18
+ * @since 4.9.18
  *
  * @package Tribe\Models\Post_Types
  */
@@ -16,7 +16,7 @@ use Tribe__Cache_Listener as Cache_Listener;
 /**
  * Class Base
  *
- * @since   4.9.18
+ * @since 4.9.18
  *
  * @package Tribe\Models\Post_Types
  */

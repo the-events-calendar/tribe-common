@@ -2,7 +2,7 @@
 /**
  * Provides methods useful to deal with meta updates.
  *
- * @since   4.12.6
+ * @since 4.12.6
  *
  * @package Tribe\Traits
  */
@@ -12,7 +12,7 @@ namespace Tribe\Traits;
 /**
  * Trait With_Meta_Updates_Handling
  *
- * @since   4.12.6
+ * @since 4.12.6
  *
  * @package Tribe\Traits
  */

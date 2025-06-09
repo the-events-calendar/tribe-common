@@ -391,7 +391,7 @@ if ( ! function_exists( 'tribe_sort_by_priority' ) ) {
 	/**
 	 * Sorting function based on Priority
 	 *
-	 * @since  4.7.20
+	 * @since 4.7.20
 	 *
 	 * @param object|array $b Second subject to compare
 	 *

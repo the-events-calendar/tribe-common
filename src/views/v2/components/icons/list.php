@@ -13,7 +13,7 @@
  *                             If not empty, the first is used for the clip path IDs.
  *
  * @version 4.12.14
- * @since   4.14.7     Prevent duplicate IDs.
+ * @since 4.14.7     Prevent duplicate IDs.
  *
  */
 $svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--list' ];

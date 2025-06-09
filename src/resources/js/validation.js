@@ -1,7 +1,7 @@
 /**
  * Configures this Object in the Global Tribe variable
  *
- * @since  4.7
+ * @since 4.7
  *
  * @type   {Object}
  */
@@ -16,7 +16,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Object containing all the selectors for Validation
 	 *
-	 * @since  4.7.1
+	 * @since 4.7.1
 	 *
 	 * @type   {Object}
 	 */
@@ -36,7 +36,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Object containing all the conditions for the Fields
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @type   {Object}
 	 */
@@ -123,7 +123,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Object containing types of fields supported
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @type   {Object}
 	 */
@@ -179,7 +179,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	 * Parses the Condition for all the types of conditional and returns a
 	 * better state of Value and Contraint based on the rules for each
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @type   {Function}
 	 *
@@ -226,7 +226,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Object containing all the constraints for the Fields
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @type   {Object}
 	 */
@@ -341,7 +341,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * FN (prototype) method from jQuery
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @type   {Function}
 	 */
@@ -352,7 +352,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Configures a Single Form for validation
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @param {int} i    Field Index
 	 * @param {DOM} item DOM element for the item
@@ -387,7 +387,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Validates a single Field
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @param {int} index Field Index
 	 * @param       field
@@ -411,7 +411,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Validates a single Field
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @param {Object} $field jQuery Object for the field
 	 *
@@ -433,7 +433,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Validates if a given Section has Errors
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @param          $item
 	 * @param {Object} $field jQuery Object for the Section been validated
@@ -449,7 +449,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Gets which constrains have Passed.
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @param {Object} $field jQuery Object for the field.
 	 *
@@ -483,7 +483,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Gets which constraint have valid values.
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @param {Object} $field Object with all the values for the constraints of a field.
 	 *
@@ -517,7 +517,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Gets which jQuery objects are related to a fields constraints
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @param {Object} $field jQuery Object for the fields
 	 *
@@ -558,7 +558,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Actually does the validation for the Form
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @param {Object} event JQuery Event
 	 *
@@ -590,7 +590,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Fired on `displayErrors` for a validation form
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @param {Object} event JQuery Event
 	 *
@@ -656,7 +656,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Validates a single Field.
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @param {string} message Message to be Attached.
 	 * @param {Object} $field  jQuery Object for the field.
@@ -679,7 +679,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Hooks to the submit and if invalid prevents submit from completing.
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @param {Object} event JQuery Event.
 	 *
@@ -707,7 +707,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	 * only happens on the Field, which prevents us to use it on
 	 * the ones that are created by JavaScript Templates.
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @uses   obj.onInvalidField
 	 *
@@ -741,7 +741,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	 * Add a class to mark fields that are invalid and add an one time
 	 * event for these same fields to remove the class on `change`.
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @uses obj.onChangeFieldRemoveError
 	 *
@@ -769,7 +769,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Removes error class on fields after they change
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @param {Event} event JQuery Event.
 	 *
@@ -788,7 +788,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Removes the Notice.
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @param {Event} event JQuery Event.
 	 *
@@ -806,7 +806,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Initializes the Validation for the base items
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @param {Event} event JQuery Event.
 	 *
@@ -820,7 +820,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Configures the jQuery Setup of the Validation
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @return {void} No return.
 	 */
@@ -829,7 +829,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	/**
 	 * Attaches ready method to the On Ready of Document
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 */
 	$( obj.onReady );
 } )( window.tribe.validation, jQuery, window.underscore || window._ );

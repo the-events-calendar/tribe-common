@@ -7,7 +7,7 @@
  *
  * @see     https://dev.mysql.com/doc/refman/5.6/en/locking-functions.html#function_get-lock
  *
- * @since   4.12.6
+ * @since 4.12.6
  *
  * @package Tribe
  */
@@ -17,7 +17,7 @@ namespace Tribe;
 /**
  * Class DB_Lock
  *
- * @since   4.12.6
+ * @since 4.12.6
  *
  * @package Tribe
  */

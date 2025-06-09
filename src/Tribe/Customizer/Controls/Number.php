@@ -5,7 +5,7 @@
  * to ensure that the input is wrapped in <div class="customize-control-content">
  * so that it matches our other controls stylistically (spacing, etc).
  *
- * @since   4.12.13
+ * @since 4.12.13
  *
  * @package Tribe\Customizer\Controls
  */
@@ -17,7 +17,7 @@ use Tribe\Customizer\Control;
 /**
  * Class Number
  *
- * @since   4.12.13
+ * @since 4.12.13
  *
  * @package Tribe\Customizer\Controls
  */

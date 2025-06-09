@@ -180,7 +180,7 @@ class Tribe__Editor {
 		/**
 		 * Allow other addons to disable Classic Editor based on options.
 		 *
-		 * @since  4.8.5
+		 * @since 4.8.5
 		 * @deprecated 4.14.13
 		 *
 		 * @param bool $classic_is_active Whether the Classic Editor should be used.

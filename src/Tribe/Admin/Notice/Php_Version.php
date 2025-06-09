@@ -71,7 +71,7 @@ class Tribe__Admin__Notice__Php_Version {
 	 * We only want to display notices for users
 	 * who are in PHP < 5.6
 	 *
-	 * @since  4.7.16
+	 * @since 4.7.16
 	 *
 	 * @return boolean
 	 */
@@ -87,7 +87,7 @@ class Tribe__Admin__Notice__Php_Version {
 	/**
 	 * HTML for the PHP notice
 	 *
-	 * @since  4.7.16
+	 * @since 4.7.16
 	 *
 	 * @return string
 	 */

@@ -4,7 +4,7 @@
  *
  * This interface is the minimal one a repository should implement to be called such.
  *
- * @since   4.10.2
+ * @since 4.10.2
  *
  * @package Tribe\Repository
  */
@@ -18,7 +18,7 @@ use Generator;
 /**
  * Class Core_Read_Interface
  *
- * @since   4.10.2
+ * @since 4.10.2
  *
  * @package Tribe\Repository
  */

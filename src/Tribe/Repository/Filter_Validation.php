@@ -2,7 +2,7 @@
 /**
  * Provides methods to validate repository filters.
  *
- * @since   4.10.2
+ * @since 4.10.2
  *
  * @package Tribe\Repository
  */

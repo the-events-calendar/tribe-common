@@ -5,7 +5,7 @@
  * Note that the trait does not include a `is_a_custom_field` method as that's implied from a field not being
  * a post field and not being a taxonomy.
  *
- * @since   4.12.6
+ * @since 4.12.6
  *
  * @package Tribe\Traits
  */
@@ -15,7 +15,7 @@ namespace Tribe\Traits;
 /**
  * Trait With_Post_Attribute_Detection
  *
- * @since   4.12.6
+ * @since 4.12.6
  *
  * @package Tribe\Traits
  */

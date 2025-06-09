@@ -100,7 +100,7 @@ class Settings_Sidebar extends Section {
 	/**
 	 * Set the header image for the sidebar.
 	 *
-	 * @since      6.1.0
+	 * @since 6.1.0
 	 *
 	 * @deprecated 6.3.0
 	 *

@@ -112,7 +112,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Setup and Load hooks for this Section.
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @return Tribe__Customizer__Section
 	 */

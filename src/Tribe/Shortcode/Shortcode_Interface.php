@@ -7,7 +7,7 @@ namespace Tribe\Shortcode;
  *
  * @package Tribe\Shortcode
  *
- * @since   4.12.0
+ * @since 4.12.0
  */
 interface Shortcode_Interface {
 

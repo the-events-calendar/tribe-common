@@ -5,7 +5,7 @@
  * This interface defines methods that are required for classes supplying data to the Help Hub.
  * It specifies the methods needed to create resource sections, retrieve icon URLs, and obtain license and telemetry statuses.
  *
- * @since   6.3.2
+ * @since 6.3.2
  * @package TEC\Common\Admin\Help_Hub
  */
 

@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @since   1.4.0
+ * @since 1.4.0
  *
  * @version 1.4.0
  *

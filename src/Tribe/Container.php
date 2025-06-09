@@ -312,8 +312,8 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 		 * Returns a lambda function suitable to use as a callback; when called the function will build the implementation
 		 * bound to `$classOrInterface` and return the value of a call to `$method` method with the call arguments.
 		 *
-		 * @since  4.7
-		 * @since  4.6.2  Included the $argsN params
+		 * @since 4.7
+		 * @since 4.6.2  Included the $argsN params
 		 *
 		 * @param  string $slug       A class or interface fully qualified name or a string slug.
 		 * @param  string $method     The method that should be called on the resolved implementation with the
@@ -346,7 +346,7 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 		 *
 		 *      add_filter( 'admin_title', tribe_callback_return( __( 'Ready to work.' ) ) );
 		 *
-		 * @since  4.6.2
+		 * @since 4.6.2
 		 *
 		 * @param  mixed    $value  The value to be returned
 		 *

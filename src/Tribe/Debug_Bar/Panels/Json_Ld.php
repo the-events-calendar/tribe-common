@@ -2,7 +2,7 @@
 /**
  * JSON-LD information Debug Bar panel.
  *
- * @since   4.11.2
+ * @since 4.11.2
  *
  * @package Tribe\Debug_Bar\Panels
  */

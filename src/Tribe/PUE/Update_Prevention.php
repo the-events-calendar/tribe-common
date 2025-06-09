@@ -16,7 +16,7 @@ class Update_Prevention {
 	 * Fetches the dependencies based on a regular expression search of the Plugin_Register.php
 	 * file that we use to prevent problems with mismatched version on our plugins.
 	 *
-	 * @since  4.9.12
+	 * @since 4.9.12
 	 *
 	 * @param  string $content Contents of the file in question.
 	 *
@@ -38,7 +38,7 @@ class Update_Prevention {
 	 * Checks for the list of constants associate with plugin to make sure we are dealing
 	 * with a plugin owned by The Events Calendar.
 	 *
-	 * @since  4.9.12
+	 * @since 4.9.12
 	 *
 	 * @param  string $plugin Plugin file partial path, folder and main php file.
 	 *
@@ -77,7 +77,7 @@ class Update_Prevention {
 	/**
 	 * Filters the source file location for the upgrade package for the PUE Update_Prevention engine.
 	 *
-	 * @since  4.9.12
+	 * @since 4.9.12
 	 *
 	 * @param string      $source        File source location.
 	 * @param string      $remote_source Remote file source location.
@@ -148,7 +148,7 @@ class Update_Prevention {
 		/**
 		 * Filter the if we should prevent the update.
 		 *
-		 * @since  4.9.12
+		 * @since 4.9.12
 		 *
 		 * @param bool        $should_revent        Flag false to skip the prevention.
 		 * @param array       $incompatible_plugins Which plugins were incompatible with new version of the plugin.

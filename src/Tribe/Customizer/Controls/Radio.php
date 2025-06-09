@@ -2,7 +2,7 @@
 /**
  * Models a Customizer radio.
  *
- * @since   4.13.3
+ * @since 4.13.3
  *
  * @package Tribe\Customizer\Controls
  */
@@ -14,7 +14,7 @@ use Tribe\Customizer\Control;
 /**
  * Class Radio
  *
- * @since   4.13.3
+ * @since 4.13.3
  *
  * @package Tribe\Customizer\Controls
  */

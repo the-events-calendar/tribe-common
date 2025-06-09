@@ -2,7 +2,7 @@
 /**
  * ${CARET}
  *
- * @since   4.9.16
+ * @since 4.9.16
  *
  * @package Tribe\Log
  */

@@ -7,7 +7,7 @@ use TEC\Common\Contracts\Service_Provider;
 /**
  * Class Shortcode
  *
- * @since   4.12.0
+ * @since 4.12.0
  *
  * @package Tribe\Service_Providers
  */

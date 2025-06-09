@@ -444,7 +444,7 @@ class Tribe__Main {
 	/**
 	 * Load All localization data create by `asset.data`
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @return void
 	 */

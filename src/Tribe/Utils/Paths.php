@@ -2,7 +2,7 @@
 /**
  * Utilities to manipulate file-system paths.
  *
- * @since   4.12.14
+ * @since 4.12.14
  *
  * @package Tribe\Utils
  */
@@ -12,7 +12,7 @@ namespace Tribe\Utils;
 /**
  * Class Paths
  *
- * @since   4.12.14
+ * @since 4.12.14
  *
  * @package Tribe\Utils
  */

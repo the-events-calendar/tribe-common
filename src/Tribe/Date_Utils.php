@@ -61,7 +61,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Try to format a Date to the Default Datepicker format
 		 *
-		 * @since  4.5.12
+		 * @since 4.5.12
 		 *
 		 * @param  string      $date       Original Date that came from a datepicker
 		 * @param  string|int  $datepicker Datepicker format
@@ -265,7 +265,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Returns as string the nearest half a hour for a given valid string datetime.
 		 *
-		 * @since  4.10.2
+		 * @since 4.10.2
 		 *
 		 * @param string $date Valid DateTime string.
 		 *

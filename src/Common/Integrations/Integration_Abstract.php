@@ -15,7 +15,7 @@ use TEC\Common\Contracts\Service_Provider;
  *
  * @link    https://docs.theeventscalendar.com/apis/integrations/including-new-integrations/
  *
- * @since   5.1.1
+ * @since 5.1.1
  *
  * @package TEC\Common\Integrations
  */
@@ -58,7 +58,7 @@ abstract class Integration_Abstract extends Service_Provider {
 	/**
 	 * Determines whether this integration should load.
 	 *
-	 * @since  5.1.1
+	 * @since 5.1.1
 	 *
 	 * @return bool
 	 */
@@ -125,7 +125,7 @@ abstract class Integration_Abstract extends Service_Provider {
 	/**
 	 * Determines if the integration in question should be loaded.
 	 *
-	 * @since  5.1.1
+	 * @since 5.1.1
 	 *
 	 * @return bool
 	 */
@@ -134,7 +134,7 @@ abstract class Integration_Abstract extends Service_Provider {
 	/**
 	 * Loads the integration itself.
 	 *
-	 * @since  5.1.1
+	 * @since 5.1.1
 	 *
 	 * @return void
 	 */
@@ -143,7 +143,7 @@ abstract class Integration_Abstract extends Service_Provider {
 	/**
 	 * Determines the integration type.
 	 *
-	 * @since  5.1.1
+	 * @since 5.1.1
 	 *
 	 * @return string
 	 */

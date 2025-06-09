@@ -87,7 +87,7 @@ final class Tribe__Customizer {
 	/**
 	 * Loads the Basic Settings for the Class to work
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @see  self::instance()
 	 * @access private
@@ -141,7 +141,7 @@ final class Tribe__Customizer {
 	/**
 	 * Backwards compatibility for the old Customizer Option Save
 	 *
-	 * @since  4.4
+	 * @since 4.4
 	 *
 	 * @param  mixed $sections
 	 *
@@ -159,7 +159,7 @@ final class Tribe__Customizer {
 	/**
 	 * Loads a Section to the Customizer on The Events Calendar's Panel
 	 *
-	 * @since  4.4
+	 * @since 4.4
 	 *
 	 * @param  object $section An Object that extends the Abstract `Tribe__Customizer__Section`
 	 *
@@ -181,7 +181,7 @@ final class Tribe__Customizer {
 	/**
 	 * Fetches all Section Classes
 	 *
-	 * @since  4.4
+	 * @since 4.4
 	 *
 	 * @return array
 	 */
@@ -232,7 +232,7 @@ final class Tribe__Customizer {
 	/**
 	 * A easy way to check if customize is active
 	 *
-	 * @since  4.2.2
+	 * @since 4.2.2
 	 *
 	 * @return boolean
 	 */
@@ -586,7 +586,7 @@ final class Tribe__Customizer {
 	/**
 	 * Method to start setting up the Customizer Section and Fields
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @param  WP_Customize_Manager $customizer WordPress Customizer variable
 	 * @return void
@@ -824,7 +824,7 @@ final class Tribe__Customizer {
 	/**
 	 * Build the Setting name using the HTML format for Arrays
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @param  string $slug                         The actual Setting name
 	 * @param  string|WP_Customize_Section $section The section the setting lives in.
@@ -850,7 +850,7 @@ final class Tribe__Customizer {
 	/**
 	 * Adds a setting field name to the Array of Possible Selective refresh fields
 	 *
-	 * @since  4.2
+	 * @since 4.2
 	 *
 	 * @param  string $name The actual Setting name
 	 *
@@ -923,7 +923,7 @@ final class Tribe__Customizer {
 	/**
 	 * Using the Previously created CSS element, we not just re-create it every setting change
 	 *
-	 * @since  4.2
+	 * @since 4.2
 	 *
 	 * @return void
 	 */

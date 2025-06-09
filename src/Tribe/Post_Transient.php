@@ -5,14 +5,14 @@
  * It uses the same logic as WordPress Transient, but instead of options it will
  * use the Post Meta as the table
  *
- * @since   4.1
+ * @since 4.1
  */
 class Tribe__Post_Transient {
 
 	/**
 	 * Get (and instantiate, if necessary) the instance of the class
 	 *
-	 * @since  4.1
+	 * @since 4.1
 	 * @static
 	 * @return self
 	 *
@@ -24,7 +24,7 @@ class Tribe__Post_Transient {
 	/**
 	 * Fetches the Transient Data
 	 *
-	 * @since  4.1
+	 * @since 4.1
 	 *
 	 * @param int    $post_id   The Post ID, can also be a WP_Post
 	 * @param string $transient Post Meta to Fetch
@@ -45,7 +45,7 @@ class Tribe__Post_Transient {
 			/**
 			 * Attach an action before getting the new Transient
 			 *
-			 * @since  4.1
+			 * @since 4.1
 			 *
 			 * @param int    $post_id   Post ID
 			 * @param string $transient The Post Meta Key
@@ -83,7 +83,7 @@ class Tribe__Post_Transient {
 		/**
 		 * Attach an action after getting the new Transient
 		 *
-		 * @since  4.1
+		 * @since 4.1
 		 *
 		 * @param int    $post_id   Post ID
 		 * @param string $transient The Post Meta Key
@@ -96,7 +96,7 @@ class Tribe__Post_Transient {
 	/**
 	 * Delete a post meta transient.
 	 *
-	 * @since  4.1
+	 * @since 4.1
 	 *
 	 * @param int    $post_id   The Post ID, can also be a WP_Post.
 	 * @param string $transient Post Meta to Delete.
@@ -117,7 +117,7 @@ class Tribe__Post_Transient {
 		/**
 		 * Use this to pre attach an action to deleting a Post Transient
 		 *
-		 * @since  4.1
+		 * @since 4.1
 		 *
 		 * @param int    $post_id   Post ID
 		 * @param string $transient The Post Meta Key
@@ -139,7 +139,7 @@ class Tribe__Post_Transient {
 			/**
 			 * Use this to attach an Action to when the Transient is deleted
 			 *
-			 * @since  4.1
+			 * @since 4.1
 			 *
 			 * @param int    $post_id   Post ID
 			 * @param string $transient The Post Meta Key
@@ -153,7 +153,7 @@ class Tribe__Post_Transient {
 	/**
 	 * Sets a new value for the Transient.
 	 *
-	 * @since  4.1
+	 * @since 4.1
 	 *
 	 * @param int    $post_id    The Post ID, can also be a WP_Post.
 	 * @param string $transient  Post Meta to set.
@@ -177,7 +177,7 @@ class Tribe__Post_Transient {
 		/**
 		 * Attach an action before setting the new Transient
 		 *
-		 * @since  4.1
+		 * @since 4.1
 		 *
 		 * @param int    $post_id   Post ID
 		 * @param string $transient The Post Meta Key
@@ -201,7 +201,7 @@ class Tribe__Post_Transient {
 			/**
 			 * Attach an action after setting the new Transient
 			 *
-			 * @since  4.1
+			 * @since 4.1
 			 *
 			 * @param int    $post_id   Post ID
 			 * @param string $transient The Post Meta Key

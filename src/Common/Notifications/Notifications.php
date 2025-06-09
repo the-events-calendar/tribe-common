@@ -2,7 +2,7 @@
 /**
  * Handles In-App Notifications setup and actions.
  *
- * @since   6.4.0
+ * @since 6.4.0
  *
  * @package TEC\Common\Notifications
  */
@@ -14,7 +14,7 @@ use TEC\Common\Admin\Conditional_Content\Dismissible_Trait;
 /**
  * Class Notifications
  *
- * @since   6.4.0
+ * @since 6.4.0
 
  * @package TEC\Common\Notifications
  */
