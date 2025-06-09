@@ -226,7 +226,7 @@ trait Tabbed_View {
 		 * @since TBD
 		 *
 		 * @param string $current_tab The current tab slug.
-		 * @param object $this        The current page instance.
+		 * @param object $page        The current page instance.
 		 */
 		do_action( 'tec_common_admin_before_tab_content', $current_tab, $this );
 
@@ -246,7 +246,7 @@ trait Tabbed_View {
 				 * @since TBD
 				 *
 				 * @param string $current_tab The current tab slug.
-				 * @param object $this        The current page instance.
+				 * @param object $page        The current page instance.
 				 */
 				do_action( 'tec_common_admin_custom_tab_content', $current_tab, $this );
 			}
@@ -258,7 +258,7 @@ trait Tabbed_View {
 		 * @since TBD
 		 *
 		 * @param string $current_tab The current tab slug.
-		 * @param object $this        The current page instance.
+		 * @param object $page        The current page instance.
 		 */
 		do_action( 'tec_common_admin_after_tab_content', $current_tab, $this );
 	}

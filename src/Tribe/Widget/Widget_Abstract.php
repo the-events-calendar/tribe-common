@@ -816,7 +816,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 *
 		 * @param bool   $toggle Whether the hooks should be turned on or off. This value is `true` before a widget
 		 *                       HTML is rendered and `false` after the widget HTML rendered.
-		 * @param static $this   The widget object that is toggling the hooks.
+		 * @param static $widget The widget object that is toggling the hooks.
 		 */
 		do_action( 'tribe_shortcode_toggle_hooks', $toggle, $this );
 	}

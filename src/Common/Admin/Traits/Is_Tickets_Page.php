@@ -53,7 +53,7 @@ trait Is_Tickets_Page {
 		 * @since 6.4.1
 		 *
 		 * @param string $logo_source The settings page logo resource URL.
-		 * @param object $this The current admin page object.
+		 * @param object $page        The current admin page object.
 		 */
 		return (string) apply_filters( 'tec_tickets_settings_page_logo_source', $logo_source, $this );
 	}

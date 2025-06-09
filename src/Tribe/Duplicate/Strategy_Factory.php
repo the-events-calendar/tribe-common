@@ -23,7 +23,7 @@ class Tribe__Duplicate__Strategy_Factory {
 		 * If a 'default' slug is not provided the first strategy class in the map will be used as default.
 		 *
 		 * @param array                              $strategy_map An array that maps strategy slugs to strategy classes.
-		 * @param Tribe__Duplicate__Strategy_Factory $this         This factory object.
+		 * @param Tribe__Duplicate__Strategy_Factory $instance     This factory object.
 		 *
 		 * @since 4.6
 		 */
@@ -48,7 +48,7 @@ class Tribe__Duplicate__Strategy_Factory {
 		 * @param Tribe__Duplicate__Strategy__Interface $built_strategy The strategy that should be built
 		 *                                                              for the slug.
 		 * @param string                                $strategy       The requested strategy slug.
-		 * @param Tribe__Duplicate__Strategy_Factory    $this           This factory object.
+		 * @param Tribe__Duplicate__Strategy_Factory    $instance       This factory object.
 		 *
 		 * @since 4.6
 		 */
@@ -61,7 +61,7 @@ class Tribe__Duplicate__Strategy_Factory {
 		 *
 		 * @param Tribe__Duplicate__Strategy__Interface $built_strategy The strategy that should be built
 		 *                                                              for the slug.
-		 * @param Tribe__Duplicate__Strategy_Factory    $this           This factory object.
+		 * @param Tribe__Duplicate__Strategy_Factory    $instance       This factory object.
 		 *
 		 * @since 4.6
 		 */

@@ -124,8 +124,8 @@ class Abstract_Dashboard {
 		 *
 		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
-		 * @param array<string,array> $fields A map of the API fields that will be printed on the page.
-		 * @param Dashboard           $this   A Dashboard instance.
+		 * @param array<string,array> $fields    A map of the API fields that will be printed on the page.
+		 * @param Dashboard           $dashboard A Dashboard instance.
 		 */
 		$fields = apply_filters( "tec_event_automator_{$api_id}_dashboard_fields", $fields, $this );
 

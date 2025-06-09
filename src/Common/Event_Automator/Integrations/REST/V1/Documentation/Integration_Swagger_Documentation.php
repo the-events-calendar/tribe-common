@@ -132,7 +132,7 @@ abstract class Integration_Swagger_Documentation
 		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param array<string|mixed>   $documentation An associative PHP array in the format supported by Swagger.
-		 * @param Swagger_Documentation $this          This documentation endpoint instance.
+		 * @param Swagger_Documentation $endpoint      This documentation endpoint instance.
 		 *
 		 * @link  http://swagger.io/
 		 */

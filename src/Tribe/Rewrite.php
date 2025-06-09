@@ -408,7 +408,7 @@ class Tribe__Rewrite {
 		 * @param string|null    $canonical_url The canonical URL, defaults to `null`; returning a non `null` value will
 		 *                                      make the logic bail and return the value.
 		 * @param string         $url           The input URL to resolve to a canonical one.
-		 * @param Tribe__Rewrite $this          This rewrite object.
+		 * @param Tribe__Rewrite $instance      The rewrite object.
 		 */
 		$canonical_url = apply_filters( 'tribe_rewrite_pre_canonical_url', null, $url );
 		if ( null !== $canonical_url ) {
@@ -621,7 +621,7 @@ class Tribe__Rewrite {
 		 *
 		 * @param string         $resolved The resolved, canonical URL.
 		 * @param string         $url      The original URL to resolve.
-		 * @param Tribe__Rewrite $this     This object.
+		 * @param Tribe__Rewrite $instance The rewrite object.
 		 */
 		$resolved = apply_filters( 'tribe_rewrite_canonical_url', $resolved, $url, $this );
 

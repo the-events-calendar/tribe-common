@@ -47,7 +47,7 @@ class Provider extends Service_Provider {
 		 *
 		 * @since 6.3.2
 		 *
-		 * @param Provider $this The provider instance.
+		 * @param Provider $provider The provider instance.
 		 */
 		do_action( 'tec_help_hub_registered', $this );
 	}

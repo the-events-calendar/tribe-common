@@ -72,8 +72,8 @@ final class Notifications {
 		 *
 		 * @since 6.4.0
 		 *
-		 * @param string $api The API URL for the In-App Notifications.
-		 * @param object $this The current instance of the class.
+		 * @param string $api      The API URL for the In-App Notifications.
+		 * @param object $instance The current instance of the class.
 		 */
 		$api = apply_filters( 'tec_common_ian_api_url', $api, $this );
 
