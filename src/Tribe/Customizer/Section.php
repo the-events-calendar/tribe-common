@@ -156,8 +156,8 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Register this Section.
 	 *
-	 * @param  array  $sections   Array of Sections.
-	 * @param  Tribe__Customizer $customizer Our internal Cutomizer Class Instance.
+	 * @param array  $sections   Array of Sections.
+	 * @param Tribe__Customizer $customizer Our internal Cutomizer Class Instance.
 	 *
 	 * @return array  Return the modified version of the Section array.
 	 */
@@ -170,8 +170,8 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Overwrite this method to create the Fields/Settings for this section.
 	 *
-	 * @param  WP_Customize_Section $section The WordPress section instance.
-	 * @param  WP_Customize_Manager $manager The WordPress Customizer Manager.
+	 * @param WP_Customize_Section $section The WordPress section instance.
+	 * @param WP_Customize_Manager $manager The WordPress Customizer Manager.
 	 *
 	 * @return void
 	 */
@@ -270,7 +270,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Overwrite this method to be able to create dynamic settings.
 	 *
-	 * @param  array  $settings The actual options on the database.
+	 * @param array  $settings The actual options on the database.
 	 *
 	 * @return array $settings The modified settings.
 	 */
@@ -281,7 +281,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Get the section slug based on the Class name.
 	 *
-	 * @param  string $class_name The name of this Class.
+	 * @param string $class_name The name of this Class.
 	 * @return string $slug The slug for this Class.
 	 */
 	final public static function get_section_slug( $class_name ) {
@@ -303,8 +303,8 @@ abstract class Tribe__Customizer__Section {
 	 * Hooks to the `tribe_customizer_pre_get_option`. This applies the `$this->create_ghost_settings()` method
 	 * to the settings on the correct section.
 	 *
-	 * @param  array $settings  Values from the Database from Customizer actions.
-	 * @param  array $search	Indexed search @see Tribe__Customizer::search_var().
+	 * @param array $settings  Values from the Database from Customizer actions.
+	 * @param array $search	Indexed search @see Tribe__Customizer::search_var().
 	 *
 	 * @return array
 	 */

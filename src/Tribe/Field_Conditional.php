@@ -42,7 +42,7 @@ class Tribe__Field_Conditional {
 	 *
 	 * @since 4.7.7
 	 *
-	 * @param      string    $depends_on_field The slug or identifier of the parent field.
+	 * @param     string    $depends_on_field The slug or identifier of the parent field.
 	 * @param mixed|callable $condition        Either a valid callable function or method or a
 	 *                                         value that will be used for a shallow comparison.
 	 */
@@ -52,7 +52,7 @@ class Tribe__Field_Conditional {
 	}
 
 	/**
-	 * @param       mixed $value  The value to check, typically the parent field value.
+	 * @param      mixed $value  The value to check, typically the parent field value.
 	 * @param array       $fields An array of all the current fields; this will be passed to
 	 *                            the condition callback function for context if the condition
 	 *                            is a callable function or method.

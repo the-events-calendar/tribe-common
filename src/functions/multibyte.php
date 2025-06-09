@@ -12,7 +12,7 @@ if ( ! function_exists( 'tribe_detect_encoding' ) ) {
 	 * Detects multibyte encoding if the function is available, returns false if not
 	 * @since 4.7.18
 	 *
-	 * @param  string       $string the string to detect encoding of
+	 * @param string       $string the string to detect encoding of
 	 * @return string|bool         the mb encoding of the string
 	 *          false if the function is not available or the encoding cannot be determined
 	 */
@@ -27,7 +27,7 @@ if ( ! function_exists( 'tribe_maybe_urldecode' ) ) {
 	 * Returns false if not able to detect
 	 * @since 4.7.18
 	 *
-	 * @param  string       $string the string to detect encoding of
+	 * @param string       $string the string to detect encoding of
 	 * @return string|bool         the urldecoded string
 	 *          the original string if the function is not available or the encoding cannot be determined
 	 */
@@ -47,7 +47,7 @@ if ( ! function_exists( 'tribe_strlen' ) ) {
 	 * Get the length of a string, uses mb_strlen when available
 	 * @since 4.7.18
 	 *
-	 * @param  string $string the string to get the length of
+	 * @param string $string the string to get the length of
 	 * @return int         string length
 	 */
 	function tribe_strlen( $string ) {
@@ -71,9 +71,9 @@ if ( ! function_exists( 'tribe_substr' ) ) {
 	 * Get a substring, using multibyte functions if available
 	 * @since 4.7.18
 	 *
-	 * @param  string  $string string to crop
-	 * @param  int     $start  start position
-	 * @param  int     $length (optional) substring length
+	 * @param string  $string string to crop
+	 * @param int     $start  start position
+	 * @param int     $length (optional) substring length
 	 * @return int          substring
 	 */
 	function tribe_substr( $string, $start = 0, $length = null ) {
@@ -91,7 +91,7 @@ if ( ! function_exists( 'tribe_strtoupper' ) ) {
 	 * Convert string to uppercase, using multibyte functions if available
 	 * @since 4.7.18
 	 *
-	 * @param  string $string string to convert
+	 * @param string $string string to convert
 	 * @return string         converted string
 	 */
 	function tribe_strtoupper( $string ) {
@@ -120,7 +120,7 @@ if ( ! function_exists( 'tribe_strtolower' ) ) {
 	 * Convert string to lowercase, using multibyte functions if available
 	 * @since 4.7.18
 	 *
-	 * @param  string $string string to convert
+	 * @param string $string string to convert
 	 * @return string         converted string
 	 */
 	function tribe_strtolower( $string ) {

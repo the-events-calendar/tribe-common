@@ -118,7 +118,7 @@ class Tribe__Template {
 	 *
 	 * @since 4.6.2
 	 *
-	 * @param  object|string  $origin   The base origin for the templates
+	 * @param object|string  $origin   The base origin for the templates
 	 *
 	 * @return self
 	 */
@@ -167,7 +167,7 @@ class Tribe__Template {
 	 *
 	 * @since 4.6.2
 	 *
-	 * @param  array|string   $folder  Which folder we are going to look for templates
+	 * @param array|string   $folder  Which folder we are going to look for templates
 	 *
 	 * @return self
 	 */
@@ -211,7 +211,7 @@ class Tribe__Template {
 	 *
 	 * @since 4.7.20
 	 *
-	 * @param  mixed $value Should we look for template files in the list of folders.
+	 * @param mixed $value Should we look for template files in the list of folders.
 	 *
 	 * @return self
 	 */
@@ -237,7 +237,7 @@ class Tribe__Template {
 	 *
 	 * @since 4.6.2
 	 *
-	 * @param  array  $context  Default global Context
+	 * @param array  $context  Default global Context
 	 *
 	 * @return self
 	 */
@@ -253,7 +253,7 @@ class Tribe__Template {
 	 *
 	 * @since 4.6.2
 	 *
-	 * @param  bool  $value  Should we extract context for templates
+	 * @param bool  $value  Should we extract context for templates
 	 *
 	 * @return self
 	 */
@@ -269,7 +269,7 @@ class Tribe__Template {
 	 *
 	 * @since 4.12.1
 	 *
-	 * @param  string  $value  Which value will be saved as the current hook name.
+	 * @param string  $value  Which value will be saved as the current hook name.
 	 *
 	 * @return self  Allow daisy-chaining.
 	 */
@@ -342,11 +342,11 @@ class Tribe__Template {
 	 *
 	 * @see    Tribe__Utils__Array::set
 	 *
-	 * @param  string|array  $index     To set a key nested multiple levels deep pass an array
+	 * @param string|array  $index     To set a key nested multiple levels deep pass an array
 	 *                                  specifying each key in order as a value.
 	 *                                  Example: array( 'lvl1', 'lvl2', 'lvl3' );
-	 * @param  mixed         $value     The value.
-	 * @param  boolean       $is_local  Use the Local or Global context
+	 * @param mixed         $value     The value.
+	 * @param boolean       $is_local  Use the Local or Global context
 	 *
 	 * @return array Full array with the key set to the specified value.
 	 */
@@ -367,9 +367,9 @@ class Tribe__Template {
 	 *
 	 * @since 4.6.2
 	 *
-	 * @param  array  $context   Local Context array of data.
-	 * @param  string $file      Complete path to include the PHP File.
-	 * @param  array  $name      Template name.
+	 * @param array  $context   Local Context array of data.
+	 * @param string $file      Complete path to include the PHP File.
+	 * @param array  $name      Template name.
 	 *
 	 * @return array
 	 */
@@ -494,8 +494,8 @@ class Tribe__Template {
 	 * @since 4.7.20
 	 * @since 4.11.0 Added the param $namespace.
 	 *
-	 * @param  mixed  $base      Base path to look into.
-	 * @param  string $namespace Adds the plugin namespace to the path returned.
+	 * @param mixed  $base      Base path to look into.
+	 * @param string $namespace Adds the plugin namespace to the path returned.
 	 *
 	 * @return string  The public path for a given base.˙˙
 	 */
@@ -559,8 +559,8 @@ class Tribe__Template {
 		 *
 		 * @since 4.7.20
 		 *
-		 * @param  array  $folders   Complete path to include the base public folder
-		 * @param  self   $template  Current instance of the Tribe__Template
+		 * @param array  $folders   Complete path to include the base public folder
+		 * @param self   $template  Current instance of the Tribe__Template
 		 */
 		$folders = (array) apply_filters( 'tribe_template_path_list', $folders, $this );
 
@@ -597,9 +597,9 @@ class Tribe__Template {
 		 *
 		 * @since 4.11.0
 		 *
-		 * @param  array   $folders     Complete path to include the base public folder.
-		 * @param  string  $namespace   Loads the files from a specified folder from the themes.
-		 * @param  self    $template    Current instance of the Tribe__Template.
+		 * @param array   $folders     Complete path to include the base public folder.
+		 * @param string  $namespace   Loads the files from a specified folder from the themes.
+		 * @param self    $template    Current instance of the Tribe__Template.
 		 */
 		$folders = (array) apply_filters( 'tribe_template_theme_path_list', $folders, $namespace, $this );
 
@@ -614,7 +614,7 @@ class Tribe__Template {
 	 *
 	 * @since 4.7.20
 	 *
-	 * @param  mixed  $name  File name we are looking for.
+	 * @param mixed  $name  File name we are looking for.
 	 *
 	 * @return string
 	 */

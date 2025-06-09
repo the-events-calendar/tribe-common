@@ -135,7 +135,7 @@ class Element_Attributes {
 	 *
 	 * @since 4.12.3
 	 *
-	 * @param  mixed  $arguments  Any possible set of arguments that this class supports.
+	 * @param mixed  $arguments  Any possible set of arguments that this class supports.
 	 *
 	 * @return void
 	 */
@@ -166,7 +166,7 @@ class Element_Attributes {
 	 *
 	 * @since 4.12.3
 	 *
-	 * @param  array  $values  Array of values to be parsed.
+	 * @param array  $values  Array of values to be parsed.
 	 *
 	 * @return void
 	 */
@@ -189,7 +189,7 @@ class Element_Attributes {
 	 *
 	 * @since 4.12.3
 	 *
-	 * @param  string  $arguments  Space separated string of attributes to be parsed.
+	 * @param string  $arguments  Space separated string of attributes to be parsed.
 	 *
 	 * @return void
 	 */
@@ -222,7 +222,7 @@ class Element_Attributes {
 	 *
 	 * @since 4.12.3
 	 *
-	 * @param  mixed  $object  Object to be converted into array and parsed.
+	 * @param mixed  $object  Object to be converted into array and parsed.
 	 *
 	 * @return void
 	 */
@@ -237,7 +237,7 @@ class Element_Attributes {
 	 *
 	 * @since 4.12.3
 	 *
-	 * @param  callable  $method_or_function  Method or Function to be called.
+	 * @param callable  $method_or_function  Method or Function to be called.
 	 *
 	 * @return void
 	 */

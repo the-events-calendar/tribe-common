@@ -390,7 +390,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	 * @since 4.7
 	 *
 	 * @param {int} index Field Index
-	 * @param       field
+	 * @param      field
 	 * @param {DOM} item  DOM element for the field
 	 *
 	 * @return {void}
@@ -435,7 +435,7 @@ dayjs.extend( window.dayjs_plugin_customParseFormat );
 	 *
 	 * @since 4.7
 	 *
-	 * @param          $item
+	 * @param         $item
 	 * @param {Object} $field jQuery Object for the Section been validated
 	 *
 	 * @return {boolean}

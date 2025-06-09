@@ -299,7 +299,7 @@
 		/**
 		 * Get the notifications feed.
 		 *
-		 * @param  init
+		 * @param init
 		 * @since 6.4.0
 		 *
 		 * @return {void}

@@ -103,7 +103,7 @@ class Canonical_Formatter implements FormatterInterface {
 	 *
 	 * @since 4.12.13
 	 *
-	 * @param  array $records A set of records to format
+	 * @param array $records A set of records to format
 	 * @return mixed The formatted set of records
 	 */
 	public function formatBatch( array $records ) {

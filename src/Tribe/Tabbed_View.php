@@ -125,8 +125,8 @@ class Tribe__Tabbed_View {
 	/**
 	 * A method to sort tabs by priority in ascending order.
 	 *
-	 * @param  object $a First tab to compare
-	 * @param  object $b Second tab to compare
+	 * @param object $a First tab to compare
+	 * @param object $b Second tab to compare
 	 *
 	 * @return int
 	 */
@@ -144,7 +144,7 @@ class Tribe__Tabbed_View {
 	/**
 	 * Removes a tab from the tabbed view items.
 	 *
-	 * @param  string $slug The slug of the tab to remove
+	 * @param string $slug The slug of the tab to remove
 	 *
 	 * @return boolean `true` if the slug was registered and removed, `false` otherwise
 	 */
@@ -161,7 +161,7 @@ class Tribe__Tabbed_View {
 	/**
 	 * Checks if a given tab exist
 	 *
-	 * @param  string $slug The slug of the tab
+	 * @param string $slug The slug of the tab
 	 *
 	 * @return boolean
 	 */
@@ -172,7 +172,7 @@ class Tribe__Tabbed_View {
 	/**
 	 * Fetches the Instance of the Tab or all the tabs
 	 *
-	 * @param  string $slug (optional) The Slug of the Tab
+	 * @param string $slug (optional) The Slug of the Tab
 	 *
 	 * @return null|array|object        If we couldn't find the tab it will be null, if the slug is null will return all tabs
 	 */
@@ -196,7 +196,7 @@ class Tribe__Tabbed_View {
 	/**
 	 * Checks if a given Tab (slug) is active
 	 *
-	 * @param  string $slug The Slug of the Tab
+	 * @param string $slug The Slug of the Tab
 	 *
 	 * @return boolean       Is this tab active?
 	 */

@@ -569,7 +569,7 @@ class Tribe__PUE__Notices {
 	 *
 	 * @since 4.9.12
 	 *
-	 * @param  array|string  $plugins  Array of plugin classes.
+	 * @param array|string  $plugins  Array of plugin classes.
 	 *
 	 * @return string|false
 	 */
@@ -625,7 +625,7 @@ class Tribe__PUE__Notices {
 	 *     # Fallback
 	 *     "Unknown Plugin(s)"
 	 *
-	 * @param  string  $group
+	 * @param string  $group
 	 *
 	 * @return string
 	 */

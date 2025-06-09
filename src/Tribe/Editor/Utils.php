@@ -39,7 +39,7 @@ class Tribe__Editor__Utils {
 	 *
 	 * @since 4.8
 	 *
-	 * @param        $post_id
+	 * @param       $post_id
 	 * @param string $block_name
 	 * @param string $replacement
 	 *
@@ -55,8 +55,8 @@ class Tribe__Editor__Utils {
 	 *
 	 * @since 4.8.2
 	 *
-	 * @param        $post_id
-	 * @param        $block_name The name of the block
+	 * @param       $post_id
+	 * @param       $block_name The name of the block
 	 * @param string $replacement The string used to replace the value of the searched block
 	 *
 	 * @return bool
@@ -72,8 +72,8 @@ class Tribe__Editor__Utils {
 	 *
 	 * @since 4.8.2
 	 *
-	 * @param        $post_id
-	 * @param        $pattern
+	 * @param       $post_id
+	 * @param       $pattern
 	 * @param string $replacement The string used to replace the value of the searched block
 	 *
 	 * @return bool

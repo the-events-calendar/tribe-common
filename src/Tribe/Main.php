@@ -53,7 +53,7 @@ class Tribe__Main {
 	/**
 	 * Get (and instantiate, if necessary) the instance of the class
 	 *
-	 * @param  mixed $context An instance of the Main class of the plugin that instantiated Common
+	 * @param mixed $context An instance of the Main class of the plugin that instantiated Common
 	 *
 	 * @return self
 	 */
@@ -660,9 +660,9 @@ class Tribe__Main {
 	/**
 	 * Insert an array after a specified key within another array.
 	 *
-	 * @param $key
-	 * @param $source_array
-	 * @param $insert_array
+	 * @param string $key The key to insert the array after.
+	 * @param array  $source_array The source array.
+	 * @param array  $insert_array The array to insert.
 	 *
 	 * @return array
 	 */
@@ -681,9 +681,9 @@ class Tribe__Main {
 	/**
 	 * Insert an array immediately before a specified key within another array.
 	 *
-	 * @param $key
-	 * @param $source_array
-	 * @param $insert_array
+	 * @param string $key The key to insert the array before.
+	 * @param array  $source_array The source array.
+	 * @param array  $insert_array The array to insert.
 	 *
 	 * @return array
 	 */
@@ -705,7 +705,7 @@ class Tribe__Main {
 	 * Helper function for getting Post ID. Accepts `null` or a Post ID. If attempting
 	 * to detect $post object and it is not found, returns `false` to avoid a PHP Notice.
 	 *
-	 * @param  null|int|WP_Post  $candidate  Post ID or object, `null` to get the ID of the global post object.
+	 * @param null|int|WP_Post  $candidate  Post ID or object, `null` to get the ID of the global post object.
 	 *
 	 * @return int|false The ID of the passed or global post, `false` if the passes object is not a post or the global
 	 *                   post is not set.

@@ -84,7 +84,7 @@ class Tribe__Utils__Callback {
 	 *
 	 * @since 4.6.2
 	 *
-	 * @param  mixed  $value  Value to be Routed
+	 * @param mixed  $value  Value to be Routed
 	 *
 	 * @return mixed
 	 */

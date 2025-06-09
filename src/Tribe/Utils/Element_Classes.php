@@ -139,8 +139,8 @@ class Element_Classes {
 	 *
 	 * @since 4.9.13
 	 *
-	 * @param  mixed  $arguments      Any possible set of arguments that this class supports.
-	 * @param  boolean $default_value What is the default value for a given class.
+	 * @param mixed  $arguments      Any possible set of arguments that this class supports.
+	 * @param boolean $default_value What is the default value for a given class.
 	 *
 	 * @return void
 	 */
@@ -171,8 +171,8 @@ class Element_Classes {
 	 *
 	 * @since 4.9.13
 	 *
-	 * @param  string  $arguments     Space separated string of classes to be parsed.
-	 * @param  boolean $default_value What is the default value for a given class.
+	 * @param string  $arguments     Space separated string of classes to be parsed.
+	 * @param boolean $default_value What is the default value for a given class.
 	 *
 	 * @return void
 	 */
@@ -194,7 +194,7 @@ class Element_Classes {
 	 *
 	 * @since 4.9.13
 	 *
-	 * @param  array  $values  Array of values to be parsed.
+	 * @param array  $values  Array of values to be parsed.
 	 *
 	 * @return void
 	 */
@@ -221,7 +221,7 @@ class Element_Classes {
 	 *
 	 * @since 4.9.13
 	 *
-	 * @param  mixed  $object  Object to be checked for the __toString method
+	 * @param mixed  $object  Object to be checked for the __toString method
 	 *
 	 * @return void
 	 */
@@ -236,7 +236,7 @@ class Element_Classes {
 	 *
 	 * @since 4.9.13
 	 *
-	 * @param  callable  $method_or_function  Method or Function to be called.
+	 * @param callable  $method_or_function  Method or Function to be called.
 	 *
 	 * @return void
 	 */

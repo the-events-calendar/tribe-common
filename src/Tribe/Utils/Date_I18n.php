@@ -36,7 +36,7 @@ class Date_I18n extends DateTime {
 	 *
 	 * @since 4.11.0
 	 *
-	 * @param  string $date_format Format to be used in the translation.
+	 * @param string $date_format Format to be used in the translation.
 	 *
 	 * @return string         Translated date.
 	 */

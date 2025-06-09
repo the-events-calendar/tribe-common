@@ -34,7 +34,7 @@ interface Tribe__Editor__Blocks__Interface {
 	 *
 	 * @since 4.8
 	 *
-	 * @param  array $attributes
+	 * @param array $attributes
 	 *
 	 * @return string
 	 */

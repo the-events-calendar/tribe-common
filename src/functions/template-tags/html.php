@@ -94,7 +94,7 @@ function tribe_get_attributes() {
  *
  * @since 4.12.3
  *
- * @param  mixed $attributes,... unlimited Any amount of params to be rendered as attributes.
+ * @param mixed $attributes,... unlimited Any amount of params to be rendered as attributes.
  *
  * @return void
  */

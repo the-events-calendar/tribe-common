@@ -143,7 +143,7 @@ final class Tribe__Customizer {
 	 *
 	 * @since 4.4
 	 *
-	 * @param  mixed $sections
+	 * @param mixed $sections
 	 *
 	 * @return mixed
 	 */
@@ -161,7 +161,7 @@ final class Tribe__Customizer {
 	 *
 	 * @since 4.4
 	 *
-	 * @param  object $section An Object that extends the Abstract `Tribe__Customizer__Section`
+	 * @param object $section An Object that extends the Abstract `Tribe__Customizer__Section`
 	 *
 	 * @return bool
 	 */
@@ -259,9 +259,9 @@ final class Tribe__Customizer {
 	 *
 	 * @since 4.0
 	 *
-	 * @param  array $variable  Variable to be searched
-	 * @param  array $indexes   The index that the method will try to retrieve
-	 * @param  mixed $default   If the variable doesn't exist, what is the default
+	 * @param array $variable  Variable to be searched
+	 * @param array $indexes   The index that the method will try to retrieve
+	 * @param mixed $default   If the variable doesn't exist, what is the default
 	 *
 	 * @return mixed            Return the variable based on the index
 	 */
@@ -291,8 +291,8 @@ final class Tribe__Customizer {
 	 *
 	 * @since 4.4
 	 *
-	 * @param  array $search   Index search, array( 'section_name', 'setting_name' ).
-	 * @param  mixed $default  The default, if the requested variable doesn't exits.
+	 * @param array $search   Index search, array( 'section_name', 'setting_name' ).
+	 * @param mixed $default  The default, if the requested variable doesn't exits.
 	 *
 	 * @return mixed           The requested option or the default.
 	 */
@@ -554,7 +554,7 @@ final class Tribe__Customizer {
 	/**
 	 * Replaces the Settings using the Underscore templating strings
 	 *
-	 * @param  string $template The template variable, that we will look to replace the variables
+	 * @param string $template The template variable, that we will look to replace the variables
 	 * @return string           A Valid css after replacing the variables
 	 */
 	private function parse_css_template( $template ) {
@@ -588,7 +588,7 @@ final class Tribe__Customizer {
 	 *
 	 * @since 4.0
 	 *
-	 * @param  WP_Customize_Manager $customizer WordPress Customizer variable
+	 * @param WP_Customize_Manager $customizer WordPress Customizer variable
 	 * @return void
 	 */
 	public function register( WP_Customize_Manager $customizer ) {
@@ -727,8 +727,8 @@ final class Tribe__Customizer {
 	 *
 	 * @since 4.0
 	 *
-	 * @param  string $id   The Unique section ID
-	 * @param  array $args  Arguments to register the section
+	 * @param string $id   The Unique section ID
+	 * @param array $args  Arguments to register the section
 	 *
 	 * @link https://codex.wordpress.org/Class_Reference/WP_Customize_Manager/add_section
 	 *
@@ -826,8 +826,8 @@ final class Tribe__Customizer {
 	 *
 	 * @since 4.0
 	 *
-	 * @param  string $slug                         The actual Setting name
-	 * @param  string|WP_Customize_Section $section The section the setting lives in.
+	 * @param string $slug                         The actual Setting name
+	 * @param string|WP_Customize_Section $section The section the setting lives in.
 	 *
 	 * @return string          HTML name Attribute name of the setting.
 	 */
@@ -852,7 +852,7 @@ final class Tribe__Customizer {
 	 *
 	 * @since 4.2
 	 *
-	 * @param  string $name The actual Setting name
+	 * @param string $name The actual Setting name
 	 *
 	 * @return array The list of existing Settings, the new one included
 	 */

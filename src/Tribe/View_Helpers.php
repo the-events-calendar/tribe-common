@@ -232,7 +232,7 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 		/**
 		 * Helper method to return an array of 00-59 for minutes
 		 *
-		 * @param  int $exact_minute optionally specify an exact minute to be included (outwith the default intervals)
+		 * @param int $exact_minute optionally specify an exact minute to be included (outwith the default intervals)
 		 *
 		 * @return array The minutes array.
 		 */

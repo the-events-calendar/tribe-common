@@ -63,8 +63,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *
 		 * @since 4.5.12
 		 *
-		 * @param  string      $date       Original Date that came from a datepicker
-		 * @param  string|int  $datepicker Datepicker format
+		 * @param string      $date       Original Date that came from a datepicker
+		 * @param string|int  $datepicker Datepicker format
 		 * @return string
 		 */
 		public static function maybe_format_from_datepicker( $date, $datepicker = null ) {
@@ -89,7 +89,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Get the datepicker format, that is used to translate the option from the DB to a string
 		 *
-		 * @param  int $translate The db Option from datepickerFormat
+		 * @param int $translate The db Option from datepickerFormat
 		 * @return string|array            If $translate is not set returns the full array, if not returns the `Y-m-d`
 		 */
 		public static function datepicker_formats( $translate = null ) {
@@ -133,8 +133,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * As PHP 5.2 doesn't have a good version of `date_parse_from_format`, this is how we deal with
 		 * possible weird datepicker formats not working
 		 *
-		 * @param  string $format The weird format you are using
-		 * @param  string $date   The date string to parse
+		 * @param string $format The weird format you are using
+		 * @param string $date   The date string to parse
 		 *
 		 * @return string         A DB formated Date, includes time if possible
 		 */
@@ -446,7 +446,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * check if a given string is a timestamp
 		 *
-		 * @param $timestamp
+		 * @param string|int $timestamp The timestamp to check.
 		 *
 		 * @return bool
 		 */
@@ -489,9 +489,9 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * option) and converts it to a strtotime() style modifier that can be used
 		 * to adjust a DateTime object, etc.
 		 *
-		 * @param $offset
+		 * @param string|int $offset The offset to convert.
 		 *
-		 * @return string
+		 * @return string The modifier string.
 		 */
 		public static function get_modifier_from_offset( $offset ) {
 			$modifier = '';
@@ -518,8 +518,9 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * "w" format (ie, Sunday is 0 and Saturday is 6) or
 		 * false if this cannot be established.
 		 *
-		 * @param  mixed $month
-		 * @return int|bool
+		 * @param string|int $month The month to get the first day of.
+		 *
+		 * @return int|bool The weekday of the 1st day of the month.
 		 */
 		public static function first_day_in_month( $month ) {
 			try {
@@ -537,7 +538,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * "w" format (ie, Sunday is 0 and Saturday is 6) or
 		 * false if this cannot be established.
 		 *
-		 * @param  mixed $month
+		 * @param mixed $month
 		 * @return int|bool
 		 */
 		public static function last_day_in_month( $month ) {
@@ -555,7 +556,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * Returns the day of the week the week ends on, expressed as a "w" value
 		 * (ie, Sunday is 0 and Saturday is 6).
 		 *
-		 * @param  int $week_starts_on
+		 * @param int $week_starts_on
 		 *
 		 * @return int
 		 */
@@ -1157,7 +1158,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Deprecated camelCase version of self::get_last_day_of_month
 		 *
-		 * @param int $timestamp THe timestamp.
+		 * @param int $timestamp The timestamp.
 		 *
 		 * @return string The last day of the month.
 		 */
@@ -1231,7 +1232,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Deprecated camelCase version of self::is_timestamp
 		 *
-		 * @param $timestamp
+		 * @param string|int $timestamp The timestamp to check.
 		 *
 		 * @return bool
 		 */

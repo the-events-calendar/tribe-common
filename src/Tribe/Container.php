@@ -263,7 +263,7 @@ if ( ! function_exists( 'tribe_isset_var' ) ) {
 	 *
 	 * @since 4.11.0
 	 *
-	 * @param  string   $slug    The slug of the variable checked using `tribe_isset_var`.
+	 * @param string   $slug    The slug of the variable checked using `tribe_isset_var`.
 	 *
 	 * @return boolean  Either a the given slug exists.
 	 */
@@ -315,10 +315,10 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 		 * @since 4.7
 		 * @since 4.6.2  Included the $argsN params
 		 *
-		 * @param  string $slug       A class or interface fully qualified name or a string slug.
-		 * @param  string $method     The method that should be called on the resolved implementation with the
+		 * @param string $slug       A class or interface fully qualified name or a string slug.
+		 * @param string $method     The method that should be called on the resolved implementation with the
 		 *                            specified array arguments.
-		 * @param  mixed  [$argsN]      (optional) Any number of arguments that will be passed down to the Callback
+		 * @param mixed  [$argsN]      (optional) Any number of arguments that will be passed down to the Callback
 		 *
 		 * @return callable A PHP Callable based on the Slug and Methods passed
 		 */
@@ -348,7 +348,7 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 		 *
 		 * @since 4.6.2
 		 *
-		 * @param  mixed    $value  The value to be returned
+		 * @param mixed    $value  The value to be returned
 		 *
 		 * @return callable A PHP Callable based on the Slug and Methods passed
 		 */

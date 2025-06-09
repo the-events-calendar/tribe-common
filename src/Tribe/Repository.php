@@ -1255,7 +1255,7 @@ abstract class Tribe__Repository
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param $key
+	 * @param string $key The key to check.
 	 *
 	 * @return bool
 	 */

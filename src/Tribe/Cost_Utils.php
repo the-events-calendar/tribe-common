@@ -38,7 +38,7 @@ class Tribe__Cost_Utils {
 	/**
 	 * Check if a string is a valid cost.
 	 *
-	 * @param  string $cost String to be checked.
+	 * @param string $cost String to be checked.
 	 *                      Can include decimal and thousands separator.
 	 *
 	 * @return boolean
@@ -146,12 +146,12 @@ class Tribe__Cost_Utils {
 	}
 
 	/**
-	 * @param       string       $original_string_cost A string cost with or without currency symbol,
+	 * @param      string       $original_string_cost A string cost with or without currency symbol,
 	 *                                                 e.g. `10 - 20`, `Free` or `2$ - 4$`.
-	 * @param       array|string $merging_cost         A single string cost representation to merge or an array of
+	 * @param      array|string $merging_cost         A single string cost representation to merge or an array of
 	 *                                                 string cost representations to merge, e.g. ['Free', 10, 20,
 	 *                                                 'Donation'] or `Donation`.
-	 * @param       bool         $with_currency_symbol Whether the output should prepend the currency symbol to the
+	 * @param      bool         $with_currency_symbol Whether the output should prepend the currency symbol to the
 	 *                                                 numeric costs or not.
 	 * @param array              $sorted_mins          An array of non numeric price minimums sorted smaller to larger,
 	 *                                                 e.g. `['Really free', 'Somewhat free', 'Free with 3 friends']`.
@@ -239,7 +239,7 @@ class Tribe__Cost_Utils {
 	 * Returns a maximum cost in a list of costs. If an array of costs is not passed in, the array of costs is fetched
 	 * via query.
 	 *
-	 * @param $costs mixed Cost(s) to review for max value
+	 * @param mixed $costs Cost(s) to review for max value
 	 *
 	 * @return float
 	 */
@@ -250,8 +250,8 @@ class Tribe__Cost_Utils {
 	/**
 	 * Returns a particular cost within an array of costs
 	 *
-	 * @param $costs    mixed Cost(s) to review for max value
-	 * @param $function string Function to use to determine which cost to return from range. Valid values: max, min
+	 * @param mixed  $costs    Cost(s) to review for max value
+	 * @param string $function Function to use to determine which cost to return from range. Valid values: max, min
 	 *
 	 * @return float
 	 */
@@ -375,7 +375,7 @@ class Tribe__Cost_Utils {
 	 * Returns a minimum cost in a list of costs. If an array of costs is not passed in, the array of costs is fetched
 	 * via query.
 	 *
-	 * @param $costs mixed Cost(s) to review for min value
+	 * @param mixed $costs Cost(s) to review for min value
 	 *
 	 * @return float
 	 */

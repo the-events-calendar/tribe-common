@@ -158,8 +158,8 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since 4.0
 	 *
-	 * @param  string  $plugin_name    If we should get only one plugin.
-	 * @param  boolean $is_active If we only get active plugins.
+	 * @param string  $plugin_name    If we should get only one plugin.
+	 * @param boolean $is_active If we only get active plugins.
 	 *
 	 * @return array
 	 */
@@ -251,7 +251,7 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since 4.0
 	 *
-	 * @param  boolean $is_active Filter only active plugins.
+	 * @param boolean $is_active Filter only active plugins.
 	 * @return array
 	 */
 	public function get_plugin_forum_links( $is_active = true ) {
@@ -270,7 +270,7 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since 4.0
 	 *
-	 * @param  boolean $is_active Filter only active plugins.
+	 * @param boolean $is_active Filter only active plugins.
 	 * @return string
 	 */
 	public function get_plugins_text( $is_active = true ) {
@@ -302,9 +302,9 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since 4.0
 	 *
-	 * @param  string $plugin Plugin Name to filter.
-	 * @param  string $is_active Filter if it's active.
-	 * @param  string $is_important filter if the plugin is important.
+	 * @param string $plugin Plugin Name to filter.
+	 * @param string $is_active Filter if it's active.
+	 * @param string $is_important filter if the plugin is important.
 	 * @return array
 	 */
 	public function get_addons( $plugin = null, $is_active = null, $is_important = null ) {
@@ -424,7 +424,7 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since 4.0
 	 *
-	 * @param  string|array $should_be_active The Plugin Name or an array of Plugin Names.
+	 * @param string|array $should_be_active The Plugin Name or an array of Plugin Names.
 	 *
 	 * @return boolean
 	 */
@@ -449,8 +449,8 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since 4.0
 	 *
-	 * @param  string  $link     An absolute or a Relative link.
-	 * @param  boolean $relative Is the Link absolute or relative.
+	 * @param string  $link     An absolute or a Relative link.
+	 * @param boolean $relative Is the Link absolute or relative.
 	 * @return string            Link with the GA arguments.
 	 */
 	public function get_ga_link( $link = null, $relative = true ) {
@@ -505,7 +505,7 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since 4.0
 	 *
-	 * @param  object $plugin Plugin Object to be used.
+	 * @param object $plugin Plugin Object to be used.
 	 * @return object         An object with the API data.
 	 */
 	private function get_plugin_api_data( $plugin = null ) {
@@ -573,7 +573,7 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since 4.0
 	 *
-	 * @param  string|array $mixed The mixed value to create the HTML from
+	 * @param string|array $mixed The mixed value to create the HTML from
 	 * @return string
 	 */
 	public function get_content_html( $mixed = '' ) {
@@ -769,7 +769,7 @@ class Tribe__Admin__Help_Page {
 	 * This method will remove any sections that are indexed at that ID on the sections array
 	 * And the sections that have a propriety of `id` equals to the given $section_id argument
 	 *
-	 * @param  string|int $section_id You can use Numeric or String indexes to search.
+	 * @param string|int $section_id You can use Numeric or String indexes to search.
 	 * @return bool|int               Returns `false` when no sections were removed and an `int` with the number of sections removed.
 	 */
 	public function remove_section( $section_id ) {
@@ -811,7 +811,7 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since 4.0
 	 *
-	 * @param  boolean $print    Return or Print the HTML after.
+	 * @param boolean $print    Return or Print the HTML after.
 	 * @return void|string
 	 */
 	public function get_sections( $print = true ) {
@@ -893,7 +893,7 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since 4.0
 	 *
-	 * @param  string $plugin Plugin Name key.
+	 * @param string $plugin Plugin Name key.
 	 * @return void
 	 */
 	public function print_plugin_box( $plugin ) {

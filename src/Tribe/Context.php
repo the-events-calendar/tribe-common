@@ -343,11 +343,11 @@ class Tribe__Context {
 		 *
 		 * @since 4.9.5
 		 *
-		 * @param  mixed   $value    The value for the key before it's fetched from the context.
-		 * @param  string  $key      The key of the value to fetch from the context.
-		 * @param  mixed   $default  The default value that should be returned if the value is
+		 * @param mixed   $value    The value for the key before it's fetched from the context.
+		 * @param string  $key      The key of the value to fetch from the context.
+		 * @param mixed   $default  The default value that should be returned if the value is
 		 *                           not set in the context.
-		 * @param  bool    $force    Whether to force the re-fetch of the value from the context or
+		 * @param bool    $force    Whether to force the re-fetch of the value from the context or
 		 *                           not; defaults to `false`.
 		 */
 		$value = apply_filters( "tribe_context_pre_{$key}", null, $key, $default, $force );
@@ -380,7 +380,7 @@ class Tribe__Context {
 		 *
 		 * @since 4.9.5
 		 *
-		 * @param  mixed  $value  The value as fetched from the context.
+		 * @param mixed  $value  The value as fetched from the context.
 		 */
 		$value = apply_filters( "tribe_context_{$key}", $value );
 
@@ -448,9 +448,11 @@ class Tribe__Context {
 			 *
 			 * @since 4.10.2
 			 *
-			 * @param $locations array           An array of read and write location in the shape of the `Tribe__Context::$locations` one,
-			 *                                   `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
-			 * @param $context   Tribe__Context  Current instance of the context.
+			 * @param array<string,array<string,array<string,array<string,string>>>> $locations An array of read and write location in the shape of the `Tribe__Context::$locations` one,
+			 *                                                                                  `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
+			 * @param Tribe__Context                                                 $context   Current instance of the context.
+			 *
+			 * @return array<string,array<string,array<string,array<string,string>>>> The filtered locations.
 			 */
 			static::$locations = apply_filters( 'tribe_context_locations', static::$locations, $this );
 

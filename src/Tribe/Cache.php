@@ -79,8 +79,8 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
-	 * @param              $id
-	 * @param              $value
+	 * @param             $id
+	 * @param             $value
 	 * @param int          $expiration
 	 * @param string|array $expiration_trigger
 	 *

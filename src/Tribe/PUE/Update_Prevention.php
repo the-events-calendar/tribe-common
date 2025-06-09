@@ -18,7 +18,7 @@ class Update_Prevention {
 	 *
 	 * @since 4.9.12
 	 *
-	 * @param  string $content Contents of the file in question.
+	 * @param string $content Contents of the file in question.
 	 *
 	 * @return array  Named array with [ class_name => version ] or empty if it didn't find it.
 	 */
@@ -40,7 +40,7 @@ class Update_Prevention {
 	 *
 	 * @since 4.9.12
 	 *
-	 * @param  string $plugin Plugin file partial path, folder and main php file.
+	 * @param string $plugin Plugin file partial path, folder and main php file.
 	 *
 	 * @return bool
 	 */

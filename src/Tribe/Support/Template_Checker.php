@@ -100,7 +100,7 @@ class Tribe__Support__Template_Checker {
 	/**
 	 * Tests to ensure the provided view directory path is invalid or unreadable.
 	 *
-	 * @param  string $directory
+	 * @param string $directory
 	 * @return bool
 	 */
 	protected function bad_directory( $directory ) {
@@ -115,7 +115,7 @@ class Tribe__Support__Template_Checker {
 	 * Inspects the template header block within the specified file and extracts the
 	 * version number, if one can be found.
 	 *
-	 * @param  string $template_filepath
+	 * @param string $template_filepath
 	 * @return string
 	 */
 	protected function get_template_version( $template_filepath ) {
@@ -145,7 +145,7 @@ class Tribe__Support__Template_Checker {
 	 *
 	 *     'modules/icon.php'
 	 *
-	 * @param  string $full_filepath
+	 * @param string $full_filepath
 	 * @return string
 	 */
 	protected function short_name( $full_filepath ) {

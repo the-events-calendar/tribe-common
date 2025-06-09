@@ -201,8 +201,8 @@ class Tribe__Timezones {
 	 * the event it cannot find/create the desired timezone it will try to return the
 	 * UTC DateTimeZone before bailing.
 	 *
-	 * @param  string $tzstring
-	 * @param  bool   $with_fallback = true
+	 * @param string $tzstring
+	 * @param bool   $with_fallback = true
 	 *
 	 * @return DateTimeZone|false
 	 */
@@ -507,7 +507,7 @@ class Tribe__Timezones {
 	 *
 	 * @todo revise to eliminate all of these: maybe_get_tz_name, apply_offset, timezone_from_utc_offset, and adjust_timestamp
 	 *
-	 * @param  string|int|float $timezone The timezone
+	 * @param string|int|float $timezone The timezone
 	 *
 	 * @return string           The Guessed Timezone String
 	 */

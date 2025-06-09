@@ -134,9 +134,9 @@ abstract class Tribe__Editor__Meta
 	 *
 	 * @since 4.8
 	 *
-	 * @param $value
+	 * @param mixed $value The value to sanitize.
 	 *
-	 * @return array
+	 * @return array|string The sanitized value.
 	 */
 	public function sanitize_text_array( $value ) {
 		if ( is_array( $value ) ) {
@@ -151,7 +151,7 @@ abstract class Tribe__Editor__Meta
 	 *
 	 * @since 4.8
 	 *
-	 * @param  mixed $value Check agains this value
+	 * @param mixed $value Check against this value
 	 *
 	 * @return array|bool|int
 	 */
@@ -171,7 +171,7 @@ abstract class Tribe__Editor__Meta
 	 *
 	 * @since 4.8
 	 *
-	 * @param $value
+	 * @param mixed $value The value to sanitize.
 	 *
 	 * @return bool
 	 */
@@ -185,9 +185,9 @@ abstract class Tribe__Editor__Meta
 	 *
 	 * @since 4.8
 	 *
-	 * @param $value
+	 * @param string $value The value to sanitize.
 	 *
-	 * @return mixed
+	 * @return string The sanitized value.
 	 */
 	public function sanitize_separator( $value ) {
 		return tec_sanitize_string( $value );

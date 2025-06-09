@@ -53,7 +53,7 @@ class Manager {
 	 *
 	 * @since 4.12.0
 	 *
-	 * @param  string $slug Which slug we are checking if is registered.
+	 * @param string $slug Which slug we are checking if is registered.
 	 *
 	 * @return bool Whether a shortcode is registered or not.
 	 */
@@ -67,7 +67,7 @@ class Manager {
 	 *
 	 * @since 4.12.0
 	 *
-	 * @param  string $class_name Which class name we are checking if is registered.
+	 * @param string $class_name Which class name we are checking if is registered.
 	 *
 	 * @return bool Whether a shortcode is registered, by class.
 	 */

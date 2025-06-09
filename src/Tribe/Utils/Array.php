@@ -576,7 +576,7 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 		 *
 		 * @since 4.12.14
 		 *
-		 * @param         array $input The input array whose nodes should be visited.
+		 * @param        array $input The input array whose nodes should be visited.
 		 * @param callable $visitor A callback function that will be called on each array item; the callback will
 		 *                          receive the item key and value as input and should return an array that contains
 		 *                          the update key and value in the shape `[ <key>, <value> ]`. Returning a `null`

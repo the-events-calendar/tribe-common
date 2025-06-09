@@ -45,7 +45,7 @@ class Manager {
 	 *
 	 * @since 4.12.12
 	 *
-	 * @param  string $slug The widget slug we are checking for registration.
+	 * @param string $slug The widget slug we are checking for registration.
 	 *
 	 * @return bool Whether the widget is registered or not.
 	 */
@@ -60,7 +60,7 @@ class Manager {
 	 *
 	 * @since 4.12.12
 	 *
-	 * @param  string $class_name The widget class name we are checking for registration.
+	 * @param string $class_name The widget class name we are checking for registration.
 	 *
 	 * @return bool Whether the widget is registered, by class.
 	 */

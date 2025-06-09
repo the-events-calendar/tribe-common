@@ -219,7 +219,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	 *
 	 * @since 4.5.10
 	 *
-	 * @param  int|WP_Post  $post The Post Object or ID
+	 * @param int|WP_Post  $post The Post Object or ID
 	 *
 	 * @return false|string Link to the post or false
 	 */
@@ -230,7 +230,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	/**
 	 * Gets from the Posts index a specific post or fetch all of them
 	 *
-	 * @param  int|WP_Post  $post The Post Object or ID
+	 * @param int|WP_Post  $post The Post Object or ID
 	 *
 	 * @return null|array|WP_Post         Returns an Indexed Array of Posts, a found Post or Null if not found
 	 */
@@ -250,7 +250,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	/**
 	 * Checks if a Post has been registered to the JSON-LD index
 	 *
-	 * @param  int|WP_Post  $post The Post Object or ID
+	 * @param int|WP_Post  $post The Post Object or ID
 	 *
 	 * @return bool
 	 */
@@ -261,7 +261,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	/**
 	 * Register the new Post on the Index of created ones
 	 *
-	 * @param  int|WP_Post  $post The Post Object or ID
+	 * @param int|WP_Post  $post The Post Object or ID
 	 *
 	 * @return WP_Post            The Post Object that was registered
 	 */
@@ -291,10 +291,10 @@ abstract class Tribe__JSON_LD__Abstract {
 	 *
 	 * @since 4.7.12
 	 *
-	 * @param $post
-	 * @param $type
+	 * @param int|WP_Post $post The post to register the type for.
+	 * @param string      $type The type to register.
 	 *
-	 * @return mixed
+	 * @return array The registered types.
 	 */
 	public function set_type( $post, $type ) {
 		$id = Tribe__Main::post_id_helper( $post );
@@ -315,7 +315,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	/**
 	 * Remove an Post from the Indexed list
 	 *
-	 * @param  int|WP_Post  $post The Post Object or ID
+	 * @param int|WP_Post  $post The Post Object or ID
 	 *
 	 * @return bool
 	 */
@@ -336,8 +336,8 @@ abstract class Tribe__JSON_LD__Abstract {
 	 *
 	 * @since 4.7.12
 	 *
-	 * @param $id
-	 * @param $type
+	 * @param int|WP_Post $id   The post ID.
+	 * @param string      $type The type to check.
 	 *
 	 * @return bool
 	 */

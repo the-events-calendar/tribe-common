@@ -7,8 +7,8 @@ class Tribe__Terms {
 	 * Translates an array or list of `term_id`s or `slug`s to an array of `term_id`s; if a term is missing and specified by `slug` it
 	 * will be created.
 	 *
-	 * @param      array|string $terms An array or comma separated list of term `term_id` or `slug` or a single `term_id` or `slug`.
-	 * @param      string $taxonomy
+	 * @param     array|string $terms An array or comma separated list of term `term_id` or `slug` or a single `term_id` or `slug`.
+	 * @param     string $taxonomy
 	 * @param bool $create_missing Whether terms that could not be found by `term_id` or `slug` should be creater or not.
 	 *
 	 * @return array An array containing the `term_id`s of the created terms.

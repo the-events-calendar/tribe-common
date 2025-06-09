@@ -115,7 +115,7 @@ class Tribe__Editor {
 	 *
 	 * @since 4.8
 	 *
-	 * @param  array $args Arguments used to setup the Post Type
+	 * @param array $args Arguments used to setup the Post Type
 	 *
 	 * @return array
 	 */
@@ -202,7 +202,7 @@ class Tribe__Editor {
 	 * @since 4.8
 	 * @deprecated 4.14.13 This is not used anywhere.
 	 *
-	 * @param  array $args Arguments used to setup the Post Type
+	 * @param array $args Arguments used to setup the Post Type
 	 *
 	 * @return array
 	 */
