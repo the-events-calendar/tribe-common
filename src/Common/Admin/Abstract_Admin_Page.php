@@ -470,13 +470,9 @@ abstract class Abstract_Admin_Page {
 				do_action( 'tec_admin_header_before_title' );
 				$this->admin_page_title();
 				do_action( 'tec_admin_header_after_title' );
-				
-				if ( tribe( IAN_Controller::class )->is_ian_page() ) :
-					?>
-					<div class="ian-client" data-tec-ian-trigger="iconIan"></div>
-				<?php endif; ?>
+				?>
 			</header>
-		
+
 		<?php
 	}
 

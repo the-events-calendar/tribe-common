@@ -47,6 +47,7 @@ class Controller extends Controller_Contract {
 		add_action( 'wp_ajax_ian_dismiss', [ $this, 'handle_dismiss' ] );
 		add_action( 'wp_ajax_ian_read', [ $this, 'handle_read' ] );
 		add_action( 'wp_ajax_ian_read_all', [ $this, 'handle_read_all' ] );
+		add_action( 'tec_admin_header_after_title', [ $this, 'show_ian_icon' ] );
 
 		add_filter( 'tribe_general_settings_debugging_section', [ $this, 'filter_tribe_general_settings_debugging_section' ], 11 );
 	}
@@ -64,6 +65,7 @@ class Controller extends Controller_Contract {
 		remove_action( 'wp_ajax_ian_dismiss', [ $this, 'handle_dismiss' ] );
 		remove_action( 'wp_ajax_ian_read', [ $this, 'handle_read' ] );
 		remove_action( 'wp_ajax_ian_read_all', [ $this, 'handle_read_all' ] );
+		remove_action( 'tec_admin_header_after_title', [ $this, 'show_ian_icon' ] );
 
 		remove_filter( 'tribe_general_settings_debugging_section', [ $this, 'filter_tribe_general_settings_debugging_section' ] );
 	}
@@ -111,11 +113,11 @@ class Controller extends Controller_Contract {
 	 */
 	public function is_ian_page() {
 		$screen = get_current_screen();
-		
+
 		if ( ! $screen ) {
 			return false;
 		}
-		
+
 		$allowed = [];
 
 		/**
@@ -149,6 +151,12 @@ class Controller extends Controller_Contract {
 	public function show_icon( $slug ) {
 		if ( self::is_ian_page() && current_user_can( 'manage_options' ) ) {
 			$this->container->make( Notifications::class )->show_icon( $slug );
+		}
+	}
+
+	public function show_ian_icon() {
+		if ( self::is_ian_page() && current_user_can( 'manage_options' ) ) {
+			echo '<div class="ian-client" data-tec-ian-trigger="iconIan"></div>';
 		}
 	}
 
