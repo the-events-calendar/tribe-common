@@ -421,8 +421,8 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * Here we try to read the database `max_packet_size` setting and use that information
 	 * to avoid overloading the query.
 	 *
-	 * @param      string $key
-	 * @param array $data
+	 * @param string $key The key.
+	 * @param array  $data The data.
 	 *
 	 * @return int The number of fragments the data was split and stored into.
 	 */

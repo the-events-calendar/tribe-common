@@ -203,6 +203,8 @@ class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 		}
 	}
 
+	//phpcs:disable Squiz.PHP.CommentedOutCode.Found
+
 	/**
 	 * Convert the plugin version header and any links from Markdown to HTML.
 	 */
@@ -221,6 +223,8 @@ class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 			$this->upgrade_notice
 		);
 	}
+
+	//phpcs:enable Squiz.PHP.CommentedOutCode.Found
 
 	/**
 	 * Render the actual upgrade notice.

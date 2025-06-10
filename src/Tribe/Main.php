@@ -705,7 +705,7 @@ class Tribe__Main {
 	 * Helper function for getting Post ID. Accepts `null` or a Post ID. If attempting
 	 * to detect $post object and it is not found, returns `false` to avoid a PHP Notice.
 	 *
-	 * @param null|int|WP_Post  $candidate  Post ID or object, `null` to get the ID of the global post object.
+	 * @param null|int|WP_Post $candidate Post ID or object, `null` to get the ID of the global post object.
 	 *
 	 * @return int|false The ID of the passed or global post, `false` if the passes object is not a post or the global
 	 *                   post is not set.

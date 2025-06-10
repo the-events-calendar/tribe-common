@@ -138,7 +138,6 @@ abstract class Tribe__JSON_LD__Abstract {
 	 * The expectation is that any sub-classes overriding the get_data() method will ensure they
 	 * call this method for consistency.
 	 *
-	 * @param string  $type The type of the object.
 	 * @param object  $data The data of the object.
 	 * @param array   $args The arguments used to get data.
 	 * @param WP_Post $post The post object.
@@ -225,7 +224,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	 *
 	 * @since 4.5.10
 	 *
-	 * @param int|WP_Post  $post The Post Object or ID.
+	 * @param int|WP_Post $post The Post Object or ID.
 	 *
 	 * @return false|string Link to the post or false
 	 */
@@ -236,7 +235,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	/**
 	 * Gets from the Posts index a specific post or fetch all of them.
 	 *
-	 * @param int|WP_Post  $post The Post Object or ID.
+	 * @param int|WP_Post $post The Post Object or ID.
 	 *
 	 * @return null|array|WP_Post Returns an Indexed Array of Posts, a found Post or Null if not found.
 	 */
@@ -256,7 +255,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	/**
 	 * Checks if a Post has been registered to the JSON-LD index.
 	 *
-	 * @param int|WP_Post  $post The Post Object or ID.
+	 * @param int|WP_Post $post The Post Object or ID.
 	 *
 	 * @return bool Whether the post has been registered.
 	 */
@@ -267,7 +266,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	/**
 	 * Register the new Post on the Index of created ones.
 	 *
-	 * @param int|WP_Post  $post The Post Object or ID.
+	 * @param int|WP_Post $post The Post Object or ID.
 	 *
 	 * @return WP_Post The Post Object that was registered.
 	 */
@@ -321,7 +320,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	/**
 	 * Remove an Post from the Indexed list.
 	 *
-	 * @param int|WP_Post  $post The Post Object or ID.
+	 * @param int|WP_Post $post The Post Object or ID.
 	 *
 	 * @return bool Whether the post was removed.
 	 */

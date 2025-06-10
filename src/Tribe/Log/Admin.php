@@ -205,6 +205,7 @@ class Tribe__Log__Admin {
 		return $levels;
 	}
 
+	//phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.Found
 	/**
 	 * Provides a URL that can be used to download the current or specified
 	 * log.
@@ -223,6 +224,7 @@ class Tribe__Log__Admin {
 
 		return esc_url( $log_download_url );
 	}
+	//phpcs:enable Generic.CodeAnalysis.UnusedFunctionParameter.Found
 
 	/**
 	 * Facilitate downloading of logs.
