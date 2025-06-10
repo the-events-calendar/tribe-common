@@ -174,7 +174,7 @@ class Tribe__Editor {
 	 * @return bool Whether the Classic Editor is active.
 	 */
 	public function is_classic_editor() {
-		_deprecated_function( __FUNCTION__, '4.14.13', 'should_load_blocks' );
+		// _deprecated_function( __FUNCTION__, '4.14.13', 'should_load_blocks' );
 
 		return ! $this->should_load_blocks();
 	}
