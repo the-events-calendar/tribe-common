@@ -208,7 +208,7 @@ if ( ! function_exists( 'tribe_get_var' ) ) {
 	 *      $url = tribe_get_var( 'tec.url' );
 	 *
 	 * @param string $slug    The slug of the variable registered using `tribe_set_var`.
-	 * @param null   $default The value that should be returned if the variable slug
+	 * @param mixed  $default The value that should be returned if the variable slug
 	 *                        is not a registered one.
 	 *
 	 * @return mixed Either the registered value or the default value if the variable
@@ -315,10 +315,11 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 		 * @since 4.7
 		 * @since 4.6.2  Included the $argsN params
 		 *
-		 * @param string $slug       A class or interface fully qualified name or a string slug.
-		 * @param string $method     The method that should be called on the resolved implementation with the
-		 *                           specified array arguments.
-		 * @param mixed  [$argsN]    (optional) Any number of arguments that will be passed down to the Callback
+		 * @param string $slug    A class or interface fully qualified name or a string slug.
+		 * @param string $method  The method that should be called on the resolved implementation with the
+		 *                        specified array arguments.
+		 *
+		 * @args mixed  $arguments (optional) Any number of additional arguments that will be passed down to the Callback.
 		 *
 		 * @return callable A PHP Callable based on the Slug and Methods passed.
 		 */
@@ -340,7 +341,7 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 
 	if ( ! function_exists( 'tribe_callback_return' ) ) {
 		/**
-		 * Returns a tribe_callback for a very simple Return value method
+		 * Returns a tribe_callback for a very simple Return value method.
 		 *
 		 * Example of Usage:
 		 *

@@ -207,14 +207,14 @@ class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 	 * Convert the plugin version header and any links from Markdown to HTML.
 	 */
 	protected function format_upgrade_notice() {
-		// Convert [links](http://...) to <a href="..."> tags.
+		// Convert markdown [link](http://...) to HTML <a href="..."> tags.
 		$this->upgrade_notice = preg_replace(
 			'/\[([^\]]*)\]\(([^\)]*)\)/',
 			'<a href="${2}">${1}</a>',
 			$this->upgrade_notice
 		);
 
-		// Convert =4.0= headings to <h4 class="version">4.0</h4> tags.
+		// Convert markdown =4.0= headings to HTML <h4 class="version">4.0</h4> tags.
 		$this->upgrade_notice = preg_replace(
 			'/=\s*([a-zA-Z0-9\.]{3,})\s*=/',
 			'<h4 class="version">${1}</h4>',

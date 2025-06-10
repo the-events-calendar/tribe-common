@@ -143,7 +143,7 @@ final class Tribe__Customizer {
 	 *
 	 * @since 4.4
 	 *
-	 * @param mixed $sections
+	 * @param mixed $sections The sections to be registered.
 	 *
 	 * @return mixed
 	 */
@@ -161,25 +161,25 @@ final class Tribe__Customizer {
 	 *
 	 * @since 4.4
 	 *
-	 * @param object $section An Object that extends the Abstract `Tribe__Customizer__Section`
+	 * @param object $section An Object that extends the Abstract `Tribe__Customizer__Section`.
 	 *
 	 * @return bool
 	 */
 	public function load_section( $section ) {
-		// You can only add a section if it extends the abstract Section
+		// You can only add a section if it extends the abstract Section.
 		if ( ! is_object( $section ) || ! in_array( 'Tribe__Customizer__Section', class_parents( $section ) ) ) {
 			return false;
 		}
 
-		// Add the Section
-		// Enforces the usage of `$instance->ID`
+		// Add the Section.
+		// Enforces the usage of `$instance->ID`.
 		$this->sections_class[ $section->ID ] = $section;
 
 		return true;
 	}
 
 	/**
-	 * Fetches all Section Classes
+	 * Fetches all Section Classes.
 	 *
 	 * @since 4.4
 	 *
@@ -187,23 +187,23 @@ final class Tribe__Customizer {
 	 */
 	public function get_loaded_sections() {
 		/**
-		 * Allow developers to filter Classes from Customizer Sections
+		 * Allow developers to filter Classes from Customizer Sections.
 		 *
 		 * @deprecated
 		 * @since 4.0
 		 *
-		 * @param array $sections_class
-		 * @param self  $customizer
+		 * @param array $sections_class The sections to be registered.
+		 * @param self  $customizer     The current customizer instance.
 		 */
 		$this->sections_class = apply_filters( 'tribe_events_pro_customizer_sections_class', $this->sections_class, $this );
 
 		/**
-		 * Allow developers to filter Classes from Customizer Sections
+		 * Allow developers to filter Classes from Customizer Sections.
 		 *
 		 * @since 4.4
 		 *
-		 * @param array $sections_class
-		 * @param self  $customizer
+		 * @param array $sections_class The sections to be registered.
+		 * @param self  $customizer     The current customizer instance.
 		 */
 		$this->sections_class = apply_filters( 'tribe_customizer_sections_class', $this->sections_class, $this );
 
@@ -242,14 +242,14 @@ final class Tribe__Customizer {
 		 *
 		 * @deprecated
 		 *
-		 * @param boolean $is_active
+		 * @param boolean $is_active Whether the customizer is active.
 		 */
 		$is_active = apply_filters( 'tribe_events_pro_customizer_is_active', true );
 
 		/**
 		 * Allows Developers to completely deactivate Events Calendar Customizer
 		 *
-		 * @param boolean $is_active
+		 * @param boolean $is_active Whether the customizer is active.
 		 */
 		return apply_filters( 'tribe_customizer_is_active', true );
 	}
@@ -306,7 +306,7 @@ final class Tribe__Customizer {
 			 * @deprecated
 			 * @since 4.0
 			 *
-			 * @param array $defaults
+			 * @param array $defaults The defaults for the section.
 			 */
 			$defaults[ $section->ID ] = apply_filters( "tribe_events_pro_customizer_section_{$section->ID}_defaults", [] );
 
@@ -315,7 +315,7 @@ final class Tribe__Customizer {
 			 *
 			 * @since 4.4
 			 *
-			 * @param array $defaults
+			 * @param array $defaults The defaults for the section.
 			 */
 			$settings                 = isset( $sections[ $section->ID ] ) ? $sections[ $section->ID ] : [];
 			$defaults[ $section->ID ] = apply_filters( "tribe_customizer_section_{$section->ID}_defaults", $settings );
@@ -328,8 +328,8 @@ final class Tribe__Customizer {
 		 * @deprecated
 		 * @since 4.0
 		 *
-		 * @param array $sections
-		 * @param array $search
+		 * @param array $sections The sections to be registered.
+		 * @param array $search   The search index.
 		 */
 		$sections = apply_filters( 'tribe_events_pro_customizer_pre_get_option', $sections, $search );
 
@@ -338,8 +338,8 @@ final class Tribe__Customizer {
 		 *
 		 * @since 4.4
 		 *
-		 * @param array $sections
-		 * @param array $search
+		 * @param array $sections The sections to be registered.
+		 * @param array $search   The search index.
 		 */
 		$sections = apply_filters( 'tribe_customizer_pre_get_option', $sections, $search );
 
@@ -355,9 +355,9 @@ final class Tribe__Customizer {
 		 *
 		 * @since 4.4
 		 *
-		 * @param mixed $option
-		 * @param array $search
-		 * @param array $sections
+		 * @param mixed $option   The option value.
+		 * @param array $search   The search index.
+		 * @param array $sections The sections to be registered.
 		 */
 		$option = apply_filters( 'tribe_customizer_get_option', $option, $search, $sections );
 
@@ -367,7 +367,7 @@ final class Tribe__Customizer {
 	/**
 	 * Check if the option exists, this method is used allow only sections that were saved to be applied.
 	 *
-	 * @param string $search Using the following structure: self::has_option( 'section_name', 'setting_name' ).
+	 * @args array<string> $search Using the following structure: self::has_option( 'section_name', 'setting_name' ).
 	 *
 	 * @return boolean Whether the option exists in the database.
 	 */
@@ -403,7 +403,7 @@ final class Tribe__Customizer {
 		/**
 		 * Allows plugins to hook in and add any scripts they need at the right time.
 		 *
-		 * @param Tribe__Customizer $customizer The current instance of Tribe__Customizer.
+		 * @param Tribe__Customizer $customizer The current customizer instance.
 		 */
 		do_action( 'tribe_enqueue_customizer_scripts', $this );
 	}
@@ -483,17 +483,17 @@ final class Tribe__Customizer {
 		}
 
 		/**
-		 * Use this filter to add more CSS, using Underscore Template style
+		 * Use this filter to add more CSS, using Underscore Template style.
 		 *
 		 * @since 4.4
 		 *
 		 * @link  http://underscorejs.org/#template
 		 *
-		 * @param string $template
+		 * @param string $template The CSS template.
 		 */
 		$css_template = trim( apply_filters( 'tribe_customizer_css_template', '' ) );
 
-		// If we don't have anything on the customizer don't print empty styles
+		// If we don't have anything on the customizer don't print empty styles.
 		if ( empty( $css_template ) ) {
 			return false;
 		}
@@ -828,7 +828,7 @@ final class Tribe__Customizer {
 	 *
 	 * @since 4.0
 	 *
-	 * @param string $slug                         The actual Setting name.
+	 * @param string                      $slug    The actual Setting name.
 	 * @param string|WP_Customize_Section $section The section the setting lives in.
 	 *
 	 * @return string HTML name Attribute name of the setting.
