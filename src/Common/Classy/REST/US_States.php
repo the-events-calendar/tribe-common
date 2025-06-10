@@ -1,25 +1,25 @@
 <?php
 /**
- * Handles the `options/country` endpoint of the Classy REST API.
+ * Handles the `options/us-states` endpoint of the Classy REST API.
  *
  * @since TBD
  *
- * @package TEC\Common\Classy\REST\Endpoints\Options;
+ * @package TEC\Common\Classy\REST;
  */
 
-namespace TEC\Common\Classy\REST\Endpoints\Options;
+namespace TEC\Common\Classy\REST;
 
 use Tribe__Languages__Locations as Locations;
 use WP_REST_Response;
 
 /**
- * Class Country.
+ * Class US_States.
  *
  * @since TBD
  *
- * @package TEC\Common\Classy\REST\Endpoints\Options;
+ * @package TEC\Common\Classy\REST;
  */
-class Country {
+class US_States {
 	/**
 	 * A reference to the `Tribe__Languages__Locations` instance.
 	 *
@@ -48,7 +48,7 @@ class Country {
 	 * @return WP_REST_Response
 	 */
 	public function get(): WP_REST_Response {
-		$country_array = $this->locations->build_country_array();
+		$country_array = $this->locations->build_us_states_array();
 
 		foreach ( $country_array as $key => &$value ) {
 			$value = [

@@ -39,6 +39,7 @@ class Controller_Test extends Controller_Test_Case {
 
 		$response = rest_get_server()->dispatch( $request );
 
+		// We're not looking at the single entries here, but at the format.
 		$this->assertEquals( 200, $response->status );
 		$this->assertCount( count( $country_array ), $response->get_data() );
 		foreach ( $response->get_data() as $key => $entry ) {
@@ -46,4 +47,38 @@ class Controller_Test extends Controller_Test_Case {
 			$this->assertEquals( $country_array[ $key ], $entry['name'] );
 		}
 	}
-}
+
+	public function test_options_us_states_get(): void {
+		/** @var Locations $locations */
+		$locations        = tribe('languages.locations');
+		$us_states_array  = $locations->build_us_states_array();
+
+		$this->make_controller()->register();
+
+		// A first request where the user is not set.
+		$request = new \WP_REST_Request(
+			'GET',
+			'/tec/classy/v1/options/us-states'
+		);
+
+		$response = rest_get_server()->dispatch($request);
+
+		$this->assertEquals(401, $response->status, 'Unauthenticated users cannot fetch the US states options.');
+
+		wp_set_current_user(static::factory()->user->create(['role' => 'subscriber']));
+
+		$response = rest_get_server()->dispatch($request);
+
+		$this->assertEquals(403, $response->status, 'Users need the edit_posts cap to fetch the US states options.');
+
+		wp_set_current_user(static::factory()->user->create(['role' => 'editor']));
+
+		$response = rest_get_server()->dispatch($request);
+
+		$this->assertEquals(200, $response->status);
+		$this->assertCount(count($us_states_array), $response->get_data());
+		foreach ($response->get_data() as $key => $entry) {
+			$this->assertEquals($key, $entry['value']);
+			$this->assertEquals($us_states_array[$key], $entry['name']);
+		}
+	}}

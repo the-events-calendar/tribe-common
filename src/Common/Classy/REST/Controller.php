@@ -65,6 +65,22 @@ class Controller extends Controller_Contract {
 				],
 			]
 		);
+
+		register_rest_route(
+			self::REST_NAMESPACE,
+			'/options/us-states',
+			[
+				[
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => $this->container->callback( US_States::class, 'get' ),
+					'permission_callback' => static function (): bool {
+						return current_user_can( 'edit_posts' );
+					},
+					'args'                => [],
+					'description'         => 'Returns a list of country choice options.',
+				],
+			]
+		);
 	}
 
 	/**
