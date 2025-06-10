@@ -44,8 +44,8 @@ const currencyDefaultOption: CurrencySelectOption = {
  */
 const renderCurrency = ( currency: Currency ): string => {
 	return currency.position === 'prefix'
-		? `${ currency.symbol }${ currency.code }`
-		: `${ currency.code }${ currency.symbol }`;
+		? `${ currency.symbol } ${ currency.code }`
+		: `${ currency.code } ${ currency.symbol }`;
 };
 
 /**
