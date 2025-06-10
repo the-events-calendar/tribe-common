@@ -260,7 +260,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	obj.openBeacon = function() {
 		if (obj.helpScoutManager) {
 			if (typeof window.Beacon === 'function') {
-				Beacon('close'); // Defensive close before opening
+				Beacon('close');
 			}
 			obj.helpScoutManager.openBeacon();
 		}
@@ -283,7 +283,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 				const foundElement = document.querySelector( selector );
 				if ( foundElement ) {
 					resolve( foundElement );
-					observer.disconnect(); // Ensure the observer stops after resolving.
+					observer.disconnect();
 				}
 			} );
 			observer.observe( document.body, { childList: true, subtree: true } );

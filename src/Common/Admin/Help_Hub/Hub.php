@@ -557,8 +557,6 @@ class Hub {
 	public function enqueue_help_page_iframe_assets(): void {
 		define( 'IFRAME_REQUEST', true );
 
-		$status = $this->get_license_and_opt_in_status();
-
 		tec_asset(
 			Tribe__Main::instance(),
 			'tec-help-hub-iframe-style',
