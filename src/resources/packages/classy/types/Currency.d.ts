@@ -2,6 +2,7 @@ import { CurrencyPosition } from './CurrencyPosition';
 
 export type Currency = {
 	code: string;
-	symbol: string;
+	label?: string;
 	position: CurrencyPosition;
+	symbol: string;
 }

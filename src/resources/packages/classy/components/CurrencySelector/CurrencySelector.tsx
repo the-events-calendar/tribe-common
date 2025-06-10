@@ -43,9 +43,10 @@ const currencyDefaultOption: CurrencySelectOption = {
  * @returns {string} The formatted currency string.
  */
 const renderCurrency = ( currency: Currency ): string => {
+	const label = currency.label || currency.code;
 	return currency.position === 'prefix'
-		? `${ currency.symbol } ${ currency.code }`
-		: `${ currency.code } ${ currency.symbol }`;
+		? `${ currency.symbol } ${ label }`
+		: `${ label } ${ currency.symbol }`;
 };
 
 /**

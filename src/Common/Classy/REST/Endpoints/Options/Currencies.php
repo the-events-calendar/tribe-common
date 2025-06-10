@@ -32,10 +32,12 @@ class Currencies {
 
 		$return = [];
 		foreach ( $currencies as $currency ) {
+			$code     = $currency['code'] ?? '';
 			$return[] = [
-				'code'     => $currency['code'] ?? '',
+				'code'     => $code,
 				'symbol'   => $currency['symbol'] ?? '',
 				'position' => $currency['position'] ?? 'prefix',
+				'label'    => $currency['name'] ?? $code,
 			];
 		}
 
