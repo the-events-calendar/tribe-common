@@ -11,7 +11,7 @@ declare( strict_types=1 );
 
 namespace TEC\Common\Classy\REST;
 
-use TEC\Classy\REST\Endpoints\Options\Currencies;
+use TEC\Common\Classy\REST\Endpoints\Options\Currencies;
 use TEC\Common\Classy\REST\Endpoints\Options\Country;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\lucatume\DI52\ContainerException;

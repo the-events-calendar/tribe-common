@@ -9,7 +9,7 @@
 
 declare( strict_types=1 );
 
-namespace TEC\Classy\REST\Endpoints\Options;
+namespace TEC\Common\Classy\REST\Endpoints\Options;
 
 use TEC\Common\Lists\Currency;
 use WP_REST_Response as Response;
