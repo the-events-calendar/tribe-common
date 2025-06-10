@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [6.8.1] 2025-06-11 =
+
+* Language - 0 new strings added, 67 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.8.0.1] 2025-06-05 =
 
 * Fix - Correct some hardcoded asset paths. [TEC-5523]
