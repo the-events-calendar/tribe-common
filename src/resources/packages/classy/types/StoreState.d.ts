@@ -5,5 +5,6 @@ export type StoreState = {
 	settings: Settings;
 	options: {
 		country: CustomSelectOption[];
+		usStates: CustomSelectOption[];
 	};
 };

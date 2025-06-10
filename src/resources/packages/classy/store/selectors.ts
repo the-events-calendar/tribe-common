@@ -40,3 +40,7 @@ export function getTimeInterval(): number {
 export function getCountryOptions( state: StoreState ): CustomSelectOption[] {
 	return state?.options?.country || [];
 }
+
+export function getUsStatesOptions( state: StoreState ): CustomSelectOption[] {
+	return state?.options?.usStates || [];
+}
