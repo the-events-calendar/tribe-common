@@ -57,7 +57,7 @@ class Tribe__Admin__Helpers {
 	/**
 	 * Matcher for Admin Pages related to Post Types
 	 *
-	 * @param string|array|null $id What will be checked to see if we return true or false
+	 * @param string|array|null $id What will be checked to see if we return true or false.
 	 *
 	 * @return boolean
 	 */
@@ -102,7 +102,7 @@ class Tribe__Admin__Helpers {
 	/**
 	 * Matcher for administration pages that are from Tribe the easier way
 	 *
-	 * @param string|array|null $id What will be checked to see if we return true or false
+	 * @param string|array|null $id What will be checked to see if we return true or false.
 	 *
 	 * @return boolean
 	 */

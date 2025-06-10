@@ -573,7 +573,8 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since 4.0
 	 *
-	 * @param string|array $mixed The mixed value to create the HTML from
+	 * @param string|array $mixed The mixed value to create the HTML from.
+	 *
 	 * @return string
 	 */
 	public function get_content_html( $mixed = '' ) {
