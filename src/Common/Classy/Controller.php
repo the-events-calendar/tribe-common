@@ -123,10 +123,11 @@ class Controller extends Controller_Contract {
 		// Register the `editor` binding replacement for back-compatibility purposes.
 		$back_compatible_editor = new Editor();
 		$this->container->singleton( 'editor', $back_compatible_editor );
-		// @todo move this to TEC.
 		$this->container->singleton( 'events.editor', $back_compatible_editor );
 		$this->container->singleton( 'events.editor.compatibility', $back_compatible_editor );
 		$this->container->singleton( 'editor.utils', new Editor_Utils() );
+
+		$this->container->register( REST\Controller::class );
 
 		// Tell Common, TEC, ET and so on NOT to load blocks.
 		add_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
@@ -163,6 +164,8 @@ class Controller extends Controller_Contract {
 		if ( $this->container->has( 'editor.utils' ) && $this->container->get( 'editor.utils' ) instanceof Editor_Utils ) {
 			unset( $this->container['editor.utils'] );
 		}
+
+		$this->container->get( REST\Controller::class )->unregister();
 
 		// Remove filters and actions.
 		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
