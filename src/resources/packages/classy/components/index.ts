@@ -1,3 +1,4 @@
+export { CurrencySelector } from './CurrencySelector';
 export { DatePicker } from './DatePicker';
 export { ErrorBoundary } from './ErrorBoundary';
 export * from './Icons';
