@@ -77,7 +77,7 @@ abstract class Abstract_Admin_Page {
 	/**
 	 * Whether the page has a logo.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 * @var bool
 	 */
@@ -288,7 +288,7 @@ abstract class Abstract_Admin_Page {
 	 *
 	 * @since 6.4.1
 	 *
-	 * @since TBD Updated the return type to be null|int|float, to avoid php 8+ deprecation warnings.
+	 * @since 6.8.1 Updated the return type to be null|int|float, to avoid php 8+ deprecation warnings.
 	 *
 	 * @return null|int|float The menu position of the page.
 	 */

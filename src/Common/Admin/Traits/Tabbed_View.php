@@ -2,7 +2,7 @@
 /**
  * Provides tabbed interface functionality for admin pages.
  *
- * @since TBD
+ * @since 6.8.1
  */
 
 namespace TEC\Common\Admin\Traits;
@@ -10,13 +10,13 @@ namespace TEC\Common\Admin\Traits;
 /**
  * Trait Tabbed_View
  *
- * @since TBD
+ * @since 6.8.1
  */
 trait Tabbed_View {
 	/**
 	 * The current active tab.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 * @var string
 	 */
@@ -25,7 +25,7 @@ trait Tabbed_View {
 	/**
 	 * Array of registered tabs.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 * @var array<string,array{
 	 *     label: string,
@@ -41,7 +41,7 @@ trait Tabbed_View {
 	/**
 	 * Register a new tab.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 * @param string $slug       The tab's slug (used in URL and as key).
 	 * @param string $label      The tab's label.
@@ -78,7 +78,7 @@ trait Tabbed_View {
 	/**
 	 * Get the URL for a specific tab.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 * @param string $tab The tab slug.
 	 *
@@ -90,7 +90,7 @@ trait Tabbed_View {
 		/**
 		 * Filter the URL for a specific tab.
 		 *
-		 * @since TBD
+		 * @since 6.8.1
 		 *
 		 * @param string $url The tab URL.
 		 * @param string $tab The tab slug.
@@ -101,7 +101,7 @@ trait Tabbed_View {
 	/**
 	 * Get the current active tab.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 * @return string The current tab's slug.
 	 */
@@ -123,7 +123,7 @@ trait Tabbed_View {
 	/**
 	 * Get the default tab (first registered tab).
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 * @return string The default tab's slug.
 	 */
@@ -135,7 +135,7 @@ trait Tabbed_View {
 	/**
 	 * Check if a tab is visible.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 * @param string $tab The tab slug.
 	 *
@@ -152,7 +152,7 @@ trait Tabbed_View {
 	/**
 	 * Check if the user has permission to view the tab.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 * @param string $tab The tab slug.
 	 *
@@ -170,7 +170,7 @@ trait Tabbed_View {
 	/**
 	 * Render the tabs navigation.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 * @return void
 	 */
@@ -213,7 +213,7 @@ trait Tabbed_View {
 	/**
 	 * Render the content for the current tab.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 * @return void
 	 */
@@ -223,7 +223,7 @@ trait Tabbed_View {
 		/**
 		 * Action that fires before rendering the tab content.
 		 *
-		 * @since TBD
+		 * @since 6.8.1
 		 *
 		 * @param string $current_tab The current tab slug.
 		 * @param object $page        The current page instance.
@@ -243,7 +243,7 @@ trait Tabbed_View {
 				/**
 				 * Action that fires for rendering custom tab content.
 				 *
-				 * @since TBD
+				 * @since 6.8.1
 				 *
 				 * @param string $current_tab The current tab slug.
 				 * @param object $page        The current page instance.
@@ -255,7 +255,7 @@ trait Tabbed_View {
 		/**
 		 * Action that fires after rendering the tab content.
 		 *
-		 * @since TBD
+		 * @since 6.8.1
 		 *
 		 * @param string $current_tab The current tab slug.
 		 * @param object $page        The current page instance.
@@ -267,7 +267,7 @@ trait Tabbed_View {
 	 * Abstract method that must be implemented by the class using this trait.
 	 * Should return the base URL for the admin page.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 * @return string The base URL for the admin page.
 	 */
