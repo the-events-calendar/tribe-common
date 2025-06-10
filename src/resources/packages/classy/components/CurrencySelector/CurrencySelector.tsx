@@ -21,7 +21,7 @@ type CurrencySelectorProps = {
 	/**
 	 * The meta key for storing the currency position (prefix or postfix).
 	 */
-	currencyPositionMeta: CurrencyPosition;
+	currencyPositionMeta: string;
 };
 
 type CurrencySelectOption = {
