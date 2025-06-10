@@ -57,9 +57,7 @@ class Controller extends Controller_Contract {
 				[
 					'methods'             => WP_REST_Server::READABLE,
 					'callback'            => $this->container->callback( Country::class, 'get' ),
-					'permission_callback' => static function (): bool {
-						return current_user_can( 'edit_posts' );
-					},
+					'permission_callback' => $this->get_permission_callback(),
 					'args'                => [],
 					'description'         => 'Returns a list of country choice options.',
 				],
@@ -73,9 +71,7 @@ class Controller extends Controller_Contract {
 				[
 					'methods'             => WP_REST_Server::READABLE,
 					'callback'            => $this->container->callback( US_States::class, 'get' ),
-					'permission_callback' => static function (): bool {
-						return current_user_can( 'edit_posts' );
-					},
+					'permission_callback' => $this->get_permission_callback(),
 					'args'                => [],
 					'description'         => 'Returns a list of country choice options.',
 				],
@@ -92,5 +88,16 @@ class Controller extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		remove_action( 'rest_api_init', [ $this, 'register_routes' ] );
+	}
+
+	/**
+	 * Returns the permission callback for the REST API routes.
+	 *
+	 * @since TBD
+	 *
+	 * @return callable
+	 */
+	protected function get_permission_callback(): callable {
+		return static fn() => current_user_can( 'edit_posts' );
 	}
 }
