@@ -47,6 +47,18 @@ export function getUsStatesOptions( state: StoreState ): CustomSelectOption[] {
 }
 
 /**
+ * Returns the currency options available for selection.
+ *
+ * @since TBD
+ *
+ * @param {StoreState} state The current store state.
+ * @returns {Currency[]} An array of currency options with code, symbol, and position.
+ */
+export function getCurrencyOptions( state: StoreState ): Currency[] {
+	return state?.options?.currencies || [];
+}
+
+/**
  * Returns the default currency from the settings.
  *
  * @since TBD

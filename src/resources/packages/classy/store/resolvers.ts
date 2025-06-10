@@ -1,5 +1,6 @@
 import apiFetch from '@wordpress/api-fetch';
 import { decodeEntities } from '@wordpress/html-entities';
+import { Currency } from '@tec/common/classy/types/Currency';
 
 export default {
 	getCountryOptions:
@@ -49,6 +50,26 @@ export default {
 				} )
 				.catch( ( error: Error ) => {
 					throw new Error( `Failed to fetch US states options: ${ error.message }` );
+				} );
+		},
+
+	getCurrencyOptions:
+		() =>
+		async ( { dispatch } ): Promise< void > => {
+			return apiFetch( {
+				path: '/tec/classy/v1/options/currencies',
+				method: 'GET',
+			} )
+				.then( ( options: Currency[] ) => {
+					const currencyOptions = Object.values( options )
+						.filter( ( option: Currency ) => {
+							return typeof option === 'object' && option?.code && option?.symbol && option?.position;
+						} );
+
+					dispatch.setCurrencyOptions( currencyOptions );
+				} )
+				.catch( ( error: Error ) => {
+					throw new Error( `Failed to fetch currency options: ${ error.message }` );
 				} );
 		},
 };
