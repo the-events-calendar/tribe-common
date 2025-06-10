@@ -38,12 +38,12 @@ class Tribe__Template_Part_Cache {
 	private $key;
 
 	/**
-	 ** Short description
+	 * Short description.
 	 *
-	 * @param string $template           - which template in the views directory is being cached (relative path).
-	 * @param string $id                 - a unique identifier for this fragment.
-	 * @param string $expiration         - expiration time for the cached fragment.
-	 * @param string $expiration_trigger - wordpress hook to expire on.
+	 * @param string $template           Which template in the views directory is being cached (relative path).
+	 * @param string $id                 A unique identifier for this fragment.
+	 * @param string $expiration         Expiration time for the cached fragment.
+	 * @param string $expiration_trigger WordPress hook to expire on.
 	 */
 	public function __construct( $template, $id, $expiration, $expiration_trigger ) {
 		$this->template           = $template;
@@ -56,17 +56,17 @@ class Tribe__Template_Part_Cache {
 	}
 
 	/**
-	 * Hook in to show cached content and bypass queries where needed
+	 * Hook in to show cached content and bypass queries where needed.
 	 */
 	public function add_hooks() {
 
-		// set the cached html in transients after the template part is included
+		// Set the cached html in transients after the template part is included.
 		add_filter( 'tribe_get_template_part_content', [ $this, 'set' ], 10, 2 );
 
-		// get the cached html right before the setup_view runs so it's available for bypassing any view logic
+		// Get the cached html right before the setup_view runs so it's available for bypassing any view logic.
 		add_action( 'tribe_events_before_view', [ $this, 'get' ], 9, 1 );
 
-		// when the specified template part is included, show the cached html instead
+		// When the specified template part is included, show the cached html instead.
 		add_filter( 'tribe_get_template_part_path_' . $this->template, [ $this, 'display' ] );
 	}
 
@@ -74,7 +74,7 @@ class Tribe__Template_Part_Cache {
 	 * Checks if there is a cached html fragment in the transients, if it's there,
 	 * don't include the requested file path. If not, just return the file path like normal
 	 *
-	 * @param string $path file path to the month view template part
+	 * @param string $path File path to the month view template part.
 	 *
 	 * @uses tribe_get_template_part_path_[template] hook
 	 *
@@ -92,12 +92,13 @@ class Tribe__Template_Part_Cache {
 	}
 
 	/**
-	 * Set cached html in transients
+	 * Set cached html in transients.
 	 *
 	 * @param string $html     The html to set.
 	 * @param string $template The template to set.
 	 *
-	 * @return string
+	 * @return string The HTML.
+	 *
 	 * @uses tribe_get_template_part_content hook
 	 */
 	public function set( $html, $template ) {
@@ -109,7 +110,9 @@ class Tribe__Template_Part_Cache {
 	}
 
 	/**
-	 * Retrieve the cached html from transients, set class property
+	 * Retrieve the cached html from transients, set class property.
+	 *
+	 * @return string The HTML.
 	 *
 	 * @uses tribe_events_before_view hook
 	 */

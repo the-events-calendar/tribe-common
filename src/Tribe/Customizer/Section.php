@@ -922,8 +922,8 @@ abstract class Tribe__Customizer__Section {
 	 *
 	 * @since 4.14.2
 	 *
-	 * @param string $option  The option slug, like "grid-lines-color"
-	 * @param string $section The optional section slug, like 'global_elements'
+	 * @param string $option  The option slug, like "grid-lines-color".
+	 * @param string $section The optional section slug, like 'global_elements'.
 	 *
 	 * @return string $color_rgb The hex color expressed as an rgb string, like "255,255,255"
 	 */

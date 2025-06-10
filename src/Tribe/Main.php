@@ -51,9 +51,9 @@ class Tribe__Main {
 	protected static $instance;
 
 	/**
-	 * Get (and instantiate, if necessary) the instance of the class
+	 * Get (and instantiate, if necessary) the instance of the class.
 	 *
-	 * @param mixed $context An instance of the Main class of the plugin that instantiated Common
+	 * @param mixed $context An instance of the Main class of the plugin that instantiated Common.
 	 *
 	 * @return self
 	 */
@@ -66,7 +66,7 @@ class Tribe__Main {
 	}
 
 	/**
-	 * Constructor for Common Class
+	 * Constructor for Common Class.
 	 *
 	 * We are using a `public` constructor here for backwards compatibility.
 	 *
@@ -112,7 +112,7 @@ class Tribe__Main {
 	}
 
 	/**
-	 *
+	 * Plugins loaded.
 	 */
 	public function plugins_loaded() {
 
@@ -139,7 +139,7 @@ class Tribe__Main {
 	}
 
 	/**
-	 * Setup the autoloader for common files
+	 * Setup the autoloader for common files.
 	 */
 	protected function init_autoloading() {
 		if ( ! class_exists( 'Tribe__Autoloader' ) ) {
@@ -193,7 +193,7 @@ class Tribe__Main {
 	}
 
 	/**
-	 * initializes all required libraries
+	 * Initializes all required libraries.
 	 */
 	public function init_libraries() {
 		require_once $this->plugin_path . 'src/functions/time.php';
@@ -246,7 +246,7 @@ class Tribe__Main {
 	}
 
 	/**
-	 * Registers resources that can/should be enqueued
+	 * Registers resources that can/should be enqueued.
 	 */
 	public function load_assets() {
 		Asset::add(
@@ -258,7 +258,7 @@ class Tribe__Main {
 		->use_asset_file( false )
 		->register();
 
-		// These ones are only registered
+		// These ones are only registered.
 		tec_assets(
 			$this,
 			[
@@ -320,7 +320,7 @@ class Tribe__Main {
 			null
 		);
 
-		// These ones will be enqueued on `admin_enqueue_scripts` if the conditional method on filter is met
+		// These ones will be enqueued on `admin_enqueue_scripts` if the conditional method on filter is met.
 		tec_assets(
 			$this,
 			[
