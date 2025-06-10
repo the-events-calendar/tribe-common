@@ -5,6 +5,7 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import { IconClose } from '../Icons';
 import { CurrencyPosition } from '../../types/CurrencyPosition';
 import { Currency } from '../../types/Currency';
+import { CenteredSpinner } from '../CenteredSpinner';
 
 type CurrencySelectorProps = {
 	/**
@@ -22,15 +23,6 @@ type CurrencySelectorProps = {
 	 */
 	currencyPositionMeta: CurrencyPosition;
 };
-
-// todo: Replace with API call to fetch available currencies.
-const Currencies: Currency[] = [
-	{ symbol: '$', code: 'USD', position: 'prefix' },
-	{ symbol: '€', code: 'EUR', position: 'prefix' },
-	{ symbol: '£', code: 'GBP', position: 'prefix' },
-	{ symbol: '¥', code: 'JPY', position: 'prefix' },
-	{ symbol: '₹', code: 'INR', position: 'prefix' },
-];
 
 type CurrencySelectOption = {
 	value: string;
@@ -108,12 +100,18 @@ export default function CurrencySelector( props: CurrencySelectorProps ): JSX.El
 		currencyPositionMeta,
 	} = props;
 
-	const { meta, defaultCurrency } = useSelect( ( select ) => {
-		const { getDefaultCurrency }: { getDefaultCurrency: () => Currency } = select( 'tec/classy' );
-		const { getEditedPostAttribute }: { getEditedPostAttribute: ( attribute: string ) => any } = select( 'core/editor' );
+	const { meta, defaultCurrency, Currencies } = useSelect( ( select ) => {
+		const { getDefaultCurrency, getCurrencyOptions }: {
+			getDefaultCurrency: () => Currency,
+			getCurrencyOptions: () => Currency[]
+		} = select( 'tec/classy' );
+		const { getEditedPostAttribute }: {
+			getEditedPostAttribute: ( attribute: string ) => any
+		} = select( 'core/editor' );
 		return {
 			meta: getEditedPostAttribute( 'meta' ) || {},
 			defaultCurrency: getDefaultCurrency(),
+			Currencies: getCurrencyOptions() || [],
 		};
 	}, [] );
 
@@ -205,6 +203,51 @@ export default function CurrencySelector( props: CurrencySelectorProps ): JSX.El
 		setIsSelectingCurrency( false );
 	};
 
+	let popoverContent: React.ReactNode = null;
+	if ( Currencies.length === 0 ) {
+		popoverContent = <CenteredSpinner />;
+	} else {
+		popoverContent = (
+			<div className="classy-component__popover-content">
+				<Button variant="link" onClick={ onClose } className="classy-component__popover-close">
+					<IconClose />
+				</Button>
+
+				<h4 className="classy-component__popover-title">
+					{ _x( 'Currency', 'Event currency selector title', 'the-events-calendar' ) }
+				</h4>
+
+				<p className="classy-component__popover-description">
+					{ __(
+						'Choose a different currency than your default for this event.',
+						'the-events-calendar'
+					) }
+				</p>
+
+				<SelectControl
+					label={ _x( 'Currency', 'Event currency selector label', 'the-events-calendar' ) }
+					hideLabelFromVision={ true }
+					value={ eventCurrencyCode === defaultCurrency.code ? 'default' : eventCurrencyCode }
+					onChange={ onCurrencyChange }
+					options={ currencyOptions }
+					__nextHasNoMarginBottom
+					__next40pxDefaultSize
+				/>
+
+				<ToggleControl
+					label={ _x(
+						'Currency symbol precedes price',
+						'Event currency position toggle label',
+						'the-events-calendar'
+					) }
+					checked={ currencyPosition === 'prefix' }
+					onChange={ onCurrencyPositionChange }
+					__nextHasNoMarginBottom
+				/>
+			</div>
+		);
+	}
+
 	return (
 		<div className="classy-field classy-field--currency-selector">
 			<Button className="is-link--dark" variant="link" onClick={ onCurrencyClick }>
@@ -224,43 +267,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ): JSX.El
 					offset={ 4 }
 					onClose={ () => setIsSelectingCurrency( false ) }
 				>
-					<div className="classy-component__popover-content">
-						<Button variant="link" onClick={ onClose } className="classy-component__popover-close">
-							<IconClose />
-						</Button>
-
-						<h4 className="classy-component__popover-title">
-							{ _x( 'Currency', 'Event currency selector title', 'the-events-calendar' ) }
-						</h4>
-
-						<p className="classy-component__popover-description">
-							{ __(
-								'Choose a different currency than your default for this event.',
-								'the-events-calendar'
-							) }
-						</p>
-
-						<SelectControl
-							label={ _x( 'Currency', 'Event currency selector label', 'the-events-calendar' ) }
-							hideLabelFromVision={ true }
-							value={ eventCurrencyCode === defaultCurrency.code ? 'default' : eventCurrencyCode }
-							onChange={ onCurrencyChange }
-							options={ currencyOptions }
-							__nextHasNoMarginBottom
-							__next40pxDefaultSize
-						/>
-
-						<ToggleControl
-							label={ _x(
-								'Currency symbol precedes price',
-								'Event currency position toggle label',
-								'the-events-calendar'
-							) }
-							checked={ currencyPosition === 'prefix' }
-							onChange={ onCurrencyPositionChange }
-							__nextHasNoMarginBottom
-						/>
-					</div>
+					{ popoverContent }
 				</Popover>
 			) }
 		</div>
