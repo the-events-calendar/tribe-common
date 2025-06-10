@@ -249,7 +249,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ): JSX.El
 	}
 
 	return (
-		<div className="classy-field classy-field--currency-selector">
+		<div className="classy-field classy-field__currency-selector">
 			<Button className="is-link--dark" variant="link" onClick={ onCurrencyClick }>
 				{ renderCurrency( {
 					code: eventCurrencyCode,
