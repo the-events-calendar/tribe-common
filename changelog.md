@@ -2,6 +2,8 @@
 
 ### [6.8.1] 2025-06-11
 
+* Tweak - Add a new Tabbed View class for admin pages as part of the Ticket Presets launch.
+* Tweak - Update the Abstract Admin Page class to handle logos and menu position better.
 * Language - 0 new strings added, 67 updated, 1 fuzzied, and 0 obsoleted.
 
 ### [6.8.0.1] 2025-06-06
