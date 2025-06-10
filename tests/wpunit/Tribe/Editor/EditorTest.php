@@ -71,8 +71,8 @@ class EditorTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
-	public function test_is_classic_editor_by_default() {
-		$this->assertTrue( $this->editor->is_classic_editor() );
+	public function test_should_load_blocks_by_default() {
+		$this->assertTrue( $this->editor->should_load_blocks() );
 	}
 
 	/**
@@ -80,15 +80,15 @@ class EditorTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_is_not_classic_editor_when_toggled() {
 		$this->tec_blocks_on();
-		$this->assertFalse( $this->editor->is_classic_editor() );
+		$this->assertFalse( $this->editor->should_load_blocks() );
 	}
 
 	/**
 	 * @test
 	 */
-	public function test_is_classic_editor_when_toggled_off() {
+	public function test_should_load_blocks_when_toggled_off() {
 		$this->tec_blocks_off();
-		$this->assertTrue( $this->editor->is_classic_editor() );
+		$this->assertTrue( $this->editor->should_load_blocks() );
 	}
 
 	/**
