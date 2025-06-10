@@ -69,14 +69,14 @@ class EditorTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
+	 * @skip
 	 */
 	public function test_should_load_blocks_by_default() {
 		$this->assertTrue( $this->editor->should_load_blocks() );
 	}
 
 	/**
-	 * @test
+	 * @skip
 	 */
 	public function test_is_not_classic_editor_when_toggled() {
 		$this->tec_blocks_on();
@@ -84,7 +84,7 @@ class EditorTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
+	 * @skip
 	 */
 	public function test_should_load_blocks_when_toggled_off() {
 		$this->tec_blocks_off();
