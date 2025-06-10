@@ -263,9 +263,9 @@ if ( ! function_exists( 'tribe_isset_var' ) ) {
 	 *
 	 * @since 4.11.0
 	 *
-	 * @param string   $slug    The slug of the variable checked using `tribe_isset_var`.
+	 * @param string $slug The slug of the variable checked using `tribe_isset_var`.
 	 *
-	 * @return boolean  Either a the given slug exists.
+	 * @return boolean Whether the given slug exists.
 	 */
 	function tribe_isset_var( $slug ) {
 		$container = Tribe__Container::init();
@@ -283,7 +283,7 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 	 * @see ServiceProvider
 	 * @see ServiceProviderInterface
 	 *
-	 * @param string $provider_class
+	 * @param string $provider_class The class name of the service provider to register.
 	 */
 	function tribe_register_provider( $provider_class ) {
 		$container = Tribe__Container::init();
@@ -317,10 +317,10 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 		 *
 		 * @param string $slug       A class or interface fully qualified name or a string slug.
 		 * @param string $method     The method that should be called on the resolved implementation with the
-		 *                            specified array arguments.
-		 * @param mixed  [$argsN]      (optional) Any number of arguments that will be passed down to the Callback
+		 *                           specified array arguments.
+		 * @param mixed  [$argsN]    (optional) Any number of arguments that will be passed down to the Callback
 		 *
-		 * @return callable A PHP Callable based on the Slug and Methods passed
+		 * @return callable A PHP Callable based on the Slug and Methods passed.
 		 */
 		function tribe_callback( $slug, $method ) {
 			$container = Tribe__Container::init();
@@ -348,9 +348,9 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 		 *
 		 * @since 4.6.2
 		 *
-		 * @param mixed    $value  The value to be returned
+		 * @param mixed $value The value to be returned.
 		 *
-		 * @return callable A PHP Callable based on the Slug and Methods passed
+		 * @return callable A PHP Callable based on the Slug and Methods passed.
 		 */
 		function tribe_callback_return( $value ) {
 			return tribe_callback( 'callback', 'return_value', $value );
