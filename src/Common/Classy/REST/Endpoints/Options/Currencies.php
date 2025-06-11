@@ -2,7 +2,7 @@
 /**
  * Handles the `options/currencies` endpoint of the Classy REST API.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\Classy\REST\Endpoints\Options
  */
