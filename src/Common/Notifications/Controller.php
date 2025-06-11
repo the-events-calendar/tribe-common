@@ -2,7 +2,7 @@
 /**
  * Controller for In-App Notifications.
  *
- * @since   6.4.0
+ * @since 6.4.0
  *
  * @package TEC\Common\Notifications
  */
@@ -17,7 +17,7 @@ use Tribe__Main;
 /**
  * Class Controller
  *
- * @since   6.4.0
+ * @since 6.4.0
 
  * @package TEC\Common\Notifications
  */
@@ -110,7 +110,12 @@ class Controller extends Controller_Contract {
 	 * @return bool
 	 */
 	public function is_ian_page() {
-		$screen  = get_current_screen();
+		$screen = get_current_screen();
+
+		if ( ! $screen ) {
+			return false;
+		}
+
 		$allowed = [];
 
 		/**

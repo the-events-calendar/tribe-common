@@ -19,7 +19,7 @@
  * }
  * ````
  *
- * @since   4.9.14
+ * @since 4.9.14
  * @package Tribe\Utils
  */
 
@@ -28,7 +28,7 @@ namespace Tribe\Utils;
 /**
  * Class Lazy_Collection
  *
- * @since   4.9.14
+ * @since 4.9.14
  * @package Tribe\Utils
  */
 class Lazy_Collection implements Collection_Interface {

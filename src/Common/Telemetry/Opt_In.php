@@ -2,7 +2,7 @@
 /**
  * Handles Telemetry opt-in logic.
  *
- * @since   5.1.13
+ * @since 5.1.13
  *
  * @package TEC\Common\Telemetry
  */
@@ -16,7 +16,7 @@ use WP_User;
 /**
  * Class Opt_In
  *
- * @since   5.1.13
+ * @since 5.1.13
 
  * @package TEC\Common\Telemetry
  */

@@ -457,7 +457,7 @@ abstract class Tribe__Repository
 		 *
 		 * @since 4.9.5
 		 *
-		 * @param Tribe__Repository $this This repository instance
+		 * @param Tribe__Repository $repository This repository instance
 		 *
 		 */
 		do_action( "tribe_repository_{$this->filter_name}_init", $this );
@@ -616,7 +616,7 @@ abstract class Tribe__Repository
 		 *
 		 * @param WP_Query                     $query             The built query.
 		 * @param array                        $query_args        An array of query arguments used to build the query.
-		 * @param Tribe__Repository            $this              This repository instance.
+		 * @param Tribe__Repository            $repository        This repository instance.
 		 * @param bool                         $use_query_builder Whether a query builder was used to build this query or not.
 		 * @param Tribe__Repository__Interface $query_builder     The query builder in use, if any.
 		 */
@@ -929,9 +929,9 @@ abstract class Tribe__Repository
 		 *
 		 * @since 4.9.11
 		 *
-		 * @param mixed|WP_Post                $formatted The formatted post result, usually a post object.
-		 * @param int                          $id        The formatted post ID.
-		 * @param Tribe__Repository__Interface $this      The current repository object.
+		 * @param mixed|WP_Post                $formatted  The formatted post result, usually a post object.
+		 * @param int                          $id         The formatted post ID.
+		 * @param Tribe__Repository__Interface $repository The current repository object.
 		 */
 		$formatted = apply_filters( "tribe_repository_{$this->filter_name}_format_item", $formatted, $id, $this );
 
@@ -1048,7 +1048,7 @@ abstract class Tribe__Repository
 		 *
 		 * @since 4.9.5
 		 *
-		 * @param Tribe__Repository $this         This repository instance
+		 * @param Tribe__Repository $repository This repository instance
 		 *
 		 * @param mixed             $schema_entry A scalar value or a callable.
 		 */
@@ -1255,7 +1255,7 @@ abstract class Tribe__Repository
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param $key
+	 * @param string $key The key to check.
 	 *
 	 * @return bool
 	 */
@@ -2537,8 +2537,8 @@ abstract class Tribe__Repository
 		 *
 		 * @since 5.2.1
 		 *
-		 * @param int[]|null $pre_check The overwritten delete values or null if not handled externally.
-		 * @param self       $this      This repository instance.
+		 * @param int[]|null $pre_check  The overwritten delete values or null if not handled externally.
+		 * @param self       $repository This repository instance.
 		 */
 		$pre_check = apply_filters( "tribe_repository_{$this->filter_name}_before_delete", null, $this );
 
@@ -3235,10 +3235,10 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the query arguments that will be used to fetch the posts.
 		 *
-		 * @param array    $query_args An array of the query arguments the query will be
-		 *                             initialized with.
-		 * @param WP_Query $query      The query object, the query arguments have not been parsed yet.
-		 * @param          $this       $this This repository instance
+		 * @param array                        $query_args An array of the query arguments the query will be
+		 *                                                 initialized with.
+		 * @param WP_Query                     $query      The query object, the query arguments have not been parsed yet.
+		 * @param Tribe__Repository__Interface $repository The repository instance.
 		 */
 		$query_args = apply_filters( "tribe_repository_{$this->filter_name}_query_args", $query_args, $query, $this );
 

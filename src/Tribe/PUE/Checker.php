@@ -24,7 +24,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 	/**
 	 * A custom plugin update checker.
 	 *
-	 * @since  1.7
+	 * @since 1.7
 	 */
 	class Tribe__PUE__Checker {
 

@@ -164,8 +164,8 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 		/**
 		 * Filters the resource URL
 		 *
-		 * @param $url
-		 * @param $resource
+		 * @param string $url      The resource URL.
+		 * @param string $resource The resource name.
 		 */
 		$url = apply_filters( 'tribe_resource_url', $url, $resource );
 

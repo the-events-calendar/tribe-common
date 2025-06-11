@@ -100,7 +100,8 @@ class Tribe__Support__Template_Checker {
 	/**
 	 * Tests to ensure the provided view directory path is invalid or unreadable.
 	 *
-	 * @param  string $directory
+	 * @param string $directory The directory to check.
+	 *
 	 * @return bool
 	 */
 	protected function bad_directory( $directory ) {
@@ -115,7 +116,8 @@ class Tribe__Support__Template_Checker {
 	 * Inspects the template header block within the specified file and extracts the
 	 * version number, if one can be found.
 	 *
-	 * @param  string $template_filepath
+	 * @param string $template_filepath The template filepath.
+	 *
 	 * @return string
 	 */
 	protected function get_template_version( $template_filepath ) {
@@ -145,8 +147,9 @@ class Tribe__Support__Template_Checker {
 	 *
 	 *     'modules/icon.php'
 	 *
-	 * @param  string $full_filepath
-	 * @return string
+	 * @param string $full_filepath
+	 *
+	 * @return string The short name.
 	 */
 	protected function short_name( $full_filepath ) {
 		if ( 0 === strpos( $full_filepath, $this->plugin_views_dir ) ) {
@@ -160,7 +163,7 @@ class Tribe__Support__Template_Checker {
 	 * Returns an array of the plugin's shipped view files, where each key is the
 	 * view filename and the value is the version it was last updated.
 	 *
-	 * @return array
+	 * @return array The views.
 	 */
 	public function get_views() {
 		return $this->originals;
@@ -172,7 +175,7 @@ class Tribe__Support__Template_Checker {
 	 *
 	 * @see $this->get_views() for format of returned array
 	 *
-	 * @return array
+	 * @return array The versioned views.
 	 */
 	public function get_versioned_views() {
 		$versioned_views = [];
@@ -192,7 +195,7 @@ class Tribe__Support__Template_Checker {
 	 *
 	 * @see $this->get_views() for format of returned array
 	 *
-	 * @return array
+	 * @return array The views tagged this release.
 	 */
 	public function get_views_tagged_this_release() {
 		$currently_tagged_views = [];
@@ -210,7 +213,7 @@ class Tribe__Support__Template_Checker {
 	 * Returns an array of theme overrides, where each key is the view filename and the
 	 * value is the version it was last updated (may be empty).
 	 *
-	 * @return array
+	 * @return array The overrides.
 	 */
 	public function get_overrides() {
 		return $this->overrides;
@@ -222,7 +225,7 @@ class Tribe__Support__Template_Checker {
 	 *
 	 * @see $this->get_overrides() for format of returned array
 	 *
-	 * @return array
+	 * @return array The versioned overrides.
 	 */
 	public function get_versioned_overrides() {
 		$versioned_views = [];
@@ -248,7 +251,8 @@ class Tribe__Support__Template_Checker {
 	 * @see $this->get_overrides() for format of returned array
 	 *
 	 * @param bool $include_unknown = false
-	 * @return array
+	 *
+	 * @return array The outdated overrides.
 	 */
 	public function get_outdated_overrides( $include_unknown = false ) {
 		$outdated  = [];

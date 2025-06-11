@@ -132,8 +132,8 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		 *
 		 * @since 6.3.0
 		 *
-		 * @param string       $slug The slug of the conditional content.
-		 * @param Black_Friday $this The Black Friday instance.
+		 * @param string       $slug     The slug of the conditional content.
+		 * @param Black_Friday $instance The Black Friday instance.
 		 */
 		do_action( 'tec_conditional_content_black_friday', 'wide_banner', $this );
 
@@ -176,8 +176,8 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		 *
 		 * @since 6.3.0
 		 *
-		 * @param string       $slug The slug of the conditional content.
-		 * @param Black_Friday $this The Black Friday instance.
+		 * @param string       $slug     The slug of the conditional content.
+		 * @param Black_Friday $instance The Black Friday instance.
 		 */
 		do_action( 'tec_conditional_content_black_friday', 'narrow_banner', $this );
 
@@ -234,8 +234,8 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 		 *
 		 * @since 6.3.0
 		 *
-		 * @param string       $slug The slug of the conditional content.
-		 * @param Black_Friday $this The Black Friday instance.
+		 * @param string       $slug     The slug of the conditional content.
+		 * @param Black_Friday $instance The Black Friday instance.
 		 */
 		do_action( 'tec_conditional_content_black_friday', 'settings-sidebar', $this );
 

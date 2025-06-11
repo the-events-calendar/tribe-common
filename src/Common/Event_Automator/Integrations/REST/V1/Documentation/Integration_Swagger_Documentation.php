@@ -132,7 +132,7 @@ abstract class Integration_Swagger_Documentation
 		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param array<string|mixed>   $documentation An associative PHP array in the format supported by Swagger.
-		 * @param Swagger_Documentation $this          This documentation endpoint instance.
+		 * @param Swagger_Documentation $endpoint      This documentation endpoint instance.
 		 *
 		 * @link  http://swagger.io/
 		 */
@@ -177,8 +177,8 @@ abstract class Integration_Swagger_Documentation
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
-	 * @param                                            $path
-	 * @param Tribe__Documentation__Swagger__Provider_Interface $endpoint
+	 * @param string                                            $path     The path to register the documentation for.
+	 * @param Tribe__Documentation__Swagger__Provider_Interface $endpoint The documentation provider.
 	 */
 	public function register_documentation_provider( $path, Tribe__Documentation__Swagger__Provider_Interface $endpoint ) {
 		$this->documentation_providers[ $path ] = $endpoint;
@@ -236,8 +236,8 @@ abstract class Integration_Swagger_Documentation
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
-	 * @param string                                            $type
-	 * @param Tribe__Documentation__Swagger__Provider_Interface $provider
+	 * @param string                                            $type     The type of definition to register.
+	 * @param Tribe__Documentation__Swagger__Provider_Interface $provider The definition provider.
 	 */
 	public function register_definition_provider( $type, Tribe__Documentation__Swagger__Provider_Interface $provider ) {
 		$this->definition_providers[ $type ] = $provider;

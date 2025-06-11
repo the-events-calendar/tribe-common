@@ -205,15 +205,16 @@ class Tribe__Log__Admin {
 		return $levels;
 	}
 
+	//phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.Found
 	/**
 	 * Provides a URL that can be used to download the current or specified
 	 * log.
 	 *
-	 * @param $log
+	 * @param mixed $unused_log Unused.
 	 *
 	 * @return string
 	 */
-	protected function get_log_url( $log = null ) {
+	protected function get_log_url( $unused_log = null ) {
 		$query = [
 			'tribe-common-log' => 'download',
 			'check'            => wp_create_nonce( 'download_log' ),
@@ -223,6 +224,7 @@ class Tribe__Log__Admin {
 
 		return esc_url( $log_download_url );
 	}
+	//phpcs:enable Generic.CodeAnalysis.UnusedFunctionParameter.Found
 
 	/**
 	 * Facilitate downloading of logs.

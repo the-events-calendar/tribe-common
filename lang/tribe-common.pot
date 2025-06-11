@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 6.8.0\n"
+"Project-Id-Version: Tribe Common 6.8.1\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-06-03T21:14:54+00:00\n"
+"POT-Creation-Date: 2025-06-10T20:55:02+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: tribe-common\n"
@@ -27,9 +27,8 @@ msgstr ""
 #. Author of the plugin
 #: tribe-common.php
 #: src/admin-views/help-calendar.php:105
-#: src/Common/Admin/Abstract_Admin_Page.php:488
 #: src/Tribe/Admin/Help_Page.php:171
-#: src/Tribe/Customizer.php:664
+#: src/Tribe/Customizer.php:666
 #: src/Tribe/Plugins_API.php:25
 msgid "The Events Calendar"
 msgstr ""
@@ -2690,11 +2689,11 @@ msgstr ""
 msgid "Read notifications"
 msgstr ""
 
-#: src/Common/Notifications/Controller.php:222
+#: src/Common/Notifications/Controller.php:227
 msgid "Enable this option to receive notifications about The Events Calendar, including updates, fixes, and features. This is enabled if you have opted in to Telemetry."
 msgstr ""
 
-#: src/Common/Notifications/Controller.php:233
+#: src/Common/Notifications/Controller.php:238
 msgid "In-App Notifications"
 msgstr ""
 
@@ -2792,11 +2791,11 @@ msgctxt "The associated field is required."
 msgid "( required )"
 msgstr ""
 
-#: src/Tribe/Admin/Activation_Page.php:113
+#: src/Tribe/Admin/Activation_Page.php:114
 msgid "Go to plugins page"
 msgstr ""
 
-#: src/Tribe/Admin/Activation_Page.php:121
+#: src/Tribe/Admin/Activation_Page.php:122
 msgid "Go to WordPress Updates page"
 msgstr ""
 
@@ -2848,225 +2847,225 @@ msgid "You need to upgrade!"
 msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:557
-#: src/Tribe/Admin/Help_Page.php:933
+#: src/Tribe/Admin/Help_Page.php:934
 msgid "You are up to date!"
 msgstr ""
 
 #. translators: %s: Plugin Name
-#: src/Tribe/Admin/Help_Page.php:923
+#: src/Tribe/Admin/Help_Page.php:924
 #, php-format
 msgid "Activate %s"
 msgstr ""
 
 #. translators: %s: Plugin Name
-#: src/Tribe/Admin/Help_Page.php:923
+#: src/Tribe/Admin/Help_Page.php:924
 msgid "Activate Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:931
+#: src/Tribe/Admin/Help_Page.php:932
 msgid "Upgrade Plugin"
 msgstr ""
 
 #. translators: %s: Plugin Name
-#: src/Tribe/Admin/Help_Page.php:948
+#: src/Tribe/Admin/Help_Page.php:949
 #, php-format
 msgid "Install %s"
 msgstr ""
 
 #. translators: %s: Plugin Name
-#: src/Tribe/Admin/Help_Page.php:948
+#: src/Tribe/Admin/Help_Page.php:949
 msgid "Install Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:965
+#: src/Tribe/Admin/Help_Page.php:966
 msgid "Latest Version:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:968
+#: src/Tribe/Admin/Help_Page.php:969
 msgid "Requires:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:969
+#: src/Tribe/Admin/Help_Page.php:970
 msgid "WordPress "
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:971
+#: src/Tribe/Admin/Help_Page.php:972
 msgid "Active Users:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:974
+#: src/Tribe/Admin/Help_Page.php:975
 msgid "Rating:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:999
+#: src/Tribe/Admin/Help_Page.php:1000
 msgid "Premium Add-Ons"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1006
+#: src/Tribe/Admin/Help_Page.php:1007
 msgid "Plugin Active"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1008
+#: src/Tribe/Admin/Help_Page.php:1009
 msgid "Plugin Inactive"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1013
+#: src/Tribe/Admin/Help_Page.php:1014
 msgid "Visit the Add-on Page"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1040
+#: src/Tribe/Admin/Help_Page.php:1041
 msgid "Can I have more than one calendar?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1041
+#: src/Tribe/Admin/Help_Page.php:1042
 msgid "No, but you can use event categories or tags to display certain events like having..."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1045
+#: src/Tribe/Admin/Help_Page.php:1046
 msgid "What do I get with Events Calendar Pro?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1050
+#: src/Tribe/Admin/Help_Page.php:1051
 msgid "How do I sell tickets to events?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1051
+#: src/Tribe/Admin/Help_Page.php:1052
 msgid "Use our free Event Tickets plugin to get started with tickets and RSVPs."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1055
+#: src/Tribe/Admin/Help_Page.php:1056
 msgid "Where can I find a list of available shortcodes?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1056
+#: src/Tribe/Admin/Help_Page.php:1057
 msgid "Our plugins include many shortcodes that do everything from embedding the calendar..."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1075
+#: src/Tribe/Admin/Help_Page.php:1076
 msgid "Calendar widget areas"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1076
+#: src/Tribe/Admin/Help_Page.php:1077
 msgid "This extension creates a useful variety of WordPress widget areas (a.k.a. sidebars)."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1081
+#: src/Tribe/Admin/Help_Page.php:1082
 msgid "Event block patterns"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1082
+#: src/Tribe/Admin/Help_Page.php:1083
 msgid "This extension adds a set of block patterns for events to the WordPress block editor."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1087
+#: src/Tribe/Admin/Help_Page.php:1088
 msgid "Alternative photo view"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1088
+#: src/Tribe/Admin/Help_Page.php:1089
 msgid "This extension replaces photo view with a tiled grid of cards featuring event images."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1093
+#: src/Tribe/Admin/Help_Page.php:1094
 msgid "The Events Calendar Tweaks"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1094
+#: src/Tribe/Admin/Help_Page.php:1095
 msgid "This extension is a collection of tweaks and snippets for The Events Calendar."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1133
+#: src/Tribe/Admin/Help_Page.php:1134
 msgid "How Do I create events with Tickets or RSVP’s?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1134
+#: src/Tribe/Admin/Help_Page.php:1135
 msgid "We’ve put together a video tutorial showing how to create events with Tickets using our plugins. Click on the link in the link in the title to learn more."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1138
+#: src/Tribe/Admin/Help_Page.php:1139
 msgid "How Do I Set Up E-Commerce Plugins for Selling Tickets?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1139
+#: src/Tribe/Admin/Help_Page.php:1140
 msgid "You can sell tickets using our built-in e-commerce option, or upgrade to Event Tickets Plus to use ecommerce plugins such as WooCommerce."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1143
+#: src/Tribe/Admin/Help_Page.php:1144
 msgid "Can I have a seating chart associated with my tickets?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1144
+#: src/Tribe/Admin/Help_Page.php:1145
 msgid "Yes! You can easily accomplish this task using the stock options and multiple ticket types available with Event Tickets."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1148
+#: src/Tribe/Admin/Help_Page.php:1149
 msgid "How do I process refunds for tickets?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1149
+#: src/Tribe/Admin/Help_Page.php:1150
 msgid "When it comes to paid tickets, these orders can be refunded through the e-commerce platform in use."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1168
+#: src/Tribe/Admin/Help_Page.php:1169
 msgid "Ticket Email Settings"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1169
+#: src/Tribe/Admin/Help_Page.php:1170
 msgid "Adds a new settings panel in Events > Settings that gives more control over the ticket and rsvp emails that are sent to attendees after registration."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1174
+#: src/Tribe/Admin/Help_Page.php:1175
 msgid "Per Event Check In API"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1175
+#: src/Tribe/Admin/Help_Page.php:1176
 msgid "This extension shows a meta box with an API key on each Event with Ticket/RSVP."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1180
+#: src/Tribe/Admin/Help_Page.php:1181
 msgid "Add Event & Attendee Info to WooCommerce Order Details"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1181
+#: src/Tribe/Admin/Help_Page.php:1182
 msgid "Displays the information collected by “attendee meta fields” in the WooCommerce order screens as well."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1186
+#: src/Tribe/Admin/Help_Page.php:1187
 msgid "Organizer Notification Email"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1187
+#: src/Tribe/Admin/Help_Page.php:1188
 msgid "This extension will send an email to event organizers whenever a user registers for their event."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1226
+#: src/Tribe/Admin/Help_Page.php:1227
 msgid "Add Cost Currency Symbol"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1227
+#: src/Tribe/Admin/Help_Page.php:1228
 msgid "This extension allows you to set default currency symbols for your users to choose from instead of having a plain text field."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1232
+#: src/Tribe/Admin/Help_Page.php:1233
 msgid "Add Google Maps Display and Link Options"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1233
+#: src/Tribe/Admin/Help_Page.php:1234
 msgid "This extension adds the “Show Google Maps” and “Show Google Maps Link” checkboxes when creating a new Venue."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1238
+#: src/Tribe/Admin/Help_Page.php:1239
 msgid "Hide Others’ Organizers and Venues"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1239
+#: src/Tribe/Admin/Help_Page.php:1240
 msgid "This extension allows you to hide the Organizers and Venues that a visitor has not created from the Community submission form."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1244
+#: src/Tribe/Admin/Help_Page.php:1245
 msgid "Display Custom HTML"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1245
+#: src/Tribe/Admin/Help_Page.php:1246
 msgid "This extension allows you to add custom HTML content to the top of the Community submission form."
 msgstr ""
 
@@ -3401,30 +3400,30 @@ msgstr ""
 msgid "If you like %1$sEvent Tickets%2$s please leave us a %3$s. It takes a minute and it helps a lot."
 msgstr ""
 
-#: src/Tribe/Customizer.php:665
+#: src/Tribe/Customizer.php:667
 msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
 msgstr ""
 
-#: src/Tribe/Customizer.php:1026
+#: src/Tribe/Customizer.php:1028
 msgctxt "Page title for the TEC Customizer section."
 msgid "Customize The Events Calendar"
 msgstr ""
 
-#: src/Tribe/Customizer.php:1027
+#: src/Tribe/Customizer.php:1029
 msgctxt "Menu item text for the TEC Customizer section link."
 msgid "Customize The Events Calendar"
 msgstr ""
 
-#: src/Tribe/Customizer.php:1052
+#: src/Tribe/Customizer.php:1054
 msgid "Customizer"
 msgstr ""
 
-#: src/Tribe/Customizer.php:1056
+#: src/Tribe/Customizer.php:1058
 msgid "Adjust colors, fonts, and more with the WordPress Customizer."
 msgstr ""
 
 #. translators: %1$s: opening anchor tag; %2$s: closing anchor tag
-#: src/Tribe/Customizer.php:1062
+#: src/Tribe/Customizer.php:1064
 #, php-format
 msgctxt "Link text added to the TEC->Settings->Display tab."
 msgid "%1$sCustomize The Events Calendar%2$s"
@@ -3610,7 +3609,7 @@ msgstr ""
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr ""
 
-#: src/Tribe/Editor/Blocks/Abstract.php:134
+#: src/Tribe/Editor/Blocks/Abstract.php:132
 msgid "Problem loading the block, please remove this block to restart."
 msgstr ""
 
@@ -5404,8 +5403,8 @@ msgstr[1] ""
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
 msgstr ""
 
-#: src/Tribe/PUE/Notices.php:605
-#: src/Tribe/PUE/Notices.php:648
+#: src/Tribe/PUE/Notices.php:604
+#: src/Tribe/PUE/Notices.php:647
 #, php-format
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"

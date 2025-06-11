@@ -2,7 +2,7 @@
 /**
  * Service Provider for Telemetry.
  *
- * @since   5.1.0
+ * @since 5.1.0
  *
  * @package TEC\Common\Telemetry
  */
@@ -16,7 +16,7 @@ use Tribe__Main;
 /**
  * Class Provider
  *
- * @since   5.1.0
+ * @since 5.1.0
 
  * @package TEC\Common\Telemetry
  */

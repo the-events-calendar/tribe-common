@@ -6,7 +6,7 @@
  *
  * @package TEC/Common
  *
- * @since   6.5.4
+ * @since 6.5.4
  * @version 6.5.4
  *
  * @var Template $this The template object.

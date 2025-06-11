@@ -20,9 +20,20 @@
 	position: relative;
 
 	@media (--viewport-wpadmin) {
-		background: #fff;
+		background-color: #fff;
 		border-bottom: 1px solid var(--tec-admin-core-grey-10);
 		padding: var(--tec-spacer-3) var(--tec-spacer-5);
+	}
+}
+
+.tec-admin-page__header.tec-admin-page__header--simple {
+	display: block;
+	padding: 0;
+
+	@media (--viewport-wpadmin) {
+		background: none;
+		border: 0;
+		padding: 0;
 	}
 }
 

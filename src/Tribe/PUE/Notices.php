@@ -567,12 +567,11 @@ class Tribe__PUE__Notices {
 	 *     # Three names
 	 *     "Ticket Pro, Calendar Legend and Date Stars"
 	 *
+	 * @since 4.9.12
 	 *
-	 * @since  4.9.12
+	 * @param array|string $plugins Array of plugin classes.
 	 *
-	 * @param  array|string  $plugins  Array of plugin classes.
-	 *
-	 * @return string|false
+	 * @return string|false The formatted plugin names.
 	 */
 	public function get_formatted_plugin_names_from_classes( $plugins ) {
 		$plugin_list = [];
@@ -626,9 +625,9 @@ class Tribe__PUE__Notices {
 	 *     # Fallback
 	 *     "Unknown Plugin(s)"
 	 *
-	 * @param  string  $group
+	 * @param string $group The group.
 	 *
-	 * @return string
+	 * @return string The formatted plugin names.
 	 */
 	protected function get_formatted_plugin_names( $group ) {
 		if ( ! count( $this->notices[ $group ] ) ) {

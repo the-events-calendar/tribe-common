@@ -537,7 +537,7 @@ class Tribe__Assets {
 	 *
 	 * @since 4.9.12
 	 *
-	 * @param  stdClass $asset Argument that set that asset.
+	 * @param stdClass $asset Argument that set that asset.
 	 *
 	 * @return stdClass
 	 *
@@ -554,7 +554,7 @@ class Tribe__Assets {
 	 * @since 4.3
 	 * @since 5.3.0 Refactored to use the stellarwp/assets library.
 	 *
-	 * @param  string $slug Slug of the Asset.
+	 * @param string $slug Slug of the Asset.
 	 *
 	 * @return bool
 	 */
@@ -582,7 +582,7 @@ class Tribe__Assets {
 	/**
 	 * Checks if an Asset exists.
 	 *
-	 * @param  string|array $slug Slug of the Asset.
+	 * @param string|array $slug Slug of the Asset.
 	 *
 	 * @since 5.3.0 Refactored to use the stellarwp/assets library.
 	 *

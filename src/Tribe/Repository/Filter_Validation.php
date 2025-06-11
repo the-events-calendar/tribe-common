@@ -2,7 +2,7 @@
 /**
  * Provides methods to validate repository filters.
  *
- * @since   4.10.2
+ * @since 4.10.2
  *
  * @package Tribe\Repository
  */
@@ -25,7 +25,7 @@ trait Filter_Validation {
 	 *
 	 * @since 4.10.2
 	 *
-	 * @param       string $filter The name of the filter currently validating.
+	 * @param      string $filter The name of the filter currently validating.
 	 * @param array        $call_args The current filter call args, usually `func_get_args()`.
 	 *
 	 * @throws Usage_Error If there is a definition for the filter and the argument count or nature is not correct.

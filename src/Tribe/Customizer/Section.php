@@ -59,9 +59,9 @@ abstract class Tribe__Customizer__Section {
 	 * @var array
 	 */
 	public $arguments = [
-		'priority'	=> 10,
+		'priority'    => 10,
 		'capability'  => 'edit_theme_options',
-		'title'	   => null,
+		'title'       => null,
 		'description' => null,
 	];
 
@@ -112,7 +112,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Setup and Load hooks for this Section.
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @return Tribe__Customizer__Section
 	 */
@@ -156,8 +156,8 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Register this Section.
 	 *
-	 * @param  array  $sections   Array of Sections.
-	 * @param  Tribe__Customizer $customizer Our internal Cutomizer Class Instance.
+	 * @param array             $sections   Array of Sections.
+	 * @param Tribe__Customizer $customizer Our internal Customizer Class Instance.
 	 *
 	 * @return array  Return the modified version of the Section array.
 	 */
@@ -170,8 +170,8 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Overwrite this method to create the Fields/Settings for this section.
 	 *
-	 * @param  WP_Customize_Section $section The WordPress section instance.
-	 * @param  WP_Customize_Manager $manager The WordPress Customizer Manager.
+	 * @param WP_Customize_Section $section The WordPress section instance.
+	 * @param WP_Customize_Manager $manager The WordPress Customizer Manager.
 	 *
 	 * @return void
 	 */
@@ -225,8 +225,8 @@ abstract class Tribe__Customizer__Section {
 	 *
 	 * @since 4.13.3
 	 *
-	 * @param string $setting The setting slug, like 'grid_lines_color'.
-	 * @param int $section_id The ID for the section - defaults to the current one if not set.
+	 * @param string $setting    The setting slug, like 'grid_lines_color'.
+	 * @param int    $section_id The ID for the section - defaults to the current one if not set.
 	 *
 	 * @return boolean If the setting should be added to the style template.
 	 */
@@ -270,7 +270,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Overwrite this method to be able to create dynamic settings.
 	 *
-	 * @param  array  $settings The actual options on the database.
+	 * @param array  $settings The actual options on the database.
 	 *
 	 * @return array $settings The modified settings.
 	 */
@@ -281,7 +281,8 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Get the section slug based on the Class name.
 	 *
-	 * @param  string $class_name The name of this Class.
+	 * @param string $class_name The name of this Class.
+	 *
 	 * @return string $slug The slug for this Class.
 	 */
 	final public static function get_section_slug( $class_name ) {
@@ -303,10 +304,10 @@ abstract class Tribe__Customizer__Section {
 	 * Hooks to the `tribe_customizer_pre_get_option`. This applies the `$this->create_ghost_settings()` method
 	 * to the settings on the correct section.
 	 *
-	 * @param  array $settings  Values from the Database from Customizer actions.
-	 * @param  array $search	Indexed search @see Tribe__Customizer::search_var().
+	 * @param array $settings  Values from the Database from Customizer actions.
+	 * @param array $search    Indexed search @see Tribe__Customizer::search_var().
 	 *
-	 * @return array
+	 * @return array The settings.
 	 */
 	public function filter_settings( $settings, $search ) {
 		// Exit early.
@@ -353,7 +354,7 @@ abstract class Tribe__Customizer__Section {
 		 * @since 4.13.3
 		 *
 		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
-		 * @param static				 $instance  The section instance we are dealing with.
+		 * @param static                 $instance  The section instance we are dealing with.
 		 */
 		$arguments = apply_filters( 'tribe_customizer_section_arguments', $arguments, $this );
 
@@ -365,7 +366,7 @@ abstract class Tribe__Customizer__Section {
 		 * @since 4.13.3
 		 *
 		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
-		 * @param static				 $instance  The section instance we are dealing with.
+		 * @param static                 $instance  The section instance we are dealing with.
 		 */
 		return apply_filters( "tribe_customizer_section_{$section_slug}_arguments", $arguments, $this );
 	}
@@ -492,7 +493,7 @@ abstract class Tribe__Customizer__Section {
 	 *
 	 * @since 4.14.0
 	 *
-	 * @param string $setting    The setting "slug" to link to.
+	 * @param string $setting The setting "slug" to link to.
 	 *
 	 * @return string The URL to the setting.
 	 */
@@ -506,7 +507,7 @@ abstract class Tribe__Customizer__Section {
 	 *
 	 * @since 4.14.0
 	 *
-	 * @param string $setting    The setting "slug" to link to.
+	 * @param string $setting   The setting "slug" to link to.
 	 * @param string $link_text The translated text for the link.
 	 *
 	 * @return string The HTML anchor element, linking to the TEC Customizer setting.
@@ -552,7 +553,7 @@ abstract class Tribe__Customizer__Section {
 		 * @since 4.13.3
 		 *
 		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
-		 * @param static				 $instance  The section instance we are dealing with.
+		 * @param static                 $instance  The section instance we are dealing with.
 		 */
 		$arguments = apply_filters( 'tribe_customizer_section_content_settings', $arguments, $this );
 
@@ -565,7 +566,7 @@ abstract class Tribe__Customizer__Section {
 		 * @since 4.13.3
 		 *
 		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
-		 * @param static				 $instance  The section instance we are dealing with.
+		 * @param static                 $instance  The section instance we are dealing with.
 		 */
 		$arguments = apply_filters( "tribe_customizer_section_{$section_slug}_content_settings", $arguments, $this );
 
@@ -577,16 +578,16 @@ abstract class Tribe__Customizer__Section {
 	 *
 	 * @since 4.13.3
 	 *
-	 * @param WP_Customize_Manager $manager	  The instance of the Customizer Manager.
-	 * @param string			   $setting_name HTML name Attribute name of the setting.
-	 * @param string			   $key		  The key for the default value.
-	 * @param array<string,mixed>  $arguments	The control arguments.
+	 * @param WP_Customize_Manager $manager      The instance of the Customizer Manager.
+	 * @param string               $setting_name HTML name Attribute name of the setting.
+	 * @param string               $key          The key for the default value.
+	 * @param array<string,mixed>  $args         The control arguments.
 	 */
 	protected function add_setting( $manager, $setting_name, $key, $args ) {
 		// Get the default values.
 		$defaults = [
 			'default' => $this->get_default( $key ),
-			'type'	=> 'option',
+			'type'    => 'option',
 		];
 
 		// Add a setting.
@@ -633,7 +634,7 @@ abstract class Tribe__Customizer__Section {
 		 * @since 4.13.3
 		 *
 		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
-		 * @param static				 $instance  The section instance we are dealing with.
+		 * @param static                 $instance  The section instance we are dealing with.
 		 */
 		$arguments = apply_filters( 'tribe_customizer_section_content_headings', $arguments, $this );
 
@@ -645,7 +646,7 @@ abstract class Tribe__Customizer__Section {
 		 * @since 4.13.3
 		 *
 		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
-		 * @param static				 $instance  The section instance we are dealing with.
+		 * @param static                 $instance  The section instance we are dealing with.
 		 */
 		return apply_filters( "tribe_customizer_section_{$section_slug}_content_headings", $arguments, $this );
 	}
@@ -656,9 +657,10 @@ abstract class Tribe__Customizer__Section {
 	 *
 	 * @since 4.13.3
 	 *
+	 * @param WP_Customize_Section $section   The section.
 	 * @param WP_Customize_Manager $manager   The instance of the Customizer Manager.
-	 * @param string			   $name	  HTML name Attribute name of the setting.
-	 * @param array<string,mixed>  $arguments The control arguments.
+	 * @param string               $name      HTML name Attribute name of the setting.
+	 * @param array<string,mixed>  $args      The control arguments.
 	 *
 	 */
 	protected function add_heading( $section, $manager, $name, $args ) {
@@ -684,18 +686,18 @@ abstract class Tribe__Customizer__Section {
 	 */
 	public function get_accepted_control_types() {
 		$accepted_control_types = [
-			'checkbox'	     => WP_Customize_Control::class,
-			'color'		     => WP_Customize_Color_Control::class,
-			'default'		 => WP_Customize_Control::class,
+			'checkbox'       => WP_Customize_Control::class,
+			'color'          => WP_Customize_Color_Control::class,
+			'default'        => WP_Customize_Control::class,
 			'dropdown-pages' => WP_Customize_Control::class,
-			'heading'		 => Heading::class,
-			'image'		     => WP_Customize_Image_Control::class,
-			'radio'		     => Radio::class,
-			'select'		 => WP_Customize_Control::class,
-			'separator'	     => Separator::class,
-			'text'	         => WP_Customize_Control::class,
-			'textarea'	     => WP_Customize_Control::class,
-			'number'	     => Number::class,
+			'heading'        => Heading::class,
+			'image'          => WP_Customize_Image_Control::class,
+			'radio'          => Radio::class,
+			'select'         => WP_Customize_Control::class,
+			'separator'      => Separator::class,
+			'text'           => WP_Customize_Control::class,
+			'textarea'       => WP_Customize_Control::class,
+			'number'         => Number::class,
 			'range-slider'   => Range_Slider::class,
 			'toggle'         => Toggle::class,
 		];
@@ -744,7 +746,7 @@ abstract class Tribe__Customizer__Section {
 	 *
 	 * @param string $type The "slug" of the control type.
 	 *
-	 * @return object|false The control type class or false if type not found.
+	 * @return string|false The control type classname or false if type not found.
 	 */
 	public function get_control_type( $type ) {
 		$types = $this->get_accepted_control_types();
@@ -788,7 +790,7 @@ abstract class Tribe__Customizer__Section {
 		 * @since 4.13.3
 		 *
 		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
-		 * @param static				 $instance  The section instance we are dealing with.
+		 * @param static                 $instance  The section instance we are dealing with.
 		 */
 		$arguments = apply_filters( 'tribe_customizer_section_content_controls', $arguments, $this );
 
@@ -800,7 +802,7 @@ abstract class Tribe__Customizer__Section {
 		 * @since 4.13.3
 		 *
 		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
-		 * @param static				 $instance  The section instance we are dealing with.
+		 * @param static                 $instance  The section instance we are dealing with.
 		 */
 		return apply_filters( "tribe_customizer_section_{$section_slug}_content_controls", $arguments, $this );
 	}
@@ -810,9 +812,10 @@ abstract class Tribe__Customizer__Section {
 	 *
 	 * @since 4.13.3
 	 *
-	 * @param WP_Customize_Manager $manager	  The instance of the Customizer Manager.
-	 * @param string			   $setting_name HTML name Attribute name of the setting.
-	 * @param array<string,mixed>  $arguments	The control arguments.
+	 * @param WP_Customize_Section $section      The section.
+	 * @param WP_Customize_Manager $manager      The instance of the Customizer Manager.
+	 * @param string               $setting_name HTML name Attribute name of the setting.
+	 * @param array<string,mixed>  $args         The control arguments.
 	 */
 	protected function add_control( $section, $manager, $setting_name, $args  ) {
 		// Validate our control choice.
@@ -854,6 +857,13 @@ abstract class Tribe__Customizer__Section {
 
 	/* CSS Output Functions */
 
+	/**
+	 * Setup the CSS template.
+	 *
+	 * @param string $template The template.
+	 *
+	 * @return string The filtered template.
+	 */
 	public function setup_css_template( $template ) {
 		$template = $this->filter_css_template( $this->get_css_template( $template ) );
 
@@ -874,9 +884,9 @@ abstract class Tribe__Customizer__Section {
 	 *
 	 * @since 4.13.3
 	 *
-	 * @param array<string,mixed> $arguments The list of arguments for headings and separators.
+	 * @param string $template The template.
 	 *
-	 * @return array<string,mixed> $arguments The filtered array of arguments.
+	 * @return string $template The filtered template.
 	 */
 	public function filter_css_template( $template ) {
 		/**
@@ -885,8 +895,8 @@ abstract class Tribe__Customizer__Section {
 		 *
 		 * @since 4.13.3
 		 *
-		 * @param array<string,callable> $template Current set of callbacks for css output.
-		 * @param static				 $instance  The section instance we are dealing with.
+		 * @param string $template Current set of callbacks for css output.
+		 * @param static $instance The section instance we are dealing with.
 		 */
 		$template = apply_filters( 'tribe_customizer_section_css_template', $template, $this );
 
@@ -898,8 +908,8 @@ abstract class Tribe__Customizer__Section {
 		 *
 		 * @since 4.13.3
 		 *
-		 * @param array<string,callable> $template Current set of callbacks for css output.
-		 * @param static				 $instance  The section instance we are dealing with.
+		 * @param string $template Current set of callbacks for css output.
+		 * @param static $instance The section instance we are dealing with.
 		 */
 		$template = apply_filters( "tribe_customizer_section_{$section_slug}_css_template", $template, $this );
 
@@ -912,8 +922,8 @@ abstract class Tribe__Customizer__Section {
 	 *
 	 * @since 4.14.2
 	 *
-	 * @param string $option The option slug, like "grid-lines-color"
-	 * @param string $section The optional section slug, like 'global_elements'
+	 * @param string $option  The option slug, like "grid-lines-color".
+	 * @param string $section The optional section slug, like 'global_elements'.
 	 *
 	 * @return string $color_rgb The hex color expressed as an rgb string, like "255,255,255"
 	 */
