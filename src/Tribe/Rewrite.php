@@ -493,6 +493,11 @@ class Tribe__Rewrite {
 				$wp_canonical = $canonical_url;
 			}
 
+			// Prevent a Fatal error if warming yielded non-Array data
+			if ( ! is_array( $this->canonical_url_cache ) ) {
+				$this->canonical_url_cache = [];
+			}
+
 			$this->canonical_url_cache[ $url ] = $wp_canonical;
 
 			return $wp_canonical;
@@ -511,6 +516,12 @@ class Tribe__Rewrite {
 		if ( empty( $matched_vars ) ) {
 			// The URL does contain query vars, but none we handle.
 			$wp_canonical                      = trailingslashit( redirect_canonical( $url, false ) );
+
+			// Prevent a Fatal error if warming yielded non-Array data
+			if ( ! is_array( $this->canonical_url_cache ) ) {
+				$this->canonical_url_cache = [];
+			}
+
 			$this->canonical_url_cache[ $url ] = $wp_canonical;
 
 			return $wp_canonical;
@@ -1164,6 +1175,11 @@ class Tribe__Rewrite {
 		}
 
 		$clean = $this->get_canonical_url( add_query_arg( $parsed_vars, home_url( '/' ) ), $force );
+
+		// Prevent a Fatal error if warming yielded non-Array data
+		if ( ! is_array( $this->clean_url_cache ) ) {
+			$this->clean_url_cache = [];
+		}
 
 		$this->clean_url_cache[ $url ] = $clean;
 
