@@ -46,7 +46,7 @@ export default {
 							name: decodeEntities( String( option.name ) ),
 						} ) );
 
-					dispatch.setCountryOptions( usStatesOptions );
+					dispatch.setUsStateOptions( usStatesOptions );
 				} )
 				.catch( ( error: Error ) => {
 					throw new Error( `Failed to fetch US states options: ${ error.message }` );
@@ -61,10 +61,9 @@ export default {
 				method: 'GET',
 			} )
 				.then( ( options: Currency[] ) => {
-					const currencyOptions = Object.values( options )
-						.filter( ( option: Currency ) => {
-							return typeof option === 'object' && option?.code && option?.symbol && option?.position;
-						} );
+					const currencyOptions = Object.values( options ).filter( ( option: Currency ) => {
+						return typeof option === 'object' && option?.code && option?.symbol && option?.position;
+					} );
 
 					dispatch.setCurrencyOptions( currencyOptions );
 				} )

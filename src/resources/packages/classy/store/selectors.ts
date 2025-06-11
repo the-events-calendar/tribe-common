@@ -42,6 +42,13 @@ export function getCountryOptions( state: StoreState ): CustomSelectOption[] {
 	return state?.options?.country || [];
 }
 
+/**
+ * Returns the US states options available for selection.
+ *
+ * @since TBD
+ *
+ * @param state
+ */
 export function getUsStatesOptions( state: StoreState ): CustomSelectOption[] {
 	return state?.options?.usStates || [];
 }
