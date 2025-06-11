@@ -457,7 +457,7 @@ abstract class Tribe__Repository
 		 *
 		 * @since 4.9.5
 		 *
-		 * @param Tribe__Repository $this This repository instance
+		 * @param Tribe__Repository $repository This repository instance
 		 *
 		 */
 		do_action( "tribe_repository_{$this->filter_name}_init", $this );
@@ -616,7 +616,7 @@ abstract class Tribe__Repository
 		 *
 		 * @param WP_Query                     $query             The built query.
 		 * @param array                        $query_args        An array of query arguments used to build the query.
-		 * @param Tribe__Repository            $this              This repository instance.
+		 * @param Tribe__Repository            $repository        This repository instance.
 		 * @param bool                         $use_query_builder Whether a query builder was used to build this query or not.
 		 * @param Tribe__Repository__Interface $query_builder     The query builder in use, if any.
 		 */
@@ -929,9 +929,9 @@ abstract class Tribe__Repository
 		 *
 		 * @since 4.9.11
 		 *
-		 * @param mixed|WP_Post                $formatted The formatted post result, usually a post object.
-		 * @param int                          $id        The formatted post ID.
-		 * @param Tribe__Repository__Interface $this      The current repository object.
+		 * @param mixed|WP_Post                $formatted  The formatted post result, usually a post object.
+		 * @param int                          $id         The formatted post ID.
+		 * @param Tribe__Repository__Interface $repository The current repository object.
 		 */
 		$formatted = apply_filters( "tribe_repository_{$this->filter_name}_format_item", $formatted, $id, $this );
 
@@ -1023,7 +1023,7 @@ abstract class Tribe__Repository
 	public function apply_modifier( $key, $value = null ) {
 		$call_args = func_get_args();
 
-		$application = Tribe__Utils__Array::get( $this->schema, $key, null );
+		$application = Tribe__Utils__Array::get( $this->get_schema(), $key, null );
 
 		/**
 		 * Return primitives, including `null`, as they are.
@@ -1048,7 +1048,7 @@ abstract class Tribe__Repository
 		 *
 		 * @since 4.9.5
 		 *
-		 * @param Tribe__Repository $this         This repository instance
+		 * @param Tribe__Repository $repository This repository instance
 		 *
 		 * @param mixed             $schema_entry A scalar value or a callable.
 		 */
@@ -1255,12 +1255,12 @@ abstract class Tribe__Repository
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param $key
+	 * @param string $key The key to check.
 	 *
 	 * @return bool
 	 */
 	protected function schema_has_modifier_for( $key ) {
-		return isset( $this->schema[ $key ] );
+		return isset( $this->get_schema()[ $key ] );
 	}
 
 	/**
@@ -1769,7 +1769,7 @@ abstract class Tribe__Repository
 	 * @param callable $callback The function that should be called to apply this filter.
 	 */
 	public function add_schema_entry( $key, $callback ) {
-		$this->schema[ $key ] = $callback;
+		$this->set_schema( $key, $callback );
 	}
 
 	/**
@@ -1782,7 +1782,7 @@ abstract class Tribe__Repository
 	 * @param string|null  $by       The ->by() lookup to use (defaults to meta_regexp_or_like).
 	 */
 	public function add_simple_meta_schema_entry( $key, $meta_key, $by = null ) {
-		$this->schema[ $key ] = [ $this, 'filter_by_simple_meta_schema' ];
+		$this->set_schema( $key, [ $this, 'filter_by_simple_meta_schema' ] );
 
 		$this->simple_meta_schema[ $key ] = [
 			'meta_key' => $meta_key,
@@ -1800,7 +1800,7 @@ abstract class Tribe__Repository
 	 * @param string|null  $by       The ->by() lookup to use (defaults to term_in).
 	 */
 	public function add_simple_tax_schema_entry( $key, $taxonomy, $by = null ) {
-		$this->schema[ $key ] = [ $this, 'filter_by_simple_tax_schema' ];
+		$this->set_schema( $key, [ $this, 'filter_by_simple_tax_schema' ] );
 
 		$this->simple_tax_schema[ $key ] = [
 			'taxonomy' => $taxonomy,
@@ -2537,8 +2537,8 @@ abstract class Tribe__Repository
 		 *
 		 * @since 5.2.1
 		 *
-		 * @param int[]|null $pre_check The overwritten delete values or null if not handled externally.
-		 * @param self       $this      This repository instance.
+		 * @param int[]|null $pre_check  The overwritten delete values or null if not handled externally.
+		 * @param self       $repository This repository instance.
 		 */
 		$pre_check = apply_filters( "tribe_repository_{$this->filter_name}_before_delete", null, $this );
 
@@ -3235,10 +3235,10 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the query arguments that will be used to fetch the posts.
 		 *
-		 * @param array    $query_args An array of the query arguments the query will be
-		 *                             initialized with.
-		 * @param WP_Query $query      The query object, the query arguments have not been parsed yet.
-		 * @param          $this       $this This repository instance
+		 * @param array                        $query_args An array of the query arguments the query will be
+		 *                                                 initialized with.
+		 * @param WP_Query                     $query      The query object, the query arguments have not been parsed yet.
+		 * @param Tribe__Repository__Interface $repository The repository instance.
 		 */
 		$query_args = apply_filters( "tribe_repository_{$this->filter_name}_query_args", $query_args, $query, $this );
 
@@ -3906,6 +3906,49 @@ abstract class Tribe__Repository
 		foreach ( $this->get_ids_generator( $batch_size ) as $id ) {
 			yield $this->format_item( $id );
 		}
+	}
+
+	/**
+	 * Get the schema.
+	 *
+	 * @since 6.8.0
+	 *
+	 * @return array
+	 */
+	protected function get_schema(): array {
+		/**
+		 * Filters the schema for the repository takes into account the filter name.
+		 *
+		 * @since 6.8.0
+		 *
+		 * @param array             $schema     The schema.
+		 * @param Tribe__Repository $repository The repository.
+		 */
+		$schema = apply_filters( "tec_repository_schema_{$this->filter_name}", $this->schema, $this );
+
+		/**
+		 * Filters the schema for the repository.
+		 *
+		 * @since 6.8.0
+		 *
+		 * @param array             $schema     The schema.
+		 * @param Tribe__Repository $repository The repository.
+		 */
+		return apply_filters( 'tec_repository_schema', $schema, $this );
+	}
+
+	/**
+	 * Set the schema.
+	 *
+	 * @since 6.8.0
+	 *
+	 * @param string   $key      The key.
+	 * @param callable $callback The callback.
+	 */
+	protected function set_schema( string $key, callable $callback ): void {
+		$this->schema[ $key ] = $callback;
+		// Trigger the hooks.
+		$this->get_schema();
 	}
 
 	/**

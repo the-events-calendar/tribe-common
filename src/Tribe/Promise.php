@@ -55,7 +55,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	 * Tribe__Promise constructor.
 	 *
 	 * @param string|array|Tribe__Utils__Callback $callback   The callback that should run to perform the promise task.
-	 * @param   array                             $items      The items to process, each item will be passed as first
+	 * @param array                               $items      The items to process, each item will be passed as first
 	 *                                                        argument to the callback at run-time.
 	 * @param array                               $extra_args An array of extra arguments that will be passed to the
 	 *                                                        callback function.
@@ -227,7 +227,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param            callable|Tribe__Utils__Callback $callback      The callback to call.
+	 * @param           callable|Tribe__Utils__Callback $callback      The callback to call.
 	 * @param array|null                                 $callback_args An optional array of arguments to call the
 	 *                                                                  callback with.
 	 *

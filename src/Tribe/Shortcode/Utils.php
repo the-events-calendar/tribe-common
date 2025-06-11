@@ -4,7 +4,7 @@ namespace Tribe\Shortcode;
 /**
  * Class Utils.
  *
- * @since   4.13.0
+ * @since 4.13.0
  *
  * @package Tribe\Shortcode
  */

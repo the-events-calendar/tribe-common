@@ -8,7 +8,7 @@ use Tribe__Template;
 /**
  * The abstract base without Views that all widgets should implement.
  *
- * @since   4.12.12
+ * @since 4.12.12
  *
  * @package Tribe\Widget
  */
@@ -265,7 +265,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Setup the widget.
 	 *
-	 * @since  5.2.1
+	 * @since 5.2.1
 	 * @since 4.13.0 include $args and $instance params.
 	 *
 	 * @param array $args     Display arguments including 'before_title', 'after_title',
@@ -816,7 +816,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 *
 		 * @param bool   $toggle Whether the hooks should be turned on or off. This value is `true` before a widget
 		 *                       HTML is rendered and `false` after the widget HTML rendered.
-		 * @param static $this   The widget object that is toggling the hooks.
+		 * @param static $widget The widget object that is toggling the hooks.
 		 */
 		do_action( 'tribe_shortcode_toggle_hooks', $toggle, $this );
 	}

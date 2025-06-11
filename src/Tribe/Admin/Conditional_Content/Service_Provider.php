@@ -9,7 +9,7 @@ _deprecated_file( __FILE__, '6.3.0', 'No Replacement' );
 /**
  * Class Service_Provider
  *
- * @since   4.14.7
+ * @since 4.14.7
  * @deprecated 6.3.0
  *
  * @package Tribe\Admin\Conditional_Content

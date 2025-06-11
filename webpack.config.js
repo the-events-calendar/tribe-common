@@ -40,7 +40,12 @@ const customEntryPoints = compileCustomEntryPoints({
 	 * Handling this correctly requires adding a PostCSS processor specific to the PostCSS files that
 	 * will handle the nesting correctly.
 	 */
-	'/src/resources/postcss': createTECPostCss('tec.common'),
+	'/src/resources/postcss': createTECPostCss(
+		'tec.common',
+		[
+			["postcss-inline-svg"],
+		],
+	),
 }, defaultConfig);
 
 /**

@@ -1,7 +1,7 @@
 /**
  * Configures this Object in the Global Tribe variable
  *
- * @since  4.7
+ * @since 4.7
  *
  * @type   {Object}
  */
@@ -18,7 +18,7 @@ window.tribe.utils = window.tribe.utils || {};
  * @param _
  * @see https://github.com/sindresorhus/camelcase
  *
- * @since  4.7
+ * @since 4.7
  */
 ( function ( obj, _ ) {
 	'use strict';
@@ -62,7 +62,7 @@ window.tribe.utils = window.tribe.utils || {};
 	/**
 	 * Converts a String into camelCase
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @param {string} str String to be converted
 	 *

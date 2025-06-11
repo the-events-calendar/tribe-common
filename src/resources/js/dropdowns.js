@@ -70,8 +70,8 @@ window.tribe_dropdowns = window.tribe_dropdowns || {};
 	 *
 	 * @param {string} term   Which term we are searching for
 	 * @param {string} text   Search here
-	 * @param          params
-	 * @param          data
+	 * @param         params
+	 * @param         data
 	 * @return {boolean}
 	 */
 	obj.matcher = function ( params, data ) {
@@ -513,11 +513,11 @@ window.tribe_dropdowns = window.tribe_dropdowns || {};
 		  carryOverData.map( function( dataKey ) {
 		  var attr = 'data-' + dataKey;
 		  var val = $select.attr( attr );
-		 
+
 		  if ( ! val ) {
 		  return;
 		  }
-		 
+
 		  this.attr( attr, val );
 		  }, $container );
 		  }

@@ -36,7 +36,7 @@ class Tribe__Credits {
 	/**
 	 * Add ratings nudge in admin footer
 	 *
-	 * @param $footer_text
+	 * @param string $footer_text The footer text.
 	 *
 	 * @return string
 	 */
@@ -83,7 +83,7 @@ class Tribe__Credits {
 		 *
 		 * @since 4.15.0
 		 *
-		 * @param $footer_text The admin footer text.
+		 * @param string $footer_text The admin footer text.
 		 */
 		return apply_filters( 'tec_admin_footer_text', $footer_text );
 	}
