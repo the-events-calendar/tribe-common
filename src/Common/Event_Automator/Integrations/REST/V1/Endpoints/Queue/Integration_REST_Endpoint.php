@@ -494,7 +494,7 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param array<string,array>    $endpoint An array of the integration endpoint details.
-		 * @param Abstract_REST_Endpoint $this     An instance of the endpoint.
+		 * @param Abstract_REST_Endpoint $instance An instance of the endpoint.
 		 */
 		return apply_filters( "tec_event_automator_{$api_id}_endpoint_details", $endpoint, $this );
 	}
@@ -590,9 +590,9 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 		 *
 		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
-		 * @param array<mixed|mixed>     $data    An array of data specific to the trigger and used for validation.
-		 * @param integer                $post_id A WordPress custom post id.
-		 * @param Integration_REST_Endpoint $this    An instance of the endpoint.
+		 * @param array<mixed|mixed>        $data     An array of data specific to the trigger and used for validation.
+		 * @param integer                   $post_id  A WordPress custom post id.
+		 * @param Integration_REST_Endpoint $instance An instance of the endpoint.
 		 */
 		$data = (array) apply_filters( "tec_event_automator_{$api_id}_add_to_queue_data", $data, $post_id, $this );
 
@@ -603,9 +603,9 @@ abstract class Integration_REST_Endpoint implements READ_Endpoint_Interface, Swa
 		 *
 		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
-		 * @param array<mixed|mixed>     $data    An array of data specific to the trigger and used for validation.
-		 * @param integer                $post_id A WordPress custom post id.
-		 * @param Integration_REST_Endpoint $this    An instance of the endpoint.
+		 * @param array<mixed|mixed>        $data     An array of data specific to the trigger and used for validation.
+		 * @param integer                   $post_id  A WordPress custom post id.
+		 * @param Integration_REST_Endpoint $instance An instance of the endpoint.
 		 */
 		$data = (array) apply_filters( "tec_event_automator_{$api_id}_add_to_queue_data_{$endpoint_id}", $data, $post_id, $this );
 

@@ -2,7 +2,7 @@
 /**
  * Handles Telemetry migration from Freemius.
  *
- * @since   5.1.0
+ * @since 5.1.0
  *
  * @package TEC\Common\Telemetry
  */
@@ -15,7 +15,7 @@ use Tribe__Utils__Array as Arr;
 /**
  * Class Migration
  *
- * @since   5.1.0
+ * @since 5.1.0
 
  * @package TEC\Common\Telemetry
  */

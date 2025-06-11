@@ -145,7 +145,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 			 *
 			 * @example [ 'the-events-calendar' => true, 'event-tickets' => true ]
 			 *
-			 * @since   4.12.1
+			 * @since 4.12.1
 			 *
 			 * @return array Plugin slugs as keys and bool as value for whether it's active or not.
 			 */

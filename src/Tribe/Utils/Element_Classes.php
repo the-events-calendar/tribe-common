@@ -4,7 +4,7 @@ namespace Tribe\Utils;
 /**
  * Class Element_Classes to handle HTML class attribute for elements.
  *
- * @since  4.9.13
+ * @since 4.9.13
  *
  * @package Tribe\Utils
  */
@@ -12,7 +12,7 @@ class Element_Classes {
 	/**
 	 * Store the results of parsing the classes.
 	 *
-	 * @since  4.9.13
+	 * @since 4.9.13
 	 *
 	 * @var array
 	 */
@@ -21,7 +21,7 @@ class Element_Classes {
 	/**
 	 * Stores the arguments passed.
 	 *
-	 * @since  4.9.13
+	 * @since 4.9.13
 	 *
 	 * @var array
 	 */
@@ -30,7 +30,7 @@ class Element_Classes {
 	/**
 	 * Setups an instance of Element Classes.
 	 *
-	 * @since  4.9.13
+	 * @since 4.9.13
 	 *
 	 * @return void
 	 */
@@ -41,7 +41,7 @@ class Element_Classes {
 	/**
 	 * When invoked this class will return the full HTML class attribute.
 	 *
-	 * @since  4.9.13
+	 * @since 4.9.13
 	 *
 	 * @return string In the format ` class="class1 class2" `
 	 */
@@ -54,7 +54,7 @@ class Element_Classes {
 	/**
 	 * When cast to string an instance will return the full HTML class attribute.
 	 *
-	 * @since  4.9.13
+	 * @since 4.9.13
 	 *
 	 * @return string In the format ` class="class1 class2" `
 	 */
@@ -66,7 +66,7 @@ class Element_Classes {
 	 * Gets the full HTML class attribute for this instance of Element Classes.
 	 * It will contain a space on each end of the attribute.
 	 *
-	 * @since  4.9.13
+	 * @since 4.9.13
 	 *
 	 * @return string In the format ` class="class1 class2" `
 	 */
@@ -84,7 +84,7 @@ class Element_Classes {
 	/**
 	 * Gets a space separated string of all classes to be printed.
 	 *
-	 * @since  4.9.13
+	 * @since 4.9.13
 	 *
 	 * @return string
 	 */
@@ -95,7 +95,7 @@ class Element_Classes {
 	/**
 	 * Get the array of classes to be printed.
 	 *
-	 * @since  4.9.13
+	 * @since 4.9.13
 	 *
 	 * @return array
 	 */
@@ -123,7 +123,7 @@ class Element_Classes {
 	/**
 	 * Get the array of the classes, using [ class_name => bool ] as the format.
 	 *
-	 * @since  4.9.13
+	 * @since 4.9.13
 	 *
 	 * @return array [ class_name => bool ]
 	 */
@@ -137,10 +137,10 @@ class Element_Classes {
 	/**
 	 * Parse arguments or argument for this instance, and store values on results.
 	 *
-	 * @since  4.9.13
+	 * @since 4.9.13
 	 *
-	 * @param  mixed  $arguments      Any possible set of arguments that this class supports.
-	 * @param  boolean $default_value What is the default value for a given class.
+	 * @param mixed  $arguments      Any possible set of arguments that this class supports.
+	 * @param boolean $default_value What is the default value for a given class.
 	 *
 	 * @return void
 	 */
@@ -169,10 +169,10 @@ class Element_Classes {
 	/**
 	 * Parse a string into an array of acceptable values for the instance.
 	 *
-	 * @since  4.9.13
+	 * @since 4.9.13
 	 *
-	 * @param  string  $arguments     Space separated string of classes to be parsed.
-	 * @param  boolean $default_value What is the default value for a given class.
+	 * @param string  $arguments     Space separated string of classes to be parsed.
+	 * @param boolean $default_value What is the default value for a given class.
 	 *
 	 * @return void
 	 */
@@ -192,9 +192,9 @@ class Element_Classes {
 	/**
 	 * Parse an array into an array of acceptable values for the instance.
 	 *
-	 * @since  4.9.13
+	 * @since 4.9.13
 	 *
-	 * @param  array  $values  Array of values to be parsed.
+	 * @param array  $values  Array of values to be parsed.
 	 *
 	 * @return void
 	 */
@@ -219,9 +219,9 @@ class Element_Classes {
 	/**
 	 * Parses an object, only if it contains __toString it will be considered.
 	 *
-	 * @since  4.9.13
+	 * @since 4.9.13
 	 *
-	 * @param  mixed  $object  Object to be checked for the __toString method
+	 * @param mixed  $object  Object to be checked for the __toString method
 	 *
 	 * @return void
 	 */
@@ -234,9 +234,9 @@ class Element_Classes {
 	/**
 	 * Parses a callable method or function into the array of considered classes.s
 	 *
-	 * @since  4.9.13
+	 * @since 4.9.13
 	 *
-	 * @param  callable  $method_or_function  Method or Function to be called.
+	 * @param callable  $method_or_function  Method or Function to be called.
 	 *
 	 * @return void
 	 */

@@ -15,7 +15,7 @@ use Tribe__Main;
 /**
  * Class Controller.
  *
- * @since  6.6.0
+ * @since 6.6.0
  *
  * @package TEC\Common\QR
  */
@@ -43,7 +43,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register the controller.
 	 *
-	 * @since  6.6.0
+	 * @since 6.6.0
 	 *
 	 * @uses  Notices::register_admin_notices()
 	 *

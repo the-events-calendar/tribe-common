@@ -2,7 +2,7 @@
 /**
  * Handles common cron functions.
  *
- * @since   4.12.6
+ * @since 4.12.6
  *
  * @package Tribe\Service_Providers
  */
@@ -15,7 +15,7 @@ use TEC\Common\Contracts\Service_Provider;
 /**
  * Class Crons
  *
- * @since   4.12.6
+ * @since 4.12.6
  *
  * @package Tribe\Service_Providers
  */

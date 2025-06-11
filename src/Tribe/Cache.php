@@ -79,10 +79,10 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
-	 * @param              $id
-	 * @param              $value
-	 * @param int          $expiration
-	 * @param string|array $expiration_trigger
+	 * @param string       $id                 The key for the cached value.
+	 * @param mixed        $value              The value to cache.
+	 * @param int          $expiration         The expiration time.
+	 * @param string|array $expiration_trigger Optional. Hook to trigger cache invalidation.
 	 *
 	 * @return bool
 	 */
@@ -133,8 +133,8 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
-	 * @param string       $id
-	 * @param string|array $expiration_trigger
+	 * @param string       $id                 The key for the cached value.
+	 * @param string|array $expiration_trigger Optional. Hook to trigger cache invalidation.
 	 *
 	 * @return mixed
 	 */
@@ -143,8 +143,8 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
-	 * @param string       $id
-	 * @param string|array $expiration_trigger
+	 * @param string       $id                 The key for the cached value.
+	 * @param string|array $expiration_trigger Optional. Hook to trigger cache invalidation.
 	 *
 	 * @return bool
 	 */
@@ -160,8 +160,8 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
-	 * @param string       $id
-	 * @param string|array $expiration_trigger
+	 * @param string       $id                 The key for the cached value.
+	 * @param string|array $expiration_trigger Optional. Hook to trigger cache invalidation.
 	 *
 	 * @return bool
 	 */
@@ -250,8 +250,8 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
-	 * @param string       $key
-	 * @param string|array $expiration_trigger
+	 * @param string       $key                The key for the cached value.
+	 * @param string|array $expiration_trigger Optional. Hook to trigger cache invalidation.
 	 *
 	 * @return string
 	 */
@@ -334,7 +334,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * Builds a key from an array of components and an optional prefix.
 	 *
 	 * @param mixed  $components Either a single component of the key or an array of key components.
-	 * @param string $prefix
+	 * @param string $prefix     Optional. The prefix for the key.
 	 * @param bool   $sort       Whether component arrays should be sorted or not to generate the key; defaults to
 	 *                           `true`.
 	 *

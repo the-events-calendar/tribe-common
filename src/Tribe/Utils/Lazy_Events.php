@@ -2,7 +2,7 @@
 /**
  * Provides methods for "lazy" objects to act upon life cycle events.
  *
- * @since   4.9.16
+ * @since 4.9.16
  *
  * @example
  * ```php
@@ -98,7 +98,7 @@ namespace Tribe\Utils;
 /**
  * Trait Lazy_Events
  *
- * @since   4.9.16
+ * @since 4.9.16
  *
  * @package Tribe\Utils
  *

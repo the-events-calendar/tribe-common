@@ -10,6 +10,7 @@
 namespace TEC\Common;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Common\Lists\Country as Country_List;
 
 /**
  * Class Controller
@@ -27,6 +28,7 @@ class Controller extends Controller_Contract {
 	 */
 	protected function do_register(): void {
 		$this->container->singleton( Template::class );
+		$this->container->singleton( Country_List::class );
 		$this->container->register( Hooks::class );
 	}
 

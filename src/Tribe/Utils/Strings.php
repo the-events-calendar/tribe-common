@@ -2,7 +2,7 @@
 /**
  * String Utilities
  *
- * @since   4.12.1
+ * @since 4.12.1
  * @package Tribe\Utils
  */
 

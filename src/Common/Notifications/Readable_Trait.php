@@ -12,7 +12,7 @@ namespace TEC\Common\Notifications;
 /**
  * Trait Readable_Trait
  *
- * @since   6.4.0
+ * @since 6.4.0
  */
 trait Readable_Trait {
 	/**

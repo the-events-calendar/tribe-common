@@ -2,7 +2,7 @@
 /**
  * Add theme compatibility classes.
  *
- * @since   4.14.0
+ * @since 4.14.0
  *
  * @package Tribe\Utils
  */
@@ -33,7 +33,7 @@ class Theme_Compatibility {
 	/**
 	 * Checks if the current theme needs a compatibility fix.
 	 *
-	 * @since  4.14.0
+	 * @since 4.14.0
 	 *
 	 * @param null|string $theme Optionally, pass a specific theme name in to see if compatibility
 	 *                      is required for that theme.
@@ -173,7 +173,7 @@ class Theme_Compatibility {
 	/**
 	 * Returns a list of themes registered for compatibility with our Views.
 	 *
-	 * @since  4.14.0
+	 * @since 4.14.0
 	 *
 	 * @return array An array of the themes registered.
 	 */

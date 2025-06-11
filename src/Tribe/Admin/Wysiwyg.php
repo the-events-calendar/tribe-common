@@ -64,7 +64,7 @@ class Wysiwyg {
 	 *
 	 * @since 5.0.12
 	 *
-	 * @param  array $buttons Array of buttons to include.
+	 * @param array $buttons Array of buttons to include.
 	 *
 	 * @return array Filtered array of buttons.
 	 */
@@ -85,7 +85,7 @@ class Wysiwyg {
 	 *
 	 * @since 5.0.12
 	 *
-	 * @param  array $buttons Array of buttons to include.
+	 * @param array $buttons Array of buttons to include.
 	 *
 	 * @return array Filtered array of buttons.
 	 */

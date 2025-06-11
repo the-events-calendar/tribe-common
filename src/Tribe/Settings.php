@@ -1112,8 +1112,8 @@ class Tribe__Settings {
 	 *
 	 * @since 6.1.0
 	 *
-	 * @param  object $a First tab to compare.
-	 * @param  object $b Second tab to compare.
+	 * @param object $a First tab to compare.
+	 * @param object $b Second tab to compare.
 	 *
 	 * @return int
 	 */

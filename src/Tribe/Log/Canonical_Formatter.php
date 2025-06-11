@@ -2,7 +2,7 @@
 /**
  * ${CARET}
  *
- * @since   4.9.16
+ * @since 4.9.16
  *
  * @package Tribe\Log
  */
@@ -103,8 +103,9 @@ class Canonical_Formatter implements FormatterInterface {
 	 *
 	 * @since 4.12.13
 	 *
-	 * @param  array $records A set of records to format
-	 * @return mixed The formatted set of records
+	 * @param array $records A set of records to format.
+	 *
+	 * @return mixed The formatted set of records.
 	 */
 	public function formatBatch( array $records ) {
 		$line_formatter = new LineFormatter();

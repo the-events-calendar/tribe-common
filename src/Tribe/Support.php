@@ -343,7 +343,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		/**
 		 * Method to send back sysinfo
 		 *
-		 * @param $query
+		 * @param array $query The query parameters.
 		 *
 		 * @return string|void
 		 *
