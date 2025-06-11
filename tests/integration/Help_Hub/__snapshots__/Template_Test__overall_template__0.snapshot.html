@@ -1,0 +1,288 @@
+<div class="tribe_settings wrap tec-events-admin-settings">
+	<div class="tribe-notice-wrap">
+	<div class="wp-header-end"></div>
+</div>
+<div class="tec-settings-header-wrap">
+<h1>
+	<img
+		class="tribe-events-admin-title__logo"
+		src="https://example.com/"
+		alt="The Events Calendar logo"
+		role="presentation"
+		id="tec-settings-logo"
+	/>
+	Help
+</h1>
+</div>
+<dialog id="tec-settings-nav-modal" class="tec-settings-form__modal" aria-labelledby="tec-settings-nav-modal-title" aria-modal="true" role="dialog">
+	<div class="tec-modal__content">
+		<div class="tec-modal__header">
+			<h2 id="tec-settings-nav-modal-title" class="screen-reader-text">Settings Navigation</h2>
+			<button id="tec-settings-nav-modal-close" class="tec-modal__control tec-modal__control--close" data-modal-close aria-label="Close settings navigation">
+				<span class="screen-reader-text">Close</span>
+			</button>
+		</div>
+		<nav class="tec-settings__nav-wrapper" aria-label="Main Help Hub Navigation">
+	<ul class="tec-nav" role="tablist">
+					<li
+				data-tab-target="tec-help-tab"
+				class="tec-nav__tab tec-nav__tab--active"
+				role="tab"
+				id="tab-main-tec-help-tab"
+				aria-controls="tec-help-tab"
+			>
+				<a class="tec-nav__link">Support Hub</a>
+			</li>
+					<li
+				data-tab-target="tec-resources-tab"
+				class="tec-nav__tab "
+				role="tab"
+				id="tab-main-tec-resources-tab"
+				aria-controls="tec-resources-tab"
+			>
+				<a class="tec-nav__link">Resources</a>
+			</li>
+			</ul>
+</nav>
+	</div>
+</dialog>
+<div class="tec-nav__modal-controls">
+	<button
+		id="tec-settings-nav-modal-open"
+		class="tec-modal__control tec-modal__control--open"
+		aria-controls="tec-settings-nav-modal"
+		aria-expanded="false"
+		aria-label="Open settings navigation"
+	>
+		<span>Support Hub</span>
+		<img
+			class="tec-modal__control-icon"
+			src="https://example.com/"
+			alt="Open settings navigation"
+		>
+	</button>
+</div>
+<nav class="tec-settings__nav-wrapper" aria-label="Main Help Hub Navigation">
+	<ul class="tec-nav" role="tablist">
+					<li
+				data-tab-target="tec-help-tab"
+				class="tec-nav__tab tec-nav__tab--active"
+				role="tab"
+				id="tab-main-tec-help-tab"
+				aria-controls="tec-help-tab"
+			>
+				<a class="tec-nav__link">Support Hub</a>
+			</li>
+					<li
+				data-tab-target="tec-resources-tab"
+				class="tec-nav__tab "
+				role="tab"
+				id="tab-main-tec-resources-tab"
+				aria-controls="tec-resources-tab"
+			>
+				<a class="tec-nav__link">Resources</a>
+			</li>
+			</ul>
+</nav>
+<div id="tec-help-hub-tab-containers" class="tec-tab-parent-container">
+			<div
+			id="tec-help-tab"
+			class="tec-tab-container hidden"
+			role="tabpanel"
+			aria-labelledby="tab-tec-help-tab"
+			data-link-title="Support Hub"
+		>
+				<div class="tribe-settings-form form">
+		<div class="tec-settings-form">
+			<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
+				<h2 class="tec-settings-form__section-header">
+					Mock support resources for testing the Help Hub functionality.				</h2>
+				<p class="tec-settings-form__section-description">
+					Help on setting up, customizing, and troubleshooting your calendar.				</p>
+			</div>
+			<div class="tec-settings-form__content-section">
+				<div>
+					<div class="tec-settings__support-hub-iframe-container">
+	<!-- Loading spinner displayed while iframe content is loading -->
+	<div id="tec-settings__support-hub-iframe-loader" class="loader">
+		<div class="spinner-container">
+			<div class="spinner is-active"></div> <!-- WordPress spinner class -->
+		</div>
+	</div>
+
+	<!-- Embed the iframe with the dynamically generated URL -->
+	<iframe src="http://wordpress.test/wp-admin/admin.php?help_hub=tec-help-hub&#038;page=tec-help-hub&#038;embedded_content=true&#038;_cb=123456789" frameborder="0" tabindex="-1" id="tec-settings__support-hub-iframe" class="hidden"></iframe>
+</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<div class="tec-settings-form__sidebar tec-help-resources__sidebar">
+	<div class="tec-settings-form__sidebar-section">
+		<div class="tec-settings__sidebar-icon-wrap">
+			<div>
+				<img class="tec-settings-infobox-logo"
+					src="/mock/path/to/chat-icon.svg"
+					alt="Support chat logo"
+				>
+			</div>
+			<div class="tec-settings__sidebar-icon-wrap-content">
+				<h2>
+					Get priority live support				</h2>
+				<p>
+					You can get live support from The Events Calendar team if you have an active license for one of our products.				</p>
+				<p>
+					<a href="https://theeventscalendar.com/knowledgebase/priority-support-through-the-tec-support-hub" target="_blank" rel="noopener noreferrer">
+						Learn how to get live support					</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+		</div>
+			<div
+			id="tec-resources-tab"
+			class="tec-tab-container hidden"
+			role="tabpanel"
+			aria-labelledby="tab-tec-resources-tab"
+			data-link-title="Resources"
+		>
+			<div class="tribe-settings-form form">
+	<div class="tec-settings-form">
+		<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
+	<h2 class="tec-settings-form__section-header">
+		Resources	</h2>
+	<p class="tec-settings-form__section-description">
+		Mock help resources for testing the Help Hub functionality.	</p>
+	<div class='notice notice-info is-dismissible inline' data-stellarwp-tec_common-notice-id='tec-common-help-chatbot-notice'><p>To find the answer to all your questions use the <a data-tab-target="tec-help-tab" href="#">TEC Chatbot</a></p></div></div>
+
+<div class="tec-settings-form__content-section">
+	<div class="tec-settings-form__header-block">
+		<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">
+			Getting Started		</h3>
+					<p class="tec-settings-form__section-description">
+				Learn the basics of The Events Calendar.			</p>
+			</div>
+	<ul class="tec-help-list__list-expanded">
+					<li>
+							<img class="tec-help-list__icon-expanded" src="/mock/path/to/tec-icon.svg" alt="Product Icon"/>
+						<a href="https://example.com/tec" rel="noopener" target="_blank">
+				Mock The Events Calendar			</a>
+		</li>
+					<li>
+							<img class="tec-help-list__icon-expanded" src="/mock/path/to/ea-icon.svg" alt="Product Icon"/>
+						<a href="https://example.com/ea" rel="noopener" target="_blank">
+				Mock Event Aggregator			</a>
+		</li>
+					<li>
+							<img class="tec-help-list__icon-expanded" src="/mock/path/to/fbar-icon.svg" alt="Product Icon"/>
+						<a href="https://example.com/fbar" rel="noopener" target="_blank">
+				Mock Filter Bar			</a>
+		</li>
+	</ul>
+</div>
+
+<div class="tec-settings-form__content-section">
+	<div class="tec-settings-form__header-block">
+		<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">
+			Customizations		</h3>
+					<p class="tec-settings-form__section-description">
+				Tips and tricks on making your calendar just the way you want it.			</p>
+			</div>
+	<ul class="tec-help-list__list-expanded">
+					<li>
+							<img class="tec-help-list__icon-expanded" src="/mock/path/to/article-icon.svg" alt="Product Icon"/>
+						<a href="https://example.com/customization" rel="noopener" target="_blank">
+				Mock Getting started with customization			</a>
+		</li>
+					<li>
+							<img class="tec-help-list__icon-expanded" src="/mock/path/to/article-icon.svg" alt="Product Icon"/>
+						<a href="https://example.com/highlighting" rel="noopener" target="_blank">
+				Mock Highlighting events			</a>
+		</li>
+	</ul>
+</div>
+
+<div class="tec-settings-form__content-section">
+	<div class="tec-settings-form__header-block">
+		<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">
+			Common Issues		</h3>
+					<p class="tec-settings-form__section-description">
+				Having trouble? Find solutions to common issues or ask our <a href="void(0)" data-tab-target="tec-help-tab">AI Chatbot</a>.			</p>
+			</div>
+	<ul class="tec-help-list__list-expanded">
+					<li>
+							<img class="tec-help-list__icon-expanded" src="/mock/path/to/article-icon.svg" alt="Product Icon"/>
+						<a href="https://example.com/issues" rel="noopener" target="_blank">
+				Mock Known issues			</a>
+		</li>
+					<li>
+							<img class="tec-help-list__icon-expanded" src="/mock/path/to/article-icon.svg" alt="Product Icon"/>
+						<a href="https://example.com/releases" rel="noopener" target="_blank">
+				Mock Release notes			</a>
+		</li>
+	</ul>
+</div>
+
+<div class="tec-settings-form__content-section">
+	<div class="tec-settings-form__header-block">
+		<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">
+			FAQ		</h3>
+		<p class="tec-settings-form__section-description">
+			Frequently Asked Questions		</p>
+	</div>
+	<div class="tec-ui-accordion">
+					<h4>Can I have more than one calendar?</h4>
+			<div>
+				<p>Yes, you can use this feature in the mock environment.</p>
+									<p><a href="https://example.com/multiple-calendars" rel="noopener" target="_blank">Learn More</a></p>
+								</div>
+					<h4>What do I get with Events Calendar Pro?</h4>
+			<div>
+				<p>Events Calendar Pro enhances The Events Calendar with additional views, powerful shortcodes, and a host of premium features.</p>
+									<p><a href="https://example.com/calendar-pro" rel="noopener" target="_blank">Learn More</a></p>
+								</div>
+			</div>
+</div>
+<div class="tec-settings-infobox">
+	<img class="tec-settings-infobox-logo" src="/mock/path/to/stars-icon.svg" alt="AI Chatbot logo">
+	<h3 class="tec-settings-infobox-title">
+		Our AI Chatbot is here to help you	</h3>
+	<p>
+		You have questions? The TEC Chatbot has the answers.	</p>
+	<p>
+		<a data-tab-target="tec-help-tab" href="javascript:void(0)">
+			Talk to TEC Chatbot		</a>
+	</p>
+</div>
+	</div>
+</div>
+
+<div class="tec-settings-form__sidebar tec-help-resources__sidebar">
+	<div class="tec-settings-form__sidebar-section">
+		<div class="tec-settings__sidebar-icon-wrap">
+			<div>
+				<img class="tec-settings-infobox-logo"
+					src="/mock/path/to/stars-icon.svg"
+					alt="AI Chatbot logo"
+				>
+			</div>
+			<div class="tec-settings__sidebar-icon-wrap-content">
+					<h2>
+						Our AI Chatbot is here to help you					</h2>
+					<p>
+						You have questions? The TEC Chatbot has the answers.					</p>
+					<p>
+						<a data-tab-target="tec-help-tab" href="javascript:void(0);">
+							Talk to TEC Chatbot						</a>
+					</p>
+
+			</div>
+		</div>
+	</div>
+
+	</div>
+		</div>
+	</div>
+</div>
+

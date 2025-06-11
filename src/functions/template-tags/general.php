@@ -593,6 +593,19 @@ function tribe_notice( $slug, $callback, $arguments = [], $active_callback = nul
 	return Tribe__Admin__Notices::instance()->register( $slug, $callback, $arguments, $active_callback );
 }
 
+if ( ! function_exists( 'tec_remove_notice' ) ) {
+	/**
+	 * Remove a notice based on its slug.
+	 *
+	 * @since 6.8.0
+	 *
+	 * @param string $slug The slug of the notice to remove.
+	 */
+	function tec_remove_notice( string $slug ): void {
+		Tribe__Admin__Notices::instance()->remove( $slug );
+	}
+}
+
 /**
  * Shortcut for Tribe__Admin__Notices::register_transient(), create a transient Admin Notice easily.
  *
@@ -989,14 +1002,12 @@ if ( ! function_exists( 'tec_assets' ) ) {
 	 *
 	 * @since 6.7.0
 	 *
-	 * @param object $origin    The main object for the plugin you are enqueueing the script/style for.
-	 * @param array  $assets    Indexed array, don't use any associative key.
-	 *      E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ]
-	 *     {
-	 *        @type string   $slug       The slug to save the asset.
-	 *        @type string   $file       Which file will be loaded, either CSS or JS.
-	 *        @type array    $deps       (optional) Dependencies.
-	 *     }
+	 * @param object $origin    The main Object for the plugin you are enqueueing the script/style for.
+	 * @param array  $assets    Not associative array.
+	 *                          E.g.: [ 'slug-my-script', 'my/own/path.js', [ 'jquery' ] ].
+	 *                                @type string $slug  Slug to save the asset.
+	 *                                @type string $file  Which file will be loaded, either CSS or JS.
+	 *                                @type array  $deps  (optional) Dependencies.
 	 * @param string $action    A WordPress hook that will automatically enqueue this asset once fired.
 	 * @param array  $arguments Look at `Tribe__Assets::register()` for more info.
 	 *
