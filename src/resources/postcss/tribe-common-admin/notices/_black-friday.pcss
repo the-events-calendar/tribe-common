@@ -13,7 +13,7 @@
 
 	background: linear-gradient(to right, var(--tec-bf-color-start), var(--tec-bf-color-end));
 	container: tec-bf-notice / inline-size; /* stylelint-disable property-no-unknown */
-	font-family: 'Montserrat', sans-serif;
+	font-family: Montserrat, sans-serif;
 
 	.tribe-marketing-notice {
 		align-items: flex-start;
@@ -34,7 +34,7 @@
 		h3.tribe-marketing-notice__header,
 		.tribe-marketing-notice__content {
 			color: var(--tec-bf-color-text);
-			font-family: 'Montserrat', sans-serif;
+			font-family: Montserrat, sans-serif;
 			margin: 0;
 			padding: 0;
 		}
@@ -119,14 +119,14 @@
 	.notice-dismiss {
 		align-self: flex-start;
 
-		&:before {
+		&::before {
 			background-color: var(--tec-color-background);
 			background-image: svg-inline(close);
 			background-position: center;
 			background-repeat: no-repeat;
 			background-size: 55%;
 			border-radius: 50%;
-			content: '';
+			content: "";
 			height: 30px;
 			overflow: hidden;
 			width: 30px;
@@ -196,6 +196,7 @@
 }
 
 .black-friday-promo__branding {
+
 	@media (min-width: 1024px) {
 		padding-right: 10px;
 		width: calc(100% - 450px);

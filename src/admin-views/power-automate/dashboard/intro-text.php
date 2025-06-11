@@ -15,7 +15,7 @@
  */
 
 ?>
-<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
+<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal tec-settings-form__header-block--no-border">
 	<?php $this->template( '/components/loader' ); ?>
 	<h3 id="tec-power-automate-endpoint-dashboard" class="tec-settings-power-automate-application__title tec-settings-form__section-header tec-settings-form__section-header--sub">
 		<?php echo esc_html_x( 'Power Automate Endpoint Dashboard', 'Power Automate settings endpoint dashboard header', 'tribe-common' ); ?>

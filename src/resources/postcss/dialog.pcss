@@ -6,6 +6,7 @@ This can include modals, toasters, confirms. alerts.
 @import "utilities/_all.pcss";
 
 .tribe-common {
+
 	/* vars */
 	.tribe-dialog {
 		--tec-dialog-background-color: #fff;
@@ -35,7 +36,7 @@ This can include modals, toasters, confirms. alerts.
 		width: 100vw;
 		z-index: 100;
 
-		&[aria-hidden='true'] {
+		&[aria-hidden="true"] {
 			display: none;
 		}
 	}
@@ -156,6 +157,7 @@ This can include modals, toasters, confirms. alerts.
 	}
 
 	.tribe-dialog__content .tribe-dialog__content__wrapper {
+
 		&.tribe-dialog__content__wrapper--centered {
 			align-items: center;
 			display: flex;
@@ -166,6 +168,7 @@ This can include modals, toasters, confirms. alerts.
 	}
 
 	@media screen and (max-width: 768px) {
+
 		.tribe-dialog__content:last-of-type {
 			padding-bottom: 36px;
 		}

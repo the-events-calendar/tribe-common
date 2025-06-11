@@ -14,13 +14,9 @@ tribe.copyToClipboard = tribe.copyToClipboard || {};
 		const clipboard = new ClipboardJS( obj.selectors.copyButton );
 
 		//Prevent Button From Doing Anything Else
-		$( document ).on(
-			'click',
-			obj.selectors.copyButton,
-			function ( e ) {
-				e.preventDefault();
-			}
-		);
+		$( document ).on( 'click', obj.selectors.copyButton, function ( e ) {
+			e.preventDefault();
+		} );
 
 		clipboard.on( 'success', function ( event ) {
 			event.clearSelection();
@@ -47,5 +43,4 @@ tribe.copyToClipboard = tribe.copyToClipboard || {};
 	};
 
 	obj.setupCopyButton();
-
 } )( jQuery, tribe.copyToClipboard );

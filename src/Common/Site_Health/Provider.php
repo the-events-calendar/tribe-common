@@ -7,7 +7,7 @@ use TEC\Common\Contracts\Service_Provider;
 /**
  * Class Provider
  *
- * @since   5.1.0
+ * @since 5.1.0
  *
  * @package TEC\Common\Site_Health
  *

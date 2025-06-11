@@ -1,7 +1,10 @@
 /**
  * Notice Dismiss structure
+ * @param $
+ * @param wp
+ * @param obj
  */
-( function( $, wp, obj ) {
+( function ( $, wp, obj ) {
 	const { tec } = window;
 
 	/**
@@ -15,7 +18,6 @@
 		dismissButton: '[data-tec-conditional-content-dismiss-button]',
 		dismissedContainer: '[data-tec-conditional-content-dismiss-container]',
 	};
-
 
 	/**
 	 * Handles the click event on the dismiss button.
@@ -59,8 +61,8 @@
 			method: 'POST',
 			data: {
 				action: 'tec_conditional_content_dismiss',
-				slug: slug,
-				nonce: nonce,
+				slug,
+				nonce,
 			},
 			complete: () => {
 				$container.remove();
@@ -68,12 +70,8 @@
 		} );
 	};
 
-	$( document ).on(
-		'click',
-		obj.selectors.dismissButton,
-		obj.onDismissClick
-	);
+	$( document ).on( 'click', obj.selectors.dismissButton, obj.onDismissClick );
 
 	// Expose the object to the global scope.
 	tec.conditionalContent = obj;
-}( jQuery, window.wp, {} ) );
+} )( jQuery, window.wp, {} );

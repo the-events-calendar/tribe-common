@@ -4,41 +4,83 @@
  */
 use Tribe\Utils\Element_Attributes;
 use Tribe\Utils\Element_Classes;
+use TEC\Common\Template;
 
 /**
  * Parse input values into a valid array of classes to be used in the templates.
  *
- * @since  4.9.13
+ * @since 4.9.13
+ * @deprecated 6.7.0 In favor of tec_get_classes().
  *
- * @param  mixed $classes,... unlimited Any amount of params to be rendered as classes.
+ * @param mixed $classes,... unlimited Any amount of params to be rendered as classes.
  *
  * @return array
  */
 function tribe_get_classes() {
+	return tec_get_classes( ...func_get_args() );
+}
+
+/**
+ * Parse input values into a valid array of classes to be used in the templates.
+ *
+ * @since 4.9.13
+ *
+ * @param mixed $classes,... unlimited Any amount of params to be rendered as classes.
+ *
+ * @return array
+ */
+function tec_get_classes() {
 	$element_classes = new Element_Classes( func_get_args() );
 	return $element_classes->get_classes();
 }
 
 /**
+ * Parse input values into a valid array of classes to be used in the templates.
+ *
+ * @since 6.7.0
+ *
+ * @param mixed $classes,... unlimited Any amount of params to be rendered as classes.
+ *
+ * @return array
+ */
+function tec_get_classes_attr() {
+	$element_classes = new Element_Classes( func_get_args() );
+	return $element_classes->get_attribute();
+}
+
+/**
  * Parses input values into a valid class html attribute to be used in the templates.
  *
- * @since  4.9.13
+ * @since 4.9.13
+ * @deprecated 6.7.0 In favor of tec_classes().
  *
- * @param  mixed $classes,... unlimited Any amount of params to be rendered as classes.
+ * @param mixed $classes,... unlimited Any amount of params to be rendered as classes.
  *
  * @return void
  */
 function tribe_classes() {
-	$element_classes = new Element_Classes( func_get_args() );
-	echo $element_classes->get_attribute();
+	tec_classes( ...func_get_args() );
+}
+
+/**
+ * Parses input values into a valid class html attribute to be used in the templates.
+ *
+ * @since 6.7.0
+ *
+ * @param mixed $classes,... unlimited Any amount of params to be rendered as classes.
+ *
+ * @return void
+ */
+function tec_classes() {
+	echo tec_get_classes_attr( ...func_get_args() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped
 }
 
 /**
  * Parse input values into a valid array of attributes to be used in the templates.
  *
- * @since  4.12.3
+ * @since 4.12.3
  *
- * @param  mixed $attributes,... unlimited Any amount of params to be rendered as attributes.
+ * @param mixed $attributes,... unlimited Any amount of params to be rendered as attributes.
  *
  * @return array<string> An array of the parsed string attributes.
  */
@@ -50,9 +92,9 @@ function tribe_get_attributes() {
 /**
  * Parse input values into a valid html attributes to be used in the templates.
  *
- * @since  4.12.3
+ * @since 4.12.3
  *
- * @param  mixed $attributes,... unlimited Any amount of params to be rendered as attributes.
+ * @param mixed $attributes,... unlimited Any amount of params to be rendered as attributes.
  *
  * @return void
  */
@@ -224,4 +266,32 @@ function tribe_format_field_dependency( $deps ) {
 	}
 
 	return $dependency;
+}
+
+if ( ! function_exists( 'tec_embed_header' ) ) {
+	/**
+	 * Generic Iframe header for frontend use.
+	 *
+	 * @since 6.5.4
+	 */
+	function tec_embed_header(): void {
+		show_admin_bar( false ); //phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
+
+		if ( ! headers_sent() ) {
+			header( 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option( 'blog_charset' ) );
+		}
+
+		tribe( Template::class )->template( 'embed/header' );
+	}
+}
+
+if ( ! function_exists( 'tec_embed_footer' ) ) {
+	/**
+	 * Generic Iframe footer for frontend use.
+	 *
+	 * @since 6.5.4
+	 */
+	function tec_embed_footer(): void {
+		tribe( Template::class )->template( 'embed/footer' );
+	}
 }

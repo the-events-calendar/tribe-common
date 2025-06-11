@@ -2,8 +2,10 @@
  * Help Hub and Resources page styles.
  */
 
+@import "utilities/_all.pcss";
+
 body.tec-help .tribe_settings > h1 {
-	display:block;
+	display: block;
 }
 
 /* Navigation and Tab Styles */
@@ -26,6 +28,11 @@ li.tec-nav__tab {
 	margin: 0;
 	padding-top: var(--tec-spacer-3);
 	width: auto;
+}
+
+.tribe_events_page_tec-events-settings #tec-settings-logo{
+	width: 35px;
+	padding-top: 0;
 }
 
 /* Help List Styles */
@@ -92,7 +99,7 @@ ul.tec-help-list__list-expanded {
 	cursor: pointer;
 	display: block;
 	font-size: 100%;
-	font-weight: normal;
+	font-weight: 400;
 	margin: 0;
 	padding: var(--tec-spacer-1) var(--tec-spacer-3) var(--tec-spacer-1) 0;
 	position: relative;
@@ -124,11 +131,11 @@ ul.tec-help-list__list-expanded {
 }
 
 .ui-state-active .ui-icon {
-	background-image: url('../images/icons/caret-down.svg');
+	background-image: url(../images/icons/caret-down.svg);
 }
 
 .ui-icon {
-	background-image: url('../images/icons/caret-right.svg');
+	background-image: url(../images/icons/caret-right.svg);
 	background-repeat: no-repeat;
 	background-size: contain;
 	display: inline-block;
@@ -145,6 +152,7 @@ ul.tec-help-list__list-expanded {
 
 /* Iframe Container Styles */
 .tec-settings__support-hub-iframe-container {
+
 	#tec-settings__support-hub-iframe {
 		height: 750px;
 		min-width: 250px;
@@ -152,6 +160,7 @@ ul.tec-help-list__list-expanded {
 	}
 
 	#tec-settings__support-hub-iframe-loader {
+
 		.spinner-container {
 			align-items: center;
 			display: flex;
@@ -191,6 +200,7 @@ ul.tec-help-list__list-expanded {
 }
 
 @media (--viewport-xsmall) {
+
 	.tec-tab-container {
 		padding: var(--tec-spacer-7);
 	}
@@ -218,6 +228,7 @@ ul.tec-help-list__list-expanded {
 	}
 
 	.tec-settings__support-hub-iframe-container {
+
 		#tec-settings__support-hub-iframe {
 			height: 750px;
 			margin: 0 var(--tec-spacer-3);
@@ -227,6 +238,7 @@ ul.tec-help-list__list-expanded {
 }
 
 @media (--viewport-full) {
+
 	.tribe_events_page_tec-events-settings .tec-settings-form {
 		flex-grow: 1;
 		max-width: initial;
@@ -243,6 +255,7 @@ ul.tec-help-list__list-expanded {
 }
 
 @media (--viewport-xlarge) {
+
 	.tribe_events_page_tec-events-settings #tec-settings-form .tec-settings-form__header-block,
 	.tribe_events_page_tec-events-settings .tec-settings-form .tec-settings-form__header-block {
 		margin: 0;

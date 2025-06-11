@@ -7,7 +7,7 @@ use TEC\Common\Contracts\Service_Provider;
 /**
  * Class Widget
  *
- * @since   4.12.12
+ * @since 4.12.12
  *
  * @package Tribe\Service_Providers
  */

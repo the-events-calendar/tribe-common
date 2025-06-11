@@ -9,7 +9,7 @@ use Tribe__Utils__Array as Arr;
  *
  * @package Tribe\Shortcode
  *
- * @since   4.12.0
+ * @since 4.12.0
  */
 abstract class Shortcode_Abstract implements Shortcode_Interface {
 	/**

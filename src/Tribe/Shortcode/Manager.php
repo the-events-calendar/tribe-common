@@ -3,7 +3,7 @@
  * Shortcodes manager for Tribe plugins.
  *
  * @package Tribe\Shortcode
- * @since   4.12.0
+ * @since 4.12.0
  */
 
 namespace Tribe\Shortcode;
@@ -11,7 +11,7 @@ namespace Tribe\Shortcode;
 /**
  * Class Shortcode Manager.
  *
- * @since  4.12.0
+ * @since 4.12.0
  *
  * @package Tribe\Shortcode
  */
@@ -29,7 +29,7 @@ class Manager {
 	/**
 	 * Get the list of shortcodes available for handling.
 	 *
-	 * @since  4.12.0
+	 * @since 4.12.0
 	 *
 	 * @return array An associative array of shortcodes in the shape `[ <slug> => <class> ]`
 	 */
@@ -39,7 +39,7 @@ class Manager {
 		/**
 		 * Allow the registering of shortcodes into the our Tribe plugins.
 		 *
-		 * @since  4.12.0
+		 * @since 4.12.0
 		 *
 		 * @var array An associative array of shortcodes in the shape `[ <slug> => <class> ]`.
 		 */
@@ -51,9 +51,9 @@ class Manager {
 	/**
 	 * Verifies if a given shortcode slug is registered for handling.
 	 *
-	 * @since  4.12.0
+	 * @since 4.12.0
 	 *
-	 * @param  string $slug Which slug we are checking if is registered.
+	 * @param string $slug Which slug we are checking if is registered.
 	 *
 	 * @return bool Whether a shortcode is registered or not.
 	 */
@@ -65,9 +65,9 @@ class Manager {
 	/**
 	 * Verifies if a given shortcode class name is registered for handling.
 	 *
-	 * @since  4.12.0
+	 * @since 4.12.0
 	 *
-	 * @param  string $class_name Which class name we are checking if is registered.
+	 * @param string $class_name Which class name we are checking if is registered.
 	 *
 	 * @return bool Whether a shortcode is registered, by class.
 	 */
@@ -79,7 +79,7 @@ class Manager {
 	/**
 	 * Add new shortcodes handler to catch the correct strings.
 	 *
-	 * @since  4.12.0
+	 * @since 4.12.0
 	 */
 	public function add_shortcodes() {
 		$registered_shortcodes = $this->get_registered_shortcodes();
@@ -93,7 +93,7 @@ class Manager {
 	/**
 	 * Makes sure we are correctly handling the Shortcodes we manage.
 	 *
-	 * @since  4.12.0
+	 * @since 4.12.0
 	 *
 	 * @param array  $arguments Set of arguments passed to the Shortcode at hand.
 	 * @param string $content   Contents passed to the shortcode, inside of the open and close brackets.

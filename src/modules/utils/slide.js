@@ -52,9 +52,9 @@ const cancelAnimations = ( id ) => {
 /**
  * Like jQuery's slideDown function
  *
- * @param {Node} elem Element to show and hide
- * @param {string} id Unique ID of animation
- * @param {number} time Length of animation in ms
+ * @param {Node}     elem     Element to show and hide
+ * @param {string}   id       Unique ID of animation
+ * @param {number}   time     Length of animation in ms
  * @param {Function} callback Callback function
  */
 export const down = ( elem, id, time = 400, callback = null ) => {
@@ -72,7 +72,7 @@ export const down = ( elem, id, time = 400, callback = null ) => {
 		}
 		const timeDiff = timestamp - startTime;
 		const progress = ease( timeDiff / time );
-		const height = ( progress * ( endHeight - startHeight ) ) + startHeight;
+		const height = progress * ( endHeight - startHeight ) + startHeight;
 		elem.style.maxHeight = `${ height }px`;
 
 		if ( timeDiff < time ) {
@@ -92,9 +92,9 @@ export const down = ( elem, id, time = 400, callback = null ) => {
 /**
  * Slide element up
  *
- * @param {Node} elem Element to show and hide
- * @param {string} id Unique ID of animation
- * @param {number} time Length of animation in ms
+ * @param {Node}     elem     Element to show and hide
+ * @param {string}   id       Unique ID of animation
+ * @param {number}   time     Length of animation in ms
  * @param {Function} callback Callback function
  */
 export const up = ( elem, id, time = 400, callback = null ) => {
@@ -112,7 +112,7 @@ export const up = ( elem, id, time = 400, callback = null ) => {
 		}
 		const timeDiff = timestamp - startTime;
 		const progress = ease( timeDiff / time );
-		const height = ( progress * ( endHeight - startHeight ) ) + startHeight;
+		const height = progress * ( endHeight - startHeight ) + startHeight;
 		elem.style.maxHeight = `${ height }px`;
 
 		if ( timeDiff < time ) {

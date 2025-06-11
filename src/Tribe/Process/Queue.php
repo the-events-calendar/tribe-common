@@ -325,8 +325,8 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		 *
 		 * @since 4.7.12
 		 *
-		 * @param array $update_data
-		 * @param self $this
+		 * @param array $update_data The data to update.
+		 * @param self $instance     The current instance of the class.
 		 */
 		$update_data = apply_filters( "tribe_process_queue_{$this->identifier}_update_data", $update_data, $this );
 
@@ -376,8 +376,8 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		 *
 		 * @since 4.7.12
 		 *
-		 * @param array $save_data
-		 * @param self $this
+		 * @param array $save_data The data to save.
+		 * @param self  $instance  The current instance of the class.
 		 */
 		$save_data = apply_filters( "tribe_process_queue_{$this->identifier}_save_data", $save_data, $this );
 
@@ -421,8 +421,8 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * Here we try to read the database `max_packet_size` setting and use that information
 	 * to avoid overloading the query.
 	 *
-	 * @param       string $key
-	 * @param array $data
+	 * @param string $key The key.
+	 * @param array  $data The data.
 	 *
 	 * @return int The number of fragments the data was split and stored into.
 	 */
@@ -807,7 +807,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		 * @since 4.9.5
 		 *
 		 * @param int    $lock_duration The lock duration in seconds; defaults to one minute.
-		 * @param static $this          This process instance.
+		 * @param static $instance      This process instance.
 		 */
 		$lock_duration = apply_filters( $this->identifier . '_queue_lock_time', $lock_duration, $this );
 
@@ -912,8 +912,8 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		 *
 		 * @since 4.9.5
 		 *
-		 * @param bool   $return Whether the process did exceed the allowed memory limit or not.
-		 * @param static $this   This process instance.
+		 * @param bool   $return   Whether the process did exceed the allowed memory limit or not.
+		 * @param static $instance This process instance.
 		 */
 		return apply_filters( $this->identifier . '_memory_exceeded', $return, $this );
 	}
@@ -961,7 +961,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		 * @since 4.9.5
 		 *
 		 * @param int    $default_time_limit The time limit for the process.
-		 * @param static $this               This process instance.
+		 * @param static $instance           This process instance.
 		 */
 		$time_limit = apply_filters( $this->identifier . '_default_time_limit', 20, $this );
 
@@ -977,8 +977,8 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		 *
 		 * @since 4.9.5
 		 *
-		 * @param bool   $return Whether the process did exceed the time limit or not.
-		 * @param static $this   This process instance.
+		 * @param bool   $return   Whether the process did exceed the time limit or not.
+		 * @param static $instance This process instance.
 		 */
 		return apply_filters( $this->identifier . '_time_exceeded', $return );
 	}
@@ -1014,7 +1014,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		 * @since 4.9.5
 		 *
 		 * @param int    $interval The number of minutes to schedule the cron health-check; defaults to 5.
-		 * @param static $this     This process instance.
+		 * @param static $instance This process instance.
 		 */
 		$interval = apply_filters( $this->identifier . '_cron_interval', $this->healthcheck_cron_interval, $this );
 

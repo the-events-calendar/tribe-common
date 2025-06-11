@@ -2,7 +2,7 @@
 /**
  * Handle the switching of the site locale with awareness of the plugin's context.
  *
- * @since   5.0.8
+ * @since 5.0.8
  *
  * @package TEC\Common;
  */
@@ -12,7 +12,7 @@ namespace TEC\Common;
 /**
  * Class Translations_Loader.
  *
- * @since   5.0.8
+ * @since 5.0.8
  *
  * @package TEC\Common;
  */
@@ -104,7 +104,7 @@ class Translations_Loader {
 	 *
 	 * Used during filter application.
 	 *
-	 * @since    5.0.8
+	 * @since 5.0.8
 	 *
 	 * @param string $locale The locale to override.
 	 *

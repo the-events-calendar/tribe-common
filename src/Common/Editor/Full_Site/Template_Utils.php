@@ -10,7 +10,7 @@ use WP_Query;
 /**
  * Class Template_Utils.
  *
- * @since   4.14.18
+ * @since 4.14.18
  *
  * @package TEC\Common\Editor\Full_Site
  */

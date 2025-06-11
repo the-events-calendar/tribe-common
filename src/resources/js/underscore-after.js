@@ -1,4 +1,4 @@
-(function(){
+( function () {
 	/**
 	 * If we have a temp variable of type function it means lodash was loaded before underscore so we need to
 	 * remove the reference to underscore from window._ by using the method .noConflict() from underscore, after
@@ -16,4 +16,4 @@
 		// Restore reference to lodash if present
 		window._ = window._lodash_tmp;
 	}
-})();
+} )();

@@ -11,16 +11,7 @@ import { noop } from 'lodash';
  */
 import CheckboxInput from '@moderntribe/common/elements/checkbox-input';
 
-const Checkbox = ( {
-	checked = false,
-	className,
-	disabled,
-	id,
-	label,
-	onChange = noop,
-	name,
-	value,
-} ) => {
+const Checkbox = ( { checked = false, className, disabled, id, label, onChange = noop, name, value } ) => {
 	return (
 		<div className={ classNames( 'tribe-editor__checkbox', className ) }>
 			<CheckboxInput
@@ -32,10 +23,7 @@ const Checkbox = ( {
 				onChange={ onChange }
 				value={ value }
 			/>
-			<label
-				className="tribe-editor__checkbox__label"
-				htmlFor={ id }
-			>
+			<label className="tribe-editor__checkbox__label" htmlFor={ id }>
 				{ label }
 			</label>
 		</div>

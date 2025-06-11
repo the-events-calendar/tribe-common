@@ -172,8 +172,8 @@ class Tribe__Cache_Listener {
 	/**
 	 * For any hook that doesn't need any additional filtering
 	 *
-	 * @param $method
-	 * @param $args
+	 * @param callable $method The method to call.
+	 * @param array    $args   The arguments to pass to the method.
 	 */
 	public function __call( $method, $args ) {
 		$this->cache->set_last_occurrence( $method );

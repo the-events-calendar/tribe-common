@@ -15,7 +15,4 @@ const mapStateToProps = ( state ) => ( {
 	plugins: selectors.getPlugins( state ),
 } );
 
-export default compose(
-	withStore(),
-	connect( mapStateToProps ),
-)( PluginBlockHooks );
+export default compose( withStore(), connect( mapStateToProps ) )( PluginBlockHooks );

@@ -153,6 +153,10 @@ class Service_Provider extends Provider_Contract {
 	 * @see   \TEC\Common\Monolog\Logger for the log level constants and names.
 	 */
 	public function dispatch_log( $level = 'debug', $message = '', array $context = [] ) {
+		if ( ! did_action( 'tribe_common_loaded' ) ) {
+			return;
+		}
+
 		// Goes from something like `debug` to `100`.
 		$level = is_numeric( $level ) ? $level : Logger::toMonologLevel( $level );
 

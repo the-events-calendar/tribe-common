@@ -391,7 +391,7 @@ if ( ! function_exists( 'tribe_sort_by_priority' ) ) {
 	/**
 	 * Sorting function based on Priority
 	 *
-	 * @since  4.7.20
+	 * @since 4.7.20
 	 *
 	 * @param object|array $b Second subject to compare
 	 *
@@ -428,7 +428,7 @@ if ( ! function_exists( 'tribe_normalize_terms_list' ) ) {
 	 *
 	 * @param string $taxonomy The terms taxonomy.
 	 * @param string $field    The fields the terms should be normalized to.
-	 * @param        $terms    A term or array of terms to normalize.
+	 * @param       $terms    A term or array of terms to normalize.
 	 *
 	 * @return array An array of the valid normalized terms.
 	 */
@@ -622,7 +622,7 @@ if ( ! function_exists( 'tribe_post_excerpt' ) ) {
 	 * Wrapper function for `tribe_events_get_the_excerpt` to prevent access the function when is not present on the
 	 * current site installation.
 	 *
-	 * @param $post
+	 * @param int|WP_Post $post The post to get the excerpt for.
 	 *
 	 * @return null|string
 	 */

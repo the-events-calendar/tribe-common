@@ -15,21 +15,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 abstract class Tribe__JSON_LD__Abstract {
 
 	/**
-	 * Holder of the Instances
+	 * Holder of the Instances.
 	 *
 	 * @var array
 	 */
 	private static $instances = [];
 
 	/**
-	 * Holder for the Already fetched Posts
+	 * Holder for the Already fetched Posts.
 	 *
 	 * @var array
 	 */
 	protected static $posts = [];
 
 	/**
-	 * Holder for a post when it has multiple types
+	 * Holder for a post when it has multiple types.
 	 *
 	 * @since 4.7.12
 	 *
@@ -51,7 +51,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	}
 
 	/**
-	 * Which type of element this actually is
+	 * Which type of element this actually is.
 	 *
 	 * @see https://developers.google.com/structured-data/rich-snippets/
 	 * @var string
@@ -59,7 +59,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	public $type = 'Thing';
 
 	/**
-	 * Compile the schema.org event data into an array
+	 * Compile the schema.org event data into an array.
 	 *
 	 * @param mixed $post Either a post ID or a WP_post object.
 	 * @param array $args {
@@ -138,12 +138,11 @@ abstract class Tribe__JSON_LD__Abstract {
 	 * The expectation is that any sub-classes overriding the get_data() method will ensure they
 	 * call this method for consistency.
 	 *
-	 * @param string  $type
-	 * @param object  $data
-	 * @param array   $args
-	 * @param WP_Post $post
+	 * @param object  $data The data of the object.
+	 * @param array   $args The arguments used to get data.
+	 * @param WP_Post $post The post object.
 	 *
-	 * @return mixed
+	 * @return mixed The filtered data.
 	 */
 	protected function apply_object_data_filter( $data, $args, $post ) {
 		$type = strtolower( esc_attr( $this->type ) );
@@ -162,9 +161,9 @@ abstract class Tribe__JSON_LD__Abstract {
 	}
 
 	/**
-	 * puts together the actual html/json javascript block for output
+	 * Puts together the actual html/json javascript block for output.
 	 *
-	 * @return string
+	 * @return string The HTML/JSON JavaScript block for output.
 	 */
 	public function get_markup( $post = null, $args = [] ) {
 		$data = $this->get_data( $post, $args );
@@ -199,6 +198,12 @@ abstract class Tribe__JSON_LD__Abstract {
 		return ! empty( $html ) ? implode( "\r\n", $html ) : '';
 	}
 
+	/**
+	 * Outputs the HTML/JSON JavaScript block for output.
+	 *
+	 * @param int|WP_Post $post The post object.
+	 * @param array       $args The arguments used to get data.
+	 */
 	public function markup( $post = null, $args = [] ) {
 		$html = $this->get_markup( $post, $args );
 
@@ -212,14 +217,14 @@ abstract class Tribe__JSON_LD__Abstract {
 	}
 
 	/**
-	 * Get a link to the post
+	 * Get a link to the post.
 	 *
 	 * Children of this class are likely to override it with their
 	 * own functions that only work with their designated post type.
 	 *
 	 * @since 4.5.10
 	 *
-	 * @param  int|WP_Post  $post The Post Object or ID
+	 * @param int|WP_Post $post The Post Object or ID.
 	 *
 	 * @return false|string Link to the post or false
 	 */
@@ -228,11 +233,11 @@ abstract class Tribe__JSON_LD__Abstract {
 	}
 
 	/**
-	 * Gets from the Posts index a specific post or fetch all of them
+	 * Gets from the Posts index a specific post or fetch all of them.
 	 *
-	 * @param  int|WP_Post  $post The Post Object or ID
+	 * @param int|WP_Post $post The Post Object or ID.
 	 *
-	 * @return null|array|WP_Post         Returns an Indexed Array of Posts, a found Post or Null if not found
+	 * @return null|array|WP_Post Returns an Indexed Array of Posts, a found Post or Null if not found.
 	 */
 	public function get( $post = null ) {
 		if ( is_null( $post ) ) {
@@ -248,22 +253,22 @@ abstract class Tribe__JSON_LD__Abstract {
 	}
 
 	/**
-	 * Checks if a Post has been registered to the JSON-LD index
+	 * Checks if a Post has been registered to the JSON-LD index.
 	 *
-	 * @param  int|WP_Post  $post The Post Object or ID
+	 * @param int|WP_Post $post The Post Object or ID.
 	 *
-	 * @return bool
+	 * @return bool Whether the post has been registered.
 	 */
 	public function exists( $post ) {
 		return isset( self::$posts[ Tribe__Main::post_id_helper( $post ) ] );
 	}
 
 	/**
-	 * Register the new Post on the Index of created ones
+	 * Register the new Post on the Index of created ones.
 	 *
-	 * @param  int|WP_Post  $post The Post Object or ID
+	 * @param int|WP_Post $post The Post Object or ID.
 	 *
-	 * @return WP_Post            The Post Object that was registered
+	 * @return WP_Post The Post Object that was registered.
 	 */
 	public function register( $post ) {
 		$id = Tribe__Main::post_id_helper( $post );
@@ -276,25 +281,25 @@ abstract class Tribe__JSON_LD__Abstract {
 
 
 	/**
-	 * Public method to have access to the types
+	 * Public method to have access to the types.
 	 *
 	 * @since 4.7.12
 	 *
-	 * @return array
+	 * @return array The registered types.
 	 */
 	public function get_types() {
 		return self::$types;
 	}
 
 	/**
-	 * Register the current $type to prevent duplicates entries with different $types and IDs
+	 * Register the current $type to prevent duplicates entries with different $types and IDs.
 	 *
 	 * @since 4.7.12
 	 *
-	 * @param $post
-	 * @param $type
+	 * @param int|WP_Post $post The post to register the type for.
+	 * @param string      $type The type to register.
 	 *
-	 * @return mixed
+	 * @return array The registered types.
 	 */
 	public function set_type( $post, $type ) {
 		$id = Tribe__Main::post_id_helper( $post );
@@ -313,11 +318,11 @@ abstract class Tribe__JSON_LD__Abstract {
 	}
 
 	/**
-	 * Remove an Post from the Indexed list
+	 * Remove an Post from the Indexed list.
 	 *
-	 * @param  int|WP_Post  $post The Post Object or ID
+	 * @param int|WP_Post $post The Post Object or ID.
 	 *
-	 * @return bool
+	 * @return bool Whether the post was removed.
 	 */
 	public function remove( $post ) {
 		$id = Tribe__Main::post_id_helper( $post );
@@ -336,10 +341,10 @@ abstract class Tribe__JSON_LD__Abstract {
 	 *
 	 * @since 4.7.12
 	 *
-	 * @param $id
-	 * @param $type
+	 * @param int|WP_Post $id   The post ID.
+	 * @param string      $type The type to check.
 	 *
-	 * @return bool
+	 * @return bool Whether the type exists.
 	 */
 	public function type_exists( $id, $type ) {
 		return isset( self::$types[ $id ] ) && false !== array_search( $type, self::$types[ $id ] );
@@ -358,7 +363,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	/**
 	 * Returns an array of the registered post IDs.
 	 *
-	 * @return array
+	 * @return array The registered post IDs.
 	 */
 	public static function get_registered_post_ids() {
 		return array_keys( self::$posts );

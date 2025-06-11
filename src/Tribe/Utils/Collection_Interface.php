@@ -5,7 +5,7 @@
  * For convenience classes implementing this interface should `use Collection_Trait` and implement just the `all`
  * method.
  *
- * @since   4.9.14
+ * @since 4.9.14
  * @package Tribe\Utils
  */
 
@@ -13,7 +13,7 @@ namespace Tribe\Utils;
 
 /**
  * Interface Collection_Interface
- * @since   4.9.14
+ * @since 4.9.14
  * @package Tribe\Utils
  */
 interface Collection_Interface extends \ArrayAccess, \SeekableIterator, \Countable, \Serializable, \JsonSerializable {

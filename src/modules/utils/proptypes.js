@@ -4,22 +4,21 @@
  * @param {Function} validator Validator function.
  */
 export const createChainableValidator = ( validator ) => {
-	const createChainedValidator = (
-		isRequired,
-		props,
-		propName,
-		componentName,
-	) => {
+	const createChainedValidator = ( isRequired, props, propName, componentName ) => {
 		const propValue = props[ propName ];
 
 		if ( propValue == null ) {
 			if ( isRequired ) {
 				if ( propValue === null ) {
 					/* eslint-disable-next-line max-len */
-					return new Error( `The prop \`${ propName }\` is marked as required in \`${ componentName }\`, but its value is \`null\`.` );
+					return new Error(
+						`The prop \`${ propName }\` is marked as required in \`${ componentName }\`, but its value is \`null\`.`
+					);
 				}
 				/* eslint-disable-next-line max-len */
-				return new Error( `The prop \`${ propName }\` is marked as required in \`${ componentName }\`, but its value is \`undefined\`.` );
+				return new Error(
+					`The prop \`${ propName }\` is marked as required in \`${ componentName }\`, but its value is \`undefined\`.`
+				);
 			}
 			return null;
 		}
@@ -39,8 +38,8 @@ export const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
  * PropTypes check for type string and time format using 24h clock in hh:mm format
  * e.g. 00:24, 03:57, 21:12
  *
- * @param {object} props Properties object.
- * @param {string} propName Property name.
+ * @param {Object} props         Properties object.
+ * @param {string} propName      Property name.
  * @param {string} componentName Component name to validate property.
  */
 export const timeFormat = ( props, propName, componentName ) => {
@@ -49,12 +48,16 @@ export const timeFormat = ( props, propName, componentName ) => {
 	if ( typeof propValue !== 'string' ) {
 		const type = typeof propValue;
 		/* eslint-disable-next-line max-len */
-		return new Error( `Invalid prop \`${ propName }\` of type \`${ type }\` supplied to \`${ componentName }\`, expected \`string\`.` );
+		return new Error(
+			`Invalid prop \`${ propName }\` of type \`${ type }\` supplied to \`${ componentName }\`, expected \`string\`.`
+		);
 	}
 
 	if ( ! timeRegex.test( propValue ) ) {
 		/* eslint-disable-next-line max-len */
-		return new Error( `Invalid prop \`${ propName }\` format supplied to \`${ componentName }\`, expected \`hh:mm\`.` );
+		return new Error(
+			`Invalid prop \`${ propName }\` format supplied to \`${ componentName }\`, expected \`hh:mm\`.`
+		);
 	}
 
 	return null;
@@ -62,9 +65,7 @@ export const timeFormat = ( props, propName, componentName ) => {
 
 export const nullType = ( props, propName, componentName ) => {
 	if ( null !== props[ propName ] ) {
-		return new Error(
-			`Invalid prop: \`${ propName }\` supplied to \`${ componentName }\`, expect null.`,
-		);
+		return new Error( `Invalid prop: \`${ propName }\` supplied to \`${ componentName }\`, expect null.` );
 	}
 };
 

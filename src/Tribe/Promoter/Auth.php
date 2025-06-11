@@ -49,7 +49,7 @@ class Tribe__Promoter__Auth {
 	 *
 	 * @since 4.9.12
 	 *
-	 * @param $secret_key
+	 * @param string $secret_key The secret key.
 	 *
 	 * @return string
 	 */

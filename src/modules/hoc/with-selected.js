@@ -3,9 +3,7 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-	noop,
-} from 'lodash';
+import { noop } from 'lodash';
 
 /**
  * Higher order component that executes two functions:
@@ -13,7 +11,7 @@ import {
  * - `onBlockFocus` when the block is selected
  * - `onBlockBlur` when the block losses focus after being selected
  *
- * @returns {Function} Return a new HOC
+ * @return {Function} Return a new HOC
  */
 export default () => ( WrappedComponent ) => {
 	class WithSelected extends Component {
@@ -57,8 +55,9 @@ export default () => ( WrappedComponent ) => {
 		}
 	}
 
-	WithSelected.displayName = `WithIsSelected( ${ WrappedComponent.displayName || WrappedComponent.name || 'Component ' }`; // eslint-disable-line max-len
+	WithSelected.displayName = `WithIsSelected( ${
+		WrappedComponent.displayName || WrappedComponent.name || 'Component '
+	}`; // eslint-disable-line max-len
 
 	return WithSelected;
 };
-

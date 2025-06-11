@@ -7,27 +7,26 @@ import { trim, isEmpty, split } from 'lodash';
  * Remove any char that is not a: number, dash, dot or comma.
  *
  * @param {string} input The string from where to extract the chars
- * @returns {string} A string with only valid chars
+ * @return {string} A string with only valid chars
  */
-export const parseChars = ( input = '' ) => (
+export const parseChars = ( input = '' ) =>
 	split( input, ' ' )
 		.map( ( part ) => {
 			// Remove anything that is not a number a period or a dash
 			return part.replace( /[^0-9.,-]/g, '' );
 		} )
 		.join( ' ' )
-		.trim()
-);
+		.trim();
 
 /**
  * Extract only valid numbers from the string
  *
  * @param {string} chars The chars to be split into parts.
- * @returns {Array} An array with the parts
+ * @return {Array} An array with the parts
  */
-export const extractParts = ( chars ) => (
+export const extractParts = ( chars ) =>
 	split( chars.replace( /,/g, '.' ), '-' )
-	// Convert , into . so we can parse into numbers
+		// Convert , into . so we can parse into numbers
 		.map( ( item ) => {
 			const re = /([0-9]+(.[0-9]+)?)/g;
 			const result = re.exec( item.trim() );
@@ -40,14 +39,13 @@ export const extractParts = ( chars ) => (
 			return parseFloat( item ).toFixed( decimals );
 		} )
 		.filter( ( item ) => ! isNaN( item ) )
-		.slice( 0, 2 )
-);
+		.slice( 0, 2 );
 
 /**
  * Parse a string into a range type of string {a} - {b} where a and b are numbers
  *
  * @param {string} input The original string
- * @returns {string} A formatted range string.
+ * @return {string} A formatted range string.
  */
 export const parser = ( input ) => {
 	const range = trim( input );
@@ -76,7 +74,7 @@ export const parser = ( input ) => {
  * Test to see if an input range is free of cost
  *
  * @param {string} input Range input
- * @returns {boolean} true if the event has 0 on all parts of the range, false otherwise
+ * @return {boolean} true if the event has 0 on all parts of the range, false otherwise
  */
 export const isFree = ( input ) => {
 	const parts = split( input, '-' );

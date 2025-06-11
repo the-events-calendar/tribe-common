@@ -94,9 +94,10 @@ class Tribe__Admin__Activation_Page {
 	 * Filter the Default WordPress actions when updating the plugin to prevent users to be redirected if they have an
 	 * specific intention of going back to the plugins page.
 	 *
-	 * @param  array $actions The Array of links (html)
-	 * @param  string $plugin Which plugins are been updated
-	 * @return array          The filtered Links
+	 * @param array  $actions The Array of links (html).
+	 * @param string $plugin  Which plugins are been updated.
+	 *
+	 * @return array The filtered Links.
 	 */
 	public function update_complete_actions( $actions, $plugin ) {
 		$plugins = [];
@@ -169,7 +170,7 @@ class Tribe__Admin__Activation_Page {
 			 *
 			 * @since 5.0.0
 			 *
-			 * @param $bypass bool
+			 * @param bool $bypass Whether to bypass the update page redirect.
 			 */
 			$bypass_update_page = apply_filters( 'tec_admin_update_page_bypass', false, $this );
 

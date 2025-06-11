@@ -94,7 +94,7 @@ abstract class Tribe__Process__Handler {
 		 *
 		 * @param bool   $allow_nopriv Whether background processing should be triggered and handled on
 		 *                             non-private AJAX requests or not.
-		 * @param static $this         This handler instance.
+		 * @param static $instance     This handler instance.
 		 */
 		$allow_nopriv = apply_filters( 'tribe_process_allow_nopriv_handling', true, $this );
 

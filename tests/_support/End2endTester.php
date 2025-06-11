@@ -1,6 +1,6 @@
 <?php
 
-use Tribe\Events\Test\Traits\Container_Aware;
+use Tribe\Tests\Traits\Container_Aware;
 
 /**
  * Inherited Methods

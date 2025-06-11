@@ -2,7 +2,7 @@
 /**
  * Handles In-App Notifications display logic.
  *
- * @since   6.4.0
+ * @since 6.4.0
  *
  * @package TEC\Common\Notifications
  */
@@ -16,7 +16,7 @@ use TEC\Common\Telemetry\Telemetry as Common_Telemetry;
 /**
  * Class Conditionals
  *
- * @since   6.4.0
+ * @since 6.4.0
 
  * @package TEC\Common\Notifications
  */

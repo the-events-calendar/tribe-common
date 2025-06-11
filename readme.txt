@@ -1,5 +1,85 @@
 == Changelog ==
 
+= [6.8.1] 2025-06-11 =
+
+* Tweak - Add a new Tabbed View class for admin pages as part of the Ticket Presets launch.
+* Tweak - Update the Abstract Admin Page class to handle logos and menu position better.
+* Language - 0 new strings added, 67 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.8.0.1] 2025-06-05 =
+
+* Fix - Correct some hardcoded asset paths. [TEC-5523]
+* Fix - Utilize the newer version of our build process to ensure inline svgs are being handled properly. [TCMN-188]
+
+= [6.8.0] 2025-06-03 =
+
+* Feature - Introduced milliseconds methods and improved Custom Table methods, as part of supporting ET's Square integration. [ET-2383]
+* Tweak - Added actions: `tec_common_settings_manager_pre_set_options`, `tec_common_settings_manager_post_set_options`, `tec_common_settings_manager_set_option`, `tec_common_settings_manager_remove_option`
+* Tweak - Added filters: `tec_help_hub_pages`, `tec_help_hub_telemetry_opt_in_link`, `tec_help_hub_section_{$this->slug}_item`, `tec_help_hub_section_{$this->slug}_items`, `tec_help_hub_section_{$this->slug}`, `tec_help_hub_section`, `tec_help_hub_tab_{$this->id}`, `tec_common_country_list`, `tec_repository_schema_{$this->filter_name}`, `tec_repository_schema`, `tec_common_settings_manager_set_option`, `tec_help_hub_header_logo_src`, `tec_help_hub_header_logo_alt`, `tec_help_hub_resources_title`
+* Tweak - Implemented new functionality to Help Hub to make it more extensible. [ET-2375]
+* Tweak - Refactored Help Hub to improve extensibility and testing capabilities. [ET-2375]
+* Tweak - Removed filters: `tec_country_list`
+* Language - 4 new strings added, 51 updated, 2 fuzzied, and 1 obsoleted.
+
+= [6.7.1] 2025-05-27 =
+
+* Fix - Ensures symbolic links are followed on Assets Group Paths. [TCMN-187]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.7.0] 2025-05-20 =
+
+* Feature - Moved the JavaScript and CSS building to use `@wordpress/scripts` for improved compatibility.
+* Feature - Add `Abstract_API` and `Abstract_Data` classes for Onboarding functionality.
+* Feature - Add `Abstract_Step` and `Step_Interface` for Onboarding steps.
+* Feature - New Lists namespace with Country, Currency, and Timezone classes for standardized data handling.
+* Tweak - Improved In-App Notifications (IAN) integration with admin pages.
+* Tweak - Change `tribe_classes()` function to `tec_classes()` function for HTML class attribute handling.
+* Tweak - Change `tribe_asset()` function to `tec_asset()` function for asset loading.
+* Tweak - Add `$has_logo` property to Abstract_Admin_Page and refactor logo functionality.
+* Tweak - Add `DISMISS_PAGE_OPTION` constant to `Abstract_Admin_Page` for dismissible pages.
+* Tweak - Add admin body class for admin pages through the `Abstract_Admin_Page` class.
+* Tweak - Update docblocks with proper return types in `Abstract_Admin_Page` class.
+* Tweak - Added filters: `tec_timezone_list`, `tec_currencies_list`
+* Language - 4 new strings added, 42 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.6.0.1] 2025-05-14 =
+
+* Fix - Prevents fatal if QR library in common has not loaded. [TEC-5497]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 1 obsoleted.
+
+= [6.6.0] 2025-05-13 =
+
+* Feature - Add a QR code Widget [TEC-5396]
+* Feature - Move QR-Related code from ET to Common [TEC-5426]
+* Feature - Move QR code library to Common [TEC-5403]
+* Fix - Resolve a console error about IAN loading [TCMN-184]
+* Tweak - Added filters: `tec_qr_code_can_use`, `tec_qr_notice_valid_pages`, `tec_qr_notice_valid_post_types`
+* Tweak - Removed actions: `tribe_log`
+* Tweak - Changed views: `v2/components/icons/messages-not-found`
+* Accessibility - Added proper accessibility attributes to the no results icon to ensure screen readers skip over it. [FBAR-332]
+* Accessibility - Improve accessibility of select2 component, allowing tabbing into elements. [FBAR-330]
+* Language - 4 new strings added, 2 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.5.5.1] 2025-04-28 =
+
+* Security - Added more safety checks to telemetry opt-ins/opt-outs. [TCMN-186]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 4 obsoleted.
+
+= [6.5.5] 2025-04-07 =
+
+* Fix - Prevents logging while common hasn't fully loaded yet.
+* Tweak - Compatibility update for Stellar Telemetry library.
+* Tweak - Modified how tribe_context() function and class handle populating locations, prevents `tribe_context_locations` filter from happening 500x per pageload.
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.5.4] 2025-03-31 =
+
+* Tweak - Added functions `tec_embed_header` and `tec_embed_footer` that can be used for header/footer in embed context.
+* Tweak - Make sure update callbacks are executed prior `wp_loaded` action. [TEC-5436]
+* Tweak - Removed background image for Onboarding Wizard to avoid confusion. [TEC_5412]
+* Fix - Added CSS that will hide the Install Event Tickets button following completing the Onboarding Wizard. [TEC-5410]
+* Language - 0 new strings added, 24 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.5.3] 2025-03-06 =
 
 * Version - Update Action Scheduler to 3.9.0

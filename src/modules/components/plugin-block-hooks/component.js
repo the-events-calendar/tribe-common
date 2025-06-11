@@ -19,15 +19,12 @@ const { InnerBlocks } = wpEditor;
  *
  * @export
  * @class PluginBlockHooks
- * @extends {PureComponent}
+ * @augments {PureComponent}
  */
 export default class PluginBlockHooks extends PureComponent {
 	static propTypes = {
 		allowedBlocks: PropTypes.arrayOf( PropTypes.string ),
-		layouts: PropTypes.oneOfType( [
-			PropTypes.object,
-			PropTypes.arrayOf( PropTypes.object ),
-		] ),
+		layouts: PropTypes.oneOfType( [ PropTypes.object, PropTypes.arrayOf( PropTypes.object ) ] ),
 		/**
 		 * Plugins to be used
 		 */
@@ -57,27 +54,23 @@ export default class PluginBlockHooks extends PureComponent {
 		 */
 		pluginTemplates: PropTypes.objectOf( PropTypes.arrayOf( PropTypes.array ) ),
 		templateInsertUpdatesSelection: PropTypes.bool.isRequired,
-		templateLock: PropTypes.oneOf( [
-			'all',
-			'insert',
-			false,
-		] ),
-	}
+		templateLock: PropTypes.oneOf( [ 'all', 'insert', false ] ),
+	};
 
 	static defaultProps = {
 		templateInsertUpdatesSelection: false,
-	}
+	};
 
 	/**
 	 * Registered block names from core
 	 *
 	 * @readonly
 	 * @memberof PluginBlockHooks
-	 * @returns {Array} block names
+	 * @return {Array} block names
 	 */
 	get registeredBlockNames() {
 		const blockTypes = select( 'core/blocks' ).getBlockTypes();
-		return map( blockTypes, block => block.name );
+		return map( blockTypes, ( block ) => block.name );
 	}
 
 	/**
@@ -85,7 +78,7 @@ export default class PluginBlockHooks extends PureComponent {
 	 *
 	 * @readonly
 	 * @memberof PluginBlockHooks
-	 * @returns {Array} template
+	 * @return {Array} template
 	 */
 	get template() {
 		const blockNames = this.registeredBlockNames;
@@ -94,10 +87,7 @@ export default class PluginBlockHooks extends PureComponent {
 			if ( pluginTemplate ) {
 				// Block needs to be registered, otherwise it's dropped
 				const blockTemplates = this.filterPluginTemplates( blockNames, pluginTemplate );
-				return [
-					...acc,
-					...blockTemplates,
-				];
+				return [ ...acc, ...blockTemplates ];
 			}
 			return acc;
 		}, [] );
@@ -106,25 +96,30 @@ export default class PluginBlockHooks extends PureComponent {
 	/**
 	 *	Recursively filters out unregistered blocks
 	 *
-	 * @param {Array} blockNames block names currently registered
+	 * @param {Array} blockNames     block names currently registered
 	 * @param {Array} pluginTemplate Template for plugins
-	 * @returns {Array} Array of plugin template
+	 * @return {Array} Array of plugin template
 	 */
 	filterPluginTemplates( blockNames, pluginTemplate ) {
-		return reduce( pluginTemplate, ( acc, [ name, attributes, nestedBlockTemplates ] ) => {
-			if ( includes( blockNames, name ) ) {
-				const blockTemplate = isArray( nestedBlockTemplates )
-					? [ name, attributes, /* Recursive call */ this.filterPluginTemplates( blockNames, nestedBlockTemplates ) ] // eslint-disable-line max-len
-					: [ name, attributes ];
+		return reduce(
+			pluginTemplate,
+			( acc, [ name, attributes, nestedBlockTemplates ] ) => {
+				if ( includes( blockNames, name ) ) {
+					const blockTemplate = isArray( nestedBlockTemplates )
+						? [
+								name,
+								attributes,
+								/* Recursive call */ this.filterPluginTemplates( blockNames, nestedBlockTemplates ),
+						  ] // eslint-disable-line max-len
+						: [ name, attributes ];
 
-				return [
-					...acc,
-					blockTemplate,
-				];
-			}
+					return [ ...acc, blockTemplate ];
+				}
 
-			return acc;
-		}, [] );
+				return acc;
+			},
+			[]
+		);
 	}
 
 	render() {

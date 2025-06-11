@@ -7,7 +7,7 @@ namespace TEC\Common\Admin\Conditional_Content;
 /**
  * Trait Dismissible_Trait
  *
- * @since   6.3.0
+ * @since 6.3.0
  *
  * @package TEC\Common\Admin\Conditional_Content
  */

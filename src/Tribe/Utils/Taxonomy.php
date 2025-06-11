@@ -5,7 +5,7 @@ namespace Tribe\Utils;
 /**
  * Class Taxonomy.
  *
- * @since   4.13.0
+ * @since 4.13.0
  *
  * @package Tribe\Utils
  */

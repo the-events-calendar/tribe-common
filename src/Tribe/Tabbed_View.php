@@ -125,10 +125,10 @@ class Tribe__Tabbed_View {
 	/**
 	 * A method to sort tabs by priority in ascending order.
 	 *
-	 * @param  object $a First tab to compare
-	 * @param  object $b Second tab to compare
+	 * @param object $a First tab to compare.
+	 * @param object $b Second tab to compare.
 	 *
-	 * @return int
+	 * @return int The comparison result.
 	 */
 	protected function sort_by_priority( $a, $b ) {
 		$a_priority = (float) $a->get_priority();
@@ -144,9 +144,9 @@ class Tribe__Tabbed_View {
 	/**
 	 * Removes a tab from the tabbed view items.
 	 *
-	 * @param  string $slug The slug of the tab to remove
+	 * @param string $slug The slug of the tab to remove.
 	 *
-	 * @return boolean `true` if the slug was registered and removed, `false` otherwise
+	 * @return boolean `true` if the slug was registered and removed, `false` otherwise.
 	 */
 	public function remove( $slug ) {
 		if ( ! $this->exists( $slug ) ) {
@@ -161,9 +161,9 @@ class Tribe__Tabbed_View {
 	/**
 	 * Checks if a given tab exist
 	 *
-	 * @param  string $slug The slug of the tab
+	 * @param string $slug The slug of the tab.
 	 *
-	 * @return boolean
+	 * @return boolean `true` if the tab exists, `false` otherwise.
 	 */
 	public function exists( $slug ) {
 		return is_object( $this->get( $slug ) ) ? true : false;
@@ -172,9 +172,9 @@ class Tribe__Tabbed_View {
 	/**
 	 * Fetches the Instance of the Tab or all the tabs
 	 *
-	 * @param  string $slug (optional) The Slug of the Tab
+	 * @param string $slug (optional) The Slug of the Tab.
 	 *
-	 * @return null|array|object        If we couldn't find the tab it will be null, if the slug is null will return all tabs
+	 * @return null|array|object        If we couldn't find the tab it will be null, if the slug is null will return all tabs.
 	 */
 	public function get( $slug = null ) {
 		uasort( $this->items, [ $this, 'sort_by_priority' ] );
@@ -196,7 +196,7 @@ class Tribe__Tabbed_View {
 	/**
 	 * Checks if a given Tab (slug) is active
 	 *
-	 * @param  string $slug The Slug of the Tab
+	 * @param string $slug The Slug of the Tab.
 	 *
 	 * @return boolean       Is this tab active?
 	 */
@@ -305,7 +305,7 @@ class Tribe__Tabbed_View {
 	/**
 	 * Builds an instance of the specified tab class.
 	 *
-	 * @param string $tab_class
+	 * @param string $tab_class The class name of the tab.
 	 *
 	 * @return Tribe__Tabbed_View__Tab
 	 */
@@ -316,7 +316,7 @@ class Tribe__Tabbed_View {
 	/**
 	 * Renders the tabbed view and returns the resulting HTML.
 	 *
-	 * @return string
+	 * @return string The rendered HTML.
 	 */
 	public function render() {
 		$visibles = $this->get_visibles();
@@ -366,7 +366,7 @@ class Tribe__Tabbed_View {
 	/**
 	 * @param Tribe__Tabbed_View__Tab $tab
 	 *
-	 * @return bool
+	 * @return bool `true` if the tab is visible, `false` otherwise.
 	 */
 	protected function is_tab_visible( Tribe__Tabbed_View__Tab $tab ) {
 		return $tab->is_visible();
@@ -375,7 +375,7 @@ class Tribe__Tabbed_View {
 	/**
 	 * Returns the absolute path to the default template for the tabbed view.
 	 *
-	 * @return string
+	 * @return string The absolute path to the default template for the tabbed view.
 	 */
 	public function get_default_template_path() {
 		return Tribe__Main::instance()->plugin_path . '/src/admin-views/tabbed-view/tabbed-view.php';

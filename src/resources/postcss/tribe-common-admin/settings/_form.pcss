@@ -6,7 +6,8 @@
  *
  * ----------------------------------------------------------------------------- */
 
-.tribe_events_page_tec-events-settings {
+.tribe_events_page_tec-events-settings,
+.tickets_page_tec-tickets-settings {
 	/* This is a wrapper for the form, not the form itself. */
 	.tribe-settings-form {
 		align-items: flex-start;
@@ -38,16 +39,46 @@
 		padding-top: var(--tec-spacer-3);
 		width: calc(100% - (2 * var(--tec-spacer-7)));
 
+		fieldset {
+			*:first-child {
+				margin-top: 0;
+			}
+		}
+
+		.tec-settings-form__description-text {
+			font-size: var(--tec-font-size-2);
+			margin-bottom: 0;
+			margin-top: 0;
+			@media (--viewport-large) {
+				margin-right: calc(var(--tec-spacer-settings-form-right-gap));
+			}
+			@media (--viewport-xlarge) {
+				margin-left: var(--tec-spacer-7);
+			}
+		}
+
+		p.description {
+			margin-top: var(--tec-spacer-4);
+		}
+
+		.screen-reader-text + p.description {
+			margin-top: 0;
+		}
+
 		p:last-child,
 		.tribe-field:last-child {
 			margin-bottom: 0;
+		}
+
+		&.tec-settings-form--no-gap {
+			grid-row-gap: 0;
 		}
 
 		@media (--viewport-xsmall) {
 			background-color: var(--tec-color-background);
 			border: 1px solid var(--tec-admin-core-grey-10);
 			border-radius: var(--tec-border-radius-default);
-			margin-top: var(--tec-spacer-5);
+			margin-top: var(--tec-spacer-7);
 			padding-top: var(--tec-spacer-7);
 
 			&.tec-settings-form__subnav-active {
@@ -61,7 +92,13 @@
 
 			> * {
 				padding-right: var(--tec-spacer-settings-form-right-gap);
+
+				&.tec-settings-form__content-section,
+				&.tec-settings-form__element--full-width {
+					padding-right: 0;
+				}
 			}
+
 		}
 
 		@media (--viewport-full) {
@@ -73,7 +110,7 @@
 			border-radius: var(--tec-border-radius-default);
 			column-gap: var(--tec-spacer-settings-form-col-gap);
 			grid-template-columns: var(--tec-spacer-settings-form-width-left-col) 1fr;
-			margin: var(--tec-spacer-5) 0 0 var(--tec-spacer-7);
+			margin: var(--tec-spacer-7) 0 0 var(--tec-spacer-7);
 
 			&.tec-settings-form__subnav-active {
 				padding-top: calc(var(--tec-spacer-9) + var(--tec-spacer-6) - 2px);
@@ -90,11 +127,16 @@
 
 			@media (--viewport-xlarge) {
 				grid-column: 2;
-				padding-bottom: var(--tec-spacer-7);
 
 				&:nth-last-child(-n +1 of .tec-settings-form__content-section) {
 					padding-bottom: 0;
 				}
+			}
+		}
+
+		> div {
+			@media (--viewport-xlarge) {
+				padding-bottom: var(--tec-spacer-7);
 			}
 		}
 	}

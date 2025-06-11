@@ -10,6 +10,8 @@
 namespace TEC\Common;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Common\Libraries\Provider as Library_Provider;
+use TEC\Common\Contracts\Container;
 
 /**
  * Class Hooks
@@ -17,25 +19,50 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
  * @since 6.5.3
  */
 class Hooks extends Controller_Contract {
+	/**
+	 * The hook prefix.
+	 *
+	 * @since 6.7.1
+	 *
+	 * @var string
+	 */
+	private string $hook_prefix;
+
+	/**
+	 * Constructor.
+	 *
+	 * @since 6.7.1
+	 *
+	 * @param Container        $container The container.
+	 * @param Library_Provider $library_provider The library provider.
+	 */
+	public function __construct( Container $container, Library_Provider $library_provider ) {
+		parent::__construct( $container );
+		$this->hook_prefix = $library_provider->get_hook_prefix();
+	}
 
 	/**
 	 * Registers the hooks added by the controller.
 	 *
 	 * @since 6.5.3
+	 * @since 6.7.1 Added hook for group paths to follow symlinks.
 	 */
 	public function do_register(): void {
 		add_action( 'current_screen', [ $this, 'admin_headers_about_to_be_sent' ], PHP_INT_MAX );
 		add_action( 'shutdown', [ $this, 'tec_shutdown' ], 0 );
+		add_filter( "stellarwp/assets/{$this->hook_prefix}/group_path", [ $this, 'group_paths_should_follow_symlinks' ] );
 	}
 
 	/**
 	 * Removes hooks added by the controller.
 	 *
 	 * @since 6.5.3
+	 * @since 6.7.1 Removed hook for group paths to follow symlinks.
 	 */
 	public function unregister(): void {
 		remove_action( 'current_screen', [ $this, 'admin_headers_about_to_be_sent' ], PHP_INT_MAX );
 		remove_action( 'shutdown', [ $this, 'tec_shutdown' ], 0 );
+		remove_filter( "stellarwp/assets/{$this->hook_prefix}/group_path", [ $this, 'group_paths_should_follow_symlinks' ] );
 	}
 
 	/**
@@ -75,5 +102,21 @@ class Hooks extends Controller_Contract {
 		 * @since 6.5.3
 		 */
 		do_action( 'tec_shutdown' );
+	}
+
+	/**
+	 * Ensure we follow symlinks for the group paths.
+	 *
+	 * @since 6.7.1
+	 *
+	 * @param array $group_path_data The group path data.
+	 *
+	 * @return array The group path data.
+	 */
+	public function group_paths_should_follow_symlinks( array $group_path_data ): array {
+		// Follow symlinks.
+		$group_path_data['root'] = str_replace( trailingslashit( dirname( __DIR__, 4 ) ), trailingslashit( WP_PLUGIN_DIR ), $group_path_data['root'] ?? '' );
+
+		return $group_path_data;
 	}
 }

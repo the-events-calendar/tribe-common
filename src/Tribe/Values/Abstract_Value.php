@@ -419,8 +419,8 @@ abstract class Abstract_Value implements Value_Interface {
 	 *
 	 * @since 4.14.9
 	 *
-	 * @param $separator string a separator token, like . or ,
-	 * @param $value     string a number formatted as a string
+	 * @param string $separator A separator token, like . or ,
+	 * @param string $value     A number formatted as a string
 	 *
 	 * @return bool
 	 */

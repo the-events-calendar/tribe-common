@@ -9,11 +9,11 @@ abstract class Tribe__Editor__Meta
 	implements Tribe__Editor__Meta_Interface {
 
 	/**
-	 * Default definition for an attribute of type text
+	 * Default definition for an attribute of type text.
 	 *
 	 * @since 4.8
 	 *
-	 * @return array
+	 * @return array The definition for the text attribute.
 	 */
 	protected function text() {
 		return [
@@ -26,11 +26,11 @@ abstract class Tribe__Editor__Meta
 	}
 
 	/**
-	 * Add arguments to escape a text area field
+	 * Add arguments to escape a textarea field.
 	 *
 	 * @since 4.8
 	 *
-	 * @return array
+	 * @return array The definition for the textarea attribute.
 	 */
 	protected function textarea() {
 		return [
@@ -43,11 +43,11 @@ abstract class Tribe__Editor__Meta
 	}
 
 	/**
-	 * Add arguments to escape a field of URL type
+	 * Add arguments to escape a field of URL type.
 	 *
 	 * @since 4.8
 	 *
-	 * @return array
+	 * @return array The definition for the URL attribute.
 	 */
 	protected function url() {
 		return [
@@ -60,11 +60,11 @@ abstract class Tribe__Editor__Meta
 	}
 
 	/**
-	 * Default definition for an attribute of type text
+	 * Default definition for an attribute of type numeric.
 	 *
 	 * @since 4.8
 	 *
-	 * @return array
+	 * @return array The definition for the numeric attribute.
 	 */
 	protected function numeric() {
 		return [
@@ -77,11 +77,11 @@ abstract class Tribe__Editor__Meta
 	}
 
 	/***
-	 * Default definition for an attribute of type boolean
+	 * Default definition for an attribute of type boolean.
 	 *
 	 * @since 4.8
 	 *
-	 * @return array
+	 * @return array The definition for the boolean attribute.
 	 */
 	protected function boolean() {
 		return [
@@ -94,11 +94,11 @@ abstract class Tribe__Editor__Meta
 	}
 
 	/**
-	 * Register a numeric type of array
+	 * Register a numeric type of array.
 	 *
 	 * @since 4.8
 	 *
-	 * @return array
+	 * @return array The definition for the numeric array attribute.
 	 */
 	protected function numeric_array() {
 		return [
@@ -112,11 +112,11 @@ abstract class Tribe__Editor__Meta
 	}
 
 	/**
-	 * Register a text type of array
+	 * Register a text type of array.
 	 *
 	 * @since 4.8
 	 *
-	 * @return array
+	 * @return array The definition for the text array attribute.
 	 */
 	protected function text_array() {
 		return [
@@ -130,13 +130,13 @@ abstract class Tribe__Editor__Meta
 	}
 
 	/**
-	 * Sanitize an array of text
+	 * Sanitize an array of text.
 	 *
 	 * @since 4.8
 	 *
-	 * @param $value
+	 * @param string|array $value The value to sanitize.
 	 *
-	 * @return array
+	 * @return array|string The sanitized value.
 	 */
 	public function sanitize_text_array( $value ) {
 		if ( is_array( $value ) ) {
@@ -147,13 +147,13 @@ abstract class Tribe__Editor__Meta
 	}
 
 	/**
-	 * Checks and sanitize a given value to a numeric array or a numeric string
+	 * Checks and sanitize a given value to a numeric array or a numeric string.
 	 *
 	 * @since 4.8
 	 *
-	 * @param  mixed $value Check agains this value
+	 * @param mixed $value Check against this value.
 	 *
-	 * @return array|bool|int
+	 * @return array|bool|int The sanitized value.
 	 */
 	public function sanitize_numeric_array( $value ) {
 		if ( is_array( $value ) ) {
@@ -167,13 +167,13 @@ abstract class Tribe__Editor__Meta
 
 	/**
 	 * Make sure sanitization on boolean does not triggered warnings when multiple values are passed
-	 * to the function
+	 * to the function.
 	 *
 	 * @since 4.8
 	 *
-	 * @param $value
+	 * @param mixed $value The value to sanitize.
 	 *
-	 * @return bool
+	 * @return bool The sanitized value.
 	 */
 	public function sanitize_boolean( $value ) {
 		return filter_var( $value, FILTER_VALIDATE_BOOLEAN );
@@ -185,9 +185,9 @@ abstract class Tribe__Editor__Meta
 	 *
 	 * @since 4.8
 	 *
-	 * @param $value
+	 * @param string $value The value to sanitize.
 	 *
-	 * @return mixed
+	 * @return string The sanitized value.
 	 */
 	public function sanitize_separator( $value ) {
 		return tec_sanitize_string( $value );
@@ -205,7 +205,7 @@ abstract class Tribe__Editor__Meta
 	 * @param string $cap Capability name.
 	 * @param array  $caps User capabilities.
 	 *
-	 * @return boolean
+	 * @return bool Whether the user can edit the post meta.
 	 */
 	public function auth_callback( $allowed, $meta_key, $post_id, $user_id, $cap, $caps ) {
 		$post             = get_post( $post_id );

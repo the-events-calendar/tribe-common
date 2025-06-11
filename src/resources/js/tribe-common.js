@@ -2,11 +2,8 @@
 String.prototype.className = function () {
 	// Prevent Non Strings to be included
 	if (
-		(
-			'string' !== typeof this
-			&& ! this instanceof String // eslint-disable-line no-unsafe-negation
-		)
-		|| 'function' !== typeof this.replace
+		( 'string' !== typeof this && ! this instanceof String ) || // eslint-disable-line no-unsafe-negation
+		'function' !== typeof this.replace
 	) {
 		return this;
 	}
@@ -18,11 +15,8 @@ String.prototype.className = function () {
 String.prototype.varName = function () {
 	// Prevent Non Strings to be included
 	if (
-		(
-			'string' !== typeof this
-			&& ! this instanceof String // eslint-disable-line no-unsafe-negation
-		)
-		|| 'function' !== typeof this.replace
+		( 'string' !== typeof this && ! this instanceof String ) || // eslint-disable-line no-unsafe-negation
+		'function' !== typeof this.replace
 	) {
 		return this;
 	}
@@ -36,56 +30,55 @@ String.prototype.varName = function () {
  Kudos: https://stackoverflow.com/a/50803220
  */
 ( function () {
-	const url = new URL ( window.location.href );
+	const url = new URL( window.location.href );
 	const hash = url.hash;
 
 	// Do not handle deeplinking if not coming from the plugins.
-	if ( !hash || !hash.match ( '#(tribe|tec)' ) ) {
+	if ( ! hash || ! hash.match( '#(tribe|tec)' ) ) {
 		return;
 	}
 
 	let updatesDidOccurr = true;
 
-	const mutationObserver = new MutationObserver ( function () {
+	const mutationObserver = new MutationObserver( function () {
 		updatesDidOccurr = true;
 	} );
 
 	// Observe all window events.
-	mutationObserver.observe ( window.document, {
+	mutationObserver.observe( window.document, {
 		attributes: true,
 		childList: true,
 		characterData: true,
-		subtree: true
+		subtree: true,
 	} );
 
-	let mutationCallback = function () {
+	const mutationCallback = function () {
 		if ( updatesDidOccurr ) {
 			updatesDidOccurr = false;
-			setTimeout ( mutationCallback, 250 );
+			setTimeout( mutationCallback, 250 );
 		} else {
-			mutationObserver.takeRecords ();
-			mutationObserver.disconnect ();
+			mutationObserver.takeRecords();
+			mutationObserver.disconnect();
 
 			// Detect the element now: it might have been added by a script.
-			const scrollTo = document.getElementById ( hash.substring ( 1 ) );
+			const scrollTo = document.getElementById( hash.substring( 1 ) );
 
 			if ( scrollTo ) {
 				// Scroll to the element, if it exists.
-				scrollTo.scrollIntoView ();
+				scrollTo.scrollIntoView();
 			}
 		}
 	};
 
 	// Start the loop.
-	mutationCallback ();
-} ) ();
+	mutationCallback();
+} )();
 
 /**
  * Creates a global Tribe Variable where we should start to store all the things
- * @type {object}
+ * @type {Object}
  */
-var tribe = tribe || {}; // eslint-disable-line no-redeclare
-
+window.tribe = window.tribe || {}; // eslint-disable-line no-redeclare
 
 /**
  * Creates a `window.tec` variable where we should start to store all the things.
@@ -93,6 +86,6 @@ var tribe = tribe || {}; // eslint-disable-line no-redeclare
  *
  * @since 6.3.0
  *
- * @type {object}
+ * @type {Object}
  */
 window.tec = window.tec || {}; // eslint-disable-line no-redeclare

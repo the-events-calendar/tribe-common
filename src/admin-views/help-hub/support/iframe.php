@@ -11,14 +11,17 @@ use TEC\Common\Admin\Help_Hub\Hub;
 
 // Define the query arguments to pass to the iframe URL.
 $query_args = [
-	'post_type'        => 'tribe_events',         // The post type for events.
-	'page'             => 'tec-events-help-hub',  // The page identifier for Help Hub.
-	'embedded_content' => 'true',                 // Flag to indicate this is embedded content.
+	'help_hub'         => Hub::IFRAME_PAGE_SLUG,
+	'page'             => tec_get_request_var( 'page' ),
+	'embedded_content' => 'true',
+	'_cb'              => wp_create_nonce( 'tec_help_hub_iframe' ),
 ];
 
+if ( empty( $query_args['page'] ) ) {
+	return;
+}
 // Generate the iframe URL by appending query arguments to the admin URL.
-$iframe_url = add_query_arg( $query_args, admin_url( 'edit.php' ) );
-
+$iframe_url = add_query_arg( $query_args, admin_url( 'admin.php' ) );
 ?>
 <div class="tec-settings__support-hub-iframe-container">
 	<!-- Loading spinner displayed while iframe content is loading -->

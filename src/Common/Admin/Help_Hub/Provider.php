@@ -6,12 +6,14 @@
  * allowing components such as the `Hub` class to retrieve and utilize the required
  * data and configuration through dependency injection.
  *
- * @since   6.3.2
+ * @since 6.3.2
  * @package TEC\Common\Admin\Help_Hub
  */
 
 namespace TEC\Common\Admin\Help_Hub;
 
+use TEC\Common\Admin\Help_Hub\Section_Builder\FAQ_Section_Builder;
+use TEC\Common\Admin\Help_Hub\Section_Builder\Link_Section_Builder;
 use TEC\Common\Contracts\Service_Provider;
 
 /**
@@ -20,7 +22,7 @@ use TEC\Common\Contracts\Service_Provider;
  * Registers the Help Hub logic and dependencies, allowing for easier dependency management
  * and a centralized setup for Help Hub-specific functionality.
  *
- * @since   6.3.2
+ * @since 6.3.2
  *
  * @package TEC\Common\Admin\Help_Hub
  */
@@ -37,13 +39,15 @@ class Provider extends Service_Provider {
 		// Register the provider instance as a singleton within the container.
 		$this->container->singleton( self::class, $this );
 		$this->container->bind( Hub::class );
-
+		$this->container->bind( Link_Section_Builder::class );
+		$this->container->bind( FAQ_Section_Builder::class );
+		$this->container->bind( Tab_Builder::class );
 		/**
 		 * Fires when the provider is registered.
 		 *
 		 * @since 6.3.2
 		 *
-		 * @param Provider $this The provider instance.
+		 * @param Provider $provider The provider instance.
 		 */
 		do_action( 'tec_help_hub_registered', $this );
 	}

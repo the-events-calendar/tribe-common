@@ -3,7 +3,7 @@
  * Extends DateTime and includes translation capabilities.
  *
  * @package Tribe\Utils
- * @since   4.11.0
+ * @since 4.11.0
  */
 namespace Tribe\Utils;
 
@@ -15,7 +15,7 @@ use DateTimeImmutable;
  * Class Date i18n
  *
  * @package Tribe\Utils
- * @since   4.11.0
+ * @since 4.11.0
  */
 class Date_I18n extends DateTime {
 	/**
@@ -34,9 +34,9 @@ class Date_I18n extends DateTime {
 	/**
 	 * Returns a translated string using the params from this DateTime instance.
 	 *
-	 * @since  4.11.0
+	 * @since 4.11.0
 	 *
-	 * @param  string $date_format Format to be used in the translation.
+	 * @param string $date_format Format to be used in the translation.
 	 *
 	 * @return string         Translated date.
 	 */

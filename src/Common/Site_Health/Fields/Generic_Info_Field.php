@@ -7,7 +7,7 @@ use TEC\Common\Site_Health\Info_Field_Abstract;
 /**
  * Class Generic_Info_Field
  *
- * @since   5.1.0
+ * @since 5.1.0
  *
  * @package TEC\Common\Site_Health
  */

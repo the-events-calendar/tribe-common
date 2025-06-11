@@ -1,7 +1,7 @@
-var tribe = tribe || {}; // eslint-disable-line no-redeclare
-tribe.dialogs = tribe.dialogs || {};
+window.tribe = window.tribe || {}; // eslint-disable-line no-redeclare
+window.tribe.dialogs = window.tribe.dialogs || {};
 
-( function( $, obj ) {
+( function ( $, obj ) {
 	'use strict';
 
 	obj.dialogs = obj.dialogs || [];
@@ -16,7 +16,7 @@ tribe.dialogs = tribe.dialogs || {};
 	 *
 	 * @return {string} the dialog name.
 	 */
-	obj.getDialogName = function( dialog ) {
+	obj.getDialogName = function ( dialog ) {
 		return 'dialog_obj_' + dialog.id;
 	};
 
@@ -27,10 +27,10 @@ tribe.dialogs = tribe.dialogs || {};
 	 *
 	 * @return {void}
 	 */
-	obj.init = function() {
-		obj.dialogs.forEach( function( dialog ) {
-			var objName      = obj.getDialogName( dialog );
-			var a11yInstance = new window.A11yDialog( {
+	obj.init = function () {
+		obj.dialogs.forEach( function ( dialog ) {
+			const objName = obj.getDialogName( dialog );
+			const a11yInstance = new window.tec.common.tecA11yDialog( {
 				appendTarget: dialog.appendTarget,
 				bodyLock: dialog.bodyLock,
 				closeButtonAriaLabel: dialog.closeButtonAriaLabel,
@@ -48,7 +48,7 @@ tribe.dialogs = tribe.dialogs || {};
 			window[ objName ] = a11yInstance;
 			dialog.a11yInstance = a11yInstance;
 
-			window[ objName ].on( 'show', function( dialogEl, event ) {
+			window[ objName ].on( 'show', function ( dialogEl, event ) {
 				if ( event ) {
 					event.preventDefault();
 					event.stopPropagation();
@@ -69,5 +69,4 @@ tribe.dialogs = tribe.dialogs || {};
 	};
 
 	$( obj.init );
-
-} )( jQuery, tribe.dialogs );
+} )( jQuery, window.tribe.dialogs );

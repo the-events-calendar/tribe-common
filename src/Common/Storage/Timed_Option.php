@@ -8,7 +8,7 @@ namespace TEC\Common\Storage;
  * Caching, on those cases Transients will execute two SQL queries when using `get_transient()`, which is demolishes
  * the performance of certain pages.
  *
- * @since   5.0.6
+ * @since 5.0.6
  *
  * @package TEC\Common
  */

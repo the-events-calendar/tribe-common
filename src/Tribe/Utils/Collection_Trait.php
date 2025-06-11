@@ -4,7 +4,8 @@
  *
  * The trait will also implement the `ArrayAccess`, `Iterator` and `Countable` interface methods.
  *
- * @since   4.9.14
+ * @since 4.9.14
+ *
  * @package Tribe\Utils
  */
 
@@ -12,7 +13,9 @@ namespace Tribe\Utils;
 
 /**
  * Trait Collection_Trait
- * @since   4.9.14
+ *
+ * @since 4.9.14
+ *
  * @package Tribe\Utils
  */
 trait Collection_Trait {

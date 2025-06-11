@@ -1,16 +1,16 @@
-(function( $, _ ) {
+( function ( $, _ ) {
 	'use strict';
 	// Configure on Document ready for the default trigger
-	$( function() {
+	$( function () {
 		$( '.tribe-bumpdown-trigger' ).bumpdown();
 	} );
 
-	$.fn.bumpdown = function() {
+	$.fn.bumpdown = function () {
 		var $document = $( document ),
 			selectors = {
 				// A template for the ID if we don't have one already
 				ID: 'tribe-bumpdown-',
-				data_trigger: function( ID ) {
+				data_trigger( ID ) {
 					return '[data-trigger="' + ID + '"]';
 				},
 				bumpdown: '.tribe-bumpdown',
@@ -22,8 +22,8 @@
 				active: '.tribe-bumpdown-active',
 			},
 			methods = {
-				open: function( $bumpdown ) {
-					var data = $bumpdown.data( 'bumpdown' ),
+				open( $bumpdown ) {
+					const data = $bumpdown.data( 'bumpdown' ),
 						width_rule = data.$trigger.data( 'width-rule' );
 
 					if ( $bumpdown.is( ':visible' ) ) {
@@ -33,20 +33,20 @@
 					// Adds a Class to signal it's active
 					data.$trigger.addClass( selectors.active.replace( '.', '' ) );
 
-					var $content = $bumpdown.find( selectors.content );
+					const $content = $bumpdown.find( selectors.content );
 
 					if ( 'string' === typeof width_rule && 'all-triggers' === width_rule ) {
-						var min_width = 600;
-						var trigger_position = 0;
-						$( selectors.trigger ).each( function() {
-							var $el = $( this );
+						const min_width = 600;
+						let trigger_position = 0;
+						$( selectors.trigger ).each( function () {
+							const $el = $( this );
 
 							// only attempt to align items with a width rule
 							if ( ! $el.data( 'width-rule' ) ) {
 								return;
 							}
 
-							var position = $el.position();
+							const position = $el.position();
 
 							if ( position.left > trigger_position ) {
 								trigger_position = position.left;
@@ -60,17 +60,19 @@
 						}
 					}
 
-					$content.prepend( '<a class="tribe-bumpdown-close" title="Close"><i class="dashicons dashicons-no"></i></a>' ); // eslint-disable-line max-len
+					$content.prepend(
+						'<a class="tribe-bumpdown-close" title="Close"><i class="dashicons dashicons-no"></i></a>'
+					); // eslint-disable-line max-len
 					$content.prepend( '<span class="tribe-bumpdown-arrow"></span>' );
 					methods.arrow( $bumpdown );
 
 					$bumpdown.data( 'preventClose', true );
-					$bumpdown.slideDown( 'fast', function() {
+					$bumpdown.slideDown( 'fast', function () {
 						$bumpdown.data( 'preventClose', false );
 					} );
 				},
-				close: function( $bumpdown ) {
-					var data = $bumpdown.data( 'bumpdown' );
+				close( $bumpdown ) {
+					const data = $bumpdown.data( 'bumpdown' );
 
 					if ( ! $bumpdown.is( ':visible' ) || $bumpdown.data( 'preventClose' ) ) {
 						return;
@@ -84,36 +86,32 @@
 
 					data.$trigger.removeClass( selectors.active.replace( '.', '' ) );
 				},
-				arrow: function( $bumpdown ) {
-					var data = $bumpdown.data( 'bumpdown' ),
+				arrow( $bumpdown ) {
+					let data = $bumpdown.data( 'bumpdown' ),
 						arrow;
 
 					arrow = Math.ceil(
-						data.$trigger.position().left - (
-							'block' === data.type
-								? data.$parent.offset().left
-								: 0
-						)
+						data.$trigger.position().left - ( 'block' === data.type ? data.$parent.offset().left : 0 )
 					);
 
 					data.$bumpdown.find( '.tribe-bumpdown-arrow' ).css( 'left', arrow ); // eslint-disable-line es5/no-es6-methods,max-len
-				}
+				},
 			};
 
 		$( window ).on( {
-			'resize.bumpdown': function() {
-				$document.find( selectors.active ).each( function() {
+			'resize.bumpdown'() {
+				$document.find( selectors.active ).each( function () {
 					methods.arrow( $( this ) );
 				} );
-			}
+			},
 		} );
 
 		if ( 'function' === typeof $.fn.hoverIntent ) {
 			$document
 				// Use hoverIntent to make sure we are not opening Bumpdown on a fast hover
 				.hoverIntent( {
-					over: function() {
-						var data = $( this ).data( 'bumpdown' );
+					over() {
+						const data = $( this ).data( 'bumpdown' );
 
 						// Flags that it's open
 						data.$trigger.data( 'is_hoverintent_queued', false );
@@ -121,7 +119,7 @@
 						// Actually opens
 						data.$bumpdown.trigger( 'open.bumpdown' );
 					},
-					out: function() {}, // Prevents Notice on JS
+					out() {}, // Prevents Notice on JS
 					selector: selectors.hover_trigger,
 					interval: 200,
 				} );
@@ -129,59 +127,69 @@
 
 		$document
 			// Setup Events on Trigger
-			.on( {
-				mouseenter: function() {
-					if ( $( this ).data( 'is_hoverintent_queued' ) === undefined ) {
-						// Flags that hoverIntent will take care of the
-						$( this ).data( 'is_hoverintent_queued', true );
-					}
-				},
-				click: function( e ) {
-					var data = $( this ).data( 'bumpdown' );
-					e.preventDefault();
-					e.stopPropagation();
+			.on(
+				{
+					mouseenter() {
+						if ( $( this ).data( 'is_hoverintent_queued' ) === undefined ) {
+							// Flags that hoverIntent will take care of the
+							$( this ).data( 'is_hoverintent_queued', true );
+						}
+					},
+					click( e ) {
+						const data = $( this ).data( 'bumpdown' );
+						e.preventDefault();
+						e.stopPropagation();
 
-					if ( data.$bumpdown.is( ':visible' ) ) {
-						// Makes sure we are not dealing with the first enter of the mouse
-						if ( data.$trigger.data( 'is_hoverintent_queued' ) ) {
-							// On double click it will close, kinda like forcing the closing
-							return data.$trigger.data( 'is_hoverintent_queued', false );
+						if ( data.$bumpdown.is( ':visible' ) ) {
+							// Makes sure we are not dealing with the first enter of the mouse
+							if ( data.$trigger.data( 'is_hoverintent_queued' ) ) {
+								// On double click it will close, kinda like forcing the closing
+								return data.$trigger.data( 'is_hoverintent_queued', false );
+							}
+
+							data.$bumpdown.trigger( 'close.bumpdown' );
+						} else {
+							data.$bumpdown.trigger( 'open.bumpdown' );
+						}
+					},
+					'open.bumpdown'() {
+						methods.open( $( this ) );
+					},
+					'close.bumpdown'() {
+						methods.close( $( this ) );
+					},
+				},
+				selectors.trigger
+			)
+
+			// Setup Events on Trigger
+			.on(
+				{
+					click( e ) {
+						const data = $( this ).parents( selectors.bumpdown ).first().data( 'bumpdown' );
+
+						e.preventDefault();
+						e.stopPropagation();
+
+						if ( 'undefined' === typeof data ) {
+							return;
+						}
+
+						if ( 'undefined' === typeof data.$bumpdown ) {
+							return;
 						}
 
 						data.$bumpdown.trigger( 'close.bumpdown' );
-					} else {
-						data.$bumpdown.trigger( 'open.bumpdown' );
-					}
+					},
 				},
-				'open.bumpdown': function() { methods.open( $( this ) ); },
-				'close.bumpdown': function() { methods.close( $( this ) ); }
-			}, selectors.trigger )
-
-			// Setup Events on Trigger
-			.on( {
-				click: function( e ) {
-					var data = $( this ).parents( selectors.bumpdown ).first().data( 'bumpdown' );
-
-					e.preventDefault();
-					e.stopPropagation();
-
-					if ( 'undefined' === typeof data ) {
-						return;
-					}
-
-					if ( 'undefined' === typeof data.$bumpdown ) {
-						return;
-					}
-
-					data.$bumpdown.trigger( 'close.bumpdown' );
-				},
-			}, selectors.close )
+				selectors.close
+			)
 
 			// Triggers closing when clicking on the document
-			.on( 'click', function( e ) {
-				var $target = $( e.target ),
-					is_bumpdown = $target.is( selectors.bumpdown )
-						|| 0 !== $target.parents( selectors.bumpdown ).length;
+			.on( 'click', function ( e ) {
+				const $target = $( e.target ),
+					is_bumpdown =
+						$target.is( selectors.bumpdown ) || 0 !== $target.parents( selectors.bumpdown ).length;
 
 				if ( is_bumpdown ) {
 					return;
@@ -191,14 +199,21 @@
 			} )
 
 			// Creates actions on the actual bumpdown
-			.on( {
-				'open.bumpdown': function() { methods.open( $( this ) ); },
-				'close.bumpdown': function() { methods.close( $( this ) ); }
-			}, selectors.bumpdown );
+			.on(
+				{
+					'open.bumpdown'() {
+						methods.open( $( this ) );
+					},
+					'close.bumpdown'() {
+						methods.close( $( this ) );
+					},
+				},
+				selectors.bumpdown
+			);
 
 		// Configure all the fields
-		return this.each( function() {
-			var data = {
+		return this.each( function () {
+			const data = {
 				// Store the jQuery Elements
 				$trigger: $( this ),
 				$parent: null,
@@ -236,12 +251,14 @@
 			data.is_permanent = data.$trigger.is( selectors.permanent );
 
 			// Fetch the first Block-Level parent
-			data.$parent = data.$trigger.parents().filter( function() {
-				return -1 < $.inArray(
-					$( this ).css( 'display' ),
-					[ 'block', 'table', 'table-cell', 'table-row' ]
-				);
-			} ).first();
+			data.$parent = data.$trigger
+				.parents()
+				.filter( function () {
+					return (
+						-1 < $.inArray( $( this ).css( 'display' ), [ 'block', 'table', 'table-cell', 'table-row' ] )
+					);
+				} )
+				.first();
 
 			if ( ! data.html ) {
 				data.$bumpdown = $( selectors.data_trigger( data.ID ) );
@@ -254,7 +271,7 @@
 						.attr( { colspan: 2 } )
 						.addClass( 'tribe-bumpdown-cell' )
 						.html( data.html );
-					var classes = data.class ? 'tribe-bumpdown-row ' + data.class : 'tribe-bumpdown-row',
+					const classes = data.class ? 'tribe-bumpdown-row ' + data.class : 'tribe-bumpdown-row',
 						$row = $( '<tr>' ).append( data.$bumpdown ).addClass( classes );
 
 					data.$parent = data.$trigger.parents( 'tr' ).first();
@@ -273,7 +290,6 @@
 				// Mark this as the trigger
 				.addClass( selectors.trigger.replace( '.', '' ) );
 
-
 			// Setup data on actual bumpdown
 			data.$bumpdown
 				.data( 'bumpdown', data )
@@ -283,11 +299,11 @@
 
 			// support our dependency library
 			if ( data.$trigger.data( 'depends' ) ) {
-				var field_ids = data.$trigger.data( 'depends' );
-				$( document ).on( 'change', field_ids, function() {
+				const field_ids = data.$trigger.data( 'depends' );
+				$( document ).on( 'change', field_ids, function () {
 					methods.close( data.$bumpdown );
 				} );
 			}
-		});
+		} );
 	};
-}( jQuery, window.underscore || window._ ) );
+} )( jQuery, window.underscore || window._ );

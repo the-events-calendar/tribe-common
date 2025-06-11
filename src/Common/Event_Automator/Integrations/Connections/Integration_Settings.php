@@ -111,31 +111,43 @@ abstract class Integration_Settings {
 	 * Get the integration connection fields to the ones in the Integrations tab.
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
+	 * @since 6.7.0 Updated HTML.
 	 *
 	 * @return array<string,array> The fields, as updated by the settings.
 	 */
 	public function get_fields() {
-		$api_id =  static::$api_id;
+		$api_id = static::$api_id;
 
-		$wrapper_classes = tribe_get_classes( [
-			'tec-automator-settings' => true,
-			'tec-events-settings-' . static::$api_id . '-application' => true,
-		] );
+		$wrapper_classes = tribe_get_classes(
+			[
+				'tec-automator-settings'                 => true,
+				'tec-events-settings-' . static::$api_id . '-application' => true,
+				'tec-settings-form__element--full-width' => true,
+			]
+		);
 
 		$api_fields = [
-			static::$option_prefix . 'wrapper_open'  => [
-				'type' => 'html',
-				'html' => '<div id="tribe-settings-' . static::$api_id . '-application" class="' . implode( ' ', $wrapper_classes ) . '">'
-			],
-			static::$option_prefix . 'header'        => [
+			static::$option_prefix . 'header'              => [
 				'type' => 'html',
 				'html' => $this->get_intro_text(),
 			],
-			static::$option_prefix . 'authorize'     => [
+			static::$option_prefix . 'section-wrapper-start' => [
+				'type' => 'html',
+				'html' => '<div class="tec-settings-form__content-section">',
+			],
+			static::$option_prefix . 'wrapper_open'        => [
+				'type' => 'html',
+				'html' => '<div id="tribe-settings-' . static::$api_id . '-application" class="' . implode( ' ', $wrapper_classes ) . '">',
+			],
+			static::$option_prefix . 'authorize'           => [
 				'type' => 'html',
 				'html' => $this->get_all_connection_fields(),
 			],
-			static::$option_prefix . 'wrapper_close' => [
+			static::$option_prefix . 'section-wrapper-end' => [
+				'type' => 'html',
+				'html' => '</div>',
+			],
+			static::$option_prefix . 'wrapper_close'       => [
 				'type' => 'html',
 				'html' => '</div>',
 			],
@@ -147,7 +159,7 @@ abstract class Integration_Settings {
 		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param array<string,array> A map of the API fields that will be printed on the page.
-		 * @param Settings $this A Settings instance.
+		 * @param Settings $settings  The Settings instance.
 		 */
 		$api_fields = apply_filters( "tec_event_automator_{$api_id}_settings_fields", $api_fields, $this );
 
@@ -184,8 +196,8 @@ abstract class Integration_Settings {
 		 *
 		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
-		 * @param string The default array key to place the API integration fields.
-		 * @param Settings $this This Settings instance.
+		 * @param string   $key      The default array key to place the API integration fields.
+		 * @param Settings $settings This Settings instance.
 		 */
 		return apply_filters( "tec_event_automator_{$api_id}_settings_field_placement_key", 'gmaps-js-api-start', $this );
 	}
@@ -225,8 +237,8 @@ abstract class Integration_Settings {
 		 *
 		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
-		 * @param string The default array key to place the API integration fields.
-		 * @param Settings $this Settings instance.
+		 * @param string   $key      The default array key to place the API integration fields.
+		 * @param Settings $settings The Settings instance.
 		 */
 		return apply_filters( "tec_event_automator_{$api_id}_settings_field_placement_key", 'tickets-woo-dispatch-status', $this );
 	}

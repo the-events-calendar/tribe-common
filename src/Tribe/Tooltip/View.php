@@ -108,7 +108,7 @@ class View extends \Tribe__Template {
 		/**
 		 * Allow us to filter the tooltip template
 		 *
-		 * @since  4.9.8
+		 * @since 4.9.8
 		 *
 		 * @param string $template The tooltip template name.
 		 * @param array $args Extra arguments, defaults include icon, classes, direction, and context.
@@ -126,7 +126,7 @@ class View extends \Tribe__Template {
 		/**
 		 * Allow us to filter the tooltip output
 		 *
-		 * @since  4.9.8
+		 * @since 4.9.8
 		 *
 		 * @param string $html The tooltip HTML.
 		 * @param array $messages An array of message strings.

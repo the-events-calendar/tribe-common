@@ -2,7 +2,7 @@
 /**
  * Handles Integrations.
  *
- * @since   5.1.1
+ * @since 5.1.1
  *
  * @package TEC\Common\Integrations
  */
@@ -11,7 +11,7 @@ namespace TEC\Common\Integrations;
 /**
  * Class Provider.
  *
- * @since   5.1.1
+ * @since 5.1.1
  *
  * @package TEC\Common\Integrations
  */

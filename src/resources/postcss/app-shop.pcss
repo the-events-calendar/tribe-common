@@ -23,7 +23,7 @@ body.tribe_events_page_tribe-app-shop {
 
 #tribe-app-shop {
 	color: #0f1031;
-	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 	a {
 		text-decoration: none;
@@ -84,13 +84,13 @@ body.tribe_events_page_tribe-app-shop {
 		h1 {
 			display: inline-block;
 			font-size: 18px;
-			font-weight: normal;
+			font-weight: 400;
 			line-height: 22px;
 			margin-right: 12px;
 			vertical-align: middle;
 
 			span {
-				font-weight: bold;
+				font-weight: 700;
 			}
 		}
 
@@ -107,6 +107,7 @@ body.tribe_events_page_tribe-app-shop {
 		}
 
 		ul {
+
 			/* for now we are hiding this nav on small screen sizes */
 			border-bottom: 1px solid #e1e1e4;
 			display: block;
@@ -149,11 +150,11 @@ body.tribe_events_page_tribe-app-shop {
 					color: #334aff;
 				}
 
-				&.selected:after {
+				&.selected::after {
 					background: #334aff;
 					border-radius: 100px;
 					bottom: 0;
-					content: '';
+					content: "";
 					display: block;
 					height: 3px;
 					left: 0;
@@ -173,9 +174,10 @@ body.tribe_events_page_tribe-app-shop {
 	}
 
 	.addon-grid {
+
 		& > p {
 			font-size: 18px;
-			font-weight: normal;
+			font-weight: 400;
 			line-height: 28px;
 			margin: 0 0 40px 0;
 			padding: 0 20px;
@@ -224,11 +226,12 @@ body.tribe_events_page_tribe-app-shop {
 					display: table;
 					float: left;
 					font-size: 15px;
-					font-weight: bold;
+					font-weight: 700;
 					height: 36px;
 					line-height: 18px;
 
 					&.has-pill {
+
 						/* this really should be updated to work better for translated strings */
 						max-width: 140px;
 					}
@@ -259,7 +262,7 @@ body.tribe_events_page_tribe-app-shop {
 				li {
 					color: #0f1031;
 					font-size: 15px;
-					font-weight: normal;
+					font-weight: 400;
 					line-height: 24px;
 					margin-bottom: 4px;
 
@@ -298,6 +301,7 @@ body.tribe_events_page_tribe-app-shop {
 				}
 
 				.headline {
+
 					img {
 						height: 60px;
 						margin-right: 12px;
@@ -307,7 +311,7 @@ body.tribe_events_page_tribe-app-shop {
 					a {
 						display: table-cell;
 						font-size: 17px;
-						font-weight: bold;
+						font-weight: 700;
 						line-height: 21px;
 
 						@media screen and (min-width: 710px) {
@@ -364,6 +368,7 @@ body.tribe_events_page_tribe-app-shop {
 				}
 
 				&.narrow {
+
 					@media screen and (min-width: 1217px) {
 						display: none;
 					}
@@ -378,7 +383,7 @@ body.tribe_events_page_tribe-app-shop {
 					color: #007363;
 					display: block;
 					font-size: 14px;
-					font-weight: bold;
+					font-weight: 700;
 					letter-spacing: 1px;
 					line-height: 58px;
 					margin-left: 11px;
@@ -393,13 +398,14 @@ body.tribe_events_page_tribe-app-shop {
 				vertical-align: top;
 
 				@media screen and (min-width: 1217px) {
+
 					/* design called for 65px, but Ultimate Bundle didn't fit… */
 					padding: 10px 0 0 50px;
 				}
 
 				h4 {
 					font-size: 12px;
-					font-weight: bold;
+					font-weight: 700;
 					letter-spacing: 1px;
 					line-height: 15px;
 					margin: 24px 0 8px 0;
@@ -473,7 +479,7 @@ body.tribe_events_page_tribe-app-shop {
 					display: inline-block;
 					float: right;
 					font-size: 10px;
-					font-weight: bold;
+					font-weight: 700;
 					letter-spacing: 1px;
 					line-height: 12px;
 					margin-top: 8px;
@@ -511,7 +517,7 @@ body.tribe_events_page_tribe-app-shop {
 			box-shadow: none; /* overrides WordPress button styles */
 			color: #fff;
 			font-size: 16px;
-			font-weight: bold;
+			font-weight: 700;
 			height: auto; /* overrides WordPress button styles */
 			letter-spacing: 1px;
 			line-height: 20px;
@@ -540,10 +546,11 @@ body.tribe_events_page_tribe-app-shop {
 	}
 
 	#tribe-extensions {
+
 		p {
 			color: #0f1031;
 			font-size: 15px;
-			font-weight: normal;
+			font-weight: 400;
 			line-height: 24px;
 			padding-bottom: 16px;
 		}
@@ -627,6 +634,7 @@ body.tribe_events_page_tribe-app-shop {
 
 .stellar-brand__image,
 .stellar-brand__logo {
+
 	img {
 		max-width: 100%;
 	}

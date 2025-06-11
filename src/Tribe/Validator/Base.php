@@ -85,7 +85,7 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param     array|string|int $list
+	 * @param    array|string|int $list
 	 * @param string               $sep
 	 *
 	 * @return bool

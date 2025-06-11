@@ -355,9 +355,9 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Gets the Tribe__PUE__Checker instance of a given plugin based on the class.
 		 *
-		 * @since  4.9.12
+		 * @since 4.9.12
 		 *
-		 * @param  string $class Which plugin main class we are looking for.
+		 * @param string $class Which plugin main class we are looking for.
 		 *
 		 * @return Tribe__PUE__Checker
 		 */

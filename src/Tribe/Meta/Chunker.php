@@ -182,8 +182,8 @@ class Tribe__Meta__Chunker {
 	/**
 	 * Tags a post ID and meta key couple as "chunkable" if needed.
 	 *
-	 * @param $post_id
-	 * @param $meta_key
+	 * @param int|WP_Post $post_id The post ID.
+	 * @param string      $meta_key The meta key.
 	 */
 	protected function tag_as_chunkable( $post_id, $meta_key ) {
 		$key = $this->get_key( $post_id, $meta_key );

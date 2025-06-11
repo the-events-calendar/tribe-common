@@ -61,11 +61,12 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Try to format a Date to the Default Datepicker format
 		 *
-		 * @since  4.5.12
+		 * @since 4.5.12
 		 *
-		 * @param  string      $date       Original Date that came from a datepicker
-		 * @param  string|int  $datepicker Datepicker format
-		 * @return string
+		 * @param string     $date       Original Date that came from a datepicker.
+		 * @param string|int $datepicker Datepicker format.
+		 *
+		 * @return string The formatted date.
 		 */
 		public static function maybe_format_from_datepicker( $date, $datepicker = null ) {
 			if ( ! is_numeric( $datepicker ) ) {
@@ -89,8 +90,9 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Get the datepicker format, that is used to translate the option from the DB to a string
 		 *
-		 * @param  int $translate The db Option from datepickerFormat
-		 * @return string|array            If $translate is not set returns the full array, if not returns the `Y-m-d`
+		 * @param int $translate The db Option from datepickerFormat.
+		 *
+		 * @return string|array If $translate is not set returns the full array, if not returns the `Y-m-d`.
 		 */
 		public static function datepicker_formats( $translate = null ) {
 
@@ -133,72 +135,71 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * As PHP 5.2 doesn't have a good version of `date_parse_from_format`, this is how we deal with
 		 * possible weird datepicker formats not working
 		 *
-		 * @param  string $format The weird format you are using
-		 * @param  string $date   The date string to parse
+		 * @param string $format The weird format you are using.
+		 * @param string $date   The date string to parse.
 		 *
-		 * @return string         A DB formated Date, includes time if possible
+		 * @return string A DB formatted Date, includes time if possible.
 		 */
 		public static function datetime_from_format( $format, $date ) {
 			// Reverse engineer the relevant date formats
 			$keys = [
-				// Year with 4 Digits
+				// Year with 4 Digits.
 				'Y' => [ 'year', '\d{4}' ],
 
-				// Year with 2 Digits
+				// Year with 2 Digits.
 				'y' => [ 'year', '\d{2}' ],
 
-				// Month with leading 0
+				// Month with leading 0.
 				'm' => [ 'month', '\d{2}' ],
 
-				// Month without the leading 0
+				// Month without the leading 0.
 				'n' => [ 'month', '\d{1,2}' ],
 
-				// Month ABBR 3 letters
+				// Month ABBR 3 letters.
 				'M' => [ 'month', '[A-Z][a-z]{2}' ],
 
-				// Month Name
+				// Month Name.
 				'F' => [ 'month', '[A-Z][a-z]{2,8}' ],
 
-				// Day with leading 0
+				// Day with leading 0.
 				'd' => [ 'day', '\d{2}' ],
 
-				// Day without leading 0
+				// Day without leading 0.
 				'j' => [ 'day', '\d{1,2}' ],
 
-				// Day ABBR 3 Letters
+				// Day ABBR 3 Letters.
 				'D' => [ 'day', '[A-Z][a-z]{2}' ],
 
-				// Day Name
+				// Day Name.
 				'l' => [ 'day', '[A-Z][a-z]{5,8}' ],
 
-				// Hour 12h formatted, with leading 0
+				// Hour 12h formatted, with leading 0.
 				'h' => [ 'hour', '\d{2}' ],
 
-				// Hour 24h formatted, with leading 0
+				// Hour 24h formatted, with leading 0.
 				'H' => [ 'hour', '\d{2}' ],
 
-				// Hour 12h formatted, without leading 0
+				// Hour 12h formatted, without leading 0.
 				'g' => [ 'hour', '\d{1,2}' ],
 
-				// Hour 24h formatted, without leading 0
+				// Hour 24h formatted, without leading 0.
 				'G' => [ 'hour', '\d{1,2}' ],
 
-				// Minutes with leading 0
+				// Minutes with leading 0.
 				'i' => [ 'minute', '\d{2}' ],
 
-				// Seconds with leading 0
+				// Seconds with leading 0.
 				's' => [ 'second', '\d{2}' ],
 			];
 
 			$date_regex = "/{$keys['Y'][1]}-{$keys['m'][1]}-{$keys['d'][1]}( {$keys['H'][1]}:{$keys['i'][1]}:{$keys['s'][1]})?$/";
 
-			// if the date is already in Y-m-d or Y-m-d H:i:s, just return it
+			// If the date is already in Y-m-d or Y-m-d H:i:s, just return it.
 			if ( preg_match( $date_regex, $date ) ) {
 				return $date;
 			}
 
-
-			// Convert format string to regex
+			// Convert format string to regex.
 			$regex = '';
 			$chars = str_split( $format );
 			foreach ( $chars as $n => $char ) {
@@ -215,16 +216,16 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 
 			$dt = [];
 
-			// Now try to match it
+			// Now try to match it.
 			if ( preg_match( '#^' . $regex . '$#', $date, $dt ) ) {
-				// Remove unwanted Indexes
+				// Remove unwanted Indexes.
 				foreach ( $dt as $k => $v ) {
 					if ( is_int( $k ) ) {
 						unset( $dt[ $k ] );
 					}
 				}
 
-				// We need at least Month + Day + Year to work with
+				// We need at least Month + Day + Year to work with.
 				if ( ! checkdate( $dt['month'], $dt['day'], $dt['year'] ) ) {
 					return false;
 				}
@@ -265,11 +266,11 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Returns as string the nearest half a hour for a given valid string datetime.
 		 *
-		 * @since  4.10.2
+		 * @since 4.10.2
 		 *
 		 * @param string $date Valid DateTime string.
 		 *
-		 * @return string Rounded datetime string
+		 * @return string Rounded datetime string.
 		 */
 		public static function round_nearest_half_hour( $date ) {
 			$date_object = static::build_date_object( $date );
@@ -356,7 +357,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Returns the last day of the month given a php date.
 		 *
-		 * @param int $timestamp THe timestamp.
+		 * @param int $timestamp The timestamp.
 		 *
 		 * @return string The last day of the month.
 		 */
@@ -444,11 +445,11 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * check if a given string is a timestamp
+		 * Check if a given string is a timestamp.
 		 *
-		 * @param $timestamp
+		 * @param string|int $timestamp The timestamp to check.
 		 *
-		 * @return bool
+		 * @return bool Whether the string is a timestamp.
 		 */
 		public static function is_timestamp( $timestamp ) {
 			if ( is_numeric( $timestamp ) && (int) $timestamp == $timestamp && date( 'U', $timestamp ) == $timestamp ) {
@@ -469,7 +470,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @param string      $new_format The date format to convert to.
 		 * @param null|string $timezone   Optional timezone the date string is in.
 		 *
-		 * @return string
+		 * @return string The reformatted date.
 		 */
 		public static function reformat( $dt_string, $new_format, $timezone = null ): string {
 			$timestamp = $dt_string;
@@ -489,24 +490,24 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * option) and converts it to a strtotime() style modifier that can be used
 		 * to adjust a DateTime object, etc.
 		 *
-		 * @param $offset
+		 * @param string|int $offset The offset to convert.
 		 *
-		 * @return string
+		 * @return string The modifier string.
 		 */
 		public static function get_modifier_from_offset( $offset ) {
 			$modifier = '';
 			$offset   = (float) $offset;
 
-			// Separate out hours, minutes, polarity
+			// Separate out hours, minutes, polarity.
 			$hours    = (int) $offset;
 			$minutes  = (int) ( ( $offset - $hours ) * 60 );
 			$polarity = ( $offset >= 0 ) ? '+' : '-';
 
-			// Correct hours and minutes to positive values
+			// Correct hours and minutes to positive values.
 			if ( $hours < 0 )   $hours *= -1;
 			if ( $minutes < 0 ) $minutes *= -1;
 
-			// Form the modifier string
+			// Form the modifier string.
 			if ( $hours >= 0 )  $modifier  = "$polarity $hours hours ";
 			if ( $minutes > 0 ) $modifier .= "$minutes minutes";
 
@@ -518,8 +519,9 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * "w" format (ie, Sunday is 0 and Saturday is 6) or
 		 * false if this cannot be established.
 		 *
-		 * @param  mixed $month
-		 * @return int|bool
+		 * @param string|int $month The month to get the first day of.
+		 *
+		 * @return int|bool The weekday of the 1st day of the month.
 		 */
 		public static function first_day_in_month( $month ) {
 			try {
@@ -537,8 +539,9 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * "w" format (ie, Sunday is 0 and Saturday is 6) or
 		 * false if this cannot be established.
 		 *
-		 * @param  mixed $month
-		 * @return int|bool
+		 * @param mixed $month The month to get the last day of.
+		 *
+		 * @return int|bool The weekday of the last day of the month.
 		 */
 		public static function last_day_in_month( $month ) {
 			try {
@@ -555,9 +558,9 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * Returns the day of the week the week ends on, expressed as a "w" value
 		 * (ie, Sunday is 0 and Saturday is 6).
 		 *
-		 * @param  int $week_starts_on
+		 * @param int $week_starts_on The day of the week the week starts on.
 		 *
-		 * @return int
+		 * @return int The day of the week the week ends on.
 		 */
 		public static function week_ends_on( $week_starts_on ) {
 			if ( --$week_starts_on < 0 ) $week_starts_on = 6;
@@ -567,9 +570,9 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Helper method to convert EventAllDay values to a boolean
 		 *
-		 * @param mixed $all_day_value Value to check for "all day" status. All day values: (true, 'true', 'TRUE', 'yes')
+		 * @param mixed $all_day_value Value to check for "all day" status. All day values: (true, 'true', 'TRUE', 'yes').
 		 *
-		 * @return boolean Is value considered "All Day"?
+		 * @return boolean Whether the value is considered "All Day".
 		 */
 		public static function is_all_day( $all_day_value ) {
 			$all_day_value = trim( $all_day_value );
@@ -658,16 +661,16 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * Given 2 datetime ranges, return whether the 2nd one occurs during the 1st one
 		 * Note: all params should be unix timestamps
 		 *
-		 * @param integer $range_1_start timestamp for start of the first range
-		 * @param integer $range_1_end timestamp for end of the first range
-		 * @param integer $range_2_start timestamp for start of the second range
-		 * @param integer $range_2_end timestamp for end of the second range
+		 * @param integer $range_1_start timestamp for start of the first range.
+		 * @param integer $range_1_end   timestamp for end of the first range.
+		 * @param integer $range_2_start timestamp for start of the second range.
+		 * @param integer $range_2_end   timestamp for end of the second range.
 		 *
-		 * @return bool
+		 * @return bool Whether the ranges coincide.
 		 */
 		public static function range_coincides( $range_1_start, $range_1_end, $range_2_start, $range_2_end ) {
 
-			// Initialize the return value
+			// Initialize the return value.
 			$range_coincides = false;
 
 			/**
@@ -700,14 +703,14 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * option.
 		 *
 		 * @see  strtotime()
-		 * @uses get_option() to retrieve the value of 'gmt_offset'
+		 * @uses get_option() to retrieve the value of 'gmt_offset'.
 		 *
-		 * @param string $string A date/time string. See `strtotime` for valid formats
+		 * @param string $string A date/time string. See `strtotime` for valid formats.
 		 *
 		 * @return int UNIX timestamp.
 		 */
 		public static function wp_strtotime( $string ) {
-			// If there's a timezone specified, we shouldn't convert it
+			// If there's a timezone specified, we shouldn't convert it.
 			try {
 				$test_date = new DateTime( $string );
 				if ( 'UTC' != $test_date->getTimezone()->getName() ) {
@@ -744,7 +747,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Returns an array of localized full month names.
 		 *
-		 * @return array
+		 * @return array An array of localized full month names.
 		 */
 		public static function get_localized_months_full() {
 			global $wp_locale;
@@ -776,7 +779,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Returns an array of localized short month names.
 		 *
-		 * @return array
+		 * @return array An array of localized short month names.
 		 */
 		public static function get_localized_months_short() {
 			global $wp_locale;
@@ -808,7 +811,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Returns an array of localized full week day names.
 		 *
-		 * @return array
+		 * @return array An array of localized full week day names.
 		 */
 		public static function get_localized_weekdays_full() {
 			if ( empty( self::$localized_weekdays ) ) {
@@ -821,7 +824,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Returns an array of localized short week day names.
 		 *
-		 * @return array
+		 * @return array An array of localized short week day names.
 		 */
 		public static function get_localized_weekdays_short() {
 			if ( empty( self::$localized_weekdays ) ) {
@@ -834,7 +837,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Returns an array of localized week day initials.
 		 *
-		 * @return array
+		 * @return array An array of localized week day initials.
 		 */
 		public static function get_localized_weekdays_initial() {
 			if ( empty( self::$localized_weekdays ) ) {
@@ -875,14 +878,14 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Return a WP Locale weekday in the specified format
+		 * Return a WP Locale weekday in the specified format.
 		 *
 		 * @since 4.4.3
 		 *
-		 * @param int|string $weekday Day of week
-		 * @param string $format Weekday format: full, weekday, initial, abbreviation, abbrev, abbr, short
+		 * @param int|string $weekday Day of week.
+		 * @param string     $format  Weekday format: full, weekday, initial, abbreviation, abbrev, abbr, short.
 		 *
-		 * @return string
+		 * @return string The localized weekday.
 		 */
 		public static function wp_locale_weekday( $weekday, $format = 'weekday' ) {
 			$weekday = trim( $weekday );
@@ -897,7 +900,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				'short',
 			];
 
-			// if there isn't a valid format, bail without providing a localized string
+			// If there isn't a valid format, bail without providing a localized string.
 			if ( ! in_array( $format, $valid_formats ) ) {
 				return $weekday;
 			}
@@ -906,8 +909,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				self::build_localized_weekdays();
 			}
 
-			// if the weekday isn't numeric, we need to convert to numeric in order to
-			// leverage self::localized_weekdays
+			// If the weekday isn't numeric, we need to convert to numeric in order to
+			// leverage self::localized_weekdays.
 			if ( ! is_numeric( $weekday ) ) {
 				$days_of_week = [
 					'Sun',
@@ -949,14 +952,14 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Return a WP Locale month in the specified format
+		 * Return a WP Locale month in the specified format.
 		 *
 		 * @since 4.4.3
 		 *
-		 * @param int|string $month Month of year
-		 * @param string $format Month format: full, month, abbreviation, abbrev, abbr, short
+		 * @param int|string $month Month of year.
+		 * @param string     $format Month format: full, month, abbreviation, abbrev, abbr, short.
 		 *
-		 * @return string
+		 * @return string The localized month.
 		 */
 		public static function wp_locale_month( $month, $format = 'month' ) {
 			$month = trim( $month );
@@ -970,7 +973,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				'short',
 			];
 
-			// if there isn't a valid format, bail without providing a localized string
+			// If there isn't a valid format, bail without providing a localized string.
 			if ( ! in_array( $format, $valid_formats ) ) {
 				return $month;
 			}
@@ -979,11 +982,11 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				self::build_localized_months();
 			}
 
-			// make sure numeric months are valid
+			// Make sure numeric months are valid.
 			if ( is_numeric( $month ) ) {
 				$month_num = (int) $month;
 
-				// if the month num falls out of range, bail without localizing
+				// If the month num falls out of range, bail without localizing.
 				if ( 0 > $month_num || 12 < $month_num ) {
 					return $month;
 				}
@@ -1003,16 +1006,16 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 					'Dec',
 				];
 
-				// convert the provided month to a 3-character month and find it in the months array so we
-				// can build an appropriate month number
+				// Convert the provided month to a 3-character month and find it in the months array so we
+				// can build an appropriate month number.
 				$month_num = array_search( ucwords( substr( $month, 0, 3 ) ), $months );
 
-				// if we can't find the provided month in our month list, bail without localizing
+				// If we can't find the provided month in our month list, bail without localizing.
 				if ( false === $month_num ) {
 					return $month;
 				}
 
-				// let's increment the num because months start at 01 rather than 00
+				// Let's increment the num because months start at 01 rather than 00.
 				$month_num++;
 			}
 
@@ -1023,10 +1026,11 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			return self::$localized_months[ $type ][ $month_num ];
 		}
 
-		// DEPRECATED METHODS
+		// DEPRECATED METHODS.
 		// @codingStandardsIgnoreStart
+
 		/**
-		 * Deprecated camelCase version of self::date_only
+		 * Deprecated camelCase version of self::date_only.
 		 *
 		 * @param int|string $date        The date (timestamp or string).
 		 * @param bool       $isTimestamp Is $date in timestamp format?
@@ -1039,7 +1043,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Deprecated camelCase version of self::time_only
+		 * Deprecated camelCase version of self::time_only.
 		 *
 		 * @param string $date The date.
 		 *
@@ -1051,7 +1055,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Deprecated camelCase version of self::hour_only
+		 * Deprecated camelCase version of self::hour_only.
 		 *
 		 * @param string $date The date.
 		 *
@@ -1063,7 +1067,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Deprecated camelCase version of self::minutes_only
+		 * Deprecated camelCase version of self::minutes_only.
 		 *
 		 * @param string $date The date.
 		 *
@@ -1075,7 +1079,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Deprecated camelCase version of self::meridian_only
+		 * Deprecated camelCase version of self::meridian_only.
 		 *
 		 * @param string $date The date.
 		 *
@@ -1089,13 +1093,13 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Returns the end of a given day.
 		 *
-		 * @deprecated since 3.10 - use tribe_event_end_of_day()
-		 * @todo       remove in 4.1
+		 * @deprecated since 3.10 - use tribe_event_end_of_day().
+		 * @todo       remove in 4.1.
 		 *
 		 * @param int|string $date        The date (timestamp or string).
 		 * @param bool       $isTimestamp Is $date in timestamp format?
 		 *
-		 * @return string The date and time of the end of a given day
+		 * @return string The date and time of the end of a given day.
 		 */
 		public static function endOfDay( $date, $isTimestamp = false ) {
 			_deprecated_function( __METHOD__, '3.10', 'tribe_event_end_of_day' );
@@ -1129,7 +1133,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Deprecated camelCase version of self::time_between
+		 * Deprecated camelCase version of self::time_between.
 		 *
 		 * @param string $date1 The first date.
 		 * @param string $date2 The second date.
@@ -1142,7 +1146,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Deprecated camelCase version of self::date_diff
+		 * Deprecated camelCase version of self::date_diff.
 		 *
 		 * @param string $date1 The first date.
 		 * @param string $date2 The second date.
@@ -1155,9 +1159,9 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Deprecated camelCase version of self::get_last_day_of_month
+		 * Deprecated camelCase version of self::get_last_day_of_month.
 		 *
-		 * @param int $timestamp THe timestamp.
+		 * @param int $timestamp The timestamp.
 		 *
 		 * @return string The last day of the month.
 		 */
@@ -1167,7 +1171,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Deprecated camelCase version of self::is_weekday
+		 * Deprecated camelCase version of self::is_weekday.
 		 *
 		 * @param int $curDate A timestamp.
 		 *
@@ -1179,7 +1183,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Deprecated camelCase version of self::is_weekend
+		 * Deprecated camelCase version of self::is_weekend.
 		 *
 		 * @param int $curDate A timestamp.
 		 *
@@ -1191,7 +1195,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Deprecated camelCase version of self::get_last_day_of_week_in_month
+		 * Deprecated camelCase version of self::get_last_day_of_week_in_month.
 		 *
 		 * @param int $curdate     A timestamp.
 		 * @param int $day_of_week The index of the day of the week.
@@ -1204,7 +1208,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Deprecated camelCase version of self::get_first_day_of_week_in_month
+		 * Deprecated camelCase version of self::get_first_day_of_week_in_month.
 		 *
 		 * @param int $curdate     A timestamp.
 		 * @param int $day_of_week The index of the day of the week.
@@ -1217,7 +1221,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Deprecated camelCase version of self::number_to_ordinal
+		 * Deprecated camelCase version of self::number_to_ordinal.
 		 *
 		 * @param int $number A number.
 		 *
@@ -1229,9 +1233,9 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Deprecated camelCase version of self::is_timestamp
+		 * Deprecated camelCase version of self::is_timestamp.
 		 *
-		 * @param $timestamp
+		 * @param string|int $timestamp The timestamp to check.
 		 *
 		 * @return bool
 		 */
@@ -1264,7 +1268,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *                       $week_direction `-1` and $week_in_month `1` means "last week of the month"
 		 *                       $week_direction `-1` and $week_in_month `2` means "penultimmate week of the month"
 		 *
-		 * @return int The day timestamp
+		 * @return int The day timestamp.
 		 */
 		public static function get_weekday_timestamp( $day_of_week, $week_in_month, $month, $year, $week_direction = 1 ) {
 			if (
@@ -1467,7 +1471,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 
 			/*
 			 * From the PHP docs, the `W` format stands for:
-			 * - ISO-8601 week number of year, weeks starting on Monday
+			 * - ISO-8601 week number of year, weeks starting on Monday.
 			 */
 			$week_start->setISODate(
 				(int) $week_start->format( 'o' ),

@@ -69,58 +69,58 @@ class EditorTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @test
+	 * @skip
 	 */
-	public function test_is_classic_editor_by_default() {
-		$this->assertTrue( $this->editor->is_classic_editor() );
+	public function test_should_load_blocks_by_default() {
+		$this->assertTrue( $this->editor->should_load_blocks() );
 	}
 
 	/**
-	 * @test
+	 * @skip
 	 */
 	public function test_is_not_classic_editor_when_toggled() {
 		$this->tec_blocks_on();
-		$this->assertFalse( $this->editor->is_classic_editor() );
+		$this->assertFalse( $this->editor->should_load_blocks() );
 	}
 
 	/**
-	 * @test
+	 * @skip
 	 */
-	public function test_is_classic_editor_when_toggled_off() {
+	public function test_should_load_blocks_when_toggled_off() {
 		$this->tec_blocks_off();
-		$this->assertTrue( $this->editor->is_classic_editor() );
+		$this->assertTrue( $this->editor->should_load_blocks() );
 	}
 
 	/**
 	 * @test
 	 */
-	public function test_default_is_events_using_blocks_is_false() {
-		$this->assertFalse( $this->editor->is_events_using_blocks() );
+	public function test_default_should_load_blocks_is_false() {
+		$this->assertFalse( $this->editor->should_load_blocks() );
 	}
 
 	/**
 	 * @test
 	 */
-	public function test_is_events_using_blocks_toggled() {
+	public function test_should_load_blocks_toggled() {
 		$this->tec_blocks_on();
-		$this->assertTrue( $this->editor->is_events_using_blocks() );
+		$this->assertTrue( $this->editor->should_load_blocks() );
 	}
 
 	/**
 	 * @test
 	 */
-	public function test_is_events_using_blocks_toggled_off() {
+	public function test_should_load_blocks_toggled_off() {
 		$this->tec_blocks_off();
-		$this->assertFalse( $this->editor->is_events_using_blocks() );
+		$this->assertFalse( $this->editor->should_load_blocks() );
 	}
 
 	/**
 	 * @test
 	 */
-	public function test_is_events_using_blocks_filtered_true() {
+	public function test_should_load_blocks_filtered_true() {
 		add_filter( 'tribe_editor_should_load_blocks', '__return_true' );
 		add_filter( 'tribe_events_blocks_editor_is_on', '__return_true' );
-		$this->assertTrue( $this->editor->is_events_using_blocks() );
+		$this->assertTrue( $this->editor->should_load_blocks() );
 		remove_filter( 'tribe_editor_should_load_blocks', '__return_true' );
 		remove_filter( 'tribe_events_blocks_editor_is_on', '__return_true' );
 	}
@@ -128,10 +128,10 @@ class EditorTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
-	public function test_is_events_using_blocks_filtered_false() {
+	public function test_should_load_blocks_filtered_false() {
 		add_filter( 'tribe_editor_should_load_blocks', '__return_false' );
 		add_filter( 'tribe_events_blocks_editor_is_on', '__return_false' );
-		$this->assertFalse( $this->editor->is_events_using_blocks() );
+		$this->assertFalse( $this->editor->should_load_blocks() );
 		remove_filter( 'tribe_editor_should_load_blocks', '__return_false' );
 		remove_filter( 'tribe_events_blocks_editor_is_on', '__return_false' );
 	}

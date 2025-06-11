@@ -2,7 +2,7 @@
 /**
  * Handles admin conditional content.
  *
- * @since   4.14.7
+ * @since 4.14.7
  * @package Tribe\Admin\Conditional_Content;
  */
 
@@ -55,7 +55,7 @@ class Controller extends Provider_Contract {
 
 		$plugin = Common::instance();
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tec-conditional-content',
 			'admin/conditional-content.js',

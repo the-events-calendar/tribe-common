@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @since   1.4.0
+ * @since 1.4.0
  *
  * @version 1.4.0
  *
@@ -19,7 +19,7 @@
  */
 
 ?>
-<fieldset id="tec-field-zapier_token" class="tec-automator-endpoint-dashboard tribe-field tribe-field-text tribe-size-medium tec-settings-form__element--colspan-2">
+<fieldset id="tec-field-zapier_token" class="tec-automator-endpoint-dashboard tribe-field tribe-field-text tribe-size-medium">
 	<legend class="tribe-field-label"><?php echo esc_html_x( 'Endpoint Dashboard', 'The legend for the Zapier endpoint dashboard.', 'tribe-common' ); ?></legend>
 	<div class="tec-automator-settings-message__wrap tec-zapier-endpoint-dashboard-messages">
 	</div>

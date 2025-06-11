@@ -1,25 +1,25 @@
 :root {
-	--tec-button-light-color: #009FF1;
-	--tec-button-dark-color: #0080DB;
+	--tec-button-light-color: #009ff1;
+	--tec-button-dark-color: #0080db;
 }
 
 .tribe-button {
+	background: var(--tec-button-light-color) linear-gradient(to bottom, var(--tec-button-light-color), var(--tec-button-dark-color));
 	border: 0;
 	border-radius: 3px;
-	background: var(--tec-button-light-color) linear-gradient( to bottom, var(--tec-button-light-color), var(--tec-button-dark-color) );
-	cursor: pointer;
 	color: #fff;
+	cursor: pointer;
 	display: inline-block;
-	font-size: 14px;
-	font-weight: 400;
 	font-family: sans-serif;
+	font-size: 14px;
+	-webkit-font-smoothing: subpixel-antialiased;
+	font-weight: 400;
+	height: auto;
 	letter-spacing: 1px;
 	line-height: 1;
-	height: auto;
 	padding: 10px;
 	text-align: center;
-	transition: all .15s ease-in;
-	-webkit-font-smoothing: subpixel-antialiased;
+	transition: all 0.15s ease-in;
 
 	&:hover,
 	&:active,

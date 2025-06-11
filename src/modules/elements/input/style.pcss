@@ -2,24 +2,24 @@
 input.tribe-editor__input {
 
 	/* this list will grow with more input types used */
-	&[type=number],
-	&[type=text] {
-		color: #000000;
+	&[type="number"],
+	&[type="text"] {
+		border: 1px solid #e1e3e6;
+		color: #000;
 		font-size: 16px;
-		line-height: 24px;
-		border: 1px solid #E1E3E6;
-		padding: 7px 15px;
-		margin: 0;
 		height: 40px;
+		line-height: 24px;
+		margin: 0;
+		padding: 7px 15px;
 
 		&:focus {
-			color: #000000;
 			box-shadow: none;
+			color: #000;
 			outline: auto;
 		}
 
 		&:disabled {
-			color: #AEB4BB;
+			color: #aeb4bb;
 		}
 	}
 }
