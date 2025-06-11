@@ -4,6 +4,7 @@ export function InputLabel( { label }: { label: string } ) {
 	return (
 		<span
 			className="classy-component__input-label"
+			aria-hidden={ true }
 			style={ {
 				textTransform: 'capitalize',
 				fontSize: 'var(--classy-font-size-15)',
