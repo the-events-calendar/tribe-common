@@ -5,4 +5,4 @@ export type Currency = {
 	label?: string;
 	position: CurrencyPosition;
 	symbol: string;
-}
+};

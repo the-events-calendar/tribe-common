@@ -44,9 +44,7 @@ const currencyDefaultOption: CurrencySelectOption = {
  */
 const renderCurrency = ( currency: Currency ): string => {
 	const label = currency.label || currency.code;
-	return currency.position === 'prefix'
-		? `${ currency.symbol } ${ label }`
-		: `${ label } ${ currency.symbol }`;
+	return currency.position === 'prefix' ? `${ currency.symbol } ${ label }` : `${ label } ${ currency.symbol }`;
 };
 
 /**
@@ -95,19 +93,20 @@ const findCurrencyByCode = ( code: string, currencies: Currency[] ): Currency | 
  * @return {JSX.Element} The rendered component.
  */
 export default function CurrencySelector( props: CurrencySelectorProps ): JSX.Element {
-	const {
-		currencyCodeMeta,
-		currencySymbolMeta,
-		currencyPositionMeta,
-	} = props;
+	const { currencyCodeMeta, currencySymbolMeta, currencyPositionMeta } = props;
 
 	const { meta, defaultCurrency, Currencies } = useSelect( ( select ) => {
-		const { getDefaultCurrency, getCurrencyOptions }: {
-			getDefaultCurrency: () => Currency,
-			getCurrencyOptions: () => Currency[]
+		const {
+			getDefaultCurrency,
+			getCurrencyOptions,
+		}: {
+			getDefaultCurrency: () => Currency;
+			getCurrencyOptions: () => Currency[];
 		} = select( 'tec/classy' );
-		const { getEditedPostAttribute }: {
-			getEditedPostAttribute: ( attribute: string ) => any
+		const {
+			getEditedPostAttribute,
+		}: {
+			getEditedPostAttribute: ( attribute: string ) => any;
 		} = select( 'core/editor' );
 		return {
 			meta: getEditedPostAttribute( 'meta' ) || {},
@@ -219,10 +218,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ): JSX.El
 				</h4>
 
 				<p className="classy-component__popover-description">
-					{ __(
-						'Choose a different currency than your default for this event.',
-						'the-events-calendar'
-					) }
+					{ __( 'Choose a different currency than your default for this event.', 'the-events-calendar' ) }
 				</p>
 
 				<SelectControl

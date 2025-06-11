@@ -16,7 +16,9 @@ jest.mock( '@wordpress/data', () => ( {
 // Mock the WordPress components
 jest.mock( '@wordpress/components', () => ( {
 	Button: ( { children, onClick, ...props } ) => (
-		<button onClick={ onClick } { ...props }>{ children }</button>
+		<button onClick={ onClick } { ...props }>
+			{ children }
+		</button>
 	),
 	Popover: ( { children } ) => <div data-testid="popover">{ children }</div>,
 	SelectControl: ( { value, onChange, options } ) => (
