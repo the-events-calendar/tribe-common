@@ -1,13 +1,18 @@
 import { StoreState } from '../types/StoreState';
-import { Action, SetCountryOptionsAction } from '../types/Actions';
+import {
+	Action,
+	SetCountryOptionsAction,
+	SetCurrencyOptionsAction,
+} from '../types/Actions';
 import { localizedData } from '../localizedData';
-import { SET_COUNTRY_OPTIONS } from './actions';
+import { SET_COUNTRY_OPTIONS, SET_CURRENCY_OPTIONS } from './actions';
 
 // The store default state is read from the Classy application localized data.
 const defaultState: StoreState = {
 	settings: localizedData.settings,
 	options: {
 		country: [],
+		currencies: [],
 	},
 };
 
@@ -27,6 +32,14 @@ export const reducer = ( state: StoreState = defaultState, action: Action ): Sto
 				options: {
 					...state.options,
 					country: ( action as SetCountryOptionsAction ).options,
+				},
+			};
+		case SET_CURRENCY_OPTIONS:
+			return {
+				...state,
+				options: {
+					...state.options,
+					currencies: ( action as SetCurrencyOptionsAction ).options,
 				},
 			};
 		default:

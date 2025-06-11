@@ -2,6 +2,7 @@ import { localizedData } from '../localizedData';
 import { Settings } from '../types/LocalizedData';
 import { StoreState } from '@tec/common/classy/types/StoreState';
 import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
+import { Currency } from '../types/Currency';
 
 /**
  * Returns the current Classy settings, including the ones added using the PHP filter.
@@ -43,4 +44,28 @@ export function getCountryOptions( state: StoreState ): CustomSelectOption[] {
 
 export function getUsStatesOptions( state: StoreState ): CustomSelectOption[] {
 	return state?.options?.usStates || [];
+}
+
+/**
+ * Returns the currency options available for selection.
+ *
+ * @since TBD
+ *
+ * @param {StoreState} state The current store state.
+ * @returns {Currency[]} An array of currency options with code, symbol, and position.
+ */
+export function getCurrencyOptions( state: StoreState ): Currency[] {
+	return state?.options?.currencies || [];
+}
+
+/**
+ * Returns the default currency from the settings.
+ *
+ * @since TBD
+ *
+ * @return {Currency} The default currency.
+ */
+export function getDefaultCurrency(): Currency {
+	const settings: Settings = localizedData.settings;
+	return settings.defaultCurrency;
 }

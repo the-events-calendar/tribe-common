@@ -16,6 +16,11 @@ declare global {
 
 export const localizedData: LocalizedData = window?.tec?.common?.classy?.data ?? {
 	settings: {
+		defaultCurrency: {
+			code: 'USD',
+			symbol: '$',
+			position: 'prefix',
+		},
 		timezoneString: 'UTC',
 		timezoneChoice: '',
 		startOfWeek: 0,

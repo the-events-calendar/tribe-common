@@ -1,6 +1,9 @@
 :root {
 	--classy-font-size-13: calc(var(--tec-font-size-1) + 1px);
 	--classy-font-size-15: calc(var(--tec-font-size-2) + 1px);
+	--classy-font-size-16: var(--tec-font-size-3);
+	--classy-input-padding-top-bottom: var(--tec-spacer-2);
+	--classy-input-padding-left-right: var(--tec-spacer-3);
 	--classy-input-width: 375px;
 	/* 50% ligter than the primary color */
 	--classy-highlight-color: rgb(
@@ -77,7 +80,7 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: nowrap;
-		gap: var(--tec-spacer-2);
+		gap: var(--tec-spacer-3);
 		justify-content: flex-start;
 		align-items: flex-end;
 
@@ -107,6 +110,12 @@
 		align-items: flex-start;
 		gap: var(--tec-spacer-2);
 		flex: 1 0 0;
+	}
+
+	.classy-field__currency-selector {
+		& > span {
+			display: none;
+		}
 	}
 
 	.classy-field__input-title {
@@ -383,6 +392,31 @@
 				height: 24px;
 				margin-right: var(--tec-spacer-2);
 				width: 24px;
+			}
+		}
+	}
+
+	.classy-field__event-cost {
+		--classy-height-100: 40px;
+		--classy-height-75: 28px;
+
+		.classy-field__input {
+			&.classy-field__input--height-100{
+				height: var(--classy-height-100);
+			}
+
+			&.classy-field__input--height-75{
+				height: var(--classy-height-75) ;
+			}
+		}
+
+		.classy-field__control {
+			&.classy-field__control--input {
+				input.components-input-control__input {
+					font-size: var(--classy-font-size-16);
+					height: 100%;
+					padding: var(--tec-spacer-2) var(--tec-spacer-3);
+				}
 			}
 		}
 	}
