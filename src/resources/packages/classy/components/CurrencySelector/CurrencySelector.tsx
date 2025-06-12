@@ -109,7 +109,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ): JSX.El
 			getEditedPostAttribute: ( attribute: string ) => any;
 		} = select( 'core/editor' );
 		return {
-			meta: getEditedPostAttribute( 'meta' ) || {},
+			meta: getEditedPostAttribute( 'meta' ) || null,
 			defaultCurrency: getDefaultCurrency(),
 			Currencies: getCurrencyOptions() || [],
 		};
@@ -117,14 +117,14 @@ export default function CurrencySelector( props: CurrencySelectorProps ): JSX.El
 
 	const { editPost } = useDispatch( 'core/editor' );
 
-	const eventCurrencyCodeMeta: string = meta[ currencyCodeMeta ] || defaultCurrency.code;
+	const eventCurrencyCodeMeta: string = meta?.[ currencyCodeMeta ] || defaultCurrency.code;
 	const [ eventCurrencyCode, setEventCurrencyCode ] = useState< string >( eventCurrencyCodeMeta );
 
-	const eventCurrencySymbolMeta: string = meta[ currencySymbolMeta ] || defaultCurrency.symbol;
+	const eventCurrencySymbolMeta: string = meta?.[ currencySymbolMeta ] || defaultCurrency.symbol;
 	const [ currencySymbol, setCurrencySymbol ] = useState< string >( eventCurrencySymbolMeta );
 
 	const eventCurrencyPosition: CurrencyPosition =
-		meta[ currencyPositionMeta ] ||
+		meta?.[ currencyPositionMeta ] ||
 		findCurrencyByCode( eventCurrencyCode, Currencies )?.position ||
 		defaultCurrency.position;
 	const [ currencyPosition, setCurrencyPosition ] = useState< CurrencyPosition >( eventCurrencyPosition );
