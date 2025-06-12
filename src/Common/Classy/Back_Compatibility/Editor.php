@@ -76,4 +76,18 @@ class Editor {
 	public function is_events_post_type(): bool {
 		return false;
 	}
+
+	/**
+	 * Checks if the current WordPress version supports the Block Editor.
+	 *
+	 * This method is used to determine if the current WordPress version is compatible with the Block Editor.
+	 * In this implementation, it always returns false, indicating that the Block Editor is not supported.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if the current WordPress version supports the Block Editor, false otherwise.
+	 */
+	public function is_wp_version(): bool {
+		return false;
+	}
 }
