@@ -12,7 +12,7 @@ exports[`TimeZone Component allows selecting a new timezone 1`] = `
     </span>
      
     <button
-      class="components-button is-link classy-field__timezone-value is-link"
+      class="components-button is-link is-link--dark classy-field__timezone-value is-link"
       type="button"
     >
       Europe/Paris
@@ -33,7 +33,7 @@ exports[`TimeZone Component renders correctly with default props 1`] = `
     </span>
      
     <button
-      class="components-button is-link classy-field__timezone-value is-link"
+      class="components-button is-link is-link--dark classy-field__timezone-value is-link"
       type="button"
     >
       Europe/Paris
@@ -198,7 +198,7 @@ exports[`TimeZone Component renders correctly with default props 2`] = `
 }
 
 <div
-  class="components-popover classy-component__popover classy-component__popover--timezone is-positioned"
+  class="components-popover classy-component__popover classy-component__popover--choice classy-component__popover--timezone is-positioned"
   data-wp-c16t="true"
   data-wp-component="Popover"
   style="position: absolute; top: 0px; left: 0px; opacity: 1; transform: translateY(4px); transform-origin: 100% 0% 0;"
@@ -209,7 +209,7 @@ exports[`TimeZone Component renders correctly with default props 2`] = `
     style="max-height: 0px; overflow: auto;"
   >
     <div
-      class="classy-component__popover-content classy-component__popover-content--timezone"
+      class="classy-component__popover-content"
     >
       <button
         class="components-button classy-component__popover-close is-link"
@@ -233,7 +233,7 @@ exports[`TimeZone Component renders correctly with default props 2`] = `
         </span>
       </button>
       <h4
-        class="classy-component-popover__title"
+        class="classy-component__popover-title"
       >
         Event Time Zone
       </h4>
@@ -339,7 +339,7 @@ exports[`TimeZone Component renders the UTC timezone choice if the timezone stri
     </span>
      
     <button
-      class="components-button is-link classy-field__timezone-value is-link"
+      class="components-button is-link is-link--dark classy-field__timezone-value is-link"
       type="button"
     >
       UTC+1
@@ -504,7 +504,7 @@ exports[`TimeZone Component renders the UTC timezone choice if the timezone stri
 }
 
 <div
-  class="components-popover classy-component__popover classy-component__popover--timezone is-positioned"
+  class="components-popover classy-component__popover classy-component__popover--choice classy-component__popover--timezone is-positioned"
   data-wp-c16t="true"
   data-wp-component="Popover"
   style="position: absolute; top: 0px; left: 0px; opacity: 1; transform: translateY(4px); transform-origin: 100% 0% 0;"
@@ -515,7 +515,7 @@ exports[`TimeZone Component renders the UTC timezone choice if the timezone stri
     style="max-height: 0px; overflow: auto;"
   >
     <div
-      class="classy-component__popover-content classy-component__popover-content--timezone"
+      class="classy-component__popover-content"
     >
       <button
         class="components-button classy-component__popover-close is-link"
@@ -539,7 +539,7 @@ exports[`TimeZone Component renders the UTC timezone choice if the timezone stri
         </span>
       </button>
       <h4
-        class="classy-component-popover__title"
+        class="classy-component__popover-title"
       >
         Event Time Zone
       </h4>

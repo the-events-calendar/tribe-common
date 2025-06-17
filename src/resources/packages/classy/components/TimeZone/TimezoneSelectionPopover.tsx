@@ -52,7 +52,7 @@ export default function TimezoneSelectionPopover( props: {
 	return (
 		<Popover
 			anchor={ anchor }
-			className="classy-component__popover classy-component__popover--choice"
+			className="classy-component__popover classy-component__popover--choice classy-component__popover--timezone"
 			expandOnMobile={ true }
 			placement="bottom-end"
 			noArrow={ true }
