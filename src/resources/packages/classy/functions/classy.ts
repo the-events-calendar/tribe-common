@@ -2,7 +2,7 @@ import { createRoot } from '@wordpress/element';
 import { Classy } from '../components/Classy';
 import { getElement as getVisualEditorElement, toggleVisibility as toggleVisualEditorVisibility } from './visualEditor';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
-import { getDefaultRegistry } from '../functions/getDefaultRegistry';
+import { getDefaultRegistry } from './getDefaultRegistry';
 
 /**
  * Cached instance of the classy element.
