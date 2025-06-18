@@ -1,10 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LabeledInput Component renders correctly with default values 1`] = `
-<label
+exports[`LabeledInput Component renders correctly 1`] = `
+<span
   class="classy-component__labeled-input"
 >
   <span
+    aria-hidden="true"
     class="classy-component__input-label"
     style="text-transform: capitalize; font-weight: var(--tec-font-weight-regular);"
   >
@@ -13,5 +14,5 @@ exports[`LabeledInput Component renders correctly with default values 1`] = `
   <input
     type="text"
   />
-</label>
+</span>
 `;
