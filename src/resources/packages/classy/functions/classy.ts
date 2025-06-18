@@ -107,6 +107,6 @@ export function toggleElementVisibility( document: Document | null = null ): voi
 export async function initApp( document: Document | null = null ): Promise< void > {
 	document = document ?? window.document;
 	const classyRoot = createRoot( getOrCreateElement( document ) );
-	const registry = await getDefaultRegistry();
+	const registry: WPDataRegistry = await getDefaultRegistry();
 	classyRoot.render( Classy( { registry } ) );
 }
