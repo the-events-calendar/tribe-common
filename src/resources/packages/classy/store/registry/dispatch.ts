@@ -19,7 +19,7 @@ import { getRegistry } from './registry';
  * import { dispatch } from '@tec/common/classy/store';
  *
  * // Dispatch to a custom store.
- * dispatch( 'tec/classy/my-store' ).setAttribute( 'linkedCount', 23 );j
+ * dispatch( 'tec/classy/my-store' ).setAttribute( 'linkedCount', 23 );
  *
  * // Dispatch to the a WordPress core store.
  * dispatch( 'core/editor' ).editPost( { meta: { foo: 'bar' } } );
