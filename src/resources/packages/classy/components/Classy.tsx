@@ -1,44 +1,18 @@
 import * as React from 'react';
-import { useEffect } from 'react';
 import { Slot, SlotFillProvider } from '@wordpress/components';
 import { applyFilters } from '@wordpress/hooks';
-import { WPDataRegistry } from '@wordpress/data/build-types/registry';
-import { RegistryProvider, useRegistry } from '@wordpress/data';
-import { ErrorBoundary } from './ErrorBoundary';
-import { setRegistry, STORE_NAME, storeConfig } from '../store';
-import { doAction } from '@wordpress/hooks';
+import { Provider as ClassyProvider } from './Provider';
 
+/**
+ * The main Classy application component.
+ * By default, tha Classy application will render nothing, but it can be extended by plugins to
+ * render their own components using the Slot/Fill API.
+ *
+ * @since TBD
+ *
+ * @constructor
+ */
 function ClassyApplication() {
-	// @ts-ignore If there is a registry, then it will be the correct instance.
-	const registry: WPDataRegistry = useRegistry();
-
-	// This will run once for a correctly fetched registry.
-	useEffect( () => {
-		if ( ! registry ) {
-			// Nothing to do yet.
-			return;
-		}
-
-		// Set the registry to make it available to other components requiring it.
-		setRegistry( registry );
-
-		// Register the base Classy store.
-		registry.registerStore( STORE_NAME, storeConfig );
-
-		/**
-		 * Fire an action when the Classy application has initialized.
-		 * Initialized means the application got hold of the WordPress registry and registered the base store.
-		 *
-		 * @since TBD
-		 */
-		doAction( 'tec.classy.initialized' );
-	}, [ registry ] );
-
-	if ( ! registry ) {
-		// If there is no registry, then the application is not initialized yet and nothing else should run.
-		return null;
-	}
-
 	return (
 		<SlotFillProvider>
 			{
@@ -241,12 +215,18 @@ function ClassyApplication() {
 	);
 }
 
-export function Classy( { registry }: { registry: WPDataRegistry } ) {
+/**
+ * The Classy application rendered in the context of the Classy provider that will provide the application
+ * with access to the WordPress default registry.
+ *
+ * @since TBD
+ *
+ * @constructor
+ */
+export function Classy() {
 	return (
-		<ErrorBoundary>
-			<RegistryProvider value={ registry }>
-				<ClassyApplication />
-			</RegistryProvider>
-		</ErrorBoundary>
+		<ClassyProvider>
+			<ClassyApplication />
+		</ClassyProvider>
 	);
 }
