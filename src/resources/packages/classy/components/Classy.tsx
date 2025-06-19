@@ -9,8 +9,6 @@ import { Provider as ClassyProvider } from './Provider';
  * render their own components using the Slot/Fill API.
  *
  * @since TBD
- *
- * @constructor
  */
 function ClassyApplication() {
 	return (
@@ -220,8 +218,6 @@ function ClassyApplication() {
  * with access to the WordPress default registry.
  *
  * @since TBD
- *
- * @constructor
  */
 export function Classy() {
 	return (
