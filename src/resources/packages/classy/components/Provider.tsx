@@ -80,7 +80,7 @@ function ProviderComponent( { registry, children }: ProviderComponentProps ) {
  *   test('renders correctly', async () => {
  *     const {findByText} = render(<ClassyProvider><MyClassyComponent/></ClassyProvider>);
  *
- *     expect(await screen.findByText('Has Zorps!')).toBeVisible()
+ *     expect(await screen.findByText('Has Zorps!')).toBeVisible();
  *   }
  * });
  * ```
