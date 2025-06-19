@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Added `tec_common_ian_feed` filter to Notifications to allow plugins to modify the final notifications feed before it's sent as JSON response. This enables cross-plugin notification injection while maintaining proper formatting and duplicate detection.

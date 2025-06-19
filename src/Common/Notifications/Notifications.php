@@ -153,6 +153,7 @@ final class Notifications {
 	 * Get the IAN notifications.
 	 *
 	 * @since 6.4.0
+	 * @since TBD Broke the filtering out into a separate method.
 	 *
 	 * @return void
 	 */
@@ -165,6 +166,7 @@ final class Notifications {
 		$cache = tribe_cache();
 		$slug  = tec_get_request_var( 'plugin' );
 		$feed  = $cache->get_transient( 'tec_ian_api_feed_' . $slug );
+
 		if ( false === $feed || ! is_array( $feed ) ) {
 			// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.wp_remote_get_wp_remote_get
 			$response = wp_remote_get( $this->api_url );
@@ -173,8 +175,9 @@ final class Notifications {
 				wp_send_json_error( wp_remote_retrieve_response_message( $response ), wp_remote_retrieve_response_code( $response ) );
 				return;
 			}
+
 			$body = json_decode( wp_remote_retrieve_body( $response ), true );
-			$feed = Conditionals::filter_feed( $body['notifications_by_area'][ 'general-' . $slug ] ?? [] );
+			$feed = $this->filter_notifications( $body, $slug );
 			$cache->set_transient( 'tec_ian_api_feed_' . $slug, $feed, 15 * MINUTE_IN_SECONDS );
 		}
 
@@ -193,7 +196,69 @@ final class Notifications {
 		}
 		array_values( $feed );
 
+		/**
+		 * Filter the final feed before it's sent as JSON.
+		 *
+		 * @since TBD
+		 *
+		 * @param array  $feed The filtered notifications feed.
+		 * @param string $slug The plugin slug.
+		 */
+		$feed = apply_filters( 'tec_common_ian_feed', $feed, $slug );
+
 		wp_send_json_success( $feed, 200 );
+	}
+
+	/**
+	 * Filters notifications from the API response based on the plugin slug.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $body The API response body.
+	 * @param string $slug The plugin slug.
+	 *
+	 * @return array
+	 */
+	private function filter_notifications( $body, $slug ) {
+		/**
+		 * Filter the callback used to filter notifications from the API response.
+		 * Default callback filters by plugin slug. Plugins can provide their own filtering logic.
+		 *
+		 * @since TBD
+		 *
+		 * @param callable $callback The filtering callback function.
+		 * @param array    $body     The full API response body.
+		 * @param string   $slug     The plugin slug.
+		 */
+		$filter_callback = apply_filters(
+			'tec_common_ian_filter_callback',
+			[ $this, 'filter_notifications_by_slug' ],
+			$body,
+			$slug
+		);
+
+		// Ensure we have a valid callback
+		if ( ! is_callable( $filter_callback ) ) {
+			$filter_callback = [ $this, 'filter_notifications_by_slug' ];
+		}
+
+		$notifications = call_user_func( $filter_callback, $body, $slug );
+
+		return Conditionals::filter_feed( $notifications );
+	}
+
+	/**
+	 * Default filter that gets notifications by plugin slug.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $body The API response body.
+	 * @param string $slug The plugin slug.
+	 *
+	 * @return array
+	 */
+	private function filter_notifications_by_slug( $body, $slug ) {
+		return $body['notifications_by_area'][ 'general-' . $slug ] ?? [];
 	}
 
 	/**
