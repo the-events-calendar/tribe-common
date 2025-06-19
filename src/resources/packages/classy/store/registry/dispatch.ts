@@ -11,8 +11,8 @@ import { getRegistry } from './registry';
  * Note: Action creators returned by the dispatch will return a promise when
  * they are called.
  *
- * @param storeNameOrDescriptor The store descriptor. The legacy calling convention of passing
- *                              the store name is also supported.
+ * @param {string|StoreDescriptor} storeNameOrDescriptor The store descriptor. The legacy calling convention of passing
+ *                                 the store name is also supported.
  *
  * @example
  * ```js
