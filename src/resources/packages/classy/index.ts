@@ -11,10 +11,9 @@ import './style.pcss';
 whenEditorIsReady().then( () => {
 	hideZoomOutButton();
 	hideInserterToggle();
-	initClassyApp().then( () => {
-		insertClassyElement();
-		addEditorTools( () => toggleClassyElementVisibility() );
-	} );
+	initClassyApp();
+	insertClassyElement();
+	addEditorTools( () => toggleClassyElementVisibility() );
 } );
 
 // Re-exports that will appear under `window.tec.common.classy.<re-export>`.

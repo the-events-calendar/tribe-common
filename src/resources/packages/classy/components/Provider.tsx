@@ -1,0 +1,92 @@
+import * as React from 'react';
+import { useEffect } from '@wordpress/element';
+import { WPDataRegistry } from '@wordpress/data/build-types/registry';
+import { RegistryProvider, withRegistry } from '@wordpress/data';
+import { doAction } from '@wordpress/hooks';
+import { setRegistry as setRegistryInstance, STORE_NAME, storeConfig } from '../store';
+import { ErrorBoundary } from './ErrorBoundary';
+
+type ProviderComponentProps = {
+	registry?: WPDataRegistry;
+	children?: React.ReactNode;
+};
+
+/**
+ * The component that, given a store registry, will initialize and render the Classy stores.
+ *
+ *
+ * @since TBD
+ *
+ * @param {ProviderComponentProps} props The component props.
+ *
+ * @returns {Element} The rendered component.
+ */
+function ProviderComponent( { registry, children }: ProviderComponentProps ) {
+	useEffect( (): void => {
+		// Set the registry instances for selectors and dispatchers in stores.
+		setRegistryInstance( registry );
+
+		// Register the base Classy store.
+		registry.registerStore( STORE_NAME, storeConfig );
+
+		/**
+		 * Fire an action when the Classy application has initialized.
+		 * Initialized means the application got hold of the WordPress registry and registered the base store.
+		 *
+		 * @since TBD
+		 */
+		doAction( 'tec.classy.initialized' );
+	}, [] );
+
+	return (
+		<ErrorBoundary>
+			<RegistryProvider value={ registry }>{ children }</RegistryProvider>
+		</ErrorBoundary>
+	);
+}
+
+/**
+ * The Classy Provider component.
+ *
+ * This provider should be used to wrap the Classy application, or, in the context of tests,
+ * components that need to be tested in the context of a Classy-like context (in the React sense of the
+ * word).
+ * In production code this component must be used only once, by the Classy application.
+ *
+ * @example
+ * ```
+ * // MyClassyComponent.tsx
+ * import {Provider as ClassyProvider} from "@tec/common/classy/components/Provider.tsx";
+ * import {useSelect} from "@wordpress/data";
+ *
+ * function MyClassyComponent(){
+ * 	 const {meta, settings}  = useSelect((select) => {
+ * 	   const meta = select('core/editor').getEditedPostAttribute('meta');
+ * 	   const settings = select('tec/classy').getSettings();
+ *
+ * 	   return {meta, settings};
+ * 	 });
+ *
+ * 	 if(meta.hasZorps && settings.isGood){
+ * 	   return <div>Has Zorps!</div>;
+ * 	 }
+ * }
+ *
+ * // MyClassyComponent.spec.tsx
+ * import {render, findByText} from "@testing-library/react";
+ * import {TestApplication} from "./TestApplication.tsx";
+ *
+ * describe('MyClasyApplication, ()=>{
+ *   test('renders correctly', async () => {
+ *     const {findByText} = render(<ClassyProvider><MyClassyComponent/></ClassyProvider>);
+ *
+ *     expect(await screen.findByText('Has Zorps!')).toBeVisible();
+ *   }
+ * });
+ * ```
+ *
+ * @since TBD
+ *
+ * @returns {Element} The rendered component.
+ */
+export const Provider = withRegistry( ProviderComponent );

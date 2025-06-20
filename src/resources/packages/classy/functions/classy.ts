@@ -1,8 +1,6 @@
 import { createRoot } from '@wordpress/element';
 import { Classy } from '../components/Classy';
 import { getElement as getVisualEditorElement, toggleVisibility as toggleVisualEditorVisibility } from './visualEditor';
-import { WPDataRegistry } from '@wordpress/data/build-types/registry';
-import { getDefaultRegistry } from './getDefaultRegistry';
 
 /**
  * Cached instance of the classy element.
@@ -22,8 +20,8 @@ let classyElement: HTMLElement | null = null;
  *
  * @since TBD
  *
- * @param {Document|null} document - The document to use for element creation.
- *     If null, the global document will be used.
+ * @param {Document|null} document - The document to operate within; default is the global window.document.
+ *
  * @returns {HTMLElement} The existing or newly created Classy element.
  */
 export function getOrCreateElement( document: Document | null = null ): HTMLElement {
@@ -50,8 +48,7 @@ export function getOrCreateElement( document: Document | null = null ): HTMLElem
  *
  * @since TBD
  *
- * @param {Document|null} document - The document to operate within.
- *     If null, the global document will be used.
+ * @param {Document|null} document - The document to operate within; default is the global window.document.
  *
  * @returns {boolean} True if insertion was successful, false otherwise.
  */
@@ -79,8 +76,7 @@ export function insertElement( document: Document | null = null ): boolean {
  *
  * @since TBD
  *
- * @param {Document|null} document - The document to operate within.
- *     If null, the global document will be used.
+ * @param {Document|null} document - The document to operate within; default is the global window.document.
  *
  * @returns {void}
  */
@@ -99,14 +95,10 @@ export function toggleElementVisibility( document: Document | null = null ): voi
  *
  * @since TBD
  *
- * @param {Document|null} document - The document to use for element creation.
- *	 If null, the global document will be used.
- *
- * @returns {Promise<void>} A promise that will resolve once the application is initialized.
+ * @param {Document|null} document - The document to operate within; default is the global window.document.
  */
-export async function initApp( document: Document | null = null ): Promise< void > {
+export function initApp( document: Document | null = null ): void {
 	document = document ?? window.document;
 	const classyRoot = createRoot( getOrCreateElement( document ) );
-	const registry: WPDataRegistry = await getDefaultRegistry();
-	classyRoot.render( Classy( { registry } ) );
+	classyRoot.render( Classy() );
 }
