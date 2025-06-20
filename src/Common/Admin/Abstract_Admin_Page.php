@@ -462,6 +462,7 @@ abstract class Abstract_Admin_Page {
 	 * @return void Renders the admin page header.
 	 */
 	public function admin_page_header(): void {
+
 		?>
 			<header id="tec-admin-page-header" <?php tribe_classes( $this->header_classes() ); ?>>
 				<?php

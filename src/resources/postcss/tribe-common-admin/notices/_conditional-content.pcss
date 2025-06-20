@@ -9,7 +9,6 @@
 
 	.tribe-conditional-content-link {
 		display: block;
-		margin: 0 auto;
 		position: relative;
 	}
 
@@ -28,6 +27,7 @@
 		display: block;
 		width: 100%;
 		height: auto;
+		margin: 0 auto;
 	}
 }
 
@@ -52,6 +52,13 @@
 
 	@media (--viewport-xsmall) {
 		display: none;
+	}
+}
+
+body:not( .tec-admin ) {
+	.tribe-conditional-content-narrow,
+	.tribe-conditional-content-wide {
+		margin-left: -20px;
 	}
 }
 

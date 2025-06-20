@@ -25,13 +25,15 @@ $classes = [
 ];
 
 ?>
-<div <?php tec_classes( $classes ); ?>>
+<div
+	<?php tec_classes( $classes ); ?>
+	style="background-color: <?php echo esc_attr( $background_color ); ?>;" <?php // This is intentionally inline, don't change it. ?>
+>
 	<a
 		class="tribe-conditional-content-link"
 		href="<?php echo esc_url( $link ); ?>"
 		target="_blank"
 		rel="noopener nofollow"
-		style="background-color: <?php echo esc_attr( $background_color ); ?>;" // This is intentionally inline, don't change it.
 		title="<?php echo esc_attr( $a11y_text ); ?>"
 		data-tec-conditional-content-dismiss-container
 	>
