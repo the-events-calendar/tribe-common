@@ -1,8 +1,8 @@
 <?php
 /**
- * Black Friday Promo Conditional Content.
+ * Stellar Sale Promo Conditional Content.
  *
- * @since 6.3.0
+ * @since TBD
  *
  * @package TEC\Common\Admin\Conditional_Content;
  */
@@ -10,36 +10,31 @@
 namespace TEC\Common\Admin\Conditional_Content;
 
 /**
- * Set up for Black Friday promo.
+ * Set up for Stellar Sale promo.
  *
- * @since 6.3.0
+ * @since TBD
  */
-class Black_Friday extends Promotional_Content_Abstract {
+class Stellar_Sale extends Promotional_Content_Abstract {
 
 	/**
 	 * @inheritdoc
 	 */
-	protected string $slug = 'black-friday';
+	protected string $slug = 'stellar-sale';
 
 	/**
 	 * @inheritdoc
 	 */
-	protected string $start_date = 'November 26th';
+	protected string $start_date = 'March 15th';
 
 	/**
 	 * @inheritdoc
 	 */
-	protected string $end_date = 'December 3rd';
+	protected string $end_date = 'March 22nd';
 
 	/**
-	 * Background color for the promotional content.
-	 * Must match the background color of the image.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
+	 * @inheritdoc
 	 */
-	protected string $background_color = '#000';
+	protected string $background_color = 'teal';
 
 	/**
 	 * @inheritdoc
@@ -50,17 +45,21 @@ class Black_Friday extends Promotional_Content_Abstract {
 		add_action( 'wp_ajax_tec_conditional_content_dismiss', [ $this, 'handle_dismiss' ] );
 	}
 
+	protected function should_display(): bool {
+		return false;
+	}
+
 	/**
 	 * @inheritdoc
 	 */
 	protected function get_sale_name(): string {
-		return __( 'Black Friday Sale', 'tribe-common' );
+		return __( 'Stellar Sale', 'tribe-common' );
 	}
 
 	/**
 	 * @inheritdoc
 	 */
 	protected function get_link_url(): string {
-		return 'https://evnt.is/tec-bf-2024';
+		return 'https://evnt.is/tec-stellar-sale-2024';
 	}
 }

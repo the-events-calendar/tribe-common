@@ -718,7 +718,7 @@ class Tribe__Settings {
 		?>
 		<div <?php tribe_classes( $wrap_classes ); ?>>
 			<?php
-			$this->output_notice_wrap();
+			$this->output_notice_wrap( $current_tab );
 			$this->do_page_header( $admin_page );
 			$this->generate_modal_nav( $admin_page );
 
@@ -941,9 +941,14 @@ class Tribe__Settings {
 	 *
 	 * @return void
 	 */
-	protected function output_notice_wrap() {
+	protected function output_notice_wrap( $current_tab ) {
 		?>
 		<div class="tribe-notice-wrap">
+			<?php
+			if ( ! $this->get_tab( $current_tab )->has_sidebar() ) {
+				do_action( 'tec_conditional_content_header_notice' );
+			}
+			?>
 			<div class="wp-header-end"></div>
 		</div>
 		<?php

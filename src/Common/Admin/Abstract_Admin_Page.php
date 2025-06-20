@@ -398,7 +398,9 @@ abstract class Abstract_Admin_Page {
 	 * @return void Renders the entire admin page content.
 	 */
 	public function admin_page_content(): void {
-		do_action( 'tec_admin_page_before_wrap_start' );
+		if ( ! static::$has_sidebar ) {
+			do_action( 'tec_admin_page_before_wrap_start' );
+		}
 		?>
 
 		<div id="tec-admin-page" <?php tec_classes( $this->wrapper_classes() ); ?> >
@@ -470,13 +472,13 @@ abstract class Abstract_Admin_Page {
 				do_action( 'tec_admin_header_before_title' );
 				$this->admin_page_title();
 				do_action( 'tec_admin_header_after_title' );
-				
+
 				if ( tribe( IAN_Controller::class )->is_ian_page() ) :
 					?>
 					<div class="ian-client" data-tec-ian-trigger="iconIan"></div>
 				<?php endif; ?>
 			</header>
-		
+
 		<?php
 	}
 

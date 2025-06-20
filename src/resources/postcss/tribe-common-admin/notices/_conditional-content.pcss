@@ -1,0 +1,56 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Tribe Common Admin - Conditional Content Marketing Notices
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-conditional-content-wrap {
+	position: relative;
+
+	.tribe-conditional-content-link {
+		display: block;
+		margin: 0 auto;
+		position: relative;
+	}
+
+	.tribe-conditional-content-dismiss-button {
+		position: absolute;
+		top: 0;
+		right: 0;
+		background: transparent;
+		border: 0;
+		color: #fff;
+		padding: 0.5em;
+		cursor: pointer;
+	}
+
+	.tribe-conditional-content-image {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+}
+
+.tribe-conditional-content-wide {
+	display: none;
+
+	.tribe-conditional-content-image {
+		max-width: 1000px;
+	}
+
+	@media (--viewport-xsmall) {
+		display: block;
+	}
+}
+
+.tribe-conditional-content-narrow {
+	max-width: 1000px;
+
+	@media (--viewport-xsmall) {
+		display: none;
+	}
+}
+
+.tribe-conditional-content-sidebar {
+	/* no-op */
+}

@@ -31,7 +31,8 @@ class Controller extends Provider_Contract {
 			return;
 		}
 
-		$this->container->singleton(  Black_Friday::class, Black_Friday::class, [ 'hook' ] );
+		$this->container->singleton( Black_Friday::class, Black_Friday::class, [ 'hook' ] );
+		$this->container->singleton( Stellar_Sale::class, Stellar_Sale::class, [ 'hook' ] );
 
 		$this->hooks();
 	}
@@ -43,6 +44,7 @@ class Controller extends Provider_Contract {
 	 */
 	protected function hooks(): void {
 		add_action( 'tribe_plugins_loaded', [ $this, 'plugins_loaded' ] );
+		add_action( 'tec_conditional_content_header_notice', [ $this, 'render_header_notice' ] );
 	}
 
 	/**
@@ -52,6 +54,7 @@ class Controller extends Provider_Contract {
 	 */
 	public function plugins_loaded(): void {
 		$this->container->make( Black_Friday::class );
+		$this->container->make( Stellar_Sale::class );
 
 		$plugin = Common::instance();
 
@@ -63,7 +66,17 @@ class Controller extends Provider_Contract {
 				'wp-data',
 				'tribe-common',
 			],
-			'tec_conditional_content_black_friday',
+			'tec_conditional_content_assets',
 		);
+	}
+
+	/**
+	 * Render the header notice.
+	 *
+	 * @since 6.3.0
+	 */
+	public function render_header_notice(): void {
+		$this->container->make( Stellar_Sale::class )->render_header_notice();
+		$this->container->make( Black_Friday::class )->render_header_notice();
 	}
 }
