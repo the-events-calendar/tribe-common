@@ -43,8 +43,10 @@ class Controller extends Provider_Contract {
 	 * @since 4.14.7
 	 */
 	protected function hooks(): void {
+		add_action( 'tec_settings_sidebar_sections', [ $this, 'include_sidebar_section' ], 10, 2 );
 		add_action( 'tribe_plugins_loaded', [ $this, 'plugins_loaded' ] );
 		add_action( 'tec_conditional_content_header_notice', [ $this, 'render_header_notice' ] );
+		add_action( 'tec_conditional_content_sidebar_notice__help_hub_support', [ $this, 'render_help_hub_sidebar' ] );
 	}
 
 	/**
@@ -53,8 +55,8 @@ class Controller extends Provider_Contract {
 	 * @since 6.3.0
 	 */
 	public function plugins_loaded(): void {
-		$this->container->make( Black_Friday::class );
-		$this->container->make( Stellar_Sale::class );
+		tribe( Black_Friday::class );
+		tribe( Stellar_Sale::class );
 
 		$plugin = Common::instance();
 
@@ -75,8 +77,38 @@ class Controller extends Provider_Contract {
 	 *
 	 * @since 6.3.0
 	 */
-	public function render_header_notice(): void {
-		$this->container->make( Stellar_Sale::class )->render_header_notice();
-		$this->container->make( Black_Friday::class )->render_header_notice();
+	public function render_header_notice( $page ): void {
+		if ( ! empty( $page->has_sidebar ) ) {
+			return;
+		}
+
+		tribe( Stellar_Sale::class )->render_header_notice();
+		tribe( Black_Friday::class )->render_header_notice();
+	}
+
+	/**
+	 * Include the promo in the settings sidebar.
+	 *
+	 * @since TBD
+	 *
+	 * @param Settings_Sidebar $sidebar Sidebar instance.
+	 *
+	 * @return void
+	 */
+	public function include_sidebar_section( $sections, $sidebar ): void {
+		tribe( Stellar_Sale::class )->include_sidebar_section( $sections, $sidebar );
+		tribe( Black_Friday::class )->include_sidebar_section( $sections, $sidebar );
+	}
+
+	/**
+	 * Render promotional content for help hub sidebar.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function render_help_hub_sidebar(): void {
+		tribe( Stellar_Sale::class )->render_sidebar_content();
+		tribe( Black_Friday::class )->render_sidebar_content();
 	}
 }

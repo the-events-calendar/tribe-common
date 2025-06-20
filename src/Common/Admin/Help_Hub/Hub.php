@@ -501,7 +501,10 @@ class Hub {
 
 		$this->ensure_data_is_set();
 
-		define( 'IFRAME_REQUEST', true );
+		if ( ! defined( 'IFRAME_REQUEST' ) ) {
+			define( 'IFRAME_REQUEST', true );
+		}
+
 		// phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
 		show_admin_bar( false );
 
@@ -548,7 +551,9 @@ class Hub {
 	 * @return void
 	 */
 	public function enqueue_help_page_iframe_assets(): void {
-		define( 'IFRAME_REQUEST', true );
+		if ( ! defined( 'IFRAME_REQUEST' ) ) {
+			define( 'IFRAME_REQUEST', true );
+		}
 
 		tec_asset(
 			Tribe__Main::instance(),

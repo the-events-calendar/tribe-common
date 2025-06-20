@@ -26,7 +26,7 @@ use Tribe\Admin\Troubleshooting;
 <div id="tribe-app-shop">
 
 	<?php
-		do_action( 'tec_conditional_content_header_notice' );
+		do_action( 'tec_conditional_content_header_notice', $this );
 		tribe( Troubleshooting::class )->admin_notice( 'app-shop' );
 	?>
 

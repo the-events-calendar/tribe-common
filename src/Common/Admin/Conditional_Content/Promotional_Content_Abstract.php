@@ -47,6 +47,14 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	protected string $background_color = 'transparent';
 
 	/**
+	 * @inheritdoc
+	 */
+	public function hook(): void {
+		add_action( 'tribe_settings_below_tabs', [ $this, 'include_tickets_settings_section' ] );
+		add_action( 'wp_ajax_tec_conditional_content_dismiss', [ $this, 'handle_dismiss' ] );
+	}
+
+	/**
 	 * Get the background color.
 	 *
 	 * @since TBD
@@ -324,11 +332,12 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 *
 	 * @since TBD
 	 *
+	 * @param Section[]        $sections The sidebar sections.
 	 * @param Settings_Sidebar $sidebar Sidebar instance.
 	 *
 	 * @return void
 	 */
-	public function include_sidebar_section( $sidebar ): void {
+	public function include_sidebar_section( $sections, $sidebar ): void {
 		$cache = tribe_cache();
 		if ( $cache[ __METHOD__ ] ) {
 			return;
@@ -366,8 +375,6 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 		$button_attr = new Attributes(
 			[
 				'style'                                       => 'position: absolute; top: 0; right: 0; background: transparent; border: 0; color: #fff; padding: 0.5em; cursor: pointer;',
-
-				// Dismiss button attributes.
 				'data-tec-conditional-content-dismiss-button' => true,
 				'data-tec-conditional-content-dismiss-slug'   => $this->get_slug(),
 				'data-tec-conditional-content-dismiss-nonce'  => $this->get_nonce(),
@@ -391,7 +398,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 			)
 		);
 
-		$sidebar->prepend_section(
+		$sections[] = (
 			( new Settings_Section() )
 				->add_elements(
 					[
@@ -414,5 +421,52 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 					]
 				)
 		);
+	}
+
+	/**
+	 * Render sidebar promotional content directly for help hub pages.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function render_sidebar_content(): void {
+		// Check if the content should currently be displayed.
+		if ( ! $this->should_display() ) {
+			return;
+		}
+
+		$year = date_i18n( 'Y' );
+		$sale_name = $this->get_sale_name();
+
+		/**
+		 * Fires before the sidebar content is rendered.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $slug     The slug of the conditional content.
+		 * @param object $instance The promotional content instance.
+		 */
+		do_action( "tec_conditional_content_{$this->slug}", 'help-hub-sidebar', $this );
+
+		$template_args = [
+			'background_color' => $this->get_background_color(),
+			'image_src'        => tribe_resource_url( 'images/conditional-content/' . $this->get_sidebar_image(), false, null, \Tribe__Main::instance() ),
+			'is_narrow'        => false,
+			'is_sidebar'       => true,
+			'link'             => $this->get_link_url(),
+			'nonce'            => $this->get_nonce(),
+			'sale_name'        => $sale_name,
+			'slug'             => $this->get_slug(),
+			'year'             => $year,
+			'a11y_text'        => sprintf(
+				/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
+				_x( '%1$s %2$s for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Sale Ad', 'tribe-common' ),
+				$year,
+				$sale_name
+			),
+		];
+
+		echo $this->get_template()->template( $this->get_template_slug(), $template_args, false ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 }

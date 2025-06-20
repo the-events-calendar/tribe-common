@@ -35,6 +35,8 @@ class Settings_Sidebar extends Section {
 	 * @return void
 	 */
 	public function render() {
+		$fnord = 'fnord';
+		echo 'WTF?';
 		?>
 		<div class="tec-settings-form__sidebar">
 			<?php do_action( 'tec_settings_sidebar_start', $this ); ?>
