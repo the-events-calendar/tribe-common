@@ -19,8 +19,8 @@
 $classes = [
 	$slug                               => true,
 	'tribe-conditional-content-wrap'    => true,
-	'tribe-conditional-content-narrow'  => $is_narrow,
-	'tribe-conditional-content-wide'    => ! $is_narrow,
+	'tribe-conditional-content-narrow'  => $is_narrow && ! $is_sidebar,
+	'tribe-conditional-content-wide'    => ! $is_narrow && ! $is_sidebar,
 	'tribe-conditional-content-sidebar' => $is_sidebar,
 ];
 
