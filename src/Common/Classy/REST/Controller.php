@@ -11,6 +11,7 @@ declare( strict_types=1 );
 
 namespace TEC\Common\Classy\REST;
 
+use Closure;
 use TEC\Common\Classy\REST\Endpoints\Options\Currencies;
 use TEC\Common\Classy\REST\Endpoints\Options\Country;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
@@ -31,8 +32,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package TEC\Common\Classy\REST;
  */
 class Controller extends Controller_Contract {
-
-	const REST_NAMESPACE = 'tec/classy/v1';
+	/**
+	 *  The namespace used by the Classy feature REST Endpoints.
+	 *
+	 * @since @tbd
+	 */
+	public const REST_NAMESPACE = 'tec/classy/v1';
 
 	/**
 	 * Subscribes the controller to the WordPress hooks it needs to operate, binds implementations.
@@ -119,7 +124,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @return callable
 	 */
-	protected function get_permission_callback(): callable {
+	public function get_permission_callback(): Closure {
 		return static fn() => current_user_can( 'edit_posts' );
 	}
 }
