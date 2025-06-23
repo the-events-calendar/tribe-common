@@ -43,7 +43,8 @@ class Controller extends Provider_Contract {
 	 * @since 4.14.7
 	 */
 	protected function hooks(): void {
-		add_action( 'tec_settings_sidebar_sections', [ $this, 'include_sidebar_section' ], 10, 2 );
+		add_action( 'tec_settings_sidebar_start', [ $this, 'add_sidebar_objects' ] );
+		add_filter( 'tec_settings_sidebar_sections', [ $this, 'add_sidebar_sections' ], 10, 2 );
 		add_action( 'tribe_plugins_loaded', [ $this, 'plugins_loaded' ] );
 		add_action( 'tec_conditional_content_header_notice', [ $this, 'render_header_notice' ] );
 		add_action( 'tec_admin_page_before_wrap_start', [ $this, 'render_header_notice' ] );
@@ -87,18 +88,57 @@ class Controller extends Provider_Contract {
 		tribe( Black_Friday::class )->render_header_notice();
 	}
 
-	/**
-	 * Include the promo in the settings sidebar.
+		/**
+	 * Add sidebar objects from each promotional content class.
 	 *
 	 * @since TBD
 	 *
-	 * @param Settings_Sidebar $sidebar Sidebar instance.
+	 * @param Settings_Sidebar $sidebar The sidebar instance.
 	 *
 	 * @return void
 	 */
-	public function include_sidebar_section( $sections, $sidebar ): void {
-		tribe( Stellar_Sale::class )->include_sidebar_section( $sections, $sidebar );
-		tribe( Black_Friday::class )->include_sidebar_section( $sections, $sidebar );
+	public function add_sidebar_objects( $sidebar ): void {
+		foreach ( $this->get_promotional_classes() as $class ) {
+			$instance = tribe( $class );
+			if ( $instance && method_exists( $instance, 'include_sidebar_object' ) ) {
+				$instance->include_sidebar_object( $sidebar );
+			}
+		}
+	}
+
+	/**
+	 * Add sidebar sections from each promotional content class.
+	 *
+	 * @since TBD
+	 *
+	 * @param Section[]        $sections The sidebar sections.
+	 * @param Settings_Sidebar $sidebar  The sidebar instance.
+	 *
+	 * @return Section[]
+	 */
+	public function add_sidebar_sections( $sections, $sidebar ): array {
+		foreach ( $this->get_promotional_classes() as $class ) {
+			$instance = tribe( $class );
+			if ( $instance && method_exists( $instance, 'add_sidebar_sections' ) ) {
+				$sections = $instance->add_sidebar_sections( $sections, $sidebar );
+			}
+		}
+
+		return $sections;
+	}
+
+	/**
+	 * Get the promotional content classes.
+	 *
+	 * @since TBD
+	 *
+	 * @return string[]
+	 */
+	protected function get_promotional_classes(): array {
+		return [
+			Stellar_Sale::class,
+			Black_Friday::class,
+		];
 	}
 
 	/**
