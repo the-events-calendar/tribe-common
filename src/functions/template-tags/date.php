@@ -391,7 +391,7 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 
 			// @todo [BTRIA-584]: Move timezones to Common.
 			if ( class_exists( 'Tribe__Events__Timezones' ) ) {
-				$end_date = Tribe__Events__Timezones::event_end_timestamp( $event->ID );
+				$end_date = Tribe__Events__Timezones::event_end_timestamp( $event->ID, $timezone );
 			} else {
 				return null;
 			}
