@@ -12,7 +12,7 @@ tribe.helpPage.BeaconManager = {
 	 */
 	initStub() {
 		if ( ! window.Beacon || ! window.Beacon.readyQueue ) {
-			window.Beacon = function ( method, options, data ) {
+			window.Beacon = ( method, options, data ) => {
 				window.Beacon.readyQueue.push( { method, options, data } );
 			};
 			window.Beacon.readyQueue = [];
@@ -39,10 +39,7 @@ tribe.helpPage.BeaconManager = {
 	 */
 	call( method, ...args ) {
 		if ( this.isAvailable() ) {
-			window.Beacon(
-				method,
-				...args
-			);
+			window.Beacon( method, ...args );
 		}
 	},
 
@@ -54,10 +51,7 @@ tribe.helpPage.BeaconManager = {
 	 * @return {void}
 	 */
 	init( key ) {
-		this.call(
-			'init',
-			key
-		);
+		this.call( 'init', key );
 	},
 
 	/**
@@ -68,10 +62,7 @@ tribe.helpPage.BeaconManager = {
 	 * @return {void}
 	 */
 	config( config ) {
-		this.call(
-			'config',
-			config
-		);
+		this.call( 'config', config );
 	},
 
 	/**
@@ -83,11 +74,7 @@ tribe.helpPage.BeaconManager = {
 	 * @return {void}
 	 */
 	on( event, callback ) {
-		this.call(
-			'on',
-			event,
-			callback
-		);
+		this.call( 'on', event, callback );
 	},
 
 	/**
@@ -98,10 +85,7 @@ tribe.helpPage.BeaconManager = {
 	 * @return {void}
 	 */
 	identify( userData ) {
-		this.call(
-			'identify',
-			userData
-		);
+		this.call( 'identify', userData );
 	},
 
 	/**
@@ -292,15 +276,15 @@ tribe.helpPage.BeaconManager = {
 
 			// Set z-index, manual style, and enable chat & ticket history.
 			tribe.helpPage.BeaconManager.config( {
-													 display: { zIndex: 1000000, style: 'manual' },
-													 messaging: {
-														 chatEnabled: true,
-														 previousMessagesEnabled: true,
-														 contactForm: {
-															 showName: true,
-														 }
-													 }
-												 } );
+				 display: { zIndex: 1000000, style: 'manual' },
+				 messaging: {
+					 chatEnabled: true,
+					 previousMessagesEnabled: true,
+					 contactForm: {
+						 showName: true,
+					 }
+				 }
+			} );
 
 			// Listen for open/close events to manage blackout UI.
 			tribe.helpPage.BeaconManager.on(
@@ -323,9 +307,9 @@ tribe.helpPage.BeaconManager = {
 					self.beaconReady = true;
 					if ( self.userIdentifiers !== null && self.userIdentifiers.name && self.userIdentifiers.email ) {
 						tribe.helpPage.BeaconManager.identify( {
-																   name: self.userIdentifiers.name,
-																   email: self.userIdentifiers.email
-															   } );
+							name: self.userIdentifiers.name,
+							email: self.userIdentifiers.email
+						} );
 					}
 					resolve();
 				}
@@ -356,7 +340,7 @@ tribe.helpPage.BeaconManager = {
 	obj.setup = function () {
 		const bodyElement = obj.getHelpHubPageElement();
 		const optOutMessageElement = document.querySelector( obj.selectors.optOutMessage );
-		const $docsbotElement = $( '#' + obj.selectors.docsbotWidget );
+		const $docsbotElement = $( `#${obj.selectors.docsbotWidget}` );
 		const isOptedIn = obj.isOptedIn();
 
 		if ( isOptedIn !== true ) {
@@ -450,12 +434,12 @@ tribe.helpPage.BeaconManager = {
 			return;
 		}
 		window.DocsBotAIInitialized = true;
-		const $docsbotWidget = $( '#' + obj.selectors.docsbotWidget );
+		const $docsbotWidget = $( `#${obj.selectors.docsbotWidget}` );
 		if ( $docsbotWidget.length ) {
 			$docsbotWidget.removeClass( 'hide' );
 		}
 		if ( typeof DocsBotAI.init !== 'function' ) {
-			DocsBotAI.init = function ( e ) {
+			DocsBotAI.init = ( e ) => {
 				return new Promise( ( resolve, reject ) => {
 					const script = document.createElement( 'script' );
 					script.type = 'text/javascript';
@@ -470,11 +454,11 @@ tribe.helpPage.BeaconManager = {
 						'load',
 						() => {
 							Promise.all( [
-											 window.DocsBotAI.mount( { ...e } ),
-											 obj.observeElement( '#docsbotai-root' )
-										 ] )
-								.then( resolve )
-								.catch( reject );
+								 window.DocsBotAI.mount( { ...e } ),
+								 obj.observeElement( '#docsbotai-root' )
+							 ] )
+							.then( resolve )
+							.catch( reject );
 						}
 					);
 					script.addEventListener(
