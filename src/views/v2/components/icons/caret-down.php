@@ -11,14 +11,24 @@
  *
  * @var array<string> $classes Additional classes to add to the svg icon.
  *
- * @version 4.12.14
+ * @since 4.12.14 Initial template.
+ *
+ * @since TBD Updated for accessibility changes.
+ *
+ * @version TBD
  *
  */
-
 $svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--caret-down' ];
 
 if ( ! empty( $classes ) ) {
 	$svg_classes = array_merge( $svg_classes, $classes );
 }
 ?>
-<svg <?php tribe_classes( $svg_classes ); ?> viewBox="0 0 10 7" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/></svg>
+<svg
+	<?php tec_classes( $svg_classes ); ?>
+	viewBox="0 0 10 7"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<title><?php echo esc_html__( 'Expand', 'tribe-common' ); ?></title>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/>
+</svg>
