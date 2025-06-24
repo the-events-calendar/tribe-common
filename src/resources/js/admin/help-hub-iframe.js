@@ -204,9 +204,9 @@ tribe.helpPage.BeaconManager = {
 						.docsbot-user-chat-message {
 							background-color: #0057C7;
 						}
-                        .docsbot-chat-header-button {
-                            z-index:99999;
-                        }
+						.docsbot-chat-header-button {
+							z-index:99999;
+						}
 					`;
 
 	/**
