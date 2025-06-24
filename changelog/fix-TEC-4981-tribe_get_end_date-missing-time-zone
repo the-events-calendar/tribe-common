@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Make sure we are passing the time zone when handling the event end timestamp. [TEC-4981]
