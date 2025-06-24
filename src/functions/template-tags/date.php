@@ -288,6 +288,8 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 	 *
 	 * Returns the event start date and time.
 	 *
+	 * @category Events
+	 *
 	 * @since 4.7.6 Deprecated the $timezone parameter.
 	 * @since 5.2.0 Updated filter params.
 	 * @since TBD   Removed the 'deprecated' annotation from the timezone parameter.
@@ -298,8 +300,6 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 	 * @param string $timezone     Timezone in which to present the date/time (or default behavior if not set).
 	 *
 	 * @return string|null Date
-	 *@category Events
-	 *
 	 */
 	function tribe_get_start_date( $event = null, $display_time = true, $date_format = '', $timezone = null ) {
 		static $cache_var_name = __FUNCTION__;

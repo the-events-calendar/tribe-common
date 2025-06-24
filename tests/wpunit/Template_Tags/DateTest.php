@@ -274,7 +274,7 @@ class DateTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_tribe_get_end_date( \Closure $fixture ) {
 		[ $event, $display_time, $date_format, $timezone, $expected ] = $fixture();
-		//$event = null, $display_time = true, $date_format = '', $timezone = null
+
 		$actual = tribe_get_end_date( $event, $display_time, $date_format, $timezone );
 
 		$this->assertEquals( $expected, $actual );
