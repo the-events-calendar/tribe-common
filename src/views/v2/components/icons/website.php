@@ -11,7 +11,11 @@
  *
  * @var array<string> $classes Additional classes to add to the svg icon.
  *
- * @version 4.12.14
+ * @since 4.12.14 Initial template.
+ *
+ * @since TBD Updated for accessibility changes.
+ *
+ * @version TBD
  *
  */
 $svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--website' ];
@@ -20,4 +24,11 @@ if ( ! empty( $classes ) ) {
 	$svg_classes = array_merge( $svg_classes, $classes );
 }
 ?>
-<svg <?php tribe_classes( $svg_classes ); ?> viewBox="0 0 16 18" xmlns="http://www.w3.org/2000/svg"><path d="M14.531 1.5l-7.5 8M7.969 1.5h6.562v7M4.219 1.5H1.406c-.517 0-.937.448-.937 1v13c0 .552.42 1 .937 1h12.188c.517 0 .937-.448.937-1v-3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="tribe-common-c-svgicon__svg-stroke"/></svg>
+<svg
+	<?php tec_classes( $svg_classes ); ?>
+	viewBox="0 0 16 18"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<title><?php echo esc_html__( 'Website', 'tribe-common' ); ?></title>
+	<path d="M14.531 1.5l-7.5 8M7.969 1.5h6.562v7M4.219 1.5H1.406c-.517 0-.937.448-.937 1v13c0 .552.42 1 .937 1h12.188c.517 0 .937-.448.937-1v-3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="tribe-common-c-svgicon__svg-stroke"/>
+</svg>
