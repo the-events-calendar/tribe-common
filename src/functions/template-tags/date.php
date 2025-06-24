@@ -288,17 +288,18 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 	 *
 	 * Returns the event start date and time.
 	 *
-	 * @category Events
-	 *
 	 * @since 4.7.6 Deprecated the $timezone parameter.
 	 * @since 5.2.0 Updated filter params.
+	 * @since TBD   Removed the 'deprecated' annotation from the timezone parameter.
 	 *
 	 * @param int    $event        The event ID. Optional.
 	 * @param bool   $display_time If true shows date and time, if false only shows date.
 	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php).
-	 * @param string $timezone     Deprecated. Timezone in which to present the date/time (or default behavior if not set).
+	 * @param string $timezone     Timezone in which to present the date/time (or default behavior if not set).
 	 *
 	 * @return string|null Date
+	 *@category Events
+	 *
 	 */
 	function tribe_get_start_date( $event = null, $display_time = true, $date_format = '', $timezone = null ) {
 		static $cache_var_name = __FUNCTION__;
@@ -358,11 +359,12 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 	 *
 	 * @since 4.7.6 Deprecated the $timezone parameter.
 	 * @since 5.2.0 Updated filter params.
+	 * @since TBD   Removed the 'deprecated' annotation from the timezone parameter.
 	 *
 	 * @param int    $event        The event ID. Optional.
 	 * @param bool   $display_time If true shows date and time, if false only shows date.
 	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php).
-	 * @param string $timezone     Deprecated. Timezone in which to present the date/time (or default behavior if not set).
+	 * @param string $timezone     Timezone in which to present the date/time (or default behavior if not set).
 	 *
 	 * @return string|null Date
 	 */
