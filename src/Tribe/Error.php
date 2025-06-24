@@ -43,9 +43,9 @@ class Tribe__Error {
 	 *
 	 * @see tribe_error()
 	 *
-	 * @param  string|array $indexes Which Error we are looking for
-	 * @param  array        $context Gives the Error context
-	 * @param  array        $sprintf Allows variables on the message
+	 * @param string|array $indexes Which Error we are looking for.
+	 * @param array        $context Gives the Error context.
+	 * @param array        $sprintf Allows variables on the message.
 	 *
 	 * @return WP_Error
 	 */
@@ -73,8 +73,8 @@ class Tribe__Error {
 	/**
 	 * Register a new error based on a Namespace
 	 *
-	 * @param  string|array  $indexes  A list of the namespaces and last item should be the error name
-	 * @param  string        $message  What is going to be the message associate with this indexes
+	 * @param string|array $indexes  A list of the namespaces and last item should be the error name.
+	 * @param string       $message  What is going to be the message associate with this indexes.
 	 *
 	 * @return boolean
 	 */
@@ -108,7 +108,7 @@ class Tribe__Error {
 	/**
 	 * Removes an error from the items
 	 *
-	 * @param  string|array  $indexes  A list of the namespaces and last item should be the error name
+	 * @param string|array $indexes A list of the namespaces and last item should be the error name.
 	 *
 	 * @return boolean
 	 */
@@ -140,7 +140,7 @@ class Tribe__Error {
 	/**
 	 * Fetches the error or namespace
 	 *
-	 * @param  string|array  $indexes (optional)  A list of the namespaces and last item should be the error name
+	 * @param string|array $indexes (optional) A list of the namespaces and last item should be the error name.
 	 *
 	 * @return null|array|string
 	 */
@@ -189,7 +189,7 @@ class Tribe__Error {
 	/**
 	 * Checks if a given error or namespace exists
 	 *
-	 * @param  string|array  $indexes  A list of the namespaces and last item should be the error name
+	 * @param string|array $indexes A list of the namespaces and last item should be the error name.
 	 *
 	 * @return boolean
 	 */

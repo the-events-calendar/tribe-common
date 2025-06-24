@@ -22,7 +22,7 @@ class Tribe__Main {
 	const OPTIONNAME        = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK = 'tribe_events_calendar_network_options';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
-	const VERSION           = '6.8.0';
+	const VERSION           = '6.8.1';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
@@ -51,9 +51,9 @@ class Tribe__Main {
 	protected static $instance;
 
 	/**
-	 * Get (and instantiate, if necessary) the instance of the class
+	 * Get (and instantiate, if necessary) the instance of the class.
 	 *
-	 * @param  mixed $context An instance of the Main class of the plugin that instantiated Common
+	 * @param mixed $context An instance of the Main class of the plugin that instantiated Common.
 	 *
 	 * @return self
 	 */
@@ -66,7 +66,7 @@ class Tribe__Main {
 	}
 
 	/**
-	 * Constructor for Common Class
+	 * Constructor for Common Class.
 	 *
 	 * We are using a `public` constructor here for backwards compatibility.
 	 *
@@ -112,7 +112,7 @@ class Tribe__Main {
 	}
 
 	/**
-	 *
+	 * Plugins loaded.
 	 */
 	public function plugins_loaded() {
 
@@ -139,7 +139,7 @@ class Tribe__Main {
 	}
 
 	/**
-	 * Setup the autoloader for common files
+	 * Setup the autoloader for common files.
 	 */
 	protected function init_autoloading() {
 		if ( ! class_exists( 'Tribe__Autoloader' ) ) {
@@ -193,7 +193,7 @@ class Tribe__Main {
 	}
 
 	/**
-	 * initializes all required libraries
+	 * Initializes all required libraries.
 	 */
 	public function init_libraries() {
 		require_once $this->plugin_path . 'src/functions/time.php';
@@ -246,7 +246,7 @@ class Tribe__Main {
 	}
 
 	/**
-	 * Registers resources that can/should be enqueued
+	 * Registers resources that can/should be enqueued.
 	 */
 	public function load_assets() {
 		Asset::add(
@@ -258,7 +258,7 @@ class Tribe__Main {
 		->use_asset_file( false )
 		->register();
 
-		// These ones are only registered
+		// These ones are only registered.
 		tec_assets(
 			$this,
 			[
@@ -320,7 +320,7 @@ class Tribe__Main {
 			null
 		);
 
-		// These ones will be enqueued on `admin_enqueue_scripts` if the conditional method on filter is met
+		// These ones will be enqueued on `admin_enqueue_scripts` if the conditional method on filter is met.
 		tec_assets(
 			$this,
 			[
@@ -444,7 +444,7 @@ class Tribe__Main {
 	/**
 	 * Load All localization data create by `asset.data`
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @return void
 	 */
@@ -660,9 +660,9 @@ class Tribe__Main {
 	/**
 	 * Insert an array after a specified key within another array.
 	 *
-	 * @param $key
-	 * @param $source_array
-	 * @param $insert_array
+	 * @param string $key The key to insert the array after.
+	 * @param array  $source_array The source array.
+	 * @param array  $insert_array The array to insert.
 	 *
 	 * @return array
 	 */
@@ -681,9 +681,9 @@ class Tribe__Main {
 	/**
 	 * Insert an array immediately before a specified key within another array.
 	 *
-	 * @param $key
-	 * @param $source_array
-	 * @param $insert_array
+	 * @param string $key The key to insert the array before.
+	 * @param array  $source_array The source array.
+	 * @param array  $insert_array The array to insert.
 	 *
 	 * @return array
 	 */
@@ -705,7 +705,7 @@ class Tribe__Main {
 	 * Helper function for getting Post ID. Accepts `null` or a Post ID. If attempting
 	 * to detect $post object and it is not found, returns `false` to avoid a PHP Notice.
 	 *
-	 * @param  null|int|WP_Post  $candidate  Post ID or object, `null` to get the ID of the global post object.
+	 * @param null|int|WP_Post $candidate Post ID or object, `null` to get the ID of the global post object.
 	 *
 	 * @return int|false The ID of the passed or global post, `false` if the passes object is not a post or the global
 	 *                   post is not set.

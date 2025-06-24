@@ -9,7 +9,7 @@ _deprecated_file( __FILE__, '6.3.0', '\TEC\Common\Admin\Conditional_Content\Blac
 /**
  * Class Black_Friday.
  *
- * @since       4.14.7
+ * @since 4.14.7
  * @deprecated 6.3.0
  *
  * @package     Tribe\Admin\Conditional_Content

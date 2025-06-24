@@ -2,7 +2,7 @@
 /**
  * Widgets manager for Tribe plugins.
  *
- * @since   4.12.12
+ * @since 4.12.12
  *
  * @package Tribe\Widget
  */
@@ -12,7 +12,7 @@ namespace Tribe\Widget;
 /**
  * Class Widget Manager.
  *
- * @since  4.12.12
+ * @since 4.12.12
  *
  * @package Tribe\Widget
  */
@@ -21,7 +21,7 @@ class Manager {
 	/**
 	 * Get the list of widgets available for handling.
 	 *
-	 * @since  4.12.12
+	 * @since 4.12.12
 	 *
 	 * @return array An associative array of widgets in the shape `[ <slug> => <class> ]`.
 	 */
@@ -31,7 +31,7 @@ class Manager {
 		/**
 		 * Allow the registering of widgets from other plugins.
 		 *
-		 * @since  4.12.12
+		 * @since 4.12.12
 		 *
 		 * @var array<string,string> An associative array of widgets in the shape `[ <slug> => <class> ]`.
 		 */
@@ -43,9 +43,9 @@ class Manager {
 	/**
 	 * Verifies if a given widget slug is registered for handling.
 	 *
-	 * @since  4.12.12
+	 * @since 4.12.12
 	 *
-	 * @param  string $slug The widget slug we are checking for registration.
+	 * @param string $slug The widget slug we are checking for registration.
 	 *
 	 * @return bool Whether the widget is registered or not.
 	 */
@@ -58,9 +58,9 @@ class Manager {
 	/**
 	 * Verifies if a given widget class name is registered for handling.
 	 *
-	 * @since  4.12.12
+	 * @since 4.12.12
 	 *
-	 * @param  string $class_name The widget class name we are checking for registration.
+	 * @param string $class_name The widget class name we are checking for registration.
 	 *
 	 * @return bool Whether the widget is registered, by class.
 	 */
@@ -73,7 +73,7 @@ class Manager {
 	/**
 	 * Add new widgets handler to ensure our list of widget slugs is registered by class name.
 	 *
-	 * @since  4.12.12
+	 * @since 4.12.12
 	 */
 	public function register_widgets_with_wp() {
 		$registered_widgets = $this->get_registered_widgets();
@@ -87,7 +87,7 @@ class Manager {
 	/**
 	 * Remove Widget from WordPress widget register by class name.
 	 *
-	 * @since  4.12.12
+	 * @since 4.12.12
 	 *
 	 * @param string $class_name The class name of the widget to unregister.
 	 */

@@ -86,7 +86,7 @@ class Tribe__Utils__Post_Root_Pool {
 	}
 
 	/**
-	 * @param $string
+	 * @param string $string The string to uppercase the first letter of.
 	 *
 	 * @return string
 	 * @deprecated 4.7.18
@@ -98,7 +98,7 @@ class Tribe__Utils__Post_Root_Pool {
 	}
 
 	/**
-	 * @param $string
+	 * @param string $string The string to uppercase.
 	 *
 	 * @return string
 	 * @deprecated 4.7.18
@@ -152,8 +152,8 @@ class Tribe__Utils__Post_Root_Pool {
 	}
 
 	/**
-	 * @param $post_name
-	 * @param $postfix
+	 * @param string $post_name The post name.
+	 * @param string $postfix   The postfix.
 	 *
 	 * @return string
 	 */

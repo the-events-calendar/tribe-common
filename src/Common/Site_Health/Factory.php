@@ -9,7 +9,7 @@ use Tribe__Main;
  *
  * @link https://developer.wordpress.org/reference/hooks/debug_information/
  *
- * @since   5.1.0
+ * @since 5.1.0
  *
  * @package TEC\Common\Site_Health
  */

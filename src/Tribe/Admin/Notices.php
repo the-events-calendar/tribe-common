@@ -339,7 +339,7 @@ class Tribe__Admin__Notices {
 	/**
 	 * Checks if a given notice is rendered
 	 *
-	 * @since  4.7.10
+	 * @since 4.7.10
 	 *
 	 * @param string $slug Which notice to check.
 	 *
@@ -358,7 +358,7 @@ class Tribe__Admin__Notices {
 	/**
 	 * Checks if a given string is a notice rendered
 	 *
-	 * @since  4.7.10
+	 * @since 4.7.10
 	 *
 	 * @param string $slug Which notice to check.
 	 * @param string $html Which html string we are check.
@@ -622,7 +622,7 @@ class Tribe__Admin__Notices {
 	 * A transient admin notice is a "fire-and-forget" admin notice that will display once registered and
 	 * until dismissed (if dismissible) without need, on the side of the source code, to register it on each request.
 	 *
-	 * @since  4.7.7
+	 * @since 4.7.7
 	 *
 	 * @param string $slug      Slug to save the notice
 	 * @param string $html      The notice output HTML code

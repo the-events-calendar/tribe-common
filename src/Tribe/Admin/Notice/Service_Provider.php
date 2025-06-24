@@ -2,7 +2,7 @@
 /**
  * Handles admin notice functions.
  *
- * @since   4.14.2
+ * @since 4.14.2
  *
  * @package Tribe\Admin\Notice;
  */

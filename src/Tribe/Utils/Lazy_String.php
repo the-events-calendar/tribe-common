@@ -2,7 +2,7 @@
 /**
  * A string lazily built, suited to any string value that might be costly to be built.
  *
- * @since   4.9.16
+ * @since 4.9.16
  *
  * @package Tribe\Utils
  */

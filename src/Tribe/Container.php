@@ -208,7 +208,7 @@ if ( ! function_exists( 'tribe_get_var' ) ) {
 	 *      $url = tribe_get_var( 'tec.url' );
 	 *
 	 * @param string $slug    The slug of the variable registered using `tribe_set_var`.
-	 * @param null   $default The value that should be returned if the variable slug
+	 * @param mixed  $default The value that should be returned if the variable slug
 	 *                        is not a registered one.
 	 *
 	 * @return mixed Either the registered value or the default value if the variable
@@ -263,9 +263,9 @@ if ( ! function_exists( 'tribe_isset_var' ) ) {
 	 *
 	 * @since 4.11.0
 	 *
-	 * @param  string   $slug    The slug of the variable checked using `tribe_isset_var`.
+	 * @param string $slug The slug of the variable checked using `tribe_isset_var`.
 	 *
-	 * @return boolean  Either a the given slug exists.
+	 * @return boolean Whether the given slug exists.
 	 */
 	function tribe_isset_var( $slug ) {
 		$container = Tribe__Container::init();
@@ -283,7 +283,7 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 	 * @see ServiceProvider
 	 * @see ServiceProviderInterface
 	 *
-	 * @param string $provider_class
+	 * @param string $provider_class The class name of the service provider to register.
 	 */
 	function tribe_register_provider( $provider_class ) {
 		$container = Tribe__Container::init();
@@ -312,15 +312,16 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 		 * Returns a lambda function suitable to use as a callback; when called the function will build the implementation
 		 * bound to `$classOrInterface` and return the value of a call to `$method` method with the call arguments.
 		 *
-		 * @since  4.7
-		 * @since  4.6.2  Included the $argsN params
+		 * @since 4.7
+		 * @since 4.6.2  Included the $argsN params
 		 *
-		 * @param  string $slug       A class or interface fully qualified name or a string slug.
-		 * @param  string $method     The method that should be called on the resolved implementation with the
-		 *                            specified array arguments.
-		 * @param  mixed  [$argsN]      (optional) Any number of arguments that will be passed down to the Callback
+		 * @param string $slug    A class or interface fully qualified name or a string slug.
+		 * @param string $method  The method that should be called on the resolved implementation with the
+		 *                        specified array arguments.
 		 *
-		 * @return callable A PHP Callable based on the Slug and Methods passed
+		 * @args mixed  $arguments (optional) Any number of additional arguments that will be passed down to the Callback.
+		 *
+		 * @return callable A PHP Callable based on the Slug and Methods passed.
 		 */
 		function tribe_callback( $slug, $method ) {
 			$container = Tribe__Container::init();
@@ -340,17 +341,17 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 
 	if ( ! function_exists( 'tribe_callback_return' ) ) {
 		/**
-		 * Returns a tribe_callback for a very simple Return value method
+		 * Returns a tribe_callback for a very simple Return value method.
 		 *
 		 * Example of Usage:
 		 *
 		 *      add_filter( 'admin_title', tribe_callback_return( __( 'Ready to work.' ) ) );
 		 *
-		 * @since  4.6.2
+		 * @since 4.6.2
 		 *
-		 * @param  mixed    $value  The value to be returned
+		 * @param mixed $value The value to be returned.
 		 *
-		 * @return callable A PHP Callable based on the Slug and Methods passed
+		 * @return callable A PHP Callable based on the Slug and Methods passed.
 		 */
 		function tribe_callback_return( $value ) {
 			return tribe_callback( 'callback', 'return_value', $value );

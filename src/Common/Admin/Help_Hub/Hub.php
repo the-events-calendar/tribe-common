@@ -5,7 +5,7 @@
  * This class handles rendering the Help Hub page, loading necessary assets,
  * and generating iframes and admin notices related to the Help Hub.
  *
- * @since   6.3.2
+ * @since 6.3.2
  * @package TEC\Common\Admin\Help_Hub
  */
 
@@ -235,7 +235,7 @@ class Hub {
 		 *
 		 * @since 6.3.2
 		 *
-		 * @param Hub $this The Hub instance.
+		 * @param Hub $instance The Hub instance.
 		 */
 		do_action( 'tec_help_hub_before_render', $this );
 
@@ -283,7 +283,7 @@ class Hub {
 		 *
 		 * @since 6.3.2
 		 *
-		 * @param Hub $this The Hub instance.
+		 * @param Hub $instance The Hub instance.
 		 */
 		do_action( 'tec_help_hub_after_render', $this );
 	}
@@ -466,7 +466,7 @@ class Hub {
 		 * @since 6.8.0
 		 *
 		 * @param string $default_url The default URL to the telemetry opt-in settings tab.
-		 * @param Hub $this The Hub instance.
+		 * @param Hub $instance The Hub instance.
 		 */
 		return apply_filters( 'tec_help_hub_telemetry_opt_in_link', $default_url );
 	}
@@ -502,7 +502,7 @@ class Hub {
 		 *
 		 * @since 6.3.2
 		 *
-		 * @param Hub $this The Hub instance.
+		 * @param Hub $instance The Hub instance.
 		 */
 		do_action( 'tec_help_hub_before_iframe_render', $this );
 
@@ -524,7 +524,7 @@ class Hub {
 		 *
 		 * @since 6.3.2
 		 *
-		 * @param Hub $this The Hub instance.
+		 * @param Hub $instance The Hub instance.
 		 */
 		do_action( 'tec_help_hub_after_iframe_render', $this );
 

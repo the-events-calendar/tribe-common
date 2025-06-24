@@ -5,7 +5,7 @@
  * Objects using this trait should define array request cache properties and, at the very least, dump the cache on
  * `__destruct`.
  *
- * @since   4.9.11
+ * @since 4.9.11
  *
  * @example
  * ```php
@@ -42,7 +42,7 @@ namespace Tribe\Traits;
 /**
  * Class Cache_User
  *
- * @since   4.9.11
+ * @since 4.9.11
  *
  * @package Tribe
  */

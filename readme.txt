@@ -1,5 +1,16 @@
 == Changelog ==
 
+= [6.8.1] 2025-06-11 =
+
+* Tweak - Add a new Tabbed View class for admin pages as part of the Ticket Presets launch.
+* Tweak - Update the Abstract Admin Page class to handle logos and menu position better.
+* Language - 0 new strings added, 67 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.8.0.1] 2025-06-05 =
+
+* Fix - Correct some hardcoded asset paths. [TEC-5523]
+* Fix - Utilize the newer version of our build process to ensure inline svgs are being handled properly. [TCMN-188]
+
 = [6.8.0] 2025-06-03 =
 
 * Feature - Introduced milliseconds methods and improved Custom Table methods, as part of supporting ET's Square integration. [ET-2383]

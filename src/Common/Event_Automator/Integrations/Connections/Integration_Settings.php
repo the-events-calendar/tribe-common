@@ -159,7 +159,7 @@ abstract class Integration_Settings {
 		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
 		 * @param array<string,array> A map of the API fields that will be printed on the page.
-		 * @param Settings $this A Settings instance.
+		 * @param Settings $settings  The Settings instance.
 		 */
 		$api_fields = apply_filters( "tec_event_automator_{$api_id}_settings_fields", $api_fields, $this );
 
@@ -196,8 +196,8 @@ abstract class Integration_Settings {
 		 *
 		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
-		 * @param string The default array key to place the API integration fields.
-		 * @param Settings $this This Settings instance.
+		 * @param string   $key      The default array key to place the API integration fields.
+		 * @param Settings $settings This Settings instance.
 		 */
 		return apply_filters( "tec_event_automator_{$api_id}_settings_field_placement_key", 'gmaps-js-api-start', $this );
 	}
@@ -237,8 +237,8 @@ abstract class Integration_Settings {
 		 *
 		 * @since 6.0.0 Migrated to Common from Event Automator
 		 *
-		 * @param string The default array key to place the API integration fields.
-		 * @param Settings $this Settings instance.
+		 * @param string   $key      The default array key to place the API integration fields.
+		 * @param Settings $settings The Settings instance.
 		 */
 		return apply_filters( "tec_event_automator_{$api_id}_settings_field_placement_key", 'tickets-woo-dispatch-status', $this );
 	}
