@@ -1,4 +1,4 @@
-const tribe = tribe || {};
+window.tribe = window.tribe || {};
 tribe.helpPage = tribe.helpPage || {};
 window.DocsBotAI = window.DocsBotAI || {};
 
