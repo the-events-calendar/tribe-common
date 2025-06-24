@@ -580,6 +580,9 @@ class Hub {
 						'helpScoutBeaconKey' => $this->config->get( 'TEC_HELP_HUB_CHAT_HELPSCOUT_BEACON_CHAT_KEY' ),
 						// Pass userIdentifiers as an array if you want to prefill the Help Scout form.
 						'userIdentifiers'    => null,
+						'errorMessages'      => [
+							'helpScoutScriptLoadFailed' => __( 'Failed to load Help Scout Beacon script.', 'tribe-common' ),
+						],
 					],
 				],
 			]

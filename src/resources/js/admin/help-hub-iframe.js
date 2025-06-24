@@ -1,6 +1,129 @@
-var tribe = tribe || {};
+const tribe = tribe || {};
 tribe.helpPage = tribe.helpPage || {};
 window.DocsBotAI = window.DocsBotAI || {};
+
+// Beacon Manager namespace
+tribe.helpPage.BeaconManager = {
+	/**
+	 * Initialize the Beacon stub if not already present.
+	 *
+	 * @since TBD
+	 * @return {void}
+	 */
+	initStub() {
+		if ( ! window.Beacon || ! window.Beacon.readyQueue ) {
+			window.Beacon = function ( method, options, data ) {
+				window.Beacon.readyQueue.push( { method, options, data } );
+			};
+			window.Beacon.readyQueue = [];
+		}
+	},
+
+	/**
+	 * Check if Beacon is available.
+	 *
+	 * @since TBD
+	 * @return {boolean}
+	 */
+	isAvailable() {
+		return typeof window.Beacon === 'function';
+	},
+
+	/**
+	 * Call Beacon with the given method and arguments.
+	 *
+	 * @since TBD
+	 * @param {string} method - The Beacon method to call.
+	 * @param {...any} args - Arguments to pass to the method.
+	 * @return {void}
+	 */
+	call( method, ...args ) {
+		if ( this.isAvailable() ) {
+			window.Beacon(
+				method,
+				...args
+			);
+		}
+	},
+
+	/**
+	 * Initialize Beacon with the given key.
+	 *
+	 * @since TBD
+	 * @param {string} key - The Beacon key.
+	 * @return {void}
+	 */
+	init( key ) {
+		this.call(
+			'init',
+			key
+		);
+	},
+
+	/**
+	 * Configure Beacon with the given options.
+	 *
+	 * @since TBD
+	 * @param {Object} config - Configuration options.
+	 * @return {void}
+	 */
+	config( config ) {
+		this.call(
+			'config',
+			config
+		);
+	},
+
+	/**
+	 * Add an event listener to Beacon.
+	 *
+	 * @since TBD
+	 * @param {string} event - The event name.
+	 * @param {Function} callback - The callback function.
+	 * @return {void}
+	 */
+	on( event, callback ) {
+		this.call(
+			'on',
+			event,
+			callback
+		);
+	},
+
+	/**
+	 * Identify a user with Beacon.
+	 *
+	 * @since TBD
+	 * @param {Object} userData - User identification data.
+	 * @return {void}
+	 */
+	identify( userData ) {
+		this.call(
+			'identify',
+			userData
+		);
+	},
+
+	/**
+	 * Open the Beacon widget.
+	 *
+	 * @since TBD
+	 * @return {void}
+	 */
+	open() {
+		this.call( 'open' );
+	},
+
+	/**
+	 * Close the Beacon widget.
+	 *
+	 * @since TBD
+	 * @return {void}
+	 */
+	close() {
+		this.call( 'close' );
+	}
+};
 
 ( ( $, obj ) => {
 	'use strict';
@@ -92,8 +215,8 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @since TBD
 	 * @return {HTMLElement|null}
 	 */
-	obj.getHelpHubPageElement = function() {
-		return document.getElementById(obj.selectors.helpHubPageID);
+	obj.getHelpHubPageElement = function () {
+		return document.getElementById( obj.selectors.helpHubPageID );
 	};
 
 	/**
@@ -102,9 +225,9 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @since TBD
 	 * @return {boolean}
 	 */
-	obj.isOptedIn = function() {
-		var el = obj.getHelpHubPageElement();
-		return el && el.getAttribute('data-opted-in') === '1';
+	obj.isOptedIn = function () {
+		const el = obj.getHelpHubPageElement();
+		return el && el.getAttribute( 'data-opted-in' ) === '1';
 	};
 
 	/**
@@ -114,7 +237,7 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @class
 	 * @link https://developer.helpscout.com/beacon-2/web/javascript-api
 	 */
-	function HelpScoutManager(beaconKey, userIdentifiers) {
+	function HelpScoutManager( beaconKey, userIdentifiers ) {
 		this.beaconKey = beaconKey;
 		this.userIdentifiers = userIdentifiers || null;
 		this.scriptLoaded = false;
@@ -128,20 +251,17 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @since TBD
 	 * @return {Promise<void>}
 	 */
-	HelpScoutManager.prototype.loadScript = function() {
+	HelpScoutManager.prototype.loadScript = function () {
 		const self = this;
-		if (self.scriptLoaded) return Promise.resolve();
-
-		// Replicate the official Help Scout Beacon stub logic (ES6)
-		if (!window.Beacon || !window.Beacon.readyQueue) {
-			window.Beacon = function(method, options, data) {
-				window.Beacon.readyQueue.push({ method, options, data });
-			};
-			window.Beacon.readyQueue = [];
+		if ( self.scriptLoaded === true ) {
+			return Promise.resolve();
 		}
 
-		return new Promise((resolve, reject) => {
-			const script = document.createElement('script');
+		// Initialize the Beacon stub.
+		tribe.helpPage.BeaconManager.initStub();
+
+		return new Promise( ( resolve, reject ) => {
+			const script = document.createElement( 'script' );
 			script.src = 'https://beacon-v2.helpscout.net';
 			script.async = true;
 			script.onload = () => {
@@ -149,11 +269,11 @@ window.DocsBotAI = window.DocsBotAI || {};
 				resolve();
 			};
 			script.onerror = () => {
-				reject(new Error('Failed to load Help Scout Beacon script.'));
+				reject( new Error( helpHubSettings.errorMessages.helpScoutScriptLoadFailed ) );
 			};
-			// Insert into <head> for best compatibility
-			document.head.appendChild(script);
-		});
+			// Insert into <head> for best compatibility.
+			document.head.appendChild( script );
+		} );
 	};
 
 	/**
@@ -162,43 +282,55 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @since TBD
 	 * @return {Promise<void>}
 	 */
-	HelpScoutManager.prototype.initBeacon = function() {
+	HelpScoutManager.prototype.initBeacon = function () {
 		const self = this;
-		if (self.initPromise) return self.initPromise;
-		self.initPromise = new Promise(function(resolve) {
-			window.Beacon = window.Beacon || function() {
-				(window.Beacon.q = window.Beacon.q || []).push(arguments);
-			};
-			Beacon('init', self.beaconKey);
-			// Set z-index, manual style, and enable chat & ticket history
-			Beacon('config', {
-				display: { zIndex: 1000000, style: 'manual' },
-				messaging: {
-					chatEnabled: true,
-					previousMessagesEnabled: true,
-					contactForm: {
-						showName: true,
-					}
-				}
-			});
+		if ( self.initPromise !== null ) {
+			return self.initPromise;
+		}
+		self.initPromise = new Promise( ( resolve ) => {
+			tribe.helpPage.BeaconManager.init( self.beaconKey );
+
+			// Set z-index, manual style, and enable chat & ticket history.
+			tribe.helpPage.BeaconManager.config( {
+													 display: { zIndex: 1000000, style: 'manual' },
+													 messaging: {
+														 chatEnabled: true,
+														 previousMessagesEnabled: true,
+														 contactForm: {
+															 showName: true,
+														 }
+													 }
+												 } );
+
 			// Listen for open/close events to manage blackout UI.
-			Beacon('on', 'open', function() {
-				obj.toggleBlackout(true);
-			});
-			Beacon('on', 'close', function() {
-				obj.toggleBlackout(false);
-			});
-			Beacon('on', 'ready', function() {
-				self.beaconReady = true;
-				if (self.userIdentifiers && self.userIdentifiers.name && self.userIdentifiers.email) {
-					Beacon('identify', {
-						name: self.userIdentifiers.name,
-						email: self.userIdentifiers.email
-					});
+			tribe.helpPage.BeaconManager.on(
+				'open',
+				() => {
+					obj.toggleBlackout( true );
 				}
-				resolve();
-			});
-		});
+			);
+
+			tribe.helpPage.BeaconManager.on(
+				'close',
+				() => {
+					obj.toggleBlackout( false );
+				}
+			);
+
+			tribe.helpPage.BeaconManager.on(
+				'ready',
+				() => {
+					self.beaconReady = true;
+					if ( self.userIdentifiers !== null && self.userIdentifiers.name && self.userIdentifiers.email ) {
+						tribe.helpPage.BeaconManager.identify( {
+																   name: self.userIdentifiers.name,
+																   email: self.userIdentifiers.email
+															   } );
+					}
+					resolve();
+				}
+			);
+		} );
 		return self.initPromise;
 	};
 
@@ -208,10 +340,8 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @since TBD
 	 * @return {void}
 	 */
-	HelpScoutManager.prototype.openBeacon = function() {
-		if (typeof window.Beacon === 'function') {
-			Beacon('open');
-		}
+	HelpScoutManager.prototype.openBeacon = function () {
+		tribe.helpPage.BeaconManager.open();
 	};
 
 	// Store HelpScoutManager instance for later use.
@@ -223,31 +353,47 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @since 6.3.2
 	 * @return {void}
 	 */
-	obj.setup = function() {
+	obj.setup = function () {
 		const bodyElement = obj.getHelpHubPageElement();
-		const optOutMessageElement = document.querySelector(obj.selectors.optOutMessage);
-		const docsbotElement = document.getElementById(obj.selectors.docsbotWidget);
+		const optOutMessageElement = document.querySelector( obj.selectors.optOutMessage );
+		const $docsbotElement = $( '#' + obj.selectors.docsbotWidget );
 		const isOptedIn = obj.isOptedIn();
 
-		if (isOptedIn) {
-			// Initialize Help Scout Beacon
-			const beaconKey = helpHubSettings.helpScoutBeaconKey;
-			const userIdentifiers = helpHubSettings.userIdentifiers || null;
-			obj.helpScoutManager = new HelpScoutManager(beaconKey, userIdentifiers);
-			obj.helpScoutManager.loadScript()
-				.then(function() {
-					return obj.helpScoutManager.initBeacon();
-				});
-			// Initialize DocsBot as before
-			obj.initializeDocsBot();
-			if (docsbotElement) docsbotElement.classList.remove('hide');
-			if (optOutMessageElement) optOutMessageElement.classList.add('hide');
-			if (bodyElement) bodyElement.classList.remove('blackout');
-		} else {
-			// Opt-out: show message, hide widgets, blackout
-			if (optOutMessageElement) optOutMessageElement.classList.remove('hide');
-			if (docsbotElement) docsbotElement.classList.add('hide');
-			if (bodyElement) bodyElement.classList.add('blackout');
+		if ( isOptedIn !== true ) {
+			// Opt-out: show message, hide widgets, blackout.
+			if ( optOutMessageElement !== null ) {
+				optOutMessageElement.classList.remove( 'hide' );
+			}
+			if ( $docsbotElement.length ) {
+				$docsbotElement.addClass( 'hide' );
+			}
+			if ( bodyElement !== null ) {
+				bodyElement.classList.add( 'blackout' );
+			}
+			return;
+		}
+
+		// Initialize Help Scout Beacon.
+		const beaconKey = helpHubSettings.helpScoutBeaconKey;
+		const userIdentifiers = helpHubSettings.userIdentifiers || null;
+		obj.helpScoutManager = new HelpScoutManager(
+			beaconKey,
+			userIdentifiers
+		);
+		obj.helpScoutManager.loadScript()
+			.then( () => {
+				return obj.helpScoutManager.initBeacon();
+			} );
+		// Initialize DocsBot as before.
+		obj.initializeDocsBot();
+		if ( $docsbotElement.length ) {
+			$docsbotElement.removeClass( 'hide' );
+		}
+		if ( optOutMessageElement !== null ) {
+			optOutMessageElement.classList.add( 'hide' );
+		}
+		if ( bodyElement !== null ) {
+			bodyElement.classList.remove( 'blackout' );
 		}
 	};
 
@@ -257,11 +403,9 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @since TBD
 	 * @return {void}
 	 */
-	obj.openBeacon = function() {
-		if (obj.helpScoutManager) {
-			if (typeof window.Beacon === 'function') {
-				Beacon('close');
-			}
+	obj.openBeacon = function () {
+		if ( obj.helpScoutManager !== null ) {
+			tribe.helpPage.BeaconManager.close();
 			obj.helpScoutManager.openBeacon();
 		}
 	};
@@ -276,17 +420,20 @@ window.DocsBotAI = window.DocsBotAI || {};
 	obj.observeElement = ( selector ) => {
 		return new Promise( ( resolve ) => {
 			const element = document.querySelector( selector );
-			if ( element ) {
+			if ( element !== null ) {
 				return resolve( element );
 			}
 			const observer = new MutationObserver( ( mutations ) => {
 				const foundElement = document.querySelector( selector );
-				if ( foundElement ) {
+				if ( foundElement !== null ) {
 					resolve( foundElement );
 					observer.disconnect();
 				}
 			} );
-			observer.observe( document.body, { childList: true, subtree: true } );
+			observer.observe(
+				document.body,
+				{ childList: true, subtree: true }
+			);
 		} );
 	};
 
@@ -298,45 +445,58 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @since 6.3.2
 	 * @return {void}
 	 */
-	obj.initializeDocsBot = function() {
-		if (window.DocsBotAIInitialized) return;
+	obj.initializeDocsBot = function () {
+		if ( window.DocsBotAIInitialized === true ) {
+			return;
+		}
 		window.DocsBotAIInitialized = true;
-		const docsbotWidget = document.getElementById(obj.selectors.docsbotWidget);
-		if (docsbotWidget) docsbotWidget.classList.remove('hide');
-		if (typeof DocsBotAI.init !== 'function') {
-			DocsBotAI.init = function(e) {
-				return new Promise(function(resolve, reject) {
-					const script = document.createElement('script');
+		const $docsbotWidget = $( '#' + obj.selectors.docsbotWidget );
+		if ( $docsbotWidget.length ) {
+			$docsbotWidget.removeClass( 'hide' );
+		}
+		if ( typeof DocsBotAI.init !== 'function' ) {
+			DocsBotAI.init = function ( e ) {
+				return new Promise( ( resolve, reject ) => {
+					const script = document.createElement( 'script' );
 					script.type = 'text/javascript';
 					script.async = true;
 					script.src = 'https://widget.docsbot.ai/chat.js';
-					const firstScript = document.getElementsByTagName('script')[0];
-					firstScript.parentNode.insertBefore(script, firstScript);
-					script.addEventListener('load', function() {
-						Promise.all([
-							window.DocsBotAI.mount({ ...e }),
-							obj.observeElement('#docsbotai-root')
-						])
-							.then(resolve)
-							.catch(reject);
-					});
-					script.addEventListener('error', function(error) {
-						reject(error.message);
-					});
-				});
+					const firstScript = document.getElementsByTagName( 'script' )[ 0 ];
+					firstScript.parentNode.insertBefore(
+						script,
+						firstScript
+					);
+					script.addEventListener(
+						'load',
+						() => {
+							Promise.all( [
+											 window.DocsBotAI.mount( { ...e } ),
+											 obj.observeElement( '#docsbotai-root' )
+										 ] )
+								.then( resolve )
+								.catch( reject );
+						}
+					);
+					script.addEventListener(
+						'error',
+						( error ) => {
+							reject( error.message );
+						}
+					);
+				} );
 			};
 		}
-		DocsBotAI.init({
-			id: helpHubSettings.docsbot_key,
-			options: {
-				customCSS: obj.DocsBotAIcss,
-			},
-			supportCallback: function(event) {
-				event.preventDefault();
-				obj.toggleBlackout(true);
-				obj.openBeacon();
-			},
-		});
+		DocsBotAI.init( {
+							id: helpHubSettings.docsbot_key,
+							options: {
+								customCSS: obj.DocsBotAIcss,
+							},
+							supportCallback: ( event ) => {
+								event.preventDefault();
+								obj.toggleBlackout( true );
+								obj.openBeacon();
+							},
+						} );
 	};
 
 	/**
@@ -346,24 +506,37 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @param {boolean} enable
 	 * @return {void}
 	 */
-	obj.toggleBlackout = function(enable) {
+	obj.toggleBlackout = function ( enable ) {
 		const el = obj.getHelpHubPageElement();
-		if (el) el.classList.toggle('blackout', enable);
+		if ( el !== null ) {
+			el.classList.toggle(
+				'blackout',
+				enable
+			);
+		}
 	};
 
 	// Initialize the help page.
 	$( obj.setup );
 
-	// For legacy compatibility: open Beacon when asked to open Livechat (from old help-page.js postMessage)
-	window.addEventListener('message', (event) => {
-		// Only accept messages from the same origin
-		if (event.origin !== window.location.origin) return;
-		const { action, data } = event.data || {};
-		// For legacy compatibility: open Beacon when asked to open Livechat
-		if (action === 'runScript' && data === 'openLivechat') {
-			if (typeof obj.openBeacon === 'function') {
-				obj.openBeacon();
+	// For legacy compatibility: open Beacon when asked to open Livechat (from old help-page.js postMessage).
+	window.addEventListener(
+		'message',
+		( event ) => {
+			// Only accept messages from the same origin.
+			if ( event.origin !== window.location.origin ) {
+				return;
+			}
+			const { action, data } = event.data || {};
+			// For legacy compatibility: open Beacon when asked to open Livechat.
+			if ( action === 'runScript' && data === 'openLivechat' ) {
+				if ( typeof obj.openBeacon === 'function' ) {
+					obj.openBeacon();
+				}
 			}
 		}
-	});
-} )( jQuery, tribe.helpPage );
+	);
+} )(
+	jQuery,
+	tribe.helpPage
+);
