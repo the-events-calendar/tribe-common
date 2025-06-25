@@ -167,6 +167,8 @@ class Controller_Test extends Controller_Test_Case {
 		$this->assertTrue( str_starts_with( $timezone_choice, '<option' ) );
 		unset( $data['settings']['timezoneChoice'] );
 
+		codecept_debug( var_export( $data, true ) );
+
 		$this->assertEquals(
 			[
 				'settings'       =>
@@ -186,6 +188,13 @@ class Controller_Test extends Controller_Test_Case {
 						'timeInterval'          => 15,
 						'timeRangeSeparator'    => ' - ',
 						'timezoneString'        => '',
+						'defaultCurrency'       =>
+							[
+								'code'     => 'USD',
+								'symbol'   => '$',
+								'position' => 'prefix',
+							],
+						'venuesLimit'           => 1,
 					],
 				'endOfDayCutoff' =>
 					[
@@ -193,9 +202,163 @@ class Controller_Test extends Controller_Test_Case {
 						'minutes' => 0,
 					],
 				'my_key'         => 'my_value',
-			]
-			,
+			],
 			$data
+		);
+	}
+
+	public static function disable_block_editor_welcome_screen_data_provider(): array {
+		return [
+//			'wrong meta key'                           => [
+//				function ( int $user, string $meta_key ) {
+//					// Start from a user that does not have previous persisted preferences meta.
+//					delete_user_meta( $user, $meta_key );
+//					// Create a post type that is supported.
+//					$post_id = static::factory()->post->create( [ 'post_type' => 'page' ] );
+//
+//					return [
+//						'post_id'    => $post_id,
+//						'meta_value' => [ 'foo' => 'bar' ],
+//						'meta_key'   => 'not-this-one',
+//						'single'     => true,
+//						'expected'   => [ 'foo' => 'bar' ],
+//					];
+//				}
+//			],
+//			'not single'                               => [
+//				function ( int $user, string $meta_key ) {
+//					// Start from a user that does not have previous persisted preferences meta.
+//					delete_user_meta( $user, $meta_key );
+//					// Create a post type that is supported.
+//					$post_id = static::factory()->post->create( [ 'post_type' => 'page' ] );
+//
+//					return [
+//						'post_id'    => $post_id,
+//						'meta_value' => [ 'foo' => 'bar' ],
+//						'meta_key'   => $meta_key,
+//						'single'     => false,
+//						'expected'   => [ 'foo' => 'bar' ],
+//					];
+//				}
+//			],
+//			'not a supported post type'                => [
+//				function ( int $user, string $meta_key ) {
+//					// Start from a user that does not have previous persisted preferences meta.
+//					delete_user_meta( $user, $meta_key );
+//					// Create a post type that is supported.
+//					$post_id = static::factory()->post->create( [ 'post_type' => 'post' ] );
+//
+//					return [
+//						'post_id'    => $post_id,
+//						'meta_value' => [ 'foo' => 'bar' ],
+//						'meta_key'   => $meta_key,
+//						'single'     => true,
+//						'expected'   => [ 'foo' => 'bar' ],
+//					];
+//				}
+//			],
+//			'meta value not null and not an array'     => [
+//				function ( int $user, string $meta_key ) {
+//					// Start from a user that does not have previous persisted preferences meta.
+//					delete_user_meta( $user, $meta_key );
+//					// Create a post type that is supported.
+//					$post_id = static::factory()->post->create( [ 'post_type' => 'page' ] );
+//
+//					return [
+//						'post_id'    => $post_id,
+//						'meta_value' => '__test__',
+//						'meta_key'   => $meta_key,
+//						'single'     => true,
+//						'expected'   => '__test__'
+//					];
+//				}
+//			],
+//			'core/edit-post key not set in meta value' => [
+//				function ( int $user, string $meta_key ) {
+//					// Start from a user that does not have previous persisted preferences meta.
+//					delete_user_meta( $user, $meta_key );
+//					// Create a post type that is supported.
+//					$post_id = static::factory()->post->create( [ 'post_type' => 'page' ] );
+//
+//					return [
+//						'post_id'    => $post_id,
+//						'meta_value' => [ 'foo' => 'bar' ],
+//						'meta_key'   => $meta_key,
+//						'single'     => true,
+//						'expected'   => [
+//							0 => [
+//								'foo'            => 'bar',
+//								'core/edit-post' => [
+//									'welcomeGuide' => false,
+//								],
+//							]
+//						],
+//					];
+//				}
+//			],
+			'core/edit-post set in meta value' => [
+				function ( int $user, string $meta_key ) {
+					// Start from a user that does not have previous persisted preferences meta.
+					delete_user_meta( $user, $meta_key );
+					// Create a post type that is supported.
+					$post_id = static::factory()->post->create( [ 'post_type' => 'page' ] );
+
+					return [
+						'post_id'    => $post_id,
+						'meta_value' => [
+							'foo' => 'bar' ,
+							'core/edit-post' => [
+								'some_key' => 'some_value',
+							],
+						],
+						'meta_key'   => $meta_key,
+						'single'     => true,
+						'expected'   => [
+							0 => [
+								'foo'            => 'bar',
+								'core/edit-post' => [
+									'some_key' => 'some_value',
+									'welcomeGuide' => false,
+								],
+							]
+						],
+					];
+				}
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider disable_block_editor_welcome_screen_data_provider
+	 */
+	public function test_disable_block_editor_welcome_screen( \Closure $fixture ): void {
+		$user = static::factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user );
+		global $wpdb;
+		$meta_key = "{$wpdb->prefix}persisted_preferences";
+		[
+			$post_id,
+			$meta_value,
+			$meta_key,
+			$single,
+			$expected
+		] = array_values( $fixture( $user, $meta_key ) );
+		// Filter the supported post types to support pages, but not posts.
+		add_filter( 'tec_classy_post_types', static fn() => [ 'page' ] );
+		// Set up the request as if we're editing a specific post, if any.
+		if ( $post_id ) {
+			$_GET['post_type'] = get_post_type( $post_id );
+			$_GET['post']      = $post_id;
+		}
+		// The context will cache resolved locations, refresh it.
+		tribe_context()->refresh('post_type');
+
+		$controller = $this->make_controller();
+		$controller->register();
+
+		$this->assertEquals(
+			$expected,
+			apply_filters( 'get_user_metadata', $meta_value, $user, $meta_key, $single )
 		);
 	}
 }

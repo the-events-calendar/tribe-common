@@ -17,6 +17,7 @@ use Tribe__Date_Utils as Date_Utils;
 use Tribe__Main as Common;
 use WP_Block_Editor_Context;
 use WP_Post;
+use wpdb;
 
 /**
  * Class Controller.
@@ -143,6 +144,8 @@ class Controller extends Controller_Contract {
 		} else {
 			add_action( 'tec_common_assets_loaded', [ $this, 'register_assets' ] );
 		}
+
+		add_filter( 'get_user_metadata', [ $this,'disable_block_editor_welcome_screen' ], 10, 4 );
 	}
 
 	/**
@@ -174,6 +177,7 @@ class Controller extends Controller_Contract {
 		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
 		remove_action( 'tec_common_assets_loaded', [ $this, 'register_assets' ] );
+		remove_filter( 'get_user_metadata', [ $this,'disable_block_editor_welcome_screen' ] );
 	}
 
 	/**
@@ -353,5 +357,53 @@ class Controller extends Controller_Contract {
 		}
 
 		return $filtered_data;
+	}
+
+	/**
+	 * Filters the Block Editor persisted user preferences to disable the Block Editor welcome guide in the context
+	 * of the Classy Editor.
+	 *
+	 * The user preference is changed ephemerally, and only in the context of a Classy request. The Block Editor
+	 * JS code will persist the preference in the browser local storage, though: if the first post users visit
+	 * is one edited using Classy, then the user will not see the Welcome Guide in other posts; to remedy this users
+	 * can just trigger the Welcome Guide again from the Block Editor menu.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed       $meta_value The original user meta value.
+	 * @param int         $object_id  The user ID, unused.
+	 * @param string|null $meta_key   The user meta key being fetched.
+	 * @param bool        $single     Whether to return a single instance of the meta value or not.
+	 *
+	 * @return mixed Either the original meta value, or the meta value modified to not show the Block Editor welcome
+	 *               guide.
+	 */
+	public function disable_block_editor_welcome_screen( $meta_value, $object_id, $meta_key, $single ) {
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		if ( ! ( $meta_key === "{$wpdb->prefix}persisted_preferences" && $single ) ) {
+			return $meta_value;
+		}
+
+		$post_type = tribe_context()->get( 'post_type' ) ?: 'post';
+
+		if ( ! in_array( $post_type, $this->get_supported_post_types(), true ) ) {
+			return $meta_value;
+		}
+
+		if ( null !== $meta_value && ! is_array( $meta_value ) ) {
+			// The format does not match the expected one, let's bail.
+			return $meta_value;
+		}
+
+		if ( is_array( $meta_value ) && ! isset( $meta_value['core/edit-post'] ) ) {
+			$meta_value['core/edit-post'] = [ 'welcomeGuide' => false ];
+		} else {
+			$meta_value['core/edit-post']['welcomeGuide'] = false;
+		}
+
+		// The filter expects an array of values.
+		return [ 0 => $meta_value ];
 	}
 }
