@@ -14,6 +14,7 @@ use TEC\Common\Classy\Back_Compatibility\Editor_Utils;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\StellarWP\Assets\Asset;
 use Tribe__Date_Utils as Date_Utils;
+use Tribe__Timezones as Timezones;
 use Tribe__Main as Common;
 use WP_Block_Editor_Context;
 use WP_Post;
@@ -298,7 +299,7 @@ class Controller extends Controller_Contract {
 	 * } The data that is localized on the page for the Classy app.
 	 */
 	public function get_data(): array {
-		$timezone_string  = get_option( 'timezone_string' );
+		$timezone_string  = Timezones::wp_timezone_string();
 		$start_of_week    = get_option( 'start_of_week' );
 		$multi_day_cutoff = tribe_get_option( 'multiDayCutoff', '00:00' );
 		[ $multi_day_cutoff_hours, $multi_day_cutoff_minutes ] = array_replace(
