@@ -382,7 +382,11 @@ class Controller extends Controller_Contract {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
-		if ( ! ( $meta_key === "{$wpdb->prefix}persisted_preferences" && $single ) ) {
+		if ( "{$wpdb->get_blog_prefix()}persisted_preferences" !== $meta_key ) {
+			return $meta_value;
+		}
+
+		if ( ! $single ) {
 			return $meta_value;
 		}
 
