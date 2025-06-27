@@ -11,8 +11,8 @@
  *
  * @since 4.12.14
  * @since 4.14.7 Prevent duplicate IDs.
- * @since TBD    Add aria-hidden="true" to the svg element.
- * @since TBD    Escape the clip path IDs.
+ * @since TBD Add aria-hidden="true" to the svg element.
+ * @since TBD Escape the clip path IDs.
  *
  * @version TBD
  *
