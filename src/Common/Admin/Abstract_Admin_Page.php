@@ -461,7 +461,7 @@ abstract class Abstract_Admin_Page {
 	 */
 	public function admin_page_header(): void {
 		?>
-			<header id="tec-admin-page-header" <?php tribe_classes( $this->header_classes() ); ?>>
+			<header id="tec-admin-page-header" <?php tec_classes( $this->header_classes() ); ?>>
 				<?php
 				if ( static::$has_header && static::$has_logo ) {
 					// "Simple" pages don't show the logo.
@@ -470,13 +470,13 @@ abstract class Abstract_Admin_Page {
 				do_action( 'tec_admin_header_before_title' );
 				$this->admin_page_title();
 				do_action( 'tec_admin_header_after_title' );
-				
+
 				if ( tribe( IAN_Controller::class )->is_ian_page() ) :
 					?>
 					<div class="ian-client" data-tec-ian-trigger="iconIan"></div>
 				<?php endif; ?>
 			</header>
-		
+
 		<?php
 	}
 

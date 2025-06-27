@@ -25,7 +25,7 @@ $fieldset_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-fo
 
 ?>
 <fieldset
-	<?php tribe_classes( $fieldset_classes ); ?>
+	<?php tec_classes( $fieldset_classes ); ?>
 	<?php
 	// Not escaped - contains html (data-attr="value").
 	echo $dependency; // phpcs:ignore
