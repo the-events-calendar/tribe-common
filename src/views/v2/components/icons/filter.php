@@ -11,7 +11,7 @@
  *
  * @since 4.12.14
  * @since TBD Add aria-hidden="true" to the svg element as this is a decorative element.
- * @since TBD   Remove redundant attributes.
+ * @since TBD Remove redundant attributes.
  *
  * @version TBD
  *

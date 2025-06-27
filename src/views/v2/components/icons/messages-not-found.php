@@ -11,7 +11,7 @@
  *
  * @since 4.12.14
  * @since 6.6.0 Added accessibility attributes to make icon decorative.
- * @since TBD   Remove redundant attributes.
+ * @since TBD Remove redundant attributes.
  *
  * @version TBD
  *
