@@ -5189,12 +5189,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/coding-standards.git",
-                "reference": "bdf05c1ebfef736c75f94bad78df690550f1a241"
+                "reference": "bb7ea48c2c824553a2c173410307e8cdb9171789"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/coding-standards/zipball/bdf05c1ebfef736c75f94bad78df690550f1a241",
-                "reference": "bdf05c1ebfef736c75f94bad78df690550f1a241",
+                "url": "https://api.github.com/repos/stellarwp/coding-standards/zipball/bb7ea48c2c824553a2c173410307e8cdb9171789",
+                "reference": "bb7ea48c2c824553a2c173410307e8cdb9171789",
                 "shasum": ""
             },
             "require": {
@@ -5225,6 +5225,10 @@
                 {
                     "name": "Matthew Batchelder",
                     "email": "borkweb@gmail.com"
+                },
+                {
+                    "name": "Gustavo Bordoni",
+                    "email": "bordoni.dev@gmail.com"
                 }
             ],
             "description": "Code sniffing rules for StellarWP",
@@ -5236,7 +5240,7 @@
             "support": {
                 "source": "https://github.com/stellarwp/coding-standards/tree/main"
             },
-            "time": "2024-10-11T17:05:07+00:00"
+            "time": "2025-05-16T22:33:56+00:00"
         },
         {
             "name": "symfony/browser-kit",
