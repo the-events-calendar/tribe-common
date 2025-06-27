@@ -2,9 +2,11 @@
 
 namespace TEC\Tests\Common\Classy;
 
+use Closure;
 use TEC\Common\Classy\Controller;
 use TEC\Common\Tests\Provider\Controller_Test_Case;
 use Tribe\Tests\Traits\With_Uopz;
+use WP_Block_Editor_Context;
 
 class Controller_Test extends Controller_Test_Case {
 	use With_Uopz;
@@ -127,7 +129,7 @@ class Controller_Test extends Controller_Test_Case {
 	 * @covers Controller::filter_block_editor_settings
 	 */
 	public function test_filter_block_editor_settings(): void {
-		$context       = new \WP_Block_Editor_Context();
+		$context       = new WP_Block_Editor_Context();
 		$context->post = static::factory()->post->create_and_get();
 
 		$controller = $this->make_controller();
@@ -145,10 +147,258 @@ class Controller_Test extends Controller_Test_Case {
 		);
 	}
 
+	public static function get_data_data_provider(): array {
+		return [
+			'default values'    => [
+				function () {
+					update_option( 'timezone_string', '' );
+					update_option( 'gmt_offset', '' );
+
+					return [
+						'settings'       =>
+							[
+								'compactDateFormat'     => 'n/j/Y',
+								'dataTimeSeparator'     => ' @ ',
+								'dateWithYearFormat'    => 'F j, Y',
+								'dateWithoutYearFormat' => 'F j',
+								'endOfDayCutoff'        =>
+									[
+										'hours'   => 0,
+										'minutes' => 0,
+									],
+								'monthAndYearFormat'    => 'F Y',
+								'startOfWeek'           => '1',
+
+								'timeFormat'         => 'g:i a',
+								'timeInterval'       => 15,
+								'timeRangeSeparator' => ' - ',
+								'timezoneString'     => 'UTC+0',
+								'defaultCurrency'    =>
+									[
+										'code'     => 'USD',
+										'symbol'   => '$',
+										'position' => 'prefix',
+									],
+								'venuesLimit'        => 1,
+							],
+						'endOfDayCutoff' =>
+							[
+								'hours'   => 0,
+								'minutes' => 0,
+							],
+						'my_key'         => 'my_value',
+					];
+				}
+			],
+			'String time zone'  => [
+				function () {
+					update_option( 'timezone_string', 'Europe/Paris' );
+					update_option( 'gmt_offset', '' );
+
+					return [
+						'settings'       =>
+							[
+								'compactDateFormat'     => 'n/j/Y',
+								'dataTimeSeparator'     => ' @ ',
+								'dateWithYearFormat'    => 'F j, Y',
+								'dateWithoutYearFormat' => 'F j',
+								'endOfDayCutoff'        =>
+									[
+										'hours'   => 0,
+										'minutes' => 0,
+									],
+								'monthAndYearFormat'    => 'F Y',
+								'startOfWeek'           => '1',
+								'timeFormat'            => 'g:i a',
+								'timeInterval'          => 15,
+								'timeRangeSeparator'    => ' - ',
+								'timezoneString'        => 'Europe/Paris',
+								'defaultCurrency'       =>
+									[
+										'code'     => 'USD',
+										'symbol'   => '$',
+										'position' => 'prefix',
+									],
+								'venuesLimit'           => 1,
+							],
+						'endOfDayCutoff' =>
+							[
+								'hours'   => 0,
+								'minutes' => 0,
+							],
+						'my_key'         => 'my_value',
+					];
+				}
+			],
+			'UTC time zone'     => [
+				function () {
+					update_option( 'timezone_string', 'UTC' );
+					update_option( 'gmt_offset', '' );
+
+					return [
+						'settings'       =>
+							[
+								'compactDateFormat'     => 'n/j/Y',
+								'dataTimeSeparator'     => ' @ ',
+								'dateWithYearFormat'    => 'F j, Y',
+								'dateWithoutYearFormat' => 'F j',
+								'endOfDayCutoff'        =>
+									[
+										'hours'   => 0,
+										'minutes' => 0,
+									],
+								'monthAndYearFormat'    => 'F Y',
+								'startOfWeek'           => '1',
+								'timeFormat'            => 'g:i a',
+								'timeInterval'          => 15,
+								'timeRangeSeparator'    => ' - ',
+								'timezoneString'        => 'UTC',
+								'defaultCurrency'       =>
+									[
+										'code'     => 'USD',
+										'symbol'   => '$',
+										'position' => 'prefix',
+									],
+								'venuesLimit'           => 1,
+							],
+						'endOfDayCutoff' =>
+							[
+								'hours'   => 0,
+								'minutes' => 0,
+							],
+						'my_key'         => 'my_value',
+					];
+				}
+			],
+			'UTC+8 time zone'   => [
+				function () {
+					update_option( 'timezone_string', '' );
+					update_option( 'gmt_offset', '8' );
+
+					return [
+						'settings'       =>
+							[
+								'compactDateFormat'     => 'n/j/Y',
+								'dataTimeSeparator'     => ' @ ',
+								'dateWithYearFormat'    => 'F j, Y',
+								'dateWithoutYearFormat' => 'F j',
+								'endOfDayCutoff'        =>
+									[
+										'hours'   => 0,
+										'minutes' => 0,
+									],
+								'monthAndYearFormat'    => 'F Y',
+								'startOfWeek'           => '1',
+								'timeFormat'            => 'g:i a',
+								'timeInterval'          => 15,
+								'timeRangeSeparator'    => ' - ',
+								'timezoneString'        => 'UTC+8',
+								'defaultCurrency'       =>
+									[
+										'code'     => 'USD',
+										'symbol'   => '$',
+										'position' => 'prefix',
+									],
+								'venuesLimit'           => 1,
+							],
+						'endOfDayCutoff' =>
+							[
+								'hours'   => 0,
+								'minutes' => 0,
+							],
+						'my_key'         => 'my_value',
+					];
+				}
+			],
+			'UTC+0 time zone'   => [
+				function () {
+					update_option( 'timezone_string', '' );
+					update_option( 'gmt_offset', '0' );
+
+					return [
+						'settings'       =>
+							[
+								'compactDateFormat'     => 'n/j/Y',
+								'dataTimeSeparator'     => ' @ ',
+								'dateWithYearFormat'    => 'F j, Y',
+								'dateWithoutYearFormat' => 'F j',
+								'endOfDayCutoff'        =>
+									[
+										'hours'   => 0,
+										'minutes' => 0,
+									],
+								'monthAndYearFormat'    => 'F Y',
+								'startOfWeek'           => '1',
+								'timeFormat'            => 'g:i a',
+								'timeInterval'          => 15,
+								'timeRangeSeparator'    => ' - ',
+								'timezoneString'        => 'UTC+0',
+								'defaultCurrency'       =>
+									[
+										'code'     => 'USD',
+										'symbol'   => '$',
+										'position' => 'prefix',
+									],
+								'venuesLimit'           => 1,
+							],
+						'endOfDayCutoff' =>
+							[
+								'hours'   => 0,
+								'minutes' => 0,
+							],
+						'my_key'         => 'my_value',
+					];
+				}
+			],
+			'UTC+2.5 time zone' => [
+				function () {
+					update_option( 'timezone_string', '' );
+					update_option( 'gmt_offset', '2.5' );
+
+					return [
+
+						'settings'       =>
+							[
+								'compactDateFormat'     => 'n/j/Y',
+								'dataTimeSeparator'     => ' @ ',
+								'dateWithYearFormat'    => 'F j, Y',
+								'dateWithoutYearFormat' => 'F j',
+								'endOfDayCutoff'        =>
+									[
+										'hours'   => 0,
+										'minutes' => 0,
+									],
+								'monthAndYearFormat'    => 'F Y',
+								'startOfWeek'           => '1',
+								'timeFormat'            => 'g:i a',
+								'timeInterval'          => 15,
+								'timeRangeSeparator'    => ' - ',
+								'timezoneString'        => 'UTC+2.5',
+								'defaultCurrency'       =>
+									[
+										'code'     => 'USD',
+										'symbol'   => '$',
+										'position' => 'prefix',
+									],
+								'venuesLimit'           => 1,
+							],
+						'endOfDayCutoff' =>
+							[
+								'hours'   => 0,
+								'minutes' => 0,
+							],
+						'my_key'         => 'my_value',
+					];
+				}
+			],
+		];
+	}
+
 	/**
-	 * @covers Controller::get_data
+	 * @dataProvider get_data_data_provider
+	 * @covers       Controller::get_data
 	 */
-	public function test_get_data(): void {
+	public function test_get_data( Closure $fixture ): void {
 		$controller = $this->make_controller();
 
 		add_filter( 'tec_classy_localized_data', function ( array $data ): array {
@@ -157,146 +407,112 @@ class Controller_Test extends Controller_Test_Case {
 			return $data;
 		} );
 
+		$expected = $fixture();
+
 		$data = $controller->get_data();
+		codecept_debug( substr( $data['settings']['timezoneChoice'], 0, 100 ) );
 
 		// Pluck the settings.timezoneChoice key, it's really long.
 		$this->assertArrayHasKey( 'settings', $data );
 		$this->assertArrayHasKey( 'timezoneChoice', $data['settings'] );
 		$timezone_choice = $data['settings']['timezoneChoice'];
 		// The timezone choice options are controlled by WordPress, we do no particularly care about their shape.
-		$this->assertTrue( str_starts_with( $timezone_choice, '<option' ) );
+		$this->assertTrue( str_starts_with( $timezone_choice, '<optgroup' ) );
 		unset( $data['settings']['timezoneChoice'] );
 
-		codecept_debug( var_export( $data, true ) );
-
-		$this->assertEquals(
-			[
-				'settings'       =>
-					[
-						'compactDateFormat'     => 'n/j/Y',
-						'dataTimeSeparator'     => ' @ ',
-						'dateWithYearFormat'    => 'F j, Y',
-						'dateWithoutYearFormat' => 'F j',
-						'endOfDayCutoff'        =>
-							[
-								'hours'   => 0,
-								'minutes' => 0,
-							],
-						'monthAndYearFormat'    => 'F Y',
-						'startOfWeek'           => '1',
-						'timeFormat'            => 'g:i a',
-						'timeInterval'          => 15,
-						'timeRangeSeparator'    => ' - ',
-						'timezoneString'        => '',
-						'defaultCurrency'       =>
-							[
-								'code'     => 'USD',
-								'symbol'   => '$',
-								'position' => 'prefix',
-							],
-						'venuesLimit'           => 1,
-					],
-				'endOfDayCutoff' =>
-					[
-						'hours'   => 0,
-						'minutes' => 0,
-					],
-				'my_key'         => 'my_value',
-			],
-			$data
-		);
+		$this->assertEquals( $expected, $data );
 	}
 
 	public static function disable_block_editor_welcome_screen_data_provider(): array {
 		return [
-//			'wrong meta key'                           => [
-//				function ( int $user, string $meta_key ) {
-//					// Start from a user that does not have previous persisted preferences meta.
-//					delete_user_meta( $user, $meta_key );
-//					// Create a post type that is supported.
-//					$post_id = static::factory()->post->create( [ 'post_type' => 'page' ] );
-//
-//					return [
-//						'post_id'    => $post_id,
-//						'meta_value' => [ 'foo' => 'bar' ],
-//						'meta_key'   => 'not-this-one',
-//						'single'     => true,
-//						'expected'   => [ 'foo' => 'bar' ],
-//					];
-//				}
-//			],
-//			'not single'                               => [
-//				function ( int $user, string $meta_key ) {
-//					// Start from a user that does not have previous persisted preferences meta.
-//					delete_user_meta( $user, $meta_key );
-//					// Create a post type that is supported.
-//					$post_id = static::factory()->post->create( [ 'post_type' => 'page' ] );
-//
-//					return [
-//						'post_id'    => $post_id,
-//						'meta_value' => [ 'foo' => 'bar' ],
-//						'meta_key'   => $meta_key,
-//						'single'     => false,
-//						'expected'   => [ 'foo' => 'bar' ],
-//					];
-//				}
-//			],
-//			'not a supported post type'                => [
-//				function ( int $user, string $meta_key ) {
-//					// Start from a user that does not have previous persisted preferences meta.
-//					delete_user_meta( $user, $meta_key );
-//					// Create a post type that is supported.
-//					$post_id = static::factory()->post->create( [ 'post_type' => 'post' ] );
-//
-//					return [
-//						'post_id'    => $post_id,
-//						'meta_value' => [ 'foo' => 'bar' ],
-//						'meta_key'   => $meta_key,
-//						'single'     => true,
-//						'expected'   => [ 'foo' => 'bar' ],
-//					];
-//				}
-//			],
-//			'meta value not null and not an array'     => [
-//				function ( int $user, string $meta_key ) {
-//					// Start from a user that does not have previous persisted preferences meta.
-//					delete_user_meta( $user, $meta_key );
-//					// Create a post type that is supported.
-//					$post_id = static::factory()->post->create( [ 'post_type' => 'page' ] );
-//
-//					return [
-//						'post_id'    => $post_id,
-//						'meta_value' => '__test__',
-//						'meta_key'   => $meta_key,
-//						'single'     => true,
-//						'expected'   => '__test__'
-//					];
-//				}
-//			],
-//			'core/edit-post key not set in meta value' => [
-//				function ( int $user, string $meta_key ) {
-//					// Start from a user that does not have previous persisted preferences meta.
-//					delete_user_meta( $user, $meta_key );
-//					// Create a post type that is supported.
-//					$post_id = static::factory()->post->create( [ 'post_type' => 'page' ] );
-//
-//					return [
-//						'post_id'    => $post_id,
-//						'meta_value' => [ 'foo' => 'bar' ],
-//						'meta_key'   => $meta_key,
-//						'single'     => true,
-//						'expected'   => [
-//							0 => [
-//								'foo'            => 'bar',
-//								'core/edit-post' => [
-//									'welcomeGuide' => false,
-//								],
-//							]
-//						],
-//					];
-//				}
-//			],
-			'core/edit-post set in meta value' => [
+			'wrong meta key'                           => [
+				function ( int $user, string $meta_key ) {
+					// Start from a user that does not have previous persisted preferences meta.
+					delete_user_meta( $user, $meta_key );
+					// Create a post type that is supported.
+					$post_id = static::factory()->post->create( [ 'post_type' => 'page' ] );
+
+					return [
+						'post_id'    => $post_id,
+						'meta_value' => [ 'foo' => 'bar' ],
+						'meta_key'   => 'not-this-one',
+						'single'     => true,
+						'expected'   => [ 'foo' => 'bar' ],
+					];
+				}
+			],
+			'not single'                               => [
+				function ( int $user, string $meta_key ) {
+					// Start from a user that does not have previous persisted preferences meta.
+					delete_user_meta( $user, $meta_key );
+					// Create a post type that is supported.
+					$post_id = static::factory()->post->create( [ 'post_type' => 'page' ] );
+
+					return [
+						'post_id'    => $post_id,
+						'meta_value' => [ 'foo' => 'bar' ],
+						'meta_key'   => $meta_key,
+						'single'     => false,
+						'expected'   => [ 'foo' => 'bar' ],
+					];
+				}
+			],
+			'not a supported post type'                => [
+				function ( int $user, string $meta_key ) {
+					// Start from a user that does not have previous persisted preferences meta.
+					delete_user_meta( $user, $meta_key );
+					// Create a post type that is supported.
+					$post_id = static::factory()->post->create( [ 'post_type' => 'post' ] );
+
+					return [
+						'post_id'    => $post_id,
+						'meta_value' => [ 'foo' => 'bar' ],
+						'meta_key'   => $meta_key,
+						'single'     => true,
+						'expected'   => [ 'foo' => 'bar' ],
+					];
+				}
+			],
+			'meta value not null and not an array'     => [
+				function ( int $user, string $meta_key ) {
+					// Start from a user that does not have previous persisted preferences meta.
+					delete_user_meta( $user, $meta_key );
+					// Create a post type that is supported.
+					$post_id = static::factory()->post->create( [ 'post_type' => 'page' ] );
+
+					return [
+						'post_id'    => $post_id,
+						'meta_value' => '__test__',
+						'meta_key'   => $meta_key,
+						'single'     => true,
+						'expected'   => '__test__'
+					];
+				}
+			],
+			'core/edit-post key not set in meta value' => [
+				function ( int $user, string $meta_key ) {
+					// Start from a user that does not have previous persisted preferences meta.
+					delete_user_meta( $user, $meta_key );
+					// Create a post type that is supported.
+					$post_id = static::factory()->post->create( [ 'post_type' => 'page' ] );
+
+					return [
+						'post_id'    => $post_id,
+						'meta_value' => [ 'foo' => 'bar' ],
+						'meta_key'   => $meta_key,
+						'single'     => true,
+						'expected'   => [
+							0 => [
+								'foo'            => 'bar',
+								'core/edit-post' => [
+									'welcomeGuide' => false,
+								],
+							]
+						],
+					];
+				}
+			],
+			'core/edit-post set in meta value'         => [
 				function ( int $user, string $meta_key ) {
 					// Start from a user that does not have previous persisted preferences meta.
 					delete_user_meta( $user, $meta_key );
@@ -306,7 +522,7 @@ class Controller_Test extends Controller_Test_Case {
 					return [
 						'post_id'    => $post_id,
 						'meta_value' => [
-							'foo' => 'bar' ,
+							'foo'            => 'bar',
 							'core/edit-post' => [
 								'some_key' => 'some_value',
 							],
@@ -317,7 +533,7 @@ class Controller_Test extends Controller_Test_Case {
 							0 => [
 								'foo'            => 'bar',
 								'core/edit-post' => [
-									'some_key' => 'some_value',
+									'some_key'     => 'some_value',
 									'welcomeGuide' => false,
 								],
 							]
@@ -330,8 +546,9 @@ class Controller_Test extends Controller_Test_Case {
 
 	/**
 	 * @dataProvider disable_block_editor_welcome_screen_data_provider
+	 * @covers       Controller::disable_block_editor_welcome_screen
 	 */
-	public function test_disable_block_editor_welcome_screen( \Closure $fixture ): void {
+	public function test_disable_block_editor_welcome_screen( Closure $fixture ): void {
 		$user = static::factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user );
 		global $wpdb;
@@ -351,7 +568,7 @@ class Controller_Test extends Controller_Test_Case {
 			$_GET['post']      = $post_id;
 		}
 		// The context will cache resolved locations, refresh it.
-		tribe_context()->refresh('post_type');
+		tribe_context()->refresh( 'post_type' );
 
 		$controller = $this->make_controller();
 		$controller->register();
