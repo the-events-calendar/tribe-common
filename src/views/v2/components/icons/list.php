@@ -36,7 +36,7 @@ $clip0 = $id_prefix . '-0';
 $clip1 = $id_prefix . '-1';
 ?>
 <svg
-	<?php tribe_classes( $svg_classes ); ?>
+	<?php tec_classes( $svg_classes ); ?>
 	aria-hidden="true"
 	viewBox="0 0 19 19"
 	xmlns="http://www.w3.org/2000/svg"

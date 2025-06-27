@@ -25,7 +25,7 @@ if ( ! empty( $classes ) ) {
 }
 ?>
 <svg
-	<?php tribe_classes( $svg_classes ); ?>
+	<?php tec_classes( $svg_classes ); ?>
 	aria-hidden="true"
 	viewBox="0 0 10 7"
 	xmlns="http://www.w3.org/2000/svg"

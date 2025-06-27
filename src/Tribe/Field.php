@@ -724,7 +724,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		public function heading() {
 			ob_start();
 			?>
-			<h3 <?php tribe_classes( $this->class ); ?>><?php echo esc_html( $this->label ); ?></h3>
+			<h3 <?php tec_classes( $this->class ); ?>><?php echo esc_html( $this->label ); ?></h3>
 			<?php
 			return ob_get_clean();
 		}
