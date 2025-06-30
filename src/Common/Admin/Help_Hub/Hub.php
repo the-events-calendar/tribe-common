@@ -125,6 +125,13 @@ class Hub {
 			 */
 			define( 'TEC_HELP_HUB_CHAT_ZENDESK_CHAT_KEY', 'd8e5e319-c54b-4da9-9d7d-e984cc3c4900' );
 		}
+
+		if ( ! defined( 'TEC_HELP_HUB_CHAT_HELPSCOUT_BEACON_CHAT_KEY' ) ) {
+			/**
+			 * Help Scout Beacon key for embedding the beacon widget.
+			 */
+			define( 'TEC_HELP_HUB_CHAT_HELPSCOUT_BEACON_CHAT_KEY', '9bb4e819-f901-45b4-9616-abe17a460fc2' );
+		}
 	}
 
 	/**
@@ -573,8 +580,14 @@ class Hub {
 				'localize' => [
 					'name' => 'helpHubSettings',
 					'data' => [
-						'docsbot_key'    => $this->config->get( 'TEC_HELP_HUB_CHAT_DOCSBOT_SUPPORT_KEY' ),
-						'zendeskChatKey' => $this->config->get( 'TEC_HELP_HUB_CHAT_ZENDESK_CHAT_KEY' ),
+						'docsbot_key'        => $this->config->get( 'TEC_HELP_HUB_CHAT_DOCSBOT_SUPPORT_KEY' ),
+						'zendeskChatKey'     => $this->config->get( 'TEC_HELP_HUB_CHAT_ZENDESK_CHAT_KEY' ),
+						'helpScoutBeaconKey' => $this->config->get( 'TEC_HELP_HUB_CHAT_HELPSCOUT_BEACON_CHAT_KEY' ),
+						// Pass userIdentifiers as an array if you want to prefill the Help Scout form.
+						'userIdentifiers'    => null,
+						'errorMessages'      => [
+							'helpScoutScriptLoadFailed' => __( 'Failed to load Help Scout Beacon script.', 'tribe-common' ),
+						],
 					],
 				],
 			]
