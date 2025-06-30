@@ -168,8 +168,8 @@
 		.classy_section-separator {
 			border-top: 1px solid var(--tec-color-gutenberg-grey-300);
 			height: 0;
-			transform: translateX(calc(var(--classy-padding-horizontal) * -1));
-			width: calc-size(auto, size + 2 * var(--classy-padding-horizontal));
+			transform: translateX(calc(-1 * var(--classy-padding-horizontal)));
+			width: calc(100% + (2 * var(--classy-padding-horizontal)));
 		}
 
 		.classy-field__inputs-section {
@@ -181,12 +181,16 @@
 				flex-direction: row;
 				justify-content: space-between;
 				align-items: center;
+
+				&.classy-field__inputs-section--justify-left {
+					justify-content: flex-start;
+				}
 			}
 
 			&.classy-field__inputs-section--footer {
 				background-color: var(--classy-color-footer);
 				transform: translateX(calc(var(--classy-padding-horizontal) * -1));
-				width: calc-size(auto, size + 2 * var(--classy-padding-horizontal));
+				width: 100%;
 				padding: var(--tec-spacer-3) var(--tec-spacer-6);
 			}
 		}
@@ -377,6 +381,10 @@
 		&.classy-field__control--select {
 			.components-select-control__input {
 				font-size: var(--classy-font-size-15);
+			}
+
+			button[role="combobox"] {
+				font-size: var(--tec-font-size-3);
 			}
 		}
 
@@ -599,6 +607,10 @@
 		font-weight: var(--tec-font-weight-regular);
 		text-decoration: underline;
 		color: var(--tec-color-gutenberg-grey-900);
+	}
+
+	&.classy-cta{
+		font-size: var(--classy-font-size-15);
 	}
 }
 
