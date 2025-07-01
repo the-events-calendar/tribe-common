@@ -86,7 +86,7 @@ class Settings_Sidebar extends Section {
 	 *
 	 * @return array
 	 */
-	public function get_sections(): array {$foo = 'bar'; // 1, 2
+	public function get_sections(): array {
 		/**
 		 * Filter the sidebar sections.
 		 *

@@ -18,11 +18,15 @@ class Stellar_Sale extends Promotional_Content_Abstract {
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @var string
 	 */
 	protected string $slug = 'stellar-sale';
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @var string
 	 */
 	protected string $start_date = 'March 15th';
 

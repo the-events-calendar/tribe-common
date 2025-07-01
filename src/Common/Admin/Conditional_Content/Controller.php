@@ -88,7 +88,7 @@ class Controller extends Provider_Contract {
 		tribe( Black_Friday::class )->render_header_notice();
 	}
 
-		/**
+	/**
 	 * Add sidebar objects from each promotional content class.
 	 *
 	 * @since TBD
