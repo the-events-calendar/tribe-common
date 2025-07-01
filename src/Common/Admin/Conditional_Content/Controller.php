@@ -102,7 +102,7 @@ class Controller extends Provider_Contract {
 	public function add_sidebar_objects( $sidebar ): void {
 		foreach ( $this->get_promotional_classes() as $class ) {
 			$instance = tribe( $class );
-			if ( $instance && method_exists( $instance, 'include_sidebar_object' ) ) {
+			if ( is_callable( $instance, 'include_sidebar_object' ) ) {
 				$instance->include_sidebar_object( $sidebar );
 			}
 		}
@@ -121,7 +121,7 @@ class Controller extends Provider_Contract {
 	public function add_sidebar_sections( $sections, $sidebar ): array {
 		foreach ( $this->get_promotional_classes() as $class ) {
 			$instance = tribe( $class );
-			if ( $instance && method_exists( $instance, 'add_sidebar_sections' ) ) {
+			if ( is_callable( $instance, 'add_sidebar_sections' ) ) {
 				$sections = $instance->add_sidebar_sections( $sections, $sidebar );
 			}
 		}

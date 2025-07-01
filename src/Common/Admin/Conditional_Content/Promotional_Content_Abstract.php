@@ -188,6 +188,12 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @since 6.3.0
 	 */
 	public function render_header_notice(): void {
+		/**
+		 * Fires to allow for conditional content assets to be rendered.
+		 * Before the banner is output.
+		 *
+		 * @since TBD
+		 */
 		do_action( 'tec_conditional_content_assets' );
 		$this->render_responsive_banner_html();
 	}
@@ -486,7 +492,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 */
 	public function include_sidebar_object( $sidebar ): void {
 		$cache = tribe_cache();
-		if ( $cache[ __METHOD__ ] ) {
+		if ( ! empty( $cache[ __METHOD__ ] ) ) {
 			return;
 		}
 
@@ -613,6 +619,6 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 			),
 		];
 
-		echo $this->get_template()->template( $this->get_template_slug(), $template_args, false ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
+		$this->get_template()->template( $this->get_template_slug(), $template_args, true );
 	}
 }

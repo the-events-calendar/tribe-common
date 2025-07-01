@@ -7,10 +7,21 @@
  * @var string      $template_variant The template variant, determining which template to display.
  */
 
+// No direct access.
+defined( 'ABSPATH' ) || exit;
+
 use TEC\Common\Admin\Help_Hub\Hub;
 ?>
 <div class="tec-settings-form__sidebar tec-help-resources__sidebar">
-	<?php do_action( 'tec_conditional_content_sidebar_notice__help_hub_support', $this ); ?>
+	<?php
+	/**
+	 * Trigger the conditional content sidebar notice.
+	 *
+	 * @since TBD
+	 *
+	 * @param \Tribe__Admin__View $this The current view object.
+	 */
+	do_action( 'tec_conditional_content_sidebar_notice__help_hub_support', $this ); ?>
 	<div class="tec-settings-form__sidebar-section">
 		<h2>
 			<?php

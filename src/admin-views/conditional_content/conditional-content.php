@@ -19,6 +19,11 @@
  * @var bool   $is_sidebar        Whether this is the sidebar banner variant.
  */
 
+
+
+// No direct access.
+defined( 'ABSPATH' ) || exit;
+
 // Handle both legacy and responsive modes.
 $is_responsive_mode = isset( $is_responsive ) && $is_responsive;
 $use_legacy_mode    = ! $is_responsive_mode && isset( $image_src );

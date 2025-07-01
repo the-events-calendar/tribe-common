@@ -944,7 +944,16 @@ class Tribe__Settings {
 	protected function output_notice_wrap( $current_tab, $admin_page ) {
 		?>
 		<div class="tribe-notice-wrap">
-			<?php do_action( 'tec_conditional_content_header_notice', $admin_page ); ?>
+			<?php
+			/**
+			 * Trigger the conditional content header notice.
+			 *
+			 * @since TBD
+			 *
+			 * @param \Tribe__Admin__View $this The current view object.
+			 */
+			do_action( 'tec_conditional_content_header_notice', $admin_page );
+			?>
 			<div class="wp-header-end"></div>
 		</div>
 		<?php
