@@ -19,10 +19,8 @@ use TEC\Common\Admin\Help_Hub\Hub;
 	 * Trigger the conditional content sidebar notice.
 	 *
 	 * @since TBD
-	 *
-	 * @param \Tribe__Admin__View $admin_page The current admin page object.
 	 */
-	do_action( 'tec_conditional_content_sidebar_notice__help_hub_support', $view );
+	do_action( 'tec_conditional_content_sidebar_notice__help_hub_support' );
 	?>
 	<div class="tec-settings-form__sidebar-section">
 		<div class="tec-settings__sidebar-icon-wrap">
