@@ -19,8 +19,8 @@ use TEC\Common\Admin\Entities\{
 
 use TEC\Common\Admin\{
 	Settings_Sidebar,
-	Settings_Section
-};
+	Settings_Sidebar_Section
+,};
 
 use Tribe\Utils\{
 	Element_Attributes as Attributes,
@@ -393,10 +393,10 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 *
 	 * @since TBD
 	 *
-	 * @param Section[]        $sections The sidebar sections.
+	 * @param Settings_Sidebar_Section[]        $sections The sidebar sections.
 	 * @param Settings_Sidebar $sidebar  Sidebar instance.
 	 *
-	 * @return Section[]
+	 * @return Settings_Sidebar_Section[]
 	 */
 	public function add_sidebar_sections( $sections, $sidebar ): array {
 		// Check if the content should currently be displayed.

@@ -9,8 +9,10 @@
 namespace TEC\Common\Admin\Conditional_Content;
 
 use TEC\Common\Contracts\Service_Provider as Provider_Contract;
-
 use Tribe__Main as Common;
+use Tribe__Settings_Page;
+use TEC\Common\Admin\Settings_Sidebar;
+use TEC\Common\Admin\Settings_Sidebar_Section;
 
 /**
  * Conditional Content Controller.
@@ -79,7 +81,7 @@ class Controller extends Provider_Contract {
 	 *
 	 * @since 6.3.0
 	 *
-	 * @param \Tribe__Settings_Page $page The page object we are rendering on.
+	 * @param Tribe__Settings_Page|null $page The page object we are rendering on.
 	 */
 	public function render_header_notice( $page = null ): void {
 		if ( ! empty( $page->has_sidebar ) ) {
@@ -99,10 +101,10 @@ class Controller extends Provider_Contract {
 	 *
 	 * @return void
 	 */
-	public function add_sidebar_objects( $sidebar ): void {
+	public function add_sidebar_objects( &$sidebar ): void {
 		foreach ( $this->get_promotional_classes() as $class ) {
 			$instance = tribe( $class );
-			if ( is_callable( $instance, 'include_sidebar_object' ) ) {
+			if ( is_callable( [ $instance, 'include_sidebar_object' ] ) ) {
 				$instance->include_sidebar_object( $sidebar );
 			}
 		}
@@ -113,15 +115,15 @@ class Controller extends Provider_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param Section[]        $sections The sidebar sections.
+	 * @param Settings_Sidebar_Section[]        $sections The sidebar sections.
 	 * @param Settings_Sidebar $sidebar  The sidebar instance.
 	 *
-	 * @return Section[]
+	 * @return Settings_Sidebar_Section[]
 	 */
 	public function add_sidebar_sections( $sections, $sidebar ): array {
 		foreach ( $this->get_promotional_classes() as $class ) {
 			$instance = tribe( $class );
-			if ( is_callable( $instance, 'add_sidebar_sections' ) ) {
+			if ( is_callable( [ $instance, 'add_sidebar_sections' ] ) ) {
 				$sections = $instance->add_sidebar_sections( $sections, $sidebar );
 			}
 		}
