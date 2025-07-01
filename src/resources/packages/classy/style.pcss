@@ -14,6 +14,9 @@
 	--classy-padding-horizontal: var(--tec-spacer-6);
 	--classy-height-100: 32px;
 	--classy-height-75: 24px;
+
+	/* This comes from the WP components computed values. */
+	--classy-line-height: 18.2px;
 }
 
 .block-editor__container {
@@ -168,8 +171,8 @@
 		.classy_section-separator {
 			border-top: 1px solid var(--tec-color-gutenberg-grey-300);
 			height: 0;
-			transform: translateX(calc(var(--classy-padding-horizontal) * -1));
-			width: calc-size(auto, size + 2 * var(--classy-padding-horizontal));
+			transform: translateX(calc(-1 * var(--classy-padding-horizontal)));
+			width: calc(100% + (2 * var(--classy-padding-horizontal)));
 		}
 
 		.classy-field__inputs-section {
@@ -181,12 +184,16 @@
 				flex-direction: row;
 				justify-content: space-between;
 				align-items: center;
+
+				&.classy-field__inputs-section--justify-left {
+					justify-content: flex-start;
+				}
 			}
 
 			&.classy-field__inputs-section--footer {
 				background-color: var(--classy-color-footer);
 				transform: translateX(calc(var(--classy-padding-horizontal) * -1));
-				width: calc-size(auto, size + 2 * var(--classy-padding-horizontal));
+				width: 100%;
 				padding: var(--tec-spacer-3) var(--tec-spacer-6);
 			}
 		}
@@ -202,8 +209,7 @@
 		&.classy-field__separator--dates {
 			font-size: var(--classy-font-size-13);
 			font-weight: var(--tec-font-weight-regular);
-			text-transform: uppercase;
-			transform: translateY(6.3ex);
+			line-height: calc(2 * var(--classy-line-height));
 		}
 	}
 
@@ -378,6 +384,10 @@
 			.components-select-control__input {
 				font-size: var(--classy-font-size-15);
 			}
+
+			button[role="combobox"] {
+				font-size: var(--tec-font-size-3);
+			}
 		}
 
 		&.classy-field__control--cta {
@@ -393,6 +403,11 @@
 				margin-right: var(--tec-spacer-2);
 				width: 24px;
 			}
+		}
+
+		/* Required to make sure the element containing selection suggestions will not render under components following it in the DOM. */
+		.components-form-token-field__suggestions-list {
+			z-index: 100;
 		}
 	}
 
@@ -599,6 +614,10 @@
 		font-weight: var(--tec-font-weight-regular);
 		text-decoration: underline;
 		color: var(--tec-color-gutenberg-grey-900);
+	}
+
+	&.classy-cta{
+		font-size: var(--classy-font-size-15);
 	}
 }
 
