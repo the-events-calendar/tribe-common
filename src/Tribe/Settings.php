@@ -950,7 +950,7 @@ class Tribe__Settings {
 			 *
 			 * @since TBD
 			 *
-			 * @param \Tribe__Admin__View $this The current view object.
+			 * @param \Tribe__Admin__View $admin_page The current admin page object.
 			 */
 			do_action( 'tec_conditional_content_header_notice', $admin_page );
 			?>

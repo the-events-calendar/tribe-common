@@ -39,10 +39,8 @@ $logo_alt = apply_filters( 'tec_help_hub_header_logo_alt', __( 'The Events Calen
 	 * Trigger the conditional content header notice.
 	 *
 	 * @since TBD
-	 *
-	 * @param \Tribe__Admin__View $this The current view object.
 	 */
-	do_action( 'tec_conditional_content_header_notice', $this );
+	do_action( 'tec_conditional_content_header_notice' );
 	?>
 	<div class="wp-header-end"></div>
 </div>

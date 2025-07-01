@@ -10,10 +10,8 @@ defined( 'ABSPATH' ) || exit;
  * Trigger the conditional content header notice.
  *
  * @since TBD
- *
- * @param \Tribe__Admin__View $this The current view object.
  */
-do_action( 'tec_conditional_content_header_notice', $this );
+do_action( 'tec_conditional_content_header_notice' );
 $base_path = Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/';
 
 // admin notice.

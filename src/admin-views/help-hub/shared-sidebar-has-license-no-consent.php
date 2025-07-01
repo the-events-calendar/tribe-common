@@ -19,7 +19,7 @@ use TEC\Common\Admin\Help_Hub\Hub;
 	 *
 	 * @since TBD
 	 *
-	 * @param \Tribe__Admin__View $this The current view object.
+	 * @param \Tribe__Admin__View $view The current view object.
 	 */
 	do_action( 'tec_conditional_content_sidebar_notice__help_hub_support', $this );
 	?>

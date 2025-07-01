@@ -20,9 +20,9 @@ use TEC\Common\Admin\Help_Hub\Hub;
 	 *
 	 * @since TBD
 	 *
-	 * @param \Tribe__Admin__View $this The current view object.
+	 * @param \Tribe__Admin__View $admin_page The current admin page object.
 	 */
-	do_action( 'tec_conditional_content_sidebar_notice__help_hub_support', $this );
+	do_action( 'tec_conditional_content_sidebar_notice__help_hub_support', $view );
 	?>
 	<div class="tec-settings-form__sidebar-section">
 		<div class="tec-settings__sidebar-icon-wrap">
