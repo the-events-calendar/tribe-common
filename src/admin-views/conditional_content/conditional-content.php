@@ -19,18 +19,18 @@
  * @var bool   $is_sidebar        Whether this is the sidebar banner variant.
  */
 
-// Handle both legacy and responsive modes
+// Handle both legacy and responsive modes.
 $is_responsive_mode = isset( $is_responsive ) && $is_responsive;
-$use_legacy_mode = ! $is_responsive_mode && isset( $image_src );
-$use_sidebar_mode = isset( $is_sidebar ) && $is_sidebar;
+$use_legacy_mode    = ! $is_responsive_mode && isset( $image_src );
+$use_sidebar_mode   = isset( $is_sidebar ) && $is_sidebar;
 
 $classes = [
-	$slug                                    => true,
-	'tribe-conditional-content-wrap'         => true,
-	'tribe-conditional-content-narrow'       => $use_legacy_mode && isset( $is_narrow ) && $is_narrow && ! $is_sidebar,
-	'tribe-conditional-content-wide'         => $use_legacy_mode && isset( $is_narrow ) && ! $is_narrow && ! $is_sidebar,
-	'tribe-conditional-content-responsive'   => $is_responsive_mode && ! $is_sidebar,
-	'tribe-conditional-content-sidebar'      => $use_sidebar_mode,
+	$slug                                  => true,
+	'tribe-conditional-content-wrap'       => true,
+	'tribe-conditional-content-narrow'     => $use_legacy_mode && isset( $is_narrow ) && $is_narrow && ! $is_sidebar,
+	'tribe-conditional-content-wide'       => $use_legacy_mode && isset( $is_narrow ) && ! $is_narrow && ! $is_sidebar,
+	'tribe-conditional-content-responsive' => $is_responsive_mode && ! $is_sidebar,
+	'tribe-conditional-content-sidebar'    => $use_sidebar_mode,
 ];
 
 ?>
@@ -47,7 +47,6 @@ $classes = [
 		data-tec-conditional-content-dismiss-container
 	>
 		<?php if ( $is_responsive_mode && ! $use_sidebar_mode ) : ?>
-			<!-- Responsive mode: Wide image visible on desktop, narrow on mobile -->
 			<img
 				class="tribe-conditional-content-image tribe-conditional-content-image-wide"
 				src="<?php echo esc_url( $wide_image_src ); ?>"
@@ -59,7 +58,6 @@ $classes = [
 				role="presentation"
 			/>
 		<?php else : ?>
-			<!-- Legacy mode: Single image -->
 			<img
 				class="tribe-conditional-content-image"
 				style="display: block; width: 100%; height: auto;" <?php // This is intentionally inline, don't add classes here. ?>
@@ -67,7 +65,6 @@ $classes = [
 				role="presentation"
 			/>
 		<?php endif; ?>
-		<!-- Screen reader only text for accessibility -->
 		<span class="screen-reader-text"><?php echo esc_html( $a11y_text ); ?></span>
 	</a>
 	<button

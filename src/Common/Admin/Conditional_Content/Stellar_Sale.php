@@ -32,11 +32,15 @@ class Stellar_Sale extends Promotional_Content_Abstract {
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @var string
 	 */
 	protected string $end_date = 'March 22nd';
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @var string
 	 */
 	protected string $background_color = '#000';
 

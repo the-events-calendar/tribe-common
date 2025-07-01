@@ -95,7 +95,7 @@ class Settings_Sidebar extends Section {
 		 * @param Section[]        $sections The sidebar sections.
 		 * @param Settings_Sidebar $sidebar  The sidebar object.
 		 */
-		return (array)apply_filters( 'tec_settings_sidebar_sections', $this->sections, $this );
+		return (array) apply_filters( 'tec_settings_sidebar_sections', $this->sections, $this );
 	}
 
 	/**

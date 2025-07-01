@@ -78,6 +78,8 @@ class Controller extends Provider_Contract {
 	 * Render the header notice.
 	 *
 	 * @since 6.3.0
+	 *
+	 * @param $page The page object we are rendering on.
 	 */
 	public function render_header_notice( $page ): void {
 		if ( ! empty( $page->has_sidebar ) ) {

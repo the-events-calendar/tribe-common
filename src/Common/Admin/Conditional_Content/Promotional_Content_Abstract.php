@@ -387,8 +387,8 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 *
 	 * @since TBD
 	 *
-	 * @param Section[] $sections The sidebar sections.
-	 * @param Settings_Sidebar $sidebar Sidebar instance.
+	 * @param Section[]        $sections The sidebar sections.
+	 * @param Settings_Sidebar $sidebar  Sidebar instance.
 	 *
 	 * @return Section[]
 	 */
@@ -422,10 +422,10 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 
 		$button_attr = new Attributes(
 			[
-				'style'                                       => 'position: absolute; top: 0; right: 0; background: transparent; border: 0; color: #fff; padding: 0.5em; cursor: pointer;',
 				'data-tec-conditional-content-dismiss-button' => true,
 				'data-tec-conditional-content-dismiss-slug'   => $this->get_slug(),
 				'data-tec-conditional-content-dismiss-nonce'  => $this->get_nonce(),
+				'style'                                       => 'position: absolute; top: 0; right: 0; background: transparent; border: 0; color: #fff; padding: 0.5em; cursor: pointer;',
 			]
 		);
 		$button      = new Button( null, $button_attr );
@@ -446,8 +446,9 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 			)
 		);
 
-		// Prepend to sections array
-		array_unshift( $sections,
+		// Prepend to sections array.
+		array_unshift(
+			$sections,
 			( new Settings_Section() )
 				->add_elements(
 					[
@@ -519,10 +520,10 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 		$container   = new Container();
 		$button_attr = new Attributes(
 			[
-				'style'                                       => 'position: absolute; top: 0; right: 0; background: transparent; border: 0; color: #fff; padding: 0.5em; cursor: pointer;',
 				'data-tec-conditional-content-dismiss-button' => true,
 				'data-tec-conditional-content-dismiss-slug'   => $this->get_slug(),
 				'data-tec-conditional-content-dismiss-nonce'  => $this->get_nonce(),
+				'style'                                       => 'position: absolute; top: 0; right: 0; background: transparent; border: 0; color: #fff; padding: 0.5em; cursor: pointer;',
 			]
 		);
 		$button      = new Button( null, $button_attr );
