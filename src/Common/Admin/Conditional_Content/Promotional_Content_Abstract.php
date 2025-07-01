@@ -50,7 +50,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @inheritdoc
 	 */
 	public function hook(): void {
-		// Only hook the AJAX dismiss handler - sidebar integration is handled by Controller
+		// Only hook the AJAX dismiss handler - sidebar integration is handled by Controller.
 		add_action( 'wp_ajax_tec_conditional_content_dismiss', [ $this, 'handle_dismiss' ] );
 	}
 
@@ -223,7 +223,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @return string
 	 */
 	protected function get_responsive_banner_html(): string {
-		$year = date_i18n( 'Y' );
+		$year      = date_i18n( 'Y' );
 		$sale_name = $this->get_sale_name();
 
 		$template_args = [
@@ -256,7 +256,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @return string
 	 */
 	protected function get_wide_banner_html(): string {
-		$year = date_i18n( 'Y' );
+		$year      = date_i18n( 'Y' );
 		$sale_name = $this->get_sale_name();
 
 		$template_args = [
@@ -313,7 +313,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @return string
 	 */
 	protected function get_narrow_banner_html(): string {
-		$year = date_i18n( 'Y' );
+		$year      = date_i18n( 'Y' );
 		$sale_name = $this->get_sale_name();
 
 		$template_args = [
@@ -398,7 +398,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 			return $sections;
 		}
 
-		$year = date_i18n( 'Y' );
+		$year      = date_i18n( 'Y' );
 		$sale_name = $this->get_sale_name();
 
 		/**
@@ -496,7 +496,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 			return;
 		}
 
-		$year = date_i18n( 'Y' );
+		$year      = date_i18n( 'Y' );
 		$sale_name = $this->get_sale_name();
 
 		/**
@@ -516,8 +516,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 			esc_attr( $sale_name )
 		);
 
-		$container = new Container();
-
+		$container   = new Container();
 		$button_attr = new Attributes(
 			[
 				'style'                                       => 'position: absolute; top: 0; right: 0; background: transparent; border: 0; color: #fff; padding: 0.5em; cursor: pointer;',
@@ -582,7 +581,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 			return;
 		}
 
-		$year = date_i18n( 'Y' );
+		$year      = date_i18n( 'Y' );
 		$sale_name = $this->get_sale_name();
 
 		/**
