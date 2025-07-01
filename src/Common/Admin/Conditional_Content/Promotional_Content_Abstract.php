@@ -19,8 +19,8 @@ use TEC\Common\Admin\Entities\{
 
 use TEC\Common\Admin\{
 	Settings_Sidebar,
-	Settings_Sidebar_Section
-,};
+	Settings_Sidebar_Section,
+};
 
 use Tribe\Utils\{
 	Element_Attributes as Attributes,
@@ -393,8 +393,8 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 *
 	 * @since TBD
 	 *
-	 * @param Settings_Sidebar_Section[]        $sections The sidebar sections.
-	 * @param Settings_Sidebar $sidebar  Sidebar instance.
+	 * @param Settings_Sidebar_Section[] $sections The sidebar sections.
+	 * @param Settings_Sidebar           $sidebar  Sidebar instance.
 	 *
 	 * @return Settings_Sidebar_Section[]
 	 */
