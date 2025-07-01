@@ -14,6 +14,9 @@
 	--classy-padding-horizontal: var(--tec-spacer-6);
 	--classy-height-100: 32px;
 	--classy-height-75: 24px;
+
+	/* This comes from the WP components computed values. */
+	--classy-line-height: 18.2px;
 }
 
 .block-editor__container {
@@ -206,8 +209,7 @@
 		&.classy-field__separator--dates {
 			font-size: var(--classy-font-size-13);
 			font-weight: var(--tec-font-weight-regular);
-			text-transform: uppercase;
-			transform: translateY(6.3ex);
+			line-height: calc(2 * var(--classy-line-height));
 		}
 	}
 
@@ -401,6 +403,11 @@
 				margin-right: var(--tec-spacer-2);
 				width: 24px;
 			}
+		}
+
+		/* Required to make sure the element containing selection suggestions will not render under components following it in the DOM. */
+		.components-form-token-field__suggestions-list {
+			z-index: 100;
 		}
 	}
 
