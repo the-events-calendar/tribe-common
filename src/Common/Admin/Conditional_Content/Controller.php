@@ -115,8 +115,8 @@ class Controller extends Provider_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param Settings_Sidebar_Section[]        $sections The sidebar sections.
-	 * @param Settings_Sidebar $sidebar  The sidebar instance.
+	 * @param Settings_Sidebar_Section[] $sections The sidebar sections.
+	 * @param Settings_Sidebar           $sidebar  The sidebar instance.
 	 *
 	 * @return Settings_Sidebar_Section[]
 	 */
