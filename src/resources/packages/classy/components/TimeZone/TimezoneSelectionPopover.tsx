@@ -65,14 +65,14 @@ export default function TimezoneSelectionPopover( props: {
 				</Button>
 
 				<h4 className="classy-component__popover-title">
-					{ _x( 'Event Time Zone', 'Timezone selector popover title', 'the-events-calendar' ) }
+					{ _x( 'Event Time Zone', 'Timezone selector popover title', 'tribe-common' ) }
 				</h4>
 
 				<p className="classy-component__popover-description">
 					{ _x(
 						'Choose a different time zone than your default for this event.',
 						'Timezone selector popover description',
-						'the-events-calendar'
+						'tribe-common'
 					) }
 				</p>
 

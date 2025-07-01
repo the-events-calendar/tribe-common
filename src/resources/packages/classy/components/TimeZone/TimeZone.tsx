@@ -18,7 +18,7 @@ export default function TimeZone( props: { onTimezoneChange: ( timezone: string 
 	return (
 		<div className="classy-field__control classy-field__control--timezone" ref={ ref }>
 			<span className="classy-field__timezone-label">
-				{ _x( 'Time Zone:', 'Timezone component label', 'the-events-calendar' ) }
+				{ _x( 'Time Zone:', 'Timezone component label', 'tribe-common' ) }
 			</span>{ ' ' }
 			<Button
 				variant="link"

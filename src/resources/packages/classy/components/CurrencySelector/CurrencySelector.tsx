@@ -30,7 +30,7 @@ type CurrencySelectOption = {
 };
 
 const currencyDefaultOption: CurrencySelectOption = {
-	label: _x( 'Default site currency', 'Default option for the currency selector', 'the-events-calendar' ),
+	label: _x( 'Default site currency', 'Default option for the currency selector', 'tribe-common' ),
 	value: 'default',
 };
 
@@ -214,15 +214,15 @@ export default function CurrencySelector( props: CurrencySelectorProps ): JSX.El
 				</Button>
 
 				<h4 className="classy-component__popover-title">
-					{ _x( 'Currency', 'Event currency selector title', 'the-events-calendar' ) }
+					{ _x( 'Currency', 'Event currency selector title', 'tribe-common' ) }
 				</h4>
 
 				<p className="classy-component__popover-description">
-					{ __( 'Choose a different currency than your default for this event.', 'the-events-calendar' ) }
+					{ __( 'Choose a different currency than your default for this event.', 'tribe-common' ) }
 				</p>
 
 				<SelectControl
-					label={ _x( 'Currency', 'Event currency selector label', 'the-events-calendar' ) }
+					label={ _x( 'Currency', 'Event currency selector label', 'tribe-common' ) }
 					hideLabelFromVision={ true }
 					value={ eventCurrencyCode === defaultCurrency.code ? 'default' : eventCurrencyCode }
 					onChange={ onCurrencyChange }
@@ -235,7 +235,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ): JSX.El
 					label={ _x(
 						'Currency symbol precedes price',
 						'Event currency position toggle label',
-						'the-events-calendar'
+						'tribe-common'
 					) }
 					checked={ currencyPosition === 'prefix' }
 					onChange={ onCurrencyPositionChange }

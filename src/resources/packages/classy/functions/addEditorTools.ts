@@ -35,7 +35,7 @@ export function addEditorTools(
 			previewButton.dataset.toolbarItem = 'true';
 			previewButton.innerHTML = `<span class="dashicons dashicons-visibility"></span>${ __(
 				'Visual',
-				'the-events-calendar'
+				'tribe-common'
 			) }`;
 			editorDocumentTools.append( previewButton );
 			previewButton.onclick = onClick;
