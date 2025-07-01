@@ -91,7 +91,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @return string
 	 */
 	protected function get_wide_banner_image() {
-		return $this->slug . '/hero-section-wide.jpg';
+		return $this->slug . '/top-wide.png';
 	}
 
 	/**
@@ -102,7 +102,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @return string
 	 */
 	protected function get_narrow_banner_image() {
-		return $this->slug . '/hero-section-narrow.jpg';
+		return $this->slug . '/top-narrow.png';
 	}
 
 	/**
@@ -113,7 +113,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @return string
 	 */
 	protected function get_sidebar_image() {
-		return $this->slug . '/hero-section-settings-sidebar.jpg';
+		return $this->slug . '/sidebar.png';
 	}
 
 	/**
@@ -416,7 +416,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 		 * @param string $slug     The slug of the conditional content.
 		 * @param object $instance The promotional content instance.
 		 */
-		do_action( "tec_conditional_content_{$this->slug}", 'settings-sidebar', $this );
+		do_action( "tec_conditional_content_{$this->slug}", 'sidebar', $this );
 
 		$translated_title = sprintf(
 			/* translators: %1$s: Sale year, %2$s: Sale name */
@@ -505,7 +505,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 		 * @param string $slug     The slug of the conditional content.
 		 * @param object $instance The promotional content instance.
 		 */
-		do_action( "tec_conditional_content_{$this->slug}", 'settings-sidebar-filter', $this );
+		do_action( "tec_conditional_content_{$this->slug}", 'sidebar-filter', $this );
 
 		$translated_title = sprintf(
 			/* translators: %1$s: Sale year, %2$s: Sale name */
@@ -603,7 +603,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 		 * @param string $slug     The slug of the conditional content.
 		 * @param object $instance The promotional content instance.
 		 */
-		do_action( "tec_conditional_content_{$this->slug}", 'settings-sidebar-object', $this );
+		do_action( "tec_conditional_content_{$this->slug}", 'sidebar-object', $this );
 
 		$translated_title = sprintf(
 			/* translators: %1$s: Sale year, %2$s: Sale name */

@@ -34,7 +34,7 @@ class Stellar_Sale extends Promotional_Content_Abstract {
 	/**
 	 * @inheritdoc
 	 */
-	protected string $background_color = 'teal';
+	protected string $background_color = '#000';
 
 	/**
 	 * @inheritdoc
