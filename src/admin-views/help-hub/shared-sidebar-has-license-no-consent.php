@@ -21,7 +21,8 @@ use TEC\Common\Admin\Help_Hub\Hub;
 	 *
 	 * @param \Tribe__Admin__View $this The current view object.
 	 */
-	do_action( 'tec_conditional_content_sidebar_notice__help_hub_support', $this ); ?>
+	do_action( 'tec_conditional_content_sidebar_notice__help_hub_support', $this );
+	?>
 	<div class="tec-settings-form__sidebar-section">
 		<h2>
 			<?php

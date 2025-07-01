@@ -17,9 +17,8 @@
  * @var bool   $is_narrow         Whether this is the narrow banner variant (legacy).
  * @var bool   $is_responsive     Whether this is the responsive banner variant.
  * @var bool   $is_sidebar        Whether this is the sidebar banner variant.
+ *
  */
-
-
 
 // No direct access.
 defined( 'ABSPATH' ) || exit;
