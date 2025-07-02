@@ -466,11 +466,10 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 							null,
 							new Attributes(
 								[
-									'title'  => $translated_title,
-									'target' => '_blank',
-									'rel'    => 'noopener nofollow',
-									'style'  => 'position: relative; display:block;',
-
+									'title'                                          => $translated_title,
+									'target'                                         => '_blank',
+									'rel'                                            => 'noopener nofollow',
+									'style'                                          => 'position: relative; display:block;',
 									// Dismiss container attributes.
 									'data-tec-conditional-content-dismiss-container' => true,
 								]
@@ -562,11 +561,10 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 							null,
 							new Attributes(
 								[
-									'title'  => $translated_title,
-									'target' => '_blank',
-									'rel'    => 'noopener nofollow',
-									'style'  => 'position: relative; display:block;',
-
+									'title'                                          => $translated_title,
+									'target'                                         => '_blank',
+									'rel'                                            => 'noopener nofollow',
+									'style'                                          => 'position: relative; display:block;',
 									// Dismiss container attributes.
 									'data-tec-conditional-content-dismiss-container' => true,
 								]
