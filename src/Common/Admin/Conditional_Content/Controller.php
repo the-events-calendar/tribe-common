@@ -59,6 +59,7 @@ class Controller extends Provider_Contract {
 	 * @since 6.3.0
 	 */
 	public function plugins_loaded(): void {
+		// Those need to be initialized here in order for their hooks to be registered.
 		tribe( Black_Friday::class );
 		tribe( Stellar_Sale::class );
 
