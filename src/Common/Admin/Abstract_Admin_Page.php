@@ -506,7 +506,7 @@ abstract class Abstract_Admin_Page {
 	 */
 	public function admin_page_header(): void {
 		?>
-			<header id="tec-admin-page-header" <?php tribe_classes( $this->header_classes() ); ?>>
+			<header id="tec-admin-page-header" <?php tec_classes( $this->header_classes() ); ?>>
 				<?php
 				if ( static::$has_header && static::$has_logo ) {
 					// "Simple" pages don't show the logo.

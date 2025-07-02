@@ -716,7 +716,7 @@ class Tribe__Settings {
 		ob_start();
 		do_action( 'tribe_settings_top', $admin_page );
 		?>
-		<div <?php tribe_classes( $wrap_classes ); ?>>
+		<div <?php tec_classes( $wrap_classes ); ?>>
 			<?php
 			$this->output_notice_wrap( $current_tab, $admin_page );
 			$this->do_page_header( $admin_page );
@@ -734,7 +734,7 @@ class Tribe__Settings {
 				do_action( 'tribe_settings_above_form_element_tab_' . $current_tab, $admin_page );
 				$form_id = 'tec-settings-form';
 				?>
-				<form id="<?php echo esc_attr( $form_id ); ?>" <?php tribe_classes( $form_classes ); ?> method="post">
+				<form id="<?php echo esc_attr( $form_id ); ?>" <?php tec_classes( $form_classes ); ?> method="post">
 				<?php
 				do_action( 'tribe_settings_before_content' );
 				do_action( 'tribe_settings_before_content_tab_' . $current_tab );
@@ -850,7 +850,7 @@ class Tribe__Settings {
 
 		ob_start();
 		?>
-			<nav id="<?php echo esc_attr( $nav_id ); ?>" <?php tribe_classes( $wrapper_classes ); ?>>
+			<nav id="<?php echo esc_attr( $nav_id ); ?>" <?php tec_classes( $wrapper_classes ); ?>>
 				<ul class="tec-nav">
 					<?php if ( ! $modal ) : ?>
 					<li class="tec-nav__tab tec-nav__tab--skip-link">
@@ -993,7 +993,7 @@ class Tribe__Settings {
 
 		ob_start();
 		?>
-		<li <?php tribe_classes( $class ); ?>>
+		<li <?php tec_classes( $class ); ?>>
 			<a
 				id="<?php echo esc_attr( $tab->id ); ?>"
 				class="tec-nav__link"

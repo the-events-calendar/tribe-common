@@ -24,8 +24,7 @@ $classes = array_merge( $default_classes, $this->get( 'form_classes', [] ) );
 ?>
 
 <div
-	<?php tribe_classes( $classes ); ?>
+	<?php tec_classes( $classes ); ?>
 >
 	<?php $this->template( 'widgets/components/fields', [ 'fields' => $admin_fields ] ); ?>
 </div>
-
