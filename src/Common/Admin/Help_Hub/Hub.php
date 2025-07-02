@@ -142,7 +142,7 @@ class Hub {
 	 * @return Help_Hub_Data_Interface The data object containing Help Hub resources.
 	 */
 	public function get_data(): Help_Hub_Data_Interface {
-		if ( $this->data ) {
+		if ( empty( $this->data ) ) {
 			$this->data->initialize();
 			return $this->data;
 		}
@@ -410,7 +410,7 @@ class Hub {
 			Tribe__Main::instance(),
 			'tec-common-help-hub-style',
 			'help-hub.css',
-			null,
+			[],
 			'admin_enqueue_scripts'
 		);
 
@@ -466,7 +466,6 @@ class Hub {
 		 * @since 6.8.0
 		 *
 		 * @param string $default_url The default URL to the telemetry opt-in settings tab.
-		 * @param Hub $instance The Hub instance.
 		 */
 		return apply_filters( 'tec_help_hub_telemetry_opt_in_link', $default_url );
 	}
@@ -508,7 +507,10 @@ class Hub {
 
 		$this->ensure_data_is_set();
 
-		define( 'IFRAME_REQUEST', true );
+		if ( ! defined( 'IFRAME_REQUEST' ) ) {
+			define( 'IFRAME_REQUEST', true );
+		}
+
 		// phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.RemovalDetected
 		show_admin_bar( false );
 
@@ -555,7 +557,9 @@ class Hub {
 	 * @return void
 	 */
 	public function enqueue_help_page_iframe_assets(): void {
-		define( 'IFRAME_REQUEST', true );
+		if ( ! defined( 'IFRAME_REQUEST' ) ) {
+			define( 'IFRAME_REQUEST', true );
+		}
 
 		tec_asset(
 			Tribe__Main::instance(),

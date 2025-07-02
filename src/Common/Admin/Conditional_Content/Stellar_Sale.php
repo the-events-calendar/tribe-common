@@ -1,0 +1,60 @@
+<?php
+/**
+ * Stellar Sale Promo Conditional Content.
+ *
+ * @since TBD
+ *
+ * @package TEC\Common\Admin\Conditional_Content;
+ */
+
+namespace TEC\Common\Admin\Conditional_Content;
+
+/**
+ * Set up for Stellar Sale promo.
+ *
+ * @since TBD
+ */
+class Stellar_Sale extends Promotional_Content_Abstract {
+
+	/**
+	 * @inheritdoc
+	 *
+	 * @var string
+	 */
+	protected string $slug = 'stellar-sale';
+
+	/**
+	 * @inheritdoc
+	 *
+	 * @var string
+	 */
+	protected string $start_date = 'March 15th';
+
+	/**
+	 * @inheritdoc
+	 *
+	 * @var string
+	 */
+	protected string $end_date = 'March 22nd';
+
+	/**
+	 * @inheritdoc
+	 *
+	 * @var string
+	 */
+	protected string $background_color = '#000';
+
+	/**
+	 * @inheritdoc
+	 */
+	protected function get_sale_name(): string {
+		return __( 'Stellar Sale', 'tribe-common' );
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	protected function get_link_url(): string {
+		return 'https://evnt.is/tec-stellar-sale-2024';
+	}
+}

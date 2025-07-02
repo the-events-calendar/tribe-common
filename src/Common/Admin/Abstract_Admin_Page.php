@@ -398,26 +398,66 @@ abstract class Abstract_Admin_Page {
 	 * @return void Renders the entire admin page content.
 	 */
 	public function admin_page_content(): void {
-		do_action( 'tec_admin_page_before_wrap_start' );
+		if ( ! static::$has_sidebar ) {
+			/**
+			 * Fires before the admin page wrapper starts if we do not have a sidebar.
+			 *
+			 * @since TBD
+			 */
+			do_action( 'tec_admin_page_before_wrap_start' );
+		}
 		?>
 
 		<div id="tec-admin-page" <?php tec_classes( $this->wrapper_classes() ); ?> >
-			<?php do_action( 'tec_admin_page_after_wrap_start' ); ?>
+			<?php
+			/**
+			 * Fires after the admin page wrapper starts.
+			 *
+			 * @since TBD
+			 */
+			do_action( 'tec_admin_page_after_wrap_start' );
+			?>
 
 			<?php $this->admin_page_header(); ?>
 
 			<?php $this->admin_page_main_content_wrapper(); ?>
 
-			<?php do_action( 'tec_admin_page_after_content' ); ?>
+			<?php
+			/**
+			 * Fires after the admin page main content wrapper.
+			 *
+			 * @since TBD
+			 */
+			do_action( 'tec_admin_page_after_content' );
+			?>
 
-			<?php $this->admin_page_sidebar_wrapper(); ?>
-
+			<?php
+			/**
+			 * Fires before the admin page sidebar wrapper.
+			 *
+			 * @since TBD
+			 */
+			do_action( 'tec_admin_page_before_sidebar' );
+			$this->admin_page_sidebar_wrapper();
+			?>
 			<?php $this->admin_page_footer_wrapper(); ?>
 
-			<?php do_action( 'tec_admin_page_before_wrap_end' ); ?>
+			<?php
+			/**
+			 * Fires before the admin page wrapper ends.
+			 *
+			 * @since TBD
+			 */
+			do_action( 'tec_admin_page_before_wrap_end' );
+			?>
 		</div>
 
 		<?php
+		/**
+		 * Fires after the admin page wrapper ends.
+		 *
+		 * @since TBD
+		 */
 		do_action( 'tec_admin_page_after_wrap_end' );
 	}
 
@@ -448,6 +488,11 @@ abstract class Abstract_Admin_Page {
 		/>
 		<?php
 
+		/**
+		 * Fires after the admin page logo.
+		 *
+		 * @since TBD
+		 */
 		do_action( 'tribe_admin_page_after_logo' );
 	}
 
@@ -467,8 +512,20 @@ abstract class Abstract_Admin_Page {
 					// "Simple" pages don't show the logo.
 					$this->do_page_logo();
 				}
+
+				/**
+				 * Fires before the admin page title.
+				 *
+				 * @since TBD
+				 */
 				do_action( 'tec_admin_header_before_title' );
 				$this->admin_page_title();
+
+				/**
+				 * Fires after the admin page title.
+				 *
+				 * @since TBD
+				 */
 				do_action( 'tec_admin_header_after_title' );
 
 				if ( tribe( IAN_Controller::class )->is_ian_page() ) :
@@ -476,7 +533,6 @@ abstract class Abstract_Admin_Page {
 					<div class="ian-client" data-tec-ian-trigger="iconIan"></div>
 				<?php endif; ?>
 			</header>
-
 		<?php
 	}
 
@@ -565,7 +621,14 @@ abstract class Abstract_Admin_Page {
 
 		?>
 		<footer id="tec-admin-page-footer" <?php tec_classes( $this->footer_classes() ); ?>>
-			<?php do_action( 'tec_admin_page_footer_content' ); ?>
+			<?php
+			/**
+			 * Fires before the admin page footer content.
+			 *
+			 * @since TBD
+			 */
+			do_action( 'tec_admin_page_footer_content' );
+			?>
 		</footer>
 		<?php
 	}
