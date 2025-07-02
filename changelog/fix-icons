@@ -1,0 +1,4 @@
+Significance: patch
+Type: accessibility
+
+Added aria-hidden to all component icon svgs. Removed any  attributes or elements inside them.
