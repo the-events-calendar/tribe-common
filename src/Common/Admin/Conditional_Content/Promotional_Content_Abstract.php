@@ -18,6 +18,7 @@ use TEC\Common\Admin\Entities\{
 };
 
 use TEC\Common\Admin\{
+	Settings_Section,
 	Settings_Sidebar,
 	Settings_Sidebar_Section,
 };
@@ -195,6 +196,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 		 * @since TBD
 		 */
 		do_action( 'tec_conditional_content_assets' );
+
 		$this->render_responsive_banner_html();
 	}
 

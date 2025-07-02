@@ -96,7 +96,7 @@ class Tab_Builder {
 	 *
 	 * @return static
 	 */
-	public static function make( string $target, string $label, string $id, string $template, array $args = [] ): self {
+	public static function make( string $target, string $label, string $id, string $template, array $args = [] ): static {
 		$instance           = new self();
 		$instance->target   = $target;
 		$instance->label    = $label;

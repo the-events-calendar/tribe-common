@@ -10,7 +10,7 @@ namespace TEC\Common\Admin\Conditional_Content;
 
 use TEC\Common\Contracts\Service_Provider as Provider_Contract;
 use Tribe__Main as Common;
-use Tribe__Settings_Page;
+use TEC\Common\Admin\Abstract_Admin_Page;
 use TEC\Common\Admin\Settings_Sidebar;
 use TEC\Common\Admin\Settings_Sidebar_Section;
 
@@ -81,7 +81,7 @@ class Controller extends Provider_Contract {
 	 *
 	 * @since 6.3.0
 	 *
-	 * @param Tribe__Settings_Page|null $page The page object we are rendering on.
+	 * @param Abstract_Admin_Page|null $page The page object we are rendering on.
 	 */
 	public function render_header_notice( $page = null ): void {
 		if ( ! empty( $page->has_sidebar ) ) {

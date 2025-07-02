@@ -142,7 +142,7 @@ class Hub {
 	 * @return Help_Hub_Data_Interface The data object containing Help Hub resources.
 	 */
 	public function get_data(): Help_Hub_Data_Interface {
-		if ( $this->data ) {
+		if ( empty( $this->data ) ) {
 			$this->data->initialize();
 			return $this->data;
 		}
@@ -410,7 +410,7 @@ class Hub {
 			Tribe__Main::instance(),
 			'tec-common-help-hub-style',
 			'help-hub.css',
-			null,
+			[],
 			'admin_enqueue_scripts'
 		);
 
@@ -466,7 +466,6 @@ class Hub {
 		 * @since 6.8.0
 		 *
 		 * @param string $default_url The default URL to the telemetry opt-in settings tab.
-		 * @param Hub $instance The Hub instance.
 		 */
 		return apply_filters( 'tec_help_hub_telemetry_opt_in_link', $default_url );
 	}
