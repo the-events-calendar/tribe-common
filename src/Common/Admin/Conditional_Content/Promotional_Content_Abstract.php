@@ -9,6 +9,10 @@
 
 namespace TEC\Common\Admin\Conditional_Content;
 
+use TEC\Common\Admin\Conditional_Content\Traits\Datetime_Conditional_Trait;
+use TEC\Common\Admin\Conditional_Content\Traits\Plugin_Suite_Conditional_Trait;
+use TEC\Common\Admin\Conditional_Content\Traits\Installed_Plugins_Conditional_Trait;
+
 use TEC\Common\Admin\Entities\{
 	Div,
 	Container,
@@ -34,8 +38,11 @@ use Tribe\Utils\{
  *
  * @since TBD
  */
-abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstract {
+abstract class Promotional_Content_Abstract {
 	use Dismissible_Trait;
+	use Datetime_Conditional_Trait;
+	use Plugin_Suite_Conditional_Trait;
+	use Installed_Plugins_Conditional_Trait;
 
 	/**
 	 * Background color for the promotional content.
@@ -65,6 +72,24 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	protected function get_background_color(): string {
 		return $this->background_color;
 	}
+
+	/**
+	 * Define which plugin suites this promotional content should target.
+	 *
+	 * @since TBD
+	 *
+	 * @return array List of plugin suites ('events', 'tickets')
+	 */
+	abstract protected function get_target_plugin_suites(): array;
+
+	/**
+	 * Define the mapping of suites to creative content configurations.
+	 *
+	 * @since TBD
+	 *
+	 * @return array Associative array of plugin suites and their creative configurations.
+	 */
+	abstract protected function get_suite_creative_map(): array;
 
 	/**
 	 * Sale name for display.
@@ -141,46 +166,79 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	}
 
 	/**
-	 * @inheritdoc
+	 * Determines if the content is displayable based on date validity and suite context.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the content is displayable
 	 */
-	protected function get_start_time(): ?Date_I18n {
-		$date = parent::get_start_time();
-		if ( null === $date ) {
-			return null;
+	public function is_content_displayable(): bool {
+		// 1. Check date validity (from Datetime_Conditional_Trait).
+		if ( ! $this->is_date_valid() ) {
+			return false;
 		}
 
-		$date = $date->setTime( 4, 0 );
+		// 2. Determine the current active admin suite context (from Plugin_Suite_Conditional_Trait).
+		$current_suite_context = $this->get_current_admin_suite_context();
 
-		return $date;
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	protected function get_end_time(): ?Date_I18n {
-		$date = parent::get_end_time();
-		if ( null === $date ) {
-			return null;
+		// 3. If no suite context, or if the current context is not targeted by this ad, don't display.
+		$target_suites = $this->get_target_plugin_suites();
+		if ( is_null( $current_suite_context ) || ! in_array( $current_suite_context, $target_suites, true ) ) {
+			return false;
 		}
 
-		$date = $date->setTime( 4, 0 );
-
-		return $date;
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	protected function should_display(): bool {
+		// If user has dismissed this content, don't display.
 		if ( $this->has_user_dismissed() ) {
 			return false;
 		}
 
-		if ( tec_should_hide_upsell( $this->get_slug() ) ) {
+		// If the content should be hidden based on global settings, don't display.
+		if ( function_exists( 'tec_should_hide_upsell' ) && tec_should_hide_upsell( $this->get_slug() ) ) {
 			return false;
 		}
 
-		return parent::should_display();
+		// If date is valid and suite context matches, the ad can be displayed.
+		return true;
+	}
+
+	/**
+	 * Get the appropriate creative content for the current context.
+	 *
+	 * @since TBD
+	 *
+	 * @return array Creative content configuration
+	 */
+	protected function get_current_ad_creative(): array {
+		// 1. Determine the current active admin suite context.
+		$current_suite_context = $this->get_current_admin_suite_context();
+		$suite_creative_map    = $this->get_suite_creative_map();
+
+		// 2. If no context or no map for this context, return empty
+		if ( is_null( $current_suite_context ) || ! isset( $suite_creative_map[ $current_suite_context ] ) ) {
+			return []; // Return an empty array as a safe fallback.
+		}
+
+		$creative_rules = $suite_creative_map[ $current_suite_context ];
+
+		// 3. Iterate through rules. Order matters for prioritization.
+		foreach ( $creative_rules as $plugin_slug_or_default_key => $creative_details ) {
+			if ( 'default' === $plugin_slug_or_default_key ) {
+				// Default should only be considered after specific plugin conditions.
+				continue;
+			}
+
+			// If plugin is NOT active and licensed, this is the upsell opportunity.
+			if ( ! $this->is_plugin_active_and_licensed( $plugin_slug_or_default_key ) ) {
+				return $creative_details;
+			}
+		}
+
+		// 4. If no specific plugin condition was met, return the default creative for this suite
+		if ( isset( $creative_rules['default'] ) ) {
+			return $creative_rules['default'];
+		}
+
+		return []; // Fallback if no rules or default found for the current suite.
 	}
 
 	/**
@@ -206,7 +264,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @since TBD
 	 */
 	protected function render_responsive_banner_html(): void {
-		if ( ! $this->should_display() ) {
+		if ( ! $this->is_content_displayable() ) {
 			return;
 		}
 
@@ -234,18 +292,25 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 		$year      = date_i18n( 'Y' );
 		$sale_name = $this->get_sale_name();
 
+		$creative = $this->get_current_ad_creative();
+
+		// Use creative content if available, otherwise fall back to traditional methods.
 		$template_args = [
 			'background_color' => $this->get_background_color(),
-			'wide_image_src'   => tribe_resource_url( 'images/conditional-content/' . $this->get_wide_banner_image(), false, null, \Tribe__Main::instance() ),
-			'narrow_image_src' => tribe_resource_url( 'images/conditional-content/' . $this->get_narrow_banner_image(), false, null, \Tribe__Main::instance() ),
+			'wide_image_src'   => ! empty( $creative['image_url'] )
+				? $creative['image_url']
+				: tribe_resource_url( 'images/conditional-content/' . $this->get_wide_banner_image(), false, null, \Tribe__Main::instance() ),
+			'narrow_image_src' => ! empty( $creative['narrow_image_url'] )
+				? $creative['narrow_image_url']
+				: tribe_resource_url( 'images/conditional-content/' . $this->get_narrow_banner_image(), false, null, \Tribe__Main::instance() ),
 			'is_responsive'    => true,
 			'is_sidebar'       => false,
-			'link'             => $this->get_link_url(),
+			'link'             => ! empty( $creative['link_url'] ) ? $creative['link_url'] : $this->get_link_url(),
 			'nonce'            => $this->get_nonce(),
 			'sale_name'        => $sale_name,
 			'slug'             => $this->get_slug(),
 			'year'             => $year,
-			'a11y_text'        => sprintf(
+			'a11y_text'        => ! empty( $creative['alt_text'] ) ? $creative['alt_text'] : sprintf(
 				/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
 				_x( '%1$s %2$s for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Sale Ad', 'tribe-common' ),
 				$year,
@@ -296,7 +361,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @return void
 	 */
 	public function render_wide_banner_html(): void {
-		if ( ! $this->should_display() ) {
+		if ( ! $this->is_content_displayable() ) {
 			return;
 		}
 
@@ -353,7 +418,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @return void
 	 */
 	public function render_narrow_banner_html(): void {
-		if ( ! $this->should_display() ) {
+		if ( ! $this->is_content_displayable() ) {
 			return;
 		}
 
@@ -378,7 +443,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @return void
 	 */
 	public function include_tickets_settings_section(): void {
-		if ( ! $this->should_display() ) {
+		if ( ! $this->is_content_displayable() ) {
 			return;
 		}
 
@@ -402,7 +467,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 */
 	public function add_sidebar_sections( $sections, $sidebar ): array {
 		// Check if the content should currently be displayed.
-		if ( ! $this->should_display() ) {
+		if ( ! $this->is_content_displayable() ) {
 			return $sections;
 		}
 
@@ -491,7 +556,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 *
 	 * @return void
 	 */
-	public function include_sidebar_object( $sidebar ): void {
+	public function include_sidebar_object( &$sidebar ): void {
 		$cache = tribe_cache();
 		if ( ! empty( $cache[ __METHOD__ ] ) ) {
 			return;
@@ -500,7 +565,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 		$cache[ __METHOD__ ] = true;
 
 		// Check if the content should currently be displayed.
-		if ( ! $this->should_display() ) {
+		if ( ! $this->is_content_displayable() ) {
 			return;
 		}
 
@@ -584,7 +649,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 */
 	public function render_sidebar_content(): void {
 		// Check if the content should currently be displayed.
-		if ( ! $this->should_display() ) {
+		if ( ! $this->is_content_displayable() ) {
 			return;
 		}
 

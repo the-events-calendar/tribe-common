@@ -2133,7 +2133,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @return string
 		 */
-		protected function get_site_domain(): string {
+		public function get_site_domain(): string {
 			if ( isset( $_SERVER['SERVER_NAME'] ) ) {
 				return $_SERVER['SERVER_NAME'];
 			}

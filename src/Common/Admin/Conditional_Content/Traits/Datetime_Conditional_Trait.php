@@ -1,21 +1,30 @@
 <?php
+/**
+ * Trait Datetime_Conditional_Trait
+ *
+ * @since TBD
+ *
+ * @package TEC\Common\Admin\Conditional_Content\Traits
+ */
 
-namespace TEC\Common\Admin\Conditional_Content;
+namespace TEC\Common\Admin\Conditional_Content\Traits;
 
 use Tribe__Date_Utils as Dates;
 use Tribe__Template as Template;
 use Tribe\Utils\Date_I18n;
 
 /**
- * Abstract class for conditional content.
+ * Trait for date-based conditional content functionality.
  *
- * @since 6.3.0
+ * @since TBD
  */
-abstract class Datetime_Conditional_Abstract {
+trait Datetime_Conditional_Trait {
 	/**
 	 * Item slug.
 	 *
 	 * @since 6.3.0
+	 *
+	 * @var string
 	 */
 	protected string $slug;
 
@@ -23,6 +32,8 @@ abstract class Datetime_Conditional_Abstract {
 	 * Start date.
 	 *
 	 * @since 6.3.0
+	 *
+	 * @var string
 	 */
 	protected string $start_date;
 
@@ -30,6 +41,8 @@ abstract class Datetime_Conditional_Abstract {
 	 * Start time.
 	 *
 	 * @since 6.3.0
+	 *
+	 * @var int
 	 */
 	protected int $start_time;
 
@@ -37,6 +50,8 @@ abstract class Datetime_Conditional_Abstract {
 	 * End date.
 	 *
 	 * @since 6.3.0
+	 *
+	 * @var string
 	 */
 	protected string $end_date;
 
@@ -44,6 +59,8 @@ abstract class Datetime_Conditional_Abstract {
 	 * End time.
 	 *
 	 * @since 6.3.0
+	 *
+	 * @var int
 	 */
 	protected int $end_time;
 
@@ -132,13 +149,14 @@ abstract class Datetime_Conditional_Abstract {
 	}
 
 	/**
-	 * Whether the content should display.
+	 * Whether the content should display based on date constraints.
 	 *
 	 * @since 6.3.0
+	 * @since TBD Renamed from should_display() to is_date_valid() to better reflect its specific purpose.
 	 *
-	 * @return boolean - Whether the content should display
+	 * @return boolean - Whether the content should display based on date constraints
 	 */
-	protected function should_display(): bool {
+	protected function is_date_valid(): bool {
 		$now          = Dates::build_date_object( 'now', 'UTC' );
 		$notice_start = $this->get_start_time();
 		$notice_end   = $this->get_end_time();
@@ -151,14 +169,15 @@ abstract class Datetime_Conditional_Abstract {
 		$display = $notice_start <= $now && $now < $notice_end;
 
 		/**
-		 * Allow filtering whether the content should display.
+		 * Allow filtering whether the content should display based on date constraints.
 		 *
 		 * @since 6.3.0
+		 * @since TBD Filter name updated to reflect method name change.
 		 *
-		 * @param bool   $should_display Whether the content should display.
-		 * @param object $instance       The conditional content object.
+		 * @param bool   $display  Whether the content should display.
+		 * @param object $instance The conditional content object.
 		 */
-		return (bool) apply_filters( "tec_admin_conditional_content_{$this->slug}_should_display", $display, $this );
+		return (bool) apply_filters( "tec_admin_conditional_content_{$this->slug}_is_date_valid", $display, $this );
 	}
 
 	/**

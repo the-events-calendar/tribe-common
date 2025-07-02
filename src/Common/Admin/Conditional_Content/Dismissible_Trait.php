@@ -1,8 +1,16 @@
 <?php
+/**
+ * Trait Dismissible_Trait
+ *
+ * @since 6.3.0
+ *
+ * @package TEC\Common\Admin\Conditional_Content
+ */
 
 declare( strict_types=1 );
 
 namespace TEC\Common\Admin\Conditional_Content;
+
 use Exception;
 
 /**
