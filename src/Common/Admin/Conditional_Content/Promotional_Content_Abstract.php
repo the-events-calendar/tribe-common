@@ -92,7 +92,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @return string
 	 */
 	protected function get_wide_banner_image() {
-		return $this->slug . '/top-wide.png';
+		return $this->get_slug() . '/top-wide.png';
 	}
 
 	/**
@@ -103,7 +103,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @return string
 	 */
 	protected function get_narrow_banner_image() {
-		return $this->slug . '/top-narrow.png';
+		return $this->get_slug() . '/top-narrow.png';
 	}
 
 	/**
@@ -114,7 +114,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @return string
 	 */
 	protected function get_sidebar_image() {
-		return $this->slug . '/sidebar.png';
+		return $this->get_slug() . '/sidebar.png';
 	}
 
 	/**
