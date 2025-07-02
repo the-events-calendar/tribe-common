@@ -40,6 +40,7 @@ $classes = [
 <div
 	<?php tec_classes( $classes ); ?>
 	style="background-color: <?php echo esc_attr( $background_color ); ?>;" <?php // This is intentionally inline, don't change it. ?>
+	data-tec-conditional-content-dismiss-container
 >
 	<a
 		class="tribe-conditional-content-link"
@@ -47,7 +48,6 @@ $classes = [
 		target="_blank"
 		rel="noopener nofollow"
 		title="<?php echo esc_attr( $a11y_text ); ?>"
-		data-tec-conditional-content-dismiss-container
 	>
 		<?php if ( $is_responsive_mode && ! $use_sidebar_mode ) : ?>
 			<img
