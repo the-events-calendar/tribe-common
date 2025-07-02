@@ -7,5 +7,7 @@ export { TimeZone } from './TimeZone';
 export { TinyMceEditor } from './TinyMceEditor';
 export { CenteredSpinner } from './CenteredSpinner';
 export { LabeledInput } from './LabeledInput';
+export { StartSelector } from './StartSelector';
+export { EndSelector } from './EndSelector';
 
 // Note: the Classy application is not exported by design, only components are.
