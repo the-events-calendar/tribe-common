@@ -28,14 +28,14 @@ class Stellar_Sale extends Promotional_Content_Abstract {
 	 *
 	 * @var string
 	 */
-	protected string $start_date = 'March 15th';
+	protected string $start_date = 'July 29th';
 
 	/**
 	 * @inheritdoc
 	 *
 	 * @var string
 	 */
-	protected string $end_date = 'March 22nd';
+	protected string $end_date = 'August 5th';
 
 	/**
 	 * @inheritdoc
@@ -55,6 +55,6 @@ class Stellar_Sale extends Promotional_Content_Abstract {
 	 * @inheritdoc
 	 */
 	protected function get_link_url(): string {
-		return 'https://evnt.is/tec-stellar-sale-2024';
+		return 'https://evnt.is/1bdv';
 	}
 }
