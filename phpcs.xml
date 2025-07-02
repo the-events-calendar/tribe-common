@@ -22,7 +22,7 @@
 	<!-- Tweak this one - we always want them lined up. 1000 is the default, WP overrides that. -->
 	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
 		<properties>
-			<property name="maxColumn" value="100"/>
+			<property name="maxColumn" value="1000"/>
 		</properties>
 	</rule>
 
