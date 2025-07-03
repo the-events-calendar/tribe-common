@@ -64,7 +64,7 @@ final class Notifications {
 	 *
 	 * @return string
 	 */
-	public function get_slug() {
+	public function get_slug(): string {
 		return $this->slug;
 	}
 
