@@ -67,7 +67,7 @@ class Controller_Test_Case extends WPBrowserTestCase {
 	 */
 	private ?Controller $original_controller;
 	/**
-	 * ${CARET}
+	 * The original Service Locator.
 	 *
 	 * @since 5.2.7
 	 *
