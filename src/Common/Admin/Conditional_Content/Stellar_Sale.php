@@ -59,6 +59,32 @@ class Stellar_Sale extends Promotional_Content_Abstract {
 	}
 
 	/**
+	 * Check if Event Tickets Plus Seating is licensed and active.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether Seating is licensed and active.
+	 */
+	public static function check_seating_license(): bool {
+		try {
+			$service = tribe( '\TEC\Tickets\Seating\Service\Service' );
+		} catch ( \Exception $e ) {
+			return false;
+		}
+
+		// Get service status from the Seating Service.
+		$service_status = $service->get_status();
+
+		// If service status doesn't exist, seating is not active.
+		if ( empty( $service_status ) ) {
+			return false;
+		}
+
+		// Check if the license is valid (not invalid and has a license).
+		return ! ( $service_status->is_license_invalid() || $service_status->has_no_license() );
+	}
+
+	/**
 	 * @inheritdoc
 	 */
 	protected function get_suite_creative_map(): array {
@@ -111,7 +137,8 @@ class Stellar_Sale extends Promotional_Content_Abstract {
 						$this->get_sale_name()
 					),
 				],
-				'event-tickets-plus/seating.php'            => [
+				'seating-check'                            => [
+					'callback'          => [ __CLASS__, 'check_seating_license' ],
 					'image_url'         => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/seating-top-wide.png', false, null, \Tribe__Main::instance() ),
 					'narrow_image_url'  => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/seating-top-narrow.png', false, null, \Tribe__Main::instance() ),
 					'sidebar_image_url' => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/seating-sidebar.png', false, null, \Tribe__Main::instance() ),

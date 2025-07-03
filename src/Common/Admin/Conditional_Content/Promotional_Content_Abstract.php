@@ -605,6 +605,27 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Get the suite creative map.
 	 *
+	 * The creative map should be structured as follows:
+	 *
+	 * [
+	 *   'context' => [
+	 *     'plugin/path.php' => [
+	 *       'image_url' => '...',
+	 *       'narrow_image_url' => '...',
+	 *       'link_url' => '...',
+	 *       'alt_text' => '...',
+	 *     ],
+	 *     'feature-check' => [
+	 *       'callback' => [ 'Class', 'method' ], // Callback to determine if feature is active
+	 *       'image_url' => '...',
+	 *       'narrow_image_url' => '...',
+	 *       'link_url' => '...',
+	 *       'alt_text' => '...',
+	 *     ],
+	 *     'default' => [ ... ] // Fallback creative
+	 *   ],
+	 * ]
+	 *
 	 * @since TBD
 	 *
 	 * @return array The suite creative map.
@@ -672,18 +693,24 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 
 		$context_creatives = $creative_map[ $context ];
 
-		// Iterate through the creatives and find the first plugin that is not installed.
+		// Iterate through the creatives and find the first plugin that is not installed or where the callback returns false.
 		foreach ( $context_creatives as $plugin_path => $creative ) {
 			// Skip the default entry for now.
 			if ( 'default' === $plugin_path ) {
 				continue;
 			}
 
-			// Check if the plugin is NOT active.
-			if ( ! is_plugin_active( $plugin_path ) ) {
+			// Check if we have a callback for plugin detection.
+			if ( isset( $creative['callback'] ) && is_callable( $creative['callback'] ) ) {
+				// Execute the callback to determine if the plugin or feature is active.
+				$is_active = call_user_func( $creative['callback'] );
+
+				// If the callback returns false (feature not active), use this creative.
+				if ( ! $is_active ) {
+					return $creative;
+				}
+			} elseif ( ! is_plugin_active( $plugin_path ) ) {
 				return $creative;
-			} else {
-				$fnord = 'fnord';
 			}
 		}
 
