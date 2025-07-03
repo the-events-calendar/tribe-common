@@ -7,7 +7,7 @@ tribe.helpPage.BeaconManager = {
 	/**
 	 * Initialize the Beacon stub if not already present.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 * @return {void}
 	 */
 	initStub() {
@@ -22,7 +22,7 @@ tribe.helpPage.BeaconManager = {
 	/**
 	 * Check if Beacon is available.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 * @return {boolean}
 	 */
 	isAvailable() {
@@ -32,7 +32,7 @@ tribe.helpPage.BeaconManager = {
 	/**
 	 * Call Beacon with the given method and arguments.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 * @param {string} method - The Beacon method to call.
 	 * @param {...any} args - Arguments to pass to the method.
 	 * @return {void}
@@ -46,7 +46,7 @@ tribe.helpPage.BeaconManager = {
 	/**
 	 * Initialize Beacon with the given key.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 * @param {string} key - The Beacon key.
 	 * @return {void}
 	 */
@@ -57,7 +57,7 @@ tribe.helpPage.BeaconManager = {
 	/**
 	 * Configure Beacon with the given options.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 * @param {Object} config - Configuration options.
 	 * @return {void}
 	 */
@@ -68,7 +68,7 @@ tribe.helpPage.BeaconManager = {
 	/**
 	 * Add an event listener to Beacon.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 * @param {string} event - The event name.
 	 * @param {Function} callback - The callback function.
 	 * @return {void}
@@ -80,7 +80,7 @@ tribe.helpPage.BeaconManager = {
 	/**
 	 * Identify a user with Beacon.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 * @param {Object} userData - User identification data.
 	 * @return {void}
 	 */
@@ -91,7 +91,7 @@ tribe.helpPage.BeaconManager = {
 	/**
 	 * Open the Beacon widget.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 * @return {void}
 	 */
 	open() {
@@ -101,7 +101,7 @@ tribe.helpPage.BeaconManager = {
 	/**
 	 * Close the Beacon widget.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 * @return {void}
 	 */
 	close() {
@@ -115,7 +115,7 @@ tribe.helpPage.BeaconManager = {
 	/**
 	 * Selectors map for Help Hub DOM elements.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 */
 	obj.selectors = {
 		body: 'body',
@@ -196,7 +196,7 @@ tribe.helpPage.BeaconManager = {
 	/**
 	 * Utility: Get the Help Hub page element.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 * @return {HTMLElement|null}
 	 */
 	obj.getHelpHubPageElement = function () {
@@ -206,7 +206,7 @@ tribe.helpPage.BeaconManager = {
 	/**
 	 * Utility: Check if user is opted in.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 * @return {boolean}
 	 */
 	obj.isOptedIn = function () {
@@ -217,7 +217,7 @@ tribe.helpPage.BeaconManager = {
 	/**
 	 * HelpScoutManager handles Help Scout Beacon integration.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 * @class
 	 * @link https://developer.helpscout.com/beacon-2/web/javascript-api
 	 */
@@ -232,7 +232,7 @@ tribe.helpPage.BeaconManager = {
 	/**
 	 * Loads the Help Scout Beacon script dynamically.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 * @return {Promise<void>}
 	 */
 	HelpScoutManager.prototype.loadScript = function () {
@@ -263,7 +263,7 @@ tribe.helpPage.BeaconManager = {
 	/**
 	 * Initializes the Help Scout Beacon widget.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 * @return {Promise<void>}
 	 */
 	HelpScoutManager.prototype.initBeacon = function () {
@@ -321,7 +321,7 @@ tribe.helpPage.BeaconManager = {
 	/**
 	 * Opens the Help Scout Beacon widget programmatically.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 * @return {void}
 	 */
 	HelpScoutManager.prototype.openBeacon = function () {
@@ -384,7 +384,7 @@ tribe.helpPage.BeaconManager = {
 	/**
 	 * Expose a method to open the Help Scout Beacon programmatically.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 * @return {void}
 	 */
 	obj.openBeacon = function () {
@@ -486,7 +486,7 @@ tribe.helpPage.BeaconManager = {
 	/**
 	 * Toggles the blackout class on the Help Hub page.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 * @param {boolean} enable
 	 * @return {void}
 	 */

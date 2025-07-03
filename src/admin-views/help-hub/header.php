@@ -38,7 +38,7 @@ $logo_alt = apply_filters( 'tec_help_hub_header_logo_alt', __( 'The Events Calen
 	/**
 	 * Trigger the conditional content header notice.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 */
 	do_action( 'tec_conditional_content_header_notice' );
 	?>

@@ -18,7 +18,7 @@ use TEC\Common\Admin\Help_Hub\Hub;
 	/**
 	 * Trigger the conditional content sidebar notice.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 */
 	do_action( 'tec_conditional_content_sidebar_notice__help_hub_support' );
 	?>

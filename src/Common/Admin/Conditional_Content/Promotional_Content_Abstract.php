@@ -2,7 +2,7 @@
 /**
  * Abstract class for promotional conditional content.
  *
- * @since TBD
+ * @since 6.8.2
  *
  * @package TEC\Common\Admin\Conditional_Content;
  */
@@ -32,7 +32,7 @@ use Tribe\Utils\{
 /**
  * Abstract class for promotional content with banners.
  *
- * @since TBD
+ * @since 6.8.2
  */
 abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstract {
 	use Dismissible_Trait;
@@ -41,7 +41,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * Background color for the promotional content.
 	 * Must match the background color of the image.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @var string
 	 */
@@ -58,7 +58,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Get the background color.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return string
 	 */
@@ -69,7 +69,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Sale name for display.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return string
 	 */
@@ -78,7 +78,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Link URL for the promotional content.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return string
 	 */
@@ -87,7 +87,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Wide banner image filename.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return string
 	 */
@@ -98,7 +98,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Narrow banner image filename.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return string
 	 */
@@ -109,7 +109,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Settings sidebar image filename.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return string
 	 */
@@ -120,7 +120,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Get the template slug/filename.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return string
 	 */
@@ -131,7 +131,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Get the full slug with year.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return string
 	 */
@@ -193,7 +193,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 		 * Fires to allow for conditional content assets to be rendered.
 		 * Before the banner is output.
 		 *
-		 * @since TBD
+		 * @since 6.8.2
 		 */
 		do_action( 'tec_conditional_content_assets' );
 
@@ -203,7 +203,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Render the responsive banner HTML (combines wide and narrow into one efficient render).
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 */
 	protected function render_responsive_banner_html(): void {
 		if ( ! $this->should_display() ) {
@@ -213,7 +213,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 		/**
 		 * Fires before the responsive banner is rendered.
 		 *
-		 * @since TBD
+		 * @since 6.8.2
 		 *
 		 * @param string $slug     The slug of the conditional content.
 		 * @param object $instance The promotional content instance.
@@ -226,7 +226,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Gets the content for the responsive banner promo.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return string
 	 */
@@ -259,7 +259,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Gets the content for the wide banner promo.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return string
 	 */
@@ -291,7 +291,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Render the wide banner HTML.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return void
 	 */
@@ -303,7 +303,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 		/**
 		 * Fires before the wide banner is rendered.
 		 *
-		 * @since TBD
+		 * @since 6.8.2
 		 *
 		 * @param string $slug     The slug of the conditional content.
 		 * @param object $instance The promotional content instance.
@@ -316,7 +316,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Gets the content for the narrow banner promo.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return string
 	 */
@@ -348,7 +348,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Render the narrow banner HTML.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return void
 	 */
@@ -360,7 +360,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 		/**
 		 * Fires before the narrow banner is rendered.
 		 *
-		 * @since TBD
+		 * @since 6.8.2
 		 *
 		 * @param string $slug     The slug of the conditional content.
 		 * @param object $instance The promotional content instance.
@@ -373,7 +373,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Include the promo in the tickets settings section.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return void
 	 */
@@ -393,7 +393,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Add sections to sidebar sections array (for filter-based sidebars).
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @param Settings_Sidebar_Section[] $sections The sidebar sections.
 	 * @param Settings_Sidebar           $sidebar  Sidebar instance.
@@ -412,7 +412,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 		/**
 		 * Fires before the settings sidebar is rendered.
 		 *
-		 * @since TBD
+		 * @since 6.8.2
 		 *
 		 * @param string $slug     The slug of the conditional content.
 		 * @param object $instance The promotional content instance.
@@ -485,7 +485,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Include the promo in the settings sidebar (for object-based sidebars).
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @param Settings_Sidebar $sidebar Sidebar instance.
 	 *
@@ -510,7 +510,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 		/**
 		 * Fires before the settings sidebar is rendered.
 		 *
-		 * @since TBD
+		 * @since 6.8.2
 		 *
 		 * @param string $slug     The slug of the conditional content.
 		 * @param object $instance The promotional content instance.
@@ -578,7 +578,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Render sidebar promotional content directly for help hub pages.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return void
 	 */
@@ -594,7 +594,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 		/**
 		 * Fires before the sidebar content is rendered.
 		 *
-		 * @since TBD
+		 * @since 6.8.2
 		 *
 		 * @param string $slug     The slug of the conditional content.
 		 * @param object $instance The promotional content instance.

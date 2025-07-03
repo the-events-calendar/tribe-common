@@ -402,7 +402,7 @@ abstract class Abstract_Admin_Page {
 			/**
 			 * Fires before the admin page wrapper starts if we do not have a sidebar.
 			 *
-			 * @since TBD
+			 * @since 6.8.2
 			 */
 			do_action( 'tec_admin_page_before_wrap_start' );
 		}
@@ -413,7 +413,7 @@ abstract class Abstract_Admin_Page {
 			/**
 			 * Fires after the admin page wrapper starts.
 			 *
-			 * @since TBD
+			 * @since 6.8.2
 			 */
 			do_action( 'tec_admin_page_after_wrap_start' );
 			?>
@@ -426,7 +426,7 @@ abstract class Abstract_Admin_Page {
 			/**
 			 * Fires after the admin page main content wrapper.
 			 *
-			 * @since TBD
+			 * @since 6.8.2
 			 */
 			do_action( 'tec_admin_page_after_content' );
 			?>
@@ -435,7 +435,7 @@ abstract class Abstract_Admin_Page {
 			/**
 			 * Fires before the admin page sidebar wrapper.
 			 *
-			 * @since TBD
+			 * @since 6.8.2
 			 */
 			do_action( 'tec_admin_page_before_sidebar' );
 			$this->admin_page_sidebar_wrapper();
@@ -446,7 +446,7 @@ abstract class Abstract_Admin_Page {
 			/**
 			 * Fires before the admin page wrapper ends.
 			 *
-			 * @since TBD
+			 * @since 6.8.2
 			 */
 			do_action( 'tec_admin_page_before_wrap_end' );
 			?>
@@ -456,7 +456,7 @@ abstract class Abstract_Admin_Page {
 		/**
 		 * Fires after the admin page wrapper ends.
 		 *
-		 * @since TBD
+		 * @since 6.8.2
 		 */
 		do_action( 'tec_admin_page_after_wrap_end' );
 	}
@@ -491,7 +491,7 @@ abstract class Abstract_Admin_Page {
 		/**
 		 * Fires after the admin page logo.
 		 *
-		 * @since TBD
+		 * @since 6.8.2
 		 */
 		do_action( 'tribe_admin_page_after_logo' );
 	}
@@ -516,7 +516,7 @@ abstract class Abstract_Admin_Page {
 				/**
 				 * Fires before the admin page title.
 				 *
-				 * @since TBD
+				 * @since 6.8.2
 				 */
 				do_action( 'tec_admin_header_before_title' );
 				$this->admin_page_title();
@@ -524,7 +524,7 @@ abstract class Abstract_Admin_Page {
 				/**
 				 * Fires after the admin page title.
 				 *
-				 * @since TBD
+				 * @since 6.8.2
 				 */
 				do_action( 'tec_admin_header_after_title' );
 
@@ -625,7 +625,7 @@ abstract class Abstract_Admin_Page {
 			/**
 			 * Fires before the admin page footer content.
 			 *
-			 * @since TBD
+			 * @since 6.8.2
 			 */
 			do_action( 'tec_admin_page_footer_content' );
 			?>

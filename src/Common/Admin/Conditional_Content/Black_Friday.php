@@ -35,7 +35,7 @@ class Black_Friday extends Promotional_Content_Abstract {
 	 * Background color for the promotional content.
 	 * Must match the background color of the image.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @var string
 	 */

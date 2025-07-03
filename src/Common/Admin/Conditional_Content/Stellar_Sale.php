@@ -2,7 +2,7 @@
 /**
  * Stellar Sale Promo Conditional Content.
  *
- * @since TBD
+ * @since 6.8.2
  *
  * @package TEC\Common\Admin\Conditional_Content;
  */
@@ -12,7 +12,7 @@ namespace TEC\Common\Admin\Conditional_Content;
 /**
  * Set up for Stellar Sale promo.
  *
- * @since TBD
+ * @since 6.8.2
  */
 class Stellar_Sale extends Promotional_Content_Abstract {
 

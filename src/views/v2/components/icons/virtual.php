@@ -11,9 +11,9 @@
  *
  *
  * @since 4.12.14
- * @since TBD Add aria-hidden="true" to the svg element as this is a decorative element. Remove the `$icon_title` var, it is not longer used.
+ * @since 6.8.2 Add aria-hidden="true" to the svg element as this is a decorative element. Remove the `$icon_title` var, it is not longer used.
  *
- * @version TBD
+ * @version 6.8.2
  *
  * @var array<string> $classes Additional classes to add to the svg icon.
  */

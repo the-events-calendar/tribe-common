@@ -2,7 +2,7 @@
 /**
  * Generic Conditional Content template.
  *
- * @since TBD
+ * @since 6.8.2
  *
  * @var string $background_color  The background color of the banner.
  * @var string $image_src         Where the image is located (legacy).

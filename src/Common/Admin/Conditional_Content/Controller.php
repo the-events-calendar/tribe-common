@@ -96,7 +96,7 @@ class Controller extends Provider_Contract {
 	/**
 	 * Add sidebar objects from each promotional content class.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @param Settings_Sidebar $sidebar The sidebar instance.
 	 *
@@ -114,7 +114,7 @@ class Controller extends Provider_Contract {
 	/**
 	 * Add sidebar sections from each promotional content class.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @param Settings_Sidebar_Section[] $sections The sidebar sections.
 	 * @param Settings_Sidebar           $sidebar  The sidebar instance.
@@ -135,7 +135,7 @@ class Controller extends Provider_Contract {
 	/**
 	 * Get the promotional content classes.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return string[]
 	 */
@@ -149,7 +149,7 @@ class Controller extends Provider_Contract {
 	/**
 	 * Render promotional content for help hub sidebar.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return void
 	 */

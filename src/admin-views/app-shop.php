@@ -32,7 +32,7 @@ use Tribe\Admin\Troubleshooting;
 		/**
 		 * Trigger the conditional content header notice.
 		 *
-		 * @since TBD
+		 * @since 6.8.2
 		 */
 		do_action( 'tec_conditional_content_header_notice' );
 		tribe( Troubleshooting::class )->admin_notice( 'app-shop' );

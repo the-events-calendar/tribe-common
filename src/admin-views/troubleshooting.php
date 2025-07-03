@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Trigger the conditional content header notice.
  *
- * @since TBD
+ * @since 6.8.2
  */
 do_action( 'tec_conditional_content_header_notice' );
 $base_path = Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/';

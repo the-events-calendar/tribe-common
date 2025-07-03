@@ -948,7 +948,7 @@ class Tribe__Settings {
 			/**
 			 * Trigger the conditional content header notice.
 			 *
-			 * @since TBD
+			 * @since 6.8.2
 			 *
 			 * @param \Tribe__Admin__View $admin_page The current admin page object.
 			 */

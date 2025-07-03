@@ -11,10 +11,10 @@
  *
  * @since 4.12.14
  * @since 4.14.7 Prevent duplicate IDs.
- * @since TBD Add aria-hidden="true" to the svg element.
- * @since TBD Escape the clip path IDs.
+ * @since 6.8.2 Add aria-hidden="true" to the svg element.
+ * @since 6.8.2 Escape the clip path IDs.
  *
- * @version TBD
+ * @version 6.8.2
  *
  * @var array<string> $classes Additional classes to add to the svg icon.
  *                             If not empty, the first is used for the clip path IDs.

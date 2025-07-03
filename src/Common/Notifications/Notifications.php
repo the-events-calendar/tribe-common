@@ -60,7 +60,7 @@ final class Notifications {
 	/**
 	 * Get the slug for the In-App Notifications.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return string
 	 */
