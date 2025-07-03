@@ -8,12 +8,14 @@ type CurrencyInputProps = {
 	required?: boolean;
 	label?: string;
 	onChange?: ( value: string ) => void;
-	value?: any;
+	value: string;
 	decimalPrecision: number;
 	decimalSeparator: string;
 	thousandSeparator: string;
 	defaultCurrency: Currency;
 };
+
+const defaultLabel = __( 'Price', 'tribe-common' );
 
 /**
  * Renders a currency input field in the Classy editor.
@@ -34,7 +36,7 @@ export default function CurrencyInput( props: CurrencyInputProps ): JSX.Element{
 		thousandSeparator,
 		defaultCurrency,
 	} = props;
-	const defaultLabel = __( 'Price', 'tribe-common' );
+	const displayLabel = label || defaultLabel;
 
 	const [ hasFocus, setHasFocus ] = useState< boolean >( false );
 
@@ -84,10 +86,10 @@ export default function CurrencyInput( props: CurrencyInputProps ): JSX.Element{
 	] );
 
 	return (
-		<LabeledInput label={ label || defaultLabel }>
+		<LabeledInput label={ displayLabel }>
 			<InputControl
 				className="classy-field__control classy-field__control--input"
-				label={ label || defaultLabel }
+				label={ displayLabel }
 				hideLabelFromVision={ true }
 				value={ renderValue( value ) }
 				onChange={ onChange }
