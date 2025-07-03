@@ -1,4 +1,0 @@
-Significance: minor
-Type: tweak
-
-Added actions: `tec_admin_page_before_sidebar`, `tec_conditional_content_assets`, `tec_conditional_content_{$this->slug}`, `tec_common_admin_before_tab_content`, `tec_common_admin_custom_tab_content`, `tec_common_admin_after_tab_content`, `tec_conditional_content_header_notice`, `tec_conditional_content_sidebar_notice__help_hub_support`
