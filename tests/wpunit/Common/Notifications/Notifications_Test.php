@@ -49,8 +49,8 @@ class Notifications_Test extends WPTestCase {
 		delete_option( $this->optin_key );
 	}
 
-	protected function get_slug() {
-		return $this->slug . '-' . gmdate( 'Y' );
+	public function get_slug() {
+		return $this->slug;
 	}
 
 	private function get_mocked_feed() {

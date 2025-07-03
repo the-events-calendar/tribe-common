@@ -58,6 +58,17 @@ final class Notifications {
 	}
 
 	/**
+	 * Get the slug for the In-App Notifications.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_slug() {
+		return $this->slug;
+	}
+
+	/**
 	 * Get the API URL for the In-App Notifications.
 	 *
 	 * @since 6.4.0
