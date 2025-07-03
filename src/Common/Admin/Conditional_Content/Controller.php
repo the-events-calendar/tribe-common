@@ -102,7 +102,7 @@ class Controller extends Provider_Contract {
 	 *
 	 * @return void
 	 */
-	public function add_sidebar_objects( &$sidebar ): void {
+	public function add_sidebar_objects( $sidebar ): void {
 		foreach ( $this->get_promotional_classes() as $class ) {
 			$instance = tribe( $class );
 			if ( is_callable( [ $instance, 'include_sidebar_object' ] ) ) {
