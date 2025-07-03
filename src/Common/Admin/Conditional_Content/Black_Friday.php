@@ -9,12 +9,20 @@
 
 namespace TEC\Common\Admin\Conditional_Content;
 
+// Import the traits
+use TEC\Common\Admin\Conditional_Content\Traits\Datetime_Conditional_Trait;
+use TEC\Common\Admin\Conditional_Content\Traits\Plugin_Suite_Conditional_Trait;
+use TEC\Common\Admin\Conditional_Content\Traits\Installed_Plugins_Conditional_Trait;
+
 /**
  * Set up for Black Friday promo.
  *
  * @since 6.3.0
  */
 class Black_Friday extends Promotional_Content_Abstract {
+	use Datetime_Conditional_Trait;
+	use Plugin_Suite_Conditional_Trait;
+	use Installed_Plugins_Conditional_Trait;
 
 	/**
 	 * @inheritdoc
@@ -26,46 +34,22 @@ class Black_Friday extends Promotional_Content_Abstract {
 	protected string $slug = 'black-friday';
 
 	/**
-	 * @inheritdoc
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	protected string $start_date = 'November 26th';
-
-	/**
-	 * @inheritdoc
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	protected string $end_date = 'December 3rd';
-
-	/**
-	 * @inheritdoc
-	 *
-	 * @var string
-	 */
-	protected int $start_time = 4;
-
-	/**
-	 * @inheritdoc
-	 *
-	 * @var string
-	 */
-	protected int $end_time = 7;
-
-	/**
-	 * Background color for the promotional content.
-	 * Must match the background color of the image.
-	 *
-	 * @since TBD
-	 *
 	 * @var string
 	 */
 	protected string $background_color = '#000';
+
+	/**
+	 * Constructor for the Black_Friday promotional content.
+	 *
+	 * @since TBD
+	 */
+	public function __construct() {
+		// Initialize the hooks provided by the traits used by this class (and the abstract class).
+		$this->initialize_trait_hooks();
+
+		// Configure Datetime_Conditional_Trait with specific dates for Black Friday.
+		$this->set_datetime_configuration( 'November 26th', 'December 3rd', 4, 7 );
+	}
 
 	/**
 	 * @inheritdoc
@@ -85,22 +69,42 @@ class Black_Friday extends Promotional_Content_Abstract {
 	 * @inheritdoc
 	 */
 	protected function get_target_plugin_suites(): array {
-		// Target both Events Calendar and Event Tickets suites.
+		// Target both Events Calendar and Event Tickets suites for this sale.
 		return [ 'events', 'tickets' ];
+	}
+
+	/**
+	 * Determines the current admin suite context (Events or Tickets) for Black Friday.
+	 * This is called by Plugin_Suite_Conditional_Trait.
+	 *
+	 * @since TBD
+	 *
+	 * @return string|null 'events', 'tickets', or null if no context could be determined.
+	 */
+	protected function get_current_admin_suite_context(): ?string {
+		global $current_screen;
+
+		if ( isset( $current_screen ) && $current_screen instanceof \WP_Screen ) {
+			if ( strpos( $current_screen->id, 'tribe_events' ) === 0 || $current_screen->post_type === 'tribe_events' ) {
+				return 'events';
+			}
+			if ( strpos( $current_screen->id, 'tickets' ) === 0 || in_array( $current_screen->post_type, [ 'tec_tickets', 'tribe_rsvp', 'tribe_tickets' ] ) ) {
+				return 'tickets';
+			}
+		}
+
+		return null;
 	}
 
 	/**
 	 * @inheritdoc
 	 */
 	protected function get_suite_creative_map(): array {
-		// Define the prioritized mapping of plugin states to creatives.
 		return [
-			// Rules for the Events suite context.
 			'events'  => [
-				// Events Pro upsell.
 				'events-pro/events-pro.php'                            => [
-					'image_url'        => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/events-pro.png', false, null, \Tribe__Main::instance() ),
-					'narrow_image_url' => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/events-pro-narrow.png', false, null, \Tribe__Main::instance() ),
+					'image_url'        => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/ecp-top-wide.png', false, null, \Tribe__Main::instance() ),
+					'narrow_image_url' => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/ecp-top-narrow.png', false, null, \Tribe__Main::instance() ),
 					'link_url'         => 'https://evnt.is/tec-bf-pro-2024',
 					'alt_text'         => sprintf(
 						/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
@@ -109,10 +113,9 @@ class Black_Friday extends Promotional_Content_Abstract {
 						$this->get_sale_name()
 					),
 				],
-				// Filter Bar upsell.
 				'events-filterbar/the-events-calendar-filter-view.php' => [
-					'image_url'        => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/filterbar.png', false, null, \Tribe__Main::instance() ),
-					'narrow_image_url' => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/filterbar-narrow.png', false, null, \Tribe__Main::instance() ),
+					'image_url'        => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/fb-top-wide.png', false, null, \Tribe__Main::instance() ),
+					'narrow_image_url' => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/fb-top-narrow.png', false, null, \Tribe__Main::instance() ),
 					'link_url'         => 'https://evnt.is/tec-bf-fb-2024',
 					'alt_text'         => sprintf(
 						/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
@@ -121,8 +124,7 @@ class Black_Friday extends Promotional_Content_Abstract {
 						$this->get_sale_name()
 					),
 				],
-				// Default creative for Events suite when all plugins are active/licensed.
-				'default'                                            => [
+				'default'                                              => [
 					'image_url'        => tribe_resource_url( 'images/conditional-content/' . $this->get_wide_banner_image(), false, null, \Tribe__Main::instance() ),
 					'narrow_image_url' => tribe_resource_url( 'images/conditional-content/' . $this->get_narrow_banner_image(), false, null, \Tribe__Main::instance() ),
 					'link_url'         => $this->get_link_url(),
@@ -134,26 +136,37 @@ class Black_Friday extends Promotional_Content_Abstract {
 					),
 				],
 			],
-			// Rules for the Tickets suite context.
 			'tickets' => [
-				// Event Tickets Plus upsell.
 				'event-tickets-plus/event-tickets-plus.php' => [
-					'image_url'        => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/tickets-plus.png', false, null, \Tribe__Main::instance() ),
-					'narrow_image_url' => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/tickets-plus-narrow.png', false, null, \Tribe__Main::instance() ),
-					'link_url'         => 'https://evnt.is/tec-bf-etp-2024',
-					'alt_text'         => sprintf(
+					'image_url'         => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/etp-top-wide.png', false, null, \Tribe__Main::instance() ),
+					'narrow_image_url'  => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/etp-top-narrow.png', false, null, \Tribe__Main::instance() ),
+					'sidebar_image_url' => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/etp-sidebar.png', false, null, \Tribe__Main::instance() ),
+					'link_url'          => 'https://evnt.is/tec-bf-etp-2024',
+					'alt_text'          => sprintf(
 						/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
 						_x( '%1$s %2$s - Get Event Tickets Plus at 30%% off!', 'Alt text for the Event Tickets Plus Sale Ad', 'tribe-common' ),
 						date_i18n( 'Y' ),
 						$this->get_sale_name()
 					),
 				],
-				// Default creative for Tickets suite when all plugins are active/licensed.
+				'event-tickets-plus/seating.php'            => [
+					'image_url'         => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/seat-top-wide.png', false, null, \Tribe__Main::instance() ),
+					'narrow_image_url'  => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/seat-top-narrow.png', false, null, \Tribe__Main::instance() ),
+					'sidebar_image_url' => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/seat-sidebar.png', false, null, \Tribe__Main::instance() ),
+					'link_url'          => 'https://evnt.is/tec-bf-etp-2024',
+					'alt_text'          => sprintf(
+						/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
+						_x( '%1$s %2$s - Get Event Tickets Plus at 30%% off!', 'Alt text for the Event Tickets Plus Sale Ad', 'tribe-common' ),
+						date_i18n( 'Y' ),
+						$this->get_sale_name()
+					),
+				],
 				'default'                                   => [
-					'image_url'        => tribe_resource_url( 'images/conditional-content/' . $this->get_wide_banner_image(), false, null, \Tribe__Main::instance() ),
-					'narrow_image_url' => tribe_resource_url( 'images/conditional-content/' . $this->get_narrow_banner_image(), false, null, \Tribe__Main::instance() ),
-					'link_url'         => $this->get_link_url(),
-					'alt_text'         => sprintf(
+					'image_url'         => tribe_resource_url( 'images/conditional-content/' . $this->get_wide_banner_image(), false, null, \Tribe__Main::instance() ),
+					'narrow_image_url'  => tribe_resource_url( 'images/conditional-content/' . $this->get_narrow_banner_image(), false, null, \Tribe__Main::instance() ),
+					'link_url'          => $this->get_link_url(),
+					'sidebar_image_url' => tribe_resource_url( 'images/conditional-content/' . $this->get_sidebar_image(), false, null, \Tribe__Main::instance() ),
+					'alt_text'          => sprintf(
 						/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
 						_x( '%1$s %2$s for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Default Sale Ad', 'tribe-common' ),
 						date_i18n( 'Y' ),

@@ -9,10 +9,6 @@
 
 namespace TEC\Common\Admin\Conditional_Content;
 
-use TEC\Common\Admin\Conditional_Content\Traits\Datetime_Conditional_Trait;
-use TEC\Common\Admin\Conditional_Content\Traits\Plugin_Suite_Conditional_Trait;
-use TEC\Common\Admin\Conditional_Content\Traits\Installed_Plugins_Conditional_Trait;
-
 use TEC\Common\Admin\Entities\{
 	Div,
 	Container,
@@ -33,6 +29,8 @@ use Tribe\Utils\{
 	Element_Classes
 };
 
+use Tribe__Template as Template;
+
 /**
  * Abstract class for promotional content with banners.
  *
@@ -40,9 +38,15 @@ use Tribe\Utils\{
  */
 abstract class Promotional_Content_Abstract {
 	use Dismissible_Trait;
-	use Datetime_Conditional_Trait;
-	use Plugin_Suite_Conditional_Trait;
-	use Installed_Plugins_Conditional_Trait;
+
+	/**
+	 * Slug for the promotional content.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected string $slug;
 
 	/**
 	 * Background color for the promotional content.
@@ -55,11 +59,23 @@ abstract class Promotional_Content_Abstract {
 	protected string $background_color = 'transparent';
 
 	/**
+	 * Stores the instance of the template engine that we will use for rendering the page.
+	 *
+	 * @since 6.3.0
+	 *
+	 * @var Template
+	 */
+	protected Template $template;
+
+	/**
 	 * @inheritdoc
 	 */
 	public function hook(): void {
 		// Only hook the AJAX dismiss handler - sidebar integration is handled by Controller.
 		add_action( 'wp_ajax_tec_conditional_content_dismiss', [ $this, 'handle_dismiss' ] );
+
+		// Initialize trait hooks when the object is hooked.
+		$this->initialize_trait_hooks();
 	}
 
 	/**
@@ -84,6 +100,8 @@ abstract class Promotional_Content_Abstract {
 
 	/**
 	 * Define the mapping of suites to creative content configurations.
+	 *
+	 * This method will be used by Plugin_Suite_Conditional_Trait to get the content matrix.
 	 *
 	 * @since TBD
 	 *
@@ -166,82 +184,6 @@ abstract class Promotional_Content_Abstract {
 	}
 
 	/**
-	 * Determines if the content is displayable based on date validity and suite context.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool Whether the content is displayable
-	 */
-	public function is_content_displayable(): bool {
-		// 1. Check date validity (from Datetime_Conditional_Trait).
-		if ( ! $this->is_date_valid() ) {
-			return false;
-		}
-
-		// 2. Determine the current active admin suite context (from Plugin_Suite_Conditional_Trait).
-		$current_suite_context = $this->get_current_admin_suite_context();
-
-		// 3. If no suite context, or if the current context is not targeted by this ad, don't display.
-		$target_suites = $this->get_target_plugin_suites();
-		if ( is_null( $current_suite_context ) || ! in_array( $current_suite_context, $target_suites, true ) ) {
-			return false;
-		}
-
-		// If user has dismissed this content, don't display.
-		if ( $this->has_user_dismissed() ) {
-			return false;
-		}
-
-		// If the content should be hidden based on global settings, don't display.
-		if ( function_exists( 'tec_should_hide_upsell' ) && tec_should_hide_upsell( $this->get_slug() ) ) {
-			return false;
-		}
-
-		// If date is valid and suite context matches, the ad can be displayed.
-		return true;
-	}
-
-	/**
-	 * Get the appropriate creative content for the current context.
-	 *
-	 * @since TBD
-	 *
-	 * @return array Creative content configuration
-	 */
-	protected function get_current_ad_creative(): array {
-		// 1. Determine the current active admin suite context.
-		$current_suite_context = $this->get_current_admin_suite_context();
-		$suite_creative_map    = $this->get_suite_creative_map();
-
-		// 2. If no context or no map for this context, return empty
-		if ( is_null( $current_suite_context ) || ! isset( $suite_creative_map[ $current_suite_context ] ) ) {
-			return []; // Return an empty array as a safe fallback.
-		}
-
-		$creative_rules = $suite_creative_map[ $current_suite_context ];
-
-		// 3. Iterate through rules. Order matters for prioritization.
-		foreach ( $creative_rules as $plugin_slug_or_default_key => $creative_details ) {
-			if ( 'default' === $plugin_slug_or_default_key ) {
-				// Default should only be considered after specific plugin conditions.
-				continue;
-			}
-
-			// If plugin is NOT active and licensed, this is the upsell opportunity.
-			if ( ! $this->is_plugin_active_and_licensed( $plugin_slug_or_default_key ) ) {
-				return $creative_details;
-			}
-		}
-
-		// 4. If no specific plugin condition was met, return the default creative for this suite
-		if ( isset( $creative_rules['default'] ) ) {
-			return $creative_rules['default'];
-		}
-
-		return []; // Fallback if no rules or default found for the current suite.
-	}
-
-	/**
 	 * Render the header notice.
 	 *
 	 * @since 6.3.0
@@ -264,7 +206,7 @@ abstract class Promotional_Content_Abstract {
 	 * @since TBD
 	 */
 	protected function render_responsive_banner_html(): void {
-		if ( ! $this->is_content_displayable() ) {
+		if ( ! $this->should_display() ) {
 			return;
 		}
 
@@ -292,7 +234,8 @@ abstract class Promotional_Content_Abstract {
 		$year      = date_i18n( 'Y' );
 		$sale_name = $this->get_sale_name();
 
-		$creative = $this->get_current_ad_creative();
+		// Get the creative content from the filters. It will now be an array.
+		$creative = $this->get_content();
 
 		// Use creative content if available, otherwise fall back to traditional methods.
 		$template_args = [
@@ -329,24 +272,28 @@ abstract class Promotional_Content_Abstract {
 	 * @return string
 	 */
 	protected function get_wide_banner_html(): string {
+		// Now using get_content() which returns the creative array.
+		$creative  = $this->get_content();
 		$year      = date_i18n( 'Y' );
 		$sale_name = $this->get_sale_name();
 
 		$template_args = [
 			'background_color' => $this->get_background_color(),
-			'image_src'        => tribe_resource_url( 'images/conditional-content/' . $this->get_wide_banner_image(), false, null, \Tribe__Main::instance() ),
+			'image_src'        => ! empty( $creative['image_url'] )
+				? $creative['image_url']
+				: tribe_resource_url( 'images/conditional-content/' . $this->get_wide_banner_image(), false, null, \Tribe__Main::instance() ),
 			'is_narrow'        => false,
 			'is_sidebar'       => false,
-			'link'             => $this->get_link_url(),
+			'link'             => ! empty( $creative['link_url'] ) ? $creative['link_url'] : $this->get_link_url(),
 			'nonce'            => $this->get_nonce(),
 			'sale_name'        => $sale_name,
 			'slug'             => $this->get_slug(),
 			'year'             => $year,
-			'a11y_text'        => sprintf(
+			'a11y_text'        => ! empty( $creative['alt_text'] ) ? $creative['alt_text'] : sprintf(
 				/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
 				_x( '%1$s %2$s for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Sale Ad', 'tribe-common' ),
 				$year,
-				$sale_name
+				$this->get_sale_name()
 			),
 		];
 
@@ -361,7 +308,7 @@ abstract class Promotional_Content_Abstract {
 	 * @return void
 	 */
 	public function render_wide_banner_html(): void {
-		if ( ! $this->is_content_displayable() ) {
+		if ( ! $this->should_display() ) {
 			return;
 		}
 
@@ -386,20 +333,24 @@ abstract class Promotional_Content_Abstract {
 	 * @return string
 	 */
 	protected function get_narrow_banner_html(): string {
+		// Now using get_content() which returns the creative array.
+		$creative  = $this->get_content();
 		$year      = date_i18n( 'Y' );
 		$sale_name = $this->get_sale_name();
 
 		$template_args = [
 			'background_color' => $this->get_background_color(),
-			'image_src'        => tribe_resource_url( 'images/conditional-content/' . $this->get_narrow_banner_image(), false, null, \Tribe__Main::instance() ),
+			'image_src'        => ! empty( $creative['narrow_image_url'] )
+				? $creative['narrow_image_url']
+				: tribe_resource_url( 'images/conditional-content/' . $this->get_narrow_banner_image(), false, null, \Tribe__Main::instance() ),
 			'is_narrow'        => true,
 			'is_sidebar'       => false,
-			'link'             => $this->get_link_url(),
+			'link'             => ! empty( $creative['link_url'] ) ? $creative['link_url'] : $this->get_link_url(),
 			'nonce'            => $this->get_nonce(),
 			'sale_name'        => $sale_name,
 			'slug'             => $this->get_slug(),
 			'year'             => $year,
-			'a11y_text'        => sprintf(
+			'a11y_text'        => ! empty( $creative['alt_text'] ) ? $creative['alt_text'] : sprintf(
 				/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
 				_x( '%1$s %2$s for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Sale Ad', 'tribe-common' ),
 				$year,
@@ -418,7 +369,7 @@ abstract class Promotional_Content_Abstract {
 	 * @return void
 	 */
 	public function render_narrow_banner_html(): void {
-		if ( ! $this->is_content_displayable() ) {
+		if ( ! $this->should_display() ) {
 			return;
 		}
 
@@ -443,7 +394,7 @@ abstract class Promotional_Content_Abstract {
 	 * @return void
 	 */
 	public function include_tickets_settings_section(): void {
-		if ( ! $this->is_content_displayable() ) {
+		if ( ! $this->should_display() ) {
 			return;
 		}
 
@@ -461,16 +412,16 @@ abstract class Promotional_Content_Abstract {
 	 * @since TBD
 	 *
 	 * @param Settings_Sidebar_Section[] $sections The sidebar sections.
-	 * @param Settings_Sidebar           $sidebar  Sidebar instance.
 	 *
 	 * @return Settings_Sidebar_Section[]
 	 */
-	public function add_sidebar_sections( $sections, $sidebar ): array {
-		// Check if the content should currently be displayed.
-		if ( ! $this->is_content_displayable() ) {
+	public function add_sidebar_sections( $sections ): array {
+		if ( ! $this->should_display() ) {
 			return $sections;
 		}
 
+		// Get the creative content from the filters.
+		$creative  = $this->get_content();
 		$year      = date_i18n( 'Y' );
 		$sale_name = $this->get_sale_name();
 
@@ -484,7 +435,7 @@ abstract class Promotional_Content_Abstract {
 		 */
 		do_action( "tec_conditional_content_{$this->slug}", 'sidebar-filter', $this );
 
-		$translated_title = sprintf(
+		$translated_title = ! empty( $creative['alt_text'] ) ? $creative['alt_text'] : sprintf(
 			/* translators: %1$s: Sale year, %2$s: Sale name */
 			esc_attr_x( '%1$s %2$s for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Sale Ad', 'tribe-common' ),
 			esc_attr( $year ),
@@ -509,7 +460,9 @@ abstract class Promotional_Content_Abstract {
 		$container->add_child( $button );
 		$container->add_child(
 			new Image(
-				tribe_resource_url( 'images/conditional-content/' . $this->get_sidebar_image(), false, null, \Tribe__Main::instance() ),
+				! empty( $creative['sidebar_image_url'] )
+				? $creative['sidebar_image_url']
+				: tribe_resource_url( 'images/conditional-content/' . $this->get_sidebar_image(), false, null, \Tribe__Main::instance() ),
 				new Attributes(
 					[
 						'alt'  => $translated_title,
@@ -526,7 +479,7 @@ abstract class Promotional_Content_Abstract {
 				->add_elements(
 					[
 						new Link(
-							$this->get_link_url(),
+							! empty( $creative['link_url'] ) ? $creative['link_url'] : $this->get_link_url(),
 							$container,
 							null,
 							new Attributes(
@@ -564,11 +517,12 @@ abstract class Promotional_Content_Abstract {
 
 		$cache[ __METHOD__ ] = true;
 
-		// Check if the content should currently be displayed.
-		if ( ! $this->is_content_displayable() ) {
+		if ( ! $this->should_display() ) {
 			return;
 		}
 
+		// Get the creative content from the filters.
+		$creative  = $this->get_content();
 		$year      = date_i18n( 'Y' );
 		$sale_name = $this->get_sale_name();
 
@@ -582,7 +536,7 @@ abstract class Promotional_Content_Abstract {
 		 */
 		do_action( "tec_conditional_content_{$this->slug}", 'sidebar-object', $this );
 
-		$translated_title = sprintf(
+		$translated_title = ! empty( $creative['alt_text'] ) ? $creative['alt_text'] : sprintf(
 			/* translators: %1$s: Sale year, %2$s: Sale name */
 			esc_attr_x( '%1$s %2$s for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Sale Ad', 'tribe-common' ),
 			esc_attr( $year ),
@@ -606,7 +560,9 @@ abstract class Promotional_Content_Abstract {
 		$container->add_child( $button );
 		$container->add_child(
 			new Image(
-				tribe_resource_url( 'images/conditional-content/' . $this->get_sidebar_image(), false, null, \Tribe__Main::instance() ),
+				! empty( $creative['sidebar_image_url'] )
+				? $creative['sidebar_image_url']
+				: tribe_resource_url( 'images/conditional-content/' . $this->get_sidebar_image(), false, null, \Tribe__Main::instance() ),
 				new Attributes(
 					[
 						'alt'  => $translated_title,
@@ -621,7 +577,7 @@ abstract class Promotional_Content_Abstract {
 				->add_elements(
 					[
 						new Link(
-							$this->get_link_url(),
+							! empty( $creative['link_url'] ) ? $creative['link_url'] : $this->get_link_url(),
 							$container,
 							null,
 							new Attributes(
@@ -648,11 +604,12 @@ abstract class Promotional_Content_Abstract {
 	 * @return void
 	 */
 	public function render_sidebar_content(): void {
-		// Check if the content should currently be displayed.
-		if ( ! $this->is_content_displayable() ) {
+		if ( ! $this->should_display() ) {
 			return;
 		}
 
+		// Get the creative content from the filters.
+		$creative  = $this->get_content();
 		$year      = date_i18n( 'Y' );
 		$sale_name = $this->get_sale_name();
 
@@ -668,15 +625,17 @@ abstract class Promotional_Content_Abstract {
 
 		$template_args = [
 			'background_color' => $this->get_background_color(),
-			'image_src'        => tribe_resource_url( 'images/conditional-content/' . $this->get_sidebar_image(), false, null, \Tribe__Main::instance() ),
+			'image_src'        => ! empty( $creative['sidebar_image_url'] )
+				? $creative['sidebar_image_url']
+				: tribe_resource_url( 'images/conditional-content/' . $this->get_sidebar_image(), false, null, \Tribe__Main::instance() ),
 			'is_narrow'        => false,
 			'is_sidebar'       => true,
-			'link'             => $this->get_link_url(),
+			'link'             => ! empty( $creative['link_url'] ) ? $creative['link_url'] : $this->get_link_url(),
 			'nonce'            => $this->get_nonce(),
 			'sale_name'        => $sale_name,
 			'slug'             => $this->get_slug(),
 			'year'             => $year,
-			'a11y_text'        => sprintf(
+			'a11y_text'        => ! empty( $creative['alt_text'] ) ? $creative['alt_text'] : sprintf(
 				/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
 				_x( '%1$s %2$s for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Sale Ad', 'tribe-common' ),
 				$year,
@@ -685,5 +644,191 @@ abstract class Promotional_Content_Abstract {
 		];
 
 		$this->get_template()->template( $this->get_template_slug(), $template_args, true );
+	}
+
+	/**
+	 * Gets the instance of the template engine used for rendering the conditional template.
+	 *
+	 * @since 6.3.0
+	 *
+	 * @return Template
+	 */
+	public function get_template(): Template {
+		if ( empty( $this->template ) ) {
+			$this->template = new Template();
+			$this->template->set_template_origin( \Tribe__Main::instance() );
+			$this->template->set_template_folder( 'src/admin-views/conditional_content' );
+			$this->template->set_template_context_extract( true );
+			$this->template->set_template_folder_lookup( false );
+		}
+
+		return $this->template;
+	}
+
+	/**
+	 * Constructor or a dedicated init method should call this.
+	 * Discovers which traits are used by the concrete class and registers their hooks.
+	 */
+	protected function initialize_trait_hooks(): void {
+		// Use class_uses( $this ) to get traits used by the concrete class instance itself.
+		$traits = class_uses( $this );
+
+		// Register default content creative first, with lowest priority (earliest in chain).
+		// This provides the initial array structure for content.
+		add_filter( 'promotional_content_get_content', [ $this, 'get_default_promotional_content_array' ], 5, 2 );
+
+		// Iterate through the traits and register their respective hook methods.
+		foreach ( $traits as $trait ) {
+			switch ( $trait ) {
+				case \TEC\Common\Admin\Conditional_Content\Traits\Datetime_Conditional_Trait::class:
+					add_filter( 'promotional_content_should_display', [ $this, 'filter_datetime_display_condition' ], 10, 2 );
+					break;
+				case \TEC\Common\Admin\Conditional_Content\Traits\Plugin_Suite_Conditional_Trait::class:
+					// Register the should_display hook for the suite trait.
+					add_filter( 'promotional_content_should_display', [ $this, 'is_content_displayable' ], 15, 2 );
+					// This filter selects the creative rules based on the suite.
+					// It receives a creative array and returns an array of creative *rules*.
+					add_filter( 'promotional_content_get_content', [ $this, 'filter_plugin_suite_content_by_suite' ], 20, 2 );
+					break;
+				case \TEC\Common\Admin\Conditional_Content\Traits\Installed_Plugins_Conditional_Trait::class:
+					// This filter receives the creative *rules* (from Plugin_Suite_Conditional_Trait)
+					// and returns the *single chosen creative array*.
+					add_filter( 'promotional_content_get_content', [ $this, 'filter_installed_plugins_content_condition' ], 25, 2 );
+					break;
+			}
+		}
+	}
+
+	/**
+	 * Determines if the promotional content should be displayed.
+	 * Trait-based conditions filter this.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function should_display(): bool {
+		// If user has dismissed this content, don't display.
+		if ( $this->has_user_dismissed() ) {
+			return false;
+		}
+
+		// If the content should be hidden based on global settings, don't display.
+		if ( function_exists( 'tec_should_hide_upsell' ) && tec_should_hide_upsell( $this->get_slug() ) ) {
+			return false;
+		}
+
+		$should_display = false; // Start with false. It must be explicitly enabled by a trait.
+
+		/**
+		 * Filter to determine if the promotional content should be displayed. Includes slug & year.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $should_display Whether the content should be displayed.
+		 * @param object $instance       The promotional content instance.
+		 */
+		$should_display = apply_filters( "tec_admin_conditional_content_{$this->get_slug()}_should_display", $should_display, $this );
+
+		/**
+		 * Filter to determine if the promotional content should be displayed. Includes only slug.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $should_display Whether the content should be displayed.
+		 * @param object $instance       The promotional content instance.
+		 */
+		$should_display = apply_filters( "tec_admin_conditional_content_{$this->slug}_should_display", $should_display, $this );
+
+		/**
+		 * Filter to determine if the promotional content should be displayed.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $should_display Whether the content should be displayed.
+		 * @param object $instance       The promotional content instance.
+		 */
+		return apply_filters( 'tec_admin_conditional_content_should_display', $should_display, $this );
+	}
+
+	/**
+	 * Retrieves the promotional content.
+	 * Trait-based content modifiers filter this.
+	 *
+	 * @param array $default_content The initial content array to be filtered.
+	 * This is usually empty or a very generic fallback.
+	 *
+	 * @return array The potentially modified content creative configuration.
+	 */
+	public function get_content( array $default_content = [] ): array {
+		// CRITICAL FIX: Only retrieve content if the ad is supposed to be displayed.
+		// This prevents content filters from running and potentially causing TypeErrors
+		// when the ad is not active (e.g., due to date, dismissal, or global settings).
+		if ( ! $this->should_display() ) {
+			return [];
+		}
+
+		// The initial value is empty, as the first filter (get_default_promotional_content_array) will provide the base.
+		return apply_filters( 'promotional_content_get_content', $default_content, $this );
+	}
+
+	// --- Abstract methods required by traits or rendering logic ---
+
+	/**
+	 * Determines the current admin suite context (e.g., 'events', 'tickets').
+	 * Required by Plugin_Suite_Conditional_Trait.
+	 *
+	 * @since TBD
+	 *
+	 * @return string|null 'events', 'tickets', or null if no context could be determined.
+	 */
+	abstract protected function get_current_admin_suite_context(): ?string;
+
+	/**
+	 * Checks if a specific plugin is both active and considered "licensed" by the system.
+	 * This method is provided by Installed_Plugins_Conditional_Trait.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $plugin_slug The plugin slug to check.
+	 *
+	 * @return bool True if the plugin is active and licensed, false otherwise.
+	 */
+	// This method is no longer abstract here. It's provided by Installed_Plugins_Conditional_Trait.
+	// If a concrete class doesn't use Installed_Plugins_Conditional_Trait, it won't have this method.
+	// Plugin_Suite_Conditional_Trait will have to check for its existence.
+	// This is the correct flexible approach.
+
+	/**
+	 * Provides the default creative content as an array.
+	 * This is the initial value for the 'promotional_content_get_content' filter
+	 * if no traits modify it.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $content_from_previous_filters The incoming value.
+	 * @param object $instance                      The promotional content instance.
+	 *
+	 * @return array
+	 */
+	public function get_default_promotional_content_array( array $content_from_previous_filters, $instance ): array {
+		// If content has already been set by a higher priority filter, don't override it.
+		// This ensures this is truly the *default* base.
+		if ( ! empty( $content_from_previous_filters ) ) {
+			return $content_from_previous_filters;
+		}
+
+		return [
+			'image_url'         => tribe_resource_url( 'images/conditional-content/' . $this->get_wide_banner_image(), false, null, \Tribe__Main::instance() ),
+			'narrow_image_url'  => tribe_resource_url( 'images/conditional-content/' . $this->get_narrow_banner_image(), false, null, \Tribe__Main::instance() ),
+			'sidebar_image_url' => tribe_resource_url( 'images/conditional-content/' . $this->get_sidebar_image(), false, null, \Tribe__Main::instance() ),
+			'link_url'          => $this->get_link_url(),
+			'alt_text'          => sprintf(
+				/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
+				_x( '%1$s %2$s for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Default Sale Ad', 'tribe-common' ),
+				date_i18n( 'Y' ),
+				$this->get_sale_name()
+			),
+		];
 	}
 }

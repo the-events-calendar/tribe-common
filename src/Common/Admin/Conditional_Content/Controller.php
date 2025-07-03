@@ -59,10 +59,6 @@ class Controller extends Provider_Contract {
 	 * @since 6.3.0
 	 */
 	public function plugins_loaded(): void {
-		// Those need to be initialized here in order for their hooks to be registered.
-		tribe( Black_Friday::class );
-		tribe( Stellar_Sale::class );
-
 		$plugin = Common::instance();
 
 		tec_asset(
@@ -102,7 +98,7 @@ class Controller extends Provider_Contract {
 	 *
 	 * @return void
 	 */
-	public function add_sidebar_objects( &$sidebar ): void {
+	public function add_sidebar_objects( $sidebar ): void {
 		foreach ( $this->get_promotional_classes() as $class ) {
 			$instance = tribe( $class );
 			if ( is_callable( [ $instance, 'include_sidebar_object' ] ) ) {

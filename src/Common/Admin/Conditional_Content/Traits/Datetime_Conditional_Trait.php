@@ -10,7 +10,6 @@
 namespace TEC\Common\Admin\Conditional_Content\Traits;
 
 use Tribe__Date_Utils as Dates;
-use Tribe__Template as Template;
 use Tribe\Utils\Date_I18n;
 
 /**
@@ -19,15 +18,6 @@ use Tribe\Utils\Date_I18n;
  * @since TBD
  */
 trait Datetime_Conditional_Trait {
-	/**
-	 * Item slug.
-	 *
-	 * @since 6.3.0
-	 *
-	 * @var string
-	 */
-	protected string $slug;
-
 	/**
 	 * Start date.
 	 *
@@ -65,13 +55,32 @@ trait Datetime_Conditional_Trait {
 	protected int $end_time;
 
 	/**
-	 * Stores the instance of the template engine that we will use for rendering the page.
+	 * Built dates.
+	 * In the format of [ 'start' => Date_I18n, 'end' => Date_I18n ].
 	 *
-	 * @since 6.3.0
+	 * @since TBD
 	 *
-	 * @var Template
+	 * @var array<string, Date_I18n>
 	 */
-	protected Template $template;
+	protected array $built_dates = [];
+
+	/**
+	 * Sets the date and time configuration for the conditional content.
+	 * This method allows concrete classes to configure the trait's properties.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $start_date_str The start date string (e.g., 'November 26th').
+	 * @param string $end_date_str   The end date string (e.g., 'December 3rd').
+	 * @param int    $start_time_int The start time (e.g., 4 for 4 AM).
+	 * @param int    $end_time_int   The end time (e.g., 7 for 7 AM).
+	 */
+	protected function set_datetime_configuration( string $start_date_str, string $end_date_str, int $start_time_int, int $end_time_int ): void {
+		$this->start_date = $start_date_str;
+		$this->end_date   = $end_date_str;
+		$this->start_time = $start_time_int;
+		$this->end_time   = $end_time_int;
+	}
 
 	/**
 	 * Register actions and filters.
@@ -80,7 +89,36 @@ trait Datetime_Conditional_Trait {
 	 *
 	 * @return void
 	 */
-	abstract public function hook(): void;
+	abstract public function hook(): void; // This needs to be abstract here if the trait relies on it.
+
+	/**
+	 * Get the built dates.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string, Date_I18n>
+	 */
+	protected function get_built_dates(): array {
+		if ( empty( $this->built_dates ) ) {
+			// Ensure properties are set before trying to build dates.
+			if ( ! isset( $this->start_date, $this->end_date, $this->start_time, $this->end_time ) ) {
+				// Provide a fallback or throw an error if configuration is missing
+				// For now, setting sensible defaults if not configured.
+				$this->start_date ??= 'now';
+				$this->end_date   ??= 'now';
+				$this->start_time ??= 0;
+				$this->end_time   ??= 0;
+			}
+
+			$start = Dates::build_date_object( $this->start_date, 'UTC' );
+			$end   = Dates::build_date_object( $this->end_date, 'UTC' );
+
+			$this->built_dates['start'] = $start->setTime( $this->start_time, 0 );
+			$this->built_dates['end']   = $end->setTime( $this->end_time, 0 );
+		}
+
+		return $this->built_dates;
+	}
 
 	/**
 	 * Unix datetime for content start.
@@ -89,30 +127,18 @@ trait Datetime_Conditional_Trait {
 	 *
 	 * @return ?Date_I18n - Date Object
 	 */
-	protected function get_start_time(): ?Date_I18n {
-		$date = Dates::build_date_object( $this->start_date, 'UTC' );
-		// If not set, set to midnight.
-		if ( empty( $this->start_time ) ) {
-			$this->start_time = 0;
-		}
-
-		$date = $date->setTime( $this->start_time, 0 );
+	protected function get_start_date(): ?Date_I18n {
+		$date = $this->get_built_dates()['start'];
 
 		/**
-		 * Allow filtering of the start date for testing.
+		 * Allow filtering of the start date.
 		 *
 		 * @since 6.3.0
 		 *
-		 * @param Date_i18n $date     Date object for the end date.
+		 * @param Date_i18n $date     Date object for the end date. Includes start time.
 		 * @param static    $instance The conditional content object.
 		 */
-		$date = apply_filters( "tec_admin_conditional_content_{$this->slug}_start_date", $date, $this );
-
-		if ( ! $date instanceof Date_I18n ) {
-			return null;
-		}
-
-		return $date;
+		return apply_filters( "tec_admin_conditional_content_{$this->get_slug()}_start_date", $date, $this );
 	}
 
 	/**
@@ -122,30 +148,18 @@ trait Datetime_Conditional_Trait {
 	 *
 	 * @return ?Date_I18n - Date Object
 	 */
-	protected function get_end_time(): ?Date_I18n {
-		$date = Dates::build_date_object( $this->end_date, 'UTC' );
-		// If not set, set to midnight.
-		if ( empty( $this->end_time ) ) {
-			$this->end_time = 0;
-		}
-
-		$date = $date->setTime( $this->end_time, 0 );
+	protected function get_end_date(): ?Date_I18n {
+		$date = $this->get_built_dates()['end'];
 
 		/**
-		 * Allow filtering of the end date for testing.
+		 * Allow filtering of the end date.
 		 *
 		 * @since 6.3.0
 		 *
-		 * @param Date_i18n $date     Date object for the end date.
+		 * @param Date_i18n $date     Date object for the end date. Includes end time.
 		 * @param object    $instance The conditional content object.
 		 */
-		$date = apply_filters( "tec_admin_conditional_content_{$this->slug}_end_date", $date, $this );
-
-		if ( ! $date instanceof Date_I18n ) {
-			return null;
-		}
-
-		return $date;
+		return apply_filters( "tec_admin_conditional_content_{$this->get_slug()}_end_date", $date, $this );
 	}
 
 	/**
@@ -158,13 +172,8 @@ trait Datetime_Conditional_Trait {
 	 */
 	protected function is_date_valid(): bool {
 		$now          = Dates::build_date_object( 'now', 'UTC' );
-		$notice_start = $this->get_start_time();
-		$notice_end   = $this->get_end_time();
-
-		// Failed dates should yield false.
-		if ( $notice_end === null || $notice_start === null ) {
-			return false;
-		}
+		$notice_start = $this->get_built_dates()['start'];
+		$notice_end   = $this->get_built_dates()['end'];
 
 		$display = $notice_start <= $now && $now < $notice_end;
 
@@ -177,25 +186,63 @@ trait Datetime_Conditional_Trait {
 		 * @param bool   $display  Whether the content should display.
 		 * @param object $instance The conditional content object.
 		 */
-		return (bool) apply_filters( "tec_admin_conditional_content_{$this->slug}_is_date_valid", $display, $this );
+		return (bool) apply_filters( "tec_admin_conditional_content_{$this->get_slug()}_is_date_valid", $display, $this );
 	}
 
 	/**
-	 * Gets the instance of the template engine used for rendering the conditional template.
+	 * Helper to register this trait's specific display condition filter.
 	 *
-	 * @since 6.3.0
+	 * @since TBD
 	 *
-	 * @return Template
+	 * @param string $hook_name     The name of the filter to register.
+	 * @param int    $priority      The priority of the filter.
+	 * @param int    $accepted_args The number of arguments the filter accepts.
+	 *
+	 * @return void
 	 */
-	public function get_template(): Template {
-		if ( empty( $this->template ) ) {
-			$this->template = new Template();
-			$this->template->set_template_origin( \Tribe__Main::instance() );
-			$this->template->set_template_folder( 'src/admin-views/conditional_content' );
-			$this->template->set_template_context_extract( true );
-			$this->template->set_template_folder_lookup( false );
+	protected function register_datetime_display_hook( $hook_name, $priority = 10, $accepted_args = 2 ) {
+		/**
+		 * Filters the content creative based on datetime.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $should_display  Current display status from previous filters.
+		 * @param object $instance      The promotional content instance. (Added for consistency)
+		 */
+		add_filter( $hook_name, [ $this, 'filter_datetime_display_condition' ], $priority, $accepted_args );
+	}
+
+	/**
+	 * Filter callback for display condition based on datetime.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool   $should_display  Current display status from previous filters.
+	 * @param object $instance      The promotional content instance. (Added for consistency).
+	 *
+	 * @return bool
+	 */
+	public function filter_datetime_display_condition( $should_display, $instance ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+		// If a previous filter already set it to false, keep it false.
+		if ( ! $should_display ) {
+			return false;
 		}
 
-		return $this->template;
+		$is_active_by_datetime = $this->is_date_valid();
+
+		if ( ! $is_active_by_datetime ) {
+			$should_display = false;
+		}
+
+		return $should_display;
 	}
+
+	/**
+	 * This trait relies on `get_slug()` which is abstract in Promotional_Content_Abstract.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	abstract protected function get_slug(): string;
 }

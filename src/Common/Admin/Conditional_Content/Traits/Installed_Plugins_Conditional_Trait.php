@@ -2,6 +2,9 @@
 /**
  * Installed Plugins Conditional Trait to check plugin activation and licensing status.
  *
+ * Currently, this trait is used to check if a plugin is active and licensed.
+ * Then modifies the content to display from the content matrix to show an ad for an uninstalled plugin.
+ *
  * @since TBD
  *
  * @package TEC\Common\Admin\Conditional_Content\Traits
@@ -20,6 +23,8 @@ trait Installed_Plugins_Conditional_Trait {
 
 	/**
 	 * Checks if a specific plugin is both active and considered "licensed" by the system.
+	 *
+	 * This method is required by Plugin_Suite_Conditional_Trait to determine ad creatives.
 	 *
 	 * @since TBD
 	 *
@@ -108,5 +113,77 @@ trait Installed_Plugins_Conditional_Trait {
 		 * @param string $plugin_slug The plugin slug being checked.
 		 */
 		return apply_filters( 'tec_admin_conditional_content_is_plugin_licensed', false, $plugin_slug );
+	}
+
+	/**
+	 * Register the installed plugins content hook.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $hook_name     The name of the filter to register.
+	 * @param int    $priority      The priority of the filter.
+	 * @param int    $accepted_args The number of arguments the filter accepts.
+	 */
+	protected function register_installed_plugins_content_hook( $hook_name, $priority = 10, $accepted_args = 2 ): void {
+		/**
+		 * Filters the content creative based on installed and licensed plugins.
+		 *
+		 * @since TBD
+		 *
+		 * @param array  $creative_rules_for_suite An associative array of creative rules for the current suite context,
+		 * where keys are plugin slugs or 'default'.
+		 * @param object $instance                 The promotional content instance.
+		 */
+		add_filter( $hook_name, [ $this, 'filter_installed_plugins_content_condition' ], $priority, $accepted_args );
+	}
+
+	/**
+	 * Filter the content creative based on installed and licensed plugins.
+	 *
+	 * This filter expects an array of creative rules for the current suite context
+	 * and selects the specific creative from them.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $creative_rules_for_suite An associative array of creative rules for the current suite context,
+	 * where keys are plugin slugs or 'default'.
+	 * @param object $instance                 The promotional content instance.
+	 *
+	 * @return array The selected creative content configuration.
+	 */
+	public function filter_installed_plugins_content_condition( array $creative_rules_for_suite, $instance ): array {
+		if ( empty( $creative_rules_for_suite ) ) {
+			return [];
+		}
+
+		$placeholder = 'placeholder'; // 1
+
+		foreach ( $creative_rules_for_suite as $plugin_slug_or_default_key => $creative_details ) {
+			if ( 'default' === $plugin_slug_or_default_key ) {
+				continue;
+			}
+
+			// If plugin is NOT active and licensed, this is the upsell opportunity.
+			if ( ! $this->is_plugin_active_and_licensed( $plugin_slug_or_default_key ) ) {
+				// Defensive check: Ensure we always return an array.
+				if ( ! is_array( $creative_details ) ) {
+					return []; // Return empty array to prevent fatal error.
+				}
+				return $creative_details;
+			}
+		}
+
+		// If no specific plugin condition was met, return the default creative for this suite.
+		if ( isset( $creative_rules_for_suite['default'] ) ) {
+			$default_creative = $creative_rules_for_suite['default'];
+			// Defensive check for default creative as well.
+			if ( ! is_array( $default_creative ) ) {
+				return []; // Return empty array to prevent fatal error.
+			}
+			return $default_creative;
+		}
+
+		return []; // Fallback if no rules or default found for the current suite.
+		// phpcs:enable
 	}
 }
