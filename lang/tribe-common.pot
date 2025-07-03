@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 6.8.1\n"
+"Project-Id-Version: Tribe Common 6.8.2\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-06-10T20:55:02+00:00\n"
+"POT-Creation-Date: 2025-07-03T16:10:52+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: tribe-common\n"
@@ -38,7 +38,7 @@ msgstr ""
 msgid "http://evnt.is/1x"
 msgstr ""
 
-#: src/admin-views/app-shop.php:37
+#: src/admin-views/app-shop.php:46
 #: src/admin-views/help.php:35
 #: src/admin-views/help.php:104
 #: src/admin-views/troubleshooting/footer-logo.php:12
@@ -46,109 +46,109 @@ msgstr ""
 msgid "The Events Calendar brand logo"
 msgstr ""
 
-#: src/admin-views/app-shop.php:42
+#: src/admin-views/app-shop.php:51
 msgid "All Solutions"
 msgstr ""
 
-#: src/admin-views/app-shop.php:43
+#: src/admin-views/app-shop.php:52
 msgid "Save with Bundles"
 msgstr ""
 
-#: src/admin-views/app-shop.php:44
+#: src/admin-views/app-shop.php:53
 msgid "Extensions"
 msgstr ""
 
-#: src/admin-views/app-shop.php:45
+#: src/admin-views/app-shop.php:54
 msgid "Stellar Discounts"
 msgstr ""
 
-#: src/admin-views/app-shop.php:54
-#: src/admin-views/app-shop.php:119
-#: src/admin-views/app-shop.php:177
-#: src/admin-views/app-shop.php:211
+#: src/admin-views/app-shop.php:63
+#: src/admin-views/app-shop.php:125
+#: src/admin-views/app-shop.php:183
+#: src/admin-views/app-shop.php:217
 msgid "Shapes and lines for visual interest"
 msgstr ""
 
-#: src/admin-views/app-shop.php:63
+#: src/admin-views/app-shop.php:69
 msgid "One calendar. Countless ways to make it your own."
 msgstr ""
 
-#: src/admin-views/app-shop.php:64
+#: src/admin-views/app-shop.php:70
 msgid "Calendars, ticketing, and powerful WordPress tools to manage your events from start to finish."
 msgstr ""
 
-#: src/admin-views/app-shop.php:66
+#: src/admin-views/app-shop.php:72
 msgid "Already Installed"
 msgstr ""
 
-#: src/admin-views/app-shop.php:72
-#: src/admin-views/app-shop.php:129
-#: src/admin-views/app-shop.php:151
+#: src/admin-views/app-shop.php:78
+#: src/admin-views/app-shop.php:135
+#: src/admin-views/app-shop.php:157
 msgid "TEC Logo"
 msgstr ""
 
-#: src/admin-views/app-shop.php:76
+#: src/admin-views/app-shop.php:82
 #: src/admin-views/help-calendar.php:45
 #: src/admin-views/help-community.php:43
 #: src/admin-views/help-ticketing.php:50
 msgid "Active"
 msgstr ""
 
-#: src/admin-views/app-shop.php:78
-#: src/admin-views/app-shop.php:187
+#: src/admin-views/app-shop.php:84
+#: src/admin-views/app-shop.php:193
 msgid "FREE"
 msgstr ""
 
-#: src/admin-views/app-shop.php:103
+#: src/admin-views/app-shop.php:109
 msgid "Manage"
 msgstr ""
 
-#: src/admin-views/app-shop.php:105
+#: src/admin-views/app-shop.php:111
 #: src/admin-views/help-calendar.php:77
 #: src/admin-views/help-community.php:57
 #: src/admin-views/help-ticketing.php:82
 msgid "Learn More"
 msgstr ""
 
-#: src/admin-views/app-shop.php:123
+#: src/admin-views/app-shop.php:129
 msgid "The plugins you need at one discounted price"
 msgstr ""
 
-#: src/admin-views/app-shop.php:124
+#: src/admin-views/app-shop.php:130
 msgid "We've packaged our most popular plugins into bundles jam-packed with value."
 msgstr ""
 
-#: src/admin-views/app-shop.php:136
-#: src/admin-views/app-shop.php:163
+#: src/admin-views/app-shop.php:142
+#: src/admin-views/app-shop.php:169
 msgid "Save With A Bundle"
 msgstr ""
 
-#: src/admin-views/app-shop.php:142
+#: src/admin-views/app-shop.php:148
 msgid "Includes"
 msgstr ""
 
-#: src/admin-views/app-shop.php:181
+#: src/admin-views/app-shop.php:187
 msgid "Free extensions to power up your plugins"
 msgstr ""
 
-#: src/admin-views/app-shop.php:182
+#: src/admin-views/app-shop.php:188
 msgid "Extensions are quick solutions our team came up with to solve specific issues you may need. (Note - extensions are not covered by our support team.)"
 msgstr ""
 
-#: src/admin-views/app-shop.php:196
+#: src/admin-views/app-shop.php:202
 msgid "Download"
 msgstr ""
 
-#: src/admin-views/app-shop.php:200
+#: src/admin-views/app-shop.php:206
 msgid "Browse Extensions"
 msgstr ""
 
-#: src/admin-views/app-shop.php:219
+#: src/admin-views/app-shop.php:225
 msgid "Stellar is a collective of WordPress innovators, and home to WordPress products done right."
 msgstr ""
 
 #. translators: %s is the coupon code
-#: src/admin-views/app-shop.php:226
+#: src/admin-views/app-shop.php:232
 #, php-format
 msgid "$25 towards any Stellar product using code <u>%s</u>"
 msgstr ""
@@ -178,9 +178,7 @@ msgid "Loading..."
 msgstr ""
 
 #. translators: %1$s: Black Friday sale year (numeric)
-#. translators: %1$s: Black Friday year
 #: src/admin-views/conditional_content/black-friday.php:15
-#: src/Common/Admin/Conditional_Content/Black_Friday.php:244
 #, php-format
 msgctxt "Alt text for the Black Friday Ad"
 msgid "%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles."
@@ -542,7 +540,7 @@ msgstr ""
 msgid "Automatic Updates"
 msgstr ""
 
-#: src/admin-views/help-hub/header.php:30
+#: src/admin-views/help-hub/header.php:33
 msgid "The Events Calendar logo"
 msgstr ""
 
@@ -566,7 +564,7 @@ msgstr ""
 
 #: src/admin-views/help-hub/navigation.php:31
 #: src/admin-views/help-hub/navigation.php:37
-#: src/Tribe/Settings.php:1080
+#: src/Tribe/Settings.php:1090
 msgid "Open settings navigation"
 msgstr ""
 
@@ -656,25 +654,25 @@ msgid "Talk to TEC Chatbot"
 msgstr ""
 
 #: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:18
-#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:18
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:27
 msgctxt "Help page resources sidebar header"
 msgid "Our TEC support hub now offers an improved help experience"
 msgstr ""
 
 #: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:27
-#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:27
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:36
 msgctxt "Describes why consent is beneficial"
 msgid "Our Help page is better than ever with the addition of:"
 msgstr ""
 
 #: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:45
-#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:45
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:54
 msgctxt "AI Chatbot sidebar header"
 msgid "AI Chatbot"
 msgstr ""
 
 #: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:54
-#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:54
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:63
 msgctxt "AI Chatbot support sidebar paragraph"
 msgid "Here to provide quick answers to your questions. It’s never been easier to find the right resource."
 msgstr ""
@@ -704,37 +702,37 @@ msgctxt "Call to action to use The Events Calendar Help Chatbot."
 msgid "You have questions? The TEC Chatbot has the answers."
 msgstr ""
 
-#: src/admin-views/help-hub/shared-live-support.php:25
+#: src/admin-views/help-hub/shared-live-support.php:36
 msgctxt "Get support sidebar header"
 msgid "Get priority live support"
 msgstr ""
 
-#: src/admin-views/help-hub/shared-live-support.php:34
+#: src/admin-views/help-hub/shared-live-support.php:45
 msgctxt "Live support sidebar paragraph"
 msgid "You can get live support from The Events Calendar team if you have an active license for one of our products."
 msgstr ""
 
-#: src/admin-views/help-hub/shared-live-support.php:44
+#: src/admin-views/help-hub/shared-live-support.php:55
 msgctxt "Live support sidebar link to article"
 msgid "Learn how to get live support"
 msgstr ""
 
-#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:73
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:82
 msgctxt "Get support sidebar header"
 msgid "In-app priority live support"
 msgstr ""
 
-#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:82
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:91
 msgctxt "Live support sidebar paragraph"
 msgid "Get access to our agents or generate a support ticket from right here."
 msgstr ""
 
-#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:93
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:102
 msgctxt "Opt in sidebar paragraph"
 msgid "To enhance your experience, we require your consent to collect and share some of your website’s data with our AI chatbot. "
 msgstr ""
 
-#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:103
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:112
 msgctxt "Button to manage opt in status"
 msgid "Manage my data sharing consent"
 msgstr ""
@@ -766,22 +764,22 @@ msgstr ""
 msgid "Manage my data sharing consent"
 msgstr ""
 
-#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:24
+#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:31
 msgctxt "Talk to support sidebar header"
 msgid "Talk to our support team"
 msgstr ""
 
-#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:33
+#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:40
 msgctxt "Contact support paragraph"
 msgid "If you still need help contact us. Our Support team is available to help you out 5 days a week:"
 msgstr ""
 
-#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:42
+#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:49
 msgctxt "Support hours"
 msgid "Mon-Fri from 9:00 - 20:00 PST"
 msgstr ""
 
-#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:52
+#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:59
 msgctxt "Contact support link"
 msgid "Contact support"
 msgstr ""
@@ -1737,6 +1735,27 @@ msgstr ""
 msgid "Searching..."
 msgstr ""
 
+#: src/Common/Admin/Conditional_Content/Black_Friday.php:48
+msgid "Black Friday Sale"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#. translators: %1$s: Sale year, %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:250
+#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:282
+#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:339
+#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:424
+#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:522
+#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:616
+#, php-format
+msgctxt "Alt text for the Sale Ad"
+msgid "%1$s %2$s for The Events Calendar plugins, add-ons and bundles."
+msgstr ""
+
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:51
+msgid "Stellar Sale"
+msgstr ""
+
 #: src/Common/Admin/Entities/Heading.php:101
 msgid "The maximum heading level must be 6 or less"
 msgstr ""
@@ -1755,53 +1774,57 @@ msgstr ""
 msgid "Invalid class instance."
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:174
-#: src/Common/Admin/Help_Hub/Hub.php:175
+#: src/Common/Admin/Help_Hub/Hub.php:181
+#: src/Common/Admin/Help_Hub/Hub.php:182
 msgid "Help Hub"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:243
+#: src/Common/Admin/Help_Hub/Hub.php:250
 msgid "Support Hub"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:252
+#: src/Common/Admin/Help_Hub/Hub.php:259
 msgid "Resources"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:422
+#: src/Common/Admin/Help_Hub/Hub.php:429
 #: src/Tribe/Admin/Help_Page.php:144
 msgctxt "Copy to clipboard button text."
 msgid "Copy to clipboard"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:423
+#: src/Common/Admin/Help_Hub/Hub.php:430
 #: src/Tribe/Admin/Help_Page.php:145
 msgctxt "Copy to clipboard success message"
 msgid "System info copied"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:424
+#: src/Common/Admin/Help_Hub/Hub.php:431
 #: src/Tribe/Admin/Help_Page.php:146
 msgctxt "Copy to clipboard instructions"
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:425
+#: src/Common/Admin/Help_Hub/Hub.php:432
 #: src/Tribe/Admin/Help_Page.php:147
 msgctxt "Default error message for system info optin"
 msgid "Something has gone wrong!"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:426
+#: src/Common/Admin/Help_Hub/Hub.php:433
 #: src/Tribe/Admin/Help_Page.php:148
 msgctxt "Error code label for system info optin"
 msgid "Code:"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:427
+#: src/Common/Admin/Help_Hub/Hub.php:434
 #: src/Tribe/Admin/Help_Page.php:149
 msgctxt "Error status label for system info optin"
 msgid "Status:"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:588
+msgid "Failed to load Help Scout Beacon script."
 msgstr ""
 
 #: src/Common/Admin/Onboarding/Abstract_API.php:73
@@ -2697,32 +2720,32 @@ msgstr ""
 msgid "In-App Notifications"
 msgstr ""
 
-#: src/Common/Notifications/Notifications.php:143
-#: src/Common/Notifications/Notifications.php:161
-#: src/Common/Notifications/Notifications.php:210
-#: src/Common/Notifications/Notifications.php:238
-#: src/Common/Notifications/Notifications.php:264
+#: src/Common/Notifications/Notifications.php:154
+#: src/Common/Notifications/Notifications.php:172
+#: src/Common/Notifications/Notifications.php:221
+#: src/Common/Notifications/Notifications.php:249
+#: src/Common/Notifications/Notifications.php:275
 msgid "Invalid nonce"
 msgstr ""
 
-#: src/Common/Notifications/Notifications.php:149
+#: src/Common/Notifications/Notifications.php:160
 msgid "Notifications opt-in successful"
 msgstr ""
 
-#: src/Common/Notifications/Notifications.php:217
-#: src/Common/Notifications/Notifications.php:245
+#: src/Common/Notifications/Notifications.php:228
+#: src/Common/Notifications/Notifications.php:256
 msgid "Invalid notification slug"
 msgstr ""
 
-#: src/Common/Notifications/Notifications.php:224
+#: src/Common/Notifications/Notifications.php:235
 msgid "Notification dismissed"
 msgstr ""
 
-#: src/Common/Notifications/Notifications.php:252
+#: src/Common/Notifications/Notifications.php:263
 msgid "Notification marked as read"
 msgstr ""
 
-#: src/Common/Notifications/Notifications.php:275
+#: src/Common/Notifications/Notifications.php:286
 msgid "All notifications marked as read"
 msgstr ""
 
@@ -5445,33 +5468,33 @@ msgstr ""
 msgid "Skip to tab content"
 msgstr ""
 
-#: src/Tribe/Settings.php:1103
+#: src/Tribe/Settings.php:1113
 msgid "For you, Jack!"
 msgstr ""
 
-#: src/Tribe/Settings.php:1177
+#: src/Tribe/Settings.php:1187
 msgid "You don't have permission to do that."
 msgstr ""
 
-#: src/Tribe/Settings.php:1183
+#: src/Tribe/Settings.php:1193
 msgid "The request was sent insecurely."
 msgstr ""
 
-#: src/Tribe/Settings.php:1189
+#: src/Tribe/Settings.php:1199
 msgid "The request wasn't sent from this tab."
 msgstr ""
 
-#: src/Tribe/Settings.php:1399
+#: src/Tribe/Settings.php:1409
 msgid "Your form had the following errors:"
 msgstr ""
 
-#: src/Tribe/Settings.php:1410
+#: src/Tribe/Settings.php:1420
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Settings.php:1431
+#: src/Tribe/Settings.php:1441
 msgid "Settings saved."
 msgstr ""
 
@@ -5734,22 +5757,6 @@ msgstr ""
 
 #: src/views/promoter/auth.php:81
 msgid "Terms"
-msgstr ""
-
-#: src/views/v2/components/icons/featured.php:24
-msgid "Featured"
-msgstr ""
-
-#: src/views/v2/components/icons/hybrid.php:24
-msgid "Hybrid"
-msgstr ""
-
-#: src/views/v2/components/icons/recurring.php:25
-msgid "Recurring"
-msgstr ""
-
-#: src/views/v2/components/icons/virtual.php:24
-msgid "Virtual"
 msgstr ""
 
 #: src/modules/elements/image-upload/element.js:41
