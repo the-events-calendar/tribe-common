@@ -8,7 +8,7 @@ import { format } from '@wordpress/date';
 import { _x } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 
-export default function StartSelector( props: {
+type StartSelectorProps = {
 	dateWithYearFormat: string;
 	endDate: Date;
 	highightTime: boolean;
@@ -21,7 +21,17 @@ export default function StartSelector( props: {
 	startDate: Date;
 	startOfWeek: StartOfWeek;
 	timeFormat: string;
-} ) {
+}
+
+/**
+ * StartSelector component for selecting the start date and time of an event.
+ *
+ * @since TBD
+ *
+ * @param {StartSelectorProps} props The properties for the StartSelector component.
+ * @return {JSX.Element} The rendered StartSelector component.
+ */
+export default function StartSelector( props: StartSelectorProps ) {
 	const {
 		dateWithYearFormat,
 		endDate,
