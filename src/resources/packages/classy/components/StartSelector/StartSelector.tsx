@@ -21,8 +21,10 @@ type StartSelectorProps = {
 	startDate: Date;
 	startOfWeek: StartOfWeek;
 	timeFormat: string;
+	title?: string;
 }
 
+const defaultTitle = _x( 'Start Date', 'Event start date selection input title', 'tribe-common' );
 /**
  * StartSelector component for selecting the start date and time of an event.
  *
@@ -45,6 +47,7 @@ export default function StartSelector( props: StartSelectorProps ) {
 		startDate,
 		startOfWeek,
 		timeFormat,
+		title = defaultTitle,
 	} = props;
 
 	const ref: RefObject< HTMLDivElement > = useRef( null );
@@ -65,7 +68,7 @@ export default function StartSelector( props: StartSelectorProps ) {
 		<Fragment>
 			<div className={ wrapperClassName } ref={ ref }>
 				<div className="classy-field__input-title">
-					<h4>{ _x( 'Date', 'Event date selection input title', 'tribe-common' ) }</h4>
+					<h4>{ title }</h4>
 				</div>
 
 				<DatePicker
