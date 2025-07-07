@@ -137,7 +137,7 @@ class Stellar_Sale extends Promotional_Content_Abstract {
 						$this->get_sale_name()
 					),
 				],
-				'seating-check'                            => [
+				'seating-check'                             => [
 					'callback'          => [ __CLASS__, 'check_seating_license' ],
 					'image_url'         => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/seating-top-wide.png', false, null, \Tribe__Main::instance() ),
 					'narrow_image_url'  => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/seating-top-narrow.png', false, null, \Tribe__Main::instance() ),
