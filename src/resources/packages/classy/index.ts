@@ -6,6 +6,7 @@ import {
 	insertElement as insertClassyElement,
 	toggleElementVisibility as toggleClassyElementVisibility,
 } from './functions/classy';
+import { localizedData } from './localizedData';
 import './style.pcss';
 
 whenEditorIsReady().then( () => {
@@ -21,3 +22,4 @@ export * as components from './components';
 export * as fields from './fields';
 export * as functions from './functions';
 export * as store from './store';
+export { localizedData };
