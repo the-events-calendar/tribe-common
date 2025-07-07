@@ -67,7 +67,7 @@ class Stellar_Sale extends Promotional_Content_Abstract {
 	 */
 	public static function check_seating_license(): bool {
 		try {
-			$service = tribe( '\TEC\Tickets\Seating\Service\Service' );
+			$service = tribe( \TEC\Tickets\Seating\Service\Service::class );
 		} catch ( \Exception $e ) {
 			return false;
 		}
@@ -81,7 +81,7 @@ class Stellar_Sale extends Promotional_Content_Abstract {
 		}
 
 		// Check if the license is valid (not invalid and has a license).
-		return ! ( $service_status->is_license_invalid() || $service_status->has_no_license() );
+		return ! ( $service_status->has_no_license() || $service_status->is_license_invalid() );
 	}
 
 	/**
