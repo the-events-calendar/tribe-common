@@ -177,7 +177,7 @@ class Hub {
 	 */
 	public function register_hidden_page(): void {
 		add_submenu_page(
-			null, // Make the page hidden.
+			'', // Make the page hidden.
 			__( 'Help Hub', 'tribe-common' ),
 			__( 'Help Hub', 'tribe-common' ),
 			'manage_options',
