@@ -1,4 +1,4 @@
-import { LocalizedData } from './types/LocalizedData';
+import { LocalizedData, Settings } from './types/LocalizedData';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 
 declare global {
@@ -38,3 +38,32 @@ export const localizedData: LocalizedData = window?.tec?.common?.classy?.data ??
 		timeInterval: 15,
 	},
 };
+
+/**
+ * Gets the localized data.
+ *
+ * Extending plugins should use this function rather than accessing the localized
+ * data directly.
+ *
+ * @since TBD
+ *
+ * @returns {LocalizedData} The localized data.
+ */
+export function getLocalizedData(): LocalizedData {
+	return localizedData;
+}
+
+/**
+ * Gets the settings from the localized data.
+ *
+ * Extending plugins should use this function rather than accessing the localized
+ * data directly.
+ *
+ * @since TBD
+ *
+ * @returns {Settings} The settings from the localized data.
+ *
+ */
+export function getSettings(): Settings {
+	return localizedData.settings;
+}
