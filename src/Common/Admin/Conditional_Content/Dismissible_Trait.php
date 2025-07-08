@@ -3,6 +3,7 @@
 declare( strict_types=1 );
 
 namespace TEC\Common\Admin\Conditional_Content;
+use Exception;
 
 /**
  * Trait Dismissible_Trait
@@ -75,21 +76,22 @@ trait Dismissible_Trait {
 	 * @since 6.3.0
 	 *
 	 * @return void
+	 *
+	 * @throws Exception If slug is required.
 	 */
 	public function handle_dismiss(): void {
 		if ( empty( $this->slug ) ) {
-			wp_send_json( false );
+			throw new Exception( 'Slug is required' );
 		}
 
-		$slug = tribe_get_request_var( 'slug', false );
-		if ( empty( $slug ) ) {
-			wp_send_json( false );
+		$slug = sanitize_key( tribe_get_request_var( 'slug', false ) );
+
+		if ( ! $slug ) {
+			return;
 		}
 
-		$slug = sanitize_key( $slug );
-
-		if ( $this->slug !== $slug ) {
-			wp_send_json( false );
+		if ( $this->get_slug() !== $slug ) {
+			return;
 		}
 
 		$nonce        = tribe_get_request_var( 'nonce', false );
@@ -126,9 +128,9 @@ trait Dismissible_Trait {
 			return true;
 		}
 
-		update_user_meta( $user_id, $this->meta_key_time_prefix . $this->slug, time() );
+		update_user_meta( $user_id, $this->meta_key_time_prefix . $this->get_slug(), time() );
 
-		return (bool) add_user_meta( $user_id, $this->meta_key, $this->slug );
+		return (bool) add_user_meta( $user_id, $this->meta_key, $this->get_slug() );
 	}
 
 	/**
@@ -154,7 +156,7 @@ trait Dismissible_Trait {
 			return false;
 		}
 
-		return delete_user_meta( $user_id, $this->meta_key, $this->slug );
+		return delete_user_meta( $user_id, $this->meta_key, $this->get_slug() );
 	}
 
 	/**
@@ -181,7 +183,7 @@ trait Dismissible_Trait {
 			return false;
 		}
 
-		if ( ! in_array( $this->slug, $dismissed_notices, true ) ) {
+		if ( ! in_array( $this->get_slug(), $dismissed_notices, true ) ) {
 			return false;
 		}
 

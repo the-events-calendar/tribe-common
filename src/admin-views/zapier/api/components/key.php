@@ -23,7 +23,7 @@
  */
 
 ?>
-<div <?php tribe_classes( $classes_wrap ); ?> >
+<div <?php tec_classes( $classes_wrap ); ?> >
 	<fieldset class="tec-automator-settings-details__read-only-field">
 		<legend class="tec-automator-settings-details__label tribe-field-label ">
 			<?php echo esc_html( $label ); ?>

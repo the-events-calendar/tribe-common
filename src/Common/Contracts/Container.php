@@ -8,6 +8,14 @@ use TEC\Common\Contracts\Provider\Controller;
 
 use TEC\Common\lucatume\DI52\Container as DI52_Container;
 
+/**
+ * Container contract.
+ *
+ * @since 5.1.0
+ *
+ * @method void singleton( string $id, mixed $implementation = null, ?array $afterBuildMethods = null )
+ * @method void bind( string $id, mixed $implementation = null, ?array $afterBuildMethods = null )
+ */
 class Container extends DI52_Container implements ContainerInterface {
 	/**
 	 * Finds an entry of the container by its identifier and returns it.
@@ -18,7 +26,6 @@ class Container extends DI52_Container implements ContainerInterface {
 	 *
 	 * @return mixed The entry for an id.
 	 * @throws Not_Bound_Exception Error while retrieving the entry.
-	 *
 	 */
 	public function get( $id ) {
 		try {
