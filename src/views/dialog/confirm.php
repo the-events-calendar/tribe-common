@@ -18,15 +18,15 @@ $vars        = get_defined_vars();
 ?>
 <?php $dialog_view->template( 'button', $vars, true ); ?>
 <script data-js="<?php echo esc_attr( 'dialog-content-' . $id ); ?>" type="text/template" >
-	<div <?php tribe_classes( $content_classes  ) ?>>
+	<div <?php tec_classes( $content_classes ); ?>>
 		<?php if ( ! empty( $title ) ) : ?>
-			<h2 <?php tribe_classes( $title_classes ) ?>><?php echo esc_html( $title ); ?></h2>
+			<h2 <?php tec_classes( $title_classes ); ?>><?php echo esc_html( $title ); ?></h2>
 		<?php endif; ?>
 
 		<?php echo $content; ?>
 		<div class="tribe-dialog__button_wrap">
-			<button <?php tribe_classes( $cancel_button_classes ); ?>><?php echo esc_html( $cancel_button_text ); ?></button>
-			<button <?php tribe_classes( $continue_button_classes ); ?>><?php echo esc_html( $continue_button_text ); ?></button>
+			<button <?php tec_classes( $cancel_button_classes ); ?>><?php echo esc_html( $cancel_button_text ); ?></button>
+			<button <?php tec_classes( $continue_button_classes ); ?>><?php echo esc_html( $continue_button_text ); ?></button>
 		</div>
 	</div>
 </script>

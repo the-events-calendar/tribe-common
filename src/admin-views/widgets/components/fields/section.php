@@ -25,7 +25,7 @@ $section_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-for
 
 ?>
 <div
-	<?php tribe_classes( $section_classes ); ?>
+	<?php tec_classes( $section_classes ); ?>
 	<?php
 	// Not escaped - contains html (data-attr="value").
 	echo $dependency; // phpcs:ignore

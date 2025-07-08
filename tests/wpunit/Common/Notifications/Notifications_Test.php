@@ -49,6 +49,10 @@ class Notifications_Test extends WPTestCase {
 		delete_option( $this->optin_key );
 	}
 
+	public function get_slug() {
+		return $this->slug;
+	}
+
 	private function get_mocked_feed() {
 		return [
 			[

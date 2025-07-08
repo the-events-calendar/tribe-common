@@ -26,7 +26,7 @@ $classes = array_merge( $default_classes, $this->get( 'fields_container_classes'
 ?>
 
 <div
-	<?php tribe_classes( $classes ); ?>
+	<?php tec_classes( $classes ); ?>
 >
 	<?php
 	foreach ( $fields as $field ) {

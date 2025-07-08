@@ -40,16 +40,16 @@ if ( ! empty( $classes_input ) ) {
 	$input_classes = array_merge( $input_classes, $classes_input );
 }
 ?>
-<div <?php tribe_classes( $classes_wrap ); ?> >
+<div <?php tec_classes( $classes_wrap ); ?> >
 	<label
-		<?php tribe_classes( $classes_label ); ?>
+		<?php tec_classes( $classes_label ); ?>
 		for="<?php echo esc_attr( $id ); ?>"
 	>
 		<?php echo esc_html( $label ); ?>
 	</label>
 	<input
 		id="<?php echo esc_attr( $id ); ?>"
-		<?php tribe_classes( $input_classes ); ?>
+		<?php tec_classes( $input_classes ); ?>
 		type="text"
 		name="<?php echo esc_attr( $name ); ?>"
 		placeholder="<?php echo esc_attr( $placeholder ); ?>"
