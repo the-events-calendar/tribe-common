@@ -3,6 +3,7 @@ import { DatePicker, Popover } from '@wordpress/components';
 import { DatePickerEvent } from '@wordpress/components/build-types/date-time/types';
 import { VirtualElement } from '@wordpress/components/build-types/popover/types';
 import { StartOfWeek } from '../../types/StartOfWeek';
+import { DateUpdateType } from '@tec/common/classy/types/FieldProps.ts';
 
 function getDatePickerEventsBetweenDates( start: Date, end: Date ): DatePickerEvent[] {
 	const dateArray: Date[] = [];
@@ -20,13 +21,13 @@ function getDatePickerEventsBetweenDates( start: Date, end: Date ): DatePickerEv
 export default function CalendarPopover( props: {
 	anchor: Element | VirtualElement | null;
 	startOfWeek: StartOfWeek;
-	isSelectingDate: 'start' | 'end';
+	isSelectingDate: DateUpdateType;
 	isMultiday: boolean;
 	date: Date;
 	startDate: Date;
 	endDate: Date;
 	onClose: () => void;
-	onChange: ( selecting: 'start' | 'end', date: string ) => void;
+	onChange: ( selecting: DateUpdateType, date: string ) => void;
 } ) {
 	const { anchor, startOfWeek, isSelectingDate, isMultiday, date, startDate, endDate, onClose, onChange } = props;
 
@@ -35,7 +36,7 @@ export default function CalendarPopover( props: {
 	// By default, all dates are valid.
 	let isInvalidDate: ( date: Date ) => boolean = () => false;
 
-	if ( isSelectingDate === 'end' ) {
+	if ( isSelectingDate === 'endDate' ) {
 		// The end date cannot be before the start date.
 		isInvalidDate = ( date: Date ): boolean => {
 			return startDate && date < startDate;
@@ -63,7 +64,7 @@ export default function CalendarPopover( props: {
 			<DatePicker
 				startOfWeek={ startOfWeek }
 				currentDate={ date }
-				onChange={ ( newDate: string ): void => onChange( isSelectingDate as 'start' | 'end', newDate ) }
+				onChange={ ( newDate: string ): void => onChange( isSelectingDate as DateUpdateType, newDate ) }
 				events={ events }
 				isInvalidDate={ isInvalidDate }
 			/>

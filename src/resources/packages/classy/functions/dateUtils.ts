@@ -24,3 +24,21 @@ export function getValidDateOrNull( date: string ): Date | null {
 	const parsedDate = Date.parse( date );
 	return isNaN( parsedDate ) ? null : new Date( parsedDate );
 }
+
+/**
+ * Compares two dates to determine if they are on the same day.
+ *
+ * Note the comparison is timezone-agnostic and will not take into account the timezone offset.
+ *
+ * @param {Date} date1 The first date to compare.
+ * @param {Date} date2 The second date to compare.
+ *
+ * @return {boolean} Returns true if the dates are on the same day, otherwise false.
+ */
+export function areDatesOnSameDay( date1: Date, date2: Date ): boolean {
+	return (
+		date1.getFullYear() === date2.getFullYear() &&
+		date1.getMonth() === date2.getMonth() &&
+		date1.getDate() === date2.getDate()
+	);
+}

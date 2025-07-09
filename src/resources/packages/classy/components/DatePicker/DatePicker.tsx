@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Fragment, MouseEventHandler } from 'react';
 import CalendarPopover from './CalendarPopover';
 import {
 	__experimentalInputControl as InputControl,
@@ -6,18 +7,17 @@ import {
 } from '@wordpress/components';
 import CalendarIcon from './CalendarIcon';
 import { format } from '@wordpress/date';
-import { Fragment, MouseEventHandler } from 'react';
-import { SyntheticEvent } from '@wordpress/element';
 import { VirtualElement } from '@wordpress/components/build-types/popover/types';
 import { StartOfWeek } from '../../types/StartOfWeek';
+import { DateUpdateType } from '@tec/common/classy/types/FieldProps.ts';
 
 export type DatePickerProps = {
 	anchor: Element | VirtualElement | null;
 	dateWithYearFormat: string;
 	endDate: Date;
-	isSelectingDate: 'start' | 'end' | false;
+	isSelectingDate: DateUpdateType | false;
 	isMultiday: boolean;
-	onChange: ( selecting: 'start' | 'end', newDate: string ) => void;
+	onChange: ( selecting: DateUpdateType, newDate: string ) => void;
 	onClick: MouseEventHandler< HTMLInputElement >;
 	onClose: () => void;
 	showPopover: boolean;
@@ -65,7 +65,7 @@ export default function DatePicker( props: DatePickerProps ) {
 					anchor={ anchor }
 					date={ currentDate }
 					endDate={ endDate }
-					isSelectingDate={ isSelectingDate as 'start' | 'end' }
+					isSelectingDate={ isSelectingDate as DateUpdateType }
 					isMultiday={ isMultiday }
 					startDate={ startDate }
 					startOfWeek={ startOfWeek }

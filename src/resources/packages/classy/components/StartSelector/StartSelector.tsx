@@ -7,15 +7,16 @@ import { TimePicker } from '../TimePicker';
 import { format } from '@wordpress/date';
 import { _x } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
+import { DateTimeUpdateType, DateUpdateType } from '@tec/common/classy/types/FieldProps.ts';
 
 export default function StartSelector( props: {
 	dateWithYearFormat: string;
 	endDate: Date;
-	highightTime: boolean;
+	highlightTime: boolean;
 	isAllDay: boolean;
 	isMultiday: boolean;
-	isSelectingDate: 'start' | 'end' | false;
-	onChange: ( selecting: 'start' | 'end', date: string ) => void;
+	isSelectingDate: DateUpdateType | false;
+	onChange: ( selecting: DateTimeUpdateType, date: string ) => void;
 	onClick: MouseEventHandler;
 	onClose: () => void;
 	startDate: Date;
@@ -25,7 +26,7 @@ export default function StartSelector( props: {
 	const {
 		dateWithYearFormat,
 		endDate,
-		highightTime,
+		highlightTime,
 		isAllDay,
 		isMultiday,
 		isSelectingDate,
@@ -44,7 +45,7 @@ export default function StartSelector( props: {
 	}, [] );
 
 	const onTimeChange = ( date: Date ): void => {
-		onChange( 'start', format( 'Y-m-d H:i:s', date ) );
+		onChange( 'startTime', format( 'Y-m-d H:i:s', date ) );
 	};
 
 	const wrapperClassName =
@@ -68,7 +69,7 @@ export default function StartSelector( props: {
 					onClick={ onClick }
 					onClose={ onClose }
 					onChange={ onChange }
-					showPopover={ isSelectingDate === 'start' }
+					showPopover={ isSelectingDate === 'startDate' }
 					startDate={ startDate }
 					startOfWeek={ startOfWeek }
 					currentDate={ startDate }
@@ -84,7 +85,7 @@ export default function StartSelector( props: {
 					<TimePicker
 						currentDate={ startDate }
 						endDate={ isMultiday ? null : endDate }
-						highlight={ highightTime }
+						highlight={ highlightTime }
 						onChange={ onTimeChange }
 						timeFormat={ timeFormat }
 						timeInterval={ timeInterval }
