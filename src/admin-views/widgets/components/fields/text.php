@@ -24,7 +24,7 @@ $text_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-form-c
 
 ?>
 <div
-	<?php tribe_classes( $text_classes ); ?>
+	<?php tec_classes( $text_classes ); ?>
 	<?php
 	// Not escaped - contains html (data-attr="value").
 	echo $dependency; // phpcs:ignore

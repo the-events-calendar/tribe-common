@@ -33,7 +33,7 @@ $select_classes = array_merge( [ 'tribe-widget-form-control__input', ' widefat' 
 $parent_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-form-control--dropdown' ], Arr::list_to_array( $parent_classes, ' ' ) );
 
 ?>
-<div <?php tribe_classes( $parent_classes ); ?>
+<div <?php tec_classes( $parent_classes ); ?>
 	<?php
 	// Not escaped - contains html (data-attr="value").
 	echo $dependency; // phpcs:ignore
@@ -48,7 +48,7 @@ $parent_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-form
 	<select
 		id="<?php echo esc_attr( $id ); ?>"
 		name="<?php echo esc_attr( $name ); ?>"
-		<?php tribe_classes( $select_classes ); ?>
+		<?php tec_classes( $select_classes ); ?>
 	>
 		<?php foreach ( $options as $option ) { ?>
 			<option

@@ -35,7 +35,7 @@ if ( ! empty( $loader_classes ) ) {
 ?>
 <div class="tribe-events-virtual-loader-wrap">
 	<div class="tribe-common">
-		<div <?php tribe_classes( $spinner_classes ); ?> >
+		<div <?php tec_classes( $spinner_classes ); ?> >
 			<?php $this->template( '/components/icons/dot', [ 'classes' => [ 'tribe-common-c-loader__dot', 'tribe-common-c-loader__dot--first' ] ] ); ?>
 			<?php $this->template( '/components/icons/dot', [ 'classes' => [ 'tribe-common-c-loader__dot', 'tribe-common-c-loader__dot--second' ] ] ); ?>
 			<?php $this->template( '/components/icons/dot', [ 'classes' => [ 'tribe-common-c-loader__dot', 'tribe-common-c-loader__dot--third' ] ] ); ?>

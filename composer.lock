@@ -5466,12 +5466,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/coding-standards.git",
-                "reference": "bdf05c1ebfef736c75f94bad78df690550f1a241"
+                "reference": "bb7ea48c2c824553a2c173410307e8cdb9171789"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/coding-standards/zipball/bdf05c1ebfef736c75f94bad78df690550f1a241",
-                "reference": "bdf05c1ebfef736c75f94bad78df690550f1a241",
+                "url": "https://api.github.com/repos/stellarwp/coding-standards/zipball/bb7ea48c2c824553a2c173410307e8cdb9171789",
+                "reference": "bb7ea48c2c824553a2c173410307e8cdb9171789",
                 "shasum": ""
             },
             "require": {
