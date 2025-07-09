@@ -1,19 +1,20 @@
 :root {
+	--classy-color-footer: rgba(30, 30, 30, 0.03);
+	--classy-color-highlight: rgb(
+		/* 50% ligter than the primary color */
+		from var(--tec-color-accent-primary) r g b / 0.5
+	);
+	--classy-color-required-asterisk: var(--tec-color-icon-error);
 	--classy-font-size-13: calc(var(--tec-font-size-1) + 1px);
 	--classy-font-size-15: calc(var(--tec-font-size-2) + 1px);
 	--classy-font-size-16: var(--tec-font-size-3);
-	--classy-input-padding-top-bottom: var(--tec-spacer-2);
-	--classy-input-padding-left-right: var(--tec-spacer-3);
-	--classy-input-width: 375px;
-	/* 50% ligter than the primary color */
-	--classy-highlight-color: rgb(
-		from var(--tec-color-accent-primary) r g b / 0.5
-	);
-	--classy-color-footer: rgba(30, 30, 30, 0.03);
-	--classy-padding-vertical: var(--tec-spacer-7);
-	--classy-padding-horizontal: var(--tec-spacer-6);
-	--classy-height-100: 32px;
 	--classy-height-75: 24px;
+	--classy-height-100: 32px;
+	--classy-input-padding-left-right: var(--tec-spacer-3);
+	--classy-input-padding-top-bottom: var(--tec-spacer-2);
+	--classy-input-width: 375px;
+	--classy-padding-horizontal: var(--tec-spacer-6);
+	--classy-padding-vertical: var(--tec-spacer-7);
 
 	/* This comes from the WP components computed values. */
 	--classy-line-height: 18.2px;
@@ -113,6 +114,12 @@
 		align-items: flex-start;
 		gap: var(--tec-spacer-2);
 		flex: 1 0 0;
+
+		&__control--input-narrow {
+			.components-input-control__container {
+				width: 30%;
+			}
+		}
 	}
 
 	.classy-field__currency-selector {
@@ -487,7 +494,7 @@
 			background: transparent;
 		}
 		50% {
-			background: var(--classy-highlight-color);
+			background: var(--classy-color-highlight);
 		}
 		100% {
 			background: transparent;
@@ -589,6 +596,18 @@
 			gap: var(--tec-spacer-2);
 			padding: var(--tec-spacer-1) var(--tec-spacer-6) var(--tec-spacer-7);
 		}
+	}
+
+	&__section-separator {
+		margin: 0;
+		padding: 0;
+	}
+
+	/* Add asterisk to label when input is required */
+	.classy-component__labeled-input:has(input[required]) .classy-component__input-label::after {
+		content: " *";
+		color: var(--classy-color-required-asterisk);
+		font-weight: bold;
 	}
 }
 
