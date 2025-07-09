@@ -47,9 +47,10 @@ export default function StartSelector( props: {
 		onChange( 'start', format( 'Y-m-d H:i:s', date ) );
 	};
 
-	const wrapperClassName = isAllDay
-		? 'classy-field__input classy-field__input--start-date classy-field__input-full-width'
-		: 'classy-field__input classy-field__input--start-date classy-field__input--grow';
+	const wrapperClassName =
+		isAllDay && ! isMultiday
+			? 'classy-field__input classy-field__input--start-date classy-field__input-full-width'
+			: 'classy-field__input classy-field__input--start-date classy-field__input--grow';
 
 	return (
 		<Fragment>
