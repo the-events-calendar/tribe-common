@@ -1,4 +1,4 @@
-/*M!999999\- enable the sandbox mode */ 
+/*M!999999\- enable the sandbox mode */
 -- MariaDB dump 10.19  Distrib 10.5.28-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: db    Database: test
@@ -1259,7 +1259,7 @@ CREATE TABLE `wp_tec_slr_layouts` (
   `seats` int(11) NOT NULL DEFAULT 0,
   `screenshot_url` varchar(255) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1284,7 +1284,7 @@ CREATE TABLE `wp_tec_slr_maps` (
   `seats` int(11) NOT NULL DEFAULT 0,
   `screenshot_url` varchar(255) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1310,7 +1310,7 @@ CREATE TABLE `wp_tec_slr_seat_types` (
   `layout` varchar(36) NOT NULL,
   `seats` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1336,7 +1336,7 @@ CREATE TABLE `wp_tec_slr_sessions` (
   `reservations` longblob DEFAULT NULL,
   `expiration_lock` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`token`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2627,7 +2627,7 @@ CREATE TABLE `wptests_actionscheduler_actions` (
   KEY `group_id` (`group_id`),
   KEY `last_attempt_gmt` (`last_attempt_gmt`),
   KEY `claim_id_status_scheduled_date_gmt` (`claim_id`,`status`,`scheduled_date_gmt`)
-) ENGINE=InnoDB AUTO_INCREMENT=319 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=319 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2652,7 +2652,7 @@ CREATE TABLE `wptests_actionscheduler_claims` (
   `date_created_gmt` datetime DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`claim_id`),
   KEY `date_created_gmt` (`date_created_gmt`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2676,7 +2676,7 @@ CREATE TABLE `wptests_actionscheduler_groups` (
   `slug` varchar(255) NOT NULL,
   PRIMARY KEY (`group_id`),
   KEY `slug` (`slug`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2705,7 +2705,7 @@ CREATE TABLE `wptests_actionscheduler_logs` (
   PRIMARY KEY (`log_id`),
   KEY `action_id` (`action_id`),
   KEY `log_date_gmt` (`log_date_gmt`)
-) ENGINE=InnoDB AUTO_INCREMENT=315 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=315 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2733,7 +2733,7 @@ CREATE TABLE `wptests_commentmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `comment_id` (`comment_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2775,7 +2775,7 @@ CREATE TABLE `wptests_comments` (
   KEY `comment_parent` (`comment_parent`),
   KEY `comment_author_email` (`comment_author_email`(10)),
   KEY `woo_idx_comment_type` (`comment_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=190 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=190 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2802,7 +2802,7 @@ CREATE TABLE `wptests_edd_adjustmentmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `edd_adjustment_id` (`edd_adjustment_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2838,8 +2838,8 @@ CREATE TABLE `wptests_edd_adjustments` (
   `min_charge_amount` decimal(18,9) NOT NULL DEFAULT 0.000000000,
   `start_date` datetime DEFAULT NULL,
   `end_date` datetime DEFAULT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `type_status` (`type`,`status`),
@@ -2847,7 +2847,7 @@ CREATE TABLE `wptests_edd_adjustments` (
   KEY `code` (`code`),
   KEY `date_created` (`date_created`),
   KEY `date_start_end` (`start_date`,`end_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2879,15 +2879,15 @@ CREATE TABLE `wptests_edd_customer_addresses` (
   `region` mediumtext NOT NULL,
   `postal_code` varchar(32) NOT NULL DEFAULT '',
   `country` mediumtext NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `customer_is_primary` (`customer_id`,`is_primary`),
   KEY `type` (`type`),
   KEY `status` (`status`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2913,8 +2913,8 @@ CREATE TABLE `wptests_edd_customer_email_addresses` (
   `type` varchar(20) NOT NULL DEFAULT 'secondary',
   `status` varchar(20) NOT NULL DEFAULT 'active',
   `email` varchar(100) NOT NULL DEFAULT '',
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `customer` (`customer_id`),
@@ -2922,7 +2922,7 @@ CREATE TABLE `wptests_edd_customer_email_addresses` (
   KEY `type` (`type`),
   KEY `status` (`status`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2950,7 +2950,7 @@ CREATE TABLE `wptests_edd_customermeta` (
   PRIMARY KEY (`meta_id`),
   KEY `edd_customer_id` (`edd_customer_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2977,15 +2977,15 @@ CREATE TABLE `wptests_edd_customers` (
   `status` varchar(20) NOT NULL DEFAULT '',
   `purchase_value` decimal(18,9) NOT NULL DEFAULT 0.000000000,
   `purchase_count` bigint(20) unsigned NOT NULL DEFAULT 0,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `user` (`user_id`),
   KEY `status` (`status`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3013,7 +3013,7 @@ CREATE TABLE `wptests_edd_emailmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `email_id` (`edd_email_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3043,11 +3043,11 @@ CREATE TABLE `wptests_edd_emails` (
   `heading` text DEFAULT NULL,
   `content` longtext NOT NULL,
   `status` tinyint(1) unsigned NOT NULL DEFAULT 0,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_id` (`email_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3075,7 +3075,7 @@ CREATE TABLE `wptests_edd_logmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `edd_log_id` (`edd_log_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3102,15 +3102,15 @@ CREATE TABLE `wptests_edd_logs` (
   `type` varchar(20) DEFAULT NULL,
   `title` varchar(200) DEFAULT NULL,
   `content` longtext DEFAULT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `object_id_type` (`object_id`,`object_type`),
   KEY `user_id` (`user_id`),
   KEY `type` (`type`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3137,7 +3137,7 @@ CREATE TABLE `wptests_edd_logs_api_requestmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `edd_logs_api_request_id` (`edd_logs_api_request_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3166,13 +3166,13 @@ CREATE TABLE `wptests_edd_logs_api_requests` (
   `error` longtext NOT NULL DEFAULT '',
   `ip` varchar(60) NOT NULL DEFAULT '',
   `time` varchar(60) NOT NULL DEFAULT '',
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3199,7 +3199,7 @@ CREATE TABLE `wptests_edd_logs_emailmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `edd_logs_email_id` (`edd_logs_email_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3225,14 +3225,14 @@ CREATE TABLE `wptests_edd_logs_emails` (
   `email` varchar(100) NOT NULL DEFAULT '',
   `email_id` varchar(32) NOT NULL,
   `subject` varchar(200) NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `object_id_type` (`object_id`,`object_type`),
   KEY `email_id` (`email_id`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3259,7 +3259,7 @@ CREATE TABLE `wptests_edd_logs_file_downloadmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `edd_logs_file_download_id` (`edd_logs_file_download_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3287,14 +3287,14 @@ CREATE TABLE `wptests_edd_logs_file_downloads` (
   `customer_id` bigint(20) unsigned NOT NULL DEFAULT 0,
   `ip` varchar(60) NOT NULL DEFAULT '',
   `user_agent` varchar(200) NOT NULL DEFAULT '',
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `customer_id` (`customer_id`),
   KEY `product_id` (`product_id`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3321,7 +3321,7 @@ CREATE TABLE `wptests_edd_notemeta` (
   PRIMARY KEY (`meta_id`),
   KEY `edd_note_id` (`edd_note_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3346,14 +3346,14 @@ CREATE TABLE `wptests_edd_notes` (
   `object_type` varchar(20) NOT NULL DEFAULT '',
   `user_id` bigint(20) unsigned NOT NULL DEFAULT 0,
   `content` longtext NOT NULL DEFAULT '',
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `object_id_type` (`object_id`,`object_type`),
   KEY `user_id` (`user_id`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3385,12 +3385,12 @@ CREATE TABLE `wptests_edd_notifications` (
   `start` datetime DEFAULT NULL,
   `end` datetime DEFAULT NULL,
   `dismissed` tinyint(1) unsigned NOT NULL DEFAULT 0,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_updated` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `dismissed_start_end` (`dismissed`,`start`,`end`),
   KEY `remote_id` (`remote_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3420,8 +3420,8 @@ CREATE TABLE `wptests_edd_order_addresses` (
   `region` mediumtext NOT NULL,
   `postal_code` varchar(32) NOT NULL DEFAULT '',
   `country` mediumtext NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`),
@@ -3430,7 +3430,7 @@ CREATE TABLE `wptests_edd_order_addresses` (
   KEY `postal_code` (`postal_code`),
   KEY `country` (`country`(191)),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3458,7 +3458,7 @@ CREATE TABLE `wptests_edd_order_adjustmentmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `edd_order_adjustment_id` (`edd_order_adjustment_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3490,14 +3490,14 @@ CREATE TABLE `wptests_edd_order_adjustments` (
   `tax` decimal(18,9) NOT NULL DEFAULT 0.000000000,
   `total` decimal(18,9) NOT NULL DEFAULT 0.000000000,
   `rate` decimal(10,5) NOT NULL DEFAULT 1.00000,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `object_id_type` (`object_id`,`object_type`),
   KEY `date_created` (`date_created`),
   KEY `parent` (`parent`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3524,7 +3524,7 @@ CREATE TABLE `wptests_edd_order_itemmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `edd_order_item_id` (`edd_order_item_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3560,14 +3560,14 @@ CREATE TABLE `wptests_edd_order_items` (
   `tax` decimal(18,9) NOT NULL DEFAULT 0.000000000,
   `total` decimal(18,9) NOT NULL DEFAULT 0.000000000,
   `rate` decimal(10,5) NOT NULL DEFAULT 1.00000,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `order_product_price_id` (`order_id`,`product_id`,`price_id`),
   KEY `type_status` (`type`,`status`),
   KEY `parent` (`parent`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3596,8 +3596,8 @@ CREATE TABLE `wptests_edd_order_transactions` (
   `status` varchar(20) NOT NULL DEFAULT '',
   `total` decimal(18,9) NOT NULL DEFAULT 0.000000000,
   `rate` decimal(10,5) NOT NULL DEFAULT 1.00000,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `transaction_id` (`transaction_id`(64)),
@@ -3605,7 +3605,7 @@ CREATE TABLE `wptests_edd_order_transactions` (
   KEY `status` (`status`),
   KEY `date_created` (`date_created`),
   KEY `object_type_object_id` (`object_type`,`object_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3632,7 +3632,7 @@ CREATE TABLE `wptests_edd_ordermeta` (
   PRIMARY KEY (`meta_id`),
   KEY `edd_order_id` (`edd_order_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3672,8 +3672,8 @@ CREATE TABLE `wptests_edd_orders` (
   `tax` decimal(18,9) NOT NULL DEFAULT 0.000000000,
   `total` decimal(18,9) NOT NULL DEFAULT 0.000000000,
   `rate` decimal(10,5) NOT NULL DEFAULT 1.00000,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `date_completed` datetime DEFAULT NULL,
   `date_refundable` datetime DEFAULT NULL,
   `date_actions_run` datetime DEFAULT NULL,
@@ -3687,7 +3687,7 @@ CREATE TABLE `wptests_edd_orders` (
   KEY `payment_key` (`payment_key`),
   KEY `date_created_completed` (`date_created`,`date_completed`),
   KEY `currency` (`currency`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3715,7 +3715,7 @@ CREATE TABLE `wptests_edd_sessions` (
   PRIMARY KEY (`session_id`),
   KEY `session_key` (`session_key`),
   KEY `session_expiry` (`session_expiry`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3750,7 +3750,7 @@ CREATE TABLE `wptests_links` (
   `link_rss` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`link_id`),
   KEY `link_visible` (`link_visible`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3777,7 +3777,7 @@ CREATE TABLE `wptests_options` (
   PRIMARY KEY (`option_id`),
   UNIQUE KEY `option_name` (`option_name`),
   KEY `autoload` (`autoload`)
-) ENGINE=InnoDB AUTO_INCREMENT=780 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=780 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3805,7 +3805,7 @@ CREATE TABLE `wptests_postmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `post_id` (`post_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=9460 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9460 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3853,7 +3853,7 @@ CREATE TABLE `wptests_posts` (
   KEY `type_status_date` (`post_type`,`post_status`,`post_date`,`ID`),
   KEY `post_parent` (`post_parent`),
   KEY `post_author` (`post_author`)
-) ENGINE=InnoDB AUTO_INCREMENT=5661 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5661 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3886,7 +3886,7 @@ CREATE TABLE `wptests_tec_events` (
   `rset` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`event_id`),
   UNIQUE KEY `post_id` (`post_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3922,7 +3922,7 @@ CREATE TABLE `wptests_tec_occurrences` (
   PRIMARY KEY (`occurrence_id`),
   UNIQUE KEY `hash` (`hash`),
   KEY `event_id` (`event_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3949,7 +3949,7 @@ CREATE TABLE `wptests_tec_order_modifier_relationships` (
   PRIMARY KEY (`id`),
   KEY `tec_order_modifier_relationship_index_modifier_id` (`modifier_id`),
   KEY `tec_order_modifier_relationship_index_post_id` (`post_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3976,15 +3976,14 @@ CREATE TABLE `wptests_tec_order_modifiers` (
   `slug` varchar(150) NOT NULL,
   `display_name` varchar(255) NOT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'draft',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `start_time` timestamp NULL DEFAULT NULL,
   `end_time` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `tec_order_modifier_index_slug` (`slug`),
   KEY `tec_order_modifier_index_modifier_type` (`modifier_type`),
   KEY `tec_order_modifier_index_status_modifier_type` (`status`,`modifier_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4009,12 +4008,11 @@ CREATE TABLE `wptests_tec_order_modifiers_meta` (
   `meta_key` varchar(100) NOT NULL,
   `meta_value` text NOT NULL,
   `priority` int(11) NOT NULL DEFAULT 0,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `tec_order_modifier_meta_index_order_modifier_id` (`order_modifier_id`),
   KEY `tec_order_modifier_meta_index_meta_key` (`meta_key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4039,7 +4037,7 @@ CREATE TABLE `wptests_tec_posts_and_ticket_groups` (
   `group_id` bigint(20) unsigned NOT NULL,
   `type` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4066,7 +4064,7 @@ CREATE TABLE `wptests_tec_series_relationships` (
   PRIMARY KEY (`relationship_id`),
   KEY `series_post_id` (`series_post_id`),
   KEY `event_post_id` (`event_post_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4093,7 +4091,7 @@ CREATE TABLE `wptests_tec_slr_layouts` (
   `seats` int(11) NOT NULL DEFAULT 0,
   `screenshot_url` varchar(255) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4118,7 +4116,7 @@ CREATE TABLE `wptests_tec_slr_maps` (
   `seats` int(11) NOT NULL DEFAULT 0,
   `screenshot_url` varchar(255) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4144,7 +4142,7 @@ CREATE TABLE `wptests_tec_slr_seat_types` (
   `layout` varchar(36) NOT NULL,
   `seats` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4170,7 +4168,7 @@ CREATE TABLE `wptests_tec_slr_sessions` (
   `reservations` longblob DEFAULT NULL,
   `expiration_lock` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`token`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4194,7 +4192,7 @@ CREATE TABLE `wptests_tec_ticket_groups` (
   `slug` varchar(255) NOT NULL DEFAULT '',
   `data` text NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4219,7 +4217,7 @@ CREATE TABLE `wptests_term_relationships` (
   `term_order` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`object_id`,`term_taxonomy_id`),
   KEY `term_taxonomy_id` (`term_taxonomy_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4248,7 +4246,7 @@ CREATE TABLE `wptests_term_taxonomy` (
   PRIMARY KEY (`term_taxonomy_id`),
   UNIQUE KEY `term_id_taxonomy` (`term_id`,`taxonomy`),
   KEY `taxonomy` (`taxonomy`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4276,7 +4274,7 @@ CREATE TABLE `wptests_termmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `term_id` (`term_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4303,7 +4301,7 @@ CREATE TABLE `wptests_terms` (
   PRIMARY KEY (`term_id`),
   KEY `slug` (`slug`(191)),
   KEY `name` (`name`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4331,7 +4329,7 @@ CREATE TABLE `wptests_usermeta` (
   PRIMARY KEY (`umeta_id`),
   KEY `user_id` (`user_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4366,7 +4364,7 @@ CREATE TABLE `wptests_users` (
   KEY `user_login_key` (`user_login`),
   KEY `user_nicename` (`user_nicename`),
   KEY `user_email` (`user_email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4398,7 +4396,7 @@ CREATE TABLE `wptests_wc_admin_note_actions` (
   `nonce_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`action_id`),
   KEY `note_id` (`note_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4436,7 +4434,7 @@ CREATE TABLE `wptests_wc_admin_notes` (
   `is_read` tinyint(1) NOT NULL DEFAULT 0,
   `icon` varchar(200) NOT NULL DEFAULT 'info',
   PRIMARY KEY (`note_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4459,7 +4457,7 @@ CREATE TABLE `wptests_wc_category_lookup` (
   `category_tree_id` bigint(20) unsigned NOT NULL,
   `category_id` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`category_tree_id`,`category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4494,7 +4492,7 @@ CREATE TABLE `wptests_wc_customer_lookup` (
   PRIMARY KEY (`customer_id`),
   UNIQUE KEY `user_id` (`user_id`),
   KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4522,7 +4520,7 @@ CREATE TABLE `wptests_wc_download_log` (
   PRIMARY KEY (`download_log_id`),
   KEY `permission_id` (`permission_id`),
   KEY `timestamp` (`timestamp`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4549,7 +4547,7 @@ CREATE TABLE `wptests_wc_order_coupon_lookup` (
   PRIMARY KEY (`order_id`,`coupon_id`),
   KEY `coupon_id` (`coupon_id`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4587,7 +4585,7 @@ CREATE TABLE `wptests_wc_order_product_lookup` (
   KEY `product_id` (`product_id`),
   KEY `customer_id` (`customer_id`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4625,7 +4623,7 @@ CREATE TABLE `wptests_wc_order_stats` (
   KEY `date_created` (`date_created`),
   KEY `customer_id` (`customer_id`),
   KEY `status` (`status`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4654,7 +4652,7 @@ CREATE TABLE `wptests_wc_order_tax_lookup` (
   PRIMARY KEY (`order_id`,`tax_rate_id`),
   KEY `tax_rate_id` (`tax_rate_id`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4682,7 +4680,7 @@ CREATE TABLE `wptests_wc_product_attributes_lookup` (
   `in_stock` tinyint(1) NOT NULL,
   PRIMARY KEY (`product_or_parent_id`,`term_id`,`product_id`,`taxonomy`),
   KEY `is_variation_attribute_term_id` (`is_variation_attribute`,`term_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4707,7 +4705,7 @@ CREATE TABLE `wptests_wc_product_download_directories` (
   `enabled` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`url_id`),
   KEY `url` (`url`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4751,7 +4749,7 @@ CREATE TABLE `wptests_wc_product_meta_lookup` (
   KEY `onsale` (`onsale`),
   KEY `min_max_price` (`min_price`,`max_price`),
   KEY `sku` (`sku`(50))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4778,7 +4776,7 @@ CREATE TABLE `wptests_wc_rate_limits` (
   `rate_limit_remaining` smallint(10) NOT NULL DEFAULT 0,
   PRIMARY KEY (`rate_limit_id`),
   UNIQUE KEY `rate_limit_key` (`rate_limit_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4804,7 +4802,7 @@ CREATE TABLE `wptests_wc_reserved_stock` (
   `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `expires` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`order_id`,`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4829,7 +4827,7 @@ CREATE TABLE `wptests_wc_tax_rate_classes` (
   `slug` varchar(200) NOT NULL DEFAULT '',
   PRIMARY KEY (`tax_rate_class_id`),
   UNIQUE KEY `slug` (`slug`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4866,7 +4864,7 @@ CREATE TABLE `wptests_wc_webhooks` (
   `pending_delivery` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`webhook_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4898,7 +4896,7 @@ CREATE TABLE `wptests_woocommerce_api_keys` (
   PRIMARY KEY (`key_id`),
   KEY `consumer_key` (`consumer_key`),
   KEY `consumer_secret` (`consumer_secret`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4926,7 +4924,7 @@ CREATE TABLE `wptests_woocommerce_attribute_taxonomies` (
   `attribute_public` int(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`attribute_id`),
   KEY `attribute_name` (`attribute_name`(20))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4962,7 +4960,7 @@ CREATE TABLE `wptests_woocommerce_downloadable_product_permissions` (
   KEY `download_order_product` (`download_id`,`order_id`,`product_id`),
   KEY `order_id` (`order_id`),
   KEY `user_order_remaining_expires` (`user_id`,`order_id`,`downloads_remaining`,`access_expires`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4990,7 +4988,7 @@ CREATE TABLE `wptests_woocommerce_log` (
   `context` longtext DEFAULT NULL,
   PRIMARY KEY (`log_id`),
   KEY `level` (`level`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5017,7 +5015,7 @@ CREATE TABLE `wptests_woocommerce_order_itemmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `order_item_id` (`order_item_id`),
   KEY `meta_key` (`meta_key`(32))
-) ENGINE=InnoDB AUTO_INCREMENT=2393 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2393 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5044,7 +5042,7 @@ CREATE TABLE `wptests_woocommerce_order_items` (
   `order_id` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`order_item_id`),
   KEY `order_id` (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5072,7 +5070,7 @@ CREATE TABLE `wptests_woocommerce_payment_tokenmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `payment_token_id` (`payment_token_id`),
   KEY `meta_key` (`meta_key`(32))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5100,7 +5098,7 @@ CREATE TABLE `wptests_woocommerce_payment_tokens` (
   `is_default` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`token_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5126,7 +5124,7 @@ CREATE TABLE `wptests_woocommerce_sessions` (
   `session_expiry` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`session_id`),
   UNIQUE KEY `session_key` (`session_key`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5153,7 +5151,7 @@ CREATE TABLE `wptests_woocommerce_shipping_zone_locations` (
   PRIMARY KEY (`location_id`),
   KEY `zone_id` (`zone_id`),
   KEY `location_type_code` (`location_type`(10),`location_code`(20))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5179,7 +5177,7 @@ CREATE TABLE `wptests_woocommerce_shipping_zone_methods` (
   `method_order` bigint(20) unsigned NOT NULL,
   `is_enabled` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`instance_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5203,7 +5201,7 @@ CREATE TABLE `wptests_woocommerce_shipping_zones` (
   `zone_name` varchar(200) NOT NULL,
   `zone_order` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`zone_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5230,7 +5228,7 @@ CREATE TABLE `wptests_woocommerce_tax_rate_locations` (
   PRIMARY KEY (`location_id`),
   KEY `tax_rate_id` (`tax_rate_id`),
   KEY `location_type_code` (`location_type`(10),`location_code`(20))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5265,7 +5263,7 @@ CREATE TABLE `wptests_woocommerce_tax_rates` (
   KEY `tax_rate_state` (`tax_rate_state`(2)),
   KEY `tax_rate_class` (`tax_rate_class`(10)),
   KEY `tax_rate_priority` (`tax_rate_priority`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
