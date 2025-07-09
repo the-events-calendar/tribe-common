@@ -26,7 +26,6 @@ trait Create_Attendees {
 	use Woo_Ticket_Maker;
 	use Woo_Order_Maker;
 	use Attendee_Maker;
-	use Email_Handler;
 
 	/*
 	 * Attendee meta fieldset.
@@ -214,6 +213,7 @@ trait Create_Attendees {
 			$this->save_attendee_meta_to_ticket( $rsvp_id );
 		}
 
+		/** @var \Tribe\Tickets\RSVP\Attendee_Repository $attendees */
 		$attendees     = tribe_attendees( 'rsvp' );
 		$attendee_data = [
 			'full_name' => 'A test attendee',
@@ -240,7 +240,8 @@ trait Create_Attendees {
 	 * @return array<int> An array of generated attendee ids.
 	 */
 	protected function generate_multiple_rsvp_attendees( $event ) {
-		$rsvp_id   = $this->create_rsvp_ticket( $event->ID );
+		$rsvp_id = $this->create_rsvp_ticket( $event->ID );
+		/** @var \Tribe\Tickets\RSVP\Attendee_Repository $attendees */
 		$attendees = tribe_attendees( 'rsvp' );
 
 		return array_map(
@@ -340,6 +341,7 @@ trait Create_Attendees {
 			'purchaser_email'      => 'test@test.com',
 		];
 		$order     = tribe( Order::class )->create( tribe( Gateway::class ), $purchaser );
+		/** @var \Tribe\Tickets\Commerce\Attendee_Repository $attendees */
 		$attendees = tribe( TC_Attendee::class );
 
 		$attendee_data        = [
@@ -377,7 +379,8 @@ trait Create_Attendees {
 			'purchaser_email'      => 'zapier@test.com',
 		];
 
-		$order     = tribe( Order::class )->create( tribe( Gateway::class ), $purchaser );
+		$order = tribe( Order::class )->create( tribe( Gateway::class ), $purchaser );
+		/** @var \Tribe\Tickets\Commerce\Attendee_Repository $attendees */
 		$attendees = tribe( TC_Attendee::class );
 
 		return array_map(
@@ -512,6 +515,7 @@ trait Create_Attendees {
 			$this->save_attendee_meta_to_ticket( $ticket_id );
 		}
 
+		/** @var \Tribe\Tickets\Commerce\Attendee_Repository $attendees */
 		$attendees     = tribe_attendees( 'woo' );
 		$attendee_data = [
 			'full_name' => 'A test attendee',
@@ -539,6 +543,7 @@ trait Create_Attendees {
 	 */
 	protected function generate_multiple_woo_attendees( $event ) {
 		$ticket_id = $this->create_woocommerce_ticket( $event->ID, 11 );
+		/** @var Tribe__Tickets_Plus__Repositories__Attendee__WooCommerce $attendees */
 		$attendees = tribe_attendees( 'woo' );
 
 		return array_map(
@@ -640,7 +645,7 @@ trait Create_Attendees {
 			'event_tickets_woo_ticket_generating_order_stati',
 			function ( $generation_statuses ) {
 				return [];
-			} 
+			}
 		);
 
 		return $this->create_woocommerce_order( $product_id, 2 );
@@ -676,7 +681,7 @@ trait Create_Attendees {
 			'event_tickets_woo_ticket_generating_order_stati',
 			function ( $generation_statuses ) {
 				return [];
-			} 
+			}
 		);
 
 		$refund = $this->create_refunded_woocommerce_order( $product_id, 2 );
