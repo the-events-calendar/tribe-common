@@ -8,7 +8,7 @@ import { RefObject, useRef } from '@wordpress/element';
 import { format } from '@wordpress/date';
 import { _x } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
-import { DateTimeUpdateType, DateUpdateType } from '@tec/common/classy/types/FieldProps.ts';
+import { DateTimeUpdateType, DateUpdateType } from '../../types/FieldProps.ts';
 
 export default function EndSelector( props: {
 	dateWithYearFormat: string;

@@ -30,6 +30,8 @@ export function getValidDateOrNull( date: string ): Date | null {
  *
  * Note the comparison is timezone-agnostic and will not take into account the timezone offset.
  *
+ * @since TBD
+ *
  * @param {Date} date1 The first date to compare.
  * @param {Date} date2 The second date to compare.
  *
