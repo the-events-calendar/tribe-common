@@ -25,8 +25,7 @@ export function getSettings(): Settings {
  * @returns {number} The time interval in minutes to use in time-pickers.
  */
 export function getTimeInterval(): number {
-	const settings: Settings = localizedData.settings;
-	return settings.timeInterval;
+	return getSettings().timeInterval;
 }
 
 /**
