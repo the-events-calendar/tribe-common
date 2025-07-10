@@ -10,6 +10,8 @@ import TestProvider from '../_support/TestProvider';
 
 // Save the original localized data here.
 let originalLocalizedData: LocalizedData;
+const timePickerSelector = '.classy-field__input--end-time input[type="text"]';
+const datePickerButton = '.classy-field__control--date-picker input.components-input-control__input';
 
 describe( 'EndSelector Component', () => {
 	const defaultProps = {
@@ -34,7 +36,7 @@ describe( 'EndSelector Component', () => {
 	} );
 
 	afterEach( () => {
-		// Clean up
+		// Clean up.
 		if ( originalLocalizedData ) {
 			window.tec.common.classy.data = originalLocalizedData;
 		}
@@ -86,7 +88,7 @@ describe( 'EndSelector Component', () => {
 			expect( container.firstChild ).toMatchSnapshot();
 		} );
 	} );
-	//
+
 	describe( 'multiday events', () => {
 		it( 'renders date separator and date picker when isMultiday is true', () => {
 			const props = {
@@ -210,7 +212,7 @@ describe( 'EndSelector Component', () => {
 			expect( container.firstChild ).toMatchSnapshot();
 		} );
 	} );
-	//
+
 	describe( 'time selection', () => {
 		it( 'calls onChange with correct parameters when time is changed', async () => {
 			const user = userEvent.setup();
@@ -226,15 +228,17 @@ describe( 'EndSelector Component', () => {
 				</TestProvider>
 			);
 
-			// Find the time input (this would be inside TimePicker component)
-			const timeInput = container.querySelector( 'input[type="time"]' );
-			if ( timeInput ) {
-				await user.clear( timeInput );
-				await user.type( timeInput, '14:30' );
-			}
+			// Find the time input (this would be inside the TimePicker component).
+			const timeInput = container.querySelector( timePickerSelector );
 
-			// The onChange would be called through the TimePicker's onChange handler
-			// which calls onTimeChange in EndSelector
+			expect( timeInput ).not.toBeNull();
+
+			await user.clear( timeInput );
+			await user.type( timeInput, '14:30' );
+			await user.type( timeInput, '{enter}' );
+
+			// Check that onChange was called with the correct parameters
+			expect( props.onChange ).toHaveBeenCalledWith( 'endTime', '2023-12-23 14:30:00' );
 		} );
 
 		it( 'highlights time when highlightTime is true', () => {
@@ -253,7 +257,7 @@ describe( 'EndSelector Component', () => {
 			expect( container.firstChild ).toMatchSnapshot();
 		} );
 	} );
-	//
+
 	describe( 'event handlers', () => {
 		it( 'passes onClick handler to DatePicker', async () => {
 			const user = userEvent.setup();
@@ -270,11 +274,15 @@ describe( 'EndSelector Component', () => {
 				</TestProvider>
 			);
 
-			// The onClick would be triggered through the DatePicker component
-			const dateButton = container.querySelector( '.classy-component__date-picker-button' );
-			if ( dateButton ) {
-				await user.click( dateButton );
-			}
+			// The onClick would be triggered through the DatePicker component.
+			const dateButton = container.querySelector( datePickerButton );
+
+			expect( dateButton ).not.toBeNull();
+
+			await user.click( dateButton );
+
+			// Check that onClick was called with the expected field
+			expect( onClick ).toHaveBeenCalled();
 		} );
 
 		it( 'passes onClose handler to DatePicker', async () => {
@@ -297,9 +305,12 @@ describe( 'EndSelector Component', () => {
 			if ( popover ) {
 				await keyDownEscape( popover );
 			}
+
+			// Check that onClose was called
+			expect( onClose ).toHaveBeenCalled();
 		} );
 
-		it( 'passes onChange handler to DatePicker', async () => {
+		it( 'calls onChange with endDate when date changes', async () => {
 			const user = userEvent.setup();
 			const onChange = jest.fn();
 			const props = {
@@ -315,11 +326,14 @@ describe( 'EndSelector Component', () => {
 				</TestProvider>
 			);
 
-			// Click on a different date
+			// Click on a different date.
 			const dateToClick = getByText( '25' );
 			if ( dateToClick ) {
 				await user.click( dateToClick );
 			}
+
+			// Check that onChange was called with the correct parameters
+			expect( onChange ).toHaveBeenCalledWith( 'endDate', '2023-12-25T13:00:00' );
 		} );
 
 		it( 'calls onChange with endTime when time changes', async () => {
@@ -338,15 +352,19 @@ describe( 'EndSelector Component', () => {
 			);
 
 			// Simulate time change through TimePicker
-			const timeInput = container.querySelector( 'input[type="time"]' );
-			if ( timeInput ) {
-				await user.clear( timeInput );
-				await user.type( timeInput, '15:30' );
-				// This would trigger onTimeChange which calls onChange('endTime', ...)
-			}
+			const timeInput = container.querySelector( timePickerSelector );
+
+			expect( timeInput ).not.toBeNull();
+
+			await user.clear( timeInput );
+			await user.type( timeInput, '15:30' );
+			await user.type( timeInput, '{enter}' );
+
+			// Check that onChange was called with the correct parameters
+			expect( onChange ).toHaveBeenCalledWith( 'endTime', '2023-12-23 15:30:00' );
 		} );
 	} );
-	//
+
 	describe( 'time interval from store', () => {
 		it( 'uses time interval from WordPress data store', () => {
 			// Set up the localized data with a specific time interval.
@@ -361,7 +379,7 @@ describe( 'EndSelector Component', () => {
 			expect( container.firstChild ).toMatchSnapshot();
 		} );
 	} );
-	//
+
 	describe( 'accessibility', () => {
 		it( 'renders accessible titles for date and time inputs', () => {
 			const props = {

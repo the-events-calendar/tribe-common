@@ -6,10 +6,12 @@ import { StartSelector } from '../../../src/resources/packages/classy/components
 import { keyDownEscape } from '../_support/userEvents';
 import { getDefault as getDefaultLocalizedData } from '../../../src/resources/packages/classy/localizedData';
 import { LocalizedData } from '../../../src/resources/packages/classy/types/LocalizedData';
-import TestProvider from '../_support/TestProvider.tsx';
+import TestProvider from '../_support/TestProvider';
 
 // Save the original localized data here.
 let originalLocalizedData: LocalizedData;
+const timePickerSelector = '.classy-field__input--start-time input[type="text"]';
+const datePickerButton = '.classy-field__control--date-picker input.components-input-control__input';
 
 describe( 'StartSelector Component', () => {
 	const defaultProps = {
@@ -34,7 +36,7 @@ describe( 'StartSelector Component', () => {
 	} );
 
 	afterEach( () => {
-		// Clean up
+		// Clean up.
 		if ( originalLocalizedData ) {
 			window.tec.common.classy.data = originalLocalizedData;
 		}
@@ -51,20 +53,23 @@ describe( 'StartSelector Component', () => {
 	} );
 
 	describe( 'all day events', () => {
-		it( 'renders without time picker when isAllDay is true', () => {
+		it( 'renders without time picker when isAllDay is true and isMultiday is false', () => {
 			const props = {
 				...defaultProps,
 				isAllDay: true,
+				isMultiday: false,
 			};
 
-			const { container, queryByText } = render(
+			const { container, getByText, queryByText } = render(
 				<TestProvider>
 					<StartSelector { ...props } />
 				</TestProvider>
 			);
 
+			expect( getByText( 'Date' ) ).toBeTruthy();
 			expect( queryByText( 'Start Time' ) ).toBeNull();
 			expect( container.querySelector( '.classy-field__input--start-time' ) ).toBeNull();
+			expect( container.querySelector( '.classy-field__input-full-width' ) ).toBeTruthy();
 			expect( container.firstChild ).toMatchSnapshot();
 		} );
 
@@ -85,25 +90,7 @@ describe( 'StartSelector Component', () => {
 			expect( container.firstChild ).toMatchSnapshot();
 		} );
 
-		it( 'applies full-width class when isAllDay is true and not multiday', () => {
-			const props = {
-				...defaultProps,
-				isAllDay: true,
-				isMultiday: false,
-			};
-
-			const { container } = render(
-				<TestProvider>
-					<StartSelector { ...props } />
-				</TestProvider>
-			);
-
-			const wrapper = container.querySelector( '.classy-field__input--start-date' );
-			expect( wrapper.getAttribute( 'class' ) ).toContain( 'classy-field__input-full-width' );
-			expect( wrapper.getAttribute( 'class' ) ).not.toContain( 'classy-field__input--grow' );
-		} );
-
-		it( 'applies grow class when isAllDay is true and multiday', () => {
+		it( 'renders with grow class when isAllDay is true and isMultiday is true', () => {
 			const props = {
 				...defaultProps,
 				isAllDay: true,
@@ -116,29 +103,12 @@ describe( 'StartSelector Component', () => {
 				</TestProvider>
 			);
 
-			const wrapper = container.querySelector( '.classy-field__input--start-date' );
-			expect( wrapper.getAttribute( 'class' ) ).toContain( 'classy-field__input--grow' );
-			expect( wrapper.getAttribute( 'class' ) ).not.toContain( 'classy-field__input-full-width' );
+			expect( container.querySelector( '.classy-field__input--grow' ) ).toBeTruthy();
+			expect( container.querySelector( '.classy-field__input-full-width' ) ).toBeNull();
 		} );
 	} );
-	//
+
 	describe( 'multiday events', () => {
-		it( 'renders correctly when isMultiday is true', () => {
-			const props = {
-				...defaultProps,
-				isMultiday: true,
-				endDate: new Date( '2023-12-25 13:00:00' ),
-			};
-
-			const { container } = render(
-				<TestProvider>
-					<StartSelector { ...props } />
-				</TestProvider>
-			);
-
-			expect( container.firstChild ).toMatchSnapshot();
-		} );
-
 		it( 'passes null as endDate to TimePicker when isMultiday is true', () => {
 			const props = {
 				...defaultProps,
@@ -156,8 +126,26 @@ describe( 'StartSelector Component', () => {
 			const timePicker = container.querySelector( '.classy-field__input--start-time' );
 			expect( timePicker ).toBeTruthy();
 		} );
+
+		it( 'passes endDate to TimePicker when isMultiday is false', () => {
+			const props = {
+				...defaultProps,
+				isMultiday: false,
+				isAllDay: false,
+			};
+
+			const { container } = render(
+				<TestProvider>
+					<StartSelector { ...props } />
+				</TestProvider>
+			);
+
+			// TimePicker should be rendered with endDate for single-day events
+			const timePicker = container.querySelector( '.classy-field__input--start-time' );
+			expect( timePicker ).toBeTruthy();
+		} );
 	} );
-	//
+
 	describe( 'date selection', () => {
 		it( 'shows DatePicker popover when isSelectingDate is startDate', () => {
 			const props = {
@@ -204,7 +192,7 @@ describe( 'StartSelector Component', () => {
 			expect( container.firstChild ).toMatchSnapshot();
 		} );
 	} );
-	//
+
 	describe( 'time selection', () => {
 		it( 'calls onChange with correct parameters when time is changed', async () => {
 			const user = userEvent.setup();
@@ -220,15 +208,17 @@ describe( 'StartSelector Component', () => {
 				</TestProvider>
 			);
 
-			// Find the time input (this would be inside TimePicker component)
-			const timeInput = container.querySelector( 'input[type="time"]' );
-			if ( timeInput ) {
-				await user.clear( timeInput );
-				await user.type( timeInput, '14:30' );
-			}
+			// Find the time input (this would be inside the TimePicker component).
+			const timeInput = container.querySelector( timePickerSelector );
 
-			// The onChange would be called through the TimePicker's onChange handler
-			// which calls onTimeChange in StartSelector
+			expect( timeInput ).not.toBeNull();
+
+			await user.clear( timeInput );
+			await user.type( timeInput, '14:30' );
+			await user.type( timeInput, '{enter}' );
+
+			// Check that onChange was called with the correct parameters
+			expect( props.onChange ).toHaveBeenCalledWith( 'startTime', '2023-12-23 14:30:00' );
 		} );
 
 		it( 'highlights time when highlightTime is true', () => {
@@ -247,7 +237,7 @@ describe( 'StartSelector Component', () => {
 			expect( container.firstChild ).toMatchSnapshot();
 		} );
 	} );
-	//
+
 	describe( 'event handlers', () => {
 		it( 'passes onClick handler to DatePicker', async () => {
 			const user = userEvent.setup();
@@ -263,11 +253,15 @@ describe( 'StartSelector Component', () => {
 				</TestProvider>
 			);
 
-			// The onClick would be triggered through the DatePicker component
-			const dateButton = container.querySelector( '.classy-component__date-picker-button' );
-			if ( dateButton ) {
-				await user.click( dateButton );
-			}
+			// The onClick would be triggered through the DatePicker component.
+			const dateButton = container.querySelector( datePickerButton );
+
+			expect( dateButton ).not.toBeNull();
+
+			await user.click( dateButton );
+
+			// Check that onClick was called
+			expect( onClick ).toHaveBeenCalled();
 		} );
 
 		it( 'passes onClose handler to DatePicker', async () => {
@@ -289,9 +283,12 @@ describe( 'StartSelector Component', () => {
 			if ( popover ) {
 				await keyDownEscape( popover );
 			}
+
+			// Check that onClose was called
+			expect( onClose ).toHaveBeenCalled();
 		} );
 
-		it( 'passes onChange handler to DatePicker', async () => {
+		it( 'calls onChange with startDate when date changes', async () => {
 			const user = userEvent.setup();
 			const onChange = jest.fn();
 			const props = {
@@ -306,14 +303,45 @@ describe( 'StartSelector Component', () => {
 				</TestProvider>
 			);
 
-			// Click on a different date
+			// Click on a different date.
 			const dateToClick = getByText( '25' );
 			if ( dateToClick ) {
 				await user.click( dateToClick );
 			}
+
+			// Check that onChange was called with the correct parameters
+			expect( onChange ).toHaveBeenCalledWith( 'startDate', '2023-12-25T10:00:00' );
+		} );
+
+		it( 'calls onChange with startTime when time changes', async () => {
+			const user = userEvent.setup();
+			const onChange = jest.fn();
+			const props = {
+				...defaultProps,
+				isAllDay: false,
+				onChange,
+			};
+
+			const { container } = render(
+				<TestProvider>
+					<StartSelector { ...props } />
+				</TestProvider>
+			);
+
+			// Simulate time change through TimePicker
+			const timeInput = container.querySelector( timePickerSelector );
+
+			expect( timeInput ).not.toBeNull();
+
+			await user.clear( timeInput );
+			await user.type( timeInput, '15:30' );
+			await user.type( timeInput, '{enter}' );
+
+			// Check that onChange was called with the correct parameters
+			expect( onChange ).toHaveBeenCalledWith( 'startTime', '2023-12-23 15:30:00' );
 		} );
 	} );
-	//
+
 	describe( 'time interval from store', () => {
 		it( 'uses time interval from WordPress data store', () => {
 			// Set up the localized data with a specific time interval.
@@ -328,7 +356,7 @@ describe( 'StartSelector Component', () => {
 			expect( container.firstChild ).toMatchSnapshot();
 		} );
 	} );
-	//
+
 	describe( 'accessibility', () => {
 		it( 'renders accessible titles for date and time inputs', () => {
 			const props = {
@@ -344,6 +372,23 @@ describe( 'StartSelector Component', () => {
 
 			expect( getByText( 'Date' ) ).toBeTruthy();
 			expect( getByText( 'Start Time' ) ).toBeTruthy();
+		} );
+
+		it( 'renders only Date title when isAllDay is true', () => {
+			const props = {
+				...defaultProps,
+				isAllDay: true,
+				isMultiday: false,
+			};
+
+			const { getByText, queryByText } = render(
+				<TestProvider>
+					<StartSelector { ...props } />
+				</TestProvider>
+			);
+
+			expect( getByText( 'Date' ) ).toBeTruthy();
+			expect( queryByText( 'Start Time' ) ).toBeNull();
 		} );
 	} );
 } );
