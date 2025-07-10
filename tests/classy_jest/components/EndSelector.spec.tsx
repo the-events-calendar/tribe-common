@@ -1,23 +1,15 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { beforeEach, afterEach, describe, expect, it, jest } from '@jest/globals';
+import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { EndSelector } from '../../../src/resources/packages/classy/components';
 import { keyDownEscape } from '../_support/userEvents';
 import { getDefault as getDefaultLocalizedData } from '../../../src/resources/packages/classy/localizedData';
 import { LocalizedData } from '../../../src/resources/packages/classy/types/LocalizedData';
-import { ProviderComponent } from '../../../src/resources/packages/classy/components/Provider';
-import { createRegistry } from '@wordpress/data';
-import { WPDataRegistry } from '@wordpress/data/build-types/registry';
+import TestProvider from '../_support/TestProvider';
 
 // Save the original localized data here.
 let originalLocalizedData: LocalizedData;
-
-function TestProvider( { children } ): JSX.Element {
-	const registry = createRegistry();
-
-	return <ProviderComponent registry={ registry }>{ children }</ProviderComponent>;
-}
 
 describe( 'EndSelector Component', () => {
 	const defaultProps = {
