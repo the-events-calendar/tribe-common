@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { useEffect } from '@wordpress/element';
-import { WPDataRegistry } from '@wordpress/data/build-types/registry';
-import { RegistryProvider, withRegistry } from '@wordpress/data';
-import { doAction } from '@wordpress/hooks';
-import { setRegistry as setRegistryInstance, STORE_NAME, storeConfig } from '../store';
-import { ErrorBoundary } from './ErrorBoundary';
+import {WPDataRegistry} from '@wordpress/data/build-types/registry';
+import {RegistryProvider, withRegistry} from '@wordpress/data';
+import {doAction} from '@wordpress/hooks';
+import {setRegistry as setRegistryInstance, STORE_NAME, storeConfig} from '../store';
+import {ErrorBoundary} from './ErrorBoundary';
 
 type ProviderComponentProps = {
 	registry?: WPDataRegistry;
