@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Fragment, MouseEventHandler } from 'react';
 import { RefObject, useRef } from '@wordpress/element';
 import type { StartOfWeek } from '../../types/StartOfWeek';
@@ -8,6 +7,7 @@ import { format } from '@wordpress/date';
 import { _x } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { DateTimeUpdateType, DateUpdateType } from '../../types/FieldProps.ts';
+import { StoreSelect } from '../../types/Store';
 
 export default function StartSelector( props: {
 	dateWithYearFormat: string;
@@ -40,8 +40,8 @@ export default function StartSelector( props: {
 
 	const ref: RefObject< HTMLDivElement > = useRef( null );
 	const timeInterval = useSelect( ( select ) => {
-		// @ts-ignore
-		return select( 'tec/classy' ).getTimeInterval();
+		const store: StoreSelect = select( 'tec/classy' );
+		return store.getTimeInterval();
 	}, [] );
 
 	const onTimeChange = ( date: Date ): void => {

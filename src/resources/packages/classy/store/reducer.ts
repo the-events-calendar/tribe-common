@@ -1,4 +1,4 @@
-import { StoreState } from '../types/StoreState';
+import { StoreState } from '../types/Store';
 import { Action, SetCountryOptionsAction, SetCurrencyOptionsAction, SetUsStateOptionsAction } from '../types/Actions';
 import { localizedData } from '../localizedData';
 import { SET_COUNTRY_OPTIONS, SET_CURRENCY_OPTIONS, SET_US_STATE_OPTIONS } from './actions';
