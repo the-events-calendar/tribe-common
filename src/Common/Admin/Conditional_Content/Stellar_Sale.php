@@ -90,7 +90,7 @@ class Stellar_Sale extends Promotional_Content_Abstract {
 	protected function get_suite_creative_map(): array {
 		return [
 			'events'  => [
-				'events-pro/events-calendar-pro.php'                   => [
+				'events-calendar-pro/events-calendar-pro.php'                       => [
 					'image_url'        => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/ecp-top-wide.png', false, null, \Tribe__Main::instance() ),
 					'narrow_image_url' => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/ecp-top-narrow.png', false, null, \Tribe__Main::instance() ),
 					'link_url'         => 'https://evnt.is/stellar-pro-2025',
@@ -101,7 +101,7 @@ class Stellar_Sale extends Promotional_Content_Abstract {
 						$this->get_sale_name()
 					),
 				],
-				'events-filterbar/the-events-calendar-filter-view.php' => [
+				'the-events-calendar-filterbar/the-events-calendar-filter-view.php' => [
 					'image_url'        => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/fbar-top-wide.png', false, null, \Tribe__Main::instance() ),
 					'narrow_image_url' => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/fbar-top-narrow.png', false, null, \Tribe__Main::instance() ),
 					'link_url'         => 'https://evnt.is/stellar-fbar-2025',
@@ -112,7 +112,7 @@ class Stellar_Sale extends Promotional_Content_Abstract {
 						$this->get_sale_name()
 					),
 				],
-				'default'                                              => [
+				'default'                                                           => [
 					'image_url'        => tribe_resource_url( 'images/conditional-content/' . $this->get_wide_banner_image(), false, null, \Tribe__Main::instance() ),
 					'narrow_image_url' => tribe_resource_url( 'images/conditional-content/' . $this->get_narrow_banner_image(), false, null, \Tribe__Main::instance() ),
 					'link_url'         => $this->get_link_url(),
