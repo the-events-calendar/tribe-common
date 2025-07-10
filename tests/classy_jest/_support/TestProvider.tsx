@@ -36,6 +36,8 @@ import { createRegistry } from '@wordpress/data';
  *
  * @param {React.ReactNode} children - Components to render within the provider context
  * @param {WPDataRegistry} [registry=null] - Optional custom registry. Creates new registry if not provided
+ *
+ * @return {JSX.Element} Provider component with children wrapped
  */
 export default function TestProvider( {
 	children,
