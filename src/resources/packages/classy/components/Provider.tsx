@@ -12,17 +12,26 @@ type ProviderComponentProps = {
 };
 
 /**
- * The component that, given a store registry, will initialize and render the Classy stores.
+ * The component that, given a store registry, will initialize and render the Classy components in the context
+ * of the given registry.
  *
+ * This component is exported to allow its use in tests.
+ * In production code the provider to use is the HOC component created usign the `withRegistry` function and
+ * exported as `Provider`.
+ *
+ * @example
+ * ```
+ * ```
  *
  * @since TBD
  *
  * @param {ProviderComponentProps} props The component props.
  *
- * @returns {Element} The rendered component.
+ * @returns {JSX.Element} The rendered component.
  */
-function ProviderComponent( { registry, children }: ProviderComponentProps ) {
-	useEffect( (): void => {
+export function ProviderComponent( { registry, children }: ProviderComponentProps ): JSX.Element {
+	// Register the store and kick-start the initialization action if the store has not been registered yet.
+	if ( ! registry.select( STORE_NAME ) ) {
 		// Set the registry instances for selectors and dispatchers in stores.
 		setRegistryInstance( registry );
 
@@ -36,7 +45,7 @@ function ProviderComponent( { registry, children }: ProviderComponentProps ) {
 		 * @since TBD
 		 */
 		doAction( 'tec.classy.initialized' );
-	}, [] );
+	}
 
 	return (
 		<ErrorBoundary>
