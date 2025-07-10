@@ -44,3 +44,24 @@ export function areDatesOnSameDay( date1: Date, date2: Date ): boolean {
 		date1.getDate() === date2.getDate()
 	);
 }
+
+/**
+ * Compares two dates to determine if they are on the same time.
+ *
+ * @since TBD
+ *
+ * @param {Date} date1 The first date to compare.
+ * @param {Date} date2 The second date to compare.
+ * @param {boolean} checkSeconds Indicates whether to check the seconds as well.
+ *
+ * @return {boolean} Returns true if the dates are on the same time, otherwise false.
+ */
+export function areDatesOnSameTime( date1: Date, date2: Date, checkSeconds: boolean = false ): boolean {
+	const sameTime = date1.getHours() === date2.getHours() && date1.getMinutes() === date2.getMinutes();
+
+	if ( ! checkSeconds ) {
+		return sameTime;
+	}
+
+	return sameTime && date1.getSeconds() === date2.getSeconds();
+}
