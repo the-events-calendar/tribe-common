@@ -8,6 +8,8 @@ import { RefObject, useRef } from '@wordpress/element';
 import { format } from '@wordpress/date';
 import { _x } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
+import { DateTimeUpdateType, DateUpdateType } from '../../types/FieldProps.ts';
+import { StoreSelect } from '../../types/Store';
 
 export default function EndSelector( props: {
 	dateWithYearFormat: string;
@@ -15,8 +17,8 @@ export default function EndSelector( props: {
 	highlightTime: boolean;
 	isAllDay: boolean;
 	isMultiday: boolean;
-	isSelectingDate: 'start' | 'end' | false;
-	onChange: ( selecting: 'start' | 'end', date: string ) => void;
+	isSelectingDate: DateUpdateType | false;
+	onChange: ( selecting: DateTimeUpdateType, date: string ) => void;
 	onClick: MouseEventHandler;
 	onClose: () => void;
 	startDate: Date;
@@ -40,12 +42,12 @@ export default function EndSelector( props: {
 
 	const ref: RefObject< HTMLDivElement > = useRef( null );
 	const timeInterval = useSelect( ( select ) => {
-		// @ts-ignore
-		return select( 'tec/classy' ).getTimeInterval();
+		const store: StoreSelect = select( 'tec/classy' );
+		return store.getTimeInterval();
 	}, [] );
 
 	const onTimeChange = ( date: Date ): void => {
-		onChange( 'end', format( 'Y-m-d H:i:s', date ) );
+		onChange( 'endTime', format( 'Y-m-d H:i:s', date ) );
 	};
 
 	return (
@@ -73,7 +75,7 @@ export default function EndSelector( props: {
 							onChange={ onChange }
 							onClick={ onClick }
 							onClose={ onClose }
-							showPopover={ isSelectingDate === 'end' }
+							showPopover={ isSelectingDate === 'endDate' }
 							startDate={ startDate }
 							startOfWeek={ startOfWeek }
 							currentDate={ endDate }

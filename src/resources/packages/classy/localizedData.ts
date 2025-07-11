@@ -14,30 +14,41 @@ declare global {
 	}
 }
 
-export const localizedData: LocalizedData = window?.tec?.common?.classy?.data ?? {
-	settings: {
-		defaultCurrency: {
-			code: 'USD',
-			symbol: '$',
-			position: 'prefix',
+/**
+ * Returns the default localized data.
+ *
+ * @since TBD
+ *
+ * @returns {LocalizedData} The default localized data.
+ */
+export function getDefault(): LocalizedData {
+	return {
+		settings: {
+			defaultCurrency: {
+				code: 'USD',
+				symbol: '$',
+				position: 'prefix',
+			},
+			timezoneString: 'UTC',
+			timezoneChoice: '',
+			startOfWeek: 0,
+			endOfDayCutoff: {
+				hours: 0,
+				minutes: 0,
+			},
+			dateWithYearFormat: 'F j, Y',
+			dateWithoutYearFormat: 'F j',
+			monthAndYearFormat: 'F Y',
+			compactDateFormat: 'n/j/Y',
+			dataTimeSeparator: ' @ ',
+			timeRangeSeparator: ' - ',
+			timeFormat: 'g:i A',
+			timeInterval: 15,
 		},
-		timezoneString: 'UTC',
-		timezoneChoice: '',
-		startOfWeek: 0,
-		endOfDayCutoff: {
-			hours: 0,
-			minutes: 0,
-		},
-		dateWithYearFormat: 'F j, Y',
-		dateWithoutYearFormat: 'F j',
-		monthAndYearFormat: 'F Y',
-		compactDateFormat: 'n/j/Y',
-		dataTimeSeparator: ' @ ',
-		timeRangeSeparator: ' - ',
-		timeFormat: 'g:i A',
-		timeInterval: 15,
-	},
-};
+	};
+}
+
+export const localizedData: LocalizedData = window?.tec?.common?.classy?.data ?? getDefault();
 
 /**
  * Gets the localized data.

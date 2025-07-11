@@ -1,6 +1,6 @@
 import { localizedData } from '../localizedData';
 import { Settings } from '../types/LocalizedData';
-import { StoreState } from '@tec/common/classy/types/StoreState';
+import { StoreState } from '../types/Store';
 import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
 import { Currency } from '../types/Currency';
 
@@ -25,8 +25,7 @@ export function getSettings(): Settings {
  * @returns {number} The time interval in minutes to use in time-pickers.
  */
 export function getTimeInterval(): number {
-	const settings: Settings = localizedData.settings;
-	return settings.timeInterval;
+	return getSettings().timeInterval;
 }
 
 /**

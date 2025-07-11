@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Fragment, MouseEventHandler } from 'react';
 import { RefObject, useRef } from '@wordpress/element';
 import type { StartOfWeek } from '../../types/StartOfWeek';
@@ -7,15 +6,17 @@ import { TimePicker } from '../TimePicker';
 import { format } from '@wordpress/date';
 import { _x } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
+import { DateTimeUpdateType, DateUpdateType } from '../../types/FieldProps.ts';
+import { StoreSelect } from '../../types/Store';
 
 type StartSelectorProps = {
 	dateWithYearFormat: string;
 	endDate: Date;
-	highightTime: boolean;
+	highlightTime: boolean;
 	isAllDay: boolean;
 	isMultiday: boolean;
-	isSelectingDate: 'start' | 'end' | false;
-	onChange: ( selecting: 'start' | 'end', date: string ) => void;
+	isSelectingDate: DateUpdateType | false;
+	onChange: ( selecting: DateTimeUpdateType, date: string ) => void;
 	onClick: MouseEventHandler;
 	onClose: () => void;
 	startDate: Date;
@@ -39,7 +40,7 @@ export default function StartSelector( props: StartSelectorProps ) {
 	const {
 		dateWithYearFormat,
 		endDate,
-		highightTime,
+		highlightTime,
 		isAllDay,
 		isMultiday,
 		isSelectingDate,
@@ -54,17 +55,18 @@ export default function StartSelector( props: StartSelectorProps ) {
 
 	const ref: RefObject< HTMLDivElement > = useRef( null );
 	const timeInterval = useSelect( ( select ) => {
-		// @ts-ignore
-		return select( 'tec/classy' ).getTimeInterval();
+		const store: StoreSelect = select( 'tec/classy' );
+		return store.getTimeInterval();
 	}, [] );
 
 	const onTimeChange = ( date: Date ): void => {
-		onChange( 'start', format( 'Y-m-d H:i:s', date ) );
+		onChange( 'startTime', format( 'Y-m-d H:i:s', date ) );
 	};
 
-	const wrapperClassName = isAllDay
-		? 'classy-field__input classy-field__input--start-date classy-field__input-full-width'
-		: 'classy-field__input classy-field__input--start-date classy-field__input--grow';
+	const wrapperClassName =
+		isAllDay && ! isMultiday
+			? 'classy-field__input classy-field__input--start-date classy-field__input-full-width'
+			: 'classy-field__input classy-field__input--start-date classy-field__input--grow';
 
 	return (
 		<Fragment>
@@ -82,7 +84,7 @@ export default function StartSelector( props: StartSelectorProps ) {
 					onClick={ onClick }
 					onClose={ onClose }
 					onChange={ onChange }
-					showPopover={ isSelectingDate === 'start' }
+					showPopover={ isSelectingDate === 'startDate' }
 					startDate={ startDate }
 					startOfWeek={ startOfWeek }
 					currentDate={ currentDate }
@@ -98,7 +100,7 @@ export default function StartSelector( props: StartSelectorProps ) {
 					<TimePicker
 						currentDate={ startDate }
 						endDate={ isMultiday ? null : endDate }
-						highlight={ highightTime }
+						highlight={ highlightTime }
 						onChange={ onTimeChange }
 						timeFormat={ timeFormat }
 						timeInterval={ timeInterval }
