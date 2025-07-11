@@ -9,7 +9,7 @@ import { useSelect } from '@wordpress/data';
 import { DateTimeUpdateType, DateUpdateType } from '../../types/FieldProps.ts';
 import { StoreSelect } from '../../types/Store';
 
-export default function StartSelector( props: {
+type StartSelectorProps = {
 	dateWithYearFormat: string;
 	endDate: Date;
 	highlightTime: boolean;
@@ -22,7 +22,21 @@ export default function StartSelector( props: {
 	startDate: Date;
 	startOfWeek: StartOfWeek;
 	timeFormat: string;
-} ) {
+	title?: string;
+}
+
+const defaultTitle = _x( 'Start Date', 'Event start date selection input title', 'tribe-common' );
+const currentDate = new Date();
+
+/**
+ * StartSelector component for selecting the start date and time of an event.
+ *
+ * @since TBD
+ *
+ * @param {StartSelectorProps} props The properties for the StartSelector component.
+ * @return {JSX.Element} The rendered StartSelector component.
+ */
+export default function StartSelector( props: StartSelectorProps ) {
 	const {
 		dateWithYearFormat,
 		endDate,
@@ -36,6 +50,7 @@ export default function StartSelector( props: {
 		startDate,
 		startOfWeek,
 		timeFormat,
+		title = defaultTitle,
 	} = props;
 
 	const ref: RefObject< HTMLDivElement > = useRef( null );
@@ -57,7 +72,7 @@ export default function StartSelector( props: {
 		<Fragment>
 			<div className={ wrapperClassName } ref={ ref }>
 				<div className="classy-field__input-title">
-					<h4>{ _x( 'Date', 'Event date selection input title', 'tribe-common' ) }</h4>
+					<h4>{ title }</h4>
 				</div>
 
 				<DatePicker
@@ -72,7 +87,7 @@ export default function StartSelector( props: {
 					showPopover={ isSelectingDate === 'startDate' }
 					startDate={ startDate }
 					startOfWeek={ startOfWeek }
-					currentDate={ startDate }
+					currentDate={ currentDate }
 				/>
 			</div>
 
