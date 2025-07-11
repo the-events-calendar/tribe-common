@@ -6,6 +6,7 @@ import { IconClose } from '../Icons';
 import { CurrencyPosition } from '../../types/CurrencyPosition';
 import { Currency } from '../../types/Currency';
 import { CenteredSpinner } from '../CenteredSpinner';
+import { StoreSelect } from '../../types/Store';
 
 type CurrencySelectorProps = {
 	/**
@@ -96,13 +97,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ): JSX.El
 	const { currencyCodeMeta, currencySymbolMeta, currencyPositionMeta } = props;
 
 	const { meta, defaultCurrency, Currencies } = useSelect( ( select ) => {
-		const {
-			getDefaultCurrency,
-			getCurrencyOptions,
-		}: {
-			getDefaultCurrency: () => Currency;
-			getCurrencyOptions: () => Currency[];
-		} = select( 'tec/classy' );
+		const { getDefaultCurrency, getCurrencyOptions }: StoreSelect = select( 'tec/classy' );
 		const {
 			getEditedPostAttribute,
 		}: {

@@ -32,7 +32,7 @@ describe( 'DatePicker Component', () => {
 		it( 'selecting start date', () => {
 			const props = {
 				...defaultProps,
-				isSelectingDate: 'start',
+				isSelectingDate: 'startDate',
 			} as DatePickerProps;
 
 			const { container } = render( <DatePicker { ...props } /> );
@@ -43,7 +43,7 @@ describe( 'DatePicker Component', () => {
 		it( 'selecting end date', () => {
 			const props = {
 				...defaultProps,
-				isSelectingDate: 'end',
+				isSelectingDate: 'endDate',
 				currentDate: defaultProps.endDate,
 			} as DatePickerProps;
 

@@ -9,6 +9,7 @@ import { format } from '@wordpress/date';
 import { _x } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { DateTimeUpdateType, DateUpdateType } from '../../types/FieldProps.ts';
+import { StoreSelect } from '../../types/Store';
 
 export default function EndSelector( props: {
 	dateWithYearFormat: string;
@@ -41,8 +42,8 @@ export default function EndSelector( props: {
 
 	const ref: RefObject< HTMLDivElement > = useRef( null );
 	const timeInterval = useSelect( ( select ) => {
-		// @ts-ignore
-		return select( 'tec/classy' ).getTimeInterval();
+		const store: StoreSelect = select( 'tec/classy' );
+		return store.getTimeInterval();
 	}, [] );
 
 	const onTimeChange = ( date: Date ): void => {

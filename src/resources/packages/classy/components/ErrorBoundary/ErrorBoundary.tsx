@@ -18,7 +18,7 @@ type ErrorBoundaryState = {
  */
 export default class ErrorBoundary extends Component< ErrorBoundaryProps, ErrorBoundaryState > {
 	/**
-	 * Constructs the ErrorBoundary instance with initial state.
+	 * Constructs the ErrorBoundary instance with the initial state.
 	 *
 	 * @since TBD
 	 *
