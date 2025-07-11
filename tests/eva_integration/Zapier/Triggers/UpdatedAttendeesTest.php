@@ -38,10 +38,12 @@ class UpdatedAttendeesTest extends \Codeception\TestCase\WPTestCase {
 		$attendees_queue = tribe( Updated_Attendees::class );
 		$this->assertEmpty( $attendees_queue->get_queue() );
 
-		wp_insert_post( [
-			'post_title'  => 'A test post',
-			'post_status' => 'publish',
-		] );
+		wp_insert_post(
+			[
+				'post_title'  => 'A test post',
+				'post_status' => 'publish',
+			] 
+		);
 
 		$this->assertEmpty( $attendees_queue->get_queue() );
 	}
@@ -99,31 +101,6 @@ class UpdatedAttendeesTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
-	public function should_not_add_an_edd_attendee_to_queue_when_created() {
-		$attendees_queue = tribe( Updated_Attendees::class );
-		$event           = $this->generate_event( $this->mock_date_value );
-		$attendee        = $this->generate_edd_attendee( $event );
-
-		$this->assertEmpty( $attendees_queue->get_queue() );
-	}
-
-	/**
-	 * @test
-	 */
-	public function should_add_an_updated_edd_attendee_to_queue() {
-		$attendees_queue = tribe( Updated_Attendees::class );
-		$event           = $this->generate_event( $this->mock_date_value );
-		$attendee        = $this->generate_edd_attendee_updated_it( $event );
-
-		$queue = $attendees_queue->get_queue();
-		$this->assertNotEmpty( $queue );
-		$this->assertCount( 1, $queue );
-		$this->assertEquals( $attendee->ID, $queue[0] );
-	}
-
-	/**
-	 * @test
-	 */
 	public function should_not_add_an_woo_attendee_to_queue_when_created() {
 		$attendees_queue = tribe( Updated_Attendees::class );
 		$event           = $this->generate_event( $this->mock_date_value );
@@ -145,21 +122,4 @@ class UpdatedAttendeesTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertCount( 1, $queue );
 		$this->assertEquals( $attendee->ID, $queue[0] );
 	}
-
-	/**
-	 * @test
-	 */
-	public function should_not_add_an_updated_edd_attendee_to_queue_when_no_access_created() {
-		add_filter( 'tec_event_automator_zapier_enable_add_to_queue', function ( $enable_add_to_queue ) {
-			return false;
-		}, 11 );
-
-		$attendees_queue = tribe( Updated_Attendees::class );
-		$event           = $this->generate_event( $this->mock_date_value );
-		$attendee        = $this->generate_edd_attendee_updated_it( $event );
-
-		$queue = $attendees_queue->get_queue();
-		$this->assertEmpty( $queue );
-	}
-
 }

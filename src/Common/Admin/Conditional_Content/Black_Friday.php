@@ -18,16 +18,22 @@ class Black_Friday extends Promotional_Content_Abstract {
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @var string
 	 */
 	protected string $slug = 'black-friday';
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @var string
 	 */
 	protected string $start_date = 'November 26th';
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @var string
 	 */
 	protected string $end_date = 'December 3rd';
 
@@ -53,5 +59,40 @@ class Black_Friday extends Promotional_Content_Abstract {
 	 */
 	protected function get_link_url(): string {
 		return 'https://evnt.is/tec-bf-2024';
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	protected function get_suite_creative_map(): array {
+		return [
+			'events'  => [
+				'default' => [
+					'image_url'        => tribe_resource_url( 'images/conditional-content/' . $this->get_wide_banner_image(), false, null, \Tribe__Main::instance() ),
+					'narrow_image_url' => tribe_resource_url( 'images/conditional-content/' . $this->get_narrow_banner_image(), false, null, \Tribe__Main::instance() ),
+					'link_url'         => $this->get_link_url(),
+					'alt_text'         => sprintf(
+						/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
+						_x( '%1$s %2$s for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Default Sale Ad', 'tribe-common' ),
+						date_i18n( 'Y' ),
+						$this->get_sale_name()
+					),
+				],
+			],
+			'tickets' => [
+				'default' => [
+					'image_url'         => tribe_resource_url( 'images/conditional-content/' . $this->get_wide_banner_image(), false, null, \Tribe__Main::instance() ),
+					'narrow_image_url'  => tribe_resource_url( 'images/conditional-content/' . $this->get_narrow_banner_image(), false, null, \Tribe__Main::instance() ),
+					'sidebar_image_url' => tribe_resource_url( 'images/conditional-content/' . $this->get_sidebar_image(), false, null, \Tribe__Main::instance() ),
+					'link_url'          => $this->get_link_url(),
+					'alt_text'          => sprintf(
+						/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
+						_x( '%1$s %2$s for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Default Sale Ad', 'tribe-common' ),
+						date_i18n( 'Y' ),
+						$this->get_sale_name()
+					),
+				],
+			],
+		];
 	}
 }

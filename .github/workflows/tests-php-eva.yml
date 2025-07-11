@@ -324,12 +324,6 @@ jobs:
           ${SLIC_BIN} use events-pro
           ${SLIC_BIN} composer install --no-dev
       # ------------------------------------------------------------------------------
-      # Install and activate Easy Digital Downloads
-      # ------------------------------------------------------------------------------
-      - name: Install Easy Digital Downloads
-        if: steps.skip.outputs.value != 1
-        run: ${SLIC_BIN} site-cli plugin install easy-digital-downloads
-      # ------------------------------------------------------------------------------
       # Set up Common
       # ------------------------------------------------------------------------------
       - name: Move Common inside TEC
@@ -350,7 +344,7 @@ jobs:
         run: |
           ${SLIC_BIN} up wordpress
           ${SLIC_BIN} wp core version
-          ${SLIC_BIN} wp core update --force --version=6.6.1
+          ${SLIC_BIN} wp core update --force --version=6.7
           ${SLIC_BIN} wp core version
           ${SLIC_BIN} wp core update-db
       - name: Run suite tests

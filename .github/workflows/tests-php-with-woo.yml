@@ -354,11 +354,8 @@ jobs:
         if: steps.skip.outputs.value != 1
         run: ${SLIC_BIN} site-cli plugin install woocommerce --version='9.5.1'
       # ------------------------------------------------------------------------------
-      # Install and activate Easy Digital Downloads
+      # Run suite tests
       # ------------------------------------------------------------------------------
-      - name: Install Easy Digital Downloads
-        if: steps.skip.outputs.value != 1
-        run: ${SLIC_BIN} site-cli plugin install easy-digital-downloads
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
         run: ${SLIC_BIN} run ${{ matrix.suite }}

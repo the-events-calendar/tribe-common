@@ -52,8 +52,8 @@ class AttendeeTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_map_attendee_id() {
-		$event           = $this->generate_event( $this->mock_date_value );
-		$attendee        = $this->generate_rsvp_attendee( $event );
+		$event    = $this->generate_event( $this->mock_date_value );
+		$attendee = $this->generate_rsvp_attendee( $event );
 
 		$next_attendee = $this->get_mapped_attendee( $attendee->ID );
 		$this->assertEquals( $attendee->ID, $next_attendee['id'] );
@@ -63,12 +63,12 @@ class AttendeeTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_map_rsvp_attendee_meta() {
-		$event           = $this->generate_event( $this->mock_date_value );
-		$overrides = [
-			'full_name' => 'Meta\'s Attendee',
+		$event         = $this->generate_event( $this->mock_date_value );
+		$overrides     = [
+			'full_name'     => 'Meta\'s Attendee',
 			'attendee_meta' => $this->field_values,
 		];
-		$attendee = $this->generate_rsvp_attendee( $event, $overrides, true );
+		$attendee      = $this->generate_rsvp_attendee( $event, $overrides, true );
 		$next_attendee = $this->get_mapped_attendee( $attendee->ID );
 
 		$this->assertEquals( $attendee->ID, $next_attendee['id'] );
@@ -93,43 +93,13 @@ class AttendeeTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
-	public function should_map_edd_attendee_meta() {
-		$event           = $this->generate_event( $this->mock_date_value );
-		$overrides = [
-			'full_name' => 'Meta\'s Attendee',
-			'attendee_meta' => $this->field_values,
-		];
-		$attendee = $this->generate_edd_attendee( $event, $overrides, true );
-		$next_attendee = $this->get_mapped_attendee( $attendee->ID );
-
-		$this->assertEquals( $attendee->ID, $next_attendee['id'] );
-		$this->assertEquals( "Meta's Attendee", $next_attendee['holder_name'] );
-		$this->assertIsInt( $next_attendee['id'] );
-		$this->assertIsString( $next_attendee['ticket_id'] );
-		$this->assertIsString( $next_attendee['ticket_product_id'] );
-		$this->assertIsString( $next_attendee['order_id'] );
-		foreach ( $next_attendee['attendee_meta'] as $field ) {
-			$this->assertArrayHasKey( 'attendee_meta_id', $field );
-			$this->assertArrayHasKey( 'attendee_meta_name', $field );
-			$this->assertArrayHasKey( 'attendee_meta_value', $field );
-			$this->assertIsArray( $field['attendee_meta_value'] );
-
-			foreach ( $field['attendee_meta_value'] as $value ) {
-				$this->assertIsString( $value );
-			}
-		}
-	}
-
-	/**
-	 * @test
-	 */
 	public function should_map_woo_attendee_meta() {
-		$event           = $this->generate_event( $this->mock_date_value );
-		$overrides = [
-			'full_name' => 'Meta\'s Attendee',
+		$event         = $this->generate_event( $this->mock_date_value );
+		$overrides     = [
+			'full_name'     => 'Meta\'s Attendee',
 			'attendee_meta' => $this->field_values,
 		];
-		$attendee = $this->generate_woo_attendee( $event, $overrides, true );
+		$attendee      = $this->generate_woo_attendee( $event, $overrides, true );
 		$next_attendee = $this->get_mapped_attendee( $attendee->ID );
 
 		$this->assertEquals( $attendee->ID, $next_attendee['id'] );

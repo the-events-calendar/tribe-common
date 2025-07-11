@@ -2,7 +2,6 @@
 
 namespace Tribe\tests\eva_integration\Traits\Maps;
 
-use TEC\Common\StellarWP\Models\Repositories\Repository;
 use TEC\Event_Automator\Tests\Traits\Create_events;
 use TEC\Event_Automator\Tests\Traits\Create_attendees;
 use TEC\Event_Automator\Traits\Maps\Event;
@@ -49,21 +48,21 @@ class EventTest extends \Codeception\TestCase\WPTestCase {
 		global $wpdb;
 
 		$timestamp = '1674560040';
-		$event      = $this->generate_event( $this->mock_date_value );
+		$event     = $this->generate_event( $this->mock_date_value );
 
-		$formatted_date = date( 'Y-m-d H:i:s', $timestamp );
+		$formatted_date     = date( 'Y-m-d H:i:s', $timestamp );
 		$formatted_date_gmt = gmdate( 'Y-m-d H:i:s', $timestamp );
 
 		// Manually update post modified date.
 		$wpdb->update(
 			$wpdb->posts,
 			[
-			  'post_modified' => $formatted_date,
-			  'post_modified_gmt' => $formatted_date_gmt
+				'post_modified'     => $formatted_date,
+				'post_modified_gmt' => $formatted_date_gmt,
 			],
-			['ID' => $event->ID],
-			['%s', '%s'],
-			['%d']
+			[ 'ID' => $event->ID ],
+			[ '%s', '%s' ],
+			[ '%d' ]
 		);
 
 		wp_cache_flush();
@@ -82,11 +81,16 @@ class EventTest extends \Codeception\TestCase\WPTestCase {
 		$event = $this->generate_event( $this->mock_date_value );
 
 		// Filter the mapped event and remove the id.
-		add_filter( 'tec_automator_map_event_details', function ( $next_event, $event ) {
-			unset( $next_event['id'] );
+		add_filter(
+			'tec_automator_map_event_details',
+			function ( $next_event, $event ) {
+				unset( $next_event['id'] );
 
-			return $next_event;
-		}, 10, 2 );
+				return $next_event;
+			},
+			10,
+			2 
+		);
 
 		wp_cache_flush();
 		$next_event = $this->get_mapped_event( $event->ID );
@@ -160,10 +164,10 @@ class EventTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_map_eventcost() {
 		$event_cost = '$10.01';
-		$overrides   = [
+		$overrides  = [
 			'_EventCost' => $event_cost,
 		];
-		$event       = $this->generate_event( $this->mock_date_value, $overrides );
+		$event      = $this->generate_event( $this->mock_date_value, $overrides );
 
 		$next_event = $this->get_mapped_event( $event->ID );
 		$this->assertEquals( $event->ID, $next_event['id'] );
@@ -190,9 +194,31 @@ class EventTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_map_event_categories() {
-		$cat        = $this->factory()->term->create( [ 'taxonomy' => TEC_Main::TAXONOMY, 'slug' => 'cat-1', 'name' => 'test-1', 'description' => 'description-test-1' ] );
-		$cat_parent = $this->factory()->term->create( [ 'taxonomy' => TEC_Main::TAXONOMY, 'slug' => 'cat-parent', 'name' => 'test-parent', 'description' => 'description-test-parent' ] );
-		$cat_2      = $this->factory()->term->create( [ 'taxonomy' => TEC_Main::TAXONOMY, 'slug' => 'cat-2', 'name' => 'test-2', 'description' => 'description-test-2', 'parent' => $cat_parent ] );
+		$cat        = $this->factory()->term->create(
+			[
+				'taxonomy'    => TEC_Main::TAXONOMY,
+				'slug'        => 'cat-1',
+				'name'        => 'test-1',
+				'description' => 'description-test-1',
+			] 
+		);
+		$cat_parent = $this->factory()->term->create(
+			[
+				'taxonomy'    => TEC_Main::TAXONOMY,
+				'slug'        => 'cat-parent',
+				'name'        => 'test-parent',
+				'description' => 'description-test-parent',
+			] 
+		);
+		$cat_2      = $this->factory()->term->create(
+			[
+				'taxonomy'    => TEC_Main::TAXONOMY,
+				'slug'        => 'cat-2',
+				'name'        => 'test-2',
+				'description' => 'description-test-2',
+				'parent'      => $cat_parent,
+			] 
+		);
 
 		$overrides  = [
 			'category' => [ $cat, $cat_2 ],
@@ -209,8 +235,20 @@ class EventTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_map_event_tags() {
-		$tag   = $this->factory()->tag->create( [ 'slug' => 'tag-1', 'name' => 'test-1', 'description' => 'description-test-1' ] );
-		$tag_2 = $this->factory()->tag->create( [ 'slug' => 'tag-2', 'name' => 'test-2', 'description' => 'description-test-2' ] );
+		$tag   = $this->factory()->tag->create(
+			[
+				'slug'        => 'tag-1',
+				'name'        => 'test-1',
+				'description' => 'description-test-1',
+			] 
+		);
+		$tag_2 = $this->factory()->tag->create(
+			[
+				'slug'        => 'tag-2',
+				'name'        => 'test-2',
+				'description' => 'description-test-2',
+			] 
+		);
 
 		$overrides  = [
 			'tag' => [ $tag, $tag_2 ],
@@ -291,25 +329,6 @@ class EventTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 * @skip Tickets and RSVP are generated but not included in the event object.
 	 */
-	public function should_map_event_with_edd_tickets() {
-		$event  = $this->generate_event( $this->mock_date_value );
-		$edd_id = $this->generate_edd_ticket_for_event( $event->ID );
-
-		wp_cache_flush();
-
-		$next_event = $this->get_mapped_event( $event->ID );
-		$this->assertEquals( $event->ID, $next_event['id'] );
-		$this->assertEquals( true, $next_event['tickets']['has_ticket'] );
-		$this->assertEquals( false, $next_event['tickets']['has_rsvp'] );
-		$this->assertEquals( true, $next_event['tickets']['in_date_range'] );
-		$this->assertEquals( false, $next_event['tickets']['sold_out'] );
-		$this->assertEquals( $edd_id, $next_event['tickets']['tickets'][0]['id'] );
-	}
-
-	/**
-	 * @test
-	 * @skip Tickets and RSVP are generated but not included in the event object.
-	 */
 	public function should_map_event_with_tc_tickets() {
 		$event  = $this->generate_event( $this->mock_date_value );
 		$woo_id = $this->generate_tc_ticket_for_event( $event->ID );
@@ -349,8 +368,8 @@ class EventTest extends \Codeception\TestCase\WPTestCase {
 	 * @skip Tickets and RSVP are generated but not included in the event object.
 	 */
 	public function should_map_event_with_multiple_woo_tickets() {
-		$event  = $this->generate_event( $this->mock_date_value );
-		$woo_id = $this->generate_woo_ticket_for_event( $event->ID );
+		$event    = $this->generate_event( $this->mock_date_value );
+		$woo_id   = $this->generate_woo_ticket_for_event( $event->ID );
 		$woo_id_2 = $this->generate_woo_ticket_for_event( $event->ID );
 
 		wp_cache_flush();
