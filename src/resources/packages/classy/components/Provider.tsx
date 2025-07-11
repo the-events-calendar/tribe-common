@@ -19,7 +19,38 @@ type ProviderComponentProps = {
  * exported as `Provider`.
  *
  * @example
- * ```
+ * ```tsx
+ * // Basic usage with default registry (automatically created by withRegistry).
+ * import { ProviderComponent } from '@tec/common/classy/components/Provider';
+ *
+ * function App() {
+ *   return (
+ *     <ProviderComponent>
+ *       <MyClassyComponents />
+ *     </ProviderComponent>
+ *   );
+ * }
+ *
+ * // Advanced usage with custom registry.
+ * import { createRegistry } from '@wordpress/data';
+ * import { ProviderComponent } from '@tec/common/classy/components/Provider';
+ *
+ * const customRegistry = createRegistry();
+ *
+ * // Register custom stores before rendering.
+ * customRegistry.registerStore('my-custom-store', {
+ *   reducer: myReducer,
+ *   actions: myActions,
+ *   selectors: mySelectors,
+ * });
+ *
+ * function AppWithCustomRegistry() {
+ *   return (
+ *     <ProviderComponent registry={customRegistry}>
+ *       <MyClassyComponents />
+ *     </ProviderComponent>
+ *   );
+ * }
  * ```
  *
  * @since TBD
