@@ -129,7 +129,7 @@ class Stellar_Sale extends Promotional_Content_Abstract {
 					'image_url'         => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/etp-top-wide.png', false, null, \Tribe__Main::instance() ),
 					'narrow_image_url'  => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/etp-top-narrow.png', false, null, \Tribe__Main::instance() ),
 					'sidebar_image_url' => tribe_resource_url( 'images/conditional-content/' . $this->get_slug() . '/etp-sidebar.png', false, null, \Tribe__Main::instance() ),
-					'link_url'          => 'https://evnt.is/ticketspro',
+					'link_url'          => 'https://evnt.is/ticketsplus',
 					'alt_text'          => sprintf(
 						/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
 						_x( '%1$s %2$s - Get Event Tickets Plus at 30%% off!', 'Alt text for the Event Tickets Plus Sale Ad', 'tribe-common' ),
