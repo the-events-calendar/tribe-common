@@ -4,7 +4,7 @@
  * The base template for TEC Upsell notices.
  *
  * @since 4.14.17
- * 
+ *
  * @version 4.14.17
  *
  * @var string        $text      Text of upsell content (excluding link text).
@@ -27,16 +27,16 @@ if ( ! empty( $link ) && ! empty( $link['classes'] ) ) {
 
 ?>
 <div class="tribe-common">
-	<div <?php tribe_classes( $upsell_classes ); ?>>
+	<div <?php tec_classes( $upsell_classes ); ?>>
 		<div class="tec-admin__upsell-content">
 			<?php $this->template( 'icon' ); ?>
 			<div class="tec-admin__upsell-text-wrap">
 				<span class="tec-admin__upsell-text">
 					<?php echo wp_kses_post( $text ); ?>
 				</span>
-				<a 
-					<?php tribe_classes( $link_classes ); ?> 
-					href="<?php echo esc_url( $link['url'] ); ?>" 
+				<a
+					<?php tec_classes( $link_classes ); ?>
+					href="<?php echo esc_url( $link['url'] ); ?>"
 					rel="<?php echo esc_attr( $link['rel'] ); ?>"
 					target="<?php echo esc_attr( $link['target'] ); ?>"
 				>

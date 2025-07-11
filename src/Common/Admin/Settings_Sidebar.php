@@ -35,10 +35,11 @@ class Settings_Sidebar extends Section {
 	 * @return void
 	 */
 	public function render() {
+		$sections = $this->get_sections();
 		?>
 		<div class="tec-settings-form__sidebar">
 			<?php do_action( 'tec_settings_sidebar_start', $this ); ?>
-			<?php foreach ( $this->get_sections() as $section ) : ?>
+			<?php foreach ( $sections as $section ) : ?>
 				<div class="tec-settings-form__sidebar-section">
 					<?php $section->render(); ?>
 				</div>
@@ -94,7 +95,7 @@ class Settings_Sidebar extends Section {
 		 * @param Section[]        $sections The sidebar sections.
 		 * @param Settings_Sidebar $sidebar  The sidebar object.
 		 */
-		return apply_filters( 'tec_settings_sidebar_sections', $this->sections, $this );
+		return (array) apply_filters( 'tec_settings_sidebar_sections', $this->sections, $this );
 	}
 
 	/**

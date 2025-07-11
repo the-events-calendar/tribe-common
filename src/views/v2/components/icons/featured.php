@@ -9,9 +9,12 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @var array<string> $classes Additional classes to add to the svg icon.
+ * @since 4.12.14
+ * @since 6.8.2 Add aria-hidden="true" to the svg element as this is a decorative element. Remove the `$icon_title` var, it is not longer used.
  *
- * @version 4.12.14
+ * @version 6.8.2
+ *
+ * @var array<string> $classes Additional classes to add to the svg icon.
  *
  */
 $svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--featured' ];
@@ -19,12 +22,12 @@ $svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--featured' ];
 if ( ! empty( $classes ) ) {
 	$svg_classes = array_merge( $svg_classes, $classes );
 }
-
-if ( empty( $icon_title ) ) {
-	$icon_title = __( 'Featured', 'tribe-common' );
-}
 ?>
-<svg <?php tribe_classes( $svg_classes ); ?> viewBox="0 0 8 10" xmlns="http://www.w3.org/2000/svg">
-	<title><?php echo esc_html( $icon_title ) ?></title>
+<svg
+	<?php tec_classes( $svg_classes ); ?>
+	aria-hidden="true"
+	viewBox="0 0 8 10"
+	xmlns="http://www.w3.org/2000/svg"
+>
 	<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0h8v10L4.049 7.439 0 10V0z"/>
 </svg>

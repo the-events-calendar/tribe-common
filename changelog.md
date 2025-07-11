@@ -1,5 +1,16 @@
 # Changelog
 
+### [6.8.2] 2025-07-03
+
+* Tweak - Adapt the conditional content to the new admin. [TEC-5530]
+* Tweak - Added actions: `tec_admin_page_before_sidebar`, `tec_conditional_content_assets`, `tec_conditional_content_{$this->slug}`, `tec_common_admin_before_tab_content`, `tec_common_admin_custom_tab_content`, `tec_common_admin_after_tab_content`, `tec_conditional_content_header_notice`, `tec_conditional_content_sidebar_notice__help_hub_support`
+* Tweak - Added filters: `tec_common_admin_tab_url`
+* Tweak - Changed views: `dialog/alert`, `dialog/confirm`, `dialog/dialog`, `dialog/modal`, `dialog/warning`, `embed/footer`, `embed/header`, `promoter/auth`, `v2/components/icons/arrow-right`, `v2/components/icons/cal-export`, `v2/components/icons/caret-down`, `v2/components/icons/caret-left`, `v2/components/icons/caret-right`, `v2/components/icons/close-alt`, `v2/components/icons/close`, `v2/components/icons/day`, `v2/components/icons/dot`, `v2/components/icons/error`, `v2/components/icons/featured`, `v2/components/icons/filter`, `v2/components/icons/hybrid`, `v2/components/icons/list`, `v2/components/icons/location`, `v2/components/icons/mail`, `v2/components/icons/map-pin`, `v2/components/icons/map`, `v2/components/icons/messages-not-found`, `v2/components/icons/minus`, `v2/components/icons/month`, `v2/components/icons/no-map`, `v2/components/icons/phone`, `v2/components/icons/photo`, `v2/components/icons/play`, `v2/components/icons/plus`, `v2/components/icons/recurring`, `v2/components/icons/reset`, `v2/components/icons/search`, `v2/components/icons/stellar-icon`, `v2/components/icons/summary`, `v2/components/icons/video`, `v2/components/icons/virtual`, `v2/components/icons/website`, `v2/components/icons/week`
+* Tweak - Removed actions: `tec_conditional_content_black_friday`
+* Tweak - Updated Help Hub to use Help Scout instead of Zendesk. [TEC-5522]
+* Accessibility - Added aria-hidden to all component icon svgs. Removed any  attributes or elements inside them. [TEC-5190, TEC-5201]
+* Language - 4 new strings added, 64 updated, 1 fuzzied, and 4 obsoleted.
+
 ### [6.8.1] 2025-06-11
 
 * Tweak - Add a new Tabbed View class for admin pages as part of the Ticket Presets launch.

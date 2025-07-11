@@ -38,10 +38,10 @@ if ( ! empty( $classes_label ) ) {
 }
 ?>
 <div
-	<?php tribe_classes( $switch_wrap_classes ); ?>
+	<?php tec_classes( $switch_wrap_classes ); ?>
 >
 	<input
-		<?php tribe_classes( $switch_input_classes ); ?>
+		<?php tec_classes( $switch_input_classes ); ?>
 		id="<?php echo esc_attr( $id ); ?>"
 		name="<?php echo esc_attr( $name ); ?>"
 		type="checkbox"
@@ -50,7 +50,7 @@ if ( ! empty( $classes_label ) ) {
 		<?php tribe_attributes( $attrs ); ?>
 	/>
 
-	<label <?php tribe_classes( $switch_label_classes ); ?> for="<?php echo esc_attr( $id ); ?>">
+	<label <?php tec_classes( $switch_label_classes ); ?> for="<?php echo esc_attr( $id ); ?>">
 		<span class="screen-reader-text">
 			<?php echo esc_html( $label ); ?>
 		</span>

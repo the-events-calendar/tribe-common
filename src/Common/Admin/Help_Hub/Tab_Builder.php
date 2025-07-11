@@ -94,7 +94,7 @@ class Tab_Builder {
 	 * @param string               $template The tab template.
 	 * @param array<string, mixed> $args     Optional arguments for the tab.
 	 *
-	 * @return static
+	 * @return self
 	 */
 	public static function make( string $target, string $label, string $id, string $template, array $args = [] ): self {
 		$instance           = new self();

@@ -9,9 +9,13 @@
  *
  * @link http://evnt.is/1aiy
  *
+ * @since 4.13.2
+ * @since 6.8.2 Add aria-hidden="true" to the svg element as this is a decorative element. Remove the `$icon_title` var, it is not longer used.
+ *
+ * @version 6.8.2
+ *
  * @var array<string> $classes Additional classes to add to the svg icon.
  *
- * @version 4.13.2
  */
 
 $svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--hybrid' ];
@@ -20,12 +24,14 @@ if ( ! empty( $classes ) ) {
 	$svg_classes = array_merge( $svg_classes, $classes );
 }
 
-if ( empty( $icon_title ) ) {
-	$icon_title = __( 'Hybrid', 'tribe-common' );
-}
 ?>
-<svg <?php tribe_classes( $svg_classes ); ?> viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-	<title><?php echo esc_html( $icon_title ) ?></title>
+<svg
+	<?php tec_classes( $svg_classes ); ?>
+	aria-hidden="true"
+	viewBox="0 0 15 13"
+	fill="none"
+	xmlns="http://www.w3.org/2000/svg"
+>
 	<circle cx="3.661" cy="9.515" r="2.121" transform="rotate(-45 3.661 9.515)" stroke="#0F0F30" stroke-width="1.103"/>
 	<circle cx="7.54" cy="3.515" r="2.121" transform="rotate(-45 7.54 3.515)" stroke="#0F0F30" stroke-width="1.103"/>
 	<path d="M4.54 7.929l1.964-2.828" stroke="#0F0F30"/>

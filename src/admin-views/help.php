@@ -40,13 +40,13 @@ use Tribe\Admin\Troubleshooting;
 
 		<ul class="tribe-events-admin-tab-nav">
 			<li
-				<?php tribe_classes( $events_tab_classes ); ?>
+				<?php tec_classes( $events_tab_classes ); ?>
 				data-tab="tribe-calendar"
 			>
 				<?php esc_html_e( 'Calendar', 'tribe-common' ); ?>
 			</li>
 			<li
-				<?php tribe_classes( $tickets_tab_classes ); ?>
+				<?php tec_classes( $tickets_tab_classes ); ?>
 				data-tab="tribe-ticketing"
 			>
 				<?php esc_html_e( 'Ticketing & RSVP', 'tribe-common' ); ?>

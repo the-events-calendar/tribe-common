@@ -25,7 +25,7 @@ $message         = esc_html_x( 'Please copy the consumer id and secret below. On
 <div class="tec-automator-grid-full-width">
 	<div class="tec-automator-api-key__wrap">
 		<div
-			<?php tribe_classes( $message_classes ); ?>
+			<?php tec_classes( $message_classes ); ?>
 		>
 			<div class="tec-automator-settings-api-key-title">
 				<?php echo esc_html( $message_title ); ?>

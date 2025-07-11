@@ -24,7 +24,7 @@ if ( ! empty( $classes_wrap ) ) {
 
 ?>
 <div
-	<?php tribe_classes( $wrap_classes ); ?>
+	<?php tec_classes( $wrap_classes ); ?>
 	aria-expanded="false"
 >
 	<span class="dashicons dashicons-info"></span>

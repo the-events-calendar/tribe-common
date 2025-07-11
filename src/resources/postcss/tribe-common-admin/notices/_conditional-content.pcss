@@ -1,0 +1,111 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Tribe Common Admin - Conditional Content Marketing Notices
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-conditional-content-wrap {
+	position: relative;
+
+	.tribe-conditional-content-link {
+		display: block;
+		position: relative;
+	}
+
+	.tribe-conditional-content-dismiss-button {
+		position: absolute;
+		top: 0;
+		right: 0;
+		background: transparent;
+		border: 0;
+		color: #fff;
+		padding: 0.5em;
+		cursor: pointer;
+	}
+
+	.tribe-conditional-content-image {
+		display: block;
+		width: 100%;
+		height: auto;
+		margin: 0 auto;
+	}
+}
+
+.tribe-conditional-content-wide {
+	display: none;
+
+	.tribe-conditional-content-image {
+		max-width: 1000px;
+	}
+
+	@media (--viewport-xsmall) {
+		display: block;
+
+		.tickets_page_tec-tickets-help-hub &,
+		.tribe_events_page_tec-events-help-hub &,
+		.tickets_page_tec-tickets-settings & {
+			display: none;
+		}
+	}
+}
+
+.tribe-conditional-content-narrow {
+
+	@media (--viewport-xsmall) {
+		display: none;
+	}
+}
+
+body:not( .tec-admin ) {
+	.tribe-conditional-content-narrow,
+	.tribe-conditional-content-wide,
+	.tribe-conditional-content-responsive {
+		margin-left: -10px;
+
+		@media (--viewport-xsmall) {
+			margin-left: -20px;
+		}
+	}
+
+}
+
+.tribe-conditional-content-sidebar {
+	/* no-op */
+}
+
+.tribe-conditional-content-responsive {
+
+	.tribe-conditional-content-image-wide,
+	.tribe-conditional-content-image-narrow {
+		height: auto;
+		margin: 0 auto;
+		max-width: 1000px;
+		width: 100%;
+	}
+
+	.tribe-conditional-content-image-wide {
+		display: none;
+	}
+
+	.tribe-conditional-content-image-narrow {
+		display: block;
+	}
+
+	@media (--viewport-xsmall) {
+		.tribe-conditional-content-image-wide {
+			display: block;
+		}
+
+		.tribe-conditional-content-image-narrow {
+			display: none;
+		}
+	}
+
+	.tickets_page_tec-tickets-help-hub &,
+	.tribe_events_page_tec-events-help-hub &,
+	.tickets_page_tec-tickets-settings & {
+		.tribe-conditional-content-image-wide {
+			display: none;
+		}
+	}
+}

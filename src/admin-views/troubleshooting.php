@@ -3,28 +3,39 @@
  * View: Troubleshooting
  */
 
+// No direct access.
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Trigger the conditional content header notice.
+ *
+ * @since 6.8.2
+ */
+do_action( 'tec_conditional_content_header_notice' );
+$base_path = Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/';
+
 // admin notice.
-require_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/notice.php';
+require_once $base_path . 'notice.php';
 // intro.
-require_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/introduction.php';
+require_once $base_path . 'introduction.php';
 // detected issues.
-require_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/detected-issues.php';
+require_once $base_path . 'detected-issues.php';
 // first steps.
-require_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/first-steps.php';
+require_once $base_path . 'first-steps.php';
 // common issues.
-require_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/common-issues.php';
+require_once $base_path . 'common-issues.php';
 // system information.
-require_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/system-information.php';
+require_once $base_path . 'system-information.php';
 // recent template changes.
-require_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/recent-template-changes.php';
+require_once $base_path . 'recent-template-changes.php';
 // recent logs.
-require_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/event-log.php';
+require_once $base_path . 'event-log.php';
 // ea status.
-require_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status.php';
+require_once $base_path . 'ea-status.php';
 // support cta.
-require_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/support-cta.php';
+require_once $base_path . 'support-cta.php';
 // footer.
-require_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/footer-logo.php';
+require_once $base_path . 'footer-logo.php';
 ?>
 
 <?php /* this is inline jQuery / javascript for extra simplicity */ ?>

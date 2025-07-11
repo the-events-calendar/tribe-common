@@ -7,6 +7,9 @@
  * @var Tribe__Main $main The main common object.
  */
 
+// No direct access.
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Filter the logo source URL for the Help Hub header.
  *
@@ -31,6 +34,14 @@ $logo_alt = apply_filters( 'tec_help_hub_header_logo_alt', __( 'The Events Calen
 
 ?>
 <div class="tribe-notice-wrap">
+	<?php
+	/**
+	 * Trigger the conditional content header notice.
+	 *
+	 * @since 6.8.2
+	 */
+	do_action( 'tec_conditional_content_header_notice' );
+	?>
 	<div class="wp-header-end"></div>
 </div>
 <div class="tec-settings-header-wrap">

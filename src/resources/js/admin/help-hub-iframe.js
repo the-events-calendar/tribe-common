@@ -1,10 +1,122 @@
-var tribe = tribe || {};
+window.tribe = window.tribe || {};
 tribe.helpPage = tribe.helpPage || {};
 window.DocsBotAI = window.DocsBotAI || {};
+
+// Beacon Manager namespace
+tribe.helpPage.BeaconManager = {
+	/**
+	 * Initialize the Beacon stub if not already present.
+	 *
+	 * @since 6.8.2
+	 * @return {void}
+	 */
+	initStub() {
+		if ( ! window.Beacon || ! window.Beacon.readyQueue ) {
+			window.Beacon = ( method, options, data ) => {
+				window.Beacon.readyQueue.push( { method, options, data } );
+			};
+			window.Beacon.readyQueue = [];
+		}
+	},
+
+	/**
+	 * Check if Beacon is available.
+	 *
+	 * @since 6.8.2
+	 * @return {boolean}
+	 */
+	isAvailable() {
+		return typeof window.Beacon === 'function';
+	},
+
+	/**
+	 * Call Beacon with the given method and arguments.
+	 *
+	 * @since 6.8.2
+	 * @param {string} method - The Beacon method to call.
+	 * @param {...any} args - Arguments to pass to the method.
+	 * @return {void}
+	 */
+	call( method, ...args ) {
+		if ( this.isAvailable() ) {
+			window.Beacon( method, ...args );
+		}
+	},
+
+	/**
+	 * Initialize Beacon with the given key.
+	 *
+	 * @since 6.8.2
+	 * @param {string} key - The Beacon key.
+	 * @return {void}
+	 */
+	init( key ) {
+		this.call( 'init', key );
+	},
+
+	/**
+	 * Configure Beacon with the given options.
+	 *
+	 * @since 6.8.2
+	 * @param {Object} config - Configuration options.
+	 * @return {void}
+	 */
+	config( config ) {
+		this.call( 'config', config );
+	},
+
+	/**
+	 * Add an event listener to Beacon.
+	 *
+	 * @since 6.8.2
+	 * @param {string} event - The event name.
+	 * @param {Function} callback - The callback function.
+	 * @return {void}
+	 */
+	on( event, callback ) {
+		this.call( 'on', event, callback );
+	},
+
+	/**
+	 * Identify a user with Beacon.
+	 *
+	 * @since 6.8.2
+	 * @param {Object} userData - User identification data.
+	 * @return {void}
+	 */
+	identify( userData ) {
+		this.call( 'identify', userData );
+	},
+
+	/**
+	 * Open the Beacon widget.
+	 *
+	 * @since 6.8.2
+	 * @return {void}
+	 */
+	open() {
+		this.call( 'open' );
+	},
+
+	/**
+	 * Close the Beacon widget.
+	 *
+	 * @since 6.8.2
+	 * @return {void}
+	 */
+	close() {
+		this.call( 'close' );
+	}
+};
 
 ( ( $, obj ) => {
 	'use strict';
 
+	/**
+	 * Selectors map for Help Hub DOM elements.
+	 *
+	 * @since 6.8.2
+	 */
 	obj.selectors = {
 		body: 'body',
 		helpHubPageID: 'help-hub-page',
@@ -76,7 +188,148 @@ window.DocsBotAI = window.DocsBotAI || {};
 						.docsbot-user-chat-message {
 							background-color: #0057C7;
 						}
+						.docsbot-chat-header-button {
+							z-index:99999;
+						}
 					`;
+
+	/**
+	 * Utility: Get the Help Hub page element.
+	 *
+	 * @since 6.8.2
+	 * @return {HTMLElement|null}
+	 */
+	obj.getHelpHubPageElement = function () {
+		return document.getElementById( obj.selectors.helpHubPageID );
+	};
+
+	/**
+	 * Utility: Check if user is opted in.
+	 *
+	 * @since 6.8.2
+	 * @return {boolean}
+	 */
+	obj.isOptedIn = function () {
+		const el = obj.getHelpHubPageElement();
+		return el && el.getAttribute( 'data-opted-in' ) === '1';
+	};
+
+	/**
+	 * HelpScoutManager handles Help Scout Beacon integration.
+	 *
+	 * @since 6.8.2
+	 * @class
+	 * @link https://developer.helpscout.com/beacon-2/web/javascript-api
+	 */
+	function HelpScoutManager( beaconKey, userIdentifiers ) {
+		this.beaconKey = beaconKey;
+		this.userIdentifiers = userIdentifiers || null;
+		this.scriptLoaded = false;
+		this.beaconReady = false;
+		this.initPromise = null;
+	}
+
+	/**
+	 * Loads the Help Scout Beacon script dynamically.
+	 *
+	 * @since 6.8.2
+	 * @return {Promise<void>}
+	 */
+	HelpScoutManager.prototype.loadScript = function () {
+		const self = this;
+		if ( self.scriptLoaded === true ) {
+			return Promise.resolve();
+		}
+
+		// Initialize the Beacon stub.
+		tribe.helpPage.BeaconManager.initStub();
+
+		return new Promise( ( resolve, reject ) => {
+			const script = document.createElement( 'script' );
+			script.src = 'https://beacon-v2.helpscout.net';
+			script.async = true;
+			script.onload = () => {
+				self.scriptLoaded = true;
+				resolve();
+			};
+			script.onerror = () => {
+				reject( new Error( helpHubSettings.errorMessages.helpScoutScriptLoadFailed ) );
+			};
+			// Insert into <head> for best compatibility.
+			document.head.appendChild( script );
+		} );
+	};
+
+	/**
+	 * Initializes the Help Scout Beacon widget.
+	 *
+	 * @since 6.8.2
+	 * @return {Promise<void>}
+	 */
+	HelpScoutManager.prototype.initBeacon = function () {
+		const self = this;
+		if ( self.initPromise !== null ) {
+			return self.initPromise;
+		}
+		self.initPromise = new Promise( ( resolve ) => {
+			tribe.helpPage.BeaconManager.init( self.beaconKey );
+
+			// Set z-index, manual style, and enable chat & ticket history.
+			tribe.helpPage.BeaconManager.config( {
+				 display: { zIndex: 1000000, style: 'manual' },
+				 messaging: {
+					 chatEnabled: true,
+					 previousMessagesEnabled: true,
+					 contactForm: {
+						 showName: true,
+					 }
+				 }
+			} );
+
+			// Listen for open/close events to manage blackout UI.
+			tribe.helpPage.BeaconManager.on(
+				'open',
+				() => {
+					obj.toggleBlackout( true );
+				}
+			);
+
+			tribe.helpPage.BeaconManager.on(
+				'close',
+				() => {
+					obj.toggleBlackout( false );
+				}
+			);
+
+			tribe.helpPage.BeaconManager.on(
+				'ready',
+				() => {
+					self.beaconReady = true;
+					if ( self.userIdentifiers !== null && self.userIdentifiers.name && self.userIdentifiers.email ) {
+						tribe.helpPage.BeaconManager.identify( {
+							name: self.userIdentifiers.name,
+							email: self.userIdentifiers.email
+						} );
+					}
+					resolve();
+				}
+			);
+		} );
+		return self.initPromise;
+	};
+
+	/**
+	 * Opens the Help Scout Beacon widget programmatically.
+	 *
+	 * @since 6.8.2
+	 * @return {void}
+	 */
+	HelpScoutManager.prototype.openBeacon = function () {
+		tribe.helpPage.BeaconManager.open();
+	};
+
+	// Store HelpScoutManager instance for later use.
+	obj.helpScoutManager = null;
 
 	/**
 	 * Initializes the help page setup, verifying opt-in status.
@@ -84,117 +337,61 @@ window.DocsBotAI = window.DocsBotAI || {};
 	 * @since 6.3.2
 	 * @return {void}
 	 */
-	obj.setup = () => {
-		const bodyElement = document.getElementById( obj.selectors.helpHubPageID );
-		const isOptedIn = bodyElement.getAttribute( 'data-opted-in' ) === '1';
+	obj.setup = function () {
+		const bodyElement = obj.getHelpHubPageElement();
 		const optOutMessageElement = document.querySelector( obj.selectors.optOutMessage );
-		const docsbotElement = document.getElementById( obj.selectors.docsbotWidget );
-		// Only run Zendesk and DocsBot setup if the user has opted-in.
-		if ( isOptedIn ) {
-			obj.loadAndInitializeZendeskWidget();
-			obj.initializeDocsBot();
-		} else {
-			optOutMessageElement.classList.remove( 'hide' );
-			docsbotElement.classList.add( 'hide' );
-			bodyElement.classList.add( 'blackout' );
-		}
-	};
+		const $docsbotElement = $( `#${obj.selectors.docsbotWidget}` );
+		const isOptedIn = obj.isOptedIn();
 
-	/**
-	 * Dynamically loads the Zendesk Web Widget script.
-	 *
-	 * @since 6.3.2
-	 * @param {string} zendeskKey - The Zendesk chat key.
-	 * @return {Promise} - A promise that resolves when the script is loaded.
-	 */
-	obj.loadZendeskWidgetScript = ( zendeskKey ) => {
-		return new Promise( ( resolve, reject ) => {
-			const script = document.createElement( 'script' );
-			script.id = 'ze-snippet';
-			script.src = `https://static.zdassets.com/ekr/snippet.js?key=${ zendeskKey }`;
-			script.async = true;
-
-			document.head.appendChild( script );
-
-			script.onload = () => resolve();
-			script.onerror = () => reject( new Error( 'Failed to load Zendesk Web Widget' ) );
-		} );
-	};
-
-	/**
-	 * Initializes the Zendesk widget, hides it initially, and sets up event listeners for open/close actions.
-	 *
-	 * @link https://support.zendesk.com/hc/en-us/articles/4408836216218-Using-Web-Widget-Classic-to-embed-customer-service-in-your-website
-	 *
-	 * @since 6.3.2
-	 * @return {void}
-	 */
-	obj.initializeZendesk = () => {
-		obj.isZendeskInitialized = false;
-		const bodyElement = document.getElementById( obj.selectors.helpHubPageID );
-
-		zE( 'webWidget', 'hide', () => {
-			obj.isZendeskInitialized = true;
-		} );
-
-		// Add 'blackout' class when the widget is opened.
-		zE( 'webWidget:on', 'open', () => {
-			if ( obj.isZendeskInitialized ) {
+		if ( isOptedIn !== true ) {
+			// Opt-out: show message, hide widgets, blackout.
+			if ( optOutMessageElement !== null ) {
+				optOutMessageElement.classList.remove( 'hide' );
+			}
+			if ( $docsbotElement.length ) {
+				$docsbotElement.addClass( 'hide' );
+			}
+			if ( bodyElement !== null ) {
 				bodyElement.classList.add( 'blackout' );
 			}
-		} );
+			return;
+		}
 
-		// Remove 'blackout' class when the widget is closed.
-		zE( 'webWidget:on', 'close', () => {
-			zE( 'webWidget', 'hide' );
+		// Initialize Help Scout Beacon.
+		const beaconKey = helpHubSettings.helpScoutBeaconKey;
+		const userIdentifiers = helpHubSettings.userIdentifiers || null;
+		obj.helpScoutManager = new HelpScoutManager(
+			beaconKey,
+			userIdentifiers
+		);
+		obj.helpScoutManager.loadScript()
+			.then( () => {
+				return obj.helpScoutManager.initBeacon();
+			} );
+		// Initialize DocsBot as before.
+		obj.initializeDocsBot();
+		if ( $docsbotElement.length ) {
+			$docsbotElement.removeClass( 'hide' );
+		}
+		if ( optOutMessageElement !== null ) {
+			optOutMessageElement.classList.add( 'hide' );
+		}
+		if ( bodyElement !== null ) {
 			bodyElement.classList.remove( 'blackout' );
-		} );
-	};
-
-	/**
-	 * Handles incoming postMessage events, verifying origin and triggering actions based on the message.
-	 *
-	 * @since 6.3.2
-	 * @param {Event} event - The postMessage event received.
-	 * @return {void}
-	 */
-	obj.handlePostMessageEvents = ( event ) => {
-		const bodyElement = document.getElementById( obj.selectors.helpHubPageID );
-
-		if ( event.origin !== window.location.origin ) {
-			return; // Ignore messages from untrusted origins.
-		}
-
-		const { action, data } = event.data;
-
-		switch ( action ) {
-			case 'runScript':
-				if ( data === 'openZendesk' ) {
-					zE( 'webWidget', 'show' );
-					zE( 'webWidget', 'open' );
-					bodyElement.classList.add( 'blackout' );
-				}
-				break;
-
-			default:
-				console.warn( 'Unhandled action:', action );
-				break;
 		}
 	};
 
 	/**
-	 * Loads and initializes the Zendesk widget, and sets up message listeners.
+	 * Expose a method to open the Help Scout Beacon programmatically.
 	 *
-	 * @since 6.3.2
+	 * @since 6.8.2
 	 * @return {void}
 	 */
-	obj.loadAndInitializeZendeskWidget = () => {
-		obj.loadZendeskWidgetScript( helpHubSettings.zendeskChatKey )
-			.then( () => obj.initializeZendesk() )
-			.catch( ( error ) => console.error( 'Zendesk Widget failed to load:', error ) );
-
-		// Listen for incoming messages.
-		window.addEventListener( 'message', obj.handlePostMessageEvents );
+	obj.openBeacon = function () {
+		if ( obj.helpScoutManager !== null ) {
+			tribe.helpPage.BeaconManager.close();
+			obj.helpScoutManager.openBeacon();
+		}
 	};
 
 	/**
@@ -207,67 +404,123 @@ window.DocsBotAI = window.DocsBotAI || {};
 	obj.observeElement = ( selector ) => {
 		return new Promise( ( resolve ) => {
 			const element = document.querySelector( selector );
-			if ( element ) {
+			if ( element !== null ) {
 				return resolve( element );
 			}
 			const observer = new MutationObserver( ( mutations ) => {
 				const foundElement = document.querySelector( selector );
-				if ( foundElement ) {
+				if ( foundElement !== null ) {
 					resolve( foundElement );
-					observer.disconnect(); // Ensure the observer stops after resolving.
+					observer.disconnect();
 				}
 			} );
-			observer.observe( document.body, { childList: true, subtree: true } );
+			observer.observe(
+				document.body,
+				{ childList: true, subtree: true }
+			);
 		} );
 	};
 
 	/**
-	 * Initializes the DocsBot widget, handling its configuration and integration with Zendesk.
+	 * Initializes the DocsBot widget, handling its configuration and integration with Help Scout Beacon.
 	 *
 	 * @link https://docsbot.ai/documentation/developer/embeddable-chat-widget
 	 *
 	 * @since 6.3.2
 	 * @return {void}
 	 */
-	obj.initializeDocsBot = () => {
-		const bodyElement = document.getElementById( obj.selectors.helpHubPageID );
-		document.getElementById( obj.selectors.docsbotWidget ).classList.remove( 'hide' );
-		DocsBotAI.init = ( e ) => {
-			return new Promise( ( resolve, reject ) => {
-				const script = document.createElement( 'script' );
-				script.type = 'text/javascript';
-				script.async = true;
-				script.src = 'https://widget.docsbot.ai/chat.js';
-
-				const firstScript = document.getElementsByTagName( 'script' )[ 0 ];
-				firstScript.parentNode.insertBefore( script, firstScript );
-
-				script.addEventListener( 'load', () => {
-					Promise.all( [ window.DocsBotAI.mount( { ...e } ), obj.observeElement( '#docsbotai-root' ) ] )
-						.then( resolve )
-						.catch( reject );
+	obj.initializeDocsBot = function () {
+		if ( window.DocsBotAIInitialized === true ) {
+			return;
+		}
+		window.DocsBotAIInitialized = true;
+		const $docsbotWidget = $( `#${obj.selectors.docsbotWidget}` );
+		if ( $docsbotWidget.length ) {
+			$docsbotWidget.removeClass( 'hide' );
+		}
+		if ( typeof DocsBotAI.init !== 'function' ) {
+			DocsBotAI.init = ( e ) => {
+				return new Promise( ( resolve, reject ) => {
+					const script = document.createElement( 'script' );
+					script.type = 'text/javascript';
+					script.async = true;
+					script.src = 'https://widget.docsbot.ai/chat.js';
+					const firstScript = document.getElementsByTagName( 'script' )[ 0 ];
+					firstScript.parentNode.insertBefore(
+						script,
+						firstScript
+					);
+					script.addEventListener(
+						'load',
+						() => {
+							Promise.all( [
+								 window.DocsBotAI.mount( { ...e } ),
+								 obj.observeElement( '#docsbotai-root' )
+							 ] )
+							.then( resolve )
+							.catch( reject );
+						}
+					);
+					script.addEventListener(
+						'error',
+						( error ) => {
+							reject( error.message );
+						}
+					);
 				} );
-
-				script.addEventListener( 'error', ( error ) => {
-					reject( error.message );
-				} );
-			} );
-		};
-
+			};
+		}
 		DocsBotAI.init( {
-			id: helpHubSettings.docsbot_key,
-			options: {
-				customCSS: obj.DocsBotAIcss,
-			},
-			supportCallback: ( event ) => {
-				event.preventDefault();
-				bodyElement.classList.add( 'blackout' );
-				zE( 'webWidget', 'show' );
-				zE( 'webWidget', 'open' );
-			},
-		} );
+							id: helpHubSettings.docsbot_key,
+							options: {
+								customCSS: obj.DocsBotAIcss,
+							},
+							supportCallback: ( event ) => {
+								event.preventDefault();
+								obj.toggleBlackout( true );
+								obj.openBeacon();
+							},
+						} );
+	};
+
+	/**
+	 * Toggles the blackout class on the Help Hub page.
+	 *
+	 * @since 6.8.2
+	 * @param {boolean} enable
+	 * @return {void}
+	 */
+	obj.toggleBlackout = function ( enable ) {
+		const el = obj.getHelpHubPageElement();
+		if ( el !== null ) {
+			el.classList.toggle(
+				'blackout',
+				enable
+			);
+		}
 	};
 
 	// Initialize the help page.
 	$( obj.setup );
-} )( jQuery, tribe.helpPage );
+
+	// For legacy compatibility: open Beacon when asked to open Livechat (from old help-page.js postMessage).
+	window.addEventListener(
+		'message',
+		( event ) => {
+			// Only accept messages from the same origin.
+			if ( event.origin !== window.location.origin ) {
+				return;
+			}
+			const { action, data } = event.data || {};
+			// For legacy compatibility: open Beacon when asked to open Livechat.
+			if ( action === 'runScript' && data === 'openLivechat' ) {
+				if ( typeof obj.openBeacon === 'function' ) {
+					obj.openBeacon();
+				}
+			}
+		}
+	);
+} )(
+	jQuery,
+	tribe.helpPage
+);
