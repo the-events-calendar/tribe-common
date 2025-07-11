@@ -1,6 +1,6 @@
 import { localizedData } from '../localizedData';
 import { Settings } from '../types/LocalizedData';
-import { StoreState } from '@tec/common/classy/types/Store';
+import { StoreState } from '../types/Store';
 import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
 import { Currency } from '../types/Currency';
 
