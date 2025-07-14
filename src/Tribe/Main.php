@@ -7,6 +7,7 @@ use Tribe\DB_Lock;
 use TEC\Common\Asset;
 use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 use TEC\Common\Controller as Common_Controller;
+use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
 
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -816,6 +817,7 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Service_Providers\Onboarding::class );
 		tribe_register_provider( \TEC\Common\Notifications\Controller::class );
 		tribe_register_provider( \TEC\Common\QR\Controller::class );
+		tribe_singleton( ContainerInterface::class, tribe() );
 		tribe_register_provider( Libraries\Provider::class );
 
 		// Load the new third-party integration system.
