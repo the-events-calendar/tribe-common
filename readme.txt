@@ -1,5 +1,12 @@
 == Changelog ==
 
+= [6.8.3] 2025-07-16 =
+
+* Fix - Make sure add_submenu_page is called correctly to avoid deprecation messages. [TEC-5529]
+* Fix - Make sure we are passing the time zone when handling the event end timestamp. [TEC-4981]
+* Tweak - Add secondary display logic for promotional banners. [TEC-5530]
+* Language - 5 new strings added, 2 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.8.2] 2025-07-03 =
 
 * Tweak - Adapt the conditional content to the new admin. [TEC-5530]
