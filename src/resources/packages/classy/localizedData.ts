@@ -1,6 +1,5 @@
 import { LocalizedData, Settings, TecGlobal } from './types/LocalizedData';
 
-// Declare the global window object to use that.
 declare global {
 	interface Window {
 		tec: TecGlobal;
