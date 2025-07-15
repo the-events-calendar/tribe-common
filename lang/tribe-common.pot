@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 6.8.2\n"
+"Project-Id-Version: Tribe Common 6.8.3\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-07-03T16:10:52+00:00\n"
+"POT-Creation-Date: 2025-07-15T18:00:43+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: tribe-common\n"
@@ -1735,18 +1735,25 @@ msgstr ""
 msgid "Searching..."
 msgstr ""
 
-#: src/Common/Admin/Conditional_Content/Black_Friday.php:48
+#: src/Common/Admin/Conditional_Content/Black_Friday.php:54
 msgid "Black Friday Sale"
 msgstr ""
 
 #. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Black_Friday.php:76
+#: src/Common/Admin/Conditional_Content/Black_Friday.php:90
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:121
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:160
+#, php-format
+msgctxt "Alt text for the Default Sale Ad"
+msgid "%1$s %2$s for The Events Calendar plugins, add-ons and bundles."
+msgstr ""
+
 #. translators: %1$s: Sale year, %2$s: Sale name
-#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:250
-#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:282
-#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:339
-#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:424
-#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:522
-#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:616
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:409
+#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:507
+#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:817
 #, php-format
 msgctxt "Alt text for the Sale Ad"
 msgid "%1$s %2$s for The Events Calendar plugins, add-ons and bundles."
@@ -1754,6 +1761,34 @@ msgstr ""
 
 #: src/Common/Admin/Conditional_Content/Stellar_Sale.php:51
 msgid "Stellar Sale"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:99
+#, php-format
+msgctxt "Alt text for the Events Pro Sale Ad"
+msgid "%1$s %2$s - Get Events Calendar Pro at 30%% off!"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:110
+#, php-format
+msgctxt "Alt text for the Filter Bar Sale Ad"
+msgid "%1$s %2$s - Get Filter Bar at 30%% off!"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:135
+#, php-format
+msgctxt "Alt text for the Event Tickets Plus Sale Ad"
+msgid "%1$s %2$s - Get Event Tickets Plus at 30%% off!"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:148
+#, php-format
+msgctxt "Alt text for the Event Seating Sale Ad"
+msgid "%1$s %2$s - Get Event Seating at 30%% off!"
 msgstr ""
 
 #: src/Common/Admin/Entities/Heading.php:101
