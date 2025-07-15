@@ -61,7 +61,7 @@ class Stellar_Sale extends Promotional_Content_Abstract {
 	/**
 	 * Check if Event Tickets Plus Seating is licensed and active.
 	 *
-	 * @since TBD
+	 * @since 6.8.3
 	 *
 	 * @return bool Whether Seating is licensed and active.
 	 */

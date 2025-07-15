@@ -626,7 +626,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 *   ],
 	 * ]
 	 *
-	 * @since TBD
+	 * @since 6.8.3
 	 *
 	 * @return array The suite creative map.
 	 */
@@ -635,7 +635,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Determine the admin page context.
 	 *
-	 * @since TBD
+	 * @since 6.8.3
 	 *
 	 * @return string The admin page context ('tickets', 'events', or 'default').
 	 */
@@ -669,7 +669,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Get the selected creative based on admin page context and installed plugins.
 	 *
-	 * @since TBD
+	 * @since 6.8.3
 	 *
 	 * @return array|null The selected creative array or null if none found.
 	 */
@@ -725,7 +725,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Get the wide banner image URL.
 	 *
-	 * @since TBD
+	 * @since 6.8.3
 	 *
 	 * @return string The wide banner image URL.
 	 */
@@ -743,7 +743,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Get the narrow banner image URL.
 	 *
-	 * @since TBD
+	 * @since 6.8.3
 	 *
 	 * @return string The narrow banner image URL.
 	 */
@@ -761,7 +761,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Get the sidebar image URL.
 	 *
-	 * @since TBD
+	 * @since 6.8.3
 	 *
 	 * @return string The sidebar image URL.
 	 */
@@ -779,7 +779,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Get the link URL for the creative.
 	 *
-	 * @since TBD
+	 * @since 6.8.3
 	 *
 	 * @return string The link URL.
 	 */
@@ -797,7 +797,7 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Get the alt text for the creative.
 	 *
-	 * @since TBD
+	 * @since 6.8.3
 	 *
 	 * @return string The alt text.
 	 */
