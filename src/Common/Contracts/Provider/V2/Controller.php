@@ -135,7 +135,7 @@ abstract class Controller extends Controller_Contract_V1 {
 	}
 
 	/**
-	 * Removes the filters and actions hooks added by the controller.
+	 * Removes the filters and actions hooks added by the <controller class=""></controller>
 	 *
 	 * @since TBD
 	 *
@@ -143,6 +143,10 @@ abstract class Controller extends Controller_Contract_V1 {
 	 */
 	public function unregister(): void {
 		foreach ( $this->get_controllers() as $controller ) {
+			unset( $controller['on_action'] );
+
+			$controller = array_values( $controller );
+
 			if ( ! $this->container->isBound( $controller[0] ) ) {
 				continue;
 			}
