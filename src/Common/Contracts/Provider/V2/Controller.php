@@ -56,7 +56,7 @@ abstract class Controller extends Controller_Contract_V1 {
 	/**
 	 * The bindings to register.
 	 *
-	 * @since TBD\
+	 * @since TBD
 	 *
 	 * The expected return is that each element of the array can be passed in the bind method
 	 * of our container destructed. e.g. $this->container->bind( ...$return['0'] );
@@ -116,9 +116,13 @@ abstract class Controller extends Controller_Contract_V1 {
 				throw new RuntimeException( 'Each controller must be an array, in a format that can be passed to the container register method.' );
 			}
 
-			if ( ! empty( $controller['on_action'] ) && is_string( $controller['on_action'] ) ) {
+			if ( isset( $controller['on_action'] ) ) {
 				$action = $controller['on_action'];
 				unset( $controller['on_action'] );
+
+				if ( ! ( $action && is_string( $action ) ) ) {
+					throw new RuntimeException( 'The on_action key must be a string.' );
+				}
 
 				$this->container->register_on_action( $action, ...$controller );
 				continue;
