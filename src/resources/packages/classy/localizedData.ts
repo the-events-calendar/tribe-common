@@ -1,16 +1,8 @@
-import { LocalizedData, Settings } from './types/LocalizedData';
-import { WPDataRegistry } from '@wordpress/data/build-types/registry';
+import { LocalizedData, Settings, TecGlobal } from './types/LocalizedData';
 
 declare global {
 	interface Window {
-		tec: {
-			common: {
-				classy: {
-					data: LocalizedData;
-					registry: WPDataRegistry;
-				};
-			};
-		};
+		tec: TecGlobal;
 	}
 }
 
