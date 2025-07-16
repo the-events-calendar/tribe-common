@@ -37,8 +37,8 @@ export default function TinyMceEditor( { content, onChange, id }: TinyMceEditorP
 				toolbar1: 'bold italic formatselect | blockquote bullist numlist link',
 				toolbar2: '',
 			},
-			quicktags: false, // Do not show the "Visual / Text" tabs.
-			mediaButtons: false, // Do not show the "Add media" button.
+			quicktags: true, // Show the "Visual / Text" tabs.
+			mediaButtons: true, // Show the "Add media" button.
 		} );
 
 		// @ts-ignore - Defined by the `wp-tinymce` dependency required by the Classy package.
