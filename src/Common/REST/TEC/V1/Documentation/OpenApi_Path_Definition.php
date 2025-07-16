@@ -33,6 +33,17 @@ class OpenApi_Path_Definition implements Definition_Interface {
 	}
 
 	/**
+	 * Returns the priority of the definition.
+	 *
+	 * @since TBD
+	 *
+	 * @return int
+	 */
+	public function get_priority(): int {
+		return 10000000;
+	}
+
+	/**
 	 * Returns the documentation for the definition.
 	 *
 	 * @since TBD

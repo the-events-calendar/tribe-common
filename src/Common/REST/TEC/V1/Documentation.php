@@ -154,6 +154,15 @@ class Documentation {
 	 */
 	protected function get_definitions(): array {
 		$definitions = [];
+
+		// Sort the definitions by priority.
+		usort(
+			$this->definitions,
+			function ( Definition_Interface $a, Definition_Interface $b ) {
+				return $a->get_priority() - $b->get_priority();
+			}
+		);
+
 		/** @var Definition_Interface $definition */
 		foreach ( $this->definitions as $definition ) {
 			$definitions[ $definition->get_type() ] = $definition->get_documentation();

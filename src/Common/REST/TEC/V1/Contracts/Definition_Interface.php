@@ -36,4 +36,13 @@ interface Definition_Interface {
 	 * @return string
 	 */
 	public function get_type(): string;
+
+	/**
+	 * Returns the priority of the definition.
+	 *
+	 * @since TBD
+	 *
+	 * @return int
+	 */
+	public function get_priority(): int;
 }
