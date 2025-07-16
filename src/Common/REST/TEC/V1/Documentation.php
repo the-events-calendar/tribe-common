@@ -100,8 +100,8 @@ class Documentation {
 	 */
 	protected function get_api_info(): array {
 		return [
-			'version'     => self::TEC_REST_API_VERSION,
 			'title'       => __( 'The Events Calendar REST API', 'the-events-calendar' ),
+			'version'     => self::TEC_REST_API_VERSION,
 			'description' => __( 'The Events Calendar REST API allows accessing upcoming events information easily and conveniently.', 'the-events-calendar' ),
 		];
 	}
