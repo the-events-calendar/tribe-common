@@ -29,7 +29,7 @@ class OpenApi_Path_Definition implements Definition_Interface {
 	 * @return string
 	 */
 	public function get_type(): string {
-		return 'openapi_path';
+		return 'OpenApiPath';
 	}
 
 	/**

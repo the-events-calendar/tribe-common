@@ -29,7 +29,7 @@ class OpenApi_Definition implements Definition_Interface {
 	 * @return string
 	 */
 	public function get_type(): string {
-		return 'openapi_documentation';
+		return 'OpenApiDocumentation';
 	}
 
 	/**
@@ -94,8 +94,8 @@ class OpenApi_Definition implements Definition_Interface {
 					'type'        => 'object',
 					'description' => __( 'The OpenAPI paths.', 'the-events-calendar' ),
 					'properties'  => [
-						'openapi_path' => [
-							'$ref' => '#/components/schemas/openapi_path',
+						'OpenApiPath' => [
+							'$ref' => '#/components/schemas/OpenApiPath',
 						],
 					],
 				],

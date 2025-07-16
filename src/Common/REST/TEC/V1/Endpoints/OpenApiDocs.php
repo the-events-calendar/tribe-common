@@ -72,7 +72,7 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 	public function get_schema(): array {
 		return [
 			'$schema'    => 'http://json-schema.org/draft-04/schema#',
-			'title'      => 'openapi_documentation',
+			'title'      => 'OpenApiDocumentation',
 			'type'       => 'object',
 			'properties' => [
 				'openapi'    => [
@@ -145,13 +145,13 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 					],
 				],
 				'paths'      => [
-					'title'       => 'openapi_paths',
+					'title'       => 'OpenApiPaths',
 					'type'        => 'object',
 					'description' => __( 'The OpenAPI paths.', 'the-events-calendar' ),
 					'readonly'    => true,
 					'properties'  => [
-						'openapi_path' => [
-							'title'       => 'openapi_path',
+						'OpenApiPath' => [
+							'title'       => 'OpenApiPath',
 							'type'        => 'object',
 							'description' => __( 'A path\'s documentation.', 'the-events-calendar' ),
 							'readonly'    => true,
@@ -178,7 +178,7 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 						'content'     => [
 							'application/json' => [
 								'schema' => [
-									'$ref' => '#/components/schemas/openapi_documentation',
+									'$ref' => '#/components/schemas/OpenApiDocumentation',
 								],
 							],
 						],
