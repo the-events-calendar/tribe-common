@@ -34,7 +34,7 @@ export default function TinyMceEditor( { content, onChange, id }: TinyMceEditorP
 		window.wp.oldEditor.initialize( id, {
 			tinymce: {
 				wpautop: true,
-				toolbar1: 'bold italic formatselect | blockquote bullist numlist link',
+				toolbar1: 'formatselect bold italic | bullist numlist blockquote | alignleft aligncenter alignright | link wp_more',
 				toolbar2: '',
 			},
 			quicktags: true, // Show the "Visual / Text" tabs.
