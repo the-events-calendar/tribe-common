@@ -27,9 +27,11 @@ class Documentation {
 	 *
 	 * @since TBD
 	 *
+	 * @link https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md
+	 *
 	 * @var string
 	 */
-	protected const SWAGGER_VERSION = '3.1.1';
+	protected const SWAGGER_VERSION = '3.0.4';
 
 	/**
 	 * The TEC REST API version.
@@ -59,11 +61,9 @@ class Documentation {
 	protected $definitions = [];
 
 	/**
-	 * Returns an array in the format used by Swagger 3.1.1.
+	 * Returns an array in the format used by Swagger.
 	 *
 	 * @since TBD
-	 *
-	 * @link http://swagger.io/
 	 *
 	 * @return array An array description of a Swagger supported component.
 	 */
