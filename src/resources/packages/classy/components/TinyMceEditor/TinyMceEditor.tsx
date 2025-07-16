@@ -34,8 +34,8 @@ export default function TinyMceEditor( { content, onChange, id }: TinyMceEditorP
 		window.wp.oldEditor.initialize( id, {
 			tinymce: {
 				wpautop: true,
-				toolbar1: 'formatselect bold italic | bullist numlist blockquote | alignleft aligncenter alignright | link wp_more',
-				toolbar2: '',
+                toolbar1: 'formatselect bold italic | bullist numlist blockquote | alignleft aligncenter alignright | link wp_more wp_adv',
+                toolbar2: 'strikethrough hr forecolor | pastetext removeformat charmap | outdent indent | undo redo | wp_help',
 			},
 			quicktags: true, // Show the "Visual / Text" tabs.
 			mediaButtons: true, // Show the "Add media" button.
