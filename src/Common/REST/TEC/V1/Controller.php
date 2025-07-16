@@ -25,11 +25,15 @@ class Controller extends Controller_Contract {
 	/**
 	 * The version of the REST API.
 	 *
+	 * This is being used in the namespace to avoid conflicts with other versions of the API.
+	 *
+	 * e.g. /wp-json/tec/v1/
+	 *
 	 * @since TBD
 	 *
-	 * @var string
+	 * @var int
 	 */
-	public const VERSION = '1';
+	public const VERSION = 1;
 
 	/**
 	 * Registers the filters and actions hooks added by the controller.
