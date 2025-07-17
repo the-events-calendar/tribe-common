@@ -15,6 +15,7 @@ use TEC\Common\REST\TEC\V1\Contracts\Post_Entity_Endpoint_Interface;
 use WP_REST_Request;
 use WP_REST_Posts_Controller;
 use WP_Post_Type;
+use WP_Post;
 
 /**
  * Endpoint class.
@@ -140,8 +141,22 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 			}
 
 			$data              = $rest_controller->prepare_item_for_response( $post, new WP_REST_Request() );
-			$formatted_posts[] = $rest_controller->prepare_response_for_collection( $data );
+			$formatted_posts[] = $this->add_properties_to_model( $rest_controller->prepare_response_for_collection( $data ), $post );
 		}
 		return $formatted_posts;
+	}
+
+	/**
+	 * Adds properties to the model.
+	 *
+	 * @since TBD
+	 *
+	 * @param array   $formatted_post The formatted post.
+	 * @param WP_Post $original_post  The original post.
+	 *
+	 * @return array
+	 */
+	protected function add_properties_to_model( array $formatted_post, WP_Post $original_post ): array {
+		return $formatted_post;
 	}
 }

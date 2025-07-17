@@ -38,6 +38,15 @@ interface Endpoints_Controller_Interface {
 	public function get_definitions(): array;
 
 	/**
+	 * Returns the tags to register.
+	 *
+	 * @since TBD
+	 *
+	 * @return Tag_Interface[]
+	 */
+	public function get_tags(): array;
+
+	/**
 	 * Registers the endpoints.
 	 *
 	 * @since TBD

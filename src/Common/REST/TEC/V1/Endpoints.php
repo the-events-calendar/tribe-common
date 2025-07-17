@@ -23,6 +23,8 @@ use TEC\Common\REST\TEC\V1\Documentation\Image_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\Image_Size_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\Term_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\TEC_Post_Entity_Definition;
+use TEC\Common\REST\TEC\V1\Documentation\Date_Definition;
+use TEC\Common\REST\TEC\V1\Tags\Common_Tag;
 
 /**
  * Endpoints Controller class.
@@ -46,6 +48,19 @@ class Endpoints extends Endpoints_Controller {
 	}
 
 	/**
+	 * Returns the tags to register.
+	 *
+	 * @since TBD
+	 *
+	 * @return Tag_Interface[]
+	 */
+	public function get_tags(): array {
+		return [
+			Common_Tag::class,
+		];
+	}
+
+	/**
 	 * Returns the definitions to register.
 	 *
 	 * @since TBD
@@ -58,6 +73,7 @@ class Endpoints extends Endpoints_Controller {
 			OpenApi_Path_Definition::class,
 			Cost_Details_Definition::class,
 			Date_Details_Definition::class,
+			Date_Definition::class,
 			Image_Definition::class,
 			Image_Size_Definition::class,
 			Term_Definition::class,

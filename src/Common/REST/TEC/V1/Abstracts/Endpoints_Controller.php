@@ -17,6 +17,7 @@ use TEC\Common\REST\TEC\V1\Contracts\Endpoint_Interface;
 use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
 use TEC\Common\REST\TEC\V1\Documentation;
 use TEC\Common\REST\TEC\V1\Contracts\Endpoints_Controller_Interface;
+use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface;
 use RuntimeException;
 
 /**
@@ -59,6 +60,10 @@ abstract class Endpoints_Controller extends Controller_Contract implements Endpo
 	protected function do_register(): void {
 		foreach ( $this->get_endpoints() as $endpoint ) {
 			$this->container->singleton( $endpoint );
+		}
+
+		foreach ( $this->get_tags() as $tag ) {
+			$this->container->singleton( $tag );
 		}
 
 		foreach ( $this->get_definitions() as $definition ) {
@@ -106,6 +111,15 @@ abstract class Endpoints_Controller extends Controller_Contract implements Endpo
 			}
 
 			$this->documentation->register_definition( $definition );
+		}
+
+		foreach ( $this->get_tags() as $tag ) {
+			$tag = $this->container->get( $tag );
+			if ( ! $tag instanceof Tag_Interface ) {
+				throw new RuntimeException( 'Tag must implement Tag_Interface' );
+			}
+
+			$this->documentation->register_tag( $tag );
 		}
 	}
 }

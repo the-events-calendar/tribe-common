@@ -18,6 +18,7 @@ use TEC\Common\REST\TEC\V1\Contracts\Readable_Endpoint;
 use TEC\Common\REST\TEC\V1\Documentation;
 use WP_REST_Request;
 use WP_REST_Response;
+use TEC\Common\REST\TEC\V1\Tags\Common_Tag;
 
 /**
  * OpenAPI docs endpoint.
@@ -114,6 +115,23 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 							'description' => __( 'The API description.', 'the-events-calendar' ),
 							'readonly'    => true,
 						],
+						'contact'     => [
+							'type'        => 'object',
+							'description' => __( 'The API contact.', 'the-events-calendar' ),
+							'readonly'    => true,
+							'properties'  => [
+								'name'  => [
+									'type'        => 'string',
+									'description' => __( 'The name of the contact.', 'the-events-calendar' ),
+									'readonly'    => true,
+								],
+								'email' => [
+									'type'        => 'string',
+									'description' => __( 'The email of the contact.', 'the-events-calendar' ),
+									'readonly'    => true,
+								],
+							],
+						],
 					],
 				],
 				'components' => [
@@ -185,7 +203,11 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 	public function get_documentation(): array {
 		return [
 			'get' => [
-				'responses' => [
+				'summary'     => __( 'Get the documentation for the TEC REST API', 'the-events-calendar' ),
+				'description' => __( 'Returns the documentation for The Events Calendar REST API in Swagger consumable format.', 'the-events-calendar' ),
+				'operationId' => 'getOpenApiDocs',
+				'tags'        => [ tribe( Common_Tag::class )->get_name() ],
+				'responses'   => [
 					'200' => [
 						'description' => __( 'Returns the documentation for The Events Calendar REST API in Swagger consumable format.', 'the-events-calendar' ),
 						'content'     => [

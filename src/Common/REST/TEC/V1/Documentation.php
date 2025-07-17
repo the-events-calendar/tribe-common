@@ -13,6 +13,7 @@ namespace TEC\Common\REST\TEC\V1;
 
 use TEC\Common\REST\TEC\V1\Contracts\Endpoint_Interface;
 use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
+use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface;
 
 /**
  * Swagger documentation endpoint for the Events REST API.
@@ -61,6 +62,15 @@ class Documentation {
 	protected $definitions = [];
 
 	/**
+	 * The registered tags.
+	 *
+	 * @since TBD
+	 *
+	 * @var Tag_Interface[]
+	 */
+	protected $tags = [];
+
+	/**
 	 * Returns an array in the format used by Swagger.
 	 *
 	 * @since TBD
@@ -71,6 +81,7 @@ class Documentation {
 		$documentation = [
 			'openapi'    => self::SWAGGER_VERSION,
 			'info'       => $this->get_api_info(),
+			'tags'       => $this->get_tags(),
 			'components' => [ 'schemas' => $this->get_definitions() ],
 			'servers'    => [
 				[
@@ -103,6 +114,10 @@ class Documentation {
 			'title'       => __( 'The Events Calendar REST API', 'the-events-calendar' ),
 			'version'     => self::TEC_REST_API_VERSION,
 			'description' => __( 'The Events Calendar REST API allows accessing upcoming events information easily and conveniently.', 'the-events-calendar' ),
+			'contact'     => [
+				'name'  => __( 'The Events Calendar', 'the-events-calendar' ),
+				'email' => 'support@theeventscalendar.com',
+			],
 		];
 	}
 
@@ -118,6 +133,17 @@ class Documentation {
 	}
 
 	/**
+	 * Registers a tag.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tag_Interface $tag The tag to register.
+	 */
+	public function register_tag( Tag_Interface $tag ): void {
+		$this->tags[] = $tag;
+	}
+
+	/**
 	 * Registers a definition.
 	 *
 	 * @since TBD
@@ -126,6 +152,17 @@ class Documentation {
 	 */
 	public function register_definition( Definition_Interface $definition ): void {
 		$this->definitions[] = $definition;
+	}
+
+	/**
+	 * Returns the tags.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	protected function get_tags(): array {
+		return $this->tags;
 	}
 
 	/**

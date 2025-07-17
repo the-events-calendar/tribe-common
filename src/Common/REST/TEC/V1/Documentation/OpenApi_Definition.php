@@ -74,6 +74,21 @@ class OpenApi_Definition implements Definition_Interface {
 							'type'        => 'string',
 							'description' => __( 'The API description.', 'the-events-calendar' ),
 						],
+						'contact'     => [
+							'type'        => 'object',
+							'description' => __( 'The API contact.', 'the-events-calendar' ),
+							'properties'  => [
+								'name'  => [
+									'type'        => 'string',
+									'description' => __( 'The name of the contact.', 'the-events-calendar' ),
+								],
+								'email' => [
+									'type'        => 'string',
+									'description' => __( 'The email of the contact.', 'the-events-calendar' ),
+									'format'      => 'email',
+								],
+							],
+						],
 					],
 				],
 				'components' => [

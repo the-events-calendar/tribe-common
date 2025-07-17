@@ -54,29 +54,85 @@ class Date_Details_Definition implements Definition_Interface {
 		$documentation = [
 			'type'       => 'object',
 			'properties' => [
-				'year'    => [
-					'type'        => 'integer',
-					'description' => __( 'The date year', 'tribe-common' ),
+				'start'         => [
+					'allOf' => [
+						[
+							'$ref' => '#/components/schemas/Date',
+						],
+						[
+							'description' => __( 'The start date', 'tribe-common' ),
+						],
+					],
 				],
-				'month'   => [
-					'type'        => 'integer',
-					'description' => __( 'The date month', 'tribe-common' ),
+				'start_utc'     => [
+					'allOf' => [
+						[
+							'$ref' => '#/components/schemas/Date',
+						],
+						[
+							'description' => __( 'The start date in UTC', 'tribe-common' ),
+						],
+					],
 				],
-				'day'     => [
-					'type'        => 'integer',
-					'description' => __( 'The date day', 'tribe-common' ),
+				'start_site'    => [
+					'allOf' => [
+						[
+							'$ref' => '#/components/schemas/Date',
+						],
+						[
+							'description' => __( 'The start date in the site timezone', 'tribe-common' ),
+						],
+					],
 				],
-				'hour'    => [
-					'type'        => 'integer',
-					'description' => __( 'The date hour', 'tribe-common' ),
+				'start_display' => [
+					'allOf' => [
+						[
+							'$ref' => '#/components/schemas/Date',
+						],
+						[
+							'description' => __( 'The start date in the display timezone', 'tribe-common' ),
+						],
+					],
 				],
-				'minutes' => [
-					'type'        => 'integer',
-					'description' => __( 'The date minutes', 'tribe-common' ),
+				'end'           => [
+					'allOf' => [
+						[
+							'$ref' => '#/components/schemas/Date',
+						],
+						[
+							'description' => __( 'The end date', 'tribe-common' ),
+						],
+					],
 				],
-				'seconds' => [
-					'type'        => 'integer',
-					'description' => __( 'The date seconds', 'tribe-common' ),
+				'end_utc'       => [
+					'allOf' => [
+						[
+							'$ref' => '#/components/schemas/Date',
+						],
+						[
+							'description' => __( 'The end date in UTC', 'tribe-common' ),
+						],
+					],
+				],
+				'end_site'      => [
+					'allOf' => [
+						[
+							'$ref' => '#/components/schemas/Date',
+						],
+						[
+							'description' => __( 'The end date in the site timezone', 'tribe-common' ),
+						],
+					],
+				],
+				'end_display'   => [
+					'allOf' => [
+						[
+							'$ref' => '#/components/schemas/Date',
+						],
+						[
+							'description' => __( 'The end date in the display timezone', 'tribe-common' ),
+						],
+					],
 				],
 			],
 		];
