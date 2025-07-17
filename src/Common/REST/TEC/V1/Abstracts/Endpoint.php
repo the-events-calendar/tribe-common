@@ -18,6 +18,7 @@ use TEC\Common\REST\TEC\V1\Contracts\Updatable_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\Deletable_Endpoint;
 use TEC\Common\REST\TEC\V1\Controller;
 use WP_REST_Server;
+use WP_REST_Request;
 
 /**
  * Endpoint class.
@@ -100,5 +101,61 @@ abstract class Endpoint implements Endpoint_Interface {
 		$methods['schema'] = fn() => $this->get_schema();
 
 		return $methods;
+	}
+
+	/**
+	 * Gets the current REST URL for the request.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_REST_Request $request The request object.
+	 *
+	 * @return string The current REST URL.
+	 */
+	protected function get_current_rest_url( WP_REST_Request $request ): string {
+		$url = rest_url( $request->get_route() );
+
+		$params = $request->get_query_params();
+		if ( ! empty( $params ) ) {
+			$url = add_query_arg( $params, $url );
+		}
+
+		return $url;
+	}
+
+	/**
+	 * Gets the default posts per page.
+	 *
+	 * @since TBD
+	 *
+	 * @return int The default posts per page.
+	 */
+	protected function get_default_posts_per_page(): int {
+		/**
+		 * Filters the default number of events per page.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $per_page The default number of events per page.
+		 */
+		return apply_filters( 'tec_rest_events_default_per_page', (int) get_option( 'posts_per_page' ) );
+	}
+
+	/**
+	 * Gets the maximum posts per page.
+	 *
+	 * @since TBD
+	 *
+	 * @return int The maximum posts per page.
+	 */
+	protected function get_max_posts_per_page(): int {
+		/**
+		 * Filters the maximum number of events per page.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $max_per_page The maximum number of events per page.
+		 */
+		return apply_filters( 'tec_rest_events_max_per_page', 100 );
 	}
 }

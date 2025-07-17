@@ -11,6 +11,8 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Contracts;
 
+use WP_Post;
+
 /**
  * Post Entity Endpoint interface.
  *
@@ -36,4 +38,35 @@ interface Post_Entity_Endpoint_Interface extends Endpoint_Interface {
 	 * @return bool
 	 */
 	public function guest_can_read(): bool;
+
+	/**
+	 * Returns the model class.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_model_class(): string;
+
+	/**
+	 * Validates the status parameter.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $value The value to validate.
+	 *
+	 * @return bool Whether the value is valid.
+	 */
+	public function validate_status( $value ): bool;
+
+	/**
+	 * Formats a post into a post entity.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post $post The post to format.
+	 *
+	 * @return array
+	 */
+	public function get_formatted_entity( WP_Post $post ): array;
 }

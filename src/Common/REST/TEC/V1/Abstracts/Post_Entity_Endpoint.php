@@ -140,10 +140,26 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 				continue;
 			}
 
-			$data              = $rest_controller->prepare_item_for_response( $post, new WP_REST_Request() );
-			$formatted_posts[] = $this->add_properties_to_model( $rest_controller->prepare_response_for_collection( $data ), $post );
+			$formatted_posts[] = $this->get_formatted_entity( $post );
 		}
+
 		return $formatted_posts;
+	}
+
+	/**
+	 * Formats a post into a post entity.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post $post The post to format.
+	 *
+	 * @return array
+	 */
+	public function get_formatted_entity( WP_Post $post ): array {
+		$rest_controller = new WP_REST_Posts_Controller( $this->get_post_type() );
+		$data            = $rest_controller->prepare_item_for_response( $post, new WP_REST_Request() );
+
+		return $this->transform_entity( $this->add_properties_to_model( $rest_controller->prepare_response_for_collection( $data ), $post ) );
 	}
 
 	/**
@@ -156,7 +172,71 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	 *
 	 * @return array
 	 */
+	/**
+	 * Adds properties to the events.
+	 *
+	 * @since TBD
+	 *
+	 * @param array   $formatted_post The formatted post.
+	 * @param WP_Post $original_post  The original post.
+	 *
+	 * @return array The response with the properties added.
+	 */
 	protected function add_properties_to_model( array $formatted_post, WP_Post $original_post ): array {
-		return $formatted_post;
+		$properties_to_add = $this->get_model_class()::get_properties_to_add();
+
+		$data = array_merge( (array) $formatted_post, array_intersect_key( (array) $original_post, $properties_to_add ) );
+
+		$data['link'] = $data['permalink'];
+		unset(
+			$data['permalink'],
+			$data['meta'],
+		);
+
+		// Reorder the links.
+		$links = $data['_links'] ?? [];
+		if ( ! empty( $links ) ) {
+			unset( $data['_links'] );
+			$data['_links'] = $links;
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Validates the status parameter.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $value The value to validate.
+	 *
+	 * @return bool Whether the value is valid.
+	 */
+	public function validate_status( $value ): bool {
+		$value = is_string( $value ) ? explode( ',', $value ) : $value;
+
+		if ( ! is_array( $value ) ) {
+			return false;
+		}
+
+		$invalid_statuses = array_diff( $value, self::ALLOWED_STATUS );
+		if ( ! empty( $invalid_statuses ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Transforms the entity.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $entity The entity to transform.
+	 *
+	 * @return array
+	 */
+	protected function transform_entity( array $entity ): array {
+		return $entity;
 	}
 }
