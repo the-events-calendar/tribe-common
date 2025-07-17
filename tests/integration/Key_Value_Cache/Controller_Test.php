@@ -2,6 +2,7 @@
 
 namespace TEC\Common\Key_Value_Cache;
 
+use TEC\Common\Key_Value_Cache\Table\Schema;
 use TEC\Common\Tests\Provider\Controller_Test_Case;
 use Tribe\Tests\Traits\With_Uopz;
 
@@ -73,21 +74,21 @@ class Controller_Test extends Controller_Test_Case {
 
 		// Set up an expired key.
 		$wpdb->insert(
-			$wpdb->prefix . 'tec_kv_cache',
+			Schema::table_name(),
 			[
 				'cache_key'  => 'expired',
 				'value'      => 'expired_value',
 				'expiration' => time() - 1000,
-			] 
+			]
 		);
 		// Set up a non-expired key.
 		$wpdb->insert(
-			$wpdb->prefix . 'tec_kv_cache',
+			Schema::table_name(),
 			[
 				'cache_key'  => 'not_expired',
 				'value'      => 'not_expired_value',
 				'expiration' => time() + 1000,
-			] 
+			]
 		);
 
 		// Pre-clear checks.
@@ -98,7 +99,7 @@ class Controller_Test extends Controller_Test_Case {
 				'expired',
 				'not_expired',
 			],
-			$wpdb->get_col( "SELECT cache_key FROM {$wpdb->prefix}tec_kv_cache ORDER BY cache_key" ) 
+			$wpdb->get_col( "SELECT cache_key FROM {$wpdb->prefix}tec_kv_cache ORDER BY cache_key" )
 		);
 
 		$controller->clear_expired();
@@ -107,7 +108,7 @@ class Controller_Test extends Controller_Test_Case {
 		$this->assertEquals( 'not_expired_value', tec_kv_cache()->get( 'not_expired' ) );
 		$this->assertEquals(
 			[ 'not_expired' ],
-			$wpdb->get_col( "SELECT cache_key FROM {$wpdb->prefix}tec_kv_cache ORDER BY cache_key" ) 
+			$wpdb->get_col( "SELECT cache_key FROM {$wpdb->prefix}tec_kv_cache ORDER BY cache_key" )
 		);
 	}
 }
