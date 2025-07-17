@@ -17,11 +17,7 @@ use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
 use TEC\Common\REST\TEC\V1\Abstracts\Endpoints_Controller;
 use TEC\Common\REST\TEC\V1\Documentation\OpenApi_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\OpenApi_Path_Definition;
-use TEC\Common\REST\TEC\V1\Documentation\Cost_Details_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\Date_Details_Definition;
-use TEC\Common\REST\TEC\V1\Documentation\Image_Definition;
-use TEC\Common\REST\TEC\V1\Documentation\Image_Size_Definition;
-use TEC\Common\REST\TEC\V1\Documentation\Term_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\TEC_Post_Entity_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\Date_Definition;
 use TEC\Common\REST\TEC\V1\Tags\Common_Tag;
@@ -71,12 +67,8 @@ class Endpoints extends Endpoints_Controller {
 		return [
 			OpenApi_Definition::class,
 			OpenApi_Path_Definition::class,
-			Cost_Details_Definition::class,
 			Date_Details_Definition::class,
 			Date_Definition::class,
-			Image_Definition::class,
-			Image_Size_Definition::class,
-			Term_Definition::class,
 			TEC_Post_Entity_Definition::class,
 		];
 	}
