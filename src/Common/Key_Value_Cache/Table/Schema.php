@@ -77,7 +77,7 @@ class Schema extends Table {
 		 * `wp_postmeta` table.
 		 */
 
-		return "CREATE TABE {$table_name} (
+		return "CREATE TABLE {$table_name} (
 				cache_key varchar(191) NOT NULL,
 				value longtext DEFAULT NULL,
 				expiration bigint(20) UNSIGNED DEFAULT 0,
