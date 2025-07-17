@@ -101,10 +101,11 @@ interface Key_Value_Cache_Interface {
 	 * @since TBD
 	 *
 	 * @param string $key The key to return the value for.
+	 * @param array  $allowed_classes The classes that are allowed to be unserialized.
 	 *
 	 * @return mixed The unserialized value if the key exists and can be unserialized, else null.
 	 */
-	public function get_serialized( string $key );
+	public function get_serialized( string $key, array $allowed_classes = [] );
 
 	/**
 	 * Stores a serialized value for a key.

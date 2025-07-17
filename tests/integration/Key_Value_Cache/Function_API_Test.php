@@ -13,8 +13,8 @@ class Function_API_Test extends Controller_Test_Case {
 
 	protected $controller_class = Controller::class;
 
-	private function deactivate_log_listener():void{
-		remove_all_filters('tribe_log');
+	private function deactivate_log_listener(): void {
+		remove_all_filters( 'tribe_log' );
 	}
 
 	public function test_function_api_when_using_object_caching(): void {
@@ -88,15 +88,15 @@ class Function_API_Test extends Controller_Test_Case {
 		$this->assertEquals( json_encode( $json_data ), wp_cache_get( 'json_key', Object_Cache::CACHE_GROUP ) );
 
 		// Test set_json().
-		$json_data2 = [
+		$json_data2          = [
 			'status' => 'active',
 			'count'  => 42,
 			'nested' => [ 'deep' => 'value' ],
 		];
-		$expected_json_data2 = (object)[
+		$expected_json_data2 = (object) [
 			'status' => 'active',
 			'count'  => 42,
-			'nested' => (object)[ 'deep' => 'value' ],
+			'nested' => (object) [ 'deep' => 'value' ],
 		];
 		$this->assertTrue( $cache->set_json( 'json_key2', $json_data2, 300 ) );
 		$this->assertEquals( $json_data2, $cache->get_json( 'json_key2', true ) );
@@ -105,7 +105,10 @@ class Function_API_Test extends Controller_Test_Case {
 		$this->assertEquals( wp_json_encode( $json_data2 ), wp_cache_get( 'json_key2', Object_Cache::CACHE_GROUP ) );
 
 		// Test set_json() with object.
-		$obj = (object) [ 'property' => 'value', 'number' => 123 ];
+		$obj = (object) [
+			'property' => 'value',
+			'number'   => 123,
+		];
 		$this->assertTrue( $cache->set_json( 'json_object', $obj, 300 ) );
 		$retrieved_as_object = $cache->get_json( 'json_object', false );
 		$this->assertEquals( $obj, $retrieved_as_object );
@@ -151,11 +154,14 @@ class Function_API_Test extends Controller_Test_Case {
 			'property3' => [ 'nested' => 'array' ],
 		];
 		$this->assertTrue( $cache->set_serialized( 'serialized_object', $test_object, 300 ) );
-		$retrieved_object = $cache->get_serialized( 'serialized_object' );
+		$retrieved_object = $cache->get_serialized( 'serialized_object', [ \stdClass::class ] );
 		$this->assertEquals( $test_object, $retrieved_object );
 
 		// Test serializing array.
-		$test_array = [ 'key1' => 'value1', 'key2' => [ 'nested' => true ] ];
+		$test_array = [
+			'key1' => 'value1',
+			'key2' => [ 'nested' => true ],
+		];
 		$this->assertTrue( $cache->set_serialized( 'serialized_array', $test_array, 300 ) );
 		$retrieved_array = $cache->get_serialized( 'serialized_array' );
 		$this->assertEquals( $test_array, $retrieved_array );
@@ -238,22 +244,25 @@ class Function_API_Test extends Controller_Test_Case {
 		$this->assertNull( $cache->get_json( 'invalid_json' ) );
 
 		// Test set_json().
-		$json_data2 = [
+		$json_data2          = [
 			'status' => 'active',
 			'count'  => 42,
 			'nested' => [ 'deep' => 'value' ],
 		];
-		$expected_json_data2 = (object)[
+		$expected_json_data2 = (object) [
 			'status' => 'active',
 			'count'  => 42,
-			'nested' => (object)[ 'deep' => 'value' ],
+			'nested' => (object) [ 'deep' => 'value' ],
 		];
 		$this->assertTrue( $cache->set_json( 'json_key2', $json_data2, 300 ) );
 		$this->assertEquals( $json_data2, $cache->get_json( 'json_key2', true ) );
 		$this->assertEquals( $expected_json_data2, $cache->get_json( 'json_key2', false ) );
 
 		// Test set_json() with object.
-		$obj = (object) [ 'property' => 'value', 'number' => 123 ];
+		$obj = (object) [
+			'property' => 'value',
+			'number'   => 123,
+		];
 		$this->assertTrue( $cache->set_json( 'json_object', $obj, 300 ) );
 		$retrieved_as_object = $cache->get_json( 'json_object', false );
 		$this->assertEquals( $obj, $retrieved_as_object );
@@ -307,11 +316,14 @@ class Function_API_Test extends Controller_Test_Case {
 			'property3' => [ 'nested' => 'array' ],
 		];
 		$this->assertTrue( $cache->set_serialized( 'serialized_object', $test_object, 300 ) );
-		$retrieved_object = $cache->get_serialized( 'serialized_object' );
+		$retrieved_object = $cache->get_serialized( 'serialized_object', [ \stdClass::class ] );
 		$this->assertEquals( $test_object, $retrieved_object );
 
 		// Test serializing array.
-		$test_array = [ 'key1' => 'value1', 'key2' => [ 'nested' => true ] ];
+		$test_array = [
+			'key1' => 'value1',
+			'key2' => [ 'nested' => true ],
+		];
 		$this->assertTrue( $cache->set_serialized( 'serialized_array', $test_array, 300 ) );
 		$retrieved_array = $cache->get_serialized( 'serialized_array' );
 		$this->assertEquals( $test_array, $retrieved_array );

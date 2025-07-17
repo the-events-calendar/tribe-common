@@ -104,10 +104,11 @@ trait Key_Value_Cache_Methods_Trait {
 	 * @since TBD
 	 *
 	 * @param string $key The key to return the value for.
+	 * @param array  $allowed_classes The classes that are allowed to be unserialized.
 	 *
 	 * @return mixed The unserialized value if the key exists and can be unserialized, else null.
 	 */
-	public function get_serialized( string $key ) {
+	public function get_serialized( string $key, array $allowed_classes = [] ) {
 		$value = $this->get( $key );
 
 		if ( empty( $value ) ) {
@@ -116,7 +117,7 @@ trait Key_Value_Cache_Methods_Trait {
 
 		try {
 			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
-			$unserialized = unserialize( $value, [ 'allow_classes' => true ] );
+			$unserialized = unserialize( $value, [ 'allowed_classes' => $allowed_classes ] );
 		} catch ( \Exception $e ) {
 			do_action(
 				'tribe_log',
