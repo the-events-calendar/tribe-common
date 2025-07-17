@@ -39,7 +39,6 @@ trait Read_Archive_Response {
 		/** @var Tribe__Repository__Interface $query */
 		$query = $this->build_query( $request );
 
-		// Set pagination.
 		$query->page( $page )->per_page( $per_page );
 
 		$data  = $this->format_post_entity_collection( $query->all() );

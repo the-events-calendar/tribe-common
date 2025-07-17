@@ -16,6 +16,7 @@ use WP_REST_Request;
 use WP_REST_Posts_Controller;
 use WP_Post_Type;
 use WP_Post;
+use TEC\Common\REST\TEC\V1\Contracts\Readable_Endpoint;
 
 /**
  * Endpoint class.
@@ -238,5 +239,51 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	 */
 	protected function transform_entity( array $entity ): array {
 		return $entity;
+	}
+
+	/**
+	 * Returns the documentation parameters for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	protected function get_read_documentation_params(): array {
+		if ( ! $this instanceof Readable_Endpoint ) {
+			return [];
+		}
+
+		$args   = $this->read_args();
+		$params = [];
+
+		foreach ( $args as $arg_name => $arg_schema ) {
+			$param = [
+				'name'        => $arg_name,
+				'in'          => 'query',
+				'schema'      => $arg_schema,
+				'description' => $arg_schema['description'] ?? '',
+				'required'    => $arg_schema['required'] ?? false,
+			];
+
+			if ( isset( $arg_schema['style'] ) ) {
+				$param['style'] = $arg_schema['style'];
+			}
+
+			if ( isset( $arg_schema['explode'] ) ) {
+				$param['explode'] = $arg_schema['explode'];
+			}
+
+			unset(
+				$param['schema']['validate_callback'],
+				$param['schema']['description'],
+				$param['schema']['required'],
+				$param['schema']['style'],
+				$param['schema']['explode'],
+			);
+
+			$params[] = $param;
+		}
+
+		return $params;
 	}
 }
