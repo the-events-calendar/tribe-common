@@ -22,10 +22,20 @@ if ($cache->has('user_data_123')) {
 }
 
 // Store and retrieve JSON data.
-$json_string = wp_json_encode(['status' => 'ok', 'count' => 42]);
-$cache->set('api_response', $json_string, 3600);
+$cache->set_json('api_response', ['status' => 'ok', 'count' => 42], 3600);
 $response = $cache->get_json('api_response', true); // Returns associative array.
 $response = $cache->get_json('api_response'); // Returns stdClass object.
+
+// Store and retrieve serialized objects.
+$user_data = new stdClass();
+$user_data->name = 'John Doe';
+$user_data->preferences = ['theme' => 'dark', 'notifications' => true];
+$cache->set_serialized('user_123_data', $user_data, 600);
+$retrieved_data = $cache->get_serialized('user_123_data'); // Returns the original object.
+
+// Works with arrays and scalar values too.
+$cache->set_serialized('config_array', ['key' => 'value'], 300);
+$config = $cache->get_serialized('config_array'); // Returns the array.
 
 // Delete a specific key.
 $cache->delete('user_data_123');
@@ -35,6 +45,23 @@ $cache->delete('user_data_123');
 // When using the table cache this will delete all entries from the table.
 $cache->flush();
 ```
+
+## Why Explicit Data Type APIs?
+
+The key-value cache provides distinct APIs for different data types (`set()`/`get()` for strings, `set_serialized()`/`get_serialized()` for PHP objects, and `set_json()`/`get_json()` for JSON) rather than a single API that automatically detects and handles data types.
+
+This design choice is intentional:
+
+1. **Developer clarity**: By requiring developers to explicitly choose which API to use, they must think about the data type they're storing and retrieving. This prevents assumptions and makes the code more self-documenting.
+
+2. **Avoid hidden errors**: Automatic type detection can lead to subtle bugs. For example:
+   - A string that looks like JSON but isn't valid would fail silently
+   - Serialized data could be mistaken for a regular string
+   - Type mismatches between storage and retrieval could cause runtime errors
+
+3. **Performance**: Knowing the data type upfront avoids the overhead of trying multiple parsing strategies to determine how to handle the value.
+
+4. **Predictable behavior**: Each API has clear expectations about input and output types, making the cache behavior consistent and testable.
 
 ## Implementation Details
 

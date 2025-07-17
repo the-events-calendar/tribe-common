@@ -44,4 +44,98 @@ trait Key_Value_Cache_Methods_Trait {
 
 		return $decoded;
 	}
+
+	/**
+	 * Stores a serialized value for a key.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key        The key to store the value for.
+	 * @param mixed  $value      The value to serialize and store.
+	 * @param int    $expiration The cache expiration, it cannot be below 300 seconds.
+	 *
+	 * @return bool Whether the value was correctly serialized and stored.
+	 */
+	public function set_serialized( string $key, $value, int $expiration = 300 ): bool {
+		try {
+			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+			$serialized = serialize( $value );
+		} catch ( \Exception $e ) {
+			do_action(
+				'tribe_log',
+				'error',
+				'Key Value Cache serialization error for key "' . $key . '": ' . $e->getMessage()
+			);
+			return false;
+		}
+
+		return $this->set( $key, $serialized, $expiration );
+	}
+
+	/**
+	 * Stores a JSON-encoded value for a key.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key        The key to store the value for.
+	 * @param mixed  $value      The value to encode as JSON and store.
+	 * @param int    $expiration The cache expiration, it cannot be below 300 seconds.
+	 *
+	 * @return bool Whether the value was correctly JSON-encoded and stored.
+	 */
+	public function set_json( string $key, $value, int $expiration = 300 ): bool {
+		$encoded = wp_json_encode( $value );
+
+		if ( false === $encoded ) {
+			do_action(
+				'tribe_log',
+				'error',
+				'Key Value Cache JSON encoding error for key "' . $key . '": Failed to encode value'
+			);
+			return false;
+		}
+
+		return $this->set( $key, $encoded, $expiration );
+	}
+
+	/**
+	 * Gets a cached value and attempts to unserialize it.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key The key to return the value for.
+	 *
+	 * @return mixed The unserialized value if the key exists and can be unserialized, else null.
+	 */
+	public function get_serialized( string $key ) {
+		$value = $this->get( $key );
+
+		if ( empty( $value ) ) {
+			return null;
+		}
+
+		try {
+			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
+			$unserialized = unserialize( $value, [ 'allow_classes' => true ] );
+		} catch ( \Exception $e ) {
+			do_action(
+				'tribe_log',
+				'error',
+				'Key Value Cache unserialization error for key "' . $key . '": ' . $e->getMessage()
+			);
+			return null;
+		}
+
+		// unserialize() returns false on failure, but false might also be the actual value.
+		if ( false === $unserialized && 'b:0;' !== $value ) {
+			do_action(
+				'tribe_log',
+				'error',
+				'Key Value Cache unserialization failed for key "' . $key . '": invalid serialized data'
+			);
+			return null;
+		}
+
+		return $unserialized;
+	}
 }

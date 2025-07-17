@@ -83,6 +83,43 @@ interface Key_Value_Cache_Interface {
 	public function get_json( string $key, bool $associative = false );
 
 	/**
+	 * Stores a JSON-encoded value for a key.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key        The key to store the value for.
+	 * @param mixed  $value      The value to encode as JSON and store.
+	 * @param int    $expiration The cache expiration, it cannot be below 300 seconds.
+	 *
+	 * @return bool Whether the value was correctly JSON-encoded and stored.
+	 */
+	public function set_json( string $key, $value, int $expiration = 300 ): bool;
+
+	/**
+	 * Gets a cached value and attempts to unserialize it.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key The key to return the value for.
+	 *
+	 * @return mixed The unserialized value if the key exists and can be unserialized, else null.
+	 */
+	public function get_serialized( string $key );
+
+	/**
+	 * Stores a serialized value for a key.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key        The key to store the value for.
+	 * @param mixed  $value      The value to serialize and store.
+	 * @param int    $expiration The cache expiration, it cannot be below 300 seconds.
+	 *
+	 * @return bool Whether the value was correctly serialized and stored.
+	 */
+	public function set_serialized( string $key, $value, int $expiration = 300 ): bool;
+
+	/**
 	 * Flushes the cache.
 	 *
 	 * @since TBD
