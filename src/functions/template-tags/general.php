@@ -3,7 +3,6 @@
  * Display functions (template-tags) for use in WordPress templates.
  */
 
-use TEC\Common\Key_Value_Cache\Key_Value_Cache;
 use TEC\Common\Key_Value_Cache\Key_Value_Cache_Interface;
 use TEC\Common\StellarWP\Assets\Asset;
 use TEC\Common\StellarWP\Assets\Assets;
