@@ -56,35 +56,35 @@ class OpenApi_Definition implements Definition_Interface {
 			'properties' => [
 				'openapi'    => [
 					'type'        => 'string',
-					'description' => __( 'The OpenAPI version.', 'the-events-calendar' ),
+					'description' => __( 'The OpenAPI version.', 'tribe-common' ),
 				],
 				'info'       => [
 					'type'        => 'object',
-					'description' => __( 'The API info.', 'the-events-calendar' ),
+					'description' => __( 'The API info.', 'tribe-common' ),
 					'properties'  => [
 						'title'       => [
 							'type'        => 'string',
-							'description' => __( 'The API title.', 'the-events-calendar' ),
+							'description' => __( 'The API title.', 'tribe-common' ),
 						],
 						'version'     => [
 							'type'        => 'string',
-							'description' => __( 'The TEC REST API version.', 'the-events-calendar' ),
+							'description' => __( 'The TEC REST API version.', 'tribe-common' ),
 						],
 						'description' => [
 							'type'        => 'string',
-							'description' => __( 'The API description.', 'the-events-calendar' ),
+							'description' => __( 'The API description.', 'tribe-common' ),
 						],
 						'contact'     => [
 							'type'        => 'object',
-							'description' => __( 'The API contact.', 'the-events-calendar' ),
+							'description' => __( 'The API contact.', 'tribe-common' ),
 							'properties'  => [
 								'name'  => [
 									'type'        => 'string',
-									'description' => __( 'The name of the contact.', 'the-events-calendar' ),
+									'description' => __( 'The name of the contact.', 'tribe-common' ),
 								],
 								'email' => [
 									'type'        => 'string',
-									'description' => __( 'The email of the contact.', 'the-events-calendar' ),
+									'description' => __( 'The email of the contact.', 'tribe-common' ),
 									'format'      => 'email',
 								],
 							],
@@ -93,24 +93,24 @@ class OpenApi_Definition implements Definition_Interface {
 				],
 				'components' => [
 					'type'        => 'object',
-					'description' => __( 'The OpenAPI components.', 'the-events-calendar' ),
+					'description' => __( 'The OpenAPI components.', 'tribe-common' ),
 					'properties'  => [
 						'schemas' => [
 							'type'        => 'object',
-							'description' => __( 'The OpenAPI schemas.', 'the-events-calendar' ),
+							'description' => __( 'The OpenAPI schemas.', 'tribe-common' ),
 						],
 					],
 				],
 				'servers'    => [
 					'type'        => 'array',
-					'description' => __( 'The OpenAPI servers.', 'the-events-calendar' ),
+					'description' => __( 'The OpenAPI servers.', 'tribe-common' ),
 					'items'       => [
 						'type'        => 'object',
-						'description' => __( 'A server.', 'the-events-calendar' ),
+						'description' => __( 'A server.', 'tribe-common' ),
 						'properties'  => [
 							'url' => [
 								'type'        => 'string',
-								'description' => __( 'The server URL.', 'the-events-calendar' ),
+								'description' => __( 'The server URL.', 'tribe-common' ),
 								'format'      => 'uri',
 							],
 						],
@@ -118,7 +118,7 @@ class OpenApi_Definition implements Definition_Interface {
 				],
 				'paths'      => [
 					'type'        => 'object',
-					'description' => __( 'The OpenAPI paths.', 'the-events-calendar' ),
+					'description' => __( 'The OpenAPI paths.', 'tribe-common' ),
 					'properties'  => [
 						'OpenApiPath' => [
 							'$ref' => '#/components/schemas/OpenApiPath',

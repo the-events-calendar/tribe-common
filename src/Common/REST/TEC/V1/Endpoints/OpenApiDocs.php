@@ -91,43 +91,43 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 			'properties' => [
 				'openapi'    => [
 					'type'        => 'string',
-					'description' => __( 'The OpenAPI version.', 'the-events-calendar' ),
+					'description' => __( 'The OpenAPI version.', 'tribe-common' ),
 					'readonly'    => true,
 				],
 				'info'       => [
 					'title'       => 'openapi_info',
 					'type'        => 'object',
-					'description' => __( 'The API info.', 'the-events-calendar' ),
+					'description' => __( 'The API info.', 'tribe-common' ),
 					'readonly'    => true,
 					'properties'  => [
 						'title'       => [
 							'type'        => 'string',
-							'description' => __( 'The API title.', 'the-events-calendar' ),
+							'description' => __( 'The API title.', 'tribe-common' ),
 							'readonly'    => true,
 						],
 						'version'     => [
 							'type'        => 'string',
-							'description' => __( 'The TEC REST API version.', 'the-events-calendar' ),
+							'description' => __( 'The TEC REST API version.', 'tribe-common' ),
 							'readonly'    => true,
 						],
 						'description' => [
 							'type'        => 'string',
-							'description' => __( 'The API description.', 'the-events-calendar' ),
+							'description' => __( 'The API description.', 'tribe-common' ),
 							'readonly'    => true,
 						],
 						'contact'     => [
 							'type'        => 'object',
-							'description' => __( 'The API contact.', 'the-events-calendar' ),
+							'description' => __( 'The API contact.', 'tribe-common' ),
 							'readonly'    => true,
 							'properties'  => [
 								'name'  => [
 									'type'        => 'string',
-									'description' => __( 'The name of the contact.', 'the-events-calendar' ),
+									'description' => __( 'The name of the contact.', 'tribe-common' ),
 									'readonly'    => true,
 								],
 								'email' => [
 									'type'        => 'string',
-									'description' => __( 'The email of the contact.', 'the-events-calendar' ),
+									'description' => __( 'The email of the contact.', 'tribe-common' ),
 									'readonly'    => true,
 								],
 							],
@@ -137,19 +137,19 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 				'components' => [
 					'title'       => 'openapi_components',
 					'type'        => 'object',
-					'description' => __( 'The OpenAPI components.', 'the-events-calendar' ),
+					'description' => __( 'The OpenAPI components.', 'tribe-common' ),
 					'readonly'    => true,
 					'properties'  => [
 						'schemas' => [
 							'title'       => 'openapi_schemas',
 							'type'        => 'object',
-							'description' => __( 'The OpenAPI schemas.', 'the-events-calendar' ),
+							'description' => __( 'The OpenAPI schemas.', 'tribe-common' ),
 							'readonly'    => true,
 							'properties'  => [
 								'openapi_schema' => [
 									'type'        => 'object',
 									'title'       => 'openapi_schema',
-									'description' => __( 'An object\'s schema.', 'the-events-calendar' ),
+									'description' => __( 'An object\'s schema.', 'tribe-common' ),
 									'readonly'    => true,
 								],
 							],
@@ -159,16 +159,16 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 				'servers'    => [
 					'title'       => 'openapi_servers',
 					'type'        => 'array',
-					'description' => __( 'The OpenAPI servers.', 'the-events-calendar' ),
+					'description' => __( 'The OpenAPI servers.', 'tribe-common' ),
 					'readonly'    => true,
 					'items'       => [
 						'type'        => 'object',
-						'description' => __( 'A server.', 'the-events-calendar' ),
+						'description' => __( 'A server.', 'tribe-common' ),
 						'readonly'    => true,
 						'properties'  => [
 							'url' => [
 								'type'        => 'string',
-								'description' => __( 'The server URL.', 'the-events-calendar' ),
+								'description' => __( 'The server URL.', 'tribe-common' ),
 								'format'      => 'uri',
 								'readonly'    => true,
 							],
@@ -178,13 +178,13 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 				'paths'      => [
 					'title'       => 'OpenApiPaths',
 					'type'        => 'object',
-					'description' => __( 'The OpenAPI paths.', 'the-events-calendar' ),
+					'description' => __( 'The OpenAPI paths.', 'tribe-common' ),
 					'readonly'    => true,
 					'properties'  => [
 						'OpenApiPath' => [
 							'title'       => 'OpenApiPath',
 							'type'        => 'object',
-							'description' => __( 'A path\'s documentation.', 'the-events-calendar' ),
+							'description' => __( 'A path\'s documentation.', 'tribe-common' ),
 							'readonly'    => true,
 						],
 					],
@@ -203,13 +203,13 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 	public function get_documentation(): array {
 		return [
 			'get' => [
-				'summary'     => __( 'Get the documentation for the TEC REST API', 'the-events-calendar' ),
-				'description' => __( 'Returns the documentation for The Events Calendar REST API in Swagger consumable format.', 'the-events-calendar' ),
+				'summary'     => __( 'Get the documentation for the TEC REST API', 'tribe-common' ),
+				'description' => __( 'Returns the documentation for The Events Calendar REST API in Swagger consumable format.', 'tribe-common' ),
 				'operationId' => 'getOpenApiDocs',
 				'tags'        => [ tribe( Common_Tag::class )->get_name() ],
 				'responses'   => [
 					'200' => [
-						'description' => __( 'Returns the documentation for The Events Calendar REST API in Swagger consumable format.', 'the-events-calendar' ),
+						'description' => __( 'Returns the documentation for The Events Calendar REST API in Swagger consumable format.', 'tribe-common' ),
 						'content'     => [
 							'application/json' => [
 								'schema' => [

@@ -49,7 +49,7 @@ trait Read_Archive_Response {
 			return new WP_REST_Response(
 				[
 					'code'    => 'tec_rest_organizers_page_not_found',
-					'message' => __( 'The requested page was not found.', 'the-events-calendar' ),
+					'message' => __( 'The requested page was not found.', 'tribe-common' ),
 				],
 				404
 			);

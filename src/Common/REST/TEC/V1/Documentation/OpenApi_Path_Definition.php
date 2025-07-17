@@ -56,61 +56,61 @@ class OpenApi_Path_Definition implements Definition_Interface {
 			'properties' => [
 				'get' => [
 					'type'        => 'object',
-					'description' => __( 'The GET method for the path.', 'the-events-calendar' ),
+					'description' => __( 'The GET method for the path.', 'tribe-common' ),
 					'properties'  => [
 						'description' => [
 							'type'        => 'string',
-							'description' => __( 'The description of the GET method.', 'the-events-calendar' ),
+							'description' => __( 'The description of the GET method.', 'tribe-common' ),
 						],
 						'parameters'  => [
 							'type'        => 'array',
-							'description' => __( 'The parameters of the GET method.', 'the-events-calendar' ),
+							'description' => __( 'The parameters of the GET method.', 'tribe-common' ),
 							'items'       => [
 								'type'        => 'object',
-								'description' => __( 'A parameter.', 'the-events-calendar' ),
+								'description' => __( 'A parameter.', 'tribe-common' ),
 								'properties'  => [
 									'name'     => [
 										'type'        => 'string',
-										'description' => __( 'The name of the parameter.', 'the-events-calendar' ),
+										'description' => __( 'The name of the parameter.', 'tribe-common' ),
 									],
 									'in'       => [
 										'type'        => 'string',
-										'description' => __( 'The location of the parameter.', 'the-events-calendar' ),
+										'description' => __( 'The location of the parameter.', 'tribe-common' ),
 									],
 									'required' => [
 										'type'        => 'boolean',
-										'description' => __( 'Whether the parameter is required.', 'the-events-calendar' ),
+										'description' => __( 'Whether the parameter is required.', 'tribe-common' ),
 									],
 									'schema'   => [
 										'type'        => 'object',
-										'description' => __( 'The schema of the parameter.', 'the-events-calendar' ),
+										'description' => __( 'The schema of the parameter.', 'tribe-common' ),
 									],
 								],
 							],
 						],
 						'responses'   => [
 							'type'        => 'object',
-							'description' => __( 'The responses of the GET method.', 'the-events-calendar' ),
+							'description' => __( 'The responses of the GET method.', 'tribe-common' ),
 							'properties'  => [
 								200 => [
 									'type'        => 'object',
-									'description' => __( 'The response for the GET method.', 'the-events-calendar' ),
+									'description' => __( 'The response for the GET method.', 'tribe-common' ),
 									'properties'  => [
 										'content' => [
 											'type'        => 'object',
-											'description' => __( 'The content of the response.', 'the-events-calendar' ),
+											'description' => __( 'The content of the response.', 'tribe-common' ),
 											'properties'  => [
 												'application/json' => [
 													'type'        => 'object',
-													'description' => __( 'The JSON content of the response.', 'the-events-calendar' ),
+													'description' => __( 'The JSON content of the response.', 'tribe-common' ),
 													'properties'  => [
 														'schema' => [
 															'type'        => 'object',
-															'description' => __( 'The schema of the content.', 'the-events-calendar' ),
+															'description' => __( 'The schema of the content.', 'tribe-common' ),
 															'properties'  => [
 																'type' => [
 																	'type'        => 'string',
-																	'description' => __( 'The type of the content.', 'the-events-calendar' ),
+																	'description' => __( 'The type of the content.', 'tribe-common' ),
 																],
 															],
 														],

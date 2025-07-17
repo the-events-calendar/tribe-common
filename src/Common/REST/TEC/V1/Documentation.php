@@ -111,11 +111,11 @@ class Documentation {
 	 */
 	protected function get_api_info(): array {
 		return [
-			'title'       => __( 'The Events Calendar REST API', 'the-events-calendar' ),
+			'title'       => __( 'The Events Calendar REST API', 'tribe-common' ),
 			'version'     => self::TEC_REST_API_VERSION,
-			'description' => __( 'The Events Calendar REST API allows accessing upcoming events information easily and conveniently.', 'the-events-calendar' ),
+			'description' => __( 'The Events Calendar REST API allows accessing upcoming events information easily and conveniently.', 'tribe-common' ),
 			'contact'     => [
-				'name'  => __( 'The Events Calendar', 'the-events-calendar' ),
+				'name'  => __( 'The Events Calendar', 'tribe-common' ),
 				'email' => 'support@theeventscalendar.com',
 			],
 		];
