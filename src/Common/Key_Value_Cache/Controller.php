@@ -69,14 +69,9 @@ class Controller extends Controller_Contract {
 			}
 		} else {
 			if ( doing_action( 'plugins_loaded' ) || did_action( 'plugins_loaded' ) ) {
-				$this->table_schema = Register::table( Schema::class );
+				$this->register_table_schema();
 			} else {
-				add_action(
-					'plugins_loaded',
-					function () {
-						$this->table_schema = Register::table( Schema::class );
-					} 
-				);
+				add_action( 'plugins_loaded', [ $this, 'register_table_schema' ] );
 			}
 
 			$this->container->singleton( Key_Value_Cache_Interface::class, Key_Value_Cache_Table::class );
@@ -88,6 +83,17 @@ class Controller extends Controller_Contract {
 
 			add_action( self::CLEAR_EXPIRED_ACTION, [ $this, 'clear_expired' ] );
 		}
+	}
+
+	/**
+	 * Register the custom table schema.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function register_table_schema(): void {
+		$this->table_schema = Register::table( Schema::class );
 	}
 
 	/**
@@ -103,6 +109,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		remove_action( self::CLEAR_EXPIRED_ACTION, [ $this, 'clear_expired' ] );
+		remove_action( 'plugins_loaded', [ $this, 'register_table_schema' ] );
 
 		if ( ! wp_next_scheduled( self::CLEAR_EXPIRED_ACTION ) ) {
 			wp_unschedule_event( time(), self::CLEAR_EXPIRED_ACTION );
