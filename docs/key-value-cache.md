@@ -8,35 +8,71 @@ Access the cache via the `tec_kv_cache()` function:
 
 ```php
 $cache = tec_kv_cache();
+```
 
+### Basic String Storage
+
+Store and retrieve simple string values:
+
+```php
 // Store a value with 5-minute expiration (minimum allowed).
-$cache->set('user_data_123', 'serialized data here', 300);
+$cache->set( 'user_data_123', 'serialized data here', 300 );
 
 // Retrieve a value.
-$data = $cache->get('user_data_123'); // Returns the stored string.
-$data = $cache->get('missing_key', 'default'); // Returns 'default' if not found.
+$data = $cache->get( 'user_data_123' ); // Returns the stored string.
+$data = $cache->get( 'missing_key', 'default' ); // Returns 'default' if not found.
+```
 
-// Check if a key exists.
-if ($cache->has('user_data_123')) {
+### Checking Key Existence
+
+Verify if a key exists before retrieving:
+
+```php
+if ($cache->has( 'user_data_123' )) {
     // Key exists and hasn't expired.
+    $value = $cache->get( 'user_data_123' );
 }
+```
 
-// Store and retrieve JSON data.
-$cache->set_json('api_response', ['status' => 'ok', 'count' => 42], 3600);
-$response = $cache->get_json('api_response', true); // Returns associative array.
-$response = $cache->get_json('api_response'); // Returns stdClass object.
+### Working with JSON Data
 
-// Store and retrieve serialized objects.
+Store and retrieve structured data using JSON:
+
+```php
+// Store JSON data using set_json().
+$cache->set_json( 'api_response', [ 'status' => 'ok', 'count' => 42], 3600 );
+
+// Retrieve as associative array.
+$response = $cache->get_json( 'api_response', true );
+
+// Retrieve as stdClass object.
+$response = $cache->get_json( 'api_response', false );
+```
+
+### Serialized PHP Objects
+
+Store complex PHP objects with automatic serialization:
+
+```php
+// Store a complex object.
 $user_data = new stdClass();
 $user_data->name = 'John Doe';
-$user_data->preferences = ['theme' => 'dark', 'notifications' => true];
-$cache->set_serialized('user_123_data', $user_data, 600);
-$retrieved_data = $cache->get_serialized('user_123_data'); // Returns the original object.
+$user_data->preferences = [ 'theme' => 'dark', 'notifications' => true ];
+$cache->set_serialized( 'user_123_data', $user_data, 600 );
+
+// Retrieve the original object specifying the allowed classes.
+$retrieved_data = $cache->get_serialized( 'user_123_data', [ \stdClass::class ] );
 
 // Works with arrays and scalar values too.
-$cache->set_serialized('config_array', ['key' => 'value'], 300);
-$config = $cache->get_serialized('config_array'); // Returns the array.
+$cache->set_serialized( 'config_array', [ 'key' => 'value' ], 300 );
+$config = $cache->get_serialized( 'config_array' ); // Returns the array.
+```
 
+### Cache Management
+
+Delete specific keys or clear all cached data:
+
+```php
 // Delete a specific key.
 $cache->delete('user_data_123');
 
