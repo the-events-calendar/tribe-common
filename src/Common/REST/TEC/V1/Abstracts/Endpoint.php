@@ -18,7 +18,6 @@ use TEC\Common\REST\TEC\V1\Contracts\Updatable_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\Deletable_Endpoint;
 use TEC\Common\REST\TEC\V1\Controller;
 use WP_REST_Server;
-use WP_REST_Request;
 
 /**
  * Endpoint class.
@@ -101,58 +100,5 @@ abstract class Endpoint implements Endpoint_Interface {
 		$methods['schema'] = fn() => $this->get_schema();
 
 		return $methods;
-	}
-
-	/**
-	 * Returns whether the user can read the object.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
-	 * @return bool
-	 */
-	public function can_read( WP_REST_Request $request ): bool {
-		return true;
-		return current_user_can( 'manage_options' );
-	}
-
-	/**
-	 * Returns whether the user can create the object.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
-	 * @return bool
-	 */
-	public function can_create( WP_REST_Request $request ): bool {
-		return $this->can_read( $request );
-	}
-
-	/**
-	 * Returns whether the user can update the object.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
-	 * @return bool
-	 */
-	public function can_update( WP_REST_Request $request ): bool {
-		return $this->can_read( $request );
-	}
-
-	/**
-	 * Returns whether the user can delete the object.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
-	 * @return bool
-	 */
-	public function can_delete( WP_REST_Request $request ): bool {
-		return $this->can_read( $request );
 	}
 }

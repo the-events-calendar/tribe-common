@@ -39,6 +39,19 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 	}
 
 	/**
+	 * Returns whether the user can read the object.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_REST_Request $request The request object.
+	 *
+	 * @return bool
+	 */
+	public function can_read( WP_REST_Request $request ): bool {
+		return true;
+	}
+
+	/**
 	 * Returns the response for the read method.
 	 *
 	 * @since TBD
