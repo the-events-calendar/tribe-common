@@ -30,6 +30,7 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( Template::class );
 		$this->container->singleton( Country_List::class );
 		$this->container->register( Hooks::class );
+		$this->container->register( Key_Value_Cache\Controller::class );
 	}
 
 	/**
@@ -41,5 +42,6 @@ class Controller extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		$this->container->get( Hooks::class )->unregister();
+		$this->container->get( Key_Value_Cache\Controller::class )->unregister();
 	}
 }
