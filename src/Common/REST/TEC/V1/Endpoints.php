@@ -22,6 +22,7 @@ use TEC\Common\REST\TEC\V1\Documentation\Date_Details_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\Image_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\Image_Size_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\Term_Definition;
+use TEC\Common\REST\TEC\V1\Documentation\TEC_Post_Entity_Definition;
 
 /**
  * Endpoints Controller class.
@@ -60,6 +61,7 @@ class Endpoints extends Endpoints_Controller {
 			Image_Definition::class,
 			Image_Size_Definition::class,
 			Term_Definition::class,
+			TEC_Post_Entity_Definition::class,
 		];
 	}
 }
