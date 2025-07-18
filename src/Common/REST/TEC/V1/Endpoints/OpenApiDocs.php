@@ -64,6 +64,7 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 	public function read( WP_REST_Request $request ): WP_REST_Response {
 		/** @var Documentation $documentation */
 		$documentation = tribe( Documentation::class );
+
 		/**
 		 * Filters the documentation for the OpenAPI docs endpoint.
 		 *

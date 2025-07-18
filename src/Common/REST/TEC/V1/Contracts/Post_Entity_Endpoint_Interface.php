@@ -44,7 +44,7 @@ interface Post_Entity_Endpoint_Interface extends Endpoint_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return string
+	 * @return class-string
 	 */
 	public function get_model_class(): string;
 

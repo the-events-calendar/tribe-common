@@ -58,7 +58,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	public function can_read( WP_REST_Request $request ): bool {
 		$id = $request['id'] ?? null;
 		if ( $id ) {
-			return current_user_can( $this->get_post_type_object()->cap->read_post, $id );
+			return $this->guest_can_read() || current_user_can( $this->get_post_type_object()->cap->read_post, $id );
 		}
 
 		return $this->guest_can_read() || current_user_can( $this->get_post_type_object()->cap->read );
