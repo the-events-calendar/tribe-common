@@ -68,12 +68,7 @@ class Controller extends Controller_Contract {
 				wp_unschedule_event( time(), self::CLEAR_EXPIRED_ACTION );
 			}
 		} else {
-			if ( doing_action( 'plugins_loaded' ) || did_action( 'plugins_loaded' ) ) {
-				$this->register_table_schema();
-			} else {
-				add_action( 'plugins_loaded', [ $this, 'register_table_schema' ] );
-			}
-
+			$this->register_table_schema();
 			$this->container->singleton( Key_Value_Cache_Interface::class, Key_Value_Cache_Table::class );
 
 			// Schedule an action to clear the table of expired entries.
