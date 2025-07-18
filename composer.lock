@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c1752a6ccfcafb495562704e2c23c5c",
+    "content-hash": "1bb9f651610190cb6a0353071d3d58e7",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -697,16 +697,16 @@
         },
         {
             "name": "stellarwp/schema",
-            "version": "v201.x-dev",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/schema.git",
-                "reference": "bf88b3882f1f567b54c99d63a8659e41d08c0512"
+                "reference": "b80c02c6ee6cebcf9c21b642a7b20db5480f0cd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/schema/zipball/bf88b3882f1f567b54c99d63a8659e41d08c0512",
-                "reference": "bf88b3882f1f567b54c99d63a8659e41d08c0512",
+                "url": "https://api.github.com/repos/stellarwp/schema/zipball/b80c02c6ee6cebcf9c21b642a7b20db5480f0cd6",
+                "reference": "b80c02c6ee6cebcf9c21b642a7b20db5480f0cd6",
                 "shasum": ""
             },
             "require": {
@@ -751,9 +751,9 @@
             "description": "A library for simplifying the creation and updates of custom tables within WordPress.",
             "support": {
                 "issues": "https://github.com/stellarwp/schema/issues",
-                "source": "https://github.com/stellarwp/schema/tree/v201"
+                "source": "https://github.com/stellarwp/schema/tree/2.0.1"
             },
-            "time": "2025-07-18T12:47:43+00:00"
+            "time": "2025-07-18T14:24:06+00:00"
         },
         {
             "name": "stellarwp/telemetry",
@@ -7222,7 +7222,6 @@
     "stability-flags": {
         "stellarwp/coding-standards": 20,
         "stellarwp/models": 20,
-        "stellarwp/schema": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
     "prefer-stable": true,
