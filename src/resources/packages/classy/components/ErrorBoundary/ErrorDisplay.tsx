@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { _x } from '@wordpress/i18n';
 
 type ErrorDisplayProps = {
 	error: Error;
@@ -28,7 +29,13 @@ export default function ErrorDisplay( { error }: ErrorDisplayProps ): React.Reac
 				padding: '20px',
 			} }
 		>
-			<h2>An error occurred in the Classy application:</h2>
+			<h2>
+				{ _x(
+					'An error occurred in the Classy application:',
+					'Message before the error call stack',
+					'tribe-common'
+				) }
+			</h2>
 			<pre
 				style={ {
 					backgroundColor: '#eee',
