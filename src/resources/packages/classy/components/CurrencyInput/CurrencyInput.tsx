@@ -27,7 +27,7 @@ const defaultLabel = __( 'Price', 'tribe-common' );
  */
 export default function CurrencyInput( props: CurrencyInputProps ): JSX.Element{
 	const {
-		label,
+		label = defaultLabel,
 		onChange,
 		value,
 		required,
@@ -36,9 +36,9 @@ export default function CurrencyInput( props: CurrencyInputProps ): JSX.Element{
 		thousandSeparator,
 		defaultCurrency,
 	} = props;
-	const displayLabel = label || defaultLabel;
 
 	const [ hasFocus, setHasFocus ] = useState< boolean >( false );
+	const [ rawValue, setRawValue ] = useState< string >( value );
 
 	/**
 	 * Renders the value of the input field, applying formatting based on the currency settings.
@@ -85,14 +85,36 @@ export default function CurrencyInput( props: CurrencyInputProps ): JSX.Element{
 		thousandSeparator,
 	] );
 
+	/**
+	 * Handles changes to the input field.
+	 *
+	 * This function is called when the user changes the value of the input field. It ensures we track the
+	 * raw value of the input, and if the new value is different from the current raw value,
+	 * it updates the state and calls the onChange callback if provided.
+	 *
+	 * @since TBD
+	 */
+	const handleChange = useCallback( ( newValue: string ): void => {
+		// If there is no change, do nothing.
+		if ( newValue === rawValue ) {
+			return;
+		}
+
+		console.log( 'new value:', newValue );
+		setRawValue( newValue );
+		if ( onChange ) {
+			onChange( newValue );
+		}
+	}, [ onChange, rawValue ] );
+
 	return (
-		<LabeledInput label={ displayLabel }>
+		<LabeledInput label={ label }>
 			<InputControl
 				className="classy-field__control classy-field__control--input"
-				label={ displayLabel }
+				label={ label }
 				hideLabelFromVision={ true }
-				value={ renderValue( value ) }
-				onChange={ onChange }
+				value={ renderValue( rawValue ) }
+				onChange={ handleChange }
 				required={ required || false }
 				onFocus={ (): void => setHasFocus( true ) }
 				onBlur={ (): void => setHasFocus( false ) }
