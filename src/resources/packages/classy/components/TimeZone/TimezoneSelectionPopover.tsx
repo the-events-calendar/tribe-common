@@ -82,6 +82,7 @@ export default function TimezoneSelectionPopover( props: {
 					__nextHasNoMarginBottom
 					value={ timezone }
 					onChange={ onTimezoneChange }
+					autoFocus
 				>
 					{ timezoneOptions }
 				</SelectControl>
