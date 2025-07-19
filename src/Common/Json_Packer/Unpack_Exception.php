@@ -2,7 +2,7 @@
 /**
  * An exception thrown in the context of a JSON unpack operation.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\Json_Packer;
  */
@@ -12,7 +12,7 @@ namespace TEC\Common\Json_Packer;
 /**
  * Class Unpack_Exception.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\Json_Packer;
  */
