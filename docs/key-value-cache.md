@@ -34,39 +34,54 @@ if ($cache->has( 'user_data_123' )) {
 }
 ```
 
-### Working with JSON Data
+### Working with Complex Data
 
-Store and retrieve structured data using JSON:
-
-```php
-// Store JSON data using set_json().
-$cache->set_json( 'api_response', [ 'status' => 'ok', 'count' => 42], 3600 );
-
-// Retrieve as associative array.
-$response = $cache->get_json( 'api_response', true );
-
-// Retrieve as stdClass object.
-$response = $cache->get_json( 'api_response', false );
-```
-
-### Serialized PHP Objects
-
-Store complex PHP objects with automatic serialization:
+To store complex data structures like arrays, objects, or any PHP values, use the [JSON Packer API][1] to convert them to strings:
 
 ```php
+// Store an array using JSON Packer.
+$api_response = [ 'status' => 'ok', 'count' => 42];
+$cache->set( 'api_response', tec_json_pack($api_response), 3600 );
+
+// Retrieve and unpack.
+$response = tec_json_unpack( $cache->get( 'api_response' ) ); // Returns the original array.
+
 // Store a complex object.
 $user_data = new stdClass();
 $user_data->name = 'John Doe';
 $user_data->preferences = [ 'theme' => 'dark', 'notifications' => true ];
-$cache->set_serialized( 'user_123_data', $user_data, 600 );
+$cache->set( 'user_123_data', tec_json_pack($user_data), 600 );
 
-// Retrieve the original object specifying the allowed classes.
-$retrieved_data = $cache->get_serialized( 'user_123_data', [ \stdClass::class ] );
+// Retrieve the original object.
+$retrieved_data = tec_json_unpack( $cache->get( 'user_123_data' ) );
 
-// Works with arrays and scalar values too.
-$cache->set_serialized( 'config_array', [ 'key' => 'value' ], 300 );
-$config = $cache->get_serialized( 'config_array' ); // Returns the array.
+// Store custom objects with allowed classes.
+class UserPreferences {
+    public string $theme;
+    public array $notifications;
+}
+
+$prefs = new UserPreferences();
+$prefs->theme = 'dark';
+$prefs->notifications = ['email' => true, 'push' => false];
+
+// Pack with allowed classes, then store.
+$packed = tec_json_pack($prefs, [UserPreferences::class]);
+$cache->set( 'user_prefs', $packed, 300 );
+
+// Retrieve and unpack with allowed classes.
+$packed_data = $cache->get( 'user_prefs' );
+$prefs = tec_json_unpack( $packed_data, true, [UserPreferences::class] );
 ```
+
+The [JSON Packer AP][1] provides robust serialization that handles:
+- Complex nested structures
+- Object instances with type preservation
+- Circular references
+- DateTime objects
+- Private and protected properties
+
+See the [JSON Packer documentation][1] for more details on using `tec_json_pack()` and `tec_json_unpack()`.
 
 ### Cache Management
 
@@ -82,22 +97,25 @@ $cache->delete('user_data_123');
 $cache->flush();
 ```
 
-## Why Explicit Data Type APIs?
+## Using the JSON Packer for Complex Data
 
-The key-value cache provides distinct APIs for different data types (`set()`/`get()` for strings, `set_serialized()`/`get_serialized()` for PHP objects, and `set_json()`/`get_json()` for JSON) rather than a single API that automatically detects and handles data types.
+The key-value cache stores string values only. For complex data types (arrays, objects, etc.), use the [JSON Packer API][1] to convert them to strings before storage:
 
-This design choice is intentional:
+```php
+// Convert any PHP value to a JSON string.
+$packed = tec_json_pack($complex_value, $allowed_classes);
+$cache->set('my_key', $packed, 300);
 
-1. **Developer clarity**: By requiring developers to explicitly choose which API to use, they must think about the data type they're storing and retrieving. This prevents assumptions and makes the code more self-documenting.
+// Retrieve and unpack.
+$packed = $cache->get('my_key');
+$original_value = tec_json_unpack($packed, true, $allowed_classes);
+```
 
-2. **Avoid hidden errors**: Automatic type detection can lead to subtle bugs. For example:
-   - A string that looks like JSON but isn't valid would fail silently
-   - Serialized data could be mistaken for a regular string
-   - Type mismatches between storage and retrieval could cause runtime errors
-
-3. **Performance**: Knowing the data type upfront avoids the overhead of trying multiple parsing strategies to determine how to handle the value.
-
-4. **Predictable behavior**: Each API has clear expectations about input and output types, making the cache behavior consistent and testable.
+The [JSON Packer][1] provides several advantages over standard serialization:
+1. **Security**: Explicit allowed classes prevent arbitrary object instantiation
+2. **Portability**: JSON format is language-agnostic and debuggable
+3. **Robustness**: Handles circular references and complex object graphs
+4. **Type preservation**: Maintains object types when allowed
 
 ## Implementation Details
 
@@ -118,7 +136,7 @@ add_filter('tec_key_value_cache_force_use_of_table_cache', '__return_true');
 
 - **Minimum expiration**: 300 seconds (5 minutes) - WordPress VIP requirement
 - **Maximum key length**: 191 characters to align with `postmeta.meta_key` index length.
-- **Value type**: Strings only (encode complex data as a JSON string)
+- **Value type**: Strings only (use the [JSON Packer API][1] to convert complex data)
 
 For cache durations under 5 minutes, use alternative caching or memoization systems like:
 - `wp_cache_` functions with persistent and non-persistent groups.
@@ -136,3 +154,6 @@ If the backend used is the WordPress cache one, then the eviction of expired val
 
 Any failure is handled gracefully and logged using the `tribe_log` action.
 The key-value cache API will not throw exceptions in any case, but will either not storee the value or return the fallback value.
+
+
+[1]: json-packer.md

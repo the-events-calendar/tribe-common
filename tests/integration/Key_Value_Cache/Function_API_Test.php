@@ -76,55 +76,6 @@ class Function_API_Test extends Controller_Test_Case {
 		$this->assertEquals( 'min_expiry_value', $cache->get( 'min_expiry_key' ) );
 		$this->assertEquals( 'min_expiry_value', wp_cache_get( 'min_expiry_key', Object_Cache::CACHE_GROUP ) );
 
-		// Test getJson().
-		$json_data = [
-			'name'  => 'test',
-			'value' => 123,
-		];
-		$this->assertTrue( $cache->set( 'json_key', json_encode( $json_data ), 300 ) );
-		$this->assertEquals( $json_data, $cache->get_json( 'json_key', true ) );
-		$this->assertEquals( (object) $json_data, $cache->get_json( 'json_key', false ) );
-		// Verify the JSON string is stored in WordPress cache.
-		$this->assertEquals( json_encode( $json_data ), wp_cache_get( 'json_key', Object_Cache::CACHE_GROUP ) );
-
-		// Test set_json().
-		$json_data2          = [
-			'status' => 'active',
-			'count'  => 42,
-			'nested' => [ 'deep' => 'value' ],
-		];
-		$expected_json_data2 = (object) [
-			'status' => 'active',
-			'count'  => 42,
-			'nested' => (object) [ 'deep' => 'value' ],
-		];
-		$this->assertTrue( $cache->set_json( 'json_key2', $json_data2, 300 ) );
-		$this->assertEquals( $json_data2, $cache->get_json( 'json_key2', true ) );
-		$this->assertEquals( $expected_json_data2, $cache->get_json( 'json_key2', false ) );
-		// Verify the JSON string is stored in WordPress cache.
-		$this->assertEquals( wp_json_encode( $json_data2 ), wp_cache_get( 'json_key2', Object_Cache::CACHE_GROUP ) );
-
-		// Test set_json() with object.
-		$obj = (object) [
-			'property' => 'value',
-			'number'   => 123,
-		];
-		$this->assertTrue( $cache->set_json( 'json_object', $obj, 300 ) );
-		$retrieved_as_object = $cache->get_json( 'json_object', false );
-		$this->assertEquals( $obj, $retrieved_as_object );
-
-		// Test set_json() with scalar values.
-		$this->assertTrue( $cache->set_json( 'json_string', 'test string', 300 ) );
-		$this->assertEquals( 'test string', $cache->get_json( 'json_string', true ) );
-
-		$this->assertTrue( $cache->set_json( 'json_number', 42, 300 ) );
-		$this->assertEquals( 42, $cache->get_json( 'json_number', true ) );
-
-		$this->assertTrue( $cache->set_json( 'json_bool', true, 300 ) );
-		$this->assertEquals( true, $cache->get_json( 'json_bool', true ) );
-
-		$this->assertTrue( $cache->set_json( 'json_null', null, 300 ) );
-		$this->assertEquals( null, $cache->get_json( 'json_null', true ) );
 
 		// Test delete().
 		$cache->delete( 'test_key' );
@@ -146,39 +97,6 @@ class Function_API_Test extends Controller_Test_Case {
 		// Verify the keys are flushed from WordPress cache.
 		$this->assertFalse( wp_cache_get( 'key1', Object_Cache::CACHE_GROUP ) );
 		$this->assertFalse( wp_cache_get( 'key2', Object_Cache::CACHE_GROUP ) );
-
-		// Test set_serialized() and get_serialized().
-		$test_object = (object) [
-			'property1' => 'value1',
-			'property2' => 42,
-			'property3' => [ 'nested' => 'array' ],
-		];
-		$this->assertTrue( $cache->set_serialized( 'serialized_object', $test_object, 300 ) );
-		$retrieved_object = $cache->get_serialized( 'serialized_object', [ \stdClass::class ] );
-		$this->assertEquals( $test_object, $retrieved_object );
-
-		// Test serializing array.
-		$test_array = [
-			'key1' => 'value1',
-			'key2' => [ 'nested' => true ],
-		];
-		$this->assertTrue( $cache->set_serialized( 'serialized_array', $test_array, 300 ) );
-		$retrieved_array = $cache->get_serialized( 'serialized_array' );
-		$this->assertEquals( $test_array, $retrieved_array );
-
-		// Test serializing scalar values.
-		$this->assertTrue( $cache->set_serialized( 'serialized_int', 42, 300 ) );
-		$this->assertSame( 42, $cache->get_serialized( 'serialized_int' ) );
-
-		$this->assertTrue( $cache->set_serialized( 'serialized_bool', false, 300 ) );
-		$this->assertSame( false, $cache->get_serialized( 'serialized_bool' ) );
-
-		// Test get_serialized with non-existent key.
-		$this->assertNull( $cache->get_serialized( 'non_existent_serialized' ) );
-
-		// Test get_serialized with invalid serialized data.
-		$cache->set( 'invalid_serialized', 'not serialized data', 300 );
-		$this->assertNull( $cache->get_serialized( 'invalid_serialized' ) );
 	}
 
 	private function run_table_cache_tests(): void {
@@ -230,55 +148,6 @@ class Function_API_Test extends Controller_Test_Case {
 		$this->assertTrue( $cache->has( 'min_expiry_key' ) );
 		$this->assertEquals( 'min_expiry_value', $cache->get( 'min_expiry_key' ) );
 
-		// Test getJson().
-		$json_data = [
-			'name'  => 'test',
-			'value' => 123,
-		];
-		$this->assertTrue( $cache->set( 'json_key', json_encode( $json_data ), 300 ) );
-		$this->assertEquals( $json_data, $cache->get_json( 'json_key', true ) );
-		$this->assertEquals( (object) $json_data, $cache->get_json( 'json_key', false ) );
-
-		// Test invalid JSON
-		$this->assertTrue( $cache->set( 'invalid_json', 'not json', 300 ) );
-		$this->assertNull( $cache->get_json( 'invalid_json' ) );
-
-		// Test set_json().
-		$json_data2          = [
-			'status' => 'active',
-			'count'  => 42,
-			'nested' => [ 'deep' => 'value' ],
-		];
-		$expected_json_data2 = (object) [
-			'status' => 'active',
-			'count'  => 42,
-			'nested' => (object) [ 'deep' => 'value' ],
-		];
-		$this->assertTrue( $cache->set_json( 'json_key2', $json_data2, 300 ) );
-		$this->assertEquals( $json_data2, $cache->get_json( 'json_key2', true ) );
-		$this->assertEquals( $expected_json_data2, $cache->get_json( 'json_key2', false ) );
-
-		// Test set_json() with object.
-		$obj = (object) [
-			'property' => 'value',
-			'number'   => 123,
-		];
-		$this->assertTrue( $cache->set_json( 'json_object', $obj, 300 ) );
-		$retrieved_as_object = $cache->get_json( 'json_object', false );
-		$this->assertEquals( $obj, $retrieved_as_object );
-
-		// Test set_json() with scalar values.
-		$this->assertTrue( $cache->set_json( 'json_string', 'test string', 300 ) );
-		$this->assertEquals( 'test string', $cache->get_json( 'json_string', true ) );
-
-		$this->assertTrue( $cache->set_json( 'json_number', 42, 300 ) );
-		$this->assertEquals( 42, $cache->get_json( 'json_number', true ) );
-
-		$this->assertTrue( $cache->set_json( 'json_bool', true, 300 ) );
-		$this->assertEquals( true, $cache->get_json( 'json_bool', true ) );
-
-		$this->assertTrue( $cache->set_json( 'json_null', null, 300 ) );
-		$this->assertEquals( null, $cache->get_json( 'json_null', true ) );
 
 		// Test delete().
 		$cache->delete( 'test_key' );
@@ -308,39 +177,6 @@ class Function_API_Test extends Controller_Test_Case {
 		// Verify database is actually empty after flush.
 		$count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}tec_kv_cache" );
 		$this->assertEquals( 0, $count );
-
-		// Test set_serialized() and get_serialized().
-		$test_object = (object) [
-			'property1' => 'value1',
-			'property2' => 42,
-			'property3' => [ 'nested' => 'array' ],
-		];
-		$this->assertTrue( $cache->set_serialized( 'serialized_object', $test_object, 300 ) );
-		$retrieved_object = $cache->get_serialized( 'serialized_object', [ \stdClass::class ] );
-		$this->assertEquals( $test_object, $retrieved_object );
-
-		// Test serializing array.
-		$test_array = [
-			'key1' => 'value1',
-			'key2' => [ 'nested' => true ],
-		];
-		$this->assertTrue( $cache->set_serialized( 'serialized_array', $test_array, 300 ) );
-		$retrieved_array = $cache->get_serialized( 'serialized_array' );
-		$this->assertEquals( $test_array, $retrieved_array );
-
-		// Test serializing scalar values.
-		$this->assertTrue( $cache->set_serialized( 'serialized_int', 42, 300 ) );
-		$this->assertSame( 42, $cache->get_serialized( 'serialized_int' ) );
-
-		$this->assertTrue( $cache->set_serialized( 'serialized_bool', false, 300 ) );
-		$this->assertSame( false, $cache->get_serialized( 'serialized_bool' ) );
-
-		// Test get_serialized with non-existent key.
-		$this->assertNull( $cache->get_serialized( 'non_existent_serialized' ) );
-
-		// Test get_serialized with invalid serialized data.
-		$cache->set( 'invalid_serialized', 'not serialized data', 300 );
-		$this->assertNull( $cache->get_serialized( 'invalid_serialized' ) );
 	}
 
 	public function test_function_when_using_table_cache(): void {

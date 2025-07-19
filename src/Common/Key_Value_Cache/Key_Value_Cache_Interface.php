@@ -69,56 +69,6 @@ interface Key_Value_Cache_Interface {
 	 */
 	public function delete( string $key ): void;
 
-	/**
-	 * Gets a cache value and attempts to decode it to a JSON object.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $key         The key to return the value for.
-	 * @param bool   $associative Whether to return an associative array or an object.
-	 *
-	 * @return object|array<string|int,mixed>|null The decoded JSON object or array if the key exists and can be
-	 *                                             decoded, else `null`.
-	 */
-	public function get_json( string $key, bool $associative = false );
-
-	/**
-	 * Stores a JSON-encoded value for a key.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $key        The key to store the value for.
-	 * @param mixed  $value      The value to encode as JSON and store.
-	 * @param int    $expiration The cache expiration, it cannot be below 300 seconds.
-	 *
-	 * @return bool Whether the value was correctly JSON-encoded and stored.
-	 */
-	public function set_json( string $key, $value, int $expiration = 300 ): bool;
-
-	/**
-	 * Gets a cached value and attempts to unserialize it.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $key The key to return the value for.
-	 * @param array  $allowed_classes The classes that are allowed to be unserialized.
-	 *
-	 * @return mixed The unserialized value if the key exists and can be unserialized, else null.
-	 */
-	public function get_serialized( string $key, array $allowed_classes = [] );
-
-	/**
-	 * Stores a serialized value for a key.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $key        The key to store the value for.
-	 * @param mixed  $value      The value to serialize and store.
-	 * @param int    $expiration The cache expiration, it cannot be below 300 seconds.
-	 *
-	 * @return bool Whether the value was correctly serialized and stored.
-	 */
-	public function set_serialized( string $key, $value, int $expiration = 300 ): bool;
 
 	/**
 	 * Flushes the cache.
