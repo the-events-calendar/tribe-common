@@ -100,7 +100,6 @@ export default function CurrencyInput( props: CurrencyInputProps ): JSX.Element{
 			return;
 		}
 
-		console.log( 'new value:', newValue );
 		setRawValue( newValue );
 		if ( onChange ) {
 			onChange( newValue );
