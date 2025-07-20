@@ -256,28 +256,23 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 		$args   = $this->read_args();
 		$params = [];
 
-		foreach ( $args as $arg_name => $arg_schema ) {
+		foreach ( $args as $arg ) {
 			$param = [
-				'name'        => $arg_name,
+				'name'        => $arg->get_name(),
 				'in'          => 'query',
-				'schema'      => $arg_schema,
-				'description' => $arg_schema['description'] ?? '',
-				'required'    => $arg_schema['required'] ?? false,
+				'schema'      => $arg->to_array(),
+				'description' => $arg->get_description(),
+				'required'    => $arg->is_required(),
 			];
 
-			if ( isset( $arg_schema['style'] ) ) {
-				$param['style'] = $arg_schema['style'];
-			}
-
-			if ( isset( $arg_schema['explode'] ) ) {
-				$param['explode'] = $arg_schema['explode'];
+			if ( isset( $param['schema']['explode'] ) ) {
+				$param['explode'] = $param['schema']['explode'];
 			}
 
 			unset(
 				$param['schema']['validate_callback'],
 				$param['schema']['description'],
 				$param['schema']['required'],
-				$param['schema']['style'],
 				$param['schema']['explode'],
 			);
 

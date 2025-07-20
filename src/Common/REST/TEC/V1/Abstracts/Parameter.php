@@ -396,31 +396,40 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * @inheritDoc
 	 */
+	public function to_array(): array {
+		return array_filter(
+			[
+				'description'       => $this->get_description(),
+				'type'              => $this->get_type(),
+				'items'             => $this->get_items(),
+				'default'           => $this->get_default(),
+				'minLength'         => $this->get_min_length(),
+				'maxLength'         => $this->get_max_length(),
+				'maximum'           => $this->get_maximum(),
+				'minimum'           => $this->get_minimum(),
+				'minItems'          => $this->get_min_items(),
+				'maxItems'          => $this->get_max_items(),
+				'format'            => $this->get_format(),
+				'required'          => $this->is_required(),
+				'pattern'           => $this->get_pattern(),
+				'explode'           => $this->get_explode(),
+				'multipleOf'        => $this->get_multiple_of(),
+				'uniqueItems'       => $this->is_unique_items(),
+				'properties'        => $this->get_properties(),
+				'enum'              => 'array' === $this->get_type() ? null : $this->get_enum(),
+				'validate_callback' => $this->get_validator(),
+				'sanitize_callback' => $this->get_sanitizer(),
+			],
+			static fn( $value ) => null !== $value
+		);
+	}
+
+	/**
+	 * @inheritDoc
+	 */
 	public function jsonSerialize(): array {
 		return [
-			$this->get_name() => array_filter(
-				[
-					'description' => $this->get_description(),
-					'type'        => $this->get_type(),
-					'items'       => $this->get_items(),
-					'default'     => $this->get_default(),
-					'minLength'   => $this->get_min_length(),
-					'maxLength'   => $this->get_max_length(),
-					'maximum'     => $this->get_maximum(),
-					'minimum'     => $this->get_minimum(),
-					'minItems'    => $this->get_min_items(),
-					'maxItems'    => $this->get_max_items(),
-					'format'      => $this->get_format(),
-					'required'    => $this->is_required(),
-					'pattern'     => $this->get_pattern(),
-					'explode'     => $this->get_explode(),
-					'multipleOf'  => $this->get_multiple_of(),
-					'uniqueItems' => $this->is_unique_items(),
-					'properties'  => $this->get_properties(),
-					'enum'        => 'array' === $this->get_type() ? null : $this->get_enum(),
-				],
-				static fn( $value ) => null !== $value
-			),
+			$this->get_name() => $this->to_array(),
 		];
 	}
 }

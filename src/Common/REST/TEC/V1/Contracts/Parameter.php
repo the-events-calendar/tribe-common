@@ -211,4 +211,13 @@ interface Parameter extends JsonSerializable {
 	 * @return ?Collection
 	 */
 	public function get_properties(): ?Collection;
+
+	/**
+	 * Returns the parameter as an array.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function to_array(): array;
 }
