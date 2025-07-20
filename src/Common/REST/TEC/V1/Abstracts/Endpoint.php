@@ -67,7 +67,7 @@ abstract class Endpoint implements Endpoint_Interface {
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => [ $this, 'read' ],
 				'permission_callback' => [ $this, 'can_read' ],
-				'args'                => $this->read_args(),
+				'args'                => $this->read_args()->to_array(),
 			];
 		}
 
@@ -76,7 +76,7 @@ abstract class Endpoint implements Endpoint_Interface {
 				'methods'             => WP_REST_Server::CREATABLE,
 				'callback'            => [ $this, 'create' ],
 				'permission_callback' => [ $this, 'can_create' ],
-				'args'                => $this->create_args(),
+				'args'                => $this->create_args()->to_array(),
 			];
 		}
 
@@ -85,7 +85,7 @@ abstract class Endpoint implements Endpoint_Interface {
 				'methods'             => self::EDITABLE,
 				'callback'            => [ $this, 'update' ],
 				'permission_callback' => [ $this, 'can_update' ],
-				'args'                => $this->update_args(),
+				'args'                => $this->update_args()->to_array(),
 			];
 		}
 
@@ -94,7 +94,7 @@ abstract class Endpoint implements Endpoint_Interface {
 				'methods'             => WP_REST_Server::DELETABLE,
 				'callback'            => [ $this, 'delete' ],
 				'permission_callback' => [ $this, 'can_delete' ],
-				'args'                => $this->delete_args(),
+				'args'                => $this->delete_args()->to_array(),
 			];
 		}
 

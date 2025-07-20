@@ -13,6 +13,7 @@ namespace TEC\Common\REST\TEC\V1\Contracts;
 
 use WP_REST_Request;
 use WP_REST_Response;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Collection;
 
 /**
  * Creatable endpoint interface.
@@ -49,7 +50,7 @@ interface Creatable_Endpoint {
 	 *
 	 * @since TBD
 	 *
-	 * @return array
+	 * @return Collection
 	 */
-	public function create_args(): array;
+	public function create_args(): Collection;
 }

@@ -417,6 +417,7 @@ abstract class Parameter implements Parameter_Contract {
 					'multipleOf'  => $this->get_multiple_of(),
 					'uniqueItems' => $this->is_unique_items(),
 					'properties'  => $this->get_properties(),
+					'enum'        => 'array' === $this->get_type() ? null : $this->get_enum(),
 				],
 				static fn( $value ) => null !== $value
 			),

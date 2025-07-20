@@ -31,7 +31,7 @@ class Collection implements ArrayAccess, Iterator, Countable, JsonSerializable {
 	 *
 	 * @var array<Parameter>
 	 */
-	private array $resources;
+	private array $resources = [];
 
 	/**
 	 * Constructor.
@@ -108,6 +108,9 @@ class Collection implements ArrayAccess, Iterator, Countable, JsonSerializable {
 	 * @param Parameter $value  The value to set.
 	 */
 	public function offsetSet( $offset, $value ): void {
+		if ( ! $offset ) {
+			$offset = (string) count( $this->resources );
+		}
 		$this->set( $offset, $value );
 	}
 
@@ -142,9 +145,20 @@ class Collection implements ArrayAccess, Iterator, Countable, JsonSerializable {
 	}
 
 	/**
+	 * Returns the collection as an array.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function to_array(): array {
+		return array_merge( ...array_map( fn( Parameter $param ) => $param->jsonSerialize(), $this->resources ) );
+	}
+
+	/**
 	 * @inheritDoc
 	 */
 	public function jsonSerialize(): array {
-		return array_merge( $this->resources );
+		return $this->to_array();
 	}
 }
