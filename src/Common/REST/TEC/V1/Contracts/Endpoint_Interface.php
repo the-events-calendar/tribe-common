@@ -54,4 +54,13 @@ interface Endpoint_Interface {
 	 * @return string
 	 */
 	public function get_path(): string;
+
+	/**
+	 * Returns the URL of the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_url(): string;
 }

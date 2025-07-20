@@ -158,4 +158,15 @@ abstract class Endpoint implements Endpoint_Interface {
 		 */
 		return apply_filters( 'tec_rest_events_max_per_page', 100 );
 	}
+
+	/**
+	 * Returns the URL of the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_url(): string {
+		return rest_url( Controller::get_versioned_namespace() . $this->get_path() );
+	}
 }
