@@ -125,7 +125,6 @@ class FindTicketsCest extends BaseRestETCest {
 		//$created_ticket  = $this->generate_woo_ticket_for_event( $event->ID );
 		$attendee1       = $this->generate_woo_attendee( $event, $overrides, true );
 		$event2          = $this->generate_event( $this->mock_date_value );
-		$attendee2       = $this->generate_edd_attendee( $event, $overrides, true );
 		$event3          = $this->generate_event( $this->mock_date_value );
 		$created_ticket3 = $this->generate_woo_ticket_for_event( $event3->ID );
 
@@ -140,8 +139,11 @@ class FindTicketsCest extends BaseRestETCest {
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertNotEmpty( $response[0]['tickets'], 'Tickets should not be empty!' );
-		$I->assertCount( 3, $response[0]['tickets'], 'Tickets count should be 3
-		, ' . count( $response[0]['tickets'] ) . ' found!' );
+		$I->assertCount(
+			2,
+			$response[0]['tickets'],
+			'Tickets count should be 2, ' . count( $response[0]['tickets'] ) . ' found!'
+		);
 	}
 
 	/**

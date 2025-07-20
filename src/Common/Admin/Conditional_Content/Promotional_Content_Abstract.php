@@ -236,21 +236,16 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 
 		$template_args = [
 			'background_color' => $this->get_background_color(),
-			'wide_image_src'   => tribe_resource_url( 'images/conditional-content/' . $this->get_wide_banner_image(), false, null, \Tribe__Main::instance() ),
-			'narrow_image_src' => tribe_resource_url( 'images/conditional-content/' . $this->get_narrow_banner_image(), false, null, \Tribe__Main::instance() ),
+			'wide_image_src'   => $this->get_wide_banner_image_url(),
+			'narrow_image_src' => $this->get_narrow_banner_image_url(),
 			'is_responsive'    => true,
 			'is_sidebar'       => false,
-			'link'             => $this->get_link_url(),
+			'link'             => $this->get_creative_link_url(),
 			'nonce'            => $this->get_nonce(),
 			'sale_name'        => $sale_name,
 			'slug'             => $this->get_slug(),
 			'year'             => $year,
-			'a11y_text'        => sprintf(
-				/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
-				_x( '%1$s %2$s for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Sale Ad', 'tribe-common' ),
-				$year,
-				$sale_name
-			),
+			'a11y_text'        => $this->get_creative_alt_text(),
 		];
 
 		return $this->get_template()->template( $this->get_template_slug(), $template_args, false );
@@ -269,20 +264,15 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 
 		$template_args = [
 			'background_color' => $this->get_background_color(),
-			'image_src'        => tribe_resource_url( 'images/conditional-content/' . $this->get_wide_banner_image(), false, null, \Tribe__Main::instance() ),
+			'image_src'        => $this->get_wide_banner_image_url(),
 			'is_narrow'        => false,
 			'is_sidebar'       => false,
-			'link'             => $this->get_link_url(),
+			'link'             => $this->get_creative_link_url(),
 			'nonce'            => $this->get_nonce(),
 			'sale_name'        => $sale_name,
 			'slug'             => $this->get_slug(),
 			'year'             => $year,
-			'a11y_text'        => sprintf(
-				/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
-				_x( '%1$s %2$s for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Sale Ad', 'tribe-common' ),
-				$year,
-				$sale_name
-			),
+			'a11y_text'        => $this->get_creative_alt_text(),
 		];
 
 		return $this->get_template()->template( $this->get_template_slug(), $template_args, false );
@@ -326,20 +316,15 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 
 		$template_args = [
 			'background_color' => $this->get_background_color(),
-			'image_src'        => tribe_resource_url( 'images/conditional-content/' . $this->get_narrow_banner_image(), false, null, \Tribe__Main::instance() ),
+			'image_src'        => $this->get_narrow_banner_image_url(),
 			'is_narrow'        => true,
 			'is_sidebar'       => false,
-			'link'             => $this->get_link_url(),
+			'link'             => $this->get_creative_link_url(),
 			'nonce'            => $this->get_nonce(),
 			'sale_name'        => $sale_name,
 			'slug'             => $this->get_slug(),
 			'year'             => $year,
-			'a11y_text'        => sprintf(
-				/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
-				_x( '%1$s %2$s for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Sale Ad', 'tribe-common' ),
-				$year,
-				$sale_name
-			),
+			'a11y_text'        => $this->get_creative_alt_text(),
 		];
 
 		return $this->get_template()->template( $this->get_template_slug(), $template_args, false );
@@ -444,10 +429,10 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 		$container->add_child( $button );
 		$container->add_child(
 			new Image(
-				tribe_resource_url( 'images/conditional-content/' . $this->get_sidebar_image(), false, null, \Tribe__Main::instance() ),
+				$this->get_sidebar_image_url(),
 				new Attributes(
 					[
-						'alt'  => $translated_title,
+						'alt'  => $this->get_creative_alt_text(),
 						'role' => 'presentation',
 					]
 				)
@@ -461,12 +446,12 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 				->add_elements(
 					[
 						new Link(
-							$this->get_link_url(),
+							$this->get_creative_link_url(),
 							$container,
 							null,
 							new Attributes(
 								[
-									'title'                                          => $translated_title,
+									'title'                                          => $this->get_creative_alt_text(),
 									'target'                                         => '_blank',
 									'rel'                                            => 'noopener nofollow',
 									'style'                                          => 'position: relative; display:block;',
@@ -541,10 +526,10 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 		$container->add_child( $button );
 		$container->add_child(
 			new Image(
-				tribe_resource_url( 'images/conditional-content/' . $this->get_sidebar_image(), false, null, \Tribe__Main::instance() ),
+				$this->get_sidebar_image_url(),
 				new Attributes(
 					[
-						'alt'  => $translated_title,
+						'alt'  => $this->get_creative_alt_text(),
 						'role' => 'presentation',
 					]
 				)
@@ -556,12 +541,12 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 				->add_elements(
 					[
 						new Link(
-							$this->get_link_url(),
+							$this->get_creative_link_url(),
 							$container,
 							null,
 							new Attributes(
 								[
-									'title'                                          => $translated_title,
+									'title'                                          => $this->get_creative_alt_text(),
 									'target'                                         => '_blank',
 									'rel'                                            => 'noopener nofollow',
 									'style'                                          => 'position: relative; display:block;',
@@ -603,22 +588,235 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 
 		$template_args = [
 			'background_color' => $this->get_background_color(),
-			'image_src'        => tribe_resource_url( 'images/conditional-content/' . $this->get_sidebar_image(), false, null, \Tribe__Main::instance() ),
+			'image_src'        => $this->get_sidebar_image_url(),
 			'is_narrow'        => false,
 			'is_sidebar'       => true,
-			'link'             => $this->get_link_url(),
+			'link'             => $this->get_creative_link_url(),
 			'nonce'            => $this->get_nonce(),
 			'sale_name'        => $sale_name,
 			'slug'             => $this->get_slug(),
 			'year'             => $year,
-			'a11y_text'        => sprintf(
-				/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
-				_x( '%1$s %2$s for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Sale Ad', 'tribe-common' ),
-				$year,
-				$sale_name
-			),
+			'a11y_text'        => $this->get_creative_alt_text(),
 		];
 
 		$this->get_template()->template( $this->get_template_slug(), $template_args, true );
+	}
+
+	/**
+	 * Get the suite creative map.
+	 *
+	 * The creative map should be structured as follows:
+	 *
+	 * [
+	 *   'context' => [
+	 *     'plugin/path.php' => [
+	 *       'image_url' => '...',
+	 *       'narrow_image_url' => '...',
+	 *       'link_url' => '...',
+	 *       'alt_text' => '...',
+	 *     ],
+	 *     'feature-check' => [
+	 *       'callback' => [ 'Class', 'method' ], // Callback to determine if feature is active
+	 *       'image_url' => '...',
+	 *       'narrow_image_url' => '...',
+	 *       'link_url' => '...',
+	 *       'alt_text' => '...',
+	 *     ],
+	 *     'default' => [ ... ] // Fallback creative
+	 *   ],
+	 * ]
+	 *
+	 * @since 6.8.3
+	 *
+	 * @return array The suite creative map.
+	 */
+	abstract protected function get_suite_creative_map(): array;
+
+	/**
+	 * Determine the admin page context.
+	 *
+	 * @since 6.8.3
+	 *
+	 * @return string The admin page context ('tickets', 'events', or 'default').
+	 */
+	protected function get_admin_page_context(): string {
+		$admin_pages = tribe( 'admin.pages' );
+		$admin_page  = $admin_pages->get_current_page();
+
+		// If no admin page is detected, use default context.
+		if ( empty( $admin_page ) ) {
+			return 'default';
+		}
+
+		// Check if we're on a tickets admin page.
+		if ( strpos( $admin_page, 'tec-tickets' ) !== false || strpos( $admin_page, 'tickets_page_' ) !== false ) {
+			return 'tickets';
+		}
+
+		// Check if we're on an events admin page.
+		if ( strpos( $admin_page, 'tribe_events' ) !== false || strpos( $admin_page, 'events_page_' ) !== false ) {
+			return 'events';
+		}
+
+		// Check if we're on a general TEC admin page.
+		if ( strpos( $admin_page, 'tec-' ) !== false ) {
+			return 'events';
+		}
+
+		return 'default';
+	}
+
+	/**
+	 * Get the selected creative based on admin page context and installed plugins.
+	 *
+	 * @since 6.8.3
+	 *
+	 * @return array|null The selected creative array or null if none found.
+	 */
+	protected function get_selected_creative(): ?array {
+		$creative_map = $this->get_suite_creative_map();
+		$context      = $this->get_admin_page_context();
+
+		// If no creative map is available, return null.
+		if ( empty( $creative_map ) ) {
+			return null;
+		}
+
+		// Check if the context exists in the creative map.
+		if ( ! isset( $creative_map[ $context ] ) ) {
+			// Fall back to default if context not found.
+			$context = 'default';
+			if ( ! isset( $creative_map[ $context ] ) ) {
+				return null;
+			}
+		}
+
+		$context_creatives = $creative_map[ $context ];
+
+		// Iterate through the creatives and find the first plugin that is not installed or where the callback returns false.
+		foreach ( $context_creatives as $plugin_path => $creative ) {
+			// Skip the default entry for now.
+			if ( 'default' === $plugin_path ) {
+				continue;
+			}
+
+			// Check if we have a callback for plugin detection.
+			if ( isset( $creative['callback'] ) && is_callable( $creative['callback'] ) ) {
+				// Execute the callback to determine if the plugin or feature is active.
+				$is_active = call_user_func( $creative['callback'] );
+
+				// If the callback returns false (feature not active), use this creative.
+				if ( ! $is_active ) {
+					return $creative;
+				}
+			} elseif ( ! is_plugin_active( $plugin_path ) ) {
+				return $creative;
+			}
+		}
+
+		// If all plugins are installed, use the default creative.
+		if ( isset( $context_creatives['default'] ) ) {
+			return $context_creatives['default'];
+		}
+
+		return null;
+	}
+
+	/**
+	 * Get the wide banner image URL.
+	 *
+	 * @since 6.8.3
+	 *
+	 * @return string The wide banner image URL.
+	 */
+	protected function get_wide_banner_image_url(): string {
+		$creative = $this->get_selected_creative();
+
+		if ( ! empty( $creative['image_url'] ) ) {
+			return $creative['image_url'];
+		}
+
+		// Fallback to default behavior.
+		return tribe_resource_url( 'images/conditional-content/' . $this->get_wide_banner_image(), false, null, \Tribe__Main::instance() );
+	}
+
+	/**
+	 * Get the narrow banner image URL.
+	 *
+	 * @since 6.8.3
+	 *
+	 * @return string The narrow banner image URL.
+	 */
+	protected function get_narrow_banner_image_url(): string {
+		$creative = $this->get_selected_creative();
+
+		if ( ! empty( $creative['narrow_image_url'] ) ) {
+			return $creative['narrow_image_url'];
+		}
+
+		// Fallback to default behavior.
+		return tribe_resource_url( 'images/conditional-content/' . $this->get_narrow_banner_image(), false, null, \Tribe__Main::instance() );
+	}
+
+	/**
+	 * Get the sidebar image URL.
+	 *
+	 * @since 6.8.3
+	 *
+	 * @return string The sidebar image URL.
+	 */
+	protected function get_sidebar_image_url(): string {
+		$creative = $this->get_selected_creative();
+
+		if ( ! empty( $creative['sidebar_image_url'] ) ) {
+			return $creative['sidebar_image_url'];
+		}
+
+		// Fallback to default behavior.
+		return tribe_resource_url( 'images/conditional-content/' . $this->get_sidebar_image(), false, null, \Tribe__Main::instance() );
+	}
+
+	/**
+	 * Get the link URL for the creative.
+	 *
+	 * @since 6.8.3
+	 *
+	 * @return string The link URL.
+	 */
+	protected function get_creative_link_url(): string {
+		$creative = $this->get_selected_creative();
+
+		if ( ! empty( $creative['link_url'] ) ) {
+			return $creative['link_url'];
+		}
+
+		// Fallback to default behavior.
+		return $this->get_link_url();
+	}
+
+	/**
+	 * Get the alt text for the creative.
+	 *
+	 * @since 6.8.3
+	 *
+	 * @return string The alt text.
+	 */
+	protected function get_creative_alt_text(): string {
+		$creative = $this->get_selected_creative();
+
+		if ( ! empty( $creative['alt_text'] ) ) {
+			return $creative['alt_text'];
+		}
+
+		// Fallback to default behavior.
+		$year      = date_i18n( 'Y' );
+		$sale_name = $this->get_sale_name();
+
+		return sprintf(
+			/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
+			_x( '%1$s %2$s for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Sale Ad', 'tribe-common' ),
+			$year,
+			$sale_name
+		);
 	}
 }
