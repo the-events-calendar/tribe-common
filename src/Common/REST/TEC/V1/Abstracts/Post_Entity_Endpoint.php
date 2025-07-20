@@ -271,6 +271,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 
 			unset(
 				$param['schema']['validate_callback'],
+				$param['schema']['sanitize_callback'],
 				$param['schema']['description'],
 				$param['schema']['required'],
 				$param['schema']['explode'],
