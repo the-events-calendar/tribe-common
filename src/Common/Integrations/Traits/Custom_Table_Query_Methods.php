@@ -7,7 +7,7 @@
  * @package TEC\Controller\Tables;
  */
 
- namespace TEC\Common\Integrations\Traits;
+namespace TEC\Common\Integrations\Traits;
 
 use Generator;
 use TEC\Common\StellarWP\DB\DB;
