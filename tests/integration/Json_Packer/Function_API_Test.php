@@ -32,8 +32,8 @@ class Function_API_Test extends WPTestCase {
 	/**
 	 * @test
 	 * @dataProvider scalar_values_provider
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_pack_and_unpack_scalar_values( $value, string $expected_type ) {
 		$packed = tec_json_pack( $value );
@@ -55,8 +55,8 @@ class Function_API_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_pack_and_unpack_empty_array() {
 		$value = [];
@@ -71,8 +71,8 @@ class Function_API_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_pack_and_unpack_sequential_array() {
 		$value = [ 1, 2, 3, 'four', 5.5 ];
@@ -87,8 +87,8 @@ class Function_API_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_pack_and_unpack_associative_array() {
 		$value = [
@@ -107,8 +107,8 @@ class Function_API_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_pack_and_unpack_nested_arrays() {
 		$value = [
@@ -138,8 +138,8 @@ class Function_API_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_pack_and_unpack_stdclass_object() {
 		$obj         = new stdClass();
@@ -160,8 +160,8 @@ class Function_API_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_pack_and_unpack_datetime_object() {
 		$value = new DateTime( '2024-01-15 10:30:00', new DateTimeZone( 'UTC' ) );
@@ -178,8 +178,8 @@ class Function_API_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_pack_and_unpack_datetimeimmutable_object() {
 		$value = new DateTimeImmutable( '2024-01-15 10:30:00', new DateTimeZone( 'America/New_York' ) );
@@ -196,8 +196,8 @@ class Function_API_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_pack_and_unpack_custom_object_with_private_properties() {
 		$value           = new Test_User( 'john_doe', 'john@example.com', true );
@@ -216,8 +216,8 @@ class Function_API_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_pack_and_unpack_object_with_inheritance() {
 		$value           = new Test_Admin_User( 'admin', 'admin@example.com', true, [ 'users.manage', 'posts.delete' ] );
@@ -237,8 +237,8 @@ class Function_API_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_pack_and_unpack_nested_objects() {
 		$address         = new Test_Address( '123 Main St', 'New York', 'NY', '10001' );
@@ -260,8 +260,8 @@ class Function_API_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_pack_and_unpack_array_of_objects() {
 		$value           = [
@@ -287,8 +287,8 @@ class Function_API_Test extends WPTestCase {
 	}
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_handle_circular_references() {
 		$allowed_classes = [ Test_User_With_Friend::class, Test_User::class ];
@@ -323,8 +323,8 @@ class Function_API_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_handle_missing_class_based_on_fail_on_error_parameter() {
 		$allowed_classes = [ Test_User::class ];
@@ -357,8 +357,8 @@ class Function_API_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_handle_object_with_uninitialized_properties() {
 		$allowed_classes = [ Test_Object_With_Uninitialized_Property::class ];
@@ -378,8 +378,8 @@ class Function_API_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_handle_deeply_nested_structure() {
 		$value = [
@@ -402,8 +402,8 @@ class Function_API_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_handle_mixed_array_with_objects() {
 		$value = [
@@ -427,8 +427,8 @@ class Function_API_Test extends WPTestCase {
 	}
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_handle_objects_with_dynamic_properties() {
 		$allowed_classes = [ \WP_Post::class ];
@@ -487,8 +487,8 @@ class Function_API_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_replace_non_allowed_classes_with_stdclass() {
 		// Test packing without allowed classes - should convert to stdClass.
@@ -526,7 +526,7 @@ class Function_API_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_return_null_for_invalid_json() {
 		$result = tec_json_unpack( 'invalid json string' );
@@ -541,8 +541,8 @@ class Function_API_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_allow_datetime_classes_by_default() {
 		// Test DateTime with empty allowed_classes array.
@@ -601,8 +601,8 @@ class Function_API_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::pack
-	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
+	 * @covers ::tec_json_pack
+	 * @covers ::tec_json_unpack
 	 */
 	public function it_should_handle_array_with_mixed_allowed_and_non_allowed_objects() {
 		// Create an array with one allowed object and one non-allowed object.
