@@ -172,32 +172,7 @@ class Array_Of_Type extends Parameter {
 				return $value;
 			}
 
-			$class_string = $this->items_type;
-
-			$class = new $class_string(
-				'example',
-				null,
-				false,
-				null,
-				null,
-				null,
-				$this->get_enum(),
-				$this->get_maximum(),
-				$this->get_minimum(),
-				$this->get_min_length(),
-				$this->get_max_length(),
-				null,
-				null,
-				$this->get_format(),
-				$this->get_pattern(),
-				null,
-				$this->get_multiple_of(),
-				null,
-				null,
-				self::LOCATION_QUERY,
-				null,
-				$this->is_nullable(),
-			);
+			$class = $this->get_class_of_subtype();
 
 			if ( ! $class instanceof Parameter_Contract ) {
 				return $value;
@@ -228,32 +203,7 @@ class Array_Of_Type extends Parameter {
 			return [ 'string1', 'string2' ];
 		}
 
-		$class_string = $this->items_type;
-
-		$class = new $class_string(
-			'example',
-			null,
-			false,
-			null,
-			null,
-			null,
-			$this->get_enum(),
-			$this->get_maximum(),
-			$this->get_minimum(),
-			$this->get_min_length(),
-			$this->get_max_length(),
-			null,
-			null,
-			$this->get_format(),
-			$this->get_pattern(),
-			null,
-			$this->get_multiple_of(),
-			null,
-			null,
-			self::LOCATION_QUERY,
-			null,
-			$this->is_nullable(),
-		);
+		$class = $this->get_class_of_subtype();
 
 		if ( ! $class instanceof Parameter_Contract ) {
 			return [ 'string1', 'string2' ];
@@ -285,5 +235,73 @@ class Array_Of_Type extends Parameter {
 		}
 
 		return $return;
+	}
+
+	/**
+	 * Returns the class of the subtype.
+	 *
+	 * @since TBD
+	 *
+	 * @return ?Parameter_Contract
+	 */
+	public function get_class_of_subtype(): ?Parameter_Contract {
+		$class_string = $this->items_type;
+
+		switch ( $class_string ) {
+			case Positive_Integer::class:
+			case Integer::class:
+			case Number::class:
+				$class = new $class_string(
+					'example',
+					null,
+					null,
+					$this->get_minimum(),
+					$this->get_maximum(),
+					false,
+					null,
+					null,
+					$this->get_multiple_of(),
+				);
+
+				break;
+			case Text::class:
+			case Date_Time::class:
+			case Email::class:
+			case URI::class:
+			case UUID::class:
+			case Hex_Color::class:
+			case IP::class:
+				$class = new $class_string(
+					'example',
+					null,
+					null,
+					$this->get_enum(),
+					$this->get_min_length(),
+					$this->get_max_length(),
+					false,
+					null,
+					null,
+					$this->get_format(),
+					$this->get_pattern(),
+				);
+
+				break;
+			case Boolean::class:
+				$class = new Boolean();
+
+				break;
+			case Entity::class:
+				$class = new Entity(
+					'example',
+					null
+				);
+
+				break;
+			default:
+				$class = null;
+				break;
+		}
+
+		return $class;
 	}
 }
