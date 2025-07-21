@@ -104,6 +104,35 @@ abstract class Endpoint implements Endpoint_Interface {
 	}
 
 	/**
+	 * Returns the documentation for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function get_documentation(): array {
+		$docs = [];
+
+		if ( $this instanceof Readable_Endpoint ) {
+			$docs['get'] = $this->read_schema();
+		}
+
+		if ( $this instanceof Creatable_Endpoint ) {
+			$docs['post'] = $this->create_schema();
+		}
+
+		if ( $this instanceof Updatable_Endpoint ) {
+			$docs['put'] = $this->update_schema();
+		}
+
+		if ( $this instanceof Deletable_Endpoint ) {
+			$docs['delete'] = $this->delete_schema();
+		}
+
+		return $docs;
+	}
+
+	/**
 	 * Gets the current REST URL for the request.
 	 *
 	 * @since TBD

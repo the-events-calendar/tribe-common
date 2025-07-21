@@ -53,4 +53,13 @@ interface Creatable_Endpoint {
 	 * @return Collection
 	 */
 	public function create_args(): Collection;
+
+	/**
+	 * Returns the schema for the create method.
+	 *
+	 * @since TBD
+	 *
+	 * @return OpenAPI_Schema
+	 */
+	public function create_schema(): OpenAPI_Schema;
 }

@@ -13,6 +13,7 @@ namespace TEC\Common\REST\TEC\V1\Parameter_Types;
 
 use TEC\Common\REST\TEC\V1\Abstracts\Parameter;
 use TEC\Common\REST\TEC\V1\Contracts\Parameter as Parameter_Contract;
+use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface as Definition;
 use Closure;
 
 /**
@@ -220,8 +221,20 @@ class Array_Of_Type extends Parameter {
 
 		$return = [];
 
-		if ( class_exists( $this->items_type ) && is_callable( [ $this->items_type, 'get_subitem_format' ] ) ) {
-			$return = $this->items_type::get_subitem_format();
+		if ( class_exists( $this->items_type ) ) {
+			if ( is_callable( [ $this->items_type, 'get_subitem_format' ] ) ) {
+				$return = $this->items_type::get_subitem_format();
+			}
+
+			// phpcs:ignore StellarWP.PHP.IsAFunction.Found
+			if ( is_a( $this->items_type, Definition::class, true ) ) {
+				// All the definitions are defined as singletons.
+				$entity = tribe( $this->items_type );
+
+				$return = [
+					'$ref' => '#/components/schemas/' . $entity->get_type(),
+				];
+			}
 		}
 
 		if ( ! is_array( $return ) || empty( $return ) ) {

@@ -53,4 +53,13 @@ interface Readable_Endpoint {
 	 * @return Collection
 	 */
 	public function read_args(): Collection;
+
+	/**
+	 * Returns the schema for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return OpenAPI_Schema
+	 */
+	public function read_schema(): OpenAPI_Schema;
 }

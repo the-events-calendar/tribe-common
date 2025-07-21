@@ -53,4 +53,13 @@ interface Updatable_Endpoint {
 	 * @return array
 	 */
 	public function update_args(): Collection;
+
+	/**
+	 * Returns the schema for the update method.
+	 *
+	 * @since TBD
+	 *
+	 * @return OpenAPI_Schema
+	 */
+	public function update_schema(): OpenAPI_Schema;
 }

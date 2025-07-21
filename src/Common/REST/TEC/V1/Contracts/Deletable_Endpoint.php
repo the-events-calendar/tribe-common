@@ -53,4 +53,13 @@ interface Deletable_Endpoint {
 	 * @return Collection
 	 */
 	public function delete_args(): Collection;
+
+	/**
+	 * Returns the schema for the delete method.
+	 *
+	 * @since TBD
+	 *
+	 * @return OpenAPI_Schema
+	 */
+	public function delete_schema(): OpenAPI_Schema;
 }

@@ -20,6 +20,9 @@ use WP_REST_Request;
 use WP_REST_Response;
 use TEC\Common\REST\TEC\V1\Tags\Common_Tag;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Collection;
+use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
+use TEC\Common\REST\TEC\V1\Documentation\OpenApi_Definition;
 
 /**
  * OpenAPI docs endpoint.
@@ -223,6 +226,29 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 				],
 			],
 		];
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function read_schema(): OpenAPI_Schema {
+		$schema = new OpenAPI_Schema(
+			fn() => __( 'Get the documentation for the TEC REST API', 'tribe-common' ),
+			fn() => __( 'Returns the documentation for The Events Calendar REST API in Swagger consumable format.', 'tribe-common' ),
+			'getOpenApiDocs',
+			[ tribe( Common_Tag::class ) ],
+			$this->read_args(),
+		);
+
+		$schema->add_response(
+			200,
+			fn() => __( 'Returns the documentation for The Events Calendar REST API in Swagger consumable format.', 'tribe-common' ),
+			null,
+			'application/json',
+			new Collection( [ new Array_Of_Type( 'OpenApiDocumentation', null, OpenApi_Definition::class ) ] ),
+		);
+
+		return $schema;
 	}
 
 	/**
