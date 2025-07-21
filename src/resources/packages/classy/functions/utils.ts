@@ -45,11 +45,6 @@ export function isValidUrl( url: string ): boolean {
 			return false;
 		}
 
-		// Reject empty hostnames
-		if ( hostname === '' ) {
-			return false;
-		}
-
 		return true;
 	} catch {
 		return false;
