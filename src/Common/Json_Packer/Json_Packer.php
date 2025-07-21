@@ -44,12 +44,16 @@ class Json_Packer {
 	/**
 	 * Tracks object references to handle circular references.
 	 *
+	 * @since TBD
+	 *
 	 * @var array
 	 */
 	private array $references = [];
 
 	/**
 	 * Stores objects during unpacking for reference resolution.
+	 *
+	 * @since TBD
 	 *
 	 * @var array
 	 */
