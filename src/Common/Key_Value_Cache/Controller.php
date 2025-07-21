@@ -64,7 +64,7 @@ class Controller extends Controller_Contract {
 			$this->container->singleton( Key_Value_Cache_Interface::class, Object_Cache::class );
 
 			// If we were using the table cache, we need to unschedule the cron event.
-			if ( ! wp_next_scheduled( self::CLEAR_EXPIRED_ACTION ) ) {
+			if ( wp_next_scheduled( self::CLEAR_EXPIRED_ACTION ) ) {
 				wp_unschedule_event( time(), self::CLEAR_EXPIRED_ACTION );
 			}
 		} else {
@@ -106,7 +106,7 @@ class Controller extends Controller_Contract {
 		remove_action( self::CLEAR_EXPIRED_ACTION, [ $this, 'clear_expired' ] );
 		remove_action( 'plugins_loaded', [ $this, 'register_table_schema' ] );
 
-		if ( ! wp_next_scheduled( self::CLEAR_EXPIRED_ACTION ) ) {
+		if ( wp_next_scheduled( self::CLEAR_EXPIRED_ACTION ) ) {
 			wp_unschedule_event( time(), self::CLEAR_EXPIRED_ACTION );
 		}
 	}
