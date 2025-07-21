@@ -34,4 +34,11 @@ class URI extends Text {
 			'format' => 'uri',
 		];
 	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get_example(): string {
+		return 'https://example.com';
+	}
 }

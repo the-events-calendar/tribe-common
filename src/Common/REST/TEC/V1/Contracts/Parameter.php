@@ -213,6 +213,60 @@ interface Parameter extends JsonSerializable {
 	public function get_properties(): ?Collection;
 
 	/**
+	 * Returns the parameter location.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_location(): string;
+
+	/**
+	 * Returns the parameter deprecated.
+	 *
+	 * @since TBD
+	 *
+	 * @return ?bool
+	 */
+	public function is_deprecated(): ?bool;
+
+	/**
+	 * Returns the parameter example.
+	 *
+	 * @since TBD
+	 *
+	 * @return mixed
+	 */
+	public function get_example();
+
+	/**
+	 * Returns the parameter nullable.
+	 *
+	 * @since TBD
+	 *
+	 * @return ?bool
+	 */
+	public function is_nullable(): ?bool;
+
+	/**
+	 * Returns the parameter read only.
+	 *
+	 * @since TBD
+	 *
+	 * @return ?bool
+	 */
+	public function is_read_only(): ?bool;
+
+	/**
+	 * Returns the parameter write only.
+	 *
+	 * @since TBD
+	 *
+	 * @return ?bool
+	 */
+	public function is_write_only(): ?bool;
+
+	/**
 	 * Returns the parameter as an array.
 	 *
 	 * @since TBD
@@ -220,4 +274,15 @@ interface Parameter extends JsonSerializable {
 	 * @return array
 	 */
 	public function to_array(): array;
+
+	/**
+	 * Returns the parameter as an OpenAPI schema.
+	 *
+	 * @link https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#parameter-object
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function to_openapi_schema(): array;
 }

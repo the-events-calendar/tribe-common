@@ -57,4 +57,17 @@ class Integer extends Parameter {
 			'type' => 'integer',
 		];
 	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get_example(): int {
+		if ( $this->get_minimum() || $this->get_maximum() ) {
+			$val = (int) ceil( ( ( $this->get_minimum() ?? 1 ) + ( $this->get_maximum() ?? 1 ) ) / 2 );
+
+			return $val > 0 ? $val : -1 * $val;
+		}
+
+		return -126;
+	}
 }

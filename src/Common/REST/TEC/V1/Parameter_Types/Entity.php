@@ -48,4 +48,14 @@ class Entity extends Parameter {
 	public function get_default() {
 		return $this->default;
 	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get_example(): array {
+		return [
+			'id'   => 1,
+			'name' => 'Example',
+		];
+	}
 }

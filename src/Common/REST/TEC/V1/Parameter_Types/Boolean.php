@@ -49,4 +49,11 @@ class Boolean extends Parameter {
 	public function get_default(): ?bool {
 		return $this->default;
 	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get_example(): bool {
+		return true;
+	}
 }

@@ -21,6 +21,80 @@ use TEC\Common\REST\TEC\V1\Parameter_Types\Collection;
  * @since TBD
  */
 abstract class Parameter implements Parameter_Contract {
+	/**
+	 * The OpenAPI schema keys.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	public const OPENAPI_SCHEMA_KEYS = [
+		'title'                => true,
+		'multipleOf'           => true,
+		'maximum'              => true,
+		'exclusiveMaximum'     => true,
+		'minimum'              => true,
+		'exclusiveMinimum'     => true,
+		'maxLength'            => true,
+		'minLength'            => true,
+		'pattern'              => true,
+		'maxItems'             => true,
+		'minItems'             => true,
+		'uniqueItems'          => true,
+		'maxProperties'        => true,
+		'minProperties'        => true,
+		'enum'                 => true,
+		'type'                 => true,
+		'allOf'                => true,
+		'oneOf'                => true,
+		'anyOf'                => true,
+		'not'                  => true,
+		'items'                => true,
+		'properties'           => true,
+		'additionalProperties' => true,
+		'format'               => true,
+		'default'              => true,
+		'nullable'             => true,
+		'readOnly'             => true,
+		'writeOnly'            => true,
+		'deprecated'           => true,
+	];
+
+	/**
+	 * The parameter location: query.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public const LOCATION_QUERY = 'query';
+
+	/**
+	 * The parameter location: path.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public const LOCATION_PATH   = 'path';
+
+	/**
+	 * The parameter location: header.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public const LOCATION_HEADER = 'header';
+
+	/**
+	 * The parameter location: cookie.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public const LOCATION_COOKIE = 'cookie';
 
 	/**
 	 * The name of the parameter.
@@ -36,9 +110,9 @@ abstract class Parameter implements Parameter_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @var Closure
+	 * @var ?Closure
 	 */
-	protected Closure $description_provider;
+	protected ?Closure $description_provider;
 
 	/**
 	 * The validator.
@@ -185,6 +259,15 @@ abstract class Parameter implements Parameter_Contract {
 	protected $multiple_of = null;
 
 	/**
+	 * The location.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected string $location;
+
+	/**
 	 * The properties.
 	 *
 	 * @since TBD
@@ -194,12 +277,48 @@ abstract class Parameter implements Parameter_Contract {
 	protected ?Collection $properties = null;
 
 	/**
+	 * Whether the parameter is deprecated.
+	 *
+	 * @since TBD
+	 *
+	 * @var ?bool
+	 */
+	protected ?bool $deprecated = null;
+
+	/**
+	 * Whether the parameter is nullable.
+	 *
+	 * @since TBD
+	 *
+	 * @var ?bool
+	 */
+	protected ?bool $nullable = null;
+
+	/**
+	 * Whether the parameter is read only.
+	 *
+	 * @since TBD
+	 *
+	 * @var ?bool
+	 */
+	protected ?bool $read_only = null;
+
+	/**
+	 * Whether the parameter is write only.
+	 *
+	 * @since TBD
+	 *
+	 * @var ?bool
+	 */
+	protected ?bool $write_only = null;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since TBD
 	 *
 	 * @param string         $name                 The name of the parameter.
-	 * @param Closure        $description_provider The description provider.
+	 * @param ?Closure       $description_provider The description provider.
 	 * @param bool           $required             Whether the parameter is required.
 	 * @param ?string        $items_type           The items type.
 	 * @param ?Collection    $properties           The properties.
@@ -217,10 +336,15 @@ abstract class Parameter implements Parameter_Contract {
 	 * @param int|float|null $multiple_of          The multiple of.
 	 * @param ?int           $min_items            The minimum items.
 	 * @param ?int           $max_items            The maximum items.
+	 * @param string         $location             The parameter location.
+	 * @param bool           $deprecated           Whether the parameter is deprecated.
+	 * @param ?bool          $nullable             Whether the parameter is nullable.
+	 * @param ?bool          $read_only            Whether the parameter is read only.
+	 * @param ?bool          $write_only           Whether the parameter is write only.
 	 */
 	public function __construct(
-		string $name,
-		Closure $description_provider,
+		string $name = 'example',
+		?Closure $description_provider = null,
 		bool $required = true,
 		?string $items_type = null,
 		?Collection $properties = null,
@@ -237,7 +361,12 @@ abstract class Parameter implements Parameter_Contract {
 		?bool $explode = null,
 		$multiple_of = null,
 		?int $min_items = null,
-		?int $max_items = null
+		?int $max_items = null,
+		string $location = self::LOCATION_QUERY,
+		?bool $deprecated = null,
+		?bool $nullable = null,
+		?bool $read_only = null,
+		?bool $write_only = null
 	) {
 		$this->name                 = $name;
 		$this->description_provider = $description_provider;
@@ -258,6 +387,11 @@ abstract class Parameter implements Parameter_Contract {
 		$this->multiple_of          = $multiple_of;
 		$this->min_items            = $min_items;
 		$this->max_items            = $max_items;
+		$this->location             = $location;
+		$this->deprecated           = $deprecated;
+		$this->nullable             = $nullable;
+		$this->read_only            = $read_only;
+		$this->write_only           = $write_only;
 	}
 
 	/**
@@ -271,6 +405,10 @@ abstract class Parameter implements Parameter_Contract {
 	 * @inheritDoc
 	 */
 	public function get_description(): string {
+		if ( null === $this->description_provider ) {
+			return '';
+		}
+
 		return call_user_func( $this->description_provider );
 	}
 
@@ -396,10 +534,34 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * @inheritDoc
 	 */
+	public function is_nullable(): ?bool {
+		return $this->nullable;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function is_read_only(): ?bool {
+		return $this->read_only;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function is_write_only(): ?bool {
+		return $this->write_only;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
 	public function to_array(): array {
 		return array_filter(
 			[
 				'description'       => $this->get_description(),
+				'nullable'          => $this->is_nullable(),
+				'readOnly'          => $this->is_read_only(),
+				'writeOnly'         => $this->is_write_only(),
 				'type'              => $this->get_type(),
 				'items'             => $this->get_items(),
 				'default'           => $this->get_default(),
@@ -427,9 +589,42 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * @inheritDoc
 	 */
+	public function get_location(): string {
+		return $this->location;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function is_deprecated(): ?bool {
+		return $this->deprecated;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
 	public function jsonSerialize(): array {
-		return [
-			$this->get_name() => $this->to_array(),
-		];
+		return $this->to_openapi_schema();
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function to_openapi_schema(): array {
+		$schema = array_filter( array_intersect_key( $this->to_array(), self::OPENAPI_SCHEMA_KEYS ), static fn( $value ) => null !== $value );
+
+		return array_filter(
+			[
+				'name'        => $this->get_name(),
+				'in'          => $this->get_location(),
+				'description' => $this->get_description(),
+				'required'    => $this->is_required(),
+				'deprecated'  => $this->is_deprecated(),
+				'explode'     => $this->get_explode(),
+				'schema'      => $schema,
+				'example'     => $this->get_example(),
+			],
+			static fn( $value ) => null !== $value
+		);
 	}
 }

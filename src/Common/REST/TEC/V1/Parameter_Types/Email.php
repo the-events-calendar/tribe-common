@@ -34,4 +34,11 @@ class Email extends Text {
 			'format' => 'email',
 		];
 	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get_example(): string {
+		return 'example@theeventscalendar.com';
+	}
 }

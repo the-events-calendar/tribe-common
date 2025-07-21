@@ -152,13 +152,26 @@ class Collection implements ArrayAccess, Iterator, Countable, JsonSerializable {
 	 * @return array
 	 */
 	public function to_array(): array {
-		return array_merge( ...array_map( fn( Parameter $param ) => $param->jsonSerialize(), $this->resources ) );
+		return array_merge( ...array_map( fn( Parameter $param ) => [ $param->get_name() => $param->to_array() ], $this->resources ) );
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function jsonSerialize(): array {
-		return $this->to_array();
+		return $this->resources;
+	}
+
+	/**
+	 * Maps the collection to an array.
+	 *
+	 * @since TBD
+	 *
+	 * @param callable $callback The callback to map the collection to an array.
+	 *
+	 * @return array
+	 */
+	public function map( callable $callback ): array {
+		return array_map( $callback, $this->resources );
 	}
 }

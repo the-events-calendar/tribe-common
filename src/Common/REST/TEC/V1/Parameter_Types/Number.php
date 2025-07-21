@@ -57,4 +57,15 @@ class Number extends Parameter {
 			'type' => 'number',
 		];
 	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get_example(): float {
+		if ( $this->get_minimum() || $this->get_maximum() ) {
+			return ceil( ( ( $this->get_minimum() ?? 1 ) + ( $this->get_maximum() ?? 1 ) ) / 2 ) + 0.25;
+		}
+
+		return 126.75;
+	}
 }

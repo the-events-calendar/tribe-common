@@ -34,4 +34,11 @@ class Hex_Color extends Text {
 			'format' => 'hex-color',
 		];
 	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get_example(): string {
+		return '#000000';
+	}
 }

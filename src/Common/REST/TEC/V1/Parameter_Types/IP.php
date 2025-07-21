@@ -34,4 +34,11 @@ class IP extends Text {
 			'format' => 'ip',
 		];
 	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get_example(): string {
+		return '127.0.0.1';
+	}
 }

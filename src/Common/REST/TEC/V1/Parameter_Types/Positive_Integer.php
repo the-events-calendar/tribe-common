@@ -33,4 +33,15 @@ class Positive_Integer extends Integer {
 	public function get_sanitizer(): Closure {
 		return $this->sanitizer ?? fn( $value ): int => absint( $value );
 	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get_example(): int {
+		if ( $this->get_minimum() || $this->get_maximum() ) {
+			return (int) ceil( ( ( $this->get_minimum() ?? 1 ) + ( $this->get_maximum() ?? 1 ) ) / 2 );
+		}
+
+		return 126;
+	}
 }
