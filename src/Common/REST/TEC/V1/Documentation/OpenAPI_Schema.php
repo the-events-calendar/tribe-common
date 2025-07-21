@@ -170,6 +170,8 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 						$header['name'],
 						$header['in'],
 						$header['example'],
+						$header['explode'],
+						$header['schema']['uniqueItems'],
 					);
 
 					return $header;
@@ -179,8 +181,13 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 		}
 
 		if ( null !== $content_type && null !== $content ) {
+			$content_schema = $content->to_openapi_schema()['schema'];
+			unset(
+				$content_schema['uniqueItems'],
+			);
+
 			$this->responses[ $code ]['content'][ $content_type ] = [
-				'schema' => $content->to_openapi_schema()['schema'],
+				'schema' => $content_schema,
 			];
 		}
 	}
