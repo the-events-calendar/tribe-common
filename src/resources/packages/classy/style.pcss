@@ -202,6 +202,11 @@
 			color: var(--tec-color-gutenberg-grey-600);
 			font-size: var(--classy-font-size-13);
 			font-weight: var(--tec-font-weight-regular);
+
+			&.classy-field__input-note--error {
+				color: var(--tec-color-gutenberg-alert-red);
+				font-weight: var(--tec-font-weight-regular);
+			}
 		}
 	}
 
@@ -255,7 +260,7 @@
 			margin: 0;
 		}
 
-		&.classy-field__control--invalid {
+		&.classy-field__control--invalid:not(:focus-within) {
 			border: 2px solid var(--tec-color-gutenberg-alert-red);
 		}
 
