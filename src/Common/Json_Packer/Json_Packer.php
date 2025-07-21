@@ -216,7 +216,8 @@ class Json_Packer {
 		$class_name = get_class( $object_to_pack );
 
 		if ( count( $this->allowed_classes ) === 0 || ! isset( $this->allowed_classes[ $class_name ] ) ) {
-			$class_name = stdClass::class;
+			$original_class_name = $class_name;
+			$class_name          = stdClass::class;
 		}
 
 		$packed = [
@@ -272,7 +273,13 @@ class Json_Packer {
 		}
 
 		// Collect dynamic properties directly set on the object.
-		foreach ( get_object_vars( $object_to_pack ) as $name => $value ) {
+		$object_vars = get_object_vars( $object_to_pack );
+
+		if ( isset( $original_class_name ) ) {
+			$object_vars['__original_class__'] = $original_class_name;
+		}
+
+		foreach ( $object_vars as $name => $value ) {
 			if ( isset( $packed['properties']->{$name} ) ) {
 				// Already packed.
 				continue;
@@ -429,13 +436,6 @@ class Json_Packer {
 	): object {
 		$class_name = $data['type'];
 
-		if (
-			count( $this->allowed_classes ) === 0
-			|| ! isset( $this->allowed_classes[ $class_name ] )
-		) {
-			$class_name = stdClass::class;
-		}
-
 		$properties = $data['properties'] ?? [];
 
 		// Handle stdClass.
@@ -474,8 +474,16 @@ class Json_Packer {
 		// Create instance without constructor.
 		$reflection = null;
 		try {
-			$reflection = new ReflectionClass( $class_name );
-			$object     = $reflection->newInstanceWithoutConstructor();
+			if (
+				count( $this->allowed_classes ) === 0
+				|| ! isset( $this->allowed_classes[ $class_name ] )
+			) {
+				$object                     = new stdClass();
+				$object->__original_class__ = $class_name;
+			} else {
+				$reflection = new ReflectionClass( $class_name );
+				$object     = $reflection->newInstanceWithoutConstructor();
+			}
 		} catch ( ReflectionException $e ) {
 			if ( $this->fail_on_error ) {
 				throw new Unpack_Exception( "Error while unpacking ${class_name}: {$e->getMessage()}" );
@@ -485,6 +493,7 @@ class Json_Packer {
 			// Store the original class name as a property for reference.
 			$object->__original_class__ = $class_name;
 		}
+
 		$this->unpack_references[ $path ] = $object;
 
 		// Set properties using reflection.

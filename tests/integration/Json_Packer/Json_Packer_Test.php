@@ -615,11 +615,14 @@ class Json_Packer_Test extends WPTestCase {
 		// Test packing without allowed classes - should convert to stdClass.
 		$user = new Test_User( 'john_doe', 'john@example.com', true );
 		$packed = $packer->pack( $user, [] ); // Empty allowed classes array.
-		
+
 		// Verify the packed data uses stdClass instead of Test_User.
 		$this->assertStringContainsString( '"type": "stdClass"', $packed );
-		$this->assertStringNotContainsString( 'Test_User', $packed );
-		
+		$this->assertEquals(
+			Test_User::class,
+			json_decode($packed)->properties->__original_class__->value
+		);
+
 		// Unpack and verify we get stdClass.
 		$unpacked = $packer->unpack( $packed );
 		$this->assertInstanceOf( stdClass::class, $unpacked );
@@ -630,10 +633,10 @@ class Json_Packer_Test extends WPTestCase {
 		// Test with allowed classes that should preserve the type.
 		$allowed_user = new Test_User( 'allowed_user', 'allowed@example.com', false );
 		$packed_allowed = $packer->pack( $allowed_user, [ Test_User::class ] );
-		
+
 		// Verify the packed data uses Test_User since it's allowed.
 		$this->assertStringContainsString( 'Test_User', $packed_allowed );
-		
+
 		// Unpack and verify we get Test_User back.
 		$unpacked_allowed = $packer->unpack( $packed_allowed, true, [ Test_User::class ] );
 		$this->assertInstanceOf( Test_User::class, $unpacked_allowed );
@@ -670,11 +673,11 @@ class Json_Packer_Test extends WPTestCase {
 		// Test DateTime with empty allowed_classes array.
 		$datetime = new DateTime( '2024-03-15 14:30:00', new DateTimeZone( 'UTC' ) );
 		$packed = $packer->pack( $datetime, [] ); // Empty allowed classes.
-		
+
 		// Should still pack as DateTime, not stdClass.
 		$this->assertStringContainsString( 'DateTime', $packed );
 		$this->assertStringNotContainsString( '"type": "stdClass"', $packed );
-		
+
 		// Should unpack correctly even with empty allowed classes.
 		$unpacked = $packer->unpack( $packed, true, [] );
 		$this->assertInstanceOf( DateTime::class, $unpacked );
@@ -684,10 +687,10 @@ class Json_Packer_Test extends WPTestCase {
 		// Test DateTimeImmutable with empty allowed_classes array.
 		$datetime_immutable = new DateTimeImmutable( '2024-06-20 09:15:30', new DateTimeZone( 'America/New_York' ) );
 		$packed_immutable = $packer->pack( $datetime_immutable, [] );
-		
+
 		// Should pack as DateTimeImmutable.
 		$this->assertStringContainsString( 'DateTimeImmutable', $packed_immutable );
-		
+
 		// Should unpack correctly.
 		$unpacked_immutable = $packer->unpack( $packed_immutable, true, [] );
 		$this->assertInstanceOf( DateTimeImmutable::class, $unpacked_immutable );
@@ -698,7 +701,7 @@ class Json_Packer_Test extends WPTestCase {
 		$timezone = new DateTimeZone( 'Europe/London' );
 		$datetime_with_tz = new DateTime( '2024-12-25 00:00:00', $timezone );
 		$packed_with_tz = $packer->pack( $datetime_with_tz, [] );
-		
+
 		$unpacked_with_tz = $packer->unpack( $packed_with_tz, true, [] );
 		$this->assertInstanceOf( DateTime::class, $unpacked_with_tz );
 		$this->assertEquals( 'Europe/London', $unpacked_with_tz->getTimezone()->getName() );
@@ -710,11 +713,11 @@ class Json_Packer_Test extends WPTestCase {
 			'created_at' => new DateTime( '2024-01-01 12:00:00' ),
 			'updated_at' => new DateTimeImmutable( '2024-01-15 18:30:00' ),
 		];
-		
+
 		// Pack with only Test_User in allowed classes - DateTime classes should still work.
 		$packed_complex = $packer->pack( $complex_data, [ Test_User::class ] );
 		$unpacked_complex = $packer->unpack( $packed_complex, true, [ Test_User::class ] );
-		
+
 		$this->assertIsArray( $unpacked_complex );
 		$this->assertInstanceOf( Test_User::class, $unpacked_complex['user'] );
 		$this->assertInstanceOf( DateTime::class, $unpacked_complex['created_at'] );
@@ -728,68 +731,68 @@ class Json_Packer_Test extends WPTestCase {
 	 */
 	public function it_should_handle_array_with_mixed_allowed_and_non_allowed_objects() {
 		$packer = new Json_Packer();
-		
+
 		// Create an array with one allowed object and one non-allowed object.
 		$allowed_user = new Test_User( 'allowed_user', 'allowed@example.com', true );
 		$admin_user = new Test_Admin_User( 'admin_user', 'admin@example.com', true, ['manage', 'delete'] );
-		
+
 		$mixed_array = [
 			'allowed' => $allowed_user,
 			'not_allowed' => $admin_user,
 			'datetime' => new DateTime( '2024-01-01 10:00:00' ), // Always allowed.
 			'std' => new stdClass(), // Test stdClass behavior.
 		];
-		
+
 		// Pack with only Test_User allowed (Test_Admin_User not allowed).
 		$allowed_classes = [ Test_User::class ];
 		$packed = $packer->pack( $mixed_array, $allowed_classes );
-		
+
 		// Verify packing - allowed class should keep its type, non-allowed should become stdClass.
 		$this->assertStringContainsString( '"allowed"', $packed );
 		$this->assertStringContainsString( 'Test_User', $packed );
 		// Admin user should be converted to stdClass during packing.
 		$decoded = json_decode( $packed, true );
 		$this->assertEquals( 'stdClass', $decoded['value']['not_allowed']['type'] );
-		
+
 		// Test with fail_on_error = true (default).
 		$unpacked_fail = $packer->unpack( $packed, true, $allowed_classes );
-		
+
 		$this->assertIsArray( $unpacked_fail );
 		// Allowed object should be properly restored.
 		$this->assertInstanceOf( Test_User::class, $unpacked_fail['allowed'] );
 		$this->assertEquals( 'allowed_user', $unpacked_fail['allowed']->getUsername() );
-		
+
 		// Non-allowed object should be stdClass.
 		$this->assertInstanceOf( stdClass::class, $unpacked_fail['not_allowed'] );
 		$this->assertEquals( 'admin_user', $unpacked_fail['not_allowed']->username );
 		$this->assertEquals( 'admin@example.com', $unpacked_fail['not_allowed']->email );
 		$this->assertTrue( $unpacked_fail['not_allowed']->active );
 		$this->assertEquals( ['manage', 'delete'], $unpacked_fail['not_allowed']->permissions );
-		
+
 		// DateTime should work (always allowed).
 		$this->assertInstanceOf( DateTime::class, $unpacked_fail['datetime'] );
 		$this->assertEquals( '2024-01-01 10:00:00', $unpacked_fail['datetime']->format( 'Y-m-d H:i:s' ) );
-		
+
 		// stdClass should work as expected.
 		$this->assertInstanceOf( stdClass::class, $unpacked_fail['std'] );
-		
+
 		// Test with fail_on_error = false.
 		$unpacked_no_fail = $packer->unpack( $packed, false, $allowed_classes );
-		
+
 		// Results should be the same since all conversions happen during packing.
 		$this->assertIsArray( $unpacked_no_fail );
 		$this->assertInstanceOf( Test_User::class, $unpacked_no_fail['allowed'] );
 		$this->assertInstanceOf( stdClass::class, $unpacked_no_fail['not_allowed'] );
 		$this->assertInstanceOf( DateTime::class, $unpacked_no_fail['datetime'] );
 		$this->assertInstanceOf( stdClass::class, $unpacked_no_fail['std'] );
-		
+
 		// Test edge case: pack with all classes allowed, unpack with restricted allowed classes.
 		$packed_all_allowed = $packer->pack( $mixed_array, [ Test_User::class, Test_Admin_User::class ] );
-		
+
 		// Now unpack with only Test_User allowed.
 		// The unpacker should handle this gracefully - converting non-allowed classes to stdClass.
 		$unpacked_restricted = $packer->unpack( $packed_all_allowed, true, [ Test_User::class ] );
-		
+
 		$this->assertIsArray( $unpacked_restricted );
 		$this->assertInstanceOf( Test_User::class, $unpacked_restricted['allowed'] );
 		// Test_Admin_User should be converted to stdClass since it's not in allowed_classes.
