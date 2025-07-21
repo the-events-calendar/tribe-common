@@ -64,13 +64,13 @@ class Controller extends Controller_Contract {
 			$this->container->singleton( Key_Value_Cache_Interface::class, Object_Cache::class );
 
 			// If we were using the table cache, we need to unschedule the cron event.
-			$this->unschedule_table_clean_action();
+			add_action( 'init', [ $this, 'unschedule_table_clean_action' ] );
 		} else {
 			$this->register_table_schema();
 			$this->container->singleton( Key_Value_Cache_Interface::class, Key_Value_Cache_Table::class );
 
 			// Schedule an action to clear the table of expired entries.
-			$this->schedule_table_clean_action();
+			add_action( 'init', [ $this, 'schedule_table_clean_action' ] );
 
 			add_action( self::CLEAR_EXPIRED_ACTION, [ $this, 'clear_expired' ] );
 		}
@@ -101,6 +101,7 @@ class Controller extends Controller_Contract {
 	public function unregister(): void {
 		remove_action( self::CLEAR_EXPIRED_ACTION, [ $this, 'clear_expired' ] );
 		remove_action( 'plugins_loaded', [ $this, 'register_table_schema' ] );
+		remove_action( 'init', [ $this, 'schedule_table_clean_action' ] );
 
 		$this->unschedule_table_clean_action();
 	}
@@ -130,7 +131,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @return void
 	 */
-	private function unschedule_table_clean_action(): void {
+	public function unschedule_table_clean_action(): void {
 		if (
 			function_exists( 'as_has_scheduled_action' )
 			&& as_has_scheduled_action( self::CLEAR_EXPIRED_ACTION )
@@ -153,7 +154,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @return void
 	 */
-	private function schedule_table_clean_action(): void {
+	public function schedule_table_clean_action(): void {
 		if (
 			function_exists( 'as_has_scheduled_action' )
 			&& function_exists( 'as_schedule_recurring_action' )

@@ -118,23 +118,39 @@ class Controller_Test extends Controller_Test_Case {
 		$this->set_fn_return( 'wp_using_ext_object_cache', false );
 		$as_has_scheduled_action = false;
 		if ( ! function_exists( 'as_has_scheduled_action' ) ) {
-			$this->set_fn_return( 'as_has_scheduled_action', function () use ( &$as_has_scheduled_action ) {
-				return $as_has_scheduled_action;
-			}, true );
+			$this->set_fn_return(
+				'as_has_scheduled_action',
+				function () use ( &$as_has_scheduled_action ) {
+					return $as_has_scheduled_action;
+				},
+				true 
+			);
 		}
 		if ( ! function_exists( 'as_schedule_recurring_action' ) ) {
-			$this->set_fn_return( 'as_has_scheduled_action', function () use ( &$as_has_scheduled_action ) {
-				$as_has_scheduled_action = true;
-			}, true );
+			$this->set_fn_return(
+				'as_has_scheduled_action',
+				function () use ( &$as_has_scheduled_action ) {
+					$as_has_scheduled_action = true;
+				},
+				true 
+			);
 		}
 		if ( ! function_exists( 'as_unschedule_action' ) ) {
-			$this->set_fn_return( 'as_unschedule_action', function () use ( &$as_has_scheduled_action ) {
-				$as_has_scheduled_action = false;
-			}, true );
+			$this->set_fn_return(
+				'as_unschedule_action',
+				function () use ( &$as_has_scheduled_action ) {
+					$as_has_scheduled_action = false;
+				},
+				true 
+			);
 		}
+		// Remove anything hooked to init to avoid side-effects.
+		remove_all_filters( 'init' );
 
 		$controller = $this->make_controller();
 		$controller->register();
+
+		do_action( 'init' );
 
 		// Sanity check.
 		$this->assertTrue( as_has_scheduled_action( Controller::CLEAR_EXPIRED_ACTION ) );
@@ -152,16 +168,24 @@ class Controller_Test extends Controller_Test_Case {
 	 */
 	public function test_schedules_unschedules_correctly_with_wp_cron(): void {
 		$this->set_fn_return( 'wp_using_ext_object_cache', false );
-		$this->set_fn_return( 'function_exists', function ( string $fn ): bool {
-			if ( str_starts_with( $fn, 'as_' ) ) {
-				return false;
-			}
+		$this->set_fn_return(
+			'function_exists',
+			function ( string $fn ): bool {
+				if ( str_starts_with( $fn, 'as_' ) ) {
+					return false;
+				}
 
-			return function_exists( $fn );
-		}, true );
+				return function_exists( $fn );
+			},
+			true 
+		);
+		// Remove anything hooked to init to avoid side-effects.
+		remove_all_filters( 'init' );
 
 		$controller = $this->make_controller();
 		$controller->register();
+
+		do_action( 'init' );
 
 		// Sanity check.
 		$this->assertNotFalse( wp_next_scheduled( Controller::CLEAR_EXPIRED_ACTION ) );
