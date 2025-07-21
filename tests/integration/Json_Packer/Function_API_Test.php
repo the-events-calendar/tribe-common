@@ -7,11 +7,10 @@ use DateTimeImmutable;
 use DateTimeZone;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 use stdClass;
-use TEC\Common\Json_Packer\Json_Packer;
 
 require_once codecept_data_dir( 'classes/json-packer-test-classes.php' );
 
-class Json_Packer_Test extends WPTestCase {
+class Function_API_Test extends WPTestCase {
 	public static function scalar_values_provider(): array {
 		return [
 			'null value'           => [ null, 'null' ],
@@ -37,9 +36,7 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_pack_and_unpack_scalar_values( $value, string $expected_type ) {
-		$packer = new Json_Packer();
-
-		$packed = $packer->pack( $value );
+		$packed = tec_json_pack( $value );
 
 		$this->assertIsString( $packed );
 		$this->assertJson( $packed );
@@ -47,7 +44,7 @@ class Json_Packer_Test extends WPTestCase {
 		$decoded = json_decode( $packed, true );
 		$this->assertEquals( $expected_type, $decoded['type'] );
 
-		$unpacked = $packer->unpack( $packed );
+		$unpacked = tec_json_unpack( $packed );
 		if ( is_float( $value ) && $value === 0.0 ) {
 			// PHP's json_decode converts 0.0 to 0 (integer).
 			$this->assertEquals( $value, $unpacked );
@@ -62,14 +59,13 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_pack_and_unpack_empty_array() {
-		$packer = new Json_Packer();
-		$value  = [];
+		$value = [];
 
-		$packed = $packer->pack( $value );
+		$packed = tec_json_pack( $value );
 		$this->assertIsString( $packed );
 		$this->assertJson( $packed );
 
-		$unpacked = $packer->unpack( $packed );
+		$unpacked = tec_json_unpack( $packed );
 		$this->assertSame( $value, $unpacked );
 	}
 
@@ -79,14 +75,13 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_pack_and_unpack_sequential_array() {
-		$packer = new Json_Packer();
-		$value  = [ 1, 2, 3, 'four', 5.5 ];
+		$value = [ 1, 2, 3, 'four', 5.5 ];
 
-		$packed = $packer->pack( $value );
+		$packed = tec_json_pack( $value );
 		$this->assertIsString( $packed );
 		$this->assertJson( $packed );
 
-		$unpacked = $packer->unpack( $packed );
+		$unpacked = tec_json_unpack( $packed );
 		$this->assertSame( $value, $unpacked );
 	}
 
@@ -96,18 +91,17 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_pack_and_unpack_associative_array() {
-		$packer = new Json_Packer();
-		$value  = [
+		$value = [
 			'name'   => 'John',
 			'age'    => 30,
 			'active' => true,
 		];
 
-		$packed = $packer->pack( $value );
+		$packed = tec_json_pack( $value );
 		$this->assertIsString( $packed );
 		$this->assertJson( $packed );
 
-		$unpacked = $packer->unpack( $packed );
+		$unpacked = tec_json_unpack( $packed );
 		$this->assertSame( $value, $unpacked );
 	}
 
@@ -117,8 +111,7 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_pack_and_unpack_nested_arrays() {
-		$packer = new Json_Packer();
-		$value  = [
+		$value = [
 			'users'    => [
 				[
 					'id'   => 1,
@@ -135,11 +128,11 @@ class Json_Packer_Test extends WPTestCase {
 			],
 		];
 
-		$packed = $packer->pack( $value );
+		$packed = tec_json_pack( $value );
 		$this->assertIsString( $packed );
 		$this->assertJson( $packed );
 
-		$unpacked = $packer->unpack( $packed );
+		$unpacked = tec_json_unpack( $packed );
 		$this->assertSame( $value, $unpacked );
 	}
 
@@ -149,17 +142,16 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_pack_and_unpack_stdclass_object() {
-		$packer      = new Json_Packer();
 		$obj         = new stdClass();
 		$obj->name   = 'Test';
 		$obj->value  = 123;
 		$obj->active = true;
 
-		$packed = $packer->pack( $obj );
+		$packed = tec_json_pack( $obj );
 		$this->assertIsString( $packed );
 		$this->assertJson( $packed );
 
-		$unpacked = $packer->unpack( $packed );
+		$unpacked = tec_json_unpack( $packed );
 		$this->assertInstanceOf( stdClass::class, $unpacked );
 		$this->assertEquals( $obj->name, $unpacked->name );
 		$this->assertEquals( $obj->value, $unpacked->value );
@@ -172,14 +164,13 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_pack_and_unpack_datetime_object() {
-		$packer = new Json_Packer();
-		$value  = new DateTime( '2024-01-15 10:30:00', new DateTimeZone( 'UTC' ) );
+		$value = new DateTime( '2024-01-15 10:30:00', new DateTimeZone( 'UTC' ) );
 
-		$packed = $packer->pack( $value );
+		$packed = tec_json_pack( $value );
 		$this->assertIsString( $packed );
 		$this->assertJson( $packed );
 
-		$unpacked = $packer->unpack( $packed );
+		$unpacked = tec_json_unpack( $packed );
 		$this->assertInstanceOf( DateTime::class, $unpacked );
 		$this->assertEquals( $value->format( 'Y-m-d H:i:s' ), $unpacked->format( 'Y-m-d H:i:s' ) );
 		$this->assertEquals( $value->getTimezone()->getName(), $unpacked->getTimezone()->getName() );
@@ -191,14 +182,13 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_pack_and_unpack_datetimeimmutable_object() {
-		$packer = new Json_Packer();
-		$value  = new DateTimeImmutable( '2024-01-15 10:30:00', new DateTimeZone( 'America/New_York' ) );
+		$value = new DateTimeImmutable( '2024-01-15 10:30:00', new DateTimeZone( 'America/New_York' ) );
 
-		$packed = $packer->pack( $value );
+		$packed = tec_json_pack( $value );
 		$this->assertIsString( $packed );
 		$this->assertJson( $packed );
 
-		$unpacked = $packer->unpack( $packed );
+		$unpacked = tec_json_unpack( $packed );
 		$this->assertInstanceOf( DateTimeImmutable::class, $unpacked );
 		$this->assertEquals( $value->format( 'Y-m-d H:i:s' ), $unpacked->format( 'Y-m-d H:i:s' ) );
 		$this->assertEquals( $value->getTimezone()->getName(), $unpacked->getTimezone()->getName() );
@@ -210,15 +200,14 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_pack_and_unpack_custom_object_with_private_properties() {
-		$packer          = new Json_Packer();
 		$value           = new Test_User( 'john_doe', 'john@example.com', true );
 		$allowed_classes = [ Test_User::class ];
 
-		$packed = $packer->pack( $value, $allowed_classes );
+		$packed = tec_json_pack( $value, $allowed_classes );
 		$this->assertIsString( $packed );
 		$this->assertJson( $packed );
 
-		$unpacked = $packer->unpack( $packed, true, $allowed_classes );
+		$unpacked = tec_json_unpack( $packed, true, $allowed_classes );
 		$this->assertInstanceOf( Test_User::class, $unpacked );
 		$this->assertEquals( 'john_doe', $unpacked->getUsername() );
 		$this->assertEquals( 'john@example.com', $unpacked->getEmail() );
@@ -231,15 +220,14 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_pack_and_unpack_object_with_inheritance() {
-		$packer          = new Json_Packer();
 		$value           = new Test_Admin_User( 'admin', 'admin@example.com', true, [ 'users.manage', 'posts.delete' ] );
 		$allowed_classes = [ Test_Admin_User::class, Test_User::class ];
 
-		$packed = $packer->pack( $value, $allowed_classes );
+		$packed = tec_json_pack( $value, $allowed_classes );
 		$this->assertIsString( $packed );
 		$this->assertJson( $packed );
 
-		$unpacked = $packer->unpack( $packed, true, $allowed_classes );
+		$unpacked = tec_json_unpack( $packed, true, $allowed_classes );
 		$this->assertInstanceOf( Test_Admin_User::class, $unpacked );
 		$this->assertEquals( 'admin', $unpacked->getUsername() );
 		$this->assertEquals( 'admin@example.com', $unpacked->getEmail() );
@@ -253,16 +241,15 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_pack_and_unpack_nested_objects() {
-		$packer          = new Json_Packer();
 		$address         = new Test_Address( '123 Main St', 'New York', 'NY', '10001' );
 		$value           = new Test_User_With_Address( 'jane_doe', 'jane@example.com', true, $address );
 		$allowed_classes = [ Test_User_With_Address::class, Test_User::class, Test_Address::class ];
 
-		$packed = $packer->pack( $value, $allowed_classes );
+		$packed = tec_json_pack( $value, $allowed_classes );
 		$this->assertIsString( $packed );
 		$this->assertJson( $packed );
 
-		$unpacked = $packer->unpack( $packed, true, $allowed_classes );
+		$unpacked = tec_json_unpack( $packed, true, $allowed_classes );
 		$this->assertInstanceOf( Test_User_With_Address::class, $unpacked );
 		$this->assertEquals( 'jane_doe', $unpacked->getUsername() );
 		$address = $unpacked->getAddress();
@@ -277,7 +264,6 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_pack_and_unpack_array_of_objects() {
-		$packer          = new Json_Packer();
 		$value           = [
 			new Test_User( 'user1', 'user1@example.com', true ),
 			new Test_User( 'user2', 'user2@example.com', false ),
@@ -285,11 +271,11 @@ class Json_Packer_Test extends WPTestCase {
 		];
 		$allowed_classes = [ Test_User::class ];
 
-		$packed = $packer->pack( $value, $allowed_classes );
+		$packed = tec_json_pack( $value, $allowed_classes );
 		$this->assertIsString( $packed );
 		$this->assertJson( $packed );
 
-		$unpacked = $packer->unpack( $packed, true, $allowed_classes );
+		$unpacked = tec_json_unpack( $packed, true, $allowed_classes );
 		$this->assertIsArray( $unpacked );
 		$this->assertCount( 3, $unpacked );
 		foreach ( $unpacked as $i => $user ) {
@@ -305,7 +291,6 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_handle_circular_references() {
-		$packer          = new Json_Packer();
 		$allowed_classes = [ Test_User_With_Friend::class, Test_User::class ];
 
 		// Create objects with circular reference.
@@ -315,14 +300,14 @@ class Json_Packer_Test extends WPTestCase {
 		$user1->setFriend( $user2 );
 		$user2->setFriend( $user1 );
 
-		$packed = $packer->pack( $user1, $allowed_classes );
+		$packed = tec_json_pack( $user1, $allowed_classes );
 		$this->assertIsString( $packed );
 		$this->assertJson( $packed );
 
 		// Check that the packed JSON contains a reference.
 		$this->assertStringContainsString( 'reference', $packed );
 
-		$unpacked = $packer->unpack( $packed, true, $allowed_classes );
+		$unpacked = tec_json_unpack( $packed, true, $allowed_classes );
 
 		$this->assertInstanceOf( Test_User_With_Friend::class, $unpacked );
 		$this->assertEquals( 'user1', $unpacked->getUsername() );
@@ -342,12 +327,11 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_handle_missing_class_based_on_fail_on_error_parameter() {
-		$packer          = new Json_Packer();
 		$allowed_classes = [ Test_User::class ];
 
 		// Create and pack an object.
 		$user   = new Test_User( 'john_doe', 'john@example.com', true );
-		$packed = $packer->pack( $user, $allowed_classes );
+		$packed = tec_json_pack( $user, $allowed_classes );
 
 		// Replace the class name with a non-existent one.
 		$packed_with_missing_class = str_replace(
@@ -358,11 +342,11 @@ class Json_Packer_Test extends WPTestCase {
 
 		// Test with fail_on_error = true (default).
 		// Note: We're trying to unpack with the wrong class in allowed_classes.
-		$result = $packer->unpack( $packed_with_missing_class, true, [ 'Tribe\\tests\\integration\\Json_Packer\\Advanced_Test_User' ] );
+		$result = tec_json_unpack( $packed_with_missing_class, true, [ 'Tribe\\tests\\integration\\Json_Packer\\Advanced_Test_User' ] );
 		$this->assertNull( $result, 'Should return null when fail_on_error is true and class is missing' );
 
 		// Test with fail_on_error = false.
-		$result = $packer->unpack( $packed_with_missing_class, false, [ 'Tribe\\tests\\integration\\Json_Packer\\Advanced_Test_User' ] );
+		$result = tec_json_unpack( $packed_with_missing_class, false, [ 'Tribe\\tests\\integration\\Json_Packer\\Advanced_Test_User' ] );
 		$this->assertNotNull( $result, 'Should not return null when fail_on_error is false' );
 		$this->assertInstanceOf( stdClass::class, $result, 'Should return stdClass when class is missing' );
 		$this->assertEquals( 'Tribe\\tests\\integration\\Json_Packer\\Advanced_Test_User', $result->__original_class__ );
@@ -377,12 +361,11 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_handle_object_with_uninitialized_properties() {
-		$packer          = new Json_Packer();
 		$allowed_classes = [ Test_Object_With_Uninitialized_Property::class ];
 		$value           = new Test_Object_With_Uninitialized_Property();
 
-		$packed   = $packer->pack( $value, $allowed_classes );
-		$unpacked = $packer->unpack( $packed, true, $allowed_classes );
+		$packed   = tec_json_pack( $value, $allowed_classes );
+		$unpacked = tec_json_unpack( $packed, true, $allowed_classes );
 
 		$this->assertInstanceOf( Test_Object_With_Uninitialized_Property::class, $unpacked );
 		$this->assertTrue( $unpacked->hasInitialized() );
@@ -399,8 +382,7 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_handle_deeply_nested_structure() {
-		$packer = new Json_Packer();
-		$value  = [
+		$value = [
 			'level1' => [
 				'level2' => [
 					'level3' => [
@@ -412,8 +394,8 @@ class Json_Packer_Test extends WPTestCase {
 			],
 		];
 
-		$packed   = $packer->pack( $value );
-		$unpacked = $packer->unpack( $packed );
+		$packed   = tec_json_pack( $value );
+		$unpacked = tec_json_unpack( $packed );
 
 		$this->assertEquals( 'deep value', $unpacked['level1']['level2']['level3']['level4']['level5'] );
 	}
@@ -424,8 +406,7 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_handle_mixed_array_with_objects() {
-		$packer = new Json_Packer();
-		$value  = [
+		$value = [
 			'string' => 'test',
 			'number' => 123,
 			'object' => new stdClass(),
@@ -434,8 +415,8 @@ class Json_Packer_Test extends WPTestCase {
 			'bool'   => true,
 		];
 
-		$packed   = $packer->pack( $value );
-		$unpacked = $packer->unpack( $packed );
+		$packed   = tec_json_pack( $value );
+		$unpacked = tec_json_unpack( $packed );
 
 		$this->assertEquals( 'test', $unpacked['string'] );
 		$this->assertEquals( 123, $unpacked['number'] );
@@ -450,7 +431,6 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_handle_objects_with_dynamic_properties() {
-		$packer          = new Json_Packer();
 		$allowed_classes = [ \WP_Post::class ];
 
 		// Test stdClass with dynamic properties.
@@ -464,8 +444,8 @@ class Json_Packer_Test extends WPTestCase {
 			'updated' => '2024-01-15',
 		];
 
-		$packed_std   = $packer->pack( $std_obj );
-		$unpacked_std = $packer->unpack( $packed_std );
+		$packed_std   = tec_json_pack( $std_obj );
+		$unpacked_std = tec_json_unpack( $packed_std );
 
 		$this->assertInstanceOf( stdClass::class, $unpacked_std );
 		$this->assertEquals( 'Dynamic Test', $unpacked_std->name );
@@ -482,7 +462,7 @@ class Json_Packer_Test extends WPTestCase {
 				'post_title'   => 'Test Post',
 				'post_content' => 'Test content',
 				'post_status'  => 'publish',
-			] 
+			]
 		);
 
 		// Add dynamic properties to WP_Post.
@@ -491,8 +471,8 @@ class Json_Packer_Test extends WPTestCase {
 		$wp_post->is_featured  = true;
 		$wp_post->related_ids  = [ 1, 2, 3 ];
 
-		$packed_post   = $packer->pack( $wp_post, $allowed_classes );
-		$unpacked_post = $packer->unpack( $packed_post, true, $allowed_classes );
+		$packed_post   = tec_json_pack( $wp_post, $allowed_classes );
+		$unpacked_post = tec_json_unpack( $packed_post, true, $allowed_classes );
 
 		$this->assertInstanceOf( \WP_Post::class, $unpacked_post );
 		$this->assertEquals( 'Test Post', $unpacked_post->post_title );
@@ -511,11 +491,9 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_replace_non_allowed_classes_with_stdclass() {
-		$packer = new Json_Packer();
-
 		// Test packing without allowed classes - should convert to stdClass.
 		$user   = new Test_User( 'john_doe', 'john@example.com', true );
-		$packed = $packer->pack( $user, [] ); // Empty allowed classes array.
+		$packed = tec_json_pack( $user, [] ); // Empty allowed classes array.
 
 		// Verify the packed data uses stdClass instead of Test_User.
 		$this->assertStringContainsString( '"type": "stdClass"', $packed );
@@ -525,7 +503,7 @@ class Json_Packer_Test extends WPTestCase {
 		);
 
 		// Unpack and verify we get stdClass.
-		$unpacked = $packer->unpack( $packed );
+		$unpacked = tec_json_unpack( $packed );
 		$this->assertInstanceOf( stdClass::class, $unpacked );
 		$this->assertEquals( 'john_doe', $unpacked->username );
 		$this->assertEquals( 'john@example.com', $unpacked->email );
@@ -533,13 +511,13 @@ class Json_Packer_Test extends WPTestCase {
 
 		// Test with allowed classes that should preserve the type.
 		$allowed_user   = new Test_User( 'allowed_user', 'allowed@example.com', false );
-		$packed_allowed = $packer->pack( $allowed_user, [ Test_User::class ] );
+		$packed_allowed = tec_json_pack( $allowed_user, [ Test_User::class ] );
 
 		// Verify the packed data uses Test_User since it's allowed.
 		$this->assertStringContainsString( 'Test_User', $packed_allowed );
 
 		// Unpack and verify we get Test_User back.
-		$unpacked_allowed = $packer->unpack( $packed_allowed, true, [ Test_User::class ] );
+		$unpacked_allowed = tec_json_unpack( $packed_allowed, true, [ Test_User::class ] );
 		$this->assertInstanceOf( Test_User::class, $unpacked_allowed );
 		$this->assertEquals( 'allowed_user', $unpacked_allowed->getUsername() );
 		$this->assertEquals( 'allowed@example.com', $unpacked_allowed->getEmail() );
@@ -551,15 +529,13 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_return_null_for_invalid_json() {
-		$packer = new Json_Packer();
-
-		$result = $packer->unpack( 'invalid json string' );
+		$result = tec_json_unpack( 'invalid json string' );
 		$this->assertNull( $result );
 
-		$result = $packer->unpack( '{"incomplete":' );
+		$result = tec_json_unpack( '{"incomplete":' );
 		$this->assertNull( $result );
 
-		$result = $packer->unpack( '' );
+		$result = tec_json_unpack( '' );
 		$this->assertNull( $result );
 	}
 
@@ -569,31 +545,29 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_allow_datetime_classes_by_default() {
-		$packer = new Json_Packer();
-
 		// Test DateTime with empty allowed_classes array.
 		$datetime = new DateTime( '2024-03-15 14:30:00', new DateTimeZone( 'UTC' ) );
-		$packed   = $packer->pack( $datetime, [] ); // Empty allowed classes.
+		$packed   = tec_json_pack( $datetime, [] ); // Empty allowed classes.
 
 		// Should still pack as DateTime, not stdClass.
 		$this->assertStringContainsString( 'DateTime', $packed );
 		$this->assertStringNotContainsString( '"type": "stdClass"', $packed );
 
 		// Should unpack correctly even with empty allowed classes.
-		$unpacked = $packer->unpack( $packed, true, [] );
+		$unpacked = tec_json_unpack( $packed, true, [] );
 		$this->assertInstanceOf( DateTime::class, $unpacked );
 		$this->assertEquals( '2024-03-15 14:30:00', $unpacked->format( 'Y-m-d H:i:s' ) );
 		$this->assertEquals( 'UTC', $unpacked->getTimezone()->getName() );
 
 		// Test DateTimeImmutable with empty allowed_classes array.
 		$datetime_immutable = new DateTimeImmutable( '2024-06-20 09:15:30', new DateTimeZone( 'America/New_York' ) );
-		$packed_immutable   = $packer->pack( $datetime_immutable, [] );
+		$packed_immutable   = tec_json_pack( $datetime_immutable, [] );
 
 		// Should pack as DateTimeImmutable.
 		$this->assertStringContainsString( 'DateTimeImmutable', $packed_immutable );
 
 		// Should unpack correctly.
-		$unpacked_immutable = $packer->unpack( $packed_immutable, true, [] );
+		$unpacked_immutable = tec_json_unpack( $packed_immutable, true, [] );
 		$this->assertInstanceOf( DateTimeImmutable::class, $unpacked_immutable );
 		$this->assertEquals( '2024-06-20 09:15:30', $unpacked_immutable->format( 'Y-m-d H:i:s' ) );
 		$this->assertEquals( 'America/New_York', $unpacked_immutable->getTimezone()->getName() );
@@ -601,9 +575,9 @@ class Json_Packer_Test extends WPTestCase {
 		// Test DateTimeZone nested in DateTime.
 		$timezone         = new DateTimeZone( 'Europe/London' );
 		$datetime_with_tz = new DateTime( '2024-12-25 00:00:00', $timezone );
-		$packed_with_tz   = $packer->pack( $datetime_with_tz, [] );
+		$packed_with_tz   = tec_json_pack( $datetime_with_tz, [] );
 
-		$unpacked_with_tz = $packer->unpack( $packed_with_tz, true, [] );
+		$unpacked_with_tz = tec_json_unpack( $packed_with_tz, true, [] );
 		$this->assertInstanceOf( DateTime::class, $unpacked_with_tz );
 		$this->assertEquals( 'Europe/London', $unpacked_with_tz->getTimezone()->getName() );
 
@@ -616,8 +590,8 @@ class Json_Packer_Test extends WPTestCase {
 		];
 
 		// Pack with only Test_User in allowed classes - DateTime classes should still work.
-		$packed_complex   = $packer->pack( $complex_data, [ Test_User::class ] );
-		$unpacked_complex = $packer->unpack( $packed_complex, true, [ Test_User::class ] );
+		$packed_complex   = tec_json_pack( $complex_data, [ Test_User::class ] );
+		$unpacked_complex = tec_json_unpack( $packed_complex, true, [ Test_User::class ] );
 
 		$this->assertIsArray( $unpacked_complex );
 		$this->assertInstanceOf( Test_User::class, $unpacked_complex['user'] );
@@ -631,8 +605,6 @@ class Json_Packer_Test extends WPTestCase {
 	 * @covers \TEC\Common\Json_Packer\Json_Packer::unpack
 	 */
 	public function it_should_handle_array_with_mixed_allowed_and_non_allowed_objects() {
-		$packer = new Json_Packer();
-
 		// Create an array with one allowed object and one non-allowed object.
 		$allowed_user = new Test_User( 'allowed_user', 'allowed@example.com', true );
 		$admin_user   = new Test_Admin_User( 'admin_user', 'admin@example.com', true, [ 'manage', 'delete' ] );
@@ -646,7 +618,7 @@ class Json_Packer_Test extends WPTestCase {
 
 		// Pack with only Test_User allowed (Test_Admin_User not allowed).
 		$allowed_classes = [ Test_User::class ];
-		$packed          = $packer->pack( $mixed_array, $allowed_classes );
+		$packed          = tec_json_pack( $mixed_array, $allowed_classes );
 
 		// Verify packing - allowed class should keep its type, non-allowed should become stdClass.
 		$this->assertStringContainsString( '"allowed"', $packed );
@@ -656,7 +628,7 @@ class Json_Packer_Test extends WPTestCase {
 		$this->assertEquals( 'stdClass', $decoded['value']['not_allowed']['type'] );
 
 		// Test with fail_on_error = true (default).
-		$unpacked_fail = $packer->unpack( $packed, true, $allowed_classes );
+		$unpacked_fail = tec_json_unpack( $packed, true, $allowed_classes );
 
 		$this->assertIsArray( $unpacked_fail );
 		// Allowed object should be properly restored.
@@ -678,7 +650,7 @@ class Json_Packer_Test extends WPTestCase {
 		$this->assertInstanceOf( stdClass::class, $unpacked_fail['std'] );
 
 		// Test with fail_on_error = false.
-		$unpacked_no_fail = $packer->unpack( $packed, false, $allowed_classes );
+		$unpacked_no_fail = tec_json_unpack( $packed, false, $allowed_classes );
 
 		// Results should be the same since all conversions happen during packing.
 		$this->assertIsArray( $unpacked_no_fail );
@@ -688,11 +660,11 @@ class Json_Packer_Test extends WPTestCase {
 		$this->assertInstanceOf( stdClass::class, $unpacked_no_fail['std'] );
 
 		// Test edge case: pack with all classes allowed, unpack with restricted allowed classes.
-		$packed_all_allowed = $packer->pack( $mixed_array, [ Test_User::class, Test_Admin_User::class ] );
+		$packed_all_allowed = tec_json_pack( $mixed_array, [ Test_User::class, Test_Admin_User::class ] );
 
 		// Now unpack with only Test_User allowed.
 		// The unpacker should handle this gracefully - converting non-allowed classes to stdClass.
-		$unpacked_restricted = $packer->unpack( $packed_all_allowed, true, [ Test_User::class ] );
+		$unpacked_restricted = tec_json_unpack( $packed_all_allowed, true, [ Test_User::class ] );
 
 		$this->assertIsArray( $unpacked_restricted );
 		$this->assertInstanceOf( Test_User::class, $unpacked_restricted['allowed'] );

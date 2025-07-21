@@ -239,31 +239,6 @@ $json = get_user_meta($user_id, 'app_preferences', true);
 $preferences = tec_json_unpack($json);
 ```
 
-### API Data Exchange
-
-Exchange complex data structures via APIs:
-
-```php
-// Prepare response data.
-// Note: stdClass and DateTime are considered safe by default.
-$response = new stdClass();
-$response->status = 'success';
-$response->timestamp = new DateTime();
-$response->data = [
-    'users' => $user_objects,
-    'settings' => $settings_object
-];
-
-// Send it as JSON with allowed classes.
-// Only need to specify custom classes (stdClass and DateTime are safe by default).
-$allowed = [User::class, Settings::class];
-wp_send_json(tec_json_pack($response, $allowed));
-
-// On the receiving end.
-$json = wp_remote_retrieve_body($api_response);
-$data = tec_json_unpack($json, true, $allowed);
-```
-
 ## Important Considerations
 
 ### Class availability
@@ -291,6 +266,7 @@ $unpacked = tec_json_unpack($json, true, $allowed);
 
 ### Security
 
+- The JSON Packer API will use Reflection to create representations of objects. This means the API will access `private` and `protected` properties of objects. If an object contains information that should **not** be stored unencrypted (e.g. passwords), it should not be packed using this API.
 - Use the `allowed_classes` parameter to specify which classes can be instantiated
 - The unpacker creates objects without calling constructors, which bypasses constructor validation
 - Private and protected properties are exposed in the packed JSON

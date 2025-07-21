@@ -40,7 +40,6 @@ class Controller_Test extends Controller_Test_Case {
 		$controller->register();
 
 		$this->assertInstanceOf( Key_Value_Cache_Table::class, tec_kv_cache() );
-		$this->assertNotFalse( wp_next_scheduled( Controller::CLEAR_EXPIRED_ACTION ) );
 		$this->assertEquals(
 			10,
 			has_action( Controller::CLEAR_EXPIRED_ACTION, [ $controller, 'clear_expired' ] )
@@ -55,7 +54,6 @@ class Controller_Test extends Controller_Test_Case {
 		$controller->register();
 
 		$this->assertInstanceOf( Key_Value_Cache_Table::class, tec_kv_cache() );
-		$this->assertNotFalse( wp_next_scheduled( Controller::CLEAR_EXPIRED_ACTION ) );
 		$this->assertEquals(
 			10,
 			has_action( Controller::CLEAR_EXPIRED_ACTION, [ $controller, 'clear_expired' ] )
@@ -110,5 +108,66 @@ class Controller_Test extends Controller_Test_Case {
 			[ 'not_expired' ],
 			$wpdb->get_col( "SELECT cache_key FROM {$wpdb->prefix}tec_kv_cache ORDER BY cache_key" )
 		);
+	}
+
+	/**
+	 * @covers \TEC\Common\Key_Value_Cache\Controller::do_register
+	 * @covers \TEC\Common\Key_Value_Cache\Controller::unregister
+	 */
+	public function test_schedules_unschedules_correctly_with_action_scheduler(): void {
+		$this->set_fn_return( 'wp_using_ext_object_cache', false );
+		$as_has_scheduled_action = false;
+		if ( ! function_exists( 'as_has_scheduled_action' ) ) {
+			$this->set_fn_return( 'as_has_scheduled_action', function () use ( &$as_has_scheduled_action ) {
+				return $as_has_scheduled_action;
+			}, true );
+		}
+		if ( ! function_exists( 'as_schedule_recurring_action' ) ) {
+			$this->set_fn_return( 'as_has_scheduled_action', function () use ( &$as_has_scheduled_action ) {
+				$as_has_scheduled_action = true;
+			}, true );
+		}
+		if ( ! function_exists( 'as_unschedule_action' ) ) {
+			$this->set_fn_return( 'as_unschedule_action', function () use ( &$as_has_scheduled_action ) {
+				$as_has_scheduled_action = false;
+			}, true );
+		}
+
+		$controller = $this->make_controller();
+		$controller->register();
+
+		// Sanity check.
+		$this->assertTrue( as_has_scheduled_action( Controller::CLEAR_EXPIRED_ACTION ) );
+		$this->assertFalse( wp_next_scheduled( Controller::CLEAR_EXPIRED_ACTION ) );
+
+		$controller->unregister();
+
+		$this->assertFalse( as_has_scheduled_action( Controller::CLEAR_EXPIRED_ACTION ) );
+		$this->assertFalse( wp_next_scheduled( Controller::CLEAR_EXPIRED_ACTION ) );
+	}
+
+	/**
+	 * @covers \TEC\Common\Key_Value_Cache\Controller::do_register
+	 * @covers \TEC\Common\Key_Value_Cache\Controller::unregister
+	 */
+	public function test_schedules_unschedules_correctly_with_wp_cron(): void {
+		$this->set_fn_return( 'wp_using_ext_object_cache', false );
+		$this->set_fn_return( 'function_exists', function ( string $fn ): bool {
+			if ( str_starts_with( $fn, 'as_' ) ) {
+				return false;
+			}
+
+			return function_exists( $fn );
+		}, true );
+
+		$controller = $this->make_controller();
+		$controller->register();
+
+		// Sanity check.
+		$this->assertNotFalse( wp_next_scheduled( Controller::CLEAR_EXPIRED_ACTION ) );
+
+		$controller->unregister();
+
+		$this->assertFalse( wp_next_scheduled( Controller::CLEAR_EXPIRED_ACTION ) );
 	}
 }

@@ -64,17 +64,13 @@ class Controller extends Controller_Contract {
 			$this->container->singleton( Key_Value_Cache_Interface::class, Object_Cache::class );
 
 			// If we were using the table cache, we need to unschedule the cron event.
-			if ( wp_next_scheduled( self::CLEAR_EXPIRED_ACTION ) ) {
-				wp_unschedule_event( time(), self::CLEAR_EXPIRED_ACTION );
-			}
+			$this->unschedule_table_clean_action();
 		} else {
 			$this->register_table_schema();
 			$this->container->singleton( Key_Value_Cache_Interface::class, Key_Value_Cache_Table::class );
 
 			// Schedule an action to clear the table of expired entries.
-			if ( ! wp_next_scheduled( self::CLEAR_EXPIRED_ACTION ) ) {
-				wp_schedule_event( time(), 'twicedaily', self::CLEAR_EXPIRED_ACTION );
-			}
+			$this->schedule_table_clean_action();
 
 			add_action( self::CLEAR_EXPIRED_ACTION, [ $this, 'clear_expired' ] );
 		}
@@ -106,9 +102,7 @@ class Controller extends Controller_Contract {
 		remove_action( self::CLEAR_EXPIRED_ACTION, [ $this, 'clear_expired' ] );
 		remove_action( 'plugins_loaded', [ $this, 'register_table_schema' ] );
 
-		if ( wp_next_scheduled( self::CLEAR_EXPIRED_ACTION ) ) {
-			wp_unschedule_event( time(), self::CLEAR_EXPIRED_ACTION );
-		}
+		$this->unschedule_table_clean_action();
 	}
 
 	/**
@@ -125,5 +119,54 @@ class Controller extends Controller_Contract {
 		}
 
 		$this->container->make( Key_Value_Cache_Table::class )->clear_expired();
+	}
+
+	/**
+	 * Unschedules the key-value table clean action.
+	 *
+	 * The method will unschedule the action from both Action Scheduler and WP Cron.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	private function unschedule_table_clean_action(): void {
+		if (
+			function_exists( 'as_has_scheduled_action' )
+			&& as_has_scheduled_action( self::CLEAR_EXPIRED_ACTION )
+		) {
+			// Unschedule from Action Scheduler, if possible.
+			as_unschedule_action( self::CLEAR_EXPIRED_ACTION );
+		}
+
+		// Unschedule from WP Cron if present.
+		$next_scheduled = wp_next_scheduled( self::CLEAR_EXPIRED_ACTION );
+		if ( $next_scheduled ) {
+			wp_unschedule_event( $next_scheduled, self::CLEAR_EXPIRED_ACTION );
+		}
+	}
+
+	/**
+	 * Schedules the key-value table clean action.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	private function schedule_table_clean_action(): void {
+		if (
+			function_exists( 'as_has_scheduled_action' )
+			&& function_exists( 'as_schedule_recurring_action' )
+			&& ! as_has_scheduled_action( self::CLEAR_EXPIRED_ACTION )
+		) {
+			// Prefer using Action Scheduler if available.
+			as_schedule_recurring_action( time(), 12 * HOUR_IN_SECONDS, self::CLEAR_EXPIRED_ACTION );
+
+			return;
+		}
+
+		if ( ! wp_next_scheduled( self::CLEAR_EXPIRED_ACTION ) ) {
+			wp_schedule_event( time(), 'twicedaily', self::CLEAR_EXPIRED_ACTION );
+		}
 	}
 }
