@@ -76,7 +76,7 @@ abstract class Parameter implements Parameter_Contract {
 	 *
 	 * @var string
 	 */
-	public const LOCATION_PATH   = 'path';
+	public const LOCATION_PATH = 'path';
 
 	/**
 	 * The parameter location: header.

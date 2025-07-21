@@ -240,46 +240,4 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	protected function transform_entity( array $entity ): array {
 		return $entity;
 	}
-
-	/**
-	 * Returns the documentation parameters for the endpoint.
-	 *
-	 * @since TBD
-	 *
-	 * @return array
-	 */
-	protected function get_read_documentation_params(): array {
-		if ( ! $this instanceof Readable_Endpoint ) {
-			return [];
-		}
-
-		$args   = $this->read_args();
-		$params = [];
-
-		foreach ( $args as $arg ) {
-			$param = [
-				'name'        => $arg->get_name(),
-				'in'          => 'query',
-				'schema'      => $arg->to_array(),
-				'description' => $arg->get_description(),
-				'required'    => $arg->is_required(),
-			];
-
-			if ( isset( $param['schema']['explode'] ) ) {
-				$param['explode'] = $param['schema']['explode'];
-			}
-
-			unset(
-				$param['schema']['validate_callback'],
-				$param['schema']['sanitize_callback'],
-				$param['schema']['description'],
-				$param['schema']['required'],
-				$param['schema']['explode'],
-			);
-
-			$params[] = $param;
-		}
-
-		return $params;
-	}
 }

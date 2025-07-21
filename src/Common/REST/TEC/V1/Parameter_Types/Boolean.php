@@ -22,6 +22,43 @@ use Closure;
 class Boolean extends Parameter {
 
 	/**
+	 * Constructor.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $name                 The name of the parameter.
+	 * @param ?Closure $description_provider The description provider.
+	 * @param bool     $required             Whether the parameter is required.
+	 * @param mixed    $by_default           The default value.
+	 * @param string   $location             The parameter location.
+	 * @param bool     $deprecated           Whether the parameter is deprecated.
+	 * @param ?bool    $nullable             Whether the parameter is nullable.
+	 * @param ?bool    $read_only            Whether the parameter is read only.
+	 * @param ?bool    $write_only           Whether the parameter is write only.
+	 */
+	public function __construct(
+		string $name = 'example',
+		?Closure $description_provider = null,
+		bool $required = false,
+		$by_default = null,
+		string $location = self::LOCATION_QUERY,
+		?bool $deprecated = null,
+		?bool $nullable = null,
+		?bool $read_only = null,
+		?bool $write_only = null
+	) {
+		$this->name                 = $name;
+		$this->description_provider = $description_provider;
+		$this->required             = $required;
+		$this->default              = $by_default;
+		$this->location             = $location;
+		$this->deprecated           = $deprecated;
+		$this->nullable             = $nullable;
+		$this->read_only            = $read_only;
+		$this->write_only           = $write_only;
+	}
+
+	/**
 	 * @inheritDoc
 	 */
 	public function get_type(): string {

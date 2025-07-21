@@ -11,7 +11,6 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Parameter_Types;
 
-use TEC\Common\REST\TEC\V1\Abstracts\Parameter;
 use Closure;
 
 /**
@@ -19,7 +18,7 @@ use Closure;
  *
  * @since TBD
  */
-class Integer extends Parameter {
+class Integer extends Number {
 
 	/**
 	 * @inheritDoc
@@ -40,22 +39,6 @@ class Integer extends Parameter {
 	 */
 	public function get_sanitizer(): Closure {
 		return $this->sanitizer ?? fn( $value ): int => intval( $value );
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function get_default(): ?int {
-		return $this->default;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public static function get_subitem_format(): array {
-		return [
-			'type' => 'integer',
-		];
 	}
 
 	/**
