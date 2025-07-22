@@ -1,7 +1,7 @@
 import { isValidUrl } from '../../../src/resources/packages/classy/functions/url';
 import { describe, expect, it } from '@jest/globals';
 
-describe( 'utils', () => {
+describe( 'url', () => {
 	describe( 'isValidUrl', () => {
 		it( 'should return true for valid URLs with protocols', () => {
 			expect( isValidUrl( 'https://www.example.com' ) ).toBe( true );
