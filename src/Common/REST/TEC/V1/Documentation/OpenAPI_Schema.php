@@ -12,7 +12,7 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Documentation;
 
 use TEC\Common\REST\TEC\V1\Contracts\OpenAPI_Schema as OpenAPI_Schema_Contract;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Collection;
+use TEC\Common\REST\TEC\V1\Collections\Collection;
 use Closure;
 use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface as Tag;
 use TEC\Common\REST\TEC\V1\Contracts\Parameter;

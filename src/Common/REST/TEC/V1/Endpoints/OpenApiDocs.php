@@ -19,7 +19,7 @@ use TEC\Common\REST\TEC\V1\Documentation;
 use WP_REST_Request;
 use WP_REST_Response;
 use TEC\Common\REST\TEC\V1\Tags\Common_Tag;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Collection;
+use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection as Collection;
 use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 use TEC\Common\REST\TEC\V1\Documentation\OpenApi_Definition;

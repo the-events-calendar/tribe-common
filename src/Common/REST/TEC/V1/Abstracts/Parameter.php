@@ -13,7 +13,7 @@ namespace TEC\Common\REST\TEC\V1\Abstracts;
 
 use Closure;
 use TEC\Common\REST\TEC\V1\Contracts\Parameter as Parameter_Contract;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Collection;
+use TEC\Common\REST\TEC\V1\Collections\Collection;
 
 /**
  * Abstract parameter class.

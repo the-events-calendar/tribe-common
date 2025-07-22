@@ -13,7 +13,7 @@ namespace TEC\Common\REST\TEC\V1\Contracts;
 
 use WP_REST_Request;
 use WP_REST_Response;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Collection;
+use TEC\Common\REST\TEC\V1\Collections\Collection;
 
 /**
  * Creatable endpoint interface.

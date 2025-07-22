@@ -11,7 +11,7 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Contracts;
 
-use TEC\Common\REST\TEC\V1\Parameter_Types\Collection;
+use TEC\Common\REST\TEC\V1\Collections\Collection;
 use Closure;
 use JsonSerializable;
 

@@ -17,6 +17,7 @@ use TEC\Common\REST\TEC\V1\Contracts\Creatable_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\Updatable_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\Deletable_Endpoint;
 use TEC\Common\REST\TEC\V1\Controller;
+use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 use WP_REST_Server;
 use WP_REST_Request;
 
@@ -63,38 +64,46 @@ abstract class Endpoint implements Endpoint_Interface {
 		$methods = [];
 
 		if ( $this instanceof Readable_Endpoint ) {
+			$args = $this->read_args();
+
 			$methods[] = [
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => [ $this, 'read' ],
 				'permission_callback' => [ $this, 'can_read' ],
-				'args'                => $this->read_args()->filter( fn( Parameter $param ) => ! in_array( $param->get_location(), [ Parameter::LOCATION_PATH, PARAMETER::LOCATION_HEADER ], true ) )->to_array(),
+				'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
 			];
 		}
 
 		if ( $this instanceof Creatable_Endpoint ) {
+			$args = $this->create_args();
+
 			$methods[] = [
 				'methods'             => WP_REST_Server::CREATABLE,
 				'callback'            => [ $this, 'create' ],
 				'permission_callback' => [ $this, 'can_create' ],
-				'args'                => $this->create_args()->filter( fn( Parameter $param ) => ! in_array( $param->get_location(), [ Parameter::LOCATION_PATH, PARAMETER::LOCATION_HEADER ], true ) )->to_array(),
+				'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
 			];
 		}
 
 		if ( $this instanceof Updatable_Endpoint ) {
+			$args = $this->update_args();
+
 			$methods[] = [
 				'methods'             => self::EDITABLE,
 				'callback'            => [ $this, 'update' ],
 				'permission_callback' => [ $this, 'can_update' ],
-				'args'                => $this->update_args()->filter( fn( Parameter $param ) => ! in_array( $param->get_location(), [ Parameter::LOCATION_PATH, PARAMETER::LOCATION_HEADER ], true ) )->to_array(),
+				'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
 			];
 		}
 
 		if ( $this instanceof Deletable_Endpoint ) {
+			$args = $this->delete_args();
+
 			$methods[] = [
 				'methods'             => WP_REST_Server::DELETABLE,
 				'callback'            => [ $this, 'delete' ],
 				'permission_callback' => [ $this, 'can_delete' ],
-				'args'                => $this->delete_args()->filter( fn( Parameter $param ) => ! in_array( $param->get_location(), [ Parameter::LOCATION_PATH, PARAMETER::LOCATION_HEADER ], true ) )->to_array(),
+				'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
 			];
 		}
 

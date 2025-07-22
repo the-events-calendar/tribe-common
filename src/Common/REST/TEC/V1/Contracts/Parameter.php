@@ -14,7 +14,7 @@ namespace TEC\Common\REST\TEC\V1\Contracts;
 use JsonSerializable;
 use Closure;
 use ReturnTypeWillChange;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Collection;
+use TEC\Common\REST\TEC\V1\Collections\Collection;
 
 /**
  * Parameter interface.

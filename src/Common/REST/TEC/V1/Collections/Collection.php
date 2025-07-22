@@ -1,15 +1,15 @@
 <?php
 /**
- * Collection parameter type.
+ * Collection.
  *
  * @since TBD
  *
- * @package TEC\Common\REST\TEC\V1\Parameter_Types
+ * @package TEC\Common\REST\TEC\V1\Collections
  */
 
 declare( strict_types=1 );
 
-namespace TEC\Common\REST\TEC\V1\Parameter_Types;
+namespace TEC\Common\REST\TEC\V1\Collections;
 
 use TEC\Common\REST\TEC\V1\Contracts\Parameter;
 use JsonSerializable;
@@ -22,7 +22,7 @@ use Iterator;
  *
  * @since TBD
  */
-class Collection implements ArrayAccess, Iterator, Countable, JsonSerializable {
+abstract class Collection implements ArrayAccess, Iterator, Countable, JsonSerializable {
 
 	/**
 	 * Collection of items.
