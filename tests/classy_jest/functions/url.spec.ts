@@ -1,4 +1,4 @@
-import { isValidUrl } from '../../../src/resources/packages/classy/functions/utils';
+import { isValidUrl } from '../../../src/resources/packages/classy/functions/url';
 import { describe, expect, it } from '@jest/globals';
 
 describe( 'utils', () => {

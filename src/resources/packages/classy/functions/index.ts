@@ -1,3 +1,3 @@
 export * from './dateUtils';
-export * from './utils';
+export * from './url';
 export { sortOptionsForDisplay } from './sortOptionsForDisplay';
