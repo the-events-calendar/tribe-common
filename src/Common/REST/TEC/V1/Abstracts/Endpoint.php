@@ -67,7 +67,7 @@ abstract class Endpoint implements Endpoint_Interface {
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => [ $this, 'read' ],
 				'permission_callback' => [ $this, 'can_read' ],
-				'args'                => $this->read_args()->to_array(),
+				'args'                => $this->read_args()->filter( fn( Parameter $param ) => ! in_array( $param->get_location(), [ Parameter::LOCATION_PATH, PARAMETER::LOCATION_HEADER ], true ) )->to_array(),
 			];
 		}
 
@@ -76,7 +76,7 @@ abstract class Endpoint implements Endpoint_Interface {
 				'methods'             => WP_REST_Server::CREATABLE,
 				'callback'            => [ $this, 'create' ],
 				'permission_callback' => [ $this, 'can_create' ],
-				'args'                => $this->create_args()->to_array(),
+				'args'                => $this->create_args()->filter( fn( Parameter $param ) => ! in_array( $param->get_location(), [ Parameter::LOCATION_PATH, PARAMETER::LOCATION_HEADER ], true ) )->to_array(),
 			];
 		}
 
@@ -85,7 +85,7 @@ abstract class Endpoint implements Endpoint_Interface {
 				'methods'             => self::EDITABLE,
 				'callback'            => [ $this, 'update' ],
 				'permission_callback' => [ $this, 'can_update' ],
-				'args'                => $this->update_args()->to_array(),
+				'args'                => $this->update_args()->filter( fn( Parameter $param ) => ! in_array( $param->get_location(), [ Parameter::LOCATION_PATH, PARAMETER::LOCATION_HEADER ], true ) )->to_array(),
 			];
 		}
 
@@ -94,7 +94,7 @@ abstract class Endpoint implements Endpoint_Interface {
 				'methods'             => WP_REST_Server::DELETABLE,
 				'callback'            => [ $this, 'delete' ],
 				'permission_callback' => [ $this, 'can_delete' ],
-				'args'                => $this->delete_args()->to_array(),
+				'args'                => $this->delete_args()->filter( fn( Parameter $param ) => ! in_array( $param->get_location(), [ Parameter::LOCATION_PATH, PARAMETER::LOCATION_HEADER ], true ) )->to_array(),
 			];
 		}
 
@@ -193,9 +193,71 @@ abstract class Endpoint implements Endpoint_Interface {
 	 *
 	 * @since TBD
 	 *
+	 * @param mixed ...$args The arguments to pass to the URL.
+	 *
 	 * @return string
 	 */
-	public function get_url(): string {
-		return rest_url( Controller::get_versioned_namespace() . $this->get_path() );
+	public function get_url( ...$args ): string {
+		return rest_url( Controller::get_versioned_namespace() . sprintf( $this->get_base_path(), ...array_map( 'strval', $args ) ) );
+	}
+
+	/**
+	 * Returns the path parameters of the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function get_path_parameters(): array {
+		return [];
+	}
+
+	/**
+	 * Returns the path for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_path(): string {
+		$parameters = $this->get_path_parameters();
+		$base       = $this->get_base_path();
+
+		$replacements = [];
+		foreach ( $parameters as $parameter => $data ) {
+			switch ( $data['type'] ) {
+				case 'integer':
+					$regex = '\\d+';
+					break;
+				case 'string':
+					$regex = '[a-zA-Z0-9_-]+';
+					break;
+				default:
+					$regex = $data['type'];
+					break;
+			}
+			$replacements[] = "(?P<{$parameter}>{$regex})";
+		}
+
+		return sprintf( $base, ...$replacements );
+	}
+
+	/**
+	 * Returns the OpenAPI path of the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_open_api_path(): string {
+		$parameters = $this->get_path_parameters();
+		$base       = $this->get_base_path();
+
+		$replacements = [];
+		foreach ( $parameters as $parameter => $data ) {
+			$replacements[] = "{{$parameter}}";
+		}
+
+		return sprintf( $base, ...$replacements );
 	}
 }

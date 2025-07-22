@@ -176,7 +176,7 @@ class Documentation {
 		$paths = [];
 		foreach ( $this->endpoints as $endpoint ) {
 			/** @var Endpoint_Interface $endpoint */
-			$paths[ $endpoint->get_path() ] = $endpoint->get_documentation();
+			$paths[ $endpoint->get_open_api_path() ] = $endpoint->get_documentation();
 		}
 
 		return $paths;

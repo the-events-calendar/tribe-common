@@ -222,13 +222,13 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 	}
 
 	/**
-	 * Returns the path of the endpoint.
+	 * Returns the base path of the endpoint.
 	 *
 	 * @since TBD
 	 *
 	 * @return string
 	 */
-	public function get_path(): string {
+	public function get_base_path(): string {
 		return '/docs';
 	}
 }

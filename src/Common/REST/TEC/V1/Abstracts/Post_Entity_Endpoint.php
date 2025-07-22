@@ -16,7 +16,6 @@ use WP_REST_Request;
 use WP_REST_Posts_Controller;
 use WP_Post_Type;
 use WP_Post;
-use TEC\Common\REST\TEC\V1\Contracts\Readable_Endpoint;
 
 /**
  * Endpoint class.

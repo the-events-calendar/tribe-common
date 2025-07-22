@@ -42,7 +42,7 @@ class Collection implements ArrayAccess, Iterator, Countable, JsonSerializable {
 	 */
 	public function __construct( array $resources = [] ) {
 		foreach ( $resources as $offset => $value ) {
-			$this->set( $offset, $value );
+			$this->set( (string) $offset, $value );
 		}
 	}
 
@@ -173,5 +173,18 @@ class Collection implements ArrayAccess, Iterator, Countable, JsonSerializable {
 	 */
 	public function map( callable $callback ): array {
 		return array_map( $callback, $this->resources );
+	}
+
+	/**
+	 * Filters the collection.
+	 *
+	 * @since TBD
+	 *
+	 * @param callable $callback The callback to filter the collection.
+	 *
+	 * @return Collection
+	 */
+	public function filter( callable $callback ): Collection {
+		return new Collection( array_filter( $this->resources, $callback ) );
 	}
 }
