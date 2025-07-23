@@ -54,7 +54,7 @@ abstract class Definition implements Definition_Interface {
 
 		foreach ( $docs as $doc ) {
 			if ( isset( $doc['$ref'] ) ) {
-				$class = $this->get_class_from_ref( $doc['$ref'] );
+				$class = $this->get_instance_from_ref( $doc['$ref'] );
 
 				if ( ! $class ) {
 					throw new RuntimeException( 'Definition class not found for ' . $doc['$ref'] );
@@ -66,6 +66,11 @@ abstract class Definition implements Definition_Interface {
 
 			if ( isset( $doc['properties'] ) ) {
 				foreach ( $doc['properties'] as $property => $data ) {
+					if ( isset( $data['properties'] ) ) {
+						$examples[ $property ] = $this->get_examples_from_docs( [ $data ] );
+						continue;
+					}
+
 					if ( ! isset( $data['example'] ) ) {
 						continue;
 					}
@@ -76,7 +81,7 @@ abstract class Definition implements Definition_Interface {
 				continue;
 			}
 
-			throw new RuntimeException( 'Invalid definition.' );
+			// It's only providing metadata like title and description, so we can skip it.
 		}
 
 		return $examples;
@@ -91,7 +96,7 @@ abstract class Definition implements Definition_Interface {
 	 *
 	 * @return ?Definition_Interface
 	 */
-	private function get_class_from_ref( string $ref ): ?Definition_Interface {
+	private function get_instance_from_ref( string $ref ): ?Definition_Interface {
 		$ref = str_replace( '#/components/schemas/', '', $ref );
 
 		$possible_classes = [
@@ -108,9 +113,11 @@ abstract class Definition implements Definition_Interface {
 		];
 
 		foreach ( $possible_classes as $class ) {
-			if ( class_exists( $class ) ) {
-				return new $class();
+			if ( ! class_exists( $class ) ) {
+				continue;
 			}
+
+			return new $class();
 		}
 
 		return null;

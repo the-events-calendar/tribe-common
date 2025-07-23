@@ -24,6 +24,7 @@ use WP_REST_Server;
 use Generator;
 use Tribe\Tests\Traits\With_Clock_Mock;
 use Tribe__Date_Utils as Dates;
+use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
 
 if ( ! class_exists( WPBrowserTestCase::class ) ) {
 	class_alias( WPTestCase::class, WPBrowserTestCase::class );
@@ -286,5 +287,63 @@ abstract class REST_Test_Case extends WPBrowserTestCase {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Returns the class from a ref.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $ref The ref.
+	 *
+	 * @return Definition_Interface
+	 */
+	protected function get_instance_from_ref( string $ref ): Definition_Interface {
+		$ref = str_replace( '#/components/schemas/', '', $ref );
+
+		$possible_classes = [
+			"TEC\\Common\\REST\\TEC\\V1\\Documentation\\{$ref}",
+			"TEC\\Common\\REST\\TEC\\V1\\Documentation\\{$ref}_Definition",
+			"TEC\\Events\\REST\\TEC\\V1\\Documentation\\{$ref}",
+			"TEC\\Events\\REST\\TEC\\V1\\Documentation\\{$ref}_Definition",
+			"TEC\\Tickets\\REST\\TEC\\V1\\Documentation\\{$ref}",
+			"TEC\\Tickets\\REST\\TEC\\V1\\Documentation\\{$ref}_Definition",
+			"TEC\\Tickets_Plus\\REST\\TEC\\V1\\Documentation\\{$ref}",
+			"TEC\\Tickets_Plus\\REST\\TEC\\V1\\Documentation\\{$ref}_Definition",
+			"TEC\\Events_Pro\\REST\\TEC\\V1\\Documentation\\{$ref}",
+			"TEC\\Events_Pro\\REST\\TEC\\V1\\Documentation\\{$ref}_Definition",
+		];
+
+		foreach ( $possible_classes as $class ) {
+			if ( ! class_exists( $class ) ) {
+				continue;
+			}
+
+			return new $class();
+		}
+
+		throw new RuntimeException( 'Definition class not found for ' . $ref );
+	}
+
+	protected function get_props_from_doc( array $documentation ): array {
+		$props = ! empty( $documentation['allOf'] ) ? $documentation['allOf'] : [ $documentation ];
+
+		$properties = [];
+		foreach ( $props as $prop ) {
+			if ( isset( $prop['$ref'] ) ) {
+				$definition = $this->get_instance_from_ref( $prop['$ref'] )->get_documentation();
+				$properties = array_merge( $properties, $this->get_props_from_doc( $definition ) );
+				continue;
+			}
+
+			if ( isset( $prop['properties'] ) ) {
+				$properties = array_merge( $properties, $prop['properties'] );
+				continue;
+			}
+
+			// It's only providing metadata like title and description, so we can skip it.`
+		}
+
+		return $properties;
 	}
 }

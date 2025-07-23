@@ -52,7 +52,13 @@ trait Read_Entity_Response {
 			);
 		}
 
-		$entity = $this->get_orm()->where( 'id', $id )->first();
+		$entity = $this->get_orm()->by_args(
+			[
+				'id'     => $id,
+				'status' => 'any',
+			]
+		)->first();
+
 		if ( ! $entity ) {
 			return new WP_REST_Response(
 				[

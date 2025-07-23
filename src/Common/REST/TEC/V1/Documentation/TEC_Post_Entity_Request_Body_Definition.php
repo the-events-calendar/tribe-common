@@ -16,7 +16,7 @@ use TEC\Common\REST\TEC\V1\Abstracts\Definition;
 /**
  * TEC Post Entity definitions.
  */
-class TEC_Post_Entity_Definition extends Definition {
+class TEC_Post_Entity_Request_Body_Definition extends Definition {
 	/**
 	 * Get the type.
 	 *
@@ -25,7 +25,7 @@ class TEC_Post_Entity_Definition extends Definition {
 	 * @return string The type.
 	 */
 	public function get_type(): string {
-		return 'TEC_Post_Entity';
+		return 'TEC_Post_Entity_Request_Body';
 	}
 
 	/**
@@ -38,31 +38,10 @@ class TEC_Post_Entity_Definition extends Definition {
 	 * @return array The documentation.
 	 */
 	public function get_documentation(): array {
-		$tec_entity_types = [
-			'tribe_events',
-			'tec_tc_attendee',
-			'tec_tc_order',
-			'tec_tc_ticket',
-			'ticket-meta-fieldset',
-			'tribe_event_series',
-			'tec_calendar_embed',
-			'tribe_organizer',
-			'tribe_venue',
-			'tribe-ea-record',
-			'tribe_payout',
-			'tribe_wooticket',
-			'tribe_eddticket',
-			'tribe_tpp_orders',
-			'tribe_tpp_attendees',
-			'tribe_tpp_tickets',
-			'tribe_rsvp_attendees',
-			'tribe_rsvp_tickets',
-		];
-
 		$definition = [
+			'title'       => __( 'TEC Post Entity Request Body', 'tribe-common' ),
+			'description' => __( 'A TEC post object as expected by the REST API', 'tribe-common' ),
 			'type'        => 'object',
-			'title'       => __( 'TEC Post Entity', 'tribe-common' ),
-			'description' => __( 'A TEC post object as returned by the REST API', 'tribe-common' ),
 			'properties'  => [
 				'date'               => [
 					'type'        => 'string',
@@ -79,48 +58,6 @@ class TEC_Post_Entity_Definition extends Definition {
 					'example'     => '2025-06-24T22:36:56Z',
 					'pattern'     => '^\d{4}-\d{2}-\d{2}[Tt ]\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}(?::\d{2})?)?$',
 					'nullable'    => true,
-				],
-				'guid'               => [
-					'type'        => 'object',
-					'description' => __( 'The globally unique identifier for the entity.', 'tribe-common' ),
-					'readOnly'    => true,
-					'properties'  => [
-						'rendered' => [
-							'type'        => 'string',
-							'format'      => 'uri',
-							'description' => __( 'The globally unique identifier for the post', 'tribe-common' ),
-							'example'     => 'https://example.com/?p=12345',
-						],
-					],
-				],
-				'id'                 => [
-					'type'        => 'integer',
-					'description' => __( 'Unique identifier for the entity.', 'tribe-common' ),
-					'readOnly'    => true,
-					'example'     => 12345,
-				],
-				'link'               => [
-					'type'        => 'string',
-					'format'      => 'uri',
-					'description' => __( 'URL to the entity.', 'tribe-common' ),
-					'readOnly'    => true,
-					'example'     => 'https://example.com/my-awesome-event',
-				],
-				'modified'           => [
-					'type'        => 'string',
-					'format'      => 'date-time',
-					'description' => __( 'The date the entity was last modified, in the site\'s timezone. In RFC3339 format.', 'tribe-common' ),
-					'readOnly'    => true,
-					'pattern'     => '^\d{4}-\d{2}-\d{2}[Tt ]\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}(?::\d{2})?)?$',
-					'example'     => '2025-06-24T22:36:56-03:30',
-				],
-				'modified_gmt'       => [
-					'type'        => 'string',
-					'format'      => 'date-time',
-					'description' => __( 'The date the entity was last modified, as GMT. In RFC3339 format.', 'tribe-common' ),
-					'readOnly'    => true,
-					'pattern'     => '^\d{4}-\d{2}-\d{2}[Tt ]\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}(?::\d{2})?)?$',
-					'example'     => '2025-06-24T22:36:56Z',
 				],
 				'slug'               => [
 					'type'        => 'string',
@@ -139,51 +76,15 @@ class TEC_Post_Entity_Definition extends Definition {
 					],
 					'example'     => 'publish',
 				],
-				'type'               => [
-					'type'        => 'string',
-					'description' => __( 'Type of entity.', 'tribe-common' ),
-					'readOnly'    => true,
-					'enum'        => $tec_entity_types,
-					'example'     => $tec_entity_types[0],
-				],
-				'permalink_template' => [
-					'type'        => 'string',
-					'description' => __( 'Permalink template for the entity.', 'tribe-common' ),
-					'readOnly'    => true,
-					'example'     => 'https://example.com/sample-event/',
-				],
-				'generated_slug'     => [
-					'type'        => 'string',
-					'description' => __( 'Slug automatically generated from the entity title', 'tribe-common' ),
-					'readOnly'    => true,
-					'example'     => 'my-awesome-event',
-				],
 				'title'              => [
-					'type'        => 'object',
+					'type'        => 'string',
 					'description' => __( 'The title for the entity.', 'tribe-common' ),
-					'properties'  => [
-						'rendered' => [
-							'type'        => 'string',
-							'description' => __( 'HTML title for the entity, transformed for display', 'tribe-common' ),
-							'example'     => 'My Awesome Event',
-						],
-					],
+					'example'     => 'My Awesome Event',
 				],
 				'content'            => [
-					'type'        => 'object',
+					'type'        => 'string',
 					'description' => __( 'The content for the entity.', 'tribe-common' ),
-					'properties'  => [
-						'rendered'  => [
-							'type'        => 'string',
-							'description' => __( 'HTML content for the entity, transformed for display', 'tribe-common' ),
-							'example'     => '<p>This is the content of my event...</p>',
-						],
-						'protected' => [
-							'type'        => 'boolean',
-							'description' => __( 'Whether the content is protected with a password', 'tribe-common' ),
-							'example'     => false,
-						],
-					],
+					'example'     => '<p>This is the content of my event...</p>',
 				],
 				'author'             => [
 					'type'        => 'integer',
@@ -191,20 +92,9 @@ class TEC_Post_Entity_Definition extends Definition {
 					'example'     => 1,
 				],
 				'excerpt'            => [
-					'type'        => 'object',
+					'type'        => 'string',
 					'description' => __( 'The excerpt for the entity.', 'tribe-common' ),
-					'properties'  => [
-						'rendered'  => [
-							'type'        => 'string',
-							'description' => __( 'HTML excerpt for the entity, transformed for display', 'tribe-common' ),
-							'example'     => '<p>This is the excerpt...</p>',
-						],
-						'protected' => [
-							'type'        => 'boolean',
-							'description' => __( 'Whether the excerpt is protected with a password', 'tribe-common' ),
-							'example'     => false,
-						],
-					],
+					'example'     => '<p>This is the excerpt...</p>',
 				],
 				'featured_media'     => [
 					'type'        => 'integer',
@@ -255,14 +145,6 @@ class TEC_Post_Entity_Definition extends Definition {
 					'type'        => 'string',
 					'description' => __( 'The theme file to use to display the entity.', 'tribe-common' ),
 					'example'     => '',
-				],
-				'categories'         => [
-					'type'        => 'array',
-					'description' => __( 'The terms assigned to the entity in the category taxonomy', 'tribe-common' ),
-					'items'       => [
-						'type' => 'integer',
-					],
-					'example'     => [ 1, 5, 12 ],
 				],
 				'tags'               => [
 					'type'        => 'array',

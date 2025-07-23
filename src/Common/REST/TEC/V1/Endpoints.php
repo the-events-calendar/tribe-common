@@ -19,6 +19,7 @@ use TEC\Common\REST\TEC\V1\Documentation\OpenApi_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\OpenApi_Path_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\Date_Details_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\TEC_Post_Entity_Definition;
+use TEC\Common\REST\TEC\V1\Documentation\TEC_Post_Entity_Request_Body_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\Date_Definition;
 use TEC\Common\REST\TEC\V1\Tags\Common_Tag;
 
@@ -70,6 +71,7 @@ class Endpoints extends Endpoints_Controller {
 			Date_Details_Definition::class,
 			Date_Definition::class,
 			TEC_Post_Entity_Definition::class,
+			TEC_Post_Entity_Request_Body_Definition::class,
 		];
 	}
 }

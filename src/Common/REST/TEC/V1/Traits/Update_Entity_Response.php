@@ -62,6 +62,16 @@ trait Update_Entity_Response {
 			);
 		}
 
-		return new WP_REST_Response( $this->get_formatted_entity( get_post( $entity->ID ) ), 200 );
+		return new WP_REST_Response(
+			$this->get_formatted_entity(
+				$this->get_orm()->by_args(
+					[
+						'id'     => $entity->ID,
+						'status' => 'any',
+					]
+				)->first()
+			),
+			200
+		);
 	}
 }

@@ -43,6 +43,16 @@ trait Create_Entity_Response {
 			);
 		}
 
-		return new WP_REST_Response( $this->get_formatted_entity( get_post( $entity->ID ) ), 201 );
+		return new WP_REST_Response(
+			$this->get_formatted_entity(
+				$this->get_orm()->by_args(
+					[
+						'id'     => $entity->ID,
+						'status' => 'any',
+					]
+				)->first()
+			),
+			201
+		);
 	}
 }
