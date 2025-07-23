@@ -12,6 +12,7 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Contracts;
 
 use TEC\Common\REST\TEC\V1\Collections\HeadersCollection;
+use TEC\Common\REST\TEC\V1\Collections\RequestBodyCollection;
 use Closure;
 use JsonSerializable;
 
@@ -73,9 +74,9 @@ interface OpenAPI_Schema extends JsonSerializable {
 	 *
 	 * @since TBD
 	 *
-	 * @return ?array
+	 * @return ?RequestBodyCollection
 	 */
-	public function get_request_body(): ?array;
+	public function get_request_body(): ?RequestBodyCollection;
 
 	/**
 	 * Returns the responses of the schema.

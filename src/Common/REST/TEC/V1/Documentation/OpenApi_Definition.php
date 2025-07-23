@@ -9,7 +9,7 @@
 
 namespace TEC\Common\REST\TEC\V1\Documentation;
 
-use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
+use TEC\Common\REST\TEC\V1\Abstracts\Definition;
 
 // phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase
 
@@ -20,7 +20,7 @@ use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
  *
  * @package TEC\Common\REST\TEC\V1\Documentation
  */
-class OpenApi_Definition implements Definition_Interface {
+class OpenApi_Definition extends Definition {
 	/**
 	 * Returns the type of the definition.
 	 *

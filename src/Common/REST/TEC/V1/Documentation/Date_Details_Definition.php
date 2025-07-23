@@ -11,7 +11,7 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Documentation;
 
-use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
+use TEC\Common\REST\TEC\V1\Abstracts\Definition;
 
 /**
  * Date_Details_Definition class.
@@ -20,7 +20,7 @@ use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
  *
  * @package TEC\Common\REST\TEC\V1\Documentation
  */
-class Date_Details_Definition implements Definition_Interface {
+class Date_Details_Definition extends Definition {
 	/**
 	 * Returns the type of the definition.
 	 *

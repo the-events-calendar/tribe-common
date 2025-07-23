@@ -11,12 +11,12 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Documentation;
 
-use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
+use TEC\Common\REST\TEC\V1\Abstracts\Definition;
 
 /**
  * TEC Post Entity definitions.
  */
-class TEC_Post_Entity_Definition implements Definition_Interface {
+class TEC_Post_Entity_Definition extends Definition {
 	/**
 	 * Get the type.
 	 *

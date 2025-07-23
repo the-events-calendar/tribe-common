@@ -45,4 +45,13 @@ interface Definition_Interface {
 	 * @return int
 	 */
 	public function get_priority(): int;
+
+	/**
+	 * Returns the example of the definition.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function get_example(): array;
 }

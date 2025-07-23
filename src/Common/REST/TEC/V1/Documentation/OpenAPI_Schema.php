@@ -178,7 +178,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	/**
 	 * @inheritDoc
 	 */
-	public function get_request_body(): ?array {
+	public function get_request_body(): ?RequestBodyCollection {
 		return $this->request_body;
 	}
 

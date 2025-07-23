@@ -11,7 +11,10 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Collections;
 
+use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 use TEC\Common\REST\TEC\V1\Contracts\Parameter;
+use Tribe\Utils\Lazy_String;
+use InvalidArgumentException;
 
 // phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase
 
@@ -21,6 +24,111 @@ use TEC\Common\REST\TEC\V1\Contracts\Parameter;
  * @since TBD
  */
 class RequestBodyCollection extends Collection {
+
+	/**
+	 * The description provider.
+	 *
+	 * @since TBD
+	 *
+	 * @var ?callable
+	 */
+	private $description_provider = null;
+
+	/**
+	 * The required flag.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	private bool $required;
+
+	/**
+	 * The example.
+	 *
+	 * @since TBD
+	 *
+	 * @var ?array
+	 */
+	private ?array $example = null;
+
+	/**
+	 * Sets the description provider.
+	 *
+	 * @since TBD
+	 *
+	 * @param ?callable $provider The description provider.
+	 *
+	 * @return self
+	 *
+	 * @throws InvalidArgumentException If the description provider is not a callable.
+	 */
+	public function set_description_provider( $provider ): self {
+		if ( ! is_callable( $provider ) ) {
+			throw new InvalidArgumentException( 'The description provider must be a callable.' );
+		}
+
+		$this->description_provider = $provider;
+
+		return $this;
+	}
+
+	/**
+	 * Sets the example.
+	 *
+	 * @since TBD
+	 *
+	 * @param ?array $example The example.
+	 *
+	 * @return self
+	 */
+	public function set_example( ?array $example ): self {
+		$this->example = $example;
+
+		return $this;
+	}
+
+	/**
+	 * Returns the example.
+	 *
+	 * @since TBD
+	 *
+	 * @return ?array
+	 */
+	public function get_example(): ?array {
+		return $this->example;
+	}
+
+	/**
+	 * Returns the description provider.
+	 *
+	 * @since TBD
+	 *
+	 * @return ?Lazy_String
+	 */
+	public function get_description_provider(): ?Lazy_String {
+		if ( ! $this->description_provider ) {
+			return null;
+		}
+
+		return new Lazy_String( $this->description_provider );
+	}
+
+	/**
+	 * Sets the required flag.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $required The required flag.
+	 *
+	 * @return self
+	 */
+	public function set_required( bool $required ): self {
+		$this->required = $required;
+
+		return $this;
+	}
+
 	/**
 	 * Returns the collection as an array.
 	 *
@@ -29,6 +137,43 @@ class RequestBodyCollection extends Collection {
 	 * @return array
 	 */
 	public function to_array(): array {
-		return array_merge( ...array_map( fn( Parameter $param ) => [ $param->get_name() => $param->to_array() ], $this->resources ) );
+		$properties = array_map(
+			function ( $argument ) {
+				if ( is_string( $argument ) ) {
+					return $argument;
+				}
+
+				if ( ! is_array( $argument ) ) {
+					throw new InvalidArgumentException( 'The argument must be a string or an array.' );
+				}
+
+				unset(
+					$argument['uniqueItems'],
+				);
+
+				return $argument;
+			},
+			array_merge( ...$this->map( fn( Parameter $argument ) => $argument instanceof Definition_Parameter ? [ '$ref' => $argument->to_openapi_schema()['schema']['$ref'] ] : [ $argument->get_name() => $argument->to_openapi_schema()['schema'] ] ) )
+		);
+
+		$schema = ! isset( $properties['$ref'] ) ?
+			[
+				'type'       => 'object',
+				'properties' => $properties,
+			] : $properties;
+
+		return array_filter(
+			[
+				'description' => $this->get_description_provider(),
+				'required'    => $this->required,
+				'content'     => [
+					'application/json' => [
+						'schema'  => $schema,
+						'example' => $this->get_example(),
+					],
+				],
+			],
+			fn( $value ) => $value !== null,
+		);
 	}
 }
