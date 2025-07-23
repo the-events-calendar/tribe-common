@@ -12,7 +12,10 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Documentation;
 
 use TEC\Common\REST\TEC\V1\Contracts\OpenAPI_Schema as OpenAPI_Schema_Contract;
-use TEC\Common\REST\TEC\V1\Collections\Collection;
+use TEC\Common\REST\TEC\V1\Collections\HeadersCollection;
+use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
+use TEC\Common\REST\TEC\V1\Collections\RequestBodyCollection;
+use TEC\Common\REST\TEC\V1\Collections\PathArgumentCollection;
 use Closure;
 use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface as Tag;
 use TEC\Common\REST\TEC\V1\Contracts\Parameter;
@@ -63,13 +66,31 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	private array $tags;
 
 	/**
+	 * The path arguments of the schema.
+	 *
+	 * @since TBD
+	 *
+	 * @var ?PathArgumentCollection
+	 */
+	private ?PathArgumentCollection $path_arguments = null;
+
+	/**
 	 * The parameters of the schema.
 	 *
 	 * @since TBD
 	 *
-	 * @var Collection
+	 * @var ?QueryArgumentCollection
 	 */
-	private Collection $parameters;
+	private ?QueryArgumentCollection $parameters = null;
+
+	/**
+	 * The request body of the schema.
+	 *
+	 * @since TBD
+	 *
+	 * @var ?RequestBodyCollection
+	 */
+	private ?RequestBodyCollection $request_body = null;
 
 	/**
 	 * The responses of the schema.
@@ -85,24 +106,30 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param Closure    $summary_provider The summary provider.
-	 * @param Closure    $description_provider The description provider.
-	 * @param string     $operation_id The operation ID.
-	 * @param Tag[]      $tags The tags.
-	 * @param Collection $parameters The parameters.
+	 * @param Closure                  $summary_provider The summary provider.
+	 * @param Closure                  $description_provider The description provider.
+	 * @param string                   $operation_id The operation ID.
+	 * @param Tag[]                    $tags The tags.
+	 * @param ?PathArgumentCollection  $path_arguments The path arguments.
+	 * @param ?QueryArgumentCollection $parameters The parameters.
+	 * @param ?RequestBodyCollection   $request_body The request body.
 	 */
 	public function __construct(
 		Closure $summary_provider,
 		Closure $description_provider,
 		string $operation_id,
 		array $tags,
-		Collection $parameters
+		?PathArgumentCollection $path_arguments = null,
+		?QueryArgumentCollection $parameters = null,
+		?RequestBodyCollection $request_body = null
 	) {
 		$this->summary_provider     = $summary_provider;
 		$this->description_provider = $description_provider;
 		$this->operation_id         = $operation_id;
 		$this->tags                 = $tags;
+		$this->path_arguments       = $path_arguments;
 		$this->parameters           = $parameters;
+		$this->request_body         = $request_body;
 	}
 
 	/**
@@ -136,8 +163,23 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	/**
 	 * @inheritDoc
 	 */
-	public function get_parameters(): array {
-		return $this->parameters->map( fn( Parameter $parameter ) => $parameter->to_openapi_schema() );
+	public function get_parameters(): ?array {
+		if ( null === $this->parameters && null === $this->path_arguments ) {
+			return null;
+		}
+
+		$path_array = $this->path_arguments ? $this->path_arguments->map( fn( Parameter $parameter ) => $parameter->to_openapi_schema() ) : [];
+
+		$parameters_array = $this->parameters ? $this->parameters->map( fn( Parameter $parameter ) => $parameter->to_openapi_schema() ) : [];
+
+		return array_merge( $path_array, $parameters_array );
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get_request_body(): ?array {
+		return $this->request_body;
 	}
 
 	/**
@@ -152,39 +194,23 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param int         $code The HTTP status code of the response.
-	 * @param Closure     $description_provider The closure that provides the description of the response.
-	 * @param ?Collection $headers The headers of the response.
-	 * @param ?string     $content_type The content type of the response.
-	 * @param ?Parameter  $content The content of the response.
+	 * @param int                $code The HTTP status code of the response.
+	 * @param Closure            $description_provider The closure that provides the description of the response.
+	 * @param ?HeadersCollection $headers The headers of the response.
+	 * @param ?string            $content_type The content type of the response.
+	 * @param ?Parameter         $content The content of the response.
 	 */
-	public function add_response( int $code, Closure $description_provider, ?Collection $headers = null, ?string $content_type = null, ?Parameter $content = null ): void {
+	public function add_response( int $code, Closure $description_provider, ?HeadersCollection $headers = null, ?string $content_type = null, ?Parameter $content = null ): void {
 		$this->responses[ $code ] = [
 			'description' => new Lazy_String( $description_provider ),
 		];
 
 		if ( null !== $headers ) {
-			$this->responses[ $code ]['headers'] = (object) array_map(
-				function ( array $header ): array {
-					unset(
-						$header['name'],
-						$header['in'],
-						$header['example'],
-						$header['explode'],
-						$header['schema']['uniqueItems'],
-					);
-
-					return $header;
-				},
-				array_merge( ...$headers->map( fn( Parameter $header ) => [ $header->get_name() => $header->to_openapi_schema() ] ) )
-			);
+			$this->responses[ $code ]['headers'] = $headers;
 		}
 
 		if ( null !== $content_type && null !== $content ) {
 			$content_schema = $content->to_openapi_schema()['schema'];
-			unset(
-				$content_schema['uniqueItems'],
-			);
 
 			$this->responses[ $code ]['content'][ $content_type ] = [
 				'schema' => $content_schema,
@@ -196,14 +222,18 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	 * @inheritDoc
 	 */
 	public function to_array(): array {
-		return [
-			'summary'     => $this->get_summary(),
-			'description' => $this->get_description(),
-			'operationId' => $this->get_operation_id(),
-			'tags'        => $this->get_tags(),
-			'parameters'  => $this->get_parameters(),
-			'responses'   => $this->get_responses(),
-		];
+		return array_filter(
+			[
+				'summary'     => $this->get_summary(),
+				'description' => $this->get_description(),
+				'operationId' => $this->get_operation_id(),
+				'tags'        => $this->get_tags(),
+				'requestBody' => $this->get_request_body(),
+				'parameters'  => $this->get_parameters(),
+				'responses'   => $this->get_responses(),
+			],
+			fn( $value ) => null !== $value,
+		);
 	}
 
 	/**

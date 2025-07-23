@@ -11,7 +11,7 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Contracts;
 
-use TEC\Common\REST\TEC\V1\Collections\Collection;
+use TEC\Common\REST\TEC\V1\Collections\HeadersCollection;
 use Closure;
 use JsonSerializable;
 
@@ -64,16 +64,25 @@ interface OpenAPI_Schema extends JsonSerializable {
 	 *
 	 * @since TBD
 	 *
-	 * @return array
+	 * @return ?array
 	 */
-	public function get_parameters(): array;
+	public function get_parameters(): ?array;
+
+	/**
+	 * Returns the request body of the schema.
+	 *
+	 * @since TBD
+	 *
+	 * @return ?array
+	 */
+	public function get_request_body(): ?array;
 
 	/**
 	 * Returns the responses of the schema.
 	 *
 	 * @since TBD
 	 *
-	 * @return Collection
+	 * @return array
 	 */
 	public function get_responses(): array;
 
@@ -82,15 +91,15 @@ interface OpenAPI_Schema extends JsonSerializable {
 	 *
 	 * @since TBD
 	 *
-	 * @param int         $code The HTTP status code of the response.
-	 * @param Closure     $description_provider The closure that provides the description of the response.
-	 * @param ?Collection $headers The headers of the response.
-	 * @param ?string     $content_type The content type of the response.
-	 * @param ?Parameter  $content The content of the response.
+	 * @param int                $code The HTTP status code of the response.
+	 * @param Closure            $description_provider The closure that provides the description of the response.
+	 * @param ?HeadersCollection $headers The headers of the response.
+	 * @param ?string            $content_type The content type of the response.
+	 * @param ?Parameter         $content The content of the response.
 	 *
 	 * @return void
 	 */
-	public function add_response( int $code, Closure $description_provider, ?Collection $headers = null, ?string $content_type = null, ?Parameter $content = null ): void;
+	public function add_response( int $code, Closure $description_provider, ?HeadersCollection $headers = null, ?string $content_type = null, ?Parameter $content = null ): void;
 
 	/**
 	 * Returns the schema for the endpoint.

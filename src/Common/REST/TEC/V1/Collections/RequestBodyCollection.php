@@ -11,6 +11,8 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Collections;
 
+use TEC\Common\REST\TEC\V1\Contracts\Parameter;
+
 // phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase
 
 /**
@@ -18,4 +20,15 @@ namespace TEC\Common\REST\TEC\V1\Collections;
  *
  * @since TBD
  */
-class RequestBodyCollection extends Collection {}
+class RequestBodyCollection extends Collection {
+	/**
+	 * Returns the collection as an array.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function to_array(): array {
+		return array_merge( ...array_map( fn( Parameter $param ) => [ $param->get_name() => $param->to_array() ], $this->resources ) );
+	}
+}

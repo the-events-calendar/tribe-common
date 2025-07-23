@@ -13,7 +13,7 @@ namespace TEC\Common\REST\TEC\V1\Contracts;
 
 use WP_REST_Request;
 use WP_REST_Response;
-use TEC\Common\REST\TEC\V1\Collections\Collection;
+use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 
 /**
  * Creatable endpoint interface.
@@ -50,9 +50,9 @@ interface Creatable_Endpoint {
 	 *
 	 * @since TBD
 	 *
-	 * @return Collection
+	 * @return QueryArgumentCollection
 	 */
-	public function create_args(): Collection;
+	public function create_args(): QueryArgumentCollection;
 
 	/**
 	 * Returns the schema for the create method.

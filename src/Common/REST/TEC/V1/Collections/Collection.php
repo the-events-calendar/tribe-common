@@ -31,7 +31,7 @@ abstract class Collection implements ArrayAccess, Iterator, Countable, JsonSeria
 	 *
 	 * @var array<Parameter>
 	 */
-	private array $resources = [];
+	protected array $resources = [];
 
 	/**
 	 * Constructor.
@@ -156,10 +156,14 @@ abstract class Collection implements ArrayAccess, Iterator, Countable, JsonSeria
 	}
 
 	/**
-	 * @inheritDoc
+	 * Returns the collection as an array.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
 	 */
 	public function jsonSerialize(): array {
-		return $this->resources;
+		return $this->to_array();
 	}
 
 	/**
@@ -185,6 +189,6 @@ abstract class Collection implements ArrayAccess, Iterator, Countable, JsonSeria
 	 * @return Collection
 	 */
 	public function filter( callable $callback ): Collection {
-		return new Collection( array_filter( $this->resources, $callback ) );
+		return new static( array_filter( $this->resources, $callback ) );
 	}
 }

@@ -285,4 +285,26 @@ interface Parameter extends JsonSerializable {
 	 * @return array
 	 */
 	public function to_openapi_schema(): array;
+
+	/**
+	 * Sets the required flag.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $required Whether the parameter is required.
+	 *
+	 * @return self
+	 */
+	public function set_required( bool $required ): self;
+
+	/**
+	 * Sets the location.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $location The location.
+	 *
+	 * @return self
+	 */
+	public function set_location( string $location ): self;
 }

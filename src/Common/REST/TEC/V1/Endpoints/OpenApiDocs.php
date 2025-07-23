@@ -19,7 +19,7 @@ use TEC\Common\REST\TEC\V1\Documentation;
 use WP_REST_Request;
 use WP_REST_Response;
 use TEC\Common\REST\TEC\V1\Tags\Common_Tag;
-use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection as Collection;
+use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 use TEC\Common\REST\TEC\V1\Documentation\OpenApi_Definition;
@@ -37,10 +37,10 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 	 *
 	 * @since TBD
 	 *
-	 * @return Collection
+	 * @return QueryArgumentCollection
 	 */
-	public function read_args(): Collection {
-		return new Collection();
+	public function read_args(): QueryArgumentCollection {
+		return new QueryArgumentCollection();
 	}
 
 	/**
@@ -207,6 +207,7 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 			fn() => __( 'Returns the documentation for The Events Calendar REST API in Swagger consumable format.', 'tribe-common' ),
 			'getOpenApiDocs',
 			[ tribe( Common_Tag::class ) ],
+			null,
 			$this->read_args(),
 		);
 

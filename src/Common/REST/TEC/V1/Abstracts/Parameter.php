@@ -587,6 +587,34 @@ abstract class Parameter implements Parameter_Contract {
 	}
 
 	/**
+	 * Sets the required flag.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $required Whether the parameter is required.
+	 *
+	 * @return self
+	 */
+	public function set_required( bool $required ): self {
+		$this->required = $required;
+		return $this;
+	}
+
+	/**
+	 * Sets the location.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $location The location.
+	 *
+	 * @return self
+	 */
+	public function set_location( string $location ): self {
+		$this->location = $location;
+		return $this;
+	}
+
+	/**
 	 * @inheritDoc
 	 */
 	public function get_location(): string {
