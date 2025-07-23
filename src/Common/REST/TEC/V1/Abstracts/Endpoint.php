@@ -20,6 +20,7 @@ use TEC\Common\REST\TEC\V1\Controller;
 use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 use WP_REST_Server;
 use WP_REST_Request;
+use RuntimeException;
 
 /**
  * Endpoint class.
@@ -59,6 +60,8 @@ abstract class Endpoint implements Endpoint_Interface {
 	 * @since TBD
 	 *
 	 * @return array
+	 *
+	 * @throws RuntimeException If the endpoint does not implement at least one of the following interfaces: Readable_Endpoint, Creatable_Endpoint, Updatable_Endpoint, Deletable_Endpoint.
 	 */
 	protected function get_methods(): array {
 		$methods = [];
@@ -105,6 +108,10 @@ abstract class Endpoint implements Endpoint_Interface {
 				'permission_callback' => [ $this, 'can_delete' ],
 				'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
 			];
+		}
+
+		if ( empty( $methods ) ) {
+			throw new RuntimeException( 'Each endpoint must implement at least one of the following interfaces: Readable_Endpoint, Creatable_Endpoint, Updatable_Endpoint, Deletable_Endpoint.' );
 		}
 
 		$methods['schema'] = fn() => $this->get_schema();
