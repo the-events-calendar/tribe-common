@@ -82,7 +82,10 @@ class Documentation {
 			'openapi'    => self::SWAGGER_VERSION,
 			'info'       => $this->get_api_info(),
 			'tags'       => $this->get_tags(),
-			'components' => [ 'schemas' => $this->get_definitions() ],
+			'components' => [
+				'schemas'         => $this->get_definitions(),
+				'securitySchemes' => $this->get_security_schemes(),
+			],
 			'servers'    => [
 				[
 					'url' => rest_url( Controller::get_versioned_namespace() ),
@@ -206,5 +209,33 @@ class Documentation {
 		}
 
 		return $definitions;
+	}
+
+	/**
+	 * Returns the security schemes documentation for each security scheme.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	protected function get_security_schemes(): array {
+		/**
+		 * Filters the security schemes documentation for the TEC REST API.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $security_schemes The security schemes documentation.
+		 *
+		 * @return array
+		 */
+		return (array) apply_filters(
+			'tec_rest_swagger_security_schemes',
+			[
+				'BasicAuth' => [
+					'type'   => 'http',
+					'scheme' => 'basic',
+				],
+			]
+		);
 	}
 }

@@ -24,7 +24,7 @@ class Positive_Integer extends Integer {
 	 * @inheritDoc
 	 */
 	public function get_validator(): Closure {
-		return $this->validator ?? fn( $value ): bool => is_int( $value ) && $value > 0;
+		return $this->validator ?? fn( $value ): bool => is_numeric( $value ) && intval( $value ) > 0;
 	}
 
 	/**

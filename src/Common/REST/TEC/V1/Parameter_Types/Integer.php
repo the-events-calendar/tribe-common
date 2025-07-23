@@ -31,7 +31,7 @@ class Integer extends Number {
 	 * @inheritDoc
 	 */
 	public function get_validator(): Closure {
-		return $this->validator ?? fn( $value ): bool => is_int( $value );
+		return $this->validator ?? fn( $value ): bool => is_numeric( $value );
 	}
 
 	/**

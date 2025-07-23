@@ -102,6 +102,15 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	private array $responses;
 
 	/**
+	 * Whether the schema requires privileges.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	private bool $requiring_privileges;
+
+	/**
 	 * The constructor.
 	 *
 	 * @since TBD
@@ -113,6 +122,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	 * @param ?PathArgumentCollection  $path_arguments The path arguments.
 	 * @param ?QueryArgumentCollection $parameters The parameters.
 	 * @param ?RequestBodyCollection   $request_body The request body.
+	 * @param ?bool                    $requiring_privileges Whether the schema requires privileges.
 	 */
 	public function __construct(
 		Closure $summary_provider,
@@ -121,7 +131,8 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 		array $tags,
 		?PathArgumentCollection $path_arguments = null,
 		?QueryArgumentCollection $parameters = null,
-		?RequestBodyCollection $request_body = null
+		?RequestBodyCollection $request_body = null,
+		?bool $requiring_privileges = false
 	) {
 		$this->summary_provider     = $summary_provider;
 		$this->description_provider = $description_provider;
@@ -130,6 +141,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 		$this->path_arguments       = $path_arguments;
 		$this->parameters           = $parameters;
 		$this->request_body         = $request_body;
+		$this->requiring_privileges = $requiring_privileges;
 	}
 
 	/**
@@ -225,6 +237,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 		return array_filter(
 			[
 				'summary'     => $this->get_summary(),
+				'security'    => $this->requiring_privileges ? [ [ 'BasicAuth' => [] ] ] : [],
 				'description' => $this->get_description(),
 				'operationId' => $this->get_operation_id(),
 				'tags'        => $this->get_tags(),
