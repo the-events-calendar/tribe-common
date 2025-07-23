@@ -187,18 +187,12 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 
 		$data = array_merge( (array) $formatted_post, array_intersect_key( (array) $original_post, $properties_to_add ) );
 
-		$data['link'] = $data['permalink'];
+		$data['link'] = $data['permalink'] ?? $data['link'];
 		unset(
 			$data['permalink'],
 			$data['meta'],
+			$data['_links']
 		);
-
-		// Reorder the links.
-		$links = $data['_links'] ?? [];
-		if ( ! empty( $links ) ) {
-			unset( $data['_links'] );
-			$data['_links'] = $links;
-		}
 
 		return $data;
 	}

@@ -280,11 +280,6 @@ class TEC_Post_Entity_Definition extends Definition {
 					],
 					'example'     => [ 2, 8, 15 ],
 				],
-				'_links'             => [
-					'type'        => 'object',
-					'description' => __( 'Links to the entity.', 'tribe-common' ),
-					'readOnly'    => true,
-				],
 			],
 		];
 

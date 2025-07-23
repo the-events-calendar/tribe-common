@@ -22,6 +22,8 @@ use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use RuntimeException;
 use WP_REST_Server;
 use Generator;
+use Tribe\Tests\Traits\With_Clock_Mock;
+use Tribe__Date_Utils as Dates;
 
 if ( ! class_exists( WPBrowserTestCase::class ) ) {
 	class_alias( WPTestCase::class, WPBrowserTestCase::class );
@@ -39,6 +41,7 @@ if ( ! class_exists( WPBrowserTestCase::class ) ) {
 abstract class REST_Test_Case extends WPBrowserTestCase {
 	use With_Uopz;
 	use SnapshotAssertions;
+	use With_Clock_Mock;
 
 	/**
 	 * The OpenAPI schema loaded from the JSON file.
@@ -74,6 +77,7 @@ abstract class REST_Test_Case extends WPBrowserTestCase {
 	 * @before
 	 */
 	public function set_up() {
+		$this->freeze_time( Dates::immutable( '2025-06-13 17:25:00' ) );
 		// Ensure the endpoint class is defined.
 		if ( ! property_exists( $this, 'endpoint_class' ) ) {
 			throw new RuntimeException( 'Each REST test case must define an endpoint_class property.' );
