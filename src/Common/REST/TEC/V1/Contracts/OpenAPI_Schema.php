@@ -65,9 +65,9 @@ interface OpenAPI_Schema extends JsonSerializable {
 	 *
 	 * @since TBD
 	 *
-	 * @return ?array
+	 * @return array
 	 */
-	public function get_parameters(): ?array;
+	public function get_parameters(): array;
 
 	/**
 	 * Returns the request body of the schema.

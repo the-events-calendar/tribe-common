@@ -12,6 +12,7 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Documentation;
 
 use TEC\Common\REST\TEC\V1\Contracts\OpenAPI_Schema as OpenAPI_Schema_Contract;
+use TEC\Common\REST\TEC\V1\Collections\Collection;
 use TEC\Common\REST\TEC\V1\Collections\HeadersCollection;
 use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 use TEC\Common\REST\TEC\V1\Collections\RequestBodyCollection;
@@ -175,16 +176,12 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	/**
 	 * @inheritDoc
 	 */
-	public function get_parameters(): ?array {
+	public function get_parameters(): array {
 		if ( null === $this->parameters && null === $this->path_arguments ) {
-			return null;
+			return [ null, null ];
 		}
 
-		$path_array = $this->path_arguments ? $this->path_arguments->map( fn( Parameter $parameter ) => $parameter->to_openapi_schema() ) : [];
-
-		$parameters_array = $this->parameters ? $this->parameters->map( fn( Parameter $parameter ) => $parameter->to_openapi_schema() ) : [];
-
-		return array_merge( $path_array, $parameters_array );
+		return [ $this->path_arguments, $this->parameters ];
 	}
 
 	/**
@@ -242,7 +239,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 				'operationId' => $this->get_operation_id(),
 				'tags'        => $this->get_tags(),
 				'requestBody' => $this->get_request_body(),
-				'parameters'  => $this->get_parameters(),
+				'parameters'  => array_merge( ...array_map( static fn( Collection $collection ) => $collection->map( fn( Parameter $parameter ) => $parameter->to_openapi_schema() ), array_filter( $this->get_parameters() ) ) ),
 				'responses'   => $this->get_responses(),
 			],
 			fn( $value ) => null !== $value,
