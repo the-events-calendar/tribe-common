@@ -157,9 +157,22 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	 */
 	public function get_formatted_entity( WP_Post $post ): array {
 		$rest_controller = new WP_REST_Posts_Controller( $this->get_post_type() );
-		$data            = $rest_controller->prepare_item_for_response( $post, $this->get_request() );
+		$request         = $this->get_request();
+		$data            = $rest_controller->prepare_item_for_response( $post, $request );
 
-		return $this->transform_entity( $this->add_properties_to_model( $rest_controller->prepare_response_for_collection( $data ), $post ) );
+		if ( $rest_controller->can_access_password_content( $post, $request ) ) {
+			// If user can access password protected content, we remove any integration that might be obstructing the content.
+			add_filter( 'post_password_required', '__return_false' );
+		}
+
+		$formatted_entity = $this->transform_entity( $this->add_properties_to_model( $rest_controller->prepare_response_for_collection( $data ), $post ) );
+
+		if ( $rest_controller->can_access_password_content( $post, $request ) ) {
+			// Remove the added filter.
+			remove_filter( 'post_password_required', '__return_false' );
+		}
+
+		return $formatted_entity;
 	}
 
 	/**
