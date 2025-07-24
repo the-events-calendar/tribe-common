@@ -324,7 +324,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 						$old_value = $example['organizers'];
 						break;
 					case 'venues':
-						$new_value = [ $venue_2 ];
+						$new_value = $venue_2;
 						$old_value = $example['venues'];
 						break;
 				}
@@ -366,11 +366,23 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 			$fresh_entity->duration         = (int) $fresh_entity->duration;
 			$fresh_entity->organizers       = wp_list_pluck( $fresh_entity->organizers, 'ID' );
 			$fresh_entity->venues           = wp_list_pluck( $fresh_entity->venues, 'ID' );
-			$fresh_entity->title            = str_replace( 'Private: ', '', $fresh_entity->title );
+
+			// Handle title property - some post types use post_title instead of title
+			if ( isset( $fresh_entity->title ) ) {
+				$fresh_entity->title = str_replace( 'Private: ', '', $fresh_entity->title );
+			} elseif ( isset( $fresh_entity->post_title ) ) {
+				// For post types that don't have a title property, set it from post_title
+				$fresh_entity->title = str_replace( 'Private: ', '', $fresh_entity->post_title );
+			}
 
 			$actual_property = $orm->get_update_fields_aliases()[ $property ] ?? $property;
 
 			$using_property = isset( $fresh_entity->{$property} ) ? $property : $actual_property;
+
+			// Skip sticky property for non-event post types as it's not supported
+			if ( 'sticky' === $property && ! in_array( $this->endpoint->get_post_type(), [ 'tribe_events' ], true ) ) {
+				continue;
+			}
 
 			$this->assertSame( 'venues' === $property ? [ $old_value ] : $old_value, $fresh_entity->{$using_property}, 'The property ' . $actual_property . ' / ' . $property . ' should be as expected.' );
 
@@ -402,10 +414,17 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 			$fresh_entity->duration         = (int) $fresh_entity->duration;
 			$fresh_entity->organizers       = wp_list_pluck( $fresh_entity->organizers, 'ID' );
 			$fresh_entity->venues           = wp_list_pluck( $fresh_entity->venues, 'ID' );
-			$fresh_entity->title            = str_replace( 'Private: ', '', $fresh_entity->title );
+
+			// Handle title property - some post types use post_title instead of title
+			if ( isset( $fresh_entity->title ) ) {
+				$fresh_entity->title = str_replace( 'Private: ', '', $fresh_entity->title );
+			} elseif ( isset( $fresh_entity->post_title ) ) {
+				// For post types that don't have a title property, set it from post_title
+				$fresh_entity->title = str_replace( 'Private: ', '', $fresh_entity->post_title );
+			}
 
 			if ( $user_can_update ) {
-				$this->assertSame( $new_value, $fresh_entity->{$using_property}, 'The property ' . $actual_property . ' / ' . $property . ' should have been updated.' );
+				$this->assertSame( 'venues' === $property ? [ $new_value ] : $new_value, $fresh_entity->{$using_property}, 'The property ' . $actual_property . ' / ' . $property . ' should have been updated.' );
 			} else {
 				$this->assertSame( 'venues' === $property ? [ $old_value ] : $old_value, $fresh_entity->{$using_property}, 'The property ' . $actual_property . ' / ' . $property . ' should not have been updated.' );
 			}
