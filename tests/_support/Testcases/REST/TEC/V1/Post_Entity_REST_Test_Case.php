@@ -279,6 +279,12 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		$property_keys = array_keys( $properties );
 		// Sort the properties so that keys that contain the `end` word come before keys that have the `start` word.
 		usort( $property_keys, fn( $a, $b ) => strpos( $a, 'end' ) <=> strpos( $b, 'end' ) );
+		// Place the all day flag at the end.
+		$all_day_key = array_search( 'all_day', $property_keys );
+		if ( false !== $all_day_key ) {
+			unset( $property_keys[ $all_day_key ] );
+			$property_keys[] = 'all_day';
+		}
 
 		$new_properties = [];
 
