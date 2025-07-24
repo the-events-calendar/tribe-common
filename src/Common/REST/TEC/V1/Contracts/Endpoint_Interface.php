@@ -11,6 +11,8 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Contracts;
 
+use WP_REST_Request;
+
 /**
  * Endpoint interface.
  *
@@ -94,4 +96,12 @@ interface Endpoint_Interface {
 	 * @return string
 	 */
 	public function get_open_api_path(): string;
+	/**
+	 * Returns the request object for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return WP_REST_Request
+	 */
+	public function get_request(): WP_REST_Request;
 }

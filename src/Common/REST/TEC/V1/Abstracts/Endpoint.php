@@ -320,4 +320,21 @@ abstract class Endpoint implements Endpoint_Interface {
 
 		return sprintf( $base, ...$replacements );
 	}
+
+	/**
+	 * Returns the request object for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return WP_REST_Request
+	 */
+	public function get_request(): WP_REST_Request {
+		$container = tribe();
+
+		if ( $container->isBound( WP_REST_Request::class ) ) {
+			return $container->get( WP_REST_Request::class );
+		}
+
+		return new WP_REST_Request();
+	}
 }

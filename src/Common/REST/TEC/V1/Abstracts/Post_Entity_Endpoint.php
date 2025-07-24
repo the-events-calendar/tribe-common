@@ -157,7 +157,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	 */
 	public function get_formatted_entity( WP_Post $post ): array {
 		$rest_controller = new WP_REST_Posts_Controller( $this->get_post_type() );
-		$data            = $rest_controller->prepare_item_for_response( $post, new WP_REST_Request() );
+		$data            = $rest_controller->prepare_item_for_response( $post, $this->get_request() );
 
 		return $this->transform_entity( $this->add_properties_to_model( $rest_controller->prepare_response_for_collection( $data ), $post ) );
 	}

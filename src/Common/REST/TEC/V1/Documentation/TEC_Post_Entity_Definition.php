@@ -256,14 +256,6 @@ class TEC_Post_Entity_Definition extends Definition {
 					'description' => __( 'The theme file to use to display the entity.', 'tribe-common' ),
 					'example'     => '',
 				],
-				'categories'         => [
-					'type'        => 'array',
-					'description' => __( 'The terms assigned to the entity in the category taxonomy', 'tribe-common' ),
-					'items'       => [
-						'type' => 'integer',
-					],
-					'example'     => [ 1, 5, 12 ],
-				],
 				'tags'               => [
 					'type'        => 'array',
 					'description' => __( 'The terms assigned to the entity in the post_tag taxonomy', 'tribe-common' ),
