@@ -53,7 +53,7 @@ trait Update_Entity_Response {
 		}
 
 		$entity = $this->get_orm()->where( 'id', $id )->set_args( $request->get_body_params() )->save();
-		if ( ! $entity ) {
+		if ( empty( $entity ) ) {
 			return new WP_REST_Response(
 				[
 					'error' => __( 'Failed to update entity.', 'tribe-common' ),
@@ -66,7 +66,7 @@ trait Update_Entity_Response {
 			$this->get_formatted_entity(
 				$this->get_orm()->by_args(
 					[
-						'id'     => $entity->ID,
+						'id'     => array_keys( $entity )[0],
 						'status' => 'any',
 					]
 				)->first()

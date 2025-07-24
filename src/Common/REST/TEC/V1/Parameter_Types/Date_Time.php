@@ -48,6 +48,6 @@ class Date_Time extends Text {
 	 * @inheritDoc
 	 */
 	public function get_example(): string {
-		return '2021-01-01T00:00:00Z';
+		return '2025-06-05T12:00:00Z';
 	}
 }
