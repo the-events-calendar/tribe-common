@@ -62,4 +62,13 @@ interface Readable_Endpoint {
 	 * @return OpenAPI_Schema
 	 */
 	public function read_schema(): OpenAPI_Schema;
+
+	/**
+	 * Returns the attributes for the read method.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function get_read_attributes(): array;
 }

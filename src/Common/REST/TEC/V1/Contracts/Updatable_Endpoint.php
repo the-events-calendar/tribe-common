@@ -62,4 +62,13 @@ interface Updatable_Endpoint {
 	 * @return OpenAPI_Schema
 	 */
 	public function update_schema(): OpenAPI_Schema;
+
+	/**
+	 * Returns the attributes for the update method.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function get_update_attributes(): array;
 }

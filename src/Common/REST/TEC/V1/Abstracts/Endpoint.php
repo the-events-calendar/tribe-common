@@ -67,47 +67,19 @@ abstract class Endpoint implements Endpoint_Interface {
 		$methods = [];
 
 		if ( $this instanceof Readable_Endpoint ) {
-			$args = $this->read_args();
-
-			$methods[] = [
-				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => [ $this, 'read' ],
-				'permission_callback' => [ $this, 'can_read' ],
-				'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
-			];
+			$methods[] = $this->get_read_attributes();
 		}
 
 		if ( $this instanceof Creatable_Endpoint ) {
-			$args = $this->create_args();
-
-			$methods[] = [
-				'methods'             => WP_REST_Server::CREATABLE,
-				'callback'            => [ $this, 'create' ],
-				'permission_callback' => [ $this, 'can_create' ],
-				'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
-			];
+			$methods[] = $this->get_create_attributes();
 		}
 
 		if ( $this instanceof Updatable_Endpoint ) {
-			$args = $this->update_args();
-
-			$methods[] = [
-				'methods'             => self::EDITABLE,
-				'callback'            => [ $this, 'update' ],
-				'permission_callback' => [ $this, 'can_update' ],
-				'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
-			];
+			$methods[] = $this->get_update_attributes();
 		}
 
 		if ( $this instanceof Deletable_Endpoint ) {
-			$args = $this->delete_args();
-
-			$methods[] = [
-				'methods'             => WP_REST_Server::DELETABLE,
-				'callback'            => [ $this, 'delete' ],
-				'permission_callback' => [ $this, 'can_delete' ],
-				'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
-			];
+			$methods[] = $this->get_delete_attributes();
 		}
 
 		if ( empty( $methods ) ) {
@@ -117,6 +89,78 @@ abstract class Endpoint implements Endpoint_Interface {
 		$methods['schema'] = fn() => $this->get_schema();
 
 		return $methods;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get_read_attributes(): array {
+		if ( ! $this instanceof Readable_Endpoint ) {
+			return [];
+		}
+
+		$args = $this->read_args();
+
+		return [
+			'methods'             => WP_REST_Server::READABLE,
+			'callback'            => [ $this, 'read' ],
+			'permission_callback' => [ $this, 'can_read' ],
+			'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
+		];
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get_create_attributes(): array {
+		if ( ! $this instanceof Creatable_Endpoint ) {
+			return [];
+		}
+
+		$args = $this->create_args();
+
+		return [
+			'methods'             => WP_REST_Server::CREATABLE,
+			'callback'            => [ $this, 'create' ],
+			'permission_callback' => [ $this, 'can_create' ],
+			'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
+		];
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get_update_attributes(): array {
+		if ( ! $this instanceof Updatable_Endpoint ) {
+			return [];
+		}
+
+		$args = $this->update_args();
+
+		return [
+			'methods'             => self::EDITABLE,
+			'callback'            => [ $this, 'update' ],
+			'permission_callback' => [ $this, 'can_update' ],
+			'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
+		];
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get_delete_attributes(): array {
+		if ( ! $this instanceof Deletable_Endpoint ) {
+			return [];
+		}
+
+		$args = $this->delete_args();
+
+		return [
+			'methods'             => WP_REST_Server::DELETABLE,
+			'callback'            => [ $this, 'delete' ],
+			'permission_callback' => [ $this, 'can_delete' ],
+			'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
+		];
 	}
 
 	/**

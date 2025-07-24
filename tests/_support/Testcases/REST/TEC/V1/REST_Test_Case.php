@@ -25,6 +25,9 @@ use Generator;
 use Tribe\Tests\Traits\With_Clock_Mock;
 use Tribe__Date_Utils as Dates;
 use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
+use WP_REST_Request;
+use WP_REST_Response;
+use WP_Error;
 
 if ( ! class_exists( WPBrowserTestCase::class ) ) {
 	class_alias( WPTestCase::class, WPBrowserTestCase::class );
@@ -345,5 +348,53 @@ abstract class REST_Test_Case extends WPBrowserTestCase {
 		}
 
 		return $properties;
+	}
+
+	protected function assert_endpoint( string $path, string $method = 'GET', int $expected_code = 200, array $data = [] ) {
+		$response = $this->do_rest_api_request( $path, strtoupper( $method ), $data );
+
+		if ( $expected_code > 299 ) {
+			$this->assertTrue( $response->is_error(), 'Response should be an error for path: ' . $path );
+			$this->assertInstanceof( WP_Error::class, $response->as_error() );
+			$this->assertEquals( $expected_code, $response->get_status() );
+			return $response->get_data();
+		}
+
+		$this->assertFalse( $response->is_error(), 'Response should not be an error for path: ' . $path );
+		$this->assertEquals( $expected_code, $response->get_status() );
+
+		return $response->get_data();
+	}
+
+	private function do_rest_api_request( string $path, string $method, array $data = [] ): WP_REST_Response {
+		switch ( $method ) {
+			case 'GET':
+				$attributes = $this->endpoint->get_read_attributes();
+				break;
+			case 'POST':
+				$attributes = $this->endpoint->get_create_attributes();
+				break;
+			case 'PUT':
+			case 'PATCH':
+				$attributes = $this->endpoint->get_update_attributes();
+				break;
+			case 'DELETE':
+				$attributes = $this->endpoint->get_delete_attributes();
+				break;
+			default:
+				throw new RuntimeException( 'Whats going on? Invalid method: ' . $method );
+		}
+
+		$request = new WP_REST_Request( $method, '/tec/v1' . $path, $attributes );
+
+		if ( ! empty( $data ) ) {
+			if ( 'GET' === $method ) {
+				$request->set_query_params( $data );
+			} else {
+				$request->set_body_params( $data );
+			}
+		}
+
+		return $this->rest_server->dispatch( $request );
 	}
 }

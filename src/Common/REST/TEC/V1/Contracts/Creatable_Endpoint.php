@@ -62,4 +62,13 @@ interface Creatable_Endpoint {
 	 * @return OpenAPI_Schema
 	 */
 	public function create_schema(): OpenAPI_Schema;
+
+	/**
+	 * Returns the attributes for the create method.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function get_create_attributes(): array;
 }

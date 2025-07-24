@@ -62,4 +62,13 @@ interface Deletable_Endpoint {
 	 * @return OpenAPI_Schema
 	 */
 	public function delete_schema(): OpenAPI_Schema;
+
+	/**
+	 * Returns the attributes for the delete method.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function get_delete_attributes(): array;
 }
