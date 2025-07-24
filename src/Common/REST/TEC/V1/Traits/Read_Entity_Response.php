@@ -13,6 +13,7 @@ namespace TEC\Common\REST\TEC\V1\Traits;
 
 use WP_REST_Request;
 use WP_REST_Response;
+use WP_REST_Posts_Controller;
 
 /**
  * Trait to handle the response for read entity requests.
@@ -52,6 +53,16 @@ trait Read_Entity_Response {
 			);
 		}
 
+		$rest_controller = new WP_REST_Posts_Controller( $this->get_post_type() );
+
+		$filter_added = false;
+
+		if ( post_password_required( $id ) && $rest_controller->can_access_password_content( get_post( $id ), $request ) ) {
+			// If user can access password protected content, we remove any integration that might be obstructing the content.
+			add_filter( 'post_password_required', '__return_false' );
+			$filter_added = true;
+		}
+
 		$entity = $this->get_orm()->by_args(
 			[
 				'id'     => $id,
@@ -68,6 +79,12 @@ trait Read_Entity_Response {
 			);
 		}
 
-		return new WP_REST_Response( $this->get_formatted_entity( $entity ), 200 );
+		$response = new WP_REST_Response( $this->get_formatted_entity( $entity ), 200 );
+
+		if ( $filter_added ) {
+			remove_filter( 'post_password_required', '__return_false' );
+		}
+
+		return $response;
 	}
 }
