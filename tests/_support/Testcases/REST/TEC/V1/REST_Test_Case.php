@@ -4,10 +4,10 @@
  *
  * @since TBD
  *
- * @package TEC\Common\Tests\TestCases\REST\TEC\V1
+ * @package TEC\Common\Tests\Testcases\REST\TEC\V1
  */
 
-namespace TEC\Common\Tests\TestCases\REST\TEC\V1;
+namespace TEC\Common\Tests\Testcases\REST\TEC\V1;
 
 use lucatume\WPBrowser\TestCase\WPTestCase as WPBrowserTestCase;
 use Codeception\TestCase\WPTestCase;
@@ -38,7 +38,7 @@ if ( ! class_exists( WPBrowserTestCase::class ) ) {
  *
  * @since TBD
  *
- * @package TEC\Common\Tests\TestCases\REST\TEC\V1
+ * @package TEC\Common\Tests\Testcases\REST\TEC\V1
  *
  * @property string $endpoint_class The class name of the endpoint to test.
  */

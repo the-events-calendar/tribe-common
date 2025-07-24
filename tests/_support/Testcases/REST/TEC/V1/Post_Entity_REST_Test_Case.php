@@ -4,10 +4,10 @@
  *
  * @since TBD
  *
- * @package TEC\Common\Tests\TestCases\REST\TEC\V1
+ * @package TEC\Common\Tests\Testcases\REST\TEC\V1
  */
 
-namespace TEC\Common\Tests\TestCases\REST\TEC\V1;
+namespace TEC\Common\Tests\Testcases\REST\TEC\V1;
 
 use TEC\Common\REST\TEC\V1\Contracts\Post_Entity_Endpoint_Interface as Post_Entity_Endpoint;
 use Closure;
@@ -17,7 +17,7 @@ use Closure;
  *
  * @since TBD
  *
- * @package TEC\Common\Tests\TestCases\REST\TEC\V1
+ * @package TEC\Common\Tests\Testcases\REST\TEC\V1
  */
 abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 	/**
