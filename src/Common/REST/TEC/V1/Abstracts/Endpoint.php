@@ -359,9 +359,9 @@ abstract class Endpoint implements Endpoint_Interface {
 			throw new RuntimeException( 'You need to provide a callable to respond to requests!' );
 		}
 
-		return static function () use ( $callback ) {
+		return static function ( WP_REST_Request $request ) use ( $callback ) {
 			try {
-				$response = $callback();
+				$response = $callback( $request );
 			} catch ( InvalidRestArgumentException $e ) {
 				return $e->to_wp_error();
 			} catch ( Exception $e ) {
