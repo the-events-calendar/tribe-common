@@ -14,6 +14,7 @@ namespace TEC\Common\REST\TEC\V1;
 use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
 use TEC\Common\REST\TEC\V1\Contracts\Endpoint_Interface;
 use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
+use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface;
 use TEC\Common\REST\TEC\V1\Abstracts\Endpoints_Controller;
 use TEC\Common\REST\TEC\V1\Documentation\OpenApi_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\OpenApi_Path_Definition;
