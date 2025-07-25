@@ -209,6 +209,7 @@ jobs:
         if: steps.skip.outputs.value != 1 && matrix.suite == 'rest_tec_v1_integration'
         run: |
           ${SLIC_BIN} wp rewrite structure '/%postname%/' --hard
+          curl http://localhost:8888/wp-json/tec/v1/docs/
           npm run spectral -- http://localhost:8888/wp-json/tec/v1/docs/
 
       - name: Run suite tests
