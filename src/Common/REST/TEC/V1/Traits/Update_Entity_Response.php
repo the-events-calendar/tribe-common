@@ -32,7 +32,10 @@ trait Update_Entity_Response {
 	 * @return WP_REST_Response The response object.
 	 */
 	public function update( WP_REST_Request $request ): WP_REST_Response {
-		$id = $request['id'] ?? null;
+		$params = $this->get_sanitized_params_from_schema( 'update', $request->get_params() );
+		$id     = $params['id'] ?? null;
+
+		unset( $params['id'] );
 
 		if ( ! $id ) {
 			return new WP_REST_Response(
@@ -52,7 +55,7 @@ trait Update_Entity_Response {
 			);
 		}
 
-		$entity = $this->get_orm()->where( 'id', $id )->set_args( $request->get_body_params() )->save();
+		$entity = $this->get_orm()->where( 'id', $id )->set_args( $params )->save();
 		if ( empty( $entity ) ) {
 			return new WP_REST_Response(
 				[

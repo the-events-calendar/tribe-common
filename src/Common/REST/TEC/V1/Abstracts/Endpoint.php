@@ -21,6 +21,11 @@ use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 use WP_REST_Server;
 use WP_REST_Request;
 use RuntimeException;
+use InvalidArgumentException;
+use Exception;
+use Throwable;
+use WP_Error;
+use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 
 /**
  * Endpoint class.
@@ -103,7 +108,7 @@ abstract class Endpoint implements Endpoint_Interface {
 
 		return [
 			'methods'             => WP_REST_Server::READABLE,
-			'callback'            => [ $this, 'read' ],
+			'callback'            => $this->respond( [ $this, 'read' ] ),
 			'permission_callback' => [ $this, 'can_read' ],
 			'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
 		];
@@ -121,7 +126,7 @@ abstract class Endpoint implements Endpoint_Interface {
 
 		return [
 			'methods'             => WP_REST_Server::CREATABLE,
-			'callback'            => [ $this, 'create' ],
+			'callback'            => $this->respond( [ $this, 'create' ] ),
 			'permission_callback' => [ $this, 'can_create' ],
 			'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
 		];
@@ -139,7 +144,7 @@ abstract class Endpoint implements Endpoint_Interface {
 
 		return [
 			'methods'             => self::EDITABLE,
-			'callback'            => [ $this, 'update' ],
+			'callback'            => $this->respond( [ $this, 'update' ] ),
 			'permission_callback' => [ $this, 'can_update' ],
 			'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
 		];
@@ -157,7 +162,7 @@ abstract class Endpoint implements Endpoint_Interface {
 
 		return [
 			'methods'             => WP_REST_Server::DELETABLE,
-			'callback'            => [ $this, 'delete' ],
+			'callback'            => $this->respond( [ $this, 'delete' ] ),
 			'permission_callback' => [ $this, 'can_delete' ],
 			'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
 		];
@@ -336,5 +341,91 @@ abstract class Endpoint implements Endpoint_Interface {
 		}
 
 		return new WP_REST_Request();
+	}
+
+	/**
+	 * Responds to a request.
+	 *
+	 * @since TBD
+	 *
+	 * @param callable $callback The callback to respond to the request.
+	 *
+	 * @return callable
+	 *
+	 * @throws RuntimeException If the callback is not callable.
+	 */
+	private function respond( callable $callback ): callable {
+		if ( ! is_callable( $callback ) ) {
+			throw new RuntimeException( 'You need to provide a callable to respond to requests!' );
+		}
+
+		return static function () use ( $callback ) {
+			try {
+				$response = $callback();
+			} catch ( InvalidRestArgumentException $e ) {
+				return $e->to_wp_error();
+			} catch ( Exception $e ) {
+				return new WP_Error( 'tec_rest_error', $e->getMessage(), [ 'status' => 500 ] );
+			} catch ( Throwable $e ) {
+				return new WP_Error( 'tec_rest_error', $e->getMessage(), [ 'status' => 500 ] );
+			}
+
+			return $response;
+		};
+	}
+
+	/**
+	 * Gets the sanitized parameters from the schema.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $schema_name    The name of the schema. Can be `read`, `create`, `update`, or `delete`.
+	 * @param array  $request_params The request parameters.
+	 *
+	 * @return array The sanitized parameters.
+	 *
+	 * @throws InvalidArgumentException     If the schema name is invalid.
+	 * @throws RuntimeException             If the schema is not found.
+	 */
+	protected function get_sanitized_params_from_schema( string $schema_name, array $request_params = [] ): array {
+		if ( ! in_array( $schema_name, [ 'read', 'create', 'update', 'delete' ], true ) ) {
+			throw new InvalidArgumentException( 'Invalid schema name: ' . $schema_name );
+		}
+
+		switch ( $schema_name ) {
+			case 'read':
+				if ( ! $this instanceof Readable_Endpoint ) {
+					throw new RuntimeException( 'The endpoint does not implement the Readable_Endpoint interface.' );
+				}
+
+				$schema = $this->read_schema();
+				break;
+			case 'create':
+				if ( ! $this instanceof Creatable_Endpoint ) {
+					throw new RuntimeException( 'The endpoint does not implement the Creatable_Endpoint interface.' );
+				}
+
+				$schema = $this->create_schema();
+				break;
+			case 'update':
+				if ( ! $this instanceof Updatable_Endpoint ) {
+					throw new RuntimeException( 'The endpoint does not implement the Updatable_Endpoint interface.' );
+				}
+
+				$schema = $this->update_schema();
+				break;
+			case 'delete':
+				if ( ! $this instanceof Deletable_Endpoint ) {
+					throw new RuntimeException( 'The endpoint does not implement the Deletable_Endpoint interface.' );
+				}
+
+				$schema = $this->delete_schema();
+				break;
+		}
+
+		return $schema
+			/** @throws InvalidRestArgumentException If one or more request parameters are invalid. */
+			->validate( $request_params )
+			->sanitize();
 	}
 }

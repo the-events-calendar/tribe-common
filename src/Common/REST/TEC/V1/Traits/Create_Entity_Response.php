@@ -32,7 +32,8 @@ trait Create_Entity_Response {
 	 * @return WP_REST_Response The response object.
 	 */
 	public function create( WP_REST_Request $request ): WP_REST_Response {
-		$entity = $this->get_orm()->set_args( $request->get_body_params() )->create();
+		$params = $this->get_sanitized_params_from_schema( 'create', $request->get_body_params() );
+		$entity = $this->get_orm()->set_args( $params )->create();
 
 		if ( ! $entity ) {
 			return new WP_REST_Response(

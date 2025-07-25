@@ -83,4 +83,57 @@ trait Read_Archive_Response {
 
 		return $response;
 	}
+
+	/**
+	 * Builds the events query using the ORM.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_REST_Request $request The request object.
+	 *
+	 * @return Tribe__Repository__Interface The events query.
+	 */
+	protected function build_query( WP_REST_Request $request ): Tribe__Repository__Interface {
+		$params = $this->get_sanitized_params_from_schema( 'read', $request->get_params() );
+		/** @var Tribe__Repository__Interface $query */
+		$query = $this->get_orm();
+
+		$search  = $params['search'] ?? '';
+		$orderby = $params['orderby'] ?? '';
+		$order   = $params['order'] ?? '';
+		$status  = $params['status'] ?? 'publish';
+
+		unset(
+			$params['orderby'],
+			$params['order'],
+			$params['search'],
+			$params['status']
+		);
+
+		if ( $search ) {
+			$query->search( $search );
+		}
+
+		if ( $orderby && $order ) {
+			$query->order_by( $orderby, $order );
+		}
+
+		$params['status'] = 'publish';
+
+		if ( 'publish' !== $status && current_user_can( $this->get_post_type_object()->cap->edit_posts ) ) {
+			$params['status'] = $status;
+		}
+
+		$query->by_args( $params );
+
+		/**
+		 * Filters the query in the TEC REST API.
+		 *
+		 * @since TBD
+		 *
+		 * @param Tribe__Repository__Interface $query   The query.
+		 * @param WP_REST_Request              $request The request object.
+		 */
+		return apply_filters( 'tec_rest_events_query', $query, $request );
+	}
 }

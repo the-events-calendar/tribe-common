@@ -32,7 +32,8 @@ trait Delete_Entity_Response {
 	 * @return WP_REST_Response The response object.
 	 */
 	public function delete( WP_REST_Request $request ): WP_REST_Response {
-		$id = $request['id'] ?? null;
+		$params = $this->get_sanitized_params_from_schema( 'delete', $request->get_params() );
+		$id     = $params['id'] ?? null;
 
 		if ( ! $id ) {
 			return new WP_REST_Response(
