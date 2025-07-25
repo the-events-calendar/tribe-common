@@ -21,6 +21,7 @@ use Closure;
 use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface as Tag;
 use TEC\Common\REST\TEC\V1\Contracts\Parameter;
 use Tribe\Utils\Lazy_String;
+use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 
 // phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase
 
@@ -47,6 +48,15 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	 * @var Closure
 	 */
 	private Closure $description_provider;
+
+	/**
+	 * The endpoint data.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	private array $sanitized_endpoint_data;
 
 	/**
 	 * The operation ID of the schema.
@@ -251,5 +261,90 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	 */
 	public function jsonSerialize(): array {
 		return $this->to_array();
+	}
+
+	/**
+	 * @inheritDoc
+	 *
+	 * @param array $data The data to validate.
+	 *
+	 * @return self The validated schema.
+	 *
+	 * @throws InvalidRestArgumentException If parameter is invalid.
+	 */
+	public function validate( array $data = [] ): self {
+		[
+			/** @var ?PathArgumentCollection $path_params */
+			$path_params,
+			/** @var ?QueryArgumentCollection $query_params */
+			$query_params,
+		] = $this->get_parameters();
+
+		/** @var ?RequestBodyCollection $request_body */
+		$request_body = $this->get_request_body();
+
+		$params = array_filter(
+			[
+				'Path'  => $path_params,
+				'Query' => $query_params,
+				'Body'  => $request_body,
+			],
+			fn( $value ) => null !== $value,
+		);
+
+		// Will hold sanitized and only defined from the schema data.
+		$new_data = [];
+
+		foreach ( $params as $type => $collection ) {
+			/** @var Parameter $param */
+			foreach ( $collection as $param ) {
+				$param_name = $param->get_name();
+				if ( $param->is_required() && ! isset( $data[ $param_name ] ) ) {
+					// translators: 1) is the type of the parameter, 2) is the name of the parameter.
+					$exception = new InvalidRestArgumentException( sprintf( __( '%1$s parameter `{`%2$s}` is required.', 'the-events-calendar' ), $type, $param_name ) );
+
+					$exception->set_argument( $param_name );
+					$exception->set_internal_error_code( 'tec_rest_invalid_' . strtolower( $type ) . '_parameter' );
+
+					// translators: 1) is the type of the parameter, 2) is the name of the parameter.
+					$exception->set_details( sprintf( __( 'The %1$s parameter `{`%2$s}` is missing.', 'the-events-calendar' ), $type, $param_name ) );
+					throw $exception;
+				}
+
+				if ( ! isset( $data[ $param_name ] ) ) {
+					continue;
+				}
+
+				$validator = $param->get_validator();
+				$valid     = $validator( $data[ $param_name ] );
+
+				if ( $valid ) {
+					$new_data[ $param_name ] = $param->get_sanitizer()( $data[ $param_name ] );
+					continue;
+				}
+
+				// translators: 1) is the type of the parameter, 2) is the name of the parameter.
+				$exception = new InvalidRestArgumentException( sprintf( __( '%1$s parameter `{`%2$s}` is invalid.', 'the-events-calendar' ), $type, $param_name ) );
+
+				$exception->set_argument( $param_name );
+				$exception->set_internal_error_code( 'tec_rest_invalid_' . strtolower( $type ) . '_parameter' );
+
+				// translators: 1) is the type of the parameter, 2) is the name of the parameter.
+				$exception->set_details( sprintf( __( 'The %1$s parameter `{`%2$s}` should be a `%3$s`, here is an example: `%4$s`.', 'the-events-calendar' ), $type, $param_name, $param->get_type(), $param->get_example() ) );
+				throw $exception;
+
+			}
+		}
+
+		$this->sanitized_endpoint_data = $new_data;
+
+		return $this;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function sanitize(): array {
+		return $this->sanitized_endpoint_data;
 	}
 }
