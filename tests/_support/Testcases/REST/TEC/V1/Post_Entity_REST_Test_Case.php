@@ -245,7 +245,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 			$request_body['schema'] = [ 'properties' => $properties ];
 		}
 
-		$properties = $request_body['schema']['properties'];
+		$properties = $request_body['schema']['properties']->to_array();
 
 		$orm = $this->endpoint->get_orm();
 
