@@ -8,7 +8,6 @@
             "nullable": true,
             "type": "string",
             "format": "date-time",
-            "required": false,
             "pattern": "^\\d{4}-\\d{2}-\\d{2}[Tt ]\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}(?::\\d{2})?)?$",
             "example": "2025-06-04T23:36:56+01:00"
         },
@@ -17,21 +16,18 @@
             "nullable": true,
             "type": "string",
             "format": "date-time",
-            "required": false,
             "pattern": "^\\d{4}-\\d{2}-\\d{2}[Tt ]\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}(?::\\d{2})?)?$",
             "example": "2025-06-04T22:36:56Z"
         },
         "slug": {
             "description": "An alphanumeric identifier for the entity unique to its type",
             "type": "string",
-            "required": false,
             "example": "my-awesome-event"
         },
         "status": {
             "description": "A named status for the entity.",
             "type": "string",
             "default": "publish",
-            "required": false,
             "enum": [
                 "publish",
                 "pending",
@@ -44,38 +40,32 @@
         "title": {
             "description": "HTML title for the entity, transformed for display",
             "type": "string",
-            "required": false,
             "example": "My Awesome Event"
         },
         "content": {
             "description": "HTML content for the entity, transformed for display",
             "type": "string",
-            "required": false,
             "example": "<p>This is the content of my event...</p>"
         },
         "excerpt": {
             "description": "HTML excerpt for the entity, transformed for display",
             "type": "string",
-            "required": false,
             "example": "<p>This is the excerpt...</p>"
         },
         "author": {
             "description": "The ID for the author of the entity.",
             "type": "integer",
-            "required": false,
             "example": 1
         },
         "featured_media": {
             "description": "The ID of the featured media for the entity.",
             "type": "integer",
-            "required": false,
             "example": 123
         },
         "comment_status": {
             "description": "Whether or not comments are open on the entity.",
             "type": "string",
             "default": "open",
-            "required": false,
             "enum": [
                 "open",
                 "closed"
@@ -86,7 +76,6 @@
             "description": "Whether or not the entity can be pinged",
             "type": "string",
             "default": "open",
-            "required": false,
             "enum": [
                 "open",
                 "closed"
@@ -97,7 +86,6 @@
             "description": "The format for the entity.",
             "type": "string",
             "default": "standard",
-            "required": false,
             "enum": [
                 "standard",
                 "aside",
@@ -116,13 +104,11 @@
             "description": "Whether or not the entity should be treated as sticky",
             "type": "boolean",
             "default": false,
-            "required": false,
             "example": false
         },
         "template": {
             "description": "The theme file to use to display the entity.",
             "type": "string",
-            "required": false,
             "example": "templates-full.php"
         },
         "tags": {
@@ -131,8 +117,6 @@
             "items": {
                 "type": "integer"
             },
-            "required": false,
-            "uniqueItems": true,
             "example": [
                 2,
                 8,
