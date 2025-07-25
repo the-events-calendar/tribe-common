@@ -69,7 +69,7 @@ abstract class Collection implements ArrayAccess, Iterator, Countable, JsonSeria
 	 * @inheritDoc
 	 */
 	public function key(): ?string {
-		return key( $this->resources );
+		return (string) key( $this->resources );
 	}
 
 	/**

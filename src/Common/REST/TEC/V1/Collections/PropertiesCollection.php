@@ -39,6 +39,7 @@ class PropertiesCollection extends Collection {
 					$property['validate_callback'],
 					$property['sanitize_callback'],
 					$property['explode'],
+					$property['required'],
 				);
 
 				return $property;

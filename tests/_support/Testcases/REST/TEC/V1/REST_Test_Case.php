@@ -345,7 +345,7 @@ abstract class REST_Test_Case extends WPBrowserTestCase {
 				continue;
 			}
 
-			// It's only providing metadata like title and description, so we can skip it.`
+			// It's only providing metadata like title and description, so we can skip it.
 		}
 
 		$unified_collection = new PropertiesCollection();

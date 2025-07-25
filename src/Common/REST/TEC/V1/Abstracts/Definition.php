@@ -12,6 +12,8 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Abstracts;
 
 use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
+use TEC\Common\REST\TEC\V1\Collections\PropertiesCollection;
+use TEC\Common\REST\TEC\V1\Contracts\Parameter_Interface as Parameter;
 use RuntimeException;
 
 /**
@@ -64,24 +66,12 @@ abstract class Definition implements Definition_Interface {
 				continue;
 			}
 
-			if ( isset( $doc['properties'] ) ) {
-				foreach ( $doc['properties'] as $property => $data ) {
-					if ( isset( $data['properties'] ) ) {
-						$examples[ $property ] = $this->get_examples_from_docs( [ $data ] );
-						continue;
-					}
-
-					if ( ! isset( $data['example'] ) ) {
-						continue;
-					}
-
-					$examples[ $property ] = $data['example'];
+			if ( isset( $doc['properties'] ) && $doc['properties'] instanceof PropertiesCollection ) {
+				/** @var Parameter $collection */
+				foreach ( $doc['properties'] as $param ) {
+					$examples[ $param->get_name() ] = $param->get_example();
 				}
-
-				continue;
 			}
-
-			// It's only providing metadata like title and description, so we can skip it.
 		}
 
 		return $examples;
