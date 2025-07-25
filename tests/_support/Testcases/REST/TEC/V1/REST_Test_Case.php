@@ -28,6 +28,7 @@ use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
+use TEC\Common\REST\TEC\V1\Collections\PropertiesCollection;
 
 if ( ! class_exists( WPBrowserTestCase::class ) ) {
 	class_alias( WPTestCase::class, WPBrowserTestCase::class );
@@ -328,26 +329,26 @@ abstract class REST_Test_Case extends WPBrowserTestCase {
 		throw new RuntimeException( 'Definition class not found for ' . $ref );
 	}
 
-	protected function get_props_from_doc( array $documentation ): array {
+	protected function get_props_from_doc( array $documentation ): PropertiesCollection {
 		$props = ! empty( $documentation['allOf'] ) ? $documentation['allOf'] : [ $documentation ];
 
-		$properties = [];
+		$unified_collection = new PropertiesCollection();
 		foreach ( $props as $prop ) {
 			if ( isset( $prop['$ref'] ) ) {
-				$definition = $this->get_instance_from_ref( $prop['$ref'] )->get_documentation();
-				$properties = array_merge( $properties, $this->get_props_from_doc( $definition ) );
+				$definition           = $this->get_instance_from_ref( $prop['$ref'] )->get_documentation();
+				$unified_collection[] = array_merge( $unified_collection, $this->get_props_from_doc( $definition ) );
 				continue;
 			}
 
 			if ( isset( $prop['properties'] ) ) {
-				$properties = array_merge( $properties, $prop['properties'] );
+				$unified_collection[] = $prop['properties'];
 				continue;
 			}
 
-			// It's only providing metadata like title and description, so we can skip it.`
+			// It's only providing metadata like title and description, so we can skip it.
 		}
 
-		return $properties;
+		return $unified_collection;
 	}
 
 	protected function assert_endpoint( string $path, string $method = 'GET', int $expected_code = 200, array $data = [] ) {

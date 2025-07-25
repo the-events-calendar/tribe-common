@@ -444,15 +444,6 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		$example = $request_body['example'];
 		unset( $example['id'] );
 
-		if ( isset( $request_body['schema']['$ref'] ) ) {
-			$definition = $this->get_instance_from_ref( $request_body['schema']['$ref'] )->get_documentation();
-			$properties = $this->get_props_from_doc( $definition );
-
-			$request_body['schema'] = [ 'properties' => $properties ];
-		}
-
-		$properties = $request_body['schema']['properties'];
-
 		$orm = $this->endpoint->get_orm();
 
 		wp_set_current_user( 1 );
