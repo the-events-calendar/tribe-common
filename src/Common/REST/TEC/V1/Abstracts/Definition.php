@@ -56,7 +56,7 @@ abstract class Definition implements Definition_Interface {
 
 		foreach ( $docs as $doc ) {
 			if ( isset( $doc['$ref'] ) ) {
-				$class = $this->get_instance_from_ref( $doc['$ref'] );
+				$class = static::get_instance_from_ref( $doc['$ref'] );
 
 				if ( ! $class ) {
 					throw new RuntimeException( 'Definition class not found for ' . $doc['$ref'] );
@@ -86,7 +86,7 @@ abstract class Definition implements Definition_Interface {
 	 *
 	 * @return ?Definition_Interface
 	 */
-	private function get_instance_from_ref( string $ref ): ?Definition_Interface {
+	public static function get_instance_from_ref( string $ref ): ?Definition_Interface {
 		$ref = str_replace( '#/components/schemas/', '', $ref );
 
 		$possible_classes = [

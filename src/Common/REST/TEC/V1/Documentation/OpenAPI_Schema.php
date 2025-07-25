@@ -300,7 +300,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 			/** @var Parameter $param */
 			foreach ( $collection as $param ) {
 				if ( $param instanceof Definition_Parameter ) {
-					$new_data = array_merge( $new_data, $param->validate( $params )->sanitize() );
+					$new_data = array_merge( $new_data, $param->validate( $data )->sanitize() );
 					continue;
 				}
 

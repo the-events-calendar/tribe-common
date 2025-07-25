@@ -121,32 +121,7 @@ class Array_Of_Type extends Parameter {
 				return true;
 			}
 
-			$class_string = $this->items_type;
-
-			$class = new $class_string(
-				'example',
-				null,
-				false,
-				null,
-				null,
-				null,
-				$this->get_enum(),
-				$this->get_maximum(),
-				$this->get_minimum(),
-				$this->get_min_length(),
-				$this->get_max_length(),
-				null,
-				null,
-				$this->get_format(),
-				$this->get_pattern(),
-				null,
-				$this->get_multiple_of(),
-				null,
-				null,
-				self::LOCATION_QUERY,
-				null,
-				$this->is_nullable(),
-			);
+			$class = $this->get_class_of_subtype();
 
 			if ( ! $class instanceof Parameter_Contract ) {
 				return true;

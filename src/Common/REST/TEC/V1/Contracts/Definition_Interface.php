@@ -54,4 +54,15 @@ interface Definition_Interface {
 	 * @return array
 	 */
 	public function get_example(): array;
+
+	/**
+	 * Returns the instance from a ref.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $ref The ref.
+	 *
+	 * @return ?Definition_Interface
+	 */
+	public static function get_instance_from_ref( string $ref ): ?Definition_Interface;
 }
