@@ -329,4 +329,26 @@ interface Parameter extends JsonSerializable {
 	 * @return self
 	 */
 	public function set_example( $example ): self;
+
+	/**
+	 * Sets the nullable flag.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $nullable Whether the parameter is nullable.
+	 *
+	 * @return self
+	 */
+	public function set_nullable( bool $nullable ): self;
+
+	/**
+	 * Sets the read only flag.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $read_only Whether the parameter is read only.
+	 *
+	 * @return self
+	 */
+	public function set_read_only( bool $read_only ): self;
 }

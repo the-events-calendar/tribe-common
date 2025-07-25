@@ -4,66 +4,78 @@
     "type": "object",
     "properties": {
         "date": {
+            "description": "The date the entity was published, in the site's timezone. In RFC3339 format.",
+            "nullable": true,
             "type": "string",
             "format": "date-time",
-            "description": "The date the entity was published, in the site's timezone. In RFC3339 format.",
-            "example": "2025-06-04T23:36:56+01:00",
+            "required": false,
             "pattern": "^\\d{4}-\\d{2}-\\d{2}[Tt ]\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}(?::\\d{2})?)?$",
-            "nullable": true
+            "example": "2025-06-04T23:36:56+01:00"
         },
         "date_gmt": {
+            "description": "The date the entity was published, as GMT. In RFC3339 format.",
+            "nullable": true,
             "type": "string",
             "format": "date-time",
-            "description": "The date the entity was published, as GMT. In RFC3339 format.",
-            "example": "2025-06-04T22:36:56Z",
+            "required": false,
             "pattern": "^\\d{4}-\\d{2}-\\d{2}[Tt ]\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}(?::\\d{2})?)?$",
-            "nullable": true
+            "example": "2025-06-04T22:36:56Z"
         },
         "slug": {
-            "type": "string",
             "description": "An alphanumeric identifier for the entity unique to its type",
+            "type": "string",
+            "required": false,
             "example": "my-awesome-event"
         },
         "status": {
-            "type": "string",
             "description": "A named status for the entity.",
+            "type": "string",
+            "default": "publish",
+            "required": false,
             "enum": [
                 "publish",
-                "future",
-                "draft",
                 "pending",
+                "draft",
+                "future",
                 "private"
             ],
             "example": "publish"
         },
         "title": {
+            "description": "HTML title for the entity, transformed for display",
             "type": "string",
-            "description": "The title for the entity.",
+            "required": false,
             "example": "My Awesome Event"
         },
         "content": {
+            "description": "HTML content for the entity, transformed for display",
             "type": "string",
-            "description": "The content for the entity.",
+            "required": false,
             "example": "<p>This is the content of my event...</p>"
         },
-        "author": {
-            "type": "integer",
-            "description": "The ID for the author of the entity.",
-            "example": 1
-        },
         "excerpt": {
+            "description": "HTML excerpt for the entity, transformed for display",
             "type": "string",
-            "description": "The excerpt for the entity.",
+            "required": false,
             "example": "<p>This is the excerpt...</p>"
         },
-        "featured_media": {
+        "author": {
+            "description": "The ID for the author of the entity.",
             "type": "integer",
+            "required": false,
+            "example": 1
+        },
+        "featured_media": {
             "description": "The ID of the featured media for the entity.",
+            "type": "integer",
+            "required": false,
             "example": 123
         },
         "comment_status": {
-            "type": "string",
             "description": "Whether or not comments are open on the entity.",
+            "type": "string",
+            "default": "open",
+            "required": false,
             "enum": [
                 "open",
                 "closed"
@@ -71,8 +83,10 @@
             "example": "open"
         },
         "ping_status": {
-            "type": "string",
             "description": "Whether or not the entity can be pinged",
+            "type": "string",
+            "default": "open",
+            "required": false,
             "enum": [
                 "open",
                 "closed"
@@ -80,8 +94,10 @@
             "example": "open"
         },
         "format": {
-            "type": "string",
             "description": "The format for the entity.",
+            "type": "string",
+            "default": "standard",
+            "required": false,
             "enum": [
                 "standard",
                 "aside",
@@ -97,21 +113,26 @@
             "example": "standard"
         },
         "sticky": {
-            "type": "boolean",
             "description": "Whether or not the entity should be treated as sticky",
+            "type": "boolean",
+            "default": false,
+            "required": false,
             "example": false
         },
         "template": {
-            "type": "string",
             "description": "The theme file to use to display the entity.",
-            "example": ""
+            "type": "string",
+            "required": false,
+            "example": "templates-full.php"
         },
         "tags": {
-            "type": "array",
             "description": "The terms assigned to the entity in the post_tag taxonomy",
+            "type": "array",
             "items": {
                 "type": "integer"
             },
+            "required": false,
+            "uniqueItems": true,
             "example": [
                 2,
                 8,

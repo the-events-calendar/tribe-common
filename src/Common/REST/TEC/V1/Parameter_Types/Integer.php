@@ -44,6 +44,15 @@ class Integer extends Number {
 	/**
 	 * @inheritDoc
 	 */
+	public static function get_subitem_format(): array {
+		return [
+			'type' => 'integer',
+		];
+	}
+
+	/**
+	 * @inheritDoc
+	 */
 	public function get_example(): int {
 		if ( $this->example ) {
 			return $this->example;

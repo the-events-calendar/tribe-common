@@ -652,6 +652,34 @@ abstract class Parameter implements Parameter_Contract {
 	}
 
 	/**
+	 * Sets the nullable flag.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $nullable Whether the parameter is nullable.
+	 *
+	 * @return self
+	 */
+	public function set_nullable( bool $nullable ): self {
+		$this->nullable = $nullable;
+		return $this;
+	}
+
+	/**
+	 * Sets the read only flag.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $read_only Whether the parameter is read only.
+	 *
+	 * @return self
+	 */
+	public function set_read_only( bool $read_only ): self {
+		$this->read_only = $read_only;
+		return $this;
+	}
+
+	/**
 	 * @inheritDoc
 	 */
 	public function get_location(): string {
