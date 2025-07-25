@@ -31,14 +31,25 @@ class Definition_Parameter extends Entity {
 	private Definition $definition;
 
 	/**
+	 * The sanitized data.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	private array $sanitized_data;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since TBD
 	 *
 	 * @param Definition $definition The definition.
+	 * @param string     $name       The name of the parameter.
 	 */
-	public function __construct( Definition $definition ) {
+	public function __construct( Definition $definition, string $name = '' ) {
 		$this->definition = $definition;
+		$this->name       = $name;
 	}
 
 	/**
@@ -53,6 +64,17 @@ class Definition_Parameter extends Entity {
 	}
 
 	/**
+	 * Returns the parameter as an array.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function to_array(): array {
+		return [ '$ref' => '#/components/schemas/' . $this->definition->get_type() ];
+	}
+
+	/**
 	 * Returns the definition.
 	 *
 	 * @since TBD
@@ -62,6 +84,7 @@ class Definition_Parameter extends Entity {
 	 * @return self
 	 */
 	public function validate( array $data = [] ): self {
+		$this->sanitized_data = $data;
 		return $this;
 	}
 
@@ -72,5 +95,7 @@ class Definition_Parameter extends Entity {
 	 *
 	 * @return array
 	 */
-	public function sanitize(): array {}
+	public function sanitize(): array {
+		return $this->sanitized_data;
+	}
 }

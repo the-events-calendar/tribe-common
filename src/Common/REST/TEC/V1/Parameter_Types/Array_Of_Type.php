@@ -200,6 +200,10 @@ class Array_Of_Type extends Parameter {
 	 * @inheritDoc
 	 */
 	public function get_example(): array {
+		if ( $this->example ) {
+			return $this->example;
+		}
+
 		if ( ! class_exists( $this->items_type ) ) {
 			return [ 'string1', 'string2' ];
 		}

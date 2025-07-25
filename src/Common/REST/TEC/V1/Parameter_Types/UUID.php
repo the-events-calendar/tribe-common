@@ -39,6 +39,6 @@ class UUID extends Text {
 	 * @inheritDoc
 	 */
 	public function get_example(): string {
-		return '123e4567-e89b-12d3-a456-426614174000';
+		return $this->example ?? '123e4567-e89b-12d3-a456-426614174000';
 	}
 }

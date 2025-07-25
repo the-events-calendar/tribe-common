@@ -45,6 +45,10 @@ class Integer extends Number {
 	 * @inheritDoc
 	 */
 	public function get_example(): int {
+		if ( $this->example ) {
+			return $this->example;
+		}
+
 		if ( $this->get_minimum() || $this->get_maximum() ) {
 			$val = (int) ceil( ( ( $this->get_minimum() ?? 1 ) + ( $this->get_maximum() ?? 1 ) ) / 2 );
 

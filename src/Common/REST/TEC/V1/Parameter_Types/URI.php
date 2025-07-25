@@ -39,6 +39,6 @@ class URI extends Text {
 	 * @inheritDoc
 	 */
 	public function get_example(): string {
-		return 'https://example.com';
+		return $this->example ?? 'https://example.com';
 	}
 }

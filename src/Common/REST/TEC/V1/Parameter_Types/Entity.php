@@ -53,7 +53,7 @@ class Entity extends Parameter {
 	 * @inheritDoc
 	 */
 	public function get_example(): array {
-		return [
+		return $this->example ?? [
 			'id'   => 1,
 			'name' => 'Example',
 		];

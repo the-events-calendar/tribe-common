@@ -307,4 +307,26 @@ interface Parameter extends JsonSerializable {
 	 * @return self
 	 */
 	public function set_location( string $location ): self;
+
+	/**
+	 * Sets the pattern.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $pattern The pattern.
+	 *
+	 * @return self
+	 */
+	public function set_pattern( string $pattern ): self;
+
+	/**
+	 * Sets the example.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $example The example.
+	 *
+	 * @return self
+	 */
+	public function set_example( $example ): self;
 }

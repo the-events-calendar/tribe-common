@@ -38,6 +38,10 @@ class Positive_Integer extends Integer {
 	 * @inheritDoc
 	 */
 	public function get_example(): int {
+		if ( $this->example ) {
+			return $this->example;
+		}
+
 		if ( $this->get_minimum() || $this->get_maximum() ) {
 			return (int) ceil( ( ( $this->get_minimum() ?? 1 ) + ( $this->get_maximum() ?? 1 ) ) / 2 );
 		}

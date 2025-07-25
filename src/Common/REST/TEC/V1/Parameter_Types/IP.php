@@ -39,6 +39,6 @@ class IP extends Text {
 	 * @inheritDoc
 	 */
 	public function get_example(): string {
-		return '127.0.0.1';
+		return $this->example ?? '127.0.0.1';
 	}
 }

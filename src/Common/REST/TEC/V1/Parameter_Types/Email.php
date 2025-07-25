@@ -39,6 +39,6 @@ class Email extends Text {
 	 * @inheritDoc
 	 */
 	public function get_example(): string {
-		return 'example@theeventscalendar.com';
+		return $this->example ?? 'example@theeventscalendar.com';
 	}
 }

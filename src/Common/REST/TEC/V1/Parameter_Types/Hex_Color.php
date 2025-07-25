@@ -39,6 +39,6 @@ class Hex_Color extends Text {
 	 * @inheritDoc
 	 */
 	public function get_example(): string {
-		return '#000000';
+		return $this->example ?? '#000000';
 	}
 }

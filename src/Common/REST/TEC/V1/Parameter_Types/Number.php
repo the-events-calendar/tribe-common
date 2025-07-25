@@ -114,6 +114,10 @@ class Number extends Parameter {
 	 * @inheritDoc
 	 */
 	public function get_example() {
+		if ( $this->example ) {
+			return $this->example;
+		}
+
 		if ( $this->get_minimum() || $this->get_maximum() ) {
 			return ceil( ( ( $this->get_minimum() ?? 1 ) + ( $this->get_maximum() ?? 1 ) ) / 2 ) + 0.25;
 		}

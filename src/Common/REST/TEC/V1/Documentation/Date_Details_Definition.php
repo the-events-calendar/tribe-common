@@ -12,6 +12,8 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Documentation;
 
 use TEC\Common\REST\TEC\V1\Abstracts\Definition;
+use TEC\Common\REST\TEC\V1\Collections\PropertiesCollection;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 
 /**
  * Date_Details_Definition class.
@@ -51,90 +53,20 @@ class Date_Details_Definition extends Definition {
 	 * @return array An array description of a Swagger supported component.
 	 */
 	public function get_documentation(): array {
+		$properties = new PropertiesCollection();
+
+		$properties[] = new Definition_Parameter( new Date_Definition(), 'start' );
+		$properties[] = new Definition_Parameter( new Date_Definition(), 'start_utc' );
+		$properties[] = new Definition_Parameter( new Date_Definition(), 'start_site' );
+		$properties[] = new Definition_Parameter( new Date_Definition(), 'start_display' );
+		$properties[] = new Definition_Parameter( new Date_Definition(), 'end' );
+		$properties[] = new Definition_Parameter( new Date_Definition(), 'end_utc' );
+		$properties[] = new Definition_Parameter( new Date_Definition(), 'end_site' );
+		$properties[] = new Definition_Parameter( new Date_Definition(), 'end_display' );
+
 		$documentation = [
 			'type'       => 'object',
-			'properties' => [
-				'start'         => [
-					'allOf' => [
-						[
-							'$ref' => '#/components/schemas/Date',
-						],
-						[
-							'description' => __( 'The start date', 'tribe-common' ),
-						],
-					],
-				],
-				'start_utc'     => [
-					'allOf' => [
-						[
-							'$ref' => '#/components/schemas/Date',
-						],
-						[
-							'description' => __( 'The start date in UTC', 'tribe-common' ),
-						],
-					],
-				],
-				'start_site'    => [
-					'allOf' => [
-						[
-							'$ref' => '#/components/schemas/Date',
-						],
-						[
-							'description' => __( 'The start date in the site timezone', 'tribe-common' ),
-						],
-					],
-				],
-				'start_display' => [
-					'allOf' => [
-						[
-							'$ref' => '#/components/schemas/Date',
-						],
-						[
-							'description' => __( 'The start date in the display timezone', 'tribe-common' ),
-						],
-					],
-				],
-				'end'           => [
-					'allOf' => [
-						[
-							'$ref' => '#/components/schemas/Date',
-						],
-						[
-							'description' => __( 'The end date', 'tribe-common' ),
-						],
-					],
-				],
-				'end_utc'       => [
-					'allOf' => [
-						[
-							'$ref' => '#/components/schemas/Date',
-						],
-						[
-							'description' => __( 'The end date in UTC', 'tribe-common' ),
-						],
-					],
-				],
-				'end_site'      => [
-					'allOf' => [
-						[
-							'$ref' => '#/components/schemas/Date',
-						],
-						[
-							'description' => __( 'The end date in the site timezone', 'tribe-common' ),
-						],
-					],
-				],
-				'end_display'   => [
-					'allOf' => [
-						[
-							'$ref' => '#/components/schemas/Date',
-						],
-						[
-							'description' => __( 'The end date in the display timezone', 'tribe-common' ),
-						],
-					],
-				],
-			],
+			'properties' => $properties,
 		];
 
 		/**

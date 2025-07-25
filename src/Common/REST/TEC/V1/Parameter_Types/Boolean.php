@@ -91,6 +91,6 @@ class Boolean extends Parameter {
 	 * @inheritDoc
 	 */
 	public function get_example(): bool {
-		return true;
+		return $this->example ?? true;
 	}
 }

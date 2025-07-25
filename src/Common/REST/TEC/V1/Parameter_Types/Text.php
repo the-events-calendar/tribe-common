@@ -121,6 +121,10 @@ class Text extends Parameter {
 	 * @inheritDoc
 	 */
 	public function get_example(): string {
+		if ( $this->example ) {
+			return $this->example;
+		}
+
 		if ( $this->get_enum() ) {
 			return array_values( $this->get_enum() )[0];
 		}

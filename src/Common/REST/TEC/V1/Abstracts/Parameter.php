@@ -124,6 +124,15 @@ abstract class Parameter implements Parameter_Contract {
 	protected ?Closure $validator = null;
 
 	/**
+	 * The example.
+	 *
+	 * @since TBD
+	 *
+	 * @var mixed
+	 */
+	protected $example = null;
+
+	/**
 	 * The sanitizer.
 	 *
 	 * @since TBD
@@ -584,6 +593,34 @@ abstract class Parameter implements Parameter_Contract {
 			],
 			static fn( $value ) => null !== $value
 		);
+	}
+
+	/**
+	 * Sets the example.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $example The example.
+	 *
+	 * @return self
+	 */
+	public function set_example( $example ): self {
+		$this->example = $example;
+		return $this;
+	}
+
+	/**
+	 * Sets the pattern.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $pattern The pattern.
+	 *
+	 * @return self
+	 */
+	public function set_pattern( string $pattern ): self {
+		$this->pattern = $pattern;
+		return $this;
 	}
 
 	/**
