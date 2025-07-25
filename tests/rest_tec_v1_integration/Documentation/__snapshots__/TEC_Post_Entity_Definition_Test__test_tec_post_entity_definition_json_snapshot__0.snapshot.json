@@ -1,0 +1,230 @@
+{
+    "type": "object",
+    "title": "TEC Post Entity",
+    "description": "A TEC post object as returned by the REST API",
+    "properties": {
+        "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date the entity was published, in the site's timezone. In RFC3339 format.",
+            "example": "2025-06-04T23:36:56+01:00",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}[Tt ]\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}(?::\\d{2})?)?$",
+            "nullable": true
+        },
+        "date_gmt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date the entity was published, as GMT. In RFC3339 format.",
+            "example": "2025-06-04T22:36:56Z",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}[Tt ]\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}(?::\\d{2})?)?$",
+            "nullable": true
+        },
+        "guid": {
+            "type": "object",
+            "description": "The globally unique identifier for the entity.",
+            "readOnly": true,
+            "properties": {
+                "rendered": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "The globally unique identifier for the post",
+                    "example": "https://example.com/?p=12345"
+                }
+            }
+        },
+        "id": {
+            "type": "integer",
+            "description": "Unique identifier for the entity.",
+            "readOnly": true,
+            "example": 12345
+        },
+        "link": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the entity.",
+            "readOnly": true,
+            "example": "https://example.com/my-awesome-event"
+        },
+        "modified": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date the entity was last modified, in the site's timezone. In RFC3339 format.",
+            "readOnly": true,
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}[Tt ]\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}(?::\\d{2})?)?$",
+            "example": "2025-06-05T19:06:56-03:30"
+        },
+        "modified_gmt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date the entity was last modified, as GMT. In RFC3339 format.",
+            "readOnly": true,
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}[Tt ]\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}(?::\\d{2})?)?$",
+            "example": "2025-06-05T22:36:56Z"
+        },
+        "slug": {
+            "type": "string",
+            "description": "An alphanumeric identifier for the entity unique to its type",
+            "example": "my-awesome-event"
+        },
+        "status": {
+            "type": "string",
+            "description": "A named status for the entity.",
+            "enum": [
+                "publish",
+                "future",
+                "draft",
+                "pending",
+                "private"
+            ],
+            "example": "publish"
+        },
+        "type": {
+            "type": "string",
+            "description": "Type of entity.",
+            "readOnly": true,
+            "enum": [
+                "tribe_events",
+                "tec_tc_attendee",
+                "tec_tc_order",
+                "tec_tc_ticket",
+                "ticket-meta-fieldset",
+                "tribe_event_series",
+                "tec_calendar_embed",
+                "tribe_organizer",
+                "tribe_venue",
+                "tribe-ea-record",
+                "tribe_payout",
+                "tribe_wooticket",
+                "tribe_eddticket",
+                "tribe_tpp_orders",
+                "tribe_tpp_attendees",
+                "tribe_tpp_tickets",
+                "tribe_rsvp_attendees",
+                "tribe_rsvp_tickets"
+            ],
+            "example": "tribe_events"
+        },
+        "permalink_template": {
+            "type": "string",
+            "description": "Permalink template for the entity.",
+            "readOnly": true,
+            "example": "https://example.com/sample-event/"
+        },
+        "generated_slug": {
+            "type": "string",
+            "description": "Slug automatically generated from the entity title",
+            "readOnly": true,
+            "example": "my-awesome-event"
+        },
+        "title": {
+            "type": "object",
+            "description": "The title for the entity.",
+            "properties": {
+                "rendered": {
+                    "type": "string",
+                    "description": "HTML title for the entity, transformed for display",
+                    "example": "My Awesome Event"
+                }
+            }
+        },
+        "content": {
+            "type": "object",
+            "description": "The content for the entity.",
+            "properties": {
+                "rendered": {
+                    "type": "string",
+                    "description": "HTML content for the entity, transformed for display",
+                    "example": "<p>This is the content of my event...</p>"
+                },
+                "protected": {
+                    "type": "boolean",
+                    "description": "Whether the content is protected with a password",
+                    "example": false
+                }
+            }
+        },
+        "author": {
+            "type": "integer",
+            "description": "The ID for the author of the entity.",
+            "example": 1
+        },
+        "excerpt": {
+            "type": "object",
+            "description": "The excerpt for the entity.",
+            "properties": {
+                "rendered": {
+                    "type": "string",
+                    "description": "HTML excerpt for the entity, transformed for display",
+                    "example": "<p>This is the excerpt...</p>"
+                },
+                "protected": {
+                    "type": "boolean",
+                    "description": "Whether the excerpt is protected with a password",
+                    "example": false
+                }
+            }
+        },
+        "featured_media": {
+            "type": "integer",
+            "description": "The ID of the featured media for the entity.",
+            "example": 123
+        },
+        "comment_status": {
+            "type": "string",
+            "description": "Whether or not comments are open on the entity.",
+            "enum": [
+                "open",
+                "closed"
+            ],
+            "example": "open"
+        },
+        "ping_status": {
+            "type": "string",
+            "description": "Whether or not the entity can be pinged",
+            "enum": [
+                "open",
+                "closed"
+            ],
+            "example": "open"
+        },
+        "format": {
+            "type": "string",
+            "description": "The format for the entity.",
+            "enum": [
+                "standard",
+                "aside",
+                "chat",
+                "gallery",
+                "link",
+                "image",
+                "quote",
+                "status",
+                "video",
+                "audio"
+            ],
+            "example": "standard"
+        },
+        "sticky": {
+            "type": "boolean",
+            "description": "Whether or not the entity should be treated as sticky",
+            "example": false
+        },
+        "template": {
+            "type": "string",
+            "description": "The theme file to use to display the entity.",
+            "example": ""
+        },
+        "tags": {
+            "type": "array",
+            "description": "The terms assigned to the entity in the post_tag taxonomy",
+            "items": {
+                "type": "integer"
+            },
+            "example": [
+                2,
+                8,
+                15
+            ]
+        }
+    }
+}

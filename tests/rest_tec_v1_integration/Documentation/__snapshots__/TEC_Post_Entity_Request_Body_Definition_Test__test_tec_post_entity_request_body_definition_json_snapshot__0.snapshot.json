@@ -1,0 +1,122 @@
+{
+    "title": "TEC Post Entity Request Body",
+    "description": "A TEC post object as expected by the REST API",
+    "type": "object",
+    "properties": {
+        "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date the entity was published, in the site's timezone. In RFC3339 format.",
+            "example": "2025-06-04T23:36:56+01:00",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}[Tt ]\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}(?::\\d{2})?)?$",
+            "nullable": true
+        },
+        "date_gmt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date the entity was published, as GMT. In RFC3339 format.",
+            "example": "2025-06-04T22:36:56Z",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}[Tt ]\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}(?::\\d{2})?)?$",
+            "nullable": true
+        },
+        "slug": {
+            "type": "string",
+            "description": "An alphanumeric identifier for the entity unique to its type",
+            "example": "my-awesome-event"
+        },
+        "status": {
+            "type": "string",
+            "description": "A named status for the entity.",
+            "enum": [
+                "publish",
+                "future",
+                "draft",
+                "pending",
+                "private"
+            ],
+            "example": "publish"
+        },
+        "title": {
+            "type": "string",
+            "description": "The title for the entity.",
+            "example": "My Awesome Event"
+        },
+        "content": {
+            "type": "string",
+            "description": "The content for the entity.",
+            "example": "<p>This is the content of my event...</p>"
+        },
+        "author": {
+            "type": "integer",
+            "description": "The ID for the author of the entity.",
+            "example": 1
+        },
+        "excerpt": {
+            "type": "string",
+            "description": "The excerpt for the entity.",
+            "example": "<p>This is the excerpt...</p>"
+        },
+        "featured_media": {
+            "type": "integer",
+            "description": "The ID of the featured media for the entity.",
+            "example": 123
+        },
+        "comment_status": {
+            "type": "string",
+            "description": "Whether or not comments are open on the entity.",
+            "enum": [
+                "open",
+                "closed"
+            ],
+            "example": "open"
+        },
+        "ping_status": {
+            "type": "string",
+            "description": "Whether or not the entity can be pinged",
+            "enum": [
+                "open",
+                "closed"
+            ],
+            "example": "open"
+        },
+        "format": {
+            "type": "string",
+            "description": "The format for the entity.",
+            "enum": [
+                "standard",
+                "aside",
+                "chat",
+                "gallery",
+                "link",
+                "image",
+                "quote",
+                "status",
+                "video",
+                "audio"
+            ],
+            "example": "standard"
+        },
+        "sticky": {
+            "type": "boolean",
+            "description": "Whether or not the entity should be treated as sticky",
+            "example": false
+        },
+        "template": {
+            "type": "string",
+            "description": "The theme file to use to display the entity.",
+            "example": ""
+        },
+        "tags": {
+            "type": "array",
+            "description": "The terms assigned to the entity in the post_tag taxonomy",
+            "items": {
+                "type": "integer"
+            },
+            "example": [
+                2,
+                8,
+                15
+            ]
+        }
+    }
+}

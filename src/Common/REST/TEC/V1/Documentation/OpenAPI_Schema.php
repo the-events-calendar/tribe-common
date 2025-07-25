@@ -20,6 +20,7 @@ use TEC\Common\REST\TEC\V1\Collections\PathArgumentCollection;
 use Closure;
 use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface as Tag;
 use TEC\Common\REST\TEC\V1\Contracts\Parameter;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 use Tribe\Utils\Lazy_String;
 use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 
@@ -298,6 +299,11 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 		foreach ( $params as $type => $collection ) {
 			/** @var Parameter $param */
 			foreach ( $collection as $param ) {
+				if ( $param instanceof Definition_Parameter ) {
+					$new_data = array_merge( $new_data, $param->validate( $params )->sanitize() );
+					continue;
+				}
+
 				$param_name = $param->get_name();
 				if ( $param->is_required() && ! isset( $data[ $param_name ] ) ) {
 					// translators: 1) is the type of the parameter, 2) is the name of the parameter.

@@ -1,0 +1,85 @@
+{
+    "type": "object",
+    "properties": {
+        "start": {
+            "allOf": [
+                {
+                    "$ref": "#/components/schemas/Date"
+                },
+                {
+                    "description": "The start date"
+                }
+            ]
+        },
+        "start_utc": {
+            "allOf": [
+                {
+                    "$ref": "#/components/schemas/Date"
+                },
+                {
+                    "description": "The start date in UTC"
+                }
+            ]
+        },
+        "start_site": {
+            "allOf": [
+                {
+                    "$ref": "#/components/schemas/Date"
+                },
+                {
+                    "description": "The start date in the site timezone"
+                }
+            ]
+        },
+        "start_display": {
+            "allOf": [
+                {
+                    "$ref": "#/components/schemas/Date"
+                },
+                {
+                    "description": "The start date in the display timezone"
+                }
+            ]
+        },
+        "end": {
+            "allOf": [
+                {
+                    "$ref": "#/components/schemas/Date"
+                },
+                {
+                    "description": "The end date"
+                }
+            ]
+        },
+        "end_utc": {
+            "allOf": [
+                {
+                    "$ref": "#/components/schemas/Date"
+                },
+                {
+                    "description": "The end date in UTC"
+                }
+            ]
+        },
+        "end_site": {
+            "allOf": [
+                {
+                    "$ref": "#/components/schemas/Date"
+                },
+                {
+                    "description": "The end date in the site timezone"
+                }
+            ]
+        },
+        "end_display": {
+            "allOf": [
+                {
+                    "$ref": "#/components/schemas/Date"
+                },
+                {
+                    "description": "The end date in the display timezone"
+                }
+            ]
+        }
+    }
+}

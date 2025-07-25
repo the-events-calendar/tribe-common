@@ -51,4 +51,26 @@ class Definition_Parameter extends Entity {
 			],
 		];
 	}
+
+	/**
+	 * Returns the definition.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $data The data to validate.
+	 *
+	 * @return self
+	 */
+	public function validate( array $data = [] ): self {
+		return $this;
+	}
+
+	/**
+	 * Returns the sanitized data.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function sanitize(): array {}
 }
