@@ -230,13 +230,12 @@ class Array_Of_Type extends Parameter {
 				$return = $this->items_type::get_subitem_format();
 			}
 
-			// phpcs:ignore StellarWP.PHP.IsAFunction.Found
-			if ( is_a( $this->items_type, Definition::class, true ) ) {
-				// All the definitions are defined as singletons.
-				$entity = tribe( $this->items_type );
+			$item = $this->get_an_item();
+
+			if ( $item instanceof Definition ) {
 
 				$return = [
-					'$ref' => '#/components/schemas/' . $entity->get_type(),
+					'$ref' => '#/components/schemas/' . $item->get_type(),
 				];
 			}
 		}
@@ -245,6 +244,20 @@ class Array_Of_Type extends Parameter {
 			$return = [
 				'type' => $this->items_type,
 			];
+		}
+
+		if ( is_array( $return ) ) {
+			$return = array_merge(
+				$return,
+				array_filter(
+					[
+						'pattern' => $this->get_pattern(),
+					],
+					static fn( $value ) => null !== $value,
+				)
+			);
+
+			$this->pattern = null;
 		}
 
 		if ( $enums ) {

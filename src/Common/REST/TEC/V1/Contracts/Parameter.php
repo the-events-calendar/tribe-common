@@ -351,4 +351,24 @@ interface Parameter extends JsonSerializable {
 	 * @return self
 	 */
 	public function set_read_only( bool $read_only ): self;
+
+	/**
+	 * Sets the format.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $format The format.
+	 *
+	 * @return self
+	 */
+	public function set_format( string $format ): self;
+
+	/**
+	 * Returns an instance of the items type.
+	 *
+	 * @since TBD
+	 *
+	 * @return mixed
+	 */
+	public function get_an_item();
 }

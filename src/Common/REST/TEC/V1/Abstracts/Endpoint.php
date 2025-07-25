@@ -364,10 +364,6 @@ abstract class Endpoint implements Endpoint_Interface {
 				$response = $callback( $request );
 			} catch ( InvalidRestArgumentException $e ) {
 				return $e->to_wp_error();
-			} catch ( Exception $e ) {
-				return new WP_Error( 'tec_rest_error', $e->getMessage(), [ 'status' => 500 ] );
-			} catch ( Throwable $e ) {
-				return new WP_Error( 'tec_rest_error', $e->getMessage(), [ 'status' => 500 ] );
 			}
 
 			return $response;

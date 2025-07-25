@@ -12,8 +12,12 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Abstracts;
 
 use Closure;
+use Exception;
 use TEC\Common\REST\TEC\V1\Contracts\Parameter as Parameter_Contract;
 use TEC\Common\REST\TEC\V1\Collections\Collection;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Entity;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
+use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface as Definition;
 
 /**
  * Abstract parameter class.
@@ -411,6 +415,29 @@ abstract class Parameter implements Parameter_Contract {
 	}
 
 	/**
+	 * Returns an instance of the items type.
+	 *
+	 * @since TBD
+	 *
+	 * @return mixed
+	 */
+	public function get_an_item() {
+		if ( 'array' !== $this->get_type() ) {
+			return null;
+		}
+
+		if ( ! ( $this->items_type && class_exists( $this->items_type ) ) ) {
+			return null;
+		}
+
+		try {
+			return tribe( $this->items_type );
+		} catch ( Exception $e ) {
+			return null;
+		}
+	}
+
+	/**
 	 * @inheritDoc
 	 */
 	public function get_description(): string {
@@ -516,7 +543,8 @@ abstract class Parameter implements Parameter_Contract {
 	 * @inheritDoc
 	 */
 	public function is_unique_items(): ?bool {
-		return 'array' === $this->get_type() ? true : null;
+		$item = $this->get_an_item();
+		return $item && ! $item instanceof Entity && ! $item instanceof Definition && ! $item instanceof Definition_Parameter ? true : null;
 	}
 
 	/**
@@ -662,6 +690,20 @@ abstract class Parameter implements Parameter_Contract {
 	 */
 	public function set_nullable( bool $nullable ): self {
 		$this->nullable = $nullable;
+		return $this;
+	}
+
+	/**
+	 * Sets the format.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $format The format.
+	 *
+	 * @return self
+	 */
+	public function set_format( string $format ): self {
+		$this->format = $format;
 		return $this;
 	}
 
