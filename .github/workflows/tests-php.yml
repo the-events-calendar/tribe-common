@@ -214,5 +214,4 @@ jobs:
         run: |
           ${SLIC_BIN} wp plugin activate the-events-calendar
           ${SLIC_BIN} wp rewrite structure '/%postname%/' --hard
-          curl http://localhost:8888/wp-json/tec/v1/docs/
           npm run spectral -- http://localhost:8888/wp-json/tec/v1/docs/
