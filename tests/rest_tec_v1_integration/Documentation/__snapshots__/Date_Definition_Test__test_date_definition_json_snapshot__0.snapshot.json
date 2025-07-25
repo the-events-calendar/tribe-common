@@ -2,20 +2,23 @@
     "type": "object",
     "properties": {
         "date": {
-            "type": "string",
             "description": "The date",
+            "type": "string",
             "format": "date-time",
+            "required": true,
             "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{6}$",
             "example": "2025-07-10 08:00:00.000000"
         },
         "timezone_type": {
+            "description": "The timezone type",
             "type": "integer",
-            "description": "The timezone of the date",
+            "required": true,
             "example": 1
         },
         "timezone": {
-            "type": "string",
             "description": "The timezone of the date",
+            "type": "string",
+            "required": true,
             "example": "Europe/Athens"
         }
     }
