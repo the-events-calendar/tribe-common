@@ -431,7 +431,8 @@ abstract class Parameter implements Parameter_Contract {
 		}
 
 		try {
-			return tribe( $this->items_type );
+			$class_string = $this->items_type;
+			return new $class_string();
 		} catch ( Exception $e ) {
 			return null;
 		}

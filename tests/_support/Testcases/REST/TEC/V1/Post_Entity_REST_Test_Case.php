@@ -10,7 +10,15 @@
 namespace TEC\Common\Tests\Testcases\REST\TEC\V1;
 
 use TEC\Common\REST\TEC\V1\Contracts\Post_Entity_Endpoint_Interface as Post_Entity_Endpoint;
+use TEC\Common\REST\TEC\V1\Collections\RequestBodyCollection;
+use TEC\Common\REST\TEC\V1\Contracts\Parameter;
+use stdClass;
+use ReflectionClass;
 use Closure;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Integer;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
+use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 
 /**
  * Class Post_Entity_REST_Test_Case
@@ -32,6 +40,149 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 	abstract public function test_instance_of_orm();
 
 	abstract public function test_get_model_class();
+
+	/**
+	 * Test that undefined parameters are filtered out by get_sanitized_params_from_schema.
+	 */
+	public function test_get_sanitized_params_from_schema_filters_undefined_parameters() {
+		$operations = [];
+		if ( $this->is_creatable() ) {
+			$operations[] = 'create';
+		}
+		if ( $this->is_updatable() ) {
+			$operations[] = 'update';
+		}
+
+		if ( empty( $operations ) ) {
+			return;
+		}
+
+		// Make the protected method accessible for testing
+		$reflection = new ReflectionClass( $this->endpoint );
+		$method     = $reflection->getMethod( 'get_sanitized_params_from_schema' );
+		$method->setAccessible( true );
+
+		$php_injection = new stdClass();
+		$php_injection->php_injection = true;
+		$php_injection->string = 'string';
+
+		$php_injection = serialize( $php_injection );
+
+		foreach ( $operations as $operation ) {
+			$schema_method = "{$operation}_schema";
+
+			/** @var RequestBodyCollection $collection */
+			$collection = $this->endpoint->$schema_method()->get_request_body();
+
+			$valid_body = [];
+
+			if ( 'update' === $operation ) {
+				$valid_body['id'] = 1;
+			}
+
+			$injected                  = false;
+			$needs_sanitization_string = false;
+			$needs_sanitization_int    = false;
+			$needs_sanitization_array  = false;
+			$before_injection          = null;
+
+			/** @var Parameter $parameter */
+			foreach ( $collection->to_props_array() as $parameter ) {
+				if ( ! $needs_sanitization_string && $parameter instanceof Text ) {
+					$valid_body[ $parameter->get_name() ] = (int) $parameter->get_example();
+
+					$needs_sanitization_string = $parameter->get_name();
+					continue;
+				}
+
+				if ( ! $needs_sanitization_int && $parameter instanceof Integer ) {
+					$valid_body[ $parameter->get_name() ] = (float) $parameter->get_example();
+
+					$needs_sanitization_int = $parameter->get_name();
+					continue;
+				}
+
+				if ( ! $needs_sanitization_array && $parameter instanceof Array_Of_Type && ( ( $parameter->get_an_item() instanceof Text && empty( $parameter::get_subitem_format()['format'] ) ) || $parameter->get_an_item() instanceof Integer ) ) {
+					$example    = $parameter->get_example();
+					$first_elem = array_shift( $example );
+					$first_elem = is_string( $first_elem ) ? (int) $first_elem : (string) $first_elem;
+
+					$valid_body[ $parameter->get_name() ] = array_merge( [ $first_elem ], $example );
+
+					$needs_sanitization_array = $parameter->get_name();
+					continue;
+				}
+
+				if ( ! $injected && $parameter instanceof Text && empty( $parameter::get_subitem_format()['format'] ) ) {
+					$before_injection = $parameter->get_example();
+					$valid_body[ $parameter->get_name() ] = $php_injection;
+
+					$injected = $parameter->get_name();
+					continue;
+				}
+
+				$valid_body[ $parameter->get_name() ] = $parameter->get_example();
+			}
+
+			$this->assertNotFalse( $needs_sanitization_string );
+			$this->assertNotFalse( $needs_sanitization_int );
+			$this->assertNotFalse( $needs_sanitization_array );
+			$this->assertNotFalse( $injected );
+
+			$whole_body = array_merge(
+				$valid_body,
+				[
+					'random_field'    => 'not in schema',
+					'extra_data'      => [ 'nested' => 'value' ],
+					'_internal_field' => 'should not pass through',
+					'int'             => 1,
+					'float'           => 1.1,
+					'boolean'         => true,
+					'array'           => [ 'item1', 'item2' ],
+					'object'          => [ 'property1' => 'value1', 'property2' => 'value2' ],
+					'injected'        => $php_injection,
+				]
+			);
+
+			try {
+				// Will fail because of attempt to inject a serialized object.
+				$sanitized = $method->invoke( $this->endpoint, $operation, $whole_body );
+			} catch ( InvalidRestArgumentException $e ) {
+				$this->assertEquals( $e->getMessage(), sprintf( 'Property %s is invalid', $injected ) );
+				$this->assertEquals( $e->get_argument(), $injected );
+			}
+
+			$whole_body[ $injected ] = $before_injection;
+
+			$sanitized = $method->invoke( $this->endpoint, $operation, $whole_body );
+
+			$this->assertArrayNotHasKey( 'random_field', $sanitized );
+			$this->assertArrayNotHasKey( 'extra_data', $sanitized );
+			$this->assertArrayNotHasKey( '_internal_field', $sanitized );
+			$this->assertArrayNotHasKey( 'int', $sanitized );
+			$this->assertArrayNotHasKey( 'float', $sanitized );
+			$this->assertArrayNotHasKey( 'boolean', $sanitized );
+			$this->assertArrayNotHasKey( 'array', $sanitized );
+			$this->assertArrayNotHasKey( 'object', $sanitized );
+			$this->assertArrayNotHasKey( 'injected', $sanitized );
+
+			foreach ( array_keys( $valid_body ) as $key ) {
+				$this->assertArrayHasKey( $key, $sanitized );
+			}
+
+			$this->assertIsString( $sanitized[ $needs_sanitization_string ] );
+			$this->assertIsInt( $sanitized[ $needs_sanitization_int ] );
+			$this->assertIsString( $sanitized[ $injected ] );
+
+			$this->assertNotSame( $valid_body[ $needs_sanitization_string ], $sanitized[ $needs_sanitization_string ] );
+			$this->assertNotSame( $valid_body[ $needs_sanitization_int ], $sanitized[ $needs_sanitization_int ] );
+			$this->assertNotSame( $valid_body[ $needs_sanitization_array ], $sanitized[ $needs_sanitization_array ] );
+
+			$serialized_string = @unserialize( $sanitized[ $injected ] );
+
+			$this->assertNotInstanceOf( stdClass::class, $serialized_string );
+		}
+	}
 
 	public function test_validate_status() {
 		$this->assertTrue( $this->endpoint->validate_status( 'publish' ) );
@@ -224,6 +375,126 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		];
 
 		return array_intersect_key( $data, array_flip( $good_keys ) );
+	}
+
+	/**
+	 * @dataProvider different_user_roles_provider
+	 */
+	public function test_create_responses( Closure $fixture ) {
+		if ( ! $this->is_creatable() ) {
+			return;
+		}
+		$request_body = $this->endpoint->create_schema()->get_request_body()->to_array()['content']['application/json'];
+
+		$example = $request_body['example'];
+		unset( $example['id'] );
+
+		if ( isset( $request_body['schema']['$ref'] ) ) {
+			$definition = $this->get_instance_from_ref( $request_body['schema']['$ref'] )->get_documentation();
+			$properties = $this->get_props_from_doc( $definition );
+
+			$request_body['schema'] = [ 'properties' => $properties ];
+		}
+
+		$properties = $request_body['schema']['properties']->to_array();
+
+		$orm = $this->endpoint->get_orm();
+
+		$event_cat_term_1 = self::factory()->term->create( [ 'taxonomy' => 'tribe_events_cat', 'name' => 'Category 1' ] );
+		$event_cat_term_2 = self::factory()->term->create( [ 'taxonomy' => 'tribe_events_cat', 'name' => 'Category 2' ] );
+		$event_tag_term_1 = self::factory()->term->create( [ 'taxonomy' => 'post_tag', 'name' => 'Tag 1' ] );
+
+		$organizer_1 = self::factory()->post->create( [ 'post_type' => 'tribe_organizer', 'post_title' => 'Organizer 1' ] );
+		$organizer_2 = self::factory()->post->create( [ 'post_type' => 'tribe_organizer', 'post_title' => 'Organizer 2' ] );
+
+		$venue_1 = self::factory()->post->create( [ 'post_type' => 'tribe_venue', 'post_title' => 'Venue 1' ] );
+
+		// Update example with valid IDs
+		if ( isset( $example['tribe_events_cat'] ) ) {
+			$example['tribe_events_cat'] = [ $event_cat_term_1, $event_cat_term_2 ];
+		}
+		if ( isset( $example['tags'] ) ) {
+			$example['tags'] = [ $event_tag_term_1 ];
+		}
+		if ( isset( $example['organizers'] ) ) {
+			$example['organizers'] = [ $organizer_1, $organizer_2 ];
+		}
+		if ( isset( $example['venues'] ) || isset( $example['venue'] ) ) {
+			$venue_key = isset( $example['venues'] ) ? 'venues' : 'venue';
+			$example[ $venue_key ] = $venue_1;
+		}
+
+		$fixture();
+
+		$user_is_logged_in = is_user_logged_in();
+		$user_can_create = $user_is_logged_in && current_user_can( get_post_type_object( $this->endpoint->get_post_type() )->cap->create_posts );
+
+		// Test creating with full example data
+		$response = $this->assert_endpoint(
+			$this->endpoint->get_base_path(),
+			'POST',
+			$user_can_create ? 201 : ( is_user_logged_in() ? 403 : 401 ),
+			$example
+		);
+
+		if ( $user_can_create ) {
+			$this->assertIsArray( $response );
+			$this->assertArrayHasKey( 'id', $response );
+
+			// Verify the created entity exists
+			$created_entity = $orm->by_args( [ 'id' => $response['id'], 'status' => 'any' ] )->first();
+			$this->assertNotNull( $created_entity );
+
+			// Clean up
+			wp_delete_post( $response['id'], true );
+		}
+
+		// Test creating with minimal required fields only
+		$minimal_example = [];
+		foreach ( $properties as $property => $data ) {
+			if ( ! empty( $data['required'] ) ) {
+				$minimal_example[ $property ] = $example[ $property ] ?? $data['example'];
+			}
+		}
+
+		if ( ! empty( $minimal_example ) ) {
+			$response = $this->assert_endpoint(
+				$this->endpoint->get_base_path(),
+				'POST',
+				$user_can_create ? 201 : ( is_user_logged_in() ? 403 : 401 ),
+				$minimal_example
+			);
+
+			if ( $user_can_create ) {
+				$this->assertIsArray( $response );
+				$this->assertArrayHasKey( 'id', $response );
+
+				// Verify the created entity exists
+				$created_entity = $orm->by_args( [ 'id' => $response['id'], 'status' => 'any' ] )->first();
+				$this->assertNotNull( $created_entity );
+
+				// Clean up
+				wp_delete_post( $response['id'], true );
+			}
+		}
+
+		// Test creating with invalid data (missing required fields)
+		$invalid_example = $example;
+		foreach ( $properties as $property => $data ) {
+			if ( ! empty( $data['required'] ) ) {
+				unset( $invalid_example[ $property ] );
+				break; // Remove just one required field
+			}
+		}
+
+		if ( count( $invalid_example ) < count( $example ) ) {
+			$this->assert_endpoint(
+				$this->endpoint->get_base_path(),
+				'POST',
+				400,
+				$invalid_example
+			);
+		}
 	}
 
 	/**

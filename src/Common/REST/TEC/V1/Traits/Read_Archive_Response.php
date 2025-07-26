@@ -29,15 +29,16 @@ trait Read_Archive_Response {
 	 * @since TBD
 	 *
 	 * @param WP_REST_Request $request The request object.
+	 * @param array           $params  The sanitized parameters to use for the request.
 	 *
 	 * @return WP_REST_Response The response object.
 	 */
-	public function read( WP_REST_Request $request ): WP_REST_Response {
+	public function read( WP_REST_Request $request, array $params = [] ): WP_REST_Response {
 		$page     = absint( $request['page'] ?? 1 );
 		$per_page = absint( $request['per_page'] ?? $this->get_default_posts_per_page() );
 
 		/** @var Tribe__Repository__Interface $query */
-		$query = $this->build_query( $request );
+		$query = $this->build_query( $params );
 
 		$query->page( $page )->per_page( $per_page );
 
@@ -89,12 +90,11 @@ trait Read_Archive_Response {
 	 *
 	 * @since TBD
 	 *
-	 * @param WP_REST_Request $request The request object.
+	 * @param array $params The sanitized parameters to use for the request.
 	 *
 	 * @return Tribe__Repository__Interface The events query.
 	 */
-	protected function build_query( WP_REST_Request $request ): Tribe__Repository__Interface {
-		$params = $this->get_sanitized_params_from_schema( 'read', $request->get_params() );
+	protected function build_query( array $params = [] ): Tribe__Repository__Interface {
 		/** @var Tribe__Repository__Interface $query */
 		$query = $this->get_orm();
 
@@ -132,8 +132,8 @@ trait Read_Archive_Response {
 		 * @since TBD
 		 *
 		 * @param Tribe__Repository__Interface $query   The query.
-		 * @param WP_REST_Request              $request The request object.
+		 * @param array                        $params  The sanitized parameters to use for the request.
 		 */
-		return apply_filters( 'tec_rest_events_query', $query, $request );
+		return apply_filters( 'tec_rest_' . $this->get_post_type() . '_query', $query, $params );
 	}
 }

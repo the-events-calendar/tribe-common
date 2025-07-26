@@ -176,4 +176,53 @@ class RequestBodyCollection extends Collection {
 			fn( $value ) => $value !== null,
 		);
 	}
+
+	/**
+	 * Returns the properties as an array.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function to_props_array(): array {
+		return $this->get_props_from_collection();
+	}
+
+	/**
+	 * Returns the properties from a collection.
+	 *
+	 * @since TBD
+	 *
+	 * @param ?Collection $collection The collection.
+	 *
+	 * @return array
+	 */
+	protected function get_props_from_collection( ?Collection $collection = null ): array {
+		if ( ! $collection ) {
+			$collection = $this;
+		}
+
+		$props = [];
+
+		foreach ( $collection as $parameter ) {
+			if ( $parameter instanceof Definition_Parameter ) {
+				$collections = $parameter->get_collections();
+				foreach ( $collections as $collection ) {
+					$props = array_merge( $props, $this->get_props_from_collection( $collection ) );
+				}
+
+				continue;
+			}
+
+			if ( $parameter instanceof Entity ) {
+				$collection = $parameter->get_properties();
+				$props = array_merge( $props, $this->get_props_from_collection( $collection ) );
+				continue;
+			}
+
+			$props[] = $parameter;
+		}
+
+		return $props;
+	}
 }

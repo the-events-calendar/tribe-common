@@ -85,7 +85,7 @@ class Definition_Parameter extends Entity {
 	 * @return Closure
 	 */
 	public function get_validator(): Closure {
-		return $this->validator ?? fn( $value ) => $this->validate( $value );
+		return $this->validator ?? fn( $value ): bool => $this->validate( $value ) && true;
 	}
 
 	/**
@@ -96,7 +96,7 @@ class Definition_Parameter extends Entity {
 	 * @return Closure
 	 */
 	public function get_sanitizer(): Closure {
-		return $this->sanitizer ?? fn( $value ) => $this->sanitize( $value );
+		return $this->sanitizer ?? fn( $value ): array => $this->sanitize( $value );
 	}
 
 	/**
@@ -111,11 +111,7 @@ class Definition_Parameter extends Entity {
 	 * @throws InvalidRestArgumentException If the data is invalid.
 	 */
 	public function validate( array $data = [] ): self {
-		$docs = $this->definition->get_documentation();
-
-		$docs = ! empty( $docs['allOf'] ) ? $docs['allOf'] : [ $docs ];
-
-		$collections = $this->get_collections( $docs );
+		$collections = $this->get_collections();
 
 		$sanitized_data = [];
 
@@ -123,6 +119,16 @@ class Definition_Parameter extends Entity {
 		foreach ( $collections as $collection ) {
 			/** @var Property $property */
 			foreach ( $collection as $property ) {
+				$argument = $this->get_name() ? $this->get_name() . '.' . $property->get_name() : $property->get_name();
+				if ( $property->is_required() && ! isset( $data[ $property->get_name() ] ) ) {
+					// translators: %s is the name of the property.
+					$exception = new InvalidRestArgumentException( sprintf( __( 'Property %s is required', 'the-events-calendar' ), $argument ) );
+					$exception->set_argument( $argument );
+					$exception->set_details( __( 'The property is required but missing.', 'the-events-calendar' ) );
+					$exception->set_internal_error_code( 'tec_rest_required_property_missing' );
+					throw $exception;
+				}
+
 				if ( ! isset( $data[ $property->get_name() ] ) ) {
 					continue;
 				}
@@ -130,7 +136,11 @@ class Definition_Parameter extends Entity {
 				$is_valid = $property->get_validator()( $data[ $property->get_name() ] );
 
 				if ( ! $is_valid ) {
-					throw new InvalidRestArgumentException( 'Invalid value for ' . $property->get_name() );
+					$exception = new InvalidRestArgumentException( sprintf( __( 'Property %s is invalid', 'the-events-calendar' ), $argument ) );
+					$exception->set_argument( $argument );
+					$exception->set_details( __( 'The property is invalid.', 'the-events-calendar' ) );
+					$exception->set_internal_error_code( 'tec_rest_invalid_property' );
+					throw $exception;
 				}
 
 				$sanitized_data[ $property->get_name() ] = $property->get_sanitizer()( $data[ $property->get_name() ] );
@@ -161,13 +171,18 @@ class Definition_Parameter extends Entity {
 	 *
 	 * @return array
 	 */
-	protected function get_collections( array $docs ): array {
+	public function get_collections( array $docs = [] ): array {
+		if ( empty( $docs ) ) {
+			$docs = $this->definition->get_documentation();
+		}
+
+		$docs = ! empty( $docs['allOf'] ) ? $docs['allOf'] : [ $docs ];
+
 		$collections = [];
 
 		foreach ( $docs as $doc ) {
 			if ( isset( $doc['$ref'] ) ) {
 				$sub_docs = $this->definition::get_instance_from_ref( $doc['$ref'] )->get_documentation();
-				$sub_docs = ! empty( $sub_docs['allOf'] ) ? $sub_docs['allOf'] : [ $sub_docs ];
 
 				$collections = array_merge( $collections, $this->get_collections( $sub_docs ) );
 			}

@@ -16,7 +16,7 @@ namespace TEC\Common\REST\TEC\V1\Parameter_Types;
  *
  * @since TBD
  */
-class Date extends Text {
+class Date extends Date_Time {
 
 	/**
 	 * @inheritDoc

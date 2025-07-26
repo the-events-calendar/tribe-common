@@ -11,6 +11,8 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Parameter_Types;
 
+use Closure;
+
 /**
  * Email parameter type.
  *
@@ -23,6 +25,13 @@ class Email extends Text {
 	 */
 	public function get_format(): ?string {
 		return 'email';
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get_validator(): ?Closure {
+		return $this->validator ?? fn( $value ): bool => is_email( $value );
 	}
 
 	/**

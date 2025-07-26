@@ -160,7 +160,7 @@ class Array_Of_Type extends Parameter {
 				return $value;
 			}
 
-			return array_filter( $value, $item_type_sanitizer );
+			return array_map( $item_type_sanitizer, $value );
 		};
 	}
 

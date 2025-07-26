@@ -13,7 +13,9 @@ namespace TEC\Common\REST\TEC\V1\Parameter_Types;
 
 use TEC\Common\REST\TEC\V1\Abstracts\Parameter;
 use Closure;
-use TEC\Common\REST\TEC\V1\Collections\Collection;
+use TEC\Common\REST\TEC\V1\Collections\PropertiesCollection;
+use TEC\Common\REST\TEC\V1\Contracts\Parameter as Parameter_Contract;
+use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 
 /**
  * Entity parameter type.
@@ -26,22 +28,22 @@ class Entity extends Parameter {
 	 *
 	 * @since TBD
 	 *
-	 * @param string      $name               The name of the parameter.
-	 * @param ?Closure    $description_provider The description provider.
-	 * @param ?Collection $properties         The properties.
-	 * @param bool        $required           Whether the parameter is required.
-	 * @param ?Closure    $validator          The validator.
-	 * @param ?Closure    $sanitizer          The sanitizer.
-	 * @param string      $location           The location.
-	 * @param ?bool       $deprecated         Whether the parameter is deprecated.
-	 * @param ?bool       $nullable           Whether the parameter is nullable.
-	 * @param ?bool       $read_only          Whether the parameter is read only.
-	 * @param ?bool       $write_only         Whether the parameter is write only.
+	 * @param string                $name               The name of the parameter.
+	 * @param ?Closure              $description_provider The description provider.
+	 * @param ?PropertiesCollection $properties         The properties.
+	 * @param bool                  $required           Whether the parameter is required.
+	 * @param ?Closure              $validator          The validator.
+	 * @param ?Closure              $sanitizer          The sanitizer.
+	 * @param string                $location           The location.
+	 * @param ?bool                 $deprecated         Whether the parameter is deprecated.
+	 * @param ?bool                 $nullable           Whether the parameter is nullable.
+	 * @param ?bool                 $read_only          Whether the parameter is read only.
+	 * @param ?bool                 $write_only         Whether the parameter is write only.
 	 */
 	public function __construct(
 		string $name = 'example',
 		?Closure $description_provider = null,
-		?Collection $properties = null,
+		?PropertiesCollection $properties = null,
 		bool $required = true,
 		?Closure $validator = null,
 		?Closure $sanitizer = null,
@@ -75,14 +77,56 @@ class Entity extends Parameter {
 	 * @inheritDoc
 	 */
 	public function get_validator(): Closure {
-		return $this->validator ?? fn() => true;
+		return $this->validator ?? function( array $value ): bool {
+			/** @var Parameter_Contract $property */
+			foreach ( $this->get_properties() as $property ) {
+				$argument = $this->get_name() ? $this->get_name() . '.' . $property->get_name() : $property->get_name();
+				if ( $property->is_required() && ! isset( $value[ $property->get_name() ] ) ) {
+					// translators: %s is the name of the property.
+					$exception = new InvalidRestArgumentException( sprintf( __( 'Property %s is required', 'the-events-calendar' ), $argument ) );
+					$exception->set_argument( $argument );
+					$exception->set_details( __( 'The property is required but missing.', 'the-events-calendar' ) );
+					$exception->set_internal_error_code( 'tec_rest_required_property_missing' );
+					throw $exception;
+				}
+
+				if ( ! isset( $value[ $property->get_name() ] ) ) {
+					continue;
+				}
+
+				$is_valid = $property->get_validator()( $value[ $property->get_name() ] );
+
+				if ( ! $is_valid ) {
+					$exception = new InvalidRestArgumentException( sprintf( __( 'Property %s is invalid', 'the-events-calendar' ), $argument ) );
+					$exception->set_argument( $argument );
+					$exception->set_details( __( 'The property is invalid.', 'the-events-calendar' ) );
+					$exception->set_internal_error_code( 'tec_rest_invalid_property' );
+					throw $exception;
+				}
+			}
+
+			return true;
+		};
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function get_sanitizer(): Closure {
-		return $this->sanitizer ?? fn( $entity ) => $entity;
+		return $this->sanitizer ?? function ( array $entity ): array {
+			/** @var Parameter_Contract $property */
+			foreach ( $this->get_properties() as $property ) {
+				if ( ! isset( $entity[ $property->get_name() ] ) ) {
+					continue;
+				}
+
+				$sanitizer = $property->get_sanitizer();
+
+				$entity[ $property->get_name() ] = $sanitizer ? $sanitizer( $entity[ $property->get_name() ] ) : $entity[ $property->get_name() ];
+			}
+
+			return $entity;
+		};
 	}
 
 	/**

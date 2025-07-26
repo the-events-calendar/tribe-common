@@ -11,6 +11,8 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Parameter_Types;
 
+use Closure;
+
 /**
  * IP parameter type.
  *
@@ -23,6 +25,13 @@ class IP extends Text {
 	 */
 	public function get_format(): ?string {
 		return 'ip';
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get_validator(): ?Closure {
+		return $this->validator ?? fn( $value ): bool => filter_var( $value, FILTER_VALIDATE_IP );
 	}
 
 	/**

@@ -111,7 +111,7 @@ class Text extends Parameter {
 		}
 
 		if ( null === $this->get_enum() ) {
-			return $this->validator ?? fn( $value ): bool => is_string( $value );
+			return $this->validator ?? fn( $value ): bool => is_string( $value ) && ! is_serialized( $value );
 		}
 
 		return fn( $value ): bool => in_array( $value, $this->get_enum(), true );
