@@ -31,7 +31,7 @@ class Email extends Text {
 	 * @inheritDoc
 	 */
 	public function get_validator(): ?Closure {
-		return $this->validator ?? fn( $value ): bool => is_email( $value );
+		return $this->validator ?? fn( $value ): bool => (bool) is_email( $value );
 	}
 
 	/**

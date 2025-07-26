@@ -31,7 +31,7 @@ class IP extends Text {
 	 * @inheritDoc
 	 */
 	public function get_validator(): ?Closure {
-		return $this->validator ?? fn( $value ): bool => filter_var( $value, FILTER_VALIDATE_IP );
+		return $this->validator ?? fn( $value ): bool => (bool) filter_var( $value, FILTER_VALIDATE_IP );
 	}
 
 	/**
