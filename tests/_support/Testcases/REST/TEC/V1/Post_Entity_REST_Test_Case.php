@@ -557,6 +557,12 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 			$property_keys[] = 'all_day';
 		}
 
+		$timezone_key = array_search( 'timezone', $property_keys );
+		if ( false !== $timezone_key ) {
+			unset( $property_keys[ $timezone_key ] );
+			$property_keys[] = 'timezone';
+		}
+
 		$new_properties = [];
 
 		foreach ( $property_keys as $property ) {
@@ -570,7 +576,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 				continue;
 			}
 
-			if ( in_array( $property, [ 'date', 'template', 'excerpt', 'content', 'author', 'end_date_utc', 'start_date_utc', 'timezone' ], true ) ) {
+			if ( in_array( $property, [ 'date_gmt', 'end_date_utc', 'start_date_utc' ], true ) ) {
 				continue;
 			}
 
@@ -637,6 +643,8 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 			$fresh_entity->duration         = (int) $fresh_entity->duration;
 			$fresh_entity->organizers       = wp_list_pluck( $fresh_entity->organizers, 'ID' );
 			$fresh_entity->venues           = wp_list_pluck( $fresh_entity->venues, 'ID' );
+			$fresh_entity->excerpt          = trim( $fresh_entity->post_excerpt );
+			$fresh_entity->content          = trim( $fresh_entity->post_content );
 
 			// Handle title property - some post types use post_title instead of title
 			if ( isset( $fresh_entity->title ) ) {
@@ -685,6 +693,8 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 			$fresh_entity->duration         = (int) $fresh_entity->duration;
 			$fresh_entity->organizers       = wp_list_pluck( $fresh_entity->organizers, 'ID' );
 			$fresh_entity->venues           = wp_list_pluck( $fresh_entity->venues, 'ID' );
+			$fresh_entity->excerpt          = trim( $fresh_entity->post_excerpt );
+			$fresh_entity->content          = trim( $fresh_entity->post_content );
 
 			// Handle title property - some post types use post_title instead of title
 			if ( isset( $fresh_entity->title ) ) {
