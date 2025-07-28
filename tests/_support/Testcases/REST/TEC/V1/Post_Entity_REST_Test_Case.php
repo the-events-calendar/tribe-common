@@ -619,40 +619,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 
 			$user_can_update = $user_is_logged_in && current_user_can( get_post_type_object( $this->endpoint->get_post_type() )->cap->edit_post, $entity_id );
 
-			$fresh_entity = $orm->by_args( [ 'id' => $entity_id, 'status' => 'any' ] )->first();
-			foreach ( (array) $fresh_entity as $prop => $data ) {
-				if ( ! is_object( $fresh_entity->{$prop} ) ) {
-					continue;
-				}
-
-				if ( is_callable( [ $fresh_entity->{$prop}, '__toString' ] ) ) {
-					$fresh_entity->{$prop} = (string) $fresh_entity->{$prop};
-					continue;
-				}
-
-				if ( is_callable( [ $fresh_entity->{$prop}, 'all' ] ) ) {
-					$fresh_entity->{$prop} = $fresh_entity->{$prop}->all();
-					continue;
-				}
-			}
-
-			$fresh_entity->post_author      = (int) $fresh_entity->post_author;
-			$fresh_entity->featured_media   = (int) $fresh_entity->featured_media;
-			$fresh_entity->post_tag         = wp_list_pluck( wp_get_post_tags( $entity_id ), 'term_id' );
-			$fresh_entity->tribe_events_cat = wp_list_pluck( wp_get_post_terms( $entity_id, 'tribe_events_cat' ), 'term_id' );
-			$fresh_entity->duration         = (int) $fresh_entity->duration;
-			$fresh_entity->organizers       = wp_list_pluck( $fresh_entity->organizers, 'ID' );
-			$fresh_entity->venues           = wp_list_pluck( $fresh_entity->venues, 'ID' );
-			$fresh_entity->excerpt          = trim( $fresh_entity->post_excerpt );
-			$fresh_entity->content          = trim( $fresh_entity->post_content );
-
-			// Handle title property - some post types use post_title instead of title
-			if ( isset( $fresh_entity->title ) ) {
-				$fresh_entity->title = str_replace( 'Private: ', '', $fresh_entity->title );
-			} elseif ( isset( $fresh_entity->post_title ) ) {
-				// For post types that don't have a title property, set it from post_title
-				$fresh_entity->title = str_replace( 'Private: ', '', $fresh_entity->post_title );
-			}
+			$fresh_entity = $this->normalize_entity( $orm->by_args( [ 'id' => $entity_id, 'status' => 'any' ] )->first() );
 
 			$actual_property = $orm->get_update_fields_aliases()[ $property ] ?? $property;
 
@@ -669,40 +636,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 
 			wp_cache_flush();
 
-			$fresh_entity = $orm->by_args( [ 'id' => $entity_id, 'status' => 'any' ] )->first();
-			foreach ( (array) $fresh_entity as $prop => $data ) {
-				if ( ! is_object( $fresh_entity->{$prop} ) ) {
-					continue;
-				}
-
-				if ( is_callable( [ $fresh_entity->{$prop}, '__toString' ] ) ) {
-					$fresh_entity->{$prop} = (string) $fresh_entity->{$prop};
-					continue;
-				}
-
-				if ( is_callable( [ $fresh_entity->{$prop}, 'all' ] ) ) {
-					$fresh_entity->{$prop} = $fresh_entity->{$prop}->all();
-					continue;
-				}
-			}
-
-			$fresh_entity->post_author      = (int) $fresh_entity->post_author;
-			$fresh_entity->featured_media   = (int) $fresh_entity->featured_media;
-			$fresh_entity->post_tag         = wp_list_pluck( wp_get_post_tags( $entity_id ), 'term_id' );
-			$fresh_entity->tribe_events_cat = wp_list_pluck( wp_get_post_terms( $entity_id, 'tribe_events_cat' ), 'term_id' );
-			$fresh_entity->duration         = (int) $fresh_entity->duration;
-			$fresh_entity->organizers       = wp_list_pluck( $fresh_entity->organizers, 'ID' );
-			$fresh_entity->venues           = wp_list_pluck( $fresh_entity->venues, 'ID' );
-			$fresh_entity->excerpt          = trim( $fresh_entity->post_excerpt );
-			$fresh_entity->content          = trim( $fresh_entity->post_content );
-
-			// Handle title property - some post types use post_title instead of title
-			if ( isset( $fresh_entity->title ) ) {
-				$fresh_entity->title = str_replace( 'Private: ', '', $fresh_entity->title );
-			} elseif ( isset( $fresh_entity->post_title ) ) {
-				// For post types that don't have a title property, set it from post_title
-				$fresh_entity->title = str_replace( 'Private: ', '', $fresh_entity->post_title );
-			}
+			$fresh_entity = $this->normalize_entity( $orm->by_args( [ 'id' => $entity_id, 'status' => 'any' ] )->first() );
 
 			if ( $user_can_update ) {
 				$this->assertSame( 'venues' === $property ? [ $new_value ] : $new_value, $fresh_entity->{$using_property}, 'The property ' . $actual_property . ' / ' . $property . ' should have been updated.' );
@@ -741,5 +675,60 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		} else {
 			$this->assertNotNull( get_post( $entity_id ) );
 		}
+	}
+
+	private function normalize_entity( $entity ) {
+		foreach ( (array) $entity as $prop => $data ) {
+			if ( ! is_object( $entity->{$prop} ) ) {
+				continue;
+			}
+
+			if ( is_callable( [ $entity->{$prop}, '__toString' ] ) ) {
+				$entity->{$prop} = (string) $entity->{$prop};
+				continue;
+			}
+
+			if ( is_callable( [ $entity->{$prop}, 'all' ] ) ) {
+				$entity->{$prop} = $entity->{$prop}->all();
+				continue;
+			}
+		}
+
+		$entity->post_author      = (int) $entity->post_author;
+		$entity->featured_media   = (int) $entity->featured_media;
+		$entity->post_tag         = wp_list_pluck( wp_get_post_tags( $entity->ID ), 'term_id' );
+		$entity->tribe_events_cat = wp_list_pluck( wp_get_post_terms( $entity->ID, 'tribe_events_cat' ), 'term_id' );
+		if ( isset( $entity->duration ) ) {
+			$entity->duration = (int) $entity->duration;
+		}
+
+		if ( isset( $entity->organizers ) ) {
+			$entity->organizers       = is_object( $entity->organizers['0'] ) ? wp_list_pluck( $entity->organizers, 'ID' ) : $entity->organizers;
+		}
+
+		if ( isset( $entity->venues ) ) {
+			$entity->venues           = wp_list_pluck( $entity->venues, 'ID' );
+		}
+
+		$entity->excerpt          = trim( $entity->post_excerpt );
+		$entity->content          = trim( $entity->post_content );
+
+		if ( isset( $entity->_tribe_ticket_show_description ) ) {
+			$entity->_tribe_ticket_show_description = (bool) $entity->_tribe_ticket_show_description;
+		}
+
+		// Handle title property - some post types use post_title instead of title
+		if ( isset( $entity->title ) ) {
+			$entity->title = str_replace( 'Private: ', '', $entity->title );
+		} elseif ( isset( $entity->post_title ) ) {
+			// For post types that don't have a title property, set it from post_title
+			$entity->title = str_replace( 'Private: ', '', $entity->post_title );
+		}
+
+		if ( isset( $entity->show_description ) ) {
+			$entity->show_description = $entity->show_description();
+		}
+
+		return $entity;
 	}
 }
