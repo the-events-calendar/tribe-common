@@ -316,7 +316,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 				return date( 'Y-m-d H:i:s', strtotime( $data['example'] ) + 3 * DAY_IN_SECONDS + 4 * HOUR_IN_SECONDS + 9 * MINUTE_IN_SECONDS );
 			}
 
-			return str_replace( [ '6', 'e', '$10' ], [ '7', 'p', '$13' ], $data['example'] );
+			return str_replace( [ '6', 'e', '$10', '123' ], [ '7', 'p', '$13', '098' ], $data['example'] );
 		}
 
 		if ( 'boolean' === $data['type'] ) {
@@ -523,9 +523,12 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		$event_cat_term_1 = self::factory()->term->create( [ 'taxonomy' => 'tribe_events_cat', 'name' => 'Category 1' ] );
 		$event_cat_term_2 = self::factory()->term->create( [ 'taxonomy' => 'tribe_events_cat', 'name' => 'Category 2' ] );
 		$event_cat_term_3 = self::factory()->term->create( [ 'taxonomy' => 'tribe_events_cat', 'name' => 'Category 3' ] );
-		$event_tag_term_1 = self::factory()->term->create( [ 'taxonomy' => 'post_tag', 'name' => 'Tag 1' ] );
-		$event_tag_term_2 = self::factory()->term->create( [ 'taxonomy' => 'post_tag', 'name' => 'Tag 2' ] );
-		$event_tag_term_3 = self::factory()->term->create( [ 'taxonomy' => 'post_tag', 'name' => 'Tag 3' ] );
+		$event_tag_term_1 = self::factory()->term->create( [ 'taxonomy' => 'post_tag' ] );
+		$event_tag_term_2 = self::factory()->term->create( [ 'taxonomy' => 'post_tag' ] );
+		$event_tag_term_3 = self::factory()->term->create( [ 'taxonomy' => 'post_tag' ] );
+
+		$event_1 = self::factory()->post->create( [ 'post_title' => 'Event 1' ] );
+		$event_2 = self::factory()->post->create( [ 'post_title' => 'Event 2' ] );
 
 		$organizer_1 = self::factory()->post->create( [ 'post_type' => 'tribe_organizer', 'post_title' => 'Organizer 1' ] );
 		$organizer_2 = self::factory()->post->create( [ 'post_type' => 'tribe_organizer', 'post_title' => 'Organizer 2' ] );
@@ -534,10 +537,25 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		$venue_1 = self::factory()->post->create( [ 'post_type' => 'tribe_venue', 'post_title' => 'Venue 1' ] );
 		$venue_2 = self::factory()->post->create( [ 'post_type' => 'tribe_venue', 'post_title' => 'Venue 2' ] );
 
-		$example['tribe_events_cat'] = [ $event_cat_term_1, $event_cat_term_2 ];
-		$example['tags']             = [ $event_tag_term_1 ];
-		$example['organizers']       = [ $organizer_1, $organizer_2 ];
-		$example['venues']           = $venue_1;
+		if ( isset( $example['tribe_events_cat'] ) ) {
+			$example['tribe_events_cat'] = [ $event_cat_term_1, $event_cat_term_2 ];
+		}
+
+		if ( isset( $example['tags'] ) ) {
+			$example['tags'] = [ $event_tag_term_1 ];
+		}
+
+		if ( isset( $example['organizers'] ) ) {
+			$example['organizers'] = [ $organizer_1, $organizer_2 ];
+		}
+
+		if ( isset( $example['venues'] ) ) {
+			$example['venues'] = $venue_1;
+		}
+
+		if ( isset( $example['event_id'] ) ) {
+			$example['event_id'] = $event_1;
+		}
 
 		wp_set_current_user( 1 );
 		$entity_id = $orm->set_args( $example )->create()->ID;
@@ -586,7 +604,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 
 			$old_value = $data['example'];
 
-			if ( in_array( $property, [ 'tribe_events_cat', 'tags', 'organizers', 'venues' ], true ) ) {
+			if ( in_array( $property, [ 'tribe_events_cat', 'tags', 'organizers', 'venues', 'event_id' ], true ) ) {
 				switch ( $property ) {
 					case 'tribe_events_cat':
 						$new_value = [ $event_cat_term_3 ];
@@ -603,6 +621,10 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 					case 'venues':
 						$new_value = $venue_2;
 						$old_value = $example['venues'];
+						break;
+					case 'event_id':
+						$new_value = $event_2;
+						$old_value = $example['event_id'];
 						break;
 				}
 			} else {
@@ -644,6 +666,8 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 				$this->assertSame( 'venues' === $property ? [ $old_value ] : $old_value, $fresh_entity->{$using_property}, 'The property ' . $actual_property . ' / ' . $property . ' should not have been updated.' );
 			}
 		}
+
+		wp_delete_post( $entity_id, true );
 	}
 
 	/**
@@ -703,15 +727,15 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		}
 
 		if ( isset( $entity->organizers ) ) {
-			$entity->organizers       = is_object( $entity->organizers['0'] ) ? wp_list_pluck( $entity->organizers, 'ID' ) : $entity->organizers;
+			$entity->organizers = is_object( $entity->organizers['0'] ) ? wp_list_pluck( $entity->organizers, 'ID' ) : $entity->organizers;
 		}
 
 		if ( isset( $entity->venues ) ) {
-			$entity->venues           = wp_list_pluck( $entity->venues, 'ID' );
+			$entity->venues = wp_list_pluck( $entity->venues, 'ID' );
 		}
 
-		$entity->excerpt          = trim( $entity->post_excerpt );
-		$entity->content          = trim( $entity->post_content );
+		$entity->excerpt = trim( $entity->post_excerpt );
+		$entity->content = trim( $entity->post_content );
 
 		if ( isset( $entity->_tribe_ticket_show_description ) ) {
 			$entity->_tribe_ticket_show_description = (bool) $entity->_tribe_ticket_show_description;
@@ -723,10 +747,6 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		} elseif ( isset( $entity->post_title ) ) {
 			// For post types that don't have a title property, set it from post_title
 			$entity->title = str_replace( 'Private: ', '', $entity->post_title );
-		}
-
-		if ( isset( $entity->show_description ) ) {
-			$entity->show_description = $entity->show_description();
 		}
 
 		return $entity;

@@ -55,7 +55,13 @@ trait Update_Entity_Response {
 			);
 		}
 
-		$entity = $this->get_orm()->where( 'id', $id )->set_args( $params )->save();
+		$entity = $this->get_orm()->by_args(
+			[
+				'id'     => $id,
+				'status' => 'any',
+			]
+		)->set_args( $params )->save();
+
 		if ( empty( $entity ) ) {
 			return new WP_REST_Response(
 				[

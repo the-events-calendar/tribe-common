@@ -53,7 +53,12 @@ trait Delete_Entity_Response {
 			);
 		}
 
-		$result = $this->get_orm()->where( 'id', $id )->delete();
+		$result = $this->get_orm()->by_args(
+			[
+				'id'     => $id,
+				'status' => 'any',
+			]
+		)->delete();
 
 		if ( ! $result ) {
 			return new WP_REST_Response(
