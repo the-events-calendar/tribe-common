@@ -200,6 +200,7 @@
             "items": {
                 "type": "integer"
             },
+            "uniqueItems": true,
             "example": [
                 2,
                 8,
