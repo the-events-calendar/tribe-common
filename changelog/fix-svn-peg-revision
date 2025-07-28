@@ -1,0 +1,7 @@
+Significance: patch
+Type: fix
+
+Fixes an issue with SVN and an image with an `@` in the filename.
+SVN treats `@` as a way to _determine a specific revision_ - so it trips on it.
+
+Just renamed the `/images/tribe-loading@2x.gif` file to `/images/tribe-loading-2x.gif` and changed the references to it in the postcss.
