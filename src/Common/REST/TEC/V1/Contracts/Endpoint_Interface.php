@@ -13,6 +13,9 @@ namespace TEC\Common\REST\TEC\V1\Contracts;
 
 use WP_REST_Request;
 use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface as Tag;
+use TEC\Common\REST\TEC\V1\Collections\PathArgumentCollection;
+use RuntimeException;
+use InvalidArgumentException;
 
 /**
  * Endpoint interface.
@@ -57,6 +60,8 @@ interface Endpoint_Interface {
 	 * @since TBD
 	 *
 	 * @return string
+	 *
+	 * @throws RuntimeException If the path parameter is invalid.
 	 */
 	public function get_path(): string;
 
@@ -85,9 +90,9 @@ interface Endpoint_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return array
+	 * @return PathArgumentCollection
 	 */
-	public function get_path_parameters(): array;
+	public function get_path_parameters(): PathArgumentCollection;
 
 	/**
 	 * Returns the OpenAPI path of the endpoint.
@@ -97,6 +102,7 @@ interface Endpoint_Interface {
 	 * @return string
 	 */
 	public function get_open_api_path(): string;
+
 	/**
 	 * Returns the request object for the endpoint.
 	 *

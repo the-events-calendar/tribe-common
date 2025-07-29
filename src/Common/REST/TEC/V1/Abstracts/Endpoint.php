@@ -18,11 +18,14 @@ use TEC\Common\REST\TEC\V1\Contracts\Updatable_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\Deletable_Endpoint;
 use TEC\Common\REST\TEC\V1\Controller;
 use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
+use TEC\Common\REST\TEC\V1\Collections\PathArgumentCollection;
 use WP_REST_Server;
 use WP_REST_Request;
 use RuntimeException;
 use InvalidArgumentException;
 use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Integer;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
 
 /**
  * Endpoint class.
@@ -268,10 +271,10 @@ abstract class Endpoint implements Endpoint_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return array
+	 * @return PathArgumentCollection
 	 */
-	public function get_path_parameters(): array {
-		return [];
+	public function get_path_parameters(): PathArgumentCollection {
+		return new PathArgumentCollection();
 	}
 
 	/**
@@ -280,25 +283,30 @@ abstract class Endpoint implements Endpoint_Interface {
 	 * @since TBD
 	 *
 	 * @return string
+	 *
+	 * @throws RuntimeException If the path parameter is invalid.
 	 */
 	public function get_path(): string {
 		$parameters = $this->get_path_parameters();
 		$base       = $this->get_base_path();
 
 		$replacements = [];
-		foreach ( $parameters as $parameter => $data ) {
-			switch ( $data['type'] ) {
-				case 'integer':
-					$regex = '\\d+';
-					break;
-				case 'string':
-					$regex = '[a-zA-Z0-9_-]+';
-					break;
-				default:
-					$regex = $data['type'];
-					break;
+		foreach ( $parameters as $parameter ) {
+			$regex = false;
+
+			if ( $parameter instanceof Integer ) {
+				$regex = '\\d+';
 			}
-			$replacements[] = "(?P<{$parameter}>{$regex})";
+
+			if ( $parameter instanceof Text ) {
+				$regex = '[a-zA-Z0-9_-]+';
+			}
+
+			if ( ! $regex ) {
+				throw new RuntimeException( 'Invalid path parameter: ' . get_class( $parameter ) );
+			}
+
+			$replacements[] = "(?P<{$parameter->get_name()}>{$regex})";
 		}
 
 		return sprintf( $base, ...$replacements );
@@ -316,8 +324,8 @@ abstract class Endpoint implements Endpoint_Interface {
 		$base       = $this->get_base_path();
 
 		$replacements = [];
-		foreach ( $parameters as $parameter => $data ) {
-			$replacements[] = "{{$parameter}}";
+		foreach ( $parameters as $parameter ) {
+			$replacements[] = "{{$parameter->get_name()}}";
 		}
 
 		return sprintf( $base, ...$replacements );
