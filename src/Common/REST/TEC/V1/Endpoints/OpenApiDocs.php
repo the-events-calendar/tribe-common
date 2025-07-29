@@ -18,11 +18,13 @@ use TEC\Common\REST\TEC\V1\Contracts\Readable_Endpoint;
 use TEC\Common\REST\TEC\V1\Documentation;
 use WP_REST_Request;
 use WP_REST_Response;
+use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface as Tag;
 use TEC\Common\REST\TEC\V1\Tags\Common_Tag;
 use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 use TEC\Common\REST\TEC\V1\Documentation\OpenApi_Definition;
+use InvalidArgumentException;
 
 /**
  * OpenAPI docs endpoint.
@@ -205,8 +207,8 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Get the documentation for the TEC REST API', 'tribe-common' ),
 			fn() => __( 'Returns the documentation for The Events Calendar REST API in Swagger consumable format.', 'tribe-common' ),
-			'getOpenApiDocs',
-			[ tribe( Common_Tag::class ) ],
+			$this->get_operation_id( 'read' ),
+			$this->get_tags(),
 			null,
 			$this->read_args(),
 		);
@@ -231,5 +233,36 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 	 */
 	public function get_base_path(): string {
 		return '/docs';
+	}
+
+	/**
+	 * Returns the tags for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return Tag[]
+	 */
+	public function get_tags(): array {
+		return [ tribe( Common_Tag::class ) ];
+	}
+
+	/**
+	 * Returns the operation ID for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $operation The operation to get the operation ID for.
+	 *
+	 * @return string
+	 *
+	 * @throws InvalidArgumentException If the operation is invalid.
+	 */
+	public function get_operation_id( string $operation ): string {
+		switch ( $operation ) {
+			case 'read':
+				return 'getOpenApiDocs';
+		}
+
+		throw new InvalidArgumentException( sprintf( 'Invalid operation: %s', $operation ) );
 	}
 }
