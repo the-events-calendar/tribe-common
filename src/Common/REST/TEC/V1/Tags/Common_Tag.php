@@ -45,4 +45,15 @@ class Common_Tag extends Tag {
 			'description' => __( 'These operations are introduced by the Common library.', 'tribe-common' ),
 		];
 	}
+
+	/**
+	 * Returns the priority of the tag.
+	 *
+	 * @since TBD
+	 *
+	 * @return int
+	 */
+	public function get_priority(): int {
+		return 1000;
+	}
 }

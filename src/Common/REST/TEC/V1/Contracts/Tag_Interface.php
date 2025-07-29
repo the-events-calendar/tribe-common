@@ -40,4 +40,13 @@ interface Tag_Interface extends JsonSerializable {
 	 * @return array
 	 */
 	public function get(): array;
+
+	/**
+	 * Returns the priority of the tag.
+	 *
+	 * @since TBD
+	 *
+	 * @return int
+	 */
+	public function get_priority(): int;
 }

@@ -165,6 +165,13 @@ class Documentation {
 	 * @return array
 	 */
 	protected function get_tags(): array {
+		usort(
+			$this->tags,
+			function ( Tag_Interface $a, Tag_Interface $b ) {
+				return $a->get_priority() - $b->get_priority();
+			}
+		);
+
 		return $this->tags;
 	}
 
