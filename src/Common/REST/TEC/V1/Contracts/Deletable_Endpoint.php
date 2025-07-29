@@ -28,11 +28,11 @@ interface Deletable_Endpoint {
 	 *
 	 * @since TBD
 	 *
-	 * @param WP_REST_Request $request The request object.
+	 * @param array $params The parameters to use for the request.
 	 *
 	 * @return WP_REST_Response
 	 */
-	public function delete( WP_REST_Request $request ): WP_REST_Response;
+	public function delete( array $params = [] ): WP_REST_Response;
 
 	/**
 	 * Returns whether the user can delete the object.
