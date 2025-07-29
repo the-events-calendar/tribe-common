@@ -749,6 +749,16 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 			$entity->title = str_replace( 'Private: ', '', $entity->post_title );
 		}
 
+		if ( isset( $entity->_sale_price_dates_from ) ) {
+			$entity->_sale_price_dates_from = date( 'Y-m-d H:i:s', strtotime( $entity->_sale_price_dates_from ) );
+			$entity->sale_price_start_date  = $entity->_sale_price_dates_from;
+		}
+
+		if ( isset( $entity->_sale_price_dates_to ) ) {
+			$entity->_sale_price_dates_to = date( 'Y-m-d H:i:s', strtotime( $entity->_sale_price_dates_to ) );
+			$entity->sale_price_end_date  = $entity->_sale_price_dates_to;
+		}
+
 		return $entity;
 	}
 }

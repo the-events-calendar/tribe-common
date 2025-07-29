@@ -234,7 +234,7 @@ abstract class REST_Test_Case extends WPBrowserTestCase {
 				throw new RuntimeException( 'Invalid path parameter: ' . get_class( $param ) );
 			}
 
-			$replacements[] = "(?P<{$param}>{$regex})";
+			$replacements[] = "(?P<{$param->get_name()}>{$regex})";
 		}
 
 		$path = sprintf( $this->endpoint->get_base_path(), ...$replacements );
