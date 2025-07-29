@@ -12,6 +12,7 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Contracts;
 
 use WP_REST_Request;
+use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface as Tag;
 
 /**
  * Endpoint interface.
@@ -104,4 +105,26 @@ interface Endpoint_Interface {
 	 * @return WP_REST_Request
 	 */
 	public function get_request(): WP_REST_Request;
+
+	/**
+	 * Returns the tags for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return Tag[]
+	 */
+	public function get_tags(): array;
+
+	/**
+	 * Returns the operation ID for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $operation The operation to get the operation ID for.
+	 *
+	 * @return string
+	 *
+	 * @throws InvalidArgumentException If the operation is invalid.
+	 */
+	public function get_operation_id( string $operation ): string;
 }

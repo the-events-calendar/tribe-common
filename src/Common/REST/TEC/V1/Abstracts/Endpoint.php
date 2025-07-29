@@ -22,9 +22,6 @@ use WP_REST_Server;
 use WP_REST_Request;
 use RuntimeException;
 use InvalidArgumentException;
-use Exception;
-use Throwable;
-use WP_Error;
 use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 
 /**
