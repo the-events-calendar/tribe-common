@@ -77,7 +77,7 @@ class Entity extends Parameter {
 	 * @inheritDoc
 	 */
 	public function get_validator(): Closure {
-		return $this->validator ?? function( array $value ): bool {
+		return $this->validator ?? function ( array $value ): bool {
 			/** @var Parameter_Contract $property */
 			foreach ( $this->get_properties() as $property ) {
 				$argument = $this->get_name() ? $this->get_name() . '.' . $property->get_name() : $property->get_name();
@@ -97,6 +97,7 @@ class Entity extends Parameter {
 				$is_valid = $property->get_validator()( $value[ $property->get_name() ] );
 
 				if ( ! $is_valid ) {
+					// translators: %s: The name of the invalid property.
 					$exception = new InvalidRestArgumentException( sprintf( __( 'Property %s is invalid', 'the-events-calendar' ), $argument ) );
 					$exception->set_argument( $argument );
 					$exception->set_details( __( 'The property is invalid.', 'the-events-calendar' ) );

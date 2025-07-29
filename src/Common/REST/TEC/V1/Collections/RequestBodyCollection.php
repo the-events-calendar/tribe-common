@@ -216,7 +216,7 @@ class RequestBodyCollection extends Collection {
 
 			if ( $parameter instanceof Entity ) {
 				$collection = $parameter->get_properties();
-				$props = array_merge( $props, $this->get_props_from_collection( $collection ) );
+				$props      = array_merge( $props, $this->get_props_from_collection( $collection ) );
 				continue;
 			}
 

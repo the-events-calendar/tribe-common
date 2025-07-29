@@ -11,7 +11,6 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Traits;
 
-use WP_REST_Request;
 use WP_REST_Response;
 
 /**

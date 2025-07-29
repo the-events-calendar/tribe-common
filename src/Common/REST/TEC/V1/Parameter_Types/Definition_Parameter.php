@@ -136,6 +136,7 @@ class Definition_Parameter extends Entity {
 				$is_valid = $property->get_validator()( $data[ $property->get_name() ] );
 
 				if ( ! $is_valid ) {
+					// translators: %s: The name of the invalid property.
 					$exception = new InvalidRestArgumentException( sprintf( __( 'Property %s is invalid', 'the-events-calendar' ), $argument ) );
 					$exception->set_argument( $argument );
 					$exception->set_details( __( 'The property is invalid.', 'the-events-calendar' ) );

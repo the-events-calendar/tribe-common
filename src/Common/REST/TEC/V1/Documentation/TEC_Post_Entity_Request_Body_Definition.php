@@ -15,10 +15,8 @@ use TEC\Common\REST\TEC\V1\Abstracts\Definition;
 use TEC\Common\REST\TEC\V1\Abstracts\Post_Entity_Endpoint;
 use TEC\Common\REST\TEC\V1\Collections\PropertiesCollection;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Date_Time;
-use TEC\Common\REST\TEC\V1\Parameter_Types\URI;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Positive_Integer;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Entity;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
 
