@@ -22,6 +22,7 @@ use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use RuntimeException;
 use WP_REST_Server;
 use Generator;
+use TEC\Common\REST\TEC\V1\Contracts\Parameter;
 use Tribe\Tests\Traits\With_Clock_Mock;
 use Tribe__Date_Utils as Dates;
 use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
@@ -29,6 +30,9 @@ use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
 use TEC\Common\REST\TEC\V1\Collections\PropertiesCollection;
+use TEC\Common\REST\TEC\V1\Collections\PathArgumentCollection;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Integer;
 
 if ( ! class_exists( WPBrowserTestCase::class ) ) {
 	class_alias( WPTestCase::class, WPBrowserTestCase::class );
@@ -197,14 +201,13 @@ abstract class REST_Test_Case extends WPBrowserTestCase {
 	public function test_get_path_parameters() {
 		$path_params = $this->endpoint->get_path_parameters();
 
-		$this->assertIsArray( $path_params );
-		if ( empty( $path_params ) ) {
+		$this->assertInstanceOf( PathArgumentCollection::class, $path_params );
+		if ( count( $path_params ) === 0 ) {
 			return;
 		}
 
-		foreach ( $path_params as $param => $data ) {
-			$this->assertArrayHasKey( 'type', $data );
-			$this->assertContains( $data['type'], [ 'integer', 'string' ] );
+		foreach ( $path_params as $param ) {
+			$this->assertInstanceOf( Parameter::class, $param );
 		}
 	}
 
@@ -217,18 +220,20 @@ abstract class REST_Test_Case extends WPBrowserTestCase {
 
 		$replacements = [];
 
-		foreach ( $path_params as $param => $data ) {
-			switch ( $data['type'] ) {
-				case 'integer':
-					$regex = '\\d+';
-					break;
-				case 'string':
-					$regex = '[a-zA-Z0-9_-]+';
-					break;
-				default:
-					$regex = $data['type'];
-					break;
+		foreach ( $path_params as $param ) {
+			$regex = false;
+			if ( $param instanceof Text ) {
+				$regex = '[a-zA-Z0-9_-]+';
 			}
+
+			if ( $param instanceof Integer ) {
+				$regex = '\\d+';
+			}
+
+			if ( ! $regex ) {
+				throw new RuntimeException( 'Invalid path parameter: ' . get_class( $param ) );
+			}
+
 			$replacements[] = "(?P<{$param}>{$regex})";
 		}
 
