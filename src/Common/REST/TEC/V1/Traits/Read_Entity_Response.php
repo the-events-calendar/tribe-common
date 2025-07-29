@@ -28,12 +28,11 @@ trait Read_Entity_Response {
 	 *
 	 * @since TBD
 	 *
-	 * @param WP_REST_Request $request The request object.
-	 * @param array           $params  The sanitized parameters to use for the request.
+	 * @param array $params The sanitized parameters to use for the request.
 	 *
 	 * @return WP_REST_Response The response object.
 	 */
-	public function read( WP_REST_Request $request, array $params = [] ): WP_REST_Response {
+	public function read( array $params = [] ): WP_REST_Response {
 		$id = $params['id'] ?? null;
 
 		if ( ! $id ) {
@@ -58,7 +57,7 @@ trait Read_Entity_Response {
 
 		$filter_added = false;
 
-		if ( post_password_required( $id ) && $rest_controller->can_access_password_content( get_post( $id ), $request ) ) {
+		if ( post_password_required( $id ) && $rest_controller->can_access_password_content( get_post( $id ), $this->get_request() ) ) {
 			// If user can access password protected content, we remove any integration that might be obstructing the content.
 			add_filter( 'post_password_required', '__return_false' );
 			$filter_added = true;

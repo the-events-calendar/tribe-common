@@ -202,11 +202,11 @@ abstract class Endpoint implements Endpoint_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
 	 * @return string The current REST URL.
 	 */
-	protected function get_current_rest_url( WP_REST_Request $request ): string {
+	protected function get_current_rest_url(): string {
+		$request = $this->get_request();
+
 		$url = rest_url( $request->get_route() );
 
 		$params = $request->get_query_params();
@@ -366,11 +366,11 @@ abstract class Endpoint implements Endpoint_Interface {
 
 		$operation = is_array( $callback ) ? $callback[1] ?? null : null;
 
-		$sanitized_params = fn( WP_REST_Request $request ) => $this->get_sanitized_params_from_schema( $operation, $request->get_params() );
+		$params_sanitizer = fn( WP_REST_Request $request ) => $this->get_sanitized_params_from_schema( $operation, $request->get_params() );
 
-		return static function ( WP_REST_Request $request ) use ( $callback, $sanitized_params ) {
+		return static function ( WP_REST_Request $request ) use ( $callback, $params_sanitizer ) {
 			try {
-				$response = $callback( $request, $sanitized_params( $request ) );
+				$response = $callback( $params_sanitizer( $request ) );
 			} catch ( InvalidRestArgumentException $e ) {
 				return $e->to_wp_error();
 			}

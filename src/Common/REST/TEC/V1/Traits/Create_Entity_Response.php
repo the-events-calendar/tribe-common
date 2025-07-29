@@ -27,12 +27,11 @@ trait Create_Entity_Response {
 	 *
 	 * @since TBD
 	 *
-	 * @param WP_REST_Request $request The request object.
-	 * @param array           $params  The sanitized parameters to use for the request.
+	 * @param array $params The sanitized parameters to use for the request.
 	 *
 	 * @return WP_REST_Response The response object.
 	 */
-	public function create( WP_REST_Request $request, array $params = [] ): WP_REST_Response {
+	public function create( array $params = [] ): WP_REST_Response {
 		$entity = $this->get_orm()->set_args( $params )->create();
 
 		if ( ! $entity ) {

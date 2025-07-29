@@ -28,14 +28,13 @@ trait Read_Archive_Response {
 	 *
 	 * @since TBD
 	 *
-	 * @param WP_REST_Request $request The request object.
-	 * @param array           $params  The sanitized parameters to use for the request.
+	 * @param array $params The sanitized parameters to use for the request.
 	 *
 	 * @return WP_REST_Response The response object.
 	 */
-	public function read( WP_REST_Request $request, array $params = [] ): WP_REST_Response {
-		$page     = absint( $request['page'] ?? 1 );
-		$per_page = absint( $request['per_page'] ?? $this->get_default_posts_per_page() );
+	public function read( array $params = [] ): WP_REST_Response {
+		$page     = absint( $params['page'] ?? 1 );
+		$per_page = absint( $params['per_page'] ?? $this->get_default_posts_per_page() );
 
 		/** @var Tribe__Repository__Interface $query */
 		$query = $this->build_query( $params );
@@ -61,13 +60,13 @@ trait Read_Archive_Response {
 		 *
 		 * @since TBD
 		 *
-		 * @param array           $data    The retrieved data.
-		 * @param WP_REST_Request $request The original request.
+		 * @param array $data   The retrieved data.
+		 * @param array $params The sanitized parameters to use for the request.
 		 */
-		$data = apply_filters( 'tec_rest_' . $this->get_post_type() . '_archive', $data, $request );
+		$data = apply_filters( 'tec_rest_' . $this->get_post_type() . '_archive', $data, $params );
 
 		$total_pages = $per_page > 0 ? (int) ceil( $total / $per_page ) : 1;
-		$current_url = $this->get_current_rest_url( $request );
+		$current_url = $this->get_current_rest_url();
 
 		$response = new WP_REST_Response( $data );
 

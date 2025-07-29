@@ -27,12 +27,11 @@ trait Delete_Entity_Response {
 	 *
 	 * @since TBD
 	 *
-	 * @param WP_REST_Request $request The request object.
-	 * @param array           $params  The sanitized parameters to use for the request.
+	 * @param array $params The sanitized parameters to use for the request.
 	 *
 	 * @return WP_REST_Response The response object.
 	 */
-	public function delete( WP_REST_Request $request, array $params = [] ): WP_REST_Response {
+	public function delete( array $params = [] ): WP_REST_Response {
 		$id = $params['id'] ?? null;
 
 		if ( ! $id ) {
