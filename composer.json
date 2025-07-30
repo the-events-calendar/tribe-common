@@ -68,7 +68,8 @@
   "autoload-dev": {
     "psr-4": {
       "TEC\\Common\\Tests\\": "tests/_data/classes",
-      "TEC\\Common\\Tests\\Provider\\": "tests/_support/Provider"
+      "TEC\\Common\\Tests\\Provider\\": "tests/_support/Provider",
+      "TEC\\Common\\Tests\\Extensions\\": "tests/_support/Extensions"
     }
   },
   "scripts": {
