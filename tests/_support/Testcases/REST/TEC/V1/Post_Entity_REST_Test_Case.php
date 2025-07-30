@@ -759,6 +759,14 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 			$entity->sale_price_end_date  = $entity->_sale_price_dates_to;
 		}
 
+		if ( isset( $entity->_VenueLat ) ) {
+			$entity->_VenueLat = (float) $entity->_VenueLat;
+		}
+
+		if ( isset( $entity->_VenueLng ) ) {
+			$entity->_VenueLng = (float) $entity->_VenueLng;
+		}
+
 		return $entity;
 	}
 }
