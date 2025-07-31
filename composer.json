@@ -33,10 +33,10 @@
     "stellarwp/db": "^1.0.3",
     "stellarwp/installer": "^1.1.0",
     "stellarwp/models": "dev-main",
-    "stellarwp/schema": "^1.1.8",
+    "stellarwp/schema": "2.0.1",
+    "stellarwp/shepherd": "0.0.3",
     "stellarwp/telemetry": "^2.3.4",
-    "stellarwp/uplink": "2.2.2",
-    "woocommerce/action-scheduler": "3.9.2"
+    "stellarwp/uplink": "2.2.2"
   },
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
@@ -116,6 +116,7 @@
         "stellarwp/db",
         "stellarwp/models",
         "stellarwp/schema",
+        "stellarwp/shepherd",
         "stellarwp/installer",
         "stellarwp/telemetry",
         "stellarwp/uplink",
