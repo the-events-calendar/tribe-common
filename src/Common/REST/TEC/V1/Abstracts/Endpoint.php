@@ -24,6 +24,7 @@ use WP_REST_Request;
 use RuntimeException;
 use InvalidArgumentException;
 use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
+use TEC\Common\REST\TEC\V1\Exceptions\ExperimentalEndpointException;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Integer;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
 
@@ -366,12 +367,17 @@ abstract class Endpoint implements Endpoint_Interface {
 
 		$operation = is_array( $callback ) ? $callback[1] ?? null : null;
 
+		$experimental_response = fn( WP_REST_Request $request ) => $this->is_experimental() && $this->assure_experimental_acknowledgement( $request );
+
 		$params_sanitizer = fn( WP_REST_Request $request ) => $this->get_sanitized_params_from_schema( $operation, $request->get_params() );
 
-		return static function ( WP_REST_Request $request ) use ( $callback, $params_sanitizer ) {
+		return static function ( WP_REST_Request $request ) use ( $callback, $params_sanitizer, $experimental_response ) {
 			try {
+				$experimental_response( $request );
 				$response = $callback( $params_sanitizer( $request ) );
 			} catch ( InvalidRestArgumentException $e ) {
+				return $e->to_wp_error();
+			} catch ( ExperimentalEndpointException $e ) {
 				return $e->to_wp_error();
 			}
 
@@ -432,5 +438,56 @@ abstract class Endpoint implements Endpoint_Interface {
 			/** @throws InvalidRestArgumentException If one or more request parameters are invalid. */
 			->validate( $request_params )
 			->sanitize();
+	}
+
+	/**
+	 * Assures the experimental acknowledgement.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_REST_Request $request The request object.
+	 *
+	 * @return void
+	 *
+	 * @throws ExperimentalEndpointException If the experimental acknowledgement is not provided.
+	 */
+	protected function assure_experimental_acknowledgement( WP_REST_Request $request ): void {
+		if ( ! $this->is_experimental() ) {
+			return;
+		}
+
+		$header = $request->get_header( 'X-TEC-EEA' );
+
+		if ( ! $header ) {
+			throw new ExperimentalEndpointException( __( 'Experimental endpoint requires acknowledgement header.', 'tribe-common' ) );
+		}
+
+		if ( strtolower( trim( $header ) ) !== $this->get_experimental_acknowledgement() ) {
+			throw new ExperimentalEndpointException( __( 'Experimental endpoint requires appropriate acknowledgement header.', 'tribe-common' ) );
+		}
+	}
+
+	/**
+	 * Returns the experimental acknowledgement.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	private function get_experimental_acknowledgement(): string {
+		return strtolower(
+			'I understand that this endpoint is experimental and may change in a future release without maintaining backward compatibility. I also understand that I am using this endpoint at my own risk, while support is not provided for it.'
+		);
+	}
+
+	/**
+	 * Returns whether the endpoint is experimental.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_experimental(): bool {
+		return true;
 	}
 }

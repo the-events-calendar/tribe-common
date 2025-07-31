@@ -133,4 +133,13 @@ interface Endpoint_Interface {
 	 * @throws InvalidArgumentException If the operation is invalid.
 	 */
 	public function get_operation_id( string $operation ): string;
+
+	/**
+	 * Returns whether the endpoint is experimental.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_experimental(): bool;
 }
