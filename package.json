@@ -1,6 +1,6 @@
 {
   "name": "tribe-common",
-  "version": "6.8.3",
+  "version": "6.8.4",
   "repository": "git@github.com:the-events-calendar/tribe-common.git",
   "_resourcepath": "src/resources",
   "_domainPath": "lang",
@@ -36,7 +36,8 @@
     "start": "wp-scripts start",
     "dev": "WP_DEVTOOL=eval-source-map wp-scripts start",
     "test": "jest",
-    "changelog": "./vendor/bin/changelogger add"
+    "changelog": "./vendor/bin/changelogger add",
+    "spectral": "spectral lint"
   },
   "dependencies": {
     "@babel/runtime": "^7.15.3",
@@ -82,6 +83,7 @@
   },
   "devDependencies": {
     "@stellarwp/tyson": "*",
+    "@stoplight/spectral-cli": "^6.15.0",
     "@wordpress/date": "^5.23.0",
     "@wordpress/hooks": "^1.3.2",
     "@wordpress/scripts": "^30.14.1",
