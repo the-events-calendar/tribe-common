@@ -1,6 +1,6 @@
 <?php
 /**
- * Readable endpoint interface.
+ * Creatable endpoint interface.
  *
  * @since TBD
  *
@@ -16,15 +16,15 @@ use WP_REST_Response;
 use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 
 /**
- * Readable endpoint interface.
+ * Creatable endpoint interface.
  *
  * @since TBD
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */
-interface Readable_Endpoint {
+interface Creatable_Endpoint {
 	/**
-	 * Returns the response for the endpoint.
+	 * Creates the object.
 	 *
 	 * @since TBD
 	 *
@@ -32,10 +32,10 @@ interface Readable_Endpoint {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public function read( array $params = [] ): WP_REST_Response;
+	public function create( array $params = [] ): WP_REST_Response;
 
 	/**
-	 * Returns whether the endpoint can be read.
+	 * Returns whether the user can create the object.
 	 *
 	 * @since TBD
 	 *
@@ -43,32 +43,32 @@ interface Readable_Endpoint {
 	 *
 	 * @return bool
 	 */
-	public function can_read( WP_REST_Request $request ): bool;
+	public function can_create( WP_REST_Request $request ): bool;
 
 	/**
-	 * Returns the arguments for the read method.
+	 * Returns the arguments for the create method.
 	 *
 	 * @since TBD
 	 *
 	 * @return QueryArgumentCollection
 	 */
-	public function read_args(): QueryArgumentCollection;
+	public function create_args(): QueryArgumentCollection;
 
 	/**
-	 * Returns the schema for the endpoint.
+	 * Returns the schema for the create method.
 	 *
 	 * @since TBD
 	 *
 	 * @return OpenAPI_Schema
 	 */
-	public function read_schema(): OpenAPI_Schema;
+	public function create_schema(): OpenAPI_Schema;
 
 	/**
-	 * Returns the attributes for the read method.
+	 * Returns the attributes for the create method.
 	 *
 	 * @since TBD
 	 *
 	 * @return array
 	 */
-	public function get_read_attributes(): array;
+	public function get_create_attributes(): array;
 }

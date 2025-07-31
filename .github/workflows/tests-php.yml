@@ -4,7 +4,7 @@ jobs:
   test:
     strategy:
       matrix:
-        suite: [ activation, dependency, integration, muwpunit, snapshots, unit, wpunit ]
+        suite: [ activation, dependency, integration, muwpunit, snapshots, unit, wpunit, rest_tec_v1_integration ]
     runs-on: ubuntu-latest
     steps:
       # ------------------------------------------------------------------------------
@@ -182,6 +182,36 @@ jobs:
           ${SLIC_BIN} wp core version
           ${SLIC_BIN} wp core update-db
           ${SLIC_BIN} wp theme install twentytwenty --activate
+
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
         run: ${SLIC_BIN} run ${{ matrix.suite }}
+      # ------------------------------------------------------------------------------
+      # Node.js setup for REST API integration tests
+      # ------------------------------------------------------------------------------
+      - name: Check for .nvmrc file
+        if: steps.skip.outputs.value != 1 && matrix.suite == 'rest_tec_v1_integration'
+        id: check-nvmrc
+        run: |
+          if [[ -f ".nvmrc" ]]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: actions/setup-node@v4
+        if: steps.skip.outputs.value != 1 && matrix.suite == 'rest_tec_v1_integration' && steps.check-nvmrc.outputs.exists == 'true'
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+      - name: Install node modules
+        if: steps.skip.outputs.value != 1 && matrix.suite == 'rest_tec_v1_integration'
+        run: npm ci
+
+      - name: Run OpenAPI Linter
+        if: steps.skip.outputs.value != 1 && matrix.suite == 'rest_tec_v1_integration'
+        run: |
+          ${SLIC_BIN} wp plugin activate the-events-calendar
+          ${SLIC_BIN} wp rewrite structure '/%postname%/' --hard
+          npm run spectral -- http://localhost:8888/wp-json/tec/v1/docs/

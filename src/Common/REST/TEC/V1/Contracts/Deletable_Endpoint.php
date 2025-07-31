@@ -1,6 +1,6 @@
 <?php
 /**
- * Readable endpoint interface.
+ * Deletable endpoint interface.
  *
  * @since TBD
  *
@@ -16,15 +16,15 @@ use WP_REST_Response;
 use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 
 /**
- * Readable endpoint interface.
+ * Deletable endpoint interface.
  *
  * @since TBD
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */
-interface Readable_Endpoint {
+interface Deletable_Endpoint {
 	/**
-	 * Returns the response for the endpoint.
+	 * Deletes the object.
 	 *
 	 * @since TBD
 	 *
@@ -32,10 +32,10 @@ interface Readable_Endpoint {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public function read( array $params = [] ): WP_REST_Response;
+	public function delete( array $params = [] ): WP_REST_Response;
 
 	/**
-	 * Returns whether the endpoint can be read.
+	 * Returns whether the user can delete the object.
 	 *
 	 * @since TBD
 	 *
@@ -43,32 +43,32 @@ interface Readable_Endpoint {
 	 *
 	 * @return bool
 	 */
-	public function can_read( WP_REST_Request $request ): bool;
+	public function can_delete( WP_REST_Request $request ): bool;
 
 	/**
-	 * Returns the arguments for the read method.
+	 * Returns the arguments for the delete method.
 	 *
 	 * @since TBD
 	 *
 	 * @return QueryArgumentCollection
 	 */
-	public function read_args(): QueryArgumentCollection;
+	public function delete_args(): QueryArgumentCollection;
 
 	/**
-	 * Returns the schema for the endpoint.
+	 * Returns the schema for the delete method.
 	 *
 	 * @since TBD
 	 *
 	 * @return OpenAPI_Schema
 	 */
-	public function read_schema(): OpenAPI_Schema;
+	public function delete_schema(): OpenAPI_Schema;
 
 	/**
-	 * Returns the attributes for the read method.
+	 * Returns the attributes for the delete method.
 	 *
 	 * @since TBD
 	 *
 	 * @return array
 	 */
-	public function get_read_attributes(): array;
+	public function get_delete_attributes(): array;
 }
