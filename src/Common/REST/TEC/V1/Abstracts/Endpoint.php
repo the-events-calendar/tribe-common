@@ -488,6 +488,24 @@ abstract class Endpoint implements Endpoint_Interface {
 	 * @return bool
 	 */
 	public function is_experimental(): bool {
-		return true;
+		/**
+		 * Filters whether the endpoint is experimental.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $is_experimental Whether the endpoint is experimental.
+		 * @param string $endpoint        The endpoint class name.
+		 */
+		$is_experimental = apply_filters( 'tec_rest_experimental_' . $this->get_open_api_path() . '_endpoint', true, $this );
+
+		/**
+		 * Filters whether the endpoint is experimental.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $is_experimental Whether the endpoint is experimental.
+		 * @param string $endpoint        The endpoint class name.
+		 */
+		return apply_filters( 'tec_rest_experimental_endpoint', $is_experimental, $this );
 	}
 }

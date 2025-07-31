@@ -265,7 +265,7 @@ class TEC_Post_Entity_Definition extends Definition {
 			)
 		)->set_example( [ 2, 8, 15 ] );
 
-		$definition = [
+		$documentation = [
 			'type'        => 'object',
 			'title'       => __( 'TEC Post Entity', 'tribe-common' ),
 			'description' => __( 'A TEC post object as returned by the REST API', 'tribe-common' ),
@@ -282,7 +282,19 @@ class TEC_Post_Entity_Definition extends Definition {
 		 *
 		 * @return array
 		 */
-		return (array) apply_filters( 'tec_rest_swagger_' . $this->get_type() . '_definition', $definition, $this );
+		$documentation = (array) apply_filters( 'tec_rest_swagger_' . strtolower( $this->get_type() ) . '_definition', $documentation, $this );
+
+		/**
+		 * Filters the Swagger documentation generated for a definition in the TEC REST API.
+		 *
+		 * @since TBD
+		 *
+		 * @param array                      $documentation An associative PHP array in the format supported by Swagger.
+		 * @param TEC_Post_Entity_Definition $this          The TEC_Post_Entity_Definition instance.
+		 *
+		 * @return array
+		 */
+		return (array) apply_filters( 'tec_rest_swagger_definition', $documentation, $this );
 	}
 
 	/**

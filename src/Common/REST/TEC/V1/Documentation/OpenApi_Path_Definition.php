@@ -137,6 +137,6 @@ class OpenApi_Path_Definition extends Definition {
 		 *
 		 * @return array
 		 */
-		return (array) apply_filters( 'tec_rest_swagger_' . $this->get_type() . '_definition', $documentation, $this );
+		return (array) apply_filters( 'tec_rest_swagger_' . strtolower( $this->get_type() ) . '_definition', $documentation, $this );
 	}
 }
