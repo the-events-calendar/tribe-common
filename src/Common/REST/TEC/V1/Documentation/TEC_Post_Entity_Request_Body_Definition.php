@@ -170,6 +170,8 @@ class TEC_Post_Entity_Request_Body_Definition extends Definition {
 			'properties'  => $properties,
 		];
 
+		$type = strtolower( $this->get_type() );
+
 		/**
 		 * Filters the Swagger documentation generated for an TEC_Post_Entity_Request_Body in the TEC REST API.
 		 *
@@ -180,7 +182,7 @@ class TEC_Post_Entity_Request_Body_Definition extends Definition {
 		 *
 		 * @return array
 		 */
-		$documentation = (array) apply_filters( 'tec_rest_swagger_' . strtolower( $this->get_type() ) . '_definition', $definition, $this );
+		$documentation = (array) apply_filters( "tec_rest_swagger_{$type}_definition", $definition, $this );
 
 		/**
 		 * Filters the Swagger documentation generated for a definition in the TEC REST API.

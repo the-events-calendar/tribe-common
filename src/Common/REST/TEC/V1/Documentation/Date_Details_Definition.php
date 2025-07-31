@@ -69,6 +69,8 @@ class Date_Details_Definition extends Definition {
 			'properties' => $properties,
 		];
 
+		$type = strtolower( $this->get_type() );
+
 		/**
 		 * Filters the Swagger documentation generated for an date details in the TEC REST API.
 		 *
@@ -79,7 +81,7 @@ class Date_Details_Definition extends Definition {
 		 *
 		 * @return array
 		 */
-		$documentation = (array) apply_filters( 'tec_rest_swagger_' . strtolower( $this->get_type() ) . '_definition', $documentation, $this );
+		$documentation = (array) apply_filters( "tec_rest_swagger_{$type}_definition", $documentation, $this );
 
 		/**
 		 * Filters the Swagger documentation generated for a definition in the TEC REST API.

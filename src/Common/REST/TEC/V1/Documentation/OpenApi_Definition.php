@@ -128,6 +128,8 @@ class OpenApi_Definition extends Definition {
 			],
 		];
 
+		$type = strtolower( $this->get_type() );
+
 		/**
 		 * Filters the Swagger definition generated for the TEC REST API.
 		 *
@@ -138,6 +140,6 @@ class OpenApi_Definition extends Definition {
 		 *
 		 * @return array
 		 */
-		return (array) apply_filters( 'tec_rest_swagger_' . strtolower( $this->get_type() ) . '_definition', $documentation, $this );
+		return (array) apply_filters( "tec_rest_swagger_{$type}_definition", $documentation, $this );
 	}
 }
