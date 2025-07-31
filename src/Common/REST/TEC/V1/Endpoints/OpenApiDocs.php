@@ -265,4 +265,17 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 
 		throw new InvalidArgumentException( sprintf( 'Invalid operation: %s', $operation ) );
 	}
+
+	/**
+	 * Returns whether the endpoint is experimental.
+	 *
+	 * This endpoint is not experimental.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_experimental(): bool {
+		return false;
+	}
 }

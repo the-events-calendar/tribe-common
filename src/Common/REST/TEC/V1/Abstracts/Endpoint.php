@@ -46,6 +46,15 @@ abstract class Endpoint implements Endpoint_Interface {
 	const EDITABLE = 'PUT, PATCH';
 
 	/**
+	 * The cached schema.
+	 *
+	 * @since TBD
+	 *
+	 * @var array|null
+	 */
+	protected ?array $cached_schema = null;
+
+	/**
 	 * Registers the endpoint.
 	 *
 	 * @since TBD
@@ -92,7 +101,7 @@ abstract class Endpoint implements Endpoint_Interface {
 			throw new RuntimeException( 'Each endpoint must implement at least one of the following interfaces: Readable_Endpoint, Creatable_Endpoint, Updatable_Endpoint, Deletable_Endpoint.' );
 		}
 
-		$methods['schema'] = fn() => $this->get_schema();
+		$methods['schema'] = fn() => $this->get_cached_schema();
 
 		return $methods;
 	}
@@ -507,5 +516,22 @@ abstract class Endpoint implements Endpoint_Interface {
 		 * @param string $endpoint        The endpoint class name.
 		 */
 		return apply_filters( 'tec_rest_experimental_endpoint', $is_experimental, $this );
+	}
+
+	/**
+	 * Returns the cached schema.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	protected function get_cached_schema(): array {
+		if ( null !== $this->cached_schema ) {
+			return $this->cached_schema;
+		}
+
+		$this->cached_schema = $this->get_schema();
+
+		return $this->cached_schema;
 	}
 }
