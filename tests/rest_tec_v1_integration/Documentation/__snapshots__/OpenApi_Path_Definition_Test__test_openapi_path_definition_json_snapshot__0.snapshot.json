@@ -1,0 +1,75 @@
+{
+    "type": "object",
+    "properties": {
+        "get": {
+            "type": "object",
+            "description": "The GET method for the path.",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "The description of the GET method."
+                },
+                "parameters": {
+                    "type": "array",
+                    "description": "The parameters of the GET method.",
+                    "items": {
+                        "type": "object",
+                        "description": "A parameter.",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "description": "The name of the parameter."
+                            },
+                            "in": {
+                                "type": "string",
+                                "description": "The location of the parameter."
+                            },
+                            "required": {
+                                "type": "boolean",
+                                "description": "Whether the parameter is required."
+                            },
+                            "schema": {
+                                "type": "object",
+                                "description": "The schema of the parameter."
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "type": "object",
+                    "description": "The responses of the GET method.",
+                    "properties": {
+                        "200": {
+                            "type": "object",
+                            "description": "The response for the GET method.",
+                            "properties": {
+                                "content": {
+                                    "type": "object",
+                                    "description": "The content of the response.",
+                                    "properties": {
+                                        "application/json": {
+                                            "type": "object",
+                                            "description": "The JSON content of the response.",
+                                            "properties": {
+                                                "schema": {
+                                                    "type": "object",
+                                                    "description": "The schema of the content.",
+                                                    "properties": {
+                                                        "type": {
+                                                            "type": "string",
+                                                            "description": "The type of the content."
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
