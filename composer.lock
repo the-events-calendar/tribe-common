@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ab316f45ee1800b51c0dd3d3bdb1c50",
+    "content-hash": "982fce21b2dcc67780e0ad3c69349b47",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -757,16 +757,16 @@
         },
         {
             "name": "stellarwp/shepherd",
-            "version": "0.0.2",
+            "version": "dev-fix/sql-table-definition-for-dbDelta",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/shepherd.git",
-                "reference": "26b945bd3c887db5b8b0bc9b2006b042548c815a"
+                "reference": "2b636d1a77468a8fae3763e9c09411021ab23025"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/26b945bd3c887db5b8b0bc9b2006b042548c815a",
-                "reference": "26b945bd3c887db5b8b0bc9b2006b042548c815a",
+                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/2b636d1a77468a8fae3763e9c09411021ab23025",
+                "reference": "2b636d1a77468a8fae3763e9c09411021ab23025",
                 "shasum": ""
             },
             "require": {
@@ -819,9 +819,9 @@
             "description": "A library for offloading tasks to background processes.",
             "support": {
                 "issues": "https://github.com/stellarwp/shepherd/issues",
-                "source": "https://github.com/stellarwp/shepherd/tree/0.0.2"
+                "source": "https://github.com/stellarwp/shepherd/tree/fix/sql-table-definition-for-dbDelta"
             },
-            "time": "2025-07-14T15:37:33+00:00"
+            "time": "2025-07-31T18:42:10+00:00"
         },
         {
             "name": "stellarwp/telemetry",
@@ -7290,6 +7290,7 @@
     "stability-flags": {
         "stellarwp/coding-standards": 20,
         "stellarwp/models": 20,
+        "stellarwp/shepherd": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
     "prefer-stable": true,
