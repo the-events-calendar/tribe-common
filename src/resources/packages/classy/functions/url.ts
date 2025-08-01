@@ -7,7 +7,7 @@
  * @returns True if the URL is valid, false otherwise.
  */
 export function isValidUrl( url: string ): boolean {
-    // Allow empty values.
+	// Allow empty values.
 	if ( ! url || url.trim() === '' ) {
 		return true;
 	}

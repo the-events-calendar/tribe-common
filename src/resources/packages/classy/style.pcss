@@ -10,6 +10,8 @@
 		from var(--tec-color-accent-primary) r g b / 0.5
 	);
 	--classy-color-footer: rgba(30, 30, 30, 0.03);
+	--classy-accent-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+	--classy-icon-default-color: #1E1E1E;
 	--classy-padding-vertical: var(--tec-spacer-7);
 	--classy-padding-horizontal: var(--tec-spacer-6);
 	--classy-height-100: 32px;
@@ -195,6 +197,11 @@
 				transform: translateX(calc(var(--classy-padding-horizontal) * -1));
 				width: 100%;
 				padding: var(--tec-spacer-3) var(--tec-spacer-6);
+
+				&.classy-field__inputs-section--cards{
+					background-color: transparent;
+					padding: var(--tec-spacer-7) var(--tec-spacer-6);
+				}
 			}
 		}
 
@@ -450,6 +457,7 @@
 		gap: var(--tec-spacer-3);
 		justify-content: center;
 		position: relative;
+		width: 100%;
 
 		.classy__linked-post-card {
 			align-items: flex-start;
@@ -471,6 +479,10 @@
 
 			.classy-linked-post-card__detail {
 				font-size: var(--classy-font-size-15);
+
+				& button.is-link {
+					font-size: var(--classy-font-size-15);
+				}
 			}
 
 			.classy-linked-post-card__actions {
@@ -483,6 +495,10 @@
 					width: 24px;
 					height: 24px;
 				}
+			}
+
+			.classy-linked-post-card__section {
+				margin-top: var(--tec-spacer-4);
 			}
 		}
 	}
@@ -652,4 +668,17 @@
 	align-items: center;
 	display: flex;
 	gap: var(--tec-spacer-1);
+}
+
+.classy-icon {
+	color: var(--classy-icon-default-color);
+	fill: var(--classy-icon-default-color);
+	height: 24px;
+	vertical-align: middle;
+	width: 24px;
+}
+
+.classy-accent-color {
+	color: var(--classy-accent-color);
+	fill: var(--classy-accent-color);
 }
