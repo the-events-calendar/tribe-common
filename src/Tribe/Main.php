@@ -79,19 +79,19 @@ class Tribe__Main {
 			return;
 		}
 
-		$vendor_folder = dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/';
-		require_once realpath( $vendor_folder . 'vendor-prefixed/autoload.php' );
+		$vendor_folder = dirname( dirname( __DIR__ ) ) . '/vendor/';
 		require_once realpath( $vendor_folder . 'autoload.php' );
+		require_once realpath( $vendor_folder . 'vendor-prefixed/autoload.php' );
 
 		// The DI container class.
-		require_once dirname( __FILE__ ) . '/Container.php';
+		require_once __DIR__ . '/Container.php';
 
 		if ( is_object( $context ) ) {
-			$this->plugin_context = $context;
+			$this->plugin_context       = $context;
 			$this->plugin_context_class = get_class( $context );
 		}
 
-		$this->plugin_path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
+		$this->plugin_path       = trailingslashit( dirname( dirname( __DIR__ ) ) );
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
 		$this->parent_plugin_dir = trailingslashit( plugin_basename( $this->plugin_path ) );
 		$this->plugin_url  = plugins_url( $this->parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $this->parent_plugin_dir );

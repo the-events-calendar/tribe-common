@@ -34,7 +34,7 @@
     "stellarwp/installer": "^1.1.0",
     "stellarwp/models": "dev-main",
     "stellarwp/schema": "2.0.1",
-    "stellarwp/shepherd": "dev-temp-no-namespace-files",
+    "stellarwp/shepherd": "0.0.3",
     "stellarwp/telemetry": "^2.3.4",
     "stellarwp/uplink": "2.2.2"
   },
@@ -81,7 +81,8 @@
       "@clean-faker-lang",
       "vendor/stellarwp/installer/bin/set-domain domain=tribe-common",
       "@php -d display_errors=on bin/strauss.phar",
-      "@composer dump-autoload"
+      "@composer dump-autoload",
+      "@php bin/fix-shepherd-namespaces.php"
     ],
     "post-install-cmd": [
       "@stellar-uplink",
