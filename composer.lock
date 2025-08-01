@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "57cb60b91c8913ea66c9208e705ea206",
+    "content-hash": "f82f192b19cd9bc12b807ceba98508de",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -757,16 +757,16 @@
         },
         {
             "name": "stellarwp/shepherd",
-            "version": "0.0.3",
+            "version": "dev-temp-no-namespace-files",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/shepherd.git",
-                "reference": "55f0ae7052295b9c77c21e85fe777f30033c3b03"
+                "reference": "e163c19fc4e2ff49c6dd41386005ea5e469c1ceb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/55f0ae7052295b9c77c21e85fe777f30033c3b03",
-                "reference": "55f0ae7052295b9c77c21e85fe777f30033c3b03",
+                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/e163c19fc4e2ff49c6dd41386005ea5e469c1ceb",
+                "reference": "e163c19fc4e2ff49c6dd41386005ea5e469c1ceb",
                 "shasum": ""
             },
             "require": {
@@ -795,9 +795,6 @@
             },
             "type": "library",
             "autoload": {
-                "files": [
-                    "src/functions.php"
-                ],
                 "psr-4": {
                     "StellarWP\\Shepherd\\": "src/"
                 }
@@ -819,9 +816,9 @@
             "description": "A library for offloading tasks to background processes.",
             "support": {
                 "issues": "https://github.com/stellarwp/shepherd/issues",
-                "source": "https://github.com/stellarwp/shepherd/tree/0.0.3"
+                "source": "https://github.com/stellarwp/shepherd/tree/fix/temp-no-namespace-files"
             },
-            "time": "2025-07-31T19:19:54+00:00"
+            "time": "2025-08-01T17:30:32+00:00"
         },
         {
             "name": "stellarwp/telemetry",
@@ -7290,6 +7287,7 @@
     "stability-flags": {
         "stellarwp/coding-standards": 20,
         "stellarwp/models": 20,
+        "stellarwp/shepherd": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
     "prefer-stable": true,
