@@ -80,6 +80,21 @@ class Tribe__Main {
 		}
 
 		$vendor_folder = dirname( dirname( __DIR__ ) ) . '/vendor/';
+		
+		// Ensure shepherd functions.php stub exists before loading autoloader
+		$shepherd_functions = $vendor_folder . 'stellarwp/shepherd/src/functions.php';
+		if ( ! file_exists( $shepherd_functions ) && file_exists( $vendor_folder . 'stellarwp/shepherd/composer.json' ) ) {
+			$shepherd_dir = dirname( $shepherd_functions );
+			if ( ! is_dir( $shepherd_dir ) ) {
+				if ( function_exists( 'wp_mkdir_p' ) ) {
+					wp_mkdir_p( $shepherd_dir );
+				} else {
+					mkdir( $shepherd_dir, 0755, true );
+				}
+			}
+			file_put_contents( $shepherd_functions, '<?php // This file was deleted by {@see https://github.com/BrianHenryIE/strauss}.' );
+		}
+		
 		require_once realpath( $vendor_folder . 'autoload.php' );
 		require_once realpath( $vendor_folder . 'vendor-prefixed/autoload.php' );
 
