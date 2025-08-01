@@ -11,6 +11,7 @@ namespace TEC\Common;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\Lists\Country as Country_List;
+use TEC\Common\REST\Controller as REST_Controller;
 
 /**
  * Class Controller
@@ -44,6 +45,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function load_controllers(): void {
 		$this->container->register( AI\Controller::class );
+		$this->container->register( REST_Controller::class );
 	}
 
 	/**
@@ -55,5 +57,6 @@ class Controller extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		$this->container->get( Hooks::class )->unregister();
+		$this->container->get( REST_Controller::class )->unregister();
 	}
 }
