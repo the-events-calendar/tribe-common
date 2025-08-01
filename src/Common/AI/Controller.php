@@ -31,13 +31,14 @@ class Controller extends Controller_Contract {
 	 * @return bool Whether the controller is active or not.
 	 */
 	public function is_active(): bool {
-		// Check if MCP support is enabled in settings.
-		$mcp_support = tribe_get_option( 'tec_mcp_support', false );
-
-		// TODO: Remove this once we have a proper way to enable/disable MCP support.
-		$mcp_support = true;
-
-		return $mcp_support;
+		/**
+		 * Filters whether the AI MCP integration is active.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $is_active Whether the AI MCP integration is active.
+		 */
+		return (bool) apply_filters( 'tec_common_ai_mcp_is_active', true );
 	}
 
 	/**
@@ -47,11 +48,11 @@ class Controller extends Controller_Contract {
 	 */
 	public function do_register(): void {
 		// Register AI_Service singleton in the container.
-		$this->container->singleton( MCP\AI_Service::class );
+		$this->container->singleton( MCP\AI_Service::class, MCP\AI_Service::class, [ 'init' ] );
 		$this->container->register( MCP\Angie::class );
 
 		// Initialize AI_Service.
-		$this->container->make( MCP\AI_Service::class )->init();
+		$this->container->make( MCP\AI_Service::class );
 	}
 
 	/**

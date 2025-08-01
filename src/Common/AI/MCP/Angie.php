@@ -8,7 +8,7 @@
 namespace TEC\Common\AI\MCP;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-use Tribe__Main as Plugin;
+use Tribe__Main as Common_Main;
 
 /**
  * Class Angie
@@ -68,8 +68,9 @@ class Angie extends Controller_Contract {
 	 * @return void
 	 */
 	protected function register_assets() {
+		$main = Common_Main::instance();
 		tec_asset(
-			tribe( 'common.main' ),
+			$main,
 			'tec-angie-mcp-server',
 			'tec-angie-mcp-server.js',
 			[],
@@ -78,10 +79,8 @@ class Angie extends Controller_Contract {
 				'groups'       => [ 'tec-angie-mcp' ],
 				'conditionals' => [ $this, 'should_enqueue_mcp_assets' ],
 				'localize'     => [
-					(object) [
-						'name' => 'tecAngieMCP',
-						'data' => [ $this, 'get_mcp_localized_data' ],
-					],
+					'name' => 'tecAngieMCP',
+					'data' => [ $this, 'get_mcp_localized_data' ],
 				],
 			]
 		);

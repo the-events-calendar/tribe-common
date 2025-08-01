@@ -30,6 +30,20 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( Template::class );
 		$this->container->singleton( Country_List::class );
 		$this->container->register( Hooks::class );
+
+		// Load controllers after all common libs are loaded and initial hooks are in place.
+		add_action( 'tribe_common_loaded', [ $this, 'load_controllers' ] );
+	}
+
+	/**
+	 * Load controllers after all common libs are loaded and initial hooks are in place.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function load_controllers(): void {
+		$this->container->register( AI\Controller::class );
 	}
 
 	/**
