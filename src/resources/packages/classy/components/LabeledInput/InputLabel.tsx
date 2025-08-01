@@ -6,7 +6,6 @@ export function InputLabel( { label }: { label: string } ) {
 			className="classy-component__input-label"
 			aria-hidden={ true }
 			style={ {
-				textTransform: 'capitalize',
 				fontSize: 'var(--classy-font-size-15)',
 				fontWeight: 'var(--tec-font-weight-regular)',
 			} }
