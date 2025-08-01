@@ -40,4 +40,12 @@ foreach ( $shepherd_files as $file ) {
 	}
 }
 
+// Create stub functions.php file if missing (Strauss deletes it but composer autoload still references it)
+$original_functions_file = 'vendor/stellarwp/shepherd/src/functions.php';
+if ( ! file_exists( $original_functions_file ) ) {
+	$stub_content = '<?php // This file was deleted by {@see https://github.com/BrianHenryIE/strauss}.';
+	file_put_contents( $original_functions_file, $stub_content );
+	echo "Created stub functions.php file: {$original_functions_file}\n";
+}
+
 echo "Shepherd namespace fix completed.\n";
