@@ -35,39 +35,7 @@ class Angie extends Controller_Contract {
 	 *
 	 * @since TBD
 	 */
-	public function do_register(): void {
-		$this->register_hooks();
-		$this->register_assets();
-	}
-
-	/**
-	 * Unregister the controller.
-	 *
-	 * @since TBD
-	 */
-	public function unregister(): void {
-		// Remove hooks if needed.
-	}
-
-	/**
-	 * Register hooks for the controller.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	protected function register_hooks() {
-		// Add hooks here for MCP functionality.
-	}
-
-	/**
-	 * Register assets for the MCP server.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	protected function register_assets() {
+	protected function do_register(): void {
 		$main = Common_Main::instance();
 		tec_asset(
 			$main,
@@ -77,7 +45,6 @@ class Angie extends Controller_Contract {
 			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ],
 			[
 				'groups'       => [ 'tec-angie-mcp' ],
-				'conditionals' => [ $this, 'should_enqueue_mcp_assets' ],
 				'localize'     => [
 					'name' => 'tecAngieMCP',
 					'data' => [ $this, 'get_mcp_localized_data' ],
@@ -87,14 +54,12 @@ class Angie extends Controller_Contract {
 	}
 
 	/**
-	 * Check if MCP assets should be enqueued.
+	 * Unregister the controller.
 	 *
 	 * @since TBD
-	 *
-	 * @return bool
 	 */
-	public function should_enqueue_mcp_assets() {
-		return current_user_can( 'use_angie' ); // phpcs:ignore WordPress.WP.Capabilities.Unknown -- Custom capability for AI features
+	public function unregister(): void {
+		// Remove hooks if needed.
 	}
 
 	/**
