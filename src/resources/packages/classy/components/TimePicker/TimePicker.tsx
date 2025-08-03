@@ -15,21 +15,11 @@ function getTimeOptions(
 	const times: ComboboxControlOption[] = [];
 
 	// Set default start and end dates if null.
-	let start: Date;
-	if ( startDate ) {
-		start = new Date( startDate );
-	} else {
-		start = new Date();
-		start.setHours( 0, 0, 0 );
-	}
+	let start = startDate ? new Date( startDate ) : new Date();
+	start.setHours( 0, 0, 0 );
 
-	let end: Date;
-	if ( endDate ) {
-		end = new Date( endDate );
-	} else {
-		end = new Date();
-		end.setHours( 23, 59, 0 );
-	}
+	let end = endDate ? new Date( endDate ) : new Date();
+	end.setHours( 23, 59, 0 );
 
 	// Adjust start time to the nearest interval.
 	let hStart = start.getHours();
@@ -49,14 +39,20 @@ function getTimeOptions(
 			const date = new Date( currentDate );
 			date.setHours( h, m, 0, 0 );
 
-			// Check if the generated time is within the range
-			if ( ! startDate || date >= start ) {
-				if ( ! endDate || date <= end ) {
-					times.push( {
-						label: format( timeFormat, date ),
-						value: format( 'H:i:s', date ),
-					} );
-				}
+			// Modified validation to handle the time range properly.
+			const timeValue = date.getTime();
+			const startValue = start.getTime();
+			const endValue = end.getTime();
+
+			// Check if time is within range, considering the date part separately.
+			const startTimeValid = ! startDate || timeValue >= startValue;
+			const endTimeValid = ! endDate || timeValue <= endValue;
+
+			if ( startTimeValid && endTimeValid ) {
+				times.push( {
+					label: format( timeFormat, date ),
+					value: format( 'H:i:s', date ),
+				} );
 			}
 
 			m += timeInterval;
@@ -139,10 +135,17 @@ export default function TimePicker( props: {
 				return;
 			}
 
-			setSelectedTime( value );
-			onChange( date );
+			// Add validation to ensure the selected time is within bounds.
+			const selectedTime = date.getTime();
+			const startLimit = startDate ? startDate.getTime() : 0;
+			const endLimit = endDate ? endDate.getTime() : Infinity;
+
+			if ( selectedTime >= startLimit && selectedTime <= endLimit ) {
+				setSelectedTime( value );
+				onChange( date );
+			}
 		},
-		[ currenDateYearMonthDayPrefix, onChange ]
+		[ currenDateYearMonthDayPrefix, onChange, startDate, endDate ]
 	);
 
 	const onFilterValueChange = useCallback(
