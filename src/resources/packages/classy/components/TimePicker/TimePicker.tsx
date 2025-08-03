@@ -14,12 +14,23 @@ function getTimeOptions(
 ): ComboboxControlOption[] {
 	const times: ComboboxControlOption[] = [];
 
-	// Set default start and end dates if null.
-	let start = startDate ? new Date( startDate ) : new Date();
+	// For start time picker, end boundary is the current end time
+	// For end time picker, start boundary is the current start time
+	let start = new Date( currentDate );
 	start.setHours( 0, 0, 0 );
 
-	let end = endDate ? new Date( endDate ) : new Date();
+	let end = new Date( currentDate );
 	end.setHours( 23, 59, 0 );
+
+	// If we have a start date constraint, use it as the lower boundary
+	if ( startDate ) {
+		start = new Date( startDate );
+	}
+
+	// If we have an end date constraint, use it as the upper boundary
+	if ( endDate ) {
+		end = new Date( endDate );
+	}
 
 	// Adjust start time to the nearest interval.
 	let hStart = start.getHours();
@@ -39,16 +50,16 @@ function getTimeOptions(
 			const date = new Date( currentDate );
 			date.setHours( h, m, 0, 0 );
 
-			// Modified validation to handle the time range properly.
-			const timeValue = date.getTime();
-			const startValue = start.getTime();
-			const endValue = end.getTime();
+			// Get just the time part for comparison (hours and minutes)
+			const timeValue = date.getHours() * 60 + date.getMinutes();
+			const startValue = start.getHours() * 60 + start.getMinutes();
+			const endValue = end.getHours() * 60 + end.getMinutes();
 
-			// Check if time is within range, considering the date part separately.
-			const startTimeValid = ! startDate || timeValue >= startValue;
-			const endTimeValid = ! endDate || timeValue <= endValue;
+			// Check if time is within range
+			const isAfterStart = !startDate || timeValue >= startValue;
+			const isBeforeEnd = !endDate || timeValue <= endValue;
 
-			if ( startTimeValid && endTimeValid ) {
+			if ( isAfterStart && isBeforeEnd ) {
 				times.push( {
 					label: format( timeFormat, date ),
 					value: format( 'H:i:s', date ),
@@ -63,21 +74,22 @@ function getTimeOptions(
 
 function getOptions( currentDate: Date, timeFormat: string, timeOptions: ComboboxControlOption[] ) {
 	const formattedCurrentDate = format( 'H:i:s', currentDate );
-	const filteredtOptions = timeOptions.filter( ( option ) => {
-		return option.value === formattedCurrentDate;
-	} );
 
-	if ( filteredtOptions.length > 0 ) {
+	// First check if the current time exists in the options
+	const existingOption = timeOptions.find( option => option.value === formattedCurrentDate );
+	if ( existingOption ) {
 		return timeOptions;
 	}
 
-	return [
-		{
-			label: format( timeFormat, currentDate ),
-			value: format( 'H:i:s', currentDate ),
-			isCustom: true,
-		},
-	];
+	// If not found, create a custom option and merge with existing options
+	const customOption = {
+		label: format( timeFormat, currentDate ),
+		value: format( 'H:i:s', currentDate ),
+		isCustom: true,
+	};
+
+	// Return all options plus the custom one
+	return [ ...timeOptions, customOption ];
 }
 
 export default function TimePicker( props: {
@@ -135,44 +147,46 @@ export default function TimePicker( props: {
 				return;
 			}
 
-			// Add validation to ensure the selected time is within bounds.
-			const selectedTime = date.getTime();
-			const startLimit = startDate ? startDate.getTime() : 0;
-			const endLimit = endDate ? endDate.getTime() : Infinity;
-
-			if ( selectedTime >= startLimit && selectedTime <= endLimit ) {
-				setSelectedTime( value );
-				onChange( date );
-			}
+			setSelectedTime( value );
+			onChange( date );
 		},
-		[ currenDateYearMonthDayPrefix, onChange, startDate, endDate ]
+		[ currenDateYearMonthDayPrefix, onChange ]
 	);
 
 	const onFilterValueChange = useCallback(
 		( value: string | null | undefined ): void => {
 			if ( ! value ) {
+				setOptions( timeOptions );
 				return;
 			}
 
 			// Reduce the options to only those whose label start with the value.
-			const newOptions = timeOptions.filter( ( option ) => option.label.startsWith( value ) );
+			const newOptions = timeOptions.filter( ( option ) =>
+				option.label.toLowerCase().startsWith( value.toLowerCase() )
+			);
 
 			if ( newOptions.length > 0 ) {
 				// There are still matching options.
 				setOptions( newOptions );
 			} else {
-				// Render with only one option that indicates the user is inserting a custom time.
-				setOptions( [
-					{
-						label: value,
-						value,
+				// Try to parse the value as a time
+				const date = getValidDateOrNull( currenDateYearMonthDayPrefix + value );
+				if ( date ) {
+					// If it's a valid time, create a custom option
+					const customOption = {
+						label: format( timeFormat, date ),
+						value: format( 'H:i:s', date ),
 						isCustom: true,
-					},
-				] );
-				setSelectedTime( value );
+					};
+					setOptions( [ customOption ] );
+					setSelectedTime( customOption.value );
+				} else {
+					// If not a valid time, show all options
+					setOptions( timeOptions );
+				}
 			}
 		},
-		[ timeOptions ]
+		[ timeOptions, currenDateYearMonthDayPrefix, timeFormat ]
 	);
 
 	let className = 'classy-field__control classy-field__control--input classy-field__control--time-picker';
