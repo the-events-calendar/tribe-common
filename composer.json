@@ -34,7 +34,7 @@
     "stellarwp/installer": "^1.1.0",
     "stellarwp/models": "dev-main",
     "stellarwp/schema": "2.0.1",
-    "stellarwp/shepherd": "dev-temp-no-namespace-files",
+    "stellarwp/shepherd": "dev-fix/php-74-standalone",
     "stellarwp/telemetry": "^2.3.4",
     "stellarwp/uplink": "2.2.2"
   },
@@ -159,6 +159,10 @@
     "patches": {
       "fakerphp/faker": {
         "Use prefixed Psr\\Container\\ContainerInterface": "tests/_patches/faker-use-prefixed-containerinterface.patch"
+      },
+      "stellarwp/shepherd": {
+        "Remove files autoload": "common/_patches/stellarwp-shepherd-remove-files-autoload.patch",
+        "Correct Container type-hint": "_patches/stellarwp-shepherd-correct-container-typehint.patch"
       }
     }
   }
