@@ -594,11 +594,34 @@
 		.classy-modal__content {
 			padding: var(--tec-spacer-7) var(--tec-spacer-6);
 
+			&.classy-modal__content--sections {
+				display: flex;
+				flex-direction: column;
+				gap: var(--tec-spacer-5);
+			}
+
 			.components-input-control__input {
 				font-size: var(--tec-font-size-3);
 				height: var(--tec-spacer-9);
 				padding: var(--tec-spacer-2) var(--tec-spacer-3);
 				width: 444px;
+			}
+		}
+
+		.classy-modal__section {
+			display: flex;
+			flex-direction: column;
+			font-size: var(--tec-font-size-2);
+			gap: var(--tec-spacer-3);
+
+			.classy-modal__section-title {
+				font-size: var(--tec-font-size-3);
+				margin-bottom: 0;
+				margin-top: 0;
+			}
+
+			.classy-modal__section-text{
+				font-size: var(--tec-font-size-2);
 			}
 		}
 
@@ -681,4 +704,9 @@
 .classy-accent-color {
 	color: var(--classy-accent-color);
 	fill: var(--classy-accent-color);
+}
+
+/* This is used to indent elements after a toggle. */
+.classy-toggle-indented {
+	margin-left: 40px;
 }
