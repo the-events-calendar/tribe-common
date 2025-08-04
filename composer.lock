@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f82f192b19cd9bc12b807ceba98508de",
+    "content-hash": "2fe32364f9f993c3c227bfa1ee3ef5df",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -757,16 +757,16 @@
         },
         {
             "name": "stellarwp/shepherd",
-            "version": "dev-temp-no-namespace-files",
+            "version": "dev-fix/php-74-fatal",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/shepherd.git",
-                "reference": "e163c19fc4e2ff49c6dd41386005ea5e469c1ceb"
+                "reference": "d86e98f891ea94f7cddea409f67d4f488289203c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/e163c19fc4e2ff49c6dd41386005ea5e469c1ceb",
-                "reference": "e163c19fc4e2ff49c6dd41386005ea5e469c1ceb",
+                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/d86e98f891ea94f7cddea409f67d4f488289203c",
+                "reference": "d86e98f891ea94f7cddea409f67d4f488289203c",
                 "shasum": ""
             },
             "require": {
@@ -816,9 +816,9 @@
             "description": "A library for offloading tasks to background processes.",
             "support": {
                 "issues": "https://github.com/stellarwp/shepherd/issues",
-                "source": "https://github.com/stellarwp/shepherd/tree/fix/temp-no-namespace-files"
+                "source": "https://github.com/stellarwp/shepherd/tree/fix/php-74-fatal"
             },
-            "time": "2025-08-01T17:30:32+00:00"
+            "time": "2025-08-04T15:48:25+00:00"
         },
         {
             "name": "stellarwp/telemetry",
