@@ -81,6 +81,9 @@ class Tribe__Main {
 
 		$vendor_folder = dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/';
 		require_once realpath( $vendor_folder . 'vendor-prefixed/autoload.php' );
+		// Manually require the prefixed functions.php file.
+		require_once realpath( $vendor_folder . '/vendor-prefixed/stellarwp/shepherd/src/functions.php' );
+
 		require_once realpath( $vendor_folder . 'autoload.php' );
 
 		// The DI container class.

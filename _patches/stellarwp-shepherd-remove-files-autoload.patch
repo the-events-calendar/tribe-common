@@ -1,0 +1,12 @@
+--- a/composer.json
++++ b/composer.json
+@@ -28,8 +28,5 @@
+         "psr-4": {
+             "StellarWP\\Shepherd\\": "src/"
+         }
+-    },
+-    "files": [
+-        "src/functions.php"
+-    ]
++    }
+ }
