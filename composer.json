@@ -159,6 +159,10 @@
     "patches": {
       "fakerphp/faker": {
         "Use prefixed Psr\\Container\\ContainerInterface": "tests/_patches/faker-use-prefixed-containerinterface.patch"
+      },
+      "stellarwp/shepherd": {
+        "Remove files autoload": "common/_patches/stellarwp-shepherd-remove-files-autoload.patch",
+        "Correct Container type-hint": "_patches/stellarwp-shepherd-correct-container-typehint.patch"
       }
     }
   }

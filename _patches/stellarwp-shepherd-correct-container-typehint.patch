@@ -1,0 +1,11 @@
+--- a/src/Config.php
++++ b/src/Config.php
+@@ -10,7 +10,7 @@
+ namespace StellarWP\Shepherd;
+
+ use StellarWP\Shepherd\Config\Container;
+-use StellarWP\ContainerContract\ContainerInterface;
++use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
+ use TypeError;
+
+ class Config {
