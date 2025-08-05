@@ -14,22 +14,22 @@ function getTimeOptions(
 ): ComboboxControlOption[] {
 	const times: ComboboxControlOption[] = [];
 
-	// For start time picker, end boundary is the current end time
-	// For end time picker, start boundary is the current start time
-	let start = new Date( currentDate );
-	start.setHours( 0, 0, 0 );
+	let start: Date, end: Date;
 
-	let end = new Date( currentDate );
-	end.setHours( 23, 59, 0 );
-
-	// If we have a start date constraint, use it as the lower boundary
+	// If we have a start date constraint, use it as the lower boundary.
 	if ( startDate ) {
 		start = new Date( startDate );
+	} else {
+		start = new Date( currentDate );
+		start.setHours( 0, 0, 0 );
 	}
 
-	// If we have an end date constraint, use it as the upper boundary
+	// If we have an end date constraint, use it as the upper boundary.
 	if ( endDate ) {
 		end = new Date( endDate );
+	} else {
+		end = new Date( currentDate );
+		end.setHours( 23, 59, 0 );
 	}
 
 	// Adjust start time to the nearest interval.
@@ -50,12 +50,12 @@ function getTimeOptions(
 			const date = new Date( currentDate );
 			date.setHours( h, m, 0, 0 );
 
-			// Get just the time part for comparison (hours and minutes)
+			// Compare using minutes for better accuracy.
 			const timeValue = date.getHours() * 60 + date.getMinutes();
 			const startValue = start.getHours() * 60 + start.getMinutes();
 			const endValue = end.getHours() * 60 + end.getMinutes();
 
-			// Check if time is within range
+			// Check if time is within range.
 			const isAfterStart = ! startDate || timeValue > startValue;
 			const isBeforeEnd = ! endDate || timeValue < endValue;
 
@@ -75,20 +75,20 @@ function getTimeOptions(
 function getOptions( currentDate: Date, timeFormat: string, timeOptions: ComboboxControlOption[] ) {
 	const formattedCurrentDate = format( 'H:i:s', currentDate );
 
-	// First check if the current time exists in the options
+	// First check if the current time exists in the options.
 	const existingOption = timeOptions.find( ( option ) => option.value === formattedCurrentDate );
 	if ( existingOption ) {
 		return timeOptions;
 	}
 
-	// If not found, create a custom option and merge with existing options
+	// If not found, create a custom option and merge with existing options this is the case where user types a time.
 	const customOption = {
 		label: format( timeFormat, currentDate ),
 		value: format( 'H:i:s', currentDate ),
 		isCustom: true,
 	};
 
-	// Return all options plus the custom one
+	// Return all options plus the custom one.
 	return [ ...timeOptions, customOption ];
 }
 
