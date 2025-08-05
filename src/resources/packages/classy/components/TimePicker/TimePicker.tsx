@@ -169,10 +169,10 @@ export default function TimePicker( props: {
 				// There are still matching options.
 				setOptions( newOptions );
 			} else {
-				// Try to parse the value as a time
+				// Try to parse the value as a time.
 				const date = getValidDateOrNull( currenDateYearMonthDayPrefix + value );
 				if ( date ) {
-					// If it's a valid time, create a custom option
+					// If it's a valid time, create a custom option.
 					const customOption = {
 						label: format( timeFormat, date ),
 						value: format( 'H:i:s', date ),
@@ -181,12 +181,12 @@ export default function TimePicker( props: {
 					setOptions( [ customOption ] );
 					setSelectedTime( customOption.value );
 				} else {
-					// If not a valid time, show all options
+					// If not a valid time, show all options.
 					setOptions( timeOptions );
 				}
 			}
 		},
-		[ timeOptions, currenDateYearMonthDayPrefix, timeFormat ]
+		[ timeOptions ]
 	);
 
 	let className = 'classy-field__control classy-field__control--input classy-field__control--time-picker';
