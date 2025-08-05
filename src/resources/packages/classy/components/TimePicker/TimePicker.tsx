@@ -56,8 +56,8 @@ function getTimeOptions(
 			const endValue = end.getHours() * 60 + end.getMinutes();
 
 			// Check if time is within range
-			const isAfterStart = !startDate || timeValue > startValue;
-			const isBeforeEnd = !endDate || timeValue < endValue;
+			const isAfterStart = ! startDate || timeValue > startValue;
+			const isBeforeEnd = ! endDate || timeValue < endValue;
 
 			if ( isAfterStart && isBeforeEnd ) {
 				times.push( {
@@ -76,7 +76,7 @@ function getOptions( currentDate: Date, timeFormat: string, timeOptions: Combobo
 	const formattedCurrentDate = format( 'H:i:s', currentDate );
 
 	// First check if the current time exists in the options
-	const existingOption = timeOptions.find( option => option.value === formattedCurrentDate );
+	const existingOption = timeOptions.find( ( option ) => option.value === formattedCurrentDate );
 	if ( existingOption ) {
 		return timeOptions;
 	}
