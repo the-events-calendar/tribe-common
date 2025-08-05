@@ -44,8 +44,8 @@ class Angie extends Controller_Contract {
 			[],
 			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ],
 			[
-				'groups'       => [ 'tec-angie-mcp' ],
-				'localize'     => [
+				'groups'   => [ 'tec-angie-mcp' ],
+				'localize' => [
 					'name' => 'tecAngieMCP',
 					'data' => [ $this, 'get_mcp_localized_data' ],
 				],
