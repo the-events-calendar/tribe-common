@@ -56,8 +56,8 @@ function getTimeOptions(
 			const endValue = end.getHours() * 60 + end.getMinutes();
 
 			// Check if time is within range.
-			const isAfterStart = ! startDate || timeValue > startValue;
-			const isBeforeEnd = ! endDate || timeValue < endValue;
+			const isAfterStart = ! startDate || timeValue >= startValue;
+			const isBeforeEnd = ! endDate || timeValue <= endValue;
 
 			if ( isAfterStart && isBeforeEnd ) {
 				times.push( {
