@@ -420,8 +420,13 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 			$example['organizers'] = [ $organizer_1, $organizer_2 ];
 		}
 		if ( isset( $example['venues'] ) || isset( $example['venue'] ) ) {
-			$venue_key = isset( $example['venues'] ) ? 'venues' : 'venue';
-			$example[ $venue_key ] = $venue_1;
+			if ( isset( $example['venues'] ) ) {
+				// venues should be an array
+				$example['venues'] = [ $venue_1 ];
+			} else {
+				// venue should be a scalar (backwards compatibility)
+				$example['venue'] = $venue_1;
+			}
 		}
 
 		$fixture();
@@ -550,7 +555,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		}
 
 		if ( isset( $example['venues'] ) ) {
-			$example['venues'] = $venue_1;
+			$example['venues'] = [ $venue_1 ];
 		}
 
 		if ( isset( $example['event_id'] ) ) {
@@ -635,7 +640,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 						$old_value = $example['organizers'];
 						break;
 					case 'venues':
-						$new_value = $venue_2;
+						$new_value = [ $venue_2 ];
 						$old_value = $example['venues'];
 						break;
 					case 'event_id':
@@ -668,7 +673,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 				continue;
 			}
 
-			$this->assertSame( 'venues' === $property ? [ $old_value ] : $old_value, $fresh_entity->{$using_property}, 'The property ' . $actual_property . ' / ' . $property . ' should be as expected.' );
+			$this->assertSame( $old_value, $fresh_entity->{$using_property}, 'The property ' . $actual_property . ' / ' . $property . ' should be as expected.' );
 
 			$this->assert_endpoint( sprintf( $this->endpoint->get_base_path(), $entity_id ), 'PUT', $user_can_update ? 200 : ( is_user_logged_in() ? 403 : 401 ), $params );
 
@@ -677,9 +682,9 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 			$fresh_entity = $this->normalize_entity( $orm->by_args( [ 'id' => $entity_id, 'status' => 'any' ] )->first() );
 
 			if ( $user_can_update ) {
-				$this->assertSame( 'venues' === $property ? [ $new_value ] : $new_value, $fresh_entity->{$using_property}, 'The property ' . $actual_property . ' / ' . $property . ' should have been updated.' );
+				$this->assertSame( $new_value, $fresh_entity->{$using_property}, 'The property ' . $actual_property . ' / ' . $property . ' should have been updated.' );
 			} else {
-				$this->assertSame( 'venues' === $property ? [ $old_value ] : $old_value, $fresh_entity->{$using_property}, 'The property ' . $actual_property . ' / ' . $property . ' should not have been updated.' );
+				$this->assertSame( $old_value, $fresh_entity->{$using_property}, 'The property ' . $actual_property . ' / ' . $property . ' should not have been updated.' );
 			}
 		}
 
