@@ -58,7 +58,9 @@ trait Update_Entity_Response {
 				'id'     => $id,
 				'status' => 'any',
 			]
-		)->set_args( $params )->save();
+		)->set_args( $params );
+
+		$entity->save();
 
 		if ( empty( $entity ) ) {
 			return new WP_REST_Response(
