@@ -53,16 +53,15 @@ trait Update_Entity_Response {
 			);
 		}
 
-		$entity = $this->get_orm()->by_args(
+		$save_result = $this->get_orm()->by_args(
 			[
 				'id'     => $id,
 				'status' => 'any',
 			]
-		)->set_args( $params );
+		)->set_args( $params )->save();
 
-		$entity->save();
-
-		if ( empty( $entity ) ) {
+		// Check if the save operation succeeded by verifying the result.
+		if ( ! $save_result ) {
 			return new WP_REST_Response(
 				[
 					'error' => __( 'Failed to update entity.', 'tribe-common' ),
@@ -71,15 +70,26 @@ trait Update_Entity_Response {
 			);
 		}
 
+		// Fetch the updated entity to return in response.
+		$updated_entity = $this->get_orm()->by_args(
+			[
+				'id'     => $id,
+				'status' => 'any',
+			]
+		)->first();
+
+		// Verify the entity exists after update.
+		if ( ! $updated_entity ) {
+			return new WP_REST_Response(
+				[
+					'error' => __( 'Entity not found after update.', 'tribe-common' ),
+				],
+				500
+			);
+		}
+
 		return new WP_REST_Response(
-			$this->get_formatted_entity(
-				$this->get_orm()->by_args(
-					[
-						'id'     => $id,
-						'status' => 'any',
-					]
-				)->first()
-			),
+			$this->get_formatted_entity( $updated_entity ),
 			200
 		);
 	}
