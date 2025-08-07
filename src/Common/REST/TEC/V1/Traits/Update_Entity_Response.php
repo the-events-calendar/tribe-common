@@ -75,7 +75,7 @@ trait Update_Entity_Response {
 			$this->get_formatted_entity(
 				$this->get_orm()->by_args(
 					[
-						'id'     => array_keys( $entity )[0],
+						'id'     => $id,
 						'status' => 'any',
 					]
 				)->first()
