@@ -8,13 +8,19 @@
 	--classy-font-size-13: calc(var(--tec-font-size-1) + 1px);
 	--classy-font-size-15: calc(var(--tec-font-size-2) + 1px);
 	--classy-font-size-16: var(--tec-font-size-3);
-	--classy-height-75: 24px;
-	--classy-height-100: 32px;
-	--classy-input-padding-left-right: var(--tec-spacer-3);
 	--classy-input-padding-top-bottom: var(--tec-spacer-2);
+	--classy-input-padding-left-right: var(--tec-spacer-3);
 	--classy-input-width: 375px;
-	--classy-padding-horizontal: var(--tec-spacer-6);
+	/* 50% ligter than the primary color */
+	--classy-highlight-color: rgb(
+		from var(--tec-color-accent-primary) r g b / 0.5
+	);
+	--classy-accent-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+	--classy-icon-default-color: #1E1E1E;
 	--classy-padding-vertical: var(--tec-spacer-7);
+	--classy-padding-horizontal: var(--tec-spacer-6);
+	--classy-height-100: 32px;
+	--classy-height-75: 24px;
 
 	/* This comes from the WP components computed values. */
 	--classy-line-height: 18.2px;
@@ -202,6 +208,11 @@
 				transform: translateX(calc(var(--classy-padding-horizontal) * -1));
 				width: 100%;
 				padding: var(--tec-spacer-3) var(--tec-spacer-6);
+
+				&.classy-field__inputs-section--cards{
+					background-color: transparent;
+					padding: var(--tec-spacer-7) var(--tec-spacer-6);
+				}
 			}
 		}
 
@@ -209,6 +220,11 @@
 			color: var(--tec-color-gutenberg-grey-600);
 			font-size: var(--classy-font-size-13);
 			font-weight: var(--tec-font-weight-regular);
+
+			&.classy-field__input-note--error {
+				color: var(--tec-color-gutenberg-alert-red);
+				font-weight: var(--tec-font-weight-regular);
+			}
 		}
 	}
 
@@ -262,7 +278,7 @@
 			margin: 0;
 		}
 
-		&.classy-field__control--invalid {
+		&.classy-field__control--invalid:not(:focus-within) {
 			border: 2px solid var(--tec-color-gutenberg-alert-red);
 		}
 
@@ -452,6 +468,7 @@
 		gap: var(--tec-spacer-3);
 		justify-content: center;
 		position: relative;
+		width: 100%;
 
 		.classy__linked-post-card {
 			align-items: flex-start;
@@ -473,6 +490,10 @@
 
 			.classy-linked-post-card__detail {
 				font-size: var(--classy-font-size-15);
+
+				& button.is-link {
+					font-size: var(--classy-font-size-15);
+				}
 			}
 
 			.classy-linked-post-card__actions {
@@ -485,6 +506,10 @@
 					width: 24px;
 					height: 24px;
 				}
+			}
+
+			.classy-linked-post-card__section {
+				margin-top: var(--tec-spacer-4);
 			}
 		}
 	}
@@ -581,11 +606,34 @@
 			--classy-input-width: 444px;
 			padding: var(--tec-spacer-7) var(--tec-spacer-6);
 
+			&.classy-modal__content--sections {
+				display: flex;
+				flex-direction: column;
+				gap: var(--tec-spacer-5);
+			}
+
 			.components-input-control__input {
 				font-size: var(--tec-font-size-3);
 				height: var(--tec-spacer-9);
 				padding: var(--tec-spacer-2) var(--tec-spacer-3);
 				width: var(--classy-input-width);
+			}
+		}
+
+		.classy-modal__section {
+			display: flex;
+			flex-direction: column;
+			font-size: var(--tec-font-size-2);
+			gap: var(--tec-spacer-3);
+
+			.classy-modal__section-title {
+				font-size: var(--tec-font-size-3);
+				margin-bottom: 0;
+				margin-top: 0;
+			}
+
+			.classy-modal__section-text{
+				font-size: var(--tec-font-size-2);
 			}
 		}
 
@@ -667,4 +715,22 @@
 	align-items: center;
 	display: flex;
 	gap: var(--tec-spacer-1);
+}
+
+.classy-icon {
+	color: var(--classy-icon-default-color);
+	fill: var(--classy-icon-default-color);
+	height: 24px;
+	vertical-align: middle;
+	width: 24px;
+}
+
+.classy-accent-color {
+	color: var(--classy-accent-color);
+	fill: var(--classy-accent-color);
+}
+
+/* This is used to indent elements after a toggle. */
+.classy-toggle-indented {
+	margin-left: 40px;
 }
