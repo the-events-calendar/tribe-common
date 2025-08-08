@@ -72,7 +72,7 @@ class Controller extends Controller_Contract {
 					'callback'            => $this->container->callback( Country::class, 'get' ),
 					'permission_callback' => $this->get_permission_callback(),
 					'args'                => [],
-					'description'         => _x('Returns a list of country choice options.', 'REST endpoint description', 'tribe-events-calendar-pro'),
+					'description'         => _x( 'Returns a list of country choice options.', 'REST endpoint description', 'tribe-events-calendar-pro' ),
 				],
 			]
 		);
@@ -86,7 +86,7 @@ class Controller extends Controller_Contract {
 					'callback'            => $this->container->callback( US_States::class, 'get' ),
 					'permission_callback' => $this->get_permission_callback(),
 					'args'                => [],
-					'description'         => _x('Returns a list of country choice options.', 'REST endpoint description', 'tribe-events-calendar-pro'),
+					'description'         => _x( 'Returns a list of country choice options.', 'REST endpoint description', 'tribe-events-calendar-pro' ),
 				],
 			]
 		);
@@ -100,7 +100,7 @@ class Controller extends Controller_Contract {
 					'callback'            => $this->container->callback( Currencies::class, 'get' ),
 					'permission_callback' => $this->get_permission_callback(),
 					'args'                => [],
-					'description'         => _x('Returns a list of currency choice options.', 'REST endpoint description', 'tribe-events-calendar-pro'),
+					'description'         => _x( 'Returns a list of currency choice options.', 'REST endpoint description', 'tribe-events-calendar-pro' ),
 				],
 			]
 		);
