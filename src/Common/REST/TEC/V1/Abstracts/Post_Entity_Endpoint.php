@@ -241,8 +241,9 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 		 *
 		 * @param array  $entity    The entity data.
 		 * @param string $post_type The post type being transformed.
+		 * @param Post_Entity_Endpoint $this The endpoint instance.
 		 */
-		$entity = apply_filters( 'tec_rest_v1_post_entity_transform', $entity, $post_type );
+		$entity = apply_filters( 'tec_rest_v1_post_entity_transform', $entity, $post_type, $this );
 
 		/**
 		 * Filter to allow modification of the entity data for a specific post type.
@@ -251,8 +252,9 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 		 * @since TBD
 		 *
 		 * @param array $entity The entity data.
+		 * @param Post_Entity_Endpoint $this The endpoint instance.
 		 */
-		$entity = apply_filters( "tec_rest_v1_{$post_type}_transform_entity", $entity );
+		$entity = apply_filters( "tec_rest_v1_{$post_type}_transform_entity", $entity, $this );
 
 		return $entity;
 	}
