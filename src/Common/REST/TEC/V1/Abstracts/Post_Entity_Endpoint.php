@@ -232,6 +232,28 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	 * @return array
 	 */
 	protected function transform_entity( array $entity ): array {
+		$post_type = $this->get_post_type();
+
+		/**
+		 * Filter to allow modification of the entity data globally for all post types.
+		 *
+		 * @since TBD
+		 *
+		 * @param array  $entity    The entity data.
+		 * @param string $post_type The post type being transformed.
+		 */
+		$entity = apply_filters( 'tec_rest_v1_post_entity_transform', $entity, $post_type );
+
+		/**
+		 * Filter to allow modification of the entity data for a specific post type.
+		 * The dynamic portion of the hook name, `$post_type`, refers to the post type slug.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $entity The entity data.
+		 */
+		$entity = apply_filters( "tec_rest_v1_{$post_type}_transform_entity", $entity );
+
 		return $entity;
 	}
 }
