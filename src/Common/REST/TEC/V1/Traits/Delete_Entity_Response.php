@@ -65,7 +65,7 @@ trait Delete_Entity_Response {
 
 		// If we're forcing, then delete permanently using WordPress function.
 		if ( $force ) {
-			// Force delete bypasses all status checks
+			// Force delete bypasses all status checks.
 			$result = wp_delete_post( $id, true );
 
 			if ( ! $result ) {
@@ -86,7 +86,7 @@ trait Delete_Entity_Response {
 			if ( ! $supports_trash ) {
 				return new WP_REST_Response(
 					[
-						'error' => __( "The entity does not support trashing. Set 'force=true' to delete.", 'tribe-common' )
+						'error' => __( "The entity does not support trashing. Set 'force=true' to delete.", 'tribe-common' ),
 					],
 					501
 				);
