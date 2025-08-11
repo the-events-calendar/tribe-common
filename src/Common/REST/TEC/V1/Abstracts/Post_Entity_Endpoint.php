@@ -12,6 +12,8 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Abstracts;
 
 use TEC\Common\REST\TEC\V1\Contracts\Post_Entity_Endpoint_Interface;
+use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
 use WP_REST_Request;
 use WP_REST_Posts_Controller;
 use WP_Post_Type;
@@ -110,6 +112,26 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 		}
 
 		return current_user_can( $this->get_post_type_object()->cap->delete_post, $id );
+	}
+
+	/**
+	 * Returns the arguments for the delete request.
+	 *
+	 * @since TBD
+	 *
+	 * @return QueryArgumentCollection
+	 */
+	public function delete_args(): QueryArgumentCollection {
+		$collection = new QueryArgumentCollection();
+
+		$collection[] = new Boolean(
+			'force',
+			fn() => __( 'Whether to bypass Trash and force deletion.', 'tribe-common' ),
+			false,
+			false
+		);
+
+		return $collection;
 	}
 
 	/**
