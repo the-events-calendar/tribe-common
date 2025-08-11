@@ -1,3 +1,3 @@
-import { NumericRange} from './NumericRange';
+import { NumericRange } from './NumericRange';
 
-export type Days = NumericRange<1, 31>;
+export type Days = NumericRange< 1, 31 >;

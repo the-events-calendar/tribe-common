@@ -1,3 +1,3 @@
 import { NumericRange } from './NumericRange';
 
-export type StartOfWeek = NumericRange<0, 6>;
+export type StartOfWeek = NumericRange< 0, 6 >;
