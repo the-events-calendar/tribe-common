@@ -23,7 +23,7 @@ type StartSelectorProps = {
 	startOfWeek: StartOfWeek;
 	timeFormat: string;
 	title?: string;
-}
+};
 
 const defaultTitle = _x( 'Start Date', 'Event start date selection input title', 'tribe-common' );
 const currentDate = new Date();

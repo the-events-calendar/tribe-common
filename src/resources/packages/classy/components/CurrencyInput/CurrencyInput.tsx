@@ -25,7 +25,7 @@ const defaultLabel = __( 'Price', 'tribe-common' );
  * @param {CurrencyInputProps} props
  * @return {JSX.Element} The rendered ticket price field.
  */
-export default function CurrencyInput( props: CurrencyInputProps ): JSX.Element{
+export default function CurrencyInput( props: CurrencyInputProps ): JSX.Element {
 	const {
 		label = defaultLabel,
 		onChange,
@@ -55,35 +55,32 @@ export default function CurrencyInput( props: CurrencyInputProps ): JSX.Element{
 	 * @param {string} value The raw value of the input field.
 	 * @return {string} The formatted value to be displayed in the input field.
 	 */
-	const renderValue = useCallback( ( value: string ): string => {
-		if ( hasFocus || value === '' ) {
-			return value;
-		}
+	const renderValue = useCallback(
+		( value: string ): string => {
+			if ( hasFocus || value === '' ) {
+				return value;
+			}
 
-		const pieces = value
-			.replaceAll( thousandSeparator, '' )
-			.split( decimalSeparator )
-			.map( ( piece ) => piece.replace( /[^0-9]/g, '' ) )
-			.filter( ( piece ) => piece !== '' );
+			const pieces = value
+				.replaceAll( thousandSeparator, '' )
+				.split( decimalSeparator )
+				.map( ( piece ) => piece.replace( /[^0-9]/g, '' ) )
+				.filter( ( piece ) => piece !== '' );
 
-		// The cleaned value should always use a period as the decimal separator.
-		let cleanedValue = parseFloat( pieces.join( '.' ) );
-		if ( isNaN( cleanedValue ) ) {
-			cleanedValue = 0;
-		}
+			// The cleaned value should always use a period as the decimal separator.
+			let cleanedValue = parseFloat( pieces.join( '.' ) );
+			if ( isNaN( cleanedValue ) ) {
+				cleanedValue = 0;
+			}
 
-		const formattedValue = cleanedValue.toFixed( decimalPrecision );
+			const formattedValue = cleanedValue.toFixed( decimalPrecision );
 
-		return defaultCurrency.position === 'prefix'
-			? `${ defaultCurrency.symbol }${ formattedValue }`
-			: `${ formattedValue }${ defaultCurrency.symbol }`;
-	}, [
-		hasFocus,
-		defaultCurrency,
-		decimalPrecision,
-		decimalSeparator,
-		thousandSeparator,
-	] );
+			return defaultCurrency.position === 'prefix'
+				? `${ defaultCurrency.symbol }${ formattedValue }`
+				: `${ formattedValue }${ defaultCurrency.symbol }`;
+		},
+		[ hasFocus, defaultCurrency, decimalPrecision, decimalSeparator, thousandSeparator ]
+	);
 
 	/**
 	 * Handles changes to the input field.
@@ -94,17 +91,20 @@ export default function CurrencyInput( props: CurrencyInputProps ): JSX.Element{
 	 *
 	 * @since TBD
 	 */
-	const handleChange = useCallback( ( newValue: string ): void => {
-		// If there is no change, do nothing.
-		if ( newValue === rawValue ) {
-			return;
-		}
+	const handleChange = useCallback(
+		( newValue: string ): void => {
+			// If there is no change, do nothing.
+			if ( newValue === rawValue ) {
+				return;
+			}
 
-		setRawValue( newValue );
-		if ( onChange ) {
-			onChange( newValue );
-		}
-	}, [ onChange, rawValue ] );
+			setRawValue( newValue );
+			if ( onChange ) {
+				onChange( newValue );
+			}
+		},
+		[ onChange, rawValue ]
+	);
 
 	return (
 		<LabeledInput label={ label }>

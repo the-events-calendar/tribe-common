@@ -1,3 +1,3 @@
 import { NumericRange } from './NumericRange';
 
-export type Minutes = NumericRange<0, 59>;
+export type Minutes = NumericRange< 0, 59 >;
