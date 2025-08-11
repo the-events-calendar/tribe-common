@@ -494,6 +494,18 @@
 				& button.is-link {
 					font-size: var(--classy-font-size-15);
 				}
+
+				&.classy-linked-post-card__detail--labeled {
+					label {
+						font-size: var(--tec-font-size-2);
+						font-weight: normal;
+						text-transform: none;
+					}
+				}
+
+				&.classy-linked-post-card__detail--full-width {
+					width: var(--classy-input-width);
+				}
 			}
 
 			.classy-linked-post-card__actions {
@@ -529,6 +541,12 @@
 	.classy-highlight {
 		animation: highlightBg 1s linear;
 		animation-iteration-count: 1;
+	}
+
+
+	/* The FormToken component will have a transparent background by default. */
+	.components-form-token-field__input-container {
+		background-color: var(--tec-color-background);
 	}
 }
 
