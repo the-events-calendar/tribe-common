@@ -32,8 +32,8 @@ trait Delete_Entity_Response {
 	 */
 	public function delete( array $params = [] ): WP_REST_Response {
 		$params = $this->filter_delete_params( $params );
-		$id    = $params['id'] ?? null;
-		$force = (bool) ( $params['force'] ?? false );
+		$id     = $params['id'] ?? null;
+		$force  = (bool) ( $params['force'] ?? false );
 
 		if ( ! $id ) {
 			return new WP_REST_Response(
@@ -120,6 +120,8 @@ trait Delete_Entity_Response {
 
 	/**
 	 * Filters the delete parameters.
+	 *
+	 * This is meant to be overridden by the endpoint to add any additional filtering.
 	 *
 	 * @since TBD
 	 *

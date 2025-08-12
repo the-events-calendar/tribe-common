@@ -59,6 +59,8 @@ trait Create_Entity_Response {
 	/**
 	 * Filters the create parameters.
 	 *
+	 * This is meant to be overridden by the endpoint to add any additional filtering.
+	 *
 	 * @since TBD
 	 *
 	 * @param array $params The parameters to filter.
