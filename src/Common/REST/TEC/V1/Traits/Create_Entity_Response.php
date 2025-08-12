@@ -31,6 +31,7 @@ trait Create_Entity_Response {
 	 * @return WP_REST_Response The response object.
 	 */
 	public function create( array $params = [] ): WP_REST_Response {
+		$params = $this->filter_create_params( $params );
 		$entity = $this->get_orm()->set_args( $params )->create();
 
 		if ( ! $entity ) {
@@ -53,5 +54,18 @@ trait Create_Entity_Response {
 			),
 			201
 		);
+	}
+
+	/**
+	 * Filters the create parameters.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $params The parameters to filter.
+	 *
+	 * @return array The filtered parameters.
+	 */
+	protected function filter_create_params( array $params ): array {
+		return $params;
 	}
 }

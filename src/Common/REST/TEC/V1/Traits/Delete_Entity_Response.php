@@ -31,6 +31,7 @@ trait Delete_Entity_Response {
 	 * @return WP_REST_Response The response object.
 	 */
 	public function delete( array $params = [] ): WP_REST_Response {
+		$params = $this->filter_delete_params( $params );
 		$id    = $params['id'] ?? null;
 		$force = (bool) ( $params['force'] ?? false );
 
@@ -115,5 +116,18 @@ trait Delete_Entity_Response {
 		}
 
 		return new WP_REST_Response( [], 200 );
+	}
+
+	/**
+	 * Filters the delete parameters.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $params The parameters to filter.
+	 *
+	 * @return array The filtered parameters.
+	 */
+	protected function filter_delete_params( array $params ): array {
+		return $params;
 	}
 }
