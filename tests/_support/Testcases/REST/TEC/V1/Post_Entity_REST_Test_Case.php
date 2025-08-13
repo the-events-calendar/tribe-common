@@ -19,6 +19,7 @@ use TEC\Common\REST\TEC\V1\Parameter_Types\Integer;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
 use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
+use Tribe__Repository as Base_Repo;
 
 /**
  * Class Post_Entity_REST_Test_Case
@@ -292,6 +293,44 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 
 			$entity_ids[] = $new_entity_id;
 		}
+	}
+
+	public function test_update_handles_save_failure() {
+		if ( ! $this->is_updatable() ) {
+			return;
+		}
+
+		$this->set_class_fn_return( Base_Repo::class, 'save', false );
+
+		$request_body = $this->endpoint->update_schema()->get_request_body()->to_array()['content']['application/json'];
+
+		$example = $request_body['example'];
+		unset( $example['id'] );
+
+		$orm = $this->endpoint->get_orm();
+
+		wp_set_current_user( 1 );
+		$entity_id = $orm->set_args( $example )->create()->ID;
+		$this->assert_endpoint( sprintf( $this->endpoint->get_base_path(), $entity_id ), 'PUT', 500, [ 'title' => 'Updated Title' ] );
+	}
+
+	public function test_update_handles_entity_not_found_after_save() {
+		if ( ! $this->is_updatable() ) {
+			return;
+		}
+
+		$this->set_class_fn_return( Base_Repo::class, 'first', null );
+
+		$request_body = $this->endpoint->update_schema()->get_request_body()->to_array()['content']['application/json'];
+
+		$example = $request_body['example'];
+		unset( $example['id'] );
+
+		$orm = $this->endpoint->get_orm();
+
+		wp_set_current_user( 1 );
+		$entity_id = $orm->set_args( $example )->create()->ID;
+		$this->assert_endpoint( sprintf( $this->endpoint->get_base_path(), $entity_id ), 'PUT', 500, [ 'title' => 'Updated Title' ] );
 	}
 
 	private function modify_value( array $data ) {
@@ -713,7 +752,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		$fixture();
 
 		$user_can_delete = is_user_logged_in() && current_user_can( get_post_type_object( $this->endpoint->get_post_type() )->cap->delete_post, $entity_id );
-		$this->assert_endpoint( sprintf( $this->endpoint->get_base_path(), $entity_id ), 'DELETE', $user_can_delete ? 200 : ( is_user_logged_in() ? 403 : 401 ) );
+		$this->assert_endpoint( sprintf( $this->endpoint->get_base_path(), $entity_id ), 'DELETE', $user_can_delete ? 200 : ( is_user_logged_in() ? 403 : 401 ), [ 'force' => true ] );
 
 		if ( $user_can_delete ) {
 			$this->assertNull( get_post( $entity_id ) );
@@ -786,6 +825,10 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 
 		if ( isset( $entity->_VenueLng ) ) {
 			$entity->_VenueLng = (float) $entity->_VenueLng;
+		}
+
+		if ( isset( $entity->_tec_tickets_commerce_event ) ) {
+			$entity->_tec_tickets_commerce_event = (int) $entity->_tec_tickets_commerce_event;
 		}
 
 		return $entity;

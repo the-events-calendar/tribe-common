@@ -32,8 +32,7 @@ trait Read_Entity_Response {
 	 * @return WP_REST_Response The response object.
 	 */
 	public function read( array $params = [] ): WP_REST_Response {
-		$params = $this->filter_read_params( $params );
-		$id     = $params['id'] ?? null;
+		$id = $params['id'] ?? null;
 
 		if ( ! $id ) {
 			return new WP_REST_Response(
@@ -86,20 +85,5 @@ trait Read_Entity_Response {
 		}
 
 		return $response;
-	}
-
-	/**
-	 * Filters the read parameters.
-	 *
-	 * This is meant to be overridden by the endpoint to add any additional filtering.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $params The parameters to filter.
-	 *
-	 * @return array The filtered parameters.
-	 */
-	protected function filter_read_params( array $params ): array {
-		return $params;
 	}
 }

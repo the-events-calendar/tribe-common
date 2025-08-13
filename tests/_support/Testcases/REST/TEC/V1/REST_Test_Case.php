@@ -28,7 +28,6 @@ use Tribe__Date_Utils as Dates;
 use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
 use WP_REST_Request;
 use WP_REST_Response;
-use WP_Error;
 use TEC\Common\REST\TEC\V1\Collections\PropertiesCollection;
 use TEC\Common\REST\TEC\V1\Collections\PathArgumentCollection;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
@@ -368,7 +367,6 @@ abstract class REST_Test_Case extends WPBrowserTestCase {
 
 		if ( $expected_code > 299 ) {
 			$this->assertTrue( $response->is_error(), 'Response should be an error for path: ' . $path );
-			$this->assertInstanceof( WP_Error::class, $response->as_error() );
 			$this->assertEquals( $expected_code, $response->get_status() );
 			return $response->get_data();
 		}
