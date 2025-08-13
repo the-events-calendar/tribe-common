@@ -5,7 +5,7 @@
  * @since TBD
  */
 
-namespace TEC\REST\V1;
+namespace TEC\Common\Tests\REST\V1;
 
 use TEC\Common\REST\TEC\V1\Abstracts\Post_Entity_Endpoint;
 use TEC\Common\REST\TEC\V1\Collections\PathArgumentCollection;
@@ -55,7 +55,7 @@ class Fake_Post_Endpoint extends Post_Entity_Endpoint implements \TEC\Common\RES
 			public function get_last_sql(): ?string { return null; }
 			public function get_request_context(): ?string { return null; }
 			public function set_request_context( string $context = null ): \Tribe__Repository__Interface { return $this; }
-            public function all( $return_generator = false, int $batch_size = 50 ) { return []; }
+			public function all( $return_generator = false, int $batch_size = 50 ) { return []; }
 			public function save( $data = null ) { return true; }
 			public function update( $data = null ) { return true; }
 			public function first() { return null; }
@@ -70,18 +70,18 @@ class Fake_Post_Endpoint extends Post_Entity_Endpoint implements \TEC\Common\RES
 
 	public function read_args(): QueryArgumentCollection { return new QueryArgumentCollection(); }
 
-    public function read_schema(): OpenAPI_Schema_Interface {
-        return new OpenAPI_Schema_Documentation(
-            static fn() => 'Fake read.',
-            static fn() => 'Fake read schema for tests.',
-            'fake.read',
-            [],
-            null,
-            null,
-            null,
-            false
-        );
-    }
+	public function read_schema(): OpenAPI_Schema_Interface {
+		return new OpenAPI_Schema_Documentation(
+			static fn() => 'Fake read.',
+			static fn() => 'Fake read schema for tests.',
+			'fake.read',
+			[],
+			null,
+			null,
+			null,
+			false
+		);
+	}
 
 	public function get_schema(): array { return []; }
 
@@ -89,9 +89,11 @@ class Fake_Post_Endpoint extends Post_Entity_Endpoint implements \TEC\Common\RES
 
 	public function get_operation_id( string $operation ): string { return $operation; }
 
-	public function get_base_path(): string { return '/tec/v1/fake-posts(?:/(?P<id>\\d+))?'; }
+	public function get_base_path(): string { return '/fake-posts/%s'; }
 
-	public function get_path_parameters(): PathArgumentCollection { return new PathArgumentCollection(); }
+	public function get_path_parameters(): PathArgumentCollection {
+		return new PathArgumentCollection();
+	}
 
 	public function get_formatted_entity( WP_Post $post ): array { return [ 'id' => $post->ID ]; }
 

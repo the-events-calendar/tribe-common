@@ -5,7 +5,7 @@
  * @since TBD
  */
 
-namespace TEC\REST\V1;
+namespace TEC\Common\Tests\REST\V1;
 
 /**
  * Class Fake_Post_Model.
