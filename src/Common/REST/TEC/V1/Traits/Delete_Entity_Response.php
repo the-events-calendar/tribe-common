@@ -78,66 +78,68 @@ trait Delete_Entity_Response {
 			}
 
 			return new WP_REST_Response( [], 200 );
-		} else {
-			// Check if the post supports trashing (when not forcing).
-			$supports_trash = ( EMPTY_TRASH_DAYS > 0 );
+		}
 
-			// If we don't support trashing, error out (like WordPress core does).
-			if ( ! $supports_trash ) {
-				return new WP_REST_Response(
-					[
-						'error' => __( "The entity does not support trashing. Set 'force=true' to delete.", 'tribe-common' ),
-					],
-					501
-				);
-			}
+		// Check if the post supports trashing (when not forcing).
+		$supports_trash = ( EMPTY_TRASH_DAYS > 0 );
 
-			// Check if already trashed.
-			if ( 'trash' === $post->post_status ) {
-				/**
-				 * Filters whether to convert a soft delete to a permanent delete when the post is already trashed.
-				 *
-				 * @since TBD
-				 *
-				 * @param bool     $convert_to_permanent Whether to convert to permanent delete. Default false.
-				 * @param int      $id                  The post ID being deleted.
-				 * @param \WP_Post $post                The post object.
-				 */
-				$convert_to_permanent = apply_filters( 'tec_rest_delete_convert_trashed_to_permanent', false, $id, $post );
+		// If we don't support trashing, error out (like WordPress core does).
+		if ( ! $supports_trash ) {
+			return new WP_REST_Response(
+				[
+					'error' => __( "The entity does not support trashing. Set 'force=true' to delete.", 'tribe-common' ),
+				],
+				501
+			);
+		}
 
-				if ( $convert_to_permanent ) {
-					// Convert soft delete to permanent delete for already trashed posts.
-					$result = wp_delete_post( $id, true );
+		// Check if already trashed.
+		if ( 'trash' === $post->post_status ) {
+			/**
+			 * Filters whether to convert a soft delete to a permanent delete when the post is already trashed.
+			 *
+			 * @since TBD
+			 *
+			 * @param bool     $convert_to_permanent Whether to convert to permanent delete. Default false.
+			 * @param int      $id                  The post ID being deleted.
+			 * @param \WP_Post $post                The post object.
+			 */
+			$convert_to_permanent = apply_filters( 'tec_rest_delete_convert_trashed_to_permanent', false, $id, $post );
 
-					if ( ! $result ) {
-						return new WP_REST_Response(
-							[
-								'error' => __( 'The entity could not be permanently deleted.', 'tribe-common' ),
-							],
-							500
-						);
-					}
-				} else {
-					return new WP_REST_Response(
-						[
-							'error' => __( 'The entity has already been trashed.', 'tribe-common' ),
-						],
-						410
-					);
-				}
-			} else {
-				// Use WordPress trash function for soft delete.
-				$result = wp_trash_post( $id );
+			if ( $convert_to_permanent ) {
+				// Convert soft delete to permanent delete for already trashed posts.
+				$result = wp_delete_post( $id, true );
 
 				if ( ! $result ) {
 					return new WP_REST_Response(
 						[
-							'error' => __( 'The entity could not be trashed.', 'tribe-common' ),
+							'error' => __( 'The entity could not be permanently deleted.', 'tribe-common' ),
 						],
 						500
 					);
 				}
+
+				return new WP_REST_Response( [], 200 );
 			}
+
+			return new WP_REST_Response(
+				[
+					'error' => __( 'The entity has already been trashed.', 'tribe-common' ),
+				],
+				410
+			);
+		}
+
+		// Use WordPress trash function for soft delete.
+		$result = wp_trash_post( $id );
+
+		if ( ! $result ) {
+			return new WP_REST_Response(
+				[
+					'error' => __( 'The entity could not be trashed.', 'tribe-common' ),
+				],
+				500
+			);
 		}
 
 		return new WP_REST_Response( [], 200 );
