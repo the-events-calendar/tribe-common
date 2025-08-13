@@ -92,16 +92,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 		$rest_controller = new WP_REST_Posts_Controller( $this->get_post_type() );
 
 		// Status/visibility (publish, private, inherit, etc.).
-		if ( ! $rest_controller->check_read_permission( $post ) ) {
-			return false;
-		}
-
-		// Password-protected posts require valid password (or edit permission in edit context).
-		if ( ! empty( $post->post_password ) && ! $rest_controller->can_access_password_content( $post, $request ) ) {
-			return false;
-		}
-
-		return true;
+		return $rest_controller->check_read_permission( $post );
 	}
 
 	/**
