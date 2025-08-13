@@ -8,7 +8,7 @@
 namespace TEC\Common\Tests\REST\TEC\V1;
 
 use Codeception\TestCase\WPRestApiTestCase;
-use TEC\REST\V1\Fake_Post_Endpoint;
+use TEC\Common\Tests\REST\V1\Fake_Post_Endpoint;
 use WP_REST_Request;
 
 class Post_Entity_Endpoint_Can_Read_Test extends WPRestApiTestCase {
