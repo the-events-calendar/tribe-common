@@ -827,6 +827,10 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 			$entity->_VenueLng = (float) $entity->_VenueLng;
 		}
 
+		if ( isset( $entity->_tec_tickets_commerce_event ) ) {
+			$entity->_tec_tickets_commerce_event = (int) $entity->_tec_tickets_commerce_event;
+		}
+
 		return $entity;
 	}
 }
