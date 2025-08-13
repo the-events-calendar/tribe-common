@@ -65,7 +65,7 @@ Abstract class for WordPress post-based endpoints. Extends `Endpoint` and implem
 #### Key Methods
 
 - `guest_can_read()` - Whether guests can read (default: false)
-- `can_read()` - Permission check for reading
+- `can_read()` - Permission check for reading, relies on `WP_REST_Posts_Controller` for permissions around the Post Type, password protection and status protections.
 - `can_create()` - Permission check for creating
 - `can_update()` - Permission check for updating
 - `can_delete()` - Permission check for deleting

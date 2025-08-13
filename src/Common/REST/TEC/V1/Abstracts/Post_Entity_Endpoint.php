@@ -58,11 +58,41 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	 */
 	public function can_read( WP_REST_Request $request ): bool {
 		$id = $request['id'] ?? null;
+
+		// If requesting a specific post, validate status/visibility/password access.
 		if ( $id ) {
-			return $this->guest_can_read() || current_user_can( $this->get_post_type_object()->cap->read_post, $id );
+			$post = get_post( (int) $id );
+			if ( ! $post || $post->post_type !== $this->get_post_type() ) {
+				return false;
+			}
+
+			$endpoint_allowed = $this->guest_can_read() || current_user_can( $this->get_post_type_object()->cap->read_post, (int) $id );
+			if ( ! $endpoint_allowed ) {
+				return false;
+			}
+
+			return $this->is_post_readable_by_request( $post, $request );
 		}
 
+		// Collection/list requests: allow if endpoint is publicly readable or user has capability.
 		return $this->guest_can_read() || current_user_can( $this->get_post_type_object()->cap->read );
+	}
+
+	/**
+	 * Checks if a post is readable for the given request, taking into account status and password.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post         $post    The post to check.
+	 * @param WP_REST_Request $request The current request.
+	 *
+	 * @return bool Whether the post is readable.
+	 */
+	protected function is_post_readable_by_request( WP_Post $post, WP_REST_Request $request ): bool {
+		$rest_controller = new WP_REST_Posts_Controller( $this->get_post_type() );
+
+		// Status/visibility (publish, private, inherit, etc.).
+		return $rest_controller->check_read_permission( $post );
 	}
 
 	/**
