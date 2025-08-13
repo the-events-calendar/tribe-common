@@ -12,12 +12,11 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Abstracts;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-use TEC\Common\Contracts\Container;
 use TEC\Common\REST\TEC\V1\Contracts\Endpoint_Interface;
 use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
-use TEC\Common\REST\TEC\V1\Documentation;
 use TEC\Common\REST\TEC\V1\Contracts\Endpoints_Controller_Interface;
 use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface;
+use TEC\Common\REST\TEC\V1\Documentation;
 use RuntimeException;
 
 /**
@@ -28,28 +27,6 @@ use RuntimeException;
  * @package TEC\Common\REST\TEC\V1\Abstracts
  */
 abstract class Endpoints_Controller extends Controller_Contract implements Endpoints_Controller_Interface {
-	/**
-	 * The documentation instance.
-	 *
-	 * @since TBD
-	 *
-	 * @var Documentation
-	 */
-	private Documentation $documentation;
-
-	/**
-	 * Endpoints constructor.
-	 *
-	 * @since TBD
-	 *
-	 * @param Container     $container     The container instance.
-	 * @param Documentation $documentation The documentation instance.
-	 */
-	public function __construct( Container $container, Documentation $documentation ) {
-		parent::__construct( $container );
-		$this->documentation = $documentation;
-	}
-
 	/**
 	 * Registers the filters and actions hooks added by the controller.
 	 *
@@ -94,6 +71,8 @@ abstract class Endpoints_Controller extends Controller_Contract implements Endpo
 	 * @throws RuntimeException If the endpoint or definition does not implement the required interface.
 	 */
 	public function register_endpoints(): void {
+		$documentation = $this->container->get( Documentation::class );
+
 		foreach ( $this->get_endpoints() as $endpoint ) {
 			$endpoint = $this->container->get( $endpoint );
 			if ( ! $endpoint instanceof Endpoint_Interface ) {
@@ -101,7 +80,7 @@ abstract class Endpoints_Controller extends Controller_Contract implements Endpo
 			}
 
 			$endpoint->register_routes();
-			$this->documentation->register_endpoint( $endpoint );
+			$documentation->register_endpoint( $endpoint );
 		}
 
 		foreach ( $this->get_definitions() as $definition ) {
@@ -110,7 +89,7 @@ abstract class Endpoints_Controller extends Controller_Contract implements Endpo
 				throw new RuntimeException( 'Definition must implement Definition_Interface' );
 			}
 
-			$this->documentation->register_definition( $definition );
+			$documentation->register_definition( $definition );
 		}
 
 		foreach ( $this->get_tags() as $tag ) {
@@ -119,7 +98,7 @@ abstract class Endpoints_Controller extends Controller_Contract implements Endpo
 				throw new RuntimeException( 'Tag must implement Tag_Interface' );
 			}
 
-			$this->documentation->register_tag( $tag );
+			$documentation->register_tag( $tag );
 		}
 	}
 }
