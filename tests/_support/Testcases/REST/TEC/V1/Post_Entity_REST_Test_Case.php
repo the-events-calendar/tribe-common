@@ -752,7 +752,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		$fixture();
 
 		$user_can_delete = is_user_logged_in() && current_user_can( get_post_type_object( $this->endpoint->get_post_type() )->cap->delete_post, $entity_id );
-		$this->assert_endpoint( sprintf( $this->endpoint->get_base_path(), $entity_id ), 'DELETE', $user_can_delete ? 200 : ( is_user_logged_in() ? 403 : 401 ) );
+		$this->assert_endpoint( sprintf( $this->endpoint->get_base_path(), $entity_id ) . '?force=true', 'DELETE', $user_can_delete ? 200 : ( is_user_logged_in() ? 403 : 401 ) );
 
 		if ( $user_can_delete ) {
 			$this->assertNull( get_post( $entity_id ) );
