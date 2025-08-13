@@ -32,7 +32,6 @@ trait Read_Archive_Response {
 	 * @return WP_REST_Response The response object.
 	 */
 	public function read( array $params = [] ): WP_REST_Response {
-		$params   = $this->filter_read_archive_params( $params );
 		$page     = absint( $params['page'] ?? 1 );
 		$per_page = absint( $params['per_page'] ?? $this->get_default_posts_per_page() );
 
@@ -134,20 +133,5 @@ trait Read_Archive_Response {
 		 * @param array                        $params  The sanitized parameters to use for the request.
 		 */
 		return apply_filters( 'tec_rest_' . $this->get_post_type() . '_query', $query, $params );
-	}
-
-	/**
-	 * Filters the read archive parameters.
-	 *
-	 * This is meant to be overridden by the endpoint to add any additional filtering.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $params The parameters to filter.
-	 *
-	 * @return array The filtered parameters.
-	 */
-	protected function filter_read_archive_params( array $params ): array {
-		return $params;
 	}
 }

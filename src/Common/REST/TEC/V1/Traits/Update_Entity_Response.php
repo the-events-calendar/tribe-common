@@ -31,8 +31,7 @@ trait Update_Entity_Response {
 	 * @return WP_REST_Response The response object.
 	 */
 	public function update( array $params = [] ): WP_REST_Response {
-		$params = $this->filter_update_params( $params );
-		$id     = $params['id'] ?? null;
+		$id = $params['id'] ?? null;
 
 		unset( $params['id'] );
 
@@ -93,20 +92,5 @@ trait Update_Entity_Response {
 			$this->get_formatted_entity( $updated_entity ),
 			200
 		);
-	}
-
-	/**
-	 * Filters the update parameters.
-	 *
-	 * This is meant to be overridden by the endpoint to add any additional filtering.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $params The parameters to filter.
-	 *
-	 * @return array The filtered parameters.
-	 */
-	protected function filter_update_params( array $params ): array {
-		return $params;
 	}
 }

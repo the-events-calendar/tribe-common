@@ -380,10 +380,12 @@ abstract class Endpoint implements Endpoint_Interface {
 
 		$params_sanitizer = fn( WP_REST_Request $request ) => $this->get_sanitized_params_from_schema( $operation, $request->get_params() );
 
-		return static function ( WP_REST_Request $request ) use ( $callback, $params_sanitizer, $experimental_response ) {
+		$params_filter = fn( array $params ) => $this->filter_params( $params, $operation );
+
+		return static function ( WP_REST_Request $request ) use ( $callback, $params_sanitizer, $experimental_response, $params_filter ) {
 			try {
 				$experimental_response( $request );
-				$response = $callback( $params_sanitizer( $request ) );
+				$response = $callback( $params_filter( $params_sanitizer( $request ) ) );
 			} catch ( InvalidRestArgumentException $e ) {
 				return $e->to_wp_error();
 			} catch ( ExperimentalEndpointException $e ) {
@@ -392,6 +394,26 @@ abstract class Endpoint implements Endpoint_Interface {
 
 			return $response;
 		};
+	}
+
+	/**
+	 * Filters the parameters for the request.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $params     The parameters to filter.
+	 * @param string $operation The operation to filter the parameters for.
+	 *
+	 * @return array The filtered parameters.
+	 */
+	protected function filter_params( array $params, string $operation ): array {
+		$method = "filter_{$operation}_params";
+
+		if ( ! method_exists( $this, $method ) ) {
+			return $params;
+		}
+
+		return $this->$method( $params );
 	}
 
 	/**
