@@ -66,7 +66,7 @@ describe( 'StartSelector Component', () => {
 				</TestProvider>
 			);
 
-			expect( getByText( 'Date' ) ).toBeTruthy();
+			expect( getByText( 'Start Date' ) ).toBeTruthy();
 			expect( queryByText( 'Start Time' ) ).toBeNull();
 			expect( container.querySelector( '.classy-field__input--start-time' ) ).toBeNull();
 			expect( container.querySelector( '.classy-field__input-full-width' ) ).toBeTruthy();
@@ -370,7 +370,7 @@ describe( 'StartSelector Component', () => {
 				</TestProvider>
 			);
 
-			expect( getByText( 'Date' ) ).toBeTruthy();
+			expect( getByText( 'Start Date' ) ).toBeTruthy();
 			expect( getByText( 'Start Time' ) ).toBeTruthy();
 		} );
 
@@ -387,7 +387,7 @@ describe( 'StartSelector Component', () => {
 				</TestProvider>
 			);
 
-			expect( getByText( 'Date' ) ).toBeTruthy();
+			expect( getByText( 'Start Date' ) ).toBeTruthy();
 			expect( queryByText( 'Start Time' ) ).toBeNull();
 		} );
 	} );
