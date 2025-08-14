@@ -26,7 +26,6 @@ type StartSelectorProps = {
 };
 
 const defaultTitle = _x( 'Start Date', 'Event start date selection input title', 'tribe-common' );
-const currentDate = new Date();
 
 /**
  * StartSelector component for selecting the start date and time of an event.
@@ -87,7 +86,7 @@ export default function StartSelector( props: StartSelectorProps ) {
 					showPopover={ isSelectingDate === 'startDate' }
 					startDate={ startDate }
 					startOfWeek={ startOfWeek }
-					currentDate={ currentDate }
+					currentDate={ startDate }
 				/>
 			</div>
 
