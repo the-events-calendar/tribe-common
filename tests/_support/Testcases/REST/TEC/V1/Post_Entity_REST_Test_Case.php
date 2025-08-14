@@ -302,9 +302,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 
 		$this->set_class_fn_return( Base_Repo::class, 'save', false );
 
-		$request_body = $this->endpoint->update_schema()->get_request_body()->to_array()['content']['application/json'];
-
-		$example = $request_body['example'];
+		$example = $this->get_example_create_data();
 		unset( $example['id'] );
 
 		$orm = $this->endpoint->get_orm();
@@ -321,9 +319,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 
 		$this->set_class_fn_return( Base_Repo::class, 'first', null );
 
-		$request_body = $this->endpoint->update_schema()->get_request_body()->to_array()['content']['application/json'];
-
-		$example = $request_body['example'];
+		$example = $this->get_example_create_data();
 		unset( $example['id'] );
 
 		$orm = $this->endpoint->get_orm();
@@ -348,7 +344,9 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 
 		if ( 'string' === $data['type'] ) {
 			if ( ! empty( $data['enum'] ) ) {
-				return $data['enum'][ count( $data['enum'] ) - 1 ];
+				$result = $data['enum'][ count( $data['enum'] ) - 1 ];
+
+				return 'unlimited' === $result ? 'capped' : $result;
 			}
 
 			if ( isset( $data['format'] ) && 'date-time' === $data['format'] ) {
@@ -425,7 +423,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		}
 		$request_body = $this->endpoint->create_schema()->get_request_body()->to_array()['content']['application/json'];
 
-		$example = $request_body['example'];
+		$example = $this->get_example_create_data();
 		unset( $example['id'] );
 
 		if ( isset( $request_body['schema']['$ref'] ) ) {
@@ -550,7 +548,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		}
 		$request_body = $this->endpoint->update_schema()->get_request_body()->to_array()['content']['application/json'];
 
-		$example = $request_body['example'];
+		$example = $this->get_example_create_data();
 		unset( $example['id'] );
 
 		if ( isset( $request_body['schema']['$ref'] ) ) {
@@ -597,8 +595,8 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 			$example['venues'] = [ $venue_1 ];
 		}
 
-		if ( isset( $example['event_id'] ) ) {
-			$example['event_id'] = $event_1;
+		if ( isset( $example['event'] ) ) {
+			$example['event'] = $event_1;
 		}
 
 		wp_set_current_user( 1 );
@@ -641,6 +639,24 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 			$property_keys[] = 'timezone';
 		}
 
+		$sale_price_start_date_key = array_search( 'sale_price_start_date', $property_keys );
+		if ( false !== $sale_price_start_date_key ) {
+			unset( $property_keys[ $sale_price_start_date_key ] );
+			$property_keys = array_merge( [ 'sale_price_start_date' ], $property_keys );
+		}
+
+		$sale_price_end_date_key = array_search( 'sale_price_end_date', $property_keys );
+		if ( false !== $sale_price_end_date_key ) {
+			unset( $property_keys[ $sale_price_end_date_key ] );
+			$property_keys = array_merge( [ 'sale_price_end_date' ], $property_keys );
+		}
+
+		$stock_mode_key = array_search( 'stock_mode', $property_keys );
+		if ( false !== $stock_mode_key ) {
+			unset( $property_keys[ $stock_mode_key ] );
+			$property_keys[] = 'stock_mode';
+		}
+
 		$new_properties = [];
 
 		foreach ( $property_keys as $property ) {
@@ -654,7 +670,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 				continue;
 			}
 
-			if ( in_array( $property, [ 'date_gmt', 'end_date_utc', 'start_date_utc' ], true ) ) {
+			if ( in_array( $property, [ 'date_gmt', 'end_date_utc', 'start_date_utc', 'event_capacity' ], true ) ) {
 				continue;
 			}
 
@@ -664,7 +680,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 
 			$old_value = $data['example'];
 
-			if ( in_array( $property, [ 'tribe_events_cat', 'tags', 'organizers', 'venues', 'event_id' ], true ) ) {
+			if ( in_array( $property, [ 'tribe_events_cat', 'tags', 'organizers', 'venues', 'event', 'capacity', 'sale_price' ], true ) ) {
 				switch ( $property ) {
 					case 'tribe_events_cat':
 						$new_value = [ $event_cat_term_3 ];
@@ -682,9 +698,16 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 						$new_value = [ $venue_2 ];
 						$old_value = $example['venues'];
 						break;
-					case 'event_id':
+					case 'event':
 						$new_value = $event_2;
-						$old_value = $example['event_id'];
+						$old_value = $example['event'];
+						break;
+					case 'capacity':
+						$new_value = 106;
+						$old_value = isset( $stock_new_value ) ? $stock_new_value : $old_value;
+						break;
+					case 'sale_price':
+						$new_value = 16.45;
 						break;
 				}
 			} else {
@@ -721,6 +744,16 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 			$fresh_entity = $this->normalize_entity( $orm->by_args( [ 'id' => $entity_id, 'status' => 'any' ] )->first() );
 
 			if ( $user_can_update ) {
+				// Special case ! We don't allow updating the event of a ticket. This is set in stone.
+				if ( in_array( $this->endpoint->get_post_type(), [ 'tec_tc_ticket', 'product' ], true ) && 'event' === $property ) {
+					$this->assertSame( $old_value, $fresh_entity->{$using_property}, 'The property ' . $actual_property . ' / ' . $property . ' should not have been updated.' );
+					continue;
+				}
+
+				if ( 'stock' === $property ) {
+					$stock_new_value = $new_value;
+				}
+
 				$this->assertSame( $new_value, $fresh_entity->{$using_property}, 'The property ' . $actual_property . ' / ' . $property . ' should have been updated.' );
 			} else {
 				$this->assertSame( $old_value, $fresh_entity->{$using_property}, 'The property ' . $actual_property . ' / ' . $property . ' should not have been updated.' );
@@ -738,9 +771,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 			return;
 		}
 
-		$request_body = $this->endpoint->update_schema()->get_request_body()->to_array()['content']['application/json'];
-
-		$example = $request_body['example'];
+		$example = $this->get_example_create_data();
 		unset( $example['id'] );
 
 		$orm = $this->endpoint->get_orm();
@@ -831,6 +862,22 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 			$entity->_tec_tickets_commerce_event = (int) $entity->_tec_tickets_commerce_event;
 		}
 
+		if ( isset( $entity->event_capacity ) ) {
+			$entity->event_capacity = (int) $entity->event_capacity;
+		}
+
+		if ( isset( $entity->_tribe_ticket_capacity ) ) {
+			$entity->_tribe_ticket_capacity = (int) $entity->_tribe_ticket_capacity;
+		}
+
 		return $entity;
+	}
+
+	protected function get_example_create_data(): array {
+		$method = $this->is_updatable() ? 'update_schema' : 'create_schema';
+
+		$request_body = $this->endpoint->$method()->get_request_body()->to_array()['content']['application/json'];
+
+		return $request_body['example'];
 	}
 }
