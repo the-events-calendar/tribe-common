@@ -233,7 +233,6 @@ describe( 'EndSelector Component', () => {
 
 			expect( timeInput ).not.toBeNull();
 
-			// Click to focus the input first
 			await user.click( timeInput );
 			await user.clear( timeInput );
 			await user.type( timeInput, '2:30 pm' );
@@ -358,7 +357,6 @@ describe( 'EndSelector Component', () => {
 
 			expect( timeInput ).not.toBeNull();
 
-			// Click to focus the input first
 			await user.click( timeInput );
 			await user.clear( timeInput );
 			await user.type( timeInput, '3:30 pm' );

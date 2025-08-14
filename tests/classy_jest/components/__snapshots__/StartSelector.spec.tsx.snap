@@ -393,7 +393,7 @@ exports[`StartSelector Component all day events renders without time picker when
         >
           <input
             class="components-input-control__input emotion-9 emotion-10"
-            id="inspector-input-control-0"
+            id="inspector-input-control-1"
             value="2023-12-23"
           />
           <span
