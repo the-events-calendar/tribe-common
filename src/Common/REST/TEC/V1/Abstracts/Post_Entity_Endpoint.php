@@ -71,28 +71,13 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 				return false;
 			}
 
-			return $this->is_post_readable_by_request( $post, $request );
+			$rest_controller = new WP_REST_Posts_Controller( $post->post_type );
+
+			return $rest_controller->check_read_permission( $post );
 		}
 
 		// Collection/list requests: allow if endpoint is publicly readable or user has capability.
 		return $this->guest_can_read() || current_user_can( $this->get_post_type_object()->cap->read );
-	}
-
-	/**
-	 * Checks if a post is readable for the given request, taking into account status and password.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_Post         $post    The post to check.
-	 * @param WP_REST_Request $request The current request.
-	 *
-	 * @return bool Whether the post is readable.
-	 */
-	protected function is_post_readable_by_request( WP_Post $post, WP_REST_Request $request ): bool {
-		$rest_controller = new WP_REST_Posts_Controller( $this->get_post_type() );
-
-		// Status/visibility (publish, private, inherit, etc.).
-		return $rest_controller->check_read_permission( $post );
 	}
 
 	/**
