@@ -10,7 +10,7 @@ import TestProvider from '../_support/TestProvider';
 
 // Save the original localized data here.
 let originalLocalizedData: LocalizedData;
-const timePickerSelector = '.classy-field__input--start-time input[type="text"]';
+const timePickerSelector = '.classy-field__input--start-time .components-combobox-control__input';
 const datePickerButton = '.classy-field__control--date-picker input.components-input-control__input';
 
 describe( 'StartSelector Component', () => {
@@ -66,7 +66,7 @@ describe( 'StartSelector Component', () => {
 				</TestProvider>
 			);
 
-			expect( getByText( 'Date' ) ).toBeTruthy();
+			expect( getByText( 'Start Date' ) ).toBeTruthy();
 			expect( queryByText( 'Start Time' ) ).toBeNull();
 			expect( container.querySelector( '.classy-field__input--start-time' ) ).toBeNull();
 			expect( container.querySelector( '.classy-field__input-full-width' ) ).toBeTruthy();
@@ -213,8 +213,9 @@ describe( 'StartSelector Component', () => {
 
 			expect( timeInput ).not.toBeNull();
 
+			await user.click( timeInput );
 			await user.clear( timeInput );
-			await user.type( timeInput, '14:30' );
+			await user.type( timeInput, '2:30 pm' );
 			await user.type( timeInput, '{enter}' );
 
 			// Check that onChange was called with the correct parameters
@@ -333,8 +334,9 @@ describe( 'StartSelector Component', () => {
 
 			expect( timeInput ).not.toBeNull();
 
+			await user.click( timeInput );
 			await user.clear( timeInput );
-			await user.type( timeInput, '15:30' );
+			await user.type( timeInput, '3:30 pm' );
 			await user.type( timeInput, '{enter}' );
 
 			// Check that onChange was called with the correct parameters
@@ -370,7 +372,7 @@ describe( 'StartSelector Component', () => {
 				</TestProvider>
 			);
 
-			expect( getByText( 'Date' ) ).toBeTruthy();
+			expect( getByText( 'Start Date' ) ).toBeTruthy();
 			expect( getByText( 'Start Time' ) ).toBeTruthy();
 		} );
 
@@ -387,7 +389,7 @@ describe( 'StartSelector Component', () => {
 				</TestProvider>
 			);
 
-			expect( getByText( 'Date' ) ).toBeTruthy();
+			expect( getByText( 'Start Date' ) ).toBeTruthy();
 			expect( queryByText( 'Start Time' ) ).toBeNull();
 		} );
 	} );
