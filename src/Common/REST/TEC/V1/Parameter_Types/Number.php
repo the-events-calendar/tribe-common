@@ -13,6 +13,7 @@ namespace TEC\Common\REST\TEC\V1\Parameter_Types;
 
 use TEC\Common\REST\TEC\V1\Abstracts\Parameter;
 use Closure;
+use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 
 /**
  * Number parameter type.
@@ -84,7 +85,20 @@ class Number extends Parameter {
 	 * @inheritDoc
 	 */
 	public function get_validator(): Closure {
-		return $this->validator ?? fn( $value ): bool => is_numeric( $value );
+		return $this->validator ?? function ( $value ): bool {
+			if ( ! is_float( $value ) && ! is_int( $value ) ) {
+				// translators: 1) is the name of the parameter.
+				$exception = new InvalidRestArgumentException( sprintf( __( 'Parameter `{%1$s}` must be a number.', 'tribe-common' ), $this->get_name() ) );
+				$exception->set_argument( $this->get_name() );
+				$exception->set_internal_error_code( 'tec_rest_invalid_number_parameter' );
+
+				// translators: 1) is the name of the parameter.
+				$exception->set_details( sprintf( __( 'The parameter `{%1$s}` is not a number.', 'tribe-common' ), $this->get_name() ) );
+				throw $exception;
+			}
+
+			return true;
+		};
 	}
 
 	/**

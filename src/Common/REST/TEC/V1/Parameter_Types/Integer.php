@@ -12,6 +12,7 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Parameter_Types;
 
 use Closure;
+use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 
 /**
  * Integer parameter type.
@@ -31,7 +32,20 @@ class Integer extends Number {
 	 * @inheritDoc
 	 */
 	public function get_validator(): Closure {
-		return $this->validator ?? fn( $value ): bool => is_numeric( $value );
+		return $this->validator ?? function ( $value ): bool {
+			if ( ! is_int( $value ) ) {
+				// translators: 1) is the name of the parameter.
+				$exception = new InvalidRestArgumentException( sprintf( __( 'Parameter `{%1$s}` must be an integer.', 'tribe-common' ), $this->get_name() ) );
+				$exception->set_argument( $this->get_name() );
+				$exception->set_internal_error_code( 'tec_rest_invalid_integer_parameter' );
+
+				// translators: 1) is the name of the parameter.
+				$exception->set_details( sprintf( __( 'The parameter `{%1$s}` is not an integer.', 'tribe-common' ), $this->get_name() ) );
+				throw $exception;
+			}
+
+			return true;
+		};
 	}
 
 	/**
