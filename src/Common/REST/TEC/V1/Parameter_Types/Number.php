@@ -86,7 +86,7 @@ class Number extends Parameter {
 	 */
 	public function get_validator(): Closure {
 		return $this->validator ?? function ( $value ): bool {
-			if ( ! is_numeric( $value ) ) {
+			if ( ! is_float( $value ) && ! is_int( $value ) ) {
 				// translators: 1) is the name of the parameter.
 				$exception = new InvalidRestArgumentException( sprintf( __( 'Parameter `{%1$s}` must be a number.', 'tribe-common' ), $this->get_name() ) );
 				$exception->set_argument( $this->get_name() );
