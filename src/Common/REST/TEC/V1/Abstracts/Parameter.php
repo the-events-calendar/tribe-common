@@ -617,11 +617,22 @@ abstract class Parameter implements Parameter_Contract {
 				'uniqueItems'       => $this->is_unique_items(),
 				'properties'        => $this->get_properties(),
 				'enum'              => 'array' === $this->get_type() ? null : $this->get_enum(),
-				'validate_callback' => $this->get_validator(),
+				'validate_callback' => $this->get_wp_validator(),
 				'sanitize_callback' => $this->get_sanitizer(),
 			],
 			static fn( $value ) => null !== $value
 		);
+	}
+
+	/**
+	 * Returns the WP validator.
+	 *
+	 * @since TBD
+	 *
+	 * @return ?Closure
+	 */
+	public function get_wp_validator(): ?Closure {
+		return $this->get_validator();
 	}
 
 	/**

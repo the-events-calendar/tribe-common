@@ -69,6 +69,15 @@ interface Parameter extends JsonSerializable {
 	public function get_validator(): ?Closure;
 
 	/**
+	 * Returns the parameter WP validator.
+	 *
+	 * @since TBD
+	 *
+	 * @return ?Closure
+	 */
+	public function get_wp_validator(): ?Closure;
+
+	/**
 	 * Returns the parameter sanitizer.
 	 *
 	 * @since TBD
