@@ -33,7 +33,7 @@ class Date_Time extends Text {
 	 */
 	public function get_validator(): ?Closure {
 		return $this->validator ?? function ( $value ): bool {
-			if ( null !== $this->get_pattern() && ! preg_match( '/' . $this->get_pattern() . '/', $value ) ) {
+			if ( null !== $this->get_pattern() && ! preg_match( '/' . $this->get_pattern() . '/', (string) $value ) ) {
 				// translators: 1) is the name of the parameter.
 				$exception = new InvalidRestArgumentException( sprintf( __( 'Parameter `{%1$s}` must match the pattern.', 'the-events-calendar' ), $this->get_name() ) );
 

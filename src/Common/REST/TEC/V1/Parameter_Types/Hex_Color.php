@@ -44,7 +44,7 @@ class Hex_Color extends Text {
 				throw $exception;
 			}
 
-			if ( ! ( preg_match( '/^#([0-9a-fA-F]{3})$/', $value ) || preg_match( '/^#([0-9a-fA-F]{6})$/', $value ) ) ) {
+			if ( ! ( preg_match( '/^#([0-9a-fA-F]{3})$/', (string) $value ) || preg_match( '/^#([0-9a-fA-F]{6})$/', (string) $value ) ) ) {
 				// translators: 1) is the name of the parameter.
 				$exception = new InvalidRestArgumentException( sprintf( __( 'Parameter `{%1$s}` must be a valid hex color.', 'the-events-calendar' ), $this->get_name() ) );
 				$exception->set_argument( $this->get_name() );

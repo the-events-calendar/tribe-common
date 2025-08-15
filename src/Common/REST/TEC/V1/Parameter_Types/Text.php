@@ -125,7 +125,7 @@ class Text extends Parameter {
 					throw $exception;
 				}
 
-				if ( ! preg_match( '/' . $this->get_pattern() . '/', $value ) ) {
+				if ( ! preg_match( '/' . $this->get_pattern() . '/', (string) $value ) ) {
 					// translators: 1) is the name of the parameter.
 					$exception = new InvalidRestArgumentException( sprintf( __( 'Parameter `{%1$s}` must match the pattern.', 'the-events-calendar' ), $this->get_name() ) );
 

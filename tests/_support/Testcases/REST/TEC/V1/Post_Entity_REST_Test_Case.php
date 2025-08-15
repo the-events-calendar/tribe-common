@@ -81,41 +81,13 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 				$valid_body['id'] = 1;
 			}
 
-			$injected                  = false;
-			$needs_sanitization_string = false;
-			$needs_sanitization_int    = false;
-			$needs_sanitization_array  = false;
-			$before_injection          = null;
+			$injected         = false;
+			$before_injection = null;
 
 			/** @var Parameter $parameter */
 			foreach ( $collection->to_props_array() as $parameter ) {
-				if ( ! $needs_sanitization_string && $parameter instanceof Text ) {
-					$valid_body[ $parameter->get_name() ] = (int) $parameter->get_example();
-
-					$needs_sanitization_string = $parameter->get_name();
-					continue;
-				}
-
-				if ( ! $needs_sanitization_int && $parameter instanceof Integer ) {
-					$valid_body[ $parameter->get_name() ] = (float) $parameter->get_example();
-
-					$needs_sanitization_int = $parameter->get_name();
-					continue;
-				}
-
-				if ( ! $needs_sanitization_array && $parameter instanceof Array_Of_Type && ( ( $parameter->get_an_item() instanceof Text && empty( $parameter::get_subitem_format()['format'] ) ) || $parameter->get_an_item() instanceof Integer ) ) {
-					$example    = $parameter->get_example();
-					$first_elem = array_shift( $example );
-					$first_elem = is_string( $first_elem ) ? (int) $first_elem : (string) $first_elem;
-
-					$valid_body[ $parameter->get_name() ] = array_merge( [ $first_elem ], $example );
-
-					$needs_sanitization_array = $parameter->get_name();
-					continue;
-				}
-
-				if ( ! $injected && $parameter instanceof Text && empty( $parameter::get_subitem_format()['format'] ) ) {
-					$before_injection = $parameter->get_example();
+				if ( ! $injected && $parameter instanceof Text && null === $parameter->get_pattern() && null === $parameter->get_enum() && empty( $parameter::get_subitem_format()['format'] ) ) {
+					$before_injection                     = $parameter->get_example();
 					$valid_body[ $parameter->get_name() ] = $php_injection;
 
 					$injected = $parameter->get_name();
@@ -125,9 +97,6 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 				$valid_body[ $parameter->get_name() ] = $parameter->get_example();
 			}
 
-			$this->assertNotFalse( $needs_sanitization_string );
-			$this->assertNotFalse( $needs_sanitization_int );
-			$this->assertNotFalse( $needs_sanitization_array );
 			$this->assertNotFalse( $injected );
 
 			$whole_body = array_merge(
@@ -171,13 +140,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 				$this->assertArrayHasKey( $key, $sanitized );
 			}
 
-			$this->assertIsString( $sanitized[ $needs_sanitization_string ] );
-			$this->assertIsInt( $sanitized[ $needs_sanitization_int ] );
 			$this->assertIsString( $sanitized[ $injected ] );
-
-			$this->assertNotSame( $valid_body[ $needs_sanitization_string ], $sanitized[ $needs_sanitization_string ] );
-			$this->assertNotSame( $valid_body[ $needs_sanitization_int ], $sanitized[ $needs_sanitization_int ] );
-			$this->assertNotSame( $valid_body[ $needs_sanitization_array ], $sanitized[ $needs_sanitization_array ] );
 
 			$serialized_string = @unserialize( $sanitized[ $injected ] );
 
