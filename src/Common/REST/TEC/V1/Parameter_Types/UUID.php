@@ -33,7 +33,7 @@ class UUID extends Text {
 	 */
 	public function get_validator(): ?Closure {
 		return $this->validator ?? function ( $value ): bool {
-			if ( ! is_string( $value ) || ! preg_match( '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/', $value ) ) {
+			if ( ! is_string( $value ) || ! preg_match( '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/', (string) $value ) ) {
 				// translators: 1) is the name of the parameter.
 				$exception = new InvalidRestArgumentException( sprintf( __( 'Parameter `{%1$s}` must be a valid UUID.', 'tribe-common' ), $this->get_name() ) );
 				$exception->set_argument( $this->get_name() );
