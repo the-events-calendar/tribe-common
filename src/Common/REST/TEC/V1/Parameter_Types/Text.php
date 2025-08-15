@@ -13,6 +13,7 @@ namespace TEC\Common\REST\TEC\V1\Parameter_Types;
 
 use TEC\Common\REST\TEC\V1\Abstracts\Parameter;
 use Closure;
+use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 
 /**
  * String parameter type.
@@ -108,6 +109,36 @@ class Text extends Parameter {
 	public function get_validator(): ?Closure {
 		if ( null !== $this->validator ) {
 			return $this->validator;
+		}
+
+		if ( null !== $this->get_pattern() ) {
+			return $this->validator ?? function ( $value ): bool {
+				if ( ! is_string( $value ) ) {
+					// translators: 1) is the name of the parameter.
+					$exception = new InvalidRestArgumentException( sprintf( __( 'Parameter `{%1$s}` must be a string.', 'the-events-calendar' ), $this->get_name() ) );
+
+					$exception->set_argument( $this->get_name() );
+					$exception->set_internal_error_code( 'tec_rest_invalid_string_parameter' );
+
+					// translators: 1) is the name of the parameter.
+					$exception->set_details( sprintf( __( 'The parameter `{%1$s}` is not a string.', 'the-events-calendar' ), $this->get_name() ) );
+					throw $exception;
+				}
+
+				if ( ! preg_match( '/' . $this->get_pattern() . '/', $value ) ) {
+					// translators: 1) is the name of the parameter.
+					$exception = new InvalidRestArgumentException( sprintf( __( 'Parameter `{%1$s}` must match the pattern.', 'the-events-calendar' ), $this->get_name() ) );
+
+					$exception->set_argument( $this->get_name() );
+					$exception->set_internal_error_code( 'tec_rest_invalid_string_parameter' );
+
+					// translators: 1) is the name of the parameter, 2) is the pattern.
+					$exception->set_details( sprintf( __( 'The parameter `{%1$s}` does not match the pattern `%2$s`.', 'the-events-calendar' ), $this->get_name(), $this->get_pattern() ) );
+					throw $exception;
+				}
+
+				return true;
+			};
 		}
 
 		if ( null === $this->get_enum() ) {
