@@ -657,6 +657,18 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 			$property_keys[] = 'stock_mode';
 		}
 
+		$sale_price_key = array_search( 'sale_price', $property_keys );
+		if ( false !== $sale_price_key ) {
+			unset( $property_keys[ $sale_price_key ] );
+			$property_keys = array_merge( [ 'sale_price' ], $property_keys );
+		}
+
+		$price_key = array_search( 'price', $property_keys );
+		if ( false !== $price_key ) {
+			unset( $property_keys[ $price_key ] );
+			$property_keys = array_merge( [ 'price' ], $property_keys );
+		}
+
 		$new_properties = [];
 
 		foreach ( $property_keys as $property ) {
@@ -704,7 +716,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 						break;
 					case 'capacity':
 						$new_value = 106;
-						$old_value = isset( $stock_new_value ) ? $stock_new_value : $old_value;
+						$old_value = $stock_new_value ?? $old_value;
 						break;
 					case 'sale_price':
 						$new_value = 16.45;
@@ -841,12 +853,12 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		}
 
 		if ( isset( $entity->_sale_price_dates_from ) ) {
-			$entity->_sale_price_dates_from = date( 'Y-m-d H:i:s', strtotime( $entity->_sale_price_dates_from ) );
+			$entity->_sale_price_dates_from = date( 'Y-m-d', is_numeric( $entity->_sale_price_dates_from ) ? $entity->_sale_price_dates_from : strtotime( $entity->_sale_price_dates_from ) );
 			$entity->sale_price_start_date  = $entity->_sale_price_dates_from;
 		}
 
 		if ( isset( $entity->_sale_price_dates_to ) ) {
-			$entity->_sale_price_dates_to = date( 'Y-m-d H:i:s', strtotime( $entity->_sale_price_dates_to ) );
+			$entity->_sale_price_dates_to = date( 'Y-m-d', is_numeric( $entity->_sale_price_dates_to ) ? $entity->_sale_price_dates_to : strtotime( $entity->_sale_price_dates_to ) );
 			$entity->sale_price_end_date  = $entity->_sale_price_dates_to;
 		}
 
@@ -862,12 +874,24 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 			$entity->_tec_tickets_commerce_event = (int) $entity->_tec_tickets_commerce_event;
 		}
 
+		if ( isset( $entity->_tribe_wooticket_for_event ) ) {
+			$entity->_tribe_wooticket_for_event = (int) $entity->_tribe_wooticket_for_event;
+		}
+
 		if ( isset( $entity->event_capacity ) ) {
 			$entity->event_capacity = (int) $entity->event_capacity;
 		}
 
+		if ( isset( $entity->capacity ) ) {
+			$entity->capacity = (int) $entity->capacity;
+		}
+
 		if ( isset( $entity->_tribe_ticket_capacity ) ) {
 			$entity->_tribe_ticket_capacity = (int) $entity->_tribe_ticket_capacity;
+		}
+
+		if ( ! empty( $entity->price ) && ! empty( $entity->regular_price ) ) {
+			$entity->price = $entity->regular_price;
 		}
 
 		return $entity;
