@@ -25,7 +25,6 @@ use TEC\Common\REST\TEC\V1\Parameter_Types\Number;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Integer;
 use Tribe\Utils\Lazy_String;
 use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
 
 // phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase
 
