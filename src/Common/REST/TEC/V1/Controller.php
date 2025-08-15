@@ -22,6 +22,9 @@ use Tribe__Events__Pro__Main as ECP;
 use Tribe__Tickets_Plus__Main as ETP;
 use InvalidArgumentException;
 use Tribe__Cache as Cache;
+use JsonSerializable;
+use DateTimeImmutable;
+use DateTimeZone;
 
 /**
  * Controller for the TEC REST API.
@@ -45,6 +48,29 @@ class Controller extends Controller_Contract {
 	public const VERSION = 1;
 
 	/**
+	 * The whitelisted fields that will not be hidden.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	protected const WHITELISTED_FIELDS = [
+		'id',
+		'date',
+		'date_gmt',
+		'guid',
+		'modified',
+		'modified_gmt',
+		'slug',
+		'status',
+		'type',
+		'link',
+		'title',
+		'author',
+		'class_list',
+	];
+
+	/**
 	 * Registers the filters and actions hooks added by the controller.
 	 *
 	 * @since TBD
@@ -55,6 +81,7 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( Documentation::class );
 		$this->container->register( Endpoints::class );
 		add_filter( 'rest_pre_dispatch', [ $this, 'bind_request_object' ], 10, 3 );
+		add_filter( 'tec_rest_v1_post_entity_transform', [ $this, 'hide_password_protected_data' ], 10000, 2 );
 	}
 
 	/**
@@ -67,6 +94,7 @@ class Controller extends Controller_Contract {
 	public function unregister(): void {
 		$this->container->get( Endpoints::class )->unregister();
 		remove_filter( 'rest_pre_dispatch', [ $this, 'bind_request_object' ] );
+		remove_filter( 'tec_rest_v1_post_entity_transform', [ $this, 'hide_password_protected_data' ], 10000 );
 	}
 
 	/**
@@ -95,6 +123,47 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( WP_REST_Request::class, $request );
 
 		return $response;
+	}
+
+	/**
+	 * Hides the password protected data from the entity.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $entity    The entity to hide the password protected data from.
+	 * @param string $post_type The post type of the entity.
+	 *
+	 * @return array
+	 */
+	public function hide_password_protected_data( array $entity, string $post_type ): array {
+		$id = $entity['id'] ?? null;
+
+		if ( ! $id ) {
+			return $entity;
+		}
+
+		$post = get_post( $id );
+
+		if ( ! $post ) {
+			return $entity;
+		}
+
+		/**
+		 * Filters if the post requires a password to be shown.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $requires_password Whether the post requires a password to be shown.
+		 * @param array  $entity            The entity to check if it requires a password to be shown.
+		 * @param string $post_type         The post type of the entity.
+		 */
+		$requires_password = (bool) apply_filters( 'tec_rest_v1_post_password_required', post_password_required( $post ), $entity, $post_type );
+
+		if ( ! $requires_password ) {
+			return $entity;
+		}
+
+		return $this->recursive_hide_password_protected_data( $entity, $post_type );
 	}
 
 	/**
@@ -209,5 +278,60 @@ class Controller extends Controller_Contract {
 		} else {
 			$cache->delete_transient( $cache_key );
 		}
+	}
+
+	/**
+	 * Recursively hides the password protected data from the entity.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $data      The data to hide the password protected data from.
+	 * @param string $post_type The post type of the entity.
+	 *
+	 * @return mixed
+	 */
+	protected function recursive_hide_password_protected_data( array $data, string $post_type ): array {
+		/**
+		 * Filters the whitelisted fields that will not be hidden.
+		 *
+		 * @since TBD
+		 *
+		 * @param array  $whitelisted_fields The whitelisted fields.
+		 * @param string $post_type          The post type of the entity.
+		 */
+		$whitelisted_fields = (array) apply_filters( 'tec_rest_v1_post_password_whitelisted_fields', self::WHITELISTED_FIELDS, $post_type );
+
+		foreach ( $data as $key => $value ) {
+			if ( in_array( $key, $whitelisted_fields, true ) ) {
+				continue;
+			}
+
+			if ( $value instanceof JsonSerializable ) {
+				$value = json_decode( wp_json_encode( $value ), true );
+			}
+
+			if ( $value instanceof DateTimeImmutable ) {
+				$value = new DateTimeImmutable( '1970-01-01 00:00:00', new DateTimeZone( 'UTC' ) );
+			}
+
+			if ( is_callable( $value ) ) {
+				$data[ $key ] = null;
+				continue;
+			}
+
+			if ( is_array( $value ) || is_object( $value ) ) {
+				$data[ $key ] = $this->recursive_hide_password_protected_data( (array) $value, $post_type );
+				continue;
+			}
+
+			if ( ! is_numeric( $value ) && ! is_string( $value ) ) {
+				$data[ $key ] = null;
+				continue;
+			}
+
+			$data[ $key ] = is_string( $value ) ? __( 'Password protected', 'tribe-common' ) : 0;
+		}
+
+		return $data;
 	}
 }
