@@ -21,6 +21,8 @@ use Closure;
 use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface as Tag;
 use TEC\Common\REST\TEC\V1\Contracts\Parameter;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Number;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Integer;
 use Tribe\Utils\Lazy_String;
 use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 
@@ -319,6 +321,13 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 
 				if ( ! isset( $data[ $param_name ] ) ) {
 					continue;
+				}
+
+				if ( 'Body' !== $type && $param instanceof Number ) {
+					/**
+					 * Parameter that are part of the Query or the Path may be converted to string by WP. We forgive that issue here.
+					 */
+					$data[ $param_name ] = $param instanceof Integer ? intval( $data[ $param_name ] ) : floatval( $data[ $param_name ] );
 				}
 
 				$validator = $param->get_validator();
