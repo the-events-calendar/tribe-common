@@ -123,16 +123,16 @@ class Controller_Test extends Controller_Test_Case {
 				function () use ( &$as_has_scheduled_action ) {
 					return $as_has_scheduled_action;
 				},
-				true 
+				true
 			);
 		}
-		if ( ! function_exists( 'as_schedule_recurring_action' ) ) {
+		if ( ! function_exists( 'as_schedule_single_action' ) ) {
 			$this->set_fn_return(
-				'as_has_scheduled_action',
+				'as_schedule_single_action',
 				function () use ( &$as_has_scheduled_action ) {
 					$as_has_scheduled_action = true;
 				},
-				true 
+				true
 			);
 		}
 		if ( ! function_exists( 'as_unschedule_action' ) ) {
@@ -141,7 +141,7 @@ class Controller_Test extends Controller_Test_Case {
 				function () use ( &$as_has_scheduled_action ) {
 					$as_has_scheduled_action = false;
 				},
-				true 
+				true
 			);
 		}
 		// Remove anything hooked to init to avoid side-effects.
@@ -177,7 +177,7 @@ class Controller_Test extends Controller_Test_Case {
 
 				return function_exists( $fn );
 			},
-			true 
+			true
 		);
 		// Remove anything hooked to init to avoid side-effects.
 		remove_all_filters( 'init' );

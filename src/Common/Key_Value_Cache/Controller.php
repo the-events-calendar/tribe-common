@@ -157,11 +157,12 @@ class Controller extends Controller_Contract {
 	public function schedule_table_clean_action(): void {
 		if (
 			function_exists( 'as_has_scheduled_action' )
-			&& function_exists( 'as_schedule_recurring_action' )
-			&& ! as_has_scheduled_action( self::CLEAR_EXPIRED_ACTION )
+			&& function_exists( 'as_schedule_single_action' )
 		) {
 			// Prefer using Action Scheduler if available.
-			as_schedule_recurring_action( time(), 12 * HOUR_IN_SECONDS, self::CLEAR_EXPIRED_ACTION );
+			if ( ! as_has_scheduled_action( self::CLEAR_EXPIRED_ACTION ) ) {
+				as_schedule_single_action( time(), self::CLEAR_EXPIRED_ACTION );
+			}
 
 			return;
 		}
