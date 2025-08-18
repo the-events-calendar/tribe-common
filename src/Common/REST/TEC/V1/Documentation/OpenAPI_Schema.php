@@ -319,6 +319,10 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 					throw $exception;
 				}
 
+				if ( 'status' === $param_name && empty( $data[ $param_name ] ) ) {
+					$data[ $param_name ] = 'publish';
+				}
+
 				if ( ! isset( $data[ $param_name ] ) ) {
 					continue;
 				}

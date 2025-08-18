@@ -12,6 +12,7 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Traits;
 
 use WP_REST_Response;
+use TEC\Events_Pro\Custom_Tables\V1\WP_Query\Provider as Custom_Tables_Provider;
 
 /**
  * Trait to handle the response for update entity requests.
@@ -51,6 +52,10 @@ trait Update_Entity_Response {
 				],
 				404
 			);
+		}
+
+		if ( tribe()->isBound( Custom_Tables_Provider::class ) ) {
+			remove_filter( 'tec_events_custom_tables_v1_occurrence_select_fields', [ tribe( Custom_Tables_Provider::class ), 'filter_occurrence_fields' ] );
 		}
 
 		$save_result = $this->get_orm()->by_args(
