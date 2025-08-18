@@ -2,7 +2,7 @@
 /**
  * Properties collection.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Collections
  */
@@ -22,13 +22,13 @@ use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface as Definition;
 /**
  * Properties collection.
  *
- * @since TBD
+ * @since 6.9.0
  */
 class PropertiesCollection extends Collection {
 	/**
 	 * Returns the collection as an array.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */

@@ -2,7 +2,7 @@
 /**
  * Swagger documentation endpoint for the TEC REST API.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1
  */
@@ -18,7 +18,7 @@ use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface;
 /**
  * Swagger documentation endpoint for the Events REST API.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1
  */
@@ -26,7 +26,7 @@ class Documentation {
 	/**
 	 * The OpenAPI version.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @link https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md
 	 *
@@ -37,7 +37,7 @@ class Documentation {
 	/**
 	 * The TEC REST API version.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var string
 	 */
@@ -46,7 +46,7 @@ class Documentation {
 	/**
 	 * The registered endpoints.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var Endpoint_Interface[]
 	 */
@@ -55,7 +55,7 @@ class Documentation {
 	/**
 	 * The registered definitions.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var Definition_Interface[]
 	 */
@@ -64,7 +64,7 @@ class Documentation {
 	/**
 	 * The registered tags.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var Tag_Interface[]
 	 */
@@ -73,7 +73,7 @@ class Documentation {
 	/**
 	 * Returns an array in the format used by Swagger.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array An array description of a Swagger supported component.
 	 */
@@ -108,7 +108,7 @@ class Documentation {
 	/**
 	 * Returns the API info.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -127,7 +127,7 @@ class Documentation {
 	/**
 	 * Registers an endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param Endpoint_Interface $endpoint The endpoint to register.
 	 */
@@ -138,7 +138,7 @@ class Documentation {
 	/**
 	 * Registers a tag.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param Tag_Interface $tag The tag to register.
 	 */
@@ -149,7 +149,7 @@ class Documentation {
 	/**
 	 * Registers a definition.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param Definition_Interface $definition The definition to register.
 	 */
@@ -160,7 +160,7 @@ class Documentation {
 	/**
 	 * Returns the tags.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -178,7 +178,7 @@ class Documentation {
 	/**
 	 * Returns the paths documentation for each endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -195,7 +195,7 @@ class Documentation {
 	/**
 	 * Returns the definitions documentation for each definition.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -221,7 +221,7 @@ class Documentation {
 	/**
 	 * Returns the security schemes documentation for each security scheme.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -229,7 +229,7 @@ class Documentation {
 		/**
 		 * Filters the security schemes documentation for the TEC REST API.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param array $security_schemes The security schemes documentation.
 		 *

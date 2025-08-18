@@ -2,7 +2,7 @@
 /**
  * Controller for the TEC REST API.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST
  */
@@ -17,7 +17,7 @@ use TEC\Common\REST\TEC\V1\Controller as V1_Controller;
 /**
  * Controller for the TEC REST API.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST
  */
@@ -25,7 +25,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * The namespace of the REST API.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var string
 	 */
@@ -34,7 +34,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Registers the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return void
 	 */
@@ -45,7 +45,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unregisters the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return void
 	 */

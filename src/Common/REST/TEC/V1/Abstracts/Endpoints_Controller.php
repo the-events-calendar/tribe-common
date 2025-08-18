@@ -2,7 +2,7 @@
 /**
  * Endpoints Controller abstract class.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Abstracts
  */
@@ -22,7 +22,7 @@ use RuntimeException;
 /**
  * Endpoints Controller abstract class.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Abstracts
  */
@@ -30,7 +30,7 @@ abstract class Endpoints_Controller extends Controller_Contract implements Endpo
 	/**
 	 * Registers the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return void
 	 */
@@ -53,7 +53,7 @@ abstract class Endpoints_Controller extends Controller_Contract implements Endpo
 	/**
 	 * Unregisters the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return void
 	 */
@@ -64,7 +64,7 @@ abstract class Endpoints_Controller extends Controller_Contract implements Endpo
 	/**
 	 * Registers the endpoints.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return void
 	 *

@@ -2,7 +2,7 @@
 /**
  * Endpoint interface.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */
@@ -20,7 +20,7 @@ use InvalidArgumentException;
 /**
  * Endpoint interface.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */
@@ -28,7 +28,7 @@ interface Endpoint_Interface {
 	/**
 	 * Registers the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return void
 	 */
@@ -37,7 +37,7 @@ interface Endpoint_Interface {
 	/**
 	 * Returns the OpenAPI documentation for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @link https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md
 	 *
@@ -48,7 +48,7 @@ interface Endpoint_Interface {
 	/**
 	 * Returns the schema for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -57,7 +57,7 @@ interface Endpoint_Interface {
 	/**
 	 * Returns the path of the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 *
@@ -68,7 +68,7 @@ interface Endpoint_Interface {
 	/**
 	 * Returns the base path of the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -77,7 +77,7 @@ interface Endpoint_Interface {
 	/**
 	 * Returns the URL of the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param mixed ...$args The arguments to pass to the URL.
 	 *
@@ -88,7 +88,7 @@ interface Endpoint_Interface {
 	/**
 	 * Returns the path parameters of the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return PathArgumentCollection
 	 */
@@ -97,7 +97,7 @@ interface Endpoint_Interface {
 	/**
 	 * Returns the OpenAPI path of the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -106,7 +106,7 @@ interface Endpoint_Interface {
 	/**
 	 * Returns the request object for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return WP_REST_Request
 	 */
@@ -115,7 +115,7 @@ interface Endpoint_Interface {
 	/**
 	 * Returns the tags for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return Tag[]
 	 */
@@ -124,7 +124,7 @@ interface Endpoint_Interface {
 	/**
 	 * Returns the operation ID for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string $operation The operation to get the operation ID for.
 	 *
@@ -137,7 +137,7 @@ interface Endpoint_Interface {
 	/**
 	 * Returns whether the endpoint is experimental.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return bool
 	 */

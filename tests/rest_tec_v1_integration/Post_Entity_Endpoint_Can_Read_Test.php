@@ -2,7 +2,7 @@
 /**
  * Integration tests for Post_Entity_Endpoint read permissions.
  *
- * @since TBD
+ * @since 6.9.0
  */
 
 namespace TEC\Common\Tests\REST\TEC\V1;

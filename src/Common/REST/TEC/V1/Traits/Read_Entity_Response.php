@@ -2,7 +2,7 @@
 /**
  * Trait to handle the response for update entity requests.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Traits
  */
@@ -17,7 +17,7 @@ use WP_REST_Posts_Controller;
 /**
  * Trait to handle the response for read entity requests.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Traits
  */
@@ -25,7 +25,7 @@ trait Read_Entity_Response {
 	/**
 	 * Reads an existing entity.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array $params The sanitized parameters to use for the request.
 	 *

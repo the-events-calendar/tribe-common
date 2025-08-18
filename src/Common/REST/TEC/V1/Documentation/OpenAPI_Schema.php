@@ -2,7 +2,7 @@
 /**
  * OpenAPI schema for the Events endpoint.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Events\REST\TEC\V1\Documentation
  */
@@ -31,13 +31,13 @@ use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 /**
  * OpenAPI schema for the Events endpoint.
  *
- * @since TBD
+ * @since 6.9.0
  */
 class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	/**
 	 * The summary of the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var Closure
 	 */
@@ -46,7 +46,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	/**
 	 * The description of the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var Closure
 	 */
@@ -55,7 +55,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	/**
 	 * The endpoint data.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var array
 	 */
@@ -64,7 +64,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	/**
 	 * The operation ID of the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var string
 	 */
@@ -73,7 +73,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	/**
 	 * The tags of the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var Tag[]
 	 */
@@ -82,7 +82,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	/**
 	 * The path arguments of the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?PathArgumentCollection
 	 */
@@ -91,7 +91,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	/**
 	 * The parameters of the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?QueryArgumentCollection
 	 */
@@ -100,7 +100,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	/**
 	 * The request body of the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?RequestBodyCollection
 	 */
@@ -109,7 +109,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	/**
 	 * The responses of the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var array
 	 */
@@ -118,7 +118,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	/**
 	 * Whether the schema requires privileges.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var bool
 	 */
@@ -127,7 +127,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	/**
 	 * The constructor.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param Closure                  $summary_provider The summary provider.
 	 * @param Closure                  $description_provider The description provider.
@@ -214,7 +214,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	/**
 	 * Adds a response to the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param int                $code The HTTP status code of the response.
 	 * @param Closure            $description_provider The closure that provides the description of the response.

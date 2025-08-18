@@ -27,7 +27,7 @@ trait Custom_Table_Query_Methods {
 	 *
 	 * @since 6.5.3
 	 * @since 6.8.0 Referenced the `uid_column` property in the ORDER BY clause.
-	 * @since TBD Added the $order_by parameter.
+	 * @since 6.9.0 Added the $order_by parameter.
 	 *
 	 * @param int    $batch_size   The number of rows to fetch per batch.
 	 * @param string $output       The output type of the query, one of OBJECT, ARRAY_A, or ARRAY_N.
@@ -70,7 +70,7 @@ trait Custom_Table_Query_Methods {
 	/**
 	 * Inserts a single row into the table.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array<mixed> $entry The entry to insert.
 	 *
@@ -83,7 +83,7 @@ trait Custom_Table_Query_Methods {
 	/**
 	 * Updates a single row in the table.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array<mixed> $entry The entry to update.
 	 *
@@ -96,7 +96,7 @@ trait Custom_Table_Query_Methods {
 	/**
 	 * Inserts or updates a single row in the table.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array<mixed> $entry The entry to upsert.
 	 *
@@ -184,7 +184,7 @@ trait Custom_Table_Query_Methods {
 	/**
 	 * Deletes a single row from the table.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param int    $uid    The ID of the row to delete.
 	 * @param string $column The column to use for the delete query.
@@ -261,7 +261,7 @@ trait Custom_Table_Query_Methods {
 	 * Fetches all the rows from the table using a batched query and a WHERE clause.
 	 *
 	 * @since 6.5.3
-	 * @since TBD Added the $order_by parameter.
+	 * @since 6.9.0 Added the $order_by parameter.
 	 *
 	 * @param string $where_clause The WHERE clause to use.
 	 * @param int    $batch_size   The number of rows to fetch per batch.

@@ -2,7 +2,7 @@
 /**
  * Trait to handle the response for create entity requests.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Traits
  */
@@ -16,7 +16,7 @@ use WP_REST_Response;
 /**
  * Trait to handle the response for create entity requests.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Traits
  */
@@ -24,7 +24,7 @@ trait Create_Entity_Response {
 	/**
 	 * Creates a new entity.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array $params The sanitized parameters to use for the request.
 	 *

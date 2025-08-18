@@ -2,7 +2,7 @@
 /**
  * OpenAPI docs endpoint.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Endpoints
  */
@@ -29,7 +29,7 @@ use InvalidArgumentException;
 /**
  * OpenAPI docs endpoint.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Endpoints
  */
@@ -37,7 +37,7 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 	/**
 	 * Returns the arguments for the read method.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return QueryArgumentCollection
 	 */
@@ -48,7 +48,7 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 	/**
 	 * Returns whether the user can read the object.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -61,7 +61,7 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 	/**
 	 * Returns the response for the read method.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array $params The parameters to use for the request.
 	 *
@@ -74,7 +74,7 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 		/**
 		 * Filters the documentation for the OpenAPI docs endpoint.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param array $documentation The documentation.
 		 *
@@ -86,7 +86,7 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 	/**
 	 * Returns the schema for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -227,7 +227,7 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 	/**
 	 * Returns the base path of the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -238,7 +238,7 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 	/**
 	 * Returns the tags for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return Tag[]
 	 */
@@ -249,7 +249,7 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 	/**
 	 * Returns the operation ID for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string $operation The operation to get the operation ID for.
 	 *
@@ -271,7 +271,7 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 	 *
 	 * This endpoint is not experimental.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return bool
 	 */

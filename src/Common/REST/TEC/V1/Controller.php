@@ -2,7 +2,7 @@
 /**
  * Controller for the TEC REST API.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST
  */
@@ -29,7 +29,7 @@ use DateTimeZone;
 /**
  * Controller for the TEC REST API.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST
  */
@@ -41,7 +41,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * e.g. /wp-json/tec/v1/
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var int
 	 */
@@ -50,7 +50,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * The whitelisted fields that will not be hidden.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var array
 	 */
@@ -73,7 +73,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Registers the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return void
 	 */
@@ -87,7 +87,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unregisters the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return void
 	 */
@@ -100,7 +100,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Returns the namespace of the REST API.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -111,7 +111,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Binds the request object to the singleton.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param mixed           $response The request object.
 	 * @param WP_REST_Server  $server   The REST server.
@@ -128,7 +128,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Hides the password protected data from the entity.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array  $entity    The entity to hide the password protected data from.
 	 * @param string $post_type The post type of the entity.
@@ -151,7 +151,7 @@ class Controller extends Controller_Contract {
 		/**
 		 * Filters if the post requires a password to be shown.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param bool   $requires_password Whether the post requires a password to be shown.
 		 * @param array  $entity            The entity to check if it requires a password to be shown.
@@ -169,7 +169,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Returns the cache key for the implementation.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -201,7 +201,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Returns the cache key for the implementation.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string $key The key to add to the cache key.
 	 *
@@ -220,7 +220,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Returns the cache for the REST API.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string $key The key to get the cache for.
 	 *
@@ -238,7 +238,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Sets the cache for the REST API.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string $key   The key to set the cache for.
 	 * @param mixed  $value The value to set the cache for.
@@ -261,7 +261,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Deletes the cache for the REST API.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string $key The key to delete the cache for.
 	 *
@@ -283,7 +283,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Recursively hides the password protected data from the entity.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array  $data      The data to hide the password protected data from.
 	 * @param string $post_type The post type of the entity.
@@ -294,7 +294,7 @@ class Controller extends Controller_Contract {
 		/**
 		 * Filters the whitelisted fields that will not be hidden.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param array  $whitelisted_fields The whitelisted fields.
 		 * @param string $post_type          The post type of the entity.

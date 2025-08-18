@@ -2,7 +2,7 @@
 /**
  * OpenAPI schema interface.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */
@@ -21,13 +21,13 @@ use JsonSerializable;
 /**
  * OpenAPI schema interface.
  *
- * @since TBD
+ * @since 6.9.0
  */
 interface OpenAPI_Schema extends JsonSerializable {
 	/**
 	 * Returns the summary of the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -36,7 +36,7 @@ interface OpenAPI_Schema extends JsonSerializable {
 	/**
 	 * Returns the description of the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -45,7 +45,7 @@ interface OpenAPI_Schema extends JsonSerializable {
 	/**
 	 * Returns the operation ID of the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -54,7 +54,7 @@ interface OpenAPI_Schema extends JsonSerializable {
 	/**
 	 * Returns the tags of the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return Definition_Interface[]
 	 */
@@ -63,7 +63,7 @@ interface OpenAPI_Schema extends JsonSerializable {
 	/**
 	 * Returns the parameters of the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -72,7 +72,7 @@ interface OpenAPI_Schema extends JsonSerializable {
 	/**
 	 * Returns the request body of the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?RequestBodyCollection
 	 */
@@ -81,7 +81,7 @@ interface OpenAPI_Schema extends JsonSerializable {
 	/**
 	 * Returns the responses of the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -90,7 +90,7 @@ interface OpenAPI_Schema extends JsonSerializable {
 	/**
 	 * Adds a response to the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param int                $code The HTTP status code of the response.
 	 * @param Closure            $description_provider The closure that provides the description of the response.
@@ -105,7 +105,7 @@ interface OpenAPI_Schema extends JsonSerializable {
 	/**
 	 * Returns the schema for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -114,7 +114,7 @@ interface OpenAPI_Schema extends JsonSerializable {
 	/**
 	 * Validates the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array $data The data to validate.
 	 *
@@ -125,7 +125,7 @@ interface OpenAPI_Schema extends JsonSerializable {
 	/**
 	 * Sanitizes the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array The sanitized data.
 	 */

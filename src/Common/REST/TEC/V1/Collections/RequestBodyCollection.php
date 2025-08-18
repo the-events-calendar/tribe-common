@@ -2,7 +2,7 @@
 /**
  * Request body collection.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Collections
  */
@@ -21,14 +21,14 @@ use InvalidArgumentException;
 /**
  * Request body collection.
  *
- * @since TBD
+ * @since 6.9.0
  */
 class RequestBodyCollection extends Collection {
 
 	/**
 	 * The description provider.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?callable
 	 */
@@ -37,7 +37,7 @@ class RequestBodyCollection extends Collection {
 	/**
 	 * The required flag.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var bool
 	 */
@@ -46,7 +46,7 @@ class RequestBodyCollection extends Collection {
 	/**
 	 * The example.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?array
 	 */
@@ -55,7 +55,7 @@ class RequestBodyCollection extends Collection {
 	/**
 	 * Sets the description provider.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param ?callable $provider The description provider.
 	 *
@@ -76,7 +76,7 @@ class RequestBodyCollection extends Collection {
 	/**
 	 * Sets the example.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param ?array $example The example.
 	 *
@@ -91,7 +91,7 @@ class RequestBodyCollection extends Collection {
 	/**
 	 * Returns the example.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?array
 	 */
@@ -102,7 +102,7 @@ class RequestBodyCollection extends Collection {
 	/**
 	 * Returns the description provider.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?Lazy_String
 	 */
@@ -117,7 +117,7 @@ class RequestBodyCollection extends Collection {
 	/**
 	 * Sets the required flag.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param bool $required The required flag.
 	 *
@@ -132,7 +132,7 @@ class RequestBodyCollection extends Collection {
 	/**
 	 * Returns the collection as an array.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -180,7 +180,7 @@ class RequestBodyCollection extends Collection {
 	/**
 	 * Returns the properties as an array.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -191,7 +191,7 @@ class RequestBodyCollection extends Collection {
 	/**
 	 * Returns the properties from a collection.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param ?Collection $collection The collection.
 	 *

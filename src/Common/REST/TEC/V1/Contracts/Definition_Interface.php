@@ -2,7 +2,7 @@
 /**
  * Definition interface.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */
@@ -14,7 +14,7 @@ namespace TEC\Common\REST\TEC\V1\Contracts;
 /**
  * Definition interface.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */
@@ -22,7 +22,7 @@ interface Definition_Interface {
 	/**
 	 * Returns the OpenAPI documentation for the definition.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -31,7 +31,7 @@ interface Definition_Interface {
 	/**
 	 * Returns the type of the definition.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -40,7 +40,7 @@ interface Definition_Interface {
 	/**
 	 * Returns the priority of the definition.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return int
 	 */
@@ -49,7 +49,7 @@ interface Definition_Interface {
 	/**
 	 * Returns the example of the definition.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -58,7 +58,7 @@ interface Definition_Interface {
 	/**
 	 * Returns the instance from a ref.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string $ref The ref.
 	 *

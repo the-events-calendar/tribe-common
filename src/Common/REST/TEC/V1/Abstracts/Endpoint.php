@@ -2,7 +2,7 @@
 /**
  * Endpoint class.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Abstracts
  */
@@ -31,7 +31,7 @@ use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
 /**
  * Endpoint class.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Abstracts
  */
@@ -39,7 +39,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Alias for PUT, PATCH transport methods together.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var string
 	 */
@@ -48,7 +48,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * The cached schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var array|null
 	 */
@@ -57,7 +57,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Registers the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return void
 	 */
@@ -72,7 +72,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Returns the methods for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 *
@@ -181,7 +181,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Returns the documentation for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -210,7 +210,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Gets the current REST URL for the request.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string The current REST URL.
 	 */
@@ -230,7 +230,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Gets the default posts per page.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return int The default posts per page.
 	 */
@@ -238,7 +238,7 @@ abstract class Endpoint implements Endpoint_Interface {
 		/**
 		 * Filters the default number of events per page.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param int $per_page The default number of events per page.
 		 */
@@ -248,7 +248,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Gets the maximum posts per page.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return int The maximum posts per page.
 	 */
@@ -256,7 +256,7 @@ abstract class Endpoint implements Endpoint_Interface {
 		/**
 		 * Filters the maximum number of events per page.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param int $max_per_page The maximum number of events per page.
 		 */
@@ -266,7 +266,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Returns the URL of the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param mixed ...$args The arguments to pass to the URL.
 	 *
@@ -279,7 +279,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Returns the path parameters of the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return PathArgumentCollection
 	 */
@@ -290,7 +290,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Returns the path for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 *
@@ -325,7 +325,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Returns the OpenAPI path of the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -344,7 +344,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Returns the request object for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return WP_REST_Request
 	 */
@@ -361,7 +361,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Responds to a request.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param callable $callback The callback to respond to the request.
 	 *
@@ -399,7 +399,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Filters the parameters for the request.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array  $params     The parameters to filter.
 	 * @param string $operation The operation to filter the parameters for.
@@ -419,7 +419,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Gets the sanitized parameters from the schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string $schema_name    The name of the schema. Can be `read`, `create`, `update`, or `delete`.
 	 * @param array  $request_params The request parameters.
@@ -474,7 +474,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Assures the experimental acknowledgement.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -501,7 +501,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Returns the experimental acknowledgement.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -514,7 +514,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Returns whether the endpoint is experimental.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return bool
 	 */
@@ -522,7 +522,7 @@ abstract class Endpoint implements Endpoint_Interface {
 		/**
 		 * Filters whether the endpoint is experimental.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param bool   $is_experimental Whether the endpoint is experimental.
 		 * @param string $endpoint        The endpoint class name.
@@ -532,7 +532,7 @@ abstract class Endpoint implements Endpoint_Interface {
 		/**
 		 * Filters whether the endpoint is experimental.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param bool   $is_experimental Whether the endpoint is experimental.
 		 * @param string $endpoint        The endpoint class name.
@@ -543,7 +543,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Returns the cached schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */

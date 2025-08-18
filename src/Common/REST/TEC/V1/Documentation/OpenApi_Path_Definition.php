@@ -2,7 +2,7 @@
 /**
  * OpenApi_Path_Definition class.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Documentation
  */
@@ -16,7 +16,7 @@ use TEC\Common\REST\TEC\V1\Abstracts\Definition;
 /**
  * Class OpenApi_Path_Definition.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Documentation
  */
@@ -24,7 +24,7 @@ class OpenApi_Path_Definition extends Definition {
 	/**
 	 * Returns the type of the definition.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -35,7 +35,7 @@ class OpenApi_Path_Definition extends Definition {
 	/**
 	 * Returns the priority of the definition.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return int
 	 */
@@ -46,7 +46,7 @@ class OpenApi_Path_Definition extends Definition {
 	/**
 	 * Returns the documentation for the definition.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -132,7 +132,7 @@ class OpenApi_Path_Definition extends Definition {
 		/**
 		 * Filters the Swagger definition generated for an OpenAPI path in the TEC REST API.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param array                   $documentation An associative PHP array in the format supported by Swagger.
 		 * @param OpenApi_Path_Definition $this          The OpenApi_Path_Definition instance.

@@ -2,7 +2,7 @@
 /**
  * Updatable endpoint interface.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */
@@ -18,7 +18,7 @@ use TEC\Common\REST\TEC\V1\Collections\Collection;
 /**
  * Updatable endpoint interface.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */
@@ -26,7 +26,7 @@ interface Updatable_Endpoint {
 	/**
 	 * Updates the object.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array $params The parameters to use for the request.
 	 *
@@ -37,7 +37,7 @@ interface Updatable_Endpoint {
 	/**
 	 * Returns whether the user can update the object.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -48,7 +48,7 @@ interface Updatable_Endpoint {
 	/**
 	 * Returns the arguments for the update method.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -57,7 +57,7 @@ interface Updatable_Endpoint {
 	/**
 	 * Returns the schema for the update method.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return OpenAPI_Schema
 	 */
@@ -66,7 +66,7 @@ interface Updatable_Endpoint {
 	/**
 	 * Returns the attributes for the update method.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */

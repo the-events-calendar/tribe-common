@@ -2,7 +2,7 @@
 /**
  * Base test case for REST API endpoints.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\Tests\Testcases\REST\TEC\V1
  */
@@ -40,7 +40,7 @@ if ( ! class_exists( WPBrowserTestCase::class ) ) {
 /**
  * Class REST_Test_Case
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\Tests\Testcases\REST\TEC\V1
  *
@@ -300,7 +300,7 @@ abstract class REST_Test_Case extends WPBrowserTestCase {
 	/**
 	 * Returns the class from a ref.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string $ref The ref.
 	 *

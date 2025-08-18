@@ -2,7 +2,7 @@
 /**
  * Invalid REST argument exception.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Exceptions
  */
@@ -20,7 +20,7 @@ use WP_Error;
 /**
  * Invalid REST argument exception.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Exceptions
  */
@@ -29,7 +29,7 @@ class InvalidRestArgumentException extends Exception {
 	/**
 	 * The argument that was invalid.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var string
 	 */
@@ -38,7 +38,7 @@ class InvalidRestArgumentException extends Exception {
 	/**
 	 * The error code.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var string
 	 */
@@ -47,7 +47,7 @@ class InvalidRestArgumentException extends Exception {
 	/**
 	 * The details.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var string
 	 */
@@ -56,7 +56,7 @@ class InvalidRestArgumentException extends Exception {
 	/**
 	 * Constructs the exception.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string     $generic_message The generic message to use for the exception.
 	 * @param int        $status_code     The status code to use for the exception.
@@ -69,7 +69,7 @@ class InvalidRestArgumentException extends Exception {
 	/**
 	 * Sets the argument that was invalid.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string $argument The argument that was invalid.
 	 *
@@ -82,7 +82,7 @@ class InvalidRestArgumentException extends Exception {
 	/**
 	 * Gets the argument that was invalid.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -93,7 +93,7 @@ class InvalidRestArgumentException extends Exception {
 	/**
 	 * Sets the error code.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string $error_code The error code.
 	 *
@@ -106,7 +106,7 @@ class InvalidRestArgumentException extends Exception {
 	/**
 	 * Sets the details.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string $details The details.
 	 *
@@ -119,7 +119,7 @@ class InvalidRestArgumentException extends Exception {
 	/**
 	 * Gets the details.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -130,7 +130,7 @@ class InvalidRestArgumentException extends Exception {
 	/**
 	 * Gets the error code.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -141,7 +141,7 @@ class InvalidRestArgumentException extends Exception {
 	/**
 	 * Converts the exception to a WP_Error.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return WP_Error
 	 */

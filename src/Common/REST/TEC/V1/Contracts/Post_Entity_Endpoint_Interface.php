@@ -2,7 +2,7 @@
 /**
  * Post Entity Endpoint interface.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */
@@ -17,7 +17,7 @@ use Tribe__Repository__Interface;
 /**
  * Post Entity Endpoint interface.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */
@@ -25,7 +25,7 @@ interface Post_Entity_Endpoint_Interface extends Endpoint_Interface {
 	/**
 	 * Returns the post type of the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -34,7 +34,7 @@ interface Post_Entity_Endpoint_Interface extends Endpoint_Interface {
 	/**
 	 * Returns whether the guest can read the object.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return bool
 	 */
@@ -43,7 +43,7 @@ interface Post_Entity_Endpoint_Interface extends Endpoint_Interface {
 	/**
 	 * Returns the model class.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return class-string
 	 */
@@ -52,7 +52,7 @@ interface Post_Entity_Endpoint_Interface extends Endpoint_Interface {
 	/**
 	 * Validates the status parameter.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param mixed $value The value to validate.
 	 *
@@ -63,7 +63,7 @@ interface Post_Entity_Endpoint_Interface extends Endpoint_Interface {
 	/**
 	 * Formats a post into a post entity.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param WP_Post $post The post to format.
 	 *
@@ -74,7 +74,7 @@ interface Post_Entity_Endpoint_Interface extends Endpoint_Interface {
 	/**
 	 * Returns the ORM for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return Tribe__Repository__Interface
 	 */

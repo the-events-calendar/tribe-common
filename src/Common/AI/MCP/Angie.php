@@ -13,7 +13,7 @@ use Tribe__Main as Common_Main;
 /**
  * Class Angie
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\AI\MCP
  */
@@ -22,7 +22,7 @@ class Angie extends Controller_Contract {
 	/**
 	 * Whether the controller is active or not.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return bool Whether the controller is active or not.
 	 */
@@ -33,7 +33,7 @@ class Angie extends Controller_Contract {
 	/**
 	 * Register the controller.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 */
 	protected function do_register(): void {
 		$main = Common_Main::instance();
@@ -56,7 +56,7 @@ class Angie extends Controller_Contract {
 	/**
 	 * Unregister the controller.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 */
 	public function unregister(): void {
 		// Remove hooks if needed.
@@ -65,7 +65,7 @@ class Angie extends Controller_Contract {
 	/**
 	 * Get localized data for MCP.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */

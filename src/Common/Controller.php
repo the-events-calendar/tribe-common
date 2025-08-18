@@ -39,7 +39,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Load controllers after all common libs are loaded and initial hooks are in place.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return void
 	 */

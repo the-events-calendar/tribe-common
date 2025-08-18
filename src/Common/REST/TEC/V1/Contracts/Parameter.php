@@ -2,7 +2,7 @@
 /**
  * Parameter interface.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */
@@ -19,13 +19,13 @@ use TEC\Common\REST\TEC\V1\Collections\Collection;
 /**
  * Parameter interface.
  *
- * @since TBD
+ * @since 6.9.0
  */
 interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter name.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -34,7 +34,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter description.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -43,7 +43,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter type.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -52,7 +52,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter default value.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return mixed
 	 */
@@ -62,7 +62,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter validator.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?Closure
 	 */
@@ -71,7 +71,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter WP validator.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?Closure
 	 */
@@ -80,7 +80,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter sanitizer.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?Closure
 	 */
@@ -89,7 +89,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter enum values.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?array
 	 */
@@ -98,7 +98,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter maximum value.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?int
 	 */
@@ -107,7 +107,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter minimum value.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?int
 	 */
@@ -116,7 +116,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter format.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?string
 	 */
@@ -125,7 +125,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter items.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?array
 	 */
@@ -134,7 +134,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter required.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return bool
 	 */
@@ -143,7 +143,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter min items.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?int
 	 */
@@ -152,7 +152,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter max items.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?int
 	 */
@@ -161,7 +161,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter min length.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?int
 	 */
@@ -170,7 +170,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter max length.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?int
 	 */
@@ -179,7 +179,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter explode.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?string
 	 */
@@ -188,7 +188,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter explode.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?bool
 	 */
@@ -197,7 +197,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter multiple of.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?int|float
 	 */
@@ -206,7 +206,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter unique items.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?bool
 	 */
@@ -215,7 +215,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter properties.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?Collection
 	 */
@@ -224,7 +224,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter location.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -233,7 +233,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter deprecated.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?bool
 	 */
@@ -242,7 +242,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter example.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return mixed
 	 */
@@ -251,7 +251,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter nullable.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?bool
 	 */
@@ -260,7 +260,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter read only.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?bool
 	 */
@@ -269,7 +269,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter write only.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?bool
 	 */
@@ -278,7 +278,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns the parameter as an array.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -289,7 +289,7 @@ interface Parameter extends JsonSerializable {
 	 *
 	 * @link https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#parameter-object
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -298,7 +298,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Sets the required flag.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param bool $required Whether the parameter is required.
 	 *
@@ -309,7 +309,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Sets the location.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string $location The location.
 	 *
@@ -320,7 +320,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Sets the pattern.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string $pattern The pattern.
 	 *
@@ -331,7 +331,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Sets the example.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param mixed $example The example.
 	 *
@@ -342,7 +342,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Sets the nullable flag.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param bool $nullable Whether the parameter is nullable.
 	 *
@@ -353,7 +353,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Sets the read only flag.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param bool $read_only Whether the parameter is read only.
 	 *
@@ -364,7 +364,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Sets the format.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string $format The format.
 	 *
@@ -375,7 +375,7 @@ interface Parameter extends JsonSerializable {
 	/**
 	 * Returns an instance of the items type.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return mixed
 	 */

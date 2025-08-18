@@ -2,7 +2,7 @@
 /**
  * Date parameter type.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Parameter_Types
  */
@@ -14,7 +14,7 @@ namespace TEC\Common\REST\TEC\V1\Parameter_Types;
 /**
  * Date parameter type.
  *
- * @since TBD
+ * @since 6.9.0
  */
 class Date extends Date_Time {
 

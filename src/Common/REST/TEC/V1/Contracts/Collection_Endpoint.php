@@ -2,7 +2,7 @@
 /**
  * Collection endpoint interface.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */
@@ -14,7 +14,7 @@ namespace TEC\Common\REST\TEC\V1\Contracts;
 /**
  * Collection endpoint interface.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */

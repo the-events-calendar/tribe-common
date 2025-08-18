@@ -2,7 +2,7 @@
 /**
  * TEC Post Entity definitions.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Documentation
  */
@@ -27,7 +27,7 @@ class TEC_Post_Entity_Request_Body_Definition extends Definition {
 	/**
 	 * Get the type.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string The type.
 	 */
@@ -38,7 +38,7 @@ class TEC_Post_Entity_Request_Body_Definition extends Definition {
 	/**
 	 * Get the documentation.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @see https://developer.wordpress.org/rest-api/reference/posts/
 	 *
@@ -175,7 +175,7 @@ class TEC_Post_Entity_Request_Body_Definition extends Definition {
 		/**
 		 * Filters the Swagger documentation generated for an TEC_Post_Entity_Request_Body in the TEC REST API.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param array                                   $documentation An associative PHP array in the format supported by Swagger.
 		 * @param TEC_Post_Entity_Request_Body_Definition $this          The TEC_Post_Entity_Request_Body_Definition instance.
@@ -187,7 +187,7 @@ class TEC_Post_Entity_Request_Body_Definition extends Definition {
 		/**
 		 * Filters the Swagger documentation generated for a definition in the TEC REST API.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param array                                   $documentation An associative PHP array in the format supported by Swagger.
 		 * @param TEC_Post_Entity_Request_Body_Definition $this          The TEC_Post_Entity_Request_Body_Definition instance.
@@ -200,7 +200,7 @@ class TEC_Post_Entity_Request_Body_Definition extends Definition {
 	/**
 	 * Get the priority.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return int The priority.
 	 */

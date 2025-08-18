@@ -2,7 +2,7 @@
 /**
  * Headers collection.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Collections
  */
@@ -18,13 +18,13 @@ use TEC\Common\REST\TEC\V1\Contracts\Parameter;
 /**
  * Headers collection.
  *
- * @since TBD
+ * @since 6.9.0
  */
 class HeadersCollection extends Collection {
 	/**
 	 * Returns the collection as an array.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */

@@ -2,7 +2,7 @@
 /**
  * Endpoints Controller interface.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */
@@ -14,7 +14,7 @@ namespace TEC\Common\REST\TEC\V1\Contracts;
 /**
  * Endpoints Controller interface.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */
@@ -22,7 +22,7 @@ interface Endpoints_Controller_Interface {
 	/**
 	 * Returns the endpoints to register.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return Endpoint_Interface[]
 	 */
@@ -31,7 +31,7 @@ interface Endpoints_Controller_Interface {
 	/**
 	 * Returns the definitions to register.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return Definition_Interface[]
 	 */
@@ -40,7 +40,7 @@ interface Endpoints_Controller_Interface {
 	/**
 	 * Returns the tags to register.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return Tag_Interface[]
 	 */
@@ -49,7 +49,7 @@ interface Endpoints_Controller_Interface {
 	/**
 	 * Registers the endpoints.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return void
 	 */

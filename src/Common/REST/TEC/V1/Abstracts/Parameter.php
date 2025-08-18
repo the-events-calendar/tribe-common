@@ -2,7 +2,7 @@
 /**
  * Abstract parameter class.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Abstracts
  */
@@ -22,13 +22,13 @@ use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface as Definition;
 /**
  * Abstract parameter class.
  *
- * @since TBD
+ * @since 6.9.0
  */
 abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The OpenAPI schema keys.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var array
 	 */
@@ -67,7 +67,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The parameter location: query.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var string
 	 */
@@ -76,7 +76,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The parameter location: path.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var string
 	 */
@@ -85,7 +85,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The parameter location: header.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var string
 	 */
@@ -94,7 +94,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The parameter location: cookie.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var string
 	 */
@@ -103,7 +103,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The name of the parameter.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var string
 	 */
@@ -112,7 +112,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The description provider.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?Closure
 	 */
@@ -121,7 +121,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The validator.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?Closure
 	 */
@@ -130,7 +130,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The example.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var mixed
 	 */
@@ -139,7 +139,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The sanitizer.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?Closure
 	 */
@@ -148,7 +148,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The enum values.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?array
 	 */
@@ -157,7 +157,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * Whether the parameter is required.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var bool
 	 */
@@ -166,7 +166,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The minimum items.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?int
 	 */
@@ -175,7 +175,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The maximum items.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?int
 	 */
@@ -184,7 +184,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The maximum value.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?int
 	 */
@@ -193,7 +193,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The minimum value.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?int
 	 */
@@ -202,7 +202,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The min length.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?int
 	 */
@@ -211,7 +211,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The max length.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?int
 	 */
@@ -220,7 +220,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The format.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?string
 	 */
@@ -229,7 +229,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The items.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?string
 	 */
@@ -238,7 +238,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The default value.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var mixed
 	 */
@@ -247,7 +247,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The pattern.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?string
 	 */
@@ -256,7 +256,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The explode.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?bool
 	 */
@@ -265,7 +265,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The multiple of.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var int|float|null
 	 */
@@ -274,7 +274,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The location.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var string
 	 */
@@ -283,7 +283,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * The properties.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?Collection
 	 */
@@ -292,7 +292,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * Whether the parameter is deprecated.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?bool
 	 */
@@ -301,7 +301,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * Whether the parameter is nullable.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?bool
 	 */
@@ -310,7 +310,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * Whether the parameter is read only.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?bool
 	 */
@@ -319,7 +319,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * Whether the parameter is write only.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var ?bool
 	 */
@@ -328,7 +328,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * Constructor.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string         $name                 The name of the parameter.
 	 * @param ?Closure       $description_provider The description provider.
@@ -417,7 +417,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * Returns an instance of the items type.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return mixed
 	 */
@@ -627,7 +627,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * Returns the WP validator.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?Closure
 	 */
@@ -638,7 +638,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * Sets the example.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param mixed $example The example.
 	 *
@@ -652,7 +652,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * Sets the pattern.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string $pattern The pattern.
 	 *
@@ -666,7 +666,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * Sets the required flag.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param bool $required Whether the parameter is required.
 	 *
@@ -680,7 +680,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * Sets the location.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string $location The location.
 	 *
@@ -694,7 +694,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * Sets the nullable flag.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param bool $nullable Whether the parameter is nullable.
 	 *
@@ -708,7 +708,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * Sets the format.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string $format The format.
 	 *
@@ -722,7 +722,7 @@ abstract class Parameter implements Parameter_Contract {
 	/**
 	 * Sets the read only flag.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param bool $read_only Whether the parameter is read only.
 	 *

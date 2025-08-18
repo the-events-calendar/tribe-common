@@ -2,7 +2,7 @@
 /**
  * Number parameter type.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Parameter_Types
  */
@@ -18,14 +18,14 @@ use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 /**
  * Number parameter type.
  *
- * @since TBD
+ * @since 6.9.0
  */
 class Number extends Parameter {
 
 	/**
 	 * Constructor.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string         $name                 The name of the parameter.
 	 * @param ?Closure       $description_provider The description provider.

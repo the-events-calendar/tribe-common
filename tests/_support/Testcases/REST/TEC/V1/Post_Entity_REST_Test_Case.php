@@ -2,7 +2,7 @@
 /**
  * Base test case for Post Entity REST API endpoints.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\Tests\Testcases\REST\TEC\V1
  */
@@ -24,7 +24,7 @@ use Tribe__Repository as Base_Repo;
 /**
  * Class Post_Entity_REST_Test_Case
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\Tests\Testcases\REST\TEC\V1
  */

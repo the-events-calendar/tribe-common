@@ -5,7 +5,7 @@
  * AI MCP tools, including registering dependencies, adding filters, and
  * unregistering actions when necessary.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\AI
  */
@@ -17,7 +17,7 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 /**
  * Class Controller
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\AI
  */
@@ -26,7 +26,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Whether the controller is active or not.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return bool Whether the controller is active or not.
 	 */
@@ -34,7 +34,7 @@ class Controller extends Controller_Contract {
 		/**
 		 * Filters whether the AI MCP integration is active.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param bool $is_active Whether the AI MCP integration is active.
 		 */
@@ -44,7 +44,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register the controller.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 */
 	protected function do_register(): void {
 		$this->container->register( MCP\Angie::class );
@@ -53,7 +53,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unregister the controller.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 */
 	public function unregister(): void {
 	}

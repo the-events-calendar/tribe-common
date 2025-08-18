@@ -2,7 +2,7 @@
 /**
  * Common tag for the TEC REST API.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Tags
  */
@@ -16,7 +16,7 @@ use TEC\Common\REST\TEC\V1\Abstracts\Tag;
 /**
  * Common tag for the TEC REST API.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Tags
  */
@@ -24,7 +24,7 @@ class Common_Tag extends Tag {
 	/**
 	 * Returns the name of the tag.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -35,7 +35,7 @@ class Common_Tag extends Tag {
 	/**
 	 * Returns the tag.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -49,7 +49,7 @@ class Common_Tag extends Tag {
 	/**
 	 * Returns the priority of the tag.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return int
 	 */

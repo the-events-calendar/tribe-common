@@ -2,7 +2,7 @@
 /**
  * Definition parameter type.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Parameter_Types
  */
@@ -19,7 +19,7 @@ use Closure;
 /**
  * Definition parameter type.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Parameter_Types
  */
@@ -27,7 +27,7 @@ class Definition_Parameter extends Entity {
 	/**
 	 * The definition.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var Definition
 	 */
@@ -36,7 +36,7 @@ class Definition_Parameter extends Entity {
 	/**
 	 * The sanitized data.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var array
 	 */
@@ -45,7 +45,7 @@ class Definition_Parameter extends Entity {
 	/**
 	 * Constructor.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param Definition $definition The definition.
 	 * @param string     $name       The name of the parameter.
@@ -69,7 +69,7 @@ class Definition_Parameter extends Entity {
 	/**
 	 * Returns the parameter as an array.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -80,7 +80,7 @@ class Definition_Parameter extends Entity {
 	/**
 	 * Returns the validator.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return Closure
 	 */
@@ -91,7 +91,7 @@ class Definition_Parameter extends Entity {
 	/**
 	 * Returns the sanitizer.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return Closure
 	 */
@@ -102,7 +102,7 @@ class Definition_Parameter extends Entity {
 	/**
 	 * Returns the definition.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array $data The data to validate.
 	 *
@@ -161,7 +161,7 @@ class Definition_Parameter extends Entity {
 	/**
 	 * Returns the sanitized data.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -172,7 +172,7 @@ class Definition_Parameter extends Entity {
 	/**
 	 * Returns the collections from the docs.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array $docs The docs.
 	 *

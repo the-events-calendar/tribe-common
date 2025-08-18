@@ -2,7 +2,7 @@
 /**
  * Trait to handle the response for read archive requests.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Traits
  */
@@ -17,7 +17,7 @@ use Tribe__Repository__Interface;
 /**
  * Trait to handle the response for read archive requests.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Traits
  */
@@ -25,7 +25,7 @@ trait Read_Archive_Response {
 	/**
 	 * Handles the read request for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array $params The sanitized parameters to use for the request.
 	 *
@@ -57,7 +57,7 @@ trait Read_Archive_Response {
 		/**
 		 * Filters the data that will be returned for an entities archive request.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param array $data   The retrieved data.
 		 * @param array $params The sanitized parameters to use for the request.
@@ -86,7 +86,7 @@ trait Read_Archive_Response {
 	/**
 	 * Builds the events query using the ORM.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array $params The sanitized parameters to use for the request.
 	 *
@@ -127,7 +127,7 @@ trait Read_Archive_Response {
 		/**
 		 * Filters the query in the TEC REST API.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param Tribe__Repository__Interface $query   The query.
 		 * @param array                        $params  The sanitized parameters to use for the request.

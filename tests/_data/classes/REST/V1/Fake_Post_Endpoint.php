@@ -2,7 +2,7 @@
 /**
  * Fake endpoint extending Post_Entity_Endpoint for tests.
  *
- * @since TBD
+ * @since 6.9.0
  */
 
 namespace TEC\Common\Tests\REST\V1;

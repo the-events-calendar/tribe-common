@@ -2,7 +2,7 @@
 /**
  * Abstract tag for the TEC REST API.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Abstracts
  */
@@ -16,7 +16,7 @@ use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface;
 /**
  * Abstract tag for the TEC REST API.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Abstracts
  */
@@ -24,7 +24,7 @@ abstract class Tag implements Tag_Interface {
 	/**
 	 * Returns the tag as a JSON serializable object.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */

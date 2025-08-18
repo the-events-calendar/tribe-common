@@ -2,7 +2,7 @@
 /**
  * Integer parameter type.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Parameter_Types
  */
@@ -17,7 +17,7 @@ use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 /**
  * Integer parameter type.
  *
- * @since TBD
+ * @since 6.9.0
  */
 class Integer extends Number {
 

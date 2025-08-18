@@ -2,7 +2,7 @@
 /**
  * Endpoints Controller class.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1
  */
@@ -27,7 +27,7 @@ use TEC\Common\REST\TEC\V1\Tags\Common_Tag;
 /**
  * Endpoints Controller class.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1
  */
@@ -35,7 +35,7 @@ class Endpoints extends Endpoints_Controller {
 	/**
 	 * Returns the endpoints to register.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return Endpoint_Interface[]
 	 */
@@ -48,7 +48,7 @@ class Endpoints extends Endpoints_Controller {
 	/**
 	 * Returns the tags to register.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return Tag_Interface[]
 	 */
@@ -61,7 +61,7 @@ class Endpoints extends Endpoints_Controller {
 	/**
 	 * Returns the definitions to register.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return Definition_Interface[]
 	 */

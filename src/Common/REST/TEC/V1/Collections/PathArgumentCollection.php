@@ -2,7 +2,7 @@
 /**
  * Path argument collection.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Collections
  */
@@ -19,13 +19,13 @@ use TEC\Common\REST\TEC\V1\Abstracts\Parameter;
 /**
  * Path argument collection.
  *
- * @since TBD
+ * @since 6.9.0
  */
 class PathArgumentCollection extends Collection {
 	/**
 	 * Sets a value in the collection.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string             $offset The offset to set.
 	 * @param Parameter_Contract $value  The value to set.
@@ -38,7 +38,7 @@ class PathArgumentCollection extends Collection {
 	/**
 	 * Returns the collection as an array.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */

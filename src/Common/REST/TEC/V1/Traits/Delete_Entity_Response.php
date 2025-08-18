@@ -2,7 +2,7 @@
 /**
  * Trait to handle the response for delete entity requests.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Traits
  */
@@ -16,7 +16,7 @@ use WP_REST_Response;
 /**
  * Trait to handle the response for delete entity requests.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Traits
  */
@@ -24,7 +24,7 @@ trait Delete_Entity_Response {
 	/**
 	 * Deletes an existing entity.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array $params The sanitized parameters to use for the request.
 	 *
@@ -98,7 +98,7 @@ trait Delete_Entity_Response {
 			/**
 			 * Filters whether to convert a soft delete to a permanent delete when the post is already trashed.
 			 *
-			 * @since TBD
+			 * @since 6.9.0
 			 *
 			 * @param bool     $convert_to_permanent Whether to convert to permanent delete. Default false.
 			 * @param int      $id                  The post ID being deleted.

@@ -13,7 +13,7 @@ use TEC\Common\StellarWP\Shepherd\Config;
 /**
  * Controller for setting up the Shepherd library.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\Libraries\Shepherd
  */
@@ -21,7 +21,7 @@ class Shepherd extends Controller_Contract {
 	/**
 	 * Register the controller.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 */
 	public function do_register(): void {
 		Config::set_container( $this->container );
@@ -33,7 +33,7 @@ class Shepherd extends Controller_Contract {
 	/**
 	 * Unregister the controller.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return void
 	 */

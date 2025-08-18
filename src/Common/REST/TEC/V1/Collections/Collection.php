@@ -2,7 +2,7 @@
 /**
  * Collection.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Collections
  */
@@ -20,14 +20,14 @@ use Iterator;
 /**
  * Collection.
  *
- * @since TBD
+ * @since 6.9.0
  */
 abstract class Collection implements ArrayAccess, Iterator, Countable, JsonSerializable {
 
 	/**
 	 * Collection of items.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var array<Parameter>
 	 */
@@ -36,7 +36,7 @@ abstract class Collection implements ArrayAccess, Iterator, Countable, JsonSeria
 	/**
 	 * Constructor.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array<Parameter> $resources An array of items.
 	 */
@@ -49,7 +49,7 @@ abstract class Collection implements ArrayAccess, Iterator, Countable, JsonSeria
 	/**
 	 * Sets a value in the collection.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string    $offset The offset to set.
 	 * @param Parameter $value  The value to set.
@@ -147,7 +147,7 @@ abstract class Collection implements ArrayAccess, Iterator, Countable, JsonSeria
 	/**
 	 * Returns the collection as an array.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -158,7 +158,7 @@ abstract class Collection implements ArrayAccess, Iterator, Countable, JsonSeria
 	/**
 	 * Returns the collection as an array.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 */
@@ -169,7 +169,7 @@ abstract class Collection implements ArrayAccess, Iterator, Countable, JsonSeria
 	/**
 	 * Maps the collection to an array.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param callable $callback The callback to map the collection to an array.
 	 *
@@ -182,7 +182,7 @@ abstract class Collection implements ArrayAccess, Iterator, Countable, JsonSeria
 	/**
 	 * Filters the collection.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param callable $callback The callback to filter the collection.
 	 *

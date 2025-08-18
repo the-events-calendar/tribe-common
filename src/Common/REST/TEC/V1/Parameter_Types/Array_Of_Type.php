@@ -2,7 +2,7 @@
 /**
  * Array parameter type.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Parameter_Types
  */
@@ -19,14 +19,14 @@ use Closure;
 /**
  * Array parameter type.
  *
- * @since TBD
+ * @since 6.9.0
  */
 class Array_Of_Type extends Parameter {
 
 	/**
 	 * Constructor.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string         $name                 The name of the parameter.
 	 * @param ?Closure       $description_provider The description provider.
@@ -278,7 +278,7 @@ class Array_Of_Type extends Parameter {
 	/**
 	 * Returns the class of the subtype.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return ?Parameter_Contract
 	 */

@@ -2,7 +2,7 @@
 /**
  * Date_Details_Definition class.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Documentation
  */
@@ -18,7 +18,7 @@ use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 /**
  * Date_Details_Definition class.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Documentation
  */
@@ -26,7 +26,7 @@ class Date_Details_Definition extends Definition {
 	/**
 	 * Returns the type of the definition.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -37,7 +37,7 @@ class Date_Details_Definition extends Definition {
 	/**
 	 * Returns the priority of the definition.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return int
 	 */
@@ -48,7 +48,7 @@ class Date_Details_Definition extends Definition {
 	/**
 	 * Returns an array in the format used by Swagger.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array An array description of a Swagger supported component.
 	 */
@@ -74,7 +74,7 @@ class Date_Details_Definition extends Definition {
 		/**
 		 * Filters the Swagger documentation generated for an date details in the TEC REST API.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param array                   $documentation An associative PHP array in the format supported by Swagger.
 		 * @param Date_Details_Definition $this          The Date_Details_Definition instance.
@@ -86,7 +86,7 @@ class Date_Details_Definition extends Definition {
 		/**
 		 * Filters the Swagger documentation generated for a definition in the TEC REST API.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param array                   $documentation An associative PHP array in the format supported by Swagger.
 		 * @param Date_Details_Definition $this          The Date_Details_Definition instance.

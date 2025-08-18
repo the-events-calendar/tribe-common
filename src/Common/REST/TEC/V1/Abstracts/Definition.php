@@ -2,7 +2,7 @@
 /**
  * Definition abstract class.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Abstracts
  */
@@ -19,14 +19,14 @@ use RuntimeException;
 /**
  * Definition abstract class.
  *
- * @since TBD
+ * @since 6.9.0
  */
 abstract class Definition implements Definition_Interface {
 
 	/**
 	 * Returns the example of the definition.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return array
 	 *
@@ -43,7 +43,7 @@ abstract class Definition implements Definition_Interface {
 	/**
 	 * Returns the examples from the docs.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array $docs The docs.
 	 *
@@ -80,7 +80,7 @@ abstract class Definition implements Definition_Interface {
 	/**
 	 * Returns the class from a ref.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param string $ref The ref.
 	 *

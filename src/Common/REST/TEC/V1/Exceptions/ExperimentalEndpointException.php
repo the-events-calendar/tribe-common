@@ -2,7 +2,7 @@
 /**
  * Exception for experimental endpoints.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Exceptions
  */
@@ -19,7 +19,7 @@ use WP_Error;
 /**
  * Exception for experimental endpoints.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Exceptions
  */
@@ -27,7 +27,7 @@ class ExperimentalEndpointException extends Exception {
 	/**
 	 * Returns the WP_Error object for the exception.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return WP_Error
 	 */

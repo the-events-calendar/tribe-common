@@ -2,7 +2,7 @@
 /**
  * Endpoint class.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Abstracts
  */
@@ -22,7 +22,7 @@ use WP_Post;
 /**
  * Endpoint class.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Abstracts
  */
@@ -30,7 +30,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	/**
 	 * The allowed statuses.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @var string[]
 	 */
@@ -39,7 +39,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	/**
 	 * Returns whether the guest can read the object.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return bool
 	 */
@@ -50,7 +50,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	/**
 	 * Returns whether the user can read the object.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -83,7 +83,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	/**
 	 * Returns whether the user can create the object.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -96,7 +96,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	/**
 	 * Returns whether the user can update the object.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -114,7 +114,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	/**
 	 * Returns whether the user can delete the object.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -132,7 +132,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	/**
 	 * Returns the arguments for the delete request.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return QueryArgumentCollection
 	 */
@@ -152,7 +152,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	/**
 	 * Returns the post type object.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return WP_Post_Type
 	 */
@@ -163,7 +163,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	/**
 	 * Formats a collection of posts into a collection of post entities.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array $posts The posts to format.
 	 *
@@ -186,7 +186,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	/**
 	 * Formats a post into a post entity.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param WP_Post $post The post to format.
 	 *
@@ -203,7 +203,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	/**
 	 * Adds properties to the model.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array   $formatted_post The formatted post.
 	 * @param WP_Post $original_post  The original post.
@@ -213,7 +213,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	/**
 	 * Adds properties to the events.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array   $formatted_post The formatted post.
 	 * @param WP_Post $original_post  The original post.
@@ -238,7 +238,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	/**
 	 * Validates the status parameter.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param mixed $value The value to validate.
 	 *
@@ -262,7 +262,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	/**
 	 * Transforms the entity.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array $entity The entity to transform.
 	 *
@@ -275,7 +275,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 		 * Filter to allow modification of the entity data for a specific post type.
 		 * The dynamic portion of the hook name, `$post_type`, refers to the post type slug.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param array $entity The entity data.
 		 * @param Post_Entity_Endpoint $this The endpoint instance.
@@ -285,7 +285,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 		/**
 		 * Filter to allow modification of the entity data globally for all post types.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param array  $entity    The entity data.
 		 * @param string $post_type The post type being transformed.

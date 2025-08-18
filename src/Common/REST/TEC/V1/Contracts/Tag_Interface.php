@@ -2,7 +2,7 @@
 /**
  * Tag interface for the TEC REST API.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */
@@ -16,7 +16,7 @@ use JsonSerializable;
 /**
  * Tag interface for the TEC REST API.
  *
- * @since TBD
+ * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */
@@ -24,7 +24,7 @@ interface Tag_Interface extends JsonSerializable {
 	/**
 	 * Returns the name of the tag.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return string
 	 */
@@ -33,7 +33,7 @@ interface Tag_Interface extends JsonSerializable {
 	/**
 	 * Returns the tag.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @link https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#tag-object
 	 *
@@ -44,7 +44,7 @@ interface Tag_Interface extends JsonSerializable {
 	/**
 	 * Returns the priority of the tag.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return int
 	 */
