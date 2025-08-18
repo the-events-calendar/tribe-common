@@ -3,7 +3,6 @@
 ### [6.9.0] 2025-08-19
 
 * Performance - Improves TicketsCommerce checkout timing by implementing task offloading to Shepherd. [TCMN-185]
-* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
 * Language - 97 new strings added, 24 updated, 1 fuzzied, and 0 obsoleted.
 
 ### [6.8.3] 2025-07-16
