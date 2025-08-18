@@ -119,8 +119,10 @@ class Definition_Parameter extends Entity {
 		foreach ( $collections as $collection ) {
 			/** @var Property $property */
 			foreach ( $collection as $property ) {
-				$argument = $this->get_name() ? $this->get_name() . '.' . $property->get_name() : $property->get_name();
-				if ( $property->is_required() && ! isset( $data[ $property->get_name() ] ) ) {
+				$param_name = $property->get_name();
+				$argument   = $this->get_name() ? $this->get_name() . '.' . $param_name : $param_name;
+
+				if ( $property->is_required() && ! isset( $data[ $param_name ] ) ) {
 					// translators: %s is the name of the property.
 					$exception = new InvalidRestArgumentException( sprintf( __( 'Property %s is required', 'the-events-calendar' ), $argument ) );
 					$exception->set_argument( $argument );
@@ -129,11 +131,15 @@ class Definition_Parameter extends Entity {
 					throw $exception;
 				}
 
-				if ( ! isset( $data[ $property->get_name() ] ) ) {
+				if ( 'status' === $param_name && empty( $data[ $param_name ] ) ) {
+					$data[ $param_name ] = 'publish';
+				}
+
+				if ( ! isset( $data[ $param_name ] ) ) {
 					continue;
 				}
 
-				$is_valid = $property->get_validator()( $data[ $property->get_name() ] );
+				$is_valid = $property->get_validator()( $data[ $param_name ] );
 
 				if ( ! $is_valid ) {
 					// translators: %s: The name of the invalid property.
@@ -144,7 +150,7 @@ class Definition_Parameter extends Entity {
 					throw $exception;
 				}
 
-				$sanitized_data[ $property->get_name() ] = $property->get_sanitizer()( $data[ $property->get_name() ] );
+				$sanitized_data[ $param_name ] = $property->get_sanitizer()( $data[ $param_name ] );
 			}
 		}
 
