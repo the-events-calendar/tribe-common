@@ -161,7 +161,7 @@ class Controller extends Controller_Contract {
 		) {
 			// Prefer using Action Scheduler if available.
 			if ( ! as_has_scheduled_action( self::CLEAR_EXPIRED_ACTION ) ) {
-				as_schedule_single_action( time(), self::CLEAR_EXPIRED_ACTION );
+				as_schedule_single_action( time() + 12 * HOUR_IN_SECONDS, self::CLEAR_EXPIRED_ACTION );
 			}
 
 			return;
