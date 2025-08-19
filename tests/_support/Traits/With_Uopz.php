@@ -112,7 +112,7 @@ trait With_Uopz {
 	 *
 	 * @return Closure A Closure that will unset the return value when called.
 	 */
-	private function set_fn_return( $fn, $value, $execute = false ): Closure {
+	protected function set_fn_return( $fn, $value, $execute = false ): Closure {
 		if ( ! function_exists( 'uopz_set_return' ) ) {
 			$this->markTestSkipped( 'uopz extension is not installed' );
 		}
@@ -125,7 +125,7 @@ trait With_Uopz {
 		};
 	}
 
-	private function set_const_value( $const, ...$args ) {
+	protected function set_const_value( $const, ...$args ) {
 		if ( ! function_exists( 'uopz_redefine' ) ) {
 			$this->markTestSkipped( 'uopz extension is not installed' );
 		}
@@ -172,7 +172,7 @@ trait With_Uopz {
 		self::$uopz_redefines[] = $restore_callback;
 	}
 
-	private function set_class_fn_return( $class, $method, $value, $execute = false ) {
+	protected function set_class_fn_return( $class, $method, $value, $execute = false ) {
 		if ( ! function_exists( 'uopz_set_return' ) ) {
 			$this->markTestSkipped( 'uopz extension is not installed' );
 		}
@@ -185,7 +185,7 @@ trait With_Uopz {
 	 * @param $field
 	 * @param $value
 	 */
-	private function set_class_property( $object, $field, $value ) {
+	protected function set_class_property( $object, $field, $value ) {
 		if ( ! function_exists( 'uopz_set_property' ) ) {
 			$this->markTestSkipped( 'uopz extension is not installed' );
 		}
@@ -195,7 +195,7 @@ trait With_Uopz {
 		self::$uopz_set_properties[] = [ $object, $field, $original_value ];
 	}
 
-	private function add_class_fn( $class, $function, $handler ) {
+	protected function add_class_fn( $class, $function, $handler ) {
 		if ( ! function_exists( 'uopz_add_function' ) ) {
 			$this->markTestSkipped( 'uopz extension is not installed' );
 		}
@@ -228,7 +228,7 @@ trait With_Uopz {
 	 * @param string   $function
 	 * @param Closure $handler
 	 */
-	private function add_fn( string $function, Closure $handler ) {
+	protected function add_fn( string $function, Closure $handler ) {
 		if ( ! function_exists( 'uopz_add_function' ) ) {
 			$this->markTestSkipped( 'uopz extension is not installed' );
 		}

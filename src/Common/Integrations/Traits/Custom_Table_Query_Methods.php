@@ -12,6 +12,7 @@ namespace TEC\Common\Integrations\Traits;
 use Generator;
 use TEC\Common\StellarWP\DB\DB;
 use InvalidArgumentException;
+use DateTimeInterface;
 
 /**
  * Trait Custom_Table_Query_Methods.
@@ -26,14 +27,16 @@ trait Custom_Table_Query_Methods {
 	 *
 	 * @since 6.5.3
 	 * @since 6.8.0 Referenced the `uid_column` property in the ORDER BY clause.
+	 * @since 6.9.0 Added the $order_by parameter.
 	 *
 	 * @param int    $batch_size   The number of rows to fetch per batch.
 	 * @param string $output       The output type of the query, one of OBJECT, ARRAY_A, or ARRAY_N.
 	 * @param string $where_clause The optional WHERE clause to use.
+	 * @param string $order_by     The optional ORDER BY clause to use.
 	 *
 	 * @return Generator<array<string, mixed>> The rows from the table.
 	 */
-	public static function fetch_all( int $batch_size = 50, string $output = OBJECT, string $where_clause = '' ): Generator {
+	public static function fetch_all( int $batch_size = 50, string $output = OBJECT, string $where_clause = '', string $order_by = '' ): Generator {
 		$fetched = 0;
 		$total   = null;
 		$offset  = 0;
@@ -42,11 +45,13 @@ trait Custom_Table_Query_Methods {
 			// On first iteration, we need to set the SQL_CALC_FOUND_ROWS flag.
 			$sql_calc_found_rows = 0 === $fetched ? 'SQL_CALC_FOUND_ROWS' : '';
 
-			$uid_column = self::uid_column();
+			$uid_column = static::uid_column();
+
+			$order_by = $order_by ?: $uid_column . ' ASC';
 
 			$batch = DB::get_results(
 				DB::prepare(
-					"SELECT {$sql_calc_found_rows} * FROM %i {$where_clause} ORDER BY {$uid_column} LIMIT %d, %d",
+					"SELECT {$sql_calc_found_rows} * FROM %i {$where_clause} ORDER BY {$order_by} LIMIT %d, %d",
 					static::table_name( true ),
 					$offset,
 					$batch_size
@@ -63,6 +68,48 @@ trait Custom_Table_Query_Methods {
 	}
 
 	/**
+	 * Inserts a single row into the table.
+	 *
+	 * @since 6.9.0
+	 *
+	 * @param array<mixed> $entry The entry to insert.
+	 *
+	 * @return bool|int The number of rows affected, or `false` on failure.
+	 */
+	public static function insert( array $entry ) {
+		return static::insert_many( [ $entry ] );
+	}
+
+	/**
+	 * Updates a single row in the table.
+	 *
+	 * @since 6.9.0
+	 *
+	 * @param array<mixed> $entry The entry to update.
+	 *
+	 * @return bool Whether the update was successful.
+	 */
+	public static function update_single( array $entry ): bool {
+		return static::update_many( [ $entry ] );
+	}
+
+	/**
+	 * Inserts or updates a single row in the table.
+	 *
+	 * @since 6.9.0
+	 *
+	 * @param array<mixed> $entry The entry to upsert.
+	 *
+	 * @return bool Whether the upsert was successful.
+	 */
+	public static function upsert( array $entry ): bool {
+		$uid_column = static::uid_column();
+		$uid        = $entry[ $uid_column ] ?? false;
+
+		return $uid ? static::update_single( $entry ) : static::insert( $entry );
+	}
+
+	/**
 	 * Inserts multiple rows into the table.
 	 *
 	 * @since 6.5.3
@@ -73,7 +120,7 @@ trait Custom_Table_Query_Methods {
 	 * @return bool|int The number of rows affected, or `false` on failure.
 	 */
 	public static function insert_many( array $entries ) {
-		[ $prepared_columns, $prepared_values ] = self::prepare_statements_values( $entries );
+		[ $prepared_columns, $prepared_values ] = static::prepare_statements_values( $entries );
 
 		return DB::query(
 			DB::prepare(
@@ -90,12 +137,10 @@ trait Custom_Table_Query_Methods {
 	 *
 	 * @param array<mixed> $entries The entries to update.
 	 *
-	 * @return bool|int The number of rows affected, or `false` on failure.
+	 * @return bool Whether the update was successful.
 	 */
 	public static function update_many( array $entries ): bool {
-		[ $prepared_columns, $prepared_values ] = self::prepare_statements_values( $entries );
-
-		$uid_column = self::uid_column();
+		$uid_column = static::uid_column();
 
 		$queries = [];
 		$columns = static::get_columns();
@@ -117,6 +162,10 @@ trait Custom_Table_Query_Methods {
 					continue;
 				}
 
+				if ( $value instanceof DateTimeInterface ) {
+					$value = $value->format( 'Y-m-d H:i:s' );
+				}
+
 				$set_statement[] = DB::prepare( "`{$column}` = %s", $value );
 			}
 
@@ -133,12 +182,26 @@ trait Custom_Table_Query_Methods {
 	}
 
 	/**
+	 * Deletes a single row from the table.
+	 *
+	 * @since 6.9.0
+	 *
+	 * @param int    $uid    The ID of the row to delete.
+	 * @param string $column The column to use for the delete query.
+	 *
+	 * @return bool Whether the delete was successful.
+	 */
+	public static function delete( int $uid, string $column = '' ): bool {
+		return static::delete_many( [ $uid ], $column );
+	}
+
+	/**
 	 * Deletes multiple rows from the table.
 	 *
 	 * @since 6.8.0
 	 *
-	 * @param array<int> $ids    The IDs of the rows to delete.
-	 * @param string     $column The column to use for the delete query.
+	 * @param array<int|string> $ids    The IDs of the rows to delete.
+	 * @param string            $column The column to use for the delete query.
 	 *
 	 * @return bool|int The number of rows affected, or `false` on failure.
 	 */
@@ -156,7 +219,7 @@ trait Custom_Table_Query_Methods {
 
 		$prepared_ids = implode( ', ', $ids );
 
-		$column = $column ?: self::uid_column();
+		$column = $column ?: static::uid_column();
 
 		return DB::query(
 			DB::prepare(
@@ -186,9 +249,7 @@ trait Custom_Table_Query_Methods {
 		$prepared_values  = implode(
 			', ',
 			array_map(
-				static function ( array $entry ) use ( $columns ) {
-					return '(' . implode( ', ', array_map( static fn( $e ) => DB::prepare( '%s', $e ), $entry ) ) . ')';
-				},
+				static fn ( array $entry ) => '(' . implode( ', ', array_map( static fn( $e ) => DB::prepare( '%s', $e instanceof DateTimeInterface ? $e->format( 'Y-m-d H:i:s' ) : $e ), $entry ) ) . ')',
 				$entries
 			)
 		);
@@ -200,15 +261,17 @@ trait Custom_Table_Query_Methods {
 	 * Fetches all the rows from the table using a batched query and a WHERE clause.
 	 *
 	 * @since 6.5.3
+	 * @since 6.9.0 Added the $order_by parameter.
 	 *
 	 * @param string $where_clause The WHERE clause to use.
 	 * @param int    $batch_size   The number of rows to fetch per batch.
 	 * @param string $output       The output type of the query, one of OBJECT, ARRAY_A, or ARRAY_N.
+	 * @param string $order_by     The optional ORDER BY clause to use.
 	 *
 	 * @return Generator<array<string, mixed>> The rows from the table.
 	 */
-	public static function fetch_all_where( string $where_clause, int $batch_size = 50, string $output = OBJECT ): Generator {
-		return static::fetch_all( $batch_size, $output, $where_clause );
+	public static function fetch_all_where( string $where_clause, int $batch_size = 50, string $output = OBJECT, string $order_by = '' ): Generator {
+		return static::fetch_all( $batch_size, $output, $where_clause, $order_by );
 	}
 
 	/**
@@ -263,20 +326,20 @@ trait Custom_Table_Query_Methods {
 
 		$offset = ( $page - 1 ) * $per_page;
 
-		$orderby = $args['orderby'] ?? self::uid_column();
+		$orderby = $args['orderby'] ?? static::uid_column();
 		$order   = strtoupper( $args['order'] ?? 'ASC' );
 
 		if ( ! in_array( $orderby, static::get_columns(), true ) ) {
-			$orderby = self::uid_column();
+			$orderby = static::uid_column();
 		}
 
 		if ( ! in_array( $order, [ 'ASC', 'DESC' ], true ) ) {
 			$order = 'ASC';
 		}
 
-		$where = self::build_where_from_args( $args );
+		$where = static::build_where_from_args( $args );
 
-		[ $join, $secondary_columns ] = $is_join ? self::get_join_parts( $join_table, $join_condition, $selectable_joined_columns ) : [ '', '' ];
+		[ $join, $secondary_columns ] = $is_join ? static::get_join_parts( $join_table, $join_condition, $selectable_joined_columns ) : [ '', '' ];
 
 		return DB::get_results(
 			DB::prepare(
@@ -299,7 +362,7 @@ trait Custom_Table_Query_Methods {
 	 * @return int The total number of items in the table.
 	 */
 	public static function get_total_items( array $args = [] ): int {
-		$where = self::build_where_from_args( $args );
+		$where = static::build_where_from_args( $args );
 
 		return (int) DB::get_var(
 			DB::prepare(

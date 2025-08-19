@@ -1,0 +1,29 @@
+{
+    "type": "object",
+    "properties": {
+        "start": {
+            "$ref": "#/components/schemas/Date"
+        },
+        "start_utc": {
+            "$ref": "#/components/schemas/Date"
+        },
+        "start_site": {
+            "$ref": "#/components/schemas/Date"
+        },
+        "start_display": {
+            "$ref": "#/components/schemas/Date"
+        },
+        "end": {
+            "$ref": "#/components/schemas/Date"
+        },
+        "end_utc": {
+            "$ref": "#/components/schemas/Date"
+        },
+        "end_site": {
+            "$ref": "#/components/schemas/Date"
+        },
+        "end_display": {
+            "$ref": "#/components/schemas/Date"
+        }
+    }
+}
