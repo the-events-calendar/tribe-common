@@ -8,6 +8,15 @@ use TEC\Common\StellarWP\DB;
 use TEC\Common\StellarWP\Schema;
 use Tribe__Main as Common;
 
+/**
+ * Provider for the Common plugin.
+ *
+ * This class is used to register the libraries for the Common plugin.
+ *
+ * @since 5.0.10
+ *
+ * @package TEC\Common\Libraries
+ */
 class Provider extends Service_Provider {
 
 	/**
@@ -37,6 +46,8 @@ class Provider extends Service_Provider {
 		Assets\Config::set_relative_asset_path( 'src/resources/' );
 		Schema\Config::set_db( DB\DB::class );
 		Schema\Config::set_container( tribe() );
+
+		$this->container->register( Shepherd::class );
 	}
 
 	/**
