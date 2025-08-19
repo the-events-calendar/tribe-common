@@ -27,21 +27,6 @@ use stdClass;
  */
 class Json_Packer {
 	/**
-	 * A set of classes considered safe to unpack and pack by default.
-	 *
-	 * The stdClass is not included as it's required to be regarded as safe.
-	 *
-	 * @since TBD
-	 *
-	 * @var string[]
-	 */
-	protected static array $default_allowed_classes = [
-		DateTime::class,
-		DateTimeImmutable::class,
-		DateTimeZone::class,
-	];
-
-	/**
 	 * Tracks object references to handle circular references.
 	 *
 	 * @since TBD
@@ -82,6 +67,23 @@ class Json_Packer {
 	private array $allowed_classes;
 
 	/**
+	 * Returns a set of classes considered safe to unpack and pack by default.
+	 *
+	 * The stdClass is not included as it's required to be regarded as safe.
+	 *
+	 * @since TBD
+	 *
+	 * @return string[]
+	 */
+	protected static function get_default_allowed_classes(): array {
+		return [
+			DateTime::class,
+			DateTimeImmutable::class,
+			DateTimeZone::class,
+		];
+	}
+
+	/**
 	 * Converts a value into a JSON string good to be unpacked later with the `pack` method..
 	 *
 	 * @since TBD
@@ -95,7 +97,7 @@ class Json_Packer {
 	 */
 	public function pack( $value, array $allowed_classes = [] ): string {
 		// Include the classes considered secure by default.
-		$allowed_classes = array_merge( $allowed_classes, self::$default_allowed_classes );
+		$allowed_classes = array_merge( $allowed_classes, self::get_default_allowed_classes() );
 		// Optimize the array for `isset` lookup.
 		$this->allowed_classes = array_combine(
 			$allowed_classes,
@@ -334,7 +336,7 @@ class Json_Packer {
 	 */
 	public function unpack( string $json, bool $fail_on_error = true, array $allowed_classes = [] ) {
 		// Include the classes considered secure by default.
-		$allowed_classes = array_merge( $allowed_classes, self::$default_allowed_classes );
+		$allowed_classes = array_merge( $allowed_classes, self::get_default_allowed_classes() );
 		// Optimize the array for `isset` lookup.
 		$this->allowed_classes   = array_combine(
 			$allowed_classes,
