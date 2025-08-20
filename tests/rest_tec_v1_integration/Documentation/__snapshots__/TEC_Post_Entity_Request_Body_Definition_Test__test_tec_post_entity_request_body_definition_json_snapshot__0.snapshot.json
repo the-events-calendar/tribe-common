@@ -1,0 +1,128 @@
+{
+    "title": "TEC Post Entity Request Body",
+    "description": "A TEC post object as expected by the REST API",
+    "type": "object",
+    "properties": {
+        "date": {
+            "description": "The date the entity was published, in the site's timezone. In RFC3339 format.",
+            "nullable": true,
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}[Tt ]\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}(?::\\d{2})?)?$",
+            "example": "2025-06-04T23:36:56+01:00"
+        },
+        "date_gmt": {
+            "description": "The date the entity was published, as GMT. In RFC3339 format.",
+            "nullable": true,
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}[Tt ]\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}(?::\\d{2})?)?$",
+            "example": "2025-06-04T22:36:56Z"
+        },
+        "slug": {
+            "description": "An alphanumeric identifier for the entity unique to its type",
+            "type": "string",
+            "example": "my-awesome-event"
+        },
+        "status": {
+            "description": "A named status for the entity.",
+            "type": "string",
+            "default": "publish",
+            "enum": [
+                "publish",
+                "pending",
+                "draft",
+                "future",
+                "private"
+            ],
+            "example": "publish"
+        },
+        "title": {
+            "description": "HTML title for the entity, transformed for display",
+            "type": "string",
+            "example": "My Awesome Event"
+        },
+        "content": {
+            "description": "HTML content for the entity, transformed for display",
+            "type": "string",
+            "example": "<p>This is the content of my event...</p>"
+        },
+        "excerpt": {
+            "description": "HTML excerpt for the entity, transformed for display",
+            "type": "string",
+            "example": "<p>This is the excerpt...</p>"
+        },
+        "author": {
+            "description": "The ID for the author of the entity.",
+            "type": "integer",
+            "example": 1
+        },
+        "featured_media": {
+            "description": "The ID of the featured media for the entity.",
+            "type": "integer",
+            "example": 123
+        },
+        "comment_status": {
+            "description": "Whether or not comments are open on the entity.",
+            "type": "string",
+            "default": "open",
+            "enum": [
+                "open",
+                "closed"
+            ],
+            "example": "open"
+        },
+        "ping_status": {
+            "description": "Whether or not the entity can be pinged",
+            "type": "string",
+            "default": "open",
+            "enum": [
+                "open",
+                "closed"
+            ],
+            "example": "open"
+        },
+        "format": {
+            "description": "The format for the entity.",
+            "type": "string",
+            "default": "standard",
+            "enum": [
+                "standard",
+                "aside",
+                "chat",
+                "gallery",
+                "link",
+                "image",
+                "quote",
+                "status",
+                "video",
+                "audio"
+            ],
+            "example": "standard"
+        },
+        "sticky": {
+            "description": "Whether or not the entity should be treated as sticky",
+            "type": "boolean",
+            "default": false,
+            "example": false
+        },
+        "template": {
+            "description": "The theme file to use to display the entity.",
+            "type": "string",
+            "example": "templates-full.php"
+        },
+        "tags": {
+            "description": "The terms assigned to the entity in the post_tag taxonomy",
+            "type": "array",
+            "items": {
+                "type": "integer"
+            },
+            "uniqueItems": true,
+            "example": [
+                2,
+                8,
+                15
+            ]
+        }
+    }
+}

@@ -67,11 +67,11 @@ class RefundedOrdersCest extends BaseRestETCest {
 
 		// Check Last Access is Updated.
 		$api_key_data = get_option( 'tec_zapier_api_key_4689db48b24f0ac42f3f0d8fe027b8f28f63f262b9fc2f73736dfa91b4045425' );
-		$I->test_et_last_access( $api_key_data);
+		$I->test_et_last_access( $api_key_data );
 
 		// Check Last Access is Updated for Endpoint.
 		$endpoint_details = get_option( '_tec_zapier_endpoint_details_refunded_orders' );
-		$I->test_et_last_access( $endpoint_details);
+		$I->test_et_last_access( $endpoint_details );
 	}
 
 	/**
@@ -145,38 +145,6 @@ class RefundedOrdersCest extends BaseRestETCest {
 	/**
 	 * @test
 	 */
-	public function it_should_process_edd_refunded_orders_queue( Restv1_etTester $I ) {
-		$event      = $this->generate_event( $this->mock_date_value );
-		$order_id_1 = $this->generate_edd_order_and_refund_it( $event );
-		$order_id_2 = $this->generate_edd_order_and_refund_it( $event );
-		$order_ids  = [ $order_id_1, $order_id_2 ];
-		$this->setup_refunded_orders_queue( $I, $order_ids );
-		$this->setup_api_key_pair( $I );
-
-		$I->sendGET( $this->refunded_orders_url, [ 'access_token' => static::$valid_access_token ] );
-		$I->seeResponseCodeIs( 200 );
-		$I->seeResponseIsJson();
-		$response = json_decode( $I->grabResponse(), true );
-
-		foreach ( $order_ids as $order_id ) {
-			$id_found = false;
-
-			// Loop through the response array to find the attendee ID
-			foreach ( $response as $order ) {
-				if ( isset( $order['order_id'] ) && $order['order_id'] === (string) $order_id ) {
-					$id_found = true;
-					break;
-				}
-			}
-
-			// Assert that the ID was found
-			$I->assertTrue( $id_found, "Order ID $order_id was not found in the response" );
-		}
-	}
-
-	/**
-	 * @test
-	 */
 	public function it_should_process_woo_refunded_orders_queue( Restv1_etTester $I ) {
 		$event      = $this->generate_event( $this->mock_date_value );
 		$order_id_1 = $this->generate_woo_order( $event );
@@ -214,8 +182,7 @@ class RefundedOrdersCest extends BaseRestETCest {
 		$event      = $this->generate_event( $this->mock_date_value );
 		$order_id_1 = $this->generate_woo_order_and_refund_it( $event );
 		$order_id_2 = $this->generate_tc_order_and_refund_it( $event );
-		$order_id_3 = $this->generate_edd_order_and_refund_it( $event );
-		$order_ids  = [ $order_id_1, $order_id_2, $order_id_3 ];
+		$order_ids  = [ $order_id_1, $order_id_2 ];
 		$this->setup_refunded_orders_queue( $I, $order_ids );
 		$this->setup_api_key_pair( $I );
 

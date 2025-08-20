@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 6.8.2\n"
+"Project-Id-Version: Tribe Common 6.9.0\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-07-03T16:10:52+00:00\n"
+"POT-Creation-Date: 2025-08-18T16:48:18+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: tribe-common\n"
@@ -27,6 +27,7 @@ msgstr ""
 #. Author of the plugin
 #: tribe-common.php
 #: src/admin-views/help-calendar.php:105
+#: src/Common/REST/TEC/V1/Documentation.php:121
 #: src/Tribe/Admin/Help_Page.php:171
 #: src/Tribe/Customizer.php:666
 #: src/Tribe/Plugins_API.php:25
@@ -1735,18 +1736,25 @@ msgstr ""
 msgid "Searching..."
 msgstr ""
 
-#: src/Common/Admin/Conditional_Content/Black_Friday.php:48
+#: src/Common/Admin/Conditional_Content/Black_Friday.php:54
 msgid "Black Friday Sale"
 msgstr ""
 
 #. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Black_Friday.php:76
+#: src/Common/Admin/Conditional_Content/Black_Friday.php:90
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:121
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:160
+#, php-format
+msgctxt "Alt text for the Default Sale Ad"
+msgid "%1$s %2$s for The Events Calendar plugins, add-ons and bundles."
+msgstr ""
+
 #. translators: %1$s: Sale year, %2$s: Sale name
-#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:250
-#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:282
-#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:339
-#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:424
-#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:522
-#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:616
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:409
+#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:507
+#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:817
 #, php-format
 msgctxt "Alt text for the Sale Ad"
 msgid "%1$s %2$s for The Events Calendar plugins, add-ons and bundles."
@@ -1754,6 +1762,34 @@ msgstr ""
 
 #: src/Common/Admin/Conditional_Content/Stellar_Sale.php:51
 msgid "Stellar Sale"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:99
+#, php-format
+msgctxt "Alt text for the Events Pro Sale Ad"
+msgid "%1$s %2$s - Get Events Calendar Pro at 30%% off!"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:110
+#, php-format
+msgctxt "Alt text for the Filter Bar Sale Ad"
+msgid "%1$s %2$s - Get Filter Bar at 30%% off!"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:135
+#, php-format
+msgctxt "Alt text for the Event Tickets Plus Sale Ad"
+msgid "%1$s %2$s - Get Event Tickets Plus at 30%% off!"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:148
+#, php-format
+msgctxt "Alt text for the Event Seating Sale Ad"
+msgid "%1$s %2$s - Get Event Seating at 30%% off!"
 msgstr ""
 
 #: src/Common/Admin/Entities/Heading.php:101
@@ -2759,6 +2795,454 @@ msgstr ""
 
 #: src/Common/QR/Notices.php:105
 msgid "Learn more."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Abstracts/Endpoint.php:493
+msgid "Experimental endpoint requires acknowledgement header."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Abstracts/Endpoint.php:497
+msgid "Experimental endpoint requires appropriate acknowledgement header."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Abstracts/Post_Entity_Endpoint.php:144
+msgid "Whether to bypass Trash and force deletion."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Controller.php:332
+msgid "Password protected"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation.php:117
+msgid "The Events Calendar REST API"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation.php:119
+msgid "The Events Calendar REST API allows accessing upcoming events information easily and conveniently."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/Date_Definition.php:63
+msgid "The date"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/Date_Definition.php:70
+msgid "The timezone type"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/Date_Definition.php:77
+msgid "The timezone of the date"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:59
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:101
+msgid "The OpenAPI version."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:63
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:107
+msgid "The API info."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:67
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:112
+msgid "The API title."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:71
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:117
+msgid "The TEC REST API version."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:75
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:122
+msgid "The API description."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:79
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:127
+msgid "The API contact."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:83
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:132
+msgid "The name of the contact."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:87
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:137
+msgid "The email of the contact."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:96
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:147
+msgid "The OpenAPI components."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:100
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:153
+msgid "The OpenAPI schemas."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:106
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:169
+msgid "The OpenAPI servers."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:109
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:173
+msgid "A server."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:113
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:178
+msgid "The server URL."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:121
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:188
+msgid "The OpenAPI paths."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:59
+msgid "The GET method for the path."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:63
+msgid "The description of the GET method."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:67
+msgid "The parameters of the GET method."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:70
+msgid "A parameter."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:74
+msgid "The name of the parameter."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:78
+msgid "The location of the parameter."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:82
+msgid "Whether the parameter is required."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:86
+msgid "The schema of the parameter."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:93
+msgid "The responses of the GET method."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:97
+msgid "The response for the GET method."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:101
+msgid "The content of the response."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:105
+msgid "The JSON content of the response."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:109
+msgid "The schema of the content."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:113
+msgid "The type of the content."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:55
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:53
+msgid "The date the entity was published, in the site's timezone. In RFC3339 format."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:62
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:60
+msgid "The date the entity was published, as GMT. In RFC3339 format."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:70
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:77
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:152
+msgid "The globally unique identifier for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:86
+msgid "Unique identifier for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:93
+msgid "URL to the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:100
+msgid "The date the entity was last modified, in the site's timezone. In RFC3339 format."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:107
+msgid "The date the entity was last modified, as GMT. In RFC3339 format."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:114
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:67
+msgid "An alphanumeric identifier for the entity unique to its type"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:121
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:74
+msgid "A named status for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:130
+msgid "Permalink template for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:137
+msgid "Slug automatically generated from the entity title"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:145
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:83
+msgid "HTML title for the entity, transformed for display"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:161
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:90
+msgid "HTML content for the entity, transformed for display"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:168
+msgid "Whether the content is protected with a password"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:175
+msgid "The content for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:184
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:97
+msgid "HTML excerpt for the entity, transformed for display"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:191
+msgid "Whether the excerpt is protected with a password"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:198
+msgid "The excerpt for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:206
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:104
+msgid "The ID for the author of the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:213
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:111
+msgid "The ID of the featured media for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:220
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:118
+msgid "Whether or not comments are open on the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:229
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:127
+msgid "Whether or not the entity can be pinged"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:238
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:136
+msgid "The format for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:247
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:145
+msgid "Whether or not the entity should be treated as sticky"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:256
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:154
+msgid "The theme file to use to display the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:263
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:161
+msgid "The terms assigned to the entity in the post_tag taxonomy"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:270
+msgid "TEC Post Entity"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:271
+msgid "A TEC post object as returned by the REST API"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:167
+msgid "TEC Post Entity Request Body"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:168
+msgid "A TEC post object as expected by the REST API"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:159
+msgid "An object's schema."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:194
+msgid "A path's documentation."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:208
+msgid "Get the documentation for the TEC REST API"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:209
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:218
+msgid "Returns the documentation for The Events Calendar REST API in Swagger consumable format."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Integer.php:38
+#, php-format
+msgid "Parameter `{%1$s}` must be an integer."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Integer.php:43
+#, php-format
+msgid "The parameter `{%1$s}` is not an integer."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/IP.php:38
+#, php-format
+msgid "Parameter `{%1$s}` must be a valid IP address."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/IP.php:43
+#, php-format
+msgid "The parameter `{%1$s}` is not a valid IP address."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Number.php:91
+#, php-format
+msgid "Parameter `{%1$s}` must be a number."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Number.php:96
+#, php-format
+msgid "The parameter `{%1$s}` is not a number."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Positive_Integer.php:31
+#, php-format
+msgid "Parameter `{%1$s}` must be a positive integer."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Positive_Integer.php:36
+#, php-format
+msgid "The parameter `{%1$s}` is not a positive integer."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/URI.php:38
+#, php-format
+msgid "Parameter `{%1$s}` must be a valid URL."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/URI.php:43
+#, php-format
+msgid "The parameter `{%1$s}` is not a valid URL."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/UUID.php:38
+#, php-format
+msgid "Parameter `{%1$s}` must be a valid UUID."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/UUID.php:43
+#, php-format
+msgid "The parameter `{%1$s}` is not a valid UUID. It should be a string like `123e4567-e89b-12d3-a456-426614174000`."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Tags/Common_Tag.php:45
+msgid "These operations are introduced by the Common library."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Create_Entity_Response.php:39
+msgid "Failed to create entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:40
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:49
+msgid "The entity could not be deleted."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:60
+msgid "The entity could not be found."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:74
+msgid "Force deletion failed - the entity could not be permanently deleted."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:90
+msgid "The entity does not support trashing. Set 'force=true' to delete."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:116
+msgid "The entity could not be permanently deleted."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:127
+msgid "The entity has already been trashed."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:139
+msgid "The entity could not be trashed."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Read_Archive_Response.php:51
+msgid "The requested page was not found."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:40
+#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:49
+#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:75
+msgid "The entity could not be read."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:42
+#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:51
+msgid "The entity could not be updated."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:72
+msgid "Failed to update entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:90
+msgid "Entity not found after update."
 msgstr ""
 
 #. Translators: %1$s the post type label.
@@ -4918,100 +5402,100 @@ msgstr ""
 msgid "Null logger (will log nothing)"
 msgstr ""
 
-#: src/Tribe/Main.php:304
+#: src/Tribe/Main.php:305
 msgctxt "Copy to clipboard success message"
 msgid "Copied to Clipboard!"
 msgstr ""
 
-#: src/Tribe/Main.php:305
+#: src/Tribe/Main.php:306
 msgctxt "Copy to clipboard failed message"
 msgid "Failed to copy."
 msgstr ""
 
-#: src/Tribe/Main.php:456
+#: src/Tribe/Main.php:457
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:457
+#: src/Tribe/Main.php:458
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:459
+#: src/Tribe/Main.php:460
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:460
+#: src/Tribe/Main.php:461
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:461
+#: src/Tribe/Main.php:462
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:462
+#: src/Tribe/Main.php:463
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:463
+#: src/Tribe/Main.php:464
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:464
+#: src/Tribe/Main.php:465
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:465
+#: src/Tribe/Main.php:466
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:466
+#: src/Tribe/Main.php:467
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:467
+#: src/Tribe/Main.php:468
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:468
+#: src/Tribe/Main.php:469
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:470
+#: src/Tribe/Main.php:471
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:471
-#: src/Tribe/Main.php:488
+#: src/Tribe/Main.php:472
+#: src/Tribe/Main.php:489
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:472
+#: src/Tribe/Main.php:473
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:477
+#: src/Tribe/Main.php:478
 #, php-format
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:478
+#: src/Tribe/Main.php:479
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:489
+#: src/Tribe/Main.php:490
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:490
-#: src/Tribe/Main.php:492
+#: src/Tribe/Main.php:491
+#: src/Tribe/Main.php:493
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:491
+#: src/Tribe/Main.php:492
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:493
+#: src/Tribe/Main.php:494
 msgid "Clear"
 msgstr ""
 

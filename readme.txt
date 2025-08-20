@@ -1,5 +1,21 @@
 == Changelog ==
 
+= [6.9.0.1] 2025-08-20 =
+
+* Fix - Ensures the Actions Scheduler Logs table is present before attempting to use it. [TCMN-190]
+
+= [6.9.0] 2025-08-19 =
+
+* Performance - Improves TicketsCommerce checkout timing by implementing task offloading to Shepherd. [TCMN-185]
+* Language - 97 new strings added, 24 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.8.3] 2025-07-16 =
+
+* Fix - Make sure add_submenu_page is called correctly to avoid deprecation messages. [TEC-5529]
+* Fix - Make sure we are passing the time zone when handling the event end timestamp. [TEC-4981]
+* Tweak - Add secondary display logic for promotional banners. [TEC-5530]
+* Language - 5 new strings added, 2 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.8.2] 2025-07-03 =
 
 * Tweak - Adapt the conditional content to the new admin. [TEC-5530]

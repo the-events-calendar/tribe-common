@@ -40,7 +40,8 @@
     "classy:format": "wp-scripts format src/resources/packages/classy tests/classy_jest && composer run classy:format",
     "classy:jest": "jest --config tests/classy_jest/jest.config.js tests/classy_jest",
     "classy:test": "npm run classy:jest && slic run classy_integration",
-    "classy:pre-commit": "npm run classy:format && npm run classy:test"
+    "classy:pre-commit": "npm run classy:format && npm run classy:test",
+    "spectral": "spectral lint"
   },
   "dependencies": {
     "@babel/runtime": "^7.15.3",
@@ -88,6 +89,7 @@
     "@emotion/jest": "^11.13.0",
     "@jest/globals": "^29.7.0",
     "@stellarwp/tyson": "*",
+    "@stoplight/spectral-cli": "^6.15.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.6.1",
