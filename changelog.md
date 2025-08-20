@@ -1,5 +1,9 @@
 # Changelog
 
+### [6.9.0.1] 2025-08-20
+
+* Fix - Ensures the Actions Scheduler Logs table is present before attempting to use it. [TCMN-190]
+
 ### [6.9.0] 2025-08-19
 
 * Performance - Improves TicketsCommerce checkout timing by implementing task offloading to Shepherd. [TCMN-185]
