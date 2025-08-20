@@ -78,8 +78,8 @@ class TicketsTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_map_tc_ticket_meta() {
-		$event     = $this->generate_event( $this->mock_date_value );
-		$ticket_id = $this->generate_tc_ticket_for_event( $event->ID );
+		$event       = $this->generate_event( $this->mock_date_value );
+		$ticket_id   = $this->generate_tc_ticket_for_event( $event->ID );
 		$next_ticket = $this->get_mapped_ticket( $ticket_id );
 
 		$this->assertEquals( $ticket_id, $next_ticket['id'] );
@@ -91,24 +91,9 @@ class TicketsTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
-	public function should_map_edd_ticket_meta() {
-		$event     = $this->generate_event( $this->mock_date_value );
-		$ticket_id = $this->generate_edd_ticket_for_event( $event->ID );
-		$this->save_attendee_meta_to_ticket( $ticket_id );
-		$next_ticket = $this->get_mapped_ticket( $ticket_id );
-
-		$this->assertEquals( $ticket_id, $next_ticket['id'] );
-		$this->assertEquals( $event->ID, $next_ticket['event_id'] );
-		$this->assertEquals( 'edd', $next_ticket['provider'] );
-		$this->assertEquals( true, $next_ticket['supports_attendee_information'] );
-	}
-
-	/**
-	 * @test
-	 */
 	public function should_map_woo_ticket_meta() {
-		$event     = $this->generate_event( $this->mock_date_value );
-		$ticket_id = $this->generate_woo_ticket_for_event( $event->ID );
+		$event       = $this->generate_event( $this->mock_date_value );
+		$ticket_id   = $this->generate_woo_ticket_for_event( $event->ID );
 		$next_ticket = $this->get_mapped_ticket( $ticket_id );
 
 		$this->assertEquals( $ticket_id, $next_ticket['id'] );

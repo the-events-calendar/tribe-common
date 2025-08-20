@@ -63,11 +63,11 @@ class OrdersCest extends BaseRestETPowerAutomateCest {
 
 		// Check Last Access is Updated.
 		$api_key_data = get_option( 'tec_power_automate_connection_6a8dc385e71764bac6b22ba6ccac07ba17e3904509f6d60f712e00ba080befd8' );
-		$I->test_et_last_access( $api_key_data);
+		$I->test_et_last_access( $api_key_data );
 
 		// Check Last Access is Updated for Endpoint.
 		$endpoint_details = get_option( '_tec_power_automate_endpoint_details_orders' );
-		$I->test_et_last_access( $endpoint_details);
+		$I->test_et_last_access( $endpoint_details );
 	}
 
 	/**
@@ -136,33 +136,6 @@ class OrdersCest extends BaseRestETPowerAutomateCest {
 	/**
 	 * @test
 	 */
-	public function it_should_process_edd_orders_queue( Restv1_etTester $I ) {
-		$event      = $this->generate_event( $this->mock_date_value );
-		$order_id_1 = $this->generate_edd_order( $event );
-		$order_id_2 = $this->generate_edd_order( $event );
-		$order_ids  = [ $order_id_1, $order_id_2 ];
-		$this->setup_orders_queue( $I, $order_ids );
-		$this->setup_api_key_pair( $I );
-
-		$order_ids[] = 'no-new-sales';
-		foreach ( $order_ids as $order_id ) {
-			$I->sendGET( $this->orders_url, [ 'access_token' => static::$valid_access_token ] );
-			$I->seeResponseCodeIs( 200 );
-			$I->seeResponseIsJson();
-			$response = json_decode( $I->grabResponse(), true );
-			if ( $order_id === 'no-new-sales' ) {
-				$I->assertArrayHasKey( 'id', $response['orders'] );
-				$I->assertEquals( $order_id, $response['orders']['id'] );
-			} else {
-				$I->assertArrayHasKey( 'id', $response['orders'][0] );
-				$I->assertEquals( $order_id, $response['orders'][0]['order_id'] );
-			}
-		}
-	}
-
-	/**
-	 * @test
-	 */
 	public function it_should_process_woo_orders_queue( Restv1_etTester $I ) {
 		$event      = $this->generate_event( $this->mock_date_value );
 		$order_id_1 = $this->generate_woo_order( $event );
@@ -195,8 +168,7 @@ class OrdersCest extends BaseRestETPowerAutomateCest {
 		$event      = $this->generate_event( $this->mock_date_value );
 		$order_id_1 = $this->generate_woo_order( $event );
 		$order_id_2 = $this->generate_tc_order( $event );
-		$order_id_3 = $this->generate_edd_order( $event );
-		$order_ids  = [ $order_id_1, $order_id_2, $order_id_3 ];
+		$order_ids  = [ $order_id_1, $order_id_2 ];
 		$this->setup_orders_queue( $I, $order_ids );
 		$this->setup_api_key_pair( $I );
 
