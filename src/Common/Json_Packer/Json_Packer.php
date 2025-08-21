@@ -492,7 +492,7 @@ class Json_Packer {
 			}
 		} catch ( ReflectionException $e ) {
 			if ( $this->fail_on_error ) {
-				throw new Unpack_Exception( "Error while unpacking ${class_name}: {$e->getMessage()}" );
+				throw new Unpack_Exception( "Error while unpacking {$class_name}: {$e->getMessage()}" );
 			}
 			// We cannot use the original class: use a stdClass instance in its place.
 			$object = new stdClass();
