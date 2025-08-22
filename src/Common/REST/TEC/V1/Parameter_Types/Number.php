@@ -111,13 +111,6 @@ class Number extends Parameter {
 	/**
 	 * @inheritDoc
 	 */
-	public function get_wp_validator(): ?Closure {
-		return fn( $value ): bool => is_numeric( $value );
-	}
-
-	/**
-	 * @inheritDoc
-	 */
 	public function get_default(): ?float {
 		return $this->default;
 	}

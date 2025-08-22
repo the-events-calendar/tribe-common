@@ -14,6 +14,7 @@ namespace TEC\Common\REST\TEC\V1\Parameter_Types;
 use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface as Definition;
 use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 use TEC\Common\REST\TEC\V1\Collections\PropertiesCollection;
+use TEC\Common\REST\TEC\V1\Contracts\Parameter;
 use Closure;
 
 /**
@@ -100,6 +101,53 @@ class Definition_Parameter extends Entity {
 	}
 
 	/**
+	 * Filters the data.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $data The data to filter.
+	 *
+	 * @return array The filtered data.
+	 *
+	 * @throws InvalidRestArgumentException If the data is invalid.
+	 */
+	public function filter( array $data = [] ): array {
+		$collections = $this->get_collections();
+
+		$filtered_data = [];
+
+		/** @var PropertiesCollection $collection */
+		foreach ( $collections as $collection ) {
+			/** @var Parameter $property */
+			foreach ( $collection as $property ) {
+				$param_name = $property->get_name();
+				$argument   = $this->get_name() ? $this->get_name() . '.' . $param_name : $param_name;
+
+				if ( $property->is_required() && ! isset( $data[ $param_name ] ) ) {
+					// translators: %s is the name of the property.
+					$exception = new InvalidRestArgumentException( sprintf( __( 'Property %s is required', 'the-events-calendar' ), $argument ) );
+					$exception->set_argument( $argument );
+					$exception->set_details( __( 'The property is required but missing.', 'the-events-calendar' ) );
+					$exception->set_internal_error_code( 'tec_rest_required_property_missing' );
+					throw $exception;
+				}
+
+				if ( empty( $data[ $param_name ] ) && null !== $property->get_default() ) {
+					$data[ $param_name ] = $property->get_default();
+				}
+
+				if ( ! isset( $data[ $param_name ] ) ) {
+					continue;
+				}
+
+				$filtered_data[ $param_name ] = $data[ $param_name ];
+			}
+		}
+
+		return $filtered_data;
+	}
+
+	/**
 	 * Returns the definition.
 	 *
 	 * @since 6.9.0
@@ -117,7 +165,7 @@ class Definition_Parameter extends Entity {
 
 		/** @var PropertiesCollection $collection */
 		foreach ( $collections as $collection ) {
-			/** @var Property $property */
+			/** @var Parameter $property */
 			foreach ( $collection as $property ) {
 				$param_name = $property->get_name();
 				$argument   = $this->get_name() ? $this->get_name() . '.' . $param_name : $param_name;
@@ -131,8 +179,8 @@ class Definition_Parameter extends Entity {
 					throw $exception;
 				}
 
-				if ( 'status' === $param_name && empty( $data[ $param_name ] ) ) {
-					$data[ $param_name ] = 'publish';
+				if ( empty( $data[ $param_name ] ) && null !== $property->get_default() ) {
+					$data[ $param_name ] = $property->get_default();
 				}
 
 				if ( ! isset( $data[ $param_name ] ) ) {
