@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { format } from '@wordpress/date';
-import { useState, useMemo, useCallback, useRef } from '@wordpress/element';
+import { useState, useMemo, useCallback, useRef, useEffect } from '@wordpress/element';
 import { ComboboxControl } from '@wordpress/components';
 import { ComboboxControlOption } from '@wordpress/components/build-types/combobox-control/types';
 import { getValidDateOrNull } from '../../functions';
@@ -117,10 +117,11 @@ export default function TimePicker( props: {
 
 	let [ selectedTime, setSelectedTime ] = useState( () => format( 'H:i:s', currentDate ) );
 
-	if ( datesChanged ) {
-		// Start or end date changed: use a new value.
-		selectedTime = format( 'H:i:s', currentDate );
-	}
+	// Use useEffect to properly handle date changes
+	useEffect(() => {
+		// Update selectedTime when currentDate changes
+		setSelectedTime(format( 'H:i:s', currentDate ));
+	}, [currentDate]);
 
 	// Calculate all the available time options.
 	const timeOptions = useMemo( (): ComboboxControlOption[] => {
