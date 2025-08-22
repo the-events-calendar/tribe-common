@@ -1,6 +1,6 @@
 # TEC REST API Interfaces
 
-The TEC REST API uses interfaces to define endpoint capabilities. Understanding these interfaces is crucial for creating new endpoints.
+The TEC REST API uses interfaces to define endpoint capabilities. Understanding these interfaces is crucial for creating new endpoints. The interface system follows a composition pattern where endpoints implement specific operation interfaces based on their capabilities.
 
 ## Core Interfaces
 
@@ -68,10 +68,11 @@ For endpoints that support DELETE requests:
 
 **Location**: `Collection_Endpoint.php`
 
-Combines all CRUD operations for collection endpoints:
+Combines read and create operations for collection endpoints:
 
-- Extends: `Readable_Endpoint`, `Creatable_Endpoint`, `Updatable_Endpoint`, `Deletable_Endpoint`
-- Used for: Batch operations on collections (future implementation)
+- Extends: `Readable_Endpoint`, `Creatable_Endpoint`
+- Used for: Collection endpoints like Events, Venues, Organizers, Tickets
+- Note: Despite the name, does NOT include Update or Delete operations for collections
 
 #### `RUD_Endpoint`
 
@@ -93,6 +94,48 @@ Specific interface for WordPress post-based endpoints:
 - `get_post_type(): string` - The WordPress post type
 - `get_model_class(): string` - The model class name
 - `guest_can_read(): bool` - Whether guests can read
+- Provides standardized handling for WordPress post entities
+
+### Documentation Interfaces
+
+#### `Definition_Interface`
+
+**Location**: `Definition_Interface.php`
+
+For OpenAPI schema definitions:
+
+- `get_name(): string` - Definition name
+- `get_definition(): array` - OpenAPI schema definition
+
+#### `OpenAPI_Schema`
+
+**Location**: `OpenAPI_Schema.php`
+
+For OpenAPI operation schemas:
+
+- `get_schema(): array` - Returns OpenAPI operation schema
+- Used by endpoint methods to define their request/response schemas
+
+#### `Tag_Interface`
+
+**Location**: `Tag_Interface.php`
+
+For OpenAPI documentation tags:
+
+- `get_name(): string` - Tag name
+- `get_description(): string` - Tag description
+- `get_external_docs(): array` - External documentation links
+
+### Controller Interfaces
+
+#### `Endpoints_Controller_Interface`
+
+**Location**: `Endpoints_Controller_Interface.php`
+
+For endpoint controllers:
+
+- `get_endpoints(): array` - Returns array of endpoint instances
+- `register(): void` - Registers the controller's endpoints
 
 ## Abstract Classes
 
@@ -102,10 +145,14 @@ Specific interface for WordPress post-based endpoints:
 
 Base abstract class providing:
 
-- Route registration logic
-- Method mapping based on implemented interfaces
+- Route registration logic with automatic method mapping
+- Permission callback routing based on implemented interfaces
+- Path parameter regex generation for routing
+- Experimental endpoint support with acknowledgment headers
+- Schema caching system with version-aware fingerprinting
+- Automatic parameter validation and sanitization
 - URL generation helpers
-- Default parameter handling
+- Strong typing with PropertiesCollection integration
 
 ### `Post_Entity_Endpoint`
 
@@ -115,19 +162,110 @@ Abstract class for post-based endpoints:
 
 - Extends `Endpoint`
 - Implements `Post_Entity_Endpoint_Interface`
-- Provides permission checking
-- Handles post formatting
-- Status validation
+- WordPress capability-based permission checking
+- Post formatting using WordPress REST controller
+- Post status validation (publish, pending, draft, future, private)
+- Password protection and visibility checks
+- Entity ID validation and retrieval
+- Automatic 404 handling for missing entities
+
+### Other Abstract Classes
+
+#### `Definition`
+
+**Location**: `/common/src/Common/REST/TEC/V1/Abstracts/Definition.php`
+
+Base class for OpenAPI definitions:
+
+- Implements `Definition_Interface`
+- Provides base schema structure
+- Supports schema composition with allOf pattern
+
+#### `Parameter`
+
+**Location**: `/common/src/Common/REST/TEC/V1/Abstracts/Parameter.php`
+
+Base class for parameter types:
+
+- Implements `Parameter` interface
+- Provides validation and sanitization
+- Supports default values and requirements
+- OpenAPI schema generation
+
+#### `Tag`
+
+**Location**: `/common/src/Common/REST/TEC/V1/Abstracts/Tag.php`
+
+Base class for documentation tags:
+
+- Implements `Tag_Interface`
+- Provides structured tag definitions
+
+#### `Endpoints_Controller`
+
+**Location**: `/common/src/Common/REST/TEC/V1/Abstracts/Endpoints_Controller.php`
+
+Base controller class:
+
+- Implements `Endpoints_Controller_Interface`
+- Manages endpoint registration
+- Provides namespace and version handling
 
 ## Interface Hierarchy
 
 ```bash
-Endpoint_Interface
-├── Readable_Endpoint
-├── Creatable_Endpoint
-├── Updatable_Endpoint
-├── Deletable_Endpoint
-├── Collection_Endpoint (extends all CRUD interfaces)
-├── RUD_Endpoint (extends Read, Update, Delete)
-└── Post_Entity_Endpoint_Interface
+Core Interfaces:
+├── Endpoint_Interface (base)
+│   ├── Readable_Endpoint
+│   ├── Creatable_Endpoint
+│   ├── Updatable_Endpoint
+│   └── Deletable_Endpoint
+│
+├── Composite Interfaces:
+│   ├── Collection_Endpoint (Readable + Creatable)
+│   └── RUD_Endpoint (Readable + Updatable + Deletable)
+│
+├── Entity Interfaces:
+│   └── Post_Entity_Endpoint_Interface
+│
+├── Documentation Interfaces:
+│   ├── Definition_Interface
+│   ├── OpenAPI_Schema
+│   └── Tag_Interface
+│
+└── Controller Interfaces:
+    └── Endpoints_Controller_Interface
 ```
+
+## Implementation Patterns
+
+### Collection Endpoints
+
+For endpoints managing collections (e.g., `/events`, `/venues`):
+
+```php
+class Events extends Post_Entity_Endpoint implements Collection_Endpoint {
+    // Implements read() for GET /events
+    // Implements create() for POST /events
+}
+```
+
+### Single Entity Endpoints
+
+For endpoints managing individual entities (e.g., `/events/{id}`):
+
+```php
+class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
+    // Implements read() for GET /events/{id}
+    // Implements update() for PUT/PATCH /events/{id}
+    // Implements delete() for DELETE /events/{id}
+}
+```
+
+### Key Design Principles
+
+1. **Interface Segregation**: Endpoints only implement interfaces for operations they support
+2. **Composition Over Inheritance**: Use multiple interfaces to define capabilities
+3. **Automatic Method Mapping**: The abstract Endpoint class automatically maps HTTP methods to interface methods
+4. **Permission Integration**: Each operation interface has a corresponding `can_*` method for authorization
+5. **Schema Definition**: Each operation has its own args and schema methods for OpenAPI documentation
