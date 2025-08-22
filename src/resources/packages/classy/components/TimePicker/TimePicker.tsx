@@ -129,12 +129,12 @@ export default function TimePicker( props: {
 	}, [ currentDate, timeFormat, timeInterval, startDate, endDate ] );
 
 	// Set the initial options to all available time options.
-	let [ options, setOptions ] = useState( () => getOptions( currentDate, timeFormat, timeOptions ) );
+    const [ options, setOptions ] = useState( () => getOptions( currentDate, timeFormat, timeOptions ) );
 
-	if ( datesChanged ) {
-		// Start or end date changed: use a new set of options.
-		options = getOptions( currentDate, timeFormat, timeOptions );
-	}
+	// Update options when dates or time options change.
+	useEffect( () => {
+		setOptions( getOptions( currentDate, timeFormat, timeOptions ) );
+	}, [ currentDate, timeFormat, timeOptions ] );
 
 	const onChangeProxy = useCallback(
 		( value: string | null | undefined ): void => {
