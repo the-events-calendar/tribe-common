@@ -210,7 +210,7 @@ The API provides specialized collection classes for organizing parameters:
 
 #### `PropertiesCollection`
 
-For request/response body properties:
+For defining object properties in schemas:
 
 ```php
 $properties = new PropertiesCollection();
@@ -255,15 +255,31 @@ $path->add(
 
 #### `RequestBodyCollection`
 
-For request body schemas:
+For request body schemas (used in create/update operations):
 
 ```php
 $body = new RequestBodyCollection();
 
-$body->add(
-    new Definition_Parameter(new Event_Request_Body_Definition())
-);
+// Add a definition parameter for complex objects
+$definition = new Event_Request_Body_Definition();
+$body[] = new Definition_Parameter($definition);
+
+// Configure the collection
+return $body
+    ->set_description_provider(fn() => __('Event data to create', 'text-domain'))
+    ->set_required(true)
+    ->set_example($definition->get_example());
+
+// Bridge to WordPress REST API format
+$wp_args = $body->to_query_argument_collection()->to_array();
 ```
+
+**Key Methods**:
+- `set_description_provider(callable $provider)`: Set description for documentation
+- `set_required(bool $required)`: Mark body as required
+- `set_example(?array $example)`: Provide example payload
+- `to_query_argument_collection()`: Convert to WordPress-compatible format
+- `to_props_array()`: Extract flat parameter list from nested definitions
 
 #### `HeadersCollection`
 
@@ -367,8 +383,8 @@ class My_Custom_Type extends Parameter {
 ### Defining Parameters with Specialized Collections
 
 ```php
-public function read_args(): Collection {
-    // For query parameters
+// For GET operations - use QueryArgumentCollection
+public function read_args(): QueryArgumentCollection {
     $query = new QueryArgumentCollection();
     
     $query->add(
@@ -381,30 +397,31 @@ public function read_args(): Collection {
         new Text('search', fn() => __('Search term'))
     );
     
-    // For path parameters
-    $path = new PathArgumentCollection();
-    
-    $path->add(
-        new Positive_Integer('id', fn() => __('Entity ID'), null, 1, null, true)
-    );
-    
-    // Combine collections
-    $collection = new Collection();
-    $collection->merge($query);
-    $collection->merge($path);
-    
-    return $collection;
+    return $query;
 }
 
-// For request body
-public function create_args(): Collection {
+// For POST/PUT operations - use RequestBodyCollection
+public function create_args(): RequestBodyCollection {
     $body = new RequestBodyCollection();
+    $definition = new Event_Request_Body_Definition();
     
-    $body->add(
-        new Definition_Parameter(new Event_Request_Body_Definition())
+    $body[] = new Definition_Parameter($definition);
+    
+    return $body
+        ->set_description_provider(fn() => __('Event data to create', 'text-domain'))
+        ->set_required(true)
+        ->set_example($definition->get_example());
+}
+
+// For DELETE operations - use QueryArgumentCollection
+public function delete_args(): QueryArgumentCollection {
+    $args = new QueryArgumentCollection();
+    
+    $args->add(
+        new Boolean('force', fn() => __('Permanently delete'), false)
     );
     
-    return $body;
+    return $args;
 }
 ```
 
@@ -527,10 +544,11 @@ public function get_arguments() {
 
 ### After (Current)
 ```php
-public function read_args(): Collection {
-    $path = new PathArgumentCollection();
+// For query/path parameters
+public function read_args(): QueryArgumentCollection {
+    $args = new QueryArgumentCollection();
     
-    $path->add(
+    $args->add(
         new Positive_Integer(
             'id',
             fn() => __('Event ID', 'the-events-calendar'),
@@ -541,13 +559,27 @@ public function read_args(): Collection {
         )
     );
     
-    return $path;
+    return $args;
+}
+
+// For request bodies (create/update)
+public function create_args(): RequestBodyCollection {
+    $body = new RequestBodyCollection();
+    $definition = new Event_Request_Body_Definition();
+    
+    $body[] = new Definition_Parameter($definition);
+    
+    return $body
+        ->set_required(true)
+        ->set_example($definition->get_example());
 }
 ```
 
 This migration provides:
 - Type safety at development time
-- Automatic validation and sanitization
+- Automatic validation and sanitization via WordPress core
 - Better IDE support and autocomplete
 - Consistent OpenAPI schema generation
 - Reusable parameter definitions
+- Separation between query parameters and request bodies
+- Bridge compatibility with WordPress REST API via `to_query_argument_collection()`

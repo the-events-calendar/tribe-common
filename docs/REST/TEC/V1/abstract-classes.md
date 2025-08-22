@@ -34,10 +34,11 @@ abstract public function get_path_regex(): string;
 #### Key Methods
 
 - `register_routes()`: Registers endpoint routes with WordPress REST API
-- `get_schema()`: Returns OpenAPI schema for the endpoint
-- `get_args()`: Returns WordPress REST API arguments
-- `permission_callback()`: Routes to appropriate permission method
+- `respond(callable $callback)`: Wraps callbacks with validation/sanitization pipeline
+- `get_schema_defined_params(string $schema_name, array $request_params)`: Filters params through schema validation
+- `filter_params(array $params, string $operation)`: Applies endpoint-specific parameter filtering
 - `is_experimental()`: Check if endpoint is experimental
+- `get_{operation}_attributes()`: Returns WordPress REST attributes for each operation
 
 #### Usage Example
 
@@ -51,7 +52,16 @@ class Events extends Endpoint implements Collection_Endpoint {
         return ''; // No path parameters for collection
     }
     
-    // Interface methods implementation...
+    public function read(array $params = []): WP_REST_Response {
+        // $params are pre-sanitized through get_schema_defined_params()
+        // and filter_read_params() if it exists
+    }
+    
+    public function create_args(): RequestBodyCollection {
+        $collection = new RequestBodyCollection();
+        $collection[] = new Definition_Parameter(new Event_Request_Body_Definition());
+        return $collection->set_required(true);
+    }
 }
 ```
 
@@ -80,12 +90,13 @@ abstract public function guest_can_read(): bool;
 
 #### Key Methods
 
-- `get_post()`: Retrieve a post by ID
-- `format_post()`: Format post for response
-- `can_read()`: Check read permissions
-- `can_create()`: Check create permissions
-- `can_update()`: Check update permissions
-- `can_delete()`: Check delete permissions
+- `get_post(int $id)`: Retrieve a post by ID
+- `format_post(WP_Post $post)`: Format post for response
+- `can_read(WP_REST_Request $request)`: Check read permissions based on post capabilities
+- `can_create(WP_REST_Request $request)`: Check create permissions
+- `can_update(WP_REST_Request $request)`: Check update permissions for specific post
+- `can_delete(WP_REST_Request $request)`: Check delete permissions for specific post
+- `guest_can_read()`: Abstract method to define public access
 
 #### Usage Example
 
@@ -351,6 +362,18 @@ Endpoints_Controller (base for endpoint controllers)
 5. **Extend `Tag`** for new documentation tags
 6. **Extend `Endpoints_Controller`** for plugin-specific controllers
 
+### Parameter Processing Pipeline
+
+The `Endpoint` class implements a sophisticated parameter processing pipeline:
+
+```php
+// In respond() method:
+1. Experimental endpoint check (if applicable)
+2. get_schema_defined_params() - Schema-based validation/sanitization
+3. filter_params() - Calls filter_{operation}_params if exists
+4. Operation callback receives clean parameters
+```
+
 ### Implementation Guidelines
 
 1. **Always implement required abstract methods**
@@ -373,6 +396,33 @@ public function can_read(WP_REST_Request $request): bool {
     
     // Add custom permission logic
     return current_user_can('read_private_posts');
+}
+```
+
+#### Request Body Definition
+
+```php
+public function create_args(): RequestBodyCollection {
+    $collection = new RequestBodyCollection();
+    $definition = new Event_Request_Body_Definition();
+    
+    $collection[] = new Definition_Parameter($definition);
+    
+    return $collection
+        ->set_description_provider(fn() => __('Event data', 'text-domain'))
+        ->set_required(true)
+        ->set_example($definition->get_example());
+}
+```
+
+#### Custom Parameter Filtering
+
+```php
+protected function filter_create_params(array $params): array {
+    // Custom filtering logic for create operation
+    // Called automatically by the pipeline
+    unset($params['internal_field']);
+    return $params;
 }
 ```
 

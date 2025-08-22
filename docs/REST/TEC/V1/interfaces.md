@@ -24,10 +24,11 @@ Base interface that all endpoints must implement. Defines:
 
 For endpoints that support GET requests:
 
-- `read(WP_REST_Request $request): WP_REST_Response`
-- `read_args(): Collection`
-- `read_schema(): OpenAPI_Schema`
-- `can_read(WP_REST_Request $request): bool`
+- `read(array $params = []): WP_REST_Response` - Handle read operation with sanitized parameters
+- `can_read(WP_REST_Request $request): bool` - Permission check for read operations
+- `read_args(): QueryArgumentCollection` - Define query parameters for GET requests
+- `read_schema(): OpenAPI_Schema` - OpenAPI documentation for read operation
+- `get_read_attributes(): array` - WordPress REST registration attributes
 
 #### 3. `Creatable_Endpoint`
 
@@ -35,10 +36,11 @@ For endpoints that support GET requests:
 
 For endpoints that support POST requests:
 
-- `create(WP_REST_Request $request): WP_REST_Response`
-- `create_args(): Collection`
-- `create_schema(): OpenAPI_Schema`
-- `can_create(WP_REST_Request $request): bool`
+- `create(array $params = []): WP_REST_Response` - Handle create operation with sanitized parameters
+- `can_create(WP_REST_Request $request): bool` - Permission check for create operations
+- `create_args(): RequestBodyCollection` - Define request body structure (changed from QueryArgumentCollection)
+- `create_schema(): OpenAPI_Schema` - OpenAPI documentation for create operation
+- `get_create_attributes(): array` - WordPress REST registration attributes
 
 #### 4. `Updatable_Endpoint`
 
@@ -46,10 +48,11 @@ For endpoints that support POST requests:
 
 For endpoints that support PUT/PATCH requests:
 
-- `update(WP_REST_Request $request): WP_REST_Response`
-- `update_args(): Collection`
-- `update_schema(): OpenAPI_Schema`
-- `can_update(WP_REST_Request $request): bool`
+- `update(array $params = []): WP_REST_Response` - Handle update operation with sanitized parameters
+- `can_update(WP_REST_Request $request): bool` - Permission check for update operations
+- `update_args(): RequestBodyCollection` - Define request body structure (changed from QueryArgumentCollection)
+- `update_schema(): OpenAPI_Schema` - OpenAPI documentation for update operation
+- `get_update_attributes(): array` - WordPress REST registration attributes
 
 #### 5. `Deletable_Endpoint`
 
@@ -57,10 +60,11 @@ For endpoints that support PUT/PATCH requests:
 
 For endpoints that support DELETE requests:
 
-- `delete(WP_REST_Request $request): WP_REST_Response`
-- `delete_args(): Collection`
-- `delete_schema(): OpenAPI_Schema`
-- `can_delete(WP_REST_Request $request): bool`
+- `delete(array $params = []): WP_REST_Response` - Handle delete operation with sanitized parameters
+- `can_delete(WP_REST_Request $request): bool` - Permission check for delete operations
+- `delete_args(): QueryArgumentCollection` - Define query parameters for DELETE requests
+- `delete_schema(): OpenAPI_Schema` - OpenAPI documentation for delete operation
+- `get_delete_attributes(): array` - WordPress REST registration attributes
 
 ### Composite Interfaces
 
@@ -245,8 +249,21 @@ For endpoints managing collections (e.g., `/events`, `/venues`):
 
 ```php
 class Events extends Post_Entity_Endpoint implements Collection_Endpoint {
-    // Implements read() for GET /events
-    // Implements create() for POST /events
+    public function read(array $params = []): WP_REST_Response {
+        // Handle GET /events with pre-sanitized parameters
+    }
+    
+    public function create(array $params = []): WP_REST_Response {
+        // Handle POST /events with pre-sanitized parameters
+    }
+    
+    public function read_args(): QueryArgumentCollection {
+        // Define query parameters for filtering/pagination
+    }
+    
+    public function create_args(): RequestBodyCollection {
+        // Define request body structure for entity creation
+    }
 }
 ```
 
@@ -256,9 +273,21 @@ For endpoints managing individual entities (e.g., `/events/{id}`):
 
 ```php
 class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
-    // Implements read() for GET /events/{id}
-    // Implements update() for PUT/PATCH /events/{id}
-    // Implements delete() for DELETE /events/{id}
+    public function read(array $params = []): WP_REST_Response {
+        // Handle GET /events/{id} with pre-sanitized parameters
+    }
+    
+    public function update(array $params = []): WP_REST_Response {
+        // Handle PUT/PATCH /events/{id} with pre-sanitized parameters
+    }
+    
+    public function delete(array $params = []): WP_REST_Response {
+        // Handle DELETE /events/{id} with pre-sanitized parameters
+    }
+    
+    public function update_args(): RequestBodyCollection {
+        // Define request body structure for entity updates
+    }
 }
 ```
 
@@ -266,6 +295,9 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 
 1. **Interface Segregation**: Endpoints only implement interfaces for operations they support
 2. **Composition Over Inheritance**: Use multiple interfaces to define capabilities
-3. **Automatic Method Mapping**: The abstract Endpoint class automatically maps HTTP methods to interface methods
-4. **Permission Integration**: Each operation interface has a corresponding `can_*` method for authorization
-5. **Schema Definition**: Each operation has its own args and schema methods for OpenAPI documentation
+3. **Parameter Sanitization**: All operation methods receive pre-sanitized `array $params` instead of raw `WP_REST_Request`
+4. **Request Body Collections**: Create/Update operations use `RequestBodyCollection` for structured request bodies
+5. **Query Collections**: Read/Delete operations use `QueryArgumentCollection` for query parameters
+6. **Permission Integration**: Each operation interface has a corresponding `can_*` method for authorization
+7. **Schema Definition**: Each operation has its own args and schema methods for OpenAPI documentation
+8. **WordPress Compatibility**: The `to_query_argument_collection()` bridge ensures WordPress REST API compatibility
