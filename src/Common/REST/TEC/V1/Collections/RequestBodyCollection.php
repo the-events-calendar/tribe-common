@@ -12,6 +12,7 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Collections;
 
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Entity;
 use TEC\Common\REST\TEC\V1\Contracts\Parameter;
 use Tribe\Utils\Lazy_String;
 use InvalidArgumentException;
@@ -224,5 +225,16 @@ class RequestBodyCollection extends Collection {
 		}
 
 		return $props;
+	}
+
+	/**
+	 * Returns the collection as a query argument collection.
+	 *
+	 * @since TBD
+	 *
+	 * @return QueryArgumentCollection
+	 */
+	public function to_query_argument_collection(): QueryArgumentCollection {
+		return new QueryArgumentCollection( $this->to_props_array() );
 	}
 }

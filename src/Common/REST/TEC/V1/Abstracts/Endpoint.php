@@ -120,7 +120,7 @@ abstract class Endpoint implements Endpoint_Interface {
 			'methods'             => WP_REST_Server::READABLE,
 			'callback'            => $this->respond( [ $this, 'read' ] ),
 			'permission_callback' => [ $this, 'can_read' ],
-			'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
+			'args'                => $args->to_array(),
 		];
 	}
 
@@ -138,7 +138,7 @@ abstract class Endpoint implements Endpoint_Interface {
 			'methods'             => WP_REST_Server::CREATABLE,
 			'callback'            => $this->respond( [ $this, 'create' ] ),
 			'permission_callback' => [ $this, 'can_create' ],
-			'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
+			'args'                => $args->to_query_argument_collection()->to_array(),
 		];
 	}
 
@@ -156,7 +156,7 @@ abstract class Endpoint implements Endpoint_Interface {
 			'methods'             => self::EDITABLE,
 			'callback'            => $this->respond( [ $this, 'update' ] ),
 			'permission_callback' => [ $this, 'can_update' ],
-			'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
+			'args'                => $args->to_query_argument_collection()->to_array(),
 		];
 	}
 
@@ -174,7 +174,7 @@ abstract class Endpoint implements Endpoint_Interface {
 			'methods'             => WP_REST_Server::DELETABLE,
 			'callback'            => $this->respond( [ $this, 'delete' ] ),
 			'permission_callback' => [ $this, 'can_delete' ],
-			'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
+			'args'                => $args->to_array(),
 		];
 	}
 
