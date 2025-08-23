@@ -334,11 +334,12 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 		 *
 		 * @since TBD
 		 *
-		 * @param array $new_data The new data.
-		 * @param OpenAPI_Schema $this The schema.
+		 * @param array          $new_data The filtered and documented data.
+		 * @param array          $data     The raw data.
+		 * @param OpenAPI_Schema $schema   The schema.
 		 *
 		 * @return array The filtered data.
 		 */
-		return (array) apply_filters( 'tec_rest_schema_filter', $new_data, $this );
+		return (array) apply_filters( 'tec_rest_schema_filter', $new_data, $data, $this );
 	}
 }

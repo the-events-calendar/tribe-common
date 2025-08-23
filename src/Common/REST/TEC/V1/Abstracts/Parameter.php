@@ -621,7 +621,7 @@ abstract class Parameter implements Parameter_Contract {
 				'validate_callback' => function () {
 					return function ( $value ) {
 						try {
-							$this->get_validator()( $value );
+							return $this->get_validator()( $value );
 						} catch ( InvalidRestArgumentException $e ) {
 							return $e->to_wp_error();
 						}
