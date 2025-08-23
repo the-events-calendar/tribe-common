@@ -124,12 +124,13 @@ class Definition_Parameter extends Entity {
 				$argument   = $this->get_name() ? "{$this->get_name()}.{$param_name}" : $param_name;
 
 				if ( $property->is_required() && ! isset( $data[ $param_name ] ) ) {
-					// translators: %s is the name of the property.
-					$exception = new InvalidRestArgumentException( sprintf( __( 'Property %s is required', 'the-events-calendar' ), $argument ) );
-					$exception->set_argument( $argument );
-					$exception->set_details( __( 'The property is required but missing.', 'the-events-calendar' ) );
-					$exception->set_internal_error_code( 'tec_rest_required_property_missing' );
-					throw $exception;
+					throw InvalidRestArgumentException::create(
+						// translators: %s is the name of the property.
+						sprintf( __( 'Property %s is required', 'the-events-calendar' ), $argument ),
+						$argument,
+						'tec_rest_required_property_missing',
+						__( 'The property is required but missing.', 'the-events-calendar' )
+					);
 				}
 
 				if ( empty( $data[ $param_name ] ) && null !== $property->get_default() ) {
@@ -171,12 +172,13 @@ class Definition_Parameter extends Entity {
 				$argument   = $this->get_name() ? $this->get_name() . '.' . $param_name : $param_name;
 
 				if ( $property->is_required() && ! isset( $data[ $param_name ] ) ) {
-					// translators: %s is the name of the property.
-					$exception = new InvalidRestArgumentException( sprintf( __( 'Property %s is required', 'the-events-calendar' ), $argument ) );
-					$exception->set_argument( $argument );
-					$exception->set_details( __( 'The property is required but missing.', 'the-events-calendar' ) );
-					$exception->set_internal_error_code( 'tec_rest_required_property_missing' );
-					throw $exception;
+					throw InvalidRestArgumentException::create(
+						// translators: %s is the name of the property.
+						sprintf( __( 'Property %s is required', 'the-events-calendar' ), $argument ),
+						$argument,
+						'tec_rest_required_property_missing',
+						__( 'The property is required but missing.', 'the-events-calendar' )
+					);
 				}
 
 				if ( empty( $data[ $param_name ] ) && null !== $property->get_default() ) {
@@ -190,12 +192,13 @@ class Definition_Parameter extends Entity {
 				$is_valid = $property->get_validator()( $data[ $param_name ] );
 
 				if ( ! $is_valid ) {
-					// translators: %s: The name of the invalid property.
-					$exception = new InvalidRestArgumentException( sprintf( __( 'Property %s is invalid', 'the-events-calendar' ), $argument ) );
-					$exception->set_argument( $argument );
-					$exception->set_details( __( 'The property is invalid.', 'the-events-calendar' ) );
-					$exception->set_internal_error_code( 'tec_rest_invalid_property' );
-					throw $exception;
+					throw InvalidRestArgumentException::create(
+						// translators: %s: The name of the invalid property.
+						sprintf( __( 'Property %s is invalid', 'the-events-calendar' ), $argument ),
+						$argument,
+						'tec_rest_invalid_property',
+						__( 'The property is invalid.', 'the-events-calendar' )
+					);
 				}
 
 				$sanitized_data[ $param_name ] = $property->get_sanitizer()( $data[ $param_name ] );

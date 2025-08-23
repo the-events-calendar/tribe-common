@@ -299,15 +299,14 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 
 				$param_name = $param->get_name();
 				if ( $param->is_required() && ! isset( $data[ $param_name ] ) ) {
-					// translators: 1) is the type of the parameter, 2) is the name of the parameter.
-					$exception = new InvalidRestArgumentException( sprintf( __( '%1$s parameter `{%2$s}` is required.', 'the-events-calendar' ), $type, $param_name ) );
-
-					$exception->set_argument( $param_name );
-					$exception->set_internal_error_code( 'tec_rest_invalid_' . strtolower( $type ) . '_parameter' );
-
-					// translators: 1) is the type of the parameter, 2) is the name of the parameter.
-					$exception->set_details( sprintf( __( 'The %1$s parameter `{%2$s}` is missing.', 'the-events-calendar' ), $type, $param_name ) );
-					throw $exception;
+					throw InvalidRestArgumentException::create(
+						// translators: 1) is the type of the parameter, 2) is the name of the parameter.
+						sprintf( __( '%1$s parameter `{%2$s}` is required.', 'the-events-calendar' ), $type, $param_name ),
+						$param_name,
+						'tec_rest_invalid_' . strtolower( $type ) . '_parameter',
+						// translators: 1) is the type of the parameter, 2) is the name of the parameter.
+						sprintf( __( 'The %1$s parameter `{%2$s}` is missing.', 'the-events-calendar' ), $type, $param_name )
+					);
 				}
 
 				if ( empty( $data[ $param_name ] ) && null !== $param->get_default() ) {
