@@ -121,7 +121,7 @@ class Definition_Parameter extends Entity {
 			/** @var Parameter $property */
 			foreach ( $collection as $property ) {
 				$param_name = $property->get_name();
-				$argument   = $this->get_name() ? $this->get_name() . '.' . $param_name : $param_name;
+				$argument   = $this->get_name() ? "{$this->get_name()}.{$param_name}" : $param_name;
 
 				if ( $property->is_required() && ! isset( $data[ $param_name ] ) ) {
 					// translators: %s is the name of the property.
