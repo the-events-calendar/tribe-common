@@ -74,8 +74,8 @@ abstract class Abstract_Query_Var extends Controller {
 	 * @return void
 	 */
 	public function hooks(): void {
-		add_filter( "tec_request_query_vars_{$this->name}", [ $this, 'filter_query_var' ] );
-		add_filter( "tec_request_query_vars_should_filter_{$this->name}", [ $this, 'should_filter' ] );
+		add_filter( "tec_request_query_vars_{$this->name}", [ $this, 'filter_query_var' ], 10, 2 );
+		add_filter( "tec_request_query_vars_should_filter_{$this->name}", [ $this, 'should_filter' ], 10, 1 );
 		add_filter( "tec_request_superglobal_allowed_{$this->name}", [ $this, 'filter_superglobal_allowed' ], 10, 2 );
 	}
 
@@ -87,9 +87,9 @@ abstract class Abstract_Query_Var extends Controller {
 	 * @return void
 	 */
 	public function unhooks(): void {
-		remove_filter( "tec_request_query_vars_{$this->name}", [ $this, 'filter_query_var' ] );
-		remove_filter( "tec_request_query_vars_should_filter_{$this->name}", [ $this, 'should_filter' ] );
-		remove_filter( "tec_request_superglobal_allowed_{$this->name}", [ $this, 'filter_superglobal_allowed' ], 10, 2 );
+		remove_filter( "tec_request_query_vars_{$this->name}", [ $this, 'filter_query_var' ], 10 );
+		remove_filter( "tec_request_query_vars_should_filter_{$this->name}", [ $this, 'should_filter' ], 10 );
+		remove_filter( "tec_request_superglobal_allowed_{$this->name}", [ $this, 'filter_superglobal_allowed' ], 10 );
 	}
 
 	/**
@@ -98,11 +98,11 @@ abstract class Abstract_Query_Var extends Controller {
 	 *
 	 * @since TBD
 	 *
-	 * @param bool $should_filter Whether the query var should be filtered.
+	 * @param string $key The query var name.
 	 *
 	 * @return bool Whether the query var should be filtered.
 	 */
-	public function should_filter( bool $should_filter ): bool {
+	public function should_filter( string $key ): bool {
 		if ( ! $this->is_active() ) {
 			return false;
 		}
@@ -137,11 +137,12 @@ abstract class Abstract_Query_Var extends Controller {
 	 *
 	 * @since TBD
 	 *
-	 * @param mixed $value The query var value.
+	 * @param mixed $value      The query var value.
+	 * @param array $query_vars The query vars.
 	 *
 	 * @return mixed The filtered query var value. Null to unset it.
 	 */
-	public function filter_query_var( $value ) {
+	public function filter_query_var( $value, array $query_vars ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		if ( ! $this->is_active() ) {
 			return $value;
 		}
@@ -160,6 +161,6 @@ abstract class Abstract_Query_Var extends Controller {
 	 * @return bool|string Whether the superglobal is allowed to be filtered for this var. Returning a string "key" will limit the superglobal modification to that key.
 	 */
 	public function filter_superglobal_allowed( string $key, string $superglobal ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-		return false;
+		return true;
 	}
 }
