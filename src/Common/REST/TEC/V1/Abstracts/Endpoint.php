@@ -120,7 +120,7 @@ abstract class Endpoint implements Endpoint_Interface {
 			'methods'             => WP_REST_Server::READABLE,
 			'callback'            => $this->respond( [ $this, 'read' ] ),
 			'permission_callback' => [ $this, 'can_read' ],
-			'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
+			'args'                => $args->to_array(),
 		];
 	}
 
@@ -138,7 +138,7 @@ abstract class Endpoint implements Endpoint_Interface {
 			'methods'             => WP_REST_Server::CREATABLE,
 			'callback'            => $this->respond( [ $this, 'create' ] ),
 			'permission_callback' => [ $this, 'can_create' ],
-			'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
+			'args'                => $args->to_query_argument_collection()->to_array(),
 		];
 	}
 
@@ -156,7 +156,7 @@ abstract class Endpoint implements Endpoint_Interface {
 			'methods'             => self::EDITABLE,
 			'callback'            => $this->respond( [ $this, 'update' ] ),
 			'permission_callback' => [ $this, 'can_update' ],
-			'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
+			'args'                => $args->to_query_argument_collection()->to_array(),
 		];
 	}
 
@@ -174,7 +174,7 @@ abstract class Endpoint implements Endpoint_Interface {
 			'methods'             => WP_REST_Server::DELETABLE,
 			'callback'            => $this->respond( [ $this, 'delete' ] ),
 			'permission_callback' => [ $this, 'can_delete' ],
-			'args'                => $args instanceof QueryArgumentCollection ? $args->to_array() : [],
+			'args'                => $args->to_array(),
 		];
 	}
 
@@ -378,7 +378,7 @@ abstract class Endpoint implements Endpoint_Interface {
 
 		$experimental_response = fn( WP_REST_Request $request ) => $this->is_experimental() && $this->assure_experimental_acknowledgement( $request );
 
-		$params_sanitizer = fn( WP_REST_Request $request ) => $this->get_sanitized_params_from_schema( $operation, $request->get_params() );
+		$params_sanitizer = fn( WP_REST_Request $request ) => $this->get_schema_defined_params( $operation, $request->get_params() );
 
 		$params_filter = fn( array $params ) => $this->filter_params( $params, $operation );
 
@@ -417,19 +417,19 @@ abstract class Endpoint implements Endpoint_Interface {
 	}
 
 	/**
-	 * Gets the sanitized parameters from the schema.
+	 * Gets the schema defined parameters.
 	 *
-	 * @since 6.9.0
+	 * @since TBD
 	 *
 	 * @param string $schema_name    The name of the schema. Can be `read`, `create`, `update`, or `delete`.
 	 * @param array  $request_params The request parameters.
 	 *
-	 * @return array The sanitized parameters.
+	 * @return array The schema defined parameters.
 	 *
 	 * @throws InvalidArgumentException     If the schema name is invalid.
 	 * @throws RuntimeException             If the schema is not found.
 	 */
-	protected function get_sanitized_params_from_schema( string $schema_name, array $request_params = [] ): array {
+	protected function get_schema_defined_params( string $schema_name, array $request_params = [] ): array {
 		if ( ! in_array( $schema_name, [ 'read', 'create', 'update', 'delete' ], true ) ) {
 			throw new InvalidArgumentException( 'Invalid schema name: ' . $schema_name );
 		}
@@ -465,10 +465,8 @@ abstract class Endpoint implements Endpoint_Interface {
 				break;
 		}
 
-		return $schema
-			/** @throws InvalidRestArgumentException If one or more request parameters are invalid. */
-			->validate( $request_params )
-			->sanitize();
+		/** @throws InvalidRestArgumentException If one or more request parameters are invalid. */
+		return $schema->filter( $request_params );
 	}
 
 	/**

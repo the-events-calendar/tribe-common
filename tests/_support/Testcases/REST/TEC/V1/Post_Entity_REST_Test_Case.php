@@ -43,9 +43,9 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 	abstract public function test_get_model_class();
 
 	/**
-	 * Test that undefined parameters are filtered out by get_sanitized_params_from_schema.
+	 * Test that undefined parameters are filtered out by get_schema_defined_params.
 	 */
-	public function test_get_sanitized_params_from_schema_filters_undefined_parameters() {
+	public function test_get_schema_defined_params_filters_undefined_parameters() {
 		$operations = [];
 		if ( $this->is_creatable() ) {
 			$operations[] = 'create';
@@ -60,7 +60,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 
 		// Make the protected method accessible for testing
 		$reflection = new ReflectionClass( $this->endpoint );
-		$method     = $reflection->getMethod( 'get_sanitized_params_from_schema' );
+		$method     = $reflection->getMethod( 'get_schema_defined_params' );
 		$method->setAccessible( true );
 
 		$php_injection = new stdClass();

@@ -58,18 +58,28 @@ Provide base implementations:
 
 Type-safe parameter definitions:
 
-- `Positive_Integer`
-- `Text`
+- `Array_Of_Type`
 - `Boolean`
 - `Date_Time`
+- `Date`
+- `Definition_Parameter`
 - `Email`
+- `Entity`
+- `Hex_Color`
+- `Integer`
+- `IP`
+- `Number`
+- `Positive_Integer`
+- `Text`
 - `URI`
-- `Array_Of_Type`
-- `Collection`
+- `UUID`
 
 ### Traits
 
 Reusable functionality:
 
-- `Read_Archive_Response` - Collection reading
 - `Create_Entity_Response` - Entity creation
+- `Delete_Entity_Response` - Entity deleting
+- `Read_Archive_Response` - Collection reading
+- `Read_Entity_Response` - Entity reading
+- `Update_Entity_Response` - Entity updating

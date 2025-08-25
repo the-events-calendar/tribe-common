@@ -114,27 +114,25 @@ class Text extends Parameter {
 		if ( null !== $this->get_pattern() ) {
 			return $this->validator ?? function ( $value ): bool {
 				if ( ! is_string( $value ) ) {
-					// translators: 1) is the name of the parameter.
-					$exception = new InvalidRestArgumentException( sprintf( __( 'Parameter `{%1$s}` must be a string.', 'the-events-calendar' ), $this->get_name() ) );
-
-					$exception->set_argument( $this->get_name() );
-					$exception->set_internal_error_code( 'tec_rest_invalid_string_parameter' );
-
-					// translators: 1) is the name of the parameter.
-					$exception->set_details( sprintf( __( 'The parameter `{%1$s}` is not a string.', 'the-events-calendar' ), $this->get_name() ) );
-					throw $exception;
+					throw InvalidRestArgumentException::create(
+						// translators: 1) is the name of the parameter.
+						sprintf( __( 'Parameter `{%1$s}` must be a string.', 'the-events-calendar' ), $this->get_name() ),
+						$this->get_name(),
+						'tec_rest_invalid_string_parameter',
+						// translators: 1) is the name of the parameter.
+						sprintf( __( 'The parameter `{%1$s}` is not a string.', 'the-events-calendar' ), $this->get_name() )
+					);
 				}
 
 				if ( ! preg_match( '/' . $this->get_pattern() . '/', (string) $value ) ) {
-					// translators: 1) is the name of the parameter.
-					$exception = new InvalidRestArgumentException( sprintf( __( 'Parameter `{%1$s}` must match the pattern.', 'the-events-calendar' ), $this->get_name() ) );
-
-					$exception->set_argument( $this->get_name() );
-					$exception->set_internal_error_code( 'tec_rest_invalid_string_parameter' );
-
-					// translators: 1) is the name of the parameter, 2) is the pattern.
-					$exception->set_details( sprintf( __( 'The parameter `{%1$s}` does not match the pattern `%2$s`.', 'the-events-calendar' ), $this->get_name(), $this->get_pattern() ) );
-					throw $exception;
+					throw InvalidRestArgumentException::create(
+						// translators: 1) is the name of the parameter.
+						sprintf( __( 'Parameter `{%1$s}` must match the pattern.', 'the-events-calendar' ), $this->get_name() ),
+						$this->get_name(),
+						'tec_rest_invalid_string_parameter',
+						// translators: 1) is the name of the parameter, 2) is the pattern.
+						sprintf( __( 'The parameter `{%1$s}` does not match the pattern `%2$s`.', 'the-events-calendar' ), $this->get_name(), $this->get_pattern() )
+					);
 				}
 
 				return true;
