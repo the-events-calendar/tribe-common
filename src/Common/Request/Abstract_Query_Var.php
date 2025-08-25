@@ -1,0 +1,165 @@
+<?php
+/**
+ * Abstract class for query vars.
+ *
+ * @since TBD
+ *
+ * @package TEC\Common\Request
+ */
+
+namespace TEC\Common\Request;
+
+use TEC\Common\Contracts\Provider\Controller;
+
+/**
+ * Abstract class for query vars.
+ * Contains functions for filtering and sanitizing query vars.
+ *
+ * Extend this class to create a new query var object.
+ *
+ * @see Query_Vars::register()
+ * @see Query_Vars::unregister()
+ *
+ * @since TBD
+ *
+ * @package TEC\Common\Request
+ */
+abstract class Abstract_Query_Var extends Controller {
+	/**
+	 * The query var name (key/slug).
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected string $name;
+
+	/**
+	 * Whether the query var should be filtered.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected bool $should_filter = false;
+
+	/**
+	 * Registers the query var filtering.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function do_register(): void {
+		$this->container->singleton( $this->name, $this, [ 'register' ] );
+		$this->hooks();
+	}
+
+	/**
+	 * Unregisters the query var filtering.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function unregister(): void {
+		$this->unhooks();
+	}
+
+	/**
+	 * Hooks the query var filtering.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function hooks(): void {
+		add_filter( "tec_request_query_vars_{$this->name}", [ $this, 'filter_query_var' ] );
+		add_filter( "tec_request_query_vars_should_filter_{$this->name}", [ $this, 'should_filter' ] );
+		add_filter( "tec_request_superglobal_allowed_{$this->name}", [ $this, 'filter_superglobal_allowed' ], 10, 2 );
+	}
+
+	/**
+	 * Unhooks the query var filtering.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function unhooks(): void {
+		remove_filter( "tec_request_query_vars_{$this->name}", [ $this, 'filter_query_var' ] );
+		remove_filter( "tec_request_query_vars_should_filter_{$this->name}", [ $this, 'should_filter' ] );
+		remove_filter( "tec_request_superglobal_allowed_{$this->name}", [ $this, 'filter_superglobal_allowed' ], 10, 2 );
+	}
+
+	/**
+	 * Filters if the query var should be filtered.
+	 * Defaults to false to help short-circuit the query var filtering in most cases.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $should_filter Whether the query var should be filtered.
+	 *
+	 * @return bool Whether the query var should be filtered.
+	 */
+	public function should_filter( bool $should_filter ): bool {
+		if ( ! $this->is_active() ) {
+			return false;
+		}
+
+		return $this->should_filter;
+	}
+
+	/**
+	 * Get the query var name.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The query var name.
+	 */
+	public function get_name(): string {
+		return $this->name;
+	}
+
+	/**
+	 * Set the query var name.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $name The query var name.
+	 */
+	public function set_name( string $name ): void {
+		$this->name = $name;
+	}
+
+	/**
+	 * Filters the query var.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $value The query var value.
+	 *
+	 * @return mixed The filtered query var value. Null to unset it.
+	 */
+	public function filter_query_var( $value ) {
+		if ( ! $this->is_active() ) {
+			return $value;
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Filters if the superglobal is allowed to be filtered for this var.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key The query var name.
+	 * @param string $superglobal The superglobal key (GET, POST, REQUEST).
+	 *
+	 * @return bool|string Whether the superglobal is allowed to be filtered for this var. Returning a string "key" will limit the superglobal modification to that key.
+	 */
+	public function filter_superglobal_allowed( string $key, string $superglobal ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+		return false;
+	}
+}
