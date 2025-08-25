@@ -50,6 +50,7 @@ class Hooks extends Controller_Contract {
 	public function do_register(): void {
 		add_action( 'current_screen', [ $this, 'admin_headers_about_to_be_sent' ], PHP_INT_MAX );
 		add_action( 'shutdown', [ $this, 'tec_shutdown' ], 0 );
+		add_filter( 'tec_common_group_path', [ $this, 'group_paths_should_follow_symlinks' ] );
 		add_filter( "stellarwp/assets/{$this->hook_prefix}/group_path", [ $this, 'group_paths_should_follow_symlinks' ] );
 	}
 
@@ -62,6 +63,7 @@ class Hooks extends Controller_Contract {
 	public function unregister(): void {
 		remove_action( 'current_screen', [ $this, 'admin_headers_about_to_be_sent' ], PHP_INT_MAX );
 		remove_action( 'shutdown', [ $this, 'tec_shutdown' ], 0 );
+		remove_filter( 'tec_common_group_path', [ $this, 'group_paths_should_follow_symlinks' ] );
 		remove_filter( "stellarwp/assets/{$this->hook_prefix}/group_path", [ $this, 'group_paths_should_follow_symlinks' ] );
 	}
 
