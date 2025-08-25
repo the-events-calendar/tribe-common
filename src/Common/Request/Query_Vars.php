@@ -123,13 +123,6 @@ class Query_Vars {
 			 */
 			$filtered_value = apply_filters( "tec_request_query_vars_{$key}", $value, $query_vars );
 
-			// If the value is null, unset it.
-			if ( null === $filtered_value ) {
-				unset( $query_vars[ $key ] );
-				continue;
-			}
-
-			// Otherwise, set the filtered value.
 			$query_vars[ $key ] = $filtered_value;
 		}
 
