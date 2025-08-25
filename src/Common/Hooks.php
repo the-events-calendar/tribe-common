@@ -29,6 +29,15 @@ class Hooks extends Controller_Contract {
 	private string $hook_prefix;
 
 	/**
+	 * The cached paths.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	protected static array $cached_paths = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 6.7.1
@@ -116,6 +125,16 @@ class Hooks extends Controller_Contract {
 	 * @return array The group path data.
 	 */
 	public function group_paths_should_follow_symlinks( array $group_path_data ): array {
+		if ( empty( $group_path_data['root'] ) ) {
+			return $group_path_data;
+		}
+
+		if ( isset( self::$cached_paths[ $group_path_data['root'] ] ) ) {
+			$group_path_data['root'] = self::$cached_paths[ $group_path_data['root'] ];
+
+			return $group_path_data;
+		}
+
 		$test_path         = $group_path_data['root'] ?? '';
 		$is_inside_plugins = $test_path !== str_replace( trailingslashit( WP_PLUGIN_DIR ), '', $test_path );
 
@@ -123,6 +142,8 @@ class Hooks extends Controller_Contract {
 
 		if ( $is_inside_plugins ) {
 			$group_path_data['root'] = $following_symlinks_root;
+
+			self::$cached_paths[ $group_path_data['root'] ] = $group_path_data['root'];
 
 			return $group_path_data;
 		}
@@ -144,6 +165,8 @@ class Hooks extends Controller_Contract {
 		if ( ! $identified_plugin ) {
 			$group_path_data['root'] = $following_symlinks_root;
 
+			self::$cached_paths[ $group_path_data['root'] ] = $group_path_data['root'];
+
 			return $group_path_data;
 		}
 
@@ -156,6 +179,8 @@ class Hooks extends Controller_Contract {
 				$group_path_data['root'] = trailingslashit( $group_path_data['root'] . $path_part );
 			}
 		}
+
+		self::$cached_paths[ $group_path_data['root'] ] = $group_path_data['root'];
 
 		return $group_path_data;
 	}
