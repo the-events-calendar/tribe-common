@@ -190,19 +190,17 @@ export default function TimePicker( props: {
 		[ timeOptions ]
 	);
 
-	let className = 'classy-field__control classy-field__control--input classy-field__control--time-picker';
-
-	// This is a hack to make the component highlight again on successive renders when the dates changed.
-	// By setting a new key on the component, we force a re-render and thus re-apply the highlight effect.
-	const highlightKey = useRef< number >( Math.random() );
-	if ( datesChanged && highlight ) {
+    let className = 'classy-field__control classy-field__control--input classy-field__control--time-picker';
+	if ( highlight ) {
 		className += ' classy-highlight';
-		highlightKey.current = Math.random();
 	}
+
+	// Force re-render when highlight changes to restart the CSS animation.
+	const highlightKey = useMemo(() => Math.random(), [highlight, currentDate]);
 
 	return (
 		<ComboboxControl
-			key={ highlightKey.current }
+			key={ highlightKey }
 			__next40pxDefaultSize
 			__nextHasNoMarginBottom
 			className={ className }
