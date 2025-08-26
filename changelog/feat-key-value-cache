@@ -1,4 +1,0 @@
-Significance: patch
-Type: feat
-
-Add a key-value cache system to support sites not using object-caching. [ETP-1021]
