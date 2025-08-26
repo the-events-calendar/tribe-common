@@ -118,10 +118,10 @@ export default function TimePicker( props: {
 	let [ selectedTime, setSelectedTime ] = useState( () => format( 'H:i:s', currentDate ) );
 
 	// Use useEffect to properly handle date changes
-	useEffect(() => {
+	useEffect( () => {
 		// Update selectedTime when currentDate changes
-		setSelectedTime(format( 'H:i:s', currentDate ));
-	}, [currentDate]);
+		setSelectedTime( format( 'H:i:s', currentDate ) );
+	}, [ currentDate ] );
 
 	// Calculate all the available time options.
 	const timeOptions = useMemo( (): ComboboxControlOption[] => {
@@ -129,7 +129,7 @@ export default function TimePicker( props: {
 	}, [ currentDate, timeFormat, timeInterval, startDate, endDate ] );
 
 	// Set the initial options to all available time options.
-    const [ options, setOptions ] = useState( () => getOptions( currentDate, timeFormat, timeOptions ) );
+	const [ options, setOptions ] = useState( () => getOptions( currentDate, timeFormat, timeOptions ) );
 
 	// Update options when dates or time options change.
 	useEffect( () => {
@@ -190,13 +190,13 @@ export default function TimePicker( props: {
 		[ timeOptions ]
 	);
 
-    let className = 'classy-field__control classy-field__control--input classy-field__control--time-picker';
+	let className = 'classy-field__control classy-field__control--input classy-field__control--time-picker';
 	if ( highlight ) {
 		className += ' classy-highlight';
 	}
 
 	// Force re-render when highlight changes to restart the CSS animation.
-	const highlightKey = useMemo(() => Math.random(), [highlight, currentDate]);
+	const highlightKey = useMemo( () => Math.random(), [ highlight, currentDate ] );
 
 	return (
 		<ComboboxControl
