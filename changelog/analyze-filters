@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Added filters: `tec_key_value_cache_force_use_of_table_cache`
