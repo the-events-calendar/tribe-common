@@ -2,7 +2,7 @@
 /**
  * The interface exposed by a key-value cache implementation.
  *
- * @since TBD
+ * @since 6.9.1
  *
  * @package TEC\Common\Key_Value_Cache;
  */
@@ -12,7 +12,7 @@ namespace TEC\Common\Key_Value_Cache;
 /**
  * Interface Key_Value_Cache_Interface.
  *
- * @since TBD
+ * @since 6.9.1
  *
  * @package TEC\Common\Key_Value_Cache;
  */
@@ -22,7 +22,7 @@ interface Key_Value_Cache_Interface {
 	 *
 	 * This method tells nothing about the nature of the value, it only checks whether the key exists in the cache.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @param string $key The key to check.
 	 *
@@ -36,7 +36,7 @@ interface Key_Value_Cache_Interface {
 	 * Note the method does not inquire into the nature of the stored value, it's returned as it is and no guarantee
 	 * is made on the integrity or correctness of the value.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @param string      $key      The key to return the value for.
 	 * @param string|null $fallback The fallback value to return if the key does not exist.
@@ -48,7 +48,7 @@ interface Key_Value_Cache_Interface {
 	/**
 	 * Stores a value for a key.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @param string $key   The key to store the value for.
 	 * @param string $value The value to store for the key.
@@ -61,7 +61,7 @@ interface Key_Value_Cache_Interface {
 	/**
 	 * Deletes a value from the cache, if present.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @param string $key The key to delete.
 	 *
@@ -73,7 +73,7 @@ interface Key_Value_Cache_Interface {
 	/**
 	 * Flushes the cache.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @return void
 	 */

@@ -2,7 +2,7 @@
 /**
  * The API of the key-value cache.
  *
- * @since TBD
+ * @since 6.9.1
  *
  * @package Common\Key_Value_Cache;
  */
@@ -16,7 +16,7 @@ use TEC\Common\StellarWP\DB\DB;
 /**
  * Class Key_Value_Cache_Table.
  *
- * @since TBD
+ * @since 6.9.1
  *
  * @package Common\Key_Value_Cache;
  */
@@ -28,7 +28,7 @@ class Key_Value_Cache_Table implements Key_Value_Cache_Interface {
 	 *
 	 * This method tells nothing about the nature of the value, it only checks whether the key exists in the cache.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @param string $key The key to check.
 	 *
@@ -59,7 +59,7 @@ class Key_Value_Cache_Table implements Key_Value_Cache_Interface {
 	 * Note the method does not inquire into the nature of the stored value, it's returned as it is and no guarantee
 	 * is made on the integrity or correctness of the value.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @param string      $key      The key to return the value for.
 	 * @param string|null $fallback The fallback value to return if the key does not exist.
@@ -95,7 +95,7 @@ class Key_Value_Cache_Table implements Key_Value_Cache_Interface {
 	 * The maximum length of 191 chars aligns with the table definition and is the same length
 	 * of the index used in the `wp_postmeta` table for meta_keys.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @param string $key   The key to store the value for.
 	 * @param string $value The value to store for the key.
@@ -138,7 +138,7 @@ class Key_Value_Cache_Table implements Key_Value_Cache_Interface {
 	/**
 	 * Deletes a value from the cache, if present.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @param string $key The key to delete.
 	 *
@@ -165,7 +165,7 @@ class Key_Value_Cache_Table implements Key_Value_Cache_Interface {
 	/**
 	 * Flushes the cache.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @return void
 	 */
@@ -188,7 +188,7 @@ class Key_Value_Cache_Table implements Key_Value_Cache_Interface {
 	 *
 	 * This method is not part of the key-value interface as it applies only to the table version.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @return void
 	 */

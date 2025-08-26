@@ -1065,7 +1065,7 @@ if ( ! function_exists( 'tec_kv_cache' ) ) {
 	/**
 	 * Returns the shared instance of the key-value cache API object.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @return Key_Value_Cache_Interface The shared instance of the key-value cache API object.
 	 */

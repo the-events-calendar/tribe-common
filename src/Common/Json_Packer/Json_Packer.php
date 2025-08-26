@@ -2,7 +2,7 @@
 /**
  * Serializes and unserializes values into JSON object.
  *
- * @since TBD
+ * @since 6.9.1
  *
  * @package TEC\Common\Json_Packer;
  */
@@ -21,7 +21,7 @@ use stdClass;
 /**
  * Class Json_Packer.
  *
- * @since TBD
+ * @since 6.9.1
  *
  * @package TEC\Common\Json_Packer;
  */
@@ -29,7 +29,7 @@ class Json_Packer {
 	/**
 	 * Tracks object references to handle circular references.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @var array
 	 */
@@ -38,7 +38,7 @@ class Json_Packer {
 	/**
 	 * Stores objects during unpacking for reference resolution.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @var array
 	 */
@@ -47,7 +47,7 @@ class Json_Packer {
 	/**
 	 * Whether to fail on error or not.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @var bool
 	 */
@@ -60,7 +60,7 @@ class Json_Packer {
 	 *
 	 * The variable format is optimized for `isset` lookup.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @var array<string,true>
 	 */
@@ -71,7 +71,7 @@ class Json_Packer {
 	 *
 	 * The stdClass is not included as it's required to be regarded as safe.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @return string[]
 	 */
@@ -86,7 +86,7 @@ class Json_Packer {
 	/**
 	 * Converts a value into a JSON string good to be unpacked later with the `pack` method..
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @param mixed         $value           The value to convert to JSON string.
 	 * @param array<string> $allowed_classes A list of class names that it's safe to encode. By default
@@ -322,7 +322,7 @@ class Json_Packer {
 	/**
 	 * Converts a JSON string created with the `pack` method into the original value.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @param string        $json             The JSON string containing the packed value.
 	 * @param bool          $fail_on_error    Whether to fail, and return `null`, if one of the classes required to rebuild the
