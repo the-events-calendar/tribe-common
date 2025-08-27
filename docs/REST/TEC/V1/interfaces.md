@@ -26,7 +26,7 @@ For endpoints that support GET requests:
 
 - `read(array $params = []): WP_REST_Response` - Handle read operation with sanitized parameters
 - `can_read(WP_REST_Request $request): bool` - Permission check for read operations
-- `read_args(): QueryArgumentCollection` - Define query parameters for GET requests
+- `read_params(): QueryArgumentCollection` - Define query parameters for GET requests
 - `read_schema(): OpenAPI_Schema` - OpenAPI documentation for read operation
 - `get_read_attributes(): array` - WordPress REST registration attributes
 
@@ -38,7 +38,7 @@ For endpoints that support POST requests:
 
 - `create(array $params = []): WP_REST_Response` - Handle create operation with sanitized parameters
 - `can_create(WP_REST_Request $request): bool` - Permission check for create operations
-- `create_args(): RequestBodyCollection` - Define request body structure (changed from QueryArgumentCollection)
+- `create_params(): RequestBodyCollection` - Define request body structure (changed from QueryArgumentCollection)
 - `create_schema(): OpenAPI_Schema` - OpenAPI documentation for create operation
 - `get_create_attributes(): array` - WordPress REST registration attributes
 
@@ -50,7 +50,7 @@ For endpoints that support PUT/PATCH requests:
 
 - `update(array $params = []): WP_REST_Response` - Handle update operation with sanitized parameters
 - `can_update(WP_REST_Request $request): bool` - Permission check for update operations
-- `update_args(): RequestBodyCollection` - Define request body structure (changed from QueryArgumentCollection)
+- `update_params(): RequestBodyCollection` - Define request body structure (changed from QueryArgumentCollection)
 - `update_schema(): OpenAPI_Schema` - OpenAPI documentation for update operation
 - `get_update_attributes(): array` - WordPress REST registration attributes
 
@@ -62,7 +62,7 @@ For endpoints that support DELETE requests:
 
 - `delete(array $params = []): WP_REST_Response` - Handle delete operation with sanitized parameters
 - `can_delete(WP_REST_Request $request): bool` - Permission check for delete operations
-- `delete_args(): QueryArgumentCollection` - Define query parameters for DELETE requests
+- `delete_params(): QueryArgumentCollection` - Define query parameters for DELETE requests
 - `delete_schema(): OpenAPI_Schema` - OpenAPI documentation for delete operation
 - `get_delete_attributes(): array` - WordPress REST registration attributes
 
@@ -252,16 +252,16 @@ class Events extends Post_Entity_Endpoint implements Collection_Endpoint {
     public function read(array $params = []): WP_REST_Response {
         // Handle GET /events with pre-sanitized parameters
     }
-    
+
     public function create(array $params = []): WP_REST_Response {
         // Handle POST /events with pre-sanitized parameters
     }
-    
-    public function read_args(): QueryArgumentCollection {
+
+    public function read_params(): QueryArgumentCollection {
         // Define query parameters for filtering/pagination
     }
-    
-    public function create_args(): RequestBodyCollection {
+
+    public function create_params(): RequestBodyCollection {
         // Define request body structure for entity creation
     }
 }
@@ -276,16 +276,16 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
     public function read(array $params = []): WP_REST_Response {
         // Handle GET /events/{id} with pre-sanitized parameters
     }
-    
+
     public function update(array $params = []): WP_REST_Response {
         // Handle PUT/PATCH /events/{id} with pre-sanitized parameters
     }
-    
+
     public function delete(array $params = []): WP_REST_Response {
         // Handle DELETE /events/{id} with pre-sanitized parameters
     }
-    
-    public function update_args(): RequestBodyCollection {
+
+    public function update_params(): RequestBodyCollection {
         // Define request body structure for entity updates
     }
 }

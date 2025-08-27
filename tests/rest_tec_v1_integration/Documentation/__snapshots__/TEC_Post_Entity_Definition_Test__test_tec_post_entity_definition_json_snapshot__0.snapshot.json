@@ -44,7 +44,7 @@
             "readOnly": true,
             "type": "string",
             "format": "uri",
-            "example": "https://example.com/my-awesome-event"
+            "example": "https://example.com/my-awesome-title"
         },
         "modified": {
             "description": "The date the entity was last modified, in the site's timezone. In RFC3339 format.",
@@ -65,7 +65,7 @@
         "slug": {
             "description": "An alphanumeric identifier for the entity unique to its type",
             "type": "string",
-            "example": "my-awesome-event"
+            "example": "my-awesome-title"
         },
         "status": {
             "description": "A named status for the entity.",
@@ -84,13 +84,13 @@
             "description": "Permalink template for the entity.",
             "readOnly": true,
             "type": "string",
-            "example": "https://example.com/sample-event/"
+            "example": "https://example.com/sample/"
         },
         "generated_slug": {
             "description": "Slug automatically generated from the entity title",
             "readOnly": true,
             "type": "string",
-            "example": "my-awesome-event"
+            "example": "my-awesome-title"
         },
         "title": {
             "description": "The globally unique identifier for the entity.",
@@ -99,7 +99,7 @@
                 "rendered": {
                     "description": "HTML title for the entity, transformed for display",
                     "type": "string",
-                    "example": "My Awesome Event"
+                    "example": "My Awesome Title"
                 }
             }
         },
@@ -110,7 +110,7 @@
                 "rendered": {
                     "description": "HTML content for the entity, transformed for display",
                     "type": "string",
-                    "example": "<p>This is the content of my event...</p>"
+                    "example": "This is the content..."
                 },
                 "protected": {
                     "description": "Whether the content is protected with a password",
@@ -126,7 +126,7 @@
                 "rendered": {
                     "description": "HTML excerpt for the entity, transformed for display",
                     "type": "string",
-                    "example": "<p>This is the excerpt...</p>"
+                    "example": "This is the excerpt..."
                 },
                 "protected": {
                     "description": "Whether the excerpt is protected with a password",

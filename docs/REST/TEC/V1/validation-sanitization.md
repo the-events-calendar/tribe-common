@@ -20,15 +20,15 @@ Request → Experimental Check → Schema Validation → Custom Filtering → Op
 
 ```php
 protected function respond(callable $callback): callable {
-    $experimental_response = fn($request) => 
+    $experimental_response = fn($request) =>
         $this->is_experimental() && $this->assure_experimental_acknowledgement($request);
-    
-    $params_sanitizer = fn($request) => 
+
+    $params_sanitizer = fn($request) =>
         $this->get_schema_defined_params($operation, $request->get_params());
-    
-    $params_filter = fn($params) => 
+
+    $params_filter = fn($params) =>
         $this->filter_params($params, $operation);
-    
+
     // Execute pipeline
     return static function ($request) use ($callback, $params_sanitizer, $experimental_response, $params_filter) {
         $experimental_response($request);
@@ -58,7 +58,7 @@ protected function get_schema_defined_params(string $schema_name, array $request
             $schema = $this->delete_schema();
             break;
     }
-    
+
     // Throws InvalidRestArgumentException if validation fails
     return $schema->filter($request_params);
 }
@@ -74,29 +74,29 @@ public function filter(array $data = []): array {
     $path_params = $this->get_path_parameters();
     $query_params = $this->get_query_parameters();
     $body_params = $this->get_request_body();
-    
+
     // 2. Validate required parameters
     foreach ($params as $param) {
         if ($param->is_required() && !isset($data[$param->get_name()])) {
             throw new InvalidRestArgumentException(
                 $param->get_name(),
-                'Missing required parameter'
+                'Missing required argument'
             );
         }
     }
-    
+
     // 3. Apply type coercion for URL parameters
     if ('Body' !== $type && $param instanceof Number) {
-        $data[$param_name] = $param instanceof Integer ? 
-            intval($data[$param_name]) : 
+        $data[$param_name] = $param instanceof Integer ?
+            intval($data[$param_name]) :
             floatval($data[$param_name]);
     }
-    
+
     // 4. Set default values
     if (!isset($data[$param_name]) && $param->get_default() !== null) {
         $data[$param_name] = $param->get_default();
     }
-    
+
     return $data;
 }
 ```
@@ -108,12 +108,12 @@ public function filter(array $data = []): array {
 Used for structured data in create/update operations:
 
 ```php
-public function create_args(): RequestBodyCollection {
+public function create_params(): RequestBodyCollection {
     $collection = new RequestBodyCollection();
     $definition = new Event_Request_Body_Definition();
-    
+
     $collection[] = new Definition_Parameter($definition);
-    
+
     return $collection
         ->set_description_provider(fn() => __('Event data'))
         ->set_required(true)
@@ -126,13 +126,13 @@ public function create_args(): RequestBodyCollection {
 Used for URL parameters:
 
 ```php
-public function read_args(): QueryArgumentCollection {
+public function read_params(): QueryArgumentCollection {
     $collection = new QueryArgumentCollection();
-    
+
     $collection->add(
         new Positive_Integer('page', fn() => __('Page number'), 1, 1)
     );
-    
+
     return $collection;
 }
 ```
@@ -165,13 +165,13 @@ class Event extends Post_Entity_Endpoint {
     protected function filter_create_params(array $params): array {
         // Remove internal fields
         unset($params['_internal']);
-        
+
         // Transform data
         if (isset($params['date'])) {
             $params['start_date'] = $params['date'];
             unset($params['date']);
         }
-        
+
         return $params;
     }
 }
@@ -216,8 +216,8 @@ URL parameters (query/path) receive automatic type conversion:
 // In OpenAPI_Schema::filter()
 if ('Body' !== $type && $param instanceof Number) {
     // Convert string "123" to integer 123
-    $data[$param_name] = $param instanceof Integer ? 
-        intval($data[$param_name]) : 
+    $data[$param_name] = $param instanceof Integer ?
+        intval($data[$param_name]) :
         floatval($data[$param_name]);
 }
 ```
@@ -231,7 +231,7 @@ class Positive_Integer extends Integer {
     public function validate($value): bool {
         return parent::validate($value) && $value > 0;
     }
-    
+
     public function sanitize($value) {
         return max(1, intval($value));
     }
@@ -249,13 +249,13 @@ class Positive_Integer extends Integer {
 ### 2. Define Request Bodies with Definitions
 
 ```php
-public function create_args(): RequestBodyCollection {
+public function create_params(): RequestBodyCollection {
     $collection = new RequestBodyCollection();
     $definition = new Event_Request_Body_Definition();
-    
+
     // Use Definition_Parameter for complex objects
     $collection[] = new Definition_Parameter($definition);
-    
+
     return $collection
         ->set_required(true)
         ->set_example($definition->get_example());
@@ -271,7 +271,7 @@ protected function filter_update_params(array $params): array {
         $params['post_status'] = 'draft';
         unset($params['status']);
     }
-    
+
     return $params;
 }
 ```
@@ -314,17 +314,17 @@ foreach ($collection as $parameter) {
 public function test_validation() {
     $endpoint = new Event();
     $schema = $endpoint->create_schema();
-    
+
     // Test required field validation
     $this->expectException(InvalidRestArgumentException::class);
-    $schema->filter([]); // Missing required fields
-    
+    $schema->filter_before_request([]); // Missing required fields
+
     // Test successful validation
-    $result = $schema->filter([
+    $result = $schema->filter_before_request([
         'title' => 'Test Event',
         'start_date' => '2024-12-01T10:00:00',
     ]);
-    
+
     $this->assertIsArray($result);
 }
 ```
@@ -337,7 +337,7 @@ public function test_endpoint_validation() {
         // Missing required 'title'
         'start_date' => '2024-12-01',
     ]);
-    
+
     $this->assertEquals(400, $response->get_status());
     $this->assertStringContainsString('Missing required parameter', $response->get_data()['message']);
 }

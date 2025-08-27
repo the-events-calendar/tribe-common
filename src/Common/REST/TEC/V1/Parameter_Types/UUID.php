@@ -36,11 +36,11 @@ class UUID extends Text {
 			if ( ! is_string( $value ) || ! preg_match( '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/', (string) $value ) ) {
 				throw InvalidRestArgumentException::create(
 					// translators: 1) is the name of the parameter.
-					sprintf( __( 'Parameter `{%1$s}` must be a valid UUID.', 'tribe-common' ), $this->get_name() ),
+					sprintf( __( 'Argument `{%1$s}` must be a valid UUID.', 'tribe-common' ), $this->get_name() ),
 					$this->get_name(),
-					'tec_rest_invalid_uuid_parameter',
+					'tec_rest_invalid_uuid_argument',
 					// translators: 1) is the name of the parameter.
-					sprintf( __( 'The parameter `{%1$s}` is not a valid UUID. It should be a string like `123e4567-e89b-12d3-a456-426614174000`.', 'tribe-common' ), $this->get_name() )
+					sprintf( __( 'The argument `{%1$s}` is not a valid UUID. It should be a string like `123e4567-e89b-12d3-a456-426614174000`.', 'tribe-common' ), $this->get_name() )
 				);
 			}
 

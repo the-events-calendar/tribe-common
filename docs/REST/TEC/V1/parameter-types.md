@@ -384,9 +384,9 @@ class My_Custom_Type extends Parameter {
 
 ```php
 // For GET operations - use QueryArgumentCollection
-public function read_args(): QueryArgumentCollection {
+public function read_params(): QueryArgumentCollection {
     $query = new QueryArgumentCollection();
-    
+
     $query->add(
         new Positive_Integer('page', fn() => __('Page number'), 1, 1)
     );
@@ -396,17 +396,17 @@ public function read_args(): QueryArgumentCollection {
     $query->add(
         new Text('search', fn() => __('Search term'))
     );
-    
+
     return $query;
 }
 
 // For POST/PUT operations - use RequestBodyCollection
-public function create_args(): RequestBodyCollection {
+public function create_params(): RequestBodyCollection {
     $body = new RequestBodyCollection();
     $definition = new Event_Request_Body_Definition();
-    
+
     $body[] = new Definition_Parameter($definition);
-    
+
     return $body
         ->set_description_provider(fn() => __('Event data to create', 'text-domain'))
         ->set_required(true)
@@ -414,13 +414,13 @@ public function create_args(): RequestBodyCollection {
 }
 
 // For DELETE operations - use QueryArgumentCollection
-public function delete_args(): QueryArgumentCollection {
+public function delete_params(): QueryArgumentCollection {
     $args = new QueryArgumentCollection();
-    
+
     $args->add(
         new Boolean('force', fn() => __('Permanently delete'), false)
     );
-    
+
     return $args;
 }
 ```
@@ -428,9 +428,9 @@ public function delete_args(): QueryArgumentCollection {
 ### Real-World Example from Events Endpoint
 
 ```php
-public function read_args(): Collection {
+public function read_params(): Collection {
     $query = new QueryArgumentCollection();
-    
+
     // Pagination
     $query->add(
         new Positive_Integer('page', fn() => __('Page number', 'the-events-calendar'), 1, 1)
@@ -438,7 +438,7 @@ public function read_args(): Collection {
     $query->add(
         new Positive_Integer('per_page', fn() => __('Events per page', 'the-events-calendar'), 10, 1, 100)
     );
-    
+
     // Date filtering
     $query->add(
         new Date_Time('start_date', fn() => __('Events starting after', 'the-events-calendar'))
@@ -446,7 +446,7 @@ public function read_args(): Collection {
     $query->add(
         new Date_Time('end_date', fn() => __('Events ending before', 'the-events-calendar'))
     );
-    
+
     // Status filtering
     $query->add(
         new Boolean('featured', fn() => __('Only featured events', 'the-events-calendar'), false)
@@ -454,7 +454,7 @@ public function read_args(): Collection {
     $query->add(
         new Boolean('ticketed', fn() => __('Only events with tickets', 'the-events-calendar'))
     );
-    
+
     // Relationship filtering
     $query->add(
         new Array_Of_Type(
@@ -470,7 +470,7 @@ public function read_args(): Collection {
             Positive_Integer::class
         )
     );
-    
+
     // Sorting
     $query->add(
         new Text(
@@ -488,7 +488,7 @@ public function read_args(): Collection {
             ['ASC', 'DESC']
         )
     );
-    
+
     return $query;
 }
 ```
@@ -545,9 +545,9 @@ public function get_arguments() {
 ### After (Current)
 ```php
 // For query/path parameters
-public function read_args(): QueryArgumentCollection {
+public function read_params(): QueryArgumentCollection {
     $args = new QueryArgumentCollection();
-    
+
     $args->add(
         new Positive_Integer(
             'id',
@@ -558,17 +558,17 @@ public function read_args(): QueryArgumentCollection {
             true
         )
     );
-    
+
     return $args;
 }
 
 // For request bodies (create/update)
-public function create_args(): RequestBodyCollection {
+public function create_params(): RequestBodyCollection {
     $body = new RequestBodyCollection();
     $definition = new Event_Request_Body_Definition();
-    
+
     $body[] = new Definition_Parameter($definition);
-    
+
     return $body
         ->set_required(true)
         ->set_example($definition->get_example());

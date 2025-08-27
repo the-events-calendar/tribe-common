@@ -17,7 +17,6 @@ use TEC\Common\REST\TEC\V1\Contracts\Creatable_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\Updatable_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\Deletable_Endpoint;
 use TEC\Common\REST\TEC\V1\Controller;
-use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 use TEC\Common\REST\TEC\V1\Collections\PathArgumentCollection;
 use WP_REST_Server;
 use WP_REST_Request;
@@ -114,7 +113,7 @@ abstract class Endpoint implements Endpoint_Interface {
 			return [];
 		}
 
-		$args = $this->read_args();
+		$args = $this->read_params();
 
 		return [
 			'methods'             => WP_REST_Server::READABLE,
@@ -132,7 +131,7 @@ abstract class Endpoint implements Endpoint_Interface {
 			return [];
 		}
 
-		$args = $this->create_args();
+		$args = $this->create_params();
 
 		return [
 			'methods'             => WP_REST_Server::CREATABLE,
@@ -150,7 +149,7 @@ abstract class Endpoint implements Endpoint_Interface {
 			return [];
 		}
 
-		$args = $this->update_args();
+		$args = $this->update_params();
 
 		return [
 			'methods'             => self::EDITABLE,
@@ -168,7 +167,7 @@ abstract class Endpoint implements Endpoint_Interface {
 			return [];
 		}
 
-		$args = $this->delete_args();
+		$args = $this->delete_params();
 
 		return [
 			'methods'             => WP_REST_Server::DELETABLE,
@@ -466,7 +465,7 @@ abstract class Endpoint implements Endpoint_Interface {
 		}
 
 		/** @throws InvalidRestArgumentException If one or more request parameters are invalid. */
-		return $schema->filter( $request_params );
+		return $schema->filter_before_request( $request_params );
 	}
 
 	/**

@@ -190,7 +190,7 @@ public function read_schema(): OpenAPI_Schema {
         fn() => __( 'Returns a list of events', 'text-domain' ),
         'getEvents',
         [ 'Events' ],  // Tags
-        $this->read_args()
+        $this->read_params()
     );
 
     // Add custom documentation

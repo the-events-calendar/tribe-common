@@ -116,22 +116,22 @@ class Text extends Parameter {
 				if ( ! is_string( $value ) ) {
 					throw InvalidRestArgumentException::create(
 						// translators: 1) is the name of the parameter.
-						sprintf( __( 'Parameter `{%1$s}` must be a string.', 'the-events-calendar' ), $this->get_name() ),
+						sprintf( __( 'Argument `{%1$s}` must be a string.', 'the-events-calendar' ), $this->get_name() ),
 						$this->get_name(),
-						'tec_rest_invalid_string_parameter',
+						'tec_rest_invalid_string_argument',
 						// translators: 1) is the name of the parameter.
-						sprintf( __( 'The parameter `{%1$s}` is not a string.', 'the-events-calendar' ), $this->get_name() )
+						sprintf( __( 'The argument `{%1$s}` is not a string.', 'the-events-calendar' ), $this->get_name() )
 					);
 				}
 
 				if ( ! preg_match( '/' . $this->get_pattern() . '/', (string) $value ) ) {
 					throw InvalidRestArgumentException::create(
 						// translators: 1) is the name of the parameter.
-						sprintf( __( 'Parameter `{%1$s}` must match the pattern.', 'the-events-calendar' ), $this->get_name() ),
+						sprintf( __( 'Argument `{%1$s}` must match the pattern.', 'the-events-calendar' ), $this->get_name() ),
 						$this->get_name(),
-						'tec_rest_invalid_string_parameter',
+						'tec_rest_invalid_string_argument',
 						// translators: 1) is the name of the parameter, 2) is the pattern.
-						sprintf( __( 'The parameter `{%1$s}` does not match the pattern `%2$s`.', 'the-events-calendar' ), $this->get_name(), $this->get_pattern() )
+						sprintf( __( 'The argument `{%1$s}` does not match the pattern `%2$s`.', 'the-events-calendar' ), $this->get_name(), $this->get_pattern() )
 					);
 				}
 
@@ -154,7 +154,7 @@ class Text extends Parameter {
 	 * @return Closure
 	 */
 	public function get_sanitizer(): ?Closure {
-		return $this->sanitizer ?? fn( $value ): string => (string) $value;
+		return $this->sanitizer ?? fn( $value ): string => (string) ( null === $this->get_enum() && null === $this->get_pattern() ? sanitize_text_field( $value ) : $value );
 	}
 
 	/**

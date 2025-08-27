@@ -47,17 +47,17 @@ class Events extends Endpoint implements Collection_Endpoint {
     public function get_base_path(): string {
         return '/events';
     }
-    
+
     public function get_path_regex(): string {
         return ''; // No path parameters for collection
     }
-    
+
     public function read(array $params = []): WP_REST_Response {
         // $params are pre-sanitized through get_schema_defined_params()
         // and filter_read_params() if it exists
     }
-    
-    public function create_args(): RequestBodyCollection {
+
+    public function create_params(): RequestBodyCollection {
         $collection = new RequestBodyCollection();
         $collection[] = new Definition_Parameter(new Event_Request_Body_Definition());
         return $collection->set_required(true);
@@ -105,11 +105,11 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
     public function get_post_type(): string {
         return 'tribe_events';
     }
-    
+
     public function get_model_class(): string {
         return \Tribe\Events\Models\Post_Types\Event::class;
     }
-    
+
     public function guest_can_read(): bool {
         return true; // Public events
     }
@@ -148,7 +148,7 @@ class Event_Definition extends Definition {
     public function get_name(): string {
         return 'Event';
     }
-    
+
     public function get_definition(): array {
         return [
             'allOf' => [
@@ -217,7 +217,7 @@ class Custom_Parameter extends Parameter {
             false
         );
     }
-    
+
     public function validate($value): bool {
         // Custom validation logic
         return is_string($value);
@@ -256,11 +256,11 @@ class Events_Tag extends Tag {
     public function get_name(): string {
         return 'Events';
     }
-    
+
     public function get_description(): string {
         return 'Operations for managing events';
     }
-    
+
     public function get_external_docs(): array {
         return [
             'description' => 'Learn more',
@@ -393,7 +393,7 @@ public function can_read(WP_REST_Request $request): bool {
     if (!parent::can_read($request)) {
         return false;
     }
-    
+
     // Add custom permission logic
     return current_user_can('read_private_posts');
 }
@@ -402,12 +402,12 @@ public function can_read(WP_REST_Request $request): bool {
 #### Request Body Definition
 
 ```php
-public function create_args(): RequestBodyCollection {
+public function create_params(): RequestBodyCollection {
     $collection = new RequestBodyCollection();
     $definition = new Event_Request_Body_Definition();
-    
+
     $collection[] = new Definition_Parameter($definition);
-    
+
     return $collection
         ->set_description_provider(fn() => __('Event data', 'text-domain'))
         ->set_required(true)
@@ -431,13 +431,13 @@ protected function filter_create_params(array $params): array {
 ```php
 public function get_schema(): array {
     $schema = parent::get_schema();
-    
+
     // Add custom schema properties
     $schema['properties']['custom_field'] = [
         'type' => 'string',
         'description' => 'Custom field description',
     ];
-    
+
     return $schema;
 }
 ```
@@ -450,7 +450,7 @@ public function validate($value): bool {
     if (!parent::validate($value)) {
         return false;
     }
-    
+
     // Add custom validation
     return strlen($value) <= 100;
 }

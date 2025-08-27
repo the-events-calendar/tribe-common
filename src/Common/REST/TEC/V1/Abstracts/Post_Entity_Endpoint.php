@@ -136,7 +136,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	 *
 	 * @return QueryArgumentCollection
 	 */
-	public function delete_args(): QueryArgumentCollection {
+	public function delete_params(): QueryArgumentCollection {
 		$collection = new QueryArgumentCollection();
 
 		$collection[] = new Boolean(

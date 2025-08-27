@@ -120,5 +120,5 @@ interface OpenAPI_Schema extends JsonSerializable {
 	 *
 	 * @return array The filtered schema.
 	 */
-	public function filter( array $data = [] ): array;
+	public function filter_before_request( array $data = [] ): array;
 }
