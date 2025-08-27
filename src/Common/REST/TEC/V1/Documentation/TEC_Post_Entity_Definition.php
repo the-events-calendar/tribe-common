@@ -183,7 +183,7 @@ class TEC_Post_Entity_Definition extends Definition {
 				'rendered',
 				fn() => __( 'HTML excerpt for the entity, transformed for display', 'tribe-common' ),
 			)
-		)->set_example( '<p>This is the excerpt...</p>' );
+		)->set_example( 'This is the excerpt...' );
 
 		$excerpt_properties[] = (
 			new Boolean(

@@ -96,7 +96,7 @@ class TEC_Post_Entity_Request_Body_Definition extends Definition {
 				'excerpt',
 				fn() => __( 'HTML excerpt for the entity, transformed for display', 'tribe-common' ),
 			)
-		)->set_example( '<p>This is the excerpt...</p>' );
+		)->set_example( 'This is the excerpt...' );
 
 		$properties[] = (
 			new Positive_Integer(
