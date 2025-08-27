@@ -2,7 +2,7 @@
 /**
  * Handles the key-value cache API actions and filters.
  *
- * @since TBD
+ * @since 6.9.1
  *
  * @package Common\Key_Value_Cache;
  */
@@ -17,7 +17,7 @@ use TEC\Common\StellarWP\Schema\Tables\Contracts\Schema_Interface;
 /**
  * Class Controller.
  *
- * @since TBD
+ * @since 6.9.1
  *
  * @package Common\Key_Value_Cache;
  */
@@ -25,7 +25,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * The action name for the clear expired entries action.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @var string
 	 */
@@ -34,7 +34,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * A reference to the key-value cache table schema. Null if not using the table.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @var Schema_Interface|null
 	 */
@@ -43,7 +43,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Registers the actions and filters required by the key-value cache functionality.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @return void
 	 */
@@ -54,7 +54,7 @@ class Controller extends Controller_Contract {
 		 * Whether to force the use of the table cache when real object caching is present or not.
 		 * By default, the table cache is not used when real object caching is present.
 		 *
-		 * @since TBD
+		 * @since 6.9.1
 		 *
 		 * @param bool $force_use_of_table_cache Whether to force the use of the table cache when real object caching is present or not.
 		 */
@@ -79,7 +79,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register the custom table schema.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @return void
 	 */
@@ -94,7 +94,7 @@ class Controller extends Controller_Contract {
 	 * is to control the controller filters and actions in the context of the current request, this
 	 * will not prevent a following request from scheduling it again.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @return void
 	 */
@@ -109,7 +109,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Clears the expired entries from the table if using the table and it exists.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @return void
 	 */
@@ -127,7 +127,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * The method will unschedule the action from both Action Scheduler and WP Cron.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @return void
 	 */
@@ -150,7 +150,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Schedules the key-value table clean action.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @return void
 	 */

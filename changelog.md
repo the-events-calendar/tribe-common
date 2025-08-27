@@ -1,5 +1,11 @@
 # Changelog
 
+### [6.9.1] 2025-08-26
+
+* Feature - Add a key-value cache system to support sites not using object-caching. [ETP-1021]
+* Tweak - Added filters: `tec_key_value_cache_force_use_of_table_cache`
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
 ### [6.9.0.1] 2025-08-20
 
 * Fix - Ensures the Actions Scheduler Logs table is present before attempting to use it. [TCMN-190]

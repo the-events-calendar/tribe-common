@@ -2,7 +2,7 @@
 /**
  * A key-value cache implementation based on the WordPress cache layer.
  *
- * @since TBD
+ * @since 6.9.1
  *
  * @package TEC\Common\Key_Value_Cache;
  */
@@ -12,7 +12,7 @@ namespace TEC\Common\Key_Value_Cache;
 /**
  * Class Object_Cache.
  *
- * @since TBD
+ * @since 6.9.1
  *
  * @package TEC\Common\Key_Value_Cache;
  */
@@ -22,7 +22,7 @@ class Object_Cache implements Key_Value_Cache_Interface {
 	/**
 	 * The cache group to use for the object cache.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @var string
 	 */
@@ -33,7 +33,7 @@ class Object_Cache implements Key_Value_Cache_Interface {
 	 *
 	 * This method tells nothing about the nature of the value, it only checks whether the key exists in the cache.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @param string $key The key to check.
 	 *
@@ -51,7 +51,7 @@ class Object_Cache implements Key_Value_Cache_Interface {
 	 * Note the method does not inquire into the nature of the stored value, it's returned as it is and no guarantee
 	 * is made on the integrity or correctness of the value.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @param string      $key      The key to return the value for.
 	 * @param string|null $fallback The fallback value to return if the key does not exist.
@@ -71,7 +71,7 @@ class Object_Cache implements Key_Value_Cache_Interface {
 	/**
 	 * Stores a value for a key.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @param string $key   The key to store the value for.
 	 * @param string $value The value to store for the key.
@@ -93,7 +93,7 @@ class Object_Cache implements Key_Value_Cache_Interface {
 	/**
 	 * Deletes a value from the cache, if present.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @param string $key The key to delete.
 	 *
@@ -106,7 +106,7 @@ class Object_Cache implements Key_Value_Cache_Interface {
 	/**
 	 * Flushes the cache.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @return void
 	 */

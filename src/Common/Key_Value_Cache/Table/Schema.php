@@ -2,7 +2,7 @@
 /**
  * Defines the schema for the key-value cache table.
  *
- * @since TBD
+ * @since 6.9.1
  *
  * @package TEC\Common\Key_Value_Cache\Table;
  */
@@ -14,7 +14,7 @@ use TEC\Common\StellarWP\Schema\Tables\Contracts\Table;
 /**
  * Class Schema.
  *
- * @since TBD
+ * @since 6.9.1
  *
  * @package TEC\Common\Key_Value_Cache\Table;
  */
@@ -22,7 +22,7 @@ class Schema extends Table {
 	/**
 	 * The version number for this schema definition.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @var string|null
 	 */
@@ -31,7 +31,7 @@ class Schema extends Table {
 	/**
 	 * The base table name.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @var string
 	 */
@@ -40,7 +40,7 @@ class Schema extends Table {
 	/**
 	 * The organizational group this table belongs to.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @var string
 	 */
@@ -49,7 +49,7 @@ class Schema extends Table {
 	/**
 	 * The slug used to identify the custom table.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @var string|null
 	 */
@@ -58,7 +58,7 @@ class Schema extends Table {
 	/**
 	 * The field that uniquely identifies a row in the table.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 *
 	 * @var string
 	 */
