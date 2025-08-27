@@ -154,7 +154,7 @@ class Text extends Parameter {
 	 * @return Closure
 	 */
 	public function get_sanitizer(): ?Closure {
-		return $this->sanitizer ?? fn( $value ): string => (string) $value;
+		return $this->sanitizer ?? fn( $value ): string => (string) ( null === $this->get_enum() && null === $this->get_pattern() ? sanitize_text_field( $value ) : $value );
 	}
 
 	/**
