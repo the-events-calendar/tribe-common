@@ -138,6 +138,8 @@ class Hooks extends Controller_Contract {
 		$test_path         = $group_path_data['root'] ?? '';
 		$is_inside_plugins = $test_path !== str_replace( trailingslashit( WP_PLUGIN_DIR ), '', $test_path );
 
+		$is_inside_plugins = $is_inside_plugins || $test_path !== str_replace( trailingslashit( dirname( __DIR__, 4 ) ), '', $test_path );
+
 		$following_symlinks_root = str_replace( trailingslashit( dirname( __DIR__, 4 ) ), trailingslashit( WP_PLUGIN_DIR ), $group_path_data['root'] ?? '' );
 
 		if ( $is_inside_plugins ) {
