@@ -36,11 +36,11 @@ class Integer extends Number {
 			if ( ! is_int( $value ) ) {
 				throw InvalidRestArgumentException::create(
 					// translators: 1) is the name of the parameter.
-					sprintf( __( 'Parameter `{%1$s}` must be an integer.', 'tribe-common' ), $this->get_name() ),
+					sprintf( __( 'Argument `{%1$s}` must be an integer.', 'tribe-common' ), $this->get_name() ),
 					$this->get_name(),
-					'tec_rest_invalid_integer_parameter',
+					'tec_rest_invalid_integer_argument',
 					// translators: 1) is the name of the parameter.
-					sprintf( __( 'The parameter `{%1$s}` is not an integer.', 'tribe-common' ), $this->get_name() )
+					sprintf( __( 'The argument `{%1$s}` is not an integer.', 'tribe-common' ), $this->get_name() )
 				);
 			}
 

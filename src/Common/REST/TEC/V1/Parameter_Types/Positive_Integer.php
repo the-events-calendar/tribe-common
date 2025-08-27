@@ -29,11 +29,11 @@ class Positive_Integer extends Integer {
 			if ( ! is_int( $value ) || $value <= 0 ) {
 				throw InvalidRestArgumentException::create(
 					// translators: 1) is the name of the parameter.
-					sprintf( __( 'Parameter `{%1$s}` must be a positive integer.', 'tribe-common' ), $this->get_name() ),
+					sprintf( __( 'Argument `{%1$s}` must be a positive integer.', 'tribe-common' ), $this->get_name() ),
 					$this->get_name(),
-					'tec_rest_invalid_positive_integer_parameter',
+					'tec_rest_invalid_positive_integer_argument',
 					// translators: 1) is the name of the parameter.
-					sprintf( __( 'The parameter `{%1$s}` is not a positive integer.', 'tribe-common' ), $this->get_name() )
+					sprintf( __( 'The argument `{%1$s}` is not a positive integer.', 'tribe-common' ), $this->get_name() )
 				);
 			}
 

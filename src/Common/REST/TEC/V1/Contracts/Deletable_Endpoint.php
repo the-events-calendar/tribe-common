@@ -52,7 +52,7 @@ interface Deletable_Endpoint {
 	 *
 	 * @return QueryArgumentCollection
 	 */
-	public function delete_args(): QueryArgumentCollection;
+	public function delete_params(): QueryArgumentCollection;
 
 	/**
 	 * Returns the schema for the delete method.

@@ -52,7 +52,7 @@ interface Readable_Endpoint {
 	 *
 	 * @return QueryArgumentCollection
 	 */
-	public function read_args(): QueryArgumentCollection;
+	public function read_params(): QueryArgumentCollection;
 
 	/**
 	 * Returns the schema for the endpoint.

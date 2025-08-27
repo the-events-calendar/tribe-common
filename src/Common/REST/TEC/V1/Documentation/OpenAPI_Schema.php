@@ -301,11 +301,11 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 				if ( $param->is_required() && ! isset( $data[ $param_name ] ) ) {
 					throw InvalidRestArgumentException::create(
 						// translators: 1) is the type of the parameter, 2) is the name of the parameter.
-						sprintf( __( '%1$s parameter `{%2$s}` is required.', 'the-events-calendar' ), $type, $param_name ),
+						sprintf( __( '%1$s argument `{%2$s}` is required.', 'the-events-calendar' ), $type, $param_name ),
 						$param_name,
-						'tec_rest_invalid_' . strtolower( $type ) . '_parameter',
+						'tec_rest_invalid_' . strtolower( $type ) . '_argument',
 						// translators: 1) is the type of the parameter, 2) is the name of the parameter.
-						sprintf( __( 'The %1$s parameter `{%2$s}` is missing.', 'the-events-calendar' ), $type, $param_name )
+						sprintf( __( 'The %1$s argument `{%2$s}` is missing.', 'the-events-calendar' ), $type, $param_name )
 					);
 				}
 

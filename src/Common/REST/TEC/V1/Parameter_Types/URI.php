@@ -36,11 +36,11 @@ class URI extends Text {
 			if ( ! filter_var( $value, FILTER_VALIDATE_URL ) ) {
 				throw InvalidRestArgumentException::create(
 					// translators: 1) is the name of the parameter.
-					sprintf( __( 'Parameter `{%1$s}` must be a valid URL.', 'tribe-common' ), $this->get_name() ),
+					sprintf( __( 'Argument `{%1$s}` must be a valid URL.', 'tribe-common' ), $this->get_name() ),
 					$this->get_name(),
-					'tec_rest_invalid_uri_parameter',
+					'tec_rest_invalid_uri_argument',
 					// translators: 1) is the name of the parameter.
-					sprintf( __( 'The parameter `{%1$s}` is not a valid URL.', 'tribe-common' ), $this->get_name() )
+					sprintf( __( 'The argument `{%1$s}` is not a valid URL.', 'tribe-common' ), $this->get_name() )
 				);
 			}
 

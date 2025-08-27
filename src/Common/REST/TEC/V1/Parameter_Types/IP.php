@@ -36,11 +36,11 @@ class IP extends Text {
 			if ( ! filter_var( $value, FILTER_VALIDATE_IP ) ) {
 				throw InvalidRestArgumentException::create(
 					// translators: 1) is the name of the parameter.
-					sprintf( __( 'Parameter `{%1$s}` must be a valid IP address.', 'tribe-common' ), $this->get_name() ),
+					sprintf( __( 'Argument `{%1$s}` must be a valid IP address.', 'tribe-common' ), $this->get_name() ),
 					$this->get_name(),
-					'tec_rest_invalid_ip_parameter',
+					'tec_rest_invalid_ip_argument',
 					// translators: 1) is the name of the parameter.
-					sprintf( __( 'The parameter `{%1$s}` is not a valid IP address.', 'tribe-common' ), $this->get_name() )
+					sprintf( __( 'The argument `{%1$s}` is not a valid IP address.', 'tribe-common' ), $this->get_name() )
 				);
 			}
 

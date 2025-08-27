@@ -53,7 +53,7 @@ interface Creatable_Endpoint {
 	 *
 	 * @return RequestBodyCollection
 	 */
-	public function create_args(): RequestBodyCollection;
+	public function create_params(): RequestBodyCollection;
 
 	/**
 	 * Returns the schema for the create method.

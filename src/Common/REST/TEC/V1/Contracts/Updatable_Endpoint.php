@@ -53,7 +53,7 @@ interface Updatable_Endpoint {
 	 *
 	 * @return RequestBodyCollection
 	 */
-	public function update_args(): RequestBodyCollection;
+	public function update_params(): RequestBodyCollection;
 
 	/**
 	 * Returns the schema for the update method.

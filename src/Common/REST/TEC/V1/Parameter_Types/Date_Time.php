@@ -36,22 +36,22 @@ class Date_Time extends Text {
 			if ( null !== $this->get_pattern() && ! preg_match( '/' . $this->get_pattern() . '/', (string) $value ) ) {
 				throw InvalidRestArgumentException::create(
 					// translators: 1) is the name of the parameter.
-					sprintf( __( 'Parameter `{%1$s}` must match the pattern.', 'the-events-calendar' ), $this->get_name() ),
+					sprintf( __( 'Argument `{%1$s}` must match the pattern.', 'the-events-calendar' ), $this->get_name() ),
 					$this->get_name(),
-					'tec_rest_invalid_' . str_replace( '-', '_', $this->get_format() ) . '_parameter',
+					'tec_rest_invalid_' . str_replace( '-', '_', $this->get_format() ) . '_argument',
 					// translators: 1) is the name of the parameter, 2) is the pattern.
-					sprintf( __( 'The parameter `{%1$s}` does not match the pattern `%2$s`.', 'the-events-calendar' ), $this->get_name(), $this->get_pattern() )
+					sprintf( __( 'The argument `{%1$s}` does not match the pattern `%2$s`.', 'the-events-calendar' ), $this->get_name(), $this->get_pattern() )
 				);
 			}
 
 			if ( ! is_numeric( $value ) && ! ( is_string( $value ) && strtotime( $value ) ) ) {
 				throw InvalidRestArgumentException::create(
 					// translators: 1) is the name of the parameter.
-					sprintf( __( 'Parameter `{%1$s}` must be a date-time.', 'the-events-calendar' ), $this->get_name() ),
+					sprintf( __( 'Argument `{%1$s}` must be a date-time.', 'the-events-calendar' ), $this->get_name() ),
 					$this->get_name(),
-					'tec_rest_invalid_' . str_replace( '-', '_', $this->get_format() ) . '_parameter',
+					'tec_rest_invalid_' . str_replace( '-', '_', $this->get_format() ) . '_argument',
 					// translators: 1) is the name of the parameter, 2) is the format of the parameter (date or date-time).
-					sprintf( __( 'We cannot parse the parameter `{%1$s}` as a %2$s.', 'the-events-calendar' ), $this->get_name(), $this->get_format() )
+					sprintf( __( 'We cannot parse the argument `{%1$s}` as a %2$s.', 'the-events-calendar' ), $this->get_name(), $this->get_format() )
 				);
 			}
 
