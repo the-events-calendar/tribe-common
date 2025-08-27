@@ -111,7 +111,7 @@ class Definition_Parameter extends Entity {
 	 *
 	 * @throws InvalidRestArgumentException If the data is invalid.
 	 */
-	public function filter( array $data = [] ): array {
+	public function filter_before_request( array $data = [] ): array {
 		$collections = $this->get_collections();
 
 		$filtered_data = [];
