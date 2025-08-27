@@ -466,7 +466,7 @@ abstract class Endpoint implements Endpoint_Interface {
 		}
 
 		/** @throws InvalidRestArgumentException If one or more request parameters are invalid. */
-		return $schema->filter( $request_params );
+		return $schema->filter_before_request( $request_params );
 	}
 
 	/**

@@ -266,7 +266,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	 *
 	 * @throws InvalidRestArgumentException If parameter is invalid.
 	 */
-	public function filter( array $data = [] ): array {
+	public function filter_before_request( array $data = [] ): array {
 		[
 			/** @var ?PathArgumentCollection $path_params */
 			$path_params,
@@ -293,7 +293,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 			/** @var Parameter $param */
 			foreach ( $collection as $param ) {
 				if ( $param instanceof Definition_Parameter ) {
-					$new_data = array_merge( $new_data, $param->filter( $data ) );
+					$new_data = array_merge( $new_data, $param->filter_before_request( $data ) );
 					continue;
 				}
 
