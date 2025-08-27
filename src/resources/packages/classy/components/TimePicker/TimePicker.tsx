@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { format } from '@wordpress/date';
-import { useState, useMemo, useCallback, useRef } from '@wordpress/element';
+import { useState, useMemo, useCallback, useRef, useEffect } from '@wordpress/element';
 import { ComboboxControl } from '@wordpress/components';
 import { ComboboxControlOption } from '@wordpress/components/build-types/combobox-control/types';
 import { getValidDateOrNull } from '../../functions';
@@ -117,10 +117,11 @@ export default function TimePicker( props: {
 
 	let [ selectedTime, setSelectedTime ] = useState( () => format( 'H:i:s', currentDate ) );
 
-	if ( datesChanged ) {
-		// Start or end date changed: use a new value.
-		selectedTime = format( 'H:i:s', currentDate );
-	}
+	// Use useEffect to properly handle date changes
+	useEffect( () => {
+		// Update selectedTime when currentDate changes
+		setSelectedTime( format( 'H:i:s', currentDate ) );
+	}, [ currentDate ] );
 
 	// Calculate all the available time options.
 	const timeOptions = useMemo( (): ComboboxControlOption[] => {
@@ -128,12 +129,12 @@ export default function TimePicker( props: {
 	}, [ currentDate, timeFormat, timeInterval, startDate, endDate ] );
 
 	// Set the initial options to all available time options.
-	let [ options, setOptions ] = useState( () => getOptions( currentDate, timeFormat, timeOptions ) );
+	const [ options, setOptions ] = useState( () => getOptions( currentDate, timeFormat, timeOptions ) );
 
-	if ( datesChanged ) {
-		// Start or end date changed: use a new set of options.
-		options = getOptions( currentDate, timeFormat, timeOptions );
-	}
+	// Update options when dates or time options change.
+	useEffect( () => {
+		setOptions( getOptions( currentDate, timeFormat, timeOptions ) );
+	}, [ currentDate, timeFormat, timeOptions ] );
 
 	const onChangeProxy = useCallback(
 		( value: string | null | undefined ): void => {
@@ -190,18 +191,16 @@ export default function TimePicker( props: {
 	);
 
 	let className = 'classy-field__control classy-field__control--input classy-field__control--time-picker';
-
-	// This is a hack to make the component highlight again on successive renders when the dates changed.
-	// By setting a new key on the component, we force a re-render and thus re-apply the highlight effect.
-	const highlightKey = useRef< number >( Math.random() );
-	if ( datesChanged && highlight ) {
+	if ( highlight ) {
 		className += ' classy-highlight';
-		highlightKey.current = Math.random();
 	}
+
+	// Force re-render when highlight changes to restart the CSS animation.
+	const highlightKey = useMemo( () => Math.random(), [ highlight, currentDate ] );
 
 	return (
 		<ComboboxControl
-			key={ highlightKey.current }
+			key={ highlightKey }
 			__next40pxDefaultSize
 			__nextHasNoMarginBottom
 			className={ className }
