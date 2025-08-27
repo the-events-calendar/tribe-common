@@ -68,7 +68,7 @@ class Fake_Post_Endpoint extends Post_Entity_Endpoint implements \TEC\Common\RES
 		return new WP_REST_Response( [], 200 );
 	}
 
-	public function read_args(): QueryArgumentCollection { return new QueryArgumentCollection(); }
+	public function read_params(): QueryArgumentCollection { return new QueryArgumentCollection(); }
 
 	public function read_schema(): OpenAPI_Schema_Interface {
 		return new OpenAPI_Schema_Documentation(
