@@ -49,14 +49,25 @@
 		 * Wrap the headings with a div to allow for positioning of the sidebar.
 		 *
 		 * @since 6.4.0
+		 * @since TBD Added check for Query Monitor or other overlays.
 		 *
 		 * @return {void}
 		 */
 		const wrapHeadings = () => {
+			// Early bail if we're inside Query Monitor or other overlays.
+			if ( document.querySelector( '#query-monitor' ) || document.querySelector( '.qm' ) ) {
+				return;
+			}
+
 			const headings = document.querySelectorAll(
 				'.edit-php.post-type-tribe_events h1, .post-php.post-type-tribe_events h1'
 			);
 			headings.forEach( ( heading ) => {
+				// Skip headings that are inside Query Monitor or other plugin overlays.
+				if ( heading.closest( '.qm' ) || heading.closest( '#query-monitor' ) ) {
+					return;
+				}
+
 				const pageAction = heading.nextElementSibling;
 				if ( pageAction ) {
 					const wrapper = document.createElement( 'div' );
