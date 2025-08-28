@@ -292,6 +292,17 @@ class Tribe__Main {
 
 		tec_asset(
 			$this,
+			'tec-user-agent',
+			'user-agent.js',
+			[],
+			'wp_enqueue_scripts',
+			[
+				'groups' => [ self::class ],
+			]
+		);
+
+		tec_asset(
+			$this,
 			'tec-copy-to-clipboard',
 			'utils/tec-copy-to-clipboard.js',
 			'tribe-clipboard',
