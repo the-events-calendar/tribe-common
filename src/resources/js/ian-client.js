@@ -54,20 +54,10 @@
 		 * @return {void}
 		 */
 		const wrapHeadings = () => {
-			// Early bail if we're inside Query Monitor or other overlays.
-			if ( document.querySelector( '#query-monitor' ) || document.querySelector( '.qm' ) ) {
-				return;
-			}
-
 			const headings = document.querySelectorAll(
-				'.edit-php.post-type-tribe_events h1, .post-php.post-type-tribe_events h1'
+				'.edit-php.post-type-tribe_events h1.wp-heading-inline, .post-php.post-type-tribe_events h1.wp-heading-inline'
 			);
 			headings.forEach( ( heading ) => {
-				// Skip headings that are inside Query Monitor or other plugin overlays.
-				if ( heading.closest( '.qm' ) || heading.closest( '#query-monitor' ) ) {
-					return;
-				}
-
 				const pageAction = heading.nextElementSibling;
 				if ( pageAction ) {
 					const wrapper = document.createElement( 'div' );
