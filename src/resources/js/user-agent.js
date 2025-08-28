@@ -9,7 +9,7 @@
 		android: /android/i,
 		iphone: /iPhone/i
 	};
-alert( userAgent );
+
 	Object.entries( deviceClasses ).forEach( ( [ device, pattern ] ) => {
 		if ( userAgent.match( pattern ) ) {
 			document.body.classList.add( `tec-is-${ device }` );
