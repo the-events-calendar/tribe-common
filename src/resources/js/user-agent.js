@@ -15,4 +15,11 @@
 			document.body.classList.add( `tec-is-${ device }` );
 		}
 	} );
+
+	// Hide parent list items that contain specific subscription links
+	document.addEventListener( 'DOMContentLoaded', function() {
+		document.querySelectorAll( '.tec-is-android.post-type-archive-tribe_events .tribe-events-c-subscribe-dropdown__list-item > a[href*="google"], .tec-is-android.post-type-archive-tribe_events .tribe-events-c-subscribe-dropdown__list-item > a[href*="ical=1&eventDisplay=list"]' ).forEach( link => {
+			link.parentElement.style.display = 'none';
+		} );
+	} );
 } )();
