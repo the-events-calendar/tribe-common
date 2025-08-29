@@ -141,7 +141,7 @@ class Query_Vars {
 	 * @return array<string,mixed> The sanitized query vars.
 	 */
 	public function clean_query_vars( array $vars ): array {
-		// Filter the query vars first. This should include sanitization based on expected the query var value type(s).
+		// Filter the query vars first. This should include sanitization based on the expected query var value type(s).
 		$vars = $this->filter_query_vars( $vars );
 
 		// Remove null values.
