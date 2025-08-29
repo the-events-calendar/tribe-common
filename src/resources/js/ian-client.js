@@ -49,12 +49,13 @@
 		 * Wrap the headings with a div to allow for positioning of the sidebar.
 		 *
 		 * @since 6.4.0
+		 * @since TBD Added check for Query Monitor or other overlays.
 		 *
 		 * @return {void}
 		 */
 		const wrapHeadings = () => {
 			const headings = document.querySelectorAll(
-				'.edit-php.post-type-tribe_events h1, .post-php.post-type-tribe_events h1'
+				'.edit-php.post-type-tribe_events h1.wp-heading-inline, .post-php.post-type-tribe_events h1.wp-heading-inline'
 			);
 			headings.forEach( ( heading ) => {
 				const pageAction = heading.nextElementSibling;
