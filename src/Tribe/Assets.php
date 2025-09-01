@@ -358,7 +358,7 @@ class Tribe__Assets {
 		/**
 		 * Filter to change the root path of the asset.
 		 *
-		 * @since TBD
+		 * @since 6.9.2
 		 *
 		 * @param array{root: string} $group_path_data The group path data.
 		 */

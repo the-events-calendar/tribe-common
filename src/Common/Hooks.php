@@ -31,7 +31,7 @@ class Hooks extends Controller_Contract {
 	/**
 	 * The cached paths.
 	 *
-	 * @since TBD
+	 * @since 6.9.2
 	 *
 	 * @var array
 	 */

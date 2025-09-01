@@ -49,7 +49,7 @@
 		 * Wrap the headings with a div to allow for positioning of the sidebar.
 		 *
 		 * @since 6.4.0
-		 * @since TBD Added check for Query Monitor or other overlays.
+		 * @since 6.9.2 Added check for Query Monitor or other overlays.
 		 *
 		 * @return {void}
 		 */
