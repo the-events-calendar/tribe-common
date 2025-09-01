@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Added filters: `tec_common_group_path`
