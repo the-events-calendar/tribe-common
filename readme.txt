@@ -1,5 +1,13 @@
 == Changelog ==
 
+= [6.9.2] 2025-09-02 =
+
+* Fix - Completed Order email can handle again multiple recipients separated by comma. [ET-2551]
+* Fix - Figure out where assets are located in complex environments with a mix of symlinked or normally placed plugins. Resolving as a result issues with Recurring Events UI in WordPress.com. [ECP-1929]
+* Fix - Fixed conflict with IAN being injected into Query Monitor headers. [TEC-5362]
+* Tweak - Added filters: `tec_common_group_path`
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.9.1] 2025-08-26 =
 
 * Feature - Add a key-value cache system to support sites not using object-caching. [ETP-1021]
