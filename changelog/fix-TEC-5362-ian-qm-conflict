@@ -1,4 +1,0 @@
-Significance: minor
-Type: fix
-
-Fixed conflict with IAN being injected into Query Monitor headers. [TEC-5362]
