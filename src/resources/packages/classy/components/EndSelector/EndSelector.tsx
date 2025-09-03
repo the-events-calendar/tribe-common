@@ -1,30 +1,39 @@
 import * as React from 'react';
 import { Fragment } from 'react';
-import { MouseEventHandler } from 'react';
-import type { StartOfWeek } from '../../types/StartOfWeek';
 import { DatePicker } from '../DatePicker';
 import { TimePicker } from '../TimePicker';
 import { RefObject, useRef } from '@wordpress/element';
 import { format } from '@wordpress/date';
 import { _x } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
-import { DateTimeUpdateType, DateUpdateType } from '../../types/FieldProps.ts';
 import { StoreSelect } from '../../types/Store';
+import { DateSelectorProps } from '../../types/DateSelectorProps';
 
-export default function EndSelector( props: {
-	dateWithYearFormat: string;
-	endDate: Date;
-	highlightTime: boolean;
-	isAllDay: boolean;
-	isMultiday: boolean;
-	isSelectingDate: DateUpdateType | false;
-	onChange: ( selecting: DateTimeUpdateType, date: string ) => void;
-	onClick: MouseEventHandler;
-	onClose: () => void;
-	startDate: Date;
-	startOfWeek: StartOfWeek;
-	timeFormat: string;
-} ) {
+type EndSelectorProps = DateSelectorProps & {
+	/**
+	 * Whether to show a separator between the date and time pickers.
+	 *
+	 * @default true
+	 */
+	showSeparator?: boolean;
+
+	/**
+	 * Whether to show the "All Day" label when the event is marked as all day.
+	 *
+	 * @default true
+	 */
+	showAllDayLabel?: boolean;
+};
+
+/**
+ * EndSelector component for selecting the end date and time.
+ *
+ * @since TBD
+ *
+ * @param {DateSelectorProps} props The properties for the EndSelector component.
+ * @return {JSX.Element} The rendered EndSelector component.
+ */
+export default function EndSelector( props: EndSelectorProps ): JSX.Element {
 	const {
 		dateWithYearFormat,
 		endDate,

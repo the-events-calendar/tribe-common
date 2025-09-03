@@ -1,29 +1,12 @@
-import { Fragment, MouseEventHandler } from 'react';
+import { Fragment } from 'react';
 import { RefObject, useRef } from '@wordpress/element';
-import type { StartOfWeek } from '../../types/StartOfWeek';
 import { DatePicker } from '../DatePicker';
 import { TimePicker } from '../TimePicker';
 import { format } from '@wordpress/date';
 import { _x } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
-import { DateTimeUpdateType, DateUpdateType } from '../../types/FieldProps.ts';
+import { DateSelectorProps } from '../../types/DateSelectorProps';
 import { StoreSelect } from '../../types/Store';
-
-type StartSelectorProps = {
-	dateWithYearFormat: string;
-	endDate: Date;
-	highlightTime: boolean;
-	isAllDay: boolean;
-	isMultiday: boolean;
-	isSelectingDate: DateUpdateType | false;
-	onChange: ( selecting: DateTimeUpdateType, date: string ) => void;
-	onClick: MouseEventHandler;
-	onClose: () => void;
-	startDate: Date;
-	startOfWeek: StartOfWeek;
-	timeFormat: string;
-	title?: string;
-};
 
 const defaultTitle = _x( 'Start Date', 'Event start date selection input title', 'tribe-common' );
 
@@ -35,7 +18,7 @@ const defaultTitle = _x( 'Start Date', 'Event start date selection input title',
  * @param {StartSelectorProps} props The properties for the StartSelector component.
  * @return {JSX.Element} The rendered StartSelector component.
  */
-export default function StartSelector( props: StartSelectorProps ): JSX.Element {
+export default function StartSelector( props: DateSelectorProps ): JSX.Element {
 	const {
 		dateWithYearFormat,
 		endDate,
