@@ -1,4 +1,5 @@
 <?php
+
 namespace Tribe\PUE;
 
 use lucatume\WPBrowser\TestCase\WPTestCase;
@@ -83,5 +84,48 @@ class Notices_Test extends WPTestCase {
 			'The Events Calendar PRO',
 			true,
 		];
+	}
+
+	/**
+	 * @test
+	 */
+	public function add_notice_should_ignore_empty_plugin_name(): void {
+		$notices = new Notices();
+
+		// Try to add an empty notice.
+		$notices->add_notice( Notices::EXPIRED_KEY, '' );
+
+		$saved = get_option( Notices::STORE_KEY, [] );
+
+		$this->assertArrayNotHasKey(
+			'',
+			$saved[ Notices::EXPIRED_KEY ],
+			'add_notice() should not persist empty plugin names.'
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function sanitize_notices_should_remove_empty_plugin_names(): void {
+		$corrupted = [
+			'expired_key' => [
+				'Event Aggregator' => true,
+				''                 => true,
+			],
+			'invalid_key' => [],
+			'upgrade_key' => [],
+		];
+
+		update_option( Notices::STORE_KEY, $corrupted );
+
+		$notices = new Notices();
+		$clean   = get_option( Notices::STORE_KEY );
+
+		$this->assertArrayNotHasKey(
+			'',
+			$clean['expired_key'],
+			'sanitize_notices() should strip out empty plugin names.'
+		);
 	}
 }
