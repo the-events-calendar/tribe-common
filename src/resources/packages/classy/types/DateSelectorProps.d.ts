@@ -12,6 +12,7 @@ export type DateSelectorProps = {
 	onChange: ( selecting: DateTimeUpdateType, date: string ) => void;
 	onClick: MouseEventHandler;
 	onClose: () => void;
+	showTitle?: boolean;
 	startDate: Date;
 	startOfWeek: StartOfWeek;
 	timeFormat: string;

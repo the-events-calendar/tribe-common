@@ -25,6 +25,8 @@ type EndSelectorProps = DateSelectorProps & {
 	showAllDayLabel?: boolean;
 };
 
+const defaultTitle = _x( 'Date', 'Event date selection input title', 'tribe-common' );
+
 /**
  * EndSelector component for selecting the end date and time.
  *
@@ -44,9 +46,13 @@ export default function EndSelector( props: EndSelectorProps ): JSX.Element {
 		onChange,
 		onClick,
 		onClose,
+		showAllDayLabel = true,
+		showTitle = true,
+		showSeparator = true,
 		startDate,
 		startOfWeek,
 		timeFormat,
+		title = defaultTitle,
 	} = props;
 
 	const ref: RefObject< HTMLDivElement > = useRef( null );
@@ -63,17 +69,21 @@ export default function EndSelector( props: EndSelectorProps ): JSX.Element {
 		<Fragment>
 			{ isMultiday && (
 				<Fragment>
-					<span className="classy-field__separator classy-field__separator--dates">
-						{ _x( 'to', 'multi-day start and end date separator', 'tribe-common' ) }
-					</span>
+					{ showSeparator && (
+						<span className="classy-field__separator classy-field__separator--dates">
+							{ _x( 'to', 'multi-day start and end date separator', 'tribe-common' ) }
+						</span>
+					) }
 
 					<div
 						className="classy-field__input classy-field__input--start-date classy-field__input--grow"
 						ref={ ref }
 					>
-						<div className="classy-field__input-title">
-							<h4>{ _x( 'Date', 'Event date selection input title', 'tribe-common' ) }</h4>
-						</div>
+						{ showTitle && (
+							<div className="classy-field__input-title">
+								<h4>{ title }</h4>
+							</div>
+						) }
 
 						<DatePicker
 							anchor={ ref.current }
@@ -93,11 +103,13 @@ export default function EndSelector( props: EndSelectorProps ): JSX.Element {
 				</Fragment>
 			) }
 
-			{ isAllDay ? (
+			{ isAllDay && showAllDayLabel && (
 				<span className="classy-field__separator classy-field__separator--dates">
 					{ _x( 'All Day', 'All day label in the date/time Classy selection field', 'tribe-common' ) }
 				</span>
-			) : (
+			) }
+
+			{ ! isAllDay && (
 				<div className="classy-field__input classy-field__input--end-time">
 					<div className="classy-field__input-title">
 						<h4>{ _x( 'End Time', 'Event end time selection input title', 'tribe-common' ) }</h4>

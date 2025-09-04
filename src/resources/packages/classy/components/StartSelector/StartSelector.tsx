@@ -29,6 +29,7 @@ export default function StartSelector( props: DateSelectorProps ): JSX.Element {
 		onChange,
 		onClick,
 		onClose,
+		showTitle = true,
 		startDate,
 		startOfWeek,
 		timeFormat,
@@ -53,9 +54,11 @@ export default function StartSelector( props: DateSelectorProps ): JSX.Element {
 	return (
 		<Fragment>
 			<div className={ wrapperClassName } ref={ ref }>
-				<div className="classy-field__input-title">
-					<h4>{ title }</h4>
-				</div>
+				{ showTitle && (
+					<div className="classy-field__input-title">
+						<h4>{ title }</h4>
+					</div>
+				) }
 
 				<DatePicker
 					anchor={ ref.current }
