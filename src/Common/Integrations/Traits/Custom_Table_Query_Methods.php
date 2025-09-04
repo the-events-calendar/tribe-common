@@ -63,6 +63,8 @@ trait Custom_Table_Query_Methods {
 			$total  ??= DB::get_var( 'SELECT FOUND_ROWS()' );
 			$fetched += count( $batch );
 
+			$offset += $batch_size;
+
 			yield from $batch;
 		} while ( $fetched < $total );
 	}
