@@ -144,7 +144,7 @@ tribe.helpPage = tribe.helpPage || {};
 		obj.$system_info_opt_in = $( obj.selectors.autoInfoOptIn );
 		obj.$system_info_opt_in_msg = $( obj.selectors.optInMsg );
 
-		obj.$system_info_opt_in.on( 'change', function(e) {
+		obj.$system_info_opt_in.on( 'change', ( e ) => {
 			if ( e.target.checked ) {
 				obj.doAjaxRequest( 'generate' );
 			} else {
