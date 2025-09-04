@@ -252,8 +252,8 @@ class Tribe__PUE__Notices {
 	 *
 	 * @since TBD Added early bail if $plugin_name is an empty string.
 	 *
-	 * @param string $notice_type
-	 * @param string $plugin_name
+	 * @param string $notice_type Notice Type.
+	 * @param string $plugin_name Plugin Name.
 	 */
 	public function add_notice( $notice_type, $plugin_name ) {
 		if ( '' === trim( (string) $plugin_name ) ) {
