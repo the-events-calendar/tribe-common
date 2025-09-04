@@ -250,10 +250,15 @@ class Tribe__PUE__Notices {
 	 * was already added to the MISSING_KEY group and is subsequently added to the
 	 * INVALID_KEY group, the previous entry (under MISSING_KEY) will be cleared.
 	 *
+	 * @since TBD Added early bail if $plugin_name is an empty string.
+	 *
 	 * @param string $notice_type
 	 * @param string $plugin_name
 	 */
 	public function add_notice( $notice_type, $plugin_name ) {
+		if ( '' === trim( (string) $plugin_name ) ) {
+			return;
+		}
 		$this->clear_notices( $plugin_name, true );
 		$this->notices[ $notice_type ][ $plugin_name ] = true;
 		$this->save_notices();
