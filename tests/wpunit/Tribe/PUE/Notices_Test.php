@@ -4,33 +4,84 @@ namespace Tribe\PUE;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 use Tribe__PUE__Notices as Notices;
 
-class Notices_Test extends WPTestCase
-{
-	public function test_render_invalid_key_with_empty_notices(): void {
-		// Empty the notices.
+/**
+ * @group notices
+ */
+class Notices_Test extends WPTestCase {
+
+	/**
+	 * @before
+	 */
+	protected function reset_options(): void {
 		update_option( Notices::STORE_KEY, [] );
-		// Add one empty pue install key to trigger the rendering.
-		update_option( 'pue_install_key_for_something', '' );
-
-		$notices = new Notices();
-		ob_start();
-		$notices->render_invalid_key();
-		$output = ob_get_clean();
-
-		$this->assertEmpty( $output );
 	}
 
-	public function test_render_invalid_key_with_null_invalid_key_entry_in_notices():void{
-		// Empty the `invalid_key` entry in the notices.
-		update_option( Notices::STORE_KEY, [ 'invalid_key' => null ] );
-		// Add one empty pue install key to trigger the rendering.
-		update_option( 'pue_install_key_for_something', '' );
+	/**
+	 * @dataProvider provider_has_notice_scenarios
+	 * @test
+	 */
+	public function it_handles_has_notice_correctly( $option_value, $plugin_name, $expected ): void {
+		update_option( Notices::STORE_KEY, $option_value );
 
 		$notices = new Notices();
-		ob_start();
-		$notices->render_invalid_key();
-		$output = ob_get_clean();
+		$result  = $notices->has_notice( $plugin_name );
 
-		$this->assertEmpty( $output );
+		$this->assertSame(
+			$expected,
+			$result,
+			sprintf(
+				'Expected has_notice("%s") to return %s',
+				$plugin_name,
+				$expected ? 'true' : 'false'
+			)
+		);
+	}
+
+	public function provider_has_notice_scenarios(): \Generator {
+		yield 'empty option, no notices' => [
+			[],
+			'Event Aggregator',
+			false,
+		];
+
+		yield 'expired key for Event Aggregator' => [
+			[
+				'expired_key' => [ 'Event Aggregator' => true ],
+				'invalid_key' => [],
+				'upgrade_key' => [],
+			],
+			'Event Aggregator',
+			true,
+		];
+
+		yield 'corrupted empty string key should be ignored' => [
+			[
+				'expired_key' => [ '' => true ],
+				'invalid_key' => [],
+				'upgrade_key' => [],
+			],
+			'',
+			false,
+		];
+
+		yield 'invalid key should be detected' => [
+			[
+				'invalid_key' => [ 'Filter Bar' => true ],
+				'expired_key' => [],
+				'upgrade_key' => [],
+			],
+			'Filter Bar',
+			true,
+		];
+
+		yield 'upgrade key should be detected' => [
+			[
+				'upgrade_key' => [ 'The Events Calendar PRO' => true ],
+				'invalid_key' => [],
+				'expired_key' => [],
+			],
+			'The Events Calendar PRO',
+			true,
+		];
 	}
 }
