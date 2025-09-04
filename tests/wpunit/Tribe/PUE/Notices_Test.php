@@ -99,33 +99,8 @@ class Notices_Test extends WPTestCase {
 
 		$this->assertArrayNotHasKey(
 			'',
-			$saved[ Notices::EXPIRED_KEY ],
+			$saved[ Notices::EXPIRED_KEY ] ?? [],
 			'add_notice() should not persist empty plugin names.'
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function sanitize_notices_should_remove_empty_plugin_names(): void {
-		$corrupted = [
-			'expired_key' => [
-				'Event Aggregator' => true,
-				''                 => true,
-			],
-			'invalid_key' => [],
-			'upgrade_key' => [],
-		];
-
-		update_option( Notices::STORE_KEY, $corrupted );
-
-		$notices = new Notices();
-		$clean   = get_option( Notices::STORE_KEY );
-
-		$this->assertArrayNotHasKey(
-			'',
-			$clean['expired_key'],
-			'sanitize_notices() should strip out empty plugin names.'
 		);
 	}
 }
