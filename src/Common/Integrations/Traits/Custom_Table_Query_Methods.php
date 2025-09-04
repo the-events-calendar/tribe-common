@@ -53,8 +53,8 @@ trait Custom_Table_Query_Methods {
 				DB::prepare(
 					"SELECT {$sql_calc_found_rows} * FROM %i {$where_clause} ORDER BY {$order_by} LIMIT %d, %d",
 					static::table_name( true ),
+					$batch_size,
 					$offset,
-					$batch_size
 				),
 				$output
 			);
