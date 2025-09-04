@@ -269,8 +269,8 @@ class Tribe__PUE__Notices {
 	 *
 	 * @since TBD Bail early if the $plugin_name is an empty string.
 	 *
-	 * @param string      $plugin_name
-	 * @param string|null $notice_type
+	 * @param string      $plugin_name Plugin Name.
+	 * @param string|null $notice_type Notice Type.
 	 *
 	 * @return boolean
 	 */
