@@ -152,8 +152,12 @@ class Tribe__PUE__Notices {
 			}
 		}
 
-		// Remove numeric keys to ensure the notices array only contains valid string keys.
-		$notices = array_filter( $notices, fn( $key ) => ! is_numeric( $key ), ARRAY_FILTER_USE_KEY );
+		// Remove numeric keys and empty keys to ensure the notices array only contains valid string keys.
+		$notices = array_filter(
+			$notices,
+			fn( $key ) => is_string( $key ) && strlen( trim( $key ) ) > 0,
+			ARRAY_FILTER_USE_KEY
+		);
 
 		return $this->setup_notice_structure( $notices );
 	}
@@ -258,13 +262,18 @@ class Tribe__PUE__Notices {
 	/**
 	 * Returns whether or not a given plugin name has a specific notice
 	 *
-	 * @param string $plugin_name
+	 * @param string      $plugin_name
 	 * @param string|null $notice_type
 	 *
 	 * @return boolean
 	 */
 	public function has_notice( $plugin_name, $notice_type = null ) {
-		// If we match a pue key we use that value
+		// Bail if plugin name is empty.
+		if ( '' === trim( (string) $plugin_name ) ) {
+			return false;
+		}
+
+		// If we match a pue key we use that value.
 		if ( isset( $this->plugin_names[ $plugin_name ] ) ) {
 			$plugin_name = $this->plugin_names[ $plugin_name ];
 		}
