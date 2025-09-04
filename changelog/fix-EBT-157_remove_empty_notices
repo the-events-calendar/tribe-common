@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Corrected an issue where PUE License data had an empty key. [EBT-156]
