@@ -262,6 +262,8 @@ class Tribe__PUE__Notices {
 	/**
 	 * Returns whether or not a given plugin name has a specific notice
 	 *
+	 * @since TBD Bail early if the $plugin_name is an empty string.
+	 *
 	 * @param string      $plugin_name
 	 * @param string|null $notice_type
 	 *
