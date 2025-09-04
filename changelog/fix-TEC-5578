@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Tweak post CSS imports to ensure our a11y styles get loaded in the admin.
