@@ -74,6 +74,11 @@ global.window.tec.common = global.window.tec.common || {};
 global.window.tec.common.classy = global.window.tec.common.classy || {};
 global.window.tec.common.classy.data = global.window.tec.common.classy.data || {
 	settings: {
+		defaultCurrency: {
+			code: 'USD',
+			symbol: '$',
+			position: 'prefix',
+		},
 		timezoneString: 'UTC',
 		timezoneChoice:
 			'<optgroup label="Africa"><option value="Africa/Abidjan">Abidjan</option></optgroup>' +
