@@ -3,6 +3,7 @@
  * Display functions (template-tags) for use in WordPress templates.
  */
 
+use TEC\Common\Key_Value_Cache\Key_Value_Cache_Interface;
 use TEC\Common\StellarWP\Assets\Asset;
 use TEC\Common\StellarWP\Assets\Assets;
 
@@ -1058,4 +1059,17 @@ if ( ! function_exists( 'tec_assets' ) ) {
 		return $registered;
 	}
 	//phpcs:enable Squiz.Commenting.FunctionComment.ParamCommentFullStop
+}
+
+if ( ! function_exists( 'tec_kv_cache' ) ) {
+	/**
+	 * Returns the shared instance of the key-value cache API object.
+	 *
+	 * @since 6.9.1
+	 *
+	 * @return Key_Value_Cache_Interface The shared instance of the key-value cache API object.
+	 */
+	function tec_kv_cache(): Key_Value_Cache_Interface {
+		return tribe( Key_Value_Cache_Interface::class );
+	}
 }

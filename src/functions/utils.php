@@ -1,5 +1,6 @@
 <?php
 
+use TEC\Common\Json_Packer\Json_Packer;
 use TEC\Common\lucatume\DI52\ContainerException;
 
 /**
@@ -1437,5 +1438,44 @@ if ( ! function_exists( 'tec_copy_to_clipboard_button' ) ) {
 
 		// When they want to print the button outside of this function they need to be aware of the target.
 		return $target;
+	}
+}
+
+if ( ! function_exists( 'tec_json_pack' ) ) {
+	/**
+	 * Converts a value into a JSON string good to be unpacked later with the `tec_json_unpack` function.
+	 *
+	 * @since 6.9.1
+	 *
+	 * @param mixed         $value            The value to convert to JSON string.
+	 * @param array<string> $allowed_classes  A list of class names that it's safe to encode. By default
+	 *                                        all classes will be replaced with a stdClass instance with
+	 *                                        the same properties, but not the original methods.
+	 *
+	 * @return string The JSON string representing the packed value.
+	 */
+	function tec_json_pack( $value, array $allowed_classes = [] ): string {
+		return tribe( Json_Packer::class )->pack( $value, $allowed_classes );
+	}
+}
+
+if ( ! function_exists( 'tec_json_unpack' ) ) {
+	/**
+	 * Converts a JSON string created with the `pack` method into the original value.
+	 *
+	 * @since 6.9.1
+	 *
+	 * @param string        $json             The JSON string containing the packed value.
+	 * @param bool          $fail_on_error    Whether to fail, and return `null`, if one of the classes required to rebuild the
+	 *                                        object are missing. If set to `false`, then instances of missing classes will be
+	 *                                        replaced with `stdClass` instances.
+	 * @param array<string> $allowed_classes  A list of class names that it's safe to decode. By default
+	 *                                        all classes will be replaced with a stdClass instance with
+	 *                                        the same properties, but not the original methods.
+	 *
+	 * @return mixed The original value.
+	 */
+	function tec_json_unpack( string $json, bool $fail_on_error = true, array $allowed_classes = [] ) {
+		return tribe( Json_Packer::class )->unpack( $json, $fail_on_error, $allowed_classes );
 	}
 }
