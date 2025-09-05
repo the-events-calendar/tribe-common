@@ -1,4 +1,4 @@
-import { CurrencyPosition } from './CurrencyPosition';
+export type CurrencyPosition = 'prefix' | 'postfix';
 
 /**
  * The Currency settings type.
