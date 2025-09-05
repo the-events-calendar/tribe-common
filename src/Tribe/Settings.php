@@ -697,7 +697,6 @@ class Tribe__Settings {
 		$wrap_classes = apply_filters(
 			'tribe_settings_wrap_classes',
 			[
-				'tribe-common',
 				'tribe_settings',
 				'wrap',
 			],
