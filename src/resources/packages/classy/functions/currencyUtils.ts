@@ -135,8 +135,7 @@ export const formatCurrency = ( params: FormatCurrencyParams ): string => {
 	const pieces = value
 		.replaceAll( thousandSeparator, '' )
 		.split( decimalSeparator )
-		.map( ( piece ) => piece.replace( /[^0-9]/g, '' ) )
-		.filter( ( piece ) => piece !== '' );
+		.map( ( piece ) => piece.replace( /[^0-9]/g, '' ) );
 
 	// Ensure there are no more than two pieces; the integer and decimal parts.
 	if ( pieces.length > 2 ) {

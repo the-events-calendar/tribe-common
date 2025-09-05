@@ -4,7 +4,7 @@ import {
 	formatCurrency,
 	getDefaultCurrencyProps,
 } from '@tec/common/classy/functions/currencyUtils';
-import { CurrencyPosition } from '@tec/common/classy/types/CurrencyPosition';
+import { CurrencyPosition } from '@tec/common/classy/types/Currency';
 
 describe( 'currencyUtils', () => {
 	beforeEach( () => {
@@ -504,6 +504,12 @@ describe( 'currencyUtils', () => {
 				};
 
 				expect( formatCurrency( params ) ).toEqual( '$123.45' );
+			} );
+
+			it( 'should handle decimal-only values', () => {
+				expect( formatCurrency( { value: '.99' } ) ).toEqual( '$0.99' );
+				expect( formatCurrency( { value: '.1' } ) ).toEqual( '$0.10' );
+				expect( formatCurrency( { value: '.01' } ) ).toEqual( '$0.01' );
 			} );
 		} );
 	} );
