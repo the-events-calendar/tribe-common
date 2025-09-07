@@ -28,6 +28,7 @@ trait Custom_Table_Query_Methods {
 	 * @since 6.5.3
 	 * @since 6.8.0 Referenced the `uid_column` property in the ORDER BY clause.
 	 * @since 6.9.0 Added the $order_by parameter.
+	 * @since TBD Increment the $offset variable.
 	 *
 	 * @param int    $batch_size   The number of rows to fetch per batch.
 	 * @param string $output       The output type of the query, one of OBJECT, ARRAY_A, or ARRAY_N.
@@ -53,8 +54,8 @@ trait Custom_Table_Query_Methods {
 				DB::prepare(
 					"SELECT {$sql_calc_found_rows} * FROM %i {$where_clause} ORDER BY {$order_by} LIMIT %d, %d",
 					static::table_name( true ),
-					$batch_size,
 					$offset,
+					$batch_size
 				),
 				$output
 			);
