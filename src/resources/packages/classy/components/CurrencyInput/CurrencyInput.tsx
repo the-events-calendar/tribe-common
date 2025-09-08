@@ -3,6 +3,7 @@ import { __experimentalInputControl as InputControl } from '@wordpress/component
 import { __ } from '@wordpress/i18n';
 import { LabeledInput } from '../LabeledInput';
 import { Currency } from '../../types/Currency';
+import { formatCurrency } from '../../functions';
 
 type CurrencyInputProps = {
 	required?: boolean;
@@ -48,8 +49,6 @@ export default function CurrencyInput( props: CurrencyInputProps ): JSX.Element 
 	 * the input field is focused or the value is empty, it returns the raw value. Otherwise,
 	 * it formats the value to a string representation of the currency amount.
 	 *
-	 * todo: correctly handle the decimal and thousand separators in the rendered version.
-	 *
 	 * @since TBD
 	 *
 	 * @param {string} value The raw value of the input field.
@@ -61,23 +60,14 @@ export default function CurrencyInput( props: CurrencyInputProps ): JSX.Element 
 				return value;
 			}
 
-			const pieces = value
-				.replaceAll( thousandSeparator, '' )
-				.split( decimalSeparator )
-				.map( ( piece ) => piece.replace( /[^0-9]/g, '' ) )
-				.filter( ( piece ) => piece !== '' );
-
-			// The cleaned value should always use a period as the decimal separator.
-			let cleanedValue = parseFloat( pieces.join( '.' ) );
-			if ( isNaN( cleanedValue ) ) {
-				cleanedValue = 0;
-			}
-
-			const formattedValue = cleanedValue.toFixed( decimalPrecision );
-
-			return defaultCurrency.position === 'prefix'
-				? `${ defaultCurrency.symbol }${ formattedValue }`
-				: `${ formattedValue }${ defaultCurrency.symbol }`;
+			return formatCurrency( {
+				value,
+				position: defaultCurrency.position,
+				symbol: defaultCurrency.symbol,
+				precision: decimalPrecision,
+				decimalSeparator,
+				thousandSeparator,
+			} );
 		},
 		[ hasFocus, defaultCurrency, decimalPrecision, decimalSeparator, thousandSeparator ]
 	);

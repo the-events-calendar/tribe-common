@@ -26,4 +26,8 @@ module.exports = {
 	preset: 'ts-jest',
 	moduleFileExtensions: [ 'ts', 'tsx', 'js', 'jsx' ],
 	snapshotSerializers: [ '@emotion/jest/serializer' ],
+	moduleNameMapper: {
+		// Map @tec/common to the common directory.
+		'@tec/common/(.*)$': '<rootDir>/../../src/resources/packages/$1',
+	},
 };

@@ -3,8 +3,7 @@ import { __, _x } from '@wordpress/i18n';
 import { Button, Popover, SelectControl, ToggleControl } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { IconClose } from '../Icons';
-import { CurrencyPosition } from '../../types/CurrencyPosition';
-import { Currency } from '../../types/Currency';
+import { Currency, CurrencyPosition } from '../../types/Currency';
 import { CenteredSpinner } from '../CenteredSpinner';
 import { StoreSelect } from '../../types/Store';
 
