@@ -11,8 +11,8 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Contracts;
 
-use JsonSerializable;
 use Closure;
+use JsonSerializable;
 use ReturnTypeWillChange;
 use TEC\Common\REST\TEC\V1\Collections\Collection;
 
