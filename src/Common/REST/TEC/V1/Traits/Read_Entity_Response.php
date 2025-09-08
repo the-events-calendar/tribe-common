@@ -1,6 +1,6 @@
 <?php
 /**
- * Trait to handle the response for update entity requests.
+ * Trait to handle the response for read entity requests.
  *
  * @since 6.9.0
  *
@@ -62,12 +62,7 @@ trait Read_Entity_Response {
 			$filter_added = true;
 		}
 
-		$entity = $this->get_orm()->by_args(
-			[
-				'id'     => $id,
-				'status' => 'any',
-			]
-		)->first();
+		$entity = $this->get_orm()->by_primary_key( $id );
 
 		if ( ! $entity ) {
 			return new WP_REST_Response(

@@ -74,4 +74,16 @@ interface Model {
 	 * @return array The model as an array.
 	 */
 	public function to_array(): array;
+
+	/**
+	 * Creates a model from an array.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $data The model data.
+	 * @return self The model.
+	 *
+	 * @throws InvalidArgumentException If a method does not exist on the model.
+	 */
+	public static function from_array( array $data ): self;
 }

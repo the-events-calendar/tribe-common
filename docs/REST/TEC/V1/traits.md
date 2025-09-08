@@ -27,7 +27,7 @@ Your class must implement:
 
 - `build_query(WP_REST_Request $request): Tribe__Repository__Interface`
 - `get_default_posts_per_page(): int`
-- `format_post_entity_collection(array $posts): array`
+- `format_entity_collection(array $posts): array`
 - `get_post_type(): string`
 - `get_current_rest_url(WP_REST_Request $request): string`
 
@@ -79,15 +79,15 @@ Your class must implement:
 class Events extends Post_Entity_Endpoint implements Creatable_Endpoint {
     use Create_Entity_Response;
     use With_Events_ORM;
-    
+
     public function create(WP_REST_Request $request): WP_REST_Response {
         $orm = $this->get_orm();
         $post_id = $orm->set_args($request->get_params())->create();
-        
+
         if (is_wp_error($post_id)) {
             return $this->get_error_response($post_id);
         }
-        
+
         return $this->get_create_response($post_id);
     }
 }
@@ -202,13 +202,13 @@ Handles transformation of organizer and venue relationships.
 ```php
 class Event extends Post_Entity_Endpoint {
     use With_Transform_Organizers_And_Venues;
-    
+
     protected function format_entity(WP_Post $post): array {
         $data = parent::format_entity($post);
-        
+
         // Transform venue and organizer IDs to objects
         $data = $this->transform_organizers_and_venues($data);
-        
+
         return $data;
     }
 }
@@ -227,7 +227,7 @@ trait With_Tickets_ORM {
     public function get_orm() {
         return tribe_tickets();
     }
-    
+
     public function get_ticket_repository() {
         return tribe('tickets.ticket-repository');
     }
@@ -250,7 +250,7 @@ Filters ticket-specific parameters.
 ```php
 class Ticket extends Post_Entity_Endpoint {
     use With_Filtered_Ticket_Params;
-    
+
     public function update(WP_REST_Request $request): WP_REST_Response {
         $params = $this->filter_ticket_params($request->get_params());
         // Process filtered params
@@ -274,12 +274,12 @@ Validates access to parent posts (events) when accessing tickets.
 ```php
 class Tickets extends Post_Entity_Endpoint {
     use With_Parent_Post_Read_Check;
-    
+
     public function can_read(WP_REST_Request $request): bool {
         if (!empty($request['event'])) {
             return $this->can_read_parent_post($request['event']);
         }
-        
+
         return parent::can_read($request);
     }
 }
@@ -313,15 +313,15 @@ Handles ticket creation and updates.
 ```php
 class Tickets extends Post_Entity_Endpoint {
     use With_Ticket_Upsert;
-    
+
     public function create(WP_REST_Request $request): WP_REST_Response {
         $ticket_data = $this->prepare_ticket_data($request);
         $ticket_id = $this->upsert_ticket($ticket_data);
-        
+
         if (is_wp_error($ticket_id)) {
             return $this->get_error_response($ticket_id);
         }
-        
+
         return $this->get_create_response($ticket_id);
     }
 }
@@ -339,16 +339,16 @@ namespace TEC\Events\REST\TEC\V1\Traits;
 trait With_Custom_Logic {
     /**
      * Document what this trait provides.
-     * 
+     *
      * @since 1.0.0
      */
     public function custom_method(): array {
         // Implementation
     }
-    
+
     /**
      * Document required methods from using class.
-     * 
+     *
      * @return \Tribe__Repository__Interface
      */
     abstract public function get_orm();
@@ -387,13 +387,13 @@ class Events extends Post_Entity_Endpoint implements Collection_Endpoint {
     // Response handling
     use Read_Archive_Response;
     use Create_Entity_Response;
-    
+
     // ORM access
     use With_Events_ORM;
-    
+
     // Data transformation
     use With_Transform_Organizers_And_Venues;
-    
+
     // Each trait provides specific functionality
     // Combined, they create a complete endpoint
 }

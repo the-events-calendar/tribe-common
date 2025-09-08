@@ -169,7 +169,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	 *
 	 * @return array
 	 */
-	protected function format_post_entity_collection( array $posts ): array {
+	protected function format_entity_collection( array $posts ): array {
 		$rest_controller = new WP_REST_Posts_Controller( $this->get_post_type() );
 		$formatted_posts = [];
 		foreach ( $posts as $post ) {
@@ -202,16 +202,6 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 
 	/**
 	 * Adds properties to the model.
-	 *
-	 * @since 6.9.0
-	 *
-	 * @param array   $formatted_post The formatted post.
-	 * @param WP_Post $original_post  The original post.
-	 *
-	 * @return array
-	 */
-	/**
-	 * Adds properties to the events.
 	 *
 	 * @since 6.9.0
 	 *

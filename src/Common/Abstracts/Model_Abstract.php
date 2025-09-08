@@ -14,6 +14,7 @@ namespace TEC\Common\Abstracts;
 use TEC\Common\Contracts\Model;
 use TEC\Common\StellarWP\DB\DB;
 use RuntimeException;
+use InvalidArgumentException;
 
 /**
  * The model abstract.
@@ -31,6 +32,15 @@ abstract class Model_Abstract implements Model {
 	 * @var int
 	 */
 	private int $id = 0;
+
+	/**
+	 * The model's data from the database.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	protected array $db_data = [];
 
 	/**
 	 * Gets the model's ID.
@@ -64,6 +74,10 @@ abstract class Model_Abstract implements Model {
 	 * @throws RuntimeException If the model fails to save.
 	 */
 	public function save(): int {
+		if ( ! $this->has_changes() ) {
+			return $this->get_id();
+		}
+
 		$table_interface = $this->get_table_interface();
 		$result          = $table_interface::upsert( $this->to_array() );
 
@@ -77,6 +91,8 @@ abstract class Model_Abstract implements Model {
 			$id = DB::last_insert_id();
 			$this->set_id( $id );
 		}
+
+		$this->mark_saved();
 
 		return $id;
 	}
@@ -122,7 +138,7 @@ abstract class Model_Abstract implements Model {
 		foreach ( $columns as $column ) {
 			$method = 'get_' . $column;
 
-			if ( ! method_exists( $this, $method ) ) {
+			if ( ! is_callable( [ $this, $method ] ) ) {
 				throw new RuntimeException( "Method {$method} does not exist on the model." );
 			}
 
@@ -136,5 +152,56 @@ abstract class Model_Abstract implements Model {
 		}
 
 		return $model;
+	}
+
+	/**
+	 * Creates a model from an array.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $data The model data.
+	 * @return self The model.
+	 *
+	 * @throws InvalidArgumentException If a method does not exist on the model.
+	 */
+	public static function from_array( array $data ): self {
+		$model = new static();
+
+		foreach ( $data as $key => $value ) {
+			$method = 'set_' . $key;
+			if ( ! is_callable( [ $model, $method ] ) ) {
+				throw new InvalidArgumentException( "Method {$method} does not exist on the model." );
+			}
+
+			$model->$method( $value );
+		}
+
+		$model->mark_saved();
+
+		return $model;
+	}
+
+	/**
+	 * Checks if the model has changes.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the model has changes.
+	 *
+	 * @throws RuntimeException If a method does not exist on the model.
+	 */
+	protected function has_changes(): bool {
+		return $this->db_data !== $this->to_array();
+	}
+
+	/**
+	 * Marks the model as saved.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function mark_saved(): void {
+		$this->db_data = $this->to_array();
 	}
 }

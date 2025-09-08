@@ -1,8 +1,8 @@
 <?php
 /**
- * Trait to handle the response for read archive requests.
+ * Trait to handle the response for read custom archive requests.
  *
- * @since 6.9.0
+ * @since TBD
  *
  * @package TEC\Common\REST\TEC\V1\Traits
  */
@@ -15,17 +15,17 @@ use WP_REST_Response;
 use Tribe__Repository__Interface;
 
 /**
- * Trait to handle the response for read archive requests.
+ * Trait to handle the response for read custom archive requests.
  *
- * @since 6.9.0
+ * @since TBD
  *
  * @package TEC\Common\REST\TEC\V1\Traits
  */
-trait Read_Archive_Response {
+trait Read_Custom_Archive_Response {
 	/**
 	 * Handles the read request for the endpoint.
 	 *
-	 * @since 6.9.0
+	 * @since TBD
 	 *
 	 * @param array $params The sanitized parameters to use for the request.
 	 *
@@ -57,12 +57,12 @@ trait Read_Archive_Response {
 		/**
 		 * Filters the data that will be returned for an entities archive request.
 		 *
-		 * @since 6.9.0
+		 * @since TBD
 		 *
 		 * @param array $data   The retrieved data.
 		 * @param array $params The sanitized parameters to use for the request.
 		 */
-		$data = apply_filters( 'tec_rest_' . $this->get_post_type() . '_archive', $data, $params );
+		$data = apply_filters( 'tec_rest_' . $this->get_model_class() . '_archive', $data, $params );
 
 		$total_pages = $per_page > 0 ? (int) ceil( $total / $per_page ) : 1;
 		$current_url = $this->get_current_rest_url();
@@ -86,7 +86,7 @@ trait Read_Archive_Response {
 	/**
 	 * Builds the entities query using the ORM.
 	 *
-	 * @since 6.9.0
+	 * @since TBD
 	 *
 	 * @param array $params The sanitized parameters to use for the request.
 	 *
@@ -99,13 +99,11 @@ trait Read_Archive_Response {
 		$search  = $params['search'] ?? '';
 		$orderby = $params['orderby'] ?? '';
 		$order   = $params['order'] ?? '';
-		$status  = $params['status'] ?? 'publish';
 
 		unset(
 			$params['orderby'],
 			$params['order'],
 			$params['search'],
-			$params['status']
 		);
 
 		if ( $search ) {
@@ -116,22 +114,16 @@ trait Read_Archive_Response {
 			$query->order_by( $orderby, $order );
 		}
 
-		$params['status'] = 'publish';
-
-		if ( 'publish' !== $status && current_user_can( $this->get_post_type_object()->cap->edit_posts ) ) {
-			$params['status'] = $status;
-		}
-
 		$query->by_args( $params );
 
 		/**
 		 * Filters the query in the TEC REST API.
 		 *
-		 * @since 6.9.0
+		 * @since TBD
 		 *
 		 * @param Tribe__Repository__Interface $query   The query.
 		 * @param array                        $params  The sanitized parameters to use for the request.
 		 */
-		return apply_filters( 'tec_rest_' . $this->get_post_type() . '_query', $query, $params );
+		return apply_filters( 'tec_rest_' . $this->get_model_class() . '_query', $query, $params );
 	}
 }
