@@ -1,4 +1,0 @@
-Significance: minor
-Type: tweak
-
-Added a script that detects the mobile device used and adds a relevant body class. [TEC-4242]
