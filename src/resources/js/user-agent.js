@@ -1,7 +1,7 @@
 /**
  * Detects the user agent and adds a class to the body to indicate the device type.
  *
- * @since TBD
+ * @since 6.9.3
  */
 ( function() {
 	const userAgent = window.navigator.userAgent;

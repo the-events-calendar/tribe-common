@@ -250,7 +250,7 @@ class Tribe__PUE__Notices {
 	 * was already added to the MISSING_KEY group and is subsequently added to the
 	 * INVALID_KEY group, the previous entry (under MISSING_KEY) will be cleared.
 	 *
-	 * @since TBD Added early bail if $plugin_name is an empty string.
+	 * @since 6.9.3 Added early bail if $plugin_name is an empty string.
 	 *
 	 * @param string $notice_type Notice Type.
 	 * @param string $plugin_name Plugin Name.
@@ -267,7 +267,7 @@ class Tribe__PUE__Notices {
 	/**
 	 * Returns whether or not a given plugin name has a specific notice
 	 *
-	 * @since TBD Bail early if the $plugin_name is an empty string.
+	 * @since 6.9.3 Bail early if the $plugin_name is an empty string.
 	 *
 	 * @param string      $plugin_name Plugin Name.
 	 * @param string|null $notice_type Notice Type.
