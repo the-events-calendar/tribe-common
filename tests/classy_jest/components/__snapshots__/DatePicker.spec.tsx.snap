@@ -177,6 +177,7 @@ exports[`DatePicker Component isMultiday property renders correctly when isMulti
             class="components-input-control-suffix-wrapper emotion-13 emotion-14"
             data-wp-c16t="true"
             data-wp-component="InputControlSuffixWrapper"
+            style="cursor: pointer;"
           >
             <svg
               class="classy-suffix-icon classy-suffix-icon--calendar"
@@ -382,6 +383,7 @@ exports[`DatePicker Component isMultiday property renders correctly when isMulti
             class="components-input-control-suffix-wrapper emotion-13 emotion-14"
             data-wp-c16t="true"
             data-wp-component="InputControlSuffixWrapper"
+            style="cursor: pointer;"
           >
             <svg
               class="classy-suffix-icon classy-suffix-icon--calendar"
@@ -587,6 +589,7 @@ exports[`DatePicker Component isSelectingDate property selecting end date 1`] = 
             class="components-input-control-suffix-wrapper emotion-13 emotion-14"
             data-wp-c16t="true"
             data-wp-component="InputControlSuffixWrapper"
+            style="cursor: pointer;"
           >
             <svg
               class="classy-suffix-icon classy-suffix-icon--calendar"
@@ -792,6 +795,7 @@ exports[`DatePicker Component isSelectingDate property selecting neither start n
             class="components-input-control-suffix-wrapper emotion-13 emotion-14"
             data-wp-c16t="true"
             data-wp-component="InputControlSuffixWrapper"
+            style="cursor: pointer;"
           >
             <svg
               class="classy-suffix-icon classy-suffix-icon--calendar"
@@ -997,6 +1001,7 @@ exports[`DatePicker Component isSelectingDate property selecting start date 1`] 
             class="components-input-control-suffix-wrapper emotion-13 emotion-14"
             data-wp-c16t="true"
             data-wp-component="InputControlSuffixWrapper"
+            style="cursor: pointer;"
           >
             <svg
               class="classy-suffix-icon classy-suffix-icon--calendar"
@@ -1202,6 +1207,7 @@ exports[`DatePicker Component renders correctly with default props 1`] = `
             class="components-input-control-suffix-wrapper emotion-13 emotion-14"
             data-wp-c16t="true"
             data-wp-component="InputControlSuffixWrapper"
+            style="cursor: pointer;"
           >
             <svg
               class="classy-suffix-icon classy-suffix-icon--calendar"
@@ -1407,6 +1413,7 @@ exports[`DatePicker Component showPopover property renders correctly when showPo
             class="components-input-control-suffix-wrapper emotion-13 emotion-14"
             data-wp-c16t="true"
             data-wp-component="InputControlSuffixWrapper"
+            style="cursor: pointer;"
           >
             <svg
               class="classy-suffix-icon classy-suffix-icon--calendar"
@@ -1612,6 +1619,7 @@ exports[`DatePicker Component showPopover property renders correctly when showPo
             class="components-input-control-suffix-wrapper emotion-13 emotion-14"
             data-wp-c16t="true"
             data-wp-component="InputControlSuffixWrapper"
+            style="cursor: pointer;"
           >
             <svg
               class="classy-suffix-icon classy-suffix-icon--calendar"

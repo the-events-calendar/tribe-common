@@ -100,3 +100,43 @@ global.window.tec.common.classy.data = global.window.tec.common.classy.data || {
 		timeInterval: 15,
 	},
 };
+
+/*
+ * Import the `@wordpress/data` package now to resolve its dependencies.
+ * @see https://github.com/WordPress/gutenberg/issues/42442
+ *
+ * Usage example in tests:
+ * ```typescript
+ * import { useDispatch, useSelect } from '@wordpress/data';
+ *
+ * // Mock the @wordpress/data package while preserving other exports
+ * jest.mock( '@wordpress/data', () => ( {
+ *     ...(jest.requireActual( '@wordpress/data' ) as Object),
+ *     useDispatch: jest.fn(),
+ *     useSelect: jest.fn(),
+ * } ) );
+ *
+ * // In your test setup
+ * const mockDispatch = jest.fn();
+ * ( useDispatch as unknown as jest.Mock ).mockReturnValue( {
+ *     editPost: mockDispatch,
+ *     // Add other dispatch methods as needed
+ * } );
+ *
+ * ( useSelect as unknown as jest.Mock ).mockImplementation( ( selector ) => {
+ *     const select = ( storeName: string ) => {
+ *         if ( storeName === 'core/editor' ) {
+ *             return {
+ *                 getEditedPostAttribute: ( attr: string ) => {
+ *                     // Return mock data based on attribute
+ *                 },
+ *             };
+ *         }
+ *         // Handle other stores as needed
+ *         return {};
+ *     };
+ *     return selector( select );
+ * } );
+ * ```
+ */
+require( '@wordpress/data' );

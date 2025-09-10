@@ -7,6 +7,7 @@ type SubscribeCallback = () => void;
 
 // Mock WordPress dependencies
 jest.mock( '@wordpress/data', () => ( {
+	...( jest.requireActual( '@wordpress/data' ) as Object ),
 	subscribe: jest.fn(),
 	select: jest.fn(),
 	dispatch: jest.fn(),

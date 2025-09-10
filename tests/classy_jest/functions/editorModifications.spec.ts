@@ -4,10 +4,6 @@ import {
 } from '../../../src/resources/packages/classy/functions/editorModifications';
 import { afterEach, describe, expect, it, jest } from '@jest/globals';
 
-jest.mock( '@wordpress/i18n', () => ( {
-	__: jest.fn( ( text ) => text ),
-} ) );
-
 describe( 'hideZoomOutButton', () => {
 	afterEach( () => {
 		jest.restoreAllMocks();
