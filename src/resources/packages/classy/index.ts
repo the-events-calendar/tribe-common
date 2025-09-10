@@ -1,5 +1,5 @@
 import { whenEditorIsReady } from './functions/whenEditorIsReady';
-import { hideInserterToggle, hideZoomOutButton } from './functions/editorModifications';
+import { hideInserterToggle, hideZoomOutButton, hideSidebarBlockTab } from './functions/editorModifications';
 import {
 	initApp as initClassyApp,
 	insertElement as insertClassyElement,
@@ -10,6 +10,7 @@ import './style.pcss';
 whenEditorIsReady().then( () => {
 	hideZoomOutButton();
 	hideInserterToggle();
+	hideSidebarBlockTab();
 	initClassyApp();
 	insertClassyElement();
 } );
