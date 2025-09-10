@@ -9,7 +9,7 @@ import CurrencySelector from '../../../src/resources/packages/classy/components/
 
 // Mock the `@wordpress/data` package to intercept the `useDispatch` and `useSelect` hooks.
 jest.mock( '@wordpress/data', () => ( {
-	...jest.requireActual( '@wordpress/data' ),
+	...( jest.requireActual( '@wordpress/data' ) as Object ),
 	useDispatch: jest.fn(),
 	useSelect: jest.fn(),
 } ) );

@@ -108,21 +108,21 @@ global.window.tec.common.classy.data = global.window.tec.common.classy.data || {
  * Usage example in tests:
  * ```typescript
  * import { useDispatch, useSelect } from '@wordpress/data';
- * 
+ *
  * // Mock the @wordpress/data package while preserving other exports
  * jest.mock( '@wordpress/data', () => ( {
- *     ...jest.requireActual( '@wordpress/data' ),
+ *     ...(jest.requireActual( '@wordpress/data' ) as Object),
  *     useDispatch: jest.fn(),
  *     useSelect: jest.fn(),
  * } ) );
- * 
+ *
  * // In your test setup
  * const mockDispatch = jest.fn();
  * ( useDispatch as unknown as jest.Mock ).mockReturnValue( {
  *     editPost: mockDispatch,
  *     // Add other dispatch methods as needed
  * } );
- * 
+ *
  * ( useSelect as unknown as jest.Mock ).mockImplementation( ( selector ) => {
  *     const select = ( storeName: string ) => {
  *         if ( storeName === 'core/editor' ) {
@@ -139,4 +139,4 @@ global.window.tec.common.classy.data = global.window.tec.common.classy.data || {
  * } );
  * ```
  */
-require('@wordpress/data');
+require( '@wordpress/data' );

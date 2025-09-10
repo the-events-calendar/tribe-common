@@ -1,9 +1,6 @@
 import { whenEditorIsReady } from './functions/whenEditorIsReady';
 import { hideInserterToggle, hideZoomOutButton } from './functions/editorModifications';
-import {
-	initApp as initClassyApp,
-	insertElement as insertClassyElement,
-} from './functions/classy';
+import { initApp as initClassyApp, insertElement as insertClassyElement } from './functions/classy';
 import { getLocalizedData, getSettings } from './localizedData';
 import './style.pcss';
 
