@@ -48,3 +48,41 @@ export function hideInserterToggle( document: Document | null = null ): number {
 
 	return hidden;
 }
+
+/**
+ * Hide the Block tab in the editor sidebar.
+ *
+ * @since TBD
+ *
+ * @param {Document|null} document The document to work on, or `null` to work on `window.document`.
+ */
+export function hideSidebarBlockTab( document: Document | null = null ): void {
+	document = document || window.document;
+
+	const hideBlockTab = () => {
+		const blockTab = document.querySelector('[data-tab-id="edit-post/block"]' );
+		if ( blockTab ) {
+			blockTab.remove();
+		}
+	};
+
+	hideBlockTab();
+
+	// Set up observer to watch for tab list changes.
+	const observer = new MutationObserver( (mutations) => {
+		mutations.forEach( (mutation) => {
+			if ( mutation.addedNodes.length ) {
+				hideBlockTab();
+			}
+		} );
+	} );
+
+	// Observe the body for updates.
+	observer.observe( document.body, {
+		childList: true,
+		subtree: true
+	} );
+
+	// Clean up observer when page unloads.
+	window.addEventListener( 'unload', () => observer.disconnect() );
+}
