@@ -49,7 +49,7 @@ export default function DatePicker( props: DatePickerProps ) {
 			value={ format( dateWithYearFormat, currentDate ) }
 			onClick={ onClick }
 			suffix={
-				<SuffixWrapper>
+				<SuffixWrapper onClick={onClick} style={{ cursor: 'pointer' }}>
 					<CalendarIcon />
 				</SuffixWrapper>
 			}
