@@ -7,42 +7,11 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import '@testing-library/jest-dom';
 import CurrencySelector from '../../../src/resources/packages/classy/components/CurrencySelector/CurrencySelector';
 
-// Mock the WordPress data hooks
+// Mock the `@wordpress/data` package to intercept the `useDispatch` and `useSelect` hooks.
 jest.mock( '@wordpress/data', () => ( {
+	...jest.requireActual( '@wordpress/data' ),
 	useDispatch: jest.fn(),
 	useSelect: jest.fn(),
-} ) );
-
-// Mock the WordPress components
-jest.mock( '@wordpress/components', () => ( {
-	Button: ( { children, onClick, ...props } ) => (
-		<button onClick={ onClick } { ...props }>
-			{ children }
-		</button>
-	),
-	Popover: ( { children } ) => <div data-testid="popover">{ children }</div>,
-	SelectControl: ( { value, onChange, options } ) => (
-		<select value={ value } onChange={ ( e ) => onChange( e.target.value ) } data-testid="currency-select">
-			{ options.map( ( option ) => (
-				<option key={ option.value } value={ option.value }>
-					{ option.label }
-				</option>
-			) ) }
-		</select>
-	),
-	ToggleControl: ( { checked, onChange } ) => (
-		<input
-			type="checkbox"
-			checked={ checked }
-			onChange={ () => onChange( ! checked ) }
-			data-testid="currency-position-toggle"
-		/>
-	),
-} ) );
-
-// Mock the CenteredSpinner component
-jest.mock( '../../../src/resources/packages/classy/components/CenteredSpinner', () => ( {
-	CenteredSpinner: () => <div data-testid="centered-spinner">Loading...</div>,
 } ) );
 
 describe( 'CurrencySelector', () => {
@@ -105,7 +74,7 @@ describe( 'CurrencySelector', () => {
 	} );
 
 	function openCurrencyPopover() {
-		const button = screen.getByText( /\$ USD|EUR €/ );
+		const button = screen.getByRole( 'button', { name: /\$ USD|EUR €/ } );
 		fireEvent.click( button );
 	}
 
@@ -118,7 +87,7 @@ describe( 'CurrencySelector', () => {
 		render( <CurrencySelector { ...mockProps } /> );
 		openCurrencyPopover();
 
-		const select = screen.getByTestId( 'currency-select' );
+		const select = screen.getByRole( 'combobox' );
 		fireEvent.change( select, { target: { value: 'EUR' } } );
 
 		expect( mockEditPost ).toHaveBeenCalledWith( {
@@ -133,7 +102,7 @@ describe( 'CurrencySelector', () => {
 		render( <CurrencySelector { ...mockProps } /> );
 		openCurrencyPopover();
 
-		const select = screen.getByTestId( 'currency-select' );
+		const select = screen.getByRole( 'combobox' );
 		fireEvent.change( select, { target: { value: 'default' } } );
 
 		expect( mockEditPost ).toHaveBeenCalledWith( {
@@ -149,7 +118,7 @@ describe( 'CurrencySelector', () => {
 		render( <CurrencySelector { ...mockProps } /> );
 		openCurrencyPopover();
 
-		const toggle = screen.getByTestId( 'currency-position-toggle' );
+		const toggle = screen.getByRole( 'checkbox' );
 		fireEvent.click( toggle );
 
 		expect( mockEditPost ).toHaveBeenCalledWith( {
@@ -164,7 +133,9 @@ describe( 'CurrencySelector', () => {
 		render( <CurrencySelector { ...mockProps } /> );
 		openCurrencyPopover();
 
-		expect( screen.getByTestId( 'centered-spinner' ) ).toBeInTheDocument();
+		// The CenteredSpinner renders a div with class 'classy-component__spinner'
+		const spinner = document.querySelector( '.classy-component__spinner' );
+		expect( spinner ).toBeInTheDocument();
 	} );
 
 	it( 'initializes with custom meta values', () => {
@@ -180,8 +151,8 @@ describe( 'CurrencySelector', () => {
 
 		// Open popover and check controls
 		openCurrencyPopover();
-		const select = screen.getByTestId( 'currency-select' );
-		const toggle = screen.getByTestId( 'currency-position-toggle' );
+		const select = screen.getByRole( 'combobox' );
+		const toggle = screen.getByRole( 'checkbox' );
 		expect( select ).toHaveValue( 'EUR' );
 		expect( toggle ).not.toBeChecked();
 	} );
