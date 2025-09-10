@@ -69,13 +69,7 @@ export function hideSidebarBlockTab( document: Document | null = null ): void {
 	hideBlockTab();
 
 	// Set up observer to watch for tab list changes.
-	const observer = new MutationObserver( (mutations) => {
-		mutations.forEach( (mutation) => {
-			if ( mutation.addedNodes.length ) {
-				hideBlockTab();
-			}
-		} );
-	} );
+	const observer = new MutationObserver( () => hideBlockTab() );
 
 	// Observe the body for updates.
 	observer.observe( document.body, {
