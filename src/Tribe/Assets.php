@@ -355,8 +355,14 @@ class Tribe__Assets {
 		// Work out the root path from the origin.
 		$root_path = trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
-		// Follow symlinks.
-		$root_path = str_replace( trailingslashit( dirname( dirname( dirname( dirname( __DIR__ ) ) ) ) ), trailingslashit( WP_PLUGIN_DIR ), $root_path );
+		/**
+		 * Filter to change the root path of the asset.
+		 *
+		 * @since 6.9.2
+		 *
+		 * @param array{root: string} $group_path_data The group path data.
+		 */
+		$root_path = apply_filters( 'tec_common_group_path', [ 'root' => $root_path ] )['root'];
 
 		// Fetches the version on the Origin Version constant if not passed.
 		$version = $arguments['version'] ?? constant( $origin_name . '::VERSION' );
