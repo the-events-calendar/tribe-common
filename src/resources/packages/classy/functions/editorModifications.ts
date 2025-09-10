@@ -62,7 +62,7 @@ export function hideSidebarBlockTab( document: Document | null = null ): void {
 	const hideBlockTab = () => {
 		const blockTab = document.querySelector('[data-tab-id="edit-post/block"]' );
 		if ( blockTab ) {
-			blockTab.remove();
+            (blockTab as HTMLElement).style.display = 'none';
 		}
 	};
 
