@@ -35,6 +35,11 @@
 		}
 
 		/* The Zoom Out button is hidden using its label in the JS code. */
+
+		/* hide overview tool */
+		.editor-document-tools__document-overview-toggle {
+			display: none;
+		}
 	}
 
 	.editor-visual-editor {
@@ -52,6 +57,19 @@
 
 		.dashicons {
 			margin-right: 6px;
+		}
+	}
+
+	.editor-sidebar {
+		.editor-sidebar__panel-tabs {
+			/* hide gradient css from tab wrapper */
+			div.is-overflowing-last {
+				mask-image: unset;
+			}
+			/* hide the Tab for Block in sidebar */
+			button[data-tab-id="edit-post/block"] {
+				display: none;
+			}
 		}
 	}
 }
