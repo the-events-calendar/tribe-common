@@ -187,6 +187,7 @@ exports[`StartSelector Component all day events renders with time picker when is
               class="components-input-control-suffix-wrapper emotion-13 emotion-14"
               data-wp-c16t="true"
               data-wp-component="InputControlSuffixWrapper"
+              style="cursor: pointer;"
             >
               <svg
                 class="classy-suffix-icon classy-suffix-icon--calendar"
@@ -403,6 +404,7 @@ exports[`StartSelector Component all day events renders without time picker when
               class="components-input-control-suffix-wrapper emotion-13 emotion-14"
               data-wp-c16t="true"
               data-wp-component="InputControlSuffixWrapper"
+              style="cursor: pointer;"
             >
               <svg
                 class="classy-suffix-icon classy-suffix-icon--calendar"
@@ -619,6 +621,7 @@ exports[`StartSelector Component date selection does not show DatePicker popover
               class="components-input-control-suffix-wrapper emotion-13 emotion-14"
               data-wp-c16t="true"
               data-wp-component="InputControlSuffixWrapper"
+              style="cursor: pointer;"
             >
               <svg
                 class="classy-suffix-icon classy-suffix-icon--calendar"
@@ -835,6 +838,7 @@ exports[`StartSelector Component date selection does not show DatePicker popover
               class="components-input-control-suffix-wrapper emotion-13 emotion-14"
               data-wp-c16t="true"
               data-wp-component="InputControlSuffixWrapper"
+              style="cursor: pointer;"
             >
               <svg
                 class="classy-suffix-icon classy-suffix-icon--calendar"
@@ -1051,6 +1055,7 @@ exports[`StartSelector Component date selection shows DatePicker popover when is
               class="components-input-control-suffix-wrapper emotion-13 emotion-14"
               data-wp-c16t="true"
               data-wp-component="InputControlSuffixWrapper"
+              style="cursor: pointer;"
             >
               <svg
                 class="classy-suffix-icon classy-suffix-icon--calendar"
@@ -1268,6 +1273,7 @@ exports[`StartSelector Component renders correctly with default props 1`] = `
               class="components-input-control-suffix-wrapper emotion-13 emotion-14"
               data-wp-c16t="true"
               data-wp-component="InputControlSuffixWrapper"
+              style="cursor: pointer;"
             >
               <svg
                 class="classy-suffix-icon classy-suffix-icon--calendar"
@@ -1484,6 +1490,7 @@ exports[`StartSelector Component time interval from store uses time interval fro
               class="components-input-control-suffix-wrapper emotion-13 emotion-14"
               data-wp-c16t="true"
               data-wp-component="InputControlSuffixWrapper"
+              style="cursor: pointer;"
             >
               <svg
                 class="classy-suffix-icon classy-suffix-icon--calendar"
@@ -1700,6 +1707,7 @@ exports[`StartSelector Component time selection highlights time when highlightTi
               class="components-input-control-suffix-wrapper emotion-13 emotion-14"
               data-wp-c16t="true"
               data-wp-component="InputControlSuffixWrapper"
+              style="cursor: pointer;"
             >
               <svg
                 class="classy-suffix-icon classy-suffix-icon--calendar"
