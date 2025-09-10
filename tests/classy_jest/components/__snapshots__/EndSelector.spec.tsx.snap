@@ -424,7 +424,7 @@ exports[`EndSelector Component time selection highlights time when highlightTime
   </div>
   <div>
     <div
-      class="components-base-control classy-field__control classy-field__control--input classy-field__control--time-picker components-combobox-control emotion-0 emotion-1"
+      class="components-base-control classy-field__control classy-field__control--input classy-field__control--time-picker classy-highlight components-combobox-control emotion-0 emotion-1"
     >
       <div
         class="components-base-control__field emotion-2 emotion-3"
