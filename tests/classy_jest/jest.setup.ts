@@ -6,6 +6,12 @@
  * @see: https://github.com/Touffy/client-zip/issues/28
  */
 
+import {CurrencyPosition} from "@tec/common/classy/types/Currency";
+import {StartOfWeek} from "@tec/common/classy/types/StartOfWeek";
+import {Hours} from "@tec/common/classy/types/Hours";
+import {Minutes} from "@tec/common/classy/types/Minutes";
+import {TecGlobal} from "@tec/common/classy/types/LocalizedData";
+
 jest.mock( 'client-zip', () => ( {
 	downloadZip: jest.fn(),
 } ) );
@@ -14,13 +20,42 @@ jest.mock( 'client-zip', () => ( {
  * @see: https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
  * @see: https://github.com/WordPress/gutenberg/blob/trunk/packages/jest-preset-default/scripts/setup-globals.js
  */
-global.window.matchMedia = () => ( {
+
+declare global {
+	interface Window {
+		tinymce: {
+			get: () => {
+				initialized: boolean;
+				on: jest.Mock;
+				off: jest.Mock;
+				initialization: boolean;
+				init: jest.Mock;
+			};
+			EditorManager: {
+				editors: any[];
+			};
+		};
+		wp: {
+			oldEditor: {
+				remove: jest.Mock;
+				initialize: jest.Mock;
+				getContent: jest.Mock;
+			};
+		};
+		tec: TecGlobal;
+	}
+}
+
+global.window.matchMedia = ( query: string ) => ( {
 	matches: false,
 	addListener: () => {},
 	addEventListener: () => {},
 	removeListener: () => {},
 	removeEventListener: () => {},
-} );
+	media: query,
+	onchange: null,
+	dispatchEvent: () => true,
+} ) as MediaQueryList;
 
 // Mocking the `scrollIntoView` function; it's not implemented in JSDOM.
 // @see: https://github.com/jsdom/jsdom/issues/1695
@@ -33,7 +68,7 @@ window.Element.prototype.scrollIntoView = function () {};
  */
 const originalWarn = console.warn;
 
-console.warn = ( msg ) => {
+console.warn = ( msg: any ) => {
 	// From the `PostFeaturedImage` component of the `@wordpress/editor` package.
 	if ( msg.toString().includes( 'motion() is deprecated. Use motion.create() instead' ) ) {
 		return;
@@ -50,7 +85,7 @@ global.window.tinymce = {
 		on: jest.fn(),
 		off: jest.fn(),
 		initialization: false,
-		init: jest.fn( ( config, callback ) => {
+		init: jest.fn( ( config: any, callback: () => void ) => {
 			callback();
 		} ),
 	} ),
@@ -69,9 +104,9 @@ global.window.wp = {
 };
 
 // Setup the localized data for the store.
-global.window.tec = global.window.tec || {};
-global.window.tec.common = global.window.tec.common || {};
-global.window.tec.common.classy = global.window.tec.common.classy || {};
+global.window.tec = global.window.tec || {} as any;
+global.window.tec.common = global.window.tec.common || {} as any;
+global.window.tec.common.classy = global.window.tec.common.classy || {} as any;
 global.window.tec.common.classy.data = global.window.tec.common.classy.data || {
 	settings: {
 		defaultCurrency: {
@@ -140,3 +175,5 @@ global.window.tec.common.classy.data = global.window.tec.common.classy.data || {
  * ```
  */
 require( '@wordpress/data' );
+
+export {};

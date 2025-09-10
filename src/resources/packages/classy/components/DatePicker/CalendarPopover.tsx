@@ -3,7 +3,7 @@ import { DatePicker, Popover } from '@wordpress/components';
 import { DatePickerEvent } from '@wordpress/components/build-types/date-time/types';
 import { VirtualElement } from '@wordpress/components/build-types/popover/types';
 import { StartOfWeek } from '../../types/StartOfWeek';
-import { DateUpdateType } from '@tec/common/classy/types/FieldProps.ts';
+import { DateUpdateType } from '@tec/common/classy/types/FieldProps';
 
 function getDatePickerEventsBetweenDates( start: Date, end: Date ): DatePickerEvent[] {
 	const dateArray: Date[] = [];

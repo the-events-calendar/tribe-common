@@ -1,5 +1,5 @@
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
-import { ProviderComponent } from '../../../src/resources/packages/classy/components/Provider.tsx';
+import { ProviderComponent } from '../../../src/resources/packages/classy/components/Provider';
 import * as React from 'react';
 import { createRegistry } from '@wordpress/data';
 

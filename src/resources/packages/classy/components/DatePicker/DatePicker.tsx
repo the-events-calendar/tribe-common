@@ -9,7 +9,7 @@ import CalendarIcon from './CalendarIcon';
 import { format } from '@wordpress/date';
 import { VirtualElement } from '@wordpress/components/build-types/popover/types';
 import { StartOfWeek } from '../../types/StartOfWeek';
-import { DateUpdateType } from '@tec/common/classy/types/FieldProps.ts';
+import { DateUpdateType } from '@tec/common/classy/types/FieldProps';
 
 export type DatePickerProps = {
 	anchor: Element | VirtualElement | null;

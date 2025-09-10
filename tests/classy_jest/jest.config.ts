@@ -1,8 +1,10 @@
-const { defaults: tsjPreset } = require( 'ts-jest/presets' );
+import type { Config } from 'jest';
+import { defaults as tsjPreset } from 'ts-jest/presets';
+import { pathsToModuleNameMapper } from 'ts-jest';
 
-module.exports = {
+const config: Config = {
 	verbose: true,
-	setupFiles: [ __dirname + '/jest.setup.js' ],
+	setupFiles: [ __dirname + '/jest.setup.ts' ],
 	testEnvironment: 'jest-environment-jsdom-global',
 	testMatch: [ '**/*.spec.ts', '**/*.spec.tsx' ],
 	resolver: __dirname + '/jest-resolver.js',
@@ -13,7 +15,8 @@ module.exports = {
 				tsconfig: {
 					allowJs: true,
 					checkJs: true,
-					target: 'esnext',
+					target: 'ES2022',
+					lib: ['ES2022', 'DOM'],
 					allowSyntheticDefaultImports: true,
 					allowUmdGlobalAccess: true,
 					esModuleInterop: true,
@@ -31,3 +34,5 @@ module.exports = {
 		'@tec/common/(.*)$': '<rootDir>/../../src/resources/packages/$1',
 	},
 };
+
+export default config;
