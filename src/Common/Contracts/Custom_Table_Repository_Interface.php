@@ -11,9 +11,6 @@ declare( strict_types=1 );
 
 namespace TEC\Common\Contracts;
 
-use Tribe__Repository__Setter_Interface as Setter_Interface;
-use Tribe\Repository\Core_Read_Interface as Read_Interface;
-
 /**
  * Interface Custom_Table_Repository_Interface
  *
@@ -21,7 +18,7 @@ use Tribe\Repository\Core_Read_Interface as Read_Interface;
  *
  * @package TEC\Common\Contracts
  */
-interface Custom_Table_Repository_Interface extends Repository_Interface, Read_Interface, Setter_Interface {
+interface Custom_Table_Repository_Interface extends Repository_Interface {
 	/**
 	 * Gets the model class.
 	 *

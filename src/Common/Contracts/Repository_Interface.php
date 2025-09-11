@@ -12,6 +12,8 @@ declare( strict_types=1 );
 namespace TEC\Common\Contracts;
 
 use Tribe__Promise as Promise;
+use Tribe__Repository__Setter_Interface as Setter_Interface;
+use Tribe\Repository\Core_Read_Interface as Read_Interface;
 
 /**
  * Interface Repository_Interface
@@ -20,7 +22,7 @@ use Tribe__Promise as Promise;
  *
  * @package TEC\Common\Contracts
  */
-interface Repository_Interface {
+interface Repository_Interface extends Setter_Interface, Read_Interface {
 	/**
 	 * Returns the current default query arguments of the repository.
 	 *
