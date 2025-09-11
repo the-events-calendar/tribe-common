@@ -16,7 +16,7 @@ const config: Config = {
 					allowJs: true,
 					checkJs: true,
 					target: 'ES2022',
-					lib: ['ES2022', 'DOM'],
+					lib: [ 'ES2022', 'DOM' ],
 					allowSyntheticDefaultImports: true,
 					allowUmdGlobalAccess: true,
 					esModuleInterop: true,

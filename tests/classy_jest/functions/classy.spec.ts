@@ -6,10 +6,13 @@ import {
 } from '../../../src/resources/packages/classy/functions/classy';
 import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { getElement } from '../../../src/resources/packages/classy/functions/visualEditor';
-import { Classy } from '../../../src/resources/packages/classy/components/Classy';
+import { act } from '@testing-library/react';
 
-jest.mock( '../../../src/resources/packages/classy/components/Classy', () => ( {
-	Classy: jest.fn(),
+// Mock the `@wordpress/data` package to intercept the `useDispatch` and `useSelect` hooks.
+jest.mock( '@wordpress/data', () => ( {
+	...( jest.requireActual( '@wordpress/data' ) as Object ),
+	useDispatch: jest.fn(),
+	useSelect: jest.fn(),
 } ) );
 
 describe( 'classy', () => {
@@ -100,9 +103,13 @@ describe( 'classy', () => {
 			'text/html'
 		);
 
-		await initApp( mockDocument );
+		act( () => {
+			initApp( mockDocument );
+		} );
 
-		expect( getOrCreateElement() ).not.toBeNull();
-		expect( Classy as jest.Mock ).toHaveBeenCalledTimes( 1 );
+		const element = getOrCreateElement();
+		expect( element ).not.toBeNull();
+		// Check that the Classy component renders the expected structure
+		expect( element.querySelector( '.classy-container' ) ).not.toBeNull();
 	} );
 } );
