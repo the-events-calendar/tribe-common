@@ -17,14 +17,14 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get_default_args() {
+	public function get_default_args(): array {
 		return $this->decorated->get_default_args();
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function set_default_args( array $default_args ) {
+	public function set_default_args( array $default_args ): void {
 		return $this->decorated->set_default_args( $default_args );
 	}
 

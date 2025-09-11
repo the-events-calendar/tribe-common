@@ -466,14 +466,14 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get_default_args() {
+	public function get_default_args(): array {
 		return $this->default_args;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function set_default_args( array $default_args ) {
+	public function set_default_args( array $default_args ): void {
 		$this->default_args = $default_args;
 	}
 
