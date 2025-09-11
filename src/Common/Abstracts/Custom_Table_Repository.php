@@ -118,7 +118,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 		foreach ( array_keys( $this->get_table_interface()::get_columns() ) as $column ) {
 			$this->add_schema_entry(
 				$column,
-				function( $value ) use ( $column ) {
+				function ( $value ) use ( $column ) {
 					return [
 						'column' => $column,
 						'value'  => $value,
@@ -128,7 +128,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 
 			$this->add_schema_entry(
 				$column . '_in',
-				function( $value ) use ( $column ) {
+				function ( $value ) use ( $column ) {
 					return [
 						'column'   => $column,
 						'value'    => $value,
@@ -139,7 +139,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 
 			$this->add_schema_entry(
 				$column . '_not_in',
-				function( $value ) use ( $column ) {
+				function ( $value ) use ( $column ) {
 					return [
 						'column'   => $column,
 						'value'    => $value,
@@ -162,7 +162,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 				$key,
 				function ( $value ) use ( $relationship ) {
 					$callback = function ( array $where ) use ( $relationship, $value ) {
-						$where[] = DB::prepare( " AND %i = %d", $relationship['columns']['other'], $value );
+						$where[] = DB::prepare( ' AND %i = %d', $relationship['columns']['other'], $value );
 						return $where;
 					};
 
@@ -176,9 +176,9 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 				$key . '_in',
 				function ( $value ) use ( $relationship ) {
 					$callback = function ( array $where ) use ( $relationship, $value ) {
-						$value = (array) $value;
+						$value        = (array) $value;
 						$placeholders = '(' . implode( ',', array_fill( 0, count( $value ), '%d' ) ) . ')';
-						$where[] = DB::prepare( " AND %i IN {$placeholders}", $relationship['columns']['other'], ...$value );
+						$where[]      = DB::prepare( " AND %i IN {$placeholders}", $relationship['columns']['other'], ...$value );
 						return $where;
 					};
 
@@ -192,9 +192,9 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 				$key . '_not_in',
 				function ( $value ) use ( $relationship ) {
 					$callback = function ( array $where ) use ( $relationship, $value ) {
-						$value = (array) $value;
+						$value        = (array) $value;
 						$placeholders = '(' . implode( ',', array_fill( 0, count( $value ), '%d' ) ) . ')';
-						$where[] = DB::prepare( " AND %i NOT IN {$placeholders}", $relationship['columns']['other'], ...$value );
+						$where[]      = DB::prepare( " AND %i NOT IN {$placeholders}", $relationship['columns']['other'], ...$value );
 						return $where;
 					};
 
@@ -236,6 +236,8 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @since TBD
 	 *
 	 * @return array The select arguments.
+	 *
+	 * @throws RuntimeException If the filter is not supported for custom table repositories.
 	 */
 	protected function get_select_args(): array {
 		$args = array_merge( $this->get_default_args(), $this->select_args );
@@ -323,7 +325,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	public function delete( bool $return_promise = false ) {
 		$callback = function () {
 			$deleted_ids = [];
-			foreach( $this->all( true ) as $model ) {
+			foreach ( $this->all( true ) as $model ) {
 				$deleted_ids[ $model->get_id() ] = $model->delete();
 			}
 
@@ -338,8 +340,8 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $key The key to set.
-	 * @param mixed $value The value to set.
+	 * @param string $key   The key to set.
+	 * @param mixed  $value The value to set.
 	 *
 	 * @return self The repository instance.
 	 */
@@ -381,8 +383,8 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $key The key to set.
-	 * @param mixed $value The value to set.
+	 * @param string $key   The key to set.
+	 * @param mixed  $value The value to set.
 	 *
 	 * @return self The repository instance.
 	 */
@@ -396,8 +398,8 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $key The key to set.
-	 * @param mixed $value The value to set.
+	 * @param string $key   The key to set.
+	 * @param mixed  $value The value to set.
 	 *
 	 * @return self The repository instance.
 	 */
@@ -451,16 +453,16 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @since TBD
 	 *
 	 * @param bool $return_generator Whether to return a generator of models instead of an array of models.
-	 * @param int $batch_size The batch size to set.
+	 * @param int  $batch_size       The batch size to set.
 	 *
 	 * @return Model[]|Generator<Model> The models.
 	 */
 	public function all( $return_generator = false, int $batch_size = 50 ) {
 		$all = [];
 		do {
-			$i = 1;
+			$i       = 1;
 			$results = $this->get_table_interface()::paginate( $this->get_select_args(), $batch_size, $i );
-			$i++;
+			++$i;
 
 			$results = array_map( fn( $result ) => $this->get_model_class()::from_array( $result ), $results );
 
@@ -469,7 +471,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 			} else {
 				$all = array_merge( $all, $results );
 			}
-		} while( ! empty( $results ) && $i * $batch_size < $this->per_page );
+		} while ( ! empty( $results ) && $i * $batch_size < $this->per_page );
 
 		if ( $return_generator ) {
 			return [];
@@ -478,6 +480,16 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 		return $all;
 	}
 
+	/**
+	 * Sets the offset on the query.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $offset The offset to set.
+	 * @param bool $increment Whether to increment the offset.
+	 *
+	 * @return self The repository instance.
+	 */
 	public function offset( $offset, $increment = false ): self {
 		return $this->by( 'offset', $offset );
 	}
@@ -517,8 +529,6 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @param string $fields The fields to set.
 	 *
-	 * @return self The repository instance.
-	 *
 	 * @throws RuntimeException Fields are not supported for custom table repositories.
 	 */
 	public function fields( $fields ): self {
@@ -531,8 +541,6 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @since TBD
 	 *
 	 * @param array $post_ids The post ids to set.
-	 *
-	 * @return self The repository instance.
 	 *
 	 * @throws RuntimeException In is not supported for custom table repositories.
 	 */
@@ -547,8 +555,6 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @param array $post_ids The post ids to set.
 	 *
-	 * @return self The repository instance.
-	 *
 	 * @throws RuntimeException Not in is not supported for custom table repositories.
 	 */
 	public function not_in( $post_ids ): self {
@@ -561,8 +567,6 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @since TBD
 	 *
 	 * @param int $post_id The post id to set.
-	 *
-	 * @return self The repository instance.
 	 *
 	 * @throws RuntimeException Parent is not supported for custom table repositories.
 	 */
@@ -577,8 +581,6 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @param array $post_ids The post ids to set.
 	 *
-	 * @return self The repository instance.
-	 *
 	 * @throws RuntimeException Parent in is not supported for custom table repositories.
 	 */
 	public function parent_in( $post_ids ): self {
@@ -591,8 +593,6 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @since TBD
 	 *
 	 * @param array $post_ids The post ids to set.
-	 *
-	 * @return self The repository instance.
 	 *
 	 * @throws RuntimeException Parent not in is not supported for custom table repositories.
 	 */
@@ -650,10 +650,12 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 */
 	public function last(): ?Model {
 		$select_args = $this->get_select_args();
-		$order = $select_args['order'] ?? 'DESC';
+		$order       = $select_args['order'] ?? 'DESC';
+
 		$this->order( 'DESC' === $order ? 'ASC' : 'DESC' );
 		$model = $this->first();
 		$this->order( $order );
+
 		return $model;
 	}
 
@@ -668,10 +670,12 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 */
 	public function nth( $n ): ?Model {
 		$select_args = $this->get_select_args();
-		$offset = $select_args['offset'] ?? 0;
+		$offset      = $select_args['offset'] ?? 0;
+
 		$this->offset( $n );
 		$model = $this->first();
 		$this->offset( $offset );
+
 		return $model;
 	}
 
@@ -686,9 +690,11 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 */
 	public function take( $n ): array {
 		$per_page = $this->per_page;
+
 		$this->per_page( $n );
 		$models = $this->all( false, $n );
 		$this->per_page( $per_page );
+
 		return $models;
 	}
 
@@ -697,12 +703,12 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param int $n The number of models to get.
+	 * @param string $field The field to pluck from each result.
 	 *
-	 * @return array The first n models.
+	 * @return array The plucked models.
 	 */
 	public function pluck( $field ): array {
-		$method = 'get_' . $field;
+		$method  = 'get_' . $field;
 		$results = [];
 		foreach ( $this->all( true ) as $model ) {
 			$results[] = $model->$method();
@@ -716,7 +722,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $args The arguments to filter by.
+	 * @param array  $args     The arguments to filter by.
 	 * @param string $operator The operator to filter by.
 	 *
 	 * @return array The filtered models.
@@ -747,9 +753,9 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $orderby The orderby to set.
-	 * @param string $order The order to set.
-	 * @param bool $preserve_keys The preserve keys to set.
+	 * @param array  $orderby       The orderby to set.
+	 * @param string $order         The order to set.
+	 * @param bool   $preserve_keys The preserve keys to set.
 	 *
 	 * @return array The sorted models.
 	 */
@@ -761,8 +767,6 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * Collects the models.
 	 *
 	 * @since TBD
-	 *
-	 * @return array The collected models.
 	 *
 	 * @throws RuntimeException Collect is not supported for custom table repositories.
 	 */
@@ -783,16 +787,16 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	public function get_ids( $return_generator = false, int $batch_size = 50 ) {
 		$all = [];
 		do {
-			$i = 1;
+			$i       = 1;
 			$results = $this->get_table_interface()::paginate( $this->get_select_args(), $batch_size, $i, [ $this->get_table_interface()::uid_column() ] );
-			$i++;
+			++$i;
 
 			if ( $return_generator ) {
 				yield from array_column( $results, $this->get_table_interface()::uid_column() );
 			} else {
 				$all = array_merge( $all, array_column( $results, $this->get_table_interface()::uid_column() ) );
 			}
-		} while( ! empty( $results ) && $i * $batch_size < $this->per_page );
+		} while ( ! empty( $results ) && $i * $batch_size < $this->per_page );
 
 		if ( $return_generator ) {
 			return [];

@@ -12,7 +12,6 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Traits;
 
 use WP_REST_Response;
-use TEC\Events_Pro\Custom_Tables\V1\WP_Query\Provider as Custom_Tables_Provider;
 
 /**
  * Trait to handle the response for update custom entity requests.

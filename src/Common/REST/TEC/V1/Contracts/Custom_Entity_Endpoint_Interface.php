@@ -38,7 +38,6 @@ interface Custom_Entity_Endpoint_Interface extends Endpoint_Interface {
 	 *
 	 * @return string
 	 */
-
 	public function get_minimum_capability(): string;
 
 	/**
