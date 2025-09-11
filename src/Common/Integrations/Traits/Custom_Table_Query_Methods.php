@@ -202,13 +202,15 @@ trait Custom_Table_Query_Methods {
 	 * Deletes multiple rows from the table.
 	 *
 	 * @since 6.8.0
+	 * @since TBD Added the $more_where parameter.
 	 *
-	 * @param array<int|string> $ids    The IDs of the rows to delete.
-	 * @param string            $column The column to use for the delete query.
+	 * @param array<int|string> $ids        The IDs of the rows to delete.
+	 * @param string            $column     The column to use for the delete query.
+	 * @param string            $more_where The more WHERE clause to use for the delete query.
 	 *
 	 * @return bool|int The number of rows affected, or `false` on failure.
 	 */
-	public static function delete_many( array $ids, string $column = '' ) {
+	public static function delete_many( array $ids, string $column = '', string $more_where = '' ) {
 		$ids = array_filter(
 			array_map(
 				fn( $id ) => is_numeric( $id ) ? (int) $id : "'{$id}'",
@@ -226,7 +228,7 @@ trait Custom_Table_Query_Methods {
 
 		return DB::query(
 			DB::prepare(
-				"DELETE FROM %i WHERE {$column} IN ({$prepared_ids})",
+				"DELETE FROM %i WHERE {$column} IN ({$prepared_ids}) {$more_where}",
 				static::table_name( true ),
 			)
 		);

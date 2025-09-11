@@ -84,6 +84,7 @@ trait Custom_Table_Query_Methods {
 	 * @param array  $args                      The query arguments.
 	 * @param int    $per_page                  The number of items to display per page.
 	 * @param int    $page                      The current page number.
+	 * @param array  $columns                   The columns to select.
 	 * @param string $join_table                The table to join.
 	 * @param string $join_condition            The condition to join on.
 	 * @param array  $selectable_joined_columns The columns from the joined table to select.
@@ -94,7 +95,7 @@ trait Custom_Table_Query_Methods {
 	 *                                  If the join condition does not contain an equal sign.
 	 *                                  If the join condition does not contain valid columns.
 	 */
-	public static function paginate( array $args, int $per_page = 20, int $page = 1, string $join_table = '', string $join_condition = '', array $selectable_joined_columns = [], string $output = OBJECT ): array {
+	public static function paginate( array $args, int $per_page = 20, int $page = 1, array $columns = [ '*' ], string $join_table = '', string $join_condition = '', array $selectable_joined_columns = [], string $output = OBJECT ): array {
 		$is_join = (bool) $join_table;
 
 		if ( $is_join && static::table_name( true ) === $join_table::table_name( true ) ) {
@@ -121,15 +122,49 @@ trait Custom_Table_Query_Methods {
 
 		[ $join, $secondary_columns ] = $is_join ? static::get_join_parts( $join_table, $join_condition, $selectable_joined_columns ) : [ '', '' ];
 
-		return DB::get_results(
+		$columns = implode( ', ', array_map( fn( $column ) => "a.{$column}", $columns ) );
+
+		/**
+		 * Fires before the results of the query are fetched.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,mixed> $args  The query arguments.
+		 * @param class-string        $class The class name.
+		 */
+		do_action( 'tec_common_custom_table_query_pre_results', $args, static::class );
+
+		$results = DB::get_results(
 			DB::prepare(
-				"SELECT a.*{$secondary_columns} FROM %i a {$join} {$where} ORDER BY a.{$orderby} {$order} LIMIT %d, %d",
+				"SELECT {$columns}{$secondary_columns} FROM %i a {$join} {$where} ORDER BY a.{$orderby} {$order} LIMIT %d, %d",
 				static::table_name( true ),
 				$offset,
 				$per_page
 			),
 			$output
 		);
+
+		/**
+		 * Fires after the results of the query are fetched.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<mixed>       $results The results of the query.
+		 * @param array<string,mixed> $args  The query arguments.
+		 * @param class-string        $class The class name.
+		 */
+		do_action( 'tec_common_custom_table_query_post_results', $results, $args, static::class );
+
+		/**
+		 * Filters the results of the query.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<mixed>       $results The results of the query.
+		 * @param array<string,mixed> $args  The query arguments.
+		 * @param class-string        $class The class name.
+		 */
+		return apply_filters( 'tec_common_custom_table_query_results', $results, $args, static::class );
 	}
 
 	/**
@@ -199,17 +234,39 @@ trait Custom_Table_Query_Methods {
 			}
 
 			// For anything else, you should build your own query!
-			if ( ! in_array( $arg['operator'], [ '=', '!=', '>', '<', '>=', '<=' ], true ) ) {
+			if ( ! in_array( strtoupper( $arg['operator'] ), [ '=', '!=', '>', '<', '>=', '<=', 'IN', 'NOT IN' ], true ) ) {
 				$arg['operator'] = '=';
 			}
 
 			$column      = $arg['column'];
-			$operator    = $arg['operator'];
+			$operator    = strtoupper( $arg['operator'] );
 			$value       = $arg['value'];
-			$placeholder = is_numeric( $value ) ? '%d' : '%s'; // Only integers and strings are supported currently.
+			$placeholder = is_numeric( $value ) ? ( is_float( $value ) ? '%f' : '%d' ) : '%s'; // Only integers, floats and strings are supported currently.
+
+			if ( in_array( $operator, [ 'IN', 'NOT IN' ], true ) ) {
+				$value = (array) $value;
+				$value = array_map( fn( $value ) => $value instanceof DateTimeInterface ? $value->format( 'Y-m-d H:i:s' ) : (int) $value, $value );
+
+				$placeholders = '(' . implode( ',', array_fill( 0, count( $value ), '%d' ) ) . ')';
+
+				$where[] = DB::prepare( "{$joined_prefix}{$column} {$operator} {$placeholders}", ...$value );
+
+				continue;
+			}
 
 			$where[] = DB::prepare( "{$joined_prefix}{$column} {$operator} {$placeholder}", $value );
 		}
+
+		/**
+		 * Filters the WHERE clause.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string>       $where The WHERE clause parts.
+		 * @param array<string,mixed> $args  The query arguments.
+		 * @param class-string        $class The class name.
+		 */
+		$where = apply_filters( 'tec_common_custom_table_query_where', array_filter( $where ), $args, static::class );
 
 		if ( empty( $where ) ) {
 			return '';
@@ -366,13 +423,13 @@ trait Custom_Table_Query_Methods {
 	 *
 	 * @since TBD
 	 *
-	 * @param int $id The ID.
+	 * @param int|string $id The ID.
 	 *
 	 * @return ?Model The model, or null if not found.
 	 *
 	 * @throws InvalidArgumentException If the model class does not implement the Model interface.
 	 */
-	public static function get_by_id( int $id ): ?Model {
+	public static function get_by_id( $id ): ?Model {
 		return static::get_first_by( static::uid_column(), $id );
 	}
 

@@ -53,9 +53,9 @@ interface Model {
 	 *
 	 * @since TBD
 	 *
-	 * @return void
+	 * @return bool Whether the model was deleted.
 	 */
-	public function delete(): void;
+	public function delete(): bool;
 
 	/**
 	 * Gets the table interface for the model.
@@ -74,6 +74,46 @@ interface Model {
 	 * @return array The model as an array.
 	 */
 	public function to_array(): array;
+
+	/**
+	 * Gets the relationships of the model.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The relationships of the model.
+	 */
+	public function get_relationships(): array;
+
+	/**
+	 * Adds an ID to a relationship.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key The key of the relationship.
+	 * @param int    $id  The ID to add.
+	 */
+	public function add_id_to_relationship( string $key, int $id ): void;
+
+	/**
+	 * Removes an ID from a relationship.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key The key of the relationship.
+	 * @param int    $id  The ID to remove.
+	 */
+	public function remove_id_from_relationship( string $key, int $id ): void;
+
+	/**
+	 * Deletes the relationship data for a given key.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key The key of the relationship.
+	 *
+	 * @return void
+	 */
+	public function delete_relationship_data( string $key ): void;
 
 	/**
 	 * Creates a model from an array.
