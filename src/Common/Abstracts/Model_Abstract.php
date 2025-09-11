@@ -413,10 +413,10 @@ abstract class Model_Abstract implements Model {
 	 *
 	 * @since TBD
 	 *
-	 * @param string        $key                   The key of the relationship.
-	 * @param string        $type                  The type of the relationship.
-	 * @param class-string  $through               A table interface that provides the relationship.
-	 * @param string        $relationship_entity   The entity of the relationship.
+	 * @param string       $key                 The key of the relationship.
+	 * @param string       $type                The type of the relationship.
+	 * @param class-string $through             A table interface that provides the relationship.
+	 * @param string       $relationship_entity The entity of the relationship.
 	 */
 	protected function set_relationship( string $key, string $type, ?string $through = null, string $relationship_entity = 'post' ): void {
 		$this->relationships[ $key ] = [

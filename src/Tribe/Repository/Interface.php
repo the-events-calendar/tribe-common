@@ -1,4 +1,6 @@
 <?php
+// phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase
+// phpcs:disable PEAR.NamingConventions.ValidClassName.Invalid
 
 use TEC\Common\Contracts\Repository_Interface;
 

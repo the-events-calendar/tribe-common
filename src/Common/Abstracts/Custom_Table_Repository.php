@@ -757,8 +757,6 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @param string $order         The order to set.
 	 * @param bool   $preserve_keys The preserve keys to set.
 	 *
-	 * @return array The sorted models.
-	 *
 	 * @throws RuntimeException Sort is not supported for custom table repositories.
 	 */
 	public function sort( $orderby = [], $order = 'ASC', $preserve_keys = false ): array {
