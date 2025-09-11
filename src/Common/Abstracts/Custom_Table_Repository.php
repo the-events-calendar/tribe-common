@@ -299,9 +299,9 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @param int|string $primary_key The primary key's value.
 	 *
-	 * @return ?Model The model.
+	 * @return Model|null|WP_Post The model.
 	 */
-	public function by_primary_key( $primary_key ): ?Model {
+	public function by_primary_key( $primary_key ) {
 		$model = $this->get_table_interface()::get_by_id( $primary_key );
 
 		if ( ! $model ) {

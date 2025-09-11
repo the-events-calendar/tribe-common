@@ -79,9 +79,9 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	 *
 	 * @param mixed $primary_key
 	 *
-	 * @return ?Model
+	 * @return Model|null|WP_Post
 	 */
-	public function by_primary_key( $primary_key ) : ?Model;
+	public function by_primary_key( $primary_key );
 
 	/**
 	 * Deletes a set of events fetched by using filters.
