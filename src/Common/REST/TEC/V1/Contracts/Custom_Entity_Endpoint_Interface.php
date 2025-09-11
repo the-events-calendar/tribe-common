@@ -12,7 +12,7 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Contracts;
 
 use TEC\Common\Contracts\Model;
-use Tribe__Repository__Interface;
+use TEC\Common\Contracts\Repository_Interface;
 
 /**
  * Custom Entity Endpoint interface.
@@ -66,7 +66,7 @@ interface Custom_Entity_Endpoint_Interface extends Endpoint_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return Tribe__Repository__Interface
+	 * @return Repository_Interface
 	 */
-	public function get_orm(): Tribe__Repository__Interface;
+	public function get_orm(): Repository_Interface;
 }

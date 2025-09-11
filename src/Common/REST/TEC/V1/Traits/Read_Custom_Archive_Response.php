@@ -12,7 +12,7 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Traits;
 
 use WP_REST_Response;
-use Tribe__Repository__Interface;
+use TEC\Common\Contracts\Repository_Interface;
 
 /**
  * Trait to handle the response for read custom archive requests.
@@ -35,7 +35,7 @@ trait Read_Custom_Archive_Response {
 		$page     = absint( $params['page'] ?? 1 );
 		$per_page = absint( $params['per_page'] ?? $this->get_default_posts_per_page() );
 
-		/** @var Tribe__Repository__Interface $query */
+		/** @var Repository_Interface $query */
 		$query = $this->build_query( $params );
 
 		$query->page( $page )->per_page( $per_page );
@@ -90,10 +90,10 @@ trait Read_Custom_Archive_Response {
 	 *
 	 * @param array $params The sanitized parameters to use for the request.
 	 *
-	 * @return Tribe__Repository__Interface The entities query.
+	 * @return Repository_Interface The entities query.
 	 */
-	protected function build_query( array $params = [] ): Tribe__Repository__Interface {
-		/** @var Tribe__Repository__Interface $query */
+	protected function build_query( array $params = [] ): Repository_Interface {
+		/** @var Repository_Interface $query */
 		$query = $this->get_orm();
 
 		$search  = $params['search'] ?? '';
@@ -121,8 +121,8 @@ trait Read_Custom_Archive_Response {
 		 *
 		 * @since TBD
 		 *
-		 * @param Tribe__Repository__Interface $query   The query.
-		 * @param array                        $params  The sanitized parameters to use for the request.
+		 * @param Repository_Interface $query   The query.
+		 * @param array                $params  The sanitized parameters to use for the request.
 		 */
 		return apply_filters( 'tec_rest_' . $this->get_model_class() . '_query', $query, $params );
 	}
