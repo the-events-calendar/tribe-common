@@ -3724,7 +3724,7 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritDoc}
 	 */
-	public function set_found_rows( $found_rows ) {
+	public function set_found_rows( $found_rows ): self {
 		$this->skip_found_rows = ! $found_rows;
 
 		return $this;
