@@ -289,7 +289,7 @@ class Tribe__Main {
 				[ 'tec-common-php-date-formatter', 'node_modules/php-date-formatter/js/php-date-formatter.js' ],
 			]
 		);
-		
+
 		tec_asset(
 			$this,
 			'tec-user-agent',
@@ -815,7 +815,7 @@ class Tribe__Main {
 		// Register the Classy controller; it will filter the following `tec_using_classy_editor` call.
 		tribe_register_provider( \TEC\Common\Classy\Controller::class);
 
-		if ( !tec_using_classy_editor() ) {
+		if ( ! tec_using_classy_editor() ) {
 			tribe_register_provider( Tribe__Editor__Provider::class );
 		}
 
