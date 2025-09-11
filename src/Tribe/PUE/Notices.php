@@ -152,8 +152,12 @@ class Tribe__PUE__Notices {
 			}
 		}
 
-		// Remove numeric keys to ensure the notices array only contains valid string keys.
-		$notices = array_filter( $notices, fn( $key ) => ! is_numeric( $key ), ARRAY_FILTER_USE_KEY );
+		// Remove numeric keys and empty keys to ensure the notices array only contains valid string keys.
+		$notices = array_filter(
+			$notices,
+			fn( $key ) => is_string( $key ) && strlen( trim( $key ) ) > 0,
+			ARRAY_FILTER_USE_KEY
+		);
 
 		return $this->setup_notice_structure( $notices );
 	}
@@ -246,10 +250,15 @@ class Tribe__PUE__Notices {
 	 * was already added to the MISSING_KEY group and is subsequently added to the
 	 * INVALID_KEY group, the previous entry (under MISSING_KEY) will be cleared.
 	 *
-	 * @param string $notice_type
-	 * @param string $plugin_name
+	 * @since 6.9.3 Added early bail if $plugin_name is an empty string.
+	 *
+	 * @param string $notice_type Notice Type.
+	 * @param string $plugin_name Plugin Name.
 	 */
 	public function add_notice( $notice_type, $plugin_name ) {
+		if ( '' === trim( (string) $plugin_name ) ) {
+			return;
+		}
 		$this->clear_notices( $plugin_name, true );
 		$this->notices[ $notice_type ][ $plugin_name ] = true;
 		$this->save_notices();
@@ -258,13 +267,20 @@ class Tribe__PUE__Notices {
 	/**
 	 * Returns whether or not a given plugin name has a specific notice
 	 *
-	 * @param string $plugin_name
-	 * @param string|null $notice_type
+	 * @since 6.9.3 Bail early if the $plugin_name is an empty string.
+	 *
+	 * @param string      $plugin_name Plugin Name.
+	 * @param string|null $notice_type Notice Type.
 	 *
 	 * @return boolean
 	 */
 	public function has_notice( $plugin_name, $notice_type = null ) {
-		// If we match a pue key we use that value
+		// Bail if plugin name is empty.
+		if ( '' === trim( (string) $plugin_name ) ) {
+			return false;
+		}
+
+		// If we match a pue key we use that value.
 		if ( isset( $this->plugin_names[ $plugin_name ] ) ) {
 			$plugin_name = $this->plugin_names[ $plugin_name ];
 		}
