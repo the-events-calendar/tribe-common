@@ -485,7 +485,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param int $offset The offset to set.
+	 * @param int  $offset    The offset to set.
 	 * @param bool $increment Whether to increment the offset.
 	 *
 	 * @return self The repository instance.
@@ -758,6 +758,8 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @param bool   $preserve_keys The preserve keys to set.
 	 *
 	 * @return array The sorted models.
+	 *
+	 * @throws RuntimeException Sort is not supported for custom table repositories.
 	 */
 	public function sort( $orderby = [], $order = 'ASC', $preserve_keys = false ): array {
 		throw new RuntimeException( 'Sort is not supported for custom table repositories.' );
@@ -780,7 +782,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @since TBD
 	 *
 	 * @param bool $return_generator Whether to return a generator of ids instead of an array of ids.
-	 * @param int $batch_size The batch size to set.
+	 * @param int  $batch_size       The batch size to set.
 	 *
 	 * @return Generator<int>|int[] The ids of the models.
 	 */
@@ -850,12 +852,12 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @throws RuntimeException If a method does not exist on the model.
 	 */
 	public function create(): ?Model {
-		$model_class = $this->get_model_class();
-		$model = new $model_class();
+		$model_class   = $this->get_model_class();
+		$model         = new $model_class();
 		$relationships = $model->get_relationships();
 		foreach ( $this->get_create_args() as $key => $value ) {
 			$property = $this->get_property_name( $key );
-			$method = 'set_' . $property;
+			$method   = 'set_' . $property;
 
 			if ( ! method_exists( $model, $method ) && ! isset( $relationships[ $key ] ) ) {
 				throw new RuntimeException( "Method {$method} does not exist on the model." );
@@ -937,7 +939,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $key The key to add.
+	 * @param string   $key      The key to add.
 	 * @param callable $callback The callback to add.
 	 */
 	public function add_schema_entry( $key, $callback ): void {

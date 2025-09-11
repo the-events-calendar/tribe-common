@@ -266,6 +266,8 @@ abstract class Model_Abstract implements Model {
 	 *
 	 * @param string $key The key of the relationship.
 	 * @param int    $id  The ID to add.
+	 *
+	 * @throws InvalidArgumentException If the relationship does not exist.
 	 */
 	public function add_id_to_relationship( string $key, int $id ): void {
 		if ( ! isset( $this->get_relationships()[ $key ] ) ) {
@@ -294,6 +296,8 @@ abstract class Model_Abstract implements Model {
 	 *
 	 * @param string $key The key of the relationship.
 	 * @param int    $id  The ID to remove.
+	 *
+	 * @throws InvalidArgumentException If the relationship does not exist.
 	 */
 	public function remove_id_from_relationship( string $key, int $id ): void {
 		if ( ! isset( $this->get_relationships()[ $key ] ) ) {
@@ -332,6 +336,8 @@ abstract class Model_Abstract implements Model {
 	 * @since TBD
 	 *
 	 * @param string $key The key of the relationship.
+	 *
+	 * @throws InvalidArgumentException If the relationship does not exist.
 	 */
 	public function delete_relationship_data( string $key ): void {
 		if ( ! isset( $this->get_relationships()[ $key ] ) ) {
@@ -360,7 +366,7 @@ abstract class Model_Abstract implements Model {
 				$insert_data = [];
 				foreach ( $this->relationship_data[ $key ]['insert'] as $insert_id ) {
 					$insert_data[] = [
-						$this->get_relationships()[ $key ]['columns']['this'] => $this->get_id(),
+						$this->get_relationships()[ $key ]['columns']['this']  => $this->get_id(),
 						$this->get_relationships()[ $key ]['columns']['other'] => $insert_id,
 					];
 				}
@@ -369,7 +375,7 @@ abstract class Model_Abstract implements Model {
 				$relationship['through']::delete_many(
 					$this->relationship_data[ $key ]['insert'],
 					$this->get_relationships()[ $key ]['columns']['other'],
-					DB::prepare( " AND %i = %d", $this->get_relationships()[ $key ]['columns']['this'], $this->get_id() )
+					DB::prepare( ' AND %i = %d', $this->get_relationships()[ $key ]['columns']['this'], $this->get_id() )
 				);
 
 				$relationship['through']::insert_many( $insert_data );
@@ -379,7 +385,7 @@ abstract class Model_Abstract implements Model {
 				$relationship['through']::delete_many(
 					$this->relationship_data[ $key ]['delete'],
 					$this->get_relationships()[ $key ]['columns']['other'],
-					DB::prepare( " AND %i = %d", $this->get_relationships()[ $key ]['columns']['this'], $this->get_id() )
+					DB::prepare( ' AND %i = %d', $this->get_relationships()[ $key ]['columns']['this'], $this->get_id() )
 				);
 			}
 		}
@@ -407,9 +413,10 @@ abstract class Model_Abstract implements Model {
 	 *
 	 * @since TBD
 	 *
-	 * @param string        $key     The key of the relationship.
-	 * @param string        $type    The type of the relationship.
-	 * @param ?class-string $through A table interface that provides the relationship.
+	 * @param string        $key                   The key of the relationship.
+	 * @param string        $type                  The type of the relationship.
+	 * @param class-string  $through               A table interface that provides the relationship.
+	 * @param string        $relationship_entity   The entity of the relationship.
 	 */
 	protected function set_relationship( string $key, string $type, ?string $through = null, string $relationship_entity = 'post' ): void {
 		$this->relationships[ $key ] = [

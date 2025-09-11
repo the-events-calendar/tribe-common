@@ -39,7 +39,7 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	 * @since 4.7.19
 	 * @since TBD Type hinted return type to void.
 	 *
-	 * @param array $default_args
+	 * @param array $default_args The default arguments to set.
 	 *
 	 * @return void
 	 */
@@ -77,7 +77,7 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	 *
 	 * By default the primary key is the post ID.
 	 *
-	 * @param mixed $primary_key
+	 * @param mixed $primary_key The primary key value.
 	 *
 	 * @return Model|null|WP_Post
 	 */

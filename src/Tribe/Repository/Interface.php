@@ -8,8 +8,8 @@ use TEC\Common\Contracts\Repository_Interface;
  * @since 4.7.19
  *
  */
-interface Tribe__Repository__Interface
-	extends Repository_Interface,
+interface Tribe__Repository__Interface extends
+	Repository_Interface,
 	Tribe__Repository__Read_Interface,
 	Tribe__Repository__Update_Interface {
 
