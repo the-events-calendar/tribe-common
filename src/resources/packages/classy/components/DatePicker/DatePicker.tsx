@@ -5,7 +5,7 @@ import {
 	__experimentalInputControl as InputControl,
 	__experimentalInputControlSuffixWrapper as SuffixWrapper,
 } from '@wordpress/components';
-import CalendarIcon from './CalendarIcon';
+import { IconCalendar } from '../Icons';
 import { format } from '@wordpress/date';
 import { VirtualElement } from '@wordpress/components/build-types/popover/types';
 import { StartOfWeek } from '../../types/StartOfWeek';
@@ -50,7 +50,7 @@ export default function DatePicker( props: DatePickerProps ) {
 			onClick={ onClick }
 			suffix={
 				<SuffixWrapper onClick={ onClick } style={ { cursor: 'pointer' } }>
-					<CalendarIcon />
+					<IconCalendar />
 				</SuffixWrapper>
 			}
 		/>

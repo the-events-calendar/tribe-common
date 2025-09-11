@@ -1,4 +1,5 @@
 export { default as IconAdd } from './Add';
+export { default as IconCalendar } from './Calendar';
 export { default as IconClose } from './Close';
 export { default as IconEdit } from './Edit';
 export { default as IconNew } from './New';
