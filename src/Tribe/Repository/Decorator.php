@@ -24,8 +24,8 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function set_default_args( array $default_args ) {
-		return $this->decorated->set_default_args( $default_args );
+	public function set_default_args( array $default_args ): void {
+		$this->decorated->set_default_args( $default_args );
 	}
 
 	/**
