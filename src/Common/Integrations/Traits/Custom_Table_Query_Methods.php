@@ -309,6 +309,7 @@ trait Custom_Table_Query_Methods {
 	 * @param array  $args                      The query arguments.
 	 * @param int    $per_page                  The number of items to display per page.
 	 * @param int    $page                      The current page number.
+	 * @param array  $columns                   The columns to select.
 	 * @param string $join_table                The table to join.
 	 * @param string $join_condition            The condition to join on.
 	 * @param array  $selectable_joined_columns The columns from the joined table to select.
@@ -319,7 +320,7 @@ trait Custom_Table_Query_Methods {
 	 *                                  If the join condition does not contain an equal sign.
 	 *                                  If the join condition does not contain valid columns.
 	 */
-	public static function paginate( array $args, int $per_page = 20, int $page = 1, string $join_table = '', string $join_condition = '', array $selectable_joined_columns = [], string $output = OBJECT ): array {
+	public static function paginate( array $args, int $per_page = 20, int $page = 1, array $columns = [ '*' ], string $join_table = '', string $join_condition = '', array $selectable_joined_columns = [], string $output = OBJECT ): array {
 		$is_join = (bool) $join_table;
 
 		if ( $is_join && static::table_name( true ) === $join_table::table_name( true ) ) {
@@ -346,9 +347,11 @@ trait Custom_Table_Query_Methods {
 
 		[ $join, $secondary_columns ] = $is_join ? static::get_join_parts( $join_table, $join_condition, $selectable_joined_columns ) : [ '', '' ];
 
+		$columns = implode( ', ', array_map( fn( $column ) => "a.{$column}", $columns ) );
+
 		return DB::get_results(
 			DB::prepare(
-				"SELECT a.*{$secondary_columns} FROM %i a {$join} {$where} ORDER BY a.{$orderby} {$order} LIMIT %d, %d",
+				"SELECT {$columns}{$secondary_columns} FROM %i a {$join} {$where} ORDER BY a.{$orderby} {$order} LIMIT %d, %d",
 				static::table_name( true ),
 				$offset,
 				$per_page
