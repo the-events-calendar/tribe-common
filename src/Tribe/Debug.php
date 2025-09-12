@@ -1,8 +1,22 @@
 <?php
+/**
+ * Debug
+ *
+ * @package Tribe
+ * @since 4.9
+ */
 
+// phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase, PEAR.NamingConventions.ValidClassName.Invalid,
+// phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_error_log, WordPress.PHP.DevelopmentFunctions.error_log_print_r
+
+/**
+ * Class Tribe__Debug
+ *
+ * Handles debugging functionality.
+ */
 class Tribe__Debug {
 	/**
-	 * constructor
+	 * Constructor
 	 */
 	public function __construct() {
 		add_action( 'tribe_debug', [ __CLASS__, 'render' ], 10, 2 );
@@ -11,9 +25,9 @@ class Tribe__Debug {
 	/**
 	 * Tribe debug function. usage: self::debug( 'Message', $data, 'log' );
 	 *
-	 * @param string      $title  Message to display in log
-	 * @param string|bool $data   Optional data to display
-	 * @param string      $format Optional format (log|warning|error|notice)
+	 * @param string      $title  Message to display in log.
+	 * @param string|bool $data   Optional data to display.
+	 * @param string      $format Optional format (log|warning|error|notice).
 	 *
 	 * @return void
 	 */
@@ -24,9 +38,9 @@ class Tribe__Debug {
 	/**
 	 * Render the debug logging to the php error log. This can be over-ridden by removing the filter.
 	 *
-	 * @param string      $title  - message to display in log
-	 * @param string|bool $data   - optional data to display
-	 * @param string      $format - optional format (log|warning|error|notice)
+	 * @param string      $title  Message to display in log.
+	 * @param string|bool $data   Optional data to display.
+	 * @param string      $format Optional format (log|warning|error|notice).
 	 *
 	 * @return void
 	 */
@@ -51,7 +65,7 @@ class Tribe__Debug {
 
 		if ( ! $instance ) {
 			$class_name = __CLASS__;
-			$instance = new $class_name;
+			$instance   = new $class_name();
 		}
 
 		return $instance;
