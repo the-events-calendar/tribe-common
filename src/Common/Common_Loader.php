@@ -10,7 +10,7 @@
 namespace TEC\Common;
 
 // Don't load directly.
-defined( 'WPINC' ) || die;
+defined( 'ABSPATH' ) || die;
 
 /**
  * Class Common_Loader
@@ -71,7 +71,7 @@ class Common_Loader {
 		// Get version from cache or file.
 		$version = self::get_version_cached( $main_file_path );
 
-		if ( false === $version ) {
+		if ( null === $version ) {
 			self::log_debug( "Could not extract version from: {$main_file_path} (from {$plugin_name})" );
 			return false;
 		}
@@ -96,7 +96,7 @@ class Common_Loader {
 	 *
 	 * @return bool True if this common should be used.
 	 */
-	private static function should_use_common( $common_path, $version, $plugin_name ) {
+	private static function should_use_common( $common_path, $version, $plugin_name ): bool {
 		$current_info = $GLOBALS['tribe-common-info'] ?? null;
 
 		// If no common is set yet, use this one.
@@ -124,7 +124,7 @@ class Common_Loader {
 	 * @param string $version     Version string.
 	 * @param string $plugin_name Plugin name that provided this common.
 	 */
-	private static function set_global_common_info( $common_path, $version, $plugin_name ) {
+	private static function set_global_common_info( $common_path, $version, $plugin_name ): void {
 		$GLOBALS['tribe-common-info'] = [
 			'dir'     => $common_path,
 			'version' => $version,
@@ -142,9 +142,9 @@ class Common_Loader {
 	 *
 	 * @param string $main_file_path Path to Main.php file.
 	 *
-	 * @return string|false Version string or false on failure.
+	 * @return ?string Version string or null on failure.
 	 */
-	private static function get_version_cached( $main_file_path ) {
+	private static function get_version_cached( $main_file_path ): ?string {
 		$cache_key = md5( $main_file_path );
 
 		// Return cached version if available.
@@ -155,7 +155,7 @@ class Common_Loader {
 		// Read and extract version.
 		$version = self::extract_version_from_file( $main_file_path );
 
-		// Cache the result (including false for failed extractions).
+		// Cache the result (including null for failed extractions).
 		self::$version_cache[ $cache_key ] = $version;
 
 		return $version;
@@ -168,9 +168,9 @@ class Common_Loader {
 	 *
 	 * @param string $file_path Path to Main.php file.
 	 *
-	 * @return string|false Version string or false on failure.
+	 * @return ?string Version string or null on failure.
 	 */
-	private static function extract_version_from_file( $file_path ) {
+	private static function extract_version_from_file( $file_path ): ?string {
 		// Use WordPress file system API instead of direct fopen.
 		if ( ! function_exists( 'WP_Filesystem' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/file.php';
@@ -180,12 +180,12 @@ class Common_Loader {
 		global $wp_filesystem;
 
 		if ( ! $wp_filesystem || ! $wp_filesystem->exists( $file_path ) ) {
-			return false;
+			return null;
 		}
 
 		$file_contents = $wp_filesystem->get_contents( $file_path );
 		if ( false === $file_contents ) {
-			return false;
+			return null;
 		}
 
 		// Only read the first part of the file to find VERSION constant.
@@ -202,10 +202,10 @@ class Common_Loader {
 				return $matches[1];
 			}
 
-			$lines_read++;
+			++$lines_read;
 		}
 
-		return false;
+		return null;
 	}
 
 	/**
@@ -216,7 +216,7 @@ class Common_Loader {
 	 * @param string $plugin_name   Name of plugin that failed to load common.
 	 * @param string $expected_path Path where common was expected.
 	 */
-	public static function handle_missing_common( $plugin_name, $expected_path ) {
+	public static function handle_missing_common( $plugin_name, $expected_path ): void {
 		$message = sprintf(
 			/* translators: %1$s: plugin name, %2$s: expected path */
 			esc_html__( '%1$s could not locate the tribe-common library at %2$s. Please ensure the plugin is properly installed.', 'tribe-common' ),
@@ -230,14 +230,14 @@ class Common_Loader {
 		// Show admin notice.
 		add_action(
 			'admin_notices',
-			function() use ( $message ) {
+			function () use ( $message ) {
 				echo '<div class="notice notice-error"><p>' . esc_html( $message ) . '</p></div>';
 			}
 		);
 
 		add_action(
 			'network_admin_notices',
-			function() use ( $message ) {
+			function () use ( $message ) {
 				echo '<div class="notice notice-error"><p>' . esc_html( $message ) . '</p></div>';
 			}
 		);
@@ -248,9 +248,9 @@ class Common_Loader {
 	 *
 	 * @since TBD
 	 *
-	 * @return array|null Common info array or null if not set.
+	 * @return ?array Common info array or null if not set.
 	 */
-	public static function get_common_info() {
+	public static function get_common_info(): ?array {
 		return $GLOBALS['tribe-common-info'] ?? null;
 	}
 
@@ -270,15 +270,19 @@ class Common_Loader {
 		self::set_global_common_info( $common_path, $version, $plugin_name );
 	}
 
+	// phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_error_log
+
 	/**
 	 * Debug logging helper.
+	 *
+	 * Note: we are using error_log instead of the internal logger because the logger is not available yet.
 	 *
 	 * @since TBD
 	 *
 	 * @param string $message Debug message.
 	 */
-	private static function log_debug( $message ) {
-		if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'TRIBE_COMMON_DEBUG' ) && TRIBE_COMMON_DEBUG ) {
+	private static function log_debug( $message ): void {
+		if ( defined( 'WP_DEBUG' ) && constant( 'WP_DEBUG' ) && defined( 'TRIBE_COMMON_DEBUG' ) && constant( 'TRIBE_COMMON_DEBUG' ) ) {
 			error_log( '[Tribe Common Loader] ' . $message );
 		}
 	}
@@ -286,12 +290,14 @@ class Common_Loader {
 	/**
 	 * Error logging helper.
 	 *
+	 * Note: we are using error_log instead of the internal logger because the logger is not available yet.
+	 *
 	 * @since TBD
 	 *
 	 * @param string $message Error message.
 	 */
-	private static function log_error( $message ) {
-		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+	private static function log_error( $message ): void {
+		if ( defined( 'WP_DEBUG' ) && constant( 'WP_DEBUG' ) ) {
 			error_log( '[Tribe Common Loader ERROR] ' . $message );
 		}
 	}
