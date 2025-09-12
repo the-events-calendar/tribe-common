@@ -238,4 +238,58 @@ class Suite_Env extends Extension {
 			$callback();
 		}
 	}
+
+	/**
+	 * Toggles features on or off based on environment variables for specific test suites.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string, array{disable_env_var: string, enabled_by_default: bool, active_for_suites?: string[]}> $features
+	 *              An array of features to toggle. Each feature should have:
+	 *              - 'disable_env_var': The environment variable that disables the feature
+	 *              - 'enabled_by_default': Whether the feature is enabled by default
+	 *              - 'active_for_suites': (optional) Array of suite names where the feature should be activated
+	 *
+	 * @return void
+	 *
+	 * @example
+	 * ```php
+	 * Suite_Env::toggle_features( [
+	 *     'My Feature' => [
+	 *         'disable_env_var'    => 'TEC_MY_FEATURE_DISABLED',
+	 *         'enabled_by_default' => false,
+	 *         'active_for_suites'  => [
+	 *             'my_integration_suite'
+	 *         ]
+	 *     ]
+	 * ] );
+	 * ```
+	 *
+	 * This will set TEC_MY_FEATURE_DISABLED=1 by default (since enabled_by_default is false),
+	 * but will set it to 0 (enabling the feature) when the 'my_integration_suite' suite runs.
+	 */
+	public static function toggle_features( array $features ): void {
+		foreach ( $features as $feature_name => $feature ) {
+			$disable_env_var          = $feature['disable_env_var'];
+			$enabled_by_default       = $feature['enabled_by_default'];
+			$_ENV[ $disable_env_var ] = $enabled_by_default ? 0 : 1;
+			putenv( "{$disable_env_var}=" . ( $enabled_by_default ? '0' : '1' ) );
+			$enabled_string = $enabled_by_default ? 'enabled' : 'disabled';
+			codecept_debug( "Feature {$feature_name} is ${enabled_string} by default" );
+
+			if ( ! empty( $feature['active_for_suites'] ) ) {
+				$suites           = $feature['active_for_suites'];
+				$activate_feature = static function () use ( $disable_env_var ) {
+					$_ENV[ $disable_env_var ] = 0;
+					putenv( "{$disable_env_var}=0" );
+				};
+
+				codecept_debug( 'Activating feature for suites: ' . implode( ', ', $suites ) );
+
+				foreach ( $suites as $suite ) {
+					self::module_init( $suite, $activate_feature );
+				}
+			}
+		}
+	}
 }
