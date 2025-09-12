@@ -162,7 +162,16 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 				$key,
 				function ( $value ) use ( $relationship ) {
 					$callback = function ( array $where ) use ( $relationship, $value ) {
-						$where[] = DB::prepare( ' AND %i = %d', $relationship['columns']['other'], $value );
+						$value        = (array) $value;
+						$placeholders = '(' . implode( ',', array_fill( 0, count( $value ), '%d' ) ) . ')';
+						$where[]      = DB::prepare(
+							"%i IN (SELECT %i FROM %i WHERE %i IN {$placeholders})",
+							$this->get_table_interface()::uid_column(),
+							$relationship['columns']['this'],
+							$relationship['through']::table_name(),
+							$relationship['columns']['other'],
+							...$value
+						);
 						return $where;
 					};
 
@@ -178,7 +187,14 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 					$callback = function ( array $where ) use ( $relationship, $value ) {
 						$value        = (array) $value;
 						$placeholders = '(' . implode( ',', array_fill( 0, count( $value ), '%d' ) ) . ')';
-						$where[]      = DB::prepare( " AND %i IN {$placeholders}", $relationship['columns']['other'], ...$value );
+						$where[]      = DB::prepare(
+							"%i IN (SELECT %i FROM %i WHERE %i IN {$placeholders})",
+							$this->get_table_interface()::uid_column(),
+							$relationship['columns']['this'],
+							$relationship['through']::table_name(),
+							$relationship['columns']['other'],
+							...$value
+						);
 						return $where;
 					};
 
@@ -194,7 +210,14 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 					$callback = function ( array $where ) use ( $relationship, $value ) {
 						$value        = (array) $value;
 						$placeholders = '(' . implode( ',', array_fill( 0, count( $value ), '%d' ) ) . ')';
-						$where[]      = DB::prepare( " AND %i NOT IN {$placeholders}", $relationship['columns']['other'], ...$value );
+						$where[]      = DB::prepare(
+							"%i IN (SELECT %i FROM %i WHERE %i NOT IN {$placeholders})",
+							$this->get_table_interface()::uid_column(),
+							$relationship['columns']['this'],
+							$relationship['through']::table_name(),
+							$relationship['columns']['other'],
+							...$value
+						);
 						return $where;
 					};
 
@@ -443,7 +466,10 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @return int The found rows.
 	 */
 	public function found(): int {
-		$this->set_found_rows( $this->get_table_interface()::get_total_items( $this->get_select_args() ) );
+		if ( ! $this->found_rows && ! empty( $this->select_args ) ) {
+			$this->set_found_rows( $this->get_table_interface()::get_total_items( $this->get_select_args() ) );
+		}
+
 		return $this->found_rows;
 	}
 
@@ -473,11 +499,13 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 			}
 		} while ( ! empty( $results ) && $i * $batch_size < $this->per_page );
 
-		if ( $return_generator ) {
-			return [];
-		}
+		$this->set_found_rows( $this->get_table_interface()::get_total_items( $this->get_select_args() ) );
 
-		return $all;
+		$this->select_args = [];
+
+		if ( ! $return_generator ) {
+			return $all;
+		}
 	}
 
 	/**
@@ -798,11 +826,13 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 			}
 		} while ( ! empty( $results ) && $i * $batch_size < $this->per_page );
 
-		if ( $return_generator ) {
-			return [];
-		}
+		$this->set_found_rows( $this->get_table_interface()::get_total_items( $this->get_select_args() ) );
 
-		return $all;
+		$this->select_args = [];
+
+		if ( ! $return_generator ) {
+			return $all;
+		}
 	}
 
 	/**
@@ -833,6 +863,9 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 
 				$all[ $model->get_id() ] = $model->save();
 			}
+
+			$this->select_args = [];
+			$this->upsert_args = [];
 
 			return $all;
 		};
@@ -883,6 +916,8 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 		}
 
 		$model->save();
+
+		$this->upsert_args = [];
 
 		return $model;
 	}
