@@ -9,6 +9,9 @@
 
 namespace TEC\Common;
 
+// Don't load directly.
+defined( 'WPINC' ) || die;
+
 /**
  * Class Common_Loader
  *
@@ -51,7 +54,11 @@ class Common_Loader {
 	 *
 	 * @return bool True if this plugin's common was selected, false otherwise.
 	 */
-	public static function register_common_path( $plugin_path, $plugin_name, $common_subpath = 'common/src/Tribe' ) {
+	public static function register_common_path(
+		$plugin_path,
+		$plugin_name,
+		$common_subpath = 'common/src/Tribe'
+	) {
 		$full_common_path = trailingslashit( $plugin_path ) . $common_subpath;
 		$main_file_path   = $full_common_path . '/Main.php';
 
@@ -164,23 +171,40 @@ class Common_Loader {
 	 * @return string|false Version string or false on failure.
 	 */
 	private static function extract_version_from_file( $file_path ) {
-		$handle = fopen( $file_path, 'r' );
-		if ( ! $handle ) {
+		// Use WordPress file system API instead of direct fopen.
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+
+		WP_Filesystem();
+		global $wp_filesystem;
+
+		if ( ! $wp_filesystem || ! $wp_filesystem->exists( $file_path ) ) {
 			return false;
 		}
 
-		$lines_read = 0;
-		$max_lines  = 100; // VERSION constant should be near the top.
+		$file_contents = $wp_filesystem->get_contents( $file_path );
+		if ( false === $file_contents ) {
+			return false;
+		}
 
-		while ( ( $line = fgets( $handle ) ) && $lines_read < $max_lines ) {
+		// Only read the first part of the file to find VERSION constant.
+		$lines      = explode( "\n", $file_contents );
+		$max_lines  = 100; // VERSION constant should be near the top.
+		$lines_read = 0;
+
+		foreach ( $lines as $line ) {
+			if ( $lines_read >= $max_lines ) {
+				break;
+			}
+
 			if ( preg_match( self::$common_version_regex, $line, $matches ) ) {
-				fclose( $handle );
 				return $matches[1];
 			}
+
 			$lines_read++;
 		}
 
-		fclose( $handle );
 		return false;
 	}
 
@@ -204,13 +228,19 @@ class Common_Loader {
 		self::log_error( $message );
 
 		// Show admin notice.
-		add_action( 'admin_notices', function() use ( $message ) {
-			echo '<div class="notice notice-error"><p>' . esc_html( $message ) . '</p></div>';
-		} );
+		add_action(
+			'admin_notices',
+			function() use ( $message ) {
+				echo '<div class="notice notice-error"><p>' . esc_html( $message ) . '</p></div>';
+			}
+		);
 
-		add_action( 'network_admin_notices', function() use ( $message ) {
-			echo '<div class="notice notice-error"><p>' . esc_html( $message ) . '</p></div>';
-		} );
+		add_action(
+			'network_admin_notices',
+			function() use ( $message ) {
+				echo '<div class="notice notice-error"><p>' . esc_html( $message ) . '</p></div>';
+			}
+		);
 	}
 
 	/**
