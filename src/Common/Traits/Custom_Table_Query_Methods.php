@@ -234,7 +234,7 @@ trait Custom_Table_Query_Methods {
 			}
 
 			// For anything else, you should build your own query!
-			if ( ! in_array( strtoupper( $arg['operator'] ), [ '=', '!=', '>', '<', '>=', '<=', 'IN', 'NOT IN' ], true ) ) {
+			if ( ! in_array( strtoupper( $arg['operator'] ), array_values( static::operators() ), true ) ) {
 				$arg['operator'] = '=';
 			}
 
@@ -431,6 +431,27 @@ trait Custom_Table_Query_Methods {
 	 */
 	public static function get_by_id( $id ): ?Model {
 		return static::get_first_by( static::uid_column(), $id );
+	}
+
+
+	/**
+	 * Gets the operators supported by the table.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string, string> The operators supported by the table.
+	 */
+	public static function operators(): array {
+		return [
+			'eq'     => '=',
+			'neq'    => '!=',
+			'gt'     => '>',
+			'lt'     => '<',
+			'gte'    => '>=',
+			'lte'    => '<=',
+			'in'     => 'IN',
+			'not_in' => 'NOT IN',
+		];
 	}
 
 	// phpcs:disable Squiz.Commenting.FunctionComment.InvalidNoReturn, Generic.CodeAnalysis.UnusedFunctionParameter.Found

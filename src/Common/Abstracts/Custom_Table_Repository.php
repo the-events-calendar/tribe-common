@@ -115,38 +115,35 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 */
 	public function __construct() {
 		$this->order_by( $this->get_table_interface()::uid_column(), 'DESC' );
+
+		$operators = $this->get_table_interface()::operators();
+
 		foreach ( array_keys( $this->get_table_interface()::get_columns() ) as $column ) {
-			$this->add_schema_entry(
-				$column,
-				function ( $value ) use ( $column ) {
-					return [
-						'column' => $column,
-						'value'  => $value,
-					];
+			foreach ( $operators as $operator_slug => $operator ) {
+				if ( 'eq' === $operator_slug ) {
+					$this->add_schema_entry(
+						$column,
+						function ( $value ) use ( $column, $operator ) {
+							return [
+								'column'   => $column,
+								'value'    => $value,
+								'operator' => $operator,
+							];
+						}
+					);
 				}
-			);
 
-			$this->add_schema_entry(
-				$column . '_in',
-				function ( $value ) use ( $column ) {
-					return [
-						'column'   => $column,
-						'value'    => $value,
-						'operator' => 'IN',
-					];
-				}
-			);
-
-			$this->add_schema_entry(
-				$column . '_not_in',
-				function ( $value ) use ( $column ) {
-					return [
-						'column'   => $column,
-						'value'    => $value,
-						'operator' => 'NOT IN',
-					];
-				}
-			);
+				$this->add_schema_entry(
+					"{$column}_{$operator_slug}",
+					function ( $value ) use ( $column, $operator ) {
+						return [
+							'column'   => $column,
+							'value'    => $value,
+							'operator' => $operator,
+						];
+					}
+				);
+			}
 		}
 
 		$model = tribe( $this->get_model_class() );
