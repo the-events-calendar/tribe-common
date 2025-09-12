@@ -148,6 +148,7 @@ class Controller extends Controller_Contract {
 		}
 
 		add_filter( 'get_user_metadata', [ $this,'disable_block_editor_welcome_screen' ], 10, 4 );
+		add_action( 'init', [ $this, 'register_blocks' ] );
 	}
 
 	/**
@@ -411,5 +412,23 @@ class Controller extends Controller_Contract {
 
 		// The filter expects an array of values.
 		return [ 0 => $meta_value ];
+	}
+	
+	/**
+	 * Trigger blocks action to register FE templates.
+	 *
+	 * @since TBD
+	 *
+	 * @see Tribe__Editor__Provider::register_blocks()
+	 *
+	 * @return void
+	 */
+	public function register_blocks() {
+		/**
+		 * Internal Action used to register blocks for Events
+		 *
+		 * @since TBD
+		 */
+		do_action( 'tribe_editor_register_blocks' );
 	}
 }
