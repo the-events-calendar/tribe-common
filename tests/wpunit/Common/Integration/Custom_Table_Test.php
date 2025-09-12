@@ -124,15 +124,15 @@ class Custom_Table_Test extends WPTestCase {
 	public function it_should_return_expected_results() {
 		$this->assertEquals( 47, $this->table::get_total_items() );
 
-		$first_page_results = $this->table::paginate( [], 10, 1, '', '', [], ARRAY_A );
+		$first_page_results = $this->table::paginate( [], 10, 1, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $first_page_results );
-		$second_page_results = $this->table::paginate( [], 10, 2, '', '', [], ARRAY_A );
+		$second_page_results = $this->table::paginate( [], 10, 2, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $second_page_results );
-		$third_page_results = $this->table::paginate( [], 10, 3, '', '', [], ARRAY_A );
+		$third_page_results = $this->table::paginate( [], 10, 3, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $third_page_results );
-		$fourth_page_results = $this->table::paginate( [], 10, 4, '', '', [], ARRAY_A );
+		$fourth_page_results = $this->table::paginate( [], 10, 4, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $fourth_page_results );
-		$fifth_page_results = $this->table::paginate( [], 10, 5, '', '', [], ARRAY_A );
+		$fifth_page_results = $this->table::paginate( [], 10, 5, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 7, $fifth_page_results );
 
 		$this->assertNotSame( $first_page_results, $second_page_results );
@@ -144,15 +144,15 @@ class Custom_Table_Test extends WPTestCase {
 		$this->assertNotSame( $fourth_page_results, $fifth_page_results );
 
 		// Failed to be ordered because of not known column.
-		$first_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 1, '', '', [], ARRAY_A );
+		$first_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 1, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $first_page_results_unordered );
-		$second_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 2, '', '', [], ARRAY_A );
+		$second_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 2, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $second_page_results_unordered );
-		$third_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 3, '', '', [], ARRAY_A );
+		$third_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 3, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $third_page_results_unordered );
-		$fourth_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 4, '', '', [], ARRAY_A );
+		$fourth_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 4, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $fourth_page_results_unordered );
-		$fifth_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 5, '', '', [], ARRAY_A );
+		$fifth_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 5, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 7, $fifth_page_results_unordered );
 
 		$this->assertSame( $first_page_results, $first_page_results_unordered );
@@ -162,15 +162,15 @@ class Custom_Table_Test extends WPTestCase {
 		$this->assertSame( $fifth_page_results, $fifth_page_results_unordered );
 
 		// THose will be ordered since the string column is known.
-		$first_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 1, '', '', [], ARRAY_A );
+		$first_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 1, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $first_page_results_ordered );
-		$second_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 2, '', '', [], ARRAY_A );
+		$second_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 2, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $second_page_results_ordered );
-		$third_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 3, '', '', [], ARRAY_A );
+		$third_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 3, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $third_page_results_ordered );
-		$fourth_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 4, '', '', [], ARRAY_A );
+		$fourth_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 4, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $fourth_page_results_ordered );
-		$fifth_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 5, '', '', [], ARRAY_A );
+		$fifth_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 5, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 7, $fifth_page_results_ordered );
 
 		$this->assertNotSame( $first_page_results, $first_page_results_ordered );
@@ -180,15 +180,15 @@ class Custom_Table_Test extends WPTestCase {
 		$this->assertNotSame( $fifth_page_results, $fifth_page_results_ordered );
 
 		// THose will be ordered since the string column is known.
-		$first_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 1, '', '', [], ARRAY_A );
+		$first_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 1, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $first_page_results_ordered_desc );
-		$second_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 2, '', '', [], ARRAY_A );
+		$second_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 2, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $second_page_results_ordered_desc );
-		$third_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 3, '', '', [], ARRAY_A );
+		$third_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 3, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $third_page_results_ordered_desc );
-		$fourth_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 4, '', '', [], ARRAY_A );
+		$fourth_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 4, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $fourth_page_results_ordered_desc );
-		$fifth_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 5, '', '', [], ARRAY_A );
+		$fifth_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 5, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 7, $fifth_page_results_ordered_desc );
 
 		$this->assertNotSame( $first_page_results_ordered, $first_page_results_ordered_desc );
@@ -223,11 +223,11 @@ class Custom_Table_Test extends WPTestCase {
 
 		$this->assertEquals( 20, $this->table::get_total_items( $search ) );
 
-		$first_page_results = $this->table::paginate( $search, 10, 1, '', '', [], ARRAY_A );
+		$first_page_results = $this->table::paginate( $search, 10, 1, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $first_page_results );
-		$second_page_results = $this->table::paginate( $search, 10, 2, '', '', [], ARRAY_A );
+		$second_page_results = $this->table::paginate( $search, 10, 2, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $second_page_results );
-		$third_page_results = $this->table::paginate( $search, 10, 3, '', '', [], ARRAY_A );
+		$third_page_results = $this->table::paginate( $search, 10, 3, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 0, $third_page_results );
 
 		$this->assertNotSame( $first_page_results, $second_page_results );
@@ -237,15 +237,15 @@ class Custom_Table_Test extends WPTestCase {
 		$search['query_operator'] = 'OR';
 		$this->assertEquals( 43, $this->table::get_total_items( $search ) );
 
-		$first_page_results = $this->table::paginate( $search, 10, 1, '', '', [], ARRAY_A );
+		$first_page_results = $this->table::paginate( $search, 10, 1, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $first_page_results );
-		$second_page_results = $this->table::paginate( $search, 10, 2, '', '', [], ARRAY_A );
+		$second_page_results = $this->table::paginate( $search, 10, 2, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $second_page_results );
-		$third_page_results = $this->table::paginate( $search, 10, 3, '', '', [], ARRAY_A );
+		$third_page_results = $this->table::paginate( $search, 10, 3, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $third_page_results );
-		$fourth_page_results = $this->table::paginate( $search, 10, 4, '', '', [], ARRAY_A );
+		$fourth_page_results = $this->table::paginate( $search, 10, 4, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $fourth_page_results );
-		$fifth_page_results = $this->table::paginate( $search, 10, 5, '', '', [], ARRAY_A );
+		$fifth_page_results = $this->table::paginate( $search, 10, 5, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 3, $fifth_page_results );
 
 		$this->assertNotSame( $first_page_results, $second_page_results );
@@ -264,11 +264,11 @@ class Custom_Table_Test extends WPTestCase {
 
 		$this->assertEquals( 20, $this->table::get_total_items( $search ) );
 
-		$first_page_results = $this->table::paginate( $search, 10, 1, '', '', [], ARRAY_A );
+		$first_page_results = $this->table::paginate( $search, 10, 1, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $first_page_results );
-		$second_page_results = $this->table::paginate( $search, 10, 2,'', '', [], ARRAY_A );
+		$second_page_results = $this->table::paginate( $search, 10, 2, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 10, $second_page_results );
-		$third_page_results = $this->table::paginate( $search, 10, 3, '', '', [], ARRAY_A );
+		$third_page_results = $this->table::paginate( $search, 10, 3, [ '*' ], '', '', [], ARRAY_A );
 		$this->assertCount( 0, $third_page_results );
 
 		$this->assertNotSame( $first_page_results, $second_page_results );
@@ -282,15 +282,15 @@ class Custom_Table_Test extends WPTestCase {
 	public function it_should_return_expected_results_for_join() {
 		$this->assertEquals( 47, $this->table::get_total_items() );
 
-		$first_page_results = $this->table::paginate( [], 10, 1, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$first_page_results = $this->table::paginate( [], 10, 1, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $first_page_results );
-		$second_page_results = $this->table::paginate( [], 10, 2, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$second_page_results = $this->table::paginate( [], 10, 2, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $second_page_results );
-		$third_page_results = $this->table::paginate( [], 10, 3, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$third_page_results = $this->table::paginate( [], 10, 3, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $third_page_results );
-		$fourth_page_results = $this->table::paginate( [], 10, 4, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$fourth_page_results = $this->table::paginate( [], 10, 4, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $fourth_page_results );
-		$fifth_page_results = $this->table::paginate( [], 10, 5, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$fifth_page_results = $this->table::paginate( [], 10, 5, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 7, $fifth_page_results );
 
 		$this->assertNotSame( $first_page_results, $second_page_results );
@@ -302,15 +302,15 @@ class Custom_Table_Test extends WPTestCase {
 		$this->assertNotSame( $fourth_page_results, $fifth_page_results );
 
 		// Failed to be ordered because of not known column.
-		$first_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 1, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$first_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 1, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $first_page_results_unordered );
-		$second_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 2, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$second_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 2, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $second_page_results_unordered );
-		$third_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 3, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$third_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 3, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $third_page_results_unordered );
-		$fourth_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 4, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$fourth_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 4, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $fourth_page_results_unordered );
-		$fifth_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 5, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$fifth_page_results_unordered = $this->table::paginate( [ 'orderby' => 'unknown' ], 10, 5, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 7, $fifth_page_results_unordered );
 
 		$this->assertSame( $first_page_results, $first_page_results_unordered );
@@ -320,15 +320,15 @@ class Custom_Table_Test extends WPTestCase {
 		$this->assertSame( $fifth_page_results, $fifth_page_results_unordered );
 
 		// THose will be ordered since the string column is known.
-		$first_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 1, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$first_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 1, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $first_page_results_ordered );
-		$second_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 2, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$second_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 2, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $second_page_results_ordered );
-		$third_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 3, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$third_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 3, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $third_page_results_ordered );
-		$fourth_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 4, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$fourth_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 4, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $fourth_page_results_ordered );
-		$fifth_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 5, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$fifth_page_results_ordered = $this->table::paginate( [ 'orderby' => 'string' ], 10, 5, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 7, $fifth_page_results_ordered );
 
 		$this->assertNotSame( $first_page_results, $first_page_results_ordered );
@@ -338,15 +338,15 @@ class Custom_Table_Test extends WPTestCase {
 		$this->assertNotSame( $fifth_page_results, $fifth_page_results_ordered );
 
 		// THose will be ordered since the string column is known.
-		$first_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 1, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$first_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 1, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $first_page_results_ordered_desc );
-		$second_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 2, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$second_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 2, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $second_page_results_ordered_desc );
-		$third_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 3, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$third_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 3, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $third_page_results_ordered_desc );
-		$fourth_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 4, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$fourth_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 4, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $fourth_page_results_ordered_desc );
-		$fifth_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 5, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$fifth_page_results_ordered_desc = $this->table::paginate( [ 'orderby' => 'string', 'order' => 'DESC' ], 10, 5, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 7, $fifth_page_results_ordered_desc );
 
 		$this->assertNotSame( $first_page_results_ordered, $first_page_results_ordered_desc );
@@ -381,11 +381,11 @@ class Custom_Table_Test extends WPTestCase {
 
 		$this->assertEquals( 20, $this->table::get_total_items( $search ) );
 
-		$first_page_results = $this->table::paginate( $search, 10, 1, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$first_page_results = $this->table::paginate( $search, 10, 1, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $first_page_results );
-		$second_page_results = $this->table::paginate( $search, 10, 2, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$second_page_results = $this->table::paginate( $search, 10, 2, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $second_page_results );
-		$third_page_results = $this->table::paginate( $search, 10, 3, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$third_page_results = $this->table::paginate( $search, 10, 3, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 0, $third_page_results );
 
 		$this->assertNotSame( $first_page_results, $second_page_results );
@@ -395,15 +395,15 @@ class Custom_Table_Test extends WPTestCase {
 		$search['query_operator'] = 'OR';
 		$this->assertEquals( 43, $this->table::get_total_items( $search ) );
 
-		$first_page_results = $this->table::paginate( $search, 10, 1, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$first_page_results = $this->table::paginate( $search, 10, 1, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $first_page_results );
-		$second_page_results = $this->table::paginate( $search, 10, 2, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$second_page_results = $this->table::paginate( $search, 10, 2, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $second_page_results );
-		$third_page_results = $this->table::paginate( $search, 10, 3, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$third_page_results = $this->table::paginate( $search, 10, 3, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $third_page_results );
-		$fourth_page_results = $this->table::paginate( $search, 10, 4, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$fourth_page_results = $this->table::paginate( $search, 10, 4, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $fourth_page_results );
-		$fifth_page_results = $this->table::paginate( $search, 10, 5, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$fifth_page_results = $this->table::paginate( $search, 10, 5, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 3, $fifth_page_results );
 
 		$this->assertNotSame( $first_page_results, $second_page_results );
@@ -422,11 +422,11 @@ class Custom_Table_Test extends WPTestCase {
 
 		$this->assertEquals( 20, $this->table::get_total_items( $search ) );
 
-		$first_page_results = $this->table::paginate( $search, 10, 1, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$first_page_results = $this->table::paginate( $search, 10, 1, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $first_page_results );
-		$second_page_results = $this->table::paginate( $search, 10, 2,get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$second_page_results = $this->table::paginate( $search, 10, 2, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 10, $second_page_results );
-		$third_page_results = $this->table::paginate( $search, 10, 3, get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
+		$third_page_results = $this->table::paginate( $search, 10, 3, [ '*' ], get_class( $this->join_table ), 'id=id', $this->join_table::get_columns(), ARRAY_A );
 		$this->assertCount( 0, $third_page_results );
 
 		$this->assertNotSame( $first_page_results, $second_page_results );

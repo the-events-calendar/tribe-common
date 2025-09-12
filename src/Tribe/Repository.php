@@ -466,14 +466,14 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get_default_args() {
+	public function get_default_args(): array {
 		return $this->default_args;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function set_default_args( array $default_args ) {
+	public function set_default_args( array $default_args ): void {
 		$this->default_args = $default_args;
 	}
 
@@ -1768,7 +1768,7 @@ abstract class Tribe__Repository
 	 *                           calls.
 	 * @param callable $callback The function that should be called to apply this filter.
 	 */
-	public function add_schema_entry( $key, $callback ) {
+	public function add_schema_entry( $key, $callback ): void {
 		$this->set_schema( $key, $callback );
 	}
 
@@ -1811,7 +1811,7 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function add_update_field_alias( $alias, $field_name ) {
+	public function add_update_field_alias( $alias, $field_name ): void {
 		$this->update_fields_aliases[ $alias ] = $field_name;
 	}
 
@@ -2901,14 +2901,14 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get_update_fields_aliases() {
+	public function get_update_fields_aliases(): array {
 		return $this->update_fields_aliases;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function set_update_fields_aliases( array $update_fields_aliases ) {
+	public function set_update_fields_aliases( array $update_fields_aliases ): void {
 		$this->update_fields_aliases = $update_fields_aliases;
 	}
 
@@ -3078,7 +3078,7 @@ abstract class Tribe__Repository
 	 *
 	 * @return array The create args the repository will use to create posts.
 	 */
-	public function get_create_args() {
+	public function get_create_args(): array {
 		return $this->create_args;
 	}
 
@@ -3089,7 +3089,7 @@ abstract class Tribe__Repository
 	 *
 	 * @param array $create_args The create args the repository will use to create posts.
 	 */
-	public function set_create_args( array $create_args ) {
+	public function set_create_args( array $create_args ): void {
 		$this->create_args = $create_args;
 	}
 
@@ -3724,7 +3724,7 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritDoc}
 	 */
-	public function set_found_rows( $found_rows ) {
+	public function set_found_rows( $found_rows ): self {
 		$this->skip_found_rows = ! $found_rows;
 
 		return $this;
