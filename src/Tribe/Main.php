@@ -289,7 +289,7 @@ class Tribe__Main {
 				[ 'tec-common-php-date-formatter', 'node_modules/php-date-formatter/js/php-date-formatter.js' ],
 			]
 		);
-		
+
 		tec_asset(
 			$this,
 			'tec-user-agent',
