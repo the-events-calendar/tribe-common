@@ -128,6 +128,7 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( 'events.editor', $back_compatible_editor );
 		$this->container->singleton( 'events.editor.compatibility', $back_compatible_editor );
 		$this->container->singleton( 'editor.utils', new Editor_Utils() );
+		$this->container->singleton( 'events.editor.template', 'Tribe__Events__Editor__Template' );
 
 		$this->container->register( REST\Controller::class );
 
@@ -147,6 +148,7 @@ class Controller extends Controller_Contract {
 		}
 
 		add_filter( 'get_user_metadata', [ $this,'disable_block_editor_welcome_screen' ], 10, 4 );
+		add_action( 'init', [ $this, 'register_blocks' ] );
 	}
 
 	/**
@@ -179,6 +181,7 @@ class Controller extends Controller_Contract {
 		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
 		remove_action( 'tec_common_assets_loaded', [ $this, 'register_assets' ] );
 		remove_filter( 'get_user_metadata', [ $this,'disable_block_editor_welcome_screen' ] );
+		remove_action( 'init', [ $this, 'register_blocks' ] );
 	}
 
 	/**
@@ -410,5 +413,23 @@ class Controller extends Controller_Contract {
 
 		// The filter expects an array of values.
 		return [ 0 => $meta_value ];
+	}
+
+	/**
+	 * Trigger blocks action to register FE templates.
+	 *
+	 * @since TBD
+	 *
+	 * @see Tribe__Editor__Provider::register_blocks()
+	 *
+	 * @return void
+	 */
+	public function register_blocks() {
+		/**
+		 * Internal Action used to register blocks for Events
+		 *
+		 * @since TBD
+		 */
+		do_action( 'tribe_editor_register_blocks' );
 	}
 }
