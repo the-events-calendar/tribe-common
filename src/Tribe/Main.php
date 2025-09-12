@@ -815,7 +815,9 @@ class Tribe__Main {
 		// Register the Classy controller; it will filter the following `tec_using_classy_editor` call.
 		tribe_register_provider( \TEC\Common\Classy\Controller::class );
 
-		tribe_register_provider( Tribe__Editor__Provider::class );
+		if ( ! tec_using_classy_editor() ) {
+			tribe_register_provider( Tribe__Editor__Provider::class );
+		}
 
 		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
 		tribe_register_provider( Tribe\Service_Providers\Tooltip::class );
