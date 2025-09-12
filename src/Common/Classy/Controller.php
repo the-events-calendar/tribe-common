@@ -181,6 +181,7 @@ class Controller extends Controller_Contract {
 		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
 		remove_action( 'tec_common_assets_loaded', [ $this, 'register_assets' ] );
 		remove_filter( 'get_user_metadata', [ $this,'disable_block_editor_welcome_screen' ] );
+		remove_action( 'init', [ $this, 'register_blocks' ] );
 	}
 
 	/**
@@ -413,7 +414,7 @@ class Controller extends Controller_Contract {
 		// The filter expects an array of values.
 		return [ 0 => $meta_value ];
 	}
-	
+
 	/**
 	 * Trigger blocks action to register FE templates.
 	 *
