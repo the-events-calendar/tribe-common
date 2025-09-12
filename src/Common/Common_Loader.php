@@ -4,21 +4,20 @@
  *
  * @since TBD
  *
- * @package Tribe
+ * @package TEC\Common
  */
 
-// Don't load directly
-defined( 'WPINC' ) or die;
+namespace TEC\Common;
 
 /**
- * Class Tribe__Common_Loader
+ * Class Common_Loader
  *
  * Centralizes the logic for determining which tribe-common library to use
  * when multiple plugins (TEC, ET, etc.) are active.
  *
  * @since TBD
  */
-class Tribe__Common_Loader {
+class Common_Loader {
 
 	/**
 	 * Regex pattern to extract VERSION constant from Main.php files.
@@ -171,7 +170,7 @@ class Tribe__Common_Loader {
 		}
 
 		$lines_read = 0;
-		$max_lines  = 100; // VERSION constant should be near the top
+		$max_lines  = 100; // VERSION constant should be near the top.
 
 		while ( ( $line = fgets( $handle ) ) && $lines_read < $max_lines ) {
 			if ( preg_match( self::$common_version_regex, $line, $matches ) ) {
