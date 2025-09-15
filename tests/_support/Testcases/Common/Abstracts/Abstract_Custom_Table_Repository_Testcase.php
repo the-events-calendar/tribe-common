@@ -1018,4 +1018,604 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		}
 	}
 
+	public function test_relationship_with_in_operator() {
+		$relationships = tribe( $this->test_model_class )->get_relationships();
+
+		if ( empty( $relationships ) ) {
+			$this->markTestSkipped( 'No relationships defined for this model' );
+		}
+
+		// Create posts for testing
+		$post_ids = [];
+		for ( $i = 0; $i < 5; $i++ ) {
+			$post_ids[] = self::factory()->post->create( [
+				'post_title' => "Test Post $i",
+				'post_status' => 'publish',
+			] );
+		}
+
+		// Create test models with different post relationships
+		$models = [];
+		for ( $i = 0; $i < 3; $i++ ) {
+			$create_data = $this->get_create_data();
+
+			// Assign different posts to each model
+			foreach ( $relationships as $key => $data ) {
+				if ( 'post' !== $data['entity'] ) {
+					throw new Exception( 'Implement this logic!' );
+				}
+
+				// Model 0: posts 0, 1
+				// Model 1: posts 1, 2, 3
+				// Model 2: posts 3, 4
+				if ( $i === 0 ) {
+					$create_data[ $key ] = [ $post_ids[0], $post_ids[1] ];
+				} elseif ( $i === 1 ) {
+					$create_data[ $key ] = [ $post_ids[1], $post_ids[2], $post_ids[3] ];
+				} else {
+					$create_data[ $key ] = [ $post_ids[3], $post_ids[4] ];
+				}
+			}
+
+			$models[] = $this->get_repository()
+				->set_args( $create_data )
+				->create();
+		}
+
+		// Test posts_in operator
+		foreach ( $relationships as $key => $data ) {
+			if ( 'post' !== $data['entity'] ) {
+				throw new Exception( 'Implement this logic!' );
+			}
+
+			// Find models related to posts 0 and 2
+			$results = $this->get_repository()
+				->by( $key . '_in', [ $post_ids[0], $post_ids[2] ] )
+				->all();
+
+			$this->assertCount( 2, $results ); // Models 0 and 1
+			$result_ids = array_map( function( $m ) { return $m->get_id(); }, $results );
+			$this->assertContains( $models[0]->get_id(), $result_ids );
+			$this->assertContains( $models[1]->get_id(), $result_ids );
+			$this->assertNotContains( $models[2]->get_id(), $result_ids );
+
+			// Find models related to post 3
+			$results = $this->get_repository()
+				->by( $key, $post_ids[3] )
+				->all();
+
+			$this->assertCount( 2, $results ); // Models 1 and 2
+			$result_ids = array_map( function( $m ) { return $m->get_id(); }, $results );
+			$this->assertNotContains( $models[0]->get_id(), $result_ids );
+			$this->assertContains( $models[1]->get_id(), $result_ids );
+			$this->assertContains( $models[2]->get_id(), $result_ids );
+		}
+	}
+
+	public function test_relationship_with_not_in_operator() {
+		$relationships = tribe( $this->test_model_class )->get_relationships();
+
+		if ( empty( $relationships ) ) {
+			$this->markTestSkipped( 'No relationships defined for this model' );
+		}
+
+		// Create posts for testing
+		$post_ids = [];
+		for ( $i = 0; $i < 4; $i++ ) {
+			$post_ids[] = self::factory()->post->create( [
+				'post_title' => "Test Post $i",
+				'post_status' => 'publish',
+			] );
+		}
+
+		// Create test models with different post relationships
+		$models = [];
+		for ( $i = 0; $i < 3; $i++ ) {
+			$create_data = $this->get_create_data();
+
+			foreach ( $relationships as $key => $data ) {
+				if ( 'post' !== $data['entity'] ) {
+					continue;
+				}
+
+				// Model 0: posts 0, 1
+				// Model 1: posts 2
+				// Model 2: no posts (empty relationship)
+				if ( $i === 0 ) {
+					$create_data[ $key ] = [ $post_ids[0], $post_ids[1] ];
+				} elseif ( $i === 1 ) {
+					$create_data[ $key ] = [ $post_ids[2] ];
+				} else {
+					$create_data[ $key ] = [];
+				}
+			}
+
+			$models[] = $this->get_repository()
+				->set_args( $create_data )
+				->create();
+		}
+
+		// Test posts_not_in operator
+		foreach ( $relationships as $key => $data ) {
+			if ( 'post' !== $data['entity'] ) {
+				continue;
+			}
+
+			// Find models NOT related to posts 0 and 1
+			$results = $this->get_repository()
+				->by( $key . '_not_in', [ $post_ids[0], $post_ids[1] ] )
+				->all();
+
+			$this->assertCount( 2, $results ); // Models 1 and 2
+			$result_ids = array_map( function( $m ) { return $m->get_id(); }, $results );
+			$this->assertNotContains( $models[0]->get_id(), $result_ids );
+			$this->assertContains( $models[1]->get_id(), $result_ids );
+			$this->assertContains( $models[2]->get_id(), $result_ids );
+
+			// Find models NOT related to all posts
+			$results = $this->get_repository()
+				->by( $key . '_not_in', $post_ids )
+				->all();
+
+			$this->assertCount( 1, $results ); // Only Model 2 (no relationships)
+			$this->assertEquals( $models[2]->get_id(), $results[0]->get_id() );
+		}
+	}
+
+	public function test_relationship_with_eq_operator() {
+		$relationships = tribe( $this->test_model_class )->get_relationships();
+
+		if ( empty( $relationships ) ) {
+			$this->markTestSkipped( 'No relationships defined for this model' );
+		}
+
+		// Create posts
+		$post_ids = [];
+		for ( $i = 0; $i < 3; $i++ ) {
+			$post_ids[] = self::factory()->post->create();
+		}
+
+		// Create models with specific post relationships
+		$models = [];
+		for ( $i = 0; $i < 4; $i++ ) {
+			$create_data = $this->get_create_data();
+
+			foreach ( $relationships as $key => $data ) {
+				if ( 'post' !== $data['entity'] ) {
+					continue;
+				}
+
+				// Model 0: post 0
+				// Model 1: posts 0, 1
+				// Model 2: post 1
+				// Model 3: post 2
+				if ( $i === 0 ) {
+					$create_data[ $key ] = [ $post_ids[0] ];
+				} elseif ( $i === 1 ) {
+					$create_data[ $key ] = [ $post_ids[0], $post_ids[1] ];
+				} elseif ( $i === 2 ) {
+					$create_data[ $key ] = [ $post_ids[1] ];
+				} else {
+					$create_data[ $key ] = [ $post_ids[2] ];
+				}
+			}
+
+			$models[] = $this->get_repository()
+				->set_args( $create_data )
+				->create();
+		}
+
+		// Test standard equality operator (finds models related to specific post)
+		foreach ( $relationships as $key => $data ) {
+			if ( 'post' !== $data['entity'] ) {
+				continue;
+			}
+
+			// Find models related to post 0
+			$results = $this->get_repository()
+				->by( $key, $post_ids[0] )
+				->all();
+
+			$this->assertCount( 2, $results ); // Models 0 and 1
+			$result_ids = array_map( function( $m ) { return $m->get_id(); }, $results );
+			$this->assertContains( $models[0]->get_id(), $result_ids );
+			$this->assertContains( $models[1]->get_id(), $result_ids );
+
+			// Find models related to post 1
+			$results = $this->get_repository()
+				->by( $key, $post_ids[1] )
+				->all();
+
+			$this->assertCount( 2, $results ); // Models 1 and 2
+			$result_ids = array_map( function( $m ) { return $m->get_id(); }, $results );
+			$this->assertContains( $models[1]->get_id(), $result_ids );
+			$this->assertContains( $models[2]->get_id(), $result_ids );
+
+			// Find models related to post 2
+			$results = $this->get_repository()
+				->by( $key, $post_ids[2] )
+				->all();
+
+			$this->assertCount( 1, $results ); // Model 3
+			$this->assertEquals( $models[3]->get_id(), $results[0]->get_id() );
+		}
+	}
+
+	public function test_combining_relationship_and_field_operators() {
+		$relationships = tribe( $this->test_model_class )->get_relationships();
+
+		if ( empty( $relationships ) ) {
+			$this->markTestSkipped( 'No relationships defined for this model' );
+		}
+
+		// Find a string column for additional filtering
+		$columns = $this->test_table_class::get_columns();
+		$string_column = null;
+		foreach ( $columns as $column => $data ) {
+			if ( $column !== $this->test_table_class::uid_column() &&
+				 $data['php_type'] === Custom_Table_Abstract::PHP_TYPE_STRING ) {
+				$string_column = $column;
+				break;
+			}
+		}
+
+		if ( ! $string_column ) {
+			$this->markTestSkipped( 'No string column available for combined filtering' );
+		}
+
+		// Create posts
+		$post_ids = [];
+		for ( $i = 0; $i < 3; $i++ ) {
+			$post_ids[] = self::factory()->post->create();
+		}
+
+		// Create models with different statuses and relationships
+		$models = [];
+		$statuses = [ 'active', 'inactive', 'active', 'pending' ];
+		for ( $i = 0; $i < 4; $i++ ) {
+			$create_data = $this->get_create_data();
+			$create_data[ $string_column ] = $statuses[ $i ];
+
+			foreach ( $relationships as $key => $data ) {
+				if ( 'post' !== $data['entity'] ) {
+					continue;
+				}
+
+				// Model 0 (active): posts 0, 1
+				// Model 1 (inactive): posts 1, 2
+				// Model 2 (active): post 2
+				// Model 3 (pending): posts 0, 2
+				if ( $i === 0 ) {
+					$create_data[ $key ] = [ $post_ids[0], $post_ids[1] ];
+				} elseif ( $i === 1 ) {
+					$create_data[ $key ] = [ $post_ids[1], $post_ids[2] ];
+				} elseif ( $i === 2 ) {
+					$create_data[ $key ] = [ $post_ids[2] ];
+				} else {
+					$create_data[ $key ] = [ $post_ids[0], $post_ids[2] ];
+				}
+			}
+
+			$models[] = $this->get_repository()
+				->set_args( $create_data )
+				->create();
+		}
+
+		foreach ( $relationships as $key => $data ) {
+			if ( 'post' !== $data['entity'] ) {
+				continue;
+			}
+
+			// Find active models related to post 2
+			$results = $this->get_repository()
+				->by( $string_column, 'active' )
+				->by( $key, $post_ids[2] )
+				->all();
+
+			$this->assertCount( 1, $results ); // Only Model 2
+			$this->assertEquals( $models[2]->get_id(), $results[0]->get_id() );
+
+			// Find models NOT active AND related to posts 0 or 1
+			$results = $this->get_repository()
+				->by( $string_column . '_neq', 'active' )
+				->by( $key . '_in', [ $post_ids[0], $post_ids[1] ] )
+				->all();
+
+			$this->assertCount( 2, $results ); // Models 1 and 3
+			$result_ids = array_map( function( $m ) { return $m->get_id(); }, $results );
+			$this->assertContains( $models[1]->get_id(), $result_ids );
+			$this->assertContains( $models[3]->get_id(), $result_ids );
+
+			// Find models with status IN (active, pending) AND NOT related to post 1
+			$results = $this->get_repository()
+				->by( $string_column . '_in', [ 'active', 'pending' ] )
+				->by( $key . '_not_in', [ $post_ids[1] ] )
+				->all();
+
+			$this->assertCount( 2, $results ); // Models 2 and 3
+			$result_ids = array_map( function( $m ) { return $m->get_id(); }, $results );
+			$this->assertContains( $models[2]->get_id(), $result_ids );
+			$this->assertContains( $models[3]->get_id(), $result_ids );
+		}
+	}
+
+	public function test_relationship_queries_with_pagination() {
+		$relationships = tribe( $this->test_model_class )->get_relationships();
+
+		if ( empty( $relationships ) ) {
+			$this->markTestSkipped( 'No relationships defined for this model' );
+		}
+
+		// Create posts
+		$post_id = self::factory()->post->create();
+
+		// Create 10 models all related to the same post
+		$models = [];
+		for ( $i = 0; $i < 10; $i++ ) {
+			$create_data = $this->get_create_data();
+
+			foreach ( $relationships as $key => $data ) {
+				if ( 'post' !== $data['entity'] ) {
+					continue;
+				}
+
+				$create_data[ $key ] = [ $post_id ];
+			}
+
+			$models[] = $this->get_repository()
+				->set_args( $create_data )
+				->create();
+		}
+
+		foreach ( $relationships as $key => $data ) {
+			if ( 'post' !== $data['entity'] ) {
+				continue;
+			}
+
+			// Get first page of results
+			$page1 = $this->get_repository()
+				->by( $key, $post_id )
+				->per_page( 3 )
+				->all();
+
+			$this->assertCount( 3, $page1 );
+
+			// Get second page of results
+			$page2 = $this->get_repository()
+				->by( $key, $post_id )
+				->per_page( 3 )
+				->offset( 3 )
+				->all();
+
+			$this->assertCount( 3, $page2 );
+
+			// Verify different items
+			$page1_ids = array_map( function( $m ) { return $m->get_id(); }, $page1 );
+			$page2_ids = array_map( function( $m ) { return $m->get_id(); }, $page2 );
+			$this->assertEmpty( array_intersect( $page1_ids, $page2_ids ) );
+
+			// Test total found count
+			$this->get_repository()
+				->by( $key, $post_id )
+				->per_page( 3 )
+				->all();
+			$found = $this->get_repository()->found();
+			$this->assertEquals( 10, $found );
+		}
+	}
+
+	public function test_relationship_queries_with_ordering() {
+		$relationships = tribe( $this->test_model_class )->get_relationships();
+
+		if ( empty( $relationships ) ) {
+			$this->markTestSkipped( 'No relationships defined for this model' );
+		}
+
+		// Find a numeric column for ordering
+		$columns = $this->test_table_class::get_columns();
+		$numeric_column = null;
+		foreach ( $columns as $column => $data ) {
+			if ( $column !== $this->test_table_class::uid_column() &&
+				 $data['php_type'] === Custom_Table_Abstract::PHP_TYPE_INT ) {
+				$numeric_column = $column;
+				break;
+			}
+		}
+
+		if ( ! $numeric_column ) {
+			$this->markTestSkipped( 'No numeric column available for ordering test' );
+		}
+
+		// Create posts
+		$post_id = self::factory()->post->create();
+
+		// Create models with different numeric values
+		$values = [ 30, 10, 40, 20 ];
+		$models = [];
+		foreach ( $values as $value ) {
+			$create_data = $this->get_create_data();
+			$create_data[ $numeric_column ] = $value;
+
+			foreach ( $relationships as $key => $data ) {
+				if ( 'post' !== $data['entity'] ) {
+					continue;
+				}
+
+				$create_data[ $key ] = [ $post_id ];
+			}
+
+			$models[] = $this->get_repository()
+				->set_args( $create_data )
+				->create();
+		}
+
+		foreach ( $relationships as $key => $data ) {
+			if ( 'post' !== $data['entity'] ) {
+				continue;
+			}
+
+			$getter = 'get_' . $numeric_column;
+
+			// Test ascending order
+			$results = $this->get_repository()
+				->by( $key, $post_id )
+				->order_by( $numeric_column, 'ASC' )
+				->all();
+
+			$this->assertCount( 4, $results );
+			$ordered_values = array_map( function( $m ) use ( $getter ) {
+				return $m->$getter();
+			}, $results );
+			$this->assertEquals( [ 10, 20, 30, 40 ], $ordered_values );
+
+			// Test descending order
+			$results = $this->get_repository()
+				->by( $key, $post_id )
+				->order_by( $numeric_column, 'DESC' )
+				->all();
+
+			$this->assertCount( 4, $results );
+			$ordered_values = array_map( function( $m ) use ( $getter ) {
+				return $m->$getter();
+			}, $results );
+			$this->assertEquals( [ 40, 30, 20, 10 ], $ordered_values );
+		}
+	}
+
+	public function test_relationship_queries_with_count() {
+		$relationships = tribe( $this->test_model_class )->get_relationships();
+
+		if ( empty( $relationships ) ) {
+			$this->markTestSkipped( 'No relationships defined for this model' );
+		}
+
+		// Create posts
+		$post_ids = [];
+		for ( $i = 0; $i < 3; $i++ ) {
+			$post_ids[] = self::factory()->post->create();
+		}
+
+		// Create models with different relationships
+		for ( $i = 0; $i < 5; $i++ ) {
+			$create_data = $this->get_create_data();
+
+			foreach ( $relationships as $key => $data ) {
+				if ( 'post' !== $data['entity'] ) {
+					continue;
+				}
+
+				// 2 models with post 0
+				// 3 models with post 1
+				// 1 model with post 2
+				if ( $i < 2 ) {
+					$create_data[ $key ] = [ $post_ids[0] ];
+				} elseif ( $i < 4 ) {
+					$create_data[ $key ] = [ $post_ids[1] ];
+				} else {
+					$create_data[ $key ] = [ $post_ids[2] ];
+				}
+			}
+
+			$this->get_repository()
+				->set_args( $create_data )
+				->create();
+		}
+
+		foreach ( $relationships as $key => $data ) {
+			if ( 'post' !== $data['entity'] ) {
+				continue;
+			}
+
+			// Count models related to post 0
+			$count = $this->get_repository()
+				->by( $key, $post_ids[0] )
+				->count();
+			$this->assertEquals( 2, $count );
+
+			// Count models related to post 1
+			$count = $this->get_repository()
+				->by( $key, $post_ids[1] )
+				->count();
+			$this->assertEquals( 2, $count ); // Note: One model overlaps
+
+			// Count models related to posts 0 or 2
+			$count = $this->get_repository()
+				->by( $key . '_in', [ $post_ids[0], $post_ids[2] ] )
+				->count();
+			$this->assertEquals( 3, $count );
+
+			// Count models NOT related to post 1
+			$count = $this->get_repository()
+				->by( $key . '_not_in', [ $post_ids[1] ] )
+				->count();
+			$this->assertEquals( 3, $count );
+		}
+	}
+
+	public function test_relationship_queries_get_ids() {
+		$relationships = tribe( $this->test_model_class )->get_relationships();
+
+		if ( empty( $relationships ) ) {
+			$this->markTestSkipped( 'No relationships defined for this model' );
+		}
+
+		// Create posts
+		$post_ids = [];
+		for ( $i = 0; $i < 2; $i++ ) {
+			$post_ids[] = self::factory()->post->create();
+		}
+
+		// Create models with relationships
+		$model_ids = [];
+		for ( $i = 0; $i < 3; $i++ ) {
+			$create_data = $this->get_create_data();
+
+			foreach ( $relationships as $key => $data ) {
+				if ( 'post' !== $data['entity'] ) {
+					continue;
+				}
+
+				// Model 0, 1: post 0
+				// Model 2: post 1
+				if ( $i < 2 ) {
+					$create_data[ $key ] = [ $post_ids[0] ];
+				} else {
+					$create_data[ $key ] = [ $post_ids[1] ];
+				}
+			}
+
+			$model = $this->get_repository()
+				->set_args( $create_data )
+				->create();
+			$model_ids[] = $model->get_id();
+		}
+
+		foreach ( $relationships as $key => $data ) {
+			if ( 'post' !== $data['entity'] ) {
+				continue;
+			}
+
+			// Get IDs of models related to post 0
+			$ids = $this->get_repository()
+				->by( $key, $post_ids[0] )
+				->get_ids();
+
+			$this->assertIsArray( $ids );
+			$this->assertCount( 2, $ids );
+			$this->assertContains( $model_ids[0], $ids );
+			$this->assertContains( $model_ids[1], $ids );
+			$this->assertNotContains( $model_ids[2], $ids );
+
+			// Get IDs with IN operator
+			$ids = $this->get_repository()
+				->by( $key . '_in', $post_ids )
+				->get_ids();
+
+			$this->assertCount( 3, $ids );
+			foreach ( $model_ids as $id ) {
+				$this->assertContains( $id, $ids );
+			}
+		}
+	}
+
 }

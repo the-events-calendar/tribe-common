@@ -191,10 +191,6 @@ trait Custom_Table_Query_Methods {
 
 		unset( $args['order'], $args['orderby'], $args['query_operator'], $args['offset'] );
 
-		if ( empty( $args ) ) {
-			return '';
-		}
-
 		$joined_prefix = 'a.';
 
 		$where = [];
@@ -244,8 +240,8 @@ trait Custom_Table_Query_Methods {
 				$arg['operator'] = '=';
 			}
 
-			$column      = $arg['column'];
-			$operator    = strtoupper( $arg['operator'] );
+			$column   = $arg['column'];
+			$operator = strtoupper( $arg['operator'] );
 
 			[ $value, $placeholder ] = self::prepare_value_for_query( $column, $arg['value'] );
 

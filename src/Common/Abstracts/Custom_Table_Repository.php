@@ -119,6 +119,15 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	private array $fields = [ '*' ];
 
 	/**
+	 * The schema callbacks.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	private array $schema_callbacks = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @since TBD
@@ -182,8 +191,12 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 						return $where;
 					};
 
-					add_filter( 'tec_common_custom_table_query_where', $callback );
-					add_action( 'tec_common_custom_table_query_pre_results', fn() => remove_filter( 'tec_common_custom_table_query_where', $callback ) );
+					$this->schema_callbacks[] = $callback;
+
+					if ( ! has_filter( 'tec_common_custom_table_query_where', [ $this, 'apply_schema_callbacks' ] ) ) {
+						add_filter( 'tec_common_custom_table_query_where', [ $this, 'apply_schema_callbacks' ] );
+					}
+
 					return [];
 				}
 			);
@@ -205,8 +218,12 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 						return $where;
 					};
 
-					add_filter( 'tec_common_custom_table_query_where', $callback );
-					add_action( 'tec_common_custom_table_query_pre_results', fn() => remove_filter( 'tec_common_custom_table_query_where', $callback ) );
+					$this->schema_callbacks[] = $callback;
+
+					if ( ! has_filter( 'tec_common_custom_table_query_where', [ $this, 'apply_schema_callbacks' ] ) ) {
+						add_filter( 'tec_common_custom_table_query_where', [ $this, 'apply_schema_callbacks' ] );
+					}
+
 					return [];
 				}
 			);
@@ -218,7 +235,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 						$value        = (array) $value;
 						$placeholders = '(' . implode( ',', array_fill( 0, count( $value ), '%d' ) ) . ')';
 						$where[]      = DB::prepare(
-							"%i IN (SELECT %i FROM %i WHERE %i NOT IN {$placeholders})",
+							"%i NOT IN (SELECT %i FROM %i WHERE %i IN {$placeholders})",
 							$this->get_table_interface()::uid_column(),
 							$relationship['columns']['this'],
 							$relationship['through']::table_name(),
@@ -228,14 +245,35 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 						return $where;
 					};
 
-					add_filter( 'tec_common_custom_table_query_where', $callback );
-					add_action( 'tec_common_custom_table_query_pre_results', fn() => remove_filter( 'tec_common_custom_table_query_where', $callback ) );
+					$this->schema_callbacks[] = $callback;
+
+					if ( ! has_filter( 'tec_common_custom_table_query_where', [ $this, 'apply_schema_callbacks' ] ) ) {
+						add_filter( 'tec_common_custom_table_query_where', [ $this, 'apply_schema_callbacks' ] );
+					}
+
 					return [];
 				}
 			);
 		}
 
 		$this->add_update_field_alias( 'id', $this->get_table_interface()::uid_column() );
+	}
+
+	/**
+	 * Applies the schema callbacks.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $where The where clause.
+	 *
+	 * @return array The where clause.
+	 */
+	public function apply_schema_callbacks( array $where ): array {
+		foreach ( $this->schema_callbacks as $key => $callback ) {
+			$where = $callback( $where );
+			unset( $this->schema_callbacks[ $key ] );
+		}
+		return $where;
 	}
 
 	/**
@@ -289,7 +327,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 			$schema_args[] = $this->get_schema()[ $key ]( $value );
 		}
 
-		return array_merge( $new_args, $schema_args );
+		return array_merge( $new_args, array_filter( $schema_args ) );
 	}
 
 	/**
