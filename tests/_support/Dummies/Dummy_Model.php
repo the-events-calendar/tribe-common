@@ -14,6 +14,11 @@ class Dummy_Model extends Model_Abstract {
 	protected $created_at;
 	protected $updated_at;
 
+	public function __construct() {
+		$this->set_relationship( 'posts', self::RELATIONSHIP_TYPE_MANY_TO_MANY, Dummy_Relationship_Provider_Table::class );
+		$this->set_relationship_columns( 'posts', 'dummy_id', 'post_id' );
+	}
+
 	public function get_name() {
 		return $this->name;
 	}

@@ -12,14 +12,10 @@ declare( strict_types=1 );
 namespace TEC\Common\Abstracts;
 
 use TEC\Common\Contracts\Model;
-use TEC\Common\Exceptions\Not_Bound_Exception;
 use TEC\Common\StellarWP\DB\DB;
 use RuntimeException;
 use InvalidArgumentException;
-use ReflectionMethod;
-use ReflectionType;
-use DateTime;
-
+use BadMethodCallException;
 /**
  * The model abstract.
  *
@@ -335,6 +331,59 @@ abstract class Model_Abstract implements Model {
 	}
 
 	/**
+	 * Magic method to get the relationships of the model.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $name The name of the method.
+	 * @param array  $arguments The arguments of the method.
+	 *
+	 * @return array|void The relationships of the model.
+	 *
+	 * @throws BadMethodCallException If the method does not exist on the model.
+	 * @throws BadMethodCallException If the relationship does not exist on the model.
+	 * @throws BadMethodCallException If the relationship is not a many to many relationship.
+	 */
+	public function __call( string $name, array $arguments ) {
+		if ( ! str_starts_with( $name, 'get_' ) && ! str_starts_with( $name, 'set_' ) ) {
+			throw new BadMethodCallException( "Method {$name} does not exist on the model." );
+		}
+
+		$is_getter = str_starts_with( $name, 'get_' );
+
+		$relationship = str_replace( [ 'get_', 'set_' ], '', $name );
+
+		if ( ! isset( $this->get_relationships()[ $relationship ] ) ) {
+			throw new BadMethodCallException( "Relationship {$relationship} does not exist on the model." );
+		}
+
+		if ( self::RELATIONSHIP_TYPE_MANY_TO_MANY !== $this->get_relationships()[ $relationship ]['type'] ) {
+			throw new BadMethodCallException( "Relationship {$relationship} is not a many to many relationship. You need to implement this logic in the model." );
+		}
+
+		if ( ! $is_getter ) {
+			$args = $arguments['0'] ?? null;
+			if ( ! $args ) {
+				$this->delete_relationship_data( $relationship );
+				return;
+			}
+
+			$args = (array) $args;
+			foreach ( $args as $arg ) {
+				if ( ! is_int( $arg ) ) {
+					throw new BadMethodCallException( "Relationship {$relationship} must be an array of integers." );
+				}
+				$this->add_id_to_relationship( $relationship, $arg );
+			}
+			return;
+		}
+
+		$results = iterator_to_array( $this->get_relationships()[ $relationship ]['through']::fetch_all_where( DB::prepare( 'WHERE %i = %d', $this->get_relationships()[ $relationship ]['columns']['this'], $this->get_id() ), 100, ARRAY_A, $this->get_relationships()[ $relationship ]['columns']['other'] . ' ASC' ) );
+
+		return array_map( fn( $row ) => (int) $row[ $this->get_relationships()[ $relationship ]['columns']['other'] ], $results );
+	}
+
+	/**
 	 * Deletes the relationship data for a given key.
 	 *
 	 * @since TBD
@@ -348,8 +397,8 @@ abstract class Model_Abstract implements Model {
 			throw new InvalidArgumentException( "Relationship {$key} does not exist." );
 		}
 
-		if ( $this->get_relationships()['type'] === self::RELATIONSHIP_TYPE_MANY_TO_MANY ) {
-			$this->get_relationships()['through']::delete( $this->get_id(), $this->get_relationships()[ $key ]['columns']['this'] );
+		if ( $this->get_relationships()[ $key ]['type'] === self::RELATIONSHIP_TYPE_MANY_TO_MANY ) {
+			$this->get_relationships()[ $key ]['through']::delete( $this->get_id(), $this->get_relationships()[ $key ]['columns']['this'] );
 		}
 	}
 
@@ -446,7 +495,7 @@ abstract class Model_Abstract implements Model {
 			throw new InvalidArgumentException( "Relationship {$key} does not exist." );
 		}
 
-		$this->get_relationships()[ $key ]['columns'] = [
+		$this->relationships[ $key ]['columns'] = [
 			'this'  => $this_entity_column,
 			'other' => $other_entity_column,
 		];

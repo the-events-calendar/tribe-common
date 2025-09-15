@@ -38,6 +38,11 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	 */
 	public function prepare(): void {
 		Register::table( $this->test_table_class );
+
+		$relationships = tribe( $this->test_model_class )->get_relationships();
+		foreach ( $relationships as $relationship ) {
+			Register::table( $relationship['through'] );
+		}
 	}
 
 	/**
@@ -45,6 +50,11 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	 */
 	public function reset(): void {
 		Register::remove_table( tribe( $this->test_table_class ) );
+
+		$relationships = tribe( $this->test_model_class )->get_relationships();
+		foreach ( $relationships as $relationship ) {
+			Register::remove_table( tribe( $relationship['through'] ) );
+		}
 	}
 
 	/**
@@ -922,4 +932,90 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 			$this->assertLessThan( 80, $model->$numeric_getter() );
 		}
 	}
+
+	public function test_create_update_delete_with_relationship() {
+		$relationship = tribe( $this->test_model_class )->get_relationships();
+
+		if ( empty( $relationship ) ) {
+			return;
+		}
+
+		$create_data = $this->get_create_data();
+
+		foreach ( $relationship as $key => $data ) {
+			if ( 'post' !== $data['entity'] ) {
+				throw new Exception( 'Implement this logic!' );
+			}
+
+			$create_data[ $key ] = [ self::factory()->post->create(), self::factory()->post->create() ];
+		}
+
+		$model = $this->get_repository()
+			->set_args( $create_data )
+			->create();
+
+		$this->assertNotNull( $model );
+		$this->assertInstanceOf( Model_Interface::class, $model );
+		$this->assertInstanceOf( $this->test_model_class, $model );
+		$this->assertNotNull( $model->get_id() );
+		$this->assertIsInt( $model->get_id() );
+		foreach ( $create_data as $key => $value ) {
+			$method = 'get_' . $key;
+			$this->assertEquals( $value, $model->$method() );
+		}
+
+		$update_data = [];
+		foreach ( $relationship as $key => $data ) {
+			if ( 'post' !== $data['entity'] ) {
+				throw new Exception( 'Implement this logic!' );
+			}
+
+			$update_data[ $key ] = [ self::factory()->post->create(), self::factory()->post->create() ];
+			$create_data[ $key ] = array_merge( $create_data[ $key ], $update_data[ $key ] );
+		}
+
+		$update = $this->get_repository()
+			->by( 'id', $model->get_id() )
+			->set_args( $update_data )
+			->save();
+
+		$this->assertNotNull( $update );
+		$this->assertArrayHasKey( $model->get_id(), $update );
+		$this->assertNotFalse( $update[ $model->get_id() ] );
+
+		$model = $this->get_repository()->by_primary_key( $model->get_id() );
+
+		$this->assertNotNull( $model );
+		$this->assertInstanceOf( Model_Interface::class, $model );
+		$this->assertInstanceOf( $this->test_model_class, $model );
+		$this->assertNotNull( $model->get_id() );
+		$this->assertIsInt( $model->get_id() );
+
+		foreach ( $create_data as $key => $value ) {
+			$method = 'get_' . $key;
+			$this->assertEquals( $value, $model->$method() );
+		}
+
+		foreach ( $relationship as $key => $data ) {
+			if ( 'post' !== $data['entity'] ) {
+				throw new Exception( 'Implement this logic!' );
+			}
+
+			$this->assertNotEmpty( DB::get_results( DB::prepare( "SELECT %i FROM %i WHERE %i = %d", $data['columns']['other'], $data['through']::table_name(), $data['columns']['this'], $model->get_id() ) ) );
+		}
+
+		$result = $this->get_repository()->by( 'id', $model->get_id() )->delete();
+		$this->assertNotNull( $result );
+		$this->assertArrayHasKey( $model->get_id(), $result );
+		$this->assertNotFalse( $result[ $model->get_id() ] );
+
+		foreach ( $relationship as $key => $data ) {
+			if ( 'post' !== $data['entity'] ) {
+				throw new Exception( 'Implement this logic!' );
+			}
+
+			$this->assertEmpty( DB::get_results( DB::prepare( "SELECT %i FROM %i WHERE %i = %d", $data['columns']['other'], $data['through']::table_name(), $data['columns']['this'], $model->get_id() ) ) );
+		}
+	}
+
 }
