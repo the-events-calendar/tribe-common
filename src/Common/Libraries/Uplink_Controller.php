@@ -104,7 +104,7 @@ class Uplink_Controller extends Controller_Contract {
 			$field_html = $field->get_render_html();
 
 			// Allow customization of the field HTML for specific plugins.
-			$field_html = apply_filters( 'stellarwp/uplink/' . $prefix . '/' . $plugin->get_slug() . '/field_html', $field_html, $plugin );
+			$field_html = apply_filters( 'stellarwp_uplink_' . $prefix . '_' . $plugin->get_slug() . '_field_html', $field_html, $plugin );
 
 
 			// Skip if the field HTML is empty to prevent empty containers.
