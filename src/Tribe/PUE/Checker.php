@@ -822,7 +822,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			} elseif ( 'tec-seating' === $this->get_slug() ) {
 				$no_license_tooltip = sprintf(
 				/* Translators: %1$s and %2$s are opening and closing <a> tags, respectively. */
-					esc_html__( '%1$sBuy a license%2$s for the Seating service to access additional seating features.', 'tribe-common' ),
+					esc_html__( '%1$sBuy a license%2$s for the Seating service to access seating management features.', 'tribe-common' ),
 					'<a href="https://theeventscalendar.com/products/seating/" target="_blank">',
 					'</a>'
 				);
