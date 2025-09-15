@@ -12,9 +12,13 @@ declare( strict_types=1 );
 namespace TEC\Common\Abstracts;
 
 use TEC\Common\Contracts\Model;
+use TEC\Common\Exceptions\Not_Bound_Exception;
 use TEC\Common\StellarWP\DB\DB;
 use RuntimeException;
 use InvalidArgumentException;
+use ReflectionMethod;
+use ReflectionType;
+use DateTime;
 
 /**
  * The model abstract.
@@ -40,7 +44,7 @@ abstract class Model_Abstract implements Model {
 	 *
 	 * @var array
 	 */
-	protected array $db_data = [];
+	private array $db_data = [];
 
 	/**
 	 * The relationships of the model.
@@ -49,7 +53,7 @@ abstract class Model_Abstract implements Model {
 	 *
 	 * @var array
 	 */
-	protected array $relationships = [];
+	private array $relationships = [];
 
 	/**
 	 * The relationship data of the model.
@@ -58,7 +62,7 @@ abstract class Model_Abstract implements Model {
 	 *
 	 * @var array
 	 */
-	protected array $relationship_data = [];
+	private array $relationship_data = [];
 
 	/**
 	 * The types of relationships.
@@ -244,7 +248,7 @@ abstract class Model_Abstract implements Model {
 	 *
 	 * @throws RuntimeException If a method does not exist on the model.
 	 */
-	protected function has_changes(): bool {
+	private function has_changes(): bool {
 		return $this->db_data !== $this->to_array();
 	}
 
@@ -255,7 +259,7 @@ abstract class Model_Abstract implements Model {
 	 *
 	 * @return void
 	 */
-	protected function mark_saved(): void {
+	private function mark_saved(): void {
 		$this->db_data = $this->to_array();
 	}
 
@@ -356,7 +360,7 @@ abstract class Model_Abstract implements Model {
 	 *
 	 * @return void
 	 */
-	protected function save_relationship_data(): void {
+	private function save_relationship_data(): void {
 		foreach ( $this->get_relationships() as $key => $relationship ) {
 			if ( self::RELATIONSHIP_TYPE_MANY_TO_MANY !== $relationship['type'] ) {
 				continue;
@@ -398,7 +402,7 @@ abstract class Model_Abstract implements Model {
 	 *
 	 * @return void
 	 */
-	protected function delete_all_relationship_data(): void {
+	private function delete_all_relationship_data(): void {
 		if ( empty( $this->get_relationships() ) ) {
 			return;
 		}

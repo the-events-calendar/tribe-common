@@ -12,8 +12,10 @@ namespace TEC\Common\Traits;
 use TEC\Common\StellarWP\DB\DB;
 use InvalidArgumentException;
 use DateTimeInterface;
+use DateTime;
 use TEC\Common\Abstracts\Custom_Table_Abstract as Table;
 use TEC\Common\Contracts\Model;
+use TEC\Common\Exceptions\Not_Bound_Exception;
 
 /**
  * Trait Custom_Table_Query_Methods.
@@ -105,7 +107,9 @@ trait Custom_Table_Query_Methods {
 		$per_page = min( max( 1, $per_page ), 200 );
 		$page     = max( 1, $page );
 
-		$offset = ( $page - 1 ) * $per_page;
+		$offset      = ( $page - 1 ) * $per_page;
+		$args_offset = $args['offset'] ?? $offset;
+		$offset      = 1 === $page ? $args_offset : $offset;
 
 		$orderby = $args['orderby'] ?? static::uid_column();
 		$order   = strtoupper( $args['order'] ?? 'ASC' );
@@ -143,6 +147,8 @@ trait Custom_Table_Query_Methods {
 			),
 			$output
 		);
+
+		$results = array_map( fn( $result ) => self::amend_value_types( $result ), $results );
 
 		/**
 		 * Fires after the results of the query are fetched.
@@ -183,7 +189,7 @@ trait Custom_Table_Query_Methods {
 			$query_operator = 'AND';
 		}
 
-		unset( $args['order'], $args['orderby'], $args['query_operator'] );
+		unset( $args['order'], $args['orderby'], $args['query_operator'], $args['offset'] );
 
 		if ( empty( $args ) ) {
 			return '';
@@ -240,21 +246,17 @@ trait Custom_Table_Query_Methods {
 
 			$column      = $arg['column'];
 			$operator    = strtoupper( $arg['operator'] );
-			$value       = $arg['value'];
-			$placeholder = is_numeric( $value ) ? ( is_float( $value ) ? '%f' : '%d' ) : '%s'; // Only integers, floats and strings are supported currently.
 
-			if ( in_array( $operator, [ 'IN', 'NOT IN' ], true ) ) {
-				$value = (array) $value;
-				$value = array_map( fn( $value ) => $value instanceof DateTimeInterface ? $value->format( 'Y-m-d H:i:s' ) : (int) $value, $value );
+			[ $value, $placeholder ] = self::prepare_value_for_query( $column, $arg['value'] );
 
-				$placeholders = '(' . implode( ',', array_fill( 0, count( $value ), '%d' ) ) . ')';
+			$query = "{$joined_prefix}{$column} {$operator} {$placeholder}";
 
-				$where[] = DB::prepare( "{$joined_prefix}{$column} {$operator} {$placeholders}", ...$value );
-
+			if ( is_array( $value ) ) {
+				$where[] = DB::prepare( $query, ...$value );
 				continue;
 			}
 
-			$where[] = DB::prepare( "{$joined_prefix}{$column} {$operator} {$placeholder}", $value );
+			$where[] = DB::prepare( $query, $value );
 		}
 
 		/**
@@ -345,7 +347,7 @@ trait Custom_Table_Query_Methods {
 				continue;
 			}
 
-			$results[] = static::get_model_from_array( $task_array );
+			$results[] = static::get_model_from_array( self::amend_value_types( $task_array ) );
 		}
 
 		return $results;
@@ -372,7 +374,7 @@ trait Custom_Table_Query_Methods {
 			return null;
 		}
 
-		return static::get_model_from_array( $task_array );
+		return static::get_model_from_array( self::amend_value_types( $task_array ) );
 	}
 
 	/**
@@ -380,8 +382,8 @@ trait Custom_Table_Query_Methods {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $column The column to prepare the value for.
-	 * @param mixed  $value  The value to prepare.
+	 * @param string $column   The column to prepare the value for.
+	 * @param mixed  $value    The value to prepare.
 	 *
 	 * @return array<mixed, string> The prepared value and placeholder.
 	 *
@@ -399,23 +401,25 @@ trait Custom_Table_Query_Methods {
 		switch ( $column_type ) {
 			case Table::PHP_TYPE_INT:
 			case Table::PHP_TYPE_BOOL:
-				$value       = (int) $value;
+				$value       = is_array( $value ) ? array_map( fn( $v ) => (int) $v, $value ) : (int) $value;
 				$placeholder = '%d';
 				break;
 			case Table::PHP_TYPE_STRING:
 			case Table::PHP_TYPE_DATETIME:
-				$value       = $value instanceof DateTimeInterface ? $value->format( 'Y-m-d H:i:s' ) : (string) $value;
+				$value       = is_array( $value ) ?
+					array_map( fn( $v ) => $v instanceof DateTimeInterface ? $v->format( 'Y-m-d H:i:s' ) : (string) $v, $value ) :
+					( $value instanceof DateTimeInterface ? $value->format( 'Y-m-d H:i:s' ) : (string) $value );
 				$placeholder = '%s';
 				break;
 			case Table::PHP_TYPE_FLOAT:
-				$value       = (float) $value;
+				$value       = is_array( $value ) ? array_map( fn( $v ) => (float) $v, $value ) : (float) $value;
 				$placeholder = '%f';
 				break;
 			default:
 				throw new InvalidArgumentException( "Unsupported column type: $column_type." );
 		}
 
-		return [ $value, $placeholder ];
+		return [ $value, is_array( $value ) ? '(' . implode( ',', array_fill( 0, count( $value ), $placeholder ) ) . ')' : $placeholder ];
 	}
 
 	/**
@@ -452,6 +456,58 @@ trait Custom_Table_Query_Methods {
 			'in'     => 'IN',
 			'not_in' => 'NOT IN',
 		];
+	}
+
+	/**
+	 * Amends the value types of the data.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string, mixed> $data The data.
+	 *
+	 * @return array<string, mixed> The amended data.
+	 */
+	private static function amend_value_types( array $data ): array {
+		$columns = static::get_columns();
+		foreach ( $data as $column => $value ) {
+			if ( ! isset( $columns[ $column ] ) ) {
+				continue;
+			}
+
+			$column_data = $columns[ $column ];
+
+			if ( ! empty( $column_data['nullable'] ) && null === $value ) {
+				continue;
+			}
+
+			switch ( $column_data['php_type'] ) {
+				case Table::PHP_TYPE_INT:
+					$data[ $column ] = (int) $value;
+					break;
+				case Table::PHP_TYPE_STRING:
+					$data[ $column ] = (string) $value;
+					break;
+				case Table::PHP_TYPE_FLOAT:
+					$data[ $column ] = (float) $value;
+					break;
+				case Table::PHP_TYPE_BOOL:
+					$data[ $column ] = (bool) $value;
+					break;
+				case Table::PHP_TYPE_DATETIME:
+					try {
+						$instance = tribe( DateTimeInterface::class );
+					} catch ( Not_Bound_Exception $e ) {
+						$instance = DateTime::class;
+					}
+
+					$data[ $column ] = $instance::createFromFormat( 'Y-m-d H:i:s', $value );
+					break;
+				default:
+					throw new InvalidArgumentException( "Unsupported column type: {$column_data['php_type']}." );
+			}
+		}
+
+		return $data;
 	}
 
 	// phpcs:disable Squiz.Commenting.FunctionComment.InvalidNoReturn, Generic.CodeAnalysis.UnusedFunctionParameter.Found

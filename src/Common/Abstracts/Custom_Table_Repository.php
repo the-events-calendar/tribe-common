@@ -16,6 +16,7 @@ use TEC\Common\Contracts\Model;
 use TEC\Common\StellarWP\DB\DB;
 use Tribe__Promise as Promise;
 use RuntimeException;
+use Generator;
 
 /**
  * The custom table repository.
@@ -32,7 +33,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @var array
 	 */
-	protected array $schema = [];
+	private array $schema = [];
 
 	/**
 	 * The update fields aliases.
@@ -41,7 +42,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @var array
 	 */
-	protected array $aliases = [];
+	private array $aliases = [];
 
 	/**
 	 * The default arguments.
@@ -50,7 +51,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @var array
 	 */
-	protected array $default_select_args = [];
+	private array $default_select_args = [];
 
 	/**
 	 * The default arguments used for create queries.
@@ -59,7 +60,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @var array
 	 */
-	protected array $default_create_args = [];
+	private array $default_create_args = [];
 
 	/**
 	 * The arguments used for select queries.
@@ -68,7 +69,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @var array
 	 */
-	protected array $select_args = [];
+	private array $select_args = [];
 
 	/**
 	 * The arguments used for upsert queries.
@@ -77,7 +78,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @var array
 	 */
-	protected array $upsert_args = [];
+	private array $upsert_args = [];
 
 	/**
 	 * The found rows.
@@ -86,7 +87,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @var int
 	 */
-	protected int $found_rows = 0;
+	private int $found_rows = 0;
 
 	/**
 	 * The page used for select queries.
@@ -95,7 +96,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @var int
 	 */
-	protected int $page = 1;
+	private int $page = 1;
 
 	/**
 	 * The per page used for select queries.
@@ -106,7 +107,16 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @var int
 	 */
-	protected int $per_page = 10000000000;
+	private int $per_page = 10000000000;
+
+	/**
+	 * The fields used for select queries.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	private array $fields = [ '*' ];
 
 	/**
 	 * Constructor.
@@ -259,13 +269,15 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @throws RuntimeException If the filter is not supported for custom table repositories.
 	 */
-	protected function get_select_args(): array {
+	private function get_select_args(): array {
 		$args = array_merge( $this->get_default_args(), $this->select_args );
 
 		$new_args = [];
 
+		$schema_args = [];
+
 		foreach ( $args as $key => $value ) {
-			if ( in_array( $key, [ 'order', 'order_by', 'term', 'offset' ], true ) ) {
+			if ( in_array( $key, [ 'order', 'orderby', 'term', 'offset' ], true ) ) {
 				$new_args[ $key ] = $value;
 				continue;
 			}
@@ -274,10 +286,10 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 				throw new RuntimeException( "Filter {$key} is not supported for custom table repositories." );
 			}
 
-			$new_args[] = array_merge( $new_args, $this->get_schema()[ $key ]( $value ) );
+			$schema_args[] = $this->get_schema()[ $key ]( $value );
 		}
 
-		return $args;
+		return array_merge( $new_args, $schema_args );
 	}
 
 	/**
@@ -395,6 +407,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 */
 	public function by_args( array $args ): self {
 		$this->select_args = array_merge( $this->select_args, $args );
+		$this->set_found_rows( 0 );
 		return $this;
 	}
 
@@ -410,6 +423,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 */
 	public function by( $key, $value = null ): self {
 		$this->select_args[ $key ] = $value;
+		$this->set_found_rows( 0 );
 		return $this;
 	}
 
@@ -481,28 +495,52 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @return Model[]|Generator<Model> The models.
 	 */
 	public function all( $return_generator = false, int $batch_size = 50 ) {
-		$all = [];
+		if ( $return_generator ) {
+			return $this->get_all_generator( $batch_size );
+		}
+
+		return iterator_to_array( $this->get_all_generator( $batch_size ) );
+	}
+
+	/**
+	 * Gets the all generator.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $batch_size The batch size to set.
+	 *
+	 * @return Generator The all generator.
+	 */
+	private function get_all_generator( int $batch_size = 50 ): Generator {
+		$i = 1;
+		$batch_size = min( $batch_size, $this->per_page );
+		if ( $this->page > 1 ) {
+			$this->offset( ( $this->page - 1 ) * $batch_size );
+		}
 		do {
-			$i       = 1;
-			$results = $this->get_table_interface()::paginate( $this->get_select_args(), $batch_size, $i );
-			++$i;
-
-			$results = array_map( fn( $result ) => $this->get_model_class()::from_array( $result ), $results );
-
-			if ( $return_generator ) {
-				yield from $results;
-			} else {
-				$all = array_merge( $all, $results );
+			$results = $this->get_table_interface()::paginate( $this->get_select_args(), $batch_size, $i, $this->fields, '', '', [], ARRAY_A );
+			if ( empty( $results ) ) {
+				break;
 			}
-		} while ( ! empty( $results ) && $i * $batch_size < $this->per_page );
+
+			if ( $this->fields === [ '*' ] ) {
+				$results = array_map( fn( $result ) => $this->get_model_class()::from_array( $result ), $results );
+			}
+
+			if ( 1 === count( $this->fields ) && $this->fields !== [ '*' ] ) {
+				$field   = array_values( $this->fields )[0];
+				$results = array_map( fn( $result ) => $result[ $field ], $results );
+			}
+
+			yield from $results;
+
+			++$i;
+		} while ( count( $results ) === $batch_size && $i * $batch_size <= $this->per_page );
 
 		$this->set_found_rows( $this->get_table_interface()::get_total_items( $this->get_select_args() ) );
 
 		$this->select_args = [];
-
-		if ( ! $return_generator ) {
-			return $all;
-		}
+		$this->fields      = [ '*' ];
 	}
 
 	/**
@@ -544,7 +582,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 */
 	public function order_by( $order_by, $order = 'DESC' ): self {
 		$this->order( $order );
-		return $this->by( 'order_by', $order_by );
+		return $this->by( 'orderby', $order_by );
 	}
 
 	/**
@@ -554,10 +592,11 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @param string $fields The fields to set.
 	 *
-	 * @throws RuntimeException Fields are not supported for custom table repositories.
+	 * @return self The repository instance.
 	 */
 	public function fields( $fields ): self {
-		throw new RuntimeException( 'Fields are not supported for custom table repositories.' );
+		$this->fields = (array) $fields;
+		return $this;
 	}
 
 	/**
@@ -810,26 +849,8 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @return Generator<int>|int[] The ids of the models.
 	 */
 	public function get_ids( $return_generator = false, int $batch_size = 50 ) {
-		$all = [];
-		do {
-			$i       = 1;
-			$results = $this->get_table_interface()::paginate( $this->get_select_args(), $batch_size, $i, [ $this->get_table_interface()::uid_column() ] );
-			++$i;
-
-			if ( $return_generator ) {
-				yield from array_column( $results, $this->get_table_interface()::uid_column() );
-			} else {
-				$all = array_merge( $all, array_column( $results, $this->get_table_interface()::uid_column() ) );
-			}
-		} while ( ! empty( $results ) && $i * $batch_size < $this->per_page );
-
-		$this->set_found_rows( $this->get_table_interface()::get_total_items( $this->get_select_args() ) );
-
-		$this->select_args = [];
-
-		if ( ! $return_generator ) {
-			return $all;
-		}
+		$this->fields( [ $this->get_table_interface()::uid_column() ] );
+		return $this->all( $return_generator, $batch_size );
 	}
 
 	/**
@@ -983,7 +1004,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @return Custom_Table_Abstract The table interface.
 	 */
-	protected function get_table_interface(): Custom_Table_Abstract {
+	private function get_table_interface(): Custom_Table_Abstract {
 		return tribe( $this->get_model_class() )->get_table_interface();
 	}
 
@@ -996,7 +1017,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @return string The property name.
 	 */
-	protected function get_property_name( $key ): string {
+	private function get_property_name( $key ): string {
 		return $this->aliases[ $key ] ?? $key;
 	}
 }
