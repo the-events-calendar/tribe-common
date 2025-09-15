@@ -11,7 +11,7 @@ import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
  *
  * @param {FieldProps} props Component properties including title.
  *
- * @return {JSX.Element} Rendered PostTitle component.
+ * @return {React.ReactElement} Rendered PostTitle component.
  */
 export default function PostTitle( props: FieldProps ) {
 	// Fetch the post title from the core/editor store.

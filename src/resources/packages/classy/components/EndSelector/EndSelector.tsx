@@ -33,9 +33,9 @@ const defaultTitle = _x( 'Date', 'Event date selection input title', 'tribe-comm
  * @since TBD
  *
  * @param {DateSelectorProps} props The properties for the EndSelector component.
- * @return {JSX.Element} The rendered EndSelector component.
+ * @return {React.ReactElement} The rendered EndSelector component.
  */
-export default function EndSelector( props: EndSelectorProps ): JSX.Element {
+export default function EndSelector( props: EndSelectorProps ): React.ReactElement {
 	const {
 		dateWithYearFormat,
 		endDate,
