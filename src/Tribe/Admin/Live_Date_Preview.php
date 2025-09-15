@@ -2,7 +2,20 @@
 /**
  * Facilitiates live date previews in the Events > Settings > Display admin screen.
  */
+
+// phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase
+
+/**
+ * Class Tribe__Admin__Live_Date_Preview.
+ *
+ * @since 4.8.3
+ */
 class Tribe__Admin__Live_Date_Preview {
+	/**
+	 * The fields that should have live date/time preview facilities.
+	 *
+	 * @var array
+	 */
 	protected $target_fields = [
 		'dateWithYearFormat',
 		'dateWithoutYearFormat',
@@ -11,19 +24,19 @@ class Tribe__Admin__Live_Date_Preview {
 	];
 
 	/**
- 	 * Static Singleton Holder
+	 * Static Singleton Holder.
 	 *
 	 * @var self
 	 */
 	protected static $instance;
 
 	/**
-	 * Static Singleton Factory Method
+	 * Static Singleton Factory Method.
 	 *
 	 * @return self
 	 */
 	public static function instance() {
-		return self::$instance ? self::$instance : self::$instance = new self;
+		return self::$instance ? self::$instance : self::$instance = new self();
 	}
 
 	/**
@@ -38,7 +51,7 @@ class Tribe__Admin__Live_Date_Preview {
 	 * If the user looking at the Display settings tab, adds live date preview facilities.
 	 */
 	public function listen() {
-		// We are only interested in the "Display" tab
+		// We are only interested in the "Display" tab.
 		if ( 'display-date-time-tab' !== tribe( 'settings' )->get_current_tab() ) {
 			return;
 		}
@@ -52,12 +65,20 @@ class Tribe__Admin__Live_Date_Preview {
 
 		add_filter( 'tribe_field_div_end', [ $this, 'setup_date_previews' ], 10, 2 );
 
-		// We are still before `admin_enqueue_scripts` making it safe to use `tribe_asset`
+		// We are still before `admin_enqueue_scripts` making it safe to use `tribe_asset`.
 		tec_asset( Tribe__Main::instance(), 'tribe-date-live-refresh', 'admin-date-preview.js', [ 'jquery' ], 'admin_enqueue_scripts' );
 	}
 
+	/**
+	 * Setup date previews.
+	 *
+	 * @param string $html The HTML to setup date previews for.
+	 * @param object $field The field to setup date previews for.
+	 *
+	 * @return string The HTML to setup date previews for.
+	 */
 	public function setup_date_previews( $html, $field ) {
-		// Not one of the fields we're interested in? Return without modification
+		// Not one of the fields we're interested in? Return without modification.
 		if ( ! in_array( $field->id, $this->target_fields ) ) {
 			return $html;
 		}

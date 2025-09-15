@@ -1,4 +1,11 @@
 <?php
+/**
+ * File: Info_Field_Interface.php
+ *
+ * @since 5.1.0
+ *
+ * @package TEC\Common\Site_Health
+ */
 
 namespace TEC\Common\Site_Health;
 

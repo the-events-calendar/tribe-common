@@ -8,12 +8,13 @@
  */
 
 namespace TEC\Common\Integrations;
+
 use TEC\Common\Contracts\Service_Provider;
 
 /**
  * Class Integration_Abstract
  *
- * @link    https://docs.theeventscalendar.com/apis/integrations/including-new-integrations/
+ * @link https://docs.theeventscalendar.com/apis/integrations/including-new-integrations/
  *
  * @since 5.1.1
  *
@@ -65,6 +66,8 @@ abstract class Integration_Abstract extends Service_Provider {
 	public function should_load(): bool {
 		return $this->filter_should_load( $this->load_conditionals() );
 	}
+
+	// phpcs:disable WordPress.NamingConventions.ValidHookName.UseUnderscores -- we use colons on purpose here.
 
 	/**
 	 * Filters whether the integration should load.

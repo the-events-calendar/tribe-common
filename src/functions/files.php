@@ -26,9 +26,12 @@ if ( ! function_exists( 'tec_is_file_from_plugins' ) ) {
 
 		$plugin_dirs = array_map(
 			'dirname',
-			array_filter( $wp_active_and_valid_plugins, static function ( string $plugin ) use ( $plugin_files ): bool {
-				return in_array( basename( $plugin ), $plugin_files, true );
-			} )
+			array_filter(
+				$wp_active_and_valid_plugins,
+				static function ( string $plugin ) use ( $plugin_files ): bool {
+					return in_array( basename( $plugin ), $plugin_files, true );
+				}
+			)
 		);
 
 		foreach ( $plugin_dirs as $plugin_dir ) {

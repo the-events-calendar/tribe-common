@@ -1,4 +1,7 @@
 <?php
+/**
+ * Abstract class for conditional content.
+ */
 
 namespace TEC\Common\Admin\Conditional_Content;
 
@@ -16,6 +19,8 @@ abstract class Datetime_Conditional_Abstract {
 	 * Item slug.
 	 *
 	 * @since 6.3.0
+	 *
+	 * @var string
 	 */
 	protected string $slug;
 
@@ -23,6 +28,8 @@ abstract class Datetime_Conditional_Abstract {
 	 * Start date.
 	 *
 	 * @since 6.3.0
+	 *
+	 * @var string
 	 */
 	protected string $start_date;
 
@@ -30,6 +37,8 @@ abstract class Datetime_Conditional_Abstract {
 	 * Start time.
 	 *
 	 * @since 6.3.0
+	 *
+	 * @var int
 	 */
 	protected int $start_time;
 
@@ -37,6 +46,8 @@ abstract class Datetime_Conditional_Abstract {
 	 * End date.
 	 *
 	 * @since 6.3.0
+	 *
+	 * @var string
 	 */
 	protected string $end_date;
 
@@ -44,6 +55,8 @@ abstract class Datetime_Conditional_Abstract {
 	 * End time.
 	 *
 	 * @since 6.3.0
+	 *
+	 * @var int
 	 */
 	protected int $end_time;
 

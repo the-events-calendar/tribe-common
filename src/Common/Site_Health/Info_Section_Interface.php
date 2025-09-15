@@ -1,4 +1,11 @@
 <?php
+/**
+ * File: Info_Section_Interface.php
+ *
+ * @since 5.1.0
+ *
+ * @package TEC\Common\Site_Health
+ */
 
 namespace TEC\Common\Site_Health;
 
@@ -66,7 +73,7 @@ interface Info_Section_Interface {
 	/**
 	 * If this particular section should be copied when using the Site Health.
 	 *
- 	 * @see Info_Section_Abstract::filter_param() For how to hook into this params.
+	 * @see Info_Section_Abstract::filter_param() For how to hook into this params.
 	 *
 	 * @since 5.1.0
 	 *
@@ -77,7 +84,7 @@ interface Info_Section_Interface {
 	/**
 	 * Returns an array of all the fields in this section.
 	 *
- 	 * @see Info_Section_Abstract::filter_param() For how to hook into this params.
+	 * @see Info_Section_Abstract::filter_param() For how to hook into this params.
 	 *
 	 * @since 5.1.0
 	 *
@@ -90,7 +97,7 @@ interface Info_Section_Interface {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @param string|Info_Field_Abstract $field
+	 * @param string|Info_Field_Abstract $field The field to check.
 	 *
 	 * @return bool
 	 */
@@ -101,7 +108,7 @@ interface Info_Section_Interface {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @param string $id
+	 * @param string $id The id of the field to get.
 	 *
 	 * @return Info_Field_Abstract|null
 	 */

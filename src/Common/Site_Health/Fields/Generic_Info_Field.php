@@ -1,4 +1,11 @@
 <?php
+/**
+ * File: Generic_Info_Field.php
+ *
+ * @since 5.1.0
+ *
+ * @package TEC\Common\Site_Health
+ */
 
 namespace TEC\Common\Site_Health\Fields;
 
@@ -16,10 +23,10 @@ class Generic_Info_Field extends Info_Field_Abstract {
 	/**
 	 * Configure all the params for a generic field.
 	 *
-	 * @param string                           $id
-	 * @param string                           $label
-	 * @param array<string,string>|string|null $value
-	 * @param int                              $priority
+	 * @param string                           $id       The id of the field.
+	 * @param string                           $label    The label of the field.
+	 * @param array<string,string>|string|null $value    The value of the field.
+	 * @param int                              $priority The priority of the field.
 	 */
 	public function __construct( string $id, string $label, $value = null, int $priority = 50 ) {
 		$this->id         = $id;
@@ -35,7 +42,7 @@ class Generic_Info_Field extends Info_Field_Abstract {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @param array $field
+	 * @param array $field The field to create an instance from.
 	 *
 	 * @return Info_Field_Abstract
 	 */
@@ -48,10 +55,10 @@ class Generic_Info_Field extends Info_Field_Abstract {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @param string      $id
-	 * @param string      $label
-	 * @param string|null $value
-	 * @param int         $priority
+	 * @param string      $id       The id of the field.
+	 * @param string      $label    The label of the field.
+	 * @param string|null $value    The value of the field.
+	 * @param int         $priority The priority of the field.
 	 *
 	 * @return Info_Field_Abstract
 	 */

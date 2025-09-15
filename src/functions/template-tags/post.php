@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Tribe\Functions\Template_Tags\Post
+ */
 
 /**
  * Gets the post content. Basically a wrapper around `get_the_content` that will prevent warnings on PHP 7.3
@@ -16,6 +19,7 @@
  * @return string
  */
 function tribe_get_the_content( $more_link_text = null, $strip_teaser = false, $post_id = null ) {
+	// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited -- we need to override the global post.
 	global $post, $wp_version;
 
 	// Save the global post to be able to restore it later.
@@ -49,6 +53,7 @@ function tribe_get_the_content( $more_link_text = null, $strip_teaser = false, $
 	$post = $previous_post;
 
 	return $content;
+	// phpcs:enable WordPress.WP.GlobalVariablesOverride.Prohibited
 }
 
 /**
@@ -66,7 +71,7 @@ function tribe_get_the_content( $more_link_text = null, $strip_teaser = false, $
  * @return void
  */
 function tribe_the_content( $more_link_text = null, $strip_teaser = false, $post_id = null ) {
-	echo tribe_get_the_content( $more_link_text, $strip_teaser, $post_id );
+	echo tribe_get_the_content( $more_link_text, $strip_teaser, $post_id ); // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped -- escaped internally.
 }
 
 /**
@@ -74,12 +79,12 @@ function tribe_the_content( $more_link_text = null, $strip_teaser = false, $post
  *
  * @since 4.11.0
  *
- * @param string|string[] $class   Space-separated string or array of class names to add to the class list.
+ * @param string|string[] $classes Space-separated string or array of class names to add to the class list.
  * @param int|WP_Post     $post    Optional. Post ID or post object.
  *
  * @return string[] Array of class names.
  */
-function tribe_get_post_class( $class, $post ) {
+function tribe_get_post_class( $classes, $post ) {
 	static $post_classes = [];
 
 	if ( is_numeric( $post ) ) {
@@ -92,9 +97,9 @@ function tribe_get_post_class( $class, $post ) {
 		$post_classes[ $post_id ] = get_post_class( [], $post );
 	}
 
-	if ( ! is_array( $class ) ) {
-		$class = explode( ' ', $class );
+	if ( ! is_array( $classes ) ) {
+		$classes = explode( ' ', $classes );
 	}
 
-	return array_merge( $class, $post_classes[ $post_id ] );
+	return array_merge( $classes, $post_classes[ $post_id ] );
 }

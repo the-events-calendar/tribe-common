@@ -1,4 +1,7 @@
 <?php
+/**
+ * Utility functions.
+ */
 
 use TEC\Common\Json_Packer\Json_Packer;
 use TEC\Common\lucatume\DI52\ContainerException;
@@ -8,18 +11,16 @@ use TEC\Common\lucatume\DI52\ContainerException;
  *
  * @since 5.0.17
  *
- * @param string $string The string being sanitized.
+ * @param string $dirty_string The string being sanitized.
  *
- * @return string $string The sanitized version of the string.
+ * @return string $cleaned_string The sanitized version of the string.
  */
-function tec_sanitize_string( $string ) {
-	// Replace HTML tags and entities with their plain text equivalents
-	$string = htmlspecialchars_decode( $string, ENT_QUOTES );
+function tec_sanitize_string( $dirty_string ) {
+	// Replace HTML tags and entities with their plain text equivalents.
+	$cleaned_string = htmlspecialchars_decode( $dirty_string, ENT_QUOTES );
 
-	// Remove any remaining HTML tags
-	$string = strip_tags( $string );
-
-	return $string;
+	// Remove any remaining HTML tags.
+	return wp_strip_all_tags( $cleaned_string );
 }
 
 if ( ! function_exists( 'tribe_array_merge_recursive' ) ) {
@@ -28,8 +29,8 @@ if ( ! function_exists( 'tribe_array_merge_recursive' ) ) {
 	 *
 	 * @link http://php.net/manual/en/function.array-merge-recursive.php#92195
 	 *
-	 * @param array $array1
-	 * @param array $array2
+	 * @param array $array1 The first array to merge.
+	 * @param array $array2 The second array to merge.
 	 *
 	 * @return array
 	 */
@@ -37,10 +38,10 @@ if ( ! function_exists( 'tribe_array_merge_recursive' ) ) {
 		$merged = $array1;
 
 		foreach ( $array2 as $key => &$value ) {
-			if ( is_array( $value ) && isset( $merged [ $key ] ) && is_array( $merged [ $key ] ) ) {
-				$merged [ $key ] = tribe_array_merge_recursive( $merged [ $key ], $value );
+			if ( is_array( $value ) && isset( $merged[ $key ] ) && is_array( $merged[ $key ] ) ) {
+				$merged[ $key ] = tribe_array_merge_recursive( $merged[ $key ], $value );
 			} else {
-				$merged [ $key ] = $value;
+				$merged[ $key ] = $value;
 			}
 		}
 
@@ -53,11 +54,11 @@ if ( ! function_exists( 'tribe_register_plugin' ) ) {
 	/**
 	 * Checks if this plugin has permission to run, if not it notifies the admin
 	 *
-	 * @param string $file_path    Full file path to the base plugin file
-	 * @param string $main_class   The Main/base class for this plugin
-	 * @param string $version      The version
-	 * @param array  $classes_req  Any Main class files/tribe plugins required for this to run
-	 * @param array  $dependencies an array of dependencies to check
+	 * @param string $file_path    Full file path to the base plugin file.
+	 * @param string $main_class   The Main/base class for this plugin.
+	 * @param string $version      The version.
+	 * @param array  $classes_req  Any Main class files/tribe plugins required for this to run.
+	 * @param array  $dependencies an array of dependencies to check.
 	 */
 	function tribe_register_plugin( $file_path, $main_class, $version, $classes_req = [], $dependencies = [] ) {
 		$tribe_dependency = tribe( Tribe__Dependency::class );
@@ -71,16 +72,15 @@ if ( ! function_exists( 'tribe_check_plugin' ) ) {
 	 *
 	 * @since 4.9
 	 *
-	 * @param string $main_class The Main/base class for this plugin
+	 * @param string $main_class The Main/base class for this plugin.
 	 *
 	 * @return bool Indicates if plugin should continue initialization
 	 */
 	function tribe_check_plugin( $main_class ) {
 
-		$tribe_dependency = Tribe__Dependency::instance();
+		$tribe_dependency = tribe( Tribe__Dependency::class );
 
 		return $tribe_dependency->check_plugin( $main_class );
-
 	}
 }
 
@@ -91,17 +91,16 @@ if ( ! function_exists( 'tribe_append_path' ) ) {
 	 *
 	 * @since 4.3
 	 *
-	 * @param string $path The path to append to the existing, if any, one., e.g. `/some/path`
-	 *
 	 * @param string $url  A full URL in the `http://example.com/?query=var#frag` format.
+	 * @param string $path The path to append to the existing, if any, one., e.g. `/some/path`.
 	 *
 	 * @return mixed|string
 	 */
 	function tribe_append_path( $url, $path ) {
 		$path = trim( $path, '/' );
 
-		$query = @parse_url( $url, PHP_URL_QUERY );
-		$frag  = @parse_url( $url, PHP_URL_FRAGMENT );
+		$query = wp_parse_url( $url, PHP_URL_QUERY );
+		$frag  = wp_parse_url( $url, PHP_URL_FRAGMENT );
 
 		if ( ! ( empty( $query ) && empty( $frag ) ) ) {
 			$url   = str_replace( '?' . $query, '', $url );
@@ -110,7 +109,7 @@ if ( ! function_exists( 'tribe_append_path' ) ) {
 			$frag  = $frag ? '#' . $frag : '';
 		}
 
-		$url = trailingslashit( esc_url_raw( trailingslashit( $url ) . $path ) );
+		$url  = trailingslashit( esc_url_raw( trailingslashit( $url ) . $path ) );
 		$url .= $query . $frag;
 
 		return $url;
@@ -121,7 +120,7 @@ if ( ! function_exists( 'tribe_exit' ) ) {
 	/**
 	 * Filterable `die` wrapper.
 	 *
-	 * @param string $status
+	 * @param string $status The status to exit with.
 	 *
 	 * @return void|mixed Depending on the handler this function might return
 	 *                    a value or `die` before anything is returned.
@@ -137,9 +136,9 @@ if ( ! function_exists( 'tribe_exit' ) ) {
 		 */
 		$handler = apply_filters( 'tribe_exit', $handler, $status );
 
-		// Die and exit are language constructs that cannot be used as callbacks on all PHP runtimes
+		// Die and exit are language constructs that cannot be used as callbacks on all PHP runtimes.
 		if ( 'die' === $handler || 'exit' === $handler ) {
-			exit ( $status );
+			exit( wp_kses_post( $status ) );
 		}
 
 		return call_user_func( $handler, $status );
@@ -159,7 +158,7 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 * @since 4.9.17 Included explicit check against $_REQUEST.
 	 * @since 6.2.1 Renamed from `tribe_get_request_var` to `tec_get_request_var`.
 	 *
-	 * @see   tec_get_request_var()
+	 * @see tec_get_request_var()
 	 *
 	 * @param string|array $request_var   The variable to check for.
 	 * @param mixed        $default_value The default value to return if the variable is not set.
@@ -185,8 +184,8 @@ if ( ! function_exists( 'tec_get_request_var' ) ) {
 	 *
 	 * @since 6.2.1
 	 *
-	 * @see   Tribe__Utils__Array::get_in_any()
-	 * @see   tribe_sanitize_deep()
+	 * @see Tribe__Utils__Array::get_in_any()
+	 * @see tribe_sanitize_deep()
 	 *
 	 * @param string|array $request_var   The variable to check for.
 	 * @param mixed        $default_value The default value to return if the variable is not set.
@@ -215,7 +214,7 @@ if ( ! function_exists( 'tec_get_request_var_raw' ) ) {
 	 *
 	 * @since 6.2.1
 	 *
-	 * @see   Tribe__Utils__Array::get_in_any()
+	 * @see Tribe__Utils__Array::get_in_any()
 	 *
 	 * @param string|array $request_var    The variable to check for.
 	 * @param mixed        $default_value  The default value to return if the variable is not set.
@@ -223,19 +222,20 @@ if ( ! function_exists( 'tec_get_request_var_raw' ) ) {
 	 * @return mixed
 	 */
 	function tec_get_request_var_raw( $request_var, $default_value = null ) {
+		// phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
 		$requests = [];
 
 		// Prevent a slew of warnings every time we call this.
 		if ( isset( $_REQUEST ) ) {
-			$requests[] = (array) $_REQUEST; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
+			$requests[] = (array) $_REQUEST;
 		}
 
 		if ( isset( $_GET ) ) {
-			$requests[] = (array) $_GET; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
+			$requests[] = (array) $_GET;
 		}
 
 		if ( isset( $_POST ) ) {
-			$requests[] = (array) $_POST; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
+			$requests[] = (array) $_POST;
 		}
 
 		if ( empty( $requests ) ) {
@@ -244,6 +244,8 @@ if ( ! function_exists( 'tec_get_request_var_raw' ) ) {
 
 		// Return the value as is.
 		return Tribe__Utils__Array::get_in_any( $requests, $request_var, $default_value );
+
+		// phpcs:enable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
 	}
 }
 
@@ -315,13 +317,13 @@ if ( ! function_exists( 'tribe_is_truthy' ) ) {
 	/**
 	 * Determines if the provided value should be regarded as 'true'.
 	 *
-	 * @param mixed $var
+	 * @param mixed $val The value to check.
 	 *
 	 * @return bool
 	 */
-	function tribe_is_truthy( $var ) {
-		if ( is_bool( $var ) ) {
-			return $var;
+	function tribe_is_truthy( $val ) {
+		if ( is_bool( $val ) ) {
+			return $val;
 		}
 
 		/**
@@ -330,33 +332,36 @@ if ( ! function_exists( 'tribe_is_truthy' ) ) {
 		 *
 		 * @param array $truthy_strings
 		 */
-		$truthy_strings = (array) apply_filters( 'tribe_is_truthy_strings', [
-			'1',
-			'enable',
-			'enabled',
-			'on',
-			'y',
-			'yes',
-			'true',
-		] );
+		$truthy_strings = (array) apply_filters(
+			'tribe_is_truthy_strings',
+			[
+				'1',
+				'enable',
+				'enabled',
+				'on',
+				'y',
+				'yes',
+				'true',
+			]
+		);
 
-		// Makes sure we are dealing with lowercase for testing
-		if ( is_string( $var ) ) {
-			$var = strtolower( $var );
+		// Makes sure we are dealing with lowercase for testing.
+		if ( is_string( $val ) ) {
+			$val = strtolower( $val );
 		}
 
-		// If $var is a string, it is only true if it is contained in the above array
-		if ( in_array( $var, $truthy_strings, true ) ) {
+		// If $var is a string, it is only true if it is contained in the above array.
+		if ( in_array( $val, $truthy_strings, true ) ) {
 			return true;
 		}
 
-		// All other strings will be treated as false
-		if ( is_string( $var ) ) {
+		// All other strings will be treated as false.
+		if ( is_string( $val ) ) {
 			return false;
 		}
 
-		// For other types (ints, floats etc) cast to bool
-		return (bool) $var;
+		// For other types (ints, floats etc) cast to bool.
+		return (bool) $val;
 	}
 }
 
@@ -366,11 +371,12 @@ if ( ! function_exists( 'tec_bool_to_string' ) ) {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @param bool $bool
+	 * @param bool $val The boolean value to convert.
+	 *
 	 * @return string "true" or "false" based on the boolean value.
 	 */
-	function tec_bool_to_string( bool $bool ): string {
-		return tribe_is_truthy( $bool ) ? 'true' : 'false';
+	function tec_bool_to_string( bool $val ): string {
+		return tribe_is_truthy( $val ) ? 'true' : 'false';
 	}
 }
 
@@ -380,11 +386,12 @@ if ( ! function_exists( 'tec_bool_to_int' ) ) {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @param bool $bool
+	 * @param bool $val The boolean value to convert.
+	 *
 	 * @return int 1 (true) or 0 (false) based on the boolean value.
 	 */
-	function tec_bool_to_int( bool $bool ): int {
-		return tribe_is_truthy( $bool ) ? 1 : 0;
+	function tec_bool_to_int( bool $val ): int {
+		return tribe_is_truthy( $val ) ? 1 : 0;
 	}
 }
 
@@ -394,9 +401,8 @@ if ( ! function_exists( 'tribe_sort_by_priority' ) ) {
 	 *
 	 * @since 4.7.20
 	 *
-	 * @param object|array $b Second subject to compare
-	 *
-	 * @param object|array $a First Subject to compare
+	 * @param object|array $a First subject to compare.
+	 * @param object|array $b Second subject to compare.
 	 *
 	 * @return int
 	 */
@@ -427,9 +433,9 @@ if ( ! function_exists( 'tribe_normalize_terms_list' ) ) {
 	 *
 	 * @since 4.5
 	 *
+	 * @param mixed  $terms    A term or array of terms to normalize.
 	 * @param string $taxonomy The terms taxonomy.
 	 * @param string $field    The fields the terms should be normalized to.
-	 * @param       $terms    A term or array of terms to normalize.
 	 *
 	 * @return array An array of the valid normalized terms.
 	 */
@@ -504,9 +510,9 @@ if ( ! function_exists( 'tribe_retrieve_object_by_hook' ) ) {
 	 *
 	 * @since 4.5.8
 	 *
-	 * @param string $class_name
-	 * @param string $hook
-	 * @param int    $priority
+	 * @param string $class_name The class name to retrieve.
+	 * @param string $hook       The hook to retrieve.
+	 * @param int    $priority  The priority to retrieve.
 	 *
 	 * @return object|false
 	 */
@@ -521,9 +527,9 @@ if ( ! function_exists( 'tribe_retrieve_object_by_hook' ) ) {
 			return false;
 		}
 
-		// Otherwise iterate through the registered callbacks at the specified priority
+		// Otherwise iterate through the registered callbacks at the specified priority.
 		foreach ( $wp_filter[ $hook ]->callbacks[ $priority ] as $callback ) {
-			// Skip if this callback isn't an object method
+			// Skip if this callback isn't an object method.
 			if (
 				! is_array( $callback['function'] )
 				|| ! is_object( $callback['function'][0] )
@@ -531,7 +537,7 @@ if ( ! function_exists( 'tribe_retrieve_object_by_hook' ) ) {
 				continue;
 			}
 
-			// If this isn't the callback we're looking for let's skip ahead
+			// If this isn't the callback we're looking for let's skip ahead.
 			if ( $class_name !== get_class( $callback['function'][0] ) ) {
 				continue;
 			}
@@ -611,8 +617,10 @@ if ( ! function_exists( 'tribe_post_exists' ) ) {
 			$where .= sprintf( $post_types_where_template, $post_types_interval );
 		}
 
+		// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
 		$prepared = $wpdb->prepare( sprintf( $query_template, $where ), $query_vars );
 		$found    = $wpdb->get_var( $prepared );
+		// phpcs:enable WordPress.DB.PreparedSQL.NotPrepared
 
 		return ! empty( $found ) ? (int) $found : false;
 	}
@@ -668,8 +676,12 @@ if ( ! function_exists( 'tribe_catch_and_throw' ) ) {
 	 *
 	 * @since 4.9.5
 	 *
-	 * @see   set_error_handler()
-	 * @see   restore_error_handler()
+	 * @see set_error_handler()
+	 * @see restore_error_handler()
+	 *
+	 * @param int    $errno The error code.
+	 * @param string $errstr The error message.
+	 *
 	 * @throws RuntimeException The message will be the error message, the code will be the error code.
 	 */
 	function tribe_catch_and_throw( $errno, $errstr ) {
@@ -705,9 +717,9 @@ if ( ! function_exists( 'tribe_is_regex' ) ) {
 			return false;
 		}
 
-		// We need to have the Try/Catch for Warnings too
+		// We need to have the Try/Catch for Warnings too.
 		try {
-			return ! ( @preg_match( $candidate, null ) === false );
+			return ! ( @preg_match( $candidate, '' ) === false );
 		} catch ( Exception $e ) {
 			return false;
 		}
@@ -736,10 +748,10 @@ if ( ! function_exists( 'tribe_unfenced_regex' ) ) {
 		// Let's pick a fence char the string itself is not using.
 		$fence_char = '~' === $str_fence ? '#' : '~';
 		$pattern    = $fence_char
-			. preg_quote( $str_fence, $fence_char ) // the opening fence
-			. '(.*)' // keep anything after the opening fence, group 1
-			. preg_quote( $str_fence, $fence_char ) // the closing fence
-			. '.*' // any modifier after the closing fence
+			. preg_quote( $str_fence, $fence_char ) // The opening fence.
+			. '(.*)' // Keep anything after the opening fence, group 1.
+			. preg_quote( $str_fence, $fence_char ) // The closing fence.
+			. '.*' // Any modifier after the closing fence.
 			. $fence_char;
 
 		return preg_replace( $pattern, '$1', $regex );
@@ -748,8 +760,6 @@ if ( ! function_exists( 'tribe_unfenced_regex' ) ) {
 
 /**
  * Create a function to mock the real function if the extension or Beta is not present.
- *
- *
  */
 if ( ! function_exists( 'has_blocks' ) ) {
 	/**
@@ -761,7 +771,7 @@ if ( ! function_exists( 'has_blocks' ) ) {
 	 *
 	 * @since 4.8
 	 *
-	 * @see   https://github.com/WordPress/gutenberg/blob/73d9759116dde896931f4d152f186147a57889fe/lib/register.php#L313-L337s
+	 * @see https://github.com/WordPress/gutenberg/blob/73d9759116dde896931f4d152f186147a57889fe/lib/register.php#L313-L337s
 	 *
 	 * @param int|string|WP_Post|null $post Optional. Post content, post ID, or post object. Defaults to global $post.
 	 *
@@ -785,46 +795,43 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
 	 *
 	 * @since 4.9.12
 	 *
-	 * @param string $route     The base URL for route you are adding.
-	 * @param array  $args      Optional. Either an array of options for the endpoint, or an array of arrays for
-	 *                          multiple methods. Default empty array.
-	 * @param bool   $override  Optional. If the route already exists, should we override it? True overrides,
-	 *                          false merges (with newer overriding if duplicate keys exist). Default false.
-	 *
-	 * @param string $namespace The first URL segment after core prefix. Should be unique to your package/plugin.
+	 * @param string $name_space The first URL segment after core prefix. Should be unique to your package/plugin.
+	 * @param string $route      The base URL for route you are adding.
+	 * @param array  $args       Optional. Either an array of options for the endpoint, or an array of arrays for
+	 *                           multiple methods. Default empty array.
+	 * @param bool   $override   Optional. If the route already exists, should we override it? True overrides,
+	 *                           false merges (with newer overriding if duplicate keys exist). Default false.
 	 *
 	 * @return bool True on success, false on error.
 	 */
-	function tribe_register_rest_route( $namespace, $route, $args = [], $override = false ) {
+	function tribe_register_rest_route( $name_space, $route, $args = [], $override = false ) {
 		/**
 		 * Allow plugins to customize REST API arguments and callbacks.
 		 *
 		 * @since 4.9.12
 		 *
-		 * @param string $namespace The first URL segment after core prefix. Should be unique to your package/plugin.
-		 * @param string $route     The base URL for route you are adding.
-		 * @param bool   $override  Optional. If the route already exists, should we override it? True overrides,
-		 *                          false merges (with newer overriding if duplicate keys exist). Default false.
-		 *
-		 * @param array  $args      Either an array of options for the endpoint, or an array of arrays for
-		 *                          multiple methods. Default empty array.
+		 * @param string $name_space The first URL segment after core prefix. Should be unique to your package/plugin.
+		 * @param string $route      The base URL for route you are adding.
+		 * @param bool   $override   Optional. If the route already exists, should we override it? True overrides,
+		 *                           false merges (with newer overriding if duplicate keys exist). Default false.
+		 * @param array  $args       Either an array of options for the endpoint, or an array of arrays for
+		 *                           multiple methods. Default empty array.
 		 */
-		$args = apply_filters( 'tribe_register_rest_route_args_' . $namespace . $route, $args, $namespace, $route, $override );
+		$args = apply_filters( 'tribe_register_rest_route_args_' . $name_space . $route, $args, $name_space, $route, $override );
 
 		/**
 		 * Allow plugins to customize REST API arguments and callbacks.
 		 *
 		 * @since 4.9.12
 		 *
-		 * @param string $namespace The first URL segment after core prefix. Should be unique to your package/plugin.
-		 * @param string $route     The base URL for route you are adding.
-		 * @param bool   $override  Optional. If the route already exists, should we override it? True overrides,
-		 *                          false merges (with newer overriding if duplicate keys exist). Default false.
-		 *
-		 * @param array  $args      Either an array of options for the endpoint, or an array of arrays for
-		 *                          multiple methods. Default empty array.
+		 * @param string $name_space The first URL segment after core prefix. Should be unique to your package/plugin.
+		 * @param string $route      The base URL for route you are adding.
+		 * @param bool   $override   Optional. If the route already exists, should we override it? True overrides,
+		 *                           false merges (with newer overriding if duplicate keys exist). Default false.
+		 * @param array  $args       Either an array of options for the endpoint, or an array of arrays for
+		 *                           multiple methods. Default empty array.
 		 */
-		$args = apply_filters( 'tribe_register_rest_route_args', $args, $namespace, $route, $override );
+		$args = apply_filters( 'tribe_register_rest_route_args', $args, $name_space, $route, $override );
 
 		// Compatibility with version 5.5 of WordPress to avoid notices.
 		if (
@@ -835,7 +842,7 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
 			$args['permission_callback'] = '__return_true';
 		}
 
-		return register_rest_route( $namespace, $route, $args, $override );
+		return register_rest_route( $name_space, $route, $args, $override );
 	}
 }
 
@@ -845,35 +852,35 @@ if ( ! function_exists( 'tribe_get_class_instance' ) ) {
 	 *
 	 * @since 4.10.0
 	 *
-	 * @see   \TEC\Common\lucatume\DI52\Builders\ValueBuilder\App::isBound()
-	 * @see   \tribe()
+	 * @see \TEC\Common\lucatume\DI52\Builders\ValueBuilder\App::isBound()
+	 * @see \tribe()
 	 *
-	 * @param string|object $class The plugin class' singleton name, class name, or instance.
+	 * @param string|object $potential_class The plugin class' singleton name, class name, or instance.
 	 *
 	 * @return mixed|object|Tribe__Container|null Null if not found, else the result from tribe().
 	 */
-	function tribe_get_class_instance( $class ) {
-		if ( is_object( $class ) ) {
-			return $class;
+	function tribe_get_class_instance( $potential_class ) {
+		if ( is_object( $potential_class ) ) {
+			return $potential_class;
 		}
 
-		if ( ! is_string( $class ) ) {
+		if ( ! is_string( $potential_class ) ) {
 			return null;
 		}
 
 		// Check if class exists and has instance getter method.
-		if ( class_exists( $class ) ) {
-			if ( method_exists( $class, 'instance' ) ) {
-				return $class::instance();
+		if ( class_exists( $potential_class ) ) {
+			if ( method_exists( $potential_class, 'instance' ) ) {
+				return $potential_class::instance();
 			}
 
-			if ( method_exists( $class, 'get_instance' ) ) {
-				return $class::get_instance();
+			if ( method_exists( $potential_class, 'get_instance' ) ) {
+				return $potential_class::get_instance();
 			}
 		}
 
 		try {
-			return tribe()->has( $class ) ? tribe()->get( $class ) : null;
+			return tribe()->has( $potential_class ) ? tribe()->get( $potential_class ) : null;
 		} catch ( ContainerException $exception ) {
 			return null;
 		}
@@ -892,20 +899,20 @@ if ( ! function_exists( 'tribe_get_least_version_ever_installed' ) ) {
 	 *
 	 * @since 4.10.0
 	 *
-	 * @param string|object $class The plugin class' singleton name, class name, or instance.
+	 * @param string|object $potential_class The plugin class' singleton name, class name, or instance.
 	 *
 	 * @return string|boolean The SemVer version string or false if no info found.
 	 */
-	function tribe_get_least_version_ever_installed( $class ) {
-		if ( ! is_string( $class ) ) {
-			$class = get_class( $class );
+	function tribe_get_least_version_ever_installed( $potential_class ) {
+		if ( ! is_string( $potential_class ) ) {
+			$potential_class = get_class( $potential_class );
 
-			if ( false === $class ) {
+			if ( false === $potential_class ) {
 				return false;
 			}
 		}
 
-		$history = tribe_plugin_version_history( $class );
+		$history = tribe_plugin_version_history( $potential_class );
 
 		// Try for the version history first.
 		if ( false !== $history ) {
@@ -914,7 +921,7 @@ if ( ! function_exists( 'tribe_get_least_version_ever_installed' ) ) {
 			$history = array_unique( $history );
 
 			if ( ! empty( $history ) ) {
-				// Sort the array so smallest version number is first (likely how the array is stored anyway)
+				// Sort the array so smallest version number is first (likely how the array is stored anyway).
 				usort( $history, 'version_compare' );
 
 				return array_shift( $history );
@@ -922,8 +929,8 @@ if ( ! function_exists( 'tribe_get_least_version_ever_installed' ) ) {
 		}
 
 		// Fall back to the current plugin version.
-		if ( defined( $class . '::VERSION' ) ) {
-			return $class::VERSION;
+		if ( defined( $potential_class . '::VERSION' ) ) {
+			return $potential_class::VERSION;
 		}
 
 		// No version set.
@@ -945,20 +952,20 @@ if ( ! function_exists( 'tribe_get_greatest_version_ever_installed' ) ) {
 	 *
 	 * @see \tribe_get_currently_installed_version() To get the current version, even if it's not the greatest.
 	 *
-	 * @param string|object $class The plugin class' singleton name, class name, or instance.
+	 * @param string|object $potential_class The plugin class' singleton name, class name, or instance.
 	 *
 	 * @return string|boolean The SemVer version string or false if no info found.
 	 */
-	function tribe_get_greatest_version_ever_installed( $class ) {
-		if ( ! is_string( $class ) ) {
-			$class = get_class( $class );
+	function tribe_get_greatest_version_ever_installed( $potential_class ) {
+		if ( ! is_string( $potential_class ) ) {
+			$potential_class = get_class( $potential_class );
 
-			if ( false === $class ) {
+			if ( false === $potential_class ) {
 				return false;
 			}
 		}
 
-		$history = tribe_plugin_version_history( $class );
+		$history = tribe_plugin_version_history( $potential_class );
 
 		// Try for the version history first.
 		if ( false !== $history ) {
@@ -967,7 +974,7 @@ if ( ! function_exists( 'tribe_get_greatest_version_ever_installed' ) ) {
 			$history = array_unique( $history );
 
 			if ( ! empty( $history ) ) {
-				// Sort the array so smallest version number is first (likely how the array is stored anyway)
+				// Sort the array so smallest version number is first (likely how the array is stored anyway).
 				usort( $history, 'version_compare' );
 
 				return array_pop( $history );
@@ -975,8 +982,8 @@ if ( ! function_exists( 'tribe_get_greatest_version_ever_installed' ) ) {
 		}
 
 		// Fall back to the current plugin version.
-		if ( defined( $class . '::VERSION' ) ) {
-			return $class::VERSION;
+		if ( defined( $potential_class . '::VERSION' ) ) {
+			return $potential_class::VERSION;
 		}
 
 		// No version set.
@@ -993,15 +1000,15 @@ if ( ! function_exists( 'tribe_get_greatest_version_ever_installed' ) ) {
  *
  * @since 4.12.14
  *
- * @param string $class Which plugin main class we are looking for.
+ * @param string $potential_class Which plugin main class we are looking for.
  *
  * @return array|false
  */
-function tribe_plugin_version_history( $class ) {
-	if ( ! is_string( $class ) ) {
-		$class = get_class( $class );
+function tribe_plugin_version_history( $potential_class ) {
+	if ( ! is_string( $potential_class ) ) {
+		$potential_class = get_class( $potential_class );
 
-		if ( false === $class ) {
+		if ( false === $potential_class ) {
 			return false;
 		}
 	}
@@ -1014,11 +1021,11 @@ function tribe_plugin_version_history( $class ) {
 		'tickets-plus.main'         => 'previous_event_tickets_plus_versions',
 	];
 
-	if ( ! isset( $map[ $class ] ) ) {
+	if ( ! isset( $map[ $potential_class ] ) ) {
 		return false;
 	}
 
-	return (array) Tribe__Settings_Manager::get_option( $map[ $class ] );
+	return (array) Tribe__Settings_Manager::get_option( $map[ $potential_class ] );
 }
 
 if ( ! function_exists( 'tribe_get_first_ever_installed_version' ) ) {
@@ -1033,20 +1040,20 @@ if ( ! function_exists( 'tribe_get_first_ever_installed_version' ) ) {
 	 *
 	 * @since 4.10.0
 	 *
-	 * @param string|object $class The plugin class' singleton name, class name, or instance.
+	 * @param string|object $potential_class The plugin class' singleton name, class name, or instance.
 	 *
 	 * @return string|boolean The SemVer version string or false if no info found.
 	 */
-	function tribe_get_first_ever_installed_version( $class ) {
-		if ( ! is_string( $class ) ) {
-			$class = get_class( $class );
+	function tribe_get_first_ever_installed_version( $potential_class ) {
+		if ( ! is_string( $potential_class ) ) {
+			$potential_class = get_class( $potential_class );
 
-			if ( false === $class ) {
+			if ( false === $potential_class ) {
 				return false;
 			}
 		}
 
-		$history = tribe_plugin_version_history( $class );
+		$history = tribe_plugin_version_history( $potential_class );
 
 		// Try for the version history first.
 		if ( false !== $history ) {
@@ -1058,15 +1065,15 @@ if ( ! function_exists( 'tribe_get_first_ever_installed_version' ) ) {
 				array_shift( $history );
 			}
 
-			// Found it so return it
+			// Found it so return it.
 			if ( ! empty( $history[0] ) ) {
 				return $history[0];
 			}
 		}
 
 		// Fall back to the current plugin version.
-		if ( defined( $class . '::VERSION' ) ) {
-			return $class::VERSION;
+		if ( defined( $potential_class . '::VERSION' ) ) {
+			return $potential_class::VERSION;
 		}
 
 		// No version set.
@@ -1086,16 +1093,16 @@ if ( ! function_exists( 'tribe_get_currently_installed_version' ) ) {
 	 *
 	 * @see \tribe_get_greatest_version_ever_installed() To get the greatest ever installed, even if not the current.
 	 *
-	 * @param string|object $class The plugin class' singleton name, class name, or instance.
+	 * @param string|object $potential_class The plugin class' singleton name, class name, or instance.
 	 *
 	 * @return string|boolean The SemVer version string or false if no info found.
 	 */
-	function tribe_get_currently_installed_version( $class ) {
-		$instance = tribe_get_class_instance( $class );
+	function tribe_get_currently_installed_version( $potential_class ) {
+		$instance = tribe_get_class_instance( $potential_class );
 
 		// First try for class constant (different logic from the other similar functions).
-		if ( defined( $class . '::VERSION' ) ) {
-			return $class::VERSION;
+		if ( defined( $potential_class . '::VERSION' ) ) {
+			return $potential_class::VERSION;
 		}
 
 		// No version set.
@@ -1110,13 +1117,13 @@ if ( ! function_exists( 'tribe_installed_before' ) ) {
 	 *
 	 * @since 4.10.0
 	 *
-	 * @param string|object $class   The plugin class' singleton name, class name, or instance.
+	 * @param string|object $potential_class   The plugin class' singleton name, class name, or instance.
 	 * @param string        $version The SemVer version string to compare.
 	 *
 	 * @return boolean Whether the plugin was installed prior to the passed version.
 	 */
-	function tribe_installed_before( $class, $version ) {
-		$install_version = tribe_get_first_ever_installed_version( $class );
+	function tribe_installed_before( $potential_class, $version ) {
+		$install_version = tribe_get_first_ever_installed_version( $potential_class );
 
 		// If no install version, let's assume it's been here a while.
 		if ( empty( $install_version ) ) {
@@ -1134,13 +1141,13 @@ if ( ! function_exists( 'tribe_installed_after' ) ) {
 	 *
 	 * @since 4.10.0
 	 *
-	 * @param string|object $class   The plugin class' singleton name, class name, or instance.
+	 * @param string|object $potential_class   The plugin class' singleton name, class name, or instance.
 	 * @param string        $version The SemVer version string to compare.
 	 *
 	 * @return boolean Whether the plugin was installed after the passed version.
 	 */
-	function tribe_installed_after( $class, $version ) {
-		$install_version = tribe_get_first_ever_installed_version( $class );
+	function tribe_installed_after( $potential_class, $version ) {
+		$install_version = tribe_get_first_ever_installed_version( $potential_class );
 
 		// If no install version, let's assume it's been here a while.
 		if ( empty( $install_version ) ) {
@@ -1158,13 +1165,13 @@ if ( ! function_exists( 'tribe_installed_on' ) ) {
 	 *
 	 * @since 4.10.0
 	 *
-	 * @param string|object $class   The plugin class' singleton name, class name, or instance.
+	 * @param string|object $potential_class   The plugin class' singleton name, class name, or instance.
 	 * @param string        $version The SemVer version string to compare.
 	 *
 	 * @return boolean Whether the plugin was installed at/on the passed version.
 	 */
-	function tribe_installed_on( $class, $version ) {
-		$install_version = tribe_get_first_ever_installed_version( $class );
+	function tribe_installed_on( $potential_class, $version ) {
+		$install_version = tribe_get_first_ever_installed_version( $potential_class );
 
 		// If no install version, let's assume it's been here a while.
 		if ( empty( $install_version ) ) {
@@ -1194,6 +1201,8 @@ if ( ! function_exists( 'tribe_get_request_vars' ) ) {
 	function tribe_get_request_vars( $refresh = false ) {
 		static $cache;
 
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+
 		if ( ! isset( $_REQUEST ) ) {
 			return [];
 		}
@@ -1211,6 +1220,8 @@ if ( ! function_exists( 'tribe_get_request_vars' ) ) {
 				$_REQUEST
 			)
 		);
+
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 		return $cache;
 	}
@@ -1261,28 +1272,28 @@ if ( ! function_exists( 'tribe_get_query_var' ) ) {
 	 *
 	 * @since 4.9.23
 	 *
-	 * @param string       $url       The URL to parse.
-	 * @param string|array $query_arg The query variable(s) to parse and return.
-	 * @param mixed|null   $default   The default value to return if the URL cannot be parsed, or the query variable is
-	 *                                not found.
+	 * @param string       $url           The URL to parse.
+	 * @param string|array $query_arg     The query variable(s) to parse and return.
+	 * @param mixed|null   $default_value The default value to return if the URL cannot be parsed, or the query variable is
+	 *                                    not found.
 	 *
 	 * @return mixed|null The query variable value, if set, or the default value.
 	 */
-	function tribe_get_query_var( $url, $query_arg, $default = null ) {
+	function tribe_get_query_var( $url, $query_arg, $default_value = null ) {
 		if ( empty( $url ) ) {
-			return $default;
+			return $default_value;
 		}
 
 		$query = wp_parse_url( $url, PHP_URL_QUERY );
 
 		if ( empty( $query ) ) {
-			return $default;
+			return $default_value;
 		}
 
 		wp_parse_str( $query, $parsed );
 
 		if ( ! is_array( $query_arg ) ) {
-			return Tribe__Utils__Array::get( $parsed, $query_arg, $default );
+			return Tribe__Utils__Array::get( $parsed, $query_arg, $default_value );
 		}
 
 		$query_args = (array) ( $query_arg );
@@ -1307,20 +1318,22 @@ if ( ! function_exists( 'tribe_without_filters' ) ) {
 	 *
 	 * @param array<string> $filters    A set of filter, or actions, handles to detach before running the callback and
 	 *                                  re-attach after.
-	 * @param callable      $do         The callback, or Closure, that should run in the context where the specified set of filters
+	 * @param callable      $callback The callback, or Closure, that should run in the context where the specified set of filters
 	 *                                  has been "suspended".
 	 *
 	 * @return mixed The result of the callback function.
 	 */
-	function tribe_without_filters( array $filters, callable $do ) {
+	function tribe_without_filters( array $filters, callable $callback ) {
 		$filter_backups = [];
 		// If none of the filters to skip has anything attached to it, then skip it.
 		$hooked_filters = array_filter( $filters, 'has_filter' );
 
 		if ( empty( $hooked_filters ) ) {
 			// No filter has functions attached to it, just return the callback invocation.
-			return $do();
+			return $callback();
 		}
+
+		// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
 
 		foreach ( $hooked_filters as $tag ) {
 			$filter_backups[ $tag ] = $GLOBALS['wp_filter'][ $tag ];
@@ -1328,11 +1341,13 @@ if ( ! function_exists( 'tribe_without_filters' ) ) {
 			$GLOBALS['wp_filter'][ $tag ] = null;
 		}
 
-		$result = $do();
+		$result = $callback();
 
 		foreach ( $filter_backups as $tag => $filter_backup ) {
 			$GLOBALS['wp_filter'][ $tag ] = $filter_backup;
 		}
+
+		// phpcs:enable WordPress.WP.GlobalVariablesOverride.Prohibited
 
 		return $result;
 	}
@@ -1347,19 +1362,19 @@ if ( ! function_exists( 'tribe_without_filters' ) ) {
 	 *
 	 * @param string   $filter_tag      The filter tag to suspend.
 	 * @param callable $filter_callback The filter_callback currently attached to the filter.
-	 * @param callable $do              The filter_callback that will be run detaching the `$filter_callback`.
+	 * @param callable $do_instead      The filter_callback that will be run detaching the `$filter_callback`.
 	 * @param int      $args            The number of arguments that should be used to re-attach the filtering callback to the filter.
 	 *
-	 * @return mixed The return value of the `$do` callback.
+	 * @return mixed The return value of the `$do_instead` callback.
 	 */
-	function tribe_suspending_filter( $filter_tag, callable $filter_callback, callable $do, $args = 1 ) {
+	function tribe_suspending_filter( $filter_tag, callable $filter_callback, callable $do_instead, $args = 1 ) {
 		$priority = has_filter( $filter_tag, $filter_callback );
 
 		if ( false !== $priority ) {
 			remove_filter( $filter_tag, $filter_callback, $priority );
 		}
 
-		$result = $do();
+		$result = $do_instead();
 
 		if ( false !== $priority ) {
 			add_filter( $filter_tag, $filter_callback, $priority, $args );
@@ -1374,16 +1389,16 @@ if ( ! function_exists( 'tribe_without_filters' ) ) {
  *
  * @since 4.14.7
  *
- * @param string $key Cache key for the incrementor.
+ * @param string $key                Cache key for the incrementor.
  * @param string $expiration_trigger The trigger that causes the cache key to expire.
- * @param int $default The default value of the incrementor.
+ * @param int    $default_value      The default value of the incrementor.
  *
  * @return int
  **/
-function tribe_get_next_cached_increment( $key, $expiration_trigger = '', $default = 0 ) {
+function tribe_get_next_cached_increment( $key, $expiration_trigger = '', $default_value = 0 ) {
 	$cache = tribe( 'cache' );
-	$value = (int) $cache->get( $key, $expiration_trigger, $default );
-	$value++;
+	$value = (int) $cache->get( $key, $expiration_trigger, $default_value );
+	++$value;
 	$cache->set( $key, $value, \Tribe__Cache::NON_PERSISTENT, $expiration_trigger );
 
 	return $value;

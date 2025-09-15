@@ -7,6 +7,14 @@
  * the one belonging to the current stable accessible via WP SVN - at least by
  * default).
  */
+
+// phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase
+
+/**
+ * Class Tribe__Admin__Notice__Plugin_Upgrade_Notice.
+ *
+ * @since 4.8.3
+ */
 class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 	/**
 	 * Currently installed version of the plugin.
@@ -68,7 +76,7 @@ class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 	 * Tests to see if an upgrade notice is available.
 	 */
 	protected function test_for_upgrade_notice() {
-		$cache_key = $this->cache_key();
+		$cache_key            = $this->cache_key();
 		$this->upgrade_notice = get_transient( $cache_key );
 
 		if ( false === $this->upgrade_notice ) {
@@ -119,7 +127,8 @@ class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 		 * @var string $url
 		 * @var string $plugin_path
 		 */
-		$readme_url = apply_filters( 'tribe_plugin_upgrade_readme_url',
+		$readme_url = apply_filters(
+			'tribe_plugin_upgrade_readme_url',
 			$this->form_wp_svn_readme_url(),
 			$this->plugin_path
 		);
@@ -143,7 +152,8 @@ class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 		 * @var string $upgrade_notice
 		 * @var string $plugin_path
 		 */
-		return apply_filters( 'tribe_plugin_upgrade_notice',
+		return apply_filters(
+			'tribe_plugin_upgrade_notice',
 			$this->upgrade_notice,
 			$this->plugin_path
 		);
@@ -157,7 +167,8 @@ class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 	 */
 	protected function form_wp_svn_readme_url() {
 		$parts = explode( '/', $this->plugin_path );
-		$slug = empty( $parts[0] ) ? '' : $parts[0];
+		$slug  = empty( $parts[0] ) ? '' : $parts[0];
+
 		return esc_url( "https://plugins.svn.wordpress.org/$slug/trunk/readme.txt" );
 	}
 
@@ -236,7 +247,6 @@ class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 	 *     #the-events-calendar-update .tribe-plugin-update-message { ... }
 	 */
 	public function display_message() {
-		$notice = wp_kses_post( $this->upgrade_notice );
-		echo "<div class='tribe-plugin-update-message'> $notice </div>";
+		echo '<div class="tribe-plugin-update-message"> ' . wp_kses_post( $this->upgrade_notice ) . ' </div>';
 	}
 }

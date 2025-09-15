@@ -108,9 +108,9 @@ class Container extends DI52_Container implements ContainerInterface {
 	 *
 	 * @since 5.1.4
 	 *
-	 * @param string $action The action to register the provider on.
-	 * @param string $class The service provider class name.
-	 * @param string ...$alias Optional. The alias(es) to register the service provider with.
+	 * @param string $action         The action to register the provider on.
+	 * @param string $provider_class The service provider class name.
+	 * @param string ...$alias       Optional. The alias(es) to register the service provider with.
 	 *
 	 * @return void The Service Provider is registered when the action fires,
 	 *               or immediately if the action has already fired.
@@ -118,19 +118,19 @@ class Container extends DI52_Container implements ContainerInterface {
 	 * @throws \TEC\Common\lucatume\DI52\ContainerException If the provider class is marked as deferred but
 	 *                                                      does not provide a set of deferred registrations.
 	 */
-	public function register_on_action( string $action, string $class, string ...$alias ): void {
+	public function register_on_action( string $action, string $provider_class, string ...$alias ): void {
 		if ( did_action( $action ) ) {
 			// If the action has already fired, register the provider immediately.
-			$this->register( $class, ...$alias );
+			$this->register( $provider_class, ...$alias );
 
 			return;
 		}
 
 		// If the action has not fired yet, register the provider when it does.
-		$registration_closure = function () use ( $action, $class, $alias, &$registration_closure ) {
+		$registration_closure = function () use ( $action, $provider_class, $alias, &$registration_closure ) {
 			// Remove the closure from the action to avoid calling it again.
 			remove_action( $action, $registration_closure );
-			$this->register( $class, ...$alias );
+			$this->register( $provider_class, ...$alias );
 		};
 		add_action( $action, $registration_closure );
 	}

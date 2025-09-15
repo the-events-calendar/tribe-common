@@ -1,7 +1,6 @@
 <?php
-
 /**
- * Upsell notice class.
+ * Main upsell notice class.
  *
  * @since 4.14.17
  *
@@ -10,6 +9,11 @@
 
 namespace Tribe\Admin\Upsell_Notice;
 
+/**
+ * Class Main.
+ *
+ * @since 4.14.17
+ */
 class Main {
 
 	/**
@@ -42,7 +46,7 @@ class Main {
 
 	/**
 	 * Checks if upsell should be rendered.
-	 * 
+	 *
 	 * @since 4.14.17
 	 *
 	 * @return boolean
@@ -57,41 +61,47 @@ class Main {
 		return true;
 	}
 
-	 /**
-	  * Render upsell notice.
-	  * 
-	  * @since 4.14.17
-	  *
-	  * @param array  $args Array of arguments that will ultimately be sent to the template.
-	  * @param bool   $echo Whether or not to echo the HTML. Defaults to true.
-	  *
-	  * @return string HTML of upsell notice.
-	  */
-	public function render( $args, $echo = true ) {
+	/**
+	 * Render upsell notice.
+	 *
+	 * @since 4.14.17
+	 *
+	 * @param array $args   Array of arguments that will ultimately be sent to the template.
+	 * @param bool  $render Whether or not to echo the HTML. Defaults to true.
+	 *
+	 * @return string HTML of upsell notice.
+	 */
+	public function render( $args, $render = true ) {
 		// Check if upsell should be rendered.
 		if ( ! $this->should_render() ) {
 			return;
 		}
 
 		// Default args for the container.
-		$args = wp_parse_args( $args, [
-			'classes'     => [],
-			'text'        => '',
-			'link_target' => '_blank',
-			'icon_url'    => tribe_resource_url( 'images/icons/circle-bolt.svg', false, null, \Tribe__Main::instance() ),
-			'link'    => [],
-		] );
+		$args = wp_parse_args(
+			$args,
+			[
+				'classes'     => [],
+				'text'        => '',
+				'link_target' => '_blank',
+				'icon_url'    => tribe_resource_url( 'images/icons/circle-bolt.svg', false, null, \Tribe__Main::instance() ),
+				'link'        => [],
+			]
+		);
 
 		// Default args for the link.
-		$args['link'] = wp_parse_args( $args['link'], [
-			'classes' => [],
-			'text'    => '',
-			'url'     => '',
-			'target'  => '_blank',
-			'rel'     => 'noopener noreferrer',
-		] );
+		$args['link'] = wp_parse_args(
+			$args['link'],
+			[
+				'classes' => [],
+				'text'    => '',
+				'url'     => '',
+				'target'  => '_blank',
+				'rel'     => 'noopener noreferrer',
+			]
+		);
 
 		$template = $this->get_template();
-		return $template->template( 'main', $args, $echo );
+		return $template->template( 'main', $args, $render );
 	}
 }

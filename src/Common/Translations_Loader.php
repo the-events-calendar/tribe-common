@@ -176,6 +176,7 @@ class Translations_Loader {
 	 * @return void Translations for each domain will be loaded for the current plugin locale.
 	 */
 	protected function load_locale_translations( array $domains, string $locale ): void {
+		// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
 		global $l10n;
 
 		if ( ! is_array( $l10n ) ) {

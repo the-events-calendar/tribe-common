@@ -1,4 +1,11 @@
 <?php
+/**
+ * File: Timed_Option.php
+ *
+ * @since 5.0.6
+ *
+ * @package TEC\Common\Storage
+ */
 
 namespace TEC\Common\Storage;
 
@@ -14,7 +21,7 @@ namespace TEC\Common\Storage;
  */
 class Timed_Option {
 	/**
-	 *
+	 * Whether the timed option is active.
 	 *
 	 * @since 5.0.6
 	 *
@@ -27,7 +34,7 @@ class Timed_Option {
 	 *
 	 * @since 5.0.6
 	 *
-	 * @var string
+	 * @var string Prefix for all the Timed Options stored on the database.
 	 */
 	protected $option_name_prefix = 'tec_timed_';
 
@@ -44,8 +51,6 @@ class Timed_Option {
 	 * Deactivate the usage of Database Timed Options, all timed options are only a glorified memoization.
 	 *
 	 * @since 5.0.6
-	 *
-	 * @return void
 	 */
 	public function deactivate(): void {
 		$this->active = false;
@@ -55,8 +60,6 @@ class Timed_Option {
 	 * Activate the usage of Database Timed Options.
 	 *
 	 * @since 5.0.6
-	 *
-	 * @return void
 	 */
 	public function activate(): void {
 		$this->active = true;
@@ -105,35 +108,35 @@ class Timed_Option {
 	 *
 	 * @since 5.0.6
 	 *
-	 * @param string $key     Key for the option we are trying to get.
-	 * @param mixed  $default Default value when the option is either expired or not-set.
-	 * @param bool   $force   If we should expire cache and fetch from the database.
+	 * @param string $key           Key for the option we are trying to get.
+	 * @param mixed  $default_value Default value when the option is either expired or not-set.
+	 * @param bool   $force         If we should expire cache and fetch from the database.
 	 *
 	 * @return mixed|null
 	 */
-	public function get( $key, $default = null, bool $force = false ) {
+	public function get( $key, $default_value = null, bool $force = false ) {
 		/**
 		 * Allows the filtering the default timed_option value.
 		 *
 		 * @since 5.0.6
 		 *
-		 * @param mixed  $default Default value when the option is either expired or not-set.
-		 * @param string $key     Key for the option we are trying to get.
-		 * @param bool   $force   If we should expire cache and fetch from the database.
+		 * @param mixed  $default_value Default value when the option is either expired or not-set.
+		 * @param string $key           Key for the option we are trying to get.
+		 * @param bool   $force         If we should expire cache and fetch from the database.
 		 */
-		$default = apply_filters( 'tec_common_timed_option_default_value', $default, $key, $force );
+		$default_value = apply_filters( 'tec_common_timed_option_default_value', $default_value, $key, $force );
 
 		/**
 		 * Allows the filtering to short-circuit the whole fetch logic.
 		 *
 		 * @since 5.0.6
 		 *
-		 * @param mixed|null $pre     If anything diff than null it will short-circuit.
-		 * @param string     $key     Key for the option we are trying to get.
-		 * @param mixed      $default Default value when the option is either expired or not-set.
-		 * @param bool       $force   If we should expire cache and fetch from the database.
+		 * @param mixed|null $pre           If anything diff than null it will short-circuit.
+		 * @param string     $key           Key for the option we are trying to get.
+		 * @param mixed      $default_value Default value when the option is either expired or not-set.
+		 * @param bool       $force         If we should expire cache and fetch from the database.
 		 */
-		$pre = apply_filters( 'tec_common_timed_option_pre_value', null, $key, $default, $force );
+		$pre = apply_filters( 'tec_common_timed_option_pre_value', null, $key, $default_value, $force );
 
 		if ( null !== $pre ) {
 			return $pre;
@@ -153,13 +156,13 @@ class Timed_Option {
 			 *
 			 * @since 5.0.6
 			 *
-			 * @param mixed  $value   If anything diff than null it will short-circuit.
-			 * @param string $key     Key for the option we are trying to get.
-			 * @param mixed  $default Default value when the option is either expired or not-set.
-			 * @param bool   $force   If we should expire cache and fetch from the database.
-			 * @param bool   $cache   If the value was pulled from cache.
+			 * @param mixed  $value         If anything diff than null it will short-circuit.
+			 * @param string $key           Key for the option we are trying to get.
+			 * @param mixed  $default_value Default value when the option is either expired or not-set.
+			 * @param bool   $force         If we should expire cache and fetch from the database.
+			 * @param bool   $cache         If the value was pulled from cache.
 			 */
-			return apply_filters( 'tec_common_timed_option_value', $this->data[ $key ]['value'], $key, $default, $force, true );
+			return apply_filters( 'tec_common_timed_option_value', $this->data[ $key ]['value'], $key, $default_value, $force, true );
 		}
 
 		$timed_option = null;
@@ -179,14 +182,14 @@ class Timed_Option {
 				$this->set( $key, null, 0 );
 			}
 
-			return $default;
+			return $default_value;
 		}
 
 		// Bail with default when expired.
 		if ( $time >= $timed_option['expiration'] ) {
 			$this->delete( $key );
 
-			return $default;
+			return $default_value;
 		}
 
 		$this->data[ $key ] = $timed_option;
@@ -196,13 +199,13 @@ class Timed_Option {
 		 *
 		 * @since 5.0.6
 		 *
-		 * @param mixed  $value   If anything diff than null it will short-circuit.
-		 * @param string $key     Key for the option we are trying to get.
-		 * @param mixed  $default Default value when the option is either expired or not-set.
-		 * @param bool   $force   If we should expire cache and fetch from the database.
-		 * @param bool   $cache   If the value was pulled from cache.
+		 * @param mixed  $value         If anything diff than null it will short-circuit.
+		 * @param string $key           Key for the option we are trying to get.
+		 * @param mixed  $default_value Default value when the option is either expired or not-set.
+		 * @param bool   $force         If we should expire cache and fetch from the database.
+		 * @param bool   $cache         If the value was pulled from cache.
 		 */
-		return apply_filters( 'tec_common_timed_option_value', $timed_option['value'], $key, $default, $force, false );
+		return apply_filters( 'tec_common_timed_option_value', $timed_option['value'], $key, $default_value, $force, false );
 	}
 
 	/**
@@ -241,7 +244,7 @@ class Timed_Option {
 	 * @since 5.0.6
 	 *
 	 * @param string $key   Which timed option we are checking.
-	 * @param bool   $force Clears the cache before get_option()
+	 * @param bool   $force Clears the cache before get_option().
 	 *
 	 * @return bool
 	 */

@@ -1,4 +1,11 @@
 <?php
+/**
+ * File: Server_Integration.php
+ *
+ * @since 5.1.1
+ *
+ * @package TEC\Common\Integrations\Traits
+ */
 
 namespace TEC\Common\Integrations\Traits;
 

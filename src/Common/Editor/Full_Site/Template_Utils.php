@@ -1,4 +1,11 @@
 <?php
+/**
+ * File: Template_Utils.php
+ *
+ * @since 4.14.18
+ *
+ * @package TEC\Common\Editor\Full_Site
+ */
 
 namespace TEC\Common\Editor\Full_Site;
 
@@ -109,7 +116,7 @@ class Template_Utils {
 			'post_status'    => [ 'auto-draft', 'draft', 'publish', 'trash' ],
 			'posts_per_page' => 1,
 			'no_found_rows'  => true,
-			'tax_query'      => [
+			'tax_query'      => [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 				[
 					'taxonomy' => 'wp_theme',
 					'field'    => 'name',
@@ -129,12 +136,16 @@ class Template_Utils {
 
 		// Validate our query result.
 		if ( ! $post instanceof WP_Post ) {
-			do_action( 'tribe_log', 'error',
-				'Failed locating our Post for the Block Template', [
+			do_action(
+				'tribe_log',
+				'error',
+				'Failed locating our Post for the Block Template',
+				[
 					'method'    => __METHOD__,
 					'post_name' => $post_name,
-					'terms'     => $terms
-				] );
+					'terms'     => $terms,
+				]
+			);
 
 			// Might as well bail, avoid errors below.
 			return null;
@@ -151,22 +162,26 @@ class Template_Utils {
 	 * @param array $post_array Post array for insert.
 	 *
 	 * @return WP_Block_Template|null The newly created WP_Block_Template, or null on error.
-	 * @throws InvalidArgumentException
+	 *
+	 * @throws InvalidArgumentException If the post_name or tax_input are missing.
 	 */
 	public static function save_block_template( $post_array ): ?WP_Block_Template {
 		if ( empty( $post_array['post_name'] ) ) {
-			throw new InvalidArgumentException( "Must have `post_name` parameter to denote this template uniquely." );
+			throw new InvalidArgumentException( 'Must have `post_name` parameter to denote this template uniquely.' );
 		}
 
 		if ( empty( $post_array['tax_input'] ) ) {
-			throw new InvalidArgumentException( "Must have `tax_input` parameter to include the term of the `wp_theme` this template is under." );
+			throw new InvalidArgumentException( 'Must have `tax_input` parameter to include the term of the `wp_theme` this template is under.' );
 		}
 
 		// Merge with default params.
-		$insert = array_merge( [
-			'post_type'   => 'wp_template',
-			'post_status' => 'publish',
-		], $post_array );
+		$insert = array_merge(
+			[
+				'post_type'   => 'wp_template',
+				'post_status' => 'publish',
+			],
+			$post_array
+		);
 
 		// Create this template.
 		$id = wp_insert_post( $insert );

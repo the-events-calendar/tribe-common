@@ -45,7 +45,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 6.6.0
 	 *
-	 * @uses  Notices::register_admin_notices()
+	 * @uses Notices::register_admin_notices()
 	 *
 	 * @return void
 	 */

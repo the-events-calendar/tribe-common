@@ -14,6 +14,8 @@ if ( ! class_exists( 'Tribe__Main' ) ) {
 	return;
 }
 
+//phpcs:disable WordPress.DateTime.RestrictedFunctions.date_date
+
 if ( ! function_exists( 'tribe_format_date' ) ) {
 	/**
 	 * Formatted Date
@@ -42,7 +44,7 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 			$date_year = date( 'Y', $date );
 			$cur_year  = date( 'Y', current_time( 'timestamp' ) );
 
-			// only show the year in the date if it's not in the current year
+			// Only show the year in the date if it's not in the current year.
 			$with_year = $date_year == $cur_year ? false : true;
 
 			if ( $display_time ) {
@@ -162,15 +164,15 @@ if ( ! function_exists( 'tribe_get_datetime_separator' ) ) {
 	/**
 	 * Get the datetime separator from the database option with escaped characters or not ;)
 	 *
-	 * @param string $default Default separator if it's blank in the database.
-	 * @param bool   $esc     If it's going to be used on a `date` function or method, it needs to be escaped.
+	 * @param string $separator Default separator if it's blank in the database.
+	 * @param bool   $esc       If it's going to be used on a `date` function or method, it needs to be escaped.
 	 *
 	 * @filter tribe_datetime_separator
 	 *
 	 * @return string
 	 */
-	function tribe_get_datetime_separator( $default = ' @ ', $esc = false ) {
-		$separator = (string) tribe_get_option( 'dateTimeSeparator', $default );
+	function tribe_get_datetime_separator( $separator = ' @ ', $esc = false ) {
+		$separator = (string) tribe_get_option( 'dateTimeSeparator', $separator );
 		if ( $esc ) {
 			$separator = (array) str_split( $separator );
 			$separator = ( ! empty( $separator ) ? '\\' : '' ) . implode( '\\', $separator );

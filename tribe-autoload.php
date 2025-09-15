@@ -1,4 +1,8 @@
 <?php
+/**
+ * Autoloader for the TEC Common.
+ */
+
 $common = __DIR__ . '/src';
 
 require_once $common . '/Tribe/Autoloader.php';

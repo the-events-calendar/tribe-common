@@ -35,7 +35,7 @@ interface Configuration_Provider_Interface {
 	 *
 	 * @param string $key Variable name.
 	 *
-	 * @return null|mixed
+	 * @return mixed The value of the variable.
 	 */
 	public function get( string $key );
 

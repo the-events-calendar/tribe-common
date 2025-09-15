@@ -1,4 +1,11 @@
 <?php
+/**
+ * File: Factory.php
+ *
+ * @since 5.1.0
+ *
+ * @package TEC\Common\Site_Health
+ */
 
 namespace TEC\Common\Site_Health;
 
@@ -19,9 +26,9 @@ class Factory {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @param string            $id
-	 * @param string            $label
-	 * @param array|string|null $value
+	 * @param string            $id       The id of the field.
+	 * @param string            $label    The label of the field.
+	 * @param array|string|null $value    The value of the field.
 	 * @param int               $priority (optional) By default all fields are generated with priority 50.
 	 *
 	 * @return Info_Field_Abstract
@@ -35,9 +42,9 @@ class Factory {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @param string $id
-	 * @param string $post_type
-	 * @param int    $priority (optional) By default all fields are generated with priority 50.
+	 * @param string $id        The id of the field.
+	 * @param string $post_type The post type of the field.
+	 * @param int    $priority  (optional) By default all fields are generated with priority 50.
 	 *
 	 * @return Info_Field_Abstract
 	 */
@@ -62,9 +69,12 @@ class Factory {
 		 */
 		$sections = (array) apply_filters( 'tec_debug_info_sections', [] );
 
-		return array_filter( $sections, static function ( $section ) {
-			return $section instanceof Info_Section_Abstract;
-		} );
+		return array_filter(
+			$sections,
+			static function ( $section ) {
+				return $section instanceof Info_Section_Abstract;
+			}
+		);
 	}
 
 	/**
@@ -83,7 +93,7 @@ class Factory {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @param array $info
+	 * @param array $info The info to filter.
 	 *
 	 * @return array
 	 */

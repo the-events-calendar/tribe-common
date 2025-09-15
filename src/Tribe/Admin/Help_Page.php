@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Administration Help Page
  *
@@ -11,6 +10,8 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
+
+// phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase
 
 /**
  * Class with a few helpers for the Administration Pages
@@ -405,7 +406,7 @@ class Tribe__Admin__Help_Page {
 				continue;
 			}
 
-			// Filter by is_important
+			// Filter by is_important!
 			if (
 				! is_null( $is_important ) &&
 				( ! isset( $addon['is_important'] ) || $is_important !== $addon['is_important'] )
@@ -554,6 +555,7 @@ class Tribe__Admin__Help_Page {
 
 			set_transient( $transient, $data, $timeout );
 		}
+
 		$data->up_to_date = ( version_compare( $plugin->version, $data->version, '<' ) ) ? esc_html__( 'You need to upgrade!', 'tribe-common' ) : esc_html__( 'You are up to date!', 'tribe-common' );
 
 		/**
@@ -573,16 +575,16 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since 4.0
 	 *
-	 * @param string|array $mixed The mixed value to create the HTML from.
+	 * @param string|array $mixed_value The mixed value to create the HTML from.
 	 *
 	 * @return string
 	 */
-	public function get_content_html( $mixed = '' ) {
+	public function get_content_html( $mixed_value = '' ) {
 		// If it's an StdObj or String it will be converted.
-		$mixed = (array) $mixed;
+		$mixed_value = (array) $mixed_value;
 
 		// Loop to start the HTML.
-		foreach ( $mixed as &$line ) {
+		foreach ( $mixed_value as &$line ) {
 			// If we have content we use that.
 			if ( isset( $line->content ) ) {
 				$line = $line->content;
@@ -621,7 +623,7 @@ class Tribe__Admin__Help_Page {
 			}
 		}
 
-		return wpautop( implode( "\n\n", $mixed ) );
+		return wpautop( implode( "\n\n", $mixed_value ) );
 	}
 
 	/**
@@ -751,7 +753,7 @@ class Tribe__Admin__Help_Page {
 
 		$item = (object) $arguments;
 
-		// Set the priority
+		// Set the priority.
 		$item->priority = absint( $priority );
 
 		// Set the uid to help ordering.
@@ -812,10 +814,10 @@ class Tribe__Admin__Help_Page {
 	 *
 	 * @since 4.0
 	 *
-	 * @param boolean $print    Return or Print the HTML after.
+	 * @param boolean $render    Return or Print the HTML after.
 	 * @return void|string
 	 */
-	public function get_sections( $print = true ) {
+	public function get_sections( $render = true ) {
 		/**
 		 * Allow third-party sections here
 		 *
@@ -866,7 +868,8 @@ class Tribe__Admin__Help_Page {
 			$html[ $section->id . '-start' ] = '<div id="tribe-' . sanitize_html_class( $section->id ) . '" class="tribe-help-section clearfix tribe-section-type-' . sanitize_html_class( $section->type ) . '">';
 
 			if ( ! empty( $section->title ) ) {
-				$html[ $section->id . '-title' ] = '<h3 class="tribe-help-title">' . esc_html__( $section->title ) . '</h3>';
+				/* translators: %s: section title - text translated by default WP domain. */
+				$html[ $section->id . '-title' ] = '<h3 class="tribe-help-title">' . esc_html__( $section->title ) . '</h3>'; // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
 			}
 
 			$html[ $section->id . '-content' ] = $this->get_content_html( $section->content );
@@ -882,7 +885,7 @@ class Tribe__Admin__Help_Page {
 		 */
 		$html = apply_filters( 'tribe_help_sections_html', $html, $sections );
 
-		if ( true === $print ) {
+		if ( true === $render ) {
 			echo implode( "\n", $html );
 		} else {
 			return $html;
@@ -992,7 +995,7 @@ class Tribe__Admin__Help_Page {
 			<?php
 			// Only show the link to the users can use it.
 			if ( current_user_can( 'update_plugins' ) && current_user_can( 'install_plugins' ) ) {
-				echo $link ? '<p style="text-align: center;">' . $link . '</p>' : '';
+				echo $link ? '<p style="text-align: center;">' . $link . '</p>' : ''; // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped - string assembled above.
 			}
 			?>
 

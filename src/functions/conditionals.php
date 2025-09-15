@@ -1,4 +1,9 @@
 <?php
+/**
+ * Conditionals functions.
+ *
+ * @since 4.14.16
+ */
 
 /**
  * Determines if upsells should be hidden.
@@ -10,7 +15,7 @@
  * @return bool
  */
 function tec_should_hide_upsell( $slug = 'all' ) {
-	$verify = static function( $needle, $haystack ) {
+	$verify = static function ( $needle, $haystack ) {
 		// In all cases if true or false boolean we return that.
 		if ( is_bool( $haystack ) ) {
 			return $haystack;
@@ -31,7 +36,7 @@ function tec_should_hide_upsell( $slug = 'all' ) {
 		// Now allow multiple to be targeted as a string.
 		$haystack = explode( '|', $haystack );
 
-		// If the  `all` string is on the haystack
+		// If the `all` string is on the haystack.
 		if ( in_array( 'all', $haystack, true ) ) {
 			return true;
 		}

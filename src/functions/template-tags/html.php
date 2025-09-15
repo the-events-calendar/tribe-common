@@ -2,6 +2,7 @@
 /**
  * HTML functions (template-tags) for use in WordPress templates.
  */
+
 use Tribe\Utils\Element_Attributes;
 use Tribe\Utils\Element_Classes;
 use TEC\Common\Template;
@@ -72,7 +73,7 @@ function tribe_classes() {
  * @return void
  */
 function tec_classes() {
-	echo tec_get_classes_attr( ...func_get_args() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped
+	echo tec_get_classes_attr( ...func_get_args() ); // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped
 }
 
 /**
@@ -100,33 +101,7 @@ function tribe_get_attributes() {
  */
 function tribe_attributes() {
 	$element_attributes = new Element_Attributes( func_get_args() );
-	echo $element_attributes->get_attributes();
-}
-
-/**
- * Get attributes for required fields.
- *
- * @deprecated 4.12.6
- *
- * @since 4.10.0
- *
- * @param boolean $required If the field is required.
- * @param boolean $echo     Whether to echo the string or return it.
- *
- * @return string|void If echo is false, returns $required_string.
- */
-function tribe_required( $required, $echo = true ) {
-	_deprecated_function( __METHOD__, '4.12.6', 'no replacement' );
-
-	if ( $required ) {
-		$required_string = 'required aria-required="true"';
-
-		if ( ! $echo ) {
-			return $required_string;
-		} else {
-			echo $required_string;
-		}
-	}
+	echo $element_attributes->get_attributes(); // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped -- escaped internally.
 }
 
 /**
@@ -135,20 +110,20 @@ function tribe_required( $required, $echo = true ) {
  * @since 4.10.0
  *
  * @param boolean $required If the field is required.
- * @param boolean $echo     Whether to echo the string or return it.
+ * @param boolean $render   Whether to echo the string or return it.
  *
  * @return string|void If echo is false, returns $required_string.
  */
-function tribe_required_label( $required, $echo = true ) {
+function tribe_required_label( $required, $render = true ) {
 	if ( $required ) {
 		$required_string = '<span class="screen-reader-text">'
 			. esc_html_x( '( required )', 'The associated field is required.', 'tribe-common' )
 			. '</span><span class="tribe-required" aria-hidden="true" role="presentation">*</span>';
 
-		if ( ! $echo ) {
+		if ( ! $render ) {
 			return $required_string;
 		} else {
-			echo $required_string;
+			echo $required_string; // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped -- hardcoded string.
 		}
 	}
 }
@@ -161,18 +136,18 @@ function tribe_required_label( $required, $echo = true ) {
  * @since 4.10.0
  *
  * @param boolean $disabled If the field is disabled.
- * @param boolean $echo     Whether to echo the string or return it.
+ * @param boolean $render   Whether to echo the string or return it.
  *
  * @return string|void If echo is false, returns $disabled_string.
  */
-function tribe_disabled( $disabled, $echo = true ) {
+function tribe_disabled( $disabled, $render = true ) {
 	if ( $disabled ) {
 		$disabled_string = 'disabled aria-disabled="true"';
 
-		if ( ! $echo ) {
+		if ( ! $render ) {
 			return $disabled_string;
 		} else {
-			echo $disabled_string;
+			echo $disabled_string; // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped -- hardcoded string.
 		}
 	}
 }
@@ -255,12 +230,12 @@ function tribe_format_field_dependency( $deps ) {
 			continue;
 		}
 
-		// Handle string and "empty" values
-		if( 0 === strlen( $value ) ) {
+		// Handle string and "empty" values.
+		if ( 0 === strlen( $value ) ) {
 			$dependency .= " data-condition-{$attr}";
-		} else if ( 'is' === $attr ) {
+		} elseif ( 'is' === $attr ) {
 			$dependency .= " data-condition=\"{$value}\"";
-		} else if ( 'is-not' === $attr ) {
+		} elseif ( 'is-not' === $attr ) {
 			$dependency .= " data-condition-not=\"{$value}\"";
 		}
 	}

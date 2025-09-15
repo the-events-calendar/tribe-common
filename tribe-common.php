@@ -11,7 +11,6 @@
  * License: GPLv2 or later
  */
 
-
 /*
 Copyright 2009-2015 by The Events Calendar and the contributors
 

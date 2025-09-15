@@ -13,6 +13,7 @@ namespace TEC\Common\REST\TEC\V1\Collections;
 
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 use TEC\Common\REST\TEC\V1\Contracts\Parameter;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Entity;
 use Tribe\Utils\Lazy_String;
 use InvalidArgumentException;
 

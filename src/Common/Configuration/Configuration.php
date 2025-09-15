@@ -31,14 +31,14 @@ class Configuration implements Configuration_Provider_Interface {
 	 *
 	 * @since 5.1.3
 	 *
-	 * @param Configuration_Loader $loader
+	 * @param Configuration_Loader $loader The loader to use.
 	 */
 	public function __construct( Configuration_Loader $loader ) {
 		$this->loader = $loader;
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	public function all(): array {
 		$configs = [];
@@ -50,7 +50,7 @@ class Configuration implements Configuration_Provider_Interface {
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	public function get( $key ) {
 		foreach ( $this->loader->all() as $provider ) {
@@ -63,7 +63,7 @@ class Configuration implements Configuration_Provider_Interface {
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	public function has( $key ): bool {
 		foreach ( $this->loader->all() as $provider ) {

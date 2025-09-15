@@ -1,8 +1,12 @@
 <?php
+/**
+ * Trait for dismissible content.
+ */
 
 declare( strict_types=1 );
 
 namespace TEC\Common\Admin\Conditional_Content;
+
 use Exception;
 
 /**

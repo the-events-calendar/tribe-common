@@ -1,4 +1,11 @@
 <?php
+/**
+ * File: Provider.php
+ *
+ * @since 5.0.10
+ *
+ * @package TEC\Common\Libraries
+ */
 
 namespace TEC\Common\Libraries;
 

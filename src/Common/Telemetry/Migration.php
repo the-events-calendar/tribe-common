@@ -6,6 +6,7 @@
  *
  * @package TEC\Common\Telemetry
  */
+
 namespace TEC\Common\Telemetry;
 
 use TEC\Common\StellarWP\Telemetry\Config;
@@ -65,7 +66,7 @@ class Migration {
 	 */
 	public $our_plugins = [
 		'the-events-calendar',
-		'event-tickets'
+		'event-tickets',
 	];
 
 	/**
@@ -102,15 +103,15 @@ class Migration {
 		// Store original here as backup.
 		update_option( static::$fs_accounts_slug, $fs_accounts );
 
-		// Prevent issues with incomplete classes
+		// Prevent issues with incomplete classes.
 		$fs_accounts = preg_replace_callback(
 			'/O:(\d+):"([^"]+)":([^:]+):\{/m',
-			static function( $matches ) {
+			static function ( $matches ) {
 				if ( $matches[2] === 'stdClass' ) {
 					return $matches[0];
 				}
 
-				$key_slug = "tec_fs_key";
+				$key_slug = 'tec_fs_key';
 				$key_slug_count = strlen( $key_slug );
 				$new_size = $matches[3] + 1;
 
@@ -261,7 +262,7 @@ class Migration {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @param Object $fs_active_plugins
+	 * @param Object $fs_active_plugins The stored list of active plugins from Freemius.
 	 * @return void
 	 */
 	private function handle_fs_active_plugins( $fs_active_plugins ): void {
@@ -287,6 +288,7 @@ class Migration {
 	 *
 	 * @since 5.1.0
 	 *
+	 * @return void
 	 */
 	public function auto_opt_in() {
 		$opt_in = $this->is_opted_in();

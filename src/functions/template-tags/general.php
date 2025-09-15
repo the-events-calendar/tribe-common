@@ -7,8 +7,6 @@ use TEC\Common\Key_Value_Cache\Key_Value_Cache_Interface;
 use TEC\Common\StellarWP\Assets\Asset;
 use TEC\Common\StellarWP\Assets\Assets;
 
-
-// Don't load directly
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -25,14 +23,14 @@ if ( ! function_exists( 'tribe_get_option' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param string $optionName Name of the option to retrieve.
-	 * @param mixed  $default    Value to return if no such option is found.
+	 * @param string $option_name   Name of the option to retrieve.
+	 * @param mixed  $default_value Value to return if no such option is found.
 	 *
 	 * @return mixed Value of the option if found.
 	 * @todo Abstract this function out of template tags or otherwise secure it from other namespace conflicts.
 	 */
-	function tribe_get_option( $optionName, $default = '' ) {
-		$value = Tribe__Settings_Manager::get_option( $optionName, $default );
+	function tribe_get_option( $option_name, $default_value = '' ) {
+		$value = Tribe__Settings_Manager::get_option( $option_name, $default_value );
 
 		/**
 		 * Allow filtering of all options retrieved via tribe_get_option().
@@ -40,10 +38,10 @@ if ( ! function_exists( 'tribe_get_option' ) ) {
 		 * @since 4.0.1
 		 *
 		 * @param mixed $value Value of the option if found.
-		 * @param string $optionName Name of the option to retrieve.
-		 * @param string $default    Value to return if no such option is found.
+		 * @param string $option_name Name of the option to retrieve.
+		 * @param string $default_value    Value to return if no such option is found.
 		 */
-		$value = apply_filters( 'tribe_get_option', $value, $optionName, $default );
+		$value = apply_filters( 'tribe_get_option', $value, $option_name, $default_value );
 
 		/**
 		 * Allow filtering of a specific option retrieved via tribe_get_option().
@@ -51,10 +49,10 @@ if ( ! function_exists( 'tribe_get_option' ) ) {
 		 * @since 4.0.1
 		 *
 		 * @param mixed $value Value of the option if found.
-		 * @param string $optionName Name of the option to retrieve.
-		 * @param string $default    Value to return if no such option is found.
+		 * @param string $option_name Name of the option to retrieve.
+		 * @param string $default_value    Value to return if no such option is found.
 		 */
-		return apply_filters( "tribe_get_option_{$optionName}", $value, $optionName, $default );
+		return apply_filters( "tribe_get_option_{$option_name}", $value, $option_name, $default_value );
 	}
 }
 
@@ -66,13 +64,13 @@ if ( ! function_exists( 'tribe_update_option' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param string $optionName Name of the option to retrieve.
-	 * @param mixed  $value      Value to save
+	 * @param string $option_name Name of the option to retrieve.
+	 * @param mixed  $value       Value to save.
 	 *
 	 * @return bool
 	 */
-	function tribe_update_option( $optionName, $value ) {
-		return Tribe__Settings_Manager::set_option( $optionName, $value );
+	function tribe_update_option( $option_name, $value ) {
+		return Tribe__Settings_Manager::set_option( $option_name, $value );
 	}
 }
 
@@ -83,13 +81,12 @@ if ( ! function_exists( 'tribe_remove_option' ) ) {
 	 * Remove specific key from options array
 	 *
 	 * @category Events
-	 * @param string $optionName Name of the option to retrieve.
-	 * @param string $value      Value to save
+	 * @param string $option_name Name of the option to retrieve.
 	 *
 	 * @return bool
 	 */
-	function tribe_remove_option( $optionName ) {
-		return Tribe__Settings_Manager::remove_option( $optionName );
+	function tribe_remove_option( $option_name ) {
+		return Tribe__Settings_Manager::remove_option( $option_name );
 	}
 }
 
@@ -101,14 +98,14 @@ if ( ! function_exists( 'tribe_get_network_option' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param string $optionName Name of the option to retrieve.
-	 * @param mixed  $default    Value to return if no such option is found.
+	 * @param string $option_name   Name of the option to retrieve.
+	 * @param mixed  $default_value Value to return if no such option is found.
 	 *
 	 * @return mixed Value of the option if found.
 	 * @todo Abstract this function out of template tags or otherwise secure it from other namespace conflicts.
 	 */
-	function tribe_get_network_option( $optionName, $default = '' ) {
-		return Tribe__Settings_Manager::get_network_option( $optionName, $default );
+	function tribe_get_network_option( $option_name, $default_value = '' ) {
+		return Tribe__Settings_Manager::get_network_option( $option_name, $default_value );
 	}
 }
 
@@ -118,18 +115,18 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param string $resource The filename of the resource.
-	 * @param bool   $echo     Whether or not to echo the url.
-	 * @param string $root_dir Directory to hunt for resource files (null or the actual path).
-	 * @param object $origin   Which plugin we are dealing with.
+	 * @param string $resource_name The filename of the resource.
+	 * @param bool   $render        Whether or not to echo the url.
+	 * @param string $root_dir      Directory to hunt for resource files (null or the actual path).
+	 * @param object $origin        Which plugin we are dealing with.
 	 *
 	 * @return string
 	 **/
-	function tribe_resource_url( $resource, $echo = false, $root_dir = null, $origin = null ) {
+	function tribe_resource_url( $resource_name, $render = false, $root_dir = null, $origin = null ) {
 		static $_plugin_url = [];
 
 		if ( is_object( $origin ) ) {
-			$plugin_path = ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath;
+			$plugin_path = ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath; //phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		} else {
 			$plugin_path = dirname( dirname( dirname( dirname( __DIR__ ) ) ) );
 		}
@@ -139,7 +136,7 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 		}
 		$plugin_base_url = $_plugin_url[ $plugin_path ];
 
-		$extension     = pathinfo( $resource, PATHINFO_EXTENSION );
+		$extension     = pathinfo( $resource_name, PATHINFO_EXTENSION );
 		$resource_path = $root_dir;
 
 		if ( is_null( $resource_path ) ) {
@@ -160,7 +157,7 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 			}
 		}
 
-		$url = $plugin_base_url . $resource_path . $resource;
+		$url = $plugin_base_url . $resource_path . $resource_name;
 
 		/**
 		 * Filters the resource URL
@@ -168,15 +165,15 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 		 * @param string $url      The resource URL.
 		 * @param string $resource The resource name.
 		 */
-		$url = apply_filters( 'tribe_resource_url', $url, $resource );
+		$url = apply_filters( 'tribe_resource_url', $url, $resource_name );
 
 		/**
 		 * Deprecated the tribe_events_resource_url filter in 4.0 in favor of tribe_resource_url. Remove in 5.0
 		 */
-		$url = apply_filters( 'tribe_events_resource_url', $url, $resource );
+		$url = apply_filters( 'tribe_events_resource_url', $url, $resource_name );
 
-		if ( $echo ) {
-			echo $url;
+		if ( $render ) {
+			echo $url; //phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped
 		}
 
 		return $url;
@@ -204,7 +201,7 @@ if ( ! function_exists( 'tribe_get_date_format' ) ) {
 	 * Get the date format specified in the tribe options.
 	 *
 	 * @category Events
-	 * @param bool $with_year
+	 * @param bool $with_year Whether to include the year in the format.
 	 *
 	 * @return mixed
 	 */
@@ -308,7 +305,7 @@ if ( ! function_exists( 'tribe_get_days_between' ) ) {
 
 		return Tribe__Date_Utils::date_diff( $start_date->format( 'Y-m-d ' . $day_cutoff ), $end_date->format( 'Y-m-d ' . $day_cutoff ) );
 	}
-}//end if
+}
 
 if ( ! function_exists( 'tribe_prepare_for_json' ) ) {
 	/**
@@ -318,14 +315,14 @@ if ( ! function_exists( 'tribe_prepare_for_json' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param string $string The string to prepare.
+	 * @param string $the_string The string to prepare.
 	 *
 	 * @return string The prepared string.
 	 */
-	function tribe_prepare_for_json( $string ) {
-		$value = trim( htmlspecialchars( $string, ENT_QUOTES, 'UTF-8' ) );
+	function tribe_prepare_for_json( $the_string ) {
+		$value = trim( htmlspecialchars( $the_string, ENT_QUOTES, 'UTF-8' ) );
 		$value = str_replace( '&quot;', '"', $value );
-		// &amp;#013; is same as \r and JSON strings should be a single line not multiple lines.
+		// Note &amp;#013; is the same as \r and JSON strings should be a single line not multiple lines.
 		$removable_values = [ '\r', '\n', '\t', '&amp;#013;' ];
 		$value            = str_replace( $removable_values, '', $value );
 
@@ -365,12 +362,12 @@ if ( ! function_exists( 'tribe_the_notices' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param bool $echo Whether or not to echo the notices html.
+	 * @param bool $render Whether or not to echo the notices html.
 	 *
-	 * @return void | string
+	 * @return void|string
 	 * @see Tribe__Notices::get()
 	 **/
-	function tribe_the_notices( $echo = true ) {
+	function tribe_the_notices( $render = true ) {
 		$notices = Tribe__Notices::get();
 
 		$html = ! empty( $notices ) ? '<div class="tribe-events-notices"><ul><li>' . implode( '</li><li>', $notices ) . '</li></ul></div>' : '';
@@ -381,11 +378,11 @@ if ( ! function_exists( 'tribe_the_notices' ) ) {
 		$the_notices = apply_filters( 'tribe_events_the_notices', $html, $notices );
 
 		/**
-		 * filters the notices HTML
+		 * Filters the notices HTML.
 		 */
 		$the_notices = apply_filters( 'tribe_the_notices', $html, $notices );
-		if ( $echo ) {
-			echo $the_notices;
+		if ( $render ) {
+			echo $the_notices; //phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped
 		} else {
 			return $the_notices;
 		}
@@ -401,15 +398,15 @@ if ( ! function_exists( 'tribe_is_bot' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_bot() {
-		// get the current user agent
-		$user_agent = strtolower( $_SERVER['HTTP_USER_AGENT'] );
+		// phpcs:ignore WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___SERVER__HTTP_USER_AGENT__
+		$user_agent = strtolower( sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] ?? '' ) );
 
-		// check if the user agent is empty since most browsers identify themselves, so possibly a bot
+		// Check if the user agent is empty since most browsers identify themselves, so possibly a bot.
 		if ( empty( $user_agent ) ) {
 			return apply_filters( 'tribe_is_bot_status', true, $user_agent, null );
 		}
 
-		// declare known bot user agents (lowercase)
+		// Declare known bot user agents (lowercase).
 		$user_agent_bots = (array) apply_filters(
 			'tribe_is_bot_list',
 			[
@@ -427,7 +424,7 @@ if ( ! function_exists( 'tribe_is_bot' ) ) {
 			}
 		}
 
-		// we think this is probably a real human
+		// We think this is probably a real human.
 		return apply_filters( 'tribe_is_bot_status', false, $user_agent, null );
 	}
 }//end if
@@ -436,11 +433,14 @@ if ( ! function_exists( 'tribe_count_hierarchical_keys' ) ) {
 	/**
 	 * Count keys in a hierarchical array.
 	 *
-	 * @param mixed  $value The value to count.
-	 * @param string $key   The key to count.
+	 * @param mixed  $unused_value The value to count.
+	 * @param string $unused_key   The key to count.
+	 *
 	 * @todo - remove, only used in the meta walker.
+	 *
+	 * @deprecated TBD
 	 */
-	function tribe_count_hierarchical_keys( $value, $key ) {
+	function tribe_count_hierarchical_keys( $unused_value, $unused_key ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		global $tribe_count_hierarchical_increment;
 		++$tribe_count_hierarchical_increment;
 	}
@@ -472,12 +472,12 @@ if ( ! function_exists( 'tribe_get_mobile_breakpoint' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param int $default The default width (in pixels) at which to break into mobile styles
+	 * @param int $default_width The default width (in pixels) at which to break into mobile styles.
 	 *
 	 * @return int
 	 */
-	function tribe_get_mobile_breakpoint( $default = 768 ) {
-		return apply_filters( 'tribe_events_mobile_breakpoint', $default );
+	function tribe_get_mobile_breakpoint( $default_width = 768 ) {
+		return apply_filters( 'tribe_events_mobile_breakpoint', $default_width );
 	}
 }//end if
 
@@ -528,8 +528,8 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 			$reverse_position = apply_filters( 'tribe_reverse_currency_position', (bool) $reverse_position, $post_id );
 		}
 
-		// if no currency position was passed and we're not looking at a particular event,
-		// let's get the default currency position
+		// If no currency position was passed and we're not looking at a particular event,
+		// let's get the default currency position.
 		if ( null === $reverse_position && ! $post_id ) {
 			$reverse_position = tribe_get_option( 'reverseCurrencyPosition', false );
 		}
@@ -567,13 +567,13 @@ if ( ! function_exists( 'tribe_get_date_option' ) ) {
 	 * Retrieve an option value taking care to escape it to preserve date format slashes.
 	 *
 	 * @category Events
-	 * @param string $optionName Name of the option to retrieve.
-	 * @param string $default    Value to return if no such option is found.
+	 * @param string $option_name   Name of the option to retrieve.
+	 * @param string $default_value Value to return if no such option is found.
 	 *
 	 * @return mixed Value of the option if found
 	 */
-	function tribe_get_date_option( $optionName, $default = '' ) {
-		$value = tribe_get_option( $optionName, $default );
+	function tribe_get_date_option( $option_name, $default_value = '' ) {
+		$value = tribe_get_option( $option_name, $default_value );
 
 		return Tribe__Date_Utils::unescape_date_format( $value );
 	}
@@ -631,7 +631,7 @@ function tribe_transient_notice( $slug, $html, $arguments = [], $expire = null )
  *
  * @since 4.7.7
  *
- * @param string $slug
+ * @param string $slug The slug of the notice to remove.
  */
 function tribe_transient_notice_remove( $slug ) {
 	Tribe__Admin__Notices::instance()->remove_transient( $slug );
@@ -720,6 +720,8 @@ function tribe_asset( $origin, $slug, $file, $deps = [], $action = null, $argume
  *
  * @param string|array $slug  The slug to enqueue.
  * @param bool         $force Whether to force the enqueue or not.
+ *
+ * @return void
  */
 function tribe_asset_enqueue( $slug, $force = true ) {
 	Tribe__Assets::instance()->enqueue( $slug, $force );
@@ -735,6 +737,9 @@ function tribe_asset_enqueue( $slug, $force = true ) {
  * @since 5.3.0 Refactored to use the `stellarwp/assets` library.
  *
  * @param string|array $group Which group(s) should be enqueued.
+ * @param bool         $force Whether to force the enqueue or not.
+ *
+ * @return void
  */
 function tribe_asset_enqueue_group( $group, $force = true ) {
 	Tribe__Assets::instance()->enqueue_group( $group, $force );
@@ -799,6 +804,8 @@ if ( ! function_exists( 'tribe_doing_frontend' ) ) {
 	 *
 	 * @param bool $doing_frontend Whether what is being done happens in the
 	 *                             context of the frontend or not.
+	 *
+	 * @return void
 	 */
 	function tribe_doing_frontend( $doing_frontend ) {
 		$callback = $doing_frontend ? '__return_true' : '__return_false';
@@ -893,14 +900,14 @@ if ( ! function_exists( 'tribe_asset_print_group' ) ) {
 	 *
 	 * @since 4.12.6
 	 *
-	 * @param string|array $group Which group(s) should be enqueued.
-	 * @param bool         $echo  Whether to print the group(s) tag(s) to the page or not; default to `true` to
-	 *                            print the HTML `script` (JS) and `link` (CSS) tags to the page.
+	 * @param string|array $group  Which group(s) should be enqueued.
+	 * @param bool         $render Whether to print the group(s) tag(s) to the page or not; default to `true` to
+	 *                             print the HTML `script` (JS) and `link` (CSS) tags to the page.
 	 *
 	 * @return string The `script` and `link` HTML tags produced for the group(s).
 	 */
-	function tribe_asset_print_group( $group, $echo = true ) {
-		return Assets::instance()->print_group( $group, $echo );
+	function tribe_asset_print_group( $group, $render = true ) {
+		return Assets::instance()->print_group( $group, $render );
 	}
 }
 

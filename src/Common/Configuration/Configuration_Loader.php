@@ -28,7 +28,7 @@ class Configuration_Loader {
 	 *
 	 * @since 5.1.3
 	 *
-	 * @param Configuration_Provider_Interface $provider
+	 * @param Configuration_Provider_Interface $provider The provider to add.
 	 *
 	 * @return $this
 	 */

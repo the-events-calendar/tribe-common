@@ -67,24 +67,32 @@ if ( ! function_exists( 'tribe_build_url' ) ) {
 	 * @return string The URL built from its parts.
 	 */
 	function tribe_build_url( $url, $parts = [], $flags = HTTP_URL_REPLACE, &$new_url = [] ) {
-		is_array( $url ) || $url = parse_url( $url );
-		is_array( $parts ) || $parts = parse_url( $parts );
+		if ( ! is_array( $url ) ) {
+			$url = wp_parse_url( $url );
+		}
+		if ( ! is_array( $parts ) ) {
+			$parts = wp_parse_url( $parts );
+		}
 
-		( isset( $url['query'] ) && is_string( $url['query'] ) ) || $url['query'] = null;
-		( isset( $parts['query'] ) && is_string( $parts['query'] ) ) || $parts['query'] = null;
+		if ( ! isset( $url['query'] ) || ! is_string( $url['query'] ) ) {
+			$url['query'] = null;
+		}
+		if ( ! isset( $parts['query'] ) || ! is_string( $parts['query'] ) ) {
+			$parts['query'] = null;
+		}
 
 		$keys = [ 'user', 'pass', 'port', 'path', 'query', 'fragment' ];
 
 		// HTTP_URL_STRIP_ALL and HTTP_URL_STRIP_AUTH cover several other flags.
 		if ( $flags & HTTP_URL_STRIP_ALL ) {
 			$flags |= HTTP_URL_STRIP_USER | HTTP_URL_STRIP_PASS
-			          | HTTP_URL_STRIP_PORT | HTTP_URL_STRIP_PATH
-			          | HTTP_URL_STRIP_QUERY | HTTP_URL_STRIP_FRAGMENT;
+					| HTTP_URL_STRIP_PORT | HTTP_URL_STRIP_PATH
+					| HTTP_URL_STRIP_QUERY | HTTP_URL_STRIP_FRAGMENT;
 		} elseif ( $flags & HTTP_URL_STRIP_AUTH ) {
 			$flags |= HTTP_URL_STRIP_USER | HTTP_URL_STRIP_PASS;
 		}
 
-		// Schema and host are alwasy replaced
+		// Schema and host are always replaced.
 		foreach ( [ 'scheme', 'host' ] as $part ) {
 			if ( isset( $parts[ $part ] ) ) {
 				$url[ $part ] = $parts[ $part ];
@@ -100,12 +108,14 @@ if ( ! function_exists( 'tribe_build_url' ) ) {
 		} else {
 			if ( isset( $parts['path'] ) && ( $flags & HTTP_URL_JOIN_PATH ) ) {
 				if ( isset( $url['path'] ) && substr( $parts['path'], 0, 1 ) !== '/' ) {
-					// Workaround for trailing slashes
+					// Workaround for trailing slashes.
 					$url['path'] .= 'a';
-					$url['path'] = rtrim(
-						               str_replace( basename( $url['path'] ), '', $url['path'] ),
-						               '/'
-					               ) . '/' . ltrim( $parts['path'], '/' );
+					$url['path']  = rtrim(
+						str_replace( basename( $url['path'] ), '', $url['path'] ),
+						'/'
+					)
+					. '/'
+					. ltrim( $parts['path'], '/' );
 				} else {
 					$url['path'] = $parts['path'];
 				}

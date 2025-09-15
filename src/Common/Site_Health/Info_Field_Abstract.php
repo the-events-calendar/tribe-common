@@ -1,11 +1,18 @@
 <?php
+/**
+ * File: Info_Field_Abstract.php
+ *
+ * @since 5.1.0
+ *
+ * @package TEC\Common\Site_Health
+ */
 
 namespace TEC\Common\Site_Health;
 
 /**
  * Class Info_Field_Abstract
  *
- * @link    https://developer.wordpress.org/reference/hooks/debug_information/
+ * @link https://developer.wordpress.org/reference/hooks/debug_information/
  *
  * @since 5.1.0
  *
@@ -35,7 +42,7 @@ abstract class Info_Field_Abstract implements Info_Field_Interface {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @return string|int|float|array<int>|array<float>|array<string>
+	 * @var string|int|float|array<int>|array<float>|array<string>
 	 */
 	protected $value;
 
@@ -127,20 +134,20 @@ abstract class Info_Field_Abstract implements Info_Field_Interface {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @param string                $param   The field parameter we're filtering.
-	 * @param mixed                 $value   Value of the field.
+	 * @param string $param   The field parameter we're filtering.
+	 * @param mixed  $value   The value of the field.
 	 *
 	 * @return mixed
 	 */
 	protected function filter_param( string $param, $value = null ) {
-		$field_id     = $this->get_id();
+		$field_id = $this->get_id();
 
 		/**
 		 * Filters the get of a particular param for all fields.
 		 *
 		 * @since 5.1.0
 		 *
-		 * @param mixed                 $value   Value of the field.
+		 * @param mixed                 $value   The value of the field.
 		 * @param Info_Field_Abstract   $field   Current Field.
 		 */
 		$value = apply_filters( "tec_debug_info_field_get_{$param}", $value, $this );
@@ -150,10 +157,9 @@ abstract class Info_Field_Abstract implements Info_Field_Interface {
 		 *
 		 * @since 5.1.0
 		 *
-		 * @param mixed                 $value   Value of the field.
+		 * @param mixed                 $value   The value of the field.
 		 * @param Info_Field_Abstract   $field   Current Field.
 		 */
 		return apply_filters( "tec_debug_info_field_{$field_id}_get_{$param}", $value, $this );
 	}
-
 }

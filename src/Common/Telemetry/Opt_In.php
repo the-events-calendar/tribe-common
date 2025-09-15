@@ -6,6 +6,7 @@
  *
  * @package TEC\Common\Telemetry
  */
+
 namespace TEC\Common\Telemetry;
 
 use TEC\Common\StellarWP\Telemetry\Config;
@@ -79,9 +80,7 @@ class Opt_In {
 			return $admin_user;
 		}
 
-		$admin_user = $this->get_first_admin_user();
-
-		return $admin_user;
+		return $this->get_first_admin_user();
 	}
 
 	/**
@@ -125,9 +124,12 @@ class Opt_In {
 			->getAll();
 
 		// Let's only grab administrators.
-		$results = array_filter( $results, static function( $row ) {
-			return strpos( $row->meta_value, '"administrator"' ) !== false;
-		} );
+		$results = array_filter(
+			$results,
+			static function ( $row ) {
+				return strpos( $row->meta_value, '"administrator"' ) !== false;
+			}
+		);
 
 		if ( empty( $results ) ) {
 			return null;

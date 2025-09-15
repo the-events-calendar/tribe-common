@@ -9,14 +9,17 @@
 	</rule>
 
 	<rule ref="WordPress">
-		<!-- We don't want these. -->
-		<exclude name="WordPress.Files.FileName"/>
+		<!-- Exclude Generic rules that overlap with or are overridden by StellarWP standards -->
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+
+		<!-- Exclude WP rules that overlap with or are overridden by StellarWP standards -->
+		<exclude name="WordPress.Files.FileName"/>
 		<exclude name="WordPress.DB.DirectDatabaseQuery"/>
 		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
-
-		<!-- We cover these with our own tests so they're redundant. -->
 		<exclude name="WordPress.Security.EscapeOutput.OutputNotEscaped"/>
+
+		<!-- Exclude PEAR rules that overlap with StellarWP standards -->
+		<exclude name="PEAR.NamingConventions.ValidClassName.Invalid"/>
 	</rule>
 
 	<!-- Tweak this one - we always want them lined up. 1000 is the default, WP overrides that. -->

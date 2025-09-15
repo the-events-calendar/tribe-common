@@ -124,7 +124,7 @@ class Updater extends Tribe__Updater {
 
 		uksort( $updates, 'version_compare' );
 
-		// phpcs:disable Generic.CodeAnalysis.EmptyStatement.DetectedCatchEmpty
+		// phpcs:disable Generic.CodeAnalysis.EmptyStatement.DetectedCatchEmpty,Generic.CodeAnalysis.EmptyStatement.DetectedCatch
 		try {
 			foreach ( $updates as $version => $callback ) {
 				if (
@@ -143,7 +143,6 @@ class Updater extends Tribe__Updater {
 		} catch ( \Exception $e ) {
 			// We want fail silently, but it should try again next time.
 		}
-		// phpcs:enable Generic.CodeAnalysis.EmptyStatement.DetectedCatchEmpty
 
 		do_action( 'tec_did_updates' );
 	}

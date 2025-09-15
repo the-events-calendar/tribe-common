@@ -1,14 +1,18 @@
 <?php
+/**
+ * File: Info_Section_Abstract.php
+ *
+ * @since 5.1.0
+ *
+ * @package TEC\Common\Site_Health
+ */
 
 namespace TEC\Common\Site_Health;
-
-use stdClass;
-use TEC\Common\Site_Health\Fields\Generic_Info_Field;
 
 /**
  * Class Abstract_Info_Section
  *
- * @link    https://developer.wordpress.org/reference/hooks/debug_information/
+ * @link https://developer.wordpress.org/reference/hooks/debug_information/
  *
  * @since 5.1.0
  *
@@ -70,14 +74,14 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 	protected array $fields = [];
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	public static function get_slug(): string {
 		return static::$slug;
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	public function to_array(): array {
 		$fields = [];
@@ -95,42 +99,42 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	public function get_label(): string {
 		return $this->label;
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	public function get_description(): string {
 		return $this->description;
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	public function get_fields(): array {
 		return $this->fields;
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	public function get_show_count(): bool {
 		return $this->show_count;
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	public function is_private(): bool {
 		return $this->is_private;
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	public function has_field( $field ): bool {
 		// Assume field is a key first.
@@ -152,7 +156,7 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	public function get_field( string $id ): ?Info_Field_Abstract {
 		if ( ! $this->has_field( $id ) ) {
@@ -163,7 +167,7 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	public function add_field( Info_Field_Abstract $field, bool $overwrite = false ): bool {
 		// Allow the adding of a field to overwrite existing fields.
@@ -183,8 +187,8 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @param string $param
-	 * @param mixed  $value
+	 * @param string $param The parameter to filter.
+	 * @param mixed  $value The value to filter.
 	 *
 	 * @return mixed
 	 */
@@ -219,15 +223,18 @@ abstract class Info_Section_Abstract implements Info_Section_Interface {
 	 * @return void
 	 */
 	protected function sort_fields(): void {
-		uasort( $this->fields, static function ( $field_a, $field_b ) {
-			$a = $field_a->get_priority();
-			$b = $field_b->get_priority();
+		uasort(
+			$this->fields,
+			static function ( $field_a, $field_b ) {
+				$a = $field_a->get_priority();
+				$b = $field_b->get_priority();
 
-			if ( $a === $b ) {
-				return 0;
+				if ( $a === $b ) {
+					return 0;
+				}
+
+				return ( $a < $b ) ? - 1 : 1;
 			}
-
-			return ( $a < $b ) ? - 1 : 1;
-		} );
+		);
 	}
 }

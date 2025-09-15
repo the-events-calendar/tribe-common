@@ -2,7 +2,7 @@
 
 To add an upsell notice, use the following code:
 
-```
+```php
 tribe( \Tribe\Admin\Upsell_Notice\Main::class )->render( [
 	'text'    => 'Text to explain what you are promoting.',
 	'link'    => [
@@ -20,7 +20,8 @@ There are a couple of classes you can add that will display the upsell notice wi
 - `.tec-admin__upsell--rounded-corners-text` - Adds a rounded-corner, light gray background around the notice text, only.
 
 Example:
-```
+
+```php
 tribe( \Tribe\Admin\Upsell_Notice\Main::class )->render( [
 	'classes'  => [
 		'tec-admin__upsell--rounded-corners'
@@ -46,7 +47,8 @@ You can also change the following attributes of the link:
 - `rel` - Default is 'nofollow noreferrer'.
 
 Example:
-```
+
+```php
 tribe( \Tribe\Admin\Upsell_Notice\Main::class )->render( [
 	'classes'  => [
 		'tec-admin__upsell--rounded-corners-text'

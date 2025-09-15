@@ -19,14 +19,14 @@ namespace TEC\Common\Configuration;
 class Constants_Provider implements Configuration_Provider_Interface {
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	public function has( $key ): bool {
 		return defined( $key );
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	public function get( $key ) {
 		if ( $this->has( $key ) ) {
@@ -36,7 +36,9 @@ class Constants_Provider implements Configuration_Provider_Interface {
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
+	 *
+	 * @return array All constants.
 	 */
 	public function all(): array {
 		return get_defined_constants( false );

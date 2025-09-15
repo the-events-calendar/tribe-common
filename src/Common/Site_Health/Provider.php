@@ -1,4 +1,11 @@
 <?php
+/**
+ * File: Provider.php
+ *
+ * @since 5.1.0
+ *
+ * @package TEC\Common\Site_Health
+ */
 
 namespace TEC\Common\Site_Health;
 
@@ -10,7 +17,6 @@ use TEC\Common\Contracts\Service_Provider;
  * @since 5.1.0
  *
  * @package TEC\Common\Site_Health
- *
  */
 class Provider extends Service_Provider {
 

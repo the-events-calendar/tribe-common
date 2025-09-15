@@ -108,8 +108,8 @@ class Hub {
 	 *
 	 * @since 6.3.2
 	 *
-	 * @link  https://docsbot.ai/documentation/developer/embeddable-chat-widget Docsbot Embeddable Chat Widget Documentation
-	 * @link  https://support.zendesk.com/hc/en-us/articles/4408836216218-Using-Web-Widget-Classic-to-embed-customer-service-in-your-website Zendesk Classic Chat Widget Documentation
+	 * @link https://docsbot.ai/documentation/developer/embeddable-chat-widget Docsbot Embeddable Chat Widget Documentation
+	 * @link https://support.zendesk.com/hc/en-us/articles/4408836216218-Using-Web-Widget-Classic-to-embed-customer-service-in-your-website Zendesk Classic Chat Widget Documentation
 	 */
 	protected function setup_support_keys() {
 		if ( ! defined( 'TEC_HELP_HUB_CHAT_DOCSBOT_SUPPORT_KEY' ) ) {
@@ -245,23 +245,23 @@ class Hub {
 		// Build the tabs.
 		$builder = tribe( Tab_Builder::class );
 
-		$builder::make(
+		$builder->make(
 			'tec-help-tab',
 			__( 'Support Hub', 'tribe-common' ),
 			'tec-help-tab',
 			'help-hub/support/support-hub'
 		)
-			->set_class( 'tec-nav__tab--active' )
-			->build();
+		->set_class( 'tec-nav__tab--active' )
+		->build();
 
-		$builder::make(
+		$builder->make(
 			'tec-resources-tab',
 			__( 'Resources', 'tribe-common' ),
 			'tec-resources-tab',
 			'help-hub/resources/resources',
 			[ 'sections' => $this->handle_resource_sections() ]
 		)
-			->build();
+		->build();
 
 		$template_args = wp_parse_args(
 			$builder->get_arguments(),
