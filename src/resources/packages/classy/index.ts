@@ -2,9 +2,11 @@ import { whenEditorIsReady } from './functions/whenEditorIsReady';
 import { hideInserterToggle, hideZoomOutButton } from './functions/editorModifications';
 import { initApp as initClassyApp, insertElement as insertClassyElement } from './functions/classy';
 import { getLocalizedData, getSettings } from './localizedData';
+import { registerMiddlewares } from './api';
 import './style.pcss';
 
 whenEditorIsReady().then( () => {
+	registerMiddlewares();
 	hideZoomOutButton();
 	hideInserterToggle();
 	initClassyApp();
@@ -16,6 +18,7 @@ export * as components from './components';
 export * as fields from './fields';
 export * as functions from './functions';
 export * as store from './store';
+export * as api from './api';
 
 /*
  * Re-export localized data accessors and not the localized data object directly.
