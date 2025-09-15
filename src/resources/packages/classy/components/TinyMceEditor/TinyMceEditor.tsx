@@ -17,7 +17,7 @@ type TinyMceEditorProps = {
  * @param {string} props.content The current content of the editor.
  * @param {(value: string) => void} props.onChange - Callback function to update the content.
  *
- * @return {React.ReactElement} The rendered editor.
+ * @return {React.JSX.Element} The rendered editor.
  */
 export default function TinyMceEditor( { content, onChange, id }: TinyMceEditorProps ) {
 	const [ value, setValue ] = useState( content );

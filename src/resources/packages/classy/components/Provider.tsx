@@ -57,9 +57,9 @@ type ProviderComponentProps = {
  *
  * @param {ProviderComponentProps} props The component props.
  *
- * @returns {React.ReactElement} The rendered component.
+ * @returns {React.JSX.Element} The rendered component.
  */
-export function ProviderComponent( { registry, children }: ProviderComponentProps ): React.ReactElement {
+export function ProviderComponent( { registry, children }: ProviderComponentProps ): React.JSX.Element {
 	// Register the store and kick-start the initialization action if the store has not been registered yet.
 	if ( ! registry.select( STORE_NAME ) ) {
 		// Set the registry instances for selectors and dispatchers in stores.

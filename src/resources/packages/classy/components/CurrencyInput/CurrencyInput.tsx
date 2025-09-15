@@ -24,9 +24,9 @@ const defaultLabel = __( 'Price', 'tribe-common' );
  * @since TBD
  *
  * @param {CurrencyInputProps} props
- * @return {React.ReactElement} The rendered ticket price field.
+ * @return {React.JSX.Element} The rendered ticket price field.
  */
-export default function CurrencyInput( props: CurrencyInputProps ): React.ReactElement {
+export default function CurrencyInput( props: CurrencyInputProps ): React.JSX.Element {
 	const {
 		label = defaultLabel,
 		onChange,

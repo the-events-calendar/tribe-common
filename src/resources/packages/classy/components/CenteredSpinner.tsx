@@ -14,7 +14,7 @@ interface CenteredSpinnerProps {
  * @param {CenteredSpinnerProps} props The component props.
  * @param {string}               props.className The class name to apply to the spinner.
  *
- * @returns React.ReactElement The centered spinner component.
+ * @returns React.JSX.Element The centered spinner component.
  */
 export function CenteredSpinner( { className }: CenteredSpinnerProps ) {
 	const fullClassName = className ? `classy-component__spinner ${ className }` : 'classy-component__spinner';

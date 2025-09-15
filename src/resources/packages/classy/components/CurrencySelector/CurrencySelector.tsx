@@ -90,9 +90,9 @@ const findCurrencyByCode = ( code: string, currencies: Currency[] ): Currency | 
  * @since TBD
  *
  * @param {CurrencySelectorProps} props Component properties.
- * @return {React.ReactElement} The rendered component.
+ * @return {React.JSX.Element} The rendered component.
  */
-export default function CurrencySelector( props: CurrencySelectorProps ): React.ReactElement {
+export default function CurrencySelector( props: CurrencySelectorProps ): React.JSX.Element {
 	const { currencyCodeMeta, currencySymbolMeta, currencyPositionMeta } = props;
 
 	const { meta, defaultCurrency, Currencies } = useSelect( ( select ) => {
