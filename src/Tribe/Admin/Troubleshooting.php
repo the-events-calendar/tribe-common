@@ -443,14 +443,20 @@ class Troubleshooting {
 	private function get_active_caching_plugins(): array {
 		$active_plugins  = get_option( 'active_plugins' );
 		$caching_plugins = [
-			'litespeed-cache/litespeed-cache.php',
-			'wp-super-cache/wp-cache.php',
 			'autoptimize/autoptimize.php',
-			'wp-rocket/wp-rocket.php',
-			'sg-cachepress/sg-cachepress.php',
 			'breeze/breeze.php',
-			'wp-optimize/wp-optimize.php',
+			'comet-cache/comet-cache.php',
+			'litespeed-cache/litespeed-cache.php',
+			'pantheon-advanced-page-cache/pantheon-advanced-page-cache.php',
+			'redis-cache/redis-cache.php',
+			'sg-cachepress/sg-cachepress.php',
+			'speedycache/speedycache.php',
+			'w3-total-cache/w3-total-cache.php',
+			'wp-cloudflare-page-cache/wp-cloudflare-super-page-cache.php',
 			'wp-fastest-cache/wpFastestCache.php',
+			'wp-optimize/wp-optimize.php',
+			'wp-rocket/wp-rocket.php',
+			'wp-super-cache/wp-cache.php',
 			// 'wp-engine',
 		];
 
