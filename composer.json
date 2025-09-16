@@ -37,8 +37,8 @@
     "stellarwp/shepherd": "0.0.6",
     "stellarwp/telemetry": "^2.3.4",
     "stellarwp/uplink": "2.2.2",
-    "trustedlogin/client": "dev-main",
-    "scssphp/scssphp": "^v1.11.0"
+    "trustedlogin/client": "^1.9",
+    "scssphp/scssphp": "^1.13"
   },
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
