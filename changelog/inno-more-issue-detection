@@ -1,0 +1,4 @@
+Significance: minor
+Type: feat
+
+The Troubleshooting page now detects and flags outdated PHP Versions, an incorrectly set up PHP time zone, active caching plugins. [TCMN-203]
