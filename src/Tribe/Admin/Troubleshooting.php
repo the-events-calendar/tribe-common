@@ -125,6 +125,30 @@ class Troubleshooting {
 	}
 
 	/**
+	 * Adds the troubleshooting menu to the WP admin bar under events.
+	 *
+	 * @since 4.14.2
+	 */
+	public function add_toolbar_item() {
+		$capability = $this->get_required_capability();
+
+		if ( ! current_user_can( $capability ) ) {
+			return;
+		}
+
+		global $wp_admin_bar;
+
+		$wp_admin_bar->add_menu(
+			[
+				'id'     => 'tec-troubleshooting',
+				'title'  => esc_html__( 'Troubleshooting', 'tribe-common' ),
+				'href'   => Tribe__Settings::instance()->get_url( [ 'page' => static::MENU_SLUG ] ),
+				'parent' => 'tribe-events-settings-group',
+			]
+		);
+	}
+
+	/**
 	 * Checks if the current page is the troubleshooting page.
 	 *
 	 * @since 4.14.2
@@ -157,30 +181,6 @@ class Troubleshooting {
 	}
 
 	/**
-	 * Adds the troubleshooting menu to the WP admin bar under events.
-	 *
-	 * @since 4.14.2
-	 */
-	public function add_toolbar_item() {
-		$capability = $this->get_required_capability();
-
-		if ( ! current_user_can( $capability ) ) {
-			return;
-		}
-
-		global $wp_admin_bar;
-
-		$wp_admin_bar->add_menu(
-			[
-				'id'     => 'tec-troubleshooting',
-				'title'  => esc_html__( 'Troubleshooting', 'tribe-common' ),
-				'href'   => Tribe__Settings::instance()->get_url( [ 'page' => static::MENU_SLUG ] ),
-				'parent' => 'tribe-events-settings-group',
-			]
-		);
-	}
-
-	/**
 	 * Renders the Troubleshooting page.
 	 *
 	 * @since 4.14.2
@@ -203,6 +203,109 @@ class Troubleshooting {
 		$active_issues = wp_list_pluck( $issues, 'active' );
 
 		return in_array( true, $active_issues );
+	}
+
+	/**
+	 * Checks if any active TEC plugins require an update.
+	 *
+	 * @since 4.14.2
+	 *
+	 * @return boolean returns true is any of the plugins requires an update.
+	 */
+	public function is_any_tec_plugin_out_of_date() {
+		$current = get_site_transient( 'update_plugins' );
+		$plugins = [];
+		if ( defined( 'TRIBE_EVENTS_FILE' ) ) {
+			$plugins[] = TRIBE_EVENTS_FILE;
+		}
+		if ( defined( 'EVENTS_CALENDAR_PRO_FILE' ) ) {
+			$plugins[] = EVENTS_CALENDAR_PRO_FILE;
+		}
+		if ( defined( 'EVENT_TICKETS_PLUS_FILE' ) ) {
+			$plugins[] = EVENT_TICKETS_PLUS_FILE;
+		}
+		if ( defined( 'EVENTS_VIRTUAL_FILE' ) ) {
+			$plugins[] = EVENTS_VIRTUAL_FILE;
+		}
+		if ( defined( 'EVENT_TICKETS_MAIN_PLUGIN_FILE' ) ) {
+			$plugins[] = EVENT_TICKETS_MAIN_PLUGIN_FILE;
+		}
+		if ( defined( 'TRIBE_EVENTS_FILTERBAR_FILE' ) ) {
+			$plugins[] = TRIBE_EVENTS_FILTERBAR_FILE;
+		}
+		if ( defined( 'EVENTS_COMMUNITY_TICKETS_FILE' ) ) {
+			$plugins[] = EVENTS_COMMUNITY_TICKETS_FILE;
+		}
+		if ( defined( 'EVENTS_COMMUNITY_FILE' ) ) {
+			$plugins[] = EVENTS_COMMUNITY_FILE;
+		}
+		if ( defined( 'EVENTBRITE_PLUGIN_FILE' ) ) {
+			$plugins[] = EVENTBRITE_PLUGIN_FILE;
+		}
+		if ( defined( 'TRIBE_APM_FILE' ) ) {
+			$plugins[] = TRIBE_APM_FILE;
+		}
+		if ( defined( 'IMAGE_WIDGET_PLUS_DIR' ) ) {
+			$plugins[] = IMAGE_WIDGET_PLUS_DIR;
+		}
+		$plugins = array_map(
+			static function ( $file ) {
+				$file = \str_replace( WP_PLUGIN_DIR . '/', '', $file );
+
+				return $file;
+			},
+			$plugins
+		);
+
+		foreach ( $plugins as $file ) {
+			if ( ! isset( $current->response[ $file ] ) ) {
+				continue;
+			}
+			$response = $current->response[ $file ];
+			if ( ! empty( $response->new_version ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Checks if any of the issues defined are active.
+	 *
+	 * @since 4.14.2
+	 *
+	 * @param string $slug the slug of active issue.
+	 *
+	 * @return boolean returns a boolean value for each individual issue depending on whether it is active or not.
+	 */
+	public function is_active_issue( $slug ) {
+		if ( 'timezone' === $slug ) {
+			return Timezones::is_utc_offset( Timezones::wp_timezone_string() );
+		}
+		if ( 'geolocation' === $slug && class_exists( 'Tribe__Events__Google__Maps_API_Key' ) ) {
+			$key = \tribe_get_option( 'google_maps_js_api_key', false );
+
+			return empty( $key ) || Tribe__Events__Google__Maps_API_Key::$default_api_key === $key;
+		}
+		if ( 'out-of-date' === $slug ) {
+			return $this->is_any_tec_plugin_out_of_date();
+		}
+		if ( 'php-version' === $slug ) {
+			return version_compare( PHP_VERSION, '8.0.0', '<' );
+		}
+		if ( 'php-timezone' === $slug ) {
+			$php_timezone = date_default_timezone_get();
+
+			return $php_timezone != 'UTC';
+		}
+		if ( 'caching' === $slug ) {
+			$intersection = $this->get_active_caching_plugins();
+
+			return ! empty( $intersection );
+		}
+
+		return false;
 	}
 
 	/**
@@ -278,114 +381,11 @@ class Troubleshooting {
 	}
 
 	/**
-	 * Checks if any of the issues defined are active.
-	 *
-	 * @since 4.14.2
-	 *
-	 * @param string $slug the slug of active issue.
-	 *
-	 * @return boolean returns a boolean value for each individual issue depending on whether it is active or not.
-	 */
-	public function is_active_issue( $slug ) {
-		if ( 'timezone' === $slug ) {
-			return Timezones::is_utc_offset( Timezones::wp_timezone_string() );
-		}
-		if ( 'geolocation' === $slug && class_exists( 'Tribe__Events__Google__Maps_API_Key' ) ) {
-			$key = \tribe_get_option( 'google_maps_js_api_key', false );
-
-			return empty( $key ) || Tribe__Events__Google__Maps_API_Key::$default_api_key === $key;
-		}
-		if ( 'out-of-date' === $slug ) {
-			return $this->is_any_tec_plugin_out_of_date();
-		}
-		if ( 'php-version' === $slug ) {
-			return version_compare( PHP_VERSION, '8.0.0', '<' );
-		}
-		if ( 'php-timezone' === $slug ) {
-			$php_timezone = date_default_timezone_get();
-
-			return $php_timezone != 'UTC';
-		}
-		if ( 'caching' === $slug ) {
-			$intersection = $this->get_active_caching_plugins();
-
-			return ! empty( $intersection );
-		}
-
-		return false;
-	}
-
-	/**
-	 * Checks if any active TEC plugins require an update.
-	 *
-	 * @since 4.14.2
-	 *
-	 * @return boolean returns true is any of the plugins requires an update.
-	 */
-	public function is_any_tec_plugin_out_of_date() {
-		$current = get_site_transient( 'update_plugins' );
-		$plugins = [];
-		if ( defined( 'TRIBE_EVENTS_FILE' ) ) {
-			$plugins[] = TRIBE_EVENTS_FILE;
-		}
-		if ( defined( 'EVENTS_CALENDAR_PRO_FILE' ) ) {
-			$plugins[] = EVENTS_CALENDAR_PRO_FILE;
-		}
-		if ( defined( 'EVENT_TICKETS_PLUS_FILE' ) ) {
-			$plugins[] = EVENT_TICKETS_PLUS_FILE;
-		}
-		if ( defined( 'EVENTS_VIRTUAL_FILE' ) ) {
-			$plugins[] = EVENTS_VIRTUAL_FILE;
-		}
-		if ( defined( 'EVENT_TICKETS_MAIN_PLUGIN_FILE' ) ) {
-			$plugins[] = EVENT_TICKETS_MAIN_PLUGIN_FILE;
-		}
-		if ( defined( 'TRIBE_EVENTS_FILTERBAR_FILE' ) ) {
-			$plugins[] = TRIBE_EVENTS_FILTERBAR_FILE;
-		}
-		if ( defined( 'EVENTS_COMMUNITY_TICKETS_FILE' ) ) {
-			$plugins[] = EVENTS_COMMUNITY_TICKETS_FILE;
-		}
-		if ( defined( 'EVENTS_COMMUNITY_FILE' ) ) {
-			$plugins[] = EVENTS_COMMUNITY_FILE;
-		}
-		if ( defined( 'EVENTBRITE_PLUGIN_FILE' ) ) {
-			$plugins[] = EVENTBRITE_PLUGIN_FILE;
-		}
-		if ( defined( 'TRIBE_APM_FILE' ) ) {
-			$plugins[] = TRIBE_APM_FILE;
-		}
-		if ( defined( 'IMAGE_WIDGET_PLUS_DIR' ) ) {
-			$plugins[] = IMAGE_WIDGET_PLUS_DIR;
-		}
-		$plugins = array_map(
-			static function ( $file ) {
-				$file = \str_replace( WP_PLUGIN_DIR . '/', '', $file );
-
-				return $file;
-			},
-			$plugins
-		);
-
-		foreach ( $plugins as $file ) {
-			if ( ! isset( $current->response[ $file ] ) ) {
-				continue;
-			}
-			$response = $current->response[ $file ];
-			if ( ! empty( $response->new_version ) ) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	/**
 	 * Defines common troubleshooting issues and displays them in the UI.
 	 *
 	 * @since 4.14.2
 	 *
-	 * @return array of common issues which are displayed on the troubleshooting page.
+	 * @return array Array of common issues which are displayed on the troubleshooting page.
 	 */
 	public function get_common_issues(): array {
 		return apply_filters(
@@ -428,7 +428,7 @@ class Troubleshooting {
 	 *
 	 * @since 4.14.2
 	 *
-	 * @param string $page the page which the action is being applied.
+	 * @param string $page The page which the action is being applied.
 	 */
 	public function admin_notice( $page ) {
 		do_action( 'tec_admin_notice_area', $page );
