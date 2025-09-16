@@ -4,12 +4,12 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { Provider, ProviderComponent } from '../../../src/resources/packages/classy/components/Provider';
+import { ProviderComponent } from '../../../src/resources/packages/classy/components/Provider';
 import { createRegistry } from '@wordpress/data';
 import { addAction, removeAction } from '@wordpress/hooks';
-import { STORE_NAME, storeConfig } from '../../../src/resources/packages/classy/store';
+let originalConsoleError = null;
 
-describe( 'Provider', () => {
+describe( 'ProviderComponent', () => {
 	let registry;
 	let initActionFired;
 
@@ -26,6 +26,10 @@ describe( 'Provider', () => {
 
 	afterEach( () => {
 		removeAction( 'tec.classy.initialized', 'test' );
+
+		if ( originalConsoleError ) {
+			console.error = originalConsoleError;
+		}
 	} );
 
 	describe( 'ProviderComponent', () => {
@@ -128,14 +132,20 @@ describe( 'Provider', () => {
 		} );
 
 		it( 'handles ErrorBoundary correctly', () => {
+			originalConsoleError = console.error;
+			console.error = jest.fn();
 			const ThrowingComponent = () => {
 				throw new Error( 'Test error' );
 			};
+			let caughtError = null;
 
 			const { container } = render(
 				<ProviderComponent registry={ registry }>
 					<ThrowingComponent />
-				</ProviderComponent>
+				</ProviderComponent>,
+				{
+					onCaughtError: ( error ) => ( caughtError = error ),
+				}
 			);
 
 			// ErrorBoundary should catch the error and render fallback.

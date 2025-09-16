@@ -4,7 +4,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { CenteredSpinner } from '../../../src/resources/packages/classy/components/CenteredSpinner';
+import { CenteredSpinner } from '@tec/common/classy/components';
 
 describe( 'CenteredSpinner', () => {
 	it( 'renders with default class name', () => {

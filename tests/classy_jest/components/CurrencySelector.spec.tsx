@@ -2,17 +2,12 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference types="jest" />
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { createRegistry, RegistryProvider } from '@wordpress/data';
 import '@testing-library/jest-dom';
 import CurrencySelector from '../../../src/resources/packages/classy/components/CurrencySelector/CurrencySelector';
-
-// Mock the `@wordpress/data` package to intercept the `useDispatch` and `useSelect` hooks.
-jest.mock( '@wordpress/data', () => ( {
-	...( jest.requireActual( '@wordpress/data' ) as Object ),
-	useDispatch: jest.fn(),
-	useSelect: jest.fn(),
-} ) );
+import { STORE_NAME, storeConfig } from '../../../src/resources/packages/classy/store/store';
+import TestProvider from '../_support/TestProvider';
 
 describe( 'CurrencySelector', () => {
 	const mockDefaultCurrency = {
@@ -28,7 +23,7 @@ describe( 'CurrencySelector', () => {
 			code: 'EUR',
 			symbol: '€',
 			position: 'postfix' as const,
-			label: 'Euro',
+			label: 'EUR',
 		},
 	];
 
@@ -38,39 +33,54 @@ describe( 'CurrencySelector', () => {
 		currencyPositionMeta: '_EventCurrencyPosition',
 	};
 
-	const mockEditPost = jest.fn();
+	let registry;
+	let mockEditPost;
 
-	function setupUseSelect( meta = {}, currencies = mockCurrencies ) {
-		( useSelect as unknown as jest.Mock ).mockImplementation( ( selector ) => {
-			const select = ( storeName: string ) => {
-				if ( storeName === 'tec/classy' ) {
+	function setupRegistry( meta = {}, currencies = mockCurrencies ) {
+		registry = createRegistry();
+		mockEditPost = jest.fn();
+
+		// Register the tec/classy store
+		registry.registerStore( STORE_NAME, {
+			...storeConfig,
+			selectors: {
+				...storeConfig.selectors,
+				getDefaultCurrency: () => mockDefaultCurrency,
+				getCurrencyOptions: () => currencies,
+			},
+		} );
+
+		// Register core/editor store for meta handling
+		registry.registerStore( 'core/editor', {
+			reducer: ( state = { meta }, action ) => {
+				if ( action.type === 'EDIT_POST' ) {
 					return {
-						getDefaultCurrency: () => mockDefaultCurrency,
-						getCurrencyOptions: () => currencies,
+						...state,
+						meta: { ...state.meta, ...action.edits.meta },
 					};
 				}
-				if ( storeName === 'core/editor' ) {
-					return {
-						getEditedPostAttribute: ( attribute: string ) => {
-							if ( attribute === 'meta' ) {
-								return meta;
-							}
-							return null;
-						},
-					};
-				}
-				return {};
-			};
-			return selector( select );
+				return state;
+			},
+			selectors: {
+				getEditedPostAttribute: ( state, attribute ) => {
+					if ( attribute === 'meta' ) {
+						return state.meta;
+					}
+					return null;
+				},
+			},
+			actions: {
+				editPost: ( edits ) => {
+					mockEditPost( edits );
+					return { type: 'EDIT_POST', edits };
+				},
+			},
 		} );
 	}
 
 	beforeEach( () => {
 		jest.clearAllMocks();
-		setupUseSelect();
-		( useDispatch as unknown as jest.Mock ).mockReturnValue( {
-			editPost: mockEditPost,
-		} );
+		setupRegistry();
 	} );
 
 	function openCurrencyPopover() {
@@ -79,12 +89,20 @@ describe( 'CurrencySelector', () => {
 	}
 
 	it( 'renders with default currency initially', () => {
-		render( <CurrencySelector { ...mockProps } /> );
+		render(
+			<RegistryProvider value={ registry }>
+				<CurrencySelector { ...mockProps } />
+			</RegistryProvider>
+		);
 		expect( screen.getByText( '$ USD' ) ).toBeInTheDocument();
 	} );
 
 	it( 'updates currency when selection changes', () => {
-		render( <CurrencySelector { ...mockProps } /> );
+		render(
+			<RegistryProvider value={ registry }>
+				<CurrencySelector { ...mockProps } />
+			</RegistryProvider>
+		);
 		openCurrencyPopover();
 
 		const select = screen.getByRole( 'combobox' );
@@ -99,7 +117,11 @@ describe( 'CurrencySelector', () => {
 	} );
 
 	it( 'resets to default currency when "default" is selected', () => {
-		render( <CurrencySelector { ...mockProps } /> );
+		render(
+			<RegistryProvider value={ registry }>
+				<CurrencySelector { ...mockProps } />
+			</RegistryProvider>
+		);
 		openCurrencyPopover();
 
 		const select = screen.getByRole( 'combobox' );
@@ -115,7 +137,11 @@ describe( 'CurrencySelector', () => {
 	} );
 
 	it( 'toggles currency position correctly', () => {
-		render( <CurrencySelector { ...mockProps } /> );
+		render(
+			<RegistryProvider value={ registry }>
+				<CurrencySelector { ...mockProps } />
+			</RegistryProvider>
+		);
 		openCurrencyPopover();
 
 		const toggle = screen.getByRole( 'checkbox' );
@@ -129,8 +155,12 @@ describe( 'CurrencySelector', () => {
 	} );
 
 	it( 'shows loading spinner when currencies are not loaded', () => {
-		setupUseSelect( {}, [] );
-		render( <CurrencySelector { ...mockProps } /> );
+		setupRegistry( {}, [] );
+		render(
+			<RegistryProvider value={ registry }>
+				<CurrencySelector { ...mockProps } />
+			</RegistryProvider>
+		);
 		openCurrencyPopover();
 
 		// The CenteredSpinner renders a div with class 'classy-component__spinner'
@@ -139,14 +169,20 @@ describe( 'CurrencySelector', () => {
 	} );
 
 	it( 'initializes with custom meta values', () => {
-		setupUseSelect( {
+		setupRegistry( {
 			_EventCurrency: 'EUR',
 			_EventCurrencySymbol: '€',
 			_EventCurrencyPosition: 'postfix',
 		} );
-		render( <CurrencySelector { ...mockProps } /> );
+
+		render(
+			<RegistryProvider value={ registry }>
+				<CurrencySelector { ...mockProps } />
+			</RegistryProvider>
+		);
 
 		// Check the button text shows the correct currency
+		// EUR is displayed with the code on the left and symbol on the right when position is postfix
 		expect( screen.getByText( 'EUR €' ) ).toBeInTheDocument();
 
 		// Open popover and check controls
