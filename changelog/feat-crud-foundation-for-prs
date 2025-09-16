@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Introduces a Modal and Custom Table Repository contracts. It also splits the Repository interfaces into interfaces that are more suitable for custom tables or WP Posts table.
