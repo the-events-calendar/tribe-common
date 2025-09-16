@@ -206,7 +206,22 @@ class Trusted_Login_Manager {
 	 * @return string|null The admin URL or null if page slug is missing.
 	 */
 	public function get_url(): ?string {
-		$config = new Trusted_Login_Config( tribe( Configuration::class ) );
-		return $config->get_url();
+		$page_slug = Trusted_Login_Config::MENU_SLUG;
+
+		if ( empty( $page_slug ) ) {
+			return null;
+		}
+
+		$url = admin_url( 'admin.php?page=' . $page_slug );
+
+		/**
+		 * Filter the TrustedLogin page URL.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $url The full admin URL.
+		 * @param string $page_slug The page slug used for TrustedLogin.
+		 */
+		return apply_filters( 'tec_common_trustedlogin_page_url', $url, $page_slug );
 	}
 }
