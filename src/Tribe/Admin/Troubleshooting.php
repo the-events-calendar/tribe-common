@@ -3,9 +3,9 @@
 /**
  * Admin Troubleshooting for TEC plugins.
  *
- * @package Tribe\Admin
  * @since   4.14.2
  *
+ * @package Tribe\Admin
  */
 
 namespace Tribe\Admin;
@@ -19,8 +19,9 @@ use \Tribe__Events__Google__Maps_API_Key;
 /**
  * Class Admin Troubleshooting.
  *
- * @package Tribe\Admin
  * @since   4.14.2
+ *
+ * @package Tribe\Admin
  */
 class Troubleshooting {
 	/**
@@ -28,7 +29,7 @@ class Troubleshooting {
 	 *
 	 * @since 4.14.2
 	 *
-	 * @var string the troubleshooting menu slug.
+	 * @const string The troubleshooting menu slug.
 	 */
 	const MENU_SLUG = 'tec-troubleshooting';
 
@@ -37,6 +38,7 @@ class Troubleshooting {
 	 *
 	 * @since 4.14.2
 	 *
+	 * @var string|null
 	 */
 	private $admin_page = null;
 
@@ -44,7 +46,6 @@ class Troubleshooting {
 	 * Class constructor.
 	 *
 	 * @since 4.14.2
-	 *
 	 */
 	public function hook() {
 		add_action( 'admin_menu', [ $this, 'add_menu_page' ], 90 );
@@ -53,10 +54,9 @@ class Troubleshooting {
 	}
 
 	/**
-	 * This method created the troubleshooting page and adds it to TEC menu.
+	 * This method creates the troubleshooting page and adds it to the TEC menu.
 	 *
 	 * @since 4.14.2
-	 *
 	 */
 	public function add_menu_page() {
 		if ( ! tribe( 'settings' )->should_setup_pages() ) {
@@ -88,16 +88,15 @@ class Troubleshooting {
 	 *
 	 * @since 4.14.2
 	 *
-	 * @return string Which capability we required for the troubleshooting page.
+	 * @return string The capability required for the troubleshooting page.
 	 */
 	public function get_required_capability() {
 		/**
-		 * Allows third party filtering of capability required to see the Troubleshooting page.
+		 * Allows third-party filtering of the capability required to see the Troubleshooting page.
 		 *
 		 * @since 4.14.2
 		 *
-		 * @param string $capability      Which capability we are using as the one required for the
-		 *                                troubleshooting page.
+		 * @param string $capability      The capability we are using as the one required for the troubleshooting page.
 		 * @param static $troubleshooting The current instance of the class that handles this page.
 		 */
 		$capability = apply_filters( 'tec_troubleshooting_capability', 'install_plugins', $this );
@@ -106,13 +105,13 @@ class Troubleshooting {
 	}
 
 	/**
-	 * Hooked to admin_body_class to add a class for troubleshooting page.
+	 * Hooked to admin_body_class to add a class for the troubleshooting page.
 	 *
 	 * @since 4.15.0
 	 *
-	 * @param string $classes a space separated string of classes to be added to body.
+	 * @param string $classes A space-separated string of classes to be added to the body tag.
 	 *
-	 * @return string $classes a space separated string of classes to be added to body.
+	 * @return string A space-separated string of classes to be added to the body tag.
 	 */
 	public function admin_body_class( $classes ) {
 		if ( ! $this->is_current_page() ) {
@@ -153,7 +152,7 @@ class Troubleshooting {
 	 *
 	 * @since 4.14.2
 	 *
-	 * @return boolean returns true if the current page is the troubleshooting page.
+	 * @return boolean Returns true if the current page is the troubleshooting page.
 	 */
 	public function is_current_page() {
 		if ( ! tribe( 'settings' )->should_setup_pages() || ! did_action( 'admin_menu' ) ) {
@@ -196,7 +195,7 @@ class Troubleshooting {
 	 *
 	 * @since 4.14.2
 	 *
-	 * @return boolean returns true if there are any active issues.
+	 * @return boolean Returns true if there are any active issues.
 	 */
 	public function is_any_issue_active() {
 		$issues        = $this->get_issues_found();
@@ -210,7 +209,7 @@ class Troubleshooting {
 	 *
 	 * @since 4.14.2
 	 *
-	 * @return boolean returns true is any of the plugins requires an update.
+	 * @return boolean Returns true if any of the plugins require an update.
 	 */
 	public function is_any_tec_plugin_out_of_date() {
 		$current = get_site_transient( 'update_plugins' );
@@ -275,9 +274,9 @@ class Troubleshooting {
 	 *
 	 * @since 4.14.2
 	 *
-	 * @param string $slug the slug of active issue.
+	 * @param string $slug The slug of active issue.
 	 *
-	 * @return boolean returns a boolean value for each individual issue depending on whether it is active or not.
+	 * @return boolean Returns a boolean value for each issue depending on whether it is active or not.
 	 */
 	public function is_active_issue( $slug ) {
 		if ( 'timezone' === $slug ) {
@@ -313,7 +312,7 @@ class Troubleshooting {
 	 *
 	 * @since 4.14.2
 	 *
-	 * @return array of issues which are displayed on the troubleshooting page.
+	 * @return array Array of issues that are displayed on the troubleshooting page.
 	 */
 	public function get_issues_found(): array {
 		return apply_filters(
@@ -322,7 +321,7 @@ class Troubleshooting {
 				[
 					'title'        => __( 'Site time zone uses UTC', 'tribe-common' ),
 					'description'  => __( 'When using The Events Calendar, we highly recommend that you use a geographic timezone such as "America/Los_Angeles" and avoid using a UTC timezone offset such as “UTC+9”. Choosing a UTC timezone for your site or individual events may cause problems when importing events or with Daylight Saving Time. Go to your the General WordPress settings to adjust your site timezone.', 'tribe-common' ),
-					'more_info'    => 'http://evnt.is/1ad3',
+					'more_info'    => 'https://evnt.is/1ad3',
 					'resolve_text' => __( 'Adjust your timezone', 'tribe-common' ),
 					'fix'          => '/wp-admin/options-general.php',
 					'active'       => $this->is_active_issue( 'timezone' ),
@@ -345,7 +344,7 @@ class Troubleshooting {
 				],
 				[
 					'title'        => __( 'Plugin(s) are out of date', 'tribe-common' ),
-					'description'  => __( 'It\'s important to use the most recent versions of our plugins so that you have access to the latest features, bug fixes, and security updates. Plugin functionality can be comprimised if your site is running outdated or mis-matched versions.', 'tribe-common' ),
+					'description'  => __( 'It\'s important to use the most recent versions of our plugins so that you have access to the latest features, bug fixes, and security updates. Plugin functionality can be compromised if your site is running outdated or mis-matched versions.', 'tribe-common' ),
 					'more_info'    => 'https://evnt.is/1aqy',
 					'resolve_text' => __( 'Check for updates', 'tribe-common' ),
 					'fix'          => '/wp-admin/update-core.php',
@@ -428,7 +427,7 @@ class Troubleshooting {
 	 *
 	 * @since 4.14.2
 	 *
-	 * @param string $page The page which the action is being applied.
+	 * @param string $page The page which the action is being applied to.
 	 */
 	public function admin_notice( $page ) {
 		do_action( 'tec_admin_notice_area', $page );
@@ -470,7 +469,7 @@ class Troubleshooting {
 		$active_caching_plugins = $this->get_active_caching_plugins();
 
 		if ( empty( $active_caching_plugins ) ) {
-			return __( 'Plugin couldn\'t be identified.', 'tribe-common' );
+			return __( "Plugin couldn't be identified.", 'tribe-common' );
 		}
 
 		$plugin      = array_pop( $active_caching_plugins );
