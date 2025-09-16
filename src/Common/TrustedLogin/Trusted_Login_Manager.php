@@ -12,6 +12,8 @@
 
 namespace TEC\Common\TrustedLogin;
 
+use TEC\Common\Configuration;
+
 /**
  * TrustedLogin Manager for TEC/ET.
  *
@@ -22,6 +24,16 @@ namespace TEC\Common\TrustedLogin;
  */
 class Trusted_Login_Manager {
 
+	/**
+	 * Singleton instance of the class.
+	 *
+	 * Ensures only one instance of the Trusted_Login_Manager class exists
+	 * throughout the request lifecycle. Accessed via the `instance()` method.
+	 *
+	 * @since TBD
+	 *
+	 * @var self|null
+	 */
 	protected static $instance = null;
 
 	const HOOK_BASE = 'tec_common_trustedlogin';
@@ -36,17 +48,6 @@ class Trusted_Login_Manager {
 	 * @var array<string,mixed>
 	 */
 	protected array $resolved_config = [];
-
-	/**
-	 * The parent menu slug under which the TrustedLogin page is attached.
-	 *
-	 * This may be filtered per namespace and may be empty if not provided.
-	 *
-	 * @since TBD
-	 *
-	 * @var string|null
-	 */
-	protected ?string $parent_slug = null;
 
 	/**
 	 * The page slug used for the TrustedLogin screen.
@@ -83,9 +84,11 @@ class Trusted_Login_Manager {
 	 *
 	 * @return void
 	 */
-	public function init( array $config ) {
-		// Merge defaults with provided config.
-		$config = array_replace_recursive( $this->get_default_config(), $config );
+	public function init( array $config = [] ) {
+		// Use default config if none provided.
+		if ( empty( $config ) ) {
+			$config = Trusted_Login_Config::build();
+		}
 
 		// Run all validation checks and bail if needed.
 		if ( ! $this->validate_config( $config ) ) {
@@ -139,7 +142,6 @@ class Trusted_Login_Manager {
 
 		// Fire a post-registration action.
 		do_action( self::HOOK_BASE . "_registered_{$config_namespace}", $client, $config, $config_namespace );
-
 	}
 
 	/**
@@ -178,37 +180,6 @@ class Trusted_Login_Manager {
 	}
 
 	/**
-	 * Get the default configuration values.
-	 *
-	 * @since TBD
-	 *
-	 * @return array<string,mixed>
-	 */
-	protected function get_default_config(): array {
-		return [
-			'auth'       => [
-				'api_key'     => '',
-				'license_key' => '',
-			],
-			'vendor'     => [
-				'namespace'   => '',
-				'title'       => '',
-				'logo_url'    => '',
-				'email'       => '',
-				'support_url' => '',
-				'website'     => '',
-			],
-			'decay'      => WEEK_IN_SECONDS,
-			'menu'       => [
-				'parent_slug' => '',
-				'slug'        => 'grant-access',
-			],
-			'role'       => 'administrator',
-			'clone_role' => false,
-		];
-	}
-
-	/**
 	 * Get the page slug for TrustedLogin.
 	 *
 	 * @since TBD
@@ -221,7 +192,7 @@ class Trusted_Login_Manager {
 	protected function get_page_slug( array $config, string $config_namespace ): string {
 		return apply_filters(
 			self::HOOK_BASE . "_page_slug_{$config_namespace}",
-			"grant-{$config_namespace}-access",
+			$config['menu']['slug'] ?? '',
 			$config_namespace,
 			$config
 		);
@@ -235,20 +206,7 @@ class Trusted_Login_Manager {
 	 * @return string|null The admin URL or null if page slug is missing.
 	 */
 	public function get_url(): ?string {
-		if ( empty( $this->page_slug ) ) {
-			return null;
-		}
-
-		$url = admin_url( 'admin.php?page=' . $this->page_slug );
-
-		/**
-		 * Filter the TrustedLogin page URL.
-		 *
-		 * @since TBD
-		 *
-		 * @param string $url The full admin URL.
-		 * @param string $page_slug The page slug used for TrustedLogin.
-		 */
-		return apply_filters( self::HOOK_BASE . '_page_url', $url, $this->page_slug );
+		$config = new Trusted_Login_Config( tribe( Configuration::class ) );
+		return $config->get_url();
 	}
 }
