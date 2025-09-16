@@ -550,11 +550,13 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @return Generator The all generator.
 	 */
 	private function get_all_generator( int $batch_size = 50 ): Generator {
-		$i = 1;
+		$i          = 1;
 		$batch_size = min( $batch_size, $this->per_page );
+
 		if ( $this->page > 1 ) {
 			$this->offset( ( $this->page - 1 ) * $batch_size );
 		}
+
 		do {
 			$results = $this->get_table_interface()::paginate( $this->get_select_args(), $batch_size, $i, $this->fields, '', '', [], ARRAY_A );
 			if ( empty( $results ) ) {
@@ -573,7 +575,8 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 			yield from $results;
 
 			++$i;
-		} while ( count( $results ) === $batch_size && $i * $batch_size <= $this->per_page );
+			$result_count = count( $results );
+		} while ( $result_count === $batch_size && $i * $batch_size <= $this->per_page );
 
 		$this->set_found_rows( $this->get_table_interface()::get_total_items( $this->get_select_args() ) );
 
