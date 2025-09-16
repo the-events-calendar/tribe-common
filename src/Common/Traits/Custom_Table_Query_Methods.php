@@ -462,6 +462,8 @@ trait Custom_Table_Query_Methods {
 	 * @param array<string, mixed> $data The data.
 	 *
 	 * @return array<string, mixed> The amended data.
+	 *
+	 * @throws InvalidArgumentException If the column type is unsupported.
 	 */
 	private static function amend_value_types( array $data ): array {
 		$columns = static::get_columns();
