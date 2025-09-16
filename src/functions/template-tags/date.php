@@ -20,7 +20,7 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 	/**
 	 * Formatted Date
 	 *
-	 * Returns formatted date
+	 * Returns formatted date.
 	 *
 	 * @since 5.11.1 Introduced a temporary locale switch to handle the AM/PM format specifically for French language settings.
 	 *
