@@ -1,0 +1,12 @@
+[
+    {
+        "name": "test-1",
+        "slug": "tag-1",
+        "description": "description-test-1"
+    },
+    {
+        "name": "test-2",
+        "slug": "tag-2",
+        "description": "description-test-2"
+    }
+]

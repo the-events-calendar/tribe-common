@@ -113,7 +113,7 @@ class Tribe__Admin__Notices {
 		add_action( 'current_screen', [ $this, 'hook' ], 20 );
 
 		// Add our notice dismissal script
-		tribe_asset(
+		tec_asset(
 			Tribe__Main::instance(),
 			'tribe-notice-dismiss',
 			'notice-dismiss.js',
@@ -234,6 +234,11 @@ class Tribe__Admin__Notices {
 			// Return the rendered HTML.
 			$html = $this->render( $slug, $content, false, $wrap );
 
+			// If the notice is dismissible, we need to check if it has been dismissed before removing it.
+			if ( $notice->dismiss ) {
+				return $html;
+			}
+
 			// Remove the notice and the transient (if any) since it's been rendered.
 			$this->remove( $slug );
 			$this->remove_transient( $slug );
@@ -287,6 +292,8 @@ class Tribe__Admin__Notices {
 			$classes[] = 'inline';
 		}
 
+		$content ??= $notice->content;
+
 		// Prevents Empty Notices
 		if ( empty( $content ) ) {
 			return false;
@@ -332,7 +339,7 @@ class Tribe__Admin__Notices {
 	/**
 	 * Checks if a given notice is rendered
 	 *
-	 * @since  4.7.10
+	 * @since 4.7.10
 	 *
 	 * @param string $slug Which notice to check.
 	 *
@@ -351,7 +358,7 @@ class Tribe__Admin__Notices {
 	/**
 	 * Checks if a given string is a notice rendered
 	 *
-	 * @since  4.7.10
+	 * @since 4.7.10
 	 *
 	 * @param string $slug Which notice to check.
 	 * @param string $html Which html string we are check.
@@ -404,21 +411,6 @@ class Tribe__Admin__Notices {
 		}
 
 		return true;
-	}
-
-	/**
-	 * Checks if a given user has dismissed a given notice.
-	 *
-	 * @since      4.3
-	 * @deprecated 4.13.0 Deprecated in favor of correcting the typo.
-	 *
-	 * @param string   $slug    The Name of the Notice
-	 * @param int|null $user_id The user ID
-	 *
-	 * @return boolean
-	 */
-	public function has_user_dimissed( $slug, $user_id = null ) {
-		return $this->has_user_dismissed( $slug, $user_id );
 	}
 
 	/**
@@ -630,7 +622,7 @@ class Tribe__Admin__Notices {
 	 * A transient admin notice is a "fire-and-forget" admin notice that will display once registered and
 	 * until dismissed (if dismissible) without need, on the side of the source code, to register it on each request.
 	 *
-	 * @since  4.7.7
+	 * @since 4.7.7
 	 *
 	 * @param string $slug      Slug to save the notice
 	 * @param string $html      The notice output HTML code
@@ -808,6 +800,8 @@ class Tribe__Admin__Notices {
 	protected function set_transients( $notices ) {
 		$transient = self::$transient_notices_name;
 		set_transient( $transient, $notices, MONTH_IN_SECONDS );
+		// Manually memoize the value so we don't have to fetch it again.
+		tribe( 'cache' )['transient_admin_notices'] = $notices;
 	}
 
 	/**

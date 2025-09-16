@@ -46,7 +46,7 @@ class ModalButton extends PureComponent {
 	onRequestClose = ( e ) => {
 		this.onClose( e );
 		this.props.isOpen === undefined && this.setState( { isOpen: false } );
-	}
+	};
 
 	onOpen = () => this.props.onOpen && this.props.onOpen();
 
@@ -74,37 +74,29 @@ class ModalButton extends PureComponent {
 
 		const isModalOpen = isOpen !== undefined ? isOpen : this.state.isOpen;
 
-		return ( isModalOpen && (
-			<Modal
-				className={ classNames(
-					'tribe-editor__modal-button__modal-content',
-					modalClassName,
-				) }
-				onRequestClose={ this.onRequestClose }
-				overlayClassName={ classNames(
-					'tribe-editor__modal-button__modal-overlay',
-					modalOverlayClassName,
-				) }
-				title={ modalTitle }
-				{ ...restProps }
-			>
-				{ modalContent }
-			</Modal>
-		) );
+		return (
+			isModalOpen && (
+				<Modal
+					className={ classNames( 'tribe-editor__modal-button__modal-content', modalClassName ) }
+					onRequestClose={ this.onRequestClose }
+					overlayClassName={ classNames(
+						'tribe-editor__modal-button__modal-overlay',
+						modalOverlayClassName
+					) }
+					title={ modalTitle }
+					{ ...restProps }
+				>
+					{ modalContent }
+				</Modal>
+			)
+		);
 	};
 
 	render() {
 		const { className, disabled, label } = this.props;
 		return (
-			<div className={ classNames(
-				'tribe-editor__modal-button',
-				className,
-			) }>
-				<Button
-					className="tribe-editor__modal-button__button"
-					onClick={ this.onClick }
-					disabled={ disabled }
-				>
+			<div className={ classNames( 'tribe-editor__modal-button', className ) }>
+				<Button className="tribe-editor__modal-button__button" onClick={ this.onClick } disabled={ disabled }>
 					{ label }
 				</Button>
 				{ this.renderModal() }

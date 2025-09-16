@@ -59,7 +59,7 @@ class Troubleshooting {
 	 *
 	 */
 	public function add_menu_page() {
-		if ( ! Tribe__Settings::instance()->should_setup_pages() ) {
+		if ( ! tribe( 'settings' )->should_setup_pages() ) {
 			return;
 		}
 
@@ -68,7 +68,7 @@ class Troubleshooting {
 
 		$capability = $this->get_required_capability();
 
-		$where = Tribe__Settings::instance()->get_parent_slug();
+		$where = tribe( 'settings' )->get_parent_slug();
 
 		$this->admin_page = add_submenu_page(
 			$where,
@@ -132,7 +132,7 @@ class Troubleshooting {
 	 * @return boolean returns true if the current page is the troubleshooting page.
 	 */
 	public function is_current_page() {
-		if ( ! Tribe__Settings::instance()->should_setup_pages() || ! did_action( 'admin_menu' ) ) {
+		if ( ! tribe( 'settings' )->should_setup_pages() || ! did_action( 'admin_menu' ) ) {
 			return false;
 		}
 

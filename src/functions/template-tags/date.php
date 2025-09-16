@@ -1,11 +1,11 @@
 <?php
 /**
- * Date Functions
+ * Date Functions.
  *
  * Display functions (template-tags) for use in WordPress templates.
  */
 
-// Don't load directly
+// Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -18,15 +18,15 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 	/**
 	 * Formatted Date
 	 *
-	 * Returns formatted date
+	 * Returns formatted date.
 	 *
 	 * @since 5.11.1 Introduced a temporary locale switch to handle the AM/PM format specifically for French language settings.
 	 *
 	 * @category Events
 	 *
-	 * @param string $date         String representing the datetime, assumed to be UTC (relevant if timezone conversion is used)
-	 * @param bool   $display_time If true shows date and time, if false only shows date
-	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @param string $date         String representing the datetime, assumed to be UTC (relevant if timezone conversion is used).
+	 * @param bool   $display_time If true shows date and time, if false only shows date.
+	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php).
 	 *
 	 * @return string
 	 */
@@ -67,7 +67,7 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 		$date = date_i18n( $format, $date );
 
 		/**
-		 * Revert back to original locale to ensure there are no unexpected side effects elsewhere.
+		 * Revert to the original locale to ensure there are no unexpected side effects elsewhere.
 		 */
 		if ( $should_override ) {
 			switch_to_locale( $original_locale );
@@ -84,13 +84,13 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 
 if ( ! function_exists( 'tribe_beginning_of_day' ) ) {
 	/**
-	 * Returns formatted date for the official beginning of the day according to the Multi-day cutoff time option
+	 * Returns the formatted date for the official beginning of the day according to the Multi-day cutoff time option.
 	 *
 	 * @category Events
 	 *
-	 * @param string|null $date   The date to find the beginning of the day, defaults to today
+	 * @param string|null $date   The date to find the beginning of the day, defaults to today.
 	 * @param string      $format Allows date and time formatting using standard php syntax.
-	 *                            ( see: http://php.net/manual/en/function.date.php )
+	 *                            (see: http://php.net/manual/en/function.date.php)
 	 *                            Defaults to 'Y-m-d H:i:s'.
 	 *
 	 * @return string
@@ -113,7 +113,7 @@ if ( ! function_exists( 'tribe_beginning_of_day' ) ) {
 		$date = apply_filters( 'tribe_event_beginning_of_day', $date );
 
 		/**
-		 * Filters the beginning of day date
+		 * Filters the beginning of day date.
 		 *
 		 * @param string $date
 		 */
@@ -123,12 +123,12 @@ if ( ! function_exists( 'tribe_beginning_of_day' ) ) {
 
 if ( ! function_exists( 'tribe_end_of_day' ) ) {
 	/**
-	 * Returns formatted date for the official end of the day according to the Multi-day cutoff time option
+	 * Returns formatted date for the official end of the day according to the Multi-day cutoff time option.
 	 *
 	 * @category Events
 	 *
-	 * @param string $date   The date to find the end of the day, defaults to today
-	 * @param string $format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @param string $date   The date to find the end of the day, defaults to today.
+	 * @param string $format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php).
 	 *
 	 * @return string
 	 */
@@ -150,7 +150,7 @@ if ( ! function_exists( 'tribe_end_of_day' ) ) {
 		$date = apply_filters( 'tribe_event_end_of_day', $date );
 
 		/**
-		 * Filters the end of day date
+		 * Filters the end-of-day date.
 		 *
 		 * @param string $date
 		 */
@@ -160,10 +160,10 @@ if ( ! function_exists( 'tribe_end_of_day' ) ) {
 
 if ( ! function_exists( 'tribe_get_datetime_separator' ) ) {
 	/**
-	 * Get the datetime saparator from the database option with escaped characters or not ;)
+	 * Get the datetime separator from the database option with escaped characters or not ;)
 	 *
-	 * @param string $default Default Separator if it's blank on the Database
-	 * @param bool   $esc     If it's going to be used on a `date` function or method it needs to be escaped
+	 * @param string $default Default separator if it's blank in the database.
+	 * @param bool   $esc     If it's going to be used on a `date` function or method, it needs to be escaped.
 	 *
 	 * @filter tribe_datetime_separator
 	 *
@@ -184,13 +184,13 @@ if ( ! function_exists( 'tribe_get_start_time' ) ) {
 	/**
 	 * Start Time
 	 *
-	 * Returns the event start time
+	 * Returns the event start time.
 	 *
 	 * @category Events
 	 *
-	 * @param int    $event       (optional)
-	 * @param string $date_format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
-	 * @param string $timezone    Timezone in which to present the date/time (or default behaviour if not set)
+	 * @param int    $event       The event ID. Optional.
+	 * @param string $date_format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php).
+	 * @param string $timezone    Time zone in which to present the date/time (or default behavior if not set).
 	 *
 	 * @return string|null Time
 	 */
@@ -222,10 +222,10 @@ if ( ! function_exists( 'tribe_get_start_time' ) ) {
 		}
 
 		/**
-		 * Filters the returned event start time
+		 * Filters the returned event start time.
 		 *
-		 * @param string  $start_date
-		 * @param WP_Post $event
+		 * @param string  $start_date The event start date.
+		 * @param WP_Post $event      The event post object.
 		 */
 		return apply_filters( 'tribe_get_start_time', tribe_format_date( $start_date, false, $date_format ), $event );
 	}
@@ -235,13 +235,13 @@ if ( ! function_exists( 'tribe_get_end_time' ) ) {
 	/**
 	 * End Time
 	 *
-	 * Returns the event end time
+	 * Returns the event end time.
 	 *
 	 * @category Events
 	 *
-	 * @param int    $event       (optional)
-	 * @param string $date_format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
-	 * @param string $timezone    Timezone in which to present the date/time (or default behaviour if not set)
+	 * @param int    $event       The event ID. Optional.
+	 * @param string $date_format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php).
+	 * @param string $timezone    Timezone in which to present the date/time (or default behavior if not set).
 	 *
 	 * @return string|null Time
 	 */
@@ -273,10 +273,10 @@ if ( ! function_exists( 'tribe_get_end_time' ) ) {
 		}
 
 		/**
-		 * Filters the returned event end time
+		 * Filters the returned event end time.
 		 *
-		 * @param string  $end_date
-		 * @param WP_Post $event
+		 * @param string  $end_date The event end date.
+		 * @param WP_Post $event    The event post object.
 		 */
 		return apply_filters( 'tribe_get_end_time', tribe_format_date( $end_date, false, $date_format ), $event );
 	}
@@ -286,17 +286,18 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 	/**
 	 * Start Date
 	 *
-	 * Returns the event start date and time
+	 * Returns the event start date and time.
 	 *
 	 * @category Events
 	 *
 	 * @since 4.7.6 Deprecated the $timezone parameter.
 	 * @since 5.2.0 Updated filter params.
+	 * @since 6.8.3   Removed the 'deprecated' annotation from the timezone parameter.
 	 *
-	 * @param int    $event        (optional)
-	 * @param bool   $display_time If true shows date and time, if false only shows date
-	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
-	 * @param string $timezone     Deprecated. Timezone in which to present the date/time (or default behaviour if not set)
+	 * @param int    $event        The event ID. Optional.
+	 * @param bool   $display_time If true shows date and time, if false only shows date.
+	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php).
+	 * @param string $timezone     Timezone in which to present the date/time (or default behavior if not set).
 	 *
 	 * @return string|null Date
 	 */
@@ -339,10 +340,10 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 		 *
 		 * @since 5.2.0 Added the $display_time and $date_format parameters.
 		 *
-		 * @param string  $start_date The formatted start date.
-		 * @param WP_Post $event The event object.
+		 * @param string  $start_date   The formatted start date.
+		 * @param WP_Post $event        The event object.
 		 * @param bool    $display_time If true shows date and time, if false only shows date.
-		 * @param string  $date_format The date format.
+		 * @param string  $date_format  The date format.
 		 */
 		return apply_filters( 'tribe_get_start_date', $start_dates[ $cache_key ], $event, $display_time, $date_format );
 	}
@@ -352,17 +353,18 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 	/**
 	 * End Date
 	 *
-	 * Returns the event end date
+	 * Returns the event end date.
 	 *
 	 * @category Events
 	 *
 	 * @since 4.7.6 Deprecated the $timezone parameter.
 	 * @since 5.2.0 Updated filter params.
+	 * @since 6.8.3   Removed the 'deprecated' annotation from the timezone parameter.
 	 *
-	 * @param int    $event        (optional)
-	 * @param bool   $display_time If true shows date and time, if false only shows date
-	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
-	 * @param string $timezone     Deprecated. Timezone in which to present the date/time (or default behaviour if not set)
+	 * @param int    $event        The event ID. Optional.
+	 * @param bool   $display_time If true shows date and time, if false only shows date.
+	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php).
+	 * @param string $timezone     Timezone in which to present the date/time (or default behavior if not set).
 	 *
 	 * @return string|null Date
 	 */
@@ -391,7 +393,7 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 
 			// @todo [BTRIA-584]: Move timezones to Common.
 			if ( class_exists( 'Tribe__Events__Timezones' ) ) {
-				$end_date = Tribe__Events__Timezones::event_end_timestamp( $event->ID );
+				$end_date = Tribe__Events__Timezones::event_end_timestamp( $event->ID, $timezone );
 			} else {
 				return null;
 			}
@@ -401,14 +403,14 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 		}
 
 		/**
-		 * Filters the returned event end date and time
+		 * Filters the returned event end date and time.
 		 *
 		 * @since 5.2.0 Added the $display_time and $date_format parameters.
 		 *
-		 * @param string  $end_date The formatted end date.
-		 * @param WP_Post $event The event object.
+		 * @param string  $end_date     The formatted end date.
+		 * @param WP_Post $event        The event object.
 		 * @param bool    $display_time If true shows date and time, if false only shows date.
-		 * @param string  $date_format The date format.
+		 * @param string  $date_format  The date format.
 		 */
 		return apply_filters( 'tribe_get_end_date', $end_dates[ $cache_key ], $event, $display_time, $date_format );
 	}
@@ -418,7 +420,7 @@ if ( ! function_exists( 'tribe_normalize_manual_utc_offset' ) ) {
 	/**
 	 * Normalizes a manual UTC offset string.
 	 *
-	 * @param string $utc_offset
+	 * @param string $utc_offset The UTC offset.
 	 *
 	 * @return string The normalized manual UTC offset.
 	 *                e.g. 'UTC+3', 'UTC-4.5', 'UTC+2.75'
@@ -441,10 +443,10 @@ if ( ! function_exists( 'tribe_normalize_manual_utc_offset' ) ) {
 
 if ( ! function_exists( 'tribe_wp_locale_weekday' ) ) {
 	/**
-	 * Return a WP Locale weekday in the specified format
+	 * Return a WP Locale weekday in the specified format.
 	 *
-	 * @param int|string $weekday Day of week
-	 * @param string $format Weekday format: full, weekday, initial, abbreviation, abbrev, abbr, short
+	 * @param int|string $weekday Day of the week.
+	 * @param string     $format  Weekday format: full, weekday, initial, abbreviation, abbrev, abbr, short.
 	 *
 	 * @return string
 	 */
@@ -455,10 +457,10 @@ if ( ! function_exists( 'tribe_wp_locale_weekday' ) ) {
 
 if ( ! function_exists( 'tribe_wp_locale_month' ) ) {
 	/**
-	 * Return a WP Locale month in the specified format
+	 * Return a WP Locale month in the specified format.
 	 *
-	 * @param int|string $month Month of year
-	 * @param string $format month format: full, month, abbreviation, abbrev, abbr, short
+	 * @param int|string $month  Month of the year.
+	 * @param string     $format Month format: full, month, abbreviation, abbrev, abbr, short.
 	 *
 	 * @return string
 	 */

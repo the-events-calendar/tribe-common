@@ -1,4 +1,5 @@
 <?php
+use TEC\Common\StellarWP\Uplink\API\Validation_Response;
 /**
  * Facilitates storage and display of license key warning notices.
  *
@@ -10,8 +11,36 @@ class Tribe__PUE__Notices {
 	const EXPIRED_KEY = 'expired_key';
 	const STORE_KEY   = 'tribe_pue_key_notices';
 
+	/**
+	 * List of registered plugin names for use in notifications.
+	 *
+	 * Holds an array of plugin names that are registered during
+	 * a request. Only registered plugins will appear in notifications.
+	 *
+	 * @var string[]
+	 */
 	protected $registered = [];
+
+	/**
+	 * Notices previously saved in the database.
+	 *
+	 * Holds the saved notices retrieved from the database,
+	 * typically via the `get_option` function. It serves as a reference for
+	 * comparing or merging with current notices.
+	 *
+	 * @var array<string, array<string, bool>>
+	 */
 	protected $saved_notices = [];
+
+	/**
+	 * Notices to be displayed or processed during the current request.
+	 *
+	 * Contains the current set of notices, which may include
+	 * notices added during the current request. It is merged with
+	 * `$saved_notices` to ensure consistency.
+	 *
+	 * @var array<string, array<string, bool>>
+	 */
 	protected $notices = [];
 
 	protected $plugin_names = [
@@ -32,6 +61,41 @@ class Tribe__PUE__Notices {
 		$this->populate();
 		add_action( 'current_screen', [ $this, 'setup_notices' ] );
 		add_action( 'tribe_pue_notices_save_notices', [ $this, 'maybe_undismiss_notices' ] );
+		add_filter( 'stellarwp/uplink/tec/client_validate_license', [ $this, 'clear_notices_after_uplink_connect' ] );
+	}
+
+	/**
+	 * Clears any license key notices for the specified plugin.
+	 *
+	 * @since 6.4.1
+	 *
+	 * @param Validation_Response $results The validation results from uplink.
+	 *
+	 * @return Validation_Response
+	 */
+	public function clear_notices_after_uplink_connect( Validation_Response $results ): Validation_Response {
+		if ( ! $results->is_valid() ) {
+			return $results;
+		}
+
+		$this->populate();
+		if ( empty( $this->notices ) || ! is_array( $this->notices ) ) {
+			return $results;
+		}
+
+		foreach ( $this->notices as $key => $data ) {
+			if ( isset( $results->slug ) ) {
+				unset( $this->notices[ $key ][ $results->slug ] );
+			}
+
+			if ( isset( $results->name ) ) {
+				unset( $this->notices[ $key ][ $results->name ] );
+			}
+		}
+
+		$this->save_notices();
+
+		return $results;
 	}
 
 	/**
@@ -49,32 +113,92 @@ class Tribe__PUE__Notices {
 	}
 
 	/**
-	 * Restores plugins added on previous requests to the relevant notification
-	 * groups.
+	 * Restores and sanitizes plugin notices to ensure data integrity and prevent memory issues.
+	 *
+	 * Retrieves saved notices from the database, validates and sanitizes them,
+	 * and sets them as the current request's notices.
+	 *
+	 * @since 6.4.2 Switched from `array_merge_recursive` to `wp_parse_args` to fix data duplication issues. Added additional sanitation and memory safeguards to handle large data sets effectively.
+	 *
+	 * @return void
 	 */
 	protected function populate() {
-		$this->saved_notices = (array) get_option( self::STORE_KEY, [] );
+		$this->saved_notices = $this->sanitize_notices( (array) get_option( self::STORE_KEY, [] ) );
 
-		if ( empty( $this->saved_notices ) ) {
-			return;
-		}
+		// Init the notices as the saved notices.
+		$this->notices = $this->saved_notices;
+	}
 
-		$this->notices = array_merge_recursive( $this->notices, $this->saved_notices );
-
-		// Cleanup
-		foreach ( $this->notices as $key => &$plugin_lists ) {
-			// Purge any elements that are not arrays
-			if ( ! is_array( $plugin_lists ) ) {
-				unset( $this->notices[ $key ] );
+	/**
+	 * Recursively sanitizes notices to prevent nesting and ensure data integrity.
+	 *
+	 * @param array $notices The array of notices to sanitize.
+	 *
+	 * @since 6.4.2
+	 *
+	 * @return array Sanitized notices.
+	 */
+	protected function sanitize_notices( array $notices ): array {
+		foreach ( $notices as $key => &$plugin_list ) {
+			// Ensure the value is an array; otherwise, reset it.
+			if ( ! is_array( $plugin_list ) ) {
+				$plugin_list = [];
 				continue;
 			}
+
+			foreach ( $plugin_list as $plugin => $data ) {
+				// Flatten deeply nested arrays and set the value to `true`.
+				$plugin_list[ $plugin ] = true;
+			}
 		}
+
+		// Remove numeric keys and empty keys to ensure the notices array only contains valid string keys.
+		$notices = array_filter(
+			$notices,
+			fn( $key ) => is_string( $key ) && strlen( trim( $key ) ) > 0,
+			ARRAY_FILTER_USE_KEY
+		);
+
+		return $this->setup_notice_structure( $notices );
+	}
+
+	/**
+	 * Ensures the required notice keys exist in the notices array and initializes them as arrays.
+	 *
+	 * This method guarantees that the notice structure includes specific predefined keys
+	 * (e.g., `invalid_key`, `upgrade_key`, `expired_key`). If a required key is missing,
+	 * it will be added with an empty array as its value. If a key exists but is not an array,
+	 * it will be converted to an array.
+	 *
+	 * @since 6.4.2
+	 *
+	 * @param array $notices The array of notices to check and modify.
+	 *                       Keys are expected to be predefined constants.
+	 *
+	 * @return array The updated notices array with required keys initialized.
+	 */
+	protected function setup_notice_structure( array $notices ): array {
+		$required_keys = [
+			self::INVALID_KEY,
+			self::UPGRADE_KEY,
+			self::EXPIRED_KEY,
+		];
+
+		foreach ( $required_keys as $key ) {
+			$notices[ $key ] = isset( $notices[ $key ] ) ? (array) $notices[ $key ] : [];
+		}
+
+		return $notices;
 	}
 
 	/**
 	 * Saves any license key notices already added.
+	 *
+	 * @since 6.4.2 Sanitize notices prior to storing them.
 	 */
 	public function save_notices() {
+		$this->notices = $this->sanitize_notices( (array) $this->notices );
+
 		update_option( self::STORE_KEY, $this->notices );
 
 		/**
@@ -126,10 +250,15 @@ class Tribe__PUE__Notices {
 	 * was already added to the MISSING_KEY group and is subsequently added to the
 	 * INVALID_KEY group, the previous entry (under MISSING_KEY) will be cleared.
 	 *
-	 * @param string $notice_type
-	 * @param string $plugin_name
+	 * @since 6.9.3 Added early bail if $plugin_name is an empty string.
+	 *
+	 * @param string $notice_type Notice Type.
+	 * @param string $plugin_name Plugin Name.
 	 */
 	public function add_notice( $notice_type, $plugin_name ) {
+		if ( '' === trim( (string) $plugin_name ) ) {
+			return;
+		}
 		$this->clear_notices( $plugin_name, true );
 		$this->notices[ $notice_type ][ $plugin_name ] = true;
 		$this->save_notices();
@@ -138,13 +267,20 @@ class Tribe__PUE__Notices {
 	/**
 	 * Returns whether or not a given plugin name has a specific notice
 	 *
-	 * @param string $plugin_name
-	 * @param string|null $notice_type
+	 * @since 6.9.3 Bail early if the $plugin_name is an empty string.
+	 *
+	 * @param string      $plugin_name Plugin Name.
+	 * @param string|null $notice_type Notice Type.
 	 *
 	 * @return boolean
 	 */
 	public function has_notice( $plugin_name, $notice_type = null ) {
-		// If we match a pue key we use that value
+		// Bail if plugin name is empty.
+		if ( '' === trim( (string) $plugin_name ) ) {
+			return false;
+		}
+
+		// If we match a pue key we use that value.
 		if ( isset( $this->plugin_names[ $plugin_name ] ) ) {
 			$plugin_name = $this->plugin_names[ $plugin_name ];
 		}
@@ -447,12 +583,11 @@ class Tribe__PUE__Notices {
 	 *     # Three names
 	 *     "Ticket Pro, Calendar Legend and Date Stars"
 	 *
+	 * @since 4.9.12
 	 *
-	 * @since  4.9.12
+	 * @param array|string $plugins Array of plugin classes.
 	 *
-	 * @param  array|string  $plugins  Array of plugin classes.
-	 *
-	 * @return string|false
+	 * @return string|false The formatted plugin names.
 	 */
 	public function get_formatted_plugin_names_from_classes( $plugins ) {
 		$plugin_list = [];
@@ -506,9 +641,9 @@ class Tribe__PUE__Notices {
 	 *     # Fallback
 	 *     "Unknown Plugin(s)"
 	 *
-	 * @param  string  $group
+	 * @param string $group The group.
 	 *
-	 * @return string
+	 * @return string The formatted plugin names.
 	 */
 	protected function get_formatted_plugin_names( $group ) {
 		if ( ! count( $this->notices[ $group ] ) ) {

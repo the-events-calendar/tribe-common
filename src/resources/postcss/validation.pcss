@@ -1,8 +1,10 @@
 :root {
 	--tec-error-border-color: #dc3232;
+	--tec-success-border-color: #00a32a;
 }
 
 .tribe-validation {
+
 	input[type="text"],
 	input[type="password"],
 	input[type="checkbox"],
@@ -21,12 +23,14 @@
 	input[type="week"],
 	select,
 	textarea {
+
 		&.tribe-validation-error {
 			border-color: var(--tec-error-border-color);
 		}
 	}
 
 	.tribe-dropdown.tribe-validation-error {
+
 		.select2-choice {
 			border-color: var(--tec-error-border-color);
 		}

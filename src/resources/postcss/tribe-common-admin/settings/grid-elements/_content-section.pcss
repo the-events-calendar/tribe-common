@@ -1,0 +1,87 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Settings Form - Content Section
+ *
+ * This file contains styles for a full-width content section
+ * that contains one or more fieldsets and optionally a header.
+ *
+ * ----------------------------------------------------------------------------- */
+
+#tec-settings-form,
+.tec-settings-form {
+	.tec-settings-form__content-section {
+		display: grid;
+		grid-row-gap: var(--tec-spacer-settings-form-row-gap);
+		grid-template-columns: 1fr;
+
+		@media (--viewport-xsmall) {
+			border-bottom: 1px solid var(--tec-admin-core-grey-10);
+		}
+
+		@media (min-width: 1024px) {
+			grid-column: 1 / span 2;
+			grid-row-gap: var(--tec-spacer-7);
+			grid-template-columns: var(--tec-spacer-settings-form-width-left-col) 1fr;
+
+			> *:only-child {
+				grid-column: 1 / span 2;
+			}
+
+			> *:nth-child(n+2) {
+				grid-column: 2;
+				margin-right: calc(var(--tec-spacer-settings-form-right-gap));
+			}
+		}
+
+		.tribe-size-large.tribe-field-license_key input {
+			max-width: 24em;
+		}
+
+		.license-test-results {
+			margin-bottom: 0;
+		}
+
+		.license-test-results + .tooltip.description {
+			margin-bottom: 0;
+			margin-top: 1em;
+		}
+
+		.tec-settings-form__section-header--sub {
+			margin: 0;
+
+			@media (--viewport-xlarge) {
+				margin-left: var(--tec-spacer-7);
+			}
+		}
+
+		.tec-settings-form__header-block {
+
+			.tec-settings-form__section-header--sub {
+
+				@media (--viewport-xlarge) {
+					margin-left: 0;
+				}
+			}
+		}
+	}
+
+	div:last-child,
+	div:nth-last-of-type(2) {
+
+		&.tec-settings-form__content-section {
+			border-bottom: 0;
+
+			fieldset:last-child {
+				margin-bottom: 0;
+			}
+
+			@media (--viewport-xsmall) and (max-width: 1259px) {
+				padding-bottom: 0;
+			}
+		}
+	}
+
+	.tec-settings-form__header-block + .tec-settings-form__content-section {
+		margin-top: 0;
+	}
+}

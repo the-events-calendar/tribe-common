@@ -1,450 +1,845 @@
-# Copyright (C) 2024 The Events Calendar
+# Copyright (C) 2025 The Events Calendar
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 5.3.0\n"
+"Project-Id-Version: Tribe Common 6.9.3\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-07T11:39:23-07:00\n"
-"PO-Revision-Date: 2024-06-07 18:39\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"POT-Creation-Date: 2025-09-09T12:46:11+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: tribe-common\n"
 
 #. Plugin Name of the plugin
+#: tribe-common.php
 msgid "Tribe Common"
 msgstr ""
 
 #. Description of the plugin
+#: tribe-common.php
 msgid "An event settings framework for managing shared options."
 msgstr ""
 
 #. Author of the plugin
-#: src/admin-views/help-calendar.php:99
-#: src/Tribe/Admin/Help_Page.php:168
-#: src/Tribe/Customizer.php:664
+#: tribe-common.php
+#: src/admin-views/help-calendar.php:105
+#: src/Common/REST/TEC/V1/Documentation.php:121
+#: src/Tribe/Admin/Help_Page.php:171
+#: src/Tribe/Customizer.php:666
 #: src/Tribe/Plugins_API.php:25
 msgid "The Events Calendar"
 msgstr ""
 
 #. Author URI of the plugin
+#: tribe-common.php
 msgid "http://evnt.is/1x"
 msgstr ""
 
-#: src/admin-views/app-shop.php:30
-#: src/admin-views/conditional_content/black-friday.php:16
-#: src/admin-views/conditional_content/end-of-year-sale.php:16
+#: src/admin-views/app-shop.php:46
 #: src/admin-views/help.php:35
 #: src/admin-views/help.php:104
 #: src/admin-views/troubleshooting/footer-logo.php:12
-#: src/admin-views/troubleshooting/introduction.php:19
+#: src/admin-views/troubleshooting/introduction.php:18
 msgid "The Events Calendar brand logo"
 msgstr ""
 
-#: src/admin-views/app-shop.php:35
+#: src/admin-views/app-shop.php:51
 msgid "All Solutions"
 msgstr ""
 
-#: src/admin-views/app-shop.php:36
+#: src/admin-views/app-shop.php:52
 msgid "Save with Bundles"
 msgstr ""
 
-#: src/admin-views/app-shop.php:37
+#: src/admin-views/app-shop.php:53
 msgid "Extensions"
 msgstr ""
 
-#: src/admin-views/app-shop.php:38
+#: src/admin-views/app-shop.php:54
 msgid "Stellar Discounts"
 msgstr ""
 
-#: src/admin-views/app-shop.php:47
-#: src/admin-views/app-shop.php:109
-#: src/admin-views/app-shop.php:167
-#: src/admin-views/app-shop.php:201
+#: src/admin-views/app-shop.php:63
+#: src/admin-views/app-shop.php:125
+#: src/admin-views/app-shop.php:183
+#: src/admin-views/app-shop.php:217
 msgid "Shapes and lines for visual interest"
 msgstr ""
 
-#: src/admin-views/app-shop.php:53
+#: src/admin-views/app-shop.php:69
 msgid "One calendar. Countless ways to make it your own."
 msgstr ""
 
-#: src/admin-views/app-shop.php:54
+#: src/admin-views/app-shop.php:70
 msgid "Calendars, ticketing, and powerful WordPress tools to manage your events from start to finish."
 msgstr ""
 
-#: src/admin-views/app-shop.php:56
+#: src/admin-views/app-shop.php:72
 msgid "Already Installed"
 msgstr ""
 
-#: src/admin-views/app-shop.php:62
-#: src/admin-views/app-shop.php:119
-#: src/admin-views/app-shop.php:141
+#: src/admin-views/app-shop.php:78
+#: src/admin-views/app-shop.php:135
+#: src/admin-views/app-shop.php:157
 msgid "TEC Logo"
 msgstr ""
 
-#: src/admin-views/app-shop.php:66
-#: src/admin-views/help-calendar.php:46
-#: src/admin-views/help-community.php:44
-#: src/admin-views/help-ticketing.php:46
+#: src/admin-views/app-shop.php:82
+#: src/admin-views/help-calendar.php:45
+#: src/admin-views/help-community.php:43
+#: src/admin-views/help-ticketing.php:50
 msgid "Active"
 msgstr ""
 
-#: src/admin-views/app-shop.php:68
-#: src/admin-views/app-shop.php:177
+#: src/admin-views/app-shop.php:84
+#: src/admin-views/app-shop.php:193
 msgid "FREE"
 msgstr ""
 
-#: src/admin-views/app-shop.php:93
+#: src/admin-views/app-shop.php:109
 msgid "Manage"
 msgstr ""
 
-#: src/admin-views/app-shop.php:95
-#: src/admin-views/help-calendar.php:67
-#: src/admin-views/help-community.php:58
-#: src/admin-views/help-ticketing.php:67
+#: src/admin-views/app-shop.php:111
+#: src/admin-views/help-calendar.php:77
+#: src/admin-views/help-community.php:57
+#: src/admin-views/help-ticketing.php:82
 msgid "Learn More"
 msgstr ""
 
-#: src/admin-views/app-shop.php:113
+#: src/admin-views/app-shop.php:129
 msgid "The plugins you need at one discounted price"
 msgstr ""
 
-#: src/admin-views/app-shop.php:114
+#: src/admin-views/app-shop.php:130
 msgid "We've packaged our most popular plugins into bundles jam-packed with value."
 msgstr ""
 
-#: src/admin-views/app-shop.php:126
-#: src/admin-views/app-shop.php:153
+#: src/admin-views/app-shop.php:142
+#: src/admin-views/app-shop.php:169
 msgid "Save With A Bundle"
 msgstr ""
 
-#: src/admin-views/app-shop.php:132
+#: src/admin-views/app-shop.php:148
 msgid "Includes"
 msgstr ""
 
-#: src/admin-views/app-shop.php:171
+#: src/admin-views/app-shop.php:187
 msgid "Free extensions to power up your plugins"
 msgstr ""
 
-#: src/admin-views/app-shop.php:172
+#: src/admin-views/app-shop.php:188
 msgid "Extensions are quick solutions our team came up with to solve specific issues you may need. (Note - extensions are not covered by our support team.)"
 msgstr ""
 
-#: src/admin-views/app-shop.php:186
+#: src/admin-views/app-shop.php:202
 msgid "Download"
 msgstr ""
 
-#: src/admin-views/app-shop.php:190
+#: src/admin-views/app-shop.php:206
 msgid "Browse Extensions"
 msgstr ""
 
-#: src/admin-views/app-shop.php:209
+#: src/admin-views/app-shop.php:225
 msgid "Stellar is a collective of WordPress innovators, and home to WordPress products done right."
 msgstr ""
 
-#: src/admin-views/app-shop.php:213
+#. translators: %s is the coupon code
+#: src/admin-views/app-shop.php:232
+#, php-format
 msgid "$25 towards any Stellar product using code <u>%s</u>"
+msgstr ""
+
+#: src/admin-views/components/integration/add-connection.php:21
+msgctxt "Label to add an integration connection fields."
+msgid "Add Connection"
+msgstr ""
+
+#: src/admin-views/components/integration/create-button.php:21
+msgctxt "Create a integration connection access token or consumer secret."
+msgid "Create"
+msgstr ""
+
+#: src/admin-views/components/integration/create-button.php:27
+msgctxt "An error message that the description or user is missing when creating access information for an integration connection. "
+msgid "Description or User missing. Please add a description and select a user before create the access information."
+msgstr ""
+
+#: src/admin-views/components/integration/delete-button.php:22
+msgctxt "Removes a connection from the list of integration connections."
+msgid "Delete"
 msgstr ""
 
 #: src/admin-views/components/loader.php:18
 msgid "Loading..."
 msgstr ""
 
-#: src/admin-views/conditional_content/black-friday.php:23
-msgid "Our biggest<br/> sale of the<br/> year ends<br/> soon</p>"
+#. translators: %1$s: Black Friday sale year (numeric)
+#: src/admin-views/conditional_content/black-friday.php:15
+#, php-format
+msgctxt "Alt text for the Black Friday Ad"
+msgid "%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles."
 msgstr ""
 
-#: src/admin-views/conditional_content/black-friday.php:30
-#: src/admin-views/conditional_content/end-of-year-sale.php:31
-msgid "Save now"
+#: src/admin-views/dashboard/components/clear-button.php:27
+msgctxt "Clears a integration endpoint queue."
+msgid "Clear Queue"
 msgstr ""
 
-#: src/admin-views/conditional_content/end-of-year-sale.php:23
-msgid "End of Year Sale!<br/>Save 30% on<br/> all our plugins.<br/>Offer expires soon!"
+#: src/admin-views/dashboard/components/missing-dependency.php:28
+#: src/admin-views/zapier/dashboard/components/missing-dependency.php:28
+msgctxt "Name of missing dependency for Endpoint."
+msgid "The Events Calendar"
 msgstr ""
 
-#: src/admin-views/event-log.php:21
+#: src/admin-views/dashboard/components/missing-dependency.php:31
+#: src/admin-views/zapier/dashboard/components/missing-dependency.php:31
+msgctxt "Name of missing dependency for Endpoint."
+msgid "Event Tickets"
+msgstr ""
+
+#: src/admin-views/dashboard/components/missing-dependency.php:39
+#: src/admin-views/zapier/dashboard/components/missing-dependency.php:39
+msgctxt "Missing dependency message in the settings."
+msgid "Missing "
+msgstr ""
+
+#: src/admin-views/dashboard/components/missing-dependency.php:41
+#: src/admin-views/zapier/dashboard/components/missing-dependency.php:41
+msgctxt "Missing dependency message in the settings."
+msgid " plugin."
+msgstr ""
+
+#: src/admin-views/dashboard/components/missing-dependency.php:47
+#: src/admin-views/zapier/dashboard/components/missing-dependency.php:47
+msgctxt "Missing dependency label in the settings."
+msgid "Endpoint Disabled"
+msgstr ""
+
+#: src/admin-views/dashboard/components/status-button.php:27
+msgctxt "Enables a integration endpoint."
+msgid "Enable"
+msgstr ""
+
+#: src/admin-views/dashboard/components/status-button.php:32
+msgctxt "Disables a integration endpoint queue."
+msgid "Disable"
+msgstr ""
+
+#: src/admin-views/dashboard/endpoints/endpoint.php:29
+msgctxt "Label for the integration endpoint dashboard endpoint name."
+msgid "Name"
+msgstr ""
+
+#: src/admin-views/dashboard/endpoints/endpoint.php:30
+msgctxt "The screen reader text of the label for the integration endpoint Dashboard endpoint name."
+msgid "The name for the integration endpoint."
+msgstr ""
+
+#: src/admin-views/dashboard/endpoints/endpoint.php:39
+msgctxt "Label for the integration endpoint Dashboards endpoint last access."
+msgid "Last Access"
+msgstr ""
+
+#: src/admin-views/dashboard/endpoints/endpoint.php:46
+msgctxt "The screen reader text of the label for the integration endpoint Dashboard endpoint last access."
+msgid "The last access for the integration endpoint."
+msgstr ""
+
+#: src/admin-views/dashboard/endpoints/endpoint.php:58
+msgctxt "The screen reader text of the label for the integration endpoint Dashboard endpoint last access when disabled."
+msgid "The last access is disabled as this endpoint is disabled."
+msgstr ""
+
+#: src/admin-views/dashboard/endpoints/endpoint.php:65
+msgctxt "Label for the integration endpoint Dashboards endpoint queue."
+msgid "Queue"
+msgstr ""
+
+#: src/admin-views/dashboard/endpoints/endpoint.php:66
+msgctxt "Label for the integration endpoint Dashboards endpoint queue status."
+msgid "none"
+msgstr ""
+
+#: src/admin-views/dashboard/endpoints/endpoint.php:68
+msgctxt "Label for the integration endpoint Dashboards endpoint queue status."
+msgid "ready"
+msgstr ""
+
+#: src/admin-views/dashboard/endpoints/endpoint.php:80
+msgctxt "The screen reader text of the label for the integration endpoint Dashboard endpoint queue."
+msgid "The Queue for the integration endpoint."
+msgstr ""
+
+#: src/admin-views/dashboard/endpoints/endpoint.php:92
+msgctxt "The screen reader text of the label for the integration endpoint Dashboard endpoint queue when disabled."
+msgid "The Queue is disabled for this endpoint."
+msgstr ""
+
+#: src/admin-views/dashboard/endpoints/list-header.php:20
+msgctxt "Name header label for the settings listing of the integration endpoints."
+msgid "Name"
+msgstr ""
+
+#: src/admin-views/dashboard/endpoints/list-header.php:23
+msgctxt "Last Access header label for the settings listing of the integration endpoints."
+msgid "Last Access"
+msgstr ""
+
+#: src/admin-views/dashboard/endpoints/list-header.php:26
+msgctxt "Last Access header label for the settings listing of the integration endpoints."
+msgid "Queue"
+msgstr ""
+
+#: src/admin-views/dashboard/endpoints/list-header.php:29
+msgctxt "Actions header label for the settings listing of the integration endpoints."
+msgid "Actions"
+msgstr ""
+
+#: src/admin-views/dashboard/table.php:23
+msgctxt "The legend for the integration endpoint dashboard."
+msgid "Endpoint Dashboard"
+msgstr ""
+
+#. Translators: 1: Opening anchor tag, 2: Closing anchor tag.
+#: src/admin-views/dashboard/table.php:29
+#, php-format
+msgctxt "The Zapier endpoint dashboard description."
+msgid "The Zapier queue is currently limited to 15 items for each endpoint on your site. To increase that limit, check out the %1$sIncreasing the Zapier Queue Limit knowledgebase article%2$s."
+msgstr ""
+
+#: src/admin-views/event-log.php:22
 msgid "Logging level"
 msgstr ""
 
-#: src/admin-views/event-log.php:43
+#: src/admin-views/event-log.php:44
 msgid "Method"
 msgstr ""
 
-#: src/admin-views/event-log.php:65
+#: src/admin-views/event-log.php:66
 msgid "View"
 msgstr ""
 
-#: src/admin-views/event-log.php:100
+#: src/admin-views/event-log.php:101
 msgid "The selected log file is empty or has not been generated yet."
 msgstr ""
 
-#: src/admin-views/event-log.php:117
+#: src/admin-views/event-log.php:118
 msgid "Download log"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:18
-#: src/admin-views/help-community.php:16
-#: src/admin-views/help-ticketing.php:18
+#: src/admin-views/help-calendar.php:16
+#: src/admin-views/help-community.php:14
+#: src/admin-views/help-ticketing.php:19
 msgid "Get help for these products and learn more about products you don't have."
 msgstr ""
 
-#: src/admin-views/help-calendar.php:29
-#: src/admin-views/help-community.php:27
-#: src/admin-views/help-ticketing.php:29
+#: src/admin-views/help-calendar.php:28
+#: src/admin-views/help-community.php:26
+#: src/admin-views/help-ticketing.php:32
 msgid "logo icon"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:53
-#: src/admin-views/help-ticketing.php:53
+#: src/admin-views/help-calendar.php:63
+#: src/admin-views/help-ticketing.php:68
 msgid "Add license key"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:60
-#: src/admin-views/help-community.php:51
-#: src/admin-views/help-ticketing.php:60
+#: src/admin-views/help-calendar.php:70
+#: src/admin-views/help-community.php:50
+#: src/admin-views/help-ticketing.php:75
 msgid "Activate"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:78
-#: src/admin-views/help-community.php:69
-#: src/admin-views/help-ticketing.php:78
+#: src/admin-views/help-calendar.php:88
+#: src/admin-views/help-community.php:68
+#: src/admin-views/help-ticketing.php:93
 msgid "Start Here"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:82
-#: src/admin-views/help-community.php:73
-#: src/admin-views/help-ticketing.php:82
+#: src/admin-views/help-calendar.php:92
+#: src/admin-views/help-community.php:72
+#: src/admin-views/help-ticketing.php:97
 msgid "Visit Knowledgebase"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:91
-#: src/admin-views/help-calendar.php:124
-#: src/admin-views/help-calendar.php:157
+#: src/admin-views/help-calendar.php:98
+#: src/admin-views/help-calendar.php:122
+#: src/admin-views/help-calendar.php:151
 msgid "book with The Events Calendar logo"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:94
-#: src/admin-views/help-community.php:85
-#: src/admin-views/help-ticketing.php:94
+#: src/admin-views/help-calendar.php:100
+#: src/admin-views/help-community.php:80
+#: src/admin-views/help-ticketing.php:109
 msgid "Getting Started Guides"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:104
-#: src/Tribe/Admin/Help_Page.php:337
+#: src/admin-views/help-calendar.php:110
+#: src/Tribe/Admin/Help_Page.php:340
 #: src/Tribe/Plugins_API.php:45
 msgid "Event Aggregator"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:109
-#: src/Tribe/Admin/Help_Page.php:347
-#: src/Tribe/Plugins_API.php:166
+#: src/admin-views/help-calendar.php:115
+#: src/Tribe/Admin/Help_Page.php:350
+#: src/Tribe/Plugins_API.php:146
 msgid "Filter Bar"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:114
-#: src/Tribe/Admin/Help_Page.php:355
-#: src/Tribe/Plugins_API.php:267
-msgid "Virtual Events"
-msgstr ""
-
-#: src/admin-views/help-calendar.php:127
+#: src/admin-views/help-calendar.php:124
 msgid "Customizing"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:132
+#: src/admin-views/help-calendar.php:129
 msgid "Getting started with customizations"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:137
+#: src/admin-views/help-calendar.php:134
 msgid "Highlighting events"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:142
+#: src/admin-views/help-calendar.php:139
 msgid "How to Customize Template Files"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:147
+#: src/admin-views/help-calendar.php:144
 msgid "Customizing CSS (Video)"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:160
+#: src/admin-views/help-calendar.php:153
 msgid "Common Issues"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:165
+#: src/admin-views/help-calendar.php:158
 msgid "Known Issues"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:170
-#: src/admin-views/help-community.php:161
-#: src/admin-views/help-ticketing.php:166
+#: src/admin-views/help-calendar.php:163
+#: src/admin-views/help-community.php:148
+#: src/admin-views/help-ticketing.php:181
 msgid "Release notes"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:175
-#: src/admin-views/help-community.php:166
-#: src/admin-views/help-ticketing.php:171
+#: src/admin-views/help-calendar.php:168
+#: src/admin-views/help-community.php:153
+#: src/admin-views/help-ticketing.php:186
 msgid "Integrations"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:180
-#: src/admin-views/help-ticketing.php:142
-#: src/Tribe/Plugins_API.php:96
+#: src/admin-views/help-calendar.php:173
+#: src/admin-views/help-ticketing.php:157
+#: src/Tribe/Plugins_API.php:76
 msgid "Shortcodes"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:190
-#: src/admin-views/help-community.php:181
-#: src/admin-views/help-ticketing.php:186
+#: src/admin-views/help-calendar.php:185
+#: src/admin-views/help-community.php:170
+#: src/admin-views/help-ticketing.php:201
 msgid "FAQs"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:194
-#: src/admin-views/help-community.php:185
-#: src/admin-views/help-ticketing.php:190
+#: src/admin-views/help-calendar.php:189
+#: src/admin-views/help-community.php:174
+#: src/admin-views/help-ticketing.php:205
 msgid "All FAQs"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:204
-#: src/admin-views/help-community.php:195
-#: src/admin-views/help-ticketing.php:200
-#: src/admin-views/troubleshooting/common-issues.php:24
+#: src/admin-views/help-calendar.php:197
+#: src/admin-views/help-community.php:182
+#: src/admin-views/help-ticketing.php:215
+#: src/admin-views/troubleshooting/common-issues.php:23
 #: src/admin-views/troubleshooting/first-steps.php:20
-#: src/admin-views/troubleshooting/first-steps.php:40
+#: src/admin-views/troubleshooting/first-steps.php:41
 msgid "lightbulb icon"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:224
-#: src/admin-views/help-community.php:215
-#: src/admin-views/help-ticketing.php:220
+#: src/admin-views/help-calendar.php:218
+#: src/admin-views/help-community.php:203
+#: src/admin-views/help-ticketing.php:235
 msgid "Free extensions"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:228
-#: src/admin-views/help-community.php:219
-#: src/admin-views/help-ticketing.php:224
+#: src/admin-views/help-calendar.php:222
+#: src/admin-views/help-community.php:207
+#: src/admin-views/help-ticketing.php:239
 msgid "All Extensions"
 msgstr ""
 
-#: src/admin-views/help-calendar.php:233
-#: src/admin-views/help-community.php:224
-#: src/admin-views/help-ticketing.php:229
+#: src/admin-views/help-calendar.php:227
+#: src/admin-views/help-community.php:212
+#: src/admin-views/help-ticketing.php:244
 msgid "Small, lightweight WordPress plugins that add new capabilities to our core plugins. Support is not offered for extensions; however they provide enhanced functionality and bonus features."
 msgstr ""
 
-#: src/admin-views/help-community.php:82
-#: src/admin-views/help-community.php:148
+#: src/admin-views/help-community.php:78
+#: src/admin-views/help-community.php:136
 msgid "book with The Events community logo"
 msgstr ""
 
-#: src/admin-views/help-community.php:90
-#: src/Tribe/Admin/Help_Page.php:329
-#: src/Tribe/Plugins_API.php:186
-msgid "Community Events"
+#: src/admin-views/help-community.php:85
+#: src/admin-views/help.php:54
+#: src/Tribe/Admin/Help_Page.php:332
+#: src/Tribe/Plugins_API.php:166
+msgid "Community"
 msgstr ""
 
-#: src/admin-views/help-community.php:95
-#: src/Tribe/Admin/Help_Page.php:372
-#: src/Tribe/Plugins_API.php:206
+#: src/admin-views/help-community.php:90
+#: src/Tribe/Admin/Help_Page.php:375
 msgid "Community Tickets"
 msgstr ""
 
+#: src/admin-views/help-community.php:95
+msgid "Community Shortcodes"
+msgstr ""
+
 #: src/admin-views/help-community.php:100
-msgid "Community Events Shortcodes"
+msgid "Locating Links to Your Community Pages"
 msgstr ""
 
-#: src/admin-views/help-community.php:105
-msgid "Locating Links to Your Community Events Pages"
-msgstr ""
-
-#: src/admin-views/help-community.php:115
-#: src/admin-views/help-ticketing.php:119
+#: src/admin-views/help-community.php:107
+#: src/admin-views/help-ticketing.php:134
 msgid "book with Event Tickets logo"
 msgstr ""
 
-#: src/admin-views/help-community.php:118
+#: src/admin-views/help-community.php:109
 msgid "Managing Submissions"
 msgstr ""
 
-#: src/admin-views/help-community.php:123
+#: src/admin-views/help-community.php:114
 msgid "Managing Submissions Overview"
 msgstr ""
 
-#: src/admin-views/help-community.php:128
+#: src/admin-views/help-community.php:119
 msgid "Setting Notifications"
 msgstr ""
 
-#: src/admin-views/help-community.php:133
+#: src/admin-views/help-community.php:124
 msgid "Auto-Publish Events Submitted By Logged-In Users"
 msgstr ""
 
-#: src/admin-views/help-community.php:138
+#: src/admin-views/help-community.php:129
 msgid "Preventing Spam Submissions"
 msgstr ""
 
-#: src/admin-views/help-community.php:151
-#: src/admin-views/help-ticketing.php:156
+#: src/admin-views/help-community.php:138
+#: src/admin-views/help-ticketing.php:171
 msgid "Plugin Maintenance"
 msgstr ""
 
-#: src/admin-views/help-community.php:156
-#: src/admin-views/help-ticketing.php:161
+#: src/admin-views/help-community.php:143
+#: src/admin-views/help-ticketing.php:176
 msgid "Testing for Conflicts"
 msgstr ""
 
-#: src/admin-views/help-community.php:171
-#: src/admin-views/help-ticketing.php:176
+#: src/admin-views/help-community.php:158
+#: src/admin-views/help-ticketing.php:191
 msgid "Automatic Updates"
 msgstr ""
 
-#: src/admin-views/help-ticketing.php:91
-#: src/admin-views/help-ticketing.php:153
+#: src/admin-views/help-hub/header.php:33
+msgid "The Events Calendar logo"
+msgstr ""
+
+#: src/admin-views/help-hub/navigation-links.php:14
+msgid "Main Help Hub Navigation"
+msgstr ""
+
+#: src/admin-views/help-hub/navigation.php:17
+msgid "Settings Navigation"
+msgstr ""
+
+#: src/admin-views/help-hub/navigation.php:18
+msgid "Close settings navigation"
+msgstr ""
+
+#: src/admin-views/help-hub/navigation.php:19
+#: src/Tribe/Settings.php:901
+#: src/Tribe/Settings.php:939
+msgid "Close"
+msgstr ""
+
+#: src/admin-views/help-hub/navigation.php:31
+#: src/admin-views/help-hub/navigation.php:37
+#: src/Tribe/Settings.php:1097
+msgid "Open settings navigation"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/common-issues.php:34
+msgctxt "Common issues section title"
+msgid "Common issues"
+msgstr ""
+
+#. translators: %s is the link to the AI Chatbot
+#: src/admin-views/help-hub/resources/common-issues.php:40
+#, php-format
+msgid "Having trouble? Find solutions to common issues or ask our %s."
+msgstr ""
+
+#: src/admin-views/help-hub/resources/common-issues.php:41
+msgid "AI Chatbot"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/customization.php:33
+msgctxt "Customization guides section title"
+msgid "Customization guides"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/customization.php:36
+msgctxt "Customization guides section paragraph"
+msgid "Tips and tricks on making your calendar just the way you want it."
+msgstr ""
+
+#: src/admin-views/help-hub/resources/faqs.php:33
+msgctxt "FAQs section title"
+msgid "FAQs"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/faqs.php:36
+msgctxt "FAQs section paragraph"
+msgid "Get quick answers to common questions"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/getting-started.php:29
+msgctxt "Getting started guide section title"
+msgid "Getting started guides"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/getting-started.php:32
+msgctxt "Getting started guide section paragraph"
+msgid "Easy to follow step-by-step instructions to make the most out of your calendar."
+msgstr ""
+
+#: src/admin-views/help-hub/resources/resources.php:25
+msgctxt "Resources tab title"
+msgid "Resources"
+msgstr ""
+
+#. translators: %1$s is the link to the Knowledgebase.
+#: src/admin-views/help-hub/resources/resources.php:38
+#, php-format
+msgid "Help on setting up, customizing, and troubleshooting your calendar. See our %1$s for in-depth content."
+msgstr ""
+
+#. translators: %s: Knowledgebase
+#: src/admin-views/help-hub/resources/resources.php:39
+#: src/admin-views/tribe-options-help.php:21
+msgid "Knowledgebase"
+msgstr ""
+
+#. translators: Placeholders are for the opening and closing anchor tags.
+#: src/admin-views/help-hub/resources/resources.php:54
+#, php-format
+msgctxt "The callout notice to try the chatbot with a link to the page"
+msgid "To find the answer to all your questions use the %1$sTEC Chatbot%2$s"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/settings-infobox.php:17
+msgctxt "AI Chatbot notice title"
+msgid "Our AI Chatbot is here to help you"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/settings-infobox.php:26
+msgctxt "AI Chatbot section paragraph"
+msgid "You have questions? The TEC Chatbot has the answers."
+msgstr ""
+
+#: src/admin-views/help-hub/resources/settings-infobox.php:36
+#: src/admin-views/help-hub/resources/sidebar/no-license.php:39
+msgctxt "Link to the Help Chatbot"
+msgid "Talk to TEC Chatbot"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:18
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:27
+msgctxt "Help page resources sidebar header"
+msgid "Our TEC support hub now offers an improved help experience"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:27
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:36
+msgctxt "Describes why consent is beneficial"
+msgid "Our Help page is better than ever with the addition of:"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:45
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:54
+msgctxt "AI Chatbot sidebar header"
+msgid "AI Chatbot"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:54
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:63
+msgctxt "AI Chatbot support sidebar paragraph"
+msgid "Here to provide quick answers to your questions. It’s never been easier to find the right resource."
+msgstr ""
+
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:73
+msgctxt "Get support sidebar header"
+msgid "Talk to our support team"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:82
+msgctxt "Live support sidebar paragraph"
+msgid "Our Support team is available to help you out 5 days a week:"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:92
+msgctxt "Live support hours"
+msgid "Mon-Fri from 9:00 - 20:00 PST"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/sidebar/no-license.php:25
+msgctxt "Help page resources sidebar header"
+msgid "Our AI Chatbot is here to help you"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/sidebar/no-license.php:29
+msgctxt "Call to action to use The Events Calendar Help Chatbot."
+msgid "You have questions? The TEC Chatbot has the answers."
+msgstr ""
+
+#: src/admin-views/help-hub/shared-live-support.php:36
+msgctxt "Get support sidebar header"
+msgid "Get priority live support"
+msgstr ""
+
+#: src/admin-views/help-hub/shared-live-support.php:45
+msgctxt "Live support sidebar paragraph"
+msgid "You can get live support from The Events Calendar team if you have an active license for one of our products."
+msgstr ""
+
+#: src/admin-views/help-hub/shared-live-support.php:55
+msgctxt "Live support sidebar link to article"
+msgid "Learn how to get live support"
+msgstr ""
+
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:82
+msgctxt "Get support sidebar header"
+msgid "In-app priority live support"
+msgstr ""
+
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:91
+msgctxt "Live support sidebar paragraph"
+msgid "Get access to our agents or generate a support ticket from right here."
+msgstr ""
+
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:102
+msgctxt "Opt in sidebar paragraph"
+msgid "To enhance your experience, we require your consent to collect and share some of your website’s data with our AI chatbot. "
+msgstr ""
+
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:112
+msgctxt "Button to manage opt in status"
+msgid "Manage my data sharing consent"
+msgstr ""
+
+#: src/admin-views/help-hub/support/iframe-content.php:20
+msgid "Iframe Content"
+msgstr ""
+
+#: src/admin-views/help-hub/support/iframe-content.php:44
+msgid "Star Icon"
+msgstr ""
+
+#: src/admin-views/help-hub/support/iframe-content.php:47
+msgid "Our AI Chatbot can help you find solutions quickly."
+msgstr ""
+
+#: src/admin-views/help-hub/support/iframe-content.php:49
+msgid "To enhance your experience, we require your consent to collect and share some of your website’s data with our AI chatbot."
+msgstr ""
+
+#. translators: 1: the opening tag to the chatbot link, 2: the closing tag.
+#: src/admin-views/help-hub/support/iframe-content.php:55
+#, php-format
+msgctxt "Text for opting out of chatbot and linking to The Events Calendar’s Knowledgebase"
+msgid "If you do not wish to consent, you could chat with the bot on %1$sThe Events Calendar’s Knowledgebase%2$s."
+msgstr ""
+
+#: src/admin-views/help-hub/support/iframe-content.php:65
+msgid "Manage my data sharing consent"
+msgstr ""
+
+#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:31
+msgctxt "Talk to support sidebar header"
+msgid "Talk to our support team"
+msgstr ""
+
+#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:40
+msgctxt "Contact support paragraph"
+msgid "If you still need help contact us. Our Support team is available to help you out 5 days a week:"
+msgstr ""
+
+#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:49
+msgctxt "Support hours"
+msgid "Mon-Fri from 9:00 - 20:00 PST"
+msgstr ""
+
+#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:59
+msgctxt "Contact support link"
+msgid "Contact support"
+msgstr ""
+
+#: src/admin-views/help-hub/support/support-hub.php:22
+msgctxt "Help page Support Hub title"
+msgid "TEC Support Hub"
+msgstr ""
+
+#: src/admin-views/help-hub/support/support-hub.php:38
+msgctxt "Help page Support Hub header paragraph"
+msgid "Help on setting up, customizing, and troubleshooting your calendar."
+msgstr ""
+
+#: src/admin-views/help-ticketing.php:106
+#: src/admin-views/help-ticketing.php:168
 msgid "book with The Events ticketing logo"
 msgstr ""
 
-#: src/admin-views/help-ticketing.php:99
-#: src/Tribe/Admin/Help_Page.php:187
-#: src/Tribe/Plugins_API.php:106
+#: src/admin-views/help-ticketing.php:114
+#: src/Tribe/Admin/Help_Page.php:190
+#: src/Tribe/Plugins_API.php:86
 msgid "Event Tickets"
 msgstr ""
 
-#: src/admin-views/help-ticketing.php:104
+#: src/admin-views/help-ticketing.php:119
 msgid "Calendar & Ticket Shortcodes"
 msgstr ""
 
-#: src/admin-views/help-ticketing.php:109
-#: src/Tribe/Plugins_API.php:146
+#: src/admin-views/help-ticketing.php:124
+#: src/Tribe/Plugins_API.php:126
 #: src/Tribe/Promoter/PUE.php:28
 #: src/views/promoter/auth.php:30
 #: src/views/promoter/auth.php:74
 msgid "Promoter"
 msgstr ""
 
-#: src/admin-views/help-ticketing.php:122
+#: src/admin-views/help-ticketing.php:137
 msgid "Creating Tickets & RSVPs"
 msgstr ""
 
-#: src/admin-views/help-ticketing.php:127
+#: src/admin-views/help-ticketing.php:142
 msgid "Creating Tickets"
 msgstr ""
 
-#: src/admin-views/help-ticketing.php:132
+#: src/admin-views/help-ticketing.php:147
 msgid "Creating RSVPs"
 msgstr ""
 
-#: src/admin-views/help-ticketing.php:137
+#: src/admin-views/help-ticketing.php:152
 msgid "Configuring Paypal for Tickets"
 msgstr ""
 
-#: src/admin-views/help-ticketing.php:144
+#: src/admin-views/help-ticketing.php:159
 msgid "(Event Tickets Plus)"
 msgstr ""
 
 #: src/admin-views/help.php:38
+#: src/Tribe/Settings.php:828
 msgid "Help"
 msgstr ""
 
@@ -460,10 +855,6 @@ msgstr ""
 msgid "Ticketing & RSVP"
 msgstr ""
 
-#: src/admin-views/help.php:54
-msgid "Community"
-msgstr ""
-
 #: src/admin-views/help.php:85
 #: src/admin-views/troubleshooting/support-cta.php:13
 msgid "Graphic with an electrical plug and gears"
@@ -477,197 +868,351 @@ msgstr ""
 msgid "Visit Troubleshooting next"
 msgstr ""
 
-#: src/admin-views/notices/end-of-year-sale.php:16
-msgid "End of year savings!"
-msgstr ""
-
-#: src/admin-views/notices/end-of-year-sale.php:18
-msgid "Get 30% off on all plugins from now through December 31."
-msgstr ""
-
-#: src/admin-views/notices/end-of-year-sale.php:25
-msgid "Shop now"
-msgstr ""
-
-#: src/admin-views/notices/tribe-bf-general.php:17
-msgid "Save 40% on The Events Calendar"
-msgstr ""
-
-#: src/admin-views/notices/tribe-bf-general.php:20
-msgid "Upgrade and purchase new products during the Black Friday Sale."
-msgstr ""
-
-#: src/admin-views/notices/tribe-bf-general.php:25
-#: src/admin-views/notices/tribe-stellar-sale-premium.php:24
-#: src/admin-views/notices/tribe-stellar-sale-premium.php:38
-#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:61
-msgctxt "Shop now link text"
-msgid "Shop now"
-msgstr ""
-
-#: src/admin-views/notices/tribe-stellar-sale-premium.php:16
-#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:80
-msgid "Make it stellar."
-msgstr ""
-
-#: src/admin-views/notices/tribe-stellar-sale-premium.php:19
-msgid "Save 30% on all StellarWP products."
-msgstr ""
-
-#: src/admin-views/notices/tribe-stellar-sale-premium.php:32
-msgid "Purchase any StellarWP product during the sale and get <b>100%</b> off WP Business Reviews and take <b>40%</b> off all other brands."
-msgstr ""
-
-#: src/admin-views/notices/tribe-stellar-sale-premium.php:46
-#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:63
-msgctxt "View all StellarWP Deals link text"
-msgid "View all StellarWP Deals"
-msgstr ""
-
-#: src/admin-views/notices/upsell/icon.php:19
+#: src/admin-views/notices/upsell/icon.php:18
 msgid "The Events Calendar important notice icon"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:11
+#: src/admin-views/notifications/notification.php:20
+msgid "Dismiss"
+msgstr ""
+
+#: src/admin-views/notifications/notification.php:33
+msgid "Mark as read"
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:17
+msgid "Notifications"
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:20
+msgid "Mark all as read"
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:21
+msgid "Close icon"
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:21
+msgid "Close sidebar"
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:28
+#: src/admin-views/notifications/sidebar.php:34
+msgid "Notifications icon"
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:29
+#: src/admin-views/notifications/sidebar.php:35
+msgid "There are no notifications"
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:30
+msgid "Congratulations! You are up to date."
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:37
+msgid "Be up to date with the latest updates, fixes and features for The Events Calendar."
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:38
+msgid "data sharing agreement"
+msgstr ""
+
+#. translators: %s: data sharing agreement
+#: src/admin-views/notifications/sidebar.php:42
+#, php-format
+msgid "To receive notifications you need to agree to our %s."
+msgstr ""
+
+#: src/admin-views/notifications/sidebar.php:46
+msgid "Opt-in to notifications"
+msgstr ""
+
+#: src/admin-views/power-automate/api/components/access.php:22
+#: src/admin-views/zapier/api/components/key-pair.php:22
+msgctxt "Label for the consumer id and secret section."
+msgid "API Authentication Details"
+msgstr ""
+
+#: src/admin-views/power-automate/api/components/access.php:23
+msgctxt "Consumer id and secret only show once help text for Power Automate API."
+msgid "Please copy the consumer id and secret below. Once you leave the page they will no longer be available."
+msgstr ""
+
+#: src/admin-views/power-automate/api/components/access.php:41
+msgctxt "Label for the access token connection for Power Automate."
+msgid "Access Token"
+msgstr ""
+
+#: src/admin-views/power-automate/api/components/token.php:42
+msgctxt "Button text for copying the acess_token."
+msgid "Copy"
+msgstr ""
+
+#: src/admin-views/power-automate/api/connections.php:25
+#: src/admin-views/zapier/api/authorize-fields.php:25
+#: src/admin-views/zapier/api/connections.php:25
+msgid "API Keys"
+msgstr ""
+
+#: src/admin-views/power-automate/api/intro-text.php:24
+msgctxt "API connection header"
+msgid "Power Automate"
+msgstr ""
+
+#. Translators: %1$s: URL to the Power Automate API documentation
+#: src/admin-views/power-automate/api/intro-text.php:30
+#, php-format
+msgctxt "Settings help text and link for Power Automate API."
+msgid "Please generate a connection for each of our applications you are using with Power Automate to enable its integrations. i.e.: one connection for The Events Calendar and one connection for Event Tickets. <a href=\"%1$s\" target=\"_blank\">Read more about adding and managing access.</a>"
+msgstr ""
+
+#: src/admin-views/power-automate/api/list/connection-new.php:36
+#: src/admin-views/power-automate/api/list/connection-saved.php:34
+msgctxt "Label for the name of the API Key for Power Automate."
+msgid "Description"
+msgstr ""
+
+#: src/admin-views/power-automate/api/list/connection-new.php:39
+msgctxt "The placeholder for the Power Automate API Key name."
+msgid "Enter an API Key description"
+msgstr ""
+
+#: src/admin-views/power-automate/api/list/connection-new.php:40
+msgctxt "The screen reader text of the label for the Power Automate API Key name."
+msgid "Enter an API Key description."
+msgstr ""
+
+#: src/admin-views/power-automate/api/list/connection-new.php:54
+#: src/admin-views/power-automate/api/list/connection-saved.php:63
+msgctxt "Label for the permissions of the API Key for Power Automate."
+msgid "Permissions"
+msgstr ""
+
+#: src/admin-views/power-automate/api/list/connection-new.php:55
+#: src/admin-views/power-automate/api/list/connection-saved.php:64
+msgctxt "The screen reader text of the label for the Power Automate API Key permissions."
+msgid "The permissions for the Power Automate API Key."
+msgstr ""
+
+#: src/admin-views/power-automate/api/list/connection-saved.php:35
+msgctxt "The screen reader text of the label for the Power Automate API Key name."
+msgid "The name for the Power Automate API Key."
+msgstr ""
+
+#: src/admin-views/power-automate/api/list/connection-saved.php:49
+msgctxt "Label for the user of the API Key for Power Automate."
+msgid "User"
+msgstr ""
+
+#: src/admin-views/power-automate/api/list/connection-saved.php:50
+msgctxt "The screen reader text of the label for the Power Automate API Key user."
+msgid "The user for the Power Automate API Key."
+msgstr ""
+
+#: src/admin-views/power-automate/api/list/connection-saved.php:77
+msgctxt "Label for the last access of the API Key for Power Automate."
+msgid "Last Access"
+msgstr ""
+
+#: src/admin-views/power-automate/api/list/connection-saved.php:78
+msgctxt "The screen reader text of the label for the Power Automate API Key last access."
+msgid "The last access for the Power Automate API Key."
+msgstr ""
+
+#: src/admin-views/power-automate/api/list/list-header.php:20
+msgctxt "Name header label for the settings listing of Power Automate API Key Pairs."
+msgid "Name"
+msgstr ""
+
+#: src/admin-views/power-automate/api/list/list-header.php:23
+msgctxt "User header label for the settings listing of Power Automate API Key Pairs."
+msgid "User"
+msgstr ""
+
+#: src/admin-views/power-automate/api/list/list-header.php:26
+msgctxt "Permissions header label for the settings listing of Power Automate API Key Pairs."
+msgid "Permissions"
+msgstr ""
+
+#: src/admin-views/power-automate/api/list/list-header.php:29
+msgctxt "Last Access header label for the settings listing of Power Automate API Key Pairs."
+msgid "Last Access"
+msgstr ""
+
+#: src/admin-views/power-automate/api/list/list-header.php:32
+msgctxt "Actions header label for the settings listing of Power Automate API Key Pairs."
+msgid "Actions"
+msgstr ""
+
+#: src/admin-views/power-automate/dashboard/intro-text.php:21
+msgctxt "Power Automate settings endpoint dashboard header"
+msgid "Power Automate Endpoint Dashboard"
+msgstr ""
+
+#. Translators: %1$s: URL to the Power Automate Endpoint Dashboard documentation
+#: src/admin-views/power-automate/dashboard/intro-text.php:27
+#, php-format
+msgctxt "Settings help text for Power Automate Endpoint Dashboard."
+msgid "Monitor your Power Automate endpoints (triggers and actions used by your connectors). <a href=\"%1$s\" target=\"_blank\">Read more about the Power Automate Endpoint Dashboard.</a>"
+msgstr ""
+
+#. translators: %s: Plugin name
+#: src/admin-views/tribe-options-help.php:16
+#, php-format
 msgid "Thank you for using %s! All of us at The Events Calendar sincerely appreciate your support and we’re excited to see you using our plugins."
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:14
+#: src/admin-views/tribe-options-help.php:19
 msgid "Getting Support"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:15
+#. translators: %s: Knowledgebase
+#: src/admin-views/tribe-options-help.php:21
+#, php-format
 msgid "Our website’s %s is a great place to find tips and tricks for using and customizing our plugins."
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:15
-msgid "Knowledgebase"
-msgstr ""
-
-#: src/admin-views/tribe-options-help.php:18
+#: src/admin-views/tribe-options-help.php:26
 msgid "Want to dive deeper?"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:20
+#. translators: %s: Link to list of available functions
+#: src/admin-views/tribe-options-help.php:29
+#, php-format
 msgid "Check out our %s for developers."
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:21
+#: src/admin-views/tribe-options-help.php:30
 msgid "list of available functions"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:26
+#: src/admin-views/tribe-options-help.php:37
 msgid "Getting More Help"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:27
+#: src/admin-views/tribe-options-help.php:38
 msgid "While the resources above help solve a majority of the issues we see, there are times you might be looking for extra support. If you need assistance using our plugins and would like us to take a look, please follow these steps:"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:33
+#. translators: %s: Link to Knowledgebase
+#: src/admin-views/tribe-options-help.php:45
+#, php-format
 msgid "%s. All of the common (and not-so-common) answers to questions we see are here. It’s often the fastest path to finding an answer!"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:37
+#: src/admin-views/tribe-options-help.php:49
 msgid "Check our Knowledgebase"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:43
+#. translators: %s: Link to Test for a theme or plugin conflict
+#: src/admin-views/tribe-options-help.php:56
+#, php-format
 msgid "%s. Testing for an existing conflict is the best start for in-depth troubleshooting. We will often ask you to follow these steps when opening a new thread, so doing this ahead of time will be super helpful."
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:47
+#: src/admin-views/tribe-options-help.php:60
 msgid "Test for a theme or plugin conflict"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:53
+#. translators: %s: Link to Search our support help desk
+#: src/admin-views/tribe-options-help.php:67
+#, php-format
 msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the help desk is open only to paid customers, they are open for anyone to search and review."
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:57
+#: src/admin-views/tribe-options-help.php:71
 msgid "Search our support help desk"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:67
+#: src/admin-views/tribe-options-help.php:81
 msgid "Please note that all hands-on support is provided via the help desk. You can email or tweet at us… ​but we will probably point you back to the help desk 😄"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:68
+#: src/admin-views/tribe-options-help.php:82
 msgid "Read more about our support policy"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:71
-#: src/admin-views/troubleshooting/system-information.php:16
+#: src/admin-views/tribe-options-help.php:85
+#: src/admin-views/troubleshooting/system-information.php:15
 msgid "System Information"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:72
+#: src/admin-views/tribe-options-help.php:86
 msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our help desk."
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:80
-#: src/admin-views/troubleshooting/system-information.php:39
+#: src/admin-views/tribe-options-help.php:94
+#: src/admin-views/troubleshooting/system-information.php:38
 msgid "Copy to clipboard"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:82
+#: src/admin-views/tribe-options-help.php:96
 msgid "Recent Template Changes"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:85
+#: src/admin-views/tribe-options-help.php:99
 msgid "Event Log"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:104
+#: src/admin-views/tribe-options-help.php:118
 msgid "News and Tutorials"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:110
+#: src/admin-views/tribe-options-help.php:124
 msgid "More..."
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:5
+#: src/admin-views/tribe-options-licenses.php:14
+#: src/admin-views/tribe-options-licenses.php:90
 msgid "If you've purchased a premium add-on, you'll need to enter your license key here in order to have access to automatic updates when new versions are available."
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:10
+#. translators: %1$s and %2$s are placeholders for the opening and closing <a> tags, %3$s and %4$s are placeholders for the opening and closing <a> tags
+#: src/admin-views/tribe-options-licenses.php:20
+#, php-format
 msgid "In order to register a plugin license, you'll first need to %1$sdownload and install%2$s the plugin you purchased. You can download the latest version of your plugin(s) from %3$syour account's downloads page%4$s. Once the plugin is installed and activated on this site, the license key field will appear below."
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:19
+#: src/admin-views/tribe-options-licenses.php:29
 msgid "Each paid add-on has its own unique license key. Paste the key into its appropriate field below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message. Then click Save Changes."
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:23
+#: src/admin-views/tribe-options-licenses.php:33
 msgid "Helpful Links:"
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:28
+#: src/admin-views/tribe-options-licenses.php:38
 msgid "Why am I being told my license key is out of installs?"
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:31
+#: src/admin-views/tribe-options-licenses.php:41
 msgid "View and manage your license keys"
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:34
+#: src/admin-views/tribe-options-licenses.php:44
 msgid "Moving your license keys"
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:37
+#: src/admin-views/tribe-options-licenses.php:47
 msgid "Expired license keys and subscriptions"
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:43
+#: src/admin-views/tribe-options-licenses.php:53
 msgid "Licenses for Multisites"
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:57
-#: src/Tribe/Settings_Manager.php:296
+#: src/admin-views/tribe-options-licenses.php:67
+#: src/admin-views/tribe-options-licenses.php:110
 msgid "Licenses"
 msgstr ""
 
-#: src/admin-views/troubleshooting/common-issues.php:14
+#: src/admin-views/tribe-options-licenses.php:82
+msgctxt "Licenses section header"
+msgid "Licenses"
+msgstr ""
+
+#: src/admin-views/troubleshooting/common-issues.php:13
 msgid "Common Problems"
 msgstr ""
 
@@ -687,31 +1232,33 @@ msgstr ""
 msgid "Event Aggregator system status "
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/current-status.php:15
+#: src/admin-views/troubleshooting/ea-status/current-status.php:13
 msgid "Imports Enabled in Settings"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/current-status.php:20
+#: src/admin-views/troubleshooting/ea-status/current-status.php:18
 msgid "Imports disabled in Settings"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/current-status.php:25
+#: src/admin-views/troubleshooting/ea-status/current-status.php:23
 msgid "Edit Import Settings"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/current-status.php:31
+#: src/admin-views/troubleshooting/ea-status/current-status.php:29
 msgid "Enabled"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/current-usage.php:18
+#: src/admin-views/troubleshooting/ea-status/current-usage.php:17
 msgid "You have reached your daily import limit. Scheduled imports will be paused until tomorrow."
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/current-usage.php:21
+#: src/admin-views/troubleshooting/ea-status/current-usage.php:20
 msgid "You are approaching your daily import limit. You may want to adjust your Scheduled Import frequencies."
 msgstr ""
 
+#. translators: %1$d: import count, %2$d: import limit
 #: src/admin-views/troubleshooting/ea-status/current-usage.php:25
+#, php-format
 msgid "%1$d import used out of %2$d available today"
 msgid_plural "%1$d imports used out of %2$d available today"
 msgstr[0] ""
@@ -739,7 +1286,7 @@ msgid "Limited connectivity with Eventbrite"
 msgstr ""
 
 #: src/admin-views/troubleshooting/ea-status/eventbrite.php:33
-#: src/admin-views/troubleshooting/ea-status/meetup.php:23
+#: src/admin-views/troubleshooting/ea-status/meetup.php:22
 msgid "The service has disabled oAuth. Some types of events may not import."
 msgstr ""
 
@@ -747,66 +1294,66 @@ msgstr ""
 msgid "Eventbrite"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/license-key.php:19
+#: src/admin-views/troubleshooting/ea-status/license-key.php:18
 msgid "Your license is valid"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/license-key.php:26
+#: src/admin-views/troubleshooting/ea-status/license-key.php:25
 msgid "You do not have a license"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/license-key.php:28
+#: src/admin-views/troubleshooting/ea-status/license-key.php:27
 msgid "Buy Event Aggregator to access more event sources and automatic imports!"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/license-key.php:31
+#: src/admin-views/troubleshooting/ea-status/license-key.php:30
 msgid "Your license is invalid"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/license-key.php:32
+#: src/admin-views/troubleshooting/ea-status/license-key.php:31
 msgid "Check your license key"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/license-key.php:38
+#: src/admin-views/troubleshooting/ea-status/license-key.php:37
 msgid "License & Usage"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/license-key.php:44
-#: src/Tribe/PUE/Checker.php:630
-#: src/Tribe/PUE/Checker.php:641
+#: src/admin-views/troubleshooting/ea-status/license-key.php:43
+#: src/Tribe/PUE/Checker.php:820
+#: src/Tribe/PUE/Checker.php:831
 msgid "License Key"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/meetup.php:16
+#: src/admin-views/troubleshooting/ea-status/meetup.php:15
 msgid "You have not connected Event Aggregator to Meetup"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/meetup.php:18
+#: src/admin-views/troubleshooting/ea-status/meetup.php:17
 msgctxt "link for connecting meetup"
 msgid "Connect to Meetup"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/meetup.php:22
+#: src/admin-views/troubleshooting/ea-status/meetup.php:21
 msgid "Limited connectivity with Meetup"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/meetup.php:29
+#: src/admin-views/troubleshooting/ea-status/meetup.php:28
 msgid "Meetup"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/scheduler-status.php:14
+#: src/admin-views/troubleshooting/ea-status/scheduler-status.php:13
 msgid "WP Cron not enabled"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/scheduler-status.php:15
+#: src/admin-views/troubleshooting/ea-status/scheduler-status.php:14
 msgid "Scheduled imports may not run reliably"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/scheduler-status.php:17
+#: src/admin-views/troubleshooting/ea-status/scheduler-status.php:16
 msgid "WP Cron enabled"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/scheduler-status.php:23
+#: src/admin-views/troubleshooting/ea-status/scheduler-status.php:22
 msgid "Scheduler Status"
 msgstr ""
 
@@ -817,6 +1364,7 @@ msgstr ""
 #. translators: %s: Event Aggregator Server URL
 #: src/admin-views/troubleshooting/ea-status/server-connection.php:24
 #: src/admin-views/troubleshooting/ea-status/server-connection.php:32
+#, php-format
 msgid "Not connected to %s"
 msgstr ""
 
@@ -830,6 +1378,7 @@ msgstr ""
 
 #. translators: %s: Event Aggregator Server URL
 #: src/admin-views/troubleshooting/ea-status/server-connection.php:39
+#, php-format
 msgid "Connected to %s"
 msgstr ""
 
@@ -837,7 +1386,7 @@ msgstr ""
 msgid "Server Connection"
 msgstr ""
 
-#: src/admin-views/troubleshooting/event-log.php:13
+#: src/admin-views/troubleshooting/event-log.php:12
 msgid "Event log"
 msgstr ""
 
@@ -850,30 +1399,34 @@ msgid "Test for conflicts"
 msgstr ""
 
 #: src/admin-views/troubleshooting/first-steps.php:29
-#: src/admin-views/troubleshooting/first-steps.php:49
+#: src/admin-views/troubleshooting/first-steps.php:50
 msgid "View article"
 msgstr ""
 
-#: src/admin-views/troubleshooting/first-steps.php:30
+#. translators: %s: link to the article
+#: src/admin-views/troubleshooting/first-steps.php:31
+#, php-format
 msgid "Most issues are caused by conflicts with the theme or other plugins. Follow these steps as a first point of action. %s"
 msgstr ""
 
-#: src/admin-views/troubleshooting/first-steps.php:45
+#: src/admin-views/troubleshooting/first-steps.php:46
 msgid "Share your system info"
 msgstr ""
 
-#: src/admin-views/troubleshooting/first-steps.php:50
+#. translators: %s: link to the article
+#: src/admin-views/troubleshooting/first-steps.php:52
+#, php-format
 msgid "Providing the details of your calendar plugin and settings (located below) helps our support team troubleshoot an issue faster. %s"
 msgstr ""
 
-#: src/admin-views/troubleshooting/introduction.php:21
+#: src/admin-views/troubleshooting/introduction.php:20
 #: src/Tribe/Admin/Troubleshooting.php:66
 #: src/Tribe/Admin/Troubleshooting.php:67
 #: src/Tribe/Admin/Troubleshooting.php:142
 msgid "Troubleshooting"
 msgstr ""
 
-#: src/admin-views/troubleshooting/introduction.php:22
+#: src/admin-views/troubleshooting/introduction.php:21
 msgid "Sometimes things just don’t work as expected. We’ve created a wealth of resources to get you back on track."
 msgstr ""
 
@@ -881,11 +1434,13 @@ msgstr ""
 msgid "Help page?"
 msgstr ""
 
-#: src/admin-views/troubleshooting/notice.php:17
+#. translators: %s: link to the help page
+#: src/admin-views/troubleshooting/notice.php:18
+#, php-format
 msgid "Hey there... did you check out the %s"
 msgstr ""
 
-#: src/admin-views/troubleshooting/recent-template-changes.php:12
+#: src/admin-views/troubleshooting/recent-template-changes.php:11
 msgid "Recent template changes"
 msgstr ""
 
@@ -901,20 +1456,1798 @@ msgstr ""
 msgid "Open a ticket"
 msgstr ""
 
-#: src/admin-views/troubleshooting/system-information.php:19
+#: src/admin-views/troubleshooting/system-information.php:18
 msgid "Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our help desk."
 msgstr ""
 
-#: src/admin-views/troubleshooting/system-information.php:24
+#: src/admin-views/troubleshooting/system-information.php:23
 msgid "Yes, automatically share my system information with The Events Calendar support team*"
 msgstr ""
 
-#: src/admin-views/troubleshooting/system-information.php:28
+#: src/admin-views/troubleshooting/system-information.php:27
 msgid "* Your system information will only be used by The Events Calendar support team. All information is stored securely. We do not share this information with any third parties."
+msgstr ""
+
+#: src/admin-views/zapier/api/authorize-fields/add-link.php:21
+msgctxt "Label to add Zapier connection fields."
+msgid "Add Connection"
+msgstr ""
+
+#: src/admin-views/zapier/api/components/generate-button.php:22
+msgctxt "Generate a Zapier API Key pair."
+msgid "Generate"
+msgstr ""
+
+#: src/admin-views/zapier/api/components/generate-button.php:28
+msgctxt "An error message that the description or user is missing when generating a key pair for Zapier."
+msgid "Description or User missing. Please add a description and select a user before generating a key pair."
+msgstr ""
+
+#: src/admin-views/zapier/api/components/key-pair.php:23
+msgctxt "Consumer id and secret only show once help text for Zapier API."
+msgid "Please copy the consumer id and secret below. Once you leave the page they will no longer be available."
+msgstr ""
+
+#: src/admin-views/zapier/api/components/key-pair.php:41
+msgctxt "Label for the consumer id of the API Key for Zapier."
+msgid "Consumer ID"
+msgstr ""
+
+#: src/admin-views/zapier/api/components/key-pair.php:53
+msgctxt "Label for the consumer secret of the API Key for Zapier."
+msgid "Consumer Secret"
+msgstr ""
+
+#: src/admin-views/zapier/api/components/key.php:42
+msgctxt "Button text for copying the consumer id or secret."
+msgid "Copy"
+msgstr ""
+
+#: src/admin-views/zapier/api/components/revoke-button.php:23
+msgctxt "Removes a zapier page from the list of Zapier live pages."
+msgid "Revoke"
+msgstr ""
+
+#: src/admin-views/zapier/api/intro-text.php:24
+msgctxt "API connection header"
+msgid "Zapier"
+msgstr ""
+
+#. Translators: %1$s: URL to the Zapier API documentation
+#: src/admin-views/zapier/api/intro-text.php:30
+#, php-format
+msgctxt "Settings help text and link for Zapier API."
+msgid "Please generate a consumer id and secret for each of our applications you are using with Zapier to enable its integrations. i.e.: one consumer id and secret for The Events Calendar and one consumer id and secret for Event Tickets. <a href=\"%1$s\" target=\"_blank\">Read more about adding and managing access.</a>"
+msgstr ""
+
+#: src/admin-views/zapier/api/list/connection-new.php:36
+#: src/admin-views/zapier/api/list/connection-saved.php:34
+#: src/admin-views/zapier/api/list/fields-generated.php:34
+#: src/admin-views/zapier/api/list/fields-new.php:36
+msgctxt "Label for the name of the API Key for Zapier."
+msgid "Description"
+msgstr ""
+
+#: src/admin-views/zapier/api/list/connection-new.php:39
+#: src/admin-views/zapier/api/list/fields-new.php:39
+msgctxt "The placeholder for the Zapier API Key name."
+msgid "Enter an API Key description"
+msgstr ""
+
+#: src/admin-views/zapier/api/list/connection-new.php:40
+#: src/admin-views/zapier/api/list/fields-new.php:40
+msgctxt "The screen reader text of the label for the Zapier API Key name."
+msgid "Enter an API Key description."
+msgstr ""
+
+#: src/admin-views/zapier/api/list/connection-new.php:54
+#: src/admin-views/zapier/api/list/connection-saved.php:63
+#: src/admin-views/zapier/api/list/fields-generated.php:63
+#: src/admin-views/zapier/api/list/fields-new.php:54
+msgctxt "Label for the permissions of the API Key for Zapier."
+msgid "Permissions"
+msgstr ""
+
+#: src/admin-views/zapier/api/list/connection-new.php:55
+#: src/admin-views/zapier/api/list/connection-saved.php:64
+#: src/admin-views/zapier/api/list/fields-generated.php:64
+#: src/admin-views/zapier/api/list/fields-new.php:55
+msgctxt "The screen reader text of the label for the Zapier API Key permissions."
+msgid "The permissions for the Zapier API Key."
+msgstr ""
+
+#: src/admin-views/zapier/api/list/connection-saved.php:35
+#: src/admin-views/zapier/api/list/fields-generated.php:35
+msgctxt "The screen reader text of the label for the Zapier API Key name."
+msgid "The name for the Zapier API Key."
+msgstr ""
+
+#: src/admin-views/zapier/api/list/connection-saved.php:49
+#: src/admin-views/zapier/api/list/fields-generated.php:49
+msgctxt "Label for the user of the API Key for Zapier."
+msgid "User"
+msgstr ""
+
+#: src/admin-views/zapier/api/list/connection-saved.php:50
+#: src/admin-views/zapier/api/list/fields-generated.php:50
+msgctxt "The screen reader text of the label for the Zapier API Key user."
+msgid "The user for the Zapier API Key."
+msgstr ""
+
+#: src/admin-views/zapier/api/list/connection-saved.php:77
+#: src/admin-views/zapier/api/list/fields-generated.php:77
+msgctxt "Label for the last access of the API Key for Zapier."
+msgid "Last Access"
+msgstr ""
+
+#: src/admin-views/zapier/api/list/connection-saved.php:78
+#: src/admin-views/zapier/api/list/fields-generated.php:78
+msgctxt "The screen reader text of the label for the Zapier API Key last access."
+msgid "The last access for the Zapier API Key."
+msgstr ""
+
+#: src/admin-views/zapier/api/list/list-header.php:20
+msgctxt "Name header label for the settings listing of Zapier API Key Pairs."
+msgid "Name"
+msgstr ""
+
+#: src/admin-views/zapier/api/list/list-header.php:23
+msgctxt "User header label for the settings listing of Zapier API Key Pairs."
+msgid "User"
+msgstr ""
+
+#: src/admin-views/zapier/api/list/list-header.php:26
+msgctxt "Permissions header label for the settings listing of Zapier API Key Pairs."
+msgid "Permissions"
+msgstr ""
+
+#: src/admin-views/zapier/api/list/list-header.php:29
+msgctxt "Last Access header label for the settings listing of Zapier API Key Pairs."
+msgid "Last Access"
+msgstr ""
+
+#: src/admin-views/zapier/api/list/list-header.php:32
+msgctxt "Actions header label for the settings listing of Zapier API Key Pairs."
+msgid "Actions"
+msgstr ""
+
+#: src/admin-views/zapier/dashboard/components/clear-button.php:27
+msgctxt "Clears a Zapier endpoint queue."
+msgid "Clear Queue"
+msgstr ""
+
+#: src/admin-views/zapier/dashboard/components/status-button.php:27
+msgctxt "Enables a Zapier endpoint."
+msgid "Enable"
+msgstr ""
+
+#: src/admin-views/zapier/dashboard/components/status-button.php:32
+msgctxt "Disables a Zapier endpoint queue."
+msgid "Disable"
+msgstr ""
+
+#: src/admin-views/zapier/dashboard/endpoints/endpoint.php:29
+msgctxt "Label for the Zapier Endpoint Dashboard endpoint name."
+msgid "Name"
+msgstr ""
+
+#: src/admin-views/zapier/dashboard/endpoints/endpoint.php:30
+msgctxt "The screen reader text of the label for the Zapier Endpoint Dashboard endpoint name."
+msgid "The name for the Zapier endpoint."
+msgstr ""
+
+#: src/admin-views/zapier/dashboard/endpoints/endpoint.php:39
+msgctxt "Label for the Zapier Endpoint Dashboards endpoint last access."
+msgid "Last Access"
+msgstr ""
+
+#: src/admin-views/zapier/dashboard/endpoints/endpoint.php:46
+msgctxt "The screen reader text of the label for the Zapier Endpoint Dashboard endpoint last access."
+msgid "The last access for the Zapier endpoint."
+msgstr ""
+
+#: src/admin-views/zapier/dashboard/endpoints/endpoint.php:58
+msgctxt "The screen reader text of the label for the Zapier Endpoint Dashboard endpoint last access when disabled."
+msgid "The last access is disabled as this endpoint is disabled."
+msgstr ""
+
+#: src/admin-views/zapier/dashboard/endpoints/endpoint.php:65
+msgctxt "Label for the Zapier Endpoint Dashboards endpoint queue."
+msgid "Queue"
+msgstr ""
+
+#: src/admin-views/zapier/dashboard/endpoints/endpoint.php:72
+msgctxt "The screen reader text of the label for the Zapier Endpoint Dashboard endpoint queue."
+msgid "The Queue for the Zapier endpoint."
+msgstr ""
+
+#: src/admin-views/zapier/dashboard/endpoints/endpoint.php:84
+msgctxt "The screen reader text of the label for the Zapier Endpoint Dashboard endpoint queue when disabled."
+msgid "The Queue is disabled for this Zapier endpoint."
+msgstr ""
+
+#: src/admin-views/zapier/dashboard/endpoints/list-header.php:20
+msgctxt "Name header label for the settings listing of Zapier Endpoints."
+msgid "Name"
+msgstr ""
+
+#: src/admin-views/zapier/dashboard/endpoints/list-header.php:23
+msgctxt "Last Access header label for the settings listing of Zapier Endpoints."
+msgid "Last Access"
+msgstr ""
+
+#: src/admin-views/zapier/dashboard/endpoints/list-header.php:26
+msgctxt "Last Access header label for the settings listing of Zapier Endpoints."
+msgid "Queue"
+msgstr ""
+
+#: src/admin-views/zapier/dashboard/endpoints/list-header.php:29
+msgctxt "Actions header label for the settings listing of Zapier Endpoints."
+msgid "Actions"
+msgstr ""
+
+#: src/admin-views/zapier/dashboard/intro-text.php:21
+msgctxt "Zapier settings endpoint dashboard header"
+msgid "Zapier Endpoint Dashboard"
+msgstr ""
+
+#. translators: %1$s: URL to the Zapier Endpoint Dashboard documentation
+#: src/admin-views/zapier/dashboard/intro-text.php:27
+#, php-format
+msgctxt "Settings help text and link for Zapier Endpoint Dashboard."
+msgid "Monitor your Zapier endpoints (triggers and actions used by your connectors). <a href=\"%1$s\" target=\"_blank\">Read more about the Zapier Endpoint Dashboard.</a>"
+msgstr ""
+
+#: src/admin-views/zapier/dashboard/table.php:23
+msgctxt "The legend for the Zapier endpoint dashboard."
+msgid "Endpoint Dashboard"
+msgstr ""
+
+#: src/Common/Admin/Abstract_Custom_List_Table.php:70
+msgid "Number of entries per page:"
+msgstr ""
+
+#: src/Common/Admin/Abstract_Custom_List_Table.php:176
+msgid "Apply Filters"
+msgstr ""
+
+#: src/Common/Admin/Abstract_Custom_List_Table.php:353
+msgid "From"
+msgstr ""
+
+#: src/Common/Admin/Abstract_Custom_List_Table.php:363
+#: src/Common/Admin/Abstract_Custom_List_Table.php:377
+msgid "YYYY-MM-DD"
+msgstr ""
+
+#: src/Common/Admin/Abstract_Custom_List_Table.php:367
+msgid "to"
+msgstr ""
+
+#: src/Common/Admin/Abstract_Custom_List_Table.php:421
+msgid "All Events"
+msgstr ""
+
+#: src/Common/Admin/Abstract_Custom_List_Table.php:426
+msgid "Filter By Event"
+msgstr ""
+
+#: src/Common/Admin/Abstract_Custom_List_Table.php:433
+msgid "Searching..."
+msgstr ""
+
+#: src/Common/Admin/Conditional_Content/Black_Friday.php:54
+msgid "Black Friday Sale"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Black_Friday.php:76
+#: src/Common/Admin/Conditional_Content/Black_Friday.php:90
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:121
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:160
+#, php-format
+msgctxt "Alt text for the Default Sale Ad"
+msgid "%1$s %2$s for The Events Calendar plugins, add-ons and bundles."
+msgstr ""
+
+#. translators: %1$s: Sale year, %2$s: Sale name
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:409
+#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:507
+#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:817
+#, php-format
+msgctxt "Alt text for the Sale Ad"
+msgid "%1$s %2$s for The Events Calendar plugins, add-ons and bundles."
+msgstr ""
+
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:51
+msgid "Stellar Sale"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:99
+#, php-format
+msgctxt "Alt text for the Events Pro Sale Ad"
+msgid "%1$s %2$s - Get Events Calendar Pro at 30%% off!"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:110
+#, php-format
+msgctxt "Alt text for the Filter Bar Sale Ad"
+msgid "%1$s %2$s - Get Filter Bar at 30%% off!"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:135
+#, php-format
+msgctxt "Alt text for the Event Tickets Plus Sale Ad"
+msgid "%1$s %2$s - Get Event Tickets Plus at 30%% off!"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:148
+#, php-format
+msgctxt "Alt text for the Event Seating Sale Ad"
+msgid "%1$s %2$s - Get Event Seating at 30%% off!"
+msgstr ""
+
+#: src/Common/Admin/Entities/Heading.php:101
+msgid "The maximum heading level must be 6 or less"
+msgstr ""
+
+#. translators: %d: The maximum heading level.
+#: src/Common/Admin/Entities/Heading.php:108
+#, php-format
+msgid "Heading level must be between 1 and %d"
+msgstr ""
+
+#: src/Common/Admin/Entities/List_Item.php:53
+msgid "List items cannot contain other list items."
+msgstr ""
+
+#: src/Common/Admin/Entities/Validate_Elements.php:34
+msgid "Invalid class instance."
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:181
+#: src/Common/Admin/Help_Hub/Hub.php:182
+msgid "Help Hub"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:250
+msgid "Support Hub"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:259
+msgid "Resources"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:429
+#: src/Tribe/Admin/Help_Page.php:144
+msgctxt "Copy to clipboard button text."
+msgid "Copy to clipboard"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:430
+#: src/Tribe/Admin/Help_Page.php:145
+msgctxt "Copy to clipboard success message"
+msgid "System info copied"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:431
+#: src/Tribe/Admin/Help_Page.php:146
+msgctxt "Copy to clipboard instructions"
+msgid "Press \"Cmd + C\" to copy"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:432
+#: src/Tribe/Admin/Help_Page.php:147
+msgctxt "Default error message for system info optin"
+msgid "Something has gone wrong!"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:433
+#: src/Tribe/Admin/Help_Page.php:148
+msgctxt "Error code label for system info optin"
+msgid "Code:"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:434
+#: src/Tribe/Admin/Help_Page.php:149
+msgctxt "Error status label for system info optin"
+msgid "Status:"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:588
+msgid "Failed to load Help Scout Beacon script."
+msgstr ""
+
+#: src/Common/Admin/Onboarding/Abstract_API.php:73
+msgid "The action nonce for the request."
+msgstr ""
+
+#: src/Common/Admin/Onboarding/Abstract_API.php:117
+msgid "Invalid nonce."
+msgstr ""
+
+#: src/Common/Admin/Onboarding/Abstract_API.php:240
+msgid "Onboarding wizard step completed successfully."
+msgstr ""
+
+#: src/Common/Admin/Onboarding/Abstract_API.php:240
+msgid "Failed to update wizard settings."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:171
+msgctxt "Endpoint id is missing information to clear it."
+msgid "Endpoint was not cleared, the endpoint id was not found."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:180
+msgctxt "Endpoint was not loaded failure message."
+msgid "Endpoint was not cleared as it could not be loaded."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:189
+msgctxt "Endpoint has been cleared success message."
+msgid "Endpoint was successfully cleared."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:198
+msgctxt "was not cleared failure message."
+msgid "Endpoint was not cleared."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:222
+msgctxt "Endpoint id is missing information to disable it."
+msgid "Endpoint was not disabled, the endpoint id was not found."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:231
+msgctxt "Endpoint was not loaded failure message."
+msgid "Endpoint was not disabled as it could not be loaded."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:240
+msgctxt "Endpoint has been disabled success message."
+msgid "Endpoint was successfully disabled."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:249
+msgctxt "endpoint could not be enabled it error message."
+msgid "Endpoint was not disabled"
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:273
+msgctxt "endpoint id is missing information to enable it."
+msgid "Endpoint was not enabled, the endpoint id was not found."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:282
+msgctxt "Endpoint was not loaded failure message."
+msgid "Endpoint was not loaded."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:291
+msgctxt "Endpoint has been enabled success message."
+msgid "Endpoint was successfully enabled"
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:300
+msgctxt "endpoint could not be enabled it error message."
+msgid "Endpoint was not enabled"
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:316
+msgctxt "The message to display to confirm a user would like to clear a endpoint queue."
+msgid "Are you sure you want to clear this Endpoint queue? This operation cannot be undone."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:336
+msgctxt "The message to display to confirm a user would like to disable an authorize endpoint."
+msgid "Are you sure you want to disable this Endpoint? This action will prevent this integration from being able to create an access token."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:345
+msgctxt "The message to display to confirm a user would like to disable a queue endpoint."
+msgid "Are you sure you want to disable this Endpoint? This action will clear the queue and the last access. This operation cannot be undone."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:362
+msgctxt "The message to display to confirm a user would like to enable an endpoint."
+msgid "Are you sure you want to enable this Endpoint?"
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Assets.php:40
+#: src/Common/Event_Automator/Zapier/Assets.php:40
+msgctxt "Copy to api key clipboard button text."
+msgid "Copy"
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Assets.php:41
+#: src/Common/Event_Automator/Zapier/Assets.php:41
+msgctxt "Copy api key to clipboard success message"
+msgid "Copied"
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Assets.php:42
+#: src/Common/Event_Automator/Zapier/Assets.php:42
+msgctxt "Copy api key to clipboard instructions"
+msgid "Press \"Cmd + C\" to copy"
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Connections/Integration_AJAX.php:72
+msgctxt "Connection is missing local id message."
+msgid "Connection is missing the local id."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Connections/Integration_AJAX.php:84
+msgctxt "Connection is missing a name message."
+msgid "Connection is missing a name."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Connections/Integration_AJAX.php:96
+msgctxt "Connection is missing a user message."
+msgid "Connection is missing a user id."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Connections/Integration_AJAX.php:108
+msgctxt "Connection is missing permissions message."
+msgid "Connection is missing permissions."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Connections/Integration_AJAX.php:164
+msgctxt "Connection is missing information to delete failure message."
+msgid "Connection was not deleted, the consumer id or the API Key information were not found."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Connections/Integration_AJAX.php:177
+msgctxt "Connection deleted success message."
+msgid "Connection was successfully deleted"
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Connections/Integration_AJAX.php:188
+msgctxt "Connection could not be deleted failure message."
+msgid "Connection was not deleted"
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Connections/Integration_Connections.php:287
+msgctxt "JWT access_token issuer does not match with this server error message."
+msgid "Access_token issuer does not match with this server."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Connections/Integration_Connections.php:295
+msgctxt "JWT access_token s missing data error message."
+msgid "Access_token is missing data."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Connections/Integration_Connections.php:355
+msgctxt "Account failed to load failure message."
+msgid "Consumer ID failed to load, please check the value and try again."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Connections/Integration_Connections.php:386
+msgctxt "Connection authorization error for no consumer secret."
+msgid "Consumer ID is required to authorize your connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Connections/Integration_Connections.php:396
+msgctxt "Connection authorization error for no consumer secret."
+msgid "Consumer Secret is required to authorize your connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Connections/Integration_Connections.php:409
+msgctxt "Connection authorization error for the consumer secrets not matching."
+msgid "Consumer Secret does not match."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Connections/Integration_Connections.php:419
+msgctxt "Connection authorization error for no account name."
+msgid "Account is missing a name."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Connections/Integration_Connections.php:429
+msgctxt "Connection authorization error for no account permissions."
+msgid "Account is missing permissions."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Connections/Integration_Connections.php:439
+msgctxt "Connection authorization error for no user selected."
+msgid "Account is missing a user, please select one and try again.."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Connections/Integration_Connections.php:450
+msgctxt "Connection authorization error for account user not loading."
+msgid "Selected user could not be loaded."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Connections/Integration_Connections.php:785
+msgctxt "The label of the users dropdown for an integration."
+msgid "Users"
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/Connections/Integration_Connections.php:798
+msgctxt "The placeholder for the dropdown to select a user."
+msgid "Select a User"
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/REST/V1/Documentation/Integration_Swagger_Documentation.php:199
+msgid "Returns the documentation for TEC REST API in Swagger consumable format."
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/REST/V1/Endpoints/Queue/Integration_REST_Endpoint.php:236
+msgctxt "Default description for integration endpoint."
+msgid "No description provided"
+msgstr ""
+
+#: src/Common/Event_Automator/Integrations/REST/V1/Endpoints/Queue/Integration_REST_Endpoint.php:371
+msgid "Missing access token."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/Api.php:69
+msgctxt "Power Automate Connection save message."
+msgid "Power Automate Connection saved."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/Api.php:135
+msgctxt "The message to display to confirm a user would like to delete a Power Automate connection."
+msgid "Are you sure you want to delete this Power Automate connection? This operation cannot be undone. Existing Power Automate connections using this connection will no longer work."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Documentation/Swagger_Documentation.php:32
+msgid "TEC Power Automate REST API"
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Documentation/Swagger_Documentation.php:33
+msgid "TEC Power Automate REST API allows direct connections to making Power Automate Connectors."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Actions/Create_Events.php:90
+msgctxt "Display name of the Power Automate endpoint."
+msgid "Create Events"
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Actions/Create_Events.php:170
+msgctxt "Power Automate API error for using GET request."
+msgid "GET responses not accepted on the create events endpoint, please us a POST request."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Actions/Create_Events.php:212
+msgctxt "Description for the Power Automate Create Event REST endpoint on a successful return."
+msgid "Returns creation of a new event."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Actions/Create_Events.php:218
+msgctxt "Description for the Power Automate Create Event REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Actions/Create_Events.php:234
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Actions/Create_Events.php:250
+msgctxt "Description for the Power Automate Create Event REST endpoint required parameter."
+msgid "The access token to authorize Power Automate connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Attendees.php:73
+msgctxt "Display name of the Power Automate endpoint for attendees."
+msgid "Attendees"
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Attendees.php:166
+msgctxt "Description for the Power Automate Attendee REST endpoint on a successful return."
+msgid "Returns successful checking of the new attendee queue."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Attendees.php:172
+msgctxt "Description for the Power Automate Attendee REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Attendees.php:188
+msgctxt "Description for the Power Automate Attendee REST endpoint required parameter."
+msgid "The access token to authorize Power Automate connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Canceled_Events.php:73
+msgctxt "Display name of the Power Automate endpoint for canceled events."
+msgid "Canceled Events"
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Canceled_Events.php:166
+msgctxt "Description for the Power Automate Canceled Event REST endpoint on a successful return."
+msgid "Returns successful checking of the canceled event queue."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Canceled_Events.php:172
+msgctxt "Description for the Power Automate Canceled Event REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Canceled_Events.php:188
+msgctxt "Description for the Power Automate Canceled Event REST endpoint required parameter."
+msgid "The access token to authorize Power Automate connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Checkin.php:73
+msgctxt "Display name of the Power Automate endpoint for checkins."
+msgid "Checkins"
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Checkin.php:165
+msgctxt "Description for the Power Automate Checkin REST endpoint on a successful return."
+msgid "Returns successful checking of the new checkin queue."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Checkin.php:171
+msgctxt "Description for the Power Automate Checkin REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Checkin.php:187
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Orders.php:223
+msgctxt "Description for the Power Automate Checkin REST endpoint required parameter."
+msgid "The access token to authorize Power Automate connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/New_Events.php:73
+msgctxt "Display name of the Power Automate endpoint for new events."
+msgid "New Events"
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/New_Events.php:166
+msgctxt "Description for the Power Automate New Event REST endpoint on a successful return."
+msgid "Returns successful checking of the new event queue."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/New_Events.php:172
+msgctxt "Description for the Power Automate New Event REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/New_Events.php:188
+msgctxt "Description for the Power Automate New Event REST endpoint required parameter."
+msgid "The access token to authorize Power Automate connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Orders.php:78
+msgctxt "Display name of the Power Automate endpoint for ticket orders."
+msgid "Orders"
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Orders.php:201
+msgctxt "Description for the Power Automate Order REST endpoint on a successful return."
+msgid "Returns successful checking of the new event queue."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Orders.php:207
+msgctxt "Description for the Power Automate Order REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Refunded_Orders.php:69
+msgctxt "Display name of the Power Automate endpoint for refunded ticket orders."
+msgid "Refunded Orders"
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Refunded_Orders.php:192
+msgctxt "Description for the Power Automate Refunded Order REST endpoint on a successful return."
+msgid "Returns successful checking of the refunded orders queue."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Refunded_Orders.php:202
+msgctxt "Description for the Power Automate Refunded Order REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Refunded_Orders.php:222
+msgctxt "Description for the Power Automate Refunded Order REST endpoint required parameter."
+msgid "The access token to authorize Power Automate connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Updated_Attendees.php:64
+msgctxt "Display name of the Power Automate endpoint."
+msgid "Updated Attendees"
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Updated_Attendees.php:156
+msgctxt "Description for the Power Automate Updated Attendee REST endpoint on a successful return."
+msgid "Returns successful checking of the updated attendee queue."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Updated_Attendees.php:162
+msgctxt "Description for the Power Automate Updated Attendee REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Updated_Attendees.php:178
+msgctxt "Description for the Power Automate Updated Attendee REST endpoint required parameter."
+msgid "The access token to authorize Power Automate connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Updated_Events.php:73
+msgctxt "Display name of the Power Automate endpoint for updated events."
+msgid "Updated Events"
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Updated_Events.php:166
+msgctxt "Description for the Power Automate Updated Event REST endpoint on a successful return."
+msgid "Returns successful checking of the updated event queue."
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Updated_Events.php:172
+msgctxt "Description for the Power Automate Updated Event REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Power_Automate/REST/V1/Endpoints/Queue/Updated_Events.php:188
+msgctxt "Description for the Power Automate Updated Event REST endpoint required parameter."
+msgid "The access token to authorize Power Automate connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Traits/Last_Access.php:34
+#: src/Common/Event_Automator/Zapier/Traits/Last_Access.php:34
+msgctxt "Name of the Event Tickets Zapier app."
+msgid "Event Tickets App"
+msgstr ""
+
+#: src/Common/Event_Automator/Traits/Last_Access.php:36
+#: src/Common/Event_Automator/Zapier/Traits/Last_Access.php:36
+msgctxt "Name of the Events Calendar Zapier app."
+msgid "The Events Calendar App"
+msgstr ""
+
+#: src/Common/Event_Automator/Traits/Last_Access.php:40
+msgctxt "Name of the Event Tickets integration app."
+msgid "Event Tickets App"
+msgstr ""
+
+#: src/Common/Event_Automator/Traits/Last_Access.php:42
+msgctxt "Name of the Events Calendar integration app."
+msgid "The Events Calendar App"
+msgstr ""
+
+#: src/Common/Event_Automator/Traits/With_AJAX.php:43
+msgctxt "Ajax error message."
+msgid "The provided nonce is not valid."
+msgstr ""
+
+#: src/Common/Event_Automator/Traits/With_AJAX.php:71
+msgctxt "An error raised in the context of an API integration."
+msgid "The post ID is missing from the request."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/Abstract_API_Key_Api.php:169
+msgctxt "Zapier API failure message."
+msgid "Consumer ID failed to load, please check the value and try again."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/Abstract_API_Key_Api.php:200
+msgctxt "Zapier API Key authorization error for no consumer secret."
+msgid "Consumer ID is required to Authorize Zapier API Keys."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/Abstract_API_Key_Api.php:210
+msgctxt "Zapier API Key authorization error for no consumer secret."
+msgid "Consumer Secret is required to Authorize Zapier API Keys."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/Abstract_API_Key_Api.php:223
+msgctxt "Zapier API Key authorization error for the consumer secrets not matching."
+msgid "Consumer Secret does not match."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/Abstract_API_Key_Api.php:233
+msgctxt "Zapier API Key authorization error for no API Key name."
+msgid "Zapier API Key is missing a name."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/Abstract_API_Key_Api.php:243
+msgctxt "Zapier API Key authorization error for no API Key permissions."
+msgid "Zapier API Key is missing permissions."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/Abstract_API_Key_Api.php:253
+msgctxt "Zapier API Key authorization error for no API Key user id."
+msgid "Zapier API Key is a user id."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/Abstract_API_Key_Api.php:264
+msgctxt "Zapier API Key authorization error for API Key user not loading."
+msgid "Zapier API Key could not load the WordPress user."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/Api.php:69
+msgctxt "Zapier API Key Connection generated message."
+msgid "Zapier API Key Connection generated."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/Api.php:105
+msgctxt "The message to display to confirm a user would like to revoke a Zapier connection."
+msgid "Are you sure you want to revoke this Zapier connection? This operation cannot be undone. Existing Zapier connections tied will no longer work."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/Api.php:132
+msgctxt "Zapier API Key pair missing local id message."
+msgid "Zapier API Key pair missing the local id."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/Api.php:144
+msgctxt "Zapier API Key pair missing a name message."
+msgid "Zapier API Key pair missing a name."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/Api.php:156
+msgctxt "Zapier API Key pair missing a user message."
+msgid "Zapier API Key pair missing a user id."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/Api.php:168
+msgctxt "Zapier API Key pair missing permissions message."
+msgid "Zapier API Key pair missing permissions."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/Api.php:178
+msgctxt "Zapier API Key pair generated message."
+msgid "Zapier API Key pair generated."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/Api.php:221
+msgctxt "The message to display to confirm a user would like to revoke a Zapier API Key pair."
+msgid "Are you sure you want to revoke this Zapier API Key pair? This operation cannot be undone. Existing Zapier connections tied to this API Key will no longer work."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/Api.php:251
+msgctxt "Zapier API Key pair is missing information to delete failure message."
+msgid "Zapier API Key pair was not deleted, the consumer id or the API Key information were not found."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/Api.php:264
+msgctxt "Zapier API Key pair has been deleted success message."
+msgid "Zapier API Key pair was successfully deleted"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/Api.php:275
+msgctxt "Zapier API Key pair could not be deleted failure message."
+msgid "Zapier API Key pair was not deleted"
+msgstr ""
+
+#. Translators:KB article link.
+#: src/Common/Event_Automator/Zapier/Privacy_Notice.php:74
+#, php-format
+msgctxt "The dismissible privacy message."
+msgid "Congratulations on installing Event Automator! Please read our %1$sPrivacy vs Data Automation: What You Need to Know%2$s knowledgebase article."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Documentation/Swagger_Documentation.php:32
+msgid "TEC Zapier REST API"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Documentation/Swagger_Documentation.php:33
+msgid "TEC Zapier REST API allows direct connections to making Zapier Zaps."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Create_Events.php:90
+msgctxt "Display name of the Zapier endpoint."
+msgid "Create Events"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Create_Events.php:171
+msgctxt "Zapier API error for using GET request."
+msgid "GET responses not accepted on the create events endpoint, please us a POST request."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Create_Events.php:213
+msgctxt "Description for the Zapier Create Event REST endpoint on a successful return."
+msgid "Returns creation of a new event."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Create_Events.php:219
+msgctxt "Description for the Zapier Create Event REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Create_Events.php:235
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Create_Events.php:251
+msgctxt "Description for the Zapier Create Event REST endpoint required parameter."
+msgid "The access token to authorize Zapier connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Find_Attendees.php:98
+msgctxt "Display name of the Zapier endpoint."
+msgid "Find Attendees"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Find_Attendees.php:218
+msgctxt "Description for the Zapier Find Attendees REST endpoint on a successful return."
+msgid "Returns successful checking of the find attendee archive."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Find_Attendees.php:224
+msgctxt "Description for the Zapier Find Attendees REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Find_Attendees.php:245
+msgctxt "Description for the Zapier Find Attendees REST endpoint required parameter."
+msgid "The access token to authorize Zapier connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Find_Events.php:98
+msgctxt "Display name of the Zapier endpoint."
+msgid "Find Events"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Find_Events.php:185
+msgctxt "Description for the Zapier Find Event REST endpoint on a successful return."
+msgid "Returns successful checking of the find event archive."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Find_Events.php:191
+msgctxt "Description for the Zapier Find Event REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Find_Events.php:212
+msgctxt "Description for the Zapier Find Event REST endpoint required parameter."
+msgid "The access token to authorize Zapier connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Find_Tickets.php:98
+msgctxt "Display name of the Zapier endpoint."
+msgid "Find Tickets/RSVPs"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Find_Tickets.php:218
+msgctxt "Description for the Zapier Find Tickets REST endpoint on a successful return."
+msgid "Returns successful checking of the find ticket archive."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Find_Tickets.php:224
+msgctxt "Description for the Zapier Find Tickets REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Find_Tickets.php:245
+msgctxt "Description for the Zapier Find Tickets REST endpoint required parameter."
+msgid "The access token to authorize Zapier connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Update_Events.php:98
+msgctxt "Display name of the Zapier endpoint."
+msgid "Update Events"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Update_Events.php:180
+msgctxt "Zapier API error for using GET request."
+msgid "GET responses not accepted on the update events endpoint, please us a PATCH request."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Update_Events.php:227
+msgctxt "Description for the Zapier Update Event REST endpoint on a successful return."
+msgid "Returns creation of a new event."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Update_Events.php:233
+msgctxt "Description for the Zapier Update Event REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Update_Events.php:249
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Update_Events.php:267
+msgctxt "Description for the Zapier Update Event REST endpoint required parameter."
+msgid "The access token to authorize Zapier connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Attendees.php:70
+msgctxt "Display name of the Zapier endpoint for new attendees."
+msgid "Attendees"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Attendees.php:135
+msgctxt "Description for the Zapier Attendee REST endpoint on a successful return."
+msgid "Returns successful checking of the new attendee queue."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Attendees.php:141
+msgctxt "Description for the Zapier Attendee REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Attendees.php:157
+msgctxt "Description for the Zapier Attendee REST endpoint required parameter."
+msgid "The access token to authorize Zapier connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Authorize.php:45
+msgctxt "Display name of the Zapier endpoint for authorization."
+msgid "Authorize"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Authorize.php:129
+msgctxt "Zapier REST API authorize success message."
+msgid "Returns successful authentication"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Authorize.php:135
+msgctxt "Zapier REST API authorize failure message."
+msgid "A required authentication parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Authorize.php:151
+msgctxt "Zapier REST API description for consumer id parameter."
+msgid "The consumer id to authorize Zapier connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Authorize.php:157
+msgctxt "Zapier REST API description for consumer secret parameter."
+msgid "The consumer secret to authorize Zapier connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Authorize.php:163
+msgctxt "Zapier app name parameter."
+msgid "The app name of the Zapier connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Canceled_Events.php:70
+msgctxt "Display name of the Zapier endpoint for canceled events."
+msgid "Canceled Events"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Canceled_Events.php:136
+msgctxt "Description for the Zapier Canceled Event REST endpoint on a successful return."
+msgid "Returns successful checking of the canceled event queue."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Canceled_Events.php:142
+msgctxt "Description for the Zapier Canceled Event REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Canceled_Events.php:158
+msgctxt "Description for the Zapier Canceled Event REST endpoint required parameter."
+msgid "The access token to authorize Zapier connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Checkin.php:70
+msgctxt "Display name of the Zapier endpoint for checkins."
+msgid "Checkins"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Checkin.php:135
+msgctxt "Description for the Zapier Checkin REST endpoint on a successful return."
+msgid "Returns successful checking of the new checkin queue."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Checkin.php:141
+msgctxt "Description for the Zapier Checkin REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Checkin.php:157
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Orders.php:158
+msgctxt "Description for the Zapier Checkin REST endpoint required parameter."
+msgid "The access token to authorize Zapier connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/New_Events.php:70
+msgctxt "Display name of the Zapier endpoint for new events."
+msgid "New Events"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/New_Events.php:136
+msgctxt "Description for the Zapier New Event REST endpoint on a successful return."
+msgid "Returns successful checking of the new event queue."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/New_Events.php:142
+msgctxt "Description for the Zapier New Event REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/New_Events.php:158
+msgctxt "Description for the Zapier New Event REST endpoint required parameter."
+msgid "The access token to authorize Zapier connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Orders.php:70
+msgctxt "Display name of the Zapier endpoint for ticket orders."
+msgid "Orders"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Orders.php:136
+msgctxt "Description for the Zapier Order REST endpoint on a successful return."
+msgid "Returns successful checking of the new event queue."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Orders.php:142
+msgctxt "Description for the Zapier Order REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Refunded_Orders.php:68
+msgctxt "Display name of the Zapier endpoint for refunded ticket orders."
+msgid "Refunded Orders"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Refunded_Orders.php:134
+msgctxt "Description for the Zapier Refunded Order REST endpoint on a successful return."
+msgid "Returns successful checking of the refunded orders queue."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Refunded_Orders.php:144
+msgctxt "Description for the Zapier Refunded Order REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Refunded_Orders.php:164
+msgctxt "Description for the Zapier Refunded Order REST endpoint required parameter."
+msgid "The access token to authorize Zapier connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Updated_Attendees.php:61
+msgctxt "Display name of the Zapier endpoint."
+msgid "Updated Attendees"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Updated_Attendees.php:126
+msgctxt "Description for the Zapier Updated Attendee REST endpoint on a successful return."
+msgid "Returns successful checking of the updated attendee queue."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Updated_Attendees.php:132
+msgctxt "Description for the Zapier Updated Attendee REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Updated_Attendees.php:148
+msgctxt "Description for the Zapier Updated Attendee REST endpoint required parameter."
+msgid "The access token to authorize Zapier connection."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Updated_Events.php:70
+msgctxt "Display name of the Zapier endpoint for updated events."
+msgid "Updated Events"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Updated_Events.php:136
+msgctxt "Description for the Zapier Updated Event REST endpoint on a successful return."
+msgid "Returns successful checking of the updated event queue."
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Updated_Events.php:142
+msgctxt "Description for the Zapier Updated Event REST endpoint missing a required parameter."
+msgid "A required parameter is missing or an input parameter is in the wrong format"
+msgstr ""
+
+#: src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Updated_Events.php:158
+msgctxt "Description for the Zapier Updated Event REST endpoint required parameter."
+msgid "The access token to authorize Zapier connection."
+msgstr ""
+
+#: src/Common/Integrations/Plugin_Merge_Provider_Abstract.php:360
+msgctxt "Initial separator for list of plugins for the plugin consolidation notice message."
+msgid ", "
+msgstr ""
+
+#. Translators: %1$s is the list of plugins except the last, %2$s is the last plugin name. i.e "one and two" or "one, two and three"
+#: src/Common/Integrations/Plugin_Merge_Provider_Abstract.php:368
+#, php-format
+msgctxt "Joined plugin list, last after the \"and\" separator."
+msgid "%1$s and %2$s"
+msgstr ""
+
+#. Translators: %1$s is the plugin name(s) and version(s), %2$s and %3$s are the opening and closing anchor tags.
+#: src/Common/Integrations/Plugin_Merge_Provider_Abstract.php:380
+#, php-format
+msgctxt "Notice message after updating plugins to the merged version."
+msgid "Thanks for upgrading %1$s now with even more value! Learn more about the latest changes %2$shere%3$s."
+msgstr ""
+
+#: src/Common/Notifications/Controller.php:94
+msgid "Read notifications"
+msgstr ""
+
+#: src/Common/Notifications/Controller.php:227
+msgid "Enable this option to receive notifications about The Events Calendar, including updates, fixes, and features. This is enabled if you have opted in to Telemetry."
+msgstr ""
+
+#: src/Common/Notifications/Controller.php:238
+msgid "In-App Notifications"
+msgstr ""
+
+#: src/Common/Notifications/Notifications.php:154
+#: src/Common/Notifications/Notifications.php:172
+#: src/Common/Notifications/Notifications.php:221
+#: src/Common/Notifications/Notifications.php:249
+#: src/Common/Notifications/Notifications.php:275
+msgid "Invalid nonce"
+msgstr ""
+
+#: src/Common/Notifications/Notifications.php:160
+msgid "Notifications opt-in successful"
+msgstr ""
+
+#: src/Common/Notifications/Notifications.php:228
+#: src/Common/Notifications/Notifications.php:256
+msgid "Invalid notification slug"
+msgstr ""
+
+#: src/Common/Notifications/Notifications.php:235
+msgid "Notification dismissed"
+msgstr ""
+
+#: src/Common/Notifications/Notifications.php:263
+msgid "Notification marked as read"
+msgstr ""
+
+#: src/Common/Notifications/Notifications.php:286
+msgid "All notifications marked as read"
+msgstr ""
+
+#: src/Common/QR/Notices.php:103
+msgid "QR codes for events/tickets not available."
+msgstr ""
+
+#: src/Common/QR/Notices.php:104
+msgid "In order to have QR codes for your events and/or tickets you will need to have both the `php_gd2` and `gzuncompress` PHP extensions installed on your server. Please contact your hosting provider."
+msgstr ""
+
+#: src/Common/QR/Notices.php:105
+msgid "Learn more."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Abstracts/Endpoint.php:493
+msgid "Experimental endpoint requires acknowledgement header."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Abstracts/Endpoint.php:497
+msgid "Experimental endpoint requires appropriate acknowledgement header."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Abstracts/Post_Entity_Endpoint.php:144
+msgid "Whether to bypass Trash and force deletion."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Controller.php:332
+msgid "Password protected"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation.php:117
+msgid "The Events Calendar REST API"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation.php:119
+msgid "The Events Calendar REST API allows accessing upcoming events information easily and conveniently."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/Date_Definition.php:63
+msgid "The date"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/Date_Definition.php:70
+msgid "The timezone type"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/Date_Definition.php:77
+msgid "The timezone of the date"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:59
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:101
+msgid "The OpenAPI version."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:63
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:107
+msgid "The API info."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:67
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:112
+msgid "The API title."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:71
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:117
+msgid "The TEC REST API version."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:75
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:122
+msgid "The API description."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:79
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:127
+msgid "The API contact."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:83
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:132
+msgid "The name of the contact."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:87
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:137
+msgid "The email of the contact."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:96
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:147
+msgid "The OpenAPI components."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:100
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:153
+msgid "The OpenAPI schemas."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:106
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:169
+msgid "The OpenAPI servers."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:109
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:173
+msgid "A server."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:113
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:178
+msgid "The server URL."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:121
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:188
+msgid "The OpenAPI paths."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:59
+msgid "The GET method for the path."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:63
+msgid "The description of the GET method."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:67
+msgid "The parameters of the GET method."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:70
+msgid "A parameter."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:74
+msgid "The name of the parameter."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:78
+msgid "The location of the parameter."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:82
+msgid "Whether the parameter is required."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:86
+msgid "The schema of the parameter."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:93
+msgid "The responses of the GET method."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:97
+msgid "The response for the GET method."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:101
+msgid "The content of the response."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:105
+msgid "The JSON content of the response."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:109
+msgid "The schema of the content."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:113
+msgid "The type of the content."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:55
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:53
+msgid "The date the entity was published, in the site's timezone. In RFC3339 format."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:62
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:60
+msgid "The date the entity was published, as GMT. In RFC3339 format."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:70
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:77
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:152
+msgid "The globally unique identifier for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:86
+msgid "Unique identifier for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:93
+msgid "URL to the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:100
+msgid "The date the entity was last modified, in the site's timezone. In RFC3339 format."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:107
+msgid "The date the entity was last modified, as GMT. In RFC3339 format."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:114
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:67
+msgid "An alphanumeric identifier for the entity unique to its type"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:121
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:74
+msgid "A named status for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:130
+msgid "Permalink template for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:137
+msgid "Slug automatically generated from the entity title"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:145
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:83
+msgid "HTML title for the entity, transformed for display"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:161
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:90
+msgid "HTML content for the entity, transformed for display"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:168
+msgid "Whether the content is protected with a password"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:175
+msgid "The content for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:184
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:97
+msgid "HTML excerpt for the entity, transformed for display"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:191
+msgid "Whether the excerpt is protected with a password"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:198
+msgid "The excerpt for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:206
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:104
+msgid "The ID for the author of the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:213
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:111
+msgid "The ID of the featured media for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:220
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:118
+msgid "Whether or not comments are open on the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:229
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:127
+msgid "Whether or not the entity can be pinged"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:238
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:136
+msgid "The format for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:247
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:145
+msgid "Whether or not the entity should be treated as sticky"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:256
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:154
+msgid "The theme file to use to display the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:263
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:161
+msgid "The terms assigned to the entity in the post_tag taxonomy"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:270
+msgid "TEC Post Entity"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:271
+msgid "A TEC post object as returned by the REST API"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:167
+msgid "TEC Post Entity Request Body"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:168
+msgid "A TEC post object as expected by the REST API"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:159
+msgid "An object's schema."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:194
+msgid "A path's documentation."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:208
+msgid "Get the documentation for the TEC REST API"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:209
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:218
+msgid "Returns the documentation for The Events Calendar REST API in Swagger consumable format."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Integer.php:38
+#, php-format
+msgid "Parameter `{%1$s}` must be an integer."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Integer.php:43
+#, php-format
+msgid "The parameter `{%1$s}` is not an integer."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/IP.php:38
+#, php-format
+msgid "Parameter `{%1$s}` must be a valid IP address."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/IP.php:43
+#, php-format
+msgid "The parameter `{%1$s}` is not a valid IP address."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Number.php:91
+#, php-format
+msgid "Parameter `{%1$s}` must be a number."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Number.php:96
+#, php-format
+msgid "The parameter `{%1$s}` is not a number."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Positive_Integer.php:31
+#, php-format
+msgid "Parameter `{%1$s}` must be a positive integer."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Positive_Integer.php:36
+#, php-format
+msgid "The parameter `{%1$s}` is not a positive integer."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/URI.php:38
+#, php-format
+msgid "Parameter `{%1$s}` must be a valid URL."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/URI.php:43
+#, php-format
+msgid "The parameter `{%1$s}` is not a valid URL."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/UUID.php:38
+#, php-format
+msgid "Parameter `{%1$s}` must be a valid UUID."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/UUID.php:43
+#, php-format
+msgid "The parameter `{%1$s}` is not a valid UUID. It should be a string like `123e4567-e89b-12d3-a456-426614174000`."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Tags/Common_Tag.php:45
+msgid "These operations are introduced by the Common library."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Create_Entity_Response.php:39
+msgid "Failed to create entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:40
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:49
+msgid "The entity could not be deleted."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:60
+msgid "The entity could not be found."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:74
+msgid "Force deletion failed - the entity could not be permanently deleted."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:90
+msgid "The entity does not support trashing. Set 'force=true' to delete."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:116
+msgid "The entity could not be permanently deleted."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:127
+msgid "The entity has already been trashed."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:139
+msgid "The entity could not be trashed."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Read_Archive_Response.php:51
+msgid "The requested page was not found."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:40
+#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:49
+#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:75
+msgid "The entity could not be read."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:42
+#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:51
+msgid "The entity could not be updated."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:72
+msgid "Failed to update entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:90
+msgid "Entity not found after update."
 msgstr ""
 
 #. Translators: %1$s the post type label.
 #: src/Common/Site_Health/Fields/Post_Status_Count_Field.php:54
+#, php-format
 msgid "%1$s counts"
 msgstr ""
 
@@ -928,6 +3261,7 @@ msgstr ""
 
 #. Translators: %s is the current user's display name.
 #: src/Common/Telemetry/Telemetry.php:277
+#, php-format
 msgid "Hi, %1$s! This is an invitation to help our StellarWP community. If you opt-in, some data about your usage of TEC Common and future StellarWP Products will be shared with our teams (so they can work their butts off to improve). We will also share some helpful info on WordPress, and our products from time to time. And if you skip this, that's okay! Our products still work just fine."
 msgstr ""
 
@@ -959,347 +3293,287 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: src/functions/template-tags/html.php:101
+#: src/functions/template-tags/html.php:145
 msgctxt "The associated field is required."
-msgid "(required)"
+msgid "( required )"
 msgstr ""
 
-#: src/Tribe/Admin/Activation_Page.php:113
+#: src/Tribe/Admin/Activation_Page.php:114
 msgid "Go to plugins page"
 msgstr ""
 
-#: src/Tribe/Admin/Activation_Page.php:121
+#: src/Tribe/Admin/Activation_Page.php:122
 msgid "Go to WordPress Updates page"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:141
-msgctxt "Copy to clipboard button text."
-msgid "Copy to clipboard"
-msgstr ""
-
-#: src/Tribe/Admin/Help_Page.php:142
-msgctxt "Copy to clipboard success message"
-msgid "System info copied"
-msgstr ""
-
-#: src/Tribe/Admin/Help_Page.php:143
-msgctxt "Copy to clipboard instructions"
-msgid "Press \"Cmd + C\" to copy"
-msgstr ""
-
-#: src/Tribe/Admin/Help_Page.php:144
-msgctxt "Default error message for system info optin"
-msgid "Something has gone wrong!"
-msgstr ""
-
-#: src/Tribe/Admin/Help_Page.php:145
-msgctxt "Error code label for system info optin"
-msgid "Code:"
-msgstr ""
-
-#: src/Tribe/Admin/Help_Page.php:146
-msgctxt "Error status label for system info optin"
-msgid "Status:"
-msgstr ""
-
-#: src/Tribe/Admin/Help_Page.php:172
+#: src/Tribe/Admin/Help_Page.php:175
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:191
+#: src/Tribe/Admin/Help_Page.php:194
 msgid "Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:206
+#: src/Tribe/Admin/Help_Page.php:209
 msgid "Advanced Post Manager"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:210
+#: src/Tribe/Admin/Help_Page.php:213
 msgid "Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:288
+#: src/Tribe/Admin/Help_Page.php:291
 msgid " and "
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:312
+#: src/Tribe/Admin/Help_Page.php:315
 msgid "Events Calendar PRO"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:321
-#: src/Tribe/Plugins_API.php:227
+#: src/Tribe/Admin/Help_Page.php:324
+#: src/Tribe/Plugins_API.php:187
 msgid "Eventbrite Tickets"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:363
-#: src/Tribe/Plugins_API.php:126
+#: src/Tribe/Admin/Help_Page.php:358
+msgid "Virtual Events"
+msgstr ""
+
+#: src/Tribe/Admin/Help_Page.php:366
+#: src/Tribe/Plugins_API.php:106
 msgid "Event Tickets Plus"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:546
+#: src/Tribe/Admin/Help_Page.php:549
 msgctxt "not available"
 msgid "n/a"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:554
+#: src/Tribe/Admin/Help_Page.php:557
 msgid "You need to upgrade!"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:554
-#: src/Tribe/Admin/Help_Page.php:930
+#: src/Tribe/Admin/Help_Page.php:557
+#: src/Tribe/Admin/Help_Page.php:934
 msgid "You are up to date!"
 msgstr ""
 
 #. translators: %s: Plugin Name
-#: src/Tribe/Admin/Help_Page.php:920
+#: src/Tribe/Admin/Help_Page.php:924
+#, php-format
 msgid "Activate %s"
 msgstr ""
 
 #. translators: %s: Plugin Name
-#: src/Tribe/Admin/Help_Page.php:920
+#: src/Tribe/Admin/Help_Page.php:924
 msgid "Activate Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:928
+#: src/Tribe/Admin/Help_Page.php:932
 msgid "Upgrade Plugin"
 msgstr ""
 
 #. translators: %s: Plugin Name
-#: src/Tribe/Admin/Help_Page.php:945
+#: src/Tribe/Admin/Help_Page.php:949
+#, php-format
 msgid "Install %s"
 msgstr ""
 
 #. translators: %s: Plugin Name
-#: src/Tribe/Admin/Help_Page.php:945
+#: src/Tribe/Admin/Help_Page.php:949
 msgid "Install Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:962
+#: src/Tribe/Admin/Help_Page.php:966
 msgid "Latest Version:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:965
+#: src/Tribe/Admin/Help_Page.php:969
 msgid "Requires:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:966
+#: src/Tribe/Admin/Help_Page.php:970
 msgid "WordPress "
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:968
+#: src/Tribe/Admin/Help_Page.php:972
 msgid "Active Users:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:971
+#: src/Tribe/Admin/Help_Page.php:975
 msgid "Rating:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:996
+#: src/Tribe/Admin/Help_Page.php:1000
 msgid "Premium Add-Ons"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1003
+#: src/Tribe/Admin/Help_Page.php:1007
 msgid "Plugin Active"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1005
+#: src/Tribe/Admin/Help_Page.php:1009
 msgid "Plugin Inactive"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1010
+#: src/Tribe/Admin/Help_Page.php:1014
 msgid "Visit the Add-on Page"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1037
+#: src/Tribe/Admin/Help_Page.php:1041
 msgid "Can I have more than one calendar?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1038
+#: src/Tribe/Admin/Help_Page.php:1042
 msgid "No, but you can use event categories or tags to display certain events like having..."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1042
+#: src/Tribe/Admin/Help_Page.php:1046
 msgid "What do I get with Events Calendar Pro?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1047
+#: src/Tribe/Admin/Help_Page.php:1051
 msgid "How do I sell tickets to events?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1048
+#: src/Tribe/Admin/Help_Page.php:1052
 msgid "Use our free Event Tickets plugin to get started with tickets and RSVPs."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1052
+#: src/Tribe/Admin/Help_Page.php:1056
 msgid "Where can I find a list of available shortcodes?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1053
+#: src/Tribe/Admin/Help_Page.php:1057
 msgid "Our plugins include many shortcodes that do everything from embedding the calendar..."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1072
+#: src/Tribe/Admin/Help_Page.php:1076
 msgid "Calendar widget areas"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1073
+#: src/Tribe/Admin/Help_Page.php:1077
 msgid "This extension creates a useful variety of WordPress widget areas (a.k.a. sidebars)."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1078
+#: src/Tribe/Admin/Help_Page.php:1082
 msgid "Event block patterns"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1079
+#: src/Tribe/Admin/Help_Page.php:1083
 msgid "This extension adds a set of block patterns for events to the WordPress block editor."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1084
+#: src/Tribe/Admin/Help_Page.php:1088
 msgid "Alternative photo view"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1085
+#: src/Tribe/Admin/Help_Page.php:1089
 msgid "This extension replaces photo view with a tiled grid of cards featuring event images."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1090
+#: src/Tribe/Admin/Help_Page.php:1094
 msgid "The Events Calendar Tweaks"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1091
+#: src/Tribe/Admin/Help_Page.php:1095
 msgid "This extension is a collection of tweaks and snippets for The Events Calendar."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1132
+#: src/Tribe/Admin/Help_Page.php:1134
 msgid "How Do I create events with Tickets or RSVP’s?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1133
+#: src/Tribe/Admin/Help_Page.php:1135
 msgid "We’ve put together a video tutorial showing how to create events with Tickets using our plugins. Click on the link in the link in the title to learn more."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1137
+#: src/Tribe/Admin/Help_Page.php:1139
 msgid "How Do I Set Up E-Commerce Plugins for Selling Tickets?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1138
+#: src/Tribe/Admin/Help_Page.php:1140
 msgid "You can sell tickets using our built-in e-commerce option, or upgrade to Event Tickets Plus to use ecommerce plugins such as WooCommerce."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1142
+#: src/Tribe/Admin/Help_Page.php:1144
 msgid "Can I have a seating chart associated with my tickets?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1143
+#: src/Tribe/Admin/Help_Page.php:1145
 msgid "Yes! You can easily accomplish this task using the stock options and multiple ticket types available with Event Tickets."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1147
+#: src/Tribe/Admin/Help_Page.php:1149
 msgid "How do I process refunds for tickets?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1148
+#: src/Tribe/Admin/Help_Page.php:1150
 msgid "When it comes to paid tickets, these orders can be refunded through the e-commerce platform in use."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1167
+#: src/Tribe/Admin/Help_Page.php:1169
 msgid "Ticket Email Settings"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1168
+#: src/Tribe/Admin/Help_Page.php:1170
 msgid "Adds a new settings panel in Events > Settings that gives more control over the ticket and rsvp emails that are sent to attendees after registration."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1173
+#: src/Tribe/Admin/Help_Page.php:1175
 msgid "Per Event Check In API"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1174
+#: src/Tribe/Admin/Help_Page.php:1176
 msgid "This extension shows a meta box with an API key on each Event with Ticket/RSVP."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1179
+#: src/Tribe/Admin/Help_Page.php:1181
 msgid "Add Event & Attendee Info to WooCommerce Order Details"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1180
+#: src/Tribe/Admin/Help_Page.php:1182
 msgid "Displays the information collected by “attendee meta fields” in the WooCommerce order screens as well."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1185
+#: src/Tribe/Admin/Help_Page.php:1187
 msgid "Organizer Notification Email"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1186
+#: src/Tribe/Admin/Help_Page.php:1188
 msgid "This extension will send an email to event organizers whenever a user registers for their event."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1226
+#: src/Tribe/Admin/Help_Page.php:1227
 msgid "Add Cost Currency Symbol"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1227
+#: src/Tribe/Admin/Help_Page.php:1228
 msgid "This extension allows you to set default currency symbols for your users to choose from instead of having a plain text field."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1232
+#: src/Tribe/Admin/Help_Page.php:1233
 msgid "Add Google Maps Display and Link Options"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1233
+#: src/Tribe/Admin/Help_Page.php:1234
 msgid "This extension adds the “Show Google Maps” and “Show Google Maps Link” checkboxes when creating a new Venue."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1238
+#: src/Tribe/Admin/Help_Page.php:1239
 msgid "Hide Others’ Organizers and Venues"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1239
-msgid "This extension allows you to hide the Organizers and Venues that a visitor has not created from the Community Events submission form."
-msgstr ""
-
-#: src/Tribe/Admin/Help_Page.php:1244
-msgid "Display Custom HTML"
+#: src/Tribe/Admin/Help_Page.php:1240
+msgid "This extension allows you to hide the Organizers and Venues that a visitor has not created from the Community submission form."
 msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:1245
-msgid "This extension allows you to add custom HTML content to the top of the Community Events submission form."
+msgid "Display Custom HTML"
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:58
-msgid "Make it yours."
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:59
-msgid "Save 40% on all The Events Calendar products."
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:60
-msgid "Take <b>40%</b> off all premium The Events Calendar products during the annual Stellar Sale. Now through July 30."
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:74
-msgid "Save 40% on Filter Bar."
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:75
-msgid "Add filters to your calendar during the annual Stellar Sale. Now through July 30."
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:77
-msgid "Save 40% on The Events Calendar Bundles."
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:78
-msgid "Take <b>40%</b> off when you upgrade to a bundle during the annual Stellar Sale. Now through July 30."
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:81
-msgid "Save 40% on all StellarWP products."
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php:82
-msgid "Take <b>40%</b> off all brands during the annual Stellar Sale. Now through July 30."
+#: src/Tribe/Admin/Help_Page.php:1246
+msgid "This extension allows you to add custom HTML content to the top of the Community submission form."
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Php_Version.php:59
@@ -1316,11 +3590,13 @@ msgstr ""
 
 #. Translators: %1$s list of plugins, %2$s current PHP version, %3$s open anchor html link for read more, %4$s open anchor html link for read more
 #: src/Tribe/Admin/Notice/Php_Version.php:96
+#, php-format
 msgctxt "Message notifying users they need to upgrade PHP"
 msgid "Starting February 2023, %1$s will require PHP 7.4 or later. Currently, your site is using PHP version %2$s. Please update to a newer version. %3$sRead more%4$s."
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Plugin_Download.php:120
+#, php-format
 msgid "To begin using %2$s, please install (or upgrade) and activate %3$s."
 msgstr ""
 
@@ -1330,6 +3606,7 @@ msgid "Read more"
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Plugin_Download.php:123
+#, php-format
 msgid "There’s a new version of %1$s available, but your license is expired. You’ll need to renew your license to get access to the latest version. If you plan to continue using your current version of the plugin(s), be sure to use a compatible version of The Events Calendar. %2$s"
 msgstr ""
 
@@ -1398,6 +3675,7 @@ msgid "Common Error Messages"
 msgstr ""
 
 #: src/Tribe/Admin/Troubleshooting.php:344
+#, php-format
 msgid "Here’s an overview of %s and what they mean."
 msgstr ""
 
@@ -1410,6 +3688,7 @@ msgid "I installed the calendar and it crashed my site."
 msgstr ""
 
 #: src/Tribe/Admin/Troubleshooting.php:356
+#, php-format
 msgid "%s and other common installation issues."
 msgstr ""
 
@@ -1418,6 +3697,7 @@ msgid "I keep getting “Page Not Found” on events."
 msgstr ""
 
 #: src/Tribe/Admin/Troubleshooting.php:362
+#, php-format
 msgid "There are a few %s to resolve and prevent 404 errors."
 msgstr ""
 
@@ -1425,16 +3705,17 @@ msgstr ""
 msgid "Cannot look for Terms without a taxonomy"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:279
+#: src/Tribe/Ajax/Dropdown.php:281
 msgid "Missing data source for this dropdown"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:301
+#: src/Tribe/Ajax/Dropdown.php:303
 msgid "Empty data set for this dropdown"
 msgstr ""
 
 #. Translators: %1$s is the name of the source, %2$s is the class name
-#: src/Tribe/Ajax/Dropdown.php:353
+#: src/Tribe/Ajax/Dropdown.php:355
+#, php-format
 msgid "The \"%1$s\" source is invalid and cannot be reached on \"%2$s\" instance."
 msgstr ""
 
@@ -1444,193 +3725,167 @@ msgstr ""
 msgid "Event Add-Ons"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:179
+#: src/Tribe/App_Shop.php:175
 msgid "Events Marketing Bundle"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:182
-#: src/Tribe/App_Shop.php:206
-#: src/Tribe/App_Shop.php:225
-#: src/Tribe/App_Shop.php:238
+#: src/Tribe/App_Shop.php:178
+#: src/Tribe/App_Shop.php:202
+#: src/Tribe/App_Shop.php:215
 msgid "Save over 20%"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:183
+#: src/Tribe/App_Shop.php:179
 msgid "Ticket sales, attendee management, and email marketing for your events"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:191
+#: src/Tribe/App_Shop.php:187
 msgid "Event Importer Bundle"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:194
+#: src/Tribe/App_Shop.php:190
 msgid "Save over 25%"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:195
+#: src/Tribe/App_Shop.php:191
 msgid "Fill your calendar with events from across the web, including Google Calendar, Meetup, and more."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:203
-msgid "Virtual Events Marketing Bundle"
-msgstr ""
-
-#: src/Tribe/App_Shop.php:207
-msgid "Streamline your online events and increase revenue."
-msgstr ""
-
-#: src/Tribe/App_Shop.php:215
-msgid "Sell tickets and earn revenue for online events"
-msgstr ""
-
-#: src/Tribe/App_Shop.php:216
-#: src/Tribe/Plugins_API.php:275
-msgid "Zoom integration"
-msgstr ""
-
-#: src/Tribe/App_Shop.php:217
-msgid "Automated emails optimized for virtual events"
-msgstr ""
-
-#: src/Tribe/App_Shop.php:218
-msgid "Add recurring events"
-msgstr ""
-
-#: src/Tribe/App_Shop.php:222
+#: src/Tribe/App_Shop.php:199
 msgid "Community Manager Bundle"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:226
+#: src/Tribe/App_Shop.php:203
 msgid "Handle event submissions with ticket sales and everything you need to build a robust community."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:235
-msgid "Ultimate Bundle"
+#: src/Tribe/App_Shop.php:212
+msgid "The Complete Collection"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:239
+#: src/Tribe/App_Shop.php:216
 msgid "All of our premium events management plugins at a deep discount."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:266
+#: src/Tribe/App_Shop.php:242
 msgid "Website URL CTA"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:269
+#: src/Tribe/App_Shop.php:245
 msgid "Create a strong call-to-action for attendees to \"Join Webinar\" instead of only sharing a website address."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:272
+#: src/Tribe/App_Shop.php:248
 msgid "Link Directly to Webinar"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:275
+#: src/Tribe/App_Shop.php:251
 msgid "When users click on the event title, they’ll be taken right to the source of your event, offering a direct route to join."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:278
+#: src/Tribe/App_Shop.php:254
 msgid "Events Happening Now"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:281
+#: src/Tribe/App_Shop.php:257
 msgid "Use this shortcode to display events that are currently in progress, like webinars and livestreams."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:284
+#: src/Tribe/App_Shop.php:260
 msgid "Custom Venue Links"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:287
+#: src/Tribe/App_Shop.php:263
 msgid "Turn the venue name for your event into a clickable URL — a great way to link directly to a venue’s website or a virtual meeting."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:290
+#: src/Tribe/App_Shop.php:266
 msgid "Adjust Label"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:293
+#: src/Tribe/App_Shop.php:269
 msgid "Change \"Events\" to \"Webinars,\" or \"Venues\" to \"Livestream,\" or \"Organizers\" to \"Hosts.\" Tailor your calendar for virtual events and meetings."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:296
+#: src/Tribe/App_Shop.php:272
 msgid "Reach Attendees"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:299
+#: src/Tribe/App_Shop.php:275
 msgid "From registration to attendance history, view every step of the event lifecycle with this HubSpot integration."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:316
+#: src/Tribe/App_Shop.php:292
 msgid "The online course platform created by e-learning experts."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:318
+#: src/Tribe/App_Shop.php:294
 msgid "Add Courses"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:319
+#: src/Tribe/App_Shop.php:295
 msgid "Trusted to power learning programs for major universities, startups, entrepreneurs, and bloggers worldwide."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:324
+#: src/Tribe/App_Shop.php:300
 msgid "Security, backups, and management — that’s Solid Suite."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:326
+#: src/Tribe/App_Shop.php:302
 msgid "Add Security"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:327
+#: src/Tribe/App_Shop.php:303
 msgid "SolidWP, the seriously solid foundation your WordPress site needs. Built with performance in mind."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:332
+#: src/Tribe/App_Shop.php:308
 msgid "Built with developers in mind."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:334
+#: src/Tribe/App_Shop.php:310
 msgid "Add Content Restriction"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:335
+#: src/Tribe/App_Shop.php:311
 msgid "Restrict Content Pro is flexible, easy to extend, and chock full of action hooks and filters, making it easy to modify and tweak to your specific needs."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:340
+#: src/Tribe/App_Shop.php:316
 msgid "Build better WordPress websites with Kadence."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:342
+#: src/Tribe/App_Shop.php:318
 msgid "Add Starter Templates"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:343
+#: src/Tribe/App_Shop.php:319
 msgid "Kadence lets you unlock your creativity in the WordPress Block Editor with expertly designed blocks, a robust theme, and a massive library of starter templates."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:348
+#: src/Tribe/App_Shop.php:324
 msgid "Sales-boosting WooCommerce plugins."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:350
+#: src/Tribe/App_Shop.php:326
 msgid "Add Commerce Tools"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:351
+#: src/Tribe/App_Shop.php:327
 msgid ""
 "Easy-to-use WooCommerce plugins work perfectly together, with any theme. Create a fast and profitable eCommerce store without any technical knowledge.\n"
 "\t\t\t\t\t"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:357
+#: src/Tribe/App_Shop.php:333
 msgid "The best WordPress donation plugin."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:359
+#: src/Tribe/App_Shop.php:335
 msgid "Add Donations"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:360
+#: src/Tribe/App_Shop.php:336
 msgid "GiveWP makes it easy to raise money online with donation forms, donor databases, and fundraising reporting."
 msgstr ""
 
@@ -1643,37 +3898,40 @@ msgid "This calendar is powered by The Events Calendar."
 msgstr ""
 
 #: src/Tribe/Credits.php:48
+#, php-format
 msgid "Rate %1$sThe Events Calendar%2$s %3$s"
 msgstr ""
 
 #: src/Tribe/Credits.php:51
+#, php-format
 msgid "If you like %1$sEvent Tickets%2$s please leave us a %3$s. It takes a minute and it helps a lot."
 msgstr ""
 
-#: src/Tribe/Customizer.php:665
+#: src/Tribe/Customizer.php:667
 msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
 msgstr ""
 
-#: src/Tribe/Customizer.php:1026
+#: src/Tribe/Customizer.php:1028
 msgctxt "Page title for the TEC Customizer section."
 msgid "Customize The Events Calendar"
 msgstr ""
 
-#: src/Tribe/Customizer.php:1027
+#: src/Tribe/Customizer.php:1029
 msgctxt "Menu item text for the TEC Customizer section link."
 msgid "Customize The Events Calendar"
 msgstr ""
 
-#: src/Tribe/Customizer.php:1052
+#: src/Tribe/Customizer.php:1054
 msgid "Customizer"
 msgstr ""
 
-#: src/Tribe/Customizer.php:1056
+#: src/Tribe/Customizer.php:1058
 msgid "Adjust colors, fonts, and more with the WordPress Customizer."
 msgstr ""
 
 #. translators: %1$s: opening anchor tag; %2$s: closing anchor tag
-#: src/Tribe/Customizer.php:1062
+#: src/Tribe/Customizer.php:1064
+#, php-format
 msgctxt "Link text added to the TEC->Settings->Display tab."
 msgid "%1$sCustomize The Events Calendar%2$s"
 msgstr ""
@@ -1858,7 +4116,7 @@ msgstr ""
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr ""
 
-#: src/Tribe/Editor/Blocks/Abstract.php:123
+#: src/Tribe/Editor/Blocks/Abstract.php:132
 msgid "Problem loading the block, please remove this block to restart."
 msgstr ""
 
@@ -1883,39 +4141,39 @@ msgctxt "extension disallowed"
 msgid "This extension has been programmatically disallowed. The most common reason is due to another The Events Calendar plugin having absorbed or replaced this extension's functionality. This extension plugin has been deactivated, and you should likely delete it."
 msgstr ""
 
-#: src/Tribe/Field.php:343
+#: src/Tribe/Field.php:510
 msgid "Invalid field type specified"
 msgstr ""
 
-#: src/Tribe/Field.php:647
+#: src/Tribe/Field.php:833
 msgid "No radio options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:683
+#: src/Tribe/Field.php:869
 msgid "No checkbox options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:745
+#: src/Tribe/Field.php:931
 msgid "No select options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:847
-#: src/Tribe/Field.php:893
+#: src/Tribe/Field.php:1033
+#: src/Tribe/Field.php:1079
 msgid "Select Image"
 msgstr ""
 
-#: src/Tribe/Field.php:848
-#: src/Tribe/Field.php:894
+#: src/Tribe/Field.php:1034
+#: src/Tribe/Field.php:1080
 msgid "Remove Image"
 msgstr ""
 
-#: src/Tribe/Field.php:852
-#: src/Tribe/Field.php:898
+#: src/Tribe/Field.php:1038
+#: src/Tribe/Field.php:1084
 msgid "Select an image"
 msgstr ""
 
-#: src/Tribe/Field.php:853
-#: src/Tribe/Field.php:899
+#: src/Tribe/Field.php:1039
+#: src/Tribe/Field.php:1085
 msgid "Use this image"
 msgstr ""
 
@@ -3098,6 +5356,7 @@ msgid "Wyoming"
 msgstr ""
 
 #: src/Tribe/Log.php:288
+#, php-format
 msgid "Cannot set %s as the current logging engine"
 msgstr ""
 
@@ -3143,89 +5402,100 @@ msgstr ""
 msgid "Null logger (will log nothing)"
 msgstr ""
 
-#: src/Tribe/Main.php:397
+#: src/Tribe/Main.php:316
+msgctxt "Copy to clipboard success message"
+msgid "Copied to Clipboard!"
+msgstr ""
+
+#: src/Tribe/Main.php:317
+msgctxt "Copy to clipboard failed message"
+msgid "Failed to copy."
+msgstr ""
+
+#: src/Tribe/Main.php:468
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:398
+#: src/Tribe/Main.php:469
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:400
+#: src/Tribe/Main.php:471
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:401
+#: src/Tribe/Main.php:472
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:402
+#: src/Tribe/Main.php:473
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:403
+#: src/Tribe/Main.php:474
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:404
+#: src/Tribe/Main.php:475
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:405
+#: src/Tribe/Main.php:476
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:406
+#: src/Tribe/Main.php:477
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:407
+#: src/Tribe/Main.php:478
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:408
+#: src/Tribe/Main.php:479
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:409
+#: src/Tribe/Main.php:480
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:411
+#: src/Tribe/Main.php:482
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:412
-#: src/Tribe/Main.php:429
+#: src/Tribe/Main.php:483
+#: src/Tribe/Main.php:500
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:413
+#: src/Tribe/Main.php:484
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:418
+#: src/Tribe/Main.php:489
+#, php-format
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:419
+#: src/Tribe/Main.php:490
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:430
+#: src/Tribe/Main.php:501
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:431
-#: src/Tribe/Main.php:433
+#: src/Tribe/Main.php:502
+#: src/Tribe/Main.php:504
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:432
+#: src/Tribe/Main.php:503
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:434
+#: src/Tribe/Main.php:505
 msgid "Clear"
 msgstr ""
 
@@ -3238,7 +5508,7 @@ msgid "Our flagship free calendar"
 msgstr ""
 
 #: src/Tribe/Plugins_API.php:31
-#: src/Tribe/Plugins_API.php:91
+#: src/Tribe/Plugins_API.php:71
 msgid "The #1 calendar for WordPress"
 msgstr ""
 
@@ -3280,326 +5550,226 @@ msgid "Refine by date, location, or keyword"
 msgstr ""
 
 #: src/Tribe/Plugins_API.php:65
-msgid "Event Automator"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:70
-msgid "Automate your event workflow with Zapier—no code required!"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:71
-msgid "Connect The Events Calendar and Event Tickets with thousands of the most popular apps."
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:73
-msgid "Lead Management"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:74
-msgid "Communication Outreach"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:75
-msgid "Internal Processes"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:76
-msgid "Data Management"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:85
 msgid "Events Calendar Pro"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:90
+#: src/Tribe/Plugins_API.php:70
 msgid "Power up your calendar with Pro"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:93
+#: src/Tribe/Plugins_API.php:73
 msgid "Premium support"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:94
+#: src/Tribe/Plugins_API.php:74
 msgid "Recurring events & series"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:95
+#: src/Tribe/Plugins_API.php:75
 msgid "Additional views"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:97
+#: src/Tribe/Plugins_API.php:77
 msgid "Duplicate events"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:111
+#: src/Tribe/Plugins_API.php:91
 msgid "Manage ticketing and RSVPs"
 msgstr ""
 
+#: src/Tribe/Plugins_API.php:92
 #: src/Tribe/Plugins_API.php:112
-#: src/Tribe/Plugins_API.php:132
 msgid "Collect RSVPs and sell tickets"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:114
+#: src/Tribe/Plugins_API.php:94
 msgid "Add tickets and RSVP to any post"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:115
+#: src/Tribe/Plugins_API.php:95
 msgid "Paypal integration"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:116
+#: src/Tribe/Plugins_API.php:96
 msgid "Attendee reports"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:117
+#: src/Tribe/Plugins_API.php:97
 msgid "Customizable ticket template"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:131
+#: src/Tribe/Plugins_API.php:111
 msgid "Monetize your events"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:134
+#: src/Tribe/Plugins_API.php:114
 msgid "Custom registration fields"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:135
+#: src/Tribe/Plugins_API.php:115
 msgid "WooCommerce compatibility"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:136
+#: src/Tribe/Plugins_API.php:116
 msgid "Ticket scanning with mobile app"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:137
+#: src/Tribe/Plugins_API.php:117
 msgid "Custom attendee registration fields"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:151
+#: src/Tribe/Plugins_API.php:131
 msgid "An email marketing solution for events and the people running them"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:152
+#: src/Tribe/Plugins_API.php:132
 msgid "Email marketing to promote your events"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:154
+#: src/Tribe/Plugins_API.php:134
 msgid "Automate email touchpoints"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:155
+#: src/Tribe/Plugins_API.php:135
 msgid "Customize email templates"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:156
+#: src/Tribe/Plugins_API.php:136
 msgid "Streamline your email process"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:157
+#: src/Tribe/Plugins_API.php:137
 msgid "Segment your attendee lists"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:171
+#: src/Tribe/Plugins_API.php:151
 msgid "Help users find exactly the right event"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:172
+#: src/Tribe/Plugins_API.php:152
 msgid "Allow users to search for events by category, tag, venue, organizer, day of the week, time of day, and price."
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:174
+#: src/Tribe/Plugins_API.php:154
 msgid "Configurable set of filters"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:175
+#: src/Tribe/Plugins_API.php:155
 msgid "Horizontal or vertical"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:176
+#: src/Tribe/Plugins_API.php:156
 msgid "Filter category, price, and more"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:177
+#: src/Tribe/Plugins_API.php:157
 msgid "Filter distance (for Events Calendar Pro)"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:191
-msgid "Users submit events to your calendar"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:192
-msgid "Enable 3rd party event submissions."
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:194
-msgid "Publishing Control"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:195
-msgid "Event Submission Form"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:196
-msgid "Registered User Settings"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:197
-msgid "Email notifications"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:211
-msgid "Run your own events marketplace"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:212
-msgid "Let users create and sell tickets for events they submit to your calendar."
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:214
+#: src/Tribe/Plugins_API.php:171
 msgid "Users submit events and sell tickets"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:215
-msgid "Split commission with users"
+#: src/Tribe/Plugins_API.php:172
+msgid "Enable 3rd party event submissions."
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:216
-msgid "No admin access required"
+#: src/Tribe/Plugins_API.php:174
+msgid "Publishing Control"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:217
-msgid "Sales reporting"
+#: src/Tribe/Plugins_API.php:175
+msgid "Users Submit Events and Sell Tickets"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:219
-msgctxt "Names of required plugins for Community Tickets"
-msgid "Event Tickets Plus and Community Events"
+#: src/Tribe/Plugins_API.php:176
+msgid "Split Commission with Users"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:232
+#: src/Tribe/Plugins_API.php:177
+msgid "Registered User Settings"
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:178
+msgid "Email notifications"
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:192
 msgid "Unite the power of TEC with the ticketing of Eventbrite"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:233
+#: src/Tribe/Plugins_API.php:193
 msgid "Create Eventbrite tickets and events right from your WordPress dashboard."
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:235
+#: src/Tribe/Plugins_API.php:195
 msgid "Manage tickets from WordPress"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:236
+#: src/Tribe/Plugins_API.php:196
 msgid "Ticket availability automatically updates"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:237
+#: src/Tribe/Plugins_API.php:197
 msgid "Integrated with your events on Eventbrite"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:238
+#: src/Tribe/Plugins_API.php:198
 msgid "Automatically import your events"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:247
+#: src/Tribe/Plugins_API.php:207
 msgid "Image Widget Plus"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:252
-#: src/Tribe/Plugins_API.php:253
+#: src/Tribe/Plugins_API.php:212
+#: src/Tribe/Plugins_API.php:213
 msgid "Beautiful display options for your favorite photos."
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:255
+#: src/Tribe/Plugins_API.php:215
 msgid "Multi-Image Support"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:256
+#: src/Tribe/Plugins_API.php:216
 msgid "Lightbox"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:257
+#: src/Tribe/Plugins_API.php:217
 msgid "Slideshow"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:258
+#: src/Tribe/Plugins_API.php:218
 msgid "Random Images"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:272
-msgid "Features to optimize your calendar for virtual events."
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:273
-msgid "Highlight virtual events on you calendar and integrate with your favorite online meeting tools."
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:276
-msgid "Virtual event labels"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:277
-msgid "Status control for canceled or postponed events"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:278
-msgid "Embed livestreams and videos"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:287
-msgid "Wallet Plus"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:292
-msgid "Make it simple for your attendees to save and find their tickets."
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:293
-msgid "Allow event attendees to save their tickets to digital wallets."
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:295
-msgid "Flexible ticket formats"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:296
-msgid "Easy day-of-event management"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:297
-msgid "Email and checkout integration"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:298
-msgid "Ticket portability"
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:307
+#: src/Tribe/Plugins_API.php:227
 msgid "Event Schedule Manager"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:312
-#: src/Tribe/Plugins_API.php:313
+#: src/Tribe/Plugins_API.php:232
+#: src/Tribe/Plugins_API.php:233
 msgid "Easily create the perfect schedule for your event and display it on any post type."
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:315
+#: src/Tribe/Plugins_API.php:235
 msgid "Multiple tracks support"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:316
+#: src/Tribe/Plugins_API.php:236
 msgid "Speakers and sponsors"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:317
+#: src/Tribe/Plugins_API.php:237
 msgid "Works on any post type"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:318
+#: src/Tribe/Plugins_API.php:238
 msgid "Shortcodes and blocks"
 msgstr ""
 
 #: src/Tribe/Process/Queue.php:1024
+#, php-format
 msgid "Every %d Minutes"
 msgstr ""
 
@@ -3607,189 +5777,212 @@ msgstr ""
 msgid "Promoter Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:614
+#: src/Tribe/PUE/Checker.php:804
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:618
+#: src/Tribe/PUE/Checker.php:808
+#, php-format
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:650
-#: src/Tribe/PUE/Checker.php:684
+#: src/Tribe/PUE/Checker.php:840
+#: src/Tribe/PUE/Checker.php:874
 msgid "License Key Status:"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:659
+#: src/Tribe/PUE/Checker.php:849
 msgid "Override network license key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:660
+#: src/Tribe/PUE/Checker.php:850
 msgid "Check this box if you wish to override the network license key with your own"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:671
+#: src/Tribe/PUE/Checker.php:861
 msgid "Site License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:770
+#: src/Tribe/PUE/Checker.php:976
 msgid "License key(s) updated."
 msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1021
+#: src/Tribe/PUE/Checker.php:1240
+#, php-format
 msgid "Hmmm... something's wrong with this validator. Please contact %1$ssupport%2$s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1040
+#: src/Tribe/PUE/Checker.php:1260
 msgid "unknown date"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1046
+#: src/Tribe/PUE/Checker.php:1266
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
 #. Translators: %s is the expiration date.
-#: src/Tribe/PUE/Checker.php:1075
+#: src/Tribe/PUE/Checker.php:1295
+#, php-format
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
 #. Translators: %s is the expiration date.
-#: src/Tribe/PUE/Checker.php:1086
+#: src/Tribe/PUE/Checker.php:1306
+#, php-format
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1124
-#: src/Tribe/PUE/Notices.php:360
+#: src/Tribe/PUE/Checker.php:1344
+#: src/Tribe/PUE/Notices.php:496
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1126
-#: src/Tribe/PUE/Notices.php:362
+#: src/Tribe/PUE/Checker.php:1346
+#: src/Tribe/PUE/Notices.php:498
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1143
+#: src/Tribe/PUE/Checker.php:1363
 msgid "Please refresh the page and try your request again."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1164
+#: src/Tribe/PUE/Checker.php:1385
+#, php-format
 msgid "There is an update for %1$s. You'll need to %2$scheck your license%3$s to have access to updates, downloads, and support."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1228
+#: src/Tribe/PUE/Checker.php:1449
+#, php-format
 msgid "There is an update for %1$s. %2$sRenew your license%3$s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
 #. Translators: %s is the plugin version number.
-#: src/Tribe/PUE/Checker.php:1260
+#: src/Tribe/PUE/Checker.php:1481
+#, php-format
 msgid "Update now to version %s."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s is the update now link.
-#: src/Tribe/PUE/Checker.php:1275
+#: src/Tribe/PUE/Checker.php:1496
+#, php-format
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1891
+#: src/Tribe/PUE/Checker.php:2187
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1892
+#: src/Tribe/PUE/Checker.php:2188
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1893
+#: src/Tribe/PUE/Checker.php:2189
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Notices.php:293
+#: src/Tribe/PUE/Notices.php:429
+#, php-format
 msgid "It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s."
 msgid_plural "It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/PUE/Notices.php:347
+#: src/Tribe/PUE/Notices.php:483
+#, php-format
 msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
 msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/PUE/Notices.php:388
+#: src/Tribe/PUE/Notices.php:524
+#, php-format
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/PUE/Notices.php:430
+#: src/Tribe/PUE/Notices.php:566
+#, php-format
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
 msgstr ""
 
-#: src/Tribe/PUE/Notices.php:485
-#: src/Tribe/PUE/Notices.php:528
+#: src/Tribe/PUE/Notices.php:620
+#: src/Tribe/PUE/Notices.php:663
+#, php-format
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
 msgstr ""
 
 #: src/Tribe/PUE/Update_Prevention.php:184
+#, php-format
 msgid "Your update failed due to an incompatibility between the version (%1$s) of the %2$s you tried to update to and the version of %3$s that you are using. %4$s"
 msgstr ""
 
-#: src/Tribe/Repository.php:2576
+#: src/Tribe/Repository.php:2583
 msgid "Could not delete post with ID "
 msgstr ""
 
-#: src/Tribe/Service_Providers/Onboarding.php:111
+#: src/Tribe/Service_Providers/Onboarding.php:113
 msgid "Got it"
 msgstr ""
 
-#: src/Tribe/Settings.php:200
+#: src/Tribe/Settings.php:277
 msgid "Events"
 msgstr ""
 
 #. Translators: %s is the name of the menu item.
-#: src/Tribe/Settings.php:331
+#: src/Tribe/Settings.php:616
+#, php-format
 msgid "%s Settings"
 msgstr ""
 
-#: src/Tribe/Settings.php:375
+#: src/Tribe/Settings.php:752
 msgid "You've requested a non-existent tab."
 msgstr ""
 
-#: src/Tribe/Settings.php:383
+#: src/Tribe/Settings.php:815
 msgid "Save Changes"
 msgstr ""
 
-#: src/Tribe/Settings.php:453
+#: src/Tribe/Settings.php:864
+msgid "Skip to tab content"
+msgstr ""
+
+#: src/Tribe/Settings.php:1120
+msgid "For you, Jack!"
+msgstr ""
+
+#: src/Tribe/Settings.php:1194
 msgid "You don't have permission to do that."
 msgstr ""
 
-#: src/Tribe/Settings.php:459
+#: src/Tribe/Settings.php:1200
 msgid "The request was sent insecurely."
 msgstr ""
 
-#: src/Tribe/Settings.php:465
+#: src/Tribe/Settings.php:1206
 msgid "The request wasn't sent from this tab."
 msgstr ""
 
-#: src/Tribe/Settings.php:653
+#: src/Tribe/Settings.php:1416
 msgid "Your form had the following errors:"
 msgstr ""
 
-#: src/Tribe/Settings.php:664
+#: src/Tribe/Settings.php:1427
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Settings.php:685
+#: src/Tribe/Settings.php:1448
 msgid "Settings saved."
 msgstr ""
 
-#: src/Tribe/Settings_Tab.php:250
+#: src/Tribe/Settings_Tab.php:354
 msgid "There are no fields set up for this tab yet."
 msgstr ""
 
@@ -3833,6 +6026,7 @@ msgid "No notable changes detected"
 msgstr ""
 
 #: src/Tribe/Support/Template_Checker_Report.php:82
+#, php-format
 msgid "Templates introduced or updated with this release (%s):"
 msgstr ""
 
@@ -3845,6 +6039,7 @@ msgid "version data missing from override"
 msgstr ""
 
 #: src/Tribe/Support/Template_Checker_Report.php:97
+#, php-format
 msgid "based on %s version"
 msgstr ""
 
@@ -3878,39 +6073,48 @@ msgstr ""
 
 #: src/Tribe/Validate.php:118
 #: src/Tribe/Validate.php:132
+#, php-format
 msgid "%s must contain numbers and letters only"
 msgstr ""
 
 #: src/Tribe/Validate.php:146
+#, php-format
 msgid "%s must contain numbers, letters and dots only"
 msgstr ""
 
 #: src/Tribe/Validate.php:160
+#, php-format
 msgid "%s must contain numbers, letters, dashes and undescores only"
 msgstr ""
 
 #: src/Tribe/Validate.php:174
+#, php-format
 msgid "%s must not be empty"
 msgstr ""
 
 #: src/Tribe/Validate.php:188
 #: src/Tribe/Validate.php:212
+#, php-format
 msgid "%s must be a positive number."
 msgstr ""
 
 #: src/Tribe/Validate.php:200
+#, php-format
 msgid "%s must be a positive number or percent."
 msgstr ""
 
 #: src/Tribe/Validate.php:230
+#, php-format
 msgid "%s must be a whole number."
 msgstr ""
 
 #: src/Tribe/Validate.php:250
+#, php-format
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
 msgstr ""
 
 #: src/Tribe/Validate.php:263
+#, php-format
 msgid "%s must be a valid URL."
 msgstr ""
 
@@ -3918,42 +6122,52 @@ msgstr ""
 #: src/Tribe/Validate.php:289
 #: src/Tribe/Validate.php:302
 #: src/Tribe/Validate.php:322
+#, php-format
 msgid "%s must have a value that's part of its options."
 msgstr ""
 
 #: src/Tribe/Validate.php:334
+#, php-format
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr ""
 
 #: src/Tribe/Validate.php:341
+#, php-format
 msgid "%s cannot be the same as %s."
 msgstr ""
 
 #: src/Tribe/Validate.php:343
+#, php-format
 msgid "%s cannot be a duplicate"
 msgstr ""
 
 #: src/Tribe/Validate.php:357
+#, php-format
 msgid "%s must be a number or percentage."
 msgstr ""
 
 #: src/Tribe/Validate.php:401
+#, php-format
 msgid "%s must be a number between 0 and 21."
 msgstr ""
 
 #: src/Tribe/Validate.php:415
+#, php-format
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr ""
 
 #: src/Tribe/Validate.php:429
+#, php-format
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr ""
 
 #: src/Tribe/Validate.php:441
+#, php-format
 msgid "%s must consist of 5 numbers."
 msgstr ""
 
 #: src/Tribe/Validate.php:453
+#, php-format
 msgid "%s must be a phone number."
 msgstr ""
 
@@ -3962,15 +6176,18 @@ msgid "Country List must be formatted as one country per line in the following f
 msgstr ""
 
 #: src/Tribe/Validate.php:496
+#, php-format
 msgid "%s must be an email address."
 msgstr ""
 
 #. Translators: %s - Label of the form input field.
 #: src/Tribe/Validate.php:534
+#, php-format
 msgid "%s must be a list of valid email addresses separated by commas or semicolons."
 msgstr ""
 
 #: src/Tribe/Validate.php:552
+#, php-format
 msgid "%s must be a valid HTML color code."
 msgstr ""
 
@@ -4026,31 +6243,15 @@ msgstr ""
 msgid "Terms"
 msgstr ""
 
-#: src/views/v2/components/icons/featured.php:24
-msgid "Featured"
-msgstr ""
-
-#: src/views/v2/components/icons/hybrid.php:24
-msgid "Hybrid"
-msgstr ""
-
-#: src/views/v2/components/icons/recurring.php:25
-msgid "Recurring"
-msgstr ""
-
-#: src/views/v2/components/icons/virtual.php:24
-msgid "Virtual"
-msgstr ""
-
-#: src/modules/elements/image-upload/element.js:48
+#: src/modules/elements/image-upload/element.js:41
 msgid "remove"
 msgstr ""
 
-#: src/modules/elements/time-picker/element.js:56
-#: src/modules/elements/time-picker/element.js:149
+#: src/modules/elements/time-picker/element.js:48
+#: src/modules/elements/time-picker/element.js:136
 msgid "All Day"
 msgstr ""
 
-#: src/modules/utils/date.js:103
+#: src/modules/utils/date.js:101
 msgid "at"
 msgstr ""

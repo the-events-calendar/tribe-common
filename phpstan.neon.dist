@@ -1,0 +1,33 @@
+# Configuration for PHPStan
+# https://phpstan.org/config-reference
+
+includes:
+	# @see https://github.com/phpstan/phpstan-src/blob/master/conf/bleedingEdge.neon
+	- phar://phpstan.phar/conf/bleedingEdge.neon
+	# Include this extension
+	- vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+	parallel:
+		jobSize: 10
+		maximumNumberOfProcesses: 2
+		minimumNumberOfJobsPerProcess: 2
+	level: 5
+	inferPrivatePropertyTypeFromConstructor: true
+	reportUnmatchedIgnoredErrors: false
+	treatPhpDocTypesAsCertain: false
+
+	# Paths to be analyzed.
+	paths:
+		- %currentWorkingDirectory%/src
+
+	ignoreErrors:
+		# Uses func_get_args()
+		- '#^Function add_query_arg invoked with [123] parameters?, 0 required\.$#'
+		# Uses func_get_args()
+		- '#^Function apply_filters(_ref_array)? invoked with [34567] parameters, 2 required\.$#'
+		- '#^Constant WP_CONTENT_DIR not found\.$#'
+		- '#^Constant WP_CONTENT_URL not found\.$#'
+		- '#^Constant WPMU_PLUGIN_URL not found\.$#'
+		- '#^Constant WP_PLUGIN_DIR not found\.$#'
+		- '#^Constant WP_PLUGIN_URL not found\.$#'

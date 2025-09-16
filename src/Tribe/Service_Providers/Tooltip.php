@@ -40,27 +40,34 @@ class Tooltip extends Service_Provider {
 	 * @since 4.9.8
 	 */
 	public function add_tooltip_assets() {
-		$main = \Tribe__Main::instance();
+		$main    = \Tribe__Main::instance();
+		$helpers = \Tribe__Admin__Helpers::instance();
 
-		tribe_asset(
+		tec_asset(
 			$main,
 			'tribe-tooltip',
 			'tooltip.css',
 			[ 'tribe-common-skeleton-style' ],
-			null,
+			'admin_enqueue_scripts',
 			[
-				'groups' => 'tribe-tooltip',
+				'groups'       => 'tribe-tooltip',
+				'conditionals' => [
+					[ $helpers, 'is_screen' ],
+				],
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$main,
 			'tribe-tooltip-js',
 			'tooltip.js',
 			[ 'jquery', 'tribe-common' ],
-			null,
+			'admin_enqueue_scripts',
 			[
-				'groups' => 'tribe-tooltip'
+				'groups'       => 'tribe-tooltip',
+				'conditionals' => [
+					[ $helpers, 'is_screen' ],
+				],
 			]
 		);
 	}

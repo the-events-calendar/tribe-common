@@ -44,23 +44,24 @@ class Element_AttributesTest extends \Codeception\TestCase\WPTestCase {
 			'disabled' => false,
 			'checked'  => true,
 			'foo'      => 'bar',
-			'baz'      => 'woot'
+			'baz'      => 'woot',
+			'data-foo' => 'baz',
 		] );
 
-		$this->assertEquals( [ 'checked', 'foo="bar"', 'baz="woot"' ], $attributes->get_attributes_array() );
-		$this->assertEquals( 'checked foo="bar" baz="woot"', $attributes->get_attributes_as_string() );
-		$this->assertEquals( ' checked foo="bar" baz="woot" ', $attributes->get_attributes() );
+		$this->assertEquals( [ 'checked', 'foo="bar"', 'baz="woot"', 'data-foo="baz"' ], $attributes->get_attributes_array() );
+		$this->assertEquals( 'checked foo="bar" baz="woot" data-foo="baz"', $attributes->get_attributes_as_string() );
+		$this->assertEquals( ' checked foo="bar" baz="woot" data-foo="baz" ', $attributes->get_attributes() );
 	}
 
 	/**
 	 * Test with string arguments
 	 */
 	public function test_with_string_arguments() {
-		$attributes = new Element_Attributes( 'checked foo="bar" baz="woot"' );
+		$attributes = new Element_Attributes( 'checked foo="bar" baz="woot" data-foo="baz"' );
 
-		$this->assertEquals( [ 'checked', 'foo="bar"', 'baz="woot"' ], $attributes->get_attributes_array() );
-		$this->assertEquals( 'checked foo="bar" baz="woot"', $attributes->get_attributes_as_string() );
-		$this->assertEquals( ' checked foo="bar" baz="woot" ', $attributes->get_attributes() );
+		$this->assertEquals( [ 'checked', 'foo="bar"', 'baz="woot"', 'data-foo="baz"' ], $attributes->get_attributes_array() );
+		$this->assertEquals( 'checked foo="bar" baz="woot" data-foo="baz"', $attributes->get_attributes_as_string() );
+		$this->assertEquals( ' checked foo="bar" baz="woot" data-foo="baz" ', $attributes->get_attributes() );
 	}
 
 	/**
@@ -115,9 +116,9 @@ class Element_AttributesTest extends \Codeception\TestCase\WPTestCase {
 	 * Test __toString
 	 */
 	public function test__to_string() {
-		$attributes = new Element_Attributes( 'checked foo="bar"' );
+		$attributes = new Element_Attributes( 'checked foo="bar" data-foo="baz"' );
 
-		$this->assertEquals( ' checked foo="bar" ', '' . $attributes );
+		$this->assertEquals( ' checked foo="bar" data-foo="baz" ', '' . $attributes );
 	}
 
 	/**

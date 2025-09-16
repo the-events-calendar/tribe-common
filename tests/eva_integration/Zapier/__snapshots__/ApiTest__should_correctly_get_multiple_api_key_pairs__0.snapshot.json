@@ -1,0 +1,20 @@
+{
+    "efbe2a4f41ad592da9afe3cef24a5b358e9c6ab395e8c86e39593ab7a374815b": {
+        "consumer_id": "efbe2a4f41ad592da9afe3cef24a5b358e9c6ab395e8c86e39593ab7a374815b",
+        "consumer_secret": "f1c9b5d880695649df16689a39d574fb0802150397d9728c511c8fcc87415c29",
+        "has_pair": "true",
+        "permissions": "read",
+        "last_access": "",
+        "user_id": "1",
+        "name": "Automated Tests 1"
+    },
+    "2ed61a7fd3ec668ec3e82e00f22e0c8230d353a5": {
+        "consumer_id": "2ed61a7fd3ec668ec3e82e00f22e0c8230d353a5",
+        "consumer_secret": "e712e1a4a698214c3537016f633e06cc8fcbbd0e",
+        "has_pair": "true",
+        "permissions": "read",
+        "last_access": "2022-10-18 06:35:55",
+        "user_id": "1",
+        "name": "Automated Tests 12"
+    }
+}

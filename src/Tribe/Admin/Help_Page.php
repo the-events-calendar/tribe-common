@@ -4,6 +4,7 @@
  * Administration Help Page
  *
  * @since 4.0
+ * @deprecated 6.3.2 This class is deprecated and should no longer be used. Use \TEC\Common\Admin\Help_Hub\Hub instead.
  */
 
 // Don't load directly.
@@ -14,7 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class with a few helpers for the Administration Pages
  *
- * @since  4.0
+ * @since 4.0
+ * @deprecated 6.3.2 This class is deprecated. Use \TEC\Common\Admin\Help_Hub\Hub instead.
  */
 class Tribe__Admin__Help_Page {
 	//phpcs:ignore - legacy class naming.
@@ -24,6 +26,7 @@ class Tribe__Admin__Help_Page {
 	 * @return Tribe__Admin__Help_Page
 	 */
 	public static function instance() {
+		_deprecated_function( __METHOD__, '6.3.2', '\TEC\Common\Admin\Help_Hub\Hub' );
 		return tribe( static::class );
 	}
 
@@ -120,13 +123,13 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Register the Admin assets for the help page
 	 *
-	 * @since  4.9.12
+	 * @since 4.9.12
 	 *
 	 * @return void
 	 */
 	public function register_assets() {
 		$plugin = Tribe__Main::instance();
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-admin-help-page',
 			'admin/help-page.js',
@@ -153,10 +156,10 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Get the list of plugins
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
-	 * @param  string  $plugin_name    If we should get only one plugin.
-	 * @param  boolean $is_active If we only get active plugins.
+	 * @param string  $plugin_name    If we should get only one plugin.
+	 * @param boolean $is_active If we only get active plugins.
 	 *
 	 * @return array
 	 */
@@ -246,9 +249,9 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Get the formatted links of the possible plugins
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
-	 * @param  boolean $is_active Filter only active plugins.
+	 * @param boolean $is_active Filter only active plugins.
 	 * @return array
 	 */
 	public function get_plugin_forum_links( $is_active = true ) {
@@ -265,9 +268,9 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Get the formatted text of the possible plugins
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
-	 * @param  boolean $is_active Filter only active plugins.
+	 * @param boolean $is_active Filter only active plugins.
 	 * @return string
 	 */
 	public function get_plugins_text( $is_active = true ) {
@@ -297,11 +300,11 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Get the Addons
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
-	 * @param  string $plugin Plugin Name to filter.
-	 * @param  string $is_active Filter if it's active.
-	 * @param  string $is_important filter if the plugin is important.
+	 * @param string $plugin Plugin Name to filter.
+	 * @param string $is_active Filter if it's active.
+	 * @param string $is_important filter if the plugin is important.
 	 * @return array
 	 */
 	public function get_addons( $plugin = null, $is_active = null, $is_important = null ) {
@@ -326,7 +329,7 @@ class Tribe__Admin__Help_Page {
 
 		$addons['community-events'] = [
 			'id'        => 'community-events',
-			'title'     => esc_html__( 'Community Events', 'tribe-common' ),
+			'title'     => esc_html__( 'Community', 'tribe-common' ),
 			'link'      => 'http://evnt.is/dt',
 			'plugin'    => [ 'the-events-calendar' ],
 			'is_active' => class_exists( 'Tribe__Events__Community__Main' ),
@@ -419,9 +422,9 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Check if a Plugin is active
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
-	 * @param  string|array $should_be_active The Plugin Name or an array of Plugin Names.
+	 * @param string|array $should_be_active The Plugin Name or an array of Plugin Names.
 	 *
 	 * @return boolean
 	 */
@@ -444,10 +447,10 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * From a Given link returns it with a GA arguments
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
-	 * @param  string  $link     An absolute or a Relative link.
-	 * @param  boolean $relative Is the Link absolute or relative.
+	 * @param string  $link     An absolute or a Relative link.
+	 * @param boolean $relative Is the Link absolute or relative.
 	 * @return string            Link with the GA arguments.
 	 */
 	public function get_ga_link( $link = null, $relative = true ) {
@@ -467,7 +470,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Gets the Feed items from The Events Calendar's Blog
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @return array Feed Title and Link.
 	 */
@@ -500,9 +503,9 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Get the information from the Plugin API data
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
-	 * @param  object $plugin Plugin Object to be used.
+	 * @param object $plugin Plugin Object to be used.
 	 * @return object         An object with the API data.
 	 */
 	private function get_plugin_api_data( $plugin = null ) {
@@ -543,7 +546,7 @@ class Tribe__Admin__Help_Page {
 
 			if ( ! is_wp_error( $data ) ) {
 				// Format Downloaded Infomation.
-				$data->downloaded = $data->downloaded ? number_format( $data->downloaded ) : _x( 'n/a', 'not available', 'tribe-common' );
+				$data->downloaded = $data->downloaded ? number_format( (float) $data->downloaded ) : _x( 'n/a', 'not available', 'tribe-common' );
 			} else {
 				// If there was a bug on the Current Request just leave.
 				return false;
@@ -568,9 +571,10 @@ class Tribe__Admin__Help_Page {
 	 * It is the responsibility of code calling this function to ensure proper escaping
 	 * within any HTML.
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
-	 * @param  string|array $mixed The mixed value to create the HTML from
+	 * @param string|array $mixed The mixed value to create the HTML from.
+	 *
 	 * @return string
 	 */
 	public function get_content_html( $mixed = '' ) {
@@ -669,7 +673,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Adds a new section to the Help Page
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @param string  $id       HTML like ID.
 	 * @param string  $title    The Title of the section, doesn't allow HTML.
@@ -718,7 +722,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Add a New content Item to a Help page Section
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
 	 * @param string       $section_id Which section this content should be assigned to.
 	 * @param string|array $content    Item text or array of items, will be passed to `$this->get_content_html`.
@@ -766,7 +770,7 @@ class Tribe__Admin__Help_Page {
 	 * This method will remove any sections that are indexed at that ID on the sections array
 	 * And the sections that have a propriety of `id` equals to the given $section_id argument
 	 *
-	 * @param  string|int $section_id You can use Numeric or String indexes to search.
+	 * @param string|int $section_id You can use Numeric or String indexes to search.
 	 * @return bool|int               Returns `false` when no sections were removed and an `int` with the number of sections removed.
 	 */
 	public function remove_section( $section_id ) {
@@ -806,9 +810,9 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Based on an Array of sections it render the Help Page contents
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
-	 * @param  boolean $print    Return or Print the HTML after.
+	 * @param boolean $print    Return or Print the HTML after.
 	 * @return void|string
 	 */
 	public function get_sections( $print = true ) {
@@ -888,9 +892,9 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Prints the Plugin box for the given plugin
 	 *
-	 * @since  4.0
+	 * @since 4.0
 	 *
-	 * @param  string $plugin Plugin Name key.
+	 * @param string $plugin Plugin Name key.
 	 * @return void
 	 */
 	public function print_plugin_box( $plugin ) {
@@ -966,7 +970,7 @@ class Tribe__Admin__Help_Page {
 					<dd><?php echo esc_html__( 'WordPress ', 'tribe-common' ) . esc_html( $api_data->requires ); ?>+</dd>
 
 					<dt><?php esc_html_e( 'Active Users:', 'tribe-common' ); ?></dt>
-					<dd><?php echo esc_html( number_format( $api_data->active_installs ) ); ?>+</dd>
+					<dd><?php echo esc_html( number_format( (float) $api_data->active_installs ) ); ?>+</dd>
 
 					<dt><?php esc_html_e( 'Rating:', 'tribe-common' ); ?></dt>
 					<dd>
@@ -1110,8 +1114,6 @@ class Tribe__Admin__Help_Page {
 				'events-calendar-pro',
 				'tribe-filterbar',
 				'event-aggregator',
-				'event-automator',
-				'events-virtual',
 				'event-schedule-manager',
 			]
 		);
@@ -1206,7 +1208,6 @@ class Tribe__Admin__Help_Page {
 				'event-tickets-plus',
 				'tribe-eventbrite',
 				'promoter',
-				'event-tickets-wallet-plus',
 			]
 		);
 	}
@@ -1236,13 +1237,13 @@ class Tribe__Admin__Help_Page {
 				],
 				[
 					'title'        => __( 'Hide Others’ Organizers and Venues', 'tribe-common' ),
-					'description'  => __( 'This extension allows you to hide the Organizers and Venues that a visitor has not created from the Community Events submission form.', 'tribe-common' ),
+					'description'  => __( 'This extension allows you to hide the Organizers and Venues that a visitor has not created from the Community submission form.', 'tribe-common' ),
 					'link'         => 'https://evnt.is/1aro',
 					'product-slug' => 'community-events',
 				],
 				[
 					'title'        => __( 'Display Custom HTML', 'tribe-common' ),
-					'description'  => __( 'This extension allows you to add custom HTML content to the top of the Community Events submission form.', 'tribe-common' ),
+					'description'  => __( 'This extension allows you to add custom HTML content to the top of the Community submission form.', 'tribe-common' ),
 					'link'         => 'https://evnt.is/1arp',
 					'product-slug' => 'community-events',
 				],
@@ -1262,7 +1263,6 @@ class Tribe__Admin__Help_Page {
 			'tec_help_ticketing_products',
 			[
 				'events-community',
-				'events-community-tickets',
 			]
 		);
 	}

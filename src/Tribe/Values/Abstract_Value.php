@@ -419,8 +419,8 @@ abstract class Abstract_Value implements Value_Interface {
 	 *
 	 * @since 4.14.9
 	 *
-	 * @param $separator string a separator token, like . or ,
-	 * @param $value     string a number formatted as a string
+	 * @param string $separator A separator token, like . or ,
+	 * @param string $value     A number formatted as a string
 	 *
 	 * @return bool
 	 */
@@ -444,12 +444,13 @@ abstract class Abstract_Value implements Value_Interface {
 	 * Tests if a string is composed entirely of non-digit characters
 	 *
 	 * @since 4.14.9
+	 * @since 6.4.1 Cast $block to string to avoid PHP 8.0 deprecation notice.
 	 *
 	 * @param string $block the string to check
 	 *
 	 * @return bool
 	 */
 	private function is_character_block( $block ) {
-		return empty( preg_replace( '/\D/', '', $block ) );
+		return empty( preg_replace( '/\D/', '', (string) $block ) );
 	}
 }

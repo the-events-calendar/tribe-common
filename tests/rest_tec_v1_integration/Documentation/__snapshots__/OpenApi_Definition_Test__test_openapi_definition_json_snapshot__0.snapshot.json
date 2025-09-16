@@ -1,0 +1,76 @@
+{
+    "type": "object",
+    "properties": {
+        "openapi": {
+            "type": "string",
+            "description": "The OpenAPI version."
+        },
+        "info": {
+            "type": "object",
+            "description": "The API info.",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "The API title."
+                },
+                "version": {
+                    "type": "string",
+                    "description": "The TEC REST API version."
+                },
+                "description": {
+                    "type": "string",
+                    "description": "The API description."
+                },
+                "contact": {
+                    "type": "object",
+                    "description": "The API contact.",
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "description": "The name of the contact."
+                        },
+                        "email": {
+                            "type": "string",
+                            "description": "The email of the contact.",
+                            "format": "email"
+                        }
+                    }
+                }
+            }
+        },
+        "components": {
+            "type": "object",
+            "description": "The OpenAPI components.",
+            "properties": {
+                "schemas": {
+                    "type": "object",
+                    "description": "The OpenAPI schemas."
+                }
+            }
+        },
+        "servers": {
+            "type": "array",
+            "description": "The OpenAPI servers.",
+            "items": {
+                "type": "object",
+                "description": "A server.",
+                "properties": {
+                    "url": {
+                        "type": "string",
+                        "description": "The server URL.",
+                        "format": "uri"
+                    }
+                }
+            }
+        },
+        "paths": {
+            "type": "object",
+            "description": "The OpenAPI paths.",
+            "properties": {
+                "OpenApiPath": {
+                    "$ref": "#/components/schemas/OpenApiPath"
+                }
+            }
+        }
+    }
+}

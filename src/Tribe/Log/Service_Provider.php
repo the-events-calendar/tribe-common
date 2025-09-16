@@ -97,7 +97,7 @@ class Service_Provider extends Provider_Contract {
 		 *
 		 * @param int  The threshold level; if the level of a message is this level or above, then it will be logged.
 		 *
-		 * @see   \Monolog\Logger for possible levels.
+		 * @see   \TEC\Common\Monolog\Logger for possible levels.
 		 */
 		$level_threshold = apply_filters( 'tribe_log_level', $level_threshold );
 
@@ -150,9 +150,13 @@ class Service_Provider extends Provider_Contract {
 	 * @param string     $message The message to log.
 	 * @param array      $context An array of values to define the context.
 	 *
-	 * @see   \Monolog\Logger for the log level constants and names.
+	 * @see   \TEC\Common\Monolog\Logger for the log level constants and names.
 	 */
 	public function dispatch_log( $level = 'debug', $message = '', array $context = [] ) {
+		if ( ! did_action( 'tribe_common_loaded' ) ) {
+			return;
+		}
+
 		// Goes from something like `debug` to `100`.
 		$level = is_numeric( $level ) ? $level : Logger::toMonologLevel( $level );
 

@@ -9,12 +9,4 @@ import * as icons from './icons';
 import * as store from './store';
 import * as utils from './utils';
 
-export {
-	components,
-	data,
-	elements,
-	hoc,
-	icons,
-	store,
-	utils,
-};
+export { components, data, elements, hoc, icons, store, utils };

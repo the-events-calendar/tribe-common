@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { identity } from 'lodash';
-import * as chrono from 'chrono-node';
+import { parse } from 'chrono-node';
 
 /**
  * Wordpress dependencies
@@ -12,10 +12,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import {
-	moment as momentUtil,
-	timezone as timezoneUtil,
-} from '@moderntribe/common/utils';
+import { moment as momentUtil, timezone as timezoneUtil } from '@moderntribe/common/utils';
 import { dateSettings } from '@moderntribe/common/utils/globals';
 
 const formats = dateSettings() && dateSettings().formats ? dateSettings().formats : {};
@@ -46,7 +43,8 @@ export const FORMATS = {
 export const TODAY = new Date();
 
 export const timezones = () => {
-	return timezoneUtil.getItems()
+	return timezoneUtil
+		.getItems()
 		.map( ( group ) => group.options || [] )
 		.reduce( ( prev, current ) => [ ...prev, ...current ], [] );
 };
@@ -137,7 +135,7 @@ export const rangeToNaturalLanguage = ( start = '', end = '', separators = {} ) 
 };
 
 export const labelToDate = ( label ) => {
-	const [ parsed ] = chrono.parse( label );
+	const [ parsed ] = parse( label );
 	const dates = {
 		start: null,
 		end: null,

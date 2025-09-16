@@ -3,6 +3,7 @@
 namespace Tribe\functions;
 
 use PHPUnit\Framework\AssertionFailedError;
+use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 
 class Test_Class_With_Instance_Fetch_Method {
 	public static function get_instance() {
@@ -11,6 +12,9 @@ class Test_Class_With_Instance_Fetch_Method {
 }
 
 class utilsTest extends \Codeception\TestCase\WPTestCase {
+
+	use SnapshotAssertions;
+
 	public function urls() {
 		return [
 			[ 'http://some.dev', 'foo', 'http://some.dev/foo/' ],
@@ -506,6 +510,33 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 				3
 			)
 		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_print_copy_to_clipboard_button() {
+		$allButtons = ''; // Initialize a variable to collect all buttons' HTML outputs
+
+		for ( $i = 1; $i < 6; $i += 2 ) {
+			ob_start();
+			$target1 = tec_copy_to_clipboard_button( 'Copy me!' );
+			$button1 = ob_get_clean();
+
+			$this->assertEquals( 'tec-copy-text-target-' . $i, $target1 );
+
+			ob_start();
+			$target2 = tec_copy_to_clipboard_button( 'Copy me!', false );
+			$button2 = ob_get_clean();
+
+			$this->assertEquals( 'tec-copy-text-target-' . ( $i + 1 ), $target2 );
+
+			// Collect the outputs of both buttons
+			$allButtons .= $button1 . "\n" . $button2 . "\n";
+		}
+
+		// Perform a single snapshot assertion after the loop or the 2nd snapshot will overwrite the 1st.
+		$this->assertMatchesHtmlSnapshot( $allButtons );
 	}
 
 	public function tec_sanitize_string_data_set() {

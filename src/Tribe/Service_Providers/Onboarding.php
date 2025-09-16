@@ -3,6 +3,7 @@ namespace Tribe\Service_Providers;
 
 use \Tribe\Onboarding\Main as Onboarding_Main;
 use TEC\Common\Contracts\Service_Provider;
+use TEC\Common\Asset;
 
 /**
  * Class Onboarding
@@ -57,31 +58,32 @@ class Onboarding extends Service_Provider {
 	public function register_assets() {
 		$main = \Tribe__Main::instance();
 
-		tribe_asset(
-			$main,
+		Asset::add(
 			'tec-intro-js',
-			'node_modules/intro.js/intro.js',
-			[],
-			[ 'admin_enqueue_scripts' ],
-			[
-				'groups'       => self::$group_key,
-				'conditionals' => [ $this, 'should_enqueue_assets' ],
-			]
-		);
+			'vendor/intro.js',
+			\Tribe__Main::VERSION
+		)
+		->add_to_group( self::$group_key )
+		->set_condition( [ $this, 'should_enqueue_assets' ] )
+		->enqueue_on( 'admin_enqueue_scripts' )
+		->prefix_asset_directory( false )
+		->use_asset_file( false )
+		->register();
 
-		tribe_asset(
-			$main,
+		Asset::add(
 			'tec-intro-styles',
-			'node_modules/intro.js/introjs.css',
-			[],
-			[ 'admin_enqueue_scripts' ],
-			[
-				'groups'       => self::$group_key,
-				'conditionals' => [ $this, 'should_enqueue_assets' ],
-			]
-		);
+			'vendor/intro.css',
+			\Tribe__Main::VERSION
+		)
+		->add_to_group( self::$group_key )
+		->set_condition( [ $this, 'should_enqueue_assets' ] )
+		->enqueue_on( 'admin_enqueue_scripts' )
+		->prefix_asset_directory( false )
+		->use_asset_file( false )
+		->register();
 
-		tribe_asset(
+
+		tec_asset(
 			$main,
 			'tec-onboarding-styles',
 			'onboarding.css',
@@ -93,7 +95,7 @@ class Onboarding extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$main,
 			'tec-onboarding-js',
 			'onboarding.js',

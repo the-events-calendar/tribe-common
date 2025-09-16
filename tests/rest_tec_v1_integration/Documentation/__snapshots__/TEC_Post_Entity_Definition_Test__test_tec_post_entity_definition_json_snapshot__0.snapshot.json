@@ -1,0 +1,211 @@
+{
+    "type": "object",
+    "title": "TEC Post Entity",
+    "description": "A TEC post object as returned by the REST API",
+    "properties": {
+        "date": {
+            "description": "The date the entity was published, in the site's timezone. In RFC3339 format.",
+            "nullable": true,
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}[Tt ]\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}(?::\\d{2})?)?$",
+            "example": "2025-06-04T23:36:56+01:00"
+        },
+        "date_gmt": {
+            "description": "The date the entity was published, as GMT. In RFC3339 format.",
+            "nullable": true,
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}[Tt ]\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}(?::\\d{2})?)?$",
+            "example": "2025-06-04T22:36:56Z"
+        },
+        "guid": {
+            "description": "The globally unique identifier for the entity.",
+            "nullable": true,
+            "readOnly": true,
+            "type": "object",
+            "properties": {
+                "rendered": {
+                    "description": "The globally unique identifier for the entity.",
+                    "type": "string",
+                    "format": "uri",
+                    "example": "https://example.com/?p=12345"
+                }
+            }
+        },
+        "id": {
+            "description": "Unique identifier for the entity.",
+            "readOnly": true,
+            "type": "integer",
+            "example": 12345
+        },
+        "link": {
+            "description": "URL to the entity.",
+            "readOnly": true,
+            "type": "string",
+            "format": "uri",
+            "example": "https://example.com/my-awesome-event"
+        },
+        "modified": {
+            "description": "The date the entity was last modified, in the site's timezone. In RFC3339 format.",
+            "readOnly": true,
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}[Tt ]\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}(?::\\d{2})?)?$",
+            "example": "2025-06-05T19:06:56-03:30"
+        },
+        "modified_gmt": {
+            "description": "The date the entity was last modified, as GMT. In RFC3339 format.",
+            "readOnly": true,
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}[Tt ]\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}(?::\\d{2})?)?$",
+            "example": "2025-06-05T22:36:56Z"
+        },
+        "slug": {
+            "description": "An alphanumeric identifier for the entity unique to its type",
+            "type": "string",
+            "example": "my-awesome-event"
+        },
+        "status": {
+            "description": "A named status for the entity.",
+            "type": "string",
+            "default": "publish",
+            "enum": [
+                "publish",
+                "pending",
+                "draft",
+                "future",
+                "private"
+            ],
+            "example": "publish"
+        },
+        "permalink_template": {
+            "description": "Permalink template for the entity.",
+            "readOnly": true,
+            "type": "string",
+            "example": "https://example.com/sample-event/"
+        },
+        "generated_slug": {
+            "description": "Slug automatically generated from the entity title",
+            "readOnly": true,
+            "type": "string",
+            "example": "my-awesome-event"
+        },
+        "title": {
+            "description": "The globally unique identifier for the entity.",
+            "type": "object",
+            "properties": {
+                "rendered": {
+                    "description": "HTML title for the entity, transformed for display",
+                    "type": "string",
+                    "example": "My Awesome Event"
+                }
+            }
+        },
+        "content": {
+            "description": "The content for the entity.",
+            "type": "object",
+            "properties": {
+                "rendered": {
+                    "description": "HTML content for the entity, transformed for display",
+                    "type": "string",
+                    "example": "<p>This is the content of my event...</p>"
+                },
+                "protected": {
+                    "description": "Whether the content is protected with a password",
+                    "type": "boolean",
+                    "example": false
+                }
+            }
+        },
+        "excerpt": {
+            "description": "The excerpt for the entity.",
+            "type": "object",
+            "properties": {
+                "rendered": {
+                    "description": "HTML excerpt for the entity, transformed for display",
+                    "type": "string",
+                    "example": "<p>This is the excerpt...</p>"
+                },
+                "protected": {
+                    "description": "Whether the excerpt is protected with a password",
+                    "type": "boolean",
+                    "example": false
+                }
+            }
+        },
+        "author": {
+            "description": "The ID for the author of the entity.",
+            "type": "integer",
+            "example": 1
+        },
+        "featured_media": {
+            "description": "The ID of the featured media for the entity.",
+            "type": "integer",
+            "example": 123
+        },
+        "comment_status": {
+            "description": "Whether or not comments are open on the entity.",
+            "type": "string",
+            "default": "open",
+            "enum": [
+                "open",
+                "closed"
+            ],
+            "example": "open"
+        },
+        "ping_status": {
+            "description": "Whether or not the entity can be pinged",
+            "type": "string",
+            "default": "open",
+            "enum": [
+                "open",
+                "closed"
+            ],
+            "example": "open"
+        },
+        "format": {
+            "description": "The format for the entity.",
+            "type": "string",
+            "default": "standard",
+            "enum": [
+                "standard",
+                "aside",
+                "chat",
+                "gallery",
+                "link",
+                "image",
+                "quote",
+                "status",
+                "video",
+                "audio"
+            ],
+            "example": "standard"
+        },
+        "sticky": {
+            "description": "Whether or not the entity should be treated as sticky",
+            "type": "boolean",
+            "default": false,
+            "example": false
+        },
+        "template": {
+            "description": "The theme file to use to display the entity.",
+            "type": "string",
+            "example": "templates-full.php"
+        },
+        "tags": {
+            "description": "The terms assigned to the entity in the post_tag taxonomy",
+            "type": "array",
+            "items": {
+                "type": "integer"
+            },
+            "uniqueItems": true,
+            "example": [
+                2,
+                8,
+                15
+            ]
+        }
+    }
+}

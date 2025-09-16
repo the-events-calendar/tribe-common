@@ -1,6 +1,5 @@
 <?php
-
-namespace Tribe\Tests\Helper;
+namespace Helper;
 
 use Codeception\Module\WPDb;
 

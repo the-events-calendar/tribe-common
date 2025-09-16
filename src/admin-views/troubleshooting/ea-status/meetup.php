@@ -3,7 +3,6 @@
  * View: Troubleshooting - EA Status Table Meetup Section
  *
  * @since 4.14.2
- *
  */
 
 $icon    = 'success';
@@ -15,7 +14,7 @@ if ( tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'mee
 		$icon            = 'warning';
 		$message         = __( 'You have not connected Event Aggregator to Meetup', 'tribe-common' );
 		$meetup_auth_url = Tribe__Events__Aggregator__Record__Meetup::get_auth_url( [ 'back' => 'settings' ] );
-		$notes           = '<a href="' . esc_url( $meetup_auth_url ). '">' . esc_html_x( 'Connect to Meetup', 'link for connecting meetup', 'tribe-common' ) . '</a>';
+		$notes           = '<a href="' . esc_url( $meetup_auth_url ) . '">' . esc_html_x( 'Connect to Meetup', 'link for connecting meetup', 'tribe-common' ) . '</a>';
 	}
 } else {
 	$icon    = 'warning';
@@ -35,5 +34,5 @@ if ( tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'mee
 		/>
 		<?php echo esc_html( $message ); ?>
 	</td>
-	<td><?php echo $notes;  // Escaping handled above. ?></td>
+	<td><?php echo $notes; // phpcs:ignore WordPress.Security.EscapeOutput,StellarWP.XSS.EscapeOutput ?></td>
 </tr>

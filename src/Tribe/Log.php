@@ -296,7 +296,7 @@ class Tribe__Log {
 	 * Attempts to return the requested logging object or null if that
 	 * is not possible.
 	 *
-	 * @param $class_name
+	 * @param string $class_name The class name to get the engine for.
 	 *
 	 * @return Tribe__Log__Logger|null
 	 */

@@ -5,7 +5,7 @@
  * The reason for this class existence is to allow method chaining to happen without errors and to return a consistent
  * model type from methods.
  *
- * @since   4.9.18
+ * @since 4.9.18
  *
  * @package Tribe\Models\Post_Types
  */
@@ -15,7 +15,7 @@ namespace Tribe\Models\Post_Types;
 /**
  * Class Nothing
  *
- * @since   4.9.18
+ * @since 4.9.18
  *
  * @package Tribe\Models\Post_Types
  */

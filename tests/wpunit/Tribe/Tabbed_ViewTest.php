@@ -4,9 +4,10 @@ namespace Tribe;
 
 require_once codecept_data_dir( 'classes/Tab_Extension.php' );
 
+use Codeception\TestCase\WPTestCase;
 use Tribe__Tabbed_View as Tabbed_View;
 
-class Tabbed_ViewTest extends \Codeception\TestCase\WPTestCase {
+class Tabbed_ViewTest extends WPTestCase {
 
 	public function setUp() {
 		// before

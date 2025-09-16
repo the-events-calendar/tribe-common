@@ -9,14 +9,14 @@
  */
 class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 	/**
-	 * Currently installed version of the plugin
+	 * Currently installed version of the plugin.
 	 *
 	 * @var string
 	 */
 	protected $current_version = '';
 
 	/**
-	 * The plugin path as it is within the plugins directory, ie
+	 * The plugin path as it is within the plugins directory, i.e.
 	 * "some-plugin/main-file.php".
 	 *
 	 * @var string
@@ -39,8 +39,8 @@ class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 	 * are any upgrade notices worth displaying. If not provided, an object of the
 	 * default type will be created (which connects to WP SVN).
 	 *
-	 * @param string $current_version
-	 * @param string $plugin_path (ie "plugin-dir/main-file.php")
+	 * @param string $current_version The current version of the plugin.
+	 * @param string $plugin_path     The plugin path as it is within the plugins directory, i.e. "plugin-dir/main-file.php".
 	 */
 	public function __construct( $current_version, $plugin_path ) {
 		$this->current_version = $current_version;
@@ -165,8 +165,7 @@ class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 	 * Given a standard Markdown-format WP readme.txt file, finds the first upgrade
 	 * notice (if any) for a version higher than $this->current_version.
 	 *
-	 * @param  string $readme
-	 * @return string
+	 * @param string $readme The readme.txt file content.
 	 */
 	protected function parse_for_upgrade_notice( $readme ) {
 		$in_upgrade_notice = false;
@@ -174,22 +173,22 @@ class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 		$readme_lines      = explode( "\n", $readme );
 
 		foreach ( $readme_lines as $line ) {
-			// Once we leave the Upgrade Notice section (ie, we encounter a new section header), bail
+			// Once we leave the Upgrade Notice section (ie, we encounter a new section header), bail.
 			if ( $in_upgrade_notice && 0 === strpos( $line, '==' ) ) {
 				break;
 			}
 
-			// Look out for the start of the Upgrade Notice section
+			// Look out for the start of the Upgrade Notice section.
 			if ( ! $in_upgrade_notice && preg_match( '/^==\s*Upgrade\s+Notice\s*==/i', $line ) ) {
 				$in_upgrade_notice = true;
 			}
 
-			// Also test to see if we have left the version specific note (ie, we encounter a new sub heading or header)
+			// Also test to see if we have left the version specific note (ie, we encounter a new sub heading or header).
 			if ( $in_upgrade_notice && $in_version_notice && 0 === strpos( $line, '=' ) ) {
 				break;
 			}
 
-			// Look out for the first applicable version-specific note within the Upgrade Notice section
+			// Look out for the first applicable version-specific note within the Upgrade Notice section.
 			if ( $in_upgrade_notice && ! $in_version_notice && preg_match( '/^=\s*\[?([0-9\.]{3,})\]?\s*=/', $line, $matches ) ) {
 				// Is this a higher version than currently installed?
 				if ( version_compare( $matches[1], $this->current_version, '>' ) ) {
@@ -197,31 +196,35 @@ class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 				}
 			}
 
-			// Copy the details of the upgrade notice for the first higher version we find
+			// Copy the details of the upgrade notice for the first higher version we find.
 			if ( $in_upgrade_notice && $in_version_notice ) {
 				$this->upgrade_notice .= $line . "\n";
 			}
 		}
 	}
 
+	//phpcs:disable Squiz.PHP.CommentedOutCode.Found
+
 	/**
 	 * Convert the plugin version header and any links from Markdown to HTML.
 	 */
 	protected function format_upgrade_notice() {
-		// Convert [links](http://...) to <a href="..."> tags
+		// Convert markdown [link](http://...) to HTML <a href="..."> tags.
 		$this->upgrade_notice = preg_replace(
 			'/\[([^\]]*)\]\(([^\)]*)\)/',
 			'<a href="${2}">${1}</a>',
 			$this->upgrade_notice
 		);
 
-		// Convert =4.0= headings to <h4 class="version">4.0</h4> tags
+		// Convert markdown =4.0= headings to HTML <h4 class="version">4.0</h4> tags.
 		$this->upgrade_notice = preg_replace(
 			'/=\s*([a-zA-Z0-9\.]{3,})\s*=/',
 			'<h4 class="version">${1}</h4>',
 			$this->upgrade_notice
 		);
 	}
+
+	//phpcs:enable Squiz.PHP.CommentedOutCode.Found
 
 	/**
 	 * Render the actual upgrade notice.

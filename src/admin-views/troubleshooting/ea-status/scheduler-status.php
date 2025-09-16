@@ -3,7 +3,6 @@
  * View: Troubleshooting - EA Status Table Scheduler Status Section
  *
  * @since 4.14.2
- *
  */
 
 $icon  = 'success';
@@ -29,5 +28,5 @@ if ( defined( 'DISABLE_WP_CRON' ) && true === DISABLE_WP_CRON ) {
 		/>
 		<?php echo esc_html( $message ); ?>
 	</td>
-	<td><?php echo $notes;  // Escaping handled above. ?></td>
+	<td><?php echo $notes; // phpcs:ignore WordPress.Security.EscapeOutput,StellarWP.XSS.EscapeOutput ?></td>
 </tr>

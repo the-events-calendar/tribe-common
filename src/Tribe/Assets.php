@@ -355,8 +355,14 @@ class Tribe__Assets {
 		// Work out the root path from the origin.
 		$root_path = trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
-		// Follow symlinks.
-		$root_path = str_replace( trailingslashit( dirname( dirname( dirname( dirname( __DIR__ ) ) ) ) ), trailingslashit( WP_PLUGIN_DIR ), $root_path );
+		/**
+		 * Filter to change the root path of the asset.
+		 *
+		 * @since 6.9.2
+		 *
+		 * @param array{root: string} $group_path_data The group path data.
+		 */
+		$root_path = apply_filters( 'tec_common_group_path', [ 'root' => $root_path ] )['root'];
 
 		// Fetches the version on the Origin Version constant if not passed.
 		$version = $arguments['version'] ?? constant( $origin_name . '::VERSION' );
@@ -446,6 +452,10 @@ class Tribe__Assets {
 			}
 		}
 
+		if ( isset( $arguments['group_path'] ) && is_string( $arguments['group_path'] ) ) {
+			$asset->add_to_group_path( $arguments['group_path'] );
+		}
+
 		if ( isset( $arguments['print_before'] ) ) {
 			$asset->print_before( $arguments['print_before'] );
 		}
@@ -525,7 +535,7 @@ class Tribe__Assets {
 	 *
 	 * @since 4.9.12
 	 *
-	 * @param  stdClass $asset Argument that set that asset.
+	 * @param stdClass $asset Argument that set that asset.
 	 *
 	 * @return stdClass
 	 *
@@ -542,7 +552,7 @@ class Tribe__Assets {
 	 * @since 4.3
 	 * @since 5.3.0 Refactored to use the stellarwp/assets library.
 	 *
-	 * @param  string $slug Slug of the Asset.
+	 * @param string $slug Slug of the Asset.
 	 *
 	 * @return bool
 	 */
@@ -570,7 +580,7 @@ class Tribe__Assets {
 	/**
 	 * Checks if an Asset exists.
 	 *
-	 * @param  string|array $slug Slug of the Asset.
+	 * @param string|array $slug Slug of the Asset.
 	 *
 	 * @since 5.3.0 Refactored to use the stellarwp/assets library.
 	 *

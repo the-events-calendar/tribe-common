@@ -20,6 +20,7 @@
 	}
 
 	&.tribe-field-color {
+
 		.wp-color-result.button {
 			align-items: stretch;
 			border-radius: var(--tec-border-radius-default);
@@ -51,12 +52,12 @@
 		width: 36px;
 		z-index: 10;
 
-		&:after,
-		&:before {
+		&::after,
+		&::before {
 			content: "";
 		}
 
-		&:before {
+		&::before {
 			background: #fff;
 			border-radius: 50%;
 			display: block;
@@ -80,7 +81,7 @@
 			background: #2271b1;
 		}
 
-		&:checked + .tec-admin__settings-toggle-field-span:before {
+		&:checked + .tec-admin__settings-toggle-field-span::before {
 			left: 21px;
 		}
 	}

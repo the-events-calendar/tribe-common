@@ -7,6 +7,13 @@ use Tribe\Utils\Theme_Compatibility;
 
 class Theme_CompatibilityTest extends WPTestCase {
 
+	/**
+	 * @before
+	 */
+	public function set_up() {
+		switch_theme( 'twentytwenty' );
+	}
+
 	public function themes_supported_data_set() {
 		return [
 			'avada_is_supported' => [ 'avada' ],

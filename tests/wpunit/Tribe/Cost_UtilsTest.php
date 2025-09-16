@@ -2,6 +2,7 @@
 
 namespace Tribe;
 
+use Exception;
 use Tribe__Cost_Utils as Cost_Utils;
 
 class Cost_UtilsTest extends \Codeception\TestCase\WPTestCase {
@@ -112,7 +113,7 @@ class Cost_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	public function test_maybe_format_with_currency( $post_id, $cost, $position, $symbol, $expected ) {
 		$sut = $this->make_instance();
 
-		$this->assertEquals( $expected, $sut->maybe_format_with_currency( $cost, $post_id, $symbol, $position ) );
+		$this->assertEquals( $expected, html_entity_decode( $sut->maybe_format_with_currency( $cost, $post_id, $symbol, $position ) ) );
 	}
 
 	public function parse_separators_data_set() {

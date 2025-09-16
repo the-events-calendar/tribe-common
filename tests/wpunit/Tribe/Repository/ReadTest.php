@@ -1224,4 +1224,36 @@ class ReadTest extends ReadTestBase {
 		$this->assertEquals( $book_2, $this->repository()->order_by( 'title', 'ASC' )->offset( 1 )->first_id() );
 		$this->assertNull( $this->repository()->where( 'title', 'Domesticated insects and their history' )->first_id() );
 	}
+
+	/**
+	 * It should use predictable order types when order passed via by_args.
+	 *
+	 * @test
+	 */
+	public function it_should_use_predictable_order_types_when_order_passed_via_by_args(): void {
+		$book_1 = static::factory()->post->create( [
+			'post_title' => 'All about bees',
+			'post_type'  => 'book'
+		] );
+		$book_2 = static::factory()->post->create( [
+			'post_title' => 'Bees, a field guide',
+			'post_type'  => 'book'
+		] );
+		$book_3 = static::factory()->post->create( [
+			'post_title' => 'Crawling out of the hive, a bee\'s story',
+			'post_type'  => 'book'
+		] );
+
+		$repo = $this->repository()->by_args( ['orderby' => 'title', 'order' => 'ASC'] );
+		$this->assertEquals( 'ASC', $repo->get_query()->query_vars['order'] );
+		$this->assertEquals( $book_1, $repo->first_id() );
+
+		$repo = $this->repository()->by_args( ['orderby' => 'title', 'order' => 'DESC'] );
+		$this->assertEquals( 'DESC', $repo->get_query()->query_vars['order'] );
+		$this->assertEquals( $book_3, $repo->first_id() );
+
+		$repo = $this->repository()->by_args( ['orderby' => 'title', 'order' => 'bork bork bork'] );
+		$this->assertEquals( 'ASC', $repo->get_query()->query_vars['order'] );
+		$this->assertEquals( $book_1, $repo->first_id() );
+	}
 }

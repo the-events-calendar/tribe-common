@@ -112,7 +112,7 @@ abstract class Date_Based {
 		'events_page_tribe-app-shop', // App shop.
 		'toplevel_page_tec-events', // New Events Welcome.
 		'tribe_events_page_tec-events-settings', // New Events Settings.
-		'tribe_events_page_tec-events-help', // New Events Help.
+		'tribe_events_page_tec-events-help-hub', // New Events Help.
 		'tribe_events_page_tec-troubleshooting', // New Events Troubleshooting.
 		'tickets_page_tec-tickets-settings', // New Tickets Settings.
 		'toplevel_page_tec-tickets', // New Tickets Welcome.

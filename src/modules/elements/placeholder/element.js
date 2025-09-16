@@ -11,9 +11,7 @@ import classNames from 'classnames';
 import './style.pcss';
 
 const Placeholder = ( { children, className } ) => (
-	<div className={ classNames( 'tribe-editor__placeholder', className ) }>
-		{ children }
-	</div>
+	<div className={ classNames( 'tribe-editor__placeholder', className ) }>{ children }</div>
 );
 
 Placeholder.propTypes = {

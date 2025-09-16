@@ -39,7 +39,7 @@ class Tribe__Admin__Live_Date_Preview {
 	 */
 	public function listen() {
 		// We are only interested in the "Display" tab
-		if ( 'display' !== Tribe__Settings::instance()->currentTab ) {
+		if ( 'display-date-time-tab' !== tribe( 'settings' )->get_current_tab() ) {
 			return;
 		}
 
@@ -53,7 +53,7 @@ class Tribe__Admin__Live_Date_Preview {
 		add_filter( 'tribe_field_div_end', [ $this, 'setup_date_previews' ], 10, 2 );
 
 		// We are still before `admin_enqueue_scripts` making it safe to use `tribe_asset`
-		tribe_asset( Tribe__Main::instance(), 'tribe-date-live-refresh', 'admin-date-preview.js', [ 'jquery' ], 'admin_enqueue_scripts' );
+		tec_asset( Tribe__Main::instance(), 'tribe-date-live-refresh', 'admin-date-preview.js', [ 'jquery' ], 'admin_enqueue_scripts' );
 	}
 
 	public function setup_date_previews( $html, $field ) {

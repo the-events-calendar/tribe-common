@@ -40,7 +40,7 @@ class Tooltip extends PureComponent {
 		const { disabled, label, labelClassName, position, text } = this.props;
 
 		return (
-			<WpTooltip text={ text } position={ position }>
+			<WpTooltip text={ text } placement={ position }>
 				<Button
 					aria-label={ text }
 					className={ classNames( 'tribe-editor__tooltip-label', labelClassName ) }

@@ -1,4 +1,5 @@
 .tribe-common {
+
 	/* -----------------------------------------------------------------------------
 	 *
 	 * Form Control: Toggles
@@ -35,6 +36,7 @@
 	}
 
 	.tribe-common-form-control-toggle__input {
+
 		@mixin form-control-slider-toggle-track;
 
 		appearance: none;
@@ -45,10 +47,11 @@
 			display: none;
 		}
 
-		+ label:before {
+		+ label::before {
+
 			@mixin form-control-slider-toggle-thumb;
 
-			content: '';
+			content: "";
 			left: 0;
 			position: absolute;
 			top: 0;
@@ -58,13 +61,14 @@
 		&:checked {
 			background-color: var(--tec-form-color-accent-primary);
 
-			+ label:before {
+			+ label::before {
 				transform: translateX(20px);
 			}
 		}
 	}
 
 	.tribe-common-form-control-toggle__label {
+
 		@mixin desktop-body-3;
 
 		color: var(--tec-color-text-secondary);
@@ -99,7 +103,7 @@
 			top: 0;
 		}
 
-		.tribe-common-form-control-toggle__input:checked:before {
+		.tribe-common-form-control-toggle__input:checked::before {
 			content: none;
 		}
 	}
@@ -110,7 +114,7 @@
 
 	.tribe-theme-twentytwentyone & {
 
-		.tribe-common-form-control-toggle__input:after {
+		.tribe-common-form-control-toggle__input::after {
 			display: none; /* Prevents theme adding a check mark to the toggle */
 		}
 	}

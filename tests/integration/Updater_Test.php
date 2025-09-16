@@ -15,7 +15,7 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_update_required() {
 		$current_version = Tribe__Main::VERSION;
-		$updater         = new Tribe__Updater( $current_version );
+		$updater         = tribe( 'updater' );
 
 		// set the existing version to be "old"
 		$updater->update_version_option( '3.12' );
@@ -35,10 +35,10 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 	 * @since 4.9.4
 	 */
 	public function test_get_version_from_db() {
-		$version_from_settings_manager = Tribe__Settings_Manager::get_option( 'schema-version' );
+		$version_from_settings_manager = Tribe__Settings_Manager::get_option( 'tec-schema-version' );
 
 		$current_version      = Tribe__Main::VERSION;
-		$updater              = new Tribe__Updater( $current_version );
+		$updater              = tribe( 'updater' );
 		$version_from_updater = $updater->get_version_from_db();
 
 		$this->assertEquals( $version_from_updater, $version_from_settings_manager, 'checking that the version from Settings Manager matches the version from Updater' );
@@ -50,7 +50,7 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_update_version_option() {
 		$current_version = Tribe__Main::VERSION;
-		$updater         = new Tribe__Updater( $current_version );
+		$updater         = tribe( 'updater' );
 		$updater->update_version_option( $current_version );
 
 		$version_in_db = $updater->get_version_from_db();
@@ -69,7 +69,7 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_get_update_callbacks() {
 		$current_version = Tribe__Main::VERSION;
-		$updater         = new Tribe__Updater( $current_version );
+		$updater         = tribe( 'updater' );
 
 		$updates = $updater->get_update_callbacks();
 		foreach ( $updates as $version => $update_callable ) {
@@ -83,7 +83,7 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_get_constant_update_callbacks() {
 		$current_version = Tribe__Main::VERSION;
-		$updater         = new Tribe__Updater( $current_version );
+		$updater         = tribe( 'updater' );
 
 		$contant_updates = $updater->get_constant_update_callbacks();
 		foreach ( $contant_updates as $contant_update_callable ) {
@@ -101,7 +101,8 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 		// it was probably added during wp bootstrap
 		remove_action( 'wp_loaded', 'flush_rewrite_rules' );
 		$this->assertFalse( has_action( 'wp_loaded', 'flush_rewrite_rules' ) );
-		$updater = new Tribe__Updater( '3.8' );
+		$updater = tribe( 'updater' );
+		$updater->set_version( '3.8' );
 		$updater->do_updates();
 		$this->assertNotEmpty( has_action( 'wp_loaded', 'flush_rewrite_rules' ) );
 		remove_action( 'wp_loaded', 'flush_rewrite_rules' );
@@ -116,7 +117,8 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 		$settings::set_option( 'schema-version', 0 );
 		remove_action( 'wp_loaded', 'flush_rewrite_rules' );
 		$this->assertFalse( has_action( 'wp_loaded', 'flush_rewrite_rules' ) );
-		$updater = new Tribe__Updater( '3.10a0' );
+		$updater = tribe( 'updater' );
+		$updater->set_version( '3.10a0' );
 		$updater->do_updates();
 		$this->assertNotEmpty( has_action( 'wp_loaded', 'flush_rewrite_rules' ) );
 		remove_action( 'wp_loaded', 'flush_rewrite_rules' );

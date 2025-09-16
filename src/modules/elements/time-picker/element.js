@@ -11,10 +11,7 @@ import { ScrollTo, ScrollArea } from 'react-scroll-to';
 /**
  * WordPress dependencies
  */
-import {
-	Dropdown,
-	Dashicon,
-} from '@wordpress/components';
+import { Dropdown, Dashicon } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -23,27 +20,22 @@ import { __ } from '@wordpress/i18n';
 import { PreventBlockClose } from '@moderntribe/common/components';
 import Button from '@moderntribe/common/elements/button';
 import Input from '@moderntribe/common/elements/input';
-import {
-	date as dateUtil,
-	moment as momentUtil,
-	time as timeUtil,
-	TribePropTypes,
-} from '@moderntribe/common/utils';
+import { date as dateUtil, moment as momentUtil, time as timeUtil, TribePropTypes } from '@moderntribe/common/utils';
 import './style.pcss';
 
 const TimePicker = ( {
-	allDay,
+	allDay = false,
 	current,
 	disabled,
 	end,
-	onBlur,
-	onChange,
-	onClick,
-	onFocus,
+	onBlur = noop,
+	onChange = noop,
+	onClick = noop,
+	onFocus = noop,
 	showAllDay,
 	start,
-	step,
-	timeFormat,
+	step = timeUtil.HALF_HOUR_IN_SECONDS,
+	timeFormat = dateUtil.FORMATS.WP.time,
 } ) => {
 	const renderLabel = ( onAllDayClick ) => {
 		if ( allDay ) {
@@ -66,7 +58,7 @@ const TimePicker = ( {
 				onChange={ onChange }
 				onFocus={ onFocus }
 				type="text"
-				value={ current }
+				value={ current ?? '' }
 			/>
 		);
 	};
@@ -89,9 +81,7 @@ const TimePicker = ( {
 	);
 
 	const formatLabel = ( seconds ) => {
-		return momentUtil
-			.setTimeInSeconds( moment(), seconds )
-			.format( momentUtil.toFormat( timeFormat ) );
+		return momentUtil.setTimeInSeconds( moment(), seconds ).format( momentUtil.toFormat( timeFormat ) );
 	};
 
 	const getItems = () => {
@@ -141,14 +131,9 @@ const TimePicker = ( {
 		<ScrollTo>
 			{ () => (
 				<PreventBlockClose>
-					<ScrollArea
-						key="tribe-element-timepicker-items"
-						className="tribe-editor__timepicker__items"
-					>
-						{ showAllDay && renderItem(
-							{ text: __( 'All Day', 'tribe-common' ), value: 'all-day' },
-							onClose,
-						) }
+					<ScrollArea key="tribe-element-timepicker-items" className="tribe-editor__timepicker__items">
+						{ showAllDay &&
+							renderItem( { text: __( 'All Day', 'tribe-common' ), value: 'all-day' }, onClose ) }
 						{ getItems().map( ( item ) => renderItem( item, onClose ) ) }
 					</ScrollArea>
 				</PreventBlockClose>
@@ -157,29 +142,16 @@ const TimePicker = ( {
 	);
 
 	return (
-		<div
-			key="tribe-element-timepicker"
-			className="tribe-editor__timepicker"
-		>
+		<div key="tribe-element-timepicker" className="tribe-editor__timepicker">
 			<Dropdown
 				className="tribe-editor__timepicker__toggle"
 				contentClassName="tribe-editor__timepicker__content"
-				position="bottom center"
+				placement="bottom center"
 				renderToggle={ renderToggle }
 				renderContent={ renderContent }
 			/>
 		</div>
 	);
-};
-
-TimePicker.defaultProps = {
-	allDay: false,
-	onBlur: noop,
-	onChange: noop,
-	onClick: noop,
-	onFocus: noop,
-	step: timeUtil.HALF_HOUR_IN_SECONDS,
-	timeFormat: dateUtil.FORMATS.WP.time,
 };
 
 TimePicker.propTypes = {

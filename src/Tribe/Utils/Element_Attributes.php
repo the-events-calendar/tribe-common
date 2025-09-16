@@ -4,7 +4,7 @@ namespace Tribe\Utils;
 /**
  * Class Element_Attributes to handle HTML attributes for elements.
  *
- * @since  4.12.3
+ * @since 4.12.3
  *
  * @package Tribe\Utils
  */
@@ -12,7 +12,7 @@ class Element_Attributes {
 	/**
 	 * Store the results of parsing the attributes.
 	 *
-	 * @since  4.12.3
+	 * @since 4.12.3
 	 *
 	 * @var array<string,string>
 	 */
@@ -21,7 +21,7 @@ class Element_Attributes {
 	/**
 	 * Stores the arguments passed.
 	 *
-	 * @since  4.12.3
+	 * @since 4.12.3
 	 *
 	 * @var array
 	 */
@@ -30,7 +30,7 @@ class Element_Attributes {
 	/**
 	 * Setups an instance of Element Attributes.
 	 *
-	 * @since  4.12.3
+	 * @since 4.12.3
 	 *
 	 * @return void
 	 */
@@ -41,7 +41,7 @@ class Element_Attributes {
 	/**
 	 * When invoked this class will return the full HTML attributes.
 	 *
-	 * @since  4.12.3
+	 * @since 4.12.3
 	 *
 	 * @return string In the format ` attribute1="value1" attribute2="value2" `
 	 */
@@ -54,7 +54,7 @@ class Element_Attributes {
 	/**
 	 * When cast to string an instance will return the full HTML attributes.
 	 *
-	 * @since  4.12.3
+	 * @since 4.12.3
 	 *
 	 * @return string In the format ` attribute1="value1" attribute2="value2" `
 	 */
@@ -66,7 +66,7 @@ class Element_Attributes {
 	 * Gets the full HTML attributes for this instance of Element Attributes.
 	 * It will contain a space on each end of the attribute.
 	 *
-	 * @since  4.12.3
+	 * @since 4.12.3
 	 *
 	 * @return string In the format ` attribute1="value1" attribute2="value2" `
 	 */
@@ -84,7 +84,7 @@ class Element_Attributes {
 	/**
 	 * Gets a space separated string of all attributes to be printed.
 	 *
-	 * @since  4.12.3
+	 * @since 4.12.3
 	 *
 	 * @return string
 	 */
@@ -95,7 +95,7 @@ class Element_Attributes {
 	/**
 	 * Get the array of attributes to be printed.
 	 *
-	 * @since  4.12.3
+	 * @since 4.12.3
 	 *
 	 * @return array
 	 */
@@ -106,6 +106,7 @@ class Element_Attributes {
 		$this->parse_array( $this->arguments );
 
 		foreach ( $this->results as $key => $val ) {
+
 			if ( ! $val && '0' !== $val ) {
 				continue;
 			}
@@ -114,8 +115,15 @@ class Element_Attributes {
 				$attributes[] = esc_attr( $key );
 			} else {
 				// Remove double quotes that might be surrounding the value.
-				trim( $val, '"' );
-				$attributes[] = esc_attr( $key ) . '="' . esc_attr( $val ) . '"';
+				$val = trim( $val, '"' );
+				// @todo replace the first usage of esc_attr with tag_esc when our minimum WP version is 6.5.5 or greater.
+				global $wp_version;
+				if ( version_compare( $wp_version, '6.5.5', '<' ) ) {
+					$attributes[] = esc_attr( $key ) . '="' . esc_attr( $val ) . '"';
+				} else {
+					$attributes[] = tag_escape( $key ) . '="' . esc_attr( $val ) . '"';
+
+				}
 			}
 		}
 
@@ -125,13 +133,13 @@ class Element_Attributes {
 	/**
 	 * Parse arguments or argument for this instance, and store values on results.
 	 *
-	 * @since  4.12.3
+	 * @since 4.12.3
 	 *
-	 * @param  mixed  $arguments  Any possible set of arguments that this class supports.
+	 * @param mixed  $arguments  Any possible set of arguments that this class supports.
 	 *
 	 * @return void
 	 */
-	protected function parse( $arguments ) {
+	protected function parse( $arguments ): void {
 		if ( ! $arguments ) {
 			return;
 		}
@@ -156,9 +164,9 @@ class Element_Attributes {
 	/**
 	 * Parse an array into an array of acceptable values for the instance.
 	 *
-	 * @since  4.12.3
+	 * @since 4.12.3
 	 *
-	 * @param  array  $values  Array of values to be parsed.
+	 * @param array  $values  Array of values to be parsed.
 	 *
 	 * @return void
 	 */
@@ -179,9 +187,9 @@ class Element_Attributes {
 	/**
 	 * Parse a string into an array of acceptable values for the instance.
 	 *
-	 * @since  4.12.3
+	 * @since 4.12.3
 	 *
-	 * @param  string  $arguments  Space separated string of attributes to be parsed.
+	 * @param string  $arguments  Space separated string of attributes to be parsed.
 	 *
 	 * @return void
 	 */
@@ -212,9 +220,9 @@ class Element_Attributes {
 	/**
 	 * Parses an object into the array of considered attributes.
 	 *
-	 * @since  4.12.3
+	 * @since 4.12.3
 	 *
-	 * @param  mixed  $object  Object to be converted into array and parsed.
+	 * @param mixed  $object  Object to be converted into array and parsed.
 	 *
 	 * @return void
 	 */
@@ -227,9 +235,9 @@ class Element_Attributes {
 	 *
 	 * The result of the callable will REPLACE the current attributes, callables will work like filters.
 	 *
-	 * @since  4.12.3
+	 * @since 4.12.3
 	 *
-	 * @param  callable  $method_or_function  Method or Function to be called.
+	 * @param callable  $method_or_function  Method or Function to be called.
 	 *
 	 * @return void
 	 */

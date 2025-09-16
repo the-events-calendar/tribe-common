@@ -56,7 +56,7 @@ class Dialog extends Service_Provider {
 	/**
 	  * {@inheritdoc}
 	 *
-	 * @since  4.10.0
+	 * @since 4.10.0
 	 */
 	public function template_public_namespace( $namespace, $obj ) {
 		if ( ! empty( $obj->template_namespace ) && 'dialog' === $obj->template_namespace ) {
@@ -74,7 +74,7 @@ class Dialog extends Service_Provider {
 	public function register_dialog_assets() {
 		$main = \Tribe__Main::instance();
 
-		tribe_asset(
+		tec_asset(
 			$main,
 			'tribe-dialog',
 			'dialog.css',
@@ -83,7 +83,7 @@ class Dialog extends Service_Provider {
 			[ 'groups' => 'tribe-dialog' ]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$main,
 			'tec-a11y-dialog',
 			'tec-a11y-dialog.js',
@@ -92,7 +92,7 @@ class Dialog extends Service_Provider {
 			[ 'groups' => 'tribe-dialog' ]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$main,
 			'tribe-dialog-js',
 			'dialog.js',

@@ -1,0 +1,114 @@
+.tec-admin {
+	#wpcontent {
+		padding-left: 0;
+	}
+}
+
+.tec-admin-page {
+	background: none;
+	display: grid;
+	grid-template-areas: "content";
+	grid-template-columns: 100%;
+	margin: 0;
+	max-width: 100%;
+
+	/* Link styles */
+	.tec-admin-page__link,
+	a.tec-admin-page__link,
+	.tec-admin-page__link a {
+		color: var(--tec-admin-core-blue-50);
+
+		&:hover,
+		&:focus {
+			color: var(--tec-admin-core-blue-50);
+		}
+	}
+
+	.tec-admin-page__link--external {
+		&::after {
+			color: var(--tec-admin-core-blue-50);
+			content: "\f504";
+			font-family: dashicons;
+			margin-left: 4px;
+			text-decoration-color: transparent;
+		}
+	}
+
+	&.tec-admin-page--simple {
+		background: none;
+		max-width: 100%;
+	}
+}
+
+.tec-admin-page.tec-admin-page--header {
+	grid-template-areas:
+		"header"
+		"content";
+
+	&.tec-admin-page--sidebar {
+		grid-template-areas:
+			"content"
+			"sidebar";
+
+		@media (--viewport-wpadmin) {
+			grid-template-areas:
+				"content sidebar";
+			grid-template-columns: var(--tec-width-content) auto;
+		}
+	}
+
+	/* Layout variants */
+	&.tec-admin-page--header {
+		grid-template-areas:
+			"header"
+			"content";
+	}
+
+	&.tec-admin-page--header.tec-admin-page--footer {
+		grid-template-areas:
+			"header"
+			"content"
+			"footer";
+	}
+
+	&.tec-admin-page--header.tec-admin-page--sidebar {
+		grid-template-areas:
+			"header"
+			"content"
+			"sidebar";
+
+		@media (--viewport-wpadmin) {
+			grid-template-areas:
+				"header header"
+				"content sidebar";
+		}
+	}
+
+	&.tec-admin-page--footer.tec-admin-page--sidebar {
+		grid-template-areas:
+			"content"
+			"sidebar"
+			"footer";
+
+		@media (--viewport-wpadmin) {
+			grid-template-areas:
+				"content sidebar"
+				"footer footer";
+		}
+	}
+
+	&.tec-admin-page--header.tec-admin-page--footer.tec-admin-page--sidebar {
+		grid-template-areas:
+			"header"
+			"content"
+			"sidebar"
+			"footer";
+
+		@media (--viewport-wpadmin) {
+			grid-template-areas:
+				"header header"
+				"content sidebar"
+				"footer footer";
+		}
+	}
+}

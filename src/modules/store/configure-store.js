@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
+import { composeWithDevTools } from '@redux-devtools/extension';
 import { augmentStore } from '@nfen/redux-reducer-injector';
-import thunk from 'redux-thunk';
+import { thunk } from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 
 /**
@@ -20,11 +20,7 @@ export default () => {
 		return window.__tribe_common_store__;
 	}
 
-	const middlewares = [
-		thunk,
-		sagaMiddleware,
-		wpRequest,
-	];
+	const middlewares = [ thunk, sagaMiddleware, wpRequest ];
 
 	const composeEnhancers = composeWithDevTools( { name: 'tribe/common' } );
 

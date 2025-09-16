@@ -30,9 +30,9 @@ export const HOUR_IN_MS = HOUR_IN_SECONDS * SECOND_IN_MS;
 /**
  * Formats time object to time string in the format provided
  *
- * @param {object} time Time object to format from
+ * @param {Object} time   Time object to format from
  * @param {string} format Format of time to format to
- * @returns {string} Time string in format provided
+ * @return {string} Time string in format provided
  */
 export const formatTime = ( time, format ) => {
 	let showMs;
@@ -46,24 +46,24 @@ export const formatTime = ( time, format ) => {
 			showHr = true;
 			break;
 		case TIME_FORMAT_HH_MM_SS:
-			showMs = ! ! time.miliseconds;
+			showMs = !! time.miliseconds;
 			showSc = true;
 			showHr = true;
 			break;
 		case TIME_FORMAT_HH_MM:
-			showMs = ! ! time.miliseconds;
-			showSc = showMs || ! ! time.seconds;
+			showMs = !! time.miliseconds;
+			showSc = showMs || !! time.seconds;
 			showHr = true;
 			break;
 		case TIME_FORMAT_MM_SS_SSS:
 			showMs = true;
 			showSc = true;
-			showHr = ! ! time.hours;
+			showHr = !! time.hours;
 			break;
 		case TIME_FORMAT_MM_SS:
-			showMs = ! ! time.miliseconds;
+			showMs = !! time.miliseconds;
 			showSc = true;
-			showHr = ! ! time.hours;
+			showHr = !! time.hours;
 			break;
 		default:
 			/* eslint-disable-next-line max-len */
@@ -87,19 +87,16 @@ export const formatTime = ( time, format ) => {
 /**
  * Converts time in the format provided to milliseconds
  *
- * @param {string} time Time string to convert from
+ * @param {string} time   Time string to convert from
  * @param {string} format Format of time to convert from
- * @returns {number} Milliseconds equivalent of time string in format provided
+ * @return {number} Milliseconds equivalent of time string in format provided
  */
 export const toMilliseconds = ( time, format = TIME_FORMAT_MM_SS ) => {
 	let re;
 
-	if ( [
-		TIME_FORMAT_HH_MM_SS_SSS,
-		TIME_FORMAT_HH_MM_SS,
-		TIME_FORMAT_MM_SS_SSS,
-		TIME_FORMAT_MM_SS,
-	].includes( format ) ) {
+	if (
+		[ TIME_FORMAT_HH_MM_SS_SSS, TIME_FORMAT_HH_MM_SS, TIME_FORMAT_MM_SS_SSS, TIME_FORMAT_MM_SS ].includes( format )
+	) {
 		re = /^(-)?(?:(\d\d+):)?(\d\d):(\d\d)(\.\d+)?$/;
 	} else if ( format === TIME_FORMAT_HH_MM ) {
 		re = /^(-)?(\d\d):(\d\d)(?::(\d\d)(?:(\.\d+))?)?$/;
@@ -118,27 +115,24 @@ export const toMilliseconds = ( time, format = TIME_FORMAT_MM_SS ) => {
 	const hours = result[ 2 ] | 0;
 	const minutes = result[ 3 ] | 0;
 	const seconds = result[ 4 ] | 0;
-	const miliseconds = Math.floor( 1000 * result[ 5 ] | 0 );
+	const miliseconds = Math.floor( ( 1000 * result[ 5 ] ) | 0 );
 
 	if ( minutes >= 60 || seconds >= 60 ) {
 		/* eslint-disable-next-line max-len */
 		throw new Error( 'Argument `time` provided to `toMilliseconds` contains minutes or seconds greater than 59.' );
 	}
 
-	return ( negative ? -1 : 1 ) * (
-		hours * HOUR_IN_MS +
-		minutes * MINUTE_IN_MS +
-		seconds * SECOND_IN_MS +
-		miliseconds
+	return (
+		( negative ? -1 : 1 ) * ( hours * HOUR_IN_MS + minutes * MINUTE_IN_MS + seconds * SECOND_IN_MS + miliseconds )
 	);
 };
 
 /**
  * Converts milliseconds to time in the format provided
  *
- * @param {number} ms Milliseconds to convert from
+ * @param {number} ms     Milliseconds to convert from
  * @param {string} format Format of time to convert to
- * @returns {string} Time string equivalent of milliseconds in format provided
+ * @return {string} Time string equivalent of milliseconds in format provided
  */
 export const fromMilliseconds = ( ms, format = TIME_FORMAT_MM_SS ) => {
 	if ( typeof ms !== 'number' || Number.isNaN( ms ) ) {
@@ -148,27 +142,30 @@ export const fromMilliseconds = ( ms, format = TIME_FORMAT_MM_SS ) => {
 
 	const absMs = Math.abs( ms );
 
-	const negative = ( ms < 0 );
+	const negative = ms < 0;
 	const hours = Math.floor( absMs / HOUR_IN_MS );
-	const minutes = Math.floor( absMs % HOUR_IN_MS / MINUTE_IN_MS );
-	const seconds = Math.floor( absMs % MINUTE_IN_MS / SECOND_IN_MS );
+	const minutes = Math.floor( ( absMs % HOUR_IN_MS ) / MINUTE_IN_MS );
+	const seconds = Math.floor( ( absMs % MINUTE_IN_MS ) / SECOND_IN_MS );
 	const miliseconds = Math.floor( absMs % SECOND_IN_MS );
 
-	return formatTime( {
-		negative,
-		hours,
-		minutes,
-		seconds,
-		miliseconds,
-	}, format );
+	return formatTime(
+		{
+			negative,
+			hours,
+			minutes,
+			seconds,
+			miliseconds,
+		},
+		format
+	);
 };
 
 /**
  * Converts time in the format provided to seconds
  *
- * @param {string} time Time string to convert from
+ * @param {string} time   Time string to convert from
  * @param {string} format Format of time to convert from
- * @returns {number} Seconds equivalent of time string in format provided
+ * @return {number} Seconds equivalent of time string in format provided
  */
 export const toSeconds = ( time, format = TIME_FORMAT_MM_SS ) => {
 	const ms = toMilliseconds( time, format );
@@ -178,9 +175,9 @@ export const toSeconds = ( time, format = TIME_FORMAT_MM_SS ) => {
 /**
  * Converts seconds to time in the format provided
  *
- * @param {number} s Seconds to convert from
+ * @param {number} s      Seconds to convert from
  * @param {string} format Format of time to convert to
- * @returns {string} Time string equivalent of seconds in format provided
+ * @return {string} Time string equivalent of seconds in format provided
  */
 export const fromSeconds = ( s, format = TIME_FORMAT_MM_SS ) => {
 	if ( typeof s !== 'number' || Number.isNaN( s ) ) {
@@ -198,9 +195,9 @@ export const fromSeconds = ( s, format = TIME_FORMAT_MM_SS ) => {
  * If the minutes is lower than 30, it will round the minutes to 0
  * If the minutes is greater than or equal to 30, it will round the minutes to 30
  *
- * @param {string} time Time string
+ * @param {string} time   Time string
  * @param {string} format Time format
- * @returns {moment} A moment object
+ * @return {moment} A moment object
  */
 export const roundTime = ( time, format = TIME_FORMAT_MM_SS ) => {
 	const seconds = toSeconds( time, format );

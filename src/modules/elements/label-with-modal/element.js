@@ -23,15 +23,12 @@ const LabelWithModal = ( {
 	modalContent,
 	modalOverlayClassName,
 	modalTitle,
-	onClick,
-	onClose,
-	onOpen,
+	onClick = noop,
+	onClose = noop,
+	onOpen = noop,
 	...restProps
 } ) => (
-	<LabeledItem
-		className={ classNames( 'tribe-editor__label-with-modal', className ) }
-		label={ label }
-	>
+	<LabeledItem className={ classNames( 'tribe-editor__label-with-modal', className ) } label={ label }>
 		<ModalButton
 			className="tribe-editor__label-with-modal__modal-button"
 			disabled={ modalButtonDisabled }
@@ -48,12 +45,6 @@ const LabelWithModal = ( {
 		/>
 	</LabeledItem>
 );
-
-LabelWithModal.defaultProps = {
-	onClick: noop,
-	onClose: noop,
-	onOpen: noop,
-};
 
 LabelWithModal.propTypes = {
 	className: PropTypes.string,

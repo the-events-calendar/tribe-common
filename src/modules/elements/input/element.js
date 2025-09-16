@@ -10,16 +10,8 @@ import classNames from 'classnames';
  */
 import './style.pcss';
 
-const Input = ( {
-	className,
-	type,
-	...rest
-} ) => (
-	<input
-		className={ classNames( 'tribe-editor__input', className ) }
-		type={ type }
-		{ ...rest }
-	/>
+const Input = ( { className, type, ...rest } ) => (
+	<input className={ classNames( 'tribe-editor__input', className ) } type={ type } { ...rest } />
 );
 
 Input.propTypes = {

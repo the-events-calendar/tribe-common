@@ -1,0 +1,20 @@
+{
+    "label": "Users",
+    "id": "tec-settings-zapier-users",
+    "classes_label": [
+        "screen-reader-text"
+    ],
+    "classes_select": [
+        "tec-settings-form__users-dropdown",
+        "tec-settings-zapier-details-api-key__users-dropdown"
+    ],
+    "name": "tec_automator_zapier[]['users']",
+    "selected": 0,
+    "users_count": 1,
+    "attrs": {
+        "placeholder": "Select a User",
+        "data-prevent-clear": true,
+        "data-force-search": true,
+        "data-options": "[{\"text\":\"admin\",\"sort\":\"admin\",\"id\":\"1\",\"value\":\"1\",\"selected\":false}]"
+    }
+}

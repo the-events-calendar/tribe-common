@@ -21,32 +21,24 @@ import { wpEditor } from '@moderntribe/common/utils/globals';
 import './style.pcss';
 const { MediaUpload } = wpEditor;
 
-export const renderImageUploadButton = ( disabled, label ) => ( { open } ) => (
-	<Button
-		onClick={ open }
-		className={ [ 'tribe-editor__button--sm', 'tribe-editor__image-upload__upload-button' ] }
-		disabled={ disabled }
-	>
-		{ label }
-	</Button>
-);
+export const renderImageUploadButton =
+	( disabled, label ) =>
+	( { open } ) => (
+		<Button
+			onClick={ open }
+			className={ [ 'tribe-editor__button--sm', 'tribe-editor__image-upload__upload-button' ] }
+			disabled={ disabled }
+		>
+			{ label }
+		</Button>
+	);
 
 export const renderImage = ( disabled, image, onRemove ) => (
 	<div className="tribe-editor__image-upload__image-wrapper">
-		<Image
-			src={ image.src }
-			alt={ image.alt }
-			className="tribe-editor__image-upload__image"
-		/>
-		<Button
-			className="tribe-editor__image-upload__remove-button"
-			onClick={ onRemove }
-			disabled={ disabled }
-		>
+		<Image src={ image.src } alt={ image.alt } className="tribe-editor__image-upload__image" />
+		<Button className="tribe-editor__image-upload__remove-button" onClick={ onRemove } disabled={ disabled }>
 			<CloseIcon />
-			<span className="tribe-editor__image-upload__remove-button-text">
-				{ __( 'remove', 'tribe-common' ) }
-			</span>
+			<span className="tribe-editor__image-upload__remove-button-text">{ __( 'remove', 'tribe-common' ) }</span>
 		</Button>
 	</div>
 );
@@ -57,36 +49,28 @@ const ImageUpload = ( {
 	className,
 	description,
 	image,
-	onRemove,
-	onSelect,
+	onRemove = noop,
+	onSelect = noop,
 	removeButtonDisabled,
 	title,
 } ) => {
 	const hasImageClass = { 'tribe-editor__image-upload--has-image': image.id };
 
 	return (
-		<div className={ classNames(
-			'tribe-editor__image-upload',
-			hasImageClass,
-			className,
-		) }>
+		<div className={ classNames( 'tribe-editor__image-upload', hasImageClass, className ) }>
 			{ title && <h3 className="tribe-editor__image-upload__title">{ title }</h3> }
 			<div className="tribe-editor__image-upload__content">
-				{ description && (
-					<p className="tribe-editor__image-upload__description">{ description }</p>
+				{ description && <p className="tribe-editor__image-upload__description">{ description }</p> }
+				{ image.id ? (
+					renderImage( removeButtonDisabled, image, onRemove )
+				) : (
+					<MediaUpload
+						onSelect={ onSelect }
+						type="image"
+						render={ renderImageUploadButton( buttonDisabled, buttonLabel ) }
+						value={ image.id }
+					/>
 				) }
-				{
-					image.id
-						? renderImage( removeButtonDisabled, image, onRemove )
-						: (
-							<MediaUpload
-								onSelect={ onSelect }
-								type="image"
-								render={ renderImageUploadButton( buttonDisabled, buttonLabel ) }
-								value={ image.id }
-							/>
-						)
-				}
 			</div>
 		</div>
 	);
@@ -106,11 +90,6 @@ ImageUpload.propTypes = {
 	onSelect: PropTypes.func.isRequired,
 	removeButtonDisabled: PropTypes.bool,
 	title: PropTypes.string,
-};
-
-ImageUpload.defaultProps = {
-	onRemove: noop,
-	onSelect: noop,
 };
 
 export default ImageUpload;

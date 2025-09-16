@@ -5,13 +5,18 @@
 
 namespace TEC\Common\Tests\Provider;
 
-use Codeception\TestCase\WPTestCase;
+use lucatume\WPBrowser\TestCase\WPTestCase as WPBrowserTestCase;
 use RuntimeException;
 use TEC\Common\Contracts\Provider\Controller;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Container as Container;
 use TEC\Common\lucatume\DI52\Container as DI52_Container;
 use WP_Hook;
+use Codeception\TestCase\WPTestCase;
+
+if ( ! class_exists( WPBrowserTestCase::class ) ) {
+	class_alias( WPTestCase::class, WPBrowserTestCase::class );
+}
 
 /**
  * Class Controller_Test_Case.
@@ -23,7 +28,7 @@ use WP_Hook;
  *
  * @package TEC\Common\Tests\Provider;
  */
-class Controller_Test_Case extends WPTestCase {
+class Controller_Test_Case extends WPBrowserTestCase {
 	use With_Uopz;
 
 	/**
@@ -99,7 +104,7 @@ class Controller_Test_Case extends WPTestCase {
 		$test_services = clone $original_services;
 
 		// From now on calls to the Service Locator (the `tribe` function) will be redirected to a test Service Locator.
-		uopz_set_return(
+		$this->set_fn_return(
 			'tribe',
 			static function ( $key = null ) use ( $test_services ) {
 				return $key ? $test_services->get( $key ) : $test_services;
@@ -107,7 +112,7 @@ class Controller_Test_Case extends WPTestCase {
 			true
 		);
 		// Redirect calls to init the container too.
-		uopz_set_return( Container::class, 'init', $test_services );
+		$this->set_fn_return( Container::class, 'init', $test_services );
 		$this->test_services = $test_services;
 
 		// We should now be working with the test Service Locator.
@@ -137,6 +142,7 @@ class Controller_Test_Case extends WPTestCase {
 	 * @after
 	 */
 	protected function tearDownTestCase() {
+		$this->made_controllers = array_reverse( $this->made_controllers );
 		// Unregister all the controllers created by the test case.
 		foreach ( $this->made_controllers as $controller ) {
 			$controller->unregister();
@@ -176,7 +182,7 @@ class Controller_Test_Case extends WPTestCase {
 	 *
 	 * @return Controller The controller instance, built on a dedicated testing Service Locator.
 	 */
-	protected function make_controller( string $controller_class = null ): Controller {
+	protected function make_controller( ?string $controller_class = null ): Controller {
 		$controller_class = $controller_class ?: $this->controller_class;
 
 		// From now on, ingest all logging.
@@ -233,7 +239,7 @@ class Controller_Test_Case extends WPTestCase {
 			'add_filter',
 			function (
 				string $tag,
-				callable $callback,
+				$callback,
 				int $priority = 10,
 				int $args = 1
 			) use (
@@ -251,7 +257,7 @@ class Controller_Test_Case extends WPTestCase {
 			'remove_filter',
 			function (
 				string $tag,
-				callable $callback,
+				$callback,
 				int $priority = 10
 			) use (
 				$controller_class,
@@ -357,7 +363,7 @@ class Controller_Test_Case extends WPTestCase {
 		// Here we use the controller to let use know what filters it would hook to by
 		// intercepting the `add_filter` function.
 		$hooked = [];
-		uopz_set_return(
+		$this->set_fn_return(
 			'add_filter',
 			function ( $tag, $function_to_add, $priority = 10 ) use ( &$hooked ) {
 				if ( ! ( is_array( $function_to_add ) && $function_to_add[0] instanceof Controller ) ) {
