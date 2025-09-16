@@ -1,4 +1,13 @@
 <?php
+/**
+ * Log
+ *
+ * @package Tribe
+ * @since 4.9
+ */
+
+// phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase, PEAR.NamingConventions.ValidClassName.Invalid
+
 if ( class_exists( 'Tribe__Log' ) ) {
 	return;
 }
@@ -7,12 +16,12 @@ if ( class_exists( 'Tribe__Log' ) ) {
  * Provides access to and management of core logging facilities.
  */
 class Tribe__Log {
-	const DISABLE = 'disable';
-	const DEBUG   = 'debug';
-	const WARNING = 'warning';
-	const ERROR   = 'error';
-	const CLEANUP = 'tribe_common_log_cleanup';
-	const SUCCESS = 'success';
+	const DISABLE  = 'disable';
+	const DEBUG    = 'debug';
+	const WARNING  = 'warning';
+	const ERROR    = 'error';
+	const CLEANUP  = 'tribe_common_log_cleanup';
+	const SUCCESS  = 'success';
 	const COLORIZE = 'colorize';
 
 	/**
@@ -53,6 +62,9 @@ class Tribe__Log {
 	 */
 	protected $loggers = [];
 
+	/**
+	 * Constructor
+	 */
 	public function __construct() {
 		if ( is_admin() ) {
 			$this->admin = new Tribe__Log__Admin();
@@ -104,8 +116,8 @@ class Tribe__Log {
 	/**
 	 * Logs a debug-level entry.
 	 *
-	 * @param string $entry
-	 * @param string $src
+	 * @param string $entry The message to log.
+	 * @param string $src   The source of the log.
 	 */
 	public function log_debug( $entry, $src ) {
 		$this->log( $entry, self::DEBUG, $src );
@@ -114,8 +126,8 @@ class Tribe__Log {
 	/**
 	 * Logs a warning.
 	 *
-	 * @param string $entry
-	 * @param string $src
+	 * @param string $entry The message to log.
+	 * @param string $src   The source of the log.
 	 */
 	public function log_warning( $entry, $src ) {
 		$this->log( $entry, self::WARNING, $src );
@@ -124,8 +136,8 @@ class Tribe__Log {
 	/**
 	 * Logs an error.
 	 *
-	 * @param string $entry
-	 * @param string $src
+	 * @param string $entry The message to log.
+	 * @param string $src   The source of the log.
 	 */
 	public function log_error( $entry, $src ) {
 		$this->log( $entry, self::ERROR, $src );
@@ -134,8 +146,8 @@ class Tribe__Log {
 	/**
 	 * Logs a successful operation.
 	 *
-	 * @param string $entry
-	 * @param string $src
+	 * @param string $entry The message to log.
+	 * @param string $src   The source of the log.
 	 */
 	public function log_success( $entry, $src ) {
 		$this->log( $entry, self::SUCCESS, $src );
@@ -146,8 +158,8 @@ class Tribe__Log {
 	 *
 	 * This will only apply to WP-CLI based logging.
 	 *
-	 * @param string $entry
-	 * @param string $src
+	 * @param string $entry The message to log.
+	 * @param string $src   The source of the log.
 	 */
 	public function log_colorized( $entry, $src ) {
 		$this->log( $entry, self::COLORIZE, $src );
@@ -157,11 +169,15 @@ class Tribe__Log {
 	 * Adds an entry to the log (if it is at the appropriate level, etc) and outputs information using WP-CLI if available.
 	 *
 	 * This is simply a shorthand for calling log() on the current logger.
+	 *
+	 * @param string $entry The message to log.
+	 * @param string $type  The type of the log.
+	 * @param string $src   The source of the log.
 	 */
 	public function log( $entry, $type = self::DEBUG, $src = '' ) {
 		$original_type = $type;
 
-		// some levels are really just debug information
+		// Some levels are really just debug information.
 		$debug_types = [ self::SUCCESS, self::COLORIZE ];
 
 		if ( in_array( $type, $debug_types ) ) {
@@ -189,7 +205,7 @@ class Tribe__Log {
 			return false;
 		}
 
-		// We are always logging to WP-CLI if available
+		// We are always logging to WP-CLI if available.
 		switch ( $original_type ) {
 			case self::ERROR:
 				WP_CLI::error( $entry );
@@ -219,14 +235,14 @@ class Tribe__Log {
 	 */
 	public function get_logging_engines() {
 		$available_engines = [];
-		$bundled_engines = [
+		$bundled_engines   = [
 			'Tribe__Log__File_Logger',
 		];
 
 		foreach ( $bundled_engines as $engine_class ) {
 			$engine = $this->get_engine( $engine_class );
 
-			// Check that we have a valid engine that is available for use in the current environment
+			// Check that we have a valid engine that is available for use in the current environment.
 			if ( $engine && $engine->is_available() ) {
 				$available_engines[ $engine_class ] = $engine;
 			}
@@ -256,11 +272,11 @@ class Tribe__Log {
 	 */
 	public function get_current_logger() {
 		if ( ! $this->current_logger ) {
-			$engine = tribe_get_option( 'logging_class', null );
+			$engine    = tribe_get_option( 'logging_class', null );
 			$available = $this->get_logging_engines();
 
 			if ( empty( $engine ) || ! isset( $available[ $engine ] ) ) {
-				return $this->current_logger = new Tribe__Log__Null_Logger();
+				$this->current_logger = new Tribe__Log__Null_Logger();
 			} else {
 				$this->current_logger = $this->get_engine( $engine );
 			}
@@ -274,9 +290,9 @@ class Tribe__Log {
 	 * and currently available logging class, else will set this to null - ie
 	 * no logging).
 	 *
-	 * @param string $engine
+	 * @param string $engine The logging engine to set.
 	 *
-	 * @throws Exception if the specified logging engine is invalid
+	 * @throws Exception When the specified logging engine is invalid.
 	 */
 	public function set_current_logger( $engine ) {
 		$available_engines = $this->get_logging_engines();
@@ -285,7 +301,13 @@ class Tribe__Log {
 		$engine = str_replace( '\\\\', '\\', $engine );
 
 		if ( ! isset( $available_engines[ $engine ] ) ) {
-			throw new Exception( sprintf( __( 'Cannot set %s as the current logging engine', 'tribe-common' ), $engine ) );
+			throw new Exception(
+				sprintf(
+					/* translators: %s: The logging engine. */
+					__( 'Cannot set %s as the current logging engine', 'tribe-common' ),
+					$engine
+				)
+			);
 		}
 
 		tribe_update_option( 'logging_class', $engine );
@@ -298,11 +320,11 @@ class Tribe__Log {
 	 *
 	 * @param string $class_name The class name to get the engine for.
 	 *
-	 * @return Tribe__Log__Logger|null
+	 * @return ?Tribe__Log__Logger
 	 */
 	public function get_engine( $class_name ) {
 		if ( ! isset( $this->loggers[ $class_name ] ) ) {
-			$object = new $class_name;
+			$object = new $class_name();
 
 			if ( $object instanceof Tribe__Log__Logger ) {
 				$this->loggers[ $class_name ] = new $class_name();
@@ -320,7 +342,7 @@ class Tribe__Log {
 	 * Sets the current logging level to the provided level (if it is a valid
 	 * level, else will set the level to 'default').
 	 *
-	 * @param string $level
+	 * @param string $level The logging level to set.
 	 */
 	public function set_level( $level ) {
 		$available_levels = wp_list_pluck( $this->get_logging_levels(), 0 );
@@ -339,7 +361,7 @@ class Tribe__Log {
 	 * @return string
 	 */
 	public function get_level() {
-		$current_level = tribe_get_option( 'logging_level', null );
+		$current_level    = tribe_get_option( 'logging_level', null );
 		$available_levels = wp_list_pluck( $this->get_logging_levels(), 0 );
 
 		if ( ! in_array( $current_level, $available_levels ) ) {
@@ -383,12 +405,15 @@ class Tribe__Log {
 			 *
 			 * @param array $logging_levels
 			 */
-			$this->levels = (array) apply_filters( 'tribe_common_logging_levels', [
-				[ self::DISABLE, __( 'Disabled', 'tribe-common' ) ],
-				[ self::ERROR, __( 'Only errors', 'tribe-common' ) ],
-				[ self::WARNING, __( 'Warnings and errors', 'tribe-common' ) ],
-				[ self::DEBUG, __( 'Full debug (all events)', 'tribe-common' ) ],
-			] );
+			$this->levels = (array) apply_filters(
+				'tribe_common_logging_levels',
+				[
+					[ self::DISABLE, __( 'Disabled', 'tribe-common' ) ],
+					[ self::ERROR, __( 'Only errors', 'tribe-common' ) ],
+					[ self::WARNING, __( 'Warnings and errors', 'tribe-common' ) ],
+					[ self::DEBUG, __( 'Full debug (all events)', 'tribe-common' ) ],
+				]
+			);
 		}
 
 		return $this->levels;
@@ -406,7 +431,7 @@ class Tribe__Log {
 	 *
 	 * The above assumes we are using the default logging levels.
 	 *
-	 * @param string $level_code
+	 * @param string $level_code The logging level code to check.
 	 *
 	 * @return bool
 	 */
@@ -415,7 +440,7 @@ class Tribe__Log {
 			$this->build_prioritized_levels();
 		}
 
-		// Protect against the possibility non-existent level codes might be passed in
+		// Protect against the possibility non-existent level codes might be passed in.
 		if ( ! isset( $this->prioritized_levels[ $level_code ] ) ) {
 			return false;
 		}
@@ -428,10 +453,12 @@ class Tribe__Log {
 	 * their relative priorities (ie, a means of quickly checking if
 	 * an "error" level entry should be recorded when we're in debug
 	 * mode).
+	 *
+	 * @return void
 	 */
 	protected function build_prioritized_levels() {
 		foreach ( $this->get_logging_levels() as $index => $level_data ) {
-			$this->prioritized_levels[ $level_data[ 0 ] ] = $index;
+			$this->prioritized_levels[ $level_data[0] ] = $index;
 		}
 	}
 }
