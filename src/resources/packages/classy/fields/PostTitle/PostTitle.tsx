@@ -2,7 +2,7 @@ import * as React from 'react';
 import { __experimentalInputControl as InputControl } from '@wordpress/components';
 import { useState, useEffect } from 'react';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
+import { FieldProps } from '@tec/common/classy/types/FieldProps';
 
 /**
  * PostTitle component for rendering and handling the post title input field.
@@ -29,13 +29,14 @@ export default function PostTitle( props: FieldProps ) {
 
 	// On a change to the post title, coming from the core/editor store, rerender.
 	useEffect( () => {
-		setValue( postTitle );
+		setValue( postTitle ?? '' );
 	}, [ postTitle ] );
 
 	//Handles changes to the input field by setting the new state and dispatching the new title to the store.
 	const onChange = ( nextValue: string | undefined ): void => {
-		setValue( nextValue ?? '' );
-		editPost( { title: nextValue } );
+		const newValue = nextValue ?? '';
+		setValue( newValue );
+		editPost( { title: newValue } );
 	};
 
 	return (
