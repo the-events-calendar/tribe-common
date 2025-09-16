@@ -1,6 +1,6 @@
 import apiFetch from '@wordpress/api-fetch';
 import { APIFetchOptions } from '@wordpress/api-fetch/build-types/types';
-import { tecApiBaseUrl } from './routes.ts';
+import { tecApiBaseUrl } from './routes';
 
 /**
  * Creates a middleware that adds the experimental header to TEC API requests.
