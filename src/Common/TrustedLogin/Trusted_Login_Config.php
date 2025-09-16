@@ -71,7 +71,7 @@ class Trusted_Login_Config {
 	 *
 	 * @var string
 	 */
-	public const WEBSITE_URL = 'https://theeventscalendar.com';
+	public const WEBSITE_URL = 'https://my.theeventscalendar.com';
 
 	/**
 	 * Email address for vendor support.
