@@ -72,7 +72,7 @@ class Tribe__Rewrite {
 	 *
 	 * @var array
 	 */
-	protected $canonical_url_cache = [];
+	protected array $canonical_url_cache = [];
 
 	/**
 	 * An array cache of parsed URLs in the shape `[ <url> => <parsed_vars> ]`.
@@ -82,7 +82,7 @@ class Tribe__Rewrite {
 	 *
 	 * @var array
 	 */
-	protected $parse_request_cache = [];
+	protected array $parse_request_cache = [];
 
 	/**
 	 * And array cache of cleaned URLs.
@@ -92,7 +92,8 @@ class Tribe__Rewrite {
 	 *
 	 * @var array
 	 */
-	protected $clean_url_cache = [];
+	protected array $clean_url_cache = [];
+
 	/**
 	 * A reference to the Locale Switcher instance.
 	 *
