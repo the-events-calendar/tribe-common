@@ -11,11 +11,11 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Collections;
 
-use TEC\Common\REST\TEC\V1\Contracts\Parameter;
-use JsonSerializable;
 use ArrayAccess;
 use Countable;
 use Iterator;
+use JsonSerializable;
+use TEC\Common\REST\TEC\V1\Contracts\Parameter;
 
 /**
  * Collection.
@@ -82,7 +82,7 @@ abstract class Collection implements ArrayAccess, Iterator, Countable, JsonSeria
 	/**
 	 * @inheritDoc
 	 *
-	 * @param TKey $offset The offset to check.
+	 * @param scalar $offset The offset to check.
 	 *
 	 * @return bool
 	 */
