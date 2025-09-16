@@ -457,7 +457,6 @@ class Troubleshooting {
 			'wp-optimize/wp-optimize.php',
 			'wp-rocket/wp-rocket.php',
 			'wp-super-cache/wp-cache.php',
-			// 'wp-engine',
 		];
 
 		// Return the active caching plugins.
