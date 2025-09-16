@@ -130,6 +130,7 @@ if ( ! function_exists( 'tribe_end_of_day' ) ) {
 	 * @category Events
 	 *
 	 * @param string $date   The date to find the end of the day, defaults to today.
+)
 	 * @param string $format Allows date and time formatting using standard php syntax (http://php.net/manual/en/function.date.php).
 	 *
 	 * @return string
