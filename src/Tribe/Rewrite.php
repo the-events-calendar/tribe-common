@@ -68,28 +68,31 @@ class Tribe__Rewrite {
 	 * An array cache of resolved canonical URLs in the shape `[ <url> => <canonical_url> ]`.
 	 *
 	 * @since 4.9.11
+	 * @since TBD    Changed default value to an empty array to prevent potential fatals.
 	 *
 	 * @var array
 	 */
-	protected $canonical_url_cache = null;
+	protected $canonical_url_cache = [];
 
 	/**
 	 * An array cache of parsed URLs in the shape `[ <url> => <parsed_vars> ]`.
 	 *
 	 * @since 4.9.11
+	 * @since TBD    Changed default value to an empty array to prevent potential fatals.
 	 *
 	 * @var array
 	 */
-	protected $parse_request_cache = null;
+	protected $parse_request_cache = [];
 
 	/**
 	 * And array cache of cleaned URLs.
 	 *
 	 * @since 4.9.11
+	 * @since TBD    Changed default value to an empty array to prevent potential fatals.
 	 *
 	 * @var array
 	 */
-	protected $clean_url_cache = null;
+	protected $clean_url_cache = [];
 	/**
 	 * A reference to the Locale Switcher instance.
 	 *
