@@ -46,8 +46,8 @@ export default function PostTitle( props: FieldProps ) {
 
 			<div className="classy-field__inputs">
 				<InputControl
-					className="classy-field__control classy-field__control--input"
 					__next40pxDefaultSize
+					className="classy-field__control classy-field__control--input"
 					value={ value }
 					onChange={ onChange }
 				/>

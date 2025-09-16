@@ -99,6 +99,7 @@ export default function CurrencyInput( props: CurrencyInputProps ): React.JSX.El
 	return (
 		<LabeledInput label={ label }>
 			<InputControl
+				__next40pxDefaultSize
 				className="classy-field__control classy-field__control--input"
 				label={ label }
 				hideLabelFromVision={ true }
