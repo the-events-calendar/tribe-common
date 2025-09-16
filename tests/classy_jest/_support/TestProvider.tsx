@@ -1,6 +1,6 @@
+import * as React from 'react';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 import { ProviderComponent } from '../../../src/resources/packages/classy/components/Provider';
-import * as React from 'react';
 import { createRegistry } from '@wordpress/data';
 
 /**
@@ -45,7 +45,7 @@ export default function TestProvider( {
 }: {
 	children: React.ReactNode;
 	registry?: WPDataRegistry | null;
-} ): JSX.Element {
+} ): React.JSX.Element {
 	const registryToUse = registry || createRegistry();
 
 	return <ProviderComponent registry={ registryToUse }>{ children }</ProviderComponent>;
