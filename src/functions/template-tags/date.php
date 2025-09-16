@@ -14,11 +14,13 @@ if ( ! class_exists( 'Tribe__Main' ) ) {
 	return;
 }
 
+// phpcs:disable WordPress.DateTime.RestrictedFunctions.date_date -- intentionally using date().
+
 if ( ! function_exists( 'tribe_format_date' ) ) {
 	/**
 	 * Formatted Date
 	 *
-	 * Returns formatted date.
+	 * Returns formatted date
 	 *
 	 * @since 5.11.1 Introduced a temporary locale switch to handle the AM/PM format specifically for French language settings.
 	 *
@@ -26,7 +28,7 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 	 *
 	 * @param string $date         String representing the datetime, assumed to be UTC (relevant if timezone conversion is used).
 	 * @param bool   $display_time If true shows date and time, if false only shows date.
-	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php).
+	 * @param string $date_format  Allows date and time formatting using standard php syntax (http://php.net/manual/en/function.date.php).
 	 *
 	 * @return string
 	 */
@@ -42,7 +44,7 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 			$date_year = date( 'Y', $date );
 			$cur_year  = date( 'Y', current_time( 'timestamp' ) );
 
-			// only show the year in the date if it's not in the current year
+			// Only show the year in the date if it's not in the current year.
 			$with_year = $date_year == $cur_year ? false : true;
 
 			if ( $display_time ) {
@@ -128,7 +130,7 @@ if ( ! function_exists( 'tribe_end_of_day' ) ) {
 	 * @category Events
 	 *
 	 * @param string $date   The date to find the end of the day, defaults to today.
-	 * @param string $format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php).
+	 * @param string $format Allows date and time formatting using standard php syntax (http://php.net/manual/en/function.date.php).
 	 *
 	 * @return string
 	 */
@@ -162,15 +164,15 @@ if ( ! function_exists( 'tribe_get_datetime_separator' ) ) {
 	/**
 	 * Get the datetime separator from the database option with escaped characters or not ;)
 	 *
-	 * @param string $default Default separator if it's blank in the database.
-	 * @param bool   $esc     If it's going to be used on a `date` function or method, it needs to be escaped.
+	 * @param string $separator Default separator if it's blank in the database.
+	 * @param bool   $esc       If it's going to be used on a `date` function or method, it needs to be escaped.
 	 *
 	 * @filter tribe_datetime_separator
 	 *
 	 * @return string
 	 */
-	function tribe_get_datetime_separator( $default = ' @ ', $esc = false ) {
-		$separator = (string) tribe_get_option( 'dateTimeSeparator', $default );
+	function tribe_get_datetime_separator( $separator = ' @ ', $esc = false ) {
+		$separator = (string) tribe_get_option( 'dateTimeSeparator', $separator );
 		if ( $esc ) {
 			$separator = (array) str_split( $separator );
 			$separator = ( ! empty( $separator ) ? '\\' : '' ) . implode( '\\', $separator );
@@ -188,9 +190,9 @@ if ( ! function_exists( 'tribe_get_start_time' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param int    $event       The event ID. Optional.
-	 * @param string $date_format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php).
-	 * @param string $timezone    Time zone in which to present the date/time (or default behavior if not set).
+	 * @param int|WP_Post $event       (optional) The event post object or event ID. Defaults to current post in the loop.
+	 * @param string      $date_format Allows date and time formatting using standard php syntax (http://php.net/manual/en/function.date.php).
+	 * @param string      $timezone    Timezone in which to present the date/time (or default behavior if not set).
 	 *
 	 * @return string|null Time
 	 */
@@ -239,9 +241,9 @@ if ( ! function_exists( 'tribe_get_end_time' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param int    $event       The event ID. Optional.
-	 * @param string $date_format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php).
-	 * @param string $timezone    Timezone in which to present the date/time (or default behavior if not set).
+	 * @param int|WP_Post $event       (optional) The event post object or event ID. Defaults to current post in the loop.
+	 * @param string      $date_format Allows date and time formatting using standard php syntax (http://php.net/manual/en/function.date.php).
+	 * @param string      $timezone    Timezone in which to present the date/time (or default behavior if not set).
 	 *
 	 * @return string|null Time
 	 */
@@ -294,10 +296,10 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 	 * @since 5.2.0 Updated filter params.
 	 * @since 6.8.3   Removed the 'deprecated' annotation from the timezone parameter.
 	 *
-	 * @param int    $event        The event ID. Optional.
-	 * @param bool   $display_time If true shows date and time, if false only shows date.
-	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php).
-	 * @param string $timezone     Timezone in which to present the date/time (or default behavior if not set).
+	 * @param WP_Post|int $event        (optional) The event post object or event ID. Defaults to current post in the loop.
+	 * @param bool        $display_time If true shows date and time, if false only shows date.
+	 * @param string      $date_format  Allows date and time formatting using standard php syntax (http://php.net/manual/en/function.date.php).
+	 * @param string      $timezone     Deprecated. Timezone in which to present the date/time (or default behavior if not set).
 	 *
 	 * @return string|null Date
 	 */
@@ -317,14 +319,13 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 		}
 
 		$start_dates = tribe_get_var( $cache_var_name, [] );
-		$cache_key = "{$event->ID}:{$display_time}:{$date_format}:{$timezone}";
+		$cache_key   = "{$event->ID}:{$display_time}:{$date_format}:{$timezone}";
 
 		if ( ! isset( $start_dates[ $cache_key ] ) ) {
 			if ( Tribe__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
 				$display_time = false;
 			}
 
-			// @todo [BTRIA-584]: Move timezones to Common.
 			if ( class_exists( 'Tribe__Events__Timezones' ) ) {
 				$start_date = Tribe__Events__Timezones::event_start_timestamp( $event->ID, $timezone );
 			} else {
@@ -361,10 +362,10 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 	 * @since 5.2.0 Updated filter params.
 	 * @since 6.8.3   Removed the 'deprecated' annotation from the timezone parameter.
 	 *
-	 * @param int    $event        The event ID. Optional.
-	 * @param bool   $display_time If true shows date and time, if false only shows date.
-	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php).
-	 * @param string $timezone     Timezone in which to present the date/time (or default behavior if not set).
+	 * @param WP_Post|int $event        (optional) The event post object or event ID. Defaults to current post in the loop.
+	 * @param bool        $display_time If true shows date and time, if false only shows date.
+	 * @param string      $date_format  Allows date and time formatting using standard php syntax (http://php.net/manual/en/function.date.php).
+	 * @param string      $timezone     Deprecated. Timezone in which to present the date/time (or default behavior if not set).
 	 *
 	 * @return string|null Date
 	 */
@@ -391,7 +392,6 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 				$display_time = false;
 			}
 
-			// @todo [BTRIA-584]: Move timezones to Common.
 			if ( class_exists( 'Tribe__Events__Timezones' ) ) {
 				$end_date = Tribe__Events__Timezones::event_end_timestamp( $event->ID, $timezone );
 			} else {
