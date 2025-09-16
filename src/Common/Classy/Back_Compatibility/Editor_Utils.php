@@ -32,4 +32,19 @@ class Editor_Utils {
 	public function exclude_tribe_blocks( string $content ): string {
 		return $content;
 	}
+	
+	/**
+	 * Remove all invalid characters in string that are used to set the name of a block.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $name The name of the block.
+	 *
+	 * @see Tribe__Editor__Utils::to_block_name()
+	 *
+	 * @return string The block name.
+	 */
+	public function to_block_name( $name = '' ) {
+		return preg_replace( '/[^a-zA-Z0-9-]/', '', $name );
+	}
 }
