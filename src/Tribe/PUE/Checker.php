@@ -809,14 +809,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$no_license_tooltip = sprintf(
 				/* Translators: %1$s and %2$s are opening and closing <a> tags, respectively. */
 					esc_html__( '%1$sBuy a license%2$s for the Event Aggregator service to access additional import features.', 'tribe-common' ),
-					'<a href="https://theeventscalendar.com/products/event-aggregator/" target="_blank">',
+					'<a href="https://evnt.is/1bee" target="_blank">',
 					'</a>'
 				);
 			} elseif ( 'promoter' === $this->get_slug() ) {
 				$no_license_tooltip = sprintf(
 				/* Translators: %1$s and %2$s are opening and closing <a> tags, respectively. */
 					esc_html__( '%1$sBuy a license%2$s for the Promoter service to access additional marketing features.', 'tribe-common' ),
-					'<a href="https://theeventscalendar.com/products/promoter/" target="_blank">',
+					'<a href="https://evnt.is/1bef" target="_blank">',
 					'</a>'
 				);
 			}
