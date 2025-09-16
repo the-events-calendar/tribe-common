@@ -289,7 +289,7 @@ class Tribe__Main {
 				[ 'tec-common-php-date-formatter', 'node_modules/php-date-formatter/js/php-date-formatter.js' ],
 			]
 		);
-		
+
 		tec_asset(
 			$this,
 			'tec-user-agent',
@@ -830,6 +830,7 @@ class Tribe__Main {
 		tribe_register_provider( \TEC\Common\QR\Controller::class );
 		tribe_singleton( ContainerInterface::class, tribe() );
 		tribe_register_provider( Libraries\Provider::class );
+		tribe_register_provider( TEC\Common\TrustedLogin\Controller::class );
 
 		// Load the new third-party integration system.
 		tribe_register_provider( TEC\Common\Integrations\Provider::class );

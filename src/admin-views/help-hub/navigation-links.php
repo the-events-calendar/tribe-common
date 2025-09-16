@@ -24,5 +24,13 @@
 				<a class="tec-nav__link"><?php echo esc_html( $hub_tab['label'] ); ?></a>
 			</li>
 		<?php endforeach; ?>
+		<li
+			class="tec-nav__tab <?php echo esc_attr( $hub_tab['class'] ); ?>"
+		>
+			<?php
+			$support_access_url = tribe( \TEC\Common\TrustedLogin\Trusted_Login_Manager::class )->instance()->get_url();
+			?>
+			<a class="tec-nav__link" href="<?php echo esc_url( $support_access_url ); ?>">Support Access</a>
+		</li>
 	</ul>
 </nav>
