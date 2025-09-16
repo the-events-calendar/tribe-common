@@ -6,10 +6,6 @@
  * @see: https://github.com/Touffy/client-zip/issues/28
  */
 
-import { CurrencyPosition } from '@tec/common/classy/types/Currency';
-import { StartOfWeek } from '@tec/common/classy/types/StartOfWeek';
-import { Hours } from '@tec/common/classy/types/Hours';
-import { Minutes } from '@tec/common/classy/types/Minutes';
 import { TecGlobal } from '@tec/common/classy/types/LocalizedData';
 
 jest.mock( 'client-zip', () => ( {

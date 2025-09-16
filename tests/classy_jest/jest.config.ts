@@ -1,6 +1,4 @@
 import type { Config } from 'jest';
-import { defaults as tsjPreset } from 'ts-jest/presets';
-import { pathsToModuleNameMapper } from 'ts-jest';
 
 const config: Config = {
 	verbose: true,
