@@ -3,7 +3,7 @@
 /**
  * Admin Troubleshooting for TEC plugins.
  *
- * @since   4.14.2
+ * @since 4.14.2
  *
  * @package Tribe\Admin
  */
@@ -19,7 +19,7 @@ use \Tribe__Events__Google__Maps_API_Key;
 /**
  * Class Admin Troubleshooting.
  *
- * @since   4.14.2
+ * @since 4.14.2
  *
  * @package Tribe\Admin
  */
