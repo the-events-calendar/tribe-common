@@ -210,7 +210,7 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 		 *
 		 * @return array The sanitized array.
 		 *
-		 * @link  https://gist.github.com/esthezia/5804445
+		 * @link https://gist.github.com/esthezia/5804445
 		 */
 		public static function escape_multidimensional_array( $data = [] ) {
 			if ( ! is_array( $data ) || ! count( $data ) ) {
