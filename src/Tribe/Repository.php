@@ -466,14 +466,14 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get_default_args(): array {
+	public function get_default_args() {
 		return $this->default_args;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function set_default_args( array $default_args ): void {
+	public function set_default_args( array $default_args ) {
 		$this->default_args = $default_args;
 	}
 
@@ -1768,7 +1768,7 @@ abstract class Tribe__Repository
 	 *                           calls.
 	 * @param callable $callback The function that should be called to apply this filter.
 	 */
-	public function add_schema_entry( $key, $callback ): void {
+	public function add_schema_entry( $key, $callback ) {
 		$this->set_schema( $key, $callback );
 	}
 
@@ -1811,7 +1811,7 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function add_update_field_alias( $alias, $field_name ): void {
+	public function add_update_field_alias( $alias, $field_name ) {
 		$this->update_fields_aliases[ $alias ] = $field_name;
 	}
 
@@ -2901,14 +2901,14 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get_update_fields_aliases(): array {
+	public function get_update_fields_aliases() {
 		return $this->update_fields_aliases;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function set_update_fields_aliases( array $update_fields_aliases ): void {
+	public function set_update_fields_aliases( array $update_fields_aliases ) {
 		$this->update_fields_aliases = $update_fields_aliases;
 	}
 
@@ -3089,7 +3089,7 @@ abstract class Tribe__Repository
 	 *
 	 * @param array $create_args The create args the repository will use to create posts.
 	 */
-	public function set_create_args( array $create_args ): void {
+	public function set_create_args( array $create_args ) {
 		$this->create_args = $create_args;
 	}
 

@@ -491,6 +491,9 @@ trait Custom_Table_Query_Methods {
 				case Table::PHP_TYPE_BOOL:
 					$data[ $column ] = (bool) $value;
 					break;
+				case Table::PHP_TYPE_JSON:
+					$data[ $column ] = (array) json_decode( $value, true );
+					break;
 				case Table::PHP_TYPE_DATETIME:
 					try {
 						$instance = tribe( DateTimeInterface::class );

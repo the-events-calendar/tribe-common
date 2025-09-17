@@ -27,29 +27,26 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	 * Returns the current default query arguments of the repository.
 	 *
 	 * @since 4.7.19
-	 * @since TBD Type hinted return type to array.
 	 *
 	 * @return array
 	 */
-	public function get_default_args(): array;
+	public function get_default_args();
 
 	/**
 	 * Sets the default arguments of the repository.
 	 *
 	 * @since 4.7.19
-	 * @since TBD Type hinted return type to void.
 	 *
 	 * @param array $default_args The default arguments to set.
 	 *
 	 * @return void
 	 */
-	public function set_default_args( array $default_args ): void;
+	public function set_default_args( array $default_args );
 
 	/**
 	 * Adds an entry to the repository filter schema.
 	 *
 	 * @since 4.9.5
-	 * @since TBD Type hinted return type to void.
 	 *
 	 * @param string   $key      The filter key, the one that will be used in `by` and `where`
 	 *                           calls.
@@ -57,7 +54,7 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	 *
 	 * @return void
 	 */
-	public function add_schema_entry( $key, $callback ): void;
+	public function add_schema_entry( $key, $callback );
 
 	/**
 	 * Sets the found rows calculation to be enabled for queries.
@@ -119,14 +116,13 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	 * Adds an alias for an update/save field.
 	 *
 	 * @since 4.9.5
-	 * @since TBD Type hinted return type to void.
 	 *
 	 * @param string $alias The alias to add.
 	 * @param string $field_name The field name this alias should resolve to, this
 	 *                           can be posts table field, a taxonomy name or a custom
 	 *                           field.
 	 */
-	public function add_update_field_alias( $alias, $field_name ): void;
+	public function add_update_field_alias( $alias, $field_name );
 
 	/**
 	 * Returns the update fields aliases for the repository.
@@ -136,18 +132,17 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	 *
 	 * @return array This repository update fields aliases map.
 	 */
-	public function get_update_fields_aliases(): array;
+	public function get_update_fields_aliases();
 
 	/**
 	 * Replaces the update fields aliases for this repository.
 	 *
 	 * @since 4.9.5
-	 * @since TBD Type hinted return type to void.
 	 *
 	 * @param array $update_fields_aliases The new update fields aliases
 	 *                                     map for this repository.
 	 */
-	public function set_update_fields_aliases( array $update_fields_aliases ): void;
+	public function set_update_fields_aliases( array $update_fields_aliases );
 
 	/**
 	 * Creates a post of the type managed by the repository with the fields
@@ -165,13 +160,12 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	 * Sets the create args the repository will use to create posts.
 	 *
 	 * @since 4.9.5
-	 * @since TBD Type hinted return type to void.
 	 *
 	 * @param array $create_args The create args the repository will use to create posts.
 	 *
 	 * @return void
 	 */
-	public function set_create_args( array $create_args ): void;
+	public function set_create_args( array $create_args );
 
 	/**
 	 * Returns the create args the repository will use to create posts.

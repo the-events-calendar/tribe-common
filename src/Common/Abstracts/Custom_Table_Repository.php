@@ -128,6 +128,15 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	private array $schema_callbacks = [];
 
 	/**
+	 * Whether to use the default arguments.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	private bool $use_default_args = true;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since TBD
@@ -260,6 +269,21 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	}
 
 	/**
+	 * Sets whether to use the default arguments.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $use_default_args Whether to use the default arguments.
+	 *
+	 * @return self The repository instance.
+	 */
+	public function set_use_default_args( bool $use_default_args ): self {
+		$this->use_default_args = $use_default_args;
+		$this->set_found_rows( 0 );
+		return $this;
+	}
+
+	/**
 	 * Applies the schema callbacks.
 	 *
 	 * @since TBD
@@ -283,7 +307,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @return array The default arguments used for select queries.
 	 */
-	public function get_default_args(): array {
+	public function get_default_args(){
 		return $this->default_select_args;
 	}
 
@@ -294,7 +318,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @param array $default_select_args The default arguments used for select queries.
 	 */
-	public function set_default_args( array $default_select_args ): void {
+	public function set_default_args( array $default_select_args ) {
 		$this->default_select_args = $default_select_args;
 	}
 
@@ -308,7 +332,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @throws RuntimeException If the filter is not supported for custom table repositories.
 	 */
 	private function get_select_args(): array {
-		$args = array_merge( $this->get_default_args(), $this->select_args );
+		$args = $this->use_default_args ? array_merge( $this->get_default_args(), $this->select_args ) : $this->select_args;
 
 		$new_args = [];
 
@@ -337,7 +361,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @param array $default_create_args The create args.
 	 */
-	public function set_create_args( array $default_create_args ): void {
+	public function set_create_args( array $default_create_args ) {
 		$this->default_create_args = $default_create_args;
 	}
 
@@ -989,7 +1013,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @param string $alias The alias to add.
 	 * @param string $field_name The field name to add.
 	 */
-	public function add_update_field_alias( $alias, $field_name ): void {
+	public function add_update_field_alias( $alias, $field_name ) {
 		$this->aliases[ $alias ] = $field_name;
 	}
 
@@ -1000,7 +1024,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @return array The update fields aliases.
 	 */
-	public function get_update_fields_aliases(): array {
+	public function get_update_fields_aliases() {
 		return $this->aliases;
 	}
 
@@ -1011,7 +1035,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @param array $update_fields_aliases The update fields aliases.
 	 */
-	public function set_update_fields_aliases( array $update_fields_aliases ): void {
+	public function set_update_fields_aliases( array $update_fields_aliases ) {
 		$this->aliases = $update_fields_aliases;
 	}
 
@@ -1034,7 +1058,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @param string   $key      The key to add.
 	 * @param callable $callback The callback to add.
 	 */
-	public function add_schema_entry( $key, $callback ): void {
+	public function add_schema_entry( $key, $callback ) {
 		$this->schema[ $key ] = $callback;
 	}
 

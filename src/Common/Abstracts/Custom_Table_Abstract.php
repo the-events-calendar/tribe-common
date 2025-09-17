@@ -45,6 +45,15 @@ abstract class Custom_Table_Abstract extends Base_Table {
 	public const PHP_TYPE_STRING = 'string';
 
 	/**
+	 * The PHP type for a json.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public const PHP_TYPE_JSON = 'json';
+
+	/**
 	 * The PHP type for a float.
 	 *
 	 * @since TBD
