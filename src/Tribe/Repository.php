@@ -1141,7 +1141,7 @@ abstract class Tribe__Repository
 			return $this;
 		}
 
-		$call_args = func_get_args();
+		$call_args = [ $key, $value ];
 
 		$this->current_filters[ $key ] = array_slice( $call_args, 1 );
 
