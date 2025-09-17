@@ -95,7 +95,7 @@ const findCurrencyByCode = ( code: string, currencies: Currency[] ): Currency | 
 export default function CurrencySelector( props: CurrencySelectorProps ): React.JSX.Element {
 	const { currencyCodeMeta, currencySymbolMeta, currencyPositionMeta } = props;
 
-	const { meta, defaultCurrency, Currencies } = useSelect( ( select ) => {
+	const { meta, defaultCurrency, currencies } = useSelect( ( select ) => {
 		const { getDefaultCurrency, getCurrencyOptions }: StoreSelect = select( 'tec/classy' );
 		const {
 			getEditedPostAttribute,
@@ -105,7 +105,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ): React.
 		return {
 			meta: getEditedPostAttribute( 'meta' ) || null,
 			defaultCurrency: getDefaultCurrency(),
-			Currencies: getCurrencyOptions() || [],
+			currencies: getCurrencyOptions() || [],
 		};
 	}, [] );
 
@@ -119,7 +119,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ): React.
 
 	const eventCurrencyPosition: CurrencyPosition =
 		meta?.[ currencyPositionMeta ] ||
-		findCurrencyByCode( eventCurrencyCode, Currencies )?.position ||
+		findCurrencyByCode( eventCurrencyCode, currencies )?.position ||
 		defaultCurrency.position;
 	const [ currencyPosition, setCurrencyPosition ] = useState< CurrencyPosition >( eventCurrencyPosition );
 
@@ -158,7 +158,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ): React.
 	};
 
 	const onCurrencyChange = ( nextValue: string | undefined ): void => {
-		const selectedCurrency: Currency = findCurrencyByCode( nextValue ?? '', Currencies );
+		const selectedCurrency: Currency = findCurrencyByCode( nextValue ?? '', currencies );
 		if ( ! selectedCurrency || nextValue === 'default' ) {
 			setToDefaultCurrency();
 			return;
@@ -191,14 +191,14 @@ export default function CurrencySelector( props: CurrencySelectorProps ): React.
 		setIsSelectingCurrency( ! isSelectingCurrency );
 	};
 
-	const currencyOptions = [ currencyDefaultOption, ...mapCurrenciesToOptions( Currencies ) ];
+	const currencyOptions = [ currencyDefaultOption, ...mapCurrenciesToOptions( currencies ) ];
 
 	const onClose = (): void => {
 		setIsSelectingCurrency( false );
 	};
 
 	let popoverContent: React.ReactNode = null;
-	if ( Currencies.length === 0 ) {
+	if ( currencies.length === 0 ) {
 		popoverContent = <CenteredSpinner />;
 	} else {
 		popoverContent = (
