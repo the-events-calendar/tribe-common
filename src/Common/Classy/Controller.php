@@ -128,7 +128,6 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( 'events.editor', $back_compatible_editor );
 		$this->container->singleton( 'events.editor.compatibility', $back_compatible_editor );
 		$this->container->singleton( 'editor.utils', new Editor_Utils() );
-		$this->container->singleton( 'events.editor.template', 'Tribe__Events__Editor__Template' );
 
 		$this->container->register( REST\Controller::class );
 
