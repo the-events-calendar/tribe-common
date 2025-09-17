@@ -33,6 +33,13 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	 */
 	protected string $test_table_class;
 
+	public function __construct() {
+		parent::__construct();
+		$model_class = tribe( $this->test_repository_class )->get_model_class();
+		$this->test_model_class = $model_class;
+		$this->test_table_class = get_class( tribe( $model_class )->get_table_interface() );
+	}
+
 	/**
 	 * @before
 	 */
