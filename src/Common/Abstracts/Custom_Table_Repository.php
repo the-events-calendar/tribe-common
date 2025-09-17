@@ -307,7 +307,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @return array The default arguments used for select queries.
 	 */
-	public function get_default_args(){
+	public function get_default_args() {
 		return $this->default_select_args;
 	}
 

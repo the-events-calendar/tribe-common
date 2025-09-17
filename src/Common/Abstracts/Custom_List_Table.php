@@ -38,6 +38,13 @@ abstract class Custom_List_Table extends Base_Abstract {
 		return $result;
 	}
 
+	/**
+	 * Returns the repository.
+	 *
+	 * @since TBD
+	 *
+	 * @return Repository The repository.
+	 */
 	abstract protected function get_repository(): Repository;
 
 	/**
@@ -82,7 +89,7 @@ abstract class Custom_List_Table extends Base_Abstract {
 	 *
 	 * @return array
 	 */
-	private function get_arguments( bool $for_repo = true ): array {
+	private function get_arguments(): array {
 		return array_merge( $this->get_args(), $this->get_instance_args() );
 	}
 
