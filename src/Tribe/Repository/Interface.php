@@ -1,4 +1,8 @@
 <?php
+// phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase
+// phpcs:disable PEAR.NamingConventions.ValidClassName.Invalid
+
+use TEC\Common\Contracts\Repository_Interface;
 
 /**
  * Interface Tribe__Repository__Interface
@@ -6,32 +10,13 @@
  * @since 4.7.19
  *
  */
-interface Tribe__Repository__Interface
-	extends Tribe__Repository__Read_Interface,
+interface Tribe__Repository__Interface extends
+	Repository_Interface,
+	Tribe__Repository__Read_Interface,
 	Tribe__Repository__Update_Interface {
 
 	const PERMISSION_EDITABLE = 'editable';
 	const PERMISSION_READABLE = 'readable';
-
-	/**
-	 * Returns the current default query arguments of the repository.
-	 *
-	 * @since 4.7.19
-	 *
-	 * @return array
-	 */
-	public function get_default_args();
-
-	/**
-	 * Sets the default arguments of the repository.
-	 *
-	 * @since 4.7.19
-	 *
-	 * @param array $default_args
-	 *
-	 * @return mixed
-	 */
-	public function set_default_args( array $default_args );
 
 	/**
 	 * Sets the dynamic part of the filter tag that will be used to filter
@@ -210,17 +195,6 @@ interface Tribe__Repository__Interface
 	public function by_not_related_to( $by_meta_keys, $keys = null, $values = null );
 
 	/**
-	 * Adds an entry to the repository filter schema.
-	 *
-	 * @since 4.9.5
-	 *
-	 * @param string   $key      The filter key, the one that will be used in `by` and `where`
-	 *                           calls.
-	 * @param callable $callback The function that should be called to apply this filter.
-	 */
-	public function add_schema_entry( $key, $callback );
-
-	/**
 	 * Returns an hash string for this repository instance filters and, optionally, a generated query.
 	 *
 	 * By default all applied filters, and query vars, will be included but specific filters can
@@ -322,17 +296,6 @@ interface Tribe__Repository__Interface
 	 * @return \Tribe__Repository__Interface The repository instance that will yield the previous page results.
 	 */
 	public function prev();
-
-	/**
-	 * Sets the found rows calculation to be enabled for queries.
-	 *
-	 * @since 4.9.10
-	 *
-	 * @param bool $found_rows Whether found rows calculation should be enabled.
-	 *
-	 * @return \Tribe__Repository__Interface The repository instance, for chaining.
-	 */
-	public function set_found_rows( $found_rows );
 
 	/**
 	 * Voids the repositories queries preventing the repository from running any query.

@@ -28,6 +28,7 @@ trait Custom_Table_Query_Methods {
 	 * @since 6.5.3
 	 * @since 6.8.0 Referenced the `uid_column` property in the ORDER BY clause.
 	 * @since 6.9.0 Added the $order_by parameter.
+	 * @since TBD Increment the $offset variable.
 	 *
 	 * @param int    $batch_size   The number of rows to fetch per batch.
 	 * @param string $output       The output type of the query, one of OBJECT, ARRAY_A, or ARRAY_N.
@@ -62,6 +63,8 @@ trait Custom_Table_Query_Methods {
 			// We need to get the total number of rows, only after the first batch.
 			$total  ??= DB::get_var( 'SELECT FOUND_ROWS()' );
 			$fetched += count( $batch );
+
+			$offset += $batch_size;
 
 			yield from $batch;
 		} while ( $fetched < $total );
@@ -199,13 +202,15 @@ trait Custom_Table_Query_Methods {
 	 * Deletes multiple rows from the table.
 	 *
 	 * @since 6.8.0
+	 * @since TBD Added the $more_where parameter.
 	 *
-	 * @param array<int|string> $ids    The IDs of the rows to delete.
-	 * @param string            $column The column to use for the delete query.
+	 * @param array<int|string> $ids        The IDs of the rows to delete.
+	 * @param string            $column     The column to use for the delete query.
+	 * @param string            $more_where The more WHERE clause to use for the delete query.
 	 *
 	 * @return bool|int The number of rows affected, or `false` on failure.
 	 */
-	public static function delete_many( array $ids, string $column = '' ) {
+	public static function delete_many( array $ids, string $column = '', string $more_where = '' ) {
 		$ids = array_filter(
 			array_map(
 				fn( $id ) => is_numeric( $id ) ? (int) $id : "'{$id}'",
@@ -223,7 +228,7 @@ trait Custom_Table_Query_Methods {
 
 		return DB::query(
 			DB::prepare(
-				"DELETE FROM %i WHERE {$column} IN ({$prepared_ids})",
+				"DELETE FROM %i WHERE {$column} IN ({$prepared_ids}) {$more_where}",
 				static::table_name( true ),
 			)
 		);
@@ -304,6 +309,7 @@ trait Custom_Table_Query_Methods {
 	 * @param array  $args                      The query arguments.
 	 * @param int    $per_page                  The number of items to display per page.
 	 * @param int    $page                      The current page number.
+	 * @param array  $columns                   The columns to select.
 	 * @param string $join_table                The table to join.
 	 * @param string $join_condition            The condition to join on.
 	 * @param array  $selectable_joined_columns The columns from the joined table to select.
@@ -314,7 +320,7 @@ trait Custom_Table_Query_Methods {
 	 *                                  If the join condition does not contain an equal sign.
 	 *                                  If the join condition does not contain valid columns.
 	 */
-	public static function paginate( array $args, int $per_page = 20, int $page = 1, string $join_table = '', string $join_condition = '', array $selectable_joined_columns = [], string $output = OBJECT ): array {
+	public static function paginate( array $args, int $per_page = 20, int $page = 1, array $columns = [ '*' ], string $join_table = '', string $join_condition = '', array $selectable_joined_columns = [], string $output = OBJECT ): array {
 		$is_join = (bool) $join_table;
 
 		if ( $is_join && static::table_name( true ) === $join_table::table_name( true ) ) {
@@ -341,9 +347,11 @@ trait Custom_Table_Query_Methods {
 
 		[ $join, $secondary_columns ] = $is_join ? static::get_join_parts( $join_table, $join_condition, $selectable_joined_columns ) : [ '', '' ];
 
+		$columns = implode( ', ', array_map( fn( $column ) => "a.{$column}", $columns ) );
+
 		return DB::get_results(
 			DB::prepare(
-				"SELECT a.*{$secondary_columns} FROM %i a {$join} {$where} ORDER BY a.{$orderby} {$order} LIMIT %d, %d",
+				"SELECT {$columns}{$secondary_columns} FROM %i a {$join} {$where} ORDER BY a.{$orderby} {$order} LIMIT %d, %d",
 				static::table_name( true ),
 				$offset,
 				$per_page

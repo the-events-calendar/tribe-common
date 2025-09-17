@@ -44,12 +44,7 @@ trait Create_Entity_Response {
 
 		return new WP_REST_Response(
 			$this->get_formatted_entity(
-				$this->get_orm()->by_args(
-					[
-						'id'     => $entity->ID,
-						'status' => 'any',
-					]
-				)->first()
+				$this->get_orm()->by_primary_key( $entity->ID )
 			),
 			201
 		);
