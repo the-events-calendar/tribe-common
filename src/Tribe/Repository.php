@@ -3078,7 +3078,7 @@ abstract class Tribe__Repository
 	 *
 	 * @return array The create args the repository will use to create posts.
 	 */
-	public function get_create_args(): array {
+	public function get_create_args() {
 		return $this->create_args;
 	}
 
@@ -3724,7 +3724,7 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritDoc}
 	 */
-	public function set_found_rows( $found_rows ): self {
+	public function set_found_rows( $found_rows ) {
 		$this->skip_found_rows = ! $found_rows;
 
 		return $this;

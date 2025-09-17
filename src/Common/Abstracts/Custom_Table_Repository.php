@@ -372,7 +372,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @return array The create args.
 	 */
-	public function get_create_args(): array {
+	public function get_create_args() {
 		return array_merge( $this->default_create_args, $this->upsert_args );
 	}
 
@@ -383,7 +383,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @param bool $found_rows The found rows.
 	 */
-	public function set_found_rows( $found_rows ): self {
+	public function set_found_rows( $found_rows ) {
 		$this->found_rows = (int) $found_rows;
 		return $this;
 	}

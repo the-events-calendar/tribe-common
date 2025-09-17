@@ -60,13 +60,12 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	 * Sets the found rows calculation to be enabled for queries.
 	 *
 	 * @since 4.9.10
-	 * @since TBD Type hinted return type to self.
 	 *
 	 * @param bool $found_rows Whether found rows calculation should be enabled.
 	 *
 	 * @return self The repository instance, for chaining.
 	 */
-	public function set_found_rows( $found_rows ): self;
+	public function set_found_rows( $found_rows );
 
 	/**
 	 * Fetches a single instance of the post type handled by the repository by
@@ -128,7 +127,6 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	 * Returns the update fields aliases for the repository.
 	 *
 	 * @since 4.9.5
-	 * @since TBD Type hinted return type to array.
 	 *
 	 * @return array This repository update fields aliases map.
 	 */
@@ -171,9 +169,8 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	 * Returns the create args the repository will use to create posts.
 	 *
 	 * @since 4.9.5
-	 * @since TBD Type hinted return type to array.
 	 *
 	 * @return array The create args the repository will use to create posts.
 	 */
-	public function get_create_args(): array;
+	public function get_create_args();
 }
