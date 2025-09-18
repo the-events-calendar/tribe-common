@@ -1,9 +1,4 @@
-import {
-	isValidDate,
-	getValidDateOrNull,
-	areDatesOnSameDay,
-	areDatesOnSameTime,
-} from '../../../src/resources/packages/classy/functions/dateUtils';
+import { isValidDate, getValidDateOrNull, areDatesOnSameDay, areDatesOnSameTime } from '@tec/common/classy/functions';
 import { describe, expect, it } from '@jest/globals';
 
 describe( 'dateUtils', () => {

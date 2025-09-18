@@ -2,7 +2,7 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference types="jest" />
 import { describe, expect, it, beforeEach, afterEach } from '@jest/globals';
-import { getDefault, getLocalizedData, getSettings } from '../../../src/resources/packages/classy/localizedData';
+import { getDefault, getLocalizedData, getSettings } from '@tec/common/classy/localizedData';
 
 describe( 'localizedData', () => {
 	const originalWindow = global.window;

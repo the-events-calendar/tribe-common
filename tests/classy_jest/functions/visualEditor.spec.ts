@@ -1,4 +1,4 @@
-import { getElement, toggleVisibility } from '../../../src/resources/packages/classy/functions/visualEditor';
+import { getElement, toggleVisibility } from '@tec/common/classy/functions/visualEditor';
 import { afterEach, describe, expect, it, jest } from '@jest/globals';
 
 describe( 'visualEditor', () => {

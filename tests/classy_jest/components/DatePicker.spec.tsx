@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { describe, expect, it, jest } from '@jest/globals';
 import { DatePicker } from '../../../src/resources/packages/classy/components';
-import { DatePickerProps } from '../../../src/resources/packages/classy/components/DatePicker/DatePicker';
+import { DatePickerProps } from '@tec/common/classy/components/DatePicker/DatePicker';
 import { keyDownEscape } from '../_support/userEvents';
 
 describe( 'DatePicker Component', () => {

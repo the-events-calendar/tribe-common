@@ -6,7 +6,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRegistry, RegistryProvider } from '@wordpress/data';
 import '@testing-library/jest-dom';
 import CurrencySelector from '../../../src/resources/packages/classy/components/CurrencySelector/CurrencySelector';
-import { STORE_NAME, storeConfig } from '../../../src/resources/packages/classy/store/store';
+import { STORE_NAME, storeConfig } from '@tec/common/classy/store';
 import TestProvider from '../_support/TestProvider';
 
 describe( 'CurrencySelector', () => {

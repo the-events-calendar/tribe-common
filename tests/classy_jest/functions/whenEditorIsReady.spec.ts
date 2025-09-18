@@ -1,4 +1,4 @@
-import { whenEditorIsReady } from '../../../src/resources/packages/classy/functions/whenEditorIsReady';
+import { whenEditorIsReady } from '@tec/common/classy/functions/whenEditorIsReady';
 import { select, subscribe } from '@wordpress/data';
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 

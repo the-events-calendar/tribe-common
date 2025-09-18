@@ -1,4 +1,4 @@
-import { isValidUrl } from '../../../src/resources/packages/classy/functions/url';
+import { isValidUrl } from '@tec/common/classy/functions';
 import { describe, expect, it } from '@jest/globals';
 
 describe( 'url', () => {
