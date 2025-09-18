@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace TEC\Common\Request;
 
+use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+
 /**
  * Class Query_Vars
  *
@@ -18,7 +20,16 @@ namespace TEC\Common\Request;
  *
  * @package TEC\Common\Request
  */
-class Query_Vars {
+class Query_Vars extends Controller_Contract {
+	/**
+	 * The action registration action for the query vars controller.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static string $registration_action = 'tec_request_query_vars_registered';
+
 	/**
 	 * The GET superglobal.
 	 *
@@ -66,8 +77,8 @@ class Query_Vars {
 	 *
 	 * @return void
 	 */
-	public function register(): void {
-		do_action( 'tec_request_query_vars_registered' );
+	protected function do_register(): void {
+		do_action( self::$registration_action );
 
 		add_filter( 'request', [ $this, 'clean_query_vars' ], 0 );
 	}

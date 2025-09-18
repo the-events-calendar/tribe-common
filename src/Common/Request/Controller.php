@@ -30,10 +30,7 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	protected function do_register(): void {
-		$this->container->singleton( Query_Vars::class, Query_Vars::class, [ 'register' ] );
-
-		// Initialize the singleton and register the hooks.
-		$this->container->make( Query_Vars::class );
+		$this->container->register( Query_Vars::class, Query_Vars::class );
 
 		do_action( 'tec_request_controller_registered' );
 	}
@@ -51,7 +48,5 @@ class Controller extends Controller_Contract {
 		}
 
 		$this->container->get( Query_Vars::class )->unregister();
-
-		do_action( 'tec_request_controller_unregistered' );
 	}
 }

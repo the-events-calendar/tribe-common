@@ -51,8 +51,9 @@ abstract class Abstract_Query_Var extends Controller {
 	 * @return void
 	 */
 	protected function do_register(): void {
-		$this->container->singleton( $this->name, $this, [ 'register' ] );
-		$this->hooks();
+		add_filter( "tec_request_query_vars_{$this->name}", [ $this, 'filter_query_var' ], 10, 2 );
+		add_filter( "tec_request_query_vars_should_filter_{$this->name}", [ $this, 'should_filter' ], 10, 1 );
+		add_filter( "tec_request_superglobal_allowed_{$this->name}", [ $this, 'filter_superglobal_allowed' ], 10, 2 );
 	}
 
 	/**
@@ -63,51 +64,9 @@ abstract class Abstract_Query_Var extends Controller {
 	 * @return void
 	 */
 	public function unregister(): void {
-		$this->unhooks();
-	}
-
-	/**
-	 * Hooks the query var filtering.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function hooks(): void {
-		add_filter( "tec_request_query_vars_{$this->name}", [ $this, 'filter_query_var' ], 10, 2 );
-		add_filter( "tec_request_query_vars_should_filter_{$this->name}", [ $this, 'should_filter' ], 10, 1 );
-		add_filter( "tec_request_superglobal_allowed_{$this->name}", [ $this, 'filter_superglobal_allowed' ], 10, 2 );
-	}
-
-	/**
-	 * Unhooks the query var filtering.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function unhooks(): void {
 		remove_filter( "tec_request_query_vars_{$this->name}", [ $this, 'filter_query_var' ], 10 );
 		remove_filter( "tec_request_query_vars_should_filter_{$this->name}", [ $this, 'should_filter' ], 10 );
 		remove_filter( "tec_request_superglobal_allowed_{$this->name}", [ $this, 'filter_superglobal_allowed' ], 10 );
-	}
-
-	/**
-	 * Filters if the query var should be filtered.
-	 * Defaults to false to help short-circuit the query var filtering in most cases.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $key The query var name.
-	 *
-	 * @return bool Whether the query var should be filtered.
-	 */
-	public function should_filter( string $key ): bool {
-		if ( ! $this->is_active() ) {
-			return false;
-		}
-
-		return $this->should_filter;
 	}
 
 	/**
@@ -133,6 +92,20 @@ abstract class Abstract_Query_Var extends Controller {
 	}
 
 	/**
+	 * Filters if the query var should be filtered.
+	 * Defaults to false to help short-circuit the query var filtering in most cases.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key The query var name.
+	 *
+	 * @return bool Whether the query var should be filtered.
+	 */
+	public function should_filter( string $key ): bool {
+		return $this->should_filter;
+	}
+
+	/**
 	 * Filters the query var.
 	 *
 	 * @since TBD
@@ -143,10 +116,6 @@ abstract class Abstract_Query_Var extends Controller {
 	 * @return mixed The filtered query var value. Null to unset it.
 	 */
 	public function filter_query_var( $value, array $query_vars ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-		if ( ! $this->is_active() ) {
-			return $value;
-		}
-
 		return $value;
 	}
 
