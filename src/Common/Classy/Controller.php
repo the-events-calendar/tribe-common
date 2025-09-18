@@ -175,7 +175,6 @@ class Controller extends Controller_Contract {
 		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
 		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 		remove_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100 );
-		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
 		remove_action( 'tec_common_assets_loaded', [ $this, 'register_assets' ] );
 		remove_filter( 'get_user_metadata', [ $this,'disable_block_editor_welcome_screen' ] );
