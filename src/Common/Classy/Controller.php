@@ -124,7 +124,6 @@ class Controller extends Controller_Contract {
 	protected function do_register(): void {
 		// Register the `editor` binding replacement for back-compatibility purposes.
 		$back_compatible_editor = new Editor();
-		$this->container->singleton( 'editor', $back_compatible_editor );
 		$this->container->singleton( 'events.editor', $back_compatible_editor );
 		$this->container->singleton( 'events.editor.compatibility', $back_compatible_editor );
 		$this->container->singleton( 'editor.utils', new Editor_Utils() );
