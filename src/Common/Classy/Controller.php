@@ -131,7 +131,7 @@ class Controller extends Controller_Contract {
 		$this->container->register( REST\Controller::class );
 
 		// Tell Common, TEC, ET and so on NOT to load blocks.
-		add_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
+		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'disable_in_admin' ], 100 );
 
 		// We're using Classy editor.
 		add_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
@@ -428,5 +428,22 @@ class Controller extends Controller_Contract {
 		 * @since TBD
 		 */
 		do_action( 'tribe_editor_register_blocks' );
+	}
+
+	/**
+	 * Disable loading blocks in the admin.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $should_load Whether to load the blocks or not.
+	 *
+	 * @return bool Whether to load the blocks or not.
+	 */
+	public function disable_in_admin( $should_load ): bool {
+		if ( is_admin() ) {
+			return false;
+		}
+
+		return $should_load;
 	}
 }
