@@ -221,8 +221,7 @@ class Query_Vars extends Controller_Contract {
 	 * @return bool Whether the value should be filtered.
 	 */
 	protected function should_filter_superglobal_value( string $superglobal, string $key ): bool {
-		// Only allow whitelisted superglobals.
-		// This shouldn't be necessary - but you can never be too careful.
+		// Only allow whitelisted superglobals. This shouldn't be necessary - but you can never be too careful.
 		if ( ! in_array( $superglobal, self::ALLOWED_SUPERGLOBALS, true ) ) {
 			return false;
 		}
@@ -242,6 +241,11 @@ class Query_Vars extends Controller_Contract {
 		// If the var is not allowed, skip.
 		if ( ! $var_allowed ) {
 			return false;
+		}
+
+		// If the var is "globally" allowed, return true now.
+		if ( is_bool( $var_allowed ) && $var_allowed ) {
+			return true;
 		}
 
 		// If the var is allowed, but not for this superglobal, skip.

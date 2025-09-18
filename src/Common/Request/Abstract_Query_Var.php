@@ -124,12 +124,12 @@ abstract class Abstract_Query_Var extends Controller {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $key The query var name.
+	 * @param bool   $allowed      Whether the superglobal is allowed to be filtered for this var.
 	 * @param string $superglobal The superglobal key (GET, POST, REQUEST).
 	 *
 	 * @return bool|string Whether the superglobal is allowed to be filtered for this var. Returning a string "key" will limit the superglobal modification to that key.
 	 */
-	public function filter_superglobal_allowed( string $key, string $superglobal ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-		return true;
+	public function filter_superglobal_allowed( bool $allowed, string $superglobal ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+		return $allowed;
 	}
 }
