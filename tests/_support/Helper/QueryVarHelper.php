@@ -42,7 +42,7 @@ class QueryVarHelper extends Module {
 				$this->should_filter_superglobal = $should_filter_superglobal;
 			}
 
-			public function filter_superglobal_allowed( string $key, string $superglobal ) {
+			public function filter_superglobal_allowed( bool $allowed, string $superglobal ) {
 				return $this->should_filter_superglobal;
 			}
 
@@ -67,6 +67,6 @@ class QueryVarHelper extends Module {
 
 		$query_var->set_name( $name );
 		$query_var->set_should_filter_superglobal( $should_filter_superglobal );
-		$query_var->hooks();
+		$query_var->register();
 	}
 }
