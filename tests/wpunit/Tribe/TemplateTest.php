@@ -38,13 +38,15 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_setting_a_number_of_values_at_the_same_time() {
 		$template = new Template();
 
-		$template->set_values( [
-			'twenty-three' => '23',
-			'eighty-nine'  => 89,
-			'an_array'     => [ 'key' => 2389 ],
-			'an_object'    => (object) [ 'key' => 89 ],
-			'a_null_value' => null,
-		] );
+		$template->set_values(
+			[
+				'twenty-three' => '23',
+				'eighty-nine'  => 89,
+				'an_array'     => [ 'key' => 2389 ],
+				'an_object'    => (object) [ 'key' => 89 ],
+				'a_null_value' => null,
+			]
+		);
 
 		$this->assertEquals( '23', $template->get( 'twenty-three' ) );
 		$this->assertEquals( 89, $template->get( 'eighty-nine' ) );
@@ -91,17 +93,24 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		$template = new Template();
 		$template->set_template_origin( $plugin );
 
-		add_action( 'tribe_template_entry_point:dummy/dummy-template:after_container_open', function () {
-			echo '%%after_container_open%%';
-		} );
-		add_action( 'tribe_template_entry_point:dummy/dummy-template:before_container_close', function () {
-			echo '%%before_container_close%%';
-		} );
+		add_action(
+			'tribe_template_entry_point:dummy/dummy-template:after_container_open',
+			function () {
+				echo '%%after_container_open%%';
+			}
+		);
+		add_action(
+			'tribe_template_entry_point:dummy/dummy-template:before_container_close',
+			function () {
+				echo '%%before_container_close%%';
+			}
+		);
 
-		$html = $template->template( 'dummy-template', [], false );
+		$html          = $template->template( 'dummy-template', [], false );
+		$replaced_html = $this->cleanup_template( $html );
 
-		$this->assertContains( '<div class="test">%%after_container_open%%', $html );
-		$this->assertStringEndsWith( '%%before_container_close%%</div>', $html );
+		$this->assertContains( '<div class="test">%%after_container_open%%', $replaced_html );
+		$this->assertStringEndsWith( '%%before_container_close%%</div>', $replaced_html );
 	}
 
 	/**
@@ -112,9 +121,12 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		$template = new Template();
 		$template->set_template_origin( $plugin );
 
-		add_action( 'tribe_template_entry_point::custom_entry_point', function () {
-			echo '%%custom_entry_point%%';
-		} );
+		add_action(
+			'tribe_template_entry_point::custom_entry_point',
+			function () {
+				echo '%%custom_entry_point%%';
+			}
+		);
 
 		$customer_entry_point_html = $template->do_entry_point( 'custom_entry_point', false );
 		$last_tag_html             = '</div>';
@@ -132,12 +144,18 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		$template = new Template();
 		$template->set_template_origin( $plugin );
 
-		add_action( 'tribe_template_entry_point:dummy/dummy-invalid-template-01:after_container_open', function () {
-			echo '%%after_container_open%%';
-		} );
-		add_action( 'tribe_template_entry_point:dummy/dummy-invalid-template-01:before_container_close', function () {
-			echo '%%before_container_close%%';
-		} );
+		add_action(
+			'tribe_template_entry_point:dummy/dummy-invalid-template-01:after_container_open',
+			function () {
+				echo '%%after_container_open%%';
+			}
+		);
+		add_action(
+			'tribe_template_entry_point:dummy/dummy-invalid-template-01:before_container_close',
+			function () {
+				echo '%%before_container_close%%';
+			}
+		);
 		$html = $template->template( 'dummy-invalid-template-01', [], false );
 
 		$this->assertNotContains( '%%after_container_open%%', $html );
@@ -152,12 +170,18 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		$template = new Template();
 		$template->set_template_origin( $plugin );
 
-		add_action( 'tribe_template_entry_point:dummy/dummy-invalid-template-02:after_container_open', function () {
-			echo '%%after_container_open%%';
-		} );
-		add_action( 'tribe_template_entry_point:dummy/dummy-invalid-template-02:before_container_close', function () {
-			echo '%%before_container_close%%';
-		} );
+		add_action(
+			'tribe_template_entry_point:dummy/dummy-invalid-template-02:after_container_open',
+			function () {
+				echo '%%after_container_open%%';
+			}
+		);
+		add_action(
+			'tribe_template_entry_point:dummy/dummy-invalid-template-02:before_container_close',
+			function () {
+				echo '%%before_container_close%%';
+			}
+		);
 		$html = $template->template( 'dummy-invalid-template-02', [], false );
 
 		$this->assertNotContains( '%%after_container_open%%', $html );
@@ -172,12 +196,18 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		$template = new Template();
 		$template->set_template_origin( $plugin );
 
-		add_action( 'tribe_template_entry_point:dummy/dummy-invalid-template-03:after_container_open', function () {
-			echo '%%after_container_open%%';
-		} );
-		add_action( 'tribe_template_entry_point:dummy/dummy-invalid-template-03:before_container_close', function () {
-			echo '%%before_container_close%%';
-		} );
+		add_action(
+			'tribe_template_entry_point:dummy/dummy-invalid-template-03:after_container_open',
+			function () {
+				echo '%%after_container_open%%';
+			}
+		);
+		add_action(
+			'tribe_template_entry_point:dummy/dummy-invalid-template-03:before_container_close',
+			function () {
+				echo '%%before_container_close%%';
+			}
+		);
 		$html = $template->template( 'dummy-invalid-template-03', [], false );
 
 		$this->assertNotContains( '%%after_container_open%%', $html );
@@ -192,12 +222,18 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		$template = new Template();
 		$template->set_template_origin( $plugin );
 
-		add_action( 'tribe_template_entry_point:dummy/dummy-invalid-template-04:after_container_open', function () {
-			echo '%%after_container_open%%';
-		} );
-		add_action( 'tribe_template_entry_point:dummy/dummy-invalid-template-04:before_container_close', function () {
-			echo '%%before_container_close%%';
-		} );
+		add_action(
+			'tribe_template_entry_point:dummy/dummy-invalid-template-04:after_container_open',
+			function () {
+				echo '%%after_container_open%%';
+			}
+		);
+		add_action(
+			'tribe_template_entry_point:dummy/dummy-invalid-template-04:before_container_close',
+			function () {
+				echo '%%before_container_close%%';
+			}
+		);
 		$html = $template->template( 'dummy-invalid-template-04', [], false );
 
 		$this->assertNotContains( '%%after_container_open%%', $html );
@@ -212,17 +248,23 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		$template = new Template();
 		$template->set_template_origin( $plugin );
 
-		add_action( 'tribe_template_entry_point:dummy/dummy-valid-template-01:after_container_open', function () {
-			echo '%%after_container_open%%';
-		} );
-		add_action( 'tribe_template_entry_point:dummy/dummy-valid-template-01:before_container_close', function () {
-			echo '%%before_container_close%%';
-		} );
+		add_action(
+			'tribe_template_entry_point:dummy/dummy-valid-template-01:after_container_open',
+			function () {
+				echo '%%after_container_open%%';
+			}
+		);
+		add_action(
+			'tribe_template_entry_point:dummy/dummy-valid-template-01:before_container_close',
+			function () {
+				echo '%%before_container_close%%';
+			}
+		);
 		$html = $template->template( 'dummy-valid-template-01', [], false );
 
-		$this->assertContains( '<a href="https://tri.be" class="test" target="_blank" title="Test Link" data-link="automated-tests">%%after_container_open%%', $html );
-		$this->assertStringEndsWith( '%%before_container_close%%</a>', $html );
-
+		$replaced_html = $this->cleanup_template( $html );
+		$this->assertContains( '<a href="https://tri.be" class="test" target="_blank" title="Test Link" data-link="automated-tests">%%after_container_open%%', $replaced_html );
+		$this->assertStringEndsWith( '%%before_container_close%%</a>', $replaced_html );
 	}
 
 	/**
@@ -233,17 +275,23 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		$template = new Template();
 		$template->set_template_origin( $plugin );
 
-		add_action( 'tribe_template_entry_point:dummy/dummy-valid-template-02:after_container_open', function () {
-			echo '%%after_container_open%%';
-		} );
-		add_action( 'tribe_template_entry_point:dummy/dummy-valid-template-02:before_container_close', function () {
-			echo '%%before_container_close%%';
-		} );
+		add_action(
+			'tribe_template_entry_point:dummy/dummy-valid-template-02:after_container_open',
+			function () {
+				echo '%%after_container_open%%';
+			}
+		);
+		add_action(
+			'tribe_template_entry_point:dummy/dummy-valid-template-02:before_container_close',
+			function () {
+				echo '%%before_container_close%%';
+			}
+		);
 		$html = $template->template( 'dummy-valid-template-02', [], false );
 
-		$replaced_html = str_replace( array( "\n", "\r" ), '', $html );
+		$replaced_html = $this->cleanup_template( $html );
 		$this->assertContains( 'data-view-breakpoint-pointer="99ccf293-c1b0-41b2-a1c8-033776ac6f10">%%after_container_open%%', $replaced_html );
-		$this->assertStringEndsWith( '%%before_container_close%%</div>', $html );
+		$this->assertStringEndsWith( '%%before_container_close%%</div>', $replaced_html );
 	}
 
 	/**
@@ -254,17 +302,24 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		$template = new Template();
 		$template->set_template_origin( $plugin );
 
-		add_action( 'tribe_template_entry_point:dummy/dummy-valid-template-03:after_container_open', function () {
-			echo '%%after_container_open%%';
-		} );
-		add_action( 'tribe_template_entry_point:dummy/dummy-valid-template-03:before_container_close', function () {
-			echo '%%before_container_close%%';
-		} );
-		$html = $template->template( 'dummy-valid-template-03', [], false );
+		add_action(
+			'tribe_template_entry_point:dummy/dummy-valid-template-03:after_container_open',
+			function () {
+				echo '%%after_container_open%%';
+			}
+		);
+		add_action(
+			'tribe_template_entry_point:dummy/dummy-valid-template-03:before_container_close',
+			function () {
+				echo '%%before_container_close%%';
+			}
+		);
+		$html = trim( $template->template( 'dummy-valid-template-03', [], false ) );
 
-		$replaced_html = str_replace( array( "\n", "\r" ), '', $html );
+		$replaced_html = $this->cleanup_template( $html );
+
 		$this->assertContains( '<div class="tribe-view tribe-view--base tribe-view--dummy">%%after_container_open%%', $replaced_html );
-		$this->assertStringEndsWith( '%%before_container_close%%</div>', $html );
+		$this->assertStringEndsWith( '%%before_container_close%%</div>', $replaced_html );
 	}
 
 	/**
@@ -277,12 +332,18 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 
 		add_action( 'tribe_template_entry_point_is_enabled', '__return_false' );
 
-		add_action( 'tribe_template_entry_point:dummy/dummy-template:after_container_open', function () {
-			echo '%%after_container_open%%';
-		} );
-		add_action( 'tribe_template_entry_point:dummy/dummy-template:before_container_close', function () {
-			echo '%%before_container_close%%';
-		} );
+		add_action(
+			'tribe_template_entry_point:dummy/dummy-template:after_container_open',
+			function () {
+				echo '%%after_container_open%%';
+			}
+		);
+		add_action(
+			'tribe_template_entry_point:dummy/dummy-template:before_container_close',
+			function () {
+				echo '%%before_container_close%%';
+			}
+		);
 
 		$html = $template->template( 'dummy-template', [], false );
 
@@ -305,10 +366,16 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		 * the paths to search for the template files: the assertion will happen during the filtering.
 		 */
 		$assert = function ( array $folders ) {
-			$this->assertEquals( [ 'plugin', 'common' ], array_keys( $folders ),
-				'There should be a plugin and a common folder.' );
-			$this->assertGreaterThan( $folders['plugin']['priority'], $folders['common']['priority'],
-				'Common folder should be looked up after the plugin folder.' );
+			$this->assertEquals(
+				[ 'plugin', 'common' ],
+				array_keys( $folders ),
+				'There should be a plugin and a common folder.'
+			);
+			$this->assertGreaterThan(
+				$folders['plugin']['priority'],
+				$folders['common']['priority'],
+				'Common folder should be looked up after the plugin folder.'
+			);
 			$this->assertEquals( \Tribe__Main::instance()->plugin_path . 'src/views', $folders['common']['path'] );
 		};
 		add_filter( 'tribe_template_path_list', $assert, PHP_INT_MAX );
@@ -329,8 +396,11 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 			protected $common_lookup = false;
 		};
 		$assert   = function ( array $folders ) {
-			$this->assertEquals( [ 'plugin' ], array_keys( $folders ),
-				'There should be a plugin folder only.' );
+			$this->assertEquals(
+				[ 'plugin' ],
+				array_keys( $folders ),
+				'There should be a plugin folder only.'
+			);
 		};
 		add_filter( 'tribe_template_path_list', $assert, PHP_INT_MAX );
 
@@ -368,8 +438,11 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		};
 
 		$assert = function ( array $folders ) {
-			$this->assertEquals( [ 'plugin', 'plugin_v4' ], array_keys( $folders ),
-				'There should be two plugin folders.' );
+			$this->assertEquals(
+				[ 'plugin', 'plugin_v4' ],
+				array_keys( $folders ),
+				'There should be two plugin folders.'
+			);
 			$this->assertEquals( __DIR__ . '/test-plugin/src/views/v4_2', $folders['plugin']['path'] );
 			$this->assertEquals( __DIR__ . '/test-plugin/src/views/v4', $folders['plugin_v4']['path'] );
 			$this->assertEquals(
@@ -398,8 +471,11 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		};
 
 		$assert = function ( array $folders ) {
-			$this->assertEquals( [ 'plugin', 'common', 'plugin_v4', 'common_v4' ], array_keys( $folders ),
-				'There should be two plugin and two common folders.' );
+			$this->assertEquals(
+				[ 'plugin', 'common', 'plugin_v4', 'common_v4' ],
+				array_keys( $folders ),
+				'There should be two plugin and two common folders.'
+			);
 			$this->assertEquals( __DIR__ . '/test-plugin/src/views/v4_2', $folders['plugin']['path'] );
 			$this->assertEquals( __DIR__ . '/test-plugin/src/views/v4', $folders['plugin_v4']['path'] );
 			$this->assertEquals( \Tribe__Main::instance()->plugin_path . 'src/views/v4_2', $folders['common']['path'] );
@@ -435,14 +511,21 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		};
 
 		$assert = function ( array $folders ) {
-			$this->assertEquals( [ 'plugin', 'common', 'plugin_views\v3', 'common_views\v3' ], array_keys( $folders ),
-				'There should be two plugin and two common folders.' );
+			$this->assertEquals(
+				[ 'plugin', 'common', 'plugin_views\v3', 'common_views\v3' ],
+				array_keys( $folders ),
+				'There should be two plugin and two common folders.'
+			);
 			$this->assertEquals( __DIR__ . '/test-plugin/src/templates/v3_1', $folders['plugin']['path'] );
 			$this->assertEquals( __DIR__ . '/test-plugin/src/views/v3', $folders['plugin_views\v3']['path'] );
-			$this->assertEquals( \Tribe__Main::instance()->plugin_path . 'src/templates/v3_1',
-				$folders['common']['path'] );
-			$this->assertEquals( \Tribe__Main::instance()->plugin_path . 'src/views/v3',
-				$folders['common_views\v3']['path'] );
+			$this->assertEquals(
+				\Tribe__Main::instance()->plugin_path . 'src/templates/v3_1',
+				$folders['common']['path']
+			);
+			$this->assertEquals(
+				\Tribe__Main::instance()->plugin_path . 'src/views/v3',
+				$folders['common_views\v3']['path']
+			);
 		};
 		add_filter( 'tribe_template_path_list', $assert, PHP_INT_MAX );
 
@@ -470,17 +553,42 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		$template->template( 'say-hi', [ 'name' => 'Alice' ], true );
 		$this->assertEquals( '', ob_get_clean() );
 
-		add_filter( 'tribe_template_pre_html:template/say-hi',
+		add_filter(
+			'tribe_template_pre_html:template/say-hi',
 			function ( ?string $html, string $file, $name, Template $template ): string {
 				$name = $template->get( 'name' );
 
 				return "<h3>Hello $name!</h3>";
-			}, 10, 4 );
+			},
+			10,
+			4
+		);
 
 		$this->assertEquals( '<h3>Hello Alice!</h3>', $template->template( 'say-hi', [ 'name' => 'Alice' ], false ) );
 
 		ob_start();
 		$template->template( 'say-hi', [ 'name' => 'Alice' ], true );
 		$this->assertEquals( '<h3>Hello Alice!</h3>', ob_get_clean() );
+	}
+
+	/**
+	 * Normalizes HTML output for testing by removing extra whitespace.
+	 *
+	 * @param string $html Raw HTML output.
+	 *
+	 * @return string Normalized HTML string.
+	 */
+	public function cleanup_template( string $html ): string {
+		if ('' === $html) {
+			return '';
+		}
+
+		$html = trim( $html );
+
+		return preg_replace(
+			[ '/\r|\n|\t/', '/\s{2,}/' ],
+			[ '', ' ' ],
+			$html
+		);
 	}
 }
