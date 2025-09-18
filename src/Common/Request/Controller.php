@@ -23,6 +23,15 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 class Controller extends Controller_Contract {
 
 	/**
+	 * The action registration action for the request controller.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static string $registration_action = 'tec_request_controller_registered';
+
+	/**
 	 * Registers the filters and actions hooks added by the controller.
 	 *
 	 * @since TBD
@@ -32,7 +41,7 @@ class Controller extends Controller_Contract {
 	protected function do_register(): void {
 		$this->container->register( Query_Vars::class, Query_Vars::class );
 
-		do_action( 'tec_request_controller_registered' );
+		do_action( self::$registration_action );
 	}
 
 	/**
