@@ -1,3 +1,6 @@
+<?php
+// Silence is golden.
+?>
 <div class="tribe-view tribe-view--base tribe-view--dummy">
 	<p>We looked for a template file for the <code>dummy</code> slug but could not find one.
 	</p>
