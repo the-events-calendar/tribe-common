@@ -1,3 +1,6 @@
+<?php
+// Silence is golden.
+?>
 <div
 	class="tribe-common tribe-events tribe-events-view tribe-events-view--list tribe-common--breakpoint-xsmall tribe-common--breakpoint-medium tribe-common--breakpoint-full"
 	data-js="tribe-events-view"

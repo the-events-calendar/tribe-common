@@ -1,3 +1,6 @@
+<?php
+// Silence is golden.
+?>
 add_filter('tribe_register_{{parent_class}}_plugin_dependencies', 'test_filter_main_version');
 function test_filter_main_version( array $dependencies ){
 	$dependencies['addon-dependencies']['{{addon_class}}'] = '{{parent_requires}}';

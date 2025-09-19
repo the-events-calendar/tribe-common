@@ -1,3 +1,6 @@
+<?php
+// Silence is golden.
+?>
 <p class="test">
 	Our own test first div.
 </p>
