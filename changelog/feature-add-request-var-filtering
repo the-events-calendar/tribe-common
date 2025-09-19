@@ -1,0 +1,4 @@
+Significance: minor
+Type: feat
+
+Introduces a new Request controller system for managing custom query variables in all our plugins with centralized registration and management of query variables via filters.
