@@ -20,6 +20,8 @@ use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
 use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 use Tribe__Repository as Base_Repo;
+use Tribe__Repository__Interface;
+use WP_Query;
 
 /**
  * Class Post_Entity_REST_Test_Case
@@ -765,6 +767,61 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		} else {
 			$this->assertNotNull( get_post( $entity_id ) );
 		}
+	}
+
+	/**
+	 * @dataProvider different_user_roles_provider
+	 */
+	public function test_archive_response( Closure $fixture ) {
+		if ( ! $this->is_archive() ) {
+			return;
+		}
+
+		$fixture();
+
+		$orm             = $this->endpoint->get_orm();
+		$user_can_create = is_user_logged_in() && current_user_can( get_post_type_object( $this->endpoint->get_post_type() )->cap->create_posts );
+
+		// Verify that the archive is initially empty.
+		$this->assertEmpty( $this->assert_endpoint( $this->endpoint->get_base_path() ) );
+
+		// Test creating with full example data.
+		$response = $this->assert_endpoint(
+			$this->endpoint->get_base_path(),
+			'POST',
+			$user_can_create ? 201 : ( is_user_logged_in() ? 403 : 401 ),
+			$this->get_example_create_data()
+		);
+
+		// If the user can't create, we're done here.
+		if ( ! $user_can_create ) {
+			return;
+		}
+
+		$this->assertIsArray( $response );
+		$this->assertArrayHasKey( 'id', $response );
+
+		// Verify the created entity exists.
+		$created_entity = $orm->by_args( [ 'id' => $response['id'], 'status' => 'any' ] )->first();
+		$this->assertNotNull( $created_entity );
+
+		// Filter the query to disable caching, to ensure we get the latest data.
+		add_filter(
+			"tec_rest_{$this->endpoint->get_post_type()}_query",
+			function( Tribe__Repository__Interface $query ) {
+				$query->by( 'cache_results', false );
+
+				return $query;
+			}
+		);
+
+		// Verify that we can read the archive, and it has one entry.
+		$archive_response = $this->assert_endpoint( $this->endpoint->get_base_path() );
+		$this->assertCount( 1, $archive_response );
+		$this->assertSame( $response['id'], $archive_response[0]['id'] );
+
+		// Clean up.
+		wp_delete_post( $response['id'], true );
 	}
 
 	private function normalize_entity( $entity ) {

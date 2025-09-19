@@ -4,7 +4,16 @@ jobs:
   test:
     strategy:
       matrix:
-        suite: [ activation, dependency, integration, muwpunit, snapshots, unit, wpunit, rest_tec_v1_integration ]
+        suite:
+          - activation
+          - dependency
+          - integration
+          - muwpunit
+          - snapshots
+          - unit
+          - wpunit
+          - classy_integration
+          - rest_tec_v1_integration
     runs-on: ubuntu-latest
     steps:
       # ------------------------------------------------------------------------------

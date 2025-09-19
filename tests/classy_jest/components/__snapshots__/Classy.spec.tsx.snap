@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Classy handles filter with no fills gracefully 1`] = `
+<div
+  class="classy-container"
+/>
+`;
+
+exports[`Classy handles null filter return 1`] = `
+<div
+  class="classy-container"
+/>
+`;
+
+exports[`Classy preserves filter chain when multiple filters are applied 1`] = `
+<div
+  class="classy-container"
+>
+  <div
+    class="first-plugin"
+  >
+    First Plugin
+  </div>
+  <div
+    class="second-plugin"
+  >
+    Second Plugin
+  </div>
+</div>
+`;
+
+exports[`Classy renders content in multiple slots 1`] = `
+<div
+  class="before"
+>
+  Before
+</div>
+`;
+
+exports[`Classy renders content in the after slot 1`] = `
+<div
+  class="classy-container"
+/>
+`;
+
+exports[`Classy renders content in the before slot 1`] = `
+<div
+  class="before-content"
+>
+  Before Classy Content
+</div>
+`;
+
+exports[`Classy renders content in the fields slot 1`] = `
+<div
+  class="classy-container"
+>
+  <div
+    class="fields-content"
+  >
+    Fields Content
+  </div>
+</div>
+`;
+
+exports[`Classy renders content in the fields.after slot 1`] = `
+<div
+  class="classy-container"
+>
+  <div
+    class="fields-after-content"
+  >
+    After Fields Content
+  </div>
+</div>
+`;
+
+exports[`Classy renders content in the fields.before slot 1`] = `
+<div
+  class="classy-container"
+>
+  <div
+    class="fields-before-content"
+  >
+    Before Fields Content
+  </div>
+</div>
+`;
+
+exports[`Classy renders the basic structure 1`] = `
+<div
+  class="classy-container"
+/>
+`;
