@@ -579,7 +579,7 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 	 * @return string Normalized HTML string.
 	 */
 	public function cleanup_template( string $html ): string {
-		if ('' === $html) {
+		if ( '' === $html ) {
 			return '';
 		}
 
