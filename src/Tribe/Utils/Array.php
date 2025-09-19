@@ -218,9 +218,8 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 			}
 
 			foreach ( $data as $key => $value ) {
-				if ( ! is_array( $value ) && ! is_object( $value ) ) {
-					// Only trim strings to avoid deprecation warnings.
-					$data[ $key ] = is_string( $value ) ? esc_attr( trim( $value ) ) : $value;
+				if ( is_string( $value ) ) {
+					$data[ $key ] = esc_attr( trim( $value ) );
 				}
 				if ( is_array( $value ) ) {
 					$data[ $key ] = self::escape_multidimensional_array( $value );
