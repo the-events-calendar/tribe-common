@@ -9,16 +9,19 @@
 
 namespace TEC\Common\Classy;
 
+use Classic_Editor;
 use TEC\Common\Classy\Back_Compatibility\Editor;
 use TEC\Common\Classy\Back_Compatibility\Editor_Utils;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\StellarWP\Assets\Asset;
+use TEC\Events\Classy\Supported_Post_Types;
 use Tribe__Date_Utils as Date_Utils;
 use Tribe__Timezones as Timezones;
 use Tribe__Main as Common;
 use WP_Block_Editor_Context;
 use WP_Post;
 use wpdb;
+use Tribe__Utils__Array as Arr;
 
 /**
  * Class Controller.
@@ -46,36 +49,6 @@ class Controller extends Controller_Contract {
 	 * @var string
 	 */
 	public const DISABLED = 'TEC_CLASSY_EDITOR_DISABLED';
-
-	/**
-	 * Returns true.
-	 *
-	 * The purpose of this method is to provide a uniquely identifiable method to be used in filters.
-	 * This will allow removing the method hooked by this provider from filters, in place of removing
-	 * a generic `__return_true` that might have been added by some other code.
-	 *
-	 * @since TBD
-	 *
-	 * @return true The boolean value `true`.
-	 */
-	public static function return_true(): bool {
-		return true;
-	}
-
-	/**
-	 * Return false.
-	 *
-	 * The purpose of this method is to provide a uniquely identifiable method to be used in filters.
-	 * This will allow removing the method hooked by this provider from filters, in place of removing
-	 * a generic `__return_false` that might have been added by some other code.
-	 *
-	 * @since TBD
-	 *
-	 * @return false The boolean value `false`.
-	 */
-	public static function return_false(): bool {
-		return false;
-	}
 
 	/**
 	 * Determines if the feature is enabled or not.
@@ -132,11 +105,12 @@ class Controller extends Controller_Contract {
 
 		$this->container->register( REST\Controller::class );
 
-		// Tell Common, TEC, ET and so on NOT to load blocks.
-		add_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
-
 		// We're using Classy editor.
-		add_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
+		add_filter( 'tec_using_classy_editor', [ $this, 'use_classy_editor' ] );
+
+		// Tell Common, TEC, ET and so on NOT to load blocks if we're not using Classy.
+		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'do_not_use_classy_editor' ] );
+
 
 		add_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100, 2 );
 
@@ -174,11 +148,9 @@ class Controller extends Controller_Contract {
 		$this->container->get( REST\Controller::class )->unregister();
 
 		// Remove filters and actions.
-		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
-		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
+		remove_filter( 'tribe_editor_should_load_blocks', [ $this, 'do_not_use_classy_editor' ] );
+		remove_filter( 'tec_using_classy_editor', [ $this, 'use_classy_editor' ] );
 		remove_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100 );
-		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
-		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
 		remove_action( 'tec_common_assets_loaded', [ $this, 'register_assets' ] );
 		remove_filter( 'get_user_metadata', [ $this,'disable_block_editor_welcome_screen' ] );
 		remove_action( 'init', [ $this, 'register_blocks' ] );
@@ -192,7 +164,7 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function register_assets() {
-		$post_uses_classy = fn() => $this->post_uses_classy( get_post_type() );
+		$post_uses_classy = fn() => $this->is_post_type_supported( get_post_type() );
 
 		Asset::add(
 			'tec-classy',
@@ -226,7 +198,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @return bool Whether the given Post uses the Classy editor.
 	 */
-	public function post_uses_classy( string $post_type ): bool {
+	public function is_post_type_supported( string $post_type ): bool {
 		$supported_post_types = $this->get_supported_post_types();
 
 		return in_array( $post_type, $supported_post_types, true );
@@ -245,7 +217,7 @@ class Controller extends Controller_Contract {
 	public function filter_block_editor_settings( array $settings, WP_Block_Editor_Context $context ) {
 		if ( ! (
 			$context->post instanceof WP_Post
-			&& $this->post_uses_classy( $context->post->post_type )
+			&& $this->is_post_type_supported( $context->post->post_type )
 		) ) {
 			return $settings;
 		}
@@ -264,6 +236,23 @@ class Controller extends Controller_Contract {
 	 * @return list<string> The filtered list of Post Types that should be using the Classy editor.
 	 */
 	private function get_supported_post_types(): array {
+		$supported_post_types = [];
+
+		/*
+		 * This check will happen before The Events Calendar main file is loaded and before its Classy controller
+		 * has a chance to register and filter the supported post types.
+		 * This is a workaround to allow the Classy controller to get the post types supported by The Events Calendar
+		 * at the very first call to the Classy controller.
+		 */
+		if ( method_exists( Supported_Post_Types::class, 'get_supported_post_types' ) ) {
+			$supported_post_types = array_merge(
+				$supported_post_types,
+				( new class() {
+					use Supported_Post_Types;
+				} )->get_supported_post_types()
+			);
+		}
+
 		/**
 		 * Filters the list of post types that use the Classy editor.
 		 *
@@ -271,7 +260,7 @@ class Controller extends Controller_Contract {
 		 *
 		 * @param array<string> $supported_post_types The list of post types that use the Classy editor.
 		 */
-		$supported_post_types = apply_filters( 'tec_classy_post_types', [] );
+		$supported_post_types = apply_filters( 'tec_classy_post_types', $supported_post_types );
 
 		return (array) $supported_post_types;
 	}
@@ -431,5 +420,78 @@ class Controller extends Controller_Contract {
 		 * @since TBD
 		 */
 		do_action( 'tribe_editor_register_blocks' );
+	}
+
+	/**
+	 * Checks whether the current post should be using the Classy editor.
+	 *
+	 * Posts that are not of the supported type or that have been already creating using the Block Editor
+	 * will not use Classy.
+	 * If the Classic Editor plugin is active and the post should use the Classic Editor, then the
+	 * Classy Editor will not be used.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the current post should be using the Classy editor.
+	 */
+	public function use_classy_editor(): bool {
+		$post_id = get_the_ID();
+
+		if ( ! $post_id ) {
+			$post_id = Arr::get_first_set( $_REQUEST, [ 'post', 'post_id', 'post_ID' ] )
+						?? Arr::get_first_set( $_GET, [ 'post', 'post_id', 'post_ID' ] );
+		}
+
+		if ( ! $post_id ) {
+			/*
+			 * If the post cannot be fetched, then default to using Classy since we're loading the controller
+			 * and the Controller activation is controlled by the `is_active` method.
+			 */
+			return true;
+		}
+
+		$post_type = get_post_type( $post_id );
+
+		if ( ! ( $post_type && $this->is_post_type_supported( $post_type ) ) ) {
+			// Either we do not have a post type (and should not use the default) or the post type is not supported.
+			return false;
+		}
+
+		if ( has_blocks( $post_id ) ) {
+			// Classy will save the content as plain text, without the Block Editor HTML tags.
+			return false;
+		}
+
+		if (
+			class_exists( Classic_Editor::class )
+			&& method_exists( Classic_Editor::class, 'choose_editor' )
+		) {
+			/*
+			 * The Classic Editor plugin is installed and active.
+			 * We use its own filtering system to decide whether to use the Classy Editor or not.
+			 * If the post should use the Block Editor (true), then we're going to use Classy,
+			 * else (false) we're going to use the Classic Editor.
+			 * We've already dealt with the post already existing and using blocks in the checks
+			 * above: this will only apply to new posts of the supported types or posts with an
+			 * empty content about which we have no information.
+			 */
+			return Classic_Editor::choose_editor( false, get_post( $post_id ) );
+		}
+
+		return true;
+	}
+
+	/**
+	 * Checks whether the current post should not be using the Classy editor.
+	 *
+	 * This is the opposite of `use_classy_editor()` method, and it's explicitly defined,
+	 * in place of being just a closure, to allow it to be removed from the filter easily.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the current post should not be using the Classy editor.
+	 */
+	public function do_not_use_classy_editor(): bool {
+		return ! $this->use_classy_editor();
 	}
 }
