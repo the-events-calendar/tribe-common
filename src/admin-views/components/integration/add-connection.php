@@ -29,6 +29,6 @@ $classes = [
 	href="<?php echo esc_url( $add_link ); ?>"
 	<?php tec_classes( $classes ); ?>
 >
-	<span class="dashicons dashicons-plus"></span>
+	<i class="dashicons dashicons-plus"></i>
 	<?php echo esc_html( $connect_label ); ?>
 </a>
