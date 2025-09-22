@@ -1,4 +1,0 @@
-Significance: minor
-Type: tweak
-
-Updated logic to work with PHP 8.3+. [TCMN-189]
