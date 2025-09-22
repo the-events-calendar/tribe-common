@@ -204,7 +204,7 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 		 * Sanitize a multidimensional array.
 		 *
 		 * @since 4.7.18
-		 * @since TBD Fixed PHP 8.1+ deprecation warnings by avoiding passing null to trim().
+		 * @since 6.9.4 Fixed PHP 8.1+ deprecation warnings by avoiding passing null to trim().
 		 *
 		 * @param array $data The array to sanitize.
 		 *

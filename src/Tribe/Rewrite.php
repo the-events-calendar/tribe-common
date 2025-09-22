@@ -68,7 +68,7 @@ class Tribe__Rewrite {
 	 * An array cache of resolved canonical URLs in the shape `[ <url> => <canonical_url> ]`.
 	 *
 	 * @since 4.9.11
-	 * @since TBD    Changed default value to an empty array to prevent potential fatals.
+	 * @since 6.9.4    Changed default value to an empty array to prevent potential fatals.
 	 *
 	 * @var array
 	 */
@@ -78,7 +78,7 @@ class Tribe__Rewrite {
 	 * An array cache of parsed URLs in the shape `[ <url> => <parsed_vars> ]`.
 	 *
 	 * @since 4.9.11
-	 * @since TBD    Changed default value to an empty array to prevent potential fatals.
+	 * @since 6.9.4    Changed default value to an empty array to prevent potential fatals.
 	 *
 	 * @var array
 	 */
@@ -88,7 +88,7 @@ class Tribe__Rewrite {
 	 * And array cache of cleaned URLs.
 	 *
 	 * @since 4.9.11
-	 * @since TBD    Changed default value to an empty array to prevent potential fatals.
+	 * @since 6.9.4    Changed default value to an empty array to prevent potential fatals.
 	 *
 	 * @var array
 	 */

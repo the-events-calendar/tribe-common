@@ -68,7 +68,7 @@ class Uplink_Controller extends Controller_Contract {
 	 * Register the license fields.
 	 *
 	 * @since 6.3.0
-	 * @since TBD Added upsell links for Seating.
+	 * @since 6.9.4 Added upsell links for Seating.
 	 *
 	 * @param array $fields_array The array of fields.
 	 *
