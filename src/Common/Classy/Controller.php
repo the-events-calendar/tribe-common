@@ -438,7 +438,8 @@ class Controller extends Controller_Contract {
 		$post_id = get_the_ID();
 
 		if ( ! $post_id ) {
-			$post_id = Arr::get_first_set( $_REQUEST, [ 'post', 'post_id', 'post_ID' ] );
+			$post_id = Arr::get_first_set( $_REQUEST, [ 'post', 'post_id', 'post_ID' ] )
+						?? Arr::get_first_set( $_GET, [ 'post', 'post_id', 'post_ID' ] );
 		}
 
 		if ( ! $post_id ) {
