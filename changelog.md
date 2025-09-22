@@ -2,7 +2,7 @@
 
 ### [6.9.4] 2025-09-23
 
-* Feature - The Troubleshooting page now detects and flags outdated PHP Versions, an incorrectly set up PHP time zone, active caching plugins. [TCMN-203]
+* Feature - The Troubleshooting page now detects and flags outdated PHP Versions, incorrectly sets up PHP time zones and active caching plugins. [TCMN-203]
 * Fix - Converts default values of protected vars to empty array to potentially prevent fatals in PHP 8.3+ props to @aaronsilber! [TCMN-202]
 * Tweak - Adds filters: `stellarwp_uplink_`
 * Tweak - Adds upsell links for Promoter in License page. [TEC-5587]
