@@ -2,11 +2,15 @@
 
 namespace TEC\Tests\Common\Classy;
 
+use Classic_Editor;
 use Closure;
 use TEC\Common\Classy\Controller;
 use TEC\Common\Tests\Provider\Controller_Test_Case;
 use Tribe\Tests\Traits\With_Uopz;
 use WP_Block_Editor_Context;
+
+// Set up a mock of the Classic Editor plugin main class as it will not be defined in the context of the tests.r
+require_once codecept_data_dir( 'classes/Mock_Classic_Editor.php' );
 
 class Controller_Test extends Controller_Test_Case {
 	use With_Uopz;
@@ -113,16 +117,16 @@ class Controller_Test extends Controller_Test_Case {
 	}
 
 	/**
-	 * @covers Controller::post_uses_classy
+	 * @covers Controller::is_post_type_supported
 	 */
 	public function test_post_uses_classy(): void {
 		$controller = $this->make_controller();
 
-		$this->assertFalse( $controller->post_uses_classy( 'post' ) );
+		$this->assertFalse( $controller->is_post_type_supported( 'post' ) );
 
 		add_filter( 'tec_classy_post_types', static fn( array $post_types ): array => [ 'post' ] );
 
-		$this->assertTrue( $controller->post_uses_classy( 'post' ) );
+		$this->assertTrue( $controller->is_post_type_supported( 'post' ) );
 	}
 
 	/**
@@ -577,5 +581,142 @@ class Controller_Test extends Controller_Test_Case {
 			$expected,
 			apply_filters( 'get_user_metadata', $meta_value, $user, $meta_key, $single )
 		);
+	}
+
+	public static function use_classy_editor_data_provider(): array {
+		$global_var_cleanup = static function (): void {
+			// Unset any lookup location the controller would use to search for a post ID.
+			unset(
+				$_GET['post'],
+				$_GET['post_id'],
+				$_GET['post_ID'],
+				$_REQUEST['post'],
+				$_REQUEST['post_id'],
+				$_REQUEST['post_ID'],
+			);
+		};
+
+		$create_event = static function ( string $post_content = null ): int {
+			$post_id = tribe_events()->set_args( [
+				'title'        => 'Test Event',
+				'post_content' => 'Test description',
+				'start_date'   => 'tomorrow 10 am',
+				'duration'     => 2 * HOUR_IN_SECONDS,
+				'status'       => 'publish',
+			] )->create()->ID;
+
+			if ( $post_content !== null ) {
+				global $wpdb;
+				$wpdb->update( $wpdb->posts, [ 'post_content' => $post_content ], [ 'ID' => $post_id ], '%s', '%d' );
+				clean_post_cache( $post_id );
+			}
+
+			return $post_id;
+		};
+
+		return [
+			'no post ID' => [
+				function () use ( $global_var_cleanup ): bool {
+					$global_var_cleanup();
+
+					return true;
+				}
+			],
+
+			'event ID in $_GET[\'post\']' => [
+				function () use ( $create_event, $global_var_cleanup ): bool {
+					$global_var_cleanup();
+					$_GET['post'] = $create_event();
+
+					return true;
+				}
+			],
+
+			'event ID in $_GET[\'post_id\']' => [
+				function () use ( $create_event, $global_var_cleanup ): bool {
+					$global_var_cleanup();
+					$_GET['post_id'] = $create_event();
+
+					return true;
+				}
+			],
+
+			'event ID in $_GET[\'post_ID\']' => [
+				function () use ( $create_event, $global_var_cleanup ): bool {
+					$global_var_cleanup();
+					$_GET['post_ID'] = $create_event();
+
+					return true;
+				}
+			],
+
+			'event ID in $_REQUEST[\'post\']' => [
+				function () use ( $create_event, $global_var_cleanup ): bool {
+					$global_var_cleanup();
+					$_REQUEST['post'] = $create_event();
+
+					return true;
+				}
+			],
+
+			'event ID in $_REQUEST[\'post_id\']' => [
+				function () use ( $create_event, $global_var_cleanup ): bool {
+					$global_var_cleanup();
+					$_REQUEST['post_id'] = $create_event();
+
+					return true;
+				}
+			],
+
+			'event ID in $_REQUEST[\'post_ID\']' => [
+				function () use ( $create_event, $global_var_cleanup ): bool {
+					$global_var_cleanup();
+					$_REQUEST['post_ID'] = $create_event();
+
+					return true;
+				}
+			],
+
+			'post type not supported' => [
+				function () use ( $global_var_cleanup ): bool {
+					$global_var_cleanup();
+					$_GET['post_id'] = static::factory()->post->create();
+
+					return false;
+				}
+			],
+
+			'supported post type has blocks' => [
+				function () use ( $create_event, $global_var_cleanup ): bool {
+					$global_var_cleanup();
+					$_GET['post_id'] = $create_event( '<!-- wp:' );
+
+					return false;
+				}
+			],
+
+			'supported post type with Classic Editor plugin enforcing classic editor' => [
+				function () use ( $create_event, $global_var_cleanup ): bool {
+					$global_var_cleanup();
+					$_GET['post_id'] = $create_event();
+					$this->set_class_fn_return( Classic_Editor::class, 'choose_editor', false );
+
+					return false;
+				}
+			]
+
+		];
+	}
+
+	/**
+	 * @dataProvider use_classy_editor_data_provider
+	 */
+	public function test_use_classy_editor( Closure $fixture ): void {
+		$expected = $fixture->call( $this );
+
+		/** @var Controller $controller */
+		$controller = $this->make_controller();
+
+		$this->assertEquals( $expected, $controller->use_classy_editor() );
 	}
 }

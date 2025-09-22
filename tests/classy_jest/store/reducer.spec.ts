@@ -2,16 +2,12 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference types="jest" />
 import { describe, expect, it, jest, beforeEach } from '@jest/globals';
-import { reducer } from '../../../src/resources/packages/classy/store/reducer';
-import {
-	SET_COUNTRY_OPTIONS,
-	SET_CURRENCY_OPTIONS,
-	SET_US_STATE_OPTIONS,
-} from '../../../src/resources/packages/classy/store/actions';
-import { StoreState } from '../../../src/resources/packages/classy/types/Store';
-import { Currency } from '../../../src/resources/packages/classy/types/Currency';
+import { reducer } from '@tec/common/classy/store/reducer';
+import { SET_COUNTRY_OPTIONS, SET_CURRENCY_OPTIONS, SET_US_STATE_OPTIONS } from '@tec/common/classy/store/actions';
+import { StoreState } from '@tec/common/classy/types/Store';
+import { Currency } from '@tec/common/classy/types/Currency';
 import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
-import { getDefault } from '../../../src/resources/packages/classy/localizedData';
+import { getDefault } from '@tec/common/classy/localizedData';
 
 describe( 'Store Reducer', () => {
 	// Get default settings from the actual getDefault function

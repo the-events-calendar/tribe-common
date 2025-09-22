@@ -1,7 +1,4 @@
-import {
-	hideInserterToggle,
-	hideZoomOutButton,
-} from '../../../src/resources/packages/classy/functions/editorModifications';
+import { hideInserterToggle, hideZoomOutButton } from '@tec/common/classy/functions/editorModifications';
 import { afterEach, describe, expect, it, jest } from '@jest/globals';
 
 describe( 'hideZoomOutButton', () => {

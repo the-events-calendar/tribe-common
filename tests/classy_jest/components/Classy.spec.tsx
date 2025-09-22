@@ -4,7 +4,7 @@
 import React, { Fragment } from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { Classy } from '../../../src/resources/packages/classy/components/Classy';
+import { Classy } from '@tec/common/classy/components/Classy';
 import { addFilter, removeFilter } from '@wordpress/hooks';
 import { Fill } from '@wordpress/components';
 

@@ -4,7 +4,7 @@
 import { describe, expect, it, jest, beforeEach } from '@jest/globals';
 import apiFetch from '@wordpress/api-fetch';
 import resolvers from '../../../src/resources/packages/classy/store/resolvers';
-import { Currency } from '../../../src/resources/packages/classy/types/Currency';
+import { Currency } from '@tec/common/classy/types/Currency';
 
 // Mock the @wordpress/api-fetch module
 jest.mock( '@wordpress/api-fetch' );

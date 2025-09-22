@@ -2,7 +2,7 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference types="jest" />
 import { describe, expect, it } from '@jest/globals';
-import { sortOptionsForDisplay } from '../../../src/resources/packages/classy/functions/sortOptionsForDisplay';
+import { sortOptionsForDisplay } from '@tec/common/classy/functions';
 
 describe( 'sortOptionsForDisplay', () => {
 	it( 'keeps placeholder with value "0" at the top when it is first argument', () => {

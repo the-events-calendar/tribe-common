@@ -9,11 +9,11 @@ import {
 	getUsStatesOptions,
 	getCurrencyOptions,
 	getDefaultCurrency,
-} from '../../../src/resources/packages/classy/store/selectors';
-import { StoreState } from '../../../src/resources/packages/classy/types/Store';
-import { Currency } from '../../../src/resources/packages/classy/types/Currency';
+} from '@tec/common/classy/store/selectors';
+import { StoreState } from '@tec/common/classy/types/Store';
+import { Currency } from '@tec/common/classy/types/Currency';
 import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
-import { LocalizedData } from '../../../src/resources/packages/classy/types/LocalizedData';
+import { LocalizedData } from '@tec/common/classy/types/LocalizedData';
 
 describe( 'Store Selectors', () => {
 	let originalLocalizedData: LocalizedData;

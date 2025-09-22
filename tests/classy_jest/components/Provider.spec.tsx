@@ -4,7 +4,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { ProviderComponent } from '../../../src/resources/packages/classy/components/Provider';
+import { ProviderComponent } from '@tec/common/classy/components/Provider';
 import { createRegistry } from '@wordpress/data';
 import { addAction, removeAction } from '@wordpress/hooks';
 let originalConsoleError = null;

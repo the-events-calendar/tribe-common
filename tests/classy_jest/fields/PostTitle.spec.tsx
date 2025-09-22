@@ -6,7 +6,7 @@ import { fireEvent, render, screen, waitFor, act } from '@testing-library/react'
 import { createRegistry, RegistryProvider } from '@wordpress/data';
 import '@testing-library/jest-dom';
 import PostTitle from '../../../src/resources/packages/classy/fields/PostTitle/PostTitle';
-import { FieldProps } from '../../../src/resources/packages/classy/types/FieldProps';
+import { FieldProps } from '@tec/common/classy/types/FieldProps';
 
 describe( 'PostTitle', () => {
 	const mockProps: FieldProps = {

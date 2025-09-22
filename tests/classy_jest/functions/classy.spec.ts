@@ -3,9 +3,9 @@ import {
 	initApp,
 	insertElement,
 	toggleElementVisibility,
-} from '../../../src/resources/packages/classy/functions/classy';
+} from '@tec/common/classy/functions/classy';
 import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
-import { getElement } from '../../../src/resources/packages/classy/functions/visualEditor';
+import { getElement } from '@tec/common/classy/functions/visualEditor';
 import { act } from '@testing-library/react';
 
 // Mock the `@wordpress/data` package to intercept the `useDispatch` and `useSelect` hooks.

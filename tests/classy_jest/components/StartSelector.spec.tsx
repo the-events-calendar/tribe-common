@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals
 import { StartSelector } from '../../../src/resources/packages/classy/components';
 import { keyDownEscape } from '../_support/userEvents';
 import { getDefault as getDefaultLocalizedData } from '../../../src/resources/packages/classy/localizedData';
-import { LocalizedData } from '../../../src/resources/packages/classy/types/LocalizedData';
+import { LocalizedData } from '@tec/common/classy/types/LocalizedData';
 import TestProvider from '../_support/TestProvider';
 
 // Save the original localized data here.
