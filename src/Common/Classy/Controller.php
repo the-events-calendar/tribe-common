@@ -235,7 +235,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @return list<string> The filtered list of Post Types that should be using the Classy editor.
 	 */
-	private function get_supported_post_types(): array {
+	public function get_supported_post_types(): array {
 		$supported_post_types = [];
 
 		/*
