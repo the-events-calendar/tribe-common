@@ -449,15 +449,21 @@ class Controller extends Controller_Contract {
 			 */
 			return true;
 		}
+		
+		$post = get_post( $post_id );
+		
+		if ( ! $post instanceof WP_Post ) {
+			return false;
+		}
 
-		$post_type = get_post_type( $post_id );
+		$post_type = $post->post_type;
 
 		if ( ! ( $post_type && $this->is_post_type_supported( $post_type ) ) ) {
 			// Either we do not have a post type (and should not use the default) or the post type is not supported.
 			return false;
 		}
 
-		if ( has_blocks( $post_id ) ) {
+		if ( has_blocks( $post->post_content ) ) {
 			// Classy will save the content as plain text, without the Block Editor HTML tags.
 			return false;
 		}
