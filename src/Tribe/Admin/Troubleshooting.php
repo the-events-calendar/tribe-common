@@ -436,7 +436,7 @@ class Troubleshooting {
 	/**
 	 * Check if any caching plugins are active on the site.
 	 *
-	 * @since TBD
+	 * @since 6.9.4
 	 *
 	 * @return string[] An array of the active caching plugins.
 	 */
@@ -466,7 +466,7 @@ class Troubleshooting {
 	/**
 	 * Get the name of the first found active caching plugin.
 	 *
-	 * @since TBD
+	 * @since 6.9.4
 	 *
 	 * @return string The name of the caching plugin.
 	 */
