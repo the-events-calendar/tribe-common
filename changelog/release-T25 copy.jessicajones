@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Removed filters: `tec_help_troubleshooting_issues_found`, `tec_help_troubleshooting_issues`
