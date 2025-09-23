@@ -224,5 +224,4 @@ class Trusted_Login_Config {
 	public static function get_title(): string {
 		return __( 'The Events Calendar', 'tribe-common' );
 	}
-
 }
