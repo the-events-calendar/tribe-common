@@ -443,16 +443,20 @@ class Controller extends Controller_Contract {
 
 		if ( ! $post_id ) {
 			/*
-			 * If the post cannot be fetched, then default to using Classy since we're loading the controller
+			 * If we do not have a post ID, then default to using Classy since we're loading the controller
 			 * and the Controller activation is controlled by the `is_active` method.
 			 */
 			return true;
 		}
-		
+
 		$post = get_post( $post_id );
-		
+
 		if ( ! $post instanceof WP_Post ) {
-			return false;
+			/*
+			 * If the post cannot be fetched, then default to using Classy since we're loading the controller
+			 * and the Controller activation is controlled by the `is_active` method.
+			 */
+			return true;
 		}
 
 		$post_type = $post->post_type;

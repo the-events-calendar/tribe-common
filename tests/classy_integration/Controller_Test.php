@@ -677,6 +677,15 @@ class Controller_Test extends Controller_Test_Case {
 				}
 			],
 
+			'post ID is not a post' => [
+				function () use ( $create_event, $global_var_cleanup ): bool {
+					$global_var_cleanup();
+					$_REQUEST['post_ID'] = PHP_INT_MAX;
+
+					return true;
+				}
+			],
+
 			'post type not supported' => [
 				function () use ( $global_var_cleanup ): bool {
 					$global_var_cleanup();
