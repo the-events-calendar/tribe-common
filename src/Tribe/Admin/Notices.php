@@ -557,11 +557,11 @@ class Tribe__Admin__Notices {
 	 *
 	 * @since 4.3
 	 *
-	 * @param string          $slug             Slug to save the notice
-	 * @param callable|string $callback         A callable Method/Function to actually display the notice
-	 * @param array           $arguments        Arguments to Setup a notice
-	 * @param callable|null   $active_callback  An optional callback that should return bool values
-	 *                                          to indicate whether the notice should display or not.
+	 * @param string              $slug             Slug to save the notice.
+	 * @param callable|string     $callback         A callable Method/Function to actually display the notice.
+	 * @param array|object|string $arguments        Arguments to Setup a notice, must be in a format that wp_parse_args can use.
+	 * @param callable|null       $active_callback  An optional callback that should return bool values.
+	 *                                              to indicate whether the notice should display or not.
 	 *
 	 * @return stdClass
 	 */
