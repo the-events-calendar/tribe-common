@@ -70,7 +70,7 @@ class Trusted_Login_Config_Test extends WPTestCase {
 
 		// Verify vendor values match constants.
 		$this->assertEquals( Trusted_Login_Config::NAMESPACE, $config['vendor']['namespace'] );
-		$this->assertEquals( Trusted_Login_Config::TITLE, $config['vendor']['title'] );
+		$this->assertEquals( Trusted_Login_Config::get_title(), $config['vendor']['title'] );
 		$this->assertEquals( Trusted_Login_Config::SUPPORT_EMAIL, $config['vendor']['email'] );
 		$this->assertEquals( Trusted_Login_Config::SUPPORT_URL, $config['vendor']['support_url'] );
 		$this->assertEquals( Trusted_Login_Config::WEBSITE_URL, $config['vendor']['website'] );
