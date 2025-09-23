@@ -12,8 +12,6 @@
 
 namespace TEC\Common\TrustedLogin;
 
-use TEC\Common\Configuration;
-
 /**
  * TrustedLogin Manager for TEC/ET.
  *

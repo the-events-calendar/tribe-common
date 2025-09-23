@@ -5,7 +5,7 @@
  * Provides configuration building for TrustedLogin within the TEC plugin architecture,
  * handling all constants and config array generation.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\TrustedLogin
  */
@@ -23,7 +23,7 @@ use Tribe__Main;
  * This class is responsible for building the complete configuration array
  * for TrustedLogin, including all constants and dynamic values.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\TrustedLogin
  */
@@ -155,7 +155,7 @@ class Trusted_Login_Config {
 	/**
 	 * Get the complete TrustedLogin configuration array.
 	 *
-	 * @see   https://docs.trustedlogin.com/Client/configuration#all-options
+	 * @see https://docs.trustedlogin.com/Client/configuration#all-options
 	 *
 	 * @since TBD
 	 *
