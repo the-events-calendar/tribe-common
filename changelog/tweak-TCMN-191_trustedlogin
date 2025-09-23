@@ -1,0 +1,4 @@
+Significance: minor
+Type: feat
+
+Add TrustedLogin integration accessible via Help → Support Access. [TCMN-191]
