@@ -42,15 +42,6 @@ class Trusted_Login_Config {
 	public const NAMESPACE = 'tec-common';
 
 	/**
-	 * Human-readable title for the product shown in the TrustedLogin UI.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	public const TITLE = 'The Events Calendar';
-
-	/**
 	 * URL for the vendor's support page.
 	 *
 	 * Displayed in the TrustedLogin UI and used as a fallback redirect if
@@ -171,7 +162,7 @@ class Trusted_Login_Config {
 			],
 			'vendor'     => [
 				'namespace'   => self::NAMESPACE,
-				'title'       => self::TITLE,
+				'title'       => self::get_title(),
 				'logo_url'    => $logo_source,
 				'email'       => self::SUPPORT_EMAIL,
 				'support_url' => self::SUPPORT_URL,
@@ -222,4 +213,16 @@ class Trusted_Login_Config {
 		 */
 		return apply_filters( 'tec_common_trustedlogin_page_url', $url, $page_slug );
 	}
+
+	/**
+	 * Get the translatable title for the product shown in the TrustedLogin UI.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The translated product title.
+	 */
+	public static function get_title(): string {
+		return __( 'The Events Calendar', 'tribe-common' );
+	}
+
 }
