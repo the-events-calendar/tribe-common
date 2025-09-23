@@ -1134,14 +1134,13 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function by( $key, $value = null ) {
+		$call_args = func_get_args();
 		if ( $this->void_query || ( 'void_query' === $key && false !== $value ) ) {
 			$this->void_query = true;
 
 			// No point in doing more computations if the query is void.
 			return $this;
 		}
-
-		$call_args = func_get_args();
 
 		$this->current_filters[ $key ] = array_slice( $call_args, 1 );
 
