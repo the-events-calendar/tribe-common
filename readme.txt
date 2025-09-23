@@ -1,5 +1,15 @@
 == Changelog ==
 
+= [6.9.4] 2025-09-23 =
+
+*  Feature - The Troubleshooting page now detects and flags outdated PHP Versions, incorrectly sets up PHP time zones and active caching plugins. [TCMN-203]
+* Fix - Converts default values of protected vars to empty array to potentially prevent fatals in PHP 8.3+ props to @aaronsilber! [TCMN-202]
+* Tweak - Adds filters: `stellarwp_uplink_`
+* Tweak - Adds upsell links for Promoter in License page. [TEC-5587]
+* Tweak - Removes filters: `tec_help_troubleshooting_issues_found`, `tec_help_troubleshooting_issues`
+* Tweak - Updates logic to work with PHP 8.3+. [TCMN-189]
+* Language - 12 new strings added, 43 updated, 2 fuzzied, and 0 obsoleted.
+
 = [6.9.3] 2025-09-09 =
 
 * Fix - Corrected an issue where PUE License data had an empty key. [EBT-156]
