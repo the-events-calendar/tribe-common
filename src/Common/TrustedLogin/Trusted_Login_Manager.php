@@ -5,7 +5,7 @@
  * Provides a flexible wrapper for integrating TrustedLogin into plugins.
  * Handles configuration, initialization, hooks, and optional admin UI customization.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\TrustedLogin
  */

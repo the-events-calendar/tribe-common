@@ -54,9 +54,12 @@ class Trusted_Login_Config {
 	public const SUPPORT_URL = 'https://theeventscalendar.com/support/';
 
 	/**
-	 * URL for the vendor's main website.
+	 * Base URL where the TrustedLogin Connector plugin is installed.
 	 *
-	 * Displayed in the TrustedLogin UI for informational purposes.
+	 * This URL is used by the TrustedLogin Client SDK to communicate with
+	 * the Connector plugin for granting and managing secure access. It must
+	 * match the site where the Connector plugin is active, such as
+	 * production or staging environments.
 	 *
 	 * @since TBD
 	 *
