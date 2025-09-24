@@ -8,8 +8,9 @@
  * See more documentation about our views templating system.
  *
  * @since 1.4.0
+ * @since TBD Change a <span> to <i> for better accessibility.
  *
- * @version 1.4.0
+ * @version TBD
  *
  * @link    http://evnt.is/1aiy
  *
@@ -29,6 +30,6 @@ $classes = [
 	href="<?php echo esc_url( $add_link ); ?>"
 	<?php tec_classes( $classes ); ?>
 >
-	<span class="dashicons dashicons-plus"></span>
+	<i class="dashicons dashicons-plus"></i>
 	<?php echo esc_html( $connect_label ); ?>
 </a>
