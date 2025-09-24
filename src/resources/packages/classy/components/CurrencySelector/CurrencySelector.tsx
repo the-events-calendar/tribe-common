@@ -5,7 +5,7 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import { IconClose } from '../Icons';
 import { Currency, CurrencyPosition } from '../../types/Currency';
 import { CenteredSpinner } from '../CenteredSpinner';
-import { StoreSelect } from '../../types/Store';
+import { CoreEditorDispatch, CoreEditorSelect, StoreSelect } from '../../types/Store';
 
 type CurrencySelectorProps = {
 	/**
@@ -97,11 +97,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ): React.
 
 	const { meta, defaultCurrency, currencies } = useSelect( ( select ) => {
 		const { getDefaultCurrency, getCurrencyOptions }: StoreSelect = select( 'tec/classy' );
-		const {
-			getEditedPostAttribute,
-		}: {
-			getEditedPostAttribute: ( attribute: string ) => any;
-		} = select( 'core/editor' );
+		const { getEditedPostAttribute }: CoreEditorSelect = select( 'core/editor' );
 		return {
 			meta: getEditedPostAttribute( 'meta' ) || null,
 			defaultCurrency: getDefaultCurrency(),
@@ -109,7 +105,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ): React.
 		};
 	}, [] );
 
-	const { editPost } = useDispatch( 'core/editor' );
+	const { editPost }: CoreEditorDispatch = useDispatch( 'core/editor' );
 
 	const eventCurrencyCodeMeta: string = meta?.[ currencyCodeMeta ] || defaultCurrency.code;
 	const [ eventCurrencyCode, setEventCurrencyCode ] = useState< string >( eventCurrencyCodeMeta );
@@ -158,7 +154,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ): React.
 	};
 
 	const onCurrencyChange = ( nextValue: string | undefined ): void => {
-		const selectedCurrency: Currency = findCurrencyByCode( nextValue ?? '', currencies );
+		const selectedCurrency: Currency | undefined = findCurrencyByCode( nextValue ?? '', currencies );
 		if ( ! selectedCurrency || nextValue === 'default' ) {
 			setToDefaultCurrency();
 			return;

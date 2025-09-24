@@ -3,6 +3,7 @@ import { __experimentalInputControl as InputControl } from '@wordpress/component
 import { useState, useEffect } from 'react';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { FieldProps } from '@tec/common/classy/types/FieldProps';
+import { CoreEditorDispatch, CoreEditorSelect } from '@tec/common/classy/types/Store';
 
 /**
  * PostTitle component for rendering and handling the post title input field.
@@ -17,12 +18,12 @@ export default function PostTitle( props: FieldProps ) {
 	// Fetch the post title from the core/editor store.
 	// This will also subscribe to changes in the core/editor store.
 	const postTitle = useSelect( ( select ) => {
-		const { getEditedPostAttribute }: { getEditedPostAttribute: Function } = select( 'core/editor' );
+		const { getEditedPostAttribute }: CoreEditorSelect = select( 'core/editor' );
 		return getEditedPostAttribute( 'title' );
 	}, [] );
 
 	// Dispatch to the core/editor store when the title is updated.
-	const { editPost }: { editPost: Function } = useDispatch( 'core/editor' );
+	const { editPost }: CoreEditorDispatch = useDispatch( 'core/editor' );
 
 	// Set the initial value of the field to the post title selected from the store.
 	const [ value, setValue ] = useState< string >( postTitle || '' );
