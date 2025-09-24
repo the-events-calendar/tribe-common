@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 6.9.3\n"
+"Project-Id-Version: Tribe Common 6.9.4\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-09T12:46:11+00:00\n"
+"POT-Creation-Date: 2025-09-22T17:32:54+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: tribe-common\n"
@@ -1319,8 +1319,8 @@ msgid "License & Usage"
 msgstr ""
 
 #: src/admin-views/troubleshooting/ea-status/license-key.php:43
-#: src/Tribe/PUE/Checker.php:820
-#: src/Tribe/PUE/Checker.php:831
+#: src/Tribe/PUE/Checker.php:830
+#: src/Tribe/PUE/Checker.php:841
 msgid "License Key"
 msgstr ""
 
@@ -1422,7 +1422,7 @@ msgstr ""
 #: src/admin-views/troubleshooting/introduction.php:20
 #: src/Tribe/Admin/Troubleshooting.php:66
 #: src/Tribe/Admin/Troubleshooting.php:67
-#: src/Tribe/Admin/Troubleshooting.php:142
+#: src/Tribe/Admin/Troubleshooting.php:143
 msgid "Troubleshooting"
 msgstr ""
 
@@ -3622,83 +3622,132 @@ msgstr ""
 msgid "Read more."
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:297
+#: src/Tribe/Admin/Troubleshooting.php:322
 msgid "Site time zone uses UTC"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:298
+#: src/Tribe/Admin/Troubleshooting.php:323
 msgid "When using The Events Calendar, we highly recommend that you use a geographic timezone such as \"America/Los_Angeles\" and avoid using a UTC timezone offset such as “UTC+9”. Choosing a UTC timezone for your site or individual events may cause problems when importing events or with Daylight Saving Time. Go to your the General WordPress settings to adjust your site timezone."
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:300
+#: src/Tribe/Admin/Troubleshooting.php:325
 msgid "Adjust your timezone"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:305
+#: src/Tribe/Admin/Troubleshooting.php:330
 msgid "Install max has been reached"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:306
+#: src/Tribe/Admin/Troubleshooting.php:331
 msgid "License keys can only be used on a limited number of sites, which varies depending on your license level. You'll need to remove the license from one or more other site's in order to use it on this one."
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:308
+#: src/Tribe/Admin/Troubleshooting.php:333
 msgid "Manage your licenses"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:313
+#: src/Tribe/Admin/Troubleshooting.php:338
 msgid "Default Google Maps API key"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:314
+#: src/Tribe/Admin/Troubleshooting.php:339
 msgid "The Events Calendar comes with an API key for basic maps functionality. If you’d like to use more advanced features like custom map pins, dynamic map loads, or Events Calendar Pro's Location Search and advanced Map View, you’ll need to get your own Google Maps API key and add it to Events > Settings > Integrations"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:316
+#: src/Tribe/Admin/Troubleshooting.php:341
 msgid "Enter a custom API key"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:321
+#: src/Tribe/Admin/Troubleshooting.php:346
 msgid "Plugin(s) are out of date"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:322
-msgid "It's important to use the most recent versions of our plugins so that you have access to the latest features, bug fixes, and security updates. Plugin functionality can be comprimised if your site is running outdated or mis-matched versions."
+#: src/Tribe/Admin/Troubleshooting.php:347
+msgid "It's important to use the most recent versions of our plugins so that you have access to the latest features, bug fixes, and security updates. Plugin functionality can be compromised if your site is running outdated or mis-matched versions."
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:324
+#: src/Tribe/Admin/Troubleshooting.php:349
 msgid "Check for updates"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:343
+#: src/Tribe/Admin/Troubleshooting.php:354
+msgid "PHP version out of date"
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:355
+msgid "The PHP version your site uses has reached its end of life of life on November 28, 2022. This means it no longer receives security updates or bug fixes. Users are encouraged to upgrade to newer versions of PHP to ensure continued support and security. Reach out to your hosting provider for assistance."
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:362
+msgid "Default PHP timezone is other than UTC"
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:363
+msgid "The default PHP timezone of your server is set to something else than UTC. This can cause issues when displaying event times and time zones. We recommend you to set the default PHP time zone on your server to UTC. This is usually done with the `date.timezone` directive in the php.ini file."
+msgstr ""
+
+#. translators: %s: The name of the caching plugin.
+#: src/Tribe/Admin/Troubleshooting.php:371
+#, php-format
+msgid "Caching plugin detected: %s"
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:372
+msgid "Caching can improve your site performance and speed up your site. Check out our Caching Guide to help you set up caching with our plugins correctly."
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:394
 msgid "Common Error Messages"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:344
+#. Translators: %s: The link label, i.e. "common error messages"
+#: src/Tribe/Admin/Troubleshooting.php:396
 #, php-format
 msgid "Here’s an overview of %s and what they mean."
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:349
+#: src/Tribe/Admin/Troubleshooting.php:398
+msgid "common error messages"
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:401
 msgid "My calendar doesn’t look right."
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:355
+#: src/Tribe/Admin/Troubleshooting.php:405
+msgid "More info"
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:408
 msgid "I installed the calendar and it crashed my site."
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:356
+#. Translators: %s: The link label, i.e. "Find solutions to this"
+#: src/Tribe/Admin/Troubleshooting.php:410
 #, php-format
 msgid "%s and other common installation issues."
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:361
+#: src/Tribe/Admin/Troubleshooting.php:412
+msgid "Find solutions to this"
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:415
 msgid "I keep getting “Page Not Found” on events."
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:362
+#. Translators: %s: The link label, i.e. "things you can do"
+#: src/Tribe/Admin/Troubleshooting.php:417
 #, php-format
 msgid "There are a few %s to resolve and prevent 404 errors."
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:419
+msgid "things you can do"
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:477
+msgid "Plugin couldn't be identified."
 msgstr ""
 
 #: src/Tribe/Ajax/Dropdown.php:41
@@ -5777,110 +5826,116 @@ msgstr ""
 msgid "Promoter Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:804
+#: src/Tribe/PUE/Checker.php:806
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:808
+#: src/Tribe/PUE/Checker.php:811
 #, php-format
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:840
-#: src/Tribe/PUE/Checker.php:874
-msgid "License Key Status:"
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:849
-msgid "Override network license key"
+#. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
+#: src/Tribe/PUE/Checker.php:818
+#, php-format
+msgid "%1$sBuy a license%2$s for the Promoter service to access additional marketing features."
 msgstr ""
 
 #: src/Tribe/PUE/Checker.php:850
+#: src/Tribe/PUE/Checker.php:884
+msgid "License Key Status:"
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:859
+msgid "Override network license key"
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:860
 msgid "Check this box if you wish to override the network license key with your own"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:861
+#: src/Tribe/PUE/Checker.php:871
 msgid "Site License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:976
+#: src/Tribe/PUE/Checker.php:986
 msgid "License key(s) updated."
 msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1240
+#: src/Tribe/PUE/Checker.php:1250
 #, php-format
 msgid "Hmmm... something's wrong with this validator. Please contact %1$ssupport%2$s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1260
+#: src/Tribe/PUE/Checker.php:1270
 msgid "unknown date"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1266
+#: src/Tribe/PUE/Checker.php:1276
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
 #. Translators: %s is the expiration date.
-#: src/Tribe/PUE/Checker.php:1295
+#: src/Tribe/PUE/Checker.php:1305
 #, php-format
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
 #. Translators: %s is the expiration date.
-#: src/Tribe/PUE/Checker.php:1306
+#: src/Tribe/PUE/Checker.php:1316
 #, php-format
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1344
+#: src/Tribe/PUE/Checker.php:1354
 #: src/Tribe/PUE/Notices.php:496
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1346
+#: src/Tribe/PUE/Checker.php:1356
 #: src/Tribe/PUE/Notices.php:498
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1363
+#: src/Tribe/PUE/Checker.php:1373
 msgid "Please refresh the page and try your request again."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1385
+#: src/Tribe/PUE/Checker.php:1395
 #, php-format
 msgid "There is an update for %1$s. You'll need to %2$scheck your license%3$s to have access to updates, downloads, and support."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1449
+#: src/Tribe/PUE/Checker.php:1459
 #, php-format
 msgid "There is an update for %1$s. %2$sRenew your license%3$s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
 #. Translators: %s is the plugin version number.
-#: src/Tribe/PUE/Checker.php:1481
+#: src/Tribe/PUE/Checker.php:1491
 #, php-format
 msgid "Update now to version %s."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s is the update now link.
-#: src/Tribe/PUE/Checker.php:1496
+#: src/Tribe/PUE/Checker.php:1506
 #, php-format
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:2187
+#: src/Tribe/PUE/Checker.php:2197
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:2188
+#: src/Tribe/PUE/Checker.php:2198
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:2189
+#: src/Tribe/PUE/Checker.php:2199
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
@@ -5922,7 +5977,7 @@ msgstr ""
 msgid "Your update failed due to an incompatibility between the version (%1$s) of the %2$s you tried to update to and the version of %3$s that you are using. %4$s"
 msgstr ""
 
-#: src/Tribe/Repository.php:2583
+#: src/Tribe/Repository.php:2582
 msgid "Could not delete post with ID "
 msgstr ""
 
