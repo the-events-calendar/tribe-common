@@ -99,157 +99,15 @@ jobs:
           ${SLIC_BIN} info
           ${SLIC_BIN} config
       # ------------------------------------------------------------------------------
-      # Fetch branches for dependent repos
-      # ------------------------------------------------------------------------------
-      - name: Fetch head branch from TEC
-        uses: octokit/request-action@v2.x
-        if: steps.skip.outputs.value != 1
-        id: fetch-tec-head-branch
-        with:
-          route: GET /repos/{owner}/{repo}/branches/${{ github.head_ref }}
-          owner: the-events-calendar
-          repo: the-events-calendar
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
-        continue-on-error: true
-      - name: Fetch base branch from TEC
-        uses: octokit/request-action@v2.x
-        id: fetch-tec-base-branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-tec-head-branch.outcome != 'success'
-        with:
-          route: GET /repos/{owner}/{repo}/branches/${{ github.base_ref }}
-          owner: the-events-calendar
-          repo: the-events-calendar
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
-        continue-on-error: true
-      - name: Fetch head branch from ET
-        uses: octokit/request-action@v2.x
-        id: fetch-et-head-branch
-        if: steps.skip.outputs.value != 1
-        with:
-          route: GET /repos/{owner}/{repo}/branches/${{ github.head_ref }}
-          owner: the-events-calendar
-          repo: event-tickets
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
-        continue-on-error: true
-      - name: Fetch base branch from ET
-        uses: octokit/request-action@v2.x
-        id: fetch-et-base-branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-et-head-branch.outcome != 'success'
-        with:
-          route: GET /repos/{owner}/{repo}/branches/${{ github.base_ref }}
-          owner: the-events-calendar
-          repo: event-tickets
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
-        continue-on-error: true
-      - name: Fetch head branch from ET+
-        uses: octokit/request-action@v2.x
-        id: fetch-et-plus-head-branch
-        if: steps.skip.outputs.value != 1
-        with:
-          route: GET /repos/{owner}/{repo}/branches/${{ github.head_ref }}
-          owner: the-events-calendar
-          repo: event-tickets-plus
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
-        continue-on-error: true
-      - name: Fetch base branch from ET+
-        uses: octokit/request-action@v2.x
-        id: fetch-et-plus-base-branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-et-plus-head-branch.outcome != 'success'
-        with:
-          route: GET /repos/{owner}/{repo}/branches/${{ github.base_ref }}
-          owner: the-events-calendar
-          repo: event-tickets-plus
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
-        continue-on-error: true
-      - name: Fetch head branch from Pro
-        uses: octokit/request-action@v2.x
-        id: fetch-pro-head-branch
-        if: steps.skip.outputs.value != 1
-        with:
-          route: GET /repos/{owner}/{repo}/branches/${{ github.head_ref }}
-          owner: the-events-calendar
-          repo: events-pro
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
-        continue-on-error: true
-      - name: Fetch base branch from Pro
-        uses: octokit/request-action@v2.x
-        id: fetch-pro-base-branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-pro-head-branch.outcome != 'success'
-        with:
-          route: GET /repos/{owner}/{repo}/branches/${{ github.base_ref }}
-          owner: the-events-calendar
-          repo: events-pro
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
-        continue-on-error: true
-      # --------------------------------------------------------------------------
-      # Set TEC branch
-      # ------------------------------------------------------------------------------
-      - name: Set TEC with head branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-tec-head-branch.outcome == 'success'
-        run: echo "TEC_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
-      - name: Set TEC with base branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-tec-head-branch.outcome != 'success' && steps.fetch-tec-base-branch.outcome == 'success'
-        run: echo "TEC_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
-      - name: Set TEC with main branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-tec-head-branch.outcome != 'success' && steps.fetch-tec-base-branch.outcome != 'success'
-        run: echo "TEC_BRANCH=main" >> $GITHUB_ENV
-      # ------------------------------------------------------------------------------
-      # Set ET branch
-      # ------------------------------------------------------------------------------
-      - name: Set ET with head branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-et-head-branch.outcome == 'success'
-        run: echo "ET_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
-      - name: Set ET with base branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-et-head-branch.outcome != 'success' && steps.fetch-et-base-branch.outcome == 'success'
-        run: echo "ET_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
-      - name: Set ET with main branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-et-head-branch.outcome != 'success' && steps.fetch-et-base-branch.outcome != 'success'
-        run: echo "ET_BRANCH=main" >> $GITHUB_ENV
-      # ------------------------------------------------------------------------------
-      # Set ET+ branch
-      # ------------------------------------------------------------------------------
-      - name: Set ET+ with head branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-et-plus-head-branch.outcome == 'success'
-        run: echo "ET_PLUS_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
-      - name: Set ET+ with base branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-et-plus-head-branch.outcome != 'success' && steps.fetch-et-plus-base-branch.outcome == 'success'
-        run: echo "ET_PLUS_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
-      - name: Set ET+ with main branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-et-plus-head-branch.outcome != 'success' && steps.fetch-et-plus-base-branch.outcome != 'success'
-        run: echo "ET_PLUS_BRANCH=main" >> $GITHUB_ENV
-      # --------------------------------------------------------------------------
-      # Set Pro branch
-      # --------------------------------------------------------------------------
-      - name: Set Pro with head branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-pro-head-branch.outcome == 'success'
-        run: echo "PRO_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
-      - name: Set Pro with base branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-pro-head-branch.outcome != 'success' && steps.fetch-pro-base-branch.outcome == 'success'
-        run: echo "PRO_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
-      - name: Set Pro with main branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-pro-head-branch.outcome != 'success' && steps.fetch-pro-base-branch.outcome != 'success'
-        run: echo "PRO_BRANCH=main" >> $GITHUB_ENV
-      # --------------------------------------------------------------------------
-      # Clone and init TEC
+      # Clone dependencies using smart checkout
       # ------------------------------------------------------------------------------
       - name: Clone TEC
-        uses: actions/checkout@v4
+        uses: ./.github/actions/smart-checkout
         if: steps.skip.outputs.value != 1
         with:
-          fetch-depth: 1
-          repository: the-events-calendar/the-events-calendar
-          ref: ${{ env.TEC_BRANCH }}
-          token: ${{ secrets.GH_BOT_TOKEN }}
+          other_repo: the-events-calendar/the-events-calendar
           path: the-events-calendar
-          submodules: recursive
+          token: ${{ secrets.GH_BOT_TOKEN }}
       - name: Init TEC
         if: steps.skip.outputs.value != 1
         run: |
@@ -257,19 +115,13 @@ jobs:
           docker network prune -f
           ${SLIC_BIN} use the-events-calendar
           ${SLIC_BIN} composer install --no-dev
-      # ------------------------------------------------------------------------------
-      # Clone and init ET
-      # ------------------------------------------------------------------------------
       - name: Clone ET
-        uses: actions/checkout@v4
+        uses: ./.github/actions/smart-checkout
         if: steps.skip.outputs.value != 1
         with:
-          fetch-depth: 1
-          repository: the-events-calendar/event-tickets
-          ref: ${{ env.ET_BRANCH }}
-          token: ${{ secrets.GH_BOT_TOKEN }}
+          other_repo: the-events-calendar/event-tickets
           path: event-tickets
-          submodules: recursive
+          token: ${{ secrets.GH_BOT_TOKEN }}
       - name: Init ET
         if: steps.skip.outputs.value != 1
         run: |
@@ -283,19 +135,13 @@ jobs:
           docker network prune -f
           ${SLIC_BIN} use event-tickets/common
           ${SLIC_BIN} composer install --no-dev
-      # ------------------------------------------------------------------------------
-      # Clone and init ET+
-      # ------------------------------------------------------------------------------
       - name: Clone ET+
-        uses: actions/checkout@v4
+        uses: ./.github/actions/smart-checkout
         if: steps.skip.outputs.value != 1
         with:
-          fetch-depth: 1
-          repository: the-events-calendar/event-tickets-plus
-          ref: ${{ env.ET_PLUS_BRANCH }}
-          token: ${{ secrets.GH_BOT_TOKEN }}
+          other_repo: the-events-calendar/event-tickets-plus
           path: event-tickets-plus
-          submodules: recursive
+          token: ${{ secrets.GH_BOT_TOKEN }}
       - name: Init ET+
         if: steps.skip.outputs.value != 1
         run: |
@@ -303,19 +149,13 @@ jobs:
           docker network prune -f
           ${SLIC_BIN} use event-tickets-plus
           ${SLIC_BIN} composer install --no-dev
-      # --------------------------------------------------------------------------
-      # Clone and init Pro
-      # --------------------------------------------------------------------------
       - name: Clone Pro
-        uses: actions/checkout@v2
+        uses: ./.github/actions/smart-checkout
         if: steps.skip.outputs.value != 1
         with:
-          fetch-depth: 1
-          repository: the-events-calendar/events-pro
-          ref: ${{ env.PRO_BRANCH }}
-          token: ${{ secrets.GH_BOT_TOKEN }}
+          other_repo: the-events-calendar/events-pro
           path: events-pro
-          submodules: recursive
+          token: ${{ secrets.GH_BOT_TOKEN }}
       - name: Init Pro
         if: steps.skip.outputs.value != 1
         run: |
