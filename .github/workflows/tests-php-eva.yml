@@ -20,7 +20,7 @@ jobs:
       # ------------------------------------------------------------------------------
       - name: Check for PHP file changes
         id: php_check
-        uses: ./.github/actions/check-php-changes
+        uses: the-events-calendar/actions/.github/actions/check-php-changes@main
       # ------------------------------------------------------------------------------
   test:
     strategy:
