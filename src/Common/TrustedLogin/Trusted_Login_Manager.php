@@ -12,6 +12,8 @@
 
 namespace TEC\Common\TrustedLogin;
 
+use Throwable;
+
 /**
  * TrustedLogin Manager for TEC/ET.
  *
@@ -111,7 +113,7 @@ class Trusted_Login_Manager {
 		// Register the TrustedLogin client safely.
 		try {
 			$client = new Client( new Config( $config ) );
-		} catch ( \Throwable $e ) {
+		} catch ( Throwable $e ) {
 			// Log the error so developers can debug if needed.
 			$source  = __CLASS__;
 			$message = sprintf(

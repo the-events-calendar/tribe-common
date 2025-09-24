@@ -23,7 +23,6 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
  * the larger TEC plugin architecture using the shared container.
  *
  * @since TBD
- * @since TBD
  *
  * @package TEC\Common\TrustedLogin
  */
