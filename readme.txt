@@ -1,5 +1,38 @@
 == Changelog ==
 
+= [6.9.4] 2025-09-23 =
+
+*  Feature - The Troubleshooting page now detects and flags outdated PHP Versions, incorrectly sets up PHP time zones and active caching plugins. [TCMN-203]
+* Fix - Converts default values of protected vars to empty array to potentially prevent fatals in PHP 8.3+ props to @aaronsilber! [TCMN-202]
+* Tweak - Adds filters: `stellarwp_uplink_`
+* Tweak - Adds upsell links for Promoter in License page. [TEC-5587]
+* Tweak - Removes filters: `tec_help_troubleshooting_issues_found`, `tec_help_troubleshooting_issues`
+* Tweak - Updates logic to work with PHP 8.3+. [TCMN-189]
+* Language - 12 new strings added, 43 updated, 2 fuzzied, and 0 obsoleted.
+
+= [6.9.3] 2025-09-09 =
+
+* Fix - Corrected an issue where PUE License data had an empty key. [EBT-156]
+* Fix - Restore proper functionality of system information opt-in checkbox. [TCMN-198]
+* Tweak - Added a script that detects the mobile device used and adds a relevant body class. [TEC-4242]
+* Tweak - Removed filters: `tribe_settings_wrap_classes.
+* Tweak - Tweak post CSS imports to ensure our a11y styles get loaded in the admin.
+* Language - 0 new strings added, 43 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.9.2] 2025-09-02 =
+
+* Fix - Completed Order email can handle again multiple recipients separated by comma. [ET-2551]
+* Fix - Figure out where assets are located in complex environments with a mix of symlinked or normally placed plugins. Resolving as a result issues with Recurring Events UI in WordPress.com. [ECP-1929]
+* Fix - Fixed conflict with IAN being injected into Query Monitor headers. [TEC-5362]
+* Tweak - Added filters: `tec_common_group_path`
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.9.1] 2025-08-26 =
+
+* Feature - Add a key-value cache system to support sites not using object-caching. [ETP-1021]
+* Tweak - Added filters: `tec_key_value_cache_force_use_of_table_cache`
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.9.0.1] 2025-08-20 =
 
 * Fix - Ensures the Actions Scheduler Logs table is present before attempting to use it. [TCMN-190]
