@@ -36,6 +36,8 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	protected function do_register(): void {
+		$this->container->singleton( Trusted_Login_Manager::class );
+
 		$this->hooks();
 	}
 
@@ -64,7 +66,7 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
-		Trusted_Login_Manager::instance()->init( $config );
+		tribe( Trusted_Login_Manager::class )->init( $config );
 	}
 
 	/**

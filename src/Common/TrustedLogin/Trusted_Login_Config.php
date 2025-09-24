@@ -1,13 +1,6 @@
 <?php
 /**
- * TrustedLogin Configuration.
- *
- * Provides configuration building for TrustedLogin within the TEC plugin architecture,
- * handling all constants and config array generation.
- *
  * @since TBD
- *
- * @package TEC\Common\TrustedLogin
  */
 
 declare( strict_types=1 );
@@ -18,10 +11,43 @@ use TEC\Common\Configuration\Configuration;
 use Tribe__Main;
 
 /**
- * Configuration class for TrustedLogin functionality.
+ * Builds the configuration array for the TrustedLogin Client SDK.
  *
- * This class is responsible for building the complete configuration array
- * for TrustedLogin, including all constants and dynamic values.
+ * ## TrustedLogin Workflow
+ *
+ * This integration uses the TrustedLogin Client SDK, which communicates with a separate
+ * TrustedLogin Connector website. The workflow is:
+ *
+ * ```
+ * Client SDK (this site) → TrustedLogin Connector (separate website)
+ * ```
+ *
+ * The TrustedLogin Connector lives on a separate website (configured via `$website_url`).
+ * That website must be set up to use the same public API key as this Client SDK.
+ * For the integration to work properly, both the API key and website URL must be
+ * in sync and correct. If either is incorrect, the integration will not work.
+ *
+ * ## Configuration Structure
+ *
+ * This class provides:
+ * - Defaults stored as protected properties
+ * - Getters for each value (with per-value filters)
+ * - Global config filter at the end
+ * - Validation for required fields
+ *
+ * ## Required Fields
+ *
+ * The following fields are required for TrustedLogin to function:
+ * - `auth.api_key` - The TrustedLogin key for the vendor
+ * - `role` - WordPress role for TrustedLogin support users
+ * - `vendor.namespace` - Unique vendor namespace
+ * - `vendor.title` - Vendor company name
+ * - `vendor.email` - Support email address
+ * - `vendor.website` - Vendor website URL
+ * - `vendor.support_url` - Vendor support page URL
+ *
+ * For complete configuration options and detailed field descriptions, see:
+ * {@link https://docs.trustedlogin.com/Client/configuration#all-options TrustedLogin Configuration Documentation}
  *
  * @since TBD
  *
@@ -30,78 +56,7 @@ use Tribe__Main;
 class Trusted_Login_Config {
 
 	/**
-	 * Unique namespace for identifying the product in TrustedLogin.
-	 *
-	 * Used in hooks, filters, and URL generation to avoid conflicts
-	 * between multiple products using TrustedLogin.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	public const NAMESPACE = 'tec-common';
-
-	/**
-	 * URL for the vendor's support page.
-	 *
-	 * Displayed in the TrustedLogin UI and used as a fallback redirect if
-	 * the TrustedLogin service is unreachable.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	public const SUPPORT_URL = 'https://theeventscalendar.com/support/';
-
-	/**
-	 * Base URL where the TrustedLogin Connector plugin is installed.
-	 *
-	 * This URL is used by the TrustedLogin Client SDK to communicate with
-	 * the Connector plugin for granting and managing secure access. It must
-	 * match the site where the Connector plugin is active, such as
-	 * production or staging environments.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	public const WEBSITE_URL = 'https://my.theeventscalendar.com';
-
-	/**
-	 * Email address for vendor support.
-	 *
-	 * Used when creating support usernames in the TrustedLogin flow.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	public const SUPPORT_EMAIL = 'support@theeventscalendar.com';
-
-	/**
-	 * Slug for the TrustedLogin admin page.
-	 *
-	 * Used in the WordPress admin URL query parameter "page".
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	public const MENU_SLUG = 'grant-tec-common-access';
-
-	/**
-	 * Role assigned to TrustedLogin support users.
-	 *
-	 * Defaults to "administrator" but can be filtered if needed.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	public const ROLE = 'administrator';
-
-	/**
-	 * The configuration object.
+	 * Configuration dependency for reading stored settings.
 	 *
 	 * @since TBD
 	 *
@@ -110,95 +65,194 @@ class Trusted_Login_Config {
 	protected Configuration $config;
 
 	/**
-	 * Constructor.
+	 * Default namespace for TrustedLogin hooks and filters.
 	 *
 	 * @since TBD
 	 *
-	 * @param Configuration $config The configuration object.
+	 * @var string
+	 */
+	protected string $namespace = 'the-events-calendar';
+
+	/**
+	 * Default support page URL for vendor documentation or help.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected string $support_url = 'https://theeventscalendar.com/support/';
+
+	/**
+	 * Default website URL where the TrustedLogin Connector plugin lives.
+	 *
+	 * This must match the environment hosting the Connector plugin (staging, production, etc.).
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected string $website_url = 'https://my.theeventscalendar.com';
+
+	/**
+	 * Default vendor support email used when creating support users.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected string $support_email = 'support@theeventscalendar.com';
+
+	/**
+	 * Default admin menu slug for the TrustedLogin access page.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected string $menu_slug = 'grant-tec-common-access';
+
+	/**
+	 * Default WordPress role assigned to TrustedLogin support users.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected string $role = 'administrator';
+
+	/**
+	 * Default access expiration (in seconds).
+	 *
+	 * @since TBD
+	 *
+	 * @var int
+	 */
+	protected int $decay = WEEK_IN_SECONDS;
+
+	/**
+	 * Whether capabilities should be cloned from the default role.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected bool $clone_role = false;
+
+	/**
+	 * Required configuration fields for TrustedLogin validation.
+	 *
+	 * These fields are marked as required by the TrustedLogin specification.
+	 * For complete field descriptions and all available options, see:
+	 * {@link https://docs.trustedlogin.com/Client/configuration#all-options TrustedLogin Configuration Documentation}
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string,string> Field paths mapped to their descriptions.
+	 */
+	protected array $required_fields = [
+		'auth.api_key'        => 'API key for TrustedLogin authentication',
+		'role'                => 'WordPress role for TrustedLogin support users',
+		'vendor.namespace'    => 'Vendor namespace for TrustedLogin',
+		'vendor.title'        => 'Vendor title for TrustedLogin UI',
+		'vendor.email'        => 'Vendor support email address',
+		'vendor.website'      => 'Vendor website URL',
+		'vendor.support_url'  => 'Vendor support page URL',
+	];
+
+	/**
+	 * Injects configuration dependency.
+	 *
+	 * @since TBD
+	 *
+	 * @param Configuration $config Configuration object for retrieving settings.
 	 */
 	public function __construct( Configuration $config ) {
 		$this->config = $config;
 	}
 
 	/**
-	 * Factory method to build and return TrustedLogin configuration.
+	 * Builds the configuration using defaults + filters.
 	 *
 	 * @since TBD
 	 *
-	 * @return array<string,mixed> The configuration array.
+	 * @return array<string,mixed> Filtered configuration array.
 	 */
 	public static function build(): array {
-		$config = new self( tribe( Configuration::class ) );
-		$config->maybe_define_constants();
-		return $config->get();
+		$instance = new self( tribe( Configuration::class ) );
+
+		return $instance->get();
 	}
 
+
 	/**
-	 * Define constants if they don't already exist.
+	 * Builds the final TrustedLogin configuration array.
+	 *
+	 * This method constructs the complete configuration array that will be passed to the
+	 * TrustedLogin Client SDK. The configuration includes authentication, vendor information,
+	 * menu settings, and access controls.
+	 *
+	 * ## Configuration Structure
+	 *
+	 * The returned array follows the TrustedLogin Client SDK specification:
+	 * - `auth` - Authentication settings (API key, license key)
+	 * - `vendor` - Vendor information (namespace, title, email, URLs, logo)
+	 * - `menu` - Admin menu configuration
+	 * - `decay` - Access expiration time
+	 * - `role` - WordPress role for support users
+	 * - `clone_role` - Whether to clone role capabilities
+	 *
+	 * Applies the global `tec_trustedlogin_config` filter after building.
 	 *
 	 * @since TBD
 	 *
-	 * @return void
-	 */
-	public function maybe_define_constants(): void {
-		if ( ! defined( 'TEC_SUPPORT_TRUSTED_LOGIN_KEY' ) ) {
-			define( 'TEC_SUPPORT_TRUSTED_LOGIN_KEY', '1d9fc7a576cb88ed' );
-		}
-	}
-
-	/**
-	 * Get the complete TrustedLogin configuration array.
+	 * @return array<string,mixed> Final configuration array ready for TrustedLogin Client SDK.
 	 *
-	 * @see https://docs.trustedlogin.com/Client/configuration#all-options
-	 *
-	 * @since TBD
-	 *
-	 * @return array<string,mixed>
+	 * @see https://docs.trustedlogin.com/Client/configuration#all-options TrustedLogin Configuration Documentation
 	 */
 	public function get(): array {
-		$logo_source = tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, Tribe__Main::instance() );
-
 		$config = [
 			'auth'       => [
-				'api_key'     => $this->config->get( 'TEC_SUPPORT_TRUSTED_LOGIN_KEY' ),
+				'api_key'     => $this->get_api_key(),
 				'license_key' => '',
 			],
 			'vendor'     => [
-				'namespace'   => self::NAMESPACE,
-				'title'       => self::get_title(),
-				'logo_url'    => $logo_source,
-				'email'       => self::SUPPORT_EMAIL,
-				'support_url' => self::SUPPORT_URL,
-				'website'     => self::WEBSITE_URL,
+				'namespace'   => $this->get_namespace(),
+				'title'       => $this->get_title(),
+				'logo_url'    => $this->get_logo_url(),
+				'email'       => $this->get_support_email(),
+				'support_url' => $this->get_support_url(),
+				'website'     => $this->get_website_url(),
 			],
 			'menu'       => [
 				'parent_slug' => null,
-				'slug'        => self::MENU_SLUG,
+				'slug'        => $this->get_menu_slug(),
 			],
-			'decay'      => WEEK_IN_SECONDS,
-			'role'       => self::ROLE,
-			'clone_role' => false,
+			'decay'      => $this->get_decay(),
+			'role'       => $this->get_role(),
+			'clone_role' => $this->get_clone_role(),
 		];
 
 		/**
-		 * Filter the TrustedLogin configuration before it's used.
+		 * Filters the full TrustedLogin configuration array.
 		 *
 		 * @since TBD
 		 *
-		 * @param array<string,mixed> $config The configuration array.
+		 * @param array<string,mixed> $config TrustedLogin configuration.
 		 */
-		return apply_filters( 'tec_common_trustedlogin_config', $config );
+		return apply_filters( 'tec_trustedlogin_config', $config );
 	}
 
 	/**
-	 * Get the full admin URL for the TrustedLogin page.
+	 * Returns the admin URL for the TrustedLogin page.
+	 *
+	 * Applies `tec_trustedlogin_page_url` filter.
 	 *
 	 * @since TBD
 	 *
-	 * @return string|null The admin URL or null if page slug is missing.
+	 * @return string|null Filtered admin URL or null if no menu slug exists.
 	 */
 	public function get_url(): ?string {
-		$page_slug = self::MENU_SLUG;
+		$page_slug = $this->get_menu_slug();
 
 		if ( empty( $page_slug ) ) {
 			return null;
@@ -207,24 +261,299 @@ class Trusted_Login_Config {
 		$url = admin_url( 'admin.php?page=' . $page_slug );
 
 		/**
-		 * Filter the TrustedLogin page URL.
+		 * Filters the TrustedLogin admin page URL.
 		 *
 		 * @since TBD
 		 *
-		 * @param string $url The full admin URL.
-		 * @param string $page_slug The page slug used for TrustedLogin.
+		 * @param string $url Full admin URL.
+		 * @param string $page_slug Menu slug for the TrustedLogin page.
 		 */
-		return apply_filters( 'tec_common_trustedlogin_page_url', $url, $page_slug );
+		return apply_filters( 'tec_trustedlogin_page_url', $url, $page_slug );
 	}
 
 	/**
-	 * Get the translatable title for the product shown in the TrustedLogin UI.
+	 * Returns the API key for TrustedLogin authentication.
+	 *
+	 * This is a public API key that points to the live environment for TrustedLogin.
+	 * It is safe to expose this key in client-side code as it does not grant privileged access.
+	 *
+	 * ## Critical Sync Requirement
+	 *
+	 * This API key must match the API key configured on the TrustedLogin Connector website
+	 * (configured via `get_website_url()`). Both the Client SDK and Connector must use
+	 * the same API key for the integration to work properly.
+	 *
+	 * The API key can be found in "API Keys" on https://app.trustedlogin.com.
 	 *
 	 * @since TBD
 	 *
-	 * @return string The translated product title.
+	 * @return string API key for the TrustedLogin service.
+	 *
+	 * @see https://docs.trustedlogin.com/Client/configuration#all-options TrustedLogin Configuration Documentation
 	 */
-	public static function get_title(): string {
-		return __( 'The Events Calendar', 'tribe-common' );
+	public function get_api_key(): string {
+		// Define constant if not already set.
+		if ( ! defined( 'TEC_SUPPORT_TRUSTED_LOGIN_KEY' ) ) {
+			define( 'TEC_SUPPORT_TRUSTED_LOGIN_KEY', '1d9fc7a576cb88ed' );
+		}
+
+		$value = $this->config->get( 'TEC_SUPPORT_TRUSTED_LOGIN_KEY' );
+
+		/**
+		 * Filters the API key used for TrustedLogin authentication.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $value The API key value.
+		 */
+		return apply_filters( 'tec_trustedlogin_api_key', (string) $value );
+	}
+
+	/**
+	 * Returns the vendor namespace for TrustedLogin.
+	 *
+	 * @since TBD
+	 *
+	 * @return string Vendor namespace.
+	 */
+	public function get_namespace(): string {
+		/**
+		 * Filters the namespace used for TrustedLogin.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $namespace The vendor namespace.
+		 */
+		return apply_filters( 'tec_trustedlogin_namespace', $this->namespace );
+	}
+
+	/**
+	 * Returns the translatable vendor title for TrustedLogin UI.
+	 *
+	 * @since TBD
+	 *
+	 * @return string Translated vendor title.
+	 */
+	public function get_title(): string {
+		$value = __( 'The Events Calendar', 'tribe-common' );
+
+		/**
+		 * Filters the vendor title displayed in TrustedLogin UI.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $value The vendor title.
+		 */
+		return apply_filters( 'tec_trustedlogin_title', $value );
+	}
+
+	/**
+	 * Returns the vendor logo URL for TrustedLogin UI.
+	 *
+	 * @since TBD
+	 *
+	 * @return string Vendor logo URL.
+	 */
+	public function get_logo_url(): string {
+		$default = tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, Tribe__Main::instance() );
+
+		/**
+		 * Filters the vendor logo URL for TrustedLogin UI.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $default The default logo URL.
+		 */
+		return apply_filters( 'tec_trustedlogin_logo_url', $default );
+	}
+
+	/**
+	 * Returns the vendor support email for TrustedLogin.
+	 *
+	 * @since TBD
+	 *
+	 * @return string Vendor support email.
+	 */
+	public function get_support_email(): string {
+		/**
+		 * Filters the vendor support email used by TrustedLogin.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $support_email The support email address.
+		 */
+		return apply_filters( 'tec_trustedlogin_support_email', $this->support_email );
+	}
+
+	/**
+	 * Returns the vendor support page URL for TrustedLogin.
+	 *
+	 * @since TBD
+	 *
+	 * @return string Vendor support page URL.
+	 */
+	public function get_support_url(): string {
+		/**
+		 * Filters the vendor support page URL for TrustedLogin.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $support_url The support page URL.
+		 */
+		return apply_filters( 'tec_trustedlogin_support_url', $this->support_url );
+	}
+
+	/**
+	 * Returns the website URL where the TrustedLogin Connector is installed.
+	 *
+	 * ## Critical Sync Requirement
+	 *
+	 * This URL must point to the website where the TrustedLogin Connector plugin is installed.
+	 * The Connector website must be configured with the same API key as this Client SDK
+	 * (configured via `get_api_key()`). Both the Client SDK and Connector must use the same
+	 * API key for the integration to work properly.
+	 *
+	 * This must match the environment hosting the Connector plugin (staging, production, etc.).
+	 *
+	 * @since TBD
+	 *
+	 * @return string Website URL hosting the TrustedLogin Connector plugin.
+	 *
+	 * @see https://docs.trustedlogin.com/Client/configuration#all-options TrustedLogin Configuration Documentation
+	 */
+	public function get_website_url(): string {
+		/**
+		 * Filters the website URL where TrustedLogin Connector lives.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $website_url The website URL.
+		 */
+		return apply_filters( 'tec_trustedlogin_website_url', $this->website_url );
+	}
+
+	/**
+	 * Returns the admin menu slug for the TrustedLogin page.
+	 *
+	 * @since TBD
+	 *
+	 * @return string Menu slug for the TrustedLogin admin page.
+	 */
+	public function get_menu_slug(): string {
+		/**
+		 * Filters the admin menu slug for the TrustedLogin page.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $menu_slug The menu slug.
+		 */
+		return apply_filters( 'tec_trustedlogin_menu_slug', $this->menu_slug );
+	}
+
+	/**
+	 * Returns the WordPress role assigned to TrustedLogin support users.
+	 *
+	 * @since TBD
+	 *
+	 * @return string Role for TrustedLogin support users.
+	 */
+	public function get_role(): string {
+		/**
+		 * Filters the WordPress role assigned to TrustedLogin support users.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $role The WordPress role.
+		 */
+		return apply_filters( 'tec_trustedlogin_role', $this->role );
+	}
+
+	/**
+	 * Returns the access expiration time in seconds.
+	 *
+	 * @since TBD
+	 *
+	 * @return int Access expiration time in seconds.
+	 */
+	public function get_decay(): int {
+		/**
+		 * Filters the access expiration time for TrustedLogin users.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $decay The access expiration time in seconds.
+		 */
+		return (int) apply_filters( 'tec_trustedlogin_decay', $this->decay );
+	}
+
+	/**
+	 * Returns whether to clone capabilities from the configured role.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if cloning role capabilities; otherwise false.
+	 */
+	public function get_clone_role(): bool {
+		/**
+		 * Filters whether capabilities are cloned from the assigned role.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $clone_role Whether to clone role capabilities.
+		 */
+		return (bool) apply_filters( 'tec_trustedlogin_clone_role', $this->clone_role );
+	}
+
+	/**
+	 * Returns the required configuration fields for TrustedLogin validation.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,string> Required field paths and their descriptions.
+	 */
+	public function get_required_fields(): array {
+		return $this->required_fields;
+	}
+
+	/**
+	 * Validates that all required configuration fields are present and not empty.
+	 *
+	 * This method checks that all fields marked as required by the TrustedLogin specification
+	 * are present and contain non-empty values. The required fields are defined in the
+	 * `$required_fields` property and include:
+	 *
+	 * - `auth.api_key` - TrustedLogin API key for authentication
+	 * - `role` - WordPress role for support users
+	 * - `vendor.namespace` - Unique vendor namespace
+	 * - `vendor.title` - Vendor company name
+	 * - `vendor.email` - Support email address
+	 * - `vendor.website` - Vendor website URL
+	 * - `vendor.support_url` - Vendor support page URL
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $config Configuration array to validate.
+	 *
+	 * @return array<string> Array of missing field paths, empty if all required fields are present.
+	 *
+	 * @see https://docs.trustedlogin.com/Client/configuration#all-options TrustedLogin Configuration Documentation
+	 */
+	public function get_missing_required_fields( array $config ): array {
+		$missing_fields = [];
+
+		foreach ( $this->required_fields as $field_path => $description ) {
+			$keys = explode( '.', $field_path );
+			$value = $config;
+
+			foreach ( $keys as $key ) {
+				if ( ! isset( $value[ $key ] ) || empty( $value[ $key ] ) ) {
+					$missing_fields[] = $field_path;
+					break;
+				}
+				$value = $value[ $key ];
+			}
+		}
+
+		return $missing_fields;
 	}
 }

@@ -8,7 +8,6 @@
  *                  - target: The tab target
  *                  - class: Additional CSS classes
  *                  - label: The tab label
- * @var string $trustedlogin_url Login URL for Trusted Login.
  */
 
 ?>
@@ -25,12 +24,5 @@
 				<a class="tec-nav__link"><?php echo esc_html( $hub_tab['label'] ); ?></a>
 			</li>
 		<?php endforeach; ?>
-		<li
-			class="tec-nav__tab <?php echo esc_attr( $hub_tab['class'] ); ?>"
-		>
-			<a class="tec-nav__link" href="<?php echo esc_url( $trustedlogin_url ); ?>">
-				<?php echo esc_html__( 'Support Access', 'tribe-common' ); ?>
-			</a>
-		</li>
 	</ul>
 </nav>

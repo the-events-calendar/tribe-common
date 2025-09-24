@@ -16,7 +16,6 @@ use RuntimeException;
 use TEC\Common\Admin\Help_Hub\Section_Builder\Section_Helper;
 use TEC\Common\StellarWP\AdminNotices\AdminNotice;
 use TEC\Common\StellarWP\AdminNotices\AdminNotices;
-use TEC\Common\TrustedLogin\Trusted_Login_Manager;
 use Tribe__Main;
 use Tribe__Template;
 use TEC\Common\Configuration\Configuration;
@@ -264,12 +263,19 @@ class Hub {
 		)
 			->build();
 
+		$builder::make(
+			'tec-support-access-tab',
+			__( 'Support Access', 'tribe-common' ),
+			'tec-support-access-tab',
+			'help-hub/trusted_login/view'
+		)
+			->build();
+
 		$template_args = wp_parse_args(
 			$builder->get_arguments(),
 			[
 				'template_variant' => $template_variant,
 				'tabs'             => $builder::get_all_tabs(),
-				'trustedlogin_url' => tribe( Trusted_Login_Manager::class )->instance()->get_url(),
 			]
 		);
 

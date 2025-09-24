@@ -87,9 +87,9 @@
     ],
     "trustedlogin": [
       "mkdir -p vendor/vendor-prefixed/trustedlogin/client/src/assets/",
-      "@php vendor/bin/build-sass --namespace=tec-common --assets_dir=vendor/trustedlogin/client/src/assets/ --export_dir=vendor/vendor-prefixed/trustedlogin/client/src/assets/",
-      "[ -d 'vendor/scssphp' ] && rm -rf vendor/scssphp || true",
-      "[ -d 'vendor/bin' ] && rm -rf vendor/bin/build-sass && rm -rf vendor/bin/pscss || true"
+      "@php vendor/bin/build-sass --namespace=the-events-calendar --assets_dir=vendor/vendor-prefixed/trustedlogin/client/src/assets/ --export_dir=vendor/vendor-prefixed/trustedlogin/client/src/assets/",
+      "rm -rf vendor/scssphp",
+      "rm -f vendor/bin/build-sass vendor/bin/pscss"
     ],
     "post-install-cmd": [
       "@stellar-uplink",
