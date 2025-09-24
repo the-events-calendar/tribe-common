@@ -121,18 +121,18 @@ class Query_Vars_Test extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should retain null values when should_overwrite_valueless_params is false.
+	 * It should retain null values when should_accept_valueless_params is false.
 	 *
 	 * @since TBD
 	 */
-	public function test_it_retains_null_when_overwrite_disabled() {
+	public function test_it_retains_null_when_accept_disabled() {
 		$test_var_name = 'simple_test_var';
 
 		// Create a simple query var that returns null for falsey values
 		$simple_query_var = new class extends \TEC\Common\Request\Abstract_Query_Var {
 			protected string $name = '';
 			protected bool $should_filter = true;
-			protected bool $should_overwrite_valueless_params = true; // Will be overridden by filter
+			protected bool $should_accept_valueless_params = true; // Will be overridden by filter
 
 			public function set_name( string $name ): void {
 				$this->name = $name;
@@ -150,8 +150,8 @@ class Query_Vars_Test extends \Codeception\TestCase\WPTestCase {
 
 		$simple_query_var->set_name( $test_var_name );
 
-		// Use filter to disable overwriting valueless params for this test
-		add_filter( "tec_request_query_vars_should_overwrite_valueless_params_{$test_var_name}", '__return_false' );
+		// Use filter to disable accepting valueless params for this test
+		add_filter( "tec_request_query_vars_should_accept_valueless_params_{$test_var_name}", '__return_false' );
 
 		// Register the simple query var
 		$simple_query_var->register();
@@ -164,12 +164,12 @@ class Query_Vars_Test extends \Codeception\TestCase\WPTestCase {
 		$vars   = [ $test_var_name => false ];
 		$result = apply_filters( 'request', $vars );
 
-		// When overwrite is disabled, null values should be retained in the array
-		$this->assertArrayHasKey( $test_var_name, $result, 'Expected ' . $test_var_name . ' to be retained when overwrite disabled' );
+		// When accepting valueless params is disabled, null values should be retained in the array
+		$this->assertArrayHasKey( $test_var_name, $result, 'Expected ' . $test_var_name . ' to be retained when accept disabled' );
 		$this->assertNull( $result[ $test_var_name ], 'Expected ' . $test_var_name . ' to be null after filtering' );
 
 		// Clean up
-		remove_filter( "tec_request_query_vars_should_overwrite_valueless_params_{$test_var_name}", '__return_false' );
+		remove_filter( "tec_request_query_vars_should_accept_valueless_params_{$test_var_name}", '__return_false' );
 		$simple_query_var->unregister();
 	}
 

@@ -212,7 +212,7 @@ class Query_Vars extends Controller_Contract {
 		// Filter the query vars first. This should include sanitization based on the expected query var value type(s).
 		$vars = $this->filter_query_vars( $vars );
 
-		// Remove null values.
+		// Handle final cleanup and superglobal synchronization.
 		foreach ( $vars as $key => $value ) {
 			$query_var = $this->get_query_var( $key );
 			// Not one of ours - don't touch it!
@@ -220,12 +220,13 @@ class Query_Vars extends Controller_Contract {
 				continue;
 			}
 
-			// If the query var doesn't allow valueless params, and we have no value, unset it.
+			// If the query var doesn't accept valueless params, and we still have no value after filtering, unset it.
 			if ( ( null === $value || '' === $value ) && ! $query_var->should_accept_valueless_params() ) {
 				unset( $vars[ $key ] );
+				$value = null; // Set to null so superglobals get unset.
 			}
 
-			// Make superglobals match the filtered vars. Setting one of these to null will effectively unset it.
+			// Make superglobals match the filtered vars.
 			$this->filter_superglobals( $key, $value );
 		}
 
@@ -262,6 +263,7 @@ class Query_Vars extends Controller_Contract {
 	/**
 	 * Sanitize a specific key in a superglobal-like array reference.
 	 * Allows individual vars to indicate if they should get filtered here.
+	 * Only modifies existing superglobal keys, doesn't create new ones.
 	 * Unset the value if it is null.
 	 *
 	 * @since TBD
@@ -284,10 +286,49 @@ class Query_Vars extends Controller_Contract {
 
 		// If the allowed superglobal is a *string*, it means we only want to filter a *specific* superglobal (i.e. only $_GET).
 		// This is useful for query vars that only want to filter one of the superglobals.
-		if ( is_string( $allowed ) && $allowed !== $superglobal ) {
+		// Normalize and use case-insensitive comparison for string matching.
+		// Allow flexible formats like "get" → "_GET", "GET" → "_GET", "_get" → "_GET".
+		if ( is_string( $allowed ) && 0 !== strcasecmp( $this->normalize_superglobal_name( $allowed ), $superglobal ) ) {
 			return;
 		}
 
-		$GLOBALS[ $superglobal ][ $key ] = $value;
+		// Only modify existing superglobal keys, don't create new ones.
+		if ( ! array_key_exists( $key, $GLOBALS[ $superglobal ] ) ) {
+			return;
+		}
+
+		if ( null === $value ) {
+			unset( $GLOBALS[ $superglobal ][ $key ] );
+		} else {
+			$GLOBALS[ $superglobal ][ $key ] = $value;
+		}
+	}
+
+	/**
+	 * Normalize a superglobal name to the expected format.
+	 *
+	 * Converts flexible input formats to standard superglobal names:
+	 * - "get" → "_GET"
+	 * - "GET" → "_GET"
+	 * - "_get" → "_GET"
+	 * - "_GET" → "_GET"
+	 *
+	 * @since TBD
+	 *
+	 * @param string $name The superglobal name to normalize.
+	 *
+	 * @return string The normalized superglobal name, or original if invalid.
+	 */
+	private function normalize_superglobal_name( string $name ): string {
+		// Remove any existing underscore prefix and convert to uppercase.
+		$normalized = '_' . strtoupper( ltrim( $name, '_' ) );
+
+		// Only return normalized name if it's in our allowed list.
+		if ( in_array( $normalized, self::ALLOWED_SUPERGLOBALS, true ) ) {
+			return $normalized;
+		}
+
+		// Return original name if it doesn't match any allowed superglobal.
+		return $name;
 	}
 }

@@ -143,8 +143,8 @@ abstract class Abstract_Query_Var extends Controller {
 		 *
 		 * @since TBD
 		 *
-		 * @param bool $should_accept_valueless_params Whether the query var should accept valueless params.
-		 * @param Abstract_Query_Var $query_var The query var.
+		 * @param bool               $should_accept_valueless_params Whether the query var should accept valueless params.
+		 * @param Abstract_Query_Var $query_var                      The query var.
 		 *
 		 * @return bool Whether the query var should accept valueless params.
 		 */
@@ -190,7 +190,7 @@ abstract class Abstract_Query_Var extends Controller {
 		}
 
 		// Only if the value is an empty string or null. "false" is a valid value.
-		if ( '' !== $value || null !== $value ) {
+		if ( '' !== $value && null !== $value ) {
 			return $value;
 		}
 
@@ -203,9 +203,10 @@ abstract class Abstract_Query_Var extends Controller {
 	 *
 	 * @since TBD
 	 *
-	 *
 	 * @return bool|string Whether the superglobal is allowed to be filtered for this var.
 	 *                     Returning a string "key" will limit the superglobal modification to that key only.
+	 *                     Flexible formats supported: "get", "GET", "_GET", "_get" all resolve to "_GET".
+	 *                     Same applies to "post"/"POST"/"_POST" and "request"/"REQUEST"/"_REQUEST".
 	 */
 	public function filter_superglobal_allowed() { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		// Add logic for individual $superglobal strings here in extending classes.

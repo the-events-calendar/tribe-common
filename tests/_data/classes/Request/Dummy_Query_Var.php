@@ -38,13 +38,13 @@ class Dummy_Query_Var extends Abstract_Query_Var {
 	protected bool $should_filter = true;
 
 	/**
-	 * Whether the query var should overwrite valueless params.
+	 * Whether the query var should accept valueless params.
 	 *
 	 * @since TBD
 	 *
 	 * @var bool
 	 */
-	protected bool $should_overwrite_valueless_params = true;
+	protected bool $should_accept_valueless_params = true;
 
 	/**
 	 * Whether the query var should filter superglobals.
