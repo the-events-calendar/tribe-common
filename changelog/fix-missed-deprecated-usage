@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Correct deprecated usage of Tribe__Settings::instance()
