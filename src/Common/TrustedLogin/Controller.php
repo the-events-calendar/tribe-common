@@ -48,7 +48,7 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function unregister(): void {
-		$this->container->get( Trusted_Login_Manager::class )->unregister();
+		$this->unhook();
 	}
 
 	/**
@@ -75,5 +75,14 @@ class Controller extends Controller_Contract {
 	 */
 	protected function hooks(): void {
 		add_action( 'tribe_common_loaded', [ $this, 'init_trustedlogin' ], 0 );
+	}
+
+	/**
+	 * Remove hooks for classes.
+	 *
+	 * @since TBD
+	 */
+	protected function unhook(): void {
+		remove_action( 'tribe_common_loaded', [ $this, 'init_trustedlogin' ] );
 	}
 }
