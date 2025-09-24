@@ -4,8 +4,12 @@
  *
  * @since TBD
  *
- * @package TEC\Events\Tests\Integration\Events\Request
+ * @package TEC\Common\Tests\Integration\Request
  */
+
+use TEC\Common\Request\Query_Vars;
+use TEC\Events\Request\Ical;
+use TEC\Common\Request\Dummy_Query_Var;
 
 /**
  * Class Query_Vars_Test
@@ -19,7 +23,7 @@ class Query_Vars_Test extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @since TBD
 	 *
-	 * @var \TEC\Events\Request\Query_Vars
+	 * @var \TEC\Common\Request\Query_Vars
 	 */
 	protected $query_vars;
 
@@ -38,11 +42,12 @@ class Query_Vars_Test extends \Codeception\TestCase\WPTestCase {
 	 * @since TBD
 	 */
 	public function before() {
-		$this->query_vars = new \TEC\Common\Request\Query_Vars();
-		$this->query_vars->register();
+		$this->query_vars = tribe( Query_Vars::class );
 
-		// Use the helper to register a generic query var for testing.
-		$this->getModule('QueryVarHelper')->registerGenericQueryVar($this->test_var_name, true); // Allow superglobal modification for this test var
+		// Register the iCal query var directly
+		$ical_query_var = tribe( Ical::class );
+		$test_query_var = tribe( Dummy_Query_Var::class );
+
 	}
 
 	/**
@@ -51,7 +56,12 @@ class Query_Vars_Test extends \Codeception\TestCase\WPTestCase {
 	 * @since TBD
 	 */
 	public function after() {
-		remove_filter( 'request', [ $this->query_vars, 'sanitize_query_vars' ], 0 );
+		remove_filter( 'request', [ $this->query_vars, 'clean_query_vars' ], 0 );
+
+		// Clean up container binding
+		if ( tribe()->isBound( \TEC\Common\Request\Query_Vars::class ) ) {
+			tribe()->offsetUnset( \TEC\Common\Request\Query_Vars::class );
+		}
 	}
 
 	/**
@@ -68,12 +78,12 @@ class Query_Vars_Test extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should set the test var to 1 when truthy values are provided.
+	 * It should normalize truthy values to 1 (iCal behavior).
 	 *
 	 * @since TBD
 	 * @dataProvider truthy_values_provider
 	 */
-	public function test_it_leaves_unchanged_when_test_var_present( $value ) {
+	public function test_it_normalizes_truthy_values_to_1( $value ) {
 		$_GET[ $this->test_var_name ]     = $value;
 		$_POST[ $this->test_var_name ]    = $value;
 		$_REQUEST[ $this->test_var_name ] = $value;
@@ -82,19 +92,19 @@ class Query_Vars_Test extends \Codeception\TestCase\WPTestCase {
 		$result = apply_filters( 'request', $vars );
 
 		$this->assertArrayHasKey( $this->test_var_name, $result, 'Expected ' . $this->test_var_name . ' to be present for value: ' . var_export( $value, true ) );
-		$this->assertSame( $value, $result[ $this->test_var_name ], 'Expected ' . $this->test_var_name . ' to be ' . var_export( $value, true ) );
-		$this->assertSame( $value, $_GET[ $this->test_var_name ], 'Expected ' . $this->test_var_name . ' to be ' . var_export( $value, true ) . ' in GET' );
-		$this->assertSame( $value, $_POST[ $this->test_var_name ], 'Expected ' . $this->test_var_name . ' to be ' . var_export( $value, true ) . ' in POST' );
-		$this->assertSame( $value, $_REQUEST[ $this->test_var_name ], 'Expected ' . $this->test_var_name . ' to be ' . var_export( $value, true ) . ' in REQUEST' );
+		$this->assertSame( 1, $result[ $this->test_var_name ], 'Expected ' . $this->test_var_name . ' to be normalized to 1 for value: ' . var_export( $value, true ) );
+		$this->assertSame( 1, $_GET[ $this->test_var_name ], 'Expected ' . $this->test_var_name . ' to be normalized to 1 in GET for value: ' . var_export( $value, true ) );
+		$this->assertSame( 1, $_POST[ $this->test_var_name ], 'Expected ' . $this->test_var_name . ' to be normalized to 1 in POST for value: ' . var_export( $value, true ) );
+		$this->assertSame( 1, $_REQUEST[ $this->test_var_name ], 'Expected ' . $this->test_var_name . ' to be normalized to 1 in REQUEST for value: ' . var_export( $value, true ) );
 	}
 
 	/**
-	 * It should remove the test var when null values are provided.
+	 * It should convert null values to 1 for presence-only support (iCal behavior).
 	 *
 	 * @since TBD
 	 * @dataProvider null_values_provider
 	 */
-	public function test_it_unsets_test_var_when_null( $value ) {
+	public function test_it_converts_null_to_presence_only( $value ) {
 		$_GET[ $this->test_var_name ]     = $value;
 		$_POST[ $this->test_var_name ]    = $value;
 		$_REQUEST[ $this->test_var_name ] = $value;
@@ -102,10 +112,65 @@ class Query_Vars_Test extends \Codeception\TestCase\WPTestCase {
 		$vars   = [ $this->test_var_name => $value ];
 		$result = apply_filters( 'request', $vars );
 
-		$this->assertArrayNotHasKey( $this->test_var_name, $result, 'Expected ' . $this->test_var_name . ' to be removed for value: ' . var_export( $value, true ) );
-		$this->assertArrayNotHasKey( $this->test_var_name, $_GET, 'Expected ' . $this->test_var_name . ' to be removed from GET for value: ' . var_export( $value, true ) );
-		$this->assertArrayNotHasKey( $this->test_var_name, $_POST, 'Expected ' . $this->test_var_name . ' to be removed from POST for value: ' . var_export( $value, true ) );
-		$this->assertArrayNotHasKey( $this->test_var_name, $_REQUEST, 'Expected ' . $this->test_var_name . ' to be removed from REQUEST for value: ' . var_export( $value, true ) );
+		// iCal supports presence-only query vars, so null becomes 1 when key exists
+		$this->assertArrayHasKey( $this->test_var_name, $result, 'Expected ' . $this->test_var_name . ' to be present for value: ' . var_export( $value, true ) );
+		$this->assertSame( 1, $result[ $this->test_var_name ], 'Expected ' . $this->test_var_name . ' to be 1 for presence-only support with value: ' . var_export( $value, true ) );
+		$this->assertSame( 1, $_GET[ $this->test_var_name ], 'Expected ' . $this->test_var_name . ' to be 1 in GET for presence-only support with value: ' . var_export( $value, true ) );
+		$this->assertSame( 1, $_POST[ $this->test_var_name ], 'Expected ' . $this->test_var_name . ' to be 1 in POST for presence-only support with value: ' . var_export( $value, true ) );
+		$this->assertSame( 1, $_REQUEST[ $this->test_var_name ], 'Expected ' . $this->test_var_name . ' to be 1 in REQUEST for presence-only support with value: ' . var_export( $value, true ) );
+	}
+
+	/**
+	 * It should retain null values when should_overwrite_valueless_params is false.
+	 *
+	 * @since TBD
+	 */
+	public function test_it_retains_null_when_overwrite_disabled() {
+		$test_var_name = 'simple_test_var';
+
+		// Create a simple query var that returns null for falsey values
+		$simple_query_var = new class extends \TEC\Common\Request\Abstract_Query_Var {
+			protected string $name = '';
+			protected bool $should_filter = true;
+			protected bool $should_overwrite_valueless_params = true; // Will be overridden by filter
+
+			public function set_name( string $name ): void {
+				$this->name = $name;
+			}
+
+			public function filter_query_var( $value, array $query_vars ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+				// Simple behavior: return null for falsey values, keep truthy values as-is
+				return $value ?: null;
+			}
+
+			protected function register_with_query_vars(): void {
+				// Skip self-registration - we'll handle manually
+			}
+		};
+
+		$simple_query_var->set_name( $test_var_name );
+
+		// Use filter to disable overwriting valueless params for this test
+		add_filter( "tec_request_query_vars_should_overwrite_valueless_params_{$test_var_name}", '__return_false' );
+
+		// Register the simple query var
+		$simple_query_var->register();
+		$this->query_vars->register_query_var( $simple_query_var );
+
+		$_GET[ $test_var_name ]     = false;
+		$_POST[ $test_var_name ]    = false;
+		$_REQUEST[ $test_var_name ] = false;
+
+		$vars   = [ $test_var_name => false ];
+		$result = apply_filters( 'request', $vars );
+
+		// When overwrite is disabled, null values should be retained in the array
+		$this->assertArrayHasKey( $test_var_name, $result, 'Expected ' . $test_var_name . ' to be retained when overwrite disabled' );
+		$this->assertNull( $result[ $test_var_name ], 'Expected ' . $test_var_name . ' to be null after filtering' );
+
+		// Clean up
+		remove_filter( "tec_request_query_vars_should_overwrite_valueless_params_{$test_var_name}", '__return_false' );
+		$simple_query_var->unregister();
 	}
 
 	/**
@@ -120,12 +185,12 @@ class Query_Vars_Test extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should retain falsey but non-null values.
+	 * It should remove falsey values (iCal behavior - falsey values become null and get removed).
 	 *
 	 * @since TBD
 	 * @dataProvider falsey_non_null_values_provider
 	 */
-	public function test_it_retains_falsey_non_null_values( $value ) {
+	public function test_it_removes_falsey_values( $value ) {
 		$_GET[ $this->test_var_name ]     = $value;
 		$_POST[ $this->test_var_name ]    = $value;
 		$_REQUEST[ $this->test_var_name ] = $value;
@@ -133,14 +198,11 @@ class Query_Vars_Test extends \Codeception\TestCase\WPTestCase {
 		$vars   = [ $this->test_var_name => $value ];
 		$result = apply_filters( 'request', $vars );
 
-		$this->assertArrayHasKey( $this->test_var_name, $result, 'Expected ' . $this->test_var_name . ' to be present for value: ' . var_export( $value, true ) );
-		$this->assertSame( $value, $result[ $this->test_var_name ], 'Expected ' . $this->test_var_name . ' to be ' . var_export( $value, true ) . ' for value: ' . var_export( $value, true ) );
-		$this->assertArrayHasKey( $this->test_var_name, $_GET, 'Expected ' . $this->test_var_name . ' to be present in GET for value: ' . var_export( $value, true ) );
-		$this->assertArrayHasKey( $this->test_var_name, $_POST, 'Expected ' . $this->test_var_name . ' to be present in POST for value: ' . var_export( $value, true ) );
-		$this->assertArrayHasKey( $this->test_var_name, $_REQUEST, 'Expected ' . $this->test_var_name . ' to be present in REQUEST for value: ' . var_export( $value, true ) );
-		$this->assertSame( $value, $_GET[ $this->test_var_name ], 'Expected ' . $this->test_var_name . ' to be ' . var_export( $value, true ) . ' in GET for value: ' . var_export( $value, true ) );
-		$this->assertSame( $value, $_POST[ $this->test_var_name ], 'Expected ' . $this->test_var_name . ' to be ' . var_export( $value, true ) . ' in POST for value: ' . var_export( $value, true ) );
-		$this->assertSame( $value, $_REQUEST[ $this->test_var_name ], 'Expected ' . $this->test_var_name . ' to be ' . var_export( $value, true ) . ' in REQUEST for value: ' . var_export( $value, true ) );
+		// iCal converts falsey values to null, which then get removed due to should_overwrite_valueless_params = true
+		$this->assertArrayNotHasKey( $this->test_var_name, $result, 'Expected ' . $this->test_var_name . ' to be removed for falsey value: ' . var_export( $value, true ) );
+		$this->assertArrayNotHasKey( $this->test_var_name, $_GET, 'Expected ' . $this->test_var_name . ' to be removed from GET for falsey value: ' . var_export( $value, true ) );
+		$this->assertArrayNotHasKey( $this->test_var_name, $_POST, 'Expected ' . $this->test_var_name . ' to be removed from POST for falsey value: ' . var_export( $value, true ) );
+		$this->assertArrayNotHasKey( $this->test_var_name, $_REQUEST, 'Expected ' . $this->test_var_name . ' to be removed from REQUEST for falsey value: ' . var_export( $value, true ) );
 	}
 
 	/**

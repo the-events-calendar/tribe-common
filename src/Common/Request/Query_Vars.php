@@ -71,6 +71,15 @@ class Query_Vars extends Controller_Contract {
 	];
 
 	/**
+	 * The registered query vars.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string,Abstract_Query_Var>
+	 */
+	private array $registered_query_vars = [];
+
+	/**
 	 * Register hooks.
 	 *
 	 * @since TBD
@@ -78,8 +87,6 @@ class Query_Vars extends Controller_Contract {
 	 * @return void
 	 */
 	protected function do_register(): void {
-		do_action( self::$registration_action );
-
 		add_filter( 'request', [ $this, 'clean_query_vars' ], 0 );
 	}
 
@@ -95,6 +102,41 @@ class Query_Vars extends Controller_Contract {
 	}
 
 	/**
+	 * Register a query var.
+	 *
+	 * @since TBD
+	 *
+	 * @param Abstract_Query_Var $query_var The query var to register.
+	 */
+	public function register_query_var( Abstract_Query_Var $query_var ): void {
+		$this->registered_query_vars[ $query_var->get_name() ] = $query_var;
+	}
+
+	/**
+	 * Unregister a query var.
+	 *
+	 * @since TBD
+	 *
+	 * @param Abstract_Query_Var $query_var The query var to unregister.
+	 */
+	public function unregister_query_var( Abstract_Query_Var $query_var ): void {
+		unset( $this->registered_query_vars[ $query_var->get_name() ] );
+	}
+
+	/**
+	 * Get a registered query var.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $name The name of the query var.
+	 *
+	 * @return ?Abstract_Query_Var The query var. Null if not registered..
+	 */
+	public function get_query_var( string $name ): ?Abstract_Query_Var {
+		return $this->registered_query_vars[ $name ] ?? null;
+	}
+
+	/**
 	 * Filter the query vars to allow for modifications.
 	 *
 	 * @since TBD
@@ -104,9 +146,24 @@ class Query_Vars extends Controller_Contract {
 	 * @return array<string,mixed> The filtered query vars.
 	 */
 	public function filter_query_vars( array $query_vars ): array {
+		/**
+		 * Filter the query vars.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,mixed> $query_vars Parsed query variables.
+		 *
+		 * @return array<string,mixed> The filtered query vars.
+		 */
 		$query_vars = apply_filters( 'tec_request_query_vars', $query_vars );
 
 		foreach ( $query_vars as $key => $value ) {
+			$query_var = $this->get_query_var( $key );
+			// Not one of ours - don't touch it!
+			if ( ! $query_var ) {
+				continue;
+			}
+
 			/**
 			 * Filter whether the query var should be filtered.
 			 * Defaults to false so we skip over most vars.
@@ -115,7 +172,7 @@ class Query_Vars extends Controller_Contract {
 			 *
 			 * @param bool $should_filter Whether the query var should be filtered.
 			 */
-			$should_filter = apply_filters( "tec_request_query_vars_should_filter_{$key}", false );
+			$should_filter = apply_filters( "tec_request_query_vars_should_filter_{$key}", $query_var->should_filter( $key ) );
 
 			// Only filter vars that have been explicitly allowed.
 			if ( ! $should_filter ) {
@@ -157,11 +214,18 @@ class Query_Vars extends Controller_Contract {
 
 		// Remove null values.
 		foreach ( $vars as $key => $value ) {
-			if ( null === $value ) {
+			$query_var = $this->get_query_var( $key );
+			// Not one of ours - don't touch it!
+			if ( ! $query_var ) {
+				continue;
+			}
+
+			// If the query var doesn't allow valueless params, and we have no value, unset it.
+			if ( ( null === $value || '' === $value ) && ! $query_var->should_accept_valueless_params() ) {
 				unset( $vars[ $key ] );
 			}
 
-			// Make superglobals match the filtered vars.
+			// Make superglobals match the filtered vars. Setting one of these to null will effectively unset it.
 			$this->filter_superglobals( $key, $value );
 		}
 
@@ -179,6 +243,17 @@ class Query_Vars extends Controller_Contract {
 	 * @return void
 	 */
 	protected function filter_superglobals( string $key, $value ): void {
+		$query_var = $this->get_query_var( $key );
+		// Not one of ours - don't touch it!
+		if ( ! $query_var ) {
+			return;
+		}
+
+		// If the query var doesn't allow filtering superglobals at all, skip it.
+		if ( false === $query_var->filter_superglobal_allowed() ) {
+			return;
+		}
+
 		foreach ( self::ALLOWED_SUPERGLOBALS as $superglobal ) {
 			$this->filter_superglobal_value( $superglobal, $key, $value );
 		}
@@ -198,71 +273,21 @@ class Query_Vars extends Controller_Contract {
 	 * @return void
 	 */
 	protected function filter_superglobal_value( string $superglobal, string $key, $value ): void {
-		if ( ! $this->should_filter_superglobal_value( $superglobal, $key ) ) {
+		$query_var = $this->get_query_var( $key );
+		// Not one of ours - don't touch it!
+		if ( ! $query_var ) {
 			return;
 		}
 
-		if ( null === $value ) {
-			unset( $GLOBALS[ $superglobal ][ $key ] );
+		// Check if the query var allows filtering the superglobal.
+		$allowed = $query_var->filter_superglobal_allowed();
+
+		// If the allowed superglobal is a *string*, it means we only want to filter a *specific* superglobal (i.e. only $_GET).
+		// This is useful for query vars that only want to filter one of the superglobals.
+		if ( is_string( $allowed ) && $allowed !== $superglobal ) {
 			return;
 		}
 
 		$GLOBALS[ $superglobal ][ $key ] = $value;
-	}
-
-	/**
-	 * Checks if the value should be filtered.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $superglobal The superglobal key (GET, POST, REQUEST).
-	 * @param string $key         The key to sanitize.
-	 *
-	 * @return bool Whether the value should be filtered.
-	 */
-	protected function should_filter_superglobal_value( string $superglobal, string $key ): bool {
-		// Only allow whitelisted superglobals. This shouldn't be necessary - but you can never be too careful.
-		if ( ! in_array( $superglobal, self::ALLOWED_SUPERGLOBALS, true ) ) {
-			return false;
-		}
-
-		/**
-		 * Filter whether a var allows its superglobal value to be filtered.
-		 *
-		 * @since TBD
-		 *
-		 * @param bool   $allowed Whether the value is allowed.
-		 * @param string $key The key to sanitize.
-		 *
-		 * @return bool|string Whether the value is allowed. Returning a string "key" will limit the superglobal modification to that key.
-		 */
-		$var_allowed = apply_filters( "tec_request_superglobal_allowed_{$key}", true, $superglobal );
-
-		// If the var is not allowed, skip.
-		if ( ! $var_allowed ) {
-			return false;
-		}
-
-		// If the var is "globally" allowed, return true now.
-		if ( is_bool( $var_allowed ) && $var_allowed ) {
-			return true;
-		}
-
-		// If the var is allowed, but not for this superglobal, skip.
-		if ( is_string( $var_allowed ) && $var_allowed !== $superglobal ) {
-			return false;
-		}
-
-		// If the superglobal is not set, skip.
-		if ( ! isset( $GLOBALS[ $superglobal ] ) || ! is_array( $GLOBALS[ $superglobal ] ) ) {
-			return false;
-		}
-
-		// If the key is not set, skip.
-		if ( ! array_key_exists( $key, $GLOBALS[ $superglobal ] ) ) {
-			return false;
-		}
-
-		return true;
 	}
 }

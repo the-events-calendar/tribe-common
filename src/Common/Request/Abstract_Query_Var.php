@@ -44,6 +44,24 @@ abstract class Abstract_Query_Var extends Controller {
 	protected bool $should_filter = false;
 
 	/**
+	 * Whether the query var should be filtered for the superglobal.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected bool $should_filter_superglobal = false;
+
+	/**
+	 * Whether the query var should accept valueless params.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected bool $should_accept_valueless_params = false;
+
+	/**
 	 * Registers the query var filtering.
 	 *
 	 * @since TBD
@@ -51,9 +69,12 @@ abstract class Abstract_Query_Var extends Controller {
 	 * @return void
 	 */
 	protected function do_register(): void {
-		add_filter( "tec_request_query_vars_{$this->name}", [ $this, 'filter_query_var' ], 10, 2 );
-		add_filter( "tec_request_query_vars_should_filter_{$this->name}", [ $this, 'should_filter' ], 10, 1 );
-		add_filter( "tec_request_superglobal_allowed_{$this->name}", [ $this, 'filter_superglobal_allowed' ], 10, 2 );
+		$name = $this->get_name();
+		add_filter( "tec_request_query_vars_{$name}", [ $this, 'filter_query_var' ], 10, 2 );
+		add_filter( "tec_request_query_vars_should_filter_{$name}", [ $this, 'should_filter' ], 10, 1 );
+
+		// Self-register with the Query_Vars instance.
+		$this->register_with_query_vars();
 	}
 
 	/**
@@ -64,9 +85,12 @@ abstract class Abstract_Query_Var extends Controller {
 	 * @return void
 	 */
 	public function unregister(): void {
-		remove_filter( "tec_request_query_vars_{$this->name}", [ $this, 'filter_query_var' ], 10 );
-		remove_filter( "tec_request_query_vars_should_filter_{$this->name}", [ $this, 'should_filter' ], 10 );
-		remove_filter( "tec_request_superglobal_allowed_{$this->name}", [ $this, 'filter_superglobal_allowed' ], 10 );
+		$name = $this->get_name();
+		remove_filter( "tec_request_query_vars_{$name}", [ $this, 'filter_query_var' ], 10 );
+		remove_filter( "tec_request_query_vars_should_filter_{$name}", [ $this, 'should_filter' ], 10 );
+
+		// Self-unregister from the Query_Vars instance.
+		$this->unregister_from_query_vars();
 	}
 
 	/**
@@ -106,6 +130,28 @@ abstract class Abstract_Query_Var extends Controller {
 	}
 
 	/**
+	 * Whether the query var should overwrite valueless params.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the query var should accept valueless params.
+	 */
+	public function should_accept_valueless_params(): bool {
+		$name = $this->get_name();
+		/**
+		 * Filter whether the query var should accept valueless params.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $should_accept_valueless_params Whether the query var should accept valueless params.
+		 * @param Abstract_Query_Var $query_var The query var.
+		 *
+		 * @return bool Whether the query var should accept valueless params.
+		 */
+		return (bool) apply_filters( "tec_request_query_vars_should_accept_valueless_params_{$name}", $this->should_accept_valueless_params, $this );
+	}
+
+	/**
 	 * Filters the query var.
 	 *
 	 * @since TBD
@@ -116,7 +162,40 @@ abstract class Abstract_Query_Var extends Controller {
 	 * @return mixed The filtered query var value. Null to unset it.
 	 */
 	public function filter_query_var( $value, array $query_vars ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+
+		$value = $this->maybe_replace_valueless_params( $value, $query_vars );
+
 		return $value;
+	}
+
+	/**
+	 * Replace valueless params.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $value The query var value.
+	 * @param array $query_vars The query vars.
+	 *
+	 * @return mixed The filtered query var value. Null to unset it.
+	 */
+	public function maybe_replace_valueless_params( $value, array $query_vars ) {
+		// Only if we flagged it as accepting valueless params.
+		if ( ! $this->should_accept_valueless_params() ) {
+			return $value;
+		}
+
+		// Only if the query var key exists.
+		if ( ! array_key_exists( $this->get_name(), $query_vars ) ) {
+			return $value;
+		}
+
+		// Only if the value is an empty string or null. "false" is a valid value.
+		if ( '' !== $value || null !== $value ) {
+			return $value;
+		}
+
+		// Support presence-only query var (?ical) as truthy.
+		return 1;
 	}
 
 	/**
@@ -124,12 +203,44 @@ abstract class Abstract_Query_Var extends Controller {
 	 *
 	 * @since TBD
 	 *
-	 * @param bool   $allowed      Whether the superglobal is allowed to be filtered for this var.
-	 * @param string $superglobal The superglobal key (GET, POST, REQUEST).
 	 *
-	 * @return bool|string Whether the superglobal is allowed to be filtered for this var. Returning a string "key" will limit the superglobal modification to that key.
+	 * @return bool|string Whether the superglobal is allowed to be filtered for this var.
+	 *                     Returning a string "key" will limit the superglobal modification to that key only.
 	 */
-	public function filter_superglobal_allowed( bool $allowed, string $superglobal ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-		return $allowed;
+	public function filter_superglobal_allowed() { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+		// Add logic for individual $superglobal strings here in extending classes.
+		return $this->should_filter_superglobal;
+	}
+
+	/**
+	 * Registers this query var with the Query_Vars instance.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function register_with_query_vars(): void {
+		if ( ! $this->container->isBound( Query_Vars::class ) ) {
+			return;
+		}
+
+		$query_vars = $this->container->get( Query_Vars::class );
+		$query_vars->register_query_var( $this );
+	}
+
+	/**
+	 * Unregisters this query var from the Query_Vars instance.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function unregister_from_query_vars(): void {
+		if ( ! $this->container->isBound( Query_Vars::class ) ) {
+			return;
+		}
+
+		$query_vars = $this->container->get( Query_Vars::class );
+		$query_vars->unregister_query_var( $this );
 	}
 }
