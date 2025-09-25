@@ -542,7 +542,7 @@ class Trusted_Login_Config {
 		$missing_fields = [];
 
 		foreach ( $this->required_fields as $field_path => $description ) {
-			$keys = explode( '.', $field_path );
+			$keys  = explode( '.', $field_path );
 			$value = $config;
 
 			foreach ( $keys as $key ) {

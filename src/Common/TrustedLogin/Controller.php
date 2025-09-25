@@ -5,7 +5,7 @@
  * Provides integration for TrustedLogin within the TEC plugin architecture,
  * handling core initialization, URL management, and template overrides.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\TrustedLogin
  */
@@ -22,7 +22,7 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
  * This controller wraps the Trusted_Login_Manager class to integrate it into
  * the larger TEC plugin architecture using the shared container.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\TrustedLogin
  */
