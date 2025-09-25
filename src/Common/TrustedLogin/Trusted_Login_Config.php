@@ -150,13 +150,13 @@ class Trusted_Login_Config {
 	 * @var array<string,string> Field paths mapped to their descriptions.
 	 */
 	protected array $required_fields = [
-		'auth.api_key'        => 'API key for TrustedLogin authentication',
-		'role'                => 'WordPress role for TrustedLogin support users',
-		'vendor.namespace'    => 'Vendor namespace for TrustedLogin',
-		'vendor.title'        => 'Vendor title for TrustedLogin UI',
-		'vendor.email'        => 'Vendor support email address',
-		'vendor.website'      => 'Vendor website URL',
-		'vendor.support_url'  => 'Vendor support page URL',
+		'auth.api_key'       => 'API key for TrustedLogin authentication',
+		'role'               => 'WordPress role for TrustedLogin support users',
+		'vendor.namespace'   => 'Vendor namespace for TrustedLogin',
+		'vendor.title'       => 'Vendor title for TrustedLogin UI',
+		'vendor.email'       => 'Vendor support email address',
+		'vendor.website'     => 'Vendor website URL',
+		'vendor.support_url' => 'Vendor support page URL',
 	];
 
 	/**
