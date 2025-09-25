@@ -122,17 +122,21 @@ class Help_Hub_Integration {
 		// Build redirect URL for the Help Hub tab.
 		$redirect_url = $this->get_help_hub_redirect_url();
 
-		// Safely JSON encode the URL for inline JS.
-		$redirect_url_json = wp_json_encode( $redirect_url );
-
-		// Generate the inline JS.
+		// Inline JS logic only, no data injected directly.
 		$inline_js = <<<JS
-		if (typeof tl_obj !== 'undefined') {
-			tl_obj.query_string = {$redirect_url_json};
+		if (typeof tl_obj !== 'undefined' && typeof tecTrustedLoginVars !== 'undefined') {
+			tl_obj.query_string = tecTrustedLoginVars.redirectUrl;
 		}
 		JS;
 
-		// Inject the script after TrustedLogin's script loads.
+		// Safely pass data to JavaScript.
+		wp_localize_script(
+			'trustedlogin-the-events-calendar',
+			'tecTrustedLoginVars',
+			[ 'redirectUrl' => $redirect_url ]
+		);
+
+		// Append inline JS after the script loads.
 		wp_add_inline_script(
 			'trustedlogin-the-events-calendar',
 			$inline_js,

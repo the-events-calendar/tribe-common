@@ -119,8 +119,7 @@ class Trusted_Login_Manager {
 		 *
 		 * @param Throwable           $e            Exception thrown.
 		 * @param array<string,mixed> $config       Configuration used during failure.
-		 * @param array<string>       $missing_keys Optional. Missing configuration keys.
 		 */
-		do_action( 'tec_trustedlogin_init_failed', $e, $config, $missing_keys ?? [] );
+		do_action( 'tec_trustedlogin_init_failed', $e, $config );
 	}
 }
