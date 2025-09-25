@@ -195,35 +195,60 @@ tribe.helpPage = tribe.helpPage || {};
 	 * @since 6.3.2
 	 */
 	obj.setupTabs = () => {
-		const tabs = document.querySelectorAll( '[data-tab-target]' );
-		const containers = document.querySelectorAll( '.tec-tab-container' );
+		const tabs = document.querySelectorAll('[data-tab-target]');
+		const containers = document.querySelectorAll('.tec-tab-container');
 
-		// Hide all tab containers initially and ensure they are visible.
-		containers.forEach( ( container ) => {
-			container.classList.add( 'hidden' );
-		} );
+		// Hide all tab containers initially.
+		containers.forEach((container) => container.classList.add('hidden'));
 
-		// Find the currently active tab and corresponding container.
-		const currentTab = document.querySelector( '.tec-nav__tab.tec-nav__tab--active' );
+		// Check URL param for tab value.
+		const params = new URLSearchParams(window.location.search);
+		const tabFromURL = params.get('tab');
+
+		let currentTab = null;
+		if (tabFromURL) {
+			currentTab = document.querySelector(`[data-tab-target="${tabFromURL}"]`);
+		} else {
+			currentTab = document.querySelector('.tec-nav__tab.tec-nav__tab--active');
+		}
+
 		const tabContainer = currentTab
-			? document.getElementById( currentTab.getAttribute( 'data-tab-target' ) )
+			? document.getElementById(currentTab.getAttribute('data-tab-target'))
 			: null;
 
-		// Update modal button span text to the active tab's text by default.
-		if ( currentTab ) {
-			const tabText = currentTab.querySelector( obj.selectors.navLinkText ).textContent.trim();
-			const modalButtonSpan = document.querySelector( obj.selectors.modalButtonSpan );
-			if ( modalButtonSpan ) {
+		// Update modal button text
+		if (currentTab) {
+			const tabText = currentTab.querySelector(obj.selectors.navLinkText)?.textContent?.trim();
+			const modalButtonSpan = document.querySelector(obj.selectors.modalButtonSpan);
+			if (modalButtonSpan && tabText) {
 				modalButtonSpan.textContent = tabText;
 			}
 		}
 
-		if ( tabContainer ) {
-			tabContainer.classList.remove( 'hidden' );
+		// Show correct tab container on first load
+		if (tabContainer) {
+			tabContainer.classList.remove('hidden');
 		}
 
-		// Initialize tab event listeners separately.
-		obj.setupTabEventListeners( tabs, tabContainer );
+		// Set up listeners for tab clicks
+		obj.setupTabEventListeners(tabs, tabContainer);
+
+		// If tabFromURL exists, run the logic immediately
+		if (tabFromURL && currentTab) {
+			obj.updateActiveTab(tabs, tabFromURL);
+			obj.updateActiveContent(currentTab, tabFromURL);
+		}
+
+		// Handle back/forward navigation
+		window.addEventListener('popstate', (event) => {
+			const tab = event.state?.tab || new URLSearchParams(window.location.search).get('tab');
+
+			if (tab) {
+				obj.updateActiveTab(tabs, tab);
+				const matchingTab = document.querySelector(`[data-tab-target="${tab}"]`);
+				obj.updateActiveContent(matchingTab, tab);
+			}
+		});
 	};
 
 	/**
@@ -283,24 +308,25 @@ tribe.helpPage = tribe.helpPage || {};
 			obj.activeTabContainer.classList.add( 'hidden' );
 		}
 
-		// Select the new target container and update obj.activeTabContainer to it
+		// Select the new target container
 		const newTabContainer = document.getElementById( target );
 		if ( newTabContainer ) {
-			// Show the new container by removing the 'hidden' class
 			newTabContainer.classList.remove( 'hidden' );
-			// Update the activeTabContainer to the newly visible container
 			obj.activeTabContainer = newTabContainer;
 
-			// Retrieve the text content from the data-link-title attribute for the modal button
+			// Update modal button text
 			const tabText = newTabContainer.getAttribute( 'data-link-title' );
-
-			// Update the text of the modal button span
 			const modalButtonSpan = document.querySelector( obj.selectors.modalButtonSpan );
 			if ( modalButtonSpan && tabText ) {
 				modalButtonSpan.textContent = tabText;
 			}
 
-			// Initialize accordions for the new tab content if necessary
+			// Store tab in URL so reloads keep the same tab open
+			const url = new URL( window.location );
+			url.searchParams.set( 'tab', target );
+			window.history.pushState( { tab: target }, '', url );
+
+			// Initialize accordions if needed
 			obj.setupAccordionsFor( obj.activeTabContainer );
 		}
 	};
