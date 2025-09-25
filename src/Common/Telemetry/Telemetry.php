@@ -599,15 +599,13 @@ final class Telemetry {
 	 * @return bool $show If the modal should show
 	 */
 	public static function calculate_modal_status(): bool {
-		// First, check if the user completed the onboarding wizard.
+		// First, check if the user was already prompted to opt in with the onboarding wizard.
 		$onboarding_data = get_option( 'tec_onboarding_wizard_data', [] );
 
-		if ( tribe_is_truthy( $onboarding_data['finished'] ) ) {
-			// If wizard was finished but only tab 0 is completed, user likely skipped the wizard.
-			// If that's the case, we should still show the modal, otherwise we skip it.
-			if ( ! $onboarding_data['completed_tabs'] === [ 0 ] ) {
-				return false;
-			}
+		// If the wizard was finished but only tab 0 is completed, user likely skipped the wizard.
+		// If that's the case, we should still show the modal, otherwise we skip it.
+		if ( tribe_is_truthy( $onboarding_data['finished'] ) && $onboarding_data['completed_tabs'] !== [ 0 ] ) {
+			return false;
 		}
 
 		// Check if they explicitly opted in through other means (like settings page).
