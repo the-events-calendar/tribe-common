@@ -11,12 +11,8 @@ class SettingsCest {
 
 		// Activate required plugins.
 		$I->amOnPluginsPage();
-		$I->activatePlugin(
-			[
-				'the-events-calendar',
-				'the-events-calendar-pro',
-			]
-		);
+		$I->activatePlugin( 'the-events-calendar' );
+		$I->activatePlugin( 'the-events-calendar-pro' );
 	}
 
 	/**
