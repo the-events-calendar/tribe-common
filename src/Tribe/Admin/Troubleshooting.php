@@ -141,7 +141,7 @@ class Troubleshooting {
 			[
 				'id'     => 'tec-troubleshooting',
 				'title'  => esc_html__( 'Troubleshooting', 'tribe-common' ),
-				'href'   => Tribe__Settings::instance()->get_url( [ 'page' => static::MENU_SLUG ] ),
+				'href'   => tribe( 'settings' )->get_url( [ 'page' => static::MENU_SLUG ] ),
 				'parent' => 'tribe-events-settings-group',
 			]
 		);
