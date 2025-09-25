@@ -5,7 +5,7 @@
  * Initializes TrustedLogin with validated configuration
  * and provides early bails for missing requirements.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\TrustedLogin
  */
