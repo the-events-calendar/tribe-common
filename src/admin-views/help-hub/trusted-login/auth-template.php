@@ -20,7 +20,7 @@
  * - {{reference}}           Reference ID for support tracking.
  * - {{admin_debug}}         Debug information if enabled.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Common\TrustedLogin
  */

@@ -193,6 +193,7 @@ tribe.helpPage = tribe.helpPage || {};
 	 * Initialize the page tabs and on-page navigation.
 	 *
 	 * @since 6.3.2
+	 * @since TBD Implement Tabs to history.
 	 */
 	obj.setupTabs = () => {
 		const tabs = document.querySelectorAll('[data-tab-target]');

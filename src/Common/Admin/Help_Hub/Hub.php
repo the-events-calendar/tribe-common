@@ -234,6 +234,7 @@ class Hub {
 		 * Use this hook to modify data or enqueue additional assets before the Help Hub template is generated.
 		 *
 		 * @since 6.3.2
+		 * @since TBD Add new filter `tec_help_hub_register_tabs`.
 		 *
 		 * @param Hub $instance The Hub instance.
 		 */
