@@ -217,7 +217,7 @@ tribe.helpPage = tribe.helpPage || {};
 			? document.getElementById(currentTab.getAttribute('data-tab-target'))
 			: null;
 
-		// Update modal button text
+		// Update modal button text.
 		if (currentTab) {
 			const tabText = currentTab.querySelector(obj.selectors.navLinkText)?.textContent?.trim();
 			const modalButtonSpan = document.querySelector(obj.selectors.modalButtonSpan);
@@ -226,21 +226,21 @@ tribe.helpPage = tribe.helpPage || {};
 			}
 		}
 
-		// Show correct tab container on first load
+		// Show correct tab container on first load.
 		if (tabContainer) {
 			tabContainer.classList.remove('hidden');
 		}
 
-		// Set up listeners for tab clicks
+		// Set up listeners for tab clicks.
 		obj.setupTabEventListeners(tabs, tabContainer);
 
-		// If tabFromURL exists, run the logic immediately
+		// If tabFromURL exists, run the logic immediately.
 		if (tabFromURL && currentTab) {
 			obj.updateActiveTab(tabs, tabFromURL);
 			obj.updateActiveContent(currentTab, tabFromURL);
 		}
 
-		// Handle back/forward navigation
+		// Handle back/forward navigation.
 		window.addEventListener('popstate', (event) => {
 			const tab = event.state?.tab || new URLSearchParams(window.location.search).get('tab');
 
@@ -261,21 +261,21 @@ tribe.helpPage = tribe.helpPage || {};
 	 * @since 6.3.2
 	 */
 	obj.setupTabEventListeners = ( tabs, initialTabContainer ) => {
-		// Set the initial active tab container in obj to track the currently visible tab content
+		// Set the initial active tab container in obj to track the currently visible tab content.
 		obj.activeTabContainer = initialTabContainer;
 
 		// Centralized click event listener for tabs
 		document.addEventListener( 'click', ( event ) => {
-			// Check if the clicked element is a tab with data-tab-target
+			// Check if the clicked element is a tab with data-tab-target.
 			const tab = event.target.closest( '[data-tab-target]' );
 			if ( ! tab ) {
 				return;
 			}
 
-			// Retrieve the target container ID from the data-tab-target attribute
+			// Retrieve the target container ID from the data-tab-target attribute.
 			const target = tab.getAttribute( 'data-tab-target' );
 
-			// Update the active tab class and visible content
+			// Update the active tab class and visible content.
 			obj.updateActiveTab( tabs, target );
 			obj.updateActiveContent( tab, target );
 		} );
@@ -288,10 +288,10 @@ tribe.helpPage = tribe.helpPage || {};
 	 * @param {string}   target The target data-tab-target attribute value.
 	 */
 	obj.updateActiveTab = ( tabs, target ) => {
-		// Remove the active class from all tabs
+		// Remove the active class from all tabs.
 		tabs.forEach( ( t ) => t.classList.remove( 'tec-nav__tab--active' ) );
 
-		// Find and activate all tabs with the same data-tab-target
+		// Find and activate all tabs with the same data-tab-target.
 		document.querySelectorAll( `[data-tab-target="${ target }"]` ).forEach( ( matchingTab ) => {
 			matchingTab.classList.add( 'tec-nav__tab--active' );
 		} );
@@ -304,31 +304,31 @@ tribe.helpPage = tribe.helpPage || {};
 	 * @param {string}      target The target data-tab-target attribute value.
 	 */
 	obj.updateActiveContent = ( tab, target ) => {
-		// Hide the currently active container if it exists
+		// Hide the currently active container if it exists.
 		if ( obj.activeTabContainer ) {
 			obj.activeTabContainer.classList.add( 'hidden' );
 		}
 
-		// Select the new target container
+		// Select the new target container.
 		const newTabContainer = document.getElementById( target );
 		if ( newTabContainer ) {
 			newTabContainer.classList.remove( 'hidden' );
 			obj.activeTabContainer = newTabContainer;
 
-			// Update modal button text
+			// Update modal button text.
 			const tabText = newTabContainer.getAttribute( 'data-link-title' );
 			const modalButtonSpan = document.querySelector( obj.selectors.modalButtonSpan );
 			if ( modalButtonSpan && tabText ) {
 				modalButtonSpan.textContent = tabText;
 			}
 
-			// Store tab in URL so reloads keep the same tab open
+			// Store tab in URL so reloads keep the same tab open.
 			const url = new URL( window.location );
 			url.searchParams.set( 'tab', target );
 			window.history.pushState( { tab: target }, '', url );
 
 			// Initialize accordions if needed
-			obj.setupAccordionsFor( obj.activeTabContainer );
+			obj.setupAccordionsFor( obj.activeTa.bContainer );
 		}
 	};
 

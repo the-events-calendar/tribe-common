@@ -22,6 +22,8 @@
  *
  * @since TBD
  *
+ * @see https://docs.trustedlogin.com/Client/customization
+ *
  * @package TEC\Common\TrustedLogin
  */
 
