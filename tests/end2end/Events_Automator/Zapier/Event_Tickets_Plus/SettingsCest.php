@@ -13,6 +13,7 @@ class SettingsCest {
 		// Activate required plugins.
 		$I->amOnPluginsPage();
 		$I->activatePlugin( 'event-tickets' );
+		$I->amOnPluginsPage();
 		$I->activatePlugin( 'event-tickets-plus' );
 	}
 
@@ -75,9 +76,11 @@ class SettingsCest {
 	public function should_see_all_settings_when_et_plus_and_pro_active( End2endTester $I ) {
 		$I->amOnPluginsPage();
 		$I->activatePlugin( 'the-events-calendar' );
+		$I->amOnPluginsPage();
 		$I->activatePlugin( 'the-events-calendar-pro' );
 		$I->amOnPluginsPage();
 		$I->activatePlugin( 'event-tickets' );
+		$I->amOnPluginsPage();
 		$I->activatePlugin( 'event-tickets-plus' );
 		$I->amOnAdminPage( '/admin.php?page=tec-tickets-settings&tab=integrations' );
 		$I->canSeeInPageSource( 'Zapier' );
