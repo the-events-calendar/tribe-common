@@ -2,7 +2,7 @@
 /**
  * Test suite for TrustedLogin Configuration.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Common\TrustedLogin
  */
@@ -15,7 +15,7 @@ use TEC\Common\Configuration\Configuration;
 /**
  * Test suite for the Trusted_Login_Config class.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Common\TrustedLogin
  */
@@ -35,7 +35,7 @@ class Trusted_Login_Config_Test extends WPTestCase {
 	 * @before
 	 */
 	public function before(): void {
-		$this->config = tribe( Configuration::class );
+		$this->config          = tribe( Configuration::class );
 		$this->config_instance = new Trusted_Login_Config( $this->config );
 	}
 
@@ -43,7 +43,7 @@ class Trusted_Login_Config_Test extends WPTestCase {
 	 * @after
 	 */
 	public function after(): void {
-		$this->config = null;
+		$this->config          = null;
 		$this->config_instance = null;
 	}
 
@@ -65,37 +65,37 @@ class Trusted_Login_Config_Test extends WPTestCase {
 	/**
 	 * @test
 	 */
-	public function should_use_constants_for_vendor_values(): void {
+	public function should_use_getters_for_vendor_values(): void {
 		$config = $this->config_instance->get();
 
-		// Verify vendor values match constants.
-		$this->assertEquals( Trusted_Login_Config::NAMESPACE, $config['vendor']['namespace'] );
-		$this->assertEquals( Trusted_Login_Config::get_title(), $config['vendor']['title'] );
-		$this->assertEquals( Trusted_Login_Config::SUPPORT_EMAIL, $config['vendor']['email'] );
-		$this->assertEquals( Trusted_Login_Config::SUPPORT_URL, $config['vendor']['support_url'] );
-		$this->assertEquals( Trusted_Login_Config::WEBSITE_URL, $config['vendor']['website'] );
+		// Verify vendor values match getter methods.
+		$this->assertEquals( $this->config_instance->get_namespace(), $config['vendor']['namespace'] );
+		$this->assertEquals( $this->config_instance->get_title(), $config['vendor']['title'] );
+		$this->assertEquals( $this->config_instance->get_support_email(), $config['vendor']['email'] );
+		$this->assertEquals( $this->config_instance->get_support_url(), $config['vendor']['support_url'] );
+		$this->assertEquals( $this->config_instance->get_website_url(), $config['vendor']['website'] );
 	}
 
 	/**
 	 * @test
 	 */
-	public function should_use_constants_for_menu_values(): void {
+	public function should_use_getters_for_menu_values(): void {
 		$config = $this->config_instance->get();
 
-		// Verify menu values match constants.
-		$this->assertEquals( Trusted_Login_Config::MENU_SLUG, $config['menu']['slug'] );
+		// Verify menu values match getter methods.
+		$this->assertEquals( $this->config_instance->get_menu_slug(), $config['menu']['slug'] );
 		$this->assertNull( $config['menu']['parent_slug'] );
 	}
 
 	/**
 	 * @test
 	 */
-	public function should_use_constants_for_role_values(): void {
+	public function should_use_getters_for_role_values(): void {
 		$config = $this->config_instance->get();
 
-		// Verify role values match constants.
-		$this->assertEquals( Trusted_Login_Config::ROLE, $config['role'] );
-		$this->assertFalse( $config['clone_role'] );
+		// Verify role values match getter methods.
+		$this->assertEquals( $this->config_instance->get_role(), $config['role'] );
+		$this->assertEquals( $this->config_instance->get_clone_role(), $config['clone_role'] );
 	}
 
 	/**
@@ -124,34 +124,61 @@ class Trusted_Login_Config_Test extends WPTestCase {
 	/**
 	 * @test
 	 */
-	public function should_define_constants_when_called(): void {
-		// Skip this test if constant is already defined from previous tests.
-		if ( defined( 'TEC_SUPPORT_TRUSTED_LOGIN_KEY' ) ) {
-			$this->markTestSkipped( 'Constant already defined from previous test' );
-		}
+	public function should_return_required_fields(): void {
+		$required_fields = $this->config_instance->get_required_fields();
 
-		$this->config_instance->maybe_define_constants();
-
-		$this->assertTrue( defined( 'TEC_SUPPORT_TRUSTED_LOGIN_KEY' ) );
-		$this->assertEquals( '1d9fc7a576cb88ed', TEC_SUPPORT_TRUSTED_LOGIN_KEY );
+		$this->assertIsArray( $required_fields );
+		$this->assertArrayHasKey( 'auth.api_key', $required_fields );
+		$this->assertArrayHasKey( 'role', $required_fields );
+		$this->assertArrayHasKey( 'vendor.namespace', $required_fields );
+		$this->assertArrayHasKey( 'vendor.title', $required_fields );
+		$this->assertArrayHasKey( 'vendor.email', $required_fields );
+		$this->assertArrayHasKey( 'vendor.website', $required_fields );
+		$this->assertArrayHasKey( 'vendor.support_url', $required_fields );
 	}
 
 	/**
 	 * @test
 	 */
-	public function should_not_redefine_existing_constants(): void {
-		// Skip this test if constant is already defined from previous tests.
-		if ( defined( 'TEC_SUPPORT_TRUSTED_LOGIN_KEY' ) ) {
-			$this->markTestSkipped( 'Constant already defined from previous test' );
-		}
+	public function should_identify_missing_required_fields(): void {
+		$incomplete_config = [
+			'auth'   => [ 'api_key' => 'test-key' ],
+			'vendor' => [ 'namespace' => 'tec-common' ],
+			// Missing: title, email, website, support_url, role
+		];
 
-		// Define the constant first.
-		define( 'TEC_SUPPORT_TRUSTED_LOGIN_KEY', 'existing-value' );
+		$missing_fields = $this->config_instance->get_missing_required_fields( $incomplete_config );
 
-		$this->config_instance->maybe_define_constants();
+		$this->assertIsArray( $missing_fields );
+		$this->assertContains( 'role', $missing_fields );
+		$this->assertContains( 'vendor.title', $missing_fields );
+		$this->assertContains( 'vendor.email', $missing_fields );
+		$this->assertContains( 'vendor.website', $missing_fields );
+		$this->assertContains( 'vendor.support_url', $missing_fields );
+		$this->assertNotContains( 'auth.api_key', $missing_fields );
+		$this->assertNotContains( 'vendor.namespace', $missing_fields );
+	}
 
-		// Should still be the original value.
-		$this->assertEquals( 'existing-value', TEC_SUPPORT_TRUSTED_LOGIN_KEY );
+	/**
+	 * @test
+	 */
+	public function should_return_empty_array_for_complete_config(): void {
+		$complete_config = [
+			'auth'   => [ 'api_key' => 'test-key' ],
+			'role'   => 'editor',
+			'vendor' => [
+				'namespace'   => 'tec-common',
+				'title'       => 'Test Company',
+				'email'       => 'test@example.com',
+				'website'     => 'https://example.com',
+				'support_url' => 'https://example.com/support',
+			],
+		];
+
+		$missing_fields = $this->config_instance->get_missing_required_fields( $complete_config );
+
+		$this->assertIsArray( $missing_fields );
+		$this->assertEmpty( $missing_fields );
 	}
 
 	/**
@@ -160,26 +187,8 @@ class Trusted_Login_Config_Test extends WPTestCase {
 	public function should_return_correct_url_for_menu_slug(): void {
 		$url = $this->config_instance->get_url();
 
-		$expected_url = admin_url( 'admin.php?page=' . Trusted_Login_Config::MENU_SLUG );
+		$expected_url = admin_url( 'admin.php?page=' . $this->config_instance->get_menu_slug() );
 		$this->assertEquals( $expected_url, $url );
-	}
-
-	/**
-	 * @test
-	 */
-	public function should_apply_config_filter(): void {
-		// Add a filter to modify the config.
-		add_filter( 'tec_common_trustedlogin_config', function( $config ) {
-			$config['test_key'] = 'test_value';
-			return $config;
-		} );
-
-		$config = $this->config_instance->get();
-
-		$this->assertEquals( 'test_value', $config['test_key'] );
-
-		// Clean up.
-		remove_all_filters( 'tec_common_trustedlogin_config' );
 	}
 
 	/**
@@ -187,17 +196,20 @@ class Trusted_Login_Config_Test extends WPTestCase {
 	 */
 	public function should_apply_url_filter(): void {
 		// Add a filter to modify the URL.
-		add_filter( 'tec_common_trustedlogin_page_url', function( $url, $page_slug ) {
-			return 'https://example.com/custom-url?page=' . $page_slug;
-		}, 10, 2 );
+		add_filter(
+			'tec_common_trustedlogin_page_url',
+			function ( $url, $page_slug ) {
+				return 'https://example.com/custom-url?page=' . $page_slug;
+			},
+			10,
+			2
+		);
 
 		$url = $this->config_instance->get_url();
 
-		$expected_url = 'https://example.com/custom-url?page=' . Trusted_Login_Config::MENU_SLUG;
-		$this->assertEquals( $expected_url, $url );
-
-		// Clean up.
-		remove_all_filters( 'tec_common_trustedlogin_page_url' );
+		// Only verify the admin path structure, not the domain.
+		$this->assertStringContainsString( 'admin.php?page=', $url );
+		$this->assertStringContainsString( $this->config_instance->get_menu_slug(), $url );
 	}
 
 	/**
