@@ -93,13 +93,13 @@
     ],
     "post-install-cmd": [
       "@stellar-uplink",
-      "@trustedlogin",
-      "@strauss"
+      "@strauss",
+      "@trustedlogin"
     ],
     "post-update-cmd": [
       "@stellar-uplink",
-      "@trustedlogin",
-      "@strauss"
+      "@strauss",
+      "@trustedlogin"
     ],
     "stellar-uplink": [
       "vendor/bin/stellar-uplink domain=tribe-common"
