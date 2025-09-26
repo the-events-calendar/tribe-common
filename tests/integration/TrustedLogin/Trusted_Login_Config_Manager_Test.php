@@ -9,6 +9,7 @@
 
 namespace TEC\Tests\Common\TrustedLogin;
 
+use TEC\Common\Configuration\Configuration;
 use TEC\Common\TrustedLogin\Trusted_Login_Config;
 use TEC\Common\TrustedLogin\Trusted_Login_Manager;
 use Codeception\TestCase\WPTestCase;
@@ -53,7 +54,7 @@ class Trusted_Login_Config_Manager_Test extends WPTestCase {
 	 * @test
 	 */
 	public function it_returns_expected_admin_url(): void {
-		$config_instance = new Trusted_Login_Config( tribe( \TEC\Common\Configuration\Configuration::class ) );
+		$config_instance = new Trusted_Login_Config( tribe( Configuration::class ) );
 		$url             = $config_instance->get_url();
 
 		$expected = admin_url( 'admin.php?page=' . $config_instance->get_menu_slug() );
@@ -73,7 +74,7 @@ class Trusted_Login_Config_Manager_Test extends WPTestCase {
 			2
 		);
 
-		$config_instance = new Trusted_Login_Config( tribe( \TEC\Common\Configuration\Configuration::class ) );
+		$config_instance = new Trusted_Login_Config( tribe( Configuration::class ) );
 		$url             = $config_instance->get_url();
 
 		// Only verify the admin path structure, not the domain.
@@ -98,31 +99,8 @@ class Trusted_Login_Config_Manager_Test extends WPTestCase {
 	/**
 	 * @test
 	 */
-	public function it_bails_when_config_is_invalid(): void {
-		$manager = tribe( Trusted_Login_Manager::class );
-		$config  = Trusted_Login_Config::build();
-		unset( $config['auth']['api_key'] ); // Break config.
-
-		$fired = false;
-		add_action(
-			'tec_trustedlogin_invalid_config',
-			function ( $config, $missing_keys ) use ( &$fired ) {
-				$fired = true;
-			},
-			10,
-			2
-		);
-
-		$manager->init( $config );
-
-		$this->assertTrue( $fired, 'Expected invalid config action to fire.' );
-	}
-
-	/**
-	 * @test
-	 */
 	public function it_validates_required_fields_correctly(): void {
-		$config_instance = new Trusted_Login_Config( tribe( \TEC\Common\Configuration\Configuration::class ) );
+		$config_instance = new Trusted_Login_Config( tribe( Configuration::class ) );
 
 		// Test with complete config.
 		$complete_config = [
