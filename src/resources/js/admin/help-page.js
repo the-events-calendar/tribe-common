@@ -29,13 +29,34 @@ tribe.helpPage = tribe.helpPage || {};
 		const loader = document.querySelector( obj.selectors.iframeLoader );
 		// Add an event listener to detect when the iframe is fully loaded.
 		if ( iframe ) {
+			// Attach a load event listener.
 			iframe.addEventListener( 'load', () => {
+				runAfterIframeLoad();
+			} );
+
+			// Immediately check the ready state. Necessary if the iframe loaded *before* the script ran
+			try {
+				const iframeDocument = iframe.contentWindow.document;
+
+				if ( iframeDocument.readyState === 'complete' ) {
+					runAfterIframeLoad();
+				}
+			} catch ( e ) {
+				// This catches "SecurityError: Blocked a frame..." if it's cross-origin and hasn't fully loaded, or if the contentWindow isn't ready.
+				console.warn(
+					'Could not check iframe readyState (may be cross-origin or not ready):',
+					e
+				);
+				// In this case, you must rely on the 'load' event, hoping it hasn't been missed.
+			}
+
+			function runAfterIframeLoad() {
 				// Hide the loader and show the iframe once loaded.
 				iframe.classList.remove( 'hidden' );
 				if ( loader ) {
 					loader.classList.add( 'hidden' );
 				}
-			} );
+			}
 		}
 	};
 

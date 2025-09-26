@@ -92,14 +92,14 @@
       "rm -f vendor/bin/build-sass vendor/bin/pscss"
     ],
     "post-install-cmd": [
-      "@stellar-uplink",
       "@strauss",
-      "@trustedlogin"
+      "@trustedlogin",
+      "@stellar-uplink"
     ],
     "post-update-cmd": [
-      "@stellar-uplink",
       "@strauss",
-      "@trustedlogin"
+      "@trustedlogin",
+      "@stellar-uplink"
     ],
     "stellar-uplink": [
       "vendor/bin/stellar-uplink domain=tribe-common"
