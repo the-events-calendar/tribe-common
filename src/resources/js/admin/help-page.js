@@ -328,7 +328,7 @@ tribe.helpPage = tribe.helpPage || {};
 			window.history.pushState( { tab: target }, '', url );
 
 			// Initialize accordions if needed
-			obj.setupAccordionsFor( obj.activeTa.bContainer );
+			obj.setupAccordionsFor( obj.activeTab.Container );
 		}
 	};
 
