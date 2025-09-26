@@ -46,8 +46,12 @@ tribe.helpPage = tribe.helpPage || {};
 	 */
 	obj.sendMessageToIframe = ( message ) => {
 		// Ensure the iframe has been loaded and is accessible.
-		if ( document.querySelector( obj.selectors.helpHubIframe ).contentWindow ) {
-			document.querySelector( obj.selectors.helpHubIframe ).contentWindow.postMessage( message, window.origin );
+		if (
+			document.querySelector( obj.selectors.helpHubIframe ).contentWindow
+		) {
+			document
+				.querySelector( obj.selectors.helpHubIframe )
+				.contentWindow.postMessage( message, window.origin );
 		}
 	};
 
@@ -65,11 +69,15 @@ tribe.helpPage = tribe.helpPage || {};
 	};
 
 	obj.IframeSupportChatClickHandler = () => {
-		const openSupportChatElement = document.querySelector( obj.selectors.openSupportChat );
+		const openSupportChatElement = document.querySelector(
+			obj.selectors.openSupportChat
+		);
 
 		// Check if the element exists before adding the event listener
 		if ( openSupportChatElement ) {
-			openSupportChatElement.addEventListener( 'click', ( event ) => obj.openSupportChatInIframe( event ) );
+			openSupportChatElement.addEventListener( 'click', ( event ) =>
+				obj.openSupportChatInIframe( event )
+			);
 		}
 	};
 
@@ -83,6 +91,7 @@ tribe.helpPage = tribe.helpPage || {};
 	obj.setupAccordionsFor = ( parent ) => {
 		// Just extra careful of dependency.
 		if ( ! $.fn.accordion ) {
+			// eslint-disable-next-line no-console
 			console.error( 'jQuery UI Accordion library is missing.' );
 			return;
 		}
@@ -94,7 +103,10 @@ tribe.helpPage = tribe.helpPage || {};
 				active: true,
 				collapsible: true,
 				heightStyle: 'content',
-				icons: { header: 'ui-icon-plus', activeHeader: 'ui-icon-minus' },
+				icons: {
+					header: 'ui-icon-plus',
+					activeHeader: 'ui-icon-minus',
+				},
 			} );
 	};
 
@@ -106,9 +118,12 @@ tribe.helpPage = tribe.helpPage || {};
 			return;
 		}
 
-		const clipboard = new ClipboardJS( obj.selectors.copyButton ); /* eslint-disable-line no-undef */
-		const button_icon = '<span class="dashicons dashicons-clipboard license-btn"></span>';
-		const button_text = tribe_system_info.clipboard_btn_text;
+		const clipboard = new ClipboardJS(
+			obj.selectors.copyButton
+		); /* eslint-disable-line no-undef */
+		const buttonIcon =
+			'<span class="dashicons dashicons-clipboard license-btn"></span>';
+		const buttonText = tribe_system_info.clipboard_btn_text;
 
 		//Prevent Button From Doing Anything Else
 		$( '.system-info-copy-btn' ).on( 'click', ( e ) => {
@@ -118,17 +133,23 @@ tribe.helpPage = tribe.helpPage || {};
 		clipboard.on( 'success', ( event ) => {
 			event.clearSelection();
 			event.trigger.innerHTML =
-				button_icon + '<span class="optin-success">' + tribe_system_info.clipboard_copied_text + '<span>'; // eslint-disable-line max-len
+				buttonIcon +
+				'<span class="optin-success">' +
+				tribe_system_info.clipboard_copied_text +
+				'<span>'; // eslint-disable-line max-len
 			window.setTimeout( function () {
-				event.trigger.innerHTML = button_icon + button_text;
+				event.trigger.innerHTML = buttonIcon + buttonText;
 			}, 5000 );
 		} );
 
 		clipboard.on( 'error', ( event ) => {
 			event.trigger.innerHTML =
-				button_icon + '<span class="optin-fail">' + tribe_system_info.clipboard_fail_text + '<span>'; // eslint-disable-line max-len
+				buttonIcon +
+				'<span class="optin-fail">' +
+				tribe_system_info.clipboard_fail_text +
+				'<span>'; // eslint-disable-line max-len
 			window.setTimeout( () => {
-				event.trigger.innerHTML = button_icon + button_text;
+				event.trigger.innerHTML = buttonIcon + buttonText;
 			}, 5000 );
 		} );
 	};
@@ -163,9 +184,14 @@ tribe.helpPage = tribe.helpPage || {};
 		// Send our request
 		$.post( ajaxurl, request, ( results ) => {
 			if ( results.success ) {
-				obj.$system_info_opt_in_msg.html( "<p class='optin-success'>" + results.data + '</p>' );
+				obj.$system_info_opt_in_msg.html(
+					"<p class='optin-success'>" + results.data + '</p>'
+				);
 			} else {
-				let html = "<p class='optin-fail'>" + tribe_system_info.sysinfo_error_message_text + '</p>';
+				let html =
+					"<p class='optin-fail'>" +
+					tribe_system_info.sysinfo_error_message_text +
+					'</p>';
 
 				if ( results.data ) {
 					if ( results.data.message ) {
@@ -175,11 +201,20 @@ tribe.helpPage = tribe.helpPage || {};
 					}
 
 					if ( results.data.code ) {
-						html += '<p>' + tribe_system_info.sysinfo_error_code_text + ' ' + results.data.code + '</p>';
+						html +=
+							'<p>' +
+							tribe_system_info.sysinfo_error_code_text +
+							' ' +
+							results.data.code +
+							'</p>';
 					}
 
 					if ( results.data.status ) {
-						html += '<p>' + tribe_system_info.sysinfo_error_status_text + results.data.status + '</p>';
+						html +=
+							'<p>' +
+							tribe_system_info.sysinfo_error_status_text +
+							results.data.status +
+							'</p>';
 					}
 				}
 
@@ -196,60 +231,76 @@ tribe.helpPage = tribe.helpPage || {};
 	 * @since TBD Implement Tabs to history.
 	 */
 	obj.setupTabs = () => {
-		const tabs = document.querySelectorAll('[data-tab-target]');
-		const containers = document.querySelectorAll('.tec-tab-container');
+		const tabs = document.querySelectorAll( '[data-tab-target]' );
+		const containers = document.querySelectorAll( '.tec-tab-container' );
 
 		// Hide all tab containers initially.
-		containers.forEach((container) => container.classList.add('hidden'));
+		containers.forEach( ( container ) =>
+			container.classList.add( 'hidden' )
+		);
 
 		// Check URL param for tab value.
-		const params = new URLSearchParams(window.location.search);
-		const tabFromURL = params.get('tab');
+		const params = new URLSearchParams( window.location.search );
+		const tabFromURL = params.get( 'tab' );
 
 		let currentTab = null;
-		if (tabFromURL) {
-			currentTab = document.querySelector(`[data-tab-target="${tabFromURL}"]`);
+		if ( tabFromURL ) {
+			currentTab = document.querySelector(
+				`[data-tab-target="${ tabFromURL }"]`
+			);
 		} else {
-			currentTab = document.querySelector('.tec-nav__tab.tec-nav__tab--active');
+			currentTab = document.querySelector(
+				'.tec-nav__tab.tec-nav__tab--active'
+			);
 		}
 
 		const tabContainer = currentTab
-			? document.getElementById(currentTab.getAttribute('data-tab-target'))
+			? document.getElementById(
+					currentTab.getAttribute( 'data-tab-target' )
+			  )
 			: null;
 
 		// Update modal button text.
-		if (currentTab) {
-			const tabText = currentTab.querySelector(obj.selectors.navLinkText)?.textContent?.trim();
-			const modalButtonSpan = document.querySelector(obj.selectors.modalButtonSpan);
-			if (modalButtonSpan && tabText) {
+		if ( currentTab ) {
+			const tabText = currentTab
+				.querySelector( obj.selectors.navLinkText )
+				?.textContent?.trim();
+			const modalButtonSpan = document.querySelector(
+				obj.selectors.modalButtonSpan
+			);
+			if ( modalButtonSpan && tabText ) {
 				modalButtonSpan.textContent = tabText;
 			}
 		}
 
 		// Show correct tab container on first load.
-		if (tabContainer) {
-			tabContainer.classList.remove('hidden');
+		if ( tabContainer ) {
+			tabContainer.classList.remove( 'hidden' );
 		}
 
 		// Set up listeners for tab clicks.
-		obj.setupTabEventListeners(tabs, tabContainer);
+		obj.setupTabEventListeners( tabs, tabContainer );
 
 		// If tabFromURL exists, run the logic immediately.
-		if (tabFromURL && currentTab) {
-			obj.updateActiveTab(tabs, tabFromURL);
-			obj.updateActiveContent(currentTab, tabFromURL);
+		if ( tabFromURL && currentTab ) {
+			obj.updateActiveTab( tabs, tabFromURL );
+			obj.updateActiveContent( currentTab, tabFromURL );
 		}
 
 		// Handle back/forward navigation.
-		window.addEventListener('popstate', (event) => {
-			const tab = event.state?.tab || new URLSearchParams(window.location.search).get('tab');
+		window.addEventListener( 'popstate', ( event ) => {
+			const tab =
+				event.state?.tab ||
+				new URLSearchParams( window.location.search ).get( 'tab' );
 
-			if (tab) {
-				obj.updateActiveTab(tabs, tab);
-				const matchingTab = document.querySelector(`[data-tab-target="${tab}"]`);
-				obj.updateActiveContent(matchingTab, tab);
+			if ( tab ) {
+				obj.updateActiveTab( tabs, tab );
+				const matchingTab = document.querySelector(
+					`[data-tab-target="${ tab }"]`
+				);
+				obj.updateActiveContent( matchingTab, tab );
 			}
-		});
+		} );
 	};
 
 	/**
@@ -292,9 +343,11 @@ tribe.helpPage = tribe.helpPage || {};
 		tabs.forEach( ( t ) => t.classList.remove( 'tec-nav__tab--active' ) );
 
 		// Find and activate all tabs with the same data-tab-target.
-		document.querySelectorAll( `[data-tab-target="${ target }"]` ).forEach( ( matchingTab ) => {
-			matchingTab.classList.add( 'tec-nav__tab--active' );
-		} );
+		document
+			.querySelectorAll( `[data-tab-target="${ target }"]` )
+			.forEach( ( matchingTab ) => {
+				matchingTab.classList.add( 'tec-nav__tab--active' );
+			} );
 	};
 
 	/**
@@ -317,7 +370,10 @@ tribe.helpPage = tribe.helpPage || {};
 
 			// Update modal button text.
 			const tabText = newTabContainer.getAttribute( 'data-link-title' );
-			const modalButtonSpan = document.querySelector( obj.selectors.modalButtonSpan );
+			const modalButtonSpan = document.querySelector(
+				obj.selectors.modalButtonSpan
+			);
+
 			if ( modalButtonSpan && tabText ) {
 				modalButtonSpan.textContent = tabText;
 			}
@@ -328,7 +384,7 @@ tribe.helpPage = tribe.helpPage || {};
 			window.history.pushState( { tab: target }, '', url );
 
 			// Initialize accordions if needed
-			obj.setupAccordionsFor( obj.activeTab.Container );
+			obj.setupAccordionsFor( obj.activeTabContainer );
 		}
 	};
 
