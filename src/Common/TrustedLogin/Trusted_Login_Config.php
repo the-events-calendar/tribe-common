@@ -27,25 +27,6 @@ use Tribe__Main;
  * For the integration to work properly, both the API key and website URL must be
  * in sync and correct. If either is incorrect, the integration will not work.
  *
- * ## Configuration Structure
- *
- * This class provides:
- * - Defaults stored as protected properties
- * - Getters for each value (with per-value filters)
- * - Global config filter at the end
- * - Validation for required fields
- *
- * ## Required Fields
- *
- * The following fields are required for TrustedLogin to function:
- * - `auth.api_key` - The TrustedLogin key for the vendor
- * - `role` - WordPress role for TrustedLogin support users
- * - `vendor.namespace` - Unique vendor namespace
- * - `vendor.title` - Vendor company name
- * - `vendor.email` - Support email address
- * - `vendor.website` - Vendor website URL
- * - `vendor.support_url` - Vendor support page URL
- *
  * For complete configuration options and detailed field descriptions, see:
  * {@link https://docs.trustedlogin.com/Client/configuration#all-options TrustedLogin Configuration Documentation}
  *
@@ -520,15 +501,7 @@ class Trusted_Login_Config {
 	 *
 	 * This method checks that all fields marked as required by the TrustedLogin specification
 	 * are present and contain non-empty values. The required fields are defined in the
-	 * `$required_fields` property and include:
-	 *
-	 * - `auth.api_key` - TrustedLogin API key for authentication
-	 * - `role` - WordPress role for support users
-	 * - `vendor.namespace` - Unique vendor namespace
-	 * - `vendor.title` - Vendor company name
-	 * - `vendor.email` - Support email address
-	 * - `vendor.website` - Vendor website URL
-	 * - `vendor.support_url` - Vendor support page URL
+	 * `$required_fields` property.
 	 *
 	 * @since TBD
 	 *
@@ -546,7 +519,7 @@ class Trusted_Login_Config {
 			$value = $config;
 
 			foreach ( $keys as $key ) {
-				if ( ! isset( $value[ $key ] ) || empty( $value[ $key ] ) ) {
+				if ( empty( $value[ $key ] ) ) {
 					$missing_fields[] = $field_path;
 					break;
 				}

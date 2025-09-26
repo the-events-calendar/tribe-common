@@ -36,8 +36,14 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	protected function do_register(): void {
-		$this->container->singleton( Trusted_Login_Manager::class );
+		$this->container->singleton(
+			Trusted_Login_Manager::class,
+			function () {
+				$config = Trusted_Login_Config::build();
 
+				return new Trusted_Login_Manager( $config );
+			}
+		);
 		$this->hooks();
 	}
 
@@ -60,13 +66,8 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function init_trustedlogin(): void {
-		$config = Trusted_Login_Config::build();
-
-		if ( empty( $config ) ) {
-			return;
-		}
-
-		tribe( Trusted_Login_Manager::class )->init( $config );
+		tribe( Trusted_Login_Manager::class )->init();
+		$this->hooks();
 	}
 
 	/**

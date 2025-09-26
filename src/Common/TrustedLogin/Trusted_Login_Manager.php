@@ -25,6 +25,32 @@ use TEC\Common\Configuration\Configuration;
 class Trusted_Login_Manager {
 
 	/**
+	 * TrustedLogin configuration array.
+	 *
+	 * Built via {@see Trusted_Login_Config::build()} and passed in at construction.
+	 * Contains all settings required to initialize TrustedLogin.
+	 * For full details on available keys, see {@see Trusted_Login_Config}.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string,mixed>
+	 */
+	protected array $config = [];
+
+	/**
+	 * Constructor.
+	 *
+	 * Stores the TrustedLogin configuration array for use when initializing.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $config Configuration array from {@see Trusted_Login_Config::build()}.
+	 */
+	public function __construct( array $config ) {
+		$this->config = $config;
+	}
+
+	/**
 	 * Initializes TrustedLogin with the given or default configuration.
 	 *
 	 * - Builds config if none provided
@@ -33,26 +59,20 @@ class Trusted_Login_Manager {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string,mixed> $config Optional. Prebuilt configuration array.
-	 *
 	 * @return void
 	 */
-	public function init( array $config = [] ): void {
-		// Build config if none provided.
-		if ( empty( $config ) ) {
-			$config = Trusted_Login_Config::build();
-		}
+	public function init(): void {
 
 		// Bail early if config is invalid.
-		if ( ! $this->validate_config( $config ) ) {
+		if ( ! $this->validate_config( $this->config ) ) {
 			return;
 		}
 
 		// Initialize the TrustedLogin client safely.
 		try {
-			new TrustedLoginClient( new TrustedLoginConfig( $config ) );
+			new TrustedLoginClient( new TrustedLoginConfig( $this->config ) );
 		} catch ( Throwable $e ) {
-			$this->log_init_failure( $e, $config );
+			$this->log_init_failure( $e, $this->config );
 
 			return;
 		}
@@ -64,7 +84,7 @@ class Trusted_Login_Manager {
 		 *
 		 * @param array<string,mixed> $config Configuration used to initialize TrustedLogin.
 		 */
-		do_action( 'tec_trustedlogin_registered', $config );
+		do_action( 'tec_trustedlogin_registered', $this->config );
 	}
 
 	/**

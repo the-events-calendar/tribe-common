@@ -171,7 +171,6 @@ class Help_Hub_Integration {
 		// Redirect to Help Hub → Support Access tab in Events context.
 		$redirect_url = $this->get_help_hub_redirect_url();
 
-		// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit
 		wp_safe_redirect( $redirect_url );
 		tribe_exit();
 	}
