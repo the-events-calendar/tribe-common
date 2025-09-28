@@ -168,8 +168,9 @@ class Help_Hub_Integration {
 			return;
 		}
 
-		// Redirect to Help Hub → Support Access tab in Events context.
-		$redirect_url = $this->get_help_hub_redirect_url();
+		// Redirect to the previous page or to Help Hub → Support Access tab in Events context.
+		// @TODO: There has to be a better way, but this will get the job done for now.
+		$redirect_url = $_SERVER['HTTP_REFERER'] ?? admin_url(); // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		wp_safe_redirect( $redirect_url );
 		tribe_exit();
@@ -183,14 +184,21 @@ class Help_Hub_Integration {
 	 * @return string The complete Help Hub redirect URL.
 	 */
 	private function get_help_hub_redirect_url(): string {
-		return add_query_arg(
-			[
-				'post_type' => 'tribe_events',
-				'page'      => 'tec-events-help-hub',
-				'tab'       => 'tec-support-access-tab',
-			],
-			admin_url( 'edit.php' )
-		);
+		$url  = admin_url( 'admin.php' );
+		$page = tec_get_request_var( 'page' );
+		$args = [
+			'tab'  => 'tec-support-access-tab',
+			'page' => $page,
+		];
+
+		$post_type = tec_get_request_var( 'post_type', false );
+
+		if ( 'tribe_events' === $post_type ) {
+			$args['post_type'] = 'tribe_events';
+			$url               = admin_url( 'edit.php' );
+		}
+
+		return add_query_arg( $args, $url );
 	}
 
 	/**
