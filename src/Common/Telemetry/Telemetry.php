@@ -594,18 +594,21 @@ final class Telemetry {
 	 * Calculate the optin status for the TEC plugins from various sources.
 	 *
 	 * @since 5.1.1.1
-	 * @since TBD Updated to check if the user completed the onboarding wizard.
+	 * @since TBD Updated to use filter for onboarding wizard status.
 	 *
 	 * @return bool $show If the modal should show
 	 */
 	public static function calculate_modal_status(): bool {
-		// First, check if the user was already prompted to opt in with the onboarding wizard.
-		$onboarding_data = get_option( 'tec_onboarding_wizard_data', [] );
-
-		// If the wizard was finished but only tab 0 is completed, user likely skipped the wizard.
-		// If that's the case, we should still show the modal, otherwise we skip it.
-		if ( tribe_is_truthy( $onboarding_data['finished'] ) && $onboarding_data['completed_tabs'] !== [ 0 ] ) {
-			return false;
+		/**
+		 * Filter whether the telemetry modal should be shown based on onboarding wizard status.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool|null $should_show Whether the telemetry modal should show. Return null to continue with default logic.
+		 */
+		$onboarding_result = apply_filters( 'tec_telemetry_should_show_modal', null );
+		if ( $onboarding_result !== null ) {
+			return $onboarding_result;
 		}
 
 		// Check if they explicitly opted in through other means (like settings page).

@@ -1,4 +1,4 @@
 Significance: patch
 Type: tweak
 
-Add logic to not show the Telemetry opt in modal if the onboarding wizard was completed. [TEC-5583]
+Add filter to not show the Telemetry opt in modal if the onboarding wizard was completed. [TEC-5583]
