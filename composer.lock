@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1bd424903de918e5c974db8bebddb11",
+    "content-hash": "cfa9d3af75448fd9ab8d2e08f219f816",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -760,12 +760,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/schema-models.git",
-                "reference": "8d4d71a87a30b1ab427bba5002c3cdb99e53b998"
+                "reference": "7303951f9deff27797fb7460de5c6bea8e65dd4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/schema-models/zipball/8d4d71a87a30b1ab427bba5002c3cdb99e53b998",
-                "reference": "8d4d71a87a30b1ab427bba5002c3cdb99e53b998",
+                "url": "https://api.github.com/repos/stellarwp/schema-models/zipball/7303951f9deff27797fb7460de5c6bea8e65dd4a",
+                "reference": "7303951f9deff27797fb7460de5c6bea8e65dd4a",
                 "shasum": ""
             },
             "require": {
@@ -850,7 +850,7 @@
                 "source": "https://github.com/stellarwp/schema-models/tree/feat/repo-set-up",
                 "issues": "https://github.com/stellarwp/schema-models/issues"
             },
-            "time": "2025-09-24T18:29:59+00:00"
+            "time": "2025-09-29T15:44:17+00:00"
         },
         {
             "name": "stellarwp/telemetry",
