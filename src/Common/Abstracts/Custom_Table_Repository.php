@@ -14,6 +14,7 @@ namespace TEC\Common\Abstracts;
 use TEC\Common\Contracts\Custom_Table_Repository_Interface as Repository_Interface;
 use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
 use TEC\Common\StellarWP\Models\ValueObjects\Relationship;
+use TEC\Common\StellarWP\Schema\Tables\Contracts\Table as Table_Interface;
 use TEC\Common\StellarWP\DB\DB;
 use Tribe__Promise as Promise;
 use RuntimeException;
@@ -147,7 +148,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 
 		$operators = $this->get_table_interface()::operators();
 
-		foreach ( array_keys( $this->get_table_interface()::get_columns() ) as $column ) {
+		foreach ( $this->get_table_interface()::get_columns()->get_names() as $column ) {
 			foreach ( $operators as $operator_slug => $operator ) {
 				if ( 'eq' === $operator_slug ) {
 					$this->add_schema_entry(
@@ -1070,9 +1071,9 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return Custom_Table_Abstract The table interface.
+	 * @return Table_Interface The table interface.
 	 */
-	private function get_table_interface(): Custom_Table_Abstract {
+	private function get_table_interface(): Table_Interface {
 		return tribe( $this->get_model_class() )->getTableInterface();
 	}
 
