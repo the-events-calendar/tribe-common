@@ -590,10 +590,6 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 				break;
 			}
 
-			if ( $this->fields === [ '*' ] ) {
-				$results = array_map( fn( $result ) => $this->get_model_class()::fromData( $result ), $results );
-			}
-
 			if ( 1 === count( $this->fields ) && $this->fields !== [ '*' ] ) {
 				$field   = array_values( $this->fields )[0];
 				$results = array_map( fn( $result ) => $result[ $field ], $results );
