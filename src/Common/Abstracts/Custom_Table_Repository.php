@@ -12,7 +12,8 @@ declare( strict_types=1 );
 namespace TEC\Common\Abstracts;
 
 use TEC\Common\Contracts\Custom_Table_Repository_Interface as Repository_Interface;
-use TEC\Common\Contracts\Model;
+use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
+use TEC\Common\StellarWP\Models\ValueObjects\Relationship;
 use TEC\Common\StellarWP\DB\DB;
 use Tribe__Promise as Promise;
 use RuntimeException;
@@ -176,10 +177,10 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 
 		$model = tribe( $this->get_model_class() );
 
-		$relationships = $model->get_relationships();
+		$relationships = $model->getRelationships();
 
 		foreach ( $relationships as $key => $relationship ) {
-			if ( $relationship['type'] !== Model_Abstract::RELATIONSHIP_TYPE_MANY_TO_MANY ) {
+			if ( $relationship['type'] !== Relationship::MANY_TO_MANY ) {
 				continue;
 			}
 
@@ -419,8 +420,9 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	public function delete( bool $return_promise = false ) {
 		$callback = function () {
 			$deleted_ids = [];
+			/** @var Model $model */
 			foreach ( $this->all( true ) as $model ) {
-				$deleted_ids[ $model->get_id() ] = $model->delete();
+				$deleted_ids[ $model->getPrimaryValue() ] = $model->delete();
 			}
 
 			return $deleted_ids;
@@ -588,7 +590,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 			}
 
 			if ( $this->fields === [ '*' ] ) {
-				$results = array_map( fn( $result ) => $this->get_model_class()::from_array( $result ), $results );
+				$results = array_map( fn( $result ) => $this->get_model_class()::fromData( $result ), $results );
 			}
 
 			if ( 1 === count( $this->fields ) && $this->fields !== [ '*' ] ) {
@@ -931,7 +933,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 		$callback = function () {
 			$all = [];
 			foreach ( $this->all( true ) as $model ) {
-				$relationships = $model->get_relationships();
+				$relationships = $model->getRelationships();
 				foreach ( $this->upsert_args as $key => $value ) {
 					$property = $this->get_property_name( $key );
 
@@ -967,8 +969,9 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 */
 	public function create(): ?Model {
 		$model_class   = $this->get_model_class();
+		/** @var Model $model */
 		$model         = new $model_class();
-		$relationships = $model->get_relationships();
+		$relationships = $model->getRelationships();
 		foreach ( $this->get_create_args() as $key => $value ) {
 			$property = $this->get_property_name( $key );
 			$method   = 'set_' . $property;
@@ -984,10 +987,10 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 							throw new RuntimeException( "Relationship {$key} must be an array of integers." );
 						}
 
-						$model->add_id_to_relationship( $key, $v );
+						$model->addToRelationship( $key, $v );
 					}
 				} elseif ( is_int( $value ) ) {
-					$model->add_id_to_relationship( $key, $value );
+					$model->addToRelationship( $key, $value );
 				} else {
 					throw new RuntimeException( "Relationship {$key} must be an array of integers or an integer." );
 				}
@@ -1070,7 +1073,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @return Custom_Table_Abstract The table interface.
 	 */
 	private function get_table_interface(): Custom_Table_Abstract {
-		return tribe( $this->get_model_class() )->get_table_interface();
+		return tribe( $this->get_model_class() )->getTableInterface();
 	}
 
 	/**

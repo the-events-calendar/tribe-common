@@ -12,7 +12,7 @@ namespace TEC\Common\Key_Value_Cache;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\Key_Value_Cache\Table\Schema;
 use TEC\Common\StellarWP\Schema\Register;
-use TEC\Common\StellarWP\Schema\Tables\Contracts\Schema_Interface;
+use TEC\Common\StellarWP\Schema\Tables\Contracts\Table as Schema_Interface;
 
 /**
  * Class Controller.

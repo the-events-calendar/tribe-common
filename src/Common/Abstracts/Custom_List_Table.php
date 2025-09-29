@@ -10,7 +10,7 @@
 namespace TEC\Common\Abstracts;
 
 use TEC\Common\Admin\Abstract_Custom_List_Table as Base_Abstract;
-use TEC\Common\Contracts\Model;
+use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
 use TEC\Common\Contracts\Custom_Table_Repository_Interface as Repository;
 
 /**
@@ -159,12 +159,12 @@ abstract class Custom_List_Table extends Base_Abstract {
 		}
 
 		?>
-		<input id="cb-select-<?php echo esc_attr( $item->get_id() ); ?>; ?>" type="checkbox" name="subscriber[]" value="<?php echo esc_attr( $item->get_id() ); ?>" />
-		<label for="cb-select-<?php echo esc_attr( $item->get_id() ); ?>; ?>">
+		<input id="cb-select-<?php echo esc_attr( $item->getPrimaryValue() ); ?>; ?>" type="checkbox" name="subscriber[]" value="<?php echo esc_attr( $item->getPrimaryValue() ); ?>" />
+		<label for="cb-select-<?php echo esc_attr( $item->getPrimaryValue() ); ?>; ?>">
 			<span class="screen-reader-text">
 			<?php
 				/* translators: %d: The id of the item. */
-				printf( esc_html__( 'Select the item with id: %d', 'event-tickets-plus' ), esc_html( $item->get_id() ) );
+				printf( esc_html__( 'Select the item with id: %d', 'event-tickets-plus' ), esc_html( $item->getPrimaryValue() ) );
 			?>
 			</span>
 		</label>

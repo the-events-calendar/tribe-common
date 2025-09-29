@@ -14,7 +14,7 @@ namespace TEC\Common\REST\TEC\V1\Abstracts;
 use TEC\Common\REST\TEC\V1\Contracts\Custom_Entity_Endpoint_Interface;
 use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 use WP_REST_Request;
-use TEC\Common\Contracts\Model;
+use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
 
 /**
  * Custom Entity Endpoint class.
@@ -138,6 +138,6 @@ abstract class Custom_Entity_Endpoint extends Endpoint implements Custom_Entity_
 	 * @return array
 	 */
 	public function get_formatted_entity( Model $model ): array {
-		return $model->to_array();
+		return $model->toArray();
 	}
 }

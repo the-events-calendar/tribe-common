@@ -11,7 +11,7 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Contracts;
 
-use TEC\Common\Contracts\Model;
+use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
 use TEC\Common\Contracts\Repository_Interface;
 
 /**
