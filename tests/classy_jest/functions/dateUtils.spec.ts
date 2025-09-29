@@ -1,4 +1,10 @@
-import { isValidDate, getValidDateOrNull, areDatesOnSameDay, areDatesOnSameTime } from '@tec/common/classy/functions';
+import {
+	isValidDate,
+	getValidDateOrNull,
+	areDatesOnSameDay,
+	areDatesOnSameTime,
+	dayDiffBetweenDates,
+} from '@tec/common/classy/functions';
 import { describe, expect, it } from '@jest/globals';
 
 describe( 'dateUtils', () => {
@@ -127,6 +133,68 @@ describe( 'dateUtils', () => {
 			const date1 = new Date( '2024-01-01T12:30:00' );
 			const date2 = new Date( '2024-01-01T12:30:45' );
 			expect( areDatesOnSameTime( date1, date2 ) ).toBe( true );
+		} );
+	} );
+
+	describe( 'dayDiffBetweenDates', () => {
+		it( 'should return 0 for the same date', () => {
+			const date1 = new Date( '2024-01-01T12:00:00' );
+			const date2 = new Date( '2024-01-01T18:00:00' );
+			expect( dayDiffBetweenDates( date1, date2 ) ).toBe( 0 );
+		} );
+
+		it( 'should return positive number for future dates', () => {
+			const startDate = new Date( '2024-01-01' );
+			const endDate = new Date( '2024-01-10' );
+			expect( dayDiffBetweenDates( startDate, endDate ) ).toBe( 9 );
+		} );
+
+		it( 'should return negative number for past dates', () => {
+			const startDate = new Date( '2024-01-10' );
+			const endDate = new Date( '2024-01-01' );
+			expect( dayDiffBetweenDates( startDate, endDate ) ).toBe( -9 );
+		} );
+
+		it( 'should handle dates across months', () => {
+			const startDate = new Date( '2024-01-31' );
+			const endDate = new Date( '2024-02-05' );
+			expect( dayDiffBetweenDates( startDate, endDate ) ).toBe( 5 );
+		} );
+
+		it( 'should handle dates across years', () => {
+			const startDate = new Date( '2023-12-31' );
+			const endDate = new Date( '2024-01-01' );
+			expect( dayDiffBetweenDates( startDate, endDate ) ).toBe( 1 );
+		} );
+
+		it( 'should handle leap year dates', () => {
+			const startDate = new Date( '2024-02-28' );
+			const endDate = new Date( '2024-03-01' );
+			expect( dayDiffBetweenDates( startDate, endDate ) ).toBe( 2 ); // 2024 is a leap year
+		} );
+
+		it( 'should floor the result for partial days', () => {
+			const startDate = new Date( '2024-01-01T23:59:59' );
+			const endDate = new Date( '2024-01-02T00:00:01' );
+			expect( dayDiffBetweenDates( startDate, endDate ) ).toBe( 0 ); // Less than 24 hours
+		} );
+
+		it( 'should handle large date differences', () => {
+			const startDate = new Date( '2020-01-01' );
+			const endDate = new Date( '2024-01-01' );
+			expect( dayDiffBetweenDates( startDate, endDate ) ).toBe( 1461 ); // 4 years including a leap year
+		} );
+
+		it( 'should handle exact 24 hour differences', () => {
+			const startDate = new Date( '2024-01-01T12:00:00' );
+			const endDate = new Date( '2024-01-02T12:00:00' );
+			expect( dayDiffBetweenDates( startDate, endDate ) ).toBe( 1 );
+		} );
+
+		it( 'should handle timezone-aware dates', () => {
+			const startDate = new Date( '2024-01-01T00:00:00Z' );
+			const endDate = new Date( '2024-01-02T00:00:00Z' );
+			expect( dayDiffBetweenDates( startDate, endDate ) ).toBe( 1 );
 		} );
 	} );
 } );
