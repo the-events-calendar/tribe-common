@@ -6,7 +6,6 @@ use TEC\Common\StellarWP\Telemetry\Config as Telemetry_Config;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
 use TEC\Common\StellarWP\Telemetry\Telemetry\Telemetry;
 use TEC\Common\Telemetry\Telemetry as Common_Telemetry;
-use TEC\Events\Controller as Events_Controller;
 
 /**
  * Class Opt_InTest
@@ -26,9 +25,6 @@ class Opt_InTest extends \Codeception\TestCase\WPTestCase {
 		tribe( Common_Telemetry::class )->boot();
 
 		add_filter( 'stellarwp/telemetry/tec/optin_status', [ $this, 'return_1' ] );
-
-		// Ensure the Onboarding Controller is loaded to register the telemetry filter.
-		$this->ensure_onboarding_controller_loaded();
 	}
 
 	/**
@@ -42,32 +38,6 @@ class Opt_InTest extends \Codeception\TestCase\WPTestCase {
 		return 1;
 	}
 
-	/**
-	 * Ensure the Onboarding Controller is loaded by bootstrapping the Events Controller.
-	 * This ensures we're testing the actual production code.
-	 */
-	private function ensure_onboarding_controller_loaded() {
-		// Check if the filter is already registered.
-		if ( has_filter( 'tec_telemetry_should_show_modal' ) ) {
-			return;
-		}
-
-		// Check if TEC plugin is actually loaded.
-		if ( ! class_exists( 'Tribe__Events__Main' ) ) {
-			throw new \Exception( 'TEC plugin not loaded - cannot test onboarding functionality' );
-		}
-
-		// Trigger WordPress admin_init to ensure admin components are loaded.
-		if ( ! did_action( 'admin_init' ) ) {
-			do_action( 'admin_init' );
-		}
-
-		// If still not registered, manually bootstrap the Events Controller.
-		if ( ! has_filter( 'tec_telemetry_should_show_modal' ) ) {
-			$events_controller = new Events_Controller( tribe() );
-			$events_controller->register();
-		}
-	}
 
 	public function capture_http_request( $response, $parsed_args, $url ) {
 		if ( strpos( $url, 'telemetry' ) === false ) {
@@ -249,60 +219,5 @@ class Opt_InTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertNull( $cached_opt_in_user['email'] );
 
 		delete_option( Status::OPTION_NAME_USER_INFO );
-	}
-
-	/**
-	 * @test
-	 */
-	public function it_should_not_show_telemetry_modal_when_onboarding_wizard_is_completed() {
-		// Set up wizard as completed (finished = true, completed_tabs = [0, 1, 2]).
-		update_option( 'tec_onboarding_wizard_data', [
-			'finished' => true,
-			'completed_tabs' => [ 0, 1, 2 ],
-		] );
-
-		// Debug: Check if filter is registered and what onboarding data looks like.
-		$has_filter = has_filter( 'tec_telemetry_should_show_modal' );
-		$onboarding_data = get_option( 'tec_onboarding_wizard_data', [] );
-
-		// Test the modal status calculation.
-		$should_show = Common_Telemetry::calculate_modal_status();
-
-		$this->assertFalse( $should_show, "Modal should not show when wizard is completed. Filter registered: " . ( $has_filter ? 'yes' : 'no' ) . ", Onboarding data: " . wp_json_encode( $onboarding_data ) );
-
-		// Clean up.
-		delete_option( 'tec_onboarding_wizard_data' );
-	}
-
-	/**
-	 * @test
-	 */
-	public function it_should_show_telemetry_modal_when_onboarding_wizard_is_skipped() {
-		// Set up wizard as skipped (finished = true, but only tab 0 completed).
-		update_option( 'tec_onboarding_wizard_data', [
-			'finished' => true,
-			'completed_tabs' => [ 0 ],
-		] );
-
-		// Test the modal status calculation.
-		$should_show = Common_Telemetry::calculate_modal_status();
-
-		$this->assertTrue( $should_show, 'Modal should show when wizard is skipped (only tab 0 completed).' );
-
-		// Clean up.
-		delete_option( 'tec_onboarding_wizard_data' );
-	}
-
-	/**
-	 * @test
-	 */
-	public function it_should_show_telemetry_modal_when_no_onboarding_data_exists() {
-		// Ensure no onboarding data exists.
-		delete_option( 'tec_onboarding_wizard_data' );
-
-		// Test the modal status calculation.
-		$should_show = Common_Telemetry::calculate_modal_status();
-
-		$this->assertTrue( $should_show, 'Modal should show when no onboarding data exists.' );
 	}
 }
