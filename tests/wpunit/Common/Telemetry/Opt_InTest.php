@@ -52,8 +52,15 @@ class Opt_InTest extends \Codeception\TestCase\WPTestCase {
 			return;
 		}
 
-		// Trigger the WordPress action that normally loads the Events Controller.
-		do_action( 'tribe_plugins_loaded' );
+		// Check if TEC plugin is actually loaded.
+		if ( ! class_exists( 'Tribe__Events__Main' ) ) {
+			throw new \Exception( 'TEC plugin not loaded - cannot test onboarding functionality' );
+		}
+
+		// Trigger WordPress admin_init to ensure admin components are loaded.
+		if ( ! did_action( 'admin_init' ) ) {
+			do_action( 'admin_init' );
+		}
 
 		// If still not registered, manually bootstrap the Events Controller.
 		if ( ! has_filter( 'tec_telemetry_should_show_modal' ) ) {
