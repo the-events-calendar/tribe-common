@@ -52,9 +52,14 @@ class Opt_InTest extends \Codeception\TestCase\WPTestCase {
 			return;
 		}
 
-		// Bootstrap the Events Controller which registers the Onboarding Controller.
-		$events_controller = new Events_Controller( tribe() );
-		$events_controller->register();
+		// Trigger the WordPress action that normally loads the Events Controller.
+		do_action( 'tribe_plugins_loaded' );
+
+		// If still not registered, manually bootstrap the Events Controller.
+		if ( ! has_filter( 'tec_telemetry_should_show_modal' ) ) {
+			$events_controller = new Events_Controller( tribe() );
+			$events_controller->register();
+		}
 	}
 
 	public function capture_http_request( $response, $parsed_args, $url ) {
