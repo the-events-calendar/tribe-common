@@ -600,7 +600,7 @@ final class Telemetry {
 	 */
 	public static function calculate_modal_status(): bool {
 		/**
-		 * Filter whether the telemetry modal should be shown based on onboarding wizard status.
+		 * Allow plugins to hook in and short-circuit whether the telemetry modal should be shown.
 		 *
 		 * @since TBD
 		 *
