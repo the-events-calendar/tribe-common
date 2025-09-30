@@ -83,7 +83,7 @@ class Schema extends Table {
 		$table_name = self::table_name( true );
 
 		return [
-			self::SCHEMA_VERSION => function() use ( $table_name ) {
+			self::SCHEMA_VERSION => function () use ( $table_name ) {
 				$columns = new Column_Collection();
 
 				$columns[] = ( new String_Column( 'cache_key' ) )->set_length( 191 );
