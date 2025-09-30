@@ -6,6 +6,7 @@ use TEC\Common\StellarWP\Telemetry\Config as Telemetry_Config;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
 use TEC\Common\StellarWP\Telemetry\Telemetry\Telemetry;
 use TEC\Common\Telemetry\Telemetry as Common_Telemetry;
+use TEC\Events\Admin\Onboarding\Controller as Onboarding_Controller;
 
 /**
  * Class Opt_InTest
@@ -25,6 +26,9 @@ class Opt_InTest extends \Codeception\TestCase\WPTestCase {
 		tribe( Common_Telemetry::class )->boot();
 
 		add_filter( 'stellarwp/telemetry/tec/optin_status', [ $this, 'return_1' ] );
+
+		// Ensure the Onboarding Controller is loaded to register the telemetry filter.
+		$this->ensure_onboarding_controller_loaded();
 	}
 
 	/**
@@ -36,6 +40,21 @@ class Opt_InTest extends \Codeception\TestCase\WPTestCase {
 
 	public function return_1() {
 		return 1;
+	}
+
+	/**
+	 * Ensure the Onboarding Controller is loaded to register the telemetry filter.
+	 * This is needed because the controller might not be loaded in the test environment.
+	 */
+	private function ensure_onboarding_controller_loaded() {
+		// Check if the filter is already registered.
+		if ( has_filter( 'tec_telemetry_should_show_modal' ) ) {
+			return;
+		}
+
+		// Manually load the Onboarding Controller.
+		$controller = new Onboarding_Controller( tribe() );
+		$controller->do_register();
 	}
 
 	public function capture_http_request( $response, $parsed_args, $url ) {
