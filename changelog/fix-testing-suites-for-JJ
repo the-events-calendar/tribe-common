@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Modifies the hook priority for which Event Automator would register its Event related hooks. [EVA-167]
