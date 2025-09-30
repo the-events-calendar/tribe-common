@@ -6,6 +6,7 @@ use TEC\Common\StellarWP\Telemetry\Config as Telemetry_Config;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
 use TEC\Common\StellarWP\Telemetry\Telemetry\Telemetry;
 use TEC\Common\Telemetry\Telemetry as Common_Telemetry;
+use TEC\Events\Admin\Onboarding\Controller as Onboarding_Controller;
 
 /**
  * Class Opt_InTest
@@ -36,6 +37,14 @@ class Opt_InTest extends \Codeception\TestCase\WPTestCase {
 
 	public function return_1() {
 		return 1;
+	}
+
+	/**
+	 * Set up the onboarding controller to register the telemetry filter.
+	 */
+	private function setup_onboarding_controller() {
+		$controller = tribe()->make( Onboarding_Controller::class );
+		$controller->register();
 	}
 
 
@@ -219,5 +228,45 @@ class Opt_InTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertNull( $cached_opt_in_user['email'] );
 
 		delete_option( Status::OPTION_NAME_USER_INFO );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_show_modal_if_onboarding_wizard_is_finished() {
+		// Set up the onboarding controller to register the filter.
+		$this->setup_onboarding_controller();
+
+		// Update onboarding wizard data to show that the wizard was completed.
+		update_option( 'tec_onboarding_wizard_data', [
+			'finished' => true,
+			'completed_tabs' => [ 0, 1, 2 ],
+		] );
+
+		// Manually call our new filter.
+		$should_show = apply_filters( 'tec_telemetry_should_show_modal', null );
+
+		$this->assertFalse( $should_show );
+		delete_option( 'tec_onboarding_wizard_data' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_show_modal_if_onboarding_wizard_is_skipped() {
+		// Set up the onboarding controller to register the filter.
+		$this->setup_onboarding_controller();
+
+		// Update onboarding wizard data to show that the wizard was skipped.
+		update_option( 'tec_onboarding_wizard_data', [
+			'finished' => true,
+			'completed_tabs' => [ 0 ],
+		] );
+
+		// Manually call our new filter.
+		$should_show = apply_filters( 'tec_telemetry_should_show_modal', null );
+
+		$this->assertTrue( $should_show );
+		delete_option( 'tec_onboarding_wizard_data' );
 	}
 }
