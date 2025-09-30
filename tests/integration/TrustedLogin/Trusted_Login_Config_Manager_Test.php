@@ -2,7 +2,7 @@
 /**
  * Tests for TrustedLogin configuration and manager logic.
  *
- * @since TBD
+ * @since 6.9.5
  *
  * @package TEC\Common\TrustedLogin
  */
@@ -17,7 +17,7 @@ use Codeception\TestCase\WPTestCase;
 /**
  * Behavior-focused tests for TrustedLogin configuration and manager logic.
  *
- * @since TBD
+ * @since 6.9.5
  */
 class Trusted_Login_Config_Manager_Test extends WPTestCase {
 

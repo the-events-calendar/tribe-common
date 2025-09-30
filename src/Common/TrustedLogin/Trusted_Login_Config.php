@@ -1,6 +1,6 @@
 <?php
 /**
- * @since TBD
+ * @since 6.9.5
  */
 
 declare( strict_types=1 );
@@ -30,7 +30,7 @@ use Tribe__Main;
  * For complete configuration options and detailed field descriptions, see:
  * {@link https://docs.trustedlogin.com/Client/configuration#all-options TrustedLogin Configuration Documentation}
  *
- * @since TBD
+ * @since 6.9.5
  *
  * @package TEC\Common\TrustedLogin
  */
@@ -39,7 +39,7 @@ class Trusted_Login_Config {
 	/**
 	 * Configuration dependency for reading stored settings.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @var Configuration
 	 */
@@ -48,7 +48,7 @@ class Trusted_Login_Config {
 	/**
 	 * Default namespace for TrustedLogin hooks and filters.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @var string
 	 */
@@ -57,7 +57,7 @@ class Trusted_Login_Config {
 	/**
 	 * Default support page URL for vendor documentation or help.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @var string
 	 */
@@ -68,7 +68,7 @@ class Trusted_Login_Config {
 	 *
 	 * This must match the environment hosting the Connector plugin (staging, production, etc.).
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @var string
 	 */
@@ -77,7 +77,7 @@ class Trusted_Login_Config {
 	/**
 	 * Default vendor support email used when creating support users.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @var string
 	 */
@@ -86,7 +86,7 @@ class Trusted_Login_Config {
 	/**
 	 * Default admin menu slug for the TrustedLogin access page.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @var string
 	 */
@@ -95,7 +95,7 @@ class Trusted_Login_Config {
 	/**
 	 * Default WordPress role assigned to TrustedLogin support users.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @var string
 	 */
@@ -104,7 +104,7 @@ class Trusted_Login_Config {
 	/**
 	 * Default access expiration (in seconds).
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @var int
 	 */
@@ -113,7 +113,7 @@ class Trusted_Login_Config {
 	/**
 	 * Whether capabilities should be cloned from the default role.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @var bool
 	 */
@@ -126,7 +126,7 @@ class Trusted_Login_Config {
 	 * For complete field descriptions and all available options, see:
 	 * {@link https://docs.trustedlogin.com/Client/configuration#all-options TrustedLogin Configuration Documentation}
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @var array<string,string> Field paths mapped to their descriptions.
 	 */
@@ -143,7 +143,7 @@ class Trusted_Login_Config {
 	/**
 	 * Injects configuration dependency.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @param Configuration $config Configuration object for retrieving settings.
 	 */
@@ -154,7 +154,7 @@ class Trusted_Login_Config {
 	/**
 	 * Builds the configuration using defaults + filters.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return array<string,mixed> Filtered configuration array.
 	 */
@@ -184,7 +184,7 @@ class Trusted_Login_Config {
 	 *
 	 * Applies the global `tec_trustedlogin_config` filter after building.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return array<string,mixed> Final configuration array ready for TrustedLogin Client SDK.
 	 *
@@ -216,7 +216,7 @@ class Trusted_Login_Config {
 		/**
 		 * Filters the full TrustedLogin configuration array.
 		 *
-		 * @since TBD
+		 * @since 6.9.5
 		 *
 		 * @param array<string,mixed> $config TrustedLogin configuration.
 		 */
@@ -228,7 +228,7 @@ class Trusted_Login_Config {
 	 *
 	 * Applies `tec_trustedlogin_page_url` filter.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return string|null Filtered admin URL or null if no menu slug exists.
 	 */
@@ -244,7 +244,7 @@ class Trusted_Login_Config {
 		/**
 		 * Filters the TrustedLogin admin page URL.
 		 *
-		 * @since TBD
+		 * @since 6.9.5
 		 *
 		 * @param string $url Full admin URL.
 		 * @param string $page_slug Menu slug for the TrustedLogin page.
@@ -266,7 +266,7 @@ class Trusted_Login_Config {
 	 *
 	 * The API key can be found in "API Keys" on https://app.trustedlogin.com.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return string API key for the TrustedLogin service.
 	 *
@@ -283,7 +283,7 @@ class Trusted_Login_Config {
 		/**
 		 * Filters the API key used for TrustedLogin authentication.
 		 *
-		 * @since TBD
+		 * @since 6.9.5
 		 *
 		 * @param string $value The API key value.
 		 */
@@ -293,7 +293,7 @@ class Trusted_Login_Config {
 	/**
 	 * Returns the vendor namespace for TrustedLogin.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return string Vendor namespace.
 	 */
@@ -301,7 +301,7 @@ class Trusted_Login_Config {
 		/**
 		 * Filters the namespace used for TrustedLogin.
 		 *
-		 * @since TBD
+		 * @since 6.9.5
 		 *
 		 * @param string $namespace The vendor namespace.
 		 */
@@ -311,7 +311,7 @@ class Trusted_Login_Config {
 	/**
 	 * Returns the translatable vendor title for TrustedLogin UI.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return string Translated vendor title.
 	 */
@@ -321,7 +321,7 @@ class Trusted_Login_Config {
 		/**
 		 * Filters the vendor title displayed in TrustedLogin UI.
 		 *
-		 * @since TBD
+		 * @since 6.9.5
 		 *
 		 * @param string $value The vendor title.
 		 */
@@ -331,7 +331,7 @@ class Trusted_Login_Config {
 	/**
 	 * Returns the vendor logo URL for TrustedLogin UI.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return string Vendor logo URL.
 	 */
@@ -341,7 +341,7 @@ class Trusted_Login_Config {
 		/**
 		 * Filters the vendor logo URL for TrustedLogin UI.
 		 *
-		 * @since TBD
+		 * @since 6.9.5
 		 *
 		 * @param string $default The default logo URL.
 		 */
@@ -351,7 +351,7 @@ class Trusted_Login_Config {
 	/**
 	 * Returns the vendor support email for TrustedLogin.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return string Vendor support email.
 	 */
@@ -359,7 +359,7 @@ class Trusted_Login_Config {
 		/**
 		 * Filters the vendor support email used by TrustedLogin.
 		 *
-		 * @since TBD
+		 * @since 6.9.5
 		 *
 		 * @param string $support_email The support email address.
 		 */
@@ -369,7 +369,7 @@ class Trusted_Login_Config {
 	/**
 	 * Returns the vendor support page URL for TrustedLogin.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return string Vendor support page URL.
 	 */
@@ -377,7 +377,7 @@ class Trusted_Login_Config {
 		/**
 		 * Filters the vendor support page URL for TrustedLogin.
 		 *
-		 * @since TBD
+		 * @since 6.9.5
 		 *
 		 * @param string $support_url The support page URL.
 		 */
@@ -396,7 +396,7 @@ class Trusted_Login_Config {
 	 *
 	 * This must match the environment hosting the Connector plugin (staging, production, etc.).
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return string Website URL hosting the TrustedLogin Connector plugin.
 	 *
@@ -406,7 +406,7 @@ class Trusted_Login_Config {
 		/**
 		 * Filters the website URL where TrustedLogin Connector lives.
 		 *
-		 * @since TBD
+		 * @since 6.9.5
 		 *
 		 * @param string $website_url The website URL.
 		 */
@@ -416,7 +416,7 @@ class Trusted_Login_Config {
 	/**
 	 * Returns the admin menu slug for the TrustedLogin page.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return string Menu slug for the TrustedLogin admin page.
 	 */
@@ -424,7 +424,7 @@ class Trusted_Login_Config {
 		/**
 		 * Filters the admin menu slug for the TrustedLogin page.
 		 *
-		 * @since TBD
+		 * @since 6.9.5
 		 *
 		 * @param string $menu_slug The menu slug.
 		 */
@@ -434,7 +434,7 @@ class Trusted_Login_Config {
 	/**
 	 * Returns the WordPress role assigned to TrustedLogin support users.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return string Role for TrustedLogin support users.
 	 */
@@ -442,7 +442,7 @@ class Trusted_Login_Config {
 		/**
 		 * Filters the WordPress role assigned to TrustedLogin support users.
 		 *
-		 * @since TBD
+		 * @since 6.9.5
 		 *
 		 * @param string $role The WordPress role.
 		 */
@@ -452,7 +452,7 @@ class Trusted_Login_Config {
 	/**
 	 * Returns the access expiration time in seconds.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return int Access expiration time in seconds.
 	 */
@@ -460,7 +460,7 @@ class Trusted_Login_Config {
 		/**
 		 * Filters the access expiration time for TrustedLogin users.
 		 *
-		 * @since TBD
+		 * @since 6.9.5
 		 *
 		 * @param int $decay The access expiration time in seconds.
 		 */
@@ -470,7 +470,7 @@ class Trusted_Login_Config {
 	/**
 	 * Returns whether to clone capabilities from the configured role.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return bool True if cloning role capabilities; otherwise false.
 	 */
@@ -478,7 +478,7 @@ class Trusted_Login_Config {
 		/**
 		 * Filters whether capabilities are cloned from the assigned role.
 		 *
-		 * @since TBD
+		 * @since 6.9.5
 		 *
 		 * @param bool $clone_role Whether to clone role capabilities.
 		 */
@@ -488,7 +488,7 @@ class Trusted_Login_Config {
 	/**
 	 * Returns the required configuration fields for TrustedLogin validation.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return array<string,string> Required field paths and their descriptions.
 	 */
@@ -503,7 +503,7 @@ class Trusted_Login_Config {
 	 * are present and contain non-empty values. The required fields are defined in the
 	 * `$required_fields` property.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @param array<string,mixed> $config Configuration array to validate.
 	 *

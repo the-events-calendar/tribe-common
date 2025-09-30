@@ -17,7 +17,7 @@ use Tribe__Template;
 /**
  * Test suite for the Help_Hub_Integration class.
  *
- * @since TBD
+ * @since 6.9.5
  *
  * @package TEC\Common\TrustedLogin
  */

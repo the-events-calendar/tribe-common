@@ -234,7 +234,7 @@ class Hub {
 		 * Use this hook to modify data or enqueue additional assets before the Help Hub template is generated.
 		 *
 		 * @since 6.3.2
-		 * @since TBD Add new filter `tec_help_hub_register_tabs`.
+		 * @since 6.9.5 Add new filter `tec_help_hub_register_tabs`.
 		 *
 		 * @param Hub $instance The Hub instance.
 		 */
@@ -270,7 +270,7 @@ class Hub {
 		 *
 		 * Use this filter to call `$builder::make()->build()` and add new tabs.
 		 *
-		 * @since TBD
+		 * @since 6.9.5
 		 *
 		 * @param Tab_Builder $builder The tab builder instance.
 		 */

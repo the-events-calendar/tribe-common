@@ -5,7 +5,7 @@
  * Initializes TrustedLogin with validated configuration
  * and provides early bails for missing requirements.
  *
- * @since TBD
+ * @since 6.9.5
  *
  * @package TEC\Common\TrustedLogin
  */
@@ -20,7 +20,7 @@ use TEC\Common\Configuration\Configuration;
 /**
  * Handles TrustedLogin initialization for TEC.
  *
- * @since TBD
+ * @since 6.9.5
  */
 class Trusted_Login_Manager {
 
@@ -31,7 +31,7 @@ class Trusted_Login_Manager {
 	 * Contains all settings required to initialize TrustedLogin.
 	 * For full details on available keys, see {@see Trusted_Login_Config}.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @var array<string,mixed>
 	 */
@@ -42,7 +42,7 @@ class Trusted_Login_Manager {
 	 *
 	 * Stores the TrustedLogin configuration array for use when initializing.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @param array<string,mixed> $config Configuration array from {@see Trusted_Login_Config::build()}.
 	 */
@@ -57,7 +57,7 @@ class Trusted_Login_Manager {
 	 * - Validates configuration before use
 	 * - Stops if library or required values are missing
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return void
 	 */
@@ -80,7 +80,7 @@ class Trusted_Login_Manager {
 		/**
 		 * Fires after TrustedLogin is successfully registered.
 		 *
-		 * @since TBD
+		 * @since 6.9.5
 		 *
 		 * @param array<string,mixed> $config Configuration used to initialize TrustedLogin.
 		 */
@@ -90,7 +90,7 @@ class Trusted_Login_Manager {
 	/**
 	 * Validates that required configuration keys are available.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @param array<string,mixed> $config Configuration array to validate.
 	 *
@@ -111,7 +111,7 @@ class Trusted_Login_Manager {
 	/**
 	 * Logs an initialization failure for debugging purposes.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @param Throwable           $e      Exception thrown during initialization.
 	 * @param array<string,mixed> $config Configuration used when failure occurred.
@@ -135,7 +135,7 @@ class Trusted_Login_Manager {
 		/**
 		 * Fires when TrustedLogin initialization fails.
 		 *
-		 * @since TBD
+		 * @since 6.9.5
 		 *
 		 * @param Throwable           $e            Exception thrown.
 		 * @param array<string,mixed> $config       Configuration used during failure.

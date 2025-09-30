@@ -2,7 +2,7 @@
 /**
  * Template for the TrustedLogin integration.
  *
- * @since TBD
+ * @since 6.9.5
  *
  * @var string $template_variant The template variant, determining which template to display.
  */

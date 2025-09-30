@@ -5,7 +5,7 @@
  * Handles Help Hub tab registration and template overrides for TrustedLogin
  * functionality within the TEC Help Hub interface.
  *
- * @since TBD
+ * @since 6.9.5
  *
  * @package TEC\Common\TrustedLogin
  */
@@ -26,7 +26,7 @@ use Tribe__Template;
  * - Template override for TrustedLogin auth screen
  * - Template context and rendering
  *
- * @since TBD
+ * @since 6.9.5
  *
  * @package TEC\Common\TrustedLogin
  */
@@ -35,7 +35,7 @@ class Help_Hub_Integration {
 	/**
 	 * Cached template instance.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @var Tribe__Template|null
 	 */
@@ -44,7 +44,7 @@ class Help_Hub_Integration {
 	/**
 	 * Registers hooks for Help Hub integration.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return void
 	 */
@@ -58,7 +58,7 @@ class Help_Hub_Integration {
 	/**
 	 * Unregisters hooks for Help Hub integration.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return void
 	 */
@@ -75,7 +75,7 @@ class Help_Hub_Integration {
 	 * This tab loads the TrustedLogin view template, allowing users to
 	 * grant or revoke support access directly from the Help Hub.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @param Tab_Builder $builder The Help Hub Tab Builder instance.
 	 *
@@ -98,7 +98,7 @@ class Help_Hub_Integration {
 	 * Hook into the TrustedLogin template filter to replace the default
 	 * auth template with a custom one designed for the Help Hub interface.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return string The custom Help Hub template HTML.
 	 */
@@ -114,7 +114,7 @@ class Help_Hub_Integration {
 	 * We override it here so that users return to the Help Hub → Support Access tab
 	 * after granting or revoking access.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return void
 	 */
@@ -151,7 +151,7 @@ class Help_Hub_Integration {
 	 * to the WP Admin Dashboard. We intercept this and send them to the Help Hub
 	 * → Support Access tab instead for better UX.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return void
 	 */
@@ -179,7 +179,7 @@ class Help_Hub_Integration {
 	/**
 	 * Generates the Help Hub redirect URL for Support Access tab.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return string The complete Help Hub redirect URL.
 	 */
@@ -207,7 +207,7 @@ class Help_Hub_Integration {
 	 * Sets the template origin and folder to the common admin-views directory
 	 * so that we can load custom views for TrustedLogin screens.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return Tribe__Template Configured template instance.
 	 */

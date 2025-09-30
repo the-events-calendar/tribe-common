@@ -2,7 +2,7 @@
 /**
  * Test suite for TrustedLogin Manager.
  *
- * @since TBD
+ * @since 6.9.5
  *
  * @package TEC\Common\TrustedLogin
  */
@@ -14,7 +14,7 @@ use Codeception\TestCase\WPTestCase;
 /**
  * Test suite for the Trusted_Login_Manager class.
  *
- * @since TBD
+ * @since 6.9.5
  *
  * @package TEC\Common\TrustedLogin
  */

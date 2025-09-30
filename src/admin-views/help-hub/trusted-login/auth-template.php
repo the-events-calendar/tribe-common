@@ -20,7 +20,7 @@
  * - {{reference}}           Reference ID for support tracking.
  * - {{admin_debug}}         Debug information if enabled.
  *
- * @since TBD
+ * @since 6.9.5
  *
  * @see https://docs.trustedlogin.com/Client/customization
  *

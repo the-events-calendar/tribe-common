@@ -5,7 +5,7 @@
  * Provides integration for TrustedLogin within the TEC plugin architecture,
  * handling core initialization, URL management, and template overrides.
  *
- * @since TBD
+ * @since 6.9.5
  *
  * @package TEC\Common\TrustedLogin
  */
@@ -22,7 +22,7 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
  * This controller wraps the Trusted_Login_Manager class to integrate it into
  * the larger TEC plugin architecture using the shared container.
  *
- * @since TBD
+ * @since 6.9.5
  *
  * @package TEC\Common\TrustedLogin
  */
@@ -31,7 +31,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Registers all TrustedLogin components and their dependencies.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return void
 	 */
@@ -50,7 +50,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unregisters the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return void
 	 */
@@ -61,7 +61,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Initialize TrustedLogin via the Trusted_Login_Manager.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return void
 	 */
@@ -73,7 +73,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Initializes all TrustedLogin components and hooks.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return void
 	 */
@@ -85,7 +85,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unregisters all TrustedLogin components and hooks.
 	 *
-	 * @since TBD
+	 * @since 6.9.5
 	 *
 	 * @return void
 	 */
