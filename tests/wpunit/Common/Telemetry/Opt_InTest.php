@@ -55,6 +55,11 @@ class Opt_InTest extends \Codeception\TestCase\WPTestCase {
 		// Manually load the Onboarding Controller.
 		$controller = new Onboarding_Controller( tribe() );
 		$controller->do_register();
+
+		// Verify the filter is now registered.
+		if ( ! has_filter( 'tec_telemetry_should_show_modal' ) ) {
+			throw new \Exception( 'Failed to register tec_telemetry_should_show_modal filter' );
+		}
 	}
 
 	public function capture_http_request( $response, $parsed_args, $url ) {
@@ -249,10 +254,14 @@ class Opt_InTest extends \Codeception\TestCase\WPTestCase {
 			'completed_tabs' => [ 0, 1, 2 ],
 		] );
 
+		// Debug: Check if filter is registered and what onboarding data looks like.
+		$has_filter = has_filter( 'tec_telemetry_should_show_modal' );
+		$onboarding_data = get_option( 'tec_onboarding_wizard_data', [] );
+
 		// Test the modal status calculation.
 		$should_show = Common_Telemetry::calculate_modal_status();
 
-		$this->assertFalse( $should_show, 'Modal should not show when wizard is completed.' );
+		$this->assertFalse( $should_show, "Modal should not show when wizard is completed. Filter registered: " . ( $has_filter ? 'yes' : 'no' ) . ", Onboarding data: " . wp_json_encode( $onboarding_data ) );
 
 		// Clean up.
 		delete_option( 'tec_onboarding_wizard_data' );
