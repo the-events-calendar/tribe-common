@@ -10,7 +10,7 @@
  * @since 1.4.0
  * @since 6.9.5 Change a <span> to <i> for better accessibility.
  *
- * @version TBD
+ * @version 6.9.5
  *
  * @link    http://evnt.is/1aiy
  *
