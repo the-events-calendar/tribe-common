@@ -87,7 +87,7 @@ class Schema extends Table {
 				$columns = new Column_Collection();
 
 				$columns[] = ( new String_Column( 'cache_key' ) )->set_length( 191 );
-				$columns[] = ( new Text_Column( 'value' ) )->set_default( 'NULL' )->set_type( Column_Types::LONGTEXT );
+				$columns[] = ( new Text_Column( 'value' ) )->set_nullable( true )->set_type( Column_Types::LONGTEXT );
 				$columns[] = ( new Integer_Column( 'expiration' ) )->set_default( 0 )->set_signed( false )->set_length( 20 );
 
 				$indexes = new Index_Collection();
