@@ -9,7 +9,6 @@
  *
  * @since 1.4.0
  *
- * @version 6.9.5
  *
  * @link    http://evnt.is/1aiy
  *
