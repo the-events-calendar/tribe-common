@@ -8,9 +8,8 @@
  * See more documentation about our views templating system.
  *
  * @since 1.4.0
- * @since TBD Change a <span> to <i> for better accessibility.
  *
- * @version TBD
+ * @version 1.4.0
  *
  * @link    http://evnt.is/1aiy
  *
