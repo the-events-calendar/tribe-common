@@ -608,7 +608,7 @@ final class Telemetry {
 		 */
 		$onboarding_result = apply_filters( 'tec_telemetry_should_show_modal', null );
 		if ( $onboarding_result !== null ) {
-			return (bool) $onboarding_result;
+			return tribe_is_truthy( $onboarding_result );
 		}
 
 		// Check if they explicitly opted in through other means (like settings page).
