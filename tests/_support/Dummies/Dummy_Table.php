@@ -2,10 +2,17 @@
 
 namespace Tribe\Tests\Dummies;
 
-use TEC\Common\Abstracts\Custom_Table_Abstract;
-use TEC\Common\Contracts\Model as Model_Interface;
+use TEC\Common\StellarWP\Schema\Tables\Contracts\Table;
+use TEC\Common\StellarWP\Schema\Collections\Column_Collection;
+use TEC\Common\StellarWP\Schema\Columns\ID;
+use TEC\Common\StellarWP\Schema\Columns\String_Column;
+use TEC\Common\StellarWP\Schema\Columns\Text_Column;
+use TEC\Common\StellarWP\Schema\Columns\Integer_Column;
+use TEC\Common\StellarWP\Schema\Columns\Created_At;
+use TEC\Common\StellarWP\Schema\Columns\Updated_At;
+use TEC\Common\StellarWP\Schema\Tables\Table_Schema;
 
-class Dummy_Table extends Custom_Table_Abstract {
+class Dummy_Table extends Table {
 	const SCHEMA_VERSION = '0.0.1-test';
 
 	protected static $base_table_name = 'test_repository_table';
@@ -14,58 +21,27 @@ class Dummy_Table extends Custom_Table_Abstract {
 
 	protected static $schema_slug = 'test-repository';
 
-	protected static $uid_column = 'id';
+	public static function get_schema_history(): array {
+		$table_name = static::table_name( true );
 
-	public static function get_columns(): array {
 		return [
-			'id'          => [
-				'type'           => self::COLUMN_TYPE_BIGINT,
-				'length'         => 20,
-				'unsigned'       => true,
-				'auto_increment' => true,
-				'nullable'       => false,
-				'php_type'       => self::PHP_TYPE_INT,
-			],
-			'name'        => [
-				'type'     => self::COLUMN_TYPE_VARCHAR,
-				'length'   => 255,
-				'nullable' => false,
-				'php_type' => self::PHP_TYPE_STRING,
-			],
-			'description' => [
-				'type'     => self::COLUMN_TYPE_TEXT,
-				'nullable' => true,
-				'php_type' => self::PHP_TYPE_STRING,
-			],
-			'status'      => [
-				'type'     => self::COLUMN_TYPE_VARCHAR,
-				'length'   => 50,
-				'default'  => 'active',
-				'nullable' => true,
-				'php_type' => self::PHP_TYPE_STRING,
-			],
-			'value'       => [
-				'type'     => self::COLUMN_TYPE_BIGINT,
-				'length'   => 11,
-				'default'  => 0,
-				'nullable' => true,
-				'php_type' => self::PHP_TYPE_INT,
-			],
-			'created_at'  => [
-				'type'     => self::COLUMN_TYPE_TIMESTAMP,
-				'default'  => 'CURRENT_TIMESTAMP',
-				'nullable' => false,
-				'php_type' => self::PHP_TYPE_DATETIME,
-			],
-			'updated_at'  => [
-				'type'     => self::COLUMN_TYPE_TIMESTAMP,
-				'nullable' => true,
-				'php_type' => self::PHP_TYPE_DATETIME,
-			],
+			self::SCHEMA_VERSION => function () use ( $table_name ) {
+				$columns = new Column_Collection();
+
+				$columns[] = new ID( 'id' );
+				$columns[] = ( new String_Column( 'name' ) );
+				$columns[] = ( new Text_Column( 'description' ) )->set_nullable( true );
+				$columns[] = ( new String_Column( 'status' ) )->set_default( 'active' )->set_nullable( true );
+				$columns[] = ( new Integer_Column( 'value' ) );
+				$columns[] = new Created_At( 'created_at' );
+				$columns[] = new Updated_At( 'updated_at' );
+
+				return new Table_Schema( $table_name, $columns );
+			},
 		];
 	}
 
-	protected static function get_model_from_array( array $data ): Model_Interface {
+	public static function transform_from_array( array $data ) {
 		$model = new Dummy_Model();
 
 		// Populate model with data

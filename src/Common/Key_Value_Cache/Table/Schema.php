@@ -86,14 +86,11 @@ class Schema extends Table {
 			self::SCHEMA_VERSION => function () use ( $table_name ) {
 				$columns = new Column_Collection();
 
-				$columns[] = ( new String_Column( 'cache_key' ) )->set_length( 191 );
+				$columns[] = ( new String_Column( 'cache_key' ) )->set_length( 191 )->set_is_primary_key( true );
 				$columns[] = ( new Text_Column( 'value' ) )->set_nullable( true )->set_type( Column_Types::LONGTEXT );
 				$columns[] = ( new Integer_Column( 'expiration' ) )->set_default( 0 )->set_signed( false )->set_length( 20 );
 
-				$indexes = new Index_Collection();
-				$indexes[] = ( new Primary_Key( 'cache_key' ) )->set_columns( 'cache_key' );
-
-				return new Table_Schema( $table_name, $columns, $indexes );
+				return new Table_Schema( $table_name, $columns );
 			},
 		];
 	}

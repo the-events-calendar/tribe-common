@@ -965,7 +965,8 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @throws RuntimeException If a method does not exist on the model.
 	 */
 	public function create(): ?Model {
-		$model_class   = $this->get_model_class();
+		$model_class = $this->get_model_class();
+
 		/** @var Model $model */
 		$model         = new $model_class();
 		$relationships = $model->getRelationships();

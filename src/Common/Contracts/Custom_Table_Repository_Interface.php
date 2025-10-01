@@ -10,6 +10,7 @@
 declare( strict_types=1 );
 
 namespace TEC\Common\Contracts;
+
 use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
 
 /**

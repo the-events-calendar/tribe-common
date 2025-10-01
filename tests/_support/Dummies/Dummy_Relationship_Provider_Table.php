@@ -2,11 +2,13 @@
 
 namespace Tribe\Tests\Dummies;
 
-use TEC\Common\Abstracts\Custom_Table_Abstract;
-use TEC\Common\Contracts\Model as Model_Interface;
-use Exception;
+use TEC\Common\StellarWP\Schema\Tables\Contracts\Table;
+use TEC\Common\StellarWP\Schema\Collections\Column_Collection;
+use TEC\Common\StellarWP\Schema\Columns\ID;
+use TEC\Common\StellarWP\Schema\Columns\Referenced_ID;
+use TEC\Common\StellarWP\Schema\Tables\Table_Schema;
 
-class Dummy_Relationship_Provider_Table extends Custom_Table_Abstract {
+class Dummy_Relationship_Provider_Table extends Table {
 	const SCHEMA_VERSION = '0.0.1-test';
 
 	protected static $base_table_name = 'test_relationship_provider_table';
@@ -15,36 +17,22 @@ class Dummy_Relationship_Provider_Table extends Custom_Table_Abstract {
 
 	protected static $schema_slug = 'test-relationship-provider';
 
-	protected static $uid_column = 'id';
-
-	public static function get_columns(): array {
+	public static function get_schema_history(): array {
+		$table_name = static::table_name( true );
 		return [
-			'id'          => [
-				'type'           => self::COLUMN_TYPE_BIGINT,
-				'length'         => 20,
-				'unsigned'       => true,
-				'auto_increment' => true,
-				'nullable'       => false,
-				'php_type'       => self::PHP_TYPE_INT,
-			],
-			'dummy_id'           => [
-				'type'     => self::COLUMN_TYPE_BIGINT,
-				'php_type' => self::PHP_TYPE_INT,
-				'length'   => 20,
-				'nullable' => false,
-				'index'    => true,
-			],
-			'post_id'           => [
-				'type'     => self::COLUMN_TYPE_BIGINT,
-				'php_type' => self::PHP_TYPE_INT,
-				'length'   => 20,
-				'nullable' => false,
-				'index'    => true,
-			],
+			self::SCHEMA_VERSION => function () use ( $table_name ) {
+				$columns = new Column_Collection();
+
+				$columns[] = new ID( 'id' );
+				$columns[] = ( new Referenced_ID( 'dummy_id' ) )->set_nullable( false )->set_index( true );
+				$columns[] = ( new Referenced_ID( 'post_id' ) )->set_nullable( false )->set_index( true );
+
+				return new Table_Schema( $table_name, new Column_Collection() );
+			},
 		];
 	}
 
-	protected static function get_model_from_array( array $data ): Model_Interface {
-		throw new Exception( 'Not implemented' );
+	public static function transform_from_array( array $data ) {
+		return $data;
 	}
 };

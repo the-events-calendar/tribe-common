@@ -3,13 +3,13 @@
 namespace Tribe\Tests\Testcases\Common\Abstracts;
 
 use lucatume\WPBrowser\TestCase\WPTestCase;
-use TEC\Common\Contracts\Model as Model_Interface;
+use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model_Interface;
 use TEC\Common\StellarWP\Schema\Register;
 use DateTime;
 use Exception;
 use TEC\Common\StellarWP\DB\DB;
-use TEC\Common\Abstracts\Custom_Table_Abstract;
 use TEC\Common\Abstracts\Custom_Table_Repository;
+use TEC\Common\StellarWP\Schema\Columns\PHP_Types;
 
 abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	/**
@@ -97,19 +97,19 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 			}
 
 			switch ( $column_data['php_type'] ) {
-				case Custom_Table_Abstract::PHP_TYPE_INT:
+				case PHP_Types::INT:
 					$create_data[ $column ] = 7;
 					break;
-				case Custom_Table_Abstract::PHP_TYPE_STRING:
+				case PHP_Types::STRING:
 					$create_data[ $column ] = 'test String';
 					break;
-				case Custom_Table_Abstract::PHP_TYPE_FLOAT:
+				case PHP_Types::FLOAT:
 					$create_data[ $column ] = 7.0;
 					break;
-				case Custom_Table_Abstract::PHP_TYPE_BOOL:
+				case PHP_Types::BOOL:
 					$create_data[ $column ] = true;
 					break;
-				case Custom_Table_Abstract::PHP_TYPE_DATETIME:
+				case PHP_Types::DATETIME:
 					$create_data[ $column ] = new DateTime( '2024-06-13 17:26:00' );
 					break;
 				default:
@@ -367,7 +367,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		$columns = $this->test_table_class::get_columns();
 		$numeric_column = null;
 		foreach ( $columns as $column => $data ) {
-			if ( $column !== $this->test_table_class::uid_column() && $data['php_type'] === Custom_Table_Abstract::PHP_TYPE_INT ) {
+			if ( $column !== $this->test_table_class::uid_column() && $data['php_type'] === PHP_Types::INT ) {
 				$numeric_column = $column;
 				break;
 			}
@@ -406,7 +406,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		$columns = $this->test_table_class::get_columns();
 		$string_column = null;
 		foreach ( $columns as $column => $data ) {
-			if ( $column !== $this->test_table_class::uid_column() && $data['php_type'] === Custom_Table_Abstract::PHP_TYPE_STRING ) {
+			if ( $column !== $this->test_table_class::uid_column() && $data['php_type'] === PHP_Types::STRING ) {
 				$string_column = $column;
 				break;
 			}
@@ -445,7 +445,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		$columns = $this->test_table_class::get_columns();
 		$datetime_column = null;
 		foreach ( $columns as $column => $data ) {
-			if ( $column !== $this->test_table_class::uid_column() && $data['php_type'] === Custom_Table_Abstract::PHP_TYPE_DATETIME ) {
+			if ( $column !== $this->test_table_class::uid_column() && $data['php_type'] === PHP_Types::DATETIME ) {
 				$datetime_column = $column;
 				break;
 			}
@@ -614,10 +614,10 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 			// Create a non-existent value based on type
 			$non_existent_value = null;
 			switch ( $data['php_type'] ) {
-				case Custom_Table_Abstract::PHP_TYPE_STRING:
+				case PHP_Types::STRING:
 					$non_existent_value = 'NonExistent_' . wp_generate_uuid4();
 					break;
-				case Custom_Table_Abstract::PHP_TYPE_INT:
+				case PHP_Types::INT:
 					$non_existent_value = 999999999;
 					break;
 			}
@@ -643,10 +643,10 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 			// Create a non-existent value based on type
 			$non_existent_value = null;
 			switch ( $data['php_type'] ) {
-				case Custom_Table_Abstract::PHP_TYPE_STRING:
+				case PHP_Types::STRING:
 					$non_existent_value = 'NonExistent_' . wp_generate_uuid4();
 					break;
-				case Custom_Table_Abstract::PHP_TYPE_INT:
+				case PHP_Types::INT:
 					$non_existent_value = 999999999;
 					break;
 			}
@@ -667,7 +667,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		$columns = $this->test_table_class::get_columns();
 		$string_columns = [];
 		foreach ( $columns as $column => $data ) {
-			if ( $data['php_type'] === Custom_Table_Abstract::PHP_TYPE_STRING && $column !== $this->test_table_class::uid_column() ) {
+			if ( $data['php_type'] === PHP_Types::STRING && $column !== $this->test_table_class::uid_column() ) {
 				$string_columns[] = $column;
 			}
 		}
@@ -713,10 +713,10 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 			if ( $column === $this->test_table_class::uid_column() ) {
 				continue;
 			}
-			if ( ! $numeric_column && $data['php_type'] === Custom_Table_Abstract::PHP_TYPE_INT ) {
+			if ( ! $numeric_column && $data['php_type'] === PHP_Types::INT ) {
 				$numeric_column = $column;
 			}
-			if ( ! $string_column && $data['php_type'] === Custom_Table_Abstract::PHP_TYPE_STRING ) {
+			if ( ! $string_column && $data['php_type'] === PHP_Types::STRING ) {
 				$string_column = $column;
 			}
 		}
@@ -798,10 +798,10 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 			if ( $column === $this->test_table_class::uid_column() ) {
 				continue;
 			}
-			if ( ! $numeric_column && $data['php_type'] === Custom_Table_Abstract::PHP_TYPE_INT ) {
+			if ( ! $numeric_column && $data['php_type'] === PHP_Types::INT ) {
 				$numeric_column = $column;
 			}
-			if ( ! $string_column && $data['php_type'] === Custom_Table_Abstract::PHP_TYPE_STRING ) {
+			if ( ! $string_column && $data['php_type'] === PHP_Types::STRING ) {
 				$string_column = $column;
 			}
 		}
@@ -875,10 +875,10 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 			if ( $column === $this->test_table_class::uid_column() ) {
 				continue;
 			}
-			if ( ! $numeric_column && $data['php_type'] === Custom_Table_Abstract::PHP_TYPE_INT ) {
+			if ( ! $numeric_column && $data['php_type'] === PHP_Types::INT ) {
 				$numeric_column = $column;
 			}
-			if ( ! $string_column && $data['php_type'] === Custom_Table_Abstract::PHP_TYPE_STRING ) {
+			if ( ! $string_column && $data['php_type'] === PHP_Types::STRING ) {
 				$string_column = $column;
 			}
 		}
@@ -1260,7 +1260,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		$string_column = null;
 		foreach ( $columns as $column => $data ) {
 			if ( $column !== $this->test_table_class::uid_column() &&
-				 $data['php_type'] === Custom_Table_Abstract::PHP_TYPE_STRING ) {
+				 $data['php_type'] === PHP_Types::STRING ) {
 				$string_column = $column;
 				break;
 			}
@@ -1423,7 +1423,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		$numeric_column = null;
 		foreach ( $columns as $column => $data ) {
 			if ( $column !== $this->test_table_class::uid_column() &&
-				 $data['php_type'] === Custom_Table_Abstract::PHP_TYPE_INT ) {
+				 $data['php_type'] === PHP_Types::INT ) {
 				$numeric_column = $column;
 				break;
 			}

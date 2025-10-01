@@ -9,8 +9,6 @@
 
 namespace TEC\Common\Abstracts;
 
-use Tribe\Tests\Dummies\Dummy_Model;
-use Tribe\Tests\Dummies\Dummy_Table;
 use Tribe\Tests\Dummies\Dummy_Custom_Table_Repository;
 use Tribe\Tests\Testcases\Common\Abstracts\Abstract_Custom_Table_Repository_Testcase;
 
