@@ -15,8 +15,6 @@ use TEC\Common\StellarWP\Schema\Columns\String_Column;
 use TEC\Common\StellarWP\Schema\Columns\Integer_Column;
 use TEC\Common\StellarWP\Schema\Columns\Text_Column;
 use TEC\Common\StellarWP\Schema\Tables\Contracts\Table;
-use TEC\Common\StellarWP\Schema\Collections\Index_Collection;
-use TEC\Common\StellarWP\Schema\Indexes\Primary_Key;
 use TEC\Common\StellarWP\Schema\Tables\Table_Schema;
 
 /**
