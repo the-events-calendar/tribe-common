@@ -139,6 +139,7 @@ class Notifications_Test extends WPTestCase {
 	 * @test
 	 */
 	public function it_should_return_false_for_opt_out() {
+		tribe_update_option( $this->optin_key, false );
 		$optin = Conditionals::get_opt_in();
 		$this->assertFalse( $optin, 'Opt-in check should be false' );
 	}
@@ -238,6 +239,7 @@ class Notifications_Test extends WPTestCase {
 	 */
 	public function it_should_optin_with_ajax() {
 		$this->ajax_setup();
+		tribe_update_option( $this->optin_key, false );
 
 		$optin = tribe_is_truthy( tribe_get_option( 'ian-notifications-opt-in' ) );
 		$this->assertFalse( $optin, 'User has not accepted notifications yet' );
