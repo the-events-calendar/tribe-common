@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 6.9.4\n"
+"Project-Id-Version: Tribe Common 6.9.5\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-22T17:32:54+00:00\n"
+"POT-Creation-Date: 2025-09-30T15:40:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: tribe-common\n"
@@ -28,6 +28,7 @@ msgstr ""
 #: tribe-common.php
 #: src/admin-views/help-calendar.php:105
 #: src/Common/REST/TEC/V1/Documentation.php:121
+#: src/Common/TrustedLogin/Trusted_Login_Config.php:319
 #: src/Tribe/Admin/Help_Page.php:171
 #: src/Tribe/Customizer.php:666
 #: src/Tribe/Plugins_API.php:25
@@ -154,7 +155,7 @@ msgstr ""
 msgid "$25 towards any Stellar product using code <u>%s</u>"
 msgstr ""
 
-#: src/admin-views/components/integration/add-connection.php:21
+#: src/admin-views/components/integration/add-connection.php:19
 msgctxt "Label to add an integration connection fields."
 msgid "Add Connection"
 msgstr ""
@@ -1815,51 +1816,51 @@ msgstr ""
 msgid "Help Hub"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:250
+#: src/Common/Admin/Help_Hub/Hub.php:252
 msgid "Support Hub"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:259
+#: src/Common/Admin/Help_Hub/Hub.php:261
 msgid "Resources"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:429
+#: src/Common/Admin/Help_Hub/Hub.php:449
 #: src/Tribe/Admin/Help_Page.php:144
 msgctxt "Copy to clipboard button text."
 msgid "Copy to clipboard"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:430
+#: src/Common/Admin/Help_Hub/Hub.php:450
 #: src/Tribe/Admin/Help_Page.php:145
 msgctxt "Copy to clipboard success message"
 msgid "System info copied"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:431
+#: src/Common/Admin/Help_Hub/Hub.php:451
 #: src/Tribe/Admin/Help_Page.php:146
 msgctxt "Copy to clipboard instructions"
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:432
+#: src/Common/Admin/Help_Hub/Hub.php:452
 #: src/Tribe/Admin/Help_Page.php:147
 msgctxt "Default error message for system info optin"
 msgid "Something has gone wrong!"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:433
+#: src/Common/Admin/Help_Hub/Hub.php:453
 #: src/Tribe/Admin/Help_Page.php:148
 msgctxt "Error code label for system info optin"
 msgid "Code:"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:434
+#: src/Common/Admin/Help_Hub/Hub.php:454
 #: src/Tribe/Admin/Help_Page.php:149
 msgctxt "Error status label for system info optin"
 msgid "Status:"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:588
+#: src/Common/Admin/Help_Hub/Hub.php:608
 msgid "Failed to load Help Scout Beacon script."
 msgstr ""
 
@@ -3291,6 +3292,10 @@ msgstr ""
 
 #: src/Common/Telemetry/Telemetry.php:387
 msgid "Other"
+msgstr ""
+
+#: src/Common/TrustedLogin/Help_Hub_Integration.php:87
+msgid "Support Access"
 msgstr ""
 
 #: src/functions/template-tags/html.php:145

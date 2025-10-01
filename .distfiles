@@ -47,6 +47,8 @@
 /vendor/vendor-prefixed/autoload-classmap.php
 /vendor/vendor-prefixed/autoload.php
 /vendor/vendor-prefixed/stellarwp/**/*
+/vendor/vendor-prefixed/trustedlogin/client/src/assets
+/vendor/vendor-prefixed/trustedlogin/client/src/assets/*
 /vendor/woocommerce/action-scheduler/**/*.php
 /node_modules/php-date-formatter/js/php-date-formatter.js
 /node_modules/php-date-formatter/js/php-date-formatter.min.js

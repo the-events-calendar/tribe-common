@@ -8,11 +8,8 @@
  * See more documentation about our views templating system.
  *
  * @since 1.4.0
- * @since TBD Change a <span> to <i> for better accessibility.
  *
- * @version TBD
- *
- * @link    http://evnt.is/1aiy
+ * @link http://evnt.is/1aiy
  *
  * @var Api $api An instance of the Integration  API handler.
  * @var Url $url An instance of the URL handler.
