@@ -10,7 +10,7 @@ class Dummy_Model extends SchemaModel {
 
 	protected function constructRelationships(): void {
 		$this->defineRelationship( 'posts', Relationship::MANY_TO_MANY, Dummy_Relationship_Provider_Table::class );
-		$this->defineRelationshipColumn( 'posts', 'dummy_id', 'post_id' );
+		$this->defineRelationshipColumns( 'posts', 'dummy_id', 'post_id' );
 	}
 
 	public static function getTableInterface(): Table_Interface {
