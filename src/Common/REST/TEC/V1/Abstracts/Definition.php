@@ -13,7 +13,7 @@ namespace TEC\Common\REST\TEC\V1\Abstracts;
 
 use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
 use TEC\Common\REST\TEC\V1\Collections\PropertiesCollection;
-use TEC\Common\REST\TEC\V1\Contracts\Parameter_Interface as Parameter;
+use TEC\Common\REST\TEC\V1\Contracts\Parameter;
 use RuntimeException;
 
 /**
