@@ -25,13 +25,11 @@ class Conditionals {
 	 * Get the current user status based on Telemetry and IAN opt-in.
 	 *
 	 * @since 6.4.0
+	 * @since TBD Remove normalize_optin_status call since it was setting the option to true/false even if it has not yet been set.
 	 *
 	 * @return bool
 	 */
 	public static function get_opt_in(): bool {
-		// Trigger this before we try use the Telemetry value.
-		tribe( Common_Telemetry::class )->normalize_optin_status();
-
 		// We don't care what the value stored in tribe_options is - give us Telemetry's Opt_In\Status value.
 		$status    = Config::get_container()->get( Status::class );
 		$telemetry = $status->get() === $status::STATUS_ACTIVE;
