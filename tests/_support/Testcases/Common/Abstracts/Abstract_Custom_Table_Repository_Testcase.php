@@ -37,7 +37,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		parent::__construct();
 		$model_class = tribe( $this->test_repository_class )->get_model_class();
 		$this->test_model_class = $model_class;
-		$this->test_table_class = get_class( tribe( $model_class )->get_table_interface() );
+		$this->test_table_class = get_class( tribe( $model_class )->getTableInterface() );
 	}
 
 	/**
@@ -46,7 +46,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	public function prepare(): void {
 		Register::table( $this->test_table_class );
 
-		$relationships = tribe( $this->test_model_class )->get_relationships();
+		$relationships = tribe( $this->test_model_class )->getRelationships();
 		foreach ( $relationships as $relationship ) {
 			Register::table( $relationship['through'] );
 		}
@@ -58,7 +58,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	public function reset(): void {
 		Register::remove_table( tribe( $this->test_table_class ) );
 
-		$relationships = tribe( $this->test_model_class )->get_relationships();
+		$relationships = tribe( $this->test_model_class )->getRelationships();
 		foreach ( $relationships as $relationship ) {
 			Register::remove_table( tribe( $relationship['through'] ) );
 		}
@@ -83,37 +83,38 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 
 		$create_data = [];
 
-		foreach ( $columns as $column => $column_data ) {
-			if ( $column === $this->test_table_class::uid_column() ) {
+		/** @var Column $column */
+		foreach ( $columns as $column ) {
+			if ( $column->is_primary_key() ) {
 				continue;
 			}
 
-			if ( ! empty( $column_data['default'] ) ) {
-				$create_data[ $column ] = $column_data['default'];
+			if ( $column->get_default() ) {
+				$create_data[ $column->get_name() ] = $column->get_default();
 			}
 
-			if ( ! empty( $column_data['nullable'] ) ) {
+			if ( $column->get_nullable() ) {
 				continue;
 			}
 
-			switch ( $column_data['php_type'] ) {
+			switch ( $column->get_php_type() ) {
 				case PHP_Types::INT:
-					$create_data[ $column ] = 7;
+					$create_data[ $column->get_name() ] = 7;
 					break;
 				case PHP_Types::STRING:
-					$create_data[ $column ] = 'test String';
+					$create_data[ $column->get_name() ] = 'test String';
 					break;
 				case PHP_Types::FLOAT:
-					$create_data[ $column ] = 7.0;
+					$create_data[ $column->get_name() ] = 7.0;
 					break;
 				case PHP_Types::BOOL:
-					$create_data[ $column ] = true;
+					$create_data[ $column->get_name() ] = true;
 					break;
 				case PHP_Types::DATETIME:
-					$create_data[ $column ] = new DateTime( '2024-06-13 17:26:00' );
+					$create_data[ $column->get_name() ] = new DateTime( '2024-06-13 17:26:00' );
 					break;
 				default:
-					throw new Exception( 'Invalid PHP type: ' . $column_data['php_type'] );
+					throw new Exception( 'Invalid PHP type: ' . $column->get_php_type() );
 			}
 		}
 
@@ -366,9 +367,9 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		// Get a numeric column to test ordering
 		$columns = $this->test_table_class::get_columns();
 		$numeric_column = null;
-		foreach ( $columns as $column => $data ) {
-			if ( $column !== $this->test_table_class::uid_column() && $data['php_type'] === PHP_Types::INT ) {
-				$numeric_column = $column;
+		foreach ( $columns as $column ) {
+			if ( $column->get_name() !== $this->test_table_class::uid_column() && $column->get_php_type() === PHP_Types::INT ) {
+				$numeric_column = $column->get_name();
 				break;
 			}
 		}
@@ -405,9 +406,9 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		// Get a string column to test ordering
 		$columns = $this->test_table_class::get_columns();
 		$string_column = null;
-		foreach ( $columns as $column => $data ) {
-			if ( $column !== $this->test_table_class::uid_column() && $data['php_type'] === PHP_Types::STRING ) {
-				$string_column = $column;
+		foreach ( $columns as $column ) {
+			if ( $column->get_name() !== $this->test_table_class::uid_column() && $column->get_php_type() === PHP_Types::STRING ) {
+				$string_column = $column->get_name();
 				break;
 			}
 		}
@@ -444,9 +445,9 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		// Get a datetime column to test ordering
 		$columns = $this->test_table_class::get_columns();
 		$datetime_column = null;
-		foreach ( $columns as $column => $data ) {
-			if ( $column !== $this->test_table_class::uid_column() && $data['php_type'] === PHP_Types::DATETIME ) {
-				$datetime_column = $column;
+		foreach ( $columns as $column ) {
+			if ( $column->get_name() !== $this->test_table_class::uid_column() && $column->get_php_type() === PHP_Types::DATETIME ) {
+				$datetime_column = $column->get_name();
 				break;
 			}
 		}
@@ -606,14 +607,14 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 
 		// Test with non-existent value
 		$columns = $this->test_table_class::get_columns();
-		foreach ( $columns as $column => $data ) {
-			if ( $column === $this->test_table_class::uid_column() ) {
+		foreach ( $columns as $column ) {
+			if ( $column->get_name() === $this->test_table_class::uid_column() ) {
 				continue;
 			}
 
 			// Create a non-existent value based on type
 			$non_existent_value = null;
-			switch ( $data['php_type'] ) {
+			switch ( $column->get_php_type() ) {
 				case PHP_Types::STRING:
 					$non_existent_value = 'NonExistent_' . wp_generate_uuid4();
 					break;
@@ -623,8 +624,8 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 			}
 
 			if ( $non_existent_value !== null ) {
-				$model = $repo->by( $column, $non_existent_value )->first();
-				$this->assertNull( $model, "Expected null for non-existent {$column} value" );
+				$model = $repo->by( $column->get_name(), $non_existent_value )->first();
+				$this->assertNull( $model, "Expected null for non-existent {$column->get_name()} value" );
 				break;
 			}
 		}
@@ -635,14 +636,14 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 
 		// Test with non-existent value
 		$columns = $this->test_table_class::get_columns();
-		foreach ( $columns as $column => $data ) {
-			if ( $column === $this->test_table_class::uid_column() ) {
+		foreach ( $columns as $column ) {
+			if ( $column->get_name() === $this->test_table_class::uid_column() ) {
 				continue;
 			}
 
 			// Create a non-existent value based on type
 			$non_existent_value = null;
-			switch ( $data['php_type'] ) {
+			switch ( $column->get_php_type() ) {
 				case PHP_Types::STRING:
 					$non_existent_value = 'NonExistent_' . wp_generate_uuid4();
 					break;
@@ -652,9 +653,9 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 			}
 
 			if ( $non_existent_value !== null ) {
-				$models = $repo->by( $column, $non_existent_value )->all();
+				$models = $repo->by( $column->get_name(), $non_existent_value )->all();
 				$this->assertIsArray( $models );
-				$this->assertEmpty( $models, "Expected empty array for non-existent {$column} value" );
+				$this->assertEmpty( $models, "Expected empty array for non-existent {$column->get_name()} value" );
 				break;
 			}
 		}
@@ -666,9 +667,9 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		// Modify some data to create patterns for testing
 		$columns = $this->test_table_class::get_columns();
 		$string_columns = [];
-		foreach ( $columns as $column => $data ) {
-			if ( $data['php_type'] === PHP_Types::STRING && $column !== $this->test_table_class::uid_column() ) {
-				$string_columns[] = $column;
+		foreach ( $columns as $column ) {
+			if ( $column->get_php_type() === PHP_Types::STRING && $column->get_name() !== $this->test_table_class::uid_column() ) {
+				$string_columns[] = $column->get_name();
 			}
 		}
 
@@ -709,15 +710,15 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		$columns = $this->test_table_class::get_columns();
 		$numeric_column = null;
 		$string_column = null;
-		foreach ( $columns as $column => $data ) {
-			if ( $column === $this->test_table_class::uid_column() ) {
+		foreach ( $columns as $column ) {
+			if ( $column->get_name() === $this->test_table_class::uid_column() ) {
 				continue;
 			}
-			if ( ! $numeric_column && $data['php_type'] === PHP_Types::INT ) {
-				$numeric_column = $column;
+			if ( ! $numeric_column && $column->get_php_type() === PHP_Types::INT ) {
+				$numeric_column = $column->get_name();
 			}
-			if ( ! $string_column && $data['php_type'] === PHP_Types::STRING ) {
-				$string_column = $column;
+			if ( ! $string_column && $column->get_php_type() === PHP_Types::STRING ) {
+				$string_column = $column->get_name();
 			}
 		}
 
@@ -794,15 +795,15 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		$columns = $this->test_table_class::get_columns();
 		$numeric_column = null;
 		$string_column = null;
-		foreach ( $columns as $column => $data ) {
-			if ( $column === $this->test_table_class::uid_column() ) {
+		foreach ( $columns as $column ) {
+			if ( $column->get_name() === $this->test_table_class::uid_column() ) {
 				continue;
 			}
-			if ( ! $numeric_column && $data['php_type'] === PHP_Types::INT ) {
-				$numeric_column = $column;
+			if ( ! $numeric_column && $column->get_php_type() === PHP_Types::INT ) {
+				$numeric_column = $column->get_name();
 			}
-			if ( ! $string_column && $data['php_type'] === PHP_Types::STRING ) {
-				$string_column = $column;
+			if ( ! $string_column && $column->get_php_type() === PHP_Types::STRING ) {
+				$string_column = $column->get_name();
 			}
 		}
 
@@ -871,15 +872,15 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		$columns = $this->test_table_class::get_columns();
 		$numeric_column = null;
 		$string_column = null;
-		foreach ( $columns as $column => $data ) {
-			if ( $column === $this->test_table_class::uid_column() ) {
+		foreach ( $columns as $column ) {
+			if ( $column->get_name() === $this->test_table_class::uid_column() ) {
 				continue;
 			}
-			if ( ! $numeric_column && $data['php_type'] === PHP_Types::INT ) {
-				$numeric_column = $column;
+			if ( ! $numeric_column && $column->get_php_type() === PHP_Types::INT ) {
+				$numeric_column = $column->get_name();
 			}
-			if ( ! $string_column && $data['php_type'] === PHP_Types::STRING ) {
-				$string_column = $column;
+			if ( ! $string_column && $column->get_php_type() === PHP_Types::STRING ) {
+				$string_column = $column->get_name();
 			}
 		}
 
@@ -941,7 +942,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	}
 
 	public function test_create_update_delete_with_relationship() {
-		$relationship = tribe( $this->test_model_class )->get_relationships();
+		$relationship = tribe( $this->test_model_class )->getRelationships();
 
 		if ( empty( $relationship ) ) {
 			return;
@@ -1026,7 +1027,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	}
 
 	public function test_relationship_with_in_operator() {
-		$relationships = tribe( $this->test_model_class )->get_relationships();
+		$relationships = tribe( $this->test_model_class )->getRelationships();
 
 		if ( empty( $relationships ) ) {
 			$this->markTestSkipped( 'No relationships defined for this model' );
@@ -1100,7 +1101,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	}
 
 	public function test_relationship_with_not_in_operator() {
-		$relationships = tribe( $this->test_model_class )->get_relationships();
+		$relationships = tribe( $this->test_model_class )->getRelationships();
 
 		if ( empty( $relationships ) ) {
 			$this->markTestSkipped( 'No relationships defined for this model' );
@@ -1170,7 +1171,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	}
 
 	public function test_relationship_with_eq_operator() {
-		$relationships = tribe( $this->test_model_class )->get_relationships();
+		$relationships = tribe( $this->test_model_class )->getRelationships();
 
 		if ( empty( $relationships ) ) {
 			$this->markTestSkipped( 'No relationships defined for this model' );
@@ -1249,7 +1250,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	}
 
 	public function test_combining_relationship_and_field_operators() {
-		$relationships = tribe( $this->test_model_class )->get_relationships();
+		$relationships = tribe( $this->test_model_class )->getRelationships();
 
 		if ( empty( $relationships ) ) {
 			$this->markTestSkipped( 'No relationships defined for this model' );
@@ -1258,10 +1259,10 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		// Find a string column for additional filtering
 		$columns = $this->test_table_class::get_columns();
 		$string_column = null;
-		foreach ( $columns as $column => $data ) {
-			if ( $column !== $this->test_table_class::uid_column() &&
-				 $data['php_type'] === PHP_Types::STRING ) {
-				$string_column = $column;
+		foreach ( $columns as $column ) {
+			if ( $column->get_name() !== $this->test_table_class::uid_column() &&
+				 $column->get_php_type() === PHP_Types::STRING ) {
+				$string_column = $column->get_name();
 				break;
 			}
 		}
@@ -1347,7 +1348,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	}
 
 	public function test_relationship_queries_with_pagination() {
-		$relationships = tribe( $this->test_model_class )->get_relationships();
+		$relationships = tribe( $this->test_model_class )->getRelationships();
 
 		if ( empty( $relationships ) ) {
 			$this->markTestSkipped( 'No relationships defined for this model' );
@@ -1412,7 +1413,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	}
 
 	public function test_relationship_queries_with_ordering() {
-		$relationships = tribe( $this->test_model_class )->get_relationships();
+		$relationships = tribe( $this->test_model_class )->getRelationships();
 
 		if ( empty( $relationships ) ) {
 			$this->markTestSkipped( 'No relationships defined for this model' );
@@ -1421,10 +1422,10 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		// Find a numeric column for ordering
 		$columns = $this->test_table_class::get_columns();
 		$numeric_column = null;
-		foreach ( $columns as $column => $data ) {
-			if ( $column !== $this->test_table_class::uid_column() &&
-				 $data['php_type'] === PHP_Types::INT ) {
-				$numeric_column = $column;
+		foreach ( $columns as $column ) {
+			if ( $column->get_name() !== $this->test_table_class::uid_column() &&
+				$column->get_php_type() === PHP_Types::INT ) {
+				$numeric_column = $column->get_name();
 				break;
 			}
 		}
@@ -1490,7 +1491,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	}
 
 	public function test_relationship_queries_with_count() {
-		$relationships = tribe( $this->test_model_class )->get_relationships();
+		$relationships = tribe( $this->test_model_class )->getRelationships();
 
 		if ( empty( $relationships ) ) {
 			$this->markTestSkipped( 'No relationships defined for this model' );
@@ -1560,7 +1561,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	}
 
 	public function test_relationship_queries_get_ids() {
-		$relationships = tribe( $this->test_model_class )->get_relationships();
+		$relationships = tribe( $this->test_model_class )->getRelationships();
 
 		if ( empty( $relationships ) ) {
 			$this->markTestSkipped( 'No relationships defined for this model' );

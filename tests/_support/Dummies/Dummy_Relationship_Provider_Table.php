@@ -24,10 +24,10 @@ class Dummy_Relationship_Provider_Table extends Table {
 				$columns = new Column_Collection();
 
 				$columns[] = new ID( 'id' );
-				$columns[] = ( new Referenced_ID( 'dummy_id' ) )->set_nullable( false )->set_index( true );
-				$columns[] = ( new Referenced_ID( 'post_id' ) )->set_nullable( false )->set_index( true );
+				$columns[] = new Referenced_ID( 'dummy_id' );
+				$columns[] = new Referenced_ID( 'post_id' );
 
-				return new Table_Schema( $table_name, new Column_Collection() );
+				return new Table_Schema( $table_name, $columns );
 			},
 		];
 	}

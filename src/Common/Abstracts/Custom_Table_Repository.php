@@ -936,14 +936,10 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 
 					$method = 'set_' . $property;
 
-					if ( ! method_exists( $model, $method ) && ! isset( $relationships[ $key ] ) ) {
-						throw new RuntimeException( "Method {$method} does not exist on the model." );
-					}
-
 					$model->$method( $value );
 				}
 
-				$all[ $model->get_id() ] = $model->save();
+				$all[ $model->getPrimaryValue() ] = $model->save();
 			}
 
 			$this->select_args = [];
@@ -962,7 +958,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @return ?Model The created model.
 	 *
-	 * @throws RuntimeException If a method does not exist on the model.
+	 * @throws RuntimeException If a relationship is not an array of integers or an integer.
 	 */
 	public function create(): ?Model {
 		$model_class = $this->get_model_class();
@@ -973,10 +969,6 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 		foreach ( $this->get_create_args() as $key => $value ) {
 			$property = $this->get_property_name( $key );
 			$method   = 'set_' . $property;
-
-			if ( ! method_exists( $model, $method ) && ! isset( $relationships[ $key ] ) ) {
-				throw new RuntimeException( "Method {$method} does not exist on the model." );
-			}
 
 			if ( isset( $relationships[ $key ] ) ) {
 				if ( is_array( $value ) ) {

@@ -34,7 +34,6 @@ class Dummy_Table extends Table {
 				$columns[] = ( new String_Column( 'status' ) )->set_default( 'active' )->set_nullable( true );
 				$columns[] = ( new Integer_Column( 'value' ) );
 				$columns[] = new Created_At( 'created_at' );
-				$columns[] = new Updated_At( 'updated_at' );
 
 				return new Table_Schema( $table_name, $columns );
 			},
