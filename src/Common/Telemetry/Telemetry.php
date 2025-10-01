@@ -608,7 +608,7 @@ final class Telemetry {
 		 */
 		$onboarding_result = apply_filters( 'tec_telemetry_should_show_modal', null );
 		if ( $onboarding_result !== null ) {
-			return $onboarding_result;
+			return (bool) $onboarding_result;
 		}
 
 		// Check if they explicitly opted in through other means (like settings page).
