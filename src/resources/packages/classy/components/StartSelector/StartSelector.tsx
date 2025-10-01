@@ -15,7 +15,7 @@ const defaultTitle = _x( 'Start Date', 'Event start date selection input title',
  *
  * @since TBD
  *
- * @param {StartSelectorProps} props The properties for the StartSelector component.
+ * @param {DateSelectorProps} props The properties for the StartSelector component.
  * @return {React.JSX.Element} The rendered StartSelector component.
  */
 export default function StartSelector( props: DateSelectorProps ): React.JSX.Element {
