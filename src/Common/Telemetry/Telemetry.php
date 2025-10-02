@@ -597,7 +597,7 @@ final class Telemetry {
 	 * Calculate the optin status for the TEC plugins from various sources.
 	 *
 	 * @since 5.1.1.1
-	 * @since TBD Change bail check to check if anything has been set, not just if the value istruthy.
+	 * @since TBD Change option check to prevent false negatives when the option is `false` (user has opted out).
 	 *
 	 * @return bool $show If the modal should show
 	 */
