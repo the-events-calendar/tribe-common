@@ -930,7 +930,6 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 		$callback = function () {
 			$all = [];
 			foreach ( $this->all( true ) as $model ) {
-				$relationships = $model->getRelationships();
 				foreach ( $this->upsert_args as $key => $value ) {
 					$property = $this->get_property_name( $key );
 
