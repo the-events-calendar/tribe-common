@@ -41,7 +41,7 @@
     "stellarwp/telemetry": "^2.3.4",
     "stellarwp/uplink": "2.2.2",
     "stellarwp/schema-models": "dev-feat/repo-set-up",
-    "stellarwp/shepherd": "dev-feat/update-schema-to-v3"
+    "stellarwp/shepherd": "^0.0.8"
   },
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
