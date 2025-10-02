@@ -4,7 +4,7 @@ namespace Tribe\Tests\Dummies;
 
 use TEC\Common\StellarWP\SchemaModels\SchemaModel;
 use TEC\Common\StellarWP\Models\ValueObjects\Relationship;
-use TEC\Common\StellarWP\Schema\Tables\Contracts\Table_Interface;
+use TEC\Common\StellarWP\Schema\Tables\Contracts\Table as Table_Interface;
 
 class Dummy_Model extends SchemaModel {
 
