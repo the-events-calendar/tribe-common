@@ -543,7 +543,7 @@ final class Telemetry {
 	/**
 	 * This ensures all our entries are the same.
 	 * Note - this immediately sets the option to true/false even if it has not yet been set.
-	 * DO NOT use this to check the value, use either  `calculate_optin_status`.
+	 * DO NOT use this to check the value, use `calculate_optin_status` instead.
 	 *
 	 * @since 5.1.8.1
 	 */
@@ -565,6 +565,7 @@ final class Telemetry {
 
 	/**
 	 * Calculate the optin status for the TEC plugins from various sources.
+	 * Note: if a null value is returned it will be converted to false.
 	 *
 	 * @since 6.1.0
 	 *

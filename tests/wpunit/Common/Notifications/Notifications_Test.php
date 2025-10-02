@@ -21,13 +21,15 @@ class Notifications_Test extends WPTestCase {
 	use Readable_Trait;
 	use Dismissible_Trait;
 
-	protected $optin_key = 'ian-notifications-opt-in';
+	protected string $optin_key = 'ian-notifications-opt-in';
 
-	protected $main_nonce = 'common_ian_nonce';
+	protected string $main_nonce = 'common_ian_nonce';
 
-	protected $nonce_prefix = 'ian_nonce_';
+	protected string $nonce_prefix = 'ian_nonce_';
 
-	protected $actions = [
+	protected string $slug;
+
+	protected array $actions = [
 		'optin'    => 'wp_ajax_ian_optin',
 		'dismiss'  => 'wp_ajax_ian_dismiss',
 		'read'     => 'wp_ajax_ian_read',
@@ -39,6 +41,7 @@ class Notifications_Test extends WPTestCase {
 	 * @before
 	 */
 	public function init_notifications() {
+		tribe_remove_option( $this->optin_key );
 		tribe_update_option( $this->optin_key, false );
 	}
 
@@ -46,11 +49,49 @@ class Notifications_Test extends WPTestCase {
 	 * @after
 	 */
 	public function deinit_notifications() {
-		delete_option( $this->optin_key );
+		tribe_remove_option( $this->optin_key );
 	}
 
+	/**
+	 * Get the slug.
+	 *
+	 * @return string
+	 */
 	public function get_slug() {
 		return $this->slug;
+	}
+
+	/**
+	 * Calculate a future version based on the current TEC version.
+	 *
+	 * @return string
+	 */
+	public function calculate_test_future_version() {
+		$version                      = \Tribe__Events__Main::VERSION;
+		$parts                        = explode( '.', $version );
+		$parts[ count( $parts ) - 1 ] = $parts[ count( $parts ) - 1 ] + 1;
+
+		return implode( '.', $parts );
+	}
+
+	/**
+	 * Calculate a past version based on the current TEC version.
+	 *
+	 * @return string
+	 */
+	public function calculate_test_past_version() {
+		$version = \Tribe__Events__Main::VERSION;
+		$parts   = explode( '.', $version );
+
+		// Prevent negative patch versions!
+		if ( $parts[ count( $parts ) - 1 ] === '0' ) {
+			$parts[ count( $parts ) - 2 ] = $parts[ count( $parts ) - 2 ] - 1;
+			$parts[ count( $parts ) - 1 ] = '9';
+		} else {
+			$parts[ count( $parts ) - 1 ] = $parts[ count( $parts ) - 1 ] - 1;
+		}
+
+		return implode( '.', $parts );
 	}
 
 	private function get_mocked_feed() {
@@ -90,7 +131,7 @@ class Notifications_Test extends WPTestCase {
 					],
 				],
 				'dismissible' => true,
-				'conditions'  => [ 'plugin_version:the-events-calendar@>=5.0.0' ],
+				'conditions'  => [ 'plugin_version:the-events-calendar@>=' . $this->calculate_test_past_version() ],
 			],
 			[
 				'id'          => '103',
@@ -114,7 +155,7 @@ class Notifications_Test extends WPTestCase {
 	/**
 	 * Setup AJAX Test.
 	 */
-	private function ajax_setup( int $user_id = null ) {
+	private function ajax_setup( ?int $user_id = null ) {
 		if ( null === $user_id ) {
 			$user_id = self::factory()->user->create( [ 'role' => 'administrator' ] );
 			wp_set_current_user( $user_id );
@@ -166,12 +207,13 @@ class Notifications_Test extends WPTestCase {
 	 * @test
 	 */
 	public function it_should_match_plugin_version() {
-		$plugins = [ 'the-events-calendar@>=6.0.0' ];
-		$matches = Conditionals::check_plugin_version( $plugins );
+		$tec_version = \Tribe__Events__Main::VERSION;
+		$plugins     = [ 'the-events-calendar@>=' . $tec_version ];
+		$matches     = Conditionals::check_plugin_version( $plugins );
 		$this->assertTrue( $matches, 'Plugin requirement should be met' );
 	}
 
-		/**
+	/**
 	 * @test
 	 */
 	public function it_should_return_the_full_feed() {
@@ -241,7 +283,7 @@ class Notifications_Test extends WPTestCase {
 		$this->ajax_setup();
 		tribe_update_option( $this->optin_key, false );
 
-		$optin = tribe_is_truthy( tribe_get_option( 'ian-notifications-opt-in' ) );
+		$optin = tribe_is_truthy( tribe_get_option( $this->optin_key ) );
 		$this->assertFalse( $optin, 'User has not accepted notifications yet' );
 
 		$wp_send_json_success = $this->mock_wp_send_json_success();
@@ -257,7 +299,7 @@ class Notifications_Test extends WPTestCase {
 		$status = $wp_send_json_success->get_calls()[0][1];
 		$this->assertEquals( 200, $status, 'Status should be 200' );
 
-		$optin = tribe_is_truthy( tribe_get_option( 'ian-notifications-opt-in' ) );
+		$optin = tribe_is_truthy( tribe_get_option( $this->optin_key ) );
 		$this->assertTrue( $optin, 'User has accepted notifications' );
 
 		$this->reset_wp_send_json_mocks();
