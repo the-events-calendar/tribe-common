@@ -1,0 +1,17 @@
+# .github/actions/distfiles-linter/action.yml
+name: "Included Asset Check"
+description: "Checks code for 'vendor/' or 'node_modules/' assets not listed in .distfiles by running the local script."
+
+runs:
+  using: "composite"
+  steps:
+    - name: Ensure Script is Executable
+      shell: bash
+      # This ensures the script is executable in the CI environment,
+      # regardless of the permissions in Git.
+      run: chmod +x .github/scripts/check-asset-includes.sh
+
+    - name: Run Asset Includes Check
+      shell: bash
+      # Execute the script directly
+      run: .github/scripts/check-asset-includes.sh
