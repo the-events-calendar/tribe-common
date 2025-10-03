@@ -25,7 +25,7 @@ class Conditionals {
 	 * Get the current user status based on Telemetry and IAN opt-in.
 	 *
 	 * @since 6.4.0
-	 * @since TBD Remove normalize_optin_status call since it was setting the option to true/false even if it has not yet been set.
+	 * @since TBD Replaced `normalize_optin_status` call with a call to `calculate_optin_status` since the former was setting the option to true/false even if it had not yet been set.
 	 *
 	 * @return bool
 	 */
