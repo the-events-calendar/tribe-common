@@ -4,5 +4,6 @@ use Codeception\Util\Autoload;
 
 tests_add_filter( 'tribe_common_log_to_wpcli', '__return_false' );
 
+tec_common_tests_fake_transactions_enable();
 
 Autoload::addNamespace( '\\TEC\\Common\\Integrations\\', __DIR__ . '/_data/classes/Integrations' );

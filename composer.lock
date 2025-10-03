@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d23b5bb04d23ceaf748db5c9524747b5",
+    "content-hash": "34e486412f1938aab2653f579057cf54",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -640,16 +640,16 @@
         },
         {
             "name": "stellarwp/models",
-            "version": "dev-main",
+            "version": "dev-feat/support-post-models-and-lazy-loading",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/models.git",
-                "reference": "ac30397971ac654278ebe2cf703524db81459630"
+                "reference": "f21e2b946285ddb1746f37974d50a7b2676e3761"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/models/zipball/ac30397971ac654278ebe2cf703524db81459630",
-                "reference": "ac30397971ac654278ebe2cf703524db81459630",
+                "url": "https://api.github.com/repos/stellarwp/models/zipball/f21e2b946285ddb1746f37974d50a7b2676e3761",
+                "reference": "f21e2b946285ddb1746f37974d50a7b2676e3761",
                 "shasum": ""
             },
             "require": {
@@ -664,10 +664,10 @@
                 "codeception/module-rest": "^1.0",
                 "codeception/module-webdriver": "^1.0",
                 "codeception/util-universalframework": "^1.0",
-                "lucatume/wp-browser": "^3.0.14",
+                "lucatume/wp-browser": "^3.7",
+                "phpstan/phpstan": "^2.1",
                 "phpunit/phpunit": "~6.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -691,22 +691,22 @@
             ],
             "support": {
                 "issues": "https://github.com/stellarwp/models/issues",
-                "source": "https://github.com/stellarwp/models/tree/1.2.2"
+                "source": "https://github.com/stellarwp/models/tree/feat/support-post-models-and-lazy-loading"
             },
-            "time": "2024-09-26T18:03:55+00:00"
+            "time": "2025-10-03T16:53:39+00:00"
         },
         {
             "name": "stellarwp/schema",
-            "version": "2.0.1",
+            "version": "3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/schema.git",
-                "reference": "b80c02c6ee6cebcf9c21b642a7b20db5480f0cd6"
+                "reference": "d5a7d61432d109cf4f5f92f44696dcf56314e504"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/schema/zipball/b80c02c6ee6cebcf9c21b642a7b20db5480f0cd6",
-                "reference": "b80c02c6ee6cebcf9c21b642a7b20db5480f0cd6",
+                "url": "https://api.github.com/repos/stellarwp/schema/zipball/d5a7d61432d109cf4f5f92f44696dcf56314e504",
+                "reference": "d5a7d61432d109cf4f5f92f44696dcf56314e504",
                 "shasum": ""
             },
             "require": {
@@ -751,29 +751,127 @@
             "description": "A library for simplifying the creation and updates of custom tables within WordPress.",
             "support": {
                 "issues": "https://github.com/stellarwp/schema/issues",
-                "source": "https://github.com/stellarwp/schema/tree/2.0.1"
+                "source": "https://github.com/stellarwp/schema/tree/3.1.2"
             },
-            "time": "2025-07-18T14:24:06+00:00"
+            "time": "2025-10-02T12:42:28+00:00"
         },
         {
-            "name": "stellarwp/shepherd",
-            "version": "0.0.6",
+            "name": "stellarwp/schema-models",
+            "version": "dev-feat/repo-set-up",
             "source": {
                 "type": "git",
-                "url": "https://github.com/stellarwp/shepherd.git",
-                "reference": "d93bcedf3a28fee87365eb7ea699efed81e83c41"
+                "url": "https://github.com/stellarwp/schema-models.git",
+                "reference": "14914c81ed0b021c88d602c984e02ce61ba46a89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/d93bcedf3a28fee87365eb7ea699efed81e83c41",
-                "reference": "d93bcedf3a28fee87365eb7ea699efed81e83c41",
+                "url": "https://api.github.com/repos/stellarwp/schema-models/zipball/14914c81ed0b021c88d602c984e02ce61ba46a89",
+                "reference": "14914c81ed0b021c88d602c984e02ce61ba46a89",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4",
+                "stellarwp/models": "dev-feat/support-post-models-and-lazy-loading",
+                "stellarwp/schema": "^3.1.2"
+            },
+            "require-dev": {
+                "codeception/module-asserts": "^1.3",
+                "codeception/module-cli": "^1.1",
+                "codeception/module-db": "^1.2",
+                "codeception/module-filesystem": "^1.0",
+                "codeception/module-phpbrowser": "^1.0",
+                "codeception/module-rest": "^2.0",
+                "codeception/module-webdriver": "^1.4",
+                "codeception/util-universalframework": "^1.0",
+                "lucatume/codeception-snapshot-assertions": "^0.4.0",
+                "lucatume/di52": "^4.0",
+                "lucatume/wp-browser": "^3.5.7",
+                "phpcompatibility/phpcompatibility-wp": "^2.1",
+                "slope-it/clock-mock": "^0.4.0",
+                "stellarwp/coding-standards": "^2.1",
+                "szepeviktor/phpstan-wordpress": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "StellarWP\\SchemaModels\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "StellarWP\\SchemaModels\\Tests\\": "tests/_support/Helper/"
+                }
+            },
+            "scripts": {
+                "test:analysis": [
+                    "phpstan analyse -c phpstan.neon.dist --memory-limit=512M"
+                ],
+                "compatibility:php-7.4": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 7.4"
+                ],
+                "compatibility:php-8.0": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.0"
+                ],
+                "compatibility:php-8.1": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.1"
+                ],
+                "compatibility:php-8.2": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.2"
+                ],
+                "compatibility:php-8.3": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.3"
+                ],
+                "compatibility:php-8.4": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.4"
+                ],
+                "compatibility": [
+                    "@compatibility:php-7.4",
+                    "@compatibility:php-8.0",
+                    "@compatibility:php-8.1",
+                    "@compatibility:php-8.2",
+                    "@compatibility:php-8.3",
+                    "@compatibility:php-8.4"
+                ]
+            },
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "StellarWP",
+                    "email": "dev@stellarwp.com"
+                },
+                {
+                    "name": "Dimitrios Pantazis",
+                    "email": "dimi@stellarwp.com"
+                }
+            ],
+            "description": "A library for offloading tasks to background processes.",
+            "support": {
+                "source": "https://github.com/stellarwp/schema-models/tree/feat/repo-set-up",
+                "issues": "https://github.com/stellarwp/schema-models/issues"
+            },
+            "time": "2025-10-03T17:44:07+00:00"
+        },
+        {
+            "name": "stellarwp/shepherd",
+            "version": "0.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stellarwp/shepherd.git",
+                "reference": "6ff5c2ca3f743dd7518a985daa70dcfbc33cd6e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/6ff5c2ca3f743dd7518a985daa70dcfbc33cd6e9",
+                "reference": "6ff5c2ca3f743dd7518a985daa70dcfbc33cd6e9",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.4",
                 "psr/log": "^1.1",
                 "stellarwp/db": "^1.1",
-                "stellarwp/schema": "^2.0",
+                "stellarwp/schema": "^3.1.2",
                 "woocommerce/action-scheduler": "3.9.3"
             },
             "require-dev": {
@@ -816,9 +914,9 @@
             "description": "A library for offloading tasks to background processes.",
             "support": {
                 "issues": "https://github.com/stellarwp/shepherd/issues",
-                "source": "https://github.com/stellarwp/shepherd/tree/0.0.6"
+                "source": "https://github.com/stellarwp/shepherd/tree/0.0.8"
             },
-            "time": "2025-08-26T17:51:20+00:00"
+            "time": "2025-10-02T13:00:34+00:00"
         },
         {
             "name": "stellarwp/telemetry",
@@ -7286,7 +7384,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "stellarwp/coding-standards": 20,
-        "stellarwp/models": 20,
+        "stellarwp/schema-models": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
     "prefer-stable": true,

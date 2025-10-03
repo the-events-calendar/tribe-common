@@ -12,7 +12,7 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Contracts;
 
 use WP_Post;
-use Tribe__Repository__Interface;
+use TEC\Common\Contracts\Repository_Interface;
 
 /**
  * Post Entity Endpoint interface.
@@ -76,7 +76,7 @@ interface Post_Entity_Endpoint_Interface extends Endpoint_Interface {
 	 *
 	 * @since 6.9.0
 	 *
-	 * @return Tribe__Repository__Interface
+	 * @return Repository_Interface
 	 */
-	public function get_orm(): Tribe__Repository__Interface;
+	public function get_orm(): Repository_Interface;
 }

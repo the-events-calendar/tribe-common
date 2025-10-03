@@ -25,7 +25,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 * {@inheritdoc}
 	 */
 	public function set_default_args( array $default_args ) {
-		return $this->decorated->set_default_args( $default_args );
+		$this->decorated->set_default_args( $default_args );
 	}
 
 	/**
@@ -395,7 +395,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 * {@inheritdoc}
 	 */
 	public function add_schema_entry( $key, $callback ) {
-		return $this->decorated->add_schema_entry( $key, $callback );
+		$this->decorated->add_schema_entry( $key, $callback );
 	}
 
 	/**
@@ -423,7 +423,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 * {@inheritdoc}
 	 */
 	public function add_update_field_alias( $alias, $field_name ) {
-		return $this->decorated->add_update_field_alias( $alias, $field_name );
+		$this->decorated->add_update_field_alias( $alias, $field_name );
 	}
 
 	/**
@@ -444,7 +444,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 * {@inheritdoc}
 	 */
 	public function set_update_fields_aliases( array $update_fields_aliases ) {
-		return $this->decorated->set_update_fields_aliases( $update_fields_aliases );
+		$this->decorated->set_update_fields_aliases( $update_fields_aliases );
 	}
 
 	/**
@@ -479,14 +479,14 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 * {@inheritdoc}
 	 */
 	public function filter_postarr_for_create( array $postarr ) {
-		return $this->decorated->filter_postarr_for_create( $postarr, $post_id );
+		return $this->decorated->filter_postarr_for_create( $postarr );
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function set_create_args( array $create_args ) {
-		return $this->decorated->set_create_args( $create_args );
+		$this->decorated->set_create_args( $create_args );
 	}
 
 	/**
