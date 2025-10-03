@@ -1,4 +1,3 @@
-# Example workflow showing how to use the asset check action with PR comments
 name: Asset Includes Check
 
 on:
