@@ -2,6 +2,14 @@
 name: "Included Asset Check"
 description: "Checks code for 'vendor/' or 'node_modules/' assets not listed in .distfiles by running the local script."
 
+outputs:
+  result:
+    description: "Output from the asset check (success/warnings/failures)"
+    value: ${{ steps.run-check.outputs.result }}
+  status:
+    description: "Status of the check (passed/failed)"
+    value: ${{ steps.run-check.outputs.status }}
+
 runs:
   using: "composite"
   steps:
@@ -38,9 +46,36 @@ runs:
       run: chmod +x .github/scripts/check-asset-includes.sh
 
     - name: Run Asset Includes Check
+      id: run-check
       shell: bash
       run: |
-        if ! .github/scripts/check-asset-includes.sh; then
+        # Capture the output and exit code
+        OUTPUT_FILE=$(mktemp)
+        if .github/scripts/check-asset-includes.sh > "$OUTPUT_FILE" 2>&1; then
+          STATUS="passed"
+          EXIT_CODE=0
+        else
+          STATUS="failed"
+          EXIT_CODE=1
+        fi
+
+        # Read the output
+        RESULT=$(cat "$OUTPUT_FILE")
+        rm -f "$OUTPUT_FILE"
+
+        # Set outputs (using heredoc for multiline)
+        echo "status=$STATUS" >> $GITHUB_OUTPUT
+        {
+          echo 'result<<EOF'
+          echo "$RESULT"
+          echo 'EOF'
+        } >> $GITHUB_OUTPUT
+
+        # Print to console
+        echo "$RESULT"
+
+        # Exit with appropriate code
+        if [ $EXIT_CODE -ne 0 ]; then
           echo "::error::Asset includes check failed. See output above for details."
           exit 1
         fi

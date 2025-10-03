@@ -27,21 +27,100 @@ jobs:
       - uses: ./.github/actions/asset-check
 ```
 
-### With Custom Working Directory
+### With PR Comments (Recommended)
 
-If your `.distfiles` is not in the repository root:
+Post the check results as a comment on the PR for easy visibility:
 
 ```yaml
-- uses: ./.github/actions/asset-check
-  with:
-    working-directory: ./common
+name: Asset Check
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+
+permissions:
+  contents: read
+  pull-requests: write  # Required to post comments
+
+jobs:
+  check-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Asset Check
+        id: asset-check
+        uses: ./.github/actions/asset-check
+        continue-on-error: true
+
+      - name: Post PR Comment
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const output = `${{ steps.asset-check.outputs.result }}`;
+            const status = `${{ steps.asset-check.outputs.status }}`;
+
+            const emoji = status === 'passed' ? '✅' : '❌';
+            const title = status === 'passed' ? 'Asset Check Passed' : 'Asset Check Failed';
+
+            const comment = `## ${emoji} ${title}
+
+            <details>
+            <summary>Click to see full output</summary>
+
+            \`\`\`
+            ${output}
+            \`\`\`
+
+            </details>
+            `;
+
+            // Find and update existing comment, or create new
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const botComment = comments.find(comment =>
+              comment.user.type === 'Bot' &&
+              comment.body.includes('Asset Check')
+            );
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: comment
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: comment
+              });
+            }
+
+      - name: Fail if check failed
+        if: steps.asset-check.outputs.status == 'failed'
+        run: exit 1
 ```
 
 ## Inputs
 
 | Input | Description | Required | Default |
 |-------|-------------|----------|---------|
-| `working-directory` | Directory containing `.distfiles` | No | `.` |
+| None | This action runs from repository root | - | - |
+
+## Outputs
+
+| Output | Description | Example |
+|--------|-------------|---------|
+| `result` | Full output from the asset check | Multi-line script output |
+| `status` | Status of the check | `passed` or `failed` |
 
 ## How It Works
 
@@ -53,6 +132,22 @@ The action searches for these patterns in PHP and JavaScript files:
 - `require` and `include` statements
 - `Asset::add()`, `tec_asset()`, `tec_assets()`
 - Array-style asset definitions: `[ 'handle', 'vendor/path/file.js', [...] ]`
+
+### Deprecated File Detection
+
+Assets referenced in deprecated files are reported as warnings but don't fail the build. A file is considered deprecated if:
+- It's in a `/deprecated/` folder, OR
+- It contains a `_deprecated_file()` function call
+
+**Result:** ⚠️ Warning (build passes)
+```
+⚠️  NOTICE: The following assets are referenced in deprecated files.
+Deprecated files are those in /deprecated/ folders or containing _deprecated_file().
+These may reference vendors that no longer exist.
+This is OK if the deprecated code is never actually executed:
+
+vendor/freemius/start.php (in: ./src/deprecated/Tribe__Freemius.php)
+```
 
 ### Smart Minification Handling
 
