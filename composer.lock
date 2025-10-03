@@ -640,16 +640,16 @@
         },
         {
             "name": "stellarwp/models",
-            "version": "dev-release/2.0.0",
+            "version": "dev-feat/support-post-models-and-lazy-loading",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/models.git",
-                "reference": "0836e179fd0cc9759500f3a1441561077088e152"
+                "reference": "f21e2b946285ddb1746f37974d50a7b2676e3761"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/models/zipball/0836e179fd0cc9759500f3a1441561077088e152",
-                "reference": "0836e179fd0cc9759500f3a1441561077088e152",
+                "url": "https://api.github.com/repos/stellarwp/models/zipball/f21e2b946285ddb1746f37974d50a7b2676e3761",
+                "reference": "f21e2b946285ddb1746f37974d50a7b2676e3761",
                 "shasum": ""
             },
             "require": {
@@ -664,7 +664,7 @@
                 "codeception/module-rest": "^1.0",
                 "codeception/module-webdriver": "^1.0",
                 "codeception/util-universalframework": "^1.0",
-                "lucatume/wp-browser": "^3.0.14",
+                "lucatume/wp-browser": "^3.7",
                 "phpstan/phpstan": "^2.1",
                 "phpunit/phpunit": "~6.0"
             },
@@ -691,9 +691,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stellarwp/models/issues",
-                "source": "https://github.com/stellarwp/models/tree/release/2.0.0"
+                "source": "https://github.com/stellarwp/models/tree/feat/support-post-models-and-lazy-loading"
             },
-            "time": "2025-10-02T01:51:02+00:00"
+            "time": "2025-10-03T16:53:39+00:00"
         },
         {
             "name": "stellarwp/schema",
@@ -761,17 +761,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/schema-models.git",
-                "reference": "fa1f4419fe4cc8cfcb46951af9923a63fbc7eebb"
+                "reference": "14914c81ed0b021c88d602c984e02ce61ba46a89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/schema-models/zipball/fa1f4419fe4cc8cfcb46951af9923a63fbc7eebb",
-                "reference": "fa1f4419fe4cc8cfcb46951af9923a63fbc7eebb",
+                "url": "https://api.github.com/repos/stellarwp/schema-models/zipball/14914c81ed0b021c88d602c984e02ce61ba46a89",
+                "reference": "14914c81ed0b021c88d602c984e02ce61ba46a89",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.4",
-                "stellarwp/models": "dev-release/2.0.0",
+                "stellarwp/models": "dev-feat/support-post-models-and-lazy-loading",
                 "stellarwp/schema": "^3.1.2"
             },
             "require-dev": {
@@ -851,7 +851,7 @@
                 "source": "https://github.com/stellarwp/schema-models/tree/feat/repo-set-up",
                 "issues": "https://github.com/stellarwp/schema-models/issues"
             },
-            "time": "2025-10-02T16:48:14+00:00"
+            "time": "2025-10-03T17:44:07+00:00"
         },
         {
             "name": "stellarwp/shepherd",
