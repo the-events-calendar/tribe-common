@@ -29,7 +29,7 @@ class Conditionals {
 	 *
 	 * @return bool
 	 */
-		public static function get_opt_in(): bool {
+	public static function get_opt_in(): bool {
 		/**
 		 * Filter whether the user has opted in to the IAN notifications.
 		 *
