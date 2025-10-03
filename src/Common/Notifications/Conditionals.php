@@ -37,7 +37,7 @@ class Conditionals {
 		 *
 		 * @param bool $opted_in Whether the user has opted in to the IAN notifications.
 		 */
-		return (bool) apply_filters( 'tec_common_ian_opt_in', (bool) self::opt_in_is_active() );
+		return (bool) apply_filters( 'tec_common_ian_opt_in', self::opt_in_is_active() );
 	}
 
 	/**
