@@ -1,0 +1,23 @@
+# Example workflow showing how to use the asset check action
+name: Asset Includes Check
+
+on:
+  pull_request:
+    branches: [ main, master, develop ]
+  push:
+    branches: [ main, master, develop ]
+
+jobs:
+  check-assets:
+    name: Check Vendor Assets in .distfiles
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run Asset Includes Check
+        uses: ./.github/actions/asset-check
+        # Optional: specify working directory if .distfiles is not in repo root
+        # with:
+        #   working-directory: ./common

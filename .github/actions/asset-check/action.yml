@@ -1,17 +1,46 @@
-# .github/actions/distfiles-linter/action.yml
+# .github/actions/asset-check/action.yml
 name: "Included Asset Check"
 description: "Checks code for 'vendor/' or 'node_modules/' assets not listed in .distfiles by running the local script."
 
 runs:
   using: "composite"
   steps:
+    - name: Validate Paths
+      shell: bash
+      run: |
+        # The action runs from the repository root where it's defined
+        # It expects .distfiles and src/ to be in that root
+
+        if [ ! -f ".distfiles" ]; then
+          echo "::error::File '.distfiles' not found in repository root!"
+          echo "This action must be run from a repository containing .distfiles"
+          exit 1
+        fi
+
+        if [ ! -d "src" ]; then
+          echo "::error::Directory 'src/' not found in repository root!"
+          echo "The script searches for assets in the src/ directory"
+          exit 1
+        fi
+
+        if [ ! -f ".github/scripts/check-asset-includes.sh" ]; then
+          echo "::error::Script not found at '.github/scripts/check-asset-includes.sh'!"
+          exit 1
+        fi
+
+        echo "✅ All required paths exist"
+        echo "📂 Repository root: $(pwd)"
+        echo "📄 Checking: .distfiles"
+        echo "📁 Scanning: src/"
+
     - name: Ensure Script is Executable
       shell: bash
-      # This ensures the script is executable in the CI environment,
-      # regardless of the permissions in Git.
       run: chmod +x .github/scripts/check-asset-includes.sh
 
     - name: Run Asset Includes Check
       shell: bash
-      # Execute the script directly
-      run: .github/scripts/check-asset-includes.sh
+      run: |
+        if ! .github/scripts/check-asset-includes.sh; then
+          echo "::error::Asset includes check failed. See output above for details."
+          exit 1
+        fi
