@@ -213,6 +213,277 @@ class Notifications_Test extends WPTestCase {
 		$this->assertTrue( $matches, 'Plugin requirement should be met' );
 	}
 
+	/* Below here we mock installed plugins to test scenarios without having to install a bunch of plugins.*/
+
+	/**
+	 * Get an array of mocked "installed" plugins. To test some potential gotchas.
+	 * Overrides get_plugins() with the mocked plugins list.
+	 * Returns plugins in the same format as get_plugins() - keyed by folder/file.php.
+	 *
+	 * @return array The mocked installed plugins.
+	 */
+	private function mock_installed_plugins() {
+		$mocked_plugins = [
+			// Real plugin - should match by filename.
+			'the-events-calendar/the-events-calendar.php'                             => [ 'Version' => \Tribe__Events__Main::VERSION ],
+			// Fake test plugin to ensure we can test multiple plugins.
+			'events-pro/events-pro.php'                                               => [ 'Version' => '6.5.0' ],
+			// Fake plugins with "the-events-calendar" in the folder name, but different file names.
+			// These should NOT match when checking for "the-events-calendar".
+			'events-widgets-for-elementor-and-the-events-calendar/events-widgets.php' => [ 'Version' => '10.10.10' ],
+			'the-events-calendar-tickets-plus/calendar-tickets-plus.php'              => [ 'Version' => '1.0.0' ],
+			// Edge case: folder contains "the-events-calendar" but the filename also has a different pattern.
+			'the-events-calendar-addon/addon-plugin.php'                              => [ 'Version' => '2.5.0' ],
+		];
+
+		$this->set_fn_return(
+			'get_plugins',
+			function () use ( $mocked_plugins ) {
+				return $mocked_plugins;
+			},
+			true
+		);
+
+		return $mocked_plugins;
+	}
+
+	/**
+	 * Get merged array of real installed plugins and mocked plugins.
+	 * Overrides get_plugins() with the merged plugins list.
+	 * This allows testing with both actual plugins and test fixtures.
+	 *
+	 * @return array The merged installed plugins.
+	 */
+	private function get_merged_plugins() {
+		$real_plugins   = get_plugins();
+		$mocked_plugins = $this->mock_installed_plugins();
+
+		// Merge, with mocked plugins overriding real ones if there's a key conflict.
+		$merged_plugins = array_merge( $real_plugins, $mocked_plugins );
+
+		$this->set_fn_return(
+			'get_plugins',
+			function () use ( $merged_plugins ) {
+				return $merged_plugins;
+			},
+			true
+		);
+
+		return $merged_plugins;
+	}
+
+	/**
+	 * Mock is_plugin_active for the given plugins.
+	 *
+	 * @param array|bool $plugins The plugins to mock.
+	 *                                If boolean false, false for all plugins.
+	 *                                If boolean true, true for all plugins.
+	 *
+	 */
+	private function mock_is_plugin_active( $plugins ) {
+		$this->set_fn_return(
+			'is_plugin_active',
+			function ( $plugin ) use ( $plugins ) {
+				if ( is_bool( $plugins ) ) {
+					return $plugins;
+				}
+
+				return in_array( $plugin, $plugins, true );
+			},
+			true
+		);
+	}
+
+	/**
+	 * Test that plugins are matched by their filename (e.g., "the-events-calendar.php")
+	 * and not by folder names containing similar text.
+	 * This ensures that "the-events-calendar-addon/addon-plugin.php" doesn't
+	 * incorrectly match when checking for "the-events-calendar".
+	 *
+	 * @test
+	 */
+	public function it_should_match_plugin_by_filename_not_folder_name() {
+		// Mock get_plugins to return our test data.
+		$this->mock_installed_plugins();
+
+		$tec_version = \Tribe__Events__Main::VERSION;
+		$plugins     = [ 'the-events-calendar@>=' . $tec_version ];
+		$matches     = Conditionals::check_plugin_version( $plugins );
+
+		$this->assertTrue( $matches, 'Should match the-events-calendar.php file, not folder names containing "the-events-calendar"' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_match_plugin_with_similar_folder_name() {
+		// Mock get_plugins to return our test data.
+		$this->mock_installed_plugins();
+
+		// Try to match a plugin that has "the-events-calendar" in the folder name but different file.
+		$plugins = [ 'events-widgets@>=1.0.0' ];
+		$matches = Conditionals::check_plugin_version( $plugins );
+
+		$this->assertFalse( $matches, 'Should not match events-widgets.php even though folder contains "the-events-calendar"' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_fail_when_plugin_not_active() {
+		// Mock get_plugins to return our test data.
+		$this->mock_installed_plugins();
+
+		// Mock is_plugin_active to return false for all plugins.
+		$this->mock_is_plugin_active( false );
+
+		$tec_version = \Tribe__Events__Main::VERSION;
+		$plugins     = [ 'the-events-calendar@>=' . $tec_version ];
+		$matches     = Conditionals::check_plugin_version( $plugins );
+
+		$this->assertFalse( $matches, 'Should fail when plugin is installed but not active' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_use_merged_plugins_for_comprehensive_testing() {
+		// This test uses both real and mocked plugins.
+		$this->get_merged_plugins();
+
+		// Test with real plugin version.
+		$tec_version = \Tribe__Events__Main::VERSION;
+		$plugins     = [ 'the-events-calendar@>=' . $tec_version ];
+		$matches     = Conditionals::check_plugin_version( $plugins );
+
+		$this->assertTrue( $matches, 'Should work with merged real + mocked plugins' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_correctly_identify_multiple_plugins_with_similar_names() {
+		// Mock get_plugins to return our test data.
+		$this->mock_installed_plugins();
+
+		// Mock is_plugin_active to return true for TEC and ECP only.
+		$this->mock_is_plugin_active(
+			[
+				'the-events-calendar/the-events-calendar.php',
+				'events-pro/events-pro.php',
+			]
+		);
+
+		$tec_version = \Tribe__Events__Main::VERSION;
+
+		// Test multiple plugins at once.
+		$plugins = [
+			'the-events-calendar@>=' . $tec_version,
+			'events-pro@>=6.0.0',
+		];
+		$matches = Conditionals::check_plugin_version( $plugins );
+
+		$this->assertTrue( $matches, 'Should correctly match multiple plugins by their filenames' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_handle_edge_case_plugins_with_partial_name_matches() {
+		// Mock get_plugins to return our test data.
+		$this->mock_installed_plugins();
+
+		// Mock is_plugin_active for all our mocked plugins.
+		$this->mock_is_plugin_active(
+			[
+				'the-events-calendar/the-events-calendar.php',
+				'the-events-calendar-addon/addon-plugin.php',
+				'the-events-calendar-tickets-plus/calendar-tickets-plus.php',
+			]
+		);
+
+		// Check for the actual TEC plugin - should match.
+		$plugins = [ 'the-events-calendar@>=' . \Tribe__Events__Main::VERSION ];
+		$matches = Conditionals::check_plugin_version( $plugins );
+		$this->assertTrue( $matches, 'Should find the-events-calendar.php' );
+
+		// Check for the addon plugin with different filename - should not match TEC.
+		$plugins = [ 'addon-plugin@>=2.0.0' ];
+		$matches = Conditionals::check_plugin_version( $plugins );
+		$this->assertTrue( $matches, 'Should find addon-plugin.php by its filename' );
+
+		// Check for calendar-tickets-plus - should not match as "the-events-calendar".
+		$plugins = [ 'calendar-tickets-plus@>=1.0.0' ];
+		$matches = Conditionals::check_plugin_version( $plugins );
+		$this->assertTrue( $matches, 'Should find calendar-tickets-plus.php by its filename' );
+	}
+
+	/**
+	 * Test that checking for a plugin by folder name does not work.
+	 * Plugin checks must use the filename, not the folder name.
+	 *
+	 * @test
+	 */
+	public function it_should_not_match_by_folder_name_when_filename_differs() {
+		// Mock get_plugins to return our test data.
+		$this->mock_installed_plugins();
+
+		// Mock is_plugin_active for the addon plugin.
+		$this->mock_is_plugin_active(
+			[
+				'the-events-calendar-addon/addon-plugin.php',
+			]
+		);
+
+		// Try checking for "the-events-calendar-addon" - folder exists but file is "addon-plugin.php".
+		$plugins = [ 'the-events-calendar-addon@>=1.0.0' ];
+		$matches = Conditionals::check_plugin_version( $plugins );
+		$this->assertFalse( $matches, 'Should not match by folder name alone; the-events-calendar-addon.php does not exist' );
+
+		// Now check using the actual filename.
+		$plugins = [ 'addon-plugin@>=2.0.0' ];
+		$matches = Conditionals::check_plugin_version( $plugins );
+		$this->assertTrue( $matches, 'Should match using the actual filename addon-plugin.php' );
+	}
+
+	/**
+	 * Test version comparison operators work correctly with mocked plugins.
+	 *
+	 * @test
+	 */
+	public function it_should_handle_version_comparison_operators_with_mocked_plugins() {
+		// Mock get_plugins to return our test data.
+		$this->mock_installed_plugins();
+
+		// Mock is_plugin_active for all plugins.
+		$this->mock_is_plugin_active( true );
+
+		// Test >= operator with high version (events-widgets is 10.10.10).
+		$plugins = [ 'events-widgets@>=10.0.0' ];
+		$matches = Conditionals::check_plugin_version( $plugins );
+		$this->assertTrue( $matches, 'Should match events-widgets >= 10.0.0' );
+
+		// Test <= operator with events-pro (version is 6.5.0).
+		$plugins = [ 'events-pro@<=7.0.0' ];
+		$matches = Conditionals::check_plugin_version( $plugins );
+		$this->assertTrue( $matches, 'Should match events-pro <= 7.0.0' );
+
+		// Test > operator failure.
+		$plugins = [ 'calendar-tickets-plus@>1.0.0' ];
+		$matches = Conditionals::check_plugin_version( $plugins );
+		$this->assertFalse( $matches, 'Should not match calendar-tickets-plus > 1.0.0 (installed is 1.0.0)' );
+
+		// Test < operator success.
+		$plugins = [ 'calendar-tickets-plus@<2.0.0' ];
+		$matches = Conditionals::check_plugin_version( $plugins );
+		$this->assertTrue( $matches, 'Should match calendar-tickets-plus < 2.0.0' );
+
+		// Test = operator (exact match).
+		$plugins = [ 'addon-plugin@=2.5.0' ];
+		$matches = Conditionals::check_plugin_version( $plugins );
+		$this->assertTrue( $matches, 'Should match addon-plugin = 2.5.0' );
+	}
+
 	/**
 	 * @test
 	 */

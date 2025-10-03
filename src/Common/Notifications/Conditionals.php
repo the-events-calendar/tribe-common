@@ -25,26 +25,37 @@ class Conditionals {
 	 * Get the current user status based on Telemetry and IAN opt-in.
 	 *
 	 * @since 6.4.0
-	 * @since TBD Replaced `normalize_optin_status` call with a call to `calculate_optin_status` since the former was setting the option to true/false even if it had not yet been set.
+	 * @since TBD Moved the logic to check if the user has opted in to telemetry and/or IAN opt-in to a separate function.
 	 *
 	 * @return bool
 	 */
-	public static function get_opt_in(): bool {
-		$telemetry  = tribe( Common_Telemetry::class )->calculate_optin_status();
-		$ian_opt_in = tribe_get_option( 'ian-notifications-opt-in', false );
-
-		// Check if the user has opted in to telemetry, then If Telemetry is off, return the IAN opt-in value.
-		$opted_in = tribe_is_truthy( $telemetry ) || tribe_is_truthy( $ian_opt_in );
-
+		public static function get_opt_in(): bool {
 		/**
 		 * Filter whether the user has opted in to the IAN notifications.
 		 *
 		 * @since 6.4.0
-		 * @since TBD Add $telemetry and $ian_opt_in as.
 		 *
 		 * @param bool $opted_in Whether the user has opted in to the IAN notifications.
 		 */
-		return (bool) apply_filters( 'tec_common_ian_opt_in', $opted_in, $telemetry, $ian_opt_in );
+		return (bool) apply_filters( 'tec_common_ian_opt_in', (bool) self::opt_in_is_active() );
+	}
+
+	/**
+	 * Check if the user has opted in to telemetry and/or IAN opt-in.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	private static function opt_in_is_active(): bool {
+		$telemetry = tribe( Common_Telemetry::class )->calculate_optin_status();
+
+		// If the user has opted in to telemetry, just return true.
+		if ( $telemetry ) {
+			return true;
+		}
+
+		return tribe_is_truthy( tribe_get_option( 'ian-notifications-opt-in', false ) );
 	}
 
 	/**
