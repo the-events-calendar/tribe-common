@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Adjust the logic so Telementry opt-in option is not set prematurely. [TEC-5583]
