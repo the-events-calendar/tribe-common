@@ -46,9 +46,9 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	public function prepare(): void {
 		Register::table( $this->test_table_class );
 
-		$relationships = tribe( $this->test_model_class )->getRelationships();
+		$relationships = tribe( $this->test_model_class )->getRelationshipCollection()->getAll();
 		foreach ( $relationships as $relationship ) {
-			Register::table( $relationship['through'] );
+			Register::table( $relationship->getDefinition()->getTableInterface() );
 		}
 	}
 
@@ -58,9 +58,9 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	public function reset(): void {
 		Register::remove_table( tribe( $this->test_table_class ) );
 
-		$relationships = tribe( $this->test_model_class )->getRelationships();
+		$relationships = tribe( $this->test_model_class )->getRelationshipCollection()->getAll();
 		foreach ( $relationships as $relationship ) {
-			Register::remove_table( tribe( $relationship['through'] ) );
+			Register::remove_table( tribe( $relationship->getDefinition()->getTableInterface() ) );
 		}
 	}
 
@@ -942,19 +942,15 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	}
 
 	public function test_create_update_delete_with_relationship() {
-		$relationship = tribe( $this->test_model_class )->getRelationships();
+		$relationships = tribe( $this->test_model_class )->getRelationshipCollection()->getAll();
 
-		if ( empty( $relationship ) ) {
+		if ( empty( $relationships ) ) {
 			return;
 		}
 
 		$create_data = $this->get_create_data();
 
-		foreach ( $relationship as $key => $data ) {
-			if ( 'post' !== $data['entity'] ) {
-				throw new Exception( 'Implement this logic!' );
-			}
-
+		foreach ( array_keys( $relationships ) as $key ) {
 			$create_data[ $key ] = [ self::factory()->post->create(), self::factory()->post->create() ];
 		}
 
@@ -965,69 +961,57 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		$this->assertNotNull( $model );
 		$this->assertInstanceOf( Model_Interface::class, $model );
 		$this->assertInstanceOf( $this->test_model_class, $model );
-		$this->assertNotNull( $model->get_id() );
-		$this->assertIsInt( $model->get_id() );
+		$this->assertNotNull( $model->getPrimaryValue() );
+		$this->assertIsInt( $model->getPrimaryValue() );
 		foreach ( $create_data as $key => $value ) {
 			$method = 'get_' . $key;
 			$this->assertEquals( $value, $model->$method() );
 		}
 
 		$update_data = [];
-		foreach ( $relationship as $key => $data ) {
-			if ( 'post' !== $data['entity'] ) {
-				throw new Exception( 'Implement this logic!' );
-			}
-
+		foreach ( array_keys( $relationships ) as $key ) {
 			$update_data[ $key ] = [ self::factory()->post->create(), self::factory()->post->create() ];
 			$create_data[ $key ] = array_merge( $create_data[ $key ], $update_data[ $key ] );
 		}
 
 		$update = $this->get_repository()
-			->by( 'id', $model->get_id() )
+			->by( 'id', $model->getPrimaryValue() )
 			->set_args( $update_data )
 			->save();
 
 		$this->assertNotNull( $update );
-		$this->assertArrayHasKey( $model->get_id(), $update );
-		$this->assertNotFalse( $update[ $model->get_id() ] );
+		$this->assertArrayHasKey( $model->getPrimaryValue(), $update );
+		$this->assertNotFalse( $update[ $model->getPrimaryValue() ] );
 
-		$model = $this->get_repository()->by_primary_key( $model->get_id() );
+		$model = $this->get_repository()->by_primary_key( $model->getPrimaryValue() );
 
 		$this->assertNotNull( $model );
 		$this->assertInstanceOf( Model_Interface::class, $model );
 		$this->assertInstanceOf( $this->test_model_class, $model );
-		$this->assertNotNull( $model->get_id() );
-		$this->assertIsInt( $model->get_id() );
+		$this->assertNotNull( $model->getPrimaryValue() );
+		$this->assertIsInt( $model->getPrimaryValue() );
 
 		foreach ( $create_data as $key => $value ) {
 			$method = 'get_' . $key;
 			$this->assertEquals( $value, $model->$method() );
 		}
 
-		foreach ( $relationship as $key => $data ) {
-			if ( 'post' !== $data['entity'] ) {
-				throw new Exception( 'Implement this logic!' );
-			}
-
-			$this->assertNotEmpty( DB::get_results( DB::prepare( "SELECT %i FROM %i WHERE %i = %d", $data['columns']['other'], $data['through']::table_name(), $data['columns']['this'], $model->get_id() ) ) );
+		foreach ( $relationships as $key => $relationship ) {
+			$this->assertNotEmpty( DB::get_results( DB::prepare( "SELECT %i FROM %i WHERE %i = %d", $relationship->getDefinition()->getOtherEntityColumn(), $relationship->getDefinition()->getTableInterface()::table_name(), $relationship->getDefinition()->getThisEntityColumn(), $model->getPrimaryValue() ) ) );
 		}
 
-		$result = $this->get_repository()->by( 'id', $model->get_id() )->delete();
+		$result = $this->get_repository()->by( 'id', $model->getPrimaryValue() )->delete();
 		$this->assertNotNull( $result );
-		$this->assertArrayHasKey( $model->get_id(), $result );
-		$this->assertNotFalse( $result[ $model->get_id() ] );
+		$this->assertArrayHasKey( $model->getPrimaryValue(), $result );
+		$this->assertNotFalse( $result[ $model->getPrimaryValue() ] );
 
-		foreach ( $relationship as $key => $data ) {
-			if ( 'post' !== $data['entity'] ) {
-				throw new Exception( 'Implement this logic!' );
-			}
-
-			$this->assertEmpty( DB::get_results( DB::prepare( "SELECT %i FROM %i WHERE %i = %d", $data['columns']['other'], $data['through']::table_name(), $data['columns']['this'], $model->get_id() ) ) );
+		foreach ( $relationships as $key => $relationship ) {
+			$this->assertEmpty( DB::get_results( DB::prepare( "SELECT %i FROM %i WHERE %i = %d", $relationship->getDefinition()->getOtherEntityColumn(), $relationship->getDefinition()->getTableInterface()::table_name(), $relationship->getDefinition()->getThisEntityColumn(), $model->getPrimaryValue() ) ) );
 		}
 	}
 
 	public function test_relationship_with_in_operator() {
-		$relationships = tribe( $this->test_model_class )->getRelationships();
+		$relationships = tribe( $this->test_model_class )->getRelationshipCollection()->getAll();
 
 		if ( empty( $relationships ) ) {
 			$this->markTestSkipped( 'No relationships defined for this model' );
@@ -1048,11 +1032,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 			$create_data = $this->get_create_data();
 
 			// Assign different posts to each model
-			foreach ( $relationships as $key => $data ) {
-				if ( 'post' !== $data['entity'] ) {
-					throw new Exception( 'Implement this logic!' );
-				}
-
+			foreach ( array_keys( $relationships ) as $key ) {
 				// Model 0: posts 0, 1
 				// Model 1: posts 1, 2, 3
 				// Model 2: posts 3, 4
@@ -1071,21 +1051,17 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		}
 
 		// Test posts_in operator
-		foreach ( $relationships as $key => $data ) {
-			if ( 'post' !== $data['entity'] ) {
-				throw new Exception( 'Implement this logic!' );
-			}
-
+		foreach ( array_keys( $relationships ) as $key ) {
 			// Find models related to posts 0 and 2
 			$results = $this->get_repository()
 				->by( $key . '_in', [ $post_ids[0], $post_ids[2] ] )
 				->all();
 
 			$this->assertCount( 2, $results ); // Models 0 and 1
-			$result_ids = array_map( function( $m ) { return $m->get_id(); }, $results );
-			$this->assertContains( $models[0]->get_id(), $result_ids );
-			$this->assertContains( $models[1]->get_id(), $result_ids );
-			$this->assertNotContains( $models[2]->get_id(), $result_ids );
+			$result_ids = array_map( function( $m ) { return $m->getPrimaryValue(); }, $results );
+			$this->assertContains( $models[0]->getPrimaryValue(), $result_ids );
+			$this->assertContains( $models[1]->getPrimaryValue(), $result_ids );
+			$this->assertNotContains( $models[2]->getPrimaryValue(), $result_ids );
 
 			// Find models related to post 3
 			$results = $this->get_repository()
@@ -1093,15 +1069,15 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 				->all();
 
 			$this->assertCount( 2, $results ); // Models 1 and 2
-			$result_ids = array_map( function( $m ) { return $m->get_id(); }, $results );
-			$this->assertNotContains( $models[0]->get_id(), $result_ids );
-			$this->assertContains( $models[1]->get_id(), $result_ids );
-			$this->assertContains( $models[2]->get_id(), $result_ids );
+			$result_ids = array_map( function( $m ) { return $m->getPrimaryValue(); }, $results );
+			$this->assertNotContains( $models[0]->getPrimaryValue(), $result_ids );
+			$this->assertContains( $models[1]->getPrimaryValue(), $result_ids );
+			$this->assertContains( $models[2]->getPrimaryValue(), $result_ids );
 		}
 	}
 
 	public function test_relationship_with_not_in_operator() {
-		$relationships = tribe( $this->test_model_class )->getRelationships();
+		$relationships = tribe( $this->test_model_class )->getRelationshipCollection()->getAll();
 
 		if ( empty( $relationships ) ) {
 			$this->markTestSkipped( 'No relationships defined for this model' );
@@ -1121,10 +1097,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		for ( $i = 0; $i < 3; $i++ ) {
 			$create_data = $this->get_create_data();
 
-			foreach ( $relationships as $key => $data ) {
-				if ( 'post' !== $data['entity'] ) {
-					continue;
-				}
+			foreach ( array_keys( $relationships ) as $key ) {
 
 				// Model 0: posts 0, 1
 				// Model 1: posts 2
@@ -1144,10 +1117,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		}
 
 		// Test posts_not_in operator
-		foreach ( $relationships as $key => $data ) {
-			if ( 'post' !== $data['entity'] ) {
-				continue;
-			}
+		foreach ( array_keys( $relationships ) as $key ) {
 
 			// Find models NOT related to posts 0 and 1
 			$results = $this->get_repository()
@@ -1155,10 +1125,10 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 				->all();
 
 			$this->assertCount( 2, $results ); // Models 1 and 2
-			$result_ids = array_map( function( $m ) { return $m->get_id(); }, $results );
-			$this->assertNotContains( $models[0]->get_id(), $result_ids );
-			$this->assertContains( $models[1]->get_id(), $result_ids );
-			$this->assertContains( $models[2]->get_id(), $result_ids );
+			$result_ids = array_map( function( $m ) { return $m->getPrimaryValue(); }, $results );
+			$this->assertNotContains( $models[0]->getPrimaryValue(), $result_ids );
+			$this->assertContains( $models[1]->getPrimaryValue(), $result_ids );
+			$this->assertContains( $models[2]->getPrimaryValue(), $result_ids );
 
 			// Find models NOT related to all posts
 			$results = $this->get_repository()
@@ -1166,12 +1136,12 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 				->all();
 
 			$this->assertCount( 1, $results ); // Only Model 2 (no relationships)
-			$this->assertEquals( $models[2]->get_id(), $results[0]->get_id() );
+			$this->assertEquals( $models[2]->getPrimaryValue(), $results[0]->getPrimaryValue() );
 		}
 	}
 
 	public function test_relationship_with_eq_operator() {
-		$relationships = tribe( $this->test_model_class )->getRelationships();
+		$relationships = tribe( $this->test_model_class )->getRelationshipCollection()->getAll();
 
 		if ( empty( $relationships ) ) {
 			$this->markTestSkipped( 'No relationships defined for this model' );
@@ -1188,11 +1158,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		for ( $i = 0; $i < 4; $i++ ) {
 			$create_data = $this->get_create_data();
 
-			foreach ( $relationships as $key => $data ) {
-				if ( 'post' !== $data['entity'] ) {
-					continue;
-				}
-
+			foreach ( array_keys( $relationships ) as $key ) {
 				// Model 0: post 0
 				// Model 1: posts 0, 1
 				// Model 2: post 1
@@ -1214,10 +1180,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		}
 
 		// Test standard equality operator (finds models related to specific post)
-		foreach ( $relationships as $key => $data ) {
-			if ( 'post' !== $data['entity'] ) {
-				continue;
-			}
+		foreach ( array_keys( $relationships ) as $key ) {
 
 			// Find models related to post 0
 			$results = $this->get_repository()
@@ -1225,9 +1188,9 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 				->all();
 
 			$this->assertCount( 2, $results ); // Models 0 and 1
-			$result_ids = array_map( function( $m ) { return $m->get_id(); }, $results );
-			$this->assertContains( $models[0]->get_id(), $result_ids );
-			$this->assertContains( $models[1]->get_id(), $result_ids );
+			$result_ids = array_map( function( $m ) { return $m->getPrimaryValue(); }, $results );
+			$this->assertContains( $models[0]->getPrimaryValue(), $result_ids );
+			$this->assertContains( $models[1]->getPrimaryValue(), $result_ids );
 
 			// Find models related to post 1
 			$results = $this->get_repository()
@@ -1235,9 +1198,9 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 				->all();
 
 			$this->assertCount( 2, $results ); // Models 1 and 2
-			$result_ids = array_map( function( $m ) { return $m->get_id(); }, $results );
-			$this->assertContains( $models[1]->get_id(), $result_ids );
-			$this->assertContains( $models[2]->get_id(), $result_ids );
+			$result_ids = array_map( function( $m ) { return $m->getPrimaryValue(); }, $results );
+			$this->assertContains( $models[1]->getPrimaryValue(), $result_ids );
+			$this->assertContains( $models[2]->getPrimaryValue(), $result_ids );
 
 			// Find models related to post 2
 			$results = $this->get_repository()
@@ -1245,12 +1208,12 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 				->all();
 
 			$this->assertCount( 1, $results ); // Model 3
-			$this->assertEquals( $models[3]->get_id(), $results[0]->get_id() );
+			$this->assertEquals( $models[3]->getPrimaryValue(), $results[0]->getPrimaryValue() );
 		}
 	}
 
 	public function test_combining_relationship_and_field_operators() {
-		$relationships = tribe( $this->test_model_class )->getRelationships();
+		$relationships = tribe( $this->test_model_class )->getRelationshipCollection()->getAll();
 
 		if ( empty( $relationships ) ) {
 			$this->markTestSkipped( 'No relationships defined for this model' );
@@ -1284,11 +1247,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 			$create_data = $this->get_create_data();
 			$create_data[ $string_column ] = $statuses[ $i ];
 
-			foreach ( $relationships as $key => $data ) {
-				if ( 'post' !== $data['entity'] ) {
-					continue;
-				}
-
+			foreach ( array_keys( $relationships ) as $key ) {
 				// Model 0 (active): posts 0, 1
 				// Model 1 (inactive): posts 1, 2
 				// Model 2 (active): post 2
@@ -1309,10 +1268,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 				->create();
 		}
 
-		foreach ( $relationships as $key => $data ) {
-			if ( 'post' !== $data['entity'] ) {
-				continue;
-			}
+		foreach ( array_keys( $relationships ) as $key ) {
 
 			// Find active models related to post 2
 			$results = $this->get_repository()
@@ -1321,7 +1277,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 				->all();
 
 			$this->assertCount( 1, $results ); // Only Model 2
-			$this->assertEquals( $models[2]->get_id(), $results[0]->get_id() );
+			$this->assertEquals( $models[2]->getPrimaryValue(), $results[0]->getPrimaryValue() );
 
 			// Find models NOT active AND related to posts 0 or 1
 			$results = $this->get_repository()
@@ -1330,9 +1286,9 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 				->all();
 
 			$this->assertCount( 2, $results ); // Models 1 and 3
-			$result_ids = array_map( function( $m ) { return $m->get_id(); }, $results );
-			$this->assertContains( $models[1]->get_id(), $result_ids );
-			$this->assertContains( $models[3]->get_id(), $result_ids );
+			$result_ids = array_map( function( $m ) { return $m->getPrimaryValue(); }, $results );
+			$this->assertContains( $models[1]->getPrimaryValue(), $result_ids );
+			$this->assertContains( $models[3]->getPrimaryValue(), $result_ids );
 
 			// Find models with status IN (active, pending) AND NOT related to post 1
 			$results = $this->get_repository()
@@ -1341,14 +1297,14 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 				->all();
 
 			$this->assertCount( 2, $results ); // Models 2 and 3
-			$result_ids = array_map( function( $m ) { return $m->get_id(); }, $results );
-			$this->assertContains( $models[2]->get_id(), $result_ids );
-			$this->assertContains( $models[3]->get_id(), $result_ids );
+			$result_ids = array_map( function( $m ) { return $m->getPrimaryValue(); }, $results );
+			$this->assertContains( $models[2]->getPrimaryValue(), $result_ids );
+			$this->assertContains( $models[3]->getPrimaryValue(), $result_ids );
 		}
 	}
 
 	public function test_relationship_queries_with_pagination() {
-		$relationships = tribe( $this->test_model_class )->getRelationships();
+		$relationships = tribe( $this->test_model_class )->getRelationshipCollection()->getAll();
 
 		if ( empty( $relationships ) ) {
 			$this->markTestSkipped( 'No relationships defined for this model' );
@@ -1362,11 +1318,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		for ( $i = 0; $i < 10; $i++ ) {
 			$create_data = $this->get_create_data();
 
-			foreach ( $relationships as $key => $data ) {
-				if ( 'post' !== $data['entity'] ) {
-					continue;
-				}
-
+			foreach ( array_keys( $relationships ) as $key ) {
 				$create_data[ $key ] = [ $post_id ];
 			}
 
@@ -1375,11 +1327,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 				->create();
 		}
 
-		foreach ( $relationships as $key => $data ) {
-			if ( 'post' !== $data['entity'] ) {
-				continue;
-			}
-
+		foreach ( array_keys( $relationships ) as $key ) {
 			// Get first page of results
 			$page1 = $this->get_repository()
 				->by( $key, $post_id )
@@ -1398,8 +1346,8 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 			$this->assertCount( 3, $page2 );
 
 			// Verify different items
-			$page1_ids = array_map( function( $m ) { return $m->get_id(); }, $page1 );
-			$page2_ids = array_map( function( $m ) { return $m->get_id(); }, $page2 );
+			$page1_ids = array_map( function( $m ) { return $m->getPrimaryValue(); }, $page1 );
+			$page2_ids = array_map( function( $m ) { return $m->getPrimaryValue(); }, $page2 );
 			$this->assertEmpty( array_intersect( $page1_ids, $page2_ids ) );
 
 			// Test total found count
@@ -1413,7 +1361,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	}
 
 	public function test_relationship_queries_with_ordering() {
-		$relationships = tribe( $this->test_model_class )->getRelationships();
+		$relationships = tribe( $this->test_model_class )->getRelationshipCollection()->getAll();
 
 		if ( empty( $relationships ) ) {
 			$this->markTestSkipped( 'No relationships defined for this model' );
@@ -1444,11 +1392,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 			$create_data = $this->get_create_data();
 			$create_data[ $numeric_column ] = $value;
 
-			foreach ( $relationships as $key => $data ) {
-				if ( 'post' !== $data['entity'] ) {
-					continue;
-				}
-
+			foreach ( array_keys( $relationships ) as $key ) {
 				$create_data[ $key ] = [ $post_id ];
 			}
 
@@ -1457,11 +1401,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 				->create();
 		}
 
-		foreach ( $relationships as $key => $data ) {
-			if ( 'post' !== $data['entity'] ) {
-				continue;
-			}
-
+		foreach ( array_keys( $relationships ) as $key ) {
 			$getter = 'get_' . $numeric_column;
 
 			// Test ascending order
@@ -1491,7 +1431,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	}
 
 	public function test_relationship_queries_with_count() {
-		$relationships = tribe( $this->test_model_class )->getRelationships();
+		$relationships = tribe( $this->test_model_class )->getRelationshipCollection()->getAll();
 
 		if ( empty( $relationships ) ) {
 			$this->markTestSkipped( 'No relationships defined for this model' );
@@ -1507,11 +1447,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		for ( $i = 0; $i < 5; $i++ ) {
 			$create_data = $this->get_create_data();
 
-			foreach ( $relationships as $key => $data ) {
-				if ( 'post' !== $data['entity'] ) {
-					continue;
-				}
-
+			foreach ( array_keys( $relationships ) as $key ) {
 				// 2 models with post 0
 				// 3 models with post 1
 				// 1 model with post 2
@@ -1529,11 +1465,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 				->create();
 		}
 
-		foreach ( $relationships as $key => $data ) {
-			if ( 'post' !== $data['entity'] ) {
-				continue;
-			}
-
+		foreach ( array_keys( $relationships ) as $key ) {
 			// Count models related to post 0
 			$count = $this->get_repository()
 				->by( $key, $post_ids[0] )
@@ -1561,7 +1493,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 	}
 
 	public function test_relationship_queries_get_ids() {
-		$relationships = tribe( $this->test_model_class )->getRelationships();
+		$relationships = tribe( $this->test_model_class )->getRelationshipCollection()->getAll();
 
 		if ( empty( $relationships ) ) {
 			$this->markTestSkipped( 'No relationships defined for this model' );
@@ -1578,11 +1510,7 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 		for ( $i = 0; $i < 3; $i++ ) {
 			$create_data = $this->get_create_data();
 
-			foreach ( $relationships as $key => $data ) {
-				if ( 'post' !== $data['entity'] ) {
-					continue;
-				}
-
+			foreach ( array_keys( $relationships ) as $key ) {
 				// Model 0, 1: post 0
 				// Model 2: post 1
 				if ( $i < 2 ) {
@@ -1595,14 +1523,10 @@ abstract class Abstract_Custom_Table_Repository_Testcase extends WPTestCase {
 			$model = $this->get_repository()
 				->set_args( $create_data )
 				->create();
-			$model_ids[] = $model->get_id();
+			$model_ids[] = $model->getPrimaryValue();
 		}
 
-		foreach ( $relationships as $key => $data ) {
-			if ( 'post' !== $data['entity'] ) {
-				continue;
-			}
-
+		foreach ( array_keys( $relationships ) as $key ) {
 			// Get IDs of models related to post 0
 			$ids = $this->get_repository()
 				->by( $key, $post_ids[0] )

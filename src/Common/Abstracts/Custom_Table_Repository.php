@@ -13,8 +13,8 @@ namespace TEC\Common\Abstracts;
 
 use TEC\Common\Contracts\Custom_Table_Repository_Interface as Repository_Interface;
 use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
-use TEC\Common\StellarWP\Models\ValueObjects\Relationship;
 use TEC\Common\StellarWP\Schema\Tables\Contracts\Table as Table_Interface;
+use TEC\Common\StellarWP\SchemaModels\Relationships\ManyToManyWithPosts;
 use TEC\Common\StellarWP\DB\DB;
 use Tribe__Promise as Promise;
 use RuntimeException;
@@ -178,25 +178,26 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 
 		$model = tribe( $this->get_model_class() );
 
-		$relationships = $model->getRelationships();
+		$relationships = $model->getRelationshipCollection();
 
-		foreach ( $relationships as $key => $relationship ) {
-			if ( $relationship['type'] !== Relationship::MANY_TO_MANY ) {
+		foreach ( $relationships->getAll() as $key => $relationship ) {
+			$definition = $relationship->getDefinition();
+			if ( ! $definition instanceof ManyToManyWithPosts ) {
 				continue;
 			}
 
 			$this->add_schema_entry(
 				$key,
-				function ( $value ) use ( $relationship ) {
-					$callback = function ( array $where ) use ( $relationship, $value ) {
+				function ( $value ) use ( $definition ) {
+					$callback = function ( array $where ) use ( $definition, $value ) {
 						$value        = (array) $value;
 						$placeholders = '(' . implode( ',', array_fill( 0, count( $value ), '%d' ) ) . ')';
 						$where[]      = DB::prepare(
 							"%i IN (SELECT %i FROM %i WHERE %i IN {$placeholders})",
 							$this->get_table_interface()::uid_column(),
-							$relationship['columns']['this'],
-							$relationship['through']::table_name(),
-							$relationship['columns']['other'],
+							$definition->getThisEntityColumn(),
+							$definition->getTableInterface()::table_name(),
+							$definition->getOtherEntityColumn(),
 							...$value
 						);
 						return $where;
@@ -964,7 +965,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 
 		/** @var Model $model */
 		$model         = new $model_class();
-		$relationships = $model->getRelationships();
+		$relationships = $model->getRelationshipCollection()->getAll();
 		foreach ( $this->get_create_args() as $key => $value ) {
 			$property = $this->get_property_name( $key );
 			$method   = 'set_' . $property;
