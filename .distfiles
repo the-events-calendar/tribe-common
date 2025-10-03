@@ -28,14 +28,11 @@
 /vendor/jquery-tribe-timepicker/**/*.min.js
 /vendor/jquery-tribe-timepicker/**/*.png
 /vendor/jquery/**/*
-/vendor/ky/*
 /vendor/momentjs/*.min.js
 /vendor/monolog/monolog/src/*.php
 /vendor/monolog/monolog/src/**/*.php
-/vendor/phpqrcode/*.php
 /vendor/psr/log/Psr/Log/*.php
 /vendor/tooltipster/**/*.min.*
-/vendor/tribe-select2/*.css
 /vendor/tribe-select2/*.gif
 /vendor/tribe-select2/*.min.js
 /vendor/tribe-select2/*.png
@@ -50,5 +47,4 @@
 /vendor/vendor-prefixed/trustedlogin/client/src/assets
 /vendor/vendor-prefixed/trustedlogin/client/src/assets/*
 /vendor/woocommerce/action-scheduler/**/*.php
-/node_modules/php-date-formatter/js/php-date-formatter.js
 /node_modules/php-date-formatter/js/php-date-formatter.min.js
