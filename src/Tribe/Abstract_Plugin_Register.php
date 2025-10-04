@@ -5,7 +5,6 @@
  * @package Tribe
  *
  * @since 4.9
- *
  */
 
  // phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase, PEAR.NamingConventions.ValidClassName.Invalid
@@ -16,7 +15,6 @@
  *
  * @package Tribe
  * @since 4.9
- *
  */
 abstract class Tribe__Abstract_Plugin_Register {
 
