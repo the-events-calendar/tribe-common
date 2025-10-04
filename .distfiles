@@ -28,10 +28,12 @@
 /vendor/jquery-tribe-timepicker/**/*.min.js
 /vendor/jquery-tribe-timepicker/**/*.png
 /vendor/jquery/**/*
+/vendor/ky/*.js
 /vendor/momentjs/*.min.js
 /vendor/monolog/monolog/src/*.php
 /vendor/monolog/monolog/src/**/*.php
 /vendor/psr/log/Psr/Log/*.php
+/vendor/phpqrcode/*.php
 /vendor/tooltipster/**/*.min.*
 /vendor/tribe-select2/*.gif
 /vendor/tribe-select2/*.min.js
