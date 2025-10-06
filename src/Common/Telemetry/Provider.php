@@ -60,12 +60,56 @@ class Provider extends Service_Provider {
 	 * Add the filter hooks.
 	 *
 	 * @since 5.1.0
+	 * @since TBD Added filter to isolate TEC telemetry option from other StellarWP products.
 	 */
 	public function add_filters() {
+		// Isolate TEC telemetry from other StellarWP products (optional - see filter doc).
+		add_filter( 'stellarwp/telemetry/tec/option_name', [ $this, 'filter_telemetry_option_name' ] );
+
 		add_filter( 'stellarwp/telemetry/the-events-calendar/optin_args', [ $this, 'filter_tec_optin_args' ], 10 );
 		add_filter( 'stellarwp/telemetry/event-tickets/optin_args', [ $this, 'filter_et_optin_args' ], 10 );
 		add_filter( 'stellarwp/telemetry/exit_interview_args', [ $this, 'filter_exit_interview_args' ] );
 		add_filter( 'http_request_args', [ $this, 'filter_telemetry_http_request_args' ], 10, 2 );
+	}
+
+	/**
+	 * Filters the telemetry option name to optionally isolate TEC from other StellarWP products.
+	 *
+	 * By default, all StellarWP products share the same 'stellarwp_telemetry' option,
+	 * meaning if a user opts out of any StellarWP product, all products become opted out.
+	 *
+	 * This filter allows isolating TEC's telemetry to its own option, making it independent.
+	 *
+	 * To enable isolation:
+	 * ```php
+	 * add_filter( 'tec_telemetry_isolate_option', '__return_true' );
+	 * ```
+	 *
+	 * @since TBD
+	 *
+	 * @param string $option_name The default option name.
+	 *
+	 * @return string The filtered option name.
+	 */
+	public function filter_telemetry_option_name( $option_name ) {
+		/**
+		 * Filters whether TEC telemetry should use an isolated option.
+		 *
+		 * By default, TEC shares the 'stellarwp_telemetry' option with all StellarWP products.
+		 * Return true to use an isolated 'tec_stellarwp_telemetry' option instead.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $isolate Whether to isolate TEC telemetry. Default false.
+		 */
+		$isolate = apply_filters( 'tec_telemetry_isolate_option', false );
+
+		if ( ! $isolate ) {
+			return $option_name;
+		}
+
+		// Use TEC-specific option to isolate from other StellarWP products.
+		return 'tec_stellarwp_telemetry';
 	}
 
 	/**

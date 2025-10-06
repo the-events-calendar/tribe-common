@@ -440,20 +440,29 @@ final class Telemetry {
 	}
 
 	/**
-	 * Allows out plugins to hook in and add themselves,
+	 * Allows our plugins to hook in and add themselves,
 	 * automating a lot of the registration and opt in/out process.
 	 *
+	 * This uses the StellarWP Telemetry library's native suite handling via Config::add_stellar_slug()
+	 * and Status::add_plugin() to register multiple plugins as a cohesive suite where opting in/out
+	 * affects all plugins together.
+	 *
 	 * @since 5.1.0
+	 * @since TBD Added documentation about native suite handling.
 	 *
 	 * @return array<string,string> An array of plugins in the format ['plugin_slug' => 'plugin_path']
 	 */
 	public static function get_tec_telemetry_slugs() {
 		/**
-		 * Filter for plugins to hooked into Telemetry and add themselves.
-		 * This acts a Telemetry "registry" for all TEC plugins.
-		 * Used to ensure TEC plugins get (de)activated as a group.
+		 * Filter for plugins to hook into Telemetry and add themselves.
+		 * This acts as a Telemetry "registry" for all TEC plugins.
+		 * Used to ensure TEC plugins get (de)activated as a group (suite handling).
+		 *
+		 * The slugs registered here are passed to Config::add_stellar_slug() and Status::add_plugin()
+		 * which is the native suite handling provided by the StellarWP Telemetry library.
 		 *
 		 * @since 5.1.0
+		 * @since TBD Updated documentation to clarify suite handling.
 		 *
 		 * @param array<string,string> $slugs An array of plugins in the format ['plugin_slug' => 'plugin_path']
 		 */
@@ -461,10 +470,17 @@ final class Telemetry {
 	}
 
 	/**
-	 * Register and opt in/out the plugins that are hooked into `tec_telemetry_slugs`.
-	 * This keeps all TEC plugins in sync and only requires one optin modal response.
+	 * Register plugins in the telemetry suite.
+	 *
+	 * This method registers all TEC plugins with the StellarWP Telemetry library using native
+	 * suite handling via Config::add_stellar_slug(). Once registered, the library automatically
+	 * handles synchronizing opt-in status across all plugins in the suite.
+	 *
+	 * The complexity of manual status tracking and normalization has been removed in favor of
+	 * the library's native suite handling as documented in the Telemetry library docs.
 	 *
 	 * @since 5.1.0
+	 * @since TBD Simplified to use native suite handling, removed manual status synchronization.
 	 *
 	 * @param bool|null $opted Whether to opt in or out. If null, will calculate based on existing status.
 	 *
@@ -505,89 +521,102 @@ final class Telemetry {
 		// No cached slugs, or the list has changed, or we're running manually - so (re)set the cached value.
 		tribe( 'cache' )['tec_telemetry_slugs'] = $tec_slugs;
 
-		// In case we're not specifically passed a status...
-		$new_opted = $this->calculate_optin_status( $opted );
-		$status    = Config::get_container()->get( Status::class );
+		// Get the current opt-in status to use for new plugins.
+		// If explicitly passed, use that. Otherwise, use the current suite status.
+		$current_status = ! is_null( $opted ) ? $opted : self::get_status_object()->is_active();
+		$status_obj     = Config::get_container()->get( Status::class );
 
+		// Register each plugin in the suite.
+		// We need both Config::add_stellar_slug() for the suite registry
+		// AND Status::add_plugin() to persist to the database.
 		foreach ( $tec_slugs as $slug => $path ) {
-			// Register each plugin with the already instantiated library.
+			// Register in the suite (memory).
 			Config::add_stellar_slug( $slug, $path );
-			$status->add_plugin( $slug, $new_opted, $path );
 
-			if ( $new_opted ) {
-				$status->set_status( $new_opted, $slug );
+			// Check if plugin is already registered in the database.
+			if ( ! $status_obj->plugin_exists( $slug ) ) {
+				// New plugin - add it with the current suite's opt-in status.
+				$status_obj->add_plugin( $slug, $current_status, $path );
 			}
+		}
 
-			// If we're manually opting in/out, don't show the modal(s).
-			if ( ! is_null( $opted ) ) {
-				/*
-				 * If we originally opted out, there will be no registration token,
-				 * so we have to do this to get Telemetry to *register* the site -
-				 * else it will never send updates!
-				 */
-				$status = Config::get_container()->get( Status::class );
-				if ( empty( $status->get_token() ) && ! empty( $opted ) ) {
-					$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
-					$opt_in_subscriber->initialize_optin_option();
+		// If we're explicitly setting opt-in status (from settings page), update all plugins.
+		if ( ! is_null( $opted ) ) {
+			$this->set_suite_optin_status( $opted );
+		}
+	}
 
-					$this->normalize_optin_status();
-				}
-			}
+	/**
+	 * Sets the opt-in status for all plugins in the TEC suite.
+	 *
+	 * This method is used when explicitly setting opt-in status (e.g., from settings page).
+	 * It ensures proper initialization if this is the first time opting in.
+	 *
+	 * @since TBD Simplified method replacing normalize_optin_status() and calculate_optin_status().
+	 *
+	 * @param bool $opted Whether to opt in or out.
+	 *
+	 * @return void
+	 */
+	protected function set_suite_optin_status( bool $opted ): void {
+		$status = Config::get_container()->get( Status::class );
 
-			$show_modal = self::calculate_modal_status();
+		// If opting in for the first time and we don't have a token yet, initialize.
+		if ( $opted && empty( $status->get_token() ) ) {
+			$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
+			$opt_in_subscriber->initialize_optin_option();
+		}
 
-			self::disable_modal( $slug, $show_modal );
+		// Set the status for the primary stellar slug (the library handles suite synchronization).
+		$stellar_slug = self::get_stellar_slug();
+		if ( ! empty( $stellar_slug ) ) {
+			$status->set_status( $opted, $stellar_slug );
+		}
+
+		// Update our local option for settings display.
+		tribe_update_option( 'opt-in-status', $opted );
+
+		// Disable modals when explicitly setting status.
+		foreach ( self::$base_parent_slugs as $slug ) {
+			self::disable_modal( $slug, false );
 		}
 	}
 
 	/**
 	 * This ensures all our entries are the same.
 	 *
-	 * @since 5.1.8.1
+	 * @since      5.1.8.1
+	 * @deprecated TBD Use set_suite_optin_status() instead.
+	 *
+	 * @return void
 	 */
 	public function normalize_optin_status(): void {
-		// If they have opted in to one plugin, opt them in to all TEC ones.
+		// Get current status from the library.
 		$status_obj = self::get_status_object();
-		$stati      = [];
-		$status     = $this->calculate_optin_status();
-		$stati      = array_filter( $stati );
+		$opted_in   = $status_obj->is_active();
 
-		foreach ( self::$base_parent_slugs as $slug ) {
-			if ( $status_obj->plugin_exists( $slug ) ) {
-				$status_obj->set_status( (bool) $status, $slug );
-			}
-		}
-
-		tribe_update_option( 'opt-in-status', $status );
+		// Use the simplified method.
+		$this->set_suite_optin_status( $opted_in );
 	}
 
 	/**
-	 * Calculate the optin status for the TEC plugins from various sources.
+	 * Calculate the optin status for the TEC plugins.
 	 *
-	 * @since 6.1.0
+	 * @since      6.1.0
+	 * @deprecated TBD The Telemetry library handles this via Status::is_active().
 	 *
-	 * @param bool $opted Whether to opt in or out. If null, will calculate based on existing status.
+	 * @param bool|null $opted Whether to opt in or out. If null, will calculate based on existing status.
 	 *
-	 * @return bool $opted
+	 * @return bool
 	 */
 	public function calculate_optin_status( $opted = null ) {
 		if ( null !== $opted ) {
 			return $opted;
 		}
 
-		// If they have opted in to one plugin, opt them in to all TEC ones.
+		// Use the library's native method.
 		$status_obj = self::get_status_object();
-		$stati      = [];
-		$option     = $status_obj->get_option();
-
-		foreach ( self::$base_parent_slugs as $slug ) {
-			if ( $status_obj->plugin_exists( $slug ) ) {
-				$stati[ $slug ] = $option['plugins'][ $slug ]['optin'];
-			}
-		}
-
-		$status = array_filter( $stati );
-		return (bool) array_pop( $status );
+		return $status_obj->is_active();
 	}
 
 	/**

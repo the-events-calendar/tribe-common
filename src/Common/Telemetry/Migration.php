@@ -172,10 +172,16 @@ class Migration {
 	 * Whether the class should load/run.
 	 *
 	 * @since 5.1.0
+	 * @since TBD Only run if Freemius is detected (backwards compatibility for older installs).
 	 *
 	 * @return boolean
 	 */
 	public function should_load(): bool {
+		// Only run if Freemius classes/functions still exist (backwards compatibility for older installs).
+		if ( ! $this->is_freemius_active() ) {
+			return false;
+		}
+
 		// If we've already checked, bail.
 		if ( get_option( self::$fs_accounts_data ) ) {
 			return false;
@@ -201,6 +207,39 @@ class Migration {
 		 * @param bool $should_load Whether the class should load/run.
 		 */
 		return apply_filters( 'tec_telemetry_migration_should_load', true );
+	}
+
+	/**
+	 * Checks if Freemius is active/present in the installation.
+	 * This is for backwards compatibility with older installations that still have Freemius.
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean
+	 */
+	protected function is_freemius_active(): bool {
+		// Check if Freemius classes exist.
+		if ( class_exists( 'Freemius' ) ) {
+			return true;
+		}
+
+		// Check if the deprecated Tribe__Freemius class exists.
+		if ( class_exists( 'Tribe__Freemius' ) ) {
+			return true;
+		}
+
+		// Check if Freemius functions exist.
+		if ( function_exists( 'fs_get_entities' ) ) {
+			return true;
+		}
+
+		// Check if Freemius data still exists in the database.
+		global $wpdb;
+		$fs_options_count = $wpdb->get_var(
+			"SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name LIKE 'fs_%'"
+		);
+
+		return $fs_options_count > 0;
 	}
 
 	/**
