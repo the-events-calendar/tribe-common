@@ -153,7 +153,7 @@ class Conditionals {
 	 * Check if the plugin version matches requirements.
 	 *
 	 * @since 6.4.0
-	 * @since TBD Update to check the plugin file name more precisely.
+	 * @since 6.9.6 Update to check the plugin file name more precisely.
 	 *
 	 * @param array $plugins The required plugins to check.
 	 *                        in the format of [ 'plugin_slug@comparison_version' ]
