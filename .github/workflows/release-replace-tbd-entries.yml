@@ -25,41 +25,55 @@ jobs:
           echo "timestamp=$(date +%Y%m%d-%H%M%S)" >> $GITHUB_OUTPUT
           echo "current_branch=${{ github.ref_name }}" >> $GITHUB_OUTPUT
 
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+
+      - name: Install Composer dependencies
+        run: composer install --no-dev --no-interaction --prefer-dist
+
       - name: Set up Git configuration
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "github-actions"
 
-      - name: Check for version files
+      - name: Check for version conflicts
         id: check-version
         run: |
-          # Set default version in case we can't find one
-          CURRENT_VERSION="0.0.0"
-          
-          # Look for package.json
-          if [ -f "package.json" ]; then
-            PACKAGE_VERSION=$(grep -Po '"version":\s*"\K[^"]+' package.json)
-            if [ ! -z "$PACKAGE_VERSION" ]; then
-              CURRENT_VERSION="$PACKAGE_VERSION"
-              echo "Found version in package.json: $CURRENT_VERSION" >> $GITHUB_STEP_SUMMARY
-            fi
+          echo "## Version Detection" >> $GITHUB_STEP_SUMMARY
+
+          # Check if .puprc exists
+          if [ ! -f ".puprc" ]; then
+            echo "❌ Error: .puprc file not found" >> $GITHUB_STEP_SUMMARY
+            echo "This workflow requires a .puprc file with version paths configured." >> $GITHUB_STEP_SUMMARY
+            exit 1
           fi
-          
-          # Look for plugin.php or main PHP file
-          for file in $(find . -name "*.php" -type f -not -path "*/vendor/*" -not -path "*/node_modules/*"); do
-            if grep -q "Version:" "$file"; then
-              PHP_VERSION=$(grep -Po 'Version:\s*\K[0-9]+\.[0-9]+\.[0-9]+(?:\.[0-9]+)?' "$file")
-              if [ ! -z "$PHP_VERSION" ]; then
-                CURRENT_VERSION="$PHP_VERSION"
-                echo "Found version in $file: $CURRENT_VERSION" >> $GITHUB_STEP_SUMMARY
-                break
-              fi
-            fi
-          done
-          
+
+          # Run pup version-conflict check
+          if ! composer pup check version-conflict > /tmp/pup-output.txt 2>&1; then
+            echo "## ❌ Version Conflict Detected" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            cat /tmp/pup-output.txt >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Please ensure all version numbers match before running this workflow." >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+          # Get the version using pup
+          CURRENT_VERSION=$(composer pup get-version)
+
+          if [ -z "$CURRENT_VERSION" ] || [ "$CURRENT_VERSION" = "unknown" ]; then
+            echo "## ❌ Error: No Version Found" >> $GITHUB_STEP_SUMMARY
+            echo "Could not determine the current version using pup." >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
           echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
-          echo "## Current Version" >> $GITHUB_STEP_SUMMARY
-          echo "* Version: \`$CURRENT_VERSION\`" >> $GITHUB_STEP_SUMMARY
+          echo "## ✅ Current Version" >> $GITHUB_STEP_SUMMARY
+          echo "Version: \`$CURRENT_VERSION\`" >> $GITHUB_STEP_SUMMARY
 
       - name: Create branch for changes
         id: create-branch
@@ -76,9 +90,9 @@ jobs:
           CURRENT_VERSION="${{ steps.check-version.outputs.current_version }}"
           FOUND_TBD=false
           CHANGES_MADE=false
-          
+
           echo "## Files Changed" >> $GITHUB_STEP_SUMMARY
-          
+
           # Define file extensions to search
           FILE_EXTENSIONS=(
             "*.php"
@@ -91,7 +105,7 @@ jobs:
             "*.md"
             "*.txt"
           )
-          
+
           # Define directories to exclude
           EXCLUDE_DIRS=(
             "*/vendor/*"
@@ -99,10 +113,10 @@ jobs:
             "*/.git/*"
             "*/tests/*"
           )
-          
+
           # Build the find command
           FIND_CMD="find . -type f \("
-          
+
           # Add file extensions with proper separator
           for i in "${!FILE_EXTENSIONS[@]}"; do
             if [ "$i" -gt 0 ]; then
@@ -110,19 +124,19 @@ jobs:
             fi
             FIND_CMD+=" -name \"${FILE_EXTENSIONS[$i]}\""
           done
-          
+
           FIND_CMD+=" \)"
-          
+
           # Add excluded directories
           for dir in "${EXCLUDE_DIRS[@]}"; do
             FIND_CMD+=" -not -path \"$dir\""
           done
-          
+
           # Search in files based on the constructed command
           for file in $(eval "$FIND_CMD"); do
             if grep -q "TBD" "$file"; then
               FOUND_TBD=true
-              
+
               # Find and display all line numbers where TBD appears
               grep -n "TBD" "$file" | while IFS=: read -r line_num content; do
                 # Create a GitHub-compatible file path (remove leading ./ if present)
@@ -130,25 +144,25 @@ jobs:
                 if [[ "$github_file_path" == "./"* ]]; then
                   github_file_path="${github_file_path:2}"
                 fi
-                
+
                 # Create a markdown link to the file at specific line in the branch
                 echo "- [\`$file@L$line_num\`](https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/$github_file_path#L$line_num)" >> $GITHUB_STEP_SUMMARY
               done
-              
+
               # Replace TBD with version
               sed -i "s/TBD/$CURRENT_VERSION/g" "$file"
               CHANGES_MADE=true
             fi
           done
-          
+
           if [ "$FOUND_TBD" = false ]; then
             echo "No TBD entries found in the repository." >> $GITHUB_STEP_SUMMARY
             echo "found_tbd=false" >> $GITHUB_OUTPUT
           else
             echo "found_tbd=true" >> $GITHUB_OUTPUT
           fi
-          
-          if [ "$CHANGES_MADE" = true ]; then            
+
+          if [ "$CHANGES_MADE" = true ]; then
             # Let PR creation handle it
             echo "changes_made=true" >> $GITHUB_OUTPUT
           else
@@ -168,12 +182,12 @@ jobs:
           body: |
             This is an automated PR created by ${{ github.actor }}.
             It replaces all "TBD" entries in the codebase with the current version: ${{ steps.check-version.outputs.current_version }}
-            
+
             Generated by: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
           labels: "automation"
           commit-message: |
             Replace TBD entries with version ${{ steps.check-version.outputs.current_version }}
-            
+
             This is an automated PR created by ${{ github.actor }}.
             Generated by: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
           delete-branch: false
@@ -190,4 +204,4 @@ jobs:
         if: steps.replace-tbd.outputs.changes_made == 'false'
         run: |
           echo "## No Pull Request Created" >> $GITHUB_STEP_SUMMARY
-          echo "No TBD entries were found or changed in the repository." >> $GITHUB_STEP_SUMMARY 
+          echo "No TBD entries were found or changed in the repository." >> $GITHUB_STEP_SUMMARY

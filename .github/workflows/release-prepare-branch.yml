@@ -40,21 +40,61 @@ jobs:
           echo "sha_short=$(git rev-parse --short ${{ github.sha }})" >> $GITHUB_OUTPUT
           echo "version_bump_type=${versionBumpType%% *}" >> $GITHUB_OUTPUT
 
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+
+      - name: Install Composer dependencies
+        run: composer install --no-dev --no-interaction --prefer-dist
+
       - name: Set up Git configuration
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "github-actions"
 
-      - name: Check for .puprc file and paths.versions
+      - name: Check for .puprc file and validate versions
         id: check-puprc
         run: |
           if [ ! -f ".puprc" ]; then
-            echo "Error: .puprc file not found" >> $GITHUB_STEP_SUMMARY
+            echo "❌ Error: .puprc file not found" >> $GITHUB_STEP_SUMMARY
             exit 1
           fi
           if ! jq -e '.paths.versions' .puprc > /dev/null; then
-            echo "Error: paths.versions not found in .puprc" >> $GITHUB_STEP_SUMMARY
+            echo "❌ Error: paths.versions not found in .puprc" >> $GITHUB_STEP_SUMMARY
             exit 1
+          fi
+
+          # Run pup version-conflict check
+          if ! composer pup check version-conflict > /tmp/pup-output.txt 2>&1; then
+            echo "## ⚠️ Version Conflict Detected (Before Bump)" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            cat /tmp/pup-output.txt >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "The PR will resolve these conflicts by updating all version files. Please review the changes to ensure they're correct." >> $GITHUB_STEP_SUMMARY
+
+            # Store conflict message for PR description
+            echo "has_conflict=true" >> $GITHUB_OUTPUT
+            {
+              echo 'conflict_message<<EOF'
+              echo '## ℹ️ Version Conflict Detected Before Bump'
+              echo ''
+              echo 'The following version conflicts were found before the version bump:'
+              echo ''
+              echo '```'
+              cat /tmp/pup-output.txt
+              echo '```'
+              echo ''
+              echo 'These conflicts have been resolved by this PR, which updates all version files to the new version.'
+              echo 'Please review the changes to ensure the version updates are correct and investigate if this indicates an issue with a past release.'
+              echo 'EOF'
+            } >> $GITHUB_OUTPUT
+          else
+            echo "✅ No version conflicts detected" >> $GITHUB_STEP_SUMMARY
+            echo "has_conflict=false" >> $GITHUB_OUTPUT
+            echo "conflict_message=" >> $GITHUB_OUTPUT
           fi
 
       - name: Create and push release branch
@@ -78,68 +118,79 @@ jobs:
           git push origin "$changeBranch"
           versionBumpType="${{ steps.vars.outputs.version_bump_type }}"
 
+          # Get current version using pup
+          existing_version=$(composer pup get-version)
+          if [ -z "$existing_version" ] || [ "$existing_version" = "unknown" ]; then
+            echo "❌ Error: Could not determine current version using pup" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+          echo "## Version Bump" >> $GITHUB_STEP_SUMMARY
+          echo "* Current version: \`$existing_version\`" >> $GITHUB_STEP_SUMMARY
+          echo "* Bump type: \`$versionBumpType\`" >> $GITHUB_STEP_SUMMARY
+
+          # Parse version parts
+          IFS='.' read -r -a version_parts <<< "$existing_version"
+
+          # Apply version bump
+          case "$versionBumpType" in
+            major)
+              version_parts[0]=$((version_parts[0] + 1))
+              version_parts[1]=0
+              version_parts[2]=0
+              unset version_parts[3]
+              ;;
+            feature)
+              version_parts[1]=$((version_parts[1] + 1))
+              version_parts[2]=0
+              unset version_parts[3]
+              ;;
+            maintenance)
+              version_parts[2]=$((version_parts[2] + 1))
+              unset version_parts[3]
+              ;;
+            hotfix)
+              if [ -z "${version_parts[3]}" ]; then
+                version_parts[3]=1
+              else
+                version_parts[3]=$((version_parts[3] + 1))
+              fi
+              ;;
+          esac
+
+          new_version="${version_parts[0]}.${version_parts[1]}.${version_parts[2]}"
+          if [ -n "${version_parts[3]}" ]; then
+            new_version="$new_version.${version_parts[3]}"
+          fi
+
+          echo "* New version: \`$new_version\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Files Updated" >> $GITHUB_STEP_SUMMARY
+
+          # Update all version files using pup's configuration
           jq -c '.paths.versions[]' .puprc | while read -r version; do
-            echo "Processing version info: $version"
             file=$(echo "$version" | jq -r '.file')
             regex=$(echo "$version" | jq -r '.regex')
 
-            echo "## \`$file\`" >> $GITHUB_STEP_SUMMARY
-            if [ -f "$file" ]; then
-              existing_version=$(grep -Po "$regex" "$file" | grep -Po '(\d+\.\d+\.\d+(\.\d+)?)')
-              if [ -z "$existing_version" ]; then
-                echo "Error: No version found in \`$file\` using regex \`$regex\`" >> $GITHUB_STEP_SUMMARY
-                exit 1
-              fi
-              echo "* Found: \`$existing_version\`" >> $GITHUB_STEP_SUMMARY
-
-              if [ "$versionBumpType" = "hotfix" ] && [ "$file" = "package.json" ]; then
-                echo "Skipping version bump in \`package.json\` for \`hotfix\` mode" >> $GITHUB_STEP_SUMMARY
-                continue
-              fi
-              
-              IFS='.' read -r -a version_parts <<< "$existing_version"
-
-              case "$versionBumpType" in
-                major)
-                  version_parts[0]=$((version_parts[0] + 1))
-                  version_parts[1]=0
-                  version_parts[2]=0
-                  unset version_parts[3]
-                  ;;
-                feature)
-                  version_parts[1]=$((version_parts[1] + 1))
-                  version_parts[2]=0
-                  unset version_parts[3]
-                  ;;
-                maintenance)
-                  version_parts[2]=$((version_parts[2] + 1))
-                  unset version_parts[3]
-                  ;;
-                hotfix)
-                  if [ -z "${version_parts[3]}" ]; then
-                    version_parts[3]=1
-                  else
-                    version_parts[3]=$((version_parts[3] + 1))
-                  fi
-                  ;;
-              esac
-
-              new_version="${version_parts[0]}.${version_parts[1]}.${version_parts[2]}"
-              if [ -n "${version_parts[3]}" ]; then
-                new_version="$new_version.${version_parts[3]}"
-              fi
-
-              echo "* Modified: \`$new_version\`" >> $GITHUB_STEP_SUMMARY
-
-              php_regex=$(echo "$regex" | sed "s/'/\\\\'/g")
-              php -r "file_put_contents('$file', preg_replace('/$php_regex/', '\${1}$new_version', file_get_contents('$file')));"
-
-              echo "new_version=$new_version" >> $GITHUB_OUTPUT
-            else
-              echo "Error: File \`$file\` not found" >> $GITHUB_STEP_SUMMARY
+            if [ ! -f "$file" ]; then
+              echo "❌ Error: File \`$file\` not found" >> $GITHUB_STEP_SUMMARY
               exit 1
             fi
+
+            # Special handling for hotfix + package.json (skip the bump)
+            if [ "$versionBumpType" = "hotfix" ] && [ "$file" = "package.json" ]; then
+              echo "- \`$file\`: Skipped (hotfix does not bump package.json)" >> $GITHUB_STEP_SUMMARY
+              continue
+            fi
+
+            # Update the version in the file
+            php_regex=$(echo "$regex" | sed "s/'/\\\\'/g")
+            php -r "file_put_contents('$file', preg_replace('/$php_regex/', '\${1}$new_version', file_get_contents('$file')));"
+
+            echo "- \`$file\`: Updated to \`$new_version\`" >> $GITHUB_STEP_SUMMARY
           done
+
+          echo "new_version=$new_version" >> $GITHUB_OUTPUT
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
@@ -152,6 +203,8 @@ jobs:
           body: |
             This is an automated PR created by ${{ github.actor }}.
             It was generated by [this GitHub Action](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).
+
+            ${{ steps.check-puprc.outputs.conflict_message }}
           labels: "automation"
           commit-message: |
             Version bump for ${{ github.event.inputs.new-branch }}
