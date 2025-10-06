@@ -9,11 +9,11 @@ use TEC\Common\StellarWP\Assets\Config;
 use Tribe\Tests\Traits\With_Uopz;
 
 /**
- * Class Opt_InTest
+ * Class Asset_Test
  *
- * @since 5.1.13
+ * @since 6.3.2
  *
- * @package TEC\Common\Telemetry
+ * @package TEC\Common\Assets
  */
 class Asset_Test extends WPTestCase {
 	use With_Uopz;
@@ -52,6 +52,13 @@ class Asset_Test extends WPTestCase {
 		Config::set_relative_asset_path( self::$back_up['relative'] );
 	}
 
+	/**
+	 * Add assets.
+	 *
+	 * @since 6.3.2
+	 *
+	 * @param string $slug The asset slug.
+	 */
 	protected function add_assets( $slug ) {
 		Asset::add( $slug, $slug . '.js' )
 			->prefix_asset_directory( false );
@@ -63,6 +70,13 @@ class Asset_Test extends WPTestCase {
 			->prefix_asset_directory( false );
 	}
 
+	/**
+	 * Remove assets.
+	 *
+	 * @since 6.3.2
+	 *
+	 * @param string $slug The asset slug.
+	 */
 	protected function remove_assets( $slug ) {
 		Assets::init()->remove( $slug );
 		Assets::init()->remove( $slug . '-style' );
@@ -72,6 +86,8 @@ class Asset_Test extends WPTestCase {
 
 	/**
 	 * @test
+	 *
+	 * @since 6.3.2
 	 */
 	public function it_should_return_the_same_thing() {
 		Assets::init();
@@ -99,6 +115,8 @@ class Asset_Test extends WPTestCase {
 	 * Our implementation should return a URL inside the wp-content directory while the asset one should return the true URL outside the plugins directory.
 	 *
 	 * @test
+	 *
+	 * @since 6.3.2
 	 */
 	public function it_should_not_return_the_same_thing_when_symlinks() {
 		Config::set_path( ABSPATH . 'foo/the-events-calendar/common/' );
@@ -136,6 +154,8 @@ class Asset_Test extends WPTestCase {
 
 	/**
 	 * @test
+	 *
+	 * @since 6.3.2
 	 */
 	public function it_should_work_on_windows_servers_and_should_return_the_same() {
 		$constants = [

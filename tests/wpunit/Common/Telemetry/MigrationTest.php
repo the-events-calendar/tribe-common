@@ -4,24 +4,23 @@ namespace TEC\Common\Telemetry;
 
 use Tribe\Tests\Traits\With_Uopz;
 
+// phpcs:disable Generic.Files.OneObjectStructurePerFile.MultipleFound
 class Migration_No_Auto_Opt_In extends \TEC\Common\Telemetry\Migration {
 	public $counter = 0;
 
 	public function auto_opt_in() {
-		$this->counter++;
-
-		return;
+		$this->counter += 1;
 	}
 }
 
 /**
- * Class MigrationTest
+ * Class Migration_Test
  *
- * @since	5.1.0
+ * @since 5.1.0
  *
  * @package TEC\Common\Telemetry
  */
-class MigrationTest extends \Codeception\TestCase\WPTestCase {
+class Migration_Test extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
 
 	/**
@@ -38,30 +37,40 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 		delete_option( 'fs_gdpr' );
 	}
 
+	/**
+	 * Set up active plugins.
+	 *
+	 * @since TBD
+	 */
 	protected function set_up_active_plugins() {
 		update_option(
 			'fs_active_plugins',
 			(object) [
 				'plugins' => [
 					'the-events-calendar/common/vendor/freemius' => (object) [
-						'version' => '2.4.4',
-						'type' => 'plugin',
-						'timestamp' => 1682623989,
+						'version'     => '2.4.4',
+						'type'        => 'plugin',
+						'timestamp'   => 1682623989,
 						'plugin_path' => 'the-events-calendar/the-events-calendar.php',
 					],
 				],
 				'abspath' => '/app/',
-				'newest' => (object) [
-					'plugin_path' => 'the-events-calendar/the-events-calendar.php',
-					'sdk_path' => 'the-events-calendar/common/vendor/freemius',
-					'version' => '2.4.4',
+				'newest'  => (object) [
+					'plugin_path'   => 'the-events-calendar/the-events-calendar.php',
+					'sdk_path'      => 'the-events-calendar/common/vendor/freemius',
+					'version'       => '2.4.4',
 					'in_activation' => false,
-					'timestamp' => 1682623989,
+					'timestamp'     => 1682623989,
 				],
 			]
 		);
 	}
 
+	/**
+	 * Set up fs accounts disconnected.
+	 *
+	 * @since TBD
+	 */
 	protected function setup_fs_accounts_disconnected() {
 		update_option(
 			'fs_accounts',
@@ -71,10 +80,15 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 						'is_disconnected' => true,
 					],
 				],
-			 ]
+			]
 		);
 	}
 
+	/**
+	 * Set up fs accounts connected.
+	 *
+	 * @since TBD
+	 */
 	protected function setup_fs_accounts_connected() {
 		update_option(
 			'fs_accounts',
@@ -84,10 +98,15 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 						'is_disconnected' => false,
 					],
 				],
-			 ]
+			]
 		);
 	}
 
+	/**
+	 * Set up fs accounts no tec.
+	 *
+	 * @since TBD
+	 */
 	protected function setup_fs_accounts_no_tec() {
 		update_option(
 			'fs_accounts',
@@ -97,10 +116,15 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 						'is_disconnected' => false,
 					],
 				],
-			 ]
+			]
 		);
 	}
 
+	/**
+	 * Set up fs accounts bad data.
+	 *
+	 * @since TBD
+	 */
 	protected function setup_fs_accounts_bad_data() {
 		update_option(
 			'fs_accounts',
@@ -110,10 +134,15 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 						'is_disconnected' => 'luca',
 					],
 				],
-			 ]
+			]
 		);
 	}
 
+	/**
+	 * Set up fs accounts mixed.
+	 *
+	 * @since TBD
+	 */
 	protected function setup_fs_accounts_mixed() {
 		update_option(
 			'fs_accounts',
@@ -122,7 +151,7 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 					'the-events-calendar' => [
 						'is_disconnected' => false,
 					],
-					'event-tickets' => [
+					'event-tickets'       => [
 						'is_disconnected' => true,
 					],
 				],
@@ -131,6 +160,10 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * Make instance.
+	 *
+	 * @since TBD
+	 *
 	 * @return Migration
 	 */
 	protected function make_instance() {
@@ -140,7 +173,11 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @return Migration
+	 * Make no auto opt in instance.
+	 *
+	 * @since TBD
+	 *
+	 * @return Migration_No_Auto_Opt_In
 	 */
 	protected function make_no_auto_opt_in_instance() {
 		$this->set_up_active_plugins();
@@ -150,7 +187,10 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * it should be instantiatable
+	 *
+	 * It should be instantiatable.
+	 *
+	 * @since TBD
 	 */
 	public function it_should_be_instantiatable() {
 		$sut = $this->make_instance();
@@ -160,7 +200,10 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * Tests the positive case of is_opted_in
+	 *
+	 * Tests the positive case of is_opted_in.
+	 *
+	 * @since TBD
 	 */
 	public function it_should_detect_no_freemius() {
 		$this->remove_all_freemius_meta();
@@ -172,7 +215,10 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * Tests the positive case of is_opted_in
+	 *
+	 * Tests the positive case of is_opted_in.
+	 *
+	 * @since TBD
 	 */
 	public function it_should_detect_no_tec() {
 		$this->remove_all_freemius_meta();
@@ -186,7 +232,10 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * Tests the positive case of is_opted_in
+	 *
+	 * Tests the positive case of is_opted_in.
+	 *
+	 * @since TBD
 	 */
 	public function it_should_detect_bad_data() {
 		$this->remove_all_freemius_meta();
@@ -200,7 +249,10 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * Tests the negative case of is_opted_in
+	 *
+	 * Tests the negative case of is_opted_in.
+	 *
+	 * @since TBD
 	 */
 	public function it_should_detect_opted_out_freemius() {
 		$sut = $this->make_instance();
@@ -212,7 +264,10 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * Tests the positive case of should_load
+	 *
+	 * Tests the positive case of should_load.
+	 *
+	 * @since TBD
 	 */
 	public function it_should_load_if_freemius() {
 		$sut = $this->make_instance();
@@ -224,7 +279,25 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * Tests the positive case of should_load
+	 *
+	 * Tests that should_load returns false when no Freemius data exists.
+	 *
+	 * @since TBD
+	 */
+	public function it_should_not_load_if_no_freemius() {
+		$this->remove_all_freemius_meta();
+
+		$sut = new Migration();
+
+		$this->assertFalse( $sut->should_load() );
+	}
+
+	/**
+	 * @test
+	 *
+	 * Tests the positive case of should_load.
+	 *
+	 * @since TBD
 	 */
 	public function it_should_load_if_freemius_mixed() {
 		$sut = $this->make_instance();
@@ -236,6 +309,10 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
+	 *
+	 * Tests that should_load returns false when no Freemius data exists.
+	 *
+	 * @since TBD
 	 */
 	public function it_should_not_migrate_when_ajax() {
 		$this->set_const_value( 'DOING_AJAX', true );
@@ -251,6 +328,10 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
+	 *
+	 * Tests that should_load returns false when no Freemius data exists.
+	 *
+	 * @since TBD
 	 */
 	public function it_should_not_migrate_when_autosaving() {
 		$this->set_const_value( 'DOING_AJAX', false );
@@ -266,6 +347,10 @@ class MigrationTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
+	 *
+	 * Tests that should_load returns false when no Freemius data exists.
+	 *
+	 * @since TBD
 	 */
 	public function it_should_not_call_auto_optin_more_than_once() {
 		$this->set_const_value( 'DOING_AJAX', false );

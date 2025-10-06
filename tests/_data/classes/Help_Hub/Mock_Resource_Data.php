@@ -300,13 +300,13 @@ class Mock_Resource_Data implements Help_Hub_Data_Interface {
 	 * Get the license validity and telemetry opt-in status.
 	 *
 	 * @since 6.8.0
+	 * @since TBD Updated to use Status::is_active() instead of deprecated calculate_optin_status().
 	 *
 	 * @return array Contains 'has_valid_license' and 'is_opted_in' status.
 	 */
 	public function get_license_and_opt_in_status(): array {
 		$has_valid_license = Tribe__PUE__Checker::is_any_license_valid();
-		$common_telemetry  = tribe( Telemetry::class );
-		$is_opted_in       = $common_telemetry->calculate_optin_status();
+		$is_opted_in       = Telemetry::get_status_object()->is_active();
 
 		return [
 			'has_valid_license' => $has_valid_license,
