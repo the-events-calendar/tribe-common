@@ -43,7 +43,7 @@ class Conditionals {
 	/**
 	 * Check if the user has opted in to telemetry and/or IAN opt-in.
 	 *
-	 * @since TBD
+	 * @since 6.9.6
 	 *
 	 * @return bool
 	 */
