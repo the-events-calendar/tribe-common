@@ -25,7 +25,7 @@ class Conditionals {
 	 * Get the current user status based on Telemetry and IAN opt-in.
 	 *
 	 * @since 6.4.0
-	 * @since TBD Moved the logic to check if the user has opted in to telemetry and/or IAN opt-in to a separate function.
+	 * @since 6.9.6 Moved the logic to check if the user has opted in to telemetry and/or IAN opt-in to a separate function.
 	 *
 	 * @return bool
 	 */
