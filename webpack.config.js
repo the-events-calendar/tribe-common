@@ -97,6 +97,8 @@ doNotPrefixSVGIdsClasses(defaultConfig);
 module.exports = {
 	...defaultConfig,
 	...{
+		// Constrain webpack to this directory only, don't look up to parent directories
+		context: __dirname,
 		entry: (buildType) => {
 			const defaultEntryPoints = defaultConfig.entry(buildType);
 			return {
@@ -108,6 +110,11 @@ module.exports = {
 			...{
 				enabledLibraryTypes: ['window'],
 			},
+		},
+		resolve: {
+			...defaultConfig.resolve,
+			// Only look in the current node_modules, not parent directories
+			modules: [require('path').resolve(__dirname, 'node_modules')],
 		},
 		plugins: [
 			...defaultConfig.plugins,
