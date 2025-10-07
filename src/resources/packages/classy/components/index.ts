@@ -1,4 +1,5 @@
 export { CenteredSpinner } from './CenteredSpinner';
+export { ClassyField } from './ClassyField';
 export { CurrencyInput } from './CurrencyInput';
 export { CurrencySelector } from './CurrencySelector';
 export { DatePicker } from './DatePicker';
@@ -10,5 +11,3 @@ export { TimePicker } from './TimePicker';
 export { TimeZone } from './TimeZone';
 export { TinyMceEditor } from './TinyMceEditor';
 export { StartSelector } from './StartSelector';
-
-// Note: the Classy application is not exported by design, only components are.

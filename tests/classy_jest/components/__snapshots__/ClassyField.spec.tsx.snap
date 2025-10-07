@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClassyField Component matches snapshot 1`] = `
+<div
+  class="classy-field classy-field--test-field"
+>
+  <div
+    class="classy-field__title"
+  >
+    <h3>
+      Test Field
+    </h3>
+  </div>
+  <div>
+    Test Content
+  </div>
+</div>
+`;
+
+exports[`ClassyField Component matches snapshot with complex children 1`] = `
+<div
+  class="classy-field classy-field--complex-form-field"
+>
+  <div
+    class="classy-field__title"
+  >
+    <h3>
+      Complex Form Field
+    </h3>
+  </div>
+  <div>
+    <label
+      for="test-input"
+    >
+      Test Label
+    </label>
+    <input
+      id="test-input"
+      type="text"
+    />
+    <button
+      type="submit"
+    >
+      Submit
+    </button>
+  </div>
+</div>
+`;
+
+exports[`ClassyField Component matches snapshot with custom className 1`] = `
+<div
+  class="classy-field custom-class"
+>
+  <div
+    class="classy-field__title"
+  >
+    <h3>
+      Custom Field
+    </h3>
+  </div>
+  <div>
+    Custom Content
+  </div>
+</div>
+`;
