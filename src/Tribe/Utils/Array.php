@@ -204,21 +204,21 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 		 * Sanitize a multidimensional array.
 		 *
 		 * @since 4.7.18
+		 * @since 6.9.4 Fixed PHP 8.1+ deprecation warnings by avoiding passing null to trim().
 		 *
 		 * @param array $data The array to sanitize.
 		 *
-		 * @return array The sanitized array
+		 * @return array The sanitized array.
 		 *
 		 * @link https://gist.github.com/esthezia/5804445
 		 */
 		public static function escape_multidimensional_array( $data = [] ) {
-
 			if ( ! is_array( $data ) || ! count( $data ) ) {
 				return [];
 			}
 
 			foreach ( $data as $key => $value ) {
-				if ( ! is_array( $value ) && ! is_object( $value ) ) {
+				if ( is_string( $value ) ) {
 					$data[ $key ] = esc_attr( trim( $value ) );
 				}
 				if ( is_array( $value ) ) {
@@ -594,7 +594,7 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 					$value = static::array_visit_recursive( $value, $visitor );
 				}
 				// Ensure visitors can quickly return `null` to remove an element.
-				list( $updated_key, $update_value ) = array_replace( [ $key, $value ], (array) $visitor( $key, $value ) );
+				[ $updated_key, $update_value ] = array_replace( [ $key, $value ], (array) $visitor( $key, $value ) );
 				if ( false === $updated_key ) {
 					// Visitor will be able to remove an element by returning a `false` key for it.
 					continue;
