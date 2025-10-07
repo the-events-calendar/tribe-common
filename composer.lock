@@ -640,16 +640,16 @@
         },
         {
             "name": "stellarwp/models",
-            "version": "dev-feat/support-post-models-and-lazy-loading",
+            "version": "dev-feat/more-flexibility-on-defining-relationships-and-its-values",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/models.git",
-                "reference": "f21e2b946285ddb1746f37974d50a7b2676e3761"
+                "reference": "ea5a000de54f91f88c9b5b014f571ade6cff8973"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/models/zipball/f21e2b946285ddb1746f37974d50a7b2676e3761",
-                "reference": "f21e2b946285ddb1746f37974d50a7b2676e3761",
+                "url": "https://api.github.com/repos/stellarwp/models/zipball/ea5a000de54f91f88c9b5b014f571ade6cff8973",
+                "reference": "ea5a000de54f91f88c9b5b014f571ade6cff8973",
                 "shasum": ""
             },
             "require": {
@@ -664,7 +664,7 @@
                 "codeception/module-rest": "^1.0",
                 "codeception/module-webdriver": "^1.0",
                 "codeception/util-universalframework": "^1.0",
-                "lucatume/wp-browser": "^3.7",
+                "lucatume/wp-browser": "^3.0.14",
                 "phpstan/phpstan": "^2.1",
                 "phpunit/phpunit": "~6.0"
             },
@@ -691,9 +691,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stellarwp/models/issues",
-                "source": "https://github.com/stellarwp/models/tree/feat/support-post-models-and-lazy-loading"
+                "source": "https://github.com/stellarwp/models/tree/feat/more-flexibility-on-defining-relationships-and-its-values"
             },
-            "time": "2025-10-03T16:53:39+00:00"
+            "time": "2025-10-07T15:26:33+00:00"
         },
         {
             "name": "stellarwp/schema",
@@ -761,17 +761,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/schema-models.git",
-                "reference": "14914c81ed0b021c88d602c984e02ce61ba46a89"
+                "reference": "28d05f84e3e67a27566eb246895265043bc4e244"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/schema-models/zipball/14914c81ed0b021c88d602c984e02ce61ba46a89",
-                "reference": "14914c81ed0b021c88d602c984e02ce61ba46a89",
+                "url": "https://api.github.com/repos/stellarwp/schema-models/zipball/28d05f84e3e67a27566eb246895265043bc4e244",
+                "reference": "28d05f84e3e67a27566eb246895265043bc4e244",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.4",
-                "stellarwp/models": "dev-feat/support-post-models-and-lazy-loading",
+                "stellarwp/models": "dev-feat/more-flexibility-on-defining-relationships-and-its-values",
                 "stellarwp/schema": "^3.1.2"
             },
             "require-dev": {
@@ -851,7 +851,7 @@
                 "source": "https://github.com/stellarwp/schema-models/tree/feat/repo-set-up",
                 "issues": "https://github.com/stellarwp/schema-models/issues"
             },
-            "time": "2025-10-03T17:44:07+00:00"
+            "time": "2025-10-07T15:44:19+00:00"
         },
         {
             "name": "stellarwp/shepherd",
