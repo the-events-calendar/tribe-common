@@ -23,7 +23,7 @@ class Tribe__Main {
 	const OPTIONNAME        = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK = 'tribe_events_calendar_network_options';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
-	const VERSION           = '6.9.3';
+	const VERSION           = '6.9.6';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
@@ -818,6 +818,7 @@ class Tribe__Main {
 		tribe_register_provider( \TEC\Common\QR\Controller::class );
 		tribe_singleton( ContainerInterface::class, tribe() );
 		tribe_register_provider( Libraries\Provider::class );
+		tribe_register_provider( TEC\Common\TrustedLogin\Controller::class );
 
 		// Load the new third-party integration system.
 		tribe_register_provider( TEC\Common\Integrations\Provider::class );

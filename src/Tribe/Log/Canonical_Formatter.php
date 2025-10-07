@@ -1,6 +1,6 @@
 <?php
 /**
- * ${CARET}
+ * This class is used to format the log messages in a canonical format.
  *
  * @since 4.9.16
  *
