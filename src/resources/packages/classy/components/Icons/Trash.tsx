@@ -5,7 +5,7 @@ export default function ( { className = '' }: { className?: string } ) {
 
 	return (
 		<span className={ fullClassName }>
-			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 				<path
 					fillRule="evenodd"
 					clipRule="evenodd"

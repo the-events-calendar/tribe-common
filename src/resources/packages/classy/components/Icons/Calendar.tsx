@@ -6,7 +6,6 @@ const IconCalendar: React.FC = () => (
 		width="18"
 		height="19"
 		viewBox="0 0 18 19"
-		fill="none"
 		className="classy-suffix-icon classy-suffix-icon--calendar"
 	>
 		<path
