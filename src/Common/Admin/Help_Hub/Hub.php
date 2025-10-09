@@ -234,6 +234,7 @@ class Hub {
 		 * Use this hook to modify data or enqueue additional assets before the Help Hub template is generated.
 		 *
 		 * @since 6.3.2
+		 * @since 6.9.5 Add new filter `tec_help_hub_register_tabs`.
 		 *
 		 * @param Hub $instance The Hub instance.
 		 */
@@ -241,6 +242,7 @@ class Hub {
 
 		$status           = $this->get_license_and_opt_in_status();
 		$template_variant = self::get_template_variant( $status['has_valid_license'], $status['is_opted_in'] );
+		$active_tab       = tec_get_request_var( 'tab', 'tec-help-tab' );
 
 		// Build the tabs.
 		$builder = tribe( Tab_Builder::class );
@@ -263,11 +265,29 @@ class Hub {
 		)
 			->build();
 
+		/**
+		 * Allow other code to register custom Help Hub tabs before rendering.
+		 *
+		 * Use this filter to call `$builder::make()->build()` and add new tabs.
+		 *
+		 * @since 6.9.5
+		 *
+		 * @param Tab_Builder $builder The tab builder instance.
+		 */
+		$builder = apply_filters( 'tec_help_hub_register_tabs', $builder );
+
+		// Now apply the active class *after* all tabs are registered.
+		$tabs = $builder::get_all_tabs();
+		foreach ( $tabs as &$tab ) {
+			$tab['class'] = ( $tab['id'] === $active_tab ) ? 'tec-nav__tab--active' : '';
+		}
+
+
 		$template_args = wp_parse_args(
 			$builder->get_arguments(),
 			[
 				'template_variant' => $template_variant,
-				'tabs'             => $builder::get_all_tabs(),
+				'tabs'             => $tabs,
 			]
 		);
 

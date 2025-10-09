@@ -29,13 +29,34 @@ tribe.helpPage = tribe.helpPage || {};
 		const loader = document.querySelector( obj.selectors.iframeLoader );
 		// Add an event listener to detect when the iframe is fully loaded.
 		if ( iframe ) {
+			// Attach a load event listener.
 			iframe.addEventListener( 'load', () => {
+				runAfterIframeLoad();
+			} );
+
+			// Immediately check the ready state. Necessary if the iframe loaded *before* the script ran
+			try {
+				const iframeDocument = iframe.contentWindow.document;
+
+				if ( iframeDocument.readyState === 'complete' ) {
+					runAfterIframeLoad();
+				}
+			} catch ( e ) {
+				// This catches "SecurityError: Blocked a frame..." if it's cross-origin and hasn't fully loaded, or if the contentWindow isn't ready.
+				console.warn(
+					'Could not check iframe readyState (may be cross-origin or not ready):',
+					e
+				);
+				// In this case, you must rely on the 'load' event, hoping it hasn't been missed.
+			}
+
+			function runAfterIframeLoad() {
 				// Hide the loader and show the iframe once loaded.
 				iframe.classList.remove( 'hidden' );
 				if ( loader ) {
 					loader.classList.add( 'hidden' );
 				}
-			} );
+			}
 		}
 	};
 
@@ -46,8 +67,12 @@ tribe.helpPage = tribe.helpPage || {};
 	 */
 	obj.sendMessageToIframe = ( message ) => {
 		// Ensure the iframe has been loaded and is accessible.
-		if ( document.querySelector( obj.selectors.helpHubIframe ).contentWindow ) {
-			document.querySelector( obj.selectors.helpHubIframe ).contentWindow.postMessage( message, window.origin );
+		if (
+			document.querySelector( obj.selectors.helpHubIframe ).contentWindow
+		) {
+			document
+				.querySelector( obj.selectors.helpHubIframe )
+				.contentWindow.postMessage( message, window.origin );
 		}
 	};
 
@@ -65,11 +90,15 @@ tribe.helpPage = tribe.helpPage || {};
 	};
 
 	obj.IframeSupportChatClickHandler = () => {
-		const openSupportChatElement = document.querySelector( obj.selectors.openSupportChat );
+		const openSupportChatElement = document.querySelector(
+			obj.selectors.openSupportChat
+		);
 
 		// Check if the element exists before adding the event listener
 		if ( openSupportChatElement ) {
-			openSupportChatElement.addEventListener( 'click', ( event ) => obj.openSupportChatInIframe( event ) );
+			openSupportChatElement.addEventListener( 'click', ( event ) =>
+				obj.openSupportChatInIframe( event )
+			);
 		}
 	};
 
@@ -83,6 +112,7 @@ tribe.helpPage = tribe.helpPage || {};
 	obj.setupAccordionsFor = ( parent ) => {
 		// Just extra careful of dependency.
 		if ( ! $.fn.accordion ) {
+			// eslint-disable-next-line no-console
 			console.error( 'jQuery UI Accordion library is missing.' );
 			return;
 		}
@@ -94,7 +124,10 @@ tribe.helpPage = tribe.helpPage || {};
 				active: true,
 				collapsible: true,
 				heightStyle: 'content',
-				icons: { header: 'ui-icon-plus', activeHeader: 'ui-icon-minus' },
+				icons: {
+					header: 'ui-icon-plus',
+					activeHeader: 'ui-icon-minus',
+				},
 			} );
 	};
 
@@ -106,9 +139,12 @@ tribe.helpPage = tribe.helpPage || {};
 			return;
 		}
 
-		const clipboard = new ClipboardJS( obj.selectors.copyButton ); /* eslint-disable-line no-undef */
-		const button_icon = '<span class="dashicons dashicons-clipboard license-btn"></span>';
-		const button_text = tribe_system_info.clipboard_btn_text;
+		const clipboard = new ClipboardJS(
+			obj.selectors.copyButton
+		); /* eslint-disable-line no-undef */
+		const buttonIcon =
+			'<span class="dashicons dashicons-clipboard license-btn"></span>';
+		const buttonText = tribe_system_info.clipboard_btn_text;
 
 		//Prevent Button From Doing Anything Else
 		$( '.system-info-copy-btn' ).on( 'click', ( e ) => {
@@ -118,17 +154,23 @@ tribe.helpPage = tribe.helpPage || {};
 		clipboard.on( 'success', ( event ) => {
 			event.clearSelection();
 			event.trigger.innerHTML =
-				button_icon + '<span class="optin-success">' + tribe_system_info.clipboard_copied_text + '<span>'; // eslint-disable-line max-len
+				buttonIcon +
+				'<span class="optin-success">' +
+				tribe_system_info.clipboard_copied_text +
+				'<span>'; // eslint-disable-line max-len
 			window.setTimeout( function () {
-				event.trigger.innerHTML = button_icon + button_text;
+				event.trigger.innerHTML = buttonIcon + buttonText;
 			}, 5000 );
 		} );
 
 		clipboard.on( 'error', ( event ) => {
 			event.trigger.innerHTML =
-				button_icon + '<span class="optin-fail">' + tribe_system_info.clipboard_fail_text + '<span>'; // eslint-disable-line max-len
+				buttonIcon +
+				'<span class="optin-fail">' +
+				tribe_system_info.clipboard_fail_text +
+				'<span>'; // eslint-disable-line max-len
 			window.setTimeout( () => {
-				event.trigger.innerHTML = button_icon + button_text;
+				event.trigger.innerHTML = buttonIcon + buttonText;
 			}, 5000 );
 		} );
 	};
@@ -144,8 +186,8 @@ tribe.helpPage = tribe.helpPage || {};
 		obj.$system_info_opt_in = $( obj.selectors.autoInfoOptIn );
 		obj.$system_info_opt_in_msg = $( obj.selectors.optInMsg );
 
-		obj.$system_info_opt_in.on( 'change', () => {
-			if ( this.checked ) {
+		obj.$system_info_opt_in.on( 'change', ( e ) => {
+			if ( e.target.checked ) {
 				obj.doAjaxRequest( 'generate' );
 			} else {
 				obj.doAjaxRequest( 'remove' );
@@ -163,9 +205,14 @@ tribe.helpPage = tribe.helpPage || {};
 		// Send our request
 		$.post( ajaxurl, request, ( results ) => {
 			if ( results.success ) {
-				obj.$system_info_opt_in_msg.html( "<p class='optin-success'>" + results.data + '</p>' );
+				obj.$system_info_opt_in_msg.html(
+					"<p class='optin-success'>" + results.data + '</p>'
+				);
 			} else {
-				let html = "<p class='optin-fail'>" + tribe_system_info.sysinfo_error_message_text + '</p>';
+				let html =
+					"<p class='optin-fail'>" +
+					tribe_system_info.sysinfo_error_message_text +
+					'</p>';
 
 				if ( results.data ) {
 					if ( results.data.message ) {
@@ -175,11 +222,20 @@ tribe.helpPage = tribe.helpPage || {};
 					}
 
 					if ( results.data.code ) {
-						html += '<p>' + tribe_system_info.sysinfo_error_code_text + ' ' + results.data.code + '</p>';
+						html +=
+							'<p>' +
+							tribe_system_info.sysinfo_error_code_text +
+							' ' +
+							results.data.code +
+							'</p>';
 					}
 
 					if ( results.data.status ) {
-						html += '<p>' + tribe_system_info.sysinfo_error_status_text + results.data.status + '</p>';
+						html +=
+							'<p>' +
+							tribe_system_info.sysinfo_error_status_text +
+							results.data.status +
+							'</p>';
 					}
 				}
 
@@ -193,37 +249,79 @@ tribe.helpPage = tribe.helpPage || {};
 	 * Initialize the page tabs and on-page navigation.
 	 *
 	 * @since 6.3.2
+	 * @since 6.9.5 Implement Tabs to history.
 	 */
 	obj.setupTabs = () => {
 		const tabs = document.querySelectorAll( '[data-tab-target]' );
 		const containers = document.querySelectorAll( '.tec-tab-container' );
 
-		// Hide all tab containers initially and ensure they are visible.
-		containers.forEach( ( container ) => {
-			container.classList.add( 'hidden' );
-		} );
+		// Hide all tab containers initially.
+		containers.forEach( ( container ) =>
+			container.classList.add( 'hidden' )
+		);
 
-		// Find the currently active tab and corresponding container.
-		const currentTab = document.querySelector( '.tec-nav__tab.tec-nav__tab--active' );
+		// Check URL param for tab value.
+		const params = new URLSearchParams( window.location.search );
+		const tabFromURL = params.get( 'tab' );
+
+		let currentTab = null;
+		if ( tabFromURL ) {
+			currentTab = document.querySelector(
+				`[data-tab-target="${ tabFromURL }"]`
+			);
+		} else {
+			currentTab = document.querySelector(
+				'.tec-nav__tab.tec-nav__tab--active'
+			);
+		}
+
 		const tabContainer = currentTab
-			? document.getElementById( currentTab.getAttribute( 'data-tab-target' ) )
+			? document.getElementById(
+					currentTab.getAttribute( 'data-tab-target' )
+			  )
 			: null;
 
-		// Update modal button span text to the active tab's text by default.
+		// Update modal button text.
 		if ( currentTab ) {
-			const tabText = currentTab.querySelector( obj.selectors.navLinkText ).textContent.trim();
-			const modalButtonSpan = document.querySelector( obj.selectors.modalButtonSpan );
-			if ( modalButtonSpan ) {
+			const tabText = currentTab
+				.querySelector( obj.selectors.navLinkText )
+				?.textContent?.trim();
+			const modalButtonSpan = document.querySelector(
+				obj.selectors.modalButtonSpan
+			);
+			if ( modalButtonSpan && tabText ) {
 				modalButtonSpan.textContent = tabText;
 			}
 		}
 
+		// Show correct tab container on first load.
 		if ( tabContainer ) {
 			tabContainer.classList.remove( 'hidden' );
 		}
 
-		// Initialize tab event listeners separately.
+		// Set up listeners for tab clicks.
 		obj.setupTabEventListeners( tabs, tabContainer );
+
+		// If tabFromURL exists, run the logic immediately.
+		if ( tabFromURL && currentTab ) {
+			obj.updateActiveTab( tabs, tabFromURL );
+			obj.updateActiveContent( currentTab, tabFromURL );
+		}
+
+		// Handle back/forward navigation.
+		window.addEventListener( 'popstate', ( event ) => {
+			const tab =
+				event.state?.tab ||
+				new URLSearchParams( window.location.search ).get( 'tab' );
+
+			if ( tab ) {
+				obj.updateActiveTab( tabs, tab );
+				const matchingTab = document.querySelector(
+					`[data-tab-target="${ tab }"]`
+				);
+				obj.updateActiveContent( matchingTab, tab );
+			}
+		} );
 	};
 
 	/**
@@ -235,21 +333,21 @@ tribe.helpPage = tribe.helpPage || {};
 	 * @since 6.3.2
 	 */
 	obj.setupTabEventListeners = ( tabs, initialTabContainer ) => {
-		// Set the initial active tab container in obj to track the currently visible tab content
+		// Set the initial active tab container in obj to track the currently visible tab content.
 		obj.activeTabContainer = initialTabContainer;
 
 		// Centralized click event listener for tabs
 		document.addEventListener( 'click', ( event ) => {
-			// Check if the clicked element is a tab with data-tab-target
+			// Check if the clicked element is a tab with data-tab-target.
 			const tab = event.target.closest( '[data-tab-target]' );
 			if ( ! tab ) {
 				return;
 			}
 
-			// Retrieve the target container ID from the data-tab-target attribute
+			// Retrieve the target container ID from the data-tab-target attribute.
 			const target = tab.getAttribute( 'data-tab-target' );
 
-			// Update the active tab class and visible content
+			// Update the active tab class and visible content.
 			obj.updateActiveTab( tabs, target );
 			obj.updateActiveContent( tab, target );
 		} );
@@ -262,13 +360,15 @@ tribe.helpPage = tribe.helpPage || {};
 	 * @param {string}   target The target data-tab-target attribute value.
 	 */
 	obj.updateActiveTab = ( tabs, target ) => {
-		// Remove the active class from all tabs
+		// Remove the active class from all tabs.
 		tabs.forEach( ( t ) => t.classList.remove( 'tec-nav__tab--active' ) );
 
-		// Find and activate all tabs with the same data-tab-target
-		document.querySelectorAll( `[data-tab-target="${ target }"]` ).forEach( ( matchingTab ) => {
-			matchingTab.classList.add( 'tec-nav__tab--active' );
-		} );
+		// Find and activate all tabs with the same data-tab-target.
+		document
+			.querySelectorAll( `[data-tab-target="${ target }"]` )
+			.forEach( ( matchingTab ) => {
+				matchingTab.classList.add( 'tec-nav__tab--active' );
+			} );
 	};
 
 	/**
@@ -278,29 +378,33 @@ tribe.helpPage = tribe.helpPage || {};
 	 * @param {string}      target The target data-tab-target attribute value.
 	 */
 	obj.updateActiveContent = ( tab, target ) => {
-		// Hide the currently active container if it exists
+		// Hide the currently active container if it exists.
 		if ( obj.activeTabContainer ) {
 			obj.activeTabContainer.classList.add( 'hidden' );
 		}
 
-		// Select the new target container and update obj.activeTabContainer to it
+		// Select the new target container.
 		const newTabContainer = document.getElementById( target );
 		if ( newTabContainer ) {
-			// Show the new container by removing the 'hidden' class
 			newTabContainer.classList.remove( 'hidden' );
-			// Update the activeTabContainer to the newly visible container
 			obj.activeTabContainer = newTabContainer;
 
-			// Retrieve the text content from the data-link-title attribute for the modal button
+			// Update modal button text.
 			const tabText = newTabContainer.getAttribute( 'data-link-title' );
+			const modalButtonSpan = document.querySelector(
+				obj.selectors.modalButtonSpan
+			);
 
-			// Update the text of the modal button span
-			const modalButtonSpan = document.querySelector( obj.selectors.modalButtonSpan );
 			if ( modalButtonSpan && tabText ) {
 				modalButtonSpan.textContent = tabText;
 			}
 
-			// Initialize accordions for the new tab content if necessary
+			// Store tab in URL so reloads keep the same tab open.
+			const url = new URL( window.location );
+			url.searchParams.set( 'tab', target );
+			window.history.pushState( { tab: target }, '', url );
+
+			// Initialize accordions if needed
 			obj.setupAccordionsFor( obj.activeTabContainer );
 		}
 	};

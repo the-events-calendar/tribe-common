@@ -8,11 +8,11 @@ use Tribe__Context as Context;
 use Generator;
 use Closure;
 
-function __context__test__function__() {
+function _context_test_function_() {
 	return '__value__';
 }
 
-function __set_function__( $value ) {
+function _set_function_( $value ) {
 	global $__test_function_set_value;
 	$__test_function_set_value = $value;
 }
@@ -37,7 +37,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	protected $function_set_value;
 	protected $callable_set_value;
 
-	public static function __test_static_method__() {
+	public static function test_static_method() {
 		return static::$__static_method_return_value__;
 	}
 
@@ -49,7 +49,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		static::$static_set_value_2 = $value;
 	}
 
-	public function __public_method__() {
+	public function public_method() {
 		return $this->__public_method_return_value__;
 	}
 
@@ -394,7 +394,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 
 		$original_context = tribe_context();
 		$context = $original_context->add_locations( [
-			'__static_method__' => [ 'read' => [ Context::STATIC_METHOD => [ static::class => '__test_static_method__' ] ] ],
+			'__static_method__' => [ 'read' => [ Context::STATIC_METHOD => [ static::class => 'test_static_method' ] ] ],
 		] );
 
 		$this->assertNotSame( $context, $original_context );
@@ -413,7 +413,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 
 		$original_context = tribe_context();
 		$context = $original_context->add_locations( [
-			'__method__' => [ 'read' => [ Context::METHOD => [ '__test__' => '__public_method__' ] ] ],
+			'__method__' => [ 'read' => [ Context::METHOD => [ '__test__' => 'public_method' ] ] ],
 		] );
 
 		$this->assertNotSame( $context, $original_context );
@@ -429,7 +429,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_reading_a_value_from_a_function() {
 		$original_context = tribe_context();
 		$context = $original_context->add_locations( [
-			'__func__' => [ 'read' => [ Context::FUNC => [ 'Tribe\\__context__test__function__' ] ] ],
+			'__func__' => [ 'read' => [ Context::FUNC => [ 'Tribe\\_context_test_function_' ] ] ],
 		] );
 
 		$this->assertNotSame( $context, $original_context );
@@ -476,7 +476,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 							'__niet__',
 							'try_here',
 						],
-						Context::FUNC       => [ 'some_non_existing_function', 'Tribe\\__context__test__function__' ],
+						Context::FUNC       => [ 'some_non_existing_function', 'Tribe\\_context_test_function_' ],
 					],
 				],
 			]
@@ -809,7 +809,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_allow_setting_a_value_calling_a_function() {
 		$context = tribe_context()->add_locations( [
-			'func_1' => [ 'write' => [ Context::FUNC => 'Tribe\\__set_function__' ] ],
+			'func_1' => [ 'write' => [ Context::FUNC => 'Tribe\\_set_function_' ] ],
 			'func_2' => [
 				'write' => [
 					Context::FUNC => [

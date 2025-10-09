@@ -784,6 +784,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Inserts license key fields on license key page
 		 *
+		 * @since 6.9.4 Added upsell links for Promoter and Seating.
+		 *
 		 * @param array $fields List of fields.
 		 *
 		 * @return array Modified list of fields.
@@ -802,11 +804,19 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			];
 
 			$no_license_tooltip = esc_html__( 'A valid license key is required for support and updates', 'tribe-common' );
+
 			if ( 'event-aggregator' === $this->get_slug() ) {
 				$no_license_tooltip = sprintf(
 				/* Translators: %1$s and %2$s are opening and closing <a> tags, respectively. */
 					esc_html__( '%1$sBuy a license%2$s for the Event Aggregator service to access additional import features.', 'tribe-common' ),
-					'<a href="https://evnt.is/196y" target="_blank">',
+					'<a href="https://evnt.is/1bee" target="_blank">',
+					'</a>'
+				);
+			} elseif ( 'promoter' === $this->get_slug() ) {
+				$no_license_tooltip = sprintf(
+				/* Translators: %1$s and %2$s are opening and closing <a> tags, respectively. */
+					esc_html__( '%1$sBuy a license%2$s for the Promoter service to access additional marketing features.', 'tribe-common' ),
+					'<a href="https://evnt.is/1bef" target="_blank">',
 					'</a>'
 				);
 			}
