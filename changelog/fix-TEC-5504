@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Remove the `:not()` selector that created unnecessary specificity on most TEC links. [TEC-5504]
