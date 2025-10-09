@@ -24,7 +24,7 @@ describe( 'ClassyField Component', () => {
 		const { getByPlaceholderText, getByText } = render(
 			<ClassyField title="Form Field">
 				<div>
-					<input type="text" placeholder="Test input"/>
+					<input type="text" placeholder="Test input" />
 					<button>Test Button</button>
 				</div>
 			</ClassyField>
@@ -66,10 +66,7 @@ describe( 'ClassyField Component', () => {
 
 	it( 'uses custom className when provided', () => {
 		const { container } = render(
-			<ClassyField
-				title="Test Field"
-				className="custom-field-class"
-			>
+			<ClassyField title="Test Field" className="custom-field-class">
 				<div>Content</div>
 			</ClassyField>
 		);
@@ -113,11 +110,7 @@ describe( 'ClassyField Component', () => {
 	} );
 
 	it( 'handles empty children gracefully', () => {
-		const { container, getByText } = render(
-			<ClassyField title="Empty Field">
-				{ null }
-			</ClassyField>
-		);
+		const { container, getByText } = render( <ClassyField title="Empty Field">{ null }</ClassyField> );
 
 		expect( container.firstChild as HTMLElement ).toBeInTheDocument();
 		expect( container.firstChild as HTMLElement ).toHaveClass( 'classy-field' );
@@ -152,10 +145,7 @@ describe( 'ClassyField Component', () => {
 
 	it( 'matches snapshot with custom className', () => {
 		const { container } = render(
-			<ClassyField
-				title="Custom Field"
-				className="custom-class"
-			>
+			<ClassyField title="Custom Field" className="custom-class">
 				<div>Custom Content</div>
 			</ClassyField>
 		);
@@ -168,7 +158,7 @@ describe( 'ClassyField Component', () => {
 			<ClassyField title="Complex Form Field">
 				<div>
 					<label htmlFor="test-input">Test Label</label>
-					<input id="test-input" type="text"/>
+					<input id="test-input" type="text" />
 					<button type="submit">Submit</button>
 				</div>
 			</ClassyField>

@@ -219,7 +219,6 @@ exports[`TimeZone Component renders correctly with default props 2`] = `
           class="classy-icon classy-icon--close"
         >
           <svg
-            fill="none"
             height="24"
             viewBox="0 0 24 24"
             width="24"
@@ -524,7 +523,6 @@ exports[`TimeZone Component renders the UTC timezone choice if the timezone stri
           class="classy-icon classy-icon--close"
         >
           <svg
-            fill="none"
             height="24"
             viewBox="0 0 24 24"
             width="24"
