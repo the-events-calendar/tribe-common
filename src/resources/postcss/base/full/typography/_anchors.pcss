@@ -1,7 +1,12 @@
 .tribe-common {
+	a {
+		color: var(--tec-color-text-primary);
+		&:visited {
+			color: var(--tec-color-text-secondary);
+		}
+	}
 
 	a:not(.tribe-common-anchor--unstyle) {
-		color: var(--tec-color-text-primary);
 		outline: 0;
 		text-decoration: none;
 
@@ -9,7 +14,6 @@
 		&:focus,
 		&:active,
 		&:visited {
-			color: var(--tec-color-text-primary);
 			outline: 0;
 			text-decoration: none;
 		}
