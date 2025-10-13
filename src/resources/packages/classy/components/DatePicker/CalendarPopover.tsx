@@ -1,22 +1,9 @@
 import * as React from 'react';
 import { DatePicker, Popover } from '@wordpress/components';
-import { DatePickerEvent } from '@wordpress/components/build-types/date-time/types';
 import { VirtualElement } from '@wordpress/components/build-types/popover/types';
 import { StartOfWeek } from '../../types/StartOfWeek';
-import { DateUpdateType } from '@tec/common/classy/types/FieldProps';
-
-function getDatePickerEventsBetweenDates( start: Date, end: Date ): DatePickerEvent[] {
-	const dateArray: Date[] = [];
-	let currentDate = new Date( start );
-	while ( currentDate <= end ) {
-		dateArray.push( new Date( currentDate ) );
-		currentDate.setDate( currentDate.getDate() + 1 );
-	}
-
-	return dateArray.map( ( date: Date ): DatePickerEvent => {
-		return { date };
-	} );
-}
+import { DateUpdateType } from '../../types/FieldProps';
+import { getDatePickerEventsBetweenDates } from '../../functions';
 
 export default function CalendarPopover( props: {
 	anchor: Element | VirtualElement | null;

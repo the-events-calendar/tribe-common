@@ -1,3 +1,5 @@
+import { DatePickerEvent } from '@wordpress/components/build-types/date-time/types';
+
 /**
  * Checks if a given date string is valid.
  *
@@ -79,4 +81,33 @@ export function areDatesOnSameTime( date1: Date, date2: Date, checkSeconds: bool
 export function dayDiffBetweenDates( startDate: Date, endDate: Date ): number {
 	const timeDiff = endDate.getTime() - startDate.getTime();
 	return Math.floor( timeDiff / ( 1000 * 60 * 60 * 24 ) );
+}
+
+/**
+ * Generates an array of DatePickerEvent objects for each date between the start and end dates, inclusive.
+ *
+ * @since TBD
+ *
+ * @param {Date} start The start date.
+ * @param {Date} end The end date.
+ *
+ * @throws {Error} Throws an error if the start date is after the end date.
+ *
+ * @return {DatePickerEvent[]} An array of DatePickerEvent objects for each date in the range.
+ */
+export function getDatePickerEventsBetweenDates( start: Date, end: Date ): DatePickerEvent[] {
+	if ( start > end ) {
+		throw new Error( 'Start date must be on or before the end date.' );
+	}
+
+	const dateArray: Date[] = [];
+	let currentDate = new Date( start );
+	while ( currentDate <= end ) {
+		dateArray.push( new Date( currentDate ) );
+		currentDate.setDate( currentDate.getDate() + 1 );
+	}
+
+	return dateArray.map( ( date: Date ): DatePickerEvent => {
+		return { date };
+	} );
 }

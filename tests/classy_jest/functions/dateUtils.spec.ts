@@ -4,6 +4,7 @@ import {
 	areDatesOnSameDay,
 	areDatesOnSameTime,
 	dayDiffBetweenDates,
+	getDatePickerEventsBetweenDates,
 } from '@tec/common/classy/functions';
 import { describe, expect, it } from '@jest/globals';
 
@@ -195,6 +196,94 @@ describe( 'dateUtils', () => {
 			const startDate = new Date( '2024-01-01T00:00:00Z' );
 			const endDate = new Date( '2024-01-02T00:00:00Z' );
 			expect( dayDiffBetweenDates( startDate, endDate ) ).toBe( 1 );
+		} );
+	} );
+
+	describe( 'getDatePickerEventsBetweenDates', () => {
+		it( 'should return an array of DatePickerEvent objects for each date in the range', () => {
+			const startDate = new Date( '2024-01-01' );
+			const endDate = new Date( '2024-01-05' );
+			const events = getDatePickerEventsBetweenDates( startDate, endDate );
+			expect( events.length ).toBe( 5 );
+			expect( events[0].date.toISOString().startsWith( '2024-01-01' ) ).toBe( true );
+			expect( events[4].date.toISOString().startsWith( '2024-01-05' ) ).toBe( true );
+		} );
+
+		it( 'should return a single event when start and end dates are the same', () => {
+			const startDate = new Date( '2024-01-01' );
+			const endDate = new Date( '2024-01-01' );
+			const events = getDatePickerEventsBetweenDates( startDate, endDate );
+			expect( events.length ).toBe( 1 );
+			expect( events[0].date.toISOString().startsWith( '2024-01-01' ) ).toBe( true );
+		} );
+
+		it( 'should handle dates across months', () => {
+			const startDate = new Date( '2024-01-30' );
+			const endDate = new Date( '2024-02-02' );
+			const events = getDatePickerEventsBetweenDates( startDate, endDate );
+			expect( events.length ).toBe( 4 );
+			expect( events[0].date.toISOString().startsWith( '2024-01-30' ) ).toBe( true );
+			expect( events[1].date.toISOString().startsWith( '2024-01-31' ) ).toBe( true );
+			expect( events[2].date.toISOString().startsWith( '2024-02-01' ) ).toBe( true );
+			expect( events[3].date.toISOString().startsWith( '2024-02-02' ) ).toBe( true );
+		} );
+
+		it( 'should handle dates across years', () => {
+			const startDate = new Date( '2023-12-30' );
+			const endDate = new Date( '2024-01-02' );
+			const events = getDatePickerEventsBetweenDates( startDate, endDate );
+			expect( events.length ).toBe( 4 );
+			expect( events[0].date.toISOString().startsWith( '2023-12-30' ) ).toBe( true );
+			expect( events[1].date.toISOString().startsWith( '2023-12-31' ) ).toBe( true );
+			expect( events[2].date.toISOString().startsWith( '2024-01-01' ) ).toBe( true );
+			expect( events[3].date.toISOString().startsWith( '2024-01-02' ) ).toBe( true );
+		} );
+
+		it( 'should handle leap year dates', () => {
+			const startDate = new Date( '2024-02-28' );
+			const endDate = new Date( '2024-03-01' );
+			const events = getDatePickerEventsBetweenDates( startDate, endDate );
+			expect( events.length ).toBe( 3 );
+			expect( events[0].date.toISOString().startsWith( '2024-02-28' ) ).toBe( true );
+			expect( events[1].date.toISOString().startsWith( '2024-02-29' ) ).toBe( true );
+			expect( events[2].date.toISOString().startsWith( '2024-03-01' ) ).toBe( true );
+		} );
+
+		it( 'should preserve time information in the original dates', () => {
+			const startDate = new Date( '2024-01-01T10:30:00' );
+			const endDate = new Date( '2024-01-03T15:45:00' );
+			const events = getDatePickerEventsBetweenDates( startDate, endDate );
+			expect( events.length ).toBe( 3 );
+			// The function should create new Date objects for each day, not preserve the original time
+			expect( events[0].date ).toBeInstanceOf( Date );
+			expect( events[1].date ).toBeInstanceOf( Date );
+			expect( events[2].date ).toBeInstanceOf( Date );
+		} );
+
+		it( 'should throw an error when start date is after end date', () => {
+			const startDate = new Date( '2024-01-05' );
+			const endDate = new Date( '2024-01-01' );
+			expect( () => getDatePickerEventsBetweenDates( startDate, endDate ) ).toThrow( 'Start date must be on or before the end date.' );
+		} );
+
+		it( 'should throw an error when start date is significantly after end date', () => {
+			const startDate = new Date( '2024-12-31' );
+			const endDate = new Date( '2024-01-01' );
+			expect( () => getDatePickerEventsBetweenDates( startDate, endDate ) ).toThrow( 'Start date must be on or before the end date.' );
+		} );
+
+		it( 'should handle edge case with same date but different times', () => {
+			const startDate = new Date( '2024-01-01T23:59:59' );
+			const endDate = new Date( '2024-01-01T00:00:00' );
+			expect( () => getDatePickerEventsBetweenDates( startDate, endDate ) ).toThrow( 'Start date must be on or before the end date.' );
+		} );
+
+		it( 'should work correctly when start date is exactly equal to end date', () => {
+			const startDate = new Date( '2024-01-01T12:00:00' );
+			const endDate = new Date( '2024-01-01T12:00:00' );
+			const events = getDatePickerEventsBetweenDates( startDate, endDate );
+			expect( events.length ).toBe( 1 );
+			expect( events[0].date.toISOString().startsWith( '2024-01-01' ) ).toBe( true );
 		} );
 	} );
 } );
