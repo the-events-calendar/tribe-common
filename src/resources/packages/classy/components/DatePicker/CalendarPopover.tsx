@@ -5,7 +5,7 @@ import { StartOfWeek } from '../../types/StartOfWeek';
 import { DateUpdateType } from '../../types/FieldProps';
 import { getDatePickerEventsBetweenDates } from '../../functions';
 
-export default function CalendarPopover( props: {
+type CalendarPopoverProps = {
 	anchor: Element | VirtualElement | null;
 	startOfWeek: StartOfWeek;
 	isSelectingDate: DateUpdateType;
@@ -15,7 +15,17 @@ export default function CalendarPopover( props: {
 	endDate: Date;
 	onClose: () => void;
 	onChange: ( selecting: DateUpdateType, date: string ) => void;
-} ) {
+}
+
+/**
+ * CalendarPopover component that displays a date picker inside a popover.
+ *
+ * @since TBD
+ *
+ * @param {CalendarPopoverProps} props The properties for the CalendarPopover component.
+ * @return {React.JSX.Element} The rendered CalendarPopover component.
+ */
+export default function CalendarPopover( props: CalendarPopoverProps ): React.JSX.Element {
 	const { anchor, startOfWeek, isSelectingDate, isMultiday, date, startDate, endDate, onClose, onChange } = props;
 
 	const events = getDatePickerEventsBetweenDates( startDate, endDate );
