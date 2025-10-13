@@ -2,6 +2,7 @@
 /**
  * @deprecated 6.3.0
  */
+
 namespace Tribe\Admin\Conditional_Content;
 
 _deprecated_file( __FILE__, '6.3.0', 'No Replacement', 'This file is deprecated in favor of new Namespace' );

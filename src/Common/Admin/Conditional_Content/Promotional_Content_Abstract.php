@@ -32,11 +32,14 @@ use Tribe\Utils\{
 /**
  * Abstract class for promotional content with banners.
  *
+ * Concrete classes must:
+ * - Use ONE of: Has_Generic_Upsell_Opportunity OR Has_Targeted_Creative_Upsell
+ * - Use appropriate traits (Has_Datetime_Conditions, Is_Dismissible, Requires_Capability)
+ * - Implement should_display() to compose the display logic they need
+ *
  * @since 6.8.2
  */
-abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstract {
-	use Dismissible_Trait;
-
+abstract class Promotional_Content_Abstract {
 	/**
 	 * Background color for the promotional content.
 	 * Must match the background color of the image.
@@ -48,12 +51,16 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	protected string $background_color = 'transparent';
 
 	/**
-	 * @inheritdoc
+	 * Register actions and filters.
+	 *
+	 * Concrete classes should implement this to hook their specific handlers
+	 * (e.g., dismiss handlers from Is_Dismissible trait).
+	 *
+	 * @since 6.8.2
+	 *
+	 * @return void
 	 */
-	public function hook(): void {
-		// Only hook the AJAX dismiss handler - sidebar integration is handled by Controller.
-		add_action( 'wp_ajax_tec_conditional_content_dismiss', [ $this, 'handle_dismiss' ] );
-	}
+	abstract public function hook(): void;
 
 	/**
 	 * Get the background color.
@@ -131,6 +138,8 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	/**
 	 * Get the full slug with year.
 	 *
+	 * Requires $slug property to be defined in concrete class.
+	 *
 	 * @since 6.8.2
 	 *
 	 * @return string
@@ -141,47 +150,16 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	}
 
 	/**
-	 * @inheritdoc
+	 * Determines if the promotional content should be displayed.
+	 *
+	 * Concrete classes must implement this to compose their display logic
+	 * using checks from traits (e.g., capability, dismissal, datetime, upsell).
+	 *
+	 * @since 6.8.2
+	 *
+	 * @return bool Whether the content should display.
 	 */
-	protected function get_start_time(): ?Date_I18n {
-		$date = parent::get_start_time();
-		if ( null === $date ) {
-			return null;
-		}
-
-		$date = $date->setTime( 4, 0 );
-
-		return $date;
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	protected function get_end_time(): ?Date_I18n {
-		$date = parent::get_end_time();
-		if ( null === $date ) {
-			return null;
-		}
-
-		$date = $date->setTime( 4, 0 );
-
-		return $date;
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	protected function should_display(): bool {
-		if ( $this->has_user_dismissed() ) {
-			return false;
-		}
-
-		if ( tec_should_hide_upsell( $this->get_slug() ) ) {
-			return false;
-		}
-
-		return parent::should_display();
-	}
+	abstract protected function should_display(): bool;
 
 	/**
 	 * Render the header notice.
@@ -603,126 +581,6 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	}
 
 	/**
-	 * Get the suite creative map.
-	 *
-	 * The creative map should be structured as follows:
-	 *
-	 * [
-	 *   'context' => [
-	 *     'plugin/path.php' => [
-	 *       'image_url' => '...',
-	 *       'narrow_image_url' => '...',
-	 *       'link_url' => '...',
-	 *       'alt_text' => '...',
-	 *     ],
-	 *     'feature-check' => [
-	 *       'callback' => [ 'Class', 'method' ], // Callback to determine if feature is active
-	 *       'image_url' => '...',
-	 *       'narrow_image_url' => '...',
-	 *       'link_url' => '...',
-	 *       'alt_text' => '...',
-	 *     ],
-	 *     'default' => [ ... ] // Fallback creative
-	 *   ],
-	 * ]
-	 *
-	 * @since 6.8.3
-	 *
-	 * @return array The suite creative map.
-	 */
-	abstract protected function get_suite_creative_map(): array;
-
-	/**
-	 * Determine the admin page context.
-	 *
-	 * @since 6.8.3
-	 *
-	 * @return string The admin page context ('tickets', 'events', or 'default').
-	 */
-	protected function get_admin_page_context(): string {
-		$admin_pages = tribe( 'admin.pages' );
-		$admin_page  = $admin_pages->get_current_page();
-
-		// If no admin page is detected, use default context.
-		if ( empty( $admin_page ) ) {
-			return 'default';
-		}
-
-		// Check if we're on a tickets admin page.
-		if ( strpos( $admin_page, 'tec-tickets' ) !== false || strpos( $admin_page, 'tickets_page_' ) !== false ) {
-			return 'tickets';
-		}
-
-		// Check if we're on an events admin page.
-		if ( strpos( $admin_page, 'tribe_events' ) !== false || strpos( $admin_page, 'events_page_' ) !== false ) {
-			return 'events';
-		}
-
-		// Check if we're on a general TEC admin page.
-		if ( strpos( $admin_page, 'tec-' ) !== false ) {
-			return 'events';
-		}
-
-		return 'default';
-	}
-
-	/**
-	 * Get the selected creative based on admin page context and installed plugins.
-	 *
-	 * @since 6.8.3
-	 *
-	 * @return array|null The selected creative array or null if none found.
-	 */
-	protected function get_selected_creative(): ?array {
-		$creative_map = $this->get_suite_creative_map();
-		$context      = $this->get_admin_page_context();
-
-		// If no creative map is available, return null.
-		if ( empty( $creative_map ) ) {
-			return null;
-		}
-
-		// Check if the context exists in the creative map.
-		if ( ! isset( $creative_map[ $context ] ) ) {
-			// Fall back to default if context not found.
-			$context = 'default';
-			if ( ! isset( $creative_map[ $context ] ) ) {
-				return null;
-			}
-		}
-
-		$context_creatives = $creative_map[ $context ];
-
-		// Iterate through the creatives and find the first plugin that is not installed or where the callback returns false.
-		foreach ( $context_creatives as $plugin_path => $creative ) {
-			// Skip the default entry for now.
-			if ( 'default' === $plugin_path ) {
-				continue;
-			}
-
-			// Check if we have a callback for plugin detection.
-			if ( isset( $creative['callback'] ) && is_callable( $creative['callback'] ) ) {
-				// Execute the callback to determine if the plugin or feature is active.
-				$is_active = call_user_func( $creative['callback'] );
-
-				// If the callback returns false (feature not active), use this creative.
-				if ( ! $is_active ) {
-					return $creative;
-				}
-			} elseif ( ! is_plugin_active( $plugin_path ) ) {
-				return $creative;
-			}
-		}
-
-		// If all plugins are installed, use the default creative.
-		if ( isset( $context_creatives['default'] ) ) {
-			return $context_creatives['default'];
-		}
-
-		return null;
-	}
-
-	/**
 	 * Get the wide banner image URL.
 	 *
 	 * @since 6.8.3
@@ -730,13 +588,6 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @return string The wide banner image URL.
 	 */
 	protected function get_wide_banner_image_url(): string {
-		$creative = $this->get_selected_creative();
-
-		if ( ! empty( $creative['image_url'] ) ) {
-			return $creative['image_url'];
-		}
-
-		// Fallback to default behavior.
 		return tribe_resource_url( 'images/conditional-content/' . $this->get_wide_banner_image(), false, null, \Tribe__Main::instance() );
 	}
 
@@ -748,13 +599,6 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @return string The narrow banner image URL.
 	 */
 	protected function get_narrow_banner_image_url(): string {
-		$creative = $this->get_selected_creative();
-
-		if ( ! empty( $creative['narrow_image_url'] ) ) {
-			return $creative['narrow_image_url'];
-		}
-
-		// Fallback to default behavior.
 		return tribe_resource_url( 'images/conditional-content/' . $this->get_narrow_banner_image(), false, null, \Tribe__Main::instance() );
 	}
 
@@ -766,13 +610,6 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @return string The sidebar image URL.
 	 */
 	protected function get_sidebar_image_url(): string {
-		$creative = $this->get_selected_creative();
-
-		if ( ! empty( $creative['sidebar_image_url'] ) ) {
-			return $creative['sidebar_image_url'];
-		}
-
-		// Fallback to default behavior.
 		return tribe_resource_url( 'images/conditional-content/' . $this->get_sidebar_image(), false, null, \Tribe__Main::instance() );
 	}
 
@@ -784,13 +621,6 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @return string The link URL.
 	 */
 	protected function get_creative_link_url(): string {
-		$creative = $this->get_selected_creative();
-
-		if ( ! empty( $creative['link_url'] ) ) {
-			return $creative['link_url'];
-		}
-
-		// Fallback to default behavior.
 		return $this->get_link_url();
 	}
 
@@ -802,13 +632,6 @@ abstract class Promotional_Content_Abstract extends Datetime_Conditional_Abstrac
 	 * @return string The alt text.
 	 */
 	protected function get_creative_alt_text(): string {
-		$creative = $this->get_selected_creative();
-
-		if ( ! empty( $creative['alt_text'] ) ) {
-			return $creative['alt_text'];
-		}
-
-		// Fallback to default behavior.
 		$year      = date_i18n( 'Y' );
 		$sale_name = $this->get_sale_name();
 
