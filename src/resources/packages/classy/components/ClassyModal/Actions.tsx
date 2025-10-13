@@ -45,7 +45,7 @@ type ClassyModalActionsProps = {
  * @param {ClassyModalActionsProps} props The component props.
  * @return {React.JSX.Element} The rendered actions container.
  */
-export default function ClassyModalActions( props: ClassyModalActionsProps ): React.JSX.Element {
+export default function Actions( props: ClassyModalActionsProps ): React.JSX.Element {
 	const { children = null, type } = props;
 
 	return <div className={ `classy-modal__actions classy-modal__actions--${ type }` }>{ children }</div>;

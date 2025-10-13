@@ -1,2 +1,2 @@
 export { default as ClassyModal } from './ClassyModal';
-export { default as ClassyModalActions } from './ClassyModalActions';
+export { default as ClassyModalActions } from './Actions';
