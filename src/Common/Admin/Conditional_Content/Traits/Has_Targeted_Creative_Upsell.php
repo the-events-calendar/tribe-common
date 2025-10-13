@@ -159,6 +159,27 @@ trait Has_Targeted_Creative_Upsell {
 	}
 
 	/**
+	 * Find an image file with automatic format detection (jpg, then png fallback).
+	 *
+	 * @since TBD
+	 *
+	 * @param string $base_path The base path without extension (e.g., 'black-friday-2025/top-wide').
+	 *
+	 * @return string The filename with extension, or the base path with .png if neither format exists.
+	 */
+	protected function find_image_with_format( string $base_path ): string {
+		$base_dir = \Tribe__Main::instance()->plugin_path . 'src/resources/images/conditional-content/';
+
+		// Try .jpg first.
+		if ( file_exists( $base_dir . $base_path . '.jpg' ) ) {
+			return $base_path . '.jpg';
+		}
+
+		// Fall back to .png.
+		return $base_path . '.png';
+	}
+
+	/**
 	 * Get the wide banner image URL.
 	 *
 	 * @since TBD
@@ -172,8 +193,9 @@ trait Has_Targeted_Creative_Upsell {
 			return $creative['image_url'];
 		}
 
-		// Fallback to default behavior.
-		return tribe_resource_url( 'images/conditional-content/' . $this->get_wide_banner_image(), false, null, \Tribe__Main::instance() );
+		// Fallback to default behavior with format detection.
+		$image_path = $this->find_image_with_format( $this->get_slug() . '/top-wide' );
+		return tribe_resource_url( 'images/conditional-content/' . $image_path, false, null, \Tribe__Main::instance() );
 	}
 
 	/**
@@ -190,8 +212,9 @@ trait Has_Targeted_Creative_Upsell {
 			return $creative['narrow_image_url'];
 		}
 
-		// Fallback to default behavior.
-		return tribe_resource_url( 'images/conditional-content/' . $this->get_narrow_banner_image(), false, null, \Tribe__Main::instance() );
+		// Fallback to default behavior with format detection.
+		$image_path = $this->find_image_with_format( $this->get_slug() . '/top-narrow' );
+		return tribe_resource_url( 'images/conditional-content/' . $image_path, false, null, \Tribe__Main::instance() );
 	}
 
 	/**
@@ -208,8 +231,9 @@ trait Has_Targeted_Creative_Upsell {
 			return $creative['sidebar_image_url'];
 		}
 
-		// Fallback to default behavior.
-		return tribe_resource_url( 'images/conditional-content/' . $this->get_sidebar_image(), false, null, \Tribe__Main::instance() );
+		// Fallback to default behavior with format detection.
+		$image_path = $this->find_image_with_format( $this->get_slug() . '/sidebar' );
+		return tribe_resource_url( 'images/conditional-content/' . $image_path, false, null, \Tribe__Main::instance() );
 	}
 
 	/**
@@ -256,38 +280,6 @@ trait Has_Targeted_Creative_Upsell {
 		);
 	}
 
-	/**
-	 * Get the wide banner image filename.
-	 *
-	 * Required for fallback behavior.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The wide banner image filename.
-	 */
-	abstract protected function get_wide_banner_image();
-
-	/**
-	 * Get the narrow banner image filename.
-	 *
-	 * Required for fallback behavior.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The narrow banner image filename.
-	 */
-	abstract protected function get_narrow_banner_image();
-
-	/**
-	 * Get the sidebar image filename.
-	 *
-	 * Required for fallback behavior.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The sidebar image filename.
-	 */
-	abstract protected function get_sidebar_image();
 
 	/**
 	 * Get the link URL.

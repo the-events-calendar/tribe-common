@@ -30,6 +30,7 @@ Choose **ONE** of these traits for your promotion:
 ### Step 1: Choose Your Traits
 
 Decide which traits your promotion needs:
+
 - **Required**: One upsell trait (`Has_Generic_Upsell_Opportunity` OR `Has_Targeted_Creative_Upsell`)
 - **Recommended**: `Has_Datetime_Conditions`, `Is_Dismissible`, `Requires_Capability`
 
@@ -213,6 +214,38 @@ class Admin_Only_Notice extends Promotional_Content_Abstract {
 }
 ```
 
+## Image Handling
+
+### Automatic Format Detection
+
+The system automatically detects image formats (JPG or PNG) for promotional banners. When requesting an image, it will:
+
+1. **Try `.jpg` first** - Checks if a JPG version exists
+2. **Fall back to `.png`** - Uses PNG if JPG not found
+3. **Return PNG path** - Even if neither exists, to provide a consistent fallback
+
+**Image locations:**
+
+- Wide banner: `images/conditional-content/{slug}/top-wide.(jpg|png)`
+- Narrow banner: `images/conditional-content/{slug}/top-narrow.(jpg|png)`
+- Sidebar: `images/conditional-content/{slug}/sidebar.(jpg|png)`
+
+**Benefits:**
+
+- Design team can switch between JPG and PNG formats without code changes
+- Automatic optimization: Use JPG for photos, PNG for graphics with transparency
+- Seamless fallback if format changes mid-development
+
+**Example:**
+
+```php
+// If both files exist:
+// - images/conditional-content/spring-sale-2025/top-wide.jpg
+// - images/conditional-content/spring-sale-2025/top-wide.png
+//
+// The system will use top-wide.jpg (JPG takes priority)
+```
+
 ## Trait Reference
 
 ### Has_Datetime_Conditions
@@ -220,16 +253,19 @@ class Admin_Only_Notice extends Promotional_Content_Abstract {
 Controls when content is displayed based on date ranges.
 
 **Properties to define:**
+
 - `protected string $start_date` - Human-readable start date (e.g., "March 1st")
 - `protected string $end_date` - Human-readable end date (e.g., "March 31st")
 - `protected string $slug` - Unique identifier for the promotion
 
 **Methods:**
+
 - `get_start_time(): ?Date_I18n` - Override to set specific start time
 - `get_end_time(): ?Date_I18n` - Override to set specific end time
 - `should_display_datetime(): bool` - Check if current date is within range
 
 **Filters:**
+
 - `tec_admin_conditional_content_{$slug}_start_date` - Modify start date
 - `tec_admin_conditional_content_{$slug}_end_date` - Modify end date
 - `tec_admin_conditional_content_{$slug}_should_display` - Override display logic
@@ -239,9 +275,11 @@ Controls when content is displayed based on date ranges.
 Allows users to dismiss content and stores dismissal in user meta.
 
 **Properties to define:**
+
 - `protected string $slug` - Unique identifier for the promotion
 
 **Methods:**
+
 - `has_user_dismissed(): bool` - Check if user dismissed this content
 - `dismiss(): bool` - Mark content as dismissed for current user
 - `undismiss(): bool` - Remove dismissal for current user
@@ -256,10 +294,12 @@ Allows users to dismiss content and stores dismissal in user meta.
 Restricts content display to users with specific WordPress capabilities.
 
 **Methods:**
+
 - `get_required_capability(): string` - Override to change required capability (default: `manage_options`)
 - `check_capability(): bool` - Check if current user has required capability
 
 **Filters:**
+
 - `tec_admin_conditional_content_required_capability` - Modify required capability
 
 **Default Behavior:** Only shows to users with `manage_options` (Administrators and Super Admins).
@@ -269,6 +309,7 @@ Restricts content display to users with specific WordPress capabilities.
 Shows content if ANY paid plugin is not installed.
 
 **Methods:**
+
 - `has_upsell_opportunity(): bool` - Check if any paid plugin is missing
 - `should_ignore_plugin_checks(): bool` - Override to always show content
 
@@ -279,13 +320,16 @@ Shows content if ANY paid plugin is not installed.
 Shows specific ads based on admin page context and missing plugins.
 
 **Properties to define:**
+
 - `protected string $slug` - Unique identifier
 - All methods required by `Promotional_Content_Abstract`
 
 **Methods to implement:**
+
 - `get_suite_creative_map(): array` - Return map of creatives by context and plugin
 
 **Methods provided:**
+
 - `has_upsell_opportunity(): bool` - Check if a creative to show was found
 - `get_admin_page_context(): string` - Determine current admin page context
 - `get_selected_creative(): ?array` - Get the creative to display
@@ -296,6 +340,7 @@ Shows specific ads based on admin page context and missing plugins.
 - `get_creative_alt_text(): string` - Get creative alt text
 
 **Creative Map Structure:**
+
 ```php
 [
     'context' => [
@@ -357,6 +402,7 @@ protected function should_display(): bool {
 ### Global Filters
 
 - `tec_should_hide_upsell` - Hide specific promotions by slug
+
   ```php
   add_filter( 'tec_should_hide_upsell', function( $hide, $slug ) {
       if ( $slug === 'spring-sale-2025' ) {
@@ -369,11 +415,13 @@ protected function should_display(): bool {
 ### Trait-Specific Filters
 
 **Has_Datetime_Conditions:**
+
 - `tec_admin_conditional_content_{$slug}_start_date`
 - `tec_admin_conditional_content_{$slug}_end_date`
 - `tec_admin_conditional_content_{$slug}_should_display`
 
 **Requires_Capability:**
+
 - `tec_admin_conditional_content_required_capability`
 
 ## Testing
@@ -388,6 +436,7 @@ Each trait has dedicated test coverage in `tests/wpunit/Common/Admin/Conditional
 - `Trait_Integration_Test.php` - Tests trait interactions
 
 **Run all tests:**
+
 ```bash
 slic run wpunit common/tests/wpunit/Common/Admin/Conditional_Content/
 ```
@@ -402,6 +451,7 @@ slic run wpunit common/tests/wpunit/Common/Admin/Conditional_Content/
 ### Migration Example
 
 **Before (Inheritance):**
+
 ```php
 class My_Promo extends Datetime_Conditional_Abstract {
     use Dismissible_Trait;
@@ -410,6 +460,7 @@ class My_Promo extends Datetime_Conditional_Abstract {
 ```
 
 **After (Composition):**
+
 ```php
 class My_Promo extends Promotional_Content_Abstract {
     use Has_Datetime_Conditions;
@@ -439,5 +490,6 @@ class My_Promo extends Promotional_Content_Abstract {
 ## Support
 
 For questions or issues, refer to:
+
 - [Tests](../../../../tests/wpunit/Common/Admin/Conditional_Content/) for usage examples
 - Existing implementations: `Black_Friday.php`, `Stellar_Sale.php`

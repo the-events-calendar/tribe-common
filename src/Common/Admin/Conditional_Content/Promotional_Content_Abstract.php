@@ -581,6 +581,27 @@ abstract class Promotional_Content_Abstract {
 	}
 
 	/**
+	 * Find an image file with automatic format detection (jpg, with png fallback).
+	 *
+	 * @since TBD
+	 *
+	 * @param string $base_path The base path without extension (e.g., 'black-friday-2025/top-wide').
+	 *
+	 * @return string The filename with extension, or the base path with .png if neither format exists.
+	 */
+	protected function find_image_with_format( string $base_path ): string {
+		$base_dir = \Tribe__Main::instance()->plugin_path . 'src/resources/images/conditional-content/';
+
+		// Try .jpg first.
+		if ( file_exists( $base_dir . $base_path . '.jpg' ) ) {
+			return $base_path . '.jpg';
+		}
+
+		// Fall back to .png.
+		return $base_path . '.png';
+	}
+
+	/**
 	 * Get the wide banner image URL.
 	 *
 	 * @since 6.8.3
@@ -588,7 +609,8 @@ abstract class Promotional_Content_Abstract {
 	 * @return string The wide banner image URL.
 	 */
 	protected function get_wide_banner_image_url(): string {
-		return tribe_resource_url( 'images/conditional-content/' . $this->get_wide_banner_image(), false, null, \Tribe__Main::instance() );
+		$image_path = $this->find_image_with_format( $this->get_slug() . '/top-wide' );
+		return tribe_resource_url( 'images/conditional-content/' . $image_path, false, null, \Tribe__Main::instance() );
 	}
 
 	/**
@@ -599,7 +621,8 @@ abstract class Promotional_Content_Abstract {
 	 * @return string The narrow banner image URL.
 	 */
 	protected function get_narrow_banner_image_url(): string {
-		return tribe_resource_url( 'images/conditional-content/' . $this->get_narrow_banner_image(), false, null, \Tribe__Main::instance() );
+		$image_path = $this->find_image_with_format( $this->get_slug() . '/top-narrow' );
+		return tribe_resource_url( 'images/conditional-content/' . $image_path, false, null, \Tribe__Main::instance() );
 	}
 
 	/**
@@ -610,7 +633,8 @@ abstract class Promotional_Content_Abstract {
 	 * @return string The sidebar image URL.
 	 */
 	protected function get_sidebar_image_url(): string {
-		return tribe_resource_url( 'images/conditional-content/' . $this->get_sidebar_image(), false, null, \Tribe__Main::instance() );
+		$image_path = $this->find_image_with_format( $this->get_slug() . '/sidebar' );
+		return tribe_resource_url( 'images/conditional-content/' . $image_path, false, null, \Tribe__Main::instance() );
 	}
 
 	/**
