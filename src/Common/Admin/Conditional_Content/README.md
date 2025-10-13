@@ -51,11 +51,11 @@ class Spring_Sale extends Promotional_Content_Abstract {
     use Is_Dismissible;
     use Requires_Capability;
     use Has_Generic_Upsell_Opportunity;
-    
+
     protected string $slug = 'spring-sale';
     protected string $start_date = 'March 1st';
     protected string $end_date = 'March 31st';
-    
+
     // Implement required methods...
 }
 ```
@@ -114,11 +114,11 @@ class Black_Friday extends Promotional_Content_Abstract {
     use Is_Dismissible;
     use Requires_Capability;
     use Has_Generic_Upsell_Opportunity;
-    
+
     protected string $slug = 'black-friday';
     protected string $start_date = 'November 26th';
     protected string $end_date = 'December 3rd';
-    
+
     // ... implementation
 }
 ```
@@ -135,9 +135,9 @@ class Stellar_Sale extends Promotional_Content_Abstract {
     use Is_Dismissible;
     use Requires_Capability;
     use Has_Targeted_Creative_Upsell;
-    
+
     protected string $slug = 'stellar-sale';
-    
+
     protected function get_suite_creative_map(): array {
         return [
             'events' => [
@@ -164,7 +164,7 @@ class Stellar_Sale extends Promotional_Content_Abstract {
             ],
         ];
     }
-    
+
     // ... implementation
 }
 ```
@@ -181,12 +181,12 @@ class Important_Announcement extends Promotional_Content_Abstract {
     use Is_Dismissible;
     use Requires_Capability;
     use Has_Generic_Upsell_Opportunity;
-    
+
     // Always show regardless of plugin installation
     protected function should_ignore_plugin_checks(): bool {
         return true;
     }
-    
+
     // ... implementation
 }
 ```
@@ -203,12 +203,12 @@ class Admin_Only_Notice extends Promotional_Content_Abstract {
     use Is_Dismissible;
     use Requires_Capability;
     use Has_Generic_Upsell_Opportunity;
-    
+
     // Only show to users who can manage network
     protected function get_required_capability(): string {
         return 'manage_network';
     }
-    
+
     // ... implementation
 }
 ```
@@ -335,19 +335,19 @@ protected function should_display(): bool {
     if ( tec_should_hide_upsell( $this->get_slug() ) ) {
         return false;
     }
-    
+
     if ( ! $this->check_capability() ) {
         return false;
     }
-    
+
     if ( $this->has_user_dismissed() ) {
         return false;
     }
-    
+
     if ( ! $this->should_display_datetime() ) {
         return false;
     }
-    
+
     return $this->has_upsell_opportunity();
 }
 ```
@@ -416,11 +416,11 @@ class My_Promo extends Promotional_Content_Abstract {
     use Is_Dismissible;
     use Requires_Capability;
     use Has_Generic_Upsell_Opportunity;
-    
+
     public function hook(): void {
         add_action( 'wp_ajax_tec_conditional_content_dismiss', [ $this, 'handle_dismiss' ] );
     }
-    
+
     protected function should_display(): bool {
         // Compose checks from traits
     }
@@ -441,4 +441,3 @@ class My_Promo extends Promotional_Content_Abstract {
 For questions or issues, refer to:
 - [Tests](../../../../tests/wpunit/Common/Admin/Conditional_Content/) for usage examples
 - Existing implementations: `Black_Friday.php`, `Stellar_Sale.php`
-

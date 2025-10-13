@@ -18,6 +18,10 @@ _deprecated_file( __FILE__, '6.3.0', '\TEC\Common\Admin\Conditional_Content\Blac
 class Black_Friday {
 	/**
 	 * @inheritdoc
+	 *
+	 * @param string $name      The name of the method.
+	 * @param array  $arguments The arguments passed to the method.
+	 * @return void
 	 */
 	public function __call( $name, $arguments ) {
 		_deprecated_function( __METHOD__, '6.3.0', 'No replacement.' );
@@ -25,6 +29,10 @@ class Black_Friday {
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @param string $name      The name of the method.
+	 * @param array  $arguments The arguments passed to the method.
+	 * @return void
 	 */
 	public static function __callStatic( $name, $arguments ) {
 		_deprecated_function( __METHOD__, '6.3.0', 'No replacement.' );
