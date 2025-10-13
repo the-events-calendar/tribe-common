@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [6.9.7] 2025-10-14 =
+
+* Tweak - Remove the `:not()` selector that created unnecessary specificity on most TEC links. [TEC-5504]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.9.6] 2025-10-07 =
 
 * Fix - Adjust the logic so Telementry opt-in option is not set prematurely. [TEC-5583]
