@@ -69,14 +69,14 @@ export function areDatesOnSameTime( date1: Date, date2: Date, checkSeconds: bool
 }
 
 /**
- * Returns the difference, in  days, between two dates.
+ * Returns the difference, in days, between two dates.
  *
  * @since TBD
  *
  * @param {Date} startDate The start date.
  * @param {Date} endDate The end date.
  *
- * @return {number} THe difference in days between the two dates.
+ * @return {number} The difference in days between the two dates.
  */
 export function dayDiffBetweenDates( startDate: Date, endDate: Date ): number {
 	const timeDiff = endDate.getTime() - startDate.getTime();
