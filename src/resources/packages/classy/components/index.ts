@@ -1,6 +1,6 @@
 export { CenteredSpinner } from './CenteredSpinner';
 export { ClassyField } from './ClassyField';
-export { ClassyModal, ClassyModalActions } from './ClassyModal';
+export { ClassyModal, ClassyModalActions, ClassyModalFooter, ClassyModalRoot, ClassyModalSection } from './ClassyModal';
 export { CurrencyInput } from './CurrencyInput';
 export { CurrencySelector } from './CurrencySelector';
 export { DatePicker } from './DatePicker';
