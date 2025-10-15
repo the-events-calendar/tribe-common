@@ -1,4 +1,4 @@
 Significance: minor
 Type: feat
 
-Introduces a Custom Table Repository contract. It also splits the Repository interfaces into interfaces that are more suitable for custom tables or WP Posts table.
+Introduce a Custom Table Repository contract, and split the Repository interfaces into ones more suitable for custom tables or the WP Posts table.
