@@ -15,7 +15,7 @@ type CalendarPopoverProps = {
 	endDate: Date;
 	onClose: () => void;
 	onChange: ( selecting: DateUpdateType, date: string ) => void;
-}
+};
 
 /**
  * CalendarPopover component that displays a date picker inside a popover.

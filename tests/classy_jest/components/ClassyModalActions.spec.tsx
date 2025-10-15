@@ -8,12 +8,7 @@ import { ClassyModalActions } from '@tec/common/classy/components';
 // Mock the WordPress Button component
 jest.mock( '@wordpress/components', () => ( {
 	Button: ( { children, variant, onClick, ...props } ) => (
-		<button
-			data-testid="wp-button"
-			data-variant={ variant }
-			onClick={ onClick }
-			{ ...props }
-		>
+		<button data-testid="wp-button" data-variant={ variant } onClick={ onClick } { ...props }>
 			{ children }
 		</button>
 	),
@@ -41,9 +36,7 @@ describe( 'ClassyModalActions Component', () => {
 	} );
 
 	it( 'handles different type values', () => {
-		const { container } = render(
-			<ClassyModalActions { ...defaultProps } type="confirmation-actions" />
-		);
+		const { container } = render( <ClassyModalActions { ...defaultProps } type="confirmation-actions" /> );
 
 		const actionsElement = container.firstChild as HTMLElement;
 		expect( actionsElement ).toHaveClass( 'classy-modal__actions--confirmation-actions' );
@@ -209,12 +202,7 @@ describe( 'ClassyModalActions Component', () => {
 	it( 'renders children with additional props', () => {
 		const { getByTestId } = render(
 			<ClassyModalActions { ...defaultProps }>
-				<button
-					data-testid="wp-button"
-					variant="primary"
-					disabled
-					data-custom="test-value"
-				>
+				<button data-testid="wp-button" variant="primary" disabled data-custom="test-value">
 					Disabled Button
 				</button>
 			</ClassyModalActions>

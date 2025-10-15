@@ -35,7 +35,7 @@ type SectionProps = {
 	 * The type of the section, used to apply specific class names for styling.
 	 */
 	type?: string;
-}
+};
 
 /**
  * A wrapper component for sections in the Classy modal.
@@ -59,10 +59,7 @@ type SectionProps = {
  */
 export default function Section( props: SectionProps ): React.JSX.Element {
 	const { boxedInputs = false, children, className, includeSeparator = false, hasInputs = true, title, type } = props;
-	const sectionClasses = [
-		'classy-modal__section',
-		'classy-modal__content',
-	];
+	const sectionClasses = [ 'classy-modal__section', 'classy-modal__content' ];
 
 	if ( hasInputs ) {
 		sectionClasses.push( 'classy-field__inputs' );

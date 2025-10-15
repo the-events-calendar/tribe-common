@@ -47,9 +47,7 @@ describe( 'ClassyModal Component', () => {
 	} );
 
 	it( 'applies custom className when provided', () => {
-		const { getByTestId } = render(
-			<ClassyModal { ...defaultProps } className="custom-modal-class" />
-		);
+		const { getByTestId } = render( <ClassyModal { ...defaultProps } className="custom-modal-class" /> );
 
 		const modal = getByTestId( 'modal' );
 		expect( modal ).toHaveClass( 'classy-modal' );
@@ -61,13 +59,14 @@ describe( 'ClassyModal Component', () => {
 		const { getByTestId } = render( <ClassyModal { ...defaultProps } /> );
 
 		const modal = getByTestId( 'modal' );
-		expect( modal ).toHaveAttribute( 'data-overlay-class', 'classy-modal__overlay classy-modal__overlay--test-modal' );
+		expect( modal ).toHaveAttribute(
+			'data-overlay-class',
+			'classy-modal__overlay classy-modal__overlay--test-modal'
+		);
 	} );
 
 	it( 'applies custom overlay className when provided', () => {
-		const { getByTestId } = render(
-			<ClassyModal { ...defaultProps } overlayClassName="custom-overlay-class" />
-		);
+		const { getByTestId } = render( <ClassyModal { ...defaultProps } overlayClassName="custom-overlay-class" /> );
 
 		const modal = getByTestId( 'modal' );
 		expect( modal ).toHaveAttribute( 'data-overlay-class', 'classy-modal__overlay custom-overlay-class' );
@@ -125,23 +124,25 @@ describe( 'ClassyModal Component', () => {
 	} );
 
 	it( 'handles different type values', () => {
-		const { getByTestId } = render(
-			<ClassyModal { ...defaultProps } type="confirmation-dialog" />
-		);
+		const { getByTestId } = render( <ClassyModal { ...defaultProps } type="confirmation-dialog" /> );
 
 		const modal = getByTestId( 'modal' );
 		expect( modal ).toHaveClass( 'classy-modal__confirmation-dialog' );
-		expect( modal ).toHaveAttribute( 'data-overlay-class', 'classy-modal__overlay classy-modal__overlay--confirmation-dialog' );
+		expect( modal ).toHaveAttribute(
+			'data-overlay-class',
+			'classy-modal__overlay classy-modal__overlay--confirmation-dialog'
+		);
 	} );
 
 	it( 'handles type with special characters', () => {
-		const { getByTestId } = render(
-			<ClassyModal { ...defaultProps } type="modal-with-special_chars.123" />
-		);
+		const { getByTestId } = render( <ClassyModal { ...defaultProps } type="modal-with-special_chars.123" /> );
 
 		const modal = getByTestId( 'modal' );
 		expect( modal ).toHaveClass( 'classy-modal__modal-with-special_chars.123' );
-		expect( modal ).toHaveAttribute( 'data-overlay-class', 'classy-modal__overlay classy-modal__overlay--modal-with-special_chars.123' );
+		expect( modal ).toHaveAttribute(
+			'data-overlay-class',
+			'classy-modal__overlay classy-modal__overlay--modal-with-special_chars.123'
+		);
 	} );
 
 	it( 'handles empty type', () => {
@@ -159,17 +160,13 @@ describe( 'ClassyModal Component', () => {
 	} );
 
 	it( 'matches snapshot with custom className', () => {
-		const { container } = render(
-			<ClassyModal { ...defaultProps } className="custom-class" />
-		);
+		const { container } = render( <ClassyModal { ...defaultProps } className="custom-class" /> );
 
 		expect( container.firstChild ).toMatchSnapshot();
 	} );
 
 	it( 'matches snapshot with custom overlay className', () => {
-		const { container } = render(
-			<ClassyModal { ...defaultProps } overlayClassName="custom-overlay" />
-		);
+		const { container } = render( <ClassyModal { ...defaultProps } overlayClassName="custom-overlay" /> );
 
 		expect( container.firstChild ).toMatchSnapshot();
 	} );

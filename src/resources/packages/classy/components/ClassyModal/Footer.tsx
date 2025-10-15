@@ -17,7 +17,6 @@ type FooterProps = {
 	type: string;
 };
 
-
 /**
  * Classy Footer component.
  *
@@ -47,4 +46,3 @@ export default function Footer( props: FooterProps ): React.JSX.Element {
 
 	return <div className={ `classy-modal__footer ${ className }` }>{ children }</div>;
 }
-

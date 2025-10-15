@@ -10,7 +10,7 @@ type FieldGroupProps = {
 	 * The child elements to be rendered within the field group.
 	 */
 	children?: React.ReactNode;
-}
+};
 
 /**
  * A wrapper component for grouping fields in the Classy editor.
