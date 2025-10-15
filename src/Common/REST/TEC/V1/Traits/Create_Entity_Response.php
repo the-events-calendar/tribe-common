@@ -12,7 +12,7 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Traits;
 
 use WP_REST_Response;
-
+use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
 /**
  * Trait to handle the response for create entity requests.
  *
@@ -44,7 +44,7 @@ trait Create_Entity_Response {
 
 		return new WP_REST_Response(
 			$this->get_formatted_entity(
-				$this->get_orm()->by_primary_key( $entity->ID )
+				$this->get_orm()->by_primary_key( $entity instanceof Model ? $entity->getPrimaryValue() : $entity->ID )
 			),
 			201
 		);

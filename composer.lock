@@ -720,16 +720,16 @@
         },
         {
             "name": "stellarwp/models",
-            "version": "dev-feat/more-flexibility-on-defining-relationships-and-its-values",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/models.git",
-                "reference": "ea5a000de54f91f88c9b5b014f571ade6cff8973"
+                "reference": "0571481c2e2f66b4c428be43c8d19ecb9ad3202d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/models/zipball/ea5a000de54f91f88c9b5b014f571ade6cff8973",
-                "reference": "ea5a000de54f91f88c9b5b014f571ade6cff8973",
+                "url": "https://api.github.com/repos/stellarwp/models/zipball/0571481c2e2f66b4c428be43c8d19ecb9ad3202d",
+                "reference": "0571481c2e2f66b4c428be43c8d19ecb9ad3202d",
                 "shasum": ""
             },
             "require": {
@@ -771,22 +771,22 @@
             ],
             "support": {
                 "issues": "https://github.com/stellarwp/models/issues",
-                "source": "https://github.com/stellarwp/models/tree/feat/more-flexibility-on-defining-relationships-and-its-values"
+                "source": "https://github.com/stellarwp/models/tree/2.0.0"
             },
-            "time": "2025-10-07T15:26:33+00:00"
+            "time": "2025-10-07T18:55:19+00:00"
         },
         {
             "name": "stellarwp/schema",
-            "version": "3.1.2",
+            "version": "3.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/schema.git",
-                "reference": "d5a7d61432d109cf4f5f92f44696dcf56314e504"
+                "reference": "eb3ce5dde47c08f55afad52c74283ac028ae2239"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/schema/zipball/d5a7d61432d109cf4f5f92f44696dcf56314e504",
-                "reference": "d5a7d61432d109cf4f5f92f44696dcf56314e504",
+                "url": "https://api.github.com/repos/stellarwp/schema/zipball/eb3ce5dde47c08f55afad52c74283ac028ae2239",
+                "reference": "eb3ce5dde47c08f55afad52c74283ac028ae2239",
                 "shasum": ""
             },
             "require": {
@@ -831,9 +831,9 @@
             "description": "A library for simplifying the creation and updates of custom tables within WordPress.",
             "support": {
                 "issues": "https://github.com/stellarwp/schema/issues",
-                "source": "https://github.com/stellarwp/schema/tree/3.1.2"
+                "source": "https://github.com/stellarwp/schema/tree/3.1.3"
             },
-            "time": "2025-10-02T12:42:28+00:00"
+            "time": "2025-10-08T17:14:33+00:00"
         },
         {
             "name": "stellarwp/schema-models",
@@ -841,17 +841,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/schema-models.git",
-                "reference": "28d05f84e3e67a27566eb246895265043bc4e244"
+                "reference": "23b800559130601eb614304e4ce414356fb330cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/schema-models/zipball/28d05f84e3e67a27566eb246895265043bc4e244",
-                "reference": "28d05f84e3e67a27566eb246895265043bc4e244",
+                "url": "https://api.github.com/repos/stellarwp/schema-models/zipball/23b800559130601eb614304e4ce414356fb330cc",
+                "reference": "23b800559130601eb614304e4ce414356fb330cc",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.4",
-                "stellarwp/models": "dev-feat/more-flexibility-on-defining-relationships-and-its-values",
+                "stellarwp/models": "^2.0.0",
                 "stellarwp/schema": "^3.1.2"
             },
             "require-dev": {
@@ -931,7 +931,7 @@
                 "source": "https://github.com/stellarwp/schema-models/tree/feat/repo-set-up",
                 "issues": "https://github.com/stellarwp/schema-models/issues"
             },
-            "time": "2025-10-07T15:44:19+00:00"
+            "time": "2025-10-15T15:58:54+00:00"
         },
         {
             "name": "stellarwp/shepherd",
