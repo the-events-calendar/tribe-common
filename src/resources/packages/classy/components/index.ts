@@ -1,5 +1,5 @@
 export { CenteredSpinner } from './CenteredSpinner';
-export { ClassyField } from './ClassyField';
+export { ClassyField, ClassyFieldGroup } from './ClassyField';
 export { ClassyModal, ClassyModalActions, ClassyModalFooter, ClassyModalRoot, ClassyModalSection } from './ClassyModal';
 export { CurrencyInput } from './CurrencyInput';
 export { CurrencySelector } from './CurrencySelector';

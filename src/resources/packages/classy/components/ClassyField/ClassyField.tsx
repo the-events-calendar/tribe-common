@@ -21,6 +21,18 @@ type ClassyFieldProps = {
  *
  * @since TBD
  *
+ * ```tsx
+ * import { ClassyField } from '@tec/common/classy/components';
+ *
+ * function MyClassyComponent(): React.JSX.Element {
+ *     return (
+ *         <ClassyField title="My Field">
+ *             <!-- Field content goes here -->
+ *         </ClassyField>
+ *     );
+ * }
+ * ```
+ *
  * @param {ClassyFieldProps} props The component props.
  * @return {React.JSX.Element} The rendered component.
  */
