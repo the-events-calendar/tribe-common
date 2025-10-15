@@ -22,6 +22,17 @@ namespace TEC\Common\Admin\Conditional_Content\Traits;
  */
 trait Requires_Capability {
 	/**
+	 * Whether the promotional content requires a capability.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function requires_capability(): bool {
+		return true;
+	}
+
+	/**
 	 * Get the capability required to view this content.
 	 *
 	 * Override this method in your class to require a different capability.

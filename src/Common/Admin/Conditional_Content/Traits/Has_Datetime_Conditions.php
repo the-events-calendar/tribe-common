@@ -41,6 +41,17 @@ trait Has_Datetime_Conditions {
 	protected Template $template;
 
 	/**
+	 * Whether the promotional content is date bound.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_date_bound(): bool {
+		return true;
+	}
+
+	/**
 	 * Unix datetime for content start.
 	 *
 	 * @since TBD

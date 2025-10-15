@@ -63,6 +63,54 @@ abstract class Promotional_Content_Abstract {
 	abstract public function hook(): void;
 
 	/**
+	 * Whether the promotional content is dismissible.
+	 * Defaults to false, the Is_Dismissible trait must be used to override this.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_dismissible(): bool {
+		return false;
+	}
+
+	/**
+	 * Whether the promotional content is date bound.
+	 * Defaults to false, the Has_Datetime_Conditions trait must be used to override this.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_date_bound() {
+		return false;
+	}
+
+	/**
+	 * Whether the promotional content is targeted.
+	 * Defaults to false, the Has_Targeted_Creative_Upsell trait must be used to override this.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_targeted(): bool {
+		return false;
+	}
+
+	/**
+	 * Whether the promotional content requires a capability.
+	 * Defaults to false, the Requires_Capability trait must be used to override this.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function requires_capability(): bool {
+		return false;
+	}
+
+	/**
 	 * Get the background color.
 	 *
 	 * @since 6.8.2
@@ -219,14 +267,58 @@ abstract class Promotional_Content_Abstract {
 			'is_responsive'    => true,
 			'is_sidebar'       => false,
 			'link'             => $this->get_creative_link_url(),
-			'nonce'            => $this->get_nonce(),
 			'sale_name'        => $sale_name,
 			'slug'             => $this->get_slug(),
 			'year'             => $year,
 			'a11y_text'        => $this->get_creative_alt_text(),
 		];
 
+		if ( $this->is_dismissible() ) {
+			$template_args['nonce'] = $this->get_nonce();
+		}
+
 		return $this->get_template()->template( $this->get_template_slug(), $template_args, false );
+	}
+
+	/**
+	 * Add the dismiss button to the container.
+	 *
+	 * @since TBD
+	 *
+	 * @param Container $container The container to add the dismiss button to.
+	 *
+	 * @return void
+	 */
+	protected function do_dismiss_button( &$container ): void {
+		if ( ! $this->is_dismissible() ) {
+			return;
+		}
+
+		$button_attr = new Attributes(
+			[
+				'data-tec-conditional-content-dismiss-button' => true,
+				'data-tec-conditional-content-dismiss-slug'   => $this->get_slug(),
+				'data-tec-conditional-content-dismiss-nonce'  => $this->get_nonce(),
+				'style'                                       => 'position: absolute; top: 0; right: 0; background: transparent; border: 0; color: #fff; padding: 0.5em; cursor: pointer;',
+			]
+		);
+		$button      = new Button( null, $button_attr );
+		$button->add_child(
+			new Div( new Element_Classes( [ 'dashicons', 'dashicons-dismiss' ] ) )
+		);
+
+		$container->add_child( $button );
+		$container->add_child(
+			new Image(
+				$this->get_sidebar_image_url(),
+				new Attributes(
+					[
+						'alt'  => $this->get_creative_alt_text(),
+						'role' => 'presentation',
+					]
+				)
+			)
+		);
 	}
 
 	/**
@@ -246,12 +338,15 @@ abstract class Promotional_Content_Abstract {
 			'is_narrow'        => false,
 			'is_sidebar'       => false,
 			'link'             => $this->get_creative_link_url(),
-			'nonce'            => $this->get_nonce(),
 			'sale_name'        => $sale_name,
 			'slug'             => $this->get_slug(),
 			'year'             => $year,
 			'a11y_text'        => $this->get_creative_alt_text(),
 		];
+
+		if ( $this->is_dismissible() ) {
+			$template_args['nonce'] = $this->get_nonce();
+		}
 
 		return $this->get_template()->template( $this->get_template_slug(), $template_args, false );
 	}
@@ -298,12 +393,15 @@ abstract class Promotional_Content_Abstract {
 			'is_narrow'        => true,
 			'is_sidebar'       => false,
 			'link'             => $this->get_creative_link_url(),
-			'nonce'            => $this->get_nonce(),
 			'sale_name'        => $sale_name,
 			'slug'             => $this->get_slug(),
 			'year'             => $year,
 			'a11y_text'        => $this->get_creative_alt_text(),
 		];
+
+		if ( $this->is_dismissible() ) {
+			$template_args['nonce'] = $this->get_nonce();
+		}
 
 		return $this->get_template()->template( $this->get_template_slug(), $template_args, false );
 	}
@@ -359,7 +457,7 @@ abstract class Promotional_Content_Abstract {
 	 * @since 6.8.2
 	 *
 	 * @param Settings_Sidebar_Section[] $sections The sidebar sections.
-	 * @param Settings_Sidebar           $sidebar  Sidebar instance.
+	 * @param Settings_Sidebar           $sidebar  Unused. Sidebar instance.
 	 *
 	 * @return Settings_Sidebar_Section[]
 	 */
@@ -382,40 +480,9 @@ abstract class Promotional_Content_Abstract {
 		 */
 		do_action( "tec_conditional_content_{$this->slug}", 'sidebar-filter', $this );
 
-		$translated_title = sprintf(
-			/* translators: %1$s: Sale year, %2$s: Sale name */
-			esc_attr_x( '%1$s %2$s for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Sale Ad', 'tribe-common' ),
-			esc_attr( $year ),
-			esc_attr( $sale_name )
-		);
-
 		$container = new Container();
-
-		$button_attr = new Attributes(
-			[
-				'data-tec-conditional-content-dismiss-button' => true,
-				'data-tec-conditional-content-dismiss-slug'   => $this->get_slug(),
-				'data-tec-conditional-content-dismiss-nonce'  => $this->get_nonce(),
-				'style'                                       => 'position: absolute; top: 0; right: 0; background: transparent; border: 0; color: #fff; padding: 0.5em; cursor: pointer;',
-			]
-		);
-		$button      = new Button( null, $button_attr );
-		$button->add_child(
-			new Div( new Element_Classes( [ 'dashicons', 'dashicons-dismiss' ] ) )
-		);
-
-		$container->add_child( $button );
-		$container->add_child(
-			new Image(
-				$this->get_sidebar_image_url(),
-				new Attributes(
-					[
-						'alt'  => $this->get_creative_alt_text(),
-						'role' => 'presentation',
-					]
-				)
-			)
-		);
+		// Conditionally add the dismiss button.
+		$this->do_dismiss_button( $container );
 
 		// Prepend to sections array.
 		array_unshift(
@@ -434,7 +501,7 @@ abstract class Promotional_Content_Abstract {
 									'rel'                                            => 'noopener nofollow',
 									'style'                                          => 'position: relative; display:block;',
 									// Dismiss container attributes.
-									'data-tec-conditional-content-dismiss-container' => true,
+									'data-tec-conditional-content-dismiss-container' => $this->is_dismissible(),
 								]
 							)
 						),
@@ -487,32 +554,9 @@ abstract class Promotional_Content_Abstract {
 			esc_attr( $sale_name )
 		);
 
-		$container   = new Container();
-		$button_attr = new Attributes(
-			[
-				'data-tec-conditional-content-dismiss-button' => true,
-				'data-tec-conditional-content-dismiss-slug'   => $this->get_slug(),
-				'data-tec-conditional-content-dismiss-nonce'  => $this->get_nonce(),
-				'style'                                       => 'position: absolute; top: 0; right: 0; background: transparent; border: 0; color: #fff; padding: 0.5em; cursor: pointer;',
-			]
-		);
-		$button      = new Button( null, $button_attr );
-		$button->add_child(
-			new Div( new Element_Classes( [ 'dashicons', 'dashicons-dismiss' ] ) )
-		);
-
-		$container->add_child( $button );
-		$container->add_child(
-			new Image(
-				$this->get_sidebar_image_url(),
-				new Attributes(
-					[
-						'alt'  => $this->get_creative_alt_text(),
-						'role' => 'presentation',
-					]
-				)
-			)
-		);
+		$container = new Container();
+		// Conditionally add the dismiss button.
+		$this->do_dismiss_button( $container );
 
 		$sidebar->prepend_section(
 			( new Settings_Section() )
@@ -529,7 +573,7 @@ abstract class Promotional_Content_Abstract {
 									'rel'                                            => 'noopener nofollow',
 									'style'                                          => 'position: relative; display:block;',
 									// Dismiss container attributes.
-									'data-tec-conditional-content-dismiss-container' => true,
+									'data-tec-conditional-content-dismiss-container' => $this->is_dismissible(),
 								]
 							)
 						),
@@ -570,12 +614,15 @@ abstract class Promotional_Content_Abstract {
 			'is_narrow'        => false,
 			'is_sidebar'       => true,
 			'link'             => $this->get_creative_link_url(),
-			'nonce'            => $this->get_nonce(),
 			'sale_name'        => $sale_name,
 			'slug'             => $this->get_slug(),
 			'year'             => $year,
 			'a11y_text'        => $this->get_creative_alt_text(),
 		];
+
+		if ( $this->is_dismissible() ) {
+			$template_args['nonce'] = $this->get_nonce();
+		}
 
 		$this->get_template()->template( $this->get_template_slug(), $template_args, true );
 	}

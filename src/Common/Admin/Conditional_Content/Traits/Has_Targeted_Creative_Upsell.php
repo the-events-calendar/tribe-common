@@ -27,6 +27,17 @@ namespace TEC\Common\Admin\Conditional_Content\Traits;
  */
 trait Has_Targeted_Creative_Upsell {
 	/**
+	 * Whether the promotional content is targeted.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_targeted(): bool {
+		return true;
+	}
+
+	/**
 	 * Check if there's an upsell opportunity based on targeted creatives.
 	 *
 	 * @since TBD
@@ -252,32 +263,6 @@ trait Has_Targeted_Creative_Upsell {
 
 		// Fallback to default behavior.
 		return $this->get_link_url();
-	}
-
-	/**
-	 * Get the alt text for the creative.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The alt text.
-	 */
-	protected function get_creative_alt_text(): string {
-		$creative = $this->get_selected_creative();
-
-		if ( ! empty( $creative['alt_text'] ) ) {
-			return $creative['alt_text'];
-		}
-
-		// Fallback to default behavior.
-		$year      = date_i18n( 'Y' );
-		$sale_name = $this->get_sale_name();
-
-		return sprintf(
-			/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
-			_x( '%1$s %2$s for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Sale Ad', 'tribe-common' ),
-			$year,
-			$sale_name
-		);
 	}
 
 

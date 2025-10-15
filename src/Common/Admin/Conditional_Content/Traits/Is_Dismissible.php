@@ -55,6 +55,17 @@ trait Is_Dismissible {
 	protected string $meta_key_time_prefix = 'tec-dismissible-content-time-';
 
 	/**
+	 * Whether the promotional content is dismissible.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_dismissible(): bool {
+		return true;
+	}
+
+	/**
 	 * Get the nonce action for this dismissible content.
 	 *
 	 * @since TBD

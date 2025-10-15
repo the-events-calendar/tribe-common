@@ -6,7 +6,7 @@ use Codeception\TestCase\WPTestCase;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe\Tests\Traits\WP_Send_Json_Mocks;
 use TEC\Common\Notifications\Readable_Trait;
-use TEC\Common\Admin\Conditional_Content\Dismissible_Trait;
+use TEC\Common\Admin\Conditional_Content\Traits\Is_Dismissible;
 
 /**
  * Class Notifications_Test
@@ -19,7 +19,7 @@ class Notifications_Test extends WPTestCase {
 	use With_Uopz;
 	use WP_Send_JSON_Mocks;
 	use Readable_Trait;
-	use Dismissible_Trait;
+	use Is_Dismissible;
 
 	protected string $optin_key = 'ian-notifications-opt-in';
 

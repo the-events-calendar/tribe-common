@@ -21,6 +21,10 @@ use Tribe\Utils\Date_I18n;
  * Set up for Stellar Sale promo.
  *
  * @since 6.8.2
+ * @since TBD Modified to use the Has_Datetime_Conditions trait instead of extending the Datetime_Conditional_Abstract class.
+ * @since TBD Modified to use the Requires_Capability trait.
+ * @since TBD Modified to use the Has_Targeted_Creative_Upsell trait.
+ * @since TBD Modified to use the Is_Dismissible trait.
  */
 class Stellar_Sale extends Promotional_Content_Abstract {
 	use Has_Datetime_Conditions {
@@ -248,5 +252,34 @@ class Stellar_Sale extends Promotional_Content_Abstract {
 				],
 			],
 		];
+	}
+
+	/**
+	 * Get the alt text for the creative.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The alt text.
+	 */
+	protected function get_creative_alt_text(): string {
+		$creative = $this->get_selected_creative();
+
+		if ( ! empty( $creative['alt_text'] ) ) {
+			return $creative['alt_text'];
+		}
+
+		// Fallback to default behavior.
+		$year      = date_i18n( 'Y' );
+		$sale_name = $this->get_sale_name();
+
+		return sprintf(
+			/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
+			esc_html__(
+				'%1$s %2$s for The Events Calendar plugins, add-ons, and bundles.',
+				'tribe-common'
+			),
+			$year,
+			$sale_name
+		);
 	}
 }
