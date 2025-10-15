@@ -148,7 +148,7 @@ class Power_Automate_Provider extends Service_Provider {
 		add_action( 'rest_api_init', [ $this, 'register_endpoints' ] );
 
 		// Wait until plugins are loaded and then add queues for our various plugins.
-		add_action( 'init', [ $this, 'setup_add_to_queues' ] );
+		add_action( 'init', [ $this, 'setup_add_to_queues' ], 20 );
 	}
 
 	/**
