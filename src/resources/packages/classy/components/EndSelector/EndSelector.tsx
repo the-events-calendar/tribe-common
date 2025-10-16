@@ -25,7 +25,7 @@ type EndSelectorProps = DateSelectorProps & {
 	showAllDayLabel?: boolean;
 };
 
-const defaultTitle = _x( 'Date', 'Event date selection input title', 'tribe-common' );
+const defaultTitle = _x( 'End Date', 'Event date selection input title', 'tribe-common' );
 
 /**
  * EndSelector component for selecting the end date and time.
@@ -76,7 +76,7 @@ export default function EndSelector( props: EndSelectorProps ): React.JSX.Elemen
 					) }
 
 					<div
-						className="classy-field__input classy-field__input--start-date classy-field__input--grow"
+						className="classy-field__input classy-field__input--end-date classy-field__input--grow"
 						ref={ ref }
 					>
 						{ showTitle && (
