@@ -165,6 +165,8 @@ class Notifications_Test extends WPTestCase {
 		$this->set_fn_return( 'check_ajax_referer', true );
 		$this->set_fn_return( 'wp_doing_ajax', true );
 		$this->set_fn_return( 'wp_verify_nonce', true );
+
+		return $user_id;
 	}
 
 	/**
@@ -551,7 +553,7 @@ class Notifications_Test extends WPTestCase {
 	 * @test
 	 */
 	public function it_should_optin_with_ajax() {
-		$this->ajax_setup();
+		$user_id = $this->ajax_setup();
 		tribe_update_option( $this->optin_key, false );
 
 		$optin = tribe_is_truthy( tribe_get_option( $this->optin_key ) );
@@ -574,13 +576,15 @@ class Notifications_Test extends WPTestCase {
 		$this->assertTrue( $optin, 'User has accepted notifications' );
 
 		$this->reset_wp_send_json_mocks();
+
+		wp_delete_user( $user_id );
 	}
 
 	/**
 	 * @test
 	 */
 	public function it_should_get_cached_feed_via_ajax() {
-		$this->ajax_setup();
+		$user_id = $this->ajax_setup();
 
 		$_REQUEST['plugin'] = 'tec';
 
@@ -602,13 +606,15 @@ class Notifications_Test extends WPTestCase {
 		$this->assertCount( count( $feed ), $response, 'Response should be the feed' );
 
 		$this->reset_wp_send_json_mocks();
+
+		wp_delete_user( $user_id );
 	}
 
 	/**
 	 * @test
 	 */
 	public function it_should_dismiss_notification() {
-		$this->ajax_setup();
+		$user_id = $this->ajax_setup();
 
 		$user_dismissed = get_user_meta( get_current_user_id(), $this->meta_key );
 		$this->assertEmpty( $user_dismissed, 'User should not have dismissed any notifications yet' );
@@ -644,13 +650,15 @@ class Notifications_Test extends WPTestCase {
 		$this->assertTrue( $this->has_user_dismissed(), 'Dismissible trait should show user has read the notification' );
 
 		$this->reset_wp_send_json_mocks();
+
+		wp_delete_user( $user_id );
 	}
 
 	/**
 	 * @test
 	 */
 	public function it_should_mark_notification_as_read() {
-		$this->ajax_setup();
+		$user_id = $this->ajax_setup();
 
 		$user_has_read = get_user_meta( get_current_user_id(), $this->read_meta_key );
 		$this->assertEmpty( $user_has_read, 'User should not have read any notifications yet' );
@@ -686,13 +694,15 @@ class Notifications_Test extends WPTestCase {
 		$this->assertTrue( $this->has_user_read(), 'Readable trait should show user has read the notification' );
 
 		$this->reset_wp_send_json_mocks();
+
+		wp_delete_user( $user_id );
 	}
 
 	/**
 	 * @test
 	 */
 	public function it_should_mark_all_notifications_as_read() {
-		$this->ajax_setup();
+		$user_id = $this->ajax_setup();
 
 		$user_has_read = get_user_meta( get_current_user_id(), $this->read_meta_key );
 		$this->assertEmpty( $user_has_read, 'User should not have read any notifications yet' );
@@ -725,5 +735,7 @@ class Notifications_Test extends WPTestCase {
 		$this->assertCount( count( $feed ), $user_has_read, 'User meta should contain all notification slugs as read' );
 
 		$this->reset_wp_send_json_mocks();
+
+		wp_delete_user( $user_id );
 	}
 }

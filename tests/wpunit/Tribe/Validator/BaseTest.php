@@ -25,8 +25,8 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		return [
 			[ '', false ],
 			[ null, false ],
-			[ array( 'foo' => 'bar' ), false ],
-			[ array( 'foo', 'bar' ), false ],
+			[ [ 'foo' => 'bar' ], false ],
+			[ [ 'foo', 'bar' ], false ],
 			[ new \StdClass(), false ],
 			[ 'f', true ],
 			[ 'foo bar', true ],
@@ -47,8 +47,8 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		return [
 			[ '', true ],
 			[ null, true ],
-			[ array( 'foo' => 'bar' ), false ],
-			[ array( 'foo', 'bar' ), false ],
+			[ [ 'foo' => 'bar' ], false ],
+			[ [ 'foo', 'bar' ], false ],
 			[ new \StdClass(), false ],
 			[ 'f', true ],
 			[ 'foo bar', true ],
@@ -69,8 +69,8 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		return [
 			[ '', true ],
 			[ null, false ],
-			[ array( 'foo' => 'bar' ), true ],
-			[ array( 'foo', 'bar' ), true ],
+			[ [ 'foo' => 'bar' ], true ],
+			[ [ 'foo', 'bar' ], true ],
 			[ new \StdClass(), true ],
 			[ 'f', true ],
 			[ 'foo bar', true ],
@@ -93,8 +93,8 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		return [
 			[ '', false ],
 			[ null, true ],
-			[ array( 'foo' => 'bar' ), false ],
-			[ array( 'foo', 'bar' ), false ],
+			[ [ 'foo' => 'bar' ], false ],
+			[ [ 'foo', 'bar' ], false ],
 			[ new \StdClass(), false ],
 			[ 'f', false ],
 			[ 'foo bar', false ],
@@ -117,8 +117,8 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		return [
 			[ '', false ],
 			[ null, false ],
-			[ array( 'foo' => 'bar' ), false ],
-			[ array( 'foo', 'bar' ), false ],
+			[ [ 'foo' => 'bar' ], false ],
+			[ [ 'foo', 'bar' ], false ],
 			[ new \StdClass(), false ],
 			[ '23', true ],
 			[ 23, true ],
@@ -140,8 +140,8 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		return [
 			[ '', false ],
 			[ null, false ],
-			[ array( 'foo' => 'bar' ), false ],
-			[ array( 'foo', 'bar' ), false ],
+			[ [ 'foo' => 'bar' ], false ],
+			[ [ 'foo', 'bar' ], false ],
 			[ new \StdClass(), false ],
 			[ '23', true ],
 			[ 23, true ],
@@ -166,10 +166,10 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		return [
 			[ null ],
 			[ false ],
-			[ 23 ],
-			[ '23' ],
-			[ array( 23 ) ],
-			[ array( 'user' => 23 ) ],
+			[ 123 ],
+			[ '123' ],
+			[ [ 123 ] ],
+			[ [ 'user' => 123 ] ],
 		];
 	}
 
@@ -180,7 +180,9 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider is_user_bad_users
 	 */
 	public function test_is_user_bad_users( $bad_user ) {
-		$this->assertFalse( $this->make_instance()->is_user_id( $bad_user ) );
+		// Prevent leakage from other tests corrupting this one.
+		wp_delete_user( $bad_user );
+		$this->assertFalse( $this->make_instance()->is_user_id( $bad_user ), 'User ID ' . print_r( $bad_user, true ) . ' should be false' );
 	}
 
 	/**
@@ -211,7 +213,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider is_positive_int_inputs
 	 */
 	public function test_is_positive_int( $value, $expected ) {
-		$this->assertEquals( $expected, $this->make_instance()->is_positive_int( $value ) );
+		$this->assertEquals( $expected, $this->make_instance()->is_positive_int( $value ), 'Value ' . $value . ' should be ' . $expected );
 	}
 
 	public function trim_inputs() {
@@ -254,7 +256,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	public function test_is_post_tag_with_bad_tags( $tag ) {
 		$sut = $this->make_instance();
 
-		$this->assertFalse( $sut->is_post_tag( $tag ) );
+		$this->assertFalse( $sut->is_post_tag( $tag ), 'Tag ' . $tag . ' should be false' );
 	}
 
 	/**
@@ -268,10 +270,10 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut = $this->make_instance();
 
-		$this->assertTrue( $sut->is_post_tag( $tag_1 ) );
-		$this->assertTrue( $sut->is_post_tag( $tag_2 ) );
-		$this->assertTrue( $sut->is_post_tag( [ $tag_1, $tag_2 ] ) );
-		$this->assertTrue( $sut->is_post_tag( "{$tag_1},{$tag_2}" ) );
+		$this->assertTrue( $sut->is_post_tag( $tag_1 ), 'Tag ' . $tag_1 . ' should be true' );
+		$this->assertTrue( $sut->is_post_tag( $tag_2 ), 'Tag ' . $tag_2 . ' should be true' );
+		$this->assertTrue( $sut->is_post_tag( [ $tag_1, $tag_2 ] ), 'Tags ' . $tag_1 . ' and ' . $tag_2 . ' should be true' );
+		$this->assertTrue( $sut->is_post_tag( "{$tag_1},{$tag_2}" ), 'Tags ' . $tag_1 . ' and ' . $tag_2 . ' should be true' );
 	}
 
 	/**
@@ -280,14 +282,14 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function test_is_post_tag_with_multiple_tags() {
-		$tag_1 = $this->factory()->tag->create( [ 'slug' => 'foo' ] );
-		$tag_2 = $this->factory()->tag->create();
+		$tag_1    = $this->factory()->tag->create( [ 'slug' => 'foo' ] );
+		$tag_2    = $this->factory()->tag->create();
 		$category = $this->factory()->category->create();
 
 		$sut = $this->make_instance();
 
-		$this->assertTrue( $sut->is_post_tag( [ $tag_1, $tag_2 ] ) );
-		$this->assertFalse( $sut->is_post_tag( [ $tag_1, $tag_2, $category ] ) );
+		$this->assertTrue( $sut->is_post_tag( [ $tag_1, $tag_2 ] ), 'Tags ' . $tag_1 . ' and ' . $tag_2 . ' should be true' );
+		$this->assertFalse( $sut->is_post_tag( [ $tag_1, $tag_2, $category ] ), 'Tags ' . $tag_1 . ' and ' . $tag_2 . ' and category ' . $category . ' should be false' );
 	}
 
 	public function test_is_image_bad_inputs() {
@@ -322,10 +324,10 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_is_image_with_good_inputs() {
 		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
-		$image_url = plugins_url( 'common/tests/_data/images/featured-image.jpg', \Tribe__Events__Main::instance()->plugin_file );
-		$bad_image_url = plugins_url( 'common/tests/_data/images/featured-image.raw', \Tribe__Events__Main::instance()->plugin_file );
+		$image_url      = plugins_url( 'common/tests/_data/images/featured-image.jpg', \Tribe__Events__Main::instance()->plugin_file );
+		$bad_image_url  = plugins_url( 'common/tests/_data/images/featured-image.raw', \Tribe__Events__Main::instance()->plugin_file );
 		$image_uploader = new \Tribe__Image__Uploader( $image_url );
-		$image_id = $image_uploader->upload_and_get_attachment_id();
+		$image_id       = $image_uploader->upload_and_get_attachment_id();
 
 		$sut = $this->make_instance();
 
@@ -340,10 +342,10 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function test_is_image_with_good_inputs_but_invalid_user() {
-		$image_url = plugins_url( 'common/tests/_data/images/featured-image.jpg', \Tribe__Events__Main::instance()->plugin_file );
-		$bad_image_url = plugins_url( 'common/tests/_data/images/featured-image.raw', \Tribe__Events__Main::instance()->plugin_file );
+		$image_url      = plugins_url( 'common/tests/_data/images/featured-image.jpg', \Tribe__Events__Main::instance()->plugin_file );
+		$bad_image_url  = plugins_url( 'common/tests/_data/images/featured-image.raw', \Tribe__Events__Main::instance()->plugin_file );
 		$image_uploader = new \Tribe__Image__Uploader( $image_url );
-		$image_id = $image_uploader->upload_and_get_attachment_id();
+		$image_id       = $image_uploader->upload_and_get_attachment_id();
 
 		$sut = $this->make_instance();
 
@@ -400,10 +402,10 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_is_image_or_empty_with_images() {
 		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
-		$image_url = plugins_url( 'common/tests/_data/images/featured-image2.jpg', \Tribe__Events__Main::instance()->plugin_file );
-		$bad_image_url = plugins_url( 'common/tests/_data/images/featured-image.raw', \Tribe__Events__Main::instance()->plugin_file );
+		$image_url      = plugins_url( 'common/tests/_data/images/featured-image2.jpg', \Tribe__Events__Main::instance()->plugin_file );
+		$bad_image_url  = plugins_url( 'common/tests/_data/images/featured-image.raw', \Tribe__Events__Main::instance()->plugin_file );
 		$image_uploader = new \Tribe__Image__Uploader( $image_url );
-		$image_id = $image_uploader->upload_and_get_attachment_id();
+		$image_id       = $image_uploader->upload_and_get_attachment_id();
 
 		$sut = $this->make_instance();
 
@@ -435,7 +437,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 			[ 'foo', false ],
 			[ 23, false ],
 			[ '23', false ],
-			[ array( 'foo' => 'http://example.com' ), false ],
+			[ [ 'foo' => 'http://example.com' ], false ],
 			[ 'http://foo.bar', true ],
 			[ 'http://foo.com', true ],
 			[ 'http://foo.com/foo/bar/baz', true ],
@@ -471,7 +473,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 			[ 'foo', false ],
 			[ 23, false ],
 			[ '23', false ],
-			[ array( 'foo' => 'http://example.com' ), false ],
+			[ [ 'foo' => 'http://example.com' ], false ],
 			[ 'http://foo.bar', true ],
 			[ 'http://foo.com', true ],
 			[ 'http://foo.com/foo/bar/baz', true ],

@@ -222,6 +222,8 @@ class Promotional_Content_Test extends WPTestCase {
 		$result = $method->invoke( $this->black_friday );
 
 		$this->assertTrue( $result, 'Should display when there is an upsell opportunity' );
+
+		wp_delete_user( $user_id );
 	}
 
 	/**
