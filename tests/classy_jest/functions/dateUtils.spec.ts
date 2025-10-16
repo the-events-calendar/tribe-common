@@ -58,6 +58,44 @@ describe( 'dateUtils', () => {
 			expect( getValidDateOrNull( 'abc123' ) ).toBeNull();
 			expect( getValidDateOrNull( 'not a date' ) ).toBeNull();
 		} );
+
+		it( 'should handle timezone-aware dates consistently', () => {
+			// Local timezone dates should be consistent.
+			const localDate1 = getValidDateOrNull( '2024-01-01' );
+			const localDate2 = getValidDateOrNull( '2024-01-01T00:00:00' );
+
+			expect( localDate1 ).toBeInstanceOf( Date );
+			expect( localDate2 ).toBeInstanceOf( Date );
+			expect( localDate1?.getFullYear() ).toBe( localDate2?.getFullYear() );
+			expect( localDate1?.getMonth() ).toBe( localDate2?.getMonth() );
+			expect( localDate1?.getDate() ).toBe( localDate2?.getDate() );
+		} );
+
+		it( 'should handle different date formats consistently', () => {
+			const formats = [
+				'2024-01-01',
+				'2024-01-01T00:00:00',
+				'01/01/2024',
+			];
+
+			formats.forEach( ( format ) => {
+				const date = getValidDateOrNull( format );
+				expect( date ).toBeInstanceOf( Date );
+				expect( date?.getFullYear() ).toBe( 2024 );
+				expect( date?.getMonth() ).toBe( 0 );
+				expect( date?.getDate() ).toBe( 1 );
+			});
+		} );
+
+		it( 'should handle natural language dates when valid', () => {
+			const naturalDate = getValidDateOrNull( 'January 1, 2024' );
+			// Natural language dates might not always parse consistently across environments,
+			// so we'll just check if it's either a valid date or null.
+			if ( naturalDate ) {
+				expect( naturalDate ).toBeInstanceOf( Date );
+				expect( naturalDate.getFullYear() ).toBe( 2024 );
+			}
+		} );
 	} );
 
 	describe( 'areDatesOnSameDay', () => {

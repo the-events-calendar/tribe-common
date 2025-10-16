@@ -1,5 +1,56 @@
 import { DatePickerEvent } from '@wordpress/components/build-types/date-time/types';
 
+type DateOrNull = Date | null;
+
+/**
+ * Normalizes a date string to ensure it includes time information.
+ *
+ * If the date string does not include time information, it appends 'T00:00:00' to treat it as local midnight.
+ *
+ * @since TBD
+ *
+ * @param {string} date The date string to normalize.
+ * @returns {string} The normalized date string.
+ */
+function normalizeDateWithTime( date: string ): string {
+	let normalizedDate = date.trim();
+
+	// If the date string doesn't include time information, treat it as local midnight.
+	if ( ! normalizedDate.includes( 'T' ) && ! normalizedDate.includes( ' ' ) && normalizedDate.includes( '-' ) ) {
+		normalizedDate = `${ normalizedDate }T00:00:00`;
+	}
+
+	return normalizedDate;
+}
+
+/**
+ * Normalizes a date string to ensure consistent timezone handling.
+ *
+ * If the date string does not include timezone information, it treats it as local time.
+ * If it includes timezone information, it parses it accordingly.
+ *
+ * @since TBD
+ *
+ * @param {string} date The date string to normalize.
+ * @returns {DateOrNull} The normalized Date object or null if invalid.
+ */
+function normalizeDateWithTimezone( date: string ): DateOrNull {
+	// If the date string doesn't include timezone information, treat it as local time.
+	let parsedDate: DateOrNull;
+	if ( ! date.includes( 'Z' ) && ! date.includes( '+' ) && ! date.includes( '-' ) ) {
+		parsedDate = new Date( date );
+	} else {
+		// For dates with explicit timezone info, use Date.parse
+		const timestamp = Date.parse( date );
+		if ( isNaN( timestamp ) ) {
+			return null;
+		}
+		parsedDate = new Date( timestamp );
+	}
+
+	return parsedDate === null || isNaN( parsedDate.getTime() ) ? null : parsedDate;
+}
+
 /**
  * Checks if a given date string is valid.
  *
@@ -20,11 +71,14 @@ export function isValidDate( date: string ): boolean {
  *
  * @param {string} date The date string to convert.
  *
- * @returns {Date|null} Returns a Date object if the date is valid, otherwise null.
+ * @returns {DateOrNull} Returns a Date object if the date is valid, otherwise null.
  */
-export function getValidDateOrNull( date: string ): Date | null {
-	const parsedDate = Date.parse( date );
-	return isNaN( parsedDate ) ? null : new Date( parsedDate );
+export function getValidDateOrNull( date: string ): DateOrNull {
+	if ( ! date || typeof date !== 'string' ) {
+		return null;
+	}
+
+	return normalizeDateWithTimezone( normalizeDateWithTime( date ) );
 }
 
 /**
