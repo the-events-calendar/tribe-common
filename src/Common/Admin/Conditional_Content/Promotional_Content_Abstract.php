@@ -547,13 +547,6 @@ abstract class Promotional_Content_Abstract {
 		 */
 		do_action( "tec_conditional_content_{$this->slug}", 'sidebar-object', $this );
 
-		$translated_title = sprintf(
-			/* translators: %1$s: Sale year, %2$s: Sale name */
-			esc_attr_x( '%1$s %2$s for The Events Calendar plugins, add-ons and bundles.', 'Alt text for the Sale Ad', 'tribe-common' ),
-			esc_attr( $year ),
-			esc_attr( $sale_name )
-		);
-
 		$container = new Container();
 		// Conditionally add the dismiss button.
 		$this->do_dismiss_button( $container );
