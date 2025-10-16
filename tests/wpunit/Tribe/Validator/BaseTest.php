@@ -182,7 +182,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	public function test_is_user_bad_users( $bad_user ) {
 		// Prevent leakage from other tests corrupting this one.
 		wp_delete_user( $bad_user );
-		$this->assertFalse( $this->make_instance()->is_user_id( $bad_user ), 'User ID ' . print_r( $bad_user, true ) . ' should be false' );
+		$this->assertFalse( $this->make_instance()->is_user_id( $bad_user ) );
 	}
 
 	/**
@@ -193,6 +193,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	public function test_is_user_with_good_user() {
 		$user_id = $this->factory()->user->create();
 		$this->assertTrue( $this->make_instance()->is_user_id( $user_id ) );
+		wp_delete_user( $user_id );
 	}
 
 	public function is_positive_int_inputs() {
@@ -323,7 +324,8 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function test_is_image_with_good_inputs() {
-		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$admin = static::factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $admin );
 		$image_url      = plugins_url( 'common/tests/_data/images/featured-image.jpg', \Tribe__Events__Main::instance()->plugin_file );
 		$bad_image_url  = plugins_url( 'common/tests/_data/images/featured-image.raw', \Tribe__Events__Main::instance()->plugin_file );
 		$image_uploader = new \Tribe__Image__Uploader( $image_url );
@@ -334,6 +336,8 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertTrue( $sut->is_image( $image_url ) );
 		$this->assertTrue( $sut->is_image( $image_id ) );
 		$this->assertFalse( $sut->is_image( $bad_image_url ) );
+
+		wp_delete_user( $admin );
 	}
 
 	/**
@@ -401,7 +405,8 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function test_is_image_or_empty_with_images() {
-		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$admin = static::factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $admin );
 		$image_url      = plugins_url( 'common/tests/_data/images/featured-image2.jpg', \Tribe__Events__Main::instance()->plugin_file );
 		$bad_image_url  = plugins_url( 'common/tests/_data/images/featured-image.raw', \Tribe__Events__Main::instance()->plugin_file );
 		$image_uploader = new \Tribe__Image__Uploader( $image_url );
@@ -412,6 +417,8 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertTrue( $sut->is_image_or_empty( $image_url ) );
 		$this->assertTrue( $sut->is_image_or_empty( $image_id ) );
 		$this->assertFalse( $sut->is_image_or_empty( $bad_image_url ) );
+
+		wp_delete_user( $admin );
 	}
 
 	/**
@@ -420,10 +427,10 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function test_is_image_or_empty_with_images_but_invalid_user() {
-		$image_url = plugins_url( 'common/tests/_data/images/featured-image2.jpg', \Tribe__Events__Main::instance()->plugin_file );
-		$bad_image_url = plugins_url( 'common/tests/_data/images/featured-image.raw', \Tribe__Events__Main::instance()->plugin_file );
+		$image_url      = plugins_url( 'common/tests/_data/images/featured-image2.jpg', \Tribe__Events__Main::instance()->plugin_file );
+		$bad_image_url  = plugins_url( 'common/tests/_data/images/featured-image.raw', \Tribe__Events__Main::instance()->plugin_file );
 		$image_uploader = new \Tribe__Image__Uploader( $image_url );
-		$image_id = $image_uploader->upload_and_get_attachment_id();
+		$image_id       = $image_uploader->upload_and_get_attachment_id();
 
 		$sut = $this->make_instance();
 
