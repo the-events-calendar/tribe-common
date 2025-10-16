@@ -20,14 +20,14 @@ describe( 'ClassyModalRoot Component', () => {
 		expect( container.firstChild ).toBeInTheDocument();
 		expect( getByText( 'Test Modal Title' ) ).toBeInTheDocument();
 		expect( getByText( 'Test Content' ) ).toBeInTheDocument();
-	});
+	} );
 
 	it( 'applies correct className structure', () => {
 		const { container } = render( <ClassyModalRoot { ...defaultProps } /> );
 
 		const rootElement = container.firstChild as HTMLElement;
 		expect( rootElement ).toHaveClass( 'classy-root' );
-	});
+	} );
 
 	it( 'renders header with correct structure', () => {
 		const { getByRole, getByText } = render( <ClassyModalRoot { ...defaultProps } /> );
@@ -39,49 +39,49 @@ describe( 'ClassyModalRoot Component', () => {
 		const title = getByText( 'Test Modal Title' );
 		expect( title ).toHaveClass( 'classy-modal__header-title' );
 		expect( title.tagName ).toBe( 'H4' );
-	});
+	} );
 
 	it( 'applies correct header className based on type', () => {
 		const { getByRole } = render( <ClassyModalRoot { ...defaultProps } type="confirmation-dialog" /> );
 
 		const header = getByRole( 'banner' );
 		expect( header ).toHaveClass( 'classy-modal__header--confirmation-dialog' );
-	});
+	} );
 
 	it( 'handles type with special characters', () => {
 		const { getByRole } = render( <ClassyModalRoot { ...defaultProps } type="root-with-special_chars.123" /> );
 
 		const header = getByRole( 'banner' );
 		expect( header ).toHaveClass( 'classy-modal__header--root-with-special_chars.123' );
-	});
+	} );
 
 	it( 'handles empty type', () => {
 		const { getByRole } = render( <ClassyModalRoot { ...defaultProps } type="" /> );
 
 		const header = getByRole( 'banner' );
 		expect( header ).toHaveClass( 'classy-modal__header--' );
-	});
+	} );
 
 	it( 'renders header icon when provided', () => {
 		const icon = <span data-testid="header-icon">🔧</span>;
 		const { getByTestId } = render( <ClassyModalRoot { ...defaultProps } headerIcon={ icon } /> );
 
 		expect( getByTestId( 'header-icon' ) ).toBeInTheDocument();
-	});
+	} );
 
 	it( 'handles null header icon gracefully', () => {
 		const { container, getByText } = render( <ClassyModalRoot { ...defaultProps } headerIcon={ null } /> );
 
 		expect( container.firstChild ).toBeInTheDocument();
 		expect( getByText( 'Test Modal Title' ) ).toBeInTheDocument();
-	});
+	} );
 
 	it( 'handles undefined header icon gracefully', () => {
 		const { container, getByText } = render( <ClassyModalRoot { ...defaultProps } headerIcon={ undefined } /> );
 
 		expect( container.firstChild ).toBeInTheDocument();
 		expect( getByText( 'Test Modal Title' ) ).toBeInTheDocument();
-	});
+	} );
 
 	it( 'renders children correctly', () => {
 		const { getByText, getByRole } = render(
@@ -97,7 +97,7 @@ describe( 'ClassyModalRoot Component', () => {
 		expect( getByText( 'Section Title' ) ).toBeInTheDocument();
 		expect( getByText( 'Section content' ) ).toBeInTheDocument();
 		expect( getByRole( 'button' ) ).toBeInTheDocument();
-	});
+	} );
 
 	it( 'renders multiple children correctly', () => {
 		const { getByText } = render(
@@ -111,14 +111,14 @@ describe( 'ClassyModalRoot Component', () => {
 		expect( getByText( 'First Child' ) ).toBeInTheDocument();
 		expect( getByText( 'Second Child' ) ).toBeInTheDocument();
 		expect( getByText( 'Third Child' ) ).toBeInTheDocument();
-	});
+	} );
 
 	it( 'handles empty children gracefully', () => {
 		const { container, getByText } = render( <ClassyModalRoot { ...defaultProps }>{ null }</ClassyModalRoot> );
 
 		expect( container.firstChild ).toBeInTheDocument();
 		expect( getByText( 'Test Modal Title' ) ).toBeInTheDocument();
-	});
+	} );
 
 	it( 'handles complex header icon', () => {
 		const complexIcon = (
@@ -133,40 +133,40 @@ describe( 'ClassyModalRoot Component', () => {
 		const { getByTestId } = render( <ClassyModalRoot { ...defaultProps } headerIcon={ complexIcon } /> );
 
 		expect( getByTestId( 'complex-icon' ) ).toBeInTheDocument();
-	});
+	} );
 
 	it( 'handles different title values', () => {
 		const { getByText } = render( <ClassyModalRoot { ...defaultProps } title="Different Title" /> );
 
 		expect( getByText( 'Different Title' ) ).toBeInTheDocument();
-	});
+	} );
 
 	it( 'handles empty title', () => {
 		const { container } = render( <ClassyModalRoot { ...defaultProps } title="" /> );
 
 		expect( container.querySelector( '.classy-modal__header-title' ) ).toBeInTheDocument();
 		expect( container.querySelector( '.classy-modal__header-title' )?.textContent ).toBe( '' );
-	});
+	} );
 
 	it( 'handles title with special characters', () => {
 		const specialTitle = 'Title with "quotes" & <tags>';
 		const { getByText } = render( <ClassyModalRoot { ...defaultProps } title={ specialTitle } /> );
 
 		expect( getByText( specialTitle ) ).toBeInTheDocument();
-	});
+	} );
 
 	it( 'matches snapshot with default props', () => {
 		const { container } = render( <ClassyModalRoot { ...defaultProps } /> );
 
 		expect( container.firstChild ).toMatchSnapshot();
-	});
+	} );
 
 	it( 'matches snapshot with header icon', () => {
 		const icon = <span data-testid="header-icon">🔧</span>;
 		const { container } = render( <ClassyModalRoot { ...defaultProps } headerIcon={ icon } /> );
 
 		expect( container.firstChild ).toMatchSnapshot();
-	});
+	} );
 
 	it( 'matches snapshot with complex children', () => {
 		const { container } = render(
@@ -185,17 +185,17 @@ describe( 'ClassyModalRoot Component', () => {
 		);
 
 		expect( container.firstChild ).toMatchSnapshot();
-	});
+	} );
 
 	it( 'matches snapshot with different type', () => {
 		const { container } = render( <ClassyModalRoot { ...defaultProps } type="confirmation-dialog" /> );
 
 		expect( container.firstChild ).toMatchSnapshot();
-	});
+	} );
 
 	it( 'matches snapshot with special characters in type', () => {
 		const { container } = render( <ClassyModalRoot { ...defaultProps } type="root-with-special_chars.123" /> );
 
 		expect( container.firstChild ).toMatchSnapshot();
-	});
-});
+	} );
+} );

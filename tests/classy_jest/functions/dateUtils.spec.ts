@@ -72,11 +72,7 @@ describe( 'dateUtils', () => {
 		} );
 
 		it( 'should handle different date formats consistently', () => {
-			const formats = [
-				'2024-01-01',
-				'2024-01-01T00:00:00',
-				'01/01/2024',
-			];
+			const formats = [ '2024-01-01', '2024-01-01T00:00:00', '01/01/2024' ];
 
 			formats.forEach( ( format ) => {
 				const date = getValidDateOrNull( format );
@@ -84,7 +80,7 @@ describe( 'dateUtils', () => {
 				expect( date?.getFullYear() ).toBe( 2024 );
 				expect( date?.getMonth() ).toBe( 0 );
 				expect( date?.getDate() ).toBe( 1 );
-			});
+			} );
 		} );
 
 		it( 'should handle natural language dates when valid', () => {

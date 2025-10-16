@@ -17,14 +17,14 @@ describe( 'ClassyFieldGroup Component', () => {
 
 		expect( container.firstChild ).toBeInTheDocument();
 		expect( getByText( 'Group Content' ) ).toBeInTheDocument();
-	});
+	} );
 
 	it( 'applies correct className structure', () => {
 		const { container } = render( <ClassyFieldGroup { ...defaultProps } /> );
 
 		const groupElement = container.firstChild as HTMLElement;
 		expect( groupElement ).toHaveClass( 'classy-field__group' );
-	});
+	} );
 
 	it( 'applies custom className when provided', () => {
 		const { container } = render( <ClassyFieldGroup { ...defaultProps } className="custom-group-class" /> );
@@ -32,14 +32,16 @@ describe( 'ClassyFieldGroup Component', () => {
 		const groupElement = container.firstChild as HTMLElement;
 		expect( groupElement ).toHaveClass( 'classy-field__group' );
 		expect( groupElement ).toHaveClass( 'custom-group-class' );
-	});
+	} );
 
 	it( 'handles className with special characters', () => {
-		const { container } = render( <ClassyFieldGroup { ...defaultProps } className="custom-class_with.special-chars" /> );
+		const { container } = render(
+			<ClassyFieldGroup { ...defaultProps } className="custom-class_with.special-chars" />
+		);
 
 		const groupElement = container.firstChild as HTMLElement;
 		expect( groupElement ).toHaveClass( 'custom-class_with.special-chars' );
-	});
+	} );
 
 	it( 'handles multiple custom classNames', () => {
 		const { container } = render( <ClassyFieldGroup { ...defaultProps } className="class1 class2 class3" /> );
@@ -48,7 +50,7 @@ describe( 'ClassyFieldGroup Component', () => {
 		expect( groupElement ).toHaveClass( 'class1' );
 		expect( groupElement ).toHaveClass( 'class2' );
 		expect( groupElement ).toHaveClass( 'class3' );
-	});
+	} );
 
 	it( 'renders children correctly', () => {
 		const { getByText, getByRole } = render(
@@ -64,7 +66,7 @@ describe( 'ClassyFieldGroup Component', () => {
 		expect( getByText( 'Group Title' ) ).toBeInTheDocument();
 		expect( getByText( 'Group description' ) ).toBeInTheDocument();
 		expect( getByRole( 'button' ) ).toBeInTheDocument();
-	});
+	} );
 
 	it( 'renders multiple children correctly', () => {
 		const { getByText } = render(
@@ -78,28 +80,28 @@ describe( 'ClassyFieldGroup Component', () => {
 		expect( getByText( 'First Child' ) ).toBeInTheDocument();
 		expect( getByText( 'Second Child' ) ).toBeInTheDocument();
 		expect( getByText( 'Third Child' ) ).toBeInTheDocument();
-	});
+	} );
 
 	it( 'handles empty children gracefully', () => {
 		const { container } = render( <ClassyFieldGroup>{ null }</ClassyFieldGroup> );
 
 		expect( container.firstChild ).toBeInTheDocument();
 		expect( container.firstChild as HTMLElement ).toHaveClass( 'classy-field__group' );
-	});
+	} );
 
 	it( 'handles undefined children gracefully', () => {
 		const { container } = render( <ClassyFieldGroup>{ undefined }</ClassyFieldGroup> );
 
 		expect( container.firstChild ).toBeInTheDocument();
 		expect( container.firstChild as HTMLElement ).toHaveClass( 'classy-field__group' );
-	});
+	} );
 
 	it( 'handles false children gracefully', () => {
 		const { container } = render( <ClassyFieldGroup>{ false }</ClassyFieldGroup> );
 
 		expect( container.firstChild ).toBeInTheDocument();
 		expect( container.firstChild as HTMLElement ).toHaveClass( 'classy-field__group' );
-	});
+	} );
 
 	it( 'handles mixed valid and invalid children', () => {
 		const { getByText } = render(
@@ -114,7 +116,7 @@ describe( 'ClassyFieldGroup Component', () => {
 
 		expect( getByText( 'Valid Child' ) ).toBeInTheDocument();
 		expect( getByText( 'Another Valid Child' ) ).toBeInTheDocument();
-	});
+	} );
 
 	it( 'renders children with click handlers', () => {
 		const handleClick = jest.fn();
@@ -126,7 +128,7 @@ describe( 'ClassyFieldGroup Component', () => {
 		);
 
 		expect( getByText( 'Clickable Button' ) ).toBeInTheDocument();
-	});
+	} );
 
 	it( 'renders children with form elements', () => {
 		const { getByRole, getByText } = render(
@@ -142,7 +144,7 @@ describe( 'ClassyFieldGroup Component', () => {
 		expect( getByRole( 'textbox' ) ).toBeInTheDocument();
 		expect( getByText( 'Submit' ) ).toBeInTheDocument();
 		expect( getByText( 'Cancel' ) ).toBeInTheDocument();
-	});
+	} );
 
 	it( 'renders children with complex nested structure', () => {
 		const { getByText, getByRole } = render(
@@ -176,7 +178,7 @@ describe( 'ClassyFieldGroup Component', () => {
 		expect( getByText( 'Input 2:' ) ).toBeInTheDocument();
 		expect( getByText( 'Save' ) ).toBeInTheDocument();
 		expect( getByText( 'Reset' ) ).toBeInTheDocument();
-	});
+	} );
 
 	it( 'handles different className combinations', () => {
 		const combinations = [
@@ -193,8 +195,8 @@ describe( 'ClassyFieldGroup Component', () => {
 			const groupElement = container.firstChild as HTMLElement;
 			expect( groupElement ).toHaveClass( 'classy-field__group' );
 			expect( groupElement ).toHaveClass( className );
-		});
-	});
+		} );
+	} );
 
 	it( 'handles empty className', () => {
 		const { container } = render( <ClassyFieldGroup { ...defaultProps } className="" /> );
@@ -203,33 +205,33 @@ describe( 'ClassyFieldGroup Component', () => {
 		expect( groupElement ).toHaveClass( 'classy-field__group' );
 		// Empty string className should not add any additional classes
 		expect( groupElement.className ).toBe( 'classy-field__group' );
-	});
+	} );
 
 	it( 'handles undefined className', () => {
 		const { container } = render( <ClassyFieldGroup { ...defaultProps } className={ undefined } /> );
 
 		const groupElement = container.firstChild as HTMLElement;
 		expect( groupElement ).toHaveClass( 'classy-field__group' );
-	});
+	} );
 
 	it( 'handles null className', () => {
 		const { container } = render( <ClassyFieldGroup { ...defaultProps } className={ null } /> );
 
 		const groupElement = container.firstChild as HTMLElement;
 		expect( groupElement ).toHaveClass( 'classy-field__group' );
-	});
+	} );
 
 	it( 'matches snapshot with default props', () => {
 		const { container } = render( <ClassyFieldGroup { ...defaultProps } /> );
 
 		expect( container.firstChild ).toMatchSnapshot();
-	});
+	} );
 
 	it( 'matches snapshot with custom className', () => {
 		const { container } = render( <ClassyFieldGroup { ...defaultProps } className="custom-group-class" /> );
 
 		expect( container.firstChild ).toMatchSnapshot();
-	});
+	} );
 
 	it( 'matches snapshot with complex children', () => {
 		const { container } = render(
@@ -250,7 +252,7 @@ describe( 'ClassyFieldGroup Component', () => {
 		);
 
 		expect( container.firstChild ).toMatchSnapshot();
-	});
+	} );
 
 	it( 'matches snapshot with mixed children', () => {
 		const { container } = render(
@@ -263,11 +265,13 @@ describe( 'ClassyFieldGroup Component', () => {
 		);
 
 		expect( container.firstChild ).toMatchSnapshot();
-	});
+	} );
 
 	it( 'matches snapshot with special characters in className', () => {
-		const { container } = render( <ClassyFieldGroup { ...defaultProps } className="custom-class_with.special-chars" /> );
+		const { container } = render(
+			<ClassyFieldGroup { ...defaultProps } className="custom-class_with.special-chars" />
+		);
 
 		expect( container.firstChild ).toMatchSnapshot();
-	});
-});
+	} );
+} );
