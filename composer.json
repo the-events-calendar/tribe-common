@@ -10,12 +10,6 @@
     "wordpress",
     "events"
   ],
-  "repositories": [
-    {
-        "type": "vcs",
-        "url": "https://github.com/stellarwp/schema-models.git"
-    }
-  ],
   "config": {
     "preferred-install": "dist",
     "platform": {
@@ -40,7 +34,7 @@
     "stellarwp/installer": "^1.1.0",
     "stellarwp/telemetry": "^2.3.4",
     "stellarwp/uplink": "2.2.2",
-    "stellarwp/schema-models": "dev-feat/repo-set-up",
+    "stellarwp/schema-models": "^0.1.0",
     "stellarwp/shepherd": "^0.0.8",
     "trustedlogin/client": "^1.9",
     "scssphp/scssphp": "^1.13"

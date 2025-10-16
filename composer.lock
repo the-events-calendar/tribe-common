@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "375c92061af5fe78d6a8042ccf174b11",
+    "content-hash": "c65453256f6bc98799987ac4de414ac9",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -837,16 +837,16 @@
         },
         {
             "name": "stellarwp/schema-models",
-            "version": "dev-feat/repo-set-up",
+            "version": "0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/schema-models.git",
-                "reference": "23b800559130601eb614304e4ce414356fb330cc"
+                "reference": "1f8ff095d5442455123798824c8f2456d95b3118"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/schema-models/zipball/23b800559130601eb614304e4ce414356fb330cc",
-                "reference": "23b800559130601eb614304e4ce414356fb330cc",
+                "url": "https://api.github.com/repos/stellarwp/schema-models/zipball/1f8ff095d5442455123798824c8f2456d95b3118",
+                "reference": "1f8ff095d5442455123798824c8f2456d95b3118",
                 "shasum": ""
             },
             "require": {
@@ -877,42 +877,7 @@
                     "StellarWP\\SchemaModels\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "StellarWP\\SchemaModels\\Tests\\": "tests/_support/Helper/"
-                }
-            },
-            "scripts": {
-                "test:analysis": [
-                    "phpstan analyse -c phpstan.neon.dist --memory-limit=512M"
-                ],
-                "compatibility:php-7.4": [
-                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 7.4"
-                ],
-                "compatibility:php-8.0": [
-                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.0"
-                ],
-                "compatibility:php-8.1": [
-                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.1"
-                ],
-                "compatibility:php-8.2": [
-                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.2"
-                ],
-                "compatibility:php-8.3": [
-                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.3"
-                ],
-                "compatibility:php-8.4": [
-                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.4"
-                ],
-                "compatibility": [
-                    "@compatibility:php-7.4",
-                    "@compatibility:php-8.0",
-                    "@compatibility:php-8.1",
-                    "@compatibility:php-8.2",
-                    "@compatibility:php-8.3",
-                    "@compatibility:php-8.4"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0-or-later"
             ],
@@ -928,10 +893,10 @@
             ],
             "description": "A library for offloading tasks to background processes.",
             "support": {
-                "source": "https://github.com/stellarwp/schema-models/tree/feat/repo-set-up",
-                "issues": "https://github.com/stellarwp/schema-models/issues"
+                "issues": "https://github.com/stellarwp/schema-models/issues",
+                "source": "https://github.com/stellarwp/schema-models/tree/0.1.0"
             },
-            "time": "2025-10-15T15:58:54+00:00"
+            "time": "2025-10-16T13:42:16+00:00"
         },
         {
             "name": "stellarwp/shepherd",
@@ -7523,7 +7488,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "stellarwp/coding-standards": 20,
-        "stellarwp/schema-models": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
     "prefer-stable": true,
