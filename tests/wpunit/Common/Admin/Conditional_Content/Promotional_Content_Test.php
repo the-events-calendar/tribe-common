@@ -49,6 +49,7 @@ class Promotional_Content_Test extends WPTestCase {
 	 * @before
 	 */
 	public function set_up(): void {
+		parent::set_up();
 		$this->black_friday = tribe( Black_Friday::class );
 		$this->stellar_sale = tribe( Stellar_Sale::class );
 
@@ -70,8 +71,6 @@ class Promotional_Content_Test extends WPTestCase {
 		$user_id = get_current_user_id();
 		if ( $user_id > 0 ) {
 			delete_metadata( 'user', $user_id, 'tec-dismissible-content' );
-			update_metadata( 'user', $user_id, 'tec-dismissible-content', $this->original_meta );
-
 		}
 
 		remove_all_filters( 'tec_should_hide_upsell' );
@@ -157,7 +156,7 @@ class Promotional_Content_Test extends WPTestCase {
 
 		// Force the promo to be in date range.
 		add_filter(
-			'tec_admin_conditional_content_black-friday_should_display',
+			'tec_admin_conditional_content_black-friday_datetime_should_display',
 			function ( $should_display ) {
 				// We want to isolate testing the upsell opportunity check, so return true for date range.
 				return $should_display;
@@ -222,10 +221,8 @@ class Promotional_Content_Test extends WPTestCase {
 
 		// Force the promo to be in date range by using the filter.
 		add_filter(
-			'tec_admin_conditional_content_black-friday_should_display',
-			function () {
-				return true;
-			}
+			'tec_admin_conditional_content_black-friday_datetime_should_display',
+			'__return_true'
 		);
 
 		$reflection = new \ReflectionClass( $this->black_friday );
@@ -267,7 +264,7 @@ class Promotional_Content_Test extends WPTestCase {
 
 		// Force the promo to be in date range.
 		add_filter(
-			'tec_admin_conditional_content_black-friday_should_display',
+			'tec_admin_conditional_content_black-friday_datetime_should_display',
 			function () {
 				return true;
 			}

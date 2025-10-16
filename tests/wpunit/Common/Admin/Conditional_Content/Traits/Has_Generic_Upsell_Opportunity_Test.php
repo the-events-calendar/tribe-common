@@ -42,6 +42,8 @@ class Has_Generic_Upsell_Opportunity_Test extends WPTestCase {
 		$this->test_class = new class() {
 			use Has_Generic_Upsell_Opportunity;
 
+			protected string $slug = 'test-content';
+
 			// Expose protected method for testing.
 			public function public_has_upsell_opportunity(): bool {
 				return $this->has_upsell_opportunity();
@@ -401,6 +403,8 @@ class Has_Generic_Upsell_Opportunity_Test extends WPTestCase {
 		$ignore_checks_class = new class() {
 			use Has_Generic_Upsell_Opportunity;
 
+			protected string $slug = 'test-content';
+
 			// Override to ignore plugin checks.
 			protected function should_ignore_plugin_checks(): bool {
 				return true;
@@ -448,6 +452,8 @@ class Has_Generic_Upsell_Opportunity_Test extends WPTestCase {
 		// Create a test class that overrides should_ignore_plugin_checks to return true.
 		$ignore_checks_class = new class() {
 			use Has_Generic_Upsell_Opportunity;
+
+			protected string $slug = 'test-content';
 
 			// Override to ignore plugin checks.
 			protected function should_ignore_plugin_checks(): bool {

@@ -58,6 +58,8 @@ class Requires_Capability_Test extends WPTestCase {
 		$this->test_class = new class() {
 			use Requires_Capability;
 
+			protected string $slug = 'test-content';
+
 			// Expose protected methods for testing.
 			public function public_check_capability(): bool {
 				return $this->check_capability();
@@ -81,7 +83,7 @@ class Requires_Capability_Test extends WPTestCase {
 		wp_delete_user( $this->subscriber_user_id );
 
 		// Clean up filters.
-		remove_all_filters( 'tec_admin_conditional_content_required_capability' );
+		remove_all_filters( 'tec_admin_conditional_content_test-content_check_capability' );
 	}
 
 	/**
@@ -136,7 +138,7 @@ class Requires_Capability_Test extends WPTestCase {
 	public function should_allow_filtering_required_capability() {
 		// Change required capability to 'edit_posts' (which editors have).
 		add_filter(
-			'tec_admin_conditional_content_required_capability',
+			'tec_admin_conditional_content_test-content_check_capability',
 			function () {
 				return 'edit_posts';
 			}
@@ -155,6 +157,8 @@ class Requires_Capability_Test extends WPTestCase {
 	public function should_allow_overriding_required_capability() {
 		$custom_class = new class() {
 			use Requires_Capability;
+
+			protected string $slug = 'test-content';
 
 			protected function get_required_capability(): string {
 				return 'edit_posts';
@@ -200,6 +204,8 @@ class Requires_Capability_Test extends WPTestCase {
 		$custom_class = new class() {
 			use Requires_Capability;
 
+			protected string $slug = 'test-content';
+
 			protected function get_required_capability(): string {
 				return 'view_custom_content';
 			}
@@ -226,7 +232,7 @@ class Requires_Capability_Test extends WPTestCase {
 		$received_instance = null;
 
 		add_filter(
-			'tec_admin_conditional_content_required_capability',
+			'tec_admin_conditional_content_test-content_check_capability',
 			function ( $cap, $instance ) use ( &$received_instance ) {
 				$received_instance = $instance;
 

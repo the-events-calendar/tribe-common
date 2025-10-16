@@ -77,8 +77,6 @@ trait Has_Datetime_Conditions {
 		 */
 		$date = apply_filters( "tec_admin_conditional_content_{$this->slug}_start_date", $date, $this );
 
-		$foo = "tec_admin_conditional_content_{$this->slug}_start_date";
-
 		if ( ! $date instanceof Date_I18n ) {
 			return null;
 		}

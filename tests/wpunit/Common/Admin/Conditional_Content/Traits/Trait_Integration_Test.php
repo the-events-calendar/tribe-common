@@ -154,7 +154,7 @@ class Trait_Integration_Test extends WPTestCase {
 		wp_delete_user( $this->admin_user_id );
 		wp_delete_user( $this->editor_user_id );
 
-		remove_all_filters( 'tec_admin_conditional_content_required_capability' );
+		remove_all_filters( 'tec_admin_conditional_content_integrated-test_check_capability' );
 		remove_all_filters( 'tec_admin_conditional_content_integrated-test_should_display' );
 	}
 
@@ -243,7 +243,7 @@ class Trait_Integration_Test extends WPTestCase {
 	public function should_respect_capability_filter() {
 		// Lower requirement to 'edit_posts'.
 		add_filter(
-			'tec_admin_conditional_content_required_capability',
+			'tec_admin_conditional_content_integrated-test_check_capability',
 			function () {
 				return 'edit_posts';
 			}
@@ -261,7 +261,7 @@ class Trait_Integration_Test extends WPTestCase {
 	 */
 	public function should_respect_datetime_filter() {
 		// Force datetime check to fail via filter.
-		add_filter( 'tec_admin_conditional_content_integrated-test_should_display', '__return_false' );
+		add_filter( 'tec_admin_conditional_content_integrated-test_datetime_should_display', '__return_false' );
 
 		$this->assertFalse( $this->integrated_class->should_display() );
 	}
@@ -351,6 +351,8 @@ class Trait_Integration_Test extends WPTestCase {
 	public function should_handle_complex_multi_user_scenario() {
 		// Create another admin user.
 		$admin2_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+
+		add_filter( 'tec_admin_conditional_content_integrated-test_datetime_should_display', '__return_true' );
 
 		// Admin 1 dismisses.
 		wp_set_current_user( $this->admin_user_id );

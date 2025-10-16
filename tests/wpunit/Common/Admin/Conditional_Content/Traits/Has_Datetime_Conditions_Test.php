@@ -224,7 +224,7 @@ class Has_Datetime_Conditions_Test extends WPTestCase {
 		$this->test_class->end_date   = $now->add( new \DateInterval( 'P2D' ) )->format( 'Y-m-d' );
 
 		// Filter to force false.
-		add_filter( 'tec_admin_conditional_content_test-content_should_display', '__return_false' );
+		add_filter( 'tec_admin_conditional_content_test-content_datetime_should_display', '__return_false' );
 
 		$this->assertFalse( $this->test_class->public_should_display() );
 	}
