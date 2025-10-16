@@ -522,12 +522,12 @@ abstract class Promotional_Content_Abstract {
 	 * @return void
 	 */
 	public function include_sidebar_object( $sidebar ): void {
-		$cache = tribe_cache();
-		if ( ! empty( $cache[ __METHOD__ ] ) ) {
+		$cache_key = 'include_sidebar_object_' . $this->get_slug();
+		$cache     = tribe_cache();
+
+		if ( $cache->get( $cache_key ) ) {
 			return;
 		}
-
-		$cache[ __METHOD__ ] = true;
 
 		// Check if the content should currently be displayed.
 		if ( ! $this->should_display() ) {
@@ -552,7 +552,7 @@ abstract class Promotional_Content_Abstract {
 		$this->do_dismiss_button( $container );
 
 		$sidebar->prepend_section(
-			( new Settings_Section() )
+			( new Settings_Sidebar_Section() )
 				->add_elements(
 					[
 						new Link(
@@ -573,6 +573,8 @@ abstract class Promotional_Content_Abstract {
 					]
 				)
 		);
+
+		$cache->set( $cache_key, true, 5 * MINUTE_IN_SECONDS );
 	}
 
 	/**
