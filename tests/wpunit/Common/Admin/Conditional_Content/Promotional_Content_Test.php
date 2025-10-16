@@ -39,26 +39,16 @@ class Promotional_Content_Test extends WPTestCase {
 	protected $stellar_sale;
 
 	/**
-	 * @var array
-	 */
-	protected array $original_meta;
-
-	/**
 	 * Set up test environment.
 	 *
 	 * @before
 	 */
 	public function set_up(): void {
-		parent::set_up();
 		$this->black_friday = tribe( Black_Friday::class );
 		$this->stellar_sale = tribe( Stellar_Sale::class );
 
 		// Clear any dismissed notices - delete all instances.
 		$user_id = get_current_user_id();
-		if ( $user_id > 0 ) {
-			$this->original_meta = get_metadata( 'user', $user_id, 'tec-dismissible-content' );
-			delete_metadata( 'user', $user_id, 'tec-dismissible-content' );
-		}
 	}
 
 	/**
@@ -181,7 +171,7 @@ class Promotional_Content_Test extends WPTestCase {
 		// Ensure we have an admin user.
 		$user_id = get_current_user_id();
 		if ( $user_id === 0 || ! current_user_can( 'manage_options' ) ) {
-			$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
+			$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 			wp_set_current_user( $user_id );
 		}
 
