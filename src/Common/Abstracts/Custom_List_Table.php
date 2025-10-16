@@ -159,12 +159,12 @@ abstract class Custom_List_Table extends Base_Abstract {
 		}
 
 		?>
-		<input id="cb-select-<?php echo esc_attr( $item->getPrimaryValue() ); ?>; ?>" type="checkbox" name="subscriber[]" value="<?php echo esc_attr( $item->getPrimaryValue() ); ?>" />
+		<input id="cb-select-<?php echo esc_attr( $item->getPrimaryValue() ); ?>; ?>" type="checkbox" name="item_id[]" value="<?php echo esc_attr( $item->getPrimaryValue() ); ?>" />
 		<label for="cb-select-<?php echo esc_attr( $item->getPrimaryValue() ); ?>; ?>">
 			<span class="screen-reader-text">
 			<?php
 				/* translators: %d: The id of the item. */
-				printf( esc_html__( 'Select the item with id: %d', 'event-tickets-plus' ), esc_html( $item->getPrimaryValue() ) );
+				printf( esc_html__( 'Select the item with id: %d', 'tribe-common' ), esc_html( $item->getPrimaryValue() ) );
 			?>
 			</span>
 		</label>
@@ -179,6 +179,6 @@ abstract class Custom_List_Table extends Base_Abstract {
 	 * @return array
 	 */
 	protected function get_bulk_actions(): array {
-		return [ 'delete' => __( 'Delete', 'event-tickets-plus' ) ];
+		return [ 'delete' => __( 'Delete', 'tribe-common' ) ];
 	}
 }
