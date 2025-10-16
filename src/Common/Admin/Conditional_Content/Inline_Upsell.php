@@ -11,10 +11,10 @@
  *
  * @since TBD
  *
- * @package TEC\Common\Admin
+ * @package TEC\Common\Admin\Conditional_Content
  */
 
-namespace TEC\Common\Admin;
+namespace TEC\Common\Admin\Conditional_Content;
 
 /**
  * Class Inline_Upsell
@@ -23,7 +23,7 @@ namespace TEC\Common\Admin;
  *
  * @since TBD
  *
- * @package TEC\Common\Admin
+ * @package TEC\Common\Admin\Conditional_Content
  */
 class Inline_Upsell {
 
@@ -154,11 +154,12 @@ class Inline_Upsell {
 	 *         @type callable $callback          Custom callback for conditional logic.
 	 *     }
 	 * }
-	 * @param bool  $echo Whether to echo the HTML. Defaults to true.
+	 * @param bool  $render Whether to render(echo) the HTML. Defaults to true.
+	 *                      If false, the HTML will be returned as a string.
 	 *
-	 * @return string HTML of upsell notice.
+	 * @return string|void HTML of upsell notice.
 	 */
-	public function render( array $args, bool $echo = true ): string {
+	public function render( array $args, bool $render = true ): string {
 		// Extract slug for filtering.
 		$slug = $args['slug'] ?? '';
 
@@ -175,26 +176,33 @@ class Inline_Upsell {
 		}
 
 		// Default args for the container.
-		$args = wp_parse_args( $args, [
-			'slug'        => '',
-			'classes'     => [],
-			'text'        => '',
-			'link_target' => '_blank',
-			'icon_url'    => tribe_resource_url( 'images/icons/circle-bolt.svg', false, null, \Tribe__Main::instance() ),
-			'link'        => [],
-		] );
+		$args = wp_parse_args(
+			$args,
+			[
+				'slug'        => '',
+				'classes'     => [],
+				'text'        => '',
+				'link_target' => '_blank',
+				'icon_url'    => tribe_resource_url( 'images/icons/circle-bolt.svg', false, null, \Tribe__Main::instance() ),
+				'link'        => [],
+			]
+		);
 
 		// Default args for the link.
-		$args['link'] = wp_parse_args( $args['link'], [
-			'classes' => [],
-			'text'    => '',
-			'url'     => '',
-			'target'  => '_blank',
-			'rel'     => 'noopener noreferrer',
-		] );
+		$args['link'] = wp_parse_args(
+			$args['link'],
+			[
+				'classes' => [],
+				'text'    => '',
+				'url'     => '',
+				'target'  => '_blank',
+				'rel'     => 'noopener noreferrer',
+			]
+		);
 
 		$template = $this->get_template();
-		return $template->template( 'main', $args, $echo );
+
+		return $template->template( 'main', $args, $render );
 	}
 
 	/**
@@ -241,7 +249,7 @@ class Inline_Upsell {
 	 * @param string $link_text    The link text.
 	 * @param string $link_url     The link URL.
 	 * @param array  $extra_args   Optional. Additional arguments to merge.
-	 * @param bool   $echo         Whether to echo. Default true.
+	 * @param bool   $render         Whether to echo. Default true.
 	 *
 	 * @return string HTML of upsell notice.
 	 */
@@ -251,20 +259,23 @@ class Inline_Upsell {
 		string $link_text,
 		string $link_url,
 		array $extra_args = [],
-		bool $echo = true
+		bool $render = true
 	): string {
-		$args = array_merge( [
-			'slug'       => sanitize_title( $plugin_path ),
-			'text'       => $text,
-			'link'       => [
-				'text' => $link_text,
-				'url'  => $link_url,
+		$args = array_merge(
+			[
+				'slug'       => sanitize_title( $plugin_path ),
+				'text'       => $text,
+				'link'       => [
+					'text' => $link_text,
+					'url'  => $link_url,
+				],
+				'conditions' => [
+					'plugin_not_active' => $plugin_path,
+				],
 			],
-			'conditions' => [
-				'plugin_not_active' => $plugin_path,
-			],
-		], $extra_args );
+			$extra_args
+		);
 
-		return $this->render( $args, $echo );
+		return $this->render( $args, $render );
 	}
 }
