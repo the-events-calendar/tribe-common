@@ -67,6 +67,14 @@ trait Requires_Capability {
 			$this
 		);
 
-		return current_user_can( $capability );
+		/**
+		 * Filters the result of the capability check.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $result     The result of the capability check.
+		 * @param object $instance   The conditional content object.
+		 */
+		return (bool) apply_filters( "tec_admin_conditional_content_{$this->slug}_check_capability", current_user_can( $capability ), $this );
 	}
 }

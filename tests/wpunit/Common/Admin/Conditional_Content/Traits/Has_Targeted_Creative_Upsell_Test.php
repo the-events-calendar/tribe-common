@@ -120,6 +120,17 @@ class Has_Targeted_Creative_Upsell_Test extends WPTestCase {
 				return $this->slug . '-' . date_i18n( 'Y' );
 			}
 
+			protected function get_creative_alt_text(): string {
+				$creative = $this->get_selected_creative();
+
+				if ( ! empty( $creative['alt_text'] ) ) {
+					return $creative['alt_text'];
+				}
+
+				// Fallback to default behavior.
+				return $this->get_sale_name() . ' ' . date_i18n( 'Y' );
+			}
+
 			// Expose protected methods for testing.
 			public function public_has_upsell_opportunity(): bool {
 				return $this->has_upsell_opportunity();

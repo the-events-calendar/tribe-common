@@ -204,14 +204,22 @@ trait Is_Dismissible {
 
 		$dismissed_notices = get_user_meta( $user_id, $this->meta_key );
 
+		$is_dismissed = true;
+
 		if ( ! is_array( $dismissed_notices ) ) {
-			return false;
+			$is_dismissed = false;
+		} elseif ( ! in_array( $this->get_slug(), $dismissed_notices, true ) ) {
+			$is_dismissed = false;
 		}
 
-		if ( ! in_array( $this->get_slug(), $dismissed_notices, true ) ) {
-			return false;
-		}
-
-		return true;
+		/**
+		 * Filters the result of the user dismissal check.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $result     The result of the user dismissal check.
+		 * @param object $instance   The conditional content object.
+		 */
+		return (bool) apply_filters( "tec_admin_conditional_content_{$this->slug}_has_user_dismissed", $is_dismissed, $this );
 	}
 }

@@ -49,9 +49,11 @@ trait Has_Generic_Upsell_Opportunity {
 	 * @return bool True if at least one paid plugin is not installed, or always true if ignoring plugin checks.
 	 */
 	protected function has_upsell_opportunity(): bool {
+		$should_display = false;
+
 		// If we're ignoring plugin checks, always show content.
 		if ( $this->should_ignore_plugin_checks() ) {
-			return true;
+			return (bool) apply_filters( "tec_admin_conditional_content_{$this->slug}_generic_upsell_opportunity_should_display", true, $this );
 		}
 
 		// Get all products from the API.
@@ -66,11 +68,19 @@ trait Has_Generic_Upsell_Opportunity {
 
 			// If this paid plugin is not installed, we have an upsell opportunity.
 			if ( empty( $product['is_installed'] ) ) {
-				return true;
+				$should_display = true;
+				break;
 			}
 		}
 
-		// All paid plugins are installed, no upsell opportunity.
-		return false;
+		/**
+		 * Filters the result of the upsell opportunity check.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $result     The result of the upsell opportunity check.
+		 * @param object $instance   The conditional content object.
+		 */
+		return (bool) apply_filters( "tec_admin_conditional_content_{$this->slug}_generic_upsell_opportunity_should_display", $should_display, $this );
 	}
 }

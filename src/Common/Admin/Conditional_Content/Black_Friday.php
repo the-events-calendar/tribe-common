@@ -101,23 +101,29 @@ class Black_Friday extends Promotional_Content_Abstract {
 	 * @inheritdoc
 	 */
 	protected function should_display(): bool {
+		$should_display = true;
 		// Check if hidden by filter.
 		if ( tec_should_hide_upsell( $this->get_slug() ) ) {
-			return false;
+			$should_display = false;
+		} elseif ( ! $this->check_capability() ) {
+			// Check user capability (from Requires_Capability trait).
+			$should_display = false;
+		} elseif ( ! $this->should_display_datetime() ) {
+			// Check datetime conditions (from Has_Datetime_Conditions trait).
+			$should_display = false;
+		} else {
+			$should_display = $this->has_upsell_opportunity();
 		}
 
-		// Check user capability (from Requires_Capability trait).
-		if ( ! $this->check_capability() ) {
-			return false;
-		}
-
-		// Check datetime conditions (from Has_Datetime_Conditions trait).
-		if ( ! $this->should_display_datetime() ) {
-			return false;
-		}
-
-		// Don't show if there are no upsell opportunities.
-		return $this->has_upsell_opportunity();
+		/**
+		 * Filters the result of the should display check.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $should_display Whether the content should display.
+		 * @param object $instance       The conditional content object.
+		 */
+		return (bool) apply_filters( "tec_admin_conditional_content_{$this->slug}_should_display", $should_display, $this );
 	}
 
 	/**

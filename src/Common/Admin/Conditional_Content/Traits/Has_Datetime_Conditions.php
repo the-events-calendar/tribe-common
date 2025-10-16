@@ -77,6 +77,8 @@ trait Has_Datetime_Conditions {
 		 */
 		$date = apply_filters( "tec_admin_conditional_content_{$this->slug}_start_date", $date, $this );
 
+		$foo = "tec_admin_conditional_content_{$this->slug}_start_date";
+
 		if ( ! $date instanceof Date_I18n ) {
 			return null;
 		}
@@ -137,14 +139,14 @@ trait Has_Datetime_Conditions {
 		$display = $notice_start <= $now && $now < $notice_end;
 
 		/**
-		 * Allow filtering whether the content should display.
+		 * Allow filtering whether the content should display by date and time.
 		 *
 		 * @since TBD
 		 *
 		 * @param bool   $should_display Whether the content should display.
 		 * @param object $instance       The conditional content object.
 		 */
-		return (bool) apply_filters( "tec_admin_conditional_content_{$this->slug}_should_display", $display, $this );
+		return (bool) apply_filters( "tec_admin_conditional_content_{$this->slug}_datetime_should_display", $display, $this );
 	}
 
 	/**
