@@ -65,7 +65,7 @@ function ClassyApplication() {
 				 *
 				 * @param {React.ReactNode|null} The nodes previously rendered, starting with no nodes (null).
 				 */
-				applyFilters( 'tec.classy.render', null )
+				applyFilters( 'tec.classy.render', null ) as React.ReactNode
 			}
 
 			{
