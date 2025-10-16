@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClassyModalRoot Component matches snapshot with complex children 1`] = `
+<div
+  class="classy-root"
+>
+  <header
+    class="classy-modal__header classy-modal__header--test-root"
+  >
+    <h4
+      class="classy-modal__header-title"
+    >
+      Test Modal Title
+    </h4>
+  </header>
+  <div
+    class="modal-content"
+  >
+    <section>
+      <h2>
+        Complex Content
+      </h2>
+      <p>
+        This is a complex modal root with multiple elements.
+      </p>
+      <form>
+        <input
+          placeholder="Enter text"
+          type="text"
+        />
+        <button
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
+    </section>
+  </div>
+</div>
+`;
+
+exports[`ClassyModalRoot Component matches snapshot with default props 1`] = `
+<div
+  class="classy-root"
+>
+  <header
+    class="classy-modal__header classy-modal__header--test-root"
+  >
+    <h4
+      class="classy-modal__header-title"
+    >
+      Test Modal Title
+    </h4>
+  </header>
+  <div>
+    Test Content
+  </div>
+</div>
+`;
+
+exports[`ClassyModalRoot Component matches snapshot with different type 1`] = `
+<div
+  class="classy-root"
+>
+  <header
+    class="classy-modal__header classy-modal__header--confirmation-dialog"
+  >
+    <h4
+      class="classy-modal__header-title"
+    >
+      Test Modal Title
+    </h4>
+  </header>
+  <div>
+    Test Content
+  </div>
+</div>
+`;
+
+exports[`ClassyModalRoot Component matches snapshot with header icon 1`] = `
+<div
+  class="classy-root"
+>
+  <header
+    class="classy-modal__header classy-modal__header--test-root"
+  >
+    <span
+      data-testid="header-icon"
+    >
+      🔧
+    </span>
+    <h4
+      class="classy-modal__header-title"
+    >
+      Test Modal Title
+    </h4>
+  </header>
+  <div>
+    Test Content
+  </div>
+</div>
+`;
+
+exports[`ClassyModalRoot Component matches snapshot with special characters in type 1`] = `
+<div
+  class="classy-root"
+>
+  <header
+    class="classy-modal__header classy-modal__header--root-with-special_chars.123"
+  >
+    <h4
+      class="classy-modal__header-title"
+    >
+      Test Modal Title
+    </h4>
+  </header>
+  <div>
+    Test Content
+  </div>
+</div>
+`;

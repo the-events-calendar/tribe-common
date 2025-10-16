@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClassyModalSection Component matches snapshot with all options enabled 1`] = `
+<section
+  class="classy-modal__section classy-modal__content classy-field__inputs classy-field__inputs--boxed classy-modal__section--confirmation-section custom-class"
+>
+  <div
+    class="classy-field__input-title"
+  >
+    Full Options Section
+  </div>
+  <div>
+    Section Content
+  </div>
+</section>
+`;
+
+exports[`ClassyModalSection Component matches snapshot with boxed inputs 1`] = `
+<section
+  class="classy-modal__section classy-modal__content classy-field__inputs classy-field__inputs--boxed classy-modal__section--test-section"
+>
+  <div>
+    Section Content
+  </div>
+</section>
+`;
+
+exports[`ClassyModalSection Component matches snapshot with complex children 1`] = `
+<section
+  class="classy-modal__section classy-modal__content classy-field__inputs classy-field__inputs--unboxed classy-modal__section--test-section"
+>
+  <div
+    class="classy-field__input-title"
+  >
+    Complex Section
+  </div>
+  <div
+    class="section-content"
+  >
+    <header>
+      <h3>
+        Complex Section
+      </h3>
+    </header>
+    <main>
+      <p>
+        This is a complex section with multiple elements.
+      </p>
+      <form>
+        <input
+          placeholder="Enter text"
+          type="text"
+        />
+        <button
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
+    </main>
+  </div>
+</section>
+`;
+
+exports[`ClassyModalSection Component matches snapshot with custom className 1`] = `
+<section
+  class="classy-modal__section classy-modal__content classy-field__inputs classy-field__inputs--unboxed classy-modal__section--test-section custom-section-class"
+>
+  <div>
+    Section Content
+  </div>
+</section>
+`;
+
+exports[`ClassyModalSection Component matches snapshot with default props 1`] = `
+<section
+  class="classy-modal__section classy-modal__content classy-field__inputs classy-field__inputs--unboxed classy-modal__section--test-section"
+>
+  <div>
+    Section Content
+  </div>
+</section>
+`;
+
+exports[`ClassyModalSection Component matches snapshot with different type 1`] = `
+<section
+  class="classy-modal__section classy-modal__content classy-field__inputs classy-field__inputs--unboxed classy-modal__section--confirmation-section"
+>
+  <div>
+    Section Content
+  </div>
+</section>
+`;
+
+exports[`ClassyModalSection Component matches snapshot with separator 1`] = `
+<section
+  class="classy-modal__section classy-modal__content classy-field__inputs classy-field__inputs--unboxed classy-modal__section--test-section"
+>
+  <div>
+    Section Content
+  </div>
+</section>
+`;
+
+exports[`ClassyModalSection Component matches snapshot with special characters in type 1`] = `
+<section
+  class="classy-modal__section classy-modal__content classy-field__inputs classy-field__inputs--unboxed classy-modal__section--section-with-special_chars.123"
+>
+  <div>
+    Section Content
+  </div>
+</section>
+`;
+
+exports[`ClassyModalSection Component matches snapshot with title 1`] = `
+<section
+  class="classy-modal__section classy-modal__content classy-field__inputs classy-field__inputs--unboxed classy-modal__section--test-section"
+>
+  <div
+    class="classy-field__input-title"
+  >
+    Section Title
+  </div>
+  <div>
+    Section Content
+  </div>
+</section>
+`;
+
+exports[`ClassyModalSection Component matches snapshot without inputs 1`] = `
+<section
+  class="classy-modal__section classy-modal__content classy-modal__section--test-section"
+>
+  <div>
+    Section Content
+  </div>
+</section>
+`;
