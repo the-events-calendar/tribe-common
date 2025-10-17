@@ -62,7 +62,7 @@ trait Read_Custom_Archive_Response {
 		 * @param array $data   The retrieved data.
 		 * @param array $params The sanitized parameters to use for the request.
 		 */
-		$data = apply_filters( 'tec_rest_' . $this->get_model_class() . '_archive', $data, $params );
+		$data = apply_filters( "tec_rest_{$this->get_model_class()}_archive", $data, $params );
 
 		$total_pages = $per_page > 0 ? (int) ceil( $total / $per_page ) : 1;
 		$current_url = $this->get_current_rest_url();
