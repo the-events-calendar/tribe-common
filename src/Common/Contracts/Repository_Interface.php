@@ -28,7 +28,7 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	/**
 	 * Returns the current default query arguments of the repository.
 	 *
-	 * @since 4.7.19
+	 * @since TBD
 	 *
 	 * @return array
 	 */
@@ -37,7 +37,7 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	/**
 	 * Sets the default arguments of the repository.
 	 *
-	 * @since 4.7.19
+	 * @since TBD
 	 *
 	 * @param array $default_args The default arguments to set.
 	 *
@@ -48,7 +48,7 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	/**
 	 * Adds an entry to the repository filter schema.
 	 *
-	 * @since 4.9.5
+	 * @since TBD
 	 *
 	 * @param string   $key      The filter key, the one that will be used in `by` and `where`
 	 *                           calls.
@@ -61,7 +61,7 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	/**
 	 * Sets the found rows calculation to be enabled for queries.
 	 *
-	 * @since 4.9.10
+	 * @since TBD
 	 *
 	 * @param bool $found_rows Whether found rows calculation should be enabled.
 	 *
@@ -75,6 +75,8 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	 *
 	 * By default the primary key is the post ID.
 	 *
+	 * @since TBD
+	 *
 	 * @param mixed $primary_key The primary key value.
 	 *
 	 * @return Model|null|WP_Post
@@ -84,7 +86,7 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	/**
 	 * Deletes a set of events fetched by using filters.
 	 *
-	 * @since 4.9.5
+	 * @since TBD
 	 *
 	 * @param bool $return_promise Whether to return the promise or just the deleted post IDs
 	 *                             if the deletion happens in a background process; defaults
@@ -100,7 +102,7 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	/**
 	 * Commits the updates to the selected post IDs to the database.
 	 *
-	 * @since 4.7.19
+	 * @since TBD
 	 *
 	 * @param bool $return_promise Whether to return a promise object or just the ids
 	 *                             of the updated posts; if `true` then a promise will
@@ -116,7 +118,7 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	/**
 	 * Adds an alias for an update/save field.
 	 *
-	 * @since 4.9.5
+	 * @since TBD
 	 *
 	 * @param string $alias The alias to add.
 	 * @param string $field_name The field name this alias should resolve to, this
@@ -128,7 +130,7 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	/**
 	 * Returns the update fields aliases for the repository.
 	 *
-	 * @since 4.9.5
+	 * @since TBD
 	 *
 	 * @return array This repository update fields aliases map.
 	 */
@@ -137,7 +139,7 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	/**
 	 * Replaces the update fields aliases for this repository.
 	 *
-	 * @since 4.9.5
+	 * @since TBD
 	 *
 	 * @param array $update_fields_aliases The new update fields aliases
 	 *                                     map for this repository.
@@ -148,8 +150,7 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	 * Creates a post of the type managed by the repository with the fields
 	 * provided using the `set` or `set_args` methods.
 	 *
-	 * @since 4.9.5
-	 * @since TBD Added Model as a possible return type.
+	 * @since TBD
 	 *
 	 * @return WP_Post|Model|false The created post object or `false` if the creation
 	 *                                  fails for logic or runtime issues.
@@ -161,7 +162,7 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	/**
 	 * Sets the create args the repository will use to create posts.
 	 *
-	 * @since 4.9.5
+	 * @since TBD
 	 *
 	 * @param array $create_args The create args the repository will use to create posts.
 	 *
@@ -172,7 +173,7 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	/**
 	 * Returns the create args the repository will use to create posts.
 	 *
-	 * @since 4.9.5
+	 * @since TBD
 	 *
 	 * @return array The create args the repository will use to create posts.
 	 */
