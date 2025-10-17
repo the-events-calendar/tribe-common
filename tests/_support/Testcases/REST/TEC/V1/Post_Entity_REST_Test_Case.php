@@ -15,9 +15,7 @@ use TEC\Common\REST\TEC\V1\Contracts\Parameter;
 use stdClass;
 use ReflectionClass;
 use Closure;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Integer;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
 use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 use Tribe__Repository as Base_Repo;
 

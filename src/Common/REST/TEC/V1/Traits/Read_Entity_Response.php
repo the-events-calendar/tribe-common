@@ -1,6 +1,6 @@
 <?php
 /**
- * Trait to handle the response for update entity requests.
+ * Trait to handle the response for read entity requests.
  *
  * @since 6.9.0
  *
@@ -11,8 +11,11 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Traits;
 
-use WP_REST_Response;
+use TEC\Common\Contracts\Repository_Interface;
+use WP_Post;
 use WP_REST_Posts_Controller;
+use WP_REST_Request;
+use WP_REST_Response;
 
 /**
  * Trait to handle the response for read entity requests.
@@ -62,12 +65,7 @@ trait Read_Entity_Response {
 			$filter_added = true;
 		}
 
-		$entity = $this->get_orm()->by_args(
-			[
-				'id'     => $id,
-				'status' => 'any',
-			]
-		)->first();
+		$entity = $this->get_orm()->by_primary_key( $id );
 
 		if ( ! $entity ) {
 			return new WP_REST_Response(
@@ -86,4 +84,42 @@ trait Read_Entity_Response {
 
 		return $response;
 	}
+
+	/**
+	 * Returns the ORM for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return Repository_Interface
+	 */
+	abstract public function get_orm(): Repository_Interface;
+
+	/**
+	 * Formats a model into a model entity.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post $post The post to format.
+	 *
+	 * @return array
+	 */
+	abstract public function get_formatted_entity( WP_Post $post ): array;
+
+	/**
+	 * Returns the post type for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	abstract public function get_post_type(): string;
+
+	/**
+	 * Returns the request.
+	 *
+	 * @since TBD
+	 *
+	 * @return WP_REST_Request
+	 */
+	abstract public function get_request(): WP_REST_Request;
 }

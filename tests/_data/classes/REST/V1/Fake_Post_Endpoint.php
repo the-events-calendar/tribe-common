@@ -12,7 +12,7 @@ use TEC\Common\REST\TEC\V1\Collections\PathArgumentCollection;
 use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 use TEC\Common\REST\TEC\V1\Contracts\OpenAPI_Schema as OpenAPI_Schema_Interface;
 use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema as OpenAPI_Schema_Documentation;
-use Tribe__Repository__Interface;
+use TEC\Common\Contracts\Repository_Interface;
 use WP_Post;
 use WP_REST_Response;
 
@@ -25,11 +25,11 @@ class Fake_Post_Endpoint extends Post_Entity_Endpoint implements \TEC\Common\RES
 		return Fake_Post_Model::class;
 	}
 
-	public function get_orm(): Tribe__Repository__Interface {
+	public function get_orm(): Repository_Interface {
 		// Use a lightweight anonymous class implementing minimal contract for tests.
-		return new class() implements Tribe__Repository__Interface {
-			public function get_default_args() { return []; }
-			public function set_default_args( array $default_args ) { return $this; }
+		return new class() implements Repository_Interface {
+			public function get_default_args(): array { return []; }
+			public function set_default_args( array $default_args ): void {}
 			public function filter_name( $filter_name ) { return $this; }
 			public function get_filter_name() { return ''; }
 			public function set_formatter( \Tribe__Repository__Formatter_Interface $formatter ) { return $this; }
@@ -42,7 +42,7 @@ class Fake_Post_Endpoint extends Post_Entity_Endpoint implements \TEC\Common\RES
 			public function by_related_to_max( $by_meta_keys, $max, $keys = null, $values = null ) { return $this; }
 			public function by_related_to_between( $by_meta_keys, $min, $max, $keys = null, $values = null ) { return $this; }
 			public function by_not_related_to( $by_meta_keys, $keys = null, $values = null ) { return $this; }
-			public function add_schema_entry( $key, $callback ) { return $this; }
+			public function add_schema_entry( $key, $callback ): void {}
 			public function hash( array $settings = [], \WP_Query $query = null ) { return ''; }
 			public function get_hash_data( array $settings, \WP_Query $query = null ) { return []; }
 			public function get_last_built_query() { return null; }
@@ -50,11 +50,11 @@ class Fake_Post_Endpoint extends Post_Entity_Endpoint implements \TEC\Common\RES
 			public function set_query( \WP_Query $query ) { return $this; }
 			public function next() { return $this; }
 			public function prev() { return $this; }
-			public function set_found_rows( $found_rows ) { return $this; }
+			public function set_found_rows( $found_rows ): self { return $this; }
 			public function void_query( $void_query = true ) { return $this; }
 			public function get_last_sql(): ?string { return null; }
 			public function get_request_context(): ?string { return null; }
-			public function set_request_context( string $context = null ): \Tribe__Repository__Interface { return $this; }
+			public function set_request_context( string $context = null ): Repository_Interface { return $this; }
 			public function all( $return_generator = false, int $batch_size = 50 ) { return []; }
 			public function save( $data = null ) { return true; }
 			public function update( $data = null ) { return true; }

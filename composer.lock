@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e77cae00f678431fd76325306dab4848",
+    "content-hash": "c65453256f6bc98799987ac4de414ac9",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -720,16 +720,16 @@
         },
         {
             "name": "stellarwp/models",
-            "version": "dev-main",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/models.git",
-                "reference": "ac30397971ac654278ebe2cf703524db81459630"
+                "reference": "0571481c2e2f66b4c428be43c8d19ecb9ad3202d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/models/zipball/ac30397971ac654278ebe2cf703524db81459630",
-                "reference": "ac30397971ac654278ebe2cf703524db81459630",
+                "url": "https://api.github.com/repos/stellarwp/models/zipball/0571481c2e2f66b4c428be43c8d19ecb9ad3202d",
+                "reference": "0571481c2e2f66b4c428be43c8d19ecb9ad3202d",
                 "shasum": ""
             },
             "require": {
@@ -745,9 +745,9 @@
                 "codeception/module-webdriver": "^1.0",
                 "codeception/util-universalframework": "^1.0",
                 "lucatume/wp-browser": "^3.0.14",
+                "phpstan/phpstan": "^2.1",
                 "phpunit/phpunit": "~6.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -771,22 +771,22 @@
             ],
             "support": {
                 "issues": "https://github.com/stellarwp/models/issues",
-                "source": "https://github.com/stellarwp/models/tree/1.2.2"
+                "source": "https://github.com/stellarwp/models/tree/2.0.0"
             },
-            "time": "2024-09-26T18:03:55+00:00"
+            "time": "2025-10-07T18:55:19+00:00"
         },
         {
             "name": "stellarwp/schema",
-            "version": "2.0.1",
+            "version": "3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/schema.git",
-                "reference": "b80c02c6ee6cebcf9c21b642a7b20db5480f0cd6"
+                "reference": "6255ec18151ada45e30dd508671523684b2c6107"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/schema/zipball/b80c02c6ee6cebcf9c21b642a7b20db5480f0cd6",
-                "reference": "b80c02c6ee6cebcf9c21b642a7b20db5480f0cd6",
+                "url": "https://api.github.com/repos/stellarwp/schema/zipball/6255ec18151ada45e30dd508671523684b2c6107",
+                "reference": "6255ec18151ada45e30dd508671523684b2c6107",
                 "shasum": ""
             },
             "require": {
@@ -831,29 +831,92 @@
             "description": "A library for simplifying the creation and updates of custom tables within WordPress.",
             "support": {
                 "issues": "https://github.com/stellarwp/schema/issues",
-                "source": "https://github.com/stellarwp/schema/tree/2.0.1"
+                "source": "https://github.com/stellarwp/schema/tree/3.1.4"
             },
-            "time": "2025-07-18T14:24:06+00:00"
+            "time": "2025-10-17T15:03:39+00:00"
         },
         {
-            "name": "stellarwp/shepherd",
-            "version": "0.0.6",
+            "name": "stellarwp/schema-models",
+            "version": "0.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/stellarwp/shepherd.git",
-                "reference": "d93bcedf3a28fee87365eb7ea699efed81e83c41"
+                "url": "https://github.com/stellarwp/schema-models.git",
+                "reference": "1f8ff095d5442455123798824c8f2456d95b3118"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/d93bcedf3a28fee87365eb7ea699efed81e83c41",
-                "reference": "d93bcedf3a28fee87365eb7ea699efed81e83c41",
+                "url": "https://api.github.com/repos/stellarwp/schema-models/zipball/1f8ff095d5442455123798824c8f2456d95b3118",
+                "reference": "1f8ff095d5442455123798824c8f2456d95b3118",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4",
+                "stellarwp/models": "^2.0.0",
+                "stellarwp/schema": "^3.1.2"
+            },
+            "require-dev": {
+                "codeception/module-asserts": "^1.3",
+                "codeception/module-cli": "^1.1",
+                "codeception/module-db": "^1.2",
+                "codeception/module-filesystem": "^1.0",
+                "codeception/module-phpbrowser": "^1.0",
+                "codeception/module-rest": "^2.0",
+                "codeception/module-webdriver": "^1.4",
+                "codeception/util-universalframework": "^1.0",
+                "lucatume/codeception-snapshot-assertions": "^0.4.0",
+                "lucatume/di52": "^4.0",
+                "lucatume/wp-browser": "^3.5.7",
+                "phpcompatibility/phpcompatibility-wp": "^2.1",
+                "slope-it/clock-mock": "^0.4.0",
+                "stellarwp/coding-standards": "^2.1",
+                "szepeviktor/phpstan-wordpress": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "StellarWP\\SchemaModels\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "StellarWP",
+                    "email": "dev@stellarwp.com"
+                },
+                {
+                    "name": "Dimitrios Pantazis",
+                    "email": "dimi@stellarwp.com"
+                }
+            ],
+            "description": "A library for offloading tasks to background processes.",
+            "support": {
+                "issues": "https://github.com/stellarwp/schema-models/issues",
+                "source": "https://github.com/stellarwp/schema-models/tree/0.1.0"
+            },
+            "time": "2025-10-16T13:42:16+00:00"
+        },
+        {
+            "name": "stellarwp/shepherd",
+            "version": "0.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stellarwp/shepherd.git",
+                "reference": "6ff5c2ca3f743dd7518a985daa70dcfbc33cd6e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/6ff5c2ca3f743dd7518a985daa70dcfbc33cd6e9",
+                "reference": "6ff5c2ca3f743dd7518a985daa70dcfbc33cd6e9",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.4",
                 "psr/log": "^1.1",
                 "stellarwp/db": "^1.1",
-                "stellarwp/schema": "^2.0",
+                "stellarwp/schema": "^3.1.2",
                 "woocommerce/action-scheduler": "3.9.3"
             },
             "require-dev": {
@@ -896,9 +959,9 @@
             "description": "A library for offloading tasks to background processes.",
             "support": {
                 "issues": "https://github.com/stellarwp/shepherd/issues",
-                "source": "https://github.com/stellarwp/shepherd/tree/0.0.6"
+                "source": "https://github.com/stellarwp/shepherd/tree/0.0.8"
             },
-            "time": "2025-08-26T17:51:20+00:00"
+            "time": "2025-10-02T13:00:34+00:00"
         },
         {
             "name": "stellarwp/telemetry",
@@ -7424,16 +7487,15 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "stellarwp/models": 20,
         "stellarwp/coding-standards": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
+    "platform": {},
+    "platform-dev": {},
     "platform-overrides": {
         "php": "7.4.0"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

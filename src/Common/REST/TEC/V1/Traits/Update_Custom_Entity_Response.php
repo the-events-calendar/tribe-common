@@ -1,8 +1,8 @@
 <?php
 /**
- * Trait to handle the response for update entity requests.
+ * Trait to handle the response for update custom entity requests.
  *
- * @since 6.9.0
+ * @since TBD
  *
  * @package TEC\Common\REST\TEC\V1\Traits
  */
@@ -12,22 +12,21 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Traits;
 
 use TEC\Common\Contracts\Repository_Interface;
-use TEC\Events_Pro\Custom_Tables\V1\WP_Query\Provider as Custom_Tables_Provider;
-use WP_Post;
+use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
 use WP_REST_Response;
 
 /**
- * Trait to handle the response for update entity requests.
+ * Trait to handle the response for update custom entity requests.
  *
- * @since 6.9.0
+ * @since TBD
  *
  * @package TEC\Common\REST\TEC\V1\Traits
  */
-trait Update_Entity_Response {
+trait Update_Custom_Entity_Response {
 	/**
 	 * Updates an existing entity.
 	 *
-	 * @since 6.9.0
+	 * @since TBD
 	 *
 	 * @param array $params The sanitized parameters to use for the request.
 	 *
@@ -47,25 +46,7 @@ trait Update_Entity_Response {
 			);
 		}
 
-		if ( get_post_type( $id ) !== $this->get_post_type() ) {
-			return new WP_REST_Response(
-				[
-					'error' => __( 'The entity could not be updated.', 'tribe-common' ),
-				],
-				404
-			);
-		}
-
-		if ( tribe()->isBound( Custom_Tables_Provider::class ) ) {
-			remove_filter( 'tec_events_custom_tables_v1_occurrence_select_fields', [ tribe( Custom_Tables_Provider::class ), 'filter_occurrence_fields' ] );
-		}
-
-		$save_result = $this->get_orm()->by_args(
-			[
-				'id'     => $id,
-				'status' => 'any',
-			]
-		)->set_args( $params )->save();
+		$save_result = $this->get_orm()->by_args( [ 'id' => $id ] )->set_args( $params )->save();
 
 		// Check if the save operation succeeded by verifying the result.
 		if ( ! $save_result ) {
@@ -77,7 +58,6 @@ trait Update_Entity_Response {
 			);
 		}
 
-		// Fetch the updated entity to return in response.
 		$updated_entity = $this->get_orm()->by_primary_key( $id );
 
 		// Verify the entity exists after update.
@@ -110,18 +90,9 @@ trait Update_Entity_Response {
 	 *
 	 * @since TBD
 	 *
-	 * @param WP_Post $post The post to format.
+	 * @param Model $model The model to format.
 	 *
 	 * @return array
 	 */
-	abstract public function get_formatted_entity( WP_Post $post ): array;
-
-	/**
-	 * Returns the post type for the endpoint.
-	 *
-	 * @since TBD
-	 *
-	 * @return string
-	 */
-	abstract public function get_post_type(): string;
+	abstract public function get_formatted_entity( Model $model ): array;
 }

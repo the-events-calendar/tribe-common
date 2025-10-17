@@ -1,8 +1,8 @@
 <?php
 /**
- * Trait to handle the response for read archive requests.
+ * Trait to handle the response for read custom archive requests.
  *
- * @since 6.9.0
+ * @since TBD
  *
  * @package TEC\Common\REST\TEC\V1\Traits
  */
@@ -12,21 +12,21 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Traits;
 
 use TEC\Common\Contracts\Repository_Interface;
-use WP_Post_Type;
+use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel;
 use WP_REST_Response;
 
 /**
- * Trait to handle the response for read archive requests.
+ * Trait to handle the response for read custom archive requests.
  *
- * @since 6.9.0
+ * @since TBD
  *
  * @package TEC\Common\REST\TEC\V1\Traits
  */
-trait Read_Archive_Response {
+trait Read_Custom_Archive_Response {
 	/**
 	 * Handles the read request for the endpoint.
 	 *
-	 * @since 6.9.0
+	 * @since TBD
 	 *
 	 * @param array $params The sanitized parameters to use for the request.
 	 *
@@ -57,12 +57,12 @@ trait Read_Archive_Response {
 		/**
 		 * Filters the data that will be returned for an entities archive request.
 		 *
-		 * @since 6.9.0
+		 * @since TBD
 		 *
 		 * @param array $data   The retrieved data.
 		 * @param array $params The sanitized parameters to use for the request.
 		 */
-		$data = apply_filters( 'tec_rest_' . $this->get_post_type() . '_archive', $data, $params );
+		$data = apply_filters( "tec_rest_{$this->get_model_class()}_archive", $data, $params );
 
 		$total_pages = $per_page > 0 ? (int) ceil( $total / $per_page ) : 1;
 		$current_url = $this->get_current_rest_url();
@@ -86,26 +86,23 @@ trait Read_Archive_Response {
 	/**
 	 * Builds the entities query using the ORM.
 	 *
-	 * @since 6.9.0
+	 * @since TBD
 	 *
 	 * @param array $params The sanitized parameters to use for the request.
 	 *
 	 * @return Repository_Interface The entities query.
 	 */
 	protected function build_query( array $params = [] ): Repository_Interface {
-		/** @var Repository_Interface $query */
 		$query = $this->get_orm();
 
 		$search  = $params['search'] ?? '';
 		$orderby = $params['orderby'] ?? '';
 		$order   = $params['order'] ?? '';
-		$status  = $params['status'] ?? 'publish';
 
 		unset(
 			$params['orderby'],
 			$params['order'],
 			$params['search'],
-			$params['status']
 		);
 
 		if ( $search ) {
@@ -116,23 +113,17 @@ trait Read_Archive_Response {
 			$query->order_by( $orderby, $order );
 		}
 
-		$params['status'] = 'publish';
-
-		if ( 'publish' !== $status && current_user_can( $this->get_post_type_object()->cap->edit_posts ) ) {
-			$params['status'] = $status;
-		}
-
 		$query->by_args( $params );
 
 		/**
 		 * Filters the query in the TEC REST API.
 		 *
-		 * @since 6.9.0
+		 * @since TBD
 		 *
 		 * @param Repository_Interface $query   The query.
-		 * @param array                        $params  The sanitized parameters to use for the request.
+		 * @param array                $params  The sanitized parameters to use for the request.
 		 */
-		return apply_filters( 'tec_rest_' . $this->get_post_type() . '_query', $query, $params );
+		return apply_filters( "tec_rest_{$this->get_model_class()}_query", $query, $params );
 	}
 
 	/**
@@ -145,15 +136,6 @@ trait Read_Archive_Response {
 	abstract public function get_default_posts_per_page(): int;
 
 	/**
-	 * Returns the post type.
-	 *
-	 * @since TBD
-	 *
-	 * @return string
-	 */
-	abstract public function get_post_type(): string;
-
-	/**
 	 * Returns the current REST URL.
 	 *
 	 * @since TBD
@@ -161,15 +143,6 @@ trait Read_Archive_Response {
 	 * @return string
 	 */
 	abstract public function get_current_rest_url(): string;
-
-	/**
-	 * Returns the post type object.
-	 *
-	 * @since TBD
-	 *
-	 * @return WP_Post_Type
-	 */
-	abstract public function get_post_type_object(): WP_Post_Type;
 
 	/**
 	 * Formats the entity collection.
@@ -190,4 +163,13 @@ trait Read_Archive_Response {
 	 * @return Repository_Interface
 	 */
 	abstract public function get_orm(): Repository_Interface;
+
+	/**
+	 * Returns the model class.
+	 *
+	 * @since TBD
+	 *
+	 * @return class-string<SchemaModel>
+	 */
+	abstract public function get_model_class(): string;
 }
