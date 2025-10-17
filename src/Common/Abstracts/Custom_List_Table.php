@@ -111,8 +111,8 @@ abstract class Custom_List_Table extends Base_Abstract {
 	 */
 	private function get_args(): array {
 		$args = [
-			'orderby' => tec_get_request_var( 'orderby', '' ) ? $this->get_orderby() : 'created',
-			'order'   => tec_get_request_var( 'order', '' ) ? $this->get_order() : 'DESC',
+			'orderby' => $this->get_orderby( 'created' ),
+			'order'   => $this->get_order( 'DESC' ),
 			'term'    => tec_get_request_var( 's', '' ),
 		];
 
