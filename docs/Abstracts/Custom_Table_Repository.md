@@ -1,6 +1,6 @@
 # Custom Table Repository Contract and Abstract
 
-This document describes the Custom Table Repository system in TEC Common, which provides a powerful query builder and data access layer for custom database tables.
+This document describes the Custom Table Repository system in TEC Common, which provides a query builder and data access layer for custom database tables.
 
 ## Overview
 
