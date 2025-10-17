@@ -287,7 +287,14 @@ class Suite_Env extends Extension {
 				codecept_debug( 'Activating feature for suites: ' . implode( ', ', $suites ) );
 
 				foreach ( $suites as $suite ) {
-					self::module_init( $suite, $activate_feature );
+					if ( isset( self::$module_init_callbacks[ $suite ] ) ) {
+						// If there are previous callbacks to activate features, include them.
+						$previous = self::$module_init_callbacks[ $suite ];
+						self::module_init( $suite, $activate_feature, ...$previous );
+					} else {
+						// No previous callback, so just activate the feature.
+						self::module_init( $suite, $activate_feature );
+					}
 				}
 			}
 		}
