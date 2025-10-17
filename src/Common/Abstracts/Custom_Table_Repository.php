@@ -19,6 +19,7 @@ use TEC\Common\StellarWP\DB\DB;
 use Tribe__Promise as Promise;
 use RuntimeException;
 use Generator;
+use WP_Post;
 
 /**
  * The custom table repository.
@@ -144,34 +145,30 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @since TBD
 	 */
 	public function __construct() {
-		$this->order_by( $this->get_table_interface()::uid_column(), 'DESC' );
+		$this->order_by( $this->get_table_interface()::uid_column() );
 
 		$operators = $this->get_table_interface()::operators();
+
+		$callback = function ( string $column, string $operator ) {
+			return fn( $value ): array => [
+				'column'   => $column,
+				'value'    => $value,
+				'operator' => $operator,
+			];
+		};
 
 		foreach ( $this->get_table_interface()::get_columns()->get_names() as $column ) {
 			foreach ( $operators as $operator_slug => $operator ) {
 				if ( 'eq' === $operator_slug ) {
 					$this->add_schema_entry(
 						$column,
-						function ( $value ) use ( $column, $operator ) {
-							return [
-								'column'   => $column,
-								'value'    => $value,
-								'operator' => $operator,
-							];
-						}
+						$callback( $column, $operator )
 					);
 				}
 
 				$this->add_schema_entry(
 					"{$column}_{$operator_slug}",
-					function ( $value ) use ( $column, $operator ) {
-						return [
-							'column'   => $column,
-							'value'    => $value,
-							'operator' => $operator,
-						];
-					}
+					$callback( $column, $operator )
 				);
 			}
 		}
