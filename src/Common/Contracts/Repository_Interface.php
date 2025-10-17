@@ -11,11 +11,11 @@ declare( strict_types=1 );
 
 namespace TEC\Common\Contracts;
 
+use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
+use Tribe\Repository\Core_Read_Interface as Read_Interface;
 use Tribe__Promise as Promise;
 use Tribe__Repository__Setter_Interface as Setter_Interface;
-use Tribe\Repository\Core_Read_Interface as Read_Interface;
 use WP_Post;
-use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
 
 /**
  * Interface Repository_Interface

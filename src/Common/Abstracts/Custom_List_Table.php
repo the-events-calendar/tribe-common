@@ -10,8 +10,8 @@
 namespace TEC\Common\Abstracts;
 
 use TEC\Common\Admin\Abstract_Custom_List_Table as Base_Abstract;
-use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
 use TEC\Common\Contracts\Custom_Table_Repository_Interface as Repository;
+use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
 
 /**
  * Class Abstract_Custom_List_Table

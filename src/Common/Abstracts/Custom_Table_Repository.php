@@ -11,14 +11,14 @@ declare( strict_types=1 );
 
 namespace TEC\Common\Abstracts;
 
-use TEC\Common\Contracts\Custom_Table_Repository_Interface as Repository_Interface;
-use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
-use TEC\Common\StellarWP\Schema\Tables\Contracts\Table as Table_Interface;
-use TEC\Common\StellarWP\SchemaModels\Relationships\ManyToManyWithPosts;
-use TEC\Common\StellarWP\DB\DB;
-use Tribe__Promise as Promise;
-use RuntimeException;
 use Generator;
+use RuntimeException;
+use TEC\Common\Contracts\Custom_Table_Repository_Interface as Repository_Interface;
+use TEC\Common\StellarWP\DB\DB;
+use TEC\Common\StellarWP\Schema\Tables\Contracts\Table as Table_Interface;
+use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
+use TEC\Common\StellarWP\SchemaModels\Relationships\ManyToManyWithPosts;
+use Tribe__Promise as Promise;
 use WP_Post;
 
 /**

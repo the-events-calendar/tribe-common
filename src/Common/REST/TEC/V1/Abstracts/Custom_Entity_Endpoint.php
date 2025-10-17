@@ -11,10 +11,10 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Abstracts;
 
-use TEC\Common\REST\TEC\V1\Contracts\Custom_Entity_Endpoint_Interface;
 use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
-use WP_REST_Request;
+use TEC\Common\REST\TEC\V1\Contracts\Custom_Entity_Endpoint_Interface;
 use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
+use WP_REST_Request;
 
 /**
  * Custom Entity Endpoint class.

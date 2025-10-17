@@ -11,8 +11,8 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Traits;
 
-use WP_REST_Response;
 use TEC\Common\Contracts\Repository_Interface;
+use WP_REST_Response;
 
 /**
  * Trait to handle the response for read custom archive requests.
