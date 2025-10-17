@@ -18,6 +18,7 @@ use TEC\Common\StellarWP\DB\DB;
 use TEC\Common\StellarWP\Schema\Tables\Contracts\Table as Table_Interface;
 use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
 use TEC\Common\StellarWP\SchemaModels\Relationships\ManyToManyWithPosts;
+use TEC\Common\StellarWP\SchemaModels\Exceptions\BadMethodCallSchemaModelException;
 use Tribe__Promise as Promise;
 use WP_Post;
 
@@ -823,6 +824,8 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @param string $field The field to pluck from each result.
 	 *
 	 * @return array The plucked models.
+	 *
+	 * @throws BadMethodCallSchemaModelException If the method does not exist on the model.
 	 */
 	public function pluck( $field ): array {
 		$method  = 'get_' . $field;
@@ -843,6 +846,8 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @param string $operator The operator to filter by.
 	 *
 	 * @return array The filtered models.
+	 *
+	 * @throws BadMethodCallSchemaModelException If the method does not exist on the model.
 	 */
 	public function filter( $args = [], $operator = 'AND' ): array {
 		$results = [];
@@ -914,6 +919,8 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @param bool $return_promise Whether to return a promise.
 	 *
 	 * @return Promise|array The saved models.
+	 *
+	 * @throws BadMethodCallSchemaModelException If the method does not exist on the model.
 	 */
 	public function save( $return_promise = false ) {
 		$callback = function () {
@@ -947,6 +954,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @return Model The created model.
 	 *
 	 * @throws RuntimeException If a relationship is not an array of integers or an integer.
+	 * @throws BadMethodCallSchemaModelException If the method does not exist on the model.
 	 */
 	public function create(): Model {
 		$model_class = $this->get_model_class();
