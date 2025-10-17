@@ -159,8 +159,8 @@ abstract class Custom_List_Table extends Base_Abstract {
 		}
 
 		?>
-		<input id="cb-select-<?php echo esc_attr( $item->getPrimaryValue() ); ?>; ?>" type="checkbox" name="item_id[]" value="<?php echo esc_attr( $item->getPrimaryValue() ); ?>" />
-		<label for="cb-select-<?php echo esc_attr( $item->getPrimaryValue() ); ?>; ?>">
+		<input id="cb-select-<?php echo esc_attr( $item->getPrimaryValue() ); ?>" type="checkbox" name="item_id[]" value="<?php echo esc_attr( $item->getPrimaryValue() ); ?>" />
+		<label for="cb-select-<?php echo esc_attr( $item->getPrimaryValue() ); ?>">
 			<span class="screen-reader-text">
 			<?php
 				/* translators: %d: The id of the item. */
