@@ -86,7 +86,7 @@ abstract class Custom_List_Table extends Base_Abstract {
 	 * @return array
 	 */
 	private function get_arguments(): array {
-		return array_merge( $this->get_args(), $this->get_instance_args() );
+		return array_merge( $this->get_args(), $this->get_object_query_args() );
 	}
 
 	/**
@@ -96,7 +96,9 @@ abstract class Custom_List_Table extends Base_Abstract {
 	 *
 	 * @return array
 	 */
-	abstract protected function get_instance_args(): array;
+	protected function get_object_query_args(): array {
+		return [];
+	}
 
 	/**
 	 * Returns the arguments to query the items.
