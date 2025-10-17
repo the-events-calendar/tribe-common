@@ -501,31 +501,31 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	 * Returns the selected search term.
 	 *
 	 * @since 6.5.3
-	 * @since TBD Added the $default parameter.
+	 * @since TBD Added the $by_default parameter.
 	 *
-	 * @param string $default The default order.
+	 * @param string $by_default The default order.
 	 *
 	 * @return string
 	 */
-	public function get_order( $default = 'ASC' ): string {
-		$order = strtoupper( tec_get_request_var_raw( 'order', $default ) );
+	public function get_order( $by_default = 'ASC' ): string {
+		$order = strtoupper( tec_get_request_var_raw( 'order', $by_default ) );
 
-		return in_array( $order, [ 'ASC', 'DESC' ], true ) ? $order : $default;
+		return in_array( $order, [ 'ASC', 'DESC' ], true ) ? $order : $by_default;
 	}
 
 	/**
 	 * Returns the selected orderby.
 	 *
 	 * @since 6.5.3
-	 * @since TBD Added the $default parameter.
+	 * @since TBD Added the $by_default parameter.
 	 *
-	 * @param string $default The default orderby.
+	 * @param string $by_default The default orderby.
 	 *
 	 * @return string
 	 */
-	public function get_orderby( $default = '' ): string {
-		$orderby = tec_get_request_var( 'orderby', $default );
+	public function get_orderby( $by_default = '' ): string {
+		$orderby = tec_get_request_var( 'orderby', $by_default );
 
-		return in_array( $orderby, array_values( $this->get_sortable_columns() ), true ) ? $orderby : $default;
+		return in_array( $orderby, array_values( $this->get_sortable_columns() ), true ) ? $orderby : $by_default;
 	}
 }

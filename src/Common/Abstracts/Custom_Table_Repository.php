@@ -184,7 +184,6 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 				);
 			}
 		}
-
 	}
 
 	/**
