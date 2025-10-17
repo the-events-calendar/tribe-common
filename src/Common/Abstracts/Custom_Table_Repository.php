@@ -953,8 +953,12 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @return Model The created model.
 	 *
+	 * phpcs:disable Squiz.Commenting.FunctionCommentThrowTag.WrongNumber
+	 *
 	 * @throws RuntimeException If a relationship is not an array of integers or an integer.
 	 * @throws BadMethodCallSchemaModelException If the method does not exist on the model.
+	 *
+	 * phpcs:enable Squiz.Commenting.FunctionCommentThrowTag.WrongNumber
 	 */
 	public function create(): Model {
 		$model_class = $this->get_model_class();
