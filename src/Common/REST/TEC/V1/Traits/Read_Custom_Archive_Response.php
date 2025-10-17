@@ -36,7 +36,6 @@ trait Read_Custom_Archive_Response {
 		$page     = absint( $params['page'] ?? 1 );
 		$per_page = absint( $params['per_page'] ?? $this->get_default_posts_per_page() );
 
-		/** @var Repository_Interface $query */
 		$query = $this->build_query( $params );
 
 		$query->page( $page )->per_page( $per_page );
@@ -124,7 +123,7 @@ trait Read_Custom_Archive_Response {
 		 * @param Repository_Interface $query   The query.
 		 * @param array                $params  The sanitized parameters to use for the request.
 		 */
-		return apply_filters( 'tec_rest_' . $this->get_model_class() . '_query', $query, $params );
+		return apply_filters( "tec_rest_{$this->get_model_class()}_query", $query, $params );
 	}
 
 	/**
