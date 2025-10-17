@@ -9,7 +9,7 @@
 
 namespace TEC\Common\Notifications;
 
-use TEC\Common\Admin\Conditional_Content\Dismissible_Trait;
+use TEC\Common\Admin\Conditional_Content\Traits\Is_Dismissible;
 
 /**
  * Class Notifications
@@ -19,7 +19,7 @@ use TEC\Common\Admin\Conditional_Content\Dismissible_Trait;
  * @package TEC\Common\Notifications
  */
 final class Notifications {
-	use Dismissible_Trait;
+	use Is_Dismissible;
 	use Readable_Trait;
 
 	/**
