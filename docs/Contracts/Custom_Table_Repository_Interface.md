@@ -299,7 +299,5 @@ class Model_Factory {
 
 ## See Also
 
-- [Repository Interface](./Repository_Interface.md)
 - [Custom Table Repository Abstract](../Abstracts/Custom_Table_Repository.md)
-- [Model Interface](./Model.md)
 - [Update Repository Implementations](../Repositories/update-repository-implementations.md)

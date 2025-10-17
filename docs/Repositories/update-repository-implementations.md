@@ -490,7 +490,5 @@ class Event_Repository extends Custom_Table_Repository {
 
 ## See Also
 
-- [Model Abstract](../Abstracts/Model_Abstract.md)
-- [Model Contract](../Contracts/Model.md)
 - [Custom Table Repository Abstract](../Abstracts/Custom_Table_Repository.md)
 - [Custom Table Repository Interface](../Contracts/Custom_Table_Repository_Interface.md)

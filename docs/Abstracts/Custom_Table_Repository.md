@@ -38,41 +38,7 @@ The abstract class provides a complete query builder with automatic schema gener
 
 ### Constructor Initialization
 
-The constructor automatically:
-
-```php
-public function __construct() {
-    // Set default ordering by primary key DESC
-    $this->order_by($this->get_table_interface()::uid_column(), 'DESC');
-
-    // Generate schema entries for all columns with all operators
-    foreach (array_keys($this->get_table_interface()::get_columns()) as $column) {
-        foreach ($operators as $operator_slug => $operator) {
-            // Creates entries like: 'name_like', 'price_gt', 'status_in'
-            $this->add_schema_entry(
-                "{$column}_{$operator_slug}",
-                function ($value) use ($column, $operator) {
-                    return [
-                        'column'   => $column,
-                        'value'    => $value,
-                        'operator' => $operator,
-                    ];
-                }
-            );
-        }
-    }
-
-    // Add relationship-based filters
-    foreach ($relationships as $key => $relationship) {
-        if ($relationship['type'] === Model_Abstract::RELATIONSHIP_TYPE_MANY_TO_MANY) {
-            // Creates filters like: 'tags', 'tags_in', 'tags_not_in'
-            $this->add_schema_entry($key, ...);
-            $this->add_schema_entry($key . '_in', ...);
-            $this->add_schema_entry($key . '_not_in', ...);
-        }
-    }
-}
-```
+The constructor automatically initializes the repository with default ordering, schema generation for all table columns with supported operators, and relationship-based filters for many-to-many relationships:
 
 ## Query Building Methods
 
@@ -462,7 +428,5 @@ Some methods from the base Repository Interface are not supported:
 
 ## See Also
 
-- [Model Abstract](./Model_Abstract.md)
-- [Model Contract](../Contracts/Model.md)
 - [Custom Table Repository Interface](../Contracts/Custom_Table_Repository_Interface.md)
 - [Update Repository Implementations](../Repositories/update-repository-implementations.md)
