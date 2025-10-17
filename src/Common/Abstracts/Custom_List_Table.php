@@ -178,7 +178,7 @@ abstract class Custom_List_Table extends Base_Abstract {
 	 *
 	 * @return array
 	 */
-	protected function get_bulk_actions(): array {
+	public function get_bulk_actions(): array {
 		return [ 'delete' => __( 'Delete', 'tribe-common' ) ];
 	}
 }
