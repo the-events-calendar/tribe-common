@@ -12,6 +12,7 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Traits;
 
 use TEC\Common\Contracts\Repository_Interface;
+use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as SchemaModel;
 use WP_REST_Response;
 
 /**
@@ -93,7 +94,6 @@ trait Read_Custom_Archive_Response {
 	 * @return Repository_Interface The entities query.
 	 */
 	protected function build_query( array $params = [] ): Repository_Interface {
-		/** @var Repository_Interface $query */
 		$query = $this->get_orm();
 
 		$search  = $params['search'] ?? '';
@@ -126,4 +126,51 @@ trait Read_Custom_Archive_Response {
 		 */
 		return apply_filters( 'tec_rest_' . $this->get_model_class() . '_query', $query, $params );
 	}
+
+	/**
+	 * Returns the default number of posts per page.
+	 *
+	 * @since TBD
+	 *
+	 * @return int
+	 */
+	abstract public function get_default_posts_per_page(): int;
+
+	/**
+	 * Returns the current REST URL.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	abstract public function get_current_rest_url(): string;
+
+	/**
+	 * Formats the entity collection.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $entities The entities to format.
+	 *
+	 * @return array
+	 */
+	abstract public function format_entity_collection( array $entities ): array;
+
+	/**
+	 * Returns the ORM for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return Repository_Interface
+	 */
+	abstract public function get_orm(): Repository_Interface;
+
+	/**
+	 * Returns the model class.
+	 *
+	 * @since TBD
+	 *
+	 * @return class-string<SchemaModel>
+	 */
+	abstract public function get_model_class(): string;
 }

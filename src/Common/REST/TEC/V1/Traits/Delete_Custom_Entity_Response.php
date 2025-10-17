@@ -11,6 +11,7 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Traits;
 
+use TEC\Common\Contracts\Repository_Interface;
 use WP_REST_Response;
 
 /**
@@ -55,4 +56,13 @@ trait Delete_Custom_Entity_Response {
 
 		return new WP_REST_Response( [], 200 );
 	}
+
+	/**
+	 * Returns the ORM for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return Repository_Interface
+	 */
+	abstract public function get_orm(): Repository_Interface;
 }

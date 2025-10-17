@@ -11,6 +11,8 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Traits;
 
+use TEC\Common\Contracts\Repository_Interface;
+use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
 use WP_REST_Response;
 
 /**
@@ -73,4 +75,24 @@ trait Update_Custom_Entity_Response {
 			200
 		);
 	}
+
+	/**
+	 * Returns the ORM for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return Repository_Interface
+	 */
+	abstract public function get_orm(): Repository_Interface;
+
+	/**
+	 * Formats a model into a model entity.
+	 *
+	 * @since TBD
+	 *
+	 * @param Model $model The model to format.
+	 *
+	 * @return array
+	 */
+	abstract public function get_formatted_entity( Model $model ): array;
 }

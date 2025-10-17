@@ -11,8 +11,9 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Traits;
 
-use WP_REST_Response;
 use TEC\Common\Contracts\Repository_Interface;
+use WP_Post_Type;
+use WP_REST_Response;
 
 /**
  * Trait to handle the response for read archive requests.
@@ -35,7 +36,6 @@ trait Read_Archive_Response {
 		$page     = absint( $params['page'] ?? 1 );
 		$per_page = absint( $params['per_page'] ?? $this->get_default_posts_per_page() );
 
-		/** @var Repository_Interface $query */
 		$query = $this->build_query( $params );
 
 		$query->page( $page )->per_page( $per_page );
@@ -134,4 +134,60 @@ trait Read_Archive_Response {
 		 */
 		return apply_filters( 'tec_rest_' . $this->get_post_type() . '_query', $query, $params );
 	}
+
+	/**
+	 * Returns the default number of posts per page.
+	 *
+	 * @since TBD
+	 *
+	 * @return int
+	 */
+	abstract public function get_default_posts_per_page(): int;
+
+	/**
+	 * Returns the post type.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	abstract public function get_post_type(): string;
+
+	/**
+	 * Returns the current REST URL.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	abstract public function get_current_rest_url(): string;
+
+	/**
+	 * Returns the post type object.
+	 *
+	 * @since TBD
+	 *
+	 * @return WP_Post_Type
+	 */
+	abstract public function get_post_type_object(): WP_Post_Type;
+
+	/**
+	 * Formats the entity collection.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $entities The entities to format.
+	 *
+	 * @return array
+	 */
+	abstract public function format_entity_collection( array $entities ): array;
+
+	/**
+	 * Returns the ORM for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return Repository_Interface
+	 */
+	abstract public function get_orm(): Repository_Interface;
 }

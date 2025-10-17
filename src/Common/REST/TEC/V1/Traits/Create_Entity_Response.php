@@ -11,8 +11,10 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Traits;
 
-use WP_REST_Response;
+use TEC\Common\Contracts\Repository_Interface;
 use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
+use WP_Post;
+use WP_REST_Response;
 /**
  * Trait to handle the response for create entity requests.
  *
@@ -49,4 +51,24 @@ trait Create_Entity_Response {
 			201
 		);
 	}
+
+	/**
+	 * Returns the ORM for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return Repository_Interface
+	 */
+	abstract public function get_orm(): Repository_Interface;
+
+	/**
+	 * Formats a model into a model entity.
+	 *
+	 * @since TBD
+	 *
+	 * @param Model|WP_Post $thing The model or post to format.
+	 *
+	 * @return array
+	 */
+	abstract public function get_formatted_entity( $thing ): array;
 }
