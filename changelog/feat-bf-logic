@@ -1,0 +1,4 @@
+Significance: minor
+Type: feat
+
+Modified the conditional content to use a more modular approach to applying display logic. Created "Inline" version to avoid duplication of logic . [TEC-5707]
