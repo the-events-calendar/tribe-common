@@ -21,6 +21,8 @@ use WP_REST_Response;
  * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Traits
+ *
+ * @method array get_formatted_entity( Model|WP_Post $model ): array
  */
 trait Create_Entity_Response {
 	/**
@@ -60,15 +62,4 @@ trait Create_Entity_Response {
 	 * @return Repository_Interface
 	 */
 	abstract public function get_orm(): Repository_Interface;
-
-	/**
-	 * Formats a model into a model entity.
-	 *
-	 * @since TBD
-	 *
-	 * @param Model|WP_Post $thing The model or post to format.
-	 *
-	 * @return array
-	 */
-	abstract public function get_formatted_entity( $thing ): array;
 }
