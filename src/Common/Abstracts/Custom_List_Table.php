@@ -29,13 +29,7 @@ abstract class Custom_List_Table extends Base_Abstract {
 	 * @return int The total number of items.
 	 */
 	protected function get_total_items(): int {
-		$repo = $this->get_repository();
-
-		$repo->set_use_default_args( false );
-		$result = $repo->by_args( $this->get_arguments() )->found();
-		$repo->set_use_default_args( true );
-
-		return $result;
+		return $this->get_cloned_repository()->by_args( $this->get_arguments() )->found();
 	}
 
 	/**
@@ -48,6 +42,19 @@ abstract class Custom_List_Table extends Base_Abstract {
 	abstract protected function get_repository(): Repository;
 
 	/**
+	 * Returns a cloned repository with the default arguments set to an empty array.
+	 *
+	 * @since TBD
+	 *
+	 * @return Repository The cloned repository.
+	 */
+	private function get_cloned_repository(): Repository {
+		$cloned = clone $this->get_repository();
+		$cloned->set_default_args( [] );
+		return $cloned;
+	}
+
+	/**
 	 * Returns the items for the current page.
 	 *
 	 * @since TBD
@@ -57,13 +64,7 @@ abstract class Custom_List_Table extends Base_Abstract {
 	 * @return array The items for the current page.
 	 */
 	protected function get_items( int $per_page ): array {
-		$repo = $this->get_repository();
-
-		$repo->set_use_default_args( false );
-		$results = $repo->by_args( $this->get_arguments() )->page( $this->get_pagenum() )->per_page( $per_page )->all();
-		$repo->set_use_default_args( true );
-
-		return $results;
+		return $this->get_cloned_repository()->by_args( $this->get_arguments() )->page( $this->get_pagenum() )->per_page( $per_page )->all();
 	}
 
 	/**
@@ -74,12 +75,7 @@ abstract class Custom_List_Table extends Base_Abstract {
 	 * @return bool
 	 */
 	public function is_empty(): bool {
-		$repo = $this->get_repository();
-		$repo->set_use_default_args( false );
-		$result = $repo->found();
-		$repo->set_use_default_args( true );
-
-		return 0 === $result;
+		return 0 === $this->get_cloned_repository()->found();
 	}
 
 	/**

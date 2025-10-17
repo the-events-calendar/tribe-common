@@ -38,15 +38,4 @@ interface Custom_Table_Repository_Interface extends Repository_Interface {
 	 * @return array The schema.
 	 */
 	public function get_schema(): array;
-
-	/**
-	 * Sets whether to use the default arguments.
-	 *
-	 * @since TBD
-	 *
-	 * @param bool $use_default_args Whether to use the default arguments.
-	 *
-	 * @return self The repository instance.
-	 */
-	public function set_use_default_args( bool $use_default_args ): self;
 }

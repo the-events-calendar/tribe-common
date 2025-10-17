@@ -131,15 +131,6 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	private array $schema_callbacks = [];
 
 	/**
-	 * Whether to use the default arguments.
-	 *
-	 * @since TBD
-	 *
-	 * @var bool
-	 */
-	private bool $use_default_args = true;
-
-	/**
 	 * Constructor.
 	 *
 	 * @since TBD
@@ -284,21 +275,6 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	}
 
 	/**
-	 * Sets whether to use the default arguments.
-	 *
-	 * @since TBD
-	 *
-	 * @param bool $use_default_args Whether to use the default arguments.
-	 *
-	 * @return self The repository instance.
-	 */
-	public function set_use_default_args( bool $use_default_args ): self {
-		$this->use_default_args = $use_default_args;
-		$this->set_found_rows( 0 );
-		return $this;
-	}
-
-	/**
 	 * Applies the schema callbacks.
 	 *
 	 * @since TBD
@@ -347,7 +323,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 * @throws RuntimeException If the filter is not supported for custom table repositories.
 	 */
 	private function get_select_args(): array {
-		$args = $this->use_default_args ? array_merge( $this->get_default_args(), $this->select_args ) : $this->select_args;
+		$args = array_merge( $this->get_default_args(), $this->select_args );
 
 		$new_args = [];
 
