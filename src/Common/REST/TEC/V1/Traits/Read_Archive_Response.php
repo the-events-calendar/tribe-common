@@ -69,8 +69,8 @@ trait Read_Archive_Response {
 
 		$response = new WP_REST_Response( $data );
 
-		$response->header( 'X-WP-Total', (int) $total );
-		$response->header( 'X-WP-TotalPages', (int) $total_pages );
+		$response->header( 'X-WP-Total', $total );
+		$response->header( 'X-WP-TotalPages', $total_pages );
 
 		if ( $page < $total_pages ) {
 			$response->link_header( 'next', add_query_arg( 'page', $page + 1, $current_url ) );
