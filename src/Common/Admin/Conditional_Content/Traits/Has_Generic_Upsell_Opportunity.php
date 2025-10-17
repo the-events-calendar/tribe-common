@@ -53,6 +53,15 @@ trait Has_Generic_Upsell_Opportunity {
 
 		// If we're ignoring plugin checks, always show content.
 		if ( $this->should_ignore_plugin_checks() ) {
+
+			/**
+			 * Filters the result of the upsell opportunity check.
+			 *
+			 * @since TBD
+			 *
+			 * @param bool   $result     The result of the upsell opportunity check. Defaults to true for ignoring plugin checks.
+			 * @param object $instance   The conditional content object.
+			 */
 			return (bool) apply_filters( "tec_admin_conditional_content_{$this->slug}_generic_upsell_opportunity_should_display", true, $this );
 		}
 

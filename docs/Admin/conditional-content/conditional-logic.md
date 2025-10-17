@@ -268,7 +268,7 @@ Controls when content is displayed based on date ranges.
 
 - `tec_admin_conditional_content_{$slug}_start_date` - Modify start date
 - `tec_admin_conditional_content_{$slug}_end_date` - Modify end date
-- `tec_admin_conditional_content_{$slug}_should_display` - Override display logic
+- `tec_admin_conditional_content_{$slug}_datetime_should_display` - Override display logic
 
 ### Is_Dismissible
 
@@ -289,6 +289,10 @@ Allows users to dismiss content and stores dismissal in user meta.
 
 **User Meta Key:** `tec-dismissible-content`
 
+**Filters:**
+
+- `tec_admin_conditional_content_{$slug}_has_user_dismissed` - Override display logic
+
 ### Requires_Capability
 
 Restricts content display to users with specific WordPress capabilities.
@@ -300,7 +304,8 @@ Restricts content display to users with specific WordPress capabilities.
 
 **Filters:**
 
-- `tec_admin_conditional_content_required_capability` - Modify required capability
+- `tec_admin_conditional_content_required_capability` - Modify all required capabilities
+- `tec_admin_conditional_content_{$slug}_check_capability` - Modify required capabilities for just one slug
 
 **Default Behavior:** Only shows to users with `manage_options` (Administrators and Super Admins).
 
@@ -314,6 +319,10 @@ Shows content if ANY paid plugin is not installed.
 - `should_ignore_plugin_checks(): bool` - Override to always show content
 
 **Plugin Check:** Uses `Tribe__Plugins_API` to get list of paid plugins.
+
+**Filters**
+
+- `tec_admin_conditional_content_{$slug}_generic_upsell_opportunity_should_display` - override the logic determination for display.
 
 ### Has_Targeted_Creative_Upsell
 
