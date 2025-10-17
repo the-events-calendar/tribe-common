@@ -12,7 +12,7 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Traits;
 
 use TEC\Common\Contracts\Repository_Interface;
-use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as SchemaModel;
+use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel;
 use WP_REST_Response;
 
 /**
