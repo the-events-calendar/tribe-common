@@ -123,6 +123,6 @@ trait Read_Custom_Archive_Response {
 		 * @param Repository_Interface $query   The query.
 		 * @param array                $params  The sanitized parameters to use for the request.
 		 */
-		return apply_filters( 'tec_rest_' . $this->get_model_class() . '_query', $query, $params );
+		return apply_filters( "tec_rest_{$this->get_model_class()}_query", $query, $params );
 	}
 }
