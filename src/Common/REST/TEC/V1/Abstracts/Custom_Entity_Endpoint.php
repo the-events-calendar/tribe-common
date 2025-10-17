@@ -2,7 +2,7 @@
 /**
  * Endpoint class.
  *
- * @since 6.9.0
+ * @since TBD
  *
  * @package TEC\Common\REST\TEC\V1\Abstracts
  */

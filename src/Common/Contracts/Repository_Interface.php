@@ -14,6 +14,8 @@ namespace TEC\Common\Contracts;
 use Tribe__Promise as Promise;
 use Tribe__Repository__Setter_Interface as Setter_Interface;
 use Tribe\Repository\Core_Read_Interface as Read_Interface;
+use WP_Post;
+use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
 
 /**
  * Interface Repository_Interface
@@ -149,8 +151,10 @@ interface Repository_Interface extends Setter_Interface, Read_Interface {
 	 * @since 4.9.5
 	 * @since TBD Added Model as a possible return type.
 	 *
-	 * @return WP_Post|Model|false|null The created post object or `false` if the creation
+	 * @return WP_Post|Model|false The created post object or `false` if the creation
 	 *                                  fails for logic or runtime issues.
+	 *
+	 * @throws RuntimeException If a relationship is not an array of integers or an integer.
 	 */
 	public function create();
 

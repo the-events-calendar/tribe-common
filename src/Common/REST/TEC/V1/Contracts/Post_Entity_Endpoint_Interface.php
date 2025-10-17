@@ -75,6 +75,7 @@ interface Post_Entity_Endpoint_Interface extends Endpoint_Interface {
 	 * Returns the ORM for the endpoint.
 	 *
 	 * @since 6.9.0
+	 * @since TBD Updated to use the new Repository_Interface.
 	 *
 	 * @return Repository_Interface
 	 */

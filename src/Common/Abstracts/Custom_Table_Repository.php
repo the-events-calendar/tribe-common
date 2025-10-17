@@ -147,6 +147,18 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	public function __construct() {
 		$this->order_by( $this->get_table_interface()::uid_column() );
 
+		$this->add_columns_as_schema_entries();
+		$this->add_relationships_as_schema_entries();
+
+		$this->add_update_field_alias( 'id', $this->get_table_interface()::uid_column() );
+	}
+
+	/**
+	 * Adds the columns as schema entries.
+	 *
+	 * @since TBD
+	 */
+	private function add_columns_as_schema_entries(): void {
 		$operators = $this->get_table_interface()::operators();
 
 		$callback = function ( string $column, string $operator ) {
@@ -173,9 +185,15 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 			}
 		}
 
-		$model = tribe( $this->get_model_class() );
+	}
 
-		$relationships = $model->getRelationshipCollection();
+	/**
+	 * Adds the relationships as schema entries.
+	 *
+	 * @since TBD
+	 */
+	private function add_relationships_as_schema_entries(): void {
+		$relationships = tribe( $this->get_model_class() )->getRelationshipCollection();
 
 		foreach ( $relationships->getAll() as $key => $relationship ) {
 			$definition = $relationship->getDefinition();
@@ -264,8 +282,6 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 				}
 			);
 		}
-
-		$this->add_update_field_alias( 'id', $this->get_table_interface()::uid_column() );
 	}
 
 	/**
@@ -652,7 +668,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $fields The fields to set.
+	 * @param string|string[] $fields The field or fields to set.
 	 *
 	 * @return self The repository instance.
 	 */
@@ -953,11 +969,11 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return ?Model The created model.
+	 * @return Model The created model.
 	 *
 	 * @throws RuntimeException If a relationship is not an array of integers or an integer.
 	 */
-	public function create(): ?Model {
+	public function create(): Model {
 		$model_class = $this->get_model_class();
 
 		/** @var Model $model */

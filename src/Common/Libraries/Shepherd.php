@@ -71,6 +71,6 @@ class Shepherd extends Controller_Contract {
 		)
 			->urgency( 'error' )
 			->dismissible( false )
-			->inline( true );
+			->inline();
 	}
 }
