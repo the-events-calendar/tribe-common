@@ -65,7 +65,7 @@ trait Read_Entity_Response {
 			$filter_added = true;
 		}
 
-		$entity = $this->get_orm()->by_primary_key( $id );
+		$entity = $this->get_orm()->by_args( [ 'id' => $id, 'status' => 'any' ] )->first();
 
 		if ( ! $entity ) {
 			return new WP_REST_Response(

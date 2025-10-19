@@ -47,9 +47,11 @@ trait Create_Entity_Response {
 			);
 		}
 
+		$orm = $this->get_orm();
+
 		return new WP_REST_Response(
 			$this->get_formatted_entity(
-				$this->get_orm()->by_primary_key( $entity instanceof Model ? $entity->getPrimaryValue() : $entity->ID )
+				$entity instanceof Model ? $orm->by_primary_key( $entity->getPrimaryValue() ) : $orm->by_args( [ 'id' => $entity->ID, 'status' => 'any' ] )->first()
 			),
 			201
 		);
