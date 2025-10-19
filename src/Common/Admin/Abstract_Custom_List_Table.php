@@ -216,6 +216,11 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	public function column_default( $item, $column_name ) {
 		$value = null;
 
+		if ( is_array( $item ) ) {
+			// Ensures compatibility.
+			$item = (object) $item;
+		}
+
 		if ( isset( $item->$column_name ) ) {
 			$value = $item->$column_name;
 		}
