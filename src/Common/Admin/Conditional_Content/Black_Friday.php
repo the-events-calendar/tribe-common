@@ -94,7 +94,9 @@ class Black_Friday extends Promotional_Content_Abstract {
 	 * @inheritdoc
 	 */
 	protected function get_link_url(): string {
-		return 'https://evnt.is/tec-bf-2025';
+		$region = tec_get_admin_region();
+
+		return $region === 'tickets' ? 'https://evnt.is/et-bfcm-2025' : 'https://evnt.is/tec-bfcm-2025';
 	}
 
 	/**
@@ -137,15 +139,28 @@ class Black_Friday extends Promotional_Content_Abstract {
 		// Fallback to default behavior.
 		$year      = date_i18n( 'Y' );
 		$sale_name = $this->get_sale_name();
+		$region    = tec_get_admin_region();
 
-		return sprintf(
-			/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
-			esc_html__(
-				'%1$s %2$s for The Events Calendar 30%% off plugins, add-ons, bundles, everything!.',
-				'tribe-common'
-			),
-			$year,
-			$sale_name
-		);
+		if ( $region === 'tickets' ) {
+			return sprintf(
+				/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
+				esc_html__(
+					'%1$s %2$s for Event Tickets 30%% off plugins, add-ons, bundles, everything!.',
+					'tribe-common'
+				),
+				$year,
+				$sale_name
+			);
+		} else {
+			return sprintf(
+				/* translators: %1$s: Sale year (numeric), %2$s: Sale name */
+				esc_html__(
+					'%1$s %2$s for The Events Calendar 30%% off plugins, add-ons, bundles, everything!.',
+					'tribe-common'
+				),
+				$year,
+				$sale_name
+			);
+		}
 	}
 }
