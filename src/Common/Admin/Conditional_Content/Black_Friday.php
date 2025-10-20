@@ -43,7 +43,7 @@ class Black_Friday extends Promotional_Content_Abstract {
 	 *
 	 * @var string
 	 */
-	protected string $start_date = 'November 26th';
+	protected string $start_date = 'November 24th';
 
 	/**
 	 * @inheritdoc
@@ -64,7 +64,7 @@ class Black_Friday extends Promotional_Content_Abstract {
 	 *
 	 * @var string
 	 */
-	protected string $end_date = 'December 3rd';
+	protected string $end_date = 'December 2nd';
 
 	/**
 	 * Background color for the promotional content.
