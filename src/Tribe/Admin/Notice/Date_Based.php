@@ -2,13 +2,25 @@
 /**
  * Abstract for various date-based Marketing notices, e.g. Black Friday sales or special coupon initiatives.
  *
- * @since 4.14.2
+ * @since      4.14.2
+ * @deprecated 6.9.8 Use TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract with Has_Datetime_Conditions trait instead.
  */
 
 namespace Tribe\Admin\Notice;
 
 use Tribe__Date_Utils as Dates;
 
+_deprecated_file( __FILE__, '6.9.8', '\TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract with Has_Datetime_Conditions trait' );
+
+/**
+ * Abstract for various date-based Marketing notices, e.g. Black Friday sales or special coupon initiatives.
+ *
+ * @since      4.14.2
+ * @deprecated 6.9.8 Use TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract with Has_Datetime_Conditions trait instead.
+ *
+ * @see        \TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract
+ * @see        \TEC\Common\Admin\Conditional_Content\Traits\Has_Datetime_Conditions
+ */
 abstract class Date_Based {
 	/**
 	 * The slug used to make filters specific to an individual notice.
@@ -121,10 +133,13 @@ abstract class Date_Based {
 		'tribe_events_page_tribe-common', // Old Settings & Welcome.
 		'events_page_tribe-common', // Settings & Welcome.
 		'toplevel_page_tribe-common', // Settings & Welcome.
-		'tribe_events_page_aggregator', // Import page
-		'edit-tribe_events', // Events admin list
+		'tribe_events_page_aggregator', // Import page.
+		'edit-tribe_events', // Events admin list.
 	];
 
+	/**
+	 * Constructor.
+	 */
 	public function __construct() {
 		$tribe_dependency    = tribe( \Tribe__Dependency::class );
 		$this->tec_is_active = $tribe_dependency->is_plugin_active( 'Tribe__Events__Main' );
@@ -137,15 +152,18 @@ abstract class Date_Based {
 
 		// If we have an extension date defined.
 		if ( ! empty( $this->get_extension_time() ) ) {
-			// If the sale has started and
+			// If the sale has started and.
 			if (
 				$notice_start <= $now
 				&& $notice_end < $now
 				&& $now < $extension_date
 			) {
-				add_filter( "tribe_{$this->slug}_notice_end_date", function() {
-					return $this->get_extension_time();
-				});
+				add_filter(
+					"tribe_{$this->slug}_notice_end_date",
+					function () {
+						return $this->get_extension_time();
+					}
+				);
 			}
 		}
 
@@ -169,14 +187,14 @@ abstract class Date_Based {
 	public function hook_notice() {
 		tribe_notice(
 			$this->slug,
-			[ $this, "display_notice" ],
+			[ $this, 'display_notice' ],
 			[
 				'type'     => 'tribe-banner',
 				'dismiss'  => 1,
 				'priority' => -1,
 				'wrap'     => false,
 			],
-			[ $this, "should_display" ]
+			[ $this, 'should_display' ]
 		);
 	}
 
@@ -187,7 +205,7 @@ abstract class Date_Based {
 	 *
 	 * @return string The HTML string to be displayed.
 	 */
-	abstract function display_notice();
+	abstract public function display_notice();
 
 	/**
 	 * Function to get and filter the screens the notice is displayed on.
@@ -254,9 +272,9 @@ abstract class Date_Based {
 			return false;
 		}
 
-		$now            = Dates::build_date_object( 'now', 'UTC' );
-		$notice_start   = $this->get_start_time();
-		$notice_end     = $this->get_end_time();
+		$now          = Dates::build_date_object( 'now', 'UTC' );
+		$notice_start = $this->get_start_time();
+		$notice_end   = $this->get_end_time();
 
 		$should_display = $notice_start <= $now && $now < $notice_end;
 

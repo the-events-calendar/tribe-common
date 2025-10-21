@@ -64,7 +64,7 @@ class DeleteTest extends \Codeception\TestCase\WPTestCase {
 			return $this->factory()->post->create( [ 'post_type' => 'book', 'post_author' => $jane ] );
 		}, range( 1, 3 ) );
 
-		return array( $john, $from_john, $jane, $from_jane );
+		return [ $john, $from_john, $jane, $from_jane ];
 	}
 
 	/**
@@ -90,6 +90,9 @@ class DeleteTest extends \Codeception\TestCase\WPTestCase {
 			'post_type'      => 'book',
 			'posts_per_page' => - 1,
 		] ) );
+
+		wp_delete_user( $john );
+		wp_delete_user( $jane );
 	}
 
 	/**
@@ -111,6 +114,9 @@ class DeleteTest extends \Codeception\TestCase\WPTestCase {
 			'post_type'      => 'book',
 			'posts_per_page' => - 1,
 		] ) );
+
+		wp_delete_user( $john );
+		wp_delete_user( $jane );
 	}
 
 	/**
@@ -126,7 +132,7 @@ class DeleteTest extends \Codeception\TestCase\WPTestCase {
 			// Since we're deleting 3 posts let's make sure async mode is kicking in.
 			return 2;
 		} );
-		list( $john, $from_john ) = $this->create_books_by_authors();
+		list( $john, $from_john, $jane, $from_jane ) = $this->create_books_by_authors();
 
 		$deleted = $this->repository()->where( 'author', $john )->delete();
 
@@ -134,6 +140,9 @@ class DeleteTest extends \Codeception\TestCase\WPTestCase {
 		foreach ( $from_john as $id ) {
 			$this->assertInstanceOf( \WP_Post::class, get_post( $id ) );
 		}
+
+		wp_delete_user( $john );
+		wp_delete_user( $jane );
 	}
 
 	/**
@@ -143,7 +152,7 @@ class DeleteTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_allow_always_getting_back_a_promise_and_have_it_invoked_immediately_in_sync_mode() {
 		add_filter( 'tribe_repository_delete_async_activated', '__return_false' );
-		list( $john, $from_john ) = $this->create_books_by_authors();
+		list( $john, $from_john, $jane, $from_jane ) = $this->create_books_by_authors();
 
 		$filtered = $this->repository()->where( 'author', $john );
 		$this->assertCount( 3, $filtered->get_ids() );
@@ -161,6 +170,9 @@ class DeleteTest extends \Codeception\TestCase\WPTestCase {
 		foreach ( $from_john as $id ) {
 			$this->assertEmpty(  get_post( $id ) );
 		}
+
+		wp_delete_user( $john );
+		wp_delete_user( $jane );
 	}
 
 	/**
@@ -179,13 +191,16 @@ class DeleteTest extends \Codeception\TestCase\WPTestCase {
 				] );
 			};
 		});
-		list( $john, $from_john ) = $this->create_books_by_authors();
+		list( $john, $from_john, $jane, $from_jane ) = $this->create_books_by_authors();
 
 		$this->repository()->where( 'author', $john )->delete();
 
 		foreach ( $from_john as $id ) {
 			$this->assertEquals( 'deleted_book', get_post_type( $id ) );
 		}
+
+		wp_delete_user( $john );
+		wp_delete_user( $jane );
 	}
 
 	/**

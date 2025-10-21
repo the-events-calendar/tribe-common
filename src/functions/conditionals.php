@@ -1,4 +1,11 @@
 <?php
+/**
+ * Conditional functions.
+ *
+ * @since 4.14.16
+ *
+ * @package Tribe\Common\Functions
+ */
 
 /**
  * Determines if upsells should be hidden.
@@ -10,7 +17,7 @@
  * @return bool
  */
 function tec_should_hide_upsell( $slug = 'all' ) {
-	$verify = static function( $needle, $haystack ) {
+	$verify = static function ( $needle, $haystack ) {
 		// In all cases if true or false boolean we return that.
 		if ( is_bool( $haystack ) ) {
 			return $haystack;
@@ -31,7 +38,7 @@ function tec_should_hide_upsell( $slug = 'all' ) {
 		// Now allow multiple to be targeted as a string.
 		$haystack = explode( '|', $haystack );
 
-		// If the  `all` string is on the haystack
+		// If the  `all` string is on the haystack.
 		if ( in_array( 'all', $haystack, true ) ) {
 			return true;
 		}
@@ -41,12 +48,12 @@ function tec_should_hide_upsell( $slug = 'all' ) {
 
 	// If upsells have been manually hidden, respect that.
 	if ( defined( 'TEC_HIDE_UPSELL' ) ) {
-		return $verify( $slug, TEC_HIDE_UPSELL );
+		return $verify( $slug, constant( 'TEC_HIDE_UPSELL' ) );
 	}
 
 	// If upsells have been manually hidden, respect that.
 	if ( defined( 'TRIBE_HIDE_UPSELL' ) ) {
-		return $verify( $slug, TRIBE_HIDE_UPSELL );
+		return $verify( $slug, constant( 'TRIBE_HIDE_UPSELL' ) );
 	}
 
 	$env_var = getenv( 'TEC_HIDE_UPSELL' );

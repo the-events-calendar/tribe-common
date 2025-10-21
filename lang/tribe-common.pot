@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 6.9.7\n"
+"Project-Id-Version: Tribe Common 6.9.8\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-13T20:52:10+00:00\n"
+"POT-Creation-Date: 2025-10-21T15:06:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: tribe-common\n"
@@ -183,7 +183,7 @@ msgstr ""
 #: src/admin-views/conditional_content/black-friday.php:15
 #, php-format
 msgctxt "Alt text for the Black Friday Ad"
-msgid "%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles."
+msgid "%1$s Black Friday Sale for The Events Calendar. 30%% off all plugins, add-ons, bundles, everything!."
 msgstr ""
 
 #: src/admin-views/dashboard/components/clear-button.php:27
@@ -1737,60 +1737,73 @@ msgstr ""
 msgid "Searching..."
 msgstr ""
 
-#: src/Common/Admin/Conditional_Content/Black_Friday.php:54
+#: src/Common/Admin/Conditional_Content/Black_Friday.php:83
 msgid "Black Friday Sale"
 msgstr ""
 
 #. translators: %1$s: Sale year (numeric), %2$s: Sale name
-#: src/Common/Admin/Conditional_Content/Black_Friday.php:76
-#: src/Common/Admin/Conditional_Content/Black_Friday.php:90
-#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:121
-#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:160
+#: src/Common/Admin/Conditional_Content/Black_Friday.php:147
 #, php-format
-msgctxt "Alt text for the Default Sale Ad"
-msgid "%1$s %2$s for The Events Calendar plugins, add-ons and bundles."
+msgid "%1$s %2$s for Event Tickets 30%% off plugins, add-ons, bundles, everything!."
 msgstr ""
 
-#. translators: %1$s: Sale year, %2$s: Sale name
 #. translators: %1$s: Sale year (numeric), %2$s: Sale name
-#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:409
-#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:507
-#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:817
+#: src/Common/Admin/Conditional_Content/Black_Friday.php:157
+#, php-format
+msgid "%1$s %2$s for The Events Calendar 30%% off plugins, add-ons, bundles, everything!."
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:706
 #, php-format
 msgctxt "Alt text for the Sale Ad"
 msgid "%1$s %2$s for The Events Calendar plugins, add-ons and bundles."
 msgstr ""
 
-#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:51
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:71
 msgid "Stellar Sale"
 msgstr ""
 
 #. translators: %1$s: Sale year (numeric), %2$s: Sale name
-#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:99
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:187
 #, php-format
 msgctxt "Alt text for the Events Pro Sale Ad"
 msgid "%1$s %2$s - Get Events Calendar Pro at 30%% off!"
 msgstr ""
 
 #. translators: %1$s: Sale year (numeric), %2$s: Sale name
-#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:110
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:198
 #, php-format
 msgctxt "Alt text for the Filter Bar Sale Ad"
 msgid "%1$s %2$s - Get Filter Bar at 30%% off!"
 msgstr ""
 
 #. translators: %1$s: Sale year (numeric), %2$s: Sale name
-#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:135
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:209
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:248
+#, php-format
+msgctxt "Alt text for the Default Sale Ad"
+msgid "%1$s %2$s for The Events Calendar plugins, add-ons and bundles."
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:223
 #, php-format
 msgctxt "Alt text for the Event Tickets Plus Sale Ad"
 msgid "%1$s %2$s - Get Event Tickets Plus at 30%% off!"
 msgstr ""
 
 #. translators: %1$s: Sale year (numeric), %2$s: Sale name
-#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:148
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:236
 #, php-format
 msgctxt "Alt text for the Event Seating Sale Ad"
 msgid "%1$s %2$s - Get Event Seating at 30%% off!"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:277
+#, php-format
+msgid "%1$s %2$s for The Events Calendar plugins, add-ons, and bundles."
 msgstr ""
 
 #: src/Common/Admin/Entities/Heading.php:101
@@ -3581,49 +3594,51 @@ msgstr ""
 msgid "This extension allows you to add custom HTML content to the top of the Community submission form."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Php_Version.php:59
-#: src/Tribe/Admin/Notice/Plugin_Download.php:147
+#: src/Tribe/Admin/Notice/Php_Version.php:68
+#: src/Tribe/Admin/Notice/Plugin_Download.php:160
 msgctxt "separator used in a list of items"
 msgid ", "
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Php_Version.php:60
-#: src/Tribe/Admin/Notice/Plugin_Download.php:148
+#: src/Tribe/Admin/Notice/Php_Version.php:69
+#: src/Tribe/Admin/Notice/Plugin_Download.php:161
 msgctxt "the final separator in a list of two or more items"
 msgid " and "
 msgstr ""
 
 #. Translators: %1$s list of plugins, %2$s current PHP version, %3$s open anchor html link for read more, %4$s open anchor html link for read more
-#: src/Tribe/Admin/Notice/Php_Version.php:96
+#: src/Tribe/Admin/Notice/Php_Version.php:106
 #, php-format
 msgctxt "Message notifying users they need to upgrade PHP"
 msgid "Starting February 2023, %1$s will require PHP 7.4 or later. Currently, your site is using PHP version %2$s. Please update to a newer version. %3$sRead more%4$s."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Plugin_Download.php:120
+#. Translators: 1: plugin name(s), 2: required plugin(s)
+#: src/Tribe/Admin/Notice/Plugin_Download.php:132
 #, php-format
 msgid "To begin using %2$s, please install (or upgrade) and activate %3$s."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Plugin_Download.php:122
+#: src/Tribe/Admin/Notice/Plugin_Download.php:134
 #: src/Tribe/PUE/Update_Prevention.php:181
 msgid "Read more"
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Plugin_Download.php:123
+#. Translators: 1: plugin name(s), 2: "Read more" link
+#: src/Tribe/Admin/Notice/Plugin_Download.php:136
 #, php-format
 msgid "There’s a new version of %1$s available, but your license is expired. You’ll need to renew your license to get access to the latest version. If you plan to continue using your current version of the plugin(s), be sure to use a compatible version of The Events Calendar. %2$s"
 msgstr ""
 
-#: src/Tribe/Admin/Notice/WP_Version.php:79
+#: src/Tribe/Admin/Notice/WP_Version.php:86
 msgid "You are using WordPress 5.7 which included a major jQuery update that may cause compatibility issues with past versions of The Events Calendar, Event Tickets and other plugins."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/WP_Version.php:81
+#: src/Tribe/Admin/Notice/WP_Version.php:88
 msgid "WordPress 5.7 includes a major jQuery update that may cause compatibility issues with past versions of The Events Calendar, Event Tickets and other plugins."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/WP_Version.php:83
+#: src/Tribe/Admin/Notice/WP_Version.php:90
 msgid "Read more."
 msgstr ""
 
