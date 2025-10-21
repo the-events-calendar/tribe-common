@@ -3,7 +3,7 @@
 = [6.9.8] 2025-10-21 =
 
 * Feature - Modified the conditional content to use a more modular approach to applying display logic. Created "Inline" version to avoid duplication of logic . [TEC-5707]
-* Tweak - Added a new class for accessible text that is visually hidden on smaller screens. [TEC-5589]
+* Tweak - Added a new CSS class for accessible text that is visually hidden on smaller screens. [TEC-5589]
 * Tweak - Added filters: `tec_admin_conditional_content_{$this->slug}_datetime_should_display`, `tec_admin_conditional_content_{$this->slug}_generic_upsell_opportunity_should_display`, `tec_admin_conditional_content_{$this->slug}_has_user_dismissed`, `tec_admin_conditional_content_{$this->slug}_check_capability`, `tec_get_admin_region`
 * Tweak - Removed filters: `tribe_plugin_upgrade_readme_url`, `tribe_plugin_upgrade_notice`
 * Language - 4 new strings added, 17 updated, 1 fuzzied, and 1 obsoleted.
