@@ -122,6 +122,7 @@ export default function EndSelector( props: EndSelectorProps ): React.JSX.Elemen
 						timeFormat={ timeFormat }
 						timeInterval={ timeInterval }
 						onChange={ onTimeChange }
+						type="endTime"
 					/>
 				</div>
 			) }

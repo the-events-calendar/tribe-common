@@ -89,6 +89,7 @@ export default function StartSelector( props: DateSelectorProps ): React.JSX.Ele
 						onChange={ onTimeChange }
 						timeFormat={ timeFormat }
 						timeInterval={ timeInterval }
+						type="startTime"
 					/>
 				</div>
 			) }

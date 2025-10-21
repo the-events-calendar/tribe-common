@@ -4,19 +4,67 @@ import { useState, useMemo, useCallback, useRef, useEffect } from '@wordpress/el
 import { ComboboxControl } from '@wordpress/components';
 import { ComboboxControlOption } from '@wordpress/components/build-types/combobox-control/types';
 import { getValidDateOrNull } from '../../functions';
+import { TimeUpdateType } from '../../types/FieldProps';
 
-function getTimeOptions(
+const timeValueFormat = 'H:i:s';
+
+/**
+ * Generate all possible time options for the start time.
+ *
+ * @since TBD
+ *
+ * @param {Date} currentDate The currently selected date.
+ * @param {number} timeInterval The time interval in minutes.
+ * @param {string} timeFormat The time format to display.
+ * @return {ComboboxControlOption[]} The generated time options.
+ */
+function getStartTimeOptions( currentDate: Date, timeInterval: number, timeFormat: string ): ComboboxControlOption[] {
+	const times: ComboboxControlOption[] = [];
+
+	// Loop through hours and minutes according to the time interval.
+	for ( let h = 0; h < 24; h++ ) {
+		let m = 0;
+		while ( m < 60 ) {
+			const date = new Date( currentDate );
+			date.setHours( h, m, 0, 0 );
+
+			times.push( {
+				label: format( timeFormat, date ),
+				value: format( timeValueFormat, date ),
+			} );
+
+			m += timeInterval;
+		}
+	}
+
+	return times;
+}
+
+/**
+ * Generate all possible time options for the end time, considering an optional start date constraint.
+ *
+ * @since TBD
+ *
+ * @param {Date} currentDate The currently selected date.
+ * @param {Date|null} startDate The optional start date constraint.
+ * @param {number} timeInterval The time interval in minutes.
+ * @param {string} timeFormat The time format to display.
+ * @return {ComboboxControlOption[]} The generated time options.
+ */
+function getEndTimeOptions(
 	currentDate: Date,
 	startDate: Date | null = null,
-	endDate: Date | null = null,
 	timeInterval: number,
 	timeFormat: string
 ): ComboboxControlOption[] {
 	const times: ComboboxControlOption[] = [];
 
-	let start: Date, end: Date;
+	// Set up the latest possible date.
+	const end = new Date( currentDate );
+	end.setHours( 23, 59, 0 );
 
 	// If we have a start date constraint, use it as the lower boundary.
+	let start: Date;
 	if ( startDate ) {
 		start = new Date( startDate );
 	} else {
@@ -24,23 +72,13 @@ function getTimeOptions(
 		start.setHours( 0, 0, 0 );
 	}
 
-	// If we have an end date constraint, use it as the upper boundary.
-	if ( endDate ) {
-		end = new Date( endDate );
-	} else {
-		end = new Date( currentDate );
-		end.setHours( 23, 59, 0 );
-	}
-
 	// Adjust start time to the nearest interval.
 	let hStart = start.getHours();
-	let mStart = 0;
-	if ( startDate ) {
-		mStart = Math.ceil( start.getMinutes() / timeInterval ) * timeInterval;
-		if ( mStart === 60 ) {
-			mStart = 0;
-			hStart += 1;
-		}
+	let mStart = Math.ceil( start.getMinutes() / timeInterval ) * timeInterval;
+
+	if ( mStart === 60 ) {
+		mStart = 0;
+		hStart += 1;
 	}
 
 	// Loop through hours and minutes.
@@ -56,24 +94,25 @@ function getTimeOptions(
 			const endValue = end.getHours() * 60 + end.getMinutes();
 
 			// Check if time is within range.
-			const isAfterStart = ! startDate || timeValue >= startValue;
-			const isBeforeEnd = ! endDate || timeValue <= endValue;
+			const isAfterStart = timeValue >= startValue;
+			const isBeforeEnd = timeValue <= endValue;
 
 			if ( isAfterStart && isBeforeEnd ) {
 				times.push( {
 					label: format( timeFormat, date ),
-					value: format( 'H:i:s', date ),
+					value: format( timeValueFormat, date ),
 				} );
 			}
 
 			m += timeInterval;
 		}
 	}
+
 	return times;
 }
 
 function getOptions( currentDate: Date, timeFormat: string, timeOptions: ComboboxControlOption[] ) {
-	const formattedCurrentDate = format( 'H:i:s', currentDate );
+	const formattedCurrentDate = format( timeValueFormat, currentDate );
 
 	// First check if the current time exists in the options.
 	const existingOption = timeOptions.find( ( option ) => option.value === formattedCurrentDate );
@@ -84,7 +123,7 @@ function getOptions( currentDate: Date, timeFormat: string, timeOptions: Combobo
 	// If not found, create a custom option and merge with existing options this is the case where user types a time.
 	const customOption = {
 		label: format( timeFormat, currentDate ),
-		value: format( 'H:i:s', currentDate ),
+		value: format( timeValueFormat, currentDate ),
 		isCustom: true,
 	};
 
@@ -92,16 +131,70 @@ function getOptions( currentDate: Date, timeFormat: string, timeOptions: Combobo
 	return [ ...timeOptions, customOption ];
 }
 
-export default function TimePicker( props: {
+type TimePickerProps = {
+	/**
+	 * The currently selected date.
+	 */
 	currentDate: Date;
+
+	/**
+	 * The optional end date constraint.
+	 */
 	endDate?: Date | null;
+
+	/**
+	 * Whether to highlight the field. Pass this as true to trigger the highlight animation.
+	 */
 	highlight: boolean;
+
+	/**
+	 * Callback when the date changes.
+	 * @param {Date} date The new date.
+	 */
 	onChange: ( date: Date ) => void;
+
+	/**
+	 * The optional start date constraint.
+	 */
 	startDate?: Date | null;
+
+	/**
+	 * The time format to display.
+	 */
 	timeFormat: string;
-	timeInterval: number; // In minutes.
-} ) {
-	const { currentDate, endDate = null, highlight, onChange, startDate = null, timeFormat, timeInterval } = props;
+
+	/**
+	 * The time interval in minutes.
+	 */
+	timeInterval: number;
+
+	/**
+	 * The type of date update (e.g., 'startTime' or 'endTime').
+	 */
+	type?: TimeUpdateType;
+};
+
+/**
+ * TimePicker component.
+ *
+ * Displays a time picker allowing users to select a time within optional start and end date constraints.
+ *
+ * @since TBD
+ *
+ * @param {TimePickerProps} props The properties for the TimePicker component.
+ * @return {React.JSX.Element} The rendered TimePicker component.
+ */
+export default function TimePicker( props: TimePickerProps ): React.JSX.Element {
+	const {
+		currentDate,
+		endDate = null,
+		highlight,
+		onChange,
+		startDate = null,
+		timeFormat,
+		timeInterval,
+		type = 'startTime',
+	} = props;
 
 	// Keep a reference to the start and end date to spot changes coming from the parent component.
 	const dateRef = useRef( { startDate, endDate } );
@@ -115,18 +208,22 @@ export default function TimePicker( props: {
 
 	const currenDateYearMonthDayPrefix = format( 'Y-m-d ', currentDate );
 
-	let [ selectedTime, setSelectedTime ] = useState( () => format( 'H:i:s', currentDate ) );
+	let [ selectedTime, setSelectedTime ] = useState( () => format( timeValueFormat, currentDate ) );
 
 	// Use useEffect to properly handle date changes
 	useEffect( () => {
 		// Update selectedTime when currentDate changes
-		setSelectedTime( format( 'H:i:s', currentDate ) );
+		setSelectedTime( format( timeValueFormat, currentDate ) );
 	}, [ currentDate ] );
 
 	// Calculate all the available time options.
 	const timeOptions = useMemo( (): ComboboxControlOption[] => {
-		return getTimeOptions( currentDate, startDate, endDate, timeInterval, timeFormat );
-	}, [ currentDate, timeFormat, timeInterval, startDate, endDate ] );
+		if ( type === 'startTime' ) {
+			return getStartTimeOptions( currentDate, timeInterval, timeFormat );
+		} else {
+			return getEndTimeOptions( currentDate, startDate, timeInterval, timeFormat );
+		}
+	}, [ currentDate, timeFormat, timeInterval, startDate, type ] );
 
 	// Set the initial options to all available time options.
 	const [ options, setOptions ] = useState( () => getOptions( currentDate, timeFormat, timeOptions ) );
@@ -176,7 +273,7 @@ export default function TimePicker( props: {
 					// If it's a valid time, create a custom option.
 					const customOption = {
 						label: format( timeFormat, date ),
-						value: format( 'H:i:s', date ),
+						value: format( timeValueFormat, date ),
 						isCustom: true,
 					};
 					setOptions( [ customOption ] );
