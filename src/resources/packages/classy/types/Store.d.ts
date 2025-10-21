@@ -53,6 +53,8 @@ export type CoreEditorSelect = {
 	getCurrentPostId: () => number | null;
 	getEditedPostAttribute: ( attribute: string ) => any;
 	getEditedPostContent: () => string;
+	isSavingPost: () => boolean;
+	isAutosavingPost: () => boolean;
 };
 
 /**
