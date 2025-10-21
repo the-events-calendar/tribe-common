@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Removed filters: `tribe_plugin_upgrade_readme_url`, `tribe_plugin_upgrade_notice`

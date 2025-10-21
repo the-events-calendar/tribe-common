@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Added filters: `tec_admin_conditional_content_{$this->slug}_datetime_should_display`, `tec_admin_conditional_content_{$this->slug}_generic_upsell_opportunity_should_display`, `tec_admin_conditional_content_{$this->slug}_has_user_dismissed`, `tec_admin_conditional_content_{$this->slug}_check_capability`, `tec_get_admin_region`
