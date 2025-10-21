@@ -5,8 +5,7 @@ import { ComboboxControl } from '@wordpress/components';
 import { ComboboxControlOption } from '@wordpress/components/build-types/combobox-control/types';
 import { getValidDateOrNull } from '../../functions';
 import { TimeUpdateType } from '../../types/FieldProps';
-
-const timeValueFormat = 'H:i:s';
+import { phpDateMysqlFormat, phpTimeMysqlFormat } from '../../constants';
 
 /**
  * Generate all possible time options for the start time.
@@ -30,7 +29,7 @@ function getStartTimeOptions( currentDate: Date, timeInterval: number, timeForma
 
 			times.push( {
 				label: format( timeFormat, date ),
-				value: format( timeValueFormat, date ),
+				value: format( phpTimeMysqlFormat, date ),
 			} );
 
 			m += timeInterval;
@@ -100,7 +99,7 @@ function getEndTimeOptions(
 			if ( isAfterStart && isBeforeEnd ) {
 				times.push( {
 					label: format( timeFormat, date ),
-					value: format( timeValueFormat, date ),
+					value: format( phpTimeMysqlFormat, date ),
 				} );
 			}
 
@@ -112,7 +111,7 @@ function getEndTimeOptions(
 }
 
 function getOptions( currentDate: Date, timeFormat: string, timeOptions: ComboboxControlOption[] ) {
-	const formattedCurrentDate = format( timeValueFormat, currentDate );
+	const formattedCurrentDate = format( phpTimeMysqlFormat, currentDate );
 
 	// First check if the current time exists in the options.
 	const existingOption = timeOptions.find( ( option ) => option.value === formattedCurrentDate );
@@ -123,7 +122,7 @@ function getOptions( currentDate: Date, timeFormat: string, timeOptions: Combobo
 	// If not found, create a custom option and merge with existing options this is the case where user types a time.
 	const customOption = {
 		label: format( timeFormat, currentDate ),
-		value: format( timeValueFormat, currentDate ),
+		value: format( phpTimeMysqlFormat, currentDate ),
 		isCustom: true,
 	};
 
@@ -206,14 +205,14 @@ export default function TimePicker( props: TimePickerProps ): React.JSX.Element 
 		dateRef.current = { startDate, endDate };
 	}
 
-	const currenDateYearMonthDayPrefix = format( 'Y-m-d ', currentDate );
+	const currenDateYearMonthDayPrefix = format( `${ phpDateMysqlFormat } `, currentDate );
 
-	let [ selectedTime, setSelectedTime ] = useState( () => format( timeValueFormat, currentDate ) );
+	let [ selectedTime, setSelectedTime ] = useState( () => format( phpTimeMysqlFormat, currentDate ) );
 
 	// Use useEffect to properly handle date changes
 	useEffect( () => {
 		// Update selectedTime when currentDate changes
-		setSelectedTime( format( timeValueFormat, currentDate ) );
+		setSelectedTime( format( phpTimeMysqlFormat, currentDate ) );
 	}, [ currentDate ] );
 
 	// Calculate all the available time options.
@@ -273,7 +272,7 @@ export default function TimePicker( props: TimePickerProps ): React.JSX.Element 
 					// If it's a valid time, create a custom option.
 					const customOption = {
 						label: format( timeFormat, date ),
-						value: format( timeValueFormat, date ),
+						value: format( phpTimeMysqlFormat, date ),
 						isCustom: true,
 					};
 					setOptions( [ customOption ] );

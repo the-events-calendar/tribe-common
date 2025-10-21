@@ -8,6 +8,7 @@ import { _x } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { StoreSelect } from '../../types/Store';
 import { DateSelectorProps } from '../../types/DateSelectorProps';
+import { phpDateTimeMysqlFormat } from '../../constants';
 
 type EndSelectorProps = DateSelectorProps & {
 	/**
@@ -62,7 +63,7 @@ export default function EndSelector( props: EndSelectorProps ): React.JSX.Elemen
 	}, [] );
 
 	const onTimeChange = ( date: Date ): void => {
-		onChange( 'endTime', format( 'Y-m-d H:i:s', date ) );
+		onChange( 'endTime', format( phpDateTimeMysqlFormat, date ) );
 	};
 
 	return (

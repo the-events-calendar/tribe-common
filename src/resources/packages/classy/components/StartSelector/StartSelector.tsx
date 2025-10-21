@@ -7,6 +7,7 @@ import { _x } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { DateSelectorProps } from '../../types/DateSelectorProps';
 import { StoreSelect } from '../../types/Store';
+import { phpDateTimeMysqlFormat } from '../../constants';
 
 const defaultTitle = _x( 'Start Date', 'Event start date selection input title', 'tribe-common' );
 
@@ -43,7 +44,7 @@ export default function StartSelector( props: DateSelectorProps ): React.JSX.Ele
 	}, [] );
 
 	const onTimeChange = ( date: Date ): void => {
-		onChange( 'startTime', format( 'Y-m-d H:i:s', date ) );
+		onChange( 'startTime', format( phpDateTimeMysqlFormat, date ) );
 	};
 
 	const wrapperClassName =
