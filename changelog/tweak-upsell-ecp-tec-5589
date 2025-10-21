@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-Added a new class for accessible text that is visually hidden on smaller screens. [TEC-5589]
