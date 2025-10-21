@@ -3,7 +3,7 @@
  * Generic Conditional Content template.
  *
  * @since 6.8.2
- * @since TBD Modified to use the presence of the nonce to determine if the dismiss button should be displayed.
+ * @since 6.9.8 Modified to use the presence of the nonce to determine if the dismiss button should be displayed.
  *
  * @var bool   $is_narrow         Whether this is the narrow banner variant (legacy).
  * @var bool   $is_responsive     Whether this is the responsive banner variant.

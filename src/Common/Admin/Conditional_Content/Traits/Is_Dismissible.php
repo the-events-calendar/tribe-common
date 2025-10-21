@@ -2,7 +2,7 @@
 /**
  * This trait is used to dismiss conditional content in the admin.
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Admin\Conditional_Content\Traits
  */
@@ -22,7 +22,7 @@ use Exception;
  * - protected string $slug             - Unique identifier for the content
  * - public function get_slug(): string - Method to get the full slug (usually with year)
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Admin\Conditional_Content\Traits
  */
@@ -30,7 +30,7 @@ trait Is_Dismissible {
 	/**
 	 * User Meta Key that stores which notices have been dismissed.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @var string
 	 */
@@ -39,7 +39,7 @@ trait Is_Dismissible {
 	/**
 	 * Request param used to pass the nonce for dismissal.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @var string
 	 */
@@ -48,7 +48,7 @@ trait Is_Dismissible {
 	/**
 	 * User Meta Key prefix that stores when notices have been dismissed.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @var string
 	 */
@@ -57,7 +57,7 @@ trait Is_Dismissible {
 	/**
 	 * Whether the promotional content is dismissible.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return bool
 	 */
@@ -68,7 +68,7 @@ trait Is_Dismissible {
 	/**
 	 * Get the nonce action for this dismissible content.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return string
 	 */
@@ -83,7 +83,7 @@ trait Is_Dismissible {
 	/**
 	 * Get the nonce for this dismissible content.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return string
 	 */
@@ -98,7 +98,7 @@ trait Is_Dismissible {
 	 * registered (via a call to exists()) for the reason that, during dismissal
 	 * ajax request, some valid notices may not have been registered yet.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return void
 	 *
@@ -133,7 +133,7 @@ trait Is_Dismissible {
 	/**
 	 * A Method to actually add the Meta value recording that this content has been dismissed.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @param int|null|string $user_id The user ID.
 	 *
@@ -161,7 +161,7 @@ trait Is_Dismissible {
 	/**
 	 * Removes the user meta that holds if this content has been dismissed.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @param int|null|string $user_id The user ID.
 	 *
@@ -187,7 +187,7 @@ trait Is_Dismissible {
 	/**
 	 * Checks if a given user has dismissed a given notice.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @param int|null|string $user_id The user ID.
 	 *
@@ -215,7 +215,7 @@ trait Is_Dismissible {
 		/**
 		 * Filters the result of the user dismissal check.
 		 *
-		 * @since TBD
+		 * @since 6.9.8
 		 *
 		 * @param bool   $result     The result of the user dismissal check.
 		 * @param object $instance   The conditional content object.

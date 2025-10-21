@@ -2,7 +2,7 @@
 /**
  * Trait for handling datetime-based conditional content display.
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Admin\Conditional_Content\Traits
  */
@@ -26,7 +26,7 @@ use Tribe\Utils\Date_I18n;
  * - protected int $end_time                   - Optional end time (hour, 0-23)
  * - public function get_slug(): string        - Method to get the full slug (for filters)
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Admin\Conditional_Content\Traits
  */
@@ -34,7 +34,7 @@ trait Has_Datetime_Conditions {
 	/**
 	 * Stores the instance of the template engine that we will use for rendering the page.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @var Template
 	 */
@@ -43,7 +43,7 @@ trait Has_Datetime_Conditions {
 	/**
 	 * Whether the promotional content is date bound.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return bool
 	 */
@@ -54,7 +54,7 @@ trait Has_Datetime_Conditions {
 	/**
 	 * Unix datetime for content start.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return ?Date_I18n Date Object.
 	 */
@@ -70,7 +70,7 @@ trait Has_Datetime_Conditions {
 		/**
 		 * Allow filtering of the start date for testing.
 		 *
-		 * @since TBD
+		 * @since 6.9.8
 		 *
 		 * @param Date_i18n $date     Date object for the end date.
 		 * @param static    $instance The conditional content object.
@@ -87,7 +87,7 @@ trait Has_Datetime_Conditions {
 	/**
 	 * Unix datetime for content end.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return ?Date_I18n Date Object.
 	 */
@@ -103,7 +103,7 @@ trait Has_Datetime_Conditions {
 		/**
 		 * Allow filtering of the end date for testing.
 		 *
-		 * @since TBD
+		 * @since 6.9.8
 		 *
 		 * @param Date_i18n $date     Date object for the end date.
 		 * @param object    $instance The conditional content object.
@@ -120,7 +120,7 @@ trait Has_Datetime_Conditions {
 	/**
 	 * Whether the content should display.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return boolean Whether the content should display.
 	 */
@@ -139,7 +139,7 @@ trait Has_Datetime_Conditions {
 		/**
 		 * Allow filtering whether the content should display by date and time.
 		 *
-		 * @since TBD
+		 * @since 6.9.8
 		 *
 		 * @param bool   $should_display Whether the content should display.
 		 * @param object $instance       The conditional content object.
@@ -150,7 +150,7 @@ trait Has_Datetime_Conditions {
 	/**
 	 * Gets the instance of the template engine used for rendering the conditional template.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return Template
 	 */

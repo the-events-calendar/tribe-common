@@ -2,7 +2,7 @@
 /**
  * Trait for generic upsell opportunity checking.
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Admin\Conditional_Content\Traits;
  */
@@ -22,7 +22,7 @@ namespace TEC\Common\Admin\Conditional_Content\Traits;
  * To always show content regardless of plugin installation, override:
  * protected function should_ignore_plugin_checks(): bool { return true; }
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Admin\Conditional_Content\Traits
  */
@@ -33,7 +33,7 @@ trait Has_Generic_Upsell_Opportunity {
 	 * Override this method in your class to return true if you want to always
 	 * show promotional content regardless of which plugins are installed.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return bool Whether to ignore plugin installation checks.
 	 */
@@ -44,7 +44,7 @@ trait Has_Generic_Upsell_Opportunity {
 	/**
 	 * Check if there's an upsell opportunity (at least one paid plugin is not installed).
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return bool True if at least one paid plugin is not installed, or always true if ignoring plugin checks.
 	 */
@@ -57,7 +57,7 @@ trait Has_Generic_Upsell_Opportunity {
 			/**
 			 * Filters the result of the upsell opportunity check.
 			 *
-			 * @since TBD
+			 * @since 6.9.8
 			 *
 			 * @param bool   $result     The result of the upsell opportunity check. Defaults to true for ignoring plugin checks.
 			 * @param object $instance   The conditional content object.
@@ -85,7 +85,7 @@ trait Has_Generic_Upsell_Opportunity {
 		/**
 		 * Filters the result of the upsell opportunity check.
 		 *
-		 * @since TBD
+		 * @since 6.9.8
 		 *
 		 * @param bool   $result     The result of the upsell opportunity check.
 		 * @param object $instance   The conditional content object.

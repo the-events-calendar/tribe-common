@@ -3,20 +3,20 @@
  * Abstract for various date-based Marketing notices, e.g. Black Friday sales or special coupon initiatives.
  *
  * @since      4.14.2
- * @deprecated TBD Use TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract with Has_Datetime_Conditions trait instead.
+ * @deprecated 6.9.8 Use TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract with Has_Datetime_Conditions trait instead.
  */
 
 namespace Tribe\Admin\Notice;
 
 use Tribe__Date_Utils as Dates;
 
-_deprecated_file( __FILE__, 'TBD', '\TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract with Has_Datetime_Conditions trait' );
+_deprecated_file( __FILE__, '6.9.8', '\TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract with Has_Datetime_Conditions trait' );
 
 /**
  * Abstract for various date-based Marketing notices, e.g. Black Friday sales or special coupon initiatives.
  *
  * @since      4.14.2
- * @deprecated TBD Use TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract with Has_Datetime_Conditions trait instead.
+ * @deprecated 6.9.8 Use TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract with Has_Datetime_Conditions trait instead.
  *
  * @see        \TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract
  * @see        \TEC\Common\Admin\Conditional_Content\Traits\Has_Datetime_Conditions

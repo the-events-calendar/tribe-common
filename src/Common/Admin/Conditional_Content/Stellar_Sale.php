@@ -21,10 +21,10 @@ use Tribe\Utils\Date_I18n;
  * Set up for Stellar Sale promo.
  *
  * @since 6.8.2
- * @since TBD Modified to use the Has_Datetime_Conditions trait instead of extending the Datetime_Conditional_Abstract class.
- * @since TBD Modified to use the Requires_Capability trait.
- * @since TBD Modified to use the Has_Targeted_Creative_Upsell trait.
- * @since TBD Modified to use the Is_Dismissible trait.
+ * @since 6.9.8 Modified to use the Has_Datetime_Conditions trait instead of extending the Datetime_Conditional_Abstract class.
+ * @since 6.9.8 Modified to use the Requires_Capability trait.
+ * @since 6.9.8 Modified to use the Has_Targeted_Creative_Upsell trait.
+ * @since 6.9.8 Modified to use the Is_Dismissible trait.
  */
 class Stellar_Sale extends Promotional_Content_Abstract {
 	use Has_Datetime_Conditions {
@@ -257,7 +257,7 @@ class Stellar_Sale extends Promotional_Content_Abstract {
 	/**
 	 * Get the alt text for the creative.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return string The alt text.
 	 */

@@ -2,7 +2,7 @@
 /**
  * Tests for Has_Generic_Upsell_Opportunity trait.
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Tests\Admin\Conditional_Content\Traits;
  */
@@ -19,7 +19,7 @@ use Tribe__Plugins_API;
 /**
  * Class Has_Generic_Upsell_Opportunity_Test
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Tests\Admin\Conditional_Content\Traits;
  */

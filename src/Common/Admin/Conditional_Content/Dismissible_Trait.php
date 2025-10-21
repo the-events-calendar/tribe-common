@@ -4,7 +4,7 @@
  *
  * @since 6.3.0
  *
- * @deprecated TBD Use TEC\Common\Admin\Conditional_Content\Traits\Is_Dismissible instead.
+ * @deprecated 6.9.8 Use TEC\Common\Admin\Conditional_Content\Traits\Is_Dismissible instead.
  *
  * @package TEC\Common\Admin\Conditional_Content
  */
@@ -15,14 +15,14 @@ namespace TEC\Common\Admin\Conditional_Content;
 
 use TEC\Common\Admin\Conditional_Content\Traits\Is_Dismissible;
 
-_deprecated_file( __FILE__, 'TBD', '\TEC\Common\Admin\Conditional_Content\Traits\Is_Dismissible', 'This file is deprecated in favor of new Namespaced Traits.' );
+_deprecated_file( __FILE__, '6.9.8', '\TEC\Common\Admin\Conditional_Content\Traits\Is_Dismissible', 'This file is deprecated in favor of new Namespaced Traits.' );
 
 /**
  * Trait Dismissible_Trait
  *
  * @since 6.3.0
  *
- * @deprecated TBD Use TEC\Common\Admin\Conditional_Content\Traits\Is_Dismissible instead.
+ * @deprecated 6.9.8 Use TEC\Common\Admin\Conditional_Content\Traits\Is_Dismissible instead.
  *
  * @package TEC\Common\Admin\Conditional_Content
  */
