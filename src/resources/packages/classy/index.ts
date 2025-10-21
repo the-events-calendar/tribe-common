@@ -1,6 +1,12 @@
 import { whenEditorIsReady } from './functions/whenEditorIsReady';
 import { hideInserterToggle, hideZoomOutButton } from './functions/editorModifications';
-import { initApp as initClassyApp, insertElement as insertClassyElement } from './functions/classy';
+import { addEditorTools } from './functions/addEditorTools';
+import {
+	initApp as initClassyApp,
+	insertElement as insertClassyElement,
+	toggleElementVisibility as toggleClassyElementVisibility,
+} from './functions/classy';
+import { hasQueryParam } from './functions/url';
 import { getLocalizedData, getSettings } from './localizedData';
 import { registerMiddlewares } from './api';
 import './style.pcss';
@@ -11,6 +17,11 @@ whenEditorIsReady().then( () => {
 	hideInserterToggle();
 	initClassyApp();
 	insertClassyElement();
+
+	// Only add the Visual editor tools button when explicitly enabled via query parameter
+	if ( hasQueryParam( 'classy_enable_visual', '1' ) ) {
+		addEditorTools( () => toggleClassyElementVisibility() );
+	}
 } );
 
 // Re-exports that will appear under `window.tec.common.classy.<re-export>`.

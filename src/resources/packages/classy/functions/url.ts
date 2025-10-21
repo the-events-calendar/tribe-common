@@ -1,4 +1,43 @@
 /**
+ * Checks if a query parameter exists in the current URL and optionally matches a specific value.
+ *
+ * @since TBD
+ *
+ * @param {string} param - The name of the query parameter to check for.
+ * @param {string} [value] - Optional. The expected value of the query parameter. If provided, the function
+ *     will return true only if the parameter exists AND matches this value.
+ *
+ * @return {boolean} True if the parameter exists (and matches the value if provided), false otherwise.
+ *
+ * @example
+ * // URL: https://example.com/editor?classy_enable_visual=1
+ * hasQueryParam('classy_enable_visual'); // returns true
+ * hasQueryParam('classy_enable_visual', '1'); // returns true
+ * hasQueryParam('classy_enable_visual', '0'); // returns false
+ * hasQueryParam('other_param'); // returns false
+ */
+export function hasQueryParam( param: string, value?: string ): boolean {
+	try {
+		const searchParams = new URLSearchParams( window.location.search );
+		const paramValue = searchParams.get( param );
+
+		if ( paramValue === null ) {
+			return false;
+		}
+
+		// If no specific value is required, just check if the parameter exists
+		if ( value === undefined ) {
+			return true;
+		}
+
+		// Check if the parameter value matches the expected value
+		return paramValue === value;
+	} catch {
+		return false;
+	}
+}
+
+/**
  * Validates a URL string.
  *
  * @since TBD
